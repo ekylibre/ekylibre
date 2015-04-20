@@ -401,8 +401,8 @@ arb:
         creator_id: "المننتج" #?
         # depreciable: "Depreciable"
         # duration: "Duration"
-        # financial_asset_depreciations_account: "Financial asset depreciations account"
-        # financial_asset_depreciations_inputations_expenses_account: "financial asset depreciations inputations expenses account"
+        # financial_asset_allocation_account: "Financial asset depreciations account"
+        # financial_asset_expenses_account: "financial asset depreciations inputations expenses account"
         # price: "Price"
         published: "تم نشرها" #?
         shelves: "فئات الانتاج" #?
@@ -1070,6 +1070,7 @@ arb:
     cash: "الحسابات المصرفية المستخدمة"
     cash_id: "الحسابات المصرفية المستخدمة" #?
     cash_journals: "الدفاتر اليومية للصناديق النقدية" #?
+    # cash_session: "Cash session"
     cashes: "الحسابات المصرفية"
     cashes_accounts: "حسابات الصندوق النقدي" #?
     # casts: "Casts"
@@ -1082,8 +1083,6 @@ arb:
     # ceded: "Ceded"
     # ceded_on: "Ceded on"
     # charge_account: "Charge account"
-    # charges_account: "Charges account"
-    charges_accounts: "حسابات الحمولة" #?
     # charges_categories: "Charges categories"
     check_number: "رقم الشيك" #?
     children: "مواقع فرعية للتخزين"
@@ -1337,6 +1336,8 @@ arb:
     expense_id: "انفاق" #?
     expense_type: "نوع التكلفة" #?
     # expenses: "Expenses"
+    # expenses_account: "Charges account"
+    expenses_accounts: "حسابات الحمولة" #?
     expiration: "تأخير المهلة" #?
     # expiration_delay: "Expiration delay"
     expiration_id: "تأخير مهلة" #?
@@ -1360,9 +1361,11 @@ arb:
     # filtered_columns: "Filtered columns"
     # financial_asset: "Financial asset"
     # financial_asset_account: "Financial asset account"
+    # financial_asset_allocation_account: "Financial asset depreciations account"
     # financial_asset_depreciations: "Financial asset depreciations"
     # financial_asset_depreciations_account: "Financial asset depreciations account"
     # financial_asset_depreciations_inputations_expenses_account: "Financial asset depreciations inputations expenses account"
+    # financial_asset_expenses_account: "Financial asset depreciations inputations expenses account"
     # financial_assets: "Financial assets"
     financial_year: "السنوات المالية"
     # financial_year_as_last: "Financial year (as last journal entry)"
@@ -1719,6 +1722,7 @@ arb:
     printed_on: "طبع يوم"
     # priority: "Priority"
     # probability: "Probability"
+    # probability_percentage: "Probability percentage"
     producer: "المنتج"
     producer_id: "المنتج" #?
     # producer_way: "Producer way"
@@ -1989,6 +1993,7 @@ arb:
     # third: "Third"
     # third_producer: "Third producer"
     # third_producer_way: "Third producer way"
+    # third_role: "Third role"
     # thread: "Thread"
     # ticket: "Ticket"
     title: "اللقب" #?

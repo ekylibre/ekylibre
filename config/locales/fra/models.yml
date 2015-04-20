@@ -94,8 +94,8 @@ fra:
       product_nature_category:
         depreciable: "Ammortissable"
         duration: "Nombre de numéros OU période d’abonnement"
-        financial_asset_depreciations_account: "Compte d'ammortissement"
-        financial_asset_depreciations_inputations_expenses_account: "Compte de dotation aux ammortissements"
+        financial_asset_allocation_account: "Compte d'ammortissement"
+        financial_asset_expenses_account: "Compte de dotation aux ammortissements"
         price: "Prix de revient"
         subscribing: "Abonnement ?"
       product_nature_price: #?
@@ -488,6 +488,7 @@ fra:
     carrier_linkages: "Points d'attache du tracteur"
     cash: "Trésorerie"
     cash_journals: "Journaux de caisse" #?
+    # cash_session: "Cash session"
     cash_transfers: "Virements internes" #?
     cashes: "Trésoreries"
     cashes_accounts: "Comptes de caisse" #?
@@ -498,8 +499,6 @@ fra:
     ceded: "Cédé"
     ceded_on: "Cédé le"
     charge_account: "Compte d’achat"
-    charges_account: "Comptes de charge"
-    charges_accounts: "Comptes de charge" #?
     charges_categories: "Catégories de produits avec charge"
     check_state: "Vérifier l’état" #?
     children: "Enfants"
@@ -700,6 +699,8 @@ fra:
     expected_stop_amount: "Montant final attendu"
     expected_yield: "Rendement évalué (y)"
     expenses: "Dépenses"
+    expenses_account: "Comptes de charge"
+    expenses_accounts: "Comptes de charge" #?
     expiration_delay: "Délai d’expiration"
     expired_at: "Date d’expiration"
     exportable: "Exportable"
@@ -716,9 +717,11 @@ fra:
     filtered_columns: "Colonnes filtrées"
     financial_asset: "Immobilisation"
     financial_asset_account: "Compte d’immobilisation"
+    financial_asset_allocation_account: "Compte des dépréciations d’immobilisation"
     financial_asset_depreciations: "Dépréciations d’immobilisation"
     financial_asset_depreciations_account: "Compte des dépréciations d’immobilisation"
     financial_asset_depreciations_inputations_expenses_account: "Compte d’imputation des charges des dépréciations d’immobilisation"
+    financial_asset_expenses_account: "Compte d’imputation des charges des dépréciations d’immobilisation"
     # financial_assets: "Financial assets"
     financial_assets_categories: "Catégories de produits avec immobilisation" #?
     financial_year: "Exercice"
@@ -1001,6 +1004,7 @@ fra:
     printed_on: "Daté du"
     priority: "Priorité"
     probability: "Probabilité"
+    # probability_percentage: "Probability percentage"
     procedures: "Procédures" #?
     process: "Process" #?
     producer: "Producteur"
@@ -1197,7 +1201,7 @@ fra:
     third: "Tiers"
     third_producer: "Producteur tiers"
     third_producer_way: "Voie du producteur tiers"
-    third_role: "Rôle tiers" #?
+    third_role: "Rôle tiers"
     thread: "Fil"
     ticket: "Ticket"
     title: "Titre" #?

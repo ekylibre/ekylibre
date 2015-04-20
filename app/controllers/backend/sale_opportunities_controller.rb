@@ -17,39 +17,51 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::OpportunitiesController < Backend::BaseController
-  manage_restfully
+class Backend::SaleOpportunitiesController < Backend::AffairsController
+  manage_restfully currency: "Preference[:currency]".c, responsible: "current_user.person".c, probability_percentage: 50
 
   respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
   # management -> sales_conditions
-  def self.opportunities_conditions
+  def self.conditions
     code = ""
-    code = search_conditions(:opportunities => [:pretax_amount, :number, :description], :entities => [:number, :full_name]) + " ||= []\n"
-
+    code = search_conditions(:sale_opportunities => [:pretax_amount, :number, :description], :entities => [:number, :full_name]) + " ||= []\n"
     code << "if params[:responsible_id].to_i > 0\n"
-    code << "  c[0] += \" AND \#{Opportunity.table_name}.responsible_id = ?\"\n"
+    code << "  c[0] += \" AND \#{SaleOpportunity.table_name}.responsible_id = ?\"\n"
     code << "  c << params[:responsible_id]\n"
     code << "end\n"
     code << "c\n "
     return code.c
   end
 
-  list(conditions: opportunities_conditions, joins: :client, order: {created_at: :desc, number: :desc}) do |t|
+  list(conditions: conditions, joins: :client, order: {created_at: :desc, number: :desc}) do |t|
     t.column :number, url: {action: :show, step: :default}
+    t.column :name
     t.column :created_at
     t.column :dead_line_at
     t.column :client, url: true
     t.column :responsible, hidden: true
     t.column :description, hidden: true
     t.status
-    t.column :state_label
+    t.column :state
     t.column :pretax_amount, currency: true
     # t.action :show, url: {format: :pdf}, image: :print
-    t.action :edit, if: :draft?
-    t.action :cancel, if: :cancelable?
-    t.action :destroy, if: :aborted?
+    t.action :edit
+    t.action :destroy
   end
 
+  SaleOpportunity.state_machine.events.each do |event|
+    define_method event.name do
+      fire_event(event.name)
+    end
+  end
+
+  protected
+
+  def fire_event(event)
+    return unless @sale_opportunity = find_and_check
+    @sale_opportunity.send(event)
+    redirect_to action: :show, id: @sale_opportunity.id
+  end
 
 end

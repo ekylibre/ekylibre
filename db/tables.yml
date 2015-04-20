@@ -205,6 +205,8 @@ affairs:
   currency:
     type: string
     required: true
+  dead_line_at:
+    type: datetime
   deals_count:
     type: integer
     required: true
@@ -213,6 +215,8 @@ affairs:
     precision: 19
     scale: 4
     required: true
+  description:
+    type: text
   id:
     type: integer
     required: true
@@ -222,24 +226,35 @@ affairs:
   lock_version:
     type: integer
     required: true
+  name:
+    type: string
   number:
     type: string
     required: true
-  originator_id:
-    type: integer
-    references: "~originator_type"
-    required: true
-  originator_type:
+  origin:
     type: string
-    required: true
+  pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+  probability_percentage:
+    type: decimal
+    precision: 19
+    scale: 4
+  responsible_id:
+    type: integer
+    references: person
+  state:
+    type: string
   third_id:
     type: integer
     references: entity
     required: true
-  ticket:
-    type: boolean
+  third_role:
+    type: string
     required: true
-    default: false
+  type:
+    type: string
   updated_at:
     type: datetime
     required: true
@@ -1503,9 +1518,6 @@ financial_assets:
     type: boolean
   ceded_on:
     type: date
-  charges_account_id:
-    type: integer
-    references: account
   created_at:
     type: datetime
     required: true
@@ -1538,6 +1550,9 @@ financial_assets:
     scale: 4
   description:
     type: text
+  expenses_account_id:
+    type: integer
+    references: account
   id:
     type: integer
     required: true
@@ -1669,7 +1684,6 @@ gaps:
   affair_id:
     type: integer
     references: affair
-    required: true
   amount:
     type: decimal
     precision: 19
@@ -3067,58 +3081,6 @@ operations:
   updater_id:
     type: integer
     references: user
-opportunities:
-  affair_id:
-    type: integer
-    references: affair
-  client_id:
-    type: integer
-    references: entity
-    required: true
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  currency:
-    type: string
-  dead_line_at:
-    type: datetime
-  description:
-    type: text
-  id:
-    type: integer
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  name:
-    type: string
-  number:
-    type: string
-  origin:
-    type: string
-  pretax_amount:
-    type: decimal
-    precision: 19
-    scale: 4
-  probability:
-    type: decimal
-    precision: 19
-    scale: 4
-  responsible_id:
-    type: integer
-    references: person
-    required: true
-  state:
-    type: string
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
 outgoing_deliveries:
   address_id:
     type: integer
@@ -3737,19 +3699,21 @@ product_nature_categories:
     type: boolean
     required: true
     default: false
-  depreciation_rate:
-    type: decimal
-    precision: 19
-    scale: 4
   description:
     type: text
   financial_asset_account_id:
     type: integer
     references: account
-  financial_asset_depreciations_account_id:
+  financial_asset_allocation_account_id:
     type: integer
     references: account
-  financial_asset_depreciations_inputations_expenses_account_id:
+  financial_asset_depreciation_method:
+    type: string
+  financial_asset_depreciation_percentage:
+    type: decimal
+    precision: 19
+    scale: 4
+  financial_asset_expenses_account_id:
     type: integer
     references: account
   id:
@@ -4594,7 +4558,7 @@ purchase_items:
   currency:
     type: string
     required: true
-  depreciation:
+  fixed:
     type: boolean
     required: true
     default: false

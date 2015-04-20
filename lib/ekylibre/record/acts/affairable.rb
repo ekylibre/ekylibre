@@ -31,7 +31,7 @@ module Ekylibre::Record
             end
             code << "belongs_to :#{affair}, inverse_of: :#{self.name.underscore.pluralize}\n"
           end
-          code << "has_many :affairs, as: :originator, dependent: :destroy\n"
+          # code << "has_many :affairs, as: :originator, dependent: :destroy\n"
 
           code << "delegate :credit, :debit, :closed?, to: :affair, prefix: true\n"
 
@@ -67,7 +67,7 @@ module Ekylibre::Record
           code << "  if self.#{affair}\n"
           code << "    self.affair.refresh!\n"
           code << "  else\n"
-          code << "    #{affair} = Affair.create!(currency: self.#{currency}, third: self.deal_third, originator: self)\n"
+          code << "    #{affair} = Affair.create!(currency: self.#{currency}, third: self.deal_third, third_role: self.deal_third_role)\n"
           code << "    self.deal_with!(#{affair})\n"
           code << "  end\n"
           # code << "  return true\n"
@@ -103,7 +103,7 @@ module Ekylibre::Record
           code << "  end\n"
           code << "  Ekylibre::Record::Base.transaction do\n"
           code << "    old_affair = self.#{affair}\n"
-          code << "    affair = Affair.create!(currency: self.currency, third: self.deal_third, originator: self)\n"
+          code << "    affair = Affair.create!(currency: self.currency, third: self.deal_third, third_role: self.deal_third_role)\n"
           code << "    self.update_column(:#{affair_id}, affair.id)\n"
           code << "    affair.refresh!\n"
           code << "    old_affair.refresh!\n"

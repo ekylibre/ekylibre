@@ -408,11 +408,6 @@ fra:
       new: "Nouveau travail" #?
       show: "Détails du travail"
       unvalidateds: "Travaux non validés" #?
-    backend/opportunities:
-      edit: "Modifier l'opportunité: %{name}"
-      index: "Opportunités"
-      new: "Nouvelle opportunité"
-      show: "Opportunité: %{name}"
     backend/outgoing_deliveries:
       edit: "Modifier la livraison sortante\_: %{number}"
       index: "Livraisons sortantes"
@@ -536,6 +531,11 @@ fra:
       index: "Types de ventes"
       new: "Nouveau type de vente"
       show: "Type de vente\_: %{name}"
+    backend/sale_opportunities:
+      edit: "Modifier l'opportunité\_: %{name}"
+      index: "Opportunités"
+      new: "Nouvelle opportunité"
+      show: "Opportunité\_: %{name}"
     backend/sales:
       abort: "Annuler la vente"
       cancel: "Passage en avoir de la facture %{number}"
@@ -2018,6 +2018,7 @@ fra:
       draft: "Brouillon"
       duplicate: "Dupliquer"
       edit: "Modifier"
+      evaluate: "Évaluer"
       export: "Exporter"
       extract: "Extraire"
       finish: "Finir"
@@ -2027,15 +2028,16 @@ fra:
       incorporate: "Incorporer"
       increment: "Incrémenter"
       index: "Index"
-      indicator_measure: "Indicateur de mesure"
       invoice: "Facturer"
       list: "Lister"
       load: "Charger"
       lock: "Verrouiller"
+      lose: "Perdre"
       mail: "Écrire un courriel"
       mark: "Marquer"
       merge: "Fusionner"
       move: "Déplacer"
+      negociate: "Négocier"
       new: "Nouveau"
       open: "Ouvrir"
       pick: "Piocher"
@@ -2043,6 +2045,8 @@ fra:
       point: "Pointer"
       propose: "Proposer"
       propose_and_invoice: "Facturer directement"
+      qualify: "Qualifier"
+      quote: "Réaliser un devis"
       reconciliation: "Reconciliation"
       reflect: "Refléter"
       refresh: "Rafraîchir"
@@ -2065,6 +2069,7 @@ fra:
       up: "Monter"
       update: "Modifier"
       update_password: "Modifier le mot de passe"
+      win: "Gagner"
   unrolls:
     backend/accounts: "%{number}. %{name}"
     backend/activities: "%{name}"

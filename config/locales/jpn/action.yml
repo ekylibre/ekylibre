@@ -370,11 +370,7 @@ jpn:
     backend/operations:
       # index: "Operations"
       # show: "Operation Details %{name}"
-    backend/opportunities:
-      # edit: "Edit opportunity: %{name}"
-      # index: "Opportunities"
-      # new: "New opportunity"
-      # show: "Opportunity: %{name}"
+    backend/opportunities: #?
     backend/outgoing_deliveries:
       # edit: "Edit outgoing delivery: %{number}"
       # index: "Outgoing deliveries"
@@ -481,6 +477,11 @@ jpn:
       # index: "Sale types"
       # new: "New type of sale"
       # show: "Sale type: %{name}"
+    backend/sale_opportunities:
+      # edit: "Edit opportunity: %{name}"
+      # index: "Opportunities"
+      # new: "New opportunity"
+      # show: "Opportunity: %{name}"
     backend/sales:
       # abort: "Abort sale"
       # cancel: "Cancel sales invoice %{number}"
@@ -1562,6 +1563,7 @@ jpn:
       # draft: "Draft"
       # duplicate: "Duplicate"
       # edit: "Edit"
+      # evaluate: "Evaluate"
       # export: "Export"
       # extract: "Extract"
       # finish: "Finish"
@@ -1571,15 +1573,16 @@ jpn:
       # incorporate: "Incorporate"
       # increment: "Increment"
       # index: "Index"
-      # indicator_measure: "Indicator measure"
       # invoice: "Invoice"
       # list: "List"
       # load: "Load"
       # lock: "Lock"
+      # lose: "Lose"
       # mail: "Mail"
       # mark: "Mark"
       # merge: "Merge"
       # move: "Move"
+      # negociate: "Negociate"
       # new: "New"
       # open: "Open"
       # pick: "Pick"
@@ -1587,6 +1590,8 @@ jpn:
       # point: "Point"
       # propose: "Propose"
       # propose_and_invoice: "Propose and invoice"
+      # qualify: "Qualify"
+      # quote: "Quote"
       # reconciliation: "Reconciliation"
       # reflect: "Reflect"
       # refresh: "Refresh"
@@ -1609,6 +1614,7 @@ jpn:
       # up: "Up"
       # update: "Update"
       # update_password: "Update password"
+      # win: "Win"
   unrolls:
     # backend/accounts: "%{number}. %{name}"
     # backend/activities: "%{name}"

@@ -1,13 +1,12 @@
 = field_set do
+  = f.input :name
   = f.referenced_association :client # , source: :clients
   = f.referenced_association :responsible, source: {scope: :users}, new: {employed: 1}
   = f.input :dead_line_at
   = f.input :pretax_amount
+  = f.input :currency, collection: nomenclature_as_options(:currencies, SaleNature.actives.pluck(:currency).uniq)
+  = f.input :origin
+  = f.input :probability_percentage
+  -# = f.input :state
   = f.input :description
   = f.custom_fields
-
-= field_set do
-  = f.input :origin
-  = f.input :probability
-  = f.input :state
-  

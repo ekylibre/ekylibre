@@ -841,8 +841,6 @@ jpn:
         juglans: "クルミ属"
     net_service:
 
-    opportunity:
-
     outgoing_delivery:
 
     person:
@@ -883,6 +881,8 @@ jpn:
     product_reading:
 
     production_support:
+
+    sale_opportunity:
 
     subscription_nature:
 

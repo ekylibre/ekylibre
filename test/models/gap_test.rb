@@ -23,7 +23,7 @@
 # == Table: gaps
 #
 #  accounted_at     :datetime
-#  affair_id        :integer          not null
+#  affair_id        :integer
 #  amount           :decimal(19, 4)   default(0.0), not null
 #  created_at       :datetime         not null
 #  creator_id       :integer

@@ -211,19 +211,26 @@ module ApplicationHelper
 
 
   def countries
-    nomenclature_as_options(Nomen::Countries)
+    nomenclature_as_options(:countries)
   end
 
   def currencies
-    nomenclature_as_options(Nomen::Currencies)
+    nomenclature_as_options(:currencies)
   end
 
   def languages
-    nomenclature_as_options(Nomen::Languages)
+    nomenclature_as_options(:languages)
   end
 
-  def nomenclature_as_options(nomenclature)
-    [[]] + nomenclature.selection
+  # Returns a selection from names list
+  def nomenclature_as_options(nomenclature_name, *args)
+    options = args.extract_options!
+    nomenclature = Nomen[nomenclature_name]
+    items = args.shift || nomenclature.all
+    return items.collect do |name|
+      item = nomenclature.find(name)
+      [item.human_name, item.name]
+    end.sort{ |a,b| a.first <=> b.first }
   end
 
   def back_url

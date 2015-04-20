@@ -75,7 +75,6 @@
 - net_service
 - observation
 - operation
-- opportunity
 - outgoing_delivery
 - outgoing_delivery_item
 - outgoing_payment
@@ -124,6 +123,8 @@
 - sale
 - sale_item
 - sale_nature
+- sale_opportunity
+- sale_ticket
 - sequence
 - service
 - settlement

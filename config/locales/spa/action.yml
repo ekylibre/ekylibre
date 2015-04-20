@@ -423,11 +423,7 @@ spa:
     backend/operations:
       # index: "Operations"
       # show: "Operation Details %{name}"
-    backend/opportunities:
-      # edit: "Edit opportunity: %{name}"
-      # index: "Opportunities"
-      # new: "New opportunity"
-      # show: "Opportunity: %{name}"
+    backend/opportunities: #?
     backend/organic_matters: #?
     backend/outgoing_deliveries:
       edit: "Modificacion de la entrega"
@@ -585,6 +581,11 @@ spa:
       # index: "Sale types"
       # new: "New type of sale"
       # show: "Sale type: %{name}"
+    backend/sale_opportunities:
+      # edit: "Edit opportunity: %{name}"
+      # index: "Opportunities"
+      # new: "New opportunity"
+      # show: "Opportunity: %{name}"
     backend/sales:
       # abort: "Abort sale"
       cancel: "Paso en activo de la factura %{number}"
@@ -1912,6 +1913,7 @@ spa:
       # draft: "Draft"
       # duplicate: "Duplicate"
       # edit: "Edit"
+      # evaluate: "Evaluate"
       # export: "Export"
       # extract: "Extract"
       # finish: "Finish"
@@ -1921,15 +1923,16 @@ spa:
       # incorporate: "Incorporate"
       # increment: "Increment"
       # index: "Index"
-      # indicator_measure: "Indicator measure"
       # invoice: "Invoice"
       # list: "List"
       # load: "Load"
       # lock: "Lock"
+      # lose: "Lose"
       # mail: "Mail"
       # mark: "Mark"
       # merge: "Merge"
       # move: "Move"
+      # negociate: "Negociate"
       # new: "New"
       # open: "Open"
       # pick: "Pick"
@@ -1937,6 +1940,8 @@ spa:
       # point: "Point"
       # propose: "Propose"
       # propose_and_invoice: "Propose and invoice"
+      # qualify: "Qualify"
+      # quote: "Quote"
       # reconciliation: "Reconciliation"
       # reflect: "Reflect"
       # refresh: "Refresh"
@@ -1959,6 +1964,7 @@ spa:
       # up: "Up"
       # update: "Update"
       # update_password: "Update password"
+      # win: "Win"
   unrolls:
     # backend/accounts: "%{number}. %{name}"
     # backend/activities: "%{name}"

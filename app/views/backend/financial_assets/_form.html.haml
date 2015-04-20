@@ -17,4 +17,4 @@
 = field_set(:accountancy) do
   = f.referenced_association :journal
   = f.referenced_association :allocation_account, :source => :assets_depreciations
-  = f.referenced_association :charges_account, :source => :asset_depreciations_inputations_expenses
+  = f.referenced_association :expenses_account, :source => :asset_depreciations_inputations_expenses

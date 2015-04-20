@@ -23,7 +23,7 @@
 # == Table: gaps
 #
 #  accounted_at     :datetime
-#  affair_id        :integer          not null
+#  affair_id        :integer
 #  amount           :decimal(19, 4)   default(0.0), not null
 #  created_at       :datetime         not null
 #  creator_id       :integer
@@ -52,7 +52,7 @@ class Gap < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :accounted_at, :printed_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :amount, :pretax_amount, allow_nil: true
-  validates_presence_of :affair, :amount, :currency, :direction, :entity, :entity_role, :number, :pretax_amount, :printed_at
+  validates_presence_of :amount, :currency, :direction, :entity, :entity_role, :number, :pretax_amount, :printed_at
   #]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
 

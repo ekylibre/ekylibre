@@ -1,0 +1,31 @@
+- main_toolbar do |t|
+  - [:qualify, :evaluate, :quote, :negociate, :win, :lose].each do |event|
+    - if resource.send("can_#{event}?")
+      - t.send(event, resource, method: :post)
+  - t.edit resource
+
+= beehive do |b|
+  - b.hbox do
+    - b.cell do
+      = attributes_list stamps: false do |l|
+        - l.attribute :client, label: :label, url: true
+        - l.attribute :number
+        - l.attribute :responsible, label: :full_name, url: true
+        - l.attribute :created_at
+        - l.attribute :dead_line_at if resource.dead_line_at?
+        - l.attribute :pretax_amount, currency: true
+        - l.attribute :description if resource.description?
+        - if resource.custom_fields.any?
+          - l.custom_fields
+  - b.cell :deals do
+    = render "show", affair: resource, current_deal: nil
+  - b.hbox do
+    - b.cell :timeline do
+      = timeline(resource) do |l|
+        - l.side :observations
+        - l.side :sales
+        - l.side :purchases
+        - l.side :incoming_payments
+        - l.side :outgoing_payments
+        - l.side :gaps
+        - l.side :versions

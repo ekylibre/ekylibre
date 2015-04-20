@@ -22,26 +22,33 @@
 #
 # == Table: affairs
 #
-#  accounted_at     :datetime
-#  cash_session_id  :integer
-#  closed           :boolean          default(FALSE), not null
-#  closed_at        :datetime
-#  created_at       :datetime         not null
-#  creator_id       :integer
-#  credit           :decimal(19, 4)   default(0.0), not null
-#  currency         :string           not null
-#  deals_count      :integer          default(0), not null
-#  debit            :decimal(19, 4)   default(0.0), not null
-#  id               :integer          not null, primary key
-#  journal_entry_id :integer
-#  lock_version     :integer          default(0), not null
-#  number           :string           not null
-#  originator_id    :integer          not null
-#  originator_type  :string           not null
-#  third_id         :integer          not null
-#  ticket           :boolean          default(FALSE), not null
-#  updated_at       :datetime         not null
-#  updater_id       :integer
+#  accounted_at           :datetime
+#  cash_session_id        :integer
+#  closed                 :boolean          default(FALSE), not null
+#  closed_at              :datetime
+#  created_at             :datetime         not null
+#  creator_id             :integer
+#  credit                 :decimal(19, 4)   default(0.0), not null
+#  currency               :string           not null
+#  dead_line_at           :datetime
+#  deals_count            :integer          default(0), not null
+#  debit                  :decimal(19, 4)   default(0.0), not null
+#  description            :text
+#  id                     :integer          not null, primary key
+#  journal_entry_id       :integer
+#  lock_version           :integer          default(0), not null
+#  name                   :string
+#  number                 :string           not null
+#  origin                 :string
+#  pretax_amount          :decimal(19, 4)   default(0.0)
+#  probability_percentage :decimal(19, 4)   default(0.0)
+#  responsible_id         :integer
+#  state                  :string
+#  third_id               :integer          not null
+#  third_role             :string           not null
+#  type                   :string
+#  updated_at             :datetime         not null
+#  updater_id             :integer
 #
 
 # Where to put amounts. The point of view is us
@@ -56,37 +63,34 @@
 # ProfitGap       |         |    X    |
 #
 class Affair < Ekylibre::Record::Base
-  AFFAIRABLE_TYPES = %w(Gap Sale Purchase IncomingPayment OutgoingPayment).freeze
-  AFFAIRABLE_MODELS = AFFAIRABLE_TYPES.map(&:underscore).freeze
-  # enumerize :third_role, in: [:client, :supplier], predicates: true
-  belongs_to :third, class_name: "Entity"
-  belongs_to :originator, polymorphic: true
-  belongs_to :journal_entry
+  enumerize :third_role, in: [:client, :supplier], predicates: true
   belongs_to :cash_session
+  belongs_to :journal_entry
+  # belongs_to :originator, polymorphic: true
+  belongs_to :responsible, class_name: "Person"
+  belongs_to :third, class_name: "Entity"
   # FIXME: Gap#affair_id MUST NOT be mandatory
-  has_many :gaps,              inverse_of: :affair # , dependent: :delete_all
+  has_many :gaps,              inverse_of: :affair #, dependent: :delete_all
   has_many :sales,             inverse_of: :affair, dependent: :nullify
   has_many :purchases,         inverse_of: :affair, dependent: :nullify
   has_many :incoming_payments, inverse_of: :affair, dependent: :nullify
   has_many :outgoing_payments, inverse_of: :affair, dependent: :nullify
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :accounted_at, :closed_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
-  validates_numericality_of :credit, :debit, allow_nil: true
-  validates_inclusion_of :closed, :ticket, in: [true, false]
-  validates_presence_of :credit, :currency, :debit, :number, :originator, :originator_type, :third
+  validates_datetime :accounted_at, :closed_at, :dead_line_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_numericality_of :credit, :debit, :pretax_amount, :probability_percentage, allow_nil: true
+  validates_inclusion_of :closed, in: [true, false]
+  validates_presence_of :credit, :currency, :debit, :number, :third, :third_role
   #]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
   # validates_inclusion_of :third_role, in: self.third_role.values
 
   acts_as_numbered
   scope :closeds, -> { where(closed: true) }
-  scope :tickets, -> { where(ticket: true) }
-  scope :openeds, -> { joins(:cash_session).where('cash_sessions.stopped_at IS NULL') }
 
   before_validation do
-    if self.originator
-      self.originator_type = self.originator.class.base_class.name
-    end
+    # if self.originator
+    #   self.originator_type = self.originator.class.base_class.name
+    # end
     deals = self.deals
     self.debit, self.credit, self.deals_count = 0, 0, deals.count
     for deal in deals
@@ -95,22 +99,22 @@ class Affair < Ekylibre::Record::Base
     end
     # Check state
     if self.credit == self.debit # and self.debit != 0
+      self.closed_at = Time.now unless self.closed
       self.closed = true
-      self.closed_at = Time.now
     else
       self.closed = false
       self.closed_at = nil
     end
   end
 
-  validate do
-    if self.originator
-      unless AFFAIRABLE_TYPES.include?(self.originator_type.to_s)
-        errors.add(:originator, :invalid)
-        errors.add(:originator_id, :invalid)
-      end
-    end
-  end
+  # validate do
+  #   if self.originator
+  #     unless self.class.affairable_types.include?(self.originator_type.to_s)
+  #       errors.add(:originator, :invalid)
+  #       errors.add(:originator_id, :invalid)
+  #     end
+  #   end
+  # end
 
   bookkeep do |b|
     label = tc(:bookkeep, resource: self.class.model_name.human, number: self.number, third: self.third.full_name)
@@ -131,14 +135,37 @@ class Affair < Ekylibre::Record::Base
     end
   end
 
+  class << self
 
-  # Removes empty affairs in the whole table
-  def self.clean_deads
-    self.where("journal_entry_id NOT IN (SELECT id FROM #{connection.quote_table_name(:journal_entries)})" + AFFAIRABLE_TYPES.collect do |type|
-                 model = type.constantize
-                 " AND id NOT IN (SELECT #{model.reflect_on_association(:affair).foreign_key} FROM #{connection.quote_table_name(model.table_name)})"
-               end.join).delete_all
+    # Returns types of accepted deals
+    def affairable_types
+      @affairable_types ||= %w(Gap Sale Purchase IncomingPayment OutgoingPayment).freeze
+    end
+
+    # Removes empty affairs in the whole table
+    def clean_deads
+      self.where("journal_entry_id NOT IN (SELECT id FROM #{connection.quote_table_name(:journal_entries)})" + self.class.affairable_types.collect do |type|
+                   model = type.constantize
+                   " AND id NOT IN (SELECT #{model.reflect_on_association(:affair).foreign_key} FROM #{connection.quote_table_name(model.table_name)})"
+                 end.join).delete_all
+    end
+
+    # Returns heterogen list of deals of the affair
+    def generate_deals_method
+      code  = "def deals\n"
+      array = affairable_types.collect do |class_name|
+        "#{class_name}.where(affair_id: self.id).to_a"
+      end.join(" + ")
+      code << "  return (#{array}).compact.sort do |a, b|\n"
+      code << "    a.dealt_at <=> b.dealt_at\n"
+      code << "  end\n"
+      code << "end\n"
+      class_eval code
+    end
+
   end
+
+  generate_deals_method
 
   # Returns the remaining balance of the affair
   # Positive result is a profit
@@ -205,25 +232,13 @@ class Affair < Ekylibre::Record::Base
     return true
   end
 
-  def third_role
-    self.originator.deal_third_role
+  # def third_role
+  #   self.originator.deal_third_role
+  # end
+
+  def originator
+    self.deals.first
   end
-
-  # Returns heterogen list of deals of the affair
-  def self.generate_deals_method
-    code  = "def deals\n"
-    array = AFFAIRABLE_TYPES.collect do |class_name|
-      "#{class_name}.where(affair_id: self.id).to_a"
-    end.join(" + ")
-    code << "  return (#{array}).compact.sort do |a, b|\n"
-    code << "    a.dealt_at <=> b.dealt_at\n"
-    code << "  end\n"
-    code << "end\n"
-    class_eval code
-  end
-
-  generate_deals_method
-
 
   # Returns deals of the given third
   def deals_of(third)

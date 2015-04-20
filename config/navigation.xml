@@ -239,16 +239,6 @@
   <part name="trade" icon="bar-chart">
     <page to="backend/dashboards#trade"/>
     <group name="sales" icon="bar-chart">
-      <item name="opportunities">
-        <page to="backend/opportunities#index"/>
-        <page to="backend/opportunities#create"/>
-        <page to="backend/opportunities#destroy"/>
-        <page to="backend/opportunities#edit"/>
-        <page to="backend/opportunities#list"/>
-        <page to="backend/opportunities#new"/>
-        <page to="backend/opportunities#show"/>
-        <page to="backend/opportunities#update"/>
-      </item>
       <item name="sales">
         <page to="backend/sales#index"/>
         <page to="backend/sales#abort"/>
@@ -275,6 +265,26 @@
         <page to="backend/sales#new"/>
         <page to="backend/sales#unroll"/>
         <page to="backend/sales#update"/>
+      </item>
+      <item name="opportunities">
+        <page to="backend/sale_opportunities#index"/>
+        <page to="backend/sale_opportunities#create"/>
+        <page to="backend/sale_opportunities#destroy"/>
+        <page to="backend/sale_opportunities#edit"/>
+        <page to="backend/sale_opportunities#list"/>
+        <page to="backend/sale_opportunities#new"/>
+        <page to="backend/sale_opportunities#show"/>
+        <page to="backend/sale_opportunities#update"/>
+        <page to="backend/sale_opportunities#attach"/>
+        <page to="backend/sale_opportunities#detach"/>
+        <page to="backend/sale_opportunities#evaluate"/>
+        <page to="backend/sale_opportunities#finish"/>
+        <page to="backend/sale_opportunities#lose"/>
+        <page to="backend/sale_opportunities#negociate"/>
+        <page to="backend/sale_opportunities#qualify"/>
+        <page to="backend/sale_opportunities#quote"/>
+        <page to="backend/sale_opportunities#select"/>
+        <page to="backend/sale_opportunities#win"/>
       </item>
     </group>
     <group name="purchases" icon="shopping-cart">

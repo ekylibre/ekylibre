@@ -147,22 +147,22 @@ class Purchase < Ekylibre::Record::Base
         # TODO 1.2 - add if statement for depreciable method during purchase
         if item.variant.depreciable? and item.depreciation?
           puts "CASE DEPRECIATION".inspect.red
-           entry.add_debit(label, (item.variant.financial_asset_account), item.pretax_amount) unless item.pretax_amount.zero?
-           # create the financial_asset
-           puts item.inspect.green
-           financial_asset = item.financial_assets.create!(name: item.name,
-                                                           depreciable_amount: item.pretax_amount,
-                                                           depreciation_method: :simplified_linear,
-                                                           started_on: item.purchase.invoiced_at.to_date,
-                                                           depreciation_percentage: item.variant.depreciation_rate,
-                                                           journal_id: Journal.where(nature: :various).first,
-                                                           allocation_account: item.variant.financial_asset_depreciations_account, #28
-                                                           charges_account: item.variant.financial_asset_depreciations_inputations_expenses_account #68
-                                                           )
-           puts financial_asset.inspect.yellow
+          entry.add_debit(label, (item.variant.financial_asset_account), item.pretax_amount) unless item.pretax_amount.zero?
+          # create the financial_asset
+          puts item.inspect.green
+          financial_asset = item.financial_assets.create!(name: item.name,
+                                                          depreciable_amount: item.pretax_amount,
+                                                          depreciation_method: :simplified_linear,
+                                                          started_on: item.purchase.invoiced_at.to_date,
+                                                          depreciation_percentage: item.variant.depreciation_rate,
+                                                          journal_id: Journal.where(nature: :various).first,
+                                                          allocation_account: item.variant.financial_asset_allocation_account, #28
+                                                          expenses_account: item.variant.financial_asset_expenses_account #68
+                                                         )
+          puts financial_asset.inspect.yellow
         else
-         puts "CASE PURCHASE".inspect.red
-         entry.add_debit(label, (item.account||item.variant.purchases_account), item.pretax_amount) unless item.pretax_amount.zero?
+          puts "CASE PURCHASE".inspect.red
+          entry.add_debit(label, (item.account||item.variant.purchases_account), item.pretax_amount) unless item.pretax_amount.zero?
         end
         entry.add_debit(label, (item.account||item.variant.purchases_account), item.pretax_amount) unless item.pretax_amount.zero?
         entry.add_debit(label, item.tax.deduction_account_id, item.taxes_amount) unless item.taxes_amount.zero?

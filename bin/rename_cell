@@ -119,8 +119,8 @@ end
 # TODO Updates links in help files
 
 
-# config/modules
-nf = config.join("modules.xml")
+# config/navigation
+nf = config.join("navigation.xml")
 puts "Update #{nf}"
 source = nil
 File.open(nf, "rb") do |f|

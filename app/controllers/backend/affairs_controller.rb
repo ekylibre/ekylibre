@@ -47,7 +47,7 @@ class Backend::AffairsController < Backend::BaseController
       redirect_to params[:redirect] || {controller: deal.class.name.tableize, action: :show, id: deal.id}
     else
       notify_error(:cannot_find_deal_to_attach)
-      redirect_to params[:redirect] || {controller: @affair.originator_type.tableize, action: :show, id: @affair.originator_id}, status: :not_found
+      redirect_to_best_page
     end
   end
 
@@ -59,7 +59,7 @@ class Backend::AffairsController < Backend::BaseController
       redirect_to params[:redirect] || {controller: deal.class.name.tableize, action: :show, id: deal.id}
     else
       notify_error(:cannot_find_deal_to_detach)
-      redirect_to params[:redirect] || {controller: @affair.originator_type.tableize, action: :show, id: @affair.originator_id}, status: :not_found
+      redirect_to_best_page
     end
   end
 
@@ -69,7 +69,15 @@ class Backend::AffairsController < Backend::BaseController
     unless @affair.finish
       notify_error :cannot_finish_affair
     end
-    redirect_to(params[:redirect] || {controller: @affair.originator_type.tableize, action: :show, id: @affair.originator_id})
+    redirect_to_best_page
+  end
+
+  protected
+
+  def redirect_to_best_page(affair = nil)
+    affair ||= @affair
+    originator = affair.originator
+    redirect_to params[:redirect] || (originator ? {controller: originator.class_name.tableize, action: :show, id: originator.id} : {action: show, id: affair.id}), status: :not_found
   end
 
 end

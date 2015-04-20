@@ -105,33 +105,41 @@ ActiveRecord::Schema.define(version: 20150418225701) do
   add_index "activity_distributions", ["updater_id"], name: "index_activity_distributions_on_updater_id", using: :btree
 
   create_table "affairs", force: :cascade do |t|
-    t.string   "number",                                                    null: false
-    t.boolean  "closed",                                    default: false, null: false
+    t.string   "number",                                                          null: false
+    t.boolean  "closed",                                          default: false, null: false
     t.datetime "closed_at"
-    t.integer  "third_id",                                                  null: false
-    t.integer  "originator_id",                                             null: false
-    t.string   "originator_type",                                           null: false
-    t.string   "currency",                                                  null: false
-    t.decimal  "debit",            precision: 19, scale: 4, default: 0.0,   null: false
-    t.decimal  "credit",           precision: 19, scale: 4, default: 0.0,   null: false
+    t.integer  "third_id",                                                        null: false
+    t.string   "currency",                                                        null: false
+    t.decimal  "debit",                  precision: 19, scale: 4, default: 0.0,   null: false
+    t.decimal  "credit",                 precision: 19, scale: 4, default: 0.0,   null: false
     t.datetime "accounted_at"
     t.integer  "journal_entry_id"
-    t.integer  "deals_count",                               default: 0,     null: false
-    t.datetime "created_at",                                                null: false
-    t.datetime "updated_at",                                                null: false
+    t.integer  "deals_count",                                     default: 0,     null: false
+    t.datetime "created_at",                                                      null: false
+    t.datetime "updated_at",                                                      null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                              default: 0,     null: false
+    t.integer  "lock_version",                                    default: 0,     null: false
     t.integer  "cash_session_id"
-    t.boolean  "ticket",                                    default: false, null: false
+    t.integer  "responsible_id"
+    t.datetime "dead_line_at"
+    t.string   "name"
+    t.text     "description"
+    t.decimal  "pretax_amount",          precision: 19, scale: 4, default: 0.0
+    t.string   "origin"
+    t.string   "type"
+    t.string   "state"
+    t.decimal  "probability_percentage", precision: 19, scale: 4, default: 0.0
+    t.string   "third_role",                                                      null: false
   end
 
   add_index "affairs", ["cash_session_id"], name: "index_affairs_on_cash_session_id", using: :btree
   add_index "affairs", ["created_at"], name: "index_affairs_on_created_at", using: :btree
   add_index "affairs", ["creator_id"], name: "index_affairs_on_creator_id", using: :btree
   add_index "affairs", ["journal_entry_id"], name: "index_affairs_on_journal_entry_id", using: :btree
+  add_index "affairs", ["name"], name: "index_affairs_on_name", using: :btree
   add_index "affairs", ["number"], name: "index_affairs_on_number", unique: true, using: :btree
-  add_index "affairs", ["originator_type", "originator_id"], name: "index_affairs_on_originator_type_and_originator_id", using: :btree
+  add_index "affairs", ["responsible_id"], name: "index_affairs_on_responsible_id", using: :btree
   add_index "affairs", ["third_id"], name: "index_affairs_on_third_id", using: :btree
   add_index "affairs", ["updated_at"], name: "index_affairs_on_updated_at", using: :btree
   add_index "affairs", ["updater_id"], name: "index_affairs_on_updater_id", using: :btree
@@ -586,6 +594,7 @@ ActiveRecord::Schema.define(version: 20150418225701) do
   add_index "documents", ["nature", "key"], name: "index_documents_on_nature_and_key", unique: true, using: :btree
   add_index "documents", ["nature"], name: "index_documents_on_nature", using: :btree
   add_index "documents", ["number"], name: "index_documents_on_number", using: :btree
+  add_index "documents", ["template_id"], name: "index_documents_on_template_id", using: :btree
   add_index "documents", ["updated_at"], name: "index_documents_on_updated_at", using: :btree
   add_index "documents", ["updater_id"], name: "index_documents_on_updater_id", using: :btree
 
@@ -810,7 +819,7 @@ ActiveRecord::Schema.define(version: 20150418225701) do
     t.string   "depreciation_method",                                          null: false
     t.string   "currency",                                                     null: false
     t.decimal  "current_amount",          precision: 19, scale: 4
-    t.integer  "charges_account_id"
+    t.integer  "expenses_account_id"
     t.decimal  "depreciation_percentage", precision: 19, scale: 4
     t.datetime "created_at",                                                   null: false
     t.datetime "updated_at",                                                   null: false
@@ -820,9 +829,9 @@ ActiveRecord::Schema.define(version: 20150418225701) do
   end
 
   add_index "financial_assets", ["allocation_account_id"], name: "index_financial_assets_on_allocation_account_id", using: :btree
-  add_index "financial_assets", ["charges_account_id"], name: "index_financial_assets_on_charges_account_id", using: :btree
   add_index "financial_assets", ["created_at"], name: "index_financial_assets_on_created_at", using: :btree
   add_index "financial_assets", ["creator_id"], name: "index_financial_assets_on_creator_id", using: :btree
+  add_index "financial_assets", ["expenses_account_id"], name: "index_financial_assets_on_expenses_account_id", using: :btree
   add_index "financial_assets", ["journal_id"], name: "index_financial_assets_on_journal_id", using: :btree
   add_index "financial_assets", ["purchase_id"], name: "index_financial_assets_on_purchase_id", using: :btree
   add_index "financial_assets", ["purchase_item_id"], name: "index_financial_assets_on_purchase_item_id", using: :btree
@@ -876,7 +885,7 @@ ActiveRecord::Schema.define(version: 20150418225701) do
     t.string   "number",                                                  null: false
     t.datetime "printed_at",                                              null: false
     t.string   "direction",                                               null: false
-    t.integer  "affair_id",                                               null: false
+    t.integer  "affair_id"
     t.integer  "entity_id",                                               null: false
     t.string   "entity_role",                                             null: false
     t.decimal  "pretax_amount",    precision: 19, scale: 4, default: 0.0, null: false
@@ -1021,6 +1030,7 @@ ActiveRecord::Schema.define(version: 20150418225701) do
   add_index "imports", ["created_at"], name: "index_imports_on_created_at", using: :btree
   add_index "imports", ["creator_id"], name: "index_imports_on_creator_id", using: :btree
   add_index "imports", ["imported_at"], name: "index_imports_on_imported_at", using: :btree
+  add_index "imports", ["importer_id"], name: "index_imports_on_importer_id", using: :btree
   add_index "imports", ["updated_at"], name: "index_imports_on_updated_at", using: :btree
   add_index "imports", ["updater_id"], name: "index_imports_on_updater_id", using: :btree
 
@@ -1586,35 +1596,6 @@ ActiveRecord::Schema.define(version: 20150418225701) do
   add_index "operations", ["updated_at"], name: "index_operations_on_updated_at", using: :btree
   add_index "operations", ["updater_id"], name: "index_operations_on_updater_id", using: :btree
 
-  create_table "opportunities", force: :cascade do |t|
-    t.integer  "responsible_id",                                        null: false
-    t.integer  "affair_id"
-    t.integer  "client_id",                                             null: false
-    t.string   "name"
-    t.string   "number"
-    t.text     "description"
-    t.decimal  "pretax_amount",  precision: 19, scale: 4, default: 0.0
-    t.datetime "dead_line_at"
-    t.string   "currency"
-    t.string   "origin"
-    t.string   "state"
-    t.decimal  "probability",    precision: 19, scale: 4, default: 0.0
-    t.datetime "created_at",                                            null: false
-    t.datetime "updated_at",                                            null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                            default: 0,   null: false
-  end
-
-  add_index "opportunities", ["affair_id"], name: "index_opportunities_on_affair_id", using: :btree
-  add_index "opportunities", ["client_id"], name: "index_opportunities_on_client_id", using: :btree
-  add_index "opportunities", ["created_at"], name: "index_opportunities_on_created_at", using: :btree
-  add_index "opportunities", ["creator_id"], name: "index_opportunities_on_creator_id", using: :btree
-  add_index "opportunities", ["name"], name: "index_opportunities_on_name", using: :btree
-  add_index "opportunities", ["responsible_id"], name: "index_opportunities_on_responsible_id", using: :btree
-  add_index "opportunities", ["updated_at"], name: "index_opportunities_on_updated_at", using: :btree
-  add_index "opportunities", ["updater_id"], name: "index_opportunities_on_updater_id", using: :btree
-
   create_table "outgoing_deliveries", force: :cascade do |t|
     t.string   "number",                                                    null: false
     t.integer  "recipient_id",                                              null: false
@@ -1973,38 +1954,41 @@ ActiveRecord::Schema.define(version: 20150418225701) do
   add_index "product_memberships", ["updater_id"], name: "index_product_memberships_on_updater_id", using: :btree
 
   create_table "product_nature_categories", force: :cascade do |t|
-    t.string   "name",                                                                                                   null: false
-    t.string   "number",                                                                                                 null: false
+    t.string   "name",                                                                             null: false
+    t.string   "number",                                                                           null: false
     t.text     "description"
     t.string   "reference_name"
     t.string   "pictogram"
-    t.boolean  "active",                                                                                 default: false, null: false
-    t.boolean  "depreciable",                                                                            default: false, null: false
-    t.boolean  "saleable",                                                                               default: false, null: false
-    t.boolean  "purchasable",                                                                            default: false, null: false
-    t.boolean  "storable",                                                                               default: false, null: false
-    t.boolean  "reductible",                                                                             default: false, null: false
-    t.boolean  "subscribing",                                                                            default: false, null: false
+    t.boolean  "active",                                                           default: false, null: false
+    t.boolean  "depreciable",                                                      default: false, null: false
+    t.boolean  "saleable",                                                         default: false, null: false
+    t.boolean  "purchasable",                                                      default: false, null: false
+    t.boolean  "storable",                                                         default: false, null: false
+    t.boolean  "reductible",                                                       default: false, null: false
+    t.boolean  "subscribing",                                                      default: false, null: false
     t.integer  "subscription_nature_id"
     t.string   "subscription_duration"
     t.integer  "charge_account_id"
     t.integer  "product_account_id"
     t.integer  "financial_asset_account_id"
     t.integer  "stock_account_id"
-    t.datetime "created_at",                                                                                             null: false
-    t.datetime "updated_at",                                                                                             null: false
+    t.datetime "created_at",                                                                       null: false
+    t.datetime "updated_at",                                                                       null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                           default: 0,     null: false
-    t.integer  "financial_asset_depreciations_account_id"
-    t.integer  "financial_asset_depreciations_inputations_expenses_account_id"
-    t.decimal  "depreciation_rate",                                             precision: 19, scale: 4, default: 0.0
+    t.integer  "lock_version",                                                     default: 0,     null: false
+    t.integer  "financial_asset_allocation_account_id"
+    t.integer  "financial_asset_expenses_account_id"
+    t.decimal  "financial_asset_depreciation_percentage", precision: 19, scale: 4, default: 0.0
+    t.string   "financial_asset_depreciation_method"
   end
 
   add_index "product_nature_categories", ["charge_account_id"], name: "index_product_nature_categories_on_charge_account_id", using: :btree
   add_index "product_nature_categories", ["created_at"], name: "index_product_nature_categories_on_created_at", using: :btree
   add_index "product_nature_categories", ["creator_id"], name: "index_product_nature_categories_on_creator_id", using: :btree
   add_index "product_nature_categories", ["financial_asset_account_id"], name: "index_product_nature_categories_on_financial_asset_account_id", using: :btree
+  add_index "product_nature_categories", ["financial_asset_allocation_account_id"], name: "index_pnc_on_financial_asset_allocation_account_id", using: :btree
+  add_index "product_nature_categories", ["financial_asset_expenses_account_id"], name: "index_pnc_on_financial_asset_expenses_account_id", using: :btree
   add_index "product_nature_categories", ["name"], name: "index_product_nature_categories_on_name", using: :btree
   add_index "product_nature_categories", ["number"], name: "index_product_nature_categories_on_number", unique: true, using: :btree
   add_index "product_nature_categories", ["product_account_id"], name: "index_product_nature_categories_on_product_account_id", using: :btree
@@ -2440,7 +2424,7 @@ ActiveRecord::Schema.define(version: 20150418225701) do
     t.integer  "lock_version",                                default: 0,     null: false
     t.decimal  "unit_amount",        precision: 19, scale: 4, default: 0.0,   null: false
     t.boolean  "all_taxes_included",                          default: false, null: false
-    t.boolean  "depreciation",                                default: false, null: false
+    t.boolean  "fixed",                                       default: false, null: false
   end
 
   add_index "purchase_items", ["account_id"], name: "index_purchase_items_on_account_id", using: :btree

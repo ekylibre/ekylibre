@@ -17,7 +17,8 @@
               - third_id = (affair.deals.first ? affair.deals.first.deal_third.id : nil)
 
             %span.btn-group<
-              - for model in (Affair::AFFAIRABLE_MODELS - %w(gap))
+              - for type in (Affair.affairable_types - %w(Gap))
+                - model = type.underscore
                 = link_to({action: :select, controller: :affairs, id: affair.id, :deal_type => model, :third_id => third_id, redirect: request.fullpath}, class: "btn btn-link") do
                   %i
                   = Ekylibre::Record.human_name(model)
@@ -49,7 +50,7 @@
                 %span.sign= deal.deal_debit? ? "+" : "-"
               %span.value= amount.l(currency: deal.currency)
             %td.act
-              - if deal != current_deal and deal.detachable?
+              - if !current_deal or (deal != current_deal and deal.detachable?)
                 = link_to({action: :detach, controller: :affairs, id: deal.affair_id, :deal_type => deal.class.name.underscore, :deal_id => deal.id, redirect: request.fullpath}, method: :delete, data: {confirm: :are_you_sure.tl}, class: "remove") do
                   %i
                   = :destroy.tl

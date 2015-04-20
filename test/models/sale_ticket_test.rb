@@ -52,24 +52,8 @@
 #
 require 'test_helper'
 
-class AffairTest < ActiveSupport::TestCase
+class SaleTicketTest < ActiveSupport::TestCase
+
   test_fixtures
-
-  # check that every model that can be affairable
-  def test_affairables
-    for type in Affair::AFFAIRABLE_TYPES
-      model = type.constantize
-      assert model.respond_to?(:deal_third), "Model #{type} cannot be used with affairs"
-    end
-  end
-
-  # def test_attachment
-  #   affair = affairs(:affairs_003)
-  #   deals = [incoming_payments(:incoming_payments_001), sales(:sales_001)]
-  #   for deal in deals
-  #     affair.attach(deal)
-  #   end
-  #   assert_equal (deals.size + 1), affair.deals_count, "The deals count is invalid"
-  # end
 
 end

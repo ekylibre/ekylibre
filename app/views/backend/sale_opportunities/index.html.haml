@@ -1,7 +1,7 @@
 = kujaku do |k|
   - k.text
   - k.criterion do
-    %label= Opportunity.human_attribute_name(:responsible)
+    %label= SaleOpportunity.human_attribute_name(:responsible)
     = select_tag(:responsible_id, options_for_select([[]] + Entity.all.collect{|u| [u.label, u.id]}, params[:responsible_id]))
 
   - main_toolbar do |t|

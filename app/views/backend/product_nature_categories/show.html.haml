@@ -17,8 +17,8 @@
       - l.attribute :depreciable
       - if resource.depreciable
         - l.attribute :financial_asset_account, url: true
-        - l.attribute :financial_asset_depreciations_account, url: true
-        - l.attribute :financial_asset_depreciations_inputations_expenses_account, url: true
+        - l.attribute :financial_asset_allocation_account, url: true
+        - l.attribute :financial_asset_expenses_account, url: true
 
       - l.attribute :saleable
       - if resource.saleable

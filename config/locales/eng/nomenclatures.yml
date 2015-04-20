@@ -1983,8 +1983,8 @@ eng:
       name: "Abacus 12 of the Poitou-Charentes manure management plan computation method"
     nmp_poitou_charentes_abacus_two:
       name: "Abacus 2 of the Poitou-Charentes manure management plan computation method"
-    opportunity_categories:
-      name: "Opportunity categories"
+    opportunity_origins:
+      name: "Opportunity origins"
       items:
         advertisement: "Advertisement"
         employee_referral: "Employee referral"
@@ -2131,10 +2131,10 @@ eng:
       property_natures:
         charge_account: "Charge account"
         depreciable: "Depreciable"
-        depreciation_rate: "Depreciation rate"
+        depreciation_percentage: "Depreciation percentage"
         financial_asset_account: "Financial asset account"
-        financial_asset_depreciations_account: "Financial asset depreciations account"
-        financial_asset_depreciations_inputations_expenses_account: "Financial asset depreciations inputations expenses account"
+        financial_asset_allocation_account: "Financial asset depreciations account"
+        financial_asset_expenses_account: "Financial asset depreciations inputations expenses account"
         pictogram: "Pictogram"
         product_account: "Product account"
         purchasable: "Purchasable"

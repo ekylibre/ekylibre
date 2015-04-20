@@ -46,6 +46,17 @@ module Backend::BaseHelper
     Ekylibre.menu
   end
 
+
+  def part_authorized?(part)
+    part.children.each do |group|
+      group.children.each do |item|
+        return true if authorized?(item.default_page.to_hash)
+      end
+    end
+    return false
+  end
+
+
   def side_tag
     render(partial: 'layouts/side')
   end
@@ -57,16 +68,6 @@ module Backend::BaseHelper
       end
     end
   end
-
-  def part_authorized?(part)
-    part.children.each do |group|
-      group.children.each do |item|
-        return true if authorized?(item.default_page.to_hash)
-      end
-    end
-    return false
-  end
-
 
   def side_menu(*args, &block)
     return "" unless block_given?

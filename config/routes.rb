@@ -227,7 +227,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :bank_statements, concerns: [:list, :unroll] do
+    resources :bank_statements, concerns: [:list, :unroll], path: "bank-statements" do
       collection do
         get :list_items
       end
@@ -248,7 +248,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :building_divisions, concerns: :products
+    resources :building_divisions, concerns: :products, path: "building-divisions"
 
     resources :campaigns, concerns: [:list, :unroll] do
       member do
@@ -263,7 +263,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :cash_transfers, concerns: [:list, :unroll]
+    resources :cash_transfers, concerns: [:list, :unroll], path: "cash-transfers"
 
     resources :catalog_items, concerns: [:list, :unroll] do
       member do
@@ -283,13 +283,13 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :cultivable_zones, concerns: :products do
+    resources :cultivable_zones, concerns: :products, path: "cultivable-zones" do
       member do
         get :list_productions
       end
     end
 
-    resources :custom_fields, concerns: [:list, :unroll] do
+    resources :custom_fields, concerns: [:list, :unroll], path: "custom-fields" do
       member do
         get :list_choices
         post :up
@@ -297,7 +297,7 @@ Rails.application.routes.draw do
         post :sort
       end
     end
-    resources :custom_field_choices, concerns: [:list, :unroll] do
+    resources :custom_field_choices, concerns: [:list, :unroll], path: "custom-field-choices" do
       member do
         post :up
         post :down
@@ -317,9 +317,7 @@ Rails.application.routes.draw do
 
     resources :districts, concerns: [:list, :unroll]
 
-    resources :document_archives
-
-    resources :document_templates, concerns: [:list, :unroll] do
+    resources :document_templates, concerns: [:list, :unroll], path: "document-templates" do
       collection do
         post :load
       end
@@ -341,7 +339,7 @@ Rails.application.routes.draw do
 
     resources :establishments, concerns: [:list, :unroll]
 
-    resources :event_natures, concerns: [:list, :unroll]
+    resources :event_natures, concerns: [:list, :unroll], path: "event-natures"
 
     resources :event_participations
 
@@ -357,7 +355,7 @@ Rails.application.routes.draw do
 
     resources :exports
 
-    resources :financial_assets, concerns: [:list, :unroll] do
+    resources :financial_assets, concerns: [:list, :unroll], path: "fixed-assets" do
       member do
         get  :cede
         get  :sell
@@ -367,7 +365,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :financial_years, concerns: [:list, :unroll] do
+    resources :financial_years, concerns: [:list, :unroll], path: "financial-years" do
       member do
         match "close", via: [:get, :post]
         match :generate_last_journal_entry, via: [:get, :post]
@@ -531,8 +529,6 @@ Rails.application.routes.draw do
 
     resources :operations, concerns: [:list, :unroll]
 
-    resources :opportunities, concerns: [:list, :unroll]
-
     resources :outgoing_deliveries, concerns: [:list, :unroll] do
       member do
         post :invoice
@@ -642,7 +638,18 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :sale_natures, concerns: [:list, :unroll]
+    resources :sale_natures, concerns: [:list, :unroll], path: "sale-natures"
+
+    resources :sale_opportunities, concerns: [:list, :unroll], path: "sale-opportunities" do
+      member do
+        post :evaluate
+        post :lose
+        post :negociate
+        post :qualify
+        post :quote
+        post :win
+      end
+    end
 
     resources :sales, concerns: [:list, :unroll] do
       collection do
@@ -683,7 +690,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :subscription_natures, concerns: [:list, :unroll] do
+    resources :subscription_natures, concerns: [:list, :unroll], path: "subscription-natures" do
       member do
         post :increment
         post :decrement

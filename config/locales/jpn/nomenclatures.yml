@@ -2004,7 +2004,8 @@ jpn:
       # name: "Abacus 12 of the Poitou-Charentes manure management plan computation method"
     nmp_poitou_charentes_abacus_two:
       # name: "Abacus 2 of the Poitou-Charentes manure management plan computation method"
-    opportunity_categories:
+    opportunity_categories: #?
+    opportunity_origins:
       items:
         # advertisement: "Advertisement"
         # employee_referral: "Employee referral"
@@ -2013,7 +2014,7 @@ jpn:
         # public_relations: "Public relations"
         # trade_show: "Trade show"
         # web: "Web"
-      # name: "Opportunity categories"
+      # name: "Opportunity origins"
     phosphorus_analysis_methods:
       items:
         # dyer: "Dyer"
@@ -2298,8 +2299,8 @@ jpn:
         # depreciable: "Depreciable"
         # depreciation_rate: "Depreciation rate"
         # financial_asset_account: "Financial asset account"
-        # financial_asset_depreciations_account: "Financial asset depreciations account"
-        # financial_asset_depreciations_inputations_expenses_account: "Financial asset depreciations inputations expenses account"
+        # financial_asset_allocation_account: "Financial asset depreciations account"
+        # financial_asset_expenses_account: "Financial asset depreciations inputations expenses account"
         # pictogram: "Pictogram"
         # product_account: "Product account"
         # purchasable: "Purchasable"

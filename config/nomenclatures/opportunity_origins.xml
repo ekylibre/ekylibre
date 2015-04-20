@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
-  <nomenclature name="opportunity_categories-root">
+  <nomenclature name="opportunity_origins">
 
     <items>
       <item name="advertisement"/>

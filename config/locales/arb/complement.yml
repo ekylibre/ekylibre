@@ -881,8 +881,6 @@ arb:
 
     net_service:
 
-    opportunity:
-
     outgoing_delivery:
 
     person:
@@ -904,6 +902,8 @@ arb:
     product_reading:
 
     production_support:
+
+    sale_opportunity:
 
     subscription_nature:
 

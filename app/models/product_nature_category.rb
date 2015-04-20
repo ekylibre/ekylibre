@@ -22,40 +22,41 @@
 #
 # == Table: product_nature_categories
 #
-#  active                                                        :boolean          default(FALSE), not null
-#  charge_account_id                                             :integer
-#  created_at                                                    :datetime         not null
-#  creator_id                                                    :integer
-#  depreciable                                                   :boolean          default(FALSE), not null
-#  depreciation_rate                                             :decimal(19, 4)   default(0.0)
-#  description                                                   :text
-#  financial_asset_account_id                                    :integer
-#  financial_asset_depreciations_account_id                      :integer
-#  financial_asset_depreciations_inputations_expenses_account_id :integer
-#  id                                                            :integer          not null, primary key
-#  lock_version                                                  :integer          default(0), not null
-#  name                                                          :string           not null
-#  number                                                        :string           not null
-#  pictogram                                                     :string
-#  product_account_id                                            :integer
-#  purchasable                                                   :boolean          default(FALSE), not null
-#  reductible                                                    :boolean          default(FALSE), not null
-#  reference_name                                                :string
-#  saleable                                                      :boolean          default(FALSE), not null
-#  stock_account_id                                              :integer
-#  storable                                                      :boolean          default(FALSE), not null
-#  subscribing                                                   :boolean          default(FALSE), not null
-#  subscription_duration                                         :string
-#  subscription_nature_id                                        :integer
-#  updated_at                                                    :datetime         not null
-#  updater_id                                                    :integer
+#  active                                  :boolean          default(FALSE), not null
+#  charge_account_id                       :integer
+#  created_at                              :datetime         not null
+#  creator_id                              :integer
+#  depreciable                             :boolean          default(FALSE), not null
+#  description                             :text
+#  financial_asset_account_id              :integer
+#  financial_asset_allocation_account_id   :integer
+#  financial_asset_depreciation_method     :string
+#  financial_asset_depreciation_percentage :decimal(19, 4)   default(0.0)
+#  financial_asset_expenses_account_id     :integer
+#  id                                      :integer          not null, primary key
+#  lock_version                            :integer          default(0), not null
+#  name                                    :string           not null
+#  number                                  :string           not null
+#  pictogram                               :string
+#  product_account_id                      :integer
+#  purchasable                             :boolean          default(FALSE), not null
+#  reductible                              :boolean          default(FALSE), not null
+#  reference_name                          :string
+#  saleable                                :boolean          default(FALSE), not null
+#  stock_account_id                        :integer
+#  storable                                :boolean          default(FALSE), not null
+#  subscribing                             :boolean          default(FALSE), not null
+#  subscription_duration                   :string
+#  subscription_nature_id                  :integer
+#  updated_at                              :datetime         not null
+#  updater_id                              :integer
 #
 class ProductNatureCategory < Ekylibre::Record::Base
   # Be careful with the fact that it depends directly on the nomenclature definition
   enumerize :pictogram, in: Nomen::ProductNatureCategories.pictogram.choices, predicates: {prefix: true}
   belongs_to :financial_asset_account, class_name: "Account"
-  belongs_to :financial_asset_depreciations_account, class_name: "Account"
-  belongs_to :financial_asset_depreciations_inputations_expenses_account, class_name: "Account"
+  belongs_to :financial_asset_allocation_account, class_name: "Account"
+  belongs_to :financial_asset_expenses_account, class_name: "Account"
   belongs_to :charge_account,  class_name: "Account"
   belongs_to :product_account, class_name: "Account"
   belongs_to :stock_account,   class_name: "Account"
@@ -70,21 +71,21 @@ class ProductNatureCategory < Ekylibre::Record::Base
   has_many :purchase_taxations, -> { where(usage: "purchase") }, class_name: "ProductNatureCategoryTaxation", inverse_of: :product_nature_category
   has_many :purchase_taxes, class_name: "Tax", through: :purchase_taxations, source: :tax
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :depreciation_rate, allow_nil: true
+  validates_numericality_of :financial_asset_depreciation_percentage, allow_nil: true
   validates_inclusion_of :active, :depreciable, :purchasable, :reductible, :saleable, :storable, :subscribing, in: [true, false]
   validates_presence_of :name, :number
   #]VALIDATORS]
   validates_length_of :number, allow_nil: true, maximum: 30
   validates_length_of :pictogram, allow_nil: true, maximum: 120
   validates_presence_of :subscription_nature,   if: :subscribing?
-  validates_presence_of :subscription_duration,   if: Proc.new{|u| u.subscribing? and u.subscription_nature and u.subscription_nature.period? }
+  validates_presence_of :subscription_duration, if: Proc.new{|u| u.subscribing? and u.subscription_nature and u.subscription_nature.period? }
   validates_presence_of :subscription_quantity, if: Proc.new{|u| u.subscribing? and u.subscription_nature and u.subscription_nature.quantity? }
   validates_presence_of :product_account, if: :saleable?
   validates_presence_of :charge_account,  if: :purchasable?
   validates_presence_of :stock_account,   if: :storable?
   validates_presence_of :financial_asset_account,  if: :depreciable?
-  validates_presence_of :financial_asset_depreciations_account, if: :depreciable?
-  validates_presence_of :financial_asset_depreciations_inputations_expenses_account, if: :depreciable?
+  validates_presence_of :financial_asset_allocation_account, if: :depreciable?
+  validates_presence_of :financial_asset_expenses_account, if: :depreciable?
   validates_uniqueness_of :number
   validates_uniqueness_of :name
 
@@ -188,9 +189,10 @@ class ProductNatureCategory < Ekylibre::Record::Base
       :reductible => item.reductible,
       :saleable => item.saleable,
       :storable => item.storable,
-      :depreciation_rate => (item.depreciation_rate.present? ? item.depreciation_rate : nil)
+      financial_asset_depreciation_percentage: (item.depreciation_percentage.present? ? item.depreciation_percentage : 20),
+      financial_asset_depreciation_method: :simplified_linear
     }.with_indifferent_access
-    for account in [:financial_asset, :financial_asset_depreciations, :financial_asset_depreciations_inputations_expenses, :charge, :product, :stock]
+    for account in [:financial_asset, :financial_asset_allocation, :financial_asset_expenses, :charge, :product, :stock]
       name = item.send("#{account}_account")
       unless name.blank?
         attributes["#{account}_account"] = Account.find_or_create_in_chart(name)

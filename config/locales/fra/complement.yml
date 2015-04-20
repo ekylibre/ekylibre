@@ -10277,7 +10277,7 @@ fra:
         charentes_alliance_incoming_deliveries: "Approvisionnements ‒ Charentes Alliance"
         ebp_edi: "EDI ‒ EBP"
         ekylibre_activities: "Activités ‒ Ekylibre"
-        ekylibre_animal_groups: "Groupe d'animaux ‒ Ekylibre"
+        ekylibre_animal_groups: "Groupe d’animaux ‒ Ekylibre"
         ekylibre_animals: "Animaux ‒ Ekylibre"
         ekylibre_backup: "Sauvegarde ‒ Ekylibre"
         ekylibre_budgets: "Budgets ‒ Ekylibre "
@@ -16017,15 +16017,6 @@ fra:
         synel: "Synel"
         synest: "Synel Est"
         telepac: "TelePAC"
-    opportunity:
-      origin:
-        advertisement: "Publicité"
-        employee_referral: "Parrainage d'un employé"
-        external_referral: "Parrainage externe"
-        partner: "Partenaire"
-        public_relations: "Relations publiques"
-        trade_show: "Salon"
-        web: "Internet"
     outgoing_delivery:
       mode:
         delivered_at_place: "Transporté chez le destinataire et déchargé par le destinataire"
@@ -22646,7 +22637,7 @@ fra:
         electricity: "Électricité"
         equipment: "Équipement"
         equipment_building_division: "Zone de stockage des équipements"
-        equipment_repair_services: "Prestations de réparation d'équipements"
+        equipment_repair_services: "Prestations de réparation d’équipements"
         exploitation_subsidies: "Subvention d’exploitation"
         farm_teaching_services: "Enseignement à la ferme"
         fee: "Honoraire"
@@ -22717,7 +22708,7 @@ fra:
         leasing: "Leasing"
         legal_registration: "Enregistrement légal"
         little_office_item: "Fourniture de bureau"
-        loan_interest: "Intérêt d'emprunt"
+        loan_interest: "Intérêt d’emprunt"
         mail_subscription: "Frais postaux"
         maintenance: "Maintenance"
         male_adult_cow: "Taureau"
@@ -27069,6 +27060,15 @@ fra:
         milk: "Lait"
         seed: "Semence"
         vegetable: "Légume"
+    sale_opportunity:
+      origin:
+        advertisement: "Publicité"
+        employee_referral: "Parrainage d’un employé"
+        external_referral: "Parrainage externe"
+        partner: "Partenaire"
+        public_relations: "Relations publiques"
+        trade_show: "Salon"
+        web: "Internet"
     subscription_nature:
       entity_link_nature:
         association: "Association"

@@ -25,7 +25,6 @@
 #  allocation_account_id   :integer          not null
 #  ceded                   :boolean
 #  ceded_on                :date
-#  charges_account_id      :integer
 #  created_at              :datetime         not null
 #  creator_id              :integer
 #  currency                :string           not null
@@ -35,6 +34,7 @@
 #  depreciation_method     :string           not null
 #  depreciation_percentage :decimal(19, 4)
 #  description             :text
+#  expenses_account_id     :integer
 #  id                      :integer          not null, primary key
 #  journal_id              :integer          not null
 #  lock_version            :integer          default(0), not null
@@ -56,7 +56,7 @@ class FinancialAsset < Ekylibre::Record::Base
   acts_as_numbered
   enumerize :depreciation_method, in: [:simplified_linear, :linear], predicates: {prefix: true} # graduated
   enumerize :currency, in: Nomen::Currencies.all, default: Proc.new { Preference[:currency] }
-  belongs_to :charges_account, class_name: "Account"
+  belongs_to :expenses_account, class_name: "Account"
   belongs_to :allocation_account, class_name: "Account"
   belongs_to :journal, class_name: "Journal"
   belongs_to :purchase_item

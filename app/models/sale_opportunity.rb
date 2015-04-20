@@ -50,26 +50,80 @@
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #
-require 'test_helper'
 
-class AffairTest < ActiveSupport::TestCase
-  test_fixtures
 
-  # check that every model that can be affairable
-  def test_affairables
-    for type in Affair::AFFAIRABLE_TYPES
-      model = type.constantize
-      assert model.respond_to?(:deal_third), "Model #{type} cannot be used with affairs"
+class SaleOpportunity < Affair
+  include Versionable, Commentable
+  attr_readonly :currency
+  enumerize :origin, in: Nomen::OpportunityOrigins.all, predicates: true
+  belongs_to :client, class_name: "Entity", foreign_key: :third_id
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  #]VALIDATORS]
+  validates_presence_of :client, :responsible
+  validates_numericality_of :probability_percentage, in: 0..100
+
+  state_machine :state, :initial => :prospecting do
+    state :prospecting
+    state :qualification
+    state :value_proposition
+    state :price_quote
+    state :negociation
+    state :won
+    state :lost
+
+    event :qualify do
+      transition :prospecting => :qualification
+      transition :value_proposition => :qualification
+    end
+
+    event :evaluate do
+      transition :qualification => :value_proposition
+      transition :price_quote => :value_proposition
+    end
+
+    event :quote do
+      transition :value_proposition => :price_quote
+      transition :negociation => :price_quote
+    end
+
+    event :negociate do
+      transition :price_quote => :negociation
+      transition :won => :negociation
+      transition :lost => :negociation
+    end
+
+    event :win do
+      transition :negociation => :won
+    end
+
+    event :lose do
+      transition :prospecting => :lost
+      transition :qualification => :lost
+      transition :value_proposition => :lost
+      transition :price_quote => :lost
+      transition :negociation => :lost
     end
   end
 
-  # def test_attachment
-  #   affair = affairs(:affairs_003)
-  #   deals = [incoming_payments(:incoming_payments_001), sales(:sales_001)]
-  #   for deal in deals
-  #     affair.attach(deal)
-  #   end
-  #   assert_equal (deals.size + 1), affair.deals_count, "The deals count is invalid"
-  # end
+  before_validation(on: :create) do
+    self.state ||= :prospecting
+    self.currency ||= Preference[:currency]
+  end
+
+  before_validation do
+    self.third_role = :client
+  end
+
+  def status
+    if self.state == :lost
+      return  :stop
+    elsif self.state == :win
+      return :go
+    else
+      return :caution
+    end
+  end
 
 end
+
+

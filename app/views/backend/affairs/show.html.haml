@@ -4,10 +4,9 @@
       - l.attribute :number
       - l.attribute :debit, currency: true
       - l.attribute :credit, currency: true
-      - l.attribute :originator, url: true
       - l.attribute :journal_entry, url: true
       - if resource.custom_fields.any?
         - l.custom_fields
 
   - b.cell :deals do
-    = affair_of(@affair.originator)
+    = affair_of(resource.originator)

@@ -288,8 +288,8 @@ end
 # TODO Updates links in help files
 
 
-# config/modules
-nf = config.join("modules.xml")
+# config/navigation
+nf = config.join("navigation.xml")
 if nf.exist?
   source = nil
   File.open(nf, "rb") do |f|
