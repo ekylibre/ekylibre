@@ -97,7 +97,10 @@ class ProductNatureCategory < Ekylibre::Record::Base
   scope :stockables,    -> { where(storable: true).order(:name) }
   scope :saleables,     -> { where(saleable: true).order(:name) }
   scope :purchaseables, -> { where(purchasable: true).order(:name) }
-
+  scope :depreciables, -> { where(depreciable: true).order(:name) }
+  scope :stockables_or_depreciables, -> { where("depreciable = ? OR storable = ?", true, true).order(:name) }
+  
+  
   protect(on: :destroy) do
     self.natures.any? and self.products.any?
   end
@@ -185,7 +188,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
       :reductible => item.reductible,
       :saleable => item.saleable,
       :storable => item.storable,
-      :depreciation_rate => (item.depreciation_rate? ? item.depreciation_rate : nil)
+      :depreciation_rate => (item.depreciation_rate.present? ? item.depreciation_rate : nil)
     }.with_indifferent_access
     for account in [:financial_asset, :financial_asset_depreciations, :financial_asset_depreciations_inputations_expenses, :charge, :product, :stock]
       name = item.send("#{account}_account")

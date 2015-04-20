@@ -79,6 +79,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   scope :saleables, -> { joins(:nature).merge(ProductNature.saleables) }
   scope :purchaseables, -> { joins(:nature).merge(ProductNature.purchaseables) }
   scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
+  scope :stockables_or_depreciables, -> { joins(:nature).merge(ProductNature.stockables_or_depreciables).order(:name) }
   scope :of_variety, Proc.new { |*varieties|
     where(variety: varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }

@@ -483,7 +483,6 @@
             purchasable="true"
             saleable="true"
             depreciable="true"
-            storable="false"
             pictogram="tractor"
             />
       <item name="installation"
