@@ -35,7 +35,7 @@ Exchanges.add_importer :ekylibre_settings do |file, w|
         if record.save(attributes)
           @records[records][identifier.to_s] = record
         else
-          puts "\nError on #{record.inspect.red}"
+          puts "\nError on #{record.inspect.red}: #{record.errors.full_messages.to_sentence}"
           raise ActiveRecord::RecordInvalid, record
         end
       end

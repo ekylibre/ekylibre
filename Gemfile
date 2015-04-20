@@ -52,8 +52,11 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Freeze time for demo and/or tests
 gem 'timecop'
 
+# Manage daemons
+gem 'foreman'
+
 # Background jobs
-gem 'sidekiq', require: false
+gem 'sidekiq'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

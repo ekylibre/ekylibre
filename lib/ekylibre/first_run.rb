@@ -92,11 +92,11 @@ module Ekylibre
         end
         ::I18n.locale = Preference[:language]
         ActiveRecord::Base.transaction do
-          if Preference.get!("first_run.#{loader}.executed", false, :boolean).value
-            puts "Skip".red + " #{loader} loader"
-          else
+          if base.force or !Preference.get!("first_run.#{loader}.executed", false, :boolean).value
             @loaders[loader].call(base)
             Preference.set!("first_run.#{loader}.executed", true, :boolean)
+          else
+            puts "Skip".red + " #{loader} loader"
           end
         end
       end

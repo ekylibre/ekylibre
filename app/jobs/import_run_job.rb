@@ -19,10 +19,10 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 
-class ImportJob < Ekylibre::Job::Base
+class ImportRunJob < Ekylibre::Job::Base
+  queue_as :default
 
-  def work(import_id)
+  def perform(import_id)
     Import.find(import_id).run
   end
-
 end

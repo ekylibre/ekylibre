@@ -4,12 +4,13 @@ module Ekylibre
 
     class Base
 
-      attr_reader :max, :path, :verbose, :mode
+      attr_reader :max, :path, :verbose, :mode, :force
 
       def initialize(path, options = {})
 	      require 'colored' unless defined? Colored
 
         @verbose = !options[:verbose].is_a?(FalseClass)
+        @force = options[:force].is_a?(TrueClass)
         @mode = options[:mode].to_s.downcase
         @mode = "normal" if @mode.blank?
         @mode = @mode.to_sym

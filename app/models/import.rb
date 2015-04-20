@@ -52,6 +52,28 @@ class Import < Ekylibre::Record::Base
   validates_inclusion_of :progression_percentage, in: 0..100, allow_blank: true
   do_not_validate_attachment_file_type :archive
 
+
+
+  class << self
+
+    # Create an import and run it in background
+    def launch(nature, file)
+      f = File.open(file)
+      import = create!(nature: nature, archive: f)
+      ImportRunJob.perform_later(import.id)
+      return import
+    end
+
+    # Create an import and run it directly
+    def launch!(nature, file, &block)
+      f = File.open(file)
+      import = create!(nature: nature, archive: f)
+      import.run(&block)
+      return import
+    end
+
+  end
+
   def name
     self.nature ? self.nature.text : :unknown.tl
   end
@@ -81,23 +103,6 @@ class Import < Ekylibre::Record::Base
 
   def runnable?
     !self.finished?
-  end
-
-
-  # Create an import and run it in background
-  def self.launch(nature, file)
-    f = File.open(file)
-    import = self.create!(nature: nature, archive: f)
-    ImportJob.enqueue(import.id)
-    return import
-  end
-
-  # Create an import and run it directly
-  def self.launch!(nature, file, &block)
-    f = File.open(file)
-    import = self.create!(nature: nature, archive: f)
-    import.run(&block)
-    return import
   end
 
 end

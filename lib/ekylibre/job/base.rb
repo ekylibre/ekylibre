@@ -1,23 +1,22 @@
 module Ekylibre
   module Job
 
-    class Base
-      require 'sidekiq' unless defined? Sidekiq
-      include Sidekiq::Worker
+    class Base < ActiveJob::Base
 
-      class << self
-        def enqueue(*args)
-          perform_async(Ekylibre::Tenant.current, *args)
-        end
+      rescue_from(Exception) do |exception|
+        # retry_job wait: 5.minutes, queue: :low_priority
+        ExceptionNotifier.notify_exception(exception, data: {message: "was doing something wrong"})
       end
 
-      def perform(tenant, *args)
+      before_enqueue do |job|
+        puts Ekylibre::Tenant.current.inspect.red
+        job.arguments << Ekylibre::Tenant.current
+      end
+
+      before_perform do |job|
+        tenant = job.arguments.delete_at(-1)
+        puts tenant.inspect.blue
         Ekylibre::Tenant.switch(tenant)
-        work(*args)
-      end
-
-      def work(*args)
-        raise NotImplementedError
       end
 
     end

@@ -44,6 +44,21 @@ module Clean
         end
       end
 
+      def write_job_test_file(klass)
+        code  = ""
+        code << "require 'test_helper'\n\n"
+        code << "class #{klass} < ActiveJob::TestCase\n"
+        code << "  # test 'the truth' do\n"
+        code << "  #   assert true\n"
+        code << "  # end\n"
+        code << "end\n"
+        file = Rails.root.join("test", "jobs", klass.underscore + ".rb")
+        FileUtils.mkdir_p(file.dirname)
+        File.open(file, "wb") do |f|
+          f.write(code)
+        end
+      end
+
       def print_stat(name, count, first = false)
         # print ", " unless first
         count = count[name] if count.is_a?(Hash)

@@ -7,7 +7,7 @@ namespace :clean do
     log = File.open(Rails.root.join("log", "clean-tests.log"), "wb")
     log.write(">> Init\n") if verbose
 
-    errors = {models: 0, controllers: 0, helpers: 0, fixtures: 0}
+    errors = {models: 0, controllers: 0, helpers: 0, fixtures: 0, jobs: 0}
     source = nil
 
     log.write(">> Start!\n") if verbose
@@ -199,6 +199,54 @@ namespace :clean do
     end
 
     Clean::Tests.print_stat :fixtures, errors
+
+
+
+
+    # Check job test files
+    print " - Tests: "
+    files = Dir.glob(Rails.root.join("test", "jobs", "**", "*_test.rb")).map(&:to_s)
+    for job_name in Clean::Support.jobs_in_file.to_a
+      log.write("> #{job_name}\n")  if verbose
+      test_class_name = (job_name + "_test").classify
+      file = Rails.root.join("test", "jobs", (test_class_name + ".rb").underscore)
+      if File.exist?(file)
+        File.open(file, "rb") do |f|
+          source = f.read
+        end
+        source.gsub!(/^\#[^\n]*\n/, '')
+        unless source.match(/class\ +#{test_class_name}\ +/)
+          errors[:jobs] += 1
+          log.write(" - Error: Test file #{file} seems to be invalid. Class name #{test_class_name} expected but not found\n")
+          if source.blank?
+            Clean::Tests.write_job_test_file(test_class_name)
+            log.write("   > Empty test file has been writed: #{file}\n")
+          end
+        end
+      else
+        errors[:jobs] += 1
+        log.write(" - Error: Test file #{file} is missing\n")
+        # Create missing file
+        Clean::Tests.write_job_test_file(test_class_name)
+        log.write("   > Test file has been created: #{file}\n")
+      end
+      files.delete(file.to_s)
+    end
+    for file in files.sort
+      errors[:jobs] += 1
+      log.write(" - Error: Unexpected test file: #{file}\n")
+    end
+    if files.any?
+      log.write("   > git rm #{files.join(' ')}\n")
+    end
+
+    Clean::Tests.print_stat :jobs, errors
+
+
+
+
+
+
 
     # puts " " + errors.collect{|k,v| "#{k.to_s.humanize}: #{v.to_s.rjust(3)} errors"}.join(", ")
     # puts ""
