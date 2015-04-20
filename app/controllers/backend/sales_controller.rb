@@ -121,12 +121,12 @@ class Backend::SalesController < Backend::BaseController
     # t.column :name, through: :variant
     # t.column :position
     t.column :label
-    #t.column :annotation
+    t.column :annotation, hidden: true
     # t.column :serial_number, through: :variant, url: true
     t.column :quantity
     t.column :unit_name
     t.column :unit_pretax_amount, currency: true
-    t.column :unit_amount, currency: true
+    t.column :unit_amount, currency: true, hidden: true
     t.column :pretax_amount, currency: true
     t.column :amount, currency: true
     # t.action :edit, if: 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
