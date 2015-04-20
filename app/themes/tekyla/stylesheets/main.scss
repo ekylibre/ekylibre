@@ -2355,3 +2355,15 @@ svg.map {
     text-align: center;
   }
 }
+
+
+.nested-fields {
+  .with-fixed-asset {
+    display: none;
+  }
+  &.with-fixed-asset {
+    .with-fixed-asset {
+      display: block;
+    }
+  }
+}

@@ -63,6 +63,7 @@ class Backend::ProductNatureVariantsController < Backend::BaseController
     infos = {
       name: @product_nature_variant.name,
       number: @product_nature_variant.number,
+      depreciable: @product_nature_variant.depreciable?,
       unit: {
         name: @product_nature_variant.unit_name
       }

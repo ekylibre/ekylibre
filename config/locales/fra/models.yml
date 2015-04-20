@@ -382,6 +382,7 @@ fra:
       sale: "Vente"
       sale_item: "Ligne de vente"
       sale_nature: "Type de vente"
+      sale_opportunity: "Opportunité de vente"
       sequence: "Séquence"
       service: "Service"
       settlement: "Installation"
@@ -488,7 +489,7 @@ fra:
     carrier_linkages: "Points d'attache du tracteur"
     cash: "Trésorerie"
     cash_journals: "Journaux de caisse" #?
-    # cash_session: "Cash session"
+    cash_session: "Session de caisse"
     cash_transfers: "Virements internes" #?
     cashes: "Trésoreries"
     cashes_accounts: "Comptes de caisse" #?
@@ -718,11 +719,12 @@ fra:
     financial_asset: "Immobilisation"
     financial_asset_account: "Compte d’immobilisation"
     financial_asset_allocation_account: "Compte des dépréciations d’immobilisation"
+    financial_asset_depreciation_method: "Méthode de dépréciation d’immobilisation"
+    financial_asset_depreciation_percentage: "Pourcentage de dépréciation d’immobilisation"
     financial_asset_depreciations: "Dépréciations d’immobilisation"
     financial_asset_depreciations_account: "Compte des dépréciations d’immobilisation"
     financial_asset_depreciations_inputations_expenses_account: "Compte d’imputation des charges des dépréciations d’immobilisation"
     financial_asset_expenses_account: "Compte d’imputation des charges des dépréciations d’immobilisation"
-    # financial_assets: "Financial assets"
     financial_assets_categories: "Catégories de produits avec immobilisation" #?
     financial_year: "Exercice"
     financial_year_as_last: "Exercice (en tant que écriture de fin d’exercice)"
@@ -734,6 +736,7 @@ fra:
     first_number: "Premier numéro"
     first_producer: "Premier producteur"
     first_producer_way: "Voie du premier producteur"
+    fixed: "Immobilisé"
     formats: "Formats"
     fourth_producer: "Quatrième producteur"
     fourth_producer_way: "Voie du quatrième producteur"
@@ -1003,8 +1006,7 @@ fra:
     printed_at: "Daté du"
     printed_on: "Daté du"
     priority: "Priorité"
-    probability: "Probabilité"
-    # probability_percentage: "Probability percentage"
+    probability_percentage: "Pourcentage de probabilité"
     procedures: "Procédures" #?
     process: "Process" #?
     producer: "Producteur"

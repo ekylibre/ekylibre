@@ -54,7 +54,8 @@ class PurchaseItem < Ekylibre::Record::Base
   belongs_to :variant, class_name: "ProductNatureVariant", inverse_of: :purchase_items
   belongs_to :tax
   has_many :delivery_items, class_name: "IncomingDeliveryItem", foreign_key: :purchase_item_id
-  has_many :financial_assets, class_name: "FinancialAsset", foreign_key: :purchase_item_id
+  has_many :products, through: :delivery_items
+  has_one :financial_asset, foreign_key: :purchase_item_id, inverse_of: :purchase_item
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :quantity, :unit_amount, :unit_pretax_amount, allow_nil: true
   validates_inclusion_of :all_taxes_included, :fixed, in: [true, false]
@@ -113,16 +114,47 @@ class PurchaseItem < Ekylibre::Record::Base
     end
 
     if self.variant
-      self.account   ||= self.variant.charge_account || Account.find_in_chart(:expenses)
+      if self.fixed
+        self.account = self.variant.financial_asset_account || Account.find_in_chart(:financial_assets)
+      else
+        self.account = self.variant.charge_account || Account.find_in_chart(:expenses)
+      end
       self.label     ||= self.variant.commercial_name
     end
   end
+
 
   validate do
     if self.purchase
       errors.add(:currency, :invalid) if self.currency != self.purchase_currency
     end
     errors.add(:quantity, :invalid) if self.quantity.zero?
+  end
+
+  after_save do
+    if variant = self.variant and variant.depreciable? and self.fixed and !self.financial_asset
+      # Create asset
+      attributes = {
+        started_on: self.purchase.invoiced_at.to_date,
+        depreciable_amount: self.pretax_amount,
+        depreciation_method: variant.financial_asset_depreciation_method,
+        depreciation_percentage: variant.financial_asset_depreciation_percentage,
+        journal: Journal.where(nature: :various).first,
+        allocation_account: variant.financial_asset_allocation_account, #28
+        expenses_account: variant.financial_asset_expenses_account #68
+      }
+      if self.products.any?
+        attributes[:name] = self.delivery_items.collect(&:name).to_sentence
+      end
+      attributes[:name] ||= self.name
+      fixed_asset = self.create_financial_asset!(attributes)
+
+      # Link products to fixed asset
+      self.products.each do |product|
+        product.financial_asset = fixed_asset
+        product.save!
+      end
+    end
   end
 
   def product_name

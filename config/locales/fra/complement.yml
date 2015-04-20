@@ -13215,6 +13215,7 @@ fra:
         sale: "Vente"
         sale_item: "Ligne de vente"
         sale_nature: "Type de vente"
+        sale_opportunity: "Opportunité de vente"
         sequence: "Séquence"
         service: "Service"
         settlement: "Installation"

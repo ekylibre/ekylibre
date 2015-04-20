@@ -38,6 +38,9 @@ table {
     &.decimal {
       @include text-align(right);
     }
+    &.boolean {
+      @include text-align(center);
+    }
   }
   tbody {
     border-top: $menu-border;
@@ -191,7 +194,7 @@ table {
           &.hidden {
             display: none;
           }
-          &.chk,&.act, &.dld, &.bln, &.dat, &.web  {
+          &.chk, &.act, &.dld, &.bln, &.dat, &.web  {
             @include text-align(center);
             .checkbox-true, .checkbox-false { margin: 3px auto 0; }
           }

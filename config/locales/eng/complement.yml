@@ -13175,6 +13175,7 @@ eng:
         sale: "Sale"
         sale_item: "Sale item"
         sale_nature: "Sale type"
+        sale_opportunity: "Sale opportunity"
         sequence: "Sequence"
         service: "Service"
         settlement: "Settlement"

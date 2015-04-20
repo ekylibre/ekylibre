@@ -940,6 +940,7 @@ arb:
       sale: "البيع"
       sale_item: "طريقة طلب البيع"
       sale_nature: "نوع طلب البيع"
+      # sale_opportunity: "Sale opportunity"
       sales_invoice: "الفاتورة" #?
       sales_invoice_item: "طريقة تسديد الفاتورة" #?
       sequence: "التسلسل"
@@ -1362,11 +1363,12 @@ arb:
     # financial_asset: "Financial asset"
     # financial_asset_account: "Financial asset account"
     # financial_asset_allocation_account: "Financial asset depreciations account"
+    # financial_asset_depreciation_method: "Financial asset depreciation method"
+    # financial_asset_depreciation_percentage: "Financial asset depreciation percentage"
     # financial_asset_depreciations: "Financial asset depreciations"
     # financial_asset_depreciations_account: "Financial asset depreciations account"
     # financial_asset_depreciations_inputations_expenses_account: "Financial asset depreciations inputations expenses account"
     # financial_asset_expenses_account: "Financial asset depreciations inputations expenses account"
-    # financial_assets: "Financial assets"
     financial_year: "السنوات المالية"
     # financial_year_as_last: "Financial year (as last journal entry)"
     financial_year_id: "مهنة" #?
@@ -1379,6 +1381,7 @@ arb:
     first_number: "الرقم الاول"
     # first_producer: "First producer"
     # first_producer_way: "First producer way"
+    # fixed: "Fixed"
     for_immobilizations: "منتجات ساكنة" #?
     for_productions: "المنتجات المصنعة او المقطوعة" #?
     for_purchases: "منتجات الشراء" #?
@@ -1721,7 +1724,6 @@ arb:
     # printed_at: "Printed at"
     printed_on: "طبع يوم"
     # priority: "Priority"
-    # probability: "Probability"
     # probability_percentage: "Probability percentage"
     producer: "المنتج"
     producer_id: "المنتج" #?

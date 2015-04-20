@@ -10,15 +10,20 @@
     variant_id = element.selector('value')
     reg = new RegExp("\\bRECORD_ID\\b", "g")
     if variant_id?
+      row = element.closest(options.scope or ".nested-fields")
       $.ajax
         url: options.url.replace(reg, variant_id)
         dataType: "json"
         success: (data, status, request) ->
           # Update fields
-          row = element.closest(options.scope or ".nested-fields")
-
           if data.name
             row.find(options.label_field or ".label").val(data.name)
+
+          console.log data.depreciable
+          if data.depreciable
+            row.addClass("with-fixed-asset")
+          else
+            row.removeClass("with-fixed-asset")
 
           if unit = data.unit
             if unit.name

@@ -233,6 +233,16 @@ module ApplicationHelper
     end.sort{ |a,b| a.first <=> b.first }
   end
 
+  # Returns a selection from names list
+  def enumerize_as_options(model, attribute, *args)
+    options = args.extract_options!
+    enum = model.to_s.camelize.constantize.send(attribute)
+    items = args.shift || enum.values
+    return items.collect do |name|
+      [name.l, name]
+    end.sort{ |a,b| a.first <=> b.first }
+  end
+
   def back_url
     return :back
   end

@@ -22,10 +22,11 @@
   = f.input :subscription_duration
 
 = field_set(:financials_assets) do
+  = f.input :financial_asset_depreciation_method, collection: enumerize_as_options(:financial_asset, :depreciation_method)
+  = f.input :financial_asset_depreciation_percentage
   = f.referenced_association :financial_asset_account
   = f.referenced_association :financial_asset_allocation_account, :source => :assets_depreciations
   = f.referenced_association :financial_asset_expenses_account, :source => :asset_depreciations_inputations_expenses
-  = f.input :depreciation_rate
 
 = field_set(:sales) do
   = f.referenced_association :product_account

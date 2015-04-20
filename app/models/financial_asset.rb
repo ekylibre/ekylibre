@@ -59,7 +59,7 @@ class FinancialAsset < Ekylibre::Record::Base
   belongs_to :expenses_account, class_name: "Account"
   belongs_to :allocation_account, class_name: "Account"
   belongs_to :journal, class_name: "Journal"
-  belongs_to :purchase_item
+  belongs_to :purchase_item, inverse_of: :financial_asset
   belongs_to :purchase
   has_many :depreciations, -> { order(:position) }, class_name: "FinancialAssetDepreciation"
   has_many :products
