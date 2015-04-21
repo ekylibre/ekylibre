@@ -482,7 +482,7 @@ class ActionController::TestCase
         return :new_product if model and model <= Product
       elsif action_name == :show
         model = array.first.split(/\//).last.classify.constantize rescue nil
-        return :show_sti_record if model and (model <= Product or model <= Entity)
+        return :show_sti_record if model and (model <= Product or model <= Entity or model <= Affair)
       end
       for exp, mode in MODES
         return mode if action =~ exp
