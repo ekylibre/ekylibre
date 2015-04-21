@@ -63,7 +63,7 @@ class PurchaseItem < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_presence_of :account, :tax
-  # validates_presence_of :pretax_amount, :price # Already defined in auto-validators
+  validates_associated :financial_asset
   # validates_uniqueness_of :tracking_serial, :scope => :price_id, allow_nil: true, if: Proc.new{|pl| !pl.tracking_serial.blank? }, :allow_blank => true
 
   delegate :invoiced_at, :number, to: :purchase
@@ -72,6 +72,8 @@ class PurchaseItem < Ekylibre::Record::Base
   delegate :name, to: :variant, prefix: true
   delegate :name, :short_label, to: :tax, prefix: true
   # delegate :subscribing?, :deliverable?, to: :product_nature, prefix: true
+
+  accepts_nested_attributes_for :financial_asset
 
   alias_attribute :name, :label
 
@@ -131,7 +133,7 @@ class PurchaseItem < Ekylibre::Record::Base
     errors.add(:quantity, :invalid) if self.quantity.zero?
   end
 
-  after_save do
+  before_validation do
     if variant = self.variant and variant.depreciable? and self.fixed and !self.financial_asset
       # Create asset
       attributes = {
@@ -147,13 +149,11 @@ class PurchaseItem < Ekylibre::Record::Base
         attributes[:name] = self.delivery_items.collect(&:name).to_sentence
       end
       attributes[:name] ||= self.name
-      fixed_asset = self.create_financial_asset!(attributes)
 
-      # Link products to fixed asset
-      self.products.each do |product|
-        product.financial_asset = fixed_asset
-        product.save!
+      if FinancialAsset.find_by(name: attributes[:name])
+        attributes[:name] << " " + rand(FinancialAsset.count * 36 ** 3).to_s(36).upcase
       end
+      self.build_financial_asset(attributes)
     end
   end
 

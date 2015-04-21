@@ -62,6 +62,8 @@ class FinancialAsset < Ekylibre::Record::Base
   belongs_to :purchase_item, inverse_of: :financial_asset
   belongs_to :purchase
   has_many :depreciations, -> { order(:position) }, class_name: "FinancialAssetDepreciation"
+  has_many :delivery_items, through: :purchase_item
+  has_many :delivery_products, through: :delivery_items, source: :product
   has_many :products
   has_many :planned_depreciations, -> { order(:position).where("NOT locked OR accounted_at IS NULL") }, class_name: "FinancialAssetDepreciation", dependent: :destroy
   has_one :tool, class_name: "Equipment"
@@ -129,6 +131,15 @@ class FinancialAsset < Ekylibre::Record::Base
   end
 
   after_save do
+    if self.purchase_item
+      # Link products to fixed asset
+      self.delivery_products.each do |product|
+        product.financial_asset = self
+        unless product.save
+          Rails.logger.warn("Cannot link financial_asset to its products automatically")
+        end
+      end
+    end
     self.depreciate! if @auto_depreciate
   end
 

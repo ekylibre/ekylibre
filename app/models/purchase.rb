@@ -72,6 +72,7 @@ class Purchase < Ekylibre::Record::Base
   validates_length_of :number, :state, allow_nil: true, maximum: 60
   validates_presence_of :created_at, :currency, :state, :nature
   validates_uniqueness_of :number
+  validates_associated :items
 
   acts_as_numbered
   acts_as_affairable :supplier

@@ -467,6 +467,7 @@ eng:
     delivery: "Delivery"
     delivery_address: "Delivery address"
     delivery_items: "Delivery items"
+    # delivery_products: "Delivery products"
     departed_at: "Transport on"
     deposit: "Deposit"
     depositable_payments: "Embankable payments"
