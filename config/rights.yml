@@ -206,6 +206,9 @@ affairs:
     - "backend/affairs#index"
     - "backend/affairs#list"
     - "backend/affairs#show"
+    - "backend/sale_tickets#index"
+    - "backend/sale_tickets#list"
+    - "backend/sale_tickets#show"
   write:
     dependencies:
     - read-affairs
@@ -214,6 +217,10 @@ affairs:
     - "backend/affairs#detach"
     - "backend/affairs#finish"
     - "backend/affairs#select"
+    - "backend/sale_tickets#attach"
+    - "backend/sale_tickets#detach"
+    - "backend/sale_tickets#finish"
+    - "backend/sale_tickets#select"
 
 analyses:
   read:

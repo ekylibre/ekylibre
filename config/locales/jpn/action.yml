@@ -482,6 +482,7 @@ jpn:
       # index: "Opportunities"
       # new: "New opportunity"
       # show: "Opportunity: %{name}"
+    backend/sale_tickets: #?
     backend/sales:
       # abort: "Abort sale"
       # cancel: "Cancel sales invoice %{number}"

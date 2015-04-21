@@ -18,7 +18,7 @@
 #
 
 class Backend::AffairsController < Backend::BaseController
-  manage_restfully only: [:index, :show]
+  manage_restfully only: [:index, :show], subclass_inheritance: true
 
   list do |t|
     t.column :number, url: true

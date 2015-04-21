@@ -362,6 +362,13 @@
         <page to="backend/gaps#list"/>
         <page to="backend/gaps#list_items"/>
         <page to="backend/gaps#show"/>
+        <page to="backend/sale_tickets#index"/>
+        <page to="backend/sale_tickets#attach"/>
+        <page to="backend/sale_tickets#detach"/>
+        <page to="backend/sale_tickets#finish"/>
+        <page to="backend/sale_tickets#list"/>
+        <page to="backend/sale_tickets#select"/>
+        <page to="backend/sale_tickets#show"/>
       </item>
     </group>
   </part>

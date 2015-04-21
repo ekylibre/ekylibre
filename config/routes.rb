@@ -653,6 +653,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :sale_tickets, concerns: [:list, :affairs], path: "sale-tickets"
+
     resources :sales, concerns: [:list, :unroll] do
       collection do
         get :contacts

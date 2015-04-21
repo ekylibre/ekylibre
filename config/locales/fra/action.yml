@@ -536,6 +536,7 @@ fra:
       index: "Opportunités"
       new: "Nouvelle opportunité"
       show: "Opportunité\_: %{name}"
+    backend/sale_tickets: #?
     backend/sales:
       abort: "Annuler la vente"
       cancel: "Passage en avoir de la facture %{number}"
