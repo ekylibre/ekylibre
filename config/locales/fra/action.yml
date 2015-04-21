@@ -708,6 +708,7 @@ fra:
     activities: "Activités"
     activity: "Activités"
     add: "Ajouter"
+    add_annotation: "Ajouter une annotation"
     add_choice: "Ajouter un choix"
     add_condition: "Ajouter la condition"
     add_conditions: "Ajoutez des conditions"

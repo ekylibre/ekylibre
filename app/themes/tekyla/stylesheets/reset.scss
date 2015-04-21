@@ -38,7 +38,7 @@ input[type="color"], input[type="date"], input[type="datetime"], input[type="dat
   padding: round($fs-normal * 0.2);
   @include box-sizing(content-box);
   @include border-radius($default-border-radius);
-  background: $desktop-background;
+  background: #FFF; //$desktop-background;
   font-size: $fs-normal;
   line-height: $lh-normal;
   height: $lh-normal;
@@ -48,7 +48,7 @@ input[type="color"], input[type="date"], input[type="datetime"], input[type="dat
   @include box-shadow(0 0 0 rgba(black, 0.1));
   @include transition(box-shadow 0.2s, border-color 0.2s);
   &:focus {
-    background: #FFF;
+    // background: #FFF;
     border-color: $base-color;
     @include box-shadow(0 0 round($fs-normal*0.6) rgba($base-color, 0.6));
   }

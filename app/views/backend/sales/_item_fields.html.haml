@@ -1,15 +1,21 @@
 - item ||= f.object
 - precision = Nomen::Currencies[f.object.sale_currency].precision
-%tr.nested-fields
+%tr.nested-fields{data: {trade_item: true}}
   %td
-    = f.referenced_association(:variant, wrapper: :nested, source: {scope: :saleables}, input_html: {data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_url("RECORD_ID", sale_nature_id: f.object.sale.nature_id)}}})
-    = f.input :all_taxes_included, as: :hidden, input_html: {class: "all-taxes-included"}
-    = f.input(:annotation, wrapper: :nested, input_html: {class: "annotation"})
-  %td= f.input(:unit_pretax_amount, wrapper: :nested, input_html: {class: "unit-pretax-amount item-pta item-wta"})
-  %td.decimal= f.select(:tax_id, Tax.currents.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.amount)/100)}]}, {}, 'data-value' => 'rate', class: "tax item-wta")
-  %td= f.input(:unit_amount, wrapper: :nested, input_html: {class: "unit-amount"})
-  %td.decimal= f.input(:quantity, wrapper: :nested, input_html: {size: 7, class: "item-pta item-wta"})
-  %td.decimal.pta{data: {use: ".item-pta", use_closest: ".nested-fields", calculate: "mul", calculate_round: precision}}= item.pretax_amount
-  %td.decimal.wta{data: {use: ".item-wta", use_closest: ".nested-fields", calculate: "mul", calculate_round: precision}}= item.amount
+    = f.input :reference_value, as: :hidden, input_html: {data: {trade_component: "reference_value"}}
+    .annotable
+      = f.referenced_association(:variant, wrapper: :nested, source: {scope: :saleables}, input_html: {data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_url("RECORD_ID", sale_nature_id: f.object.sale.nature_id)}}})
+      - attrs = {}
+      - if f.object.annotation.blank?
+        = link_to("#", data: {annotate: ".annotate", use_closest: "td"}, title: :add_annotation.tl) do
+          %i
+        - attrs[:style] = "display: none"
+    .annotate{attrs}= f.input(:annotation, wrapper: :nested, input_html: {class: "annotation"})
+  %td= f.input(:unit_pretax_amount, wrapper: :nested, input_html: {data: {trade_component: "unit_pretax_amount"}})
+  %td.decimal= f.select(:tax_id, Tax.currents.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.amount)/100)}]}, {}, data: {value: 'rate', trade_component: "tax"})
+  %td= f.input(:unit_amount, wrapper: :nested, input_html: {data: {trade_component: "unit_amount"}})
+  %td.decimal= f.input(:quantity, wrapper: :nested, input_html: {size: 7, data: {trade_component: "quantity"}})
+  %td.decimal= f.input(:pretax_amount, wrapper: :nested, input_html: {class: "pta", data: {trade_component: "pretax_amount"}})
+  %td.decimal= f.input(:amount, wrapper: :nested, input_html: {class: "wta", data: {trade_component: "amount"}})
   %td.currency= f.object.sale_currency
   %td.action= link_to_remove_association(content_tag(:i) + h(:destroy.ta), f, 'data-no-turbolink' => true, class: 'remove-item')

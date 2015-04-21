@@ -78,7 +78,7 @@ class Backend::PurchasesController < Backend::BaseController
     #t.column :tracking_serial
     t.column :quantity
     t.column :unit_pretax_amount, currency: true
-    t.column :unit_amount, currency: true
+    t.column :unit_amount, currency: true, hidden: true
     # t.column :indicator_name
     t.column :pretax_amount, currency: true
     t.column :amount, currency: true

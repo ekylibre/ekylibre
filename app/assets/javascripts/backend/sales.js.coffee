@@ -1,9 +1,22 @@
 # allows price and tax auto filling in sales view
 
-(($) ->
+((E, $) ->
   'use strict'
 
-  # Manage fields filling in sales
+  # Toggle annotation widget
+  $(document).on "click", "a[data-annotate]", (event) ->
+    link = $(this)
+    scope = $("html")
+    if link.data("use-closest")
+      scope = link.closest(link.data("use-closest"))
+    link.hide()
+    annotation = scope.find(link.data('annotate'))
+    annotation.show()
+    annotation.find("textarea").focus()
+    return false
+
+
+  # Manage fields filling in sales/purchases
   $(document).on "selector:change", "*[data-variant-of-deal-item]", ->
     element = $(this)
     options = element.data("variant-of-deal-item")
@@ -19,7 +32,6 @@
           if data.name
             row.find(options.label_field or ".label").val(data.name)
 
-          console.log data.depreciable
           if data.depreciable
             row.addClass("with-fixed-asset")
           else
@@ -46,44 +58,158 @@
     else
       console.warn "Cannot get variant ID"
 
-  $(document).on "change emulated:change keyup", ".nested-fields .unit-pretax-amount", ->
-    element = $(this)
-    row = element.closest(".nested-fields")
-    row.find(".all-taxes-included").val(0)
-    rate = row.find(".tax").find(":selected").data("rate")
-    row.find(".unit-amount").val((element.numericalValue() * rate).toFixed(2))
+  E.trade =
+    # CSS class for reference fields
+    referenceClass: "special"
 
-  $(document).on "change emulated:change keyup", ".nested-fields .tax", ->
-    element = $(this)
-    row = element.closest(".nested-fields")
-    rate = row.find(".tax").find(":selected").data("rate")
-    console.log row.find(".all-taxes-included").val()
-    if row.find(".all-taxes-included").val() == "1"
-      row.find(".unit-pretax-amount").val((row.find(".unit-amount").numericalValue() / rate).toFixed(2))
-    else
-      row.find(".unit-amount").val((row.find(".unit-pretax-amount").numericalValue() * rate).toFixed(2))
+    methods:
+      computeQuantityTax: (item, changedComponent) ->
+        console.log "Compute Quantity-Tax method from #{changedComponent}"
+        if changedComponent == "amount"
+          E.trade.ops.mmma(item)
+          E.trade.ops.mmmb(item)
+          E.trade.ops.mmmc(item)
+        else if changedComponent == "pretax_amount"
+          E.trade.ops.mmmd(item)
+          E.trade.ops.mmmb(item)
+          E.trade.ops.mmmc(item)
+        else if changedComponent == "unit_amount"
+          E.trade.ops.mmme(item)
+          E.trade.ops.mmmg(item)
+          E.trade.ops.mmmh(item)
+        else if changedComponent == "unit_pretax_amount"
+          E.trade.ops.mmmf(item)
+          E.trade.ops.mmmg(item)
+          E.trade.ops.mmmh(item)
+        else
+          console.error "Cannot compute anything for #{changedComponent}"
 
-  $(document).on "change emulated:change keyup", ".nested-fields .unit-amount", ->
-    element = $(this)
-    row = element.closest(".nested-fields")
-    row.find(".all-taxes-included").val(1)
-    rate = row.find(".tax").find("option:selected").data("rate")
-    row.find(".unit-pretax-amount").val (element.val() / rate).toFixed(2)
+      computeTaxQuantity: (item, changedComponent) ->
+        console.log "Compute Tax-Quantity method from #{changedComponent}"
+        if changedComponent == "amount"
+          E.trade.ops.mmmb(item)
+          E.trade.ops.mmma(item)
+          E.trade.ops.mmme(item)
+        else if changedComponent == "pretax_amount"
+          E.trade.ops.mmmc(item)
+          E.trade.ops.mmmd(item)
+          E.trade.ops.mmmf(item)
+        else if changedComponent == "unit_amount"
+          E.trade.ops.mmmi(item)
+          E.trade.ops.mmma(item)
+          E.trade.ops.mmme(item)
+        else if changedComponent == "unit_pretax_amount"
+          E.trade.ops.mmmg(item)
+          E.trade.ops.mmmd(item)
+          E.trade.ops.mmmf(item)
+        else
+          console.error "Cannot compute anything for #{changedComponent}"
 
-  # $(document).on "change emulated:change keyup", ".reduced-unit-pretax-amount", ->
-  #   console.log "ok"
-  #   element = $(this)
-  #   row = element.closest(".nested-fields")
-  #   quantity = row.find(".quantity").val()
-  #   row.find(".amount") = element.val() * quantity
-  #   if unit_amount = row.find(".unit-amount") and tax = row.find(".tax")
-  #     rate = tax.find(":selected").data("rate")
-  #     unit_amount.val (element.val() * rate).toFixed(2)
-  #   if reduction = row.find(".reduction") and reduced = row.find(".reduced-pretax-unit-amount")
-  #     rate = (100 - (reduction.val() ? 0)) / 100
-  #     reduced.val (element.val() * rate).toFixed(2)
-  #     reduced.fire("emulated:change")
+      computeAdaptive: (item, changedComponent) ->
+        adaptativeMethod = item.prop("adaptativeMethod")
+        if adaptativeMethod == "tax_quantity"
+          E.trade.methods.computeTaxQuantity(item, changedComponent)
+        else if adaptativeMethod == "quantity_tax"
+          E.trade.methods.computeQuantityTax(item, changedComponent)
+        # Evaluate if re-computation is needed
+        amount = E.trade.find("unit_pretax_amount", item)
+        tax = E.trade.find("tax", item)
+        taxPercentage = Math.round2(100.0 * tax.numericalValue() - 100.0, 0.000001)
+        count = Math.decimalCount(taxPercentage)
+        if amount.numericalValue() >= Math.pow(10, count)
+          if adaptativeMethod != "tax_quantity"
+            adaptativeMethod = "tax_quantity"
+            E.trade.methods.computeTaxQuantity(item, changedComponent)
+        else
+          if adaptativeMethod != "quantity_tax"
+            adaptativeMethod = "quantity_tax"
+            E.trade.methods.computeQuantityTax(item, changedComponent)
+        item.prop("adaptativeMethod", adaptativeMethod)
 
+    ops:
+      mmma: (item) ->
+        E.trade.divide(item, "pretax_amount", "amount", "tax")
+      mmmb: (item) ->
+        E.trade.divide(item, "unit_amount", "amount", "quantity")
+      mmmc: (item) ->
+        E.trade.divide(item, "unit_pretax_amount", "pretax_amount", "quantity")
+      mmmd: (item) ->
+        E.trade.multiply(item, "amount", "pretax_amount", "tax")
+      mmme: (item) ->
+        E.trade.divide(item, "unit_pretax_amount", "unit_amount", "tax")
+      mmmf: (item) ->
+        E.trade.multiply(item, "unit_amount", "unit_pretax_amount", "tax")
+      mmmg: (item) ->
+        E.trade.multiply(item, "pretax_amount", "unit_pretax_amount", "quantity")
+      mmmh: (item) ->
+        E.trade.multiply(item, "amount", "pretax_amount", "tax")
+      mmmi: (item) ->
+        E.trade.multiply(item, "amount", "unit_amount", "quantity")
+
+    find: (name, item) ->
+      item.find("*[data-trade-component='#{name}']")
+
+    divide: (item, recipient, numerator, denominator) ->
+      r = E.trade.find(recipient, item)
+      n = E.trade.find(numerator, item)
+      d = E.trade.find(denominator, item)
+      value = n.numericalValue() / d.numericalValue()
+      r.val(value.toFixed(2))
+
+    multiply: (item, recipient, operand, coefficient) ->
+      r = E.trade.find(recipient, item)
+      o = E.trade.find(operand, item)
+      c = E.trade.find(coefficient, item)
+      value = o.numericalValue() * c.numericalValue()
+      r.val(value.toFixed(2))
+
+    setReferenceValue: (item, referenceValue, componentType = null) ->
+      unless componentType?
+        componentType = referenceValue.val()
+      if componentType == "unit_pretax_amount" or componentType == "unit_amount" or componentType == "pretax_amount" or componentType == "amount"
+        # Register reference value
+        referenceValue.val(componentType)
+        # Set class for reference field
+        item.find("*[data-trade-component].#{E.trade.referenceClass}").removeClass(E.trade.referenceClass)
+        item.find("*[data-trade-component='#{componentType}']").addClass(E.trade.referenceClass)
+
+    compute: (item, component = null) ->
+      form = item.closest("form")
+      changedComponent = null
+      referenceValue = item.find("*[data-trade-component='reference_value']")
+
+      if component
+        componentType = component.data("trade-component")
+        E.trade.setReferenceValue(item, referenceValue, componentType)
+
+      # Computes values
+      method = form.find("*[data-trade-method]:checked").val()
+
+      # Get reference value
+      changedComponent = referenceValue.val()
+
+      # Apply method
+      if method == "quantity_tax"
+        E.trade.methods.computeQuantityTax(item, changedComponent)
+      else if method == "tax_quantity"
+        E.trade.methods.computeTaxQuantity(item, changedComponent)
+      else if method == "adaptative"
+        E.trade.methods.computeAdaptive(item, changedComponent)
+      else
+        console.error "Cannot compute anything with #{method} method"
+
+  # Computes changes on items
+  $(document).behave "load", "form *[data-trade-item] *[data-trade-component='reference_value']", ->
+    E.trade.setReferenceValue $(this).closest("*[data-trade-item]"), $(this)
+
+  # Computes changes on items
+  $(document).on "keyup change", "form *[data-trade-item] *[data-trade-component]", ->
+    E.trade.compute $(this).closest("*[data-trade-item]"), $(this)
+
+  # Computes changes on items
+  $(document).on "change", "form *[data-trade-method]", ->
+    $(this).closest("form").find("*[data-trade-item]").each ->
+      E.trade.compute $(this)
 
   return
-) jQuery
+) ekylibre, jQuery

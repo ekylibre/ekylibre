@@ -761,6 +761,7 @@ eng:
     activities: "Activities"
     activity: "Activity"
     add: "Add"
+    add_annotation: "Add annotation"
     add_choice: "Add choice"
     add_condition: "Add condition"
     add_conditions: "Add conditions"

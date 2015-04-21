@@ -6,6 +6,7 @@
   = f.association :nature, as: :hidden
   = f.referenced_association :responsible, source: {scope: :users}, new: {employed: 1}
   = f.referenced_association :transporter, source: :transporters
+  = f.input :computation_method, as: :radio_buttons, input_html: {data: {trade_method: true}}
   = f.input :description
 
   = f.input :letter_format, :show => :letter_options

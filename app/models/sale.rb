@@ -29,6 +29,7 @@
 #  amount                     :decimal(19, 4)   default(0.0), not null
 #  annotation                 :text
 #  client_id                  :integer          not null
+#  computation_method         :string           not null
 #  conclusion                 :text
 #  confirmed_at               :datetime
 #  created_at                 :datetime         not null
@@ -70,6 +71,7 @@
 
 
 class Sale < Ekylibre::Record::Base
+  enumerize :computation_method, in: [:adaptative, :quantity_tax, :tax_quantity], default: :adaptative, predicates: {prefix: true}
   attr_readonly :currency
   belongs_to :affair
   belongs_to :client, class_name: "Entity"
@@ -92,7 +94,7 @@ class Sale < Ekylibre::Record::Base
   validates_datetime :accounted_at, :confirmed_at, :expired_at, :invoiced_at, :payment_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :amount, :downpayment_amount, :prereduction_amount, :prereduction_pretax_amount, :pretax_amount, :reduction_percentage, allow_nil: true
   validates_inclusion_of :credit, :has_downpayment, :letter_format, in: [true, false]
-  validates_presence_of :amount, :client, :currency, :downpayment_amount, :number, :payer, :payment_delay, :prereduction_amount, :prereduction_pretax_amount, :pretax_amount, :reduction_percentage, :state
+  validates_presence_of :amount, :client, :computation_method, :currency, :downpayment_amount, :number, :payer, :payment_delay, :prereduction_amount, :prereduction_pretax_amount, :pretax_amount, :reduction_percentage, :state
   #]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :initial_number, :number, :state, allow_nil: true, maximum: 60
@@ -199,7 +201,7 @@ class Sale < Ekylibre::Record::Base
     self.client.add_event(:sale_creation, self.updater.person) if self.updater and self.updater.person
   end
 
-  # This method bookkeeps the sale depending on its state
+  # This callback bookkeeps the sale depending on its state
   bookkeep do |b|
     b.journal_entry(self.nature.journal, printed_on: self.invoiced_on, if: (self.nature.with_accounting? and self.invoice?)) do |entry|
       label = tc(:bookkeep, :resource => self.state_label, :number => self.number, :client => self.client.full_name, :products => (self.description.blank? ? self.items.pluck(:label).to_sentence : self.description), :sale => self.initial_number)

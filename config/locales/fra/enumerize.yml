@@ -86,6 +86,16 @@ fra:
         per_production: "Par production"
         per_production_support: "Par support de production"
         per_working_unit: "Par unité d'œuvre"
+    purchase:
+      computation_method:
+        adaptative: "Adaptatif"
+        quantity_tax: "Quantité-TVA"
+        tax_quantity: "TVA-Quantité"
+    sale:
+      computation_method:
+        adaptative: "Adaptatif"
+        quantity_tax: "Quantité-TVA"
+        tax_quantity: "TVA-Quantité"
     sequence:
       period:
         cweek: "Semaine"

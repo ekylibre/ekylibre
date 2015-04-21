@@ -135,6 +135,12 @@ $vertical-spacing: round($spacing / $default-ratio);
 
 }
 
+input, textarea, select {
+  &.special {
+    background: $highlight-color;
+  }
+}
+
 .help-inline {
   display: inline-block;
   *display: inline;
@@ -219,15 +225,15 @@ $controls-margin-left: round($label-width * 1.1);
   }
 }
 
-span.rad, label.radio {
-  padding: round($fs-normal/8) 0;
+span.rad, label.radio, span.radio {
+  padding: 0 round($fs-normal * 0.7) 0 0;
   @include margin-left(round($fs-normal/2));
   * { vertical-align: middle; }
   &:first-child {
     @include margin-left(0);
   }
   input {
-    @include margin-right($fs-normal/4);
+    @include margin-right(round($fs-normal * 0.4));
   }
 }
 

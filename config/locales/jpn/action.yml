@@ -615,6 +615,7 @@ jpn:
     # activities: "Activities"
     # activity: "Activity"
     add: "加える"
+    # add_annotation: "Add annotation"
     # add_choice: "Add choice"
     # add_condition: "Add condition"
     # add_conditions: "Add conditions"

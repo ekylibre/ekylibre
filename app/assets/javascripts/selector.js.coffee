@@ -95,7 +95,7 @@
     _select: (id, label, triggerEvents = false) ->
       # console.log "select"
       @lastSearch = label
-      len = 10 * Math.round(Math.round(1.5 * label.length) / 10)
+      len = 10 * Math.round(Math.round(1 * label.length) / 10)
       @element.attr "size", (if len < 20 then 20 else (if len > 80 then 80 else len))
       @element.val label
       @valueField.prop "itemLabel", label

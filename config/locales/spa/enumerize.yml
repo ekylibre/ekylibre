@@ -105,6 +105,16 @@ spa:
     production_chain_work_center: #?
     production_support_marker: #?
     products_nature: #?
+    purchase:
+      computation_method:
+        # adaptative: "Adaptative"
+        # quantity_tax: "Quantity-Tax"
+        # tax_quantity: "Tax-Quantity"
+    sale:
+      computation_method:
+        # adaptative: "Adaptative"
+        # quantity_tax: "Quantity-Tax"
+        # tax_quantity: "Tax-Quantity"
     sequence:
       period:
         # cweek: "Commercial week"

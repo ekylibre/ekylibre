@@ -6,6 +6,7 @@
   = f.input :planned_at
   = f.input :invoiced_at
   = f.referenced_association :responsible, source: :employees, new: {employed: 1}
+  = f.input :computation_method, as: :radio_buttons, input_html: {data: {trade_method: true}}
   = f.input :description
   = f.custom_fields
 
@@ -21,7 +22,6 @@
           %th= PurchaseItem.human_attribute_name(:quantity)
           %th= PurchaseItem.human_attribute_name(:pretax_amount)
           %th= PurchaseItem.human_attribute_name(:amount)
-          %th= PurchaseItem.human_attribute_name(:depreciation)
           %th= PurchaseItem.human_attribute_name(:currency)
           %th
       %tbody#items

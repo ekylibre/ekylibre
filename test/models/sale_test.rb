@@ -28,6 +28,7 @@
 #  amount                     :decimal(19, 4)   default(0.0), not null
 #  annotation                 :text
 #  client_id                  :integer          not null
+#  computation_method         :string           not null
 #  conclusion                 :text
 #  confirmed_at               :datetime
 #  created_at                 :datetime         not null

@@ -23,7 +23,6 @@
 # == Table: purchase_items
 #
 #  account_id         :integer          not null
-#  all_taxes_included :boolean          default(FALSE), not null
 #  amount             :decimal(19, 4)   default(0.0), not null
 #  annotation         :text
 #  created_at         :datetime         not null
@@ -37,6 +36,7 @@
 #  pretax_amount      :decimal(19, 4)   default(0.0), not null
 #  purchase_id        :integer          not null
 #  quantity           :decimal(19, 4)   default(1.0), not null
+#  reference_value    :string           not null
 #  tax_id             :integer          not null
 #  unit_amount        :decimal(19, 4)   default(0.0), not null
 #  unit_pretax_amount :decimal(19, 4)   not null
@@ -48,6 +48,7 @@
 
 class PurchaseItem < Ekylibre::Record::Base
   include PeriodicCalculable
+  enumerize :reference_value, in: [:unit_pretax_amount, :unit_amount, :pretax_amount, :amount], default: :unit_pretax_amount
   belongs_to :account
   belongs_to :purchase, inverse_of: :items
   # belongs_to :price, class_name: "CatalogItem"
@@ -58,8 +59,8 @@ class PurchaseItem < Ekylibre::Record::Base
   has_one :financial_asset, foreign_key: :purchase_item_id, inverse_of: :purchase_item
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :quantity, :unit_amount, :unit_pretax_amount, allow_nil: true
-  validates_inclusion_of :all_taxes_included, :fixed, in: [true, false]
-  validates_presence_of :account, :amount, :currency, :pretax_amount, :purchase, :quantity, :tax, :unit_amount, :unit_pretax_amount, :variant
+  validates_inclusion_of :fixed, in: [true, false]
+  validates_presence_of :account, :amount, :currency, :pretax_amount, :purchase, :quantity, :reference_value, :tax, :unit_amount, :unit_pretax_amount, :variant
   #]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_presence_of :account, :tax

@@ -1838,6 +1838,7 @@ arb:
     # reference_name: "Reference name"
     # reference_number: "Reference number"
     # reference_tax: "Reference tax"
+    # reference_value: "Reference value"
     reflation_submissive: "خاضع لانعاش اقتصادي" #?
     reflected: "انعكاس التغييرات"
     # reflected_at: "Reflected at"

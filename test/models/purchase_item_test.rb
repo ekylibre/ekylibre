@@ -23,7 +23,6 @@
 # == Table: purchase_items
 #
 #  account_id         :integer          not null
-#  all_taxes_included :boolean          default(FALSE), not null
 #  amount             :decimal(19, 4)   default(0.0), not null
 #  annotation         :text
 #  created_at         :datetime         not null
@@ -37,6 +36,7 @@
 #  pretax_amount      :decimal(19, 4)   default(0.0), not null
 #  purchase_id        :integer          not null
 #  quantity           :decimal(19, 4)   default(1.0), not null
+#  reference_value    :string           not null
 #  tax_id             :integer          not null
 #  unit_amount        :decimal(19, 4)   default(0.0), not null
 #  unit_pretax_amount :decimal(19, 4)   not null

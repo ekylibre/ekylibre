@@ -38,3 +38,24 @@ Math.ceil2 = (number, round = 1) ->
 Math.floor2 = (number, round = 1) ->
   return round * Math.floor(number / round)
 
+# Returns logarithm value in given base (10 by default)
+Math.logg = (value, base = 10) ->
+  return Math.log(value) / Math.log(base)
+
+# Compute number of decimal
+# Negative value is return if trailing zero are found.
+# Ex: 200 => -2
+#     0.12500 => 3
+#     0.125 => 3
+#     125 => 0
+Math.decimalCount = (value) ->
+  return 0 if value == 0
+  count = 0
+  integersCount = Math.ceil(Math.logg(Math.floor(value)))
+  value /= Math.pow(10, integersCount)
+  while (value != Math.floor(value))
+    count += 1
+    value *= 10
+    break if count > 100
+  return count - integersCount
+

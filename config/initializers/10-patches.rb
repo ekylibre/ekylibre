@@ -65,6 +65,28 @@ class ::Time
 end
 
 
+class ::Numeric
+
+  # Computes decimal count. Examples:
+  #  * 200 => -2
+  #  * 1.350 => 2
+  #  * 1.1 => 1
+  def decimal_count
+    return 0 if self.zero?
+    count = 0
+    value = self.dup
+    integers_count = Math.log10(value.floor).ceil
+    value /= 10 ** integers_count
+    while(value != value.to_i)
+      count += 1
+      value *= 10
+    end
+    return count - integers_count
+  end
+
+end
+
+
 class ::BigDecimal
 
   # Overwrite badly bigdecimal

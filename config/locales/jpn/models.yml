@@ -889,6 +889,7 @@ jpn:
     # reference_name: "Reference name"
     # reference_number: "Reference number"
     # reference_tax: "Reference tax"
+    # reference_value: "Reference value"
     # reflected: "Changes reflected"
     # reflected_at: "Reflected at"
     # reflection_nodes: "Reflection nodes"

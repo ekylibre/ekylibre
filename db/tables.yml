@@ -4538,10 +4538,6 @@ purchase_items:
     type: integer
     references: account
     required: true
-  all_taxes_included:
-    type: boolean
-    required: true
-    default: false
   amount:
     type: decimal
     precision: 19
@@ -4585,6 +4581,9 @@ purchase_items:
     type: decimal
     precision: 19
     scale: 4
+    required: true
+  reference_value:
+    type: string
     required: true
   tax_id:
     type: integer
@@ -4661,6 +4660,9 @@ purchases:
     type: decimal
     precision: 19
     scale: 4
+    required: true
+  computation_method:
+    type: string
     required: true
   confirmed_at:
     type: datetime
@@ -4749,10 +4751,6 @@ sale_items:
   account_id:
     type: integer
     references: account
-  all_taxes_included:
-    type: boolean
-    required: true
-    default: false
   amount:
     type: decimal
     precision: 19
@@ -4806,6 +4804,9 @@ sale_items:
     type: decimal
     precision: 19
     scale: 4
+    required: true
+  reference_value:
+    type: string
     required: true
   sale_id:
     type: integer
@@ -4923,6 +4924,9 @@ sales:
   client_id:
     type: integer
     references: entity
+    required: true
+  computation_method:
+    type: string
     required: true
   conclusion:
     type: text

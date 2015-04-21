@@ -485,11 +485,15 @@
   // Toggle visibility
   $(document).on("click", "a[data-toggle-with]", function (event) {
     var element = $(this);
+    var scope = $("html");
+    if (element.data("use-closest")) {
+      scope = element.closest(element.data("use-closest"));
+    }
     if (element.is(":visible")) {
       element.hide();
-      $(element.data('toggle-with')).show();
+      scope.find(element.data('toggle-with')).show();
     } else {
-      $(element.data('toggle-with')).hide()
+      scope.find(element.data('toggle-with')).hide();
       element.show();
     }
     return false;

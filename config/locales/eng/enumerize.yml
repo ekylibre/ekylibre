@@ -86,6 +86,16 @@ eng:
         per_production: "Per production"
         per_production_support: "Per production support"
         per_working_unit: "Per working unit"
+    purchase:
+      computation_method:
+        adaptative: "Adaptative"
+        quantity_tax: "Quantity-Tax"
+        tax_quantity: "Tax-Quantity"
+    sale:
+      computation_method:
+        adaptative: "Adaptative"
+        quantity_tax: "Quantity-Tax"
+        tax_quantity: "Tax-Quantity"
     sequence:
       period:
         cweek: "Commercial week"

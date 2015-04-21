@@ -1,5 +1,6 @@
-@import "compass/css3/columns";
 @import "compass/css3/background-size";
+@import "compass/css3/box-sizing";
+@import "compass/css3/columns";
 
 #top {
   margin-bottom: 0;
@@ -2364,6 +2365,28 @@ svg.map {
   &.with-fixed-asset {
     .with-fixed-asset {
       display: block;
+    }
+  }
+}
+
+.annotable {
+  white-space: nowrap;
+}
+
+a[data-annotate] {
+  padding: round(0.5 * $default-gap);
+  i {
+    @include is-icon(14px);
+    @include use-icon(align-justify);
+  }
+}
+
+.nested-fields {
+  .annotate {
+    textarea {
+      @include box-sizing(border-box);
+      margin: $default-gap 0 0;
+      width: 100%;
     }
   }
 }

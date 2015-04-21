@@ -23,7 +23,6 @@
 # == Table: sale_items
 #
 #  account_id                 :integer
-#  all_taxes_included         :boolean          default(FALSE), not null
 #  amount                     :decimal(19, 4)   default(0.0), not null
 #  annotation                 :text
 #  created_at                 :datetime         not null
@@ -39,6 +38,7 @@
 #  reduced_unit_amount        :decimal(19, 4)   default(0.0), not null
 #  reduced_unit_pretax_amount :decimal(19, 4)   default(0.0), not null
 #  reduction_percentage       :decimal(19, 4)   default(0.0), not null
+#  reference_value            :string           not null
 #  sale_id                    :integer          not null
 #  tax_id                     :integer
 #  unit_amount                :decimal(19, 4)   default(0.0), not null
@@ -51,6 +51,7 @@
 
 class SaleItem < Ekylibre::Record::Base
   include PeriodicCalculable
+  enumerize :reference_value, in: [:unit_pretax_amount, :unit_amount, :pretax_amount, :amount], default: :unit_pretax_amount
   attr_readonly :sale_id
   belongs_to :account
   belongs_to :sale, inverse_of: :items
@@ -64,8 +65,7 @@ class SaleItem < Ekylibre::Record::Base
   has_one :sale_nature, through: :sale, source: :nature
 
   accepts_nested_attributes_for :subscriptions
-  delegate :sold?, to: :sale
-  delegate :invoiced_at, :number, to: :sale
+  delegate :sold?, :invoiced_at, :number, :computation_method_quantity_tax?, :computation_method_tax_quantity?, :computation_method_adaptative?, to: :sale
   delegate :currency, to: :sale, prefix: true
   delegate :name, :short_label, to: :tax, prefix: true
   delegate :nature, :name, to: :variant, prefix: true
@@ -81,8 +81,7 @@ class SaleItem < Ekylibre::Record::Base
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :quantity, :reduced_unit_amount, :reduced_unit_pretax_amount, :reduction_percentage, :unit_amount, :unit_pretax_amount, allow_nil: true
-  validates_inclusion_of :all_taxes_included, in: [true, false]
-  validates_presence_of :amount, :currency, :pretax_amount, :quantity, :reduced_unit_amount, :reduced_unit_pretax_amount, :reduction_percentage, :sale, :unit_amount, :variant
+  validates_presence_of :amount, :currency, :pretax_amount, :quantity, :reduced_unit_amount, :reduced_unit_pretax_amount, :reduction_percentage, :reference_value, :sale, :unit_amount, :variant
   #]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_presence_of :tax
@@ -119,9 +118,22 @@ class SaleItem < Ekylibre::Record::Base
 
     self.reduction_percentage ||= 0
     if self.quantity and self.unit_pretax_amount and self.tax
-      self.unit_amount = self.tax.amount_of(self.unit_pretax_amount).round(precision)
-      self.pretax_amount = (self.quantity * self.unit_pretax_amount * (100.0 - self.reduction_percentage) / 100.0).round(precision)
-      self.amount = self.tax.amount_of(self.pretax_amount).round(precision)
+      adaptative_method = nil
+      if self.computation_method_adaptative?
+        if self.unit_pretax_amount >= 10 ** self.tax.amount.decimal_count
+          adaptative_method = :tax_quantity
+        else
+          adaptative_method = :quantity_tax
+        end
+      end
+      reduction_rate = (100.0 - self.reduction_percentage) / 100.0
+      self.unit_amount   = self.tax.amount_of(self.unit_pretax_amount).round(precision)
+      self.pretax_amount = (self.quantity * self.unit_pretax_amount * reduction_rate).round(precision)
+      if self.computation_method_quantity_tax? or adaptative_method == :quantity_tax
+        self.amount        = self.tax.amount_of(self.pretax_amount).round(precision)
+      elsif self.computation_method_tax_quantity? or adaptative_method == :tax_quantity
+        self.amount        = (self.quantity * self.unit_amount * reduction_rate).round(precision)
+      end
       self.reduced_unit_pretax_amount = (self.unit_pretax_amount * (100.0 - self.reduction_percentage) / 100.0)
       self.reduced_unit_amount = (self.unit_amount * (100.0 - self.reduction_percentage) / 100.0)
     end
