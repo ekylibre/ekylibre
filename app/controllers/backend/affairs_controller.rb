@@ -77,7 +77,7 @@ class Backend::AffairsController < Backend::BaseController
   def redirect_to_best_page(affair = nil)
     affair ||= @affair
     originator = affair.originator
-    redirect_to params[:redirect] || (originator ? {controller: originator.class_name.tableize, action: :show, id: originator.id} : {action: show, id: affair.id}), status: :not_found
+    redirect_to params[:redirect] || (originator ? {controller: originator.class.name.tableize, action: :show, id: originator.id} : {action: :show, id: affair.id})
   end
 
 end

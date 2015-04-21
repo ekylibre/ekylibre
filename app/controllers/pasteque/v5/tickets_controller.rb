@@ -20,7 +20,7 @@ class Pasteque::V5::TicketsController < Pasteque::V5::BaseController
     payments: :incoming_payments,
     lines: :affairs
   }
-  manage_restfully except: [:new, :edit], model: :sale_ticket, scope: :tickets, search_filters: search_filters, update_filters: update_filters
+  manage_restfully except: [:new, :edit], model: :sale_ticket, search_filters: search_filters, update_filters: update_filters
 
   def open
     @records = model.tickets.openeds

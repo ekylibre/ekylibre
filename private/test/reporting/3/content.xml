@@ -33,7 +33,7 @@
       <fieldDescription><![CDATA[taxes-amount]]></fieldDescription>
     </field>
     <field name="taxe_name" class="java.lang.String">
-      <fieldDescription><![CDATA[tax-name]]></fieldDescription>
+      <fieldDescription><![CDATA[tax-short-label]]></fieldDescription>
     </field>
     <field name="unit_name" class="java.lang.String">
       <fieldDescription><![CDATA[variant/unit-name]]></fieldDescription>

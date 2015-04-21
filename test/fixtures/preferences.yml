@@ -2766,3 +2766,45 @@ preferences_233:
   updated_at: 2015-03-23 09:31:35.815442000 Z
   updater_id: 1
   user_id: 1
+preferences_234:
+  created_at: 2015-04-20 21:49:51.407127000 Z
+  creator_id: 1
+  id: 234
+  lock_version: 0
+  name: kujaku.criteria.app/views/backend/sale_opportunities/index.html.haml:1:0.default
+  nature: string
+  updated_at: 2015-04-20 21:49:51.407127000 Z
+  updater_id: 1
+  user_id: 1
+preferences_235:
+  boolean_value: true
+  created_at: 2015-04-20 21:49:51.449878000 Z
+  creator_id: 1
+  id: 235
+  lock_version: 0
+  name: interface.kujakus.backend-sale_opportunities-index-1.collapsed
+  nature: boolean
+  updated_at: 2015-04-20 21:49:51.449878000 Z
+  updater_id: 1
+  user_id: 1
+preferences_236:
+  created_at: 2015-04-20 21:49:51.455625000 Z
+  creator_id: 1
+  id: 236
+  lock_version: 0
+  name: list._sale_opportunities_list_sale_opportunities_tag
+  nature: string
+  string_value: {}
+  updated_at: 2015-04-20 21:49:51.455625000 Z
+  updater_id: 1
+  user_id: 1
+preferences_237:
+  created_at: 2015-04-21 08:18:43.518893000 Z
+  creator_id: 1
+  id: 237
+  lock_version: 0
+  name: kujaku.criteria.app/views/backend/entities/index.html.haml:1:0.default
+  nature: string
+  updated_at: 2015-04-21 08:18:43.518893000 Z
+  updater_id: 1
+  user_id: 1

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="vat_taxe_registry" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
   <property name="ireport.zoom" value="1.3310000000000013"/>
   <property name="ireport.x" value="0"/>
-  <property name="ireport.y" value="0"/>
+  <property name="ireport.y" value="192"/>
   <template><![CDATA["../../corporate_identity/reporting_style.xml"]]></template>
   <style name="Title" fontName="Open Sans" fontSize="30" isBold="true" pdfFontName="Open Sans"/>
   <style name="SubTitle" forecolor="#736343" fontName="Open Sans" fontSize="18"/>
@@ -41,6 +41,44 @@
   </style>
   <subDataset name="sales" uuid="f4727b5d-6769-4ffc-89f4-d36d60c94281">
     <queryString language="xPath"><![CDATA[/financial-years/tax/sale-items/sale-item]]></queryString>
+    <field name="id" class="java.lang.String">
+      <fieldDescription><![CDATA[id]]></fieldDescription>
+    </field>
+    <field name="number" class="java.lang.String">
+      <fieldDescription><![CDATA[number]]></fieldDescription>
+    </field>
+    <field name="invoiced-at" class="java.util.Date">
+      <fieldDescription><![CDATA[invoiced-at]]></fieldDescription>
+    </field>
+    <field name="pretax-amount" class="java.lang.String">
+      <fieldDescription><![CDATA[pretax-amount]]></fieldDescription>
+    </field>
+    <field name="amount" class="java.lang.String">
+      <fieldDescription><![CDATA[amount]]></fieldDescription>
+    </field>
+    <field name="payment-ratio" class="java.lang.String">
+      <fieldDescription><![CDATA[payment-ratio]]></fieldDescription>
+    </field>
+    <field name="taxes-amount" class="java.lang.String">
+      <fieldDescription><![CDATA[taxes-amount]]></fieldDescription>
+    </field>
+    <field name="tax-short-label" class="java.lang.String">
+      <fieldDescription><![CDATA[tax-short-label]]></fieldDescription>
+    </field>
+    <field name="tax-name" class="java.lang.String">
+      <fieldDescription><![CDATA[tax-short-label]]></fieldDescription>
+    </field>
+    <sortField name="invoiced-at"/>
+    <sortField name="tax-name"/>
+    <variable name="v_taxes_amount" class="java.lang.Double" resetType="Group" resetGroup="months">
+      <variableExpression><![CDATA[Double.valueOf($F{taxes-amount})]]></variableExpression>
+    </variable>
+    <variable name="v_taxes_amount_payee" class="java.lang.Double" resetType="Group" resetGroup="months">
+      <variableExpression><![CDATA[Double.valueOf($F{taxes-amount})*Double.valueOf($F{payment-ratio})]]></variableExpression>
+    </variable>
+    <group name="months">
+      <groupExpression><![CDATA[($F{invoiced-at}.getYear() + 1900) + ($F{invoiced-at}.getMonth() +1 )]]></groupExpression>
+    </group>
   </subDataset>
   <subDataset name="purchases" uuid="5df066eb-23eb-4a1b-8a78-ea11d0dedb54">
     <parameter name="reference-name" class="java.lang.String"/>
@@ -70,15 +108,21 @@
       <fieldDescription><![CDATA[ancestor::tax/@amount]]></fieldDescription>
     </field>
     <field name="tax-name" class="java.lang.String">
-      <fieldDescription><![CDATA[tax-name]]></fieldDescription>
+      <fieldDescription><![CDATA[tax-short-label]]></fieldDescription>
     </field>
     <field name="tax-reference-name" class="java.lang.String">
       <fieldDescription><![CDATA[ancestor::tax/@reference-name]]></fieldDescription>
+    </field>
+    <field name="payment-ratio" class="java.lang.String">
+      <fieldDescription><![CDATA[payment-ratio]]></fieldDescription>
     </field>
     <sortField name="invoiced-at"/>
     <sortField name="tax-name"/>
     <variable name="v_taxes_amount" class="java.lang.Double" resetType="Group" resetGroup="months">
       <variableExpression><![CDATA[Double.valueOf($F{taxes-amount})]]></variableExpression>
+    </variable>
+    <variable name="v_taxes_amount_payee" class="java.lang.Double" resetType="Group" resetGroup="months">
+      <variableExpression><![CDATA[Double.valueOf($F{taxes-amount})*Double.valueOf($F{payment-ratio})]]></variableExpression>
     </variable>
     <group name="months">
       <groupExpression><![CDATA[($F{invoiced-at}.getYear() + 1900) + ($F{invoiced-at}.getMonth() +1 )]]></groupExpression>
@@ -190,9 +234,9 @@
     </band>
   </lastPageFooter>
   <summary>
-    <band height="251">
+    <band height="627">
       <crosstab>
-        <reportElement stretchType="RelativeToTallestObject" x="0" y="32" width="555" height="205" uuid="630961b9-b519-40cc-9c4e-255b4812ecb6"/>
+        <reportElement stretchType="RelativeToTallestObject" x="0" y="64" width="555" height="173" uuid="630961b9-b519-40cc-9c4e-255b4812ecb6"/>
         <crosstabDataset>
           <dataset>
             <datasetRun subDataset="purchases" uuid="7da896df-dad9-467b-91b6-565f46d63ecb">
@@ -201,7 +245,7 @@
             </datasetRun>
           </dataset>
         </crosstabDataset>
-        <rowGroup name="invoiced-at" width="70" totalPosition="End">
+        <rowGroup name="invoiced-at" width="51" totalPosition="End">
           <bucket class="java.lang.String">
             <bucketExpression><![CDATA[(new SimpleDateFormat("yyyy")).format($F{invoiced-at})]]></bucketExpression>
           </bucket>
@@ -211,7 +255,7 @@
                 <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
               </box>
               <textField pattern="dyyyy" isBlankWhenNull="true">
-                <reportElement style="Crosstab Data Text" x="0" y="0" width="70" height="91" uuid="141e2f79-ab90-44cb-ad05-118659b96825"/>
+                <reportElement style="Crosstab Data Text" x="0" y="0" width="51" height="91" uuid="141e2f79-ab90-44cb-ad05-118659b96825"/>
                 <textElement verticalAlignment="Middle"/>
                 <textFieldExpression><![CDATA[$V{invoiced-at}]]></textFieldExpression>
               </textField>
@@ -223,14 +267,14 @@
                 <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
               </box>
               <staticText>
-                <reportElement x="0" y="0" width="140" height="25" forecolor="#FFFFFF" uuid="e8866577-b0e2-446a-adba-5c0958da6cca"/>
+                <reportElement x="0" y="0" width="105" height="25" forecolor="#FFFFFF" uuid="e8866577-b0e2-446a-adba-5c0958da6cca"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle"/>
                 <text><![CDATA[Total TVA]]></text>
               </staticText>
             </cellContents>
           </crosstabTotalRowHeader>
         </rowGroup>
-        <rowGroup name="invoiced-at1" width="70" totalPosition="End">
+        <rowGroup name="invoiced-at1" width="54" totalPosition="End">
           <bucket class="java.lang.String">
             <bucketExpression><![CDATA[(new SimpleDateFormat("yyyy-MM")).format($F{invoiced-at})]]></bucketExpression>
           </bucket>
@@ -240,7 +284,7 @@
                 <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
               </box>
               <textField pattern="MMM-yy" isBlankWhenNull="true">
-                <reportElement style="Crosstab Data Text" x="0" y="0" width="70" height="40" uuid="fff9f99d-30fa-4e72-b9db-d95307dfed63"/>
+                <reportElement style="Crosstab Data Text" x="0" y="0" width="54" height="40" uuid="fff9f99d-30fa-4e72-b9db-d95307dfed63"/>
                 <textElement verticalAlignment="Middle"/>
                 <textFieldExpression><![CDATA[$V{invoiced-at1}]]></textFieldExpression>
               </textField>
@@ -252,14 +296,14 @@
                 <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
               </box>
               <staticText>
-                <reportElement x="0" y="0" width="70" height="25" uuid="5f7a5a18-ceec-4be0-9641-32e4ec73af5a"/>
+                <reportElement x="0" y="0" width="54" height="25" uuid="5f7a5a18-ceec-4be0-9641-32e4ec73af5a"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                   <font isBold="false"/>
                 </textElement>
                 <text><![CDATA[Total TVA]]></text>
               </staticText>
               <staticText>
-                <reportElement x="0" y="25" width="70" height="26" uuid="8da480f6-18a4-4799-8e4d-6a42fde45c25"/>
+                <reportElement x="0" y="25" width="54" height="26" uuid="8da480f6-18a4-4799-8e4d-6a42fde45c25"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                   <font size="8" isBold="false"/>
                 </textElement>
@@ -278,7 +322,7 @@
                 <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
               </box>
               <textField isBlankWhenNull="true">
-                <reportElement style="Crosstab Data Text" x="0" y="0" width="59" height="30" uuid="a93c8610-0963-4a6b-b2e5-6ac4f46db413"/>
+                <reportElement style="Crosstab Data Text" x="0" y="0" width="92" height="30" uuid="a93c8610-0963-4a6b-b2e5-6ac4f46db413"/>
                 <textElement verticalAlignment="Middle"/>
                 <textFieldExpression><![CDATA[$V{tax-reference-name}]]></textFieldExpression>
               </textField>
@@ -303,34 +347,41 @@
         <measure name="v_pretax_amountMeasure" class="java.lang.Double" calculation="Sum">
           <measureExpression><![CDATA[Double.valueOf($F{pretax-amount})]]></measureExpression>
         </measure>
-        <crosstabCell width="59" height="40">
+        <measure name="v_taxe_amount_payee" class="java.lang.Double" calculation="Sum">
+          <measureExpression><![CDATA[$V{v_taxes_amount_payee}]]></measureExpression>
+        </measure>
+        <crosstabCell width="92" height="40">
           <cellContents>
             <box>
               <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
             </box>
             <textField pattern="###0.00" isBlankWhenNull="true">
-              <reportElement style="Crosstab Data Text" x="0" y="0" width="59" height="20" uuid="7ca49a0d-bf14-42bb-aeb9-ff0933b8d096"/>
+              <reportElement style="Crosstab Data Text" x="0" y="0" width="49" height="27" uuid="7ca49a0d-bf14-42bb-aeb9-ff0933b8d096"/>
               <textElement verticalAlignment="Middle">
-                <font isBold="true"/>
+                <font size="9" isBold="true"/>
               </textElement>
               <textFieldExpression><![CDATA[$V{v_taxes_amountMeasure}]]></textFieldExpression>
             </textField>
             <textField pattern="###0.00" isBlankWhenNull="true">
-              <reportElement style="Crosstab Data Text" x="0" y="20" width="59" height="20" uuid="6546b841-210d-43e0-994f-b84d5009c7e3"/>
-              <textElement>
-                <font size="8"/>
-              </textElement>
+              <reportElement style="Crosstab Data Text" x="0" y="27" width="92" height="13" uuid="6546b841-210d-43e0-994f-b84d5009c7e3"/>
               <textFieldExpression><![CDATA[$V{v_pretax_amountMeasure}]]></textFieldExpression>
+            </textField>
+            <textField pattern="###0.00" isBlankWhenNull="true">
+              <reportElement style="Crosstab Data Text" x="49" y="0" width="43" height="27" forecolor="#FF9900" uuid="a8143ca7-2d03-4e3d-82e9-48bfd5c0e823"/>
+              <textElement verticalAlignment="Middle">
+                <font size="9" isBold="true"/>
+              </textElement>
+              <textFieldExpression><![CDATA[$V{v_taxe_amount_payee}]]></textFieldExpression>
             </textField>
           </cellContents>
         </crosstabCell>
-        <crosstabCell width="59" height="25" rowTotalGroup="invoiced-at">
+        <crosstabCell width="92" height="25" rowTotalGroup="invoiced-at">
           <cellContents backcolor="#005FB3" mode="Opaque">
             <box>
               <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
             </box>
             <textField pattern="###0.00" isBlankWhenNull="true">
-              <reportElement style="Crosstab Data Text" x="0" y="0" width="59" height="25" forecolor="#FFFFFF" uuid="c2aeef9d-767e-4a70-b46c-fe3dcc8c778d"/>
+              <reportElement style="Crosstab Data Text" x="0" y="0" width="92" height="25" forecolor="#FFFFFF" uuid="c2aeef9d-767e-4a70-b46c-fe3dcc8c778d"/>
               <textElement verticalAlignment="Middle"/>
               <textFieldExpression><![CDATA[$V{v_taxes_amountMeasure}]]></textFieldExpression>
             </textField>
@@ -369,24 +420,29 @@
             </textField>
           </cellContents>
         </crosstabCell>
-        <crosstabCell width="59" height="51" rowTotalGroup="invoiced-at1">
+        <crosstabCell width="92" height="51" rowTotalGroup="invoiced-at1">
           <cellContents backcolor="#BFE1FF" mode="Opaque">
             <box>
               <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
             </box>
             <textField pattern="###0.00">
-              <reportElement style="Crosstab Data Text" x="0" y="0" width="59" height="25" uuid="bc7c813e-e459-4ac9-a573-7c1e20182f60"/>
+              <reportElement style="Crosstab Data Text" x="0" y="0" width="49" height="25" uuid="bc7c813e-e459-4ac9-a573-7c1e20182f60"/>
               <textElement verticalAlignment="Middle">
-                <font isBold="true"/>
+                <font size="9" isBold="true"/>
               </textElement>
               <textFieldExpression><![CDATA[$V{v_taxes_amountMeasure}]]></textFieldExpression>
             </textField>
             <textField pattern="###0.00" isBlankWhenNull="true">
-              <reportElement style="Crosstab Data Text" x="0" y="25" width="59" height="25" uuid="b9e9e780-b428-4eb0-95e4-310feec10298"/>
-              <textElement verticalAlignment="Middle">
-                <font size="8"/>
-              </textElement>
+              <reportElement style="Crosstab Data Text" x="0" y="25" width="92" height="25" uuid="b9e9e780-b428-4eb0-95e4-310feec10298"/>
+              <textElement verticalAlignment="Middle"/>
               <textFieldExpression><![CDATA[$V{v_pretax_amountMeasure}]]></textFieldExpression>
+            </textField>
+            <textField pattern="###0.00" isBlankWhenNull="true">
+              <reportElement style="Crosstab Data Text" x="49" y="0" width="43" height="25" forecolor="#FF9900" uuid="0f609693-e9c8-4fec-851a-199dc1f2279b"/>
+              <textElement verticalAlignment="Middle">
+                <font size="9" isBold="true"/>
+              </textElement>
+              <textFieldExpression><![CDATA[$V{v_taxe_amount_payee}]]></textFieldExpression>
             </textField>
           </cellContents>
         </crosstabCell>
@@ -413,12 +469,266 @@
         </crosstabCell>
       </crosstab>
       <staticText>
-        <reportElement style="sub-title" x="2" y="0" width="552" height="32" uuid="626859cf-0807-49e5-b4f4-d3be7c9cc610"/>
+        <reportElement style="label-strong" x="2" y="0" width="422" height="50" uuid="626859cf-0807-49e5-b4f4-d3be7c9cc610"/>
         <textElement verticalAlignment="Middle">
-          <font isBold="true"/>
+          <font size="14" isBold="true"/>
           <paragraph leftIndent="30"/>
         </textElement>
-        <text><![CDATA[Achats (TVA et HT)]]></text>
+        <text><![CDATA[Achats]]></text>
+      </staticText>
+      <staticText>
+        <reportElement x="422" y="0" width="67" height="30" uuid="bd14fe92-c0d8-4b74-97e5-cfc306d190bf"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font isBold="true"/>
+        </textElement>
+        <text><![CDATA[Montant TVA Facturés]]></text>
+      </staticText>
+      <staticText>
+        <reportElement x="489" y="0" width="66" height="30" forecolor="#FF9900" uuid="ae7a79b6-1907-41db-92e1-67a56e7b442a"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font isBold="true"/>
+        </textElement>
+        <text><![CDATA[Montant TVA Payés]]></text>
+      </staticText>
+      <staticText>
+        <reportElement x="424" y="30" width="130" height="20" uuid="678ecce9-0640-445b-b507-2e74db4bb535"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font isBold="false"/>
+        </textElement>
+        <text><![CDATA[Montant HT Facturés]]></text>
+      </staticText>
+      <rectangle>
+        <reportElement mode="Transparent" x="424" y="0" width="131" height="50" uuid="c01c80a5-194a-4b6e-b03e-eef4ef2caddf"/>
+      </rectangle>
+      <break>
+        <reportElement x="0" y="243" width="100" height="1" uuid="5114a624-b58e-45a8-9015-e383dfe98949"/>
+      </break>
+      <crosstab>
+        <reportElement x="0" y="325" width="555" height="302" uuid="7204c63f-9d60-46d7-9e85-064979646b09"/>
+        <crosstabDataset>
+          <dataset>
+            <datasetRun subDataset="sales" uuid="71af0eb7-ef37-4b00-8932-5c6acb3ca596">
+              <parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+              <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+            </datasetRun>
+          </dataset>
+        </crosstabDataset>
+        <rowGroup name="invoiced-at" width="70" totalPosition="End">
+          <bucket class="java.lang.String">
+            <bucketExpression><![CDATA[(new SimpleDateFormat("yyyy")).format($F{invoiced-at})]]></bucketExpression>
+          </bucket>
+          <crosstabRowHeader>
+            <cellContents backcolor="#F0F8FF" mode="Opaque">
+              <box>
+                <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+              </box>
+              <textField>
+                <reportElement style="Crosstab Data Text" x="0" y="0" width="70" height="67" uuid="b5b61c7a-023c-4a0e-b7ff-6cb35f60dfc7"/>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$V{invoiced-at}]]></textFieldExpression>
+              </textField>
+            </cellContents>
+          </crosstabRowHeader>
+          <crosstabTotalRowHeader>
+            <cellContents backcolor="#005FB3" mode="Opaque">
+              <box>
+                <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+              </box>
+              <staticText>
+                <reportElement x="0" y="0" width="140" height="25" forecolor="#FFFFFF" uuid="1f90a319-2e06-42b4-81c6-740441afebc8"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <text><![CDATA[Totaux]]></text>
+              </staticText>
+            </cellContents>
+          </crosstabTotalRowHeader>
+        </rowGroup>
+        <rowGroup name="invoiced-at1" width="70" totalPosition="End">
+          <bucket class="java.lang.String">
+            <bucketExpression><![CDATA[(new SimpleDateFormat("yyyy-MM")).format($F{invoiced-at})]]></bucketExpression>
+          </bucket>
+          <crosstabRowHeader>
+            <cellContents backcolor="#F0F8FF" mode="Opaque">
+              <box>
+                <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+              </box>
+              <textField>
+                <reportElement style="Crosstab Data Text" x="0" y="0" width="70" height="42" uuid="23049be8-5a6c-41ca-8bcb-a8552086dcbb"/>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$V{invoiced-at1}]]></textFieldExpression>
+              </textField>
+            </cellContents>
+          </crosstabRowHeader>
+          <crosstabTotalRowHeader>
+            <cellContents backcolor="#BFE1FF" mode="Opaque">
+              <box>
+                <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+              </box>
+              <staticText>
+                <reportElement x="0" y="0" width="70" height="25" uuid="ff761020-845e-492a-ba5b-d8c2f6411400"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <text><![CDATA[Total]]></text>
+              </staticText>
+            </cellContents>
+          </crosstabTotalRowHeader>
+        </rowGroup>
+        <columnGroup name="tax-short-label" height="30" totalPosition="End">
+          <bucket class="java.lang.String">
+            <bucketExpression><![CDATA[$F{tax-short-label}]]></bucketExpression>
+          </bucket>
+          <crosstabColumnHeader>
+            <cellContents backcolor="#F0F8FF" mode="Opaque">
+              <box>
+                <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+              </box>
+              <textField>
+                <reportElement style="Crosstab Data Text" x="0" y="0" width="72" height="30" uuid="67fcf3d7-3ee5-4543-95bf-2311e6cc5cf7"/>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$V{tax-short-label}]]></textFieldExpression>
+              </textField>
+            </cellContents>
+          </crosstabColumnHeader>
+          <crosstabTotalColumnHeader>
+            <cellContents backcolor="#BFE1FF" mode="Opaque">
+              <box>
+                <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+              </box>
+              <staticText>
+                <reportElement x="0" y="0" width="50" height="30" uuid="1110621c-c5c8-400b-b80a-e55274f86eb1"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <text><![CDATA[Total]]></text>
+              </staticText>
+            </cellContents>
+          </crosstabTotalColumnHeader>
+        </columnGroup>
+        <measure name="v_taxes_amountMeasure" class="java.lang.Double" calculation="Sum">
+          <measureExpression><![CDATA[$V{v_taxes_amount}]]></measureExpression>
+        </measure>
+        <measure name="v_pretax_amountMeasure" class="java.lang.Double" calculation="Sum">
+          <measureExpression><![CDATA[Double.valueOf($F{pretax-amount})]]></measureExpression>
+        </measure>
+        <measure name="v_taxes_amount_payee" class="java.lang.Double" calculation="Sum">
+          <measureExpression><![CDATA[$V{v_taxes_amount_payee}]]></measureExpression>
+        </measure>
+        <crosstabCell width="72" height="42">
+          <cellContents>
+            <box>
+              <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+            </box>
+            <textField pattern="###0.00" isBlankWhenNull="true">
+              <reportElement style="Crosstab Data Text" x="0" y="0" width="35" height="25" uuid="aece6538-cbb2-47f7-a385-f78c4db778a6"/>
+              <textElement verticalAlignment="Middle">
+                <font size="9" isBold="true"/>
+              </textElement>
+              <textFieldExpression><![CDATA[$V{v_taxes_amountMeasure}]]></textFieldExpression>
+            </textField>
+            <textField pattern="###0.00" isBlankWhenNull="true">
+              <reportElement style="Crosstab Data Text" x="35" y="0" width="37" height="25" forecolor="#FF9900" uuid="f0527e3e-c43a-4c2b-80c2-80d90848e309"/>
+              <textElement verticalAlignment="Middle">
+                <font size="9"/>
+              </textElement>
+              <textFieldExpression><![CDATA[$V{v_taxes_amount_payee}]]></textFieldExpression>
+            </textField>
+            <textField>
+              <reportElement style="Crosstab Data Text" x="0" y="25" width="72" height="17" uuid="cda551b6-2f43-499b-8b42-a44fb0b5a5b4"/>
+              <textElement verticalAlignment="Middle">
+                <font size="10"/>
+              </textElement>
+              <textFieldExpression><![CDATA[$V{v_pretax_amountMeasure}]]></textFieldExpression>
+            </textField>
+          </cellContents>
+        </crosstabCell>
+        <crosstabCell width="72" height="25" rowTotalGroup="invoiced-at">
+          <cellContents backcolor="#005FB3" mode="Opaque">
+            <box>
+              <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+            </box>
+            <textField>
+              <reportElement style="Crosstab Data Text" x="0" y="0" width="61" height="25" forecolor="#FFFFFF" uuid="92a15f36-2a02-4b9d-b427-ba9479fe6de8"/>
+              <textElement verticalAlignment="Middle"/>
+              <textFieldExpression><![CDATA[$V{v_taxes_amountMeasure}]]></textFieldExpression>
+            </textField>
+          </cellContents>
+        </crosstabCell>
+        <crosstabCell width="50" height="42" columnTotalGroup="tax-short-label">
+          <cellContents backcolor="#BFE1FF" mode="Opaque">
+            <box>
+              <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+            </box>
+            <textField>
+              <reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="fada6dc3-2f09-442c-9497-5ea4f27c156b"/>
+              <textElement verticalAlignment="Middle"/>
+              <textFieldExpression><![CDATA[$V{v_taxes_amountMeasure}]]></textFieldExpression>
+            </textField>
+          </cellContents>
+        </crosstabCell>
+        <crosstabCell height="25" rowTotalGroup="invoiced-at" columnTotalGroup="tax-short-label">
+          <cellContents backcolor="#005FB3" mode="Opaque">
+            <box>
+              <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+            </box>
+            <textField>
+              <reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" forecolor="#FFFFFF" uuid="77716dac-7d04-4559-86e9-e034a7378340"/>
+              <textElement verticalAlignment="Middle"/>
+              <textFieldExpression><![CDATA[$V{v_taxes_amountMeasure}]]></textFieldExpression>
+            </textField>
+          </cellContents>
+        </crosstabCell>
+        <crosstabCell width="72" height="25" rowTotalGroup="invoiced-at1">
+          <cellContents backcolor="#BFE1FF" mode="Opaque">
+            <box>
+              <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+            </box>
+            <textField>
+              <reportElement style="Crosstab Data Text" x="0" y="0" width="61" height="25" uuid="0499b668-a2f6-4a0e-850d-0cb12a564d58"/>
+              <textElement verticalAlignment="Middle"/>
+              <textFieldExpression><![CDATA[$V{v_taxes_amountMeasure}]]></textFieldExpression>
+            </textField>
+          </cellContents>
+        </crosstabCell>
+        <crosstabCell rowTotalGroup="invoiced-at1" columnTotalGroup="tax-short-label">
+          <cellContents backcolor="#BFE1FF" mode="Opaque">
+            <box>
+              <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+            </box>
+            <textField>
+              <reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="ca803e08-ace0-4771-af89-aa7dd4e50e3b"/>
+              <textElement verticalAlignment="Middle"/>
+              <textFieldExpression><![CDATA[$V{v_taxes_amountMeasure}]]></textFieldExpression>
+            </textField>
+          </cellContents>
+        </crosstabCell>
+      </crosstab>
+      <staticText>
+        <reportElement style="label-strong" x="2" y="255" width="422" height="50" uuid="2b79cd24-670a-4cbb-8e9e-f1bd781738f0"/>
+        <textElement verticalAlignment="Middle">
+          <font size="14" isBold="true"/>
+          <paragraph leftIndent="30"/>
+        </textElement>
+        <text><![CDATA[Ventes]]></text>
+      </staticText>
+      <staticText>
+        <reportElement x="477" y="255" width="78" height="30" forecolor="#FF9900" uuid="558dd4a3-447c-4d9e-abb5-8dd3b638b6d0"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font isBold="true"/>
+        </textElement>
+        <text><![CDATA[Montant TVA Encaissés]]></text>
+      </staticText>
+      <staticText>
+        <reportElement x="422" y="255" width="55" height="30" uuid="3cbd707b-dd69-410f-a6c7-b969c46410ab"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font isBold="true"/>
+        </textElement>
+        <text><![CDATA[Montant TVA Facturés]]></text>
+      </staticText>
+      <rectangle>
+        <reportElement mode="Transparent" x="422" y="255" width="131" height="50" uuid="cca2f989-ce6d-400c-88fa-dca58ded0836"/>
+      </rectangle>
+      <staticText>
+        <reportElement x="424" y="285" width="130" height="20" uuid="1e0e2327-3e5f-4e12-b1a3-b2404fe47fa4"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font isBold="false"/>
+        </textElement>
+        <text><![CDATA[Montant HT Facturés]]></text>
       </staticText>
     </band>
   </summary>

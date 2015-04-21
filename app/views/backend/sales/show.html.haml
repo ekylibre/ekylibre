@@ -49,6 +49,7 @@
         - l.attribute :delivery_address, :label => :coordinate
         - l.attribute :invoice_address, :label => :coordinate
         - l.attribute(:journal_entry, url: true) if resource.journal_entry
+        - l.attribute(:affair, label: :number, url: true) if resource.affair
         - l.attribute :letter_format
         - if resource.letter_format?
           - l.attribute :subject

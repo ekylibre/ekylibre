@@ -10465,3 +10465,213 @@ versions_202:
     person_id:
     initial_shape:
   item_type: Matter
+versions_203:
+  created_at: 2015-04-20 21:54:28.942042000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 240
+  item_id: 32
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 32
+    number: A000000000025
+    closed: true
+    closed_at: 2015-04-20 21:54:28.888568000 Z
+    third_id: 4
+    currency: EUR
+    debit: !ruby/object:BigDecimal 18:0.0
+    credit: !ruby/object:BigDecimal 18:0.0
+    accounted_at: 2015-04-20 21:54:28.932522000 Z
+    journal_entry_id:
+    deals_count: 0
+    created_at: 2015-04-20 21:54:28.913373000 Z
+    creator_id: 1
+    cash_session_id:
+    responsible_id: 9
+    dead_line_at: 2222-10-01 23:00:00.000000000 Z
+    name: Test
+    description: ''
+    pretax_amount: !ruby/object:BigDecimal 18:0.1E5
+    origin: public_relations
+    type: SaleOpportunity
+    state: prospecting
+    probability_percentage: !ruby/object:BigDecimal 18:0.9E2
+    third_role: client
+  item_type: Affair
+versions_204:
+  created_at: 2015-04-20 21:55:12.006253000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 241
+  item_id: 33
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 33
+    number: A000000000026
+    closed: true
+    closed_at: 2015-04-20 21:55:11.978676000 Z
+    third_id: 7
+    currency: EUR
+    debit: !ruby/object:BigDecimal 18:0.0
+    credit: !ruby/object:BigDecimal 18:0.0
+    accounted_at: 2015-04-20 21:55:12.002775000 Z
+    journal_entry_id:
+    deals_count: 0
+    created_at: 2015-04-20 21:55:11.992672000 Z
+    creator_id: 1
+    cash_session_id:
+    responsible_id: 9
+    dead_line_at: 2999-12-31 23:00:00.000000000 Z
+    name: Third
+    description: ''
+    pretax_amount: !ruby/object:BigDecimal 18:0.56254E7
+    origin: trade_show
+    type: SaleOpportunity
+    state: prospecting
+    probability_percentage: !ruby/object:BigDecimal 18:0.5E2
+    third_role: client
+  item_type: Affair
+versions_205:
+  created_at: 2015-04-21 08:21:32.429598000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 242
+  item_id: 10
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 10
+    type: Person
+    nature: sir
+    last_name: FUYUTSUKI
+    first_name: Kōzō
+    number: '194'
+    active: true
+    born_at:
+    dead_at:
+    client: true
+    client_account_id: 210
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: fra
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+  item_type: Entity
+versions_206:
+  created_at: 2015-04-21 08:27:39.819191000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 243
+  item_id: 14
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 14
+    type:
+    nature: sir
+    last_name: "Περικλῆς"
+    first_name: ''
+    number: P00000004
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: false
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: fra
+    country: gr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2015-04-21 08:27:39.814863000 Z
+    creator_id: 1
+  item_type: Entity
+versions_207:
+  created_at: 2015-04-21 08:28:44.812598000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 244
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    client: false
+    country: gr
+  item_id: 14
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 14
+    type:
+    nature: sir
+    last_name: "Περικλῆς"
+    first_name: ''
+    number: P00000004
+    active: true
+    born_at:
+    dead_at:
+    client: true
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: false
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: fra
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2015-04-21 08:27:39.814863000 Z
+    creator_id: 1
+  item_type: Entity

@@ -257,3 +257,45 @@ entity_addresses_012:
   thread: AAAA
   updated_at: 2014-11-05 14:14:02.006894000 Z
   updater_id: 1
+entity_addresses_013:
+  by_default: true
+  canal: mail
+  coordinate: "冬月コウゾウ, 東京都中央区八重洲1-5-3, 東京中央郵便局, 〒100-8994, Japon"
+  created_at: 2015-04-21 08:21:32.441951000 Z
+  creator_id: 1
+  entity_id: 10
+  id: 13
+  lock_version: 1
+  mail_auto_update: false
+  mail_country: jp
+  mail_line_1: "冬月コウゾウ"
+  mail_line_2: ''
+  mail_line_3: ''
+  mail_line_4: "東京都中央区八重洲1-5-3"
+  mail_line_5: "東京中央郵便局"
+  mail_line_6: "〒100-8994"
+  mail_postal_zone_id: 8
+  thread: AAAA
+  updated_at: 2015-04-21 08:21:49.681315000 Z
+  updater_id: 1
+entity_addresses_014:
+  by_default: true
+  canal: mail
+  coordinate: "Περικλῆς, Ακρόπολη Αθηνών, Ἀθῆναι, Grèce"
+  created_at: 2015-04-21 08:27:39.829190000 Z
+  creator_id: 1
+  entity_id: 14
+  id: 14
+  lock_version: 2
+  mail_auto_update: true
+  mail_country: gr
+  mail_line_1: "Περικλῆς"
+  mail_line_2: ''
+  mail_line_3: "Ακρόπολη Αθηνών"
+  mail_line_4: ''
+  mail_line_5: ''
+  mail_line_6: "Ἀθῆναι"
+  mail_postal_zone_id: 11
+  thread: AAAA
+  updated_at: 2015-04-21 08:28:44.830658000 Z
+  updater_id: 1

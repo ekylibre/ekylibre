@@ -51,6 +51,6 @@
 #  updater_id             :integer
 #
 class SaleTicket < Affair
-  scope :tickets, -> { where(ticket: true) }
+  # scope :tickets, -> { where(ticket: true) }
   scope :openeds, -> { joins(:cash_session).where('cash_sessions.stopped_at IS NULL') }
 end

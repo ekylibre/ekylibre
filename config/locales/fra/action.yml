@@ -1698,7 +1698,7 @@ fra:
     use_incoming_payment: "Rattacher l’encaissement %{payment}"
     used_accounts: "Comptes utilisés seulement"
     user_name: "Nom d’utilisateur" #?
-    users: "Compte utilisateur"
+    users: "Utilisateurs"
     uses: "Matériel" #?
     valid: "Valider"
     validate: "Valider"

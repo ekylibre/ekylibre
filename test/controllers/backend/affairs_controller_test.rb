@@ -32,14 +32,14 @@ class Backend::AffairsControllerTest < ActionController::TestCase
     affair = affairs(:affairs_001)
     assert affair.valid?, "Affair 001 must be valid"
     post :attach, {id: affair.id}
-    assert_response :not_found, "Error expected with no given deal"
+    assert (flash["notifications"] and flash["notifications"]["error"].any?), "Error expected with no given deal (got #{flash.inspect})"
   end
 
   test "should not detach invalid deal" do
     affair = affairs(:affairs_001)
     assert affair.valid?, "Affair 001 must be valid"
     post :detach, {id: affair.id}
-    assert_response :not_found, "Error expected with no given deal"
+    assert (flash["notifications"] and flash["notifications"]["error"].any?), "Error expected with no given deal (got #{flash.inspect})"
   end
 
 end

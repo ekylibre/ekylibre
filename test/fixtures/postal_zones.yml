@@ -127,3 +127,51 @@ postal_zones_007:
   postal_code: '33600'
   updated_at: 2014-11-07 15:05:27.058795000 Z
   updater_id: 1
+postal_zones_008:
+  city: ''
+  city_name: ''
+  country: fr
+  created_at: 2015-04-21 08:21:32.413367000 Z
+  creator_id: 1
+  id: 8
+  lock_version: 0
+  name: "〒100-8994"
+  postal_code: "〒100-8994"
+  updated_at: 2015-04-21 08:21:32.413367000 Z
+  updater_id: 1
+postal_zones_009:
+  city: ''
+  city_name: ''
+  country: gr
+  created_at: 2015-04-21 08:27:39.802433000 Z
+  creator_id: 1
+  id: 9
+  lock_version: 0
+  name: "Ἀθῆναι"
+  postal_code: "Ἀθῆναι"
+  updated_at: 2015-04-21 08:27:39.802433000 Z
+  updater_id: 1
+postal_zones_010:
+  city: ''
+  city_name: ''
+  country: gr
+  created_at: 2015-04-21 08:27:39.836314000 Z
+  creator_id: 1
+  id: 10
+  lock_version: 0
+  name: "Ἀθῆναι"
+  postal_code: "Ἀθῆναι"
+  updated_at: 2015-04-21 08:27:39.836314000 Z
+  updater_id: 1
+postal_zones_011:
+  city: ''
+  city_name: ''
+  country: gr
+  created_at: 2015-04-21 08:28:44.825771000 Z
+  creator_id: 1
+  id: 11
+  lock_version: 0
+  name: "Ἀθῆναι"
+  postal_code: "Ἀθῆναι"
+  updated_at: 2015-04-21 08:28:44.825771000 Z
+  updater_id: 1

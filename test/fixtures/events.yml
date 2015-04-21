@@ -421,3 +421,29 @@ events_029:
   stopped_at: 2013-10-30 14:00:00.000000000 Z
   updated_at: 2014-11-07 19:36:53.119491000 Z
   updater_id: 1
+events_030:
+  created_at: 2015-04-21 08:22:33.207903000 Z
+  creator_id: 1
+  duration: 10
+  id: 38
+  lock_version: 0
+  name: Enregistrement d’une vente
+  nature: absence
+  restricted: false
+  started_at: 2015-04-21 08:22:33.196547000 Z
+  stopped_at: 2015-04-21 08:22:43.196547000 Z
+  updated_at: 2015-04-21 08:22:33.207903000 Z
+  updater_id: 1
+events_031:
+  created_at: 2015-04-21 08:29:05.202777000 Z
+  creator_id: 1
+  duration: 10
+  id: 39
+  lock_version: 0
+  name: Enregistrement d’une vente
+  nature: absence
+  restricted: false
+  started_at: 2015-04-21 08:29:05.195245000 Z
+  stopped_at: 2015-04-21 08:29:15.195245000 Z
+  updated_at: 2015-04-21 08:29:05.202777000 Z
+  updater_id: 1

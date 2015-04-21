@@ -57,7 +57,7 @@ class AffairTest < ActiveSupport::TestCase
 
   # check that every model that can be affairable
   def test_affairables
-    for type in Affair::AFFAIRABLE_TYPES
+    for type in Affair.affairable_types
       model = type.constantize
       assert model.respond_to?(:deal_third), "Model #{type} cannot be used with affairs"
     end

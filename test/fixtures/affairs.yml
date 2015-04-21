@@ -78,10 +78,12 @@ affairs_001:
   id: 4
   lock_version: 1
   number: A000004
-  originator_id: 1
-  originator_type: IncomingPayment
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  state: won
   third_id: 6
-  ticket: false
+  third_role: client
+  type: Affair
   updated_at: 2014-11-05 09:29:59.992533000 Z
   updater_id: 1
 affairs_002:
@@ -95,10 +97,12 @@ affairs_002:
   id: 5
   lock_version: 0
   number: A000005
-  originator_id: 3
-  originator_type: IncomingPayment
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  state: won
   third_id: 6
-  ticket: false
+  third_role: client
+  type: Affair
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 affairs_003:
@@ -114,10 +118,12 @@ affairs_003:
   id: 10
   lock_version: 5
   number: A000000000004
-  originator_id: 7
-  originator_type: Sale
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  state: won
   third_id: 7
-  ticket: false
+  third_role: client
+  type: Affair
   updated_at: 2014-11-05 09:58:26.794031000 Z
   updater_id: 1
 affairs_004:
@@ -132,10 +138,12 @@ affairs_004:
   id: 12
   lock_version: 1
   number: A000000000006
-  originator_id: 8
-  originator_type: Sale
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  state: won
   third_id: 13
-  ticket: false
+  third_role: client
+  type: Affair
   updated_at: 2014-11-05 10:02:28.482875000 Z
   updater_id: 1
 affairs_005:
@@ -151,10 +159,12 @@ affairs_005:
   id: 14
   lock_version: 3
   number: A000000000008
-  originator_id: 9
-  originator_type: Sale
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  state: won
   third_id: 10
-  ticket: false
+  third_role: client
+  type: Affair
   updated_at: 2014-11-05 13:35:14.615292000 Z
   updater_id: 1
 affairs_006:
@@ -170,10 +180,12 @@ affairs_006:
   id: 15
   lock_version: 2
   number: A000000000009
-  originator_id: 6
-  originator_type: Purchase
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  state: won
   third_id: 13
-  ticket: false
+  third_role: supplier
+  type: Affair
   updated_at: 2014-11-05 13:40:57.910272000 Z
   updater_id: 1
 affairs_007:
@@ -188,10 +200,12 @@ affairs_007:
   id: 16
   lock_version: 0
   number: A000000000010
-  originator_id: 7
-  originator_type: Purchase
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  state: won
   third_id: 4
-  ticket: false
+  third_role: supplier
+  type: Affair
   updated_at: 2014-11-05 10:46:06.163028000 Z
   updater_id: 1
 affairs_008:
@@ -207,10 +221,12 @@ affairs_008:
   id: 17
   lock_version: 4
   number: A000000000011
-  originator_id: 10
-  originator_type: Sale
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  state: won
   third_id: 10
-  ticket: false
+  third_role: client
+  type: Affair
   updated_at: 2014-11-05 13:36:51.542064000 Z
   updater_id: 1
 affairs_009:
@@ -224,10 +240,12 @@ affairs_009:
   id: 20
   lock_version: 1
   number: A000000000014
-  originator_id: 1
-  originator_type: IncomingPayment
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  state: won
   third_id: 6
-  ticket: false
+  third_role: client
+  type: Affair
   updated_at: 2014-11-05 14:05:57.543080000 Z
 affairs_010:
   accounted_at: 2014-11-05 14:07:45.804138000 Z
@@ -240,10 +258,12 @@ affairs_010:
   id: 21
   lock_version: 1
   number: A000000000015
-  originator_id: 3
-  originator_type: IncomingPayment
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  state: won
   third_id: 8
-  ticket: false
+  third_role: client
+  type: Affair
   updated_at: 2014-11-05 14:06:06.173578000 Z
 affairs_011:
   accounted_at: 2014-11-05 14:07:42.859080000 Z
@@ -256,10 +276,12 @@ affairs_011:
   id: 22
   lock_version: 1
   number: A000000000016
-  originator_id: 4
-  originator_type: IncomingPayment
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  state: won
   third_id: 8
-  ticket: false
+  third_role: client
+  type: Affair
   updated_at: 2014-11-05 14:06:11.334075000 Z
 affairs_012:
   accounted_at: 2014-11-07 13:58:25.770377000 Z
@@ -273,10 +295,12 @@ affairs_012:
   id: 23
   lock_version: 1
   number: A000000000017
-  originator_id: 1
-  originator_type: OutgoingPayment
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  state: won
   third_id: 6
-  ticket: false
+  third_role: client
+  type: Affair
   updated_at: 2014-11-05 14:11:50.255067000 Z
   updater_id: 1
 affairs_013:
@@ -290,10 +314,12 @@ affairs_013:
   id: 24
   lock_version: 1
   number: A000000000018
-  originator_id: 2
-  originator_type: IncomingPayment
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  state: won
   third_id: 6
-  ticket: false
+  third_role: client
+  type: Affair
   updated_at: 2014-11-07 13:55:38.866825000 Z
 affairs_014:
   accounted_at: 2014-11-07 13:58:35.237502000 Z
@@ -307,10 +333,12 @@ affairs_014:
   id: 25
   lock_version: 0
   number: A000000000019
-  originator_id: 2
-  originator_type: OutgoingPayment
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  state: won
   third_id: 6
-  ticket: false
+  third_role: client
+  type: Affair
   updated_at: 2014-11-07 13:58:35.214828000 Z
   updater_id: 1
 affairs_015:
@@ -326,10 +354,12 @@ affairs_015:
   id: 26
   lock_version: 6
   number: A000000000020
-  originator_id: 8
-  originator_type: Purchase
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  state: won
   third_id: 13
-  ticket: false
+  third_role: supplier
+  type: Affair
   updated_at: 2014-11-07 15:58:47.265018000 Z
   updater_id: 1
 affairs_016:
@@ -344,10 +374,12 @@ affairs_016:
   id: 30
   lock_version: 4
   number: A000000000022
-  originator_id: 11
-  originator_type: Purchase
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  state: won
   third_id: 13
-  ticket: false
+  third_role: supplier
+  type: Affair
   updated_at: 2014-11-07 16:53:27.399316000 Z
   updater_id: 1
 affairs_017:
@@ -362,9 +394,101 @@ affairs_017:
   id: 31
   lock_version: 0
   number: A000000000024
-  originator_id: 12
-  originator_type: Purchase
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  state: won
   third_id: 5
-  ticket: false
+  third_role: supplier
+  type: Affair
   updated_at: 2015-03-19 17:18:42.077881000 Z
+  updater_id: 1
+sale_opportunities_001:
+  accounted_at: 2015-04-20 21:54:28.932522000 Z
+  closed: true
+  closed_at: 2015-04-20 21:54:28.888568000 Z
+  created_at: 2015-04-20 21:54:28.913373000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  dead_line_at: 2222-10-01 23:00:00.000000000 Z
+  deals_count: 0
+  debit: 0.0
+  description: ''
+  id: 32
+  lock_version: 0
+  name: Test
+  number: A000000000025
+  origin: public_relations
+  pretax_amount: 10000.0
+  probability_percentage: 90.0
+  responsible_id: 9
+  state: prospecting
+  third_id: 4
+  third_role: client
+  type: SaleOpportunity
+  updated_at: 2015-04-20 21:54:28.913373000 Z
+  updater_id: 1
+sale_opportunities_002:
+  accounted_at: 2015-04-20 21:55:12.002775000 Z
+  closed: true
+  closed_at: 2015-04-20 21:55:11.978676000 Z
+  created_at: 2015-04-20 21:55:11.992672000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  dead_line_at: 2999-12-31 23:00:00.000000000 Z
+  deals_count: 0
+  debit: 0.0
+  description: ''
+  id: 33
+  lock_version: 0
+  name: Third
+  number: A000000000026
+  origin: trade_show
+  pretax_amount: 5625400.0
+  probability_percentage: 50.0
+  responsible_id: 9
+  state: prospecting
+  third_id: 7
+  third_role: client
+  type: SaleOpportunity
+  updated_at: 2015-04-20 21:55:11.992672000 Z
+  updater_id: 1
+sale_tickets_001:
+  accounted_at: 2015-04-21 08:22:33.264430000 Z
+  closed: false
+  created_at: 2015-04-21 08:22:33.240093000 Z
+  creator_id: 1
+  credit: 24.0
+  currency: EUR
+  deals_count: 1
+  debit: 0.0
+  id: 34
+  lock_version: 0
+  number: A000000000027
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 10
+  third_role: client
+  type: SaleTicket
+  updated_at: 2015-04-21 08:22:33.240093000 Z
+  updater_id: 1
+sale_tickets_002:
+  accounted_at: 2015-04-21 08:29:05.313041000 Z
+  closed: false
+  created_at: 2015-04-21 08:29:05.229047000 Z
+  creator_id: 1
+  credit: 187.2
+  currency: EUR
+  deals_count: 1
+  debit: 0.0
+  id: 35
+  lock_version: 0
+  number: A000000000028
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 14
+  third_role: client
+  type: SaleTicket
+  updated_at: 2015-04-21 08:29:05.229047000 Z
   updater_id: 1

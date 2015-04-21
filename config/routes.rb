@@ -63,6 +63,15 @@ Rails.application.routes.draw do
     end
   end
 
+  concern :affairs do
+    member do
+      get :select
+      post :attach
+      delete :detach
+      post :finish
+    end
+  end
+
 
   # No namespace because authentication is for all sides
   devise_for :users, path: "authentication", module: :authentication
@@ -218,14 +227,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :affairs, concerns: [:list] do
-      member do
-        get :select
-        post :attach
-        delete :detach
-        post :finish
-      end
-    end
+    resources :affairs, concerns: [:list, :affairs]
 
     resources :bank_statements, concerns: [:list, :unroll], path: "bank-statements" do
       collection do
@@ -640,7 +642,7 @@ Rails.application.routes.draw do
 
     resources :sale_natures, concerns: [:list, :unroll], path: "sale-natures"
 
-    resources :sale_opportunities, concerns: [:list, :unroll], path: "sale-opportunities" do
+    resources :sale_opportunities, concerns: [:list, :unroll, :affairs], path: "sale-opportunities" do
       member do
         post :evaluate
         post :lose

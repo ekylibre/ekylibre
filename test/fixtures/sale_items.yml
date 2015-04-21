@@ -181,3 +181,51 @@ sale_items_005:
   updated_at: 2014-11-05 13:36:08.975616000 Z
   updater_id: 1
   variant_id: 18
+sale_items_006:
+  account_id: 152
+  all_taxes_included: true
+  amount: 24.0
+  annotation: ''
+  created_at: 2015-04-21 08:22:33.186082000 Z
+  creator_id: 1
+  currency: EUR
+  id: 13
+  label: Acide lactique ‒ 25kg
+  lock_version: 0
+  position: 1
+  pretax_amount: 20.0
+  quantity: 2.0
+  reduced_unit_amount: 12.0
+  reduced_unit_pretax_amount: 10.0
+  reduction_percentage: 0.0
+  sale_id: 11
+  tax_id: 3
+  unit_amount: 12.0
+  unit_pretax_amount: 10.0
+  updated_at: 2015-04-21 08:22:33.186082000 Z
+  updater_id: 1
+  variant_id: 57
+sale_items_007:
+  account_id: 152
+  all_taxes_included: true
+  amount: 187.2
+  annotation: ''
+  created_at: 2015-04-21 08:29:05.182489000 Z
+  creator_id: 1
+  currency: EUR
+  id: 14
+  label: Adexar 5 l
+  lock_version: 0
+  position: 1
+  pretax_amount: 156.0
+  quantity: 3.0
+  reduced_unit_amount: 62.4
+  reduced_unit_pretax_amount: 52.0
+  reduction_percentage: 0.0
+  sale_id: 12
+  tax_id: 3
+  unit_amount: 62.4
+  unit_pretax_amount: 52.0
+  updated_at: 2015-04-21 08:29:05.182489000 Z
+  updater_id: 1
+  variant_id: 8

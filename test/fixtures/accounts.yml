@@ -3007,3 +3007,15 @@ accounts_228:
   updated_at: 2014-12-24 11:08:53.258153000 Z
   updater_id: 1
   usages: young_animal_revenues
+accounts_229:
+  created_at: 2015-04-21 08:29:05.307046000 Z
+  creator_id: 1
+  debtor: false
+  id: 572
+  label: 411P00000004 - Περικλῆς
+  lock_version: 0
+  name: "Περικλῆς"
+  number: 411P00000004
+  reconcilable: true
+  updated_at: 2015-04-21 08:29:05.307046000 Z
+  updater_id: 1

@@ -259,6 +259,36 @@ entities_006:
   updater_id: 1
   vat_number: ''
   vat_subjected: false
+entities_007:
+  active: true
+  activity_code: ''
+  client: true
+  client_account_id: 572
+  country: fr
+  created_at: 2015-04-21 08:27:39.814863000 Z
+  creator_id: 1
+  currency: EUR
+  deliveries_conditions: ''
+  first_name: ''
+  full_name: "Περικλῆς"
+  id: 14
+  language: fra
+  last_name: "Περικλῆς"
+  lock_version: 1
+  locked: false
+  meeting_origin: ''
+  nature: sir
+  number: P00000004
+  of_company: false
+  prospect: false
+  reminder_submissive: false
+  siren: ''
+  supplier: false
+  transporter: false
+  updated_at: 2015-04-21 08:28:44.807348000 Z
+  updater_id: 1
+  vat_number: ''
+  vat_subjected: false
 legal_entities_001:
   active: true
   client: false
@@ -369,6 +399,7 @@ people_002:
   activity_code: ''
   client: true
   client_account_id: 210
+  country: fr
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
@@ -378,7 +409,7 @@ people_002:
   id: 10
   language: fra
   last_name: FUYUTSUKI
-  lock_version: 1
+  lock_version: 2
   locked: false
   meeting_origin: ''
   nature: sir
@@ -390,7 +421,7 @@ people_002:
   supplier: false
   transporter: false
   type: Person
-  updated_at: 2014-11-01 18:28:24.970962000 Z
+  updated_at: 2015-04-21 08:21:32.421029000 Z
   updater_id: 1
   vat_number: ''
   vat_subjected: true
