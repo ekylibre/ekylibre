@@ -621,6 +621,7 @@
 
 
           <!-- subsidies -->
+
          <item name="exploitation_subsidies"
             product_account="exploitation_subsidies"
             purchasable="false"
@@ -629,7 +630,25 @@
             storable="false"
             pictogram="legal"
             />
+
+
+         <!-- started services -->
+
+         <item name="installing_charge"
+         	charge_account="fees_expenses"
+            financial_asset_account="establishment_charge_assets"
+            financial_asset_allocation_account="incorporeal_asset_depreciations"
+            financial_asset_expenses_account="incorporeals_depreciations_inputations_expenses"
+            depreciation_percentage="25"
+            purchasable="true"
+            saleable="false"
+            depreciable="true"
+            storable="false"
+            pictogram="book"
+            />
+
          <!-- services -->
+
          <item name="discount_and_reduction"
             charge_account="discount_and_reductions_expenses"
             product_account="discount_and_reductions_revenues"

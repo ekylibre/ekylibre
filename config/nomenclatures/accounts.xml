@@ -48,6 +48,8 @@
       <item name="office_furniture_assets" fr_pcga="2184"/>
       <item name="sustainable_packaging_assets" fr_pcga="2186"/>
       <item name="other_assets" fr_pcga="2188"/>
+      <item name="concession_assets" fr_pcga="22"/>
+      <item name="outstanding_assets" fr_pcga="23"/>
       <item name="adult_animal_assets" fr_pcga="241"/>
       <item name="young_animal_assets" fr_pcga="242"/>
       <item name="service_animal_assets" fr_pcga="243"/>

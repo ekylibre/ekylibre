@@ -1676,6 +1676,18 @@
 
       <!-- OTHER PRODUCT -->
 
+      <!-- STARTED SERVICES -->
+
+      <item name="installing_charge"
+            category="installing_charge"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
+
+
       <!-- COMMON SERVICES -->
       <item name="discount_and_reduction"
             category="discount_and_reduction"

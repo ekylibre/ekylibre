@@ -2333,6 +2333,11 @@
             unit_name="equipment"
             frozen_indicators_values="population: 1"
 	          />
+	 <item name="grain_crusher"
+            nature="food_distributor"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
 	    <item name="silage_distributor"
             nature="food_distributor"
             unit_name="equipment"
@@ -3055,6 +3060,14 @@
             />
 
       <!-- OTHER PRODUCT -->
+
+      <!-- STARTED SERVICES -->
+
+      <item name="creation_society_study"
+            nature="installing_charge"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
 
       <item name="small_equipment"
             nature="small_equipment"
