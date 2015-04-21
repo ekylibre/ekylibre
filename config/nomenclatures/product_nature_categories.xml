@@ -429,6 +429,7 @@
             storable="false"
             pictogram="land_parcels"
             />
+
       <item name="land_parcel_cluster"
             purchasable="false"
             saleable="false"
@@ -673,6 +674,16 @@
             storable="false"
             pictogram="tractor"
             />
+
+         <item name="land_parcel_locative_charge"
+            charge_account="land_parcel_locative_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="wrench"
+            />
+
          <item name="maintenance"
             charge_account="maintenance_expenses"
             purchasable="true"
@@ -718,6 +729,25 @@
             storable="false"
             pictogram="tasks"
             />
+
+            <item name="forwarding_agent_fees_expense"
+            charge_account="forwarding_agent_fees_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="user"
+            />
+
+            <item name="fiscal_fine"
+            charge_account="fiscal_fine_exceptional_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="tasks"
+            />
+
          <item name="travel"
             charge_account="travels_expenses"
             product_account="merchandising_accessory_revenues"
@@ -829,6 +859,15 @@
 
 		  <item name="little_office_item"
             charge_account="little_office_equipment_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="fax"
+            />
+
+            <item name="consumer_goods_office_item"
+            charge_account="office_supply_matter_expenses"
             purchasable="true"
             saleable="false"
             depreciable="false"

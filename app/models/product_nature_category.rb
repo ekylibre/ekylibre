@@ -99,8 +99,8 @@ class ProductNatureCategory < Ekylibre::Record::Base
   scope :purchaseables, -> { where(purchasable: true).order(:name) }
   scope :depreciables, -> { where(depreciable: true).order(:name) }
   scope :stockables_or_depreciables, -> { where("depreciable = ? OR storable = ?", true, true).order(:name) }
-  
-  
+
+
   protect(on: :destroy) do
     self.natures.any? and self.products.any?
   end

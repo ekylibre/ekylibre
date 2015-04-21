@@ -634,6 +634,7 @@ fra:
     depreciated_amount: "Montant amorti"
     depreciation_method: "Méthode d’amortissement"
     depreciation_percentage: "Pourcentage d’amortissement"
+    # depreciation_rate: "Depreciation rate"
     depreciations: "Amortissements"
     depth: "Profondeur"
     derivative: "Dérivé" #?
@@ -718,6 +719,7 @@ fra:
     financial_asset_depreciations: "Dépréciations d’immobilisation"
     financial_asset_depreciations_account: "Compte des dépréciations d’immobilisation"
     financial_asset_depreciations_inputations_expenses_account: "Compte d’imputation des charges des dépréciations d’immobilisation"
+    # financial_assets: "Financial assets"
     financial_assets_categories: "Catégories de produits avec immobilisation" #?
     financial_year: "Exercice"
     financial_year_as_last: "Exercice (en tant que écriture de fin d’exercice)"

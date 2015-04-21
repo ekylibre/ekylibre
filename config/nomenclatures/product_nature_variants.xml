@@ -2931,6 +2931,13 @@
             frozen_indicators_values=""
             />
       <!-- animal agricultural service -->
+
+      <item name="animals_making_service"
+            nature="animals_making_services"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
       <item name="animal_housing_service"
             nature="animal_housing_services"
             unit_name="unit"
@@ -3072,6 +3079,12 @@
             frozen_indicators_values=""
             />
 
+     <item name="consumer_goods_office_item"
+            nature="consumer_goods_office_item"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
       <item name="battery"
             nature="office_furniture"
             unit_name="unit"
@@ -3133,6 +3146,12 @@
             unit_name="hour"
             frozen_indicators_values="usage_duration: 1hour"
             />
+      <item name="land_parcel_locative_charge"
+            nature="land_parcel_locative_charge"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
       <item name="maintenance"
             nature="maintenance"
             unit_name="unit"
@@ -3177,6 +3196,18 @@
             unit_name="unit"
             frozen_indicators_values=""
             />
+      <item name="forwarding_agent_fees_expense"
+            nature="forwarding_agent_fees_expense"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
+      <item name="fiscal_fine"
+            nature="fiscal_fine"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
       <item name="car_moving_travel"
             nature="moving_travel"
             unit_name="kilometer"

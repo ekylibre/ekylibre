@@ -1711,6 +1711,14 @@
             variable_indicators="population"
             frozen_indicators="usage_duration"
             />
+      <item name="land_parcel_locative_charge"
+            category="land_parcel_locative_charge"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
       <item name="small_equipment"
             category="small_equipment"
             variety="equipment"
@@ -1757,6 +1765,23 @@
 
       <item name="fee"
             category="fee"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
+      <item name="forwarding_agent_fees_expense"
+            category="forwarding_agent_fees_expense"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
+
+      <item name="fiscal_fine"
+            category="fiscal_fine"
             variety="service"
             population_counting="decimal"
             abilities=""
@@ -1907,6 +1932,16 @@
             variable_indicators="population"
             frozen_indicators=""
             />
+       <item name="consumer_goods_office_item"
+            category="consumer_goods_office_item"
+            variety="service"
+            population_counting="integer"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
+
+
 
       <item name="representation_item"
             category="representation"

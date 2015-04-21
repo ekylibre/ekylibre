@@ -97,7 +97,7 @@ class ProductNature < Ekylibre::Record::Base
   scope :saleables,  -> { joins(:category).merge(ProductNatureCategory.saleables).order(:name) }
   scope :purchaseables, -> { joins(:category).merge(ProductNatureCategory.purchaseables).order(:name) }
   scope :stockables_or_depreciables, -> { joins(:category).merge(ProductNatureCategory.stockables_or_depreciables).order(:name) }
-  
+
   # scope :producibles, -> { where(:variety => ["bos", "animal", "plant", "organic_matter"]).order(:name) }
 
   scope :of_variety, Proc.new { |*varieties|

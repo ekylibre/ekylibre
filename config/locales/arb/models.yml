@@ -1250,6 +1250,7 @@ arb:
     # depreciated_amount: "Depreciated amount"
     # depreciation_method: "Depreciation method"
     # depreciation_percentage: "Depreciation percentage"
+    # depreciation_rate: "Depreciation rate"
     # depreciations: "Depreciations"
     # depth: "Depth"
     # derivative_of: "Derivative of"
@@ -1362,6 +1363,7 @@ arb:
     # financial_asset_depreciations: "Financial asset depreciations"
     # financial_asset_depreciations_account: "Financial asset depreciations account"
     # financial_asset_depreciations_inputations_expenses_account: "Financial asset depreciations inputations expenses account"
+    # financial_assets: "Financial assets"
     financial_year: "السنوات المالية"
     # financial_year_as_last: "Financial year (as last journal entry)"
     financial_year_id: "مهنة" #?

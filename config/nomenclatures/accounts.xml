@@ -186,6 +186,10 @@
       <item name="rent_expenses" fr_pcg82="613"/>
       <item name="land_parcel_rent_expenses" fr_pcga="6131"/>
       <item name="equipment_rent_expenses" fr_pcga="6132"/>
+      <item name="co_ownership_and_locative_expenses" fr_pcga="614"/>
+      <item name="land_parcel_locative_expenses" fr_pcga="6141"/>
+      <item name="equipment_locative_expenses" fr_pcga="6142"/>
+      <item name="animal_locative_expenses" fr_pcga="6144"/>
       <item name="maintenance_expenses" fr_pcg82="615"/>
       <item name="own_building_expenses" fr_pcga="6153"/>
       <item name="other_building_expenses" fr_pcga="6154"/>
@@ -198,6 +202,7 @@
       <item name="external_expenses" fr_pcga="62"/>
       <item name="external_staff_expenses" fr_pcga="621"/>
       <item name="fees_expenses" fr_pcga="622"/>
+      <item name="forwarding_agent_fees_expenses" fr_pcga="6223"/>
       <item name="veterinary_fees_expenses" fr_pcga="6225"/>
       <item name="other_fees_expenses" fr_pcga="6226"/>
       <item name="advertising_expenses" fr_pcg82="623"/>
@@ -228,6 +233,11 @@
       <item name="interests_expenses" fr_pcga="661"/>
       <item name="other_interests_expenses" fr_pcga="6618"/>
       <item name="other_various_interests_expenses" fr_pcga="66188"/>
+      <item name="exceptional_expenses" fr_pcga="67"/>
+      <item name="management_operation_exceptional_expenses" fr_pcga="671"/>
+      <item name="market_fine_exceptional_expenses" fr_pcga="6711"/>
+      <item name="fiscal_fine_exceptional_expenses" fr_pcga="6712"/>
+      <item name="donation_exceptional_expenses" fr_pcga="6713"/>
       <item name="financial_assets_values" fr_pcg82="675"/>
       <item name="depreciations_inputations_expenses" fr_pcg82="68"/>
       <item name="corporeals_and_incorporeals_depreciations_inputations_expenses" fr_pcg82="6811"/>
@@ -275,6 +285,7 @@
       <item name="other_usual_running_profits" fr_pcga="758"/>
       <item name="financials_revenues" fr_pcga="76"/>
       <item name="reductions" fr_pcga="765"/>
+      <item name="exceptional_revenues" fr_pcga="77"/>
       <item name="sales_assets_revenues" fr_pcga="775"/>
       <item name="land_parcel_sell_revenues" fr_pcga="7752"/>
       <item name="share_asset_subsidies" fr_pcga="777"/>
