@@ -12,7 +12,9 @@ Exchanges.add_importer :ekylibre_purchases do |file, w|
       variant_nomen: (row[1].blank? ? nil : row[1].to_sym),
       quantity: (row[2].blank? ? nil : row[2].gsub(",", ".").to_d),
       unit_pretax_amount: (row[3].blank? ? nil : row[3].gsub(",", ".").to_d),
-      vat_rate: (row[4].blank? ? nil : row[4].gsub(",", ".").to_d)
+      vat_rate: (row[4].blank? ? nil : row[4].gsub(",", ".").to_d),
+      valid: (row[5].blank? ? false : true),
+      depreciate: (row[6].blank? ? false : true)
     }.to_struct
 
     # get information from document_reference_number
@@ -70,7 +72,7 @@ Exchanges.add_importer :ekylibre_purchases do |file, w|
     if purchase and variant and r.unit_pretax_amount and r.quantity and purchase_item_tax
       unless purchase_item = PurchaseItem.where(purchase_id: purchase.id, pretax_amount: r.pretax_amount, variant_id: variant.id).first
         # TODO add depreciable purchase
-        purchase.items.create!(quantity: r.quantity, tax: purchase_item_tax, unit_pretax_amount: r.unit_pretax_amount, variant: variant)
+        purchase.items.create!(quantity: r.quantity, tax: purchase_item_tax, unit_pretax_amount: r.unit_pretax_amount, variant: variant, fixed: r.depreciate)
       end
     end
 
