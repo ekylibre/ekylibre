@@ -787,12 +787,14 @@ arb:
       # animal: "Animal"
       # animal_group: "Animal group"
       area: "المنطقة البريدية" #?
+      # attachment: "Attachment"
       bank_statement: "بيان الحساب المصرفي"
       # bioproduct: "Living product"
       building: "موقع التخزين"
       # building_division: "Room / Zone"
       # campaign: "Campaign"
       cash: "الخزينة"
+      # cash_session: "Cash session"
       # cash_transfer: "Cash transfer"
       catalog: "فئة الفرد"
       # catalog_item: "Catalog price"
@@ -941,6 +943,7 @@ arb:
       sale_item: "طريقة طلب البيع"
       sale_nature: "نوع طلب البيع"
       # sale_opportunity: "Sale opportunity"
+      # sale_ticket: "Sale ticket"
       sales_invoice: "الفاتورة" #?
       sales_invoice_item: "طريقة تسديد الفاتورة" #?
       sequence: "التسلسل"
@@ -1250,7 +1253,6 @@ arb:
     # depreciated_amount: "Depreciated amount"
     # depreciation_method: "Depreciation method"
     # depreciation_percentage: "Depreciation percentage"
-    # depreciation_rate: "Depreciation rate"
     # depreciations: "Depreciations"
     # depth: "Depth"
     # derivative_of: "Derivative of"

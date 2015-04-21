@@ -2297,7 +2297,7 @@ jpn:
       property_natures:
         # charge_account: "Charge account"
         # depreciable: "Depreciable"
-        # depreciation_rate: "Depreciation rate"
+        # depreciation_percentage: "Depreciation percentage"
         # financial_asset_account: "Financial asset account"
         # financial_asset_allocation_account: "Financial asset depreciations account"
         # financial_asset_expenses_account: "Financial asset depreciations inputations expenses account"

@@ -986,6 +986,7 @@ arb:
     assimilated_tax: "A3310 حساب الضرائب المماثلة على جدول رقم" #?
     # attach_deal: "Add a deal"
     attachment: "المرفق"
+    # attachments: "Attachments"
     attorney: "معلومات الوكيل" #?
     available_columns: "الحقول المتاحة : %{columns}"
     back: "التأكد من صحة واسترداد قائمة وسائل النقل"
@@ -1006,6 +1007,7 @@ arb:
     bank_accounts: "" #?
     bank_statement_point: "الاشارة للكشف المصرفي" #?
     bank_statement_update: "تعديل الكشف المصرفي" #?
+    # bank_statements: "Bank statements"
     # bban: "Basic Bank Account Number (BBAN)"
     # beginning: "Beginning"
     body: "هيكل الرسالة"
@@ -1020,6 +1022,7 @@ arb:
     building_tabbox: #?
     building_update: "تعديل موقع التخزين" #?
     buildings: "النظر بقائمة مواقع التخزين" #?
+    # buildings_map: "Buildings map"
     # calculate: "Calculate"
     # calculators: "Calculators"
     # calendar: "Calendar"
@@ -1030,6 +1033,7 @@ arb:
     cancelled: "تم الالغاء" #?
     # cartography: "Cartography"
     cash: "حسابات بنكية"
+    # cash_balance: "Cash balance"
     # cash_balances: "Bank chart"
     cash_create: "اضافة حساب بنكي جديد" #?
     cash_tabbox: #?
@@ -1066,6 +1070,7 @@ arb:
     columns: "اعمدة الاستيراد"
     commission: "عمولة"
     components: "العناصر" #?
+    # concentrations_map: "Concentrations map"
     conditions:
       filter_on_attribute_of_class: "التصفية وفق %{attribute} (%{class})"
       special-subscriber: "تصفية وفق الاشتراك"
@@ -1088,6 +1093,8 @@ arb:
     # cost_per_net_surface_area: "Cost per net surface area"
     cost_sum: "مجموع تكاليف الاستثمار"
     # costs: "Costs"
+    # costs_map: "Costs map"
+    # counts: "Counts"
     counts_by_nature: "عدد ونوع السجلات"
     create: "انشاء"
     create_journal: "-- انشاء دفتر يومي --"
@@ -1119,7 +1126,7 @@ arb:
     custom_field_create: "انشاء حقل مخصص جديد" #?
     custom_field_sort: "تفريزة الخيارات حسب الاسم" #?
     custom_field_update: "تعديل الحقل المخصص" #?
-    custom_fields: "الحقول المخصصة" #?
+    custom_fields: "الحقول المخصصة"
     data_to_export: "تصدير البيانات" #?
     data_to_extract: "استخراج البيانات" #?
     dates: "ادخل تواريخ بداية ونهاية المدة"
@@ -1155,9 +1162,11 @@ arb:
     # depreciation: "Depreciation"
     # depreciations: "Depreciations"
     description: "الوصف"
+    # desposits: "Desposits"
     # destroy: "Destroy"
     # destroyed_at_by: "Destroyed at %{at} by %{author}"
     # destroyed_by_ago: "Destroyed by %{author} %{ago} ago"
+    # detail: "Detail"
     details: "معلومات اضافية"
     # direct_expenses: "Direct charges"
     # direct_margin: "Direct margin"
@@ -1208,6 +1217,7 @@ arb:
     entity_update: "تعديل الملف" #?
     entries: "السجلات"
     entries_to_point: "اعداد المدخلات"
+    # entry_items: "Entry items"
     # equipments: "Equipments"
     # error: "Sorry..."
     error_no_file: "عدم توفر المساعدة في هذا الجزء من الطلب (%{article}).لم يتم كتابة التعليمات حتى الان.يمكنك زيارة موقعنا الالكتروني للمزيد من الاستفسار."
@@ -1221,6 +1231,7 @@ arb:
     europe_out_export: "الاتحاد الاوروبي خارج الصادرات" #?
     # evaluated_doer_cost: "Evaluated labor cost"
     # evaluated_input_cost: "Evaluated input cost"
+    # evaluated_other_cost: "Evaluated other cost"
     # evaluated_tool_cost: "Evaluated tool cost"
     event_create: "اضافة حدث" #?
     event_nature_create: "اضافة نوع الحدث" #?
@@ -1654,6 +1665,7 @@ arb:
     # production_distribution: "Production distribution"
     # production_support: "Production support"
     productions: "المنتجات"
+    # productions_map: "Productions map"
     productions_states:
       # aborted: "Aborted"
       # all: "All"
@@ -1693,6 +1705,7 @@ arb:
     query: ": الاستعلام"
     # raw_margin: "Raw margin"
     # reading_tasks: "Reading tasks"
+    # readings: "Readings"
     received: "مستلم"
     recent_events: "الاحداث الاخيرة"
     record_has_been_correctly_removed: "قد تم حذف السجلات بشكل صحيح" #?
@@ -1820,6 +1833,7 @@ arb:
     # sign_out: "Sign out"
     simplified: "نظام واقعي مبسط"
     # simplified_linear_options: "Simplified linear options"
+    # simulator: "Simulator"
     source: "مصدر البيانات"
     start: "ابتداء من"
     # start_new_intervention_here: "Start new intervention here"
@@ -1855,6 +1869,7 @@ arb:
     supply: "التسليم"
     # support: "Support"
     # supports: "Supports"
+    # supports_chart: "Supports chart"
     synthesis: "تجميع الوثائق"
     # target: "Target"
     tax_create: "اضافة ضريبة جديدة" #?
@@ -1912,6 +1927,7 @@ arb:
       financial_year: "السنة المالية غير متوفرة %{value}" #?
       journal: "الدفتر اليومي المطلوب غير متوفر (%{value})" #?
       product: "المنتج المطلوب غير متوفر" #?
+    # undefined_container: "Undefined container"
     undelivered: "لم يتم التسليم"
     undeposited: "لم يتم اي اقتطاع بنكي" #?
     uninvoiced_amount: "قيمة غير مفوترة"

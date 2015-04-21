@@ -820,12 +820,12 @@ eng:
     are_you_sure_you_want_to_send_mails: "Are you sure you want to send emails?"
     attach_deal: "Add a deal"
     attachment: "Attachment"
-    # attachments: "Attachments"
+    attachments: "Attachments"
     available_columns: "Available columns: %{columns}"
     back: "Back to the previous page"
     balance: "Balance"
     bank_account: "Bank account"
-    # bank_statements: "Bank statements"
+    bank_statements: "Bank statements"
     bban: "Basic Bank Account Number (BBAN)"
     beginning: "Beginning"
     body: "Body of the message"
@@ -835,7 +835,7 @@ eng:
     budget_per_working_indicator: "Budget per working indicator"
     budgets: "Budgets" #?
     building_name: "Building name" #?
-    # buildings_map: "Buildings map"
+    buildings_map: "Buildings map"
     calculate: "Calculate" #?
     calculators: "Calculators" #?
     calendar: "Calendar" #?
@@ -845,7 +845,7 @@ eng:
     cancelation: "Cancelation"
     cartography: "Cartography"
     cash: "Cash"
-    # cash_balance: "Cash balance"
+    cash_balance: "Cash balance"
     cash_balances: "Bank chart"
     casting: "Casting"
     casts: "Casts"
@@ -874,7 +874,7 @@ eng:
     column: "Column"
     columns: "Columns to import"
     commission: "Commission"
-    # concentrations_map: "Concentrations map"
+    concentrations_map: "Concentrations map"
     conditions:
       filter_on_attribute_of_class: "Filter on attribute of class"
       special-subscriber: "Special-subscriber"
@@ -889,8 +889,8 @@ eng:
     cost_per_net_surface_area: "Cost per net surface area"
     cost_sum: "Total Cost" #?
     costs: "Costs"
-    # costs_map: "Costs map"
-    # counts: "Counts"
+    costs_map: "Costs map"
+    counts: "Counts"
     counts_by_nature: "Number of documents to account per type"
     create: "Create"
     create_journal: "— Create journal —"
@@ -915,7 +915,7 @@ eng:
     current_cultivation: "Current cultivation"
     current_letter: "Current letter: %{letter}" #?
     current_stocks_by_variety: "Current stocks by variety"
-    # custom_fields: "Custom fields"
+    custom_fields: "Custom fields"
     dates: "Select period start date and Period end date" #?
     deals: "Deals"
     debit: "Debit" #?
@@ -935,11 +935,11 @@ eng:
     depreciation: "Depreciation"
     depreciations: "Depreciations"
     description: "Description" #?
-    # desposits: "Desposits"
+    desposits: "Desposits"
     destroy: "Destroy"
     destroyed_at_by: "Destroyed at %{at} by %{author}"
     destroyed_by_ago: "Destroyed by %{author} %{ago} ago"
-    # detail: "Detail"
+    detail: "Detail"
     details: "Details"
     direct_expenses: "Direct charges"
     direct_margin: "Direct margin"
@@ -973,7 +973,7 @@ eng:
     entity_to_update: "Person to update"
     entries: "Entries" #?
     entries_to_point: "Entries pointing to"
-    # entry_items: "Entry items"
+    entry_items: "Entry items"
     equipments: "Equipments"
     error: "Sorry..."
     error_no_file: "No help is available for this part of the application (%{article}). Help has not yet been written. You can visit online website for more information."
@@ -981,7 +981,7 @@ eng:
     estimate_yield: "Estimate yield"
     evaluated_doer_cost: "Evaluated labor cost"
     evaluated_input_cost: "Evaluated input cost"
-    # evaluated_other_cost: "Evaluated other cost"
+    evaluated_other_cost: "Evaluated other cost"
     evaluated_tool_cost: "Evaluated tool cost"
     events: "Events"
     example: "Example: %{value}" #?
@@ -1257,7 +1257,7 @@ eng:
     production_distribution: "Production distribution" #?
     production_support: "Production support"
     productions: "Productions"
-    # productions_map: "Productions map"
+    productions_map: "Productions map"
     productions_states: #?!
       aborted: "Aborted" #?!
       all: "All" #?!
@@ -1286,7 +1286,7 @@ eng:
     query: "Query:" #?
     raw_margin: "Raw margin"
     reading_tasks: "Reading tasks"
-    # readings: "Readings"
+    readings: "Readings"
     received: "Received" #?
     recent_events: "Recent events"
     reflect: "Reflect" #?
@@ -1361,7 +1361,7 @@ eng:
     sign_out: "Sign out" #?
     simplified: "Simplified Accounting" #?
     simplified_linear_options: "Simplified linear options"
-    # simulator: "Simulator"
+    simulator: "Simulator"
     source: "Source" #?
     start: "From" #?
     start_new_intervention_here: "Start new intervention here"
@@ -1387,7 +1387,7 @@ eng:
     supply: "Supply" #?
     support: "Support"
     supports: "Supports"
-    # supports_chart: "Supports chart"
+    supports_chart: "Supports chart"
     synthesis: "Synthesis"
     target: "Target" #?
     taxations: "Taxations"
@@ -1432,7 +1432,7 @@ eng:
       shipped: "Shipped" #?!
       waiting: "Waiting" #?!
     treatment: "Treatment" #?
-    # undefined_container: "Undefined container"
+    undefined_container: "Undefined container"
     undelivered: "Undelivered" #?
     uninvoiced_amount: "Uninvoiced amount" #?
     unit: "Unit" #?

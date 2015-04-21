@@ -817,6 +817,7 @@ spa:
     assimilated_tax: "Tarifas asimiladas calculadas sobre anexo n°3310A" #?
     # attach_deal: "Add a deal"
     attachment: "Pieza juntada"
+    # attachments: "Attachments"
     available_columns: "Campos disponibles\_: %{columns}"
     # back: "Back to the previous page"
     backup: "Salvaguardiar" #?
@@ -835,6 +836,7 @@ spa:
     # bank_account: "Bank account"
     bank_statement_point: "Despuntar el levantar" #?
     bank_statement_update: "Modificar el leventar" #?
+    # bank_statements: "Bank statements"
     # bban: "Basic Bank Account Number (BBAN)"
     # beginning: "Beginning"
     body: "Cuerpo del mensaje"
@@ -848,6 +850,7 @@ spa:
     building_tabbox: #?
     building_update: "Modifiar el lugar de deposito" #?
     buildings: "Ver la lista de los lugares de deposito" #?
+    # buildings_map: "Buildings map"
     # calculate: "Calculate"
     # calculators: "Calculators"
     # calendar: "Calendar"
@@ -858,6 +861,7 @@ spa:
     cancelled: "Pasar en activos" #?
     # cartography: "Cartography"
     # cash: "Cash"
+    # cash_balance: "Cash balance"
     # cash_balances: "Bank chart"
     cash_tabbox:  #?
       bank_statements: "Leventar de cuento" #?
@@ -891,6 +895,7 @@ spa:
     # column: "Column"
     # columns: "Columns to import"
     # commission: "Commission"
+    # concentrations_map: "Concentrations map"
     conditions:
       # filter_on_attribute_of_class: "Filter on attribute of class"
       # special-subscriber: "Special-subscriber"
@@ -909,6 +914,8 @@ spa:
     # cost_per_net_surface_area: "Cost per net surface area"
     cost_sum: "Total cargas de explotación"
     # costs: "Costs"
+    # costs_map: "Costs map"
+    # counts: "Counts"
     counts_by_nature: "Nombre de piezas a contabilizar por tipo"
     # create: "Create"
     create_journal: "-- Crear el periodico --"
@@ -935,6 +942,7 @@ spa:
     # current_cultivation: "Current cultivation"
     current_letter: "Carta en curso\_: %{letter}"
     # current_stocks_by_variety: "Current stocks by variety"
+    # custom_fields: "Custom fields"
     data_to_export: "Datos a exportar" #?
     data_to_extract: "Datos para extraer" #?
     dates: "Marcar las fechas de empezo y termino por los periodos"
@@ -967,9 +975,11 @@ spa:
     # depreciation: "Depreciation"
     # depreciations: "Depreciations"
     description: "Descripción general"
+    # desposits: "Desposits"
     # destroy: "Destroy"
     # destroyed_at_by: "Destroyed at %{at} by %{author}"
     # destroyed_by_ago: "Destroyed by %{author} %{ago} ago"
+    # detail: "Detail"
     # details: "Details"
     # direct_expenses: "Direct charges"
     # direct_margin: "Direct margin"
@@ -1007,6 +1017,7 @@ spa:
     # entity_to_update: "Person to update"
     entries: "Escrituras"
     entries_to_point: "Escrituras a despuntar"
+    # entry_items: "Entry items"
     # equipments: "Equipments"
     # error: "Sorry..."
     error_no_file: "Ninguna atyuda esta disponible para ese partido del software (%{article}). La ayuda ya no ha sido escribida. Se puede consultar el sitio en linea para mas informaciones."
@@ -1019,6 +1030,7 @@ spa:
     europe_out_export: "Exportaciones fuera de CC.EE" #?
     # evaluated_doer_cost: "Evaluated labor cost"
     # evaluated_input_cost: "Evaluated input cost"
+    # evaluated_other_cost: "Evaluated other cost"
     # evaluated_tool_cost: "Evaluated tool cost"
     # events: "Events"
     # example: "Example: %{value}"
@@ -1357,6 +1369,7 @@ spa:
     # production_distribution: "Production distribution"
     # production_support: "Production support"
     # productions: "Productions"
+    # productions_map: "Productions map"
     productions_states:
       # aborted: "Aborted"
       # all: "All"
@@ -1389,6 +1402,7 @@ spa:
     query: "Demanda:"
     # raw_margin: "Raw margin"
     # reading_tasks: "Reading tasks"
+    # readings: "Readings"
     # received: "Received"
     # recent_events: "Recent events"
     # reflect: "Reflect"
@@ -1497,6 +1511,7 @@ spa:
     # sign_out: "Sign out"
     simplified: "Regimen del real simplificado"
     # simplified_linear_options: "Simplified linear options"
+    # simulator: "Simulator"
     source: "Fuente de datos"
     start: "Del"
     # start_new_intervention_here: "Start new intervention here"
@@ -1524,6 +1539,7 @@ spa:
     # supply: "Supply"
     # support: "Support"
     # supports: "Supports"
+    # supports_chart: "Supports chart"
     synthesis: "Documentos de sintesis"
     # target: "Target"
     tax_create: "Añadir una nueva tasa" #?
@@ -1571,6 +1587,7 @@ spa:
       # shipped: "Shipped"
       # waiting: "Waiting"
     # treatment: "Treatment"
+    # undefined_container: "Undefined container"
     # undelivered: "Undelivered"
     # uninvoiced_amount: "Uninvoiced amount"
     unit: "Unidad"

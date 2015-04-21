@@ -794,6 +794,7 @@ fra:
     attach_an_outgoing_payment_to_expense: "Rattacher un décaissement\_: %{type} N°%{number}" #?
     attach_deal: "Ajouter une transaction"
     attachment: "Pièce jointe"
+    attachments: "Pièces jointes"
     attorney: "Informations mandataire" #?
     available_columns: "Champs disponibles\_: %{columns}"
     back: "Revenir à la page précédente"
@@ -801,18 +802,20 @@ fra:
     backups: "Sauvegardes" #?
     balance: "Solde"
     bank_account: "Compte bancaire"
+    bank_statements: "Relevés de compte bancaire"
     bban: "Relevé d’identité bancaire (RIB)"
     beginning: "Début"
     begins: "Commence par" #?
     body: "Corps du message"
     bookkeep: "Comptabiliser"
-    bookkeep_with_payment: "Bookkeep with payment"
+    bookkeep_with_payment: "Comptabiliser avec paiement"
     budget: "Budget"
     budget_per_working_indicator: "Budget par unité d’œuvre"
     budgets: "Budgets"
     building: "Lieu de stockage" #?
     building_name: "Sortie de"
     buildings: "Voir la liste des lieux de stockage" #?
+    buildings_map: "Carte des bâtiments"
     calculate: "Calculer"
     calculators: "Calculateurs"
     calendar: "Calendrier"
@@ -824,6 +827,7 @@ fra:
     care: "soins" #?
     cartography: "Cartographie"
     cash: "Compte bancaire"
+    cash_balance: "Solde de trésorerie"
     cash_balances: "Soldes des comptes de trésorerie"
     casting: "Casting"
     casts: "Intervenants"
@@ -866,6 +870,7 @@ fra:
     complement_sort: "Trier les choix par nom" #?
     complements: "Champs personnalisés" #?
     components: "Composants" #?
+    concentrations_map: "Carte des concentrations"
     conditions:
       filter_on_attribute_of_class: "Filtre sur %{attribute} (%{class})"
       special-subscriber: "Filtre Abonné"
@@ -890,7 +895,9 @@ fra:
     cost_per_net_surface_area: "Coût par surface"
     cost_sum: "Total charges d’exploitation"
     costs: "Coûts"
+    costs_map: "Carte des coûts"
     country: "Pays" #?
+    counts: "Totaux"
     counts_by_nature: "Nombre de pièces à comptabiliser par type"
     create: "Créer"
     create_journal: "— Créer le journal —"
@@ -921,6 +928,7 @@ fra:
     current_cultivation: "Culture actuelle"
     current_letter: "Lettre en cours\_: %{letter}"
     current_stocks_by_variety: "État des stocks"
+    custom_fields: "Champs personnalisés"
     daily_nitrogen_production: "Excretion d’azote journalière" #?
     data_to_export: "Données à exporter" #?
     data_to_extract: "Données à extraire" #?
@@ -951,9 +959,11 @@ fra:
     depreciation: "Ammortissement"
     depreciations: "Dépréciations"
     description: "Description"
+    desposits: "Remises en banque"
     destroy: "Supprimer"
     destroyed_at_by: "Supprimé le %{at} par %{author}"
     destroyed_by_ago: "Supprimé par %{author} il y a %{ago}"
+    detail: "Détail"
     details: "Informations complémentaires"
     direct_expenses: "Charges directes"
     direct_margin: "Marge directe"
@@ -993,6 +1003,7 @@ fra:
     entity_to_update: "Fiche à mettre à jour avec les éléments du doublon"
     entries: "Écritures"
     entries_to_point: "Écritures à pointer"
+    entry_items: "Lignes d’écriture"
     equipments: "Équipements"
     error: "Désolé..."
     error_no_file: "Aucune aide n’est disponible pour cette partie de l’application (%{article}). L’aide n’a pas encore été rédigée. Vous pouvez consulter le site en ligne pour plus d’informations."
@@ -1007,7 +1018,7 @@ fra:
     europe_out_export: "Exportations hors CE" #?
     evaluated_doer_cost: "Coût main d’œuvre"
     evaluated_input_cost: "Coût intrants"
-    evaluated_other_cost: "Coût autres" #?
+    evaluated_other_cost: "Coût autres"
     evaluated_tool_cost: "Coût outils"
     events: "Évènements"
     example: "Exemple\_: %{value}"
@@ -1403,6 +1414,7 @@ fra:
     production_distribution: "Répartition de la production"
     production_support: "Support de production"
     productions: "Productions"
+    productions_map: "Carte des productions"
     productions_states:
       aborted: "Annulées"
       all: "Toutes"
@@ -1441,6 +1453,7 @@ fra:
     query: "Requête:"
     raw_margin: "Marge brute"
     reading_tasks: "Relevés d’indicateur"
+    readings: "Relevés d’indicateur"
     received: "Reçue"
     recent_events: "Derniers événements"
     recent_historic: "Historique récent" #?
@@ -1565,6 +1578,7 @@ fra:
     sign_out: "Se déconnecter"
     simplified: "Régime du réel simplifié"
     simplified_linear_options: "Options linéaire simplifié"
+    simulator: "Simulateur"
     soil_varieties: "Nature des sols" #?
     source: "Source de données"
     sowable: "Semable" #?
@@ -1602,6 +1616,7 @@ fra:
     supply: "Livraison"
     support: "Support"
     supports: "Supports de production"
+    supports_chart: "Graphique des supports"
     synthesis: "Synthèse"
     target: "Cible"
     target_name: "Nom de la cible" #?
@@ -1660,6 +1675,7 @@ fra:
       waiting: "En attente"
     treatment: "Traitement"
     true: "Vrai" #?
+    undefined_container: "Emplacement indéfini"
     undelivered: "Reste à livrer"
     uninvoiced_amount: "Montant non facturé"
     unit: "Unité"
