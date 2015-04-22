@@ -447,3 +447,16 @@ events_031:
   stopped_at: 2015-04-21 08:29:15.195245000 Z
   updated_at: 2015-04-21 08:29:05.202777000 Z
   updater_id: 1
+events_032:
+  created_at: 2015-04-21 23:49:19.363109000 Z
+  creator_id: 1
+  duration: 10
+  id: 40
+  lock_version: 0
+  name: Enregistrement d’une vente
+  nature: absence
+  restricted: false
+  started_at: 2015-04-21 23:49:19.356219000 Z
+  stopped_at: 2015-04-21 23:49:29.356219000 Z
+  updated_at: 2015-04-21 23:49:19.363109000 Z
+  updater_id: 1

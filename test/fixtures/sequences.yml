@@ -58,15 +58,15 @@ sequences_001:
   id: 1
   last_cweek: 17
   last_month: 4
-  last_number: 7
+  last_number: 8
   last_year: 2015
-  lock_version: 8
+  lock_version: 9
   name: Sales
   number_format: SO[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2015-04-21 08:29:05.178231000 Z
+  updated_at: 2015-04-21 23:49:19.335549000 Z
   updater_id: 1
   usage: sales
 sequences_002:
@@ -203,15 +203,15 @@ sequences_010:
   id: 10
   last_cweek: 17
   last_month: 4
-  last_number: 28
+  last_number: 29
   last_year: 2015
-  lock_version: 31
+  lock_version: 32
   name: Affaire
   number_format: A[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2015-04-21 08:29:05.226811000 Z
+  updated_at: 2015-04-21 23:49:19.401861000 Z
   updater_id: 1
   usage: affairs
 sequences_011:

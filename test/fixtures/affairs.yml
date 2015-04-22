@@ -402,6 +402,24 @@ affairs_017:
   type: Affair
   updated_at: 2015-03-19 17:18:42.077881000 Z
   updater_id: 1
+affairs_018:
+  accounted_at: 2015-04-21 23:49:34.612101000 Z
+  closed: false
+  created_at: 2015-04-21 23:49:19.404347000 Z
+  creator_id: 1
+  credit: 319.6
+  currency: EUR
+  deals_count: 1
+  debit: 0.0
+  id: 36
+  lock_version: 0
+  number: A000000000029
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 10
+  third_role: client
+  updated_at: 2015-04-21 23:49:19.404347000 Z
+  updater_id: 1
 sale_opportunities_001:
   accounted_at: 2015-04-20 21:54:28.932522000 Z
   closed: true

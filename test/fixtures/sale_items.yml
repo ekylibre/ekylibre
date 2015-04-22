@@ -68,7 +68,6 @@
 ---
 sale_items_001:
   account_id: 5
-  all_taxes_included: false
   amount: 84.0
   created_at: 2014-11-05 09:52:05.569662000 Z
   creator_id: 1
@@ -82,6 +81,7 @@ sale_items_001:
   reduced_unit_amount: 84.0
   reduced_unit_pretax_amount: 70.0
   reduction_percentage: 0.0
+  reference_value: unit_pretax_amount
   sale_id: 7
   tax_id: 3
   unit_amount: 84.0
@@ -91,7 +91,6 @@ sale_items_001:
   variant_id: 9
 sale_items_002:
   account_id: 5
-  all_taxes_included: false
   amount: 1080.0
   created_at: 2014-11-05 09:52:05.575226000 Z
   creator_id: 1
@@ -105,6 +104,7 @@ sale_items_002:
   reduced_unit_amount: 216.0
   reduced_unit_pretax_amount: 180.0
   reduction_percentage: 0.0
+  reference_value: unit_pretax_amount
   sale_id: 7
   tax_id: 3
   unit_amount: 216.0
@@ -114,7 +114,6 @@ sale_items_002:
   variant_id: 19
 sale_items_003:
   account_id: 5
-  all_taxes_included: false
   amount: 792.0
   created_at: 2014-11-05 10:01:39.877000000 Z
   creator_id: 1
@@ -128,6 +127,7 @@ sale_items_003:
   reduced_unit_amount: 66.0
   reduced_unit_pretax_amount: 55.0
   reduction_percentage: 0.0
+  reference_value: unit_pretax_amount
   sale_id: 8
   tax_id: 3
   unit_amount: 66.0
@@ -137,7 +137,6 @@ sale_items_003:
   variant_id: 9
 sale_items_004:
   account_id: 15
-  all_taxes_included: false
   amount: 11.23
   created_at: 2014-11-05 10:03:05.895615000 Z
   creator_id: 1
@@ -151,6 +150,7 @@ sale_items_004:
   reduced_unit_amount: 1.872
   reduced_unit_pretax_amount: 1.56
   reduction_percentage: 0.0
+  reference_value: unit_pretax_amount
   sale_id: 9
   tax_id: 3
   unit_amount: 1.872
@@ -160,7 +160,6 @@ sale_items_004:
   variant_id: 18
 sale_items_005:
   account_id: 15
-  all_taxes_included: false
   amount: 19.2
   created_at: 2014-11-05 13:36:08.975616000 Z
   creator_id: 1
@@ -174,6 +173,7 @@ sale_items_005:
   reduced_unit_amount: 1.92
   reduced_unit_pretax_amount: 1.6
   reduction_percentage: 0.0
+  reference_value: unit_pretax_amount
   sale_id: 10
   tax_id: 3
   unit_amount: 1.92
@@ -183,7 +183,6 @@ sale_items_005:
   variant_id: 18
 sale_items_006:
   account_id: 152
-  all_taxes_included: true
   amount: 24.0
   annotation: ''
   created_at: 2015-04-21 08:22:33.186082000 Z
@@ -198,6 +197,7 @@ sale_items_006:
   reduced_unit_amount: 12.0
   reduced_unit_pretax_amount: 10.0
   reduction_percentage: 0.0
+  reference_value: unit_amount
   sale_id: 11
   tax_id: 3
   unit_amount: 12.0
@@ -207,7 +207,6 @@ sale_items_006:
   variant_id: 57
 sale_items_007:
   account_id: 152
-  all_taxes_included: true
   amount: 187.2
   annotation: ''
   created_at: 2015-04-21 08:29:05.182489000 Z
@@ -222,6 +221,7 @@ sale_items_007:
   reduced_unit_amount: 62.4
   reduced_unit_pretax_amount: 52.0
   reduction_percentage: 0.0
+  reference_value: unit_amount
   sale_id: 12
   tax_id: 3
   unit_amount: 62.4
@@ -229,3 +229,51 @@ sale_items_007:
   updated_at: 2015-04-21 08:29:05.182489000 Z
   updater_id: 1
   variant_id: 8
+sale_items_008:
+  account_id: 152
+  amount: 119.6
+  annotation: ''
+  created_at: 2015-04-21 23:49:19.339881000 Z
+  creator_id: 1
+  currency: EUR
+  id: 15
+  label: Adexar 5 l
+  lock_version: 0
+  position: 1
+  pretax_amount: 100.0
+  quantity: 100.0
+  reduced_unit_amount: 1.2
+  reduced_unit_pretax_amount: 1.0
+  reduction_percentage: 0.0
+  reference_value: unit_pretax_amount
+  sale_id: 13
+  tax_id: 1
+  unit_amount: 1.2
+  unit_pretax_amount: 1.0
+  updated_at: 2015-04-21 23:49:19.339881000 Z
+  updater_id: 1
+  variant_id: 8
+sale_items_009:
+  account_id: 152
+  amount: 200.0
+  annotation: Arigato
+  created_at: 2015-04-21 23:49:19.346386000 Z
+  creator_id: 1
+  currency: EUR
+  id: 16
+  label: Acide malique ‒ 25kg
+  lock_version: 0
+  position: 2
+  pretax_amount: 166.67
+  quantity: 1.0
+  reduced_unit_amount: 200.0
+  reduced_unit_pretax_amount: 166.67
+  reduction_percentage: 0.0
+  reference_value: amount
+  sale_id: 13
+  tax_id: 3
+  unit_amount: 200.0
+  unit_pretax_amount: 166.67
+  updated_at: 2015-04-21 23:49:19.346386000 Z
+  updater_id: 1
+  variant_id: 58

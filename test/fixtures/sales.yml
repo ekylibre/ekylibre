@@ -95,6 +95,7 @@ sales_001:
   affair_id: 10
   amount: 1164.0
   client_id: 7
+  computation_method: tax_quantity
   conclusion: Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations
     distinguées.
   confirmed_at: 2014-11-05 09:58:26.701417000 Z
@@ -133,6 +134,7 @@ sales_002:
   affair_id: 12
   amount: 792.0
   client_id: 13
+  computation_method: tax_quantity
   conclusion: Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations
     distinguées.
   created_at: 2014-11-05 10:01:39.833526000 Z
@@ -168,6 +170,7 @@ sales_003:
   affair_id: 14
   amount: 11.23
   client_id: 10
+  computation_method: tax_quantity
   conclusion: Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations
     distinguées.
   confirmed_at: 2014-11-05 10:03:12.709619000 Z
@@ -205,6 +208,7 @@ sales_004:
   affair_id: 17
   amount: 19.2
   client_id: 10
+  computation_method: tax_quantity
   conclusion: Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations
     distinguées.
   created_at: 2014-11-05 13:36:08.943621000 Z
@@ -239,6 +243,7 @@ sales_005:
   affair_id: 34
   amount: 24.0
   client_id: 10
+  computation_method: tax_quantity
   conclusion: Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations
     distinguées.
   created_at: 2015-04-21 08:22:33.148952000 Z
@@ -275,6 +280,7 @@ sales_006:
   affair_id: 35
   amount: 187.2
   client_id: 14
+  computation_method: tax_quantity
   conclusion: Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations
     distinguées.
   created_at: 2015-04-21 08:29:05.156994000 Z
@@ -304,4 +310,41 @@ sales_006:
   state: draft
   subject: ''
   updated_at: 2015-04-21 08:29:05.180649000 Z
+  updater_id: 1
+sales_007:
+  accounted_at: 2015-04-21 23:49:34.597314000 Z
+  address_id: 13
+  affair_id: 36
+  amount: 319.6
+  client_id: 10
+  computation_method: adaptative
+  conclusion: Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations
+    distinguées.
+  created_at: 2015-04-21 23:49:19.255043000 Z
+  creator_id: 1
+  credit: false
+  currency: EUR
+  delivery_address_id: 13
+  description: ''
+  downpayment_amount: 0.0
+  expiration_delay: 15 days, bom, 10 days
+  expired_at: 2015-05-10 22:00:00.000000000 Z
+  function_title: Chère Madame, Cher Monsieur
+  has_downpayment: false
+  id: 13
+  introduction: Suite à notre conversation, je vous communique les éléments du devis.
+  invoice_address_id: 13
+  letter_format: false
+  lock_version: 1
+  nature_id: 1
+  number: SO000000000008
+  payment_delay: 12 days, eom, 1 week ago
+  prereduction_amount: 0.0
+  prereduction_pretax_amount: 0.0
+  pretax_amount: 266.67
+  reduction_percentage: 0.0
+  responsible_id: 9
+  state: estimate
+  subject: ''
+  updated_at: 2015-04-21 23:49:34.591633000 Z
   updater_id: 1

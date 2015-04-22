@@ -420,3 +420,23 @@ event_participations_038:
   state: accepted
   updated_at: 2015-04-21 08:29:05.206425000 Z
   updater_id: 1
+event_participations_039:
+  created_at: 2015-04-21 23:49:19.364519000 Z
+  creator_id: 1
+  event_id: 40
+  id: 45
+  lock_version: 0
+  participant_id: 10
+  state: informative
+  updated_at: 2015-04-21 23:49:19.364519000 Z
+  updater_id: 1
+event_participations_040:
+  created_at: 2015-04-21 23:49:19.365841000 Z
+  creator_id: 1
+  event_id: 40
+  id: 46
+  lock_version: 0
+  participant_id: 9
+  state: accepted
+  updated_at: 2015-04-21 23:49:19.365841000 Z
+  updater_id: 1
