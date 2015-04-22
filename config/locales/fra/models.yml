@@ -1101,7 +1101,7 @@ fra:
     reference_name: "Référence"
     reference_number: "N°Référence"
     reference_tax: "Taxe de référence"
-    # reference_value: "Reference value"
+    reference_value: "Valeur de référence"
     reflected: "Refléter les changements"
     reflected_at: "Reflété le"
     reflection_nodes: "Nœuds de réflection"

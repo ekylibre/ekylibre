@@ -159,7 +159,7 @@ class Purchase < Ekylibre::Record::Base
   end
 
   def dealt_at
-    return (self.invoice? ? self.invoiced_at : self.created_at)
+    return (self.invoice? ? self.invoiced_at : self.created_at? ? self.created_at : Time.now)
   end
 
   # Globalizes taxes into an array of hash

@@ -6,15 +6,14 @@
   %td
     = f.input :reference_value, as: :hidden, input_html: {data: {trade_component: "reference_value"}}
     .annotable
-      = f.referenced_association(:variant, wrapper: :nested, source: {scope: :purchaseables}, input_html: {data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_url("RECORD_ID", mode: :last_purchase_item)}}})
+      = f.referenced_association(:variant, wrapper: :nested, source: {scope: :purchaseables}, input_html: {data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", mode: :last_purchase_item)}}})
       - attrs = {}
       - if f.object.annotation.blank?
         = link_to("#", data: {annotate: ".annotate", use_closest: "td"}, title: :add_annotation.tl) do
           %i
         - attrs[:style] = "display: none"
-    .with-fixed-asset
-      = f.input(:fixed)
     .annotate{attrs}= f.input(:annotation, wrapper: :nested, input_html: {class: "annotation"})
+    .with-fixed-asset= f.input(:fixed)
   %td= f.input(:unit_pretax_amount, wrapper: :nested, input_html: {data: {trade_component: "unit_pretax_amount"}})
   %td.decimal= f.select(:tax_id, Tax.currents.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.amount)/100)}]}, {}, data: {value: 'rate', trade_component: "tax"})
   %td= f.input(:unit_amount, wrapper: :nested, input_html: {data: {trade_component: "unit_amount"}})
