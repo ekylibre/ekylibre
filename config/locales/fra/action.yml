@@ -815,7 +815,6 @@ fra:
     budgets: "Budgets"
     building: "Lieu de stockage" #?
     building_name: "Sortie de"
-    buildings: "Voir la liste des lieux de stockage" #?
     buildings_map: "Carte des bâtiments"
     calculate: "Calculer"
     calculators: "Calculateurs"
@@ -1407,7 +1406,7 @@ fra:
     product_bar: "Produit par catégories"
     product_category: "Produits"
     product_name: "Produit"
-    product_natures: "Product natures"
+    product_natures: "Types de produit"
     product_price_listings: "Listes de prix" #?
     product_price_templates: "Types de prix" #?
     production: "Production"

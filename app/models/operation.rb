@@ -72,11 +72,13 @@ class Operation < Ekylibre::Record::Base
   scope :unvalidateds, -> { where(confirmed: false) }
 
   scope :of_campaign, lambda { |*campaigns|
-    campaigns.flatten!
-    for campaign in campaigns
-      raise ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}") unless campaign.is_a?(Campaign)
+    list = campaigns.flatten.compact.map do |campaign|
+      unless campaign.is_a?(Campaign)
+        raise ArgumentError, "Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}"
+      end
+      campaign
     end
-    joins(intervention: :production).merge(Production.of_campaign(campaigns))
+    joins(intervention: :production).merge(Production.of_campaign(list))
   }
 
   scope :of_activities, lambda { |*activities|
