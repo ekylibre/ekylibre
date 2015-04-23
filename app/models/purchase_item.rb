@@ -67,7 +67,7 @@ class PurchaseItem < Ekylibre::Record::Base
   validates_associated :financial_asset
   # validates_uniqueness_of :tracking_serial, :scope => :price_id, allow_nil: true, if: Proc.new{|pl| !pl.tracking_serial.blank? }, :allow_blank => true
 
-  delegate :invoiced_at, :number, to: :purchase
+  delegate :invoiced_at, :number, :computation_method_quantity_tax?, :computation_method_tax_quantity?, :computation_method_adaptative?, :computation_method_manual?, to: :purchase
   delegate :purchased?, :draft?, :order?, :supplier, to: :purchase
   delegate :currency, to: :purchase, prefix: true
   delegate :name, to: :variant, prefix: true
@@ -110,11 +110,25 @@ class PurchaseItem < Ekylibre::Record::Base
       precision = Nomen::Currencies[self.currency].precision
     end
 
-    # if self.quantity and self.unit_pretax_amount and self.tax
-    #   self.unit_amount = self.tax.amount_of(self.unit_pretax_amount).round(precision)
-    #   self.pretax_amount = (self.quantity * self.unit_pretax_amount).round(precision)
-    #   self.amount = self.tax.amount_of(self.pretax_amount).round(precision)
-    # end
+    if self.quantity and self.unit_pretax_amount and self.tax
+      adaptative_method = nil
+      if self.computation_method_adaptative?
+        if self.unit_pretax_amount >= 10 ** self.tax.amount.decimal_count
+          adaptative_method = :tax_quantity
+        else
+          adaptative_method = :quantity_tax
+        end
+      end
+      unless self.computation_method_manual?
+        self.unit_amount = self.tax.amount_of(self.unit_pretax_amount).round(precision)
+        self.pretax_amount = (self.quantity * self.unit_pretax_amount).round(precision)
+      end
+      if self.computation_method_quantity_tax? or adaptative_method == :quantity_tax
+        self.amount = self.tax.amount_of(self.pretax_amount).round(precision)
+      elsif self.computation_method_tax_quantity? or adaptative_method == :tax_quantity
+        self.amount = (self.quantity * self.unit_amount).round(precision)
+      end
+    end
 
     if self.variant
       if self.fixed
