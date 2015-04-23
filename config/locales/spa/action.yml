@@ -25,6 +25,7 @@ spa:
       # unmark: "Unmark account"
     backend/activities:
       # edit: "Edit activity: %{name}"
+      # family: "Family activity: %{name}"
       # index: "Activities"
       # new: "New activity"
       # show: "Activity: %{name}"
@@ -631,6 +632,7 @@ spa:
       # new: "New subscription"
     backend/synchronizations:
       # index: "Synchronizations"
+      # run: "Run synchronization: %{name}"
       # show: "Synchronization: %{name}"
     backend/taxes:
       edit: "Modificar la tasa\_: %{name}"
@@ -641,6 +643,7 @@ spa:
       edit: "Modificar el servicio\_: %{name}"
       index: "Servicios"
       new: "Añadido de nuevo servicio"
+      # show: "Team: %{name}"
     backend/trackings:
       # edit: "Edit tracking: %{name}"
       # index: "Trackings"
@@ -1325,6 +1328,7 @@ spa:
     payments_count: "Nombre de %{mode}"
     # people: "People"
     period: "Intervalo de periodo"
+    # periods: "Periods"
     # permute: "Permute"
     personalized_mail: "Enviar un correo electronico personalizado"
     pertinence: "%{value}%"
@@ -1548,6 +1552,7 @@ spa:
     # taxations: "Taxations"
     # taxes: "Taxes"
     theoric_quantity: "cantidad teorica" #?
+    # thumb: "Thumb"
     # time_cost: "Time cost"
     # time_cost_per_hectare: "Time cost per hectare"
     # time_zone: "Time zone"
@@ -1934,8 +1939,10 @@ spa:
       # duplicate: "Duplicate"
       # edit: "Edit"
       # evaluate: "Evaluate"
+      # evolve: "Evolve"
       # export: "Export"
       # extract: "Extract"
+      # family: "Family"
       # finish: "Finish"
       # general_ledger: "General ledger"
       # generate_last_journal_entry: "Generate last journal entry"
@@ -1976,6 +1983,7 @@ spa:
       # show: "Show"
       # sort: "Sort"
       # stop: "Stop"
+      # take: "Take"
       # toggle: "Toggle"
       # unlock: "Unlock"
       # unmark: "Unmark"

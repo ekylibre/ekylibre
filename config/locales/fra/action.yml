@@ -21,6 +21,7 @@ fra:
       unmark: "Délettrer un compte"
     backend/activities:
       edit: "Modifier une activité\_: %{name}"
+      family: "Famille d'activité\_: %{name}"
       index: "Activités"
       new: "Nouvelle activité"
       show: "%{name}"
@@ -582,6 +583,7 @@ fra:
       new: "Nouvel abonnement"
     backend/synchronizations:
       index: "Synchronisations"
+      run: "Lancer une synchronization: %{name}"
       show: "Synchronisation: %{name}"
     backend/taxes:
       edit: "Modifier la taxe\_: %{name}"
@@ -592,7 +594,7 @@ fra:
       edit: "Modifier l’équipe\_: %{name}"
       index: "Équipes"
       new: "Nouvelle équipe"
-      show: "Équipe\_: %{name}" #?
+      show: "Équipe\_: %{name}"
     backend/trackings:
       edit: "Modifier le numéro de suivi\_: %{name} - %{serial}"
       index: "Numéros de suivi"
@@ -1356,6 +1358,7 @@ fra:
     payments_count: "Nombre de %{mode}"
     people: "Personnes"
     period: "Période prédéfinie"
+    periods: "Périodes"
     permute: "Permuter les fiches"
     personalized_mail: "Envoyer un mail personnalisé"
     pertinence: "%{value}%"
@@ -1626,6 +1629,7 @@ fra:
     temperature: "Température" #?
     theoric_quantity: "Quantité théorique" #?
     third_informations: "Informations tierces" #?
+    thumb: "Miniature"
     time_cost: "Coût de main d’œuvre"
     time_cost_per_hectare: "Coût de main d’œuvre par hectare"
     time_zone: "Fuseau horaire"
@@ -2037,8 +2041,10 @@ fra:
       duplicate: "Dupliquer"
       edit: "Modifier"
       evaluate: "Évaluer"
+      evolve: "Evoluer"
       export: "Exporter"
       extract: "Extraire"
+      family: "Famille"
       finish: "Finir"
       general_ledger: "Grand livre"
       generate_last_journal_entry: "Générer la dernière écriture"
@@ -2079,6 +2085,7 @@ fra:
       show: "Afficher"
       sort: "Trier"
       stop: "Arrêter"
+      take: "Prendre"
       toggle: "Basculer"
       unlock: "Déverrouiller"
       unmark: "Dé-marquer"

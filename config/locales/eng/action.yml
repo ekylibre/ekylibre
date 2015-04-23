@@ -19,7 +19,7 @@ eng:
       unmark: "Unmark account"
     backend/activities:
       edit: "Edit activity: %{name}"
-      # family: "Family activity: %{name}"
+      family: "Family activity: %{name}"
       index: "Activities"
       new: "New activity"
       show: "Activity: %{name}"
@@ -618,7 +618,7 @@ eng:
       # show: "Subscription: %{name}"
     backend/synchronizations:
       index: "Synchronizations"
-      # run: "Run synchronization: %{name}"
+      run: "Run synchronization: %{name}"
       show: "Synchronization: %{name}" #?
     backend/taxes:
       edit: "Edit tax: %{name}"
@@ -629,7 +629,7 @@ eng:
       edit: "Edit team: %{name}"
       index: "Teams"
       new: "New team"
-      # show: "Team: %{name}"
+      show: "Team: %{name}"
     backend/trackings:
       edit: "Edit tracking: %{name}"
       index: "Trackings"
@@ -928,7 +928,6 @@ eng:
     default_letter_introduction: "Following our conversation, I give you the elements of the estimate."
     default_subject: "[%{company}]"
     definition: "Definition"
-    # delay: "Delay"
     delete: "Delete"
     deliver: "Delivered on" #?
     deliveries: "Deliveries"
@@ -1218,6 +1217,7 @@ eng:
     payments_count: "Payments count"
     people: "People"
     period: "Period"
+    periods: "Periods"
     permute: "Permute" #?
     personalized_mail: "Send a personalized mail"
     pertinence: "%{value}%"
@@ -1395,7 +1395,7 @@ eng:
     target: "Target" #?
     taxations: "Taxations"
     taxes: "Taxes" #?
-    # thumb: "Thumb"
+    thumb: "Thumb"
     time_cost: "Time cost" #?
     time_cost_per_hectare: "Time cost per hectare"
     time_zone: "Time zone"
@@ -1717,10 +1717,10 @@ eng:
       duplicate: "Duplicate"
       edit: "Edit"
       evaluate: "Evaluate"
-      # evolve: "Evolve"
+      evolve: "Evolve"
       export: "Export"
       extract: "Extract"
-      # family: "Family"
+      family: "Family"
       finish: "Finish"
       general_ledger: "General ledger"
       generate_last_journal_entry: "Generate last journal entry"
@@ -1762,7 +1762,7 @@ eng:
       show: "Show"
       sort: "Sort"
       stop: "Stop" #?
-      # take: "Take"
+      take: "Take"
       toggle: "Toggle"
       unlock: "Unlock"
       unmark: "Unmark"

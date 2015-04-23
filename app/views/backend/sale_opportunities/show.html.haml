@@ -9,7 +9,7 @@
 = beehive do |b|
   - if resource.dead_line_at
     - b.hbox do
-      - b.cell :delay do
+      - b.cell :periods do
         .med-info
           %span.title= SaleOpportunity.human_attribute_name(:timeleft)
           %span.value
@@ -19,18 +19,15 @@
           %span.value
             %i.picto.picto-clock-o
             = human_age(resource.age, display: 2)
+
+      - b.cell :affair do
+        .med-info
+          %span.title= SaleOpportunity.human_attribute_name(:probability_percentage)
+          %span.value= resource.probability_percentage
           %span.title= SaleOpportunity.human_attribute_name(:pretax_amount)
           %span.value
             %i.picto.picto-money
             = resource.pretax_amount.l(currency: resource.currency)
-
-      - b.cell :affair do
-        .big-info.important
-          %span.title= SaleOpportunity.human_attribute_name(:state)
-          %span.value= lights(resource.status)
-        .med-info
-          %span.title= SaleOpportunity.human_attribute_name(:probability_percentage)
-          %span.value= resource.probability_percentage
 
       - b.cell do
         = attributes_list stamps: false do |l|

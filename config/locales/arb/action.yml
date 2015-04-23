@@ -24,6 +24,7 @@ arb:
       # unmark: "Unmark account"
     backend/activities:
       # edit: "Edit activity: %{name}"
+      # family: "Family activity: %{name}"
       # index: "Activities"
       # new: "New activity"
       # show: "Activity: %{name}"
@@ -702,6 +703,7 @@ arb:
       new: "انشاء اشتراك جديد"
     backend/synchronizations:
       # index: "Synchronizations"
+      # run: "Run synchronization: %{name}"
       # show: "Synchronization: %{name}"
     backend/tax_declarations:  #?
       edit: "انشاء تصريح" #?
@@ -717,6 +719,7 @@ arb:
       edit: "تعديل الوظيفة : %{name}"
       index: "الوظائف/المهام"
       new: "اضافة وظيفة جديدة"
+      # show: "Team: %{name}"
     backend/tool_natures: #?
     backend/tools:  #?
       edit: "تعديل المادة : %{name}" #?
@@ -1612,6 +1615,7 @@ arb:
     payments_total: "جميع الدفعات" #?
     # people: "People"
     period: "المدة المحددة مسبقا"
+    # periods: "Periods"
     permute: "مقايضة الملفات"
     personalized_mail: "ارسال بريد الكتروني شخصي"
     pertinence: "%{value}%"
@@ -1878,6 +1882,7 @@ arb:
     # taxations: "Taxations"
     # taxes: "Taxes"
     theoric_quantity: "الكمية النظرية" #?
+    # thumb: "Thumb"
     # time_cost: "Time cost"
     # time_cost_per_hectare: "Time cost per hectare"
     # time_zone: "Time zone"
@@ -2335,8 +2340,10 @@ arb:
       # duplicate: "Duplicate"
       # edit: "Edit"
       # evaluate: "Evaluate"
+      # evolve: "Evolve"
       # export: "Export"
       # extract: "Extract"
+      # family: "Family"
       # finish: "Finish"
       # general_ledger: "General ledger"
       # generate_last_journal_entry: "Generate last journal entry"
@@ -2377,6 +2384,7 @@ arb:
       # show: "Show"
       # sort: "Sort"
       # stop: "Stop"
+      # take: "Take"
       # toggle: "Toggle"
       # unlock: "Unlock"
       # unmark: "Unmark"
