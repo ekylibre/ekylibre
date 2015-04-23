@@ -238,7 +238,7 @@ class Purchase < Ekylibre::Record::Base
 
   # Prints human name of current state
   def state_label
-    tc('states.'+self.state.to_s)
+    self.class.state_machine.state(self.state.to_sym).human_name
   end
 
   def status

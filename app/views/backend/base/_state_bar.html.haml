@@ -1,5 +1,5 @@
-.state-bar{class: "state-bar-#{states.size}"}
-  - states.each do |state, human_name|
-    - classes = ["state-#{state}"]
+.state-bar{class: "state-bar-#{states.count}"}
+  - states.each do |state|
+    - classes = ["state-#{state.name}"]
     - classes << "active" if state == current_state
-    %span.state{class: classes}= human_name
+    %span.state{class: classes}= state.human_name

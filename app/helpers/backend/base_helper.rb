@@ -362,11 +362,10 @@ module Backend::BaseHelper
 
 
   def state_bar(resource, options = {})
-    states = resource.class.state_machine.states.inject({}) do |hash, state|
-      hash[state.name] = state.human_name
-      hash
-    end
-    render "state_bar", states: states, current_state: resource.state.to_sym, resource: resource
+    machine = resource.class.state_machine
+    state = resource.state
+    state = machine.state(state.to_sym) unless state.is_a?(StateMachine::State) or state.nil?
+    render "state_bar", states: machine.states, current_state: state, resource: resource
   end
 
 end

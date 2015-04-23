@@ -115,22 +115,23 @@ class SaleOpportunity < Affair
   end
 
   def status
-    if self.state == "lost"
+    if self.lost?
       return  :stop
-    elsif self.state == "won"
+    elsif self.won?
       return :go
     else
       return :caution
     end
   end
 
-   def self.state_label(state)
-    tc('states.'+state.to_s)
-  end
-
   # Prints human name of current state
   def state_label
-    self.class.state_label(self.state)
+    self.state.human_name
+  end
+
+  # Permit to use directly StateMachine::State instead of String
+  def state
+    (self["state"].blank? ? nil : self.class.state_machine.state(self["state"].to_sym))
   end
 
   # Returns timeleft in seconds of the sale opportunities

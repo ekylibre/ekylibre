@@ -349,13 +349,13 @@ class Sale < Ekylibre::Record::Base
   # end
 
 
-  def self.state_label(state)
-    tc('states.'+state.to_s)
-  end
+  # def self.state_label(state)
+  #   state_machine.state(state.to_sym).human_name
+  # end
 
   # Prints human name of current state
   def state_label
-    self.class.state_label(self.state)
+    self.class.state_machine.state(self.state.to_sym).human_name
   end
 
   # # Computes an amount (with or without taxes) of the undelivered products
