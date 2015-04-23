@@ -110,11 +110,11 @@ class PurchaseItem < Ekylibre::Record::Base
       precision = Nomen::Currencies[self.currency].precision
     end
 
-    if self.quantity and self.unit_pretax_amount and self.tax
-      self.unit_amount = self.tax.amount_of(self.unit_pretax_amount).round(precision)
-      self.pretax_amount = (self.quantity * self.unit_pretax_amount).round(precision)
-      self.amount = self.tax.amount_of(self.pretax_amount).round(precision)
-    end
+    # if self.quantity and self.unit_pretax_amount and self.tax
+    #   self.unit_amount = self.tax.amount_of(self.unit_pretax_amount).round(precision)
+    #   self.pretax_amount = (self.quantity * self.unit_pretax_amount).round(precision)
+    #   self.amount = self.tax.amount_of(self.pretax_amount).round(precision)
+    # end
 
     if self.variant
       if self.fixed

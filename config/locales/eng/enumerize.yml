@@ -89,6 +89,7 @@ eng:
     purchase:
       computation_method:
         adaptative: "Adaptative"
+        manual: "Manual"
         quantity_tax: "Quantity-Tax"
         tax_quantity: "Tax-Quantity"
     sale:

@@ -89,6 +89,7 @@ fra:
     purchase:
       computation_method:
         adaptative: "Adaptatif"
+        manual: "Manuel"
         quantity_tax: "Quantité-TVA"
         tax_quantity: "TVA-Quantité"
     sale:

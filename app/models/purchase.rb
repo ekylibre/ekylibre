@@ -51,7 +51,7 @@
 
 class Purchase < Ekylibre::Record::Base
   include Attachable
-  enumerize :computation_method, in: [:adaptative, :quantity_tax, :tax_quantity], default: :adaptative
+  enumerize :computation_method, in: [:adaptative, :quantity_tax, :tax_quantity, :manual], default: :adaptative
   attr_readonly :currency, :nature_id
   belongs_to :delivery_address, class_name: "EntityAddress"
   belongs_to :journal_entry

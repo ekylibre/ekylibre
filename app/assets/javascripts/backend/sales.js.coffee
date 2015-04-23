@@ -63,6 +63,10 @@
     referenceClass: "special"
 
     methods:
+      computeManual: (item, changedComponent) ->
+        console.log "Compute Manual method from #{changedComponent}"
+        # Do nothing for now
+
       computeQuantityTax: (item, changedComponent) ->
         console.log "Compute Quantity-Tax method from #{changedComponent}"
         if changedComponent == "amount"
@@ -76,11 +80,11 @@
         else if changedComponent == "unit_amount"
           E.trade.ops.mmme(item)
           E.trade.ops.mmmg(item)
-          E.trade.ops.mmmh(item)
+          E.trade.ops.mmmd(item)
         else if changedComponent == "unit_pretax_amount"
           E.trade.ops.mmmf(item)
           E.trade.ops.mmmg(item)
-          E.trade.ops.mmmh(item)
+          E.trade.ops.mmmd(item)
         else
           console.error "Cannot compute anything for #{changedComponent}"
 
@@ -88,20 +92,20 @@
         console.log "Compute Tax-Quantity method from #{changedComponent}"
         if changedComponent == "amount"
           E.trade.ops.mmmb(item)
-          E.trade.ops.mmma(item)
           E.trade.ops.mmme(item)
+          E.trade.ops.mmmg(item)
         else if changedComponent == "pretax_amount"
           E.trade.ops.mmmc(item)
-          E.trade.ops.mmmd(item)
           E.trade.ops.mmmf(item)
+          E.trade.ops.mmmh(item)
         else if changedComponent == "unit_amount"
-          E.trade.ops.mmmi(item)
-          E.trade.ops.mmma(item)
+          E.trade.ops.mmmh(item)
           E.trade.ops.mmme(item)
+          E.trade.ops.mmmg(item)
         else if changedComponent == "unit_pretax_amount"
           E.trade.ops.mmmg(item)
-          E.trade.ops.mmmd(item)
           E.trade.ops.mmmf(item)
+          E.trade.ops.mmmh(item)
         else
           console.error "Cannot compute anything for #{changedComponent}"
 
@@ -142,8 +146,6 @@
       mmmg: (item) ->
         E.trade.multiply(item, "pretax_amount", "unit_pretax_amount", "quantity")
       mmmh: (item) ->
-        E.trade.multiply(item, "amount", "pretax_amount", "tax")
-      mmmi: (item) ->
         E.trade.multiply(item, "amount", "unit_amount", "quantity")
 
     find: (name, item) ->
@@ -195,6 +197,8 @@
         E.trade.methods.computeTaxQuantity(item, changedComponent)
       else if method == "adaptative"
         E.trade.methods.computeAdaptive(item, changedComponent)
+      else if method == "manual"
+        E.trade.methods.computeManual(item, changedComponent)
       else
         console.error "Cannot compute anything with #{method} method"
 
