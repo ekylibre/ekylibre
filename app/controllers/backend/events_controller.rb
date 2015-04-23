@@ -18,7 +18,7 @@
 #
 
 class Backend::EventsController < Backend::BaseController
-  manage_restfully except: :index, nature: "Event.nature.default_value".c, :started_at => "Time.now".c
+  manage_restfully except: :index, nature: "Event.nature.default_value".c, started_at: "Time.now".c, affair_id: "params[:affair_id]".c
 
   unroll
 

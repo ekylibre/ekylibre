@@ -70,6 +70,7 @@ class Affair < Ekylibre::Record::Base
   belongs_to :responsible, class_name: "Person"
   belongs_to :third, class_name: "Entity"
   # FIXME: Gap#affair_id MUST NOT be mandatory
+  has_many :events
   has_many :gaps,              inverse_of: :affair #, dependent: :delete_all
   has_many :sales,             inverse_of: :affair, dependent: :nullify
   has_many :purchases,         inverse_of: :affair, dependent: :nullify

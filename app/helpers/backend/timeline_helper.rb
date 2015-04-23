@@ -26,20 +26,17 @@ module Backend::TimelineHelper
     attr_reader :object, :sides
 
     class Side
-      attr_reader :name, :model, :label_method
+      attr_reader :name, :model, :label_method, :at_method
 
       def initialize(timeline, name, model, options = {})
         @timeline = timeline
         @name = name
         @model = model
         @label_method = options[:label_method]
+        @at_method = options[:at] || options[:at_method] || :created_at
         @label = options[:label]
         @new = !options[:new].is_a?(FalseClass)
         @params = options[:params] || {}
-      end
-
-      def at_method
-        :created_at
       end
 
       def human_name

@@ -56,12 +56,18 @@ class Backend::SaleOpportunitiesController < Backend::AffairsController
     end
   end
 
+  def evolve
+    return unless @sale_opportunity = find_and_check
+    @sale_opportunity.update_attributes!(state: params[:state])
+    redirect_to params[:redirect] || {action: :show, id: @sale_opportunity.id}
+  end
+
   protected
 
   def fire_event(event)
     return unless @sale_opportunity = find_and_check
     @sale_opportunity.send(event)
-    redirect_to action: :show, id: @sale_opportunity.id
+    redirect_to params[:redirect] || {action: :show, id: @sale_opportunity.id}
   end
 
 end

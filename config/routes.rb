@@ -64,6 +64,7 @@ Rails.application.routes.draw do
   end
 
   concern :affairs do
+    concerns :unroll
     member do
       get :select
       post :attach
@@ -642,8 +643,9 @@ Rails.application.routes.draw do
 
     resources :sale_natures, concerns: [:list, :unroll], path: "sale-natures"
 
-    resources :sale_opportunities, concerns: [:list, :unroll, :affairs], path: "sale-opportunities" do
+    resources :sale_opportunities, concerns: [:list, :affairs], path: "sale-opportunities" do
       member do
+        match "evolve/:state" => :evolve, via: :patch
         post :evaluate
         post :lose
         post :negociate

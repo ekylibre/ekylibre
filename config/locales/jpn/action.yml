@@ -1269,6 +1269,7 @@ jpn:
     # timeline: "Timeline"
     # timeline_comment: "%{author} commented %{ago} ago"
     # timeline_entity_link: "Timeline entity link"
+    # timeline_event: "%{name} with %{participants} %{ago} ago"
     # timeline_item: "%{type} %{name} added by %{author} %{ago} ago"
     # timeline_payment: "%{type} %{name} of %{amount} by %{mode} added by %{author} %{ago} ago"
     # timeline_sale: "%{type} %{name} of %{amount} added by %{author} %{ago} ago"

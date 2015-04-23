@@ -12,6 +12,8 @@
     - t.send(event, resource, method: :post, "data-confirm" => :are_you_sure.tl) if resource.send("can_#{event}?")
   - t.abort(resource, method: :post, "data-confirm" => :are_you_sure.tl) if resource.can_abort?
 
+= state_bar(resource)
+
 = beehive do |b|
 
   - b.hbox do

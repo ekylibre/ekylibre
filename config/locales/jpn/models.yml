@@ -1213,7 +1213,7 @@ jpn:
         # estimate: "Estimate"
         # invoice: "Invoice"
         # order: "Order"
-        # refused: "Refused purchase order"
+        # refused: "Refused order"
     purchase_item:
       # name: "%{product} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}"
       # name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}"
@@ -1260,14 +1260,15 @@ jpn:
       default:
         # name: "Standard sale"
     sale_opportunity:
-      states:
-        # lost: "Lost"
-        # negociation: "Negociation"
-        # price_quote: "Price quote"
-        # prospecting: "Prospecting"
-        # qualification: "Qualification"
-        # value_proposition: "Value proposition"
-        # won: "Won"
+      state_machine:
+        states:
+          # lost: "Lost"
+          # negociation: "Negociation"
+          # price_quote: "Price quote"
+          # prospecting: "Prospecting"
+          # qualification: "Qualification"
+          # value_proposition: "Value proposition"
+          # won: "Won"
     sequence:
       default:
         # affairs: "A[number|12]"

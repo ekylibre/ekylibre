@@ -20,6 +20,8 @@
 class Backend::AffairsController < Backend::BaseController
   manage_restfully only: [:index, :show], subclass_inheritance: true
 
+  unroll
+
   list do |t|
     t.column :number, url: true
     t.status

@@ -1,8 +1,10 @@
 - main_toolbar do |t|
-  - [:qualify, :evaluate, :quote, :negociate, :win, :lose].each do |event|
+  -# [:qualify, :evaluate, :quote, :negociate, :win, :lose].each do |event|
     - if resource.send("can_#{event}?")
       - t.send(event, resource, method: :post)
   - t.edit resource
+
+= state_bar(resource)
 
 = beehive do |b|
   - if resource.dead_line_at
@@ -50,6 +52,7 @@
     - b.cell :timeline do
       = timeline(resource) do |l|
         - l.side :observations
+        - l.side :events, at: :started_at
         - l.side :sales
         - l.side :purchases
         - l.side :incoming_payments

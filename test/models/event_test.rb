@@ -22,6 +22,7 @@
 #
 # == Table: events
 #
+#  affair_id    :integer
 #  created_at   :datetime         not null
 #  creator_id   :integer
 #  description  :text

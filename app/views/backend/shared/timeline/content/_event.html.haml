@@ -1,0 +1,6 @@
+:ruby
+  participants = event.participations.collect do |participation|
+    participant = participation.participant
+    link_to(participant.name, {controller: :entities, action: :show, id: participant.id})
+  end
+= :timeline_event.th(defaults.merge(participants: participants.to_sentence.html_safe))

@@ -90,6 +90,9 @@
       }
     }
 
+    &.event .log i.symbol {
+      @include use-icon(calendar);
+    }
     &.entity_link .log i.symbol {
       @include use-icon(arrows-h);
     }

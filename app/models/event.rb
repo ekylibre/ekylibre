@@ -22,6 +22,7 @@
 #
 # == Table: events
 #
+#  affair_id    :integer
 #  created_at   :datetime         not null
 #  creator_id   :integer
 #  description  :text
@@ -38,6 +39,7 @@
 #  updater_id   :integer
 #
 class Event < Ekylibre::Record::Base
+  belongs_to :affair
   has_one :intervention, inverse_of: :event
   has_many :participations, class_name: "EventParticipation", dependent: :destroy, inverse_of: :event
   has_many :participants, :through => :participations

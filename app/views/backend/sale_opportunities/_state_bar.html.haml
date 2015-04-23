@@ -1,0 +1,8 @@
+.state-bar.interactive{class: "state-bar-#{states.size}"}
+  - states.each do |state, human_name|
+    - classes = ["state", "state-#{state}"]
+    - if state == current_state
+      - classes << "active"
+      %span{class: classes}= human_name
+    - else
+      = link_to(human_name, {action: :evolve, id: resource.id, state: state}, class: classes, method: :patch, data: {confirm: :are_you_sure.tl})

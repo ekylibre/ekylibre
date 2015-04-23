@@ -2390,3 +2390,56 @@ a[data-annotate] {
     }
   }
 }
+
+
+.state-bar {
+  display: table;
+  width: 100%;
+  .state {
+    display: table-cell;
+    background: $caution-color;
+    &.state-lost, &.state-refused, &.state-aborted {
+      background: $invalid-color;
+    }
+    &.state-won, &.state-invoice, &.state-order {
+      background: $success-color;
+    }
+    @include text-align(center);
+    @include box-sizing(border-box);
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: $default-gap;
+    line-height: $lh-normal;
+    color: white;
+    opacity: 0.25;
+    &.active {
+      opacity: 1;
+    }
+  }
+  &.interactive {
+    .state:hover {
+      opacity: 0.66;
+    }
+  }
+  @for $i from 1 through 16 {
+    .state:first-child:nth-last-child(#{$i}),
+    .state:first-child:nth-last-child(#{$i}) ~ .state {
+      width: floor(100000% / $i) / 1000;
+    }
+  }
+  @include respond-to-smaller-than(small) {
+    display: block;
+    .state {
+      display: none;
+      width: 100% !important;
+      &.active {
+        display: block;
+      }
+    }
+    &:hover {
+      .state {
+        display: block;
+      }
+    }
+  }
+}

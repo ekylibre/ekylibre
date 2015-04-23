@@ -9,7 +9,8 @@
         - l.attribute :name
         - l.attribute :started_at
         - l.attribute :nature, url: true
-        - l.attribute :intervention, url: true
+        - l.attribute(:intervention, url: true) if resource.intervention
+        - l.attribute(:affair, url: true) if resource.affair
         - if resource.custom_fields.any?
           - l.custom_fields
   - b.cell :participations do

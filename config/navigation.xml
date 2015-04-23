@@ -271,6 +271,7 @@
         <page to="backend/sale_opportunities#create"/>
         <page to="backend/sale_opportunities#destroy"/>
         <page to="backend/sale_opportunities#edit"/>
+        <page to="backend/sale_opportunities#evolve"/>
         <page to="backend/sale_opportunities#list"/>
         <page to="backend/sale_opportunities#new"/>
         <page to="backend/sale_opportunities#show"/>
@@ -284,6 +285,7 @@
         <page to="backend/sale_opportunities#qualify"/>
         <page to="backend/sale_opportunities#quote"/>
         <page to="backend/sale_opportunities#select"/>
+        <page to="backend/sale_opportunities#unroll"/>
         <page to="backend/sale_opportunities#win"/>
       </item>
     </group>
@@ -357,6 +359,7 @@
         <page to="backend/affairs#list"/>
         <page to="backend/affairs#select"/>
         <page to="backend/affairs#show"/>
+        <page to="backend/affairs#unroll"/>
         <page to="backend/gaps#index"/>
         <page to="backend/gaps#destroy"/>
         <page to="backend/gaps#list"/>
@@ -369,6 +372,7 @@
         <page to="backend/sale_tickets#list"/>
         <page to="backend/sale_tickets#select"/>
         <page to="backend/sale_tickets#show"/>
+        <page to="backend/sale_tickets#unroll"/>
       </item>
     </group>
   </part>

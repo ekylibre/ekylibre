@@ -1,7 +1,6 @@
 = field_set do
   = f.input :name
-  -# = f.referenced_association :entity
-  -# = f.referenced_association :responsible
+  = f.referenced_association :affair
   = f.input :nature, collection: Nomen::EventNatures.selection
   = f.input :place, :autocomplete => true
   = f.input :restricted

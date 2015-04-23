@@ -1410,6 +1410,9 @@ event_participations:
     type: integer
     references: user
 events:
+  affair_id:
+    type: integer
+    references: affair
   created_at:
     type: datetime
     required: true

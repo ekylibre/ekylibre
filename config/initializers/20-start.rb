@@ -43,6 +43,7 @@ end
 # Other things...
 require 'reporting'
 require 'enumerize/xml'
+require 'state_machine/i18n'
 
 # require 'active_list'
 # ::ActionController::Base.send(:include, ActiveList::ActionPack::ActionController)

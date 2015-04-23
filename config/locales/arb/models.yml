@@ -2596,7 +2596,7 @@ arb:
         # estimate: "Estimate"
         # invoice: "Invoice"
         # order: "Order"
-        # refused: "Refused purchase order"
+        # refused: "Refused order"
     purchase_item:
       name: "%{product} (%{quantity}%{unit}) ل %{amount}%{currency}/%{unit}"
       name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}) لل %{amount}%{currency}/%{unit}"
@@ -2653,14 +2653,15 @@ arb:
       default:
         # name: "Standard sale"
     sale_opportunity:
-      states:
-        # lost: "Lost"
-        # negociation: "Negociation"
-        # price_quote: "Price quote"
-        # prospecting: "Prospecting"
-        # qualification: "Qualification"
-        # value_proposition: "Value proposition"
-        # won: "Won"
+      state_machine:
+        states:
+          # lost: "Lost"
+          # negociation: "Negociation"
+          # price_quote: "Price quote"
+          # prospecting: "Prospecting"
+          # qualification: "Qualification"
+          # value_proposition: "Value proposition"
+          # won: "Won"
     sales_invoice:  #?
       bookkeep: "[%{resource} %{number}] %{products} لاجل %{client} (%{sale})" #?
       label: #?
