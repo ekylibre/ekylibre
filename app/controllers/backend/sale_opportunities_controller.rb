@@ -43,7 +43,7 @@ class Backend::SaleOpportunitiesController < Backend::AffairsController
     t.column :responsible, hidden: true
     t.column :description, hidden: true
     t.status
-    t.column :state
+    t.column :state_label
     t.column :pretax_amount, currency: true
     # t.action :show, url: {format: :pdf}, image: :print
     t.action :edit

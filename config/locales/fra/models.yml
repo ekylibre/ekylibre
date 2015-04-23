@@ -1484,6 +1484,15 @@ fra:
     sale_nature:
       default:
         name: "Vente standard"
+    sale_opportunity:
+      states:
+        lost: "Perdue"
+        negociation: "En négociation"
+        price_quote: "Evaluation"
+        prospecting: "Prospection"
+        qualification: "Qualification"
+        value_proposition: "Proposition de valeur"
+        won: "Won"
     sequence:
       default:
         affairs: "A[number|12]"

@@ -5,18 +5,45 @@
   - t.edit resource
 
 = beehive do |b|
-  - b.hbox do
-    - b.cell do
-      = attributes_list stamps: false do |l|
-        - l.attribute :client, label: :label, url: true
-        - l.attribute :number
-        - l.attribute :responsible, label: :full_name, url: true
-        - l.attribute :created_at
-        - l.attribute :dead_line_at if resource.dead_line_at?
-        - l.attribute :pretax_amount, currency: true
-        - l.attribute :description if resource.description?
-        - if resource.custom_fields.any?
-          - l.custom_fields
+  - if resource.dead_line_at
+    - b.hbox do
+      - b.cell :delay do
+        .med-info
+          %span.title= SaleOpportunity.human_attribute_name(:timeleft)
+          %span.value
+            %i.picto.picto-warning
+            = human_age(resource.timeleft, display: 2)
+          %span.title= SaleOpportunity.human_attribute_name(:age)
+          %span.value
+            %i.picto.picto-clock-o
+            = human_age(resource.age, display: 2)
+          %span.title= SaleOpportunity.human_attribute_name(:pretax_amount)
+          %span.value
+            %i.picto.picto-money
+            = resource.pretax_amount.l(currency: resource.currency)
+
+      - b.cell :affair do
+        .big-info.important
+          %span.title= SaleOpportunity.human_attribute_name(:state)
+          %span.value= lights(resource.status)
+        .med-info
+          %span.title= SaleOpportunity.human_attribute_name(:probability_percentage)
+          %span.value= resource.probability_percentage
+
+      - b.cell do
+        = attributes_list stamps: false do |l|
+          - l.attribute :client, label: :label, url: true
+          - l.attribute :number
+          - l.attribute :responsible, label: :full_name, url: true
+          - l.attribute :created_at
+          - l.attribute :dead_line_at if resource.dead_line_at?
+          - l.attribute :pretax_amount, currency: true
+          - l.attribute :description if resource.description?
+          - l.attribute :origin
+          - if resource.custom_fields.any?
+            - l.custom_fields
+
+
   - b.cell :deals do
     = render "show", affair: resource, current_deal: nil
   - b.hbox do

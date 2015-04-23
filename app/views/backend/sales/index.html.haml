@@ -3,7 +3,7 @@
   - k.radio_buttons :all, :current, :unpaid
   - k.criterion do
     %label= Sale.human_attribute_name(:responsible)
-    = select_tag(:responsible_id, options_for_select([[]] + Entity.all.collect{|u| [u.label, u.id]}, params[:responsible_id]))
+    = select_tag(:responsible_id, options_for_select([[]] + Person.users.all.collect{|u| [u.label, u.id]}, params[:responsible_id]))
 
 - main_toolbar do |t|
   - t.new variants: SaleNature.actives.reorder(:by_default).to_a.inject({}){|h,n| h[n.name] = {nature_id: n.id}; h}

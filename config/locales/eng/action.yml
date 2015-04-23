@@ -927,6 +927,7 @@ eng:
     default_letter_introduction: "Following our conversation, I give you the elements of the estimate."
     default_subject: "[%{company}]"
     definition: "Definition"
+    # delay: "Delay"
     delete: "Delete"
     deliver: "Delivered on" #?
     deliveries: "Deliveries"

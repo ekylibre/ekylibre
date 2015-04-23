@@ -1276,6 +1276,15 @@ eng:
     sale_nature:
       default:
         name: "Standard sale"
+    sale_opportunity:
+      states:
+        lost: "Lost"
+        negociation: "Negociation"
+        price_quote: "Price quote"
+        prospecting: "Prospecting"
+        qualification: "Qualification"
+        value_proposition: "Value proposition"
+        won: "Won"
     sequence:
       default:
         affairs: "A[number|12]"

@@ -115,13 +115,34 @@ class SaleOpportunity < Affair
   end
 
   def status
-    if self.state == :lost
+    if self.state == "lost"
       return  :stop
-    elsif self.state == :win
+    elsif self.state == "won"
       return :go
     else
       return :caution
     end
+  end
+
+   def self.state_label(state)
+    tc('states.'+state.to_s)
+  end
+
+  # Prints human name of current state
+  def state_label
+    self.class.state_label(self.state)
+  end
+
+  # Returns timeleft in seconds of the sale opportunities
+  def timeleft(at = Time.now)
+    return nil if ( self.dead_line_at.nil? || self.dead_line_at <= at )
+    return (self.dead_line_at - at)
+  end
+
+  # Returns age in seconds of the sale opportunities
+  def age(at = Time.now)
+    return nil if self.created_at.nil?
+    return (at - self.created_at)
   end
 
 end
