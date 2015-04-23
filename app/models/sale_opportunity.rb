@@ -126,12 +126,7 @@ class SaleOpportunity < Affair
 
   # Prints human name of current state
   def state_label
-    self.state.human_name
-  end
-
-  # Permit to use directly StateMachine::State instead of String
-  def state
-    (self["state"].blank? ? nil : self.class.state_machine.state(self["state"].to_sym))
+    self.class.state_machine.state(self.state.to_sym).human_name
   end
 
   # Returns timeleft in seconds of the sale opportunities

@@ -355,6 +355,12 @@ class ActionController::TestCase
           test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
           test_code << "post :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
           test_code << "assert_response :redirect, #{context}\n"
+        elsif mode == :evolve
+          test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
+          model.state_machine.states.each do |state|
+            test_code << "patch :#{action}, #{sanitized_params[id: 'RECORD.id'.c, state: state.name]}\n"
+            test_code << "assert_response :redirect, #{context}\n"
+          end
         elsif mode == :take
           test_code << "post :#{action}, #{sanitized_params[id: 'NaID', format: :json]}\n"
           test_code << "assert_response :redirect, #{context}\n"
@@ -468,6 +474,7 @@ class ActionController::TestCase
       /\#list\z/          => :list,
       /\#(create|load|incorporate)\z/ => :create,
       /\#update\z/        => :update,
+      /\#evolve\z/        => :evolve,
       /\#destroy\z/       => :destroy,
       /\#(decrement|duplicate|down|lock|toggle|unlock|up|increment|propose|confirm|refuse|invoice|abort|correct|finish|propose_and_invoice|sort|run|qualify|evaluate|quote|negociate|win|lose)\z/ => :touch,
       /\#take\z/          => :take,
