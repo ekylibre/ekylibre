@@ -499,6 +499,29 @@
             storable="false"
             pictogram="road"
             />
+
+      <item name="construction_materials_in_own_outstanding_installation"
+            charge_account="outstanding_construction_on_own_land_parcel_assets"
+            product_account="sales_assets_revenues"
+            stock_account="other_materials_stock"
+            purchasable="true"
+            saleable="true"
+            depreciable="false"
+            storable="true"
+            pictogram="barn"
+            />
+
+       <item name="land_parcel_construction"
+            charge_account="redeemable_land_parcel_construction_assets"
+            product_account="sales_assets_revenues"
+            stock_account="other_materials_stock"
+            purchasable="true"
+            saleable="true"
+            depreciable="false"
+            storable="true"
+            pictogram="barn"
+            />
+
       <item name="worker"
             charge_account="staff_expenses"
             product_account="revenues"

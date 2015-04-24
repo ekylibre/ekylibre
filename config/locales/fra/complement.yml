@@ -22709,6 +22709,7 @@ fra:
         lamb_meat: "Viande ovine"
         land_parcel: "Parcelle"
         land_parcel_cluster: "Îlot"
+        land_parcel_construction: "Aménagement foncier"
         land_parcel_locative_charge: "Charge locative du foncier"
         leasing: "Leasing"
         legal_registration: "Enregistrement légal"

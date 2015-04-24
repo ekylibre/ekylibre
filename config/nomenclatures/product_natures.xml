@@ -1011,9 +1011,23 @@
             variable_indicators="population"
             frozen_indicators="net_volume, net_mass"
             />
+       <item name="construction_material_in_own_outstanding_installation"
+            category="construction_materials_in_own_outstanding_installation"
+            variety="raw_matter"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators="net_volume, net_mass"
+            />
 
-
-
+      <item name="land_parcel_construction"
+            category="land_parcel_construction"
+            variety="raw_matter"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators="net_volume, net_mass"
+            />
 
       <item name="land_parcel"
             category="land_parcel"

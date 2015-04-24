@@ -40,6 +40,7 @@
       <item name="corporeal_assets" fr_pcga="21"/>
       <item name="land_parcel_assets" fr_pcga="2111"/>
       <item name="land_parcel_construction_assets" fr_pcga="212"/>
+      <item name="redeemable_land_parcel_construction_assets" fr_pcga="2121"/>
       <item name="construction_on_own_land_parcel_assets" fr_pcga="213"/>
       <item name="building_assets" fr_pcga="2131"/>
       <item name="general_installation_assets" fr_pcga="2135"/>
@@ -117,6 +118,7 @@
       <item name="animal_reproduction_stock" fr_pcga="3016"/>
       <item name="fuel_stock" fr_pcga="3021"/>
       <item name="maintenances_consumables_stock" fr_pcga="3022"/>
+      <item name="other_materials_stock" fr_pcga="3026"/>
       <item name="other_consumables_stock" fr_pcga="3027"/>
       <item name="long_time_animal_stock" fr_pcga="31"/>
       <item name="short_time_animal_stock" fr_pcga="32"/>

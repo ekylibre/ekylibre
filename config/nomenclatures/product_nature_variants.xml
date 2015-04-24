@@ -1990,6 +1990,17 @@
             unit_name="unit"
             frozen_indicators_values="net_mass: 1.00kilogram, net_volume: 1.00liter"
             />
+       <item name="building_material_in_own_outstanding_installation"
+            nature="construction_material_in_own_outstanding_installation"
+            unit_name="unit"
+            frozen_indicators_values="net_mass: 1.00kilogram, net_volume: 1.00liter"
+            />
+      <!-- ANIMAL MATERIAL -->
+      <item name="animal_fence"
+            nature="land_parcel_construction"
+            unit_name="unit"
+            frozen_indicators_values="net_mass: 1.00kilogram, net_volume: 1.00liter"
+            />
 
       <!-- LAND PARCEL -->
       <item name="land_parcel"
