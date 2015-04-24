@@ -43,11 +43,14 @@ $configuring-min-height: 400px;
       display: block;
       vertical-align: top;
 
+
       .cell-inner {
         background: white;
         border: 1px solid #DDD;
         margin: $spacing;
         @include border-radius($default-border-radius);
+        @include box-shadow(0 0 0 transparent);
+        @include transition(box-shadow 0.4s);
 
         .cell-title {
           color: $neutral-color;
@@ -96,11 +99,11 @@ $configuring-min-height: 400px;
           clear: both;
         }
       }
-
-      &.dragging {
+      &.dragging, &.ui-sortable-helper {
         width: auto;
         .cell-inner {
-          @include box-shadow(0 0 (3*$default-gap) rgba(black, 0.4))
+          width: auto;
+          @include box-shadow(0 0 ($default-gap) rgba(black, 0.2))
         }
       }
 
