@@ -37,11 +37,19 @@
       <item name="research_and_development_charge_assets" fr_pcga="203"/>
       <item name="brands_and_patents_assets" fr_pcga="205"/>
       <item name="other_incorporeal_assets" fr_pcga="208"/>
+      <item name="corporeal_assets" fr_pcga="21"/>
       <item name="land_parcel_assets" fr_pcga="2111"/>
       <item name="land_parcel_construction_assets" fr_pcga="212"/>
+      <item name="construction_on_own_land_parcel_assets" fr_pcga="213"/>
       <item name="building_assets" fr_pcga="2131"/>
       <item name="general_installation_assets" fr_pcga="2135"/>
+      <item name="construction_on_other_land_parcel_assets" fr_pcga="214"/>
+      <item name="technical_installation_equipment_and_tools_assets" fr_pcga="215"/>
+      <item name="technical_installation_on_own_land_parcel_assets" fr_pcga="2151"/>
+      <item name="technical_installation_on_other_land_parcel_assets" fr_pcga="2152"/>
       <item name="equipment_assets" fr_pcga="2154"/>
+      <item name="tools_assets" fr_pcga="2155"/>
+      <item name="other_corporeal_assets" fr_pcga="218"/>
       <item name="other_general_installation_assets" fr_pcga="2181"/>
       <item name="transport_vehicle_assets" fr_pcga="2182"/>
       <item name="office_equipment_assets" fr_pcga="2183"/>
@@ -50,6 +58,19 @@
       <item name="other_assets" fr_pcga="2188"/>
       <item name="concession_assets" fr_pcga="22"/>
       <item name="outstanding_assets" fr_pcga="23"/>
+      <item name="outstanding_corporeal_assets" fr_pcga="231"/>
+      <item name="outstanding_land_parcel_assets" fr_pcga="2311"/>
+      <item name="outstanding_land_parcel_construction_assets" fr_pcga="2312"/>
+      <item name="outstanding_construction_on_own_land_parcel_assets" fr_pcga="2313"/>
+      <item name="outstanding_construction_on_other_land_parcel_assets" fr_pcga="2314"/>
+      <item name="outstanding_equipment_assets" fr_pcga="2315"/>
+      <item name="outstanding_other_general_installation_assets" fr_pcga="2318"/>
+      <item name="outstanding_living_corporeal_assets" fr_pcga="234"/>
+      <item name="outstanding_adult_animal_assets" fr_pcga="2341"/>
+      <item name="outstanding_young_animal_assets" fr_pcga="2342"/>
+      <item name="outstanding_service_animal_assets" fr_pcga="2343"/>
+      <item name="outstanding_sustainables_plants_assets" fr_pcga="2346"/>
+      <item name="living_corporeal_assets" fr_pcga="24"/>
       <item name="adult_animal_assets" fr_pcga="241"/>
       <item name="young_animal_assets" fr_pcga="242"/>
       <item name="service_animal_assets" fr_pcga="243"/>
