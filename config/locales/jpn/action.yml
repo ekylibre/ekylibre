@@ -758,10 +758,7 @@ jpn:
     # credit: "Credit"
     # credited_quantity: "Quantity to credit"
     # credits: "Credits"
-    criterion_modes:
-      # all: "All"
-      # confirmed: "Confirmed"
-      # unconfirmed: "Unconfirmed"
+    criterion_modes: #?
     # cropping_plan: "Cropping plan"
     # cropping_plan_on_cultivable_zones: "Cropping plan on cultivable zones"
     # crumbs: "Crumbs"
@@ -812,6 +809,7 @@ jpn:
     # document_natures: "Document types"
     # document_templates: "Document templates"
     # doer_cost: "Doer cost"
+    # done: "Done"
     # dont_use_journal: "— Do not use journal —"
     # down: "Down"
     # downpayment: "Downpayment"
@@ -889,15 +887,11 @@ jpn:
     # implanted_at: "Implanted at"
     # import: "Import"
     # importation_explanation: "Importation explanation"
+    # inactive: "Inactive"
     # include_blank: "Include blank"
     # income_statement: "Income Statement"
     # incoming_payments: "Incoming payments"
-    incoming_payments_states:
-      # all: "All"
-      # depositable: "To deposit now"
-      # unparted: "Unused"
-      # unreceived: "Unreceived"
-      # waiting: "To deposit later"
+    incoming_payments_states: #?
     # incoming_payments_to_deposit: "Incoming payments to deposit"
     # indicator: "Indicators"
     # indicator_value: "Indicator value"
@@ -915,11 +909,7 @@ jpn:
     # interventions: "Interventions"
     # interventions_count: "Interventions count"
     # interventions_paths: "Interventions paths"
-    interventions_selections:
-      # done: "Done"
-      # provisional: "Provisional"
-      # recommended: "Recommended"
-      # undone: "Undone"
+    interventions_selections: #?
     # inventories: "Inventories"
     # inventory: "Inventory"
     # invoiced_amount: "Sales invoiced amount"
@@ -1038,6 +1028,8 @@ jpn:
     # nominal_storable_easement_area: "Nominal storable easement area"
     # none: "None"
     # normal: "Normal"
+    # not_delivered: "Not delivered"
+    # not_received: "Not received"
     notifications: #?
     # number: "Number"
     # number_options: "Options Numbers"
@@ -1048,11 +1040,7 @@ jpn:
     # options: "Options"
     # organic_matter_concentration: "Organic matter concentration"
     # others: "Others"
-    outgoing_payments_states:
-      # all: "All"
-      # undelivered: "Undelivered"
-      # unparted: "Unused"
-      # waiting: "To deposit later"
+    outgoing_payments_states: #?
     page_title: "%{company_code} - %{menu} - %{action}"
     page_title_by_default: "Ekylibre - %{action}"
     page_title_special: "%{company_code} - %{action}"
@@ -1116,29 +1104,15 @@ jpn:
     # production_support: "Production support"
     # productions: "Productions"
     # productions_map: "Productions map"
-    productions_states:
-      # aborted: "Aborted"
-      # all: "All"
-      # draft: "Draft"
-      # started: "Started"
-      # validated: "Validated"
+    productions_states: #?
     # products: "Products"
-    products_states:
-      # active: "Active"
-      # all: "All"
-      # inactive: "Inactive"
+    products_states: #?
     # provisionnal_budget: "Provisionnal budget"
     # purchase: "Purchase"
     # purchase_items: "Purchase items"
     purchase_steps: #?
     # purchases: "Purchases"
-    purchases_selections:
-      # aborted: "Aborted"
-      # draft: "Draft"
-      # estimate: "Estimate"
-      # invoice: "Invoice"
-      # order: "Order"
-      # refused: "Refused"
+    purchases_selections: #?
     # quantity: "Quantity"
     # quantity_rest: "Remaining quantity"
     # query: "Query:"
@@ -1180,14 +1154,8 @@ jpn:
     # sales: "Sales"
     # sales_conditions: "Conditions of sales"
     # sales_invoice: "Invoicing"
-    sales_invoices_states:
-      # all: "All"
-      # cancelled: "Cancelled"
-      # credits: "Credits"
-    sales_states:
-      # all: "All"
-      # current: "Current"
-      # unpaid: "Unpaid"
+    sales_invoices_states: #?
+    sales_states: #?
     # same_variant_as_x: "Same variant as %{x}"
     # save: "Save"
     # save_in_draft: "Save as draft"
@@ -1257,6 +1225,8 @@ jpn:
     # timeline_sale: "%{type} %{name} of %{amount} added by %{author} %{ago} ago"
     # to: "to"
     # to_deposit: "To deposit"
+    # to_deposit_later: "To deposit later"
+    # to_deposit_now: "To deposit now"
     # today: "Today"
     # tool_cost: "Tool cost"
     # tool_cost_per_hectare: "Tool cost per hectare"
@@ -1277,15 +1247,11 @@ jpn:
     # transfer: "Transfer"
     # transformations: "Transformations"
     # transport: "Transport"
-    transport_states:
-      # all: "All"
-      # making: "Making"
-      # ready: "Ready"
-      # shipped: "Shipped"
-      # waiting: "Waiting"
+    transport_states: #?
     # treatment: "Treatment"
     # undefined_container: "Undefined container"
     # undelivered: "Undelivered"
+    # undone: "Undone"
     # unit: "Unit"
     # unit_and_indicator: "%{unit} (%{indicator})"
     # unknown: "Unknown"
@@ -1299,7 +1265,6 @@ jpn:
     # unpaid_days: "Unpaid since (in days)"
     # unpaid_purchases: "Unpaid purchases"
     # unpaid_sales: "Unpaid sales"
-    # unreceived: "Unreceived"
     # unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)"
     # up: "Up"
     # update: "Update"

@@ -927,10 +927,7 @@ spa:
     credit: "Credito"
     # credited_quantity: "Quantity to credit"
     credits: "Activos"
-    criterion_modes:
-      # all: "All"
-      # confirmed: "Confirmed"
-      # unconfirmed: "Unconfirmed"
+    criterion_modes: #?
     critic_stocks: "Depósitos bajo el umbral crítico" #?
     # cropping_plan: "Cropping plan"
     # cropping_plan_on_cultivable_zones: "Cropping plan on cultivable zones"
@@ -995,6 +992,7 @@ spa:
     document_template_create: "Crear un modelo de documento" #?
     document_templates: "Modelos de documentos"
     # doer_cost: "Doer cost"
+    # done: "Done"
     dont_use_journal: "-- No utilizar el periodico --"
     # down: "Down"
     down_to_level: "Detallar hasta el nivel" #?
@@ -1086,15 +1084,11 @@ spa:
     # implanted_at: "Implanted at"
     import: "Importación de un  fichero de salvaguardia"
     # importation_explanation: "Importation explanation"
+    # inactive: "Inactive"
     # include_blank: "Include blank"
     income_statement: "cuentos de résultos"
     # incoming_payments: "Incoming payments"
-    incoming_payments_states:
-      # all: "All"
-      # depositable: "To deposit now"
-      # unparted: "Unused"
-      # unreceived: "Unreceived"
-      # waiting: "To deposit later"
+    incoming_payments_states: #?
     # incoming_payments_to_deposit: "Incoming payments to deposit"
     # indicator: "Indicators"
     # indicator_value: "Indicator value"
@@ -1117,11 +1111,7 @@ spa:
     # interventions: "Interventions"
     # interventions_count: "Interventions count"
     # interventions_paths: "Interventions paths"
-    interventions_selections:
-      # done: "Done"
-      # provisional: "Provisional"
-      # recommended: "Recommended"
-      # undone: "Undone"
+    interventions_selections: #?
     # inventories: "Inventories"
     inventory: "Completar el inventario"
     inventory_create: "Hacer un nuevo inventario" #?
@@ -1269,6 +1259,8 @@ spa:
     # none: "None"
     normal: "Regimen del real normal"
     not_assessable_operations: "Opéraciones no imposnibles" #?
+    # not_delivered: "Not delivered"
+    # not_received: "Not received"
     notifications: #?
     # number: "Number"
     # number_options: "Options Numbers"
@@ -1284,11 +1276,7 @@ spa:
     other_services: "Otros bienes y servicios" #?
     others: "Otra TVA a deducir"
     out_vat_amount: "Basa fuera de tarifa" #?
-    outgoing_payments_states:
-      # all: "All"
-      # undelivered: "Undelivered"
-      # unparted: "Unused"
-      # waiting: "To deposit later"
+    outgoing_payments_states: #?
     overflow: "CREDITO O ECCEDENTE" #?
     page_title: "%{company_code} - %{menu} - %{action}"
     page_title_by_default: "Ekylibre - %{action}"
@@ -1362,17 +1350,9 @@ spa:
     # production_support: "Production support"
     # productions: "Productions"
     # productions_map: "Productions map"
-    productions_states:
-      # aborted: "Aborted"
-      # all: "All"
-      # draft: "Draft"
-      # started: "Started"
-      # validated: "Validated"
+    productions_states: #?
     # products: "Products"
-    products_states:
-      # active: "Active"
-      # all: "All"
-      # inactive: "Inactive"
+    products_states: #?
     # provisionnal_budget: "Provisionnal budget"
     # purchase: "Purchase"
     # purchase_items: "Purchase items"
@@ -1380,13 +1360,7 @@ spa:
       products: "Creación de la compra" #?
       summary: "Desembolsos" #?
     # purchases: "Purchases"
-    purchases_selections:
-      # aborted: "Aborted"
-      # draft: "Draft"
-      # estimate: "Estimate"
-      # invoice: "Invoice"
-      # order: "Order"
-      # refused: "Refused"
+    purchases_selections: #?
     quantity: "Quantidades"
     quantity_rest: "Quantidad restante"
     quantity_to_credit: "Cantidad a pasar en activo" #?
@@ -1456,14 +1430,8 @@ spa:
     sales_invoice: "Facturas"
     sales_invoice_items: "Lineas de factura" #?
     sales_invoice_print: "Imprimir la factura" #?
-    sales_invoices_states:
-      # all: "All"
-      # cancelled: "Cancelled"
-      # credits: "Credits"
-    sales_states:
-      # all: "All"
-      # current: "Current"
-      # unpaid: "Unpaid"
+    sales_invoices_states: #?
+    sales_states: #?
     # same_variant_as_x: "Same variant as %{x}"
     # save: "Save"
     save_in_draft: "Salvar en la niebla"
@@ -1548,6 +1516,8 @@ spa:
     # timeline_sale: "%{type} %{name} of %{amount} added by %{author} %{ago} ago"
     to: "Al"
     # to_deposit: "To deposit"
+    # to_deposit_later: "To deposit later"
+    # to_deposit_now: "To deposit now"
     # today: "Today"
     # tool_cost: "Tool cost"
     # tool_cost_per_hectare: "Tool cost per hectare"
@@ -1569,15 +1539,11 @@ spa:
     # transfer: "Transfer"
     # transformations: "Transformations"
     # transport: "Transport"
-    transport_states:
-      # all: "All"
-      # making: "Making"
-      # ready: "Ready"
-      # shipped: "Shipped"
-      # waiting: "Waiting"
+    transport_states: #?
     # treatment: "Treatment"
     # undefined_container: "Undefined container"
     # undelivered: "Undelivered"
+    # undone: "Undone"
     unit: "Unidad"
     # unit_and_indicator: "%{unit} (%{indicator})"
     unit_create: "Añadir una nueva unidad de medida" #?
@@ -1595,7 +1561,6 @@ spa:
     # unpaid_days: "Unpaid since (in days)"
     # unpaid_purchases: "Unpaid purchases"
     # unpaid_sales: "Unpaid sales"
-    # unreceived: "Unreceived"
     # unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)"
     # up: "Up"
     # update: "Update"

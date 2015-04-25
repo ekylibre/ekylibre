@@ -910,10 +910,10 @@ fra:
     credit: "Crédit"
     credited_quantity: "Qté. à passer en avoir"
     credits: "Avoirs"
-    criterion_modes:
-      all: "Tout"
-      confirmed: "Confirmés"
-      unconfirmed: "Non-confirmés"
+    criterion_modes:  #?
+      all: "Tout" #?
+      confirmed: "Confirmés" #?
+      unconfirmed: "Non-confirmés" #?
     critic_stock_min: "Stock minimum critique" #?
     critic_stocks: "Stocks sous le seuil critique" #?
     cropping_plan: "Assolement"
@@ -982,6 +982,7 @@ fra:
     document_natures: "Types de documents"
     document_templates: "Modèles de documents"
     doer_cost: "Coût de main d’œuvre"
+    done: "Fait"
     dont_use_journal: "— Ne pas utiliser de journal —"
     down: "Descendre"
     down_to_level: "Détailler jusqu’au niveau" #?
@@ -1098,17 +1099,18 @@ fra:
     import_backup: "Import de fichier de sauvegarde" #?
     importation_explanation: "Pour confirmer l’importation, vous devez confirmer en cliquant sur Importer."
     in_production: "En production" #?
+    inactive: "Inactif"
     incident: "Incident" #?
     include_blank: "— Aucune organisation —"
     income_statement: "Compte de résultat"
     incoming_payment_conditions: "Conditions d’encaissement" #?
     incoming_payments: "Encaissements"
-    incoming_payments_states:
-      all: "Tous"
-      depositable: "À remettre en banque"
-      unparted: "Non affectés"
-      unreceived: "Non reçus"
-      waiting: "À encaisser plus tard"
+    incoming_payments_states:  #?
+      all: "Tous" #?
+      depositable: "À remettre en banque" #?
+      unparted: "Non affectés" #?
+      unreceived: "Non reçus" #?
+      waiting: "À encaisser plus tard" #?
     incoming_payments_to_deposit: "Encaissements à déposer"
     indicator: "Indicateur"
     indicator_value: "Valeur de l’indicateur"
@@ -1130,11 +1132,11 @@ fra:
     interventions: "Interventions"
     interventions_count: "Nombre d’interventions"
     interventions_paths: "Chemins d’interventions"
-    interventions_selections:
-      done: "Fait"
-      provisional: "Prévisionnelle"
-      recommended: "Préconisée"
-      undone: "En attente"
+    interventions_selections:  #?
+      done: "Fait" #?
+      provisional: "Prévisionnelle" #?
+      recommended: "Préconisée" #?
+      undone: "En attente" #?
     inventories: "Inventaires"
     inventory: "Inventaire"
     inventory_print: "Imprimer l’inventaire" #?
@@ -1311,8 +1313,10 @@ fra:
     not_assessable_operations: "Opérations non imposables" #?
     not_begins: "Ne commence pas par" #?
     not_contains: "Ne contient pas" #?
+    not_delivered: "Non délivré"
     not_finishes: "Ne termine pas par" #?
     not_is: "N’est pas" #?
+    not_received: "Non reçu"
     number: "Numéro"
     number_options: "Options de numérotations"
     numbers: "Numéros"
@@ -1327,11 +1331,11 @@ fra:
     organic_matter_concentration: "Teneur en matière organique"
     other_results: "Autres résultats…" #?
     others: "Autres"
-    outgoing_payments_states:
-      all: "Tous"
-      undelivered: "Non délivrés"
-      unparted: "Non affectés"
-      waiting: "À décaisser plus tard"
+    outgoing_payments_states:  #?
+      all: "Tous" #?
+      undelivered: "Non délivrés" #?
+      unparted: "Non affectés" #?
+      waiting: "À décaisser plus tard" #?
     page_title: "%{company_code} · %{menu} · %{action}"
     page_title_by_default: "Ekylibre · %{action}"
     page_title_special: "%{company_code} · %{action}"
@@ -1414,17 +1418,7 @@ fra:
     production_support: "Support de production"
     productions: "Productions"
     productions_map: "Carte des productions"
-    productions_states:
-      aborted: "Annulées"
-      all: "Toutes"
-      draft: "Brouillons"
-      started: "En cours"
-      validated: "Validées"
     products: "Produits"
-    products_states:
-      active: "Actifs"
-      all: "Tous"
-      inactive: "Inactifs"
     profitability: "Rentabilité" #?
     protein_matters_concentration: "Teneur en matières protéïques" #?
     provisional_grains_yield: "Rendement prévisionnel en grains" #?
@@ -1438,13 +1432,13 @@ fra:
     purchases: "Achats"
     purchases_bar: "Achats par type" #?
     purchases_expense_bar: "Dépenses par mois" #?
-    purchases_selections:
-      aborted: "Annulée"
-      draft: "Brouillon"
-      estimate: "Devis"
-      invoice: "Facture"
-      order: "Commande"
-      refused: "Refusée"
+    purchases_selections:  #?
+      aborted: "Annulée" #?
+      draft: "Brouillon" #?
+      estimate: "Devis" #?
+      invoice: "Facture" #?
+      order: "Commande" #?
+      refused: "Refusée" #?
     quantity: "Quantité"
     quantity_rest: "Quantité restante"
     quarterly: "Trimestrielle" #?
@@ -1524,15 +1518,15 @@ fra:
     sales_invoice_print: "Imprimer la facture" #?
     sales_invoice_sale: "Facturer la vente" #?
     sales_invoices: "Factures" #?
-    sales_invoices_states:
-      all: "Toutes"
-      cancelled: "Passées en avoir"
-      credits: "Avoirs"
+    sales_invoices_states:  #?
+      all: "Toutes" #?
+      cancelled: "Passées en avoir" #?
+      credits: "Avoirs" #?
     sales_invoices_total: "Total factures" #?
-    sales_states:
-      all: "Toutes"
-      current: "En cours"
-      unpaid: "Impayées"
+    sales_states:  #?
+      all: "Toutes" #?
+      current: "En cours" #?
+      unpaid: "Impayées" #?
     same_variant_as_x: "Même variante de produit que %{x}"
     save: "Enregistrer"
     save_and_go_to_x: "Enregistrer et passer à «\_%{x}\_»" #?
@@ -1640,6 +1634,8 @@ fra:
     to_date: "Au" #?
     to_deliver: "Livrer" #?
     to_deposit: "À encaisser"
+    to_deposit_later: "À encaisser plus tard"
+    to_deposit_now: "À encaisser maintenant"
     today: "Aujourd’hui"
     tool_cost: "Coût de matériel"
     tool_cost_per_hectare: "Coût de matériel par hectare"
@@ -1667,16 +1663,17 @@ fra:
     transformed_products: "Produits transformés" #?
     transport: "Transport"
     transport_deliveries: "Livraisons du transport" #?
-    transport_states:
-      all: "Tous"
-      making: "En cours"
-      ready: "Prêts"
-      shipped: "Expédié"
-      waiting: "En attente"
+    transport_states:  #?
+      all: "Tous" #?
+      making: "En cours" #?
+      ready: "Prêts" #?
+      shipped: "Expédié" #?
+      waiting: "En attente" #?
     treatment: "Traitement"
     true: "Vrai" #?
     undefined_container: "Emplacement indéfini"
     undelivered: "Reste à livrer"
+    undone: "Non-fait"
     uninvoiced_amount: "Montant non facturé" #?
     unit: "Unité"
     unit_and_indicator: "%{unit} (%{indicator})"
@@ -1696,7 +1693,7 @@ fra:
     unpaid_sales: "Ventes impayées"
     unpaid_sales_export: "Exporter la liste des ventes impayées au format csv" #?
     unparted: "Non affectés" #?
-    unreceived: "Non reçus"
+    unreceived: "Non reçus" #?
     unset_reconcilable_old_third_accounts: "Rendre non-lettrables les anciens comptes tiers"
     unused_payment: "Encaissement à utiliser" #?
     unvalid_date: "Date incorrecte" #?

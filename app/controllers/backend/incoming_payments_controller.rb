@@ -24,13 +24,13 @@ class Backend::IncomingPaymentsController < Backend::BaseController
 
   def self.incoming_payments_conditions(options={})
     code = search_conditions(:incoming_payments => [:amount, :bank_check_number, :number, :bank_account_number], :entities => [:number, :full_name])+"||=[]\n"
-    code << "if params[:s] == 'unreceived'\n"
+    code << "if params[:s] == 'not_received'\n"
     code << "  c[0] += ' AND received=?'\n"
     code << "  c << false\n"
-    code << "elsif params[:s] == 'waiting'\n"
+    code << "elsif params[:s] == 'to_deposit_later'\n"
     code << "  c[0] += ' AND to_bank_at > ?'\n"
     code << "  c << Date.today\n"
-    code << "elsif params[:s] == 'depositable'\n"
+    code << "elsif params[:s] == 'to_deposit_now'\n"
     code << "  c[0] += ' AND to_bank_at <= ? AND deposit_id IS NULL AND #{IncomingPaymentMode.table_name}.with_deposit'\n"
     code << "  c << Time.now\n"
     # code << "elsif params[:s] == 'unparted'\n"

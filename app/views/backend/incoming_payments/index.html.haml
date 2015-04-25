@@ -1,6 +1,6 @@
 = kujaku do |k|
   - k.text
-  - k.radio_buttons :all, :unparted, :unreceived, :waiting, :depositable
+  - k.choice :all, :not_received, :to_deposit_later, :to_deposit_now
 - main_toolbar do |t|
   - t.new
 = list

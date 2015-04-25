@@ -35,7 +35,7 @@
     end
 
   = kujaku do |k|
-    - k.select current_user.unconverted_crumb_days.collect{|d| [d.l, d]}, name: :worked_on, selected: @worked_on
+    - k.needle_choice current_user.unconverted_crumb_days.collect{|d| [d.l, d]}, name: :worked_on, selected: @worked_on
 
   - if crumbs.any?
     = beehive do |b|

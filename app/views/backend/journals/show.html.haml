@@ -6,8 +6,8 @@
 
 = kujaku(popover: false) do |k|
   - k.text
-  - k.crit :journal_entries_states
-  - k.crit :journal_period
+  - k.helper :journal_entries_states_crit
+  - k.helper :journal_period_crit
 
 = beehive do |b|
   - b.cell :journals do

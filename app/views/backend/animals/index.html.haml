@@ -1,8 +1,8 @@
 = kujaku do |k|
   - k.text
-  -# k.radio_buttons :all, :healthy, :illness
-  - k.crit :journal_period
-  - k.criterion do
+  -# k.choice :all, :healthy, :illness
+  - k.helper :journal_period_crit
+  - k.helper do
     %label= Production.human_attribute_name(:variant)
     = select_tag(:variant_id, options_for_select([[]] + ProductNatureVariant.of_variety(:animal).order(:name).collect{|u| [u.name, u.id]}, params[:variant_id]))
 

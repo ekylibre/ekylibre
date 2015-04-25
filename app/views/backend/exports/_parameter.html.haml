@@ -1,5 +1,5 @@
 - if parameter.record_list?
-  - k.criterion do
+  - k.helper do
     %label= parameter.human_name
     - parameter.foreign_class.all.each do |item|
       %label

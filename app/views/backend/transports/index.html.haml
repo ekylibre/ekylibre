@@ -1,6 +1,6 @@
 =kujaku do |k|
   -k.text
-  -# k.radio :all, :waiting, :making, :ready, :shipped
+  -# k.choice :all, :waiting, :making, :ready, :shipped
 
 - main_toolbar do |t|
   -# waiting_transporters = Entity.necessary_transporters
@@ -11,5 +11,5 @@
   -#for transporter in waiting_transporters
     - t.new :transporter_id => transporter.id, :new_transport_of_x_deliveries_for_y.tl(count: transporter.waiting_deliveries.count, :transporter => transporter.last_name)
 
-=list
+= list
 

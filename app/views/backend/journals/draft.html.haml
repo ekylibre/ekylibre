@@ -4,8 +4,8 @@
   = form_fields do
     = kujaku(popover: false, form: false) do |k|
       - k.text :search
-      - k.crit :journal_period
-      - k.crit :journals
+      - k.helper :journal_period_crit
+      - k.helper :journals_crit
     = list(:draft_items)
   = form_actions do
     = submit_tag(:validate_selected_entries.tl, "data-confirm" => :are_you_sure.tl, :name => :validate)

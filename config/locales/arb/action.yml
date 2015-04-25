@@ -1107,10 +1107,7 @@ arb:
     credit: "رصيد دائن"
     # credited_quantity: "Quantity to credit"
     credits: "الائتمانات"
-    criterion_modes:
-      # all: "All"
-      # confirmed: "Confirmed"
-      # unconfirmed: "Unconfirmed"
+    criterion_modes: #?
     critic_stock_min: "الحد الادنى لانتقاد الاسهم" #?
     critic_stocks: "الاسهم على حافة الخطر" #?
     # cropping_plan: "Cropping plan"
@@ -1186,6 +1183,7 @@ arb:
     document_template_create: "انشاء نموذج للوثيقة" #?
     document_templates: "نموذج الوثائق"
     # doer_cost: "Doer cost"
+    # done: "Done"
     dont_use_journal: "-- عدم استعمال الدفتر اليومي --"
     down: "للاسفل"
     down_to_level: "نزولا الى مستوى" #?
@@ -1307,18 +1305,14 @@ arb:
     import: "استيراد"
     importation_explanation: "لتأكيد عملية الاستيراد، يجب عليك النقر عليه"
     in_line_create: "اضافة منتج وارد" #?
+    # inactive: "Inactive"
     include_blank: "--- ولا اية منظمة ---"
     income_statement: "حسابات الناتج"
     incoming_payment_create: "اضافة دفعة جديدة" #?
     incoming_payment_update: "تعديل الدفعة" #?
     incoming_payment_use_create: "اضافة دفعة للشراء" #?
     # incoming_payments: "Incoming payments"
-    incoming_payments_states:
-      # all: "All"
-      # depositable: "To deposit now"
-      # unparted: "Unused"
-      # unreceived: "Unreceived"
-      # waiting: "To deposit later"
+    incoming_payments_states: #?
     # incoming_payments_to_deposit: "Incoming payments to deposit"
     index: "العودة الى دليل ادارة الاعمال" #?
     indicator: "لوحة التحكم"
@@ -1342,11 +1336,7 @@ arb:
     # interventions: "Interventions"
     # interventions_count: "Interventions count"
     # interventions_paths: "Interventions paths"
-    interventions_selections:
-      # done: "Done"
-      # provisional: "Provisional"
-      # recommended: "Recommended"
-      # undone: "Undone"
+    interventions_selections: #?
     # inventories: "Inventories"
     inventory: "عدل الجرد"
     inventory_create: "تأدية عملية جرد جديدة" #?
@@ -1544,6 +1534,8 @@ arb:
     # none: "None"
     normal: "نظام واقعي طبيعي"
     not_assessable_operations: "اجراءات غير ضريبية" #?
+    # not_delivered: "Not delivered"
+    # not_received: "Not received"
     notifications:  #?
       error: "خطأ" #?
       information: "معلومة" #?
@@ -1577,11 +1569,7 @@ arb:
     outgoing_payment_create: "اضافة نفقة" #?
     outgoing_payment_update: "تعديل دفعة الشراء" #?
     outgoing_payment_use_create: "تسديد سعر الشراء" #?
-    outgoing_payments_states:
-      # all: "All"
-      # undelivered: "Undelivered"
-      # unparted: "Unused"
-      # waiting: "To deposit later"
+    outgoing_payments_states: #?
     overflow: "فائض رصيد الدائن" #?
     page_title: "%{company_code} - %{menu} - %{action}"
     page_title_by_default: "Ekylibre - %{action}"
@@ -1669,17 +1657,9 @@ arb:
     # production_support: "Production support"
     productions: "المنتجات"
     # productions_map: "Productions map"
-    productions_states:
-      # aborted: "Aborted"
-      # all: "All"
-      # draft: "Draft"
-      # started: "Started"
-      # validated: "Validated"
+    productions_states: #?
     products: "فئة المنتج"
-    products_states:
-      # active: "Active"
-      # all: "All"
-      # inactive: "Inactive"
+    products_states: #?
     # provisionnal_budget: "Provisionnal budget"
     purchase: "الطلب"
     purchase_create: "اضافة شراء جديد" #?
@@ -1694,13 +1674,7 @@ arb:
     purchases: "المشتريات"
     purchases_number: "" #?
     purchases_price_create: "اضافة سعر الشراء" #?
-    purchases_selections:
-      # aborted: "Aborted"
-      # draft: "Draft"
-      # estimate: "Estimate"
-      # invoice: "Invoice"
-      # order: "Order"
-      # refused: "Refused"
+    purchases_selections: #?
     quantity: "الكمية"
     quantity_rest: "الكمية المتبقية"
     quantity_to_credit: "شمولية الكمية بالائتمانات" #?
@@ -1784,17 +1758,11 @@ arb:
     sales_invoice_print: "طباعة الفاتورة" #?
     sales_invoice_sale: "فوترة طلب البيع" #?
     sales_invoices: "الفواتير" #?
-    sales_invoices_states:
-      # all: "All"
-      # cancelled: "Cancelled"
-      # credits: "Credits"
+    sales_invoices_states: #?
     sales_invoices_total: "مجموع قيمة الفاتورة" #?
     sales_number: "" #?
     sales_price_create: "اضافة سعر البيع" #?
-    sales_states:
-      # all: "All"
-      # current: "Current"
-      # unpaid: "Unpaid"
+    sales_states: #?
     # same_variant_as_x: "Same variant as %{x}"
     save: "حفظ"
     save_in_draft: "حفظ في المسودات"
@@ -1895,6 +1863,8 @@ arb:
     to_date: "الى تاريخ" #?
     to_deliver: "للتسليم" #?
     # to_deposit: "To deposit"
+    # to_deposit_later: "To deposit later"
+    # to_deposit_now: "To deposit now"
     # today: "Today"
     # tool_cost: "Tool cost"
     # tool_cost_per_hectare: "Tool cost per hectare"
@@ -1920,12 +1890,7 @@ arb:
     # transport: "Transport"
     transport_create: "اضافة وسيلة نقل جديدة" #?
     transport_deliveries: "تسليم وسائل النقل" #?
-    transport_states:
-      # all: "All"
-      # making: "Making"
-      # ready: "Ready"
-      # shipped: "Shipped"
-      # waiting: "Waiting"
+    transport_states: #?
     # treatment: "Treatment"
     unavailable:  #?
       entity: "السجل المطلوب غير متاح" #?
@@ -1935,6 +1900,7 @@ arb:
     # undefined_container: "Undefined container"
     undelivered: "لم يتم التسليم"
     undeposited: "لم يتم اي اقتطاع بنكي" #?
+    # undone: "Undone"
     uninvoiced_amount: "قيمة غير مفوترة" #?
     unit: "الوحدة"
     # unit_and_indicator: "%{unit} (%{indicator})"
@@ -1955,7 +1921,7 @@ arb:
     # unpaid_sales: "Unpaid sales"
     unpaid_sales_export: "csv لم يتم تسديد قائمة البيع الصادرة ضمن" #?
     unparted: "غير متضرر" #?
-    unreceived: "غير مقبوضة"
+    unreceived: "غير مقبوضة" #?
     # unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)"
     unused_payment: "دفعات غير مستخدمة" #?
     unvalidated_operations: "عمل غير صحيح" #?

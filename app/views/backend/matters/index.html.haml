@@ -1,5 +1,8 @@
-=kujaku
+= kujaku do |k|
+  - k.text
+  - k.needle_choice :working_set, [[]] + Nomen::WorkingSets.selection
+
 - main_toolbar do |t|
   - t.new
 
-=list
+= list

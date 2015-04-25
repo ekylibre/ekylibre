@@ -1,5 +1,5 @@
 = kujaku do |k|
-  - k.criterion do
+  - k.helper do
     = select_tag(:nature_id, options_for_select(SubscriptionNature.all.collect{|x| [x.name, x.id]}, selected: params[:nature_id].to_i), data: {dependents: "#subscriptions_options"})
     %span#subscriptions_options{data: {refresh: url_for({}), refresh_mode: "update"}}= render 'options'
 

@@ -1,5 +1,5 @@
 = kujaku do |k|
-  - k.criterion do
+  - k.helper do
     = :manual_period.tl(start: date_field_tag(:started_at, params[:started_at], size: 8), finish: date_field_tag(:stopped_at, params[:stopped_at], size: 8)).html_safe
 
 

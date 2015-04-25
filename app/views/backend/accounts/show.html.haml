@@ -20,8 +20,8 @@
     - b.cell(:journal_entry_items) do
       = kujaku do |k|
         - k.text :b
-        - k.crit :journal_period, :p
-        - k.crit :journal_entries_states
+        - k.helper :journal_period_crit, :p
+        - k.helper :journal_entries_states_crit
 
       - items = JournalEntryItem.joins(:entry).where(eval(controller.class.account_moves_conditions))
       - totals = {}

@@ -1,15 +1,15 @@
 = kujaku do |k|
   - k.text
-  - k.check_boxes :done, :undone, name: :state
-  - k.criterion do
+  - k.multi_choice :state, [:done, :undone].map{ |s| [s.tl, s] }
+  - k.helper do
     %label= Production.human_attribute_name(:campaign)
     = select_tag(:campaign_id, options_for_select([[]] + Campaign.all.collect{|u| [u.name, u.id]}, params[:campaign_id]))
-  - k.criterion do
+  - k.helper do
     %label= ProductionSupport.human_attribute_name(:storage)
     = select_tag(:storage_id, options_for_select([[]] + Product.supporters.collect{|u| [u.unroll_name, u.id]}, params[:storage_id]))
-  - k.check_boxes :recommended, :provisional,  name: :nature
-  -# k.radio_buttons :all, :previous, :current, :next, name: :mode
-  -# k.criterion do
+  - k.multi_choice :nature, [:recommended, :provisional].map{ |n| [Intervention.human_attribute_name(n), n] }
+  -# k.choice :all, :previous, :current, :next, name: :mode
+  -# k.helper do
     %label= Product.human_attribute_name(:variant)
     = select_tag(:variant_id, options_for_select([[]] + ProductNatureVariant.all.collect{|u| [u.name, u.id]}, params[:variant_id]))
 

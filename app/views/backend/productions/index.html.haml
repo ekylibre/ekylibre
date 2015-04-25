@@ -1,11 +1,11 @@
 = kujaku do |k|
-  - k.criterion do
+  - k.helper do
     %label= Production.human_attribute_name(:campaign)
-    = select_tag(:campaign_id, options_for_select(Campaign.all.order(harvest_year: :desc).collect{|u| [u.name, u.id]}, campaign.id))
+    = select_tag(:campaign_id, options_for_select(Campaign.order(harvest_year: :desc).collect{|u| [u.name, u.id]}, campaign.id))
   - k.text
-  - k.criterion do
+  - k.helper do
     %label= Production.human_attribute_name(:variant)
-    = select_tag(:cultivation_variant_id, options_for_select([[]] + ProductNatureVariant.all.collect{|u| [u.name, u.id]}, params[:cultivation_variant_id]))
+    = select_tag(:cultivation_variant_id, options_for_select([[]] + ProductNatureVariant.where(id: Production.pluck(:cultivation_variant_id)).order(:name).collect{|u| [u.name, u.id]}, params[:cultivation_variant_id]))
 
 :ruby
   data = []

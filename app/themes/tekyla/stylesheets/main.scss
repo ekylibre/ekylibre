@@ -1122,19 +1122,17 @@ a.selector-dropdown {
 
 
 .kujaku {
-  $color: #580;
-  $background-color: #CE8;
   $color: $text-color;
-  $background-color: lighten($active-color, 20%);
+  $background-color: lighten($active-color, 23%);
   color: $color;
   margin: 0 0 $default-gap;
-  padding: $default-gap;
+  padding: 0;
   background: $background-color; // mix(white, #CE0, 80%);
   @include clearfix;
   $line-height: $lh-normal;
-  .crits {
-    padding: 0;
-    .crit {
+  .feathers {
+    padding: $default-gap;
+    .feather {
       border-top: (2 * $menu-border-width) solid darken($background-color, 5%);
       // padding: round($fs-normal/6) round($fs-normal/4);
       padding: round($default-gap * 0.6) 0 0;
@@ -1144,6 +1142,9 @@ a.selector-dropdown {
       line-height: $line-height;
       min-height: $line-height;
       label { color: $color; }
+      .filter {
+        display: none;
+      }
       &:first-child {
         border-top: none;
         margin-top: 0;
@@ -1153,17 +1154,23 @@ a.selector-dropdown {
   }
   $icon-size: 21px;
   button.filter {
-    // padding: round($default-gap * 0.4);
-    font-size: 0;
-    @include margin-left($default-gap);
+    .feathers & {
+      font-size: 0;
+      @include margin-left($default-gap);
+    }
     i {
       @include is-icon;
-      @include use-icon(filter);
-      // line-height: $icon-size;
+      @include use-icon(search);
     }
+  }
+  .search-actions {
+    padding: $default-gap;
+    text-align: center;
+    background: lighten($active-color, 20%);
   }
   a[data-toggle="kujaku"] {
     @include float(right);
+    margin: $default-gap $default-gap * $default-ratio;
     i {
       @include is-icon;
       @include use-icon(minus-square-o);
@@ -1176,7 +1183,18 @@ a.selector-dropdown {
     a[data-toggle="kujaku"] i {
       @include use-icon(plus-square-o);
     }
-    .crit.crit-other {
+    .feathers {
+      .feather {
+        display: none;
+        &:first-child {
+          display: block;
+          .filter {
+            display: inline;
+          }
+        }
+      }
+    }
+    .search-actions {
       display: none;
     }
   }

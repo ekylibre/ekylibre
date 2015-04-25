@@ -1,7 +1,8 @@
 = kujaku do |k|
   - k.text
-  - k.check_boxes :draft, :estimate, :aborted, :refused, :order, :invoice, name: :state
-  - k.crit :journal_period
+  - sm = Purchase.state_machine.states
+  - k.multi_choice :state, [:draft, :estimate, :aborted, :refused, :order, :invoice].map{|s| [sm[s].human_name, s] }, label: Purchase.human_attribute_name(:state)
+  - k.helper :journal_period_crit
 - main_toolbar do |t|
   - t.new variants: PurchaseNature.reorder(:by_default).to_a.inject({}){|h,n| h[n.name] = {nature_id: n.id}; h}
 = list
