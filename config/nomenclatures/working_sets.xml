@@ -6,15 +6,28 @@
     </property-natures>
     <items>
       <!-- all oenological regulated products -->
-      <item name="oenological_regulateds" expression="can('catalyze(wine), chaptelise(wine), fermentize(wine), sulfurize(wine)') or of_variety(concentrated_rectified_must) or can(acidify) or can(alkalinize) or of_variety(potassium_ferrocyanide) " />
+      <item name="oenological_regulateds" expression="is matter and (can catalyze(wine) or can chaptelise(wine) or can fermentize(wine) or can sulfurize(wine) or is concentrated_rectified_must or can acidify or can alkalinize or is potassium_ferrocyanide)" />
       <!-- all phytosanitaries products -->
-      <item name="phytosanitary_products" expression="can('kill(plant), kill(fungus), kill(insecta), kill(gastropoda)')" />
+      <item name="phytosanitary_products" expression="is matter and (can kill(plant) or can kill(fungus) or can kill(insecta) or can kill(gastropoda))" />
       <!-- all storables products -->
-      <item name="matters" expression="stockables" />
+      <item name="matters" expression="is matter" />
       <!-- all veterinary products -->
-      <item name="animal_medicines" expression="can('care(animal)')" />
+      <item name="animal_medicines" expression="is matter and can care(animal)" />
       <!-- all animal's food product -->
-      <item name="animal_foods" expression="can('feed(animal)')" />
+      <item name="animal_foods" expression="is matter and can feed(animal)" />
+      <item name="animal_products" expression="is matter and derives from animal" />
+
+      <!-- all veterinary products -->
+      <item name="plant_medicines" expression="is matter and can care(plant)" />
+      <!-- all plant's food product -->
+      <item name="plant_fertilizers" expression="is matter and (can fertilize or can feed(plant))" />
+      <item name="plant_products" expression="is matter and derives from plant" />
+      <item name="plant_seedlings" expression="is matter and can grow" />
+
+      <item name="transformed_products" expression="derives from raw_matter" />
+
+      <item name="wine_tanks" expression="is matter and (can store(wine) or can store_liquid)" />
+      <item name="wine_transformers" expression="is matter and (can catalyze(wine) or can chaptelise(wine) or can fermentize(wine) or can sulfurize(wine) or can acidify(fermented_juice) or can alkalinize(fermented_juice))" />
     </items>
   </nomenclature>
 </nomenclatures>
