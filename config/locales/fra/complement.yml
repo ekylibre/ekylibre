@@ -22627,6 +22627,7 @@ fra:
         computer: "Ordinateur"
         computer_device: "Pièce informatique"
         congress: "Congrès"
+        construction_material_in_own_outstanding_installation: "Matériel de construction sur sol propre"
         consumer_goods_office_item: "Fourniture de bureau (consommable)"
         cork: "Bouchon"
         corker: "Boucheuse"

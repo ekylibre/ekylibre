@@ -49,9 +49,9 @@ module Ekylibre
           sentence  = "Launch first run"
           sentence << " in tenant #{name}" if name
           sentence << " from #{base.path.relative_path_from(Rails.root)}"
-          sentence << " in #{base.mode} mode"
+          # sentence << " in #{base.mode} mode"
           sentence << (base.max > 0 ? " with max of #{base.max}" : ' without max')
-          sentence << (base.hard? ? " inside global transaction" : "")
+          sentence << (base.hard? ? " without global transaction" : " inside global transaction")
           sentence << "."
           Rails.logger.info sentence
           puts sentence.yellow if base.verbose
