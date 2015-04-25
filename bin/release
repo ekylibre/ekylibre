@@ -15,6 +15,9 @@ class Releaser
     desc "Fixtures restoration"
     exec "rake db:fixtures:restore"
 
+    desc "Fixtures dump"
+    exec "rake db:fixtures:dump"
+
     # TODO: Check nomenclatures changes
     # TODO: Check VERSION
     # TODO: Check Travis results (or test locally ?)
@@ -36,7 +39,7 @@ class Releaser
     # TODO: Check data presence
 
     desc "Run console"
-    exec "RAILS_ENV=production ./bin/rails c"
+    exec "RAILS_ENV=production ./bin/rails console"
 
     # TODO: Kill console after 40 seconds ?
 
