@@ -67,7 +67,7 @@ arb:
       # reset: "Reset beehive: %{name}"
     backend/building_divisions:
       # edit: "Edit building division: %{name}"
-      # index: "Building division"
+      # index: "Building divisions"
       # new: "New building division"
       # show: "Building division: %{name}"
     backend/buildings:
@@ -551,7 +551,7 @@ arb:
     backend/product_nature_variant_readings: #?
     backend/product_nature_variants:
       # edit: "Edit product variant: %{name}"
-      # index: "Product variant"
+      # index: "Product variants"
       # new: "New product variant"
       # pick: "Pick product nature variant"
       # show: "Product variant: %{name}"
@@ -678,7 +678,7 @@ arb:
       import: "الاستيراد" #?
     backend/settlements:
       # edit: "Edit settlement: %{name}"
-      # index: "Settlement"
+      # index: "Settlements"
       # new: "New settlement"
       # show: "Settlement: %{name}"
     backend/snippets: #?
@@ -964,10 +964,9 @@ arb:
     # amount_per_unit: "%{amount}/%{unit}"
     amount_to_add: "جمع واضافة القيمة باليورو، بما في ذلك ايام العطل" #?
     amount_to_reduce: "جمع القيمة ونسبها الى اليورو، بما في ذلك ايام العطل" #?
-    amount_with_taxes: "مجموع قيمة التسليم مع كامل الضرائب"
+    amount_with_taxes: "مجموع قيمة التسليم مع كامل الضرائب" #?
     # amounts_in_currency: "Amounts (%{currency})"
     # analyses: "Analyses"
-    # analytics: "Analytics"
     animal_group_tabbox: #?
     # animal_productions: "Animal productions"
     animal_tabbox: #?
@@ -1047,10 +1046,9 @@ arb:
     catalog: "مواصفات للفهرس"
     # catalog_items: "Catalog items"
     # category: "Category"
-    # category_name: "Category"
     centralize: "مركزية حسابات المحاسب"
     centralized_account: "مركزية الحسابات %{name}"
-    change_price: "تغيير وحدة السعر"
+    change_price: "تغيير وحدة السعر" #?
     check: "نحقق"
     # children: "Children"
     # choice_options: "Choice options"
@@ -1095,7 +1093,7 @@ arb:
     copy_of: "نسخ من %{source}"
     cost_income_statement: "التكاليف" #?
     # cost_per_net_surface_area: "Cost per net surface area"
-    cost_sum: "مجموع تكاليف الاستثمار"
+    cost_sum: "مجموع تكاليف الاستثمار" #?
     # costs: "Costs"
     # costs_map: "Costs map"
     # counts: "Counts"
@@ -1107,6 +1105,7 @@ arb:
     created_between: "تم التسجيل بين %{started_at} و %{stopped_at}"
     # created_by_ago: "Created by %{author} %{ago} ago"
     credit: "رصيد دائن"
+    # credited_quantity: "Quantity to credit"
     credits: "الائتمانات"
     criterion_modes:
       # all: "All"
@@ -1114,9 +1113,8 @@ arb:
       # unconfirmed: "Unconfirmed"
     critic_stock_min: "الحد الادنى لانتقاد الاسهم" #?
     critic_stocks: "الاسهم على حافة الخطر" #?
-    # cropping_plan_chart: "Cropping plan chart"
+    # cropping_plan: "Cropping plan"
     # cropping_plan_on_cultivable_zones: "Cropping plan on cultivable zones"
-    # crumb_procedure_nature: "Crumb procedure nature"
     # crumbs: "Crumbs"
     csv_statistics: "نموذج احصائيات القيمة النقدية" #?
     # cultivable_zone: "Cultivable zone"
@@ -1200,9 +1198,9 @@ arb:
     # earns: "Earns"
     edit: "تعديل"
     ekylibre: "www.ekylibre.org"
+    # elapsed_interventions_times_by_activities: "Elapsed interventions times by activities"
     # email: "Email:"
-    # employee: "Employee"
-    employee_name: "الموظف"
+    employee_name: "الموظف" #?
     end: "لغاية"
     # entities: "Entities"
     entities_export: "CSV جميع الصادرات ضمن" #?
@@ -1261,20 +1259,20 @@ arb:
     filter_entries_with: "تصفية الادخالات مع" #?
     # financial_asset_depreciations: "Financial asset depreciations"
     # financial_assets: "Financial assets"
-    financial_state: "الوضع المالي"
+    financial_state: "الوضع المالي" #?
     financial_year_create: "فتح مهنة جديدة للمحاسبة" #?
     # financials_assets: "Financials assets"
     finish: "انهاء"
     finished_income_statement: "المنتجات" #?
-    finished_sum: "مجموع منتجات الاستثمار"
+    finished_sum: "مجموع منتجات الاستثمار" #?
     # first_line_as_title: "First line as title"
-    format_date:
-      iso: "(السنة-الشهر-اليوم)"
+    format_date:  #?
+      iso: "(السنة-الشهر-اليوم)" #?
     free_purchases: "المشتريات مجانية" #?
     from: "من"
     from_date: "من تاريخ" #?
-    # full_name: "Client"
     # fullscreen: "Fullscreen"
+    # function: "Function"
     # fungi: "Fungi"
     future_events: "الاحداث المستقبلية"
     # genealogy: "Genealogy"
@@ -1284,7 +1282,7 @@ arb:
     # generate: "Generate"
     # generate_last_journal_entry: "Generate last journal entry"
     # geolocation: "Geolocation"
-    give_discount: "منح خصومات"
+    give_discount: "منح خصومات" #?
     go: "صلاحية"
     graph_statistics: "رسومات احصائية" #?
     # gross_profit: "Gross profit"
@@ -1297,10 +1295,10 @@ arb:
     hint: "تلميح&nbsp;: %{value}"
     # historic: "Historic"
     home: "الرجوع الى صفجة المساعدة الرئيسية"
-    hour_duration:
-      one: "مجموع الوقت المستخدم : ساعة واحدة"
-      other: "مجموع الوقت المستخدم%{count} ساعات"
-      zero: ""
+    hour_duration:  #?
+      one: "مجموع الوقت المستخدم : ساعة واحدة" #?
+      other: "مجموع الوقت المستخدم%{count} ساعات" #?
+      zero: "" #?
     iban: "رقم الحساب المصرفي الدولي (IBAN)"
     identification: "اسم ورمز المنتج"
     # identifiers: "Identifiers"
@@ -1309,10 +1307,8 @@ arb:
     import: "استيراد"
     importation_explanation: "لتأكيد عملية الاستيراد، يجب عليك النقر عليه"
     in_line_create: "اضافة منتج وارد" #?
-    # incident: "Incident"
     include_blank: "--- ولا اية منظمة ---"
     income_statement: "حسابات الناتج"
-    # incoming_payment_conditions: "Conditions of payment"
     incoming_payment_create: "اضافة دفعة جديدة" #?
     incoming_payment_update: "تعديل الدفعة" #?
     incoming_payment_use_create: "اضافة دفعة للشراء" #?
@@ -1383,17 +1379,22 @@ arb:
     # label_value: "%{label}: %{value}"
     # land_parcel_abbreviation: "LP"
     land_parcel_create: "انشاء نظام جديد" #?
-    land_parcel_name: "نظام"
+    land_parcel_name: "نظام" #?
     land_parcel_update: "تعديل النظام" #?
     land_parcels: "قائمة بالنظام"
     # last_analyses: "Last milk analysis"
     # last_computed_balance: "Last computed balance"
+    # last_entities: "Last entities"
     # last_events: "Last events"
+    # last_incoming_deliveries: "Last incoming deliveries"
     # last_intervention: "Last intervention"
     # last_interventions: "Last interventions"
     # last_issue: "Last issue"
+    # last_issues: "Last issues"
+    # last_outgoing_deliveries: "Last outgoing deliveries"
     # last_products: "Last products"
     # last_purchases: "Last purchases"
+    # last_sales: "Last sales"
     left_balance_amount: "ارجاء الرصيد السابق غير معلق وغير مكلف" #?
     letter: "مراسلة"
     letter_conclusion: ".أرجو أن تتقبلوا سادتي التعبير عن فائق احترامي" #?
@@ -1434,7 +1435,6 @@ arb:
     manual_period: "من %{start} الى %{finish}"
     # manure_management_plan_chart: "Manure management plan chart"
     # map: "Map"
-    # margins: "Margins"
     # markers: "Markers"
     mass: "الوزن" #?
     # maximal_temperature: "Maximal temperature"
@@ -1530,6 +1530,7 @@ arb:
     no_deposits: "التأكد من عدم اقتطاعات البنك"
     no_javascript: "ان متصفح الويب الخاص بك لا يدعم نسخة الجافا، لذا تحتاج الى تفعيله من اجل استخدام ايكيليبغ." #?
     no_origin: "-- بدون مصدر --"
+    # no_particular_periods: "No particular period"
     no_products: "Sans produit"
     no_proposer: "-- دون راعي او كفيل --" #?
     no_purchases: "لا شراء في انتظار الاستلام" #?
@@ -1556,15 +1557,13 @@ arb:
     one_condition: "ما لا يقل عن شرط واحد"
     operation: "" #?
     operation_create: "اضافة عمل" #?
-    # operation_items: "Incoming and outgoing products"
     operation_nature_create: "انشاء نوع عمل جديد" #?
     operation_update: "تعديل العمل" #?
     operation_use_create: "اضافة مادة" #?
     # operations: "Operations"
     # options: "Options"
-    # order: "Order"
     order_amount_with_taxes: "قيمة الطلب مع الضرائب" #?
-    order_print: "طباعة الطلب"
+    order_print: "طباعة الطلب" #?
     # organic_matter_concentration: "Organic matter concentration"
     other_assessable_operations: "اجراءات ضريبية اخرى" #?
     other_not_assessable_operations: "اجراءات غير ضريبية اخرى" #?
@@ -1605,7 +1604,7 @@ arb:
     # payment_amount: "Amount of payment"
     payment_at: "سدد في"
     # payment_conditions: "Payment conditions"
-    payment_label: "%{number}. %{amount} (%{usable_amount} المتبقي)  %{date} بواسطة %{mode} لاجل %{entity}"
+    payment_label: "%{number}. %{amount} (%{usable_amount} المتبقي)  %{date} بواسطة %{mode} لاجل %{entity}" #?
     payment_mode: "طريقة تسديد الدفعة"
     payment_uses: "الدفعات" #?
     payments: "الدفعات"
@@ -1648,11 +1647,10 @@ arb:
     price_amount_with_taxes: "القيمة مع كامل الضريبة" #?
     price_create: "اضافة تسعيرة هذا النوع" #?
     prices: "السار المنتجات"
-    # prices_evolutions: "Prices evolutions"
     prices_export: "CSV اسعار التصدير ضمن" #?
     prices_import: "CSV استيراد بيان الاسعار  ضمن" #?
     print: "طباعة"
-    print_at: "ال"
+    print_at: "ال" #?
     # procedures: "Procedures"
     product: "المنتج"
     # product_bar: "Product by categories"
@@ -1705,7 +1703,7 @@ arb:
       # refused: "Refused"
     quantity: "الكمية"
     quantity_rest: "الكمية المتبقية"
-    quantity_to_credit: "شمولية الكمية بالائتمانات"
+    quantity_to_credit: "شمولية الكمية بالائتمانات" #?
     quarterly: "Trimestrielle" #?
     query: ": الاستعلام"
     # raw_margin: "Raw margin"
@@ -1736,7 +1734,7 @@ arb:
     resource: "مراجعة السجلات الاصلية : %{resource} %{number}"
     resources: "ادارة الموارد البشرية"
     # rest: "Rest"
-    rest_to_pay: "القيمة المتبقية"
+    rest_to_pay: "القيمة المتبقية" #?
     restore: "تجديد"
     result: "الناتج"
     results:
@@ -1744,6 +1742,7 @@ arb:
       other: "%{count} نتائج"
       zero: "ولا نتيجة"
     # revenues: "Revenues"
+    # revenues_by_product_nature: "Revenues by product nature"
     reverse: "تطبيق الحالة العكسية"
     right_parts:  #?
       accountancy: "حقوق المحاسبة" #?
@@ -1755,7 +1754,7 @@ arb:
     rights: "الحقوق"
     # role: "Role"
     role_create: "اضافة مهام" #?
-    role_name: "ادخل اسم المهام ومن ثم خصص له حقوقه"
+    role_name: "ادخل اسم المهام ومن ثم خصص له حقوقه" #?
     roles: "مهام / ادوار"
     # rss: "RSS"
     # run: "Run"
@@ -1781,7 +1780,7 @@ arb:
     # sales_conditions: "Conditions of sales"
     sales_invoice: "الفوترة"
     sales_invoice_items: "تصميم الفاتورة" #?
-    sales_invoice_number: "فاتورة رقم"
+    sales_invoice_number: "فاتورة رقم" #?
     sales_invoice_print: "طباعة الفاتورة" #?
     sales_invoice_sale: "فوترة طلب البيع" #?
     sales_invoices: "الفواتير" #?
@@ -1801,10 +1800,9 @@ arb:
     save_in_draft: "حفظ في المسودات"
     # scheduled: "Scheduled"
     search: "البحث عن الشراء"
-    # search_account: "Search for accounts"
-    search_go: "بدء البحث"
+    search_go: "بدء البحث" #?
     # search_placeholder: "Search…"
-    search_sales: "البحث عن طلبات البيع"
+    search_sales: "البحث عن طلبات البيع" #?
     second_building_name: "ادخال الاسم" #?
     # section_x: "Section %{x}"
     select_account_client: "كتابة حسابات" #?
@@ -1910,8 +1908,8 @@ arb:
     # total_in_currency: "Total (%{currency})"
     total_invoiced_amount: "فواتير المبلغ الاجمالي" #?
     # total_paid_amount: "Total paid amount"
-    # total_pretax_expenses: "Total pretax expenses"
-    # total_pretax_revenues: "Total pretax revenues"
+    # total_pretax_expenses: "Total pre-tax expenses"
+    # total_pretax_revenues: "Total pre-tax revenues"
     total_quantity: "مجموع الكمية"
     # total_unpaid_amount: "Total unpaid amount"
     totals: "(المجموع (صلاحية العينات والمسودات"
@@ -1921,7 +1919,7 @@ arb:
     # transformations: "Transformations"
     # transport: "Transport"
     transport_create: "اضافة وسيلة نقل جديدة" #?
-    transport_deliveries: "تسليم وسائل النقل"
+    transport_deliveries: "تسليم وسائل النقل" #?
     transport_states:
       # all: "All"
       # making: "Making"
@@ -1937,7 +1935,7 @@ arb:
     # undefined_container: "Undefined container"
     undelivered: "لم يتم التسليم"
     undeposited: "لم يتم اي اقتطاع بنكي" #?
-    uninvoiced_amount: "قيمة غير مفوترة"
+    uninvoiced_amount: "قيمة غير مفوترة" #?
     unit: "الوحدة"
     # unit_and_indicator: "%{unit} (%{indicator})"
     unit_create: "اضافة وحدة قياس جديدة" #?
@@ -1967,11 +1965,9 @@ arb:
     # updated_at_by: "Updated at %{at} by %{author}:"
     # updated_by_ago: "Updated by %{author} %{ago} ago:"
     upload: "تحميل الملفات"
-    # uploading_unicoque_traceability: "Uploading unicoque traceability"
     # usage: "Usage"
-    use_forward: "اختر دفتر يومي للتقارير الجديدة"
-    # use_incoming_payment: "Add incoming payment %{payment}"
-    used_accounts: "الحسابات المستخدمة فقط"
+    use_forward: "اختر دفتر يومي للتقارير الجديدة" #?
+    used_accounts: "الحسابات المستخدمة فقط" #?
     user_create: "اضافة مستخدم جديد" #?
     user_name: "اسم المستخدم" #?
     user_update: "تعديل معلومات المستخدم" #?

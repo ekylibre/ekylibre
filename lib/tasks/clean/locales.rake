@@ -127,6 +127,8 @@ namespace :clean do
       end
     end
     to_translate += Clean::Support.hash_count(labels)
+    # /(#{labels.keys.join('|')})/
+
     for key, trans in labels.sort{|a,b| a[0].to_s <=> b[0].to_s}
       line = "    "
       if new_labels.include? key
@@ -135,8 +137,10 @@ namespace :clean do
       end
       line << "#{key}:" + (trans.is_a?(Hash) ? "" : " ") + Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 2)
       if unknown_labels.include?(key)
-        if Clean::Support.text_found?(key, watched_files)
+        if Clean::Support.text_found?(/#{key}/, watched_files)
           line.gsub!(/\ *$/, " #?")
+        elsif Clean::Support.text_found?(/#{key.to_s.gsub('_', '.*')}/, watched_files)
+          line.gsub!(/\ *$/, " #??")
         else
           line.gsub!(/\ *$/, " #?!")
         end

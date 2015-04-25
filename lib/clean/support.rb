@@ -193,12 +193,10 @@ module Clean
       end
 
 
-      def text_found?(text, *paths)
-        exp = /(#{text}|#{text.to_s.gsub('_', '.*')})/
+      def text_found?(exp, *paths)
         for path in paths
           for file in Dir.glob(path)
-            source = File.read(file)
-            return true if source =~ exp
+            return true if File.read(file) =~ exp
           end
         end
         return false

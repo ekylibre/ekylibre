@@ -117,22 +117,22 @@ fra:
         storage: "Support" #?
       products_nature: #?
       profession: #?
-      purchase:
-        amount: "Montant TTC"
+      purchase:  #?
+        amount: "Montant TTC" #?
         items: "Lignes d’achat" #?
         label: "Commande" #?
         moved_at: "Reçu le" #?
         planned_at: "Réception prévue le" #?
-      purchase_item:
-        amount: "Montant TTC"
+      purchase_item:  #?
+        amount: "Montant TTC" #?
       purchase_line: #?
       sale:
-        amount: "Montant TTC"
+        amount: "Montant TTC" #?
         contact: "Adresse pour le devis"
         has_downpayment: "Acompte à verser"
         items: "Lignes de vente" #?
-      sale_item:
-        amount: "Montant TTC"
+      sale_item:  #?
+        amount: "Montant TTC" #?
         label: "Produit" #?
         price: "Prix" #?
       sale_line: #?

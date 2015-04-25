@@ -19,6 +19,6 @@
         .cell-title
           = link_to("##{beehive.id}", data: {beehive_remove: "cell"}) do
             %i
-          = cell[:type].tl(default: cell[:type].to_s.humanize)
+          = cell[:type].tl
         .cell-content{data: {cell: url_for((cell[:params] || {}).merge(controller: "backend/cells/#{cell[:type]}_cells", action: :show))}}
       .cell-bottom

@@ -765,11 +765,11 @@ fra:
     amount_per_unit: "%{amount}/%{unit}"
     amount_to_add: "Sommes à ajouter, exprimées en euros, y compris acompte congés" #?
     amount_to_reduce: "Sommes à imputer, exprimées en euros, y compris acompte congés" #?
-    amount_with_taxes: "Montant TTC"
+    amount_with_taxes: "Montant TTC" #?
     amounts_in_currency: "Montants (%{currency})"
     analyses: "Analyses"
     analysis: "Analyse" #?
-    analytics: "Analytiques"
+    analytics: "Analytiques" #?
     animal: "Animal" #?
     animal_bar: "Animaux par lot" #?
     animal_identification: "Identification animale" #?
@@ -836,11 +836,11 @@ fra:
     catalog: "Description pour catalogue"
     catalog_items: "Éléments de catalogue"
     category: "Catégorie"
-    category_name: "Catégorie"
+    category_name: "Catégorie" #?
     cells_concentration: "Dénombrement des cellules somatiques" #?
     centralize: "Comptes comptables centralisateurs"
     centralized_account: "Compte centralisateur %{name}"
-    change_price: "Changer le prix unitaire"
+    change_price: "Changer le prix unitaire" #?
     check: "Vérifier"
     check_fields: "Vous devez cocher au moins une case pour effectuer la modification" #?
     checked_at: "Vérifié le" #?
@@ -895,7 +895,7 @@ fra:
     cost: "Coût" #?
     cost_income_statement: "Charges" #?
     cost_per_net_surface_area: "Coût par surface"
-    cost_sum: "Total charges d’exploitation"
+    cost_sum: "Total charges d’exploitation" #?
     costs: "Coûts"
     costs_map: "Carte des coûts"
     country: "Pays" #?
@@ -908,6 +908,7 @@ fra:
     created_between: "Enregistré entre le %{started_at} et le %{stopped_at}"
     created_by_ago: "Créé par %{author} il y a %{ago}"
     credit: "Crédit"
+    credited_quantity: "Qté. à passer en avoir"
     credits: "Avoirs"
     criterion_modes:
       all: "Tout"
@@ -915,10 +916,10 @@ fra:
       unconfirmed: "Non-confirmés"
     critic_stock_min: "Stock minimum critique" #?
     critic_stocks: "Stocks sous le seuil critique" #?
-    cropping_plan: "Assolement" #?
-    cropping_plan_chart: "Assolement"
+    cropping_plan: "Assolement"
+    cropping_plan_chart: "Assolement" #?
     cropping_plan_on_cultivable_zones: "Assolement (Parcelles culturales)"
-    crumb_procedure_nature: "Type de procedure"
+    crumb_procedure_nature: "Type de procedure" #?
     crumbs: "Miettes"
     csv_statistics: "Statistiques à exporter au format CSV" #?
     cultivable_zone: "Zone cultivable"
@@ -994,10 +995,10 @@ fra:
     earns: "Gains"
     edit: "Modifier"
     ekylibre: "www.ekylibre.org"
-    elapsed_interventions_times_by_activities: "Temps passé par activité" #?
+    elapsed_interventions_times_by_activities: "Temps passé par activité"
     email: "Email:"
-    employee: "Employé"
-    employee_name: "Employé"
+    employee: "Employé" #?
+    employee_name: "Employé" #?
     end: "au"
     entities: "Personnes"
     entity: "Personne"
@@ -1048,19 +1049,18 @@ fra:
     filter_entries_with: "Filtrer les écritures avec" #?
     financial_asset_depreciations: "Dépréciations d’immobilisation"
     financial_assets: "Immobilisations"
-    financial_state: "État financier"
+    financial_state: "État financier" #?
     financials_assets: "Immobilisations"
     finish: "Terminer"
     finished_income_statement: "Produits" #?
-    finished_sum: "Total produits d’exploitation"
+    finished_sum: "Total produits d’exploitation" #?
     finishes: "Termine par" #?
     first_contact: "Adresse principale" #?
     first_line_as_title: "Titre en première ligne"
-    format_date:
-      iso: "(AAAA-MM-JJ)"
     from: "À partir du"
-    full_name: "Client"
+    full_name: "Client" #?
     fullscreen: "Plein écran"
+    function: "Fonction"
     fungi: "Champignons"
     future_events: "Futurs événements"
     genealogy: "Généalogie"
@@ -1070,7 +1070,7 @@ fra:
     generate: "Générer"
     generate_last_journal_entry: "Générer la dernière écriture"
     geolocation: "Géolocalisation"
-    give_discount: "Octroyer une remise"
+    give_discount: "Octroyer une remise" #?
     go: "Valider"
     grains_yield: "Rendement grains" #?
     graph_statistics: "Statistiques graphiques" #?
@@ -1088,10 +1088,6 @@ fra:
     hint: "Astuce\_: %{value}"
     historic: "Historique"
     home: "Accueil"
-    hour_duration:
-      one: "Temps d’utilisation total\_: %{count} heure"
-      other: "Temps d’utilisation total\_: %{count} heures"
-      zero: "Aucune durée d’utilisation"
     iban: "Numéro de compte bancaire internationale (IBAN)"
     identification: "Identification"
     identifiers: "Identifiants"
@@ -1102,10 +1098,10 @@ fra:
     import_backup: "Import de fichier de sauvegarde" #?
     importation_explanation: "Pour confirmer l’importation, vous devez confirmer en cliquant sur Importer."
     in_production: "En production" #?
-    incident: "Incident"
+    incident: "Incident" #?
     include_blank: "— Aucune organisation —"
     income_statement: "Compte de résultat"
-    incoming_payment_conditions: "Conditions d’encaissement"
+    incoming_payment_conditions: "Conditions d’encaissement" #?
     incoming_payments: "Encaissements"
     incoming_payments_states:
       all: "Tous"
@@ -1165,7 +1161,7 @@ fra:
     label: "Libellé"
     label_value: "%{label}\_: %{value}"
     land_parcel_abbreviation: "P"
-    land_parcel_name: "Parcelle"
+    land_parcel_name: "Parcelle" #?
     land_parcels: "Parcelles"
     language: "Langue" #?
     last_analyses: "Dernières analyses"
@@ -1173,20 +1169,20 @@ fra:
     last_clients: "Derniers clients" #?
     last_computed_balance: "Dernière balance calculée"
     last_documents: "Derniers archivages" #?
-    last_entities: "Derniers tiers" #?
+    last_entities: "Derniers tiers"
     last_events: "Derniers évènements"
-    last_incoming_deliveries: "Derniers approvisionnements" #?
+    last_incoming_deliveries: "Derniers approvisionnements"
     last_intervention: "Dernière intervention"
     last_interventions: "Dernières interventions"
     last_issue: "Dernier incident"
-    last_issues: "Derniers incidents" #?
-    last_outgoing_deliveries: "Dernières livraisons" #?
+    last_issues: "Derniers incidents"
+    last_outgoing_deliveries: "Dernières livraisons"
     last_payment_amount: "Montant du dernier encaissement" #?
     last_payment_date: "Date du dernier encaissement" #?
     last_procedures: "Dernières procédures" #?
     last_products: "Dernières naissances"
     last_purchases: "Derniers achats"
-    last_sales: "Dernières ventes" #?
+    last_sales: "Dernières ventes"
     left_balance_amount: "Report du crédit antérieur non imputé et non remboursé" #?
     letter: "Lettrer"
     letter_options: "Lettre"
@@ -1227,7 +1223,7 @@ fra:
     manual_period: "du %{start} au %{finish}"
     manure_management_plan_chart: "Visualisation des apports azotés"
     map: "Carte"
-    margins: "Marges"
+    margins: "Marges" #?
     markers: "Objectifs"
     mass: "Masse" #?
     maximal_temperature: "Température maximale"
@@ -1299,7 +1295,7 @@ fra:
     no_filters: "— Pas de filtre —" #?
     no_javascript: "Votre navigateur ne supporte pas le javascript. Vous devez l’activer pour pouvoir utiliser le logiciel. Merci de votre compréhension." #?
     no_origin: "— Sans origine —"
-    no_particular_periods: "Aucune période en particulier" #?
+    no_particular_periods: "Aucune période en particulier"
     no_products: "Sans produit"
     no_proposer: "— Sans parrain ni marraine —" #?
     no_purchases: "Aucun achat en attente de reception" #?
@@ -1322,12 +1318,12 @@ fra:
     numbers: "Numéros"
     on_account: "À remettre sur le compte"
     one_condition: "au moins une condition"
-    operation_items: "Intrants et sortants"
+    operation_items: "Intrants et sortants" #?
     operations: "Travaux"
     options: "Options"
-    order: "Commande"
+    order: "Commande" #?
     order_amount_with_taxes: "Montant de la commande" #?
-    order_print: "Imprimer la commande"
+    order_print: "Imprimer la commande" #?
     organic_matter_concentration: "Teneur en matière organique"
     other_results: "Autres résultats…" #?
     others: "Autres"
@@ -1352,7 +1348,7 @@ fra:
     payment_amount: "Montant de l’encaissement"
     payment_at: "Payé le"
     payment_conditions: "Conditions de règlement"
-    payment_label: "%{number}. %{amount} (%{usable_amount} restants) du %{date} par %{mode} de %{entity}"
+    payment_label: "%{number}. %{amount} (%{usable_amount} restants) du %{date} par %{mode} de %{entity}" #?
     payment_mode: "Mode d’encaissement"
     payments: "Réglements"
     payments_count: "Nombre de %{mode}"
@@ -1394,14 +1390,14 @@ fra:
     price_amount: "Prix HT" #?
     price_amount_with_taxes: "Prix TTC" #?
     prices: "Prix"
-    prices_evolutions: "Évolutions des prix"
+    prices_evolutions: "Évolutions des prix" #?
     prices_export: "Exporter vos tarifs au format CSV" #?
     prices_for_all: "Tous les prix" #?
     prices_for_clients: "Les prix de vente" #?
     prices_for_suppliers: "Les prix d’achat du fournisseur" #?
     prices_import: "Importer un fichier CSV" #?
     print: "Imprimer"
-    print_at: "Le"
+    print_at: "Le" #?
     print_with_template: "Imprimer %{name}" #?
     procedure_natures: "Types de procédures" #?
     procedures: "Procédures"
@@ -1451,7 +1447,6 @@ fra:
       refused: "Refusée"
     quantity: "Quantité"
     quantity_rest: "Quantité restante"
-    quantity_to_credit: "Qté. à passer en avoir"
     quarterly: "Trimestrielle" #?
     query: "Requête:"
     raw_margin: "Marge brute"
@@ -1485,7 +1480,7 @@ fra:
     resource: "Consulter la pièce d’origine\_: %{resource} %{number}"
     resources: "Gestion des ressources humaines"
     rest: "Reste"
-    rest_to_pay: "Reste à payer"
+    rest_to_pay: "Reste à payer" #?
     restore: "Restaurer"
     result: "Résultat"
     results:
@@ -1493,7 +1488,7 @@ fra:
       other: "%{count} résultats"
       zero: "Aucun résultat"
     revenues: "Recettes"
-    revenues_by_product_nature: "Chiffre d’affaire par type de produit" #?
+    revenues_by_product_nature: "Chiffre d’affaire par type de produit"
     reverse: "Appliquer la condition inverse"
     right_parts:  #?
       accountancy: "Droits module Comptabilité" #?
@@ -1505,7 +1500,7 @@ fra:
       resources: "Droits module Ressources" #?
     rights: "Droits"
     role: "Rôle"
-    role_name: "Entrez le nom du rôle puis attribuez lui ses droits"
+    role_name: "Entrez le nom du rôle puis attribuez lui ses droits" #?
     roles: "Rôles"
     rss: "RSS"
     run: "Exécuter"
@@ -1525,7 +1520,7 @@ fra:
     sales_conditions: "Conditions de vente"
     sales_invoice: "Facture"
     sales_invoice_items: "Lignes de la facture" #?
-    sales_invoice_number: "Numéro de facture"
+    sales_invoice_number: "Numéro de facture" #?
     sales_invoice_print: "Imprimer la facture" #?
     sales_invoice_sale: "Facturer la vente" #?
     sales_invoices: "Factures" #?
@@ -1544,11 +1539,11 @@ fra:
     save_in_draft: "Sauvegarder dans le brouillard"
     scheduled: "Échéance"
     search: "Rechercher"
-    search_account: "Rechercher un compte"
+    search_account: "Rechercher un compte" #?
     search_for_available_prices: "%{code} - %{name}%s: %{pretax_amount}/%{amount} (HT/TTC)" #?
-    search_go: "Lancer la recherche"
+    search_go: "Lancer la recherche" #?
     search_placeholder: "Rechercher…"
-    search_sales: "Rechercher des ventes"
+    search_sales: "Rechercher des ventes" #?
     second_building_name: "Entrée de" #?
     second_contact: "Adresse secondaire" #?
     section_x: "%{section} %{x}"
@@ -1671,7 +1666,7 @@ fra:
     transformations: "Transformations"
     transformed_products: "Produits transformés" #?
     transport: "Transport"
-    transport_deliveries: "Livraisons du transport"
+    transport_deliveries: "Livraisons du transport" #?
     transport_states:
       all: "Tous"
       making: "En cours"
@@ -1682,7 +1677,7 @@ fra:
     true: "Vrai" #?
     undefined_container: "Emplacement indéfini"
     undelivered: "Reste à livrer"
-    uninvoiced_amount: "Montant non facturé"
+    uninvoiced_amount: "Montant non facturé" #?
     unit: "Unité"
     unit_and_indicator: "%{unit} (%{indicator})"
     unit_price_amount: "PU HT" #?
@@ -1712,13 +1707,13 @@ fra:
     updated_at_by: "Mis à jour le %{at} par %{author}\_:"
     updated_by_ago: "Mis à jour par %{author} il y a %{ago}\_:"
     upload: "Téléversement"
-    uploading_unicoque_traceability: "Télétransmission - Traçabilité Unicoque"
+    uploading_unicoque_traceability: "Télétransmission - Traçabilité Unicoque" #?
     urea_concentration: "Teneur moyenne en urée" #?
     usage: "Utilisation"
     usage_duration: "Durée d’utilisation" #?
-    use_forward: "Sélectionnez un journal pour reporter les à nouveaux"
-    use_incoming_payment: "Rattacher l’encaissement %{payment}"
-    used_accounts: "Comptes utilisés seulement"
+    use_forward: "Sélectionnez un journal pour reporter les à nouveaux" #?
+    use_incoming_payment: "Rattacher l’encaissement %{payment}" #?
+    used_accounts: "Comptes utilisés seulement" #?
     user_name: "Nom d’utilisateur" #?
     users: "Utilisateurs"
     uses: "Matériel" #?

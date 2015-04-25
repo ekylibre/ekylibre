@@ -34,16 +34,9 @@ eng:
         subscribing: "Subscribing ?"
       production_support:
         production_usage: "Production usage"
-      purchase:
-        amount: "Amount with taxes"
-      purchase_item:
-        amount: "Amount with taxes"
       sale:
-        amount: "Amount with taxes"
         contact: "Address for the estimate"
         has_downpayment: "Downpayment received"
-      sale_item:
-        amount: "Amount with taxes"
       sale_nature:
         downpayment: "Request downpayment"
       tax:
@@ -806,7 +799,7 @@ eng:
     postal_zones: "Postal zones"
     preferences: "Preferences"
     prereduction_amount: "Prereduction amount"
-    prereduction_pretax_amount: "Prereduction pretax amount"
+    prereduction_pretax_amount: "Prereduction pre-tax amount"
     prescription: "Prescription"
     prescriptor: "Prescriptor"
     pretax_amount: "Pre-tax amount"
@@ -895,7 +888,7 @@ eng:
     record_value: "Record value"
     record_value_type: "Record value type"
     reduced_unit_amount: "Reduced unit amount"
-    reduced_unit_pretax_amount: "Reduced unit pretax amount"
+    reduced_unit_pretax_amount: "Reduced unit pre-tax amount"
     reductible: "Reductible"
     reduction_percentage: "Reduction percentage"
     reference_name: "Reference name"
@@ -1026,7 +1019,7 @@ eng:
     # unit_currency: "Unit currency"
     unit_name: "Unit name"
     # unit_population: "Unit population"
-    unit_pretax_amount: "Unit pretax amount"
+    unit_pretax_amount: "Unit pre-tax amount"
     unit_price: "Unit price" #?
     unlock_token: "Unlock token"
     unlocked_payments: "Unlocked payments"

@@ -471,8 +471,7 @@ arb:
         unit: "وحدة القياس" #?
         unit_id: "وحدة قياس" #?
       profession: #?
-      purchase:
-        # amount: "Amount with taxes"
+      purchase:  #?
         amount_with_taxes: "القيمة مع كل الضرائب" #?
         comment: "تعليق" #?
         created_at: "انشأت يوم" #?
@@ -483,10 +482,9 @@ arb:
         number: "رقم" #?
         planned_at: "مقرر الاستقبال يوم" #?
         received: "المستلم" #?
-      purchase_item:
+      purchase_item:  #?
         account: "حساب الرسوم المستخدمة" #?
         account_id: "حساب الرسوم المستخدمة" #?
-        # amount: "Amount with taxes"
         annotation: "الملاحظة" #?
         order: "طلب الشراء" #?
         price: "سعر الوحدة" #?
@@ -499,7 +497,7 @@ arb:
         created_at: "انشأ في" #?
       sale:
         accounted_at: "تمت محاسبته في" #?
-        amount: "القيمة من دون تاضرائب"
+        amount: "القيمة من دون تاضرائب" #?
         client_id: "عميل" #?
         contact: "عنوان للاقتياس"
         contact_id: "عنوان للاقتباس" #?
@@ -514,8 +512,7 @@ arb:
         stock_moves: "حركات السهم" #?
         transporter_id: "ناقلة" #?
         updated_at: "تم تحديثها في" #?
-      sale_item:
-        # amount: "Amount with taxes"
+      sale_item:  #?
         annotation: "الملاحظة" #?
         created_at: "انشأ في" #?
         label: "الانتاج" #?
@@ -1714,7 +1711,7 @@ arb:
     postcode: "الرمز البريدي" #?
     preferences: "الاعدادات"
     # prereduction_amount: "Prereduction amount"
-    # prereduction_pretax_amount: "Prereduction pretax amount"
+    # prereduction_pretax_amount: "Prereduction pre-tax amount"
     # prescription: "Prescription"
     # prescriptor: "Prescriptor"
     # pretax_amount: "Pre-tax amount"
@@ -1825,7 +1822,7 @@ arb:
     record_value_id: "تسجيل" #?
     record_value_type: "نوع التسجيل"
     # reduced_unit_amount: "Reduced unit amount"
-    # reduced_unit_pretax_amount: "Reduced unit pretax amount"
+    # reduced_unit_pretax_amount: "Reduced unit pre-tax amount"
     reductible: "ناقص"
     reduction: "طريقة الخصم" #?
     reduction_origin: "طرق قابلة للخصم" #?
@@ -2030,7 +2027,7 @@ arb:
     # unit_amount: "Unit amount"
     unit_id: "وحدة" #?
     # unit_name: "Unit name"
-    # unit_pretax_amount: "Unit pretax amount"
+    # unit_pretax_amount: "Unit pre-tax amount"
     # unit_price: "Unit price"
     unit_quantity: "وحدة مساحة الكمية" #?
     units: "الوحدات" #?

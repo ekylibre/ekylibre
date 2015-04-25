@@ -88,7 +88,7 @@ module Backend::BeehiveHelper
       end
 
       def title
-        @options[:title].is_a?(Symbol) ? @options[:title].tl(@i18n.merge(default: @name.to_s.humanize)) : (@options[:title] || @name.tl(@i18n.merge(default: @name.to_s.humanize)))
+        @options[:title].is_a?(Symbol) ? @options[:title].tl(@i18n) : (@options[:title] || @name.tl(@i18n))
       end
 
       def to_hash
@@ -167,7 +167,7 @@ module Backend::BeehiveHelper
     end
 
     def available_cells
-      externals = Cell.controller_types.collect { |c| [c.tl(default: c.to_s.humanize), c.to_s] }
+      externals = Cell.controller_types.collect { |c| [c.tl, c.to_s] }
       internals = @cells.values.collect{ |c| [c.title, c.name.to_s] }
       return (externals + internals).sort do |a,b|
         a.first.ascii <=> b.first.ascii
