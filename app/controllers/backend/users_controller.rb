@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -18,19 +17,21 @@
 #
 
 class Backend::UsersController < Backend::BaseController
-  manage_restfully
+  manage_restfully language: "params[:language] || Preference[:language]".c
 
   unroll :first_name, :last_name
 
-  list(order: "locked, last_name", line_class: "(RECORD.locked ? 'critic' : '')".c) do |t|
+  list(order: "users.locked, users.last_name", line_class: "(RECORD.locked ? 'critic' : '')".c) do |t|
     t.column :full_name, url: true
     t.column :first_name, url: true, hidden: true
     t.column :last_name, url: true, hidden: true
+    t.column :person, url: true, label_method: :full_name
     t.column :role, url: true
     t.column :team, url: true, hidden: true
     t.column :administrator
     t.column :employed, hidden: true
-    t.action :locked, actions: {true => {action: :unlock}, false => {action: :lock}}, method: :post, if: 'RECORD.id != current_user.id'.c
+    t.action :lock, method: :post, if: '!RECORD.locked and RECORD.id != current_user.id'.c
+    t.action :unlock, method: :post, if: 'RECORD.locked and RECORD.id != current_user.id'.c
     t.action :edit, controller: :users
     t.action :destroy, if: 'RECORD.id != current_user.id'.c
   end

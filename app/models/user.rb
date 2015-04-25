@@ -102,7 +102,7 @@ class User < Ekylibre::Record::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
   model_stamper # Needed to stamp.all records
-  delegate :picture, :full_name, :participations, to: :person
+  delegate :picture, :participations, to: :person
 
   before_validation do
     self.maximal_grantable_reduction_percentage ||= 0
@@ -142,6 +142,10 @@ class User < Ekylibre::Record::Base
 
   protect(on: :destroy) do
     (self.administrator? and self.class.administrators.count <= 1) or self.class.count <= 1
+  end
+
+  def full_name
+    name
   end
 
   def name
