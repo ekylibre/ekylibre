@@ -8,9 +8,10 @@ class Releaser
   def self.run!
     root = File.dirname(File.expand_path(__FILE__))
 
-    # TODO: Check cleaning
-    desc "General cleaning"
-    exec "rake clean clean:private"
+    # TODO: Check VERSION is not already tagged
+
+    desc "Compile HTTP error pages"
+    exec "RAILS_ENV=production rake http:errors:compile"
 
     desc "Fixtures restoration"
     exec "rake db:fixtures:restore"
@@ -18,8 +19,10 @@ class Releaser
     desc "Fixtures dump"
     exec "rake db:fixtures:dump"
 
+    desc "General cleaning"
+    exec "rake clean clean:private"
+
     # TODO: Check nomenclatures changes
-    # TODO: Check VERSION
     # TODO: Check Travis results (or test locally ?)
 
     desc "Precompile assets"
@@ -27,7 +30,6 @@ class Releaser
     exec "RAILS_ENV=production rake assets:precompile"
 
     desc "Create and load schema"
-    # exec "RAILS_ENV=production rake db:drop db:create db:schema:load"
     exec "RAILS_ENV=production rake db:drop db:create db:migrate"
 
     # TODO: Check schema and table presences

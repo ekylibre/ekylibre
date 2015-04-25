@@ -57,6 +57,16 @@ fra:
       x_seconds:
         one: "1 seconde"
         other: "%{count} secondes"
+  http:
+    errors:
+      internal_server_error:
+        title: "Nous sommes désolés, mais quelque chose s'est mal passé"
+      not_found:
+        hint: "Vous pouvez avoir mal saisi l'adresse ou la page peut avoir été déplacée."
+        title: "La page que vous voulez n'existe pas"
+      unprocessable_entity:
+        hint: "Peut-être que vous avez essayé de changer quelquechose auquel vous n'avez pas accès."
+        title: "Le changement que vous avez demandé a été rejeté"
   number:
     currency:
       format:

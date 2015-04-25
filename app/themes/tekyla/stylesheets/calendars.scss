@@ -1,0 +1,110 @@
+@import "bootstrap/tooltip";
+@import "bootstrap/popovers";
+
+/* Calendar */
+/* @FIXME : need to be update ! */
+[data-simple-calendar] {
+  h2 {
+    @include text-align(center);
+    padding-bottom: $default-gap;
+    &, * {
+      font-size: $fs-large;
+      vertical-align: middle;
+    }
+    .next-month, .previous-month {
+      padding: 0;
+      width: $fs-huge;
+      text-align: center;
+      display: block;
+    }
+    .next-month {
+      @include float(right);
+    }
+    .previous-month {
+      @include float(left);
+    }
+  }
+  table {
+    table-layout: fixed;
+    th {
+      text-align: center;
+    }
+    td.day {
+      border: 1px solid #AAA;
+      background: white;
+      padding: 0;
+      width: 14.2857%;
+      vertical-align: top;
+      > div {
+        min-height: 4 * $fs-normal;
+        height: 100%;
+        .intervention, .event {
+          @include display(block);
+          background: $active-color;
+          color: white;
+          padding: 0.1 * $default-gap 0.4 * $default-gap;
+          margin: 0.1 * $default-gap;
+          @include border-radius($default-border-radius);
+          @include ellipsis;
+          /* padding: 0 round($default-gap * 0.4); */
+          /* display: block; */
+          /* background: #EEE; */
+          /* &, * { */
+          /*   font-size: $fs-small; */
+          /* } */
+          /* h3 { */
+          /*   font-size: $fs-normal; */
+          /* } */
+          &.squeezed {
+            text-decoration: line-through;
+          }
+          &.done {
+            background: mix(white, $success-color, 60%);
+          }
+        }
+      }
+      &.today {
+        background: #FE9;
+      }
+      &.not-current-month {
+        > div {
+          @include opacity(0.6);
+          &:hover {
+            @include opacity(1);
+          }
+        }
+      }
+      .day_number {
+        padding: round($default-gap * 0.4);
+        display: block;
+        width: 2.5ex;
+        @include text-align(right);
+        clear: both;
+      }
+    }
+  }
+}
+
+
+.ui-tooltip {
+  padding: $default-gap $default-ratio * $default-gap;
+  position: absolute;
+  z-index: 9999;
+  max-width: $menu-width;
+  @include menu();
+}
+
+li.participation {
+  i {
+    @include is-icon();
+    &.person {
+      @include use-icon(user);
+    }
+    &.group {
+      @include use-icon(group);
+    }
+    &.unknown {
+      @include use-icon(question);
+    }
+  }
+}

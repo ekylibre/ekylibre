@@ -1,3 +1,6 @@
+#= require 'bootstrap/tooltip'
+#= require 'bootstrap/popover'
+
 (($) ->
   "use strict"
 
@@ -8,6 +11,15 @@
       .attr("data-method", "get")
       .attr("data-update", "#" + calendar.attr("id"))
       .attr("data-update-mode", "closest")
+    return
+
+
+  $(document).behave "load", "*[data-content]", () ->
+    $(this).popover
+      trigger: "hover"
+      placement: "bottom"
+      container: "#wrap"
+      html: true
     return
 
   return

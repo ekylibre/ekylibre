@@ -17,15 +17,13 @@ gem 'charlock_holmes'
 
 gem 'browser'
 
-gem 'sprockets', '< 3.0.0'
-
 # Use SCSS for stylesheets
-gem 'sass-rails'
+gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.1.0'
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+# See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
@@ -62,24 +60,23 @@ gem 'sidekiq'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-# General
+# Exception management
 gem 'exception_notification'
 
 # Views helpers
 gem 'haml'
-gem "calendar_helper", "~> 0.2.5"
 gem "simple_calendar", "~> 0.1"
 gem "active_list", '>= 6.4.2' #, path: "../active_list" #
 
 # Models helpers
 gem 'acts_as_list'
 gem 'state_machine'
-gem 'awesome_nested_set', '~> 3.0.0.rc3'
+gem 'awesome_nested_set', '~> 3.0.0'
 gem 'enumerize'
 gem 'jc-validates_timeliness', '~> 3.1.1'
 
@@ -116,13 +113,11 @@ gem 'beardley-xml'
 gem 'beardley-open_sans'
 
 # Import/Export
-gem 'fastercsv'
-gem 'ofx-parser'
+# gem 'ofx-parser'
 gem 'rgeo-shapefile'
 gem 'rgeo-geojson'
 gem 'rubyzip'
 gem 'roo'
-gem 'spreadsheet'
 
 # Demo data
 gem 'ffaker', '>= 2.0.0'
@@ -148,16 +143,11 @@ gem 'savon', '~> 2.5.1'
 group :development do
   gem 'quiet_assets'
   # gem 'rack-mini-profiler'
-  # gem 'better_errors'
-  # gem 'binding_of_caller'
 
   # Project management
   gem 'rails_best_practices'
-  # gem 'railroady'
-  # gem 'rails-erd', github: "burisu/rails-erd"
 
   # Webservers
-  gem 'unicorn'
   gem 'thin'
 end
 

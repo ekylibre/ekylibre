@@ -55,6 +55,16 @@ eng:
       x_seconds:
         one: "1 second"
         other: "%{count} seconds"
+  http:
+    errors:
+      internal_server_error:
+        title: "We're sorry, but something went wrong"
+      not_found:
+        hint: "You may have mistyped the address or the page may have moved."
+        title: "The page you were looking for doesn't exist"
+      unprocessable_entity:
+        hint: "Maybe you tried to change something you didn't have access to."
+        title: "The change you wanted was rejected"
   number:
     currency:
       format:

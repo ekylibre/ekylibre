@@ -88,6 +88,14 @@ class Event < Ekylibre::Record::Base
     end
   end
 
+  validate do
+    if self.started_at and self.stopped_at
+      if self.stopped_at < self.started_at
+        errors.add(:stopped_at, :posterior, to: self.started_at.l)
+      end
+    end
+  end
+
   def updateable?
     !self.intervention.present?
   end

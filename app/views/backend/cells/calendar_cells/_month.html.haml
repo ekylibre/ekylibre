@@ -1,11 +1,2 @@
 = calendar @events, start_day: :monday, params: {controller: controller_path, action: :show} do |event|
-  = link_to backend_event_path(event), class: "event", title: event.description.to_s.strip do
-    -# FIXME Not internationalized
-    %h3= event.started_at.l(format: "%H:%M") + " " + event.name
-    - if event.participations.any?
-      %ul
-        - for participation in event.participations
-          - if participation.participant
-            %li{class: participation.state}= participation.participant.full_name
-          - else
-            %li{class: participation.state}= participation.name
+  = render "/backend/events/calendar_event", event: event

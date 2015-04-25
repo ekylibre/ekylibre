@@ -1,0 +1,33 @@
+- details = capture do
+  %p
+    = event.started_at.l(format: "%H:%M")
+    = " - "
+    - if event.started_at.to_date == event.stopped_at.to_date
+      = event.stopped_at.l(format: "%H:%M")
+    - else
+      = event.stopped_at.l
+  - if event.place
+    %p= event.place
+  - if event.participations.any?
+    %ul
+      - for participation in event.participations
+        %li.participation{class: participation.state}
+          - if participant = participation.participant
+            %i{class: (participant.is_a?(LegalEntity) ? :group : :person)}
+            = participant.full_name
+          - else
+            %i.unknown
+            = participation.name
+
+= link_to backend_event_path(event), class: "event", title: event.name, data: {content: details} do
+  = event.started_at.l(format: "%H:%M") + " " + event.name
+-#= link_to backend_event_path(event), class: "event", title: event.name do
+  -# FIXME Not internationalized
+  %h3= event.started_at.l(format: "%H:%M") + " " + event.name
+  - if event.participations.any?
+    %ul
+      - for participation in event.participations
+        - if participation.participant
+          %li{class: participation.state}= participation.participant.full_name
+        - else
+          %li{class: participation.state}= participation.name
