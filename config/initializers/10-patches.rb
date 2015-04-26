@@ -116,6 +116,17 @@ class ::Hash
     end
   end
 
+  def deep_compact
+    inject({}) do |hash, pair|
+      k, v = pair.first, pair.second
+      v2 = (v.is_a?(Hash) ? v.deep_compact : v)
+      unless v2.nil? or (v2.is_a?(Hash) and v2.empty?)
+        hash[k] = v2
+      end
+      hash
+    end
+  end
+
   # Build a struct from the hash
   def to_struct
     return OpenStruct.new(self)

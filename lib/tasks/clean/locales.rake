@@ -624,7 +624,7 @@ namespace :clean do
             file.write("#{locale}:\n")
           end
         end
-        target = Clean::Support.yaml_to_hash(target_path)
+        target = Clean::Support.yaml_to_hash(target_path) # .deep_compact
         reference = Clean::Support.yaml_to_hash(reference_path)
         translation, scount, stotal = Clean::Support.hash_diff(target[locale], reference[::I18n.default_locale], 1, (locale == :english ? :humanize : :localize))
         count += scount
