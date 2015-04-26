@@ -34,14 +34,11 @@ jpn:
       # index: "Analyses"
       # new: "New analysis"
       # show: "Analysis #%{number}"
-    backend/animal_foods: #?
     backend/animal_groups:
       # edit: "Edit animal group: %{name}"
       # index: "Animal groups"
       # new: "New animal group"
       # show: "Animal group: %{name}"
-    backend/animal_medicines: #?
-    backend/animal_products: #?
     backend/animals:
       # add_to_group: "Add to group"
       # edit: "Edit animal: %{name}"
@@ -66,7 +63,6 @@ jpn:
       # index: "Buildings"
       # new: "New building"
       # show: "Building: %{name}"
-    backend/calculators: #?
     backend/calculators/grains_commercialization_threshold_simulators:
       # show: "Grains commercialization threshold simulator"
     backend/campaigns:
@@ -368,7 +364,6 @@ jpn:
     backend/operations:
       # index: "Operations"
       # show: "Operation Details %{name}"
-    backend/opportunities: #?
     backend/outgoing_deliveries:
       # edit: "Edit outgoing delivery: %{number}"
       # index: "Outgoing deliveries"
@@ -389,10 +384,6 @@ jpn:
       # index: "People"
       # new: "New person"
       # show: "Person: %{full_name}"
-    backend/plant_fertilizers: #?
-    backend/plant_medicines: #?
-    backend/plant_products: #?
-    backend/plant_seedlings: #?
     backend/plants:
       # edit: "Edit plant: %{name}"
       # index: "Plants"
@@ -418,7 +409,6 @@ jpn:
       # new: "New product category"
       # pick: "Pick product nature category"
       # show: "Product category: %{name}"
-    backend/product_nature_variant_readings: #?
     backend/product_nature_variants:
       # edit: "Edit product variant: %{name}"
       # index: "Product variants"
@@ -533,7 +523,6 @@ jpn:
       # index: "Trackings"
       # new: "New tracking"
       # show: "Tracking: %{name}"
-    backend/transformed_products: #?
     backend/transports:
       # edit: "Edit transport %{number}"
       # index: "Transports"
@@ -548,7 +537,6 @@ jpn:
       # unlock: "Unlock user"
     backend/wine_tanks:
       # index: "Wine tanks"
-    backend/wine_transformers: #?
     backend/workers:
       # edit: "Edit worker: %{name}"
       # index: "Workers"
@@ -695,7 +683,6 @@ jpn:
     # cash: "Cash"
     # cash_balance: "Cash balance"
     # cash_balances: "Bank chart"
-    cash_tabbox: #?
     # casting: "Casting"
     # casts: "Casts"
     # catalog: "Catalog"
@@ -729,7 +716,6 @@ jpn:
     connect: "ログイン" #?
     # contained_products: "Contained products"
     # container: "Container"
-    convert_balance_into: #?
     # convert_balance_into_loss: "Convert balance into loss"
     # convert_balance_into_profit: "Convert balance into profit"
     # cooperative_cartodb: "Cooperative CartoDB"
@@ -749,7 +735,6 @@ jpn:
     # credit: "Credit"
     # credited_quantity: "Quantity to credit"
     # credits: "Credits"
-    criterion_modes: #?
     # cropping_plan: "Cropping plan"
     # cropping_plan_on_cultivable_zones: "Cropping plan on cultivable zones"
     # crumbs: "Crumbs"
@@ -776,7 +761,6 @@ jpn:
     # deliveries: "Deliveries"
     # delivery: "Delivery"
     # deposit: "Deposit"
-    deposit_create: #?
     # depositable_options: "Deposit options"
     # depreciation: "Depreciation"
     # depreciations: "Depreciations"
@@ -846,7 +830,6 @@ jpn:
     # financials_assets: "Financials assets"
     # finish: "Finish"
     # first_line_as_title: "First line as title"
-    format_date: #?
     # from: "From"
     # fullscreen: "Fullscreen"
     # function: "Function"
@@ -870,7 +853,6 @@ jpn:
     # hint: "Hint: %{value}"
     # historic: "Historic"
     home: "持て成しの手伝いに帰り"
-    hour_duration: #?
     # iban: "International Bank Account Number (IBAN)"
     # identification: "Identification"
     # identifiers: "Identifiers"
@@ -882,7 +864,6 @@ jpn:
     # include_blank: "Include blank"
     # income_statement: "Income Statement"
     # incoming_payments: "Incoming payments"
-    incoming_payments_states: #?
     # incoming_payments_to_deposit: "Incoming payments to deposit"
     # indicator: "Indicators"
     # indicator_value: "Indicator value"
@@ -900,7 +881,6 @@ jpn:
     # interventions: "Interventions"
     # interventions_count: "Interventions count"
     # interventions_paths: "Interventions paths"
-    interventions_selections: #?
     # inventories: "Inventories"
     # inventory: "Inventory"
     # invoiced_amount: "Sales invoiced amount"
@@ -939,7 +919,6 @@ jpn:
     # last_sales: "Last sales"
     # letter: "Letter"
     # letter_options: "Letter options"
-    lettering_modes: #?
     # line_number: "Line #%{number}"
     # linear_options: "Linear options"
     # list: "List"
@@ -964,7 +943,6 @@ jpn:
       accountancy_tasks: "用事" #?
       parameters: "パラメーター" #?
       tools: "道具" #?
-    menus: #?
     # merge: "Merge"
     # method: "Method"
     # minimal_temperature: "Minimal temperature"
@@ -981,9 +959,6 @@ jpn:
     # name: "Name"
     # nature: "Type"
     # natures: "Natures"
-    nb_mandates: #?
-    nb_products: #?
-    nb_purchases: #?
     # net_margin: "Net margin"
     # net_mass: "Net mass"
     # net_surface_area: "Net surface area"
@@ -1021,7 +996,6 @@ jpn:
     # normal: "Normal"
     # not_delivered: "Not delivered"
     # not_received: "Not received"
-    notifications: #?
     # number: "Number"
     # number_options: "Options Numbers"
     # numbers: "Numbers"
@@ -1031,7 +1005,6 @@ jpn:
     # options: "Options"
     # organic_matter_concentration: "Organic matter concentration"
     # others: "Others"
-    outgoing_payments_states: #?
     page_title: "%{company_code} - %{menu} - %{action}"
     page_title_by_default: "Ekylibre - %{action}"
     page_title_special: "%{company_code} - %{action}"
@@ -1088,22 +1061,17 @@ jpn:
     # product_category: "Product category"
     # product_name: "Product name"
     # product_natures: "Product natures"
-    product_tabbox: #?
     # production: "Production"
     # production_cost: "Production cost"
     # production_distribution: "Production distribution"
     # production_support: "Production support"
     # productions: "Productions"
     # productions_map: "Productions map"
-    productions_states: #?
     # products: "Products"
-    products_states: #?
     # provisionnal_budget: "Provisionnal budget"
     # purchase: "Purchase"
     # purchase_items: "Purchase items"
-    purchase_steps: #?
     # purchases: "Purchases"
-    purchases_selections: #?
     # quantity: "Quantity"
     # quantity_rest: "Remaining quantity"
     # query: "Query:"
@@ -1141,12 +1109,9 @@ jpn:
     # rss: "RSS"
     # run: "Run"
     # sale: "Sale"
-    sale_steps: #?
     # sales: "Sales"
     # sales_conditions: "Conditions of sales"
     # sales_invoice: "Invoicing"
-    sales_invoices_states: #?
-    sales_states: #?
     # same_variant_as_x: "Same variant as %{x}"
     # save: "Save"
     # save_in_draft: "Save as draft"
@@ -1238,7 +1203,6 @@ jpn:
     # transfer: "Transfer"
     # transformations: "Transformations"
     # transport: "Transport"
-    transport_states: #?
     # treatment: "Treatment"
     # undefined_container: "Undefined container"
     # undelivered: "Undelivered"
@@ -1273,7 +1237,6 @@ jpn:
     # variable_indicators: "Variable indicators"
     # variants: "Variants"
     # view: "View"
-    view_modes: #?
     # weather: "Weather"
     # wind_speed: "Wind speed"
     # with_financial_assets_depreciations: "With financial assets depreciations"
@@ -1327,7 +1290,6 @@ jpn:
     x_items_remain:
       # one: "%{count} item remains"
       # other: "%{count} items remain"
-    x_items_remain_on_y: #?
     x_journal_entries:
       # one: "%{count} journal entries"
       # other: "%{count} journal entries"
@@ -1335,7 +1297,6 @@ jpn:
       # one: "%{count} mandate"
       # other: "%{count} mandates"
       # zero: "No mandate"
-    x_meetings: #?
     x_months:
       # one: "%{count} month"
       # other: "%{count} months"

@@ -25,7 +25,6 @@ jpn:
         # delivered: "Given to recipient"
       plant:
         # born_at: "Planted at"
-      product_nature: #?
       product_nature_category:
         # depreciable: "Depreciable"
         # duration: "Duration"
@@ -35,12 +34,9 @@ jpn:
         # subscribing: "Subscribing ?"
       production_support:
         # production_usage: "Production usage"
-      purchase: #?
-      purchase_item: #?
       sale:
         # contact: "Address for the estimate"
         # has_downpayment: "Downpayment received"
-      sale_item: #?
       sale_nature:
         # downpayment: "Request downpayment"
       tax:
@@ -85,7 +81,6 @@ jpn:
         # too_short: "%{attribute} is too short (minimum is %{count} characters)"
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
-        campaign: #?
         cash:
           # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
           # unvalid_bban: "Unvalid BBAN. One or more elements are incorrect."
@@ -1061,7 +1056,6 @@ jpn:
         # name: "Sales prices catalog"
     catalog_item:
       # name: "%{variant} %{amount}/%{unit}"
-    catalog_price: #?
     deposit:
       bookkeep:
         # one: "[%{resource} %{number}] %{count} payment %{mode} %{description}"

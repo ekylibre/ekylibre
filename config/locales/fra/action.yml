@@ -1,7 +1,6 @@
 fra:
   actions:
     api/v1/crumbs: #?
-    application: #?
     authentication/passwords:
       edit: "Changer votre mot de passe"
       new: "Nouveau mot de passe"
@@ -9,7 +8,6 @@ fra:
       destroy: "Se déconnecter"
       new: "Connexion"
       renew: "Renouveller la session" #?
-    backend: #?
     backend/accounts:
       edit: "Modifier le compte\_: %{number} - %{name}"
       index: "Plan de comptes"
@@ -102,7 +100,6 @@ fra:
       index: "Catalogues de prix"
       new: "Nouveau catalogue de prix"
       show: "Catalogue de prix\_: %{name}"
-    backend/cells: #?
     backend/cells/calendar_cells: #?
     backend/cells/cash_balances_cells: #?
     backend/cells/cropping_plan_cells: #?
@@ -113,7 +110,6 @@ fra:
     backend/cells/expenses_by_product_nature_category_cells: #?
     backend/cells/guide_evolution_cells: #?
     backend/cells/last_analyses_cells: #?
-    backend/cells/last_document_archives_cells: #?
     backend/cells/last_documents_cells: #?
     backend/cells/last_entities_cells: #?
     backend/cells/last_events_cells: #?
@@ -131,7 +127,6 @@ fra:
     backend/cells/revenues_by_product_nature_cells: #?
     backend/cells/rss_cells: #?
     backend/cells/stock_container_map_cells: #?
-    backend/cells/stock_map_cells: #?
     backend/cells/threshold_commercialization_by_production_cells: #?
     backend/cells/weather_cells: #?
     backend/cells/working_sets_stocks_cells: #?
@@ -302,7 +297,6 @@ fra:
       index: "Encaissements"
       new: "Nouvel encaissement"
       show: "Encaissement n°%{number} de %{entity}"
-    backend/intervention_casts: #?
     backend/interventions:
       edit: "Modifier l’intervention %{procedure_name} N°%{number}"
       index: "Interventions"
@@ -315,7 +309,6 @@ fra:
       index: "Inventaires"
       new: "Nouvel inventaire"
       show: "Inventaire %{number}"
-    backend/inventory_items: #?
     backend/issues:
       abort: "Annuler"
       close: "Fermer"
@@ -370,7 +363,6 @@ fra:
       index: "Personnes morales"
       new: "Nouvelle personne morale"
       show: "Personne morale\_: %{full_name}"
-    backend/listing_node_items: #?
     backend/listing_nodes:
       edit: "Modifier le nœud"
       new: "Nouveau nœud"
@@ -415,7 +407,6 @@ fra:
       new: "Nouvelle livraison sortante"
       ship: "Expédier des livraisons"
       show: "Livraison sortante\_: %{number}"
-    backend/outgoing_delivery_items: #?
     backend/outgoing_payment_modes:
       edit: "Modifier un mode de décaissement"
       index: "Modes de décaissement"
@@ -457,15 +448,12 @@ fra:
       index: "Groupes de produits"
       new: "Créer un groupe"
       show: "Groupe\_: %{name}"
-    backend/product_linkages: #?
-    backend/product_memberships: #?
     backend/product_nature_categories:
       edit: "Modifier la catégorie du produit\_: %{name}"
       index: "Catégories de produits"
       new: "Nouvelle catégorie"
       pick: "Importer une catégorie de produits"
       show: "Catégorie de produit\_: %{name}"
-    backend/product_nature_variant_readings: #?
     backend/product_nature_variants:
       edit: "Modifier la variante de produit\_: %{name}"
       index: "Variantes de produits"
@@ -478,9 +466,6 @@ fra:
       new: "Nouveau type de produit"
       pick: "Importer un type de produit"
       show: "Type de produit\_: %{name}"
-    backend/product_ownerships: #?
-    backend/product_phases: #?
-    backend/production_support_markers: #?
     backend/production_supports:
       edit: "Modifier un support de production" #?
       index: "Supports de production" #?
@@ -616,7 +601,6 @@ fra:
       new: "Nouvel utilisateur"
       show: "Utilisateur\_: %{first_name} %{last_name}"
       unlock: "Déverrouiller l’utilisateur"
-    backend/visuals: #?
     backend/wine_tanks:
       index: "Cuverie"
     backend/wine_transformers:  #?
@@ -626,16 +610,12 @@ fra:
       index: "Équipiers"
       new: "Nouvel équipier"
       show: "Équipier %{name}"
-    base: #?
-    devise: #?
     devise/confirmations: #?
     devise/passwords: #?
     devise/registrations: #?
     devise/sessions: #?
     devise/unlocks: #?
     pasteque/v5/attributes: #?
-    pasteque/v5/base: #?
-    pasteque/v5/cash_movements: #?
     pasteque/v5/cash_mvts: #?
     pasteque/v5/cash_registers: #?
     pasteque/v5/cashes: #?
@@ -655,7 +635,6 @@ fra:
     pasteque/v5/tickets: #?
     pasteque/v5/users: #?
     pasteque/v5/version: #?
-    pasteque/v5/versions: #?
     public:
       index: "Accueil"
   errors:

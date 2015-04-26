@@ -11,13 +11,11 @@ fra:
         variety: "Race" #?
       animal_group:
         born_at: "Créé le"
-      asset_depreciation: #?
       building:
         born_at: "Construit le"
         content_maximal_quantity: "Quantité maximale supportée" #?
         content_nature: "Type de Produit contenu" #?
         variety: "Type" #?
-      deposit: #?
       document:
         filename: "Fichier"
       document_archive:  #?
@@ -68,25 +66,17 @@ fra:
       matter:  #?
         born_at: "Fabriqué le" #?
         dead_at: "Détruit/consommé le" #?
-      meeting: #?
-      meeting_nature: #?
-      operation: #?
       outgoing_delivery:  #?
         items: "Lignes de livraison" #?
       outgoing_payment:
         delivered: "Remis au bénéficiaire"
       outgoing_payment_mode:  #?
         payments: "Décaissements" #?
-      outgoing_payment_use: #?
       plant:
         born_at: "Planté/semé le"
         nature: "Nature de la culture" #?
         reproductor: "Multiplication" #?
         variety: "Variété" #?
-      price: #?
-      procedure: #?
-      product: #?
-      product_category: #?
       product_localization:  #?
         container: "Contenant" #?
         started_at: "Entrée" #?
@@ -98,14 +88,9 @@ fra:
         financial_asset_expenses_account: "Compte de dotation aux ammortissements"
         price: "Prix de revient"
         subscribing: "Abonnement ?"
-      product_nature_price: #?
       product_nature_variant:  #?
         contour: "Contour de la forme" #?
         horizontal_rotation: "Rotation horizontale de la forme" #?
-      product_price_template: #?
-      product_reading: #?
-      product_stock: #?
-      product_stock_move: #?
       product_transfer:  #?
         building: "Lieu de stockage de départ" #?
         second_building: "Lieu de stockage d’arrivée" #?
@@ -115,8 +100,6 @@ fra:
       production_support:
         production_usage: "Usage futur"
         storage: "Support" #?
-      products_nature: #?
-      profession: #?
       purchase:  #?
         amount: "Montant TTC" #?
         items: "Lignes d’achat" #?
@@ -125,7 +108,6 @@ fra:
         planned_at: "Réception prévue le" #?
       purchase_item:  #?
         amount: "Montant TTC" #?
-      purchase_line: #?
       sale:
         amount: "Montant TTC" #?
         contact: "Adresse pour le devis"
@@ -135,13 +117,8 @@ fra:
         amount: "Montant TTC" #?
         label: "Produit" #?
         price: "Prix" #?
-      sale_line: #?
       sale_nature:
         downpayment: "Avec acompte"
-      stock: #?
-      stock_move: #?
-      stock_transfer: #?
-      subscription: #?
       tax:
         amount: "Valeur"
       tax_declaration:  #?
@@ -149,10 +126,6 @@ fra:
         amount: "TVA totale" #?
         nature: "Régime de la déclaration" #?
         period: "Période" #?
-      tool: #?
-      tracking: #?
-      transfer: #?
-      unit: #?
       user:  #?
         locked: "Compte verrouillé" #?
         maximal_grantable_reduction_percentage: "Taux de réduction autorisé (%)" #?
@@ -204,8 +177,6 @@ fra:
         too_short: "%{attribute} est trop court (%{count} caractères minimum)"
         wrong_length: "%{attribute} n’est pas d’une bon longueur (%{count} caractères)"
       models:
-        application: #?
-        campaign: #?
         cash:
           currency_does_not_match: "La monnaie du journal %{journal} est différente de celle de la trésorerie"
           unvalid_bban: "La clé ne correspond pas. Un ou plusieurs éléments du RIB sont incorrects."

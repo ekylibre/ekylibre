@@ -1,7 +1,6 @@
 spa:
   actions:
     api/v1/crumbs: #?
-    application: #?
     authentication/passwords:
       # edit: "Edit password: %{name}"
       # new: "New password"
@@ -41,14 +40,11 @@ spa:
       # index: "Analyses"
       # new: "New analysis"
       # show: "Analysis #%{number}"
-    backend/animal_foods: #?
     backend/animal_groups:
       # edit: "Edit animal group: %{name}"
       # index: "Animal groups"
       # new: "New animal group"
       # show: "Animal group: %{name}"
-    backend/animal_medicines: #?
-    backend/animal_products: #?
     backend/animals:
       # add_to_group: "Add to group"
       # edit: "Edit animal: %{name}"
@@ -73,7 +69,6 @@ spa:
       index: "Lugar de deposito"
       new: "Añadir un lugar de deposito"
       show: "Detaile del lugar de deposito\_: %{name}"
-    backend/calculators: #?
     backend/calculators/grains_commercialization_threshold_simulators:
       # show: "Grains commercialization threshold simulator"
     backend/campaigns:
@@ -96,7 +91,6 @@ spa:
       # index: "Catalog prices"
       # new: "New catalog price"
       # show: "Catalog price: %{name}"
-    backend/catalog_prices: #?
     backend/catalogs:
       # edit: "Edit catalog: %{name}"
       # index: "Catalogs"
@@ -142,7 +136,6 @@ spa:
       index: "Hola, %{user}" #?
       listing_nodes: "Escoge las informaciones para extraer" #?
       welcome: "Bienvenido sobre Ekylibre, %{user}" #?
-    backend/contacts: #?
     backend/crumbs:
       # index: "Crumbs"
     backend/cultivable_zones:
@@ -212,12 +205,9 @@ spa:
     backend/entity_addresses:
       # edit: "Edit address: %{name}"
       # new: "New address"
-    backend/entity_categories: #?
-    backend/entity_link_natures: #?
     backend/entity_links:
       # edit: "Edit link"
       # new: "New link"
-    backend/entity_natures: #?
     backend/equipments:
       # edit: "Edit equipment: %{name}"
       # index: "Equipments"
@@ -227,7 +217,6 @@ spa:
       edit: "Modificacion del establecimiento\_: %{name}"
       index: "Establecimientos"
       new: "Añadido de un nuevo establecimiento"
-    backend/event_natures: #?
     backend/event_participations:
       # edit: "Edit participation: %{participant_name}"
     backend/events:
@@ -238,7 +227,6 @@ spa:
     backend/exports:
       # index: "Exports"
       # show: "Export: %{name}"
-    backend/finances: #?
     backend/financial_assets:
       # edit: "Edit financial asset: %{name}"
       # index: "Financial assets"
@@ -267,14 +255,12 @@ spa:
       # show: "Georeading: %{name}"
     backend/guide_analyses:
       # show: "Analysis #%{execution_number} of %{guide}"
-    backend/guide_readings: #?
     backend/guides:
       # edit: "Edit guide: %{name}"
       # index: "Guides"
       # new: "New guide"
       # run: "Run guide: %{name}"
       # show: "Guide: %{name}"
-    backend/help: #?
     backend/helps:
       # index: "Help"
       # show: "Help: %{name}"
@@ -298,20 +284,16 @@ spa:
       # show: "Incoming delivery: %{number} (%{reference_number})"
     backend/incoming_delivery_items:
       # new: "New incoming delivery item"
-    backend/incoming_delivery_modes: #?
     backend/incoming_payment_modes:
       # edit: "Edit incoming payment mode: %{name}"
       # index: "Incoming payment modes"
       # new: "New incoming payment mode"
       # show: "Incoming payment mode: %{name}"
-    backend/incoming_payment_uses: #?
     backend/incoming_payments:
       # edit: "Edit incoming payment %{number}"
       # index: "Incoming payments"
       # new: "New incoming payment"
       # show: "Incoming payment %{number} of %{entity}"
-    backend/interfacers: #?
-    backend/intervention_casts: #?
     backend/interventions:
       # edit: "Edit %{procedure_name} #%{number}"
       # index: "Interventions"
@@ -324,7 +306,6 @@ spa:
       index: "Inventarios"
       new: "Inventario"
       # show: "Inventory: %{name}"
-    backend/inventory_items: #?
     backend/issues:
       # abort: "Abort issue: %{name}"
       # close: "Close issue: %{name}"
@@ -363,7 +344,6 @@ spa:
       # index: "Land parcel groups"
       # new: "New land parcel group"
       # show: "Land parcel group %{name}"
-    backend/land_parcel_kinships: #?
     backend/land_parcels:
       # edit: "Edit land parcel: %{name}"
       # index: "Land parcels"
@@ -374,7 +354,6 @@ spa:
       # index: "Legal entities"
       # new: "New legal entity"
       # show: "Legal entity: %{full_name}"
-    backend/listing_node_items: #?
     backend/listing_nodes:
       # edit: "Edit listing node"
       # new: "New listing node"
@@ -384,12 +363,10 @@ spa:
       index: "Exportacion y mailing"
       mail: "Enviar un correo electronico para «%{name}»"
       new: "Créacion de nueva extraccion"
-    backend/logs: #?
     backend/management:  #?
       index: "Administracion commercial" #?
       sales_invoice: "%{nature} %{number}" #?
       sales_invoices: "Facturas" #?
-    backend/mandates: #?
     backend/manure_management_plans:
       # edit: "Edit manure management plan: %{name}"
       # index: "Manure management plans"
@@ -400,10 +377,6 @@ spa:
       # index: "Matters"
       # new: "New matter"
       # show: "Matter: %{name}"
-    backend/medicines: #?
-    backend/meeting_natures: #?
-    backend/meetings: #?
-    backend/mineral_matters: #?
     backend/myselves:
       # show: "My informations"
     backend/net_services:
@@ -414,22 +387,15 @@ spa:
     backend/observations:
       # edit: "Edit observation"
       # new: "New observation"
-    backend/operation_items: #?
-    backend/operation_natures: #?
-    backend/operation_tasks: #?
-    backend/operation_uses: #?
     backend/operations:
       # index: "Operations"
       # show: "Operation Details %{name}"
-    backend/opportunities: #?
-    backend/organic_matters: #?
     backend/outgoing_deliveries:
       edit: "Modificacion de la entrega"
       # index: "Outgoing deliveries"
       new: "Añadir una entrega"
       # ship: "Ship:"
       # show: "Outgoing delivery: %{number}"
-    backend/outgoing_delivery_items: #?
     backend/outgoing_delivery_modes:  #?
       edit: "Modificacion del modo de entrega\_: %{name}" #?
       index: "Modos de entrega" #?
@@ -438,7 +404,6 @@ spa:
       # edit: "Edit disbursement mode"
       # index: "Disbursement modes"
       # new: "New disbursement mode"
-    backend/outgoing_payment_uses: #?
     backend/outgoing_payments:
       # edit: "Edit disbursement: %{number}"
       # index: "Disbursements"
@@ -449,62 +414,31 @@ spa:
       # index: "People"
       # new: "New person"
       # show: "Person: %{full_name}"
-    backend/places: #?
-    backend/plant_fertilizers: #?
-    backend/plant_medicines: #?
-    backend/plant_products: #?
-    backend/plant_seedlings: #?
     backend/plants:
       # edit: "Edit plant: %{name}"
       # index: "Plants"
       # new: "New plant"
       # show: "Plant: %{name}"
-    backend/posologies: #?
     backend/postal_zones:
       # edit: "Edit postal zone: %{name}"
       # index: "Postal zones"
       # new: "New postal zone"
-    backend/preferences: #?
     backend/prescriptions:
       # edit: "Edit prescription: %{reference_number}"
       # index: "Prescriptions"
       # new: "New prescription"
       # show: "Prescription: %{reference_number}"
-    backend/prices: #?
-    backend/procedure_natures: #?
-    backend/procedures: #?
-    backend/product_abilities: #?
-    backend/product_categories: #?
-    backend/product_components: #?
-    backend/product_event_natures: #?
-    backend/product_events: #?
-    backend/product_group_events: #?
-    backend/product_group_passings: #?
     backend/product_groups:
       # edit: "Edit group: %{name}"
       # index: "Product groups"
       # new: "New group"
       # show: "Group: %{name}"
-    backend/product_indicator_choices: #?
-    backend/product_indicator_nature_choices: #?
-    backend/product_indicator_natures: #?
-    backend/product_indicators: #?
-    backend/product_linkages: #?
-    backend/product_links: #?
-    backend/product_localizations: #?
-    backend/product_memberships: #?
-    backend/product_moves: #?
-    backend/product_nature_abilities: #?
     backend/product_nature_categories:
       # edit: "Edit product category: %{name}"
       # index: "Product categories"
       # new: "New product category"
       # pick: "Pick product nature category"
       # show: "Product category: %{name}"
-    backend/product_nature_components: #?
-    backend/product_nature_indicators: #?
-    backend/product_nature_prices: #?
-    backend/product_nature_variant_readings: #?
     backend/product_nature_variants:
       # edit: "Edit product variant: %{name}"
       # index: "Product variants"
@@ -517,20 +451,6 @@ spa:
       # new: "New product type"
       # pick: "Pick product nature"
       # show: "Product type: %{name}"
-    backend/product_ownerships: #?
-    backend/product_phases: #?
-    backend/product_price_listings: #?
-    backend/product_price_templates: #?
-    backend/product_prices: #?
-    backend/product_process_phases: #?
-    backend/product_processes: #?
-    backend/product_readings: #?
-    backend/product_species: #?
-    backend/product_stock_moves: #?
-    backend/product_stocks: #?
-    backend/product_transfers: #?
-    backend/production_support_marker_readings: #?
-    backend/production_support_markers: #?
     backend/production_supports:
       # show: "Production support: %{name}"
     backend/productions:
@@ -543,9 +463,6 @@ spa:
       # index: "Products"
       # new: "New product"
       # show: "%{nature}: %{name}"
-    backend/professions: #?
-    backend/public: #?
-    backend/purchase_items: #?
     backend/purchase_natures:
       # edit: "Edit purchase type"
       # index: "Purchase types"
@@ -569,7 +486,6 @@ spa:
       new: "Añadir un papel"
       # pick: "Pick role: %{name}"
       # show: "Role: %{name}"
-    backend/sale_items: #?
     backend/sale_natures:
       # edit: "Edit sale type: %{name}"
       # index: "Sale types"
@@ -600,8 +516,6 @@ spa:
       index: "Sequencias"
       # load: "Load missing sequences"
       new: "Creacion de une nueva sequencia"
-    backend/services: #?
-    backend/sessions: #?
     backend/settings:
       about: "A propocito de Ekylibre"
       backups: "Salvaguardia" #?
@@ -642,8 +556,6 @@ spa:
       # index: "Trackings"
       # new: "New tracking"
       # show: "Tracking: %{name}"
-    backend/transfers: #?
-    backend/transformed_products: #?
     backend/transports:
       # edit: "Edit transport %{number}"
       # index: "Transports"
@@ -659,7 +571,6 @@ spa:
       # unlock: "Unlock user"
     backend/wine_tanks:
       # index: "Wine tanks"
-    backend/wine_transformers: #?
     backend/workers:
       # edit: "Edit worker: %{name}"
       # index: "Workers"
@@ -792,9 +703,7 @@ spa:
     amount_with_taxes: "Total de la entrega TTC" #?
     # amounts_in_currency: "Amounts (%{currency})"
     # analyses: "Analyses"
-    animal_group_tabbox: #?
     # animal_productions: "Animal productions"
-    animal_tabbox: #?
     # animals: "Animals"
     # archives: "Archives"
     # are_you_sure: "Are you sure you want to do this?"
@@ -841,7 +750,6 @@ spa:
     # budgets: "Budgets"
     building_create: "Añadir un lugar de deposito" #?
     # building_name: "Building name"
-    building_tabbox: #?
     building_update: "Modifiar el lugar de deposito" #?
     buildings: "Ver la lista de los lugares de deposito" #?
     # buildings_map: "Buildings map"
@@ -896,7 +804,6 @@ spa:
     connect: "Entrar" #?
     # contained_products: "Contained products"
     # container: "Container"
-    convert_balance_into: #?
     # convert_balance_into_loss: "Convert balance into loss"
     # convert_balance_into_profit: "Convert balance into profit"
     # cooperative_cartodb: "Cooperative CartoDB"
@@ -918,7 +825,6 @@ spa:
     credit: "Credito"
     # credited_quantity: "Quantity to credit"
     credits: "Activos"
-    criterion_modes: #?
     critic_stocks: "Depósitos bajo el umbral crítico" #?
     # cropping_plan: "Cropping plan"
     # cropping_plan_on_cultivable_zones: "Cropping plan on cultivable zones"
@@ -1042,7 +948,6 @@ spa:
     finished_income_statement: "Productos" #?
     finished_sum: "Total productos de explotación" #?
     # first_line_as_title: "First line as title"
-    format_date: #?
     free_purchases: "Compras en franquisia" #?
     from: "Expedidor"
     # fullscreen: "Fullscreen"
@@ -1067,7 +972,6 @@ spa:
     # hint: "Hint: %{value}"
     # historic: "Historic"
     home: "Vuelta a la cogida de la ayuda"
-    hour_duration: #?
     iban: "Numero de cuento bancario internacional (IBAN)"
     # identification: "Identification"
     # identifiers: "Identifiers"
@@ -1079,7 +983,6 @@ spa:
     # include_blank: "Include blank"
     income_statement: "cuentos de résultos"
     # incoming_payments: "Incoming payments"
-    incoming_payments_states: #?
     # incoming_payments_to_deposit: "Incoming payments to deposit"
     # indicator: "Indicators"
     # indicator_value: "Indicator value"
@@ -1102,7 +1005,6 @@ spa:
     # interventions: "Interventions"
     # interventions_count: "Interventions count"
     # interventions_paths: "Interventions paths"
-    interventions_selections: #?
     # inventories: "Inventories"
     inventory: "Completar el inventario"
     inventory_create: "Hacer un nuevo inventario" #?
@@ -1182,8 +1084,6 @@ spa:
     # markers: "Markers"
     # maximal_temperature: "Maximal temperature"
     # members: "Members"
-    menu: #?
-    menus: #?
     # merge: "Merge"
     # method: "Method"
     # minimal_temperature: "Minimal temperature"
@@ -1206,8 +1106,6 @@ spa:
     national_vat_collected: "Opéraciones réalisadas en Francia métropolitaria" #?
     # nature: "Type"
     # natures: "Natures"
-    nb_mandates: #?
-    nb_products: #?
     nb_purchases:  #?
       one: "Una compra en espera de recepción" #?
       other: "%{count} Compras en espera de recepción" #?
@@ -1252,7 +1150,6 @@ spa:
     not_assessable_operations: "Opéraciones no imposnibles" #?
     # not_delivered: "Not delivered"
     # not_received: "Not received"
-    notifications: #?
     # number: "Number"
     # number_options: "Options Numbers"
     # numbers: "Numbers"
@@ -1267,7 +1164,6 @@ spa:
     other_services: "Otros bienes y servicios" #?
     others: "Otra TVA a deducir"
     out_vat_amount: "Basa fuera de tarifa" #?
-    outgoing_payments_states: #?
     overflow: "CREDITO O ECCEDENTE" #?
     page_title: "%{company_code} - %{menu} - %{action}"
     page_title_by_default: "Ekylibre - %{action}"
@@ -1334,16 +1230,13 @@ spa:
     # product_category: "Product category"
     # product_name: "Product name"
     # product_natures: "Product natures"
-    product_tabbox: #?
     production: "Administración de la producción"
     # production_cost: "Production cost"
     # production_distribution: "Production distribution"
     # production_support: "Production support"
     # productions: "Productions"
     # productions_map: "Productions map"
-    productions_states: #?
     # products: "Products"
-    products_states: #?
     # provisionnal_budget: "Provisionnal budget"
     # purchase: "Purchase"
     # purchase_items: "Purchase items"
@@ -1351,7 +1244,6 @@ spa:
       products: "Creación de la compra" #?
       summary: "Desembolsos" #?
     # purchases: "Purchases"
-    purchases_selections: #?
     quantity: "Quantidades"
     quantity_rest: "Quantidad restante"
     quantity_to_credit: "Cantidad a pasar en activo" #?
@@ -1421,8 +1313,6 @@ spa:
     sales_invoice: "Facturas"
     sales_invoice_items: "Lineas de factura" #?
     sales_invoice_print: "Imprimir la factura" #?
-    sales_invoices_states: #?
-    sales_states: #?
     # same_variant_as_x: "Same variant as %{x}"
     # save: "Save"
     save_in_draft: "Salvar en la niebla"
@@ -1530,7 +1420,6 @@ spa:
     # transfer: "Transfer"
     # transformations: "Transformations"
     # transport: "Transport"
-    transport_states: #?
     # treatment: "Treatment"
     # undefined_container: "Undefined container"
     # undelivered: "Undelivered"
@@ -1573,7 +1462,6 @@ spa:
     # variable_indicators: "Variable indicators"
     # variants: "Variants"
     # view: "View"
-    view_modes: #?
     # weather: "Weather"
     # wind_speed: "Wind speed"
     # with_financial_assets_depreciations: "With financial assets depreciations"
@@ -1628,7 +1516,6 @@ spa:
     x_items_remain:
       # one: "%{count} item remains"
       # other: "%{count} items remain"
-    x_items_remain_on_y: #?
     x_journal_entries:
       one: "La escritura"
       other: "%{count} escrituras"
@@ -1637,7 +1524,6 @@ spa:
       # one: "%{count} mandate"
       # other: "%{count} mandates"
       # zero: "No mandate"
-    x_meetings: #?
     x_months:
       # one: "%{count} month"
       # other: "%{count} months"

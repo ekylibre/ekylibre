@@ -18,12 +18,9 @@ arb:
         # parent: "Parent activity"
       animal_group:
         # born_at: "Created at"
-      animal_race: #?
-      animal_treatment_use: #?
       area:  #?
         code: "الرمز الداخلي" #?
         created_at: "تم انشائه في" #?
-      asset_depreciation: #?
       bank_statement:  #?
         number: "رقم" #?
         real_debit: "الدين" #?
@@ -31,7 +28,6 @@ arb:
         stopped_at: "الى" #?
       building:
         # born_at: "Built at"
-      campaign: #?
       cash:  #?
         account: "كاتب الحسابات المشار اليه" #?
         account_id: "كاتب الحسابات المشار اليه" #?
@@ -75,7 +71,6 @@ arb:
         entity: "الملف" #?
         entity_id: "ملف" #?
         website: "موقع على الانترنت" #?
-      cultivable_zone: #?
       currency:  #?
         cashes: "الخزينة" #?
         comment: "تعليق" #?
@@ -138,7 +133,6 @@ arb:
       document:
         # filename: "File"
         updater_id: "تحديث" #?
-      document_archive: #?
       document_template:
         created_at: "انشأ في" #?
         filename: "اسم الملف" #?
@@ -230,7 +224,6 @@ arb:
         amount: "قيمة المخصصة للبيع" #?
         expense_id: "تكلفة" #?
         updated_at: "تم تحديثها في" #?
-      intervention: #?
       inventory:  #?
         comment: "تعليق" #?
         created_at: "اكتمل يوم" #?
@@ -277,7 +270,6 @@ arb:
         family: "الفصيلة" #?
         started_at: "ابتدأ في" #?
         stopped_at: "انتهى في" #?
-      matter: #?
       meeting:  #?
         created_at: "تم انشائها في" #?
         duration: "(المدة (بالدقائق" #?
@@ -311,7 +303,6 @@ arb:
         company_id: "الشركة" #?
         created_at: "انشأ في" #?
         updated_at: "تم تحديثها في" #?
-      outgoing_delivery: #?
       outgoing_payment:
         amount: "القيمة" #?
         created_at: "انشأ في" #?
@@ -352,7 +343,6 @@ arb:
         product_id: "الانتاج" #?
         sales_invoice_items: "طرق تسدسد الفاتورة" #?
         started_at: "ابتدأ يوم\_" #?
-      procedure: #?
       product:  #?
         active: "قبل للاستخدام" #?
         buildings: "اماكن التخزين" #?
@@ -377,7 +367,6 @@ arb:
         comment: "تعليق" #?
         product_id: "الانتاج" #?
         updater: "التحدبث" #?
-      product_localization: #?
       product_move:  #?
         origin_id: "منشأ" #?
         product: "المنتج" #?
@@ -422,7 +411,6 @@ arb:
         product_id: "الانتاج" #?
         sales_invoice_items: "طرق تسدسد الفاتورة" #?
         started_at: "ابتدأ يوم\_" #?
-      product_nature_variant: #?
       product_price_listing:  #?
         description: "مواصفات" #?
       product_price_template:  #?
@@ -434,8 +422,6 @@ arb:
         product_id: "الانتاج" #?
         sales_invoice_items: "طرق تسدسد الفاتورة" #?
         started_at: "ابتدأ يوم\_" #?
-      product_reading: #?
-      product_specy: #?
       product_stock:  #?
         critic_quantity_min: "الكمية المنتقدة كحد ادنى" #?
         product: "المنتج" #?
@@ -454,8 +440,6 @@ arb:
         creator_id: "منتج" #?
         nature: "النوع" #?
         product: "المنتج" #?
-      product_variety: #?
-      production: #?
       production_support:
         # production_usage: "Production usage"
       products_nature:  #?
@@ -470,7 +454,6 @@ arb:
         stocks: "اسهم المنتجات" #?
         unit: "وحدة القياس" #?
         unit_id: "وحدة قياس" #?
-      profession: #?
       purchase:  #?
         amount_with_taxes: "القيمة مع كل الضرائب" #?
         comment: "تعليق" #?
@@ -492,7 +475,6 @@ arb:
         tracking: "رقم الحصة" #?
         tracking_id: "رقم الحصة" #?
         unit_id: "الوحدة" #?
-      purchase_line: #?
       role:  #?
         created_at: "انشأ في" #?
       sale:
@@ -524,7 +506,6 @@ arb:
         reduction_percent: "الخصم بالنسبة المئوية" #?
         tax_id: "ضريبة" #?
         tracking_id: "حصة" #?
-      sale_line: #?
       sale_nature:
         created_at: "انشأ في" #?
         downpayment: "مع القسط"
@@ -638,8 +619,6 @@ arb:
         events: "الاحدات" #?
         locked: "حساب مغلق" #?
         name: "اسم المستخدم" #?
-      vegetal: #?
-      worker: #?
     errors:
       messages:
         accepted: "%{attribute} يجب أن تكون مقبولة"
@@ -681,9 +660,6 @@ arb:
         too_short: "%{attribute} قصير جدا (%{count}الحد الادنى للاحرف)"
         wrong_length: "%{attribute} الطول الخاطئ  ( %{count} يجب ان يكون عدد الاحرف)"
       models:
-        application: #?
-        asset: #?
-        campaign: #?
         cash:
           # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
           unvalid_bban: ".مكون واحد أو اكثر من موجه قاعدة المعلومات غير صحيح"
@@ -725,10 +701,8 @@ arb:
           closed_entry: ".تم اغلاق المدخلات، ولا يمكن التعديل عليها"
           empty_amounts: "يجب أن تكون المدخلات معرفة اما بالدين او بالائتمان"
           unvalid_amounts: "يجب ان تكون المدخلات معرفة اما بالدين او بالائتمان، وليس الاثنان معا"
-        journal_entry_line: #?
         outgoing_delivery_item:
           greater_than_undelivered_quantity: "%{product} كمية الانتاج المسلمة تفوق الكمية الغير مسلمة (%{maximum}%{unit})"
-        outgoing_delivery_line: #?
         price:  #?
           already_defined: "قد تم تحديد السعر لهذا المنتج وقائمة الاسعار سابقا" #?
           range_overlap: "تداخل فاصل زمني اخر للكمية (  %{min} الى\_ %{max})" #?
@@ -748,13 +722,11 @@ arb:
         purchase_item:
           building_can_not_receive_product: "لا يمكن للخزينة %{building} استقبال النتج %{product}, لاحتوائها منتج سابق %{contained_product}."
           serial_already_used_with_an_other_product: "%{attribute} تم استخدامها لنوع اخر من المنتج من نفس الممون"
-        purchase_line: #?
         sale_item:
           building_can_not_transfer_product: "لا يمكن تحويل المنتج %{product} من خزينة %{building}, لاحتوائه على %{contained_product}."
           can_not_use_this_tracking: "لا يمكنك الاستفادة من الحصة %{tracking}, لان الكمية المطلوبة اكبر من الكمية المتاحة"
           currency_is_not_sale_currency: "لا يطابق سعر عملة المنتج مجموعة البيع"
           error_no_found_price: "لم يتم العثور على اي سعر لهذا المنتج وقائمة الاسعار"
-        sale_line: #?
         stock:  #?
           product_cannot_be_in_building: "%{building} لا يمكن تخزين المنتج في خزينة" #?
         stock_transfer:  #?
@@ -2304,7 +2276,6 @@ arb:
         zero: "[%{resource} %{number}] ولا اية دفعة %{mode} %{comment}"
       bookkeep_with_payment: "[%{resource} %{number}] %{mode} %{check_number} من %{payer} (%{payment})"
     document_template:
-      default: #?
       # document_name: "%{nature} %{key}"
       error_attribute: "الحقل %{value} غير صحيح.الاحتمالات هم%{possibilities}"
       families:  #?
@@ -2336,7 +2307,6 @@ arb:
       unvalid_nature: "نوع نموذجكم غير صحيح، يجب عليكم حذف هذا النموذج واعادة تثبيته."
     entity:
       client: "العميل"
-      import: #?
       # no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application: %{controller}%{action}"
       # no_right_defined_for_this_part_of_the_application_and_this_user: "You can not access to this page"
       supplier: "الممول"
@@ -2347,7 +2317,6 @@ arb:
         purchase: "انشاء طلب شراء" #?
         sale: "انشاء طلب بيع" #?
         sales_invoice: "انشاء فاتورة" #?
-    entity_nature: #?
     equipment:  #?
       natures: #?
         other: "اخرى" #?
@@ -2386,7 +2355,6 @@ arb:
       # name: "%{intervention} #%{number}"
     inventory_item:  #?
       inventory: "عملية الجرد" #?
-    inventory_line: #?
     issue:
       # name_with_target: "%{nature} on %{target}"
       # name_without_target: "%{nature}"
@@ -2459,7 +2427,6 @@ arb:
       direction_label: #?
         in: "الواردة" #?
         out: "الصادرة" #?
-    operation_line: #?
     outgoing_delivery:
       label: "%{client} الى %{address}"
       natures:  #?
@@ -2469,7 +2436,6 @@ arb:
       sale: "%{number} المبيعات"
     outgoing_delivery_item:
       sale: "%{number} المبيعات"
-    outgoing_delivery_line: #?
     outgoing_payment:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} ل %{payee} (%{expenses})"
       label: "%{number}. %{amount} (%{usable_amount} restants) من %{date} بواسطة %{mode} ل %{payee}"
@@ -2508,7 +2474,6 @@ arb:
       unknown_use_of_product: "(يجب تحديد الغاية من المنتج (شراء او بيع او تأجير" #?
     product_component:  #?
       of_product: "نتاج" #?
-    product_move: #?
     product_nature:
       informations:
         with_components: "%{product} (%{unit}) (ليس هناك من فترة استراحة)"
@@ -2538,7 +2503,6 @@ arb:
       label: "%{product} / %{amount} %{currency}" #?
       no_range: "ليس هناك من فترة استراحة" #?
       range: "من %{min} الى %{max}" #?
-    product_price_listing: #?
     product_price_template:  #?
       label: "%{product} / %{amount} %{currency}" #?
       no_range: "ليس هناك من فترة استراحة" #?
@@ -2547,7 +2511,6 @@ arb:
       label: #?
         with_tracking: "%{building} : الحصة %{tracking}, %{quantity}%{unit} المتوفرة" #?
         without_tracking: "%{building} : غير متتبع, %{quantity}%{unit} متاح" #?
-    product_stock_move: #?
     product_transfer:  #?
       natures: #?
         transfer: "التحويل" #?
@@ -2598,7 +2561,6 @@ arb:
       name: "%{product} (%{quantity}%{unit}) ل %{amount}%{currency}/%{unit}"
       name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}) لل %{amount}%{currency}/%{unit}"
       tracking: "رقم الحصة : %{serial}"
-    purchase_line: #?
     purchase_nature:
       default:
         # name: "Standard purchase"
@@ -2645,7 +2607,6 @@ arb:
       # no_product: "[No product]"
       reduction_at: "تخفيض بنسبة %{percent}% على : %{product}"
       tracking: "رقم الحصة : %{serial}"
-    sale_line: #?
     sale_nature:
       default:
         # name: "Standard sale"
@@ -2670,7 +2631,6 @@ arb:
       default:
         # affairs: "A[number|12]"
         # animals: "ANI[year|4][number|4]"
-        assets: #?
         # campaigns: "CAMP[number|4]"
         # cash_transfers: "CT[year|4][number|4]"
         # deposits: "D[year|4][number|4]"
@@ -2688,7 +2648,6 @@ arb:
         # purchases: "PU[year|4][month|2][number|6]"
         # sales: "SA[year|4][month|2][number|6]"
         # sales_invoices: "SI[year|4][number|6]"
-        stock_transfers: #?
         # subscriptions: "SUB[number|8]"
         # transports: "TR[number|8]"
       periods:  #?
@@ -2700,7 +2659,6 @@ arb:
       label: #?
         with_tracking: "%{building} : الحصة %{tracking}, %{quantity}%{unit} المتوفرة" #?
         without_tracking: "%{building} : غير متتبع, %{quantity}%{unit} متاح" #?
-    stock_move: #?
     stock_transfer:  #?
       natures: #?
         transfer: "التحويل" #?
@@ -2730,7 +2688,6 @@ arb:
         other: "اخرى" #?
         towed: "اقتران" #?
         tractor: "تراكتور" #?
-    unit: #?
     user:  #?
       no_right_defined_for_this_part_of_the_application: "ليس هنالك من حقوق محددة لهذا الجزء من الطلب : %{controller}/%{action}" #?
       no_right_defined_for_this_part_of_the_application_and_this_user: "ليس هنالك من حقوق محددة لهذا الجزء من الطلب ولهذا المستخدم" #?

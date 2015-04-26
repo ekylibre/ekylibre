@@ -632,7 +632,6 @@ spa:
         # nature: "Nature"
         # parent_area: "Parent area"
     analysis_natures:
-      choices: #?
       items:
         # cow_milk_analysis: "Cow milk analysis"
         # soil_analysis: "Soil analysis"
@@ -666,7 +665,6 @@ spa:
         # label_rouge: "Label Rouge"
       # name: "Certification labels"
     certifications:
-      choices: #?
       items:
         # bordeaux_blanc: "Bordeaux blanc"
         # bordeaux_blanc_avec_sucres: "Bordeaux blanc avec sucres"
@@ -1110,7 +1108,6 @@ spa:
       property_natures:
         # varieties: "Varieties"
     currencies:
-      item_lists: #?
       items:
         AED: "Dirham de los Emiratos Árabes Unidos"
         AFN: "Afgani afgano"
@@ -1318,7 +1315,6 @@ spa:
       # name: "Delivery modes"
       property_natures:
         # incoterm: "Incoterm"
-    designation_origins: #?
     dimensions:
       items:
         # amount_of_substance: "Amount of substance"
@@ -1453,7 +1449,6 @@ spa:
         # sir: "Sir"
         # syndicate: "Syndicate"
       # name: "Entity natures"
-    equipment_costs_france_abacus_tractor: #?
     event_natures:
       items:
         # absence: "Absence"
@@ -1557,7 +1552,6 @@ spa:
         # specifications: "Specifications"
       # name: "Guide natures"
     identifier_natures:
-      item_lists: #?
       items:
         # cartodb_api_key: "Cartodb api key"
         # cartodb_login: "Cartodb login"
@@ -1970,7 +1964,6 @@ spa:
           # human: "Human"
           # rest: "Rest"
           # soap: "Soap"
-        data_acces_method: #?
       items:
         # cartodb: "Cartodb"
         # charentes_alliance_extranet: "Charentes alliance extranet"
@@ -2009,7 +2002,6 @@ spa:
       # name: "Abacus 4 of the Poitou-Charentes manure management plan computation method"
     nmp_poitou_charentes_abacus_nine:
       # name: "Abacus 9 of the Poitou-Charentes manure management plan computation method"
-    nmp_poitou_charentes_abacus_one: #?
     nmp_poitou_charentes_abacus_seven:
       # name: "Abacus 7 of the Poitou-Charentes manure management plan computation method"
     nmp_poitou_charentes_abacus_six:
@@ -2022,7 +2014,6 @@ spa:
       # name: "Abacus 12 of the Poitou-Charentes manure management plan computation method"
     nmp_poitou_charentes_abacus_two:
       # name: "Abacus 2 of the Poitou-Charentes manure management plan computation method"
-    opportunity_categories: #?
     opportunity_origins:
       items:
         # advertisement: "Advertisement"
@@ -3244,7 +3235,6 @@ spa:
         # variable_indicators: "Variable indicators"
         # variety: "Variety"
     production_natures:
-      choices: #?
       items:
         # administrative: "Administrative"
         # annual_frost_fallow_land: "Annual frost fallow land"
@@ -3365,7 +3355,6 @@ spa:
         # evacuation: "Evacuation"
       # name: "Residue elimination methods"
     roles:
-      item_lists: #?
       items:
         # accountant: "Accountant"
         # agricultural_advisor: "Agricultural advisor"
@@ -3455,7 +3444,6 @@ spa:
         # deduction_account: "Deduction account"
         # suffix: "Suffix"
     taxes:
-      choices: #?
       items:
         # french_vat_intermediate_2012: "French vat intermediate 2012"
         # french_vat_intermediate_2014: "French vat intermediate 2014"

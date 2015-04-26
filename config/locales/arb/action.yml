@@ -40,14 +40,11 @@ arb:
       # index: "Analyses"
       # new: "New analysis"
       # show: "Analysis #%{number}"
-    backend/animal_foods: #?
     backend/animal_groups:
       # edit: "Edit animal group: %{name}"
       # index: "Animal groups"
       # new: "New animal group"
       # show: "Animal group: %{name}"
-    backend/animal_medicines: #?
-    backend/animal_products: #?
     backend/animals:
       # add_to_group: "Add to group"
       # edit: "Edit animal: %{name}"
@@ -72,12 +69,8 @@ arb:
       index: "مواقع التخزين"
       new: "اضافة موقع للتخزين"
       show: "تفاصيل عن مواقع التخزين : %{name}"
-    backend/calculators: #?
-    backend/calculators/grains_commercialization_threshold_simulator: #?
     backend/calculators/grains_commercialization_threshold_simulators:
       # show: "Grains commercialization threshold simulator"
-    backend/calculators/manure_management_plans: #?
-    backend/calculators/nitrogen_inputs: #?
     backend/campaigns:
       # edit: "Edit campaign: %{name}"
       # index: "Campaigns"
@@ -98,7 +91,6 @@ arb:
       # index: "Catalog prices"
       # new: "New catalog price"
       # show: "Catalog price: %{name}"
-    backend/catalog_prices: #?
     backend/catalogs:
       # edit: "Edit catalog: %{name}"
       # index: "Catalogs"
@@ -156,12 +148,9 @@ arb:
       # index: "Cultivable zones"
       # new: "New cultivable zone"
       # show: "Cultivable zone: %{name}"
-    backend/cultivations: #?
-    backend/currencies: #?
     backend/custom_field_choices:
       edit: "تعديل الخيار : %{name}"
       new: " انشاء خيار واحد للحصول على قائمة الخيارات"
-    backend/custom_field_data: #?
     backend/custom_fields:
       edit: "تعديل الحقل المخصص : %{name}"
       index: "الحقول المخصصة"
@@ -298,14 +287,12 @@ arb:
       # show: "Georeading: %{name}"
     backend/guide_analyses:
       # show: "Analysis #%{execution_number} of %{guide}"
-    backend/guide_readings: #?
     backend/guides:
       # edit: "Edit guide: %{name}"
       # index: "Guides"
       # new: "New guide"
       # run: "Run guide: %{name}"
       # show: "Guide: %{name}"
-    backend/help: #?
     backend/helps:
       # index: "Help"
       # show: "Help: %{name}"
@@ -410,7 +397,6 @@ arb:
       index: "الصادرات وارسال الرسائل"
       mail: "ارسال الرسالة ل «%{name}»"
       new: "انشاء استخلاص جديد"
-    backend/logs: #?
     backend/management:  #?
       index: "ادارة الاعمال" #?
       sale_items: "اختيار المنتجات للطلب %{sale} من : %{client}" #?
@@ -455,15 +441,12 @@ arb:
       new: "انشاء عمل جديد" #?
       show: "تفاصيل العمل %{name}"
       unvalidateds: "تحقيق الاعمال" #?
-    backend/opportunities: #?
-    backend/organic_matters: #?
     backend/outgoing_deliveries:
       edit: "تعديل التسليم"
       # index: "Outgoing deliveries"
       new: "اضافة تسليم"
       # ship: "Ship:"
       # show: "Outgoing delivery: %{number}"
-    backend/outgoing_delivery_items: #?
     backend/outgoing_delivery_modes:  #?
       edit: "تعديل وسيلة التسليم : %{name}" #?
       index: "وسائل التسليم" #?
@@ -484,21 +467,15 @@ arb:
       # index: "People"
       # new: "New person"
       # show: "Person: %{full_name}"
-    backend/plant_fertilizers: #?
-    backend/plant_medicines: #?
-    backend/plant_products: #?
-    backend/plant_seedlings: #?
     backend/plants:
       # edit: "Edit plant: %{name}"
       # index: "Plants"
       # new: "New plant"
       # show: "Plant: %{name}"
-    backend/posologies: #?
     backend/postal_zones:
       edit: "تعديل العنوان البريدي : %{name}"
       index: "العناوين البريد"
       new: "اضافة عنوان بريدي"
-    backend/preferences: #?
     backend/prescriptions:
       # edit: "Edit prescription: %{reference_number}"
       # index: "Prescriptions"
@@ -529,7 +506,6 @@ arb:
       index: "المنتجات" #?
       new: "اضافة منتج جديد" #?
       show: "المنتجات : %{name}" #?
-    backend/product_nature_abilities: #?
     backend/product_nature_categories:
       edit: "تعديل فئة المنتج : %{name}"
       index: "فئات المنتج"
@@ -539,9 +515,6 @@ arb:
     backend/product_nature_components:  #?
       edit: "تعديل عنصر المنتج %{product} " #?
       new: "اضافة عنصر الى المنتج %{product} " #?
-    backend/product_nature_indicators: #?
-    backend/product_nature_prices: #?
-    backend/product_nature_variant_readings: #?
     backend/product_nature_variants:
       # edit: "Edit product variant: %{name}"
       # index: "Product variants"
@@ -554,15 +527,6 @@ arb:
       new: "اضافة منتج جديد"
       # pick: "Pick product nature"
       show: "المنتجات : %{name}"
-    backend/product_ownerships: #?
-    backend/product_phases: #?
-    backend/product_price_listings: #?
-    backend/product_price_templates: #?
-    backend/product_prices: #?
-    backend/product_process_phases: #?
-    backend/product_processes: #?
-    backend/product_readings: #?
-    backend/product_species: #?
     backend/product_stock_moves:  #?
       edit: "تعديل حركة سهم : %{name}" #?
       new: "التسجيل لحركة السهم" #?
@@ -573,12 +537,9 @@ arb:
       edit: "تعديل عملية نقل الاسهم" #?
       index: "عمليات نقل وخسارة الاسهم" #?
       new: "اضافة عملية نقل او خسارة الاسهم" #?
-    backend/product_varieties: #?
     backend/production:  #?
       index: "ادارة الانتاج" #?
       unvalidated_operations: "تحقيق الاعمال" #?
-    backend/production_support_marker_readings: #?
-    backend/production_support_markers: #?
     backend/production_supports:
       # show: "Production support: %{name}"
     backend/productions:
@@ -596,8 +557,6 @@ arb:
       index: "المنتجات" #?
       new: "اضافة منتج جديد" #?
       show: "المنتجات : %{name}" #?
-    backend/professions: #?
-    backend/public: #?
     backend/purchase_items:  #?
       edit: "تعديل تصميم الطلب" #?
       new: "اضافة طلب للمنتج : %{number}" #?
@@ -659,7 +618,6 @@ arb:
       index: "التسلسلات"
       # load: "Load missing sequences"
       new: "انشاء تسلسل جديد"
-    backend/services: #?
     backend/sessions:  #?
       destroy: "الخروج" #?
       new: "الدخول" #?
@@ -713,20 +671,16 @@ arb:
       index: "الوظائف/المهام"
       new: "اضافة وظيفة جديدة"
       # show: "Team: %{name}"
-    backend/tool_natures: #?
     backend/tools:  #?
       edit: "تعديل المادة : %{name}" #?
       index: "مادة" #?
       new: "اضافة مادة" #?
       show: "المادة : %{name}" #?
-    backend/tracking_states: #?
     backend/trackings:
       # edit: "Edit tracking: %{name}"
       # index: "Trackings"
       # new: "New tracking"
       show: "الحصة %{name}"
-    backend/transfers: #?
-    backend/transformed_products: #?
     backend/transports:
       deliveries: "تسليم وسيلة النقل" #?
       edit: "تعديل وسيلة النقل"
@@ -745,27 +699,19 @@ arb:
       show: "المستخدم : %{first_name} %{last_name}"
       statistics: "احصائياتي" #?
       # unlock: "Unlock user"
-    backend/vegetals: #?
-    backend/visuals: #?
     backend/wine_tanks:
       # index: "Wine tanks"
-    backend/wine_transformers: #?
     backend/workers:
       # edit: "Edit worker: %{name}"
       # index: "Workers"
       # new: "New worker"
       # show: "Worker: %{name}"
-    backend/working_sets: #?
-    base: #?
-    devise: #?
     devise/confirmations: #?
     devise/passwords: #?
     devise/registrations: #?
     devise/sessions: #?
     devise/unlocks: #?
     pasteque/v5/attributes: #?
-    pasteque/v5/base: #?
-    pasteque/v5/cash_movements: #?
     pasteque/v5/cash_mvts: #?
     pasteque/v5/cash_registers: #?
     pasteque/v5/cashes: #?
@@ -785,7 +731,6 @@ arb:
     pasteque/v5/tickets: #?
     pasteque/v5/users: #?
     pasteque/v5/version: #?
-    pasteque/v5/versions: #?
     public:
       # index: "Home"
   controllers:  #?
@@ -958,9 +903,7 @@ arb:
     amount_with_taxes: "مجموع قيمة التسليم مع كامل الضرائب" #?
     # amounts_in_currency: "Amounts (%{currency})"
     # analyses: "Analyses"
-    animal_group_tabbox: #?
     # animal_productions: "Animal productions"
-    animal_tabbox: #?
     # animals: "Animals"
     apply: "تطبيق" #?
     # archives: "Archives"
@@ -1013,7 +956,6 @@ arb:
     building: "مكان التخزين" #?
     building_create: "اضافة موقع تخزين" #?
     building_name: "انتاج"
-    building_tabbox: #?
     building_update: "تعديل موقع التخزين" #?
     buildings: "النظر بقائمة مواقع التخزين" #?
     # buildings_map: "Buildings map"
@@ -1030,7 +972,6 @@ arb:
     # cash_balance: "Cash balance"
     # cash_balances: "Bank chart"
     cash_create: "اضافة حساب بنكي جديد" #?
-    cash_tabbox: #?
     cash_update: "تعديل الخزينة" #?
     # casting: "Casting"
     # casts: "Casts"
@@ -1076,7 +1017,6 @@ arb:
     contact_create: "اضافة مشترك جديد" #?
     # contained_products: "Contained products"
     # container: "Container"
-    convert_balance_into: #?
     # convert_balance_into_loss: "Convert balance into loss"
     # convert_balance_into_profit: "Convert balance into profit"
     # cooperative_cartodb: "Cooperative CartoDB"
@@ -1098,7 +1038,6 @@ arb:
     credit: "رصيد دائن"
     # credited_quantity: "Quantity to credit"
     credits: "الائتمانات"
-    criterion_modes: #?
     critic_stock_min: "الحد الادنى لانتقاد الاسهم" #?
     critic_stocks: "الاسهم على حافة الخطر" #?
     # cropping_plan: "Cropping plan"
@@ -1303,7 +1242,6 @@ arb:
     incoming_payment_update: "تعديل الدفعة" #?
     incoming_payment_use_create: "اضافة دفعة للشراء" #?
     # incoming_payments: "Incoming payments"
-    incoming_payments_states: #?
     # incoming_payments_to_deposit: "Incoming payments to deposit"
     index: "العودة الى دليل ادارة الاعمال" #?
     indicator: "لوحة التحكم"
@@ -1327,7 +1265,6 @@ arb:
     # interventions: "Interventions"
     # interventions_count: "Interventions count"
     # interventions_paths: "Interventions paths"
-    interventions_selections: #?
     # inventories: "Inventories"
     inventory: "عدل الجرد"
     inventory_create: "تأدية عملية جرد جديدة" #?
@@ -1476,7 +1413,6 @@ arb:
       one: "تم تسجيل منتج واحد" #?
       other: "%{count} تم تسجيل منتجات اخرى" #?
       zero: "لم يتم تسجيل اي منتج" #?
-    nb_purchases: #?
     # net_margin: "Net margin"
     # net_mass: "Net mass"
     # net_surface_area: "Net surface area"
@@ -1560,7 +1496,6 @@ arb:
     outgoing_payment_create: "اضافة نفقة" #?
     outgoing_payment_update: "تعديل دفعة الشراء" #?
     outgoing_payment_use_create: "تسديد سعر الشراء" #?
-    outgoing_payments_states: #?
     overflow: "فائض رصيد الدائن" #?
     page_title: "%{company_code} - %{menu} - %{action}"
     page_title_by_default: "Ekylibre - %{action}"
@@ -1640,7 +1575,6 @@ arb:
     product_create: "اضافة منتج جديد" #?
     product_name: "المنتج"
     # product_natures: "Product natures"
-    product_tabbox: #?
     product_update: "تعديل تفاصيل المنتج" #?
     production: "ادارة الانتاج"
     # production_cost: "Production cost"
@@ -1648,9 +1582,7 @@ arb:
     # production_support: "Production support"
     productions: "المنتجات"
     # productions_map: "Productions map"
-    productions_states: #?
     products: "فئة المنتج"
-    products_states: #?
     # provisionnal_budget: "Provisionnal budget"
     purchase: "الطلب"
     purchase_create: "اضافة شراء جديد" #?
@@ -1665,7 +1597,6 @@ arb:
     purchases: "المشتريات"
     purchases_number: "" #?
     purchases_price_create: "اضافة سعر الشراء" #?
-    purchases_selections: #?
     quantity: "الكمية"
     quantity_rest: "الكمية المتبقية"
     quantity_to_credit: "شمولية الكمية بالائتمانات" #?
@@ -1749,11 +1680,9 @@ arb:
     sales_invoice_print: "طباعة الفاتورة" #?
     sales_invoice_sale: "فوترة طلب البيع" #?
     sales_invoices: "الفواتير" #?
-    sales_invoices_states: #?
     sales_invoices_total: "مجموع قيمة الفاتورة" #?
     sales_number: "" #?
     sales_price_create: "اضافة سعر البيع" #?
-    sales_states: #?
     # same_variant_as_x: "Same variant as %{x}"
     save: "حفظ"
     save_in_draft: "حفظ في المسودات"
@@ -1881,7 +1810,6 @@ arb:
     # transport: "Transport"
     transport_create: "اضافة وسيلة نقل جديدة" #?
     transport_deliveries: "تسليم وسائل النقل" #?
-    transport_states: #?
     # treatment: "Treatment"
     unavailable:  #?
       entity: "السجل المطلوب غير متاح" #?
@@ -1942,7 +1870,6 @@ arb:
     vat_collected: "صافي قيمة الضريبة المضافة" #?
     vat_paid: "خصم قيمة الضريبة المضافة" #?
     view: "معاينة"
-    view_modes: #?
     virtual_quantity: "الكمية العملية" #?
     waiting: "أ€ التسدسد لاحقا" #?
     # weather: "Weather"
@@ -2003,7 +1930,6 @@ arb:
     x_items_remain:
       # one: "%{count} item remains"
       # other: "%{count} items remain"
-    x_items_remain_on_y: #?
     x_journal_entries:
       one: "سجل واحد"
       other: "%{count} سجلات اخرى"
@@ -2012,7 +1938,6 @@ arb:
       one: "تفويض واحد"
       other: "%{count} تفويض اخر"
       zero: "ولا اية تفويض"
-    x_meetings: #?
     x_months:
       # one: "%{count} month"
       # other: "%{count} months"
@@ -2132,10 +2057,8 @@ arb:
       # journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
       journal_reopened_at: "%{journal} تم اعادة فتحه في %{closed_at} بشكل صحيح." #?
       # journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
-      levels: #?
       mails_are_sent: "تم ارسال رسائل البريد الالكتروني"
       # merge_is_done: "Merge is done"
-      messages: #?
       # need_a_production_support: "Need a production support"
       # need_a_valid_purchase_nature_to_start_new_purchase: "Need a valid purchase nature to start new purchase"
       # need_a_valid_sale_nature_to_start_new_sale: "Need a valid sale nature to start new sale"
