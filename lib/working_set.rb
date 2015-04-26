@@ -1,5 +1,6 @@
 module WorkingSet
 
+  autoload :AbilityArray,  'working_set/ability_array'
   autoload :QueryLanguage, 'working_set/query_language'
   autoload :SQLCompiler,   'working_set/sql_compiler'
 

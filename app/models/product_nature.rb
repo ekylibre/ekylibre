@@ -67,7 +67,7 @@ class ProductNature < Ekylibre::Record::Base
 
   has_picture
 
-  serialize :abilities_list, AbilityArray
+  serialize :abilities_list, WorkingSet::AbilityArray
   serialize :derivatives_list, SymbolArray
   serialize :frozen_indicators_list, SymbolArray
   serialize :variable_indicators_list, SymbolArray
