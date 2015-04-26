@@ -19,7 +19,7 @@
   white-space: nowrap;
   margin: 0;
   @include box-sizing(content-box);
-  padding: round($fs-normal*0.20) round($fs-normal*0.35);
+  padding: round($fs-normal*0.20) round($fs-normal*0.70);
   height: $lh-normal;
   font-weight: normal;
   line-height: $lh-normal;
@@ -46,7 +46,8 @@
   }
   & > i {
     vertical-align: top !important;
-    @include is-icon($lh-normal);
+    @include is-icon($fs-normal + 1px);
+    line-height: $lh-normal;
     @include use-icon(cog);
     @include inline-block;
   }

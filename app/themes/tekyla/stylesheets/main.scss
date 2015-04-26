@@ -165,7 +165,7 @@ ul.dropdown-menu {
 a.btn[data-toggle='help'] {
   position: relative;
   i {
-    @include use-icon(question);
+    @include use-icon(support);
   }
 }
 
