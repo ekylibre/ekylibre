@@ -71,6 +71,8 @@
       <!-- Animal reproduction  -->
       <item name="administer_inseminate" parameters="variety"/>
       <item name="inseminate" parameters="variety"/>
+
+      <item name="treat" parameters="issue_nature,variety"/>
     </items>
   </nomenclature>
 </nomenclatures>

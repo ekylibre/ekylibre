@@ -4917,9 +4917,17 @@ fra:
       items:
         animal_foods: "Aliments pour animaux"
         animal_medicines: "Médicaments vétérinaires"
+        animal_products: "Produits animaux"
         matters: "Produits stockables"
         oenological_regulateds: "Produits œnologiques détenus"
         phytosanitary_products: "Produits phytosanitaires"
+        plant_fertilizers: "Engrais"
+        plant_medicines: "Produits de traitement végétal"
+        plant_products: "Produits végétaux"
+        plant_seedlings: "Plants et semences"
+        transformed_products: "Produits transformés"
+        wine_tanks: "Cuves"
+        wine_transformers: "Produits œnologiques"
       name: "Ensembles de produits"
       property_natures:
         expression: "Expression"

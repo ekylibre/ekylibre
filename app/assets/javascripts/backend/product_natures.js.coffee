@@ -11,6 +11,7 @@
       if parameters.length > 0
         value += "("
         for index in [0..(parameters.length - 1)]
+          value += ", " if index > 0
           value += element.find("*[data-ability-parameter='#{index}']").val()
         value += ")"
       field.val(value)

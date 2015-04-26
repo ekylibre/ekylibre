@@ -50,7 +50,7 @@ class Backend::AnimalsController < Backend::MattersController
     code << "    c[0] << \" AND \#{ProductNatureVariant.table_name}.id = ?\"\n"
     code << "    c << params[:variant_id].to_i\n"
     code << "  end\n"
-    code << "c\n "
+    code << "c\n"
     return code.c
   end
 

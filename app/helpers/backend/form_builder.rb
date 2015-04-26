@@ -240,6 +240,8 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
             a.parameters.each do |parameter|
               if parameter == :variety
                 data_lists[parameter] ||= Nomen::Varieties.selection
+              elsif parameter == :issue_nature
+                data_lists[parameter] ||= Nomen::IssueNatures.selection
               else
                 raise "Unknown parameter type for an ability: #{parameter.inspect}"
               end

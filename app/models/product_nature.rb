@@ -67,7 +67,7 @@ class ProductNature < Ekylibre::Record::Base
 
   has_picture
 
-  serialize :abilities_list, SymbolArray
+  serialize :abilities_list, AbilityArray
   serialize :derivatives_list, SymbolArray
   serialize :frozen_indicators_list, SymbolArray
   serialize :variable_indicators_list, SymbolArray
@@ -91,7 +91,6 @@ class ProductNature < Ekylibre::Record::Base
   delegate :subscribing?, :deliverable?, :purchasable?, to: :category
   delegate :financial_asset_account, :product_account, :charge_account, :stock_account, to: :category
 
-  # default_scope -> { order(:name) }
   scope :availables, -> { where(active: true).order(:name) }
   scope :stockables, -> { joins(:category).merge(ProductNatureCategory.stockables).order(:name) }
   scope :saleables,  -> { joins(:category).merge(ProductNatureCategory.saleables).order(:name) }
@@ -107,69 +106,64 @@ class ProductNature < Ekylibre::Record::Base
     where(:derivative_of => varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }
 
-  scope :able_to, Proc.new { |type, *abilities|
-    query = []
-    parameters = []
-    for ability in abilities.flatten.join(', ').strip.split(/[[:space:]]*\,[[:space:]]*/)
-      if ability =~ /\(.*\)\z/
-        params = ability.split(/\s*[\(\,\)]\s*/)
-        ability = params.shift.to_sym
-        unless item = Nomen::Abilities[ability]
-          raise ArgumentError, "Unknown ability: #{ability.inspect}"
-        end
-        for p in item.parameters
-          v = params.shift
-          if p == :variety
-            unless child = Nomen::Varieties[v]
-              raise ArgumentError, "Unknown variety: #{v.inspect}"
-            end
-            q = []
-            for variety in child.self_and_parents
-              q << "abilities_list ~ E?"
-              parameters << "\\\\m#{ability}\\\\(#{variety.name}\\\\)\\\\Y"
-            end
-            query << "(" + q.join(" OR ") + ")"
-          else
-            raise StandardError, "Unknown type of parameter for an ability: #{p.inspect}"
-          end
-        end
-      else
-        unless Nomen::Abilities[ability]
-          raise ArgumentError, "Unknown ability: #{ability.inspect}"
-        end
-        query << "abilities_list ~ E?"
-        parameters << "\\\\m#{ability}\\\\M"
-      end
-    end
-    where(query.join(" #{type} "), *parameters)
-  }
+  # scope :able_to, Proc.new { |type, *abilities|
+  #   query = []
+  #   parameters = []
+  #   for ability in abilities.flatten.join(', ').strip.split(/[[:space:]]*\,[[:space:]]*/)
+  #     if ability =~ /\(.*\)\z/
+  #       params = ability.split(/\s*[\(\,\)]\s*/)
+  #       ability = params.shift.to_sym
+  #       unless item = Nomen::Abilities[ability]
+  #         raise ArgumentError, "Unknown ability: #{ability.inspect}"
+  #       end
+  #       for p in item.parameters
+  #         v = params.shift
+  #         if p == :variety
+  #           unless child = Nomen::Varieties[v]
+  #             raise ArgumentError, "Unknown variety: #{v.inspect}"
+  #           end
+  #           q = []
+  #           for variety in child.self_and_parents
+  #             q << "abilities_list ~ E?"
+  #             parameters << "\\\\m#{ability}\\\\(#{variety.name}\\\\)\\\\Y"
+  #           end
+  #           query << "(" + q.join(" OR ") + ")"
+  #         else
+  #           raise StandardError, "Unknown type of parameter for an ability: #{p.inspect}"
+  #         end
+  #       end
+  #     else
+  #       unless Nomen::Abilities[ability]
+  #         raise ArgumentError, "Unknown ability: #{ability.inspect}"
+  #       end
+  #       query << "abilities_list ~ E?"
+  #       parameters << "\\\\m#{ability}\\\\M"
+  #     end
+  #   end
+  #   where(query.join(" #{type} "), *parameters)
+  # }
 
   scope :can, lambda { |*abilities|
-    able_to(:or,  *abilities)
+    # able_to(:or,  *abilities)
+    of_expression(abilities.map{|a| "can #{a}" }.join(" or "))
   }
 
   scope :can_each, lambda { |*abilities|
-    able_to(:and, *abilities)
+    # able_to(:and, *abilities)
+    of_expression(abilities.map{|a| "can #{a}" }.join(" and "))
   }
 
   scope :of_working_set, lambda { |working_set|
     if item = Nomen::WorkingSets.find(working_set)
-      if working_set == :oenological_regulateds
-        where("id IN (?) OR id IN (?)", of_variety(:saccharose, :concentrated_rectified_must, :potassium_ferrocyanide).pluck(:id), can('acidify(fermented_juice)', 'alkalinize(fermented_juice)').pluck(:id))
-      elsif working_set == :phytosanitary_products
-        where(id: can('kill(plant)', 'kill(fungus)', 'kill(insecta)', 'kill(gastropoda)').pluck(:id))
-      elsif working_set == :animal_foods
-        where(id: can('feed(animal)').pluck(:id))
-      elsif working_set == :animal_medicines
-        where(id: can('care(animal)').pluck(:id))
-      elsif working_set == :matters
-        where(id: stockables.pluck(:id))
-      else
-        raise StandardError, "Invalid working set: #{working_set.inspect}"
-      end
+      of_expression(item.expression)
     else
-      raise StandardError, "working set : #{working_set.inspect} is not in WorkingSets nomenclature"
+      raise StandardError, "#{working_set.inspect} is not in Nomen::WorkingSets nomenclature"
     end
+  }
+
+  # Use working set query language to filter product nature
+  scope :of_expression, lambda { |expression|
+    where(WorkingSet.to_sql(expression))
   }
 
   protect(on: :destroy) do
@@ -280,50 +274,53 @@ class ProductNature < Ekylibre::Record::Base
     end
   end
 
+  # TODO Optimize this no DB should be better...
   def able_to?(ability)
-    exp = nil
-    if ability =~ /\(.*\)\z/
-      params = ability.split(/\s*[\(\,\)]\s*/)
-      ability = params.shift.to_sym
-      unless item = Nomen::Abilities[ability]
-        raise ArgumentError, "Unknown ability: #{ability.inspect}"
-      end
-      parameters = item.parameters.collect do |p|
-        v = params.shift
-        e = nil
-        if p == :variety
-          unless child = Nomen::Varieties[v]
-            raise ArgumentError, "Unknown variety: #{v.inspect}"
-          end
-          e = "(" + child.self_and_parents.map(&:name).join("|") + ")"
-        else
-          raise StandardError, "Unknown type of parameter for an ability: #{p.inspect}"
-        end
-        e
-      end.join('\s*\,\s*')
-      exp = /\A#{ability}\(#{parameters}\)\z/
-    else
-      unless Nomen::Abilities[ability]
-        raise ArgumentError, "Unknown ability: #{ability.inspect}"
-      end
-      exp = /\A#{ability}\z/
-    end
-    return self.abilities.select do |a|
-      a.to_s =~ exp
-    end.any?
+    self.class.of_expression("can #{ability}").where(id: self.id).any?
+    # exp = nil
+    # if ability =~ /\(.*\)\z/
+    #   params = ability.split(/\s*[\(\,\)]\s*/)
+    #   ability = params.shift.to_sym
+    #   unless item = Nomen::Abilities[ability]
+    #     raise ArgumentError, "Unknown ability: #{ability.inspect}"
+    #   end
+    #   parameters = item.parameters.collect do |p|
+    #     v = params.shift
+    #     e = nil
+    #     if p == :variety
+    #       unless child = Nomen::Varieties[v]
+    #         raise ArgumentError, "Unknown variety: #{v.inspect}"
+    #       end
+    #       e = "(" + child.self_and_parents.map(&:name).join("|") + ")"
+    #     else
+    #       raise StandardError, "Unknown type of parameter for an ability: #{p.inspect}"
+    #     end
+    #     e
+    #   end.join('\s*\,\s*')
+    #   exp = /\A#{ability}\(#{parameters}\)\z/
+    # else
+    #   unless Nomen::Abilities[ability]
+    #     raise ArgumentError, "Unknown ability: #{ability.inspect}"
+    #   end
+    #   exp = /\A#{ability}\z/
+    # end
+    # return self.abilities.select do |a|
+    #   a.to_s =~ exp
+    # end.any?
   end
 
   # tests if all abilities are present
   # @params: *abilities, a list of abilities to check. Can't be empty
   # @returns: true if all abilities are matched, false if at least one ability is missing
+  # TODO Optimize this no DB should be better...
   def able_to_each?(*abilities)
-    abilities.flatten!
-    if  abilities.length == 1 # case of the last ability to check
-      return able_to?(abilities[0])
-    elsif !able_to?(abilities[0])
-      return false # it's useless to go on if one ability is missing
-    end
-    return able_to?(abilities[0]) && able_to_each?(abilities.drop(1))
+    self.class.can_each(*abilities).where(id: self.id).any?
+    # if  abilities.length == 1 # case of the last ability to check
+    #   return able_to?(abilities[0])
+    # elsif !able_to?(abilities[0])
+    #   return false # it's useless to go on if one ability is missing
+    # end
+    # return able_to?(abilities[0]) && able_to_each?(abilities.drop(1))
   end
 
   # Returns list of abilities as an array of ability items from the nomenclature

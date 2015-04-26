@@ -51,7 +51,6 @@ module Backend::KujakuHelper
           end
           feather_name = class_name.gsub(/Feather$/, "").underscore.split("/").last.to_sym
           Kujaku.send(:define_method, feather_name) do |*args, &block|
-            puts self.inspect.red
             add_feather(subclass.new(self, "#{@uid}:#{@feathers.size}", *args, &block))
           end
         end

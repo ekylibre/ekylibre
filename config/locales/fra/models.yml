@@ -1246,8 +1246,8 @@ fra:
     user: "Utilisateur"
     users: "Utilisateurs"
     value: "Valeur"
-    variable_indicators: "Indicateurs d’une variable" #?
-    variable_indicators_list: "Liste des indicateurs de variables"
+    variable_indicators: "Indicateurs variables" #?
+    variable_indicators_list: "Liste des indicateurs variables"
     variant: "Variante"
     variant_indicator: "Indicateur de la variante"
     variant_unit: "Unité de la variante"

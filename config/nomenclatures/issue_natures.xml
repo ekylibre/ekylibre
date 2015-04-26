@@ -25,12 +25,12 @@
   </nomenclature>
 
   <!--
-  	<nomenclature name="issue_natures-support_issue">
-    <items>
+      <nomenclature name="issue_natures-support_issue">
+      <items>
       <item name="bug" target="entity"/>
       <item name="help" target="entity"/>
-    </items>
-  </nomenclature>
+      </items>
+      </nomenclature>
   -->
 
   <!-- level 2 - branch 1 -->
@@ -81,7 +81,7 @@
     <items>
       <item name="grapevine_yellows"  target="vitis"/> <!-- cause="candidatus_phytoplasma_vitis" http://fr.wikipedia.org/wiki/Flavescence_dor%C3%A9e -->
       <item name="mammite"            target="mammalia"/>
-       <!-- bacteria on walnut plant -->
+      <!-- bacteria on walnut plant -->
       <item name="bacteriosis"        cause="xanthomonas_arboricola"  target="juglans"/> <!-- bactériose -->
 
     </items>
@@ -95,14 +95,14 @@
       <item name="codling_moth"        cause="cydia_pomonella"           target="plant"/> <!-- carpocapse -->
       <item name="aphid"               cause="aphidoidea"                target="plant"/> <!-- puceron -->
       <item name="scale_insect"        cause="coccoidea"                 target="plant"/> <!-- cochenille -->
-      <item name="husk_fly"     	   cause="rhagoletis_completa"       target="juglans"/> <!-- mouche du brou -->
-      <item name="nut_weevil"   	   cause="curculio_nucum"            target="corylus"/> <!-- balanin des noisettes -->
-	  <item name="acarine_gall_mite"   cause="phytoptus_avellanae"       target="corylus"/> <!-- phytopte -->
-	  <item name="yellow_acarine"      cause="eotetranychus_coryli"      target="corylus"/> <!-- acarien jaune -->
-	  <item name="defoliant_caterpillar"      cause="operophtera_brumata"       target="corylus"/> <!-- chenille défoliatrice -->
-	  <item name="croesus_septentrionalis"      cause="croesus_septentrionalis"   target="corylus"/> <!-- tenthrède du noisetier -->
-	  <item name="longhorn_beetle"      cause="cerambycidae"             target="corylus"/> <!-- capricorne / longicorne -->
-	  <item name="wood_leopard_moth"    cause="zeuzera_pyrina"           target="corylus"/> <!-- zeuzère -->
+      <item name="husk_fly"          cause="rhagoletis_completa"       target="juglans"/> <!-- mouche du brou -->
+      <item name="nut_weevil"        cause="curculio_nucum"            target="corylus"/> <!-- balanin des noisettes -->
+      <item name="acarine_gall_mite"   cause="phytoptus_avellanae"       target="corylus"/> <!-- phytopte -->
+      <item name="yellow_acarine"      cause="eotetranychus_coryli"      target="corylus"/> <!-- acarien jaune -->
+      <item name="defoliant_caterpillar"      cause="operophtera_brumata"       target="corylus"/> <!-- chenille défoliatrice -->
+      <item name="croesus_septentrionalis"      cause="croesus_septentrionalis"   target="corylus"/> <!-- tenthrède du noisetier -->
+      <item name="longhorn_beetle"      cause="cerambycidae"             target="corylus"/> <!-- capricorne / longicorne -->
+      <item name="wood_leopard_moth"    cause="zeuzera_pyrina"           target="corylus"/> <!-- zeuzère -->
     </items>
   </nomenclature>
 

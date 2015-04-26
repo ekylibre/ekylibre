@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="vat_taxe_registry" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
   <property name="ireport.zoom" value="1.3310000000000013"/>
   <property name="ireport.x" value="0"/>
-  <property name="ireport.y" value="192"/>
+  <property name="ireport.y" value="0"/>
   <template><![CDATA["../../corporate_identity/reporting_style.xml"]]></template>
   <style name="Title" fontName="Open Sans" fontSize="30" isBold="true" pdfFontName="Open Sans"/>
   <style name="SubTitle" forecolor="#736343" fontName="Open Sans" fontSize="18"/>
@@ -501,7 +501,7 @@
         <reportElement mode="Transparent" x="424" y="0" width="131" height="50" uuid="c01c80a5-194a-4b6e-b03e-eef4ef2caddf"/>
       </rectangle>
       <break>
-        <reportElement x="0" y="243" width="100" height="1" uuid="5114a624-b58e-45a8-9015-e383dfe98949"/>
+        <reportElement stretchType="RelativeToBandHeight" x="0" y="243" width="100" height="1" uuid="5114a624-b58e-45a8-9015-e383dfe98949"/>
       </break>
       <crosstab>
         <reportElement x="0" y="325" width="555" height="302" uuid="7204c63f-9d60-46d7-9e85-064979646b09"/>
@@ -581,7 +581,7 @@
                 <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
               </box>
               <textField>
-                <reportElement style="Crosstab Data Text" x="0" y="0" width="72" height="30" uuid="67fcf3d7-3ee5-4543-95bf-2311e6cc5cf7"/>
+                <reportElement style="Crosstab Data Text" x="0" y="0" width="61" height="30" uuid="67fcf3d7-3ee5-4543-95bf-2311e6cc5cf7"/>
                 <textElement verticalAlignment="Middle"/>
                 <textFieldExpression><![CDATA[$V{tax-short-label}]]></textFieldExpression>
               </textField>
@@ -609,7 +609,7 @@
         <measure name="v_taxes_amount_payee" class="java.lang.Double" calculation="Sum">
           <measureExpression><![CDATA[$V{v_taxes_amount_payee}]]></measureExpression>
         </measure>
-        <crosstabCell width="72" height="42">
+        <crosstabCell width="61" height="42">
           <cellContents>
             <box>
               <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
@@ -622,14 +622,14 @@
               <textFieldExpression><![CDATA[$V{v_taxes_amountMeasure}]]></textFieldExpression>
             </textField>
             <textField pattern="###0.00" isBlankWhenNull="true">
-              <reportElement style="Crosstab Data Text" x="35" y="0" width="37" height="25" forecolor="#FF9900" uuid="f0527e3e-c43a-4c2b-80c2-80d90848e309"/>
+              <reportElement style="Crosstab Data Text" x="35" y="0" width="26" height="25" forecolor="#FF9900" uuid="f0527e3e-c43a-4c2b-80c2-80d90848e309"/>
               <textElement verticalAlignment="Middle">
                 <font size="9"/>
               </textElement>
               <textFieldExpression><![CDATA[$V{v_taxes_amount_payee}]]></textFieldExpression>
             </textField>
             <textField>
-              <reportElement style="Crosstab Data Text" x="0" y="25" width="72" height="17" uuid="cda551b6-2f43-499b-8b42-a44fb0b5a5b4"/>
+              <reportElement style="Crosstab Data Text" x="0" y="25" width="61" height="17" uuid="cda551b6-2f43-499b-8b42-a44fb0b5a5b4"/>
               <textElement verticalAlignment="Middle">
                 <font size="10"/>
               </textElement>
@@ -637,7 +637,7 @@
             </textField>
           </cellContents>
         </crosstabCell>
-        <crosstabCell width="72" height="25" rowTotalGroup="invoiced-at">
+        <crosstabCell width="61" height="25" rowTotalGroup="invoiced-at">
           <cellContents backcolor="#005FB3" mode="Opaque">
             <box>
               <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
@@ -673,7 +673,7 @@
             </textField>
           </cellContents>
         </crosstabCell>
-        <crosstabCell width="72" height="25" rowTotalGroup="invoiced-at1">
+        <crosstabCell width="61" height="25" rowTotalGroup="invoiced-at1">
           <cellContents backcolor="#BFE1FF" mode="Opaque">
             <box>
               <pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>

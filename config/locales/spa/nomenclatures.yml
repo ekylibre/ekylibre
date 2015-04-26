@@ -4898,9 +4898,17 @@ spa:
       items:
         # animal_foods: "Animal foods"
         # animal_medicines: "Animal medicines"
+        # animal_products: "Animal products"
         # matters: "Matters"
         # oenological_regulateds: "Oenological regulateds products"
         # phytosanitary_products: "Phytosanitary products"
+        # plant_fertilizers: "Plant fertilizers"
+        # plant_medicines: "Plant medicines"
+        # plant_products: "Plant products"
+        # plant_seedlings: "Plant seedlings"
+        # transformed_products: "Transformed products"
+        # wine_tanks: "Wine tanks"
+        # wine_transformers: "Wine transformers"
       # name: "Working sets"
       property_natures:
         # expression: "Expression"

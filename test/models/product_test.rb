@@ -67,4 +67,12 @@ require 'test_helper'
 
 class ProductTest < ActiveSupport::TestCase
   test_fixtures
+
+  test "working sets" do
+    assert Product.of_expression("is product").any?
+    assert Product.of_expression("can move()").any?
+    Nomen::WorkingSets.list.each do |item|
+      assert Product.of_working_set(item.name).count >= 0
+    end
+  end
 end

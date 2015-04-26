@@ -137,14 +137,24 @@ class Product < Ekylibre::Record::Base
     where(derivative_of: varieties.flatten.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }
   scope :can, lambda { |*abilities|
-    where(nature_id: ProductNature.can(*abilities))
+    # where(nature_id: ProductNature.can(*abilities))
+    of_expression(abilities.map{|a| "can #{a}" }.join(" or "))
   }
   scope :can_each, lambda { |*abilities|
-    where(nature_id: ProductNature.can_each(*abilities))
+    # where(nature_id: ProductNature.can_each(*abilities))
+    of_expression(abilities.map{|a| "can #{a}" }.join(" and "))
   }
 
   scope :of_working_set, lambda { |working_set|
-    where(nature_id: ProductNature.of_working_set(working_set))
+    if item = Nomen::WorkingSets.find(working_set)
+      of_expression(item.expression)
+    else
+      raise StandardError, "#{working_set.inspect} is not in Nomen::WorkingSets nomenclature"
+    end
+  }
+
+  scope :of_expression, lambda { |expression|
+    joins(:nature).where(WorkingSet.to_sql(expression, default: :products, abilities: :product_natures, indicators: :product_natures))
   }
 
   scope :of_nature, lambda { |nature|

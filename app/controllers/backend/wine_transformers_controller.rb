@@ -19,7 +19,7 @@
 
 class Backend::WineTransformersController < Backend::BaseController
 
-  list model: :products, scope: [:availables, "can('catalyze(wine), chaptelise(wine), fermentize(wine), sulfurize(wine), acidify(fermented_juice), alkalinize(fermented_juice)')".c] do |t|
+  list model: :products, scope: [:availables, "of_working_set(:wine_transformers)".c] do |t|
     #t.column :work_number, url: true
     t.column :number, url: true
     t.column :tracking

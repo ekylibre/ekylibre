@@ -1,0 +1,83 @@
+module WorkingSet
+  grammar QueryLanguage
+
+    rule boolean_expression
+      disjunctive / test
+    end
+
+    rule conjonctive
+        head:test spacer "and" spacer operand:conjonctive <Conjunction>
+      / test
+    end
+
+    rule disjunctive
+        head:conjonctive spacer "or" spacer operand:disjunctive <Disjunction>
+      / conjonctive
+    end
+
+    rule test
+      abilitive / essence / derivative / indicative / negative / "(" boolean_expression ")" <BooleanExpression>
+    end
+
+    rule essence
+      "is" spacer variety_name <EssenceTest>
+    end
+
+    rule derivative
+      "derives" spacer "from" spacer variety_name <DerivativeTest>
+    end
+
+    rule indicative
+      "has" indicator_filter:(spacer mode:("frozen" / "variable") )? spacer "indicator" spacer indicator_name <IndicatorTest>
+    end
+
+    rule abilitive
+      "can" spacer ability <AbilityTest>
+    end
+
+    rule ability
+      ability_name ability_parameters:("(" space? parameters:(first_parameter:ability_argument other_parameters:(space? "," space? parameter:ability_argument)* )? space? ")")?
+    end
+
+    rule abilities_list
+      list:(first_ability:ability other_abilities:(space? "," space? ability)* )?
+    end
+
+    rule ability_parameters
+      "(" space? parameters:(first_parameter:ability_argument other_parameters:(space? "," space? parameter:ability_argument)* )? space? ")"
+    end
+
+    rule ability_name
+      [a-z] [a-z0-9]* ("_" [a-z0-9]+)* <AbilityName>
+    end
+
+    rule ability_argument
+      [a-z] [a-z0-9]* ("_" [a-z0-9]+)* <AbilityArgument>
+    end
+
+    rule variety_name
+      [a-z] [a-z0-9]* ("_" [a-z0-9]+)* <VarietyName>
+    end
+
+    rule indicator_name
+      [a-z] [a-z0-9]* ("_" [a-z0-9]+)* <VarietyName>
+    end
+
+    rule negative
+      "not" negated_test <NegativeTest>
+    end
+
+    rule negated_test
+      spacer ability / spacer essence / spacer derivative / "(" boolean_expression ")" <BooleanExpression>
+    end
+
+    rule spacer
+      " "+
+    end
+
+    rule space
+      [\s\n]*
+    end
+
+  end
+end

@@ -18,4 +18,33 @@
 #
 
 class Backend::MattersController < Backend::ProductsController
+
+
+  # params:
+  #   :q Text search
+  #   :working_set
+  def self.local_conditions
+    code = search_conditions(products: [:name, :number], product_nature_variants: [:name]) + " ||= []\n"
+    code << "unless params[:working_set].blank?\n"
+    code << "  item = Nomen::WorkingSets.find(params[:working_set])\n"
+    code << "  puts item.expression.red\n"
+    code << "  c[0] << \" AND products.nature_id IN (SELECT id FROM product_natures WHERE \#{WorkingSet.to_sql(item.expression)})\"\n"
+    code << "end\n"
+    code << "c\n"
+    return code.c
+  end
+
+
+  list(conditions: local_conditions) do |t|
+    t.column :number, url: true
+    t.column :name, url: true
+    t.column :variant, url: true
+    t.column :variety
+    t.column :container, url: true
+    t.column :description
+    # t.action :show, url: {format: :pdf}, image: :print
+    t.action :edit
+    t.action :destroy, if: :destroyable?
+  end
+
 end
