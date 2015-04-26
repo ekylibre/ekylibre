@@ -1,6 +1,5 @@
 arb:
   actions:
-    api/v1/crumbs: #?
     authentication/passwords:
       # edit: "Edit password: %{name}"
       # new: "New password"
@@ -96,36 +95,6 @@ arb:
       # index: "Catalogs"
       # new: "New catalog"
       # show: "Catalog: %{name}"
-    backend/cells/calendar_cells: #?
-    backend/cells/cash_balances_cells: #?
-    backend/cells/cropping_plan_cells: #?
-    backend/cells/cropping_plan_on_cultivable_zones_cells: #?
-    backend/cells/current_stocks_by_variety_cells: #?
-    backend/cells/elapsed_interventions_times_by_activities_cells: #?
-    backend/cells/events_cells: #?
-    backend/cells/expenses_by_product_nature_category_cells: #?
-    backend/cells/guide_evolution_cells: #?
-    backend/cells/last_analyses_cells: #?
-    backend/cells/last_documents_cells: #?
-    backend/cells/last_entities_cells: #?
-    backend/cells/last_events_cells: #?
-    backend/cells/last_incoming_deliveries_cells: #?
-    backend/cells/last_interventions_cells: #?
-    backend/cells/last_issues_cells: #?
-    backend/cells/last_outgoing_deliveries_cells: #?
-    backend/cells/last_products_cells: #?
-    backend/cells/last_purchases_cells: #?
-    backend/cells/last_sales_cells: #?
-    backend/cells/map_cells: #?
-    backend/cells/payable_taxes_cells: #?
-    backend/cells/placeholder_cells: #?
-    backend/cells/quandl_cells: #?
-    backend/cells/revenues_by_product_nature_cells: #?
-    backend/cells/rss_cells: #?
-    backend/cells/stock_container_map_cells: #?
-    backend/cells/threshold_commercialization_by_production_cells: #?
-    backend/cells/weather_cells: #?
-    backend/cells/working_sets_stocks_cells: #?
     backend/companies:  #?
       register: "تسجيل شركة" #?
     backend/company:  #?
@@ -367,7 +336,6 @@ arb:
       new: "انشاء دفتر يومي جديد"
       reopen: "فتح %{name}"
       show: "الدفتر اليومي : %{name} (%{code})"
-    backend/kujakus: #?
     backend/land_parcel_clusters:
       # edit: "Edit land parcel cluster: %{name}"
       # index: "Land parcel clusters"
@@ -598,7 +566,6 @@ arb:
       # index: "Opportunities"
       # new: "New opportunity"
       # show: "Opportunity: %{name}"
-    backend/sale_tickets: #?
     backend/sales:
       # abort: "Abort sale"
       cancel: "مسالك شمولية الفاتورة %{number}"
@@ -632,7 +599,6 @@ arb:
       # index: "Settlements"
       # new: "New settlement"
       # show: "Settlement: %{name}"
-    backend/snippets: #?
     backend/stock_moves:  #?
       edit: "تعديل حركة سهم : %{name}" #?
       new: "التسجيل لحركة السهم" #?
@@ -706,31 +672,6 @@ arb:
       # index: "Workers"
       # new: "New worker"
       # show: "Worker: %{name}"
-    devise/confirmations: #?
-    devise/passwords: #?
-    devise/registrations: #?
-    devise/sessions: #?
-    devise/unlocks: #?
-    pasteque/v5/attributes: #?
-    pasteque/v5/cash_mvts: #?
-    pasteque/v5/cash_registers: #?
-    pasteque/v5/cashes: #?
-    pasteque/v5/categories: #?
-    pasteque/v5/compositions: #?
-    pasteque/v5/currencies: #?
-    pasteque/v5/customers: #?
-    pasteque/v5/discount_profiles: #?
-    pasteque/v5/locations: #?
-    pasteque/v5/places: #?
-    pasteque/v5/products: #?
-    pasteque/v5/resources: #?
-    pasteque/v5/roles: #?
-    pasteque/v5/stocks: #?
-    pasteque/v5/tariff_areas: #?
-    pasteque/v5/taxes: #?
-    pasteque/v5/tickets: #?
-    pasteque/v5/users: #?
-    pasteque/v5/version: #?
     public:
       # index: "Home"
   controllers:  #?

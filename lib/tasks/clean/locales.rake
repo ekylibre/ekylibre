@@ -625,7 +625,7 @@ namespace :clean do
           end
         end
         target = Clean::Support.yaml_to_hash(target_path).deep_compact
-        reference = Clean::Support.yaml_to_hash(reference_path)
+        reference = Clean::Support.yaml_to_hash(reference_path).deep_compact
         translation, scount, stotal = Clean::Support.hash_diff(target[locale], reference[::I18n.default_locale], 1, (locale == :english ? :humanize : :localize))
         count += scount
         total += stotal
