@@ -15,10 +15,10 @@ fra:
       aggregators: "Agrégateurs" #?
       analyses: "Analyses"
       analytic_distributions: "Répartitions analytiques" #?
-      animal_foods: "Alimentation animale"
+      animal_foods: "Alimentation animale" #?
       animal_groups: "Troupeaux"
-      animal_medicines: "Médicaments vétérinaires"
-      animal_products: "Produits animaux"
+      animal_medicines: "Médicaments vétérinaires" #?
+      animal_products: "Produits animaux" #?
       animals: "Animaux"
       bank_statements: "Relevés de banque"
       building_divisions: "Salles/zones de bâtiment"
@@ -70,7 +70,7 @@ fra:
       outgoing_payment_modes: "Mode de décaissement"
       outgoing_payments: "Décaissements"
       people: "Personnes physiques"
-      plant_medicines: "Produits phytosanitaires"
+      plant_medicines: "Produits phytosanitaires" #?
       plants: "Plantes/Cultures"
       postal_zones: "Zones postales"
       prescriptions: "Prescriptions"
@@ -94,9 +94,9 @@ fra:
       teams: "Équipes"
       trackings: "Lots traçés"
       transfers: "Transferts" #?
-      transformed_products: "Produits transformés"
+      transformed_products: "Produits transformés" #?
       transports: "Transports"
       users: "Utilisateurs"
       wine_tanks: "Cuves à vin"
-      wine_transformers: "Additifs œnologiques"
+      wine_transformers: "Additifs œnologiques" #?
       workers: "Travailleurs"

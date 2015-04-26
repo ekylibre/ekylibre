@@ -670,18 +670,6 @@
         <page to="backend/animals#take"/>
         <page to="backend/animals#unroll"/>
       </item>
-      <item name="animal_foods">
-        <page to="backend/animal_foods#index"/>
-        <page to="backend/animal_foods#list"/>
-      </item>
-      <item name="animal_medicines">
-        <page to="backend/animal_medicines#index"/>
-        <page to="backend/animal_medicines#list"/>
-      </item>
-      <item name="animal_products">
-        <page to="backend/animal_products#index"/>
-        <page to="backend/animal_products#list"/>
-      </item>
     </group>
     <group name="plant_productions" icon="wheat">
       <item name="plants">
@@ -707,22 +695,6 @@
         <page to="backend/plants#unroll"/>
         <page to="backend/plants#update"/>
       </item>
-      <item name="plant_seedlings">
-        <page to="backend/plant_seedlings#index"/>
-        <page to="backend/plant_seedlings#list"/>
-      </item>
-      <item name="plant_fertilizers">
-        <page to="backend/plant_fertilizers#index"/>
-        <page to="backend/plant_fertilizers#list"/>
-      </item>
-      <item name="plant_medicines">
-        <page to="backend/plant_medicines#index"/>
-        <page to="backend/plant_medicines#list"/>
-      </item>
-      <item name="plant_products">
-        <page to="backend/plant_products#index"/>
-        <page to="backend/plant_products#list"/>
-      </item>
       <item name="manure_management_plans">
         <page to="backend/manure_management_plans#index"/>
         <page to="backend/manure_management_plans#create"/>
@@ -740,14 +712,6 @@
       <item name="wine_tanks">
         <page to="backend/wine_tanks#index"/>
         <page to="backend/wine_tanks#list"/>
-      </item>
-      <item name="wine_transformers">
-        <page to="backend/wine_transformers#index"/>
-        <page to="backend/wine_transformers#list"/>
-      </item>
-      <item name="transformed_products">
-        <page to="backend/transformed_products#index"/>
-        <page to="backend/transformed_products#list"/>
       </item>
     </group>
     <group name="fungi" icon="mushroom">

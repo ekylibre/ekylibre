@@ -35,17 +35,11 @@ eng:
       index: "Analyses"
       new: "New analysis"
       show: "Analysis #%{number}"
-    backend/animal_foods:
-      index: "Animal foods"
     backend/animal_groups:
       edit: "Edit animal group: %{name}"
       index: "Animal groups"
       new: "New animal group"
       show: "Animal group: %{name}"
-    backend/animal_medicines:
-      index: "Animal medicines"
-    backend/animal_products:
-      index: "Animal products"
     backend/animals:
       add_to_group: "Add to group"
       edit: "Edit animal: %{name}"
@@ -456,14 +450,6 @@ eng:
       # merge: "Merge person: %{name}"
       new: "New person"
       show: "Person: %{full_name}"
-    backend/plant_fertilizers:
-      index: "Plant fertilizers"
-    backend/plant_medicines:
-      index: "Plant medicines"
-    backend/plant_products:
-      index: "Plant products"
-    backend/plant_seedlings:
-      index: "Plant seedlings"
     backend/plants:
       edit: "Edit plant: %{name}"
       index: "Plants"
@@ -635,8 +621,6 @@ eng:
       index: "Trackings"
       new: "New tracking"
       show: "Tracking: %{name}"
-    backend/transformed_products:
-      index: "Transformed products"
     backend/transports:
       edit: "Edit transport %{number}"
       index: "Transports"
@@ -651,8 +635,6 @@ eng:
       unlock: "Unlock user"
     backend/wine_tanks:
       index: "Wine tanks"
-    backend/wine_transformers:
-      index: "Wine transformers"
     backend/workers:
       edit: "Edit worker: %{name}"
       index: "Workers"
@@ -1401,7 +1383,7 @@ eng:
     wind_speed: "Wind speed"
     with_financial_assets_depreciations: "With financial assets depreciations"
     working_duration: "Working duration"
-    working_sets_stocks: "Working sets stocks"
+    working_sets_stocks: "Working sets stocks" #?
     x_cashes:
       one: "%{count} cash"
       other: "%{count} cashes"

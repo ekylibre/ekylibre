@@ -37,20 +37,20 @@ fra:
       index: "Analyses"
       new: "Nouvelle analyse"
       show: "Analyse N°%{number}"
-    backend/animal_foods:
-      index: "Alimentation animale"
+    backend/animal_foods:  #?
+      index: "Alimentation animale" #?
     backend/animal_groups:
       edit: "Modifier le groupe d’animaux\_: %{name}"
       index: "Groupes d’animaux"
       new: "Nouveau groupe d’animaux"
       show: "Groupe\_: %{name}"
-    backend/animal_medicines:
+    backend/animal_medicines:  #?
       edit: "Modifier le produit vétérinaire\_: %{name}" #?
-      index: "Produits vétérinaires"
+      index: "Produits vétérinaires" #?
       new: "Nouveau produit vétérinaire" #?
       show: "Produit vétérinaire\_: %{name}" #?
-    backend/animal_products:
-      index: "Produits animaux"
+    backend/animal_products:  #?
+      index: "Produits animaux" #?
     backend/animals:
       add_to_group: "Ajouter au groupe"
       edit: "Modifier l’animal\_: %{name}"
@@ -430,14 +430,14 @@ fra:
       index: "Personnes"
       new: "Nouvelle personne"
       show: "Personne\_: %{full_name}"
-    backend/plant_fertilizers:
-      index: "Engrais"
-    backend/plant_medicines:
-      index: "Produits phytosanitaires"
-    backend/plant_products:
-      index: "Produits végétaux"
-    backend/plant_seedlings:
-      index: "Plants et semences"
+    backend/plant_fertilizers:  #?
+      index: "Engrais" #?
+    backend/plant_medicines:  #?
+      index: "Produits phytosanitaires" #?
+    backend/plant_products:  #?
+      index: "Produits végétaux" #?
+    backend/plant_seedlings:  #?
+      index: "Plants et semences" #?
     backend/plants:
       edit: "Modifier la culture\_: %{name}"
       index: "Cultures"
@@ -600,8 +600,8 @@ fra:
       index: "Numéros de suivi"
       new: "Nouveau numéro de suivi"
       show: "Numéro de suivi\_: %{name} - %{serial}"
-    backend/transformed_products:
-      index: "Produits transformés"
+    backend/transformed_products:  #?
+      index: "Produits transformés" #?
     backend/transports:
       deliveries: "Livraisons du transport" #?
       delivery_delete: "Retirer la livraison du transport" #?
@@ -619,8 +619,8 @@ fra:
     backend/visuals: #?
     backend/wine_tanks:
       index: "Cuverie"
-    backend/wine_transformers:
-      index: "Produits œnologiques"
+    backend/wine_transformers:  #?
+      index: "Produits œnologiques" #?
     backend/workers:
       edit: "Modifier l’équipier %{name}"
       index: "Équipiers"

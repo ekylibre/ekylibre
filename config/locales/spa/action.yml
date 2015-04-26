@@ -41,17 +41,14 @@ spa:
       # index: "Analyses"
       # new: "New analysis"
       # show: "Analysis #%{number}"
-    backend/animal_foods:
-      # index: "Animal foods"
+    backend/animal_foods: #?
     backend/animal_groups:
       # edit: "Edit animal group: %{name}"
       # index: "Animal groups"
       # new: "New animal group"
       # show: "Animal group: %{name}"
-    backend/animal_medicines:
-      # index: "Animal medicines"
-    backend/animal_products:
-      # index: "Animal products"
+    backend/animal_medicines: #?
+    backend/animal_products: #?
     backend/animals:
       # add_to_group: "Add to group"
       # edit: "Edit animal: %{name}"
@@ -453,14 +450,10 @@ spa:
       # new: "New person"
       # show: "Person: %{full_name}"
     backend/places: #?
-    backend/plant_fertilizers:
-      # index: "Plant fertilizers"
-    backend/plant_medicines:
-      # index: "Plant medicines"
-    backend/plant_products:
-      # index: "Plant products"
-    backend/plant_seedlings:
-      # index: "Plant seedlings"
+    backend/plant_fertilizers: #?
+    backend/plant_medicines: #?
+    backend/plant_products: #?
+    backend/plant_seedlings: #?
     backend/plants:
       # edit: "Edit plant: %{name}"
       # index: "Plants"
@@ -650,8 +643,7 @@ spa:
       # new: "New tracking"
       # show: "Tracking: %{name}"
     backend/transfers: #?
-    backend/transformed_products:
-      # index: "Transformed products"
+    backend/transformed_products: #?
     backend/transports:
       # edit: "Edit transport %{number}"
       # index: "Transports"
@@ -667,8 +659,7 @@ spa:
       # unlock: "Unlock user"
     backend/wine_tanks:
       # index: "Wine tanks"
-    backend/wine_transformers:
-      # index: "Wine transformers"
+    backend/wine_transformers: #?
     backend/workers:
       # edit: "Edit worker: %{name}"
       # index: "Workers"

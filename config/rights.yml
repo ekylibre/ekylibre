@@ -243,15 +243,6 @@ analyses:
     - "backend/analyses#new"
     - "backend/analyses#update"
 
-animal_foods:
-  read:
-    actions:
-    - "backend/animal_foods#index"
-    - "backend/animal_foods#list"
-  write:
-    dependencies:
-    - read-animal_foods
-
 animal_groups:
   read:
     actions:
@@ -270,21 +261,6 @@ animal_groups:
     - "backend/animal_groups#edit"
     - "backend/animal_groups#new"
     - "backend/animal_groups#update"
-
-animal_medicines:
-  read:
-    actions:
-    - "backend/animal_medicines#index"
-    - "backend/animal_medicines#list"
-
-animal_products:
-  read:
-    actions:
-    - "backend/animal_products#index"
-    - "backend/animal_products#list"
-  write:
-    dependencies:
-    - read-animal_products
 
 animals:
   read:
@@ -1433,21 +1409,9 @@ people:
     - "backend/people#new"
     - "backend/people#update"
 
-plant_medicines:
-  read:
-    actions:
-    - "backend/plant_medicines#index"
-    - "backend/plant_medicines#list"
-
 plants:
   read:
     actions:
-    - "backend/plant_fertilizers#index"
-    - "backend/plant_fertilizers#list"
-    - "backend/plant_products#index"
-    - "backend/plant_products#list"
-    - "backend/plant_seedlings#index"
-    - "backend/plant_seedlings#list"
     - "backend/plants#index"
     - "backend/plants#list"
     - "backend/plants#list_carried_linkages"
@@ -1930,12 +1894,6 @@ trackings:
     - "backend/trackings#new"
     - "backend/trackings#update"
 
-transformed_products:
-  read:
-    actions:
-    - "backend/transformed_products#index"
-    - "backend/transformed_products#list"
-
 transports:
   read:
     actions:
@@ -1984,12 +1942,6 @@ wine_tanks:
     actions:
     - "backend/wine_tanks#index"
     - "backend/wine_tanks#list"
-
-wine_transformers:
-  read:
-    actions:
-    - "backend/wine_transformers#index"
-    - "backend/wine_transformers#list"
 
 workers:
   read:
