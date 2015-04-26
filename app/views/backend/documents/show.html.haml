@@ -4,9 +4,9 @@
       - b.cell :thumb do
         = link_to(backend_document_url(@document, format: :pdf)) do
           = image_tag(backend_document_path(@document, format: :jpg))
-      .archived-at= @document.created_at.l
-      - if @document.template
-        .template-name= link_to(@document.template_name, backend_document_template_path(@document.template))
+        .archived-at= @document.created_at.l
+        - if @document.template
+          .template-name= link_to(@document.template_name, backend_document_template_path(@document.template))
 
     - b.cell :details do
       = attributes_list do |l|

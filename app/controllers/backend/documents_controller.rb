@@ -47,7 +47,7 @@ class Backend::DocumentsController < Backend::BaseController
       format.html { t3e @document}
       format.json
       format.xml
-      format.pdf { send_file(@document.file.path(:default),filename: @document.file_file_name) }
+      format.pdf { send_file(@document.file.path(:default)) }
       format.jpg { send_file(@document.file.path(:thumbnail)) }
     end
   end
