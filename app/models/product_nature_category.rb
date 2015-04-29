@@ -57,9 +57,9 @@ class ProductNatureCategory < Ekylibre::Record::Base
   belongs_to :financial_asset_account, class_name: "Account"
   belongs_to :financial_asset_allocation_account, class_name: "Account"
   belongs_to :financial_asset_expenses_account, class_name: "Account"
-  belongs_to :charge_account,  class_name: "Account"
-  belongs_to :product_account, class_name: "Account"
-  belongs_to :stock_account,   class_name: "Account"
+  belongs_to :charge_account,    class_name: "Account"
+  belongs_to :product_account,   class_name: "Account"
+  belongs_to :stock_account,     class_name: "Account"
   belongs_to :subscription_nature
   has_many :subscriptions, foreign_key: :product_nature_id
   has_many :natures, class_name: "ProductNature", foreign_key: :category_id, inverse_of: :category

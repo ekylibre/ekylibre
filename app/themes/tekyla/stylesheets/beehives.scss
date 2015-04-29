@@ -88,6 +88,7 @@ $configuring-min-height: 400px;
             color: $neutral-color;
             @include is-icon(6 * $fs-normal);
             @include inline-block;
+            line-height: 1.4 * 6 * $fs-normal;
           }
 
           > .toolbar {
