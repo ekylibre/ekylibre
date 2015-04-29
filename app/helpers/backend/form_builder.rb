@@ -1,4 +1,3 @@
-# encoding: utf-8
 # ##### BEGIN LICENSE BLOCK #####
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2009-2015 Brice Texier
@@ -17,8 +16,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 # ##### END LICENSE BLOCK #####
-
-# encoding: utf-8
 
 class Backend::FormBuilder < SimpleForm::FormBuilder
 

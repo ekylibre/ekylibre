@@ -185,7 +185,11 @@
         E.trade.setReferenceValue(item, referenceValue, componentType)
 
       # Computes values
-      method = form.find("*[data-trade-method]:checked").val()
+      tradeMethod = form.find("*[data-trade-method]")
+      if tradeMethod.is("input[type='radio']")
+        method = form.find("*[data-trade-method]:checked").val()
+      else
+        method = tradeMethod.val()
 
       # Get reference value
       changedComponent = referenceValue.val()

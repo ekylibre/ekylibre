@@ -74,7 +74,8 @@ module WorkingSet
               else
                 raise "What parameter type: #{parameter}?"
               end
-              lists <<  item.self_and_children.map(&:name)
+              # lists << item.self_and_children.map(&:name)
+              lists << item.self_and_parents.map(&:name)
             end
             "#{column_for(:abilities_list)} ~ E'\\\\m#{ability_item.name}\\\\(\\\\s*" + lists.map{|l| "(" + l.join("|") + ")"}.join("\\\\s*,\\\\s*") + "\\\\s*\\\\)\\\\Y'"
           else

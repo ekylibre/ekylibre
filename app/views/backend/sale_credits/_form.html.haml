@@ -1,27 +1,14 @@
 = field_set do
-  = f.referenced_association :client # , source: :clients
-  = f.subset :addresses, :depend_on => :client
-  -# = f.input :expired_at
   = f.input :invoiced_at
-  = f.association :nature, as: :hidden
   = f.referenced_association :responsible, source: {scope: :users}, new: {employed: 1}
-  = f.referenced_association :transporter, source: :transporters
-  = f.input :computation_method, as: (f.object.credited_sale ? :hidden : :radio_buttons), input_html: {data: {trade_method: true}}
+  = f.input :computation_method, as: (f.object.credited_sale ? :hidden : :radio_buttons), input_html: {data: {crediting_method: true}}
   = f.input :description
-
-  - if f.object.credited_sale
-    = f.association :affair, as: :hidden
-    = f.association :credited_sale, as: :hidden
-  - else
-    = f.input :letter_format, :show => :letter_options
-    #letter_options
-      = f.input :subject
-      = f.input :function_title
-      = f.input :introduction
-      = f.input :conclusion
+  = f.association :client, as: :hidden
+  = f.association :affair, as: :hidden
+  = f.association :credited_sale, as: :hidden
   = f.custom_fields
 
-= field_set Sale.human_attribute_name(:items) do
+= field_set SaleCredit.human_attribute_name(:items) do
   .items
     %table
       %thead
@@ -42,8 +29,6 @@
       %tfoot
         %tr.total
           %th
-            - unless f.object.credited_sale
-              = link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', 'data-association-insertion-node' => '#items', 'data-association-insertion-method' => :append, class: "btn primary"
           %th{colspan: 4}= :total.tl
           %td#pta.decimal{data: {use: ".pta", calculate: "sum", calculate_round: precision}}= resource.pretax_amount
           %td#wta.decimal{data: {use: ".wta", calculate: "sum", calculate_round: precision}}= resource.amount

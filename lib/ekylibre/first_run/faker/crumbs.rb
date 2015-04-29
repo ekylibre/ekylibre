@@ -131,9 +131,9 @@ module Ekylibre::FirstRun::Faker
         intervention = Ekylibre::FirstRun::Booker.intervene(:chemical_weed_killing, 2015, 6, 5, 1.07, support: support, parameters: {readings: {"base-chemical_weed_killing-0-800-2" => "covered"}}) do |i|
           i.add_cast(reference_name: 'weedkiller',      actor: intrant)
           i.add_cast(reference_name: 'weedkiller_to_spray', population: intrant_population)
-          i.add_cast(reference_name: 'sprayer',    actor: sprayer)
+          i.add_cast(reference_name: 'sprayer',     actor: sprayer)
           i.add_cast(reference_name: 'driver',      actor: worker)
-          i.add_cast(reference_name: 'tractor',     actor: i.find(Product, can: "catch"))
+          i.add_cast(reference_name: 'tractor',     actor: i.find(Product, can: "catch(sprayer)"))
           i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
         end
         if intervention

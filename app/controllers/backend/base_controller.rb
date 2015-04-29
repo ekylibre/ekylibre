@@ -83,7 +83,7 @@ class Backend::BaseController < BaseController
   def save_and_redirect(record, options={}, &block)
     record.attributes = options[:attributes] if options[:attributes]
     ActiveRecord::Base.transaction do
-      if record.send(:save) or options[:saved]
+      if options[:saved] || record.send(:save)
         yield record if block_given?
         response.headers["X-Return-Code"] = "success"
         response.headers["X-Saved-Record-Id"] = record.id.to_s
@@ -166,7 +166,8 @@ class Backend::BaseController < BaseController
   def authorize_user!
     unless current_user.administrator?
       # Get accesses matching the current action
-      unless list = Ekylibre::Access.reversed_list["#{controller_path}##{action_name}"]
+      list = Ekylibre::Access.rights_of("#{controller_path}##{action_name}")
+      if list.empty?
         return true
         notify_error(:access_denied, reason: "OUT OF SCOPE", url: request.url.inspect)
         redirect_to root_url

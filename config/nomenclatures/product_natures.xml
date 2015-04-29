@@ -11,7 +11,8 @@
       <property-nature name="reductible" type="boolean" required="true" default="false"/>
       <!-- <property-nature name="subscribing" type="boolean" required="true"/> -->
       <!-- Inside the model-->
-      <property-nature name="abilities" type="list" nomenclature="abilities" required="false"/>
+      <!-- Abilities are a list of abilities with parameters if wanted -->
+      <property-nature name="abilities" type="string" required="false"/>
       <property-nature name="derivatives" type="list" nomenclature="varieties" required="false"/>
       <property-nature name="frozen_indicators" type="list" nomenclature="indicators" required="false"/>
       <property-nature name="variable_indicators" type="list" nomenclature="indicators" required="false"/>
@@ -372,7 +373,7 @@
             category="crop"
             variety="plant"
             population_counting="decimal"
-            abilities="consume(water), consume(phytosanitary), produce(straw)"
+            abilities="consume(water), consume(preparation), produce(straw)"
             variable_indicators="population, shape, tiller_count, plant_life_state, plant_reproduction_state, plants_count, fresh_mass"
             frozen_indicators="net_surface_area"
             derivatives="straw"
@@ -381,7 +382,7 @@
             category="crop"
             variety="plant"
             population_counting="decimal"
-            abilities="consume(water), consume(phytosanitary), produce(grain)"
+            abilities="consume(water), consume(preparation), produce(grain)"
             variable_indicators="population, shape, tiller_count, plant_life_state, plant_reproduction_state, plants_count, fresh_mass"
             frozen_indicators="net_surface_area"
             derivatives="grain"
@@ -390,7 +391,7 @@
             category="crop"
             variety="plant"
             population_counting="decimal"
-            abilities="consume(water), consume(phytosanitary), produce(vegetable)"
+            abilities="consume(water), consume(preparation), produce(vegetable)"
             variable_indicators="population, shape, tiller_count, plant_life_state, plant_reproduction_state, plants_count, fresh_mass"
             frozen_indicators="net_surface_area"
             derivatives="vegetable"
@@ -399,7 +400,7 @@
             category="crop"
             variety="plant"
             population_counting="decimal"
-            abilities="consume(water), consume(phytosanitary), produce(grain), produce(straw)"
+            abilities="consume(water), consume(preparation), produce(grain), produce(straw)"
             variable_indicators="population, shape, tiller_count, plant_life_state, plant_reproduction_state, plants_count, fresh_mass"
             frozen_indicators="net_surface_area"
             derivatives="grain, straw"
@@ -408,7 +409,7 @@
             category="crop"
             variety="plant"
             population_counting="integer"
-            abilities="consume(water), consume(phytosanitary), produce(fruit), produce(straw)"
+            abilities="consume(water), consume(preparation), produce(fruit), produce(straw)"
             variable_indicators="population, shape, plant_life_state, plants_count, rows_interval, plants_interval"
             frozen_indicators="net_surface_area"
             derivatives="fruit, straw"
@@ -417,7 +418,7 @@
             category="crop"
             variety="plant"
             population_counting="integer"
-            abilities="consume(water), consume(phytosanitary), produce(fruit), produce(straw)"
+            abilities="consume(water), consume(preparation), produce(fruit), produce(straw)"
             variable_indicators="population, shape, plant_life_state, plants_count, rows_interval, plants_interval"
             frozen_indicators="net_surface_area"
             derivatives="walnut, straw"
@@ -426,7 +427,7 @@
             category="crop"
             variety="cucumis"
             population_counting="decimal"
-            abilities="consume(water), consume(phytosanitary), produce(melon)"
+            abilities="consume(water), consume(preparation), produce(melon)"
             variable_indicators="population, shape, tiller_count, plant_life_state, plants_count, fresh_mass"
             frozen_indicators="net_surface_area"
             derivatives="melon"
@@ -435,7 +436,7 @@
             category="crop"
             variety="plant"
             population_counting="decimal"
-            abilities="consume(water), consume(phytosanitary), produce(pollen), produce(flower), produce(straw), produce(grain)"
+            abilities="consume(water), consume(preparation), produce(pollen), produce(flower), produce(straw), produce(grain)"
             variable_indicators="population, shape, plant_life_state, plants_count"
             frozen_indicators="net_surface_area"
             derivatives="pollen, flower, straw, grain"
@@ -444,7 +445,7 @@
             category="crop"
             variety="vitis"
             population_counting="integer"
-            abilities="consume(water), consume(phytosanitary), produce(fruit), produce(straw)"
+            abilities="consume(water), consume(preparation), produce(fruit), produce(straw)"
             variable_indicators="population, shape, plant_life_state, woodstock_variety, certification, plants_count, rows_interval, plants_interval"
             frozen_indicators="net_surface_area"
             derivatives="fruit, straw"
@@ -991,7 +992,7 @@
             category="other_consumable"
             variety="preparation"
             population_counting="decimal"
-            abilities="clean"
+            abilities="clean(building_division)"
             variable_indicators="population"
             frozen_indicators="net_volume, net_mass"
             />
@@ -1154,7 +1155,7 @@
             category="equipment"
             variety="tractor"
             population_counting="unitary"
-            abilities="catch(equipment), move, tow(matter), consume(oil), consume(fuel)"
+            abilities="catch(matter), move, tow(matter), consume(oil), consume(fuel)"
             variable_indicators="net_surface_area, motor_power, geolocation"
             frozen_indicators="population"
             linkage_points="rear, front"
@@ -1198,7 +1199,7 @@
             category="equipment"
             variety="trailer"
             population_counting="unitary"
-            abilities="store(grape), store(grape_juice), store_liquid"
+            abilities="store(grape), store(juice), store(fermented_juice), store_liquid"
             variable_indicators="nominal_storable_net_volume, nominal_storable_net_mass"
             frozen_indicators="population"
             />
@@ -1206,7 +1207,7 @@
             category="equipment"
             variety="tank"
             population_counting="unitary"
-            abilities="store(wine), store(grape), store(grape_juice), store_liquid"
+            abilities="store(wine), store(grape), store(fermented_juice), store(juice), store_liquid"
             variable_indicators="nominal_storable_net_volume"
             frozen_indicators="population"
             />
@@ -1462,7 +1463,7 @@
             category="equipment"
             variety="press"
             population_counting="unitary"
-            abilities="press(grape), press(grape_juice), press(wine)"
+            abilities="press(grape), press(juice), press(fermented_juice), press(wine)"
             variable_indicators="nominal_storable_net_volume"
             frozen_indicators="population"
             />
@@ -1486,7 +1487,7 @@
             category="equipment"
             variety="equipment"
             population_counting="unitary"
-            abilities="catch, spread, plow, sow, harvest, store"
+            abilities="catch(matter), spread(preparation), plow, sow, harvest(raw_matter), store(raw_matter)"
             variable_indicators=""
             frozen_indicators="population"
             />
@@ -1733,7 +1734,7 @@
             category="equipment_rent"
             variety="service"
             population_counting="decimal"
-            abilities="spread"
+            abilities="spread(preparation)"
             variable_indicators="population"
             frozen_indicators="usage_duration"
             />

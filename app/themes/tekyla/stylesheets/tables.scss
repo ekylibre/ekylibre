@@ -72,7 +72,7 @@ table {
       a {
         font-size: 0;
         i {
-          @include is-icon(18px);
+          @include is-icon;
           @include use-icon(cog);
           color: $base-color;
         }
@@ -173,8 +173,9 @@ table {
           display: none;
         }
         &.act {
+          @include text-align(center);
           i {
-            @include is-icon(18px);
+            @include is-icon;
             @include use-icon(cog);
           }
         }

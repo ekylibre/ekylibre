@@ -641,6 +641,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :sale_credits, path: "sale-credits"
+
     resources :sale_natures, concerns: [:list, :unroll], path: "sale-natures"
 
     resources :sale_opportunities, concerns: [:list, :affairs], path: "sale-opportunities" do
@@ -662,13 +664,12 @@ Rails.application.routes.draw do
         get :contacts
       end
       member do
+        get :cancel
         get :list_items
         get :list_undelivered_items
         get :list_subscriptions
         get :list_deliveries
         get :list_credits
-        get :list_creditable_items
-        match "cancel", via: [:get, :post]
         post :abort
         post :confirm
         post :correct

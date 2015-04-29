@@ -29,6 +29,7 @@
   <nomenclature name="varieties-matter">
     <items>
       <item name="bioproduct"/>
+      <item name="virus"/> <!-- Virus are not "alive" thing according to some specialist (!IN DEBATE)  -->
       <item name="equipment"/>
       <item name="preparation"/>
       <item name="water"/>

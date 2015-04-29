@@ -1704,7 +1704,6 @@ sales:
     - "backend/sale_opportunities#show"
     - "backend/sales#index"
     - "backend/sales#list"
-    - "backend/sales#list_creditable_items"
     - "backend/sales#list_credits"
     - "backend/sales#list_deliveries"
     - "backend/sales#list_items"
@@ -1734,7 +1733,6 @@ sales:
     - "backend/sale_opportunities#update"
     - "backend/sale_opportunities#win"
     - "backend/sales#abort"
-    - "backend/sales#cancel"
     - "backend/sales#confirm"
     - "backend/sales#contacts"
     - "backend/sales#correct"
@@ -1748,6 +1746,14 @@ sales:
     - "backend/sales#propose_and_invoice"
     - "backend/sales#refuse"
     - "backend/sales#update"
+  cancel:
+    dependencies:
+    - read-sales
+    actions:
+    - "backend/sale_credits#create"
+    - "backend/sale_credits#index"
+    - "backend/sale_credits#new"
+    - "backend/sales#cancel"
 
 sequences:
   read:

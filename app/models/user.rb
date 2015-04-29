@@ -211,8 +211,9 @@ class User < Ekylibre::Record::Base
     else
       key = url.to_s
     end
-    unless list = Ekylibre::Access.reversed_list[key]
-      logger.debug "Unable to check access for action: #{key}. #{url.inspect}"
+    list = Ekylibre::Access.rights_of(key)
+    if list.empty?
+      logger.debug "Unable to check access for action: #{key}. #{url.inspect}".yellow
       return true
     end
     list &= self.resource_actions

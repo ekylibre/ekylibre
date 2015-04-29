@@ -13,7 +13,7 @@
       <variable name="straw"           variety="straw" />
       <variable name="straw_to_mulch"  new="parted-from: straw" need="population" roles="animal_housing_treatment-input" />
 
-      <variable name="cleaner"            abilities="clean" roles="animal_housing_treatment-tool"/>
+      <variable name="cleaner"            abilities="clean(building_division)" roles="animal_housing_treatment-tool"/>
       <variable name="driver"             abilities="drive(equipment), move" roles="animal_housing_treatment-doer"/>
       <variable name="tractor"            abilities="tow(equipment), move" roles="animal_housing_treatment-tool"/>
 

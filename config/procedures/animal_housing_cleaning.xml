@@ -25,7 +25,7 @@
                  /> <!-- kg/m2 -->
       </variable>
 
-      <variable name="cleaner"            abilities="clean" roles="animal_housing_cleaning-tool"/>
+      <variable name="cleaner"            abilities="clean(building_division)" roles="animal_housing_cleaning-tool"/>
       <variable name="driver"             abilities="drive(equipment), move" roles="animal_housing_cleaning-doer"/>
       <variable name="tractor"            abilities="tow(equipment), move" roles="animal_housing_cleaning-tool"/>
 

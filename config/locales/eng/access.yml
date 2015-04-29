@@ -1,6 +1,7 @@
 eng:
   access:
     interactions:
+      # cancel: "Cancel"
       close: "Close"
       execute: "Execute"
       link: "Link"

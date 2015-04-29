@@ -3,8 +3,6 @@ require 'test_helper'
 class NomenTest < ActiveSupport::TestCase
 
   setup do
-    # All document template should be loaded already
-    # DocumentTemplate.load_defaults
     I18n.locale = ENV["LOCALE"]
   end
 
@@ -38,6 +36,26 @@ class NomenTest < ActiveSupport::TestCase
     end.join("\n")
 
     assert invalids.empty?, "#{invalids.count} working sets have invalid syntax:\n" + details.dig
+  end
+
+  test "product_natures abilities" do
+    invalids = []
+    Nomen::ProductNatures.list.each do |item|
+      begin
+        WorkingSet::AbilityArray.load(item.abilities).check!
+      rescue Exception => e
+        invalids << {item: item, exception: e}
+      end
+    end
+    details = invalids.map do |invalid|
+      item = invalid[:item]
+      exception = invalid[:exception]
+      "#{item.name.to_s.yellow}:\n" +
+        "  expression: #{item.abilities.inspect}\n" +
+        "  exception: #{exception.message}"
+    end.join("\n")
+
+    assert invalids.empty?, "#{invalids.count} product nature have invalid abilities:\n" + details.dig
   end
 
 end

@@ -13,7 +13,7 @@
       </variable>
       <variable name="trailer" variety="trailer" abilities="store(straw)" roles="straw_transport-tool"/>
       <variable name="driver"  abilities="drive(tractor)" roles="straw_transport-doer"/>
-      <variable name="tractor" variety="equipment" abilities="tow(equipment),catch" roles="straw_transport-tool"/>
+      <variable name="tractor" variety="equipment" abilities="tow(equipment),catch(equipment)" roles="straw_transport-tool"/>
       <variable name="silo"    abilities="store(straw)" roles="straw_transport-container"/>
     </variables>
     <operations>

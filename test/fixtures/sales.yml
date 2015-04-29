@@ -170,7 +170,7 @@ sales_003:
   affair_id: 14
   amount: 11.23
   client_id: 10
-  computation_method: tax_quantity
+  computation_method: quantity_tax
   conclusion: Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations
     distinguées.
   confirmed_at: 2014-11-05 10:03:12.709619000 Z

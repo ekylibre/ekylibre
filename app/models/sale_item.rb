@@ -51,7 +51,7 @@
 
 class SaleItem < Ekylibre::Record::Base
   include PeriodicCalculable
-  enumerize :reference_value, in: [:unit_pretax_amount, :unit_amount, :pretax_amount, :amount], default: :unit_pretax_amount
+  enumerize :reference_value, in: [:unit_pretax_amount, :unit_amount, :pretax_amount, :amount, :quantity], default: :unit_pretax_amount
   attr_readonly :sale_id
   belongs_to :account
   belongs_to :sale, inverse_of: :items
@@ -149,6 +149,16 @@ class SaleItem < Ekylibre::Record::Base
   validate do
     errors.add(:quantity, :invalid) if self.quantity.zero?
     # TODO validates responsible can make reduction and reduction percentage is convenient
+    if self.credited_item
+      maximum_quantity = self.quantity - self.credited_item.quantity - self.credited_item.credited_quantity
+      if self.credited_item.quantity > 0
+        errors.add(:quantity, :less_than, count: 0) if self.quantity > 0
+        errors.add(:quantity, :greater_than, count: maximum_quantity) if self.quantity < maximum_quantity
+      else # if self.credited_item.quantity < 0
+        errors.add(:quantity, :greater_than, count: 0) if self.quantity < 0
+        errors.add(:quantity, :less_than, count: maximum_quantity) if self.quantity > maximum_quantity
+      end
+    end
   end
 
   protect(on: :update) do

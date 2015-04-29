@@ -17,7 +17,7 @@
       </variable>
       <variable name="trailer" variety="trailer" abilities="store(grape)" roles="grape_transport-tool"/>
       <variable name="driver"  abilities="drive(tractor)" roles="grape_transport-doer"/>
-      <variable name="tractor" variety="equipment" abilities="tow(equipment),catch" roles="grape_transport-tool"/>
+      <variable name="tractor" variety="equipment" abilities="tow(equipment),catch(equipment)" roles="grape_transport-tool"/>
       <variable name="silo"    abilities="store(grape)" roles="grape_transport-container"/>
     </variables>
     <operations>

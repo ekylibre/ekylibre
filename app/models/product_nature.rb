@@ -106,50 +106,11 @@ class ProductNature < Ekylibre::Record::Base
     where(:derivative_of => varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }
 
-  # scope :able_to, Proc.new { |type, *abilities|
-  #   query = []
-  #   parameters = []
-  #   for ability in abilities.flatten.join(', ').strip.split(/[[:space:]]*\,[[:space:]]*/)
-  #     if ability =~ /\(.*\)\z/
-  #       params = ability.split(/\s*[\(\,\)]\s*/)
-  #       ability = params.shift.to_sym
-  #       unless item = Nomen::Abilities[ability]
-  #         raise ArgumentError, "Unknown ability: #{ability.inspect}"
-  #       end
-  #       for p in item.parameters
-  #         v = params.shift
-  #         if p == :variety
-  #           unless child = Nomen::Varieties[v]
-  #             raise ArgumentError, "Unknown variety: #{v.inspect}"
-  #           end
-  #           q = []
-  #           for variety in child.self_and_parents
-  #             q << "abilities_list ~ E?"
-  #             parameters << "\\\\m#{ability}\\\\(#{variety.name}\\\\)\\\\Y"
-  #           end
-  #           query << "(" + q.join(" OR ") + ")"
-  #         else
-  #           raise StandardError, "Unknown type of parameter for an ability: #{p.inspect}"
-  #         end
-  #       end
-  #     else
-  #       unless Nomen::Abilities[ability]
-  #         raise ArgumentError, "Unknown ability: #{ability.inspect}"
-  #       end
-  #       query << "abilities_list ~ E?"
-  #       parameters << "\\\\m#{ability}\\\\M"
-  #     end
-  #   end
-  #   where(query.join(" #{type} "), *parameters)
-  # }
-
   scope :can, lambda { |*abilities|
-    # able_to(:or,  *abilities)
     of_expression(abilities.map{|a| "can #{a}" }.join(" or "))
   }
 
   scope :can_each, lambda { |*abilities|
-    # able_to(:and, *abilities)
     of_expression(abilities.map{|a| "can #{a}" }.join(" and "))
   }
 
@@ -336,23 +297,6 @@ class ProductNature < Ekylibre::Record::Base
     to.collect{|x| tc('to.'+x.to_s)}.to_sentence
   end
 
-  # # Returns the default
-  # def default_price(options)
-  #   price = nil
-  #   if template = self.templates.where(:listing_id => listing_id, :active => true, :by_default => true).first
-  #     price = template.price
-  #   end
-  #   return price
-  # end
-
-  # def label
-  #   tc('label', product_nature: self.name)
-  # end
-
-  # def informations
-  #   tc('informations.without_components', :product_nature => self.name, :unit => self.unit.label, :size => self.components.size)
-  # end
-
   # Load a product nature from product nature nomenclature
   def self.import_from_nomenclature(reference_name, force = false)
     unless item = Nomen::ProductNatures.find(reference_name)
@@ -371,7 +315,7 @@ class ProductNature < Ekylibre::Record::Base
       :population_counting => item.population_counting,
       :category => ProductNatureCategory.import_from_nomenclature(item.category),
       :reference_name => item.name,
-      :abilities_list => item.abilities.sort,
+      :abilities_list => WorkingSet::AbilityArray.load(item.abilities),
       :derivatives_list => (item.derivatives ? item.derivatives.sort : nil),
       :frozen_indicators_list => (item.frozen_indicators ? item.frozen_indicators.sort : nil),
       :variable_indicators_list => (item.variable_indicators ? item.variable_indicators.sort : nil),

@@ -454,6 +454,8 @@ spa:
       new: "Añadir un papel"
       # pick: "Pick role: %{name}"
       # show: "Role: %{name}"
+    backend/sale_credits:
+      # new: "Cancel sales invoice %{number}"
     backend/sale_natures:
       # edit: "Edit sale type: %{name}"
       # index: "Sale types"
@@ -465,18 +467,10 @@ spa:
       # new: "New opportunity"
       # show: "Opportunity: %{name}"
     backend/sales:
-      # abort: "Abort sale"
-      cancel: "Paso en activo de la factura %{number}"
-      # confirm: "Confirm estimate and go to deliveries"
-      # contacts: "Contacts of sale"
-      # correct: "Correct estimate"
+      cancel: "Paso en activo de la factura %{number}" #?
       # edit: "Edit sale %{number}"
       # index: "Sales"
-      # invoice: "Invoice sale"
       # new: "New sale"
-      # propose: "Propose estimate"
-      # propose_and_invoice: "Invoice quickly"
-      # refuse: "Estimate refused"
       # show: "Sale: %{label} for %{client}"
     backend/sequences:
       edit: "Modificacion de la sequencia\_: %{name}"
@@ -1641,6 +1635,7 @@ spa:
       # select_entry_items_to_mark_together: "Select entry items to mark together"
       specify_filter: "Se debe escoger aplicar a lo menos un filtro de busqueda" #?
       specify_updates: "Se debe especifiar a la menos un campo a modifiar" #?
+      # the_sales_invoice_is_not_cancellable: "The sales invoice is not cancellable"
       unavailable_model: "%{model} indisponible o inexistente (%{id})" #?
       # unavailable_resource: "Nonexistent %{type} #%{id}"
       # unexpected_resource_type: "Unexpected resource type: %{type}"

@@ -18,11 +18,12 @@ class FixtureRetriever
   ROLES = %w(zeroth first second third fourth fifth sixth seventh eighth nineth tenth)
   @@truc = {}
 
-  def initialize(model, options = {})
+  def initialize(model, options = {}, fixture_options = nil)
     if model and model < Ekylibre::Record::Base
-      @model = model
-      @prefix = @model.name.underscore.pluralize
-      @table = @model.table_name
+      fixture_options ||= {}
+      @model  = fixture_options.delete(:model)  || model
+      @prefix = fixture_options.delete(:prefix) || @model.name.underscore.pluralize
+      @table  = fixture_options.delete(:table)  || @model.table_name
       if options and !options.is_a?(Hash)
         options = {first: normalize(options)}
       end
@@ -261,7 +262,7 @@ class ActionController::TestCase
         mode ||= choose_mode(action_label)
 
         params.deep_symbolize_keys!
-        fixtures_to_use = FixtureRetriever.new(model, params.delete(:fixture))
+        fixtures_to_use = FixtureRetriever.new(model, params.delete(:fixture), params.delete(:fixture_options))
         test_code = ""
 
         sanitized_params = Proc.new { |p = {}|

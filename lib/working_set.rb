@@ -11,6 +11,9 @@ module WorkingSet
   class SyntaxError < StandardError
   end
 
+  class InvalidExpression < StandardError
+  end
+
   module QueryLanguage
     class Base < Treetop::Runtime::SyntaxNode; end
     class BooleanExpression           < Base              ; end

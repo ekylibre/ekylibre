@@ -256,6 +256,7 @@ eng:
       purchase_nature: "Purchase type"
       role: "Role"
       sale: "Sale"
+      # sale_credit: "Sale credit"
       sale_item: "Sale item"
       sale_nature: "Sale type"
       sale_opportunity: "Sale opportunity"

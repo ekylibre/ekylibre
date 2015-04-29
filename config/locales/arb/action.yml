@@ -553,6 +553,8 @@ arb:
       new: "اضافة مهام"
       # pick: "Pick role: %{name}"
       # show: "Role: %{name}"
+    backend/sale_credits:
+      # new: "Cancel sales invoice %{number}"
     backend/sale_items:  #?
       edit: "تعديل مسار طلب المنتج" #?
       new: "اضافة تصميم خطوط المنتج" #?
@@ -567,18 +569,12 @@ arb:
       # new: "New opportunity"
       # show: "Opportunity: %{name}"
     backend/sales:
-      # abort: "Abort sale"
-      cancel: "مسالك شمولية الفاتورة %{number}"
-      confirm: "المضي بطلب تحديد السعر والاتجاه الى التسليم"
-      # contacts: "Contacts of sale"
-      # correct: "Correct estimate"
+      cancel: "مسالك شمولية الفاتورة %{number}" #?
+      confirm: "المضي بطلب تحديد السعر والاتجاه الى التسليم" #?
       edit: "تعديل طلب البيع رقم%{number}"
       index: "الطلبات وتحديد الاسعار"
-      invoice: "فوترة طلب البيع"
+      invoice: "فوترة طلب البيع" #?
       new: "بيع جديد"
-      # propose: "Propose estimate"
-      # propose_and_invoice: "Invoice quickly"
-      # refuse: "Estimate refused"
       show: "تفاصيل البيع %{number} للعميل %{client}"
     backend/sequences:
       edit: "تعديل التسلسل : %{name}"
@@ -2052,6 +2048,7 @@ arb:
       # select_entry_items_to_mark_together: "Select entry items to mark together"
       specify_filter: "اختر تطبيق تصفية واحدة كحد ادنى للبحث" #?
       specify_updates: "يجب عليك تحديد حقل واحد كحد ادنى للتعديل" #?
+      # the_sales_invoice_is_not_cancellable: "The sales invoice is not cancellable"
       unavailable_model: "%{model} غير متوفر أو غير موجود (%{id})" #?
       # unavailable_resource: "Nonexistent %{type} #%{id}"
       # unexpected_resource_type: "Unexpected resource type: %{type}"

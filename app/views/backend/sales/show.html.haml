@@ -8,7 +8,7 @@
       - e.sales_estimate resource.number, resource
   - t.duplicate resource, method: :post
   - if resource.invoice?
-    - t.cancel(resource) if resource.cancelable?
+    - t.cancel(resource) if resource.cancellable?
   - t.edit resource if resource.draft?
   - if resource.can_confirm?
     - t.confirm resource, method: :post, "data-confirm" => :are_you_sure_you_want_to_confirm.tl

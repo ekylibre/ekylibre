@@ -533,6 +533,9 @@ eng:
       new: "New role"
       pick: "Pick role: %{name}"
       show: "Role: %{name}"
+    backend/sale_credits:
+      # index: "Sale credits"
+      new: "Cancel sales invoice %{number}"
     backend/sale_natures:
       edit: "Edit sale type: %{name}"
       index: "Sale types"
@@ -562,18 +565,18 @@ eng:
       # select: "Select sale ticket: %{name}"
       # show: "Sale ticket: %{name}"
     backend/sales:
-      abort: "Abort sale"
-      cancel: "Cancel sales invoice %{number}"
-      confirm: "Confirm estimate and go to deliveries"
-      contacts: "Contacts of sale"
-      correct: "Correct estimate"
+      # abort: "Abort sale: %{name}"
+      # cancel: "Cancel sale: %{name}"
+      # confirm: "Confirm sale: %{name}"
+      # contacts: "Contacts sale: %{name}"
+      # correct: "Correct sale: %{name}"
       edit: "Edit sale %{number}"
       index: "Sales"
-      invoice: "Invoice sale"
+      # invoice: "Invoice sale: %{name}"
       new: "New sale"
-      propose: "Propose estimate"
-      propose_and_invoice: "Invoice quickly"
-      refuse: "Estimate refused"
+      # propose: "Propose sale: %{name}"
+      # propose_and_invoice: "Propose and invoice sale: %{name}"
+      # refuse: "Refuse sale: %{name}"
       show: "Sale: %{label} for %{client}"
     backend/sequences:
       edit: "Edit sequence: %{name}"
@@ -845,7 +848,7 @@ eng:
     city_name: "City name" #?
     click_to_mail: "Click to email with your own mail software"
     client: "Client" #?
-    client_balance: "Client balance" #?
+    client_balance: "Client balance" #?!
     client_informations: "Client informations"
     close: "Close" #?
     close_financial_year: "Close financial year"
@@ -1554,7 +1557,7 @@ eng:
       need_cash_to_record_statements: "You must be at least create a bank account to enter a statement."
       need_entries_to_point: "No entry was found for the period of the bank statement."
       need_payment_mode_to_create_deposit: "You must specify a mode of payment in order to make deposits"
-      need_quantities_to_cancel_an_sale: "You must specify a quantity in order to cancel the sales invoice"
+      need_quantities_to_cancel_an_sale: "You must specify a quantity in order to cancel the sales invoice" #?
       need_stocks_to_create_inventories: "You have to manage some stocks in order to manage inventories"
       need_to_create_productions: "Need to create productions" #?
       need_to_create_subscription_nature: "You must create a type of subscription to manage your subscriptions"
@@ -1570,6 +1573,7 @@ eng:
       record_has_been_imported: "Record has been imported"
       record_not_found: "Record not found" #?
       select_entry_items_to_mark_together: "Select entry items to mark together"
+      the_sales_invoice_is_not_cancellable: "The sales invoice is not cancellable"
       unavailable_resource: "Nonexistent %{type} #%{id}"
       unexpected_resource_type: "Unexpected resource type: %{type}"
       update_is_done: "The update has been made"

@@ -252,7 +252,6 @@
         <page to="backend/sales#edit"/>
         <page to="backend/sales#invoice"/>
         <page to="backend/sales#list"/>
-        <page to="backend/sales#list_creditable_items"/>
         <page to="backend/sales#list_credits"/>
         <page to="backend/sales#list_deliveries"/>
         <page to="backend/sales#list_items"/>
@@ -265,6 +264,9 @@
         <page to="backend/sales#new"/>
         <page to="backend/sales#unroll"/>
         <page to="backend/sales#update"/>
+        <page to="backend/sale_credits#index"/>
+        <page to="backend/sale_credits#new"/>
+        <page to="backend/sale_credits#create"/>
       </item>
       <item name="opportunities">
         <page to="backend/sale_opportunities#index"/>

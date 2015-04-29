@@ -25,7 +25,7 @@ module Ekylibre::FirstRun::Faker
           tractor: { spreader: Product.can('tow(spreader)').all,
                      plower: Product.can('tow(plower)').all,
                      sower: Product.can('tow(sower)').all,
-                     catcher: Product.can('catch').all },
+                     catcher: Product.can('catch(equipment)').all },
           spreader: Product.can('spread(preparation)').all,
           plow: Product.can('plow').all,
           sow: Product.can('sow').all,
@@ -33,7 +33,7 @@ module Ekylibre::FirstRun::Faker
           fertilizer: Product.where(variety: :preparation).can('fertilize').all,
           plant_medicine: Product.where(variety: :preparation).can('care(plant)').all,
         }
-        Production.joins(:variant,:activity,:campaign).find_each do |production|
+        Production.joins(:variant, :activity, :campaign).find_each do |production|
           next unless production.active?
           variety = Nomen::Varieties[production.variant.variety]
           if autumn_sowables.detect{|v| variety <= v}
@@ -112,17 +112,17 @@ module Ekylibre::FirstRun::Faker
                      plower: Product.can('tow(plower)').all,
                      sower: Product.can('tow(sower)').all,
                      equipment: Product.can('tow(equipment)').all,
-                     catcher: Product.can('catch').all },
+                     catcher: Product.can('catch(equipment)').all },
           spreader: Product.can('spread(preparation)').all,
           plow: Product.can('plow').all,
           sprayer: Product.can('spray').all,
           fertilizer: Product.where(variety: :preparation).can('fertilize').all,
-          plant_medicine: Product.where(variety: :preparation).can('care(plant), kill(plant)').all,
+          plant_medicine: Product.where(variety: :preparation).can('care(plant)', 'kill(plant)').all,
           insecticide: Product.where(variety: :preparation).can('kill(insecta)').all,
           molluscicide: Product.where(variety: :preparation).can('kill(gastropoda)').all,
         }
         equipments = {
-          sower: Equipment.can('spread(preparation), sow, spray').all,
+          sower: Equipment.can('spread(preparation)', 'sow', 'spray').all,
           hoe: Equipment.can('hoe').all
         }
         Production.joins(:variant, :activity, :campaign).find_each do |production|
@@ -369,7 +369,7 @@ module Ekylibre::FirstRun::Faker
               i.add_cast(reference_name: 'tank',             actor: support.storage)
               i.add_cast(reference_name: 'wine',             actor: support.storage.contents.first)
               i.add_cast(reference_name: 'wine_man',         actor: i.find(Worker))
-              i.add_cast(reference_name: 'destination_tank', actor: i.find(Equipment, can: "store(wine), store_liquid"))
+              i.add_cast(reference_name: 'destination_tank', actor: i.find(Equipment, can: "store(wine)', 'store_liquid"))
             end
           end
           w.check_point

@@ -51,7 +51,8 @@ module Procedo
         end
       end
       @value = element.attr("value").to_s
-      @abilities = element.attr("abilities").to_s.strip.split(/\s*\,\s*/)
+      @abilities = WorkingSet::AbilityArray.load(element.attr("abilities").to_s)
+      @abilities.check!
       if element.has_attribute?("variety")
         @variety = element.attr("variety").to_s.strip
       elsif parted?

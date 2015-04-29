@@ -476,6 +476,8 @@ fra:
       new: "Nouveau rôle"
       pick: "Piocher un rôle\_"
       show: "Rôle\_: %{name}"
+    backend/sale_credits:
+      new: "Passage en avoir de la facture %{number}"
     backend/sale_items:  #?
       detail: "Détailler une ligne de la vente" #?
       edit: "Modifier une ligne de la vente" #?
@@ -491,18 +493,18 @@ fra:
       new: "Nouvelle opportunité"
       show: "Opportunité\_: %{name}"
     backend/sales:
-      abort: "Annuler la vente"
-      cancel: "Passage en avoir de la facture %{number}"
-      confirm: "Passer le devis en commande et aller aux livraisons"
-      contacts: "Contacts de la vente"
-      correct: "Corriger le devis"
+      abort: "Annuler la vente" #?
+      cancel: "Passage en avoir de la facture %{number}" #?
+      confirm: "Passer le devis en commande et aller aux livraisons" #?
+      contacts: "Contacts de la vente" #?
+      correct: "Corriger le devis" #?
       edit: "Modifier la vente N°%{number}"
       index: "Ventes"
-      invoice: "Facturer directement tout le devis"
+      invoice: "Facturer directement tout le devis" #?
       new: "Nouvelle vente"
-      propose: "Devis soumis au client"
-      propose_and_invoice: "Facturer rapidement"
-      refuse: "Devis refusé par le client"
+      propose: "Devis soumis au client" #?
+      propose_and_invoice: "Facturer rapidement" #?
+      refuse: "Devis refusé par le client" #?
       show: "Vente\_: %{number} pour %{client} - %{state}"
       statistics: "Statistiques  de ventes" #?
     backend/sequences:
@@ -1898,6 +1900,7 @@ fra:
       select_entry_items_to_mark_together: "Sélectionnez des lignes d’écritures à lettrer ensemble"
       specify_filter: "Vous choisir appliquer au moins un filtre de recherche" #?
       specify_updates: "Vous devez spécifier au moins un champ à modifier" #?
+      the_sales_invoice_is_not_cancellable: "La facture ne peut pas être passée en avoir"
       unavailable_resource: "%{type} indisponible ou inexistant(e) #%{id}"
       unexpected_resource_type: "Type de ressource inattendue\_: %{type}"
       unknown_action: "La page demandée est indisponible (%{url})" #?

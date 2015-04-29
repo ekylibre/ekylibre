@@ -175,15 +175,6 @@ class Sale < Ekylibre::Record::Base
     true
   end
 
-  before_update do
-    old = self.class.find(self.id)
-    if old.invoice?
-      for attr in self.class.columns_definition.keys
-        self.send(attr + "=", old.send(attr))
-      end
-    end
-  end
-
   validate do
     if self.invoiced_at
       errors.add(:invoiced_at, :before, restriction: Time.now.l) if self.invoiced_at > Time.now
@@ -193,6 +184,15 @@ class Sale < Ekylibre::Record::Base
         unless self.send(mail_address).mail?
           errors.add(mail_address, :must_be_a_mail_address)
         end
+      end
+    end
+  end
+
+  before_update do
+    old = self.class.find(self.id)
+    if old.invoice?
+      for attr in self.class.columns_definition.keys
+        self.send(attr + "=", old.send(attr))
       end
     end
   end
@@ -333,37 +333,10 @@ class Sale < Ekylibre::Record::Base
     copy
   end
 
-
-
-  # # Produces some amounts about the sale order.
-  # # Some options can be used:
-  # # - +:multi_sales_invoices+ adds the uninvoiced amount and invoiced amount
-  # # - +:with_balance+ adds the balance of the client of the sale order
-  # def stats(options={})
-  #   array = []
-  #   array << [:client_balance, self.client.balance] if options[:with_balance]
-  #   array << [:amount, self.amount]
-  #   array << [:paid_amount, self.paid_amount]
-  #   array << [:unpaid_amount, self.unpaid_amount]
-  #   array
-  # end
-
-
-  # def self.state_label(state)
-  #   state_machine.state(state.to_sym).human_name
-  # end
-
   # Prints human name of current state
   def state_label
     self.class.state_machine.state(self.state.to_sym).human_name
   end
-
-  # # Computes an amount (with or without taxes) of the undelivered products
-  # # - +column+ can be +:amount+ or +:pretax_amount+
-  # def undelivered(column)
-  #   return (self.items.sum(column) - self.deliveries.sum(column)).round(2)
-  # end
-
 
   # Returns true if there is some products to deliver
   def deliverable?
@@ -371,11 +344,6 @@ class Sale < Ekylibre::Record::Base
     # !self.undelivered_items.count.zero? and (self.invoice? or self.order?)
     true
   end
-
-  # # Calculate unpaid amount
-  # def unpaid_amount
-  #   self.amount - self.paid_amount
-  # end
 
   # Label of the sales order depending on the state and the number
   def name
@@ -387,21 +355,6 @@ class Sale < Ekylibre::Record::Base
   def letter?
     self.letter_format?
   end
-
-  # def tags
-  #   if self.order? or self.invoice? and !self.credit? and !self.amount.zero?
-  #     if self.paid_amount.zero?
-  #       return "critic "+self.state
-  #     elsif self.paid_amount != self.amount
-  #       return "warning "+self.state
-  #     else
-  #       return self.state
-  #     end
-  #   elsif self.credit?
-  #     return "disabled "+self.state
-  #   end
-  #   return self.state
-  # end
 
   def mail_address
     return (self.address || self.client.default_mail_address).mail_coordinate
@@ -451,72 +404,41 @@ class Sale < Ekylibre::Record::Base
     ps = p.join(", ")
   end
 
-  # Returns true if sale is cancelable as an invoice
-  def cancelable?
+  # Returns true if sale is cancellable as an invoice
+  def cancellable?
     not self.credit? and self.invoice? and self.amount + self.credits.sum(:amount) > 0
   end
 
-  # # Create a credit for the selected invoice? guarding the reference
-  # def cancel(items = {}, options = {})
-  #   items = items.delete_if{|k,v| v.zero?}
-  #   return false if !self.cancelable? or items.size.zero?
-  #   credit = self.class.new(credited_sale: self, client: self.client, credit: true, responsible: options[:responsible]||self.responsible, nature: self.nature, affair: self.affair)
-  #   ActiveRecord::Base.transaction do
-  #     if saved = credit.save
-  #       for item in self.items.where(:id => items.keys)
-  #         quantity = -items[item.id.to_s].abs
-  #         credit_item = credit.items.create(quantity: quantity, credited_item: item, variant: item.variant, price: item.price, reduction_percentage: item.reduction_percentage)
-  #         unless credit_item.save
-  #           saved = false
-  #           # credit.errors.add_from_record(credit_item)
-  #         end
-  #       end
-  #     else
-  #       raise credit.errors.full_messages.inspect
-  #     end
-  #     if saved
-  #       credit.reload
-  #       credit.propose!
-  #       # TODO: Manage returning deliveries because of the partial/total cancel
-  #       credit.confirm!
-  #       credit.invoice!
-  #       self.reload.save
-  #     else
-  #       raise ActiveRecord::Rollback
-  #     end
-  #   end
-
-  #   return credit
-  # end
-
-  # Create a credit for the selected invoice? guarding the reference
-  def cancel(items = {}, options = {})
-    items = items.delete_if{|k,v| v.zero?}
-    return false unless self.cancelable? and items.any?
-    attributes = {credited_sale: self, client: self.client, credit: true, responsible: options[:responsible]||self.responsible, nature: self.nature, affair: self.affair, items: []}
-    for item in self.items.where(id: items.keys)
-      attributes[:items] << SaleItem.new(quantity: -items[item.id.to_s].abs, credited_item: item, variant: item.variant, unit_pretax_amount: item.unit_pretax_amount, reduction_percentage: item.reduction_percentage, tax: item.tax)
+  # Build a new sale with new items ready for correction and save
+  def build_credit
+    attrs = [:affair, :client, :address, :responsible, :nature, :computation_method, :currency, :invoice_address, :transporter].inject({}) do |hash, attribute|
+      hash[attribute] = self.send(attribute) unless self.send(attribute).nil?
+      hash
     end
-    credit = self.credits.new(attributes)
-    return credit unless credit.save!
-    credit.reload
-    credit.propose!
-    # TODO: Manage returning deliveries because of the partial/total cancel
-    credit.confirm!
-    credit.invoice!
-    return credit
+    attrs[:invoiced_at] = Time.now
+    attrs[:credit] = true
+    attrs[:credited_sale] = self
+    sale_credit = SaleCredit.new(attrs)
+    self.items.each do |item|
+      attrs = [:account, :currency, :variant, :unit_pretax_amount, :reduction_percentage, :tax].inject({}) do |hash, attribute|
+        hash[attribute] = item.send(attribute) unless item.send(attribute).nil?
+        hash
+      end
+      attrs[:quantity] = - (item.quantity + item.credited_quantity)
+      attrs[:reference_value] = :quantity
+      attrs[:credited_item] = item
+      item_credit = sale_credit.items.build(attrs)
+    end
+    sale_credit.valid?
+    return sale_credit
   end
 
+  # Returns status of affair if invoiced else "stop"
   def status
-    if self.invoice?
+    if self.invoice? and self.affair
       return self.affair.status
     end
     return :stop
-    # if self.accounted_at == nil
-    #   return (self.invoice? ? :caution : :stop)
-    # elsif self.accounted_at
-    #   return :go
-    # end
   end
 
 end

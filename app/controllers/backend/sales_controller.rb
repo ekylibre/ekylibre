@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -57,7 +56,7 @@ class Backend::SalesController < Backend::BaseController
     t.column :amount, currency: true
     # t.action :show, url: {format: :pdf}, image: :print
     t.action :edit, if: :draft?
-    t.action :cancel, if: :cancelable?
+    t.action :cancel, if: :cancellable?
     t.action :destroy, if: :aborted?
   end
 
@@ -192,38 +191,11 @@ class Backend::SalesController < Backend::BaseController
     redirect_to_back
   end
 
-  list(:creditable_items, model: :sale_items, conditions: {sale_id: 'params[:id]'.c}) do |t|
-    t.column :label
-    t.column :annotation
-    t.column :variant
-    t.column :price_amount, through: :price, label_method: :amount
-    # t.column :quantity
-    t.column :credited_quantity, :datatype => :decimal
-    t.check_box  :validated, :value => 'true'.c, :label => 'OK'
-    t.text_field :quantity, :value => "RECORD.uncredited_quantity".c, :size => 6
-  end
-
   def cancel
     return unless @sale = find_and_check
-    session[:sale_id] = @sale.id
-    if request.post?
-      items = {}
-      params[:creditable_items].select{|k,v| v[:validated].to_i == 1}.each do |k, v|
-        items[k] = v[:quantity].to_f
-      end
-      if items.empty?
-        notify_error_now(:need_quantities_to_cancel_an_sale)
-        return
-      end
-      responsible = Person.find_by_id(params[:sale][:responsible_id]) if params[:sale]
-      credit = @sale.cancel(items, :responsible => responsible || current_user.person)
-      if credit.valid?
-        redirect_to action: :show, id: credit.id
-      else
-        raise credit.errors.inspect
-      end
-    end
-    t3e @sale.attributes
+    url = {controller: :sale_credits, action: :new, credited_sale_id: @sale.id}
+    url[:redirect] = params[:redirect] if params[:redirect]
+    redirect_to url
   end
 
   def confirm

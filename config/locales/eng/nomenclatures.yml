@@ -58,7 +58,7 @@ eng:
         sulfurize: "Sulfurize"
         tamp: "Tamp"
         tow: "Tow"
-        # treat: "Treat"
+        treat: "Treat"
         uncompact: "Uncompact"
         wrap: "Wrap"
     accounts:
@@ -4804,6 +4804,7 @@ eng:
         vicia_villosa_pepite: "Vicia villosa pepite"       #< vicia_villosa
         vicia_villosa_savane: "Vicia villosa savane"       #< vicia_villosa
         vicia_villosa_topaze: "Vicia villosa topaze"       #< vicia_villosa
+        virus: "Virus"                                     #< matter
         vitex: "Vitex"                                     #< lamiaceae
         vitex_agnus_castus: "Vitex agnus castus"           #< vitex
         vitis: "Vitis"                                     #< plant

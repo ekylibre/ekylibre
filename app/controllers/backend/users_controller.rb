@@ -25,6 +25,7 @@ class Backend::UsersController < Backend::BaseController
     t.column :full_name, url: true
     t.column :first_name, url: true, hidden: true
     t.column :last_name, url: true, hidden: true
+    t.column :email
     t.column :person, url: true, label_method: :full_name
     t.column :role, url: true
     t.column :team, url: true, hidden: true

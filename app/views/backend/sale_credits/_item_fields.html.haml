@@ -1,0 +1,23 @@
+- item ||= f.object
+- precision = Nomen::Currencies[f.object.sale_currency].precision
+%tr.nested-fields{data: {crediting_item: true}}
+  %td
+    = f.input :reference_value, as: :hidden, input_html: {data: {crediting_component: "reference_value"}}
+    -# = f.referenced_association(:variant, wrapper: :nested, source: {scope: :saleables}, input_html: {data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", sale_nature_id: f.object.sale.nature_id)}}})
+    = f.association(:variant, as: :hidden)
+    = f.association(:credited_item, as: :hidden)
+
+    %span= f.object.variant.name if f.object.variant
+
+  %td= f.input(:unit_pretax_amount, wrapper: :nested, input_html: {data: {crediting_component: "unit_pretax_amount"}, readonly: true})
+  %td.decimal
+    = f.association(:tax, as: :hidden)
+    %span= f.object.tax.short_label if f.object.tax
+    -# = f.select(:tax_id, Tax.currents.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.amount)/100)}]}, {}, data: {value: 'rate', crediting_component: "tax"})
+  %td= f.input(:unit_amount, wrapper: :nested, input_html: {data: {crediting_component: "unit_amount"}, readonly: true})
+  %td.decimal= f.input(:quantity, wrapper: :nested, input_html: {size: 7, data: {crediting_component: "quantity", force_sign: "-"}})
+  %td.decimal= f.input(:pretax_amount, wrapper: :nested, input_html: {class: "pta", data: {crediting_component: "pretax_amount"}})
+  %td.decimal= f.input(:amount, wrapper: :nested, input_html: {class: "wta", data: {crediting_component: "amount"}})
+  %td.currency= f.object.sale_currency
+  %td.action
+    = link_to_remove_association(content_tag(:i) + h(:destroy.ta), f, 'data-no-turbolink' => true, class: 'remove-item')
