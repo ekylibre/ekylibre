@@ -42,14 +42,11 @@ module WorkingSet
         rewrite(object.head) + " OR " + rewrite(object.operand)
       elsif object.is_a?(WorkingSet::QueryLanguage::NegativeTest)
         "NOT(" + rewrite(object.negated_test) + ")"
-      elsif object.is_a?(WorkingSet::QueryLanguage::EssenceTest)
+      elsif object.is_a?(WorkingSet::QueryLanguage::EssenceTest) or object.is_a?(WorkingSet::QueryLanguage::DerivativeTest)
+        column = object.is_a?(WorkingSet::QueryLanguage::EssenceTest) ? :variety : :derivative_of
         item = find_nomenclature_item(:varieties, object.variety_name.text_value)
         compliants = item.self_and_children.map{|i| "'#{i.name}'"}.join(", ")
-        "#{column_for(:variety)} IN (#{compliants})"
-      elsif object.is_a?(WorkingSet::QueryLanguage::DerivativeTest)
-        item = find_nomenclature_item(:varieties, object.variety_name.text_value)
-        compliants = item.self_and_children.map{|i| "'#{i.name}'"}.join(", ")
-        "#{column_for(:derivative_of)} IN (#{compliants})"
+        "#{column_for(column)} IN (#{compliants})"
       elsif object.is_a?(WorkingSet::QueryLanguage::AbilityTest)
         ability = object.ability
         unless ability_item = Nomen::Abilities.find(ability.ability_name.text_value)

@@ -591,6 +591,7 @@ product_nature_categories_024:
   depreciable: false
   description: ''
   financial_asset_depreciation_method: ''
+  financial_asset_depreciation_percentage: 0.0
   id: 24
   lock_version: 0
   name: Médicament
