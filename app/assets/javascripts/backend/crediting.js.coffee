@@ -12,31 +12,31 @@
         console.log "Compute Manual method from #{changedComponent}"
         # Do nothing for now
 
-      computeQuantityTax: (item, changedComponent) ->
-        console.log "Compute Quantity-Tax method from #{changedComponent}"
-        if changedComponent == "amount"
-          E.crediting.ops.mmmz(item)
-          E.crediting.ops.mmmy(item)
-        else if changedComponent == "pretax_amount"
-          E.crediting.ops.mmmx(item)
-          E.crediting.ops.mmmw(item)
-        else if changedComponent == "quantity"
-          E.crediting.ops.mmmw(item)
-          E.crediting.ops.mmmy(item)
-        else
-          console.error "Cannot compute anything for #{changedComponent}"
-
       computeTaxQuantity: (item, changedComponent) ->
         console.log "Compute Tax-Quantity method from #{changedComponent}"
         if changedComponent == "amount"
-          E.crediting.ops.mmmv(item)
-          E.crediting.ops.mmmx(item)
+          E.crediting.ops.mmmi(item)
+          E.crediting.ops.mmmg(item)
         else if changedComponent == "pretax_amount"
-          E.crediting.ops.mmmu(item)
-          E.crediting.ops.mmmx(item)
+          E.crediting.ops.mmmj(item)
+          E.crediting.ops.mmmh(item)
         else if changedComponent == "quantity"
-          E.crediting.ops.mmmy(item)
-          E.crediting.ops.mmmu(item)
+          E.crediting.ops.mmmh(item)
+          E.crediting.ops.mmmg(item)
+        else
+          console.error "Cannot compute anything for #{changedComponent}"
+
+      computeQuantityTax: (item, changedComponent) ->
+        console.log "Compute Quantity-Tax method from #{changedComponent}"
+        if changedComponent == "amount"
+          E.crediting.ops.mmma(item)
+          E.crediting.ops.mmmj(item)
+        else if changedComponent == "pretax_amount"
+          E.crediting.ops.mmmd(item)
+          E.crediting.ops.mmmj(item)
+        else if changedComponent == "quantity"
+          E.crediting.ops.mmmg(item)
+          E.crediting.ops.mmmd(item)
         else
           console.error "Cannot compute anything for #{changedComponent}"
 
@@ -62,18 +62,18 @@
         item.prop("adaptativeMethod", adaptativeMethod)
 
     ops:
-      mmmz: (item) ->
-        E.crediting.divide(item, "quantity", "amount", "unit_amount")
-      mmmy: (item) ->
-        E.crediting.multiply(item, "pretax_amount", "unit_pretax_amount", "quantity")
-      mmmx: (item) ->
-        E.crediting.divide(item, "quantity", "pretax_amount", "unit_pretax_amount")
-      mmmw: (item) ->
-        E.crediting.multiply(item, "amount", "unit_amount", "quantity")
-      mmmv: (item) ->
+      mmma: (item) ->
         E.crediting.divide(item, "pretax_amount", "amount", "tax")
-      mmmu: (item) ->
+      mmmd: (item) ->
         E.crediting.multiply(item, "amount", "pretax_amount", "tax")
+      mmmg: (item) ->
+        E.crediting.multiply(item, "pretax_amount", "unit_pretax_amount", "quantity")
+      mmmh: (item) ->
+        E.crediting.multiply(item, "amount", "unit_amount", "quantity")
+      mmmi: (item) ->
+        E.crediting.divide(item, "quantity", "amount", "unit_amount")
+      mmmj: (item) ->
+        E.crediting.divide(item, "quantity", "pretax_amount", "unit_pretax_amount")
 
     find: (name, item) ->
       item.find("*[data-crediting-component='#{name}']")

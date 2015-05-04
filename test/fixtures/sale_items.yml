@@ -22,30 +22,28 @@
 #
 # == Table: sale_items
 #
-#  account_id                 :integer
-#  amount                     :decimal(19, 4)   default(0.0), not null
-#  annotation                 :text
-#  created_at                 :datetime         not null
-#  creator_id                 :integer
-#  credited_item_id           :integer
-#  currency                   :string           not null
-#  id                         :integer          not null, primary key
-#  label                      :text
-#  lock_version               :integer          default(0), not null
-#  position                   :integer
-#  pretax_amount              :decimal(19, 4)   default(0.0), not null
-#  quantity                   :decimal(19, 4)   default(1.0), not null
-#  reduced_unit_amount        :decimal(19, 4)   default(0.0), not null
-#  reduced_unit_pretax_amount :decimal(19, 4)   default(0.0), not null
-#  reduction_percentage       :decimal(19, 4)   default(0.0), not null
-#  reference_value            :string           not null
-#  sale_id                    :integer          not null
-#  tax_id                     :integer
-#  unit_amount                :decimal(19, 4)   default(0.0), not null
-#  unit_pretax_amount         :decimal(19, 4)
-#  updated_at                 :datetime         not null
-#  updater_id                 :integer
-#  variant_id                 :integer          not null
+#  account_id           :integer
+#  amount               :decimal(19, 4)   default(0.0), not null
+#  annotation           :text
+#  created_at           :datetime         not null
+#  creator_id           :integer
+#  credited_item_id     :integer
+#  currency             :string           not null
+#  id                   :integer          not null, primary key
+#  label                :text
+#  lock_version         :integer          default(0), not null
+#  position             :integer
+#  pretax_amount        :decimal(19, 4)   default(0.0), not null
+#  quantity             :decimal(19, 4)   default(1.0), not null
+#  reduction_percentage :decimal(19, 4)   default(0.0), not null
+#  reference_value      :string           not null
+#  sale_id              :integer          not null
+#  tax_id               :integer
+#  unit_amount          :decimal(19, 4)   default(0.0), not null
+#  unit_pretax_amount   :decimal(19, 4)
+#  updated_at           :datetime         not null
+#  updater_id           :integer
+#  variant_id           :integer          not null
 #
 #
 # == Fixture: sale_items
@@ -56,8 +54,6 @@
 #   currency: "Lorem ipsum"
 #   pretax_amount: 0
 #   quantity: 0
-#   reduced_unit_amount: 0
-#   reduced_unit_pretax_amount: 0
 #   reduction_percentage: 0
 #   reference_value: "Lorem ipsum"
 #   sale: sales_001
@@ -78,8 +74,6 @@ sale_items_001:
   position: 1
   pretax_amount: 70.0
   quantity: 1.0
-  reduced_unit_amount: 84.0
-  reduced_unit_pretax_amount: 70.0
   reduction_percentage: 0.0
   reference_value: unit_pretax_amount
   sale_id: 7
@@ -101,8 +95,6 @@ sale_items_002:
   position: 2
   pretax_amount: 900.0
   quantity: 5.0
-  reduced_unit_amount: 216.0
-  reduced_unit_pretax_amount: 180.0
   reduction_percentage: 0.0
   reference_value: unit_pretax_amount
   sale_id: 7
@@ -124,8 +116,6 @@ sale_items_003:
   position: 1
   pretax_amount: 660.0
   quantity: 12.0
-  reduced_unit_amount: 66.0
-  reduced_unit_pretax_amount: 55.0
   reduction_percentage: 0.0
   reference_value: unit_pretax_amount
   sale_id: 8
@@ -147,8 +137,6 @@ sale_items_004:
   position: 1
   pretax_amount: 9.36
   quantity: 6.0
-  reduced_unit_amount: 1.872
-  reduced_unit_pretax_amount: 1.56
   reduction_percentage: 0.0
   reference_value: unit_pretax_amount
   sale_id: 9
@@ -170,8 +158,6 @@ sale_items_005:
   position: 1
   pretax_amount: 16.0
   quantity: 10.0
-  reduced_unit_amount: 1.92
-  reduced_unit_pretax_amount: 1.6
   reduction_percentage: 0.0
   reference_value: unit_pretax_amount
   sale_id: 10
@@ -194,8 +180,6 @@ sale_items_006:
   position: 1
   pretax_amount: 20.0
   quantity: 2.0
-  reduced_unit_amount: 12.0
-  reduced_unit_pretax_amount: 10.0
   reduction_percentage: 0.0
   reference_value: unit_amount
   sale_id: 11
@@ -218,8 +202,6 @@ sale_items_007:
   position: 1
   pretax_amount: 156.0
   quantity: 3.0
-  reduced_unit_amount: 62.4
-  reduced_unit_pretax_amount: 52.0
   reduction_percentage: 0.0
   reference_value: unit_amount
   sale_id: 12
@@ -242,8 +224,6 @@ sale_items_008:
   position: 1
   pretax_amount: 100.0
   quantity: 100.0
-  reduced_unit_amount: 1.2
-  reduced_unit_pretax_amount: 1.0
   reduction_percentage: 0.0
   reference_value: unit_pretax_amount
   sale_id: 13
@@ -266,8 +246,6 @@ sale_items_009:
   position: 2
   pretax_amount: 166.67
   quantity: 1.0
-  reduced_unit_amount: 200.0
-  reduced_unit_pretax_amount: 166.67
   reduction_percentage: 0.0
   reference_value: amount
   sale_id: 13

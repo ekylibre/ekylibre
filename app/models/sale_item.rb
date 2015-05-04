@@ -22,36 +22,34 @@
 #
 # == Table: sale_items
 #
-#  account_id                 :integer
-#  amount                     :decimal(19, 4)   default(0.0), not null
-#  annotation                 :text
-#  created_at                 :datetime         not null
-#  creator_id                 :integer
-#  credited_item_id           :integer
-#  currency                   :string           not null
-#  id                         :integer          not null, primary key
-#  label                      :text
-#  lock_version               :integer          default(0), not null
-#  position                   :integer
-#  pretax_amount              :decimal(19, 4)   default(0.0), not null
-#  quantity                   :decimal(19, 4)   default(1.0), not null
-#  reduced_unit_amount        :decimal(19, 4)   default(0.0), not null
-#  reduced_unit_pretax_amount :decimal(19, 4)   default(0.0), not null
-#  reduction_percentage       :decimal(19, 4)   default(0.0), not null
-#  reference_value            :string           not null
-#  sale_id                    :integer          not null
-#  tax_id                     :integer
-#  unit_amount                :decimal(19, 4)   default(0.0), not null
-#  unit_pretax_amount         :decimal(19, 4)
-#  updated_at                 :datetime         not null
-#  updater_id                 :integer
-#  variant_id                 :integer          not null
+#  account_id           :integer
+#  amount               :decimal(19, 4)   default(0.0), not null
+#  annotation           :text
+#  created_at           :datetime         not null
+#  creator_id           :integer
+#  credited_item_id     :integer
+#  currency             :string           not null
+#  id                   :integer          not null, primary key
+#  label                :text
+#  lock_version         :integer          default(0), not null
+#  position             :integer
+#  pretax_amount        :decimal(19, 4)   default(0.0), not null
+#  quantity             :decimal(19, 4)   default(1.0), not null
+#  reduction_percentage :decimal(19, 4)   default(0.0), not null
+#  reference_value      :string           not null
+#  sale_id              :integer          not null
+#  tax_id               :integer
+#  unit_amount          :decimal(19, 4)   default(0.0), not null
+#  unit_pretax_amount   :decimal(19, 4)
+#  updated_at           :datetime         not null
+#  updater_id           :integer
+#  variant_id           :integer          not null
 #
 
 
 class SaleItem < Ekylibre::Record::Base
   include PeriodicCalculable
-  enumerize :reference_value, in: [:unit_pretax_amount, :unit_amount, :pretax_amount, :amount, :quantity], default: :unit_pretax_amount
+  enumerize :reference_value, in: [:unit_pretax_amount, :unit_amount, :pretax_amount, :amount, :quantity], default: :unit_pretax_amount, predicates: {prefix: true}
   attr_readonly :sale_id
   belongs_to :account
   belongs_to :sale, inverse_of: :items
@@ -65,7 +63,7 @@ class SaleItem < Ekylibre::Record::Base
   has_one :sale_nature, through: :sale, source: :nature
 
   accepts_nested_attributes_for :subscriptions
-  delegate :sold?, :invoiced_at, :number, :computation_method_quantity_tax?, :computation_method_tax_quantity?, :computation_method_adaptative?, to: :sale
+  delegate :sold?, :invoiced_at, :number, :computation_method, :computation_method_quantity_tax?, :computation_method_tax_quantity?, :computation_method_adaptative?, to: :sale
   delegate :currency, to: :sale, prefix: true
   delegate :name, :short_label, to: :tax, prefix: true
   delegate :nature, :name, to: :variant, prefix: true
@@ -80,8 +78,8 @@ class SaleItem < Ekylibre::Record::Base
   sums :sale, :items, :pretax_amount, :amount
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :pretax_amount, :quantity, :reduced_unit_amount, :reduced_unit_pretax_amount, :reduction_percentage, :unit_amount, :unit_pretax_amount, allow_nil: true
-  validates_presence_of :amount, :currency, :pretax_amount, :quantity, :reduced_unit_amount, :reduced_unit_pretax_amount, :reduction_percentage, :reference_value, :sale, :unit_amount, :variant
+  validates_numericality_of :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, allow_nil: true
+  validates_presence_of :amount, :currency, :pretax_amount, :quantity, :reduction_percentage, :reference_value, :sale, :unit_amount, :variant
   #]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_presence_of :tax
@@ -104,65 +102,34 @@ class SaleItem < Ekylibre::Record::Base
   calculable period: :month, column: :pretax_amount, at: "invoiced_at"
 
   before_validation do
-    self.pretax_amount ||= 0
-    self.amount ||= 0
+    # self.pretax_amount ||= 0
+    # self.amount ||= 0
 
     if self.sale
       self.currency = self.sale.currency
     end
 
-    precision = 2
-    if self.currency
-      precision = Nomen::Currencies[self.currency].precision
-    end
-
-    self.reduction_percentage ||= 0
-    if self.quantity and self.unit_pretax_amount and self.tax
-      adaptative_method = nil
-      if self.computation_method_adaptative?
-        if self.unit_pretax_amount >= 10 ** self.tax.amount.decimal_count
-          adaptative_method = :tax_quantity
-        else
-          adaptative_method = :quantity_tax
-        end
-      end
-      reduction_rate = (100.0 - self.reduction_percentage) / 100.0
-      self.unit_amount   = self.tax.amount_of(self.unit_pretax_amount).round(precision)
-      self.pretax_amount = (self.quantity * self.unit_pretax_amount * reduction_rate).round(precision)
-      if self.computation_method_quantity_tax? or adaptative_method == :quantity_tax
-        self.amount        = self.tax.amount_of(self.pretax_amount).round(precision)
-      elsif self.computation_method_tax_quantity? or adaptative_method == :tax_quantity
-        self.amount        = (self.quantity * self.unit_amount * reduction_rate).round(precision)
-      end
-      self.reduced_unit_pretax_amount = (self.unit_pretax_amount * (100.0 - self.reduction_percentage) / 100.0)
-      self.reduced_unit_amount = (self.unit_amount * (100.0 - self.reduction_percentage) / 100.0)
+    if self.quantity and self.tax
+      compute_amounts
     end
 
     if self.variant
       self.account_id = self.variant.nature.category.product_account_id
       self.label ||= self.variant.commercial_name
     end
-
   end
-
 
   validate do
     errors.add(:quantity, :invalid) if self.quantity.zero?
     # TODO validates responsible can make reduction and reduction percentage is convenient
-    if self.credited_item
-      maximum_quantity = self.quantity - self.credited_item.quantity - self.credited_item.credited_quantity
-      if self.credited_item.quantity > 0
-        errors.add(:quantity, :less_than, count: 0) if self.quantity > 0
-        errors.add(:quantity, :greater_than, count: maximum_quantity) if self.quantity < maximum_quantity
-      else # if self.credited_item.quantity < 0
-        errors.add(:quantity, :greater_than, count: 0) if self.quantity < 0
-        errors.add(:quantity, :less_than, count: maximum_quantity) if self.quantity > maximum_quantity
-      end
-    end
   end
 
   protect(on: :update) do
     !self.sale.draft?
+  end
+
+  def compute_amounts
+    Calculus::TaxedAmounts::Default.new(self).compute
   end
 
   def undelivered_quantity
@@ -218,5 +185,6 @@ class SaleItem < Ekylibre::Record::Base
       return (1-(-self.sale.affair.balance  / self.sale.affair.credit)).to_f
     end
   end
+
 
 end

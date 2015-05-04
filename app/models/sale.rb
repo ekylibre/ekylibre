@@ -23,50 +23,47 @@
 #
 # == Table: sales
 #
-#  accounted_at               :datetime
-#  address_id                 :integer
-#  affair_id                  :integer
-#  amount                     :decimal(19, 4)   default(0.0), not null
-#  annotation                 :text
-#  client_id                  :integer          not null
-#  computation_method         :string           not null
-#  conclusion                 :text
-#  confirmed_at               :datetime
-#  created_at                 :datetime         not null
-#  creator_id                 :integer
-#  credit                     :boolean          default(FALSE), not null
-#  credited_sale_id           :integer
-#  currency                   :string           not null
-#  delivery_address_id        :integer
-#  description                :text
-#  downpayment_amount         :decimal(19, 4)   default(0.0), not null
-#  expiration_delay           :string
-#  expired_at                 :datetime
-#  function_title             :string
-#  has_downpayment            :boolean          default(FALSE), not null
-#  id                         :integer          not null, primary key
-#  initial_number             :string
-#  introduction               :text
-#  invoice_address_id         :integer
-#  invoiced_at                :datetime
-#  journal_entry_id           :integer
-#  letter_format              :boolean          default(TRUE), not null
-#  lock_version               :integer          default(0), not null
-#  nature_id                  :integer
-#  number                     :string           not null
-#  payment_at                 :datetime
-#  payment_delay              :string           not null
-#  prereduction_amount        :decimal(19, 4)   default(0.0), not null
-#  prereduction_pretax_amount :decimal(19, 4)   default(0.0), not null
-#  pretax_amount              :decimal(19, 4)   default(0.0), not null
-#  reduction_percentage       :decimal(19, 4)   default(0.0), not null
-#  reference_number           :string
-#  responsible_id             :integer
-#  state                      :string           not null
-#  subject                    :string
-#  transporter_id             :integer
-#  updated_at                 :datetime         not null
-#  updater_id                 :integer
+#  accounted_at        :datetime
+#  address_id          :integer
+#  affair_id           :integer
+#  amount              :decimal(19, 4)   default(0.0), not null
+#  annotation          :text
+#  client_id           :integer          not null
+#  computation_method  :string           not null
+#  conclusion          :text
+#  confirmed_at        :datetime
+#  created_at          :datetime         not null
+#  creator_id          :integer
+#  credit              :boolean          default(FALSE), not null
+#  credited_sale_id    :integer
+#  currency            :string           not null
+#  delivery_address_id :integer
+#  description         :text
+#  downpayment_amount  :decimal(19, 4)   default(0.0), not null
+#  expiration_delay    :string
+#  expired_at          :datetime
+#  function_title      :string
+#  has_downpayment     :boolean          default(FALSE), not null
+#  id                  :integer          not null, primary key
+#  initial_number      :string
+#  introduction        :text
+#  invoice_address_id  :integer
+#  invoiced_at         :datetime
+#  journal_entry_id    :integer
+#  letter_format       :boolean          default(TRUE), not null
+#  lock_version        :integer          default(0), not null
+#  nature_id           :integer
+#  number              :string           not null
+#  payment_at          :datetime
+#  payment_delay       :string           not null
+#  pretax_amount       :decimal(19, 4)   default(0.0), not null
+#  reference_number    :string
+#  responsible_id      :integer
+#  state               :string           not null
+#  subject             :string
+#  transporter_id      :integer
+#  updated_at          :datetime         not null
+#  updater_id          :integer
 #
 
 
@@ -92,9 +89,9 @@ class Sale < Ekylibre::Record::Base
   has_many :subscriptions, class_name: "Subscription"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :accounted_at, :confirmed_at, :expired_at, :invoiced_at, :payment_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
-  validates_numericality_of :amount, :downpayment_amount, :prereduction_amount, :prereduction_pretax_amount, :pretax_amount, :reduction_percentage, allow_nil: true
+  validates_numericality_of :amount, :downpayment_amount, :pretax_amount, allow_nil: true
   validates_inclusion_of :credit, :has_downpayment, :letter_format, in: [true, false]
-  validates_presence_of :amount, :client, :computation_method, :currency, :downpayment_amount, :number, :payer, :payment_delay, :prereduction_amount, :prereduction_pretax_amount, :pretax_amount, :reduction_percentage, :state
+  validates_presence_of :amount, :client, :computation_method, :currency, :downpayment_amount, :number, :payer, :payment_delay, :pretax_amount, :state
   #]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :initial_number, :number, :state, allow_nil: true, maximum: 60
@@ -420,16 +417,19 @@ class Sale < Ekylibre::Record::Base
     attrs[:credited_sale] = self
     sale_credit = SaleCredit.new(attrs)
     self.items.each do |item|
-      attrs = [:account, :currency, :variant, :unit_pretax_amount, :reduction_percentage, :tax].inject({}) do |hash, attribute|
+      attrs = [:account, :currency, :variant, :unit_pretax_amount, :unit_amount, :reduction_percentage, :tax].inject({}) do |hash, attribute|
         hash[attribute] = item.send(attribute) unless item.send(attribute).nil?
         hash
       end
-      attrs[:quantity] = - (item.quantity + item.credited_quantity)
+      attrs[:quantity] = (item.quantity + item.credited_quantity)
       attrs[:reference_value] = :quantity
       attrs[:credited_item] = item
-      item_credit = sale_credit.items.build(attrs)
+      if attrs[:quantity] > 0
+        item_credit = sale_credit.items.build(attrs)
+        item_credit.compute_amounts
+      end
     end
-    sale_credit.valid?
+    # sale_credit.valid?
     return sale_credit
   end
 

@@ -6,6 +6,7 @@
   = f.association :client, as: :hidden
   = f.association :affair, as: :hidden
   = f.association :credited_sale, as: :hidden
+  = f.input :credit, as: :hidden
   = f.custom_fields
 
 = field_set SaleCredit.human_attribute_name(:items) do

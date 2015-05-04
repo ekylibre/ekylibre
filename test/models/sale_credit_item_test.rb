@@ -20,35 +20,35 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: purchase_items
+# == Table: sale_items
 #
-#  account_id           :integer          not null
+#  account_id           :integer
 #  amount               :decimal(19, 4)   default(0.0), not null
 #  annotation           :text
 #  created_at           :datetime         not null
 #  creator_id           :integer
+#  credited_item_id     :integer
 #  currency             :string           not null
-#  fixed                :boolean          default(FALSE), not null
 #  id                   :integer          not null, primary key
 #  label                :text
 #  lock_version         :integer          default(0), not null
 #  position             :integer
 #  pretax_amount        :decimal(19, 4)   default(0.0), not null
-#  purchase_id          :integer          not null
 #  quantity             :decimal(19, 4)   default(1.0), not null
 #  reduction_percentage :decimal(19, 4)   default(0.0), not null
 #  reference_value      :string           not null
-#  tax_id               :integer          not null
+#  sale_id              :integer          not null
+#  tax_id               :integer
 #  unit_amount          :decimal(19, 4)   default(0.0), not null
-#  unit_pretax_amount   :decimal(19, 4)   not null
+#  unit_pretax_amount   :decimal(19, 4)
 #  updated_at           :datetime         not null
 #  updater_id           :integer
 #  variant_id           :integer          not null
 #
-
-
 require 'test_helper'
 
-class PurchaseItemTest < ActiveSupport::TestCase
+class SaleCreditItemTest < ActiveSupport::TestCase
+
   test_fixtures
+
 end

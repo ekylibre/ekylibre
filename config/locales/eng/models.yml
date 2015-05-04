@@ -257,6 +257,7 @@ eng:
       role: "Role"
       sale: "Sale"
       # sale_credit: "Sale credit"
+      # sale_credit_item: "Sale credit item"
       sale_item: "Sale item"
       sale_nature: "Sale type"
       sale_opportunity: "Sale opportunity"
@@ -799,8 +800,8 @@ eng:
     postal_code: "Postal code"
     postal_zones: "Postal zones"
     preferences: "Preferences"
-    prereduction_amount: "Prereduction amount"
-    prereduction_pretax_amount: "Prereduction pre-tax amount"
+    prereduction_amount: "Prereduction amount" #?
+    prereduction_pretax_amount: "Prereduction pre-tax amount" #?
     prescription: "Prescription"
     prescriptor: "Prescriptor"
     pretax_amount: "Pre-tax amount"
@@ -888,8 +889,8 @@ eng:
     reconcilable: "Reconcilable"
     record_value: "Record value"
     record_value_type: "Record value type"
-    reduced_unit_amount: "Reduced unit amount"
-    reduced_unit_pretax_amount: "Reduced unit pre-tax amount"
+    reduced_unit_amount: "Reduced unit amount" #?
+    reduced_unit_pretax_amount: "Reduced unit pre-tax amount" #?
     reductible: "Reductible"
     reduction_percentage: "Reduction percentage"
     reference_name: "Reference name"
@@ -927,6 +928,7 @@ eng:
     root_model_name: "Root model name"
     root_node: "Root node"
     sale: "Sale"
+    # sale_credit: "Sale credit"
     sale_item: "Sale item"
     sale_items: "Sale items"
     sale_nature: "Sale nature"

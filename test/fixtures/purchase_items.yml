@@ -22,27 +22,28 @@
 #
 # == Table: purchase_items
 #
-#  account_id         :integer          not null
-#  amount             :decimal(19, 4)   default(0.0), not null
-#  annotation         :text
-#  created_at         :datetime         not null
-#  creator_id         :integer
-#  currency           :string           not null
-#  fixed              :boolean          default(FALSE), not null
-#  id                 :integer          not null, primary key
-#  label              :text
-#  lock_version       :integer          default(0), not null
-#  position           :integer
-#  pretax_amount      :decimal(19, 4)   default(0.0), not null
-#  purchase_id        :integer          not null
-#  quantity           :decimal(19, 4)   default(1.0), not null
-#  reference_value    :string           not null
-#  tax_id             :integer          not null
-#  unit_amount        :decimal(19, 4)   default(0.0), not null
-#  unit_pretax_amount :decimal(19, 4)   not null
-#  updated_at         :datetime         not null
-#  updater_id         :integer
-#  variant_id         :integer          not null
+#  account_id           :integer          not null
+#  amount               :decimal(19, 4)   default(0.0), not null
+#  annotation           :text
+#  created_at           :datetime         not null
+#  creator_id           :integer
+#  currency             :string           not null
+#  fixed                :boolean          default(FALSE), not null
+#  id                   :integer          not null, primary key
+#  label                :text
+#  lock_version         :integer          default(0), not null
+#  position             :integer
+#  pretax_amount        :decimal(19, 4)   default(0.0), not null
+#  purchase_id          :integer          not null
+#  quantity             :decimal(19, 4)   default(1.0), not null
+#  reduction_percentage :decimal(19, 4)   default(0.0), not null
+#  reference_value      :string           not null
+#  tax_id               :integer          not null
+#  unit_amount          :decimal(19, 4)   default(0.0), not null
+#  unit_pretax_amount   :decimal(19, 4)   not null
+#  updated_at           :datetime         not null
+#  updater_id           :integer
+#  variant_id           :integer          not null
 #
 #
 # == Fixture: purchase_items
@@ -56,6 +57,7 @@
 #   pretax_amount: 0
 #   purchase: purchases_001
 #   quantity: 0
+#   reduction_percentage: 0
 #   reference_value: "Lorem ipsum"
 #   tax: taxes_001
 #   unit_amount: 0
@@ -79,6 +81,7 @@ purchase_items_001:
   pretax_amount: 105.0
   purchase_id: 6
   quantity: 3.0
+  reduction_percentage: 0.0
   reference_value: unit_pretax_amount
   tax_id: 3
   unit_amount: 42.0
@@ -100,6 +103,7 @@ purchase_items_002:
   pretax_amount: 1850.0
   purchase_id: 7
   quantity: 1.0
+  reduction_percentage: 0.0
   reference_value: unit_pretax_amount
   tax_id: 2
   unit_amount: 1850.0
@@ -122,6 +126,7 @@ purchase_items_003:
   pretax_amount: 41.8
   purchase_id: 6
   quantity: 11.0
+  reduction_percentage: 0.0
   reference_value: unit_pretax_amount
   tax_id: 3
   unit_amount: 4.56
@@ -143,6 +148,7 @@ purchase_items_004:
   pretax_amount: 1540.0
   purchase_id: 8
   quantity: 10.0
+  reduction_percentage: 0.0
   reference_value: unit_pretax_amount
   tax_id: 3
   unit_amount: 184.8
@@ -164,6 +170,7 @@ purchase_items_005:
   pretax_amount: 17100.0
   purchase_id: 11
   quantity: 5000.0
+  reduction_percentage: 0.0
   reference_value: unit_pretax_amount
   tax_id: 3
   unit_amount: 4.104
@@ -185,6 +192,7 @@ purchase_items_006:
   pretax_amount: 1540.0
   purchase_id: 12
   quantity: 1.0
+  reduction_percentage: 0.0
   reference_value: unit_pretax_amount
   tax_id: 3
   unit_amount: 1848.0

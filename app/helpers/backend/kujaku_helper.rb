@@ -189,7 +189,7 @@ module Backend::KujakuHelper
       def to_html
         html = @template.content_tag(:label, @options[:label] || :select_date.tl)
         html << " ".html_safe
-        html << date_field_tag(name, @template.params[@name])
+        html << @template.date_field_tag(@name, @template.params[@name])
         return html
       end
 

@@ -4585,6 +4585,11 @@ purchase_items:
     precision: 19
     scale: 4
     required: true
+  reduction_percentage:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
   reference_value:
     type: string
     required: true
@@ -4793,16 +4798,6 @@ sale_items:
     precision: 19
     scale: 4
     required: true
-  reduced_unit_amount:
-    type: decimal
-    precision: 19
-    scale: 4
-    required: true
-  reduced_unit_pretax_amount:
-    type: decimal
-    precision: 19
-    scale: 4
-    required: true
   reduction_percentage:
     type: decimal
     precision: 19
@@ -5004,22 +4999,7 @@ sales:
   payment_delay:
     type: string
     required: true
-  prereduction_amount:
-    type: decimal
-    precision: 19
-    scale: 4
-    required: true
-  prereduction_pretax_amount:
-    type: decimal
-    precision: 19
-    scale: 4
-    required: true
   pretax_amount:
-    type: decimal
-    precision: 19
-    scale: 4
-    required: true
-  reduction_percentage:
     type: decimal
     precision: 19
     scale: 4

@@ -22,27 +22,28 @@
 #
 # == Table: purchase_items
 #
-#  account_id         :integer          not null
-#  amount             :decimal(19, 4)   default(0.0), not null
-#  annotation         :text
-#  created_at         :datetime         not null
-#  creator_id         :integer
-#  currency           :string           not null
-#  fixed              :boolean          default(FALSE), not null
-#  id                 :integer          not null, primary key
-#  label              :text
-#  lock_version       :integer          default(0), not null
-#  position           :integer
-#  pretax_amount      :decimal(19, 4)   default(0.0), not null
-#  purchase_id        :integer          not null
-#  quantity           :decimal(19, 4)   default(1.0), not null
-#  reference_value    :string           not null
-#  tax_id             :integer          not null
-#  unit_amount        :decimal(19, 4)   default(0.0), not null
-#  unit_pretax_amount :decimal(19, 4)   not null
-#  updated_at         :datetime         not null
-#  updater_id         :integer
-#  variant_id         :integer          not null
+#  account_id           :integer          not null
+#  amount               :decimal(19, 4)   default(0.0), not null
+#  annotation           :text
+#  created_at           :datetime         not null
+#  creator_id           :integer
+#  currency             :string           not null
+#  fixed                :boolean          default(FALSE), not null
+#  id                   :integer          not null, primary key
+#  label                :text
+#  lock_version         :integer          default(0), not null
+#  position             :integer
+#  pretax_amount        :decimal(19, 4)   default(0.0), not null
+#  purchase_id          :integer          not null
+#  quantity             :decimal(19, 4)   default(1.0), not null
+#  reduction_percentage :decimal(19, 4)   default(0.0), not null
+#  reference_value      :string           not null
+#  tax_id               :integer          not null
+#  unit_amount          :decimal(19, 4)   default(0.0), not null
+#  unit_pretax_amount   :decimal(19, 4)   not null
+#  updated_at           :datetime         not null
+#  updater_id           :integer
+#  variant_id           :integer          not null
 #
 
 
@@ -58,16 +59,16 @@ class PurchaseItem < Ekylibre::Record::Base
   has_many :products, through: :delivery_items
   has_one :financial_asset, foreign_key: :purchase_item_id, inverse_of: :purchase_item
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :pretax_amount, :quantity, :unit_amount, :unit_pretax_amount, allow_nil: true
+  validates_numericality_of :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, allow_nil: true
   validates_inclusion_of :fixed, in: [true, false]
-  validates_presence_of :account, :amount, :currency, :pretax_amount, :purchase, :quantity, :reference_value, :tax, :unit_amount, :unit_pretax_amount, :variant
+  validates_presence_of :account, :amount, :currency, :pretax_amount, :purchase, :quantity, :reduction_percentage, :reference_value, :tax, :unit_amount, :unit_pretax_amount, :variant
   #]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_presence_of :account, :tax
   validates_associated :financial_asset
   # validates_uniqueness_of :tracking_serial, :scope => :price_id, allow_nil: true, if: Proc.new{|pl| !pl.tracking_serial.blank? }, :allow_blank => true
 
-  delegate :invoiced_at, :number, :computation_method_quantity_tax?, :computation_method_tax_quantity?, :computation_method_adaptative?, :computation_method_manual?, to: :purchase
+  delegate :invoiced_at, :number, :computation_method, :computation_method_quantity_tax?, :computation_method_tax_quantity?, :computation_method_adaptative?, :computation_method_manual?, to: :purchase
   delegate :purchased?, :draft?, :order?, :supplier, to: :purchase
   delegate :currency, to: :purchase, prefix: true
   delegate :name, to: :variant, prefix: true
@@ -105,30 +106,33 @@ class PurchaseItem < Ekylibre::Record::Base
       self.currency = self.purchase_currency
     end
 
-    precision = 2
-    if self.currency
-      precision = Nomen::Currencies[self.currency].precision
+    if self.quantity and self.tax
+      Calculus::TaxedAmounts::Default.new(self).compute
     end
+    # precision = 2
+    # if self.currency
+    #   precision = Nomen::Currencies[self.currency].precision
+    # end
 
-    if self.quantity and self.unit_pretax_amount and self.tax
-      adaptative_method = nil
-      if self.computation_method_adaptative?
-        if self.unit_pretax_amount >= 10 ** self.tax.amount.decimal_count
-          adaptative_method = :tax_quantity
-        else
-          adaptative_method = :quantity_tax
-        end
-      end
-      unless self.computation_method_manual?
-        self.unit_amount = self.tax.amount_of(self.unit_pretax_amount).round(precision)
-        self.pretax_amount = (self.quantity * self.unit_pretax_amount).round(precision)
-      end
-      if self.computation_method_quantity_tax? or adaptative_method == :quantity_tax
-        self.amount = self.tax.amount_of(self.pretax_amount).round(precision)
-      elsif self.computation_method_tax_quantity? or adaptative_method == :tax_quantity
-        self.amount = (self.quantity * self.unit_amount).round(precision)
-      end
-    end
+    # if self.quantity and self.unit_pretax_amount and self.tax
+    #   adaptative_method = nil
+    #   if self.computation_method_adaptative?
+    #     if self.unit_pretax_amount >= 10 ** self.tax.amount.decimal_count
+    #       adaptative_method = :tax_quantity
+    #     else
+    #       adaptative_method = :quantity_tax
+    #     end
+    #   end
+    #   unless self.computation_method_manual?
+    #     self.unit_amount = self.tax.amount_of(self.unit_pretax_amount).round(precision)
+    #     self.pretax_amount = (self.quantity * self.unit_pretax_amount).round(precision)
+    #   end
+    #   if self.computation_method_quantity_tax? or adaptative_method == :quantity_tax
+    #     self.amount = self.tax.amount_of(self.pretax_amount).round(precision)
+    #   elsif self.computation_method_tax_quantity? or adaptative_method == :tax_quantity
+    #     self.amount = (self.quantity * self.unit_amount).round(precision)
+    #   end
+    # end
 
     if self.variant
       if self.fixed

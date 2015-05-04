@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150423095929) do
+ActiveRecord::Schema.define(version: 20150430095404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2406,26 +2406,27 @@ ActiveRecord::Schema.define(version: 20150423095929) do
   add_index "products", ["variety"], name: "index_products_on_variety", using: :btree
 
   create_table "purchase_items", force: :cascade do |t|
-    t.integer  "purchase_id",                                                 null: false
-    t.integer  "variant_id",                                                  null: false
-    t.decimal  "quantity",           precision: 19, scale: 4, default: 1.0,   null: false
-    t.decimal  "pretax_amount",      precision: 19, scale: 4, default: 0.0,   null: false
-    t.decimal  "amount",             precision: 19, scale: 4, default: 0.0,   null: false
-    t.integer  "tax_id",                                                      null: false
-    t.string   "currency",                                                    null: false
+    t.integer  "purchase_id",                                                   null: false
+    t.integer  "variant_id",                                                    null: false
+    t.decimal  "quantity",             precision: 19, scale: 4, default: 1.0,   null: false
+    t.decimal  "pretax_amount",        precision: 19, scale: 4, default: 0.0,   null: false
+    t.decimal  "amount",               precision: 19, scale: 4, default: 0.0,   null: false
+    t.integer  "tax_id",                                                        null: false
+    t.string   "currency",                                                      null: false
     t.text     "label"
     t.text     "annotation"
     t.integer  "position"
-    t.integer  "account_id",                                                  null: false
-    t.decimal  "unit_pretax_amount", precision: 19, scale: 4,                 null: false
-    t.datetime "created_at",                                                  null: false
-    t.datetime "updated_at",                                                  null: false
+    t.integer  "account_id",                                                    null: false
+    t.decimal  "unit_pretax_amount",   precision: 19, scale: 4,                 null: false
+    t.datetime "created_at",                                                    null: false
+    t.datetime "updated_at",                                                    null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                default: 0,     null: false
-    t.decimal  "unit_amount",        precision: 19, scale: 4, default: 0.0,   null: false
-    t.boolean  "fixed",                                       default: false, null: false
-    t.string   "reference_value",                                             null: false
+    t.integer  "lock_version",                                  default: 0,     null: false
+    t.decimal  "unit_amount",          precision: 19, scale: 4, default: 0.0,   null: false
+    t.boolean  "fixed",                                         default: false, null: false
+    t.string   "reference_value",                                               null: false
+    t.decimal  "reduction_percentage", precision: 19, scale: 4, default: 0.0,   null: false
   end
 
   add_index "purchase_items", ["account_id"], name: "index_purchase_items_on_account_id", using: :btree
@@ -2515,29 +2516,27 @@ ActiveRecord::Schema.define(version: 20150423095929) do
   add_index "roles", ["updater_id"], name: "index_roles_on_updater_id", using: :btree
 
   create_table "sale_items", force: :cascade do |t|
-    t.integer  "sale_id",                                                           null: false
-    t.integer  "variant_id",                                                        null: false
-    t.decimal  "quantity",                   precision: 19, scale: 4, default: 1.0, null: false
-    t.decimal  "pretax_amount",              precision: 19, scale: 4, default: 0.0, null: false
-    t.decimal  "amount",                     precision: 19, scale: 4, default: 0.0, null: false
+    t.integer  "sale_id",                                                     null: false
+    t.integer  "variant_id",                                                  null: false
+    t.decimal  "quantity",             precision: 19, scale: 4, default: 1.0, null: false
+    t.decimal  "pretax_amount",        precision: 19, scale: 4, default: 0.0, null: false
+    t.decimal  "amount",               precision: 19, scale: 4, default: 0.0, null: false
     t.integer  "tax_id"
-    t.string   "currency",                                                          null: false
+    t.string   "currency",                                                    null: false
     t.text     "label"
     t.text     "annotation"
     t.integer  "position"
     t.integer  "account_id"
-    t.decimal  "unit_pretax_amount",         precision: 19, scale: 4
-    t.decimal  "reduction_percentage",       precision: 19, scale: 4, default: 0.0, null: false
+    t.decimal  "unit_pretax_amount",   precision: 19, scale: 4
+    t.decimal  "reduction_percentage", precision: 19, scale: 4, default: 0.0, null: false
     t.integer  "credited_item_id"
-    t.datetime "created_at",                                                        null: false
-    t.datetime "updated_at",                                                        null: false
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                        default: 0,   null: false
-    t.decimal  "unit_amount",                precision: 19, scale: 4, default: 0.0, null: false
-    t.decimal  "reduced_unit_pretax_amount", precision: 19, scale: 4, default: 0.0, null: false
-    t.decimal  "reduced_unit_amount",        precision: 19, scale: 4, default: 0.0, null: false
-    t.string   "reference_value",                                                   null: false
+    t.integer  "lock_version",                                  default: 0,   null: false
+    t.decimal  "unit_amount",          precision: 19, scale: 4, default: 0.0, null: false
+    t.string   "reference_value",                                             null: false
   end
 
   add_index "sale_items", ["account_id"], name: "index_sale_items_on_account_id", using: :btree
@@ -2583,15 +2582,15 @@ ActiveRecord::Schema.define(version: 20150423095929) do
   add_index "sale_natures", ["updater_id"], name: "index_sale_natures_on_updater_id", using: :btree
 
   create_table "sales", force: :cascade do |t|
-    t.integer  "client_id",                                                           null: false
+    t.integer  "client_id",                                                    null: false
     t.integer  "nature_id"
-    t.string   "number",                                                              null: false
-    t.decimal  "pretax_amount",              precision: 19, scale: 4, default: 0.0,   null: false
-    t.decimal  "amount",                     precision: 19, scale: 4, default: 0.0,   null: false
-    t.string   "state",                                                               null: false
+    t.string   "number",                                                       null: false
+    t.decimal  "pretax_amount",       precision: 19, scale: 4, default: 0.0,   null: false
+    t.decimal  "amount",              precision: 19, scale: 4, default: 0.0,   null: false
+    t.string   "state",                                                        null: false
     t.datetime "expired_at"
-    t.boolean  "has_downpayment",                                     default: false, null: false
-    t.decimal  "downpayment_amount",         precision: 19, scale: 4, default: 0.0,   null: false
+    t.boolean  "has_downpayment",                              default: false, null: false
+    t.decimal  "downpayment_amount",  precision: 19, scale: 4, default: 0.0,   null: false
     t.integer  "address_id"
     t.integer  "invoice_address_id"
     t.integer  "delivery_address_id"
@@ -2602,30 +2601,27 @@ ActiveRecord::Schema.define(version: 20150423095929) do
     t.text     "description"
     t.datetime "confirmed_at"
     t.integer  "responsible_id"
-    t.boolean  "letter_format",                                       default: true,  null: false
+    t.boolean  "letter_format",                                default: true,  null: false
     t.text     "annotation"
     t.integer  "transporter_id"
     t.datetime "accounted_at"
     t.integer  "journal_entry_id"
     t.string   "reference_number"
     t.datetime "invoiced_at"
-    t.boolean  "credit",                                              default: false, null: false
+    t.boolean  "credit",                                       default: false, null: false
     t.datetime "payment_at"
     t.integer  "credited_sale_id"
     t.string   "initial_number"
-    t.string   "currency",                                                            null: false
+    t.string   "currency",                                                     null: false
     t.integer  "affair_id"
     t.string   "expiration_delay"
-    t.string   "payment_delay",                                                       null: false
-    t.datetime "created_at",                                                          null: false
-    t.datetime "updated_at",                                                          null: false
+    t.string   "payment_delay",                                                null: false
+    t.datetime "created_at",                                                   null: false
+    t.datetime "updated_at",                                                   null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                        default: 0,     null: false
-    t.decimal  "reduction_percentage",       precision: 19, scale: 4, default: 0.0,   null: false
-    t.decimal  "prereduction_amount",        precision: 19, scale: 4, default: 0.0,   null: false
-    t.decimal  "prereduction_pretax_amount", precision: 19, scale: 4, default: 0.0,   null: false
-    t.string   "computation_method",                                                  null: false
+    t.integer  "lock_version",                                 default: 0,     null: false
+    t.string   "computation_method",                                           null: false
   end
 
   add_index "sales", ["accounted_at"], name: "index_sales_on_accounted_at", using: :btree

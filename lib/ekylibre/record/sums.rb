@@ -32,6 +32,7 @@ module Ekylibre::Record
         end
 
         from = options.delete(:from)
+        negate = options.delete(:negate)
 
         code << "def #{method_name}\n"
         code << "  return unless self.#{target}\n"
@@ -46,7 +47,11 @@ module Ekylibre::Record
           code << "      Rails.logger.warn 'Nil value in sums'\n"
           code << "      x = 0.0\n"
           code << "    end\n"
-          code << "    #{v} += x\n"
+          if negate
+            code << "    #{v} -= x\n"
+          else
+            code << "    #{v} += x\n"
+          end
         end
         code << "  end\n"
         # code << "  " + Ekylibre::Schema.references(self.name.underscore.to_sym, target_id).to_s.camelcase + ".where(id: self.#{target_id}).update_all(" + options.collect{|k, v| "#{v}: #{v}"}.join(", ") + ")\n"

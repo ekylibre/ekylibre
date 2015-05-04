@@ -22,50 +22,47 @@
 #
 # == Table: sales
 #
-#  accounted_at               :datetime
-#  address_id                 :integer
-#  affair_id                  :integer
-#  amount                     :decimal(19, 4)   default(0.0), not null
-#  annotation                 :text
-#  client_id                  :integer          not null
-#  computation_method         :string           not null
-#  conclusion                 :text
-#  confirmed_at               :datetime
-#  created_at                 :datetime         not null
-#  creator_id                 :integer
-#  credit                     :boolean          default(FALSE), not null
-#  credited_sale_id           :integer
-#  currency                   :string           not null
-#  delivery_address_id        :integer
-#  description                :text
-#  downpayment_amount         :decimal(19, 4)   default(0.0), not null
-#  expiration_delay           :string
-#  expired_at                 :datetime
-#  function_title             :string
-#  has_downpayment            :boolean          default(FALSE), not null
-#  id                         :integer          not null, primary key
-#  initial_number             :string
-#  introduction               :text
-#  invoice_address_id         :integer
-#  invoiced_at                :datetime
-#  journal_entry_id           :integer
-#  letter_format              :boolean          default(TRUE), not null
-#  lock_version               :integer          default(0), not null
-#  nature_id                  :integer
-#  number                     :string           not null
-#  payment_at                 :datetime
-#  payment_delay              :string           not null
-#  prereduction_amount        :decimal(19, 4)   default(0.0), not null
-#  prereduction_pretax_amount :decimal(19, 4)   default(0.0), not null
-#  pretax_amount              :decimal(19, 4)   default(0.0), not null
-#  reduction_percentage       :decimal(19, 4)   default(0.0), not null
-#  reference_number           :string
-#  responsible_id             :integer
-#  state                      :string           not null
-#  subject                    :string
-#  transporter_id             :integer
-#  updated_at                 :datetime         not null
-#  updater_id                 :integer
+#  accounted_at        :datetime
+#  address_id          :integer
+#  affair_id           :integer
+#  amount              :decimal(19, 4)   default(0.0), not null
+#  annotation          :text
+#  client_id           :integer          not null
+#  computation_method  :string           not null
+#  conclusion          :text
+#  confirmed_at        :datetime
+#  created_at          :datetime         not null
+#  creator_id          :integer
+#  credit              :boolean          default(FALSE), not null
+#  credited_sale_id    :integer
+#  currency            :string           not null
+#  delivery_address_id :integer
+#  description         :text
+#  downpayment_amount  :decimal(19, 4)   default(0.0), not null
+#  expiration_delay    :string
+#  expired_at          :datetime
+#  function_title      :string
+#  has_downpayment     :boolean          default(FALSE), not null
+#  id                  :integer          not null, primary key
+#  initial_number      :string
+#  introduction        :text
+#  invoice_address_id  :integer
+#  invoiced_at         :datetime
+#  journal_entry_id    :integer
+#  letter_format       :boolean          default(TRUE), not null
+#  lock_version        :integer          default(0), not null
+#  nature_id           :integer
+#  number              :string           not null
+#  payment_at          :datetime
+#  payment_delay       :string           not null
+#  pretax_amount       :decimal(19, 4)   default(0.0), not null
+#  reference_number    :string
+#  responsible_id      :integer
+#  state               :string           not null
+#  subject             :string
+#  transporter_id      :integer
+#  updated_at          :datetime         not null
+#  updater_id          :integer
 #
 #
 # == Fixture: sales
@@ -82,10 +79,7 @@
 #   letter_format: true
 #   number: "Lorem ipsum"
 #   payment_delay: "Lorem ipsum"
-#   prereduction_amount: 0
-#   prereduction_pretax_amount: 0
 #   pretax_amount: 0
-#   reduction_percentage: 0
 #   state: "Lorem ipsum"
 #   updater: users_001
 #
@@ -119,10 +113,7 @@ sales_001:
   number: F2014000001
   payment_at: 2014-11-23 22:59:59.999999000 Z
   payment_delay: 12 days, eom, 1 week ago
-  prereduction_amount: 1164.0
-  prereduction_pretax_amount: 970.0
   pretax_amount: 970.0
-  reduction_percentage: 0.0
   responsible_id: 9
   state: invoice
   subject: ''
@@ -156,10 +147,7 @@ sales_002:
   nature_id: 1
   number: SO000000000003
   payment_delay: 12 days, eom, 1 week ago
-  prereduction_amount: 792.0
-  prereduction_pretax_amount: 660.0
   pretax_amount: 660.0
-  reduction_percentage: 0.0
   responsible_id: 9
   state: draft
   subject: ''
@@ -194,10 +182,7 @@ sales_003:
   number: F2014000002
   payment_at: 2014-11-23 22:59:59.999999000 Z
   payment_delay: 12 days, eom, 1 week ago
-  prereduction_amount: 11.23
-  prereduction_pretax_amount: 9.36
   pretax_amount: 9.36
-  reduction_percentage: 0.0
   responsible_id: 9
   state: invoice
   subject: ''
@@ -228,10 +213,7 @@ sales_004:
   nature_id: 1
   number: SO000000000005
   payment_delay: 12 days, eom, 1 week ago
-  prereduction_amount: 19.2
-  prereduction_pretax_amount: 16.0
   pretax_amount: 16.0
-  reduction_percentage: 0.0
   responsible_id: 9
   state: draft
   subject: ''
@@ -265,10 +247,7 @@ sales_005:
   nature_id: 1
   number: SO000000000006
   payment_delay: 12 days, eom, 1 week ago
-  prereduction_amount: 0.0
-  prereduction_pretax_amount: 0.0
   pretax_amount: 20.0
-  reduction_percentage: 0.0
   responsible_id: 9
   state: draft
   subject: ''
@@ -302,10 +281,7 @@ sales_006:
   nature_id: 1
   number: SO000000000007
   payment_delay: 12 days, eom, 1 week ago
-  prereduction_amount: 0.0
-  prereduction_pretax_amount: 0.0
   pretax_amount: 156.0
-  reduction_percentage: 0.0
   responsible_id: 9
   state: draft
   subject: ''
@@ -339,10 +315,7 @@ sales_007:
   nature_id: 1
   number: SO000000000008
   payment_delay: 12 days, eom, 1 week ago
-  prereduction_amount: 0.0
-  prereduction_pretax_amount: 0.0
   pretax_amount: 266.67
-  reduction_percentage: 0.0
   responsible_id: 9
   state: estimate
   subject: ''
