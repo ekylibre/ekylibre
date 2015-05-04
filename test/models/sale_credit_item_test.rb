@@ -49,6 +49,6 @@ require 'test_helper'
 
 class SaleCreditItemTest < ActiveSupport::TestCase
 
-  test_fixtures
+  # test_fixtures
 
 end
