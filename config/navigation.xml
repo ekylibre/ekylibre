@@ -697,18 +697,6 @@
         <page to="backend/plants#unroll"/>
         <page to="backend/plants#update"/>
       </item>
-      <item name="manure_management_plans">
-        <page to="backend/manure_management_plans#index"/>
-        <page to="backend/manure_management_plans#create"/>
-        <page to="backend/manure_management_plans#destroy"/>
-        <page to="backend/manure_management_plans#edit"/>
-        <page to="backend/manure_management_plans#list"/>
-        <page to="backend/manure_management_plans#list_zones"/>
-        <page to="backend/manure_management_plans#new"/>
-        <page to="backend/manure_management_plans#show"/>
-        <page to="backend/manure_management_plans#unroll"/>
-        <page to="backend/manure_management_plans#update"/>
-      </item>
     </group>
     <group name="transformations" icon="barn">
       <item name="wine_tanks">
@@ -765,6 +753,18 @@
         <page to="backend/cultivable_zones#list_carrier_linkages"/>
         <page to="backend/cultivable_zones#list_reading_tasks"/>
         <page to="backend/cultivable_zones#picture"/>
+      </item>
+      <item name="manure_management_plans">
+        <page to="backend/manure_management_plans#index"/>
+        <page to="backend/manure_management_plans#create"/>
+        <page to="backend/manure_management_plans#destroy"/>
+        <page to="backend/manure_management_plans#edit"/>
+        <page to="backend/manure_management_plans#list"/>
+        <page to="backend/manure_management_plans#list_zones"/>
+        <page to="backend/manure_management_plans#new"/>
+        <page to="backend/manure_management_plans#show"/>
+        <page to="backend/manure_management_plans#unroll"/>
+        <page to="backend/manure_management_plans#update"/>
       </item>
     </group>
     <group name="equipments" icon="tractor">
