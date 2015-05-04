@@ -48,6 +48,7 @@ class Backend::IncomingPaymentsController < Backend::BaseController
     t.column :mode
     t.column :bank_check_number
     t.column :to_bank_at
+    t.column :received, hidden: true
     t.column :deposit, url: true
     t.action :edit, unless: :deposit?
     t.action :destroy, if: :destroyable?

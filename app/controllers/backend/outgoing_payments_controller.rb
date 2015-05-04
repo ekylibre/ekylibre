@@ -45,6 +45,7 @@ class Backend::OutgoingPaymentsController < Backend::BaseController
     t.column :mode
     t.column :bank_check_number
     t.column :to_bank_at
+    t.column :delivered, hidden: true
     # t.column :label, through: :responsible
     t.action :edit, if: :updateable?
     t.action :destroy, if: :destroyable?
