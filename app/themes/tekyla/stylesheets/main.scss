@@ -2283,11 +2283,13 @@ a[data-annotate] {
     &.active {
       opacity: 1;
     }
-  }
-  &.interactive {
-    .state:hover {
-      opacity: 0.66;
+    &.inaccessible {
+      cursor: not-allowed;
+      background: $neutral-color;
     }
+  }
+  a.state:hover {
+    opacity: 0.66;
   }
   @for $i from 1 through 16 {
     .state:first-child:nth-last-child(#{$i}),

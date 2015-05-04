@@ -125,6 +125,7 @@ class Sale < Ekylibre::Record::Base
 
     event :propose do
       transition :draft => :estimate, if: :has_content?
+      transition :refused => :estimate
     end
     event :correct do
       transition :estimate => :draft
@@ -138,11 +139,11 @@ class Sale < Ekylibre::Record::Base
       transition :estimate => :order, if: :has_content?
     end
     event :invoice do
-      transition :order => :invoice, if: :has_content?
-      transition :estimate => :invoice, if: :has_content?
+      transition [:draft, :estimate, :order] => :invoice, if: :has_content?
     end
     event :abort do
       transition :draft => :aborted
+      transition :estimate => :aborted
     end
   end
 
@@ -290,7 +291,8 @@ class Sale < Ekylibre::Record::Base
     return false unless self.can_invoice?
     ActiveRecord::Base.transaction do
       # Set values for invoice
-      self.invoiced_at ||= invoiced_at
+      self.invoiced_at  ||= invoiced_at
+      self.confirmed_at ||= self.invoiced_at
       self.payment_at ||= Delay.new(self.payment_delay).compute(self.invoiced_at)
       self.initial_number = self.number
       if sequence = Sequence.of(:sales_invoices)

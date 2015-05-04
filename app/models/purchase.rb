@@ -113,6 +113,7 @@ class Purchase < Ekylibre::Record::Base
     event :invoice do
       transition :order => :invoice, if: :has_content?
       transition :estimate => :invoice, if: :has_content_not_deliverable?
+      transition :draft => :invoice
     end
     event :abort do
       transition [:draft, :estimate] => :aborted # , :order

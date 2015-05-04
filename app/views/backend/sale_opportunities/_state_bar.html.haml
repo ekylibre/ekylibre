@@ -1,4 +1,4 @@
-.state-bar.interactive{class: "state-bar-#{states.count}"}
+.state-bar{class: "state-bar-#{states.count}"}
   - states.each do |state|
     - classes = ["state", "state-#{state.name}"]
     - if state == current_state

@@ -45,7 +45,7 @@ class Backend::SalesController < Backend::BaseController
   end
 
   list(conditions: sales_conditions, joins: :client, order: {created_at: :desc, number: :desc}) do |t| # , :line_class => 'RECORD.tags'
-    t.column :number, url: {action: :show, step: :default}
+    t.column :number, url: {action: :show}
     t.column :created_at
     t.column :invoiced_at
     t.column :client, url: true
@@ -200,10 +200,8 @@ class Backend::SalesController < Backend::BaseController
 
   def confirm
     return unless @sale = find_and_check
-    if request.post?
-      @sale.confirm
-    end
-    redirect_to action: :show, step: :deliveries, id: @sale.id
+    @sale.confirm
+    redirect_to action: :show, id: @sale.id
   end
 
   def contacts

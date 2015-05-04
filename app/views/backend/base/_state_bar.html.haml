@@ -1,5 +1,13 @@
 .state-bar{class: "state-bar-#{states.count}"}
+  - transitions = resource.state_transitions
   - states.each do |state|
-    - classes = ["state-#{state.name}"]
+    - classes = ["state", "state-#{state.name}"]
     - classes << "active" if state == current_state
-    %span.state{class: classes}= state.human_name
+    - if state == current_state
+      - classes << "active"
+      %span{class: classes}= state.human_name
+    - elsif transition = transitions.detect{|t| t.to == state.name.to_s }
+      = link_to(state.human_name, {action: transition.event, id: resource.id}, class: classes, method: :post, data: {confirm: :are_you_sure.tl}, title: transition.event.to_sym.ta)
+    - else
+      - classes << "inaccessible"
+      %span{class: classes}= state.human_name
