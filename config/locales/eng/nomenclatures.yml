@@ -43,6 +43,7 @@ eng:
         pick: "Pick"
         plow: "Plow"
         plow_superficially: "Plow superficially"
+        pollinate: "Pollinate"
         press: "Press"
         produce: "Produce"
         rake: "Rake"
@@ -2225,6 +2226,8 @@ eng:
         aves_band: "Aves band"
         aves_herd: "Aves herd"
         bank_service: "Bank service"
+        bee_band: "Bee band"
+        biological_auxiliary: "Biological auxiliary"
         bonus_staff_expense: "Bonus staff expense"
         building: "Building"
         building_division: "Building division"
@@ -2260,6 +2263,7 @@ eng:
         gas: "Gas"
         grain: "Grain"
         grass: "Grass"
+        honey: "Honey"
         infirmity_and_death_insurance: "Infirmity and death insurance"
         installation: "Installation"
         installing_charge: "Installing charge"
@@ -2418,6 +2422,8 @@ eng:
         barley_grain: "Barley grain"
         battery: "Battery"
         bean_crop: "Bean crop"
+        bee_band: "Bee band"
+        bee_band_pollinate_service: "Bee band pollinate service"
         beef_dried_sausage: "Beef dried sausage"
         beef_meat: "Beef meat"
         beef_sausage: "Beef sausage"
@@ -2448,6 +2454,8 @@ eng:
         bulk_kg_animal_food: "Bulk kg animal food"
         bulk_urea_46: "Bulk urea 46"
         bulk_wheat_straw: "Bulk wheat straw"
+        bumblebee_band: "Bumblebee band"
+        burdock_crop: "Burdock crop"
         butler_hazelnut: "Butler hazelnut"
         cabbage_crop: "Cabbage crop"
         calcium_carbonate_25kg: "Calcium carbonate 25kg"
@@ -3006,11 +3014,13 @@ eng:
         associate_social_contribution: "Associate social contribution"
         baler: "Baler"
         bank_service: "Bank service"
+        bee_band: "Bee band"
         beef_meat: "Beef meat"
         bonus_staff_expense: "Bonus staff expense"
         bottle: "Bottle"
         building: "Building"
         building_division: "Building division"
+        bumblebee_band: "Bumblebee band"
         calf: "Calf"
         car: "Car"
         carriage: "Carriage"
@@ -3096,6 +3106,7 @@ eng:
         hen_herd: "Hen herd"
         herbicide: "Herbicide"
         hoe: "Hoe"
+        honey: "Honey"
         horse_herd: "Horse herd"
         hydraulic_oil: "Hydraulic oil"
         implanter: "Implanter"
@@ -3655,6 +3666,9 @@ eng:
         arachis: "Arachis"                                 #< fabaceae
         arachis_hypogaea: "Peanut"                         #< arachis
         arachis_pintoi: "Pintoi peanut"                    #< arachis
+        arctium: "Arctium"                                 #< asteraceae
+        arctium_lappa: "Arctium lappa"                     #< arctium
+        arctium_minus: "Arctium minus"                     #< arctium
         asparagaceae: "Asparagaceae"                       #< plant
         asparagus: "Asparagus"                             #< asparagaceae
         asparagus_africanus: "Asparagus africanus"         #< asparagus
@@ -3680,6 +3694,8 @@ eng:
         bison_bonasus: "European Bison"                    #< bison
         bison_bonasus_bonasus: "Common european bison"     #< bison_bonasus
         bivalvia: "Bivalvia"                               #< animal
+        bombus: "Bombus"                                   #< apidae
+        bombus_terrestris: "Bombus terrestris"             #< bombus
         boraginaceae: "Boraginaceae"                       #< plant
         bos: "Bos"                                         #< bovidae
         bos_taurus: "Cow"                                  #< bos
@@ -4055,6 +4071,7 @@ eng:
         hibiscus: "Hibiscus"                               #< malvaceae
         hippophae: "Hippophae"                             #< elaeagnaceae
         hippophae_rhamnoides: "Hippophae rhamnoides"       #< hippophae
+        honey: "Honey"                                     #< raw_matter
         hordeum: "Barley"                                  #< poaceae
         hordeum_hibernum: "Winter Barley"                  #< hordeum
         hordeum_hibernum_arturio: "Winter Barley arturio"  #< hordeum_hibernum

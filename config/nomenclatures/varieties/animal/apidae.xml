@@ -3,6 +3,7 @@
   <nomenclature name="varieties-apidae">
     <items>
       <item name="apis" itis_tsn="154395"/>
+      <item name="bombus" itis_tsn="154397"/>
     </items>
   </nomenclature>
 
@@ -11,4 +12,12 @@
       <item name="apis_mellifera"  itis_tsn="154396"/>
     </items>
   </nomenclature>
+
+  <nomenclature name="varieties-bombus">
+    <items>
+      <item name="bombus_terrestris"  itis_tsn="714842"/>
+    </items>
+  </nomenclature>
+
+
 </nomenclatures>

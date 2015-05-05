@@ -11,6 +11,7 @@
       <item name="meat" derivative_of="animal"/>
       <item name="egg" derivative_of="aves"/>
       <item name="milk" derivative_of="mammalia"/>
+      <item name="honey" derivative_of="apis"/>
       <!-- ANIMALS CO-PRODUCTS-->
       <item name="excrement" derivative_of="animal"/>
       <!-- VEGETALS PRODUCTS-->

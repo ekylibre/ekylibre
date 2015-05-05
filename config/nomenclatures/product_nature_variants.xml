@@ -284,6 +284,17 @@
             unit_name="head"
             frozen_indicators_values="population: 1, sex: male, reproductor: true, livestock_unit: 0.83"
             />
+      <!-- BEE -->
+      <item name="bumblebee_band"
+            nature="bumblebee_band"
+            unit_name="subject"
+            frozen_indicators_values=""
+           />
+      <item name="bee_band"
+            nature="bee_band"
+            unit_name="subject"
+            frozen_indicators_values=""
+           />
       <!-- FISH -->
       <item name="salmon_band"
             nature="salmon_band"
@@ -531,6 +542,12 @@
       <item name="quinoa_crop"
             nature="crop"
             variety="chenopodium_quinoa"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="burdock_crop"
+            nature="crop"
+            variety="arctium"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
@@ -1333,6 +1350,12 @@
             nature="sugar"
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram"
+            />
+     <!-- PLANT ANIMAL AUXILIARY -->
+     <item name="bee_band_pollinate_service"
+            nature="animals_making_services"
+            unit_name="unit"
+            frozen_indicators_values=""
             />
       <!-- PLANT MEDICINE -->
       <item name="helianthus_herbicide"

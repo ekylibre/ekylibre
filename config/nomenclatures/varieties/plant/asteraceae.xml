@@ -2,9 +2,10 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-asteraceae" hierarchical="true">
     <items>
-      <item name="helianthus" itis_tsn="36611"/>
+      <item name="arctium" itis_tsn="36544"/>
       <item name="cichorium" itis_tsn="36762"/>
       <item name="cynara" itis_tsn="37220"/>
+      <item name="helianthus" itis_tsn="36611"/>
       <item name="lactuca" itis_tsn="36594"/>
     </items>
   </nomenclature>
@@ -14,4 +15,12 @@
       <item name="cichorium_endivia" itis_tsn="501522"/>
     </items>
   </nomenclature>
+
+  <nomenclature name="varieties-arctium" hierarchical="true">
+    <items>
+      <item name="arctium_lappa" itis_tsn="36545"/>
+      <item name="arctium_minus" itis_tsn="36546"/>
+    </items>
+  </nomenclature>
+
 </nomenclatures>

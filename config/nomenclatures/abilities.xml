@@ -42,6 +42,8 @@
       <!-- inplanting  -->
       <item name="wrap"       parameters="variety"/>
       <item name="seat"       parameters="variety"/>
+      <!-- pollination  -->
+      <item name="pollinate"       parameters="variety"/>
       <!-- store matter  -->
       <item name="store"      parameters="variety"/>
       <item name="store_fluid"/>

@@ -350,6 +350,25 @@
             variable_indicators="net_mass"
             frozen_indicators="population, sex, reproductor, livestock_unit"
             />
+      <!-- BEE -->
+      <item name="bumblebee_band"
+            category="biological_auxiliary"
+            variety="bombus"
+            population_counting="integer"
+            abilities="move, pollinate(plant)"
+            variable_indicators="population"
+            frozen_indicators=""
+            derivatives=""
+            />
+      <item name="bee_band"
+            category="bee_band"
+            variety="apis"
+            population_counting="integer"
+            abilities="move, pollinate(plant), produce(honey)"
+            variable_indicators="population"
+            frozen_indicators=""
+            derivatives=""
+            />
       <!-- FISH -->
       <item name="salmon_band"
             category="fish_band"
@@ -513,6 +532,15 @@
             population_counting="integer"
             abilities=""
             variable_indicators="population"
+            frozen_indicators="net_volume, net_mass"
+            />
+       <item name="honey"
+            category="honey"
+            variety="honey"
+            derivative_of="apis"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population, temperature, sucrose_concentration"
             frozen_indicators="net_volume, net_mass"
             />
       <!-- VEGETAL DERIVATIVE PRODUCT -->
