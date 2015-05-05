@@ -3681,6 +3681,9 @@ eng:
         bacteria: "Bacteria"                               #< bioproduct
         baler: "Baler"                                     #< equipment
         bambusa: "Bamboo"                                  #< poaceae
+        berberidaceae: "Berberidaceae"                     #< plant
+        berberis: "Berberis"                               #< berberidaceae
+        berberis_x_ottawensis: "Berberis x ottawensis"     #< berberis
         beta: "Beta"                                       #< amaranthaceae
         beta_vulgaris: "Beet"                              #< beta
         beta_vulgaris_altissima: "Sugar Beet"              #< beta_vulgaris
@@ -3980,6 +3983,7 @@ eng:
         daucus_carota_white_vosges: "White Vosges Carrot"  #< daucus_carota
         daucus_carota_white_with_green_collar: "White Carrot with green collar" #< daucus_carota
         daucus_carota_yellow_doubs: "Yellow Doubs Carrot"  #< daucus_carota
+        diervillaceae: "Diervillaceae"                     #< plant
         easement: "Easement"                               #< zone
         egg: "Egg"                                         #< raw_matter
         elaeagnaceae: "Elaeagnaceae"                       #< plant
@@ -4018,6 +4022,9 @@ eng:
         fomitiporia: "Fomitiporia"                         #< hymenochaetaceae
         food_deliver: "Food deliver"                       #< equipment
         forager: "Forager"                                 #< equipment
+        forsythia: "Forsythia"                             #< oleaceae
+        forsythia_europaea: "Forsythia europaea"           #< forsythia
+        forsythia_x_intermedia: "Forsythia x intermedia"   #< forsythia
         fortunella: "Fortunella"                           #< rutaceae
         fortunella_japonica: "Round kumquat"               #< fortunella
         fortunella_margarita: "Oval kumquat"               #< fortunella
@@ -4069,6 +4076,7 @@ eng:
         helix_pomatia: "Burgundy snail"                    #< helix
         hevea: "Hevea"                                     #< euphorbiaceae
         hibiscus: "Hibiscus"                               #< malvaceae
+        hibiscus_syriacus: "Hibiscus syriacus"             #< hibiscus
         hippophae: "Hippophae"                             #< elaeagnaceae
         hippophae_rhamnoides: "Hippophae rhamnoides"       #< hippophae
         honey: "Honey"                                     #< raw_matter
@@ -4085,7 +4093,10 @@ eng:
         hordeum_vulgare_hexastichum: "Bere"                #< hordeum_vulgare
         humulus: "Humulus"                                 #< cannabaceae
         humulus_lupulus: "Hop"                             #< humulus
+        hydrangeaceae: "Hydrangeaceae"                     #< plant
         hymenochaetaceae: "Hymenochaetaceae"               #< fungus
+        hypericaceae: "Hypericaceae"                       #< plant
+        hypericum: "Hypericum"                             #< hypericaceae
         immatter: "Immatter"                               #< product
         implanter: "Implanter"                             #< equipment
         insecta: "Insecta"                                 #< animal
@@ -4117,6 +4128,9 @@ eng:
         leporidae: "Leporidae"                             #< mammalia
         lepus: "Lepus"                                     #< leporidae
         lepus_europaeus: "Brown hare"                      #< lepus
+        ligustrum: "Ligustrum"                             #< oleaceae
+        ligustrum_ovalifolium: "Ligustrum ovalifolium"     #< ligustrum
+        ligustrum_vulgare: "Ligustrum vulgare"             #< ligustrum
         limacidae: "Limacidae"                             #< gastropoda
         linaceae: "Linaceae"                               #< plant
         linum: "Linum"                                     #< linaceae
@@ -4203,6 +4217,7 @@ eng:
         phasianidae: "Phasianidae"                         #< aves
         phasianus: "Phasianus"                             #< phasianidae
         phasianus_colchicus: "Common pheasant"             #< phasianus
+        philadelphus: "Philadelphus"                       #< hydrangeaceae
         phytoptus_avellanae: "Phytoptus avellanae"         #< insecta
         pistacia: "Pistacia"                               #< anacardiaceae
         pistacia_vera: "Pistacia vera"                     #< pistacia
@@ -4294,6 +4309,10 @@ eng:
         saccharomyces_cerevisiae_jb3: "Saccharomyces cerevisiae - jb3" #< saccharomyces_cerevisiae
         saccharomycetaceae: "Saccharomycetaceae"           #< fungus
         saccharose: "Saccharose"                           #< sugar
+        salicaceae: "Salicaceae"                           #< plant
+        salix: "Salix"                                     #< salicaceae
+        salix_purpurea: "Salix purpurea"                   #< salix
+        salix_rosmarinifolia: "Salix rosmarinifolia"       #< salix
         salmo: "Salmo"                                     #< salmonidae
         salmo_carpio: "Carpione"                           #< salmo
         salmo_salar: "Atlantic salmon"                     #< salmo
@@ -4662,6 +4681,8 @@ eng:
         sower: "Sower"                                     #< equipment
         spinacia: "Spinacia"                               #< amaranthaceae
         spinacia_oleracea: "Spinach"                       #< spinacia
+        spiraea: "Spiraea"                                 #< rosaceae
+        spiraea_x_billiardii: "Spiraea x billiardii"       #< spiraea
         sprayer: "Sprayer"                                 #< equipment
         spreader: "Spreader"                               #< equipment
         stake: "Stake"                                     #< packaged_matter
@@ -4813,6 +4834,7 @@ eng:
         vegetable: "Vegetable"                             #< raw_matter
         vial: "Vial"                                       #< raw_matter
         viburnum: "Viburnum"                               #< adoxaceae
+        viburnum_opulus: "Viburnum opulus"                 #< viburnum
         vicia: "Vicia"                                     #< fabaceae
         vicia_faba: "Horsebean"                            #< vicia
         vicia_sativa: "Vicia sativa"                       #< vicia
@@ -4876,6 +4898,8 @@ eng:
         vitis_vinifera_ugni_blanc: "Common grape vine Ugni blanc" #< vitis_vinifera
         walnut: "Walnut"                                   #< fruit
         water: "Water"                                     #< matter
+        weigela: "Weigela"                                 #< diervillaceae
+        weigela_floribunda: "Weigela floribunda"           #< weigela
         wine: "Wine"                                       #< fermented_juice
         wire: "Wire"                                       #< packaged_matter
         worker: "Worker"                                   #< product

@@ -14,4 +14,10 @@
     </items>
   </nomenclature>
 
+  <nomenclature name="varieties-viburnum" hierarchical="true">
+    <items>
+      <item name="viburnum_opulus" itis_tsn="35270"/>
+    </items>
+  </nomenclature>
+
 </nomenclatures>

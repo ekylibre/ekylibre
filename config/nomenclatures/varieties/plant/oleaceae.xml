@@ -2,7 +2,23 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-oleaceae" hierarchical="true">
     <items>
+      <item name="forsythia" itis_tsn="32961"/>
+      <item name="ligustrum" itis_tsn="32973"/>
       <item name="olea"      itis_tsn="32989"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-forsythia" hierarchical="true">
+    <items>
+      <item name="forsythia_europaea"        itis_tsn="832795"/>
+      <item name="forsythia_x_intermedia"    itis_tsn="507912"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-ligustrum" hierarchical="true">
+    <items>
+      <item name="ligustrum_ovalifolium"        itis_tsn="32977"/>
+      <item name="ligustrum_vulgare"        itis_tsn="32980"/>
     </items>
   </nomenclature>
 

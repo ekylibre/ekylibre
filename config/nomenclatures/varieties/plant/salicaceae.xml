@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-salicaceae" hierarchical="true">
+    <items>
+      <item name="salix" itis_tsn="22476"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-salix" hierarchical="true">
+    <items>
+      <item name="salix_purpurea" itis_tsn="22574"/>
+      <item name="salix_rosmarinifolia" itis_tsn="837768"/>
+    </items>
+  </nomenclature>
+
+</nomenclatures>

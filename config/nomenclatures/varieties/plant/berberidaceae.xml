@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-berberidaceae" hierarchical="true">
+    <items>
+      <item name="berberis" itis_tsn="18814"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-berberis" hierarchical="true">
+    <items>
+      <item name="berberis_x_ottawensis" itis_tsn="500992"/>
+    </items>
+  </nomenclature>
+
+</nomenclatures>

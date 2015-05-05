@@ -18,6 +18,12 @@
     </items>
   </nomenclature>
 
+  <nomenclature name="varieties-hibiscus" hierarchical="true">
+    <items>
+      <item name="hibiscus_syriacus" itis_tsn="21638"/>
+    </items>
+  </nomenclature>
+
   <nomenclature name="varieties-theobroma" hierarchical="true">
     <items>
       <item name="theobroma_cacao"        itis_tsn="505487"/>
