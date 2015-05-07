@@ -211,19 +211,19 @@ class Purchase < Ekylibre::Record::Base
   end
 
   # Save the last date when the purchase was confirmed
-  def confirm(confirmed_at = Time.now)
+  def confirm(confirmed_at = nil)
     return false unless self.can_confirm?
     self.reload
-    self.confirmed_at ||= confirmed_at
+    self.confirmed_at ||= confirmed_at || Time.now
     self.save!
     return super
   end
 
   # Save the last date when the invoice of purchase was received
-  def invoice(invoiced_at = Time.now)
+  def invoice(invoiced_at = nil)
     return false unless self.can_invoice?
     self.reload
-    self.invoiced_at ||= invoiced_at
+    self.invoiced_at ||= invoiced_at || Time.now
     self.save!
     return super
   end
