@@ -13,6 +13,7 @@
   <nomenclature name="varieties-cichorium" hierarchical="true">
     <items>
       <item name="cichorium_endivia" itis_tsn="501522"/>
+      <item name="cichorium_intybus" itis_tsn="36763"/>
     </items>
   </nomenclature>
 

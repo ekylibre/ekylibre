@@ -2482,6 +2482,7 @@ eng:
         chick_hen_band: "Chick hen band"
         chicken_egg: "Chicken egg"
         chicken_meat: "Chicken meat"
+        chicory_crop: "Chicory crop"
         common_consumable: "Common consumable"
         common_package: "Common package"
         complete_herbicide: "Complete herbicide"
@@ -3852,6 +3853,7 @@ eng:
         cicer_arietinum: "Chickpea"                        #< cicer
         cichorium: "Cichorium"                             #< asteraceae
         cichorium_endivia: "Curly chicory"                 #< cichorium
+        # cichorium_intybus: "Cichorium intybus"           #< cichorium
         citrullus: "Watermelon"                            #< cucurbitaceae
         citrullus_colocynthis: "Colocynth"                 #< citrullus
         citrullus_lanatus: "Watermelon Common"             #< citrullus

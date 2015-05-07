@@ -71,7 +71,7 @@ class Production < Ekylibre::Record::Base
   alias_attribute :label, :name
   alias_attribute :product_variant, :cultivation_variant
 
-  delegate :name, to: :activity, prefix: true
+  delegate :nature, :name, to: :activity, prefix: true
   delegate :name, :variety, to: :cultivation_variant, prefix: true
   delegate :name, :variety, to: :variant, prefix: true
   delegate :main?, :auxiliary?, :standalone?, :with_supports, :with_cultivation, :support_variety, :cultivation_variety, to: :activity

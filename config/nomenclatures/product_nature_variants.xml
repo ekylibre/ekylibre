@@ -551,6 +551,12 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
+      <item name="chicory_crop"
+            nature="crop"
+            variety="cichorium"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
       <!-- MEADOW CROP -->
       <item name="permanent_meadow_crop"
             nature="crop"

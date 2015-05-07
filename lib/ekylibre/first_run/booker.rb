@@ -157,7 +157,7 @@ module Ekylibre
           intervention = nil
             stopped_at = at + duration.hours
             if stopped_at < Time.now
-              intervention = Intervention.create!(reference_name: procedure_name, production: Booker.production, production_support: options[:support], started_at: at, stopped_at: stopped_at)
+              intervention = Intervention.create!(reference_name: procedure_name, production: Booker.production, production_support: options[:support], started_at: at, stopped_at: stopped_at, description: options[:description])
               for cast in booker.casts
                 intervention.add_cast!(cast)
               end
