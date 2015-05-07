@@ -365,6 +365,11 @@ arb:
       index: "الصادرات وارسال الرسائل"
       mail: "ارسال الرسالة ل «%{name}»"
       new: "انشاء استخلاص جديد"
+    backend/loans:
+      # edit: "Edit loan: %{name}"
+      # index: "Loans"
+      # new: "New loan"
+      # show: "Loan: %{name}"
     backend/management:  #?
       index: "ادارة الاعمال" #?
       sale_items: "اختيار المنتجات للطلب %{sale} من : %{client}" #?
@@ -896,6 +901,7 @@ arb:
     building_update: "تعديل موقع التخزين" #?
     buildings: "النظر بقائمة مواقع التخزين" #?
     # buildings_map: "Buildings map"
+    # by_year: "By year"
     # calculate: "Calculate"
     # calculators: "Calculators"
     # calendar: "Calendar"
@@ -1558,6 +1564,8 @@ arb:
     # remove_item: "Remove item"
     # remove_subscription: "Remove subscription"
     reopen: "فتح الدفتر اليومي" #?
+    # repayments: "Repayments"
+    # repayments_graph: "Repayments graph"
     report: "Informations communes"
     reported_balance: "ارجاء الرصيد" #?
     reservoir: "الاحتياطي" #?

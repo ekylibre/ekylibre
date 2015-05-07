@@ -194,6 +194,8 @@ fra:
         livestock_feed_matter_expenses: "Aliments du betail"
         livestock_feed_stock: "Stock d’aliment du bétail"
         living_corporeal_assets: "Immobilisations corporelles (Biens vivants)"
+        loans: "Emprunts"
+        loans_interests: "Intérêts d’emprunts"
         locked_associated_accounts: "Associes comptes courants ‒ comptes bloqués"
         long_cycle_animals_inventory_variations: "Variations d’inventaires ‒ animaux (cycle long)"
         long_cycle_cultivation_advances: "Avances aux cultures (cycle long)"

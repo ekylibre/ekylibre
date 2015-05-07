@@ -1,0 +1,21 @@
+= field_set do
+  = f.input :name
+  = f.input :amount
+  = f.referenced_association :cash
+  = f.referenced_association :lender
+  = f.input :interest_percentage, wrapper: :append do
+    = f.input_field(:interest_percentage)
+    %span.add-on= :by_year.tl
+  = f.input :insurance_percentage, wrapper: :append do
+    = f.input_field(:insurance_percentage)
+    %span.add-on= :by_year.tl
+  = f.input :started_on
+  = f.input :repayment_period, as: :radio_buttons
+  = f.input :repayment_duration, wrapper: :append do
+    = f.input_field(:repayment_duration)
+    %span.add-on.period
+  = f.input :repayment_method, as: :radio_buttons
+  = f.input :shift_duration, wrapper: :append do
+    = f.input_field(:shift_duration)
+    %span.add-on.period
+  = f.input :shift_method, as: :radio_buttons

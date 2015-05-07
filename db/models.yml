@@ -69,6 +69,8 @@
 - listing
 - listing_node
 - listing_node_item
+- loan
+- loan_repayment
 - manure_management_plan
 - manure_management_plan_zone
 - matter

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150430095404) do
+ActiveRecord::Schema.define(version: 20150507135310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1480,6 +1480,62 @@ ActiveRecord::Schema.define(version: 20150430095404) do
   add_index "listings", ["root_model"], name: "index_listings_on_root_model", using: :btree
   add_index "listings", ["updated_at"], name: "index_listings_on_updated_at", using: :btree
   add_index "listings", ["updater_id"], name: "index_listings_on_updater_id", using: :btree
+
+  create_table "loan_repayments", force: :cascade do |t|
+    t.integer  "loan_id",                                               null: false
+    t.integer  "position",                                              null: false
+    t.decimal  "amount",           precision: 19, scale: 4,             null: false
+    t.decimal  "base_amount",      precision: 19, scale: 4,             null: false
+    t.decimal  "interest_amount",  precision: 19, scale: 4,             null: false
+    t.decimal  "insurance_amount", precision: 19, scale: 4,             null: false
+    t.decimal  "remaining_amount", precision: 19, scale: 4,             null: false
+    t.date     "due_on",                                                null: false
+    t.integer  "journal_entry_id"
+    t.datetime "accounted_at"
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                              default: 0, null: false
+  end
+
+  add_index "loan_repayments", ["created_at"], name: "index_loan_repayments_on_created_at", using: :btree
+  add_index "loan_repayments", ["creator_id"], name: "index_loan_repayments_on_creator_id", using: :btree
+  add_index "loan_repayments", ["journal_entry_id"], name: "index_loan_repayments_on_journal_entry_id", using: :btree
+  add_index "loan_repayments", ["loan_id"], name: "index_loan_repayments_on_loan_id", using: :btree
+  add_index "loan_repayments", ["updated_at"], name: "index_loan_repayments_on_updated_at", using: :btree
+  add_index "loan_repayments", ["updater_id"], name: "index_loan_repayments_on_updater_id", using: :btree
+
+  create_table "loans", force: :cascade do |t|
+    t.integer  "lender_id",                                                 null: false
+    t.string   "name",                                                      null: false
+    t.integer  "cash_id",                                                   null: false
+    t.string   "currency",                                                  null: false
+    t.decimal  "amount",               precision: 19, scale: 4,             null: false
+    t.decimal  "interest_percentage",  precision: 19, scale: 4,             null: false
+    t.decimal  "insurance_percentage", precision: 19, scale: 4,             null: false
+    t.date     "started_on",                                                null: false
+    t.integer  "repayment_duration",                                        null: false
+    t.string   "repayment_period",                                          null: false
+    t.string   "repayment_method",                                          null: false
+    t.integer  "shift_duration",                                default: 0, null: false
+    t.string   "shift_method"
+    t.integer  "journal_entry_id"
+    t.datetime "accounted_at"
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                  default: 0, null: false
+  end
+
+  add_index "loans", ["cash_id"], name: "index_loans_on_cash_id", using: :btree
+  add_index "loans", ["created_at"], name: "index_loans_on_created_at", using: :btree
+  add_index "loans", ["creator_id"], name: "index_loans_on_creator_id", using: :btree
+  add_index "loans", ["journal_entry_id"], name: "index_loans_on_journal_entry_id", using: :btree
+  add_index "loans", ["lender_id"], name: "index_loans_on_lender_id", using: :btree
+  add_index "loans", ["updated_at"], name: "index_loans_on_updated_at", using: :btree
+  add_index "loans", ["updater_id"], name: "index_loans_on_updater_id", using: :btree
 
   create_table "manure_management_plan_zones", force: :cascade do |t|
     t.integer  "plan_id",                                                                              null: false

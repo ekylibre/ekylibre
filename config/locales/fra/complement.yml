@@ -13440,6 +13440,8 @@ fra:
         listing: "Extraction"
         listing_node: "Nœud d’extraction"
         listing_node_item: "Élément de nœud d’extraction"
+        loan: "Emprunt"
+        loan_repayment: "Remboursement d’emprunt"
         manure_management_plan: "Plan de fumure"
         manure_management_plan_zone: "Zone de plan de fumure"
         matter: "Matière"

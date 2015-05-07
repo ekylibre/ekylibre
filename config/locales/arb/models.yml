@@ -384,18 +384,12 @@ arb:
         stocks: "اسهم المنتجات" #?
         unit: "وحدة القياس" #?
         unit_id: "وحدة قياس" #?
-      product_nature_category:
+      product_nature_category:  #?
         catalog_description: "الوصف" #?
         children: "دلائل فرعية" #?
         creator_id: "المننتج" #?
-        # depreciable: "Depreciable"
-        # duration: "Duration"
-        # financial_asset_allocation_account: "Financial asset depreciations account"
-        # financial_asset_expenses_account: "financial asset depreciations inputations expenses account"
-        # price: "Price"
         published: "تم نشرها" #?
         shelves: "فئات الانتاج" #?
-        # subscribing: "Subscribing ?"
       product_nature_component:  #?
         building: "مكان التخزين" #?
         building_id: "مكان التخزين" #?
@@ -440,8 +434,6 @@ arb:
         creator_id: "منتج" #?
         nature: "النوع" #?
         product: "المنتج" #?
-      production_support:
-        # production_usage: "Production usage"
       products_nature:  #?
         active: "قبل للاستخدام" #?
         buildings: "اماكن التخزين" #?
@@ -834,6 +826,8 @@ arb:
       listing: "الاستخراج"
       listing_node: "عقدة الاستخراج"
       listing_node_item: "عنصر غقدة الاستخراج"
+      # loan: "Loan"
+      # loan_repayment: "Loan repayment"
       mandate: "التفويض" #?
       # manure_management_plan: "Manure management plan"
       # manure_management_plan_zone: "Manure management plan zone"
@@ -846,7 +840,6 @@ arb:
       operation_item: "الواردات/الصادرات" #?
       operation_nature: "نوع العمل" #?
       operation_use: "الاداة المستخدمة" #?
-      # opportunity: "Opportunity"
       # outgoing_delivery: "Outgoing delivery"
       # outgoing_delivery_item: "Outgoing delivery item"
       outgoing_payment: "الدفعة"
@@ -903,7 +896,6 @@ arb:
       # production_support: "Production support"
       products_nature: "الانتاج" #?
       profession: "المهنة" #?
-      # property_title: "Property title"
       purchase: "الشراء"
       purchase_item: "طريقة طلب الشراء"
       # purchase_nature: "Purchase type"
@@ -936,7 +928,6 @@ arb:
       # version: "Version"
       # worker: "Worker"
       # zone: "Zone"
-      # zone_property_title: "Zone property title"
   attributes:
     # abilities_list: "Abilities list"
     # absolute_credit: "Absolute credit"
@@ -1025,6 +1016,7 @@ arb:
     bank_statements: "بيانات الحساب المصرفي"
     banks_accounts: "كتاب الحسابات المصرفية" #?
     base: "القاعدة" #?
+    # base_amount: "Base amount"
     bban: "RIB" #?
     bic: "BIC" #?
     boolean_value: "القيمة المنطقية"
@@ -1253,6 +1245,7 @@ arb:
     downpayment_rate: "معدل القسط" #?
     draft: "المسودة" #?
     draft_mode: "نمط المسودة" #?
+    # due_on: "Due on"
     duration: "المدة"
     ean13: "Ean13" #?
     email: "عنوان البريد الالكتروني"
@@ -1337,8 +1330,6 @@ arb:
     # financial_asset_depreciation_method: "Financial asset depreciation method"
     # financial_asset_depreciation_percentage: "Financial asset depreciation percentage"
     # financial_asset_depreciations: "Financial asset depreciations"
-    # financial_asset_depreciations_account: "Financial asset depreciations account"
-    # financial_asset_depreciations_inputations_expenses_account: "Financial asset depreciations inputations expenses account"
     # financial_asset_expenses_account: "Financial asset depreciations inputations expenses account"
     financial_year: "السنوات المالية"
     # financial_year_as_last: "Financial year (as last journal entry)"
@@ -1399,7 +1390,6 @@ arb:
     included: "تضمنت"
     # incoming_deliveries: "Incoming deliveries"
     # incoming_delivery_item: "Incoming delivery item"
-    # incoming_delivery_items: "Incoming delivery items"
     incoming_payment_modes: "طرق تسديد الدفعات"
     incoming_payment_uses: "اجزاء الدفعات" #?
     incoming_payments: "الدفعات"
@@ -1419,7 +1409,11 @@ arb:
     # initial_owner: "Initial owner"
     # initial_population: "Initial population"
     # initial_shape: "Initial shape"
+    # insurance_amount: "Insurance amount"
+    # insurance_percentage: "Insurance percentage"
     integer_value: "قيمة العدد الصحيح"
+    # interest_amount: "Interest amount"
+    # interest_percentage: "Interest percentage"
     # intermediate_cultivation_residue_mineralization: "Intermediate cultivation residue mineralization"
     # intervention: "Intervention"
     # intervention_cast: "Intervention cast"
@@ -1480,6 +1474,7 @@ arb:
     last_year: "السنة السابقة"
     # latest: "Latest"
     latitude: "خطوط العرض" #?
+    # lender: "Lender"
     length_max: "عدد الاحرف كحد اقصى" #?
     letter: "خطاب"
     letter_format: "مقتبس على شكل خطاب"
@@ -1501,6 +1496,7 @@ arb:
     listing_node_items: "عناصر العقدة المستخرجة" #?
     listing_nodes: "العقد المستخرجة" #?
     listings: "الاستخراج" #?
+    # loan: "Loan"
     local_balance: "الرصيد"
     local_count: "عدد السكان المحليين"
     local_credit: "الائتمان"
@@ -1682,8 +1678,6 @@ arb:
     postal_zones: "الرموز البريدية"
     postcode: "الرمز البريدي" #?
     preferences: "الاعدادات"
-    # prereduction_amount: "Prereduction amount"
-    # prereduction_pretax_amount: "Prereduction pre-tax amount"
     # prescription: "Prescription"
     # prescriptor: "Prescriptor"
     # pretax_amount: "Pre-tax amount"
@@ -1793,8 +1787,6 @@ arb:
     record_value: "التسجيل"
     record_value_id: "تسجيل" #?
     record_value_type: "نوع التسجيل"
-    # reduced_unit_amount: "Reduced unit amount"
-    # reduced_unit_pretax_amount: "Reduced unit pre-tax amount"
     reductible: "ناقص"
     reduction: "طريقة الخصم" #?
     reduction_origin: "طرق قابلة للخصم" #?
@@ -1813,10 +1805,15 @@ arb:
     # reflected_at: "Reflected at"
     # reflection_nodes: "Reflection nodes"
     # reflections: "Reflections"
+    # remaining_amount: "Remaining amount"
     remaining_duration: "(مدة الاستخدام المتبقي (ساعات " #?
     # remember_created_at: "Remember created at"
     # remember_me: "Remember me"
     # reminder_submissive: "Reminder submissive"
+    # repayment_duration: "Repayment duration"
+    # repayment_method: "Repayment method"
+    # repayment_period: "Repayment period"
+    # repayments: "Repayments"
     # reporter: "Reporter"
     required: "الزامي"
     reservoir: "المخزن" #?
@@ -1884,6 +1881,8 @@ arb:
     service_coeff: "معامل كمية الخدمة" #?
     sha256: "SHA256" #?
     # shape: "Shape"
+    # shift_duration: "Shift duration"
+    # shift_method: "Shift method"
     shipped: "المستلم" #?
     shipped_at: "شحنها يوم" #?
     # sign_in_count: "Sign in count"
@@ -1969,7 +1968,6 @@ arb:
     # third_producer_way: "Third producer way"
     # third_role: "Third role"
     # thread: "Thread"
-    # ticket: "Ticket"
     title: "اللقب" #?
     to: "ل"
     to_archive: "وثائق للارشفة" #?
@@ -2000,7 +1998,6 @@ arb:
     unit_id: "وحدة" #?
     # unit_name: "Unit name"
     # unit_pretax_amount: "Unit pre-tax amount"
-    # unit_price: "Unit price"
     unit_quantity: "وحدة مساحة الكمية" #?
     units: "الوحدات" #?
     # unlock_token: "Unlock token"
@@ -2410,6 +2407,10 @@ arb:
         with_value: "%{comparator} %{value}"
         without_value: "%{comparator}"
       reflections: "الجداول المرتبطة"
+    loan:
+      # bookkeep: "[%{resource} %{name}] Fund reception"
+    loan_repayment:
+      # bookkeep: "[%{resource} %{name}] Repayment #%{position}"
     meeting_nature:  #?
       usages: #?
         mailing: "البريدي" #?

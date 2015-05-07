@@ -2818,3 +2818,36 @@ preferences_238:
   updated_at: 2015-04-26 12:41:56.888313000 Z
   updater_id: 1
   user_id: 1
+preferences_239:
+  boolean_value: false
+  created_at: 2015-05-07 23:14:12.949426000 Z
+  creator_id: 1
+  id: 239
+  lock_version: 0
+  name: interface.snippets.synthesis.collapsed
+  nature: boolean
+  updated_at: 2015-05-07 23:14:12.949426000 Z
+  updater_id: 1
+  user_id: 1
+preferences_240:
+  created_at: 2015-05-07 23:14:15.880875000 Z
+  creator_id: 1
+  id: 240
+  lock_version: 0
+  name: list._loans_list_loans_tag
+  nature: string
+  string_value: {}
+  updated_at: 2015-05-07 23:14:15.880875000 Z
+  updater_id: 1
+  user_id: 1
+preferences_241:
+  created_at: 2015-05-07 23:15:06.433558000 Z
+  creator_id: 1
+  id: 241
+  lock_version: 0
+  name: list._loans_list_repayments_tag
+  nature: string
+  string_value: {}
+  updated_at: 2015-05-07 23:15:06.433558000 Z
+  updater_id: 1
+  user_id: 1

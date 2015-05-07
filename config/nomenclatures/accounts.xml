@@ -25,6 +25,7 @@
       <item name="equipment_subventions" fr_pcg82="131"/>
       <item name="other_investment_subventions" fr_pcg82="138"/>
       <item name="other_investment_subventions_in_earnings_statement" fr_pcg82="139"/>
+      <item name="loans" fr_pcg82="164"/>
       <item name="land_loans" fr_pcg82="1641"/>
       <item name="long_term_loans" fr_pcg82="1642"/>
       <item name="short_term_loans" fr_pcg82="1643"/>
@@ -251,6 +252,7 @@
       <item name="other_staff_expenses" fr_pcga="648"/>
       <item name="licences_expenses" fr_pcga="651"/>
       <item name="other_usual_running_expenses" fr_pcga="658"/>
+      <item name="loans_interests" fr_pcg82="661"/>
       <item name="land_loans_interests" fr_pcg82="6611"/>
       <item name="long_term_loans_interests" fr_pcg82="6612"/>
       <item name="short_term_loans_interests" fr_pcg82="6613"/>

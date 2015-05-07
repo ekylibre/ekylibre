@@ -1232,6 +1232,24 @@ listings:
     - "backend/listings#extract"
     - "backend/listings#mail"
 
+loans:
+  read:
+    actions:
+    - "backend/loans#index"
+    - "backend/loans#list"
+    - "backend/loans#list_repayments"
+    - "backend/loans#show"
+    - "backend/loans#unroll"
+  write:
+    dependencies:
+    - read-loans
+    actions:
+    - "backend/loans#create"
+    - "backend/loans#destroy"
+    - "backend/loans#edit"
+    - "backend/loans#new"
+    - "backend/loans#update"
+
 manure_management_plans:
   read:
     actions:

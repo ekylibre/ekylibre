@@ -195,6 +195,18 @@
         <page to="backend/financial_assets#unroll"/>
         <page to="backend/financial_assets#update"/>
       </item>
+      <item name="loans">
+        <page to="backend/loans#index"/>
+        <page to="backend/loans#create"/>
+        <page to="backend/loans#destroy"/>
+        <page to="backend/loans#edit"/>
+        <page to="backend/loans#list"/>
+        <page to="backend/loans#list_repayments"/>
+        <page to="backend/loans#new"/>
+        <page to="backend/loans#show"/>
+        <page to="backend/loans#unroll"/>
+        <page to="backend/loans#update"/>
+      </item>
     </group>
     <group name="cash" icon="money">
       <item name="cashes">

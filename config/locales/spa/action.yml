@@ -331,6 +331,11 @@ spa:
       index: "Exportacion y mailing"
       mail: "Enviar un correo electronico para «%{name}»"
       new: "Créacion de nueva extraccion"
+    backend/loans:
+      # edit: "Edit loan: %{name}"
+      # index: "Loans"
+      # new: "New loan"
+      # show: "Loan: %{name}"
     backend/management:  #?
       index: "Administracion commercial" #?
       sales_invoice: "%{nature} %{number}" #?
@@ -688,6 +693,7 @@ spa:
     building_update: "Modifiar el lugar de deposito" #?
     buildings: "Ver la lista de los lugares de deposito" #?
     # buildings_map: "Buildings map"
+    # by_year: "By year"
     # calculate: "Calculate"
     # calculators: "Calculators"
     # calendar: "Calendar"
@@ -1201,6 +1207,8 @@ spa:
     # remove_item: "Remove item"
     # remove_subscription: "Remove subscription"
     reopen: "Volver a abrir el periodico" #?
+    # repayments: "Repayments"
+    # repayments_graph: "Repayments graph"
     report: "Informaciones comunes"
     reported_balance: "Credito a rendir" #?
     reservoir: "Deposito" #?

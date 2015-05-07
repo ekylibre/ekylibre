@@ -194,6 +194,8 @@ jpn:
         # livestock_feed_matter_expenses: "Livestock feed matter expenses"
         # livestock_feed_stock: "Livestock feed stock"
         # living_corporeal_assets: "Living corporeal assets"
+        # loans: "Loans"
+        # loans_interests: "Loans interests"
         # locked_associated_accounts: "Locked associated accounts"
         # long_cycle_animals_inventory_variations: "Long cycle animals inventory variations"
         # long_cycle_cultivation_advances: "Long cycle cultivation advances"

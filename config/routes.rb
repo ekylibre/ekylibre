@@ -514,6 +514,14 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :loans, concerns: [:list, :unroll] do
+      member do
+        get :list_repayments
+      end
+    end
+
+    resources :loan_repayments
+
     resources :manure_management_plans, concerns: [:list, :unroll] do
       member do
         get :list_zones

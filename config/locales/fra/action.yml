@@ -340,6 +340,11 @@ fra:
       index: "Extractions"
       mail: "Envoyer un e-mail pour\_: %{name}"
       new: "Nouvelle extraction"
+    backend/loans:
+      edit: "Modifier l’emprunt\_: %{name}"
+      index: "Emprunts"
+      new: "Nouvel emprunt"
+      show: "Emprunt\_: %{name}"
     backend/manure_management_plans:
       edit: "Modifier le plan de fumure\_: %{name}"
       index: "Plans de fumure"
@@ -740,6 +745,7 @@ fra:
     building: "Lieu de stockage" #?
     building_name: "Sortie de"
     buildings_map: "Carte des bâtiments"
+    by_year: "Par an"
     calculate: "Calculer"
     calculators: "Calculateurs"
     calendar: "Calendrier"
@@ -1387,6 +1393,8 @@ fra:
     remove_watching: "Supprimer un produit de référence" #?
     reopen: "Déclôturer" #?
     reopen_journal: "Déclôturer le journal" #?
+    repayments: "Remboursements"
+    repayments_graph: "Graphique des remboursements"
     report: "Informations communes"
     reported_balance: "Crédit à reporter" #?
     reproductor: "Reproducteur" #?

@@ -3033,3 +3033,29 @@ accounts_230:
   updated_at: 2015-04-26 12:44:23.241295000 Z
   updater_id: 1
   usages: ''
+accounts_231:
+  created_at: 2015-05-07 23:15:03.718709000 Z
+  creator_id: 1
+  debtor: false
+  id: 574
+  label: 164 - Emprunts
+  lock_version: 0
+  name: Emprunts
+  number: '164'
+  reconcilable: false
+  updated_at: 2015-05-07 23:15:03.718709000 Z
+  updater_id: 1
+  usages: loans
+accounts_232:
+  created_at: 2015-05-07 23:16:54.978688000 Z
+  creator_id: 1
+  debtor: false
+  id: 575
+  label: 661 - Intérêts d’emprunts
+  lock_version: 0
+  name: Intérêts d’emprunts
+  number: '661'
+  reconcilable: false
+  updated_at: 2015-05-07 23:16:54.978688000 Z
+  updater_id: 1
+  usages: loans_interests

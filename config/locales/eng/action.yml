@@ -400,6 +400,11 @@ eng:
       index: "Listings and mailings"
       mail: "Send an email to: %{name}"
       new: "New listing"
+    backend/loans:
+      edit: "Edit loan: %{name}"
+      index: "Loans"
+      new: "New loan"
+      show: "Loan: %{name}"
     backend/manure_management_plans:
       edit: "Edit manure management plan: %{name}"
       index: "Manure management plans"
@@ -821,6 +826,7 @@ eng:
     budgets: "Budgets" #?
     building_name: "Building name" #??
     buildings_map: "Buildings map"
+    by_year: "By year"
     calculate: "Calculate" #?
     calculators: "Calculators" #?
     calendar: "Calendar" #?
@@ -967,7 +973,7 @@ eng:
     exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     expected_quantity_is_x: "Expected quantity: %{x}"
     expedier: "Expedier"
-    expenses: "Expenses" #?
+    expenses: "Expenses"
     export: "Export documents"
     file_nature: "File type"
     file_to_upload: "File to upload"
@@ -1233,6 +1239,8 @@ eng:
     remove: "Remove"
     remove_item: "Remove item"
     remove_subscription: "Remove subscription"
+    repayments: "Repayments"
+    repayments_graph: "Repayments graph"
     report: "Report" #?
     reset: "Reset"
     resource: "View original document: %{resource} %{number}" #?

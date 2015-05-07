@@ -81,13 +81,13 @@ fra:
         container: "Contenant" #?
         started_at: "Entrée" #?
         stopped_at: "Sortie" #?
-      product_nature_category:
-        depreciable: "Ammortissable"
-        duration: "Nombre de numéros OU période d’abonnement"
-        financial_asset_allocation_account: "Compte d'ammortissement"
-        financial_asset_expenses_account: "Compte de dotation aux ammortissements"
-        price: "Prix de revient"
-        subscribing: "Abonnement ?"
+      product_nature_category:  #?
+        depreciable: "Ammortissable" #?
+        duration: "Nombre de numéros OU période d’abonnement" #?
+        financial_asset_allocation_account: "Compte d’ammortissement" #?
+        financial_asset_expenses_account: "Compte de dotation aux ammortissements" #?
+        price: "Prix de revient" #?
+        subscribing: "Abonnement ?" #?
       product_nature_variant:  #?
         contour: "Contour de la forme" #?
         horizontal_rotation: "Rotation horizontale de la forme" #?
@@ -97,8 +97,8 @@ fra:
       production:  #?
         product_nature: "Produit de référence" #?
         static_support: "Support de production" #?
-      production_support:
-        production_usage: "Usage futur"
+      production_support:  #?
+        production_usage: "Usage futur" #?
         storage: "Support" #?
       purchase:  #?
         amount: "Montant TTC" #?
@@ -299,13 +299,15 @@ fra:
       listing: "Extraction"
       listing_node: "Nœud d’extraction"
       listing_node_item: "Élément de nœud d’extraction"
+      loan: "Emprunt"
+      loan_repayment: "Remboursement d’emprunt"
       manure_management_plan: "Plan de fumure"
       manure_management_plan_zone: "Zone de plan de fumure"
       matter: "Matière"
       net_service: "Service en ligne"
       observation: "Observation"
       operation: "Opération"
-      opportunity: "Opportunité"
+      opportunity: "Opportunité" #?
       outgoing_delivery: "Livraison"
       outgoing_delivery_item: "Ligne de livraison"
       outgoing_payment: "Décaissement"
@@ -347,7 +349,7 @@ fra:
       production_budget: "Budget"
       production_distribution: "Répartition entre production"
       production_support: "Support de production"
-      property_title: "Titre de propriété"
+      property_title: "Titre de propriété" #?
       purchase: "Achat"
       purchase_item: "Ligne d’achat"
       purchase_nature: "Type d’achat"
@@ -371,7 +373,7 @@ fra:
       version: "Version"
       worker: "Travailleur"
       zone: "Zone"
-      zone_property_title: "Titre de propriété foncière"
+      zone_property_title: "Titre de propriété foncière" #?
   attributes:
     abilities: "Compétences" #?
     abilities_list: "Liste des compétences"
@@ -384,7 +386,7 @@ fra:
     absorbed_nitrogen_at_opening: "Azote absorbé à l’ouverture du bilan (Pi)"
     absorber: "Absorbeur"
     absorber_way: "Voie de l’absorbeur"
-    acceptance_status: "Statut d'acceptation"
+    acceptance_status: "Statut d’acceptation"
     account: "Compte comptable"
     account_balances: "Balances de compte"
     accountable: "Comptabilisable"
@@ -447,6 +449,7 @@ fra:
     bank_name: "Nom de la banque"
     bank_statement: "Relevé de compte bancaire"
     bank_statements: "Relevés de compte bancaire"
+    base_amount: "Montant de base"
     birth: "Naissance" #?
     boolean_value: "Valeur booléenne"
     born_at: "Date de naissance"
@@ -460,7 +463,7 @@ fra:
     canal: "Canal"
     carried: "Tracté"
     carrier: "Tracteur"
-    carrier_linkages: "Points d'attache du tracteur"
+    carrier_linkages: "Points d’attache du tracteur"
     cash: "Trésorerie"
     cash_journals: "Journaux de caisse" #?
     cash_session: "Session de caisse"
@@ -524,8 +527,8 @@ fra:
     container: "Contenant"
     content: "Contenu"
     content_indicator: "Indicateur du contenu" #?
-    content_indicator_name: "Nom d'indicateur du contenu" #?
-    content_indicator_unit: "Unité d'indicateur du contenu" #?
+    content_indicator_name: "Nom d’indicateur du contenu" #?
+    content_indicator_unit: "Unité d’indicateur du contenu" #?
     content_localizations: "Localisations du contenu"
     content_maximal_quantity: "Quantité maximale du contenu" #?
     content_nature: "Nature du contenu" #?
@@ -633,6 +636,7 @@ fra:
     downpayment_percentage: "Pourcentage d’acompte"
     draft: "Brouillard" #?
     draft_mode: "Mode brouillard" #?
+    due_on: "Due le"
     duration: "Durée"
     email: "Courriel (e-mail)"
     emails: "Courriels (e-mails)"
@@ -695,8 +699,8 @@ fra:
     financial_asset_depreciation_method: "Méthode de dépréciation d’immobilisation"
     financial_asset_depreciation_percentage: "Pourcentage de dépréciation d’immobilisation"
     financial_asset_depreciations: "Dépréciations d’immobilisation"
-    financial_asset_depreciations_account: "Compte des dépréciations d’immobilisation"
-    financial_asset_depreciations_inputations_expenses_account: "Compte d’imputation des charges des dépréciations d’immobilisation"
+    financial_asset_depreciations_account: "Compte des dépréciations d’immobilisation" #?
+    financial_asset_depreciations_inputations_expenses_account: "Compte d’imputation des charges des dépréciations d’immobilisation" #?
     financial_asset_expenses_account: "Compte d’imputation des charges des dépréciations d’immobilisation"
     financial_assets_categories: "Catégories de produits avec immobilisation" #?
     financial_year: "Exercice"
@@ -745,8 +749,8 @@ fra:
     in_cash: "En espèce" #?
     included: "Incluse"
     incoming_deliveries: "Approvisionnements"
-    incoming_delivery_item: "Élément d'approvisionnement"
-    incoming_delivery_items: "Éléments d’approvisionnement"
+    incoming_delivery_item: "Élément d’approvisionnement"
+    incoming_delivery_items: "Éléments d’approvisionnement" #?
     incoming_payment_modes: "Modes d’encaissement"
     incoming_payments: "Encaissements"
     indicator: "Indicateur"
@@ -766,10 +770,14 @@ fra:
     initial_owner: "Propriétaire initial"
     initial_population: "Population initiale"
     initial_shape: "Forme initiale"
+    insurance_amount: "Montant de l’assurance"
+    insurance_percentage: "Taux d’assurance (%)"
     integer_value: "Valeur entière"
+    interest_amount: "Montant de l’intérêt"
+    interest_percentage: "Taux d’intérêt (%)"
     intermediate_cultivation_residue_mineralization: "Minéralisation nette des résidus de culture intermédiaire (MrCi)"
     intervention: "Intervention"
-    intervention_cast: "Acteur de l'intervention"
+    intervention_cast: "Acteur de l’intervention"
     intervention_casts: "Casting"
     interventions: "Interventions"
     introduction: "Introduction"
@@ -817,6 +825,7 @@ fra:
     last_sign_in_ip: "Dernière IP de connexion"
     last_year: "Dernière année"
     latest: "Dernier"
+    lender: "Prêteur"
     letter: "Lettre"
     letter_format: "Devis au format lettre"
     lft: "Limite gauche"
@@ -825,6 +834,7 @@ fra:
     linked: "Lié"
     links: "Liens"
     listing: "Extraction"
+    loan: "Emprunt"
     local_balance: "Solde"
     local_count: "Population"
     local_credit: "Crédit"
@@ -916,7 +926,7 @@ fra:
     organization: "Organisation" #?
     origin: "Origine"
     originator: "Initiateur"
-    originator_type: "Type de l'initiateur"
+    originator_type: "Type de l’initiateur"
     outgoing_deliveries: "Livraisons sortantes"
     outgoing_delivery_items: "Lignes de livraisons sortantes"
     outgoing_delivery_modes: "Modes de livraisons sortantes" #?
@@ -967,8 +977,8 @@ fra:
     postal_zone: "Zone postale" #?
     postal_zones: "Zones postales"
     preferences: "Préférences"
-    prereduction_amount: "Montant TTC avant réduction"
-    prereduction_pretax_amount: "Montant HT avant réduction"
+    prereduction_amount: "Montant TTC avant réduction" #?
+    prereduction_pretax_amount: "Montant HT avant réduction" #?
     prescription: "Prescription"
     prescriptor: "Prescripteur"
     pretax_amount: "Montant HT"
@@ -1062,8 +1072,8 @@ fra:
     record_value: "Enregistrement"
     record_value_type: "Type d’enregistrement"
     reduced_item: "Élément réduit" #?
-    reduced_unit_amount: "PU TTC réduit"
-    reduced_unit_pretax_amount: "PU HT réduit"
+    reduced_unit_amount: "PU TTC réduit" #?
+    reduced_unit_pretax_amount: "PU HT réduit" #?
     reductible: "Soumis à réduction"
     reduction: "Ligne de réduction" #?
     reduction_percentage: "Pourcentage de réduction"
@@ -1076,10 +1086,15 @@ fra:
     reflected: "Refléter les changements"
     reflected_at: "Reflété le"
     reflection_nodes: "Nœuds de réflection"
-    reflections: "Réflections"
+    reflections: "Réflexions"
+    remaining_amount: "Montant restant"
     remember_created_at: "Se souvenir de moi à"
     remember_me: "Se souvenir de moi"
     reminder_submissive: "Soumis à la relance"
+    repayment_duration: "Durée des remboursements"
+    repayment_method: "Méthode de remboursement"
+    repayment_period: "Période de remboursement"
+    repayments: "Remboursements"
     reporter: "Rapporteur"
     required: "Obligatoire"
     reset_password_sent_at: "Réinitialisation du mot de passe envoyé à"
@@ -1122,6 +1137,8 @@ fra:
     serial: "N°Lot"
     serial_number: "Serial number"
     shape: "Forme"
+    shift_duration: "Durée du différé"
+    shift_method: "Méthode de différé"
     sign_in_count: "Nombre de connexions"
     siren: "N° SIREN"
     soil_nature: "Nature du sol"
@@ -1161,8 +1178,8 @@ fra:
     suppliers: "Fournisseurs"
     support: "Support"
     support_variant: "Type de support"
-    support_variant_indicator: "Indicateur d'œuvre"
-    support_variant_unit: "Unité d'œuvre"
+    support_variant_indicator: "Indicateur d’œuvre"
+    support_variant_unit: "Unité d’œuvre"
     support_variety: "Variété du support"
     supports: "Supports"
     suspended: "Suspendu"
@@ -1179,7 +1196,7 @@ fra:
     third_producer_way: "Voie du producteur tiers"
     third_role: "Rôle tiers"
     thread: "Fil"
-    ticket: "Ticket"
+    ticket: "Ticket" #?
     title: "Titre" #?
     to: "Pour"
     to_bank_at: "À décaisser le"
@@ -1201,7 +1218,7 @@ fra:
     unit_amount: "PU TTC"
     unit_name: "Unité"
     unit_pretax_amount: "PU HT"
-    unit_price: "Prix unitaire"
+    unit_price: "Prix unitaire" #?
     unlock_token: "Jeton de déverrouillage"
     unlocked_payments: "Paiement non verrouillés"
     unpaid_sales: "Ventes impayées"
@@ -1238,7 +1255,7 @@ fra:
     with_transport: "Avec transport"
     work_number: "Numéro de travail"
     worker: "Travailleur"
-    working_unit: "Unité d'œuvre" #?
+    working_unit: "Unité d’œuvre" #?
     zone_memberships: "Appartenances de zone"
     zones: "Zones"
   models:
@@ -1347,6 +1364,10 @@ fra:
         with_value: "%{comparator} %{value}"
         without_value: "%{comparator}"
       reflections: "Tables liées"
+    loan:
+      bookkeep: "[%{resource} %{name}] Réception des fonds"
+    loan_repayment:
+      bookkeep: "[%{resource} %{name}] Remboursement n°%{position}"
     outgoing_delivery:
       label: "%{client} à %{address}"
       sale: "Vente %{number}"

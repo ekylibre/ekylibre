@@ -1,0 +1,110 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2015 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: loans
+#
+#  accounted_at         :datetime
+#  amount               :decimal(19, 4)   not null
+#  cash_id              :integer          not null
+#  created_at           :datetime         not null
+#  creator_id           :integer
+#  currency             :string           not null
+#  id                   :integer          not null, primary key
+#  insurance_percentage :decimal(19, 4)   not null
+#  interest_percentage  :decimal(19, 4)   not null
+#  journal_entry_id     :integer
+#  lender_id            :integer          not null
+#  lock_version         :integer          default(0), not null
+#  name                 :string           not null
+#  repayment_duration   :integer          not null
+#  repayment_method     :string           not null
+#  repayment_period     :string           not null
+#  shift_duration       :integer          default(0), not null
+#  shift_method         :string
+#  started_on           :date             not null
+#  updated_at           :datetime         not null
+#  updater_id           :integer
+#
+#
+# == Fixture: loans
+#
+# loans_001:
+#   amount: 0
+#   cash: cashes_001
+#   creator: users_001
+#   currency: "Lorem ipsum"
+#   insurance_percentage: 0
+#   interest_percentage: 0
+#   lender: lenders_001
+#   name: "Lorem ipsum"
+#   repayment_duration: 0
+#   repayment_method: "Lorem ipsum"
+#   repayment_period: "Lorem ipsum"
+#   shift_duration: 0
+#   started_on: 2014-11-27
+#   updater: users_001
+#
+---
+loans_001:
+  accounted_at: 2015-05-07 23:15:03.742367000 Z
+  amount: 2000.0
+  cash_id: 1
+  created_at: 2015-05-07 23:15:03.628055000 Z
+  creator_id: 1
+  currency: EUR
+  id: 1
+  insurance_percentage: 0.1
+  interest_percentage: 2.0
+  journal_entry_id: 30
+  lender_id: 6
+  lock_version: 0
+  name: Vélo
+  repayment_duration: 3
+  repayment_method: constant_amount
+  repayment_period: year
+  shift_duration: 0
+  shift_method: immediate_payment
+  started_on: 2015-05-01
+  updated_at: 2015-05-07 23:15:03.628055000 Z
+  updater_id: 1
+loans_002:
+  accounted_at: 2015-05-07 23:16:54.051577000 Z
+  amount: 45700.0
+  cash_id: 2
+  created_at: 2015-05-07 23:16:52.854070000 Z
+  creator_id: 1
+  currency: USD
+  id: 2
+  insurance_percentage: 0.75
+  interest_percentage: 2.1
+  journal_entry_id: 31
+  lender_id: 13
+  lock_version: 0
+  name: Tracteur de folie
+  repayment_duration: 64
+  repayment_method: constant_amount
+  repayment_period: month
+  shift_duration: 8
+  shift_method: immediate_payment
+  started_on: 2012-03-24
+  updated_at: 2015-05-07 23:16:52.854070000 Z
+  updater_id: 1

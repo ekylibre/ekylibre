@@ -2851,6 +2851,135 @@ listings:
   updater_id:
     type: integer
     references: user
+loan_repayments:
+  accounted_at:
+    type: datetime
+  amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  base_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  due_on:
+    type: date
+    required: true
+  id:
+    type: integer
+    required: true
+  insurance_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  interest_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  journal_entry_id:
+    type: integer
+    references: journal_entry
+  loan_id:
+    type: integer
+    references: loan
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  position:
+    type: integer
+    required: true
+  remaining_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+loans:
+  accounted_at:
+    type: datetime
+  amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  cash_id:
+    type: integer
+    references: cash
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    required: true
+  id:
+    type: integer
+    required: true
+  insurance_percentage:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  interest_percentage:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  journal_entry_id:
+    type: integer
+    references: journal_entry
+  lender_id:
+    type: integer
+    references: entity
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  repayment_duration:
+    type: integer
+    required: true
+  repayment_method:
+    type: string
+    required: true
+  repayment_period:
+    type: string
+    required: true
+  shift_duration:
+    type: integer
+    required: true
+  shift_method:
+    type: string
+  started_on:
+    type: date
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 manure_management_plan_zones:
   absorbed_nitrogen_at_opening:
     type: decimal
