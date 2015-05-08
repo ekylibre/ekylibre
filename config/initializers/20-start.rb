@@ -9,8 +9,8 @@ ActiveRecord::Base.send(:extend, Delay::Validation::ClassMethods)
 require 'safe_string'
 autoload :SymbolArray, 'symbol_array'
 
-# Data exchanges
-autoload :Exchanges, 'exchanges'
+# ActiveExchanger
+autoload :ActiveExchanger, 'active_exchanger'
 
 # App-specific libs
 require 'ekylibre'

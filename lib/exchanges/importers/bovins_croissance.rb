@@ -1,1 +1,0 @@
-require_relative 'bovins_croissance/cattle_performance_controls'

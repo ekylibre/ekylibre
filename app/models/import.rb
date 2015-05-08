@@ -38,6 +38,7 @@
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #
+
 class Import < Ekylibre::Record::Base
   belongs_to :importer, class_name: "User"
   enumerize :nature, in: Nomen::ExchangeNatures.all
@@ -51,7 +52,6 @@ class Import < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_inclusion_of :progression_percentage, in: 0..100, allow_blank: true
   do_not_validate_attachment_file_type :archive
-
 
 
   class << self
@@ -85,7 +85,7 @@ class Import < Ekylibre::Record::Base
     begin
       self.update_columns(state: :in_progress, progression_percentage: 0)
       Ekylibre::Record::Base.transaction do
-        Exchanges.import(self.nature.to_sym, self.archive.path) do |progression, count|
+        ActiveExchanger::Base.import(self.nature.to_sym, self.archive.path) do |progression, count|
           self.update_columns(progression_percentage: progression)
           if block_given?
             break unless yield(progression, count)
@@ -93,9 +93,9 @@ class Import < Ekylibre::Record::Base
         end
       end
       self.update_columns(state: :finished, progression_percentage: 100, imported_at: Time.now, importer_id: (User.stamper.is_a?(User) ? User.stamper.id : User.stamper.is_a?(Fixnum) ? User.stamper : nil))
-    rescue Exchanges::Error => e
+    rescue ActiveExchanger::Error => e
       self.update_columns(state: :errored, progression_percentage: 0)
-      raise Exchanges::Error, e.message
+      raise ActiveExchanger::Error, e.message
     end
   end
 

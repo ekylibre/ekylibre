@@ -36,7 +36,7 @@ class Backend::ImportsController < Backend::BaseController
     return unless import = find_and_check
     begin
       Import.find(import.id).run
-    rescue Exchanges::Error => e
+    rescue ActiveExchanger::Error => e
       notify_error :cannot_import_file, message: e.message
     rescue Exception => e
       notify_error :exception_raised, message: e.message

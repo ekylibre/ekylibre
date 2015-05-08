@@ -1,1 +1,0 @@
-require_relative 'charentes_alliance/incoming_deliveries'
