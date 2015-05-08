@@ -241,9 +241,6 @@ html.backend {
       & > #help {
         height: 100%;
         display: none;
-        .content {
-          padding: $default-gap;
-        }
       }
 
       @media only screen and (max-width: $mini-screen){
@@ -880,13 +877,13 @@ form.search {
 
 #help {
   background: #EEE;
-  @include background(linear-gradient(top, #F7F7F7, #DDD));
+  @include background(linear-gradient(top, #EED, #DDC));
   padding: 0;
   .header {
     height: $header-height;
   }
   .content {
-    padding: $default-gap round($default-gap * $default-ratio);
+    padding: 2 * $default-gap;
   }
 }
 
@@ -901,6 +898,7 @@ form.search {
     line-height: 1.25em;
     font-size: $content-font-size;
     text-align: justify;
+    // font-family: $condensed-font-family;
     @include text-shadow(1px 1px 1px rgba(white, 0.7));
   }
   text-align: justify;

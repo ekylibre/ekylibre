@@ -7,9 +7,10 @@ module RestfullyManageable
     # Build standard RESTful actions to manage records of a model
     def manage_restfully(defaults = {})
       name = self.controller_name
+      path = self.controller_path
       options = defaults.extract!(:t3e, :redirect_to, :xhr, :destroy_to, :subclass_inheritance, :partial, :multipart, :except, :only)
       after_save_url    = options[:redirect_to]
-      after_destroy_url = options[:destroy_to]
+      after_destroy_url = options[:destroy_to] || :index
       actions  = [:index, :show, :new, :create, :edit, :update, :destroy]
       actions &= [options[:only]].flatten   if options[:only]
       actions -= [options[:except]].flatten if options[:except]
@@ -18,24 +19,24 @@ module RestfullyManageable
       model_name  = name.to_s.classify
       model = model_name.constantize
 
-      aname = self.controller_path.underscore
-      base_url = aname.gsub(/\//, "_")
-
-      # url = base_url.singularize + "_url(@#{record_name})" if after_save_url.blank?
-
       if after_save_url.blank?
-        named_url = base_url.singularize + "_url"
-        if instance_methods(true).include?(:show)
-          after_save_url = "{controller: :'#{aname}', action: :show, id: 'id'}"
+        if instance_methods(true).include?(:show) or actions.include?(:show)
+          after_save_url = :show
         else
-          named_url = base_url + "_url"
-          after_save_url = named_url if instance_methods(true).include?(named_url.to_sym)
+          after_save_url = :index
         end
+      end
+
+      if after_save_url == :show
+        after_save_url = "{action: :show, id: 'id'.c}".c
+      elsif after_save_url == :index
+        after_save_url = "{action: :index}".c
       elsif after_save_url.is_a?(CodeString)
         after_save_url.gsub!(/RECORD/, "@#{record_name}")
       elsif after_save_url.is_a?(Hash)
         after_save_url = after_save_url.inspect.gsub(/RECORD/, "@#{record_name}")
       end
+
 
 
       render_form_options = []
@@ -164,6 +165,15 @@ module RestfullyManageable
       end
 
       if actions.include?(:destroy)
+
+        if after_destroy_url == :index
+          after_destroy_url = "{controller: :'#{path}', action: :index}".c
+        elsif after_destroy_url.is_a?(CodeString)
+          after_destroy_url.gsub!(/RECORD/, "@#{record_name}")
+        elsif after_destroy_url.is_a?(Hash)
+          after_destroy_url = after_destroy_url.inspect.gsub(/RECORD/, "@#{record_name}")
+        end
+
         # this action deletes or hides an existing record.
         code << "def destroy\n"
         code << "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
@@ -180,7 +190,7 @@ module RestfullyManageable
           code << "  notify_success(:record_has_been_correctly_removed)\n"
         end
         # code << "  redirect_to #{after_destroy_url ? after_destroy_url : model.name.underscore.pluralize+'_url'}\n"
-        code << "  " + (after_destroy_url ? 'redirect_to(' + after_destroy_url.inspect.gsub(/RECORD/, "@#{record_name}") + ')' : 'redirect_to(params[:redirect] || {action: :index})') + "\n"
+        code << "  redirect_to(params[:redirect] || #{after_destroy_url})\n"
         code << "end\n"
       end
 

@@ -99,9 +99,9 @@ class Backend::BaseController < BaseController
             url = options[:url]
             record.reload
             if url.is_a? Hash
-              url0 = {}
-              url.each{|k,v| url0[k] = (v.is_a?(String) ? record.send(v) : v)}
-              url = url0
+              url.each do |k,v|
+                url[k] = (v.is_a?(CodeString) ? record.send(v) : v)
+              end
             end
             redirect_to(url)
           end

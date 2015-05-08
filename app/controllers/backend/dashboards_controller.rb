@@ -19,7 +19,7 @@
 
 class Backend::DashboardsController < Backend::BaseController
 
-  manage_restfully
+  manage_restfully destroy_to: :root_url
 
   list do |t|
     t.column :name, url: true

@@ -29,9 +29,11 @@ $configuring-min-height: 400px;
   .box {
     $min-height: 200px;
     $cell-border-width: 1px;
-    $cell-border: $cell-border-width solid #DDD;
-    $cell-title-vertical-padding: round($default-gap*1);
-    $cell-title-horizontal-padding: round($default-gap*1.3);
+    $cell-border-color: #CCC;
+    $cell-border: $cell-border-width solid $cell-border-color;
+
+    $cell-title-vertical-padding: round($default-gap*1.1*1.2);
+    $cell-title-horizontal-padding: round($default-gap*1.3*1.2);
     clear: both;
 
     .cell {
@@ -46,17 +48,18 @@ $configuring-min-height: 400px;
 
       .cell-inner {
         background: white;
-        border: 1px solid #DDD;
+        border: $cell-border;
         margin: $spacing;
         @include border-radius($default-border-radius);
-        @include box-shadow(0 0 0 transparent);
+        @include box-shadow(0 0 $default-border-radius rgba(black, 0.16));
         @include transition(box-shadow 0.4s);
 
         .cell-title {
           color: $neutral-color;
           font-weight: bold;
           padding: $cell-title-vertical-padding $cell-title-horizontal-padding;
-          // background: #EEE;
+          background: #EEE;
+          @include border-top-radius($default-border-radius - $cell-border-width);
           @include text-align(left);
           // border-top: 2px solid $active-color;
           border-bottom: $cell-border;
@@ -80,7 +83,6 @@ $configuring-min-height: 400px;
 
         .cell-content {
           padding: $cell-title-vertical-padding $cell-title-horizontal-padding;
-          background: #FFFFFF;
           height: auto;
           overflow: auto;
 

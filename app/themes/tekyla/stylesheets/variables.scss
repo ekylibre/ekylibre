@@ -65,7 +65,7 @@ $menu-text-height: 2 * round($default-ratio * $fs-normal / 2);
 $input-border: $menu-border-width solid mix($desktop-background, $neutral-color, 60%);
 $label-width: 25% !default;
 
-$default-border-radius: round($fs-normal/5);
+$default-border-radius: round($fs-normal * 0.2);
 /* Variation from center to  */
 $default-lightness-variation: 3%;
 $default-gap: round($fs-normal * 0.55);
@@ -86,7 +86,8 @@ $active-bg: $base-color;
 
 // Font families
 $sans-font-family:   'Open Sans', 'Droid Sans', 'Liberation Sans', Helvetica, sans-serif !default;
-$awesome-font-family: 'Open Sans Condensed', 'Open Sans', 'Droid Sans', 'Liberation Sans', Helvetica, sans-serif !default;
+$condensed-font-family: 'Open Sans Condensed', 'Open Sans', 'Droid Sans', 'Liberation Sans', Helvetica, sans-serif !default;
+$awesome-font-family: $condensed-font-family;
 $base-font-family:   $sans-font-family !default;
 $header-font-family: $base-font-family;
 $body-font-family:   $base-font-family;
