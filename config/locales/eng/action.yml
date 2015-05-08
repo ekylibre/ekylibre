@@ -854,7 +854,6 @@ eng:
     city_name: "City name" #?
     click_to_mail: "Click to email with your own mail software"
     client: "Client" #?
-    client_balance: "Client balance" #?!
     client_informations: "Client informations"
     close: "Close" #?
     close_financial_year: "Close financial year"
@@ -1207,7 +1206,6 @@ eng:
     print: "Print"
     procedures: "Procedures"
     product: "Product"
-    product_bar: "Product by categories" #?
     product_category: "Product category" #?
     product_name: "Product name" #?
     product_natures: "Product natures"

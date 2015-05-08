@@ -726,7 +726,6 @@ spa:
     # city_name: "City name"
     click_to_mail: "Escribe su mensaje con su propia mensajeria electronica"
     # client: "Client"
-    # client_balance: "Client balance"
     # client_informations: "Client informations"
     close: "Cerrar"
     # close_financial_year: "Close financial year"
@@ -1167,7 +1166,6 @@ spa:
     print_at: "el" #?
     # procedures: "Procedures"
     product: "Producto"
-    # product_bar: "Product by categories"
     # product_category: "Product category"
     # product_name: "Product name"
     # product_natures: "Product natures"

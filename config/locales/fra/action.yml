@@ -781,7 +781,7 @@ fra:
     city_name: "Ville"
     click_to_mail: "Écrire votre message avec votre propre messagerie électronique"
     client: "Client"
-    client_balance: "Solde du client"
+    client_balance: "Solde du client" #?
     client_code: "Code cl." #?
     client_informations: "Informations client"
     client_phone: "Téléphone" #?
@@ -1334,7 +1334,7 @@ fra:
     procedure_natures: "Types de procédures" #?
     procedures: "Procédures"
     product: "Produit"
-    product_bar: "Produit par catégories"
+    product_bar: "Produit par catégories" #?
     product_category: "Produits"
     product_name: "Produit"
     product_natures: "Types de produit"

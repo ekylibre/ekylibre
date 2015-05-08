@@ -161,10 +161,6 @@ Rails.application.routes.draw do
       resource :last_sales_cell, only: :show, concerns: :list
       resource :map_cell, only: :show
       resource :placeholder_cell, only: :show
-      resource :product_bar_cell, only: :show
-      resource :production_cropping_plan_cell, only: :show
-      resource :purchases_bar_cell, only: :show
-      resource :purchases_expense_bar_cell, only: :show
       resource :quandl_cell, only: :show
       resource :revenues_by_product_nature_cell, only: :show
       resource :rss_cell, only: :show
@@ -199,15 +195,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :aggregators, only: [:index, :show]
-
     resources :analyses, concerns: [:list, :unroll] do
       member do
         get :list_items
       end
     end
-
-    resources :animal_foods, only: [:index], concerns: [:list]
 
     resources :animal_groups, concerns: [:list, :picture, :unroll] do
       member do
@@ -216,15 +208,10 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :animal_medicines, only: [:index], concerns: [:list]
-
-    resources :animal_products, only: [:index], concerns: [:list]
-
     resources :animals, concerns: :products do
       member do
         match :add_to_group, via: [:get, :post]
         get :list_children
-        post :transfer_to_group
       end
     end
 
@@ -268,11 +255,7 @@ Rails.application.routes.draw do
 
     resources :cash_transfers, concerns: [:list, :unroll], path: "cash-transfers"
 
-    resources :catalog_items, concerns: [:list, :unroll] do
-      member do
-        post :stop
-      end
-    end
+    resources :catalog_items, concerns: [:list, :unroll]
 
     resources :catalogs, concerns: [:list, :unroll] do
       member do
@@ -300,7 +283,7 @@ Rails.application.routes.draw do
         post :sort
       end
     end
-    resources :custom_field_choices, concerns: [:list, :unroll], path: "custom-field-choices" do
+    resources :custom_field_choices, concerns: [:unroll], path: "custom-field-choices" do
       member do
         post :up
         post :down
@@ -326,11 +309,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :documents, concerns: [:list, :unroll] do
-      member do
-        get :list_archives
-      end
-    end
+    resources :documents, concerns: [:list, :unroll]
 
     resources :entities, concerns: :entities
 
@@ -341,8 +320,6 @@ Rails.application.routes.draw do
     resources :equipments, concerns: :products
 
     resources :establishments, concerns: [:list, :unroll]
-
-    resources :event_natures, concerns: [:list, :unroll], path: "event-natures"
 
     resources :event_participations
 
@@ -388,7 +365,7 @@ Rails.application.routes.draw do
 
     resources :georeadings, concerns: [:list, :unroll]
 
-    resources :guide_analyses, concerns: [:list, :unroll] do
+    resources :guide_analyses, only: [:show], concerns: [:list], path: "guide-analyses" do
       member do
         get  :list_points
       end
@@ -419,8 +396,6 @@ Rails.application.routes.draw do
 
     resources :incoming_delivery_items, only: [:new]
 
-    resources :incoming_delivery_modes, concerns: [:list, :unroll]
-
     resources :incoming_payments, concerns: [:list, :unroll]
 
     resources :incoming_payment_modes, concerns: [:list, :unroll] do
@@ -430,8 +405,6 @@ Rails.application.routes.draw do
         post :reflect
       end
     end
-
-    resources :intervention_casts
 
     resources :interventions, concerns: [:list, :unroll] do
       collection do
@@ -538,7 +511,7 @@ Rails.application.routes.draw do
 
     resources :observations
 
-    resources :operations, concerns: [:list, :unroll]
+    resources :operations, only: [:index, :show]
 
     resources :outgoing_deliveries, concerns: [:list, :unroll] do
       member do
@@ -547,8 +520,6 @@ Rails.application.routes.draw do
         post :ship
       end
     end
-
-    resources :outgoing_delivery_modes, concerns: [:list, :unroll]
 
     resources :outgoing_payments, concerns: [:list, :unroll]
 
@@ -560,14 +531,6 @@ Rails.application.routes.draw do
     end
 
     resources :people, concerns: :entities
-
-    resources :plant_fertilizers, only: [:index], concerns: [:list]
-
-    resources :plant_medicines, only: [:index], concerns: [:list]
-
-    resources :plant_products, only: [:index], concerns: [:list]
-
-    resources :plant_seedlings, only: [:index], concerns: [:list]
 
     resources :plants, concerns: :products
 
@@ -624,14 +587,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :professions, concerns: [:list, :unroll]
-
     resources :purchase_natures, concerns: [:list, :unroll]
 
     resources :purchases, concerns: [:list, :unroll] do
       member do
         get  :list_items
-        get  :list_undelivered_items
         get  :list_deliveries
         post :abort
         post :confirm
@@ -695,8 +655,6 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :services, concerns: :products
-
     resources :settlements, concerns: :products
 
     resources :snippets, only: [] do
@@ -712,14 +670,9 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :subscriptions, concerns: [:list, :unroll] do
-      collection do
-        get :coordinates
-        get :message
-      end
-    end
+    resources :subscriptions, concerns: [:list, :unroll]
 
-    resources :synchronizations do
+    resources :synchronizations, only: [:index] do
       member do
         post :run
       end
@@ -735,8 +688,6 @@ Rails.application.routes.draw do
         get :list_products
       end
     end
-
-    resources :transformed_products, only: [:index], concerns: [:list]
 
     resources :transports, concerns: [:list, :unroll] do
       collection do
@@ -754,15 +705,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :versions, concerns: [:list, :unroll]
-
     resources :visuals, only: [] do
       match "picture(/:style)", via: :get, action: :picture, as: :picture
     end
 
     resources :wine_tanks, only: [:index], concerns: [:list]
-
-    resources :wine_transformers, only: [:index], concerns: [:list]
 
     resources :workers, concerns: :products
 

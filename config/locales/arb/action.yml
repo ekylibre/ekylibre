@@ -933,7 +933,7 @@ arb:
     city_name: "المدينة"
     click_to_mail: "اكتب الرسالة بالبريد الالكتروني الخاص بك"
     client: "اختيار العميل"
-    client_balance: "رصيد العميل"
+    client_balance: "رصيد العميل" #?
     # client_informations: "Client informations"
     close: "اغلاق الدفتر اليومي"
     # close_financial_year: "Close financial year"
@@ -1510,7 +1510,6 @@ arb:
     print_at: "ال" #?
     # procedures: "Procedures"
     product: "المنتج"
-    # product_bar: "Product by categories"
     product_category: "الفئة"
     product_category_create: "اضافة فئة جديدة للمنتج" #?
     product_category_update: "تعديل الفئة" #?

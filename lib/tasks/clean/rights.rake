@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 namespace :clean do
 
   desc "Update and sort rights.yml"

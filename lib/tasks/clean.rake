@@ -4,7 +4,7 @@ task :clean do
     ENV["PLUGIN"] = "false"
   end
   Rake::Task[:environment].invoke
-  [:themes, :schema, :annotations, :tests, :rights,
+  [:themes, :schema, :annotations, :tests, :rights, :routes,
    :navigation, :validations, :locales, :views, :code].each do |cleaner|
     Rake::Task["clean:#{cleaner}"].invoke
   end
