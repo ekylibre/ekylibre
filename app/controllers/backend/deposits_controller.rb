@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -45,7 +44,6 @@ class Backend::DepositsController < Backend::BaseController
     end
   end
 
-
   list(:payments, model: :incoming_payments, conditions: {deposit_id: 'params[:id]'.c}, :pagination => :none, order: :number) do |t|
     t.column :number, url: true
     t.column :payer, url: true
@@ -61,7 +59,7 @@ class Backend::DepositsController < Backend::BaseController
     return unless @deposit = find_and_check
     t3e @deposit
     respond_with(@deposit, :include => [:responsible, :journal_entry, :mode, :cash,
-                                                                  {:payments => {:include => :payer}}])
+                                        {:payments => {:include => :payer}}])
   end
 
 
@@ -100,15 +98,6 @@ class Backend::DepositsController < Backend::BaseController
   def update
     return unless @deposit = find_and_check
     return if save_and_redirect(@deposit, attributes: permitted_params, url: {action: :index})
-    #  @deposit.update_attributes(permitted_params) and params[:depositable_payments]
-    #   ActiveRecord::Base.transaction do
-    #     payments = params[:depositable_payments].collect{|id, attrs| (attrs[:to_deposit].to_i==1 ? id.to_i : nil)}.compact
-    #     IncomingPayment.where(:deposit_id => @deposit.id).update_all(:deposit_id => nil)
-    #     IncomingPayment.where(id: payments).update_all(:deposit_id => @deposit.id)
-    #   end
-    #   @deposit.refresh
-    #   return if save_and_redirect(@deposit, :saved => true)
-    # end
     t3e @deposit
   end
 

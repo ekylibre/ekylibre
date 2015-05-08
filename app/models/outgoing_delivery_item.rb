@@ -80,7 +80,7 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
       else
         self.create_product_ownership!(attributes)
       end
-    else
+    elsif self.product_ownership
       self.product_ownership.destroy!
     end
   end

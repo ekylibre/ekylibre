@@ -138,8 +138,8 @@ Rails.application.routes.draw do
     # resources :calculators, only: :index
 
     namespace :cells do
-      resource :cash_balances_cell, only: :show, concerns: :list
-      resource :calendar_cell, only: :show, concerns: :list
+      resource :cash_balances_cell, only: :show
+      resource :calendar_cell, only: :show
       resource :payable_taxes_cell, only: :show
       resource :cropping_plan_cell, only: :show
       resource :cropping_plan_on_cultivable_zones_cell, only: :show
@@ -148,13 +148,13 @@ Rails.application.routes.draw do
       resource :expenses_by_product_nature_category_cell, only: :show
       resource :events_cell, only: :show
       resource :guide_evolution_cell, only: :show
+      resource :last_analyses_cell, only: :show
       resource :last_documents_cell, only: :show, concerns: :list
       resource :last_entities_cell, only: :show, concerns: :list
       resource :last_events_cell, only: :show, concerns: :list
       resource :last_incoming_deliveries_cell, only: :show, concerns: :list
       resource :last_issues_cell, only: :show, concerns: :list
       resource :last_interventions_cell, only: :show
-      resource :last_analyses_cell, only: :show, concerns: :list
       resource :last_outgoing_deliveries_cell, only: :show, concerns: :list
       resource :last_products_cell, only: :show, concerns: :list
       resource :last_purchases_cell, only: :show, concerns: :list
@@ -283,7 +283,7 @@ Rails.application.routes.draw do
         post :sort
       end
     end
-    resources :custom_field_choices, concerns: [:unroll], path: "custom-field-choices" do
+    resources :custom_field_choices, except: [:index, :show], concerns: [:unroll], path: "custom-field-choices" do
       member do
         post :up
         post :down
@@ -321,7 +321,7 @@ Rails.application.routes.draw do
 
     resources :establishments, concerns: [:list, :unroll]
 
-    resources :event_participations
+    resources :event_participations, except: [:index, :show]
 
     resources :events, concerns: [:list, :unroll] do
       collection do
@@ -333,7 +333,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :exports
+    resources :exports, only: [:index, :show]
 
     resources :financial_assets, concerns: [:list, :unroll], path: "fixed-assets" do
       member do
@@ -365,7 +365,7 @@ Rails.application.routes.draw do
 
     resources :georeadings, concerns: [:list, :unroll]
 
-    resources :guide_analyses, only: [:show], concerns: [:list], path: "guide-analyses" do
+    resources :guide_analyses, only: [:show], path: "guide-analyses" do
       member do
         get  :list_points
       end
@@ -461,7 +461,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :journal_entry_items, only: [:new, :show], concerns: [:list, :unroll]
+    resources :journal_entry_items, only: [:new, :show], concerns: [:unroll]
 
     resources :kujakus, only: [] do
       member do
@@ -609,7 +609,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :sale_credits, path: "sale-credits"
+    resources :sale_credits, path: "sale-credits", only: [:index, :new, :create]
 
     resources :sale_natures, concerns: [:list, :unroll], path: "sale-natures"
 
@@ -689,10 +689,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :transports, concerns: [:list, :unroll] do
-      collection do
-        get :list_transportable_deliveries
-      end
+    resources :transports, concerns: [:list, :unroll], except: [:new, :create] do
       member do
         get :list_deliveries
       end

@@ -632,7 +632,7 @@ eng:
     backend/transports:
       edit: "Edit transport %{number}"
       index: "Transports"
-      new: "New transport"
+      new: "New transport" #?
       show: "Transport: %{number}"
     backend/users:
       edit: "Edit user: %{first_name} %{last_name}"

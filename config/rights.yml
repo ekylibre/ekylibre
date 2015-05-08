@@ -1924,18 +1924,16 @@ transports:
     - "backend/transports#index"
     - "backend/transports#list"
     - "backend/transports#list_deliveries"
-    - "backend/transports#list_transportable_deliveries"
     - "backend/transports#show"
     - "backend/transports#unroll"
   write:
     dependencies:
+    - read-outgoing_deliveries
     - read-transports
     actions:
     - "backend/outgoing_deliveries#ship"
-    - "backend/transports#create"
     - "backend/transports#destroy"
     - "backend/transports#edit"
-    - "backend/transports#new"
     - "backend/transports#update"
 
 users:

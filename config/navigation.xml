@@ -565,13 +565,10 @@
       </item>
       <item name="transports">
         <page to="backend/transports#index"/>
-        <page to="backend/transports#create"/>
         <page to="backend/transports#destroy"/>
         <page to="backend/transports#edit"/>
         <page to="backend/transports#list"/>
         <page to="backend/transports#list_deliveries"/>
-        <page to="backend/transports#list_transportable_deliveries"/>
-        <page to="backend/transports#new"/>
         <page to="backend/transports#show"/>
         <page to="backend/transports#unroll"/>
         <page to="backend/transports#update"/>

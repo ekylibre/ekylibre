@@ -44,10 +44,8 @@ class Backend::SaleCreditsController < Backend::BaseController
       @sale_credit.invoice!
       saved = true
     end
-    return if save_and_redirect(@sale_credit, saved: saved, url: ({controller: :sales, action: :show, id: "id"}))
+    return if save_and_redirect(@sale_credit, saved: saved, url: ({controller: :sales, action: :show, id: "id".c}))
     t3e @sale_credit.credited_sale
   end
-
-
 
 end
