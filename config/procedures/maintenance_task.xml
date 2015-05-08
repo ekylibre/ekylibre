@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <!-- ######################################## TRAITEMENT VETERINAIRE ########################################### -->
+  <!-- ######################################## Generic maintenance task ########################################### -->
   <procedure name="maintenance_task" natures="maintenance_task" version="0" status="frozen">
     <variables>
       <variable name="worker" variety="worker" roles="maintenance_task-doer"/>

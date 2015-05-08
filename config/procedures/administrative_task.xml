@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <!-- ######################################## TRAITEMENT VETERINAIRE ########################################### -->
+  <!-- ######################################## Generic administrative task ########################################### -->
   <procedure name="administrative_task" natures="administrative_task" version="0" status="frozen">
     <variables>
       <variable name="worker" variety="worker" roles="administrative_task-doer"/>
