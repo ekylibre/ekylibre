@@ -138,8 +138,8 @@ class Backend::SalesController < Backend::BaseController
     @sale.other_deals
     respond_with(@sale, :methods => [:taxes_amount, :affair_closed, :client_number, :sales_conditions, :sales_mentions],
                         :include => {:address => {:methods => [:mail_coordinate]},
-                                     :nature => {},
-                                     :supplier => {:methods => [:picture_path], :include => {:default_mail_address => {:methods => [:mail_coordinate]}}},
+                                     :nature => {:include => {:payment_mode => {:include => :cash}}},
+                                     :supplier => {:methods => [:picture_path], :include => {:default_mail_address => {:methods => [:mail_coordinate]}, :websites => {}, :emails => {}, :mobiles => {}}},
                                      :credits => {},
                                      :affair => {:methods => [:balance], :include => [:incoming_payments => {:include => :mode}]},
                                      :invoice_address => {:methods => [:mail_coordinate]},

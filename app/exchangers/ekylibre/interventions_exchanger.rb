@@ -92,7 +92,14 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       # Get supports and existing production_supports or activity by activity family input
       supports = Product.where(work_number: r.support_codes)
       if supports
-        production_supports = ProductionSupport.of_campaign(campaign).where(storage_id: supports.pluck(:id))
+        ps_ids = []
+        # FIXME add a way to be more accurate
+        # find a uniq support for each product because a same cultivable zone could be a support of many productions
+        for product in supports
+          ps = ProductionSupport.of_campaign(campaign).where(storage: product).first
+          ps_ids << ps.id if ps
+        end
+        production_supports = ProductionSupport.of_campaign(campaign).find(ps_ids)
         # Get global supports area (square_meter)
         production_supports_area = production_supports.map(&:storage_shape_area).compact.sum
       elsif r.support_codes
