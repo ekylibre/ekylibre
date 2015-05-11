@@ -1,3 +1,5 @@
+require 'clean'
+
 desc "Clean all"
 task :clean do
   unless ENV["PLUGIN"]
