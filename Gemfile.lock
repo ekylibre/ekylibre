@@ -446,7 +446,7 @@ DEPENDENCIES
   activerecord-postgis-adapter (>= 3.0.0.beta2)
   acts_as_list
   agric
-  apartment
+  apartment (>= 1.0.0, < 2.0)
   awesome_nested_set (~> 3.0.0)
   beardley (~> 1.2.0)
   beardley-barcode
