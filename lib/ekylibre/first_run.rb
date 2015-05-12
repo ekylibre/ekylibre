@@ -109,8 +109,9 @@ module Ekylibre
             unless Ekylibre::Tenant.exist?(name)
               Ekylibre::Tenant.create(name)
             end
-            Ekylibre::Tenant.switch(name)
-            yield
+            Ekylibre::Tenant.switch(name) do
+              yield
+            end
           ensure
             Ekylibre::Tenant.check!(name)
           end

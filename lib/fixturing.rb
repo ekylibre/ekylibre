@@ -11,16 +11,6 @@ module Fixturing
       Rails.root.join("test", "fixtures")
     end
 
-    # def table_names
-    #   list = []
-    #   Dir.chdir(directory) do
-    #     list = Dir["*.yml"].map do |f|
-    #       f.gsub(/\.yml$/, '').to_sym
-    #     end
-    #   end
-    #   return list
-    # end
-
     def migrations_file
       directory.join(migrations_table)
     end
@@ -34,27 +24,15 @@ module Fixturing
     end
 
     def restore(tenant)
-      # Ekylibre::Tenant.check!(tenant)
-      # if Ekylibre::Tenant.exist?(tenant)
-      #   Ekylibre::Tenant.drop(tenant, keep_files: true)
-      # end
       Apartment.connection.execute("DROP SCHEMA IF EXISTS \"#{tenant}\" CASCADE")
       Apartment.connection.execute("CREATE SCHEMA \"#{tenant}\"")
       Ekylibre::Tenant.add(tenant)
-      # Ekylibre::Tenant.create(tenant)
       Apartment.connection.execute("SET search_path TO '#{tenant}, postgis'")
-      # Ekylibre::Tenant.switch(tenant)
-      # ActiveRecord::Migrator.migrate(ActiveRecord::Migrator.migrations_paths, current_version)
       Ekylibre::Tenant.migrate(tenant, to: current_version)
-      # columnize_keys # Simple IDs
-      # Ekylibre::Tenant.switch(tenant)
-      # List tables
       table_names = Ekylibre::Record::Base.connection.tables.delete_if{ |t| %w(schema_migrations spatial_ref_sys).include?(t) }
       say "Load fixtures"
       ActiveRecord::FixtureSet.create_fixtures(directory, table_names)
-      # reflectionize_keys # Back to simple reading
       unless up_to_date?
-        # say "Migrate with new migrations"
         migrate(tenant)
       end
     end
@@ -62,7 +40,7 @@ module Fixturing
     # Dump data of database into fixtures
     def dump(tenant = nil)
       if tenant
-        Ekylibre::Tenant.switch(tenant)
+        Ekylibre::Tenant.switch!(tenant)
         migrate(tenant) unless up_to_date?
       end
 
@@ -113,8 +91,9 @@ module Fixturing
       origin = current_version
       if target != origin
         say "Migrate fixtures from " + origin.inspect + " to " + target.inspect
-        Ekylibre::Tenant.switch(tenant)
-        ActiveRecord::Migrator.migrate(ActiveRecord::Migrator.migrations_paths, target)
+        Ekylibre::Tenant.switch(tenant) do
+          ActiveRecord::Migrator.migrate(ActiveRecord::Migrator.migrations_paths, target)
+        end
       else
         say "No more migrations", :green
       end

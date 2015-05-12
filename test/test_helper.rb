@@ -186,7 +186,7 @@ class ActionController::TestCase
       code  = ""
 
       code << "setup do\n"
-      code << "  Ekylibre::Tenant.switch('test')\n"
+      code << "  Ekylibre::Tenant.switch!('test')\n"
       # Check locale
       # code << "  @locale = I18n.locale = ENV['LOCALE'] || I18n.default_locale\n"
       code << "  @locale = ENV['LOCALE'] || I18n.default_locale\n"

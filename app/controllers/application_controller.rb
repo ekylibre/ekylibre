@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   before_action :set_mailer_host
   before_action :check_browser
 
-  rescue_from PG::UndefinedTable, Apartment::SchemaNotFound, with: :configure_application
+  rescue_from PG::UndefinedTable, Apartment::TenantNotFound, with: :configure_application
 
   hide_action :current_theme, :current_theme=, :human_action_name, :authorized?
 

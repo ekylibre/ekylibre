@@ -13,10 +13,12 @@ module Ekylibre
         job.arguments << Ekylibre::Tenant.current
       end
 
-      before_perform do |job|
+      around_perform do |job, block|
         tenant = job.arguments.delete_at(-1)
         puts tenant.inspect.blue
-        Ekylibre::Tenant.switch(tenant)
+        Ekylibre::Tenant.switch(tenant) do
+          block.call
+        end
       end
 
     end

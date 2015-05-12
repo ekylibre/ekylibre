@@ -89,15 +89,9 @@ module Ekylibre
 
       # Migrate tenant to wanted version
       def migrate(name, options = {})
-        switch(name)
-        ActiveRecord::Migrator.migrate(ActiveRecord::Migrator.migrations_paths, options[:to])
-        # if options[:to] ||= options[:up_to]
-        #   Apartment::Migrator.run(:up, name, options[:to])
-        # elsif options[:down_to]
-        #   Apartment::Migrator.run(:down, name, options[:down_to])
-        # else
-        #   Apartment::Migrator.migrate(name)
-        # end
+        switch do (name)
+          ActiveRecord::Migrator.migrate(ActiveRecord::Migrator.migrations_paths, options[:to])
+        end
       end
 
 
@@ -112,25 +106,31 @@ module Ekylibre
       end
 
       # Change current tenant
-      def switch(name)
-        Apartment::Tenant.switch(name)
+      def switch(name, &block)
+        raise "Need block to use Ekylibre::Tenant.switch" unless block_given?
+        Apartment::Tenant.switch(name, &block)
       end
-      alias :current= :switch
-      alias :switch! :switch
+
+      def switch!(name)
+        Apartment::Tenant.switch!(name)
+      end
+
+      alias :current= :switch!
 
       def switch_default!
         if list.empty?
           raise TenantError, "No default tenant"
         else
-          Apartment::Tenant.switch(list.first)
+          Apartment::Tenant.switch!(list.first)
         end
       end
 
       # Browse all tenant to make actions on it
       def switch_each(&block)
         list.each do |tenant|
-          switch! tenant
-          yield tenant
+          switch(tenant) do
+            yield tenant
+          end
         end
       end
 

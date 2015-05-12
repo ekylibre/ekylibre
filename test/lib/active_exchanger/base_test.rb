@@ -12,12 +12,12 @@ class ActiveExchanger::BaseTest < ActiveSupport::TestCase
 
   setup do
     # Ekylibre::Tenant.create(:sekindovall)
-    Ekylibre::Tenant.switch(:sekindovall)
+    Ekylibre::Tenant.switch!(:sekindovall)
   end
 
   teardown do
     # Ekylibre::Tenant.drop(:sekindovall)
-    Ekylibre::Tenant.switch(:test)
+    Ekylibre::Tenant.switch!(:test)
   end
 
   test "import of a ekylibre_settings file" do
