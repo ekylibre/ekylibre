@@ -16,10 +16,12 @@
 //= require jquery-ui/dialog
 //= require jquery-ui/slider
 //= require jquery-ui/accordion
+//= require jquery-ui/sortable
 //= require jquery_ujs
 //= require jquery.turbolinks
 //= require turbolinks
 //= require active_list.jquery
+//= require knockout
 //= require_self
 //= require ekylibre
 //= require formize/behave

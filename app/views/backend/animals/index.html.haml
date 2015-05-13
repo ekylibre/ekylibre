@@ -1,19 +1,193 @@
-= kujaku do |k|
-  - k.text
-  -# k.choice :all, :healthy, :illness
-  - k.helper :journal_period_crit
-  - k.helper do
-    %label= Production.human_attribute_name(:variant)
-    = select_tag(:variant_id, options_for_select([[]] + ProductNatureVariant.of_variety(:animal).order(:name).collect{|u| [u.name, u.id]}, params[:variant_id]))
+-# OLD INTERFACE
+  = kujaku do |k|
+    - k.text
+    -# k.choice :all, :healthy, :illness
+    - k.helper :journal_period_crit
+    - k.helper do
+      %label= Production.human_attribute_name(:variant)
+      = select_tag(:variant_id, options_for_select([[]] + ProductNatureVariant.of_variety(:animal).order(:name).collect{|u| [u.name, u.id]}, params[:variant_id]))
 
-- main_toolbar do |t|
-  - t.export do |e|
-    - e.animal_list Time.now.to_s, @animals
+  - main_toolbar do |t|
+    - t.export do |e|
+      - e.animal_list Time.now.to_s, @animals
 
-= list
+  = list
 
--#= beehive do |b|
-  - b.cell do
-    = list
-  - b.hbox do
-    - b.cell :current_stocks_by_variety, params: {variety: 'animal', indicator: :population}
+  -#= beehive do |b|
+    - b.cell do
+      = list
+    - b.hbox do
+      - b.cell :current_stocks_by_variety, params: {variety: 'animal', indicator: :population}
+
+.container-fluid
+  .navbar.navbar-default.animal-navbar
+    .container-fluid
+      .navbar-header
+        %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+      .collapse.navbar-collapse
+        .animal-summary.row
+          .col-md-6
+            %ul.nav.navbar-nav
+              %li.dropdown
+                %a.dropdown-toggle.animal-navbar-interventions{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+                  Interventions
+                  %span.caret
+                %ul.dropdown-menu{:role => "menu"}
+                  %li
+                    %a{:href => "#"} Action
+                  %li.divider
+                  %li
+                    %a{:href => "#"} Action
+            %button.btn.btn-default.btn-sm.navbar-btn{:type => "button"} Vendre
+            %button.btn.btn-default.btn-sm.navbar-btn{:type => "button"} Mettre en pension
+          .col-md-3
+            %form.search-form{:action => ""}
+              .form-group.has-feedback
+                %label.sr-only{:for => "search"} Search
+                %input#search.form-control{:name => "search", :placeholder => "Rechercher", :type => "text"}
+                  %span.fa.fa-search.form-control-feedback
+          .col-md-3
+            .alert.alert-success{:role => "alert"}
+              18
+            .alert.alert-warning{:role => "alert"}
+              1
+            .alert.alert-danger{:role => "alert"}
+              1
+            .alert.alert-info{:role => "alert"}
+              1
+  .row.animal-viewport
+    .animal-group-container{"data-bind" => "sortable: {template: 'animal-group-template', data: groups, options: {handle: '.animal-group-dragger', cursor: 'move', tolerance: 'pointer', placeholder: 'sorting-group-placeholder', dropOnEmpty: false, forcePlaceholderSize: true, opacity: 0.8, items: '> .animal-group'}}"}
+    %script#animal-group-template{:type => "text/html"}
+      .animal-group
+        .panel.panel-default
+          .panel-heading
+            .row
+              .col-md-1.no-padding.xs-h-padding
+                %i.fa.fa-ellipsis-v.animal-group-dragger.text-muted
+              .col-md-9.no-padding.xs-h-padding
+                %span.animal-group-title
+                  %i.fa.fa-square
+                  %span{"data-bind" => "text: name"}
+              .col-md-2.pull-right.no-padding.xs-h-padding
+                .pull-right.btn-group.btn-group-xs{"aria-label" => "...", :role => "group"}
+                  %button.btn.btn-default.btn-hover.animal-all-selector{"data-bind" => "checkbox: toggleItems", :type => "button"}
+                    %i.fa.fa-check-square-o
+          .panel-body.no-padding
+            %ul.list-group.animal-list-group{"data-bind" => "sortable: {template: 'animal-container-template', data: $root.filteredContainers($data), options: {handle: '.animal-container-dragger', cursor: 'move', tolerance: 'pointer', placeholder: 'sorting-container-placeholder', dropOnEmpty: false, forcePlaceholderSize: true, opacity: 0.8}}"}
+            .add-container
+              %button.btn.btn-link{"data-target" => "#new-container", "data-toggle" => "modal", :type => "button"}
+                %i.fa.fa-plus.text-muted
+          .panel-footer
+            %button.btn.btn-link{"data-target" => "#new-animal", "data-toggle" => "modal", :type => "button"}
+              %i.fa.fa-plus-circle
+              Nouvel animal
+    %script#animal-container-template{:type => "text/html"}
+      %li.list-group-item.animal-container
+        .row.toggle.list-group-item-title.no-right-left-margin
+          .col-md-1.no-padding.xs-h-padding
+            %i.fa.fa-ellipsis-v.animal-container-dragger.text-muted
+          .col-md-8.no-padding.xs-h-padding
+            %span.animal-container-title{"data-bind" => "text: name"}
+          .col-md-3.no-padding.xs-h-padding
+            %span.badge.animal-container-badge{"data-bind" => "text: animalCount"}
+            .pull-right.btn-group.btn-group-xs{"aria-label" => "...", :role => "group"}
+              / <button type="button" class="btn btn-default btn-hover btn-xs"><i class="fa fa-pencil"></i></button>
+              %button.btn.btn-default.btn-xs.btn-hover.animal-container-collapse-handler{"data-bind" => "click: toggle", :type => "button"}
+                %i.fa.fa-caret-down
+        %div{"data-bind" => "css: {'hide':hidden}"}
+          %div{"data-bind" => "sortable: {template: 'animal-element-template', data: $root.animals, dragged: $root.animalSortableHelper, options: {handle: '.animal-element-dragger', cursor: 'move', placeholder: 'sorting-animal-placeholder', dropOnEmpty: false, forcePlaceholderSize: true, opacity: 1, revert: true}}"}
+    %script#animal-element-template{:type => "text/html"}
+      .animal-element.row.no-right-left-margin{"data-bind" => "if: $parent.id == container_id()"}
+        .animal-element-img.no-padding{"data-bind" => "css: animalStatusClass"}
+          %img{"data-bind" => "attr: {src: img}"}
+        .animal-element-infos
+          %i.fa.fa-venus.text-muted{"data-bind" => "if: sex == 0"}
+          %i.fa.fa-mars.text-muted{"data-bind" => "if: sex == 1"}
+          / <button type="button" class="btn btn-link no-padding xs-h-padding animal-element-name" data-toggle="modal" data-target="#view-animal" data-bind="text: name"></button>
+          %button.btn.btn-link.no-padding.xs-h-padding.animal-element-name{"data-bind" => "click: $root.toggleAnimalDetailsModal", :type => "button"}
+            %span{"data-bind" => "text: name"}
+        .animal-element-actions.no-padding
+          .pull-right.animal-selector
+            %button.btn.btn-default.btn-xs.btn-hover.checker{"data-bind" => "checkbox: checked", :type => "button"}
+              %span.fa.fa-check.check-icon
+        .animal-element-dragger
+          %i.fa.fa-ellipsis-v.animal-element-handler.text-muted
+
+    .add-group-panel-container
+      .panel.panel-default
+        .panel-heading
+          .add-group-btn
+            %button.btn.btn-link{"data-target" => "#new-group", "data-toggle" => "modal", :type => "button"}
+              %i.fa.fa-5x.fa-plus.text-muted
+    .col-md-3
+#new-animal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newAnimal", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} &times;
+        %h4#newAnimalTitle.modal-title Nouvel animal
+      .modal-body
+        .btn-group-vertical{"aria-label" => "...", :role => "group"}
+          %button.btn.btn-default{:type => "button"} Achat
+          %button.btn.btn-default{:type => "button"} Pension
+          %button.btn.btn-default{:type => "button"} Naissance
+          %button.btn.btn-default{:type => "button"} D&eacute;claration
+#new-action-animal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newActionAnimal", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} &times;
+        %h4#newAnimalTitle.modal-title Nouvelle action
+      .modal-body
+        .btn-group-vertical{"aria-label" => "...", :role => "group"}
+          %button.btn.btn-default{:type => "button"} Vendre
+          %button.btn.btn-default{:type => "button"} Vacciner
+#new-group.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newGroup", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} &times;
+        %h4#newGroupTitle.modal-title Nouveau Troupeau
+      .modal-body
+        Ajouter un nouveau troupeau
+#new-container.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newContainer", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} &times;
+        %h4#newContainerTitle.modal-title Nouvelle zone
+      .modal-body
+        Ajouter une nouvelle zone
+.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "viewAnimal", "data-bind" => "modal: showAnimalDetailsModal(), with: animalDetailsModalOptions", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} &times;
+        %h4.modal-title Détails de l'animal
+      .modal-body
+        .row
+          .col-md-3
+            %img.img-responsive{"data-bind" => "attr: {src: img}"}
+          .col-md-9
+            %p
+              Nom:
+              %span{"data-bind" => "text: name"}
+            %p
+              Sexe:
+              %i.fa.fa-venus{"data-bind" => "if: sex == 0"}
+              %i.fa.fa-mars{"data-bind" => "if: sex == 1"}
+            %p
+              Status:
+              %span{"data-bind" => "css: animalFlagClass"}
+      .modal-footer
+        %button.btn.btn-link{:type => "button"}
+          %i.fa.fa-plus-circle
+          Plus d'infos
