@@ -2,19 +2,16 @@
 
 %nav#top
 
-  = link_to("#side", id: "menu", "data-toggle" => "side") do
-    %i
-
-  -#= link_to(backend_root_path, id: "brand") do
-    %i
-    %h1= "Ekylibre"
+  %ul#menu
+    %li= link_to(content_tag(:i), toggle_backend_helps_path, data: {toggle: 'help'}, title: :help.tl, class: (help_shown? ? [:active] : []))
+    %li= link_to(content_tag(:i), "#side", data: {toggle: "side"})
 
   = link_to(backend_root_path, id: "home") do
     %i
     = :home.tl
 
-
-  = link_to(current_part.human_name, {controller: "/backend/dashboards", action: current_part.name}, id: "part") if current_part
+  - if current_part
+    = link_to(current_part.human_name, {controller: "/backend/dashboards", action: current_part.name}, id: "part")
 
   .collapse
 
@@ -24,7 +21,7 @@
           - next unless part_authorized?(part)
           %li.separator
           :ruby
-            attrs = {:id => "#{part.name}-part"}
+            attrs = {id: "#{part.name}-part"}
             attrs[:class] = :active if current_part == part
           %li{attrs}
             = link_to(controller: "/backend/dashboards", action: part.name) do
@@ -32,6 +29,8 @@
               = part.human_name
 
     %ul#user
+      %li.separator
+      %li= link_to(content_tag(:i), toggle_backend_helps_path, data: {toggle: 'help'}, title: :help.tl, class: (help_shown? ? [:active] : [] ))
       %li.separator
       %li.dropdown
         = link_to("#", "data-toggle" => "dropdown") do

@@ -92,9 +92,8 @@ ul.dropdown-menu {
     @include float(right);
     display: none;
     i {
-      @include is-icon(21px);
-      @include use-icon(reorder);
       line-height: $topbar-height;
+      vertical-align: baseline;
     }
   }
 
@@ -162,8 +161,21 @@ ul.dropdown-menu {
   }
 }
 
-a.btn[data-toggle='help'] {
+a[data-toggle='side'] {
+  i {
+    @include is-icon($lh-normal);
+    @include use-icon(reorder);
+  }
+}
+
+a[data-toggle='help'] {
   position: relative;
+  nav#top & {
+    font-size: 0;
+    i {
+      @include is-icon($lh-normal);
+    }
+  }
   i {
     @include use-icon(support);
   }
