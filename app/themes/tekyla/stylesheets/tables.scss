@@ -268,143 +268,148 @@ table {
     overflow: auto;
   }
 
-  .actioner {
-    & > * {
-      @include margin-right($fs-normal);
-      &:last-child {
-        @include margin-right(0);
-      }
+
+}
+
+
+
+
+
+.list-actions {
+  & > * {
+    @include margin-right($fs-normal);
+    &:last-child {
+      @include margin-right(0);
     }
   }
+}
 
 
-  .settings {
-    @include float(right);
-    position: relative;
-    background: none;
+.list-settings {
+  @include float(right);
+  position: relative;
+  background: none;
+  .settings-start {
+    @include button;
+    @include margin-left($fs-normal);
+    text-align: center;
+    padding-left: $fs-normal;
+    padding-right: $fs-normal;
+    font-size: 0;
+    i {
+      @include is-icon;
+      @include use-icon(wrench);
+      @include inline-block;
+    }
+  }
+  &:hover {
     .settings-start {
-      @include button;
-      @include margin-left($fs-normal);
-      text-align: center;
-      padding-left: $fs-normal;
-      padding-right: $fs-normal;
-      font-size: 0;
-      i {
-        @include is-icon;
-        @include use-icon(wrench);
-        @include inline-block;
-      }
-    }
-    &:hover {
-      .settings-start {
-        background-color: $menu-background;
-      }
-      & > ul {
-        display: block;
-      }
-    }
-    ul {
-      display: none;
-      position: absolute;
-      top: 20px;
-      margin: 0;
-      @include right(0);
-      i {
-        @include margin-right($default-gap);
-      }
-      @include menu;
-      z-index: 15;
-      li {
-        @include menu-item;
-        ul {
-          position: relative;
-          top: -1 * ($menu-height + $menu-border-width);
-          @include right($menu-width);
-          &:hover {
-            display: block;
-          }
-        }
-        &:hover ul {
-          display: block;
-        }
-
-        & > a {
-          @include user-select(none);
-          cursor: pointer;
-          i { @include is-icon }
-          &.pages     i { @include use-icon(bars); }
-          &.columns   i { @include use-icon(columns); }
-        }
-        &.parent > a {
-          cursor: default;
-        }
-        i { @include is-icon }
-        &.export    i { @include use-icon(download); }
-        &.check     i { @include use-icon(check); }
-        &.checked   i { @include use-icon(check-square-o); }
-        &.unchecked i { @include use-icon(square-o); }
-        &:hover {
-          text-decoration: none;
-          // background: background-hover($menu-background);
-        }
-        &.separator {
-          @include menu-separator;
-        }
-
-      }
+      background-color: $menu-background;
     }
     & > ul {
-      top: 26px;
+      display: block;
     }
-
   }
-
-  .pagination {
-    @include float(right);
-    @include margin-left($fs-normal);
-    .status {
+  ul {
+    display: none;
+    position: absolute;
+    top: 20px;
+    margin: 0;
+    @include right(0);
+    i {
       @include margin-right($default-gap);
     }
-    .paginator {
-      @include button-group;
-      .btn {
-        min-width: $fs-normal;
-        @include text-align(center);
+    @include menu;
+    z-index: 15;
+    li {
+      @include menu-item;
+      ul {
+        position: relative;
+        top: -1 * ($menu-height + $menu-border-width);
+        @include right($menu-width);
+        &:hover {
+          display: block;
+        }
       }
-      input[type="number"] {
-        width: 5ex;
-        margin: 0;
-        display: inline;
+      &:hover ul {
+        display: block;
       }
-    }
-    .first-page, .previous-page, .next-page, .last-page {
-      @include inline-block;
-      // @include squish-text;
-      font-size: 0;
+
+      & > a {
+        @include user-select(none);
+        cursor: pointer;
+        i { @include is-icon }
+        &.pages     i { @include use-icon(bars); }
+        &.columns   i { @include use-icon(columns); }
+      }
+      &.parent > a {
+        cursor: default;
+      }
       i { @include is-icon }
-    }
-    html[dir="rtl"] & .last-page i,  & .first-page i {
-      @include use-icon(fast-backward);
-    }
-    html[dir="rtl"] & .first-page i,  & .last-page i {
-      @include use-icon(fast-forward);
-    }
-    html[dir="rtl"] & .next-page i,  & .previous-page i {
-      // @include use-icon(step-backward);
-      @include use-icon(chevron-left);
-    }
-    html[dir="rtl"] & .previous-page i, & .next-page i {
-      // @include use-icon(step-forward);
-      @include use-icon(chevron-right);
-    }
-    .separator {
-      @include inline-block;
-      width: $menu-border-width;
-      $margin:$menu-border-width * 3 ;
-      margin: 0 $margin;
-      height: 1.2em;
-      background: $menu-border-color;
+      &.export    i { @include use-icon(download); }
+      &.check     i { @include use-icon(check); }
+      &.checked   i { @include use-icon(check-square-o); }
+      &.unchecked i { @include use-icon(square-o); }
+      &:hover {
+        text-decoration: none;
+        // background: background-hover($menu-background);
+      }
+      &.separator {
+        @include menu-separator;
+      }
+
     }
   }
+  & > ul {
+    top: 26px;
+  }
 
+}
+
+.list-pagination {
+  @include float(right);
+  @include margin-left($fs-normal);
+  .status {
+    @include margin-right($default-gap);
+  }
+  .paginator {
+    @include button-group;
+    .btn {
+      min-width: $fs-normal;
+      @include text-align(center);
+    }
+    input[type="number"] {
+      width: 5ex;
+      margin: 0;
+      display: inline;
+    }
+  }
+  .first-page, .previous-page, .next-page, .last-page {
+    @include inline-block;
+    // @include squish-text;
+    font-size: 0;
+    i { @include is-icon }
+  }
+  html[dir="rtl"] & .last-page i,  & .first-page i {
+    @include use-icon(fast-backward);
+  }
+  html[dir="rtl"] & .first-page i,  & .last-page i {
+    @include use-icon(fast-forward);
+  }
+  html[dir="rtl"] & .next-page i,  & .previous-page i {
+    // @include use-icon(step-backward);
+    @include use-icon(chevron-left);
+  }
+  html[dir="rtl"] & .previous-page i, & .next-page i {
+    // @include use-icon(step-forward);
+    @include use-icon(chevron-right);
+  }
+  .separator {
+    @include inline-block;
+    width: $menu-border-width;
+    $margin:$menu-border-width * 3 ;
+    margin: 0 $margin;
+    height: 1.2em;
+    background: $menu-border-color;
+  }
 }

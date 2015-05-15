@@ -30,20 +30,19 @@
 - main_toolbar do |t|
   - t.new
 
-= beehive do |b|
-  - b.hbox do
-    - b.cell :resource_map, title: :map do
-      = visualization do |v|
-        - v.serie :main, data
-        - v.background "OpenStreetMap.HOT"
-        - v.background "OpenStreetMap.Mapnik"
-        - v.background "Thunderforest.Landscape"
-        - v.background "Esri.WorldImagery"
-        - v.choropleth :members_count, :main
-        - v.control :zoom
-        - v.control :scale
-        - v.control :fullscreen
-        - v.control :layer_selector
+= janus do |j|
+  - j.face :map do
+    = visualization do |v|
+      - v.serie :main, data
+      - v.background "OpenStreetMap.HOT"
+      - v.background "OpenStreetMap.Mapnik"
+      - v.background "Thunderforest.Landscape"
+      - v.background "Esri.WorldImagery"
+      - v.choropleth :members_count, :main
+      - v.control :zoom
+      - v.control :scale
+      - v.control :fullscreen
+      - v.control :layer_selector
 
-    - b.cell :list do
-      = list
+  - j.face :list do
+    = main_list

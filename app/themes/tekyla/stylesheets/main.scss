@@ -445,29 +445,24 @@ html.exception {
   }
 }
 
-.help-toolbar {
+.toolbar {
   @include toolbar();
-  @include float(right);
-  margin-top: round(($header-height - $button-height) / 2);
-  margin-bottom: 0; //round(($header-height - $button-height) / 2);
-  @include margin-right($default-gap);
+
+  &.heading-toolbar {
+    @include float(right);
+  }
+
+  &.meta-toolbar, &.view-toolbar {
+    @include float(right);
+  }
+
+  &.main-toolbar {
+    @include float(left);
+  }
 }
 
-.main-toolbar {
-  @include toolbar();
-  margin-top: round(($header-height - $button-height) / 2);
-  margin-bottom: round(($header-height - $button-height) / 2);
-  @include margin-left($default-gap);
-  .btn-group {
-    > .btn {
-      // font-size: 0;
-      i {
-        // margin: 0;
-        // min-width: 18px;
-        // text-align: center;
-      }
-    }
-  }
+#core {
+  clear: both;
 }
 
 div[data-deck] > div {
@@ -2321,5 +2316,17 @@ a[data-annotate] {
         display: block;
       }
     }
+  }
+}
+
+
+*[data-toggle='face'] {
+  font-size: 0;
+}
+
+*[data-face] {
+  display: none;
+  &.active {
+    display: block;
   }
 }

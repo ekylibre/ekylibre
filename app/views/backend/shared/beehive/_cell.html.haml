@@ -14,7 +14,7 @@
         - if beehive_cell.content?
           .cell-content= beehive_cell.content
         - else
-          .cell-content{data: {cell: url_for((beehive_cell.options[:params]||{}).merge(controller: "backend/cells/#{beehive_cell.type}_cells", action: :show))}}
+          .cell-content{data: {cell: url_for((beehive_cell.options[:params]||{}).merge(controller: "backend/cells/#{beehive_cell.type}_cells", action: :show, cell: {name: beehive_cell.name}))}}
       - else
         .cell-title
           = link_to("##{beehive.id}", data: {beehive_remove: "cell"}) do

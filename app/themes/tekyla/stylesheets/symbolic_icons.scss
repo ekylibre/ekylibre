@@ -11,7 +11,7 @@
   // fieldset icon
   .fieldset.#{$symbol-name} .fieldset-legend .title i,
   // help content
-  .content .icon.icon-#{$symbol-name},
+  .icon.icon-#{$symbol-name},
   // picto
   .picto.picto-#{$symbol-name} {
     @content;

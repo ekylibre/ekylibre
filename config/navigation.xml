@@ -1491,6 +1491,9 @@
       <item name="kujakus">
         <page to="backend/kujakus#toggle"/>
       </item>
+      <item name="januses">
+        <page to="backend/januses#toggle"/>
+      </item>
       <item name="snippets">
         <page to="backend/snippets#toggle"/>
       </item>

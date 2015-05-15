@@ -1,9 +1,11 @@
 - main_toolbar do |t|
   - t.new
 
-#calendar{'data-simple-calendar' => "true"}
-  = render "month"
-
 -#= kujaku
 
--# = list
+= janus do |j|
+  - j.face :calendar do
+    #calendar{data: {simple_calendar: true}}= render "month"
+  - j.face :list do
+    = main_list
+

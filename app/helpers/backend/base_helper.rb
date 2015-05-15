@@ -210,4 +210,47 @@ module Backend::BaseHelper
     render "state_bar", states: machine.states, current_state: state, resource: resource
   end
 
+  def main_list(*args)
+    options = args.extract_options!
+    list *args, options.deep_merge(content_for: {settings: :meta_toolbar, pagination: :meta_toolbar, actions: :main_toolbar})
+  end
+
+
+  def janus(*args, &block)
+    options = args.extract_options!
+    name = args.shift || ("#{controller_path}-#{action_name}-" + caller.first.split(/\:/).second).parameterize
+
+    lister = Ekylibre::Support::Lister.new(:faces)
+    yield lister
+    faces = lister.faces
+
+    return "" unless faces.any?
+
+    active_face = current_user.preference("interface.janus.#{name}.current_face", faces.first.args.first.to_s).value
+
+    # Adds views
+    html = faces.map do |face|
+      face_name = face.args.first.to_s
+      classes = ["face"]
+      classes << "active" if active_face == face_name
+      content_tag(:div, id: "face-#{face_name}", data: {face: face_name}, class: classes, &face.block)
+    end.join.html_safe
+
+    # Adds toggle buttons
+    content_for :view_toolbar do
+      content_tag(:div, data: {janus: url_for(controller: "/backend/januses", action: :toggle, id: name)}, class: "btn-group") do
+        faces.collect do |face|
+          face_name = face.args.first.to_s
+          classes = ["btn", "btn-default"]
+          classes << "active" if face_name == active_face
+          link_to(face_name, data: {toggle: "face"}, class: classes, title: face_name.tl) do
+            content_tag(:i, "", class: "icon icon-#{face_name}") + " ".html_safe + face_name.tl
+          end
+        end.join.html_safe
+      end
+    end
+
+    return html
+  end
+
 end

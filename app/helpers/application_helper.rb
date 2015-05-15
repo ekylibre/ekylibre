@@ -1,4 +1,4 @@
-# encoding: utf-8
+# coding: utf-8
 # ##### BEGIN LICENSE BLOCK #####
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2009 Brice Texier, Thibaud Merigon
@@ -17,8 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 # ##### END LICENSE BLOCK #####
-
-# encoding: utf-8
 
 module ApplicationHelper
 
@@ -741,11 +739,31 @@ module ApplicationHelper
   end
 
 
+  def toolbar_tag(name)
+    toolbar = "#{name}_toolbar".to_sym
+    if content_for?(toolbar)
+      return content_tag(:div, content_for(toolbar), class: "#{name.to_s.parameterize}-toolbar toolbar")
+    end
+  end
+
+  # Build the heading toolbar
+  def heading_toolbar_tag
+    toolbar_tag(:heading)
+  end
+
+  # Build the meta toolbar
+  def meta_toolbar_tag
+    toolbar_tag(:meta)
+  end
+
+  # Build the view toolbar
+  def view_toolbar_tag
+    toolbar_tag(:view)
+  end
+
   # Build the main toolbar
   def main_toolbar_tag
-    if content_for?(:main_toolbar)
-      content_tag(:div, content_for(:main_toolbar), :class => "main-toolbar")
-    end
+    toolbar_tag(:main)
   end
 
   # Create the main toolbar with the same API as toolbar

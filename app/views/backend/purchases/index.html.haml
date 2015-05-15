@@ -5,4 +5,4 @@
   - k.helper :journal_period_crit
 - main_toolbar do |t|
   - t.new variants: PurchaseNature.reorder(:by_default).to_a.inject({}){|h,n| h[n.name] = {nature_id: n.id}; h}
-= list
+= main_list

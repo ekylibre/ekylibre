@@ -20,7 +20,7 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.1)
-    active_list (6.4.2)
+    active_list (6.5.0)
       arel (>= 5.0.0)
       code_string (>= 0.0.0)
       i18n-complements
@@ -258,7 +258,7 @@ GEM
     paperclip-document (0.0.8)
       burisu-docsplit (>= 0.7.7)
       paperclip (>= 3.1, < 5)
-    pg (0.18.1)
+    pg (0.18.2)
     polyglot (0.3.5)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
@@ -442,7 +442,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_list (>= 6.4.2)
+  active_list (>= 6.5.0)
   activerecord-postgis-adapter (>= 3.0.0.beta2)
   acts_as_list
   agric

@@ -1,10 +1,11 @@
-- content_for(:help_toolbar) do
-  = link_to("##{beehive.id}", data: {beehive_task: "configure"}, class: "btn btn-dashboard") do
-    %i
-    = :configure.tl
-  = link_to("##{beehive.id}", data: {beehive_task: "fullscreen"}, class: "btn btn-arrows-alt") do
-    %i
-    = :fullscreen.tl
+- content_for(:heading_toolbar) do
+  .btn-group
+    = link_to("##{beehive.id}", data: {beehive_task: "configure"}, class: "btn btn-dashboard") do
+      %i
+      = :configure.tl
+    = link_to("##{beehive.id}", data: {beehive_task: "fullscreen"}, class: "btn btn-arrows-alt") do
+      %i
+      = :fullscreen.tl
 
 .beehive{id: beehive.id, data: {beehive: beehive.name, beehive_save_url: url_for(controller: "/backend/beehives", action: :update, id: beehive.name), beehive_reset_url: url_for(controller: "/backend/beehives", action: :reset, id: beehive.name)}}
   .local-cells{style: "display: none"}

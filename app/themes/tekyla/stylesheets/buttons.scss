@@ -167,8 +167,6 @@ a.btn, button {
   @include button-group;
 }
 
-@mixin button-toolbar($group: ".btn-group") {
-}
 
 .add-on {
   padding: round($fs-normal * 0.2) round($fs-normal * 0.4);
@@ -182,25 +180,4 @@ a.btn, button {
   border: $menu-border;
   background: #EEE;
   @include inline-block;
-}
-
-
-@mixin toolbar($group: ".btn-group") {
-  @include inline-block;
-  & > * {
-    display: none;
-  }
-  & #{$group} {
-    display: block;
-    @include inline-block;
-    @include button-group;
-    @include margin-left($default-gap);
-    &:first-child {
-      @include margin-left(0);
-    }
-  }
-  & #{$group}, & {
-    @include button-group;
-    @include inline-block;
-  }
 }

@@ -454,3 +454,10 @@
   }
 
 }
+
+
+@mixin toolbar($group: ".btn-group") {
+  @include display(block);
+  $margin-top: round(($header-height - $button-height) / 2);
+  margin: $margin-top $default-gap ($header-height - $margin-top - $button-height);
+}

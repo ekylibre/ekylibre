@@ -81,6 +81,7 @@
 #     - "backend/helps#index"
 #     - "backend/helps#show"
 #     - "backend/helps#toggle"
+#     - "backend/januses#toggle"
 #     - "backend/kujakus#toggle"
 #     - "backend/land_parcel_clusters#take"
 #     - "backend/land_parcel_groups#take"

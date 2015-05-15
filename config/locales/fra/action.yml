@@ -769,6 +769,7 @@ fra:
     centralize: "Comptes comptables centralisateurs"
     centralized_account: "Compte centralisateur %{name}"
     change_price: "Changer le prix unitaire" #?
+    chart: "Graphique"
     check: "Vérifier"
     check_fields: "Vous devez cocher au moins une case pour effectuer la modification" #?
     checked_at: "Vérifié le" #?

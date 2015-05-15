@@ -37,6 +37,13 @@ module Backend::BeehiveHelper
     return render(partial: "backend/shared/beehive", object: board)
   end
 
+
+  # Permits to display cell content independently
+  def cell(type, options = {})
+    url = options[:params]
+    content_tag(:div, nil, data: {cell: url_for(url.merge(controller: "backend/cells/#{type}_cells", action: :show))})
+  end
+
   class Beehive
 
     class Box < Array

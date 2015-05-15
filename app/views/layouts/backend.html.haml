@@ -24,16 +24,15 @@
           %footer#legals= legals_sentence
       #main
         %header.header
-          .help-toolbar
-            .btn-group.btn-group-help
-              - if content_for?(:help_toolbar)
-                = content_for(:help_toolbar)
+          = heading_toolbar_tag
           = heading_tag
         = deck(id: :content) do
           = subheading_tag
           = notifications_tag
+          = view_toolbar_tag
+          = meta_toolbar_tag
           = main_toolbar_tag
-          = yield
+          #core= yield
       #help
         .inner= render(partial: "backend/helps/search", object: @article)
     = yield :popover

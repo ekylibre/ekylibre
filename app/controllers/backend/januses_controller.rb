@@ -1,7 +1,6 @@
-# coding: utf-8
 # == License
 # Ekylibre - Simple agricultural ERP
-# Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
+# Copyright (C) 2015 Brice Texier
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,17 +16,17 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::KujakusController < Backend::BaseController
+class Backend::JanusesController < Backend::BaseController
 
-  # Saves the state of the kujakus クジャク（孔雀）
+  # Saves the state of the kujakus
   def toggle
-    collapsed = !params[:collapsed].to_i.zero?
-    kujaku = params[:id].to_s.strip
-    if kujaku.blank?
+    face = params[:face].to_s
+    janus = params[:id].to_s.strip
+    if janus.blank?
       head :not_found
     else
-      p = current_user.preference("interface.kujakus.#{kujaku}.collapsed", false, :boolean)
-      p.set!(collapsed)
+      p = current_user.preference("interface.janus.#{janus}.current_face", "list")
+      p.set!(face)
       head :ok
     end
   end

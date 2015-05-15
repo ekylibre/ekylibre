@@ -1,12 +1,11 @@
 - main_toolbar do |t|
   - t.new
 
-= beehive do |b|
+= janus do |j|
   - if CultivableZone.any?
-    - b.hbox do
-      - b.cell :resources_map, title: :map do
-        = map(CultivableZone.all)
-      - b.cell :cropping_plan_on_cultivable_zones, params: {campaign: Campaign.currents.first}
-  - b.hbox do
-    - b.cell :list do
-      = list
+    - j.face :map do
+      = map(CultivableZone.all)
+    - j.face :chart do
+      = cell :cropping_plan_on_cultivable_zones, params: {campaign: Campaign.currents.first}
+  - j.face :list do
+    = main_list

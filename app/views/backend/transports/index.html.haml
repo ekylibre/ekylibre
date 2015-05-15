@@ -11,5 +11,5 @@
   -#for transporter in waiting_transporters
     - t.new :transporter_id => transporter.id, :new_transport_of_x_deliveries_for_y.tl(count: transporter.waiting_deliveries.count, :transporter => transporter.last_name)
 
-= list
+= main_list
 

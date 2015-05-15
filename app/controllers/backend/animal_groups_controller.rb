@@ -27,7 +27,6 @@ class Backend::AnimalGroupsController < Backend::BaseController
     t.column :name, url: true
     t.column :description
     # t.action :show, url: {format: :pdf}, image: :print
-    t.action :new,     on: :none
     t.action :edit
     t.action :destroy
   end

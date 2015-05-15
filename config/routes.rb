@@ -435,6 +435,12 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :januses, only: [] do
+      member do
+        post :toggle
+      end
+    end
+
     resources :journals, concerns: [:list, :unroll] do
       collection do
         match "draft", via: [:get, :post]

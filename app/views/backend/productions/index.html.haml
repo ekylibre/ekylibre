@@ -50,9 +50,9 @@
   - main_toolbar do |t|
     - t.new variants: Activity.availables.reorder(:name).to_a.inject({}){|h,n| h[:new_production_of_activity.tl(activity: n.name)] = {activity_id: n.id, campaign_id: params[:campaign_id]}; h}
 
-= beehive do |b|
+= janus do |j|
   - if data.any?
-    - b.cell :productions_map, title: :map do
+    - j.face :map do
       = visualization do |v|
         - v.serie :main, data
         - v.background "Esri.WorldImagery"
@@ -66,5 +66,5 @@
         - v.control :fullscreen
         - v.control :layer_selector
 
-  - b.cell :list do
-    = list
+  - j.face :list do
+    = main_list

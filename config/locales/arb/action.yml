@@ -924,6 +924,7 @@ arb:
     centralize: "مركزية حسابات المحاسب"
     centralized_account: "مركزية الحسابات %{name}"
     change_price: "تغيير وحدة السعر" #?
+    # chart: "Chart"
     check: "نحقق"
     # children: "Children"
     # choice_options: "Choice options"

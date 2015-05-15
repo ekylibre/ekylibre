@@ -35,9 +35,9 @@
                 {
                     //console.log(element,CONTAINERKEY,data);
                     dataSet(element, CONTAINERKEY, data);
-                    
+
                 }
-                
+
                 console.log('metadata', element,data);
                 dataSet(element, ITEMKEY, data);
                 dataSet(element, PARENTKEY, dataGet(element.parentNode, LISTKEY));
@@ -170,17 +170,17 @@
                     helper: function (e, item) {
                         console.log('helping');
                         var elements = [];
-                       
+
                         var elements = $('.checker.active').closest('.animal-element-actions').siblings('.animal-element-img').children().clone();
-                        
+
                         if(!elements.length)
                         {
                             console.log('item cloné !!!',item.clone());
                             elements.push(item.clone());
-                        }                        
-                        
+                        }
+
                         var helper = $("<div class='animate-dragging' style='width:50px;height:50px'></div>");
-                        
+
                         if(elements.length > 1)
                         {
                             helper.append($("<div class='animate-dragging-number'>"+elements.length+"</div>"));
@@ -197,19 +197,19 @@
                                 helper.append(container);
                                 z = z - 1;
                             }
-                            
+
                         }
                         else{
                              var container = $("<div/>");
-                           
+
                             //img
                             //console.log(elements);
                             container.append(elements[0]);
                             container.addClass('animate-dragging-img');
                             helper.append(container);
-                            
+
                         }
-                       
+
                         return helper;
 
                     },
@@ -225,7 +225,7 @@
                         console.log('st1:',dataGet(el[0],ITEMKEY));
                         console.log('st2:',dataGet(el[1],ITEMKEY));
                         ui.item.data('items', el);
-                        
+
                         //$('.animal-element.selected').not(item).addClass('hidden');
                         //$(el).addClass('hidden');
 
@@ -238,7 +238,7 @@
                         }
                     },
                     receive: function(event, ui) {
-                        
+
                         console.log('receive');
                         //dragItem = dataGet(ui.item[0], DRAGKEY);
                         //dragItem = ui.item;
@@ -246,8 +246,8 @@
                         //dragItem = ui.item.data('items');
                         //console.log('receive:', ui.item);
                         //console.log('data receive:', ui.item);
-                        
-                        
+
+
                         /*if (dragItem) {*/
                             //copy the model item, if a clone option is provided
                             /*if (dragItem.clone) {
@@ -278,10 +278,10 @@
                             parentEl = ui.item.parent()[0],
                             containerEl = ui.item.closest('.animal-container')[0],
                             item = dataGet(el, ITEMKEY) || dragItem;
-                        
+
                         if(containerEl != undefined)
                         {
-                            
+
                             console.log(ui.item);
                             console.log('container:',containerEl);
                             containerItem = dataGet(containerEl,CONTAINERKEY);
@@ -292,32 +292,32 @@
                             ko.utils.arrayForEach(el, function(item) {
                                 console.log('foreach:',item);
                                 observableItem = dataGet(item, ITEMKEY);
-                                
+
                                 console.log(observableItem);
                                 observableItem.container_id(containerItem.id);
                                 dataSet(item, ITEMKEY, null);
-                                $(item).remove();    
+                                $(item).remove();
                                 console.log('afterRemove',$(item));
-                                
+
                                 observableItem.checked(false)
-                                
+
                                 dataSet($(item), ITEMKEY, observableItem);
 
 
                             });
-                            
-                       
+
+
                         }
-                        
+
                         var hay = $('.animal-element');
                         console.log(hay.length);
-                  
-                        
+
+
                         ko.utils.arrayForEach(hay, function(i) {
                             console.log('stUP:',dataGet(i,ITEMKEY));
                             //console.log('stUP2:',dataGet(el[1],ITEMKEY));
                         });
-                                              
+
                            /* console.log('dragItem:', dragItem);
                             console.log(item);
                             console.log("parentEl:", parentEl);
@@ -325,7 +325,7 @@
                             /*for(i = 0; i<dragItem.length; i++)
                             {
                                 console.log(dataGet(dragItem[i], ITEMKEY));
-                                
+
                             }*/
                      /*   console.log('item',ui.item);
                         console.log('item_data:',ui.item.data('items'));
@@ -346,7 +346,7 @@
                             console.log('sourceIndex: ', sourceIndex);
                             console.log('targetParent: ', targetParent());
                             console.log('targetIndex: ', targetIndex);
-                            
+
                             //take destroyed items into consideration
                             if (!templateOptions.includeDestroyed) {
                                 sourceIndex = updateIndexFromDestroyedItems(sourceIndex, sourceParent);

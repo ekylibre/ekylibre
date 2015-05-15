@@ -11,11 +11,11 @@
     - t.export do |e|
       - e.animal_list Time.now.to_s, @animals
 
-  = list
+  = main_list
 
   -#= beehive do |b|
     - b.cell do
-      = list
+      = main_list
     - b.hbox do
       - b.cell :current_stocks_by_variety, params: {variety: 'animal', indicator: :population}
 

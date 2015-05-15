@@ -1,7 +1,5 @@
-= beehive do |b|
-  - b.hbox do
-    - b.cell :resource_map, title: :map do
-      = map(Product.can('store(wine)', 'store_liquid'))
-  - b.hbox do
-    - b.cell :list do
-      = list
+= janus do |j|
+  - j.face :map do
+    = map(Product.can('store(wine)', 'store_liquid'))
+  - j.face :list do
+    = main_list

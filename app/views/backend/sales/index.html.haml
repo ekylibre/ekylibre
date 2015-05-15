@@ -8,4 +8,4 @@
 - main_toolbar do |t|
   - t.new variants: SaleNature.actives.reorder(:by_default).to_a.inject({}){|h,n| h[n.name] = {nature_id: n.id}; h}
 
-= list
+= main_list

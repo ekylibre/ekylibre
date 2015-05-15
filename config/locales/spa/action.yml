@@ -717,6 +717,7 @@ spa:
     # category: "Category"
     centralize: "Cuentos contables centralizadores"
     centralized_account: "Cuento centralizador %{name}"
+    # chart: "Chart"
     # check: "Check"
     # children: "Children"
     # choice_options: "Choice options"

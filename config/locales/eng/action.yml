@@ -343,6 +343,8 @@ eng:
       new: "New issue"
       reopen: "Reopen issue: %{name}"
       show: "Issue: %{name}"
+    backend/januses:
+      # toggle: "Toggle januse: %{name}"
     backend/journal_entries:
       edit: "Edit journal entry: %{number}"
       index: "Journal entries"
@@ -845,6 +847,7 @@ eng:
     category: "Category"
     centralize: "Centralize account"
     centralized_account: "Centralized account %{name}"
+    chart: "Chart" #?
     check: "Check"
     children: "Children"
     choice_options: "Choice options"
@@ -1214,7 +1217,7 @@ eng:
     production_distribution: "Production distribution" #?
     production_support: "Production support"
     productions: "Productions"
-    productions_map: "Productions map"
+    productions_map: "Productions map" #??
     products: "Products"
     provisionnal_budget: "Provisionnal budget"
     purchase: "Purchase" #?

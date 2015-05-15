@@ -630,6 +630,7 @@ jpn:
     # category: "Category"
     # centralize: "Centralize account"
     # centralized_account: "Centralized account %{name}"
+    # chart: "Chart"
     # check: "Check"
     # children: "Children"
     # choice_options: "Choice options"

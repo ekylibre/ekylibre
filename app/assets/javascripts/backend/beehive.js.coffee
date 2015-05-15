@@ -165,6 +165,8 @@
     $("*[data-cell]").each (index) ->
       element = $(this)
       cell = element.closest("*[data-beehive-cell]")
+      unless cell.length
+        cell = element
       cell.addClass("loading")
       element.html("<i class='cell-indicator'></i>")
       $.ajax(element.data("cell"), {
