@@ -79,4 +79,14 @@ class Equipment < Matter
     joins(:productions).where('production_id IN (?)', productions.map(&:id))
   }
 
+  def status
+    if self.dead_at?
+      return :stop
+    elsif self.issues.any?
+      return (self.issues.where(state: :opened).any? ? :caution : :go)
+    else
+      return :go
+    end
+  end
+
 end

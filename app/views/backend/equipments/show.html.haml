@@ -20,8 +20,15 @@
             %span.value
               %i.picto{class: "picto-clock-o"}
               = human_age(resource.age, display: 2)
-    - b.cell :attachments, title: ProductNatureVariant.human_attribute_name(:attachments) do
-      = attachments_of(resource)
+        .big-info.important
+          %span.title= Plant.human_attribute_name(:state)
+          %span.value= lights(resource.status)
+        - if resource.description
+          %span.title= Plant.human_attribute_name(:description)
+          %span.value= resource.description
+    - if resource.attachments.count > 1         
+      - b.cell :attachments, title: ProductNatureVariant.human_attribute_name(:attachments) do
+        = attachments_of(resource)
 
     - count = 0
     - map = visualization do |v|
