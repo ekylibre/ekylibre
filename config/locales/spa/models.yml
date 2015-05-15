@@ -964,6 +964,7 @@ spa:
     # subscriptions: "Subscriptions"
     # supplier: "Supplier"
     # supplier_account: "Supplier account"
+    # supplier_address: "Supplier address"
     # suppliers: "Suppliers"
     # support: "Support"
     # support_variant: "Support variant"

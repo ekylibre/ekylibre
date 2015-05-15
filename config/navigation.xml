@@ -643,19 +643,6 @@
       </item>
     </group>
     <group name="animal_productions" icon="cow">
-      <item name="animal_groups">
-        <page to="backend/animal_groups#index"/>
-        <page to="backend/animal_groups#create"/>
-        <page to="backend/animal_groups#destroy"/>
-        <page to="backend/animal_groups#edit"/>
-        <page to="backend/animal_groups#list"/>
-        <page to="backend/animal_groups#new"/>
-        <page to="backend/animal_groups#show"/>
-        <page to="backend/animal_groups#update"/>
-        <page to="backend/animal_groups#list_animals"/>
-        <page to="backend/animal_groups#list_places"/>
-        <page to="backend/animal_groups#unroll"/>
-      </item>
       <item name="animals">
         <page to="backend/animals#index"/>
         <page to="backend/animals#add_to_group"/>
@@ -1369,6 +1356,19 @@
         <page to="backend/land_parcel_groups#update"/>
       </item>
 -->
+      <item name="animal_groups">
+        <page to="backend/animal_groups#index"/>
+        <page to="backend/animal_groups#create"/>
+        <page to="backend/animal_groups#destroy"/>
+        <page to="backend/animal_groups#edit"/>
+        <page to="backend/animal_groups#list"/>
+        <page to="backend/animal_groups#new"/>
+        <page to="backend/animal_groups#show"/>
+        <page to="backend/animal_groups#update"/>
+        <page to="backend/animal_groups#list_animals"/>
+        <page to="backend/animal_groups#list_places"/>
+        <page to="backend/animal_groups#unroll"/>
+      </item>
       <item name="land_parcel_clusters">
         <page to="backend/land_parcel_clusters#index"/>
         <page to="backend/land_parcel_clusters#create"/>

@@ -76,6 +76,16 @@ fra:
         purchases: "Achats"
         sales: "Ventes"
         various: "Opérations diverses"
+    loan:
+      repayment_method:
+        contant_amount: "Montant constant"
+        contant_rate: "Pourcentage constant"
+      repayment_period:
+        month: "Mois"
+        year: "Année"
+      shift_method:
+        anatocism: "Capitalisation des intérêts (anatocisme)"
+        immediate_payment: "Paiement immédiat des intérêts"
     observation:
       importance:
         important: "Importante"

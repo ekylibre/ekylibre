@@ -1937,6 +1937,7 @@ arb:
     supplier_account: "حساب مساعد الممول"
     supplier_account_id: "حساب مساعد الممول" #?
     supplier_accounts: "حسابات المموليين" #?
+    # supplier_address: "Supplier address"
     supplier_id: "ممول" #?
     suppliers: "الممولين"
     # support: "Support"

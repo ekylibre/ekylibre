@@ -1175,6 +1175,7 @@ fra:
     subscriptions: "Abonnements"
     supplier: "Fournisseur"
     supplier_account: "Compte fournisseur associé"
+    supplier_address: "Adresse du fournisseur"
     suppliers: "Fournisseurs"
     support: "Support"
     support_variant: "Type de support"

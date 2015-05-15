@@ -76,6 +76,16 @@ arb:
         # purchases: "Purchases"
         # sales: "Sales"
         # various: "Various operations"
+    loan:
+      repayment_method:
+        # contant_amount: "Constant amount"
+        # contant_rate: "Constant rate"
+      repayment_period:
+        # month: "Month"
+        # year: "Year"
+      shift_method:
+        # anatocism: "anatocism"
+        # immediate_payment: "Immediate payment"
     observation:
       importance:
         # important: "Important"
