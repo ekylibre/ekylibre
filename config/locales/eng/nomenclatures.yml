@@ -1765,6 +1765,7 @@ eng:
         edema: "Edema"                                     #< disease
         empoasca_vitis_leafhopper: "Empoasca vitis leafhopper" #< insecta_disease
         empty_fuel_tank: "Empty fuel tank"                 #< mechanical_issue
+        equipment_crash: "Equipment crash"                 #< accident
         escape: "Escape"                                   #< issue
         fecondity_problem: "Fecondity problem"             #< disease
         fever: "Fever"                                     #< disease
