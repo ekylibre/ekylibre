@@ -429,7 +429,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
           end
 
           if intervention
-            intervention.description += information_import_context + " - N° : " + r.intervention_number.to_s + " - " + support.name
+            intervention.description += " - " + information_import_context + " - N° : " + r.intervention_number.to_s + " - " + support.name
             intervention.save!
             w.info "Intervention n°#{intervention.id} - #{intervention.name} has been created".green
           else
@@ -464,7 +464,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         end
 
         if intervention
-          intervention.description += information_import_context + " - N° : " + r.intervention_number.to_s + " - " + support.name
+          intervention.description += " - " + information_import_context + " - N° : " + r.intervention_number.to_s + " - " + support.name
           intervention.save!
           w.info "Intervention n°#{intervention.id} - #{intervention.name} has been created".green
         else
