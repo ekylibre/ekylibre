@@ -679,6 +679,8 @@ establishments:
 events:
   read:
     actions:
+    - "backend/event_participations#index"
+    - "backend/event_participations#show"
     - "backend/events#index"
     - "backend/events#list"
     - "backend/events#list_participations"

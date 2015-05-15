@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -18,5 +17,18 @@
 #
 
 class Backend::EventParticipationsController < Backend::BaseController
+  def index
+    redirect_to backend_events_url
+  end
+
+  def show
+    if @event_participation = EventParticipation.find_by(id: params[:id])
+      redirect_to backend_event_url(@event_participation.event_id)
+    else
+      redirect_to backend_root_url
+    end
+  end
+
   manage_restfully except: [:index, :show], t3e: {participant_name: :participant_name}, redirect_to: {controller: :events, action: :show, id: 'RECORD.event_id'.c}, destroy_to: {controller: :events, action: :show, id: 'RECORD.event_id'.c}
+
 end

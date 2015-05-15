@@ -241,7 +241,9 @@ eng:
       # show: "Establishment: %{name}"
     backend/event_participations:
       edit: "Edit participation: %{participant_name}"
+      # index: "Event participations"
       # new: "New event participation"
+      # show: "Event participation: %{name}"
     backend/events:
       # autocomplete_for_place: "Autocomplete for place event: %{name}"
       # change_minutes: "Change minutes event: %{name}"

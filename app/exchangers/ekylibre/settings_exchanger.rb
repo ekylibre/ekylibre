@@ -238,9 +238,9 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
 
     # Load net services
     for name, identifiers in @manifest[:net_services]
-      service = NetService.create!(reference_name: name)
+      net_service = NetService.create!(reference_name: name)
       for nature, value in identifiers
-        service.identifiers.create!(nature: nature, value: value)
+        net_service.identifiers.create!(nature: nature, value: value)
       end
     end
     w.check_point

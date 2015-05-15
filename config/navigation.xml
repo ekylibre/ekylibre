@@ -109,6 +109,8 @@
         <page to="backend/events#list_participations"/>
         <page to="backend/events#show"/>
         <page to="backend/events#unroll"/>
+        <page to="backend/event_participations#index"/>
+        <page to="backend/event_participations#show"/>
         <page to="backend/event_participations#create"/>
         <page to="backend/event_participations#destroy"/>
         <page to="backend/event_participations#edit"/>

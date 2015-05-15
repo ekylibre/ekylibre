@@ -321,7 +321,7 @@ Rails.application.routes.draw do
 
     resources :establishments, concerns: [:list, :unroll]
 
-    resources :event_participations, except: [:index, :show]
+    resources :event_participations
 
     resources :events, concerns: [:list, :unroll] do
       collection do
