@@ -159,20 +159,24 @@
 
     zoom: (zoom) ->
       return @map.getZoom() unless zoom?
-      this.options.view.zoom = zoom
+      @options.view.zoom = zoom
       this._refreshZoom()
 
     height: (height) ->
-      return this.options.box.height unless height?
-      this.options.view.box.height = height
+      return @options.box.height unless height?
+      @options.view.box.height = height
       this._resize()
 
+    rebuild: () ->
+      this._destroy()
+      this._create()
+
     _resize: ->
-      if this.options.box?
-        if this.options.box.height?
-          @mapElement.height this.options.box.height
-        if this.options.box.width?
-          @mapElement.width this.options.box.width
+      if @options.box?
+        if @options.box.height?
+          @mapElement.height @options.box.height
+        if @options.box.width?
+          @mapElement.width @options.box.width
         this._trigger "resize"
 
     # Retuns data from a serie found with the given name
@@ -315,7 +319,7 @@
     _refreshView: (view) ->
       this._setDefaultView()
       # else if view.center?
-      #   if this.options.layers?
+      #   if @options.layers?
 
       #   if view.zoom?
       #     @map.setView(center, view.zoom)
@@ -328,8 +332,8 @@
       @map.setZoom 6
 
     _refreshZoom: ->
-      if this.options.view.zoom?
-        @map.setZoom(this.options.view.zoom)
+      if @options.view.zoom?
+        @map.setZoom(@options.view.zoom)
 
   $.loadVisualizations = ->
     $("*[data-visualization]").each ->

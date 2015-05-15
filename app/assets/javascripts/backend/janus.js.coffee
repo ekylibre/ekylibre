@@ -37,6 +37,10 @@
       list = $(this)
       list_id = list.attr("id")
       $("*[data-list-ref='#{list_id}']").show()
+    $(this).find("*[data-visualization]").each ->
+      unless $(this).hasClass('rebuilt')
+        $(this).visualization('rebuild')
+        $(this).addClass('rebuilt')
     return false
 
 ) ekylibre, jQuery
