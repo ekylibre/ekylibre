@@ -2204,57 +2204,6 @@ product_groups_003:
   updater_id: 1
   variant_id: 1
   variety: product_group
-services_001:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
-  id: 70
-  initial_population: 0.0
-  lock_version: 0
-  name: 'Service #1'
-  nature_id: 1
-  number: '19001'
-  parent_id: 65
-  type: Service
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-  variety: service
-services_002:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
-  id: 71
-  initial_population: 0.0
-  lock_version: 0
-  name: 'Service #2'
-  nature_id: 1
-  number: '19002'
-  parent_id: 65
-  type: Service
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-  variety: service
-services_003:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
-  id: 72
-  initial_population: 0.0
-  lock_version: 0
-  name: 'Service #3'
-  nature_id: 1
-  number: '19003'
-  parent_id: 65
-  type: Service
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-  variety: service
 settlements_001:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
