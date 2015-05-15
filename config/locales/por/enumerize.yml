@@ -1,0 +1,147 @@
+por:
+  enumerize:
+    activity:
+      nature:
+        # auxiliary: "Auxiliary"
+        # main: "Main"
+        # standalone: "Standalone"
+    cash:
+      mode:
+        # bban: "Basic Bank Account Number (BBAN)"
+        # iban: "International Bank Account Number (IBAN)"
+      nature:
+        # associated_account: "Associated account"
+        # bank_account: "Bank account"
+        # cash_box: "Cash box"
+    catalog:
+      usage:
+        # cost: "Cost"
+        # purchase: "Purchase"
+        # sale: "Sale"
+        # stock: "Stock"
+    custom_field:
+      nature:
+        # boolean: "Check box"
+        # choice: "Choice list"
+        # date: "Date"
+        # datetime: "Date and time"
+        # decimal: "Decimal"
+        # text: "Text"
+    document_template:
+      archiving:
+        # all: "Tous du type"
+        # all_of_template: "All of template"
+        # first: "First of type"
+        # first_of_template: "First of template"
+        # last: "Last of type"
+        # last_of_template: "Last of template"
+        # none: "None of type"
+        # none_of_template: "None of template"
+    entity_address:
+      canal:
+        # email: "Email"
+        # fax: "Fax"
+        # mail: "Mail"
+        # mobile: "Mobile phone"
+        # phone: "Phone"
+        # website: "Website"
+    event_participation:
+      state:
+        # accepted: "Accepted"
+        # informative: "Informative"
+        # refused: "Refused"
+        # waiting: "Waiting"
+    financial_asset:
+      depreciation_method:
+        # graduated: "Graduated"
+        # linear: "Linear"
+        # simplified_linear: "Simplified linear"
+    guide_analysis:
+      status:
+        # errored: "Errored"
+        # failed: "Failed"
+        # passed: "Passed"
+        # passed_with_warnings: "Passed with warnings"
+    intervention:
+      state:
+        # done: "Done"
+        # in_progress: "In progress"
+        # squeezed: "Squeezed"
+        # undone: "Undone"
+    journal:
+      nature:
+        # bank: "Bank"
+        # cash: "Cash"
+        # forward: "Carried-forward"
+        # purchases: "Purchases"
+        # sales: "Sales"
+        # various: "Various operations"
+    observation:
+      importance:
+        # important: "Important"
+        # normal: "Normal"
+        # notice: "Notice"
+    production_budget:
+      computation_method:
+        # per_production: "Per production"
+        # per_production_support: "Per production support"
+        # per_working_unit: "Per working unit"
+    purchase:
+      computation_method:
+        # adaptative: "Adaptative"
+        # manual: "Manual"
+        # quantity_tax: "Quantity-Tax"
+        # tax_quantity: "Tax-Quantity"
+    sale:
+      computation_method:
+        # adaptative: "Adaptative"
+        # quantity_tax: "Quantity-Tax"
+        # tax_quantity: "Tax-Quantity"
+    sequence:
+      period:
+        # cweek: "Commercial week"
+        # month: "Month"
+        # number: "No periodicity"
+        # year: "Year"
+      usage:
+        # affairs: "Numeration of affairs"
+        # analyses: "Numeration of analyses"
+        # animals: "Numeration of animals"
+        # campaigns: "Numeration of campaigns"
+        # cash_transfers: "Numeration of cash transfers"
+        # deposits: "Numeration of deposits"
+        # documents: "Numeration of documents"
+        # entities: "Numeration of people"
+        # financial_assets: "Numeration of financial assets"
+        # gaps: "Numeration of gaps"
+        # incoming_deliveries: "Numeration of incoming deliveries"
+        # incoming_payments: "Numeration of payments"
+        # interventions: "Numeration of interventions"
+        # outgoing_deliveries: "Numeration of outgoing deliveries"
+        # outgoing_payments: "Numeration of payments"
+        # plants: "Numeration of plants"
+        # product_nature_categories: "Numeration of product nature categories"
+        # product_nature_variants: "Numeration of product nature variants"
+        # product_natures: "Numeration of product natures"
+        # products: "Numeration of products"
+        # purchases: "Numeration of purchases"
+        # sales: "Numeration of sales"
+        # sales_invoices: "Numeration of sales invoices"
+        # subscriptions: "Numeration of subscriptions"
+        # transports: "Numeration of transports"
+    subscription_nature:
+      entity_link_direction:
+        # all: "Bidirectional"
+        # direct: "Direct"
+        # indirect: "Indirect"
+      nature:
+        # period: "Subscription by date"
+        # quantity: "Subscription by number"
+    tax:
+      nature:
+        # amount: "Amount"
+        # percentage: "Percentage"
+  simple_form:
+    hints:
+      purchase:
+        # reference_number: "Supplier invoice number"

@@ -1,0 +1,98 @@
+# This file is totally generated from other translations for convenience.
+# Do not touch this please, it's quite useless.
+
+por:
+  enumerize:
+    activity:
+
+    analysis:
+
+    animal:
+
+    animal_group:
+
+    attachment:
+
+    building_division:
+
+    cash_session:
+
+    catalog_item:
+
+    cultivable_zone:
+
+    document:
+
+    document_template:
+
+    easement:
+
+    entity:
+
+    entity_link:
+
+    equipment:
+
+    event:
+
+    financial_asset:
+
+    guide:
+
+    identifier:
+
+    immatter:
+
+    import:
+
+    incoming_delivery:
+
+    intervention:
+
+    intervention_cast:
+
+    issue:
+
+    land_parcel_cluster:
+
+    land_parcel_group:
+
+    legal_entity:
+
+    listing:
+
+    manure_management_plan:
+
+    manure_management_plan_zone:
+
+    matter:
+
+    net_service:
+
+    outgoing_delivery:
+
+    person:
+
+    plant:
+
+    product:
+
+    product_group:
+
+    product_nature:
+
+    product_nature_category:
+
+    product_nature_variant:
+
+    product_nature_variant_reading:
+
+    product_reading:
+
+    production_support:
+
+    sale_opportunity:
+
+    subscription_nature:
+
+    tax:
