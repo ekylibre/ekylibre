@@ -17,6 +17,9 @@
     support.data("selector", url)
 ) ekylibre, jQuery###
 
+
+#= require bootstrap/modal
+
 $ ->
 
   ko.bindingHandlers.checkbox = init: (element, valueAccessor, allBindings, data, context) ->
@@ -59,9 +62,17 @@ $ ->
   class dashboardViewModel
     constructor: (data,dispForm) ->
 
+      ### #fake data
       json_groups = [{id:1, name: 'Vaches laitières 1'},{id:2, name: 'Vaches laitières 2'}]
       json_containers = [{id:1, name: 'Zone de parcours', group_id:1},{id:2, name:'Zone 2', group_id:1},{id:3, name: 'Zone de parcours 2', group_id:2},{id:4, name:'Zone 3', group_id:2}]
       json_animals = [{id:1, name: 'Ghislaine', img: "Vache.jpg", status: 1, sex: 0, container_id: 1}, {id:2, name: 'Vanille', img: "Vache2.jpg", status: 1, sex: 0, container_id: 1}, {id:3, name: 'Virginie', img: "Vache3.jpg", status: 2, sex: 0, container_id: 2}, {id:4, name: 'Colombe', img: "Vache.jpg", status: 2, sex: 0, container_id: 3}, {id:5, name: 'Coralie', img: "Vache3.jpg", status: 3, sex: 0, container_id: 4}]
+      ###
+
+      json_groups = []
+      json_containers = []
+      json_animals = []
+      json_all = $('.animal-viewport').data 'animals-data'
+      #console.log json_all
 
       @showAnimalDetailsModal = ko.observable false
 

@@ -114,7 +114,7 @@ class Product < Ekylibre::Record::Base
   has_one :current_phase,        -> { current }, class_name: "ProductPhase",        foreign_key: :product_id
   has_one :current_localization, -> { current }, class_name: "ProductLocalization", foreign_key: :product_id
   has_one :current_ownership,    -> { current }, class_name: "ProductOwnership",    foreign_key: :product_id
-  has_many :current_memberships, -> { current }, class_name: "ProductMembership",    foreign_key: :product_id
+  has_many :current_memberships, -> { current }, class_name: "ProductMembership",    foreign_key: :member_id
   has_one :container, through: :current_localization
   has_many :groups, through: :current_memberships
   has_one :incoming_delivery_item, class_name: "IncomingDeliveryItem", foreign_key: :product_id
