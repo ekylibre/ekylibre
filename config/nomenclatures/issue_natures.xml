@@ -51,11 +51,19 @@
       <item name="plant_disease"    target="bioproduct"/>
     </items>
   </nomenclature>
-
+  
+  
+  
+  <nomenclature name="issue_natures-accident">
+    <items>
+      <item name="equipment_crash" target="equipment"/>
+    </items>
+  </nomenclature>
+  
   <nomenclature name="issue_natures-mechanical_issue">
     <items>
-      <item name="piece_breakdown"/>
-      <item name="empty_fuel_tank"/>
+      <item name="piece_breakdown" target="equipment"/>
+      <item name="empty_fuel_tank" target="equipment"/>
     </items>
   </nomenclature>
 
