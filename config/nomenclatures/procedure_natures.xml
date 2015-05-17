@@ -41,8 +41,9 @@
       <item name="grinding"             roles="doer, tool, target"              activity_families="vegetal_crops"/>
       <item name="cutting"              roles="doer, tool, target"              activity_families="arboriculture"/>
       <item name="growth_control"       roles="target"                          activity_families="vegetal_crops"/>
-      <item name="maintenance_task"     roles="target, doer"                    activity_families="exploitation"/>
-      <item name="administrative_task"  roles="doer"                            activity_families="exploitation"/>
+      <item name="maintenance_task"     roles="target, doer"                    activity_families="vegetal_crops, animal_farming, exploitation"/>
+      <item name="technical_task"       roles="target, doer"                    activity_families="vegetal_crops, animal_farming, exploitation"/>
+      <item name="administrative_task"  roles="doer"                            activity_families="vegetal_crops, animal_farming, exploitation"/>
     </items>
   </nomenclature>
 

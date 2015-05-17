@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <!-- ######################################## Generic maintenance task ########################################### -->
+  <procedure name="technical_task" natures="technical_task" version="0" status="frozen">
+    <variables>
+      <variable name="worker" variety="worker" roles="technical_task-doer"/>
+      <variable name="target" roles="technical_task-target"/>
+    </variables>
+    <operations>
+      <operation id="100">
+        <task do="[worker] moves in default storage"/>
+      </operation>
+    </operations>
+  </procedure>
+
+</procedures>

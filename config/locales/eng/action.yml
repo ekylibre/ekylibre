@@ -902,7 +902,7 @@ eng:
     current: "Current" #?
     current_cultivation: "Current cultivation"
     current_letter: "Current letter: %{letter}" #??
-    current_stocks_by_variety: "Current stocks by variety"
+    current_stocks_by_variety: "Current stocks by variety" #?
     custom_fields: "Custom fields"
     dates: "Select period start date and Period end date" #?
     deals: "Deals"

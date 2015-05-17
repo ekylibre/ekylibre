@@ -1374,6 +1374,7 @@ eng:
         animal_list: "Animal list"
         animal_sheet: "Animal sheet"
         balance_sheet: "Balance sheet"
+        # chart_of_nomenclature: "Chart of nomenclature"
         deposit_list: "Deposit list"
         entity_sheet: "Entity sheet"
         equipment_certification: "Equipment certification"
@@ -2138,6 +2139,7 @@ eng:
         sowing: "Sowing"                                   #< implantation
         straw_processing: "Straw processing"               #< harvest
         straw_transport: "Straw transport"                 #< transport
+        technical_task: "Technical task"
         thermal_weed_killing: "Thermal weed killing"       #< weed_killing
         tillage: "Tillage"
         transfer: "Transfer"                               #< transformation

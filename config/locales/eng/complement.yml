@@ -10578,6 +10578,7 @@ eng:
         base-straw_transport: "Straw transport"
         base-sulfur_addition: "Sulfur addition"
         base-superficial_plowing: "Superficial plowing"
+        base-technical_task: "Technical task"
         base-triple_food_mixing: "Food mix with three elements"
         base-triple_seed_mixing: "Seed mix with three elements"
         base-uncompacting: "Uncompacting"

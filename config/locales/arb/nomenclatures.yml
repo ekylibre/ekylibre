@@ -2143,6 +2143,7 @@ arb:
         # sowing: "Sowing"
         # straw_processing: "Straw processing"
         # straw_transport: "Straw transport"
+        # technical_task: "Technical task"
         # thermal_weed_killing: "Thermal weed killing"
         # tillage: "Tillage"
         # transfer: "Transfer"

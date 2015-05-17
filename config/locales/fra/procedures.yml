@@ -322,6 +322,7 @@ fra:
     base-straw_transport: "Transport de fourrages"
     base-sulfur_addition: "Sulfitage"
     base-superficial_plowing: "Déchaumage"
+    base-technical_task: "Tâche technique générale"
     base-triple_food_mixing: "Mélange alimentaire avec trois ingrédients"
     base-triple_seed_mixing: "Mélange de semences avec trois semences"
     base-uncompacting: "Décompactage"

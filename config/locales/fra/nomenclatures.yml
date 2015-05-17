@@ -2147,6 +2147,7 @@ fra:
         sowing: "Semis"
         straw_processing: "Fenaisson et pressage de fourrages"
         straw_transport: "Transport de fourrages"
+        technical_task: "Tâche technique"
         thermal_weed_killing: "Désherbage thermique"
         tillage: "Travail du sol"
         transfer: "Transfert"

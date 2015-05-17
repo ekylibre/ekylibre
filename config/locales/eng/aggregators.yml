@@ -40,6 +40,7 @@ eng:
     capitalised_production: "Capitalised production"
     cluster_pac_number: "Cluster pac number"
     #~ clusters_work_number: "Clusters work number"
+    # company: "Company"
     container_name: "Container name"
     #~ credit: "Credit"
     #~ cultivable_zone: "Cultivable zone"
@@ -189,6 +190,7 @@ eng:
   aggregators:
     #~ activity_cost: "Activity cost"
     #~ animal_husbandry_registry: "Animal husbandry registry"
+    #~ chart_of_nomenclature: "Chart of nomenclature"
     #~ exchange_accountancy_file_fr: "Exchange accountancy file fr"
     #~ general_ledger: "General ledger"
     #~ intervention_registry: "Intervention registry"
