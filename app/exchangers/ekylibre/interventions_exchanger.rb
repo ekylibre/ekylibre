@@ -389,10 +389,39 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
               elsif r.procedure_name == :implant_helping and plant
 
-                # Helping
+                # Implant Helping with plant
                 intervention = Ekylibre::FirstRun::Booker.force(:implant_helping, intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
                   i.add_cast(reference_name: 'implanter_man',   actor: (workers.any? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
                   i.add_cast(reference_name: 'cultivation', actor: plant)
+                end
+
+              elsif r.procedure_name == :implant_helping and cultivable_zone
+
+                # Implant Helping with cultivable_zone
+                intervention = Ekylibre::FirstRun::Booker.force(:implant_helping, intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
+                  i.add_cast(reference_name: 'implanter_man',   actor: (workers.any? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+                  i.add_cast(reference_name: 'cultivation', actor: cultivable_zone)
+                end
+
+
+              elsif r.procedure_name == :plantation_unfixing and plant
+
+                # Implant Helping with plant
+                intervention = Ekylibre::FirstRun::Booker.force(:plantation_unfixing, intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
+                  i.add_cast(reference_name: 'driver',   actor: (workers.any? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+                  i.add_cast(reference_name: 'tractor',  actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "catch(implanter)") : i.find(Equipment, can: "catch(implanter)")))
+                  i.add_cast(reference_name: 'compressor',  actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "blow") : i.find(Equipment, can: "blow")))
+                  i.add_cast(reference_name: 'cultivation', actor: plant)
+                end
+
+               elsif r.procedure_name == :plantation_unfixing and cultivable_zone
+
+                # Implant Helping with plant
+                intervention = Ekylibre::FirstRun::Booker.force(:plantation_unfixing, intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
+                  i.add_cast(reference_name: 'driver',   actor: (workers.any? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+                  i.add_cast(reference_name: 'tractor',  actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "catch(implanter)") : i.find(Equipment, can: "catch(implanter)")))
+                  i.add_cast(reference_name: 'compressor',  actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "blow") : i.find(Equipment, can: "blow")))
+                  i.add_cast(reference_name: 'cultivation', actor: cultivable_zone)
                 end
 
               end

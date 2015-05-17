@@ -70,6 +70,7 @@
       <item name="grape_harvest"        roles="target, output, doer, tool"     activity_families="vines"/>
       <item name="nuts_harvest"         roles="target, output, doer, tool"     activity_families="chestnut_orchards, hazel_orchards, walnut_orchards"/>
       <item name="straw_processing"     roles="input, output, doer, tool"      activity_families="cereal_crops, fodder_crops, meadow, fallow_land"/>
+      <item name="gardening_harvest"    roles="target, doer, tool"             activity_families="market_garden_crops, arboriculture, flower_crops"/>
     </items>
   </nomenclature>
 

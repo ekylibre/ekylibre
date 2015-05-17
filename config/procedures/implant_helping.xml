@@ -3,7 +3,7 @@
   <procedure name="implant_helping" natures="garden_human_working" version="0" status="frozen">
     <variables>
       <variable name="implanter_man" variety="worker" abilities="move" roles="garden_human_working-doer"/>
-      <variable name="cultivation"  variety="plant" roles="garden_human_working-target" need="shape" default-actor="variant-localized-in-storage" default-shape=":cultivation">
+      <variable name="cultivation"   roles="garden_human_working-target" need="shape" default-actor="variant-localized-in-storage" default-shape=":cultivation">
         <handler indicator="shape">
           <converter to="shape"      forward="intersection(value, land_parcel.shape)" backward="value"/>
           <converter to="population" forward="area(value) / cultivation..net_surface_area(square_meter)"/>

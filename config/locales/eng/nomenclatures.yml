@@ -2094,6 +2094,7 @@ eng:
         food_mixing: "Food mixing"                         #< animal_nutrition
         food_supply: "Food supply"                         #< animal_nutrition
         garden_human_working: "Garden human working"       #< manual_working
+        # gardening_harvest: "Gardening harvest"           #< harvest
         grain_transport: "Grain transport"                 #< transport
         grains_harvest: "Grains harvest"                   #< harvest
         grape_harvest: "Grape harvest"                     #< harvest

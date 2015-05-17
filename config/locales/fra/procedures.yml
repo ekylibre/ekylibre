@@ -309,6 +309,7 @@ fra:
     base-pasturing: "Pâturage"
     base-plant_grinding: "Broyage de végétaux"
     base-plant_mowing: "Fauchage"
+    base-plantation_unfixing: "Déchaussage"
     base-plastic_mulching: "Paillage plastique"
     base-plowing: "Labour"
     base-raking: "Hersage"
