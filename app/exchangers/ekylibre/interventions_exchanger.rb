@@ -400,7 +400,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
             # for the same intervention session
             intervention_started_at += duration.seconds if cultivable_zone.shape
 
-          elsif zone = support.storage and zone.is_a?(BuildingDivision)
+          elsif zone = support.storage and ( zone.is_a?(BuildingDivision) || zone.is_a?(Equipment) || zone.is_a?(CultivableZone) )
 
             if r.procedure_name and support
 
@@ -418,6 +418,18 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                 intervention = Ekylibre::FirstRun::Booker.force(:maintenance_task, intervention_started_at, duration_in_seconds, support: support, description: r.procedure_description) do |i|
                   i.add_cast(reference_name: 'worker',   actor: (workers.any? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
                   i.add_cast(reference_name: 'maintained', actor: zone)
+                end
+
+              elsif r.procedure_name == :technical_task and zone
+
+                #####################
+                #### Technical ####
+                #####################
+
+                # Technical task
+                intervention = Ekylibre::FirstRun::Booker.force(:technical_task, intervention_started_at, duration_in_seconds, support: support, description: r.procedure_description) do |i|
+                  i.add_cast(reference_name: 'worker',   actor: (workers.any? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+                  i.add_cast(reference_name: 'target', actor: zone)
                 end
 
               end

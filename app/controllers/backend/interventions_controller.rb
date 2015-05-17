@@ -58,6 +58,7 @@ class Backend::InterventionsController < Backend::BaseController
     t.column :activity, url: true, hidden: true
     t.column :state, hidden: true
     t.column :started_at
+    t.column :duration
     t.column :stopped_at, hidden: true
     t.status
     t.column :issue, url: true

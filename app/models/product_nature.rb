@@ -296,6 +296,10 @@ class ProductNature < Ekylibre::Record::Base
     # to << :produce if self.producible?
     to.collect{|x| tc('to.'+x.to_s)}.to_sentence
   end
+  
+  def picture_path(style=:original)
+    self.picture.path(style)
+  end
 
   # Load a product nature from product nature nomenclature
   def self.import_from_nomenclature(reference_name, force = false)
