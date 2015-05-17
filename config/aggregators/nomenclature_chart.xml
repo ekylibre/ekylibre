@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aggregators xmlns="http://www.ekylibre.org/XML/2013/aggregators">
+  <aggregator name="nomenclature_chart" version="0.0" category="management">
+  	<parameters>
+      <parameter name="campaigns" type="record-list" of="campaign" default="currents"/>
+      <parameter name="started_on" type="date" default="2015-01-01"/>
+      <parameter name="stopped_on" type="date" default="2015-12-31"/>
+    </parameters>
+    <section name="company">
+      <variable name="company" value="Entity.of_company"/>
+      <property name="entity_name" value="company.full_name"/>
+      <property name="address" if="company.default_mail_address" value="company.default_mail_address.coordinate"/>
+      <sections for="category" in="ProductNatureCategory.all.order(:name)">
+        <property name="id" of="category" level="api"/>
+        <title name="name" of="category"/>
+        <property name="url" value="&quot;#{Preference[:host]}/backend/product_nature_categories/#{category.id}&quot;" level="api"/>
+        <property name="financial_asset_account.label" of="category" if="category.financial_asset_account"/>
+        <property name="charge_account.label" of="category" if="category.charge_account"/>
+        <property name="product_account.label" of="category" if="category.product_account"/>
+        <property name="stock_account.label" of="category" if="category.stock_account" />
+        <property name="active" of="category" />
+        <property name="description" of="category" />
+        <property name="number" of="category" />
+        <property name="pictogram" of="category" />
+        <property name="reference_name" of="category" />
+        <property name="creator.name" of="category" if="category.creator"/>
+        <property name="created_at" of="category" type="datetime" />
+        <property name="updater.name" of="category" if="category.updater"/>
+        <property name="updated_at" of="category" type="datetime" />
+        <sections for="nature" in="category.natures.order(:name)">
+          <property name="id" of="nature" level="api"/>
+          <title name="name" of="nature"/>
+          <property name="url" value="&quot;#{Preference[:host]}/backend/product_natures/#{nature.id}&quot;" level="api"/>
+          <property name="variety" of="nature" />
+          <property name="derivative_of" of="nature" />
+          <property name="reference_name" of="nature" />
+          <property name="active" of="nature" />
+          <property name="picture_path" of="nature" />
+          <property name="description" of="nature" />
+          <property name="number" of="nature" />
+          <property name="creator.name" of="nature" if="nature.creator"/>
+          <property name="created_at" of="nature" type="datetime" />
+          <property name="updater.name" of="nature" if="nature.updater"/>
+          <property name="updated_at" of="nature" type="datetime" />
+          <sections for="variant" in="nature.variants.order(:name)">
+          	<property name="id" of="variant" level="api"/>
+            <title name="name" of="variant"/>
+          	<property name="url" value="&quot;#{Preference[:host]}/backend/product_nature_variants/#{variant.id}&quot;" level="api"/>
+          	<property name="variety" of="variant" />
+            <property name="derivative_of" of="variant" />
+            <property name="reference_name" of="variant" />
+            <property name="active" of="variant" />
+            <property name="picture_path" of="variant" />
+            <property name="number" of="variant" />
+            <property name="unit_name" of="variant" />
+            <matrix name="products" for="product" in="variant.products.at(stopped_on).reorder('born_at ASC')">
+	          <cell name="id" of="product" level="api"/>
+	          <cell name="name" of="product"/>
+	          <cell name="url" value="&quot;#{Preference[:host]}/backend/products/#{product.id}&quot;" level="api"/>
+	          <cell name="identification_number" of="product" level="api"/>
+	          <cell name="work_number" of="product"/>
+	          <cell name="number" of="product" level="api"/>
+	          <cell name="born_at" of="product" type="datetime"/>
+	          <cell name="variety" of="product" level="api"/>
+	          <cell name="derivative_of" of="product" level="api"/>
+	          <cell name="owner.name" of="product" if="product.owner"/>
+	        </matrix>
+            <matrix name="prices" for="catalog_item" in="variant.catalog_items.order(:name)">
+          	  <cell name="id" of="catalog_item" level="api"/>
+          	  <cell name="catalog.name" of="catalog_item"/>
+              <cell name="name" of="catalog_item" level="api"/>
+              <cell name="amount" of="catalog_item"/>
+              <cell name="commercial_description" of="catalog_item" level="api"/>
+              <cell name="commercial_name" of="catalog_item" level="api"/>
+              <cell name="creator.name" of="catalog_item" if="catalog_item.creator" level="api"/>
+              <cell name="created_at" of="catalog_item" type="datetime" level="api"/>
+              <cell name="updater.name" of="catalog_item" if="catalog_item.updater" level="api"/>
+              <cell name="updated_at" of="catalog_item" type="datetime" />
+            </matrix>
+          </sections>
+        </sections>
+      </sections>
+    </section>
+  </aggregator>
+</aggregators>
