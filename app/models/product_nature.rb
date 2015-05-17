@@ -296,7 +296,7 @@ class ProductNature < Ekylibre::Record::Base
     # to << :produce if self.producible?
     to.collect{|x| tc('to.'+x.to_s)}.to_sentence
   end
-  
+
   def picture_path(style=:original)
     self.picture.path(style)
   end

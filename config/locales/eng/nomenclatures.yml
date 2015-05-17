@@ -1520,6 +1520,7 @@ eng:
         synel_inventory: "Synel inventory"
         telepac_cap_land_parcels: "Telepac cap land parcels"
         telepac_land_parcels: "Telepac land parcels"
+        # telepac_v2015_land_parcels: "Telepac v2015 land parcels"
         unicoque_outgoing_deliveries: "Unicoque outgoing deliveries"
         unicoque_plant_zones: "Unicoque plant zones"
         upra_reproductors: "Upra reproductors"

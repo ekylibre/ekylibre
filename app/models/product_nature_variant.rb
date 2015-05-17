@@ -289,7 +289,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
       where("purchases.supplier_id = ?", Entity.find(supplier).id).
       last
   end
-  
+
   def picture_path(style=:original)
     self.picture.path(style)
   end
