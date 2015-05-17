@@ -15,46 +15,27 @@
     = main_list
 
   - j.face :column do
+    - content_for :main_toolbar do
+
+      = dropdown_button do |l|
+        - l.link_to 'Intervention', '#'
+        - l.link_to 'Intervention2', '#'
+
+      = tool_to 'Vendre', '#'
+      = tool_to 'Mettre en pension', '#'
+
     .container-fluid
-      .navbar.navbar-default.animal-navbar
-        .container-fluid
-          .navbar-header
-            %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
-              %span.icon-bar
-              %span.icon-bar
-              %span.icon-bar
-          .collapse.navbar-collapse
-            .animal-summary.row
-              .col-md-6
-                %ul.nav.navbar-nav
-                  %li.dropdown
-                    %a.dropdown-toggle.animal-navbar-interventions{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-                      Interventions
-                      %span.caret
-                    %ul.dropdown-menu{:role => "menu"}
-                      %li
-                        %a{:href => "#"} Action
-                      %li.divider
-                      %li
-                        %a{:href => "#"} Action
-                %button.btn.btn-default.btn-sm.navbar-btn{:type => "button"} Vendre
-                %button.btn.btn-default.btn-sm.navbar-btn{:type => "button"} Mettre en pension
-              .col-md-3
-                %form.search-form{:action => ""}
-                  .form-group.has-feedback
-                    %label.sr-only{:for => "search"} Search
-                    %input#search.form-control{:name => "search", :placeholder => "Rechercher", :type => "text"}
-                      %span.icon.icon-search.form-control-feedback
-              .col-md-3
-                .alert.alert-success{:role => "alert"}
-                  18
-                .alert.alert-warning{:role => "alert"}
-                  1
-                .alert.alert-danger{:role => "alert"}
-                  1
-                .alert.alert-info{:role => "alert"}
-                  1
-      .row.animal-viewport{data: {animals_data: @animals_data.to_json}}
+      .row.animal-summary
+        .col-md-3
+          .alert.alert-success{:role => "alert"}
+            18
+          .alert.alert-warning{:role => "alert"}
+            1
+          .alert.alert-danger{:role => "alert"}
+            1
+          .alert.alert-info{:role => "alert"}
+            1
+      .row.animal-viewport{data: {animals_data: @animals_data.to_json, animals_groups: @animals_groups.to_json, animals_containers: @animals_containers.to_json  }}
         .animal-group-container{"data-bind" => "sortable: {template: 'animal-group-template', data: groups, options: {handle: '.animal-group-dragger', cursor: 'move', tolerance: 'pointer', placeholder: 'sorting-group-placeholder', dropOnEmpty: false, forcePlaceholderSize: true, opacity: 0.8, items: '> .animal-group'}}"}
         %script#animal-group-template{:type => "text/html"}
           .animal-group
@@ -96,7 +77,8 @@
             %div{"data-bind" => "css: {'hide':hidden}"}
               %div{"data-bind" => "sortable: {template: 'animal-element-template', data: $root.animals, dragged: $root.animalSortableHelper, options: {handle: '.animal-element-dragger', cursor: 'move', placeholder: 'sorting-animal-placeholder', dropOnEmpty: false, forcePlaceholderSize: true, opacity: 1, revert: true}}"}
         %script#animal-element-template{:type => "text/html"}
-          .animal-element.row.no-right-left-margin{"data-bind" => "if: $parent.id == container_id()"}
+          /ko if: $parent.id == container_id()
+          .animal-element.row.no-right-left-margin
             .animal-element-img.no-padding{"data-bind" => "css: animalStatusClass"}
               %img{"data-bind" => "attr: {src: img}"}
             .animal-element-infos
@@ -111,6 +93,7 @@
                   %span.icon.icon-check.check-icon
             .animal-element-dragger
               %i.icon.icon-ellipsis-v.animal-element-handler.text-muted
+          / /ko
 
         .add-group-panel-container
           .panel.panel-default

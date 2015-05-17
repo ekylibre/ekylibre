@@ -71,8 +71,11 @@ $ ->
       json_groups = []
       json_containers = []
       json_animals = []
-      json_all = $('.animal-viewport').data 'animals-data'
-      #console.log json_all
+      json_animals = $('.animal-viewport').data 'animals-data'
+      json_containers = $('.animal-viewport').data 'animals-containers'
+      json_groups = $('.animal-viewport').data 'animals-groups'
+
+      console.log json_animals
 
       @showAnimalDetailsModal = ko.observable false
 
@@ -81,8 +84,16 @@ $ ->
       @groups = ko.observableArray ko.utils.arrayMap json_groups, (group) ->
         new dashboardViewModel.Group(group.id, group.name)
 
+
+      #FIXME: Improve empty group
+      @groups.push new dashboardViewModel.Group(0, 'A trier')
+
+
       @containers = ko.observableArray ko.utils.arrayMap json_containers, (container) ->
-        new dashboardViewModel.Container(container.id, container.name, container.group_id)
+        new dashboardViewModel.Container(container.id, container.name, container.group_id || 0)
+
+      #FIXME: Improve empty container
+      @containers.push new dashboardViewModel.Container(0, '', 0)
 
       @animals = ko.observableArray ko.utils.arrayMap json_animals, (animal) ->
         new dashboardViewModel.Animal(animal.id, animal.name, animal.img, animal.status, animal.sex, animal.number_id, animal.container_id)
@@ -127,7 +138,6 @@ $ ->
         container_array = ko.utils.arrayFilter window.app.containers(), (c) =>
           c.group_id == @id
 
-
         all_animals = []
 
         for container in container_array
@@ -166,7 +176,7 @@ $ ->
       @id = id
       @name = name
       @img = ko.pureComputed () =>
-        "img/"+img
+        img
       @status = status
       @sex = sex
       #@number_id = number_id

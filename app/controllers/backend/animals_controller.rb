@@ -84,6 +84,8 @@ class Backend::AnimalsController < Backend::MattersController
 
     # format data to delegate to front end engine
     @animals_data = []
+    @animals_groups = {}
+    @animals_containers = {}
 
     @animals.find_each do |animal|
       group = 0
@@ -92,17 +94,19 @@ class Backend::AnimalsController < Backend::MattersController
         group = animal.groups.first
       end
 
-      @animals_data << { id: animal.id, name: animal.name, sex: animal.sex, status: animal.status, img: animal.picture_file_name, container: animal.container, nature: animal.nature, group: group}
+      container = 0
+
+      if animal.container
+        container = animal.container.id
+      end
+
+      @animals_data << { id: animal.id, name: animal.name, sex: animal.sex, status: animal.status, img: animal.picture.url, container_id: container, group_id: group }
 
     end
 
-=begin
-    animal = @animals.find(354)
-    @animals_data << { id: animal.id, name: animal.name, sex: animal.sex, status: animal.status, img: animal.picture_file_name, container: animal.container, nature: animal.nature}
-    print animal.groups
-=end
+    @animals_containers = BuildingDivision.select(:id,:name)
 
-
+    @animals_groups = AnimalGroup.select(:id,:name)
 
 
     # respond with associated models to simplify quering in Ireport
