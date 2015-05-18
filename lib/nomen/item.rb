@@ -66,14 +66,17 @@ module Nomen
 
     # Returns true if the given item name match the current item or its children
     def include?(other)
-      other = nomenclature.items[other] unless other.is_a?(Item)
-      unless other.nomenclature == self.nomenclature
+      if other.is_a?(Item)
+        item = other
+      else
+        unless item = nomenclature.items[other]
+          raise StandardError, "Cannot find item #{other.inspect} in #{nomenclature.name}"
+        end
+      end
+      unless item.nomenclature == self.nomenclature
         raise StandardError, "Invalid item"
       end
-      return (@left <= other.left and other.right <= @right)
-      # return self_and_children.detect do |item|
-      #   item.name == other.name
-      # end
+      return (@left <= item.left and item.right <= @right)
     end
 
     # Return human name of item

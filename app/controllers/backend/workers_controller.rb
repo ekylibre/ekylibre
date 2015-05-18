@@ -1,4 +1,3 @@
-# coding: utf-8
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2013 David Joulin, Brice Texier
@@ -17,5 +16,5 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::WorkersController < Backend::EquipmentsController
+class Backend::WorkersController < Backend::ProductsController
 end

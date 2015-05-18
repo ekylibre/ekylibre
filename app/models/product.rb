@@ -224,8 +224,10 @@ class Product < Ekylibre::Record::Base
       end
     end
     if self.variant
-      unless Nomen::Varieties[self.variant_variety].include? self.variety.to_s
-        errors.add(:variety, :invalid)
+      if self.variety
+        unless Nomen::Varieties[self.variant_variety].include? self.variety
+          errors.add(:variety, :invalid)
+        end
       end
       if self.derivative_of
         unless Nomen::Varieties[self.variant_derivative_of].include? self.derivative_of.to_s
