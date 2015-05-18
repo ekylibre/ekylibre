@@ -10,6 +10,13 @@
     </items>
   </nomenclature>
 
+  <nomenclature name="varieties-arctium" hierarchical="true">
+    <items>
+      <item name="arctium_lappa" itis_tsn="36545"/>
+      <item name="arctium_minus" itis_tsn="36546"/>
+    </items>
+  </nomenclature>
+
   <nomenclature name="varieties-cichorium" hierarchical="true">
     <items>
       <item name="cichorium_endivia" itis_tsn="501522"/>
@@ -17,10 +24,10 @@
     </items>
   </nomenclature>
 
-  <nomenclature name="varieties-arctium" hierarchical="true">
+  <nomenclature name="varieties-cichorium_endivia" hierarchical="true">
     <items>
-      <item name="arctium_lappa" itis_tsn="36545"/>
-      <item name="arctium_minus" itis_tsn="36546"/>
+      <item name="cichorium_endivia_crispum"/>
+      <item name="cichorium_endivia_latifolium"/>
     </items>
   </nomenclature>
 

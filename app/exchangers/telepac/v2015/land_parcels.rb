@@ -1,4 +1,4 @@
-class Telepac::LandParcelsExchanger < ActiveExchanger::Base
+class Telepac::LandParcels::V2015Exchanger < ActiveExchanger::Base
 
   def import
     # Unzip file
@@ -11,7 +11,7 @@ class Telepac::LandParcelsExchanger < ActiveExchanger::Base
 
 
     #############################################################################
-    # Import landparcel_shapefile from TELEPAC
+    # Import landparcel_shapefile from TELEPAC From 2015
     # -- field_name
     # PACAGE
     # NUMERO_SI (land_parcel number)
@@ -20,12 +20,26 @@ class Telepac::LandParcelsExchanger < ActiveExchanger::Base
     # DPT_NUM (department zone number)
     # SURF_TOT (land_parcel_cluster area)
     # COMMUNE
-    # TYPE (cf http://www.maine-et-loire.gouv.fr/IMG/pdf/Dossier-PAC-2013_notice_cultures-varietes.pdf)
+    # TYPE (cf https://www3.telepac.agriculture.gouv.fr/telepac/pdf/tas/2015/Dossier-PAC-2015_notice_cultures-precisions.pdf)
     # CODE_VAR
-    # SURF_DECL (land_parcel area)
-    # TYPE_PARC
-    # AGRI_BIO
-    # ANNEE_ENGM
+    # NUMERO_PA
+    # PROD_SEM
+    # COMMERC
+    # DEROB1
+    # DEROB2
+    # INTERRANG1
+    # INTERRANG2
+    # INTERRANG3
+    # AGRIBIO
+    # AIDEBIO
+    # MARAICH
+    # MAEC1_CODE
+    # MAEC1CIBLE
+    # MAEC2_CODE
+    # MAEC2CIBLE
+    # MAEC3_CODE
+    # MAEC3CIBLE
+    # AGROFOREST
 
 
 

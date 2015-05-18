@@ -1,5 +1,8 @@
 module Aggeratio
 
+  class InvalidDocument < StandardError
+  end
+
   autoload :Aggregator,       'aggeratio/aggregator'
   autoload :Base,             'aggeratio/base'
   autoload :Parameter,        'aggeratio/parameter'

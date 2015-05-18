@@ -202,7 +202,7 @@ GEM
     i18n (0.7.0)
     i18n-complements (0.0.14)
       i18n (>= 0.6)
-    jbuilder (2.2.13)
+    jbuilder (2.2.16)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
     jc-validates_timeliness (3.1.1)

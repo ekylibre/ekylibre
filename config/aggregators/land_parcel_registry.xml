@@ -23,7 +23,7 @@
           <property name="shape_svg" value="zone.shape_svg(srid: 2154)" type="svg" level="api"/>
           <!-- looking for all Production in current zone and campaign -->
           <sections for="support" in="zone.supports.of_campaign(campaign)" of-type="record">
-            <title name="storage.name" of="support"/>
+            <title name="storage_name" of="support"/>
             <property name="variant_name" value="support.production.variant_name"/>
             <property name="variant_variety" value="support.production.variant_variety"/>
             <property name="implanted_at" if="support.implanted_at" value="support.implanted_at" type="datetime"/>

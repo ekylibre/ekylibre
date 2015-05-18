@@ -1,4 +1,3 @@
-# coding: utf-8
 # = Informations
 #
 # == License
@@ -55,7 +54,7 @@ class ProductionSupport < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_uniqueness_of :storage_id, scope: :production_id
 
-  delegate :net_surface_area, :shape_area, to: :storage, prefix: true
+  delegate :name, :net_surface_area, :shape_area, to: :storage, prefix: true
   delegate :support_variant_unit, :support_variant_indicator, to: :production
   delegate :name, :variant, to: :production, prefix: true
   delegate :name, :work_number, :shape, :shape_to_ewkt, :shape_svg, to: :storage
@@ -90,7 +89,7 @@ class ProductionSupport < Ekylibre::Record::Base
   scope :of_productions, lambda { |*productions|
     productions.flatten!
     ids = productions.map do |production|
-      # raise ArgumentError.new("Expected Production, got #{production.class.name}:#{production.inspect}") unless production.is_a?(Production)
+      # raise ArgumentError.new("Expected Production, got #{production.class.name}:#{production.inspect}") unless production.is_a?(Production)
       (production.is_a?(Production) ? production.id : production.to_i)
     end
     where(production_id: ids)

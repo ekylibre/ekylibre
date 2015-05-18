@@ -1374,7 +1374,6 @@ eng:
         animal_list: "Animal list"
         animal_sheet: "Animal sheet"
         balance_sheet: "Balance sheet"
-        # chart_of_nomenclature: "Chart of nomenclature"
         deposit_list: "Deposit list"
         entity_sheet: "Entity sheet"
         equipment_certification: "Equipment certification"
@@ -1395,6 +1394,7 @@ eng:
         phytosanitary_certification: "Phytosanitary certification"
         phytosanitary_registry: "Phytosanitary registry"
         prescription: "Prescription"
+        products_sheet: "Products sheet"
         provisional_manure_management_plan: "Provisional manure management plan"
         purchases_estimate: "Purchases estimate"
         purchases_invoice: "Purchases invoice"
@@ -1518,9 +1518,9 @@ eng:
         lilco_milk_analyses: "Lilco milk analyses"
         synel_animals: "Synel animals"
         synel_inventory: "Synel inventory"
-        telepac_cap_land_parcels: "Telepac cap land parcels"
-        telepac_land_parcels: "Telepac land parcels"
-        # telepac_v2015_land_parcels: "Telepac v2015 land parcels"
+        telepac_v2014_cap_land_parcels: "Telepac v2014 cap land parcels"
+        telepac_v2014_land_parcels: "Telepac v2014 land parcels"
+        telepac_v2015_land_parcels: "Telepac v2015 land parcels"
         unicoque_outgoing_deliveries: "Unicoque outgoing deliveries"
         unicoque_plant_zones: "Unicoque plant zones"
         upra_reproductors: "Upra reproductors"
@@ -2094,7 +2094,7 @@ eng:
         food_mixing: "Food mixing"                         #< animal_nutrition
         food_supply: "Food supply"                         #< animal_nutrition
         garden_human_working: "Garden human working"       #< manual_working
-        # gardening_harvest: "Gardening harvest"           #< harvest
+        gardening_harvest: "Gardening harvest"             #< harvest
         grain_transport: "Grain transport"                 #< transport
         grains_harvest: "Grains harvest"                   #< harvest
         grape_harvest: "Grape harvest"                     #< harvest
@@ -3859,8 +3859,10 @@ eng:
         cicer: "Cicer"                                     #< fabaceae
         cicer_arietinum: "Chickpea"                        #< cicer
         cichorium: "Cichorium"                             #< asteraceae
-        cichorium_endivia: "Curly chicory"                 #< cichorium
-        # cichorium_intybus: "Cichorium intybus"           #< cichorium
+        cichorium_endivia: "Endive chicory"                #< cichorium
+        cichorium_endivia_crispum: "Frisee chicory"        #< cichorium_endivia
+        cichorium_endivia_latifolium: "Scarole"            #< cichorium_endivia
+        cichorium_intybus: "Cichorium intybus"             #< cichorium
         citrullus: "Watermelon"                            #< cucurbitaceae
         citrullus_colocynthis: "Colocynth"                 #< citrullus
         citrullus_lanatus: "Watermelon Common"             #< citrullus

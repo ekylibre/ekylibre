@@ -42,8 +42,8 @@
       <item name="lilco_milk_analyses"/>
       <item name="synel_animals"/>
       <item name="synel_inventory"/>
-      <item name="telepac_cap_land_parcels"/>
-      <item name="telepac_land_parcels"/>
+      <item name="telepac_v2014_cap_land_parcels"/>
+      <item name="telepac_v2014_land_parcels"/>
       <item name="telepac_v2015_land_parcels"/>
       <item name="unicoque_outgoing_deliveries"/>
       <item name="unicoque_plant_zones"/>
