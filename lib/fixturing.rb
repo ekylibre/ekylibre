@@ -31,6 +31,7 @@ module Fixturing
       Ekylibre::Tenant.migrate(tenant, to: current_version)
       table_names = Ekylibre::Record::Base.connection.tables.delete_if{ |t| %w(schema_migrations spatial_ref_sys).include?(t) }
       say "Load fixtures"
+      Ekylibre::Tenant.switch!(tenant)
       ActiveRecord::FixtureSet.create_fixtures(directory, table_names)
       unless up_to_date?
         migrate(tenant)
@@ -38,11 +39,10 @@ module Fixturing
     end
 
     # Dump data of database into fixtures
-    def dump(tenant = nil)
-      if tenant
-        Ekylibre::Tenant.switch!(tenant)
-        migrate(tenant) unless up_to_date?
-      end
+    def dump(tenant)
+      Ekylibre::Tenant.switch!(tenant)
+
+      migrate(tenant) unless up_to_date?
 
       backup = "#{directory.to_s}~"
       FileUtils.rm_rf(backup)

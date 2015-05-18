@@ -89,7 +89,7 @@ module Ekylibre
 
       # Migrate tenant to wanted version
       def migrate(name, options = {})
-        switch do (name)
+        switch(name) do
           ActiveRecord::Migrator.migrate(ActiveRecord::Migrator.migrations_paths, options[:to])
         end
       end
