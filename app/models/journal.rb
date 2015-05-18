@@ -232,7 +232,7 @@ class Journal < Ekylibre::Record::Base
   end
 
 
-  # Compute a balance with many options
+  # Compute a trial balance with many options
   # * :started_on Use journal entries printed on after started_on
   # * :stopped_on Use journal entries printed on before stopped_on
   # * :draft      Use draft journal entry_items
@@ -240,7 +240,7 @@ class Journal < Ekylibre::Record::Base
   # * :closed     Use closed journal entry_items
   # * :accounts   Select ranges of accounts
   # * :centralize Select account's prefixe which permits to centralize
-  def self.balance(options={})
+  def self.trial_balance(options={})
     conn = ActiveRecord::Base.connection
     journal_entry_items, journal_entries, accounts = "jel", "je", "a"
 

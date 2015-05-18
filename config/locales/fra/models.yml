@@ -389,6 +389,8 @@ fra:
     acceptance_status: "Statut d’acceptation"
     account: "Compte comptable"
     account_balances: "Balances de compte"
+    account_name: "Compte comptable"
+    account_number: "N°Compte"
     accountable: "Comptabilisable"
     accounted_at: "Date comptabilisation"
     accuracy: "Précision"

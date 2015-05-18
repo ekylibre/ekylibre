@@ -20,8 +20,8 @@
     %table.list
       %thead
         %tr
-          %th{rowspan: 2}= :account_number.tl
-          %th{rowspan: 2}= :account_name.tl
+          %th{rowspan: 2}= JournalEntryItem.human_attribute_name(:account_number)
+          %th{rowspan: 2}= JournalEntryItem.human_attribute_name(:account_name)
           %th{colspan: 2}= :total.tl
           %th{colspan: 2}= :balance.tl
         %tr

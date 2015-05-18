@@ -292,7 +292,6 @@ spa:
       # new: "New entry item"
       # show: "Journal entry item: %{name}"
     backend/journals:
-      balance: "Equilibrio"
       bookkeep: "Bascula contable"
       close: "Cierre del %{name}"
       draft: "Niebla"
@@ -302,6 +301,7 @@ spa:
       new: "Crear un nuevo periodico"
       reopen: "Déclôture du %{name}"
       show: "Periodico\_: %{name} (%{code})"
+      trial_balance: "Balance general"
     backend/land_parcel_clusters:
       # edit: "Edit land parcel cluster: %{name}"
       # index: "Land parcel clusters"
@@ -571,8 +571,8 @@ spa:
     account_fixed_assets: "Activo inmobilisado" #?
     account_inventories_assets: "Stocks" #?
     account_mark: "Letra de cuento" #?
-    account_name: "Cuento contable"
-    account_number: "Numero de cuenta"
+    account_name: "Cuento contable" #?
+    account_number: "Numero de cuenta" #?
     account_other_assets: "Autros" #?
     account_provision: "Provisiones para riesgos y cargas" #?
     account_tabbox:  #?
@@ -1681,7 +1681,6 @@ spa:
       # about: "About"
       # add_to_group: "Add to group"
       # attach: "Attach"
-      # balance: "Balance"
       # bookkeep: "Bookkeep"
       # cancel: "Cancel"
       # category: "Category"
@@ -1708,7 +1707,6 @@ spa:
       # extract: "Extract"
       # family: "Family"
       # finish: "Finish"
-      # general_ledger: "General ledger"
       # generate_last_journal_entry: "Generate last journal entry"
       # import: "Import"
       # incorporate: "Incorporate"

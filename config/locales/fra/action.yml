@@ -295,7 +295,6 @@ fra:
       new: "Nouvelle ligne d’écriture"
       show: "ligne d’écriture: %{name}"
     backend/journals:
-      balance: "Balance"
       bookkeep: "Bascule comptable"
       close: "Clôturer le journal\_: %{name}"
       draft: "Brouillard"
@@ -307,6 +306,7 @@ fra:
       reopen: "Déclôturer le journal\_: %{name}"
       reports: "Impression, exportation" #?
       show: "Journal\_: %{name} (%{code})"
+      trial_balance: "Balance"
     backend/land_parcel_clusters:
       edit: "Modifier l’îlot\_: %{name}"
       index: "Îlots"
@@ -615,8 +615,6 @@ fra:
     account_fixed_assets: "Actif immobilisé" #?
     account_inventories_assets: "Stocks" #?
     account_mark: "Lettrer le compte" #?
-    account_name: "Compte comptable"
-    account_number: "N°Compte"
     account_other_assets: "Divers" #?
     account_provision: "Provisions pour risques et charges" #?
     account_supplier_to_create: "— Créer automatiquement un compte fournisseur —" #?
@@ -1943,7 +1941,7 @@ fra:
       about: "À propos"
       add_to_group: "Ajouter au groupe"
       attach: "Attacher"
-      balance: "Balance"
+      balance: "Balance" #?
       bookkeep: "Comptabiliser"
       cancel: "Annuler"
       category: "Categorie"
@@ -1970,7 +1968,7 @@ fra:
       extract: "Extraire"
       family: "Famille"
       finish: "Finir"
-      general_ledger: "Grand livre"
+      general_ledger: "Grand livre" #?
       generate_last_journal_entry: "Générer la dernière écriture"
       import: "Importer"
       incorporate: "Incorporer"

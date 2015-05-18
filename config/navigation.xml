@@ -168,7 +168,7 @@
         <page to="backend/journal_entry_items#show"/>
         <page to="backend/journal_entry_items#unroll"/>
       </item>
-      <item name="accounts">
+      <item name="reconciliation">
         <page to="backend/accounts#reconciliation"/>
         <page to="backend/accounts#list_reconciliation"/>
         <page to="backend/accounts#mark"/>
@@ -176,8 +176,8 @@
       </item>
     </group>
     <group name="synthesis" icon="table">
-      <item name="balance">
-        <page to="backend/journals#balance"/>
+      <item name="trial_balance">
+        <page to="backend/journals#trial_balance"/>
       </item>
       <item name="general_ledger">
         <page to="backend/journals#general_ledger"/>
@@ -197,18 +197,6 @@
         <page to="backend/financial_assets#unroll"/>
         <page to="backend/financial_assets#update"/>
       </item>
-      <item name="loans">
-        <page to="backend/loans#index"/>
-        <page to="backend/loans#create"/>
-        <page to="backend/loans#destroy"/>
-        <page to="backend/loans#edit"/>
-        <page to="backend/loans#list"/>
-        <page to="backend/loans#list_repayments"/>
-        <page to="backend/loans#new"/>
-        <page to="backend/loans#show"/>
-        <page to="backend/loans#unroll"/>
-        <page to="backend/loans#update"/>
-      </item>
     </group>
     <group name="cash" icon="money">
       <item name="cashes">
@@ -223,6 +211,18 @@
         <page to="backend/cashes#show"/>
         <page to="backend/cashes#unroll"/>
         <page to="backend/cashes#update"/>
+      </item>
+      <item name="loans">
+        <page to="backend/loans#index"/>
+        <page to="backend/loans#create"/>
+        <page to="backend/loans#destroy"/>
+        <page to="backend/loans#edit"/>
+        <page to="backend/loans#list"/>
+        <page to="backend/loans#list_repayments"/>
+        <page to="backend/loans#new"/>
+        <page to="backend/loans#show"/>
+        <page to="backend/loans#unroll"/>
+        <page to="backend/loans#update"/>
       </item>
       <item name="cash_transfers">
         <page to="backend/cash_transfers#index"/>

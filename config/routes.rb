@@ -445,12 +445,10 @@ Rails.application.routes.draw do
       collection do
         match "draft", via: [:get, :post]
         match "bookkeep", via: [:get, :put, :post]
-        match "import", via: [:get, :post]
-        get  :reports
-        get  :balance
         get  :general_ledger
         get  :list_draft_items
         get  :list_general_ledger
+        get  :trial_balance
       end
       member do
         get  :list_mixed

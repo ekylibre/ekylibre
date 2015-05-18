@@ -941,7 +941,8 @@ arb:
     account: "الحساب"
     account_balances: "ارصدة الحسابات"
     account_id: "حساب" #?
-    account_number: "رقم الحساب" #?
+    account_name: "حسابات المحاسب"
+    account_number: "رقم الحساب"
     # accountable: "Accountable"
     accounted_at: "تمت محاسبته يوم"
     accounts: "الحسابات" #?

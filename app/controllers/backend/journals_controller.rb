@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -238,9 +237,9 @@ class Backend::JournalsController < Backend::BaseController
   end
 
 
-  def balance
+  def trial_balance
     if params[:period]
-      @balance = Journal.balance(params)
+      @balance = Journal.trial_balance(params)
     end
   end
 

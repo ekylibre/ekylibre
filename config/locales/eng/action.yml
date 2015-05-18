@@ -356,7 +356,6 @@ eng:
       new: "New entry item"
       show: "Journal entry item: %{name}"
     backend/journals:
-      balance: "Balance"
       bookkeep: "Bookkeep"
       close: "Close journal: %{name}"
       draft: "Draft"
@@ -366,6 +365,7 @@ eng:
       new: "New journal"
       reopen: "Reopen journal: %{name}"
       show: "Journal: %{name} (%{code})"
+      trial_balance: "Trial balance"
     backend/kujakus:
       # toggle: "Toggle kujaku: %{name}"
     backend/land_parcel_clusters:
@@ -746,8 +746,6 @@ eng:
         other: "%{count} errors prohibited this %{model} from being saved"
   labels:
     access: "Access"
-    account_name: "Account name"
-    account_number: "Account number"
     accountancy: "Accountancy"
     accounts: "Accounts"
     accounts_only_used_at: "Accounts only used at"
@@ -1615,7 +1613,6 @@ eng:
       # autocomplete_for_name: "Autocomplete for name"
       # autocomplete_for_origin: "Autocomplete for origin"
       # autocomplete_for_place: "Autocomplete for place"
-      balance: "Balance"
       bookkeep: "Bookkeep"
       cancel: "Cancel"
       category: "Category"
@@ -1643,7 +1640,7 @@ eng:
       extract: "Extract"
       family: "Family"
       finish: "Finish"
-      general_ledger: "General ledger"
+      # general_ledger: "General ledger"
       generate_last_journal_entry: "Generate last journal entry"
       import: "Import"
       incorporate: "Incorporate"
@@ -1685,6 +1682,7 @@ eng:
       stop: "Stop" #?
       take: "Take"
       toggle: "Toggle"
+      # trial_balance: "Trial balance"
       unlock: "Unlock"
       unmark: "Unmark"
       unroll: "Unroll"

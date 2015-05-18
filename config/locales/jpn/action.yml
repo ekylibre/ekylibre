@@ -270,7 +270,6 @@ jpn:
       # new: "New entry item"
       # show: "Journal entry item: %{name}"
     backend/journals:
-      # balance: "Balance"
       # bookkeep: "Bookkeep"
       # close: "Close journal: %{name}"
       # draft: "Draft"
@@ -280,6 +279,7 @@ jpn:
       # new: "New journal"
       # reopen: "Reopen journal: %{name}"
       # show: "Journal: %{name} (%{code})"
+      # trial_balance: "Trial balance"
     backend/land_parcel_clusters:
       # edit: "Edit land parcel cluster: %{name}"
       # index: "Land parcel clusters"
@@ -526,8 +526,6 @@ jpn:
         # other: "%{count} errors prohibited this %{model} from being saved"
   labels:
     # access: "Access"
-    # account_name: "Account name"
-    # account_number: "Account number"
     # accountancy: "Accountancy"
     # accounts: "Accounts"
     # accounts_only_used_at: "Accounts only used at"
@@ -1397,7 +1395,6 @@ jpn:
       # about: "About"
       # add_to_group: "Add to group"
       # attach: "Attach"
-      # balance: "Balance"
       # bookkeep: "Bookkeep"
       # cancel: "Cancel"
       # category: "Category"
@@ -1424,7 +1421,6 @@ jpn:
       # extract: "Extract"
       # family: "Family"
       # finish: "Finish"
-      # general_ledger: "General ledger"
       # generate_last_journal_entry: "Generate last journal entry"
       # import: "Import"
       # incorporate: "Incorporate"

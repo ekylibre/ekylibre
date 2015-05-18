@@ -326,7 +326,6 @@ arb:
       # new: "New entry item"
       # show: "Journal entry item: %{name}"
     backend/journals:
-      balance: "رصيد الحساب"
       bookkeep: "نظام المحاسبة المتغير"
       close: "اغلاق %{name}"
       draft: "المسودات"
@@ -336,6 +335,7 @@ arb:
       new: "انشاء دفتر يومي جديد"
       reopen: "فتح %{name}"
       show: "الدفتر اليومي : %{name} (%{code})"
+      trial_balance: "رصيد الحساب"
     backend/land_parcel_clusters:
       # edit: "Edit land parcel cluster: %{name}"
       # index: "Land parcel clusters"
@@ -770,8 +770,6 @@ arb:
     account_fixed_assets: "الموجودات الثابتة" #?
     account_inventories_assets: "أسهم" #?
     account_mark: "تسجيل الحسابات" #?
-    account_name: "حسابات المحاسب"
-    account_number: "رقم الحساب"
     account_other_assets: "موجودات اخرى" #?
     account_provision: "احتياطات لمواجهة المخاطر والتكاليف" #?
     account_supplier_to_create: "-- انشاء حساب للممول بشكل اوتوماتيكي --" #?
@@ -2140,7 +2138,6 @@ arb:
       # about: "About"
       # add_to_group: "Add to group"
       # attach: "Attach"
-      # balance: "Balance"
       # bookkeep: "Bookkeep"
       # cancel: "Cancel"
       # category: "Category"
@@ -2167,7 +2164,6 @@ arb:
       # extract: "Extract"
       # family: "Family"
       # finish: "Finish"
-      # general_ledger: "General ledger"
       # generate_last_journal_entry: "Generate last journal entry"
       # import: "Import"
       # incorporate: "Incorporate"

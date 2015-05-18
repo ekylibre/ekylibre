@@ -277,6 +277,8 @@ por:
     # acceptance_status: "Acceptance status"
     # account: "Account"
     # account_balances: "Account balances"
+    # account_name: "Account name"
+    # account_number: "Account number"
     # accountable: "Accountable"
     # accounted_at: "Accounted at"
     # accuracy: "Accuracy"
