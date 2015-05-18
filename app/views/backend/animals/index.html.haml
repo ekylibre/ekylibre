@@ -18,14 +18,15 @@
     - content_for :main_toolbar do
 
       = dropdown_button do |l|
-        - l.link_to 'Intervention', '#'
-        - l.link_to 'Intervention2', '#'
+        - l.link_to 'Intervention 1', '#'
+        - l.link_to 'Intervention 2', '#'
 
       = tool_to 'Vendre', '#'
       = tool_to 'Mettre en pension', '#'
 
     .container-fluid
-      .row.animal-summary
+      -# # TODO Implements this in filter system
+      -# .row.animal-summary
         .col-md-3
           .alert.alert-success{:role => "alert"}
             18
@@ -58,10 +59,10 @@
                   %button.btn.btn-link{"data-target" => "#new-container", "data-toggle" => "modal", :type => "button"}
                     %i.icon.icon-plus.text-muted
               .panel-footer
-                %button.btn.btn-link{"data-target" => "#new-animal", "data-toggle" => "modal", :type => "button"}
+                %button.btn.btn-link{data: {target: "#new-animal", toggle: "modal"}, type: "button"}
                   %i.icon.icon-plus-circle
                   Nouvel animal
-        %script#animal-container-template{:type => "text/html"}
+        %script#animal-container-template{type: "text/html"}
           %li.list-group-item.animal-container
             .row.toggle.list-group-item-title.no-right-left-margin
               .col-md-1.no-padding.xs-h-padding
@@ -80,7 +81,7 @@
           /ko if: $parent.id == container_id()
           .animal-element.row.no-right-left-margin
             .animal-element-img.no-padding{"data-bind" => "css: animalStatusClass"}
-              %img{"data-bind" => "attr: {src: img}"}
+              -# %img{"data-bind" => "attr: {src: img}"}
             .animal-element-infos
               %i.icon.icon-venus.text-muted{"data-bind" => "if: sex == 0"}
               %i.icon.icon-mars.text-muted{"data-bind" => "if: sex == 1"}
@@ -153,7 +154,7 @@
           .modal-body
             .row
               .col-md-3
-                %img.img-responsive{"data-bind" => "attr: {src: img}"}
+                -# %img.img-responsive{"data-bind" => "attr: {src: img}"}
               .col-md-9
                 %p
                   Nom:
