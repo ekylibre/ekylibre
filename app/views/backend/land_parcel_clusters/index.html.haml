@@ -1,11 +1,9 @@
 - main_toolbar do |t|
   - t.new
 
-= beehive do |b|
-  - b.hbox do
-    - b.cell :resource_map, title: :map do
-      = map(LandParcelCluster.all)
-  - b.hbox do
-    - b.cell :list do
-      = main_list
+= janus do |j|
+  - j.face :map do
+    = map(LandParcelCluster.all)
+  - j.face :list do
+    = main_list
 

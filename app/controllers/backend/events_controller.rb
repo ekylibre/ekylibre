@@ -25,7 +25,7 @@ class Backend::EventsController < Backend::BaseController
   autocomplete_for :place
 
   list(conditions: search_conditions(events: [:duration, :place, :name, :description, :started_at]), order: {started_at: :desc}) do |t|
-    t.column :name
+    t.column :name, url: true
     t.column :casting
     t.column :duration
     t.column :place

@@ -1,47 +1,45 @@
-:ruby
-  main_serie = LandParcel.all.collect do |p|
-    next unless p.shape
-
-    popup_content = []
-
-    # for all land_parcel
-    popup_content << {label: Nomen::Indicators[:net_surface_area].human_name, value: p.net_surface_area.to_d(:hectare).round(2).l}
-
-    # for indicators in list
-    indicators = [:soil_nature, :potential_hydrogen, :available_water_capacity_per_area, :soil_depth, :organic_matter_concentration]
-    for indicator in indicators
-      if !p.send(indicator).blank? and (p.send(indicator).to_d > 0.0)
-        popup_content << {label: Nomen::Indicators[indicator].human_name, value: p.send(indicator).l }
-      end
-    end
-
-    popup_content << render('popup', land_parcel: p)
-
-    {name: p.name, shape: p.shape, potential_hydrogen: p.potential_hydrogen.to_d, organic_matter_concentration: p.organic_matter_concentration.to_d, available_water_capacity_per_area: p.available_water_capacity_per_area.to_d , soil_nature: (Nomen::SoilNatures[p.soil_nature] ? Nomen::SoilNatures[p.soil_nature].human_name : :unknown.tl), popup: {header: true, content: popup_content} }
-  end
-
 - main_toolbar do |t|
   - t.new
 
-= beehive do |b|
-  - b.hbox do
-    - b.cell :resources_map, title: :map do
-      = visualization do |v|
-        - v.serie :main, main_serie
-        - v.background "Esri.WorldImagery"
-        - v.background "OpenStreetMap.HOT"
-        - v.background "OpenStreetMap.Mapnik"
-        - v.background "Thunderforest.Landscape"
-        - v.bubbles :available_water_capacity_per_area, :main, label: Nomen::Indicators[:available_water_capacity_per_area].human_name
-        - v.choropleth :organic_matter_concentration, :main, hidden: true, label: Nomen::Indicators[:organic_matter_concentration].human_name
-        - v.choropleth :potential_hydrogen, :main, hidden: true, label: Nomen::Indicators[:potential_hydrogen].human_name
-        - v.categories :soil_nature, :main
-        - v.control :zoom
-        - v.control :scale
-        - v.control :fullscreen
-        - v.control :layer_selector
+= janus do |j|
+  - j.face :map do
+    :ruby
+      main_serie = LandParcel.all.collect do |p|
+        next unless p.shape
 
-  - b.hbox do
-    - b.cell :list do
-      = main_list
+        popup_content = []
+
+        # for all land_parcel
+        popup_content << {label: Nomen::Indicators[:net_surface_area].human_name, value: p.net_surface_area.to_d(:hectare).round(2).l}
+
+        # for indicators in list
+        indicators = [:soil_nature, :potential_hydrogen, :available_water_capacity_per_area, :soil_depth, :organic_matter_concentration]
+        for indicator in indicators
+          if !p.send(indicator).blank? and (p.send(indicator).to_d > 0.0)
+            popup_content << {label: Nomen::Indicators[indicator].human_name, value: p.send(indicator).l }
+          end
+        end
+
+        popup_content << render('popup', land_parcel: p)
+
+        {name: p.name, shape: p.shape, potential_hydrogen: p.potential_hydrogen.to_d, organic_matter_concentration: p.organic_matter_concentration.to_d, available_water_capacity_per_area: p.available_water_capacity_per_area.to_d , soil_nature: (Nomen::SoilNatures[p.soil_nature] ? Nomen::SoilNatures[p.soil_nature].human_name : :unknown.tl), popup: {header: true, content: popup_content} }
+      end
+
+    = visualization do |v|
+      - v.serie :main, main_serie
+      - v.background "Esri.WorldImagery"
+      - v.background "OpenStreetMap.HOT"
+      - v.background "OpenStreetMap.Mapnik"
+      - v.background "Thunderforest.Landscape"
+      - v.bubbles :available_water_capacity_per_area, :main, label: Nomen::Indicators[:available_water_capacity_per_area].human_name
+      - v.choropleth :organic_matter_concentration, :main, hidden: true, label: Nomen::Indicators[:organic_matter_concentration].human_name
+      - v.choropleth :potential_hydrogen, :main, hidden: true, label: Nomen::Indicators[:potential_hydrogen].human_name
+      - v.categories :soil_nature, :main
+      - v.control :zoom
+      - v.control :scale
+      - v.control :fullscreen
+      - v.control :layer_selector
+
+  - j.face :list do
+    = main_list
 

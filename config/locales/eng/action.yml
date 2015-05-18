@@ -827,7 +827,6 @@ eng:
     budget_per_working_indicator: "Budget per working indicator"
     budgets: "Budgets" #?
     building_name: "Building name" #??
-    buildings_map: "Buildings map"
     by_year: "By year"
     calculate: "Calculate" #?
     calculators: "Calculators" #?
