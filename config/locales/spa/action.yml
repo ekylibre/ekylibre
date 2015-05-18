@@ -692,7 +692,6 @@ spa:
     # building_name: "Building name"
     building_update: "Modifiar el lugar de deposito" #?
     buildings: "Ver la lista de los lugares de deposito" #?
-    # buildings_map: "Buildings map"
     # by_year: "By year"
     # calculate: "Calculate"
     # calculators: "Calculators"

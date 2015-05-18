@@ -742,7 +742,7 @@ fra:
     budgets: "Budgets"
     building: "Lieu de stockage" #?
     building_name: "Sortie de"
-    buildings_map: "Carte des bâtiments"
+    buildings_map: "Carte des bâtiments" #?
     by_year: "Par an"
     calculate: "Calculer"
     calculators: "Calculateurs"

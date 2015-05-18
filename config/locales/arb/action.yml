@@ -898,7 +898,6 @@ arb:
     building_name: "انتاج"
     building_update: "تعديل موقع التخزين" #?
     buildings: "النظر بقائمة مواقع التخزين" #?
-    # buildings_map: "Buildings map"
     # by_year: "By year"
     # calculate: "Calculate"
     # calculators: "Calculators"
