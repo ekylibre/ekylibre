@@ -25,8 +25,13 @@ class Backend::JanusesController < Backend::BaseController
     if janus.blank?
       head :not_found
     else
-      p = current_user.preference("interface.janus.#{janus}.current_face", "list")
-      p.set!(face)
+      default = params[:default] || "list"
+      preference_name = "interface.janus.#{janus}.current_face"
+      preference = current_user.preferences.find_by(name: preference_name)
+      if face != default or (preference and face != preference.value.to_s)
+        p = current_user.preference(preference_name, default)
+        p.set!(face)
+      end
       head :ok
     end
   end

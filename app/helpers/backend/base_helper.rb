@@ -226,7 +226,16 @@ module Backend::BaseHelper
 
     return "" unless faces.any?
 
-    active_face = current_user.preference("interface.janus.#{name}.current_face", faces.first.args.first.to_s).value
+    faces_names = faces.map{|f| f.args.first.to_s }
+
+    active_face = nil
+    if pref = current_user.preferences.find_by(name: "interface.janus.#{name}.current_face")
+      face = pref.value.to_s
+      if faces_names.include? face
+        active_face = face
+      end
+    end
+    active_face ||= faces_names.first
 
     # Adds views
     html = faces.map do |face|
@@ -238,7 +247,7 @@ module Backend::BaseHelper
 
     # Adds toggle buttons
     content_for :view_toolbar do
-      content_tag(:div, data: {janus: url_for(controller: "/backend/januses", action: :toggle, id: name)}, class: "btn-group") do
+      content_tag(:div, data: {janus: url_for(controller: "/backend/januses", action: :toggle, id: name, default: faces_names.first)}, class: "btn-group") do
         faces.collect do |face|
           face_name = face.args.first.to_s
           classes = ["btn", "btn-default"]
