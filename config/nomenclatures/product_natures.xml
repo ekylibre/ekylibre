@@ -534,7 +534,7 @@
             variable_indicators="population"
             frozen_indicators="net_volume, net_mass"
             />
-       <item name="honey"
+      <item name="honey"
             category="honey"
             variety="honey"
             derivative_of="apis"
@@ -688,7 +688,7 @@
             variable_indicators="population, temperature, total_bacteria_concentration"
             frozen_indicators="net_volume, net_mass"
             />
-     <item name="processed_pork_meat"
+      <item name="processed_pork_meat"
             category="processed_meat"
             variety="processed_meat"
             derivative_of="meat"
@@ -697,7 +697,7 @@
             variable_indicators="population, temperature, total_bacteria_concentration"
             frozen_indicators="net_volume, net_mass"
             />
-     <item name="processed_poultry_meat"
+      <item name="processed_poultry_meat"
             category="processed_meat"
             variety="processed_meat"
             derivative_of="meat"
@@ -1040,7 +1040,7 @@
             variable_indicators="population"
             frozen_indicators="net_volume, net_mass"
             />
-       <item name="construction_material_in_own_outstanding_installation"
+      <item name="construction_material_in_own_outstanding_installation"
             category="construction_materials_in_own_outstanding_installation"
             variety="raw_matter"
             population_counting="decimal"
@@ -1563,7 +1563,7 @@
             variable_indicators="population"
             frozen_indicators=""
             />
-	 <item name="animal_housing_services"
+      <item name="animal_housing_services"
             category="animal_housing_services"
             variety="service"
             population_counting="decimal"
@@ -1571,8 +1571,8 @@
             variable_indicators="population"
             frozen_indicators=""
             />
-     <!-- farm agricultural service -->
-	 <item name="farm_teaching_services"
+      <!-- farm agricultural service -->
+      <item name="farm_teaching_services"
             category="farm_teaching_services"
             variety="service"
             population_counting="decimal"
@@ -1706,9 +1706,9 @@
 
 
 
-		  <!-- Subsidies -->
+      <!-- Subsidies -->
 
-		  <item name="exploitation_subsidies"
+      <item name="exploitation_subsidies"
             category="exploitation_subsidies"
             variety="service"
             population_counting="decimal"
@@ -1979,7 +1979,7 @@
             frozen_indicators=""
             />
 
-		  <item name="little_office_item"
+      <item name="little_office_item"
             category="little_office_item"
             variety="service"
             population_counting="integer"
@@ -1987,7 +1987,7 @@
             variable_indicators="population"
             frozen_indicators=""
             />
-       <item name="consumer_goods_office_item"
+      <item name="consumer_goods_office_item"
             category="consumer_goods_office_item"
             variety="service"
             population_counting="integer"
@@ -2027,7 +2027,7 @@
             />
 
 
-		  <item name="trade_show"
+      <item name="trade_show"
             category="trade_show"
             variety="service"
             population_counting="integer"
@@ -2046,7 +2046,7 @@
             frozen_indicators=""
             />
 
-	    <item name="product_insurance"
+      <item name="product_insurance"
             category="insurance"
             variety="service"
             population_counting="integer"

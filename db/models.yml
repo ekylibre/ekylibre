@@ -48,7 +48,6 @@
 - guide_analysis
 - guide_analysis_point
 - identifier
-- immatter
 - import
 - incoming_delivery
 - incoming_delivery_item
@@ -130,7 +129,6 @@
 - sale_opportunity
 - sale_ticket
 - sequence
-- service
 - settlement
 - sub_zone
 - subscription

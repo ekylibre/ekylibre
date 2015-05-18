@@ -278,7 +278,7 @@ fra:
       guide_analysis: "Analyse d’un référentiel"
       guide_analysis_point: "Point d’analyse d’un référentiel"
       identifier: "Identifiant"
-      immatter: "Immatériel"
+      immatter: "Immatériel" #?
       import: "Import"
       incoming_delivery: "Approvisionnement"
       incoming_delivery_item: "Élément d’approvisionnement"
@@ -360,7 +360,7 @@ fra:
       sale_opportunity: "Opportunité de vente"
       sale_ticket: "Ticket de caisse"
       sequence: "Séquence"
-      service: "Service"
+      service: "Service" #?
       settlement: "Installation"
       sub_zone: "Sous-zone"
       subscription: "Abonnement"
