@@ -1,4 +1,4 @@
-class Telepac::CapLandParcelsExchanger < ActiveExchanger::Base
+class Telepac::V2014::CapLandParcelsExchanger < ActiveExchanger::Base
 
   def import
     # Unzip file
