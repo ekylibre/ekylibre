@@ -129,7 +129,7 @@ class Affair < Ekylibre::Record::Base
       end
       hash
     end.delete_if{|k, v| v.zero?}
-    b.journal_entry(Journal.used_for_affairs, printed_on: (all_deals.last ? all_deals.last.dealt_at : Time.now).to_date, if: (self.balanced? and thirds.size > 1)) do |entry|
+    b.journal_entry(self.class.journal, printed_on: (all_deals.last ? all_deals.last.dealt_at : Time.now).to_date, if: (self.balanced? and thirds.size > 1)) do |entry|
       for account_id, amount in thirds
         entry.add_debit(label, account_id, amount)
       end
@@ -137,6 +137,18 @@ class Affair < Ekylibre::Record::Base
   end
 
   class << self
+
+    # Find or create journal for affairs
+    def journal
+      unless j = Journal.used_for_affairs
+        if j = Journal.where(nature: :various).order(id: :desc).first
+          j.update_column(:used_for_affair, true)
+        else
+          j = Journal.create!(name: Affair.model_name.human, nature: :various, used_for_affair: true)
+        end
+      end
+      return j
+    end
 
     # Returns types of accepted deals
     def affairable_types
