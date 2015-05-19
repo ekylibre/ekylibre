@@ -1,6 +1,7 @@
 fra:
   access:
     interactions:
+      cancel: "Annuler"
       close: "Fermer"
       execute: "Exécuter"
       link: "Lier"
@@ -61,6 +62,7 @@ fra:
       land_parcels: "Parcelles"
       legal_entities: "Personnes morales"
       listings: "Extractions"
+      loans: "Emprunts"
       manure_management_plans: "Plans de fumure"
       matters: "Matières"
       myselves: "Mon compte"

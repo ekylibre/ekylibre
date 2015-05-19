@@ -1,6 +1,7 @@
 por:
   access:
     interactions:
+      # cancel: "Cancel"
       # close: "Close"
       # execute: "Execute"
       # link: "Link"
@@ -55,6 +56,7 @@ por:
       # land_parcels: "Land parcels"
       # legal_entities: "Legal entities"
       # listings: "Listings"
+      # loans: "Loans"
       # manure_management_plans: "Manure management plans"
       # matters: "Matters"
       # myselves: "Myselves"
