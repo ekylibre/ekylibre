@@ -795,6 +795,7 @@ arb:
     # activity: "Activity"
     add: "اضافة"
     # add_annotation: "Add annotation"
+    # add_bank_statement: "Add bank statement"
     # add_choice: "Add choice"
     add_condition: "اضافة شرط"
     add_conditions: "اضف شروط"

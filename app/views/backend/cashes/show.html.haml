@@ -1,7 +1,7 @@
 - main_toolbar do |t|
   - t.edit resource
   - if resource.unpointed_journal_entry_items.any?
-    - t.new params: {controller: :bank_statements, cash_id: resource.id, redirect: nil}, label: :new_bank_statement.tl
+    - t.new params: {controller: :bank_statements, cash_id: resource.id, redirect: nil}, label: :add_bank_statement.tl
   - if resource.incoming_payment_modes.depositers.any?
     :ruby
       variants = IncomingPaymentMode.depositers.where(cash_id: resource.id).inject({}) do |hash, mode|

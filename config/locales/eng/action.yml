@@ -761,6 +761,7 @@ eng:
     activity: "Activity"
     add: "Add"
     add_annotation: "Add annotation"
+    add_bank_statement: "Add bank statement"
     add_choice: "Add choice"
     add_condition: "Add condition"
     add_conditions: "Add conditions"
@@ -1120,7 +1121,6 @@ eng:
     net_mass: "Net mass"
     net_surface_area: "Net surface area"
     new: "New" #?
-    # new_bank_statement: "New bank statement"
     new_box: "New box"
     new_deposit:
       one: "Make a deposit %{mode}: 1 available payment"
