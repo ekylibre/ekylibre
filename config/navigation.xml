@@ -1701,6 +1701,12 @@
       <item name="discount_profiles">
         <page to="pasteque/v5/discount_profiles#index"/>
       </item>
+      <item name="images">
+        <page to="pasteque/v5/images#category"/>
+        <page to="pasteque/v5/images#payment_method"/>
+        <page to="pasteque/v5/images#product"/>
+        <page to="pasteque/v5/images#resource"/>
+      </item>
       <item name="locations">
         <page to="pasteque/v5/locations#index"/>
         <page to="pasteque/v5/locations#show"/>

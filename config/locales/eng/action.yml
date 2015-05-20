@@ -694,6 +694,11 @@ eng:
       # show: "Customer: %{name}"
     pasteque/v5/discount_profiles:
       # index: "Discount profiles"
+    pasteque/v5/images:
+      # category: "Category image: %{name}"
+      # payment_method: "Payment method image: %{name}"
+      # product: "Product image: %{name}"
+      # resource: "Resource image: %{name}"
     pasteque/v5/locations:
       # index: "Locations"
       # show: "Location: %{name}"
@@ -1659,9 +1664,11 @@ eng:
       negociate: "Negociate"
       new: "New"
       open: "Open"
+      # payment_method: "Payment method"
       pick: "Pick"
       picture: "Picture"
       point: "Point"
+      # product: "Product"
       propose: "Propose"
       propose_and_invoice: "Propose and invoice"
       qualify: "Qualify"
@@ -1673,6 +1680,7 @@ eng:
       refuse: "Refuse"
       reopen: "Reopen"
       reset: "Reset"
+      # resource: "Resource"
       run: "Run"
       search: "Search"
       select: "Select"

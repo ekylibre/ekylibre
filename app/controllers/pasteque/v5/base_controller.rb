@@ -2,9 +2,9 @@ class Pasteque::V5::BaseController < ActionController::Base
   include ExternalApiAdaptable
   before_action :authenticate_user!
 
-  after_action do
-    puts response.body.to_s.yellow
-  end
+  # after_action do
+  #   puts response.body.to_s.yellow
+  # end
 
   hide_action :authenticate_user!
   def authenticate_user!
