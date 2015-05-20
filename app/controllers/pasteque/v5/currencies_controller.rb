@@ -7,15 +7,22 @@ class Pasteque::V5::CurrenciesController < Pasteque::V5::BaseController
   end
 
   def show
-    if params[:id] == 'main'
-      @record = Nomen::Currencies[Preference[:currency]]
+    find_and_render params[:id]
+  end
+
+  def main
+    find_and_render Preference[:currency]
+  end
+
+  protected
+
+  def find_and_render(name)
+
+    if @record = Nomen::Currencies[name]
+      render partial: 'pasteque/v5/currencies/currency', locals: {currency: @record}
     else
-      @record = Nomen::Currencies.find(params[:id])
-    end
-    if @record.present?
-      render partial: 'pasteque/v5/currencies/currency', locals:{currency: @record}
-    else
-      render status: :not_found, json: nil
+      render json: {status: "rej", content: "Cannot find currency"}
     end
   end
+
 end

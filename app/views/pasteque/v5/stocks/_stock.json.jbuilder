@@ -1,6 +1,6 @@
-json.locationId stock.default_storage.id rescue nil
-json.productId stock.variant_id
-json.attrSetInstId nil
-json.qty stock.population
-json.security nil
-json.max nil
+json.locationId(stock.container ? stock.container.id.to_s : Product.first.id.to_s)
+json.productId stock.variant_id.to_s
+# json.attrSetInstId nil
+json.qty stock.population.to_f
+# json.security nil
+# json.max nil

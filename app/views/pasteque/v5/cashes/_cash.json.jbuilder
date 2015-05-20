@@ -1,6 +1,6 @@
-json.id cash.id
+json.id cash.id.to_s
 json.cashRegisterId cash.cash_id
-json.sequence cash.sequence_id
+json.sequence cash.sequence.last_number
 json.openDate cash.started_at
 json.closeDate cash.stopped_at
 json.openCash cash.noticed_start_amount

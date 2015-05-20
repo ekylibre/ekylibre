@@ -88,8 +88,8 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       unless campaign = Campaign.find_by_name(r.campaign_code)
         campaign = Campaign.create!(name: r.campaign_code, harvest_year: r.campaign_code)
       end
-      
-      
+
+
       # Get supports and existing production_supports or activity by activity family input
       supports = Product.where(work_number: r.support_codes)
       if supports
@@ -192,7 +192,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                 end
               end
             end
-            
+
             coeff = ((cultivable_zone.shape_area / 10000.0) / 6.0).to_d if cultivable_zone.shape
 
             if r.procedure_name and support and (coeff.to_f > 0.0)
@@ -405,7 +405,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
 
               # elsif r.procedure_name == :plantation_unfixing and plant
-# 
+#
                 # # Implant Helping with plant
                 # intervention = Ekylibre::FirstRun::Booker.force(:plantation_unfixing, intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
                   # i.add_cast(reference_name: 'driver',   actor: (workers.any? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
@@ -413,9 +413,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                   # i.add_cast(reference_name: 'compressor',  actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "blow") : i.find(Equipment, can: "blow")))
                   # i.add_cast(reference_name: 'cultivation', actor: plant)
                 # end
-# 
+#
                # elsif r.procedure_name == :plantation_unfixing and cultivable_zone
-# 
+#
                 # # Implant Helping with plant
                 # intervention = Ekylibre::FirstRun::Booker.force(:plantation_unfixing, intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
                   # i.add_cast(reference_name: 'driver',   actor: (workers.any? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))

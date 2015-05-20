@@ -1,7 +1,7 @@
-taxes = Nomen::Taxes.all.map{|tax| Nomen::Taxes[tax]}.keep_if{|tax|tax.nature == tax_category.name.to_sym}
-json.null! unless tax_category.present?
 json.id tax_category.name
 json.label tax_category.human_name
+references = Nomen::Taxes.list.keep_if{ |tax| tax.nature.to_s == tax_category.name.to_s }
+taxes = Tax.where(reference_name: references.map(&:name))
 json.taxes do
-  json.array! taxes, partial: 'pasteque/v5/taxes/tax', as: :tax if taxes.any?
+  json.array! taxes, partial: 'pasteque/v5/taxes/tax', as: :tax 
 end

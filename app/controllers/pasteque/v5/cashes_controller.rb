@@ -18,6 +18,14 @@ class Pasteque::V5::CashesController < Pasteque::V5::BaseController
                      dateStop: :stopped_at
                    }
 
+  def show
+    if @record = CashSession.find_by(id: params[:id]) || CashSession.find_by(cash_id: params[:cashRegisterId])
+      render template: "layouts/#{api_path}/show", locals: {cash: @record}
+    else
+      render json: {status: "ok", content: nil}
+    end
+  end
+
   def zticket
     @record = CashSession.find(params[:id]).zticket
     render partial: 'pasteque/v5/cashes/zticket', locals: {zticket: @record}

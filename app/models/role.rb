@@ -111,16 +111,4 @@ class Role < Ekylibre::Record::Base
     return role
   end
 
-  def uses_permissions
-    correspondence = {
-      :'cash_sessions-open'   =>  'perm-button.openmoney',
-      :'cash_session-close'   =>  'perm-fr.pasteque.pos.panels.JPanelCloseMoney',
-      :'sales-write'          =>  'perm-fr.pasteque.pos.sales.JPanelTicketEdits',
-      :'sales-read'           =>  'perm-fr.pasteque.pos.sales.JPanelTicketSales'
-    }.with_indifferent_access
-    rights_array.inject([]) do |array, right|
-      array << correspondence[right] if correspondence[right].present?
-      array
-    end
-  end
 end

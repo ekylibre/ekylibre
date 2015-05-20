@@ -50,7 +50,7 @@ module ExternalApiAdaptable
         if @record.present?
           render template: "layouts/#{api_path}/show", locals: locals
         else
-          render status: :not_found, json: {status: :rej, content: nil}
+          render json: {status: :rej}
         end
       end
 

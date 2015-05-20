@@ -68,8 +68,20 @@ class Tax < Ekylibre::Record::Base
   delegate :name, to: :deduction_account, prefix: true
   # selects_among_all :used_for_untaxed_deals, if: :null_amount?
 
-  def self.used_for_untaxed_deals
-    self.where(amount: 0).reorder(:id).first
+  class << self
+    def used_for_untaxed_deals
+      self.where(amount: 0).reorder(:id).first
+    end
+
+    # Returns TaxNature items which are used by recorded taxes
+    def available_natures
+      Nomen::TaxNatures.list.select do |item|
+        references = Nomen::Taxes.list.keep_if{ |tax| tax.nature.to_s == item.name.to_s }
+        taxes = Tax.where(reference_name: references.map(&:name))
+        taxes.any?
+      end
+    end
+
   end
 
   scope :percentages, -> { where(:computation_method => 'percentage') }

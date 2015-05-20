@@ -1691,6 +1691,7 @@
       </item>
       <item name="currencies">
         <page to="pasteque/v5/currencies#index"/>
+        <page to="pasteque/v5/currencies#main"/>
         <page to="pasteque/v5/currencies#show"/>
       </item>
       <item name="customers">

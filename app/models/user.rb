@@ -103,6 +103,7 @@ class User < Ekylibre::Record::Base
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
   model_stamper # Needed to stamp.all records
   delegate :picture, :participations, to: :person
+  delegate :name, to: :role, prefix: true
 
   before_validation do
     self.maximal_grantable_reduction_percentage ||= 0

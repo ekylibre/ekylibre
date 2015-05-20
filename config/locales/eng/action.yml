@@ -687,6 +687,7 @@ eng:
       # index: "Compositions"
     pasteque/v5/currencies:
       # index: "Currencies"
+      # main: "Main currency: %{name}"
       # show: "Currency: %{name}"
     pasteque/v5/customers:
       # index: "Customers"
@@ -1651,6 +1652,7 @@ eng:
       lock: "Lock"
       lose: "Lose"
       mail: "Mail"
+      # main: "Main"
       mark: "Mark"
       merge: "Merge"
       move: "Move"

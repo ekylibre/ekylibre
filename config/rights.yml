@@ -130,6 +130,7 @@
 #     - "pasteque/v5/categories#show"
 #     - "pasteque/v5/compositions#index"
 #     - "pasteque/v5/currencies#index"
+#     - "pasteque/v5/currencies#main"
 #     - "pasteque/v5/currencies#show"
 #     - "pasteque/v5/customers#index"
 #     - "pasteque/v5/customers#show"

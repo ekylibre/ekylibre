@@ -56,6 +56,8 @@ class Catalog < Ekylibre::Record::Base
     where(usage: usage.to_s)
   }
 
+  scope :for_sale, -> { of_usage(:sale).where(id: CatalogItem.select(:catalog_id)) }
+
   before_validation do
     self.currency ||= Preference[:currency]
     self.code = self.name.to_s.codeize if self.code.blank?

@@ -77,25 +77,20 @@ Rails.application.routes.draw do
   # No namespace because authentication is for all sides
   devise_for :users, path: "authentication", module: :authentication
 
-  # namespace :pasteque do
-  #   namespace :v5 do
-  #     pasteque_v5
-  #   end
-  #   pasteque_v5
-  # end
+  namespace :pasteque do
+    # namespace :v6 do
+    #   pasteque_v6
+    # end
+    namespace :v5 do
+      pasteque_v5
+    end
+  end
 
   namespace :api do
-
-    concern :v1 do
+    namespace :v1 do
       resources :tokens, only: [:create, :destroy]
       resources :crumbs
     end
-
-    namespace :v1 do
-      concerns :v1
-    end
-
-    concerns :v1
   end
 
   # Plugins can override backend routes but only complete API ones
