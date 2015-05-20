@@ -245,6 +245,7 @@ Rails.application.routes.draw do
       member do
         get :list_deposits
         get :list_bank_statements
+        get :list_sessions
       end
     end
 

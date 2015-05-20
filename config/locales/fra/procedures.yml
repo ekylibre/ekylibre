@@ -87,6 +87,7 @@ fra:
     chemical_storage: "Stockage de produits de protection des végétaux"
     child: "Nouveau né"
     cleaner: "Outil de nettoyage"
+    compressor: "Compresseur"
     container: "Conteneur"
     corker: "Boucheuse"
     corks: "Bouchons"

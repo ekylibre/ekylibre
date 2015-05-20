@@ -87,7 +87,7 @@ eng:
     chemical_storage: "Chemical storage"
     child: "Child"
     cleaner: "Cleaner"
-    # compressor: "Compressor"
+    compressor: "Compressor"
     container: "Container"
     corker: "Corker"
     corks: "Corks"

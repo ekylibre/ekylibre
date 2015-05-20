@@ -67,6 +67,7 @@ class Cash < Ekylibre::Record::Base
   has_many :journal_entry_items, through: :account
   has_many :outgoing_payment_modes
   has_many :incoming_payment_modes
+  has_many :unpointed_journal_entry_items, -> { where(bank_statement_id: nil) }, through: :account, source: :journal_entry_items
   has_one :last_bank_statement, -> { order("stopped_at DESC") }, class_name: "BankStatement"
 
   enumerize :nature, in: [:bank_account, :cash_box, :associated_account], default: :bank_account, predicates: true

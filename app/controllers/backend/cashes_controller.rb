@@ -21,6 +21,15 @@ class Backend::CashesController < Backend::BaseController
 
   unroll
 
+  # Displays the main page with the list of bank statements
+  before_action only: [:index] do
+    cashes = Cash.bank_accounts
+    if count = JournalEntryItem.where(bank_statement_id: nil, account_id: cashes.pluck(:account_id)).count and count > 0
+      notify_now(:x_unpointed_journal_entry_items, count: count)
+    end
+  end
+
+
   list(order: :name) do |t|
     t.column :name, url: true
     t.column :nature
@@ -52,6 +61,14 @@ class Backend::CashesController < Backend::BaseController
     t.column :amount, currency: true
     t.column :mode
     t.column :description
+  end
+
+  list(:sessions, model: :cash_session, conditions: {cash_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
+    t.column :number
+    t.column :affair, url: true
+    t.column :expected_stop_amount, currency: true
+    t.column :noticed_start_amount, currency: true
+    t.column :noticed_stop_amount, currency: true
   end
 
 end

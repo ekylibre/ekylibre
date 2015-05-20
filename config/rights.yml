@@ -416,6 +416,7 @@ cashes:
     - "backend/cashes#list"
     - "backend/cashes#list_bank_statements"
     - "backend/cashes#list_deposits"
+    - "backend/cashes#list_sessions"
     - "backend/cashes#show"
     - "backend/cashes#unroll"
   write:

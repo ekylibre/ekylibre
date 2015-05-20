@@ -1120,6 +1120,7 @@ eng:
     net_mass: "Net mass"
     net_surface_area: "Net surface area"
     new: "New" #?
+    # new_bank_statement: "New bank statement"
     new_box: "New box"
     new_deposit:
       one: "Make a deposit %{mode}: 1 available payment"
@@ -1289,6 +1290,7 @@ eng:
     selection: "Selection" #?
     send_mail: "Send mail"
     send_test_mail: "Send test mail"
+    # sessions: "Sessions"
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?
     settings: "Settings"
     shape: "Shape"

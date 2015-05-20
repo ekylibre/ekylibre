@@ -1024,6 +1024,7 @@ eng:
     unlock_token: "Unlock token"
     unlocked_payments: "Unlocked payments"
     unpaid_sales: "Unpaid sales"
+    # unpointed_journal_entry_items: "Unpointed journal entry items"
     updated_at: "Updated at"
     updater: "Updater"
     uploaded: "Uploaded"

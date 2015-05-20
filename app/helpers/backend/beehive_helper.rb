@@ -40,7 +40,7 @@ module Backend::BeehiveHelper
 
   # Permits to display cell content independently
   def cell(type, options = {})
-    url = options[:params]
+    url = options[:params] || {}
     content_tag(:div, nil, data: {cell: url_for(url.merge(controller: "backend/cells/#{type}_cells", action: :show))})
   end
 
