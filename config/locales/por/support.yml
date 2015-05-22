@@ -1,103 +1,105 @@
 por:
   about:
-    # authors: ["Brice Texier", "Jean-Jacques Vangramberen"]
-    # dir: "ltr"
-    # iso2: "en"
-    # name: "English"
+    authors: ["Brice Texier", "Jean-Jacques Vangramberen", "Danimar Ribeiro"]
+    dir: "ltr"
+    iso2: "pt_BR"
+    name: "Português"
   boolean:
     human:
-      # false_class: "False"
-      # true_class: "Truedd"
+      false_class: "Falso"
+      true_class: "Verdadeiro"
   date:
-    # abbr_day_names: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-    # abbr_month_names: ["", "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
-    # day_names: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    abbr_day_names: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"]
+    abbr_month_names: ["", "jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"]
+    day_names: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabádo"]
     formats:
-      # default: "%m/%d/%Y"
-      # legal: "%d %B %Y"
-      # long: "%B %d, %Y"
-      # month_letter: "%d %B %Y"
-      # short: "%b %d"
-    # month_names: ["", "january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
+      default: "%d/%m/%Y"
+      long: "%d de %B de %Y"
+      short: "%d de %B"
+      legal: "%d %B %Y"
+      month_letter: "%d %B %Y"
+      short: "%d %b"
+      month_names: ["", "janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"]
   datetime:
     distance_in_words:
-      about_x_hours:
-        # one: "about 1 hour"
-        # other: "about %{count} hours"
+ about_x_hours:
+        one: aproximadamente 1 hora
+        other: aproximadamente %{count} horas
       about_x_months:
-        # one: "about 1 month"
-        # other: "about %{count} months"
+        one: aproximadamente 1 mês
+        other: aproximadamente %{count} meses
       about_x_years:
-        # one: "about 1 year"
-        # other: "about %{count} years"
+        one: aproximadamente 1 ano
+        other: aproximadamente %{count} anos
       almost_x_years:
-        # one: "almost 1 year"
-        # other: "almost %{count} years"
-      # half_a_minute: "half a minute"
+        one: quase 1 ano
+        other: quase %{count} anos
+      half_a_minute: meio minuto
       less_than_x_minutes:
-        # one: "less than a minute"
-        # other: "less than %{count} minutes"
+        one: menos de um minuto
+        other: menos de %{count} minutos
       less_than_x_seconds:
-        # one: "less than 1 second"
-        # other: "less than %{count} seconds"
+        one: menos de 1 segundo
+        other: menos de %{count} segundos
       over_x_years:
-        # one: "over 1 year"
-        # other: "over %{count} years"
+        one: mais de 1 ano
+        other: mais de %{count} anos
       x_days:
-        # one: "1 day"
-        # other: "%{count} days"
+        one: 1 dia
+        other: "%{count} dias"
       x_minutes:
-        # one: "1 minute"
-        # other: "%{count} minutes"
+        one: 1 minuto
+        other: "%{count} minutos"
       x_months:
-        # one: "1 month"
-        # other: "%{count} months"
+        one: 1 mês
+        other: "%{count} meses"
       x_seconds:
-        # one: "1 second"
-        # other: "%{count} seconds"
+        one: 1 segundo
+        other: "%{count} segundos"
   http:
     errors:
       internal_server_error:
-        # title: "We're sorry, but something went wrong"
+        title: "Nos desculpamos, mas alguma coisa aconteceu de errado"
       not_found:
-        # hint: "You may have mistyped the address or the page may have moved."
-        # title: "The page you were looking for doesn't exist"
+        hint: "Você deve ter digitado alguma valor errado ou a página não existe mais."
+        title: "A página que está procurando não existe"
       unprocessable_entity:
-        # hint: "Maybe you tried to change something you didn't have access to."
-        # title: "The change you wanted was rejected"
+        hint: "Talvez você esteja tentando modificar algo ao qual não tem acesso"
+        title: "As modificações foram rejeitadas"
   number:
     currency:
       format:
-        # delimiter: ","
-        # format: "%u%n"
-        # negative_format: "-%u%n"
-        # precision: 2
-        # separator: "."
-        # unit: "⁈"
+        delimiter: "."
+        format: "%u %n"
+        precision: 2
+        separator: ","
+        significant: false
+        unit: R$
     format:
-      # delimiter: ","
-      # precision: 3
-      # separator: "."
+      delimiter: ","
+      precision: 3
+      separator: "."
     human:
       format:
         # delimiter: ""
         # precision: 1
     percentage:
       format:
-        # delimiter: ""
+        delimiter: "."
+        format: "%n%"
     precision:
       format:
-        # delimiter: ""
+        delimiter: "."
   support:
     array:
-      # last_word_connector: " and "
-      # sentence_connector: "and"
-      # two_words_connector: " and "
-      # words_connector: ", "
+      last_word_connector: " e "
+      sentence_connector: "e"
+      two_words_connector: " e "
+      words_connector: ", "
   time:
-    # am: "am"
+    am: "am"
     formats:
-      # default: "%b. %d, %Y at %H:%M:%S"
-      # long: "%B %d, %Y %H:%M"
-      # short: "%d %b %H:%M"
-    # pm: "pm"
+      default: "%a, %d de %B de %Y, %H:%M:%S"
+      long:  "%d de %B de %Y, %H:%M"
+      short: "%d de %B, %H:%M"
+    pm: "pm"
