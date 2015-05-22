@@ -130,6 +130,11 @@ class Product < Ekylibre::Record::Base
     # where("id IN (SELECT member_id FROM #{ProductMembership.table_name} WHERE group_id = ? AND nature = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", group.id, "interior", viewed_at, viewed_at, viewed_at)
     where(id: ProductMembership.select(:member_id).where(group_id: group.id, nature: "interior").at(viewed_at))
   }
+
+  scope :members_of_place, lambda { |place, viewed_at|
+    where(id: ProductLocalization.select(:product_id).where(container_id: place.id).at(viewed_at))
+  }
+
   scope :of_variety, lambda { |*varieties|
     where(variety: varieties.flatten.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }

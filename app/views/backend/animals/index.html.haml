@@ -36,7 +36,7 @@
             1
           .alert.alert-info{:role => "alert"}
             1
-      .row.animal-viewport{data: {animals_data: @animals_data.to_json, animals_groups: @animals_groups.to_json, animals_containers: @animals_containers.to_json  }}
+      .row.animal-viewport{data: {animals_data: @grouped_animals.to_json}}
         .animal-group-container{"data-bind" => "sortable: {template: 'animal-group-template', data: groups, options: {handle: '.animal-group-dragger', cursor: 'move', tolerance: 'pointer', placeholder: 'sorting-group-placeholder', dropOnEmpty: false, forcePlaceholderSize: true, opacity: 0.8, items: '> .animal-group'}}"}
         %script#animal-group-template{:type => "text/html"}
           .animal-group

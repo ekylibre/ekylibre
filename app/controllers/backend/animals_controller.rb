@@ -83,30 +83,16 @@ class Backend::AnimalsController < Backend::MattersController
 
 
     # format data to delegate to front end engine
-    @animals_data = []
-    @animals_groups = {}
-    @animals_containers = {}
 
-    @animals.find_each do |animal|
-      group = 0
+    @grouped_animals = []
 
-      if animal.groups.any?
-        group = animal.groups.first
-      end
+    AnimalGroup.all.each do |group|
 
-      container = 0
-
-      if animal.container
-        container = animal.container.id
-      end
-
-      @animals_data << { id: animal.id, name: animal.name, sex: animal.sex, status: animal.status, img: animal.picture.url, container_id: container, group_id: group }
+      @grouped_animals << { group: group, places_and_animals: group.members_with_places_at }
 
     end
 
-    @animals_containers = BuildingDivision.select(:id,:name)
-
-    @animals_groups = AnimalGroup.select(:id,:name)
+    # @animals_data << { id: animal.id, name: animal.name, sex: animal.sex, status: animal.status, img: animal.picture.url, container_id: container, group_id: group }
 
 
     # respond with associated models to simplify quering in Ireport

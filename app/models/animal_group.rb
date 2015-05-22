@@ -92,6 +92,27 @@ class AnimalGroup < ProductGroup
     Animal.members_of(self, viewed_at || Time.now)
   end
 
+
+  def places(viewed_at = nil)
+    animals = self.members_at(viewed_at || Time.now)
+    containers = []
+    animals.each do |animal|
+      containers << animal.container
+    end
+    return containers.uniq
+  end
+
+  def members_with_places_at(viewed_at = nil)
+    places_and_animals = []
+    animals = {}
+    self.places(viewed_at).each do |place|
+      animals[:place] = place
+      animals[:animals] = Animal.select(:id,:name).members_of_place(place,viewed_at || Time.now)
+      places_and_animals << animals
+    end
+    places_and_animals
+  end
+
   def daily_nitrogen_production(viewed_at = nil)
     quantity = []
     for animal in self.members_at(viewed_at)
