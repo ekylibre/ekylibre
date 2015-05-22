@@ -2,7 +2,7 @@
 { :por => {
     :i18n => {
       :dir => 'ltr',
-      :iso2 => 'fr',
+      :iso2 => 'pt',
       :name => 'Português',
       :plural => {
         :keys => [:one, :other],

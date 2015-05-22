@@ -1,8 +1,9 @@
 por:
   about:
-    authors: ["Brice Texier", "Jean-Jacques Vangramberen", "Danimar Ribeiro"]
+    authors: ["Danimar Ribeiro"]
     dir: "ltr"
-    iso2: "pt_BR"
+    ietf: "pt-BR" #?
+    iso2: "pt"
     name: "Português"
   boolean:
     human:
@@ -14,47 +15,47 @@ por:
     day_names: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabádo"]
     formats:
       default: "%d/%m/%Y"
-      long: "%d de %B de %Y"
-      short: "%d de %B"
       legal: "%d %B %Y"
+      long: "%d de %B de %Y"
       month_letter: "%d %B %Y"
+      month_names: ["", "janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"] #?
       short: "%d %b"
-      month_names: ["", "janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"]
+    # month_names: ["", "january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
   datetime:
     distance_in_words:
- about_x_hours:
-        one: aproximadamente 1 hora
-        other: aproximadamente %{count} horas
+      about_x_hours:
+        one: "aproximadamente 1 hora"
+        other: "aproximadamente %{count} horas"
       about_x_months:
-        one: aproximadamente 1 mês
-        other: aproximadamente %{count} meses
+        one: "aproximadamente 1 mês"
+        other: "aproximadamente %{count} meses"
       about_x_years:
-        one: aproximadamente 1 ano
-        other: aproximadamente %{count} anos
+        one: "aproximadamente 1 ano"
+        other: "aproximadamente %{count} anos"
       almost_x_years:
-        one: quase 1 ano
-        other: quase %{count} anos
-      half_a_minute: meio minuto
+        one: "quase 1 ano"
+        other: "quase %{count} anos"
+      half_a_minute: "meio minuto"
       less_than_x_minutes:
-        one: menos de um minuto
-        other: menos de %{count} minutos
+        one: "menos de um minuto"
+        other: "menos de %{count} minutos"
       less_than_x_seconds:
-        one: menos de 1 segundo
-        other: menos de %{count} segundos
+        one: "menos de 1 segundo"
+        other: "menos de %{count} segundos"
       over_x_years:
-        one: mais de 1 ano
-        other: mais de %{count} anos
+        one: "mais de 1 ano"
+        other: "mais de %{count} anos"
       x_days:
-        one: 1 dia
+        one: "1 dia"
         other: "%{count} dias"
       x_minutes:
-        one: 1 minuto
+        one: "1 minuto"
         other: "%{count} minutos"
       x_months:
-        one: 1 mês
+        one: "1 mês"
         other: "%{count} meses"
       x_seconds:
-        one: 1 segundo
+        one: "1 segundo"
         other: "%{count} segundos"
   http:
     errors:
@@ -71,10 +72,10 @@ por:
       format:
         delimiter: "."
         format: "%u %n"
+        # negative_format: "-%u%n"
         precision: 2
         separator: ","
-        significant: false
-        unit: R$
+        unit: "R$"
     format:
       delimiter: ","
       precision: 3
@@ -86,7 +87,7 @@ por:
     percentage:
       format:
         delimiter: "."
-        format: "%n%"
+        format: "%n%" #?
     precision:
       format:
         delimiter: "."
@@ -100,6 +101,6 @@ por:
     am: "am"
     formats:
       default: "%a, %d de %B de %Y, %H:%M:%S"
-      long:  "%d de %B de %Y, %H:%M"
+      long: "%d de %B de %Y, %H:%M"
       short: "%d de %B, %H:%M"
     pm: "pm"
