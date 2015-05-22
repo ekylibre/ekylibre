@@ -1428,9 +1428,9 @@ fra:
       label: "%{supplier} à %{address}"
       purchase: "Achat"
       states:
-        aborted: "Annulé"
-        draft: "Brouillon"
-        estimate: "Devis"
+        aborted: "Abandonné"
+        draft: "Devis brouillon"
+        estimate: "Devis envoyé"
         invoice: "Facture"
         order: "Commande"
         refused: "Refusé"
@@ -1448,24 +1448,24 @@ fra:
     sale:
       bookkeep: "[%{resource} %{number}] %{products} pour %{client} (%{sale})"
       label:
-        aborted: "Vente annulée %{number}"
-        draft: "Brouillon %{number}"
-        estimate: "Devis %{number}"
+        aborted: "Vente abandonnée %{number}"
+        draft: "Devis %{number} - brouillon"
+        estimate: "Devis %{number} - envoyé"
         invoice: "Facture %{number}"
         order: "Commande %{number}"
         refused: "Devis refusé %{number}"
       sale: "Vente %{number}"
       sales_conditions:
-        downpayment: "Un acompte de %{percentage}% (soit %{amount}€) devra être versé à la signature du présent devis."
+        downpayment: "Un acompte de %{percentage}% (soit %{amount}) devra être versé à la signature du présent devis."
         validity: "Ce devis et ses conditions générales sont valables jusqu’au %{expiration}."
       sales_invoice:
         label:
           credit: "Avoir N°%{number}"
           normal: "Facture N°%{number}"
       states:
-        aborted: "Annulée"
-        draft: "Brouillon"
-        estimate: "Devis"
+        aborted: "Abandonné"
+        draft: "Devis brouillon"
+        estimate: "Devis envoyé"
         invoice: "Facture"
         order: "Commande"
         refused: "Devis refusé"

@@ -1203,8 +1203,8 @@ spa:
       # purchase: "Purchase"
       states:
         # aborted: "Aborted"
-        # draft: "Draft"
-        # estimate: "Estimate"
+        # draft: "Draft estimate"
+        # estimate: "Sent estimate"
         # invoice: "Invoice"
         # order: "Order"
         # refused: "Refused order"
@@ -1223,14 +1223,14 @@ spa:
       # bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
       label:
         # aborted: "Aborted sale %{number}"
-        # draft: "Draft %{number}"
-        # estimate: "Estimate %{number}"
+        # draft: "Estimate %{number} - draft"
+        # estimate: "Estimate %{number} - sent"
         # invoice: "Sales invoice %{number}"
         # order: "Sales order %{number}"
         # refused: "Refused estimate %{number}"
       # sale: "Sale %{number}"
       sales_conditions:
-        # downpayment: "A downpayment of %{percentage}% (i.e. %{amount}€) must be paid at the signature of this present estimate."
+        # downpayment: "A downpayment of %{percentage}% (i.e. %{amount}) must be paid at the signature of this present estimate."
         # validity: "This estimate and its general conditions are available until the %{expiration}."
       sales_invoice:
         label:
@@ -1238,8 +1238,8 @@ spa:
           # normal: "Sales invoice %{number}"
       states:
         # aborted: "Aborted"
-        # draft: "Draft"
-        # estimate: "Estimate"
+        # draft: "Draft estimate"
+        # estimate: "Sent estimate"
         # invoice: "Invoice"
         # order: "Order"
         # refused: "Refused estimate"

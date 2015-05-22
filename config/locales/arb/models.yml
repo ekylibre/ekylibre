@@ -2553,8 +2553,8 @@ arb:
       purchase: "Achat"
       states:
         # aborted: "Aborted"
-        # draft: "Draft"
-        # estimate: "Estimate"
+        # draft: "Draft estimate"
+        # estimate: "Sent estimate"
         # invoice: "Invoice"
         # order: "Order"
         # refused: "Refused order"
@@ -2573,7 +2573,7 @@ arb:
       # bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
       label:
         # aborted: "Aborted sale %{number}"
-        # draft: "Draft %{number}"
+        # draft: "Estimate %{number} - draft"
         estimate: "رقم التقدير%{number}"
         # invoice: "Sales invoice %{number}"
         order: "رقم الطلب%{number}"
@@ -2595,8 +2595,8 @@ arb:
         C: "منتهي" #?
         E: "مقدر" #?
         # aborted: "Aborted"
-        # draft: "Draft"
-        # estimate: "Estimate"
+        # draft: "Draft estimate"
+        # estimate: "Sent estimate"
         # invoice: "Invoice"
         # order: "Order"
         # refused: "Refused estimate"
