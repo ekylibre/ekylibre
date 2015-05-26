@@ -32,7 +32,6 @@ Rails.application.routes.draw do
     end
     member do
       match "picture(/:style)", via: :get, action: :picture, as: :picture
-      get :list_cashes
       get :list_event_participations
       get :list_incoming_payments
       get :list_issues
@@ -104,10 +103,6 @@ Rails.application.routes.draw do
     resource :settings, only: [:edit, :update] do
       member do
         get :about
-        get :backups
-        post :backup
-        post :restore
-        match "import", via: [:get, :post]
       end
     end
 
@@ -169,7 +164,6 @@ Rails.application.routes.draw do
       collection do
         get :reconciliation
         get :list_reconciliation
-        get :autocomplete_for_origin
         match "load", via: [:get, :post]
       end
       member do

@@ -31,7 +31,7 @@
 #  lock_version         :integer          default(0), not null
 #  noticed_start_amount :decimal(19, 4)   default(0.0)
 #  noticed_stop_amount  :decimal(19, 4)   default(0.0)
-#  sequence_id          :integer
+#  number               :integer
 #  started_at           :datetime         not null
 #  stopped_at           :datetime
 #  updated_at           :datetime         not null
@@ -43,13 +43,27 @@ class CashSession < Ekylibre::Record::Base
   enumerize :currency, in: Nomen::Currencies.all, default: Preference[:currency]
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_numericality_of :number, allow_nil: true, only_integer: true
   validates_numericality_of :expected_stop_amount, :noticed_start_amount, :noticed_stop_amount, allow_nil: true
   validates_presence_of :cash, :started_at
   #]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
+  validates_uniqueness_of :number, scope: :cash_id, allow_nil: true
+  validates_presence_of :number
 
-  validate on: :create do
-    started_at ||= Time.now
+  scope :actives, -> { where(stopped_at: nil) }
+
+  before_validation do
+    self.started_at ||= Time.now
+    if self.cash
+      self.currency = self.cash.currency
+    end
+  end
+
+  before_validation(on: :create) do
+    if self.cash and self.number.blank?
+      self.number = (self.cash.sessions.maximum(:number) || 0) + 1
+    end
   end
 
   def zticket

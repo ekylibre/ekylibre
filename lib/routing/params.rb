@@ -8,7 +8,7 @@ module Routes
 
     def matches?(request)
       return !@params.detect do |key, value|
-        value != request.query_parameters[key]
+        value != request.query_parameters[key] and value != request.request_parameters[key]
       end
     end
 

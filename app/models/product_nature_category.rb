@@ -100,6 +100,8 @@ class ProductNatureCategory < Ekylibre::Record::Base
   scope :purchaseables, -> { where(purchasable: true).order(:name) }
   scope :depreciables, -> { where(depreciable: true).order(:name) }
   scope :stockables_or_depreciables, -> { where("depreciable = ? OR storable = ?", true, true).order(:name) }
+  scope :with_catalog_items, -> { where(id: Catalog.joins(items: {variant: :category}).pluck("category_id")) }
+  scope :with_sale_catalog_items, -> { where(id: Catalog.for_sale.joins(items: {variant: :category}).pluck("category_id")) }
 
 
   protect(on: :destroy) do

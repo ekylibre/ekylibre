@@ -24,7 +24,41 @@ class Pasteque::V5::TicketsController < Pasteque::V5::BaseController
 
   def open
     @records = model.tickets.openeds
-    render template: "layouts/pasteque/v5/index", locals: {output_name: 'tickets', partial_path: 'tickets/ticket'}
+    render "index"
+  end
+
+
+  # Save tickets
+  def save
+    tickets = []
+    if params[:ticket]
+      tickets << JSON.parse(params[:ticket]).with_indifferent_access
+    else
+      tickets += JSON.parse(params[:tickets]).map(&:with_indifferent_access)
+    end
+    unless cash = Cash.find_by(id: params[:cashId])
+      render json: { status: :rej, content: "Cannot find cash" }
+      return
+    end
+    saved = []
+    tickets.each do |ticket_params|
+      third = nil
+      if ticket_params[:customerId]
+        third = Entity.find_by(id: ticket_params[:customerId])
+      end
+      unless ticket = SaleTicket.find_by(id: ticket_params[:id])
+
+        ticket = SaleTicket.build(third: third)
+      end
+      # TODO
+
+      if ticket.save
+        saved << ticket
+      else
+        puts ticket.errors.full_messages.to_sentence.yellow
+      end
+    end
+    render json: { status: :ok, content: saved.count }
   end
 
   protected

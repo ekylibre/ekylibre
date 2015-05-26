@@ -1,7 +1,7 @@
 class Pasteque::V5::TaxesController < Pasteque::V5::BaseController
   def index
     @records = Tax.available_natures
-    render template: 'layouts/pasteque/v5/index', locals: {output_name: 'tax_categories', partial_path: 'taxes/tax_category', record: :tax_category}
+    render locals: {output_name: 'tax_categories', partial_path: 'taxes/tax_category', record: :tax_category}
   end
 
   def show

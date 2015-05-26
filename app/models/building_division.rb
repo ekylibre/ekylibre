@@ -74,12 +74,7 @@ class BuildingDivision < SubZone
     for production in productions
       raise ArgumentError.new("Expected Production, got #{production.class.name}:#{production.inspect}") unless production.is_a?(Production)
     end
-    joins(:productions).where('production_id IN (?)', productions.map(&:id))
+    joins(:productions).where(production_id: productions.map(&:id))
   }
-
-  scope :floors, -> {where variety: :restaurant_floor}
-  def tables
-    self.contents.of_variety :table
-  end
 
 end

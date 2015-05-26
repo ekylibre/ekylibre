@@ -692,6 +692,7 @@ eng:
     pasteque/v5/customers:
       # index: "Customers"
       # show: "Customer: %{name}"
+      # top: "Top customer: %{name}"
     pasteque/v5/discount_profiles:
       # index: "Discount profiles"
     pasteque/v5/images:
@@ -724,6 +725,7 @@ eng:
     pasteque/v5/tickets:
       # index: "Tickets"
       # open: "Open ticket: %{name}"
+      # save: "Save ticket: %{name}"
       # search: "Search ticket: %{name}"
       # show: "Ticket: %{name}"
     pasteque/v5/users:
@@ -1385,7 +1387,7 @@ eng:
     unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)" #?
     up: "Up" #?
     update: "Update"
-    update_params: "Update params" #?
+    update_params: "Update params" #??
     updated_at_by: "Updated at %{at} by %{author}:"
     updated_by_ago: "Updated by %{author} %{ago} ago:"
     upload: "Upload" #?
@@ -1684,6 +1686,7 @@ eng:
       reset: "Reset"
       # resource: "Resource"
       run: "Run"
+      # save: "Save"
       search: "Search"
       select: "Select"
       set: "Set"
@@ -1693,6 +1696,7 @@ eng:
       stop: "Stop" #?
       take: "Take"
       toggle: "Toggle"
+      # top: "Top"
       # trial_balance: "Trial balance"
       unlock: "Unlock"
       unmark: "Unmark"

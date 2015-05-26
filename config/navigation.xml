@@ -1698,6 +1698,7 @@
       <item name="customers">
         <page to="pasteque/v5/customers#index"/>
         <page to="pasteque/v5/customers#show"/>
+        <page to="pasteque/v5/customers#top"/>
       </item>
       <item name="discount_profiles">
         <page to="pasteque/v5/discount_profiles#index"/>
@@ -1743,9 +1744,9 @@
         <page to="pasteque/v5/tickets#create"/>
         <page to="pasteque/v5/tickets#destroy"/>
         <page to="pasteque/v5/tickets#open"/>
+        <page to="pasteque/v5/tickets#save"/>
         <page to="pasteque/v5/tickets#search"/>
         <page to="pasteque/v5/tickets#show"/>
-        <page to="pasteque/v5/tickets#update"/>
       </item>
       <item name="users">
         <page to="pasteque/v5/users#index"/>
@@ -1758,6 +1759,9 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="tickets">
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

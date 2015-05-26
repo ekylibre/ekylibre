@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150518133024) do
+ActiveRecord::Schema.define(version: 20150526101330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -267,7 +267,7 @@ ActiveRecord::Schema.define(version: 20150518133024) do
 
   create_table "cash_sessions", force: :cascade do |t|
     t.integer  "cash_id",                                                     null: false
-    t.integer  "sequence_id"
+    t.integer  "number"
     t.datetime "started_at",                                                  null: false
     t.datetime "stopped_at"
     t.string   "currency"
@@ -284,7 +284,7 @@ ActiveRecord::Schema.define(version: 20150518133024) do
   add_index "cash_sessions", ["cash_id"], name: "index_cash_sessions_on_cash_id", using: :btree
   add_index "cash_sessions", ["created_at"], name: "index_cash_sessions_on_created_at", using: :btree
   add_index "cash_sessions", ["creator_id"], name: "index_cash_sessions_on_creator_id", using: :btree
-  add_index "cash_sessions", ["sequence_id"], name: "index_cash_sessions_on_sequence_id", using: :btree
+  add_index "cash_sessions", ["number"], name: "index_cash_sessions_on_number", using: :btree
   add_index "cash_sessions", ["updated_at"], name: "index_cash_sessions_on_updated_at", using: :btree
   add_index "cash_sessions", ["updater_id"], name: "index_cash_sessions_on_updater_id", using: :btree
 

@@ -525,9 +525,8 @@ cash_sessions:
     type: decimal
     precision: 19
     scale: 4
-  sequence_id:
+  number:
     type: integer
-    references: sequence
   started_at:
     type: datetime
     required: true

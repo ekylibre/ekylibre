@@ -12,7 +12,7 @@ module ExternalApiAdaptable
 
     def manage_restfully(defaults = {})
       options = defaults.extract! :except, :model, :only, :output_name, :partial_path, :resource_name, :scope
-      actions  = [:index, :show, :new, :create, :edit, :update, :destroy, :search]
+      actions  = [:index, :show, :new, :create, :edit, :destroy, :search]
       actions &= [options[:only]].flatten   if options[:only]
       actions -= [options[:except]].flatten if options[:except]
 
@@ -30,7 +30,7 @@ module ExternalApiAdaptable
 
       index = lambda do
         @records = model.all rescue []
-        render template: "layouts/#{api_path}/index", locals: locals
+        render locals: locals
       end
 
       # get_filters allow to match #show via records ids or another criteria such
@@ -48,9 +48,9 @@ module ExternalApiAdaptable
         @record = model.find_by(key => params[api_key]) # rescue nil
         # puts [key, api_key, params[api_key], @record, model].inspect.red
         if @record.present?
-          render template: "layouts/#{api_path}/show", locals: locals
+          render locals: locals
         else
-          render json: {status: :rej}
+          render json: { status: :rej, content: "Cannot find record" }
         end
       end
 
@@ -62,28 +62,18 @@ module ExternalApiAdaptable
         end
         record = model.new(create_params)
         if record.save
-          render partial: "#{api_path}/#{locals[:partial_path]}", locals: {output_name.singularize.to_sym => record}
+          render locals: { output_name.singularize.to_sym => record}
         else
-          render json: nil
+          render json: { status: :rej, content: "Cannot create record" }
         end
-      end
-
-      update = lambda do
-        matching = defaults[:update_filters].with_indifferent_access
-        update_params = permitted_params.slice(*matching.keys).inject({}) do |h, p|
-          h[matching[p.first]] = p.second
-          h
-        end
-        @record = model.find(params[:id]).update_attributes(update_params)
-        render :json, @record
       end
 
       destroy = lambda do
         @record = model.find(params[:id])
         if @record.destroy
-          render status: :ok, json: nil
+          render json: { status: :ok }
         else
-          render status: :method_not_allowed, json: nil
+          render json: { status: :rej, content: "Cannot destroy record" }
         end
       end
 
@@ -94,16 +84,16 @@ module ExternalApiAdaptable
           h
         end
         @records = model.where(criterias)
-        render template: "layouts/#{api_path}/index", locals: locals
+        render locals: locals
       end
 
       method_for = {
         index:  index,
         show:   show,
-        update: update,
-        destroy: destroy,
         search: search,
-        create: create
+        create: create,
+        # update: update,
+        destroy: destroy
       }
 
       actions.each do |action|
@@ -111,11 +101,7 @@ module ExternalApiAdaptable
       end
 
       define_method :permitted_params do
-        if defaults[:update_filters].present?
-          params.require(resource_name).permit(*(defaults[:update_filters].keys))
-        else
-          params.require(resource_name).permit(*model_fields) rescue params.permit!
-        end
+        params.require(resource_name).permit(*model_fields) # rescue params.permit!
       end
 
       define_method :model do
