@@ -2,11 +2,11 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="plantation_unfixing" natures="gardening_harvest" version="0" status="frozen">
     <variables>
-      <variable name="driver" variety="worker" abilities="move" roles="gardening_harvest-doer"/>
-      <variable name="cultivation"   roles="gardening_harvest-target" need="shape" default-actor="variant-localized-in-storage" default-shape=":cultivation">
+      <variable name="driver" abilities="move" roles="gardening_harvest-doer"/>
+      <variable name="land_parcel" variety="cultivable_zone" roles="gardening_harvest-target" need="shape" default-actor="variant-localized-in-storage" default-shape=":land_parcel">
         <handler indicator="shape">
           <converter to="shape"      forward="intersection(value, land_parcel.shape)" backward="value"/>
-          <converter to="population" forward="area(value) / cultivation..net_surface_area(square_meter)"/>
+          <converter to="population" forward="area(value) / land_parcel..net_surface_area(square_meter)"/>
         </handler>
       </variable>
       <variable name="tractor"    variety="equipment" abilities="tow(equipment)" roles="gardening_harvest-tool"/>
