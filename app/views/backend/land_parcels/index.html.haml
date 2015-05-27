@@ -4,7 +4,9 @@
 = janus do |j|
   - j.face :map do
     :ruby
-      main_serie = LandParcel.all.collect do |p|
+      lp = LandParcel.all
+      total_net_surface_area = lp.map(&:net_surface_area).flatten.sum
+      main_serie = lp.all.collect do |p|
         next unless p.shape
 
         popup_content = []
@@ -24,7 +26,9 @@
 
         {name: p.name, shape: p.shape, potential_hydrogen: p.potential_hydrogen.to_d, organic_matter_concentration: p.organic_matter_concentration.to_d, available_water_capacity_per_area: p.available_water_capacity_per_area.to_d , soil_nature: (Nomen::SoilNatures[p.soil_nature] ? Nomen::SoilNatures[p.soil_nature].human_name : :unknown.tl), popup: {header: true, content: popup_content} }
       end
-
+      
+    %span.title= LandParcel.human_attribute_name(:net_surface_area)
+    %span.value= total_net_surface_area.in_hectare.round(2).l
     = visualization do |v|
       - v.serie :main, main_serie
       - v.background "Esri.WorldImagery"

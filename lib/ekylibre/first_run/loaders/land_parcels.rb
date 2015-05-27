@@ -3,6 +3,9 @@ Ekylibre::FirstRun.add_loader :land_parcels do |first_run|
   first_run.import_archive(:telepac_v2014_cap_land_parcels, "ilot.zip", "ilot.shp", "ilot.dbf", "ilot.shx", in: "telepac")
 
   first_run.import_archive(:telepac_v2014_land_parcels, "parcelle.zip", "parcelle.shp", "parcelle.dbf", "parcelle.shx", in: "telepac")
+  
+  first_run.import_archive(:telepac_v2015_land_parcels, "parcelle.zip", "parcelle.shp", "parcelle.dbf", "parcelle.shx", in: "telepac/2015")
+  first_run.import_archive(:telepac_v2015_cap_land_parcels, "ilot.zip", "ilot.shp", "ilot.dbf", "ilot.shx", in: "telepac/2015")
 
   # TODO removes zones which means nothing...
   {equipments: :polygon, cultivable_zones: :polygon, geolocations: :point, building_divisions: :polygon, buildings: :polygon, roads: :linestring, hedges: :linestring, water: :polygon, zones: :polygon}.each do |name, nature|

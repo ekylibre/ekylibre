@@ -17,6 +17,7 @@ class Ekylibre::GeoreadingsExchanger < ActiveExchanger::Base
       w.count = file.size
 
       file.each do |record|
+        # puts record.attributes['number'].inspect.red
         if record.geometry
           if !record.attributes['name'].blank?
             # TODO find how to fix non UTF-8 name

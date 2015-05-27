@@ -23,6 +23,7 @@ class Backend::LandParcelGroupsController < Backend::ProductGroupsController
     t.column :name, url: true
     t.column :work_number
     t.column :identification_number
+    t.column :net_surface_area
   end
 
 end

@@ -15,7 +15,7 @@ class Ekylibre::CultivableZonesExchanger < ActiveExchanger::Base
         georeading_number: (row[3].blank? ? nil : row[3].to_s)
         # members: row[4].blank? ? [] : row[4].to_s.strip.split(/[[:space:]]*\,[[:space:]]*/)
       }.to_struct
-
+        
       if zone = CultivableZone.find_by_work_number(r.code)
         zone.update_attributes(name: r.name)
         zone.save!

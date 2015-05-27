@@ -1,3 +1,8 @@
+:ruby
+  land_parcel_cluster_shape = Charta::Geometry.new(resource.shape)
+  land_parcel_around = land_parcel_cluster_shape.actors_matching(nature: LandParcel, intersection: true) if land_parcel_cluster_shape
+  cultivable_zone_around = land_parcel_cluster_shape.actors_matching(nature: CultivableZone, intersection: true) if land_parcel_cluster_shape
+
 - main_toolbar do |t|
   - t.edit resource
 
@@ -5,11 +10,31 @@
   - b.hbox do
     - b.cell :general do
       = mini_map(resource)
-      .info
+      .med-info
+        %span.title= LandParcelCluster.human_attribute_name(:work_number)
+        %span.value= resource.work_number
+        %span.title= LandParcelCluster.human_attribute_name(:identification_number)
+        %span.value= resource.identification_number
         %span.title= LandParcelCluster.human_attribute_name(:net_surface_area)
         %span.value= resource.net_surface_area.in_hectare.round(2).l
+
+- if land_parcel_around.count > 0
+  = beehive do |b|
+    - b.cell :land_parcels do
+      - for land_parcel in land_parcel_around
+        = mini_map(land_parcel)
+          
+        
+
+- if cultivable_zone_around.count > 0
+  = beehive do |b|
+    - b.cell :cultivable_zones do
+      - for cultivable_zone in cultivable_zone_around
+        = mini_map(cultivable_zone)
 
 = beehive do |b|
   - b.cell do
     = attributes_list do |l|
       - l.attribute :name
+      - l.attribute :identification_number
+      - l.attribute :net_surface_area
