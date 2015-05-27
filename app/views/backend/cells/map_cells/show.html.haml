@@ -10,8 +10,8 @@
 
         # for support
 
-        popup_content << {label: :campaign.tl, value: support.production.campaign.name}
-        popup_content << {label: :activity.tl, value: support.production.activity.name}
+        popup_content << {label: :campaign.tl, value: link_to(support.production.campaign.name, backend_campaign_path(support.production.campaign))}
+        popup_content << {label: :activity.tl, value: link_to(support.production.activity.name, backend_activity_path(support.production.activity))}
         popup_content << {label: :production_support.tl, value: link_to(support.name, backend_production_support_path(support))}
 
         if support_input_cost = support.input_cost and support_input_cost.to_d > 0.0
@@ -59,12 +59,11 @@
         popup_content << render('popup', support: support)
 
         item = {
-          name:       support.name,
+          name:       support.work_number,
           shape:      support.shape,
           campaign:   support.campaign_name,
           activity:   support.activity_name,
           production: support.production_name,
-          variant:    support.cultivation_variant_name,
           tool_cost:  support.tool_cost.to_s.to_f.round(2),
           input_cost: support.input_cost.to_s.to_f.round(2),
           time_cost:  support.time_cost.to_s.to_f.round(2),
