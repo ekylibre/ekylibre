@@ -31,7 +31,7 @@
 #  lock_version         :integer          default(0), not null
 #  noticed_start_amount :decimal(19, 4)   default(0.0)
 #  noticed_stop_amount  :decimal(19, 4)   default(0.0)
-#  number               :integer
+#  number               :string
 #  started_at           :datetime         not null
 #  stopped_at           :datetime
 #  updated_at           :datetime         not null

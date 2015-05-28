@@ -1878,6 +1878,7 @@ arb:
     serial: "عدد الحصص"
     # serial_number: "Serial number"
     service_coeff: "معامل كمية الخدمة" #?
+    # sessions: "Sessions"
     sha256: "SHA256" #?
     # shape: "Shape"
     # shift_duration: "Shift duration"

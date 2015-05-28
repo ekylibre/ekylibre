@@ -126,8 +126,11 @@ class Ekylibre::BackupExchanger < ActiveExchanger::Base
         default_values.each do |new_column, value|
           attributes[new_column] ||= value
         end
-        # puts attributes.inspect
         record.attributes = attributes
+        unless record.valid?
+          puts attributes.inspect.yellow
+          puts record.errors.inspect.red
+        end
         record.save!
         record.id
       end
@@ -210,7 +213,7 @@ class Ekylibre::BackupExchanger < ActiveExchanger::Base
         password = "12345678"
         data.import(:user, :email, rename: {admin: :administrator, office: nil, profession_id: nil, arrived_on: nil, departed_on: nil, hashed_password: nil, salt: nil, reduction_percent: :maximal_grantable_reduction_percentage, connected_at: :last_sign_in_at, name: nil, rights: nil}, default_values: {password: password, password_confirmation: password})
         w.check_point
-        data.import(:entity, :code, rename: {code: :number, category_id: nil, nature_id: nil, payment_delay_id: nil, payment_mode_id: nil, webpass: nil, vat_submissive: :vat_subjected, soundex: nil, salt: nil, hashed_password: nil, invoices_count: nil, origin: :meeting_origin, attorney: nil, attorney_account_id: nil, born_on: :born_at, dead_on: :dead_at, discount_rate: nil, reduction_rate: nil, reflation_submissive: :reminder_submissive, ean13: nil, excise: nil, first_met_on: :first_met_at, website: nil, photo: nil}, default_values: {nature: "legal_entity", type: "Entity"})
+        data.import(:entity, :code, rename: {code: :number, category_id: nil, nature_id: nil, payment_delay_id: nil, payment_mode_id: nil, webpass: nil, vat_submissive: :vat_subjected, soundex: nil, salt: nil, hashed_password: nil, invoices_count: nil, origin: :meeting_origin, attorney: nil, attorney_account_id: nil, born_on: :born_at, dead_on: :dead_at, discount_rate: nil, reduction_rate: nil, reflation_submissive: :reminder_submissive, ean13: nil, excise: nil, first_met_on: :first_met_at, website: nil, photo: nil}, default_values: {type: "Entity"})
         w.check_point
         data.import(:cash, :name, rename: {iban_label: :spaced_iban, address: :bank_agency_address, agency_code: :bank_agency_code, bic: :bank_identifier_code, by_default: nil, entity_id: :owner_id, key: :bank_account_key, number: :bank_account_number})
         w.check_point

@@ -1,4 +1,3 @@
-# encoding: utf-8
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2013 Brice Texier, David Joulin
@@ -18,7 +17,7 @@
 #
 
 class Backend::ManureManagementPlansController < Backend::BaseController
-  manage_restfully redirect_to: "{action: :edit, id: 'id'}".c
+  manage_restfully redirect_to: "{action: :edit, id: 'id'.c}".c
 
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 

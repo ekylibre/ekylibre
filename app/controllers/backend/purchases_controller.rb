@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -18,7 +17,7 @@
 #
 
 class Backend::PurchasesController < Backend::BaseController
-  manage_restfully planned_at: "Date.today+2".c, redirect_to: '{action: :show, id: "id"}'.c, except: :new
+  manage_restfully planned_at: "Date.today+2".c, redirect_to: '{action: :show, id: "id".c}'.c, except: :new
 
   respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
@@ -53,8 +52,8 @@ class Backend::PurchasesController < Backend::BaseController
   end
 
   list(conditions: purchases_conditions, joins: :supplier, :line_class => :status, order: {created_at: :desc, number: :desc}) do |t|
-    t.column :number, url: {action: :show, step: :default}
-    t.column :reference_number, url: {action: :show, step: :products}
+    t.column :number, url: true
+    t.column :reference_number, url: true
     t.column :created_at
     t.column :planned_at, hidden: true
     t.column :invoiced_at

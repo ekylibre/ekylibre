@@ -928,6 +928,7 @@ spa:
     # sent_at: "Sent at"
     # serial: "Serial"
     # serial_number: "Serial number"
+    # sessions: "Sessions"
     # shape: "Shape"
     # shift_duration: "Shift duration"
     # shift_method: "Shift method"

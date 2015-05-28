@@ -31,6 +31,7 @@
   <nomenclature name="entity_natures-person">
     <items>
       <item name="sir"/>
+      <item name="sir_and_madam"/>
       <item name="madam"/>
       <item name="professor"/>
       <item name="doctor"/>

@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
 # = Informations
 #
 # == License
@@ -75,7 +75,7 @@ class Entity < Ekylibre::Record::Base
   # belongs_to :attorney_account, class_name: "Account"
   belongs_to :client_account, class_name: "Account"
   enumerize :country, in: Nomen::Countries.all
-  enumerize :nature, in: Nomen::EntityNatures.all, default: Nomen::EntityNatures.default, predicates: {prefix: true}
+  enumerize :nature, in: Nomen::EntityNatures.all, default: :entity, predicates: {prefix: true}
   versionize exclude: [:full_name]
   # belongs_to :payment_mode, class_name: "IncomingPaymentMode"
   belongs_to :proposer, class_name: "Entity"
@@ -154,6 +154,8 @@ class Entity < Ekylibre::Record::Base
 
   selects_among_all :of_company
 
+  before_validation :set_nature, on: :create
+
   before_validation do
     self.first_name = self.first_name.to_s.strip
     self.last_name  = self.last_name.to_s.strip
@@ -191,10 +193,30 @@ class Entity < Ekylibre::Record::Base
     (self.id == self.of_company? or self.sales_invoices.any? or self.participations.any? and self.sales.any? and self.transports.any?)
   end
 
+  class << self
+
+    # Auto-cast entity to best matching class with type column
+    def new_with_cast(*attributes, &block)
+      if (h = attributes.first).is_a?(Hash) && !h.nil? && (type = h[:type] || h['type']) && type.length > 0 && (klass = type.constantize) != self
+        raise "Can not cast #{self.name} to #{klass.name}" unless klass <= self
+        return klass.new(*attributes, &block)
+      end
+      return new_without_cast(*attributes, &block)
+    end
+    alias_method_chain :new, :cast
+
+  end
+
 
   def self.exportable_columns
     self.content_columns.delete_if{|c| [:active, :lock_version, :deliveries_conditions].include?(c.name.to_sym)}
   end
+
+  # Sets nature based on default nature
+  def set_nature
+    self.nature ||= self.class.nature.default_value
+  end
+
 
   # Returns an entity scope for.all other entities
   def others

@@ -65,7 +65,8 @@ class Backend::CashesController < Backend::BaseController
 
   list(:sessions, model: :cash_session, conditions: {cash_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
     t.column :number
-    t.column :affair, url: true
+    t.column :started_at
+    t.column :stopped_at
     t.column :expected_stop_amount, currency: true
     t.column :noticed_start_amount, currency: true
     t.column :noticed_stop_amount, currency: true

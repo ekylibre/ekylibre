@@ -11,7 +11,6 @@
 #     - "authentication/sessions#destroy"
 #     - "authentication/sessions#new"
 #     - "backend/activities#family"
-#     - "backend/affairs#unroll"
 #     - "backend/animals#take"
 #     - "backend/beehives#reset"
 #     - "backend/beehives#update"
@@ -92,8 +91,6 @@
 #     - "backend/product_nature_variants#detail"
 #     - "backend/product_nature_variants#quantifiers"
 #     - "backend/products#take"
-#     - "backend/sale_opportunities#unroll"
-#     - "backend/sale_tickets#unroll"
 #     - "backend/settlements#take"
 #     - "backend/snippets#toggle"
 #     - "backend/visuals#picture"
@@ -227,10 +224,12 @@ affairs:
     - "backend/affairs#detach"
     - "backend/affairs#finish"
     - "backend/affairs#select"
+    - "backend/affairs#unroll"
     - "backend/sale_tickets#attach"
     - "backend/sale_tickets#detach"
     - "backend/sale_tickets#finish"
     - "backend/sale_tickets#select"
+    - "backend/sale_tickets#unroll"
 
 analyses:
   read:
@@ -1758,6 +1757,7 @@ sales:
     - "backend/sale_opportunities#qualify"
     - "backend/sale_opportunities#quote"
     - "backend/sale_opportunities#select"
+    - "backend/sale_opportunities#unroll"
     - "backend/sale_opportunities#update"
     - "backend/sale_opportunities#win"
     - "backend/sales#abort"

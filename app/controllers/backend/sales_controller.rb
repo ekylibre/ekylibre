@@ -17,7 +17,7 @@
 #
 
 class Backend::SalesController < Backend::BaseController
-  manage_restfully except: [:index, :show, :new], redirect_to: '{action: :show, id: "id"}'.c
+  manage_restfully except: [:index, :show, :new], redirect_to: '{action: :show, id: "id".c}'.c
 
   respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 

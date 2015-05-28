@@ -35,7 +35,7 @@ class Backend::SaleOpportunitiesController < Backend::AffairsController
   end
 
   list(conditions: conditions, joins: :client, order: {created_at: :desc, number: :desc}) do |t|
-    t.column :number, url: {action: :show, step: :default}
+    t.column :number, url: true
     t.column :name
     t.column :created_at
     t.column :dead_line_at

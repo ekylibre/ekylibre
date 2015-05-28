@@ -1447,6 +1447,7 @@ eng:
         public_establishment: "Public establishment"       #< legal_entity
         public_interest_group: "Public interest group"     #< legal_entity
         sir: "Sir"                                         #< person
+        sir_and_madam: "Sir and madam"                     #< person
         syndicate: "Syndicate"                             #< legal_entity
     event_natures:
       name: "Event natures"

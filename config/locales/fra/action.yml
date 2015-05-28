@@ -1492,7 +1492,7 @@ fra:
     send_test_mail: "Envoyer un mail de test"
     sequences_load: "Charger les séquences manquantes" #?
     set_reconcilable_new_but_existing_third_accounts: "Rendre lettrables les nouveaux comptes tiers déjà existants"
-    settings: "Configurations"
+    settings: "Configuration"
     sex: "Sexe" #?
     shape: "Forme"
     ship: "Prévue le"

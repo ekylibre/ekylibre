@@ -7567,6 +7567,7 @@ eng:
         public_establishment: "Public establishment"
         public_interest_group: "Public interest group"
         sir: "Sir"
+        sir_and_madam: "Sir and madam"
         syndicate: "Syndicate"
     entity_link:
       nature:
@@ -12022,6 +12023,7 @@ eng:
         public_establishment: "Public establishment"
         public_interest_group: "Public interest group"
         sir: "Sir"
+        sir_and_madam: "Sir and madam"
         syndicate: "Syndicate"
     listing:
       root_model:
@@ -15039,6 +15041,7 @@ eng:
         public_establishment: "Public establishment"
         public_interest_group: "Public interest group"
         sir: "Sir"
+        sir_and_madam: "Sir and madam"
         syndicate: "Syndicate"
     plant:
       variety:

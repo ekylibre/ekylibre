@@ -1457,6 +1457,7 @@ jpn:
         # public_establishment: "Public establishment"
         # public_interest_group: "Public interest group"
         # sir: "Sir"
+        # sir_and_madam: "Sir and madam"
         # syndicate: "Syndicate"
       # name: "Entity natures"
     event_natures:

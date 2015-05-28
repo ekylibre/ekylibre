@@ -24,10 +24,11 @@
         .med-info
           %span.title= SaleOpportunity.human_attribute_name(:probability_percentage)
           %span.value= resource.probability_percentage
-          %span.title= SaleOpportunity.human_attribute_name(:pretax_amount)
-          %span.value
-            %i.picto.picto-money
-            = resource.pretax_amount.l(currency: resource.currency)
+          - if resource.pretax_amount
+            %span.title= SaleOpportunity.human_attribute_name(:pretax_amount)
+            %span.value
+              %i.picto.picto-money
+              = resource.pretax_amount.l(currency: resource.currency)
 
       - b.cell do
         = attributes_list stamps: false do |l|

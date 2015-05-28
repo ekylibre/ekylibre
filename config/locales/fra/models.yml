@@ -1138,6 +1138,7 @@ fra:
     sent_at: "Expédié le"
     serial: "N°Lot"
     serial_number: "Serial number"
+    sessions: "Sessions"
     shape: "Forme"
     shift_duration: "Durée du différé"
     shift_method: "Méthode de différé"

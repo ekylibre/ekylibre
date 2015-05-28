@@ -104,6 +104,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   #
   before_validation do
     self.name = self.name.to_s[0..254]
+    self.letter = nil if self.letter.blank?
     # computes the values depending on currency rate
     # for debit and credit.
     self.real_debit  ||= 0
@@ -142,10 +143,12 @@ class JournalEntryItem < Ekylibre::Record::Base
   end
 
   validate(on: :update) do
-    old = self.class.find(self.id)
+    old = self.old_record
     errors.add(:account_id, :entry_has_been_already_validated) if old.closed?
     # Forbids to change "manually" the letter. Use Account#mark/unmark.
-    errors.add(:letter, :invalid) if old.letter != self.letter and not (old.balanced_letter? and self.balanced_letter?)
+    # if old.letter != self.letter and not (old.balanced_letter? and self.balanced_letter?)
+    #   errors.add(:letter, :invalid)
+    # end
   end
 
   #

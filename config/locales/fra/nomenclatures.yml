@@ -1456,6 +1456,7 @@ fra:
         public_establishment: "Établissement public"
         public_interest_group: "Groupement d’intérêt public"
         sir: "Monsieur"
+        sir_and_madam: "Monsieur et Madame"
         syndicate: "Syndicat"
       name: "Types de tiers"
     event_natures:
