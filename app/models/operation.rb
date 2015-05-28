@@ -149,7 +149,7 @@ class Operation < Ekylibre::Record::Base
                            # [self.casts.find_by!(reference_name: parameter.stakeholder.name.to_s), parameter]
                            Indicatus.new(parameter, self)
                          else
-                           raise StandardError, "Don't known how to find a #{parameter.class.name}"
+                           raise StandardError, "Don't known how to find a #{parameter.class.name} for #{pair.first}"
                          end
       hash
     end

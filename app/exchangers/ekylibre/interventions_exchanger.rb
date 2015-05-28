@@ -1,6 +1,54 @@
 # coding: utf-8
 class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
+
+  def check_file!
+    rows = CSV.read(file, headers: true, col_sep: ";").delete_if{|r| r[0].blank?}.sort{|a,b| [a[2].split(/\D/).reverse.join,a[0]] <=> [b[2].split(/\D/).reverse.join,b[0]]}
+    valid = true
+    w.count = rows.size
+    rows.each_with_index do |row, index|
+      line_number = index
+      r = OpenStruct.new(  intervention_number: row[0].to_i,
+                           campaign_code: row[1].to_s,
+                           intervention_started_at: ((row[2].blank? || row[3].blank?) ? nil : Time.strptime(Date.parse(row[2].to_s).strftime('%d/%m/%Y') + " " + row[3].to_s, "%d/%m/%Y %H:%M")),
+                           intervention_duration_in_hour: (row[4].blank? ? nil : row[4].gsub(",",".").to_d),
+                           procedure_name: (row[5].blank? ? nil : row[5].to_s.downcase.to_sym), # to transcode
+                           procedure_description: row[6].to_s,
+                           support_codes: (row[7].blank? ? nil : row[7].to_s.strip.delete(' ').upcase.split(',')),
+                           target_variant: (row[8].blank? ? nil : row[8].to_s.downcase.to_sym),
+                           target_variety: (row[9].blank? ? nil : row[9].to_s.downcase.to_sym),
+                           worker_codes: (row[10].blank? ? nil : row[10].to_s.strip.delete(' ').upcase.split(',')),
+                           equipment_codes: (row[11].blank? ? nil : row[11].to_s.strip.delete(' ').upcase.split(',')),
+                           ### FIRST PRODUCT
+                           first_product_code: (row[12].blank? ? nil : row[12].to_s.upcase),
+                           first_product_input_population: (row[13].blank? ? nil : row[13].gsub(",",".").to_d),
+                           first_product_input_unit_name: (row[14].blank? ? nil : row[14].to_s.downcase),
+                           first_product_input_unit_target_dose: (row[15].blank? ? nil : row[15].to_s.downcase),
+                           ### SECOND PRODUCT
+                           second_product_code: (row[16].blank? ? nil : row[16].to_s.upcase),
+                           second_product_input_population: (row[17].blank? ? nil : row[17].gsub(",",".").to_d),
+                           second_product_input_unit_name: (row[18].blank? ? nil : row[18].to_s.downcase),
+                           second_product_input_unit_target_dose: (row[19].blank? ? nil : row[19].to_s.downcase),
+                           ### THIRD PRODUCT
+                           third_product_code: (row[20].blank? ? nil : row[20].to_s.upcase),
+                           third_product_input_population: (row[21].blank? ? nil : row[21].gsub(",",".").to_d),
+                           third_product_input_unit_name: (row[22].blank? ? nil : row[22].to_s.downcase),
+                           third_product_input_unit_target_dose: (row[23].blank? ? nil : row[23].to_s.downcase)
+                        )
+        
+        # info, warn, error
+        # valid = false if error
+
+        procedure_nomen = Procedo[procedure_name]
+        if !procedure_nomen
+          w.error "#{line_number}: No procedure given"
+          valid = false
+        end
+         
+    end
+    return valid 
+  end
+  
   def import
     rows = CSV.read(file, headers: true, col_sep: ";").delete_if{|r| r[0].blank?}.sort{|a,b| [a[2].split(/\D/).reverse.join,a[0]] <=> [b[2].split(/\D/).reverse.join,b[0]]}
 
@@ -428,15 +476,14 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                   i.add_cast(reference_name: 'cultivation', actor: cultivable_zone)
                 end
 # 
-              #elsif r.procedure_name == :plantation_unfixing and cultivable_zone
-                # TODO Raise error Don't known how to find a NilClass ??? 
+              elsif r.procedure_name == :plantation_unfixing and plant
                 # Implant Helping with plant
-                #intervention = Ekylibre::FirstRun::Booker.force(:plantation_unfixing, intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
-                 #i.add_cast(reference_name: 'driver',   actor: (workers.any? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
-                # i.add_cast(reference_name: 'tractor',  actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "tow(equipment)") : i.find(Equipment, can: "tow(equipment)")))
-                 ##i.add_cast(reference_name: 'compressor',  actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "blow") : i.find(Equipment, can: "blow")))
-                 #i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
-               #end
+                intervention = Ekylibre::FirstRun::Booker.force(:plantation_unfixing, intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
+                 i.add_cast(reference_name: 'driver',   actor: (workers.any? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+                 i.add_cast(reference_name: 'tractor',  actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "tow(equipment)") : i.find(Equipment, can: "tow(equipment)")))
+                 i.add_cast(reference_name: 'compressor',  actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "blow") : i.find(Equipment, can: "blow")))
+                 i.add_cast(reference_name: 'cultivation', actor: plant)
+               end
               
               elsif r.procedure_name == :technical_task and cultivable_zone
 
