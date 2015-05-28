@@ -5,7 +5,9 @@ module Charta
     attr_reader :ewkt
 
     def initialize(coordinates, srs = nil)
-      if coordinates.is_a?(self.class)
+      if coordinates.nil?
+        @ewkt = self.class.empty(srs).to_ewkt
+      elsif coordinates.is_a?(self.class)
         @ewkt = coordinates.ewkt
       elsif coordinates.is_a?(Hash) or (coordinates.is_a?(String) and ::Charta::GeoJSON.valid?(coordinates)) # GeoJSON
         srid = srs ? find_srid(srs) : :WGS84

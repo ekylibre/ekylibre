@@ -7591,6 +7591,7 @@ fra:
         public_establishment: "Établissement public"
         public_interest_group: "Groupement d’intérêt public"
         sir: "Monsieur"
+        sir_and_madam: "Monsieur et Madame"
         syndicate: "Syndicat"
     entity_link:
       nature:
@@ -9208,9 +9209,10 @@ fra:
         lilco_milk_analyses: "Analyses de lait ‒ Lilco"
         synel_animals: "Animaux ‒ Synel"
         synel_inventory: "Inventaire ‒ Synel"
-        telepac_v2014_cap_land_parcels: "Îlots 2014 (SHP/ZIP) ‒ TelePAC"
-        telepac_v2014_land_parcels: "Parcelles 2014 (SHP/ZIP) ‒ TelePAC"
-        telepac_v2015_land_parcels: "Parcelles 2015 (SHP/ZIP) ‒ TelePAC"
+        telepac_v2014_cap_land_parcels: "Îlots 2014 (SHP/ZIP) ‒ TéléPAC"
+        telepac_v2014_land_parcels: "Parcelles 2014 (SHP/ZIP) ‒ TéléPAC"
+        telepac_v2015_cap_land_parcels: "Îlots 2015 (SHP/ZIP) ‒ TéléPAC"
+        telepac_v2015_land_parcels: "Parcelles 2015 (SHP/ZIP) ‒ TéléPAC"
         unicoque_outgoing_deliveries: "Apports de récole ‒ Unicoque"
         unicoque_plant_zones: "Plantations (SHP/ZIP) ‒ Unicoque"
         upra_reproductors: "Liste des reproducteurs ‒ UPRA"
@@ -12059,6 +12061,7 @@ fra:
         public_establishment: "Établissement public"
         public_interest_group: "Groupement d’intérêt public"
         sir: "Monsieur"
+        sir_and_madam: "Monsieur et Madame"
         syndicate: "Syndicat"
     listing:
       root_model:
@@ -15061,7 +15064,7 @@ fra:
         selso: "SelSO"
         synel: "Synel"
         synest: "Synel Est"
-        telepac: "TelePAC"
+        telepac: "TéléPAC"
     outgoing_delivery:
       mode:
         delivered_at_place: "Transporté chez le destinataire et déchargé par le destinataire"
@@ -15087,6 +15090,7 @@ fra:
         public_establishment: "Établissement public"
         public_interest_group: "Groupement d’intérêt public"
         sir: "Monsieur"
+        sir_and_madam: "Monsieur et Madame"
         syndicate: "Syndicat"
     plant:
       variety:

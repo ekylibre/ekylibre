@@ -62,7 +62,7 @@ class CashSession < Ekylibre::Record::Base
 
   before_validation(on: :create) do
     if self.cash and self.number.blank?
-      self.number ||= (self.cash.sessions.maximum("CAST number AS INTEGER") || 0) + 1
+      self.number ||= (self.cash.sessions.maximum("CAST(number AS INTEGER)") || 0) + 1
     end
   end
 

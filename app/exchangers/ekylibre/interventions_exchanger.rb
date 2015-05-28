@@ -35,7 +35,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                            third_product_input_unit_name: (row[22].blank? ? nil : row[22].to_s.downcase),
                            third_product_input_unit_target_dose: (row[23].blank? ? nil : row[23].to_s.downcase)
                         )
-        
+
         # info, warn, error
         # valid = false if error
 
@@ -44,11 +44,11 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
           w.error "#{line_number}: No procedure given"
           valid = false
         end
-         
+
     end
-    return valid 
+    return valid
   end
-  
+
   def import
     rows = CSV.read(file, headers: true, col_sep: ";").delete_if{|r| r[0].blank?}.sort{|a,b| [a[2].split(/\D/).reverse.join,a[0]] <=> [b[2].split(/\D/).reverse.join,b[0]]}
 
@@ -177,10 +177,10 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
 
       if production_supports
-        
+
         puts r.intervention_number.inspect.red
         puts r.procedure_name.inspect.green
-        
+
         production_supports.each do |support|
 
           if cultivable_zone = support.storage and cultivable_zone.is_a?(CultivableZone)
@@ -415,7 +415,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                   i.add_cast(reference_name: 'tractor',     actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "tow(spreader)") : i.find(Equipment, can: "tow(spreader)")))
                   i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
                 end
-                
+
               #######################
               ####  WATERING  ####
               #######################
@@ -435,7 +435,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                   i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
                   i.add_cast(reference_name: 'cultivation', actor: plant)
                 end
-              
+
 
 
               #######################
@@ -475,7 +475,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                   i.add_cast(reference_name: 'implanter_man',   actor: (workers.any? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
                   i.add_cast(reference_name: 'cultivation', actor: cultivable_zone)
                 end
-# 
+#
               elsif r.procedure_name == :plantation_unfixing and plant
                 # Implant Helping with plant
                 intervention = Ekylibre::FirstRun::Booker.force(:plantation_unfixing, intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
@@ -484,7 +484,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                  i.add_cast(reference_name: 'compressor',  actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "blow") : i.find(Equipment, can: "blow")))
                  i.add_cast(reference_name: 'cultivation', actor: plant)
                end
-              
+
               elsif r.procedure_name == :technical_task and cultivable_zone
 
                 #####################
@@ -496,16 +496,16 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                   i.add_cast(reference_name: 'worker',   actor: (workers.any? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
                   i.add_cast(reference_name: 'target', actor: cultivable_zone)
                 end
-              
+
               end
             end
             # for the same intervention session
             intervention_started_at += duration.seconds if cultivable_zone.shape
 
           elsif zone = support.storage and ( zone.is_a?(BuildingDivision) || zone.is_a?(Equipment) )
-            
+
             if r.procedure_name and support
-              
+
               intervention = nil
               Ekylibre::FirstRun::Booker.production = support.production
               #####################
@@ -532,7 +532,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                 end
               end
             end
-            
+
           end
           if intervention
             intervention.description += " - " + information_import_context + " - N° : " + r.intervention_number.to_s + " - " + support.name
@@ -541,14 +541,14 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
           else
             w.info "Intervention is in a black hole".red
           end
-          
+
         end
-        
+
       elsif production
-        
+
         puts r.intervention_number.inspect.red
         puts r.procedure_name.inspect.yellow
-        
+
         if r.procedure_name
           intervention = nil
 
@@ -557,7 +557,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
           ########################
           #### ADMINISTRATIVE ####
           ########################
-          
+
           # case no supports
           if r.procedure_name == :maintenance_task and workers.any? and equipments.any?
             # Maintenance_task
