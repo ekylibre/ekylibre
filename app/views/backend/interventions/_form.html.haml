@@ -13,6 +13,7 @@
     -#= f.referenced_association :production
     = f.input :started_at, input_html: {data: {procedure: procedure.name, procedure_global: "at", intervention_updater: "global:at"}}
     = f.input :stopped_at
+    = f.input :description
     = f.custom_fields
 
   = field_set(:prescriptions) do
