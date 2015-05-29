@@ -142,9 +142,9 @@ class Affair < Ekylibre::Record::Base
     def journal
       unless j = Journal.used_for_affairs
         if j = Journal.where(nature: :various).order(id: :desc).first
-          j.update_column(:used_for_affair, true)
+          j.update_column(:used_for_affairs, true)
         else
-          j = Journal.create!(name: Affair.model_name.human, nature: :various, used_for_affair: true)
+          j = Journal.create!(name: Affair.model_name.human, nature: :various, used_for_affairs: true)
         end
       end
       return j
