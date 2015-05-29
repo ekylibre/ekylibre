@@ -163,6 +163,8 @@ spa:
       # new: "New document"
       print: "Impresion, exportacion" #?
       # show: "Document: %{name}"
+    backend/draft_journals:
+      show: "Niebla"
     backend/entities:
       # edit: "Edit person: %{full_name}"
       # export: "Export people"
@@ -294,7 +296,6 @@ spa:
     backend/journals:
       bookkeep: "Bascula contable"
       close: "Cierre del %{name}"
-      draft: "Niebla"
       edit: "Modicicar el periodico\_: %{name}"
       general_ledger: "Grande libro"
       index: "Periodicos"
@@ -1562,7 +1563,7 @@ spa:
         one: "La pieza ha sido validada y es sacada de la niebla" #?
         other: "Las %{count} han sido validadas y son sacadas de la niebla" #?
         zero: "Ninguna pieza ha sido validada" #?
-      draft_entry_items_are_validated:
+      draft_journal_entries_have_been_validated:
         # one: "One entry has been validated"
         # other: "%{count} entries have been validated"
         # zero: "No entries has been validated"
@@ -1698,7 +1699,6 @@ spa:
       # detach: "Detach"
       # detail: "Detail"
       # down: "Down"
-      # draft: "Draft"
       # duplicate: "Duplicate"
       # edit: "Edit"
       # evaluate: "Evaluate"

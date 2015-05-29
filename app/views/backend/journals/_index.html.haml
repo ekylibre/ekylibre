@@ -1,16 +1,8 @@
 %dl#journals-nav
   %dt= Backend::JournalsController.human_action_name(:index)
-  - if JournalEntryItem.find_by_state("draft")
-    - name = :draft.tl.html_safe
-    - activeness = (action_name == "draft" ? {class: "active"} : {})
-    %dd.special{activeness}
-      = link_to(params.merge(controller: :journals, action: :draft)) do
-        %i
-        = name
   - for journal in Journal.order(:name)
     - name = journal.name.html_safe
-    - classes = ""
-    - classes = "active" if (@journal and controller_name == "journals" and action_name == "show" and journal.id == @journal.id) or (@journal_entry and @journal_entry.journal_id == journal.id)
+    - classes = []
+    - classes << "active" if (@journal and controller_name == "journals" and action_name == "show" and journal.id == @journal.id) or (@journal_entry and @journal_entry.journal_id == journal.id)
     %dd{class: classes}
-      = link_to(params.merge(controller: :journals, action: :show, id: journal.id), :title => journal.name) do
-        = name
+      = link_to(name, params.merge(controller: :journals, action: :show, id: journal.id), title: journal.name)

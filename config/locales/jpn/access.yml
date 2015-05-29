@@ -3,6 +3,7 @@ jpn:
     interactions:
       # cancel: "Cancel"
       # close: "Close"
+      # confirm: "Confirm"
       # execute: "Execute"
       # link: "Link"
       # lock: "Lock"
@@ -48,6 +49,7 @@ jpn:
       # interventions: "Interventions"
       # inventories: "Inventories"
       # issues: "Issues"
+      # journal_draft: "Journal draft"
       # journal_entries: "Journal entries"
       # journals: "Journals"
       # land_parcel_clusters: "Land parcel clusters"

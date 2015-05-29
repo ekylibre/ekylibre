@@ -3,6 +3,7 @@ fra:
     interactions:
       cancel: "Annuler"
       close: "Fermer"
+      confirm: "Confirmer"
       execute: "Exécuter"
       link: "Lier"
       lock: "Verrouiller"
@@ -55,6 +56,7 @@ fra:
       interventions: "Interventions"
       inventories: "Inventaires"
       issues: "Incidents"
+      journal_draft: "Journal draft"
       journal_entries: "Écritures comptables"
       journals: "Journaux"
       land_parcel_clusters: "Îlots"

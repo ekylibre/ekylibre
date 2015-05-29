@@ -168,6 +168,8 @@ arb:
       # new: "New document"
       print: "طباعة وتصدير" #?
       # show: "Document: %{name}"
+    backend/draft_journals:
+      show: "المسودات"
     backend/entities:
       edit: "تعديل الملف : %{full_name}"
       export: "تصدير الملفات"
@@ -328,7 +330,6 @@ arb:
     backend/journals:
       bookkeep: "نظام المحاسبة المتغير"
       close: "اغلاق %{name}"
-      draft: "المسودات"
       edit: "تعديل الدفتر اليومي : %{name}"
       general_ledger: "دفتر الحسابات"
       index: "الدفاتر اليومية"
@@ -1977,7 +1978,7 @@ arb:
       closed_financial_years: "تم اغلاق السنة المالية بشكل صحيح"
       columns_are_already_uses: "تم اخيار عامود او اكثر للتحميل لمرات عدة"
       # dashboard_is_being_developed: "Dashboard is under heavy development"
-      draft_entry_items_are_validated:
+      draft_journal_entries_have_been_validated:
         one: "تم التحقق من صحة الملفات واخراجها من قائمة المسودات"
         other: "واخراجها من قائمة المسودات %{count} تم التحقق من صحة الملفات الاخرى"
         zero: "لم يتم التحقق من صحة اي ملف"
@@ -2156,7 +2157,6 @@ arb:
       # detach: "Detach"
       # detail: "Detail"
       # down: "Down"
-      # draft: "Draft"
       # duplicate: "Duplicate"
       # edit: "Edit"
       # evaluate: "Evaluate"

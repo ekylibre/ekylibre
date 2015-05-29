@@ -141,10 +141,8 @@
         <page to="backend/journals#close"/>
         <page to="backend/journals#create"/>
         <page to="backend/journals#destroy"/>
-        <page to="backend/journals#draft"/>
         <page to="backend/journals#edit"/>
         <page to="backend/journals#list"/>
-        <page to="backend/journals#list_draft_items"/>
         <page to="backend/journals#list_entries"/>
         <page to="backend/journals#list_general_ledger"/>
         <page to="backend/journals#list_items"/>
@@ -167,6 +165,11 @@
         <page to="backend/journal_entry_items#new"/>
         <page to="backend/journal_entry_items#show"/>
         <page to="backend/journal_entry_items#unroll"/>
+      </item>
+      <item name="draft">
+        <page to="backend/draft_journals#show"/>
+        <page to="backend/draft_journals#confirm"/>
+        <page to="backend/draft_journals#list_journal_entry_items"/>
       </item>
       <item name="reconciliation">
         <page to="backend/accounts#reconciliation"/>

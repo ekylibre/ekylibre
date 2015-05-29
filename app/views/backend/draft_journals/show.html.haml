@@ -1,11 +1,13 @@
-= journals_tag
+= kujaku do |k|
+  - k.helper :journal_period_crit
+  - k.helper :journals_crit
 
-= form_tag do
-  = form_fields do
+= form_tag(action: :confirm) do
+  .hidden-filter-parameters{style: "display: none"}
     = kujaku(popover: false, form: false) do |k|
-      - k.text :search
       - k.helper :journal_period_crit
       - k.helper :journals_crit
-    = list(:draft_items)
+  = form_fields do
+    = list(:journal_entry_items)
   = form_actions do
     = submit_tag(:validate_selected_entries.tl, "data-confirm" => :are_you_sure.tl, :name => :validate)

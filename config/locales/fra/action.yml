@@ -156,6 +156,8 @@ fra:
       index: "Gestion électronique des documents"
       new: "Nouveau document"
       show: "Document\_: %{name}"
+    backend/draft_journals:
+      show: "Brouillard"
     backend/entities:
       destroy: "Supprimer la fiche" #?
       edit: "Modifier la fiche\_: %{full_name}"
@@ -297,7 +299,6 @@ fra:
     backend/journals:
       bookkeep: "Bascule comptable"
       close: "Clôturer le journal\_: %{name}"
-      draft: "Brouillard"
       edit: "Modifier le journal\_: %{name}"
       general_ledger: "Grand livre"
       import: "Importer des données comptables" #?
@@ -1831,10 +1832,10 @@ fra:
       closed_financial_years: "L’exercice a été correctement clôturé"
       columns_are_already_uses: "Une ou plusieurs colonnes à importer sont sélectionnées plusieurs fois"
       dashboard_is_being_developed: "Les tableaux de bord sont en cours d’élaboration"
-      draft_entry_items_are_validated:
-        one: "%{count} ligne de brouillard validée"
-        other: "%{count} lignes de brouillard validées"
-        zero: "Aucune ligne de brouillard validée"
+      draft_journal_entries_have_been_validated:
+        one: "%{count} écriture du brouillard validée"
+        other: "%{count} écritures du brouillard validées"
+        zero: "Aucune écriture du brouillard validée"
       entity_columns_are_needed: "Vous devez spécifier au moins une colonne pour la personne et notamment son nom de famille/dénomination sociale."
       exception_raised: "Une erreur est survenue durant le traitement\_: %{message}"
       expired_session: "Session expirée. Veuillez vous reconnecter." #?
@@ -1961,7 +1962,7 @@ fra:
       detach: "Détacher"
       detail: "Détail"
       down: "Descendre"
-      draft: "Brouillon"
+      draft: "Brouillon" #?
       duplicate: "Dupliquer"
       edit: "Modifier"
       evaluate: "Évaluer"

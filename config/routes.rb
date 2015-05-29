@@ -301,6 +301,13 @@ Rails.application.routes.draw do
 
     resources :documents, concerns: [:list, :unroll]
 
+    resource :draft_journal, only: [:show] do
+      member do
+        post :confirm
+        get  :list_journal_entry_items
+      end
+    end
+
     resources :entities, concerns: :entities
 
     resources :entity_addresses, concerns: [:unroll]
@@ -431,10 +438,8 @@ Rails.application.routes.draw do
 
     resources :journals, concerns: [:list, :unroll] do
       collection do
-        match "draft", via: [:get, :post]
         match "bookkeep", via: [:get, :put, :post]
         get  :general_ledger
-        get  :list_draft_items
         get  :list_general_ledger
       end
       member do

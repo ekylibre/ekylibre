@@ -209,6 +209,9 @@ eng:
       index: "Documents management"
       new: "New document"
       show: "Document: %{name}"
+    backend/draft_journals:
+      # confirm: "Confirm draft journal: %{name}"
+      show: "Draft"
     backend/entities:
       # autocomplete_for_origin: "Autocomplete for origin entity: %{name}"
       edit: "Edit person: %{full_name}"
@@ -353,7 +356,6 @@ eng:
     backend/journals:
       bookkeep: "Bookkeep"
       close: "Close journal: %{name}"
-      draft: "Draft"
       edit: "Edit journal: %{name}"
       general_ledger: "General ledger"
       index: "Journals"
@@ -948,7 +950,7 @@ eng:
     dont_use_journal: "— Do not use journal —"
     down: "Down" #?
     downpayment: "Downpayment"
-    draft: "Draft"
+    draft: "Draft" #?
     duplicate: "Duplicate" #?
     duration: "Duration"
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
@@ -1545,7 +1547,7 @@ eng:
       closed_financial_years: "The financial year has been closed successfully"
       columns_are_already_uses: "One or many columns are selected many times"
       dashboard_is_being_developed: "Dashboard is under heavy development"
-      draft_entry_items_are_validated:
+      draft_journal_entries_have_been_validated:
         one: "One entry has been validated"
         other: "%{count} entries have been validated"
         zero: "No entries has been validated"
@@ -1637,7 +1639,6 @@ eng:
       detach: "Detach"
       detail: "Detail"
       down: "Down"
-      draft: "Draft"
       duplicate: "Duplicate"
       edit: "Edit"
       evaluate: "Evaluate"

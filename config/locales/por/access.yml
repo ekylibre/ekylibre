@@ -3,6 +3,7 @@ por:
     interactions:
       # cancel: "Cancel"
       close: "Fechar"
+      # confirm: "Confirm"
       execute: "Executar"
       link: "Linkar"
       lock: "Bloquear"
@@ -49,6 +50,7 @@ por:
       interventions: "Intervenções"
       inventories: "Inventário"
       issues: "Problemas"
+      # journal_draft: "Journal draft"
       journal_entries: "Lançamentos no diário"
       journals: "Diários"
       land_parcel_clusters: "Agrupamentos de pedaços de terra"

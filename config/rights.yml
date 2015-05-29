@@ -1011,6 +1011,17 @@ issues:
     - "backend/issues#reopen"
     - "backend/issues#update"
 
+journal_draft:
+  read:
+    actions:
+    - "backend/draft_journals#list_journal_entry_items"
+    - "backend/draft_journals#show"
+  confirm:
+    dependencies:
+    - read-journal_draft
+    actions:
+    - "backend/draft_journals#confirm"
+
 journal_entries:
   read:
     actions:
@@ -1038,7 +1049,6 @@ journals:
     - "backend/journals#general_ledger"
     - "backend/journals#index"
     - "backend/journals#list"
-    - "backend/journals#list_draft_items"
     - "backend/journals#list_entries"
     - "backend/journals#list_general_ledger"
     - "backend/journals#list_items"
@@ -1053,7 +1063,6 @@ journals:
     - "backend/journals#bookkeep"
     - "backend/journals#create"
     - "backend/journals#destroy"
-    - "backend/journals#draft"
     - "backend/journals#edit"
     - "backend/journals#new"
     - "backend/journals#update"

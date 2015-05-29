@@ -438,6 +438,12 @@ class ActionController::TestCase
         elsif mode == :get
           test_code << "get :#{action}, #{sanitized_params[]}\n"
           test_code << "assert_response :success, #{context}\n"
+        elsif mode == :post
+          test_code << "post :#{action}, #{sanitized_params[]}\n"
+          test_code << "assert_response :success, #{context}\n"
+        elsif mode == :post_and_redirect
+          test_code << "post :#{action}, #{sanitized_params[]}\n"
+          test_code << "assert_response :redirect, #{context}\n"
         elsif mode == :redirect
           test_code << "get :#{action}, #{sanitized_params[]}\n"
           test_code << "assert_response :redirect, #{context}\n"
