@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150526101330) do
+ActiveRecord::Schema.define(version: 20150529080607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -714,22 +714,6 @@ ActiveRecord::Schema.define(version: 20150526101330) do
   add_index "entity_links", ["nature"], name: "index_entity_links_on_nature", using: :btree
   add_index "entity_links", ["updated_at"], name: "index_entity_links_on_updated_at", using: :btree
   add_index "entity_links", ["updater_id"], name: "index_entity_links_on_updater_id", using: :btree
-
-  create_table "establishments", force: :cascade do |t|
-    t.string   "name",                     null: false
-    t.string   "code"
-    t.text     "description"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version", default: 0, null: false
-  end
-
-  add_index "establishments", ["created_at"], name: "index_establishments_on_created_at", using: :btree
-  add_index "establishments", ["creator_id"], name: "index_establishments_on_creator_id", using: :btree
-  add_index "establishments", ["updated_at"], name: "index_establishments_on_updated_at", using: :btree
-  add_index "establishments", ["updater_id"], name: "index_establishments_on_updater_id", using: :btree
 
   create_table "event_participations", force: :cascade do |t|
     t.integer  "event_id",                   null: false
@@ -2876,7 +2860,6 @@ ActiveRecord::Schema.define(version: 20150526101330) do
     t.text     "description"
     t.boolean  "commercial",                                                      default: false, null: false
     t.integer  "team_id"
-    t.integer  "establishment_id"
     t.boolean  "employed",                                                        default: false, null: false
     t.string   "employment"
     t.string   "language",                                                                        null: false
@@ -2909,7 +2892,6 @@ ActiveRecord::Schema.define(version: 20150526101330) do
   add_index "users", ["created_at"], name: "index_users_on_created_at", using: :btree
   add_index "users", ["creator_id"], name: "index_users_on_creator_id", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["establishment_id"], name: "index_users_on_establishment_id", using: :btree
   add_index "users", ["person_id"], name: "index_users_on_person_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["role_id"], name: "index_users_on_role_id", using: :btree

@@ -665,23 +665,6 @@ equipments:
     - "backend/equipments#new"
     - "backend/equipments#update"
 
-establishments:
-  read:
-    actions:
-    - "backend/establishments#index"
-    - "backend/establishments#list"
-    - "backend/establishments#show"
-    - "backend/establishments#unroll"
-  write:
-    dependencies:
-    - read-establishments
-    actions:
-    - "backend/establishments#create"
-    - "backend/establishments#destroy"
-    - "backend/establishments#edit"
-    - "backend/establishments#new"
-    - "backend/establishments#update"
-
 events:
   read:
     actions:

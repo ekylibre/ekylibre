@@ -22,7 +22,6 @@ class Backend::BuildingsController < Backend::ProductGroupsController
   list do |t|
     t.column :name, url: true
     t.column :description
-    # t.column :name, through: :establishment
     # t.column :name, through: :parent, url: true
     t.action :edit
     t.action :destroy

@@ -788,7 +788,7 @@ arb:
       entity_link_nature: "طبيعة الرابط بين الافراد" #?
       entity_nature: "نوع الفرد" #?
       equipment: "الاداة"
-      establishment: "المؤسسة"
+      establishment: "المؤسسة" #?
       event: "الحدث"
       event_nature: "نوع الحدث" #?
       # event_participation: "Event participation"
@@ -2320,8 +2320,6 @@ arb:
         other: "اخرى" #?
         towed: "اقتران" #?
         tractor: "تراكتور" #?
-    establishment:
-      # default: "Main"
     event_nature:  #?
       usages: #?
         mailing: "البريدي" #?

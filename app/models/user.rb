@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
 # = Informations
 #
 # == License
@@ -38,7 +38,6 @@
 #  employed                               :boolean          default(FALSE), not null
 #  employment                             :string
 #  encrypted_password                     :string           default(""), not null
-#  establishment_id                       :integer
 #  failed_attempts                        :integer          default(0)
 #  first_name                             :string           not null
 #  id                                     :integer          not null, primary key
@@ -67,7 +66,6 @@
 class User < Ekylibre::Record::Base
   include Rightable
   belongs_to :team
-  belongs_to :establishment
   belongs_to :person
   belongs_to :role
   has_many :crumbs

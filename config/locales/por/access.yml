@@ -31,7 +31,7 @@ por:
       documents: "Documentos"
       entities: "Entidades"
       equipments: "Equipamentos"
-      establishments: "Estabelecimentos"
+      establishments: "Estabelecimentos" #?
       events: "Eventos"
       exports: "Exportações"
       financial_assets: "Ativos financeiros"

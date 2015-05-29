@@ -160,10 +160,6 @@ por:
       # index: "Equipments"
       # new: "New equipment"
       # show: "Equipment: %{name}"
-    backend/establishments:
-      # edit: "Edit establishment: %{name}"
-      # index: "Establishments"
-      # new: "New establishment"
     backend/event_participations:
       # edit: "Edit participation: %{participant_name}"
     backend/events:

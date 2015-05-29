@@ -37,7 +37,6 @@
 #  employed                               :boolean          default(FALSE), not null
 #  employment                             :string
 #  encrypted_password                     :string           default(""), not null
-#  establishment_id                       :integer
 #  failed_attempts                        :integer          default(0)
 #  first_name                             :string           not null
 #  id                                     :integer          not null, primary key
@@ -94,7 +93,6 @@ users_001:
   employed: true
   employment: Dirigeant
   encrypted_password: "$2a$10$RjR/w.qqEZZUwmAI0WkYUO/tFfu/HAPPpyJHwDx370tvaE3NHF0Ea"
-  establishment_id: 1
   failed_attempts: 0
   first_name: Gendo
   id: 1

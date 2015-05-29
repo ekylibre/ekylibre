@@ -208,10 +208,10 @@ arb:
       # index: "Equipments"
       # new: "New equipment"
       # show: "Equipment: %{name}"
-    backend/establishments:
-      edit: "تعديل نموذج المرفق : %{name}"
-      index: "مرافق"
-      new: "اضافة مرفق جديد"
+    backend/establishments:  #?
+      edit: "تعديل نموذج المرفق : %{name}" #?
+      index: "مرافق" #?
+      new: "اضافة مرفق جديد" #?
     backend/event_natures:  #?
       edit: "تعديل نوع الحدث: %{name}" #?
       index: "انواع الاحداث" #?

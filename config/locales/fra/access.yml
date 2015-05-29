@@ -37,7 +37,7 @@ fra:
       documents: "Documents"
       entities: "Personnes (physiques et morales)"
       equipments: "Équipements"
-      establishments: "Établissements"
+      establishments: "Établissements" #?
       events: "Évènements"
       exports: "Exports"
       financial_assets: "Immobilisations"

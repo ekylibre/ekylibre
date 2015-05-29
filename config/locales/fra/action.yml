@@ -179,10 +179,10 @@ fra:
       index: "Équipements"
       new: "Nouvel équipement"
       show: "Équipement %{name}"
-    backend/establishments:
-      edit: "Modifier l’établissement\_: %{name}"
-      index: "Établissements"
-      new: "Nouvel établissement"
+    backend/establishments:  #?
+      edit: "Modifier l’établissement\_: %{name}" #?
+      index: "Établissements" #?
+      new: "Nouvel établissement" #?
     backend/event_participations:
       edit: "Modifier la participation de %{participant_name}"
     backend/events:

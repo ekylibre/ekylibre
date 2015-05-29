@@ -1024,17 +1024,6 @@
         <page to="backend/custom_fields#unroll"/>
         <page to="backend/custom_field_choices#unroll"/>
       </item>
-      <item name="establishments">
-        <page to="backend/establishments#index"/>
-        <page to="backend/establishments#create"/>
-        <page to="backend/establishments#destroy"/>
-        <page to="backend/establishments#edit"/>
-        <page to="backend/establishments#list"/>
-        <page to="backend/establishments#new"/>
-        <page to="backend/establishments#update"/>
-        <page to="backend/establishments#show"/>
-        <page to="backend/establishments#unroll"/>
-      </item>
       <item name="teams">
         <page to="backend/teams#index"/>
         <page to="backend/teams#create"/>

@@ -14,7 +14,6 @@
   #employee
     = f.input :employment
     = f.referenced_association :team
-    = f.referenced_association :establishment
 
 = field_set(:access) do
   = f.referenced_association :role, input_html: {data: {refresh_access_control_list: backend_role_url("ID")}}

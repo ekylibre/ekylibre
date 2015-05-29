@@ -37,7 +37,6 @@
 #  employed                               :boolean          default(FALSE), not null
 #  employment                             :string
 #  encrypted_password                     :string           default(""), not null
-#  establishment_id                       :integer
 #  failed_attempts                        :integer          default(0)
 #  first_name                             :string           not null
 #  id                                     :integer          not null, primary key

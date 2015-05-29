@@ -31,7 +31,6 @@ spa:
       # documents: "Documents"
       # entities: "Entities"
       # equipments: "Equipments"
-      # establishments: "Establishments"
       # events: "Events"
       # exports: "Exports"
       # financial_assets: "Financial assets"

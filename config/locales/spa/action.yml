@@ -182,10 +182,10 @@ spa:
       # index: "Equipments"
       # new: "New equipment"
       # show: "Equipment: %{name}"
-    backend/establishments:
-      edit: "Modificacion del establecimiento\_: %{name}"
-      index: "Establecimientos"
-      new: "Añadido de un nuevo establecimiento"
+    backend/establishments:  #?
+      edit: "Modificacion del establecimiento\_: %{name}" #?
+      index: "Establecimientos" #?
+      new: "Añadido de un nuevo establecimiento" #?
     backend/event_participations:
       # edit: "Edit participation: %{participant_name}"
     backend/events:

@@ -159,7 +159,7 @@ class Ekylibre::BackupExchanger < ActiveExchanger::Base
     database = dir.join("backup.xml")
     if database.exist?
       # CAUTION Fixed manually by counting points
-      w.count = 16
+      w.count = 15
       f = File.open(database)
       doc = Nokogiri::XML(f) do |config|
         config.strict.nonet.noblanks.noent
@@ -192,8 +192,6 @@ class Ekylibre::BackupExchanger < ActiveExchanger::Base
 
         # Import financial_years
         data.import(:financial_year, :code, rename: {last_journal_entry_id: nil})
-        w.check_point
-        data.import(:establishment, :nic, rename: {nic: :code, siret: nil})
         w.check_point
         data.import(:department, :name, model: :team)
         w.check_point

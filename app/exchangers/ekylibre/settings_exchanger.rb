@@ -12,7 +12,7 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
 
     # Manual count of check points
     # $ grep -rin check_point app/exchangers/ekylibre/settings_exchanger.rb | wc -l
-    w.count = 22 - 1
+    w.count = 21 - 1
 
     # Global preferences
     language = I18n.locale = @manifest[:language]
@@ -70,16 +70,9 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
 
     # Teams
     if can_load_default?(:teams)
-      @manifest[:teams] = {default: {name: Establishment.tc('default')}}
+      @manifest[:teams] = {default: {name: Team.tc('default')}}
     end
     create_records(:teams)
-    w.check_point
-
-    # Establishment
-    if can_load_default?(:establishments)
-      @manifest[:establishments] = {default: {name: Establishment.tc('default')}}
-    end
-    create_records(:establishments)
     w.check_point
 
     # Roles
@@ -99,7 +92,7 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
     for email, attributes in @manifest[:users]
       attributes[:administrator] = true unless attributes.has_key?(:administrator)
       attributes[:language] ||= language
-      for ref in [:role, :team, :establishment]
+      for ref in [:role, :team]
         attributes[ref] ||= :default
         attributes[ref] = get_record(ref.to_s.pluralize, attributes[ref])
       end

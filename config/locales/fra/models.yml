@@ -264,7 +264,7 @@ fra:
       entity_address: "Adresse"
       entity_link: "Lien de personne"
       equipment: "Équipement"
-      establishment: "Établissement"
+      establishment: "Établissement" #?
       event: "Évènement"
       event_participation: "Participation à un évènement"
       financial_asset: "Immobilisation"
@@ -1300,8 +1300,8 @@ fra:
       no_right_defined_for_this_part_of_the_application: "Aucun droit défini pour cette partie de l’application\_: %{controller}/%{action}"
       no_right_defined_for_this_part_of_the_application_and_this_user: "Vous n’avez pas accès à cette partie de l’application"
       supplier: "Fournisseur"
-    establishment:
-      default: "Principal"
+    establishment:  #?
+      default: "Principal" #?
     financial_year:
       bookkeep: "[%{resource} %{number}] Amortissement de %{name} (%{position}/%{total})"
       code:

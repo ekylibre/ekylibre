@@ -158,7 +158,6 @@ eng:
       entity_address: "Address"
       entity_link: "Entity link"
       equipment: "Equipment"
-      establishment: "Establishment"
       event: "Event"
       event_participation: "Event participation"
       financial_asset: "Financial asset"
@@ -510,7 +509,7 @@ eng:
     entry: "Entry"
     entry_items: "Entry items"
     entry_number: "Entry number"
-    establishment: "Establishment"
+    establishment: "Establishment" #?
     event: "Event"
     event_participation: "Event participation"
     events: "Events"
@@ -1096,8 +1095,6 @@ eng:
       no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application: %{controller}%{action}"
       no_right_defined_for_this_part_of_the_application_and_this_user: "You can not access to this page"
       supplier: "Supplier"
-    establishment:
-      default: "Main"
     financial_year:
       bookkeep: "[%{resource} %{number}] Depreciation of %{name} (%{position}/%{total})"
       code:
