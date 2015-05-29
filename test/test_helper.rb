@@ -592,7 +592,7 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
 
     # puts script.red
     page.execute_script script
-    # sleep(1)
+    sleep(1)
     if options[:name]
       shoot_screen "#{options[:name]}/unroll-after"
     end

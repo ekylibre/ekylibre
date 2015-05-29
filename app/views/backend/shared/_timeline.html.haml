@@ -1,12 +1,12 @@
 .timeline-tools
   - timeline.sides.each do |side|
-    %span.timeline-tool
+    %span.timeline-tool{class: "tl-#{side.name}"}
       = link_to("#", class: "btn#{' active' unless side.count.zero?}", data: {toggle_timesteps: side.model_name}, disabled: side.count.zero?) do
         = side.human_name
         - if side.count > 0
           %span.badge= side.count
       - if side.new_url?
-        = link_to({controller: side.controller_name, action: :new, redirect: request.fullpath}.merge(side.params), class: "btn btn-new") do
+        = link_to({controller: side.controller_name, action: :new, redirect: request.fullpath}.merge(side.params), class: "btn btn-new", title: :new.tl) do
           %i
 .timeline
   - timeline.steps.each do |step|

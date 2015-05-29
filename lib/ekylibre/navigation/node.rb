@@ -76,7 +76,10 @@ module Ekylibre
       end
 
       def human_name
-        "navigation.#{@name}_#{@type}".t(default: ["navigation.#{@name}".to_sym, "labels.#{@name}".to_sym, default_page.human_name])
+        default = ["navigation.#{@name}".to_sym]
+        default << "labels.#{@name}".to_sym if @children.any?
+        default << default_page.human_name
+        "navigation.#{@name}_#{@type}".t(default: default)
       end
 
       def inspect

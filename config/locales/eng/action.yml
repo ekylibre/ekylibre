@@ -1121,7 +1121,7 @@ eng:
     net_margin: "Net margin"
     net_mass: "Net mass"
     net_surface_area: "Net surface area"
-    new: "New" #?
+    new: "New"
     new_box: "New box"
     new_deposit:
       one: "Make a deposit %{mode}: 1 available payment"
