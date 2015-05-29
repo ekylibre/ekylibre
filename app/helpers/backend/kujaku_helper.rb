@@ -34,7 +34,7 @@ module Backend::KujakuHelper
     end
     return "" unless k.feathers.any?
     collapsed = current_user.preference("interface.kujakus.#{k.uid}.collapsed", (options.has_key?(:collapsed) ? !!options[:collapsed] : true), :boolean).value
-    return render("backend/shared/kujaku", kujaku: k, url: url, collapsed: collapsed)
+    return render("backend/shared/kujaku", kujaku: k, url: url, collapsed: collapsed, with_form: !options[:form].is_a?(FalseClass))
   end
 
   class Kujaku

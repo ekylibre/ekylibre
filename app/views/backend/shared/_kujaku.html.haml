@@ -2,20 +2,8 @@
   classes = []
   classes << :collapsed if collapsed
 .kujaku{class: classes, id: kujaku.uid}
-  = form_tag(url, method: :get) do
-    - if kujaku.feathers.count > 1
-      = link_to(toggle_backend_kujaku_url(kujaku.uid), data: {toggle: "kujaku"}) do
-        %i
-    .feathers
-      - kujaku.feathers.each_with_index do |feather, index|
-        .feather{class: "feather-#{feather.feather_name}"}
-          = feather.to_html
-          - if index.zero?
-            = button_tag(data: {disable: true}, name: nil, class: "filter") do
-              %i
-              = :search.tl
-    .search-actions
-      = button_tag(data: {disable: true}, name: nil, class: "filter") do
-        %i
-        = :search.tl
-
+  - if with_form
+    = form_tag(url, method: :get) do
+      = render "backend/shared/kujaku/body", kujaku: kujaku
+  - else
+    = render "backend/shared/kujaku/body", kujaku: kujaku
