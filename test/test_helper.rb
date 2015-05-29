@@ -579,7 +579,9 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
     # sleep(1)
     # page.execute_script "$('input##{field}').focus();"
     # page.execute_script "$('input##{field}').keydown();"
-    shoot_screen "#{options[:name]}/unroll-before"
+    if options[:name]
+      shoot_screen "#{options[:name]}/unroll-before"
+    end
 
     # length = page.evaluate_script "$('#{selector}').length;"
     # assert_equal length >= 1, "No unrolled elements"
@@ -591,7 +593,9 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
     # puts script.red
     page.execute_script script
     # sleep(1)
-    shoot_screen "#{options[:name]}/unroll-after"
+    if options[:name]
+      shoot_screen "#{options[:name]}/unroll-after"
+    end
   end
 
 end
