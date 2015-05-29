@@ -924,10 +924,9 @@
   </part>
   <part name="settings" icon="wrench">
     <page to="backend/dashboards#settings"/>
-    <group name="parameters" icon="wrench">
-      <item name="settings">
-        <page to="backend/settings#edit"/>
-        <page to="backend/settings#update"/>
+    <group name="preferences" icon="user">
+      <item name="myselves">
+        <page to="backend/myselves#show"/>
       </item>
       <item name="dashboards">
         <page to="backend/dashboards#index"/>
@@ -938,31 +937,11 @@
         <page to="backend/dashboards#new"/>
         <page to="backend/dashboards#update"/>
       </item>
-      <item name="sequences">
-        <page to="backend/sequences#index"/>
-        <page to="backend/sequences#create"/>
-        <page to="backend/sequences#destroy"/>
-        <page to="backend/sequences#edit"/>
-        <page to="backend/sequences#list"/>
-        <page to="backend/sequences#load"/>
-        <page to="backend/sequences#new"/>
-        <page to="backend/sequences#show"/>
-        <page to="backend/sequences#unroll"/>
-        <page to="backend/sequences#update"/>
-      </item>
-      <item name="roles">
-        <page to="backend/roles#index"/>
-        <page to="backend/roles#create"/>
-        <page to="backend/roles#destroy"/>
-        <page to="backend/roles#edit"/>
-        <page to="backend/roles#incorporate"/>
-        <page to="backend/roles#list"/>
-        <page to="backend/roles#list_users"/>
-        <page to="backend/roles#pick"/>
-        <page to="backend/roles#new"/>
-        <page to="backend/roles#show"/>
-        <page to="backend/roles#unroll"/>
-        <page to="backend/roles#update"/>
+    </group>
+    <group name="parameters" icon="wrench">
+      <item name="settings">
+        <page to="backend/settings#edit"/>
+        <page to="backend/settings#update"/>
       </item>
       <item name="users">
         <page to="backend/users#index"/>
@@ -977,8 +956,30 @@
         <page to="backend/users#unroll"/>
         <page to="backend/users#update"/>
       </item>
-      <item name="myselves">
-        <page to="backend/myselves#show"/>
+      <item name="teams">
+        <page to="backend/teams#index"/>
+        <page to="backend/teams#create"/>
+        <page to="backend/teams#destroy"/>
+        <page to="backend/teams#edit"/>
+        <page to="backend/teams#list"/>
+        <page to="backend/teams#new"/>
+        <page to="backend/teams#show"/>
+        <page to="backend/teams#unroll"/>
+        <page to="backend/teams#update"/>
+      </item>
+      <item name="roles">
+        <page to="backend/roles#index"/>
+        <page to="backend/roles#create"/>
+        <page to="backend/roles#destroy"/>
+        <page to="backend/roles#edit"/>
+        <page to="backend/roles#incorporate"/>
+        <page to="backend/roles#list"/>
+        <page to="backend/roles#list_users"/>
+        <page to="backend/roles#pick"/>
+        <page to="backend/roles#new"/>
+        <page to="backend/roles#show"/>
+        <page to="backend/roles#unroll"/>
+        <page to="backend/roles#update"/>
       </item>
       <item name="net_services">
         <page to="backend/net_services#index"/>
@@ -1024,17 +1025,6 @@
         <page to="backend/custom_fields#unroll"/>
         <page to="backend/custom_field_choices#unroll"/>
       </item>
-      <item name="teams">
-        <page to="backend/teams#index"/>
-        <page to="backend/teams#create"/>
-        <page to="backend/teams#destroy"/>
-        <page to="backend/teams#edit"/>
-        <page to="backend/teams#list"/>
-        <page to="backend/teams#new"/>
-        <page to="backend/teams#show"/>
-        <page to="backend/teams#unroll"/>
-        <page to="backend/teams#update"/>
-      </item>
       <item name="document_templates">
         <page to="backend/document_templates#index"/>
         <page to="backend/document_templates#create"/>
@@ -1046,6 +1036,18 @@
         <page to="backend/document_templates#update"/>
         <page to="backend/document_templates#show"/>
         <page to="backend/document_templates#unroll"/>
+      </item>
+      <item name="sequences">
+        <page to="backend/sequences#index"/>
+        <page to="backend/sequences#create"/>
+        <page to="backend/sequences#destroy"/>
+        <page to="backend/sequences#edit"/>
+        <page to="backend/sequences#list"/>
+        <page to="backend/sequences#load"/>
+        <page to="backend/sequences#new"/>
+        <page to="backend/sequences#show"/>
+        <page to="backend/sequences#unroll"/>
+        <page to="backend/sequences#update"/>
       </item>
       <item name="about">
         <page to="backend/settings#about"/>
