@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -36,15 +35,7 @@ class Backend::BankStatementsController < Backend::BaseController
 
   # Displays the main page with the list of bank statements
   def index
-    cashes = Cash.bank_accounts
-    unless cashes.any?
-      notify(:need_cash_to_record_statements)
-      redirect_to new_backend_cash_url(nature: :bank_account)
-      return
-    end
-    if count = JournalEntryItem.where(bank_statement_id: nil, account_id: cashes.pluck(:account_id)).count and count > 0
-      notify_now(:x_unpointed_journal_entry_items, count: count)
-    end
+    redirect_to backend_cashes_url
   end
 
   list(:items, model: :journal_entry_items, conditions: {bank_statement_id: 'params[:id]'.c}, order: :entry_id) do |t|
@@ -56,7 +47,6 @@ class Backend::BankStatementsController < Backend::BaseController
     t.column :debit, currency: true
     t.column :credit, currency: true
   end
-
 
   def point
     return unless @bank_statement = find_and_check

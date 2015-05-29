@@ -215,6 +215,17 @@
         <page to="backend/cashes#show"/>
         <page to="backend/cashes#unroll"/>
         <page to="backend/cashes#update"/>
+        <page to="backend/bank_statements#index"/>
+        <page to="backend/bank_statements#create"/>
+        <page to="backend/bank_statements#destroy"/>
+        <page to="backend/bank_statements#edit"/>
+        <page to="backend/bank_statements#list"/>
+        <page to="backend/bank_statements#list_items"/>
+        <page to="backend/bank_statements#new"/>
+        <page to="backend/bank_statements#point"/>
+        <page to="backend/bank_statements#show"/>
+        <page to="backend/bank_statements#unroll"/>
+        <page to="backend/bank_statements#update"/>
       </item>
       <item name="loans">
         <page to="backend/loans#index"/>
@@ -238,19 +249,6 @@
         <page to="backend/cash_transfers#show"/>
         <page to="backend/cash_transfers#unroll"/>
         <page to="backend/cash_transfers#update"/>
-      </item>
-      <item name="bank_statements">
-        <page to="backend/bank_statements#index"/>
-        <page to="backend/bank_statements#create"/>
-        <page to="backend/bank_statements#destroy"/>
-        <page to="backend/bank_statements#edit"/>
-        <page to="backend/bank_statements#list"/>
-        <page to="backend/bank_statements#list_items"/>
-        <page to="backend/bank_statements#new"/>
-        <page to="backend/bank_statements#point"/>
-        <page to="backend/bank_statements#show"/>
-        <page to="backend/bank_statements#unroll"/>
-        <page to="backend/bank_statements#update"/>
       </item>
     </group>
   </part>

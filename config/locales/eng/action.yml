@@ -1571,7 +1571,7 @@ eng:
       need_a_valid_purchase_nature_to_start_new_purchase: "Need a valid purchase nature to start new purchase"
       need_a_valid_sale_nature_to_start_new_sale: "Need a valid sale nature to start new sale"
       need_building_to_record_stock_moves: "You must create a building to be able to manage stocks."
-      need_cash_to_record_statements: "You must be at least create a bank account to enter a statement."
+      need_cash_to_record_statements: "You must be at least create a bank account to enter a statement." #?
       need_entries_to_point: "No entry was found for the period of the bank statement."
       need_payment_mode_to_create_deposit: "You must specify a mode of payment in order to make deposits"
       need_quantities_to_cancel_an_sale: "You must specify a quantity in order to cancel the sales invoice" #?
