@@ -4,18 +4,20 @@
   - t.reopen resource if resource.reopenable?
   - t.new(params: {controller: :journal_entries, journal_id: resource.id}, label: :add_entry.tl)
 
+= journals_tag
+
 = kujaku(popover: false) do |k|
   - k.text
   - k.helper :journal_entries_states_crit
   - k.helper :journal_period_crit
 
+= main_list(:items)
+
 = beehive do |b|
-  - b.cell :journals do
-    = journals_tag
-  - b.hbox do
-    - b.cell :entry_items, title: Journal.human_attribute_name(:entry_items) do
-      = journal_view_tag
-      = list(@journal_view.to_sym)
+  -# - b.hbox do
+  -#   - b.cell :entry_items, title: Journal.human_attribute_name(:entry_items) do
+  -#     = journal_view_tag
+  -#     = list(:items)
 
   - b.hbox do
     - b.cell :totals, title: Journal.human_attribute_name(:totals) do
@@ -26,7 +28,7 @@
         totals[:real_debit]  = JournalEntry.where(conditions).sum(:real_debit)
         totals[:real_credit] = JournalEntry.where(conditions).sum(:real_credit)
         totals[:real_balance_debit] = totals[:real_balance_credit] = 0.0
-        totals["real_balance_#{totals[:real_debit]>totals[:real_credit] ? 'debit' : 'credit'}".to_sym] = (totals[:real_debit]-totals[:real_credit]).abs
+        totals["real_balance_#{totals[:real_debit]>totals[:real_credit] ? 'debit' : 'credit'}".to_sym] = (totals[:real_debit] - totals[:real_credit]).abs
       %table
         %tbody
           %tr.important.total
@@ -47,8 +49,6 @@
               %th= :balance.tl
               %td.decimal= totals[:real_balance_debit].l(currency: resource.currency)
               %td.decimal= totals[:real_balance_credit].l(currency: resource.currency)
-
-
 
     - b.cell :details do
       = attributes_list(resource) do |l|
