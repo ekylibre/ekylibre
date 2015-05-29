@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2012 Brice Texier
@@ -23,13 +22,13 @@ class Backend::PurchaseNaturesController < Backend::BaseController
   unroll
 
   list do |t|
+    t.action :edit
+    t.action :destroy
     t.column :name, url: true
     t.column :active
     t.column :currency
     t.column :with_accounting
     t.column :journal, url: true
-    t.action :edit
-    t.action :destroy
   end
 
 end

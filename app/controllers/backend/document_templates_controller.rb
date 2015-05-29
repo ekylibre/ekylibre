@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -23,14 +22,14 @@ class Backend::DocumentTemplatesController < Backend::BaseController
   unroll
 
   list(order: :name) do |t|
+    t.action :edit
+    t.action :destroy, if: :destroyable?
     t.column :active
     t.column :name
     t.column :nature
     t.column :by_default
     t.column :archiving
     t.column :language
-    t.action :edit
-    t.action :destroy, if: :destroyable?
   end
 
   # Loads ou reloads.all managed document templates

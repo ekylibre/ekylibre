@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -25,17 +24,17 @@ class Backend::InventoriesController < Backend::BaseController
   unroll
 
   list do |t|
-    t.column :name, url: true
-    t.column :achieved_at
-    t.column :reflected_at
-    t.column :reflected
-    t.column :responsible, url: true
-    # t.column :description
     # t.action :show, url: {format: :pdf}, image: :print
     t.action :refresh,   if: :editable?, method: :post, confirm: :are_you_sure
     t.action :reflect, if: :reflectable?, method: :post, image: "action", confirm: :are_you_sure
     t.action :edit
     t.action :destroy
+    t.column :name, url: true
+    t.column :achieved_at
+    t.column :reflected_at
+    t.column :reflected
+    t.column :responsible, url: true
+    t.column :description, hidden: true
   end
 
   # Displays the main page with the list of inventories

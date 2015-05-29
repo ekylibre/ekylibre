@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -40,26 +39,26 @@ class Backend::ProductNaturesController < Backend::BaseController
   end
 
   list do |t|
+    t.action :edit
+    t.action :destroy, if: :destroyable?
     t.column :name, url: true
     t.column :category, url: true
     t.column :reference_name
     t.column :active
     t.column :variety
     t.column :derivative_of
-    t.action :edit
-    t.action :destroy, if: :destroyable?
   end
 
   list(:variants, model: :product_nature_variants, conditions: {nature_id: 'params[:id]'.c}, order: :name) do |t|
+    t.action :new, on: :none, url: {nature_id: 'params[:id]'.c, redirect: 'request.fullpath'.c}
+    t.action :edit
+    t.action :destroy
     t.column :active
     t.column :number, url: true
     t.column :name, url: true
     t.column :variety
     t.column :derivative_of
     t.column :unit_name
-    t.action :new, on: :none, url: {nature_id: 'params[:id]'.c, redirect: 'request.fullpath'.c}
-    t.action :edit
-    t.action :destroy
   end
 
 end

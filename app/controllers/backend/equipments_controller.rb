@@ -35,13 +35,13 @@ class Backend::EquipmentsController < Backend::MattersController
   end
 
   list(conditions: equipments_conditions, joins: :variants) do |t|
+    t.action :edit
+    t.action :destroy
     t.column :work_number, url: true
     t.column :name, url: true
     t.column :born_at
     t.status
     t.column :container, url: true
-    t.action :edit
-    t.action :destroy
   end
 
 end

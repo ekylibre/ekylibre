@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2013-2013 Brice Texier
@@ -17,13 +16,4 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 class Backend::PeopleController < Backend::EntitiesController
-  # manage_restfully :t3e => {:name => :name}
-
-  # unroll
-
-  # list do |t|
-  #   t.column :number, url: true
-  #   t.column :full_name, url: true
-  # end
-
 end

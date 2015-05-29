@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -24,6 +23,8 @@ class Backend::SaleNaturesController < Backend::BaseController
   unroll
 
   list do |t|
+    t.action :edit
+    t.action :destroy
     t.column :name, url: true
     t.column :active
     t.column :currency
@@ -35,8 +36,6 @@ class Backend::SaleNaturesController < Backend::BaseController
     t.column :with_accounting
     t.column :journal, url: true
     #t.column :description
-    t.action :edit
-    t.action :destroy
   end
 
 end

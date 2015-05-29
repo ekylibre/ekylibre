@@ -1,4 +1,3 @@
-# encoding: utf-8
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2009-2012 Brice Texier
@@ -44,17 +43,6 @@ class Backend::BaseController < BaseController
 
   hide_action :respond_with, :respond_with_without_template
   alias_method_chain :respond_with, :template
-
-  # def render_restfully_form(options = {})
-  #   # operation = self.action_name.to_sym
-  #   # operation = (operation == :create ? :new : operation == :update ? :edit : operation)
-  #   # partial   = options[:partial] || 'form'
-  #   # options[:form_options] = {} unless options[:form_options].is_a?(Hash)
-  #   # options[:form_options][:multipart] = true if options[:multipart]
-  #   # render(:template => options[:template]||"forms/#{operation}", :locals => {:operation => operation, :partial => partial, :options => options})
-  #   render(:template  => "forms/#{self.action_name}", :locals => {:options => options})
-  # end
-
 
   # Find a record with the current environment or given parameters and check availability of it
   def find_and_check(*args)
@@ -219,156 +207,106 @@ class Backend::BaseController < BaseController
     redirect_to_back(options.merge(direct: true))
   end
 
-  # Autocomplete helper
-  def self.autocomplete_for(column, options = {})
-    model = (options.delete(:model) || controller_name).to_s.classify.constantize
-    item =  model.name.underscore.to_s
-    items = item.pluralize
-    items = "many_#{items}" if items == item
-    code =  "def #{__method__}_#{column}\n"
-    code << "  if params[:term]\n"
-    code << "    pattern = '%'+params[:term].to_s.mb_chars.downcase.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'\n"
-    code << "    @#{items} = #{model.name}.select('DISTINCT #{column}').where('LOWER(#{column}) LIKE ?', pattern).order('#{column} ASC').limit(80)\n"
-    code << "    respond_to do |format|\n"
-    code << "      format.html { render :inline => \"<%=content_tag(:ul, @#{items}.map { |#{item}| content_tag(:li, #{item}.#{column})) }.join.html_safe)%>\" }\n"
-    code << "      format.json { render :json => @#{items}.collect{|#{item}| #{item}.#{column}}.to_json }\n"
-    code << "    end\n"
-    code << "  else\n"
-    code << "    render :text => '', :layout => true\n"
-    code << "  end\n"
-    code << "end\n"
-    class_eval(code, "#{__FILE__}:#{__LINE__}")
-  end
+  class << self
 
-  # search is a hash like {table: [columns...]}
-  def self.search_conditions(search = {}, options={})
-    conditions = options[:conditions] || 'c'
-    options[:except]  ||= []
-    options[:filters] ||= {}
-    variable ||= options[:variable] || "params[:q]"
-    tables = search.keys.select{|t| !options[:except].include? t}
-    code = "\n#{conditions} = ['1=1']\n"
-    columns = search.collect do |table, filtered_columns|
-      filtered_columns.collect do |column|
-        ActiveRecord::Base.connection.quote_table_name(table.is_a?(Symbol) ? table.to_s.classify.constantize.table_name : table) +
-          "." +
-          ActiveRecord::Base.connection.quote_column_name(column)
+    # Autocomplete helper
+    def autocomplete_for(column, options = {})
+      model = (options.delete(:model) || controller_name).to_s.classify.constantize
+      item =  model.name.underscore.to_s
+      items = item.pluralize
+      items = "many_#{items}" if items == item
+      code =  "def #{__method__}_#{column}\n"
+      code << "  if params[:term]\n"
+      code << "    pattern = '%'+params[:term].to_s.mb_chars.downcase.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'\n"
+      code << "    @#{items} = #{model.name}.select('DISTINCT #{column}').where('LOWER(#{column}) LIKE ?', pattern).order('#{column} ASC').limit(80)\n"
+      code << "    respond_to do |format|\n"
+      code << "      format.html { render :inline => \"<%=content_tag(:ul, @#{items}.map { |#{item}| content_tag(:li, #{item}.#{column})) }.join.html_safe)%>\" }\n"
+      code << "      format.json { render :json => @#{items}.collect{|#{item}| #{item}.#{column}}.to_json }\n"
+      code << "    end\n"
+      code << "  else\n"
+      code << "    render :text => '', :layout => true\n"
+      code << "  end\n"
+      code << "end\n"
+      class_eval(code, "#{__FILE__}:#{__LINE__}")
+    end
+
+    # search is a hash like {table: [columns...]}
+    def search_conditions(search = {}, options={})
+      conditions = options[:conditions] || 'c'
+      options[:except]  ||= []
+      options[:filters] ||= {}
+      variable ||= options[:variable] || "params[:q]"
+      tables = search.keys.select{|t| !options[:except].include? t}
+      code = "\n#{conditions} = ['1=1']\n"
+      columns = search.collect do |table, filtered_columns|
+        filtered_columns.collect do |column|
+          ActiveRecord::Base.connection.quote_table_name(table.is_a?(Symbol) ? table.to_s.classify.constantize.table_name : table) +
+            "." +
+            ActiveRecord::Base.connection.quote_column_name(column)
+        end
+      end.flatten
+      code << "for kw in #{variable}.to_s.lower.split(/\\s+/)\n"
+      code << "  kw = '%'+kw+'%'\n"
+      filters = columns.collect do |x|
+        'LOWER(CAST('+x.to_s+' AS VARCHAR)) LIKE ?'
       end
-    end.flatten
-    code << "for kw in #{variable}.to_s.lower.split(/\\s+/)\n"
-    code << "  kw = '%'+kw+'%'\n"
-    filters = columns.collect do |x|
-      'LOWER(CAST('+x.to_s+' AS VARCHAR)) LIKE ?'
+      values = '['+(['kw']*columns.size).join(', ')+']'
+      for k, v in options[:filters]
+        filters << k
+        v = '['+v.join(', ')+']' if v.is_a? Array
+        values += "+"+v
+      end
+      code << "  #{conditions}[0] += ' AND (#{filters.join(' OR ')})'\n"
+      code << "  #{conditions} += #{values}\n"
+      code << "end\n"
+      code << "#{conditions}"
+      return code.c
     end
-    values = '['+(['kw']*columns.size).join(', ')+']'
-    for k, v in options[:filters]
-      filters << k
-      v = '['+v.join(', ')+']' if v.is_a? Array
-      values += "+"+v
+
+
+    # accountancy -> accounts_range_crit
+    def accounts_range_crit(variable, conditions='c')
+      variable = "params[:#{variable}]" unless variable.is_a? String
+      code = ""
+      # code << "ac, #{variable}[:accounts] = \n"
+      code << "#{conditions}[0] += ' AND '+Account.range_condition(#{variable}[:accounts])\n"
+      return code.c
     end
-    code << "  #{conditions}[0] += ' AND (#{filters.join(' OR ')})'\n"
-    code << "  #{conditions} += #{values}\n"
-    code << "end\n"
-    code << "#{conditions}"
-    return code.c
-  end
 
-
-  # accountancy -> accounts_range_crit
-  def self.accounts_range_crit(variable, conditions='c')
-    variable = "params[:#{variable}]" unless variable.is_a? String
-    code = ""
-    # code << "ac, #{variable}[:accounts] = \n"
-    code << "#{conditions}[0] += ' AND '+Account.range_condition(#{variable}[:accounts])\n"
-    return code.c
-  end
-
-  # accountancy -> crit_params
-  def self.crit_params(hash)
-    nh = {}
-    keys = JournalEntry.state_machine.states.collect{|s| s.name}
-    keys += [:period, :started_at, :stopped_at, :accounts, :centralize]
-    for k, v in hash
-      nh[k] = hash[k] if k.to_s.match(/^(journal|level)_\d+$/) or keys.include? k.to_sym
+    # accountancy -> crit_params
+    def crit_params(hash)
+      nh = {}
+      keys = JournalEntry.state_machine.states.collect{|s| s.name}
+      keys += [:period, :started_at, :stopped_at, :accounts, :centralize]
+      for k, v in hash
+        nh[k] = hash[k] if k.to_s.match(/^(journal|level)_\d+$/) or keys.include? k.to_sym
+      end
+      return nh
     end
-    return nh
-  end
 
-  # accountancy -> general_ledger_conditions
-  def self.general_ledger_conditions(options={})
-    conn = ActiveRecord::Base.connection
-    code = ""
-    code << "c=['1=1']\n"
-    code << journal_period_crit("params")
-    code << journal_entries_states_crit("params")
-    code << accounts_range_crit("params")
-    code << journals_crit("params")
-    code << "c\n"
-    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-    return code.c # .gsub(/\s*\n\s*/, ";")
-  end
+    # accountancy -> journal_entries_states_crit
+    def journal_entries_states_crit(variable, conditions='c')
+      variable = "params[:#{variable}]" unless variable.is_a? String
+      code = ""
+      code << "#{conditions}[0] += ' AND '+JournalEntry.state_condition(#{variable}[:states])\n"
+      return code.c
+    end
 
+    # accountancy -> journal_period_crit
+    def journal_period_crit(variable, conditions='c')
+      variable = "params[:#{variable}]" unless variable.is_a? String
+      code = ""
+      code << "#{conditions}[0] += ' AND '+JournalEntry.period_condition(#{variable}[:period], #{variable}[:started_at], #{variable}[:stopped_at])\n"
+      return code.c
+    end
 
-  # accountancy -> journal_entries_states_crit
-  def self.journal_entries_states_crit(variable, conditions='c')
-    variable = "params[:#{variable}]" unless variable.is_a? String
-    code = ""
-    code << "#{conditions}[0] += ' AND '+JournalEntry.state_condition(#{variable}[:states])\n"
-    return code.c
-  end
-
-  # accountancy -> journal_period_crit
-  def self.journal_period_crit(variable, conditions='c')
-    variable = "params[:#{variable}]" unless variable.is_a? String
-    code = ""
-    code << "#{conditions}[0] += ' AND '+JournalEntry.period_condition(#{variable}[:period], #{variable}[:started_at], #{variable}[:stopped_at])\n"
-    return code.c
-  end
-
-  # accountancy -> journals_crit
-  def self.journals_crit(variable, conditions='c')
-    variable = "params[:#{variable}]" unless variable.is_a? String
-    code = ""
-    code << "#{conditions}[0] += ' AND '+JournalEntry.journal_condition(#{variable}[:journals])\n"
-    return code.c
-  end
-
-  # management -> moved_conditions
-  def self.moved_conditions(model, state='params[:s]')
-    code = "\n"
-    code << "c||=['1=1']\n"
-    code << "if #{state}=='unconfirmed'\n"
-    code << "  c[0] += ' AND moved_at IS NULL'\n"
-    code << "elsif #{state}=='confirmed'\n"
-    code << "  c[0] += ' AND moved_at IS NOT NULL'\n"
-    code << "end\n"
-    code << "c\n"
-    return code.c
-  end
-
-  # management -> shipping_conditions
-  def self.shipping_conditions(model, state='params[:s]')
-    code = "\n"
-    code << "c||=['1=1']\n"
-    code << "if #{state}=='unconfirmed'\n"
-    code << "  c[0] += ' AND sent_at IS NULL'\n"
-    code << "elsif #{state}=='confirmed'\n"
-    code << "  c[0] += ' AND sent_at IS NOT NULL'\n"
-    code << "end\n"
-    code << "c\n"
-    return code.c
-  end
-
-  # management -> prices_conditions
-  def self.prices_conditions(options={})
-    code = "conditions=[]\n"
-    code << "if params[:supplier_id] == 0 \n "
-    code << " conditions = ['#{ProductPriceTemplate.table_name}.active = ?', true] \n "
-    code << "else \n "
-    code << " conditions = ['#{ProductPriceTemplate.table_name}.supplier_id = ? AND #{ProductPriceTemplate.table_name}.active = ?', params[:supplier_id], true]"
-    code << "end \n "
-    code << "conditions \n "
-    return code.c
+    # accountancy -> journals_crit
+    def journals_crit(variable, conditions='c')
+      variable = "params[:#{variable}]" unless variable.is_a? String
+      code = ""
+      code << "#{conditions}[0] += ' AND '+JournalEntry.journal_condition(#{variable}[:journals])\n"
+      return code.c
+    end
   end
 
 end

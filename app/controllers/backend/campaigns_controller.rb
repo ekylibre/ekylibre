@@ -1,4 +1,3 @@
-# coding: utf-8
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2013 David Joulin, Brice Texier
@@ -23,11 +22,11 @@ class Backend::CampaignsController < Backend::BaseController
   unroll
 
   list do |t|
+    t.action :edit
+    t.action :destroy, if: :destroyable?
     t.column :name, url: true
     t.column :harvest_year
     t.column :closed
-    t.action :edit
-    t.action :destroy, if: :destroyable?
   end
 
   # List of productions for one campaign

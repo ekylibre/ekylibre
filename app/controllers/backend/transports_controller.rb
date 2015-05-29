@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -23,13 +22,13 @@ class Backend::TransportsController < Backend::BaseController
   unroll
 
   list(conditions: search_conditions(:transports => [:number, :annotation], :entities => [:number, :full_name])) do |t|
+    t.action :edit
+    t.action :destroy
     t.column :number, url: true
     t.column :annotation
     t.column :departed_at
     t.column :transporter, label_method: :full_name, url: true
     t.column :net_mass
-    t.action :edit
-    t.action :destroy
   end
 
   list(:deliveries, model: :outgoing_deliveries, conditions: {transport_id: 'params[:id]'.c}) do |t|

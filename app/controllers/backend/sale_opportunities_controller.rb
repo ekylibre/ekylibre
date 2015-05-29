@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2015 Brice Texier, David Joulin
@@ -35,6 +34,8 @@ class Backend::SaleOpportunitiesController < Backend::AffairsController
   end
 
   list(conditions: conditions, joins: :client, order: {created_at: :desc, number: :desc}) do |t|
+    t.action :edit
+    t.action :destroy
     t.column :number, url: true
     t.column :name
     t.column :created_at
@@ -45,9 +46,6 @@ class Backend::SaleOpportunitiesController < Backend::AffairsController
     t.status
     t.column :state_label
     t.column :pretax_amount, currency: true
-    # t.action :show, url: {format: :pdf}, image: :print
-    t.action :edit
-    t.action :destroy
   end
 
   SaleOpportunity.state_machine.events.each do |event|

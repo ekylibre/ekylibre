@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -20,12 +19,12 @@
 class Backend::ProductGroupsController < Backend::ProductsController
 
   list do |t|
-    t.column :name, url: true
-    t.column :variety
-    t.column :description
     # t.action :show, url: {format: :pdf}, image: :print
     t.action :edit
     t.action :destroy, if: :destroyable?
+    t.column :name, url: true
+    t.column :variety
+    t.column :description
   end
 
 end

@@ -1,7 +1,6 @@
-# encoding: utf-8
 # == License
 # Ekylibre - Simple agricultural ERP
-# Copyright (C) 2013 Brice Texier, David Joulin
+# Copyright (C) 2015 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by

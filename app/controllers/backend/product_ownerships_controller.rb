@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -16,13 +15,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-class Backend::ProductOwnershipsController < Backend::BaseController
-  # manage_restfully
 
-  # list do |t|
-  #   t.column :product, url: true
-  #   t.column :owner, url: true
-  #   t.column :started_at
-  #   t.column :stopped_at
-  # end
+class Backend::ProductOwnershipsController < Backend::BaseController
 end

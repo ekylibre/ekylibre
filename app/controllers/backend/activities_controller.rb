@@ -1,4 +1,3 @@
-# coding: utf-8
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2013 David Joulin, Brice Texier
@@ -23,6 +22,9 @@ class Backend::ActivitiesController < Backend::BaseController
   unroll
 
   list do |t|
+    # t.action :show, url: {format: :pdf}, image: :print
+    t.action :edit
+    t.action :destroy, if: :destroyable?
     t.column :name, url: true
     t.column :nature
     t.column :family
@@ -30,9 +32,6 @@ class Backend::ActivitiesController < Backend::BaseController
     t.column :cultivation_variety, hidden: true
     t.column :with_supports
     t.column :support_variety, hidden: true
-    # t.action :show, url: {format: :pdf}, image: :print
-    t.action :edit
-    t.action :destroy, if: :destroyable?
   end
 
 

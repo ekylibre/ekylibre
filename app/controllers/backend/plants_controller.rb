@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2012-2013 David Joulin, Brice Texier
@@ -20,13 +19,12 @@
 class Backend::PlantsController < Backend::MattersController
 
   list do |t|
-    # t.column :work_number, url: true
+    t.action :edit
+    t.action :destroy, if: :destroyable?
     t.column :name, url: true
     t.column :container, url: true
     t.column :net_surface_area, datatype: :measure
     t.column :born_at
-    t.action :edit
-    t.action :destroy, if: :destroyable?
   end
 
 end

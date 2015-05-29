@@ -24,6 +24,9 @@ class Backend::DepositsController < Backend::BaseController
   unroll
 
   list(order: {created_at: :desc}) do |t|
+    # t.action :show, url: {format: :pdf}, image: :print
+    t.action :edit, :unless => :locked?
+    t.action :destroy, :unless => :locked?
     t.column :number, url: true
     t.column :amount, currency: true, url: true
     t.column :payments_count
@@ -32,9 +35,6 @@ class Backend::DepositsController < Backend::BaseController
     t.column :created_at
     t.column :description, hidden: true
     t.column :journal_entry, url: true
-    # t.action :show, url: {format: :pdf}, image: :print
-    t.action :edit, :unless => :locked?
-    t.action :destroy, :unless => :locked?
   end
 
   # Displays the main page with the list of deposits

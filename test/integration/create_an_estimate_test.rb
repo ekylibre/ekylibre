@@ -58,9 +58,7 @@ class CancelASalesInvoiceTest < CapybaraIntegrationTest
       fill_in("q", with: "yue")
       click_on :search.tl
     end
-    within('#entities-list tbody tr:nth-child(1) td:nth-child(4)') do
-      click_on "Yuey LTD"
-    end
+    click_on "Yuey LTD"
     within('.timeline-tool.tl-sales') do
       click_on :new.tl
     end

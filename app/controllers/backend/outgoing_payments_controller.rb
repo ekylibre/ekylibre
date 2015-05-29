@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -38,6 +37,8 @@ class Backend::OutgoingPaymentsController < Backend::BaseController
   end
 
   list(conditions: outgoing_payments_conditions, joins: :payee, order: {to_bank_at: :desc}) do |t| # , :line_class => "(RECORD.used_amount.zero? ? 'critic' : RECORD.unused_amount>0 ? 'warning' : '')"
+    t.action :edit, if: :updateable?
+    t.action :destroy, if: :destroyable?
     t.column :number, url: true
     t.column :payee, url: true
     t.column :paid_at
@@ -47,8 +48,6 @@ class Backend::OutgoingPaymentsController < Backend::BaseController
     t.column :to_bank_at
     t.column :delivered, hidden: true
     # t.column :label, through: :responsible
-    t.action :edit, if: :updateable?
-    t.action :destroy, if: :destroyable?
   end
 
 end

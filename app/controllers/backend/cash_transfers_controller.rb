@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -23,6 +22,8 @@ class Backend::CashTransfersController < Backend::BaseController
   unroll
 
   list do |t|
+    t.action :edit
+    t.action :destroy
     t.column :number,           url: true
     t.column :emission_amount,             currency: :emission_currency
     t.column :emission_cash,    url: true
@@ -30,8 +31,6 @@ class Backend::CashTransfersController < Backend::BaseController
     t.column :reception_cash,   url: true
     t.column :transfered_at
     t.column :description, hidden: true
-    t.action :edit
-    t.action :destroy
   end
 
 end

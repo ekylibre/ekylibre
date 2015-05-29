@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -23,15 +22,15 @@ class Backend::FinancialYearsController < Backend::BaseController
   unroll
 
   list(order: {started_on: :desc}) do |t|
+    # t.action :close, if: '!RECORD.closed and RECORD.closable?'
+    t.action :edit, unless: :closed?
+    t.action :destroy, unless: :closed?
     t.column :code, url: true
     t.column :closed
     t.column :started_on, url: true
     t.column :stopped_on, url: true
     t.column :currency
     # t.column :currency_precision
-    # t.action :close, if: '!RECORD.closed and RECORD.closable?'
-    t.action :edit, unless: :closed?
-    t.action :destroy, unless: :closed?
   end
 
   list(:account_balances, joins: :account, conditions: {financial_year_id: 'params[:id]'.c}, order: "accounts.number") do |t|

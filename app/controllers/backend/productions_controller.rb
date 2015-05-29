@@ -1,4 +1,3 @@
-# coding: utf-8
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2013 David Joulin, Brice Texier
@@ -17,7 +16,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# -*- coding: utf-8 -*-
 class Backend::ProductionsController < Backend::BaseController
   manage_restfully(t3e: {name: :name}, except: :index)
 
@@ -50,13 +48,13 @@ class Backend::ProductionsController < Backend::BaseController
   end
 
   list(conditions: productions_conditions) do |t|
+    t.action :edit
+    t.action :destroy, if: :destroyable?
     t.column :name, url: true
     t.column :activity, url: true
     t.column :campaign, url: true
     t.column :cultivation_variant, url: true
     t.column :state_label
-    t.action :edit
-    t.action :destroy, if: :destroyable?
   end
 
   def index
@@ -76,12 +74,12 @@ class Backend::ProductionsController < Backend::BaseController
 
   # List supports for one production
   list(:supports, model: :production_supports, conditions: {production_id: 'params[:id]'.c}, order: {created_at: :desc}, per_page: 10) do |t|
+    t.action :new, url: {controller: :interventions, production_support_id: 'RECORD.id'.c, id: nil}
     t.column :name, url: true
     t.column :work_number, hidden: true
     t.column :irrigated, hidden: true
     t.column :population, through: :storage, datatype: :decimal, hidden: true
     t.column :unit_name, through: :storage, hidden: true
-    t.action :new, url: {controller: :interventions, production_support_id: 'RECORD.id'.c, id: nil}
   end
 
   # List budgets for one production

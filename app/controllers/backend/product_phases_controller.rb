@@ -1,4 +1,3 @@
-# encoding: utf-8
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2013 Brice Texier, David Joulin
@@ -18,5 +17,4 @@
 #
 
 class Backend::ProductPhasesController < Backend::BaseController
-  # manage_restfully
 end

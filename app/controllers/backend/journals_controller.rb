@@ -24,16 +24,16 @@ class Backend::JournalsController < Backend::BaseController
   unroll
 
   list(order: :name) do |t|
-    t.column :name, url: true
-    t.column :code, url: true
-    t.column :nature
-    t.column :currency
-    t.column :closed_on
     # t.action :document_print, url: {:code => :JOURNAL, :journal => "RECORD.id"}
     t.action :close, if: :closable?, image: :unlock
     t.action :reopen, if: :reopenable?, image: :lock
     t.action :edit
     t.action :destroy
+    t.column :name, url: true
+    t.column :code, url: true
+    t.column :nature
+    t.column :currency
+    t.column :closed_on
   end
 
   hide_action :journal_views
@@ -58,6 +58,8 @@ class Backend::JournalsController < Backend::BaseController
   end
 
   list(:entries, model: :journal_entries, conditions: journal_entries_conditions, line_class: "(RECORD.balanced? ? '' : 'error')".c, order: {created_at: :desc}) do |t|
+    t.action :edit, if: :updateable?
+    t.action :destroy, if: :destroyable?
     t.column :number, url: true
     t.column :printed_on
     t.column :state_label
@@ -67,11 +69,11 @@ class Backend::JournalsController < Backend::BaseController
     t.column :credit, currency: true, hidden: true
     t.column :absolute_debit,  currency: :absolute_currency, hidden: true
     t.column :absolute_credit, currency: :absolute_currency, hidden: true
-    t.action :edit, if: :updateable?
-    t.action :destroy, if: :destroyable?
   end
 
   list(:mixed, model: :journal_entries, conditions: journal_entries_conditions, children: :items, line_class: "(RECORD.balanced? ? '' : 'error')".c, order: {created_at: :desc}, per_page: 10) do |t|
+    t.action :edit, if: :updateable?
+    t.action :destroy, if: :destroyable?
     t.column :number, url: true, :children => :name
     t.column :printed_on, :datatype => :date, :children => false
     # t.column :label, through: :account, url: {action: :account}
@@ -82,8 +84,6 @@ class Backend::JournalsController < Backend::BaseController
     t.column :credit, currency: true, hidden: true
     t.column :absolute_debit,  currency: :absolute_currency, hidden: true
     t.column :absolute_credit, currency: :absolute_currency, hidden: true
-    t.action :edit, if: :updateable?
-    t.action :destroy, if: :destroyable?
   end
 
   # Displays details of one journal selected with +params[:id]+

@@ -1,4 +1,3 @@
-# coding: utf-8
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2013 David Joulin, Brice Texier
@@ -22,15 +21,14 @@ class Backend::CultivableZonesController < Backend::LandParcelGroupsController
 
   unroll
 
-  # INDEX
   list do |t|
+    t.action :edit
+    t.action :destroy
     t.column :name, url: true
     t.column :work_number
     t.column :clusters_work_number
     t.column :net_surface_area, datatype: :measure
     # t.column :unit
-    t.action :edit
-    t.action :destroy
   end
 
   # content production on current cultivable land parcel

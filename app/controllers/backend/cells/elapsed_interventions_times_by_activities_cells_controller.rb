@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class Backend::Cells::ElapsedInterventionsTimesByActivitiesCellsController < Backend::Cells::BaseController
 
   def show

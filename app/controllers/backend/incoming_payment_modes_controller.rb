@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -24,6 +23,11 @@ class Backend::IncomingPaymentModesController < Backend::BaseController
   unroll
 
   list(order: :position) do |t|
+    t.action :up,   method: :post, :unless => :first?
+    t.action :down, method: :post, :unless => :last?
+    t.action :reflect, method: :post, confirm: true
+    t.action :edit
+    t.action :destroy, if: :destroyable?
     t.column :name
     t.column :cash, url: true
     t.column :with_accounting
@@ -32,11 +36,6 @@ class Backend::IncomingPaymentModesController < Backend::BaseController
     t.column :depositables_account, url: true, hidden: true
     t.column :depositables_journal, url: true, hidden: true
     t.column :with_commission
-    t.action :up,   method: :post, :unless => :first?
-    t.action :down, method: :post, :unless => :last?
-    t.action :reflect, method: :post, confirm: true
-    t.action :edit
-    t.action :destroy, if: :destroyable?
   end
 
   def reflect

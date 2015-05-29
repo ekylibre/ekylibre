@@ -24,11 +24,11 @@ class Backend::AnimalGroupsController < Backend::BaseController
   unroll
 
   list do |t|
-    t.column :name, url: true
-    t.column :description
     # t.action :show, url: {format: :pdf}, image: :print
     t.action :edit
     t.action :destroy
+    t.column :name, url: true
+    t.column :description
   end
 
   list(:animals, model: :product_memberships, conditions: {group_id: 'params[:id]'.c}, order: :started_at) do |t|

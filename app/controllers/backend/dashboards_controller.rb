@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -22,10 +22,10 @@ class Backend::DashboardsController < Backend::BaseController
   manage_restfully destroy_to: :root_url
 
   list do |t|
-    t.column :name, url: true
-    t.column :description
     t.action :edit
     t.action :destroy
+    t.column :name, url: true
+    t.column :description
   end
 
   Ekylibre::Navigation.parts.each do |part|

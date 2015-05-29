@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -26,27 +25,30 @@ class Backend::EntitiesController < Backend::BaseController
   autocomplete_for :origin
 
   list(conditions: search_conditions(:entities => [:number, :full_name]), order: "entities.last_name, entities.first_name") do |t|
+    t.action :edit
+    t.action :destroy
     t.column :active, :datatype => :boolean
     t.column :number, url: true
     t.column :nature
     t.column :last_name, url: true
     t.column :first_name, url: true
     t.column :mail_line_6, through: :default_mail_address
-    t.action :edit
   end
 
   list(:event_participations, conditions: {participant_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
+    t.action :edit
+    t.action :destroy
     t.column :event
     t.status
     t.column :state, hidden: true
     # t.column :duration
     t.column :place, through: :event, hidden: true
     t.column :started_at, through: :event, datatype: :datetime
-    t.action :edit
-    # t.action :destroy
   end
 
   list(:incoming_payments, conditions: {payer_id: 'params[:id]'.c}, order: {created_at: :desc}, :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c, per_page: 5) do |t|
+    t.action :edit, if: :updateable?
+    t.action :destroy, if: :destroyable?
     t.column :number, url: true
     t.column :paid_at
     t.column :responsible, hidden: true
@@ -55,74 +57,74 @@ class Backend::EntitiesController < Backend::BaseController
     t.column :bank_check_number, hidden: true
     t.column :amount, currency: true, url: true
     t.column :deposit, url: true, hidden: true
-    t.action :edit, if: :updateable?
-    t.action :destroy, if: :destroyable?
   end
 
   list(:links, model: :entity_links, conditions: ["#{EntityLink.table_name}.stopped_at IS NULL AND (#{EntityLink.table_name}.entity_1_id = ? OR #{EntityLink.table_name}.entity_2_id = ?)", 'params[:id]'.c, 'params[:id]'.c], :per_page => 5) do |t|
+    t.action :edit
+    t.action :destroy
     t.column :entity_1, url: true
     t.column :nature
     t.column :entity_2, url: true
     t.column :description, hidden: true
-    t.action :edit
-    t.action :destroy
   end
 
   list(:observations, conditions: {subject_id: 'params[:id]'.c, subject_type: "Entity"}, line_class: :importance, per_page: 5) do |t|
+    t.action :edit
+    t.action :destroy
     t.column :content
     t.column :importance
     t.column :observed_at
-    t.action :edit
-    t.action :destroy
   end
 
   # Lists issues of the current product
   list(:issues, conditions: {target_id: 'params[:id]'.c, target_type: 'controller_name.classify.constantize'.c}, order: {observed_at: :desc}) do |t|
+    t.action :edit
+    t.action :destroy
     t.column :nature, url: true
     t.column :observed_at
     t.status
     t.column :creator
-    t.action :edit
-    t.action :destroy
   end
 
   list(:outgoing_payments, conditions: {:payee_id => 'params[:id]'.c}, order: {created_at: :desc}, :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
+    t.action :edit
+    t.action :destroy, if: :destroyable?
     t.column :number, url: true
     t.column :paid_at
     t.column :responsible, hidden: true
     t.column :mode, hidden: true
     t.column :bank_check_number, hidden: true
     t.column :amount, currency: true, url: true
-    t.action :edit
-    t.action :destroy, if: :destroyable?
   end
 
   list(:purchases, conditions: {:supplier_id => 'params[:id]'.c}, :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
+    # t.action :show, url: {format: :pdf}, image: :print, hidden: true
+    t.action :edit
+    t.action :destroy, if: :destroyable?, hidden: true
     t.column :number, url: true
     t.column :created_at, hidden: true
     t.column :invoiced_at
     t.column :delivery_address, hidden: true
     t.column :state_label
     t.column :amount, currency: true
-    # t.action :show, url: {format: :pdf}, image: :print, hidden: true
-    t.action :edit
-    t.action :destroy, if: :destroyable?, hidden: true
   end
 
   list(:sales, conditions: {:client_id => 'params[:id]'.c}, :children => :items, :per_page => 5, order: {created_at: :desc}, :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
+    # t.action :show, url: {format: :pdf}, image: :print, hidden: true
+    t.action :duplicate, method: :post, hidden: true
+    t.action :edit, if: :draft?
+    # t.action :destroy, if: :aborted?
     t.column :number, url: true, :children => :label
     t.column :responsible, children: false, hidden: true
     t.column :created_at,  children: false, hidden: true
     t.column :state_label, children: false
     t.column :amount, currency: true
-    # t.action :show, url: {format: :pdf}, image: :print, hidden: true
-    t.action :duplicate, method: :post, hidden: true
-    t.action :edit, if: :draft?
-    # t.action :destroy, if: :aborted?
   end
 
 
   list(:subscriptions, conditions: {subscriber_id:  'params[:id]'.c}, order: 'stopped_at DESC, first_number DESC', :line_class => "(RECORD.active? ? 'enough' : '')".c) do |t|
+    t.action :edit
+    t.action :destroy
     t.column :number
     t.column :nature
     t.column :start
@@ -131,8 +133,6 @@ class Backend::EntitiesController < Backend::BaseController
     t.column :address, hidden: true
     t.column :quantity, :datatype => :decimal, hidden: true
     t.column :suspended, hidden: true
-    t.action :edit
-    t.action :destroy
   end
 
 

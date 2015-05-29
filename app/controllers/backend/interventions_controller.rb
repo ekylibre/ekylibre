@@ -52,6 +52,10 @@ class Backend::InterventionsController < Backend::BaseController
   # @TODO conditions: interventions_conditions, joins: [:production, :activity, :campaign, :storage]
 
   list(conditions: interventions_conditions, joins: [:production, :activity, :campaign, :storage], order: {started_at: :desc}, line_class: :status) do |t|
+    t.action :new,  on: :none
+    t.action :run,  if: :runnable?, method: :post, confirm: true
+    t.action :edit, if: :updateable?
+    t.action :destroy, if: :destroyable?
     t.column :name, sort: :reference_name, url: true
     t.column :production, url: true, hidden: true
     t.column :campaign, url: true
@@ -63,10 +67,6 @@ class Backend::InterventionsController < Backend::BaseController
     t.status
     t.column :issue, url: true
     t.column :casting, hidden: true
-    t.action :new,  on: :none
-    t.action :run,  if: :runnable?, method: :post, confirm: true
-    t.action :edit, if: :updateable?
-    t.action :destroy, if: :destroyable?
   end
 
   # SHOW

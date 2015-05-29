@@ -1,4 +1,3 @@
-# encoding: utf-8
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2013 Brice Texier, David Joulin
@@ -25,15 +24,15 @@ class Backend::ProductNatureCategoriesController < Backend::BaseController
   unroll
 
   list do |t|
+    t.action :new,  on: :none
+    t.action :pick, on: :none
+    t.action :edit
+    t.action :destroy, if: :destroyable?
     t.column :name, url: true
     t.column :saleable
     t.column :purchasable
     t.column :storable
     t.column :depreciable
-    t.action :new,  on: :none
-    t.action :pick, on: :none
-    t.action :edit
-    t.action :destroy, if: :destroyable?
   end
 
   list(:products, conditions: {category_id: 'params[:id]'.c}, order: {born_at: :desc}) do |t|
@@ -46,10 +45,10 @@ class Backend::ProductNatureCategoriesController < Backend::BaseController
   end
 
   list(:product_natures, conditions: {category_id: 'params[:id]'.c}, order: :name) do |t|
-    t.column :name, url: true
-    t.column :variety
     t.action :edit
     t.action :destroy, if: :destroyable?
+    t.column :name, url: true
+    t.column :variety
   end
 
   list(:taxations, model: :product_nature_category_taxations, conditions: {product_nature_category_id: 'params[:id]'.c}, order: :id) do |t|

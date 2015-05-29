@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -23,9 +22,9 @@ class Backend::TeamsController < Backend::BaseController
   unroll
 
   list(order: :name) do |t|
-    t.column :name
-    t.column :description
     t.action :edit
     t.action :destroy
+    t.column :name
+    t.column :description
   end
 end

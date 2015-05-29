@@ -1,4 +1,3 @@
-# coding: utf-8
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2013 David Joulin, Brice Texier
@@ -18,11 +17,4 @@
 #
 
 class Backend::LegalEntitiesController < Backend::EntitiesController
-  # manage_restfully
-
-  # unroll
-
-  # list do |t|
-  #   t.column :name, url: true
-  # end
 end

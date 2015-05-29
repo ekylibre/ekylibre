@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -23,6 +22,8 @@ class Backend::CatalogsController < Backend::BaseController
   manage_restfully
 
   list do |t|
+    t.action :edit
+    t.action :destroy
     t.column :code, url: true
     t.column :name, url: true
     t.column :usage
@@ -30,18 +31,16 @@ class Backend::CatalogsController < Backend::BaseController
     t.column :all_taxes_included, url: true
     t.column :description, hidden: true
     t.column :by_default
-    t.action :edit
-    t.action :destroy
   end
 
   list(:items, model: :catalog_items, conditions: {catalog_id: 'params[:id]'.c}) do |t|
+    t.action :edit
+    t.action :destroy
     t.column :name, url: true
     t.column :variant, url: true
     t.column :amount, currency: true
     t.column :all_taxes_included
     t.column :reference_tax, url: true
-    t.action :edit
-    t.action :destroy
   end
 
 end

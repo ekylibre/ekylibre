@@ -1,4 +1,3 @@
-# encoding: utf-8
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2013 Brice Texier, David Joulin
@@ -21,13 +20,13 @@ class Backend::GapsController < Backend::BaseController
   manage_restfully only: [:index, :show, :destroy]
 
   list do |t|
+    t.action :destroy
     t.column :number, url: true
     t.column :entity, url: true
     t.column :direction
     t.column :pretax_amount, currency: true
     t.column :amount, currency: true
     t.column :printed_at
-    t.action :destroy
   end
 
   list(:items, model: :gap_items, conditions: {gap_id: 'params[:id]'.c}) do |t|

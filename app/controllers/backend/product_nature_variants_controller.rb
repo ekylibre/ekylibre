@@ -1,4 +1,3 @@
-# encoding: utf-8
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2013 Brice Texier, David Joulin
@@ -25,20 +24,20 @@ class Backend::ProductNatureVariantsController < Backend::BaseController
   unroll :name, :unit_name, :number
 
   list do |t|
+    t.action :edit
+    t.action :destroy, if: :destroyable?
     t.column :name, url: true
     t.column :nature, url: true
     t.column :unit_name
-    t.action :edit
-    t.action :destroy, if: :destroyable?
   end
 
   list(:catalog_items, conditions: {variant_id: 'params[:id]'.c}) do |t|
+    t.action :edit
+    t.action :destroy
     t.column :name, url: true
     t.column :amount, url: true, currency: true
     t.column :all_taxes_included
     t.column :catalog, url: true
-    t.action :edit
-    t.action :destroy
   end
 
   list(:products, conditions: {variant_id: 'params[:id]'.c}, order: {born_at: :desc}) do |t|

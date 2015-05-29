@@ -1,4 +1,3 @@
-# encoding: utf-8
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2014 Brice Texier, David Joulin
@@ -23,15 +22,15 @@ class Backend::GuidesController < Backend::BaseController
   unroll
 
   list(order: :name) do |t|
+    t.action :run, method: :post
+    t.action :edit
+    t.action :destroy
     t.column :name, url: true
     t.column :active
     t.status
     t.column :stopped_at, through: :last_analysis, label: :checked_at, datatype: :datetime
     t.column :nature
     t.column :external
-    t.action :run, method: :post
-    t.action :edit
-    t.action :destroy
   end
 
   list(:analyses, model: :guide_analyses, conditions: {guide_id: 'params[:id]'.c}, order: {execution_number: :desc}) do |t|

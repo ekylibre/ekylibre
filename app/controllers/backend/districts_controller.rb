@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -23,11 +22,11 @@ class Backend::DistrictsController < Backend::BaseController
   unroll
 
   list(children: :postal_zones, conditions: search_conditions(districts: [:code, :name]), order: :name) do |t|
-    t.column :name
-    t.column :code
     t.action :new, url: {controller: :postal_zones, district_id: "RECORD.id".c, id: 'nil'.c}
     t.action :edit
     t.action :destroy
+    t.column :name
+    t.column :code
   end
 
 end

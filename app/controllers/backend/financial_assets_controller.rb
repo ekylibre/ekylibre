@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2012 Brice Texier
@@ -23,16 +22,17 @@ class Backend::FinancialAssetsController < Backend::BaseController
   unroll
 
   list do |t|
+    t.action :edit
+    t.action :destroy
     t.column :number, url: true
     t.column :name, url: true
     t.column :depreciable_amount, currency: true
     t.column :started_on
     t.column :stopped_on
-    t.action :edit
-    t.action :destroy
   end
 
   list(:depreciations, model: :financial_asset_depreciations, conditions: {financial_asset_id: 'params[:id]'.c}, order: :position) do |t|
+    # t.action :edit, if: "RECORD.journal_entry.nil?".c
     t.column :amount, currency: true
     t.column :depreciable_amount, currency: true
     t.column :depreciated_amount, currency: true
@@ -40,7 +40,6 @@ class Backend::FinancialAssetsController < Backend::BaseController
     t.column :stopped_on
     t.column :financial_year, url: true
     t.column :journal_entry, label_method: :number, url: true
-    # t.action :edit, if: "RECORD.journal_entry.nil?".c
   end
 
   list(:products, model: :products, conditions: {financial_asset_id: 'params[:id]'.c}, order: :initial_born_at) do |t|

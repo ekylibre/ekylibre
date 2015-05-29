@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -24,13 +23,13 @@ class Backend::OutgoingPaymentModesController < Backend::BaseController
   unroll
 
   list(order: :position) do |t|
+    t.action :edit
+    t.action :destroy, if: :destroyable?
+    t.action :up,   method: :post, unless: :first?
+    t.action :down, method: :post, unless: :last?
     t.column :name
     t.column :cash, url: true
     t.column :with_accounting
-    t.action :up,   method: :post, unless: :first?
-    t.action :down, method: :post, unless: :last?
-    t.action :edit
-    t.action :destroy, if: :destroyable?
   end
 
 end

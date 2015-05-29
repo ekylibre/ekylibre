@@ -45,6 +45,10 @@ class Backend::SalesController < Backend::BaseController
   end
 
   list(conditions: sales_conditions, joins: :client, order: {created_at: :desc, number: :desc}) do |t| # , :line_class => 'RECORD.tags'
+    # t.action :show, url: {format: :pdf}, image: :print
+    t.action :edit, if: :draft?
+    t.action :cancel, if: :cancellable?
+    t.action :destroy, if: :aborted?
     t.column :number, url: {action: :show}
     t.column :created_at
     t.column :invoiced_at
@@ -54,10 +58,6 @@ class Backend::SalesController < Backend::BaseController
     t.status
     t.column :state_label
     t.column :amount, currency: true
-    # t.action :show, url: {format: :pdf}, image: :print
-    t.action :edit, if: :draft?
-    t.action :cancel, if: :cancellable?
-    t.action :destroy, if: :aborted?
   end
 
   # Displays the main page with the list of sales
@@ -95,6 +95,8 @@ class Backend::SalesController < Backend::BaseController
   end
 
   list(:subscriptions, conditions: {:sale_id => 'params[:id]'.c}) do |t|
+    t.action :edit
+    t.action :destroy
     t.column :number
     t.column :nature
     t.column :subscriber, url: true
@@ -102,8 +104,6 @@ class Backend::SalesController < Backend::BaseController
     t.column :start
     t.column :finish
     t.column :quantity
-    t.action :edit
-    t.action :destroy
   end
 
   list(:undelivered_items, model: :sale_items, conditions: {:sale_id => 'params[:id]'.c}) do |t|
@@ -117,6 +117,8 @@ class Backend::SalesController < Backend::BaseController
   end
 
   list(:items, model: :sale_items, conditions: {:sale_id => 'params[:id]'.c}, order: :position, :export => false, :line_class => "((RECORD.variant.subscribing? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')".c, :include => [:variant, :subscriptions]) do |t|
+    # t.action :edit, if: 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
+    # t.action :destroy, if: 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
     # t.column :name, through: :variant
     # t.column :position
     t.column :label
@@ -128,8 +130,6 @@ class Backend::SalesController < Backend::BaseController
     t.column :unit_amount, currency: true, hidden: true
     t.column :pretax_amount, currency: true
     t.column :amount, currency: true
-    # t.action :edit, if: 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
-    # t.action :destroy, if: 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
   end
 
   # Displays details of one sale selected with +params[:id]+

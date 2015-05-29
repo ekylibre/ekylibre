@@ -52,6 +52,8 @@ class Backend::PurchasesController < Backend::BaseController
   end
 
   list(conditions: purchases_conditions, joins: :supplier, :line_class => :status, order: {created_at: :desc, number: :desc}) do |t|
+    t.action :edit
+    t.action :destroy, if: :destroyable?
     t.column :number, url: true
     t.column :reference_number, url: true
     t.column :created_at
@@ -66,12 +68,12 @@ class Backend::PurchasesController < Backend::BaseController
     # t.column :paid_amount, currency: true
     t.column :pretax_amount, currency: true
     t.column :amount, currency: true, hidden: true
-    # t.action :show, url: {format: :pdf}, image: :print
-    t.action :edit
-    t.action :destroy, if: :destroyable?
   end
 
   list(:items, model: :purchase_items, conditions: {purchase_id: 'params[:id]'.c}) do |t|
+    # t.action :new, on: :none, url: {purchase_id: 'params[:id]'.c}, if: :draft?
+    # t.action :edit, if: :draft?
+    # t.action :destroy, if: :draft?
     t.column :variant, url: true
     t.column :annotation
     #t.column :tracking_serial
@@ -81,12 +83,11 @@ class Backend::PurchasesController < Backend::BaseController
     # t.column :indicator_name
     t.column :pretax_amount, currency: true
     t.column :amount, currency: true
-    # t.action :new, on: :none, url: {purchase_id: 'params[:id]'.c}, if: :draft?
-    # t.action :edit, if: :draft?
-    # t.action :destroy, if: :draft?
   end
 
   list(:deliveries, model: :incoming_deliveries, :children => :items, conditions: {purchase_id: 'params[:id]'.c}) do |t|
+    t.action :edit, if: :order?
+    t.action :destroy, if: :order?
     t.column :number, url: true
     t.column :reference_number, url: true
     t.column :address, children: :product_name
@@ -94,31 +95,19 @@ class Backend::PurchasesController < Backend::BaseController
     # t.column :population, :datatype => :decimal
     # t.column :pretax_amount, currency: true
     # t.column :amount, currency: true
-    t.action :edit, if: :order?
-    t.action :destroy, if: :order?
   end
-
-  # list(:undelivered_items, model: :purchase_items, conditions: {purchase_id: 'params[:id]'.c}) do |t|
-  #   t.column :variant
-  #   # t.column :pretax_amount, currency: true, through: :price
-  #   t.column :quantity
-  #   t.column :pretax_amount, currency: true
-  #   t.column :amount, currency: true
-  #   t.column :undelivered_quantity, :datatype => :decimal
-  # end
-
 
 
   # Displays details of one purchase selected with +params[:id]+
   def show
     return unless @purchase = find_and_check
     respond_with(@purchase, :methods => [:taxes_amount, :affair_closed],
-                        :include => {:delivery_address => {:methods => [:mail_coordinate]},
-                                     :supplier => {:methods => [:picture_path], :include => {:default_mail_address => {:methods => [:mail_coordinate]}}},
-                                     :affair => {:methods => [:balance], :include => [:outgoing_payments => {:include => :mode}]},
-                                     :items => {:methods => [:taxes_amount, :tax_name, :tax_short_label], :include => [:variant]}
-                                     }
-                                     ) do |format|
+                 :include => {:delivery_address => {:methods => [:mail_coordinate]},
+                              :supplier => {:methods => [:picture_path], :include => {:default_mail_address => {:methods => [:mail_coordinate]}}},
+                              :affair => {:methods => [:balance], :include => [:outgoing_payments => {:include => :mode}]},
+                              :items => {:methods => [:taxes_amount, :tax_name, :tax_short_label], :include => [:variant]}
+                             }
+                ) do |format|
       format.html do
         t3e @purchase.attributes, supplier: @purchase.supplier.full_name, state: @purchase.state_label, label: @purchase.label
       end
@@ -140,7 +129,7 @@ class Backend::PurchasesController < Backend::BaseController
       @purchase.supplier_id = params[:supplier_id]
     end
     if address = Entity.of_company.default_mail_address
-     @purchase.delivery_address = address
+      @purchase.delivery_address = address
     end
   end
 

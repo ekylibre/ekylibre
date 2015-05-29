@@ -1,4 +1,3 @@
-# coding: utf-8
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2013 David Joulin, Brice Texier
@@ -20,12 +19,12 @@
 class Backend::BuildingDivisionsController < Backend::MattersController
 
   list do |t|
+    t.action :edit
+    t.action :destroy
     t.column :name, url: true
     t.column :identification_number
     t.column :work_number
     t.column :description
-    t.action :edit
-    t.action :destroy
   end
 
 end

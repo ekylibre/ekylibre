@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2014 Brice Texier, David Joulin
@@ -21,15 +20,15 @@ class Backend::ImportsController < Backend::BaseController
   manage_restfully t3e: {name: :name}
 
   list line_class: "RECORD.errored? ? 'error' : ''".c do |t|
+    t.action :new, on: :none
+    t.action :run, method: :post, if: :runnable?
+    t.action :edit
+    t.action :destroy
     t.column :nature
     t.column :state
     t.column :created_at
     t.column :imported_at
     t.column :importer
-    t.action :new, on: :none
-    t.action :run, method: :post, if: :runnable?
-    t.action :edit
-    t.action :destroy
   end
 
   def run

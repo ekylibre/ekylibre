@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2013 Brice Texier
@@ -22,13 +21,13 @@ class Backend::TrackingsController < Backend::BaseController
   unroll :serial, :name, producer: :full_name
 
   list(order: :name) do |t|
+    t.action :edit
+    t.action :destroy
     t.column :active
     t.column :serial, url: true
     t.column :name
     t.column :product
     t.column :producer
-    t.action :edit
-    t.action :destroy
   end
 
   list(:products, model: :products, conditions: {tracking_id: 'params[:id]'.c}, order: {born_at: :asc}) do |t|

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class Backend::Cells::StockContainerMapCellsController < Backend::Cells::BaseController
 
   def show

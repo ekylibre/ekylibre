@@ -1,4 +1,3 @@
-# encoding: utf-8
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2013 Brice Texier, David Joulin
@@ -21,10 +20,10 @@ class Backend::IdentifiersController < Backend::BaseController
   manage_restfully t3e: {name: :nature}
 
   list conditions: {net_service_id: nil} do |t|
-    t.column :nature
-    t.column :value
     t.action :new, on: :none
     t.action :edit
     t.action :destroy
+    t.column :nature
+    t.column :value
   end
 end

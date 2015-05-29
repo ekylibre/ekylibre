@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2012-2013 David Joulin, Brice Texier
@@ -36,15 +35,15 @@ class Backend::MattersController < Backend::ProductsController
 
 
   list(conditions: local_conditions) do |t|
+    # t.action :show, url: {format: :pdf}, image: :print
+    t.action :edit
+    t.action :destroy, if: :destroyable?
     t.column :number, url: true
     t.column :name, url: true
     t.column :variant, url: true
     t.column :variety
     t.column :container, url: true
     t.column :description
-    # t.action :show, url: {format: :pdf}, image: :print
-    t.action :edit
-    t.action :destroy, if: :destroyable?
   end
 
 end

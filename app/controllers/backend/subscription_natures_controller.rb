@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -23,14 +22,14 @@ class Backend::SubscriptionNaturesController < Backend::BaseController
   unroll
 
   list(:children => :product_nature_categories) do |t|
-    t.column :name, url: {id: 'nil'.c, action: :index, controller: :subscriptions, nature_id: "RECORD.id".c}
-    t.column :nature, children: false
-    t.column :actual_number, children: false
-    t.column :reduction_percentage, children: false
     t.action :increment, method: :post, if: :quantity?
     t.action :decrement, method: :post, if: :quantity?
     t.action :edit
     t.action :destroy, if: :destroyable?
+    t.column :name, url: {id: 'nil'.c, action: :index, controller: :subscriptions, nature_id: "RECORD.id".c}
+    t.column :nature, children: false
+    t.column :actual_number, children: false
+    t.column :reduction_percentage, children: false
   end
 
   def show

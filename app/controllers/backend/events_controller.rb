@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -25,14 +24,14 @@ class Backend::EventsController < Backend::BaseController
   autocomplete_for :place
 
   list(conditions: search_conditions(events: [:duration, :place, :name, :description, :started_at]), order: {started_at: :desc}) do |t|
+    t.action :edit
+    t.action :destroy
     t.column :name, url: true
     t.column :casting
     t.column :duration
     t.column :place
     t.column :nature
     t.column :started_at
-    t.action :edit
-    t.action :destroy
   end
 
   def index
@@ -52,9 +51,9 @@ class Backend::EventsController < Backend::BaseController
   end
 
   list(:participations, model: :event_participations, conditions: {event_id: 'params[:id]'.c}, order: :id) do |t|
-    t.column :participant, url: true
-    t.column :state
     t.action :edit
     t.action :destroy
+    t.column :participant, url: true
+    t.column :state
   end
 end

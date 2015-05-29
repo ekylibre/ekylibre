@@ -31,27 +31,27 @@ class Backend::CashesController < Backend::BaseController
 
 
   list(order: :name) do |t|
+    t.action :new, on: :none
+    t.action :edit
+    t.action :destroy
     t.column :name, url: true
     t.column :nature
     t.column :currency
     t.column :country
     t.column :account, url: true
     t.column :journal, url: true
-    t.action :new, on: :none
-    t.action :edit
-    t.action :destroy
   end
 
   list(:bank_statements, conditions: {cash_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
+    t.action :point
+    t.action :edit
+    t.action :destroy
+    t.action :new, on: :none, url: {cash_id: 'params[:id]'.c}
     t.column :number, url: true
     t.column :started_at
     t.column :stopped_at
     t.column :debit, currency: true
     t.column :credit, currency: true
-    t.action :point
-    t.action :edit
-    t.action :destroy
-    t.action :new, on: :none, url: {cash_id: 'params[:id]'.c}
   end
 
   list(:deposits, conditions: {cash_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|

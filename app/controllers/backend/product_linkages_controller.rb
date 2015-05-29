@@ -1,4 +1,3 @@
-# coding: utf-8
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2013 David Joulin, Brice Texier
@@ -18,10 +17,4 @@
 #
 
 class Backend::ProductLinkagesController < Backend::BaseController
-  # manage_restfully
-
-  # list do |t|
-  #   t.column :carrier, url: true
-  #   t.column :carried, url: true
-  # end
 end

@@ -55,6 +55,13 @@ class Backend::AnimalsController < Backend::MattersController
   end
 
   list(conditions: animals_conditions, joins: :variants) do |t|
+    # t.action :show, url: {format: :pdf}, image: :print
+    t.action :new,     on: :none
+    t.action :add_to_group, on: :both
+    # t.action :new_issue,        on: :both, url: {action: :new, controller: :issues}
+    # t.action :new_intervention, on: :both, url: {action: :new, controller: :interventions}
+    t.action :edit
+    t.action :destroy
     t.column :work_number, url: true
     t.column :name, url: true
     t.column :born_at
@@ -65,13 +72,6 @@ class Backend::AnimalsController < Backend::MattersController
     # t.column :groups, url: true
     t.column :mother, url: true, hidden: true
     t.column :father, url: true, hidden: true
-    # t.action :show, url: {format: :pdf}, image: :print
-    t.action :new,     on: :none
-    t.action :add_to_group, on: :both
-    # t.action :new_issue,        on: :both, url: {action: :new, controller: :issues}
-    # t.action :new_intervention, on: :both, url: {action: :new, controller: :interventions}
-    t.action :edit
-    t.action :destroy
   end
 
   # Show a list of animal groups

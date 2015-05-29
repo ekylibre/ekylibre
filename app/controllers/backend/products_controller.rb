@@ -27,15 +27,15 @@ class Backend::ProductsController < Backend::BaseController
   unroll :name, :number, :work_number, "population:!", "unit_name:!"
 
   list(conditions: search_conditions(products: [:name, :number], product_nature_variants: [:name])) do |t|
+    # t.action :show, url: {format: :pdf}, image: :print
+    t.action :edit
+    t.action :destroy, if: :destroyable?
     t.column :number, url: true
     t.column :name, url: true
     t.column :variant, url: true
     t.column :variety
     t.column :container, url: true
     t.column :description
-    # t.action :show, url: {format: :pdf}, image: :print
-    t.action :edit
-    t.action :destroy, if: :destroyable?
   end
 
   # Lists contained products of the current product
@@ -109,10 +109,10 @@ class Backend::ProductsController < Backend::BaseController
 
   # Lists issues of the current product
   list(:issues, conditions: {target_id: 'params[:id]'.c, target_type: 'controller_name.classify.constantize'.c}, order: {observed_at: :desc}) do |t|
+    t.action :new, url: {controller: :interventions, issue_id: 'RECORD.id'.c, id: nil}
     t.column :nature, url: true
     t.column :observed_at
     t.status
-    t.action :new, url: {controller: :interventions, issue_id: 'RECORD.id'.c, id: nil}
   end
 
   # Lists intervention casts of the current product

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -22,9 +21,6 @@ class Backend::ListingsController < Backend::BaseController
   unroll
 
   list(order: :name) do |t|
-    t.column :name, url: {action: :edit}
-    t.column :root_model_name
-    t.column :description
     t.action :extract, url: {format: :csv}, image: :action
     # t.action :extract, url: {format: :csv, mode: :no_mail}, if: :can_mail?, image: :nomail
     t.action :mail, if: :can_mail?
@@ -32,6 +28,9 @@ class Backend::ListingsController < Backend::BaseController
     t.action :edit
     t.action :destroy
     t.action :new, on: :none
+    t.column :name, url: {action: :edit}
+    t.column :root_model_name
+    t.column :description
   end
 
   # Displays the main page with the list of listings

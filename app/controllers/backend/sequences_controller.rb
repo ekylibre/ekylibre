@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -23,13 +22,13 @@ class Backend::SequencesController < Backend::BaseController
   unroll
 
   list do |t|
+    t.action :edit
+    t.action :destroy, if: :destroyable?
     t.column :name
     t.column :compute
     t.column :number_format, class: :code
     t.column :usage
     t.column :period
-    t.action :edit
-    t.action :destroy, if: :destroyable?
   end
 
   # Load missing sequences for current company

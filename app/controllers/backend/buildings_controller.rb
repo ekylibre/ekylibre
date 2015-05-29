@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -20,11 +19,11 @@
 class Backend::BuildingsController < Backend::ProductGroupsController
 
   list do |t|
+    t.action :edit
+    t.action :destroy
     t.column :name, url: true
     t.column :description
     # t.column :name, through: :parent, url: true
-    t.action :edit
-    t.action :destroy
   end
 
   # Displays the main page with the list of buildings

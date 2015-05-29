@@ -22,15 +22,15 @@ class Backend::BankStatementsController < Backend::BaseController
   unroll
 
   list(order: {started_at: :desc}) do |t|
+    t.action :point
+    t.action :edit
+    t.action :destroy
     t.column :number, url: true
     t.column :cash,   url: true
     t.column :started_at
     t.column :stopped_at
     t.column :debit,  currency: true
     t.column :credit, currency: true
-    t.action :point
-    t.action :edit
-    t.action :destroy
   end
 
   # Displays the main page with the list of bank statements

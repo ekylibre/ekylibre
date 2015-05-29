@@ -1,4 +1,3 @@
-# coding: utf-8
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2013 David Joulin, Brice Texier
@@ -17,7 +16,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# -*- coding: utf-8 -*-
 class Backend::IssuesController < Backend::BaseController
 
   manage_restfully t3e: {name: :target_name}, observed_at: "Time.now".c
@@ -28,15 +26,15 @@ class Backend::IssuesController < Backend::BaseController
   unroll
 
   list do |t|
+    t.action :edit
+    t.action :new, url: {controller: :interventions, issue_id: 'RECORD.id'.c, id: nil}
+    t.action :destroy, if: :destroyable?
     t.column :name, url: true
     t.column :nature
     t.column :observed_at
     t.status
     t.column :gravity,  hidden: true
     t.column :priority, hidden: true
-    t.action :edit
-    t.action :new, url: {controller: :interventions, issue_id: 'RECORD.id'.c, id: nil}
-    t.action :destroy, if: :destroyable?
   end
 
   list(:interventions, conditions: {issue_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|

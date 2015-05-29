@@ -1,4 +1,3 @@
-# encoding: utf-8
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2013 Brice Texier, David Joulin
@@ -23,11 +22,12 @@ class Backend::GeoreadingsController < Backend::BaseController
   unroll
 
   list do |t|
+    t.action :edit
+    t.action :destroy
     t.column :name, url: true
     t.column :number, url: true
     t.column :nature
     t.column :description
-    t.action :edit
-    t.action :destroy
   end
+
 end

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -24,6 +23,11 @@ class Backend::OutgoingDeliveriesController < Backend::BaseController
   unroll
 
   list(conditions: search_conditions(outgoing_deliveries: [:number, :reference_number, :net_mass], entities: [:full_name, :number])) do |t|
+    t.action :new,     on: :none
+    t.action :invoice, on: :both, method: :post
+    t.action :ship,    on: :both, method: :post
+    t.action :edit
+    t.action :destroy
     t.column :number, url: true
     t.column :recipient, url: true
     t.column :with_transport
@@ -34,11 +38,6 @@ class Backend::OutgoingDeliveriesController < Backend::BaseController
     t.column :mode
     t.column :net_mass, hidden: true
     t.column :sale, url: true
-    t.action :new,     on: :none
-    t.action :invoice, on: :both, method: :post
-    t.action :ship,    on: :both, method: :post
-    t.action :edit
-    t.action :destroy
   end
 
   list(:items, model: :outgoing_delivery_items, conditions: {delivery_id: 'params[:id]'.c}) do |t|

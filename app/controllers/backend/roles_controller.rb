@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -31,13 +30,13 @@ class Backend::RolesController < Backend::BaseController
   end
 
   list(:users, conditions: {role_id: "params[:id]".c}, line_class: "(RECORD.locked ? 'critic' : '')".c, order: :last_name) do |t|
+    t.action :locked, actions: {true => {controller: :users, action: :unlock}, false => {controller: :users, action: :lock}}, method: :post, if: 'RECORD.id != current_user.id'.c
+    t.action :edit
+    t.action :destroy, if: :destroyable?
     t.column :first_name, url: true
     t.column :last_name, url: true
     t.column :administrator
     t.column :team
-    t.action :locked, actions: {true => {controller: :users, action: :unlock}, false => {controller: :users, action: :lock}}, method: :post, if: 'RECORD.id != current_user.id'.c
-    t.action :edit
-    t.action :destroy, if: :destroyable?
   end
 
 end

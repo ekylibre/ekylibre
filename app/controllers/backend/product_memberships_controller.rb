@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -18,12 +17,4 @@
 #
 
 class Backend::ProductMembershipsController < Backend::BaseController
-  # manage_restfully
-
-  # unroll
-
-  # list do |t|
-  #   t.column :group, url: true
-  #   t.column :member, url: true
-  # end
 end

@@ -1,4 +1,3 @@
-# encoding: utf-8
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2013 Brice Texier, David Joulin
@@ -23,6 +22,8 @@ class Backend::LoansController < Backend::BaseController
   unroll
 
   list do |t|
+    t.action :edit
+    t.action :destroy
     t.column :name, url: true
     t.column :amount, currency: true
     t.column :cash, url: true
@@ -30,8 +31,6 @@ class Backend::LoansController < Backend::BaseController
     t.column :repayment_duration
     t.column :repayment_period
     t.column :shift_duration
-    t.action :edit
-    t.action :destroy
   end
 
   list :repayments, model: :loan_repayments, conditions: {loan_id: "params[:id]".c} do |t|

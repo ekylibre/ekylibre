@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -23,6 +22,8 @@ class Backend::TaxesController < Backend::BaseController
   unroll
 
   list do |t|
+    t.action :edit
+    t.action :destroy
     t.column :name, url: true
     t.column :amount, precision: 3
     t.column :reference_name
@@ -30,8 +31,6 @@ class Backend::TaxesController < Backend::BaseController
     t.column :reductible
     t.column :deduction_account, url: true
     t.column :collect_account, url: true
-    t.action :edit
-    t.action :destroy
   end
 
 end

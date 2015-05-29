@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -27,6 +26,7 @@ class Backend::DocumentsController < Backend::BaseController
   # respond_to :html, :json, :xml
 
   list do |t|
+    t.action :destroy, if: :destroyable?
     t.column :number, url: true
     t.column :name, url: true
     t.column :nature
@@ -37,7 +37,6 @@ class Backend::DocumentsController < Backend::BaseController
     t.column :file_file_size
     t.column :file_content_text, hidden: true
     t.column :file_fingerprint, hidden: true
-    t.action :destroy, if: :destroyable?
   end
 
 

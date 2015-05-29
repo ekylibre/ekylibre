@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -41,6 +40,8 @@ class Backend::IncomingPaymentsController < Backend::BaseController
   end
 
   list(conditions: incoming_payments_conditions, joins: :payer, order: {to_bank_at: :desc}) do |t|
+    t.action :edit, unless: :deposit?
+    t.action :destroy, if: :destroyable?
     t.column :number, url: true
     t.column :payer, url: true
     t.column :paid_at
@@ -50,8 +51,6 @@ class Backend::IncomingPaymentsController < Backend::BaseController
     t.column :to_bank_at
     t.column :received, hidden: true
     t.column :deposit, url: true
-    t.action :edit, unless: :deposit?
-    t.action :destroy, if: :destroyable?
   end
 
 end

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -23,25 +22,25 @@ class Backend::CustomFieldsController < Backend::BaseController
   unroll
 
   list(order: "customized_type, position") do |t|
+    t.action :up, method: :post, :unless => :first?
+    t.action :down, method: :post, :unless => :last?
+    t.action :edit
+    t.action :destroy, if: :destroyable?
     t.column :name, url: true
     t.column :customized_type
     t.column :nature
     t.column :required
     t.column :active
     t.column :choices_count, :datatype => :integer
-    t.action :up, method: :post, :unless => :first?
-    t.action :down, method: :post, :unless => :last?
-    t.action :edit
-    t.action :destroy, if: :destroyable?
   end
 
   list(:choices, model: :custom_field_choices, conditions: {custom_field_id: 'params[:id]'.c}, order: 'position') do |t|
-    t.column :name
-    t.column :value
     t.action :up, :unless => :first?, method: :post
     t.action :down, :unless => :last?, method: :post
     t.action :edit
     t.action :destroy, if: :destroyable?
+    t.column :name
+    t.column :value
   end
 
   # Sort.all choices by name

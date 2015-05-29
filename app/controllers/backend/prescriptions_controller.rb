@@ -1,4 +1,3 @@
-# coding: utf-8
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2013 David Joulin, Brice Texier
@@ -23,12 +22,12 @@ class Backend::PrescriptionsController < Backend::BaseController
   unroll
 
   list do |t|
+    t.action :edit
+    t.action :destroy, if: :destroyable?
     t.column :reference_number, url: true
     t.column :delivered_at
     t.column :prescriptor, url: true
     #t.column :document, url: true
-    t.action :edit
-    t.action :destroy, if: :destroyable?
   end
 
    # List of interventions with precription_id

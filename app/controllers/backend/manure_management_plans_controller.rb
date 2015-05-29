@@ -24,6 +24,8 @@ class Backend::ManureManagementPlansController < Backend::BaseController
   unroll
 
   list do |t|
+    t.action :edit
+    t.action :destroy
     t.column :name, url: true
     t.column :campaign, url: true
     t.column :recommender, url: true
@@ -31,8 +33,6 @@ class Backend::ManureManagementPlansController < Backend::BaseController
     t.column :default_computation_method, hidden: true
     t.column :selected, hidden: true
     t.column :annotation
-    t.action :edit
-    t.action :destroy
   end
 
   list :zones, model: :manure_management_plan_zones, conditions: {plan_id: "params[:id]".c} do |t|

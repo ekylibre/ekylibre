@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
@@ -27,17 +26,17 @@ class Backend::IncomingDeliveriesController < Backend::BaseController
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
   list do |t|
+    # t.action :confirm, method: :post, if: :confirmable?, confirm: true
+    t.action :new,     on: :none
+    t.action :invoice, on: :both, method: :post
+    t.action :edit
+    t.action :destroy
     t.column :number, url: true
     t.column :sender, url: true
     t.column :reference_number, url: true
     t.column :received_at
     t.column :mode
     t.column :purchase, url: true
-    # t.action :confirm, method: :post, if: :confirmable?, confirm: true
-    t.action :new,     on: :none
-    t.action :invoice, on: :both, method: :post
-    t.action :edit
-    t.action :destroy
   end
 
   # Liste des items d'une appro

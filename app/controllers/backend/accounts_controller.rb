@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -36,12 +35,12 @@ class Backend::AccountsController < Backend::BaseController
   end
 
   list(conditions: accounts_conditions, order: :number, :per_page => 20) do |t|
+    t.action :edit
+    t.action :destroy, if: :destroyable?
     t.column :number, url: true
     t.column :name, url: true
     t.column :reconcilable
     t.column :description
-    t.action :edit
-    t.action :destroy, if: :destroyable?
   end
 
   # Displays the main page with the list of accounts

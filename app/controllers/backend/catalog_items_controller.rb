@@ -1,4 +1,3 @@
-# coding: utf-8
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2013 David Joulin, Brice Texier
@@ -23,14 +22,14 @@ class Backend::CatalogItemsController < Backend::BaseController
   unroll
 
   list do |t|
+    t.action :edit
+    t.action :destroy
     t.column :name, url: true
     t.column :variant, url: true
     t.column :amount, currency: true
     t.column :reference_tax, url: true
     t.column :all_taxes_included
     t.column :catalog, url: true
-    t.action :edit
-    t.action :destroy
   end
 
 end

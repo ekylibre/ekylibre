@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class Backend::Cells::RevenuesByProductNatureCellsController < Backend::Cells::BaseController
 
   def show

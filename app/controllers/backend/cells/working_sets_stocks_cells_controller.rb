@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class Backend::Cells::WorkingSetsStocksCellsController < Backend::Cells::BaseController
 
   def show

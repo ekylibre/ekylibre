@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -23,6 +22,8 @@ class Backend::JournalEntriesController < Backend::BaseController
   unroll
 
   list(:children => :items, order: {created_at: :desc}, :per_page => 10) do |t|
+    t.action :edit, if: :updateable?
+    t.action :destroy, if: :destroyable?
     t.column :number, url: true, :children => :name
     t.column :printed_on, :datatype => :date, :children => false
     t.column :state_label
@@ -33,8 +34,6 @@ class Backend::JournalEntriesController < Backend::BaseController
     t.column :credit, currency: true, hidden: true
     t.column :absolute_debit,  currency: :absolute_currency, hidden: true
     t.column :absolute_credit, currency: :absolute_currency, hidden: true
-    t.action :edit, if: :updateable?
-    t.action :destroy, if: :destroyable?
   end
 
   list(:items, model: :journal_entry_items, conditions: {:entry_id => 'params[:id]'.c}, order: :position) do |t|
