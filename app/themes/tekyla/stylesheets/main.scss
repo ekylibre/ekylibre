@@ -183,7 +183,8 @@ a[data-toggle='help'] {
 
 
 
-$header-height: 40px;
+$header-height: 64px;
+$toolbar-height: round($button-height * $golden-ratio);
 $side-width: 204px;
 $help-width: round($default-ratio * $side-width);
 
@@ -231,13 +232,13 @@ html.backend {
           height: $header-height;
           // background: #EEE;
           h1 {
-            padding: $default-gap;
-            $h1-height: $header-height - 2* $default-gap;
+            padding: $default-gap 2 * $default-gap;
+            $h1-height: $header-height - 2 * $default-gap;
             @include ellipsis;
-            font-weight: bold;
+            font-weight: normal;
             line-height: $h1-height;
             height: $h1-height;
-            font-size: round($h1-height / 1.2);
+            font-size: round($header-height * 0.5);
             vertical-align: middle;
             * {
               font-size: inherit;

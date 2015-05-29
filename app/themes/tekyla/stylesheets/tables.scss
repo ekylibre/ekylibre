@@ -185,12 +185,12 @@ table {
       tr {
         td {
           @include transition(background 0.2s);
-          padding: round($fs-normal*0.2) round($fs-normal*0.4);
+          padding: round($fs-normal*0.2) round($fs-normal*0.5);
           border-top: $row-border;
           border-bottom: none;
           border-left: none;
           border-right: none;
-          line-height: 16px;
+          line-height: $lh-normal;
           @include ellipsis;
           &.hidden {
             display: none;

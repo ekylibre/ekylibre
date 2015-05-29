@@ -34,7 +34,6 @@ class Backend::InventoriesController < Backend::BaseController
     t.column :reflected_at
     t.column :reflected
     t.column :responsible, url: true
-    t.column :description, hidden: true
   end
 
   # Displays the main page with the list of inventories

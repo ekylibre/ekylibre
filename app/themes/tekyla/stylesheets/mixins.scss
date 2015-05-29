@@ -456,8 +456,8 @@
 }
 
 
-@mixin toolbar($group: ".btn-group") {
+@mixin toolbar($group: ".btn-group", $total-height: $toolbar-height) {
   @include display(block);
-  $margin-top: round(($header-height - $button-height) / 2);
-  margin: $margin-top $default-gap ($header-height - $margin-top - $button-height);
+  $margin-top: round(($total-height - $button-height) / 2);
+  margin: $margin-top $default-gap ($total-height - $margin-top - $button-height);
 }
