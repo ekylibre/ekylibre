@@ -8,6 +8,6 @@
       - k.helper :journal_period_crit
       - k.helper :journals_crit
   = form_fields do
-    = list(:journal_entry_items)
+    = main_list(:journal_entry_items)
   = form_actions do
     = submit_tag(:validate_selected_entries.tl, "data-confirm" => :are_you_sure.tl, :name => :validate)
