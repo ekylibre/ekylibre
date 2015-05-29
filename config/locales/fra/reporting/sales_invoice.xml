@@ -221,6 +221,9 @@
 	<field name="sales_mentions" class="java.lang.String">
 		<fieldDescription><![CDATA[sales-mentions]]></fieldDescription>
 	</field>
+	<field name="payment_at" class="java.util.Date">
+		<fieldDescription><![CDATA[payment-at]]></fieldDescription>
+	</field>
 	<variable name="affair_balance" class="java.lang.Double">
 		<variableExpression><![CDATA[Double.valueOf($F{affair_balance})]]></variableExpression>
 		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
@@ -676,7 +679,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Open Sans" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{expired-on}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{payment_at}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement style="address" x="0" y="117" width="543" height="17" uuid="d694908f-641a-4c60-9ee2-e9503e4977a5"/>
