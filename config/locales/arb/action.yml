@@ -335,7 +335,6 @@ arb:
       new: "انشاء دفتر يومي جديد"
       reopen: "فتح %{name}"
       show: "الدفتر اليومي : %{name} (%{code})"
-      trial_balance: "رصيد الحساب"
     backend/land_parcel_clusters:
       # edit: "Edit land parcel cluster: %{name}"
       # index: "Land parcel clusters"
@@ -654,6 +653,8 @@ arb:
       index: "وسائل النقل"
       new: "اضافة وسيلة نقل جديدة"
       show: "نقلت من %{created_at}"
+    backend/trial_balances:
+      show: "رصيد الحساب"
     backend/units:  #?
       edit: "تعديل الوحدة : %{label}" #?
       index: "وحدات القياس" #?

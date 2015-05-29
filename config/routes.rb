@@ -436,7 +436,6 @@ Rails.application.routes.draw do
         get  :general_ledger
         get  :list_draft_items
         get  :list_general_ledger
-        get  :trial_balance
       end
       member do
         get  :list_mixed
@@ -686,6 +685,8 @@ Rails.application.routes.draw do
         get :list_deliveries
       end
     end
+
+    resource :trial_balance, only: [:show], path: "trial-balance"
 
     resources :users, concerns: [:list, :unroll] do
       member do

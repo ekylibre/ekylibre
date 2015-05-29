@@ -306,7 +306,6 @@ fra:
       reopen: "Déclôturer le journal\_: %{name}"
       reports: "Impression, exportation" #?
       show: "Journal\_: %{name} (%{code})"
-      trial_balance: "Balance"
     backend/land_parcel_clusters:
       edit: "Modifier l’îlot\_: %{name}"
       index: "Îlots"
@@ -567,6 +566,8 @@ fra:
       index: "Transports"
       new: "Nouveau transport"
       show: "Transport %{number}"
+    backend/trial_balances:
+      show: "Balance"
     backend/users:
       edit: "Modifier l’utilisateur\_: %{first_name} %{last_name}"
       index: "Utilisateurs"

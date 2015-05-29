@@ -301,7 +301,6 @@ spa:
       new: "Crear un nuevo periodico"
       reopen: "Déclôture du %{name}"
       show: "Periodico\_: %{name} (%{code})"
-      trial_balance: "Balance general"
     backend/land_parcel_clusters:
       # edit: "Edit land parcel cluster: %{name}"
       # index: "Land parcel clusters"
@@ -351,7 +350,7 @@ spa:
       # new: "New matter"
       # show: "Matter: %{name}"
     backend/myselves:
-      # show: "My informations"
+      show: "Mis estadisticas"
     backend/net_services:
       # edit: "Edit net service"
       # index: "Net services"
@@ -526,13 +525,14 @@ spa:
       # index: "Transports"
       # new: "New transport"
       # show: "Transport: %{number}"
+    backend/trial_balances:
+      show: "Balance general"
     backend/users:
       edit: "Modificction del utilizador"
       index: "Utilizador"
       # lock: "Lock user"
       new: "Creacion de nuevo utilizador"
       show: "Utilizador\_: %{first_name} %{last_name} (%{name})"
-      statistics: "Mis estadisticas" #?
       # unlock: "Unlock user"
     backend/wine_tanks:
       # index: "Wine tanks"

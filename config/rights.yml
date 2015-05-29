@@ -1044,8 +1044,8 @@ journals:
     - "backend/journals#list_items"
     - "backend/journals#list_mixed"
     - "backend/journals#show"
-    - "backend/journals#trial_balance"
     - "backend/journals#unroll"
+    - "backend/trial_balances#show"
   write:
     dependencies:
     - read-journals

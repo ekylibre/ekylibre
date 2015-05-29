@@ -360,7 +360,6 @@ eng:
       new: "New journal"
       reopen: "Reopen journal: %{name}"
       show: "Journal: %{name} (%{code})"
-      trial_balance: "Trial balance"
     backend/kujakus:
       # toggle: "Toggle kujaku: %{name}"
     backend/land_parcel_clusters:
@@ -633,6 +632,8 @@ eng:
       index: "Transports"
       new: "New transport" #?
       show: "Transport: %{number}"
+    backend/trial_balances:
+      show: "Trial balance"
     backend/users:
       edit: "Edit user: %{first_name} %{last_name}"
       index: "Users"
@@ -1693,7 +1694,6 @@ eng:
       take: "Take"
       toggle: "Toggle"
       # top: "Top"
-      # trial_balance: "Trial balance"
       unlock: "Unlock"
       unmark: "Unmark"
       unroll: "Unroll"

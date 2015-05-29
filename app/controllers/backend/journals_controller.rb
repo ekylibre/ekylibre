@@ -162,7 +162,6 @@ class Backend::JournalsController < Backend::BaseController
   end
 
 
-  # FIXME RECORD.real_currency does not exist
   list(:draft_items, model: :journal_entry_items, conditions: journal_entries_conditions(:with_journals => true, :state => :draft), joins: :entry, :line_class => "(RECORD.position==1 ? 'first-item' : '')".c, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
     t.column :journal, url: true
     t.column :entry_number, url: true
@@ -236,12 +235,6 @@ class Backend::JournalsController < Backend::BaseController
 
   end
 
-
-  def trial_balance
-    if params[:period]
-      @balance = Journal.trial_balance(params)
-    end
-  end
 
   def self.general_ledger_conditions(options={})
     conn = ActiveRecord::Base.connection

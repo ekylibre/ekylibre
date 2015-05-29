@@ -177,7 +177,7 @@
     </group>
     <group name="synthesis" icon="table">
       <item name="trial_balance">
-        <page to="backend/journals#trial_balance"/>
+        <page to="backend/trial_balances#show"/>
       </item>
       <item name="general_ledger">
         <page to="backend/journals#general_ledger"/>
