@@ -218,6 +218,8 @@ fra:
     backend/gaps:
       index: "Pertes et profits"
       show: "Perte ou profit N°%{number}"
+    backend/general_ledgers:
+      show: "Grand livre"
     backend/georeadings:
       edit: "Modifier le relevé topographique: %{name}"
       index: "Relevés topographiques"
@@ -300,7 +302,6 @@ fra:
       bookkeep: "Bascule comptable"
       close: "Clôturer le journal\_: %{name}"
       edit: "Modifier le journal\_: %{name}"
-      general_ledger: "Grand livre"
       import: "Importer des données comptables" #?
       index: "Journaux"
       new: "Nouveau journal"
@@ -997,7 +998,7 @@ fra:
     genealogy: "Généalogie"
     general: "Informations générales"
     general_informations: "Informations générales"
-    general_ledger: "Grand livre"
+    general_ledger: "Grand livre" #?
     generate: "Générer"
     generate_last_journal_entry: "Générer la dernière écriture"
     geolocation: "Géolocalisation"

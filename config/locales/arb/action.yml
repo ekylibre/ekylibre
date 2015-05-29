@@ -251,6 +251,8 @@ arb:
     backend/gaps:
       # index: "Gaps"
       # show: "Gap: %{number}"
+    backend/general_ledgers:
+      show: "دفتر الحسابات"
     backend/georeadings:
       # edit: "Edit georeading: %{name}"
       # index: "Georeadings"
@@ -331,7 +333,6 @@ arb:
       bookkeep: "نظام المحاسبة المتغير"
       close: "اغلاق %{name}"
       edit: "تعديل الدفتر اليومي : %{name}"
-      general_ledger: "دفتر الحسابات"
       index: "الدفاتر اليومية"
       new: "انشاء دفتر يومي جديد"
       reopen: "فتح %{name}"
@@ -1150,7 +1151,7 @@ arb:
     # genealogy: "Genealogy"
     general: "معلومات عامة"
     general_informations: "معلومات عامة"
-    general_ledger: "دفتر الحسابات"
+    general_ledger: "دفتر الحسابات" #?
     # generate: "Generate"
     # generate_last_journal_entry: "Generate last journal entry"
     # geolocation: "Geolocation"

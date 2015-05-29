@@ -1046,11 +1046,11 @@ journal_entries:
 journals:
   read:
     actions:
-    - "backend/journals#general_ledger"
+    - "backend/general_ledgers#list_journal_entry_items"
+    - "backend/general_ledgers#show"
     - "backend/journals#index"
     - "backend/journals#list"
     - "backend/journals#list_entries"
-    - "backend/journals#list_general_ledger"
     - "backend/journals#list_items"
     - "backend/journals#list_mixed"
     - "backend/journals#show"

@@ -358,6 +358,12 @@ Rails.application.routes.draw do
       end
     end
 
+    resource :general_ledger, only: [:show], path: "general-ledger" do
+      member do
+        get  :list_journal_entry_items
+      end
+    end
+
     resources :georeadings, concerns: [:list, :unroll]
 
     resources :guide_analyses, only: [:show], path: "guide-analyses" do
@@ -439,8 +445,6 @@ Rails.application.routes.draw do
     resources :journals, concerns: [:list, :unroll] do
       collection do
         match "bookkeep", via: [:get, :put, :post]
-        get  :general_ledger
-        get  :list_general_ledger
       end
       member do
         get  :list_mixed

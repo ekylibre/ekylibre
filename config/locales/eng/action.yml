@@ -274,6 +274,8 @@ eng:
     backend/gaps:
       index: "Gaps"
       show: "Gap: %{number}"
+    backend/general_ledgers:
+      show: "General ledger"
     backend/georeadings:
       edit: "Edit georeading: %{name}"
       index: "Georeadings"
@@ -357,7 +359,6 @@ eng:
       bookkeep: "Bookkeep"
       close: "Close journal: %{name}"
       edit: "Edit journal: %{name}"
-      general_ledger: "General ledger"
       index: "Journals"
       new: "New journal"
       reopen: "Reopen journal: %{name}"
@@ -1000,7 +1001,6 @@ eng:
     genealogy: "Genealogy"
     general: "General"
     general_informations: "General informations"
-    general_ledger: "General ledger" #?
     generate: "Generate"
     generate_last_journal_entry: "Generate last journal entry"
     geolocation: "Geolocation"
@@ -1647,7 +1647,6 @@ eng:
       extract: "Extract"
       family: "Family"
       finish: "Finish"
-      # general_ledger: "General ledger"
       generate_last_journal_entry: "Generate last journal entry"
       import: "Import"
       incorporate: "Incorporate"

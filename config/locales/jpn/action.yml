@@ -193,6 +193,8 @@ jpn:
     backend/gaps:
       # index: "Gaps"
       # show: "Gap: %{number}"
+    backend/general_ledgers:
+      # show: "General ledger"
     backend/georeadings:
       # edit: "Edit georeading: %{name}"
       # index: "Georeadings"
@@ -271,7 +273,6 @@ jpn:
       # bookkeep: "Bookkeep"
       # close: "Close journal: %{name}"
       # edit: "Edit journal: %{name}"
-      # general_ledger: "General ledger"
       # index: "Journals"
       # new: "New journal"
       # reopen: "Reopen journal: %{name}"
@@ -774,7 +775,6 @@ jpn:
     # genealogy: "Genealogy"
     # general: "General"
     # general_informations: "General informations"
-    # general_ledger: "General ledger"
     # generate: "Generate"
     # generate_last_journal_entry: "Generate last journal entry"
     # geolocation: "Geolocation"

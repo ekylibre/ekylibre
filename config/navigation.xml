@@ -144,7 +144,6 @@
         <page to="backend/journals#edit"/>
         <page to="backend/journals#list"/>
         <page to="backend/journals#list_entries"/>
-        <page to="backend/journals#list_general_ledger"/>
         <page to="backend/journals#list_items"/>
         <page to="backend/journals#list_mixed"/>
         <page to="backend/journals#new"/>
@@ -183,7 +182,8 @@
         <page to="backend/trial_balances#show"/>
       </item>
       <item name="general_ledger">
-        <page to="backend/journals#general_ledger"/>
+        <page to="backend/general_ledgers#show"/>
+        <page to="backend/general_ledgers#list_journal_entry_items"/>
       </item>
     </group>
     <group name="financial_assets" icon="home">

@@ -219,6 +219,8 @@ spa:
     backend/gaps:
       # index: "Gaps"
       # show: "Gap: %{number}"
+    backend/general_ledgers:
+      show: "Grande libro"
     backend/georeadings:
       # edit: "Edit georeading: %{name}"
       # index: "Georeadings"
@@ -297,7 +299,6 @@ spa:
       bookkeep: "Bascula contable"
       close: "Cierre del %{name}"
       edit: "Modicicar el periodico\_: %{name}"
-      general_ledger: "Grande libro"
       index: "Periodicos"
       new: "Crear un nuevo periodico"
       reopen: "Déclôture du %{name}"
@@ -899,7 +900,7 @@ spa:
     # genealogy: "Genealogy"
     general: "Descripción general"
     general_informations: "Informaciones generales"
-    general_ledger: "Grande libro"
+    general_ledger: "Grande libro" #?
     # generate: "Generate"
     # generate_last_journal_entry: "Generate last journal entry"
     # geolocation: "Geolocation"
