@@ -39,6 +39,7 @@
 #  reference_value      :string           not null
 #  sale_id              :integer          not null
 #  tax_id               :integer
+#  type                 :string
 #  unit_amount          :decimal(19, 4)   default(0.0), not null
 #  unit_pretax_amount   :decimal(19, 4)
 #  updated_at           :datetime         not null

@@ -62,6 +62,7 @@
 #  state               :string           not null
 #  subject             :string
 #  transporter_id      :integer
+#  type                :string
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #

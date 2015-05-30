@@ -39,6 +39,7 @@
 #  reference_value      :string           not null
 #  sale_id              :integer          not null
 #  tax_id               :integer
+#  type                 :string
 #  unit_amount          :decimal(19, 4)   default(0.0), not null
 #  unit_pretax_amount   :decimal(19, 4)
 #  updated_at           :datetime         not null
@@ -62,6 +63,29 @@
 #   variant: variants_001
 #
 ---
+sale_credit_items_001:
+  account_id: 152
+  amount: -500.0
+  created_at: 2015-05-30 20:00:46.769726000 Z
+  creator_id: 1
+  credited_item_id: 17
+  currency: EUR
+  id: 18
+  label: Bouteille Bordelaise 75cl
+  lock_version: 0
+  position: 1
+  pretax_amount: -417.5
+  quantity: -250.0
+  reduction_percentage: 0.0
+  reference_value: quantity
+  sale_id: 15
+  tax_id: 3
+  type: SaleCreditItem
+  unit_amount: 2.0
+  unit_pretax_amount: 1.67
+  updated_at: 2015-05-30 20:00:46.769726000 Z
+  updater_id: 1
+  variant_id: 63
 sale_items_001:
   account_id: 5
   amount: 84.0
@@ -78,6 +102,7 @@ sale_items_001:
   reference_value: unit_pretax_amount
   sale_id: 7
   tax_id: 3
+  type: SaleItem
   unit_amount: 84.0
   unit_pretax_amount: 70.0
   updated_at: 2014-11-05 09:52:05.569662000 Z
@@ -99,6 +124,7 @@ sale_items_002:
   reference_value: unit_pretax_amount
   sale_id: 7
   tax_id: 3
+  type: SaleItem
   unit_amount: 216.0
   unit_pretax_amount: 180.0
   updated_at: 2014-11-05 09:52:05.575226000 Z
@@ -120,6 +146,7 @@ sale_items_003:
   reference_value: unit_pretax_amount
   sale_id: 8
   tax_id: 3
+  type: SaleItem
   unit_amount: 66.0
   unit_pretax_amount: 55.0
   updated_at: 2014-11-05 10:01:39.877000000 Z
@@ -141,6 +168,7 @@ sale_items_004:
   reference_value: unit_pretax_amount
   sale_id: 9
   tax_id: 3
+  type: SaleItem
   unit_amount: 1.872
   unit_pretax_amount: 1.56
   updated_at: 2014-11-05 10:03:05.895615000 Z
@@ -162,6 +190,7 @@ sale_items_005:
   reference_value: unit_pretax_amount
   sale_id: 10
   tax_id: 3
+  type: SaleItem
   unit_amount: 1.92
   unit_pretax_amount: 1.6
   updated_at: 2014-11-05 13:36:08.975616000 Z
@@ -184,6 +213,7 @@ sale_items_006:
   reference_value: unit_amount
   sale_id: 11
   tax_id: 3
+  type: SaleItem
   unit_amount: 12.0
   unit_pretax_amount: 10.0
   updated_at: 2015-04-21 08:22:33.186082000 Z
@@ -206,6 +236,7 @@ sale_items_007:
   reference_value: unit_amount
   sale_id: 12
   tax_id: 3
+  type: SaleItem
   unit_amount: 62.4
   unit_pretax_amount: 52.0
   updated_at: 2015-04-21 08:29:05.182489000 Z
@@ -228,6 +259,7 @@ sale_items_008:
   reference_value: unit_pretax_amount
   sale_id: 13
   tax_id: 1
+  type: SaleItem
   unit_amount: 1.2
   unit_pretax_amount: 1.0
   updated_at: 2015-04-21 23:49:19.339881000 Z
@@ -250,8 +282,31 @@ sale_items_009:
   reference_value: amount
   sale_id: 13
   tax_id: 3
+  type: SaleItem
   unit_amount: 200.0
   unit_pretax_amount: 166.67
   updated_at: 2015-04-21 23:49:19.346386000 Z
   updater_id: 1
   variant_id: 58
+sale_items_010:
+  account_id: 152
+  amount: 500.0
+  annotation: ''
+  created_at: 2015-05-30 20:00:27.935928000 Z
+  creator_id: 1
+  currency: EUR
+  id: 17
+  label: Bouteille Bordelaise 75cl
+  lock_version: 0
+  position: 1
+  pretax_amount: 417.5
+  quantity: 250.0
+  reduction_percentage: 0.0
+  reference_value: unit_amount
+  sale_id: 14
+  tax_id: 3
+  unit_amount: 2.0
+  unit_pretax_amount: 1.67
+  updated_at: 2015-05-30 20:00:27.935928000 Z
+  updater_id: 1
+  variant_id: 63

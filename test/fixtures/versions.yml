@@ -10675,3 +10675,50 @@ versions_207:
     created_at: 2015-04-21 08:27:39.814863000 Z
     creator_id: 1
   item_type: Entity
+versions_208:
+  created_at: 2015-05-30 19:59:37.535428000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 245
+  item_id: 15
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 15
+    type:
+    nature: company
+    last_name: Kokonut Inc
+    first_name: ''
+    number: P00000005
+    active: true
+    born_at:
+    dead_at:
+    client: true
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: false
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: fra
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2015-05-30 19:59:37.524913000 Z
+    creator_id: 1
+  item_type: Entity

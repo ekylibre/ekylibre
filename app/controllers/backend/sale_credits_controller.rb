@@ -23,6 +23,10 @@ class Backend::SaleCreditsController < Backend::BaseController
     redirect_to controller: :sales, action: :index
   end
 
+  def show
+    redirect_to controller: :sales, action: :show, id: params[:id]
+  end
+
   def new
     credited_sale = Sale.find_by(id: params[:credited_sale_id])
     unless credited_sale.cancellable?

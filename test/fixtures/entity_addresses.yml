@@ -299,3 +299,16 @@ entity_addresses_014:
   thread: AAAA
   updated_at: 2015-04-21 08:28:44.830658000 Z
   updater_id: 1
+entity_addresses_015:
+  by_default: true
+  canal: email
+  coordinate: koko@nut.com
+  created_at: 2015-05-30 19:59:37.548563000 Z
+  creator_id: 1
+  entity_id: 15
+  id: 15
+  lock_version: 0
+  mail_auto_update: false
+  thread: AAAA
+  updated_at: 2015-05-30 19:59:37.548563000 Z
+  updater_id: 1

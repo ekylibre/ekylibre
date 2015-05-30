@@ -23,7 +23,7 @@ An activity can present a centre type called PRINCIPAL (productive process) or A
 Its intervene :
 
   * during the input of the operations and procedures
-  * during the [[>backend/draft_journal#show|accounts input]] if you don't use the operations
+  * during the [[>backend/draft_journals#show|accounts input]] if you don't use the operations
 
 ===== How do some products link to activities and how do the loads divide up ? =====
 

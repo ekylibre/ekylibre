@@ -2851,3 +2851,13 @@ preferences_241:
   updated_at: 2015-05-07 23:15:06.433558000 Z
   updater_id: 1
   user_id: 1
+preferences_242:
+  created_at: 2015-05-30 19:58:55.614160000 Z
+  creator_id: 1
+  id: 242
+  lock_version: 0
+  name: kujaku.feathers.backend-entities-index-1:0.default
+  nature: string
+  updated_at: 2015-05-30 19:58:55.614160000 Z
+  updater_id: 1
+  user_id: 1

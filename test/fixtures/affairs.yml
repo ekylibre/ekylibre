@@ -420,6 +420,25 @@ affairs_018:
   third_role: client
   updated_at: 2015-04-21 23:49:19.404347000 Z
   updater_id: 1
+affairs_019:
+  accounted_at: 2015-05-30 20:00:46.964460000 Z
+  closed: true
+  closed_at: 2015-05-30 20:00:46.791503000 Z
+  created_at: 2015-05-30 20:00:27.978022000 Z
+  creator_id: 1
+  credit: 500.0
+  currency: EUR
+  deals_count: 2
+  debit: 500.0
+  id: 37
+  lock_version: 2
+  number: A000000000030
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 15
+  third_role: client
+  updated_at: 2015-05-30 20:00:46.794751000 Z
+  updater_id: 1
 sale_opportunities_001:
   accounted_at: 2015-04-20 21:54:28.932522000 Z
   closed: true

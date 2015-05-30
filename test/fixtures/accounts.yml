@@ -3059,3 +3059,15 @@ accounts_232:
   updated_at: 2015-05-07 23:16:54.978688000 Z
   updater_id: 1
   usages: loans_interests
+accounts_233:
+  created_at: 2015-05-30 20:00:28.004240000 Z
+  creator_id: 1
+  debtor: false
+  id: 576
+  label: 411P00000005 - Kokonut Inc
+  lock_version: 0
+  name: Kokonut Inc
+  number: 411P00000005
+  reconcilable: true
+  updated_at: 2015-05-30 20:00:28.004240000 Z
+  updater_id: 1

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150530123845) do
+ActiveRecord::Schema.define(version: 20150530193726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2577,6 +2577,7 @@ ActiveRecord::Schema.define(version: 20150530123845) do
     t.integer  "lock_version",                                  default: 0,   null: false
     t.decimal  "unit_amount",          precision: 19, scale: 4, default: 0.0, null: false
     t.string   "reference_value",                                             null: false
+    t.string   "type"
   end
 
   add_index "sale_items", ["account_id"], name: "index_sale_items_on_account_id", using: :btree
@@ -2662,6 +2663,7 @@ ActiveRecord::Schema.define(version: 20150530123845) do
     t.integer  "updater_id"
     t.integer  "lock_version",                                 default: 0,     null: false
     t.string   "computation_method",                                           null: false
+    t.string   "type"
   end
 
   add_index "sales", ["accounted_at"], name: "index_sales_on_accounted_at", using: :btree

@@ -71,7 +71,7 @@ module Fixturing
                 record[attribute] = convert_value(value, type.to_sym)
               end
             else
-              puts attribute.red
+              puts "Cannot find column '#{attribute}' in #{table}. Run `rake clean:schema`.".red
             end
           end
           records["#{table}_#{row['id'].rjust(3, '0')}"] = record

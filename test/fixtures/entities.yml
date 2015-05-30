@@ -289,6 +289,36 @@ entities_007:
   updater_id: 1
   vat_number: ''
   vat_subjected: false
+entities_008:
+  active: true
+  activity_code: ''
+  client: true
+  client_account_id: 576
+  country: fr
+  created_at: 2015-05-30 19:59:37.524913000 Z
+  creator_id: 1
+  currency: EUR
+  deliveries_conditions: ''
+  first_name: ''
+  full_name: Kokonut Inc
+  id: 15
+  language: fra
+  last_name: Kokonut Inc
+  lock_version: 0
+  locked: false
+  meeting_origin: ''
+  nature: company
+  number: P00000005
+  of_company: false
+  prospect: false
+  reminder_submissive: false
+  siren: ''
+  supplier: false
+  transporter: false
+  updated_at: 2015-05-30 19:59:37.524913000 Z
+  updater_id: 1
+  vat_number: ''
+  vat_subjected: false
 legal_entities_001:
   active: true
   client: false

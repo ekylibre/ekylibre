@@ -461,3 +461,29 @@ events_032:
   stopped_at: 2015-04-21 23:49:29.356219000 Z
   updated_at: 2015-04-21 23:49:19.363109000 Z
   updater_id: 1
+events_033:
+  created_at: 2015-05-30 20:00:27.954807000 Z
+  creator_id: 1
+  duration: 10
+  id: 41
+  lock_version: 0
+  name: Sale creation
+  nature: absence
+  restricted: false
+  started_at: 2015-05-30 20:00:27.947695000 Z
+  stopped_at: 2015-05-30 20:00:37.947695000 Z
+  updated_at: 2015-05-30 20:00:27.954807000 Z
+  updater_id: 1
+events_034:
+  created_at: 2015-05-30 20:00:46.761079000 Z
+  creator_id: 1
+  duration: 10
+  id: 42
+  lock_version: 0
+  name: Sale creation
+  nature: absence
+  restricted: false
+  started_at: 2015-05-30 20:00:46.753284000 Z
+  stopped_at: 2015-05-30 20:00:56.753284000 Z
+  updated_at: 2015-05-30 20:00:46.761079000 Z
+  updater_id: 1

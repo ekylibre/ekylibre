@@ -56,34 +56,34 @@ sequences_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   id: 1
-  last_cweek: 17
-  last_month: 4
-  last_number: 8
+  last_cweek: 22
+  last_month: 5
+  last_number: 10
   last_year: 2015
-  lock_version: 9
+  lock_version: 11
   name: Sales
   number_format: SO[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2015-04-21 23:49:19.335549000 Z
+  updated_at: 2015-05-30 20:00:46.721892000 Z
   updater_id: 1
   usage: sales
 sequences_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   id: 2
-  last_cweek: 17
-  last_month: 4
-  last_number: 4
+  last_cweek: 22
+  last_month: 5
+  last_number: 5
   last_year: 2015
-  lock_version: 7
+  lock_version: 8
   name: Personnes
   number_format: P[number|8]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2015-04-21 08:27:39.811175000 Z
+  updated_at: 2015-05-30 19:59:37.520607000 Z
   updater_id: 1
   usage: entities
 sequences_003:
@@ -201,17 +201,17 @@ sequences_010:
   created_at: 2014-11-01 16:25:18.117267000 Z
   creator_id: 1
   id: 10
-  last_cweek: 17
-  last_month: 4
-  last_number: 29
+  last_cweek: 22
+  last_month: 5
+  last_number: 30
   last_year: 2015
-  lock_version: 32
+  lock_version: 33
   name: Affaire
   number_format: A[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2015-04-21 23:49:19.401861000 Z
+  updated_at: 2015-05-30 20:00:27.975886000 Z
   updater_id: 1
   usage: affairs
 sequences_011:
@@ -359,17 +359,17 @@ sequences_020:
   created_at: 2014-11-01 16:25:19.028014000 Z
   creator_id: 1
   id: 20
-  last_cweek: 45
-  last_month: 11
+  last_cweek: 22
+  last_month: 5
   last_number: 2
-  last_year: 2014
-  lock_version: 2
+  last_year: 2015
+  lock_version: 4
   name: sales_invoices
   number_format: F[year|4][number|6]
   number_increment: 1
   number_start: 1
   period: year
-  updated_at: 2014-11-05 10:03:12.738797000 Z
+  updated_at: 2015-05-30 20:00:46.902601000 Z
   updater_id: 1
   usage: sales_invoices
 sequences_021:

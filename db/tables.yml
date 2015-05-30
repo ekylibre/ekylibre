@@ -4915,6 +4915,8 @@ sale_items:
   tax_id:
     type: integer
     references: tax
+  type:
+    type: string
   unit_amount:
     type: decimal
     precision: 19
@@ -5119,6 +5121,8 @@ sales:
   transporter_id:
     type: integer
     references: entity
+  type:
+    type: string
   updated_at:
     type: datetime
     required: true
