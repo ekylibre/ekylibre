@@ -229,7 +229,8 @@ html.backend {
         .header {
           padding: 0;
           margin: 0;
-          height: $header-height;
+          height: $header-height - 1px;
+          border-bottom: 1px solid #DDD;
           // background: #EEE;
           h1 {
             padding: $default-gap 2 * $default-gap;
@@ -238,7 +239,7 @@ html.backend {
             font-weight: normal;
             line-height: $h1-height;
             height: $h1-height;
-            font-size: round($header-height * 0.5);
+            font-size: round($header-height * 0.47);
             vertical-align: middle;
             * {
               font-size: inherit;
@@ -995,7 +996,7 @@ html.backend {
 
 .flash {
   padding: $default-gap round($default-ratio*$default-gap);
-  margin: 0 0 $default-gap;
+  margin: $default-gap 0;
   html.backend & {
     margin-left: $default-gap;
     margin-right: $default-gap;
