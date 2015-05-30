@@ -215,7 +215,7 @@ class Backend::EntitiesController < Backend::BaseController
 
         result = ActiveRecord::Base.connection.select_rows(query)
         result.insert(0, select_array.collect{|x| x[1]})
-        csv_string = Ekylibre::CSV.generate do |csv|
+        csv_string = CSV.generate do |csv|
           for item in result
             csv << item
           end
@@ -241,7 +241,7 @@ class Backend::EntitiesController < Backend::BaseController
       unless File.exist?(session[:entities_import_file].to_s)
         redirect_to action: :import, id: :upload
       end
-      csv = Ekylibre::CSV.open(session[:entities_import_file])
+      csv = CSV.open(session[:entities_import_file])
       @columns = csv.shift
       @first_item = csv.shift
       @options = Entity.importable_columns

@@ -1197,7 +1197,7 @@ eng:
     plant: "Plant" #?
     plant_productions: "Plant productions"
     plantation_density: "Plantation density" #?
-    plants: "Plants"
+    plants: "Plants" #?
     please_wait: "Please wait…"
     point: "Point" #?
     points: "Points"
@@ -1332,7 +1332,7 @@ eng:
     target: "Target" #?
     taxations: "Taxations"
     taxes: "Taxes" #?
-    thumb: "Thumb"
+    thumb: "Thumb" #?
     time_cost: "Time cost" #?
     time_cost_per_hectare: "Time cost per hectare"
     time_zone: "Time zone"

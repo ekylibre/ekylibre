@@ -17,13 +17,4 @@
 #
 
 class Backend::FungiController < Backend::MattersController
-
-  list do |t|
-    t.column :name, url: true
-    t.column :container, url: true
-    t.column :born_at
-    t.action :edit
-    t.action :destroy, if: :destroyable?
-  end
-
 end

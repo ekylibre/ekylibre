@@ -1,18 +1,18 @@
-= beehive do |b|
-  - b.hbox do
-    - if @document.file.exists?
-      - b.cell :thumb do
-        = link_to(backend_document_url(@document, format: :pdf)) do
-          = image_tag(backend_document_path(@document, format: :jpg))
-        .archived-at= @document.created_at.l
-        - if @document.template
-          .template-name= link_to(@document.template_name, backend_document_template_path(@document.template))
+- if @document.file.exists?
+  .picture
+    = link_to(backend_document_url(@document, format: :pdf)) do
+      = image_tag(backend_document_path(@document, format: :jpg))
+    .archived-at= @document.created_at.l
+    - if @document.template
+      .template-name= link_to(@document.template_name, backend_document_template_path(@document.template))
 
-    - b.cell :details do
-      = attributes_list do |l|
-        - l.attribute :name
-        - l.attribute :nature
-        - l.attribute :number
-        - l.attribute :key
-        - if resource.custom_fields.any?
-          - l.custom_fields
+.panel
+  .panel-body
+    = attributes_list do |l|
+      - l.attribute :nature
+      - l.attribute :number
+      - l.attribute :key
+      -# l.attribute :file_pages_count
+      -# l.attribute :file_fingerprint
+      -# l.attribute :file_content_text
+      - l.custom_fields

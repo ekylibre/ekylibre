@@ -57,7 +57,7 @@
     {name: p.name, shape: p.shape, age: (Time.now - p.born_at) / (3600 * 24 * 30), plantation_density: (p.plants_count.to_d / p.net_surface_area.to_d), interventions_count: interventions.count, issues_count: issues.count, watering_concentration: water_concentration.compact.sum.to_s.to_f, variety: Nomen::Varieties[p.variety].human_name, popup: {header: true, content: popup_content} }
   end
 
-= kujaku
+-#= kujaku
 
 - main_toolbar do |t|
   - t.new
@@ -82,25 +82,3 @@
 
   = v.face :list do
     = main_list
-
--# = beehive do |b|
-  - b.cell :plants do
-    = visualization do |v|
-      - v.serie :main, data
-      - v.background "OpenStreetMap.HOT"
-      - v.background "OpenStreetMap.Mapnik"
-      - v.background "Thunderforest.Landscape"
-      - v.background "Esri.WorldImagery"
-      - v.bubbles :age, :main
-      - v.choropleth :interventions_count, :main, hidden: true
-      - v.choropleth :plantation_density, :main
-      - v.categories :variety, :main
-      - v.choropleth :watering_concentration, :main, stop_color: "#1122DD", hidden: true
-      - v.control :zoom
-      - v.control :scale
-      - v.control :fullscreen
-      - v.control :layer_selector
-
-  - b.cell :list do
-    = main_list
-
