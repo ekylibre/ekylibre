@@ -526,7 +526,7 @@ cash_sessions:
     precision: 19
     scale: 4
   number:
-    type: string
+    type: integer
   started_at:
     type: datetime
     required: true
