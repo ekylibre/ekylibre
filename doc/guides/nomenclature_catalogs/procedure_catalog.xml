@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="procedure_catalog" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bfed8bc2-ff41-4412-8690-d3acdf285f60">
+	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="base" mode="Transparent" forecolor="#000000" backcolor="#FFFFFF" fontName="Open Sans" fontSize="8"/>
+	<style name="title" fontName="Open Sans" fontSize="14" isBold="true"/>
+	<style name="sub_title" fontName="Open Sans" fontSize="12"/>
+	<subDataset name="activity_index" uuid="21882a27-3b67-4a3d-827a-29425892e30f">
+		<parameter name="procedure_short_name" class="java.lang.String"/>
+		<queryString language="xPath">
+			<![CDATA[/activity-families/activity-family[/procedure/@short-name = '$P{procedure_short_name}']]]>
+		</queryString>
+		<field name="title" class="java.lang.String">
+			<fieldDescription><![CDATA[@title]]></fieldDescription>
+		</field>
+		<sortField name="title"/>
+	</subDataset>
+	<queryString language="xPath">
+		<![CDATA[/procedures/procedure/variable]]>
+	</queryString>
+	<field name="variable_name" class="java.lang.String">
+		<fieldDescription><![CDATA[@name]]></fieldDescription>
+	</field>
+	<field name="variable_position" class="java.lang.String">
+		<fieldDescription><![CDATA[@position]]></fieldDescription>
+	</field>
+	<field name="variable_title" class="java.lang.String">
+		<fieldDescription><![CDATA[@title]]></fieldDescription>
+	</field>
+	<field name="procedure_version" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::procedure/@version]]></fieldDescription>
+	</field>
+	<field name="procedure_title" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::procedure/@title]]></fieldDescription>
+	</field>
+	<field name="procedure_short_name" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::procedure/@short-name]]></fieldDescription>
+	</field>
+	<field name="lang" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::procedures/@lang]]></fieldDescription>
+	</field>
+	<field name="locale" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::procedures/@locale]]></fieldDescription>
+	</field>
+	<sortField name="procedure_title"/>
+	<sortField name="variable_title"/>
+	<group name="procedure" keepTogether="true">
+		<groupExpression><![CDATA[$F{procedure_title}]]></groupExpression>
+		<groupHeader>
+			<band height="48">
+				<textField isStretchWithOverflow="true">
+					<reportElement style="sub_title" x="0" y="0" width="555" height="27" forecolor="#006699" uuid="435c7e58-7e83-49cd-8eda-ad18142d377c"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{procedure_title}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Opaque" x="0" y="27" width="184" height="21" backcolor="#E6E6E6" uuid="38d34a58-9b43-415d-b555-f05ecd110594"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{procedure_short_name}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="0" y="0" width="555" height="1" forecolor="#666666" uuid="8c9a020a-4a67-4e63-8cde-56d48ff721b1"/>
+				</line>
+				<staticText>
+					<reportElement x="186" y="27" width="28" height="21" uuid="e4e37ee0-be14-44d2-b20d-6d9474af5e89"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Open Sans"/>
+					</textElement>
+					<text><![CDATA[N°]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="214" y="27" width="183" height="21" uuid="cf0a80bf-acb0-4e29-8473-131ddb5bd29b"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Open Sans"/>
+					</textElement>
+					<text><![CDATA[Nom]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="397" y="27" width="157" height="21" uuid="5526c928-b5f3-4487-9567-ba50b9720232"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Open Sans"/>
+					</textElement>
+					<text><![CDATA[Code]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="12"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="174c3f1d-5e8e-4a94-935a-c88609d29113"/>
+				<staticText>
+					<reportElement x="86" y="20" width="349" height="53" forecolor="#FFFFFF" uuid="2e7989f1-f5d0-4441-8632-03fe103cce54"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Open Sans" size="30" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Open nomenclature]]></text>
+				</staticText>
+				<textField>
+					<reportElement mode="Transparent" x="535" y="21" width="40" height="52" forecolor="#CCCCCC" uuid="475604f9-aaa5-494c-aca4-9ed191721657"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Open Sans Semibold" size="24" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{lang}]]></textFieldExpression>
+				</textField>
+				<image>
+					<reportElement x="20" y="20" width="53" height="53" uuid="fc8fe2e3-8ec3-41e2-bce4-fc10b0902910"/>
+					<imageExpression><![CDATA["icon-xldpi.png"]]></imageExpression>
+				</image>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="36">
+			<textField isBlankWhenNull="true">
+				<reportElement style="title" mode="Opaque" x="-20" y="0" width="595" height="36" isPrintWhenDetailOverflows="true" forecolor="#006699" backcolor="#E6E6E6" uuid="00092a3a-dcb5-4627-821a-de62847019c9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Procédures"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="11"/>
+	</columnHeader>
+	<detail>
+		<band height="19">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="186" y="0" width="368" height="1" uuid="79673c80-1c9b-4d50-b3da-2b0fca66d405"/>
+			</line>
+			<textField>
+				<reportElement style="base" x="397" y="0" width="157" height="19" uuid="1749f1e1-418c-4e8f-a8a0-98b7af7b1716"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{variable_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="base" x="214" y="0" width="183" height="19" uuid="dc5131d3-a69b-4b0b-89ea-c20be89ee252"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{variable_title}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="base" x="186" y="0" width="28" height="19" uuid="ee0f37e4-f20c-4581-b6be-66edc4d7f107"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{variable_position}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="ba314f29-ad15-4090-87ee-9bb5db3547cb"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="0ebf1f42-ba9e-4115-8729-de0bd443fc05"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="152" height="13" uuid="0de9e465-281e-41ed-b39d-99bd0ef215ee"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
