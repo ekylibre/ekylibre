@@ -4,9 +4,9 @@
   <nomenclature name="product_nature_categories">
     <property-natures>
       <!-- Inside the model-->
-      <property-nature name="financial_asset_account" type="choice" nomenclature="accounts" required="false"/> <!-- 2X -->
-      <property-nature name="financial_asset_allocation_account" type="choice" nomenclature="accounts" required="false"/> <!-- 28X -->
-      <property-nature name="financial_asset_expenses_account" type="choice" nomenclature="accounts" required="false"/> <!-- 68X -->
+      <property-nature name="fixed_asset_account" type="choice" nomenclature="accounts" required="false"/> <!-- 2X -->
+      <property-nature name="fixed_asset_allocation_account" type="choice" nomenclature="accounts" required="false"/> <!-- 28X -->
+      <property-nature name="fixed_asset_expenses_account" type="choice" nomenclature="accounts" required="false"/> <!-- 68X -->
       <property-nature name="depreciation_percentage" type="decimal" required="false"/>
       <property-nature name="charge_account" type="choice" nomenclature="accounts" required="false"/>
       <property-nature name="product_account" type="choice" nomenclature="accounts" required="false"/>
@@ -28,9 +28,9 @@
             pictogram="cow"
             />
       <item name="female_adult_cow"
-            financial_asset_account="adult_animal_assets"
-            financial_asset_allocation_account="adult_animal_asset_depreciations"
-            financial_asset_expenses_account="animals_depreciations_inputations_expenses"
+            fixed_asset_account="adult_animal_assets"
+            fixed_asset_allocation_account="adult_animal_asset_depreciations"
+            fixed_asset_expenses_account="animals_depreciations_inputations_expenses"
             charge_account="adult_animal_expenses"
             product_account="adult_animal_revenues"
             stock_account="long_time_animal_stock"
@@ -41,9 +41,9 @@
             pictogram="cow"
             />
       <item name="male_adult_cow"
-            financial_asset_account="adult_animal_assets"
-            financial_asset_allocation_account="adult_animal_asset_depreciations"
-            financial_asset_expenses_account="animals_depreciations_inputations_expenses"
+            fixed_asset_account="adult_animal_assets"
+            fixed_asset_allocation_account="adult_animal_asset_depreciations"
+            fixed_asset_expenses_account="animals_depreciations_inputations_expenses"
             charge_account="adult_animal_expenses"
             product_account="adult_animal_revenues"
             stock_account="long_time_animal_stock"
@@ -90,9 +90,9 @@
             pictogram="drop"
             />
       <item name="female_young_cow"
-            financial_asset_account="young_animal_assets"
-            financial_asset_allocation_account="young_animal_asset_depreciations"
-            financial_asset_expenses_account="animals_depreciations_inputations_expenses"
+            fixed_asset_account="young_animal_assets"
+            fixed_asset_allocation_account="young_animal_asset_depreciations"
+            fixed_asset_expenses_account="animals_depreciations_inputations_expenses"
             charge_account="young_animal_expenses"
             product_account="young_animal_revenues"
             stock_account="long_time_animal_stock"
@@ -103,9 +103,9 @@
             pictogram="cow"
             />
       <item name="male_young_cow"
-            financial_asset_account="young_animal_assets"
-            financial_asset_allocation_account="young_animal_asset_depreciations"
-            financial_asset_expenses_account="animals_depreciations_inputations_expenses"
+            fixed_asset_account="young_animal_assets"
+            fixed_asset_allocation_account="young_animal_asset_depreciations"
+            fixed_asset_expenses_account="animals_depreciations_inputations_expenses"
             charge_account="young_animal_expenses"
             product_account="young_animal_revenues"
             stock_account="long_time_animal_stock"
@@ -126,9 +126,9 @@
             pictogram="cow"
             />
       <item name="long_time_animal"
-            financial_asset_account="adult_animal_assets"
-            financial_asset_allocation_account="adult_animal_asset_depreciations"
-            financial_asset_expenses_account="animals_depreciations_inputations_expenses"
+            fixed_asset_account="adult_animal_assets"
+            fixed_asset_allocation_account="adult_animal_asset_depreciations"
+            fixed_asset_expenses_account="animals_depreciations_inputations_expenses"
             charge_account="adult_animal_expenses"
             product_account="adult_animal_revenues"
             stock_account="long_time_animal_stock"
@@ -138,7 +138,7 @@
             storable="true"
             pictogram="cow"
             />
-       <item name="short_time_animal"
+      <item name="short_time_animal"
             charge_account="adult_animal_expenses"
             product_account="adult_animal_revenues"
             stock_account="short_time_animal_stock"
@@ -173,11 +173,11 @@
             saleable="true"
             storable="true"
             pictogram="drop"
-              />
+            />
       <item name="female_adult_pig"
-            financial_asset_account="adult_animal_assets"
-            financial_asset_allocation_account="adult_animal_asset_depreciations"
-            financial_asset_expenses_account="animals_depreciations_inputations_expenses"
+            fixed_asset_account="adult_animal_assets"
+            fixed_asset_allocation_account="adult_animal_asset_depreciations"
+            fixed_asset_expenses_account="animals_depreciations_inputations_expenses"
             charge_account="adult_animal_expenses"
             product_account="adult_animal_revenues"
             stock_account="long_time_animal_stock"
@@ -186,11 +186,11 @@
             depreciable="true"
             storable="true"
             pictogram="cow"
-              />
+            />
       <item name="male_adult_pig"
-            financial_asset_account="adult_animal_assets"
-            financial_asset_allocation_account="adult_animal_asset_depreciations"
-            financial_asset_expenses_account="animals_depreciations_inputations_expenses"
+            fixed_asset_account="adult_animal_assets"
+            fixed_asset_allocation_account="adult_animal_asset_depreciations"
+            fixed_asset_expenses_account="animals_depreciations_inputations_expenses"
             charge_account="adult_animal_expenses"
             product_account="adult_animal_revenues"
             stock_account="long_time_animal_stock"
@@ -199,7 +199,7 @@
             depreciable="true"
             storable="true"
             pictogram="cow"
-              />
+            />
       <item name="pig_band"
             charge_account="young_animal_expenses"
             product_account="young_animal_revenues"
@@ -209,8 +209,8 @@
             depreciable="false"
             storable="true"
             pictogram="cow"
-              />
-       <item name="rabbit_band"
+            />
+      <item name="rabbit_band"
             charge_account="young_animal_expenses"
             product_account="young_animal_revenues"
             stock_account="short_time_animal_stock"
@@ -219,11 +219,11 @@
             depreciable="false"
             storable="true"
             pictogram="cow"
-              />
-        <item name="bee_band"
-        	financial_asset_account="adult_animal_assets"
-            financial_asset_allocation_account="adult_animal_asset_depreciations"
-            financial_asset_expenses_account="animals_depreciations_inputations_expenses"
+            />
+      <item name="bee_band"
+            fixed_asset_account="adult_animal_assets"
+            fixed_asset_allocation_account="adult_animal_asset_depreciations"
+            fixed_asset_expenses_account="animals_depreciations_inputations_expenses"
             depreciation_percentage="25"
             charge_account="adult_animal_expenses"
             product_account="adult_animal_revenues"
@@ -233,8 +233,8 @@
             depreciable="true"
             storable="true"
             pictogram="cow"
-              />
-       <item name="honey"
+            />
+      <item name="honey"
             charge_account="raw_material_expenses"
             product_account="animal_derivatives_revenues"
             stock_account="animal_derivative_stock"
@@ -242,8 +242,8 @@
             saleable="true"
             storable="true"
             pictogram="drop"
-              />
-       <item name="fish_band"
+            />
+      <item name="fish_band"
             charge_account="other_animal_expenses"
             product_account="other_animal_revenues"
             stock_account="short_time_animal_stock"
@@ -338,7 +338,7 @@
             storable="true"
             pictogram="beaker"
             />
-       <item name="biological_auxiliary"
+      <item name="biological_auxiliary"
             charge_account="plant_medicine_matter_expenses"
             product_account="revenues"
             stock_account="plant_medicine_stock"
@@ -348,7 +348,7 @@
             storable="true"
             pictogram="beaker"
             />
-       <item name="fertilizer"
+      <item name="fertilizer"
             charge_account="fertilizer_expenses"
             product_account="residual_products_revenues"
             stock_account="fertilizer_stock"
@@ -358,10 +358,10 @@
             storable="true"
             pictogram="matter"
             />
-       <item name="plant"
-            financial_asset_account="sustainables_plants_assets"
-            financial_asset_allocation_account="sustainables_plants_asset_depreciations"
-            financial_asset_expenses_account="others_corporeals_depreciations_inputations_expenses"
+      <item name="plant"
+            fixed_asset_account="sustainables_plants_assets"
+            fixed_asset_allocation_account="sustainables_plants_asset_depreciations"
+            fixed_asset_expenses_account="others_corporeals_depreciations_inputations_expenses"
             depreciation_percentage="4"
             charge_account="seed_expenses"
             product_account="revenues"
@@ -372,7 +372,7 @@
             storable="true"
             pictogram="matter"
             />
-       <item name="seed"
+      <item name="seed"
             charge_account="seed_expenses"
             product_account="revenues"
             stock_account="seed_stock"
@@ -478,9 +478,9 @@
             pictogram="land_parcels"
             />
       <item name="building"
-            financial_asset_account="building_assets"
-            financial_asset_allocation_account="own_building_asset_depreciations"
-            financial_asset_expenses_account="building_depreciations_inputations_expenses"
+            fixed_asset_account="building_assets"
+            fixed_asset_allocation_account="own_building_asset_depreciations"
+            fixed_asset_expenses_account="building_depreciations_inputations_expenses"
             depreciation_percentage="5"
             charge_account="own_building_expenses"
             product_account="sales_assets_revenues"
@@ -490,9 +490,9 @@
             pictogram="building"
             />
       <item name="settlement"
-            financial_asset_account="general_installation_assets"
-            financial_asset_allocation_account="general_installation_asset_depreciations"
-            financial_asset_expenses_account="land_parcel_construction_depreciations_inputations_expenses"
+            fixed_asset_account="general_installation_assets"
+            fixed_asset_allocation_account="general_installation_asset_depreciations"
+            fixed_asset_expenses_account="land_parcel_construction_depreciations_inputations_expenses"
             depreciation_percentage="10"
             product_account="sales_assets_revenues"
             purchasable="false"
@@ -508,9 +508,9 @@
             pictogram="barn"
             />
       <item name="equipment"
-            financial_asset_account="equipment_assets"
-            financial_asset_allocation_account="equipment_asset_depreciations"
-            financial_asset_expenses_account="equipments_depreciations_inputations_expenses"
+            fixed_asset_account="equipment_assets"
+            fixed_asset_allocation_account="equipment_asset_depreciations"
+            fixed_asset_expenses_account="equipments_depreciations_inputations_expenses"
             depreciation_percentage="15"
             charge_account="equipment_expenses"
             product_account="sales_assets_revenues"
@@ -520,9 +520,9 @@
             pictogram="tractor"
             />
       <item name="installation"
-            financial_asset_account="general_installation_assets"
-            financial_asset_allocation_account="general_installation_asset_depreciations"
-            financial_asset_expenses_account="equipments_depreciations_inputations_expenses"
+            fixed_asset_account="general_installation_assets"
+            fixed_asset_allocation_account="general_installation_asset_depreciations"
+            fixed_asset_expenses_account="equipments_depreciations_inputations_expenses"
             depreciation_percentage="10"
             charge_account="equipment_expenses"
             product_account="sales_assets_revenues"
@@ -544,7 +544,7 @@
             pictogram="barn"
             />
 
-       <item name="land_parcel_construction"
+      <item name="land_parcel_construction"
             charge_account="redeemable_land_parcel_construction_assets"
             product_account="sales_assets_revenues"
             stock_account="other_materials_stock"
@@ -572,7 +572,7 @@
             storable="false"
             pictogram="drop"
             />
-       <item name="irrigation_water"
+      <item name="irrigation_water"
             charge_account="irrigation_expenses"
             purchasable="true"
             saleable="false"
@@ -580,14 +580,14 @@
             storable="false"
             pictogram="drop"
             />
-       <item name="natural_water"
+      <item name="natural_water"
             purchasable="false"
             saleable="false"
             depreciable="false"
             storable="false"
             pictogram="drop"
             />
-       <item name="electricity"
+      <item name="electricity"
             charge_account="electricity_expenses"
             purchasable="true"
             saleable="false"
@@ -595,7 +595,7 @@
             storable="false"
             pictogram="bolt"
             />
-        <item name="gas"
+      <item name="gas"
             charge_account="gas_expenses"
             purchasable="true"
             saleable="false"
@@ -603,7 +603,7 @@
             storable="false"
             pictogram="bolt"
             />
-        <item name="fuel"
+      <item name="fuel"
             charge_account="fuels_expenses"
             stock_account="fuel_stock"
             purchasable="true"
@@ -613,7 +613,7 @@
             pictogram="bolt"
             />
 
-         <item name="raw_materials"
+      <item name="raw_materials"
             charge_account="materials_expenses"
             stock_account="other_consumables_stock"
             purchasable="true"
@@ -624,11 +624,11 @@
             />
 
 
-		  <!-- agricultural service -->
+      <!-- agricultural service -->
 
-		  <item name="vegetals_making_services"
-		  	charge_account="vegetals_making_services_expenses"
-		  	product_account="making_services_revenues"
+      <item name="vegetals_making_services"
+            charge_account="vegetals_making_services_expenses"
+            product_account="making_services_revenues"
             purchasable="true"
             saleable="true"
             depreciable="false"
@@ -636,17 +636,7 @@
             pictogram="tractor"
             />
 
-          <item name="animals_making_services"
-		  	charge_account="animals_making_expenses_expenses"
-		  	product_account="making_services_revenues"
-            purchasable="true"
-            saleable="true"
-            depreciable="false"
-            storable="false"
-            pictogram="barn"
-            />
-
-		  <item name="animal_housing_services"
+      <item name="animals_making_services"
             charge_account="animals_making_expenses_expenses"
             product_account="making_services_revenues"
             purchasable="true"
@@ -656,7 +646,17 @@
             pictogram="barn"
             />
 
-            <item name="farm_teaching_services"
+      <item name="animal_housing_services"
+            charge_account="animals_making_expenses_expenses"
+            product_account="making_services_revenues"
+            purchasable="true"
+            saleable="true"
+            depreciable="false"
+            storable="false"
+            pictogram="barn"
+            />
+
+      <item name="farm_teaching_services"
             charge_account="making_services_expenses"
             product_account="making_services_revenues"
             purchasable="true"
@@ -666,7 +666,7 @@
             pictogram="barn"
             />
 
-		  <item name="equipment_repair_services"
+      <item name="equipment_repair_services"
             charge_account="equipment_expenses"
             purchasable="true"
             saleable="false"
@@ -676,9 +676,9 @@
             />
 
 
-          <!-- subsidies -->
+      <!-- subsidies -->
 
-         <item name="exploitation_subsidies"
+      <item name="exploitation_subsidies"
             product_account="exploitation_subsidies"
             purchasable="false"
             saleable="true"
@@ -688,13 +688,13 @@
             />
 
 
-         <!-- started services -->
+      <!-- started services -->
 
-         <item name="installing_charge"
-         	charge_account="fees_expenses"
-            financial_asset_account="establishment_charge_assets"
-            financial_asset_allocation_account="incorporeal_asset_depreciations"
-            financial_asset_expenses_account="incorporeals_depreciations_inputations_expenses"
+      <item name="installing_charge"
+            charge_account="fees_expenses"
+            fixed_asset_account="establishment_charge_assets"
+            fixed_asset_allocation_account="incorporeal_asset_depreciations"
+            fixed_asset_expenses_account="incorporeals_depreciations_inputations_expenses"
             depreciation_percentage="25"
             purchasable="true"
             saleable="false"
@@ -703,9 +703,9 @@
             pictogram="book"
             />
 
-         <!-- services -->
+      <!-- services -->
 
-         <item name="discount_and_reduction"
+      <item name="discount_and_reduction"
             charge_account="discount_and_reductions_expenses"
             product_account="discount_and_reductions_revenues"
             purchasable="true"
@@ -714,7 +714,7 @@
             storable="false"
             pictogram="gift"
             />
-           <item name="carriage"
+      <item name="carriage"
             charge_account="merchandising_accessory_expenses"
             product_account="merchandising_accessory_revenues"
             purchasable="true"
@@ -723,7 +723,7 @@
             storable="false"
             pictogram="truck"
             />
-         <item name="leasing"
+      <item name="leasing"
             charge_account="leasing_expenses"
             purchasable="true"
             saleable="false"
@@ -731,7 +731,7 @@
             storable="false"
             pictogram="money"
             />
-          <item name="rent"
+      <item name="rent"
             charge_account="rent_expenses"
             product_account="revenues"
             purchasable="true"
@@ -740,7 +740,7 @@
             storable="false"
             pictogram="money"
             />
-         <item name="equipment_rent"
+      <item name="equipment_rent"
             charge_account="equipment_rent_expenses"
             product_account="revenues"
             purchasable="true"
@@ -750,7 +750,7 @@
             pictogram="tractor"
             />
 
-         <item name="land_parcel_locative_charge"
+      <item name="land_parcel_locative_charge"
             charge_account="land_parcel_locative_expenses"
             purchasable="true"
             saleable="false"
@@ -759,7 +759,7 @@
             pictogram="wrench"
             />
 
-         <item name="maintenance"
+      <item name="maintenance"
             charge_account="maintenance_expenses"
             purchasable="true"
             saleable="false"
@@ -768,7 +768,7 @@
             pictogram="wrench"
             />
 
-          <item name="insurance"
+      <item name="insurance"
             charge_account="insurance_expenses"
             purchasable="true"
             saleable="false"
@@ -777,7 +777,7 @@
             pictogram="umbrella"
             />
 
-            <item name="infirmity_and_death_insurance"
+      <item name="infirmity_and_death_insurance"
             charge_account="infirmity_and_death_insurance_expenses"
             purchasable="true"
             saleable="false"
@@ -786,7 +786,7 @@
             pictogram="umbrella"
             />
 
-		  <item name="studies_and_research"
+      <item name="studies_and_research"
             charge_account="studies_and_research_expenses"
             purchasable="true"
             saleable="false"
@@ -796,7 +796,7 @@
             />
 
 
-          <item name="fee"
+      <item name="fee"
             charge_account="fees_expenses"
             purchasable="true"
             saleable="false"
@@ -805,7 +805,7 @@
             pictogram="tasks"
             />
 
-            <item name="forwarding_agent_fees_expense"
+      <item name="forwarding_agent_fees_expense"
             charge_account="forwarding_agent_fees_expenses"
             purchasable="true"
             saleable="false"
@@ -814,7 +814,7 @@
             pictogram="user"
             />
 
-            <item name="fiscal_fine"
+      <item name="fiscal_fine"
             charge_account="fiscal_fine_exceptional_expenses"
             purchasable="true"
             saleable="false"
@@ -823,7 +823,7 @@
             pictogram="tasks"
             />
 
-         <item name="travel"
+      <item name="travel"
             charge_account="travels_expenses"
             product_account="merchandising_accessory_revenues"
             purchasable="true"
@@ -832,7 +832,7 @@
             storable="false"
             pictogram="plane"
             />
-          <item name="congress"
+      <item name="congress"
             charge_account="congress_and_symposium_expenses"
             purchasable="true"
             saleable="false"
@@ -840,7 +840,7 @@
             storable="false"
             pictogram="plane"
             />
-         <item name="telecommunication"
+      <item name="telecommunication"
             charge_account="telecommunications_expenses"
             purchasable="true"
             saleable="false"
@@ -848,7 +848,7 @@
             storable="false"
             pictogram="user"
             />
-          <item name="bank_service"
+      <item name="bank_service"
             charge_account="banks_services_expenses"
             purchasable="true"
             saleable="false"
@@ -857,7 +857,7 @@
             pictogram="bank"
             />
 
-          <item name="loan_interest"
+      <item name="loan_interest"
             charge_account="interests_expenses"
             purchasable="true"
             saleable="false"
@@ -866,7 +866,7 @@
             pictogram="bank"
             />
 
-           <item name="various_loan_interest"
+      <item name="various_loan_interest"
             charge_account="other_various_interests_expenses"
             purchasable="true"
             saleable="false"
@@ -875,7 +875,7 @@
             pictogram="bank"
             />
 
-          <item name="taxe"
+      <item name="taxe"
             charge_account="taxes_expenses"
             purchasable="true"
             saleable="false"
@@ -883,7 +883,7 @@
             storable="false"
             pictogram="legal"
             />
-		  <item name="duty_and_taxe"
+      <item name="duty_and_taxe"
             charge_account="other_taxes"
             purchasable="true"
             saleable="false"
@@ -892,7 +892,7 @@
             pictogram="legal"
             />
 
-          <item name="rent_hosting_service"
+      <item name="rent_hosting_service"
             charge_account="rent_expenses"
             purchasable="true"
             saleable="false"
@@ -901,10 +901,10 @@
             pictogram="subscription"
             />
 
-          <item name="electronic_equipment"
-            financial_asset_account="office_equipment_assets"
-            financial_asset_allocation_account="office_equipment_asset_depreciations"
-            financial_asset_expenses_account="equipments_depreciations_inputations_expenses"
+      <item name="electronic_equipment"
+            fixed_asset_account="office_equipment_assets"
+            fixed_asset_allocation_account="office_equipment_asset_depreciations"
+            fixed_asset_expenses_account="equipments_depreciations_inputations_expenses"
             depreciation_percentage="33"
             charge_account="equipments_expenses"
             product_account="merchandising_revenues"
@@ -916,10 +916,10 @@
             pictogram="laptop"
             />
 
-           <item name="office_furniture_equipment"
-            financial_asset_account="office_equipment_assets"
-            financial_asset_allocation_account="office_equipment_asset_depreciations"
-            financial_asset_expenses_account="equipments_depreciations_inputations_expenses"
+      <item name="office_furniture_equipment"
+            fixed_asset_account="office_equipment_assets"
+            fixed_asset_allocation_account="office_equipment_asset_depreciations"
+            fixed_asset_expenses_account="equipments_depreciations_inputations_expenses"
             depreciation_percentage="10"
             charge_account="equipments_expenses"
             product_account="merchandising_revenues"
@@ -932,7 +932,7 @@
             />
 
 
-		  <item name="little_office_item"
+      <item name="little_office_item"
             charge_account="little_office_equipment_expenses"
             purchasable="true"
             saleable="false"
@@ -941,7 +941,7 @@
             pictogram="fax"
             />
 
-            <item name="consumer_goods_office_item"
+      <item name="consumer_goods_office_item"
             charge_account="office_supply_matter_expenses"
             purchasable="true"
             saleable="false"
@@ -950,7 +950,7 @@
             pictogram="fax"
             />
 
-          <item name="small_electronic_equipment"
+      <item name="small_electronic_equipment"
             charge_account="equipments_expenses"
             product_account="merchandising_revenues"
             stock_account="stocks"
@@ -961,7 +961,7 @@
             pictogram="laptop"
             />
 
-          <item name="subcontracting"
+      <item name="subcontracting"
             charge_account="subcontracting_expenses"
             purchasable="true"
             saleable="false"
@@ -970,7 +970,7 @@
             pictogram="user"
             />
 
-          <item name="licence"
+      <item name="licence"
             charge_account="licences_expenses"
             purchasable="true"
             saleable="false"
@@ -978,7 +978,7 @@
             storable="false"
             pictogram="subscription"
             />
-          <item name="catalog_and_print"
+      <item name="catalog_and_print"
             charge_account="catalog_and_print_expenses"
             purchasable="true"
             saleable="false"
@@ -987,7 +987,7 @@
             pictogram="cc"
             />
 
-			<item name="representation"
+      <item name="representation"
             charge_account="advertising_expenses"
             purchasable="true"
             saleable="false"
@@ -996,7 +996,7 @@
             pictogram="cc"
             />
 
-			<item name="trade_show"
+      <item name="trade_show"
             charge_account="trade_show_expenses"
             purchasable="true"
             saleable="false"
@@ -1005,7 +1005,7 @@
             pictogram="cc"
             />
 
-          <item name="professional_subscription"
+      <item name="professional_subscription"
             charge_account="professional_subscriptions_expenses"
             purchasable="true"
             saleable="false"
@@ -1014,7 +1014,7 @@
             pictogram="cc"
             />
 
-            <item name="bonus_staff_expense"
+      <item name="bonus_staff_expense"
             charge_account="bonus_staff_expenses"
             purchasable="true"
             saleable="false"
@@ -1023,7 +1023,7 @@
             pictogram="user"
             />
 
-          <item name="salary_social_contribution"
+      <item name="salary_social_contribution"
             charge_account="salary_social_contribution_expenses"
             purchasable="true"
             saleable="false"
@@ -1032,7 +1032,7 @@
             pictogram="user"
             />
 
-          <item name="associate_social_contribution"
+      <item name="associate_social_contribution"
             charge_account="associate_social_contribution_expenses"
             purchasable="true"
             saleable="false"
@@ -1041,7 +1041,7 @@
             pictogram="user"
             />
 
-          <item name="service"
+      <item name="service"
             product_account="services_revenues"
             purchasable="false"
             saleable="true"

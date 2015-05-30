@@ -41,8 +41,8 @@ class Backend::FinancialYearsController < Backend::BaseController
     t.column :local_credit, currency: true
   end
 
-  list(:financial_asset_depreciations, conditions: {financial_year_id: 'params[:id]'.c}) do |t|
-    t.column :financial_asset, url: true
+  list(:fixed_asset_depreciations, conditions: {financial_year_id: 'params[:id]'.c}) do |t|
+    t.column :fixed_asset, url: true
     t.column :started_on
     t.column :stopped_on
     t.column :amount, currency: true
@@ -106,7 +106,7 @@ class Backend::FinancialYearsController < Backend::BaseController
   def generate_last_journal_entry
     return unless @financial_year = find_and_check
     if request.get?
-      params[:financial_assets_depreciations] ||= 1
+      params[:fixed_assets_depreciations] ||= 1
     elsif request.post?
       # TODO: Defines journal to save the entry
       @financial_year.generate_last_journal_entry(params)

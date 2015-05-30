@@ -33,7 +33,7 @@
 #  derivative_of         :string
 #  description           :text
 #  extjuncted            :boolean          default(FALSE), not null
-#  financial_asset_id    :integer
+#  fixed_asset_id        :integer
 #  id                    :integer          not null, primary key
 #  identification_number :string
 #  initial_born_at       :datetime
@@ -74,7 +74,7 @@ class Product < Ekylibre::Record::Base
   belongs_to :address, class_name: "EntityAddress"
   belongs_to :category, class_name: "ProductNatureCategory"
   belongs_to :default_storage, class_name: "Product"
-  belongs_to :financial_asset
+  belongs_to :fixed_asset
   belongs_to :initial_container, class_name: "Product"
   belongs_to :initial_enjoyer, class_name: "Entity"
   belongs_to :initial_father, class_name: "Product"
@@ -534,7 +534,7 @@ class Product < Ekylibre::Record::Base
 
 
   def initializeable?
-    self.new_record? or !(self.incoming_delivery_item.present? or self.outgoing_delivery_items.any? or self.intervention_casts.any? or self.financial_asset.present?)
+    self.new_record? or !(self.incoming_delivery_item.present? or self.outgoing_delivery_items.any? or self.intervention_casts.any? or self.fixed_asset.present?)
   end
 
 

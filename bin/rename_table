@@ -132,6 +132,17 @@ if options[:migrate]
   code << "      end\n"
   code << "    end\n"
 
+  table, col = :sequences, :usage
+  code << "    # #{table.humanize}\n"
+  code << "    reversible do |dir|\n"
+  code << "      dir.up do\n"
+  code << "        execute \"UPDATE \#{quote_table_name(:#{table})} SET \#{quote_column_name(:#{col})}='#{new_table}' WHERE \#{quote_column_name(:#{col})}='#{old_table}'\"\n"
+  code << "      end\n"
+  code << "      dir.down do\n"
+  code << "        execute \"UPDATE \#{quote_table_name(:#{table})} SET \#{quote_column_name(:#{col})}='#{old_table}' WHERE \#{quote_column_name(:#{col})}='#{new_table}'\"\n"
+  code << "      end\n"
+  code << "    end\n"
+
   code << "\n"
   code << "    # Add your specific code here...\n"
   code << "\n"
@@ -267,9 +278,9 @@ for file in Dir[config.join("locales", "*", "action.yml")].sort
       tr[locale]["controllers"]["backend/#{new_table}"] = tr[locale]["controllers"].delete("backend/#{old_table}")
     end
   end
-  if tr[locale]["unroll"]
-    if tr[locale]["unroll"]["backend/#{old_table}"]
-      tr[locale]["unroll"]["backend/#{new_table}"] = tr[locale]["unroll"].delete("backend/#{old_table}")
+  if tr[locale]["unrolls"]
+    if tr[locale]["unrolls"]["backend/#{old_table}"]
+      tr[locale]["unrolls"]["backend/#{new_table}"] = tr[locale]["unroll"].delete("backend/#{old_table}")
     end
   end
 
@@ -323,24 +334,25 @@ update_file(nf, source.gsub(/(resources\ )+:#{old_table}(\,|\s|$)/, '\1:' + new_
 
 test = root.join("test")
 
-# test/fixtures
-of = test.join("fixtures", "#{old_table}.yml")
-nf = test.join("fixtures", "#{new_table}.yml")
-if File.exist?(of)
-  execute("git mv #{of} #{nf}")
-end
-if File.exist?(nf)
-  unless @simulate
-    source = nil
-    File.open(nf, "rb") do |f|
-      source = f.read
-    end
-    source.gsub!(/^#{old_table}_(\d+)\:/, new_table+'_\1:')
-    File.open(nf, "wb") do |f|
-      f.write source
-    end
-  end
-end
+# # We cannot touch fixtures. Use db:fixtures:restore db:fixtures:dump
+# # test/fixtures
+# of = test.join("fixtures", "#{old_table}.yml")
+# nf = test.join("fixtures", "#{new_table}.yml")
+# if File.exist?(of)
+#   execute("git mv #{of} #{nf}")
+# end
+# if File.exist?(nf)
+#   unless @simulate
+#     source = nil
+#     File.open(nf, "rb") do |f|
+#       source = f.read
+#     end
+#     source.gsub!(/^#{old_table}_(\d+)\:/, new_table+'_\1:')
+#     File.open(nf, "wb") do |f|
+#       f.write source
+#     end
+#   end
+# end
 
 # test/models
 of = test.join("models", "#{old_record}_test.rb")

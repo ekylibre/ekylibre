@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: financial_asset_depreciations
+# == Table: fixed_asset_depreciations
 #
 #  accountable        :boolean          default(FALSE), not null
 #  accounted_at       :datetime
@@ -29,8 +29,8 @@
 #  creator_id         :integer
 #  depreciable_amount :decimal(19, 4)
 #  depreciated_amount :decimal(19, 4)
-#  financial_asset_id :integer          not null
 #  financial_year_id  :integer
+#  fixed_asset_id     :integer          not null
 #  id                 :integer          not null, primary key
 #  journal_entry_id   :integer
 #  lock_version       :integer          default(0), not null
@@ -43,6 +43,6 @@
 #
 require 'test_helper'
 
-class FinancialAssetDepreciationTest < ActiveSupport::TestCase
+class FixedAssetDepreciationTest < ActiveSupport::TestCase
   test_fixtures
 end

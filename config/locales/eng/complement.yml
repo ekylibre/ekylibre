@@ -8943,7 +8943,7 @@ eng:
         unpaid_leave: "Unpaid leave"
         working_group: "Working group"
         working_time_recovery: "Working time recovery"
-    financial_asset:
+    fixed_asset:
       currency:
         AED: "UAE Dirham"
         AFN: "Afghani"
@@ -12065,9 +12065,9 @@ eng:
         equipment: "Equipment"
         event: "Event"
         event_participation: "Event participation"
-        financial_asset: "Financial asset"
-        financial_asset_depreciation: "Financial asset depreciation"
         financial_year: "Financial year"
+        fixed_asset: "Financial asset"
+        fixed_asset_depreciation: "Financial asset depreciation"
         fungus: "Fungus"
         gap: "Gap"
         gap_item: "Gap item"

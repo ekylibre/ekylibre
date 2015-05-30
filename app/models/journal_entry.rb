@@ -60,7 +60,7 @@ class JournalEntry < Ekylibre::Record::Base
   belongs_to :journal, inverse_of: :entries
   belongs_to :resource, polymorphic: true
   has_many :affairs, dependent: :nullify
-  has_many :financial_asset_depreciations, dependent: :nullify
+  has_many :fixed_asset_depreciations, dependent: :nullify
   has_many :useful_items, -> { where("balance != ?", 0.0) }, foreign_key: :entry_id, class_name: "JournalEntryItem"
   has_many :items, foreign_key: :entry_id, dependent: :delete_all, class_name: "JournalEntryItem", inverse_of: :entry
   has_many :outgoing_payments, dependent: :nullify

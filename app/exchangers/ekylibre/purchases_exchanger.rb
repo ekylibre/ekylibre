@@ -26,9 +26,9 @@ class Ekylibre::PurchasesExchanger < ActiveExchanger::Base
           variety:                 row[vinfos + 1],
           product_account:         row[vinfos + 2],
           charge_account:          row[vinfos + 3],
-          financial_asset_account: row[vinfos + 4],
-          financial_asset_allocation_account: row[vinfos + 5],
-          financial_asset_expenses_account:   row[vinfos + 6]
+          fixed_asset_account: row[vinfos + 4],
+          fixed_asset_allocation_account: row[vinfos + 5],
+          fixed_asset_expenses_account:   row[vinfos + 6]
         },
 
         # Extra infos
@@ -44,14 +44,14 @@ class Ekylibre::PurchasesExchanger < ActiveExchanger::Base
         if Nomen::ProductNatureVariants.find(r.variant_code)
           variant = ProductNatureVariant.import_from_nomenclature(r.variant_code)
         else
-          if r.variant[:financial_asset_account]
-            suffix = r.variant[:financial_asset_account][1..-1]
-            r.variant[:financial_asset_allocation_account] ||= "28#{suffix}"
-            r.variant[:financial_asset_expenses_account]   ||= "68#{suffix}"
-            r.variant[:financial_asset_depreciation_method] ||= :simplified_linear
-            r.variant[:financial_asset_depreciation_percentage] ||= 15
+          if r.variant[:fixed_asset_account]
+            suffix = r.variant[:fixed_asset_account][1..-1]
+            r.variant[:fixed_asset_allocation_account] ||= "28#{suffix}"
+            r.variant[:fixed_asset_expenses_account]   ||= "68#{suffix}"
+            r.variant[:fixed_asset_depreciation_method] ||= :simplified_linear
+            r.variant[:fixed_asset_depreciation_percentage] ||= 15
           end
-          %w(product charge financial_asset financial_asset_allocation financial_asset_expenses).each do |type|
+          %w(product charge fixed_asset fixed_asset_allocation fixed_asset_expenses).each do |type|
             key = "#{type}_account".to_sym
             account_infos = r.variant[key].to_s.split(":")
             account_number = account_infos.shift
@@ -67,7 +67,7 @@ class Ekylibre::PurchasesExchanger < ActiveExchanger::Base
           attrs[:name] = r.variant_code
           attrs[:saleable] = true if attrs[:product_account]
           attrs[:purchasable] = true if attrs[:charge_account]
-          attrs[:depreciable] = true if attrs[:financial_asset_account]
+          attrs[:depreciable] = true if attrs[:fixed_asset_account]
           unless category = ProductNatureCategory.find_by(attrs)
             category = ProductNatureCategory.create!(attrs.merge(active: true, pictogram: :undefined))
           end

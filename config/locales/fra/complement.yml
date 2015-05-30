@@ -8970,7 +8970,7 @@ fra:
         unpaid_leave: "Congé sans solde"
         working_group: "Groupe de travail"
         working_time_recovery: "Récupération de temps de travail (RTT)"
-    financial_asset:
+    fixed_asset:
       currency:
         AED: "Dirham des Émirats"
         AFN: "Afghani"
@@ -12103,9 +12103,9 @@ fra:
         establishment: "Établissement"
         event: "Évènement"
         event_participation: "Participation à un évènement"
-        financial_asset: "Immobilisation"
-        financial_asset_depreciation: "Amortissement d’immobilisation"
         financial_year: "Exercice"
+        fixed_asset: "Immobilisation"
+        fixed_asset_depreciation: "Amortissement d’immobilisation"
         fungus: "Champignon"
         gap: "Perte ou profit"
         gap_item: "Élément de perte ou profit"

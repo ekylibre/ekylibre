@@ -330,7 +330,7 @@ Rails.application.routes.draw do
 
     resources :exports, only: [:index, :show]
 
-    resources :financial_assets, concerns: [:list, :unroll], path: "fixed-assets" do
+    resources :fixed_assets, concerns: [:list, :unroll], path: "fixed-assets" do
       member do
         get  :cede
         get  :sell
@@ -346,7 +346,7 @@ Rails.application.routes.draw do
         match :generate_last_journal_entry, via: [:get, :post]
         post :compute_balances
         get  :list_account_balances
-        get  :list_financial_asset_depreciations
+        get  :list_fixed_asset_depreciations
       end
     end
 

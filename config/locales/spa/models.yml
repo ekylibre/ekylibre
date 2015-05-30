@@ -13,10 +13,10 @@ spa:
         # managed: "Managed by the system"
       equipment:
         # born_at: "Put in service at"
-      financial_asset_depreciation:
-        # asset_amount: "Accountable value"
       financial_year:
         # stopped_on: "Date of closure"
+      fixed_asset_depreciation:
+        # asset_amount: "Accountable value"
       land_parcel:
         # born_at: "Created at"
       land_parcel_group:
@@ -80,10 +80,6 @@ spa:
         entity:
           # missing_title: "%{attribute} must contains the title “%{title}”"
           # nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
-        financial_asset:
-          attributes:
-            started_on:
-              # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
         financial_year:
           attributes:
             started_on:
@@ -91,6 +87,10 @@ spa:
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
           # overlap: "%{attribute} overlaps an existing financial year"
+        fixed_asset:
+          attributes:
+            started_on:
+              # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
         incoming_delivery_item:
           # greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
         journal:
@@ -161,9 +161,9 @@ spa:
       # equipment: "Equipment"
       # event: "Event"
       # event_participation: "Event participation"
-      # financial_asset: "Financial asset"
-      # financial_asset_depreciation: "Financial asset depreciation"
       # financial_year: "Financial year"
+      # fixed_asset: "Financial asset"
+      # fixed_asset_depreciation: "Financial asset depreciation"
       # fungus: "Fungus"
       # gap: "Gap"
       # gap_item: "Gap item"
@@ -530,13 +530,6 @@ spa:
     # fifth_producer: "Fifth producer"
     # fifth_producer_way: "Fifth producer way"
     # filtered_columns: "Filtered columns"
-    # financial_asset: "Financial asset"
-    # financial_asset_account: "Financial asset account"
-    # financial_asset_allocation_account: "Financial asset depreciations account"
-    # financial_asset_depreciation_method: "Financial asset depreciation method"
-    # financial_asset_depreciation_percentage: "Financial asset depreciation percentage"
-    # financial_asset_depreciations: "Financial asset depreciations"
-    # financial_asset_expenses_account: "Financial asset depreciations inputations expenses account"
     # financial_year: "Financial year"
     # financial_year_as_last: "Financial year (as last journal entry)"
     # finish: "Finish"
@@ -548,6 +541,13 @@ spa:
     # first_producer: "First producer"
     # first_producer_way: "First producer way"
     # fixed: "Fixed"
+    # fixed_asset: "Financial asset"
+    # fixed_asset_account: "Financial asset account"
+    # fixed_asset_allocation_account: "Financial asset depreciations account"
+    # fixed_asset_depreciation_method: "Financial asset depreciation method"
+    # fixed_asset_depreciation_percentage: "Financial asset depreciation percentage"
+    # fixed_asset_depreciations: "Financial asset depreciations"
+    # fixed_asset_expenses_account: "Financial asset depreciations inputations expenses account"
     # formats: "Formats"
     # fourth_producer: "Fourth producer"
     # fourth_producer_way: "Fourth producer way"
@@ -1269,7 +1269,7 @@ spa:
         # cash_transfers: "CT[year|4][number|4]"
         # deposits: "D[year|4][number|4]"
         # entities: "[number|8]"
-        # financial_assets: "FA[number|7]"
+        # fixed_assets: "FA[number|7]"
         # gaps: "G[number|12]"
         # incoming_deliveries: "ID[year|4][number|4]"
         # incoming_payments: "IP[year|4][number|6]"

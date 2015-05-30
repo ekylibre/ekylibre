@@ -43,7 +43,7 @@
 
 class Sequence < Ekylibre::Record::Base
   enumerize :period, in: [:cweek, :month, :number, :year]
-  enumerize :usage, in: [:affairs, :analyses, :animals, :campaigns, :cash_transfers, :deposits, :documents, :entities, :financial_assets, :gaps, :incoming_deliveries, :incoming_payments, :interventions, :opportunities, :outgoing_deliveries, :outgoing_payments, :plants, :products, :product_natures, :product_nature_categories, :product_nature_variants, :purchases, :sales, :sales_invoices, :subscriptions, :transports]
+  enumerize :usage, in: [:affairs, :analyses, :animals, :campaigns, :cash_transfers, :deposits, :documents, :entities, :fixed_assets, :gaps, :incoming_deliveries, :incoming_payments, :interventions, :opportunities, :outgoing_deliveries, :outgoing_payments, :plants, :products, :product_natures, :product_nature_categories, :product_nature_variants, :purchases, :sales, :sales_invoices, :subscriptions, :transports]
 
   has_many :preferences, :as => :record_value
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

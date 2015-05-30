@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: financial_asset_depreciations
+# == Table: fixed_asset_depreciations
 #
 #  accountable        :boolean          default(FALSE), not null
 #  accounted_at       :datetime
@@ -29,8 +29,8 @@
 #  creator_id         :integer
 #  depreciable_amount :decimal(19, 4)
 #  depreciated_amount :decimal(19, 4)
-#  financial_asset_id :integer          not null
 #  financial_year_id  :integer
+#  fixed_asset_id     :integer          not null
 #  id                 :integer          not null, primary key
 #  journal_entry_id   :integer
 #  lock_version       :integer          default(0), not null
@@ -41,9 +41,9 @@
 #  updated_at         :datetime         not null
 #  updater_id         :integer
 #
-class FinancialAssetDepreciation < Ekylibre::Record::Base
-  acts_as_list scope: :financial_asset
-  belongs_to :financial_asset
+class FixedAssetDepreciation < Ekylibre::Record::Base
+  acts_as_list scope: :fixed_asset
+  belongs_to :fixed_asset
   belongs_to :financial_year
   belongs_to :journal_entry
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -51,12 +51,12 @@ class FinancialAssetDepreciation < Ekylibre::Record::Base
   validates_datetime :accounted_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :amount, :depreciable_amount, :depreciated_amount, allow_nil: true
   validates_inclusion_of :accountable, :locked, in: [true, false]
-  validates_presence_of :amount, :financial_asset, :started_on, :stopped_on
+  validates_presence_of :amount, :fixed_asset, :started_on, :stopped_on
   #]VALIDATORS]
   validates_presence_of :financial_year
-  delegate :currency, to: :financial_asset
+  delegate :currency, to: :fixed_asset
 
-  sums :financial_asset, :depreciations, amount: :depreciated_amount
+  sums :fixed_asset, :depreciations, amount: :depreciated_amount
 
   bookkeep(on: :nothing) do |b|
     b.journal_entry do |entry|
@@ -65,22 +65,22 @@ class FinancialAssetDepreciation < Ekylibre::Record::Base
   end
 
   before_validation do
-    self.depreciated_amount = self.financial_asset.depreciations.where("stopped_on < ?", self.started_on).sum(:amount) + self.amount
-    self.depreciable_amount = self.financial_asset.depreciable_amount - self.depreciated_amount
+    self.depreciated_amount = self.fixed_asset.depreciations.where("stopped_on < ?", self.started_on).sum(:amount) + self.amount
+    self.depreciable_amount = self.fixed_asset.depreciable_amount - self.depreciated_amount
   end
 
   validate do
     # A start day must be the depreciation start or a financial year start
-    if self.financial_asset and self.financial_year
-      unless self.started_on == self.financial_asset.started_on or self.started_on.beginning_of_month == self.started_on or self.started_on == self.financial_year.started_on
-        errors.add(:started_on, :invalid_date, start: self.financial_asset.started_on)
+    if self.fixed_asset and self.financial_year
+      unless self.started_on == self.fixed_asset.started_on or self.started_on.beginning_of_month == self.started_on or self.started_on == self.financial_year.started_on
+        errors.add(:started_on, :invalid_date, start: self.fixed_asset.started_on)
       end
     end
   end
 
   # Returns the duration of the depreciation
   def duration
-    return FinancialAsset.duration(self.started_on, self.stopped_on, mode: self.financial_asset.depreciation_method.to_sym)
+    return FixedAsset.duration(self.started_on, self.stopped_on, mode: self.fixed_asset.depreciation_method.to_sym)
   end
 
 end

@@ -195,13 +195,6 @@ fra:
     backend/exports:
       index: "Exports"
       show: "Export\_: %{name}"
-    backend/financial_assets:
-      cede: "Céder l’immobilisation" #?
-      depreciate: "Calculer l’amortissement de l’immobilisation\_: %{name}" #?
-      edit: "Modifier l’immobilisation\_: %{name}"
-      index: "Immobilisations"
-      new: "Nouvelle immobilisation"
-      show: "Immobilisation\_: %{name}"
     backend/financial_years:
       close: "Clôturer l’exercice %{code}"
       compute_balances: "Calculer la balance de l’exercice"
@@ -210,6 +203,13 @@ fra:
       index: "Exercices comptables"
       new: "Nouvel exercice"
       show: "Exercice comptable %{code}"
+    backend/fixed_assets:
+      cede: "Céder l’immobilisation" #?
+      depreciate: "Calculer l’amortissement de l’immobilisation\_: %{name}" #?
+      edit: "Modifier l’immobilisation\_: %{name}"
+      index: "Immobilisations"
+      new: "Nouvelle immobilisation"
+      show: "Immobilisation\_: %{name}"
     backend/fungi:
       edit: "Modifier une culture de champignons\_: %{name}"
       index: "Champignons"
@@ -614,7 +614,6 @@ fra:
     account_current_assets: "Actif circulant" #?
     account_debt: "Dettes" #?
     account_equity: "Capitaux propres" #?
-    account_financial_assets: "Immobilisations financières" #?
     account_fixed_assets: "Actif immobilisé" #?
     account_inventories_assets: "Stocks" #?
     account_mark: "Lettrer le compte" #?
@@ -979,8 +978,6 @@ fra:
     file_to_upload: "Fichier à importer"
     filter: "Filtrer"
     filter_entries_with: "Filtrer les écritures avec" #?
-    financial_asset_depreciations: "Dépréciations d’immobilisation"
-    financial_assets: "Immobilisations"
     financial_state: "État financier" #?
     financials_assets: "Immobilisations"
     finish: "Terminer"
@@ -989,6 +986,8 @@ fra:
     finishes: "Termine par" #?
     first_contact: "Adresse principale" #?
     first_line_as_title: "Titre en première ligne"
+    fixed_asset_depreciations: "Dépréciations d’immobilisation"
+    fixed_assets: "Immobilisations"
     from: "À partir du"
     full_name: "Client" #?
     fullscreen: "Plein écran"
@@ -1668,7 +1667,7 @@ fra:
     weather: "Météo"
     wind_speed: "Vitesse du vent"
     wine_tanks: "Cuverie" #?
-    with_financial_assets_depreciations: "Inclure les amortissements des immobilisations"
+    with_fixed_assets_depreciations: "Inclure les amortissements des immobilisations"
     with_prints: "Inclure les impressions (factures, commandes…)" #?
     worked_on: "Travaillé le" #?
     working_duration: "Temps de travail"

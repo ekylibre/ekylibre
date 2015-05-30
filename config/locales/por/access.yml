@@ -35,8 +35,8 @@ por:
       establishments: "Estabelecimentos" #?
       events: "Eventos"
       exports: "Exportações"
-      financial_assets: "Ativos financeiros"
       financial_years: "Anos Fiscais"
+      fixed_assets: "Ativos financeiros"
       fungi: "Fungos"
       gaps: "Lacunas"
       georeadings: "Dados Geo"

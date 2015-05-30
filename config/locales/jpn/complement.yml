@@ -629,7 +629,7 @@ jpn:
         juglans: "クルミ属"
     event:
 
-    financial_asset:
+    fixed_asset:
       currency:
         AED: "UAE ディルハム"
         AFN: "アフガニ"

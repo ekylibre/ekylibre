@@ -615,7 +615,7 @@ spa:
 
     event:
 
-    financial_asset:
+    fixed_asset:
       currency:
         AED: "Dirham de los Emiratos Árabes Unidos"
         AFN: "Afgani afgano"

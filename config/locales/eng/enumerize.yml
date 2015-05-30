@@ -51,7 +51,7 @@ eng:
         informative: "Informative"
         refused: "Refused"
         waiting: "Waiting"
-    financial_asset:
+    fixed_asset:
       depreciation_method:
         graduated: "Graduated"
         linear: "Linear"
@@ -122,7 +122,7 @@ eng:
         deposits: "Numeration of deposits"
         documents: "Numeration of documents"
         entities: "Numeration of people"
-        financial_assets: "Numeration of financial assets"
+        fixed_assets: "Numeration of financial assets"
         gaps: "Numeration of gaps"
         incoming_deliveries: "Numeration of incoming deliveries"
         incoming_payments: "Numeration of payments"

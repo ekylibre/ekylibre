@@ -186,19 +186,19 @@
         <page to="backend/general_ledgers#list_journal_entry_items"/>
       </item>
     </group>
-    <group name="financial_assets" icon="home">
-      <item name="financial_assets">
-        <page to="backend/financial_assets#index"/>
-        <page to="backend/financial_assets#create"/>
-        <page to="backend/financial_assets#destroy"/>
-        <page to="backend/financial_assets#edit"/>
-        <page to="backend/financial_assets#list"/>
-        <page to="backend/financial_assets#list_depreciations"/>
-        <page to="backend/financial_assets#list_products"/>
-        <page to="backend/financial_assets#new"/>
-        <page to="backend/financial_assets#show"/>
-        <page to="backend/financial_assets#unroll"/>
-        <page to="backend/financial_assets#update"/>
+    <group name="fixed_assets" icon="home">
+      <item name="fixed_assets">
+        <page to="backend/fixed_assets#index"/>
+        <page to="backend/fixed_assets#create"/>
+        <page to="backend/fixed_assets#destroy"/>
+        <page to="backend/fixed_assets#edit"/>
+        <page to="backend/fixed_assets#list"/>
+        <page to="backend/fixed_assets#list_depreciations"/>
+        <page to="backend/fixed_assets#list_products"/>
+        <page to="backend/fixed_assets#new"/>
+        <page to="backend/fixed_assets#show"/>
+        <page to="backend/fixed_assets#unroll"/>
+        <page to="backend/fixed_assets#update"/>
       </item>
     </group>
     <group name="cash" icon="money">
@@ -1117,7 +1117,7 @@
         <page to="backend/financial_years#generate_last_journal_entry"/>
         <page to="backend/financial_years#list"/>
         <page to="backend/financial_years#list_account_balances"/>
-        <page to="backend/financial_years#list_financial_asset_depreciations"/>
+        <page to="backend/financial_years#list_fixed_asset_depreciations"/>
         <page to="backend/financial_years#new"/>
         <page to="backend/financial_years#show"/>
         <page to="backend/financial_years#unroll"/>

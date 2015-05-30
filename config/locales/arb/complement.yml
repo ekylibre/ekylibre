@@ -593,7 +593,7 @@ arb:
 
     event:
 
-    financial_asset:
+    fixed_asset:
       currency:
         AED: "درهم إماراتي"
         AFN: "أفغاني"

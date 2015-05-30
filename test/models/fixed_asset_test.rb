@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: financial_assets
+# == Table: fixed_assets
 #
 #  allocation_account_id   :integer          not null
 #  ceded                   :boolean
@@ -53,6 +53,6 @@
 #
 require 'test_helper'
 
-class FinancialAssetTest < ActiveSupport::TestCase
+class FixedAssetTest < ActiveSupport::TestCase
   test_fixtures
 end

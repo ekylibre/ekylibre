@@ -57,7 +57,7 @@ class PurchaseItem < Ekylibre::Record::Base
   belongs_to :tax
   has_many :delivery_items, class_name: "IncomingDeliveryItem", foreign_key: :purchase_item_id
   has_many :products, through: :delivery_items
-  has_one :financial_asset, foreign_key: :purchase_item_id, inverse_of: :purchase_item
+  has_one :fixed_asset, foreign_key: :purchase_item_id, inverse_of: :purchase_item
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, allow_nil: true
   validates_inclusion_of :fixed, in: [true, false]
@@ -65,7 +65,7 @@ class PurchaseItem < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_presence_of :account, :tax
-  validates_associated :financial_asset
+  validates_associated :fixed_asset
   # validates_uniqueness_of :tracking_serial, :scope => :price_id, allow_nil: true, if: Proc.new{|pl| !pl.tracking_serial.blank? }, :allow_blank => true
 
   delegate :invoiced_at, :number, :computation_method, :computation_method_quantity_tax?, :computation_method_tax_quantity?, :computation_method_adaptative?, :computation_method_manual?, to: :purchase
@@ -75,7 +75,7 @@ class PurchaseItem < Ekylibre::Record::Base
   delegate :name, :short_label, to: :tax, prefix: true
   # delegate :subscribing?, :deliverable?, to: :product_nature, prefix: true
 
-  accepts_nested_attributes_for :financial_asset
+  accepts_nested_attributes_for :fixed_asset
 
   alias_attribute :name, :label
 
@@ -136,7 +136,7 @@ class PurchaseItem < Ekylibre::Record::Base
 
     if self.variant
       if self.fixed
-        self.account = self.variant.financial_asset_account || Account.find_in_chart(:financial_assets)
+        self.account = self.variant.fixed_asset_account || Account.find_in_chart(:fixed_assets)
       else
         self.account = self.variant.charge_account || Account.find_in_chart(:expenses)
       end
@@ -153,26 +153,26 @@ class PurchaseItem < Ekylibre::Record::Base
   end
 
   before_validation do
-    if variant = self.variant and variant.depreciable? and self.fixed and !self.financial_asset
+    if variant = self.variant and variant.depreciable? and self.fixed and !self.fixed_asset
       # Create asset
       attributes = {
         started_on: self.purchase.invoiced_at.to_date,
         depreciable_amount: self.pretax_amount,
-        depreciation_method: variant.financial_asset_depreciation_method,
-        depreciation_percentage: variant.financial_asset_depreciation_percentage,
+        depreciation_method: variant.fixed_asset_depreciation_method,
+        depreciation_percentage: variant.fixed_asset_depreciation_percentage,
         journal: Journal.where(nature: :various).first,
-        allocation_account: variant.financial_asset_allocation_account, #28
-        expenses_account: variant.financial_asset_expenses_account #68
+        allocation_account: variant.fixed_asset_allocation_account, #28
+        expenses_account: variant.fixed_asset_expenses_account #68
       }
       if self.products.any?
         attributes[:name] = self.delivery_items.collect(&:name).to_sentence
       end
       attributes[:name] ||= self.name
 
-      if FinancialAsset.find_by(name: attributes[:name])
-        attributes[:name] << " " + rand(FinancialAsset.count * 36 ** 3).to_s(36).upcase
+      if FixedAsset.find_by(name: attributes[:name])
+        attributes[:name] << " " + rand(FixedAsset.count * 36 ** 3).to_s(36).upcase
       end
-      self.build_financial_asset(attributes)
+      self.build_fixed_asset(attributes)
     end
   end
 

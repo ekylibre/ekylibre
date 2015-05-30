@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150529080607) do
+ActiveRecord::Schema.define(version: 20150530123845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -755,8 +755,29 @@ ActiveRecord::Schema.define(version: 20150529080607) do
   add_index "events", ["updated_at"], name: "index_events_on_updated_at", using: :btree
   add_index "events", ["updater_id"], name: "index_events_on_updater_id", using: :btree
 
-  create_table "financial_asset_depreciations", force: :cascade do |t|
-    t.integer  "financial_asset_id",                                          null: false
+  create_table "financial_years", force: :cascade do |t|
+    t.string   "code",                                  null: false
+    t.boolean  "closed",                default: false, null: false
+    t.date     "started_on",                            null: false
+    t.date     "stopped_on",                            null: false
+    t.string   "currency",                              null: false
+    t.integer  "currency_precision"
+    t.integer  "last_journal_entry_id"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",          default: 0,     null: false
+  end
+
+  add_index "financial_years", ["created_at"], name: "index_financial_years_on_created_at", using: :btree
+  add_index "financial_years", ["creator_id"], name: "index_financial_years_on_creator_id", using: :btree
+  add_index "financial_years", ["last_journal_entry_id"], name: "index_financial_years_on_last_journal_entry_id", using: :btree
+  add_index "financial_years", ["updated_at"], name: "index_financial_years_on_updated_at", using: :btree
+  add_index "financial_years", ["updater_id"], name: "index_financial_years_on_updater_id", using: :btree
+
+  create_table "fixed_asset_depreciations", force: :cascade do |t|
+    t.integer  "fixed_asset_id",                                              null: false
     t.integer  "journal_entry_id"
     t.boolean  "accountable",                                 default: false, null: false
     t.datetime "accounted_at"
@@ -775,15 +796,15 @@ ActiveRecord::Schema.define(version: 20150529080607) do
     t.integer  "lock_version",                                default: 0,     null: false
   end
 
-  add_index "financial_asset_depreciations", ["created_at"], name: "index_financial_asset_depreciations_on_created_at", using: :btree
-  add_index "financial_asset_depreciations", ["creator_id"], name: "index_financial_asset_depreciations_on_creator_id", using: :btree
-  add_index "financial_asset_depreciations", ["financial_asset_id"], name: "index_financial_asset_depreciations_on_financial_asset_id", using: :btree
-  add_index "financial_asset_depreciations", ["financial_year_id"], name: "index_financial_asset_depreciations_on_financial_year_id", using: :btree
-  add_index "financial_asset_depreciations", ["journal_entry_id"], name: "index_financial_asset_depreciations_on_journal_entry_id", using: :btree
-  add_index "financial_asset_depreciations", ["updated_at"], name: "index_financial_asset_depreciations_on_updated_at", using: :btree
-  add_index "financial_asset_depreciations", ["updater_id"], name: "index_financial_asset_depreciations_on_updater_id", using: :btree
+  add_index "fixed_asset_depreciations", ["created_at"], name: "index_fixed_asset_depreciations_on_created_at", using: :btree
+  add_index "fixed_asset_depreciations", ["creator_id"], name: "index_fixed_asset_depreciations_on_creator_id", using: :btree
+  add_index "fixed_asset_depreciations", ["financial_year_id"], name: "index_fixed_asset_depreciations_on_financial_year_id", using: :btree
+  add_index "fixed_asset_depreciations", ["fixed_asset_id"], name: "index_fixed_asset_depreciations_on_fixed_asset_id", using: :btree
+  add_index "fixed_asset_depreciations", ["journal_entry_id"], name: "index_fixed_asset_depreciations_on_journal_entry_id", using: :btree
+  add_index "fixed_asset_depreciations", ["updated_at"], name: "index_fixed_asset_depreciations_on_updated_at", using: :btree
+  add_index "fixed_asset_depreciations", ["updater_id"], name: "index_fixed_asset_depreciations_on_updater_id", using: :btree
 
-  create_table "financial_assets", force: :cascade do |t|
+  create_table "fixed_assets", force: :cascade do |t|
     t.integer  "allocation_account_id",                                        null: false
     t.integer  "journal_id",                                                   null: false
     t.string   "name",                                                         null: false
@@ -813,38 +834,17 @@ ActiveRecord::Schema.define(version: 20150529080607) do
     t.integer  "lock_version",                                     default: 0, null: false
   end
 
-  add_index "financial_assets", ["allocation_account_id"], name: "index_financial_assets_on_allocation_account_id", using: :btree
-  add_index "financial_assets", ["created_at"], name: "index_financial_assets_on_created_at", using: :btree
-  add_index "financial_assets", ["creator_id"], name: "index_financial_assets_on_creator_id", using: :btree
-  add_index "financial_assets", ["expenses_account_id"], name: "index_financial_assets_on_expenses_account_id", using: :btree
-  add_index "financial_assets", ["journal_id"], name: "index_financial_assets_on_journal_id", using: :btree
-  add_index "financial_assets", ["purchase_id"], name: "index_financial_assets_on_purchase_id", using: :btree
-  add_index "financial_assets", ["purchase_item_id"], name: "index_financial_assets_on_purchase_item_id", using: :btree
-  add_index "financial_assets", ["sale_id"], name: "index_financial_assets_on_sale_id", using: :btree
-  add_index "financial_assets", ["sale_item_id"], name: "index_financial_assets_on_sale_item_id", using: :btree
-  add_index "financial_assets", ["updated_at"], name: "index_financial_assets_on_updated_at", using: :btree
-  add_index "financial_assets", ["updater_id"], name: "index_financial_assets_on_updater_id", using: :btree
-
-  create_table "financial_years", force: :cascade do |t|
-    t.string   "code",                                  null: false
-    t.boolean  "closed",                default: false, null: false
-    t.date     "started_on",                            null: false
-    t.date     "stopped_on",                            null: false
-    t.string   "currency",                              null: false
-    t.integer  "currency_precision"
-    t.integer  "last_journal_entry_id"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",          default: 0,     null: false
-  end
-
-  add_index "financial_years", ["created_at"], name: "index_financial_years_on_created_at", using: :btree
-  add_index "financial_years", ["creator_id"], name: "index_financial_years_on_creator_id", using: :btree
-  add_index "financial_years", ["last_journal_entry_id"], name: "index_financial_years_on_last_journal_entry_id", using: :btree
-  add_index "financial_years", ["updated_at"], name: "index_financial_years_on_updated_at", using: :btree
-  add_index "financial_years", ["updater_id"], name: "index_financial_years_on_updater_id", using: :btree
+  add_index "fixed_assets", ["allocation_account_id"], name: "index_fixed_assets_on_allocation_account_id", using: :btree
+  add_index "fixed_assets", ["created_at"], name: "index_fixed_assets_on_created_at", using: :btree
+  add_index "fixed_assets", ["creator_id"], name: "index_fixed_assets_on_creator_id", using: :btree
+  add_index "fixed_assets", ["expenses_account_id"], name: "index_fixed_assets_on_expenses_account_id", using: :btree
+  add_index "fixed_assets", ["journal_id"], name: "index_fixed_assets_on_journal_id", using: :btree
+  add_index "fixed_assets", ["purchase_id"], name: "index_fixed_assets_on_purchase_id", using: :btree
+  add_index "fixed_assets", ["purchase_item_id"], name: "index_fixed_assets_on_purchase_item_id", using: :btree
+  add_index "fixed_assets", ["sale_id"], name: "index_fixed_assets_on_sale_id", using: :btree
+  add_index "fixed_assets", ["sale_item_id"], name: "index_fixed_assets_on_sale_item_id", using: :btree
+  add_index "fixed_assets", ["updated_at"], name: "index_fixed_assets_on_updated_at", using: :btree
+  add_index "fixed_assets", ["updater_id"], name: "index_fixed_assets_on_updater_id", using: :btree
 
   create_table "gap_items", force: :cascade do |t|
     t.integer  "gap_id",                                               null: false
@@ -1995,41 +1995,41 @@ ActiveRecord::Schema.define(version: 20150529080607) do
   add_index "product_memberships", ["updater_id"], name: "index_product_memberships_on_updater_id", using: :btree
 
   create_table "product_nature_categories", force: :cascade do |t|
-    t.string   "name",                                                                             null: false
-    t.string   "number",                                                                           null: false
+    t.string   "name",                                                                         null: false
+    t.string   "number",                                                                       null: false
     t.text     "description"
     t.string   "reference_name"
     t.string   "pictogram"
-    t.boolean  "active",                                                           default: false, null: false
-    t.boolean  "depreciable",                                                      default: false, null: false
-    t.boolean  "saleable",                                                         default: false, null: false
-    t.boolean  "purchasable",                                                      default: false, null: false
-    t.boolean  "storable",                                                         default: false, null: false
-    t.boolean  "reductible",                                                       default: false, null: false
-    t.boolean  "subscribing",                                                      default: false, null: false
+    t.boolean  "active",                                                       default: false, null: false
+    t.boolean  "depreciable",                                                  default: false, null: false
+    t.boolean  "saleable",                                                     default: false, null: false
+    t.boolean  "purchasable",                                                  default: false, null: false
+    t.boolean  "storable",                                                     default: false, null: false
+    t.boolean  "reductible",                                                   default: false, null: false
+    t.boolean  "subscribing",                                                  default: false, null: false
     t.integer  "subscription_nature_id"
     t.string   "subscription_duration"
     t.integer  "charge_account_id"
     t.integer  "product_account_id"
-    t.integer  "financial_asset_account_id"
+    t.integer  "fixed_asset_account_id"
     t.integer  "stock_account_id"
-    t.datetime "created_at",                                                                       null: false
-    t.datetime "updated_at",                                                                       null: false
+    t.datetime "created_at",                                                                   null: false
+    t.datetime "updated_at",                                                                   null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                     default: 0,     null: false
-    t.integer  "financial_asset_allocation_account_id"
-    t.integer  "financial_asset_expenses_account_id"
-    t.decimal  "financial_asset_depreciation_percentage", precision: 19, scale: 4, default: 0.0
-    t.string   "financial_asset_depreciation_method"
+    t.integer  "lock_version",                                                 default: 0,     null: false
+    t.integer  "fixed_asset_allocation_account_id"
+    t.integer  "fixed_asset_expenses_account_id"
+    t.decimal  "fixed_asset_depreciation_percentage", precision: 19, scale: 4, default: 0.0
+    t.string   "fixed_asset_depreciation_method"
   end
 
   add_index "product_nature_categories", ["charge_account_id"], name: "index_product_nature_categories_on_charge_account_id", using: :btree
   add_index "product_nature_categories", ["created_at"], name: "index_product_nature_categories_on_created_at", using: :btree
   add_index "product_nature_categories", ["creator_id"], name: "index_product_nature_categories_on_creator_id", using: :btree
-  add_index "product_nature_categories", ["financial_asset_account_id"], name: "index_product_nature_categories_on_financial_asset_account_id", using: :btree
-  add_index "product_nature_categories", ["financial_asset_allocation_account_id"], name: "index_pnc_on_financial_asset_allocation_account_id", using: :btree
-  add_index "product_nature_categories", ["financial_asset_expenses_account_id"], name: "index_pnc_on_financial_asset_expenses_account_id", using: :btree
+  add_index "product_nature_categories", ["fixed_asset_account_id"], name: "index_product_nature_categories_on_fixed_asset_account_id", using: :btree
+  add_index "product_nature_categories", ["fixed_asset_allocation_account_id"], name: "index_pnc_on_financial_asset_allocation_account_id", using: :btree
+  add_index "product_nature_categories", ["fixed_asset_expenses_account_id"], name: "index_pnc_on_financial_asset_expenses_account_id", using: :btree
   add_index "product_nature_categories", ["name"], name: "index_product_nature_categories_on_name", using: :btree
   add_index "product_nature_categories", ["number"], name: "index_product_nature_categories_on_number", unique: true, using: :btree
   add_index "product_nature_categories", ["product_account_id"], name: "index_product_nature_categories_on_product_account_id", using: :btree
@@ -2401,7 +2401,7 @@ ActiveRecord::Schema.define(version: 20150529080607) do
     t.string   "variety",                                                                                                 null: false
     t.string   "derivative_of"
     t.integer  "tracking_id"
-    t.integer  "financial_asset_id"
+    t.integer  "fixed_asset_id"
     t.datetime "born_at"
     t.datetime "dead_at"
     t.text     "description"
@@ -2428,7 +2428,7 @@ ActiveRecord::Schema.define(version: 20150529080607) do
   add_index "products", ["created_at"], name: "index_products_on_created_at", using: :btree
   add_index "products", ["creator_id"], name: "index_products_on_creator_id", using: :btree
   add_index "products", ["default_storage_id"], name: "index_products_on_default_storage_id", using: :btree
-  add_index "products", ["financial_asset_id"], name: "index_products_on_financial_asset_id", using: :btree
+  add_index "products", ["fixed_asset_id"], name: "index_products_on_fixed_asset_id", using: :btree
   add_index "products", ["initial_container_id"], name: "index_products_on_initial_container_id", using: :btree
   add_index "products", ["initial_enjoyer_id"], name: "index_products_on_initial_enjoyer_id", using: :btree
   add_index "products", ["initial_father_id"], name: "index_products_on_initial_father_id", using: :btree

@@ -68,7 +68,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   delegate :able_to?, :able_to_each?, :has_indicator?, :matching_model, :indicators, :population_frozen?, :population_modulo, :frozen_indicators, :frozen_indicators_list, :variable_indicators, :variable_indicators_list, :linkage_points, :population_counting_unitary?, :whole_indicators_list, :whole_indicators, :individual_indicators_list, :individual_indicators, to: :nature
   delegate :variety, :derivative_of, :name, to: :nature, prefix: true
-  delegate :depreciable?, :depreciation_rate, :deliverable?, :purchasable?, :saleable?, :subscribing?, :financial_asset_depreciation_method, :financial_asset_depreciation_percentage, :financial_asset_account, :financial_asset_allocation_account, :financial_asset_expenses_account, :product_account, :charge_account, :stock_account, to: :category
+  delegate :depreciable?, :depreciation_rate, :deliverable?, :purchasable?, :saleable?, :subscribing?, :fixed_asset_depreciation_method, :fixed_asset_depreciation_percentage, :fixed_asset_account, :fixed_asset_allocation_account, :fixed_asset_expenses_account, :product_account, :charge_account, :stock_account, to: :category
 
   accepts_nested_attributes_for :products, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :readings, reject_if: Proc.new{ |params| params["measure_value_value"].blank?  }, :allow_destroy => true

@@ -700,32 +700,13 @@ exports:
     - "backend/synchronizations#index"
     - "backend/synchronizations#run"
 
-financial_assets:
-  read:
-    actions:
-    - "backend/financial_assets#index"
-    - "backend/financial_assets#list"
-    - "backend/financial_assets#list_depreciations"
-    - "backend/financial_assets#list_products"
-    - "backend/financial_assets#show"
-    - "backend/financial_assets#unroll"
-  write:
-    dependencies:
-    - read-financial_assets
-    actions:
-    - "backend/financial_assets#create"
-    - "backend/financial_assets#destroy"
-    - "backend/financial_assets#edit"
-    - "backend/financial_assets#new"
-    - "backend/financial_assets#update"
-
 financial_years:
   read:
     actions:
     - "backend/financial_years#index"
     - "backend/financial_years#list"
     - "backend/financial_years#list_account_balances"
-    - "backend/financial_years#list_financial_asset_depreciations"
+    - "backend/financial_years#list_fixed_asset_depreciations"
     - "backend/financial_years#show"
     - "backend/financial_years#unroll"
   write:
@@ -755,6 +736,25 @@ financial_years:
     - "backend/financial_years#generate_last_journal_entry"
     - "backend/financial_years#new"
     - "backend/financial_years#update"
+
+fixed_assets:
+  read:
+    actions:
+    - "backend/fixed_assets#index"
+    - "backend/fixed_assets#list"
+    - "backend/fixed_assets#list_depreciations"
+    - "backend/fixed_assets#list_products"
+    - "backend/fixed_assets#show"
+    - "backend/fixed_assets#unroll"
+  write:
+    dependencies:
+    - read-fixed_assets
+    actions:
+    - "backend/fixed_assets#create"
+    - "backend/fixed_assets#destroy"
+    - "backend/fixed_assets#edit"
+    - "backend/fixed_assets#new"
+    - "backend/fixed_assets#update"
 
 fungi:
   read:

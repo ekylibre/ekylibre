@@ -132,7 +132,7 @@ class Backend::DashboardsController < Backend::BaseController
   private
 
   def self.build_centralizing_query
-    excluded = [:account_balance, :financial_asset_depreciation, :custom_field_choice, :deposit_item, :inventory_item, :listing_node_item, :preference]
+    excluded = [:account_balance, :fixed_asset_depreciation, :custom_field_choice, :deposit_item, :inventory_item, :listing_node_item, :preference]
 
     auxiliaries = {
       purchase_item: :purchase,

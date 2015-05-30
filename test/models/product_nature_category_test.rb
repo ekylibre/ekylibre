@@ -22,34 +22,34 @@
 #
 # == Table: product_nature_categories
 #
-#  active                                  :boolean          default(FALSE), not null
-#  charge_account_id                       :integer
-#  created_at                              :datetime         not null
-#  creator_id                              :integer
-#  depreciable                             :boolean          default(FALSE), not null
-#  description                             :text
-#  financial_asset_account_id              :integer
-#  financial_asset_allocation_account_id   :integer
-#  financial_asset_depreciation_method     :string
-#  financial_asset_depreciation_percentage :decimal(19, 4)   default(0.0)
-#  financial_asset_expenses_account_id     :integer
-#  id                                      :integer          not null, primary key
-#  lock_version                            :integer          default(0), not null
-#  name                                    :string           not null
-#  number                                  :string           not null
-#  pictogram                               :string
-#  product_account_id                      :integer
-#  purchasable                             :boolean          default(FALSE), not null
-#  reductible                              :boolean          default(FALSE), not null
-#  reference_name                          :string
-#  saleable                                :boolean          default(FALSE), not null
-#  stock_account_id                        :integer
-#  storable                                :boolean          default(FALSE), not null
-#  subscribing                             :boolean          default(FALSE), not null
-#  subscription_duration                   :string
-#  subscription_nature_id                  :integer
-#  updated_at                              :datetime         not null
-#  updater_id                              :integer
+#  active                              :boolean          default(FALSE), not null
+#  charge_account_id                   :integer
+#  created_at                          :datetime         not null
+#  creator_id                          :integer
+#  depreciable                         :boolean          default(FALSE), not null
+#  description                         :text
+#  fixed_asset_account_id              :integer
+#  fixed_asset_allocation_account_id   :integer
+#  fixed_asset_depreciation_method     :string
+#  fixed_asset_depreciation_percentage :decimal(19, 4)   default(0.0)
+#  fixed_asset_expenses_account_id     :integer
+#  id                                  :integer          not null, primary key
+#  lock_version                        :integer          default(0), not null
+#  name                                :string           not null
+#  number                              :string           not null
+#  pictogram                           :string
+#  product_account_id                  :integer
+#  purchasable                         :boolean          default(FALSE), not null
+#  reductible                          :boolean          default(FALSE), not null
+#  reference_name                      :string
+#  saleable                            :boolean          default(FALSE), not null
+#  stock_account_id                    :integer
+#  storable                            :boolean          default(FALSE), not null
+#  subscribing                         :boolean          default(FALSE), not null
+#  subscription_duration               :string
+#  subscription_nature_id              :integer
+#  updated_at                          :datetime         not null
+#  updater_id                          :integer
 #
 require 'test_helper'
 

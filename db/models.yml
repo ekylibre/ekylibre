@@ -36,9 +36,9 @@
 - equipment
 - event
 - event_participation
-- financial_asset
-- financial_asset_depreciation
 - financial_year
+- fixed_asset
+- fixed_asset_depreciation
 - fungus
 - gap
 - gap_item

@@ -198,13 +198,13 @@ arb:
       event_nature:  #?
         duration: "(المدة الافتراضية (بالدقائق" #?
         updated_at: "تم تحديثها في" #?
-      financial_asset_depreciation:
-        # asset_amount: "Accountable value"
       financial_year:
         account_balances: "رصائد الحسابات" #?
         journal_records: "السجلات المحاسبية" #?
         started_on: "بدأ ب" #?
         stopped_on: "تاريخ الاغلاق"
+      fixed_asset_depreciation:
+        # asset_amount: "Accountable value"
       incoming_payment:  #?
         accounted_at: "تمت محاسبته في" #?
         amount: "القيمة" #?
@@ -665,10 +665,6 @@ arb:
         entity:
           missing_title: "%{attribute} يجب ان يحتوي على اسم «%{title}»"
           nature_do_not_allow_a_first_name: "«%{nature}» لا يسمح النوع المختار بمعرفة الاسم الاول"
-        financial_asset:
-          attributes:
-            started_on:
-              # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
         financial_year:
           attributes:
             started_on:
@@ -676,6 +672,10 @@ arb:
             stopped_on:
               end_of_month: "%{attribute} يجب ان يكون التاريخ في نهاية الشهر"
           overlap: "%{attribute} متواجد على قائمة السنة المالية الحالية"
+        fixed_asset:
+          attributes:
+            started_on:
+              # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
         incoming_delivery_item:
           # greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
         journal:
@@ -792,9 +792,9 @@ arb:
       event: "الحدث"
       event_nature: "نوع الحدث" #?
       # event_participation: "Event participation"
-      # financial_asset: "Financial asset"
-      # financial_asset_depreciation: "Financial asset depreciation"
       financial_year: "السنة المالية"
+      # fixed_asset: "Financial asset"
+      # fixed_asset_depreciation: "Financial asset depreciation"
       # fungus: "Fungus"
       # gap: "Gap"
       # gap_item: "Gap item"
@@ -1323,13 +1323,6 @@ arb:
     filename: "الملف" #?
     filesize: "حجم الملف" #?
     # filtered_columns: "Filtered columns"
-    # financial_asset: "Financial asset"
-    # financial_asset_account: "Financial asset account"
-    # financial_asset_allocation_account: "Financial asset depreciations account"
-    # financial_asset_depreciation_method: "Financial asset depreciation method"
-    # financial_asset_depreciation_percentage: "Financial asset depreciation percentage"
-    # financial_asset_depreciations: "Financial asset depreciations"
-    # financial_asset_expenses_account: "Financial asset depreciations inputations expenses account"
     financial_year: "السنوات المالية"
     # financial_year_as_last: "Financial year (as last journal entry)"
     financial_year_id: "مهنة" #?
@@ -1343,6 +1336,13 @@ arb:
     # first_producer: "First producer"
     # first_producer_way: "First producer way"
     # fixed: "Fixed"
+    # fixed_asset: "Financial asset"
+    # fixed_asset_account: "Financial asset account"
+    # fixed_asset_allocation_account: "Financial asset depreciations account"
+    # fixed_asset_depreciation_method: "Financial asset depreciation method"
+    # fixed_asset_depreciation_percentage: "Financial asset depreciation percentage"
+    # fixed_asset_depreciations: "Financial asset depreciations"
+    # fixed_asset_expenses_account: "Financial asset depreciations inputations expenses account"
     for_immobilizations: "منتجات ساكنة" #?
     for_productions: "المنتجات المصنعة او المقطوعة" #?
     for_purchases: "منتجات الشراء" #?
@@ -2635,7 +2635,7 @@ arb:
         # cash_transfers: "CT[year|4][number|4]"
         # deposits: "D[year|4][number|4]"
         # entities: "[number|8]"
-        # financial_assets: "FA[number|7]"
+        # fixed_assets: "FA[number|7]"
         # gaps: "G[number|12]"
         # incoming_deliveries: "ID[year|4][number|4]"
         # incoming_payments: "IP[year|4][number|6]"

@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::FinancialAssetsController < Backend::BaseController
+class Backend::FixedAssetsController < Backend::BaseController
   manage_restfully currency: 'Preference[:currency]'.c, depreciation_method: 'linear'
 
   unroll
@@ -31,7 +31,7 @@ class Backend::FinancialAssetsController < Backend::BaseController
     t.column :stopped_on
   end
 
-  list(:depreciations, model: :financial_asset_depreciations, conditions: {financial_asset_id: 'params[:id]'.c}, order: :position) do |t|
+  list(:depreciations, model: :fixed_asset_depreciations, conditions: {fixed_asset_id: 'params[:id]'.c}, order: :position) do |t|
     # t.action :edit, if: "RECORD.journal_entry.nil?".c
     t.column :amount, currency: true
     t.column :depreciable_amount, currency: true
@@ -42,23 +42,23 @@ class Backend::FinancialAssetsController < Backend::BaseController
     t.column :journal_entry, label_method: :number, url: true
   end
 
-  list(:products, model: :products, conditions: {financial_asset_id: 'params[:id]'.c}, order: :initial_born_at) do |t|
+  list(:products, model: :products, conditions: {fixed_asset_id: 'params[:id]'.c}, order: :initial_born_at) do |t|
     t.column :name, url: true
     t.column :initial_born_at
   end
 
   # def cede
-  #   return unless @financial_asset = find_and_check
+  #   return unless @fixed_asset = find_and_check
   # end
 
   # def sell
-  #   return unless @financial_asset = find_and_check
+  #   return unless @fixed_asset = find_and_check
   # end
 
   # def depreciate
-  #   return unless @financial_asset = find_and_check
-  #   @financial_asset.depreciate!
-  #   redirect_to financial_asset_url(@financial_asset)
+  #   return unless @fixed_asset = find_and_check
+  #   @fixed_asset.depreciate!
+  #   redirect_to fixed_asset_url(@fixed_asset)
   # end
 
 end

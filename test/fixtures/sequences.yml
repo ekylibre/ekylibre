@@ -239,7 +239,7 @@ sequences_012:
   period: number
   updated_at: 2014-11-01 16:25:18.202839000 Z
   updater_id: 1
-  usage: financial_assets
+  usage: fixed_assets
 sequences_013:
   created_at: 2014-11-01 16:25:18.214468000 Z
   creator_id: 1

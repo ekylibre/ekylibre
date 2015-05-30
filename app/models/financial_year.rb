@@ -42,7 +42,7 @@ class FinancialYear < Ekylibre::Record::Base
   attr_readonly :currency
   belongs_to :last_journal_entry, class_name: "JournalEntry"
   has_many :account_balances, class_name: "AccountBalance", foreign_key: :financial_year_id, dependent: :delete_all
-  has_many :financial_asset_depreciations
+  has_many :fixed_asset_depreciations, class_name: "FixedAssetDepreciation"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_date :started_on, :stopped_on, allow_blank: true, on_or_after: Date.civil(1, 1, 1)
   validates_numericality_of :currency_precision, allow_nil: true, only_integer: true
@@ -324,13 +324,13 @@ class FinancialYear < Ekylibre::Record::Base
     # Empty journal entry
     self.last_journal_entry.items.clear
 
-    if options[:financial_assets_depreciations]
-      for depreciation in self.financial_asset_depreciations.includes(:financial_asset)
-        name = tc(:bookkeep, resource: FinancialAsset.model_name.human, number: depreciation.financial_asset.number, name: depreciation.financial_asset.name, position: depreciation.position, total: depreciation.financial_asset.depreciations.count)
+    if options[:fixed_assets_depreciations]
+      for depreciation in self.fixed_asset_depreciations.includes(:fixed_asset)
+        name = tc(:bookkeep, resource: FixedAsset.model_name.human, number: depreciation.fixed_asset.number, name: depreciation.fixed_asset.name, position: depreciation.position, total: depreciation.fixed_asset.depreciations.count)
         # Charges
-        self.last_journal_entry.add_debit(name, depreciation.financial_asset.expenses_account, depreciation.amount)
+        self.last_journal_entry.add_debit(name, depreciation.fixed_asset.expenses_account, depreciation.amount)
         # Allocation
-        self.last_journal_entry.add_credit(name, depreciation.financial_asset.allocation_account, depreciation.amount)
+        self.last_journal_entry.add_credit(name, depreciation.fixed_asset.allocation_account, depreciation.amount)
         depreciation.update_attributes(:journal_entry_id => self.last_journal_entry.id)
       end
     end

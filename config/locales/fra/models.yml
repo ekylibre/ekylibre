@@ -38,12 +38,12 @@ fra:
         place: "Lieu" #?
       event_nature:  #?
         duration: "Durée par défaut (en min.)" #?
-      financial_asset_depreciation:
-        asset_amount: "Valeur comptable"
-        depreciable_amount: "Valeur nette comptable (VNC)" #?
       financial_year:
         last_journal_entry: "Écriture de fin d’exercice" #?
         stopped_on: "Date de clôture"
+      fixed_asset_depreciation:
+        asset_amount: "Valeur comptable"
+        depreciable_amount: "Valeur nette comptable (VNC)" #?
       incoming_payment:  #?
         to_bank_at: "À encaisser le" #?
       intervention:  #?
@@ -84,8 +84,8 @@ fra:
       product_nature_category:  #?
         depreciable: "Ammortissable" #?
         duration: "Nombre de numéros OU période d’abonnement" #?
-        financial_asset_allocation_account: "Compte d’ammortissement" #?
-        financial_asset_expenses_account: "Compte de dotation aux ammortissements" #?
+        fixed_asset_allocation_account: "Compte d’ammortissement" #?
+        fixed_asset_expenses_account: "Compte de dotation aux ammortissements" #?
         price: "Prix de revient" #?
         subscribing: "Abonnement ?" #?
       product_nature_variant:  #?
@@ -185,10 +185,6 @@ fra:
         entity:
           missing_title: "%{attribute} doit contenir la dénomination sociale «\_%{title}\_»"
           nature_do_not_allow_a_first_name: "Le type «\_%{nature}\_» sélectionné ne permet de renseigner un prénom"
-        financial_asset:
-          attributes:
-            started_on:
-              invalid_date: "La période d’amortissement doit débuter le %{start} ou en début de mois"
         financial_year:
           attributes:
             started_on:
@@ -196,6 +192,10 @@ fra:
             stopped_on:
               end_of_month: "%{attribute} doit être une date de fin de mois"
           overlap: "%{attribute} se trouve sur un exercice existant"
+        fixed_asset:
+          attributes:
+            started_on:
+              invalid_date: "La période d’amortissement doit débuter le %{start} ou en début de mois"
         incoming_delivery_item:
           greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
         journal:
@@ -267,9 +267,9 @@ fra:
       establishment: "Établissement" #?
       event: "Évènement"
       event_participation: "Participation à un évènement"
-      financial_asset: "Immobilisation"
-      financial_asset_depreciation: "Amortissement d’immobilisation"
       financial_year: "Exercice"
+      fixed_asset: "Immobilisation"
+      fixed_asset_depreciation: "Amortissement d’immobilisation"
       fungus: "Champignon"
       gap: "Perte ou profit"
       gap_item: "Élément de perte ou profit"
@@ -695,16 +695,6 @@ fra:
     fifth_producer: "Cinquième producteur"
     fifth_producer_way: "Voie du cinquième producteur"
     filtered_columns: "Colonnes filtrées"
-    financial_asset: "Immobilisation"
-    financial_asset_account: "Compte d’immobilisation"
-    financial_asset_allocation_account: "Compte des dépréciations d’immobilisation"
-    financial_asset_depreciation_method: "Méthode de dépréciation d’immobilisation"
-    financial_asset_depreciation_percentage: "Pourcentage de dépréciation d’immobilisation"
-    financial_asset_depreciations: "Dépréciations d’immobilisation"
-    financial_asset_depreciations_account: "Compte des dépréciations d’immobilisation" #?
-    financial_asset_depreciations_inputations_expenses_account: "Compte d’imputation des charges des dépréciations d’immobilisation" #?
-    financial_asset_expenses_account: "Compte d’imputation des charges des dépréciations d’immobilisation"
-    financial_assets_categories: "Catégories de produits avec immobilisation" #?
     financial_year: "Exercice"
     financial_year_as_last: "Exercice (en tant que écriture de fin d’exercice)"
     finish: "Fin"
@@ -716,6 +706,16 @@ fra:
     first_producer: "Premier producteur"
     first_producer_way: "Voie du premier producteur"
     fixed: "Immobilisé"
+    fixed_asset: "Immobilisation"
+    fixed_asset_account: "Compte d’immobilisation"
+    fixed_asset_allocation_account: "Compte des dépréciations d’immobilisation"
+    fixed_asset_depreciation_method: "Méthode de dépréciation d’immobilisation"
+    fixed_asset_depreciation_percentage: "Pourcentage de dépréciation d’immobilisation"
+    fixed_asset_depreciations: "Dépréciations d’immobilisation"
+    fixed_asset_depreciations_account: "Compte des dépréciations d’immobilisation" #?
+    fixed_asset_depreciations_inputations_expenses_account: "Compte d’imputation des charges des dépréciations d’immobilisation" #?
+    fixed_asset_expenses_account: "Compte d’imputation des charges des dépréciations d’immobilisation"
+    fixed_assets_categories: "Catégories de produits avec immobilisation" #?
     formats: "Formats"
     fourth_producer: "Quatrième producteur"
     fourth_producer_way: "Voie du quatrième producteur"
@@ -1498,7 +1498,7 @@ fra:
         cash_transfers: "VI[year|4][number|4]"
         deposits: "B[year|4][number|4]"
         entities: "[number|8]"
-        financial_assets: "IM[number|7]"
+        fixed_assets: "IM[number|7]"
         gaps: "E[number|12]"
         incoming_deliveries: "BR[year|4][number|4]"
         incoming_payments: "R[year|4][number|6]"

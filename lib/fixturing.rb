@@ -23,13 +23,20 @@ module Fixturing
       current_version == ActiveRecord::Migrator.last_version
     end
 
+    def tables_from_files
+      return Dir.glob(directory.join("*.yml")).collect do |f|
+        Pathname.new(f).basename(".*").to_s
+      end.sort
+    end
+
     def restore(tenant)
       Apartment.connection.execute("DROP SCHEMA IF EXISTS \"#{tenant}\" CASCADE")
       Apartment.connection.execute("CREATE SCHEMA \"#{tenant}\"")
       Ekylibre::Tenant.add(tenant)
       Apartment.connection.execute("SET search_path TO '#{tenant}, postgis'")
       Ekylibre::Tenant.migrate(tenant, to: current_version)
-      table_names = Ekylibre::Record::Base.connection.tables.delete_if{ |t| %w(schema_migrations spatial_ref_sys).include?(t) }
+      # table_names = Ekylibre::Record::Base.connection.tables.delete_if{ |t| %w(schema_migrations spatial_ref_sys).include?(t) }
+      table_names = tables_from_files
       say "Load fixtures"
       Ekylibre::Tenant.switch!(tenant)
       ActiveRecord::FixtureSet.create_fixtures(directory, table_names)

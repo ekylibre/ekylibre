@@ -51,7 +51,7 @@ fra:
         informative: "Pour information"
         refused: "Refusé"
         waiting: "En attente de réponse"
-    financial_asset:
+    fixed_asset:
       depreciation_method:
         graduated: "Dégressive"
         linear: "Linéaire"
@@ -122,7 +122,7 @@ fra:
         deposits: "Numérotation des remises en banque"
         documents: "Numérotation des documents"
         entities: "Numérotation des personnes"
-        financial_assets: "Numérotation des immobilisations"
+        fixed_assets: "Numérotation des immobilisations"
         gaps: "Numérotation des écarts"
         incoming_deliveries: "Numérotation des bons de réceptions"
         incoming_payments: "Numérotation des encaissements"

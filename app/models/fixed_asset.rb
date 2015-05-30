@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: financial_assets
+# == Table: fixed_assets
 #
 #  allocation_account_id   :integer          not null
 #  ceded                   :boolean
@@ -52,20 +52,20 @@
 #  updater_id              :integer
 #
 
-class FinancialAsset < Ekylibre::Record::Base
+class FixedAsset < Ekylibre::Record::Base
   acts_as_numbered
   enumerize :depreciation_method, in: [:simplified_linear, :linear], predicates: {prefix: true} # graduated
   enumerize :currency, in: Nomen::Currencies.all, default: Proc.new { Preference[:currency] }
   belongs_to :expenses_account, class_name: "Account"
   belongs_to :allocation_account, class_name: "Account"
   belongs_to :journal, class_name: "Journal"
-  belongs_to :purchase_item, inverse_of: :financial_asset
+  belongs_to :purchase_item, inverse_of: :fixed_asset
   belongs_to :purchase
-  has_many :depreciations, -> { order(:position) }, class_name: "FinancialAssetDepreciation"
+  has_many :depreciations, -> { order(:position) }, class_name: "FixedAssetDepreciation"
   has_many :delivery_items, through: :purchase_item
   has_many :delivery_products, through: :delivery_items, source: :product
   has_many :products
-  has_many :planned_depreciations, -> { order(:position).where("NOT locked OR accounted_at IS NULL") }, class_name: "FinancialAssetDepreciation", dependent: :destroy
+  has_many :planned_depreciations, -> { order(:position).where("NOT locked OR accounted_at IS NULL") }, class_name: "FixedAssetDepreciation", dependent: :destroy
   has_one :tool, class_name: "Equipment"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_date :ceded_on, :purchased_on, :started_on, :stopped_on, allow_blank: true, on_or_after: Date.civil(1, 1, 1)
@@ -134,9 +134,9 @@ class FinancialAsset < Ekylibre::Record::Base
     if self.purchase_item
       # Link products to fixed asset
       self.delivery_products.each do |product|
-        product.financial_asset = self
+        product.fixed_asset = self
         unless product.save
-          Rails.logger.warn("Cannot link financial_asset to its products automatically")
+          Rails.logger.warn("Cannot link fixed_asset to its products automatically")
         end
       end
     end

@@ -89,7 +89,7 @@ class ProductNature < Ekylibre::Record::Base
   acts_as_numbered force: false
 
   delegate :subscribing?, :deliverable?, :purchasable?, to: :category
-  delegate :financial_asset_account, :product_account, :charge_account, :stock_account, to: :category
+  delegate :fixed_asset_account, :product_account, :charge_account, :stock_account, to: :category
 
   scope :availables, -> { where(active: true).order(:name) }
   scope :stockables, -> { joins(:category).merge(ProductNatureCategory.stockables).order(:name) }

@@ -32,8 +32,8 @@
       <item name="accrued_interests" fr_pcg82="1688"/>
       <item name="accrued_interests_on_bank" fr_pcg82="16884"/>
 
-      <!--                      FINANCIAL_ASSETS               -->
-      <item name="financial_assets" fr_pcg82="2"/>
+      <!--                      FIXED ASSETS               -->
+      <item name="fixed_assets" fr_pcg82="2"/>
       <item name="establishment_charge_assets" fr_pcga="201"/>
       <item name="research_and_development_charge_assets" fr_pcga="203"/>
       <item name="brands_and_patents_assets" fr_pcga="205"/>
@@ -87,7 +87,7 @@
       <item name="other_professional_agricultural_participation_assets" fr_pcga="2628"/>
       <item name="ownership_assets" fr_pcga="271"/>
       <item name="ownership_loan" fr_pcga="274"/>
-      <item name="financial_asset_depreciations" fr_pcga="28"/>
+      <item name="fixed_asset_depreciations" fr_pcga="28"/>
       <item name="incorporeal_asset_depreciations" fr_pcga="280"/>
       <item name="other_incorporeal_asset_depreciations" fr_pcga="2808"/>
       <item name="corporeal_asset_depreciations" fr_pcga="281"/>
@@ -143,7 +143,7 @@
       <item name="third_party" fr_pcg82="4"/>
       <item name="suppliers" fr_pcg82="401"/>
       <item name="suppliers_balance_after_compensation" fr_pcg82="402"/>
-      <item name="financial_assets_suppliers" fr_pcg82="404"/>
+      <item name="fixed_assets_suppliers" fr_pcg82="404"/>
       <item name="suppliers_invoices_not_received" fr_pcg82="408"/>
       <item name="debtor_suppliers" fr_pcg82="409"/>
       <item name="clients"   fr_pcg82="411"/>
@@ -265,7 +265,7 @@
       <item name="market_fine_exceptional_expenses" fr_pcga="6711"/>
       <item name="fiscal_fine_exceptional_expenses" fr_pcga="6712"/>
       <item name="donation_exceptional_expenses" fr_pcga="6713"/>
-      <item name="financial_assets_values" fr_pcg82="675"/>
+      <item name="fixed_assets_values" fr_pcg82="675"/>
       <item name="depreciations_inputations_expenses" fr_pcg82="68"/>
       <item name="corporeals_and_incorporeals_depreciations_inputations_expenses" fr_pcg82="6811"/>
       <item name="incorporeals_depreciations_inputations_expenses" fr_pcga="68111"/>

@@ -14,7 +14,7 @@
         <property name="id" of="category" level="api"/>
         <title name="name" of="category"/>
         <property name="url" value="&quot;#{Preference[:host]}/backend/product_nature_categories/#{category.id}&quot;" level="api"/>
-        <property name="financial_asset_account_label" value="financial_asset_account.label" of="category" if="category.financial_asset_account"/>
+        <property name="fixed_asset_account_label" value="fixed_asset_account.label" of="category" if="category.fixed_asset_account"/>
         <property name="charge_account_label"  value="charge_account.label"  of="category" if="category.charge_account"/>
         <property name="product_account_label" value="product_account.label" of="category" if="category.product_account"/>
         <property name="stock_account_label"   value="stock_account.label"   of="category" if="category.stock_account"/>

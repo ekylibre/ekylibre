@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: financial_asset_depreciations
+# == Table: fixed_asset_depreciations
 #
 #  accountable        :boolean          default(FALSE), not null
 #  accounted_at       :datetime
@@ -29,8 +29,8 @@
 #  creator_id         :integer
 #  depreciable_amount :decimal(19, 4)
 #  depreciated_amount :decimal(19, 4)
-#  financial_asset_id :integer          not null
 #  financial_year_id  :integer
+#  fixed_asset_id     :integer          not null
 #  id                 :integer          not null, primary key
 #  journal_entry_id   :integer
 #  lock_version       :integer          default(0), not null
@@ -42,28 +42,28 @@
 #  updater_id         :integer
 #
 #
-# == Fixture: financial_asset_depreciations
+# == Fixture: fixed_asset_depreciations
 #
-# financial_asset_depreciations_001:
+# fixed_asset_depreciations_001:
 #   accountable: true
 #   amount: 0
 #   creator: users_001
-#   financial_asset: financial_assets_001
+#   fixed_asset: fixed_assets_001
 #   locked: true
 #   started_on: 2014-11-27
 #   stopped_on: 2014-11-27
 #   updater: users_001
 #
 ---
-financial_asset_depreciations_001:
+fixed_asset_depreciations_001:
   accountable: false
   amount: 0.9
   created_at: 2014-12-24 12:49:37.582404000 Z
   creator_id: 1
   depreciable_amount: 149.1
   depreciated_amount: 0.9
-  financial_asset_id: 1
   financial_year_id: 4
+  fixed_asset_id: 1
   id: 1
   lock_version: 0
   locked: false
@@ -72,15 +72,15 @@ financial_asset_depreciations_001:
   stopped_on: 1995-08-31
   updated_at: 2014-12-24 12:49:37.582404000 Z
   updater_id: 1
-financial_asset_depreciations_002:
+fixed_asset_depreciations_002:
   accountable: false
   amount: 7.47
   created_at: 2014-12-24 12:49:37.595512000 Z
   creator_id: 1
   depreciable_amount: 141.63
   depreciated_amount: 8.37
-  financial_asset_id: 1
   financial_year_id: 5
+  fixed_asset_id: 1
   id: 2
   lock_version: 0
   locked: false
@@ -89,15 +89,15 @@ financial_asset_depreciations_002:
   stopped_on: 1996-08-31
   updated_at: 2014-12-24 12:49:37.595512000 Z
   updater_id: 1
-financial_asset_depreciations_003:
+fixed_asset_depreciations_003:
   accountable: false
   amount: 7.45
   created_at: 2014-12-24 12:49:37.606007000 Z
   creator_id: 1
   depreciable_amount: 134.18
   depreciated_amount: 15.82
-  financial_asset_id: 1
   financial_year_id: 6
+  fixed_asset_id: 1
   id: 3
   lock_version: 0
   locked: false
@@ -106,15 +106,15 @@ financial_asset_depreciations_003:
   stopped_on: 1997-08-31
   updated_at: 2014-12-24 12:49:37.606007000 Z
   updater_id: 1
-financial_asset_depreciations_004:
+fixed_asset_depreciations_004:
   accountable: false
   amount: 7.45
   created_at: 2014-12-24 12:49:37.615704000 Z
   creator_id: 1
   depreciable_amount: 126.73
   depreciated_amount: 23.27
-  financial_asset_id: 1
   financial_year_id: 7
+  fixed_asset_id: 1
   id: 4
   lock_version: 0
   locked: false
@@ -123,15 +123,15 @@ financial_asset_depreciations_004:
   stopped_on: 1998-08-31
   updated_at: 2014-12-24 12:49:37.615704000 Z
   updater_id: 1
-financial_asset_depreciations_005:
+fixed_asset_depreciations_005:
   accountable: false
   amount: 7.45
   created_at: 2014-12-24 12:49:37.626959000 Z
   creator_id: 1
   depreciable_amount: 119.28
   depreciated_amount: 30.72
-  financial_asset_id: 1
   financial_year_id: 8
+  fixed_asset_id: 1
   id: 5
   lock_version: 0
   locked: false
@@ -140,15 +140,15 @@ financial_asset_depreciations_005:
   stopped_on: 1999-08-31
   updated_at: 2014-12-24 12:49:37.626959000 Z
   updater_id: 1
-financial_asset_depreciations_006:
+fixed_asset_depreciations_006:
   accountable: false
   amount: 7.47
   created_at: 2014-12-24 12:49:37.637514000 Z
   creator_id: 1
   depreciable_amount: 111.81
   depreciated_amount: 38.19
-  financial_asset_id: 1
   financial_year_id: 9
+  fixed_asset_id: 1
   id: 6
   lock_version: 0
   locked: false
@@ -157,15 +157,15 @@ financial_asset_depreciations_006:
   stopped_on: 2000-08-31
   updated_at: 2014-12-24 12:49:37.637514000 Z
   updater_id: 1
-financial_asset_depreciations_007:
+fixed_asset_depreciations_007:
   accountable: false
   amount: 7.45
   created_at: 2014-12-24 12:49:37.648088000 Z
   creator_id: 1
   depreciable_amount: 104.36
   depreciated_amount: 45.64
-  financial_asset_id: 1
   financial_year_id: 10
+  fixed_asset_id: 1
   id: 7
   lock_version: 0
   locked: false
@@ -174,15 +174,15 @@ financial_asset_depreciations_007:
   stopped_on: 2001-08-31
   updated_at: 2014-12-24 12:49:37.648088000 Z
   updater_id: 1
-financial_asset_depreciations_008:
+fixed_asset_depreciations_008:
   accountable: false
   amount: 7.45
   created_at: 2014-12-24 12:49:37.659552000 Z
   creator_id: 1
   depreciable_amount: 96.91
   depreciated_amount: 53.09
-  financial_asset_id: 1
   financial_year_id: 11
+  fixed_asset_id: 1
   id: 8
   lock_version: 0
   locked: false
@@ -191,15 +191,15 @@ financial_asset_depreciations_008:
   stopped_on: 2002-08-31
   updated_at: 2014-12-24 12:49:37.659552000 Z
   updater_id: 1
-financial_asset_depreciations_009:
+fixed_asset_depreciations_009:
   accountable: false
   amount: 7.45
   created_at: 2014-12-24 12:49:37.670145000 Z
   creator_id: 1
   depreciable_amount: 89.46
   depreciated_amount: 60.54
-  financial_asset_id: 1
   financial_year_id: 12
+  fixed_asset_id: 1
   id: 9
   lock_version: 0
   locked: false
@@ -208,15 +208,15 @@ financial_asset_depreciations_009:
   stopped_on: 2003-08-31
   updated_at: 2014-12-24 12:49:37.670145000 Z
   updater_id: 1
-financial_asset_depreciations_010:
+fixed_asset_depreciations_010:
   accountable: false
   amount: 7.47
   created_at: 2014-12-24 12:49:37.681301000 Z
   creator_id: 1
   depreciable_amount: 81.99
   depreciated_amount: 68.01
-  financial_asset_id: 1
   financial_year_id: 13
+  fixed_asset_id: 1
   id: 10
   lock_version: 0
   locked: false
@@ -225,15 +225,15 @@ financial_asset_depreciations_010:
   stopped_on: 2004-08-31
   updated_at: 2014-12-24 12:49:37.681301000 Z
   updater_id: 1
-financial_asset_depreciations_011:
+fixed_asset_depreciations_011:
   accountable: false
   amount: 7.45
   created_at: 2014-12-24 12:49:37.692826000 Z
   creator_id: 1
   depreciable_amount: 74.54
   depreciated_amount: 75.46
-  financial_asset_id: 1
   financial_year_id: 14
+  fixed_asset_id: 1
   id: 11
   lock_version: 0
   locked: false
@@ -242,15 +242,15 @@ financial_asset_depreciations_011:
   stopped_on: 2005-08-31
   updated_at: 2014-12-24 12:49:37.692826000 Z
   updater_id: 1
-financial_asset_depreciations_012:
+fixed_asset_depreciations_012:
   accountable: false
   amount: 7.45
   created_at: 2014-12-24 12:49:37.703154000 Z
   creator_id: 1
   depreciable_amount: 67.09
   depreciated_amount: 82.91
-  financial_asset_id: 1
   financial_year_id: 15
+  fixed_asset_id: 1
   id: 12
   lock_version: 0
   locked: false
@@ -259,15 +259,15 @@ financial_asset_depreciations_012:
   stopped_on: 2006-08-31
   updated_at: 2014-12-24 12:49:37.703154000 Z
   updater_id: 1
-financial_asset_depreciations_013:
+fixed_asset_depreciations_013:
   accountable: false
   amount: 7.45
   created_at: 2014-12-24 12:49:37.713765000 Z
   creator_id: 1
   depreciable_amount: 59.64
   depreciated_amount: 90.36
-  financial_asset_id: 1
   financial_year_id: 16
+  fixed_asset_id: 1
   id: 13
   lock_version: 0
   locked: false
@@ -276,15 +276,15 @@ financial_asset_depreciations_013:
   stopped_on: 2007-08-31
   updated_at: 2014-12-24 12:49:37.713765000 Z
   updater_id: 1
-financial_asset_depreciations_014:
+fixed_asset_depreciations_014:
   accountable: false
   amount: 7.47
   created_at: 2014-12-24 12:49:37.724245000 Z
   creator_id: 1
   depreciable_amount: 52.17
   depreciated_amount: 97.83
-  financial_asset_id: 1
   financial_year_id: 17
+  fixed_asset_id: 1
   id: 14
   lock_version: 0
   locked: false
@@ -293,15 +293,15 @@ financial_asset_depreciations_014:
   stopped_on: 2008-08-31
   updated_at: 2014-12-24 12:49:37.724245000 Z
   updater_id: 1
-financial_asset_depreciations_015:
+fixed_asset_depreciations_015:
   accountable: false
   amount: 7.45
   created_at: 2014-12-24 12:49:37.734714000 Z
   creator_id: 1
   depreciable_amount: 44.72
   depreciated_amount: 105.28
-  financial_asset_id: 1
   financial_year_id: 18
+  fixed_asset_id: 1
   id: 15
   lock_version: 0
   locked: false
@@ -310,15 +310,15 @@ financial_asset_depreciations_015:
   stopped_on: 2009-08-31
   updated_at: 2014-12-24 12:49:37.734714000 Z
   updater_id: 1
-financial_asset_depreciations_016:
+fixed_asset_depreciations_016:
   accountable: false
   amount: 7.45
   created_at: 2014-12-24 12:49:37.745934000 Z
   creator_id: 1
   depreciable_amount: 37.27
   depreciated_amount: 112.73
-  financial_asset_id: 1
   financial_year_id: 19
+  fixed_asset_id: 1
   id: 16
   lock_version: 0
   locked: false
@@ -327,15 +327,15 @@ financial_asset_depreciations_016:
   stopped_on: 2010-08-31
   updated_at: 2014-12-24 12:49:37.745934000 Z
   updater_id: 1
-financial_asset_depreciations_017:
+fixed_asset_depreciations_017:
   accountable: false
   amount: 7.45
   created_at: 2014-12-24 12:49:37.756427000 Z
   creator_id: 1
   depreciable_amount: 29.82
   depreciated_amount: 120.18
-  financial_asset_id: 1
   financial_year_id: 20
+  fixed_asset_id: 1
   id: 17
   lock_version: 0
   locked: false
@@ -344,15 +344,15 @@ financial_asset_depreciations_017:
   stopped_on: 2011-08-31
   updated_at: 2014-12-24 12:49:37.756427000 Z
   updater_id: 1
-financial_asset_depreciations_018:
+fixed_asset_depreciations_018:
   accountable: false
   amount: 7.47
   created_at: 2014-12-24 12:49:37.767351000 Z
   creator_id: 1
   depreciable_amount: 22.35
   depreciated_amount: 127.65
-  financial_asset_id: 1
   financial_year_id: 21
+  fixed_asset_id: 1
   id: 18
   lock_version: 0
   locked: false
@@ -361,15 +361,15 @@ financial_asset_depreciations_018:
   stopped_on: 2012-08-31
   updated_at: 2014-12-24 12:49:37.767351000 Z
   updater_id: 1
-financial_asset_depreciations_019:
+fixed_asset_depreciations_019:
   accountable: false
   amount: 7.45
   created_at: 2014-12-24 12:49:37.779144000 Z
   creator_id: 1
   depreciable_amount: 14.9
   depreciated_amount: 135.1
-  financial_asset_id: 1
   financial_year_id: 22
+  fixed_asset_id: 1
   id: 19
   lock_version: 0
   locked: false
@@ -378,15 +378,15 @@ financial_asset_depreciations_019:
   stopped_on: 2013-08-31
   updated_at: 2014-12-24 12:49:37.779144000 Z
   updater_id: 1
-financial_asset_depreciations_020:
+fixed_asset_depreciations_020:
   accountable: false
   amount: 7.45
   created_at: 2014-12-24 12:49:37.791218000 Z
   creator_id: 1
   depreciable_amount: 7.45
   depreciated_amount: 142.55
-  financial_asset_id: 1
   financial_year_id: 23
+  fixed_asset_id: 1
   id: 20
   lock_version: 0
   locked: false
@@ -395,15 +395,15 @@ financial_asset_depreciations_020:
   stopped_on: 2014-08-31
   updated_at: 2014-12-24 12:49:37.791218000 Z
   updater_id: 1
-financial_asset_depreciations_021:
+fixed_asset_depreciations_021:
   accountable: false
   amount: 7.45
   created_at: 2014-12-24 12:49:37.802706000 Z
   creator_id: 1
   depreciable_amount: 0.0
   depreciated_amount: 150.0
-  financial_asset_id: 1
   financial_year_id: 24
+  fixed_asset_id: 1
   id: 21
   lock_version: 0
   locked: false
@@ -412,15 +412,15 @@ financial_asset_depreciations_021:
   stopped_on: 2015-08-31
   updated_at: 2014-12-24 12:49:37.802706000 Z
   updater_id: 1
-financial_asset_depreciations_022:
+fixed_asset_depreciations_022:
   accountable: false
   amount: 0.0
   created_at: 2014-12-24 12:50:05.528497000 Z
   creator_id: 1
   depreciable_amount: 0.0
   depreciated_amount: 0.0
-  financial_asset_id: 2
   financial_year_id: 4
+  fixed_asset_id: 2
   id: 22
   lock_version: 0
   locked: false
@@ -429,15 +429,15 @@ financial_asset_depreciations_022:
   stopped_on: 1995-08-31
   updated_at: 2014-12-24 12:50:05.528497000 Z
   updater_id: 1
-financial_asset_depreciations_023:
+fixed_asset_depreciations_023:
   accountable: false
   amount: 0.0
   created_at: 2014-12-24 12:50:05.540056000 Z
   creator_id: 1
   depreciable_amount: 0.0
   depreciated_amount: 0.0
-  financial_asset_id: 2
   financial_year_id: 5
+  fixed_asset_id: 2
   id: 23
   lock_version: 0
   locked: false
@@ -446,15 +446,15 @@ financial_asset_depreciations_023:
   stopped_on: 1996-08-31
   updated_at: 2014-12-24 12:50:05.540056000 Z
   updater_id: 1
-financial_asset_depreciations_024:
+fixed_asset_depreciations_024:
   accountable: false
   amount: 0.0
   created_at: 2014-12-24 12:50:05.555405000 Z
   creator_id: 1
   depreciable_amount: 0.0
   depreciated_amount: 0.0
-  financial_asset_id: 2
   financial_year_id: 6
+  fixed_asset_id: 2
   id: 24
   lock_version: 0
   locked: false
@@ -463,15 +463,15 @@ financial_asset_depreciations_024:
   stopped_on: 1997-08-31
   updated_at: 2014-12-24 12:50:05.555405000 Z
   updater_id: 1
-financial_asset_depreciations_025:
+fixed_asset_depreciations_025:
   accountable: false
   amount: 0.0
   created_at: 2014-12-24 12:50:05.570677000 Z
   creator_id: 1
   depreciable_amount: 0.0
   depreciated_amount: 0.0
-  financial_asset_id: 2
   financial_year_id: 7
+  fixed_asset_id: 2
   id: 25
   lock_version: 0
   locked: false
@@ -480,15 +480,15 @@ financial_asset_depreciations_025:
   stopped_on: 1998-08-31
   updated_at: 2014-12-24 12:50:05.570677000 Z
   updater_id: 1
-financial_asset_depreciations_026:
+fixed_asset_depreciations_026:
   accountable: false
   amount: 0.0
   created_at: 2014-12-24 12:50:05.582867000 Z
   creator_id: 1
   depreciable_amount: 0.0
   depreciated_amount: 0.0
-  financial_asset_id: 2
   financial_year_id: 8
+  fixed_asset_id: 2
   id: 26
   lock_version: 0
   locked: false
@@ -497,15 +497,15 @@ financial_asset_depreciations_026:
   stopped_on: 1999-08-31
   updated_at: 2014-12-24 12:50:05.582867000 Z
   updater_id: 1
-financial_asset_depreciations_027:
+fixed_asset_depreciations_027:
   accountable: false
   amount: 0.0
   created_at: 2014-12-24 12:50:05.595119000 Z
   creator_id: 1
   depreciable_amount: 0.0
   depreciated_amount: 0.0
-  financial_asset_id: 2
   financial_year_id: 9
+  fixed_asset_id: 2
   id: 27
   lock_version: 0
   locked: false
@@ -514,15 +514,15 @@ financial_asset_depreciations_027:
   stopped_on: 2000-08-31
   updated_at: 2014-12-24 12:50:05.595119000 Z
   updater_id: 1
-financial_asset_depreciations_028:
+fixed_asset_depreciations_028:
   accountable: false
   amount: 0.0
   created_at: 2014-12-24 12:50:05.606623000 Z
   creator_id: 1
   depreciable_amount: 0.0
   depreciated_amount: 0.0
-  financial_asset_id: 2
   financial_year_id: 10
+  fixed_asset_id: 2
   id: 28
   lock_version: 0
   locked: false
@@ -531,15 +531,15 @@ financial_asset_depreciations_028:
   stopped_on: 2001-08-31
   updated_at: 2014-12-24 12:50:05.606623000 Z
   updater_id: 1
-financial_asset_depreciations_029:
+fixed_asset_depreciations_029:
   accountable: false
   amount: 0.0
   created_at: 2014-12-24 12:50:05.616305000 Z
   creator_id: 1
   depreciable_amount: 0.0
   depreciated_amount: 0.0
-  financial_asset_id: 2
   financial_year_id: 11
+  fixed_asset_id: 2
   id: 29
   lock_version: 0
   locked: false
@@ -548,15 +548,15 @@ financial_asset_depreciations_029:
   stopped_on: 2002-08-31
   updated_at: 2014-12-24 12:50:05.616305000 Z
   updater_id: 1
-financial_asset_depreciations_030:
+fixed_asset_depreciations_030:
   accountable: false
   amount: 0.0
   created_at: 2014-12-24 12:50:05.696762000 Z
   creator_id: 1
   depreciable_amount: 0.0
   depreciated_amount: 0.0
-  financial_asset_id: 2
   financial_year_id: 12
+  fixed_asset_id: 2
   id: 30
   lock_version: 0
   locked: false
@@ -565,15 +565,15 @@ financial_asset_depreciations_030:
   stopped_on: 2003-08-31
   updated_at: 2014-12-24 12:50:05.696762000 Z
   updater_id: 1
-financial_asset_depreciations_031:
+fixed_asset_depreciations_031:
   accountable: false
   amount: 0.0
   created_at: 2014-12-24 12:50:05.707779000 Z
   creator_id: 1
   depreciable_amount: 0.0
   depreciated_amount: 0.0
-  financial_asset_id: 2
   financial_year_id: 13
+  fixed_asset_id: 2
   id: 31
   lock_version: 0
   locked: false
@@ -582,15 +582,15 @@ financial_asset_depreciations_031:
   stopped_on: 2004-08-31
   updated_at: 2014-12-24 12:50:05.707779000 Z
   updater_id: 1
-financial_asset_depreciations_032:
+fixed_asset_depreciations_032:
   accountable: false
   amount: 0.0
   created_at: 2014-12-24 12:50:05.719003000 Z
   creator_id: 1
   depreciable_amount: 0.0
   depreciated_amount: 0.0
-  financial_asset_id: 2
   financial_year_id: 14
+  fixed_asset_id: 2
   id: 32
   lock_version: 0
   locked: false
@@ -599,15 +599,15 @@ financial_asset_depreciations_032:
   stopped_on: 2005-08-31
   updated_at: 2014-12-24 12:50:05.719003000 Z
   updater_id: 1
-financial_asset_depreciations_033:
+fixed_asset_depreciations_033:
   accountable: false
   amount: 0.0
   created_at: 2014-12-24 12:50:05.730429000 Z
   creator_id: 1
   depreciable_amount: 0.0
   depreciated_amount: 0.0
-  financial_asset_id: 2
   financial_year_id: 15
+  fixed_asset_id: 2
   id: 33
   lock_version: 0
   locked: false
@@ -616,15 +616,15 @@ financial_asset_depreciations_033:
   stopped_on: 2006-08-31
   updated_at: 2014-12-24 12:50:05.730429000 Z
   updater_id: 1
-financial_asset_depreciations_034:
+fixed_asset_depreciations_034:
   accountable: false
   amount: 0.0
   created_at: 2014-12-24 12:50:05.742674000 Z
   creator_id: 1
   depreciable_amount: 0.0
   depreciated_amount: 0.0
-  financial_asset_id: 2
   financial_year_id: 16
+  fixed_asset_id: 2
   id: 34
   lock_version: 0
   locked: false
@@ -633,15 +633,15 @@ financial_asset_depreciations_034:
   stopped_on: 2007-08-31
   updated_at: 2014-12-24 12:50:05.742674000 Z
   updater_id: 1
-financial_asset_depreciations_035:
+fixed_asset_depreciations_035:
   accountable: false
   amount: 0.0
   created_at: 2014-12-24 12:50:05.753901000 Z
   creator_id: 1
   depreciable_amount: 0.0
   depreciated_amount: 0.0
-  financial_asset_id: 2
   financial_year_id: 17
+  fixed_asset_id: 2
   id: 35
   lock_version: 0
   locked: false
@@ -650,15 +650,15 @@ financial_asset_depreciations_035:
   stopped_on: 2008-08-31
   updated_at: 2014-12-24 12:50:05.753901000 Z
   updater_id: 1
-financial_asset_depreciations_036:
+fixed_asset_depreciations_036:
   accountable: false
   amount: 0.0
   created_at: 2014-12-24 12:50:05.765649000 Z
   creator_id: 1
   depreciable_amount: 0.0
   depreciated_amount: 0.0
-  financial_asset_id: 2
   financial_year_id: 18
+  fixed_asset_id: 2
   id: 36
   lock_version: 0
   locked: false
@@ -667,15 +667,15 @@ financial_asset_depreciations_036:
   stopped_on: 2009-08-31
   updated_at: 2014-12-24 12:50:05.765649000 Z
   updater_id: 1
-financial_asset_depreciations_037:
+fixed_asset_depreciations_037:
   accountable: false
   amount: 0.0
   created_at: 2014-12-24 12:50:05.776830000 Z
   creator_id: 1
   depreciable_amount: 0.0
   depreciated_amount: 0.0
-  financial_asset_id: 2
   financial_year_id: 19
+  fixed_asset_id: 2
   id: 37
   lock_version: 0
   locked: false
@@ -684,15 +684,15 @@ financial_asset_depreciations_037:
   stopped_on: 2010-08-31
   updated_at: 2014-12-24 12:50:05.776830000 Z
   updater_id: 1
-financial_asset_depreciations_038:
+fixed_asset_depreciations_038:
   accountable: false
   amount: 0.0
   created_at: 2014-12-24 12:50:05.788508000 Z
   creator_id: 1
   depreciable_amount: 0.0
   depreciated_amount: 0.0
-  financial_asset_id: 2
   financial_year_id: 20
+  fixed_asset_id: 2
   id: 38
   lock_version: 0
   locked: false
@@ -701,15 +701,15 @@ financial_asset_depreciations_038:
   stopped_on: 2011-08-31
   updated_at: 2014-12-24 12:50:05.788508000 Z
   updater_id: 1
-financial_asset_depreciations_039:
+fixed_asset_depreciations_039:
   accountable: false
   amount: 0.0
   created_at: 2014-12-24 12:50:05.800587000 Z
   creator_id: 1
   depreciable_amount: 0.0
   depreciated_amount: 0.0
-  financial_asset_id: 2
   financial_year_id: 21
+  fixed_asset_id: 2
   id: 39
   lock_version: 0
   locked: false
@@ -718,15 +718,15 @@ financial_asset_depreciations_039:
   stopped_on: 2012-08-31
   updated_at: 2014-12-24 12:50:05.800587000 Z
   updater_id: 1
-financial_asset_depreciations_040:
+fixed_asset_depreciations_040:
   accountable: false
   amount: 0.0
   created_at: 2014-12-24 12:50:05.812131000 Z
   creator_id: 1
   depreciable_amount: 0.0
   depreciated_amount: 0.0
-  financial_asset_id: 2
   financial_year_id: 22
+  fixed_asset_id: 2
   id: 40
   lock_version: 0
   locked: false
@@ -735,15 +735,15 @@ financial_asset_depreciations_040:
   stopped_on: 2013-08-31
   updated_at: 2014-12-24 12:50:05.812131000 Z
   updater_id: 1
-financial_asset_depreciations_041:
+fixed_asset_depreciations_041:
   accountable: false
   amount: 0.0
   created_at: 2014-12-24 12:50:05.825028000 Z
   creator_id: 1
   depreciable_amount: 0.0
   depreciated_amount: 0.0
-  financial_asset_id: 2
   financial_year_id: 23
+  fixed_asset_id: 2
   id: 41
   lock_version: 0
   locked: false
@@ -752,15 +752,15 @@ financial_asset_depreciations_041:
   stopped_on: 2014-08-31
   updated_at: 2014-12-24 12:50:05.825028000 Z
   updater_id: 1
-financial_asset_depreciations_042:
+fixed_asset_depreciations_042:
   accountable: false
   amount: 0.0
   created_at: 2014-12-24 12:50:05.837421000 Z
   creator_id: 1
   depreciable_amount: 0.0
   depreciated_amount: 0.0
-  financial_asset_id: 2
   financial_year_id: 24
+  fixed_asset_id: 2
   id: 42
   lock_version: 0
   locked: false

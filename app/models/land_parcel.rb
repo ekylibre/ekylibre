@@ -33,7 +33,7 @@
 #  derivative_of         :string
 #  description           :text
 #  extjuncted            :boolean          default(FALSE), not null
-#  financial_asset_id    :integer
+#  fixed_asset_id        :integer
 #  id                    :integer          not null, primary key
 #  identification_number :string
 #  initial_born_at       :datetime

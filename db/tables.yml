@@ -1425,7 +1425,47 @@ events:
   updater_id:
     type: integer
     references: user
-financial_asset_depreciations:
+financial_years:
+  closed:
+    type: boolean
+    required: true
+    default: false
+  code:
+    type: string
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    required: true
+  currency_precision:
+    type: integer
+  id:
+    type: integer
+    required: true
+  last_journal_entry_id:
+    type: integer
+    references: journal_entry
+  lock_version:
+    type: integer
+    required: true
+  started_on:
+    type: date
+    required: true
+  stopped_on:
+    type: date
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+fixed_asset_depreciations:
   accountable:
     type: boolean
     required: true
@@ -1451,13 +1491,13 @@ financial_asset_depreciations:
     type: decimal
     precision: 19
     scale: 4
-  financial_asset_id:
-    type: integer
-    references: financial_asset
-    required: true
   financial_year_id:
     type: integer
     references: financial_year
+  fixed_asset_id:
+    type: integer
+    references: fixed_asset
+    required: true
   id:
     type: integer
     required: true
@@ -1485,7 +1525,7 @@ financial_asset_depreciations:
   updater_id:
     type: integer
     references: user
-financial_assets:
+fixed_assets:
   allocation_account_id:
     type: integer
     references: account
@@ -1563,46 +1603,6 @@ financial_assets:
   sale_item_id:
     type: integer
     references: sale_item
-  started_on:
-    type: date
-    required: true
-  stopped_on:
-    type: date
-    required: true
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
-financial_years:
-  closed:
-    type: boolean
-    required: true
-    default: false
-  code:
-    type: string
-    required: true
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  currency:
-    type: string
-    required: true
-  currency_precision:
-    type: integer
-  id:
-    type: integer
-    required: true
-  last_journal_entry_id:
-    type: integer
-    references: journal_entry
-  lock_version:
-    type: integer
-    required: true
   started_on:
     type: date
     required: true
@@ -3806,19 +3806,19 @@ product_nature_categories:
     default: false
   description:
     type: text
-  financial_asset_account_id:
+  fixed_asset_account_id:
     type: integer
     references: account
-  financial_asset_allocation_account_id:
+  fixed_asset_allocation_account_id:
     type: integer
     references: account
-  financial_asset_depreciation_method:
+  fixed_asset_depreciation_method:
     type: string
-  financial_asset_depreciation_percentage:
+  fixed_asset_depreciation_percentage:
     type: decimal
     precision: 19
     scale: 4
-  financial_asset_expenses_account_id:
+  fixed_asset_expenses_account_id:
     type: integer
     references: account
   id:
@@ -4550,9 +4550,9 @@ products:
     type: boolean
     required: true
     default: false
-  financial_asset_id:
+  fixed_asset_id:
     type: integer
-    references: financial_asset
+    references: fixed_asset
   id:
     type: integer
     required: true

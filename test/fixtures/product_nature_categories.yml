@@ -22,34 +22,34 @@
 #
 # == Table: product_nature_categories
 #
-#  active                                  :boolean          default(FALSE), not null
-#  charge_account_id                       :integer
-#  created_at                              :datetime         not null
-#  creator_id                              :integer
-#  depreciable                             :boolean          default(FALSE), not null
-#  description                             :text
-#  financial_asset_account_id              :integer
-#  financial_asset_allocation_account_id   :integer
-#  financial_asset_depreciation_method     :string
-#  financial_asset_depreciation_percentage :decimal(19, 4)   default(0.0)
-#  financial_asset_expenses_account_id     :integer
-#  id                                      :integer          not null, primary key
-#  lock_version                            :integer          default(0), not null
-#  name                                    :string           not null
-#  number                                  :string           not null
-#  pictogram                               :string
-#  product_account_id                      :integer
-#  purchasable                             :boolean          default(FALSE), not null
-#  reductible                              :boolean          default(FALSE), not null
-#  reference_name                          :string
-#  saleable                                :boolean          default(FALSE), not null
-#  stock_account_id                        :integer
-#  storable                                :boolean          default(FALSE), not null
-#  subscribing                             :boolean          default(FALSE), not null
-#  subscription_duration                   :string
-#  subscription_nature_id                  :integer
-#  updated_at                              :datetime         not null
-#  updater_id                              :integer
+#  active                              :boolean          default(FALSE), not null
+#  charge_account_id                   :integer
+#  created_at                          :datetime         not null
+#  creator_id                          :integer
+#  depreciable                         :boolean          default(FALSE), not null
+#  description                         :text
+#  fixed_asset_account_id              :integer
+#  fixed_asset_allocation_account_id   :integer
+#  fixed_asset_depreciation_method     :string
+#  fixed_asset_depreciation_percentage :decimal(19, 4)   default(0.0)
+#  fixed_asset_expenses_account_id     :integer
+#  id                                  :integer          not null, primary key
+#  lock_version                        :integer          default(0), not null
+#  name                                :string           not null
+#  number                              :string           not null
+#  pictogram                           :string
+#  product_account_id                  :integer
+#  purchasable                         :boolean          default(FALSE), not null
+#  reductible                          :boolean          default(FALSE), not null
+#  reference_name                      :string
+#  saleable                            :boolean          default(FALSE), not null
+#  stock_account_id                    :integer
+#  storable                            :boolean          default(FALSE), not null
+#  subscribing                         :boolean          default(FALSE), not null
+#  subscription_duration               :string
+#  subscription_nature_id              :integer
+#  updated_at                          :datetime         not null
+#  updater_id                          :integer
 #
 #
 # == Fixture: product_nature_categories
@@ -75,10 +75,10 @@ product_nature_categories_001:
   creator_id: 1
   depreciable: true
   description: ''
-  financial_asset_account_id: 1
-  financial_asset_allocation_account_id: 450
-  financial_asset_depreciation_percentage: 0.0
-  financial_asset_expenses_account_id: 451
+  fixed_asset_account_id: 1
+  fixed_asset_allocation_account_id: 450
+  fixed_asset_depreciation_percentage: 0.0
+  fixed_asset_expenses_account_id: 451
   id: 1
   lock_version: 2
   name: Generic Product Nature Category
@@ -100,10 +100,10 @@ product_nature_categories_002:
   creator_id: 1
   depreciable: true
   description: ''
-  financial_asset_account_id: 1
-  financial_asset_allocation_account_id: 450
-  financial_asset_depreciation_percentage: 0.0
-  financial_asset_expenses_account_id: 510
+  fixed_asset_account_id: 1
+  fixed_asset_allocation_account_id: 450
+  fixed_asset_depreciation_percentage: 0.0
+  fixed_asset_expenses_account_id: 510
   id: 2
   lock_version: 1
   name: Obsolete Product Nature Category
@@ -124,7 +124,7 @@ product_nature_categories_003:
   created_at: 2014-10-31 20:11:19.871117000 Z
   creator_id: 1
   depreciable: false
-  financial_asset_depreciation_percentage: 0.0
+  fixed_asset_depreciation_percentage: 0.0
   id: 3
   lock_version: 0
   name: Produit phytosanitaire
@@ -145,7 +145,7 @@ product_nature_categories_004:
   created_at: 2014-10-31 20:11:30.463762000 Z
   creator_id: 1
   depreciable: false
-  financial_asset_depreciation_percentage: 0.0
+  fixed_asset_depreciation_percentage: 0.0
   id: 4
   lock_version: 0
   name: Paille
@@ -167,7 +167,7 @@ product_nature_categories_005:
   created_at: 2014-10-31 20:11:42.132127000 Z
   creator_id: 1
   depreciable: false
-  financial_asset_depreciation_percentage: 0.0
+  fixed_asset_depreciation_percentage: 0.0
   id: 5
   lock_version: 0
   name: Semence
@@ -190,10 +190,10 @@ product_nature_categories_006:
   creator_id: 1
   depreciable: true
   description: ''
-  financial_asset_account_id: 28
-  financial_asset_allocation_account_id: 416
-  financial_asset_depreciation_percentage: 0.0
-  financial_asset_expenses_account_id: 410
+  fixed_asset_account_id: 28
+  fixed_asset_allocation_account_id: 416
+  fixed_asset_depreciation_percentage: 0.0
+  fixed_asset_expenses_account_id: 410
   id: 6
   lock_version: 1
   name: Bâtiment
@@ -214,7 +214,7 @@ product_nature_categories_007:
   created_at: 2014-10-31 20:13:55.094715000 Z
   creator_id: 1
   depreciable: false
-  financial_asset_depreciation_percentage: 0.0
+  fixed_asset_depreciation_percentage: 0.0
   id: 7
   lock_version: 0
   name: Pièce ou zone d’un bâtiment
@@ -233,7 +233,7 @@ product_nature_categories_008:
   created_at: 2014-11-01 19:06:50.017161000 Z
   creator_id: 1
   depreciable: false
-  financial_asset_depreciation_percentage: 0.0
+  fixed_asset_depreciation_percentage: 0.0
   id: 8
   lock_version: 0
   name: Culture
@@ -256,10 +256,10 @@ product_nature_categories_009:
   creator_id: 1
   depreciable: true
   description: ''
-  financial_asset_account_id: 10
-  financial_asset_allocation_account_id: 398
-  financial_asset_depreciation_percentage: 0.0
-  financial_asset_expenses_account_id: 403
+  fixed_asset_account_id: 10
+  fixed_asset_allocation_account_id: 398
+  fixed_asset_depreciation_percentage: 0.0
+  fixed_asset_expenses_account_id: 403
   id: 9
   lock_version: 1
   name: Vache
@@ -282,7 +282,7 @@ product_nature_categories_010:
   created_at: 2014-11-01 19:09:20.923402000 Z
   creator_id: 1
   depreciable: false
-  financial_asset_depreciation_percentage: 0.0
+  fixed_asset_depreciation_percentage: 0.0
   id: 10
   lock_version: 0
   name: Lait
@@ -303,7 +303,7 @@ product_nature_categories_011:
   created_at: 2014-11-01 19:10:35.057312000 Z
   creator_id: 1
   depreciable: false
-  financial_asset_depreciation_percentage: 0.0
+  fixed_asset_depreciation_percentage: 0.0
   id: 11
   lock_version: 0
   name: Graine
@@ -325,7 +325,7 @@ product_nature_categories_012:
   created_at: 2014-11-01 20:20:57.118801000 Z
   creator_id: 1
   depreciable: false
-  financial_asset_depreciation_percentage: 0.0
+  fixed_asset_depreciation_percentage: 0.0
   id: 12
   lock_version: 0
   name: Produit vétérinaire
@@ -347,7 +347,7 @@ product_nature_categories_013:
   created_at: 2014-11-01 20:26:13.040696000 Z
   creator_id: 1
   depreciable: false
-  financial_asset_depreciation_percentage: 0.0
+  fixed_asset_depreciation_percentage: 0.0
   id: 13
   lock_version: 0
   name: Responsable
@@ -369,10 +369,10 @@ product_nature_categories_014:
   creator_id: 1
   depreciable: true
   description: ''
-  financial_asset_account_id: 45
-  financial_asset_allocation_account_id: 424
-  financial_asset_depreciation_percentage: 0.0
-  financial_asset_expenses_account_id: 428
+  fixed_asset_account_id: 45
+  fixed_asset_allocation_account_id: 424
+  fixed_asset_depreciation_percentage: 0.0
+  fixed_asset_expenses_account_id: 428
   id: 14
   lock_version: 1
   name: "Équipement"
@@ -393,7 +393,7 @@ product_nature_categories_015:
   created_at: 2014-11-02 18:31:53.721523000 Z
   creator_id: 1
   depreciable: false
-  financial_asset_depreciation_percentage: 0.0
+  fixed_asset_depreciation_percentage: 0.0
   id: 15
   lock_version: 0
   name: Zone cultivable
@@ -412,7 +412,7 @@ product_nature_categories_016:
   created_at: 2014-11-04 17:27:32.635406000 Z
   creator_id: 1
   depreciable: false
-  financial_asset_depreciation_percentage: 0.0
+  fixed_asset_depreciation_percentage: 0.0
   id: 16
   lock_version: 0
   name: Troupeau de bovins
@@ -433,7 +433,7 @@ product_nature_categories_017:
   created_at: 2014-11-07 15:24:11.118240000 Z
   creator_id: 1
   depreciable: false
-  financial_asset_depreciation_percentage: 0.0
+  fixed_asset_depreciation_percentage: 0.0
   id: 17
   lock_version: 0
   name: Engrais
@@ -454,7 +454,7 @@ product_nature_categories_018:
   created_at: 2014-11-07 15:46:45.124919000 Z
   creator_id: 1
   depreciable: false
-  financial_asset_depreciation_percentage: 0.0
+  fixed_asset_depreciation_percentage: 0.0
   id: 18
   lock_version: 0
   name: Herbe
@@ -477,10 +477,10 @@ product_nature_categories_019:
   creator_id: 1
   depreciable: true
   description: ''
-  financial_asset_account_id: 184
-  financial_asset_allocation_account_id: 424
-  financial_asset_depreciation_percentage: 0.0
-  financial_asset_expenses_account_id: 510
+  fixed_asset_account_id: 184
+  fixed_asset_allocation_account_id: 424
+  fixed_asset_depreciation_percentage: 0.0
+  fixed_asset_expenses_account_id: 510
   id: 19
   lock_version: 1
   name: Plant
@@ -502,7 +502,7 @@ product_nature_categories_020:
   created_at: 2014-11-07 17:05:38.057941000 Z
   creator_id: 1
   depreciable: false
-  financial_asset_depreciation_percentage: 0.0
+  fixed_asset_depreciation_percentage: 0.0
   id: 20
   lock_version: 0
   name: Fruit
@@ -523,7 +523,7 @@ product_nature_categories_021:
   created_at: 2014-11-07 17:10:23.458618000 Z
   creator_id: 1
   depreciable: false
-  financial_asset_depreciation_percentage: 0.0
+  fixed_asset_depreciation_percentage: 0.0
   id: 21
   lock_version: 0
   name: Vin
@@ -545,7 +545,7 @@ product_nature_categories_022:
   created_at: 2014-11-07 19:03:43.632961000 Z
   creator_id: 1
   depreciable: false
-  financial_asset_depreciation_percentage: 0.0
+  fixed_asset_depreciation_percentage: 0.0
   id: 22
   lock_version: 0
   name: Produit œnologique
@@ -567,7 +567,7 @@ product_nature_categories_023:
   created_at: 2014-11-07 19:29:27.376345000 Z
   creator_id: 1
   depreciable: false
-  financial_asset_depreciation_percentage: 0.0
+  fixed_asset_depreciation_percentage: 0.0
   id: 23
   lock_version: 0
   name: Matières sèches (vin)
@@ -590,8 +590,8 @@ product_nature_categories_024:
   creator_id: 1
   depreciable: false
   description: ''
-  financial_asset_depreciation_method: ''
-  financial_asset_depreciation_percentage: 0.0
+  fixed_asset_depreciation_method: ''
+  fixed_asset_depreciation_percentage: 0.0
   id: 24
   lock_version: 0
   name: Médicament
