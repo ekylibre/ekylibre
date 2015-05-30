@@ -1000,6 +1000,7 @@ html.backend {
   html.backend & {
     margin-left: $default-gap;
     margin-right: $default-gap;
+    clear: both;
   }
   vertical-align: middle;
   color: $text-color;

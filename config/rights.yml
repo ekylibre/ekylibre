@@ -1718,6 +1718,8 @@ sale_natures:
 sales:
   read:
     actions:
+    - "backend/sale_credits#index"
+    - "backend/sale_credits#show"
     - "backend/sale_opportunities#index"
     - "backend/sale_opportunities#list"
     - "backend/sale_opportunities#show"
@@ -1771,7 +1773,6 @@ sales:
     - read-sales
     actions:
     - "backend/sale_credits#create"
-    - "backend/sale_credits#index"
     - "backend/sale_credits#new"
     - "backend/sales#cancel"
 

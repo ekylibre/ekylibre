@@ -542,6 +542,7 @@ eng:
     backend/sale_credits:
       # index: "Sale credits"
       new: "Cancel sales invoice %{number}"
+      # show: "Sale credit: %{name}"
     backend/sale_natures:
       edit: "Edit sale type: %{name}"
       index: "Sale types"

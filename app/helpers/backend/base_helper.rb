@@ -210,6 +210,16 @@ module Backend::BaseHelper
     render "state_bar", states: machine.states, current_state: state, resource: resource
   end
 
+  def main_state_bar(resource, options = {})
+    content_for(:main_statebar, state_bar(resource, options))
+  end
+
+  def main_state_bar_tag
+    if content_for?(:main_statebar)
+      content_for(:main_statebar)
+    end
+  end
+
   def main_list(*args)
     options = args.extract_options!
     list *args, options.deep_merge(content_for: {settings: :meta_toolbar, pagination: :meta_toolbar, actions: :main_toolbar})

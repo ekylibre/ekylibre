@@ -10,7 +10,13 @@
   - if resource.invoice?
     - t.cancel(resource) if resource.cancellable?
 
-= state_bar(resource)
+= main_state_bar(resource)
+
+= main_list :items do
+  %tr.total
+    %th{colspan: 4}= :total.tl
+    %td= resource.pretax_amount.l(currency: resource.currency)
+    %td= resource.amount.l(currency: resource.currency)
 
 = beehive do |b|
 
