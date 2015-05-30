@@ -88,8 +88,8 @@ module Procedo
     end
 
     # Translate the name of the variable
-    def human_name
-      "procedure_variables.#{name}".t(default: ["labels.#{name}".to_sym, "attributes.#{name}".to_sym, name.to_s.humanize])
+    def human_name(options = {})
+      "procedure_variables.#{name}".t(options.merge(default: ["labels.#{name}".to_sym, "attributes.#{name}".to_sym, name.to_s.humanize]))
     end
 
     def inspect

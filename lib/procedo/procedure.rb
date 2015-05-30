@@ -146,14 +146,14 @@ module Procedo
     end
 
     # Returns human_name of the procedure
-    def human_name
+    def human_name(options = {})
       default = []
       default << "procedures.#{short_name}".to_sym
       default << "labels.procedures.#{not_so_short_name}".to_sym
       default << "labels.procedures.#{short_name}".to_sym
       default << "labels.#{short_name}".to_sym
       default << short_name.to_s.humanize
-      return "procedures.#{not_so_short_name}".t(default: default)
+      return "procedures.#{not_so_short_name}".t(options.merge(default: default))
     end
 
     # Returns the fixed time for a procedure
