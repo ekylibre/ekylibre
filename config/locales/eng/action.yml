@@ -866,7 +866,7 @@ eng:
     click_to_mail: "Click to email with your own mail software"
     client: "Client" #?
     client_informations: "Client informations"
-    close: "Close" #?
+    close: "Close"
     close_financial_year: "Close financial year"
     close_journal: "Close the journal"
     closed: "Closed" #?
@@ -1215,6 +1215,7 @@ eng:
     price: "Price" #?
     prices: "Prices" #?
     print: "Print"
+    printing_document: "Printing %{document}"
     procedures: "Procedures"
     product: "Product"
     product_category: "Product category" #?
@@ -1579,6 +1580,7 @@ eng:
       need_to_create_productions: "Need to create productions" #?
       need_to_create_subscription_nature: "You must create a type of subscription to manage your subscriptions"
       new_actual_number: "The new number is being %{actual_number}"
+      no_archived_prints: "No archived prints"
       no_authenticated: "You could not be identified. The user name or password must be incorrect." #?
       no_closable_journal: "No closable journal"
       no_depositable_payments: "There are no payment to deposit"

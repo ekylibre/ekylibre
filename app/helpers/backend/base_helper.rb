@@ -172,23 +172,6 @@ module Backend::BaseHelper
   end
 
 
-
-  # Permits to use deck as XUL defines it
-  # https://developer.mozilla.org/fr/docs/XUL/deck
-  def deck(options = {}, &block)
-    add_deck(:default, &block)
-    options["data-deck"] = options.delete(:deck) || 'default'
-    return content_tag(:div, content_for(:deck), options)
-  end
-
-  # Add a new deck
-  def add_deck(id, &block)
-    content_for(:deck, content_tag(:div, capture(&block), :id => id))
-  end
-
-
-
-
   def lights(status, html_options = {})
     if html_options.has_key?(:class)
       html_options[:class] << " lights lights-#{status}"

@@ -97,7 +97,7 @@ input[type="submit"], input[type="button"], input[type="reset"] {
 // @include button($passive-bg, $active-bg);
 // @include button(#D88E68, #D88E68, "&.important");
 
-a.btn, button {
+a.btn, button.btn {
   @include button();
   &.primary {
     @include button($background-color: $base-color);
@@ -106,7 +106,9 @@ a.btn, button {
     @include button($background-color: $caution-color);
   }
 
-  &.btn-dropdown {
+  &.btn-dropdown, &.dropdown-toggle {
+    padding-left: round($fs-normal*0.40);
+    padding-right: round($fs-normal*0.40);
     .icon, i {
       font-size: $fs-normal;
       @include use-icon(caret-down);

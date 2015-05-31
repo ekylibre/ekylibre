@@ -1166,6 +1166,7 @@ spa:
     # prices: "Prices"
     print: "Impresion de documentos"
     print_at: "el" #?
+    # printing_document: "Printing %{document}"
     # procedures: "Procedures"
     product: "Producto"
     # product_category: "Product category"
@@ -1610,6 +1611,7 @@ spa:
       # need_to_create_productions: "Need to create productions"
       need_to_create_subscription_nature: "se debe crear un tipo de abono para administrar los abonos"
       new_actual_number: "El nuevo numero en curso es %{numero_actual}"
+      # no_archived_prints: "No archived prints"
       no_authenticated: "No puede ser identificado. El nombre de utilizador o la contrasña debe de ser incorrecta."
       no_balance_template: "No hay modelo de documento para este equilibrio" #?
       no_building: "Ningun lugar de almacenamineto es definido. por favor cree uno para administrar los depositos" #?

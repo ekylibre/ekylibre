@@ -161,6 +161,13 @@ ul.dropdown-menu {
   }
 }
 
+.placeholding-message {
+  font-size: $fs-huge;
+  line-height: $lh-huge;
+  @include text-align(center);
+  padding: 4 * $fs-huge;
+}
+
 a[data-toggle='side'] {
   i {
     @include is-icon($lh-normal);

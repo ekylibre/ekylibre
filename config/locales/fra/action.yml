@@ -1333,6 +1333,7 @@ fra:
     print: "Imprimer"
     print_at: "Le" #?
     print_with_template: "Imprimer %{name}" #?
+    printing_document: "Impression de %{document}"
     procedure_natures: "Types de procédures" #?
     procedures: "Procédures"
     product: "Produit"
@@ -1877,6 +1878,7 @@ fra:
       need_to_create_subscription_nature: "Vous devez créer un type d’abonnement pour pouvoir gérer vos abonnements"
       new_actual_number: "Le nouveau numéro en cours est %{actual_number}"
       new_values_are_calculated: "De nouvelles valeurs ont été calculées" #?
+      no_archived_prints: "Aucune impression déjà archivée"
       no_authenticated: "Vous n’avez pas pu être identifié. Le nom d’utilisateur ou le mot de passe doit être incorrect."
       no_balance_template: "Pas de modèle de document pour la balance" #?
       no_building: "Aucun lieu de stockage n’est défini. Veuillez en créer un pour pouvoir gérer vos stocks" #?

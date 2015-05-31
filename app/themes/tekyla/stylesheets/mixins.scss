@@ -1,3 +1,4 @@
+@import "compass/css3/images";
 @import "compass/css3/animation";
 @import "compass/css3/border-radius";
 @import "compass/css3/box-shadow";
@@ -454,7 +455,6 @@
   }
 
 }
-
 
 @mixin toolbar($group: ".btn-group", $total-height: $toolbar-height) {
   @include display(block);

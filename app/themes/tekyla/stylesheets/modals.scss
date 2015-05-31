@@ -1,0 +1,22 @@
+.modal {
+  .modal-dialog {
+    .modal-content {
+      .modal-header {
+        .close[data-dismiss='modal'] {
+          @include float(right);
+          background: none;
+          border: none;
+          span {
+            font-size: $fs-large;
+          }
+        }
+        h4 {
+          font-weight: bold;
+        }
+      }
+      .modal-footer {
+        @include text-align(right);
+      }
+    }
+  }
+}

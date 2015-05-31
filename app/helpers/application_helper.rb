@@ -177,7 +177,7 @@ module ApplicationHelper
         url = url_for(options)
       rescue ActionController::UrlGenerationError => uge
         # Trying to fail gracefully in production
-	raise uge unless Rails.env.production?
+        raise uge unless Rails.env.production?
         ExceptionNotifier::Notifier.exception_notification(request.env, uge).deliver
         request.env['exception_notifier.delivered'] = true
         return "<a class='forbidden' disabled='true'>#{name}</a>".html_safe
@@ -399,18 +399,21 @@ module ApplicationHelper
       args = l.links.first.args
     end
     args[2] ||= {}
-    return content_tag(:div, :class => "btn-group btn-group-dropdown #{args[2][:class]}") do
-      html = "".html_safe
-      if l.links.size > minimum
-        html << link_to(content_tag(:i), "#dropdown", :class => "btn btn-dropdown", 'data-toggle' => 'dropdown')
-        html << content_tag(:ul, :class => "dropdown-menu") do
+
+    if l.links.size > minimum
+      return content_tag(:div, class: "btn-group") do # btn-group btn-group-dropdown  #{args[2][:class]}
+        html = "".html_safe
+        html << tool_to(*args)
+        html << link_to(content_tag(:i), "#dropdown", class: "btn btn-default dropdown-toggle", data: {toggle: 'dropdown'})
+        html << content_tag(:ul, class: "dropdown-menu", role: "menu") do
           l.links.collect do |link|
             content_tag(:li, send(link.name, *link.args, &link.block))
           end.join.html_safe
         end
+        html
       end
-      html = tool_to(*args) + html
-      html
+    else
+      return tool_to(*args)
     end
   end
 
@@ -573,9 +576,9 @@ module ApplicationHelper
 
   def notifications_tag
     return notification_tag(:error) <<
-      notification_tag(:warning) <<
-      notification_tag(:success) <<
-      notification_tag(:information)
+           notification_tag(:warning) <<
+           notification_tag(:success) <<
+           notification_tag(:information)
   end
 
 
@@ -629,7 +632,7 @@ module ApplicationHelper
   def tool_to(name, url, options={})
     raise ArgumentError.new("##{__method__} cannot use blocks") if block_given?
     icon = (options.has_key?(:tool) ? options.delete(:tool) : url.is_a?(Hash) ? url[:action] : nil)
-    options[:class] = (options[:class].blank? ? 'btn' : options[:class].to_s+' btn')
+    options[:class] = (options[:class].blank? ? 'btn btn-default' : options[:class].to_s+' btn btn-default')
     options[:class] << ' btn-' + icon.to_s if icon
     if url.is_a?(Hash)
       if url.has_key?(:redirect)
@@ -662,46 +665,14 @@ module ApplicationHelper
         unless key.is_a?(String)
           raise ArgumentError.new("Expected String for document key: #{key.class.name}:#{key.inspect}")
         end
-        add_deck(nature.name) do
-          html = "".html_safe
-          # if block_given?
-          #   html = kujaku(&block)
-          # end
-          html << form_actions do
-            DocumentTemplate.of_nature(nature.name.to_s).collect do |template|
-              formats = template.formats
-              dropdown_button(template.name, params.merge(:format => formats.first, :template => template.id, :key => key)) do |l|
-                for format in formats
-                  l.link_to("formats.#{format}".t, params.merge(:format => format, :template => template.id, :key => key))
-                end
-              end
-            end.join.html_safe
-          end
-          # if document = Document.of(nature.name, key)
-            html << content_tag(:div, class: "document-archives") do
-              content_tag(:ul, class: "thumbs") do
-                Document.of(nature.name, key).collect do |document|
-                  content_tag(:li, class: "thumb") do
-                    link_to(backend_document_url(document, format: :pdf)) do
-                      image_tag(backend_document_path(document, format: :jpg))
-                    end +
-                      link_to(backend_document_url(document)) do
-                      content_tag(:div, document.updated_at.l, class: "archived-at") +
-                        content_tag(:div, document.template_name, class: "template-name")
-                    end
-                  end
-                end.join.html_safe
-              end
-            end
-          # end
-          html
-        end
+
+        content_for(:popover, render("backend/shared/export", nature: nature, key: key))
       end
 
       default = exporter.natures.first
-      return dropdown_button(content_tag(:i) + " " + :print.tl, '#' + default.name.to_s, :class => "btn btn-print", 'data-select-deck' => default.name) do |l|
-        for nature in exporter.natures
-          l.link_to(content_tag(:i) + h(nature.name.to_s.humanize), '#' + nature.name.to_s, 'data-select-deck' => nature.name)
+      return dropdown_button(content_tag(:i) + " " + :print.tl, "##{default.name}-printing", class: "btn btn-print", data: {toggle: "modal"}) do |l|
+        exporter.natures.each do |nature|
+          l.link_to(content_tag(:i) + " " + h(Nomen::DocumentNatures.find(nature.name).human_name), "##{nature.name}-printing", data: {toggle: "modal"})
         end if exporter.natures.size > 1
       end
     end
@@ -914,13 +885,13 @@ module ApplicationHelper
     class_names  = "fieldset " + name.to_s + (options[:class] ? " " + options[:class].to_s : "")
     class_names << (options[:collapsed] ? ' collapsed' : ' not-collapsed')
     return wrap(content_tag(:div,
-                       content_tag(:div,
-                                   link_to(content_tag(:i) + h(name.is_a?(Symbol) ? name.to_s.gsub('-', '_').tl(default: ["form.legends.#{name.to_s.gsub('-', '_')}".to_sym, name.to_s.humanize]) : name.to_s), "#", :class => "title", 'data-toggle' => 'fields') +
-                                   content_tag(:span, buttons.join.html_safe, :class => :buttons),
-                                   :class => "fieldset-legend") +
-                       content_tag(:div, capture(&block), :class => options[:fields_class]), :class => class_names, :id => name), options[:in])
+                            content_tag(:div,
+                                        link_to(content_tag(:i) + h(name.is_a?(Symbol) ? name.to_s.gsub('-', '_').tl(default: ["form.legends.#{name.to_s.gsub('-', '_')}".to_sym, name.to_s.humanize]) : name.to_s), "#", :class => "title", 'data-toggle' => 'fields') +
+                                        content_tag(:span, buttons.join.html_safe, :class => :buttons),
+                                        :class => "fieldset-legend") +
+                            content_tag(:div, capture(&block), :class => options[:fields_class]), :class => class_names, :id => name), options[:in])
 
-                # "#{name}-fieldset"
+    # "#{name}-fieldset"
   end
 
   def wrap(html, *levels)

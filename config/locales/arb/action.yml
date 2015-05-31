@@ -1509,6 +1509,7 @@ arb:
     prices_import: "CSV استيراد بيان الاسعار  ضمن" #?
     print: "طباعة"
     print_at: "ال" #?
+    # printing_document: "Printing %{document}"
     # procedures: "Procedures"
     product: "المنتج"
     product_category: "الفئة"
@@ -2024,6 +2025,7 @@ arb:
       # need_to_create_productions: "Need to create productions"
       need_to_create_subscription_nature: "يجب عليك انشاء نوع اشتراك لتتمكن من ادارة اشتراكاتك"
       new_actual_number: "الرقم الجديد الحالي هو %{actual_number}"
+      # no_archived_prints: "No archived prints"
       no_authenticated: "ليس بامكانك ان تكون محدد، ان اسم المستخدم او كلمة المرور غير صحيحة"
       no_balance_template: "ليس هناك من نموذج لوثيقة الرصيد" #?
       no_building: "لم يتم التعرف على اي موقع للتخزين، الرجاء انشاء واحد لتتمكن من ادارة اسهمك" #?
