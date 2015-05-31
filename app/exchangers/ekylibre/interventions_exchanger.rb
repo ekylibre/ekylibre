@@ -165,6 +165,14 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       if r.equipment_codes
         equipments = Equipment.where(work_number: r.equipment_codes)
       end
+      
+      # Get target_variant
+      target_variant = nil
+      if r.target_variety
+        target_variant = ProductNatureVariant.find_or_import!(r.target_variety).first
+      elsif r.target_variant
+        target_variant = ProductNatureVariant.import_from_nomenclature(r.target_variant).first
+      end
 
       if r.worker_codes
         workers = Worker.where(work_number: r.worker_codes)
@@ -178,8 +186,8 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
       if production_supports
 
-        puts r.intervention_number.inspect.red
-        puts r.procedure_name.inspect.green
+        #puts r.intervention_number.inspect.red
+        #puts r.procedure_name.inspect.green
 
         production_supports.each do |support|
 
@@ -192,6 +200,10 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
             cultivable_zone_shape = Charta::Geometry.new(cultivable_zone.shape) if cultivable_zone.shape
             if cultivable_zone_shape and product_around = cultivable_zone_shape.actors_matching(nature: Plant).first
               plant = product_around
+            end
+            if r.target_variety
+              members = cultivable_zone.contains(r.target_variety, r.intervention_started_at)
+              plant = members.first if members
             end
 
             duration = (duration_in_seconds * (cultivable_zone.shape_area.to_d / production_supports_area.to_d).to_d).round(2) if cultivable_zone.shape
@@ -244,8 +256,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                 end
               end
             end
-
-            coeff = ((cultivable_zone.shape_area / 10000.0) / 6.0).to_d if cultivable_zone.shape
+            
+            area = cultivable_zone.shape
+            coeff = ((cultivable_zone.shape_area / 10000.0) / 6.0).to_d if area
 
             if r.procedure_name and support and (coeff.to_f > 0.0)
 
@@ -415,7 +428,51 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                   i.add_cast(reference_name: 'tractor',     actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "tow(spreader)") : i.find(Equipment, can: "tow(spreader)")))
                   i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
                 end
-
+              
+              #######################
+              ####  SOWING       ####
+              #######################
+              
+              elsif r.procedure_name == :sowing and cultivable_zone and target_variant and first_product
+              
+              working_measure = cultivable_zone.shape_area
+              w.info working_measure.inspect.green
+              first_product_input_population = population_conversion(first_product, r.first_product_input_population, r.first_product_input_unit_name, r.first_product_input_unit_target_dose, working_measure)
+              w.info first_product_input_population.inspect.green
+              
+              cultivation_population = (working_measure.to_s.to_f / 10000.0) if working_measure
+              # get density from first_product
+              # (density in g per hectare / PMG) * 1000 * cultivable_area in hectare
+              plants_count = 2000000
+              
+              # Sowing
+              intervention = Ekylibre::FirstRun::Booker.force(:sowing, intervention_started_at, (duration / 3600), support: support, description: r.procedure_description, parameters: {readings: {"base-sowing-0-750-2" => plants_count}}) do |i|
+                i.add_cast(reference_name: 'seeds',        actor: first_product)
+                i.add_cast(reference_name: 'seeds_to_sow', population: first_product_input_population)
+                i.add_cast(reference_name: 'sower',        actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "sow") : i.find(Equipment, can: "sow")))
+                i.add_cast(reference_name: 'driver',       actor: (workers.any? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+                i.add_cast(reference_name: 'tractor',      actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "tow(sower)") : i.find(Equipment, can: "tow(sower)")))
+                i.add_cast(reference_name: 'land_parcel',  actor: cultivable_zone)
+                i.add_cast(reference_name: 'cultivation',  variant: target_variant, population: cultivation_population, shape: cultivable_zone.shape)
+              end
+              
+              elsif r.procedure_name == :grains_harvest and plant and first_product and second_product
+                
+              working_measure = plant.shape_area
+              w.info working_measure.inspect.green
+              first_product_input_population = population_conversion(first_product, r.first_product_input_population, r.first_product_input_unit_name, r.first_product_input_unit_target_dose, working_measure)
+              w.info first_product_input_population.inspect.green
+              second_product_input_population = population_conversion(second_product, r.second_product_input_population, r.second_product_input_unit_name, r.second_product_input_unit_target_dose, working_measure)
+              w.info second_product_input_population.inspect.green
+              
+              intervention = Ekylibre::FirstRun::Booker.force(:grains_harvest, intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
+                i.add_cast(reference_name: 'cropper',        actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "harvest(poaceae)") : i.find(Equipment, can: "harvest(poaceae)")))
+                i.add_cast(reference_name: 'cropper_driver', actor: (workers.any? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+                i.add_cast(reference_name: 'cultivation',    actor: plant)
+                i.add_cast(reference_name: 'grains',         population: first_product_input_population, variant: ProductNatureVariant.find_or_import!(:grain, derivative_of: plant.variety).first)
+                i.add_cast(reference_name: 'straws',         population: second_product_input_population, variant: ProductNatureVariant.find_or_import!(:straw, derivative_of: plant.variety).first)
+              end
+              
               #######################
               ####  WATERING  ####
               #######################
