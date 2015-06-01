@@ -716,6 +716,12 @@
             unit_name="plant"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
+      <item name="tangerine_crop"
+            nature="fruit_crop"
+            variety="citrus_reticulata"
+            unit_name="plant"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
 
       <!-- FLOWER & DECORATIVE CROP -->
       <item name="saffron_crop"
