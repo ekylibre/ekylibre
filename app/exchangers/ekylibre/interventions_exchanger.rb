@@ -170,8 +170,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       target_variant = nil
       if r.target_variety
         target_variant = ProductNatureVariant.find_or_import!(r.target_variety).first
-      elsif r.target_variant
-        target_variant = ProductNatureVariant.import_from_nomenclature(r.target_variant).first
+      end
+      if target_variant == nil and r.target_variant
+        target_variant = ProductNatureVariant.import_from_nomenclature(r.target_variant)
       end
 
       if r.worker_codes
