@@ -2984,7 +2984,6 @@ spa:
         # wire_50m_roll: "Wire 50m roll"
         # wood_stake_200: "Wood stake 200"
         # wood_stake_250: "Wood stake 250"
-        # young_goat: "Young goat"
         # young_pig_band: "Young pig band"
         # young_rabbit: "Young rabbit"
         # zea_herbicide: "Zea herbicide"
@@ -3243,7 +3242,6 @@ spa:
         # wine_storage_division: "Wine storage division"
         # wine_tank: "Wine tank"
         # wire: "Wire"
-        # young_goat: "Young goat"
         # young_rabbit: "Young rabbit"
       # name: "Name"
       property_natures:

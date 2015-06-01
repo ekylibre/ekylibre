@@ -196,7 +196,16 @@
             frozen_indicators="population, sex, reproductor, livestock_unit"
             derivatives="meat"
             />
-      <item name="young_goat"
+      <item name="male_young_goat"
+            category="calf"
+            variety="capra"
+            population_counting="unitary"
+            abilities="consume(water), consume(poaceae), produce(excrement), consume(milk), move, consume(mix), consume(silage)"
+            variable_indicators="net_mass, sex, animal_life_state, healthy, mammalia_birth_condition"
+            frozen_indicators="population, reproductor, livestock_unit"
+            derivatives="meat"
+            />
+      <item name="female_young_goat"
             category="calf"
             variety="capra"
             population_counting="unitary"

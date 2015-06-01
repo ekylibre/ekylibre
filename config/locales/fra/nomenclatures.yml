@@ -2997,7 +2997,7 @@ fra:
         wire_50m_roll: "Bobine de 50 mètres de fils de clôture"
         wood_stake_200: "Piquet bois de 2 mètres"
         wood_stake_250: "Piquet bois de 2,5 mètres"
-        young_goat: "Chevreau"
+        young_goat: "Chevreau" #?
         young_pig_band: "Bande de porcelets"
         young_rabbit: "Lapereau"
         zea_herbicide: "Herbicide maïs"
@@ -3257,7 +3257,7 @@ fra:
         wine_storage_division: "Zone de stockage ‒ vins conditionnés"
         wine_tank: "Cuve à vin"
         wire: "Fil"
-        young_goat: "Chevreau"
+        young_goat: "Chevreau" #?
         young_rabbit: "Lapereau"
       name: "Types de produits"
       property_natures:
