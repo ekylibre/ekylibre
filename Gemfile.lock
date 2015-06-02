@@ -218,7 +218,7 @@ GEM
       turbolinks
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
-    json (1.8.2)
+    json (1.8.3)
     kgio (2.9.3)
     libv8 (3.16.14.7)
     loofah (2.0.2)

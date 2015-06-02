@@ -51,27 +51,43 @@
 #
 ---
 analyses_001:
-  analysed_at: 2013-10-27 15:34:04.000000000 Z
+  analysed_at: 2013-10-27 15:34:00.000000000 Z
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   geolocation: SRID=4326;POINT(45.5 -0.79292768)
   id: 1
-  lock_version: 0
+  lock_version: 1
   nature: cow_milk_analysis
   number: ANL0001
   reference_number: LCALEDSLAB8458964548458
-  sampled_at: 2013-10-26 14:34:04.000000000 Z
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  sampled_at: 2013-10-26 14:34:00.000000000 Z
+  updated_at: 2015-06-02 19:42:16.762967000 Z
   updater_id: 1
 analyses_002:
-  analysed_at: 2013-10-27 15:34:04.000000000 Z
+  analysed_at: 2013-10-27 15:34:00.000000000 Z
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   geolocation: SRID=4326;POINT(45.5 -0.79292768)
   id: 2
-  lock_version: 0
+  lock_version: 1
   nature: cow_milk_analysis
   number: ANL0002
-  sampled_at: 2013-10-26 14:34:04.000000000 Z
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  reference_number: ''
+  sampled_at: 2013-10-26 14:34:00.000000000 Z
+  updated_at: 2015-06-02 19:42:27.817926000 Z
+  updater_id: 1
+analyses_003:
+  analysed_at: 2015-06-02 19:43:00.000000000 Z
+  analyser_id: 6
+  created_at: 2015-06-02 19:44:16.060518000 Z
+  creator_id: 1
+  geolocation: SRID=4326;POINT(45.4989016056061 -0.79240656931776)
+  id: 3
+  lock_version: 0
+  nature: soil_analysis
+  number: A00000001
+  reference_number: TSOL845682
+  sampled_at: 2015-03-03 07:40:00.000000000 Z
+  sampler_id: 12
+  updated_at: 2015-06-02 19:44:16.060518000 Z
   updater_id: 1

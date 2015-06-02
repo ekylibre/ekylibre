@@ -22,6 +22,8 @@ class Backend::AnalysesController < Backend::BaseController
   unroll
 
   list do |t|
+    t.action :edit
+    t.action :destroy
     t.column :number, url: true
     t.column :reference_number, url: true
     t.column :nature

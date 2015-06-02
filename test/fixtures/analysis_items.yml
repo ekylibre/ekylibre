@@ -58,19 +58,8 @@
 #
 ---
 analysis_items_001:
-  analysis_id: 1
-  boolean_value: false
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 1
-  indicator_datatype: measure
-  indicator_name: nitrogen_concentration
-  lock_version: 0
-  measure_value_unit: percent
-  measure_value_value: 33.33
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-analysis_items_002:
+  absolute_measure_value_unit: mass_percent
+  absolute_measure_value_value: 33.33
   analysis_id: 1
   boolean_value: false
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -78,8 +67,208 @@ analysis_items_002:
   id: 2
   indicator_datatype: measure
   indicator_name: nitrogen_concentration
-  lock_version: 0
+  lock_version: 1
   measure_value_unit: percent
   measure_value_value: 33.33
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2015-06-02 19:42:16.788158000 Z
+  updater_id: 1
+analysis_items_002:
+  absolute_measure_value_unit: mass_percent
+  absolute_measure_value_value: 0.02
+  analysis_id: 1
+  boolean_value: false
+  created_at: 2015-06-02 19:42:16.777837000 Z
+  creator_id: 1
+  id: 3
+  indicator_datatype: measure
+  indicator_name: sulfur_dioxide_concentration
+  lock_version: 0
+  measure_value_unit: mass_percent
+  measure_value_value: 0.02
+  updated_at: 2015-06-02 19:42:16.777837000 Z
+  updater_id: 1
+analysis_items_003:
+  analysis_id: 3
+  boolean_value: false
+  choice_value: flap_silt_soil
+  created_at: 2015-06-02 19:44:16.062009000 Z
+  creator_id: 1
+  id: 4
+  indicator_datatype: choice
+  indicator_name: soil_nature
+  lock_version: 0
+  updated_at: 2015-06-02 19:44:16.062009000 Z
+  updater_id: 1
+analysis_items_004:
+  absolute_measure_value_unit: mass_percent
+  absolute_measure_value_value: 0.2
+  analysis_id: 3
+  boolean_value: false
+  created_at: 2015-06-02 19:44:16.064380000 Z
+  creator_id: 1
+  id: 5
+  indicator_datatype: measure
+  indicator_name: organic_matter_concentration
+  lock_version: 0
+  measure_value_unit: mass_percent
+  measure_value_value: 0.2
+  updated_at: 2015-06-02 19:44:16.064380000 Z
+  updater_id: 1
+analysis_items_005:
+  absolute_measure_value_unit: mass_percent
+  absolute_measure_value_value: 0.04
+  analysis_id: 3
+  boolean_value: false
+  created_at: 2015-06-02 19:44:16.066557000 Z
+  creator_id: 1
+  id: 6
+  indicator_datatype: measure
+  indicator_name: nitrogen_concentration
+  lock_version: 0
+  measure_value_unit: mass_percent
+  measure_value_value: 0.04
+  updated_at: 2015-06-02 19:44:16.066557000 Z
+  updater_id: 1
+analysis_items_006:
+  analysis_id: 3
+  boolean_value: false
+  created_at: 2015-06-02 19:44:16.069096000 Z
+  creator_id: 1
+  decimal_value: 7.0
+  id: 7
+  indicator_datatype: decimal
+  indicator_name: potential_hydrogen
+  lock_version: 0
+  updated_at: 2015-06-02 19:44:16.069096000 Z
+  updater_id: 1
+analysis_items_007:
+  absolute_measure_value_unit: milliequivalent_per_hundred_gram
+  absolute_measure_value_value: 0.0
+  analysis_id: 3
+  boolean_value: false
+  created_at: 2015-06-02 19:44:16.071848000 Z
+  creator_id: 1
+  id: 8
+  indicator_datatype: measure
+  indicator_name: cation_exchange_capacity
+  lock_version: 0
+  measure_value_unit: milliequivalent_per_hundred_gram
+  updated_at: 2015-06-02 19:44:16.071848000 Z
+  updater_id: 1
+analysis_items_008:
+  absolute_measure_value_unit: mass_percent
+  absolute_measure_value_value: 2.0
+  analysis_id: 3
+  boolean_value: false
+  created_at: 2015-06-02 19:44:16.074445000 Z
+  creator_id: 1
+  id: 9
+  indicator_datatype: measure
+  indicator_name: phosphate_concentration
+  lock_version: 1
+  measure_value_unit: mass_percent
+  measure_value_value: 2.0
+  updated_at: 2015-06-02 19:45:02.126073000 Z
+  updater_id: 1
+analysis_items_009:
+  absolute_measure_value_unit: mass_percent
+  absolute_measure_value_value: 1.0
+  analysis_id: 3
+  boolean_value: false
+  created_at: 2015-06-02 19:44:16.076505000 Z
+  creator_id: 1
+  id: 10
+  indicator_datatype: measure
+  indicator_name: potash_concentration
+  lock_version: 1
+  measure_value_unit: mass_percent
+  measure_value_value: 1.0
+  updated_at: 2015-06-02 19:45:02.123797000 Z
+  updater_id: 1
+analysis_items_010:
+  absolute_measure_value_unit: mass_percent
+  absolute_measure_value_value: 0.3
+  analysis_id: 3
+  boolean_value: false
+  created_at: 2015-06-02 19:44:16.078348000 Z
+  creator_id: 1
+  id: 11
+  indicator_datatype: measure
+  indicator_name: magnesium_concentration
+  lock_version: 1
+  measure_value_unit: mass_percent
+  measure_value_value: 0.3
+  updated_at: 2015-06-02 19:45:02.121568000 Z
+  updater_id: 1
+analysis_items_011:
+  absolute_measure_value_unit: parts_per_million
+  absolute_measure_value_value: 0.07
+  analysis_id: 3
+  boolean_value: false
+  created_at: 2015-06-02 19:44:16.080117000 Z
+  creator_id: 1
+  id: 12
+  indicator_datatype: measure
+  indicator_name: boron_concentration
+  lock_version: 1
+  measure_value_unit: parts_per_million
+  measure_value_value: 0.07
+  updated_at: 2015-06-02 19:45:02.119070000 Z
+  updater_id: 1
+analysis_items_012:
+  absolute_measure_value_unit: parts_per_million
+  absolute_measure_value_value: 0.05
+  analysis_id: 3
+  boolean_value: false
+  created_at: 2015-06-02 19:44:16.081872000 Z
+  creator_id: 1
+  id: 13
+  indicator_datatype: measure
+  indicator_name: zinc_concentration
+  lock_version: 1
+  measure_value_unit: parts_per_million
+  measure_value_value: 0.05
+  updated_at: 2015-06-02 19:45:02.116282000 Z
+  updater_id: 1
+analysis_items_013:
+  absolute_measure_value_unit: parts_per_million
+  absolute_measure_value_value: 0.0
+  analysis_id: 3
+  boolean_value: false
+  created_at: 2015-06-02 19:44:16.083664000 Z
+  creator_id: 1
+  id: 14
+  indicator_datatype: measure
+  indicator_name: manganese_concentration
+  lock_version: 0
+  measure_value_unit: parts_per_million
+  updated_at: 2015-06-02 19:44:16.083664000 Z
+  updater_id: 1
+analysis_items_014:
+  absolute_measure_value_unit: parts_per_million
+  absolute_measure_value_value: 0.0
+  analysis_id: 3
+  boolean_value: false
+  created_at: 2015-06-02 19:44:16.085669000 Z
+  creator_id: 1
+  id: 15
+  indicator_datatype: measure
+  indicator_name: copper_concentration
+  lock_version: 0
+  measure_value_unit: parts_per_million
+  updated_at: 2015-06-02 19:44:16.085669000 Z
+  updater_id: 1
+analysis_items_015:
+  absolute_measure_value_unit: parts_per_million
+  absolute_measure_value_value: 0.0
+  analysis_id: 3
+  boolean_value: false
+  created_at: 2015-06-02 19:44:16.087431000 Z
+  creator_id: 1
+  id: 16
+  indicator_datatype: measure
+  indicator_name: iron_concentration
+  lock_version: 0
+  measure_value_unit: parts_per_million
+  updated_at: 2015-06-02 19:44:16.087431000 Z
   updater_id: 1

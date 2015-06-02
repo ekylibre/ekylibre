@@ -38,5 +38,3 @@
     %span.nested-add= :add_item.tl
     %span.input-append= select_tag(:indicator_name, options_for_select(Nomen::Indicators.selection), id: id)
     = link_to(:add.tl, {action: :new, controller: :analysis_items}, class: "btn btn-default", remote: true, data: {update: '#analysis-items', update_at: 'bottom', with: "##{id}"})
-
-= f.object.errors.inspect
