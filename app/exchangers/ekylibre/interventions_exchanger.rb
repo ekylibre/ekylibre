@@ -457,7 +457,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                 i.add_cast(reference_name: 'land_parcel',  actor: cultivable_zone)
                 i.add_cast(reference_name: 'cultivation',  variant: target_variant, population: cultivation_population, shape: cultivable_zone.shape)
               end
-              
+
               #######################
               ####  HARVESTING   ####
               #######################
@@ -470,7 +470,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                 w.info first_product_input_population.inspect.green
                 second_product_input_population = population_conversion(second_product, r.second_product_input_population, r.second_product_input_unit_name, r.second_product_input_unit_target_dose, working_measure)
                 w.info second_product_input_population.inspect.green
-  
+
                 intervention = Ekylibre::FirstRun::Booker.force(:grains_harvest, intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
                   i.add_cast(reference_name: 'cropper',        actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "harvest(poaceae)") : i.find(Equipment, can: "harvest(poaceae)")))
                   i.add_cast(reference_name: 'cropper_driver', actor: (workers.any? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
@@ -478,21 +478,21 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                   i.add_cast(reference_name: 'grains',         population: first_product_input_population, variant: first_product.variant)
                   i.add_cast(reference_name: 'straws',         population: second_product_input_population, variant: second_product.variant)
                 end
-              
+
               elsif r.procedure_name == :direct_silage and plant and first_product
 
                 working_measure = plant.shape_area
                 w.info working_measure.inspect.green
                 first_product_input_population = population_conversion(first_product, r.first_product_input_population, r.first_product_input_unit_name, r.first_product_input_unit_target_dose, working_measure)
                 w.info first_product_input_population.inspect.green
-  
+
                 intervention = Ekylibre::FirstRun::Booker.force(:direct_silage, intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
                   i.add_cast(reference_name: 'forager',        actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "harvest(plant)") : i.find(Equipment, can: "harvest(plant)")))
                   i.add_cast(reference_name: 'forager_driver', actor: (workers.any? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
                   i.add_cast(reference_name: 'cultivation',    actor: plant)
                   i.add_cast(reference_name: 'silage',         population: first_product_input_population, variant: first_product.variant)
                 end
-              
+
 
               #######################
               ####  WATERING  ####

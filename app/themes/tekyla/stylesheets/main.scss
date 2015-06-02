@@ -2356,3 +2356,21 @@ a[data-annotate] {
     display: block;
   }
 }
+
+.campaign-selector {
+  .campaign {
+    background: white;
+    font-size: $fs-large;
+    padding-left: $default-gap;
+    padding-right: $default-gap;
+  }
+  > .btn, > .campaign {
+    height: $lh-large;
+    line-height: $lh-large;
+  }
+  .btn {
+    i {
+      vertical-align: middle !important;
+    }
+  }
+}

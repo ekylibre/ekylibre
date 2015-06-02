@@ -48,7 +48,7 @@ class Campaign < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_length_of :number, allow_nil: true, maximum: 60
   validates :harvest_year, length: {is: 4}, allow_nil: true
-  validates_uniqueness_of :name
+  validates_uniqueness_of :name, :harvest_year
   before_validation :set_default_values, on: :create
 
   acts_as_numbered :number, readonly: false
@@ -70,6 +70,18 @@ class Campaign < Ekylibre::Record::Base
   def previous
     self.class.where("harvest_year < ?", self.harvest_year)
   end
+
+
+  # Return the previous campaign
+  def preceding
+    self.class.where("harvest_year < ?", self.harvest_year).order(harvest_year: :desc).first
+  end
+
+  # Return the following campaign
+  def following
+    self.class.where("harvest_year > ?", self.harvest_year).order(:harvest_year).first
+  end
+
 
   def opened?
     !self.closed

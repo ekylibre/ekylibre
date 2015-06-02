@@ -1306,6 +1306,7 @@ eng:
     simplified_linear_options: "Simplified linear options"
     simulator: "Simulator"
     source: "Source" #?
+    # spraying_map: "Spraying map"
     start: "From" #?
     start_new_intervention_here: "Start new intervention here"
     state: "State"

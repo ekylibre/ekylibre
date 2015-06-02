@@ -1750,10 +1750,10 @@ preferences_147:
   created_at: 2014-11-01 18:45:25.748340000 Z
   creator_id: 1
   id: 147
-  lock_version: 4
+  lock_version: 6
   name: interface.kujakus.backend-productions-index-1.collapsed
   nature: boolean
-  updated_at: 2014-11-04 18:29:06.388693000 Z
+  updated_at: 2015-06-02 20:25:50.483134000 Z
   updater_id: 1
   user_id: 1
 preferences_148:
@@ -2880,5 +2880,141 @@ preferences_244:
   nature: string
   string_value: {}
   updated_at: 2015-06-02 19:40:58.876810000 Z
+  updater_id: 1
+  user_id: 1
+preferences_245:
+  created_at: 2015-06-02 20:25:43.008214000 Z
+  creator_id: 1
+  id: 246
+  lock_version: 0
+  name: kujaku.feathers.backend-productions-index-1:0.default
+  nature: string
+  updated_at: 2015-06-02 20:25:43.008214000 Z
+  updater_id: 1
+  user_id: 1
+preferences_246:
+  created_at: 2015-06-02 20:26:02.817648000 Z
+  creator_id: 1
+  id: 247
+  lock_version: 10
+  name: interface.janus.backend-productions-index-55.current_face
+  nature: string
+  string_value: map
+  updated_at: 2015-06-02 20:41:52.153799000 Z
+  updater_id: 1
+  user_id: 1
+preferences_247:
+  created_at: 2015-06-02 20:35:20.100688000 Z
+  creator_id: 1
+  id: 248
+  integer_value: 1
+  lock_version: 24
+  name: current_campaign.id
+  nature: integer
+  updated_at: 2015-06-02 20:42:54.972011000 Z
+  updater_id: 1
+  user_id: 1
+preferences_248:
+  boolean_value: false
+  created_at: 2015-06-02 20:37:09.950614000 Z
+  creator_id: 1
+  id: 249
+  lock_version: 0
+  name: interface.snippets.preferences.collapsed
+  nature: boolean
+  updated_at: 2015-06-02 20:37:09.950614000 Z
+  updater_id: 1
+  user_id: 1
+preferences_249:
+  created_at: 2015-06-02 20:37:19.746930000 Z
+  creator_id: 1
+  id: 250
+  lock_version: 0
+  name: list._campaigns_list_productions_tag
+  nature: string
+  string_value: {}
+  updated_at: 2015-06-02 20:37:19.746930000 Z
+  updater_id: 1
+  user_id: 1
+preferences_250:
+  created_at: 2015-06-02 20:43:40.093260000 Z
+  creator_id: 1
+  id: 251
+  lock_version: 0
+  name: kujaku.feathers.backend-animals-index-1:0.default
+  nature: string
+  updated_at: 2015-06-02 20:43:40.093260000 Z
+  updater_id: 1
+  user_id: 1
+preferences_251:
+  created_at: 2015-06-02 20:43:54.415776000 Z
+  creator_id: 1
+  id: 252
+  lock_version: 0
+  name: kujaku.feathers.backend-fungi-index-1:0.default
+  nature: string
+  updated_at: 2015-06-02 20:43:54.415776000 Z
+  updater_id: 1
+  user_id: 1
+preferences_252:
+  created_at: 2015-06-02 20:43:54.422893000 Z
+  creator_id: 1
+  id: 253
+  lock_version: 0
+  name: list._matters_list_matters_tag
+  nature: string
+  string_value: {}
+  updated_at: 2015-06-02 20:43:54.422893000 Z
+  updater_id: 1
+  user_id: 1
+preferences_253:
+  boolean_value: true
+  created_at: 2015-06-02 20:44:02.316577000 Z
+  creator_id: 1
+  id: 254
+  lock_version: 0
+  name: interface.kujakus.backend-interventions-index-1.collapsed
+  nature: boolean
+  updated_at: 2015-06-02 20:44:02.316577000 Z
+  updater_id: 1
+  user_id: 1
+preferences_254:
+  created_at: 2015-06-02 20:44:02.325014000 Z
+  creator_id: 1
+  id: 255
+  lock_version: 0
+  name: kujaku.feathers.backend-interventions-index-1:0.default
+  nature: string
+  updated_at: 2015-06-02 20:44:02.325014000 Z
+  updater_id: 1
+  user_id: 1
+preferences_255:
+  created_at: 2015-06-02 20:44:07.747256000 Z
+  creator_id: 1
+  id: 256
+  lock_version: 0
+  name: kujaku.feathers.backend-sales-index-1:0.default
+  nature: string
+  updated_at: 2015-06-02 20:44:07.747256000 Z
+  updater_id: 1
+  user_id: 1
+preferences_256:
+  created_at: 2015-06-02 20:44:10.163481000 Z
+  creator_id: 1
+  id: 257
+  lock_version: 0
+  name: kujaku.feathers.backend-sale_opportunities-index-1:0.default
+  nature: string
+  updated_at: 2015-06-02 20:44:10.163481000 Z
+  updater_id: 1
+  user_id: 1
+preferences_257:
+  created_at: 2015-06-02 20:44:13.885938000 Z
+  creator_id: 1
+  id: 258
+  lock_version: 0
+  name: kujaku.feathers.backend-purchases-index-1:0.default
+  nature: string
+  updated_at: 2015-06-02 20:44:13.885938000 Z
   updater_id: 1
   user_id: 1

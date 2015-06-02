@@ -25,10 +25,25 @@ class Backend::BaseController < BaseController
   before_action :authenticate_user!
   before_action :authorize_user!
   before_action :set_versioner
+  before_action :set_current_campaign
 
   include Userstamp
 
+  helper_method :current_campaign
+
   protected
+
+  def current_campaign
+    @current_campaign ||= current_user.current_campaign
+  end
+
+  def set_current_campaign
+    if params[:current_campaign_id] and campaign = Campaign.find(params[:current_campaign_id])
+      current_user.current_campaign = campaign
+      @current_campaign = campaign
+    end
+  end
+
 
   # Overrides respond_with method in order to use specific parameters for reports
   # Adds :with and :key, :name parameters

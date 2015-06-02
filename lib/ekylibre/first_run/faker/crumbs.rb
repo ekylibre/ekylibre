@@ -46,7 +46,7 @@ module Ekylibre::FirstRun::Faker
       # Get products
       campaign = Campaign.where(harvest_year: campaign_year).first
       cultivable_zone = CultivableZone.where(work_number: cultivable_zone_work_number).first
-      
+
       plant = nil
       members = cultivable_zone.contains(:plant, issue_observed_at) if cultivable_zone
       plant = members.first.product if members
@@ -56,7 +56,7 @@ module Ekylibre::FirstRun::Faker
           plant = product_around
         end
       end
-   
+
       support = ProductionSupport.where(storage: cultivable_zone).of_campaign(campaign).first if (cultivable_zone and campaign)
       intrant = Product.where(name: product_name).first
       sprayer = Equipment.where(work_number: sprayer_work_number).first
