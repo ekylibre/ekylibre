@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 class AmbiguousUnit < ArgumentError
 end
 
@@ -65,6 +63,7 @@ class Measure
     else
       raise ArgumentError, "wrong number of arguments (#{args.size} for 1 or 2)"
     end
+    value = 0 if value.blank?
     unless value.is_a? Numeric
       raise ArgumentError, "Value can't be converted to float: #{value.inspect}"
     end

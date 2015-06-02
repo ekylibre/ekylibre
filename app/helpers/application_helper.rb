@@ -403,7 +403,7 @@ module ApplicationHelper
     if l.links.size > minimum
       return content_tag(:div, class: "btn-group") do # btn-group btn-group-dropdown  #{args[2][:class]}
         html = "".html_safe
-        html << tool_to(*args)
+        html << tool_to(args.first, args.second, (args.third ? args.third.dup : nil))
         html << link_to(content_tag(:i), "#dropdown", class: "btn btn-default dropdown-toggle", data: {toggle: 'dropdown'})
         html << content_tag(:ul, class: "dropdown-menu", role: "menu") do
           l.links.collect do |link|
@@ -632,7 +632,7 @@ module ApplicationHelper
   def tool_to(name, url, options={})
     raise ArgumentError.new("##{__method__} cannot use blocks") if block_given?
     icon = (options.has_key?(:tool) ? options.delete(:tool) : url.is_a?(Hash) ? url[:action] : nil)
-    options[:class] = (options[:class].blank? ? 'btn btn-default' : options[:class].to_s+' btn btn-default')
+    options[:class] = (options[:class].blank? ? 'btn  btn-default' : options[:class].to_s+' btn btn-default')
     options[:class] << ' btn-' + icon.to_s if icon
     if url.is_a?(Hash)
       if url.has_key?(:redirect)

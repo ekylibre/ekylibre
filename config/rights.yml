@@ -248,6 +248,7 @@ analyses:
     - "backend/analyses#edit"
     - "backend/analyses#new"
     - "backend/analyses#update"
+    - "backend/analysis_items#new"
 
 animal_groups:
   read:

@@ -35,6 +35,8 @@ eng:
       index: "Analyses"
       new: "New analysis"
       show: "Analysis #%{number}"
+    backend/analysis_items:
+      # new: "New analysis item"
     backend/animal_groups:
       edit: "Edit animal group: %{name}"
       index: "Animal groups"
