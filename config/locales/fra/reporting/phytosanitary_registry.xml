@@ -2,8 +2,8 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="phytosanitary_registry_list" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="403"/>
-	<template><![CDATA["/home/djoulin/ekylibre/config/corporate_identity/reporting_style.jrtx"]]></template>
+	<property name="ireport.y" value="295"/>
+	<template><![CDATA["/home/djoulin/projects/ekylibre/config/corporate_identity/reporting_style.jrtx"]]></template>
 	<style name="Title" fontName="Open Sans" fontSize="30" isBold="true" pdfFontName="Open Sans"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Open Sans" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Open Sans" fontSize="12" isBold="true"/>
@@ -16,7 +16,7 @@
 		<defaultValueExpression><![CDATA["/home/djoulin/ekylibre/config/locales/fra/reporting/"]]></defaultValueExpression>
 	</parameter>
 	<queryString language="xPath">
-		<![CDATA[/campaigns/campaign/plant/intervention/inputs/input]]>
+		<![CDATA[/campaigns/campaign/zone/support/intervention/inputs/input]]>
 	</queryString>
 	<field name="campaign" class="java.lang.String">
 		<fieldDescription><![CDATA[ancestor::campaign/@name]]></fieldDescription>
@@ -25,22 +25,22 @@
 		<fieldDescription><![CDATA[ancestor::campaigns/@entity-name]]></fieldDescription>
 	</field>
 	<field name="plant_area" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::plant/@area-in-hectare]]></fieldDescription>
+		<fieldDescription><![CDATA[ancestor::zone/@net-surface-area-in-hectare]]></fieldDescription>
 	</field>
 	<field name="plant_name" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::plant/@name]]></fieldDescription>
+		<fieldDescription><![CDATA[ancestor::zone/@name]]></fieldDescription>
 	</field>
 	<field name="work_number" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::plant/@work-number]]></fieldDescription>
+		<fieldDescription><![CDATA[ancestor::zone/@work-number]]></fieldDescription>
 	</field>
 	<field name="plant_id" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::plant/@id]]></fieldDescription>
+		<fieldDescription><![CDATA[ancestor::zone/@id]]></fieldDescription>
 	</field>
 	<field name="svg_path" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::plant/@shape-svg]]></fieldDescription>
+		<fieldDescription><![CDATA[ancestor::zone/@shape-svg]]></fieldDescription>
 	</field>
 	<field name="plant_area_value" class="java.lang.Double">
-		<fieldDescription><![CDATA[ancestor::plant/@area-in-hectare]]></fieldDescription>
+		<fieldDescription><![CDATA[ancestor::zone/@net-surface-area-in-hectare]]></fieldDescription>
 	</field>
 	<field name="entity_address" class="java.lang.String">
 		<fieldDescription><![CDATA[ancestor::campaigns/@address]]></fieldDescription>
@@ -49,10 +49,10 @@
 		<fieldDescription><![CDATA[ancestor::intervention/@id]]></fieldDescription>
 	</field>
 	<field name="plant_variety" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::plant/@variety]]></fieldDescription>
+		<fieldDescription><![CDATA[ancestor::support/@variant-variety-label]]></fieldDescription>
 	</field>
 	<field name="plant_variant_name" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::plant/@variant-name]]></fieldDescription>
+		<fieldDescription><![CDATA[ancestor::support/@variant-name]]></fieldDescription>
 	</field>
 	<field name="input_name" class="java.lang.String">
 		<fieldDescription><![CDATA[name]]></fieldDescription>
@@ -85,10 +85,10 @@
 		<fieldDescription><![CDATA[quantity-in-liter]]></fieldDescription>
 	</field>
 	<field name="plant_cluster_pac_number" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::plant/@cluster-pac-number]]></fieldDescription>
+		<fieldDescription><![CDATA[ancestor::zone/@clusters-work-number]]></fieldDescription>
 	</field>
 	<field name="plant_cultivable_zone" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::plant/@cultivable-land-parcel]]></fieldDescription>
+		<fieldDescription><![CDATA[ancestor::zone/@work-number]]></fieldDescription>
 	</field>
 	<field name="harvest_year" class="java.lang.String">
 		<fieldDescription><![CDATA[ancestor::campaign/@harvest-year]]></fieldDescription>
@@ -101,6 +101,9 @@
 	</field>
 	<sortField name="campaign" order="Descending"/>
 	<sortField name="plant_cultivable_zone"/>
+	<variable name="bottom_img" class="java.lang.String">
+		<variableExpression><![CDATA["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"]]></variableExpression>
+	</variable>
 	<group name="campaign" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{campaign}]]></groupExpression>
 		<groupHeader>
@@ -120,7 +123,7 @@
 		<groupHeader>
 			<band height="244">
 				<textField>
-					<reportElement style="sub-title" x="2" y="0" width="784" height="24" uuid="767321ef-0cb0-45b7-9d28-e511bc11c4d2"/>
+					<reportElement style="sub-title" x="2" y="0" width="304" height="24" uuid="767321ef-0cb0-45b7-9d28-e511bc11c4d2"/>
 					<textElement textAlignment="Justified" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{plant_name}]]></textFieldExpression>
 				</textField>
@@ -277,6 +280,11 @@
 					</textElement>
 					<text><![CDATA[quantité utilisée]]></text>
 				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement style="sub-title" x="689" y="0" width="97" height="24" uuid="a18ae065-6e64-4fce-8080-14b96868252e"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{work_number}]]></textFieldExpression>
+				</textField>
 			</band>
 		</groupHeader>
 		<groupFooter>
@@ -289,15 +297,15 @@
 	<title>
 		<band height="327" splitType="Stretch">
 			<staticText>
-				<reportElement style="strong" mode="Opaque" x="2" y="29" width="784" height="2" backcolor="#7C9DDD" uuid="5b202e71-e4a3-4be8-8dcb-f735cc04164a"/>
+				<reportElement style="strong" mode="Opaque" x="2" y="44" width="784" height="2" backcolor="#7C9DDD" uuid="5b202e71-e4a3-4be8-8dcb-f735cc04164a"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfFontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="title" x="0" y="0" width="786" height="29" uuid="dc35e306-d03e-4288-b40e-74e3bb33d471"/>
-				<textElement>
+				<reportElement style="title" x="0" y="0" width="734" height="44" uuid="dc35e306-d03e-4288-b40e-74e3bb33d471"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="16" pdfFontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[Registre phytosanitaire]]></text>
@@ -314,6 +322,10 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{entity_address}]]></textFieldExpression>
 			</textField>
+			<image isLazy="true" evaluationTime="Report">
+				<reportElement x="746" y="0" width="40" height="40" uuid="0e91c123-24da-4ca0-a8a9-acfb341d1e49"/>
+				<imageExpression><![CDATA[new ByteArrayInputStream(new org.apache.commons.codec.binary.Base64().decodeBase64($V{bottom_img}.getBytes("UTF-8")))]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -396,9 +408,16 @@
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField>
-				<reportElement style="address" x="277" y="1" width="224" height="25" uuid="92ee893d-7bd3-4e16-a070-96522f1fc0e7"/>
+				<reportElement style="address" x="277" y="1" width="224" height="14" uuid="92ee893d-7bd3-4e16-a070-96522f1fc0e7"/>
 				<textElement textAlignment="Center" verticalAlignment="Top"/>
 				<textFieldExpression><![CDATA[$F{entity_name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="address" x="279" y="15" width="224" height="11" uuid="b13b63d9-c06f-4234-91dc-f0f58d06ef56"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{campaign}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

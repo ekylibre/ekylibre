@@ -133,8 +133,6 @@ module Ekylibre::FirstRun::Faker
       # 3 - CREATE A PROVISIONNAL SPRAYING INTERVENTION
       # TODO
       intervention = nil
-        puts support.inspect.yellow
-        puts intrant.inspect.yellow
       if support and intrant
         Ekylibre::FirstRun::Booker.production = support.production
         # Chemical weed
@@ -169,8 +167,6 @@ module Ekylibre::FirstRun::Faker
       # right_flow (liter/ha)
       ##
       path = self.path("demo_spraying", "ticsad_simulation.shp")
-      puts path.inspect.yellow
-      puts intervention.inspect.red
       if path.exist? and intervention and sprayer = intervention.casts.find_by(reference_name: 'sprayer')
         puts "ticsad import OK".inspect.green
         self.count :ticsad_simulation do |w|

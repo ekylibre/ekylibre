@@ -444,10 +444,11 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
               cultivation_population = (working_measure.to_s.to_f / 10000.0) if working_measure
               # get density from first_product
               # (density in g per hectare / PMG) * 1000 * cultivable_area in hectare
-              plants_count = 2000000
+              pmg = first_product.variant.thousand_grains_mass.to_d
+              plants_count = (first_product_input_population * 1000 * 1000) / pmg if (pmg and pmg != 0)
 
               # Sowing
-              intervention = Ekylibre::FirstRun::Booker.force(:sowing, intervention_started_at, (duration / 3600), support: support, description: r.procedure_description, parameters: {readings: {"base-sowing-0-750-2" => plants_count}}) do |i|
+              intervention = Ekylibre::FirstRun::Booker.force(:sowing, intervention_started_at, (duration / 3600), support: support, description: r.procedure_description, parameters: {readings: {"base-sowing-0-750-2" => plants_count.to_i}}) do |i|
                 i.add_cast(reference_name: 'seeds',        actor: first_product)
                 i.add_cast(reference_name: 'seeds_to_sow', population: first_product_input_population)
                 i.add_cast(reference_name: 'sower',        actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "sow") : i.find(Equipment, can: "sow")))
