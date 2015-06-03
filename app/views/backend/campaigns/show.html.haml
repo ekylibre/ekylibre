@@ -1,8 +1,8 @@
 - main_toolbar do |t|
-  - t.edit @campaign
+  - t.edit resource
 
-=beehive do |b|
-  -b.cell do
+= beehive do |b|
+  - b.cell do
     = attributes_list do |l|
       - l.attribute :name
       - l.attribute :harvest_year
@@ -13,7 +13,7 @@
   - b.hbox do
     - b.cell(:productions) do
       = toolbar do |t|
-        - t.new(params: {controller: :productions, :campaign_id => @campaign.id})
+        - t.new variants: Activity.availables.reorder(:name).to_a.inject({}){|h,n| h[:new_production_of_activity.tl(activity: n.name)] = {activity_id: n.id, controller: :productions, campaign_id: resource.id}; h}
       = list(:productions)
 
-  - b.cell :map, params: {campaign_ids: @campaign.id}
+  - b.cell :map, params: {campaign_ids: resource.id}
