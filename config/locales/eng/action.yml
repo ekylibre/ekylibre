@@ -875,7 +875,7 @@ eng:
     column: "Column"
     columns: "Columns to import"
     commission: "Commission"
-    concentrations_map: "Concentrations map"
+    concentrations_map: "Concentrations map" #?!
     conditions:
       filter_on_attribute_of_class: "Filter on attribute of class"
       special-subscriber: "Special-subscriber"
@@ -1300,7 +1300,7 @@ eng:
     settings: "Settings"
     shape: "Shape"
     ship: "Ship" #?
-    show: "Show" #?
+    show: "Show"
     sign_out: "Sign out" #?
     simplified: "Simplified Accounting" #?
     simplified_linear_options: "Simplified linear options"

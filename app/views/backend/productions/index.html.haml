@@ -55,7 +55,7 @@
 = janus do |j|
   - if data.any?
     - j.face :map do
-      = visualization do |v|
+      = visualization(box: {height: "100%"}) do |v|
         - v.serie :main, data
         - v.background "Esri.WorldImagery"
         - v.background "OpenStreetMap.HOT"
@@ -70,8 +70,8 @@
 
   - j.face :list do
     = main_list
-  
-  = beehive do |b|
+
+  -#= beehive do |b|
     - b.hbox do
       - b.cell :general do
         .big-infos

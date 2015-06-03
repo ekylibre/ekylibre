@@ -1,62 +1,3 @@
-:ruby
-  data = Plant.all.collect do |p|
-    next unless p.shape
-
-    popup_content = []
-
-    # for all plant
-    popup_content << {label: Plant.human_attribute_name(:net_surface_area), value: p.net_surface_area.in_hectare.round(2).l}
-    popup_content << {label: Nomen::Varieties.find(p.nature.variety).human_name, value: Nomen::Varieties.find(p.variety).human_name}
-
-    # for vine plant
-    #if p.woodstock_variety
-     # popup_content << {label: Nomen::Indicators.find(:woodstock_variety).human_name, value: Nomen::Varieties.find(p.woodstock_variety).human_name}
-    #end
-
-    # for indicators in list
-    indicators = [:tiller_count, :plants_count, :rows_interval, :plants_interval, :rows_orientation]
-    for indicator in indicators
-      if !p.send(indicator).blank? and (p.send(indicator).to_d > 0.0)
-        popup_content << {label: Nomen::Indicators.find(indicator.to_sym).human_name, value: p.send(indicator).l }
-      end
-    end
-
-    if container = p.container
-      popup_content << {label: :cultivable_zone.tl, value: link_to(container.name, backend_product_path(container)) }
-    end
-
-    if interventions = Intervention.with_generic_cast(:target, p).reorder(:started_at)
-      popup_content << {label: :interventions_count.tl, value: interventions.count }
-    end
-
-    if interventions.count > 0 and last_intervention = interventions.last
-      popup_content << {label: :last_intervention.tl, value: link_to( "N°" + last_intervention.number, backend_intervention_path(last_intervention)) }
-    end
-
-    if issues = Issue.where(target_id: p.id, target_type: p.class.name ).reorder(:observed_at)
-      popup_content << {label: :issues_count.tl, value: issues.count }
-    end
-
-    if issues.any? and last_issue = issues.last
-      popup_content << {label: :last_issue.tl, value: link_to( last_issue.name, backend_issue_path(last_issue)) }
-    end
-
-    popup_content << render('popup', plant: p)
-
-    # for irrigation management
-    water_concentration = []
-    water_interventions = Intervention.of_nature(:plant_irrigation).with_generic_cast(:target, p)
-    for intervention in water_interventions
-      for input in intervention.casts.of_role('plant_irrigation-input')
-        if i = input.population / p.shape_area.to_f(:hectare)
-          water_concentration << i
-        end
-      end
-    end
-
-    {name: p.name, shape: p.shape, age: (Time.now - p.born_at) / (3600 * 24 * 30), plantation_density: (p.plants_count.to_d / p.net_surface_area.to_d), interventions_count: interventions.count, issues_count: issues.count, watering_concentration: water_concentration.compact.sum.to_s.to_f, variety: Nomen::Varieties[p.variety].human_name, popup: {header: true, content: popup_content} }
-  end
-
 -#= kujaku
 
 - main_toolbar do |t|
@@ -64,7 +5,67 @@
 
 = janus do |v|
   = v.face :map do
-    = visualization do |v|
+    :ruby
+      data = Plant.all.collect do |p|
+        next unless p.shape
+
+        popup_content = []
+
+        # for all plant
+        popup_content << {label: Plant.human_attribute_name(:net_surface_area), value: p.net_surface_area.in_hectare.round(2).l}
+        popup_content << {label: Nomen::Varieties.find(p.nature.variety).human_name, value: Nomen::Varieties.find(p.variety).human_name}
+
+        # for vine plant
+        #if p.woodstock_variety
+         # popup_content << {label: Nomen::Indicators.find(:woodstock_variety).human_name, value: Nomen::Varieties.find(p.woodstock_variety).human_name}
+        #end
+
+        # for indicators in list
+        indicators = [:tiller_count, :plants_count, :rows_interval, :plants_interval, :rows_orientation]
+        for indicator in indicators
+          if !p.send(indicator).blank? and (p.send(indicator).to_d > 0.0)
+            popup_content << {label: Nomen::Indicators.find(indicator.to_sym).human_name, value: p.send(indicator).l }
+          end
+        end
+
+        if container = p.container
+          popup_content << {label: :cultivable_zone.tl, value: link_to(container.name, backend_product_path(container)) }
+        end
+
+        if interventions = Intervention.with_generic_cast(:target, p).reorder(:started_at)
+          popup_content << {label: :interventions_count.tl, value: interventions.count }
+        end
+
+        if interventions.count > 0 and last_intervention = interventions.last
+          popup_content << {label: :last_intervention.tl, value: link_to( "N°" + last_intervention.number, backend_intervention_path(last_intervention)) }
+        end
+
+        if issues = Issue.where(target_id: p.id, target_type: p.class.name ).reorder(:observed_at)
+          popup_content << {label: :issues_count.tl, value: issues.count }
+        end
+
+        if issues.any? and last_issue = issues.last
+          popup_content << {label: :last_issue.tl, value: link_to( last_issue.name, backend_issue_path(last_issue)) }
+        end
+
+        popup_content << render('popup', plant: p)
+
+        # for irrigation management
+        water_concentration = []
+        water_interventions = Intervention.of_nature(:plant_irrigation).with_generic_cast(:target, p)
+        for intervention in water_interventions
+          for input in intervention.casts.of_role('plant_irrigation-input')
+            if i = input.population / p.shape_area.to_f(:hectare)
+              water_concentration << i
+            end
+          end
+        end
+
+        {name: p.name, shape: p.shape, age: (Time.now - p.born_at) / (3600 * 24 * 30), plantation_density: (p.plants_count.to_d / p.net_surface_area.to_d), interventions_count: interventions.count, issues_count: issues.count, watering_concentration: water_concentration.compact.sum.to_s.to_f, variety: Nomen::Varieties[p.variety].human_name, popup: {header: true, content: popup_content} }
+      end
+
+
+    = visualization(box: {height: "100%"}) do |v|
       - v.serie :main, data
       - v.background "OpenStreetMap.HOT"
       - v.background "OpenStreetMap.Mapnik"

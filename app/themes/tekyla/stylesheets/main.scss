@@ -486,6 +486,7 @@ html.exception {
 
 #core {
   clear: both;
+  @include calc(height, "100vh - #{$header-height + $topbar-height + $toolbar-height}");
 }
 
 div[data-deck] > div {
@@ -2354,6 +2355,7 @@ a[data-annotate] {
   display: none;
   &.active {
     display: block;
+    height: 100%;
   }
 }
 

@@ -4,7 +4,25 @@
 = janus do |j|
   - if CultivableZone.any?
     - j.face :map do
-      = map(CultivableZone.all)
+      :ruby
+        data = CultivableZone.find_each.collect do |zone|
+          content = []
+          content << {label: Nomen::Indicators.find(:net_surface_area).human_name, value: zone.net_surface_area.l}
+          content << link_to(:show.tl, {action: :show, id: zone.id}, class: "btn btn-default")
+          {name: zone.name, shape: zone.shape, popup: {header: true, content: content}}
+        end
+      = visualization(box: {height: "100%"}) do |v|
+        - v.serie :main, data
+        - v.background "OpenStreetMap.HOT"
+        - v.background "OpenStreetMap.Mapnik"
+        - v.background "Thunderforest.Landscape"
+        - v.background "Esri.WorldImagery"
+        - v.simple :zones, :main
+        - v.control :zoom
+        - v.control :scale
+        - v.control :fullscreen
+        - v.control :layer_selector
+
     - j.face :chart do
       = cell :cropping_plan_on_cultivable_zones, params: {campaign: Campaign.currents.first}
   - j.face :list do

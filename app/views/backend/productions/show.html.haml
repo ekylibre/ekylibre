@@ -1,20 +1,20 @@
 :ruby
   data = resource.supports.collect do |support|
-  
+
     popup_content = []
-    
+
     popup_content << {label: :campaign.tl, value: link_to(support.production.campaign.name, backend_campaign_path(support.production.campaign))}
     popup_content << {label: :activity.tl, value: link_to(support.production.activity.name, backend_activity_path(support.production.activity))}
     popup_content << {label: :production_support.tl, value: link_to(support.name, backend_production_support_path(support))}
-    
+
     for item in [:nitrogen_concentration, :phosphorus_concentration, :potassium_concentration]
       if value = support.soil_enrichment_indicator_content_per_area(item)
         popup_content << {label: item.tl, value: value.to_s.to_f.round(2)}
       end
     end
-    
-    
-    
+
+
+
     interventions = support.interventions
     if interventions.any?
       last_intervention = interventions.max{|a,b| a.started_at <=> b.started_at }
@@ -22,7 +22,7 @@
     end
 
     popup_content << render('popup', support: support)
-    
+
     { name:       support.name,
       shape:      support.shape,
       campaign:   support.campaign_name,
@@ -223,7 +223,7 @@
 
     - if resource.cultivation_variant and Nomen::Varieties[resource.cultivation_variety] and Nomen::Varieties[resource.cultivation_variety] <= :animal
       - b.cell :last_analyses, params: {campaign_id: resource.campaign_id}
-      
+
   = janus do |j|
     - if resource.with_supports and resource.supports.any? and variety = Nomen::Varieties[resource.support_variety] and variety <= :cultivable_zone
       - j.face :map, title: :costs_map do
