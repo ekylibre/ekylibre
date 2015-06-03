@@ -6,11 +6,11 @@
     .feather{class: "feather-#{feather.feather_name}"}
       = feather.to_html
       - if index.zero?
-        = button_tag(data: {disable: true}, name: nil, class: "filter") do
+        = button_tag(data: {disable: true}, name: nil, class: "btn btn-default btn-filter") do
           %i
           = :search.tl
 .search-actions
-  = button_tag(data: {disable: true}, name: nil, class: "filter") do
+  = button_tag(data: {disable: true}, name: nil, class: "btn btn-default btn-filter") do
     %i
     = :search.tl
 
