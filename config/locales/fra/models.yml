@@ -355,6 +355,8 @@ fra:
       purchase_nature: "Type d’achat"
       role: "Rôle"
       sale: "Vente"
+      sale_credit: "Avoir"
+      sale_credit_item: "Ligne d’avoir"
       sale_item: "Ligne de vente"
       sale_nature: "Type de vente"
       sale_opportunity: "Opportunité de vente"
