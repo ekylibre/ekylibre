@@ -99,16 +99,17 @@ class AnimalGroup < ProductGroup
     animals.each do |animal|
       containers << animal.container
     end
+    # byebug
     return containers.uniq
   end
 
   def members_with_places_at(viewed_at = nil)
     places_and_animals = []
-    animals = {}
-    self.places(viewed_at).each do |place|
-      animals[:place] = place
-      animals[:animals] = Animal.select(:id,:name).members_of_place(place,viewed_at || Time.now)
-      places_and_animals << animals
+    all_places = self.places(viewed_at)
+    all_places.each do |place|
+
+      places_and_animals.push({:place => BuildingDivision.select(:id,:name).find(place.id),:animals => Animal.select(:id, :name, :identification_number, :nature_id).members_of_place(place,viewed_at || Time.now)})
+
     end
     places_and_animals
   end

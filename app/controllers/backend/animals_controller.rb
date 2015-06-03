@@ -86,17 +86,26 @@ class Backend::AnimalsController < Backend::MattersController
 
     @grouped_animals = []
 
-    AnimalGroup.all.each do |group|
+    AnimalGroup.all.select(:id, :name).each do |group|
 
+      #TODO Need to add status, img
       @grouped_animals << { group: group, places_and_animals: group.members_with_places_at }
+
 
     end
 
     # @animals_data << { id: animal.id, name: animal.name, sex: animal.sex, status: animal.status, img: animal.picture.url, container_id: container, group_id: group }
 
+    # render :json => @reports.to_json(:include =>
+    #                                      {:report_type => {}, :organisation => {},
+    #                                       :analysis => {:include => {:upload => {}}}})
 
-    # respond with associated models to simplify quering in Ireport
-    respond_with @animals, :methods => [:picture_path, :sex_text, :variety_text], :include => [:initial_father, :initial_mother, :nature ,:variant]
+    # render :json => @grouped_animals.to_json(:include =>
+                                                # {:group => {}})
+    respond_with @grouped_animals
+
+    #TODO reactivate
+    # respond_with @animals, :methods => [:picture_path, :sex_text, :variety_text], :include => [:initial_father, :initial_mother, :nature ,:variant]
   end
 
   # Children list

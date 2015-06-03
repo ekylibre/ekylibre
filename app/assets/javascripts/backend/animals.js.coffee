@@ -62,43 +62,42 @@ $ ->
   class dashboardViewModel
     constructor: (data,dispForm) ->
 
-      ### #fake data
-      json_groups = [{id:1, name: 'Vaches laitières 1'},{id:2, name: 'Vaches laitières 2'}]
-      json_containers = [{id:1, name: 'Zone de parcours', group_id:1},{id:2, name:'Zone 2', group_id:1},{id:3, name: 'Zone de parcours 2', group_id:2},{id:4, name:'Zone 3', group_id:2}]
-      json_animals = [{id:1, name: 'Ghislaine', img: "Vache.jpg", status: 1, sex: 0, container_id: 1}, {id:2, name: 'Vanille', img: "Vache2.jpg", status: 1, sex: 0, container_id: 1}, {id:3, name: 'Virginie', img: "Vache3.jpg", status: 2, sex: 0, container_id: 2}, {id:4, name: 'Colombe', img: "Vache.jpg", status: 2, sex: 0, container_id: 3}, {id:5, name: 'Coralie', img: "Vache3.jpg", status: 3, sex: 0, container_id: 4}]
-      ###
-
-      json_groups = []
-      json_containers = []
-      json_animals = []
-      json_animals = $('.animal-viewport').data 'animals-data'
-      json_containers = $('.animal-viewport').data 'animals-containers'
-      json_groups = $('.animal-viewport').data 'animals-groups'
-
-      console.log json_animals
 
       @showAnimalDetailsModal = ko.observable false
 
       @animalDetailsModalOptions = ko.observable false
 
-      @groups = ko.observableArray ko.utils.arrayMap json_groups, (group) ->
-        new dashboardViewModel.Group(group.id, group.name)
+      @groups = ko.observableArray []
+      @containers = ko.observableArray []
+      @animals = ko.observableArray []
+
+      json_data = []
+      json_data = $('.animal-viewport').data 'animals-data'
+
+      ko.utils.arrayForEach json_data, (j) =>
+        console.log j.group
+        if j.group
+          @groups.push new dashboardViewModel.Group(j.group.id, j.group.name)
+        if j.places_and_animals and j.places_and_animals.length > 0
+          console.log j.places_and_animals
+          ko.utils.arrayForEach j.places_and_animals, (container) =>
+            if container.place
+              @containers.push new dashboardViewModel.Container(container.place.id, container.place.name, j.group.id)
+            if container.animals
+              ko.utils.arrayForEach container.animals, (animal) =>
+                @animals.push new dashboardViewModel.Animal(animal.id, animal.name, '', '', '', animal.identification_number, container.place.id)
+
+
+
+#      @groups = ko.observableArray ko.utils.arrayMap json_groups, (group) ->
+#        new dashboardViewModel.Group(group.id, group.name)
 
 
       #FIXME: Improve empty group
-      @groups.push new dashboardViewModel.Group(0, 'A trier')
-
-
-      @containers = ko.observableArray ko.utils.arrayMap json_containers, (container) ->
-        new dashboardViewModel.Container(container.id, container.name, container.group_id || 0)
+      #@groups.push new dashboardViewModel.Group(0, 'A trier')
 
       #FIXME: Improve empty container
-      @containers.push new dashboardViewModel.Container(0, '', 0)
-
-      @animals = ko.observableArray ko.utils.arrayMap json_animals, (animal) ->
-        new dashboardViewModel.Animal(animal.id, animal.name, animal.img, animal.status, animal.sex, animal.number_id, animal.container_id)
-
-
+#      @containers.push new dashboardViewModel.Container(0, '', 0)
 
       @filteredContainers = (group) =>
 
