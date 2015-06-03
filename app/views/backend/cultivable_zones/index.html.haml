@@ -1,6 +1,8 @@
 - main_toolbar do |t|
   - t.new
 
+- main_campaign_selector
+
 = janus do |j|
   - if CultivableZone.any?
     - j.face :map do
@@ -24,6 +26,6 @@
         - v.control :layer_selector
 
     - j.face :chart do
-      = cell :cropping_plan_on_cultivable_zones, params: {campaign: Campaign.currents.first}
+      = cell :cropping_plan_on_cultivable_zones, params: {campaign_id: current_campaign.id}
   - j.face :list do
     = main_list

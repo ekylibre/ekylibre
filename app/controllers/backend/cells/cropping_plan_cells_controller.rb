@@ -1,9 +1,13 @@
 class Backend::Cells::CroppingPlanCellsController < Backend::Cells::BaseController
 
   def show
-    # GET DATA
-    # for last campaign, show each production with product support and area
-    @campaigns = Campaign.currents.last
+    if params[:campaign_ids]
+      @campaigns = Campaign.find(params[:campaign_ids])
+    elsif params[:campaign_id]
+      @campaigns = Campaign.find(params[:campaign_id])
+    else
+      @campaigns = Campaign.currents.last
+    end
   end
 
 end
