@@ -70,3 +70,14 @@
 
   - j.face :list do
     = main_list
+  
+  = beehive do |b|
+    - b.hbox do
+      - b.cell :general do
+        .big-infos
+          .big-info.important
+            - production_count = Production.of_campaign(current_campaign).count
+            %span.title= Production.human_attribute_name(:production)
+            %span.value
+              %i.picto{class: "picto-barn"}
+              = production_count
