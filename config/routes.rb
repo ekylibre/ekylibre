@@ -196,6 +196,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :analysis_items, only: [:new]
+
     resources :animal_groups, concerns: [:list, :picture, :unroll] do
       member do
         get :list_animals

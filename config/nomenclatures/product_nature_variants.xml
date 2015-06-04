@@ -142,8 +142,13 @@
             unit_name="band"
             frozen_indicators_values="sex: male, reproductor: true"
             />
-      <item name="young_goat"
-            nature="young_goat"
+      <item name="male_young_goat"
+            nature="male_young_goat"
+            unit_name="head"
+            frozen_indicators_values="population: 1, livestock_unit: 0.09, reproductor: false"
+            />
+      <item name="female_young_goat"
+            nature="female_young_goat"
             unit_name="head"
             frozen_indicators_values="population: 1, livestock_unit: 0.09, reproductor: false"
             />
@@ -713,6 +718,12 @@
       <item name="fig_crop"
             nature="fruit_crop"
             variety="ficus_carica"
+            unit_name="plant"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="tangerine_crop"
+            nature="fruit_crop"
+            variety="citrus_reticulata"
             unit_name="plant"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />

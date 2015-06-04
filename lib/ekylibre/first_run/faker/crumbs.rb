@@ -34,8 +34,8 @@ module Ekylibre::FirstRun::Faker
       ##################################################################
 
       # Set parameters
-      issue_observed_at = Time.new(2015, 3, 10, 10, 0, 0, "+00:00")
-      campaign_year = '2015'
+      issue_observed_at = Time.new(2014, 5, 15, 10, 0, 0, "+00:00")
+      campaign_year = '2014'
       cultivable_zone_work_number = "ZC10"
       issue_nature = :chenopodium_album
       worker_work_number = "CD"
@@ -46,7 +46,17 @@ module Ekylibre::FirstRun::Faker
       # Get products
       campaign = Campaign.where(harvest_year: campaign_year).first
       cultivable_zone = CultivableZone.where(work_number: cultivable_zone_work_number).first
-      plant = cultivable_zone.contains(:plant).first.product if cultivable_zone and cultivable_zone.contains(:plant) != nil
+
+      plant = nil
+      members = cultivable_zone.contains(:plant, issue_observed_at) if cultivable_zone
+      plant = members.first.product if members
+      if plant == nil
+        cultivable_zone_shape = Charta::Geometry.new(cultivable_zone.shape) if cultivable_zone.shape
+        if cultivable_zone_shape and product_around = cultivable_zone_shape.actors_matching(nature: Plant).first
+          plant = product_around
+        end
+      end
+
       support = ProductionSupport.where(storage: cultivable_zone).of_campaign(campaign).first if (cultivable_zone and campaign)
       intrant = Product.where(name: product_name).first
       sprayer = Equipment.where(work_number: sprayer_work_number).first
@@ -81,8 +91,6 @@ module Ekylibre::FirstRun::Faker
       end
       # LINK ON SPRAYING EQUIPMENT
       sprayer.attachments.create!(document: document) if document
-
-
 
 
       # 1 - CREATE AN ISSUE ON A PLANT WITH GEOLOCATION
@@ -128,7 +136,7 @@ module Ekylibre::FirstRun::Faker
       if support and intrant
         Ekylibre::FirstRun::Booker.production = support.production
         # Chemical weed
-        intervention = Ekylibre::FirstRun::Booker.intervene(:chemical_weed_killing, 2015, 6, 5, 1.07, support: support, parameters: {readings: {"base-chemical_weed_killing-0-800-2" => "covered"}}) do |i|
+        intervention = Ekylibre::FirstRun::Booker.intervene(:chemical_weed_killing, 2014, 6, 1, 1.07, support: support, parameters: {readings: {"base-chemical_weed_killing-0-800-2" => "covered"}}) do |i|
           i.add_cast(reference_name: 'weedkiller',      actor: intrant)
           i.add_cast(reference_name: 'weedkiller_to_spray', population: intrant_population)
           i.add_cast(reference_name: 'sprayer',     actor: sprayer)
@@ -160,9 +168,10 @@ module Ekylibre::FirstRun::Faker
       ##
       path = self.path("demo_spraying", "ticsad_simulation.shp")
       if path.exist? and intervention and sprayer = intervention.casts.find_by(reference_name: 'sprayer')
+        puts "ticsad import OK".inspect.green
         self.count :ticsad_simulation do |w|
           #############################################################################
-          read_at = Time.new(2015, 6, 5, 10, 0, 0, "+00:00")
+          read_at = Time.new(2014, 6, 5, 10, 0, 0, "+00:00")
           if worker
             user = User.where(person_id: worker.person_id).first
           else

@@ -274,6 +274,7 @@ div.nested-fields {
   position: relative;
   .nested-remove {
     position: absolute;
+    z-index: 4;
     @include right($spacing);
   }
 }

@@ -16,28 +16,22 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::AnalysesController < Backend::BaseController
-  manage_restfully
+class Backend::AnalysisItemsController < Backend::BaseController
 
-  unroll
-
-  list do |t|
-    t.action :edit
-    t.action :destroy
-    t.column :number, url: true
-    t.column :reference_number, url: true
-    t.column :nature
-    t.column :product, url: true
-    t.column :analyser, url: true
-    t.column :analysed_at
-    t.column :sampled_at, hidden: true
-    t.column :sampler, url: true, hidden: true
-  end
-
-  list :items, model: :analysis_items, conditions: {analysis_id: 'params[:id]'.c} do |t|
-    t.column :indicator, datatype: :item
-    t.column :value, datatype: :measure
-    t.column :annotation
+  def new
+    if request.xhr? and params[:indicator_name]
+      unless @analysis = Analysis.find_by(id: params[:analysis_id])
+        @analysis = Analysis.new
+      end
+      unless indicator = Nomen::Indicators.find(params[:indicator_name])
+        head :not_found
+        return
+      end
+      @analysis.items.build(indicator_name: indicator.name)
+      render partial: "nested_form"
+    else
+      redirect_to backend_root_url
+    end
   end
 
 end

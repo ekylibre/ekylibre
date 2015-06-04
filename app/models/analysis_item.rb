@@ -45,9 +45,10 @@
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
 #
+
 class AnalysisItem < Ekylibre::Record::Base
   include ReadingStorable
-  belongs_to :analysis
+  belongs_to :analysis, inverse_of: :items
   belongs_to :product_reading, dependent: :destroy
   has_one :product, through: :analysis
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -56,6 +57,7 @@ class AnalysisItem < Ekylibre::Record::Base
   validates_inclusion_of :boolean_value, in: [true, false]
   validates_presence_of :analysis, :indicator_datatype, :indicator_name
   #]VALIDATORS]
+  validates_uniqueness_of :indicator_name, scope: :analysis_id
 
   delegate :sampled_at, to: :analysis
 

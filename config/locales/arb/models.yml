@@ -900,6 +900,8 @@ arb:
       # purchase_nature: "Purchase type"
       role: "الدور"
       sale: "البيع"
+      # sale_credit: "Sale credit"
+      # sale_credit_item: "Sale credit item"
       sale_item: "طريقة طلب البيع"
       sale_nature: "نوع طلب البيع"
       # sale_opportunity: "Sale opportunity"

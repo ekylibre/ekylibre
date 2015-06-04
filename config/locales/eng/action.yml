@@ -35,6 +35,8 @@ eng:
       index: "Analyses"
       new: "New analysis"
       show: "Analysis #%{number}"
+    backend/analysis_items:
+      # new: "New analysis item"
     backend/animal_groups:
       edit: "Edit animal group: %{name}"
       index: "Animal groups"
@@ -873,7 +875,7 @@ eng:
     column: "Column"
     columns: "Columns to import"
     commission: "Commission"
-    concentrations_map: "Concentrations map"
+    concentrations_map: "Concentrations map" #?!
     conditions:
       filter_on_attribute_of_class: "Filter on attribute of class"
       special-subscriber: "Special-subscriber"
@@ -1298,12 +1300,13 @@ eng:
     settings: "Settings"
     shape: "Shape"
     ship: "Ship" #?
-    show: "Show" #?
+    show: "Show"
     sign_out: "Sign out" #?
     simplified: "Simplified Accounting" #?
     simplified_linear_options: "Simplified linear options"
     simulator: "Simulator"
     source: "Source" #?
+    # spraying_map: "Spraying map"
     start: "From" #?
     start_new_intervention_here: "Start new intervention here"
     state: "State"

@@ -41,7 +41,8 @@
       <item name="lamb"                   variant="lamb" quantity="5"/>
       <item name="female_adult_goat"      variant="female_adult_goat" quantity="10"/>
       <item name="male_adult_goat"        variant="male_adult_goat" quantity="10"/>
-      <item name="young_goat"             variant="young_goat" quantity="5"/>
+      <item name="male_young_goat"        variant="male_young_goat" quantity="5"/>
+      <item name="female_young_goat"      variant="female_young_goat" quantity="5"/>
     </items>
   </nomenclature>
 </nomenclatures>

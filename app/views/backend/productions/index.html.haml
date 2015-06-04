@@ -1,4 +1,4 @@
-= kujaku do |k|
+-#= kujaku do |k|
   - k.helper do
     %label= Production.human_attribute_name(:campaign)
     = select_tag(:campaign_id, options_for_select(Campaign.order(harvest_year: :desc).collect{|u| [u.name, u.id]}, campaign.id))
@@ -9,7 +9,7 @@
 
 :ruby
   data = []
-  ProductionSupport.of_campaign(campaign).includes({production: [:activity, :campaign, :cultivation_variant]}, :storage).find_each do |support|
+  ProductionSupport.of_campaign(current_campaign).includes({production: [:activity, :campaign, :cultivation_variant]}, :storage).find_each do |support|
 
     popup_content = []
 
@@ -46,14 +46,16 @@
     data << item
   end
 
-- if campaign.opened?
+- main_campaign_selector
+
+- if current_campaign.opened?
   - main_toolbar do |t|
-    - t.new variants: Activity.availables.reorder(:name).to_a.inject({}){|h,n| h[:new_production_of_activity.tl(activity: n.name)] = {activity_id: n.id, campaign_id: params[:campaign_id]}; h}
+    - t.new variants: Activity.availables.reorder(:name).to_a.inject({}){|h,n| h[:new_production_of_activity.tl(activity: n.name)] = {activity_id: n.id, campaign_id: current_campaign.id}; h}
 
 = janus do |j|
   - if data.any?
     - j.face :map do
-      = visualization do |v|
+      = visualization(box: {height: "100%"}) do |v|
         - v.serie :main, data
         - v.background "Esri.WorldImagery"
         - v.background "OpenStreetMap.HOT"
@@ -68,3 +70,14 @@
 
   - j.face :list do
     = main_list
+
+  -#= beehive do |b|
+    - b.hbox do
+      - b.cell :general do
+        .big-infos
+          .big-info.important
+            - production_count = Production.of_campaign(current_campaign).count
+            %span.title= Production.human_attribute_name(:production)
+            %span.value
+              %i.picto{class: "picto-barn"}
+              = production_count

@@ -218,7 +218,7 @@ GEM
       turbolinks
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
-    json (1.8.2)
+    json (1.8.3)
     kgio (2.9.3)
     libv8 (3.16.14.7)
     loofah (2.0.2)
@@ -328,7 +328,7 @@ GEM
     rjb-loader (0.0.2)
       rails (>= 3.2)
       rjb (>= 1.4.8)
-    roo (2.0.0)
+    roo (2.0.1)
       nokogiri (~> 1)
       rubyzip (~> 1.1, < 2.0.0)
     ruby-progressbar (1.7.5)
@@ -400,7 +400,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
-    timecop (0.7.3)
+    timecop (0.7.4)
     timeliness (0.3.7)
     timers (4.0.1)
       hitimes

@@ -246,6 +246,21 @@ class User < Ekylibre::Record::Base
     return crumbs.order(read_at: :asc).map(&:intervention_path)
   end
 
+  def current_campaign
+    default_campaign = Campaign.order(harvest_year: :desc).first
+    preference = self.preference("current_campaign.id", default_campaign.id, :integer)
+    unless campaign = Campaign.find_by(id: preference.value)
+      campaign = default
+      self.prefer!("current_campaign.id", campaign.id)
+    end
+    return campaign
+  end
+
+  def current_campaign=(campaign)
+    self.prefer!("current_campaign.id", campaign.id, :integer)
+  end
+
+
   def card
     nil
   end

@@ -106,7 +106,7 @@ a.btn, button.btn {
     @include button($background-color: $caution-color);
   }
 
-  &.btn-dropdown, &.dropdown-toggle {
+  &.btn-dropdown, &.dropdown-toggle, &.btn-previous, &.btn-next {
     padding-left: round($fs-normal*0.40);
     padding-right: round($fs-normal*0.40);
     .icon, i {

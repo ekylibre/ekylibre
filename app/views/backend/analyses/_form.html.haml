@@ -1,5 +1,8 @@
 = field_set do
-  = f.input :nature
+  - if params[:nature]
+    = f.input :nature, as: :hidden
+  - else
+    = f.input :nature
   = f.input :number
   = f.input :reference_number
   = f.input :sampled_at
@@ -10,3 +13,28 @@
   = f.referenced_association :analyser
   = f.referenced_association :product
   = f.custom_fields
+
+= field_set :items do
+  :ruby
+    if params[:nature] and nature = Nomen::AnalysisNatures.find(params[:nature])
+      nature.items.each do |item|
+        next unless indicator = Nomen::Indicators.find(item.to_s)
+        unless f.object.items.detect{|i| i.indicator_name.to_s == item.to_s}
+          attrs = {indicator_name: item}
+          if indicator.datatype == :measure
+            attrs[:measure_value_unit] = indicator.unit
+          end
+          f.object.items.build(attrs)
+        end
+      end
+    end
+
+  #analysis-items
+    = f.backend_fields_for(:items) do |i|
+      = render "backend/analysis_items/form", f: i
+
+  .links
+    - id = rand(1_000_000).to_s(36)
+    %span.nested-add= :add_item.tl
+    %span.input-append= select_tag(:indicator_name, options_for_select(Nomen::Indicators.selection), id: id)
+    = link_to(:add.tl, {action: :new, controller: :analysis_items}, class: "btn btn-default", remote: true, data: {update: '#analysis-items', update_at: 'bottom', with: "##{id}"})

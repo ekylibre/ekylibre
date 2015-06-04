@@ -12150,6 +12150,8 @@ eng:
         purchase_nature: "Purchase type"
         role: "Role"
         sale: "Sale"
+        sale_credit: "Sale credit"
+        sale_credit_item: "Sale credit item"
         sale_item: "Sale item"
         sale_nature: "Sale type"
         sale_opportunity: "Sale opportunity"
@@ -21983,7 +21985,6 @@ eng:
         wine_storage_division: "Wine storage division"
         wine_tank: "Wine tank"
         wire: "Wire"
-        young_goat: "Young goat"
         young_rabbit: "Young rabbit"
       variety:
         acer: "Acer"

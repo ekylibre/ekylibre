@@ -172,6 +172,19 @@ module Backend::BaseHelper
   end
 
 
+  def main_campaign_selector
+    content_for(:heading_toolbar) do
+      campaign_selector
+    end
+  end
+
+  def campaign_selector
+    if Campaign.any?
+      render "backend/shared/campaign_selector"
+    end
+  end
+
+
   def lights(status, html_options = {})
     if html_options.has_key?(:class)
       html_options[:class] << " lights lights-#{status}"

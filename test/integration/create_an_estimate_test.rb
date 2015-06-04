@@ -41,6 +41,7 @@ class CancelASalesInvoiceTest < CapybaraIntegrationTest
       find(:css, '*[data-trade-component="amount"]').set(500)
       find(:css, '*[data-trade-component="quantity"]').set(15)
     end
+    sleep(1)
     click_on :add_item.tl
     within('#items tr.nested-fields:nth-child(4)') do
       fill_unroll('sale_item_variant_id', with: 'big bag')
@@ -82,6 +83,7 @@ class CancelASalesInvoiceTest < CapybaraIntegrationTest
       find(:css, '*[data-trade-component="amount"]').set(500)
       find(:css, '*[data-trade-component="quantity"]').set(15)
     end
+    sleep(1)
     click_on :add_item.tl
     within('#items tr.nested-fields:nth-child(4)') do
       fill_unroll('sale_item_variant_id', with: 'pot')

@@ -1,5 +1,28 @@
 :ruby
   data = resource.supports.collect do |support|
+
+    popup_content = []
+
+    popup_content << {label: :campaign.tl, value: link_to(support.production.campaign.name, backend_campaign_path(support.production.campaign))}
+    popup_content << {label: :activity.tl, value: link_to(support.production.activity.name, backend_activity_path(support.production.activity))}
+    popup_content << {label: :production_support.tl, value: link_to(support.name, backend_production_support_path(support))}
+
+    for item in [:nitrogen_concentration, :phosphorus_concentration, :potassium_concentration]
+      if value = support.soil_enrichment_indicator_content_per_area(item)
+        popup_content << {label: item.tl, value: value.to_s.to_f.round(2)}
+      end
+    end
+
+
+
+    interventions = support.interventions
+    if interventions.any?
+      last_intervention = interventions.max{|a,b| a.started_at <=> b.started_at }
+      popup_content << {label: :last_intervention.tl, value: link_to( "N°" + last_intervention.number, backend_intervention_path(last_intervention)) }
+    end
+
+    popup_content << render('popup', support: support)
+
     { name:       support.name,
       shape:      support.shape,
       campaign:   support.campaign_name,
@@ -11,7 +34,8 @@
       nitrogen_concentration:   support.soil_enrichment_indicator_content_per_area(:nitrogen_concentration).to_s.to_f.round(2),
       phosphorus_concentration: support.soil_enrichment_indicator_content_per_area(:phosphorus_concentration).to_s.to_f.round(2),
       potassium_concentration:  support.soil_enrichment_indicator_content_per_area(:potassium_concentration).to_s.to_f.round(2),
-      interventions_count: support.interventions.count
+      interventions_count: support.interventions.count,
+      popup: {header: true, content: popup_content}
     }
   end
   supports_quantity = resource.supports_quantity
@@ -200,15 +224,16 @@
     - if resource.cultivation_variant and Nomen::Varieties[resource.cultivation_variety] and Nomen::Varieties[resource.cultivation_variety] <= :animal
       - b.cell :last_analyses, params: {campaign_id: resource.campaign_id}
 
-  - b.hbox do
+  = janus do |j|
     - if resource.with_supports and resource.supports.any? and variety = Nomen::Varieties[resource.support_variety] and variety <= :cultivable_zone
-      - b.cell :concentrations_map, title: :map do
+      - j.face :map, title: :costs_map do
         - visualization do |v|
           - v.serie :main, data
           - v.background "OpenStreetMap.HOT"
           - v.background "OpenStreetMap.Mapnik"
           - v.background "Thunderforest.Landscape"
           - v.background "Esri.WorldImagery"
+          - v.choropleth :interventions_count, :main
           - v.choropleth :nitrogen_concentration, :main, stop_color: "#777777"
           - v.choropleth :phosphorus_concentration, :main, stop_color: "#11BB99"
           - v.choropleth :potassium_concentration, :main, stop_color: "#AA00AA"
@@ -217,5 +242,5 @@
           - v.control :fullscreen
           - v.control :layer_selector
 
-    - b.cell(:interventions) do
+    - j.face :list do
       = list(:interventions)

@@ -16,7 +16,7 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
       production_name = s.cell('C', 2)
       production_support_numbers = (s.cell('D', 2).blank? ? [] : s.cell('D', 2).to_s.strip.upcase.split(/[\s\,]+/))
       cultivation_variant_reference_name = s.cell('E', 2)
-      support_variant_reference_name = s.cell('F', 2)
+      support_variant_reference_name = s.cell('F', 2).to_s.strip
       support_variant_reference_name = nil if support_variant_reference_name.blank?
       production_indicator = (s.cell('G', 2).blank? ? [] : s.cell('G', 2).to_s.strip.downcase.delete(' ').split('/'))
 
@@ -49,7 +49,7 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
         activity = Activity.create!(name: activity_name[0].strip, family: family.name, nature: family.nature)
       end
 
-      w.debug "Production: #{sheet_name}"
+      w.debug "Production: #{sheet_name} (#{cultivation_variant})"
       attributes = {
         campaign: campaign,
         activity: activity,
@@ -60,7 +60,7 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
         stopped_at: Date.new(campaign.harvest_year, 8, 1),
         state: :opened
       }
-      if activity.with_supports and  Nomen::Varieties.find(:cultivable_zone) <= support_variant.variety
+      if activity.with_supports and support_variant and Nomen::Varieties.find(:cultivable_zone) <= support_variant.variety
         attributes[:support_variant_indicator] = :net_surface_area
         attributes[:support_variant_unit] = :hectare
       end

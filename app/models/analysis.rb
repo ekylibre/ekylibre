@@ -53,6 +53,8 @@ class Analysis < Ekylibre::Record::Base
 
   acts_as_numbered
 
+  accepts_nested_attributes_for :items, allow_destroy: true
+
   scope :between, lambda { |started_at, stopped_at|
     where(sampled_at: started_at..stopped_at)
   }

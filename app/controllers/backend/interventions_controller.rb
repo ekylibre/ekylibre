@@ -36,9 +36,13 @@ class Backend::InterventionsController < Backend::BaseController
     code << "  c << params[:state].flatten\n"
     code << "end\n"
     code << "c[0] << ' AND ' + params[:nature].join(' AND ') unless params[:nature].blank?\n"
-    code << "if params[:campaign_id].to_i > 0\n"
-    code << "  c[0] << ' AND #{Intervention.table_name}.production_id IN (SELECT id FROM #{Production.table_name} WHERE campaign_id IN (?))'\n"
-    code << "  c << params[:campaign_id].to_i\n"
+    # code << "if params[:campaign_id].to_i > 0\n"
+    # code << "  c[0] << ' AND #{Intervention.table_name}.production_id IN (SELECT id FROM #{Production.table_name} WHERE campaign_id IN (?))'\n"
+    # code << "  c << params[:campaign_id].to_i\n"
+    # code << "end\n"
+    code << "if current_campaign\n"
+    code << "  c[0] << \" AND #{Intervention.table_name}.production_id IN (SELECT id FROM #{Production.table_name} WHERE campaign_id IN (?))\"\n"
+    code << "  c << current_campaign.id\n"
     code << "end\n"
     code << "if params[:storage_id].to_i > 0\n"
     code << "  c[0] << ' AND production_support_id IN (SELECT id FROM #{ProductionSupport.table_name} WHERE storage_id IN (?))'\n"
@@ -52,7 +56,6 @@ class Backend::InterventionsController < Backend::BaseController
   # @TODO conditions: interventions_conditions, joins: [:production, :activity, :campaign, :storage]
 
   list(conditions: interventions_conditions, joins: [:production, :activity, :campaign, :storage], order: {started_at: :desc}, line_class: :status) do |t|
-    t.action :new,  on: :none
     t.action :run,  if: :runnable?, method: :post, confirm: true
     t.action :edit, if: :updateable?
     t.action :destroy, if: :destroyable?

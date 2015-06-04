@@ -628,6 +628,7 @@
         <page to="backend/analyses#show"/>
         <page to="backend/analyses#unroll"/>
         <page to="backend/analyses#update"/>
+        <page to="backend/analysis_items#new"/>
       </item>
       <item name="productions">
         <page to="backend/productions#index"/>

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # = Informations
 #
 # == License
@@ -179,6 +178,10 @@ class Product < Ekylibre::Record::Base
       raise ArgumentError.new("Expected Production, got #{production.class.name}:#{production.inspect}") unless production.is_a?(Production)
     end
     joins(:supports).merge(ProductionSupport.of_productions(productions))
+  }
+
+  scope :supports_of_campaign, lambda { |campaign|
+    joins(:supports).merge(ProductionSupport.of_campaign(campaign))
   }
 
   # scope :saleables, -> { joins(:nature).where(:active => true, :product_natures => {:saleable => true}) }
