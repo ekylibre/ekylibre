@@ -252,16 +252,18 @@ module Backend::BaseHelper
     end.join.html_safe
 
     # Adds toggle buttons
-    content_for :view_toolbar do
-      content_tag(:div, data: {janus: url_for(controller: "/backend/januses", action: :toggle, id: name, default: faces_names.first)}, class: "btn-group") do
-        faces.collect do |face|
-          face_name = face.args.first.to_s
-          classes = ["btn", "btn-default"]
-          classes << "active" if face_name == active_face
-          link_to(face_name, data: {toggle: "face"}, class: classes, title: face_name.tl) do
-            content_tag(:i, "", class: "icon icon-#{face_name}") + " ".html_safe + face_name.tl
-          end
-        end.join.html_safe
+    if faces.count > 1
+      content_for :view_toolbar do
+        content_tag(:div, data: {janus: url_for(controller: "/backend/januses", action: :toggle, id: name, default: faces_names.first)}, class: "btn-group") do
+          faces.collect do |face|
+            face_name = face.args.first.to_s
+            classes = ["btn", "btn-default"]
+            classes << "active" if face_name == active_face
+            link_to(face_name, data: {toggle: "face"}, class: classes, title: face_name.tl) do
+              content_tag(:i, "", class: "icon icon-#{face_name}") + " ".html_safe + face_name.tl
+            end
+          end.join.html_safe
+        end
       end
     end
 

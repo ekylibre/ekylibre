@@ -1299,7 +1299,9 @@ por:
       # warning: "Warning!"
     messages:
       # a_campaign_must_be_opened: "A campaign must be opened"
+      # a_production_must_be_opened: "A production must be opened"
       # access_denied: "Access denied. %{reason} (%{url})"
+      # an_activity_must_be_defined: "An activity must be defined"
       # bookkeeping_is_finished: "The commercial data transfer is finished."
       # bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
       # cannot_find_deal_to_attach: "Cannot find deal to attach"

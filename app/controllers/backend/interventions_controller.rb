@@ -72,6 +72,13 @@ class Backend::InterventionsController < Backend::BaseController
     t.column :casting, hidden: true
   end
 
+  before_action only: [:index] do
+    unless Production.any?
+      notify :a_production_must_be_opened
+      redirect_to controller: :productions, action: :index
+    end
+  end
+
   # SHOW
 
   list(:casts, model: :intervention_casts, conditions: {intervention_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|

@@ -65,11 +65,7 @@ class ProductionSupport < Ekylibre::Record::Base
   delegate :irrigated, :nitrate_fixing, :started_at, :stopped_at, :support_variant_indicator, :support_variant_unit, to: :production
 
   scope :of_campaign, lambda { |*campaigns|
-    campaigns.flatten!
-    for campaign in campaigns
-      raise ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}") unless campaign.is_a?(Campaign)
-    end
-    joins(:production).merge(Production.of_campaign(campaigns))
+    joins(:production).merge(Production.of_campaign(*campaigns))
   }
 
   scope :of_currents_campaigns, -> { joins(:production).merge(Production.of_currents_campaigns)}

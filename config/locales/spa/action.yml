@@ -1542,7 +1542,9 @@ spa:
       warning: "Cuidad!"
     messages:
       # a_campaign_must_be_opened: "A campaign must be opened"
+      # a_production_must_be_opened: "A production must be opened"
       access_denied: "No tiene drecho de acceso para esta pagina. %{reason} (%{url})"
+      # an_activity_must_be_defined: "An activity must be defined"
       bad_file: "El fichero no parece corresponder" #?
       bookkeeping_is_finished: "La basula en contabilidad esta terminada."
       bookkeeping_works_only_with: "La bascula en contabilidad puede hacerse actualmente solo para\_: %{list}."

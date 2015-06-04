@@ -34,7 +34,6 @@ table {
     font-weight: bold;
   }
   td {
-    font-weight: normal;
     &.decimal {
       @include text-align(right);
     }

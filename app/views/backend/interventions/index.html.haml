@@ -4,7 +4,7 @@
   -# k.helper do
     %label= Production.human_attribute_name(:campaign)
     = select_tag(:campaign_id, options_for_select([[]] + Campaign.all.collect{|u| [u.name, u.id]}, params[:campaign_id]))
-  - if supports = Product.supports_of_campaign(current_campaign) and supports.any?
+  - if current_campaign and supports = Product.supports_of_campaign(current_campaign) and supports.any?
     - k.helper do
       %label= ProductionSupport.human_attribute_name(:storage)
       = select_tag(:storage_id, options_for_select([[]] + Product.supports_of_campaign(current_campaign).order(:name).collect{|u| [u.unroll_name, u.id]}, params[:storage_id]))

@@ -77,9 +77,10 @@ class Production < Ekylibre::Record::Base
   delegate :main?, :auxiliary?, :standalone?, :with_supports, :with_cultivation, :support_variety, :cultivation_variety, to: :activity
 
   scope :of_campaign, lambda { |*campaigns|
-    campaigns.flatten!
     for campaign in campaigns
-      raise ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}") unless campaign.is_a?(Campaign)
+      unless campaign.is_a?(Campaign)
+        raise ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}")
+      end
     end
     where(campaign_id: campaigns.map(&:id))
   }

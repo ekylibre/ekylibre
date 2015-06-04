@@ -1962,7 +1962,9 @@ arb:
       warning: "!تحذير"
     messages:
       # a_campaign_must_be_opened: "A campaign must be opened"
+      # a_production_must_be_opened: "A production must be opened"
       access_denied: " ليس لديك الصلاحية لبلوغ هذه الصفحة %{reason} (%{url})"
+      # an_activity_must_be_defined: "An activity must be defined"
       bad_file: "لا يبدو ان الملفات متطابقة" #?
       bookkeeping_is_finished: "نهاية نطاق المحاسبة"
       bookkeeping_works_only_with: "يمكن جعل نطاق الماسبة الحالية ل : %{list}."
