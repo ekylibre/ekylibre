@@ -117,7 +117,11 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                            third_product_code: (row[20].blank? ? nil : row[20].to_s.upcase),
                            third_product_input_population: (row[21].blank? ? nil : row[21].gsub(",",".").to_d),
                            third_product_input_unit_name: (row[22].blank? ? nil : row[22].to_s.downcase),
-                           third_product_input_unit_target_dose: (row[23].blank? ? nil : row[23].to_s.downcase)
+                           third_product_input_unit_target_dose: (row[23].blank? ? nil : row[23].to_s.downcase),
+                           indicators: row[24].blank? ? {} : row[24].to_s.strip.split(/[[:space:]]*\,[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
+            h[i.first.strip.downcase.to_sym] = i.second
+            h
+          }
                         )
 
 
@@ -230,8 +234,18 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
             def population_conversion(product, population, unit, unit_target_dose, working_area = Measure.new(0.0, :square_meter))
               value = population
-              unit = unit.to_sym
-              nomen_unit = Nomen::Units[unit]
+              nomen_unit = nil
+              # convert symbol into unit if needed
+              if unit.present? and !Nomen::Units[unit]
+                if u = Nomen::Units.find_by(symbol: unit)
+                  unit = u.name.to_s
+                else
+                  raise ActiveExchanger::NotWellFormedFileError, "Unknown unit #{unit.inspect} for variant #{item_variant.name.inspect}."
+                end
+              end
+              unit = unit.to_sym if unit
+              nomen_unit = Nomen::Units[unit] if unit
+              # 
               if value > 0.0 and nomen_unit
                 measure = Measure.new(value, unit)
                 if measure
@@ -249,13 +263,17 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                   end
                   population_value = ((measure.to_f(variant_indicator.unit.to_sym)) / variant_indicator.value.to_f)
                 end
-                if working_area.to_d(:square_meter) > 0.0
-                  global_intrant_value = population_value.to_d * working_area.to_d(unit_target_dose.to_sym)
-                  return global_intrant_value
-                else
-                  return population_value
-                end
+              # case population
+              elsif value > 0.0 and !nomen_unit
+                population_value = value
               end
+              if working_area.to_d(:square_meter) > 0.0
+                global_intrant_value = population_value.to_d * working_area.to_d(unit_target_dose.to_sym)
+                return global_intrant_value
+              else
+                return population_value
+              end
+              
             end
 
             area = cultivable_zone.shape
@@ -430,9 +448,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                   i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
                 end
 
-              #######################
-              ####  SOWING       ####
-              #######################
+              ####################################
+              ####  SOWING / IMPLANTING       ####
+              ####################################
 
               elsif r.procedure_name == :sowing and cultivable_zone and target_variant and first_product
 
@@ -457,7 +475,46 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                 i.add_cast(reference_name: 'land_parcel',  actor: cultivable_zone)
                 i.add_cast(reference_name: 'cultivation',  variant: target_variant, population: cultivation_population, shape: cultivable_zone.shape)
               end
-
+              
+              elsif r.procedure_name == :implanting and cultivable_zone and target_variant and first_product
+              
+              working_measure = cultivable_zone.shape_area
+              w.info working_measure.inspect.green
+              first_product_input_population = population_conversion(first_product, r.first_product_input_population, r.first_product_input_unit_name, r.first_product_input_unit_target_dose, working_measure)
+              w.info first_product_input_population.inspect.green
+              
+              cultivation_population = (working_measure.to_s.to_f / 10000.0) if working_measure
+              
+              rows_interval = 0
+              plants_interval = 0
+              # check indicators linked to matters
+              if r.indicators
+                for indicator, value in r.indicators
+                  if indicator.to_sym == :rows_interval
+                    rows_interval = value
+                  elsif indicator.to_sym == :plants_interval
+                    plants_interval = value
+                  end
+                end
+              end
+              # reading indicators on 750-2/3/4
+              plants_count = cultivation_population
+              
+              
+              # Implanting
+              intervention = Ekylibre::FirstRun::Booker.force(:implanting, intervention_started_at, (duration / 3600), support: support, description: r.procedure_description, parameters: {readings: {"base-implanting-0-750-2" => rows_interval.to_d, "base-implanting-0-750-3" => plants_interval.to_d, "base-implanting-0-750-4" => plants_count.to_i}}) do |i|
+                i.add_cast(reference_name: 'plants',        actor: first_product)
+                i.add_cast(reference_name: 'plants_to_fix', population: first_product_input_population)
+                i.add_cast(reference_name: 'implanter_tool',        actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "implant") : i.find(Equipment, can: "implant")))
+                i.add_cast(reference_name: 'driver',       actor: (workers.any? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+                i.add_cast(reference_name: 'implanter_man',       actor: (workers.any? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+                i.add_cast(reference_name: 'tractor',      actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "tow(equipment)") : i.find(Equipment, can: "tow(equipment)")))
+                i.add_cast(reference_name: 'land_parcel',  actor: cultivable_zone)
+                i.add_cast(reference_name: 'cultivation',  variant: target_variant, population: cultivation_population, shape: cultivable_zone.shape)
+              end
+              
+              
+              
               #######################
               ####  HARVESTING   ####
               #######################
