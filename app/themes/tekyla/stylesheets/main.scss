@@ -782,6 +782,7 @@ form.search {
     }
     .picto {
       @include is-icon(48px);
+      line-height: 48px;
     }
   }
 }
@@ -1931,10 +1932,11 @@ ul.casts {
 }
 
 .picto {
-  @include is-icon(64px);
+  $height: 64px;
+  @include is-icon($height);
   @include text-align(center);
-  min-width: 64px;
-
+  min-width: $height;
+  line-height: $height;
 }
 
 
