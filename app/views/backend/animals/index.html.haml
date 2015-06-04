@@ -18,8 +18,10 @@
     - content_for :main_toolbar do
 
       = dropdown_button do |l|
-        - l.link_to 'Intervention 1', '#'
-        - l.link_to 'Intervention 2', '#'
+        - procedures = Procedo.procedures_of_activity_family(:cattle_farming)
+        - if procedures.any?
+          - for procedure in procedures.sort{|a,b| a.human_name <=> b.human_name }
+            = l.link_to(procedure.human_name,'#')
 
       = tool_to 'Vendre', '#'
       = tool_to 'Mettre en pension', '#'
@@ -36,7 +38,14 @@
             1
           .alert.alert-info{:role => "alert"}
             1
-      .row.animal-viewport{data: {animals_data: @grouped_animals.to_json}}
+      -#.row.animal-viewport{data: {animals_data: @grouped_animals.to_json() }}
+      #loading
+        .bubblingG
+          %span#bubblingG_1
+          %span#bubblingG_2
+          %span#bubblingG_3
+
+      .row.animal-viewport
         .animal-group-container{"data-bind" => "sortable: {template: 'animal-group-template', data: groups, options: {handle: '.animal-group-dragger', cursor: 'move', tolerance: 'pointer', placeholder: 'sorting-group-placeholder', dropOnEmpty: false, forcePlaceholderSize: true, opacity: 0.8, items: '> .animal-group'}}"}
         %script#animal-group-template{:type => "text/html"}
           .animal-group
@@ -141,9 +150,16 @@
           .modal-header
             %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
               %span{"aria-hidden" => "true"} &times;
-            %h4#newContainerTitle.modal-title Nouvelle zone
+            %h4#newContainerTitle.modal-title Nouvel emplacement
           .modal-body
-            Ajouter une nouvelle zone
+            = label_tag :new_container, "Nom de l'emplacement:"
+            = text_field_tag :new_container, '', data: {bind: 'value: newContainer'}
+          .modal-footer
+            %button{:type => "button", data: {bind: "click: addContainer"}}
+              %i.icon.icon-plus-circle Ajouter
+            %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"} Fermer
+
+
     .modal.fade{"aria-hidden" => "true", "aria-labelledby" => "viewAnimal", "data-bind" => "modal: showAnimalDetailsModal(), with: animalDetailsModalOptions", :role => "dialog", :tabindex => "-1"}
       .modal-dialog
         .modal-content

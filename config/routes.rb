@@ -98,6 +98,12 @@ Rails.application.routes.draw do
   # Backend
   namespace :backend do
 
+    # add routes for frontend animals column view
+    # TODO refactorize and export to API
+    get "remote_load_animals" => 'animals#remote_load_animals'
+    get "remote_load_containers" => 'animals#remote_load_containers'
+
+
     resource :myself, path: "me", only: [:show]
 
     resource :settings, only: [:edit, :update] do

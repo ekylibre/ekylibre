@@ -67,30 +67,51 @@ $ ->
 
       @animalDetailsModalOptions = ko.observable false
 
+      @newContainer = ko.observable ''
+
+      @addContainer = =>
+        console.log @newContainer()
+
+
+
       @groups = ko.observableArray []
       @containers = ko.observableArray []
       @animals = ko.observableArray []
 
       json_data = []
-      json_data = $('.animal-viewport').data 'animals-data'
+#      json_animals = []
+#      json_groups = []
+#      json_containers = []
 
-      ko.utils.arrayForEach json_data, (j) =>
-        console.log j.group
-        if j.group
-          @groups.push new dashboardViewModel.Group(j.group.id, j.group.name)
-        if j.places_and_animals and j.places_and_animals.length > 0
-          console.log j.places_and_animals
-          ko.utils.arrayForEach j.places_and_animals, (container) =>
-            if container.place
-              @containers.push new dashboardViewModel.Container(container.place.id, container.place.name, j.group.id)
-            if container.animals
-              ko.utils.arrayForEach container.animals, (animal) =>
-                @animals.push new dashboardViewModel.Animal(animal.id, animal.name, '', '', '', animal.identification_number, container.place.id)
+#      json_data = $('.animal-viewport').data 'animals-data'
+#      json_animals = $('.animal-viewport').data 'animals-data'
+#      json_groups = $('.animal-viewport').data 'animals-groups'
+#      json_containers = $('.animal-viewport').data 'animals-containers'
+
+#      ko.utils.arrayForEach json_data, (j) =>
+#        console.log j.group
+#        if j.group
+#          @groups.push new dashboardViewModel.Group(j.group.id, j.group.name)
+#        if j.places_and_animals and j.places_and_animals.length > 0
+#          console.log j.places_and_animals
+#          ko.utils.arrayForEach j.places_and_animals, (container) =>
+#            if container.place
+#              @containers.push new dashboardViewModel.Container(container.place.id, container.place.name, j.group.id)
+#            if container.animals
+#              ko.utils.arrayForEach $.parseJSON(container.animals), (animal) =>
+#                @animals.push new dashboardViewModel.Animal(animal.id, animal.name, '', '', '', animal.identification_number, container.place.id)
 
 
 
 #      @groups = ko.observableArray ko.utils.arrayMap json_groups, (group) ->
 #        new dashboardViewModel.Group(group.id, group.name)
+#
+#      @containers = ko.observableArray ko.utils.arrayMap json_containers, (container) ->
+#        new dashboardViewModel.Container(container.id, container.name, container.group_id || 0)
+#
+#      @animals = ko.observableArray ko.utils.arrayMap json_animals, (animal) ->
+#        new dashboardViewModel.Animal(animal.id, animal.name, animal.img, animal.status, animal.sex, animal.number_id, animal.container_id)
+
 
 
       #FIXME: Improve empty group
@@ -180,20 +201,20 @@ $ ->
       @sex = sex
       #@number_id = number_id
       @animalStatusClass = ko.pureComputed () =>
-        if @status == 1
+        if @status == 'go'
           className = "status-ok"
-        if @status == 2
+        if @status == 'caution'
           className = "status-warning"
-        if @status == 3
+        if @status == 'stop'
           className = "status-danger"
         className
 
       @animalFlagClass = ko.pureComputed () =>
-        if @status == 1
+        if @status == 'go'
           className = "flag-ok"
-        if @status == 2
+        if @status == 'caution'
           className = "flag-warning"
-        if @status == 3
+        if @status == 'stop'
           className = "flag-danger"
         className
 
@@ -201,6 +222,40 @@ $ ->
       @checked = ko.observable false
       return
 
+  @loadData = () =>
+    console.log 'load data'
+    $.ajax '/backend/remote_load_animals',
+      type: 'GET',
+      dataType: 'JSON',
+      beforeSend: () ->
+        $('#loading').show()
+        return
+      complete: () ->
+        $('#loading').hide()
+        return
+      success: (json_data) ->
+        console.log json_data
+        ko.utils.arrayForEach json_data, (j) =>
+          console.log j.group
+          if j.group
+            window.app.groups.push new dashboardViewModel.Group(j.group.id, j.group.name)
+          if j.places_and_animals and j.places_and_animals.length > 0
+            console.log j.places_and_animals
+            ko.utils.arrayForEach j.places_and_animals, (container) =>
+              if container.place
+                window.app.containers.push new dashboardViewModel.Container(container.place.id, container.place.name, j.group.id)
+              if container.animals
+                ko.utils.arrayForEach $.parseJSON(container.animals), (animal) =>
+                  window.app.animals.push new dashboardViewModel.Animal(animal.id, animal.name, '', '', '', animal.identification_number, container.place.id)
+        return true
+
+      error: (data) ->
+        console.log data
+        return false
+
+    return
 
   window.app = new dashboardViewModel
   ko.applyBindings window.app
+  window.loadData()
+  return

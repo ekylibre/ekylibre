@@ -95,12 +95,13 @@ class AnimalGroup < ProductGroup
 
   def places(viewed_at = nil)
     animals = self.members_at(viewed_at || Time.now)
-    containers = []
-    animals.each do |animal|
-      containers << animal.container
-    end
+    # containers = []
     # byebug
-    return containers.uniq
+    # animals.each do |animal|
+    #   containers << animal.container
+    # end
+    # return containers.uniq
+    return animals.collect{|a| a.container}.uniq
   end
 
   def members_with_places_at(viewed_at = nil)
@@ -108,7 +109,7 @@ class AnimalGroup < ProductGroup
     all_places = self.places(viewed_at)
     all_places.each do |place|
 
-      places_and_animals.push({:place => BuildingDivision.select(:id,:name).find(place.id),:animals => Animal.select(:id, :name, :identification_number, :nature_id).members_of_place(place,viewed_at || Time.now)})
+      places_and_animals.push({:place => BuildingDivision.select(:id,:name).find(place.id),:animals => Animal.select(:id, :name, :identification_number, :nature_id, :dead_at).members_of_place(place,viewed_at || Time.now).to_json(:methods => [:picture_path, :sex_text, :status])})
 
     end
     places_and_animals

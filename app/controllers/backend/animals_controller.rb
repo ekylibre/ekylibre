@@ -74,6 +74,31 @@ class Backend::AnimalsController < Backend::MattersController
     t.column :father, url: true, hidden: true
   end
 
+  def remote_load_animals
+
+    @grouped_animals = []
+
+    AnimalGroup.all.select(:id, :name).each do |group|
+
+      #TODO Need to add sex, img
+      @grouped_animals << { group: group, places_and_animals: group.members_with_places_at }
+
+
+    end
+
+    render :json => @grouped_animals.to_json()
+
+  end
+
+  def remote_load_containers
+
+    byebug
+
+
+
+    render :json => @containers
+  end
+
   # Show a list of animal groups
   def index
     @animals = Animal.all
@@ -82,17 +107,27 @@ class Backend::AnimalsController < Backend::MattersController
     @entity_of_company_id = Entity.of_company.id
 
 
+    # @animals_containers = BuildingDivision.select(:id,:name)
+
+    # @animals_groups = AnimalGroup.select(:id,:name)
+
+    # @animals_data = Animal.select(:id, :name, :identification_number, :nature_id, :dead_at).to_json(:methods => [:picture_path, :sex_text, :status])
+    # @animals_data = Animal.select(:id, :name, :identification_number, :nature_id, :dead_at).to_json(:include => {:container => { :only => :id },:groups => { :only => :id }},:methods => [:picture_path, :sex_text, :status])
+
+    # byebug
     # format data to delegate to front end engine
 
-    @grouped_animals = []
-
-    AnimalGroup.all.select(:id, :name).each do |group|
-
-      #TODO Need to add status, img
-      @grouped_animals << { group: group, places_and_animals: group.members_with_places_at }
-
-
-    end
+    #####
+    # @grouped_animals = []
+    #
+    # AnimalGroup.all.select(:id, :name).each do |group|
+    #
+    #   #TODO Need to add sex, img
+    #   @grouped_animals << { group: group, places_and_animals: group.members_with_places_at }
+    #
+    #
+    # end
+    #######
 
     # @animals_data << { id: animal.id, name: animal.name, sex: animal.sex, status: animal.status, img: animal.picture.url, container_id: container, group_id: group }
 
@@ -102,10 +137,10 @@ class Backend::AnimalsController < Backend::MattersController
 
     # render :json => @grouped_animals.to_json(:include =>
                                                 # {:group => {}})
-    respond_with @grouped_animals
+    # respond_with @grouped_animals
 
     #TODO reactivate
-    # respond_with @animals, :methods => [:picture_path, :sex_text, :variety_text], :include => [:initial_father, :initial_mother, :nature ,:variant]
+    respond_with @animals, :methods => [:picture_path, :sex_text, :variety_text], :include => [:initial_father, :initial_mother, :nature ,:variant]
   end
 
   # Children list
