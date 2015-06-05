@@ -901,7 +901,7 @@ eng:
     credit: "Credit" #?
     credited_quantity: "Quantity to credit" #?
     credits: "Credits"
-    cropping_plan: "Cropping plan" #?
+    cropping_plan: "Cropping plan"
     cropping_plan_on_cultivable_zones: "Cropping plan on cultivable zones"
     crumbs: "Crumbs"
     cultivable_zone: "Cultivable zone"
@@ -961,7 +961,7 @@ eng:
     earns: "Earns"
     edit: "Edit" #?
     ekylibre: "www.ekylibre.org"
-    elapsed_interventions_times_by_activities: "Elapsed interventions times by activities" #?
+    elapsed_interventions_times_by_activities: "Elapsed interventions times by activities"
     email: "Email:" #?
     end: "to" #?
     entities: "Entities"
@@ -1075,7 +1075,7 @@ eng:
     last_events: "Last events" #?
     last_incoming_deliveries: "Last incoming deliveries" #?
     last_intervention: "Last intervention"
-    last_interventions: "Last interventions" #?
+    last_interventions: "Last interventions"
     last_issue: "Last issue"
     last_issues: "Last issues" #?
     last_outgoing_deliveries: "Last outgoing deliveries" #?
@@ -1272,7 +1272,7 @@ eng:
     rights: "Rights"
     role: "Role" #?
     roles: "Roles" #?
-    rss: "RSS"
+    rss: "RSS" #?
     run: "Run"
     sale: "Sale" #?
     sales: "Sales"
@@ -1536,7 +1536,9 @@ eng:
       warning: "Warning!"
     messages:
       a_campaign_must_be_opened: "A campaign must be opened"
+      a_production_must_be_opened: "A production must be opened"
       access_denied: "Access denied. %{reason} (%{url})"
+      an_activity_must_be_defined: "An activity must be defined"
       bookkeeping_is_finished: "The commercial data transfer is finished."
       bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
       cannot_find_deal_to_attach: "Cannot find deal to attach"

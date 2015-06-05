@@ -35,6 +35,10 @@ class Backend::InterventionsController < Backend::BaseController
     code << "  c[0] << ' AND #{Intervention.table_name}.state IN (?)'\n"
     code << "  c << params[:state].flatten\n"
     code << "end\n"
+    code << "unless params[:reference_name].blank?\n"
+    code << "  c[0] << ' AND #{Intervention.table_name}.reference_name IN (?)'\n"
+    code << "  c << params[:reference_name]\n"
+    code << "end\n"
     code << "c[0] << ' AND ' + params[:nature].join(' AND ') unless params[:nature].blank?\n"
     # code << "if params[:campaign_id].to_i > 0\n"
     # code << "  c[0] << ' AND #{Intervention.table_name}.production_id IN (SELECT id FROM #{Production.table_name} WHERE campaign_id IN (?))'\n"
@@ -70,6 +74,13 @@ class Backend::InterventionsController < Backend::BaseController
     t.status
     t.column :issue, url: true
     t.column :casting, hidden: true
+  end
+
+  before_action only: [:index] do
+    unless Production.any?
+      notify :a_production_must_be_opened
+      redirect_to controller: :productions, action: :index
+    end
   end
 
   # SHOW

@@ -247,7 +247,7 @@ class User < Ekylibre::Record::Base
   end
 
   def current_campaign
-    default_campaign = Campaign.order(harvest_year: :desc).first
+    return nil unless default_campaign = Campaign.order(harvest_year: :desc).first
     preference = self.preference("current_campaign.id", default_campaign.id, :integer)
     unless campaign = Campaign.find_by(id: preference.value)
       campaign = default

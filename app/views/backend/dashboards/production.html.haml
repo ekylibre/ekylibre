@@ -1,11 +1,11 @@
 - main_campaign_selector
 
 = beehive(:production) do |b|
-  - b.cell :map, params: {visualization: :nitrogen_footprint, campaign_id: current_campaign.id}
+  - if current_campaign
+    - b.cell :map, params: {visualization: :nitrogen_footprint, campaign_id: current_campaign.id}
   - b.hbox do
-    - b.cell :last_interventions, params: {campaign_id: current_campaign.id}
-    -# if Animal.availables.count > 0
-      - b.cell :last_products
+    - if current_campaign
+      - b.cell :last_interventions, params: {campaign_id: current_campaign.id}
     - if current_user.crumbs.unconverted.any?
       - b.cell :crumbs do
         .big-info.important
@@ -14,9 +14,10 @@
         .big-info
           %span.title= :crumbs.tl
           %span.value= current_user.crumbs.unconverted.count.l
-    - b.cell :cropping_plan, params: {campaign_id: current_campaign.id}
+    - if current_campaign
+      - b.cell :cropping_plan, params: {campaign_id: current_campaign.id}
   - b.hbox do
-    -# b.cell :rss, :title => "Tendances Bovins de Boucherie", params: {:url => "http://www.lafranceagricole.fr/Rss/cours-et-marches/elevage/bovins-de-boucherie-157.html"}
-    - b.cell :elapsed_interventions_times_by_activities, params: {campaign_id: current_campaign.id}
-    - if Analysis.all.count > 0
+    - if current_campaign
+      - b.cell :elapsed_interventions_times_by_activities, params: {campaign_id: current_campaign.id}
+    - if Analysis.any?
       - b.cell :last_analyses

@@ -56,6 +56,12 @@
             telepac_crop_code="BA"
             variant_support="hard_wheat_crop"
             />
+      <item name="spring_hard_wheat"
+            production_code="1230"
+            activity="durum_wheat_crops"
+            telepac_crop_code="BB"
+            variant_support="hard_wheat_crop"
+            />
       <item name="rye"
             production_code="1300"
             activity="rye_crops"
@@ -472,7 +478,13 @@
             activity="wine"
             variant_support="wine"
             />
-      <!-- 7 - TREE AND FLOWER CROP  -->
+      <!-- 7 - TREE AND FLOWER CROP -->
+      <item name="thicket"
+            production_code="7200"
+            activity="field_crops"
+            telepac_crop_code="TI"
+            variant_support="thicket_crop"
+            />
       <item name="rose"
             production_code="7460"
             activity="aromatic_and_medicinal_plants"

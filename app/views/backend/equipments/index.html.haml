@@ -8,9 +8,11 @@
 
 = kujaku do |k|
   - k.text
-  - k.helper do
-    %label= Equipment.human_attribute_name(:variant)
-    = select_tag(:variant_id, options_for_select([[]] + ProductNatureVariant.of_variety(:equipment).order(:name).collect{|u| [u.name, u.id]}, params[:variant_id]))
+  - variants = ProductNatureVariant.of_variety(:equipment)
+  - if variants.any?
+    - k.helper do
+      %label= Equipment.human_attribute_name(:variant)
+      = select_tag(:variant_id, options_for_select([[]] + variants.order(:name).collect{|u| [u.name, u.id]}, params[:variant_id]))
 
 - main_toolbar do |t|
   - t.new

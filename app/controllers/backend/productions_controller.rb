@@ -17,7 +17,7 @@
 #
 
 class Backend::ProductionsController < Backend::BaseController
-  manage_restfully(t3e: {name: :name}, except: :index)
+  manage_restfully(t3e: {name: :name})
 
   unroll :name, {activity: :name, campaign: :name, cultivation_variant: :name}, order: :name
 
@@ -57,18 +57,15 @@ class Backend::ProductionsController < Backend::BaseController
     t.column :state_label
   end
 
-  def index
-    unless Campaign.any?
-      notify :a_campaign_must_be_opened
-      redirect_to controller: :campaigns, action: :index
-      return
-    end
-    campaign = Campaign.find_by(id: params[:campaign_id]) || Campaign.currents.last
-    params[:campaign_id] = campaign.id
-    respond_to do |format|
-      format.html { render locals: {campaign: campaign} }
-      format.xml  { render xml:  resource_model.all }
-      format.json { render json: resource_model.all }
+  before_action only: [:index] do
+    if Activity.any?
+      unless Campaign.any?
+        notify :a_campaign_must_be_opened
+        redirect_to controller: :campaigns, action: :new, redirect: request.fullpath
+      end
+    else
+      notify :an_activity_must_be_defined
+      redirect_to controller: :activities, action: :new, redirect: request.fullpath
     end
   end
 
