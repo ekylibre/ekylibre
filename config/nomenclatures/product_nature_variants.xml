@@ -727,7 +727,13 @@
             unit_name="plant"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-
+      <!-- thicket CROP -->
+      <item name="thicket_crop"
+            nature="crop"
+            variety="plant"
+            unit_name="plant"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
       <!-- FLOWER & DECORATIVE CROP -->
       <item name="saffron_crop"
             nature="flower_crop"

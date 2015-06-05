@@ -245,7 +245,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
               end
               unit = unit.to_sym if unit
               nomen_unit = Nomen::Units[unit] if unit
-              # 
+              #
               if value > 0.0 and nomen_unit
                 measure = Measure.new(value, unit)
                 if measure
@@ -273,7 +273,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
               else
                 return population_value
               end
-              
+
             end
 
             area = cultivable_zone.shape
@@ -475,16 +475,16 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                 i.add_cast(reference_name: 'land_parcel',  actor: cultivable_zone)
                 i.add_cast(reference_name: 'cultivation',  variant: target_variant, population: cultivation_population, shape: cultivable_zone.shape)
               end
-              
+
               elsif r.procedure_name == :implanting and cultivable_zone and target_variant and first_product
-              
+
               working_measure = cultivable_zone.shape_area
               w.info working_measure.inspect.green
               first_product_input_population = population_conversion(first_product, r.first_product_input_population, r.first_product_input_unit_name, r.first_product_input_unit_target_dose, working_measure)
               w.info first_product_input_population.inspect.green
-              
+
               cultivation_population = (working_measure.to_s.to_f / 10000.0) if working_measure
-              
+
               rows_interval = 0
               plants_interval = 0
               # check indicators linked to matters
@@ -499,8 +499,8 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
               end
               # reading indicators on 750-2/3/4
               plants_count = cultivation_population
-              
-              
+
+
               # Implanting
               intervention = Ekylibre::FirstRun::Booker.force(:implanting, intervention_started_at, (duration / 3600), support: support, description: r.procedure_description, parameters: {readings: {"base-implanting-0-750-2" => rows_interval.to_d, "base-implanting-0-750-3" => plants_interval.to_d, "base-implanting-0-750-4" => plants_count.to_i}}) do |i|
                 i.add_cast(reference_name: 'plants',        actor: first_product)
@@ -512,9 +512,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                 i.add_cast(reference_name: 'land_parcel',  actor: cultivable_zone)
                 i.add_cast(reference_name: 'cultivation',  variant: target_variant, population: cultivation_population, shape: cultivable_zone.shape)
               end
-              
-              
-              
+
+
+
               #######################
               ####  HARVESTING   ####
               #######################
