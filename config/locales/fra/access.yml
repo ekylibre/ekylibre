@@ -30,6 +30,7 @@ fra:
       cashes: "Trésoreries"
       catalog_prices: "Prix" #?
       catalogs: "Catalogues"
+      contacts: "Contacts"
       cultivable_zones: "Zones cultivables"
       custom_fields: "Champs personnalisés"
       deposits: "Remises en banque"
@@ -73,7 +74,6 @@ fra:
       outgoing_deliveries: "Apports"
       outgoing_payment_modes: "Mode de décaissement"
       outgoing_payments: "Décaissements"
-      people: "Personnes physiques"
       plant_medicines: "Produits phytosanitaires" #?
       plants: "Plantes/Cultures"
       postal_zones: "Zones postales"

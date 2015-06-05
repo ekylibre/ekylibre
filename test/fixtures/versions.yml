@@ -199,7 +199,7 @@ versions_005:
     picture_updated_at:
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
-  item_type: Person
+  item_type: Contact
 versions_006:
   created_at: 2014-10-31 19:04:30.098492000 Z
   creator_id: 1
@@ -248,7 +248,7 @@ versions_006:
     picture_updated_at:
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
-  item_type: Person
+  item_type: Contact
 versions_007:
   created_at: 2014-10-31 19:04:53.822748000 Z
   creator_id: 1
@@ -297,7 +297,7 @@ versions_007:
     picture_updated_at:
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
-  item_type: Person
+  item_type: Contact
 versions_008:
   created_at: 2014-10-31 19:28:25.982446000 Z
   creator_id: 1
@@ -1421,7 +1421,7 @@ versions_025:
     picture_updated_at:
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
-  item_type: Person
+  item_type: Contact
 versions_026:
   created_at: 2014-11-01 19:29:58.097653000 Z
   creator_id: 1
@@ -1683,7 +1683,7 @@ versions_031:
     picture_updated_at:
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
-  item_type: Person
+  item_type: Contact
 versions_032:
   created_at: 2014-11-01 20:19:35.359776000 Z
   creator_id: 1
@@ -2766,7 +2766,7 @@ versions_053:
     picture_updated_at:
     created_at: 2014-11-03 16:56:06.570291000 Z
     creator_id: 1
-  item_type: Person
+  item_type: Contact
 versions_054:
   created_at: 2014-11-04 17:12:23.247694000 Z
   creator_id: 1

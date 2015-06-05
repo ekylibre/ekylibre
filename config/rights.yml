@@ -462,6 +462,50 @@ catalogs:
     - "backend/catalogs#new"
     - "backend/catalogs#update"
 
+contacts:
+  read:
+    actions:
+    - "backend/contacts#index"
+    - "backend/contacts#list"
+    - "backend/contacts#list_event_participations"
+    - "backend/contacts#list_incoming_payments"
+    - "backend/contacts#list_issues"
+    - "backend/contacts#list_links"
+    - "backend/contacts#list_observations"
+    - "backend/contacts#list_outgoing_payments"
+    - "backend/contacts#list_purchases"
+    - "backend/contacts#list_sales"
+    - "backend/contacts#list_subscriptions"
+    - "backend/contacts#picture"
+    - "backend/contacts#show"
+    - "backend/contacts#unroll"
+  write:
+    dependencies:
+    - read-contacts
+    actions:
+    - "backend/contacts#autocomplete_for_origin"
+    - "backend/contacts#create"
+    - "backend/contacts#destroy"
+    - "backend/contacts#edit"
+    - "backend/contacts#export"
+    - "backend/contacts#import"
+    - "backend/contacts#merge"
+    - "backend/contacts#new"
+    - "backend/contacts#update"
+  link:
+    dependencies:
+    - read-contacts
+    actions:
+    - "backend/contacts#autocomplete_for_origin"
+    - "backend/contacts#create"
+    - "backend/contacts#destroy"
+    - "backend/contacts#edit"
+    - "backend/contacts#export"
+    - "backend/contacts#import"
+    - "backend/contacts#merge"
+    - "backend/contacts#new"
+    - "backend/contacts#update"
+
 cultivable_zones:
   read:
     actions:
@@ -1389,50 +1433,6 @@ outgoing_payments:
     - "backend/outgoing_payments#edit"
     - "backend/outgoing_payments#new"
     - "backend/outgoing_payments#update"
-
-people:
-  read:
-    actions:
-    - "backend/people#index"
-    - "backend/people#list"
-    - "backend/people#list_event_participations"
-    - "backend/people#list_incoming_payments"
-    - "backend/people#list_issues"
-    - "backend/people#list_links"
-    - "backend/people#list_observations"
-    - "backend/people#list_outgoing_payments"
-    - "backend/people#list_purchases"
-    - "backend/people#list_sales"
-    - "backend/people#list_subscriptions"
-    - "backend/people#picture"
-    - "backend/people#show"
-    - "backend/people#unroll"
-  write:
-    dependencies:
-    - read-people
-    actions:
-    - "backend/people#autocomplete_for_origin"
-    - "backend/people#create"
-    - "backend/people#destroy"
-    - "backend/people#edit"
-    - "backend/people#export"
-    - "backend/people#import"
-    - "backend/people#merge"
-    - "backend/people#new"
-    - "backend/people#update"
-  link:
-    dependencies:
-    - read-people
-    actions:
-    - "backend/people#autocomplete_for_origin"
-    - "backend/people#create"
-    - "backend/people#destroy"
-    - "backend/people#edit"
-    - "backend/people#export"
-    - "backend/people#import"
-    - "backend/people#merge"
-    - "backend/people#new"
-    - "backend/people#update"
 
 plants:
   read:

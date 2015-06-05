@@ -12,7 +12,7 @@ module Ekylibre::FirstRun::Faker
 
 
         # create a veterinary
-        veterinary = Person.create!(
+        veterinary = Contact.create!(
           :first_name => "Veto",
           :last_name => "PONTO",
           :nature => :person,

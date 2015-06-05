@@ -760,7 +760,7 @@ arb:
       catalog: "فئة الفرد"
       # catalog_item: "Catalog price"
       company: "الشركة" #?
-      contact: "الاتصالات" #?
+      contact: "الاتصالات"
       # crumb: "Crumb"
       # cultivable_zone: "Cultivable zone"
       # cultivable_zone_membership: "Cultivable zone membership"
@@ -845,7 +845,6 @@ arb:
       outgoing_payment_mode: "نوع الدفعة"
       outgoing_payment_use: "تأثير الدفعة" #?
       parameter: "الاعدادات" #?
-      # person: "Person"
       # plant: "Plant"
       postal_zone: "المنطقة البريدية"
       # preference: "Preference"

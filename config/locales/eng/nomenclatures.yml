@@ -1435,19 +1435,19 @@ eng:
         civil_society: "Civil society"                     #< organization
         collectivity: "Collectivity"                       #< organization
         company: "Company"                                 #< organization
+        contact: "Contact"                                 #< entity
         cooperative: "Cooperative"                         #< organization
-        doctor: "Doctor"                                   #< person
+        doctor: "Doctor"                                   #< contact
         economic_interest_group: "Economic interest group" #< organization
         entity: "Entity"
         foundation: "Foundation"                           #< organization
-        madam: "Madam"                                     #< person
+        madam: "Madam"                                     #< contact
         organization: "Organization"                       #< entity
-        person: "Person"                                   #< entity
-        professor: "Professor"                             #< person
+        professor: "Professor"                             #< contact
         public_establishment: "Public establishment"       #< organization
         public_interest_group: "Public interest group"     #< organization
-        sir: "Sir"                                         #< person
-        sir_and_madam: "Sir and madam"                     #< person
+        sir: "Sir"                                         #< contact
+        sir_and_madam: "Sir and madam"                     #< contact
         syndicate: "Syndicate"                             #< organization
     event_natures:
       name: "Event natures"

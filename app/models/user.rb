@@ -66,7 +66,7 @@
 class User < Ekylibre::Record::Base
   include Rightable
   belongs_to :team
-  belongs_to :person
+  belongs_to :person, class_name: "Contact"
   belongs_to :role
   has_many :crumbs
   has_many :dashboards, foreign_key: :owner_id
@@ -135,7 +135,7 @@ class User < Ekylibre::Record::Base
 
   before_save do
     unless self.person
-      self.create_person!(first_name: self.first_name, last_name: self.last_name, nature: Person.nature.default_value)
+      self.create_person!(first_name: self.first_name, last_name: self.last_name, nature: Contact.nature.default_value)
     end
   end
 

@@ -108,7 +108,7 @@ module Ekylibre::FirstRun::Faker
         catalog = Catalog.first
         wheat_taxes = Tax.all
 
-        responsibles = Person.where(id: User.pluck(:person_id))
+        responsibles = Contact.where(id: User.pluck(:person_id))
 
         # Sale nature
         sale_nature   = SaleNature.actives.first
@@ -243,7 +243,7 @@ module Ekylibre::FirstRun::Faker
         catalog = Catalog.first
         wine_taxes = Tax.all
 
-        responsibles = Person.where(id: User.pluck(:person_id))
+        responsibles = Contact.where(id: User.pluck(:person_id))
 
         # Sale nature
         sale_nature   = SaleNature.actives.first
@@ -290,7 +290,7 @@ module Ekylibre::FirstRun::Faker
         catalog = Catalog.first
         wine_taxes = Tax.all
 
-        responsibles = Person.where(id: User.pluck(:person_id))
+        responsibles = Contact.where(id: User.pluck(:person_id))
 
         # Sale nature
         sale_nature   = SaleNature.actives.first

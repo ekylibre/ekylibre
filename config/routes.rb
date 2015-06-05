@@ -543,7 +543,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :people, concerns: :entities
+    resources :contacts, concerns: :entities
 
     resources :plants, concerns: :products
 

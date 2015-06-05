@@ -65,18 +65,8 @@
 #  vat_number                :string
 #  vat_subjected             :boolean          default(TRUE), not null
 #
-class Person < Entity
-  enumerize :nature, in: Nomen::EntityNatures.all(:person), default: Nomen::EntityNatures.default(:person), predicates: {prefix: true}
+require 'test_helper'
 
-  has_one :worker
-  has_one :user
-  has_one :team, through: :user
-  scope :users, -> { where(id: User.all.pluck(:person_id)) }
-
-  scope :employees, -> { joins(:direct_links).merge(EntityLink.of_nature(:work)) }
-
-  scope :employees_of, lambda { |boss|
-    joins(:direct_links).merge(EntityLink.of_nature(:work).where(entity_2_id: (boss.respond_to?(:id) ? boss.id : boss)))
-  }
-
+class ContactTest < ActiveSupport::TestCase
+  test_fixtures
 end

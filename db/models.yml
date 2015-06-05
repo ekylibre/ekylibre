@@ -19,6 +19,7 @@
 - cash_transfer
 - catalog
 - catalog_item
+- contact
 - crumb
 - cultivable_zone
 - cultivable_zone_membership
@@ -79,7 +80,6 @@
 - outgoing_delivery_item
 - outgoing_payment
 - outgoing_payment_mode
-- person
 - plant
 - postal_zone
 - preference

@@ -89,6 +89,11 @@ jpn:
       # index: "Catalogs"
       # new: "New catalog"
       # show: "Catalog: %{name}"
+    backend/contacts:
+      # edit: "Edit contact: %{full_name}"
+      # index: "Contacts"
+      # new: "New contact"
+      # show: "Contact: %{full_name}"
     backend/crumbs:
       # index: "Crumbs"
     backend/cultivable_zones:
@@ -349,11 +354,6 @@ jpn:
       # index: "Disbursements"
       # new: "New disbursement"
       # show: "Disbursement %{number} for %{payee}"
-    backend/people:
-      # edit: "Edit person: %{full_name}"
-      # index: "People"
-      # new: "New person"
-      # show: "Person: %{full_name}"
     backend/plants:
       # edit: "Edit plant: %{name}"
       # index: "Plants"

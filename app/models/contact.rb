@@ -65,8 +65,18 @@
 #  vat_number                :string
 #  vat_subjected             :boolean          default(TRUE), not null
 #
-require 'test_helper'
+class Contact < Entity
+  enumerize :nature, in: Nomen::EntityNatures.all(:contact), default: Nomen::EntityNatures.default(:contact), predicates: {prefix: true}
 
-class PersonTest < ActiveSupport::TestCase
-  test_fixtures
+  has_one :worker
+  has_one :user
+  has_one :team, through: :user
+  scope :users, -> { where(id: User.all.pluck(:person_id)) }
+
+  scope :employees, -> { joins(:direct_links).merge(EntityLink.of_nature(:work)) }
+
+  scope :employees_of, lambda { |boss|
+    joins(:direct_links).merge(EntityLink.of_nature(:work).where(entity_2_id: (boss.respond_to?(:id) ? boss.id : boss)))
+  }
+
 end

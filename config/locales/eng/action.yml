@@ -161,6 +161,15 @@ eng:
       # show: "Weather cell: %{name}"
     backend/cells/working_sets_stocks_cells:
       # show: "Working sets stocks cell: %{name}"
+    backend/contacts:
+      # autocomplete_for_origin: "Autocomplete for origin contact: %{name}"
+      edit: "Edit contact: %{full_name}"
+      # export: "Export contacts"
+      # import: "Import contacts"
+      index: "Contacts"
+      # merge: "Merge contact: %{name}"
+      new: "New contact"
+      show: "Contact: %{full_name}"
     backend/crumbs:
       # convert: "Convert crumb: %{name}"
       index: "Crumbs"
@@ -454,15 +463,6 @@ eng:
       index: "Disbursements"
       new: "New disbursement"
       show: "Disbursement %{number} for %{payee}"
-    backend/people:
-      # autocomplete_for_origin: "Autocomplete for origin person: %{name}"
-      edit: "Edit person: %{full_name}"
-      # export: "Export people"
-      # import: "Import people"
-      index: "People"
-      # merge: "Merge person: %{name}"
-      new: "New person"
-      show: "Person: %{full_name}"
     backend/plants:
       edit: "Edit plant: %{name}"
       index: "Plants"

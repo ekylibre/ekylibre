@@ -107,9 +107,11 @@ arb:
       index: "صباح الخير، %{user}" #?
       listing_nodes: "اختر المعلومات المستخرجة" #?
       welcome: "نرحب بايكيليبغ  %{user}" #?
-    backend/contacts:  #?
-      edit: "تعديل عنوان : %{entity}" #?
-      new: "اضافة متصل جديد" #?
+    backend/contacts:
+      edit: "تعديل عنوان : %{entity}"
+      # index: "Contacts"
+      new: "اضافة متصل جديد"
+      # show: "Contact: %{full_name}"
     backend/crumbs:
       # index: "Crumbs"
     backend/cultivable_zones:
@@ -436,11 +438,6 @@ arb:
       index: "دفعات"
       new: "اضافة دفعة"
       show: "رقم الدفعة%{number} من اجل %{payee}"
-    backend/people:
-      # edit: "Edit person: %{full_name}"
-      # index: "People"
-      # new: "New person"
-      # show: "Person: %{full_name}"
     backend/plants:
       # edit: "Edit plant: %{name}"
       # index: "Plants"

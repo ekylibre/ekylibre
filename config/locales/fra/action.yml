@@ -99,6 +99,11 @@ fra:
       index: "Catalogues de prix"
       new: "Nouveau catalogue de prix"
       show: "Catalogue de prix\_: %{name}"
+    backend/contacts:
+      edit: "Modifier le contact\_: %{full_name}"
+      index: "Contacts"
+      new: "Nouveau contact"
+      show: "Contact\_: %{full_name}"
     backend/crumbs:
       index: "Miettes"
     backend/cultivable_zones:
@@ -390,11 +395,6 @@ fra:
       index: "Décaissements"
       new: "Nouveau décaissement"
       show: "Décaissement n°%{number} pour %{payee}"
-    backend/people:
-      edit: "Modifier la personne\_: %{full_name}"
-      index: "Personnes"
-      new: "Nouvelle personne"
-      show: "Personne\_: %{full_name}"
     backend/plants:
       edit: "Modifier la culture\_: %{name}"
       index: "Cultures"

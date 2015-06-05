@@ -19,6 +19,8 @@ por:
 
     catalog_item:
 
+    contact:
+
     cultivable_zone:
 
     document:
@@ -68,8 +70,6 @@ por:
     organization:
 
     outgoing_delivery:
-
-    person:
 
     plant:
 

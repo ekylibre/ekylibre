@@ -53,7 +53,7 @@ class LaGraineInformatique::Vinifera::EntitiesExchanger < ActiveExchanger::Base
         if r.full_name =~ /^#{expr}/i
           nature = name
           r.last_name = r.full_name.gsub(/^#{expr}/i, '').strip
-          r.type = "Person"
+          r.type = "Contact"
           break
         end
       end

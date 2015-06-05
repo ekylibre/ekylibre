@@ -33,8 +33,8 @@ class Ekylibre::WorkersExchanger < ActiveExchanger::Base
         end
 
         # create the owner if not exist
-        unless person = Person.find_by(first_name: r.first_name, last_name: r.last_name)
-          person = Person.create!(first_name: r.first_name, last_name: r.last_name, born_at: r.born_at)
+        unless person = Contact.find_by(first_name: r.first_name, last_name: r.last_name)
+          person = Contact.create!(first_name: r.first_name, last_name: r.last_name, born_at: r.born_at)
         end
 
         # create the user

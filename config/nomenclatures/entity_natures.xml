@@ -8,7 +8,7 @@
 
   <nomenclature name="entity_natures-entity">
     <items>
-      <item name="person"/>
+      <item name="contact"/>
       <item name="organization"/>
     </items>
   </nomenclature>
@@ -28,7 +28,7 @@
     </items>
   </nomenclature>
 
-  <nomenclature name="entity_natures-person">
+  <nomenclature name="entity_natures-contact">
     <items>
       <item name="sir"/>
       <item name="sir_and_madam"/>

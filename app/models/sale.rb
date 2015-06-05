@@ -80,7 +80,7 @@ class Sale < Ekylibre::Record::Base
   belongs_to :journal_entry
   belongs_to :nature, class_name: "SaleNature"
   belongs_to :credited_sale, class_name: "Sale"
-  belongs_to :responsible, class_name: "Person"
+  belongs_to :responsible, class_name: "Contact"
   belongs_to :transporter, class_name: "Entity"
   has_many :credits, class_name: "Sale", foreign_key: :credited_sale_id
   has_many :deliveries, class_name: "OutgoingDelivery", dependent: :destroy, inverse_of: :sale

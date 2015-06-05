@@ -105,6 +105,11 @@ spa:
       index: "Hola, %{user}" #?
       listing_nodes: "Escoge las informaciones para extraer" #?
       welcome: "Bienvenido sobre Ekylibre, %{user}" #?
+    backend/contacts:
+      # edit: "Edit contact: %{full_name}"
+      # index: "Contacts"
+      # new: "New contact"
+      # show: "Contact: %{full_name}"
     backend/crumbs:
       # index: "Crumbs"
     backend/cultivable_zones:
@@ -383,11 +388,6 @@ spa:
       # index: "Disbursements"
       # new: "New disbursement"
       # show: "Disbursement %{number} for %{payee}"
-    backend/people:
-      # edit: "Edit person: %{full_name}"
-      # index: "People"
-      # new: "New person"
-      # show: "Person: %{full_name}"
     backend/plants:
       # edit: "Edit plant: %{name}"
       # index: "Plants"
