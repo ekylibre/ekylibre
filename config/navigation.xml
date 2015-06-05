@@ -1462,6 +1462,13 @@
   </part>
   <inaccessible-actions>
     <group>
+      <item name="animals">
+        <page to="backend/animals#change"/>
+        <page to="backend/animals#load_animals"/>
+        <page to="backend/animals#load_containers"/>
+        <page to="backend/animals#load_natures"/>
+        <page to="backend/animals#load_workers"/>
+      </item>
       <item name="guides">
         <page to="backend/guides#index"/>
         <page to="backend/guides#create"/>
