@@ -1505,6 +1505,7 @@ arb:
         # ekylibre_entities: "Ekylibre Entities"
         # ekylibre_equipments: "Ekylibre equipments"
         # ekylibre_georeadings: "Ekylibre Georeadings"
+        # ekylibre_incoming_payments: "Ekylibre incoming payments"
         # ekylibre_interventions: "Ekylibre interventions"
         # ekylibre_land_parcels: "Ekylibre Land parcels"
         # ekylibre_matters: "Ekylibre matters"

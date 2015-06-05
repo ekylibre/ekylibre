@@ -1755,6 +1755,14 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="animals">
+        <page to="backend/animals#change"/>
+        <page to="backend/animals#load_animals"/>
+        <page to="backend/animals#load_containers"/>
+        <page to="backend/animals#load_natures"/>
+        <page to="backend/animals#load_workers"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>
