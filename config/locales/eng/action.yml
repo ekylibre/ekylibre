@@ -390,15 +390,6 @@ eng:
       new: "New land parcel"
       show: "Land parcel %{name}"
       # take: "Take land parcel: %{name}"
-    backend/legal_entities:
-      # autocomplete_for_origin: "Autocomplete for origin legal entity: %{name}"
-      edit: "Edit legal entity: %{full_name}"
-      # export: "Export legal entities"
-      # import: "Import legal entities"
-      index: "Legal entities"
-      # merge: "Merge legal entity: %{name}"
-      new: "New legal entity"
-      show: "Legal entity: %{full_name}"
     backend/listing_nodes:
       edit: "Edit listing node"
       new: "New listing node"
@@ -437,6 +428,15 @@ eng:
     backend/operations:
       index: "Operations"
       show: "Operation Details %{name}"
+    backend/organizations:
+      # autocomplete_for_origin: "Autocomplete for origin organization: %{name}"
+      edit: "Edit organization: %{full_name}"
+      # export: "Export organizations"
+      # import: "Import organizations"
+      index: "Organizations"
+      # merge: "Merge organization: %{name}"
+      new: "New organization"
+      show: "Organization: %{full_name}"
     backend/outgoing_deliveries:
       edit: "Edit outgoing delivery: %{number}"
       index: "Outgoing deliveries"

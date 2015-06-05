@@ -488,8 +488,6 @@ Rails.application.routes.draw do
 
     resources :land_parcels, concerns: :products
 
-    resources :legal_entities, concerns: :entities
-
     resources :listing_nodes
 
     resources :listings, concerns: [:list, :unroll] do
@@ -525,6 +523,8 @@ Rails.application.routes.draw do
     resources :observations
 
     resources :operations, only: [:index, :show]
+
+    resources :organizations, concerns: :entities
 
     resources :outgoing_deliveries, concerns: [:list, :unroll] do
       member do

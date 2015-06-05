@@ -318,11 +318,6 @@ spa:
       # index: "Land parcels"
       # new: "New land parcel"
       # show: "Land parcel %{name}"
-    backend/legal_entities:
-      # edit: "Edit legal entity: %{full_name}"
-      # index: "Legal entities"
-      # new: "New legal entity"
-      # show: "Legal entity: %{full_name}"
     backend/listing_nodes:
       # edit: "Edit listing node"
       # new: "New listing node"
@@ -364,6 +359,11 @@ spa:
     backend/operations:
       # index: "Operations"
       # show: "Operation Details %{name}"
+    backend/organizations:
+      # edit: "Edit organization: %{full_name}"
+      # index: "Organizations"
+      # new: "New organization"
+      # show: "Organization: %{full_name}"
     backend/outgoing_deliveries:
       edit: "Modificacion de la entrega"
       # index: "Outgoing deliveries"

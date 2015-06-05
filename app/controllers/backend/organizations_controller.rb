@@ -16,5 +16,5 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::LegalEntitiesController < Backend::EntitiesController
+class Backend::OrganizationsController < Backend::EntitiesController
 end

@@ -67,6 +67,6 @@
 #
 require 'test_helper'
 
-class LegalEntityTest < ActiveSupport::TestCase
+class OrganizationTest < ActiveSupport::TestCase
   test_fixtures
 end

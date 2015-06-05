@@ -10,8 +10,8 @@ class Unicoque::OutgoingDeliveriesExchanger < ActiveExchanger::Base
 
     # create entity corresponding to the cooperative
     cooperative = Entity.find_by_last_name("Unicoque")
-    unless cooperative = LegalEntity.where("LOWER(full_name) LIKE ?", "%Unicoque%".mb_chars.downcase).first
-      cooperative = LegalEntity.create!(last_name: "Unicoque",
+    unless cooperative = Organization.where("LOWER(full_name) LIKE ?", "%Unicoque%".mb_chars.downcase).first
+      cooperative = Organization.create!(last_name: "Unicoque",
                                         nature: :cooperative,
                                         supplier: false, client: true,
                                         mails_attributes: {

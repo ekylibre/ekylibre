@@ -13,7 +13,7 @@
       - for participation in event.participations
         %li.participation{class: participation.state}
           - if participant = participation.participant
-            %i{class: (participant.is_a?(LegalEntity) ? :group : :person)}
+            %i{class: (participant.is_a?(Organization) ? :group : :person)}
             = participant.full_name
           - else
             %i.unknown

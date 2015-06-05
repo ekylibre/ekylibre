@@ -82,8 +82,8 @@ module Ekylibre::FirstRun::Faker
 
       self.count :wheat_sales do |w|
 
-        unless cooperative = LegalEntity.where("LOWER(full_name) LIKE ?", "%Kazeni%".mb_chars.downcase).first
-          cooperative = LegalEntity.create!(last_name: "Kazeni",
+        unless cooperative = Organization.where("LOWER(full_name) LIKE ?", "%Kazeni%".mb_chars.downcase).first
+          cooperative = Organization.create!(last_name: "Kazeni",
                                             nature: :cooperative,
                                             vat_number: "FR00123456789",
                                             supplier: true, client: true,
@@ -129,8 +129,8 @@ module Ekylibre::FirstRun::Faker
 
       self.count :calf_sales do |w|
 
-        unless cooperative = LegalEntity.where("LOWER(full_name) LIKE ?", "%Caroli%".mb_chars.downcase).first
-          cooperative = LegalEntity.create!(last_name: "Caroli",
+        unless cooperative = Organization.where("LOWER(full_name) LIKE ?", "%Caroli%".mb_chars.downcase).first
+          cooperative = Organization.create!(last_name: "Caroli",
                                             nature: :cooperative,
                                             vat_number: "FR00123456789",
                                             supplier: true, client: true,
@@ -175,8 +175,8 @@ module Ekylibre::FirstRun::Faker
 
       self.count :milk_sales do |w|
 
-        unless cooperative = LegalEntity.where("LOWER(full_name) LIKE ?", "%TerriLacti%".mb_chars.downcase).first
-          cooperative = LegalEntity.create!(last_name: "TerriLacti",
+        unless cooperative = Organization.where("LOWER(full_name) LIKE ?", "%TerriLacti%".mb_chars.downcase).first
+          cooperative = Organization.create!(last_name: "TerriLacti",
                                             nature: :cooperative,
                                             vat_number: "FR00123456789",
                                             supplier: true, client: true,
@@ -217,8 +217,8 @@ module Ekylibre::FirstRun::Faker
 
       self.count :bottle_wine_sales do |w|
 
-        unless cooperative = LegalEntity.where("LOWER(full_name) LIKE ?", "%Vitis%".mb_chars.downcase).first
-          cooperative = LegalEntity.create!(last_name: "Vitis",
+        unless cooperative = Organization.where("LOWER(full_name) LIKE ?", "%Vitis%".mb_chars.downcase).first
+          cooperative = Organization.create!(last_name: "Vitis",
                                             nature: :cooperative,
                                             vat_number: "FR00123456789",
                                             supplier: true, client: true,
@@ -264,8 +264,8 @@ module Ekylibre::FirstRun::Faker
 
       self.count :bulk_wine_sales do |w|
 
-        unless cooperative = LegalEntity.where("LOWER(full_name) LIKE ?", "%Vitis%".mb_chars.downcase).first
-          cooperative = LegalEntity.create!(last_name: "Vitis",
+        unless cooperative = Organization.where("LOWER(full_name) LIKE ?", "%Vitis%".mb_chars.downcase).first
+          cooperative = Organization.create!(last_name: "Vitis",
                                             nature: :cooperative,
                                             vat_number: "FR00123456789",
                                             supplier: true, client: true,

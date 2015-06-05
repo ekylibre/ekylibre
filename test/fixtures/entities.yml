@@ -319,7 +319,7 @@ entities_008:
   updater_id: 1
   vat_number: ''
   vat_subjected: false
-legal_entities_001:
+organizations_001:
   active: true
   client: false
   client_account_id: 206
@@ -341,11 +341,11 @@ legal_entities_001:
   supplier: false
   supplier_account_id: 205
   transporter: false
-  type: LegalEntity
+  type: Organization
   updated_at: 2014-10-31 18:58:07.364197000 Z
   updater_id: 1
   vat_subjected: true
-legal_entities_002:
+organizations_002:
   active: true
   client: false
   client_account_id: 208
@@ -365,11 +365,11 @@ legal_entities_002:
   reminder_submissive: false
   supplier: false
   transporter: false
-  type: LegalEntity
+  type: Organization
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   vat_subjected: true
-legal_entities_003:
+organizations_003:
   active: true
   activity_code: ''
   client: true
@@ -395,7 +395,7 @@ legal_entities_003:
   supplier: true
   supplier_account_id: 207
   transporter: false
-  type: LegalEntity
+  type: Organization
   updated_at: 2014-11-03 11:29:45.623972000 Z
   updater_id: 1
   vat_number: ''

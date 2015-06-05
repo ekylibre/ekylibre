@@ -9,11 +9,11 @@
   <nomenclature name="entity_natures-entity">
     <items>
       <item name="person"/>
-      <item name="legal_entity"/>
+      <item name="organization"/>
     </items>
   </nomenclature>
 
-  <nomenclature name="entity_natures-legal_entity">
+  <nomenclature name="entity_natures-organization">
     <items>
       <item name="company"/>
       <item name="civil_society"/>

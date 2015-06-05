@@ -1431,24 +1431,24 @@ eng:
     entity_natures:
       name: "Entity natures"
       items:
-        association: "Association"                         #< legal_entity
-        civil_society: "Civil society"                     #< legal_entity
-        collectivity: "Collectivity"                       #< legal_entity
-        company: "Company"                                 #< legal_entity
-        cooperative: "Cooperative"                         #< legal_entity
+        association: "Association"                         #< organization
+        civil_society: "Civil society"                     #< organization
+        collectivity: "Collectivity"                       #< organization
+        company: "Company"                                 #< organization
+        cooperative: "Cooperative"                         #< organization
         doctor: "Doctor"                                   #< person
-        economic_interest_group: "Economic interest group" #< legal_entity
+        economic_interest_group: "Economic interest group" #< organization
         entity: "Entity"
-        foundation: "Foundation"                           #< legal_entity
-        legal_entity: "Legal entity"                       #< entity
+        foundation: "Foundation"                           #< organization
         madam: "Madam"                                     #< person
+        organization: "Organization"                       #< entity
         person: "Person"                                   #< entity
         professor: "Professor"                             #< person
-        public_establishment: "Public establishment"       #< legal_entity
-        public_interest_group: "Public interest group"     #< legal_entity
+        public_establishment: "Public establishment"       #< organization
+        public_interest_group: "Public interest group"     #< organization
         sir: "Sir"                                         #< person
         sir_and_madam: "Sir and madam"                     #< person
-        syndicate: "Syndicate"                             #< legal_entity
+        syndicate: "Syndicate"                             #< organization
     event_natures:
       name: "Event natures"
       property_natures:

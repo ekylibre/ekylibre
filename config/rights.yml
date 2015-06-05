@@ -1167,50 +1167,6 @@ land_parcels:
     - "backend/land_parcels#new"
     - "backend/land_parcels#update"
 
-legal_entities:
-  read:
-    actions:
-    - "backend/legal_entities#index"
-    - "backend/legal_entities#list"
-    - "backend/legal_entities#list_event_participations"
-    - "backend/legal_entities#list_incoming_payments"
-    - "backend/legal_entities#list_issues"
-    - "backend/legal_entities#list_links"
-    - "backend/legal_entities#list_observations"
-    - "backend/legal_entities#list_outgoing_payments"
-    - "backend/legal_entities#list_purchases"
-    - "backend/legal_entities#list_sales"
-    - "backend/legal_entities#list_subscriptions"
-    - "backend/legal_entities#picture"
-    - "backend/legal_entities#show"
-    - "backend/legal_entities#unroll"
-  write:
-    dependencies:
-    - read-legal_entities
-    actions:
-    - "backend/legal_entities#autocomplete_for_origin"
-    - "backend/legal_entities#create"
-    - "backend/legal_entities#destroy"
-    - "backend/legal_entities#edit"
-    - "backend/legal_entities#export"
-    - "backend/legal_entities#import"
-    - "backend/legal_entities#merge"
-    - "backend/legal_entities#new"
-    - "backend/legal_entities#update"
-  link:
-    dependencies:
-    - read-legal_entities
-    actions:
-    - "backend/legal_entities#autocomplete_for_origin"
-    - "backend/legal_entities#create"
-    - "backend/legal_entities#destroy"
-    - "backend/legal_entities#edit"
-    - "backend/legal_entities#export"
-    - "backend/legal_entities#import"
-    - "backend/legal_entities#merge"
-    - "backend/legal_entities#new"
-    - "backend/legal_entities#update"
-
 listings:
   read:
     actions:
@@ -1335,6 +1291,50 @@ observations:
     - "backend/observations#edit"
     - "backend/observations#new"
     - "backend/observations#update"
+
+organizations:
+  read:
+    actions:
+    - "backend/organizations#index"
+    - "backend/organizations#list"
+    - "backend/organizations#list_event_participations"
+    - "backend/organizations#list_incoming_payments"
+    - "backend/organizations#list_issues"
+    - "backend/organizations#list_links"
+    - "backend/organizations#list_observations"
+    - "backend/organizations#list_outgoing_payments"
+    - "backend/organizations#list_purchases"
+    - "backend/organizations#list_sales"
+    - "backend/organizations#list_subscriptions"
+    - "backend/organizations#picture"
+    - "backend/organizations#show"
+    - "backend/organizations#unroll"
+  write:
+    dependencies:
+    - read-organizations
+    actions:
+    - "backend/organizations#autocomplete_for_origin"
+    - "backend/organizations#create"
+    - "backend/organizations#destroy"
+    - "backend/organizations#edit"
+    - "backend/organizations#export"
+    - "backend/organizations#import"
+    - "backend/organizations#merge"
+    - "backend/organizations#new"
+    - "backend/organizations#update"
+  link:
+    dependencies:
+    - read-organizations
+    actions:
+    - "backend/organizations#autocomplete_for_origin"
+    - "backend/organizations#create"
+    - "backend/organizations#destroy"
+    - "backend/organizations#edit"
+    - "backend/organizations#export"
+    - "backend/organizations#import"
+    - "backend/organizations#merge"
+    - "backend/organizations#new"
+    - "backend/organizations#update"
 
 outgoing_deliveries:
   read:

@@ -769,8 +769,6 @@ arb:
 
     land_parcel_group:
 
-    legal_entity:
-
     listing:
       root_model:
         account: "الحساب"
@@ -878,6 +876,8 @@ arb:
     matter:
 
     net_service:
+
+    organization:
 
     outgoing_delivery:
 

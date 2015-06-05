@@ -55,8 +55,6 @@ por:
 
     land_parcel_group:
 
-    legal_entity:
-
     listing:
 
     manure_management_plan:
@@ -66,6 +64,8 @@ por:
     matter:
 
     net_service:
+
+    organization:
 
     outgoing_delivery:
 

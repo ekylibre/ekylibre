@@ -295,7 +295,6 @@ fra:
       land_parcel: "Parcelle"
       land_parcel_cluster: "Îlot"
       land_parcel_group: "Groupe de parcelles"
-      legal_entity: "Personne morale"
       listing: "Extraction"
       listing_node: "Nœud d’extraction"
       listing_node_item: "Élément de nœud d’extraction"
@@ -307,7 +306,7 @@ fra:
       net_service: "Service en ligne"
       observation: "Observation"
       operation: "Opération"
-      opportunity: "Opportunité" #?
+      organization: "Organisation"
       outgoing_delivery: "Livraison"
       outgoing_delivery_item: "Ligne de livraison"
       outgoing_payment: "Décaissement"

@@ -821,7 +821,6 @@ arb:
       land_parcel: "الكتلة"
       # land_parcel_cluster: "Land parcel cluster"
       # land_parcel_group: "Land parcel group"
-      # legal_entity: "Legal entity"
       listing: "الاستخراج"
       listing_node: "عقدة الاستخراج"
       listing_node_item: "عنصر غقدة الاستخراج"
@@ -839,6 +838,7 @@ arb:
       operation_item: "الواردات/الصادرات" #?
       operation_nature: "نوع العمل" #?
       operation_use: "الاداة المستخدمة" #?
+      # organization: "Organization"
       # outgoing_delivery: "Outgoing delivery"
       # outgoing_delivery_item: "Outgoing delivery item"
       outgoing_payment: "الدفعة"

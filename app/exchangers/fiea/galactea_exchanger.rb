@@ -1,8 +1,8 @@
 class FIEA::GalacteaExchanger < ActiveExchanger::Base
 
   def import
-    unless analyser = LegalEntity.where("LOWER(full_name) LIKE ?", "%Atlantic Conseil Elevage%".mb_chars.downcase).first
-      analyser = LegalEntity.create!(last_name: "Atlantic Conseil Elevage",
+    unless analyser = Organization.where("LOWER(full_name) LIKE ?", "%Atlantic Conseil Elevage%".mb_chars.downcase).first
+      analyser = Organization.create!(last_name: "Atlantic Conseil Elevage",
                                      nature: :cooperative,
                                      vat_number: "FR00123456789",
                                      supplier: true, client: false,

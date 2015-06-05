@@ -327,11 +327,6 @@ fra:
       merge: "Fusionner des parcelles" #?
       new: "Nouvelle parcelle"
       show: "Parcelle %{name}"
-    backend/legal_entities:
-      edit: "Modifier la personne morale\_: %{full_name}"
-      index: "Personnes morales"
-      new: "Nouvelle personne morale"
-      show: "Personne morale\_: %{full_name}"
     backend/listing_nodes:
       edit: "Modifier le nœud"
       new: "Nouveau nœud"
@@ -375,6 +370,11 @@ fra:
       new: "Nouveau travail" #?
       show: "Détails du travail"
       unvalidateds: "Travaux non validés" #?
+    backend/organizations:
+      edit: "Modifier l’organisation\_: %{full_name}"
+      index: "Organisations"
+      new: "Nouvelle organisation"
+      show: "Organisation\_: %{full_name}"
     backend/outgoing_deliveries:
       edit: "Modifier la livraison sortante\_: %{number}"
       index: "Livraisons sortantes"
@@ -395,14 +395,6 @@ fra:
       index: "Personnes"
       new: "Nouvelle personne"
       show: "Personne\_: %{full_name}"
-    backend/plant_fertilizers:  #?
-      index: "Engrais" #?
-    backend/plant_medicines:  #?
-      index: "Produits phytosanitaires" #?
-    backend/plant_products:  #?
-      index: "Produits végétaux" #?
-    backend/plant_seedlings:  #?
-      index: "Plants et semences" #?
     backend/plants:
       edit: "Modifier la culture\_: %{name}"
       index: "Cultures"

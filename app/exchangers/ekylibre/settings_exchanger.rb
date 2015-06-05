@@ -51,7 +51,7 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
     #   end
     # end
     attributes = {language: language, currency: currency, nature: "company", last_name: "Ekylibre"}.merge(@manifest[:company].select{|k,v| ![:addresses].include?(k) }).merge(of_company: true)
-    company = LegalEntity.create!(attributes)
+    company = Organization.create!(attributes)
     # f.close if f
     if @manifest[:company][:addresses].is_a?(Hash)
       for address, value in @manifest[:company][:addresses]

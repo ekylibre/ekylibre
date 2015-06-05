@@ -352,11 +352,6 @@ arb:
       index: "انظمة"
       new: "اضافة نظام جديد"
       show: "نظام %{name}"
-    backend/legal_entities:
-      # edit: "Edit legal entity: %{full_name}"
-      # index: "Legal entities"
-      # new: "New legal entity"
-      # show: "Legal entity: %{full_name}"
     backend/listing_nodes:
       # edit: "Edit listing node"
       # new: "New listing node"
@@ -415,6 +410,11 @@ arb:
       new: "انشاء عمل جديد" #?
       show: "تفاصيل العمل %{name}"
       unvalidateds: "تحقيق الاعمال" #?
+    backend/organizations:
+      # edit: "Edit organization: %{full_name}"
+      # index: "Organizations"
+      # new: "New organization"
+      # show: "Organization: %{full_name}"
     backend/outgoing_deliveries:
       edit: "تعديل التسليم"
       # index: "Outgoing deliveries"

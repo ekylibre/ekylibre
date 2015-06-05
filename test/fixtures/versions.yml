@@ -103,7 +103,7 @@ versions_003:
     picture_updated_at:
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
-  item_type: LegalEntity
+  item_type: Organization
 versions_004:
   created_at: 2014-10-31 18:59:01.573980000 Z
   creator_id: 1
@@ -151,7 +151,7 @@ versions_004:
     picture_updated_at:
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
-  item_type: LegalEntity
+  item_type: Organization
 versions_005:
   created_at: 2014-10-31 19:04:00.181101000 Z
   creator_id: 1
@@ -1635,7 +1635,7 @@ versions_030:
     picture_updated_at:
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
-  item_type: LegalEntity
+  item_type: Organization
 versions_031:
   created_at: 2014-11-01 20:16:17.387286000 Z
   creator_id: 1
@@ -2433,7 +2433,7 @@ versions_047:
     picture_updated_at:
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
-  item_type: LegalEntity
+  item_type: Organization
 versions_048:
   created_at: 2014-11-03 11:30:58.898635000 Z
   creator_id: 1
