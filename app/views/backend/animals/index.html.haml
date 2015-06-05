@@ -56,22 +56,23 @@
                     %i.icon.icon-ellipsis-v.animal-group-dragger.text-muted
                   .col-md-9.no-padding.xs-h-padding
                     %span.animal-group-title
-                      %i.icon.icon-square
+                      %i.icon.icon-cow
                       %span{"data-bind" => "text: name"}
                   .col-md-2.pull-right.no-padding.xs-h-padding
                     .pull-right.btn-group.btn-group-xs{"aria-label" => "...", :role => "group"}
                       %button.btn.btn-default.btn-hover.animal-all-selector{"data-bind" => "checkbox: toggleItems", :type => "button"}
                         %i.icon.icon-check-square-o
               .panel-body.no-padding
-                %ul.list-group.animal-list-group{"data-bind" => "sortable: {template: 'animal-container-template', data: $root.filteredContainers($data), options: {handle: '.animal-container-dragger', cursor: 'move', tolerance: 'pointer', placeholder: 'sorting-container-placeholder', dropOnEmpty: false, forcePlaceholderSize: true, opacity: 0.8}}"}
+                %ul.list-group.animal-list-group{"data-bind" => "sortable: {template: 'animal-container-template', data: $root.containers, options: {handle: '.animal-container-dragger', cursor: 'move', tolerance: 'pointer', placeholder: 'sorting-container-placeholder', dropOnEmpty: false, forcePlaceholderSize: true, opacity: 0.8}}"}
                 .add-container
-                  %button.btn.btn-link{"data-target" => "#new-container", "data-toggle" => "modal", :type => "button"}
+                  %button.btn.btn-link{:type => "button", data: { bind: "click: $root.toggleNewContainerModal" }}
                     %i.icon.icon-plus.text-muted
               .panel-footer
                 %button.btn.btn-link{data: {target: "#new-animal", toggle: "modal"}, type: "button"}
                   %i.icon.icon-plus-circle
                   Nouvel animal
         %script#animal-container-template{type: "text/html"}
+          /ko if: $parent.id == group_id()
           %li.list-group-item.animal-container
             .row.toggle.list-group-item-title.no-right-left-margin
               .col-md-1.no-padding.xs-h-padding
@@ -86,21 +87,27 @@
                     %i.icon.icon-caret-down
             %div{"data-bind" => "css: {'hide':hidden}"}
               %div{"data-bind" => "sortable: {template: 'animal-element-template', data: $root.animals, dragged: $root.animalSortableHelper, options: {handle: '.animal-element-dragger', cursor: 'move', placeholder: 'sorting-animal-placeholder', dropOnEmpty: false, forcePlaceholderSize: true, opacity: 1, revert: true}}"}
+          / /ko
         %script#animal-element-template{:type => "text/html"}
-          /ko if: $parent.id == container_id()
+          /ko if: $parent.id == container_id() && $parent.group_id() == group_id()
           .animal-element.row.no-right-left-margin
             .animal-element-img.no-padding{"data-bind" => "css: animalStatusClass"}
-              -# %img{"data-bind" => "attr: {src: img}"}
+              /ko if: img.length > 0
+              %img{data: {bind: "attr: {src: img}" }}
+              / /ko
+              /ko if: img.length == 0
+              %i.icon.icon-cow
+              / /ko
+
             .animal-element-infos
-              %i.icon.icon-venus.text-muted{"data-bind" => "if: sex == 0"}
-              %i.icon.icon-mars.text-muted{"data-bind" => "if: sex == 1"}
+              %i.icon.text-muted{data: {bind: "css: animalSexClass"}}
               / <button type="button" class="btn btn-link no-padding xs-h-padding animal-element-name" data-toggle="modal" data-target="#view-animal" data-bind="text: name"></button>
               %button.btn.btn-link.no-padding.xs-h-padding.animal-element-name{"data-bind" => "click: $root.toggleAnimalDetailsModal", :type => "button"}
                 %span{"data-bind" => "text: name"}
             .animal-element-actions.no-padding
               .pull-right.animal-selector
                 %button.btn.btn-default.btn-xs.btn-hover.checker{"data-bind" => "checkbox: checked", :type => "button"}
-                  %span.icon.icon-check.check-icon
+                  %i.icon.icon-check.check-icon
             .animal-element-dragger
               %i.icon.icon-ellipsis-v.animal-element-handler.text-muted
           / /ko
@@ -144,20 +151,51 @@
             %h4#newGroupTitle.modal-title Nouveau Troupeau
           .modal-body
             Ajouter un nouveau troupeau
-    #new-container.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newContainer", :role => "dialog", :tabindex => "-1"}
+    #move-animal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "moveAnimal", data: {bind: "modal: showMoveAnimalModal(), with: moveAnimalModalOptions"}, :role => "dialog", :tabindex => "-1"}
       .modal-dialog
         .modal-content
           .modal-header
             %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
               %span{"aria-hidden" => "true"} &times;
-            %h4#newContainerTitle.modal-title Nouvel emplacement
+            %h4#moveAnimalTitle.modal-title Déplacer l'animal
           .modal-body
-            = label_tag :new_container, "Nom de l'emplacement:"
-            = text_field_tag :new_container, '', data: {bind: 'value: newContainer'}
+            %p Animaux:
+            %div{ data: {bind: 'foreach: $data'}}
+              %span{ data: {bind: 'text: name'} }
+            %label Date Début
+            %input{:type => "date", data: { bind: "value: $root.moveAnimalStartDate"}}
+            %label Date Fin
+            %input{:type => "date", data: { bind: "value: $root.moveAnimalEndDate"}}
+            %label Soigneur
+            %select{data: { bind: "options: $root.workers_list,
+              optionsText: 'name',
+              value: $root.moveAnimalNewWorker,
+              optionsCaption: 'Choisir...'" } }
+            %label Nature
+            %select{data: { bind: "options: $root.natures_list,
+              optionsText: 'name',
+              value: $root.moveAnimalNewNature,
+              optionsCaption: 'Choisir...'" } }
           .modal-footer
-            %button{:type => "button", data: {bind: "click: addContainer"}}
+            %button.btn.btn-default{:type => "button", data: {bind: "click: $root.moveAnimals"}}
+              %i.icon.icon-plus-circle Déplacer
+            %button.close.btn.btn-default{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button", data: {bind: "click: $root.resetAnimalsMoving"}} Annuler le déplacement
+    #new-container.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newContainer",  data: {bind: "modal: showNewContainerModal(), with: containerModalOptions"}, :role => "dialog", :tabindex => "-1"}
+      .modal-dialog
+        .modal-content
+          .modal-header
+            %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+              %span{"aria-hidden" => "true"} &times;
+            %h4#newContainerTitle.modal-title Ajouter un emplacement
+          .modal-body
+            %select{data: { bind: "options: $root.containers_list,
+              optionsText: 'name',
+              value: $root.newContainer,
+              optionsCaption: 'Choisir...'" } }
+          .modal-footer
+            %button.btn.btn-default{:type => "button", data: {bind: "click: $root.addContainer"}}
               %i.icon.icon-plus-circle Ajouter
-            %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"} Fermer
+            %button.close.btn.btn-default{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"} Fermer
 
 
     .modal.fade{"aria-hidden" => "true", "aria-labelledby" => "viewAnimal", "data-bind" => "modal: showAnimalDetailsModal(), with: animalDetailsModalOptions", :role => "dialog", :tabindex => "-1"}
@@ -177,8 +215,7 @@
                   %span{"data-bind" => "text: name"}
                 %p
                   Sexe:
-                  %i.icon.icon-venus{"data-bind" => "if: sex == 0"}
-                  %i.icon.icon-mars{"data-bind" => "if: sex == 1"}
+                  %i.icon{data: {bind: "css: animalSexClass"}}
                 %p
                   Status:
                   %span{"data-bind" => "css: animalFlagClass"}

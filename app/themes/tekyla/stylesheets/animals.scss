@@ -269,11 +269,14 @@
   height: 30px;
   width: 35px;
   display: inline-block;
-  border-radius: 50%;
+  //border-radius: 50%;
   margin-left: -6px;
   img {
     height: 30px;
     width: 30px;
+  }
+  .icon-cow {
+    font-size: 30px;
   }
 }
 
@@ -536,4 +539,8 @@
     transform: translateY(-21px);
   }
 
+}
+
+i.icon {
+  font-family: Agric;
 }

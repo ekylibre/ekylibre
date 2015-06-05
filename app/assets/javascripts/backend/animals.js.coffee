@@ -64,14 +64,34 @@ $ ->
 
 
       @showAnimalDetailsModal = ko.observable false
+      @showNewContainerModal = ko.observable false
+      @showMoveAnimalModal = ko.observable false
 
       @animalDetailsModalOptions = ko.observable false
+      @containerModalOptions = ko.observable false
 
       @newContainer = ko.observable ''
+      @moveAnimalNewWorker = ko.observable ''
+      @moveAnimalNewNature = ko.observable ''
+      @moveAnimalStartDate = ko.observable ''
+      @moveAnimalEndDate = ko.observable ''
+      @moveAnimalModalOptions = {
+        animals: ko.observableArray [],
+        startDate: ko.observable
+      }
 
       @addContainer = =>
-        console.log @newContainer()
+        @containers.push new dashboardViewModel.Container(@newContainer().id, @newContainer().name, @containerModalOptions())
+        @newContainer = ko.observable false
+        @containerModalOptions = ko.observable false
+        @containers_list.removeAll
+        @showNewContainerModal false
 
+
+
+      @containers_list = ko.observableArray []
+      @workers_list = ko.observableArray []
+      @natures_list = ko.observableArray []
 
 
       @groups = ko.observableArray []
@@ -118,19 +138,87 @@ $ ->
       #@groups.push new dashboardViewModel.Group(0, 'A trier')
 
       #FIXME: Improve empty container
-#      @containers.push new dashboardViewModel.Container(0, '', 0)
 
-      @filteredContainers = (group) =>
 
-        array = ko.utils.arrayFilter window.app.containers(), (c) =>
-          c.group_id == group.id
-        array
+
+      #      @filteredContainers = (group) =>
+      #
+      #        array = ko.utils.arrayFilter @containers(), (c) =>
+      #          c.group_id == group.id
+      #        array
+
+      #tmp fake data
+      #TODO remove it
+      @containers.push new dashboardViewModel.Container(5678, 'Fake container', 305) #305 = vaches laitières
 
 
       @toggleAnimalDetailsModal = (animal) =>
         @animalDetailsModalOptions animal
         @showAnimalDetailsModal true
         return
+
+      @toggleNewContainerModal = (group) =>
+        @containerModalOptions group.id
+        @showNewContainerModal true
+        $.ajax '/backend/animals/load_containers',
+          type: 'GET',
+          dataType: 'JSON',
+          success: (json_data) ->
+            console.log json_data
+            ko.utils.arrayForEach json_data, (j) =>
+              window.app.containers_list.push j
+            return true
+
+      @toggleMoveAnimalModal = (animals) =>
+        @moveAnimalModalOptions.animals animals
+        @showMoveAnimalModal true
+        $.ajax '/backend/animals/load_workers',
+          type: 'GET',
+          dataType: 'JSON',
+          success: (json_data) ->
+            console.log json_data
+            ko.utils.arrayForEach json_data, (j) =>
+              window.app.workers_list.push j
+            return true
+
+        $.ajax '/backend/animals/load_natures',
+          type: 'GET',
+          dataType: 'JSON',
+          success: (json_data) ->
+            console.log json_data
+            ko.utils.arrayForEach json_data, (j) =>
+              window.app.natures_list.push j
+            return true
+
+      @moveAnimals = () =>
+        console.log 'move animals', @moveAnimalModalOptions()
+        console.log @moveAnimalStartDate()
+        console.log @moveAnimalEndDate()
+        console.log @moveAnimalNewWorker()
+        console.log @moveAnimalNewNature()
+
+#        animal = { 'animal_id': @id, 'container_id': @container_id(), 'group_id': @group_id() }
+#        console.log animal
+#
+#        $.ajax '/backend/animals/update_animal_attributes',
+#          type: 'PUT',
+#          dataType: 'JSON',
+#          data: animal,
+#          success: (res) ->
+#      @resetAnimalsMoving()
+#            return true
+#
+#          error: (res) ->
+#            console.log res
+#            return false
+
+      @resetAnimalsMoving = () =>
+        console.log 'reset moving'
+        @moveAnimalNewWorker ''
+        @moveAnimalNewNature ''
+        @moveAnimalStartDate ''
+        @moveAnimalEndDate ''
+        @moveAnimalModalOptions().length = 0
 
 
       @animalSortableHelper = (item, event, ui) ->
@@ -178,11 +266,11 @@ $ ->
     @Container: (id, name, group_id) ->
       @id = id
       @name = name
-      @group_id = group_id
+      @group_id = ko.observable group_id
 
       @animalCount = ko.pureComputed () =>
         array = ko.utils.arrayFilter window.app.animals(), (a) =>
-          a.container_id() == @id
+          a.container_id() == @id && a.group_id() == @group_id()
 
         array.length
 
@@ -192,13 +280,20 @@ $ ->
         return
       return
 
-    @Animal: (id, name, img, status, sex, number_id, container_id) ->
+    @Animal: (id, name, img, status, sex, number_id, container_id, group_id) ->
       @id = id
       @name = name
       @img = ko.pureComputed () =>
         img
       @status = status
       @sex = sex
+      @animalSexClass = ko.pureComputed () =>
+        #TODO get sex key from backend instead of human name
+        if @sex == 'Mâle'
+          className = "icon-mars"
+        if @sex == 'Femelle'
+          className = "icon-venus"
+        className
       #@number_id = number_id
       @animalStatusClass = ko.pureComputed () =>
         if @status == 'go'
@@ -219,12 +314,30 @@ $ ->
         className
 
       @container_id = ko.observable container_id
+      @group_id = ko.observable group_id
       @checked = ko.observable false
+      @updateAttributes = (container_id, group_id) =>
+
+#        window.app.toggleMoveAnimalModal true
+
+#        animal = { 'animal_id': @id, 'container_id': @container_id(), 'group_id': @group_id() }
+#        console.log animal
+#
+#        $.ajax '/backend/animals/update_animal_attributes',
+#          type: 'PUT',
+#          dataType: 'JSON',
+#          data: animal,
+#          success: (res) ->
+#            return true
+#
+#          error: (res) ->
+#            console.log res
+#            return false
       return
 
   @loadData = () =>
     console.log 'load data'
-    $.ajax '/backend/remote_load_animals',
+    $.ajax '/backend/animals/load_animals',
       type: 'GET',
       dataType: 'JSON',
       beforeSend: () ->
@@ -246,7 +359,7 @@ $ ->
                 window.app.containers.push new dashboardViewModel.Container(container.place.id, container.place.name, j.group.id)
               if container.animals
                 ko.utils.arrayForEach $.parseJSON(container.animals), (animal) =>
-                  window.app.animals.push new dashboardViewModel.Animal(animal.id, animal.name, '', '', '', animal.identification_number, container.place.id)
+                  window.app.animals.push new dashboardViewModel.Animal(animal.id, animal.name, '', animal.status, animal.sex_text, animal.identification_number, container.place.id, j.group.id)
         return true
 
       error: (data) ->

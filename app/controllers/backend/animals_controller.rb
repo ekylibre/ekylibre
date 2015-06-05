@@ -74,7 +74,7 @@ class Backend::AnimalsController < Backend::MattersController
     t.column :father, url: true, hidden: true
   end
 
-  def remote_load_animals
+  def load_animals
 
     @grouped_animals = []
 
@@ -90,13 +90,82 @@ class Backend::AnimalsController < Backend::MattersController
 
   end
 
-  def remote_load_containers
+  def load_containers
 
-    byebug
-
-
+    @containers = Product.select(:id,:name).of_expression('can store(bos_taurus)')
 
     render :json => @containers
+  end
+
+  def load_workers
+
+    @workers = Worker.select(:id,:name).all
+
+    render :json => @workers
+  end
+
+  def load_natures
+
+    @natures = ProductNatureVariant.of_variety(:animal).select(:id,:name).all
+
+    render :json => @natures
+  end
+
+  def change
+
+    # params[:animals_id]
+    # params[:container_id]
+    # params[:group_id]
+
+    #check animal exist
+    for animal in animals = params[:animals_id].split(',')
+      return unless find_and_check(id: animal)
+    end
+
+    procedure_natures = []
+
+    if params[:brice].present?
+
+      if params[:container_id].present?
+        procedure_natures << :animal_movement
+      end
+
+      if params[:group_id].present?
+        procedure_natures << :animal_group_inclusion
+      end
+
+      if params[:variant_id].present?
+        procedure_natures << :animal_evolution
+      end
+
+      Intervention.write(:animal_changing, nature: procedure_natures, started_at: params[:started_at], stopped_at: params[:stopped_at], production_support: ProductionSupport.find_by(id:params[:production_support_id])) do |i|
+        i.cast :caregiver, role: 'animal_movement-doer'
+        animals.each do |a|
+          i.cast :animal, a, role: ['animal_movement-target','animal_group_inclusion-target','animal_evolution-target']
+
+          if procedure_natures.include?(:animal_movement)
+            i.cast :localizable, params[:container_id], role: ['animal_movement-localizable']
+
+            i.movement :animal, :localizable, :caregiver
+          end
+
+
+          if procedure_natures.include?(:animal_group_inclusion)
+            i.cast :group, params[:group_id], role: ['animal_group_inclusion-includer']
+
+            i.group_inclusion :animal, :group
+          end
+          if procedure_natures.include?(:animal_evolution)
+            i.cast :nature, params[:variant_id], role: ['animal_evolution-target']
+
+            i.evolution :animal, :nature
+          end
+        end
+      end
+    end
+
+
+    render :json => {resultat: 'ok'}
   end
 
   # Show a list of animal groups

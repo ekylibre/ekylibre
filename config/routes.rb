@@ -98,10 +98,7 @@ Rails.application.routes.draw do
   # Backend
   namespace :backend do
 
-    # add routes for frontend animals column view
-    # TODO refactorize and export to API
-    get "remote_load_animals" => 'animals#remote_load_animals'
-    get "remote_load_containers" => 'animals#remote_load_containers'
+
 
 
     resource :myself, path: "me", only: [:show]
@@ -206,6 +203,14 @@ Rails.application.routes.draw do
     end
 
     resources :animals, concerns: :products do
+      collection do
+        # add routes for frontend animals column view
+        match "load_containers", via: [:get]
+        match "load_animals", via: [:get]
+        match "load_workers", via: [:get]
+        match "load_natures", via: [:get]
+        get :change
+      end
       member do
         match :add_to_group, via: [:get, :post]
         get :list_children

@@ -289,22 +289,28 @@
 
                             el = ui.item.data('items');
                             console.log('el:',el);
+                            animals = []
                             ko.utils.arrayForEach(el, function(item) {
                                 console.log('foreach:',item);
                                 observableItem = dataGet(item, ITEMKEY);
 
                                 console.log(observableItem);
-                                observableItem.container_id(containerItem.id);
+                                animals.push(observableItem);
+                                //observableItem.container_id(containerItem.id);
+                                //observableItem.group_id(containerItem.group_id());
+                                //observableItem.updateAttributes(containerItem.id, containerItem.group_id());
                                 dataSet(item, ITEMKEY, null);
-                                $(item).remove();
+                                //$(item).remove();
                                 console.log('afterRemove',$(item));
 
-                                observableItem.checked(false)
+                                observableItem.checked(false);
 
                                 dataSet($(item), ITEMKEY, observableItem);
 
 
                             });
+
+                            window.app.toggleMoveAnimalModal(animals);
 
 
                         }
