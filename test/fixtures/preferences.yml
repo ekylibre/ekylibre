@@ -3018,3 +3018,47 @@ preferences_257:
   updated_at: 2015-06-02 20:44:13.885938000 Z
   updater_id: 1
   user_id: 1
+preferences_258:
+  boolean_value: false
+  created_at: 2015-06-06 22:21:19.969564000 Z
+  creator_id: 1
+  id: 259
+  lock_version: 0
+  name: interface.snippets.tasks.collapsed
+  nature: boolean
+  updated_at: 2015-06-06 22:21:19.969564000 Z
+  updater_id: 1
+  user_id: 1
+preferences_259:
+  created_at: 2015-06-06 22:21:22.239136000 Z
+  creator_id: 1
+  id: 260
+  lock_version: 0
+  name: list._tasks_list_tasks_tag
+  nature: string
+  string_value: {}
+  updated_at: 2015-06-06 22:21:22.239136000 Z
+  updater_id: 1
+  user_id: 1
+preferences_260:
+  created_at: 2015-06-06 22:21:30.427861000 Z
+  creator_id: 1
+  id: 261
+  lock_version: 0
+  name: list._entities_list_tasks_tag
+  nature: string
+  string_value: {}
+  updated_at: 2015-06-06 22:21:30.427861000 Z
+  updater_id: 1
+  user_id: 1
+preferences_261:
+  created_at: 2015-06-06 22:21:33.379806000 Z
+  creator_id: 1
+  id: 262
+  lock_version: 1
+  name: interface.janus.backend-entities-show-9.current_face
+  nature: string
+  string_value: cobbles
+  updated_at: 2015-06-06 22:21:33.385587000 Z
+  updater_id: 1
+  user_id: 1

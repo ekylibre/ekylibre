@@ -120,28 +120,14 @@ module Clean
       # with "Schema as of ..."), remove it first.
 
       def annotate_one_file(file_name, info_block)
-        unless File.exist?(file_name)
-          File.open(file_name, "w") { |f| f.puts "" }
-        end
         if File.exist?(file_name)
           content = File.read(file_name)
 
-          # Remove old schema info
-
-          # old_prefix = "== Schema Information"
-          # content.gsub!(/^#\n\n#/, '#')
-
-          # content.sub!(/^# #{old_prefix}.*?\n(#.*\n)*\n/, '')
-          # content.sub!(/# #{PREFIX}.*?\n(#.*\n)*\n+/, '')
-          # content.sub!(/# #{PREFIX}.*?\n(#.*\n)*\n+/, '')
           content = "# #{PREFIX}\n"+content unless content.match(PREFIX)
 
-          # Write it back
-          # File.open(file_name, "w") { |f| f.puts info_block.gsub(/\n\n/, "\n#\n") +"\n"+ content }
-
-          File.open(file_name, "w") { |f|
+          File.open(file_name, "w") do |f|
             f.puts content.sub(/# #{PREFIX}.*\n(#.*\n)*/, info_block).gsub!(/\ +\n/, "\n")
-          }
+          end
         end
       end
 

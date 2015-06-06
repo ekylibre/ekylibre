@@ -12122,6 +12122,7 @@ eng:
         sub_zone: "Sub-zone"
         subscription: "Subscription"
         subscription_nature: "Subscription type"
+        task: "Task"
         tax: "Tax"
         team: "Team"
         tracking: "Tracking"

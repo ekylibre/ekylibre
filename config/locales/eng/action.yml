@@ -605,6 +605,11 @@ eng:
       index: "Synchronizations"
       run: "Run synchronization: %{name}"
       show: "Synchronization: %{name}" #?
+    backend/tasks:
+      edit: "Edit task: %{name}"
+      index: "Tasks"
+      new: "New task"
+      show: "Task: %{name}"
     backend/taxes:
       edit: "Edit tax: %{name}"
       index: "Taxes"
@@ -887,7 +892,7 @@ eng:
     created_by_ago: "Created by %{author} %{ago} ago"
     credit: "Credit" #?
     credited_quantity: "Quantity to credit" #?
-    credits: "Credits"
+    credits: "Credits" #?
     cropping_plan: "Cropping plan"
     cropping_plan_on_cultivable_zones: "Cropping plan on cultivable zones"
     crumbs: "Crumbs"
@@ -1175,7 +1180,7 @@ eng:
     payments_count: "Payments count"
     people: "People"
     period: "Period"
-    periods: "Periods"
+    periods: "Periods" #?
     permute: "Permute" #?
     personalized_mail: "Send a personalized mail"
     pertinence: "%{value}%"
@@ -1322,6 +1327,7 @@ eng:
     supports_chart: "Supports chart"
     synthesis: "Synthesis"
     target: "Target" #?
+    # tasks: "Tasks"
     taxations: "Taxations"
     taxes: "Taxes" #?
     thumb: "Thumb" #?
@@ -1423,7 +1429,6 @@ eng:
     x_events:
       one: "1 event"
       other: "%{count} events"
-      zero: "0 events"
     x_events_of_nature_y:
       one: "One event %{nature} for a total duration of %{duration} minutes"
       other: "%{count} events %{nature} for a total duration of %{duration} minutes"
@@ -1440,7 +1445,6 @@ eng:
     x_issues:
       one: "1 issue"
       other: "%{count} issues"
-      zero: "0 issue"
     x_items_remain:
       one: "%{count} item remains"
       other: "%{count} items remain"
@@ -1461,7 +1465,6 @@ eng:
     x_operations:
       one: "1 operation"
       other: "%{count} operations"
-      zero: "0 operations"
     x_outgoing_payments:
       one: "%{count} disbursement"
       other: "%{count} disbursements"
@@ -1472,11 +1475,9 @@ eng:
     x_prices:
       one: "1 price"
       other: "%{count} prices"
-      zero: "0 prices"
     x_purchases:
       one: "1 purchase"
       other: "%{count} purchases"
-      zero: "0 purchases"
     x_readings:
       one: "%{count} indicator"
       other: "%{count} indicators"
@@ -1488,18 +1489,18 @@ eng:
     x_sales:
       one: "1 sale"
       other: "%{count} sales"
-      zero: "0 sales"
     x_sales_invoices:
       one: "1 sales invoice"
       other: "%{count} sales invoices"
-      zero: "0 sales invoices"
     x_stock_transfers_to_confirm:
       one: "%{count} stock transfer to confirm"
       other: "%{count} stock transfers to confirm"
     x_subscriptions:
       one: "1 subscription"
       other: "%{count} subscriptions"
-      zero: "0 subscriptions"
+    x_tasks:
+      one: "%{count} task"
+      other: "%{count} tasks"
     x_thing: "%{x} %{thing}"
     x_unit: "%{quantity}%{unit}"
     x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
@@ -1514,7 +1515,6 @@ eng:
     x_years:
       one: "1 year"
       other: "%{count} years"
-      zero: "0 years"
     zones: "Zones"
   notifications:
     levels:
@@ -1709,6 +1709,7 @@ eng:
     backend/animals: "%{name} #%{work_number}"
     backend/campaigns: "%{name}"
     backend/catalog_items: "%{name}"
+    backend/entities: "%{full_name} ‒ %{number}"
     backend/entity_links: "%{started_at}"
     backend/events: "%{name}"
     backend/incoming_payments: "%{number}. %{mode_name} from %{payer_full_name} of %{amount} %{currency}"

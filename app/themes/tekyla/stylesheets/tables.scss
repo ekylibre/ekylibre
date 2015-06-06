@@ -214,7 +214,7 @@ table {
             border-top-color: $invalid-color;
           }
         }
-        &.squeezed, &.aborted, &.refused {
+        &.squeezed, &.aborted, &.refused, &.done {
           td.col {
             text-decoration: line-through;
           }

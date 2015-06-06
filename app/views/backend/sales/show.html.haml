@@ -9,71 +9,62 @@
   - t.duplicate resource, method: :post
   - if resource.invoice?
     - t.cancel(resource) if resource.cancellable?
+  - t.edit resource if resource.draft?
+  - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if resource.destroyable?
 
 = main_state_bar(resource)
 
--# = main_list :items do
-  %tr.total
-    %th{colspan: 4}= :total.tl
-    %td= resource.pretax_amount.l(currency: resource.currency)
-    %td= resource.amount.l(currency: resource.currency)
+= cobbles do |c|
 
-= beehive do |b|
+  - c.cobble :general_informations do
+    = attributes_list do |l|
+      - l.attribute :client, :label => :label, url: true
+      - l.attribute :number
+      - l.attribute :initial_number if resource.invoice?
+      - l.attribute :state_label
+      - l.attribute :responsible, :label => :full_name
+      - l.attribute :confirmed_at if resource.confirmed_at?
+      - l.attribute :invoiced_at if resource.invoiced_at?
+      - l.attribute :credited_sale, url: true if resource.invoice? and resource.credited_sale
+      - l.attribute :payment_delay, :label => :name
+      - l.attribute :nature
+      - l.attribute :currency unless resource.currency == Entity.of_company.currency
+      - l.attribute :description if resource.description?
+      - l.attribute :address, :label => :coordinate
+      -# l.attribute :delivery_address, :label => :coordinate
+      - l.attribute :invoice_address, :label => :coordinate
+      - l.attribute(:journal_entry, url: true) if resource.journal_entry
+      - l.attribute(:affair, label: :number, url: true) if resource.affair
+      - l.attribute :letter_format
+      - if resource.letter_format?
+        - l.attribute :subject
+        - l.attribute :function_title
+        - l.attribute :introduction
+        - l.attribute :conclusion
+      - l.custom_fields
 
-  - b.hbox do
-    - b.cell :items, title: Sale.human_attribute_name(:items) do
-      = list :items do
-        %tr.total
-          %th{colspan: 4}= :total.tl
-          %td= resource.pretax_amount.l(currency: resource.currency)
-          %td= resource.amount.l(currency: resource.currency)
+  - c.cobble :items, title: Sale.human_attribute_name(:items) do
+    = list :items do
+      %tr.total
+        %th{colspan: 4}= :total.tl
+        %td= resource.pretax_amount.l(currency: resource.currency)
+        %td= resource.amount.l(currency: resource.currency)
 
-    - b.cell do
-      = attributes_list do |l|
-        - l.attribute :client, :label => :label, url: true
-        - l.attribute :number
-        - l.attribute :initial_number if resource.invoice?
-        - l.attribute :state_label
-        - l.attribute :responsible, :label => :full_name
-        - l.attribute :created_at
-        - l.attribute :confirmed_at if resource.confirmed_at?
-        - l.attribute :invoiced_at if resource.invoiced_at?
-        - l.attribute :credited_sale, url: true if resource.invoice? and resource.credited_sale
-        - l.attribute :payment_delay, :label => :name
-        - l.attribute :nature
-        - l.attribute :currency unless resource.currency == Entity.of_company.currency
-        - l.attribute :description if resource.description?
-        - l.attribute :address, :label => :coordinate
-        - l.attribute :delivery_address, :label => :coordinate
-        - l.attribute :invoice_address, :label => :coordinate
-        - l.attribute(:journal_entry, url: true) if resource.journal_entry
-        - l.attribute(:affair, label: :number, url: true) if resource.affair
-        - l.attribute :letter_format
-        - if resource.letter_format?
-          - l.attribute :subject
-          - l.attribute :function_title
-          - l.attribute :introduction, :field => :textarea
-          - l.attribute :conclusion, :field => :textarea
-        - if resource.custom_fields.any?
-          - l.custom_fields
+  - if resource.subscriptions.any?
+    - c.cobble :subscriptions, title: :x_subscriptions.tl(count: resource.subscriptions.count) do
+      - if resource.draft?
+        = toolbar do |t|
+          - for item in resource.items.includes(:product, :reduction_origin)
+            - if item.product.nature.subscribing? and not item.reduction_origin
+              - t.link :add_subscription_for_sale_item, {action: :new, controller: :subscriptions, :sale_item_id => item.id, :nature_id => item.product.subscription_nature_id}, :i18n => {:position => item.position}
+      = list :subscriptions
 
-    - if resource.subscriptions.any?
-      - b.cell :subscriptions, title: :x_subscriptions.tl(count: resource.subscriptions.count) do
-        - if resource.draft?
-          = toolbar do |t|
-            - for item in resource.items.includes(:product, :reduction_origin)
-              - if item.product.nature.subscribing? and not item.reduction_origin
-                - t.link :add_subscription_for_sale_item, {action: :new, controller: :subscriptions, :sale_item_id => item.id, :nature_id => item.product.subscription_nature_id}, :i18n => {:position => item.position}
-        = list :subscriptions
-
-  - b.cell(:affair, title: Sale.human_attribute_name(:affair)) do
+  - c.cobble(:affair, title: Sale.human_attribute_name(:affair)) do
     = affair_of(resource)
 
-  - if resource.deliverable?
-    - b.hbox do
-      - if resource.deliveries.any?
-        - b.cell :deliveries, title: Sale.human_attribute_name(:deliveries) do
-          = list :deliveries
+  - if resource.deliveries.any?
+    - c.cobble :deliveries, title: Sale.human_attribute_name(:deliveries) do
+      = list :deliveries
 
-  - b.cell :credits do
+  - c.cobble :credits do
     = list :credits

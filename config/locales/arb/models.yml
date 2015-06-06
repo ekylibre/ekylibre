@@ -914,6 +914,7 @@ arb:
       # sub_zone: "Sub-zone"
       subscription: "الاشتراك"
       subscription_nature: "نوع الاشتراك"
+      # task: "Task"
       tax: "الضريبة"
       tax_declaration: "تصريح الضرائب" #?
       team: "الخجمة"
@@ -1244,6 +1245,7 @@ arb:
     downpayment_rate: "معدل القسط" #?
     draft: "المسودة" #?
     draft_mode: "نمط المسودة" #?
+    # due_at: "Due at"
     # due_on: "Due on"
     duration: "المدة"
     ean13: "Ean13" #?
@@ -1292,6 +1294,7 @@ arb:
     # evolvable: "Evolvable"
     excise: "عدد رسوم الدفع" #?
     # execution_number: "Execution number"
+    # executor: "Executor"
     # expected_population: "Expected population"
     # expected_shape: "Expected shape"
     # expected_stop_amount: "Expected stop amount"
@@ -1343,6 +1346,7 @@ arb:
     # fixed_asset_depreciation_percentage: "Fixed asset depreciation percentage"
     # fixed_asset_depreciations: "Fixed asset depreciations"
     # fixed_asset_expenses_account: "Fixed asset depreciations inputations expenses account"
+    # fixed_assets: "Fixed assets"
     for_immobilizations: "منتجات ساكنة" #?
     for_productions: "المنتجات المصنعة او المقطوعة" #?
     for_purchases: "منتجات الشراء" #?
@@ -1838,12 +1842,14 @@ arb:
     root_model_name: "جذر"
     # root_node: "Root node"
     sale: "طلب البيع"
+    # sale_credit: "Sale credit"
     sale_id: "طلب بيع" #?
     # sale_item: "Sale item"
     sale_item_id: "طرق طلب البيع" #?
     sale_items: "طرق طلب البيع"
     # sale_nature: "Sale nature"
     sale_natures: "انواع البيع" #?
+    # sale_opportunity: "Sale opportunity"
     # sale_taxations: "Sale taxations"
     # sale_taxes: "Sale taxes"
     # saleable: "Saleable"
@@ -1953,6 +1959,7 @@ arb:
     target: "الهدف"
     target_id: "الهدف" #?
     target_type: "نوع الهدف"
+    # tasks: "Tasks"
     tax: "الضريبة"
     tax_declarations: "الاعلان عن الضرائب" #?
     tax_id: "الضريبة" #?

@@ -366,6 +366,7 @@ fra:
       sub_zone: "Sous-zone"
       subscription: "Abonnement"
       subscription_nature: "Type d’abonnement"
+      task: "Tâche"
       tax: "Taxe"
       team: "Service"
       tracking: "Lot traçable"
@@ -639,6 +640,7 @@ fra:
     downpayment_percentage: "Pourcentage d’acompte"
     draft: "Brouillard" #?
     draft_mode: "Mode brouillard" #?
+    due_at: "Due le"
     due_on: "Due le"
     duration: "Durée"
     email: "Courriel (e-mail)"
@@ -675,6 +677,7 @@ fra:
     evolvable: "Évolutif"
     exclusive: "Exclusif" #?
     execution_number: "N° d’exécution"
+    executor: "Exécutant"
     expected_population: "Population attendue"
     expected_shape: "Forme attendue"
     expected_stop_amount: "Montant final attendu"
@@ -716,6 +719,7 @@ fra:
     fixed_asset_depreciations_account: "Compte des dépréciations d’immobilisation" #?
     fixed_asset_depreciations_inputations_expenses_account: "Compte d’imputation des charges des dépréciations d’immobilisation" #?
     fixed_asset_expenses_account: "Compte d’imputation des charges des dépréciations d’immobilisation"
+    fixed_assets: "Immobilisations"
     fixed_assets_categories: "Catégories de produits avec immobilisation" #?
     formats: "Formats"
     fourth_producer: "Quatrième producteur"
@@ -1118,9 +1122,11 @@ fra:
     root_model_name: "Racine"
     root_node: "Nœud racine"
     sale: "Vente"
+    sale_credit: "Avoir"
     sale_item: "Ligne de vente"
     sale_items: "Lignes de vente"
     sale_nature: "Type de vente"
+    sale_opportunity: "Opportunité"
     sale_taxations: "Taxations de vente"
     sale_taxes: "Taxes de vente"
     saleable: "Vendable"
@@ -1190,7 +1196,7 @@ fra:
     suspended: "Suspendu"
     target: "Cible"
     target_type: "Type de cible"
-    tasks: "Tâches" #?
+    tasks: "Tâches"
     tax: "Taxe"
     taxations: "Taxations"
     team: "Équipe"

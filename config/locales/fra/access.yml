@@ -94,10 +94,10 @@ fra:
       settlements: "Installations"
       subscription_natures: "Type d’abonnements"
       subscriptions: "Abonnements"
+      tasks: "Tâches"
       taxes: "Taxes"
       teams: "Équipes"
       trackings: "Lots traçés"
-      transfers: "Transferts" #?
       transformed_products: "Produits transformés" #?
       transports: "Transports"
       users: "Utilisateurs"

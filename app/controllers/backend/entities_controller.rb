@@ -136,6 +136,16 @@ class Backend::EntitiesController < Backend::BaseController
   end
 
 
+  list(:tasks, conditions: {entity_id:  'params[:id]'.c}, order: :state, line_class: "RECORD.state".c) do |t|
+    t.action :edit
+    t.action :destroy
+    t.column :name, url: true
+    t.column :state
+    t.column :due_at
+    t.column :sale_opportunity, url: true
+    t.column :executor, url: true
+  end
+
   def export
     if request.xhr?
       render :partial => 'export_condition'

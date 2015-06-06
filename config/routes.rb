@@ -22,28 +22,6 @@ Rails.application.routes.draw do
     end
   end
 
-  concern :entities do
-    concerns :list, :unroll
-    collection do
-      get :autocomplete_for_origin
-      match "import", via: [:get, :post]
-      match "export", via: [:get, :post]
-      match "merge",  via: [:get, :post]
-    end
-    member do
-      match "picture(/:style)", via: :get, action: :picture, as: :picture
-      get :list_event_participations
-      get :list_incoming_payments
-      get :list_issues
-      get :list_links
-      get :list_purchases
-      get :list_observations
-      get :list_outgoing_payments
-      get :list_sales
-      get :list_subscriptions
-    end
-  end
-
   concern :products do
     concerns :list, :unroll
     member do
@@ -321,7 +299,27 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :entities, concerns: :entities
+    resources :entities, concerns: [:list, :unroll] do
+      collection do
+        get :autocomplete_for_origin
+        match "import", via: [:get, :post]
+        match "export", via: [:get, :post]
+        match "merge",  via: [:get, :post]
+      end
+      member do
+        match "picture(/:style)", via: :get, action: :picture, as: :picture
+        get :list_event_participations
+        get :list_incoming_payments
+        get :list_issues
+        get :list_links
+        get :list_purchases
+        get :list_observations
+        get :list_outgoing_payments
+        get :list_sales
+        get :list_subscriptions
+        get :list_tasks
+      end
+    end
 
     resources :entity_addresses, concerns: [:unroll]
 
@@ -628,6 +626,7 @@ Rails.application.routes.draw do
 
     resources :sale_opportunities, concerns: [:list, :affairs], path: "sale-opportunities" do
       member do
+        get :list_tasks
         match "evolve/:state" => :evolve, via: :patch
         post :evaluate
         post :lose
@@ -691,8 +690,9 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :taxes, concerns: [:list, :unroll] do
-    end
+    resources :tasks, concerns: [:list, :unroll]
+
+    resources :taxes, concerns: [:list, :unroll]
 
     resources :teams, concerns: [:list, :unroll]
 

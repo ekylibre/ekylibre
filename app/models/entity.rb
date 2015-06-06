@@ -109,6 +109,7 @@ class Entity < Ekylibre::Record::Base
   has_many :managed_sales, -> { order(created_at: :desc) }, foreign_key: :responsible_id, class_name: "Sale"
   has_many :sale_items, class_name: "SaleItem"
   has_many :subscriptions, foreign_key: :subscriber_id
+  has_many :tasks
   has_many :trackings, foreign_key: :producer_id
   has_many :transports, foreign_key: :transporter_id
   has_many :transporter_sales, -> { order(created_at: :desc) }, foreign_key: :transporter_id, class_name: "Sale"
@@ -144,6 +145,7 @@ class Entity < Ekylibre::Record::Base
     where("id IN (SELECT entity_2_id FROM #{EntityLink.table_name} WHERE entity_1_id = ?) OR id IN (SELECT entity_1_id FROM #{EntityLink.table_name} WHERE entity_2_id = ?)", entity.id, entity.id)
   }
   scope :users, -> { where(id: User.all.pluck(:person_id)) }
+  scope :responsibles,  -> { contacts }
   scope :contacts,      -> { where(nature: "contact") }
   scope :organizations, -> { where(nature: "organization") }
 

@@ -5268,6 +5268,45 @@ subscriptions:
   updater_id:
     type: integer
     references: user
+tasks:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  description:
+    type: text
+  due_at:
+    type: datetime
+  entity_id:
+    type: integer
+    references: entity
+    required: true
+  executor_id:
+    type: integer
+    references: entity
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  sale_opportunity_id:
+    type: integer
+    references: sale_opportunity
+  state:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 taxes:
   amount:
     type: decimal

@@ -6,7 +6,7 @@ module CobblesHelper
       @cobbler = cobbler
       @name = name
       @id = options[:id] || name.to_s.parameterize.dasherize
-      @title = options[:title] || @name.to_s.humanize
+      @title = options[:title] || @name.tl
       @block = block
     end
 

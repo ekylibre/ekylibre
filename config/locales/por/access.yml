@@ -87,6 +87,7 @@ por:
       settlements: "Liquidação"
       subscription_natures: "Natureza da subscrição"
       subscriptions: "Subscrições"
+      # tasks: "Tasks"
       taxes: "Impostos"
       teams: "Times"
       trackings: "Rastreamentos"

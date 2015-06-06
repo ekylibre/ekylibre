@@ -2,9 +2,9 @@
   - t.export :entity, resource
   - t.edit resource
   - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if resource.destroyable?
-.panel
-  .panel-body= render "coordinates"
 
+= main_informations do
+  = render "coordinates"
 
 = janus do |j|
   - j.face :timeline do
@@ -84,6 +84,11 @@
         -# = toolbar do |t|
           - t.new(params: {controller: :events, entity_id: resource.id})
         = list(:event_participations)
+
+      - c.cobble(:tasks, title: :x_tasks.tl(count: resource.tasks.count)) do
+        = toolbar do |t|
+          - t.new(params: {controller: :tasks, entity_id: resource.id, executor_id: current_user.id, state: :todo})
+        = list(:tasks)
 
       - c.cobble(:sales, title: :x_sales.tl(count: resource.sales.count)) do
         = toolbar do |t|

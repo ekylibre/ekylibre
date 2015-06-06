@@ -84,6 +84,7 @@ spa:
       # settlements: "Settlements"
       # subscription_natures: "Subscription natures"
       # subscriptions: "Subscriptions"
+      # tasks: "Tasks"
       # taxes: "Taxes"
       # teams: "Teams"
       # trackings: "Trackings"

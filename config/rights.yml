@@ -607,6 +607,7 @@ entities:
     - "backend/entities#list_purchases"
     - "backend/entities#list_sales"
     - "backend/entities#list_subscriptions"
+    - "backend/entities#list_tasks"
     - "backend/entities#picture"
     - "backend/entities#show"
     - "backend/entities#unroll"
@@ -1640,6 +1641,7 @@ sales:
     - "backend/sale_credits#show"
     - "backend/sale_opportunities#index"
     - "backend/sale_opportunities#list"
+    - "backend/sale_opportunities#list_tasks"
     - "backend/sale_opportunities#show"
     - "backend/sales#index"
     - "backend/sales#list"
@@ -1786,6 +1788,22 @@ subscriptions:
     - "backend/subscriptions#edit"
     - "backend/subscriptions#new"
     - "backend/subscriptions#update"
+
+tasks:
+  read:
+    actions:
+    - "backend/tasks#index"
+    - "backend/tasks#list"
+    - "backend/tasks#show"
+  write:
+    dependencies:
+    - read-tasks
+    actions:
+    - "backend/tasks#create"
+    - "backend/tasks#destroy"
+    - "backend/tasks#edit"
+    - "backend/tasks#new"
+    - "backend/tasks#update"
 
 taxes:
   read:

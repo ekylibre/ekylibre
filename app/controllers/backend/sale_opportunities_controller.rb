@@ -48,6 +48,16 @@ class Backend::SaleOpportunitiesController < Backend::AffairsController
     t.column :pretax_amount, currency: true
   end
 
+  list(:tasks, conditions: {sale_opportunity_id: 'params[:id]'.c}, order: :state, line_class: "RECORD.state".c) do |t|
+    t.action :edit
+    t.action :destroy
+    t.column :name, url: true
+    t.column :state
+    t.column :due_at
+    t.column :executor, url: true
+    t.column :entity, url: true
+  end
+
   SaleOpportunity.state_machine.events.each do |event|
     define_method event.name do
       fire_event(event.name)

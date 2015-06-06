@@ -12,6 +12,7 @@
         <page to="backend/entities#export"/>
         <page to="backend/entities#import"/>
         <page to="backend/entities#list"/>
+        <page to="backend/entities#list_event_participations"/>
         <page to="backend/entities#list_incoming_payments"/>
         <page to="backend/entities#list_issues"/>
         <page to="backend/entities#list_links"/>
@@ -20,7 +21,8 @@
         <page to="backend/entities#list_purchases"/>
         <page to="backend/entities#list_sales"/>
         <page to="backend/entities#list_subscriptions"/>
-        <page to="backend/entities#list_event_participations"/>
+        <page to="backend/entities#list_tasks"/>
+        <page to="backend/entities#picture"/>
         <page to="backend/entities#unroll"/>
         <page to="backend/entities#merge"/>
         <page to="backend/entities#new"/>
@@ -41,12 +43,23 @@
         <page to="backend/observations#edit"/>
         <page to="backend/observations#new"/>
         <page to="backend/observations#update"/>
-        <page to="backend/entities#picture"/>
         <page to="backend/entity_addresses#show"/>
         <page to="backend/entity_addresses#unroll"/>
         <page to="backend/entity_links#show"/>
         <page to="backend/entity_addresses#index"/>
         <page to="backend/entity_links#index"/>
+      </item>
+    </group>
+    <group name="tasks">
+      <item name="tasks">
+        <page to="backend/tasks#index"/>
+        <page to="backend/tasks#create"/>
+        <page to="backend/tasks#destroy"/>
+        <page to="backend/tasks#edit"/>
+        <page to="backend/tasks#list"/>
+        <page to="backend/tasks#new"/>
+        <page to="backend/tasks#show"/>
+        <page to="backend/tasks#update"/>
       </item>
     </group>
     <group name="events" icon="calendar">
@@ -248,6 +261,7 @@
         <page to="backend/sale_opportunities#edit"/>
         <page to="backend/sale_opportunities#evolve"/>
         <page to="backend/sale_opportunities#list"/>
+        <page to="backend/sale_opportunities#list_tasks"/>
         <page to="backend/sale_opportunities#new"/>
         <page to="backend/sale_opportunities#show"/>
         <page to="backend/sale_opportunities#update"/>

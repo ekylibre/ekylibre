@@ -182,11 +182,11 @@ namespace :clean do
       else
         errors[:fixtures] += 1
         log.write(" - Error: Fixture file #{file} is missing\n")
-        # Create missing file
-        File.open(file, "wb") do |f|
-          f.write("# Auto-generated\n")
-        end
-        log.write("   > Fixture file has been created: #{file}\n")
+        # # Create missing file
+        # File.open(file, "wb") do |f|
+        #   f.write("# Auto-generated\n")
+        # end
+        # log.write("   > Fixture file has been created: #{file}\n")
       end
       files.delete(file.to_s)
     end

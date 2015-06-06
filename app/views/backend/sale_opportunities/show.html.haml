@@ -6,54 +6,51 @@
 
 = main_state_bar(resource)
 
-= beehive do |b|
-  - if resource.dead_line_at
-    - b.hbox do
-      - b.cell :periods do
-        .med-info
-          %span.title= SaleOpportunity.human_attribute_name(:timeleft)
-          %span.value
-            %i.picto.picto-warning
-            = human_age(resource.timeleft, display: 2)
-          %span.title= SaleOpportunity.human_attribute_name(:age)
-          %span.value
-            %i.picto.picto-clock-o
-            = human_age(resource.age, display: 2)
+= main_informations do
+  .pull-right
+    - if resource.dead_line_at
+      .med-info
+        %span.title= SaleOpportunity.human_attribute_name(:timeleft)
+        %span.value= human_age(resource.timeleft, display: 2)
+      .med-info
+        %span.title= SaleOpportunity.human_attribute_name(:age)
+        %span.value= human_age(resource.age, display: 2)
 
-      - b.cell :affair do
-        .med-info
-          %span.title= SaleOpportunity.human_attribute_name(:probability_percentage)
-          %span.value= resource.probability_percentage
-          - if resource.pretax_amount
-            %span.title= SaleOpportunity.human_attribute_name(:pretax_amount)
-            %span.value
-              %i.picto.picto-money
-              = resource.pretax_amount.l(currency: resource.currency)
+  .pull-right
+    .med-info
+      %span.title= SaleOpportunity.human_attribute_name(:probability_percentage)
+      %span.value= resource.probability_percentage
+    - if resource.pretax_amount
+      .med-info
+        %span.title= SaleOpportunity.human_attribute_name(:pretax_amount)
+        %span.value= resource.pretax_amount.l(currency: resource.currency)
+  = attributes_list stamps: false do |l|
+    - l.attribute :client, label: :label, url: true
+    - l.attribute :number
+    - l.attribute :responsible, label: :full_name, url: true
+    - l.attribute :created_at
+    - l.attribute :dead_line_at if resource.dead_line_at?
+    - l.attribute :pretax_amount, currency: true
+    - l.attribute :description if resource.description?
+    - l.attribute :origin
+    - l.custom_fields
 
-      - b.cell do
-        = attributes_list stamps: false do |l|
-          - l.attribute :client, label: :label, url: true
-          - l.attribute :number
-          - l.attribute :responsible, label: :full_name, url: true
-          - l.attribute :created_at
-          - l.attribute :dead_line_at if resource.dead_line_at?
-          - l.attribute :pretax_amount, currency: true
-          - l.attribute :description if resource.description?
-          - l.attribute :origin
-          - if resource.custom_fields.any?
-            - l.custom_fields
-
-
-  - b.cell :deals do
+= cobbles do |c|
+  - c.cobble :deals do
     = render "show", affair: resource, current_deal: nil
-  - b.hbox do
-    - b.cell :timeline do
-      = timeline(resource) do |l|
-        - l.side :observations
-        - l.side :events, at: :started_at
-        - l.side :sales
-        - l.side :purchases
-        - l.side :incoming_payments
-        - l.side :outgoing_payments
-        - l.side :gaps
-        - l.side :versions, new: false
+  - c.cobble :tasks, title: :x_tasks.tl(count: resource.tasks.count) do
+    = toolbar do |t|
+      - t.new(params: {controller: :tasks, entity_id: resource.third_id, executor_id: current_user.id, state: :todo})
+    = list(:tasks)
+
+
+= timeline(resource) do |l|
+  - l.side :observations
+  - l.side :events, at: :started_at
+  - l.side :sales
+  - l.side :purchases
+  - l.side :incoming_payments
+  - l.side :outgoing_payments
+  - l.side :gaps
+  - l.side :tasks
+  - l.side :versions, new: false

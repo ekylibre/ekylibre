@@ -347,7 +347,9 @@ module ApplicationHelper
                        elsif item[0] == :attribute
                          attribute_item(record, *item[1])
                        end
-        code << content_tag(:dl, content_tag(:dt, label) + content_tag(:dd, value))
+        if !value.blank? or (item[2].is_a?(Hash) and item[2][:show] == :always)
+          code << content_tag(:dl, content_tag(:dt, label) + content_tag(:dd, value))
+        end
       end
       code = content_tag(:div, code.html_safe, class: "attributes-list")
     end
@@ -520,6 +522,13 @@ module ApplicationHelper
 
   def viewport_tag
     tag(:meta, name: "viewport", content: "width=device-width, initial-scale=1.0, maximum-scale=1.0")
+  end
+
+
+  def main_informations(&block)
+    content_tag(:div, class: "panel") do
+      content_tag(:div, class: "panel-body", &block)
+    end
   end
 
   def main_title(value = nil)
