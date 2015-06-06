@@ -175,7 +175,6 @@
 
                         if(!elements.length)
                         {
-                            console.log('item cloné !!!',item.clone());
                             elements.push(item.clone());
                         }
 
@@ -202,8 +201,6 @@
                         else{
                              var container = $("<div/>");
 
-                            //img
-                            //console.log(elements);
                             container.append(elements[0]);
                             container.addClass('animate-dragging-img');
                             helper.append(container);
@@ -218,18 +215,12 @@
                         var el = ui.item[0];
                         dataSet(el, INDEXKEY, ko.utils.arrayIndexOf(ui.item.parent().children(), el));
 
-                        console.log('start');
                         el = $('.checker.active').closest('.animal-element').not('.ui-sortable-placeholder');
 
-                        console.log(el);
-                        console.log('st1:',dataGet(el[0],ITEMKEY));
-                        console.log('st2:',dataGet(el[1],ITEMKEY));
                         ui.item.data('items', el);
 
                         //$('.animal-element.selected').not(item).addClass('hidden');
                         //$(el).addClass('hidden');
-
-                        //console.log(ui.item.data('items'));
 
                         //make sure that fields have a chance to update model
                         ui.item.find("input:focus").change();
@@ -239,40 +230,6 @@
                     },
                     receive: function(event, ui) {
 
-                        console.log('receive');
-                        //dragItem = dataGet(ui.item[0], DRAGKEY);
-                        //dragItem = ui.item;
-                        //console.log('receive');
-                        //dragItem = ui.item.data('items');
-                        //console.log('receive:', ui.item);
-                        //console.log('data receive:', ui.item);
-
-
-                        /*if (dragItem) {*/
-                            //copy the model item, if a clone option is provided
-                            /*if (dragItem.clone) {
-                                console.log('clone');
-                                dragItem = dragItem.clone();
-                            }*/
-
-                            //configure a handler to potentially manipulate item before drop
-                           /*     console.log('dragItem');
-                            if (sortable.dragged) {
-                                console.log('dragged');
-                                dragItem = sortable.dragged.call(this, dragItem, event, ui) || dragItem;
-                            }
-                            console.log("after:", dragItem);
-                        }*/
-                    },
-                     stop: function (e, ui) {
-                         console.log('stop');
-                         //console.log(ui.item);
-                         //ui.item.removeClass('hidden');
-                         //ui.item.siblings().removeClass('hidden');
-                        //ui.item.before($("<div class='alert alert-success'>Déplacement effectué</div>"));
-                        //$('.selected').removeClass('selected');
-                    },
-                    update: function(event, ui) {
                         var sourceParent, targetParent, sourceIndex, targetIndex, arg,
                             el = ui.item[0],
                             parentEl = ui.item.parent()[0],
@@ -282,142 +239,34 @@
                         if(containerEl != undefined)
                         {
 
-                            console.log(ui.item);
-                            console.log('container:',containerEl);
                             containerItem = dataGet(containerEl,CONTAINERKEY);
-                            //item = dataGet( dragItem, ITEMKEY);
 
                             el = ui.item.data('items');
-                            console.log('el:',el);
                             animals = []
                             ko.utils.arrayForEach(el, function(item) {
-                                console.log('foreach:',item);
-                                observableItem = dataGet(item, ITEMKEY);
 
-                                console.log(observableItem);
-                                animals.push(observableItem);
-                                //observableItem.container_id(containerItem.id);
-                                //observableItem.group_id(containerItem.group_id());
-                                //observableItem.updateAttributes(containerItem.id, containerItem.group_id());
-                                dataSet(item, ITEMKEY, null);
-                                //$(item).remove();
-                                console.log('afterRemove',$(item));
+                                if((observableItem = dataGet(item, ITEMKEY)) != null)
+                                {
 
-                                observableItem.checked(false);
+                                    console.log(observableItem);
+                                    animals.push(observableItem);
+                                    dataSet(item, ITEMKEY, null);
+                                    $(item).remove();
 
-                                dataSet($(item), ITEMKEY, observableItem);
+                                    dataSet($(item), ITEMKEY, observableItem);
+                                }
+
 
 
                             });
 
-                            window.app.toggleMoveAnimalModal(animals);
-
+                            window.app.toggleMoveAnimalModal(animals,containerItem);
 
                         }
-
-                        var hay = $('.animal-element');
-                        console.log(hay.length);
-
-
-                        ko.utils.arrayForEach(hay, function(i) {
-                            console.log('stUP:',dataGet(i,ITEMKEY));
-                            //console.log('stUP2:',dataGet(el[1],ITEMKEY));
-                        });
-
-                           /* console.log('dragItem:', dragItem);
-                            console.log(item);
-                            console.log("parentEl:", parentEl);
-                            console.log("parentobservable:", containerItem);*/
-                            /*for(i = 0; i<dragItem.length; i++)
-                            {
-                                console.log(dataGet(dragItem[i], ITEMKEY));
-
-                            }*/
-                     /*   console.log('item',ui.item);
-                        console.log('item_data:',ui.item.data('items'));
-                        dragItem = null;
-                        */
-                        //item.container_id(containerItem.id);
-                        //console.log(item.);
-
-                        //make sure that moves only run once, as update fires on multiple containers
-                        /*if (item && (this === parentEl) || (!hasNestedSortableFix && $.contains(this, parentEl))) {
-                            //identify parents
-                            sourceParent = dataGet(el, PARENTKEY);
-                            sourceIndex = dataGet(el, INDEXKEY);
-                            targetParent = dataGet(el.parentNode, LISTKEY);
-                            targetIndex = ko.utils.arrayIndexOf(ui.item.parent().children(), el);
-
-                            console.log('sourceParent: ', sourceParent());
-                            console.log('sourceIndex: ', sourceIndex);
-                            console.log('targetParent: ', targetParent());
-                            console.log('targetIndex: ', targetIndex);
-
-                            //take destroyed items into consideration
-                            if (!templateOptions.includeDestroyed) {
-                                sourceIndex = updateIndexFromDestroyedItems(sourceIndex, sourceParent);
-                                targetIndex = updateIndexFromDestroyedItems(targetIndex, targetParent);
-                            }
-
-                            //build up args for the callbacks
-                            if (sortable.beforeMove || sortable.afterMove) {
-                                arg = {
-                                    item: item,
-                                    sourceParent: sourceParent,
-                                    sourceParentNode: sourceParent && ui.sender || el.parentNode,
-                                    sourceIndex: sourceIndex,
-                                    targetParent: targetParent,
-                                    targetIndex: targetIndex,
-                                    cancelDrop: false
-                                };
-
-                                //execute the configured callback prior to actually moving items
-                                if (sortable.beforeMove) {
-                                    sortable.beforeMove.call(this, arg, event, ui);
-                                }
-                            }
-
-                            //call cancel on the correct list, so KO can take care of DOM manipulation
-                            if (sourceParent) {
-                                $(sourceParent === targetParent ? this : ui.sender || this).sortable("cancel");
-                            }
-                            //for a draggable item just remove the element
-                            else {
-                                $(el).remove();
-                            }
-
-                            //if beforeMove told us to cancel, then we are done
-                            if (arg && arg.cancelDrop) {
-                                return;
-                            }
-
-                            //do the actual move
-                            if (targetIndex >= 0) {
-                                if (sourceParent) {
-                                    sourceParent.splice(sourceIndex, 1);
-
-                                    //if using deferred updates plugin, force updates
-                                    if (ko.processAllDeferredBindingUpdates) {
-                                        ko.processAllDeferredBindingUpdates();
-                                    }
-                                }
-
-                                targetParent.splice(targetIndex, 0, item);
-                            }
-
-                            //rendering is handled by manipulating the observableArray; ignore dropped element
-                            dataSet(el, ITEMKEY, null);
-
-                            //if using deferred updates plugin, force updates
-                            if (ko.processAllDeferredBindingUpdates) {
-                                ko.processAllDeferredBindingUpdates();
-                            }
-
-                            //allow binding to accept a function to execute after moving the item
-                            if (sortable.afterMove) {
-                                sortable.afterMove.call(this, arg, event, ui);
-                            }
-                        }*/
+                    },
+                     stop: function (e, ui) {
+                    },
+                    update: function(event, ui) {
 
                         if (updateActual) {
                             updateActual.apply(this, arguments);
@@ -455,7 +304,7 @@
         update: function(element, valueAccessor, allBindingsAccessor, data, context) {
             var templateOptions = prepareTemplateOptions(valueAccessor, "foreach");
 
-            console.log('update ko');
+            //console.log('update ko');
             //attach meta-data
             dataSet(element, LISTKEY, templateOptions.foreach);
 

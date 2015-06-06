@@ -160,26 +160,30 @@
             %h4#moveAnimalTitle.modal-title Déplacer l'animal
           .modal-body
             %p Animaux:
-            %div{ data: {bind: 'foreach: $data'}}
-              %span{ data: {bind: 'text: name'} }
+            %div{ data: {bind: 'foreach: $data.animals()'}}
+              %div{ data: {bind: 'text: name'} }
+            %p Groupe:
+            %div{ data: {bind: 'text: $data.group().name'}}
+            %p Container:
+            %div{ data: {bind: 'text: $data.container().name'}}
             %label Date Début
-            %input{:type => "date", data: { bind: "value: $root.moveAnimalStartDate"}}
+            %input{:type => "date", data: { bind: "value: $root.moveAnimalModalOptions.started_at"}}
             %label Date Fin
-            %input{:type => "date", data: { bind: "value: $root.moveAnimalEndDate"}}
+            %input{:type => "date", data: { bind: "value: $root.moveAnimalModalOptions.stopped_at"}}
             %label Soigneur
             %select{data: { bind: "options: $root.workers_list,
               optionsText: 'name',
-              value: $root.moveAnimalNewWorker,
+              value: $root.moveAnimalModalOptions.worker,
               optionsCaption: 'Choisir...'" } }
             %label Nature
             %select{data: { bind: "options: $root.natures_list,
               optionsText: 'name',
-              value: $root.moveAnimalNewNature,
+              value: $root.moveAnimalModalOptions.variant,
               optionsCaption: 'Choisir...'" } }
           .modal-footer
             %button.btn.btn-default{:type => "button", data: {bind: "click: $root.moveAnimals"}}
               %i.icon.icon-plus-circle Déplacer
-            %button.close.btn.btn-default{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button", data: {bind: "click: $root.resetAnimalsMoving"}} Annuler le déplacement
+            %button.close.btn.btn-default{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button", data: {bind: "click: $root.cancelAnimalsMoving"}} Annuler le déplacement
     #new-container.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newContainer",  data: {bind: "modal: showNewContainerModal(), with: containerModalOptions"}, :role => "dialog", :tabindex => "-1"}
       .modal-dialog
         .modal-content

@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/JetBrains/intellij-coffee-script-debugger.git
+  revision: 277ae723a565a1a92445ac79d2293a01b7454264
+  specs:
+    intellij-coffee-script-debugger (0.0.1)
+      coffee-script
+      execjs
+      sprockets
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -480,6 +489,7 @@ DEPENDENCIES
   haml
   http_accept_language
   i18n-complements (>= 0.0.14)
+  intellij-coffee-script-debugger!
   jbuilder (~> 2.0)
   jc-validates_timeliness (~> 3.1.1)
   jquery-rails

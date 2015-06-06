@@ -71,13 +71,16 @@ $ ->
       @containerModalOptions = ko.observable false
 
       @newContainer = ko.observable ''
-      @moveAnimalNewWorker = ko.observable ''
-      @moveAnimalNewNature = ko.observable ''
-      @moveAnimalStartDate = ko.observable ''
-      @moveAnimalEndDate = ko.observable ''
+
       @moveAnimalModalOptions = {
-        animals: ko.observableArray [],
-        startDate: ko.observable
+        animals: ko.observableArray []
+        started_at: ko.observable ''
+        stopped_at: ko.observable ''
+        worker: ko.observable false
+        variant: ko.observable false
+        production_support: ko.observable false
+        group: ko.observable false
+        container: ko.observable false
       }
 
       @addContainer = =>
@@ -169,14 +172,20 @@ $ ->
               window.app.containers_list.push j
             return true
 
-      @toggleMoveAnimalModal = (animals) =>
+      @toggleMoveAnimalModal = (animals, container) =>
         @moveAnimalModalOptions.animals animals
+        @moveAnimalModalOptions.container container
+        group = ko.utils.arrayFirst @groups(), (g) =>
+#          console.log 'group',container.group_id()
+          g.id == container.group_id()
+        @moveAnimalModalOptions.group group
+
         @showMoveAnimalModal true
         $.ajax '/backend/animals/load_workers',
           type: 'GET',
           dataType: 'JSON',
           success: (json_data) ->
-            console.log json_data
+#            console.log json_data
             ko.utils.arrayForEach json_data, (j) =>
               window.app.workers_list.push j
             return true
@@ -185,40 +194,79 @@ $ ->
           type: 'GET',
           dataType: 'JSON',
           success: (json_data) ->
-            console.log json_data
+#            console.log json_data
             ko.utils.arrayForEach json_data, (j) =>
               window.app.natures_list.push j
             return true
 
       @moveAnimals = () =>
-        console.log 'move animals', @moveAnimalModalOptions()
-        console.log @moveAnimalStartDate()
-        console.log @moveAnimalEndDate()
-        console.log @moveAnimalNewWorker()
-        console.log @moveAnimalNewNature()
 
-#        animal = { 'animal_id': @id, 'container_id': @container_id(), 'group_id': @group_id() }
-#        console.log animal
-#
-#        $.ajax '/backend/animals/update_animal_attributes',
+        animals_id = ko.utils.arrayMap @moveAnimalModalOptions.animals(), (a) =>
+          a.id
+
+        json_data = {
+          "animals_id": animals_id.join(",")
+          "container_id": @moveAnimalModalOptions.container().id
+          "group_id": @moveAnimalModalOptions.group().id
+          "variant_id": @moveAnimalModalOptions.variant().id
+          "worker_id": @moveAnimalModalOptions.worker().id
+          "started_at": @moveAnimalModalOptions.started_at()
+          "stopped_at": @moveAnimalModalOptions.stopped_at()
+          "production_support_id": @moveAnimalModalOptions.production_support()
+        }
+
+        JSON.stringify json_data, (key, val) =>
+          if val == false or val == ''
+            return undefined
+          else
+            return val
+
+        $.ajax '/backend/animals/change',
 #          type: 'PUT',
-#          dataType: 'JSON',
-#          data: animal,
-#          success: (res) ->
-#      @resetAnimalsMoving()
-#            return true
-#
-#          error: (res) ->
-#            console.log res
-#            return false
+          type: 'GET',
+          dataType: 'JSON',
+          data: json_data,
+          success: (res) =>
+
+            @showMoveAnimalModal false
+
+            # maj
+            ko.utils.arrayForEach @moveAnimalModalOptions.animals(), (a) =>
+              a.container_id @moveAnimalModalOptions.container().id
+              a.group_id @moveAnimalModalOptions.group().id
+              a.checked false
+
+            @resetAnimalsMoving()
+
+
+
+            return true
+
+          error: (res) =>
+            @showMoveAnimalModal false
+            console.log res
+            return false
+
+      @cancelAnimalsMoving = () =>
+#        force refresh of animals view for model-view binding
+        ko.utils.arrayForEach @moveAnimalModalOptions.animals(), (a) =>
+          #TODO change this. now i force refresh by updating twice
+#          a.container_id.valueHasMutated()
+          old = a.container_id()
+          a.container_id 0
+          a.container_id old
+
+        @resetAnimalsMoving
 
       @resetAnimalsMoving = () =>
-        console.log 'reset moving'
-        @moveAnimalNewWorker ''
-        @moveAnimalNewNature ''
-        @moveAnimalStartDate ''
-        @moveAnimalEndDate ''
-        @moveAnimalModalOptions().length = 0
+        @moveAnimalModalOptions.animals().length = 0
+        @moveAnimalModalOptions.container false
+        @moveAnimalModalOptions.started_at ''
+        @moveAnimalModalOptions.stopped_at ''
+        @moveAnimalModalOptions.worker false
+        @moveAnimalModalOptions.variant false
+        @moveAnimalModalOptions.group false
+
 
 
       @animalSortableHelper = (item, event, ui) ->
