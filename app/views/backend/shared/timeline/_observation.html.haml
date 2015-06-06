@@ -1,4 +1,12 @@
 .comment
-  %span.avatar= image_tag step.author.avatar_url(size: 32)
-  %span.description= :timeline_comment.th(defaults)
-  .content= preserve(observation.content)
+  .comment-avatar= image_tag step.author.avatar_url(size: 48)
+  .comment-wrapper
+    .comment-heading
+      = link_to(backend_observation_path(observation, redirect: request.fullpath), method: :delete, class: "comment-action comment-action-destroy", data: {confirm: :are_you_sure.tl}) do
+        %i
+        = :destroy.tl
+      = link_to(edit_backend_observation_path(observation, redirect: request.fullpath), class: "comment-action comment-action-edit") do
+        %i
+        = :edit.tl
+      = :timeline_comment.th(defaults)
+    .comment-content= preserve(observation.content)

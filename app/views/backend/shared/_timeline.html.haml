@@ -1,4 +1,4 @@
-.timeline-tools
+-#.timeline-tools
   - timeline.sides.each do |side|
     %span.timeline-tool{class: "tl-#{side.name}"}
       = link_to("#", class: "btn#{' active' unless side.count.zero?}", data: {toggle_timesteps: side.model_name}, disabled: side.count.zero?) do

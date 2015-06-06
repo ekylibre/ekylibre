@@ -2,169 +2,109 @@
   - t.export :entity, resource
   - t.edit resource
   - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if resource.destroyable?
-
-= beehive do |b|
-  - b.hbox do
-    - b.cell :coordinates do
-      - if resource.addresses.any? or resource.picture.file?
-        - if resource.picture.file?
-          .picture= image_tag(resource.picture.url(:identity))
-        - for address in resource.addresses.order(:canal, :by_default)
-          .info
-            %span.title{class: "canal-#{address.canal}"}= address.canal.l
-            %span.value
-              - if address.email?
-                = mail_to(address.coordinate, address.coordinate)
-              - elsif address.phone? or address.mobile?
-                %a{:href => "tel:#{address.coordinate}"}= address.coordinate
-              - elsif address.mail?
-                = link_to(address.coordinate, "https://maps.google.fr/?q=#{URI.encode(address.coordinate)}")
-              - elsif address.website?
-                = link_to(address.coordinate, address.coordinate)
-              - else
-                = address.coordinate
-        - if EntityLink.of_entity(resource).actives.any?
-          .info
-            %span.title= :related_people.tl
-            %span.value= Entity.related_to(resource).map{|p| link_to(p.full_name, controller: :entities, action: :show, id: p.id)}.to_sentence.html_safe
-
-      = attributes_list(resource, without_stamps: true) do |l|
-        - l.attribute :last_name
-        - l.attribute :first_name unless resource.first_name.blank?
-        - l.attribute :nature if resource.nature
-        - l.attribute :number
-        - l.attribute :active
-        - l.custom Entity.human_attribute_name(:country), image_tag("countries/#{resource.country}.png") + " " + resource.country.l unless resource.country.blank?
-        - l.attribute :siren unless resource.siren.blank?
-        - l.attribute :activity_code unless resource.activity_code.blank?
-        - l.attribute :vat_number unless resource.vat_number.blank?
-        - l.attribute :born_at unless resource.born_at.blank?
-        - l.attribute :dead_at unless resource.dead_at.blank?
-        - l.attribute :prospect
-        - l.attribute :client
-        - if resource.client
-          -#l.attribute :category, :label => :name, url: true
-          - l.attribute :first_met_at unless resource.first_met_at.blank?
-          - l.attribute :proposer, :label => :full_name unless resource.proposer.nil?
-          - l.attribute :vat_subjected
-          - l.attribute :reminder_submissive unless resource.reminder_submissive?
-          - l.attribute :authorized_payments_count unless resource.authorized_payments_count.blank?
-          - l.attribute :deliveries_conditions unless resource.deliveries_conditions.blank?
-          - l.attribute :client_account, url: true
-        - l.attribute :supplier
-        - if resource.supplier
-          - l.attribute :supplier_account, url: true
-        - l.attribute :transporter
-        - if resource.custom_fields.any?
-          - l.custom_fields
-
-    - if cash = resource.cash
-      - b.cell(:cash_balance) do
-        - balance = cash.balance
-        .big-info{class: (balance < 0 ? :positive : balance > 0 ? :negative : :caution)}
-          %span.title= cash.name
-          %span.value= balance.l(currency: cash.currency)
-
-  - b.hbox do
-    - b.cell :timeline do
-      = timeline(resource) do |l|
-        - if resource.sales.any? or resource.client?
-          - l.side :sales, new: resource.client?
-        - if resource.purchases.any? or resource.supplier?
-          - l.side :purchases, new: resource.supplier?
-        - l.side :incoming_payments
-        - l.side :outgoing_payments
-        - l.side :issues, params: {target_type: "Entity", nature: "issue", gravity: 2, priority: 2, without_geolocation: 1}
-        - l.side :observations
-        - l.side :direct_links
-        - l.side :indirect_links
-        -# l.side :addresses, new: false
-        - l.side :events
-        - l.side :versions, new: false
-    -# b.cell(tl(:x_issues, count: resource.issues.count)) do
-      = toolbar do |t|
-        - t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name})
-      - if resource.issues.any?
-        = list(:issues)
-
-  -# b.hbox do
-
-    - b.cell :details do
-      = attributes_list(resource, without_stamps: true) do |l|
-        - l.attribute :last_name
-        - l.attribute :first_name unless resource.first_name.blank?
-        - l.attribute :nature if resource.nature
-        - l.attribute :number
-        - l.attribute :active
-        - l.custom Entity.human_attribute_name(:country), image_tag("countries/#{resource.country}.png") + " " + resource.country.l unless resource.country.blank?
-        - l.attribute :siren unless resource.siren.blank?
-        - l.attribute :activity_code unless resource.activity_code.blank?
-        - l.attribute :vat_number unless resource.vat_number.blank?
-        - l.attribute :born_at unless resource.born_at.blank?
-        - l.attribute :dead_at unless resource.dead_at.blank?
-        - l.attribute :prospect
-        - l.attribute :client
-        - if resource.client
-          -#l.attribute :category, :label => :name, url: true
-          - l.attribute :first_met_at unless resource.first_met_at.blank?
-          - l.attribute :proposer, :label => :full_name unless resource.proposer.nil?
-          - l.attribute :vat_subjected
-          - l.attribute :reminder_submissive unless resource.reminder_submissive?
-          - l.attribute :authorized_payments_count unless resource.authorized_payments_count.blank?
-          - l.attribute :deliveries_conditions unless resource.deliveries_conditions.blank?
-          - l.attribute :client_account, url: true
-        - l.attribute :supplier
-        - if resource.supplier
-          - l.attribute :supplier_account, url: true
-        - l.attribute :transporter
-
-    -# b.cell :historic do
-      = historic_of(resource)
-
-    -# b.cell(tl(:x_entity_links, count: EntityLink.of_entity(resource).count)) do
-      = toolbar do |t|
-        - t.new(params: {controller: :entity_links, entity_id: resource.id})
-      - if EntityLink.of_entity(resource).any?
-        = list(:links)
+.panel
+  .panel-body= render "coordinates"
 
 
-  -#   -# b.cell(tl(:x_subscriptions, count: resource.subscriptions.count)) do
-  -#     = toolbar do |t|
-  -#       - t.new(params: {controller: :subscriptions, entity_id: resource.id})
-  -#     = list(:subscriptions)
+= janus do |j|
+  - j.face :timeline do
+    = timeline(resource) do |l|
+      - if resource.sales.any? or resource.client?
+        - l.side :sales, new: resource.client?
+      - if resource.purchases.any? or resource.supplier?
+        - l.side :purchases, new: resource.supplier?
+      - l.side :incoming_payments
+      - l.side :outgoing_payments
+      - l.side :issues, params: {target_type: "Entity", nature: "issue", gravity: 2, priority: 2, without_geolocation: 1}
+      - l.side :observations
+      - l.side :direct_links
+      - l.side :indirect_links
+      -# l.side :addresses, new: false
+      - l.side :events
+      - l.side :versions, new: false
+  - j.face :cobbles do
+    = cobbles do |c|
+      - c.cobble :infos do
+        = attributes_list(resource, without_stamps: true) do |l|
+          - l.attribute :last_name
+          - l.attribute :first_name unless resource.first_name.blank?
+          - l.attribute :nature if resource.nature
+          - l.attribute :number
+          - l.attribute :active
+          - l.custom Entity.human_attribute_name(:country), image_tag("countries/#{resource.country}.png") + " " + resource.country.l unless resource.country.blank?
+          - l.attribute :siren unless resource.siren.blank?
+          - l.attribute :activity_code unless resource.activity_code.blank?
+          - l.attribute :vat_number unless resource.vat_number.blank?
+          - l.attribute :born_at unless resource.born_at.blank?
+          - l.attribute :dead_at unless resource.dead_at.blank?
+          - l.attribute :prospect
+          - l.attribute :client
+          - if resource.client
+            -#l.attribute :category, :label => :name, url: true
+            - l.attribute :first_met_at unless resource.first_met_at.blank?
+            - l.attribute :proposer, :label => :full_name unless resource.proposer.nil?
+            - l.attribute :vat_subjected
+            - l.attribute :reminder_submissive unless resource.reminder_submissive?
+            - l.attribute :authorized_payments_count unless resource.authorized_payments_count.blank?
+            - l.attribute :deliveries_conditions unless resource.deliveries_conditions.blank?
+            - l.attribute :client_account, url: true
+          - l.attribute :supplier
+          - if resource.supplier
+            - l.attribute :supplier_account, url: true
+          - l.attribute :transporter
+          - if resource.custom_fields.any?
+            - l.custom_fields
 
-  -#   - if resource.participations.any?
-  -#     - b.cell(tl(:x_events, count: resource.participations.count)) do
-  -#       -#= toolbar do |t|
-  -#         - t.new(params: {controller: :events, entity_id: resource.id})
-  -#       = list(:event_participations)
+      -# if cash = resource.cash
+        - c.cobble(:cash_balance) do
+          - balance = cash.balance
+          .big-info{class: (balance < 0 ? :positive : balance > 0 ? :negative : :caution)}
+            %span.title= cash.name
+            %span.value= balance.l(currency: cash.currency)
 
-  -#   - if File.exist?(Pathname.new(__FILE__).dirname.join("_extra.html.haml"))
-  -#     - b.cell("Extra") do
-  -#       =  render "extra"
+      -# c.cobble(:issues, title: :x_issues.tl(count: resource.issues.count)) do
+        = toolbar do |t|
+          - t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name})
+        - if resource.issues.any?
+          = list(:issues)
 
-  -# - b.hbox do
-  -#   - b.cell(tl(:x_sales, count: resource.sales.count)) do
-  -#     = toolbar do |t|
-  -#       - t.new(params: {controller: :sales, :client_id => resource.id})
-  -#     - if resource.sales.any?
-  -#       = list(:sales)
+      -# c.cobble(:entity_links, title: :x_entity_links.tl(count: EntityLink.of_entity(resource).count)) do
+        = toolbar do |t|
+          - t.new(params: {controller: :entity_links, entity_id: resource.id})
+        - if EntityLink.of_entity(resource).any?
+          = list(:links)
 
-  -#   - b.cell(tl(:x_incoming_payments, count: resource.incoming_payments.count)) do
-  -#     = toolbar do |t|
-  -#       - t.new(params: {controller: :incoming_payments, :payer_id => resource.id})
-  -#     - if resource.incoming_payments.any?
-  -#       = list(:incoming_payments)
 
-  -# - b.hbox do
-  -#   - b.cell(tl(:x_purchases, count: resource.purchases.count)) do
-  -#     = toolbar do |t|
-  -#       - t.new(params: {controller: :purchases, :supplier_id => resource.id})
-  -#     - if resource.purchases.any?
-  -#       = list(:purchases)
+      -# c.cobble(:subscriptions, title: :x_subscriptions.tl(count: resource.subscriptions.count)) do
+        = toolbar do |t|
+          - t.new(params: {controller: :subscriptions, entity_id: resource.id})
+        = list(:subscriptions)
 
-  -#   - b.cell(tl(:x_outgoing_payments, count: resource.outgoing_payments.count)) do
-  -#     = toolbar do |t|
-  -#       - t.new(params: {controller: :outgoing_payments, :payee_id => resource.id})
-  -#     - if resource.outgoing_payments.any?
-  -#       = list(:outgoing_payments)
+      - c.cobble(:events, title: :x_events.tl(count: resource.participations.count)) do
+        -# = toolbar do |t|
+          - t.new(params: {controller: :events, entity_id: resource.id})
+        = list(:event_participations)
+
+      - c.cobble(:sales, title: :x_sales.tl(count: resource.sales.count)) do
+        = toolbar do |t|
+          - t.new(params: {controller: :sales, :client_id => resource.id})
+        - if resource.sales.any?
+          = list(:sales)
+
+      - c.cobble(:incoming_payments, title: :x_incoming_payments.tl(count: resource.incoming_payments.count)) do
+        = toolbar do |t|
+          - t.new(params: {controller: :incoming_payments, :payer_id => resource.id})
+        - if resource.incoming_payments.any?
+          = list(:incoming_payments)
+
+      - c.cobble(:purchases, title: :x_purchases.tl(count: resource.purchases.count)) do
+        = toolbar do |t|
+          - t.new(params: {controller: :purchases, :supplier_id => resource.id})
+        - if resource.purchases.any?
+          = list(:purchases)
+
+      - c.cobble(:outgoing_payments, title: :x_outgoing_payments.tl(count: resource.outgoing_payments.count)) do
+        = toolbar do |t|
+          - t.new(params: {controller: :outgoing_payments, :payee_id => resource.id})
+        - if resource.outgoing_payments.any?
+          = list(:outgoing_payments)

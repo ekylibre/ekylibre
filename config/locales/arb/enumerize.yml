@@ -29,7 +29,7 @@ arb:
         # text: "Text"
     document_template:
       archiving:
-        # all: "Tous du type"
+        # all: "All of type"
         # all_of_template: "All of template"
         # first: "First of type"
         # first_of_template: "First of template"
@@ -37,6 +37,10 @@ arb:
         # last_of_template: "Last of template"
         # none: "None of type"
         # none_of_template: "None of template"
+    entities:
+      nature:
+        contact: "اِتِّصَال"
+        organization: "منظمة"
     entity_address:
       canal:
         # email: "Email"

@@ -835,7 +835,7 @@ eng:
     cancelation: "Cancelation"
     cartography: "Cartography"
     cash: "Cash"
-    cash_balance: "Cash balance"
+    cash_balance: "Cash balance" #?
     cash_balances: "Bank chart"
     casting: "Casting"
     casts: "Casts"
@@ -946,7 +946,7 @@ eng:
     duration: "Duration"
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     earns: "Earns"
-    edit: "Edit" #?
+    edit: "Edit"
     ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "Elapsed interventions times by activities"
     email: "Email:" #?
@@ -1003,7 +1003,7 @@ eng:
     help: "Help"
     help_center: "Help center"
     hint: "Hint: %{value}" #?
-    historic: "Historic"
+    historic: "Historic" #?
     home: "Home"
     iban: "International Bank Account Number (IBAN)"
     identification: "Identification"
@@ -1162,7 +1162,7 @@ eng:
     paid_at: "Paid at" #?
     parameters: "Parameters"
     participants: "Participants"
-    participations: "Participations"
+    participations: "Participations" #?
     parts: "Modules"
     password: "Password" #?
     paths_to_convert: "Paths to convert"

@@ -172,7 +172,7 @@ fra:
       merge: "Fusionner un doublon à sa fiche d’origine"
       new: "Nouvelle fiche client/fournisseur"
       picture: "Portrait" #?
-      show: "Fiche\_: %{full_name}"
+      show: "%{nature}\_: %{full_name}"
     backend/entity_addresses:
       edit: "Modifier une coordonnée"
       new: "Nouvelle coordonnée"
