@@ -331,8 +331,6 @@ arb:
         ZAR: "راند جنوب أفريقي"
         ZMK: "كواشا"
         ZWD: "دولار زمبابوي"
-    contact:
-
     cultivable_zone:
 
     document:
@@ -878,8 +876,6 @@ arb:
     matter:
 
     net_service:
-
-    organization:
 
     outgoing_delivery:
 

@@ -19,7 +19,6 @@
 - cash_transfer
 - catalog
 - catalog_item
-- contact
 - crumb
 - cultivable_zone
 - cultivable_zone_membership
@@ -75,7 +74,6 @@
 - net_service
 - observation
 - operation
-- organization
 - outgoing_delivery
 - outgoing_delivery_item
 - outgoing_payment

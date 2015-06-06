@@ -519,7 +519,19 @@ module ApplicationHelper
 
 
   def viewport_tag
-    tag(:meta, :name => "viewport", :content => "width=device-width, initial-scale=1.0, maximum-scale=1.0")
+    tag(:meta, name: "viewport", content: "width=device-width, initial-scale=1.0, maximum-scale=1.0")
+  end
+
+  def main_title(value = nil)
+    if value or block_given?
+      if block_given?
+        content_for(:main_title, &block)
+      else
+        content_for(:main_title, value)
+      end
+    else
+      return (content_for?(:main_title) ? content_for(:main_title) : controller.human_action_name)
+    end
   end
 
   def title_tag
@@ -527,19 +539,19 @@ module ApplicationHelper
     title = if current_user
               code = request.url.split(/(\:\/\/|\.)/).third
               if r.empty?
-                :page_title_special.tl(company_code: code, action: controller.human_action_name)
+                :page_title_special.tl(company_code: code, action: main_title)
               else
-                :page_title.tl(company_code: code, action: controller.human_action_name, menu: "menus.#{r[0]}".tl)
+                :page_title.tl(company_code: code, action: main_title, menu: "menus.#{r[0]}".tl)
               end
             else
-              :page_title_by_default.tl(action: controller.human_action_name)
+              :page_title_by_default.tl(action: main_title)
             end
-    return ("<title>" << h(title) << "</title>").html_safe
+    return content_tag(:title, title)
   end
 
 
   def heading_tag
-    return content_tag(:h1, controller.human_action_name, :id => :title)
+    return content_tag(:h1, main_title, id: :title)
   end
 
   def subheading(i18n_key, options={})

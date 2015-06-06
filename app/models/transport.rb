@@ -41,7 +41,7 @@
 
 class Transport < Ekylibre::Record::Base
   acts_as_numbered
-  belongs_to :responsible, class_name: "Contact"
+  belongs_to :responsible, -> { contacts }, class_name: "Entity"
   belongs_to :transporter, class_name: "Entity"
   belongs_to :transporter_purchase, class_name: "Purchase"
   has_many :deliveries, class_name: "OutgoingDelivery", dependent: :nullify

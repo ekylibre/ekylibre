@@ -30,7 +30,7 @@ fra:
       cashes: "Trésoreries"
       catalog_prices: "Prix" #?
       catalogs: "Catalogues"
-      contacts: "Contacts"
+      contacts: "Contacts" #?
       cultivable_zones: "Zones cultivables"
       custom_fields: "Champs personnalisés"
       deposits: "Remises en banque"
@@ -70,7 +70,7 @@ fra:
       myselves: "Mon compte"
       net_services: "Services en ligne"
       observations: "Observations"
-      organizations: "Organisations"
+      organizations: "Organisations" #?
       outgoing_deliveries: "Apports"
       outgoing_payment_modes: "Mode de décaissement"
       outgoing_payments: "Décaissements"

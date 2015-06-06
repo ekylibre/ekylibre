@@ -44,7 +44,7 @@
 class Deposit < Ekylibre::Record::Base
   acts_as_numbered
   belongs_to :cash
-  belongs_to :responsible, class_name: "Contact"
+  belongs_to :responsible, -> { contacts }, class_name: "Entity"
   belongs_to :journal_entry
   belongs_to :mode, class_name: "IncomingPaymentMode"
   has_many :payments, class_name: "IncomingPayment", dependent: :nullify, counter_cache: true, inverse_of: :deposit

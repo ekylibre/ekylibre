@@ -10,24 +10,24 @@ class Unicoque::OutgoingDeliveriesExchanger < ActiveExchanger::Base
 
     # create entity corresponding to the cooperative
     cooperative = Entity.find_by_last_name("Unicoque")
-    unless cooperative = Organization.where("LOWER(full_name) LIKE ?", "%Unicoque%".mb_chars.downcase).first
-      cooperative = Organization.create!(last_name: "Unicoque",
-                                        nature: :cooperative,
-                                        supplier: false, client: true,
-                                        mails_attributes: {
-                                          0 => {
-                                            canal: "mail",
-                                            mail_line_4: "Lamouthe",
-                                            mail_line_6: "47290 La Cancon",
-                                            mail_country: :fr
-                                          }
-                                        },
-                                        emails_attributes: {
-                                          0 => {
-                                            canal: "email",
-                                            coordinate: "contact@unicoque.com"
-                                          }
-                                        })
+    unless cooperative = Entity.where("LOWER(full_name) LIKE ?", "%Unicoque%".mb_chars.downcase).first
+      cooperative = Entity.create!(last_name: "Unicoque",
+                                   nature: :organization,
+                                   supplier: false, client: true,
+                                   mails_attributes: {
+                                     0 => {
+                                       canal: "mail",
+                                       mail_line_4: "Lamouthe",
+                                       mail_line_6: "47290 La Cancon",
+                                       mail_country: :fr
+                                     }
+                                   },
+                                   emails_attributes: {
+                                     0 => {
+                                       canal: "email",
+                                       coordinate: "contact@unicoque.com"
+                                     }
+                                   })
     end
 
     rows = CSV.read(file, encoding: "UTF-8", col_sep: ";", headers: true).delete_if{|r| r[0].blank?}

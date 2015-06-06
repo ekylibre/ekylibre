@@ -760,7 +760,7 @@ arb:
       catalog: "فئة الفرد"
       # catalog_item: "Catalog price"
       company: "الشركة" #?
-      contact: "الاتصالات"
+      contact: "الاتصالات" #?
       # crumb: "Crumb"
       # cultivable_zone: "Cultivable zone"
       # cultivable_zone_membership: "Cultivable zone membership"
@@ -838,7 +838,6 @@ arb:
       operation_item: "الواردات/الصادرات" #?
       operation_nature: "نوع العمل" #?
       operation_use: "الاداة المستخدمة" #?
-      # organization: "Organization"
       # outgoing_delivery: "Outgoing delivery"
       # outgoing_delivery_item: "Outgoing delivery item"
       outgoing_payment: "الدفعة"
@@ -1283,7 +1282,7 @@ arb:
     entry_id: "سجا المحاسبة" #?
     # entry_items: "Entry items"
     # entry_number: "Entry number"
-    establishment: "المؤسسة"
+    establishment: "المؤسسة" #?
     establishment_id: "مؤسسة" #?
     establishments: "المؤسسات" #?
     # event: "Event"

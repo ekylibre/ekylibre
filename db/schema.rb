@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150605225025) do
+ActiveRecord::Schema.define(version: 20150605225026) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -599,7 +599,6 @@ ActiveRecord::Schema.define(version: 20150605225025) do
   add_index "documents", ["updater_id"], name: "index_documents_on_updater_id", using: :btree
 
   create_table "entities", force: :cascade do |t|
-    t.string   "type"
     t.string   "nature",                                    null: false
     t.string   "last_name",                                 null: false
     t.string   "first_name"
@@ -640,6 +639,7 @@ ActiveRecord::Schema.define(version: 20150605225025) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",              default: 0,     null: false
+    t.string   "title"
   end
 
   add_index "entities", ["client_account_id"], name: "index_entities_on_client_account_id", using: :btree

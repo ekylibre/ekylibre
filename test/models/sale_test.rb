@@ -132,7 +132,7 @@ class SaleTest < ActiveSupport::TestCase
     context "A sales invoice" do
 
       setup do
-        @sale = Sale.new(:client => entities(:organizations_003), :nature => sale_natures(:sale_natures_001))
+        @sale = Sale.new(:client => entities(:entities_003), :nature => sale_natures(:sale_natures_001))
         assert @sale.save, @sale.errors.inspect
         assert_equal Date.today, @sale.created_at.to_date
         assert !@sale.affair.nil?, "A sale must be linked to an affair"

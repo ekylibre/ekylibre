@@ -361,8 +361,6 @@ jpn:
         ZAR: "ランド"
         ZMK: "ザンビア・クワチャ"
         ZWD: "ジンバブエ・ドル"
-    contact:
-
     cultivable_zone:
       variety:
         juglandaceae: "クルミ目"
@@ -836,8 +834,6 @@ jpn:
         juglandaceae: "クルミ目"
         juglans: "クルミ属"
     net_service:
-
-    organization:
 
     outgoing_delivery:
 

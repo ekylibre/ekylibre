@@ -524,7 +524,7 @@ Rails.application.routes.draw do
 
     resources :operations, only: [:index, :show]
 
-    resources :organizations, concerns: :entities
+    # resources :organizations, concerns: :entities
 
     resources :outgoing_deliveries, concerns: [:list, :unroll] do
       member do
@@ -543,7 +543,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :contacts, concerns: :entities
+    # resources :contacts, concerns: :entities
 
     resources :plants, concerns: :products
 

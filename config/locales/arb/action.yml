@@ -107,11 +107,9 @@ arb:
       index: "صباح الخير، %{user}" #?
       listing_nodes: "اختر المعلومات المستخرجة" #?
       welcome: "نرحب بايكيليبغ  %{user}" #?
-    backend/contacts:
-      edit: "تعديل عنوان : %{entity}"
-      # index: "Contacts"
-      new: "اضافة متصل جديد"
-      # show: "Contact: %{full_name}"
+    backend/contacts:  #?
+      edit: "تعديل عنوان : %{entity}" #?
+      new: "اضافة متصل جديد" #?
     backend/crumbs:
       # index: "Crumbs"
     backend/cultivable_zones:
@@ -412,11 +410,6 @@ arb:
       new: "انشاء عمل جديد" #?
       show: "تفاصيل العمل %{name}"
       unvalidateds: "تحقيق الاعمال" #?
-    backend/organizations:
-      # edit: "Edit organization: %{full_name}"
-      # index: "Organizations"
-      # new: "New organization"
-      # show: "Organization: %{full_name}"
     backend/outgoing_deliveries:
       edit: "تعديل التسليم"
       # index: "Outgoing deliveries"
@@ -1360,12 +1353,13 @@ arb:
     net_vat_amount: "صافي قيمة الضريبة الاضافية المستحقة" #?
     new: "انشاء دفعة جديدة"
     # new_box: "New box"
+    # new_contact: "New contact"
     new_deposit:
       # one: "Make a deposit %{mode}: 1 available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"
       # zero: "Make a deposit %{mode}: no available payments"
     new_family: "اسرة جديدة" #?
-    new_organization: "منظمة جديدة" #?
+    new_organization: "منظمة جديدة"
     new_payment: "تسجيل دفعة جديدة" #?
     # new_production_of_activity: "New production of %{activity}"
     new_sale: "بيعة جديدة" #?
@@ -1376,7 +1370,7 @@ arb:
     new_transport_of_x_deliveries_for_y:
       # one: "New transport for %{transporter} (%{count} delivery)"
       # other: "New transport for %{transporter} (%{count} deliveries)"
-    new_value: "قيمة جديدة"
+    new_value: "قيمة جديدة" #?
     next: "التالي"
     # nitrogen_concentration: "Nitrogen concentration"
     # nitrogen_concentration_per_hectare: "Nitrogen concentration per hectare"

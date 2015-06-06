@@ -4,8 +4,8 @@ class AgroSystemes::SoilAnalysesExchanger < ActiveExchanger::Base
     here = Pathname.new(__FILE__).dirname
 
     analyser_attributes = YAML.load_file(here.join("entity.yml"))
-    unless analyser = Organization.find_by(siren: analyser_attributes[:siren])
-      analyser = Organization.create!(analyser_attributes)
+    unless analyser = Entity.find_by(siren: analyser_attributes[:siren])
+      analyser = Entity.create!(analyser_attributes)
     end
 
     soil_natures_transcode = {}.with_indifferent_access

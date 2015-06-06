@@ -17,7 +17,7 @@
 #
 
 class Backend::EntitiesController < Backend::BaseController
-  manage_restfully subclass_inheritance: true
+  manage_restfully nature: "(params[:nature] == 'contact' ? :contact : :organization)".c, active: true
   manage_restfully_picture
 
   unroll
@@ -28,10 +28,10 @@ class Backend::EntitiesController < Backend::BaseController
     t.action :edit
     t.action :destroy
     t.column :active, :datatype => :boolean
-    t.column :number, url: true
     t.column :nature
     t.column :last_name, url: true
     t.column :first_name, url: true
+    t.column :number, url: true
     t.column :mail_line_6, through: :default_mail_address
   end
 

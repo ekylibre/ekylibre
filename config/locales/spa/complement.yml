@@ -353,8 +353,6 @@ spa:
         ZAR: "Rand sudafricano"
         ZMK: "Kwacha zambiano"
         ZWL: "Dólar zimbabuense"
-    contact:
-
     cultivable_zone:
 
     document:
@@ -814,8 +812,6 @@ spa:
     matter:
 
     net_service:
-
-    organization:
 
     outgoing_delivery:
 

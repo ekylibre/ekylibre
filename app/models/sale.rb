@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # = Informations
 #
 # == License
@@ -80,7 +79,7 @@ class Sale < Ekylibre::Record::Base
   belongs_to :journal_entry
   belongs_to :nature, class_name: "SaleNature"
   belongs_to :credited_sale, class_name: "Sale"
-  belongs_to :responsible, class_name: "Contact"
+  belongs_to :responsible, -> { contacts }, class_name: "Entity"
   belongs_to :transporter, class_name: "Entity"
   has_many :credits, class_name: "Sale", foreign_key: :credited_sale_id
   has_many :deliveries, class_name: "OutgoingDelivery", dependent: :destroy, inverse_of: :sale
@@ -388,7 +387,7 @@ class Sale < Ekylibre::Record::Base
     c << tc('sales_conditions.downpayment', percentage: self.nature.downpayment_percentage, amount: self.downpayment_amount.l(currency: self.currency)) if self.amount > self.nature.downpayment_minimum
     c << tc('sales_conditions.validity', expiration: self.expired_at.l)
     c += self.nature.sales_conditions.to_s.split(/\s*\n\s*/) if self.nature.sales_conditions
-    c += self.responsible.team.sales_conditions.to_s.split(/\s*\n\s*/) if self.responsible and self.responsible.team
+    # c += self.responsible.team.sales_conditions.to_s.split(/\s*\n\s*/) if self.responsible and self.responsible.team
     c
   end
 

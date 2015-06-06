@@ -58,8 +58,8 @@
 #  siren                     :string
 #  supplier                  :boolean          default(FALSE), not null
 #  supplier_account_id       :integer
+#  title                     :string
 #  transporter               :boolean          default(FALSE), not null
-#  type                      :string
 #  updated_at                :datetime         not null
 #  updater_id                :integer
 #  vat_number                :string
@@ -87,117 +87,6 @@
 #   vat_subjected: true
 #
 ---
-contacts_001:
-  active: true
-  client: true
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  currency: EUR
-  first_name: Gendo
-  full_name: Gendo IKARI
-  id: 9
-  language: fra
-  last_name: IKARI
-  lock_version: 0
-  locked: false
-  nature: sir
-  number: '193'
-  of_company: false
-  prospect: false
-  reminder_submissive: false
-  supplier: false
-  transporter: false
-  type: Contact
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  vat_subjected: true
-contacts_002:
-  active: true
-  activity_code: ''
-  client: true
-  client_account_id: 210
-  country: fr
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  currency: EUR
-  deliveries_conditions: ''
-  first_name: Kōzō
-  full_name: FUYUTSUKI Kōzō
-  id: 10
-  language: fra
-  last_name: FUYUTSUKI
-  lock_version: 2
-  locked: false
-  meeting_origin: ''
-  nature: sir
-  number: '194'
-  of_company: false
-  prospect: false
-  reminder_submissive: false
-  siren: ''
-  supplier: false
-  transporter: false
-  type: Contact
-  updated_at: 2015-04-21 08:21:32.421029000 Z
-  updater_id: 1
-  vat_number: ''
-  vat_subjected: true
-contacts_003:
-  active: false
-  activity_code: ''
-  born_at: 1977-03-29 23:00:00.000000000 Z
-  client: false
-  country: jp
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  currency: JPY
-  dead_at: 2004-07-11 22:00:00.000000000 Z
-  deliveries_conditions: ''
-  first_name: "ユイ"
-  full_name: "碇 ユイ"
-  id: 11
-  language: jpn
-  last_name: "碇"
-  lock_version: 4
-  locked: false
-  meeting_origin: ''
-  nature: madam
-  number: '195'
-  of_company: false
-  prospect: false
-  reminder_submissive: false
-  siren: ''
-  supplier: false
-  transporter: false
-  type: Contact
-  updated_at: 2014-11-01 20:16:17.379612000 Z
-  updater_id: 1
-  vat_number: ''
-  vat_subjected: true
-contacts_004:
-  active: true
-  client: false
-  created_at: 2014-11-03 16:56:06.570291000 Z
-  creator_id: 1
-  currency: EUR
-  first_name: Yui
-  full_name: IKARI Yui
-  id: 12
-  language: eng
-  last_name: IKARI
-  lock_version: 0
-  locked: false
-  nature: contact
-  number: P00000002
-  of_company: false
-  prospect: false
-  reminder_submissive: false
-  supplier: false
-  transporter: false
-  type: Contact
-  updated_at: 2014-11-03 16:56:06.570291000 Z
-  updater_id: 1
-  vat_subjected: true
 entities_001:
   active: true
   activity_code: ''
@@ -215,7 +104,7 @@ entities_001:
   lock_version: 11
   locked: false
   meeting_origin: ''
-  nature: company
+  nature: organization
   number: '129'
   of_company: true
   picture_content_type: image/png
@@ -227,7 +116,6 @@ entities_001:
   siren: ''
   supplier: false
   transporter: false
-  type: Entity
   updated_at: 2014-11-07 15:13:53.028918000 Z
   updater_id: 1
   vat_number: FR00123456789
@@ -246,7 +134,7 @@ entities_002:
   last_name: Gandhi
   lock_version: 0
   locked: false
-  nature: entity
+  nature: organization
   number: '196'
   of_company: false
   prospect: false
@@ -269,7 +157,7 @@ entities_003:
   last_name: BAKTOUBI
   lock_version: 0
   locked: false
-  nature: company
+  nature: organization
   number: '197'
   of_company: false
   prospect: false
@@ -296,7 +184,7 @@ entities_004:
   lock_version: 1
   locked: false
   meeting_origin: ''
-  nature: company
+  nature: organization
   number: '198'
   of_company: false
   prospect: false
@@ -325,7 +213,7 @@ entities_005:
   lock_version: 0
   locked: false
   meeting_origin: ''
-  nature: company
+  nature: organization
   number: EI00000001
   of_company: false
   prospect: false
@@ -339,6 +227,194 @@ entities_005:
   vat_number: ''
   vat_subjected: false
 entities_006:
+  active: true
+  client: false
+  client_account_id: 206
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  currency: EUR
+  first_name: Andrew
+  full_name: Busbest Andrew
+  id: 6
+  language: afr
+  last_name: Busbest
+  lock_version: 1
+  locked: false
+  nature: organization
+  number: '1'
+  of_company: false
+  prospect: false
+  reminder_submissive: false
+  supplier: false
+  supplier_account_id: 205
+  transporter: false
+  updated_at: 2014-10-31 18:58:07.364197000 Z
+  updater_id: 1
+  vat_subjected: true
+entities_007:
+  active: true
+  client: false
+  client_account_id: 208
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  currency: EUR
+  full_name: Toley LTD
+  id: 7
+  language: fra
+  last_name: Toley LTD
+  lock_version: 0
+  locked: false
+  nature: organization
+  number: '2'
+  of_company: false
+  prospect: false
+  reminder_submissive: false
+  supplier: false
+  transporter: false
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+  vat_subjected: true
+entities_008:
+  active: true
+  activity_code: ''
+  client: true
+  client_account_id: 202
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  currency: EUR
+  deliveries_conditions: ''
+  first_name: ''
+  full_name: Yuey LTD
+  id: 8
+  language: fra
+  last_name: Yuey LTD
+  lock_version: 2
+  locked: false
+  meeting_origin: ''
+  nature: organization
+  number: '3'
+  of_company: false
+  prospect: false
+  reminder_submissive: false
+  siren: ''
+  supplier: true
+  supplier_account_id: 207
+  transporter: false
+  updated_at: 2014-11-03 11:29:45.623972000 Z
+  updater_id: 1
+  vat_number: ''
+  vat_subjected: true
+entities_009:
+  active: true
+  client: true
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  currency: EUR
+  first_name: Gendo
+  full_name: Gendo IKARI
+  id: 9
+  language: fra
+  last_name: IKARI
+  lock_version: 0
+  locked: false
+  nature: contact
+  number: '193'
+  of_company: false
+  prospect: false
+  reminder_submissive: false
+  supplier: false
+  title: M.
+  transporter: false
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+  vat_subjected: true
+entities_010:
+  active: true
+  activity_code: ''
+  client: true
+  client_account_id: 210
+  country: fr
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  currency: EUR
+  deliveries_conditions: ''
+  first_name: Kōzō
+  full_name: FUYUTSUKI Kōzō
+  id: 10
+  language: fra
+  last_name: FUYUTSUKI
+  lock_version: 2
+  locked: false
+  meeting_origin: ''
+  nature: contact
+  number: '194'
+  of_company: false
+  prospect: false
+  reminder_submissive: false
+  siren: ''
+  supplier: false
+  title: M.
+  transporter: false
+  updated_at: 2015-04-21 08:21:32.421029000 Z
+  updater_id: 1
+  vat_number: ''
+  vat_subjected: true
+entities_011:
+  active: false
+  activity_code: ''
+  born_at: 1977-03-29 23:00:00.000000000 Z
+  client: false
+  country: jp
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  currency: JPY
+  dead_at: 2004-07-11 22:00:00.000000000 Z
+  deliveries_conditions: ''
+  first_name: "ユイ"
+  full_name: "碇 ユイ"
+  id: 11
+  language: jpn
+  last_name: "碇"
+  lock_version: 4
+  locked: false
+  meeting_origin: ''
+  nature: contact
+  number: '195'
+  of_company: false
+  prospect: false
+  reminder_submissive: false
+  siren: ''
+  supplier: false
+  title: Mme
+  transporter: false
+  updated_at: 2014-11-01 20:16:17.379612000 Z
+  updater_id: 1
+  vat_number: ''
+  vat_subjected: true
+entities_012:
+  active: true
+  client: false
+  created_at: 2014-11-03 16:56:06.570291000 Z
+  creator_id: 1
+  currency: EUR
+  first_name: Yui
+  full_name: IKARI Yui
+  id: 12
+  language: eng
+  last_name: IKARI
+  lock_version: 0
+  locked: false
+  nature: contact
+  number: P00000002
+  of_company: false
+  prospect: false
+  reminder_submissive: false
+  supplier: false
+  transporter: false
+  updated_at: 2014-11-03 16:56:06.570291000 Z
+  updater_id: 1
+  vat_subjected: true
+entities_013:
   active: false
   activity_code: ''
   born_at: 1962-08-11 23:00:00.000000000 Z
@@ -357,7 +433,7 @@ entities_006:
   lock_version: 1
   locked: false
   meeting_origin: ''
-  nature: cooperative
+  nature: organization
   number: P00000003
   of_company: false
   prospect: false
@@ -370,7 +446,7 @@ entities_006:
   updater_id: 1
   vat_number: ''
   vat_subjected: false
-entities_007:
+entities_014:
   active: true
   activity_code: ''
   client: true
@@ -388,19 +464,20 @@ entities_007:
   lock_version: 1
   locked: false
   meeting_origin: ''
-  nature: sir
+  nature: contact
   number: P00000004
   of_company: false
   prospect: false
   reminder_submissive: false
   siren: ''
   supplier: false
+  title: M.
   transporter: false
   updated_at: 2015-04-21 08:28:44.807348000 Z
   updater_id: 1
   vat_number: ''
   vat_subjected: false
-entities_008:
+entities_015:
   active: true
   activity_code: ''
   client: true
@@ -418,7 +495,7 @@ entities_008:
   lock_version: 0
   locked: false
   meeting_origin: ''
-  nature: company
+  nature: organization
   number: P00000005
   of_company: false
   prospect: false
@@ -430,84 +507,3 @@ entities_008:
   updater_id: 1
   vat_number: ''
   vat_subjected: false
-organizations_001:
-  active: true
-  client: false
-  client_account_id: 206
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  currency: EUR
-  first_name: Andrew
-  full_name: Busbest Andrew
-  id: 6
-  language: afr
-  last_name: Busbest
-  lock_version: 1
-  locked: false
-  nature: company
-  number: '1'
-  of_company: false
-  prospect: false
-  reminder_submissive: false
-  supplier: false
-  supplier_account_id: 205
-  transporter: false
-  type: Organization
-  updated_at: 2014-10-31 18:58:07.364197000 Z
-  updater_id: 1
-  vat_subjected: true
-organizations_002:
-  active: true
-  client: false
-  client_account_id: 208
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  currency: EUR
-  full_name: Toley LTD
-  id: 7
-  language: fra
-  last_name: Toley LTD
-  lock_version: 0
-  locked: false
-  nature: company
-  number: '2'
-  of_company: false
-  prospect: false
-  reminder_submissive: false
-  supplier: false
-  transporter: false
-  type: Organization
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  vat_subjected: true
-organizations_003:
-  active: true
-  activity_code: ''
-  client: true
-  client_account_id: 202
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  currency: EUR
-  deliveries_conditions: ''
-  first_name: ''
-  full_name: Yuey LTD
-  id: 8
-  language: fra
-  last_name: Yuey LTD
-  lock_version: 2
-  locked: false
-  meeting_origin: ''
-  nature: company
-  number: '3'
-  of_company: false
-  prospect: false
-  reminder_submissive: false
-  siren: ''
-  supplier: true
-  supplier_account_id: 207
-  transporter: false
-  type: Organization
-  updated_at: 2014-11-03 11:29:45.623972000 Z
-  updater_id: 1
-  vat_number: ''
-  vat_subjected: true

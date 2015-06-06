@@ -1,8 +1,13 @@
-= field_set(:major => true) do
-  = f.input :nature
-  = f.input :language, :collection => languages, :field => :select, :selected => Preference[:language]
-  = f.input :last_name
-  = f.input :first_name
+- nature = f.object.nature
+- main_title("new_#{nature}".tl) if f.object.new_record?
+= field_set do
+  = f.input :nature, as: :hidden
+  - if nature == :contact
+    = f.input :title
+    = f.input :first_name
+    = f.input :last_name
+  - else
+    = f.input :last_name, label: Entity.human_attribute_name(:full_name)
   = f.input :active, :hide => :dead_at
   -# = f.input :number
   = f.input :prospect
@@ -12,20 +17,23 @@
   = f.custom_fields
 
 = field_set(:details) do # , :collapsed => true
+  = f.input :language, :collection => languages, :field => :select, :selected => Preference[:language]
   = f.input :country, :collection => countries, :selected => Preference[:country]
-  = f.input :siren
-  = f.input :activity_code
-  = f.input :vat_number
+  - if nature == :organization
+    = f.input :siren
+    = f.input :activity_code
+    = f.input :vat_number
   = f.input :born_at
-  = f.input :dead_at
+  #dead_at= f.input :dead_at
   = f.picture
   -# = f.input :ean13
   -# = f.custom_fields
 
 = field_set(:client_informations) do
-  = f.input :meeting_origin, :autocomplete => true
-  = f.input :first_met_at
-  = f.referenced_association :proposer
+  - if nature == :contact
+    = f.input :meeting_origin, :autocomplete => true
+    = f.input :first_met_at
+    = f.referenced_association :proposer
   = f.referenced_association :responsible, :source => :employees
   = f.input :vat_subjected
   = f.input :reminder_submissive, :show => :reduction_percentage

@@ -82,25 +82,25 @@ module Ekylibre::FirstRun::Faker
 
       self.count :wheat_sales do |w|
 
-        unless cooperative = Organization.where("LOWER(full_name) LIKE ?", "%Kazeni%".mb_chars.downcase).first
-          cooperative = Organization.create!(last_name: "Kazeni",
-                                            nature: :cooperative,
-                                            vat_number: "FR00123456789",
-                                            supplier: true, client: true,
-                                            mails_attributes: {
-                                              0 => {
-                                                canal: "mail",
-                                                mail_line_4: "145 rue du port",
-                                                mail_line_6: "17000 LAROCHELLE",
-                                                mail_country: :fr
-                                              }
-                                            },
-                                            emails_attributes: {
-                                              0 => {
-                                                canal: "email",
-                                                coordinate: "contact@kazeni.coop"
-                                              }
-                                            })
+        unless cooperative = Entity.where("LOWER(full_name) LIKE ?", "%Kazeni%".mb_chars.downcase).first
+          cooperative = Entity.create!(last_name: "Kazeni",
+                                       nature: :organization,
+                                       vat_number: "FR00123456789",
+                                       supplier: true, client: true,
+                                       mails_attributes: {
+                                         0 => {
+                                           canal: "mail",
+                                           mail_line_4: "145 rue du port",
+                                           mail_line_6: "17000 LAROCHELLE",
+                                           mail_country: :fr
+                                         }
+                                       },
+                                       emails_attributes: {
+                                         0 => {
+                                           canal: "email",
+                                           coordinate: "contact@kazeni.coop"
+                                         }
+                                       })
         end
 
         # Create wheat product
@@ -108,7 +108,7 @@ module Ekylibre::FirstRun::Faker
         catalog = Catalog.first
         wheat_taxes = Tax.all
 
-        responsibles = Contact.where(id: User.pluck(:person_id))
+        responsibles = Entity.contacts.where(id: User.pluck(:person_id))
 
         # Sale nature
         sale_nature   = SaleNature.actives.first
@@ -129,25 +129,25 @@ module Ekylibre::FirstRun::Faker
 
       self.count :calf_sales do |w|
 
-        unless cooperative = Organization.where("LOWER(full_name) LIKE ?", "%Caroli%".mb_chars.downcase).first
-          cooperative = Organization.create!(last_name: "Caroli",
-                                            nature: :cooperative,
-                                            vat_number: "FR00123456789",
-                                            supplier: true, client: true,
-                                            mails_attributes: {
-                                              0 => {
-                                                canal: "mail",
-                                                mail_line_4: "145 rue du port",
-                                                mail_line_6: "16000 ANGOULEME",
-                                                mail_country: :fr
-                                              }
-                                            },
-                                            emails_attributes: {
-                                              0 => {
-                                                canal: "email",
-                                                coordinate: "contact@caroli.coop"
-                                              }
-                                            })
+        unless cooperative = Entity.where("LOWER(full_name) LIKE ?", "%Caroli%".mb_chars.downcase).first
+          cooperative = Entity.create!(last_name: "Caroli",
+                                       nature: :organization,
+                                       vat_number: "FR00123456789",
+                                       supplier: true, client: true,
+                                       mails_attributes: {
+                                         0 => {
+                                           canal: "mail",
+                                           mail_line_4: "145 rue du port",
+                                           mail_line_6: "16000 ANGOULEME",
+                                           mail_country: :fr
+                                         }
+                                       },
+                                       emails_attributes: {
+                                         0 => {
+                                           canal: "email",
+                                           coordinate: "contact@caroli.coop"
+                                         }
+                                       })
         end
 
         # Create cow product
@@ -175,25 +175,25 @@ module Ekylibre::FirstRun::Faker
 
       self.count :milk_sales do |w|
 
-        unless cooperative = Organization.where("LOWER(full_name) LIKE ?", "%TerriLacti%".mb_chars.downcase).first
-          cooperative = Organization.create!(last_name: "TerriLacti",
-                                            nature: :cooperative,
-                                            vat_number: "FR00123456789",
-                                            supplier: true, client: true,
-                                            mails_attributes: {
-                                              0 => {
-                                                canal: "mail",
-                                                mail_line_4: "145 rue du port",
-                                                mail_line_6: "17000 SURGERES",
-                                                mail_country: :fr
-                                              }
-                                            },
-                                            emails_attributes: {
-                                              0 => {
-                                                canal: "email",
-                                                coordinate: "contact@terrilacti.coop"
-                                              }
-                                            })
+        unless cooperative = Entity.where("LOWER(full_name) LIKE ?", "%TerriLacti%".mb_chars.downcase).first
+          cooperative = Entity.create!(last_name: "TerriLacti",
+                                       nature: :organization,
+                                       vat_number: "FR00123456789",
+                                       supplier: true, client: true,
+                                       mails_attributes: {
+                                         0 => {
+                                           canal: "mail",
+                                           mail_line_4: "145 rue du port",
+                                           mail_line_6: "17000 SURGERES",
+                                           mail_country: :fr
+                                         }
+                                       },
+                                       emails_attributes: {
+                                         0 => {
+                                           canal: "email",
+                                           coordinate: "contact@terrilacti.coop"
+                                         }
+                                       })
         end
         # Create milk product
         milk = ProductNatureVariant.import_from_nomenclature(:cow_milk)
@@ -217,25 +217,25 @@ module Ekylibre::FirstRun::Faker
 
       self.count :bottle_wine_sales do |w|
 
-        unless cooperative = Organization.where("LOWER(full_name) LIKE ?", "%Vitis%".mb_chars.downcase).first
-          cooperative = Organization.create!(last_name: "Vitis",
-                                            nature: :cooperative,
-                                            vat_number: "FR00123456789",
-                                            supplier: true, client: true,
-                                            mails_attributes: {
-                                              0 => {
-                                                canal: "mail",
-                                                mail_line_4: "145 rue du port",
-                                                mail_line_6: "17300 JONZAC",
-                                                mail_country: :fr
-                                              }
-                                            },
-                                            emails_attributes: {
-                                              0 => {
-                                                canal: "email",
-                                                coordinate: "contact@vitis.coop"
-                                              }
-                                            })
+        unless cooperative = Entity.where("LOWER(full_name) LIKE ?", "%Vitis%".mb_chars.downcase).first
+          cooperative = Entity.create!(last_name: "Vitis",
+                                       nature: :organization,
+                                       vat_number: "FR00123456789",
+                                       supplier: true, client: true,
+                                       mails_attributes: {
+                                         0 => {
+                                           canal: "mail",
+                                           mail_line_4: "145 rue du port",
+                                           mail_line_6: "17300 JONZAC",
+                                           mail_country: :fr
+                                         }
+                                       },
+                                       emails_attributes: {
+                                         0 => {
+                                           canal: "email",
+                                           coordinate: "contact@vitis.coop"
+                                         }
+                                       })
         end
 
         # Create wheat product
@@ -243,7 +243,7 @@ module Ekylibre::FirstRun::Faker
         catalog = Catalog.first
         wine_taxes = Tax.all
 
-        responsibles = Contact.where(id: User.pluck(:person_id))
+        responsibles = Entity.contacts.where(id: User.pluck(:person_id))
 
         # Sale nature
         sale_nature   = SaleNature.actives.first
@@ -264,25 +264,25 @@ module Ekylibre::FirstRun::Faker
 
       self.count :bulk_wine_sales do |w|
 
-        unless cooperative = Organization.where("LOWER(full_name) LIKE ?", "%Vitis%".mb_chars.downcase).first
-          cooperative = Organization.create!(last_name: "Vitis",
-                                            nature: :cooperative,
-                                            vat_number: "FR00123456789",
-                                            supplier: true, client: true,
-                                            mails_attributes: {
-                                              0 => {
-                                                canal: "mail",
-                                                mail_line_4: "145 rue du port",
-                                                mail_line_6: "17300 JONZAC",
-                                                mail_country: :fr
-                                              }
-                                            },
-                                            emails_attributes: {
-                                              0 => {
-                                                canal: "email",
-                                                coordinate: "contact@vitis.coop"
-                                              }
-                                            })
+        unless cooperative = Entity.where("LOWER(full_name) LIKE ?", "%Vitis%".mb_chars.downcase).first
+          cooperative = Entity.create!(last_name: "Vitis",
+                                       nature: :organization,
+                                       vat_number: "FR00123456789",
+                                       supplier: true, client: true,
+                                       mails_attributes: {
+                                         0 => {
+                                           canal: "mail",
+                                           mail_line_4: "145 rue du port",
+                                           mail_line_6: "17300 JONZAC",
+                                           mail_country: :fr
+                                         }
+                                       },
+                                       emails_attributes: {
+                                         0 => {
+                                           canal: "email",
+                                           coordinate: "contact@vitis.coop"
+                                         }
+                                       })
         end
 
         # Create wheat product
@@ -290,7 +290,7 @@ module Ekylibre::FirstRun::Faker
         catalog = Catalog.first
         wine_taxes = Tax.all
 
-        responsibles = Contact.where(id: User.pluck(:person_id))
+        responsibles = Entity.contacts.where(id: User.pluck(:person_id))
 
         # Sale nature
         sale_nature   = SaleNature.actives.first

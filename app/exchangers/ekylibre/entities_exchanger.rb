@@ -10,7 +10,7 @@ class Ekylibre::EntitiesExchanger < ActiveExchanger::Base
       r = {
         :first_name => row[0].blank? ? "" : row[0].to_s,
         :last_name => row[1].blank? ? "" : row[1].to_s,
-        :nature => row[2].to_s.downcase,
+        :nature => (%w(person contact sir madam doctor professor sir_and_madam).include?(row[2].to_s.downcase) ? :contact : :organization),
         :client_account_number => row[3].blank? ? nil : row[3].to_s,
         :supplier_account_number => row[4].blank? ? nil : row[4].to_s,
         :address => row[5].to_s,
@@ -31,11 +31,10 @@ class Ekylibre::EntitiesExchanger < ActiveExchanger::Base
         :ape_number => row[20].blank? ? nil : row[20].to_s
       }.to_struct
 
-      klass = r.nature.camelcase.constantize
-      if person = klass.where("first_name ILIKE ? AND last_name ILIKE ?", r.first_name.strip, r.last_name.strip).first
+      if person = Entity.where("first_name ILIKE ? AND last_name ILIKE ?", r.first_name.strip, r.last_name.strip).first
         person.update_attributes!(country: r.country) if person.country.blank?
       elsif
-        person = klass.new(first_name: r.first_name,
+        person = Entity.new(first_name: r.first_name,
                            last_name: r.last_name,
                            nature: r.nature,
                            country: r.country,

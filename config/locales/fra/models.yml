@@ -249,7 +249,7 @@ fra:
       cash_transfer: "Virement interne"
       catalog: "Liste de prix"
       catalog_item: "Prix"
-      contact: "Contact"
+      contact: "Contact" #?
       crumb: "Miette"
       cultivable_zone: "Parcelle culturale"
       cultivable_zone_membership: "Membre d’une zone cultivable"
@@ -307,7 +307,7 @@ fra:
       net_service: "Service en ligne"
       observation: "Observation"
       operation: "Opération"
-      organization: "Organisation"
+      organization: "Organisation" #?
       outgoing_delivery: "Livraison"
       outgoing_delivery_item: "Ligne de livraison"
       outgoing_payment: "Décaissement"
@@ -668,7 +668,7 @@ fra:
     entry: "Écriture"
     entry_items: "Lignes d’écritures"
     entry_number: "N° Écriture"
-    establishment: "Établissement"
+    establishment: "Établissement" #?
     event: "Évènement"
     event_participation: "Participation à un évènement"
     events: "Évènements"

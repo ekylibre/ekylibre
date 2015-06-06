@@ -26,7 +26,7 @@
         - if EntityLink.of_entity(resource).actives.any?
           .info
             %span.title= :related_people.tl
-            %span.value= Entity.related_to(resource).map{|p| link_to(p.full_name, controller: (p.type || "Entity").tableize, action: :show, id: p.id)}.to_sentence.html_safe
+            %span.value= Entity.related_to(resource).map{|p| link_to(p.full_name, controller: :entities, action: :show, id: p.id)}.to_sentence.html_safe
 
       = attributes_list(resource, without_stamps: true) do |l|
         - l.attribute :last_name

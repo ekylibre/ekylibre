@@ -111,11 +111,11 @@ class Ekylibre::VariantsExchanger < ActiveExchanger::Base
             variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: r.sale_unit_pretax_amount * ratio, currency: currency)
           end
 
-          w.check_point
         else
           w.warn "Need a Variant for #{r.name}"
         end
       end
+      w.check_point
     end
   end
 
