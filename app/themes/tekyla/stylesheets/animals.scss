@@ -55,6 +55,7 @@
   color: rgb(239, 250, 235);
   text-align: center;
   font-size: 4em;
+  max-width: 250px;
 }
 
 .sorting-animal-placeholder {
@@ -81,6 +82,12 @@
   -webkit-box-shadow: 0 0 2px #428bca;
   -moz-box-shadow: 0 0 2px #428bca;
   box-shadow: 0 0 2px #428bca;
+}
+
+
+.group-dragging{
+  transform: rotateZ(-10deg) scale(0.7);
+  transition: all 0.2s;
 }
 
 .animate-dragging {

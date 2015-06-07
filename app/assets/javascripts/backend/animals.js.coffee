@@ -226,6 +226,9 @@ $ ->
         @moveAnimalModalOptions.variant undefined
         @moveAnimalModalOptions.group undefined
 
+      @updatePreferences = () =>
+        console.log 'updating preferences'
+
 
     @Group: (id, name) ->
       @id = id

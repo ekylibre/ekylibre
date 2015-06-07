@@ -20,6 +20,7 @@
         PARENTKEY = "ko_parentList",
         DRAGKEY = "ko_dragItem",
         CONTAINERKEY = "ko_containerItem",
+        GROUPKEY = "ko_groupItem",
         unwrap = ko.utils.unwrapObservable,
         dataGet = ko.utils.domData.get,
         dataSet = ko.utils.domData.set,
@@ -36,9 +37,17 @@
 
                     dataSet(element, CONTAINERKEY, data);
                 }
+                else if($(element).hasClass('animal-group'))
+                {
 
-                dataSet(element, ITEMKEY, data);
-                dataSet(element, PARENTKEY, dataGet(element.parentNode, LISTKEY));
+                    dataSet(element, GROUPKEY, data);
+                }
+                else
+                {
+                    dataSet(element, ITEMKEY, data);
+                    dataSet(element, PARENTKEY, dataGet(element.parentNode, LISTKEY));
+                }
+
             }
         });
     };
@@ -167,42 +176,54 @@
                 $element.sortable(ko.utils.extend(sortable.options, {
                     helper: function (e, item) {
                         var elements = [];
+                        var helper;
 
-                        var elements = $('.checker.active').closest('.animal-element-actions').siblings('.animal-element-img').children().clone();
-
-                        if(!elements.length)
+                        if(dataGet(item[0],GROUPKEY) != undefined)
                         {
-                            elements.push(item.clone());
+                            //TODO: cause dragging issue
+                            //helper = $(item[0]).addClass('group-dragging');
+                            helper = $(item[0]);
                         }
-
-                        var helper = $("<div class='animate-dragging' style='width:50px;height:50px'></div>");
-
-                        if(elements.length > 1)
+                        else if (dataGet(item[0],ITEMKEY) != undefined)
                         {
-                            helper.append($("<div class='animate-dragging-number'>"+elements.length+"</div>"));
-                            var z = 0;
-                            for(var i=0;i < elements.length; i++)
+
+                            elements = $('.checker.active').closest('.animal-element-actions').siblings('.animal-element-img').children().clone();
+
+                            if(!elements.length)
                             {
-                                t = -i * 5;
-                                var container = $("<div/>");
-                                $(elements[i]).css('top',t+'px');
-                                $(elements[i]).css('left',-t+'px');
-                                $(elements[i]).css('z-index',z);
-                                container.append(elements[i]);
-                                container.addClass('animate-dragging-img');
-                                helper.append(container);
-                                z = z - 1;
+                                elements.push(item.clone());
                             }
 
-                        }
-                        else{
-                             var container = $("<div/>");
+                            helper = $("<div class='animate-dragging' style='width:50px;height:50px'></div>");
 
-                            container.append(elements[0]);
-                            container.addClass('animate-dragging-img');
-                            helper.append(container);
+                            if(elements.length > 1)
+                            {
+                                helper.append($("<div class='animate-dragging-number'>"+elements.length+"</div>"));
+                                var z = 0;
+                                for(var i=0;i < elements.length; i++)
+                                {
+                                    t = -i * 5;
+                                    var container = $("<div/>");
+                                    $(elements[i]).css('top',t+'px');
+                                    $(elements[i]).css('left',-t+'px');
+                                    $(elements[i]).css('z-index',z);
+                                    container.append(elements[i]);
+                                    container.addClass('animate-dragging-img');
+                                    helper.append(container);
+                                    z = z - 1;
+                                }
 
+                            }
+                            else{
+                                var container = $("<div/>");
+
+                                container.append(elements[0]);
+                                container.addClass('animate-dragging-img');
+                                helper.append(container);
+
+                            }
                         }
+
 
                         return helper;
 
@@ -210,16 +231,25 @@
                     start: function(event, ui) {
                         //track original index
                         var el = ui.item[0];
-                        dataSet(el, INDEXKEY, ko.utils.arrayIndexOf(ui.item.parent().children(), el));
 
-                        el = $('.checker.active').closest('.animal-element').not('.ui-sortable-placeholder');
 
-                        ui.item.data('items', el);
+                        //Moving an animal
+                        if(dataGet(el,ITEMKEY) != undefined)
+                        {
 
-                        //$('.animal-element.selected').not(item).addClass('hidden');
-                        //$(el).addClass('hidden');
 
-                        $('.animal-container .body .animal-dropzone').addClass('grow-empty-zone');
+                            el = $('.checker.active').closest('.animal-element').not('.ui-sortable-placeholder');
+
+                            ui.item.data('items', el);
+
+                            $('.animal-container .body .animal-dropzone').addClass('grow-empty-zone');
+                        }
+
+                        if(dataGet(el,GROUPKEY) != undefined)
+                        {
+                            //Nothing specific
+                        }
+
 
                         //make sure that fields have a chance to update model
                         ui.item.find("input:focus").change();
@@ -229,45 +259,64 @@
                     },
                     receive: function(event, ui) {
 
-                        var sourceParent, targetParent, sourceIndex, targetIndex, arg,
-                            el = ui.item[0],
-                            parentEl = ui.item.parent()[0],
-                            containerEl = ui.item.closest('.animal-container')[0],
-                            item = dataGet(el, ITEMKEY) || dragItem;
+                        var el = ui.item[0];
 
-                        if(containerEl != undefined)
+
+                        if(dataGet(el, ITEMKEY) != undefined)
                         {
+                            var containerEl = ui.item.closest('.animal-container')[0];
+                            var animals = [];
+                            var containerItem;
 
-                            containerItem = dataGet(containerEl,CONTAINERKEY);
+                            if(containerEl != undefined)
+                            {
 
-                            el = ui.item.data('items');
-                            animals = [];
-                            ko.utils.arrayForEach(el, function(item) {
+                                containerItem = dataGet(containerEl,CONTAINERKEY);
 
-                                if((observableItem = dataGet(item, ITEMKEY)) != null)
-                                {
+                                el = ui.item.data('items');
+                                ko.utils.arrayForEach(el, function(item) {
 
-                                    animals.push(observableItem);
-                                    //dataSet(item, ITEMKEY, null);
-                                    $(item).remove();
+                                    if((observableItem = dataGet(item, ITEMKEY)) != null)
+                                    {
 
-                                    //dataSet($(item), ITEMKEY, observableItem);
-                                }
+                                        animals.push(observableItem);
+                                        $(item).remove();
 
+                                    }
 
 
-                            });
+
+                                });
+                            }
 
                             window.app.toggleMoveAnimalModal(animals,containerItem);
 
                         }
+
                     },
                      stop: function (e, ui) {
 
+                         var el = ui.item[0];
+
                          $('.animal-container .body .animal-dropzone').removeClass('grow-empty-zone');
+
+                         if(dataGet(el,GROUPKEY) != undefined)
+                         {
+                             //$(el).removeClass('group-dragging');
+                         }
 
                      },
                     update: function(event, ui) {
+
+                        var el = ui.item[0];
+
+
+                        if(dataGet(el,GROUPKEY) != undefined)
+                        {
+                            //update preferences
+                            window.app.updatePreferences();
+
+                        }
 
                         if (updateActual) {
                             updateActual.apply(this, arguments);
