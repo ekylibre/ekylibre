@@ -156,21 +156,29 @@ $ ->
           a.id
 
         json_data = {
-          "animals_id": animals_id.join(",")
-          "container_id": @moveAnimalModalOptions.container().id
-          "group_id": @moveAnimalModalOptions.group().id
-          "variant_id": @moveAnimalModalOptions.variant().id
-          "worker_id": @moveAnimalModalOptions.worker().id
-          "started_at": @moveAnimalModalOptions.started_at()
-          "stopped_at": @moveAnimalModalOptions.stopped_at()
-          "production_support_id": @moveAnimalModalOptions.production_support()
+          animals_id: animals_id.join(',')
+          container_id: @moveAnimalModalOptions.container().id
+          group_id: @moveAnimalModalOptions.group().id
+          variant_id: @moveAnimalModalOptions.variant().id
+          worker_id: @moveAnimalModalOptions.worker().id
+          started_at: @moveAnimalModalOptions.started_at()
+          stopped_at: @moveAnimalModalOptions.stopped_at()
+          production_support_id: @moveAnimalModalOptions.production_support()
         }
 
-        JSON.stringify json_data, (key, val) =>
+#        JSON.stringify json_data, (key, val) =>
+#          if val == false or val == ''
+#            return undefined
+#          else
+#            return val
+
+        #Note: ko method support json serializer for old browsers, stringify is only supported by modern browsers
+        json_data = ko.utils.toJSON json_data, (key, val) =>
           if val == false or val == ''
             return undefined
           else
             return val
+
 
         $.ajax '/backend/animals/change',
 #          type: 'PUT',
@@ -227,8 +235,15 @@ $ ->
         @moveAnimalModalOptions.group undefined
 
       @updatePreferences = () =>
-        console.log 'updating preferences'
 
+
+        $.ajax '/backend/animals/update_preferences',
+#          type: 'PUT',
+          type: 'GET',
+          dataType: 'JSON',
+          data: ko.toJSON @groups,
+          success: (res) =>
+            #nothing
 
     @Group: (id, name) ->
       @id = id

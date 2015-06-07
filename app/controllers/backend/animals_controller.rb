@@ -111,6 +111,14 @@ class Backend::AnimalsController < Backend::MattersController
     render :json => @natures
   end
 
+  def update_preferences
+    #TODO: export this to GolumnController
+
+
+    render :json => {resultat: 'ok'}
+  end
+
+
   def change
 
     # params[:animals_id]
