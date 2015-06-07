@@ -23,8 +23,28 @@ class Backend::EntitiesController < Backend::BaseController
   unroll
 
   autocomplete_for :origin
-
-  list(conditions: search_conditions(:entities => [:number, :full_name]), order: "entities.last_name, entities.first_name") do |t|
+  
+  # params:
+  #   :q Text search
+  def self.entities_conditions
+    code = ""
+    code = search_conditions(:entities => [:number, :full_name]) + " ||= []\n"
+    code << "unless params[:state].blank?\n"
+    code << "  if params[:state].include?('client') \n"
+    code << "    c[0] << ' AND #{Entity.table_name}.client IS TRUE'\n"
+    code << "  end\n"
+    code << "  if params[:state].include?('supplier') \n"
+    code << "    c[0] << ' AND #{Entity.table_name}.supplier IS TRUE'\n"
+    code << "  end\n"
+    code << "  if params[:state].include?('active') \n"
+    code << "    c[0] << ' AND #{Entity.table_name}.active IS TRUE'\n"
+    code << "  end\n"
+    code << "end\n"
+    code << "c\n"
+    return code.c
+  end
+  
+  list(conditions: entities_conditions, order: "entities.last_name, entities.first_name") do |t|
     t.action :edit
     t.action :destroy
     t.column :active, :datatype => :boolean
@@ -33,6 +53,7 @@ class Backend::EntitiesController < Backend::BaseController
     t.column :first_name, url: true
     t.column :number, url: true
     t.column :mail_line_6, through: :default_mail_address
+    t.column :balance, currency: true, hidden: true
   end
 
   list(:event_participations, conditions: {participant_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|

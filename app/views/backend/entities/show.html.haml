@@ -50,6 +50,8 @@
           - l.attribute :dead_at unless resource.dead_at.blank?
           - l.attribute :prospect
           - l.attribute :client
+          - if resource.balance != 0
+            - l.attribute :balance, currency: true
           - if resource.client
             -#l.attribute :category, :label => :name, url: true
             - l.attribute :first_met_at unless resource.first_met_at.blank?

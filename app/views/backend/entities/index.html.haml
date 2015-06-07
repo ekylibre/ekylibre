@@ -1,4 +1,6 @@
-= kujaku
+= kujaku do |k|
+  - k.text
+  - k.multi_choice :state, [:client, :supplier, :active].map{ |s| [s.tl, s] }
 -# content_for :heading_toolbar do
   = form_tag(backend_search_path, :method => :get, :class => "search snippet-content") do
     = search_field_tag(:q, params[:q], :placeholder => tl(:search_placeholder))
