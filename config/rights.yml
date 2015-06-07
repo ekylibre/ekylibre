@@ -11,11 +11,6 @@
 #     - "authentication/sessions#destroy"
 #     - "authentication/sessions#new"
 #     - "backend/activities#family"
-#     - "backend/animals#change"
-#     - "backend/animals#load_animals"
-#     - "backend/animals#load_containers"
-#     - "backend/animals#load_natures"
-#     - "backend/animals#load_workers"
 #     - "backend/animals#take"
 #     - "backend/beehives#reset"
 #     - "backend/beehives#update"
@@ -298,11 +293,17 @@ animals:
     - read-animals
     actions:
     - "backend/animals#add_to_group"
+    - "backend/animals#change"
     - "backend/animals#create"
     - "backend/animals#destroy"
     - "backend/animals#edit"
+    - "backend/animals#load_animals"
+    - "backend/animals#load_containers"
+    - "backend/animals#load_natures"
+    - "backend/animals#load_workers"
     - "backend/animals#new"
     - "backend/animals#update"
+    - "backend/animals#update_preferences"
 
 bank_statements:
   read:

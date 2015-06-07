@@ -644,6 +644,7 @@
         <page to="backend/animals#list_reading_tasks"/>
         <page to="backend/animals#take"/>
         <page to="backend/animals#unroll"/>
+        <page to="backend/animals#update_preferences"/>
       </item>
     </group>
     <group name="plant_productions" icon="wheat">
