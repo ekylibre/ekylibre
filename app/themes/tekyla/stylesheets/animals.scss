@@ -280,7 +280,10 @@
   }
 }
 
-
+.grow-empty-zone {
+  transition: all 1s ease;
+  padding: 10px 0;
+}
 
 .animal-element-infos {
   padding: 0 5px;

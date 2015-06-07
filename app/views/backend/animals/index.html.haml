@@ -85,7 +85,7 @@
                   / <button type="button" class="btn btn-default btn-hover btn-xs"><i class="fa icon-pencil"></i></button>
                   %button.btn.btn-default.btn-xs.btn-hover.animal-container-collapse-handler{"data-bind" => "click: toggle", :type => "button"}
                     %i.icon.icon-caret-down
-            %div{"data-bind" => "css: {'hide':hidden}"}
+            %div.body{"data-bind" => "css: {'hide':hidden}"}
               %div{"data-bind" => "sortable: {template: 'animal-element-template', data: $root.animals, connectClass: 'animal-dropzone', options: {handle: '.animal-element-dragger', cursor: 'move', placeholder: 'sorting-animal-placeholder', dropOnEmpty: true, forcePlaceholderSize: true, opacity: 1, revert: true}}"}
           / /ko
         %script#animal-element-template{:type => "text/html"}

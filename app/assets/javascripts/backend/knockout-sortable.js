@@ -219,6 +219,7 @@
                         //$('.animal-element.selected').not(item).addClass('hidden');
                         //$(el).addClass('hidden');
 
+                        $('.animal-container .body .animal-dropzone').addClass('grow-empty-zone');
 
                         //make sure that fields have a chance to update model
                         ui.item.find("input:focus").change();
@@ -263,6 +264,7 @@
                     },
                      stop: function (e, ui) {
 
+                         $('.animal-container .body .animal-dropzone').removeClass('grow-empty-zone');
 
                      },
                     update: function(event, ui) {
