@@ -101,55 +101,6 @@ $ ->
       @containers = ko.observableArray []
       @animals = ko.observableArray []
 
-      json_data = []
-#      json_animals = []
-#      json_groups = []
-#      json_containers = []
-
-#      json_data = $('.animal-viewport').data 'animals-data'
-#      json_animals = $('.animal-viewport').data 'animals-data'
-#      json_groups = $('.animal-viewport').data 'animals-groups'
-#      json_containers = $('.animal-viewport').data 'animals-containers'
-
-#      ko.utils.arrayForEach json_data, (j) =>
-#        console.log j.group
-#        if j.group
-#          @groups.push new dashboardViewModel.Group(j.group.id, j.group.name)
-#        if j.places_and_animals and j.places_and_animals.length > 0
-#          console.log j.places_and_animals
-#          ko.utils.arrayForEach j.places_and_animals, (container) =>
-#            if container.place
-#              @containers.push new dashboardViewModel.Container(container.place.id, container.place.name, j.group.id)
-#            if container.animals
-#              ko.utils.arrayForEach $.parseJSON(container.animals), (animal) =>
-#                @animals.push new dashboardViewModel.Animal(animal.id, animal.name, '', '', '', animal.identification_number, container.place.id)
-
-
-
-#      @groups = ko.observableArray ko.utils.arrayMap json_groups, (group) ->
-#        new dashboardViewModel.Group(group.id, group.name)
-#
-#      @containers = ko.observableArray ko.utils.arrayMap json_containers, (container) ->
-#        new dashboardViewModel.Container(container.id, container.name, container.group_id || 0)
-#
-#      @animals = ko.observableArray ko.utils.arrayMap json_animals, (animal) ->
-#        new dashboardViewModel.Animal(animal.id, animal.name, animal.img, animal.status, animal.sex, animal.number_id, animal.container_id)
-
-
-
-      #FIXME: Improve empty group
-      #@groups.push new dashboardViewModel.Group(0, 'A trier')
-
-      #FIXME: Improve empty container
-
-
-
-      #      @filteredContainers = (group) =>
-      #
-      #        array = ko.utils.arrayFilter @containers(), (c) =>
-      #          c.group_id == group.id
-      #        array
-
       #tmp fake data
       #TODO remove it
       @containers.push new dashboardViewModel.Container(5678, 'Fake container', 305) #305 = vaches laitières
@@ -227,14 +178,19 @@ $ ->
           dataType: 'JSON',
           data: json_data,
           success: (res) =>
-
             @showMoveAnimalModal false
 
             # maj
             ko.utils.arrayForEach @moveAnimalModalOptions.animals(), (a) =>
-              a.container_id @moveAnimalModalOptions.container().id
-              a.group_id @moveAnimalModalOptions.group().id
-              a.checked false
+               id = a.id
+               name = a.name
+               img = a.img
+               status = a.status
+               sex = a.sex
+               num = a.number_id
+               @animals.remove a
+               @animals.push new dashboardViewModel.Animal(id, name, img, status, sex, num, @moveAnimalModalOptions.container().id, @moveAnimalModalOptions.group().id)
+
 
             @resetAnimalsMoving()
 
@@ -244,7 +200,7 @@ $ ->
 
           error: (res) =>
             @showMoveAnimalModal false
-            console.log res
+#            console.log res
             return false
 
       @cancelAnimalsMoving = () =>
@@ -255,35 +211,21 @@ $ ->
           old = a.container_id()
           a.container_id 0
           a.container_id old
+          a.checked false
+
 
         @resetAnimalsMoving
 
       @resetAnimalsMoving = () =>
-        @moveAnimalModalOptions.animals().length = 0
-        @moveAnimalModalOptions.container false
+        @moveAnimalModalOptions.animals().destroyAll
+
+        @moveAnimalModalOptions.container undefined
         @moveAnimalModalOptions.started_at ''
         @moveAnimalModalOptions.stopped_at ''
-        @moveAnimalModalOptions.worker false
-        @moveAnimalModalOptions.variant false
-        @moveAnimalModalOptions.group false
+        @moveAnimalModalOptions.worker undefined
+        @moveAnimalModalOptions.variant undefined
+        @moveAnimalModalOptions.group undefined
 
-
-
-      @animalSortableHelper = (item, event, ui) ->
-        console.log 'parent-helper'
-        console.log item, event, ui
-        children = false
-
-        if item.data('items') != undefined
-          console.log 'data:'
-          children = item.data('items')
-
-        return children
-
-      @animalMultiMove = (arg) ->
-        console.log arg
-        console.log arg.item
-        return
 
     @Group: (id, name) ->
       @id = id

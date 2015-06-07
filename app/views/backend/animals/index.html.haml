@@ -86,7 +86,7 @@
                   %button.btn.btn-default.btn-xs.btn-hover.animal-container-collapse-handler{"data-bind" => "click: toggle", :type => "button"}
                     %i.icon.icon-caret-down
             %div{"data-bind" => "css: {'hide':hidden}"}
-              %div{"data-bind" => "sortable: {template: 'animal-element-template', data: $root.animals, dragged: $root.animalSortableHelper, options: {handle: '.animal-element-dragger', cursor: 'move', placeholder: 'sorting-animal-placeholder', dropOnEmpty: false, forcePlaceholderSize: true, opacity: 1, revert: true}}"}
+              %div{"data-bind" => "sortable: {template: 'animal-element-template', data: $root.animals, connectClass: 'animal-dropzone', options: {handle: '.animal-element-dragger', cursor: 'move', placeholder: 'sorting-animal-placeholder', dropOnEmpty: true, forcePlaceholderSize: true, opacity: 1, revert: true}}"}
           / /ko
         %script#animal-element-template{:type => "text/html"}
           /ko if: $parent.id == container_id() && $parent.group_id() == group_id()
@@ -160,12 +160,14 @@
             %h4#moveAnimalTitle.modal-title Déplacer l'animal
           .modal-body
             %p Animaux:
-            %div{ data: {bind: 'foreach: $data.animals()'}}
+            %div{ data: {bind: 'foreach: animals()'}}
               %div{ data: {bind: 'text: name'} }
-            %p Groupe:
-            %div{ data: {bind: 'text: $data.group().name'}}
-            %p Container:
-            %div{ data: {bind: 'text: $data.container().name'}}
+            %div{ data: {bind: 'if: $data.group' } }
+              %span Groupe:
+              %div{ data: {bind: 'text: $data.group().name'}}
+            %div{ data: {bind: 'if: $data.container' } }
+              %span Container:
+              %div{ data: {bind: 'text: $data.container().name'}}
             %label Date Début
             %input{:type => "date", data: { bind: "value: $root.moveAnimalModalOptions.started_at"}}
             %label Date Fin

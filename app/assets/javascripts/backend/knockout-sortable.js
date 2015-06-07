@@ -27,18 +27,16 @@
         //1.8.24 included a fix for how events were triggered in nested sortables. indexOf checks will fail if version starts with that value (0 vs. -1)
         hasNestedSortableFix = version && version.indexOf("1.6.") && version.indexOf("1.7.") && (version.indexOf("1.8.") || version === "1.8.24");
 
-    //internal afterRender that adds meta-data to children
     var addMetaDataAfterRender = function(elements, data) {
+        //internal afterRender that adds meta-data to children
         ko.utils.arrayForEach(elements, function(element) {
             if (element.nodeType === 1) {
                 if($(element).hasClass('animal-container'))
                 {
-                    //console.log(element,CONTAINERKEY,data);
-                    dataSet(element, CONTAINERKEY, data);
 
+                    dataSet(element, CONTAINERKEY, data);
                 }
 
-                console.log('metadata', element,data);
                 dataSet(element, ITEMKEY, data);
                 dataSet(element, PARENTKEY, dataGet(element.parentNode, LISTKEY));
             }
@@ -168,7 +166,6 @@
                 var dragItem;
                 $element.sortable(ko.utils.extend(sortable.options, {
                     helper: function (e, item) {
-                        console.log('helping');
                         var elements = [];
 
                         var elements = $('.checker.active').closest('.animal-element-actions').siblings('.animal-element-img').children().clone();
@@ -222,6 +219,7 @@
                         //$('.animal-element.selected').not(item).addClass('hidden');
                         //$(el).addClass('hidden');
 
+
                         //make sure that fields have a chance to update model
                         ui.item.find("input:focus").change();
                         if (startActual) {
@@ -242,18 +240,17 @@
                             containerItem = dataGet(containerEl,CONTAINERKEY);
 
                             el = ui.item.data('items');
-                            animals = []
+                            animals = [];
                             ko.utils.arrayForEach(el, function(item) {
 
                                 if((observableItem = dataGet(item, ITEMKEY)) != null)
                                 {
 
-                                    console.log(observableItem);
                                     animals.push(observableItem);
-                                    dataSet(item, ITEMKEY, null);
+                                    //dataSet(item, ITEMKEY, null);
                                     $(item).remove();
 
-                                    dataSet($(item), ITEMKEY, observableItem);
+                                    //dataSet($(item), ITEMKEY, observableItem);
                                 }
 
 
@@ -265,7 +262,9 @@
                         }
                     },
                      stop: function (e, ui) {
-                    },
+
+
+                     },
                     update: function(event, ui) {
 
                         if (updateActual) {
@@ -331,7 +330,6 @@
             value = "data" in value ? value.data : value;
 
             //set meta-data
-            console.log("draggable:",element);
             dataSet(element, DRAGKEY, value);
 
             //override global options with override options passed in
