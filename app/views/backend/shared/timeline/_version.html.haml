@@ -1,25 +1,25 @@
-.log{class: version.event}
-  - if version.create?
-    %p.content
-      %i.symbol
-      = :created_by_ago.th(defaults)
-  - elsif version.update?
-    %p.content
-      %i.symbol
-      = :updated_by_ago.th(defaults)
-    %ul.changes
-      - for change in version.changes
-        - unless change.old_value.blank? and change.new_value.blank?
-          %li
-            %p
-              - if change.old_value.blank?
-                = :x_has_been_updated_to_a.th(x: change.human_attribute_name, a: change.human_new_value)
-              - elsif change.new_value.blank?
-                = :x_has_been_cleared.th(x: change.human_attribute_name, a: change.human_old_value)
-              - else
-                = :x_has_been_updated_from_a_to_b.th(x: change.human_attribute_name, a: change.human_old_value, b: change.human_new_value)
-
-  - elsif version.destroy?
-    %p.content
-      %i.symbol
-      = :destroyed_by_ago.th(defaults)
+- classes = ["log-version", "log-version-#{version.event}"]
+- classes << "log-without-content" unless version.update?
+.log{class: classes}
+  - if version.creator
+    .log-avatar= image_tag version.creator.avatar_url(size: avatar_size)
+  .log-wrapper
+    .log-symbol
+    - if version.create?
+      .log-heading= :created_by_ago.th(defaults)
+    - elsif version.update?
+      .log-heading= :updated_by_ago.th(defaults)
+      .log-body
+        %ul.log-changes
+          - for change in version.changes
+            - unless change.old_value.blank? and change.new_value.blank?
+              %li
+                %p
+                  - if change.old_value.blank?
+                    = :x_has_been_updated_to_a.th(x: change.human_attribute_name, a: change.human_new_value)
+                  - elsif change.new_value.blank?
+                    = :x_has_been_cleared.th(x: change.human_attribute_name, a: change.human_old_value)
+                  - else
+                    = :x_has_been_updated_from_a_to_b.th(x: change.human_attribute_name, a: change.human_old_value, b: change.human_new_value)
+    - elsif version.destroy?
+      %p.log-heading= :destroyed_by_ago.th(defaults)

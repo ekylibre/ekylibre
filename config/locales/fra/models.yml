@@ -1520,5 +1520,11 @@ fra:
         sales_invoices: "F[year|4][number|6]"
         subscriptions: "ABO[number|8]"
         transports: "TR[number|8]"
+    task:
+      state_machine:
+        states:
+          doing: "En cours"
+          done: "Fini"
+          todo: "À faire"
     team:
       default: "Général"

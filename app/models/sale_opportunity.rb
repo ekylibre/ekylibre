@@ -1,3 +1,4 @@
+# coding: utf-8
 # = Informations
 #
 # == License
@@ -72,37 +73,49 @@ class SaleOpportunity < Affair
     state :won
     state :lost
 
+    event :prospect do
+      transition all => :prospecting
+      # transition :prospecting => :qualification
+      # transition :value_proposition => :qualification
+    end
+
     event :qualify do
-      transition :prospecting => :qualification
-      transition :value_proposition => :qualification
+      transition all => :qualification
+      # transition :prospecting => :qualification
+      # transition :value_proposition => :qualification
     end
 
     event :evaluate do
-      transition :qualification => :value_proposition
-      transition :price_quote => :value_proposition
+      transition all => :value_proposition
+      # transition :qualification => :value_proposition
+      # transition :price_quote => :value_proposition
     end
 
     event :quote do
-      transition :value_proposition => :price_quote
-      transition :negociation => :price_quote
+      transition all => :price_quote
+      # transition :value_proposition => :price_quote
+      # transition :negociation => :price_quote
     end
 
     event :negociate do
-      transition :price_quote => :negociation
-      transition :won => :negociation
-      transition :lost => :negociation
+      transition all => :negociation
+      # transition :price_quote => :negociation
+      # transition :won => :negociation
+      # transition :lost => :negociation
     end
 
     event :win do
-      transition :negociation => :won
+      transition all => :won
+      # transition :negociation => :won
     end
 
     event :lose do
-      transition :prospecting => :lost
-      transition :qualification => :lost
-      transition :value_proposition => :lost
-      transition :price_quote => :lost
-      transition :negociation => :lost
+      transition all => :lost
+      # transition :prospecting => :lost
+      # transition :qualification => :lost
+      # transition :value_proposition => :lost
+      # transition :price_quote => :lost
+      # transition :negociation => :lost
     end
   end
 

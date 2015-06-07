@@ -47,10 +47,10 @@
 = timeline(resource) do |l|
   - l.side :observations
   - l.side :events, at: :started_at
-  - l.side :sales
-  - l.side :purchases
-  - l.side :incoming_payments
-  - l.side :outgoing_payments
-  - l.side :gaps
+  - l.side :sales, new: false
+  - l.side :purchases, new: false
+  - l.side :incoming_payments, new: false
+  - l.side :outgoing_payments, new: false
+  - l.side :gaps, new: false
   - l.side :tasks
   - l.side :versions, new: false

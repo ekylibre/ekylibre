@@ -542,12 +542,12 @@ eng:
       # detach: "Detach sale opportunity: %{name}"
       edit: "Edit opportunity: %{name}"
       # evaluate: "Evaluate sale opportunity: %{name}"
-      # evolve: "Evolve sale opportunity: %{name}"
       # finish: "Finish sale opportunity: %{name}"
       index: "Opportunities"
       # lose: "Lose sale opportunity: %{name}"
       # negociate: "Negociate sale opportunity: %{name}"
       new: "New opportunity"
+      # prospect: "Prospect sale opportunity: %{name}"
       # qualify: "Qualify sale opportunity: %{name}"
       # quote: "Quote sale opportunity: %{name}"
       # select: "Select sale opportunity: %{name}"
@@ -607,9 +607,12 @@ eng:
       show: "Synchronization: %{name}" #?
     backend/tasks:
       edit: "Edit task: %{name}"
+      # finish: "Finish task: %{name}"
       index: "Tasks"
       new: "New task"
+      # reset: "Reset task: %{name}"
       show: "Task: %{name}"
+      # start: "Start task: %{name}"
     backend/taxes:
       edit: "Edit tax: %{name}"
       index: "Taxes"
@@ -1078,7 +1081,6 @@ eng:
     last_purchases: "Last purchases"
     last_sales: "Last sales" #?
     letter: "Letter" #?
-    letter_options: "Letter options" #?
     line_number: "Line #%{number}"
     linear_options: "Linear options"
     list: "List"
@@ -1096,7 +1098,6 @@ eng:
     manual_period: "from %{start} to %{finish}"
     manure_management_plan_chart: "Manure management plan chart"
     map: "Map"
-    markers: "Markers" #?
     maximal_temperature: "Maximal temperature"
     members: "Members"
     # menus: "Menus"
@@ -1110,9 +1111,7 @@ eng:
     month_period: "%{code} - %{month} %{year}"
     monthly: "Monthly" #?
     months: "Months"
-    moved_at: "Made on" #?
     movements: "Movements"
-    moves: "Moves" #?
     name: "Name" #?
     nature: "Type"
     natures: "Natures"
@@ -1121,6 +1120,7 @@ eng:
     net_surface_area: "Net surface area"
     new: "New"
     new_box: "New box"
+    new_call: "New call"
     new_contact: "New contact"
     new_deposit:
       one: "Make a deposit %{mode}: 1 available payment"
@@ -1339,12 +1339,15 @@ eng:
     time_cost_per_hectare: "Time cost per hectare"
     time_zone: "Time zone"
     timeline: "Timeline"
+    timeline_call: "%{author} called %{entity} about %{name} %{ago} ago"
     timeline_comment: "%{author} commented %{ago} ago"
     timeline_entity_link: "Timeline entity link"
     timeline_event: "%{name} with %{participants} %{ago} ago"
     timeline_item: "%{type} %{name} added by %{author} %{ago} ago"
+    timeline_mail: "%{author} wrote to %{entity} about %{name} %{ago} ago"
     timeline_payment: "%{type} %{name} of %{amount} by %{mode} added by %{author} %{ago} ago"
     timeline_sale: "%{type} %{name} of %{amount} added by %{author} %{ago} ago"
+    timeline_task: "%{author} added task %{name} %{ago} ago"
     to: "to"
     to_deposit: "To deposit"
     to_deposit_later: "To deposit later" #?
@@ -1642,7 +1645,6 @@ eng:
       duplicate: "Duplicate"
       edit: "Edit"
       evaluate: "Evaluate"
-      evolve: "Evolve"
       export: "Export"
       extract: "Extract"
       family: "Family"
@@ -1676,6 +1678,7 @@ eng:
       # product: "Product"
       propose: "Propose"
       propose_and_invoice: "Propose and invoice"
+      prospect: "Prospect"
       qualify: "Qualify"
       # quantifiers: "Quantifiers"
       quote: "Quote"
@@ -1694,6 +1697,7 @@ eng:
       ship: "Ship"
       show: "Show"
       sort: "Sort"
+      start: "Start"
       stop: "Stop" #?
       take: "Take"
       toggle: "Toggle"

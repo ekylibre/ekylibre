@@ -31,6 +31,7 @@
 #  id                  :integer          not null, primary key
 #  lock_version        :integer          default(0), not null
 #  name                :string           not null
+#  nature              :string           not null
 #  sale_opportunity_id :integer
 #  state               :string           not null
 #  updated_at          :datetime         not null
@@ -40,12 +41,45 @@
 class Task < Ekylibre::Record::Base
   include Versionable, Commentable
   enumerize :state, in: [:todo, :doing, :done], default: :todo, predicates: true
+  enumerize :nature, in: [:call, :mail, :quote, :document, :email], default: :mail, predicates: true
   belongs_to :entity
   belongs_to :sale_opportunity
   belongs_to :executor, -> { responsibles }, class_name: "Entity"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :due_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
-  validates_presence_of :entity, :name, :state
+  validates_presence_of :entity, :name, :nature, :state
   #]VALIDATORS]
   versionize
+
+  state_machine :state, :initial => :todo do
+    state :todo
+    state :doing
+    state :done
+
+    event :reset do
+      transition :doing => :todo
+      transition :done => :todo
+    end
+
+    event :start do
+      transition :todo => :doing
+      transition :done => :doing
+    end
+
+    event :finish do
+      transition :todo => :done
+      transition :doing => :done
+    end
+  end
+
+  before_validation(on: :create) do
+    self.state ||= :todo
+  end
+
+
+  def status
+    return :go if self.done?
+    return :caution if self.doing?
+    return :stop if self.todo?
+  end
 end

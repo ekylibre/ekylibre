@@ -152,6 +152,12 @@ fra:
       nature:
         period: "Par dates"
         quantity: "Par numéros"
+    task:
+      nature:
+        call: "Appel"
+        document: "Document"
+        mail: "Courrier"
+        quote: "Évaluation"
     tax:
       nature:
         amount: "Montant"

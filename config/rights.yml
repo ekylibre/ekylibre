@@ -1662,11 +1662,11 @@ sales:
     - "backend/sale_opportunities#detach"
     - "backend/sale_opportunities#edit"
     - "backend/sale_opportunities#evaluate"
-    - "backend/sale_opportunities#evolve"
     - "backend/sale_opportunities#finish"
     - "backend/sale_opportunities#lose"
     - "backend/sale_opportunities#negociate"
     - "backend/sale_opportunities#new"
+    - "backend/sale_opportunities#prospect"
     - "backend/sale_opportunities#qualify"
     - "backend/sale_opportunities#quote"
     - "backend/sale_opportunities#select"
@@ -1801,7 +1801,10 @@ tasks:
     - "backend/tasks#create"
     - "backend/tasks#destroy"
     - "backend/tasks#edit"
+    - "backend/tasks#finish"
     - "backend/tasks#new"
+    - "backend/tasks#reset"
+    - "backend/tasks#start"
     - "backend/tasks#update"
 
 taxes:

@@ -151,6 +151,12 @@ spa:
       nature:
         # period: "Subscription by date"
         # quantity: "Subscription by number"
+    task:
+      nature:
+        # call: "Call"
+        # document: "Document"
+        # mail: "Mail"
+        # quote: "Quote"
     tax:
       nature:
         # amount: "Amount"

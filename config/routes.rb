@@ -627,7 +627,7 @@ Rails.application.routes.draw do
     resources :sale_opportunities, concerns: [:list, :affairs], path: "sale-opportunities" do
       member do
         get :list_tasks
-        match "evolve/:state" => :evolve, via: :patch
+        post :prospect
         post :evaluate
         post :lose
         post :negociate
@@ -690,7 +690,13 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :tasks, concerns: [:list, :unroll]
+    resources :tasks, concerns: [:list, :unroll] do
+      member do
+        post :reset
+        post :start
+        post :finish
+      end
+    end
 
     resources :taxes, concerns: [:list, :unroll]
 

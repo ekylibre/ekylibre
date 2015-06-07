@@ -12,8 +12,12 @@
   .fieldset.#{$symbol-name} .fieldset-legend .title i,
   // help content
   .icon.icon-#{$symbol-name},
+  .ic.ic-#{$symbol-name},
   // picto
-  .picto.picto-#{$symbol-name} {
+  .picto.picto-#{$symbol-name},
+  // timeline
+ .timeline .timestep .log-#{$symbol-name} .log-symbol
+  {
     @content;
   }
 }

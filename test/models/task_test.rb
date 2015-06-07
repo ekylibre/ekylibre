@@ -31,6 +31,7 @@
 #  id                  :integer          not null, primary key
 #  lock_version        :integer          default(0), not null
 #  name                :string           not null
+#  nature              :string           not null
 #  sale_opportunity_id :integer
 #  state               :string           not null
 #  updated_at          :datetime         not null

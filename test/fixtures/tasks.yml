@@ -31,6 +31,7 @@
 #  id                  :integer          not null, primary key
 #  lock_version        :integer          default(0), not null
 #  name                :string           not null
+#  nature              :string           not null
 #  sale_opportunity_id :integer
 #  state               :string           not null
 #  updated_at          :datetime         not null
@@ -43,6 +44,7 @@
 #   creator: users_001
 #   entity: entities_001
 #   name: "Lorem ipsum"
+#   nature: "Lorem ipsum"
 #   state: "Lorem ipsum"
 #   updater: users_001
 #
@@ -72,6 +74,7 @@ tasks_001:
   id: 1
   lock_version: 0
   name: Faire le plan prévisionnel de fumure
+  nature: document
   sale_opportunity_id: 32
   state: todo
   updated_at: 2015-06-06 22:22:24.435582000 Z
@@ -86,6 +89,7 @@ tasks_002:
   id: 2
   lock_version: 1
   name: Faire l'évaluation fiscale
+  nature: document
   state: done
   updated_at: 2015-06-06 22:23:22.632963000 Z
   updater_id: 1

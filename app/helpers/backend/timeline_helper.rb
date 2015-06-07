@@ -1,4 +1,3 @@
-# encoding: utf-8
 # ##### BEGIN LICENSE BLOCK #####
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2009-2015 Brice Texier
@@ -18,12 +17,10 @@
 #
 # ##### END LICENSE BLOCK #####
 
-# encoding: utf-8
-
 module Backend::TimelineHelper
 
   class Timeline
-    attr_reader :object, :sides
+    attr_reader :object, :sides, :id
 
     class Side
       attr_reader :name, :model, :label_method, :at_method
@@ -105,10 +102,11 @@ module Backend::TimelineHelper
 
     end
 
-    def initialize(object)
+    def initialize(object, options = {})
       @object = object
       @model = @object.class
       @sides = []
+      @id = options[:id]
     end
 
     def steps
@@ -140,9 +138,9 @@ module Backend::TimelineHelper
   end
 
 
-  def timeline(object, &block)
+  def timeline(object, options = {}, &block)
     if object
-      line = Timeline.new(object)
+      line = Timeline.new(object, options)
       yield line
       render partial: "backend/shared/timeline", locals: {timeline: line}
     end

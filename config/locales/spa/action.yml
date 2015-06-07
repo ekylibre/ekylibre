@@ -987,7 +987,6 @@ spa:
     # last_sales: "Last sales"
     left_balance_amount: "Aplazamiento del credito anterior sin imputar ni reembolsar" #?
     # letter: "Letter"
-    # letter_options: "Letter options"
     lettering_account_client: "marcar con lettras los cuentos clientos" #?
     lettering_account_supplier: "marcar con lettra los cuentos abastecedores" #?
     lettering_modes:  #?
@@ -1018,7 +1017,6 @@ spa:
     manual_period: "del %{start} al %{finish}"
     # manure_management_plan_chart: "Manure management plan chart"
     # map: "Map"
-    # markers: "Markers"
     # maximal_temperature: "Maximal temperature"
     # members: "Members"
     # merge: "Merge"
@@ -1031,9 +1029,8 @@ spa:
     # month_period: "%{code} - %{month} %{year}"
     monthly: "Mensual"
     # months: "Months"
-    # moved_at: "Made on"
     # movements: "Movements"
-    moves: "Movimientos de depositos"
+    moves: "Movimientos de depositos" #?
     my_company: "Coja las informaciones sobre su sociedad" #?
     my_self: "Coja sus informaciones" #?
     # name: "Name"
@@ -1053,6 +1050,7 @@ spa:
     net_vat_amount: "TVA neta deuda" #?
     # new: "New"
     # new_box: "New box"
+    # new_call: "New call"
     # new_contact: "New contact"
     new_deposit:
       # one: "Make a deposit %{mode}: 1 available payment"
@@ -1329,12 +1327,15 @@ spa:
     # time_cost_per_hectare: "Time cost per hectare"
     # time_zone: "Time zone"
     # timeline: "Timeline"
+    # timeline_call: "%{author} called %{entity} about %{name} %{ago} ago"
     # timeline_comment: "%{author} commented %{ago} ago"
     # timeline_entity_link: "Timeline entity link"
     # timeline_event: "%{name} with %{participants} %{ago} ago"
     # timeline_item: "%{type} %{name} added by %{author} %{ago} ago"
+    # timeline_mail: "%{author} wrote to %{entity} about %{name} %{ago} ago"
     # timeline_payment: "%{type} %{name} of %{amount} by %{mode} added by %{author} %{ago} ago"
     # timeline_sale: "%{type} %{name} of %{amount} added by %{author} %{ago} ago"
+    # timeline_task: "%{author} added task %{name} %{ago} ago"
     to: "Al"
     # to_deposit: "To deposit"
     # to_deposit_later: "To deposit later"
@@ -1695,7 +1696,6 @@ spa:
       # duplicate: "Duplicate"
       # edit: "Edit"
       # evaluate: "Evaluate"
-      # evolve: "Evolve"
       # export: "Export"
       # extract: "Extract"
       # family: "Family"
@@ -1722,6 +1722,7 @@ spa:
       # point: "Point"
       # propose: "Propose"
       # propose_and_invoice: "Propose and invoice"
+      # prospect: "Prospect"
       # qualify: "Qualify"
       # quote: "Quote"
       # reconciliation: "Reconciliation"
@@ -1737,6 +1738,7 @@ spa:
       # ship: "Ship"
       # show: "Show"
       # sort: "Sort"
+      # start: "Start"
       # stop: "Stop"
       # take: "Take"
       # toggle: "Toggle"
