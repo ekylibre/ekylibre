@@ -42,12 +42,12 @@
 
                     dataSet(element, GROUPKEY, data);
                 }
-                else
+                else if($(element).hasClass('animal-element'))
                 {
                     dataSet(element, ITEMKEY, data);
-                    dataSet(element, PARENTKEY, dataGet(element.parentNode, LISTKEY));
                 }
 
+                dataSet(element, PARENTKEY, dataGet(element.parentNode, LISTKEY));
             }
         });
     };
@@ -247,7 +247,9 @@
 
                         if(dataGet(el,GROUPKEY) != undefined)
                         {
-                            //Nothing specific
+                            //Need to set current array position
+                            dataSet(el, INDEXKEY, ko.utils.arrayIndexOf(ui.item.parent().children(), el));
+
                         }
 
 
@@ -311,8 +313,24 @@
                         var el = ui.item[0];
 
 
-                        if(dataGet(el,GROUPKEY) != undefined)
+                        if((observableItem = dataGet(el,GROUPKEY)) != undefined)
                         {
+                            sourceParent = dataGet(el, PARENTKEY);
+                            sourceIndex = dataGet(el, INDEXKEY);
+                            targetParent = dataGet(el.parentNode, LISTKEY);
+                            targetIndex = ko.utils.arrayIndexOf(ui.item.parent().children(), el);
+
+
+                            //do the actual move
+                            if (targetIndex >= 0) {
+                                if (sourceParent) {
+                                    sourceParent.splice(sourceIndex, 1);
+
+                                }
+
+                                targetParent.splice(targetIndex, 0, observableItem);
+                            }
+
                             //update preferences
                             window.app.updatePreferences();
 
@@ -354,7 +372,6 @@
         update: function(element, valueAccessor, allBindingsAccessor, data, context) {
             var templateOptions = prepareTemplateOptions(valueAccessor, "foreach");
 
-            //console.log('update ko');
             //attach meta-data
             dataSet(element, LISTKEY, templateOptions.foreach);
 
