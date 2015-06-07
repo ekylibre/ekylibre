@@ -943,6 +943,23 @@ module ApplicationHelper
   end
 
 
+  # Define a simple frame for modals
+  def modal(*args, &block)
+    options = args.extract_options!
+    if options[:class].is_a? Array
+      options[:class] << "modal"
+      options[:class] << "fade"
+    elsif options[:class].nil?
+      options[:class] = "modal fade"
+    else
+      options[:class] = options[:class].to_s + " modal fade"
+    end
+    options[:tabindex] ||= "-1"
+    options[:role] ||= "dialog"
+    content_for(:popover) do
+      content_tag(:div, options, &block)
+    end
+  end
 
 end
 

@@ -15,7 +15,7 @@
     = main_list
 
   - j.face :column do
-    - content_for :main_toolbar do
+    -# content_for :main_toolbar do
 
       = dropdown_button do |l|
         - procedures = Procedo.procedures_of_activity_family(:cattle_farming)
@@ -26,7 +26,7 @@
       = tool_to 'Vendre', '#'
       = tool_to 'Mettre en pension', '#'
 
-    .container-fluid
+    .container-fluid{data: {golumns: "animal"}}
       -# # TODO Implements this in filter system
       -# .row.animal-summary
         .col-md-3
@@ -118,7 +118,8 @@
               .add-group-btn
                 %button.btn.btn-link{"data-target" => "#new-group", "data-toggle" => "modal", :type => "button"}
                   %i.icon.icon-5x.icon-plus.text-muted
-    #new-animal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newAnimal", :role => "dialog", :tabindex => "-1"}
+
+    = modal(id: "new-animal", "aria-hidden" => "true", "aria-labelledby" => "newAnimal") do
       .modal-dialog
         .modal-content
           .modal-header
@@ -131,7 +132,8 @@
               %button.btn.btn-default{:type => "button"} Pension
               %button.btn.btn-default{:type => "button"} Naissance
               %button.btn.btn-default{:type => "button"} D&eacute;claration
-    #new-action-animal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newActionAnimal", :role => "dialog", :tabindex => "-1"}
+
+    = modal(id: "new-action-animal", "aria-hidden" => "true", "aria-labelledby" => "newActionAnimal") do
       .modal-dialog
         .modal-content
           .modal-header
@@ -142,7 +144,8 @@
             .btn-group-vertical{"aria-label" => "...", :role => "group"}
               %button.btn.btn-default{:type => "button"} Vendre
               %button.btn.btn-default{:type => "button"} Vacciner
-    #new-group.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newGroup", :role => "dialog", :tabindex => "-1"}
+
+    = modal(id: "new-group", "aria-hidden" => "true", "aria-labelledby" => "newGroup") do
       .modal-dialog
         .modal-content
           .modal-header
@@ -151,7 +154,8 @@
             %h4#newGroupTitle.modal-title Nouveau Troupeau
           .modal-body
             Ajouter un nouveau troupeau
-    #move-animal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "moveAnimal", data: {bind: "modal: showMoveAnimalModal(), with: moveAnimalModalOptions"}, :role => "dialog", :tabindex => "-1"}
+
+    = modal(id: "move-animal", "aria-hidden" => "true", "aria-labelledby" => "moveAnimal", data: {bind: "modal: showMoveAnimalModal(), with: moveAnimalModalOptions"}) do
       .modal-dialog
         .modal-content
           .modal-header
@@ -186,7 +190,8 @@
             %button.btn.btn-default{:type => "button", data: {bind: "click: $root.moveAnimals"}}
               %i.icon.icon-plus-circle Déplacer
             %button.close.btn.btn-default{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button", data: {bind: "click: $root.cancelAnimalsMoving"}} Annuler le déplacement
-    #new-container.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newContainer",  data: {bind: "modal: showNewContainerModal(), with: containerModalOptions"}, :role => "dialog", :tabindex => "-1"}
+
+    = modal(id: "new-container", "aria-hidden" => "true", "aria-labelledby" => "newContainer", data: {bind: "modal: showNewContainerModal(), with: containerModalOptions"}) do
       .modal-dialog
         .modal-content
           .modal-header
@@ -203,8 +208,7 @@
               %i.icon.icon-plus-circle Ajouter
             %button.close.btn.btn-default{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"} Fermer
 
-
-    .modal.fade{"aria-hidden" => "true", "aria-labelledby" => "viewAnimal", "data-bind" => "modal: showAnimalDetailsModal(), with: animalDetailsModalOptions", :role => "dialog", :tabindex => "-1"}
+    = modal("aria-hidden" => "true", "aria-labelledby" => "viewAnimal", "data-bind" => "modal: showAnimalDetailsModal(), with: animalDetailsModalOptions") do
       .modal-dialog
         .modal-content
           .modal-header

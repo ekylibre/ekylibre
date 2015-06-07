@@ -87,3 +87,16 @@ observations_003:
   subject_type: Entity
   updated_at: 2014-11-14 22:03:22.349676000 Z
   updater_id: 1
+observations_004:
+  author_id: 1
+  content: Already finished... too sad
+  created_at: 2015-06-07 15:37:03.533841000 Z
+  creator_id: 1
+  id: 4
+  importance: notice
+  lock_version: 0
+  observed_at: 2015-06-07 15:36:00.000000000 Z
+  subject_id: 2
+  subject_type: Task
+  updated_at: 2015-06-07 15:37:03.533841000 Z
+  updater_id: 1

@@ -1,6 +1,6 @@
 #= require bootstrap/modal
 
-$ ->
+(($) ->
 
   $(document).ajaxSend (e, xhr, options) ->
     token = $('meta[name=\'csrf-token\']').attr('content')
@@ -361,7 +361,10 @@ $ ->
 
     return
 
-  window.app = new dashboardViewModel
-  ko.applyBindings window.app
-  window.loadData()
-  return
+  $(document).ready ->
+    $("*[data-golumns='animal']").each ->
+      window.app = new dashboardViewModel
+      ko.applyBindings window.app
+      window.loadData()
+
+) jQuery

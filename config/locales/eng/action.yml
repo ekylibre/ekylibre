@@ -1118,7 +1118,7 @@ eng:
     net_margin: "Net margin"
     net_mass: "Net mass"
     net_surface_area: "Net surface area"
-    new: "New"
+    new: "New" #?
     new_box: "New box"
     new_call: "New call"
     new_contact: "New contact"

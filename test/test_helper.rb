@@ -483,7 +483,7 @@ class ActionController::TestCase
       /\#update\z/        => :update,
       /\#evolve\z/        => :evolve,
       /\#destroy\z/       => :destroy,
-      /\#(decrement|duplicate|down|lock|toggle|unlock|up|increment|propose|confirm|refuse|invoice|abort|correct|finish|propose_and_invoice|sort|run|qualify|evaluate|quote|negociate|win|lose)\z/ => :touch,
+      /\#(decrement|duplicate|down|lock|toggle|unlock|up|increment|propose|confirm|refuse|invoice|abort|correct|finish|propose_and_invoice|sort|run|qualify|evaluate|quote|negociate|win|lose|reset|start|prospect)\z/ => :touch,
       /\#take\z/          => :take,
       /\#unroll\z/        => :unroll
     }
@@ -536,6 +536,7 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
       page.driver.allow_url 'b.tile.openstreetmap.fr'
       page.driver.allow_url 'c.tile.openstreetmap.fr'
       page.driver.allow_url 'server.arcgisonline.com'
+      page.driver.allow_url 'secure.gravatar.com'
     end
   end
   # fixtures :all

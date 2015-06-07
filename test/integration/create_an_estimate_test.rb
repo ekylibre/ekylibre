@@ -60,8 +60,12 @@ class CancelASalesInvoiceTest < CapybaraIntegrationTest
       click_on :search.tl
     end
     click_on "Yuey LTD"
+    sleep(1)
+    # click_link :timeline.tl
+    page.execute_script("$(\"*[data-toggle='face'][href='timeline']\").click();")
+    sleep(1)
     within('.timeline-tool.tl-sales') do
-      click_on :new.tl
+      click_on "actions.backend/sales.new".t
     end
     click_on :add_item.tl
     within('#items tr.nested-fields:nth-child(1)') do

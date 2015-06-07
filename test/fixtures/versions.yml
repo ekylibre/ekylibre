@@ -10797,3 +10797,65 @@ versions_211:
     created_at: 2015-06-06 22:23:14.563910000 Z
     creator_id: 1
   item_type: Task
+versions_212:
+  created_at: 2015-06-07 15:35:17.013435000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 249
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    executor_id: 1
+    nature: document
+  item_id: 2
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 2
+    name: Faire l'évaluation fiscale
+    state: done
+    nature: document
+    entity_id: 14
+    executor_id: 9
+    sale_opportunity_id:
+    description: ''
+    due_at: 2015-06-04 08:50:00.000000000 Z
+    created_at: 2015-06-06 22:23:14.563910000 Z
+    creator_id: 1
+  item_type: Task
+versions_213:
+  created_at: 2015-06-07 15:36:40.789521000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 250
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    executor_id: 1
+    nature: document
+  item_id: 1
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 1
+    name: Faire le plan prévisionnel de fumure
+    state: todo
+    nature: document
+    entity_id: 14
+    executor_id: 12
+    sale_opportunity_id: 32
+    description: " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+      egestas ac sapien quis convallis. Nulla id augue libero. Fusce quis enim a mi
+      volutpat rhoncus non sit amet urna. Mauris dolor risus, auctor id justo sed,
+      venenatis convallis eros. Suspendisse et lacinia neque, nec aliquet augue. Morbi
+      urna mi, luctus a ultrices vel, aliquet in nibh. Maecenas sit amet ante auctor,
+      bibendum enim cursus, dictum urna. Quisque tincidunt in justo ac laoreet. Phasellus
+      pretium accumsan ex, et pretium eros sollicitudin nec. Quisque bibendum eu diam
+      non tristique. Maecenas lorem purus, efficitur eget nisi eget, tempor blandit
+      nunc. Sed at purus auctor, commodo metus in, venenatis urna. Quisque felis diam,
+      malesuada tristique enim in, tristique imperdiet neque. Quisque consequat pretium
+      metus, tempor elementum diam elementum in.\r\n\r\nCras enim arcu, vulputate
+      vitae consequat in, mollis vitae nulla. Nam sapien velit, pharetra et purus
+      ac, porta interdum turpis. Suspendisse ullamcorper faucibus diam, ac facilisis
+      dui ultricies vitae. Ut venenatis urna mi, sed gravida libero vehicula ut. Donec
+      gravida erat sit amet dolor ultrices aliquet. Suspendisse blandit mi augue,
+      vitae molestie ligula mattis at. Aenean mollis laoreet massa ac ultricies. Donec
+      ac euismod diam. "
+    due_at: 2015-06-26 20:50:00.000000000 Z
+    created_at: 2015-06-06 22:22:24.435582000 Z
+    creator_id: 1
+  item_type: Task

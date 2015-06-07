@@ -70,14 +70,14 @@ tasks_001:
     mollis laoreet massa ac ultricies. Donec ac euismod diam. "
   due_at: 2015-06-26 20:50:00.000000000 Z
   entity_id: 14
-  executor_id: 1
+  executor_id: 12
   id: 1
-  lock_version: 0
+  lock_version: 1
   name: Faire le plan prévisionnel de fumure
   nature: document
   sale_opportunity_id: 32
   state: todo
-  updated_at: 2015-06-06 22:22:24.435582000 Z
+  updated_at: 2015-06-07 15:36:40.785621000 Z
   updater_id: 1
 tasks_002:
   created_at: 2015-06-06 22:23:14.563910000 Z
@@ -85,11 +85,11 @@ tasks_002:
   description: ''
   due_at: 2015-06-04 08:50:00.000000000 Z
   entity_id: 14
-  executor_id: 1
+  executor_id: 9
   id: 2
-  lock_version: 1
+  lock_version: 2
   name: Faire l'évaluation fiscale
   nature: document
   state: done
-  updated_at: 2015-06-06 22:23:22.632963000 Z
+  updated_at: 2015-06-07 15:35:17.003092000 Z
   updater_id: 1
