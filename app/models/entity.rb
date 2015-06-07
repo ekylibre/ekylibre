@@ -106,6 +106,7 @@ class Entity < Ekylibre::Record::Base
   has_many :outgoing_payments, foreign_key: :payee_id
   has_many :sales_invoices, -> { where(state: "invoice").order(created_at: :desc) }, class_name: "Sale", foreign_key: :client_id
   has_many :sales, -> { order(created_at: :desc) }, foreign_key: :client_id
+  has_many :sale_opportunities, -> { order(created_at: :desc) }, foreign_key: :third_id
   has_many :managed_sales, -> { order(created_at: :desc) }, foreign_key: :responsible_id, class_name: "Sale"
   has_many :sale_items, class_name: "SaleItem"
   has_many :subscriptions, foreign_key: :subscriber_id

@@ -1,0 +1,61 @@
+:ruby
+  balance = 0
+  costs = {
+    input: 0,
+    tool: 0,
+    doer: 0,
+    other: 0
+  }
+  currency = Nomen::Currencies.find(Preference[:currency])
+  title_legend_complement = ''
+  # get support_variant indicator and unit (ex: net_surface_area and hectare)
+  support_variant_indicator = Nomen::Indicators[resource.support_variant_indicator]
+  support_variant_unit      = Nomen::Units[resource.support_variant_unit]
+
+  if support_variant_unit
+    title_legend_complement = " (#{ currency.symbol || currency.name}/#{ support_variant_unit.symbol })"
+  end
+
+  divider = supports_quantity.round(4)
+  divider = 1.0 if divider.zero?
+
+  data_series = []
+  resource.revenues.each do |revenue|
+    data_series << { name: revenue.variant_name, y: (revenue.amount/divider).to_s.to_f, color: "#000077"}
+    balance += revenue.amount
+  end
+
+  resource.expenses.each do |expense|
+    amount = expense.amount
+    variant_variety = Nomen::Varieties[expense.variant.variety]
+    if expense.variant_indicator.to_s == "working_duration"
+      if variant_variety <= :worker
+        costs[:doer] -= amount
+      elsif variant_variety <= :equipment
+        costs[:tool] -= amount
+      end
+    elsif (variant_variety <= :preparation || variant_variety <= :water)
+      costs[:input] -= amount
+    else
+      costs[:other] -= amount
+    end
+    balance -= amount
+  end
+
+  data_series << { name: "evaluated_input_cost".tl , y: (costs[:input]/divider).to_s.to_f, color: "#DD0000"} unless costs[:input].zero?
+  data_series << { name: "evaluated_other_cost".tl , y: (costs[:other]/divider).to_s.to_f, color: "#DD0000"} unless costs[:other].zero?
+
+  data_series << { name: :raw_margin.tl, isSum: true, color: (balance >= 0 ? "#35DD00" : "#DD0000")}
+
+  data_series << { name: "evaluated_tool_cost".tl , y: (costs[:tool]/divider).to_s.to_f, color: "#DD0000"} unless costs[:tool].zero?
+  data_series << { name: "evaluated_doer_cost".tl , y: (costs[:doer]/divider).to_s.to_f, color: "#DD0000"} unless costs[:doer].zero?
+
+  data_series << { name: :direct_margin.tl, isSum: true, color: (balance >= 0 ? "#35DD00" : "#DD0000")}
+
+  data_series << { name: :indirect_expenses.tl, y: (resource.indirect_budget_amount/divider).to_s.to_f, color: (resource.indirect_budget_amount >= 0 ? "#35DD00" : "#DD0000")} if resource.indirect_budget_amount != 0
+
+  data_series << { name: :net_margin.tl, isSum: true, color: "#ed9440"} if resource.indirect_budget_amount != 0
+
+  series = []
+  series << {up_color: cycle(*theme_colors), color: cycle(*theme_colors), data: data_series, data_labels: {enabled: false}}
+= waterfall_chart(series, tooltip: {point_format: '{point.y: 1.2f}'}, title: {text: :provisionnal_budget.tl + title_legend_complement}, legend: {enabled: false}, x_axis: {type: 'category'}, y_axis: {title: {text: '€'}})

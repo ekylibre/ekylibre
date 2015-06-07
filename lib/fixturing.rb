@@ -45,6 +45,11 @@ module Fixturing
       end
     end
 
+    def reverse(tenant, steps = 1)
+      restore(tenant)
+      rollback(tenant, steps)
+    end
+
     # Dump data of database into fixtures
     def dump(tenant)
       Ekylibre::Tenant.switch!(tenant)
@@ -104,7 +109,13 @@ module Fixturing
       else
         say "No more migrations", :green
       end
-      # Ekylibre::Tenant.migrate(tenant, to: ActiveRecord::Migrator.last_version)
+    end
+
+    def rollback(tenant, steps = 1)
+      say "Rollback (Steps count: #{steps})"
+      Ekylibre::Tenant.switch(tenant) do
+        ActiveRecord::Migrator.rollback(ActiveRecord::Migrator.migrations_paths, steps)
+      end
     end
 
     def say(text, color = :yellow)

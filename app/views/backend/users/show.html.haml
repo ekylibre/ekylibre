@@ -6,8 +6,8 @@
     - else
       - t.lock resource, method: :post
 
-= beehive do |b|
-  - b.cell do
+= cobbles do |c|
+  - c.cobble :general_informations do
     = attributes_list do |l|
       - l.attribute :last_name
       - l.attribute :first_name
@@ -22,5 +22,5 @@
         - l.custom_fields
 
   - unless resource.administrator?
-    - b.cell :rights do
+    - c.cobble :rights do
       = access_control_list(resource.rights)

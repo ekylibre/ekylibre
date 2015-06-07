@@ -2,8 +2,8 @@
   - t.edit resource
   - t.point resource
 
-= beehive do |b|
-  - b.cell do
+= cobbles do |c|
+  - c.cobble :general_informations do
     = attributes_list do |l|
       - l.attribute(:number)
       - l.attribute(:cash, url: true)
@@ -13,5 +13,5 @@
       - l.attribute(:stopped_at)
       - l.custom_fields
 
-  - b.cell :items, label: BankStatement.human_attribute_name("items") do
+  - c.cobble :items, label: BankStatement.human_attribute_name("items") do
     = list(:items)

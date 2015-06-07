@@ -2,8 +2,8 @@
   - t.export :transport, resource
   - t.edit resource
 
-= beehive do |b|
-  - b.cell :general_informations do
+= cobbles do |c|
+  - c.cobble :general_informations do
     = attributes_list do |l|
       - l.attribute :number
       - l.attribute :transporter, url: true
@@ -15,5 +15,5 @@
       - if resource.custom_fields.any?
         - l.custom_fields
 
-  - b.cell :deliveries do
+  - c.cobble :deliveries do
     = list :deliveries

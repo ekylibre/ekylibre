@@ -5295,6 +5295,9 @@ tasks:
   name:
     type: string
     required: true
+  nature:
+    type: string
+    required: true
   sale_opportunity_id:
     type: integer
     references: sale_opportunity

@@ -17,7 +17,7 @@
 #
 
 class Backend::TasksController < Backend::BaseController
-  manage_restfully
+  manage_restfully nature: "params[:nature]".c
 
   # unroll
 
@@ -25,11 +25,26 @@ class Backend::TasksController < Backend::BaseController
     t.action :edit
     t.action :destroy
     t.column :name, url: true
+    t.column :nature
     t.column :entity, url: true
     t.column :executor, url: true
     t.column :due_at
     t.column :sale_opportunity, url: true
     t.column :state
+  end
+
+  Task.state_machine.events.each do |event|
+    define_method event.name do
+      fire_event(event.name)
+    end
+  end
+
+  protected
+
+  def fire_event(event)
+    return unless @task = find_and_check
+    @task.send(event)
+    redirect_to params[:redirect] || {action: :show, id: @task.id}
   end
 
 end

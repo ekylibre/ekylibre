@@ -1257,7 +1257,6 @@ arb:
     letter_conclusion: ".أرجو أن تتقبلوا سادتي التعبير عن فائق احترامي" #?
     letter_function_title: "سيداتي، سادتي الاعزاء" #?
     letter_introduction: ".وفق حديثنا التالي، سوف نصلكم بعناصر من التقدير" #?
-    # letter_options: "Letter options"
     lettering_account_client: "كتابة حسابات الزبائن" #?
     lettering_account_supplier: "كتابة حسابات المموليين" #?
     lettering_modes:  #?
@@ -1292,7 +1291,6 @@ arb:
     manual_period: "من %{start} الى %{finish}"
     # manure_management_plan_chart: "Manure management plan chart"
     # map: "Map"
-    # markers: "Markers"
     mass: "الوزن" #?
     # maximal_temperature: "Maximal temperature"
     meeting: "المقابلة(X)مكان" #?
@@ -1331,9 +1329,8 @@ arb:
     # month_period: "%{code} - %{month} %{year}"
     monthly: "Mensuelle"
     # months: "Months"
-    # moved_at: "Made on"
     # movements: "Movements"
-    moves: "حركات الاسهم"
+    moves: "حركات الاسهم" #?
     my_company: "عن شركتك" #?
     my_self: "عن نفسك" #?
     n: "لا شيء" #?
@@ -1358,6 +1355,7 @@ arb:
     net_vat_amount: "صافي قيمة الضريبة الاضافية المستحقة" #?
     new: "انشاء دفعة جديدة"
     # new_box: "New box"
+    # new_call: "New call"
     # new_contact: "New contact"
     new_deposit:
       # one: "Make a deposit %{mode}: 1 available payment"
@@ -1715,12 +1713,15 @@ arb:
     # time_cost_per_hectare: "Time cost per hectare"
     # time_zone: "Time zone"
     # timeline: "Timeline"
+    # timeline_call: "%{author} called %{entity} about %{name} %{ago} ago"
     # timeline_comment: "%{author} commented %{ago} ago"
     # timeline_entity_link: "Timeline entity link"
     # timeline_event: "%{name} with %{participants} %{ago} ago"
     # timeline_item: "%{type} %{name} added by %{author} %{ago} ago"
+    # timeline_mail: "%{author} wrote to %{entity} about %{name} %{ago} ago"
     # timeline_payment: "%{type} %{name} of %{amount} by %{mode} added by %{author} %{ago} ago"
     # timeline_sale: "%{type} %{name} of %{amount} added by %{author} %{ago} ago"
+    # timeline_task: "%{author} added task %{name} %{ago} ago"
     to: "الى"
     to_date: "الى تاريخ" #?
     to_deliver: "للتسليم" #?
@@ -2156,7 +2157,6 @@ arb:
       # duplicate: "Duplicate"
       # edit: "Edit"
       # evaluate: "Evaluate"
-      # evolve: "Evolve"
       # export: "Export"
       # extract: "Extract"
       # family: "Family"
@@ -2183,6 +2183,7 @@ arb:
       # point: "Point"
       # propose: "Propose"
       # propose_and_invoice: "Propose and invoice"
+      # prospect: "Prospect"
       # qualify: "Qualify"
       # quote: "Quote"
       # reconciliation: "Reconciliation"
@@ -2198,6 +2199,7 @@ arb:
       # ship: "Ship"
       # show: "Show"
       # sort: "Sort"
+      # start: "Start"
       # stop: "Stop"
       # take: "Take"
       # toggle: "Toggle"

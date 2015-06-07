@@ -1,22 +1,23 @@
 = main_toolbar do |t|
   - t.edit resource
 
-= beehive do |b|
-  - b.hbox do
-    - b.cell do
-      = attributes_list do |l|
-        - l.attribute :name
-        - l.attribute :amount, currency: true
-        - l.attribute :journal_entry, url: true
-    - b.cell :expenses do
-      :ruby
-        series = []
-        data = [:base_amount, :interest_amount, :insurance_amount].collect do |info|
-          [LoanRepayment.human_attribute_name(info), resource.repayments.sum(info).to_s.to_f ]
-        end
-        series << {name: :amounts, data: data}
-      = pie_chart(series)
-  - b.cell :repayments_graph do
+= cobbles do |c|
+  - c.cobble :general_informations do
+    = attributes_list do |l|
+      - l.attribute :name
+      - l.attribute :amount, currency: true
+      - l.attribute :journal_entry, url: true
+  - c.cobble :expenses do
+    :ruby
+      series = []
+      data = [:base_amount, :interest_amount, :insurance_amount].collect do |info|
+        [LoanRepayment.human_attribute_name(info), resource.repayments.sum(info).to_s.to_f ]
+      end
+      series << {name: :amounts, data: data}
+    = pie_chart(series)
+  - c.cobble :repayments do
+    = list :repayments
+  - c.cobble :repayments_graph do
     :ruby
       series = []
       [:base_amount, :interest_amount, :insurance_amount].reverse.each do |info|
@@ -24,15 +25,4 @@
       end
       series << {name: Loan.human_attribute_name(:remaining_amount), data: resource.repayments.pluck(:remaining_amount).map(&:to_f), type: 'line', marker: {enabled: false}, y_axis: 1}
     = area_chart(series, legend: true, y_axis: [{title: { text: Loan.human_attribute_name(:repayments)}, min: 0}, {title: { text: Loan.human_attribute_name(:remaining_amount)}, min: 0, opposite: true}], plot_options: {area: {stacking: 'normal', marker: {enabled: false}}})
-  - b.cell :repayments do
-    = list :repayments
-
--#%h1= a.map{|r| r[:base_amount] }.sum
--#%ul
-  - a.each do |r|
-    %li
-      - r.each do |k,v|
-        %span= k
-        %strong= v
-      %span= "(#{r.delete_if{|k,v| k == :remaining_amount}.values.sum})"
 

@@ -22,6 +22,10 @@ module Backend::BaseHelper
     instance_variable_get('@' + self.controller_name.singularize)
   end
 
+  def resource_model
+    self.controller_name.classify.constantize
+  end
+
   def collection
     instance_variable_get('@' + self.controller_name)
   end

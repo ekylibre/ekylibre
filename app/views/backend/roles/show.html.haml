@@ -1,17 +1,15 @@
 - main_toolbar do |t|
   - t.edit resource
 
-= beehive do |b|
+= cobbles do |c|
 
-  - b.hbox do
-    - b.cell do
-      = attributes_list do |l|
-        - l.attribute :name
-        - if resource.custom_fields.any?
-          - l.custom_fields
+  - c.cobble :general_informations do
+    = attributes_list do |l|
+      - l.attribute :name
+      - l.custom_fields
 
-    - b.cell :users do
-      = list :users
+  - c.cobble :users do
+    = list :users
 
-  - b.cell :rights do
+  - c.cobble :rights do
     = access_control_list(resource.rights)

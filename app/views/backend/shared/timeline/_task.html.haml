@@ -1,0 +1,30 @@
+.log.log-with-content{class: "log-#{task.nature}"}
+  .log-avatar= image_tag step.author.avatar_url(size: avatar_size)
+  .log-wrapper
+    .log-symbol
+    .log-heading
+      %span.log-status= lights(task.status)
+      = link_to(backend_task_path(task, redirect: request.fullpath), method: :delete, class: "log-action log-action-destroy", data: {confirm: :are_you_sure.tl}) do
+        %i
+        = :destroy.tl
+      - defaults[:entity] = link_to(task.entity.full_name, backend_entity_path(task.entity))
+      = link_to(edit_backend_task_path(task, redirect: request.fullpath), class: "log-action log-action-edit") do
+        %i
+        = :edit.tl
+      - if task.call?
+        = :timeline_call.th(defaults)
+      - elsif task.mail? or task.email?
+        = :timeline_mail.th(defaults)
+      - else
+        = :timeline_task.th(defaults)
+
+    - unless task.description.blank?
+      .log-body
+        .log-content= preserve(task.description)
+
+    - if task.sale_opportunity
+      .log-footer
+        = link_to({controller: :sale_opportunities, action: :show, id: task.sale_opportunity_id}) do
+          %i.ic.ic-file-text-o
+          = task.sale_opportunity.name
+

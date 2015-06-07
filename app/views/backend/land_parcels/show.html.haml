@@ -2,22 +2,22 @@
   - t.edit resource
   - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if resource.destroyable?
 
-= beehive do |b|
-  - b.hbox do
-    - b.cell :general do
-      = mini_map(resource)
+= cobbles do |c|
+  - c.cobble :general_informations do
+    = mini_map(resource)
+    .info
+      %span.title= LandParcel.human_attribute_name(:net_surface_area)
+      %span.value= resource.net_surface_area.in_hectare.round(2).l
+    - if soil = resource.send(:soil_nature)
       .info
-        %span.title= LandParcel.human_attribute_name(:net_surface_area)
-        %span.value= resource.net_surface_area.in_hectare.round(2).l
-      - if soil = resource.send(:soil_nature)
-        .info
-          %span.title= Nomen::Indicators[:soil_nature].human_name
-          %span.value= Nomen::SoilNatures[soil].human_name
-      .med-info
-        - indicators = [:potential_hydrogen, :available_water_capacity_per_area, :soil_depth, :organic_matter_concentration]
-        - for indicator in indicators
-          - if !resource.send(indicator).blank? and (resource.send(indicator).to_d != 0.0)
-            %span.title= Nomen::Indicators[indicator].human_name
-            %span.value= resource.send(indicator).l
-    - if resource.analyses.count > 0
-      - b.cell :last_analyses, params: {nature: :soil_analysis, product_id: resource.id}
+        %span.title= Nomen::Indicators[:soil_nature].human_name
+        %span.value= Nomen::SoilNatures[soil].human_name
+    .med-info
+      - indicators = [:potential_hydrogen, :available_water_capacity_per_area, :soil_depth, :organic_matter_concentration]
+      - for indicator in indicators
+        - if !resource.send(indicator).blank? and (resource.send(indicator).to_d != 0.0)
+          %span.title= Nomen::Indicators[indicator].human_name
+          %span.value= resource.send(indicator).l
+  - if resource.analyses.any?
+    - c.cobble :analyses do
+      = cell :last_analyses, params: {nature: :soil_analysis, product_id: resource.id}

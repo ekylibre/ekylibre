@@ -3,10 +3,10 @@
   - if resource.destroyable?
     - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl)
 
-= beehive do |b|
-  - b.hbox do
-    - b.cell :general do
-      = mini_map(resource)
+= cobbles do |c|
+  - c.cobble :general_informations do
+    = mini_map(resource)
+    .big-infos
       .med-info
         %span.title= CultivableZone.human_attribute_name(:work_number)
         %span.value= resource.work_number
@@ -23,13 +23,12 @@
             %i.picto{class: "plant"}
             = link_to(resource.current_cultivation.name, {controller: resource.current_cultivation.type.tableize, action: :show, id: resource.current_cultivation.id})
 
-    - b.cell :weather, params: {id: resource.id}
+  - c.cobble :weather do
+    = cell :weather, params: {id: resource.id}
 
-  - b.hbox do
-    - b.cell(:productions) do
-      = list(:productions)
-  - b.hbox do
-    - b.cell(:contained_products) do
-      = list(:contained_products)
-    - b.cell(:intervention_casts) do
-      = list(:intervention_casts)
+  - c.cobble(:productions) do
+    = list(:productions)
+  - c.cobble(:contained_products) do
+    = list(:contained_products)
+  - c.cobble(:intervention_casts) do
+    = list(:intervention_casts)

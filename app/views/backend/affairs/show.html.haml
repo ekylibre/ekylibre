@@ -1,12 +1,11 @@
-= beehive do |b|
-  - b.cell do
+= cobbles do |c|
+  - c.cobble :general_informations do
     = attributes_list do |l|
       - l.attribute :number
       - l.attribute :debit, currency: true
       - l.attribute :credit, currency: true
       - l.attribute :journal_entry, url: true
-      - if resource.custom_fields.any?
-        - l.custom_fields
+      - l.custom_fields
 
-  - b.cell :deals do
+  - c.cobble :deals do
     = affair_deals(resource)

@@ -1,8 +1,0 @@
-.state-bar{class: "state-bar-#{states.count}"}
-  - states.each do |state|
-    - classes = ["state", "state-#{state.name}"]
-    - if state == current_state
-      - classes << "active"
-      %span{class: classes}= state.human_name
-    - else
-      = link_to(state.human_name, {action: :evolve, id: resource.id, state: state.name}, class: classes, method: :patch, data: {confirm: :are_you_sure.tl})

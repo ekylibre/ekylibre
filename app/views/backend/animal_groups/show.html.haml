@@ -3,47 +3,48 @@
   - t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name}, tool: 'new-issue')
   - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if resource.destroyable?
 
-= beehive do |b|
-  - b.hbox do
-    - b.cell :general do
-      .big-infos
-        .big-info.important
-          - sex_icon = (resource.sex == 'male' ? 'mars' : (resource.sex == 'female' ? 'venus' : 'sex'))
-          %span.title= resource.class.human_attribute_name(:work_number)
-          %span.value
-            %i.picto{class: "picto-#{sex_icon}"}
-            = resource.work_number
-        .big-info
-          %san.title= resource.class.human_attribute_name(:members)
-          %span.value
-            %i.picto{class: "picto-group"}
-            = resource.members_at.count
-        - if 1 or resource.members_at.any?
-          .big-info
-            %span.title= resource.class.human_attribute_name(:daily_nitrogen_production)
-            %span.value
-              %i.picto{class: "picto-trash-o"}
-              = resource.daily_nitrogen_production.round(2).l
+= cobbles do |c|
+  - c.cobble :general_informations do
+    .big-infos
+      .med-info.important
+        - sex_icon = (resource.sex == 'male' ? 'mars' : (resource.sex == 'female' ? 'venus' : 'sex'))
+        %span.title= resource.class.human_attribute_name(:work_number)
+        %span.value
+          %i.picto{class: "picto-#{sex_icon}"}
+          = resource.work_number
+      .med-info
+        %san.title= resource.class.human_attribute_name(:members)
+        %span.value
+          %i.picto{class: "picto-group"}
+          = resource.members_at.count
+      .med-info
+        %span.title= resource.class.human_attribute_name(:daily_nitrogen_production)
+        %span.value
+          %i.picto{class: "picto-trash-o"}
+          = resource.daily_nitrogen_production.round(2).l
 
+  - c.cobble(:animals) do
+    = list(:animals)
 
-  - b.hbox do
-    - b.cell(:animals) do
-      = list(:animals)
-    - count = 0
-    - map = visualization do |v|
-      - v.background "OpenStreetMap.HOT"
-      - v.background "OpenStreetMap.Mapnik"
-      - v.background "Thunderforest.Landscape"
-      - v.background "Esri.WorldImagery"
-      - if resource.container
-        - if shape = resource.container.shape
-          - v.serie resource.container.id, [{name: resource.container.name, shape: shape}]
-          - v.simple resource.container.name , resource.container.id, fill_color: cycle(theme_colors)
-          - count += 1
-      - v.control :zoom
-      - v.control :scale
-      - v.control :fullscreen
-      - v.control :layer_selector
-    - if count > 0
-      - b.cell :container do
-        = map
+  :ruby
+    count = 0
+    map = visualization do |v|
+      v.background "OpenStreetMap.HOT"
+      v.background "OpenStreetMap.Mapnik"
+      v.background "Thunderforest.Landscape"
+      v.background "Esri.WorldImagery"
+      if resource.container
+        if shape = resource.container.shape
+          v.serie resource.container.id, [{name: resource.container.name, shape: shape}]
+          v.simple resource.container.name , resource.container.id, fill_color: cycle(theme_colors)
+          count += 1
+        end
+      end
+      v.control :zoom
+      v.control :scale
+      v.control :fullscreen
+      v.control :layer_selector
+    end
+  - if count > 0
+    - c.cobble :container do
+      = map

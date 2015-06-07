@@ -7,13 +7,13 @@
   - t.export do |e|
     - e.inventory_sheet resource.id.to_s, resource
 
-= beehive do |b|
-  - b.cell do
+= cobbles do |c|
+  - c.cobble :general_informations do
     = attributes_list do |l|
       - l.attribute :responsible, url: true
       - l.attribute :achieved_at
       - l.attribute :reflected
       - l.attribute :reflected_at
 
-  - b.cell :items do
+  - c.cobble :items do
     = list :items

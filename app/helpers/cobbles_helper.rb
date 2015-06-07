@@ -23,6 +23,9 @@ module CobblesHelper
     end
 
     def cobble(name, options = {}, &block)
+      if @items.detect{|i| i.name.to_s == name.to_s }
+        raise "Already taken. You already use #{name.inspect}"
+      end
       @items << Cobble.new(self, name, options, &block)
     end
 

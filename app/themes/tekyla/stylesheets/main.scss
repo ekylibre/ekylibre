@@ -791,8 +791,12 @@ form.search {
 .big-infos {
   @include respond-to-bigger-than(medium) {
     @include clearfix;
-    .big-info, med-info {
+    .big-info {
       width: 50%;
+      @include float(left);
+    }
+    .med-info {
+      width: 33%;
       @include float(left);
     }
   }
@@ -1000,6 +1004,9 @@ html.backend {
 
 }
 
+.ic {
+  @include is-icon(14px);
+}
 
 .flash {
   padding: $default-gap round($default-ratio*$default-gap);
@@ -2298,10 +2305,10 @@ a[data-annotate] {
   .state {
     display: table-cell;
     background: $caution-color;
-    &.state-lost, &.state-refused, &.state-aborted {
+    &.state-lost, &.state-refused, &.state-aborted, &.state-todo {
       background: $invalid-color;
     }
-    &.state-won, &.state-invoice, &.state-order {
+    &.state-won, &.state-invoice, &.state-order, &.state-done {
       background: $success-color;
     }
     @include text-align(center);

@@ -1,8 +1,8 @@
 - main_toolbar do |t|
   - t.edit @gap
 
-= beehive do |b|
-  - b.cell do
+= cobbles do |c|
+  - c.cobble :general_informations do
     = attributes_list do |l|
       - l.attribute :entity, url: true
       - l.attribute :direction
@@ -13,5 +13,5 @@
       - if resource.custom_fields.any?
         - l.custom_fields
 
-  - b.cell :items do
+  - c.cobble :items do
     = list :items

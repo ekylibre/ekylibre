@@ -60,6 +60,9 @@
         <page to="backend/tasks#new"/>
         <page to="backend/tasks#show"/>
         <page to="backend/tasks#update"/>
+        <page to="backend/tasks#finish"/>
+        <page to="backend/tasks#reset"/>
+        <page to="backend/tasks#start"/>
       </item>
     </group>
     <group name="events" icon="calendar">
@@ -182,8 +185,6 @@
         <page to="backend/cashes#show"/>
         <page to="backend/cashes#unroll"/>
         <page to="backend/cashes#update"/>
-      </item>
-      <item name="bank_statements">
         <page to="backend/bank_statements#index"/>
         <page to="backend/bank_statements#create"/>
         <page to="backend/bank_statements#destroy"/>
@@ -259,7 +260,6 @@
         <page to="backend/sale_opportunities#create"/>
         <page to="backend/sale_opportunities#destroy"/>
         <page to="backend/sale_opportunities#edit"/>
-        <page to="backend/sale_opportunities#evolve"/>
         <page to="backend/sale_opportunities#list"/>
         <page to="backend/sale_opportunities#list_tasks"/>
         <page to="backend/sale_opportunities#new"/>
@@ -271,6 +271,7 @@
         <page to="backend/sale_opportunities#finish"/>
         <page to="backend/sale_opportunities#lose"/>
         <page to="backend/sale_opportunities#negociate"/>
+        <page to="backend/sale_opportunities#prospect"/>
         <page to="backend/sale_opportunities#qualify"/>
         <page to="backend/sale_opportunities#quote"/>
         <page to="backend/sale_opportunities#select"/>
@@ -1217,7 +1218,6 @@
         <page to="backend/catalogs#show"/>
         <page to="backend/catalogs#unroll"/>
         <page to="backend/catalogs#update"/>
-        <page to="backend/catalog_items#index"/>
         <page to="backend/catalog_items#create"/>
         <page to="backend/catalog_items#destroy"/>
         <page to="backend/catalog_items#edit"/>

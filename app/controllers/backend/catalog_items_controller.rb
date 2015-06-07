@@ -17,7 +17,7 @@
 #
 
 class Backend::CatalogItemsController < Backend::BaseController
-  manage_restfully
+  manage_restfully except: [:index]
 
   unroll
 

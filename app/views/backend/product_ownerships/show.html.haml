@@ -1,7 +1,7 @@
 - main_toolbar do |t|
   - t.edit @product_ownership
 
-=beehive do |b|
-  -b.cell do
+= cobbles do |c|
+  -c.cobble :general_informations do
     = attributes_list do |l|
       - l.attribute :name

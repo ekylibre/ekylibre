@@ -1,8 +1,8 @@
 - main_toolbar do |t|
   - t.edit resource
 
-= beehive do |b|
-  - b.cell do
+= cobbles do |c|
+  - c.cobble :general_informations do
     = attributes_list do |l|
       - l.attribute :name
       - l.attribute :harvest_year
@@ -10,10 +10,10 @@
       - l.attribute :number
       - l.attribute :description
 
-  - b.hbox do
-    - b.cell(:productions) do
-      = toolbar do |t|
-        - t.new variants: Activity.availables.reorder(:name).to_a.inject({}){|h,n| h[:new_production_of_activity.tl(activity: n.name)] = {activity_id: n.id, controller: :productions, campaign_id: resource.id}; h}
-      = list(:productions)
+  - c.cobble(:productions) do
+    = toolbar do |t|
+      - t.new variants: Activity.availables.reorder(:name).to_a.inject({}){|h,n| h[:new_production_of_activity.tl(activity: n.name)] = {activity_id: n.id, controller: :productions, campaign_id: resource.id}; h}
+    = list(:productions)
 
-  - b.cell :map, params: {campaign_ids: resource.id}
+  - c.cobble :map do
+    = cell :map, params: {campaign_ids: resource.id}

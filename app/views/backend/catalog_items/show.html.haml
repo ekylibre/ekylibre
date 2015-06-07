@@ -1,8 +1,8 @@
 - main_toolbar do |t|
   - t.edit resource
 
-= beehive do |b|
-  - b.cell do
+= cobbles do |c|
+  - c.cobble :general_informations do
     = attributes_list do |l|
       - l.attribute :catalog, url: true
       - l.attribute :amount, currency: true
@@ -12,5 +12,4 @@
       - l.attribute :name
       - l.attribute :commercial_name
       - l.attribute :commercial_description
-      - if resource.custom_fields.any?
-        - l.custom_fields
+      - l.custom_fields

@@ -13,6 +13,7 @@
       element.hide();
       $(element.attr('data-toggle-now-with')).show();
     });
+    autosize($('textarea'));
   });
 
 

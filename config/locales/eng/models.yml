@@ -928,6 +928,7 @@ eng:
     sale_item: "Sale item"
     sale_items: "Sale items"
     sale_nature: "Sale nature"
+    # sale_opportunities: "Sale opportunities"
     sale_opportunity: "Sale opportunity"
     sale_taxations: "Sale taxations"
     sale_taxes: "Sale taxes"
@@ -1309,5 +1310,11 @@ eng:
         sales_invoices: "SI[year|4][number|6]"
         subscriptions: "SUB[number|8]"
         transports: "TR[number|8]"
+    task:
+      state_machine:
+        states:
+          doing: "Doing"
+          done: "Done"
+          todo: "To do"
     team:
       default: "Main team"

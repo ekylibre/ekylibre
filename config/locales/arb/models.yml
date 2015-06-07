@@ -2674,6 +2674,12 @@ arb:
       natures: #?
         period: "الاشتراك وفق التاريخ" #?
         quantity: "الاشتراك حسب الكمية" #?
+    task:
+      state_machine:
+        states:
+          # doing: "Doing"
+          # done: "Done"
+          # todo: "To do"
     tax:  #?
       amount_must_be_included_between_0_and_1: "يجب ان يكون مشتمل بين 1 و 0" #?
       natures: #?

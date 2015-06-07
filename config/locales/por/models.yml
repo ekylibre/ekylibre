@@ -1286,5 +1286,11 @@ por:
         # sales_invoices: "SI[year|4][number|6]"
         # subscriptions: "SUB[number|8]"
         # transports: "TR[number|8]"
+    task:
+      state_machine:
+        states:
+          # doing: "Doing"
+          # done: "Done"
+          # todo: "To do"
     team:
       # default: "Main team"

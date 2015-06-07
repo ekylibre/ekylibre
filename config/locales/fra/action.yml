@@ -1114,7 +1114,7 @@ fra:
     last_sales: "Dernières ventes"
     left_balance_amount: "Report du crédit antérieur non imputé et non remboursé" #?
     letter: "Lettrer"
-    letter_options: "Lettre"
+    letter_options: "Lettre" #?
     lettering_account_client: "Lettrage des comptes clients" #?
     lettering_account_supplier: "Lettrage des comptes fournisseurs" #?
     lettering_modes:  #?
@@ -1153,7 +1153,7 @@ fra:
     manure_management_plan_chart: "Visualisation des apports azotés"
     map: "Carte"
     margins: "Marges" #?
-    markers: "Objectifs"
+    markers: "Objectifs" #?
     mass: "Masse" #?
     maximal_temperature: "Température maximale"
     measure_options: "Indicateur de type mesure" #?
@@ -1176,9 +1176,9 @@ fra:
     month_period: "%{code} — %{month} %{year}"
     monthly: "Mensuelle"
     months: "Mois"
-    moved_at: "Fait le"
+    moved_at: "Fait le" #?
     movements: "Mouvements"
-    moves: "Mouvements de stocks"
+    moves: "Mouvements de stocks" #?
     name: "Nom"
     nature: "Type"
     natures: "Types"
@@ -1191,6 +1191,7 @@ fra:
     net_volume: "Volume net" #?
     new: "Nouveau"
     new_box: "Nouvelle boîte"
+    new_call: "Nouvel appel"
     new_contact: "Nouveau contact"
     new_deposit:
       one: "Effectuer une remise\_: %{mode} (%{count} encaissement disponible)"
@@ -1554,12 +1555,15 @@ fra:
     time_cost_per_hectare: "Coût de main d’œuvre par hectare"
     time_zone: "Fuseau horaire"
     timeline: "Chronologie"
+    timeline_call: "%{author} a appelé %{entity} à propos de %{name} il y a %{ago}"
     timeline_comment: "%{author} a commenté il y a %{ago}"
     timeline_entity_link: "Lien de %{nature} avec %{linked} ajouté par %{author} il y a %{ago}"
     timeline_event: "%{name} avec %{participants} il y a %{ago}"
     timeline_item: "%{type} %{name} ajouté par %{author} il y a %{ago}"
+    timeline_mail: "%{author} a écrit à %{entity} à propos de %{name} il y a %{ago}"
     timeline_payment: "%{type} %{name} de %{amount} par %{mode} ajouté par %{author} il y a %{ago}"
     timeline_sale: "%{type} %{name} de %{amount} ajouté par %{author} il y a %{ago}"
+    timeline_task: "%{author} a ajouté une tâche %{name} il y a %{ago}"
     to: "Au"
     to_bank_at: "À encaisser le" #?
     to_date: "Au" #?
@@ -1649,7 +1653,7 @@ fra:
     validate: "Valider"
     validate_selected_entries: "Valider les écritures sélectionnées"
     values: "Valeurs"
-    variable_indicators: "Indicateurs de variable"
+    variable_indicators: "Indicateurs variables"
     variants: "Variantes"
     vat: "Taxe à payer" #?
     vat_acquisitions: "Acquisitions intracommunautaires" #?
@@ -1966,7 +1970,6 @@ fra:
       duplicate: "Dupliquer"
       edit: "Modifier"
       evaluate: "Évaluer"
-      evolve: "Evoluer"
       export: "Exporter"
       extract: "Extraire"
       family: "Famille"
@@ -1994,6 +1997,7 @@ fra:
       point: "Pointer"
       propose: "Proposer"
       propose_and_invoice: "Facturer directement"
+      prospect: "Prospecter"
       qualify: "Qualifier"
       quote: "Réaliser un devis"
       reconciliation: "Reconciliation"
@@ -2009,6 +2013,7 @@ fra:
       ship: "Expédier"
       show: "Afficher"
       sort: "Trier"
+      start: "Commencer"
       stop: "Arrêter"
       take: "Prendre"
       toggle: "Basculer"

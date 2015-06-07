@@ -7,8 +7,8 @@
   within_range = { invoiced_at: params[:started_at]..params[:stopped_at] }
   current_user_sales = current_user.sales.where within_range
   currency = { currency: Preference[:currency] }
-= beehive do |b|
-  - b.cell :invoices, title: :x_sales_invoices.tl(count: current_user_sales.count(:id)) do
+= cobbles do |c|
+  - c.cobble :invoices, title: :x_sales_invoices.tl(count: current_user_sales.count(:id)) do
     .big-infos
       .big-info
         %span.title= Sale.human_attribute_name(:pretax_amount)
@@ -38,7 +38,7 @@
             = number_to_percentage unpaid_sales, strip_insignificant_zeros: 0, precision: 1 rescue "?"
   -# started_at, stopped_at = params[:started_at].beginning_of_day, params[:stopped_at].end_of_day
   -# cond = ["created_at BETWEEN ? AND ?", started_at, stopped_at]
-  -# b.cell :x_events, count: current_user.events.where(cond).count do
+  -# c.cobble :x_events, count: current_user.events.where(cond).count do
     %ul
       - for event_nature in Nomen::EventNatures.all
         - cond = ["nature_id=? AND created_at BETWEEN ? AND ?", event_nature.id, started_at, stopped_at]

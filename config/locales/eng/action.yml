@@ -93,7 +93,7 @@ eng:
       show: "%{nature}: %{name}"
     backend/catalog_items:
       edit: "Edit catalog price: %{name}"
-      index: "Catalog prices"
+      index: "Catalog prices" #?
       new: "New catalog price"
       show: "Catalog price: %{name}"
     backend/catalogs:
@@ -542,12 +542,12 @@ eng:
       # detach: "Detach sale opportunity: %{name}"
       edit: "Edit opportunity: %{name}"
       # evaluate: "Evaluate sale opportunity: %{name}"
-      # evolve: "Evolve sale opportunity: %{name}"
       # finish: "Finish sale opportunity: %{name}"
       index: "Opportunities"
       # lose: "Lose sale opportunity: %{name}"
       # negociate: "Negociate sale opportunity: %{name}"
       new: "New opportunity"
+      # prospect: "Prospect sale opportunity: %{name}"
       # qualify: "Qualify sale opportunity: %{name}"
       # quote: "Quote sale opportunity: %{name}"
       # select: "Select sale opportunity: %{name}"
@@ -607,9 +607,12 @@ eng:
       show: "Synchronization: %{name}" #?
     backend/tasks:
       edit: "Edit task: %{name}"
+      # finish: "Finish task: %{name}"
       index: "Tasks"
       new: "New task"
+      # reset: "Reset task: %{name}"
       show: "Task: %{name}"
+      # start: "Start task: %{name}"
     backend/taxes:
       edit: "Edit tax: %{name}"
       index: "Taxes"
@@ -840,7 +843,7 @@ eng:
     cancelation: "Cancelation"
     cartography: "Cartography"
     cash: "Cash"
-    cash_balance: "Cash balance" #?
+    cash_balance: "Cash balance"
     cash_balances: "Bank chart"
     casting: "Casting"
     casts: "Casts"
@@ -881,7 +884,7 @@ eng:
     copy_of: "Copy of %{source}"
     cost_per_net_surface_area: "Cost per net surface area"
     costs: "Costs"
-    costs_map: "Costs map"
+    costs_map: "Costs map" #?
     counts: "Counts"
     counts_by_nature: "Number of documents to account per type"
     create: "Create"
@@ -892,7 +895,7 @@ eng:
     created_by_ago: "Created by %{author} %{ago} ago"
     credit: "Credit" #?
     credited_quantity: "Quantity to credit" #?
-    credits: "Credits" #?
+    credits: "Credits"
     cropping_plan: "Cropping plan"
     cropping_plan_on_cultivable_zones: "Cropping plan on cultivable zones"
     crumbs: "Crumbs"
@@ -921,10 +924,11 @@ eng:
     delivery: "Delivery" #?
     deposit: "Deposit"
     depositable_options: "Deposit options"
+    # deposits: "Deposits"
     depreciation: "Depreciation"
     depreciations: "Depreciations"
     description: "Description" #?
-    desposits: "Desposits"
+    desposits: "Desposits" #?!
     destroy: "Destroy"
     destroyed_at_by: "Destroyed at %{at} by %{author}"
     destroyed_by_ago: "Destroyed by %{author} %{ago} ago"
@@ -958,6 +962,7 @@ eng:
     end: "to" #?
     entities: "Entities"
     entity: "Entity" #?
+    # entity_links: "Entity links"
     entity_to_delete: "Person to delete"
     entity_to_update: "Person to update"
     entries: "Entries" #?
@@ -973,6 +978,7 @@ eng:
     evaluated_other_cost: "Evaluated other cost"
     evaluated_tool_cost: "Evaluated tool cost"
     events: "Events"
+    # evolution: "Evolution"
     example: "Example: %{value}" #?
     exchange: "Exchange"
     exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
@@ -998,7 +1004,7 @@ eng:
     general_informations: "General informations"
     generate: "Generate"
     generate_last_journal_entry: "Generate last journal entry"
-    geolocation: "Geolocation"
+    geolocation: "Geolocation" #?
     go: "Go" #?
     gross_profit: "Gross profit"
     group: "Group" #?
@@ -1075,7 +1081,6 @@ eng:
     last_purchases: "Last purchases"
     last_sales: "Last sales" #?
     letter: "Letter" #?
-    letter_options: "Letter options" #?
     line_number: "Line #%{number}"
     linear_options: "Linear options"
     list: "List"
@@ -1093,7 +1098,6 @@ eng:
     manual_period: "from %{start} to %{finish}"
     manure_management_plan_chart: "Manure management plan chart"
     map: "Map"
-    markers: "Markers" #?
     maximal_temperature: "Maximal temperature"
     members: "Members"
     # menus: "Menus"
@@ -1107,9 +1111,7 @@ eng:
     month_period: "%{code} - %{month} %{year}"
     monthly: "Monthly" #?
     months: "Months"
-    moved_at: "Made on" #?
     movements: "Movements"
-    moves: "Moves" #?
     name: "Name" #?
     nature: "Type"
     natures: "Natures"
@@ -1118,6 +1120,7 @@ eng:
     net_surface_area: "Net surface area"
     new: "New"
     new_box: "New box"
+    new_call: "New call"
     new_contact: "New contact"
     new_deposit:
       one: "Make a deposit %{mode}: 1 available payment"
@@ -1160,6 +1163,7 @@ eng:
     options: "Options"
     organic_matter_concentration: "Organic matter concentration" #?
     others: "Others"
+    # outgoing_payments: "Outgoing payments"
     page_title: "%{company_code} · %{menu} · %{action}"
     page_title_by_default: "Ekylibre · %{action}"
     page_title_special: "%{company_code} · %{action}"
@@ -1167,7 +1171,7 @@ eng:
     paid_at: "Paid at" #?
     parameters: "Parameters"
     participants: "Participants"
-    participations: "Participations" #?
+    participations: "Participations"
     parts: "Modules"
     password: "Password" #?
     paths_to_convert: "Paths to convert"
@@ -1291,7 +1295,7 @@ eng:
     # sessions: "Sessions"
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?
     settings: "Settings"
-    shape: "Shape"
+    shape: "Shape" #?
     ship: "Ship" #?
     show: "Show"
     sign_out: "Sign out" #?
@@ -1335,12 +1339,15 @@ eng:
     time_cost_per_hectare: "Time cost per hectare"
     time_zone: "Time zone"
     timeline: "Timeline"
+    timeline_call: "%{author} called %{entity} about %{name} %{ago} ago"
     timeline_comment: "%{author} commented %{ago} ago"
     timeline_entity_link: "Timeline entity link"
     timeline_event: "%{name} with %{participants} %{ago} ago"
     timeline_item: "%{type} %{name} added by %{author} %{ago} ago"
+    timeline_mail: "%{author} wrote to %{entity} about %{name} %{ago} ago"
     timeline_payment: "%{type} %{name} of %{amount} by %{mode} added by %{author} %{ago} ago"
     timeline_sale: "%{type} %{name} of %{amount} added by %{author} %{ago} ago"
+    timeline_task: "%{author} added task %{name} %{ago} ago"
     to: "to"
     to_deposit: "To deposit"
     to_deposit_later: "To deposit later" #?
@@ -1638,7 +1645,6 @@ eng:
       duplicate: "Duplicate"
       edit: "Edit"
       evaluate: "Evaluate"
-      evolve: "Evolve"
       export: "Export"
       extract: "Extract"
       family: "Family"
@@ -1672,6 +1678,7 @@ eng:
       # product: "Product"
       propose: "Propose"
       propose_and_invoice: "Propose and invoice"
+      prospect: "Prospect"
       qualify: "Qualify"
       # quantifiers: "Quantifiers"
       quote: "Quote"
@@ -1690,6 +1697,7 @@ eng:
       ship: "Ship"
       show: "Show"
       sort: "Sort"
+      start: "Start"
       stop: "Stop" #?
       take: "Take"
       toggle: "Toggle"

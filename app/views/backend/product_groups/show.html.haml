@@ -2,33 +2,33 @@
   - t.edit resource
   - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if resource.destroyable?
 
-= beehive do |b|
-  - b.cell :details do
-    = attributes_list do |l| # liste des champs à afficher
+= cobbles do |c|
+  - c.cobble :details do
+    - if resource.picture.exists?
+      .picture= image_tag(resource.picture.url(:thumb))
+    = attributes_list do |l|
       - l.attribute :name
       - l.attribute :variety, url: true
       - l.attribute :identification_number
       - l.attribute :description
-    - if resource.picture.exists?
-      = image_tag(resource.picture.url(:thumb))
 
-  - b.hbox do
-    - b.cell(:members) do
-      = list(:members)
-    - b.cell(:groups) do
-      = list(:groups)
+  - c.cobble(:members) do
+    = list(:members)
 
-  - b.hbox do
-    - b.cell(:contained_products) do
-      = list(:contained_products)
-    - b.cell(:places) do
-      = list(:places)
+  - c.cobble(:groups) do
+    = list(:groups)
 
-  - b.hbox do
-    - b.cell(:issues) do
-      = toolbar do |t|
-        - t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name})
-      = list(:issues)
-    - b.cell(:readings, title: tl(:x_readings, count: resource.readings.count)) do
-      = list(:readings)
+  - c.cobble(:contained_products) do
+    = list(:contained_products)
+
+  - c.cobble(:places) do
+    = list(:places)
+
+  - c.cobble(:issues) do
+    = toolbar do |t|
+      - t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name})
+    = list(:issues)
+
+  - c.cobble(:readings, title: tl(:x_readings, count: resource.readings.count)) do
+    = list(:readings)
 

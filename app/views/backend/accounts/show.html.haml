@@ -2,43 +2,40 @@
   - t.edit(resource)
   - t.mark(resource) if resource.reconcilable?
 
-= beehive do |b|
-  - b.hbox do
-    - b.cell do
-      = attributes_list do |l|
-        - l.attribute :number
-        - l.attribute :name
-        - l.attribute :reconcilable
-        - l.attribute :description
-        - if resource.custom_fields.any?
-          - l.custom_fields
+= cobbles do |c|
+  - c.cobble(:general_informations) do
+    = attributes_list do |l|
+      - l.attribute :number
+      - l.attribute :name
+      - l.attribute :reconcilable
+      - l.attribute :description
+      - l.custom_fields
 
-    - b.cell(:entities) do
-      = list(:entities)
+  - c.cobble(:entities) do
+    = list(:entities)
 
-  - b.hbox do
-    - b.cell(:journal_entry_items) do
-      = kujaku do |k|
-        - k.text :b
-        - k.helper :journal_period_crit, :p
-        - k.helper :journal_entries_states_crit
+  - c.cobble(:journal_entry_items) do
+    = kujaku do |k|
+      - k.text :b
+      - k.helper :journal_period_crit, :p
+      - k.helper :journal_entries_states_crit
 
-      - items = JournalEntryItem.joins(:entry).where(eval(controller.class.account_moves_conditions))
-      - totals = {}
-      - totals[:debit]  = items.sum(:absolute_debit)
-      - totals[:credit] = items.sum(:absolute_credit)
-      - totals[:balance_debit] = totals[:balance_credit] = 0.0
-      - totals["balance_#{totals[:debit] > totals[:credit] ? 'debit' : 'credit'}".to_sym] = (totals[:debit] - totals[:credit]).abs
+    - items = JournalEntryItem.joins(:entry).where(eval(controller.class.account_moves_conditions))
+    - totals = {}
+    - totals[:debit]  = items.sum(:absolute_debit)
+    - totals[:credit] = items.sum(:absolute_credit)
+    - totals[:balance_debit] = totals[:balance_credit] = 0.0
+    - totals["balance_#{totals[:debit] > totals[:credit] ? 'debit' : 'credit'}".to_sym] = (totals[:debit] - totals[:credit]).abs
 
-      = list(:journal_entry_items) do
-        - currency = Preference[:currency]
-        %tr.total
-          %th{colspan: 6}= :total.tl
-          %td.value= totals[:debit].l(currency: currency)
-          %td.value= totals[:credit].l(currency: currency)
-          %th
-        %tr.total
-          %th{colspan: 6}= :balance.tl
-          %td.value= totals[:balance_debit].l(currency: currency)
-          %td.value= totals[:balance_credit].l(currency: currency)
-          %th
+    = list(:journal_entry_items) do
+      - currency = Preference[:currency]
+      %tr.total
+        %th{colspan: 6}= :total.tl
+        %td.value= totals[:debit].l(currency: currency)
+        %td.value= totals[:credit].l(currency: currency)
+        %th
+      %tr.total
+        %th{colspan: 6}= :balance.tl
+        %td.value= totals[:balance_debit].l(currency: currency)
+        %td.value= totals[:balance_credit].l(currency: currency)
+        %th

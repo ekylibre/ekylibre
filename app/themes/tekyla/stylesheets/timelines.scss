@@ -1,14 +1,37 @@
 .timeline {
   $avatar-size: 48px;
-  $log-size: 32px;
-  padding: 2 * $default-gap;
+  $log-size: $lh-normal + 2 * $default-gap;
+  $line-color: #DDD;
+  $padding: 2 * $default-gap;
+  padding: 0 $padding;
+  margin: $padding auto;
+  position: relative;
+  $frame-border: 1px solid $line-color;
+
+  max-width: 120ex;
+
+  &:before {
+    background-color: $line-color;
+    bottom: 0;
+    content: "";
+    display: block;
+    left: $padding + ($avatar-size + $default-gap) + $log-size / 2;
+    position: absolute;
+    top: 0;
+    width: 2px;
+    z-index: -1;
+  }
+
   > .timestep {
     &.hidden {
       display: none;
     }
-    > .comment {
+    border-top: 1px solid #EEE;
+    > .log {
       padding: $default-gap 0 $default-gap ($avatar-size + $default-gap);
-      .comment-avatar {
+      $line-height: $lh-normal;
+      clear: both;
+      .log-avatar {
         img {
           display: block;
           @include float(left);
@@ -16,21 +39,40 @@
           @include border-radius($default-border-radius);
         }
       }
-      .comment-wrapper {
-        .comment-heading {
-          display: block;
+      .log-symbol {
+        @include is-icon(14px);
+        @include use-icon(file-o);
+        line-height: $log-size;
+        color: rgba($text-color, 0.6);
+        width: $log-size;
+        border: 1px solid transparent;
+        @include text-align(center);
+        @include display(block);
+        @include border-radius(50%);
+        @include float(left);
+        @include margin-left(-1 * $log-size);
+      }
+      .log-wrapper {
+        border: $frame-border;
+        background: white;
+        overflow: hidden;
+        @include padding-left($log-size);
+        @include border-radius($default-border-radius);
+        .log-heading {
           padding: $default-gap;
-          border-left: $menu-border;
-          border-right: $menu-border;
-          border-top: $menu-border;
-          @include border-top-radius($default-border-radius);
           @include ellipsis;
-          background: #EEE;
           &, * {
             line-height: $lh-normal;
             vertical-align: baseline;
           }
-          .comment-action {
+          .log-status {
+            @include float(right);
+            line-height: $line-height;
+            &, * {
+              vertical-align: middle;
+            }
+          }
+          .log-action {
             @include float(right);
             font-size: 0;
             opacity: 0.6;
@@ -45,10 +87,10 @@
               @include transition(color 0.2s);
               color: $text-color;
             }
-            &.comment-action-edit i {
+            &.log-action-edit i {
               @include use-icon(edit);
             }
-            &.comment-action-destroy i {
+            &.log-action-destroy i {
               @include use-icon(remove);
             }
             &:hover {
@@ -59,95 +101,82 @@
             }
           }
         }
-        .comment-content {
-          border-left: $menu-border;
-          border-right: $menu-border;
-          border-bottom: $menu-border;
+        .log-body {
+          padding: 0;
+          margin: 0;
           padding: $default-gap;
-          white-space: pre-line;
-          background: white;
-          @include border-bottom-radius($default-border-radius);
-        }
-      }
-    }
-    > .log {
-      padding: $default-gap 0 $default-gap ($avatar-size + $default-gap);
-      $line-height: $lh-normal;
-      clear: both;
-      i.symbol {
-        @include is-icon(14px);
-        @include use-icon(file);
-        line-height: $log-size;
-        color: $text-color;
-        // @include margin-left(-2.2*$fs-normal);
-        @include margin-right(0.5*$fs-normal);
-        width: 1.5 * $fs-normal;
-        @include text-align(center);
-        @include display(inline-block);
-
-        // @include text-shadow(0 0 1px rgba(0,0,0,0.5));
-      }
-      .content {
-        line-height: $line-height;
-        padding: 0;
-        margin: 0;
-      }
-      .status {
-        @include float(right);
-        line-height: $line-height;
-        margin-top: $default-gap;
-      }
-      .changes {
-        margin-left: 4em;
-        li {
-          list-style-type: disc;
-          &, * {
+          .log-content {
             line-height: $line-height;
-            vertical-align: baseline;
+            white-space: pre-line;
           }
-          em {
-            font-style: italic;
+          .log-changes {
+            margin-left: 2em;
+            padding: $default-gap;
+            li {
+              list-style-type: disc;
+              &, * {
+                line-height: $line-height;
+                vertical-align: baseline;
+              }
+              em {
+                font-style: italic;
+              }
+            }
+          }
+        }
+
+        .log-footer {
+          padding: $default-gap;
+          border-top: $frame-border;
+        }
+      }
+      &.log-without-content {
+        .log-wrapper {
+          background: transparent;
+          border-color: transparent;
+          .log-symbol {
+            background: white;
+            border: $frame-border;
+            @include border-radius(50%);
           }
         }
       }
-      &.create i.symbol{
+
+      &.log-version-create .log-symbol {
         @include use-icon(plus);
       }
-      &.update i.symbol{
+      &.log-version-update .log-symbol {
         @include use-icon(pencil);
       }
-      &.destroy i.symbol{
+      &.log-version-destroy .log-symbol {
         @include use-icon(remove);
+      }
+      &.log-product-localization .log-symbol {
+        @include use-icon(map-marker);
+      }
+      &.log-product-ownership .log-symbol {
+        @include use-icon(key);
+      }
+      &.log-product-phase .log-symbol {
+        @include use-icon(share);
+      }
+      &.log-call .log-symbol {
+        @include use-icon(phone);
+      }
+      &.log-mail .log-symbol {
+        @include use-icon(envelope-o);
+      }
+      &.log-email .log-symbol {
+        @include use-icon(envelope-o);
+      }
+      &.log-document .log-symbol {
+        @include use-icon(briefcase);
+      }
+      &.log-quote .log-symbol {
+        @include use-icon(file-text-o);
       }
     }
 
-    &.event .log i.symbol {
-      @include use-icon(calendar);
-    }
-    &.entity_link .log i.symbol {
-      @include use-icon(arrows-h);
-    }
-    &.product_localization .log i.symbol {
-      @include use-icon(map-marker);
-    }
-    &.product_ownership .log i.symbol {
-      @include use-icon(key);
-    }
-    &.product_phase .log i.symbol {
-      @include use-icon(share);
-    }
-    &.incoming_payment .log i.symbol {
-      color: $success-color;
-      @include use-icon(money);
-    }
-    &.outgoing_payment .log i.symbol {
-      color: $invalid-color;
-      @include use-icon(money);
-    }
-    &.issue .log i.symbol {
-      color: $caution-color;
-      @include use-icon(bug);
-    }
   }
 }
 

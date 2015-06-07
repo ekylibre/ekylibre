@@ -1,8 +1,8 @@
 - main_toolbar do |t|
   - t.edit resource
 
-= beehive do |b|
-  - b.cell :general do
+= cobbles do |c|
+  - c.cobble :general_informations do
     = mini_map(resource)
     .info
       %span.title= LandParcelGroup.human_attribute_name(:name)

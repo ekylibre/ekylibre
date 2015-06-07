@@ -3,8 +3,8 @@
     - e.deposit_list resource.number, resource
   - t.edit resource
 
-= beehive do |b|
-  - b.cell :general do
+= cobbles do |c|
+  - c.cobble :general_informations do
     = attributes_list do |l|
       - l.attribute :number
       - l.attribute :cash, url: true
@@ -16,7 +16,7 @@
       - if resource.custom_fields.any?
         - l.custom_fields
 
-  - b.cell :payments, title: Deposit.human_attribute_name(:payments) do
+  - c.cobble :payments, title: Deposit.human_attribute_name(:payments) do
     = list :payments
     %table.list
       %tr.total

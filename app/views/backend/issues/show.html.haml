@@ -11,42 +11,41 @@
       - t.send(event, resource, method: :post, "data-confirm" => are_you_sure_you_want_to("#{event}_issue"))
   - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if resource.destroyable?
 
-= beehive do |b|
-  - b.hbox do
-    - if resource.geolocation
-      - b.cell :resource_map do
-        = visualization(view: {zoom: 18}) do |v|
-          - v.serie :main, [{name: "origine", shape: resource.geolocation}]
-          - v.background "Esri.WorldImagery"
-          - v.background "OpenStreetMap.HOT"
-          - v.background "OpenStreetMap.Mapnik"
-          - v.background "Thunderforest.Landscape"
-          - v.points :geolocation, :main
-          - v.control :zoom, 18
-          - v.control :scale
-          - v.control :fullscreen
-          - v.control :layer_selector
-    - b.cell do
-      - if resource.picture.exists?
-        .picture= image_tag(resource.picture.url(:identity))
-      .big-infos
-        .big-info.important
-          %span.title= Issue.human_attribute_name(:state)
-          %span.value= lights(resource.status)
-        .med-info.important
-          %span.title= Issue.human_attribute_name(:target)
-          %span.value= link_to resource.target.name, {controller: resource.target.class.base_class.name.tableize, action: :show, id: resource.target_id}
-        .med-info.important
-          %span.title= Issue.human_attribute_name(:description)
-          %span.value= resource.description
+= cobbles do |c|
+  - if resource.geolocation
+    - c.cobble :resource_map do
+      = visualization(view: {zoom: 18}) do |v|
+        - v.serie :main, [{name: "origine", shape: resource.geolocation}]
+        - v.background "Esri.WorldImagery"
+        - v.background "OpenStreetMap.HOT"
+        - v.background "OpenStreetMap.Mapnik"
+        - v.background "Thunderforest.Landscape"
+        - v.points :geolocation, :main
+        - v.control :zoom, 18
+        - v.control :scale
+        - v.control :fullscreen
+        - v.control :layer_selector
 
-  - b.hbox do
-    - b.cell :timeline do
-      = timeline(resource) do |l|
-        - l.side :interventions
-        - l.side :observations
-        - l.side :versions, new: false
-    -# b.cell(:interventions) do
-      = toolbar do |t|
-        - t.new(params: {controller: :interventions, issue_id: resource.id})
-      = list(:interventions)
+  - c.cobble :general_informations do
+    - if resource.picture.exists?
+      .picture= image_tag(resource.picture.url(:identity))
+    .big-infos
+      .big-info.important
+        %span.title= Issue.human_attribute_name(:state)
+        %span.value= lights(resource.status)
+      .med-info.important
+        %span.title= Issue.human_attribute_name(:target)
+        %span.value= link_to resource.target.name, {controller: resource.target.class.base_class.name.tableize, action: :show, id: resource.target_id}
+      .med-info.important
+        %span.title= Issue.human_attribute_name(:description)
+        %span.value= resource.description
+
+  - c.cobble :timeline do
+    = timeline(resource) do |l|
+      - l.side :interventions
+      - l.side :observations
+      - l.side :versions, new: false
+  -# c.cobble(:interventions) do
+    = toolbar do |t|
+      - t.new(params: {controller: :interventions, issue_id: resource.id})
+    = list(:interventions)

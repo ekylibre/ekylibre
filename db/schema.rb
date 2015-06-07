@@ -2762,6 +2762,7 @@ ActiveRecord::Schema.define(version: 20150606185500) do
   create_table "tasks", force: :cascade do |t|
     t.string   "name",                            null: false
     t.string   "state",                           null: false
+    t.string   "nature",                          null: false
     t.integer  "entity_id",                       null: false
     t.integer  "executor_id"
     t.integer  "sale_opportunity_id"

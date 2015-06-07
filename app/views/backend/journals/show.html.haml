@@ -13,49 +13,47 @@
 
 = main_list(:items)
 
-= beehive do |b|
-  -# - b.hbox do
-  -#   - b.cell :entry_items, title: Journal.human_attribute_name(:entry_items) do
-  -#     = journal_view_tag
-  -#     = list(:items)
+= cobbles do |c|
+  -# - c.cobble :entry_items, title: Journal.human_attribute_name(:entry_items) do
+  -#   = journal_view_tag
+  -#   = list(:items)
 
-  - b.hbox do
-    - b.cell :totals, title: Journal.human_attribute_name(:totals) do
-      :ruby
-        absolute_currency = Preference[:currency]
-        conditions = eval(controller.class.journal_entries_conditions)
-        totals = {}
-        totals[:real_debit]  = JournalEntry.where(conditions).sum(:real_debit)
-        totals[:real_credit] = JournalEntry.where(conditions).sum(:real_credit)
-        totals[:real_balance_debit] = totals[:real_balance_credit] = 0.0
-        totals["real_balance_#{totals[:real_debit]>totals[:real_credit] ? 'debit' : 'credit'}".to_sym] = (totals[:real_debit] - totals[:real_credit]).abs
-      %table
-        %tbody
-          %tr.important.total
-            %th
-            %th= Journal.human_attribute_name(:debit)
-            %th= Journal.human_attribute_name(:credit)
+  - c.cobble :totals, title: Journal.human_attribute_name(:totals) do
+    :ruby
+      absolute_currency = Preference[:currency]
+      conditions = eval(controller.class.journal_entries_conditions)
+      totals = {}
+      totals[:real_debit]  = JournalEntry.where(conditions).sum(:real_debit)
+      totals[:real_credit] = JournalEntry.where(conditions).sum(:real_credit)
+      totals[:real_balance_debit] = totals[:real_balance_credit] = 0.0
+      totals["real_balance_#{totals[:real_debit]>totals[:real_credit] ? 'debit' : 'credit'}".to_sym] = (totals[:real_debit] - totals[:real_credit]).abs
+    %table
+      %tbody
+        %tr.important.total
+          %th
+          %th= Journal.human_attribute_name(:debit)
+          %th= Journal.human_attribute_name(:credit)
+        %tr.important.total
+          %th= :total.tl
+          %td.decimal= totals[:real_debit].l(currency: resource.currency)
+          %td.decimal= totals[:real_credit].l(currency: resource.currency)
+        - if resource.currency != absolute_currency
           %tr.important.total
             %th= :total.tl
-            %td.decimal= totals[:real_debit].l(currency: resource.currency)
-            %td.decimal= totals[:real_credit].l(currency: resource.currency)
-          - if resource.currency != absolute_currency
-            %tr.important.total
-              %th= :total.tl
-              %td.decimal= JournalEntry.where(conditions).sum(:debit).l(currency: absolute_currency)
-              %td.decimal= JournalEntry.where(conditions).sum(:credit).l(currency: absolute_currency)
-          - if totals[:real_balance_debit] != totals[:real_balance_credit]
-            %tr.important.total
-              %th= :balance.tl
-              %td.decimal= totals[:real_balance_debit].l(currency: resource.currency)
-              %td.decimal= totals[:real_balance_credit].l(currency: resource.currency)
+            %td.decimal= JournalEntry.where(conditions).sum(:debit).l(currency: absolute_currency)
+            %td.decimal= JournalEntry.where(conditions).sum(:credit).l(currency: absolute_currency)
+        - if totals[:real_balance_debit] != totals[:real_balance_credit]
+          %tr.important.total
+            %th= :balance.tl
+            %td.decimal= totals[:real_balance_debit].l(currency: resource.currency)
+            %td.decimal= totals[:real_balance_credit].l(currency: resource.currency)
 
-    - b.cell :details do
-      = attributes_list(resource) do |l|
-        - l.attribute :name
-        - l.attribute :code
-        - l.attribute :nature
-        - l.attribute :currency
-        - l.attribute :closed_on
+  - c.cobble :details do
+    = attributes_list(resource) do |l|
+      - l.attribute :name
+      - l.attribute :code
+      - l.attribute :nature
+      - l.attribute :currency
+      - l.attribute :closed_on
 
 

@@ -26,11 +26,15 @@
 - main_toolbar do |t|
   - t.new
 
-= janus do |j|
-  - j.face :map do
+-#
+  .med-info
     %span.title= LandParcelCluster.human_attribute_name(:net_surface_area)
     %span.value= total_net_surface_area.in_hectare.round(2).l
-    = visualization do |v|
+
+
+= janus do |j|
+  - j.face :map do
+    = visualization(box: {height: "100%"}) do |v|
       - v.serie :main, data
       - v.background "Esri.WorldImagery"
       - v.background "OpenStreetMap.HOT"
@@ -41,7 +45,6 @@
       - v.control :scale
       - v.control :fullscreen
       - v.control :layer_selector
-
   - j.face :list do
     = main_list
 

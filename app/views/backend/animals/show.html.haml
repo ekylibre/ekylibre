@@ -4,169 +4,149 @@
   - t.edit resource
   - t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name}, tool: 'new-issue')
   -# t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if resource.destroyable?
--# main_dropdown_button do |b|
 
+= main_informations do
+  - if resource.picture.exists?
+    .picture= image_tag(resource.picture.url(:identity))
+  .big-infos
+    .med-info.important
+      - sex_icon = (resource.sex == 'male' ? 'mars' : (resource.sex == 'female' ? 'venus' : 'sex'))
+      %span.title= Animal.human_attribute_name(:work_number)
+      %span.value
+        %i.picto{class: "picto-#{sex_icon}"}
+        = resource.work_number
 
-= beehive do |b|
-  - b.hbox do
-    - b.cell :general do
-      - if resource.picture.exists?
-        .picture= image_tag(resource.picture.url(:identity))
-      .big-infos
-        .big-info.important
-          - sex_icon = (resource.sex == 'male' ? 'mars' : (resource.sex == 'female' ? 'venus' : 'sex'))
-          %span.title= Animal.human_attribute_name(:work_number)
-          %span.value
-            %i.picto{class: "picto-#{sex_icon}"}
-            = resource.work_number
+    .med-info.important
+      %span.title= Animal.human_attribute_name(:state)
+      %span.value= lights(resource.status)
 
-        .big-info.important
-          %span.title= Animal.human_attribute_name(:state)
-          %span.value= lights(resource.status)
+    .med-info
+      %span.title= Animal.human_attribute_name(:identification_number)
+      %span.value
+        %i.picto{class: "picto-barcode"}
+        = resource.identification_number
 
+  - if resource.born_at and resource.age >= 1.day
+    .med-info
+      %span.title= Animal.human_attribute_name(:age)
+      %span.value
+        %i.picto{class: "picto-clock-o"}
+        = human_age(resource.age, display: 2)
 
-      - if resource.born_at and resource.age >= 1.day
-        .big-info
-          %span.title= Animal.human_attribute_name(:age)
-          %span.value
-            %i.picto{class: "picto-clock-o"}
-            = human_age(resource.age, display: 2)
+= cobbles do |c|
 
-    - b.cell do
+  - if resource.mother or resource.father
+    - c.cobble :genealogy do
       .big-infos
         - if resource.mother
-          .big-info
+          .med-info
             %span.title= Animal.human_attribute_name(:mother)
             %span.value
               %i.picto{class: "picto-venus"}
               = link_to(resource.mother.name, {action: :show, id: resource.mother.id})
 
         - if resource.father
-          .big-info
+          .med-info
             %span.title= Animal.human_attribute_name(:father)
             %span.value
               %i.picto{class: "picto-mars"}
               = link_to(resource.father.name, {action: :show, id: resource.father.id})
 
-      .big-info
-        %span.title= Animal.human_attribute_name(:identification_number)
-        %span.value
-          %i.picto{class: "picto-barcode"}
-          = resource.identification_number
+  - if resource.analyses.any?
+    - c.cobble :last_analyses, params: {nature: :unitary_cow_milk_analysis, product_id: resource.id}
 
-  - b.hbox do
-    - if resource.analyses.count > 0
-      - b.cell :last_analyses, params: {nature: :unitary_cow_milk_analysis, product_id: resource.id}
-    - if indicators = resource.variable_indicators.delete_if{|i| ![:measure, :decimal].include?(i.datatype)}
-      - b.cell(:variable_indicators) do
-        :ruby
-          series = []
-          now, window = Time.now, 1.year
-          min = (resource.born_at ? resource.born_at : now - window)
-          min = now - window if (now - min) < window
-          for indicator in indicators # [:population, :nitrogen_concentration].collect{|i| Nomen::Indicators[i] }
-            items = ProductReading.where(indicator_name: indicator.name, product: resource).where("? < read_at AND read_at < ?", min, now).order(:read_at)
-            next unless items.any?
-            data = []
-            data << [min.to_usec, resource.get(indicator, at: min).to_d.to_s.to_f]
-            data += items.inject({}) do |hash, pair|
-              hash[pair.read_at.to_usec] = pair.value.to_d
+  - indicators = resource.variable_indicators.delete_if{|i| ![:measure, :decimal].include?(i.datatype)}
+  - if indicators.any? and ProductReading.where(indicator_name: indicators.map(&:name), product: resource).any?
+    - c.cobble(:variable_indicators) do
+      = variable_readings(resource)
+
+  - if resource.custom_fields.any?
+    - c.cobble :custom_fields do
+      = attributes_list(without_stamps: true) do |l|
+        - l.custom_fields
+
+  -# c.cobble :indicators_evolutions do
+    - if resource.born_at
+      :ruby
+        #
+        #
+        started_at = resource.born_at.to_date
+        stopped_at = resource.dead_at.to_date if resource.dead_at
+        stopped_at ||= Date.today
+
+        series = []
+        categories = {}
+        date = started_at
+        while date < stopped_at
+          categories[date.year.to_s + date.month.to_s.rjust(3, '0')] = date.l(format: "%b %Y")
+          date = date >> 1
+        end
+
+        #
+        #  data for bar chart indicator and by month
+        #
+        bar_indicators = [:net_mass].collect{|i| Nomen::Indicators[i] }
+        for indicator in bar_indicators
+          items = ProductReading.where(indicator_name: indicator.name, :product => resource).measured_between(started_at, stopped_at)
+          if items.count > 0
+            item_h = items.averages_of_periods.sort.inject({}) do |hash, pair|
+              hash[pair.expr.to_i.to_s] = pair.average.to_s.to_d
               hash
-            end.collect{|k,v| [k, v.to_s.to_f] }
-            # data << [now.to_usec, resource.get(indicator, at: now).to_d.to_s.to_f]
-            series << {name: indicator.human_name, data: data, step: 'left'}
-          end
-
-        = spline_chart(series, legend: true, y_axis: {title: { text: :indicator.tl}}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}, min: min.to_usec})
-
-    - if resource.custom_fields.any?
-      - b.cell :custom_fields do
-        = attributes_list(without_stamps: true) do |l|
-          - l.custom_fields
-
-    -# b.cell :indicators_evolutions do
-      - if resource.born_at
-        :ruby
-          #
-          #
-          started_at = resource.born_at.to_date
-          stopped_at = resource.dead_at.to_date if resource.dead_at
-          stopped_at ||= Date.today
-
-          series = []
-          categories = {}
-          date = started_at
-          while date < stopped_at
-            categories[date.year.to_s + date.month.to_s.rjust(3, '0')] = date.l(format: "%b %Y")
-            date = date >> 1
-          end
-
-          #
-          #  data for bar chart indicator and by month
-          #
-          bar_indicators = [:net_mass].collect{|i| Nomen::Indicators[i] }
-          for indicator in bar_indicators
-            items = ProductReading.where(indicator_name: indicator.name, :product => resource).measured_between(started_at, stopped_at)
-            if items.count > 0
-              item_h = items.averages_of_periods.sort.inject({}) do |hash, pair|
-                hash[pair.expr.to_i.to_s] = pair.average.to_s.to_d
-                hash
-              end
-              series << {type: 'column', name: indicator.human_name, data: normalize_serie(item_h, categories.keys), tooltip: {value_suffix: ' kg'} }
             end
+            series << {type: 'column', name: indicator.human_name, data: normalize_serie(item_h, categories.keys), tooltip: {value_suffix: ' kg'} }
           end
+        end
 
-          #
-          #  data for bar chart indicator and by month
-          #
-          spline_indicators = [:healthy].collect{|i| Nomen::Indicators[i] }
-          for indicator in spline_indicators
-            items = ProductReading.where(indicator_name: indicator.name, :product => resource).measured_between(started_at, stopped_at)
-            if items.count > 0
-              item_h = items.counts_of_periods(column: :boolean_value).sort.inject({}) do |hash, pair|
-                hash[pair.expr.to_i.to_s] = pair.count.to_s.to_d
-                hash
-              end
-              series << {type: 'spline', y_axis: 1, name: indicator.human_name, data: normalize_serie(item_h, categories.keys),  tooltip: {value_suffix: ' fois'}, marker: {line_width: 2}}
+        #
+        #  data for bar chart indicator and by month
+        #
+        spline_indicators = [:healthy].collect{|i| Nomen::Indicators[i] }
+        for indicator in spline_indicators
+          items = ProductReading.where(indicator_name: indicator.name, :product => resource).measured_between(started_at, stopped_at)
+          if items.count > 0
+            item_h = items.counts_of_periods(column: :boolean_value).sort.inject({}) do |hash, pair|
+              hash[pair.expr.to_i.to_s] = pair.count.to_s.to_d
+              hash
             end
+            series << {type: 'spline', y_axis: 1, name: indicator.human_name, data: normalize_serie(item_h, categories.keys),  tooltip: {value_suffix: ' fois'}, marker: {line_width: 2}}
           end
-        = column_chart(series, y_axis: [{labels: {format: '{value} kg'}, title: {text: :net_mass.tl}}, {labels: {format: '{value} fois'},title: {text: :illness.tl}, opposite: true}], x_axis: { categories: categories.values}, tooltip: {shared: true}, legend: true)
+        end
+      = column_chart(series, y_axis: [{labels: {format: '{value} kg'}, title: {text: :net_mass.tl}}, {labels: {format: '{value} fois'},title: {text: :illness.tl}, opposite: true}], x_axis: { categories: categories.values}, tooltip: {shared: true}, legend: true)
 
-      - else
-        = no_data
+    - else
+      = no_data
 
 
-  - b.hbox do
-    - b.cell(:children) do
-      = list(:children)
+  - c.cobble(:children) do
+    = list(:children)
 
-    - count = 0
-    - map = visualization do |v|
-      - v.background "OpenStreetMap.HOT"
-      - v.background "OpenStreetMap.Mapnik"
-      - v.background "Thunderforest.Landscape"
-      - v.background "Esri.WorldImagery"
-      - if resource.container
-        - shape = resource.container.shape
-        - if shape
-          - v.serie resource.container.id, [{name: resource.container.name, shape: shape}]
-          - v.simple resource.container.name , resource.container.id, fill_color: cycle(theme_colors)
-          - count += 1
-      - v.control :zoom
-      - v.control :scale
-      - v.control :fullscreen
-      - v.control :layer_selector
-    - if count > 0
-      - b.cell :container do
-        = map
+  - count = 0
+  - map = visualization do |v|
+    - v.background "OpenStreetMap.HOT"
+    - v.background "OpenStreetMap.Mapnik"
+    - v.background "Thunderforest.Landscape"
+    - v.background "Esri.WorldImagery"
+    - if resource.container
+      - shape = resource.container.shape
+      - if shape
+        - v.serie resource.container.id, [{name: resource.container.name, shape: shape}]
+        - v.simple resource.container.name , resource.container.id, fill_color: cycle(theme_colors)
+        - count += 1
+    - v.control :zoom
+    - v.control :scale
+    - v.control :fullscreen
+    - v.control :layer_selector
+  - if count > 0
+    - c.cobble :container do
+      = map
 
-  - b.hbox do
-    - b.cell(:issues) do
-      = toolbar do |t|
-        - t.new(params: {controller: :issues, :target_id => resource.id, :target_type => resource.class.name}, tool: 'new-issue')
-      = list(:issues)
-    - b.cell(:intervention_casts, title: :x_intervention_casts.tl(count: resource.intervention_casts.count)) do
-      = list(:intervention_casts)
+  - c.cobble(:issues) do
+    = toolbar do |t|
+      - t.new(params: {controller: :issues, :target_id => resource.id, :target_type => resource.class.name}, tool: 'new-issue')
+    = list(:issues)
 
-    -# b.cell(:readings, tl(:x_readings, count: resource.readings.count)) do
-      = list(:readings)
+  - c.cobble(:intervention_casts, title: :x_intervention_casts.tl(count: resource.intervention_casts.count)) do
+    = list(:intervention_casts)
+
+  -# c.cobble(:readings, tl(:x_readings, count: resource.readings.count)) do
+    = list(:readings)

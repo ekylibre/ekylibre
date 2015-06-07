@@ -1,8 +1,8 @@
 - main_toolbar do |t|
   - t.edit resource
 
-= beehive do |b|
-  - b.cell do
+= cobbles do |c|
+  - c.cobble :general_informations do
     = attributes_list do |l|
       - l.attribute :number
       - l.attribute :active
@@ -35,8 +35,8 @@
       - if resource.custom_fields.any?
         - l.custom_fields
 
-  - b.cell :taxations do
+  - c.cobble :taxations do
     = list :taxations
 
-  - b.cell :product_natures do
+  - c.cobble :product_natures do
     = list :product_natures
