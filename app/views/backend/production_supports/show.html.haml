@@ -1,34 +1,45 @@
-= beehive do |b|
-  - b.hbox do
-    - if resource.storage.is_a?(CultivableZone)
-      - b.cell :support do
-        = mini_map(resource.storage)
-        .info
-          %span.title= CultivableZone.human_attribute_name(:work_number)
-          %span.value= resource.storage.work_number
-        .info
-          %span.title= CultivableZone.human_attribute_name(:net_surface_area)
-          %span.value= resource.storage.net_surface_area.in_hectare.round(2).l
-        .info
-          %span.title= :production.tl
-          %span.value= link_to(resource.production.name, backend_production_path(resource.production))
-        - if resource.estimate_yield.to_d > 0.0
-          .info
-            %span.title= :estimate_yield.tl
-            %span.value= resource.estimate_yield.l
-        - if resource.implanted_at
-          .info
-            %span.title= :implanted_at.tl
-            %span.value= resource.implanted_at.l
-        - if resource.harvested_at
-          .info
-            %span.title= :harvested_at.tl
-            %span.value= resource.harvested_at.l
+= cobbles do |c|
+  - c.cobble :general_informations do
+    = attributes_list do |l|
+      - l.attribute :name
+      - l.attribute :storage, url: true
+      - l.attribute :production, url: true
+      - l.attribute :started_at
+      - l.attribute :stopped_at
+      - l.attribute :irrigated
+      - l.attribute :production_usage
 
-      - b.cell :weather, params: {id: resource.storage.id}
+  - if resource.storage.is_a?(CultivableZone)
+    - c.cobble :support do
+      = mini_map(resource.storage)
+      .info
+        %span.title= CultivableZone.human_attribute_name(:work_number)
+        %span.value= resource.storage.work_number
+      .info
+        %span.title= CultivableZone.human_attribute_name(:net_surface_area)
+        %span.value= resource.storage.net_surface_area.in_hectare.round(2).l
+      .info
+        %span.title= :production.tl
+        %span.value= link_to(resource.production.name, backend_production_path(resource.production))
+      - if resource.estimate_yield.to_d > 0.0
+        .info
+          %span.title= :estimate_yield.tl
+          %span.value= resource.estimate_yield.l
+      - if resource.implanted_at
+        .info
+          %span.title= :implanted_at.tl
+          %span.value= resource.implanted_at.l
+      - if resource.harvested_at
+        .info
+          %span.title= :harvested_at.tl
+          %span.value= resource.harvested_at.l
+
+  - if resource.storage.is_a?(CultivableZone)
+    - c.cobble :weather do
+      = cell :weather, params: {id: resource.storage.id}
 
   - if resource.selected_manure_management_plan_zone
-    - b.cell :manure_management_plan_chart do
+    - c.cobble :manure_management_plan_chart do
       - if resource.selected_manure_management_plan_zone
         :ruby
           # prepare an array of hash
@@ -71,8 +82,8 @@
         = no_data
 
   -# For budgets
-  -# if resource.budget_items.count > 0
-    - b.cell(:budget_per_working_indicator) do
+  -# if resource.budgets.any?
+    - c.cobble(:budget_per_working_indicator) do
       :ruby
         balance = 0
         data_series = []
@@ -100,7 +111,7 @@
       = waterfall_chart(series, tooltip: {point_format: '{point.y: 1.3f}'}, title: {text: 'Budget prévisionnel'}, legend: {enabled: false}, x_axis: {type: 'category'}, y_axis: {title: {text: '€'}})
 
   - if resource.interventions.any? and Nomen::Varieties[resource.production.variant.variety] <= :plant
-    - b.cell :production_cost do
+    - c.cobble :production_cost do
       :ruby
         # prepare an array of hash
 
@@ -153,17 +164,7 @@
   - else
     = no_data
 
-  - b.hbox do
-    - b.cell(:interventions) do
-      = toolbar do |t|
-        - t.new(params: {controller: :interventions, production_support_id: resource.id})
-      = list(:interventions)
-    - b.cell do
-      = attributes_list do |l|
-        - l.attribute :name
-        - l.attribute :storage, url: true
-        - l.attribute :production, url: true
-        - l.attribute :started_at
-        - l.attribute :stopped_at
-        - l.attribute :irrigated
-        - l.attribute :production_usage
+  - c.cobble(:interventions) do
+    = toolbar do |t|
+      - t.new(params: {controller: :interventions, production_support_id: resource.id})
+    = list(:interventions)

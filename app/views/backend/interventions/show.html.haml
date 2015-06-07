@@ -7,97 +7,95 @@
   - if resource.runnable?
     - t.run resource, method: :post, "data-confirm" => :are_you_sure.tl
 
-= beehive do |b|
-  - b.hbox do
-    - count = 0
-    - map = visualization do |v|
-      - v.background "OpenStreetMap.HOT"
-      - v.background "OpenStreetMap.Mapnik"
-      - v.background "Thunderforest.Landscape"
-      - v.background "Esri.WorldImagery"
-      - for cast in resource.casts
-        - shape = cast.shape
-        - shape ||= cast.actor.shape(at: resource.started_at) if cast.actor
-        - if shape
-          - v.serie cast.id, [{name: cast.name, shape: shape}]
-          - v.simple (cast.actor ? cast.actor.name : cast.variant ? cast.variant.name : cast.name), cast.id, fill_color: cycle(theme_colors)
-          - count += 1
-      - for cast in resource.casts
-        - if cast.crumbs.any?
-          - v.serie "path_#{cast.id}", cast.crumbs.reorder(:read_at).collect{|c| {name: cast.name, shape: c.geolocation}}
-          - v.path (cast.actor ? cast.actor.name : cast.variant ? cast.variant.name : cast.name), "path_#{cast.id}"
-          - count += 1
-      - v.control :zoom
-      - v.control :scale
-      - v.control :fullscreen
-      - v.control :layer_selector
-    - if count > 0
-      - b.cell :resource_map, title: :map do
-        = map
-    - b.cell(:costs) do
-      .big-infos.costs
-        - total = 0
-        - for type in [:input, :tool, :doer]
-          - cost = (resource.cost(type) || 0.0).round.to_i
-          - total += cost
-          .big-info.cost
-            %span.title= "evaluated_#{type}_cost".tl
-            %span.value
-              %i.picto{class: "picto-#{type}"}
-              = cost.l(currency: Preference[:currency])
-        .big-info.cost.important
-          %span.title= "total_cost".tl
-          %span.value= total.l(currency: Preference[:currency])
-
-  - b.hbox do
-    - b.cell(:casts) do
-      %ul.casts= render partial: "cast", collection: resource.casts
-
-    - b.cell(:general_informations) do
-      .big-infos
-        .big-info.important
-          %span.title= Intervention.human_attribute_name(:state)
-          %span.value= lights(resource.status)
-        .big-info
-          %span.title= Intervention.human_attribute_name(:duration)
+= cobbles do |c|
+  - count = 0
+  - map = visualization do |v|
+    - v.background "OpenStreetMap.HOT"
+    - v.background "OpenStreetMap.Mapnik"
+    - v.background "Thunderforest.Landscape"
+    - v.background "Esri.WorldImagery"
+    - for cast in resource.casts
+      - shape = cast.shape
+      - shape ||= cast.actor.shape(at: resource.started_at) if cast.actor
+      - if shape
+        - v.serie cast.id, [{name: cast.name, shape: shape}]
+        - v.simple (cast.actor ? cast.actor.name : cast.variant ? cast.variant.name : cast.name), cast.id, fill_color: cycle(theme_colors)
+        - count += 1
+    - for cast in resource.casts
+      - if cast.crumbs.any?
+        - v.serie "path_#{cast.id}", cast.crumbs.reorder(:read_at).collect{|c| {name: cast.name, shape: c.geolocation}}
+        - v.path (cast.actor ? cast.actor.name : cast.variant ? cast.variant.name : cast.name), "path_#{cast.id}"
+        - count += 1
+    - v.control :zoom
+    - v.control :scale
+    - v.control :fullscreen
+    - v.control :layer_selector
+  - if count > 0
+    - c.cobble :resource_map, title: :map do
+      = map
+  - c.cobble(:costs) do
+    .big-infos.costs
+      - total = 0
+      - for type in [:input, :tool, :doer]
+        - cost = (resource.cost(type) || 0.0).round.to_i
+        - total += cost
+        .big-info.cost
+          %span.title= "evaluated_#{type}_cost".tl
           %span.value
-            %i.picto.picto-clock-o
-            = human_duration(resource.duration)
+            %i.picto{class: "picto-#{type}"}
+            = cost.l(currency: Preference[:currency])
+      .big-info.cost.important
+        %span.title= "total_cost".tl
+        %span.value= total.l(currency: Preference[:currency])
+
+  - c.cobble(:casts) do
+    %ul.casts= render partial: "cast", collection: resource.casts
+
+  - c.cobble(:general_informations) do
+    .big-infos
+      .big-info.important
+        %span.title= Intervention.human_attribute_name(:state)
+        %span.value= lights(resource.status)
+      .big-info
+        %span.title= Intervention.human_attribute_name(:duration)
+        %span.value
+          %i.picto.picto-clock-o
+          = human_duration(resource.duration)
+    .info
+      %span.title= Intervention.human_attribute_name(:started_at)
+      %span.value= resource.started_at.l
+    .info
+      %span.title= Intervention.human_attribute_name(:stopped_at)
+      %span.value= resource.stopped_at.l
+    .info
+      %span.title= Intervention.human_attribute_name(:production)
+      %span.value= link_to(resource.production.name, {controller: :productions, action: :show, id: resource.production})
+
+    - if resource.production_support
       .info
-        %span.title= Intervention.human_attribute_name(:started_at)
-        %span.value= resource.started_at.l
+        %span.title= :production_support.tl
+        %span.value= link_to(resource.production_support.name, {controller: :production_supports, action: :show, id: resource.production_support})
+
+      - if resource.storage
+        .info
+          %span.title= ProductionSupport.human_attribute_name(:storage)
+          %span.value= link_to(resource.storage.name, {controller: :products, action: :show, id: resource.storage})
+
+    - if resource.prescription
       .info
-        %span.title= Intervention.human_attribute_name(:stopped_at)
-        %span.value= resource.stopped_at.l
+        %span.title= Intervention.human_attribute_name(:prescription)
+        %span.value= link_to(resource.prescription.name, {controller: :prescriptions, action: :show, id: resource.prescription})
+
+    - if resource.issue
       .info
-        %span.title= Intervention.human_attribute_name(:production)
-        %span.value= link_to(resource.production.name, {controller: :productions, action: :show, id: resource.production})
+        %span.title= Intervention.human_attribute_name(:issue)
+        %span.value= link_to(resource.issue.name, {controller: :issues, action: :show, id: resource.issue})
 
-      - if resource.production_support
-        .info
-          %span.title= :production_support.tl
-          %span.value= link_to(resource.production_support.name, {controller: :production_supports, action: :show, id: resource.production_support})
-
-        - if resource.storage
-          .info
-            %span.title= ProductionSupport.human_attribute_name(:storage)
-            %span.value= link_to(resource.storage.name, {controller: :products, action: :show, id: resource.storage})
-
-      - if resource.prescription
-        .info
-          %span.title= Intervention.human_attribute_name(:prescription)
-          %span.value= link_to(resource.prescription.name, {controller: :prescriptions, action: :show, id: resource.prescription})
-
-      - if resource.issue
-        .info
-          %span.title= Intervention.human_attribute_name(:issue)
-          %span.value= link_to(resource.issue.name, {controller: :issues, action: :show, id: resource.issue})
-
-      - if resource.description?
-        .info
-          %span.title= Intervention.human_attribute_name(:description)
-          %span.value= resource.description
+    - if resource.description?
+      .info
+        %span.title= Intervention.human_attribute_name(:description)
+        %span.value= resource.description
 
   -# if resource.operations.any?
-    - b.cell(:operations) do
+    - c.cobble(:operations) do
       = list(:operations)

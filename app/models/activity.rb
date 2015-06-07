@@ -40,7 +40,7 @@
 class Activity < Ekylibre::Record::Base
   enumerize :family, in: Nomen::ActivityFamilies.all, predicates: true
   enumerize :nature, in: [:main, :auxiliary, :standalone], default: :main, predicates: true
-  has_many :distributions, -> { order(:main_activity_id) }, class_name: "ActivityDistribution", dependent: :destroy
+  has_many :distributions, -> { order(:main_activity_id) }, class_name: "ActivityDistribution", dependent: :destroy, inverse_of: :activity
   has_many :productions
   has_many :supports, through: :productions
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

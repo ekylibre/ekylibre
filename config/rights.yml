@@ -438,7 +438,6 @@ cashes:
 catalogs:
   read:
     actions:
-    - "backend/catalog_items#index"
     - "backend/catalog_items#list"
     - "backend/catalog_items#show"
     - "backend/catalog_items#unroll"

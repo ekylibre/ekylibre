@@ -791,8 +791,12 @@ form.search {
 .big-infos {
   @include respond-to-bigger-than(medium) {
     @include clearfix;
-    .big-info, med-info {
+    .big-info {
       width: 50%;
+      @include float(left);
+    }
+    .med-info {
+      width: 33%;
       @include float(left);
     }
   }

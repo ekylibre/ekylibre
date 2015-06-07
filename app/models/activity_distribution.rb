@@ -33,7 +33,7 @@
 #  updater_id             :integer
 #
 class ActivityDistribution < Ekylibre::Record::Base
-  belongs_to :activity
+  belongs_to :activity, inverse_of: :distributions
   belongs_to :main_activity, class_name: "Activity"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :affectation_percentage, allow_nil: true

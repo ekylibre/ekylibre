@@ -1,5 +1,5 @@
-= beehive do |b|
-  - b.cell do
+= cobbles do |c|
+  - c.cobble :general_informations do
     = attributes_list do |l|
       - l.attribute :guide, url: true
       - l.attribute :execution_number
@@ -9,5 +9,5 @@
       - if resource.custom_fields.any?
         - l.custom_fields
   -# TODO Details results based on XML structure with points results
-  - b.cell :points do
+  - c.cobble :points do
     = list :points

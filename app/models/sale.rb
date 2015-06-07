@@ -308,6 +308,10 @@ class Sale < Ekylibre::Record::Base
     return false
   end
 
+  def duplicatable?
+    true
+  end
+
   # Duplicates a +sale+ in 'E' mode with its items and its active subscriptions
   def duplicate(attributes={})
     fields = [:client_id, :nature_id, :currency, :letter_format, :annotation, :subject, :function_title, :introduction, :conclusion, :description]

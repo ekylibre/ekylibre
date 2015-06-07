@@ -3,9 +3,9 @@
   - t.edit resource if resource.updateable?
   - t.destroy resource, method: :delete, "data-confirm" => :are_you_sure.tl if resource.destroyable?
 
-= beehive do |b|
+= cobbles do |c|
 
-  - b.cell do
+  - c.cobble :general_informations do
     = attributes_list do |l|
       - l.attribute :number
       - l.attribute :printed_on
@@ -23,6 +23,6 @@
       - if resource.custom_fields.any?
         - l.custom_fields
 
-  - b.cell :items, title: JournalEntry.human_attribute_name(:items) do
+  - c.cobble :items, title: JournalEntry.human_attribute_name(:items) do
     = list(:items)
 

@@ -69,4 +69,8 @@
 class SaleCredit < Sale
   has_many :items, -> { order("position, id") }, class_name: "SaleCreditItem", dependent: :destroy, inverse_of: :sale, foreign_key: :sale_id
   validates_presence_of :credited_sale
+
+  def duplicatable
+    false
+  end
 end

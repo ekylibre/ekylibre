@@ -1,29 +1,21 @@
 - main_toolbar do |t|
   -# t.export do |e|
-    - e.incoming_delivery_sheet @incoming_delivery.number, @incoming_delivery
+    - e.incoming_delivery_sheet resource.number, resource
   -# t.new(params: {controller: :issues, :target_id => @animal.id, :target_type => @animal.class.name})
-  - t.edit @incoming_delivery
-  - t.destroy(@incoming_delivery, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if @incoming_delivery.destroyable?
+  - t.edit resource
+  - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if resource.destroyable?
 
-= beehive do |b|
-  - b.hbox do
-    - b.cell :general do
-      = attributes_list(without_stamps: true) do |l| # liste des champs à afficher
-        - l.attribute :number
-        - l.attribute :reference_number
-        - l.attribute :received_at
-        - l.attribute :sender, url: true
-        - l.attribute :address, url: true
-        - if resource.custom_fields.any?
-          - l.custom_fields
+= cobbles do |c|
+  - c.cobble :general_informations do
+    = attributes_list do |l|
+      - l.attribute :number
+      - l.attribute :reference_number
+      - l.attribute :received_at
+      - l.attribute :sender, url: true
+      - l.attribute :address, url: true
+      - l.attribute :mode, url: true
+      - l.attribute :purchase, url: true
 
-    - b.cell :details do
-      = attributes_list(without_custom_fields: true) do |l| # liste des champs à afficher
-        - l.attribute :mode, url: true
-        - l.attribute :purchase, url: true
-
-  - b.hbox do
-
-    - b.cell(:items) do
-      = list(:items)
+  - c.cobble(:items) do
+    = list(:items)
 

@@ -111,7 +111,7 @@ class Backend::EntitiesController < Backend::BaseController
 
   list(:sales, conditions: {:client_id => 'params[:id]'.c}, :children => :items, :per_page => 5, order: {created_at: :desc}, :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
     # t.action :show, url: {format: :pdf}, image: :print, hidden: true
-    t.action :duplicate, method: :post, hidden: true
+    t.action :duplicate, method: :post, hidden: true, if: :duplicatable?
     t.action :edit, if: :draft?
     # t.action :destroy, if: :aborted?
     t.column :number, url: true, :children => :label

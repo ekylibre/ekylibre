@@ -57,6 +57,8 @@ class Backend::ActivitiesController < Backend::BaseController
 
   # List of productions for one activity
   list(:productions, conditions: {activity_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
+    t.action :edit
+    t.action :destroy
     t.column :name, url: true
     t.column :campaign, url: true
     # t.column :product_nature, url: true

@@ -2,8 +2,8 @@
   - t.edit resource if resource.updateable?
   - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if resource.destroyable?
 
-= beehive do |b|
-  - b.cell do
+= cobbles do |c|
+  - c.cobble :general_informations do
     = attributes_list do |l|
       - l.attribute :number
       - l.attribute :reference_number
@@ -16,5 +16,5 @@
       - if resource.custom_fields.any?
         - l.custom_fields
 
-  - b.cell :items, title: OutgoingDelivery.human_attribute_name(:items) do
+  - c.cobble :items, title: OutgoingDelivery.human_attribute_name(:items) do
     = list :items

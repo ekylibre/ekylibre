@@ -1649,7 +1649,7 @@ fra:
     validate: "Valider"
     validate_selected_entries: "Valider les écritures sélectionnées"
     values: "Valeurs"
-    variable_indicators: "Indicateurs de variable"
+    variable_indicators: "Indicateurs variables"
     variants: "Variantes"
     vat: "Taxe à payer" #?
     vat_acquisitions: "Acquisitions intracommunautaires" #?

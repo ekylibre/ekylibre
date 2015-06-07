@@ -1,17 +1,13 @@
 - main_toolbar do |t|
   - t.edit resource
 
-= beehive do |b|
-  - b.hbox do
-    - b.cell do
-      = attributes_list do |l|
-        - l.attribute :name
-        - l.attribute :serial
-        - l.attribute :description
-        - if resource.custom_fields.any?
-          - l.custom_fields
+= cobbles do |c|
+  - c.cobble :general_informations do
+    = attributes_list do |l|
+      - l.attribute :name
+      - l.attribute :serial
+      - l.attribute :description
+      - l.custom_fields
 
-= beehive do |b|
-  - b.hbox do
-    - b.cell(:products) do
-      = list(:products)
+  - c.cobble(:products) do
+    = list(:products)

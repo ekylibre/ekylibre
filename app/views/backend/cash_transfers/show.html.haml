@@ -1,8 +1,8 @@
 - main_toolbar do |t|
-  - t.edit @cash_transfer
+  - t.edit resource
 
-= beehive do |b|
-  - b.cell do
+= cobbles do |c|
+  - c.cobble :general_informations do
     = attributes_list do |l|
       - l.attribute :number
       - l.attribute :transfered_at
@@ -15,4 +15,4 @@
       - l.attribute :reception_cash, url: true
       - l.attribute :reception_amount, currency: :reception_currency
       - l.attribute :reception_journal_entry, url: true
-    
+

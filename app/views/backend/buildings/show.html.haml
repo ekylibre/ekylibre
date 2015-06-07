@@ -1,13 +1,12 @@
 - main_toolbar do |t|
   - t.edit resource
 
-= beehive do |b|
-  - b.cell :details do
+= cobbles do |c|
+  - c.cobble :details do
+    = mini_map(resource)
     = attributes_list do |l|
       - l.attribute :name
       - l.attribute :description
-      - if resource.custom_fields.any?
-        - l.custom_fields
-  - b.hbox do
-    - b.cell :divisions do
-      = list(:divisions)
+      - l.custom_fields
+  - c.cobble :divisions do
+    = list(:divisions)

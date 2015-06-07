@@ -1,8 +1,8 @@
 - main_toolbar do |t|
   - t.edit resource
 
-= beehive do |b|
-  - b.cell :details do
+= cobbles do |c|
+  - c.cobble :details do
     = attributes_list do |l|
       - l.attribute :name
       - l.attribute :variety
@@ -14,5 +14,5 @@
       - if resource.custom_fields.any?
         - l.custom_fields
 
-  - b.cell :variants, title: ProductNature.human_attribute_name(:variants) do
+  - c.cobble :variants, title: ProductNature.human_attribute_name(:variants) do
     = list :variants

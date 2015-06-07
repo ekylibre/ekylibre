@@ -24,7 +24,7 @@
       - l.side :versions, new: false
   - j.face :cobbles do
     = cobbles do |c|
-      - c.cobble :infos do
+      - c.cobble :general_informations do
         = attributes_list(resource, without_stamps: true) do |l|
           - l.attribute :last_name
           - l.attribute :first_name unless resource.first_name.blank?

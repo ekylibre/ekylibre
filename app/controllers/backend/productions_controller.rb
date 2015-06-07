@@ -17,7 +17,7 @@
 #
 
 class Backend::ProductionsController < Backend::BaseController
-  manage_restfully(t3e: {name: :name})
+  manage_restfully(t3e: {name: :name}, campaign_id: "(params[:campaign_id] ? params[:campaign_id] : current_campaign ? current_campaign.id : nil)".c)
 
   unroll :name, {activity: :name, campaign: :name, cultivation_variant: :name}, order: :name
 

@@ -156,7 +156,7 @@ module Clean
               exp.gsub!(/\#\{[^\}]+\}/, '*')
               list << exp
             end
-            source.gsub(/(tg|tl|field_set|cell)\s*\(?\s*(\:?\'[^\w+\.]+\'|\:?\"[^\"]+\"|\:\w+)\s*(\)|\,|\z|\s+do)/) do |exp|
+            source.gsub(/(tg|tl|field_set|cell|cobble)\s*\(?\s*(\:?\'[^\w+\.]+\'|\:?\"[^\"]+\"|\:\w+)\s*(\)|\,|\z|\s+do)/) do |exp|
               exp = exp.split(/[\s\(\)\:\'\"\,]+/)[1]
               exp.gsub!(/\#\{[^\}]+\}/, '*')
               list << exp

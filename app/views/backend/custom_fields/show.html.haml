@@ -1,17 +1,16 @@
 - main_toolbar do |t|
-  - if @custom_field.choice?
-    - t.new controller: :custom_field_choices, :custom_field_id => @custom_field.id
-    - t.sort @custom_field, {method: :post}
-  - t.edit @custom_field
+  - t.edit resource
 
-= beehive do |b|
-  - b.cell do
+= cobbles do |c|
+  - c.cobble :general_informations do
     = attributes_list do |l|
       - l.attribute :name
       - l.attribute :nature
       - l.attribute :active
       - l.attribute :required
 
-  - if @custom_field.choice?
-    - b.cell(:choices) do
+  - if resource.choice?
+    - c.cobble(:choices) do
+      = toolbar do |t|
+        - t.sort resource, {method: :post}
       = list :choices

@@ -2,17 +2,17 @@
   - t.run  resource, method: :post
   - t.edit resource
 
-= beehive do |b|
-  - b.hbox do
-    - b.cell do
-      = attributes_list do |l|
-        - l.attribute :name
-        - l.attribute :active
-        - l.attribute :nature
-        - l.attribute :external
-        - if resource.custom_fields.any?
-          - l.custom_fields
-    - b.cell :guide_evolution, params: {id: resource.id}
+= cobbles do |c|
+  - c.cobble :general_informations do
+    = attributes_list do |l|
+      - l.attribute :name
+      - l.attribute :active
+      - l.attribute :nature
+      - l.attribute :external
+      - l.custom_fields
 
-  - b.cell :analyses do
+  - c.cobble :evolution do
+    = cell :guide_evolution, params: {id: resource.id}
+
+  - c.cobble :analyses do
     = list :analyses

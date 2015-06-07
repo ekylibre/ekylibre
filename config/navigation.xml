@@ -182,8 +182,6 @@
         <page to="backend/cashes#show"/>
         <page to="backend/cashes#unroll"/>
         <page to="backend/cashes#update"/>
-      </item>
-      <item name="bank_statements">
         <page to="backend/bank_statements#index"/>
         <page to="backend/bank_statements#create"/>
         <page to="backend/bank_statements#destroy"/>
@@ -1217,7 +1215,6 @@
         <page to="backend/catalogs#show"/>
         <page to="backend/catalogs#unroll"/>
         <page to="backend/catalogs#update"/>
-        <page to="backend/catalog_items#index"/>
         <page to="backend/catalog_items#create"/>
         <page to="backend/catalog_items#destroy"/>
         <page to="backend/catalog_items#edit"/>

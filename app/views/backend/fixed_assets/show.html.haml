@@ -1,8 +1,8 @@
 - main_toolbar do |t|
   - t.edit(resource)
 
-= beehive do |b|
-  - b.cell do
+= cobbles do |c|
+  - c.cobble :general_informations do
     = attributes_list do |l|
       - l.attribute :name
       - l.attribute :depreciation_method
@@ -12,13 +12,10 @@
       - l.attribute :started_on
       - l.attribute :stopped_on
       - l.attribute :description
-      - if resource.custom_fields.any?
-        - l.custom_fields
+      - l.custom_fields
 
-  - b.hbox do
-    - b.cell(:depreciations) do
-      = list :depreciations
+  - c.cobble(:depreciations) do
+    = list(:depreciations)
 
-  - b.hbox do
-    - b.cell(:products) do
-      = list :products
+  - c.cobble(:products) do
+    = list(:products)

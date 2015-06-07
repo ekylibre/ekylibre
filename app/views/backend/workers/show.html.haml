@@ -1,50 +1,50 @@
 - main_toolbar do |t|
   - t.edit resource
 
-= beehive do |b|
-  - b.hbox do
-    - b.cell :general do
-      - if resource.picture.exists?
-        .picture= image_tag(resource.picture.url(:identity))
-      .big-info.important
+= cobbles do |c|
+  - c.cobble :general_informations do
+    - if resource.picture.exists?
+      .picture= image_tag(resource.picture.url(:identity))
+    .big-infos
+      .med-info.important
         - icon = resource.category.pictogram
         %span.title= Matter.human_attribute_name(:variant)
         %span.value
           %i.picto{class: "picto-#{icon}"}
           = link_to(resource.variant_name, controller: :product_nature_variants, action: :show, id: resource.variant_id)
       - if resource.born_at and resource.age >= 1.day
-        .big-info
+        .med-info
           %span.title= Matter.human_attribute_name(:age)
           %span.value
             %i.picto{class: "picto-clock-o"}
             = human_age(resource.age, display: 2)
-    - b.cell :attachments, title: ProductNatureVariant.human_attribute_name(:attachments) do
-      = attachments_of(resource)
+  - c.cobble :attachments, title: ProductNatureVariant.human_attribute_name(:attachments) do
+    = attachments_of(resource)
 
-    - count = 0
-    - map = visualization do |v|
-      - v.background "OpenStreetMap.HOT"
-      - v.background "OpenStreetMap.Mapnik"
-      - v.background "Thunderforest.Landscape"
-      - v.background "Esri.WorldImagery"
-      - if resource.container
-        - shape = resource.container.shape
-        - if shape
-          - v.serie resource.container.id, [{name: resource.container.name, shape: shape}]
-          - v.simple resource.container.name , resource.container.id, fill_color: cycle(theme_colors)
-          - count += 1
-      - v.control :zoom
-      - v.control :scale
-      - v.control :fullscreen
-      - v.control :layer_selector
-    - if count > 0
-      - b.cell :container do
-        = map
+  - count = 0
+  - map = visualization do |v|
+    - v.background "OpenStreetMap.HOT"
+    - v.background "OpenStreetMap.Mapnik"
+    - v.background "Thunderforest.Landscape"
+    - v.background "Esri.WorldImagery"
+    - if resource.container
+      - shape = resource.container.shape
+      - if shape
+        - v.serie resource.container.id, [{name: resource.container.name, shape: shape}]
+        - v.simple resource.container.name , resource.container.id, fill_color: cycle(theme_colors)
+        - count += 1
+    - v.control :zoom
+    - v.control :scale
+    - v.control :fullscreen
+    - v.control :layer_selector
+  - if count > 0
+    - c.cobble :container do
+      = map
 
-  - b.hbox do
-    - campaign = Campaign.order(harvest_year: :desc).first
+  - campaign = Campaign.order(harvest_year: :desc).first
 
-    - if campaign and Operation.of_campaign(campaign).with_generic_cast(:doer, resource).any?
+  - if campaign and Operation.of_campaign(campaign).with_generic_cast(:doer, resource).any?
+    - c.cobble :working_duration do
       :ruby
         started_at = Operation.of_campaign(campaign).with_generic_cast(:doer, resource).reorder(:started_at).first.started_at.to_date
         stopped_at = Operation.of_campaign(campaign).with_generic_cast(:doer, resource).reorder(:started_at).last.stopped_at.to_date
@@ -74,16 +74,10 @@
         end
 
       = column_chart(series, y_axis: {title: {text: :duration.tl}, stack_labels: {enabled: true, format: "{total} #{unit.symbol}"}, labels: { format: "{value} #{unit.symbol}" }}, x_axis: { categories: categories.values}, legend: true, plot_options: { column: {stacking: 'normal'}})
-    - else
-      = no_data
 
 
+  - c.cobble(:intervention_casts, title: :x_intervention_casts.tl(count: resource.intervention_casts.count)) do
+    = list(:intervention_casts)
 
-
-  - b.hbox do
-    - b.cell(:intervention_casts) do
-      = list(:intervention_casts)
-
-  - b.hbox do
-    - b.cell(:readings, title: :x_readings.tl(count: resource.readings.count)) do
-      = list(:readings)
+  - c.cobble(:readings, title: :x_readings.tl(count: resource.readings.count)) do
+    = list(:readings)

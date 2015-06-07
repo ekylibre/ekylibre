@@ -1,60 +1,57 @@
 - main_toolbar do |t|
   - t.edit resource
 
-= beehive do |b|
-  - b.hbox do
-    - b.cell :general do
+= cobbles do |c|
+  - c.cobble :general_informations do
+    .info
+      %span.title= ProductNatureVariant.human_attribute_name(:nature)
+      %span.value= link_to(resource.nature.name, controller: :product_natures, action: :show, id: resource.nature_id)
+    - for reading in resource.readings
       .info
-        %span.title= ProductNatureVariant.human_attribute_name(:nature)
-        %span.value= link_to(resource.nature.name, controller: :product_natures, action: :show, id: resource.nature_id)
-      - for reading in resource.readings
-        .info
-          %span.title= reading.indicator.human_name
-          %span.value= reading.value.l
+        %span.title= reading.indicator.human_name
+        %span.value= reading.value.l
 
-      -# .info
-        %span.title= ProductNatureVariant.human_attribute_name(:net_mass)
-        %span.value= resource.products.map(&:net_mass).compact.sum
-      -# .info
-        %span.title= ProductNatureVariant.human_attribute_name(:net_volume)
-        %span.value= resource.products.map(&:net_volume).compact.sum
+    -# .info
+      %span.title= ProductNatureVariant.human_attribute_name(:net_mass)
+      %span.value= resource.products.map(&:net_mass).compact.sum
+    -# .info
+      %span.title= ProductNatureVariant.human_attribute_name(:net_volume)
+      %span.value= resource.products.map(&:net_volume).compact.sum
 
-    - b.cell do
-      = attributes_list(resource) do |l|
-        - l.attribute :name
-        - l.attribute :unit_name
-        - l.attribute :variety
-        - l.attribute :derivative_of
-        - if resource.picture.exists?
-          = image_tag(resource.picture.url(:thumb))
-        - if resource.custom_fields.any?
-          - l.custom_fields
+    = attributes_list(resource) do |l|
+      - l.attribute :name
+      - l.attribute :unit_name
+      - l.attribute :variety
+      - l.attribute :derivative_of
+      - if resource.picture.exists?
+        = image_tag(resource.picture.url(:thumb))
+      - l.custom_fields
 
-  - b.hbox do
-    - b.cell(:products) do
-      = list(:products)
-    - b.cell :attachments, title: ProductNatureVariant.human_attribute_name(:attachments) do
-      = attachments_of(resource)
-    - if resource.products.any?
-      - b.cell(:stocks) do
-        :ruby
-            dataset = resource.products
+  - c.cobble(:products) do
+    = list(:products)
 
-            series = []
+  - c.cobble :attachments, title: ProductNatureVariant.human_attribute_name(:attachments) do
+    = attachments_of(resource)
 
-            for product in dataset
-              items = ProductReading.where(indicator_name: "population", product: product).order(:read_at)
-              item_h = items.sort.inject({}) do |hash, pair|
-                hash[pair.read_at.to_usec] = pair.value.to_d
-                hash
-              end
-              data = []
-              data = item_h.collect{|k,v| [k, v.to_s.to_f] }
-              series << {name: product.name ,data: data }
+  - if resource.products.any?
+    - c.cobble(:stocks) do
+      :ruby
+          dataset = resource.products
+
+          series = []
+
+          for product in dataset
+            items = ProductReading.where(indicator_name: "population", product: product).order(:read_at)
+            item_h = items.sort.inject({}) do |hash, pair|
+              hash[pair.read_at.to_usec] = pair.value.to_d
+              hash
             end
+            data = []
+            data = item_h.collect{|k,v| [k, v.to_s.to_f] }
+            series << {name: product.name ,data: data }
+          end
 
-        = spline_chart(series, legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom', border_width: 0 }, y_axis: {title: { text: :population.tl}, min: 0}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}})
+      = spline_chart(series, legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom', border_width: 0 }, y_axis: {title: { text: :population.tl}, min: 0}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}})
 
-  - b.hbox do
-    - b.cell(:catalog_items) do
-      = list(:catalog_items)
+  - c.cobble(:catalog_items) do
+    = list(:catalog_items)
