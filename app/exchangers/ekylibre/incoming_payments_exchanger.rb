@@ -52,6 +52,7 @@ class Ekylibre::IncomingPaymentsExchanger < ActiveExchanger::Base
                                                      to_bank_at: paid_at,
                                                      amount: r.amount,
                                                      payer: entity,
+                                                     received: true,
                                                      responsible: responsible
                                                     )
         end

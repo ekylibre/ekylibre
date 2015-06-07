@@ -2,8 +2,8 @@
 <aggregators xmlns="http://www.ekylibre.org/XML/2013/aggregators">
   <aggregator name="income_statement" version="0.0" category="exploitation">
     <parameters>
-      <parameter name="started_on" type="date" default="2013-01-01"/>
-      <parameter name="stopped_on" type="date" default="2013-12-31"/>
+      <parameter name="started_on" type="date" default="2015-01-01"/>
+      <parameter name="stopped_on" type="date" default="2015-12-31"/>
     </parameters>
     <section name="financial_years">
       <variable name="company" value="Entity.of_company"/>
