@@ -1,0 +1,14 @@
+.cobbles{data: {cobbles: "true"}}
+  .cobbles-body
+    - cobbler.each do |cobble|
+      .cobble{id: cobble.id}
+        .cobble-heading
+          %h3.cobble-title
+            %i
+            = cobble.title
+          %span.others
+            - cobble.others.each do |item|
+              = link_to(item.title, "##{item.id}")
+        .cobble-body
+          = capture(&cobble.block)
+          .cobble-end

@@ -37,6 +37,10 @@ fra:
         last_of_template: "Dernier du modèle"
         none: "Aucun du type"
         none_of_template: "Aucun du modèle"
+    entities:
+      nature:
+        contact: "Contact"
+        organization: "Organisation"
     entity_address:
       canal:
         email: "E-mail"

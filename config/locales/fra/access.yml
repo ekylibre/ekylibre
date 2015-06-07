@@ -30,6 +30,7 @@ fra:
       cashes: "Trésoreries"
       catalog_prices: "Prix" #?
       catalogs: "Catalogues"
+      contacts: "Contacts" #?
       cultivable_zones: "Zones cultivables"
       custom_fields: "Champs personnalisés"
       deposits: "Remises en banque"
@@ -62,7 +63,6 @@ fra:
       land_parcel_clusters: "Îlots"
       land_parcel_groups: "Groupes de parcelles"
       land_parcels: "Parcelles"
-      legal_entities: "Personnes morales"
       listings: "Extractions"
       loans: "Emprunts"
       manure_management_plans: "Plans de fumure"
@@ -70,10 +70,10 @@ fra:
       myselves: "Mon compte"
       net_services: "Services en ligne"
       observations: "Observations"
+      organizations: "Organisations" #?
       outgoing_deliveries: "Apports"
       outgoing_payment_modes: "Mode de décaissement"
       outgoing_payments: "Décaissements"
-      people: "Personnes physiques"
       plant_medicines: "Produits phytosanitaires" #?
       plants: "Plantes/Cultures"
       postal_zones: "Zones postales"
@@ -94,10 +94,10 @@ fra:
       settlements: "Installations"
       subscription_natures: "Type d’abonnements"
       subscriptions: "Abonnements"
+      tasks: "Tâches"
       taxes: "Taxes"
       teams: "Équipes"
       trackings: "Lots traçés"
-      transfers: "Transferts" #?
       transformed_products: "Produits transformés" #?
       transports: "Transports"
       users: "Utilisateurs"

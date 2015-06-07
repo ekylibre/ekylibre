@@ -2,45 +2,42 @@
   - t.export do |e|
     - e.purchases_invoice resource.number, resource
   - t.edit resource if resource.draft?
+  - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if resource.destroyable?
 
-= state_bar(resource)
+= main_state_bar(resource)
 
-= beehive do |b|
+= cobbles do |c|
 
-  - b.hbox do
-    - b.cell :items, title: Purchase.human_attribute_name(:items) do
-      = list :items do
-        %tr.total
-          %th{colspan: 4}
-          %td= resource.pretax_amount.l(currency: resource.currency)
-          %td= resource.amount.l(currency: resource.currency)
+  - c.cobble :details do
+    = attributes_list do |l|
+      - l.attribute :supplier, :label => :label, url: true
+      - l.attribute :number
+      - l.attribute :reference_number unless resource.reference_number.blank?
+      - l.attribute :state
+      - l.attribute :responsible, :label => :full_name
+      - l.attribute :created_at
+      - l.attribute :confirmed_at
+      - l.attribute :invoiced_at
+      - l.attribute :planned_at
+      - l.attribute :currency unless resource.currency == Entity.of_company.currency
+      - l.attribute :description unless resource.description.blank?
+      - l.attribute :delivery_address, :label => :coordinate
+      - l.attribute :journal_entry, url: true if resource.journal_entry
+      - l.custom_fields
 
-    - b.cell :details do
-      = attributes_list do |l|
-        - l.attribute :supplier, :label => :label, url: true
-        - l.attribute :number
-        - l.attribute :reference_number unless resource.reference_number.blank?
-        - l.attribute :state
-        - l.attribute :responsible, :label => :full_name
-        - l.attribute :created_at
-        - l.attribute :confirmed_at
-        - l.attribute :invoiced_at
-        - l.attribute :planned_at
-        - l.attribute :currency unless resource.currency == Entity.of_company.currency
-        - l.attribute :description unless resource.description.blank?
-        - l.attribute :delivery_address, :label => :coordinate
-        - l.attribute :journal_entry, url: true if resource.journal_entry
-        - l.custom_fields
+  - c.cobble :items, title: Purchase.human_attribute_name(:items) do
+    = list :items do
+      %tr.total
+        %th{colspan: 4}
+        %td= resource.pretax_amount.l(currency: resource.currency)
+        %td= resource.amount.l(currency: resource.currency)
 
-  - b.hbox do
-    - b.cell :affair do
-      = affair_of(resource)
+  - c.cobble :affair do
+    = affair_of(resource)
 
-
-    - b.cell :attachments, title: Purchase.human_attribute_name(:attachments) do
-      = attachments_of(resource)
-
+  - c.cobble :attachments, title: Purchase.human_attribute_name(:attachments) do
+    = attachments_of(resource)
 
   - if resource.deliveries.any?
-    - b.cell :deliveries, title: Purchase.human_attribute_name(:deliveries) do
+    - c.cobble :deliveries, title: Purchase.human_attribute_name(:deliveries) do
       = list :deliveries

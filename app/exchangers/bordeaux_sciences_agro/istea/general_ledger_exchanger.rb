@@ -73,7 +73,7 @@ class BordeauxSciencesAgro::ISTEA::GeneralLedgerExchanger < ActiveExchanger::Bas
       if r.account.number.match(/^4(0|1)\d/)
         last_name = r.entity_name.mb_chars.capitalize
         modified = false
-        entities[last_name] ||= Entity.where("last_name ILIKE ?", last_name).first || LegalEntity.create!(last_name: last_name, nature: "legal_entity", first_met_at: r.printed_on)
+        entities[last_name] ||= Entity.where("last_name ILIKE ?", last_name).first || Entity.create!(last_name: last_name, nature: "organization", first_met_at: r.printed_on)
         entity = entities[last_name]
         if entity.first_met_at and r.printed_on and r.printed_on < entity.first_met_at
           entity.first_met_at = r.printed_on

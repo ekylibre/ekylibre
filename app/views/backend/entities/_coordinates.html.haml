@@ -1,0 +1,23 @@
+.picture
+  - if resource.picture.file?
+    = image_tag(resource.picture.url(:identity))
+  - else
+    .picto{class: "picto-#{resource.organization? ? :building : :user}"}
+- for address in resource.addresses.order(:canal, :by_default)
+  .info
+    %span.title{class: "canal-#{address.canal}"}= address.canal.l
+    %span.value
+      - if address.email?
+        = mail_to(address.coordinate, address.coordinate)
+      - elsif address.phone? or address.mobile?
+        %a{:href => "tel:#{address.coordinate}"}= address.coordinate
+      - elsif address.mail?
+        = link_to(address.coordinate, "https://maps.google.fr/?q=#{URI.encode(address.coordinate)}")
+      - elsif address.website?
+        = link_to(address.coordinate, address.coordinate)
+      - else
+        = address.coordinate
+- if EntityLink.of_entity(resource).actives.any?
+  .info
+    %span.title= :related_people.tl
+    %span.value= Entity.related_to(resource).map{|p| link_to(p.full_name, controller: :entities, action: :show, id: p.id)}.to_sentence.html_safe

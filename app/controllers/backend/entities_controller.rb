@@ -17,7 +17,7 @@
 #
 
 class Backend::EntitiesController < Backend::BaseController
-  manage_restfully subclass_inheritance: true
+  manage_restfully nature: "(params[:nature] == 'contact' ? :contact : :organization)".c, active: true, t3e: {nature: "RECORD.nature.text".c}
   manage_restfully_picture
 
   unroll
@@ -28,10 +28,10 @@ class Backend::EntitiesController < Backend::BaseController
     t.action :edit
     t.action :destroy
     t.column :active, :datatype => :boolean
-    t.column :number, url: true
     t.column :nature
     t.column :last_name, url: true
     t.column :first_name, url: true
+    t.column :number, url: true
     t.column :mail_line_6, through: :default_mail_address
   end
 
@@ -135,6 +135,16 @@ class Backend::EntitiesController < Backend::BaseController
     t.column :suspended, hidden: true
   end
 
+
+  list(:tasks, conditions: {entity_id:  'params[:id]'.c}, order: :state, line_class: "RECORD.state".c) do |t|
+    t.action :edit
+    t.action :destroy
+    t.column :name, url: true
+    t.column :state
+    t.column :due_at
+    t.column :sale_opportunity, url: true
+    t.column :executor, url: true
+  end
 
   def export
     if request.xhr?

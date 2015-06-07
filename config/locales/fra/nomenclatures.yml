@@ -1438,27 +1438,27 @@ fra:
         entity_1: "Personne 1"
         entity_2: "Personne 2"
         symmetric: "Lien symétrique"
-    entity_natures:
-      items:
-        association: "Association"
-        civil_society: "Société civile"
-        collectivity: "Collectivité"
-        company: "Société"
-        cooperative: "Coopérative"
-        doctor: "Docteur"
-        economic_interest_group: "Groupement d’intérêt économique"
-        entity: "Entité"
-        foundation: "Fondation"
-        legal_entity: "Personne morale"
-        madam: "Madame"
-        person: "Personne"
-        professor: "Professeur"
-        public_establishment: "Établissement public"
-        public_interest_group: "Groupement d’intérêt public"
-        sir: "Monsieur"
-        sir_and_madam: "Monsieur et Madame"
-        syndicate: "Syndicat"
-      name: "Types de tiers"
+    entity_natures:  #?
+      items: #?
+        association: "Association" #?
+        civil_society: "Société civile" #?
+        collectivity: "Collectivité" #?
+        company: "Société" #?
+        contact: "Contact" #?
+        cooperative: "Coopérative" #?
+        doctor: "Docteur" #?
+        economic_interest_group: "Groupement d’intérêt économique" #?
+        entity: "Entité" #?
+        foundation: "Fondation" #?
+        madam: "Madame" #?
+        organization: "Organisation" #?
+        professor: "Professeur" #?
+        public_establishment: "Établissement public" #?
+        public_interest_group: "Groupement d’intérêt public" #?
+        sir: "Monsieur" #?
+        sir_and_madam: "Monsieur et Madame" #?
+        syndicate: "Syndicat" #?
+      name: "Types de tiers" #?
     event_natures:
       items:
         absence: "Absence"

@@ -607,6 +607,7 @@ entities:
     - "backend/entities#list_purchases"
     - "backend/entities#list_sales"
     - "backend/entities#list_subscriptions"
+    - "backend/entities#list_tasks"
     - "backend/entities#picture"
     - "backend/entities#show"
     - "backend/entities#unroll"
@@ -1167,50 +1168,6 @@ land_parcels:
     - "backend/land_parcels#new"
     - "backend/land_parcels#update"
 
-legal_entities:
-  read:
-    actions:
-    - "backend/legal_entities#index"
-    - "backend/legal_entities#list"
-    - "backend/legal_entities#list_event_participations"
-    - "backend/legal_entities#list_incoming_payments"
-    - "backend/legal_entities#list_issues"
-    - "backend/legal_entities#list_links"
-    - "backend/legal_entities#list_observations"
-    - "backend/legal_entities#list_outgoing_payments"
-    - "backend/legal_entities#list_purchases"
-    - "backend/legal_entities#list_sales"
-    - "backend/legal_entities#list_subscriptions"
-    - "backend/legal_entities#picture"
-    - "backend/legal_entities#show"
-    - "backend/legal_entities#unroll"
-  write:
-    dependencies:
-    - read-legal_entities
-    actions:
-    - "backend/legal_entities#autocomplete_for_origin"
-    - "backend/legal_entities#create"
-    - "backend/legal_entities#destroy"
-    - "backend/legal_entities#edit"
-    - "backend/legal_entities#export"
-    - "backend/legal_entities#import"
-    - "backend/legal_entities#merge"
-    - "backend/legal_entities#new"
-    - "backend/legal_entities#update"
-  link:
-    dependencies:
-    - read-legal_entities
-    actions:
-    - "backend/legal_entities#autocomplete_for_origin"
-    - "backend/legal_entities#create"
-    - "backend/legal_entities#destroy"
-    - "backend/legal_entities#edit"
-    - "backend/legal_entities#export"
-    - "backend/legal_entities#import"
-    - "backend/legal_entities#merge"
-    - "backend/legal_entities#new"
-    - "backend/legal_entities#update"
-
 listings:
   read:
     actions:
@@ -1389,50 +1346,6 @@ outgoing_payments:
     - "backend/outgoing_payments#edit"
     - "backend/outgoing_payments#new"
     - "backend/outgoing_payments#update"
-
-people:
-  read:
-    actions:
-    - "backend/people#index"
-    - "backend/people#list"
-    - "backend/people#list_event_participations"
-    - "backend/people#list_incoming_payments"
-    - "backend/people#list_issues"
-    - "backend/people#list_links"
-    - "backend/people#list_observations"
-    - "backend/people#list_outgoing_payments"
-    - "backend/people#list_purchases"
-    - "backend/people#list_sales"
-    - "backend/people#list_subscriptions"
-    - "backend/people#picture"
-    - "backend/people#show"
-    - "backend/people#unroll"
-  write:
-    dependencies:
-    - read-people
-    actions:
-    - "backend/people#autocomplete_for_origin"
-    - "backend/people#create"
-    - "backend/people#destroy"
-    - "backend/people#edit"
-    - "backend/people#export"
-    - "backend/people#import"
-    - "backend/people#merge"
-    - "backend/people#new"
-    - "backend/people#update"
-  link:
-    dependencies:
-    - read-people
-    actions:
-    - "backend/people#autocomplete_for_origin"
-    - "backend/people#create"
-    - "backend/people#destroy"
-    - "backend/people#edit"
-    - "backend/people#export"
-    - "backend/people#import"
-    - "backend/people#merge"
-    - "backend/people#new"
-    - "backend/people#update"
 
 plants:
   read:
@@ -1728,6 +1641,7 @@ sales:
     - "backend/sale_credits#show"
     - "backend/sale_opportunities#index"
     - "backend/sale_opportunities#list"
+    - "backend/sale_opportunities#list_tasks"
     - "backend/sale_opportunities#show"
     - "backend/sales#index"
     - "backend/sales#list"
@@ -1874,6 +1788,22 @@ subscriptions:
     - "backend/subscriptions#edit"
     - "backend/subscriptions#new"
     - "backend/subscriptions#update"
+
+tasks:
+  read:
+    actions:
+    - "backend/tasks#index"
+    - "backend/tasks#list"
+    - "backend/tasks#show"
+  write:
+    dependencies:
+    - read-tasks
+    actions:
+    - "backend/tasks#create"
+    - "backend/tasks#destroy"
+    - "backend/tasks#edit"
+    - "backend/tasks#new"
+    - "backend/tasks#update"
 
 taxes:
   read:

@@ -12,6 +12,7 @@
         <page to="backend/entities#export"/>
         <page to="backend/entities#import"/>
         <page to="backend/entities#list"/>
+        <page to="backend/entities#list_event_participations"/>
         <page to="backend/entities#list_incoming_payments"/>
         <page to="backend/entities#list_issues"/>
         <page to="backend/entities#list_links"/>
@@ -20,7 +21,8 @@
         <page to="backend/entities#list_purchases"/>
         <page to="backend/entities#list_sales"/>
         <page to="backend/entities#list_subscriptions"/>
-        <page to="backend/entities#list_event_participations"/>
+        <page to="backend/entities#list_tasks"/>
+        <page to="backend/entities#picture"/>
         <page to="backend/entities#unroll"/>
         <page to="backend/entities#merge"/>
         <page to="backend/entities#new"/>
@@ -41,58 +43,23 @@
         <page to="backend/observations#edit"/>
         <page to="backend/observations#new"/>
         <page to="backend/observations#update"/>
-        <page to="backend/entities#picture"/>
         <page to="backend/entity_addresses#show"/>
         <page to="backend/entity_addresses#unroll"/>
         <page to="backend/entity_links#show"/>
         <page to="backend/entity_addresses#index"/>
         <page to="backend/entity_links#index"/>
-        <page to="backend/legal_entities#autocomplete_for_origin"/>
-        <page to="backend/legal_entities#export"/>
-        <page to="backend/legal_entities#import"/>
-        <page to="backend/legal_entities#merge"/>
-        <page to="backend/legal_entities#picture"/>
-        <page to="backend/legal_entities#unroll"/>
-        <page to="backend/legal_entities#index"/>
-        <page to="backend/legal_entities#create"/>
-        <page to="backend/legal_entities#destroy"/>
-        <page to="backend/legal_entities#edit"/>
-        <page to="backend/legal_entities#list"/>
-        <page to="backend/legal_entities#list_event_participations"/>
-        <page to="backend/legal_entities#list_incoming_payments"/>
-        <page to="backend/legal_entities#list_issues"/>
-        <page to="backend/legal_entities#list_links"/>
-        <page to="backend/legal_entities#list_observations"/>
-        <page to="backend/legal_entities#list_outgoing_payments"/>
-        <page to="backend/legal_entities#list_purchases"/>
-        <page to="backend/legal_entities#list_sales"/>
-        <page to="backend/legal_entities#list_subscriptions"/>
-        <page to="backend/legal_entities#new"/>
-        <page to="backend/legal_entities#show"/>
-        <page to="backend/legal_entities#update"/>
-        <page to="backend/people#index"/>
-        <page to="backend/people#create"/>
-        <page to="backend/people#destroy"/>
-        <page to="backend/people#edit"/>
-        <page to="backend/people#list"/>
-        <page to="backend/people#list_event_participations"/>
-        <page to="backend/people#list_incoming_payments"/>
-        <page to="backend/people#list_issues"/>
-        <page to="backend/people#list_links"/>
-        <page to="backend/people#list_observations"/>
-        <page to="backend/people#list_outgoing_payments"/>
-        <page to="backend/people#list_purchases"/>
-        <page to="backend/people#list_sales"/>
-        <page to="backend/people#list_subscriptions"/>
-        <page to="backend/people#new"/>
-        <page to="backend/people#show"/>
-        <page to="backend/people#update"/>
-        <page to="backend/people#autocomplete_for_origin"/>
-        <page to="backend/people#export"/>
-        <page to="backend/people#import"/>
-        <page to="backend/people#merge"/>
-        <page to="backend/people#picture"/>
-        <page to="backend/people#unroll"/>
+      </item>
+    </group>
+    <group name="tasks">
+      <item name="tasks">
+        <page to="backend/tasks#index"/>
+        <page to="backend/tasks#create"/>
+        <page to="backend/tasks#destroy"/>
+        <page to="backend/tasks#edit"/>
+        <page to="backend/tasks#list"/>
+        <page to="backend/tasks#new"/>
+        <page to="backend/tasks#show"/>
+        <page to="backend/tasks#update"/>
       </item>
     </group>
     <group name="events" icon="calendar">
@@ -294,6 +261,7 @@
         <page to="backend/sale_opportunities#edit"/>
         <page to="backend/sale_opportunities#evolve"/>
         <page to="backend/sale_opportunities#list"/>
+        <page to="backend/sale_opportunities#list_tasks"/>
         <page to="backend/sale_opportunities#new"/>
         <page to="backend/sale_opportunities#show"/>
         <page to="backend/sale_opportunities#update"/>
@@ -1462,6 +1430,13 @@
   </part>
   <inaccessible-actions>
     <group>
+      <item name="animals">
+        <page to="backend/animals#change"/>
+        <page to="backend/animals#load_animals"/>
+        <page to="backend/animals#load_containers"/>
+        <page to="backend/animals#load_natures"/>
+        <page to="backend/animals#load_workers"/>
+      </item>
       <item name="guides">
         <page to="backend/guides#index"/>
         <page to="backend/guides#create"/>
@@ -1755,14 +1730,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="animals">
-        <page to="backend/animals#change"/>
-        <page to="backend/animals#load_animals"/>
-        <page to="backend/animals#load_containers"/>
-        <page to="backend/animals#load_natures"/>
-        <page to="backend/animals#load_workers"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </navigation>

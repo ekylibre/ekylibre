@@ -1428,27 +1428,6 @@ por:
         # entity_1: "Entity 1"
         # entity_2: "Entity 2"
         # symmetric: "Symmetric"
-    entity_natures:
-      items:
-        # association: "Association"
-        # civil_society: "Civil society"
-        # collectivity: "Collectivity"
-        # company: "Company"
-        # cooperative: "Cooperative"
-        # doctor: "Doctor"
-        # economic_interest_group: "Economic interest group"
-        # entity: "Entity"
-        # foundation: "Foundation"
-        # legal_entity: "Legal entity"
-        # madam: "Madam"
-        # person: "Person"
-        # professor: "Professor"
-        # public_establishment: "Public establishment"
-        # public_interest_group: "Public interest group"
-        # sir: "Sir"
-        # sir_and_madam: "Sir and madam"
-        # syndicate: "Syndicate"
-      # name: "Entity natures"
     event_natures:
       items:
         # absence: "Absence"

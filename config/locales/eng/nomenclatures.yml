@@ -1428,27 +1428,6 @@ eng:
         transform: "Transform"
         undefined: "Undefined"
         work: "Work"
-    entity_natures:
-      name: "Entity natures"
-      items:
-        association: "Association"                         #< legal_entity
-        civil_society: "Civil society"                     #< legal_entity
-        collectivity: "Collectivity"                       #< legal_entity
-        company: "Company"                                 #< legal_entity
-        cooperative: "Cooperative"                         #< legal_entity
-        doctor: "Doctor"                                   #< person
-        economic_interest_group: "Economic interest group" #< legal_entity
-        entity: "Entity"
-        foundation: "Foundation"                           #< legal_entity
-        legal_entity: "Legal entity"                       #< entity
-        madam: "Madam"                                     #< person
-        person: "Person"                                   #< entity
-        professor: "Professor"                             #< person
-        public_establishment: "Public establishment"       #< legal_entity
-        public_interest_group: "Public interest group"     #< legal_entity
-        sir: "Sir"                                         #< person
-        sir_and_madam: "Sir and madam"                     #< person
-        syndicate: "Syndicate"                             #< legal_entity
     event_natures:
       name: "Event natures"
       property_natures:

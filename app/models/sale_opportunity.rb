@@ -57,6 +57,7 @@ class SaleOpportunity < Affair
   attr_readonly :currency
   enumerize :origin, in: Nomen::OpportunityOrigins.all, predicates: true
   belongs_to :client, class_name: "Entity", foreign_key: :third_id
+  has_many :tasks
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
   validates_presence_of :client, :responsible

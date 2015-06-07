@@ -821,8 +821,6 @@ jpn:
       variety:
         juglandaceae: "クルミ目"
         juglans: "クルミ属"
-    legal_entity:
-
     listing:
 
     manure_management_plan:
@@ -838,8 +836,6 @@ jpn:
     net_service:
 
     outgoing_delivery:
-
-    person:
 
     plant:
       variety:

@@ -1,0 +1,9 @@
+= field_set do
+  = f.input :name
+  = f.input :due_at
+  = f.referenced_association :entity
+  = f.referenced_association :executor
+  = f.referenced_association :sale_opportunity
+  = f.input :state, as: :radio_buttons
+  = f.input :description
+

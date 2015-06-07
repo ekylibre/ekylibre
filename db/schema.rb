@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150530193726) do
+ActiveRecord::Schema.define(version: 20150606185500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -599,7 +599,6 @@ ActiveRecord::Schema.define(version: 20150530193726) do
   add_index "documents", ["updater_id"], name: "index_documents_on_updater_id", using: :btree
 
   create_table "entities", force: :cascade do |t|
-    t.string   "type"
     t.string   "nature",                                    null: false
     t.string   "last_name",                                 null: false
     t.string   "first_name"
@@ -640,6 +639,7 @@ ActiveRecord::Schema.define(version: 20150530193726) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",              default: 0,     null: false
+    t.string   "title"
   end
 
   add_index "entities", ["client_account_id"], name: "index_entities_on_client_account_id", using: :btree
@@ -2758,6 +2758,29 @@ ActiveRecord::Schema.define(version: 20150530193726) do
   add_index "subscriptions", ["subscriber_id"], name: "index_subscriptions_on_subscriber_id", using: :btree
   add_index "subscriptions", ["updated_at"], name: "index_subscriptions_on_updated_at", using: :btree
   add_index "subscriptions", ["updater_id"], name: "index_subscriptions_on_updater_id", using: :btree
+
+  create_table "tasks", force: :cascade do |t|
+    t.string   "name",                            null: false
+    t.string   "state",                           null: false
+    t.integer  "entity_id",                       null: false
+    t.integer  "executor_id"
+    t.integer  "sale_opportunity_id"
+    t.text     "description"
+    t.datetime "due_at"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",        default: 0, null: false
+  end
+
+  add_index "tasks", ["created_at"], name: "index_tasks_on_created_at", using: :btree
+  add_index "tasks", ["creator_id"], name: "index_tasks_on_creator_id", using: :btree
+  add_index "tasks", ["entity_id"], name: "index_tasks_on_entity_id", using: :btree
+  add_index "tasks", ["executor_id"], name: "index_tasks_on_executor_id", using: :btree
+  add_index "tasks", ["sale_opportunity_id"], name: "index_tasks_on_sale_opportunity_id", using: :btree
+  add_index "tasks", ["updated_at"], name: "index_tasks_on_updated_at", using: :btree
+  add_index "tasks", ["updater_id"], name: "index_tasks_on_updater_id", using: :btree
 
   create_table "taxes", force: :cascade do |t|
     t.string   "name",                                                          null: false

@@ -33,12 +33,12 @@ class Ekylibre::WorkersExchanger < ActiveExchanger::Base
         end
 
         # create the owner if not exist
-        unless person = Person.find_by(first_name: r.first_name, last_name: r.last_name)
-          person = Person.create!(first_name: r.first_name, last_name: r.last_name, born_at: r.born_at)
+        unless person = Entity.contacts.find_by(first_name: r.first_name, last_name: r.last_name)
+          person = Entity.create!(first_name: r.first_name, last_name: r.last_name, born_at: r.born_at, nature: :contact)
         end
 
         # create the user
-        if person and r.email.present? and !person.user
+        if person and r.email.present? and !User.where(person_id: person.id).any?
           unless user = User.find_by(email: r.email)
             password = User.generate_password(100, :hard)
             user = User.create!(first_name: r.first_name, last_name: r.last_name, email: r.email, password: password, password_confirmation: password, language: Preference[:language], role: Role.order(:id).first)

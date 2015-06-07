@@ -1,52 +1,83 @@
 .timeline {
-  $size: 32px;
-  padding: $default-gap;
+  $avatar-size: 48px;
+  $log-size: 32px;
+  padding: 2 * $default-gap;
   > .timestep {
     &.hidden {
       display: none;
     }
     > .comment {
-      padding: $default-gap 0 $default-gap ($size + $default-gap);
-      .avatar {
+      padding: $default-gap 0 $default-gap ($avatar-size + $default-gap);
+      .comment-avatar {
         img {
           display: block;
           @include float(left);
-          @include margin-left(-1 * ($size + $default-gap));
+          @include margin-left(-1 * ($avatar-size + $default-gap));
           @include border-radius($default-border-radius);
         }
       }
-      .description {
-        display: block;
-        padding: 0 $default-gap;
-        border-left: $menu-border;
-        border-right: $menu-border;
-        border-top: $menu-border;
-        @include border-top-radius($default-border-radius);
-        @include ellipsis;
-        background: #EEE;
-        &, * {
-          line-height: $size;
-          vertical-align: baseline;
+      .comment-wrapper {
+        .comment-heading {
+          display: block;
+          padding: $default-gap;
+          border-left: $menu-border;
+          border-right: $menu-border;
+          border-top: $menu-border;
+          @include border-top-radius($default-border-radius);
+          @include ellipsis;
+          background: #EEE;
+          &, * {
+            line-height: $lh-normal;
+            vertical-align: baseline;
+          }
+          .comment-action {
+            @include float(right);
+            font-size: 0;
+            opacity: 0.6;
+            @include transition(opacity 0.2s);
+            padding: 0 round($default-gap * 0.5);
+            i {
+              @include is-icon(14px);
+              @include use-icon(cog);
+              @include inline-block;
+              width: 14px;
+              text-align: center;
+              @include transition(color 0.2s);
+              color: $text-color;
+            }
+            &.comment-action-edit i {
+              @include use-icon(edit);
+            }
+            &.comment-action-destroy i {
+              @include use-icon(remove);
+            }
+            &:hover {
+              opacity: 1;
+              i {
+                color: $active-color;
+              }
+            }
+          }
         }
-      }
-      .content {
-        border-left: $menu-border;
-        border-right: $menu-border;
-        border-bottom: $menu-border;
-        padding: $default-gap;
-        white-space: pre-line;
-        background: white;
-        @include border-bottom-radius($default-border-radius);
+        .comment-content {
+          border-left: $menu-border;
+          border-right: $menu-border;
+          border-bottom: $menu-border;
+          padding: $default-gap;
+          white-space: pre-line;
+          background: white;
+          @include border-bottom-radius($default-border-radius);
+        }
       }
     }
     > .log {
-      padding: $default-gap 0 $default-gap ($size + $default-gap);
+      padding: $default-gap 0 $default-gap ($avatar-size + $default-gap);
       $line-height: $lh-normal;
       clear: both;
       i.symbol {
         @include is-icon(14px);
         @include use-icon(file);
-        line-height: $size;
+        line-height: $log-size;
         color: $text-color;
         // @include margin-left(-2.2*$fs-normal);
         @include margin-right(0.5*$fs-normal);

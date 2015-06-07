@@ -67,7 +67,7 @@ class Affair < Ekylibre::Record::Base
   belongs_to :cash_session
   belongs_to :journal_entry
   # belongs_to :originator, polymorphic: true
-  belongs_to :responsible, class_name: "Person"
+  belongs_to :responsible, -> { contacts }, class_name: "Entity"
   belongs_to :third, class_name: "Entity"
   # FIXME: Gap#affair_id MUST NOT be mandatory
   has_many :events

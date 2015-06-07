@@ -249,6 +249,7 @@ fra:
       cash_transfer: "Virement interne"
       catalog: "Liste de prix"
       catalog_item: "Prix"
+      contact: "Contact" #?
       crumb: "Miette"
       cultivable_zone: "Parcelle culturale"
       cultivable_zone_membership: "Membre d’une zone cultivable"
@@ -295,7 +296,6 @@ fra:
       land_parcel: "Parcelle"
       land_parcel_cluster: "Îlot"
       land_parcel_group: "Groupe de parcelles"
-      legal_entity: "Personne morale"
       listing: "Extraction"
       listing_node: "Nœud d’extraction"
       listing_node_item: "Élément de nœud d’extraction"
@@ -307,12 +307,11 @@ fra:
       net_service: "Service en ligne"
       observation: "Observation"
       operation: "Opération"
-      opportunity: "Opportunité" #?
+      organization: "Organisation" #?
       outgoing_delivery: "Livraison"
       outgoing_delivery_item: "Ligne de livraison"
       outgoing_payment: "Décaissement"
       outgoing_payment_mode: "Mode de décaissement"
-      person: "Personne"
       plant: "Plante"
       postal_zone: "Zone postale"
       preference: "Préférence"
@@ -367,6 +366,7 @@ fra:
       sub_zone: "Sous-zone"
       subscription: "Abonnement"
       subscription_nature: "Type d’abonnement"
+      task: "Tâche"
       tax: "Taxe"
       team: "Service"
       tracking: "Lot traçable"
@@ -640,6 +640,7 @@ fra:
     downpayment_percentage: "Pourcentage d’acompte"
     draft: "Brouillard" #?
     draft_mode: "Mode brouillard" #?
+    due_at: "Due le"
     due_on: "Due le"
     duration: "Durée"
     email: "Courriel (e-mail)"
@@ -669,13 +670,14 @@ fra:
     entry: "Écriture"
     entry_items: "Lignes d’écritures"
     entry_number: "N° Écriture"
-    establishment: "Établissement"
+    establishment: "Établissement" #?
     event: "Évènement"
     event_participation: "Participation à un évènement"
     events: "Évènements"
     evolvable: "Évolutif"
     exclusive: "Exclusif" #?
     execution_number: "N° d’exécution"
+    executor: "Exécutant"
     expected_population: "Population attendue"
     expected_shape: "Forme attendue"
     expected_stop_amount: "Montant final attendu"
@@ -717,6 +719,7 @@ fra:
     fixed_asset_depreciations_account: "Compte des dépréciations d’immobilisation" #?
     fixed_asset_depreciations_inputations_expenses_account: "Compte d’imputation des charges des dépréciations d’immobilisation" #?
     fixed_asset_expenses_account: "Compte d’imputation des charges des dépréciations d’immobilisation"
+    fixed_assets: "Immobilisations"
     fixed_assets_categories: "Catégories de produits avec immobilisation" #?
     formats: "Formats"
     fourth_producer: "Quatrième producteur"
@@ -1119,9 +1122,11 @@ fra:
     root_model_name: "Racine"
     root_node: "Nœud racine"
     sale: "Vente"
+    sale_credit: "Avoir"
     sale_item: "Ligne de vente"
     sale_items: "Lignes de vente"
     sale_nature: "Type de vente"
+    sale_opportunity: "Opportunité"
     sale_taxations: "Taxations de vente"
     sale_taxes: "Taxes de vente"
     saleable: "Vendable"
@@ -1191,7 +1196,7 @@ fra:
     suspended: "Suspendu"
     target: "Cible"
     target_type: "Type de cible"
-    tasks: "Tâches" #?
+    tasks: "Tâches"
     tax: "Taxe"
     taxations: "Taxations"
     team: "Équipe"

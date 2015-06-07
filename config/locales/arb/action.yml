@@ -352,11 +352,6 @@ arb:
       index: "انظمة"
       new: "اضافة نظام جديد"
       show: "نظام %{name}"
-    backend/legal_entities:
-      # edit: "Edit legal entity: %{full_name}"
-      # index: "Legal entities"
-      # new: "New legal entity"
-      # show: "Legal entity: %{full_name}"
     backend/listing_nodes:
       # edit: "Edit listing node"
       # new: "New listing node"
@@ -436,11 +431,6 @@ arb:
       index: "دفعات"
       new: "اضافة دفعة"
       show: "رقم الدفعة%{number} من اجل %{payee}"
-    backend/people:
-      # edit: "Edit person: %{full_name}"
-      # index: "People"
-      # new: "New person"
-      # show: "Person: %{full_name}"
     backend/plants:
       # edit: "Edit plant: %{name}"
       # index: "Plants"
@@ -624,6 +614,11 @@ arb:
       # index: "Synchronizations"
       # run: "Run synchronization: %{name}"
       # show: "Synchronization: %{name}"
+    backend/tasks:
+      # edit: "Edit task: %{name}"
+      # index: "Tasks"
+      # new: "New task"
+      # show: "Task: %{name}"
     backend/tax_declarations:  #?
       edit: "انشاء تصريح" #?
       index: "تصريح عن قيمة الضريبة الاضافية" #?
@@ -1363,12 +1358,13 @@ arb:
     net_vat_amount: "صافي قيمة الضريبة الاضافية المستحقة" #?
     new: "انشاء دفعة جديدة"
     # new_box: "New box"
+    # new_contact: "New contact"
     new_deposit:
       # one: "Make a deposit %{mode}: 1 available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"
       # zero: "Make a deposit %{mode}: no available payments"
     new_family: "اسرة جديدة" #?
-    new_organization: "منظمة جديدة" #?
+    new_organization: "منظمة جديدة"
     new_payment: "تسجيل دفعة جديدة" #?
     # new_production_of_activity: "New production of %{activity}"
     new_sale: "بيعة جديدة" #?
@@ -1379,7 +1375,7 @@ arb:
     new_transport_of_x_deliveries_for_y:
       # one: "New transport for %{transporter} (%{count} delivery)"
       # other: "New transport for %{transporter} (%{count} deliveries)"
-    new_value: "قيمة جديدة"
+    new_value: "قيمة جديدة" #?
     next: "التالي"
     # nitrogen_concentration: "Nitrogen concentration"
     # nitrogen_concentration_per_hectare: "Nitrogen concentration per hectare"
@@ -1854,7 +1850,6 @@ arb:
     x_events:
       # one: "1 event"
       # other: "%{count} events"
-      # zero: "0 events"
     x_events_of_nature_y:
       # one: "One event %{nature} for a total duration of %{duration} minutes"
       # other: "%{count} events %{nature} for a total duration of %{duration} minutes"
@@ -1872,7 +1867,6 @@ arb:
     x_issues:
       # one: "1 issue"
       # other: "%{count} issues"
-      # zero: "0 issue"
     x_items_remain:
       # one: "%{count} item remains"
       # other: "%{count} items remain"
@@ -1895,7 +1889,7 @@ arb:
     x_operations:
       one: "عمل واحد"
       other: "%{count} اعمال اخرى"
-      zero: "ولا اي عمل"
+      zero: "ولا اي عمل" #?
     x_outgoing_payments:
       one: "نفقة واحدة"
       other: "%{count} نفقات اخرى"
@@ -1907,11 +1901,9 @@ arb:
     x_prices:
       # one: "1 price"
       # other: "%{count} prices"
-      # zero: "0 prices"
     x_purchases:
       # one: "1 purchase"
       # other: "%{count} purchases"
-      # zero: "0 purchases"
     x_readings:
       # one: "%{count} indicator"
       # other: "%{count} indicators"
@@ -1923,18 +1915,19 @@ arb:
     x_sales:
       # one: "1 sale"
       # other: "%{count} sales"
-      # zero: "0 sales"
     x_sales_invoices:
       # one: "1 sales invoice"
       # other: "%{count} sales invoices"
-      # zero: "0 sales invoices"
     x_stock_transfers_to_confirm:
       # one: "%{count} stock transfer to confirm"
       # other: "%{count} stock transfers to confirm"
     x_subscriptions:
       one: "اشتراك واحد"
       other: "%{count} اشتراكات اخرى"
-      zero: "ولا اية اشتراك"
+      zero: "ولا اية اشتراك" #?
+    x_tasks:
+      # one: "%{count} task"
+      # other: "%{count} tasks"
     # x_thing: "%{x} %{thing}"
     # x_unit: "%{quantity}%{unit}"
     # x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
@@ -1949,7 +1942,6 @@ arb:
     x_years:
       # one: "1 year"
       # other: "%{count} years"
-      # zero: "0 years"
     y: "نعم" #?
     yearly: "Annuelle" #?
     years_count_in_historic: "عدد السنوات عامة" #?
@@ -2223,6 +2215,7 @@ arb:
     # backend/animals: "%{name} #%{work_number}"
     # backend/campaigns: "%{name}"
     # backend/catalog_items: "%{name}"
+    # backend/entities: "%{full_name} ‒ %{number}"
     # backend/entity_links: "%{started_at}"
     # backend/events: "%{name}"
     # backend/incoming_payments: "%{number}. %{mode_name} from %{payer_full_name} of %{amount} %{currency}"

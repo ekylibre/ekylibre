@@ -1,25 +1,25 @@
 class FIEA::GalacteaExchanger < ActiveExchanger::Base
 
   def import
-    unless analyser = LegalEntity.where("LOWER(full_name) LIKE ?", "%Atlantic Conseil Elevage%".mb_chars.downcase).first
-      analyser = LegalEntity.create!(last_name: "Atlantic Conseil Elevage",
-                                     nature: :cooperative,
-                                     vat_number: "FR00123456789",
-                                     supplier: true, client: false,
-                                     mails_attributes: {
-                                       0 => {
-                                         canal: "mail",
-                                         mail_line_4: "CS 10015 - Les Rochettes",
-                                         mail_line_6: "85036 La Roche-sur-Yon",
-                                         mail_country: :fr
-                                       }
-                                     },
-                                     emails_attributes: {
-                                       0 => {
-                                         canal: "email",
-                                         coordinate: "accueil@atlantic-conseil-elevage.fr"
-                                       }
-                                     })
+    unless analyser = Entity.where("LOWER(full_name) LIKE ?", "%Atlantic Conseil Elevage%".mb_chars.downcase).first
+      analyser = Entity.create!(last_name: "Atlantic Conseil Elevage",
+                                nature: :organization,
+                                vat_number: "FR00123456789",
+                                supplier: true, client: false,
+                                mails_attributes: {
+                                  0 => {
+                                    canal: "mail",
+                                    mail_line_4: "CS 10015 - Les Rochettes",
+                                    mail_line_6: "85036 La Roche-sur-Yon",
+                                    mail_country: :fr
+                                  }
+                                },
+                                emails_attributes: {
+                                  0 => {
+                                    canal: "email",
+                                    coordinate: "accueil@atlantic-conseil-elevage.fr"
+                                  }
+                                })
     end
 
     # @TODO need a method for each file in a folder like first_run.glob('lca/*.csv') do |file|

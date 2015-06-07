@@ -99,6 +99,11 @@ fra:
       index: "Catalogues de prix"
       new: "Nouveau catalogue de prix"
       show: "Catalogue de prix\_: %{name}"
+    backend/contacts:  #?
+      edit: "Modifier le contact\_: %{full_name}" #?
+      index: "Contacts" #?
+      new: "Nouveau contact" #?
+      show: "Contact\_: %{full_name}" #?
     backend/crumbs:
       index: "Miettes"
     backend/cultivable_zones:
@@ -167,7 +172,7 @@ fra:
       merge: "Fusionner un doublon à sa fiche d’origine"
       new: "Nouvelle fiche client/fournisseur"
       picture: "Portrait" #?
-      show: "Fiche\_: %{full_name}"
+      show: "%{nature}\_: %{full_name}"
     backend/entity_addresses:
       edit: "Modifier une coordonnée"
       new: "Nouvelle coordonnée"
@@ -327,11 +332,6 @@ fra:
       merge: "Fusionner des parcelles" #?
       new: "Nouvelle parcelle"
       show: "Parcelle %{name}"
-    backend/legal_entities:
-      edit: "Modifier la personne morale\_: %{full_name}"
-      index: "Personnes morales"
-      new: "Nouvelle personne morale"
-      show: "Personne morale\_: %{full_name}"
     backend/listing_nodes:
       edit: "Modifier le nœud"
       new: "Nouveau nœud"
@@ -375,6 +375,11 @@ fra:
       new: "Nouveau travail" #?
       show: "Détails du travail"
       unvalidateds: "Travaux non validés" #?
+    backend/organizations:  #?
+      edit: "Modifier l’organisation\_: %{full_name}" #?
+      index: "Organisations" #?
+      new: "Nouvelle organisation" #?
+      show: "Organisation\_: %{full_name}" #?
     backend/outgoing_deliveries:
       edit: "Modifier la livraison sortante\_: %{number}"
       index: "Livraisons sortantes"
@@ -390,19 +395,6 @@ fra:
       index: "Décaissements"
       new: "Nouveau décaissement"
       show: "Décaissement n°%{number} pour %{payee}"
-    backend/people:
-      edit: "Modifier la personne\_: %{full_name}"
-      index: "Personnes"
-      new: "Nouvelle personne"
-      show: "Personne\_: %{full_name}"
-    backend/plant_fertilizers:  #?
-      index: "Engrais" #?
-    backend/plant_medicines:  #?
-      index: "Produits phytosanitaires" #?
-    backend/plant_products:  #?
-      index: "Produits végétaux" #?
-    backend/plant_seedlings:  #?
-      index: "Plants et semences" #?
     backend/plants:
       edit: "Modifier la culture\_: %{name}"
       index: "Cultures"
@@ -544,6 +536,11 @@ fra:
       index: "Synchronisations"
       run: "Lancer une synchronization: %{name}"
       show: "Synchronisation: %{name}"
+    backend/tasks:
+      edit: "Modifier la tâche\_: %{name}"
+      index: "Tâches"
+      new: "Nouvelle tâche"
+      show: "Tâche\_: %{name}"
     backend/taxes:
       edit: "Modifier la taxe\_: %{name}"
       index: "Taxes"
@@ -1194,13 +1191,14 @@ fra:
     net_volume: "Volume net" #?
     new: "Nouveau"
     new_box: "Nouvelle boîte"
+    new_contact: "Nouveau contact"
     new_deposit:
       one: "Effectuer une remise\_: %{mode} (%{count} encaissement disponible)"
       other: "Effectuer une remise\_: %{mode} (%{count} encaissements disponibles)"
       zero: "Effectuer une remise\_: %{mode} (Pas d’encaissements disponibles)"
     new_family: "Nouvelle famille" #?
     new_in_line: "Ajouter un produit intrant" #?
-    new_organization: "Nouvelle organisation" #?
+    new_organization: "Nouvelle organisation"
     new_out_line: "Ajouter un produit sortant" #?
     new_payment: "Enregistrer un nouvel encaissement" #?
     new_production_of_activity: "Nouvelle production de %{activity}"
@@ -1215,7 +1213,7 @@ fra:
     new_transport_of_x_deliveries_for_y:
       one: "Nouveau transport pour %{transporter} (%{count} livraison)"
       other: "Nouveau transport pour %{transporter} (%{count} livraisons)"
-    new_value: "Nouvelle valeur"
+    new_value: "Nouvelle valeur" #?
     next: "Suivant"
     nitrogen_concentration: "Teneur en azote (N)"
     nitrogen_concentration_per_hectare: "Teneur en azote par hectare"
@@ -1677,11 +1675,9 @@ fra:
     x_cashes:
       one: "1 compte bancaire"
       other: "%{count} comptes bancaires"
-      zero: "0 compte bancaire" #?
     x_contacts:
       one: "%{count} contact"
       other: "%{count} contacts"
-      zero: "0 contact" #?
     x_days:
       one: "%{count} jour"
       other: "%{count} jours"
@@ -1700,11 +1696,9 @@ fra:
     x_entity_links:
       one: "%{count} lien"
       other: "%{count} liens"
-      zero: "0 lien" #?
     x_events:
       one: "%{count} évènement"
       other: "%{count} évènements"
-      zero: "0 évènement"
     x_events_of_nature_y:
       one: " %{count} évènement de type %{nature} d’une durée de %{duration} minutes"
       other: " %{count} évènements de type %{nature} pour une durée totale de %{duration} minutes"
@@ -1715,7 +1709,6 @@ fra:
     x_incoming_payments:
       one: "%{count} encaissement"
       other: "%{count} encaissements"
-      zero: "0 encaissement" #?
     x_intervention_casts:
       one: "%{count} intervention"
       other: "%{count} interventions"
@@ -1723,7 +1716,7 @@ fra:
     x_issues:
       one: "1 incident"
       other: "%{count} incidents"
-      zero: "Aucun incident"
+      zero: "Aucun incident" #?
     x_items_remain:
       one: "%{count} élément restant."
       other: "%{count} éléments non visibles. Affinez votre recherche."
@@ -1746,7 +1739,7 @@ fra:
     x_operations:
       one: "%{count} travail"
       other: "%{count} travaux"
-      zero: "Aucun travail"
+      zero: "Aucun travail" #?
     x_outgoing_payments:
       one: "%{count} décaissement"
       other: "%{count} décaissements"
@@ -1758,11 +1751,11 @@ fra:
     x_prices:
       one: "%{count} prix"
       other: "%{count} prix"
-      zero: "0 prix"
+      zero: "0 prix" #?
     x_purchases:
       one: "%{count} achat"
       other: "%{count} achats"
-      zero: "0 achat"
+      zero: "0 achat" #?
     x_readings:
       one: "%{count} indicateur"
       other: "%{count} indicateurs"
@@ -1774,11 +1767,11 @@ fra:
     x_sales:
       one: "%{count} vente"
       other: "%{count} ventes"
-      zero: "0 vente"
+      zero: "0 vente" #?
     x_sales_invoices:
       one: "%{count} facture"
       other: "%{count} factures"
-      zero: "0 facture"
+      zero: "0 facture" #?
     x_stock_transfers_to_confirm:
       one: "%{count} transfert à effectuer"
       other: "%{count} transferts à effectuer"
@@ -1786,7 +1779,10 @@ fra:
     x_subscriptions:
       one: "%{count} abonnement"
       other: "%{count} abonnements"
-      zero: "0 abonnement"
+      zero: "0 abonnement" #?
+    x_tasks:
+      one: "%{count} tâche"
+      other: "%{count} tâches"
     x_thing: "%{x} %{thing}"
     x_unit: "%{quantity}%{unit}"
     x_unit_of_product_per_second: "%{quantity}%{unit}/s de %{product}"
@@ -1801,7 +1797,7 @@ fra:
     x_years:
       one: "%{count} an"
       other: "%{count} ans"
-      zero: "0"
+      zero: "0" #?
     y: "Oui" #?
     yearly: "Annuelle" #?
     years_count_in_historic: "Nombre d’années dans l’historique" #?
@@ -2030,6 +2026,7 @@ fra:
     backend/animals: "%{name} ‒ %{work_number}"
     backend/campaigns: "%{name}"
     backend/catalog_items: "%{name}"
+    backend/entities: "%{full_name} ‒ %{number}"
     backend/entity_links: "%{started_at}"
     backend/events: "%{name}"
     backend/incoming_payments: "%{number}. %{mode_name} de %{payer_full_name} de %{amount} %{currency}"

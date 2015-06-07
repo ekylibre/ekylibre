@@ -1,4 +1,4 @@
-- if @campaigns and activities = Activity.of_campaign(*@campaigns).of_families(:vegetal_crops).order(:id) and activities.any?
+- if @campaigns and activities = Activity.of_campaign(@campaigns).of_families(:vegetal_crops).order(:id) and activities.any?
   :ruby
     activities_serie = []
     productions_serie = []

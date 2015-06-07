@@ -8,8 +8,8 @@ class CharentesAlliance::IncomingDeliveriesExchanger < ActiveExchanger::Base
     supplier_account = Account.find_or_create_in_chart(:suppliers)
     appro_price_template_tax = Tax.first
     building_division = BuildingDivision.first
-    suppliers = Entity.where(:of_company => false, :supplier => true).reorder(:supplier_account_id, :last_name)
-    suppliers ||= LegalEntity.create!(:sale_catalog_id => catalog.id, :nature => "company", :language => "fra", :last_name => "All", :supplier_account_id => supplier_account.id, :currency => "EUR", :supplier => true)
+    suppliers = Entity.where(of_company: false, supplier: true).reorder(:supplier_account_id, :last_name)
+    suppliers ||= Entity.create!(sale_catalog_id: catalog.id, nature: :organization, language: "fra", last_name: "All", supplier_account_id: supplier_account.id, currency: "EUR", supplier: true)
 
     variants_transcode = {}.with_indifferent_access
     CSV.foreach(here.join("variants.csv"), headers: true) do |row|

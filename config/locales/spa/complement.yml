@@ -802,8 +802,6 @@ spa:
 
     land_parcel_group:
 
-    legal_entity:
-
     listing:
       root_model:
         company: "Compañía"
@@ -816,8 +814,6 @@ spa:
     net_service:
 
     outgoing_delivery:
-
-    person:
 
     plant:
 

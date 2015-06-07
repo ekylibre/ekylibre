@@ -59,8 +59,8 @@
 #  siren                     :string
 #  supplier                  :boolean          default(FALSE), not null
 #  supplier_account_id       :integer
+#  title                     :string
 #  transporter               :boolean          default(FALSE), not null
-#  type                      :string
 #  updated_at                :datetime         not null
 #  updater_id                :integer
 #  vat_number                :string
@@ -75,7 +75,7 @@ class Entity < Ekylibre::Record::Base
   # belongs_to :attorney_account, class_name: "Account"
   belongs_to :client_account, class_name: "Account"
   enumerize :country, in: Nomen::Countries.all
-  enumerize :nature, in: Nomen::EntityNatures.all, default: :entity, predicates: {prefix: true}
+  enumerize :nature, in: [:organization, :contact], default: :organization, predicates: true # Nomen::EntityNatures.all, default: :entity, predicates: {prefix: true}
   versionize exclude: [:full_name]
   # belongs_to :payment_mode, class_name: "IncomingPaymentMode"
   belongs_to :proposer, class_name: "Entity"
@@ -109,6 +109,7 @@ class Entity < Ekylibre::Record::Base
   has_many :managed_sales, -> { order(created_at: :desc) }, foreign_key: :responsible_id, class_name: "Sale"
   has_many :sale_items, class_name: "SaleItem"
   has_many :subscriptions, foreign_key: :subscriber_id
+  has_many :tasks
   has_many :trackings, foreign_key: :producer_id
   has_many :transports, foreign_key: :transporter_id
   has_many :transporter_sales, -> { order(created_at: :desc) }, foreign_key: :transporter_id, class_name: "Sale"
@@ -118,15 +119,6 @@ class Entity < Ekylibre::Record::Base
   has_one :default_mail_address, -> { where(by_default: true, canal: "mail") }, class_name: "EntityAddress"
   has_one :cash, class_name: "Cash", foreign_key: :owner_id
   has_picture
-
-  # # default_scope order(:last_name, :first_name)
-  scope :necessary_transporters, -> { where("id IN (SELECT transporter_id FROM #{OutgoingDelivery.table_name} WHERE sent_at IS NULL OR transport_id IS NULL)").order(:last_name, :first_name) }
-  scope :suppliers,    -> { where(supplier: true) }
-  scope :transporters, -> { where(transporter: true) }
-  scope :clients,      -> { where(client: true) }
-  scope :related_to, lambda { |entity|
-    where("id IN (SELECT entity_2_id FROM #{EntityLink.table_name} WHERE entity_1_id = ?) OR id IN (SELECT entity_1_id FROM #{EntityLink.table_name} WHERE entity_2_id = ?)", entity.id, entity.id)
-  }
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :born_at, :dead_at, :first_met_at, :picture_updated_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
@@ -144,6 +136,20 @@ class Entity < Ekylibre::Record::Base
 
   alias_attribute :name, :full_name
 
+
+  scope :necessary_transporters, -> { where("id IN (SELECT transporter_id FROM #{OutgoingDelivery.table_name} WHERE sent_at IS NULL OR transport_id IS NULL)").order(:last_name, :first_name) }
+  scope :suppliers,    -> { where(supplier: true) }
+  scope :transporters, -> { where(transporter: true) }
+  scope :clients,      -> { where(client: true) }
+  scope :related_to, lambda { |entity|
+    where("id IN (SELECT entity_2_id FROM #{EntityLink.table_name} WHERE entity_1_id = ?) OR id IN (SELECT entity_1_id FROM #{EntityLink.table_name} WHERE entity_2_id = ?)", entity.id, entity.id)
+  }
+  scope :users, -> { where(id: User.all.pluck(:person_id)) }
+  scope :responsibles,  -> { contacts }
+  scope :contacts,      -> { where(nature: "contact") }
+  scope :organizations, -> { where(nature: "organization") }
+
+
   acts_as_numbered :number
   accepts_nested_attributes_for :mails,    reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :emails,   reject_if: :all_blank, allow_destroy: true
@@ -153,8 +159,6 @@ class Entity < Ekylibre::Record::Base
   accepts_nested_attributes_for :websites, reject_if: :all_blank, allow_destroy: true
 
   selects_among_all :of_company
-
-  before_validation :set_nature, on: :create
 
   before_validation do
     self.first_name = self.first_name.to_s.strip
@@ -210,11 +214,6 @@ class Entity < Ekylibre::Record::Base
 
   def self.exportable_columns
     self.content_columns.delete_if{|c| [:active, :lock_version, :deliveries_conditions].include?(c.name.to_sym)}
-  end
-
-  # Sets nature based on default nature
-  def set_nature
-    self.nature ||= self.class.nature.default_value
   end
 
 

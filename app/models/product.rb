@@ -81,7 +81,7 @@ class Product < Ekylibre::Record::Base
   belongs_to :initial_owner, class_name: "Entity"
   belongs_to :nature, class_name: "ProductNature"
   belongs_to :parent, class_name: "Product"
-  belongs_to :person
+  belongs_to :person, -> { contacts }, class_name: "Entity"
   belongs_to :tracking
   belongs_to :variant, class_name: "ProductNatureVariant"
   has_many :analyses, class_name: "Analysis", dependent: :restrict_with_exception

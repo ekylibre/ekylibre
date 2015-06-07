@@ -38,6 +38,7 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
+
 class Event < Ekylibre::Record::Base
   belongs_to :affair
   has_one :intervention, inverse_of: :event

@@ -58,8 +58,8 @@
 #  siren                     :string
 #  supplier                  :boolean          default(FALSE), not null
 #  supplier_account_id       :integer
+#  title                     :string
 #  transporter               :boolean          default(FALSE), not null
-#  type                      :string
 #  updated_at                :datetime         not null
 #  updater_id                :integer
 #  vat_number                :string
@@ -104,7 +104,7 @@ entities_001:
   lock_version: 11
   locked: false
   meeting_origin: ''
-  nature: company
+  nature: organization
   number: '129'
   of_company: true
   picture_content_type: image/png
@@ -116,7 +116,6 @@ entities_001:
   siren: ''
   supplier: false
   transporter: false
-  type: Entity
   updated_at: 2014-11-07 15:13:53.028918000 Z
   updater_id: 1
   vat_number: FR00123456789
@@ -135,7 +134,7 @@ entities_002:
   last_name: Gandhi
   lock_version: 0
   locked: false
-  nature: entity
+  nature: organization
   number: '196'
   of_company: false
   prospect: false
@@ -158,7 +157,7 @@ entities_003:
   last_name: BAKTOUBI
   lock_version: 0
   locked: false
-  nature: company
+  nature: organization
   number: '197'
   of_company: false
   prospect: false
@@ -185,7 +184,7 @@ entities_004:
   lock_version: 1
   locked: false
   meeting_origin: ''
-  nature: company
+  nature: organization
   number: '198'
   of_company: false
   prospect: false
@@ -214,7 +213,7 @@ entities_005:
   lock_version: 0
   locked: false
   meeting_origin: ''
-  nature: company
+  nature: organization
   number: EI00000001
   of_company: false
   prospect: false
@@ -228,98 +227,6 @@ entities_005:
   vat_number: ''
   vat_subjected: false
 entities_006:
-  active: false
-  activity_code: ''
-  born_at: 1962-08-11 23:00:00.000000000 Z
-  client: true
-  client_account_id: 209
-  country: fr
-  created_at: 2014-11-05 10:01:10.914643000 Z
-  creator_id: 1
-  currency: EUR
-  deliveries_conditions: ''
-  first_name: ''
-  full_name: Coop Ain Coop'In
-  id: 13
-  language: fra
-  last_name: Coop Ain Coop'In
-  lock_version: 1
-  locked: false
-  meeting_origin: ''
-  nature: cooperative
-  number: P00000003
-  of_company: false
-  prospect: false
-  reminder_submissive: false
-  siren: '123456789'
-  supplier: true
-  supplier_account_id: 211
-  transporter: false
-  updated_at: 2014-11-05 14:14:01.977457000 Z
-  updater_id: 1
-  vat_number: ''
-  vat_subjected: false
-entities_007:
-  active: true
-  activity_code: ''
-  client: true
-  client_account_id: 572
-  country: fr
-  created_at: 2015-04-21 08:27:39.814863000 Z
-  creator_id: 1
-  currency: EUR
-  deliveries_conditions: ''
-  first_name: ''
-  full_name: "Περικλῆς"
-  id: 14
-  language: fra
-  last_name: "Περικλῆς"
-  lock_version: 1
-  locked: false
-  meeting_origin: ''
-  nature: sir
-  number: P00000004
-  of_company: false
-  prospect: false
-  reminder_submissive: false
-  siren: ''
-  supplier: false
-  transporter: false
-  updated_at: 2015-04-21 08:28:44.807348000 Z
-  updater_id: 1
-  vat_number: ''
-  vat_subjected: false
-entities_008:
-  active: true
-  activity_code: ''
-  client: true
-  client_account_id: 576
-  country: fr
-  created_at: 2015-05-30 19:59:37.524913000 Z
-  creator_id: 1
-  currency: EUR
-  deliveries_conditions: ''
-  first_name: ''
-  full_name: Kokonut Inc
-  id: 15
-  language: fra
-  last_name: Kokonut Inc
-  lock_version: 0
-  locked: false
-  meeting_origin: ''
-  nature: company
-  number: P00000005
-  of_company: false
-  prospect: false
-  reminder_submissive: false
-  siren: ''
-  supplier: false
-  transporter: false
-  updated_at: 2015-05-30 19:59:37.524913000 Z
-  updater_id: 1
-  vat_number: ''
-  vat_subjected: false
-legal_entities_001:
   active: true
   client: false
   client_account_id: 206
@@ -333,7 +240,7 @@ legal_entities_001:
   last_name: Busbest
   lock_version: 1
   locked: false
-  nature: company
+  nature: organization
   number: '1'
   of_company: false
   prospect: false
@@ -341,11 +248,10 @@ legal_entities_001:
   supplier: false
   supplier_account_id: 205
   transporter: false
-  type: LegalEntity
   updated_at: 2014-10-31 18:58:07.364197000 Z
   updater_id: 1
   vat_subjected: true
-legal_entities_002:
+entities_007:
   active: true
   client: false
   client_account_id: 208
@@ -358,18 +264,17 @@ legal_entities_002:
   last_name: Toley LTD
   lock_version: 0
   locked: false
-  nature: company
+  nature: organization
   number: '2'
   of_company: false
   prospect: false
   reminder_submissive: false
   supplier: false
   transporter: false
-  type: LegalEntity
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   vat_subjected: true
-legal_entities_003:
+entities_008:
   active: true
   activity_code: ''
   client: true
@@ -386,7 +291,7 @@ legal_entities_003:
   lock_version: 2
   locked: false
   meeting_origin: ''
-  nature: company
+  nature: organization
   number: '3'
   of_company: false
   prospect: false
@@ -395,12 +300,11 @@ legal_entities_003:
   supplier: true
   supplier_account_id: 207
   transporter: false
-  type: LegalEntity
   updated_at: 2014-11-03 11:29:45.623972000 Z
   updater_id: 1
   vat_number: ''
   vat_subjected: true
-people_001:
+entities_009:
   active: true
   client: true
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -413,18 +317,18 @@ people_001:
   last_name: IKARI
   lock_version: 0
   locked: false
-  nature: sir
+  nature: contact
   number: '193'
   of_company: false
   prospect: false
   reminder_submissive: false
   supplier: false
+  title: M.
   transporter: false
-  type: Person
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   vat_subjected: true
-people_002:
+entities_010:
   active: true
   activity_code: ''
   client: true
@@ -442,20 +346,20 @@ people_002:
   lock_version: 2
   locked: false
   meeting_origin: ''
-  nature: sir
+  nature: contact
   number: '194'
   of_company: false
   prospect: false
   reminder_submissive: false
   siren: ''
   supplier: false
+  title: M.
   transporter: false
-  type: Person
   updated_at: 2015-04-21 08:21:32.421029000 Z
   updater_id: 1
   vat_number: ''
   vat_subjected: true
-people_003:
+entities_011:
   active: false
   activity_code: ''
   born_at: 1977-03-29 23:00:00.000000000 Z
@@ -474,20 +378,20 @@ people_003:
   lock_version: 4
   locked: false
   meeting_origin: ''
-  nature: madam
+  nature: contact
   number: '195'
   of_company: false
   prospect: false
   reminder_submissive: false
   siren: ''
   supplier: false
+  title: Mme
   transporter: false
-  type: Person
   updated_at: 2014-11-01 20:16:17.379612000 Z
   updater_id: 1
   vat_number: ''
   vat_subjected: true
-people_004:
+entities_012:
   active: true
   client: false
   created_at: 2014-11-03 16:56:06.570291000 Z
@@ -500,14 +404,106 @@ people_004:
   last_name: IKARI
   lock_version: 0
   locked: false
-  nature: person
+  nature: contact
   number: P00000002
   of_company: false
   prospect: false
   reminder_submissive: false
   supplier: false
   transporter: false
-  type: Person
   updated_at: 2014-11-03 16:56:06.570291000 Z
   updater_id: 1
   vat_subjected: true
+entities_013:
+  active: false
+  activity_code: ''
+  born_at: 1962-08-11 23:00:00.000000000 Z
+  client: true
+  client_account_id: 209
+  country: fr
+  created_at: 2014-11-05 10:01:10.914643000 Z
+  creator_id: 1
+  currency: EUR
+  deliveries_conditions: ''
+  first_name: ''
+  full_name: Coop Ain Coop'In
+  id: 13
+  language: fra
+  last_name: Coop Ain Coop'In
+  lock_version: 1
+  locked: false
+  meeting_origin: ''
+  nature: organization
+  number: P00000003
+  of_company: false
+  prospect: false
+  reminder_submissive: false
+  siren: '123456789'
+  supplier: true
+  supplier_account_id: 211
+  transporter: false
+  updated_at: 2014-11-05 14:14:01.977457000 Z
+  updater_id: 1
+  vat_number: ''
+  vat_subjected: false
+entities_014:
+  active: true
+  activity_code: ''
+  client: true
+  client_account_id: 572
+  country: fr
+  created_at: 2015-04-21 08:27:39.814863000 Z
+  creator_id: 1
+  currency: EUR
+  deliveries_conditions: ''
+  first_name: ''
+  full_name: "Περικλῆς"
+  id: 14
+  language: fra
+  last_name: "Περικλῆς"
+  lock_version: 1
+  locked: false
+  meeting_origin: ''
+  nature: contact
+  number: P00000004
+  of_company: false
+  prospect: false
+  reminder_submissive: false
+  siren: ''
+  supplier: false
+  title: M.
+  transporter: false
+  updated_at: 2015-04-21 08:28:44.807348000 Z
+  updater_id: 1
+  vat_number: ''
+  vat_subjected: false
+entities_015:
+  active: true
+  activity_code: ''
+  client: true
+  client_account_id: 576
+  country: fr
+  created_at: 2015-05-30 19:59:37.524913000 Z
+  creator_id: 1
+  currency: EUR
+  deliveries_conditions: ''
+  first_name: ''
+  full_name: Kokonut Inc
+  id: 15
+  language: fra
+  last_name: Kokonut Inc
+  lock_version: 0
+  locked: false
+  meeting_origin: ''
+  nature: organization
+  number: P00000005
+  of_company: false
+  prospect: false
+  reminder_submissive: false
+  siren: ''
+  supplier: false
+  transporter: false
+  updated_at: 2015-05-30 19:59:37.524913000 Z
+  updater_id: 1
+  vat_number: ''
+  vat_subjected: false

@@ -63,7 +63,6 @@
 - land_parcel
 - land_parcel_cluster
 - land_parcel_group
-- legal_entity
 - listing
 - listing_node
 - listing_node_item
@@ -79,7 +78,6 @@
 - outgoing_delivery_item
 - outgoing_payment
 - outgoing_payment_mode
-- person
 - plant
 - postal_zone
 - preference
@@ -132,6 +130,7 @@
 - sub_zone
 - subscription
 - subscription_nature
+- task
 - tax
 - team
 - tracking

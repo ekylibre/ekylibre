@@ -44,16 +44,15 @@ class LaGraineInformatique::Vinifera::EntitiesExchanger < ActiveExchanger::Base
         :prospect => row[16].blank? ? false : true
       }.to_struct
 
-      nature = :entity
-      {"madame et monsieur" => :sir_and_madam,
-       "monsieur et madame" => :sir_and_madam,
-       "monsieur" => :sir,
-       "madame" => :madam
+      nature = :organization
+      {"madame et monsieur" => :contact,
+       "monsieur et madame" => :contact,
+       "monsieur" => :contact,
+       "madame" => :contact
       }.each do |expr, name|
         if r.full_name =~ /^#{expr}/i
           nature = name
           r.last_name = r.full_name.gsub(/^#{expr}/i, '').strip
-          r.type = "Person"
           break
         end
       end
@@ -62,12 +61,12 @@ class LaGraineInformatique::Vinifera::EntitiesExchanger < ActiveExchanger::Base
       if person = Entity.where("full_name ILIKE ?", r.full_name.strip).first
         person.update_attributes!(country: r.country) if person.country.blank?
       elsif
-        person = r.type.constantize.new(number: r.number,
-                                        last_name: r.full_name,
-                                        full_name: r.full_name,
-                                        country: r.country,
-                                        nature: nature
-                                       )
+        person = Entity.new(number: r.number,
+                            last_name: r.full_name,
+                            full_name: r.full_name,
+                            country: r.country,
+                            nature: nature
+                           )
         person.save!
       end
       #if r.client_account_number

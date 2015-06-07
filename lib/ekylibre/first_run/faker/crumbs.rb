@@ -168,7 +168,7 @@ module Ekylibre::FirstRun::Faker
       ##
       path = self.path("demo_spraying", "ticsad_simulation.shp")
       if path.exist? and intervention and sprayer = intervention.casts.find_by(reference_name: 'sprayer')
-        puts "ticsad import OK".inspect.green
+        # puts "ticsad import OK".inspect.green
         self.count :ticsad_simulation do |w|
           #############################################################################
           read_at = Time.new(2014, 6, 5, 10, 0, 0, "+00:00")

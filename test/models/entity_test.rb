@@ -58,8 +58,8 @@
 #  siren                     :string
 #  supplier                  :boolean          default(FALSE), not null
 #  supplier_account_id       :integer
+#  title                     :string
 #  transporter               :boolean          default(FALSE), not null
-#  type                      :string
 #  updated_at                :datetime         not null
 #  updater_id                :integer
 #  vat_number                :string
@@ -71,4 +71,13 @@ require 'test_helper'
 
 class EntityTest < ActiveSupport::TestCase
   test_fixtures
+
+  test "nature" do
+    entity = Entity.create(nature: :zarb)
+    assert entity.errors.include?(:nature), "Entity must not accept invalid nature"
+    entity = Entity.create(nature: :contact)
+    assert !entity.errors.include?(:nature), "Entity must accept contact nature"
+    entity = Entity.create(nature: :organization)
+    assert !entity.errors.include?(:nature), "Entity must accept organization nature"
+  end
 end

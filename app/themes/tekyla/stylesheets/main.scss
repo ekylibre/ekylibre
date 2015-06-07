@@ -798,6 +798,13 @@ form.search {
   }
 }
 
+.pull-right {
+  @include float(right);
+  .med-info {
+    min-width: 20em;
+  }
+}
+
 
 .info {
   @include ellipsis;
@@ -821,26 +828,17 @@ form.search {
 
 .attributes-list {
   @include column-count(1);
-  .box-1-cells & {
+  .cobble & {
     @include columns(2em 3);
     @include respond-to(medium) {
       @include columns(1.5em 2);
     }
   }
-  .box-2-cells & {
-    @include columns(1.5em 2);
-    @include respond-to(medium) {
-      @include column-count(1);
-    }
-  }
-  &, .box-1-cells &, .box-2-cells & {
+  &, .cobble & {
     @include respond-to(small) {
       @include column-count(1);
     }
   }
-  //  @include respond-to(large) {
-    //    @include column-count(4);
-    //  }
   $attribute-label-width: 40%;
   margin: 0 $default-gap 1em;
   &:last-child {
@@ -2377,4 +2375,76 @@ a[data-annotate] {
       vertical-align: middle !important;
     }
   }
+}
+
+
+
+.cobbles {
+  .cobbles-body {
+    padding: 0 2 * $default-gap;
+    .cobble {
+      margin: 2 * $default-gap 0;
+      border: 1px solid #EEE;
+      padding: 0 $default-gap $default-gap;
+      background: white;
+      .cobble-heading {
+        padding: $default-gap;
+        border-bottom: 1px solid #DDD;
+        .cobble-title {
+          font-size: $fs-large;
+          line-height: $lh-large;
+          color: $title-color;
+          @include display(inline);
+          i {
+            @include is-icon(14px);
+            @include use-icon(list);
+            line-height: $lh-large;
+            width: 14px;
+            @include inline-block;
+            color: $neutral-color;
+            text-align: center;
+            margin-right: $default-gap;
+          }
+          &:hover {
+            cursor: move;
+            i {
+              @include use-icon(arrows-v);
+            }
+          }
+        }
+        .others {
+          * {
+            opacity: 0;
+            @include transition(opacity 0.2s);
+          }
+          a {
+            margin-left: $default-gap;
+            margin-right: $default-gap;
+            &:hover {
+              opacity: 1;
+            }
+          }
+        }
+        &:hover {
+          .others {
+            * {
+              opacity: 0.6;
+            }
+          }
+        }
+      }
+      .cobble-body {
+        padding: $default-gap;
+        .cobble-end {
+          clear: both;
+        }
+      }
+      &.cobble-placeholder {
+        background: rgba($success-color, 0.2);
+        height: 4 * $lh-large;
+      }
+
+    }
+  }
+
 }

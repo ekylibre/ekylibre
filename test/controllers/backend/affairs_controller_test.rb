@@ -22,7 +22,7 @@ require 'test_helper'
 class Backend::AffairsControllerTest < ActionController::TestCase
 
   test_restfully_all_actions do |o|
-    o.select mode: :show,    params: {third_id: identify(:legal_entities_001), deal_type: "sale"}
+    o.select mode: :show,    params: {third_id: identify(:entities_001), deal_type: "sale"}
     o.attach mode: :touch,   params: {deal_id:  identify(:sales_001), deal_type: "sale"}
     o.detach mode: :destroy, params: {deal_id:  6, deal_type: "purchase", id: 15}
     o.finish id: 20

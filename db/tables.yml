@@ -243,7 +243,7 @@ affairs:
     scale: 4
   responsible_id:
     type: integer
-    references: person
+    references: entity
   state:
     type: string
   third_id:
@@ -1000,7 +1000,7 @@ deposits:
     required: true
   responsible_id:
     type: integer
-    references: person
+    references: entity
   updated_at:
     type: datetime
     required: true
@@ -1228,12 +1228,12 @@ entities:
   supplier_account_id:
     type: integer
     references: account
+  title:
+    type: string
   transporter:
     type: boolean
     required: true
     default: false
-  type:
-    type: string
   updated_at:
     type: datetime
     required: true
@@ -2325,7 +2325,7 @@ inventories:
     type: datetime
   responsible_id:
     type: integer
-    references: person
+    references: entity
   updated_at:
     type: datetime
     required: true
@@ -4609,7 +4609,7 @@ products:
     references: product
   person_id:
     type: integer
-    references: person
+    references: entity
   picture_content_type:
     type: string
   picture_file_name:
@@ -5112,7 +5112,7 @@ sales:
     type: string
   responsible_id:
     type: integer
-    references: person
+    references: entity
   state:
     type: string
     required: true
@@ -5268,6 +5268,45 @@ subscriptions:
   updater_id:
     type: integer
     references: user
+tasks:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  description:
+    type: text
+  due_at:
+    type: datetime
+  entity_id:
+    type: integer
+    references: entity
+    required: true
+  executor_id:
+    type: integer
+    references: entity
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  sale_opportunity_id:
+    type: integer
+    references: sale_opportunity
+  state:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 taxes:
   amount:
     type: decimal
@@ -5415,7 +5454,7 @@ transports:
     type: string
   responsible_id:
     type: integer
-    references: person
+    references: entity
   transporter_id:
     type: integer
     references: entity
@@ -5505,7 +5544,7 @@ users:
     required: true
   person_id:
     type: integer
-    references: person
+    references: entity
   remember_created_at:
     type: datetime
   reset_password_sent_at:
