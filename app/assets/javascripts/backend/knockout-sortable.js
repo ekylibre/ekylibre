@@ -21,6 +21,7 @@
         DRAGKEY = "ko_dragItem",
         CONTAINERKEY = "ko_containerItem",
         GROUPKEY = "ko_groupItem",
+        PARENTGROUPKEY = "ko_parentGroupItem",
         unwrap = ko.utils.unwrapObservable,
         dataGet = ko.utils.domData.get,
         dataSet = ko.utils.domData.set,
@@ -36,8 +37,9 @@
                 {
 
                     dataSet(element, CONTAINERKEY, data);
+                    dataSet(element, PARENTGROUPKEY, dataGet($(element).closest('.animal-group')[0], GROUPKEY));
                 }
-                else if($(element).hasClass('animal-group'))
+            else if($(element).hasClass('animal-group'))
                 {
 
                     dataSet(element, GROUPKEY, data);
@@ -255,12 +257,7 @@
                         var containerItem;
                         if((containerItem = dataGet(el,CONTAINERKEY)) != undefined)
                         {
-                            console.log(containerItem.position());
-                            if(p = containerItem.position())
-                            {
-                                console.log('p',p());
-                                dataSet(el, INDEXKEY, p());
-                            }
+                            dataSet(el, INDEXKEY, containerItem.position());
                         }
 
                         //make sure that fields have a chance to update model
@@ -350,39 +347,19 @@
 
                         if (dataGet(el,CONTAINERKEY) != undefined)
                         {
-                            //var groupEl = ui.item.closest('.animal-group')[0];
-                            //var groupItem;
 
-                            //if(groupEl != undefined)
-                            //{
-
-                            //groupItem = dataGet(groupEl,GROUPKEY);
-
-                            //el = ui.item.data('items');
-                            //ko.utils.arrayForEach(el, function(item) {
-                            //
-                            //    if((observableItem = dataGet(item, ITEMKEY)) != null)
-                            //    {
-                            //
-                            //        animals.push(observableItem);
-                            //        $(item).remove();
-                            //
-                            //    }
-                            //
-                            //
-                            //
-                            //});
                             sourceParent = dataGet(el, PARENTKEY);
-                            //sourceParent2 = dataGet(el, GROUPKEY);
+                            //sourceParentGroup = dataGet(el, PARENTGROUPKEY);
                             sourceIndex = dataGet(el, INDEXKEY);
                             targetParent = dataGet(el.parentNode, LISTKEY);
                             targetIndex = ko.utils.arrayIndexOf(ui.item.parent().children(), el);
                             var observableItem;
                             //
                             //console.log('sp', sourceParent());
+                            //console.log('spg', sourceParentGroup());
                             //console.log('sp2', sourceParent2());
-                            //console.log('si', sourceIndex);
-                            console.log('tp', targetParent());
+                            console.log('si', sourceIndex);
+                            //console.log('tp', targetParent());
                             console.log('ti', targetIndex);
 
                             ko.utils.arrayForEach(ui.item.parent().children(), function(item) {
