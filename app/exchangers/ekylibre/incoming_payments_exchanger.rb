@@ -13,7 +13,7 @@ class Ekylibre::IncomingPaymentsExchanger < ActiveExchanger::Base
         document_reference_number: (row[0].blank? ? nil : row[0].to_s),
         incoming_payment_mode_name: (row[1].blank? ? nil : row[1].to_s),
         amount: (row[2].blank? ? nil : row[2].gsub(",", ".").to_d),
-        paid_on: (row[3].blank? ? nil : row[3].to_datetime)
+        paid_on: (row[3].blank? ? nil : Date.parse(row[3]))
       }.to_struct
 
       # get information from document_reference_number
@@ -29,7 +29,7 @@ class Ekylibre::IncomingPaymentsExchanger < ActiveExchanger::Base
 
       # set paid_at
       if r.paid_on
-        paid_at = paid_on.to_datetime
+        paid_at = r.paid_on.to_datetime
       elsif sale_invoiced_at
         paid_at = sale_invoiced_at
       end
@@ -52,6 +52,7 @@ class Ekylibre::IncomingPaymentsExchanger < ActiveExchanger::Base
                                                      to_bank_at: paid_at,
                                                      amount: r.amount,
                                                      payer: entity,
+                                                     received: true,
                                                      responsible: responsible
                                                     )
         end
