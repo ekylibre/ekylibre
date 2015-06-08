@@ -97,16 +97,23 @@
       #TODO remove it
       @containers.push new dashboardViewModel.Container(5678, 'Fake container', 305) #305 = vaches laitières
 
-      @filteredContainers = (group) =>
+      @displayedContainers = (group) =>
+
         c = ko.utils.arrayFilter @containers(), (c) =>
           c.group_id() == group.id
 
-        @sortContainerByPosition c
+        return @sortContainerByPosition c
 
 
-      @sortContainerByPosition = (container) =>
-        container.sort (a,b) =>
-          a.position == b.position ? 0 : (a.position < b.position ? -1 : 1)
+      @sortContainerByPosition = (containers) =>
+        containers.sort (a,b) =>
+          if a.position() == b.position()
+            res = 0
+          else if a.position() < b.position()
+            res = -1
+          else
+            res = 1
+          return res
 
       @toggleAnimalDetailsModal = (animal) =>
         @animalDetailsModalOptions animal
@@ -314,7 +321,8 @@
       @toggle = () =>
         @hidden(!@hidden())
         return
-      @position = ko.observable
+
+      @position = ko.observable 0
       return
 
     @Animal: (id, name, img, status, sex, number_id, container_id, group_id) ->

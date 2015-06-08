@@ -245,13 +245,23 @@
                             $('.animal-container .body .animal-dropzone').addClass('grow-empty-zone');
                         }
 
-                        if((dataGet(el,GROUPKEY) != undefined) || (dataGet(el,CONTAINERKEY) != undefined))
+                        if(dataGet(el,GROUPKEY) != undefined)
                         {
                             //Need to set current array position
                             dataSet(el, INDEXKEY, ko.utils.arrayIndexOf(ui.item.parent().children(), el));
 
                         }
 
+                        var containerItem;
+                        if((containerItem = dataGet(el,CONTAINERKEY)) != undefined)
+                        {
+                            console.log(containerItem.position());
+                            if(p = containerItem.position())
+                            {
+                                console.log('p',p());
+                                dataSet(el, INDEXKEY, p());
+                            }
+                        }
 
                         //make sure that fields have a chance to update model
                         ui.item.find("input:focus").change();
@@ -362,9 +372,9 @@
                             //
                             //
                             //});
-                            //sourceParent = dataGet(el, PARENTKEY);
+                            sourceParent = dataGet(el, PARENTKEY);
                             //sourceParent2 = dataGet(el, GROUPKEY);
-                            //sourceIndex = dataGet(el, INDEXKEY);
+                            sourceIndex = dataGet(el, INDEXKEY);
                             targetParent = dataGet(el.parentNode, LISTKEY);
                             targetIndex = ko.utils.arrayIndexOf(ui.item.parent().children(), el);
                             var observableItem;
