@@ -26,7 +26,7 @@
       = tool_to 'Vendre', '#'
       = tool_to 'Mettre en pension', '#'
 
-    .container-fluid{data: {golumns: "animal"}}
+    %div{data: {golumns: "animal"}}
       -# # TODO Implements this in filter system
       -# .row.animal-summary
         .col-md-3
@@ -45,8 +45,15 @@
           %span#bubblingG_2
           %span#bubblingG_3
 
-      .row.animal-viewport
-        .animal-group-container{"data-bind" => "sortable: {template: 'animal-group-template', data: groups, connectClass: 'group-dropzone', options: {handle: '.animal-group-dragger', cursor: 'move', tolerance: 'pointer', dropOnEmpty: true, opacity: 1, revert: true}}"}
+      .animal-viewport
+        .animal-group-container{"data-bind" => "sortable: {template: 'animal-group-template', data: groups, connectClass: 'group-dropzone', afterRender: containerAdder, options: {handle: '.animal-group-dragger', cursor: 'move', tolerance: 'pointer', dropOnEmpty: true, opacity: 1, revert: true}}"}
+        .add-group-panel-container
+          .panel.panel-default
+            .panel-heading
+              .add-group-btn
+                %button.btn.btn-link{:type => "button", data: { bind: "click: $root.toggleNewGroupModal" }}
+                  %i.icon.icon-5x.icon-plus.text-muted
+
         %script#animal-group-template{:type => "text/html"}
           .animal-group
             .panel.panel-default
@@ -71,6 +78,7 @@
                 %button.btn.btn-link{data: {target: "#new-animal", toggle: "modal"}, type: "button"}
                   %i.icon.icon-plus-circle
                   Nouvel animal
+
         %script#animal-container-template{type: "text/html"}
           /ko if: $parent.id == group_id()
           %li.list-group-item.animal-container
@@ -112,13 +120,6 @@
               %i.icon.icon-ellipsis-v.animal-element-handler.text-muted
           / /ko
 
-        .add-group-panel-container
-          .panel.panel-default
-            .panel-heading
-              .add-group-btn
-                %button.btn.btn-link{"data-target" => "#new-group", "data-toggle" => "modal", :type => "button"}
-                  %i.icon.icon-5x.icon-plus.text-muted
-
     = modal(id: "new-animal", "aria-hidden" => "true", "aria-labelledby" => "newAnimal") do
       .modal-dialog
         .modal-content
@@ -145,7 +146,7 @@
               %button.btn.btn-default{:type => "button"} Vendre
               %button.btn.btn-default{:type => "button"} Vacciner
 
-    = modal(id: "new-group", "aria-hidden" => "true", "aria-labelledby" => "newGroup") do
+    = modal(id: "new-group", "aria-hidden" => "true", "aria-labelledby" => "newGroup", data: {bind: "modal: showNewGroupModal(), with: newGroupModalOptions"}) do
       .modal-dialog
         .modal-content
           .modal-header
@@ -153,7 +154,12 @@
               %span{"aria-hidden" => "true"} &times;
             %h4#newGroupTitle.modal-title Nouveau Troupeau
           .modal-body
-            Ajouter un nouveau troupeau
+            %label Nom:
+            %input{:type => "text", data: { bind: "value: group"}}
+          .modal-footer
+            %button.btn.btn-default{:type => "button", data: {bind: "click: $root.addGroup"}}
+              %i.icon.icon-plus-circle Ajouter
+            %button.close.btn.btn-default{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"} Annuler
 
     = modal(id: "move-animal", "aria-hidden" => "true", "aria-labelledby" => "moveAnimal", data: {bind: "modal: showMoveAnimalModal(), with: moveAnimalModalOptions"}) do
       .modal-dialog

@@ -189,6 +189,7 @@ Rails.application.routes.draw do
         match "load_natures", via: [:get]
         get :change
         get :update_preferences
+        get :add_group
       end
       member do
         match :add_to_group, via: [:get, :post]

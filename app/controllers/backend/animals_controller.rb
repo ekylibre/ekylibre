@@ -176,6 +176,14 @@ class Backend::AnimalsController < Backend::MattersController
     render :json => {resultat: 'ok'}
   end
 
+
+  def add_group
+    if params[:name]
+      #Insert a group
+    end
+    render :json => {id: 222, name: params[:name]}, :status => :ok
+  end
+
   # Show a list of animal groups
   def index
     @animals = Animal.all

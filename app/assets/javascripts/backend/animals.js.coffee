@@ -51,6 +51,7 @@
       @showAnimalDetailsModal = ko.observable false
       @showNewContainerModal = ko.observable false
       @showMoveAnimalModal = ko.observable false
+      @showNewGroupModal = ko.observable false
 
       @animalDetailsModalOptions = ko.observable false
       @containerModalOptions = ko.observable false
@@ -66,6 +67,10 @@
         production_support: ko.observable false
         group: ko.observable false
         container: ko.observable false
+      }
+
+      @newGroupModalOptions = {
+        group: ko.observable ''
       }
 
       @addContainer = =>
@@ -94,6 +99,10 @@
       @toggleAnimalDetailsModal = (animal) =>
         @animalDetailsModalOptions animal
         @showAnimalDetailsModal true
+        return
+
+      @toggleNewGroupModal = () =>
+        @showNewGroupModal true
         return
 
       @toggleNewContainerModal = (group) =>
@@ -230,6 +239,29 @@
           success: (res) =>
             #nothing
 
+      @containerAdder = () =>
+        $('.animal-group-container').append $('.add-group-panel-container')
+
+      @addGroup = () =>
+        if group = @newGroupModalOptions.group
+
+          $.ajax '/backend/animals/add_group',
+    #          type: 'PUT',
+            type: 'GET',
+            dataType: 'JSON',
+            data: {name:group()},
+            success: (res) =>
+              if res.id
+                @groups.push new dashboardViewModel.Group(res.id, res.name)
+
+              @showNewGroupModal false
+              return true
+
+            error: (res) =>
+              @showNewGroupModal false
+              return false
+
+
     @Group: (id, name) ->
       @id = id
       @name = name
@@ -329,7 +361,6 @@
       return
 
   @loadData = () =>
-    console.log 'load data'
     $.ajax '/backend/animals/load_animals',
       type: 'GET',
       dataType: 'JSON',
@@ -340,13 +371,10 @@
         $('#loading').hide()
         return
       success: (json_data) ->
-        console.log json_data
         ko.utils.arrayForEach json_data, (j) =>
-          console.log j.group
           if j.group
             window.app.groups.push new dashboardViewModel.Group(j.group.id, j.group.name)
           if j.places_and_animals and j.places_and_animals.length > 0
-            console.log j.places_and_animals
             ko.utils.arrayForEach j.places_and_animals, (container) =>
               if container.place
                 window.app.containers.push new dashboardViewModel.Container(container.place.id, container.place.name, j.group.id)
@@ -356,7 +384,6 @@
         return true
 
       error: (data) ->
-        console.log data
         return false
 
     return
