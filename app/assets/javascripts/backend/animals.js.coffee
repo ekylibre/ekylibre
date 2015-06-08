@@ -91,10 +91,22 @@
       @containers = ko.observableArray []
       @animals = ko.observableArray []
 
+
+
       #tmp fake data
       #TODO remove it
       @containers.push new dashboardViewModel.Container(5678, 'Fake container', 305) #305 = vaches laitières
 
+      @filteredContainers = (group) =>
+        c = ko.utils.arrayFilter @containers(), (c) =>
+          c.group_id() == group.id
+
+        @sortContainerByPosition c
+
+
+      @sortContainerByPosition = (container) =>
+        container.sort (a,b) =>
+          a.position == b.position ? 0 : (a.position < b.position ? -1 : 1)
 
       @toggleAnimalDetailsModal = (animal) =>
         @animalDetailsModalOptions animal
@@ -230,7 +242,6 @@
 
       @updatePreferences = () =>
 
-
         $.ajax '/backend/animals/update_preferences',
 #          type: 'PUT',
           type: 'GET',
@@ -303,6 +314,7 @@
       @toggle = () =>
         @hidden(!@hidden())
         return
+      @position = ko.observable
       return
 
     @Animal: (id, name, img, status, sex, number_id, container_id, group_id) ->
@@ -388,10 +400,31 @@
 
     return
 
+  @loadPreferences = () =>
+    $.ajax '/backend/animals/load_preferences',
+      type: 'GET',
+      dataType: 'JSON',
+      success: (json_data) ->
+        ko.utils.arrayForEach json_data, (j) =>
+          if j.group and j.group.containers
+            ko.utils.arrayForEach j.group.containers, (jcontainer) =>
+              container = ko.utils.arrayFirst window.app.containers(), (c) =>
+                c.group_id() == j.group.id && c.id == jcontainer.id
+
+              if container
+                container.position jcontainer.position
+        return true
+
+      error: (data) ->
+        return false
+
+    return
+
   $(document).ready ->
     $("*[data-golumns='animal']").each ->
       window.app = new dashboardViewModel
       ko.applyBindings window.app
       window.loadData()
+      window.loadPreferences()
 
 ) jQuery

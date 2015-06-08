@@ -1437,6 +1437,7 @@
         <page to="backend/animals#load_containers"/>
         <page to="backend/animals#load_natures"/>
         <page to="backend/animals#load_workers"/>
+        <page to="backend/animals#load_preferences"/>
       </item>
       <item name="guides">
         <page to="backend/guides#index"/>

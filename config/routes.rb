@@ -190,6 +190,7 @@ Rails.application.routes.draw do
         get :change
         get :update_preferences
         get :add_group
+        get :load_preferences
       end
       member do
         match :add_to_group, via: [:get, :post]

@@ -118,6 +118,13 @@ class Backend::AnimalsController < Backend::MattersController
     render :json => {resultat: 'ok'}
   end
 
+  def load_preferences
+    #TODO: export this to GolumnController
+
+
+    render :json => [{group: {id:301, containers:[{id:176, position: 0}]}},{group: {id:302, containers:[{id:176, position: 0}]}},{group: {id:305, containers:[{id:169, position: 0},{id: 5678, position: 1}]}}]
+  end
+
 
   def change
 

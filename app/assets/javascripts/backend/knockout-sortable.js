@@ -46,8 +46,8 @@
                 {
                     dataSet(element, ITEMKEY, data);
                 }
-
                 dataSet(element, PARENTKEY, dataGet(element.parentNode, LISTKEY));
+
             }
         });
     };
@@ -178,7 +178,7 @@
                         var elements = [];
                         var helper;
 
-                        if(dataGet(item[0],GROUPKEY) != undefined)
+                        if((dataGet(item[0],GROUPKEY) != undefined) || dataGet(item[0],CONTAINERKEY) != undefined)
                         {
                             //TODO: cause dragging issue
                             //helper = $(item[0]).addClass('group-dragging');
@@ -245,7 +245,7 @@
                             $('.animal-container .body .animal-dropzone').addClass('grow-empty-zone');
                         }
 
-                        if(dataGet(el,GROUPKEY) != undefined)
+                        if((dataGet(el,GROUPKEY) != undefined) || (dataGet(el,CONTAINERKEY) != undefined))
                         {
                             //Need to set current array position
                             dataSet(el, INDEXKEY, ko.utils.arrayIndexOf(ui.item.parent().children(), el));
@@ -335,6 +335,62 @@
                             window.app.updatePreferences();
 
                         }
+
+                        console.log('el',el);
+
+                        if (dataGet(el,CONTAINERKEY) != undefined)
+                        {
+                            //var groupEl = ui.item.closest('.animal-group')[0];
+                            //var groupItem;
+
+                            //if(groupEl != undefined)
+                            //{
+
+                            //groupItem = dataGet(groupEl,GROUPKEY);
+
+                            //el = ui.item.data('items');
+                            //ko.utils.arrayForEach(el, function(item) {
+                            //
+                            //    if((observableItem = dataGet(item, ITEMKEY)) != null)
+                            //    {
+                            //
+                            //        animals.push(observableItem);
+                            //        $(item).remove();
+                            //
+                            //    }
+                            //
+                            //
+                            //
+                            //});
+                            //sourceParent = dataGet(el, PARENTKEY);
+                            //sourceParent2 = dataGet(el, GROUPKEY);
+                            //sourceIndex = dataGet(el, INDEXKEY);
+                            targetParent = dataGet(el.parentNode, LISTKEY);
+                            targetIndex = ko.utils.arrayIndexOf(ui.item.parent().children(), el);
+                            var observableItem;
+                            //
+                            //console.log('sp', sourceParent());
+                            //console.log('sp2', sourceParent2());
+                            //console.log('si', sourceIndex);
+                            console.log('tp', targetParent());
+                            console.log('ti', targetIndex);
+
+                            ko.utils.arrayForEach(ui.item.parent().children(), function(item) {
+                                console.log('item',item);
+                                if((observableItem = dataGet(item, CONTAINERKEY)) != null)
+                                    {
+                                        console.log('obsItem',observableItem);
+                                //
+                                //        animals.push(observableItem);
+                                //        $(item).remove();
+                                //
+                                    }
+                            });
+
+                        //}
+
+                        }
+
 
                         if (updateActual) {
                             updateActual.apply(this, arguments);

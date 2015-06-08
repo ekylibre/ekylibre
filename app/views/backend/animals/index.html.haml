@@ -59,8 +59,9 @@
             .panel.panel-default
               .panel-heading
                 .row
-                  .col-md-1.no-padding.xs-h-padding
-                    %i.icon.icon-ellipsis-v.animal-group-dragger.text-muted
+                  .col-md-1.no-padding.xs-h-padding.animal-group-dragger
+                    %i.icon.icon-ellipsis-v.text-muted
+                    %i.icon.icon-ellipsis-v.text-muted
                   .col-md-9.no-padding.xs-h-padding
                     %span.animal-group-title
                       %i.icon.icon-cow
@@ -70,7 +71,7 @@
                       %button.btn.btn-default.btn-hover.animal-all-selector{"data-bind" => "checkbox: toggleItems", :type => "button"}
                         %i.icon.icon-check-square-o
               .panel-body.no-padding
-                %ul.list-group.animal-list-group{"data-bind" => "sortable: {template: 'animal-container-template', data: $root.containers, connectClass: 'container-dropzone', options: {handle: '.animal-container-dragger', cursor: 'move', tolerance: 'pointer', placeholder: 'sorting-container-placeholder', dropOnEmpty: false, forcePlaceholderSize: true, revert: true, opacity: 0.8}}"}
+                %ul.list-group.animal-list-group{"data-bind" => "sortable: {template: 'animal-container-template', data: $root.filteredContainers($data), connectClass: 'container-dropzone', options: {handle: '.animal-container-dragger', cursor: 'move', tolerance: 'pointer', placeholder: 'sorting-container-placeholder', dropOnEmpty: false, forcePlaceholderSize: true, revert: true, opacity: 1}}"}
                 .add-container
                   %button.btn.btn-link{:type => "button", data: { bind: "click: $root.toggleNewContainerModal" }}
                     %i.icon.icon-plus.text-muted
@@ -80,7 +81,6 @@
                   Nouvel animal
 
         %script#animal-container-template{type: "text/html"}
-          /ko if: $parent.id == group_id()
           %li.list-group-item.animal-container
             .row.toggle.list-group-item-title.no-right-left-margin
               .col-md-1.no-padding.xs-h-padding
@@ -95,7 +95,7 @@
                     %i.icon.icon-caret-down
             %div.body{"data-bind" => "css: {'hide':hidden}"}
               %div{"data-bind" => "sortable: {template: 'animal-element-template', data: $root.animals, connectClass: 'animal-dropzone', options: {handle: '.animal-element-dragger', cursor: 'move', placeholder: 'sorting-animal-placeholder', dropOnEmpty: true, forcePlaceholderSize: true, opacity: 1, revert: true}}"}
-          / /ko
+
         %script#animal-element-template{:type => "text/html"}
           /ko if: $parent.id == container_id() && $parent.group_id() == group_id()
           .animal-element.row.no-right-left-margin
