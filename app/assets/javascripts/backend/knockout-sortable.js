@@ -38,6 +38,7 @@
 
                     dataSet(element, CONTAINERKEY, data);
                     dataSet(element, PARENTGROUPKEY, dataGet($(element).closest('.animal-group')[0], GROUPKEY));
+
                 }
             else if($(element).hasClass('animal-group'))
                 {
@@ -343,38 +344,21 @@
 
                         }
 
-                        console.log('el',el);
-
                         if (dataGet(el,CONTAINERKEY) != undefined)
                         {
 
-                            sourceParent = dataGet(el, PARENTKEY);
-                            //sourceParentGroup = dataGet(el, PARENTGROUPKEY);
-                            sourceIndex = dataGet(el, INDEXKEY);
-                            targetParent = dataGet(el.parentNode, LISTKEY);
-                            targetIndex = ko.utils.arrayIndexOf(ui.item.parent().children(), el);
-                            var observableItem;
-                            //
-                            //console.log('sp', sourceParent());
-                            //console.log('spg', sourceParentGroup());
-                            //console.log('sp2', sourceParent2());
-                            console.log('si', sourceIndex);
-                            //console.log('tp', targetParent());
-                            console.log('ti', targetIndex);
+                            //sourceParent = dataGet(el, PARENTKEY);
+                            var sourceParentGroup = dataGet(el, PARENTGROUPKEY);
+                            var sourceIndex = dataGet(el, INDEXKEY);
+                            var targetParent = dataGet(ui.item.closest('.animal-group')[0], GROUPKEY);
+                            var targetIndex = ko.utils.arrayIndexOf(ui.item.parent().children(), el);
+                            var containerItem;
 
-                            ko.utils.arrayForEach(ui.item.parent().children(), function(item) {
-                                console.log('item',item);
-                                if((observableItem = dataGet(item, CONTAINERKEY)) != null)
-                                    {
-                                        console.log('obsItem',observableItem);
-                                //
-                                //        animals.push(observableItem);
-                                //        $(item).remove();
-                                //
-                                    }
-                            });
-
-                        //}
+                            containerItem = dataGet(el, CONTAINERKEY);
+                            if(sourceParentGroup && targetParent && !isNaN(sourceIndex) && !isNaN(targetIndex))
+                            {
+                                window.app.moveContainer(containerItem,sourceParentGroup,sourceIndex,targetParent,targetIndex);
+                            }
 
                         }
 

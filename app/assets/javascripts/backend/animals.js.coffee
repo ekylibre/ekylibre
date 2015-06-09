@@ -163,6 +163,39 @@
               window.app.natures_list.push j
             return true
 
+      @moveContainer = (container, sourceGroup, sourceIndex, targetGroup, targetIndex) =>
+        #Allow to update multiple containers
+        offset = container.length || 1
+
+        #update target group
+        container.group_id targetGroup.id
+        container.position targetIndex
+
+        supContainers = ko.utils.arrayFilter @containers(), (c) =>
+          c.group_id() == targetGroup.id and c.position() > targetIndex and c.id != container.id
+
+        ko.utils.arrayForEach supContainers, (f) =>
+          f.position f.position()+offset
+
+        infContainers = ko.utils.arrayFilter @containers(), (c) =>
+          c.group_id() == targetGroup.id and c.position() <= targetIndex and c.id != container.id
+
+        ko.utils.arrayForEach infContainers, (f) =>
+          f.position f.position()-offset
+
+        if sourceGroup != targetGroup
+          #two swaps, we need to reorganize source group without removed container and change the owner group
+
+          supContainers = ko.utils.arrayFilter @containers(), (c) =>
+            c.group_id() == sourceGroup.id and c.position() > sourceIndex and c.id != container.id
+
+          ko.utils.arrayForEach supContainers, (f) =>
+            f.position f.position()-offset
+
+        #update preferences
+        @updatePreferences();
+
+
       @moveAnimals = () =>
 
         animals_id = ko.utils.arrayMap @moveAnimalModalOptions.animals(), (a) =>
