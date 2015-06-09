@@ -282,11 +282,24 @@
 
       @updatePreferences = () =>
 
+        #[{group: {id:301, containers:[{id:176, position: 0}]}},{group: {id:302, containers:[{id:176, position: 0}]}},{group: {id:305, containers:[{id:169, position: 0},{id: 5678, position: 1}]}}]
+        json_data = []
+
+        ko.utils.arrayForEach @groups(), (g) =>
+          curContainers = ko.utils.arrayFilter @containers(), (c) =>
+            c.group_id() == g.id
+
+          curContainers = ko.utils.arrayMap curContainers, (c) =>
+            {id: c.id, position: c.position()}
+
+          json_data.push {group: {id: g.id, containers: curContainers}}
+
+
         $.ajax '/backend/animals/update_preferences',
 #          type: 'PUT',
           type: 'GET',
           dataType: 'JSON',
-          data: ko.toJSON @groups,
+          data: ko.toJSON json_data,
           success: (res) =>
             #nothing
 
