@@ -249,7 +249,6 @@
             @resetAnimalsMoving()
 
 
-
             return true
 
           error: (res) =>
@@ -258,15 +257,20 @@
             return false
 
       @cancelAnimalsMoving = () =>
-#        force refresh of animals view for model-view binding
-        ko.utils.arrayForEach @moveAnimalModalOptions.animals(), (a) =>
-          #TODO change this. now i force refresh by updating twice
-#          a.container_id.valueHasMutated()
-          old = a.container_id()
-          a.container_id 0
-          a.container_id old
-          a.checked false
 
+        ko.utils.arrayForEach @moveAnimalModalOptions.animals(), (a) =>
+          id = a.id
+          name = a.name
+          img = a.img
+          status = a.status
+          sex = a.sex
+          num = a.number_id
+          container = a.container_id()
+          group = a.group_id()
+          @animals.remove a
+          @animals.push new dashboardViewModel.Animal(id, name, img, status, sex, num, container, group)
+
+        @showMoveAnimalModal false
 
         @resetAnimalsMoving
 
@@ -407,23 +411,7 @@
       @container_id = ko.observable container_id
       @group_id = ko.observable group_id
       @checked = ko.observable false
-      @updateAttributes = (container_id, group_id) =>
 
-#        window.app.toggleMoveAnimalModal true
-
-#        animal = { 'animal_id': @id, 'container_id': @container_id(), 'group_id': @group_id() }
-#        console.log animal
-#
-#        $.ajax '/backend/animals/update_animal_attributes',
-#          type: 'PUT',
-#          dataType: 'JSON',
-#          data: animal,
-#          success: (res) ->
-#            return true
-#
-#          error: (res) ->
-#            console.log res
-#            return false
       return
 
   @loadData = () =>

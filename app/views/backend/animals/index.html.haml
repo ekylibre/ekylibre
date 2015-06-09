@@ -195,7 +195,7 @@
           .modal-footer
             %button.btn.btn-default{:type => "button", data: {bind: "click: $root.moveAnimals"}}
               %i.icon.icon-plus-circle Déplacer
-            %button.close.btn.btn-default{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button", data: {bind: "click: $root.cancelAnimalsMoving"}} Annuler le déplacement
+            %button.close.btn.btn-default{"aria-label" => "Close", :type => "button", data: {bind: "click: $root.cancelAnimalsMoving"}} Annuler le déplacement
 
     = modal(id: "new-container", "aria-hidden" => "true", "aria-labelledby" => "newContainer", data: {bind: "modal: showNewContainerModal(), with: containerModalOptions"}) do
       .modal-dialog

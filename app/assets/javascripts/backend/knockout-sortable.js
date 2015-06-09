@@ -32,6 +32,7 @@
     var addMetaDataAfterRender = function(elements, data) {
         //internal afterRender that adds meta-data to children
         ko.utils.arrayForEach(elements, function(element) {
+
             if (element.nodeType === 1) {
                 if($(element).hasClass('animal-container'))
                 {
@@ -189,7 +190,6 @@
                         }
                         else if (dataGet(item[0],ITEMKEY) != undefined)
                         {
-
                             elements = $('.checker.active').closest('.animal-element-actions').siblings('.animal-element-img').children().clone();
 
                             if(!elements.length)
@@ -226,6 +226,12 @@
 
                             }
                         }
+                        else{
+
+                            //fallback
+                            helper = $("<div class='animate-dragging' style='width:50px;height:50px'></div>");
+
+                        }
 
 
                         return helper;
@@ -240,11 +246,9 @@
                         if(dataGet(el,ITEMKEY) != undefined)
                         {
 
-
                             el = $('.checker.active').closest('.animal-element').not('.ui-sortable-placeholder');
 
                             ui.item.data('items', el);
-
                             $('.animal-container .body .animal-dropzone').addClass('grow-empty-zone');
                         }
 
@@ -271,7 +275,6 @@
 
                         var el = ui.item[0];
 
-
                         if(dataGet(el, ITEMKEY) != undefined)
                         {
                             var containerEl = ui.item.closest('.animal-container')[0];
@@ -293,8 +296,6 @@
                                         $(item).remove();
 
                                     }
-
-
 
                                 });
                             }
