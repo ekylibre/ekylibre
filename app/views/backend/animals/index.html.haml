@@ -71,7 +71,7 @@
                       %button.btn.btn-default.btn-hover.animal-all-selector{"data-bind" => "checkbox: toggleItems", :type => "button"}
                         %i.icon.icon-check-square-o
               .panel-body.no-padding
-                %ul.list-group.animal-list-group{"data-bind" => "sortable: {template: 'animal-container-template', data: $root.displayedContainers($data), connectClass: 'container-dropzone', options: {handle: '.animal-container-dragger', cursor: 'move', tolerance: 'pointer', placeholder: 'sorting-container-placeholder', dropOnEmpty: false, forcePlaceholderSize: true, revert: true, opacity: 1}}"}
+                %ul.list-group.animal-list-group{"data-bind" => "sortable: {template: 'animal-container-template', data: $root.displayedContainers($data), connectClass: 'container-dropzone', allowDrop: false, options: {handle: '.animal-container-dragger', cursor: 'move', tolerance: 'pointer', placeholder: 'sorting-container-placeholder', dropOnEmpty: false, forcePlaceholderSize: true, revert: true, opacity: 1}}"}
                 .add-container
                   %button.btn.btn-link{:type => "button", data: { bind: "click: $root.toggleNewContainerModal" }}
                     %i.icon.icon-plus.text-muted

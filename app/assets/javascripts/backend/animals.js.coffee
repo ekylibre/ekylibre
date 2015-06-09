@@ -435,6 +435,9 @@
               if container.animals
                 ko.utils.arrayForEach $.parseJSON(container.animals), (animal) =>
                   window.app.animals.push new dashboardViewModel.Animal(animal.id, animal.name, '', animal.status, animal.sex_text, animal.identification_number, container.place.id, j.group.id)
+
+        window.loadPreferences()
+
         return true
 
       error: (data) ->
@@ -455,6 +458,9 @@
 
               if container
                 container.position jcontainer.position
+
+        ko.applyBindings window.app
+
         return true
 
       error: (data) ->
@@ -464,9 +470,9 @@
 
   $(document).ready ->
     $("*[data-golumns='animal']").each ->
+
       window.app = new dashboardViewModel
-      ko.applyBindings window.app
+
       window.loadData()
-      window.loadPreferences()
 
 ) jQuery
