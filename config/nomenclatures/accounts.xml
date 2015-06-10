@@ -18,6 +18,7 @@
       <item name="reserves" fr_pcg82="106"/>
       <item name="legal_reserves" fr_pcg82="1061"/>
       <item name="other_reserves" fr_pcg82="1068"/>
+      <item name="owner_account" fr_pcg82="108"/>
       <item name="financial_year_result" fr_pcg82="12"/>
       <item name="financial_year_result_profit" fr_pcg82="120"/>
       <item name="financial_year_result_balance" fr_pcg82="128"/>

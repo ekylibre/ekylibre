@@ -23,7 +23,7 @@ class Backend::EntitiesController < Backend::BaseController
   unroll
 
   autocomplete_for :origin
-  
+
   # params:
   #   :q Text search
   def self.entities_conditions
@@ -43,7 +43,7 @@ class Backend::EntitiesController < Backend::BaseController
     code << "c\n"
     return code.c
   end
-  
+
   list(conditions: entities_conditions, order: "entities.last_name, entities.first_name") do |t|
     t.action :edit
     t.action :destroy

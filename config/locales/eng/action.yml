@@ -43,6 +43,7 @@ eng:
       new: "New animal group"
       show: "Animal group: %{name}"
     backend/animals:
+      # add_group: "Add group animal: %{name}"
       add_to_group: "Add to group"
       # change: "Change animal: %{name}"
       edit: "Edit animal: %{name}"
@@ -50,6 +51,7 @@ eng:
       # load_animals: "Load animals animal: %{name}"
       # load_containers: "Load containers animal: %{name}"
       # load_natures: "Load natures animal: %{name}"
+      # load_preferences: "Load preferences animal: %{name}"
       # load_workers: "Load workers animal: %{name}"
       new: "New animal"
       show: "%{nature}: %{name}"
@@ -1619,6 +1621,7 @@ eng:
     actions:
       abort: "Abort"
       about: "About"
+      # add_group: "Add group"
       add_to_group: "Add to group"
       attach: "Attach"
       # autocomplete_for_name: "Autocomplete for name"
@@ -1661,6 +1664,7 @@ eng:
       # load_animals: "Load animals"
       # load_containers: "Load containers"
       # load_natures: "Load natures"
+      # load_preferences: "Load preferences"
       # load_workers: "Load workers"
       lock: "Lock"
       lose: "Lose"

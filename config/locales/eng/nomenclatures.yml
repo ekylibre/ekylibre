@@ -273,6 +273,7 @@ eng:
         outstanding_young_animal_assets: "Outstanding young animal assets"
         own_building_asset_depreciations: "Own building asset depreciations"
         own_building_expenses: "Own building expenses"
+        owner_account: "Owner account"
         ownership_assets: "Ownership assets"
         ownership_loan: "Ownership loan"
         packaging: "Packaging"
