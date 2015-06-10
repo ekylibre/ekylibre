@@ -207,6 +207,16 @@
                                 {
                                     t = -i * 5;
                                     var container = $("<div/>");
+
+                                    var isIcon = $('icon',elements[i]);
+
+                                    if(isIcon)
+                                    {
+                                        $(elements[i]).css('font-size','48px');
+                                        $(elements[i]).css('line-height','48px');
+                                    }
+
+
                                     $(elements[i]).css('top',t+'px');
                                     $(elements[i]).css('left',-t+'px');
                                     $(elements[i]).css('z-index',z);
@@ -219,6 +229,15 @@
                             }
                             else{
                                 var container = $("<div/>");
+
+                                var isIcon = $('icon',elements[i]);
+
+                                if(isIcon)
+                                {
+                                    $(elements[i]).css('font-size','48px');
+                                    $(elements[i]).css('line-height','48px');
+                                }
+
 
                                 container.append(elements[0]);
                                 container.addClass('animate-dragging-img');
