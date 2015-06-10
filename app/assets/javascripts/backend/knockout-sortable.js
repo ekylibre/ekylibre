@@ -252,14 +252,19 @@
 
                         }
 
-
                         return helper;
 
+                    },
+                    sort: function(event, ui) {
+                        var $target = $(event.target);
+                        if (!/html|body/i.test($target.offsetParent()[0].tagName)) {
+                            var left = event.pageX - $target.offsetParent().offset().left - (ui.helper.outerHeight(true) / 2);
+                            ui.helper.css({'left' : left + 'px'});
+                        }
                     },
                     start: function(event, ui) {
                         //track original index
                         var el = ui.item[0];
-
 
                         //Moving an animal
                         if(dataGet(el,ITEMKEY) != undefined)
