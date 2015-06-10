@@ -1,7 +1,7 @@
 @import "bootstrap/modals";
 @import "bootstrap/panels";
 @import "bootstrap/alerts";
-//@import "bootstrap/forms";
+@import "bootstrap/forms";
 //@import "bootstrap/button-groups";
 //@import "bootstrap/buttons";
 //@import "bootstrap/navbar";
@@ -325,7 +325,12 @@
   vertical-align: middle;
   padding: 0 10px;
   div.animal-selector {
-    padding: 4px 0;
+    padding: 1px 0;
+
+    btn {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
   }
 }
 
@@ -337,8 +342,8 @@
   font-weight: normal;
   color: #333333;
   cursor: pointer;
-  background-color: inherit;
-  border-color: transparent;
+  background-color: inherit !important;
+  border-color: transparent !important;
 }
 
 .animal-element-actions .btn-hover {
@@ -357,27 +362,118 @@
   }
 }
 
+.animal-group .animal-heading .btn-hover {
+  font-weight: normal;
+  color: #333333;
+  cursor: pointer;
+  background-color: transparent;
+  border-color: transparent;
+  opacity: 1;
+}
+
 .animal-container {
   border: 0;
   padding-left: 0;
   padding-right: 0;
 }
 
+.animal-all-selector.btn-hover {
+  background: transparent;
+}
+
 .hide {
   display: none;
 }
+
+.text-muted {
+
+  color: #999;
+}
+
+.animal-element-infos .btn-link {
+  color: #428bca;
+  //font-weight: 400;
+  cursor: pointer;
+  border-radius: 0;
+  background: transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-color: transparent;
+  line-height: 30px;
+
+  span {
+    color: #428bca;
+    font-weight: bold;
+
+  }
+}
+.animal-element-infos .btn-link:hover, .btn-link:focus, .btn-link:active {
+  border-color: transparent;
+}
+
+
+.animal-group .panel-footer .btn-link {
+  color: #428bca;
+  //font-weight: 400;
+  cursor: pointer;
+  border-radius: 0;
+  background: transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-color: transparent;
+  //line-height: 30px;
+
+  span, i {
+    color: #428bca !important;
+  }
+}
+.animal-group .panel-footer .btn-link:hover, .btn-link:focus, .btn-link:active {
+  border-color: transparent;
+}
+
+
+.add-group-panel-container .panel-heading
+{
+  width: 86px;
+  height: 86px;
+}
+
+.add-group-btn
+{
+  text-align: center !important;
+
+  .btn {
+    height: 70px;
+    border-color: transparent;
+    background: transparent;
+    box-shadow: none;
+    text-align: center;
+
+
+    i {
+      color: #999999;
+      font-size: 5em;
+      line-height: 70px;
+    }
+  }
+}
+
+
 
 .animal-list-group {
   margin-bottom: 0;
 }
 
 .add-container {
-  text-align: center;
+  text-align: center !important;
   border-top: 1px solid #ddd;
   button {
     padding: 0;
+    background: transparent;
+    border: transparent;
+
     i.text-muted {
-      color: #ddd;
+      color: #ddd !important;
     }
   }
 }
@@ -419,15 +515,23 @@
   transition: all 0.2s;
 }
 
+.btn-xs, .btn-group-xs>.btn {
+  padding: 1px 5px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+
+
 #loading {
 
   display: none;
-
+  width: 100vw;
 }
 
 .bubblingG {
-   text-align: center;
-   width:80px;
+   text-align: center !important;
+   width:100%;
    height:50px;
  }
 
