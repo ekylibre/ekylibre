@@ -19,6 +19,7 @@
         LISTKEY = "ko_sortList",
         PARENTKEY = "ko_parentList",
         DRAGKEY = "ko_dragItem",
+        DROPKEY = "ko_dropItem",
         CONTAINERKEY = "ko_containerItem",
         GROUPKEY = "ko_groupItem",
         PARENTGROUPKEY = "ko_parentGroupItem",
@@ -230,12 +231,12 @@
                             else{
                                 var container = $("<div/>");
 
-                                var isIcon = $('icon',elements[i]);
+                                var isIcon = $('icon',elements[0]);
 
                                 if(isIcon)
                                 {
-                                    $(elements[i]).css('font-size','48px');
-                                    $(elements[i]).css('line-height','48px');
+                                    $(elements[0]).css('font-size','48px');
+                                    $(elements[0]).css('line-height','48px');
                                 }
 
 
@@ -488,4 +489,75 @@
             helper: "clone"
         }
     };
+
+    ko.bindingHandlers.droppable = {
+        init: function (element, valueAccessor, allBindingsAccessor, data, context) {
+            var $element = $(element),
+                value = ko.utils.unwrapObservable(valueAccessor()) || {},
+                droppable = {},
+                dropActual;
+
+            $.extend(true, droppable, ko.bindingHandlers.droppable);
+            if (value.data) {
+                if (value.options && droppable.options) {
+                    ko.utils.extend(droppable.options, value.options);
+                    delete value.options;
+                }
+                ko.utils.extend(droppable, value);
+            } else {
+                droppable.data = value;
+            }
+
+
+            dropActual = droppable.options.drop;
+
+            $element.droppable(ko.utils.extend(droppable.options, {
+                drop: function (event, ui) {
+                    var sourceParent, targetParent, targetGroup, targetIndex, i, targetUnwrapped, arg,
+                        el = ui.draggable[0],
+                        item = ko.utils.domData.get(el, ITEMKEY) || ko.utils.domData.get(el, DRAGKEY);
+
+
+                    if (item && item.clone)
+                        item = item.clone();
+
+                    if (item) {
+                        sourceParent = ko.utils.domData.get(el, PARENTKEY);
+
+                        targetGroup = ko.utils.domData.get($(this).closest('.animal-group')[0], GROUPKEY);
+                        targetParent = droppable.data;
+
+
+                        window.app.droppedAnimals.push(item);
+
+                        window.app.toggleNewContainerModal(targetGroup);
+
+
+                        if (dropActual) {
+                            dropActual.apply(this, arguments);
+                        }
+                    }
+                }
+            }));
+
+            //handle enabling/disabling
+            if (droppable.isEnabled !== undefined) {
+                ko.computed({
+                    read: function () {
+                        $element.droppable(ko.utils.unwrapObservable(droppable.isEnabled) ? "enable" : "disable");
+                    },
+                    disposeWhenNodeIsRemoved: element
+                });
+            }
+
+        },
+        update: function (element, valueAccessor, allBindingsAccessor, data, context) {
+
+        },
+        targetIndex: null,
+        afterMove: null,
+        beforeMove: null,
+        options: {}
+    };
+
 });

@@ -44,6 +44,7 @@
         $(element).modal 'hide'
       return
 
+
   class dashboardViewModel
     constructor: (data,dispForm) ->
 
@@ -74,12 +75,16 @@
       }
 
       @addContainer = =>
-        @containers.push new dashboardViewModel.Container(@newContainer().id, @newContainer().name, @containerModalOptions())
-        @newContainer = ko.observable false
-        @containerModalOptions = ko.observable false
-        @containers_list.removeAll
-        @showNewContainerModal false
+        newContainer = new dashboardViewModel.Container(@newContainer().id, @newContainer().name, @containerModalOptions())
+        @containers.push newContainer
 
+        if @droppedAnimals().length > 0
+          console.log 'animaux à bouger'
+          @toggleMoveAnimalModal(@droppedAnimals(),newContainer);
+
+
+
+        @resetContainerAdding()
 
 
       @containers_list = ko.observableArray []
@@ -91,6 +96,9 @@
       @containers = ko.observableArray []
       @animals = ko.observableArray []
 
+
+      @drop = ko.observable
+      @droppedAnimals = ko.observableArray []
 
 
       #tmp fake data
@@ -131,7 +139,6 @@
           type: 'GET',
           dataType: 'JSON',
           success: (json_data) ->
-            console.log json_data
             ko.utils.arrayForEach json_data, (j) =>
               window.app.containers_list.push j
             return true
@@ -149,7 +156,6 @@
           type: 'GET',
           dataType: 'JSON',
           success: (json_data) ->
-#            console.log json_data
             ko.utils.arrayForEach json_data, (j) =>
               window.app.workers_list.push j
             return true
@@ -158,7 +164,6 @@
           type: 'GET',
           dataType: 'JSON',
           success: (json_data) ->
-#            console.log json_data
             ko.utils.arrayForEach json_data, (j) =>
               window.app.natures_list.push j
             return true
@@ -199,7 +204,7 @@
       @moveAnimals = () =>
 
         animals_id = ko.utils.arrayMap @moveAnimalModalOptions.animals(), (a) =>
-          a.id
+          return a.id
 
         json_data = {
           animals_id: animals_id.join(',')
@@ -219,7 +224,7 @@
 #            return val
 
         #Note: ko method support json serializer for old browsers, stringify is only supported by modern browsers
-        json_data = ko.utils.toJSON json_data, (key, val) =>
+        json_data = ko.toJSON json_data, (key, val) =>
           if val == false or val == ''
             return undefined
           else
@@ -275,7 +280,7 @@
         @resetAnimalsMoving
 
       @resetAnimalsMoving = () =>
-        @moveAnimalModalOptions.animals().destroyAll
+        @moveAnimalModalOptions.animals().destroyAll()
 
         @moveAnimalModalOptions.container undefined
         @moveAnimalModalOptions.started_at ''
@@ -283,6 +288,17 @@
         @moveAnimalModalOptions.worker undefined
         @moveAnimalModalOptions.variant undefined
         @moveAnimalModalOptions.group undefined
+
+      @cancelContainerAdding = () =>
+        @resetContainerAdding()
+
+
+      @resetContainerAdding = () =>
+        @newContainer = ko.observable false
+        @containerModalOptions = ko.observable false
+        @containers_list.removeAll()
+        @showNewContainerModal false
+        @droppedAnimals.removeAll()
 
       @updatePreferences = () =>
 
@@ -460,6 +476,7 @@
                 container.position jcontainer.position
 
         ko.applyBindings window.app
+
 
         return true
 

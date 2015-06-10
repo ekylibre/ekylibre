@@ -17,6 +17,7 @@
 //= require jquery-ui/slider
 //= require jquery-ui/accordion
 //= require jquery-ui/sortable
+//= require jquery-ui/droppable
 //= require jquery_ujs
 //= require jquery.turbolinks
 //= require turbolinks
