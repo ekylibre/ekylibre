@@ -269,6 +269,7 @@ fra:
         outstanding_young_animal_assets: "Immobilisations en cours - Animaux (jeunes de renouvellement)"
         own_building_asset_depreciations: "Ammortissements des constructions sur sol propre"
         own_building_expenses: "Constructions (sur sol propre)"
+        owner_account: "Compte de l'exploitant"
         ownership_assets: "Titres immobilisés (droits de propriété)"
         ownership_loan: "Prêts consentis"
         packaging: "Emballages"
