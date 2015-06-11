@@ -101,9 +101,7 @@
       @droppedAnimals = ko.observableArray []
 
 
-      #tmp fake data
-      #TODO remove it
-      @containers.push new dashboardViewModel.Container(5678, 'Fake container', 305) #305 = vaches laitières
+
 
       @displayedContainers = (group) =>
 
@@ -442,6 +440,16 @@
               if container.animals
                 ko.utils.arrayForEach $.parseJSON(container.animals), (animal) =>
                   window.app.animals.push new dashboardViewModel.Animal(animal.id, animal.name, '', animal.status, animal.sex_text, animal.identification_number, container.place.id, j.group.id)
+
+          if j.others
+
+            window.app.groups.push new dashboardViewModel.Group(0, 'A classer')
+            window.app.containers.push new dashboardViewModel.Container(0, 'A classer', 0) #305 = vaches laitières
+
+            ko.utils.arrayForEach j.others, (other) =>
+              if other.animal
+                window.app.animals.push new dashboardViewModel.Animal(other.animal.id, other.animal.name, '', '', '', other.animal.identification_number, 0, 0)
+
 
         window.loadPreferences()
 

@@ -86,6 +86,17 @@ class Backend::AnimalsController < Backend::MattersController
 
     end
 
+    without_container = []
+
+    Animal.select(:id, :name, :identification_number, :nature_id, :dead_at).each do |a|
+      if a.container.nil? or a.memberships.length == 0
+        without_container << { animal: a }
+      end
+    end
+
+    @grouped_animals << {others: without_container}
+
+
     render :json => @grouped_animals.to_json()
 
   end
