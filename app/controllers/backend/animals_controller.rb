@@ -152,48 +152,36 @@ class Backend::AnimalsController < Backend::MattersController
 
     procedure_natures = []
 
-    if params[:brice].present?
+    if params[:container_id].present?
+      procedure_natures << :animal_movement
+    end
+    if params[:group_id].present?
+      procedure_natures << :animal_group_inclusion
+    end
+    if params[:variant_id].present?
+      procedure_natures << :animal_evolution
+    end
 
-      if params[:container_id].present?
-        procedure_natures << :animal_movement
-      end
-
-      if params[:group_id].present?
-        procedure_natures << :animal_group_inclusion
-      end
-
-      if params[:variant_id].present?
-        procedure_natures << :animal_evolution
-      end
-
-      Intervention.write(:animal_changing, nature: procedure_natures, started_at: params[:started_at], stopped_at: params[:stopped_at], production_support: ProductionSupport.find_by(id:params[:production_support_id])) do |i|
-        i.cast :caregiver, role: 'animal_movement-doer'
-        animals.each do |a|
-          i.cast :animal, a, role: ['animal_movement-target','animal_group_inclusion-target','animal_evolution-target']
-
-          if procedure_natures.include?(:animal_movement)
-            i.cast :localizable, params[:container_id], role: ['animal_movement-localizable']
-
-            i.movement :animal, :localizable, :caregiver
-          end
-
-
-          if procedure_natures.include?(:animal_group_inclusion)
-            i.cast :group, params[:group_id], role: ['animal_group_inclusion-includer']
-
-            i.group_inclusion :animal, :group
-          end
-          if procedure_natures.include?(:animal_evolution)
-            i.cast :nature, params[:variant_id], role: ['animal_evolution-target']
-
-            i.evolution :animal, :nature
-          end
+    Intervention.write(*procedure_natures, short_name: :animal_changing, started_at: params[:started_at], stopped_at: params[:stopped_at], production_support: ProductionSupport.find_by(id: params[:production_support_id])) do |i|
+      i.cast :caregiver, role: 'animal_movement-doer'
+      animals.each do |a|
+        i.cast :animal, a, role: ['animal_movement-target', 'animal_group_inclusion-target','animal_evolution-target']
+        if procedure_natures.include?(:animal_movement)
+          i.cast :localizable, params[:container_id], role: ['animal_movement-localizable']
+          i.movement :animal, :localizable, :caregiver
+        end
+        if procedure_natures.include?(:animal_group_inclusion)
+          i.cast :group, params[:group_id], role: ['animal_group_inclusion-includer']
+          i.group_inclusion :animal, :group
+        end
+        if procedure_natures.include?(:animal_evolution)
+          i.cast :nature, params[:variant_id], role: ['animal_evolution-target']
+          i.evolution :animal, :nature
         end
       end
     end
 
-
-    render :json => {resultat: 'ok'}
+    render json: {result: 'ok'}
   end
 
 
