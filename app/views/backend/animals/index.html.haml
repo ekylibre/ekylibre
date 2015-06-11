@@ -64,7 +64,6 @@
                     %i.icon.icon-ellipsis-v.text-muted
                   .col-md-9.no-padding.xs-h-padding
                     %span.animal-group-title
-                      %i.icon.icon-cow
                       %span{"data-bind" => "text: name"}
                   .col-md-2.pull-right.no-padding.xs-h-padding
                     .pull-right.btn-group.btn-group-xs{"aria-label" => "...", :role => "group"}
@@ -99,19 +98,11 @@
         %script#animal-element-template{:type => "text/html"}
           /ko if: $parent.id == container_id() && $parent.group_id() == group_id()
           .animal-element.row.no-right-left-margin
-            .animal-element-img.no-padding{"data-bind" => "css: animalStatusClass"}
-              /ko if: img.length > 0
-              %img{data: {bind: "attr: {src: img}" }}
-              / /ko
-              /ko if: img.length == 0
-              %i.icon.icon-cow
-              / /ko
-
-            .animal-element-infos
-              %i.icon.text-muted{data: {bind: "css: animalSexClass"}}
+            .animal-element-infos{"data-bind" => "css: animalStatusClass"}
               / <button type="button" class="btn btn-link no-padding xs-h-padding animal-element-name" data-toggle="modal" data-target="#view-animal" data-bind="text: name"></button>
               %button.btn.btn-link.no-padding.xs-h-padding.animal-element-name{"data-bind" => "click: $root.toggleAnimalDetailsModal", :type => "button"}
                 %span{"data-bind" => "text: name"}
+              %i.icon.text-muted{data: {bind: "css: animalSexClass"}}
             .animal-element-actions.no-padding
               .pull-right.animal-selector
                 %button.btn.btn-default.btn-xs.btn-hover.checker{"data-bind" => "checkbox: checked", :type => "button"}

@@ -191,14 +191,14 @@
                         }
                         else if (dataGet(item[0],ITEMKEY) != undefined)
                         {
-                            elements = $('.checker.active').closest('.animal-element-actions').siblings('.animal-element-img').children().clone();
+                            elements = $('.checker.active').closest('.animal-element').find('.animal-element-infos .animal-element-name span').clone();
 
                             if(!elements.length)
                             {
                                 elements.push(item.clone());
                             }
 
-                            helper = $("<div class='animate-dragging' style='width:50px;height:50px'></div>");
+                            helper = $("<div class='animate-dragging' style='width: 130px; height: 30px'></div>");
 
                             if(elements.length > 1)
                             {
@@ -207,21 +207,13 @@
                                 for(var i=0;i < elements.length; i++)
                                 {
                                     t = -i * 5;
-                                    var container = $("<div/>");
 
-                                    var isIcon = $('icon',elements[i]);
+                                    var container = $("<div style='width: 130px; height: 30px; color: white; vertical-align: middle; text-align: center; font-weight: bold; font-size:14px; line-height:20px; background-color: #428bca; box-shadow: 1px 1px 8px #000000;'></div>");
 
-                                    if(isIcon)
-                                    {
-                                        $(elements[i]).css('font-size','48px');
-                                        $(elements[i]).css('line-height','48px');
-                                    }
-
-
-                                    $(elements[i]).css('top',t+'px');
-                                    $(elements[i]).css('left',-t+'px');
-                                    $(elements[i]).css('z-index',z);
-                                    container.append(elements[i]);
+                                    $(container).css('top',t+'px');
+                                    $(container).css('left',-t+'px');
+                                    $(container).css('z-index',z);
+                                    container.append($(elements[i]).text());
                                     container.addClass('animate-dragging-img');
                                     helper.append(container);
                                     z = z - 1;
@@ -229,19 +221,12 @@
 
                             }
                             else{
-                                var container = $("<div/>");
+                                var container = $("<div style='width: 130px; height: 30px; vertical-align: middle; text-align: center; font-size:14px; line-height:20px'></div>");
 
-                                var isIcon = $('icon',elements[0]);
-
-                                if(isIcon)
-                                {
-                                    $(elements[0]).css('font-size','48px');
-                                    $(elements[0]).css('line-height','48px');
-                                }
+                                container.append($(elements[0]).text());
+                                container.addClass('animate-dragging-text');
 
 
-                                container.append(elements[0]);
-                                container.addClass('animate-dragging-img');
                                 helper.append(container);
 
                             }
@@ -310,6 +295,8 @@
                             {
 
                                 containerItem = dataGet(containerEl,CONTAINERKEY);
+
+                                var observableItem;
 
                                 el = ui.item.data('items');
                                 ko.utils.arrayForEach(el, function(item) {
