@@ -2606,6 +2606,9 @@ arb:
         # invoice: "Invoice"
         # order: "Order"
         # refused: "Refused estimate"
+    sale_credit:
+      label:
+        # invoice: "Sale credit %{number}"
     sale_item:
       building_can_not_transfer_product: "المنتج %{product} لا يأخذ خارج الخزينة %{building}, هذا ويحتوي %{contained_product} "
       can_not_use_this_tracking: "لا يمكنك استخدام حصة %{name}, ان الكمية المطلوبة تتجاوز الكمية المتاحة "

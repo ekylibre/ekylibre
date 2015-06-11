@@ -156,6 +156,8 @@ eng:
       # show: "Revenues by product nature cell: %{name}"
     backend/cells/rss_cells:
       # show: "Rss cell: %{name}"
+    backend/cells/stewardship_cells:
+      show: "Stewardship cell: %{name}"
     backend/cells/stock_container_map_cells:
       # show: "Stock container map cell: %{name}"
     backend/cells/threshold_commercialization_by_production_cells:
@@ -892,6 +894,10 @@ eng:
     counts_by_nature: "Number of documents to account per type"
     create: "Create"
     create_journal: "— Create journal —"
+    create_or_import_equipments: "Create or import equipments"
+    create_or_import_incoming_deliveries: "Create or import incoming deliveries"
+    create_or_import_interventions: "Create or import interventions"
+    create_or_import_workers: "Create or import workers"
     created_at: "Created on" #?
     created_at_by: "Created at %{at} by %{author}"
     created_between: "Created between %{started_at} and %{stopped_at}"
@@ -904,7 +910,7 @@ eng:
     crumbs: "Crumbs"
     cultivable_zone: "Cultivable zone"
     cultivable_zone_abbreviation: "CZ"
-    # cultivable_zones: "Cultivable zones"
+    cultivable_zones: "Cultivable zones"
     cumul: "Accumulation of tattle and previous balance N°%{number}"
     current: "Current" #?
     current_cultivation: "Current cultivation"
@@ -927,7 +933,7 @@ eng:
     delivery: "Delivery" #?
     deposit: "Deposit"
     depositable_options: "Deposit options"
-    # deposits: "Deposits"
+    deposits: "Deposits"
     depreciation: "Depreciation"
     depreciations: "Depreciations"
     description: "Description" #?
@@ -965,7 +971,7 @@ eng:
     end: "to" #?
     entities: "Entities"
     entity: "Entity" #?
-    # entity_links: "Entity links"
+    entity_links: "Entity links"
     entity_to_delete: "Person to delete"
     entity_to_update: "Person to update"
     entries: "Entries" #?
@@ -981,7 +987,7 @@ eng:
     evaluated_other_cost: "Evaluated other cost"
     evaluated_tool_cost: "Evaluated tool cost"
     events: "Events"
-    # evolution: "Evolution"
+    evolution: "Evolution"
     example: "Example: %{value}" #?
     exchange: "Exchange"
     exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
@@ -1029,6 +1035,7 @@ eng:
     inactive: "Inactive" #?
     include_blank: "Include blank" #?
     income_statement: "Income Statement" #?
+    incoming_deliveries: "Incoming deliveries"
     incoming_payments: "Incoming payments"
     incoming_payments_to_deposit: "Incoming payments to deposit"
     indicator: "Indicators"
@@ -1098,12 +1105,13 @@ eng:
       other: "%{count} emails"
       zero: "No emails"
     main_settings: "Main settings"
+    make_your_production_support: "Make your production support"
     manual_period: "from %{start} to %{finish}"
     manure_management_plan_chart: "Manure management plan chart"
     map: "Map"
     maximal_temperature: "Maximal temperature"
     members: "Members"
-    # menus: "Menus"
+    menus: "Menus"
     merge: "Merge"
     method: "Method" #?
     minimal_temperature: "Minimal temperature"
@@ -1162,11 +1170,14 @@ eng:
     numbers: "Numbers" #?
     on_account: "On account" #?
     one_condition: "One condition"
+    open_a_campaign: "Open a campaign"
+    open_a_production: "Open a production"
+    open_an_activity: "Open an activity"
     operations: "Operations"
     options: "Options"
     organic_matter_concentration: "Organic matter concentration" #?
     others: "Others"
-    # outgoing_payments: "Outgoing payments"
+    outgoing_payments: "Outgoing payments"
     page_title: "%{company_code} · %{menu} · %{action}"
     page_title_by_default: "Ekylibre · %{action}"
     page_title_special: "%{company_code} · %{action}"
@@ -1306,11 +1317,12 @@ eng:
     simplified_linear_options: "Simplified linear options"
     simulator: "Simulator"
     source: "Source" #?
-    # spraying_map: "Spraying map"
+    spraying_map: "Spraying map"
     start: "From" #?
     start_new_intervention_here: "Start new intervention here"
     state: "State"
     statistics: "Statistics"
+    stewardship: "Stewardship"
     stock: "Stock" #?
     stock_container_map: "Stock map"
     stock_of_x: "Stock of %{x}"
@@ -1334,7 +1346,7 @@ eng:
     supports_chart: "Supports chart"
     synthesis: "Synthesis"
     target: "Target" #?
-    # tasks: "Tasks"
+    tasks: "Tasks"
     taxations: "Taxations"
     taxes: "Taxes" #?
     thumb: "Thumb" #?
@@ -1410,6 +1422,7 @@ eng:
     weather: "Weather"
     wind_speed: "Wind speed"
     with_fixed_assets_depreciations: "With fixed assets depreciations"
+    workers: "Workers"
     working_duration: "Working duration"
     working_sets_stocks: "Working sets stocks" #?
     x_cashes:

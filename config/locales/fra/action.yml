@@ -99,6 +99,8 @@ fra:
       index: "Catalogues de prix"
       new: "Nouveau catalogue de prix"
       show: "Catalogue de prix\_: %{name}"
+    backend/cells/stewardship_cells:
+      show: "Assistant: %{name}"
     backend/contacts:  #?
       edit: "Modifier le contact\_: %{full_name}" #?
       index: "Contacts" #?
@@ -830,6 +832,10 @@ fra:
     counts_by_nature: "Nombre de pièces à comptabiliser par type"
     create: "Créer"
     create_journal: "— Créer le journal —"
+    create_or_import_equipments: "Créer ou importer des équipments"
+    create_or_import_incoming_deliveries: "Créer ou importer des approvisionnements"
+    create_or_import_interventions: "Créer ou importer des interventions"
+    create_or_import_workers: "Créer ou importer des travailleurs"
     created_at: "Créée le"
     created_at_by: "Créé le %{at} par %{author}"
     created_between: "Enregistré entre le %{started_at} et le %{stopped_at}"
@@ -851,6 +857,7 @@ fra:
     csv_statistics: "Statistiques à exporter au format CSV" #?
     cultivable_zone: "Zone cultivable"
     cultivable_zone_abbreviation: "ZC"
+    cultivable_zones: "Zones cultivables"
     cumul: "Cumul du total et du solde précédent N°%{number}"
     currency: "Devise" #?
     currency_with_code: "%{code} - %{name}" #?
@@ -886,6 +893,7 @@ fra:
     deposit: "Remise en banque"
     depositable: "Complément d’information" #?
     depositable_options: "Options de remise en banque"
+    deposits: "Dépôts"
     depreciation: "Ammortissement"
     depreciations: "Dépréciations"
     description: "Description"
@@ -930,6 +938,7 @@ fra:
     end: "au"
     entities: "Personnes"
     entity: "Personne"
+    entity_links: "Liens entre entité"
     entity_to_delete: "Doublon à fusionner (et faire disparaitre)"
     entity_to_update: "Fiche à mettre à jour avec les éléments du doublon"
     entries: "Écritures"
@@ -952,6 +961,7 @@ fra:
     evaluated_other_cost: "Coût autres"
     evaluated_tool_cost: "Coût outils"
     events: "Évènements"
+    evolution: "Evolution"
     example: "Exemple\_: %{value}"
     exchange: "Échange"
     exchange_rate_from_x_to_y: "Taux de change de %{x} à %{y}"
@@ -1030,6 +1040,7 @@ fra:
     incident: "Incident" #?
     include_blank: "— Aucune organisation —"
     income_statement: "Compte de résultat"
+    incoming_deliveries: "Approvisionnements"
     incoming_payment_conditions: "Conditions d’encaissement" #?
     incoming_payments: "Encaissements"
     incoming_payments_states:  #?
@@ -1142,6 +1153,7 @@ fra:
       other: "%{count} courriels"
       zero: "Aucun courriels"
     main_settings: "Principaux paramètres"
+    make_your_production_support: "Faite votre assolement ou prévisionnel de production"
     mammalia_lactation_state: "Phase du bioprocessus de lactation d’un mammifère" #?
     mammalia_reproduction_state: "Phase du bioprocessus de reproduction d’un mammifère" #?
     management: "Gestion commerciale" #?
@@ -1164,6 +1176,7 @@ fra:
     meetings: "Évènements" #?
     members: "Membres"
     members_count: "Nombre de membres" #?
+    menus: "Menus"
     merge: "Fusionner"
     method: "Méthode"
     milk_withdrawal_period: "Période d’attente avant remise en vente de lait" #?
@@ -1251,6 +1264,9 @@ fra:
     numbers: "Numéros"
     on_account: "À remettre sur le compte"
     one_condition: "au moins une condition"
+    open_a_campaign: "Ouvrir une campagne de production"
+    open_a_production: "Créer une production"
+    open_an_activity: "Créer une activité"
     operation_items: "Intrants et sortants" #?
     operations: "Travaux"
     options: "Options"
@@ -1260,6 +1276,7 @@ fra:
     organic_matter_concentration: "Teneur en matière organique"
     other_results: "Autres résultats…" #?
     others: "Autres"
+    outgoing_payments: "Décaissements"
     outgoing_payments_states:  #?
       all: "Tous" #?
       undelivered: "Non délivrés" #?
@@ -1507,11 +1524,13 @@ fra:
     source: "Source de données"
     sowable: "Semable" #?
     sowed_at: "Semé le" #?
+    spraying_map: "Carte de pulvérisation"
     start: "Du"
     start_new_intervention_here: "Commencer une nouvelle intervention ici"
     state: "État"
     statistics: "Statistiques"
     status: "État" #?
+    stewardship: "Assistant"
     stock: "Stock"
     stock_container_map: "Carte des lieux de stockage"
     stock_max: "Stock maximum" #?
@@ -1545,6 +1564,7 @@ fra:
     target: "Cible"
     target_name: "Nom de la cible" #?
     target_zone: "Zone cible" #?
+    tasks: "Tâches"
     taxations: "Taxations"
     taxes: "Taxes"
     temperature: "Température" #?
@@ -1673,6 +1693,7 @@ fra:
     with_fixed_assets_depreciations: "Inclure les amortissements des immobilisations"
     with_prints: "Inclure les impressions (factures, commandes…)" #?
     worked_on: "Travaillé le" #?
+    workers: "Travailleurs"
     working_duration: "Temps de travail"
     working_sets_stocks: "Stocks d’ensembles de produits"
     working_zone: "Zone travaillée" #?

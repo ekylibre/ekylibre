@@ -1243,6 +1243,9 @@ por:
         # invoice: "Invoice"
         # order: "Order"
         # refused: "Refused estimate"
+    sale_credit:
+      label:
+        # invoice: "Sale credit %{number}"
     sale_item:
       # building_can_not_transfer_product: "The product %{product} can not be used with %{building}, because it contains only %{contained_product} "
       # can_not_use_this_tracking: "You can not use the tracking %{name}, the requested quantity is greater than the available quantity"
