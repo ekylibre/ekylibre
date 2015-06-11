@@ -97,6 +97,7 @@
 
 
       @drop = ko.observable
+      @hoverdrop = ko.observable
       @droppedAnimals = ko.observableArray []
 
 

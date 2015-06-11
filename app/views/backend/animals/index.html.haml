@@ -81,7 +81,7 @@
                   %span Nouvel animal
 
         %script#animal-container-template{type: "text/html"}
-          %li.list-group-item.animal-container
+          %li.list-group-item.animal-container{data: {bind: "droppable: {data: $root.hoverdrop, options: {accept: '.animal-element', tolerance: 'pointer'}}" }}
             .row.toggle.list-group-item-title.no-right-left-margin
               .col-md-1.no-padding.xs-h-padding
                 %i.icon.icon-ellipsis-v.animal-container-dragger.text-muted

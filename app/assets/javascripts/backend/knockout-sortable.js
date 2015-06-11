@@ -512,19 +512,26 @@
             dropActual = droppable.options.drop;
 
             $element.droppable(ko.utils.extend(droppable.options, {
+                over: function( e, ui ){
+                    var container;
+                    if((container = dataGet($(this)[0], CONTAINERKEY)))
+                    {
+                        container.hidden(false);
+                    }
+                },
                 drop: function (event, ui) {
                     var sourceParent, targetParent, targetGroup, targetIndex, i, targetUnwrapped, arg,
                         el = ui.draggable[0],
-                        item = ko.utils.domData.get(el, ITEMKEY) || ko.utils.domData.get(el, DRAGKEY);
+                        item = dataGet(el, ITEMKEY) || dataGet(el, DRAGKEY);
 
 
                     if (item && item.clone)
                         item = item.clone();
 
                     if (item) {
-                        sourceParent = ko.utils.domData.get(el, PARENTKEY);
+                        sourceParent = dataGet(el, PARENTKEY);
 
-                        targetGroup = ko.utils.domData.get($(this).closest('.animal-group')[0], GROUPKEY);
+                        targetGroup = dataGet($(this).closest('.animal-group')[0], GROUPKEY);
                         targetParent = droppable.data;
 
 
