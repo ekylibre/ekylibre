@@ -133,8 +133,10 @@ class Backend::AnimalsController < Backend::MattersController
     # params[:group_id]
 
     #check animal exist
-    for animal in animals = params[:animals_id].split(',')
-      return unless find_and_check(id: animal)
+    if params[:animals_id]
+      for animal in animals = params[:animals_id].split(',')
+        return unless find_and_check(id: animal)
+      end
     end
 
     procedure_natures = []

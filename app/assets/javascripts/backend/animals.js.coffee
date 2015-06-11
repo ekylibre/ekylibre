@@ -79,7 +79,6 @@
         @containers.push newContainer
 
         if @droppedAnimals().length > 0
-          console.log 'animaux à bouger'
           @toggleMoveAnimalModal(@droppedAnimals(),newContainer);
 
 
@@ -147,7 +146,6 @@
         @moveAnimalModalOptions.animals animals
         @moveAnimalModalOptions.container container
         group = ko.utils.arrayFirst @groups(), (g) =>
-#          console.log 'group',container.group_id()
           g.id == container.group_id()
         @moveAnimalModalOptions.group group
 
@@ -258,7 +256,6 @@
 
           error: (res) =>
             @showMoveAnimalModal false
-#            console.log res
             return false
 
       @cancelAnimalsMoving = () =>
@@ -280,7 +277,7 @@
         @resetAnimalsMoving
 
       @resetAnimalsMoving = () =>
-        @moveAnimalModalOptions.animals().destroyAll()
+        @moveAnimalModalOptions.animals.removeAll()
 
         @moveAnimalModalOptions.container undefined
         @moveAnimalModalOptions.started_at ''
@@ -351,24 +348,14 @@
       @name = name
       @toggleItems = ko.observable false
       @toggleItems.subscribe (newValue) =>
-        #newValue
+
         container_array = ko.utils.arrayFilter window.app.containers(), (c) =>
-          c.group_id == @id
+          c.group_id() == @id
 
-        all_animals = []
-
-        for container in container_array
-          animals = ko.utils.arrayFilter window.app.animals(), (a) =>
-            a.container_id == container.id
-
-          for a in animals
-            all_animals.push a
-
-
-        for a in all_animals
-          a.checked(newValue)
-
-        return
+        ko.utils.arrayForEach container_array, (c) =>
+          ko.utils.arrayForEach window.app.animals(), (a) =>
+            if a.container_id() == c.id and a.group_id() == @id
+              a.checked newValue
 
       return
 
