@@ -1477,6 +1477,9 @@ fra:
         invoice: "Facture"
         order: "Commande"
         refused: "Devis refusé"
+    sale_credit:
+      label:
+        invoice: "Avoir N°%{number}"
     sale_item:
       building_can_not_transfer_product: "Le produit %{product} ne peut être sorti du réservoir %{building}, celui-ci contient %{contained_product} "
       can_not_use_this_tracking: "Vous ne  pouvez pas utiliser le lot %{name}, la quantité commandée est supérieure à la quantité disponible "
