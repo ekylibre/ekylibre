@@ -231,8 +231,8 @@
 
 
         $.ajax '/backend/animals/change',
-#          type: 'PUT',
-          type: 'GET',
+          type: 'PUT',
+#          type: 'GET',
           dataType: 'JSON',
           data: json_data,
           success: (res) =>
@@ -307,15 +307,18 @@
           curContainers = ko.utils.arrayFilter @containers(), (c) =>
             c.group_id() == g.id
 
-          curContainers = ko.utils.arrayMap curContainers, (c) =>
+
+          jsContainers = []
+
+          jsContainers.push ko.utils.arrayMap curContainers, (c) =>
             {id: c.id, position: c.position()}
 
-          json_data.push {group: {id: g.id, containers: curContainers}}
+          json_data.push {group: {id: g.id, containers: jsContainers}}
 
 
         $.ajax '/backend/animals/update_preferences',
-#          type: 'PUT',
-          type: 'GET',
+          type: 'PUT',
+#          type: 'GET',
           dataType: 'JSON',
           data: ko.toJSON json_data,
           success: (res) =>
@@ -328,8 +331,8 @@
         if group = @newGroupModalOptions.group
 
           $.ajax '/backend/animals/add_group',
-    #          type: 'PUT',
-            type: 'GET',
+            type: 'PUT',
+#            type: 'GET',
             dataType: 'JSON',
             data: {name:group()},
             success: (res) =>

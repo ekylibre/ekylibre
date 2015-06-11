@@ -187,9 +187,9 @@ Rails.application.routes.draw do
         match "load_animals", via: [:get]
         match "load_workers", via: [:get]
         match "load_natures", via: [:get]
-        get :change
-        get :update_preferences
-        get :add_group
+        put :change
+        put :update_preferences
+        put :add_group
         get :load_preferences
       end
       member do
