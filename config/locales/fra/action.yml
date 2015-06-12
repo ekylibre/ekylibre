@@ -1203,6 +1203,7 @@ fra:
     net_vat_amount: "TVA nette due" #?
     net_volume: "Volume net" #?
     new: "Nouveau"
+    new_animal: "Nouvel animal"
     new_box: "Nouvelle boîte"
     new_call: "Nouvel appel"
     new_contact: "Nouveau contact"

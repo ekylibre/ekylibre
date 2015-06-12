@@ -1061,6 +1061,7 @@ spa:
     # net_surface_area: "Net surface area"
     net_vat_amount: "TVA neta deuda" #?
     # new: "New"
+    # new_animal: "New animal"
     # new_box: "New box"
     # new_call: "New call"
     # new_contact: "New contact"

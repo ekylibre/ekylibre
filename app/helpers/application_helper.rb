@@ -954,12 +954,19 @@ module ApplicationHelper
     else
       options[:class] = options[:class].to_s + " modal fade"
     end
+    heading = options.delete(:heading)
     options[:tabindex] ||= "-1"
     options[:role] ||= "dialog"
     content_for(:popover) do
       content_tag(:div, options) do
         content_tag(:div, class: "modal-dialog") do
-          content_tag(:div, class: "modal-content", &block)
+          content_tag(:div, class: "modal-content") do
+            if heading
+              modal_header(heading) + capture(&block)
+            else
+              capture(&block)
+            end
+          end
         end
       end
     end
