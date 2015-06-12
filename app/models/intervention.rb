@@ -67,14 +67,14 @@ class Intervention < Ekylibre::Record::Base
   has_one :activity, through: :production
   has_one :campaign, through: :production
   has_one :storage, through: :production_support
-  enumerize :reference_name, in: Procedo.names.sort
+  enumerize :reference_name, in: (Procedo.names + ["base-animal_changing-0"]).sort
   enumerize :state, in: [:undone, :squeezed, :in_progress, :done], default: :undone, predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_inclusion_of :provisional, :recommended, in: [true, false]
   validates_presence_of :natures, :production, :reference_name, :state
   #]VALIDATORS]
-  validates_inclusion_of :reference_name, in: self.reference_name.values
+  # validates_inclusion_of :reference_name, in: self.reference_name.values
   validates_presence_of  :started_at, :stopped_at
   validates_presence_of :recommender, if: :recommended?
 
@@ -132,7 +132,6 @@ class Intervention < Ekylibre::Record::Base
     if p = self.reference
       self.natures = p.natures.sort.join(" ")
     end
-    self.natures = self.natures.to_s.strip.split(/[\s\,]+/).sort.join(" ")
     # set production_id
     if self.production_support
       self.production_id ||= self.production_support.production_id
@@ -155,6 +154,7 @@ class Intervention < Ekylibre::Record::Base
   end
 
   before_save do
+    self.natures = self.natures.to_s.strip.split(/[\s\,]+/).sort.join(" ")
     if self.reference
       if self.duration < self.reference.fixed_duration
         self.stopped_at += self.reference.fixed_duration
@@ -346,13 +346,16 @@ class Intervention < Ekylibre::Record::Base
       options[:namespace] ||= "base"
       options[:short_name] ||= natures.first
       options[:version] ||= 0
-      options[:reference_name] ||= "#{options[:namespace]}-#{options[:short_name]}-#{options[:version]}"
+      unless options.has_key? :reference_name
+        options[:reference_name] = "#{options[:namespace]}-#{options[:short_name]}-#{options[:version]}"
+      end
 
       transaction do
         attrs = options.slice(:reference_name, :description, :issue_id, :prescription_id, :production, :production_support, :recommender_id, :started_at, :stopped_at)
         attrs[:started_at] ||= Time.now
         attrs[:stopped_at] ||= Time.now
         attrs[:natures] = natures.join(" ")
+        puts attrs.inspect.red
         recorder = Intervention::Recorder.new(attrs)
 
         yield recorder

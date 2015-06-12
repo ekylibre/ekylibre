@@ -203,7 +203,7 @@
         animals_id = ko.utils.arrayMap @moveAnimalModalOptions.animals(), (a) =>
           return a.id
 
-        json_data = {
+        data = {
           animals_id: animals_id.join(',')
           container_id: @moveAnimalModalOptions.container().id
           group_id: @moveAnimalModalOptions.group().id
@@ -214,14 +214,14 @@
           production_support_id: @moveAnimalModalOptions.production_support()
         }
 
-#        JSON.stringify json_data, (key, val) =>
+#        JSON.stringify data, (key, val) =>
 #          if val == false or val == ''
 #            return undefined
 #          else
 #            return val
 
         #Note: ko method support json serializer for old browsers, stringify is only supported by modern browsers
-        json_data = ko.toJSON json_data, (key, val) =>
+        json_data = ko.toJSON data, (key, val) =>
           if val == false or val == ''
             return undefined
           else
@@ -232,7 +232,7 @@
           type: 'PUT',
 #          type: 'GET',
           dataType: 'JSON',
-          data: json_data,
+          data: data,
           success: (res) =>
             @showMoveAnimalModal false
 
