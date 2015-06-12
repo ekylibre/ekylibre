@@ -541,8 +541,17 @@
 
                             targetGroup = dataGet($(this).closest('.animal-group')[0], GROUPKEY);
 
+                            el = ui.draggable.data('items');
 
-                            window.app.droppedAnimals.push(item);
+                            ko.utils.arrayForEach(el, function(item) {
+
+                                if((observableItem = dataGet(item, ITEMKEY)) != null)
+                                {
+                                    window.app.droppedAnimals.push(observableItem);
+                                }
+
+                            });
+
 
                             window.app.toggleNewContainerModal(targetGroup);
 
