@@ -261,6 +261,8 @@
 
                             ui.item.data('items', el);
                             $('.animal-container .body .animal-dropzone').addClass('grow-empty-zone');
+                            $('.add-container').addClass('grow-empty-zone');
+
                         }
 
                         if(dataGet(el,GROUPKEY) != undefined)
@@ -293,7 +295,6 @@
                     receive: function(event, ui) {
 
                         var el = ui.item[0];
-                        
                         if((dataGet(el, ITEMKEY) != undefined) && sortableIn)
                         {
                             var containerEl = ui.item.closest('.animal-container')[0];
@@ -336,6 +337,7 @@
                          var el = ui.item[0];
 
                          $('.animal-container .body .animal-dropzone').removeClass('grow-empty-zone');
+                         $('.add-container').removeClass('grow-empty-zone');
 
                          if(dataGet(el,GROUPKEY) != undefined)
                          {
