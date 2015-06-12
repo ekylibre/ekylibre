@@ -143,6 +143,7 @@
                 templateOptions = prepareTemplateOptions(valueAccessor, "foreach"),
                 sortable = {},
                 startActual, updateActual;
+            var sortableIn = 0;
 
             stripTemplateWhitespace(element, templateOptions.name);
 
@@ -242,11 +243,11 @@
 
                     },
                     sort: function(event, ui) {
-                        var $target = $(event.target);
-                        if (!/html|body/i.test($target.offsetParent()[0].tagName)) {
-                            var left = event.pageX - $target.offsetParent().offset().left - (ui.helper.outerHeight(true) / 2);
-                            ui.helper.css({'left' : left + 'px'});
-                        }
+                        //var $target = $(event.target);
+                        //if (!/html|body/i.test($target.offsetParent()[0].tagName)) {
+                        //    var left = event.pageX - $target.offsetParent().offset().left - (ui.helper.outerHeight(true) / 2);
+                        //    ui.helper.css({'left' : left + 'px'});
+                        //}
                     },
                     start: function(event, ui) {
                         //track original index
@@ -281,11 +282,19 @@
                             startActual.apply(this, arguments);
                         }
                     },
+                    over: function (event, ui) {
+                        sortableIn = 1;
+                        $(".sorting-animal-placeholder").css('display','block');
+                    },
+                    out: function (event, ui) {
+                        sortableIn = 0;
+                        $(".sorting-animal-placeholder").css('display','none');
+                    },
                     receive: function(event, ui) {
 
                         var el = ui.item[0];
-
-                        if(dataGet(el, ITEMKEY) != undefined)
+                        
+                        if((dataGet(el, ITEMKEY) != undefined) && sortableIn)
                         {
                             var containerEl = ui.item.closest('.animal-container')[0];
                             var animals = [];
@@ -314,6 +323,11 @@
 
                             window.app.toggleMoveAnimalModal(animals,containerItem);
 
+                        }
+
+                        if(!sortableIn)
+                        {
+                            $(ui.sender || this).sortable("cancel");
                         }
 
                     },

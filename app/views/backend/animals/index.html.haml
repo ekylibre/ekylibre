@@ -93,7 +93,7 @@
                   %button.btn.btn-default.btn-xs.btn-hover.animal-container-collapse-handler{"data-bind" => "click: toggle", :type => "button"}
                     %i.icon.icon-caret-down
             %div.body{"data-bind" => "css: {'hide':hidden}"}
-              %div{"data-bind" => "sortable: {template: 'animal-element-template', data: $root.animals, connectClass: 'animal-dropzone', options: {handle: '.animal-element-dragger', cursor: 'move', placeholder: 'sorting-animal-placeholder', dropOnEmpty: true, forcePlaceholderSize: true, opacity: 1, revert: true}}"}
+              %div{"data-bind" => "sortable: {template: 'animal-element-template', data: $root.animals, connectClass: 'animal-dropzone', options: {handle: '.animal-element-dragger', cursor: 'move', placeholder: 'sorting-animal-placeholder', dropOnEmpty: true, forcePlaceholderSize: true, opacity: 1, revert: true, cursorAt: { left: 65 }, scrollSensitivity: 65, scrollSpeed: 30}}"}
 
         %script#animal-element-template{:type => "text/html"}
           /ko if: $parent.id == container_id() && $parent.group_id() == group_id()
