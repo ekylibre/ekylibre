@@ -46,13 +46,7 @@
           %span#bubblingG_3
 
       .animal-viewport
-        .animal-group-container{"data-bind" => "sortable: {template: 'animal-group-template', data: groups, connectClass: 'group-dropzone', afterRender: containerAdder, options: {handle: '.animal-group-dragger', cursor: 'move', tolerance: 'pointer', dropOnEmpty: true, opacity: 1, revert: true}}"}
-        .add-group-panel-container
-          .panel.panel-default
-            .panel-heading
-              .add-group-btn
-                %button.btn.btn-link{:type => "button", data: { bind: "click: $root.toggleNewGroupModal" }}
-                  %i.icon.icon-5x.icon-plus.text-muted
+        .animal-group-container{"data-bind" => "sortable: {template: 'animal-group-template', data: groups, connectClass: 'group-dropzone', options: {handle: '.animal-group-dragger', cursor: 'move', tolerance: 'pointer', dropOnEmpty: true, opacity: 1, revert: true}}"}
 
         %script#animal-group-template{:type => "text/html"}
           .animal-group
@@ -78,6 +72,16 @@
                 %button.btn.btn-link{data: {target: "#new-animal", toggle: "modal"}, type: "button"}
                   %i.icon.icon-plus-circle
                   %span Nouvel animal
+
+          /ko if: $root.showAddGroup($index)
+          .add-group-panel-container
+            .panel.panel-default
+              .panel-heading
+                .add-group-btn
+                  %button.btn.btn-link{:type => "button", data: { bind: "click: $root.toggleNewGroupModal" }}
+                    %i.icon.icon-5x.icon-plus.text-muted
+
+          / /ko
 
         %script#animal-container-template{type: "text/html"}
           %li.list-group-item.animal-container{data: {bind: "droppable: {data: $root.hoverdrop, options: {accept: '.animal-element', tolerance: 'intersect'}}" }}

@@ -322,8 +322,8 @@
           success: (res) =>
             #nothing
 
-      @containerAdder = () =>
-        $('.animal-group-container').append $('.add-group-panel-container')
+      @showAddGroup = (item) =>
+        return item() == @groups().length-1
 
       @addGroup = () =>
         if group = @newGroupModalOptions.group
