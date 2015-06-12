@@ -2442,6 +2442,18 @@ a[data-annotate] {
       }
       .cobble-body {
         padding: $default-gap;
+        .cobble-toolbar {
+          margin: 0 0 $default-gap;
+          .list-pagination {
+            float: none;
+          }
+          &.cobble-meta-toolbar {
+            @include float(right);
+          }
+        }
+        .cobble-content {
+          clear: both;
+        }
         .cobble-end {
           clear: both;
         }
@@ -2450,7 +2462,13 @@ a[data-annotate] {
         background: rgba($success-color, 0.2);
         height: 4 * $lh-large;
       }
-
+      @include transition(box-shadow 0.4s);
+      &.ui-sortable-helper {
+        box-shadow: 0 0 $default-gap rgba(black, 0.3);
+        .others {
+          display: none;
+        }
+      }
     }
   }
 

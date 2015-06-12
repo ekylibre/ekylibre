@@ -10,5 +10,7 @@
             - cobble.others.each do |item|
               = link_to(item.title, "##{item.id}")
         .cobble-body
-          = capture(&cobble.block)
+          = cobble_toolbar_tag(cobble, :meta)
+          = cobble_toolbar_tag(cobble, :main)
+          .cobble-content= cobble.content
           .cobble-end

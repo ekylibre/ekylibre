@@ -46,6 +46,6 @@
       - l.side :observations
       - l.side :versions, new: false
   -# c.cobble(:interventions) do
-    = toolbar do |t|
+    = cobble_toolbar do |t|
       - t.new(params: {controller: :interventions, issue_id: resource.id})
-    = list(:interventions)
+    = cobble_list(:interventions)

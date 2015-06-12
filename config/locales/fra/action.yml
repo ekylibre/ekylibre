@@ -1718,7 +1718,7 @@ fra:
     x_entities:
       one: "%{count} fiche client/fournisseur"
       other: "%{count} fiches clients/fournisseurs"
-      zero: "Aucune fiche clients/fournisseurs"
+      # zero: "No people"
     x_entity_links:
       one: "%{count} lien"
       other: "%{count} liens"
@@ -1738,38 +1738,32 @@ fra:
     x_intervention_casts:
       one: "%{count} intervention"
       other: "%{count} interventions"
-      zero: "Aucune intervention" #?
     x_issues:
-      one: "1 incident"
+      one: "%{count} incident"
       other: "%{count} incidents"
-      zero: "Aucun incident" #?
     x_items_remain:
       one: "%{count} élément restant."
       other: "%{count} éléments non visibles. Affinez votre recherche."
     x_journal_entries:
       one: "%{count} écriture"
       other: "%{count} écritures"
-      zero: "Aucune écriture" #?
     x_mandates:
       one: "%{count} responsabilité"
       other: "%{count} responsabilités "
-      zero: "0 responsabilité"
+      # zero: "No mandate"
     x_months:
       one: "%{count} mois"
       other: "%{count} mois"
     x_observations:
       one: "%{count} observation"
       other: "%{count} observations"
-      zero: "0 observation" #?
     x_of_y: "%{x} de %{y}"
     x_operations:
       one: "%{count} travail"
       other: "%{count} travaux"
-      zero: "Aucun travail" #?
     x_outgoing_payments:
       one: "%{count} décaissement"
       other: "%{count} décaissements"
-      zero: "0 décaissement" #?
     x_performed_operations:
       one: "%{count} travail à réaliser"
       other: "%{count} travaux à réaliser"
@@ -1777,15 +1771,13 @@ fra:
     x_prices:
       one: "%{count} prix"
       other: "%{count} prix"
-      zero: "0 prix" #?
     x_purchases:
       one: "%{count} achat"
       other: "%{count} achats"
-      zero: "0 achat" #?
     x_readings:
       one: "%{count} indicateur"
       other: "%{count} indicateurs"
-      zero: "0 indicateur"
+      # zero: "No indicator"
     x_results:
       one: "%{count} résultat trouvé"
       other: "%{count} résultats trouvés"
@@ -1793,19 +1785,15 @@ fra:
     x_sales:
       one: "%{count} vente"
       other: "%{count} ventes"
-      zero: "0 vente" #?
     x_sales_invoices:
       one: "%{count} facture"
       other: "%{count} factures"
-      zero: "0 facture" #?
     x_stock_transfers_to_confirm:
       one: "%{count} transfert à effectuer"
       other: "%{count} transferts à effectuer"
-      zero: "Aucun transfert à effectuer" #?
     x_subscriptions:
       one: "%{count} abonnement"
       other: "%{count} abonnements"
-      zero: "0 abonnement" #?
     x_tasks:
       one: "%{count} tâche"
       other: "%{count} tâches"

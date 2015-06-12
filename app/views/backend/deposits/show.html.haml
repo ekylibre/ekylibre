@@ -17,7 +17,7 @@
         - l.custom_fields
 
   - c.cobble :payments, title: Deposit.human_attribute_name(:payments) do
-    = list :payments
+    = cobble_list :payments
     %table.list
       %tr.total
         %th= :payments_count.tl(mode: resource.mode.name)

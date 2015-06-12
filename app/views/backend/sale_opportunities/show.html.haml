@@ -39,9 +39,9 @@
   - c.cobble :deals do
     = render "show", affair: resource, current_deal: nil
   - c.cobble :tasks, title: :x_tasks.tl(count: resource.tasks.count) do
-    = toolbar do |t|
+    = cobble_toolbar do |t|
       - t.new(params: {controller: :tasks, entity_id: resource.third_id, executor_id: current_user.id, state: :todo})
-    = list(:tasks)
+    = cobble_list(:tasks)
 
 
 = timeline(resource) do |l|

@@ -27,8 +27,8 @@
     = cell :weather, params: {id: resource.id}
 
   - c.cobble(:productions) do
-    = list(:productions)
+    = cobble_list(:productions)
   - c.cobble(:contained_products) do
-    = list(:contained_products)
+    = cobble_list(:contained_products)
   - c.cobble(:intervention_casts) do
-    = list(:intervention_casts)
+    = cobble_list(:intervention_casts)

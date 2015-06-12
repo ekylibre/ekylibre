@@ -16,7 +16,7 @@
       series << {name: :amounts, data: data}
     = pie_chart(series)
   - c.cobble :repayments do
-    = list :repayments
+    = cobble_list :repayments
   - c.cobble :repayments_graph do
     :ruby
       series = []

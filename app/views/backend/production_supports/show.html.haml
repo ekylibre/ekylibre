@@ -165,6 +165,6 @@
     = no_data
 
   - c.cobble(:interventions) do
-    = toolbar do |t|
+    = cobble_toolbar do |t|
       - t.new(params: {controller: :interventions, production_support_id: resource.id})
-    = list(:interventions)
+    = cobble_list(:interventions)

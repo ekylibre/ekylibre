@@ -11,6 +11,6 @@
 
   - if resource.choice?
     - c.cobble(:choices) do
-      = toolbar do |t|
+      = cobble_toolbar do |t|
         - t.sort resource, {method: :post}
-      = list :choices
+      = cobble_list :choices

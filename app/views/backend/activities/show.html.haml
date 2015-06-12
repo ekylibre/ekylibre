@@ -15,9 +15,9 @@
         - l.custom_fields
 
   - c.cobble(:productions) do
-    = toolbar do |t|
+    = cobble_toolbar do |t|
       - t.new(params: {controller: :productions, activity_id: resource.id})
-    = list(:productions)
+    = cobble_list(:productions)
 
   - if resource.auxiliary?
     - c.cobble(:distributions, title: Activity.human_attribute_name(:distributions)) do

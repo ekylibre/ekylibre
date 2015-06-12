@@ -44,7 +44,7 @@
     = variable_readings(resource)
 
   -# c.cobble(tl(:x_readings, count: resource.readings.count)) do
-    = list(:readings)
+    = cobble_list(:readings)
 
   - count = 0
   - map = visualization do |v|
@@ -70,10 +70,10 @@
     = render "timeline"
 
   - c.cobble(:interventions) do
-    = toolbar do |t|
+    = cobble_toolbar do |t|
       - t.new(params: {controller: :interventions})
-    = list(:intervention_casts)
+    = cobble_list(:intervention_casts)
 
   -# c.cobble(:groups) do
-    = list(:groups)
+    = cobble_list(:groups)
 
