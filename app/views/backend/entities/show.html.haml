@@ -32,7 +32,7 @@
       - l.side :direct_links
       - l.side :indirect_links, new: false
       -# l.side :addresses, new: false
-      - l.side :events, params: {controller: :events, participations: {"0" => {participant_id: resource.id, state: :accepted}, "1" => {participant_id: current_user.person_id, state: :accepted}}}
+      - l.side :events, params: {controller: :events, nature: :meeting, participations: {"0" => {participant_id: resource.id, state: :accepted}, "1" => {participant_id: current_user.person_id, state: :accepted}}}
       - l.side :versions, new: false
   - j.face :cobbles do
     = cobbles do |c|
@@ -78,7 +78,7 @@
 
       - c.cobble(:events, title: :x_events.tl(count: resource.participations.count)) do
         = cobble_toolbar do |t|
-          - t.new params: {controller: :events, action: :new, participations: {"0" => {participant_id: resource.id, state: :accepted}, "1" => {participant_id: current_user.person_id, state: :accepted}}}
+          - t.new params: {controller: :events, action: :new, nature: :meeting, participations: {"0" => {participant_id: resource.id, state: :accepted}, "1" => {participant_id: current_user.person_id, state: :accepted}}}
         - if resource.participations.any?
           = cobble_list(:event_participations)
 
@@ -99,6 +99,12 @@
           - t.new(params: {controller: :tasks, entity_id: resource.id, executor_id: current_user.person_id, state: :todo})
         - if resource.tasks.any?
           = cobble_list(:tasks)
+
+      - c.cobble(:sale_opportunities, title: :x_sale_opportunities.tl(count: resource.sale_opportunities.count)) do
+        = cobble_toolbar do |t|
+          - t.new(params: {controller: :sale_opportunities, third_id: resource.id})
+        - if resource.sale_opportunities.any?
+          = cobble_list(:sale_opportunities)
 
       - c.cobble(:sales, title: :x_sales.tl(count: resource.sales.count)) do
         = cobble_toolbar do |t|

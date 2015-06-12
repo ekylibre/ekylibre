@@ -1718,7 +1718,6 @@ fra:
     x_entities:
       one: "%{count} fiche client/fournisseur"
       other: "%{count} fiches clients/fournisseurs"
-      # zero: "No people"
     x_entity_links:
       one: "%{count} lien"
       other: "%{count} liens"
@@ -1749,8 +1748,7 @@ fra:
       other: "%{count} écritures"
     x_mandates:
       one: "%{count} responsabilité"
-      other: "%{count} responsabilités "
-      # zero: "No mandate"
+      other: "%{count} responsabilités"
     x_months:
       one: "%{count} mois"
       other: "%{count} mois"
@@ -1777,11 +1775,13 @@ fra:
     x_readings:
       one: "%{count} indicateur"
       other: "%{count} indicateurs"
-      # zero: "No indicator"
     x_results:
       one: "%{count} résultat trouvé"
       other: "%{count} résultats trouvés"
       zero: "Aucun résultat trouvé"
+    x_sale_opportunities:
+      one: "%{count} opportunité"
+      other: "%{count} opportunités"
     x_sales:
       one: "%{count} vente"
       other: "%{count} ventes"

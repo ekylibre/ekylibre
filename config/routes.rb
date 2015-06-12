@@ -319,6 +319,7 @@ Rails.application.routes.draw do
         get :list_purchases
         get :list_observations
         get :list_outgoing_payments
+        get :list_sale_opportunities
         get :list_sales
         get :list_subscriptions
         get :list_tasks

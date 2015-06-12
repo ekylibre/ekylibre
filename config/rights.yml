@@ -305,11 +305,9 @@ animals:
     - "backend/animals#load_animals"
     - "backend/animals#load_containers"
     - "backend/animals#load_natures"
-    - "backend/animals#load_preferences" #?
     - "backend/animals#load_workers"
     - "backend/animals#new"
     - "backend/animals#update"
-    - "backend/animals#update_preferences" #?
 
 bank_statements:
   read:
@@ -611,6 +609,7 @@ entities:
     - "backend/entities#list_observations"
     - "backend/entities#list_outgoing_payments"
     - "backend/entities#list_purchases"
+    - "backend/entities#list_sale_opportunities"
     - "backend/entities#list_sales"
     - "backend/entities#list_subscriptions"
     - "backend/entities#list_tasks"

@@ -867,7 +867,7 @@ por:
     # mail: "Send an email"
     # mailing: "Mailing"
     mails:
-      # one: "One email"
+      # one: "%{count} email"
       # other: "%{count} emails"
       # zero: "No emails"
     # main_settings: "Main settings"
@@ -1209,7 +1209,6 @@ por:
     x_entities:
       # one: "%{count} person"
       # other: "%{count} people"
-      # zero: "No people"
     x_entity_links:
       # one: "%{count} link"
       # other: "%{count} links"
@@ -1241,7 +1240,6 @@ por:
     x_mandates:
       # one: "%{count} mandate"
       # other: "%{count} mandates"
-      # zero: "No mandate"
     x_months:
       # one: "%{count} month"
       # other: "%{count} months"
@@ -1266,24 +1264,26 @@ por:
       # one: "1 purchase"
       # other: "%{count} purchases"
     x_readings:
-      # one: "%{count} indicator"
-      # other: "%{count} indicators"
-      # zero: "No indicator"
+      # one: "%{count} reading"
+      # other: "%{count} readings"
     x_results:
       # one: "%{count} result found"
       # other: "%{count} results found"
       # zero: "No results found"
+    x_sale_opportunities:
+      # one: "%{count} opportunity"
+      # other: "%{count} opportunities"
     x_sales:
-      # one: "1 sale"
+      # one: "%{count} sale"
       # other: "%{count} sales"
     x_sales_invoices:
-      # one: "1 sales invoice"
+      # one: "%{count} sales invoice"
       # other: "%{count} sales invoices"
     x_stock_transfers_to_confirm:
       # one: "%{count} stock transfer to confirm"
       # other: "%{count} stock transfers to confirm"
     x_subscriptions:
-      # one: "1 subscription"
+      # one: "%{count} subscription"
       # other: "%{count} subscriptions"
     x_tasks:
       # one: "%{count} task"

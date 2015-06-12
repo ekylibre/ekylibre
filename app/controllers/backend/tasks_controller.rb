@@ -30,6 +30,7 @@ class Backend::TasksController < Backend::BaseController
     t.column :executor, url: true
     t.column :due_at
     t.column :sale_opportunity, url: true
+    t.status
     t.column :state
   end
 

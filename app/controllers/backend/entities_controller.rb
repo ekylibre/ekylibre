@@ -130,7 +130,7 @@ class Backend::EntitiesController < Backend::BaseController
     t.column :amount, currency: true
   end
 
-  list(:sales, conditions: {:client_id => 'params[:id]'.c}, :children => :items, :per_page => 5, order: {created_at: :desc}, :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
+  list(:sales, conditions: {:client_id => 'params[:id]'.c}, per_page: 5, order: {created_at: :desc}, :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
     # t.action :show, url: {format: :pdf}, image: :print, hidden: true
     t.action :duplicate, method: :post, hidden: true, if: :duplicatable?
     t.action :edit, if: :draft?
@@ -140,6 +140,16 @@ class Backend::EntitiesController < Backend::BaseController
     t.column :created_at,  children: false, hidden: true
     t.column :state_label, children: false
     t.column :amount, currency: true
+  end
+
+  list(:sale_opportunities, conditions: {third_id: 'params[:id]'.c}, per_page: 5, order: {created_at: :desc}) do |t|
+    t.action :edit
+    t.action :destroy
+    t.column :number, url: true
+    t.column :dead_line_at
+    t.column :created_at,  hidden: true
+    t.column :responsible, url: true
+    t.column :pretax_amount, currency: true
   end
 
 
@@ -161,7 +171,9 @@ class Backend::EntitiesController < Backend::BaseController
     t.action :edit
     t.action :destroy
     t.column :name, url: true
+    t.column :nature
     t.column :state
+    t.status
     t.column :due_at
     t.column :sale_opportunity, url: true
     t.column :executor, url: true
