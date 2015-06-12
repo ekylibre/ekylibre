@@ -957,9 +957,21 @@ module ApplicationHelper
     options[:tabindex] ||= "-1"
     options[:role] ||= "dialog"
     content_for(:popover) do
-      content_tag(:div, options, &block)
+      content_tag(:div, options) do
+        content_tag(:div, class: "modal-dialog") do
+          content_tag(:div, class: "modal-content", &block)
+        end
+      end
+    end
+  end
+
+  def modal_header(title)
+    content_tag(:div, class: "modal-header") do
+      button_tag(class: "close", "aria-label" => :close.tl, data: {dismiss: "modal"}, type: "button") do
+        content_tag(:span, "&times;".html_safe, "aria-hidden" => "true")
+      end +
+        content_tag(:h4, title, class: "modal-title")
     end
   end
 
 end
-
