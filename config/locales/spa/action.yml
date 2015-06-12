@@ -929,6 +929,7 @@ spa:
     # inactive: "Inactive"
     # include_blank: "Include blank"
     income_statement: "cuentos de résultos"
+    # incoming_deliveries: "Incoming deliveries"
     # incoming_payments: "Incoming payments"
     # incoming_payments_to_deposit: "Incoming payments to deposit"
     # indicator: "Indicators"
@@ -1310,6 +1311,7 @@ spa:
     # start_new_intervention_here: "Start new intervention here"
     # state: "State"
     # statistics: "Statistics"
+    # stewardship: "Stewardship"
     # stock: "Stock"
     # stock_container_map: "Stock map"
     stock_move_create: "Añadir un movimiento de deposito" #?

@@ -51,12 +51,10 @@ eng:
       # load_animals: "Load animals animal: %{name}"
       # load_containers: "Load containers animal: %{name}"
       # load_natures: "Load natures animal: %{name}"
-      # load_preferences: "Load preferences animal: %{name}"
       # load_workers: "Load workers animal: %{name}"
       new: "New animal"
       show: "%{nature}: %{name}"
       # take: "Take animal: %{name}"
-      # update_preferences: "Update preferences animal: %{name}"
     backend/bank_statements:
       edit: "Edit bank statement %{number}"
       index: "Bank statements"
@@ -293,6 +291,9 @@ eng:
       index: "Georeadings"
       new: "New georeading"
       show: "Georeading: %{name}"
+    backend/golumns:
+      # reset: "Reset golumn: %{name}"
+      # show: "Golumn: %{name}"
     backend/guide_analyses:
       show: "Analysis #%{execution_number} of %{guide}"
     backend/guides:
@@ -1323,7 +1324,7 @@ eng:
     start_new_intervention_here: "Start new intervention here"
     state: "State"
     statistics: "Statistics"
-    stewardship: "Stewardship"
+    stewardship: "Stewardship" #?
     stock: "Stock" #?
     stock_container_map: "Stock map"
     stock_of_x: "Stock of %{x}"
@@ -1678,7 +1679,6 @@ eng:
       # load_animals: "Load animals"
       # load_containers: "Load containers"
       # load_natures: "Load natures"
-      # load_preferences: "Load preferences"
       # load_workers: "Load workers"
       lock: "Lock"
       lose: "Lose"
@@ -1728,7 +1728,6 @@ eng:
       up: "Up"
       update: "Update"
       update_password: "Update password"
-      # update_preferences: "Update preferences"
       win: "Win"
       # zticket: "Zticket"
   unrolls:

@@ -46,8 +46,8 @@
 
 
   class dashboardViewModel
-    constructor: (data,dispForm) ->
-
+    constructor: (id) ->
+      @id = id
 
       @showAnimalDetailsModal = ko.observable false
       @showNewContainerModal = ko.observable false
@@ -59,7 +59,7 @@
 
       @newContainer = ko.observable ''
 
-      @moveAnimalModalOptions = {
+      @moveAnimalModalOptions =
         animals: ko.observableArray []
         started_at: ko.observable ''
         stopped_at: ko.observable ''
@@ -68,11 +68,9 @@
         production_support: ko.observable false
         group: ko.observable false
         container: ko.observable false
-      }
 
-      @newGroupModalOptions = {
+      @newGroupModalOptions =
         group: ko.observable ''
-      }
 
       @addContainer = =>
         newContainer = new dashboardViewModel.Container(@newContainer().id, @newContainer().name, @containerModalOptions())
@@ -205,7 +203,7 @@
         animals_id = ko.utils.arrayMap @moveAnimalModalOptions.animals(), (a) =>
           return a.id
 
-        data = {
+        data =
           animals_id: animals_id.join(',')
           container_id: @moveAnimalModalOptions.container().id
           group_id: @moveAnimalModalOptions.group().id
@@ -214,7 +212,6 @@
           started_at: @moveAnimalModalOptions.started_at()
           stopped_at: @moveAnimalModalOptions.stopped_at()
           production_support_id: @moveAnimalModalOptions.production_support()
-        }
 
 #        JSON.stringify data, (key, val) =>
 #          if val == false or val == ''
@@ -301,28 +298,30 @@
       @updatePreferences = () =>
 
         #[{group: {id:301, containers:[{id:176, position: 0}]}},{group: {id:302, containers:[{id:176, position: 0}]}},{group: {id:305, containers:[{id:169, position: 0},{id: 5678, position: 1}]}}]
-        json_data = []
+        data = []
 
         ko.utils.arrayForEach @groups(), (g) =>
+          group = {id: g.id, containers: []}
           curContainers = ko.utils.arrayFilter @containers(), (c) =>
             c.group_id() == g.id
 
-
-          jsContainers = []
-
-          jsContainers.push ko.utils.arrayMap curContainers, (c) =>
+          containers = ko.utils.arrayMap curContainers, (c) =>
             {id: c.id, position: c.position()}
 
-          json_data.push {group: {id: g.id, containers: jsContainers}}
+          containers = containers.sort (a,b)->
+            if a.position > b.position
+              return 1
+            else
+              return -1
+          $.each containers, (item) ->
+            group.containers.push item
+          data.push group
 
-
-        $.ajax '/backend/animals/update_preferences',
-          type: 'PUT',
-#          type: 'GET',
-          dataType: 'JSON',
-          data: ko.toJSON json_data,
-          success: (res) =>
-            #nothing
+        $.ajax
+          url: "/backend/golumns/#{@id}"
+          type: 'PATCH'
+          data:
+            positions: data
 
       @showAddGroup = (item) =>
         return item() == @groups().length-1
@@ -464,18 +463,19 @@
     return
 
   @loadPreferences = () =>
-    $.ajax '/backend/animals/load_preferences',
+    $.ajax '/backend/golumns/animal',
       type: 'GET',
       dataType: 'JSON',
-      success: (json_data) ->
-        ko.utils.arrayForEach json_data, (j) =>
-          if j.group and j.group.containers
-            ko.utils.arrayForEach j.group.containers, (jcontainer) =>
-              container = ko.utils.arrayFirst window.app.containers(), (c) =>
-                c.group_id() == j.group.id && c.id == jcontainer.id
-
-              if container
-                container.position jcontainer.position
+      success: (data) ->
+        console.log data
+        if data.positions
+          ko.utils.arrayForEach data.positions, (j, group_index) =>
+            if j.containers
+              ko.utils.arrayForEach j.containers, (jcontainer) =>
+                container = ko.utils.arrayFirst window.app.containers(), (c, container_index) =>
+                  c.group_id() == j.id && c.id == jcontainer.id
+                if container
+                  container.position container_index + 1
 
         ko.applyBindings window.app
 
@@ -490,7 +490,7 @@
   $(document).ready ->
     $("*[data-golumns='animal']").each ->
 
-      window.app = new dashboardViewModel
+      window.app = new dashboardViewModel($(this).data("golumns"))
 
       window.loadData()
 

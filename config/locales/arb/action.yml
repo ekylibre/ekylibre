@@ -1187,6 +1187,7 @@ arb:
     # inactive: "Inactive"
     include_blank: "--- ولا اية منظمة ---"
     income_statement: "حسابات الناتج"
+    # incoming_deliveries: "Incoming deliveries"
     incoming_payment_create: "اضافة دفعة جديدة" #?
     incoming_payment_update: "تعديل الدفعة" #?
     incoming_payment_use_create: "اضافة دفعة للشراء" #?
@@ -1687,6 +1688,7 @@ arb:
     # start_new_intervention_here: "Start new intervention here"
     state: "الحالة"
     # statistics: "Statistics"
+    # stewardship: "Stewardship"
     # stock: "Stock"
     # stock_container_map: "Stock map"
     stock_max: "الحد الاقصى للاسهم" #?

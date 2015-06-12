@@ -1,2 +1,0 @@
-module GolumnsHelper
-end
