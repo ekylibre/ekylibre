@@ -17,6 +17,7 @@
       <item name="animal_fecondation"   roles="input_origin, input, target, doer" activity_families="animal_farming"/>
       <item name="animal_moving"        roles="input, target, doer"             activity_families="animal_farming"/>
       <item name="animal_group_changing" roles="input, target"                  activity_families="animal_farming"/>
+      <item name="animal_evolution"     roles="target, variant"                 activity_families="animal_farming"/>
       <item name="animal_production"    roles="target, output, doer"            activity_families="animal_farming"/>
       <item name="viviparous_birth"     roles="target, output"                  activity_families="cattle_farming, sheep_farming, goat_farming, pig_farming"/>
       <item name="oviparous_birth"      roles="target, output"                  activity_families="poultry_farming"/>

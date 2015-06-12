@@ -95,6 +95,8 @@ spa:
       # index: "Catalogs"
       # new: "New catalog"
       # show: "Catalog: %{name}"
+    backend/cells/stewardship_cells:
+      # show: "Stewardship cell: %{name}"
     backend/company:  #?
       about: "A propocito de Ekylibre" #?
       backups: "Salvaguardia" #?
@@ -755,6 +757,10 @@ spa:
     counts_by_nature: "Nombre de piezas a contabilizar por tipo"
     # create: "Create"
     create_journal: "-- Crear el periodico --"
+    # create_or_import_equipments: "Create or import equipments"
+    # create_or_import_incoming_deliveries: "Create or import incoming deliveries"
+    # create_or_import_interventions: "Create or import interventions"
+    # create_or_import_workers: "Create or import workers"
     # created_at: "Created on"
     # created_at_by: "Created at %{at} by %{author}"
     # created_between: "Created between %{started_at} and %{stopped_at}"
@@ -769,6 +775,7 @@ spa:
     csv_statistics: "Statisticas a exportar al formato CSV" #?
     # cultivable_zone: "Cultivable zone"
     # cultivable_zone_abbreviation: "CZ"
+    # cultivable_zones: "Cultivable zones"
     cumul: "Cumul del total y del saldo precedente N°%{number}"
     # current: "Current"
     # current_cultivation: "Current cultivation"
@@ -804,6 +811,7 @@ spa:
       zero: "Hacer un aposto\_: %{mode} (Ningun encajonamiento)" #?
     deposit_update: "Modifiar el aposto en banco" #?
     # depositable_options: "Deposit options"
+    # deposits: "Deposits"
     # depreciation: "Depreciation"
     # depreciations: "Depreciations"
     description: "Descripción general"
@@ -845,6 +853,7 @@ spa:
     end: "al"
     # entities: "Entities"
     # entity: "Entity"
+    # entity_links: "Entity links"
     # entity_to_delete: "Person to delete"
     # entity_to_update: "Person to update"
     entries: "Escrituras"
@@ -865,6 +874,7 @@ spa:
     # evaluated_other_cost: "Evaluated other cost"
     # evaluated_tool_cost: "Evaluated tool cost"
     # events: "Events"
+    # evolution: "Evolution"
     # example: "Example: %{value}"
     # exchange: "Exchange"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
@@ -1013,12 +1023,14 @@ spa:
       other: "%{count} correos electronicos"
       zero: "Ningun correo electronico"
     # main_settings: "Main settings"
+    # make_your_production_support: "Make your production support"
     management: "Administración comercial" #?
     manual_period: "del %{start} al %{finish}"
     # manure_management_plan_chart: "Manure management plan chart"
     # map: "Map"
     # maximal_temperature: "Maximal temperature"
     # members: "Members"
+    # menus: "Menus"
     # merge: "Merge"
     # method: "Method"
     # minimal_temperature: "Minimal temperature"
@@ -1091,6 +1103,9 @@ spa:
     # numbers: "Numbers"
     on_account: "Volver a poner sobre la cuenta"
     # one_condition: "One condition"
+    # open_a_campaign: "Open a campaign"
+    # open_a_production: "Open a production"
+    # open_an_activity: "Open an activity"
     # operations: "Operations"
     # options: "Options"
     # organic_matter_concentration: "Organic matter concentration"
@@ -1100,6 +1115,7 @@ spa:
     other_services: "Otros bienes y servicios" #?
     others: "Otra TVA a deducir"
     out_vat_amount: "Basa fuera de tarifa" #?
+    # outgoing_payments: "Outgoing payments"
     overflow: "CREDITO O ECCEDENTE" #?
     page_title: "%{company_code} - %{menu} - %{action}"
     page_title_by_default: "Ekylibre - %{action}"
@@ -1288,6 +1304,7 @@ spa:
     # simplified_linear_options: "Simplified linear options"
     # simulator: "Simulator"
     source: "Fuente de datos"
+    # spraying_map: "Spraying map"
     start: "Del"
     # start_new_intervention_here: "Start new intervention here"
     # state: "State"
@@ -1317,6 +1334,7 @@ spa:
     # supports_chart: "Supports chart"
     synthesis: "Documentos de sintesis"
     # target: "Target"
+    # tasks: "Tasks"
     tax_create: "Añadir una nueva tasa" #?
     tax_declaration_create: "Añadir una nueva declaración" #?
     # taxations: "Taxations"
@@ -1406,6 +1424,7 @@ spa:
     # wind_speed: "Wind speed"
     # with_fixed_assets_depreciations: "With fixed assets depreciations"
     with_prints: "Incluir las impresiones (facturas, encargos...)" #?
+    # workers: "Workers"
     # working_duration: "Working duration"
     # working_sets_stocks: "Working sets stocks"
     x_cashes:

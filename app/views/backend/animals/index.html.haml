@@ -116,128 +116,98 @@
           / /ko
 
     = modal(id: "new-animal", "aria-hidden" => "true", "aria-labelledby" => "newAnimal") do
-      .modal-dialog
-        .modal-content
-          .modal-header
-            %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-              %span{"aria-hidden" => "true"} &times;
-            %h4#newAnimalTitle.modal-title Nouvel animal
-          .modal-body
-            .btn-group-vertical{"aria-label" => "...", :role => "group"}
-              %button.btn.btn-default{:type => "button"} Achat
-              %button.btn.btn-default{:type => "button"} Pension
-              %button.btn.btn-default{:type => "button"} Naissance
-              %button.btn.btn-default{:type => "button"} D&eacute;claration
+      = modal_header("Nouvel animal")
+      .modal-body
+        .btn-group-vertical{"aria-label" => "...", :role => "group"}
+          %button.btn.btn-default{:type => "button"} Achat
+          %button.btn.btn-default{:type => "button"} Pension
+          %button.btn.btn-default{:type => "button"} Naissance
+          %button.btn.btn-default{:type => "button"} D&eacute;claration
 
     = modal(id: "new-action-animal", "aria-hidden" => "true", "aria-labelledby" => "newActionAnimal") do
-      .modal-dialog
-        .modal-content
-          .modal-header
-            %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-              %span{"aria-hidden" => "true"} &times;
-            %h4#newAnimalTitle.modal-title Nouvelle action
-          .modal-body
-            .btn-group-vertical{"aria-label" => "...", :role => "group"}
-              %button.btn.btn-default{:type => "button"} Vendre
-              %button.btn.btn-default{:type => "button"} Vacciner
+      = modal_header("Nouvelle action")
+      .modal-body
+        .btn-group-vertical{"aria-label" => "...", :role => "group"}
+          %button.btn.btn-default{:type => "button"} Vendre
+          %button.btn.btn-default{:type => "button"} Vacciner
 
     = modal(id: "new-group", "aria-hidden" => "true", "aria-labelledby" => "newGroup", data: {bind: "modal: showNewGroupModal(), with: newGroupModalOptions"}) do
-      .modal-dialog
-        .modal-content
-          .modal-header
-            %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-              %span{"aria-hidden" => "true"} &times;
-            %h4#newGroupTitle.modal-title Nouveau Troupeau
-          .modal-body
-            %label Nom:
-            %input{:type => "text", data: { bind: "value: group"}}
-          .modal-footer
-            %button.btn.btn-default{:type => "button", data: {bind: "click: $root.addGroup"}}
-              %i.icon.icon-plus-circle Ajouter
-            %button.close.btn.btn-default{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"} Annuler
+      = modal_header("Nouveau Troupeau")
+      .modal-body
+        %label Nom:
+        %input{:type => "text", data: { bind: "value: group"}}
+      .modal-footer
+        %button.btn.btn-default{:type => "button", data: {bind: "click: $root.addGroup"}}
+          %i.icon.icon-plus-circle Ajouter
+        %button.close.btn.btn-default{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"} Annuler
 
     = modal(id: "move-animal", "aria-hidden" => "true", "aria-labelledby" => "moveAnimal", data: {bind: "modal: showMoveAnimalModal(), with: moveAnimalModalOptions"}) do
-      .modal-dialog
-        .modal-content
-          .modal-header
-            %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-              %span{"aria-hidden" => "true"} &times;
-            %h4#moveAnimalTitle.modal-title Déplacement
-          .modal-body
-            %p Les animaux à déplacer:
-            %div{ data: {bind: 'foreach: animals()'}}
-              %p{ data: {bind: 'text: name'} }
-            %div{ data: {bind: 'if: $data.group' } }
-              %span Groupe:
-              %p{ data: {bind: 'text: $data.group().name'}}
-            %div{ data: {bind: 'if: $data.container' } }
-              %span Container:
-              %p{ data: {bind: 'text: $data.container().name'}}
-            %form
-              .form-group
-                %label{for: "started_at"} Date Début
-                %input{id: "started_at", :type => "date", data: { bind: "value: $root.moveAnimalModalOptions.started_at"}}
-              .form-group
-                %label{for: "stopped_at"} Date Fin
-                %input{id: "stopped_at", :type => "date", data: { bind: "value: $root.moveAnimalModalOptions.stopped_at"}}
-              .form-group
-                %label{for: "worker"} Soigneur
-                %select{data: { bind: "options: $root.workers_list,
-                  optionsText: 'name',
-                  value: $root.moveAnimalModalOptions.worker,
-                  optionsCaption: 'Choisir...'" } }
-              .form-group
-                %label{for: "nature"} Nature
-                %select{data: { bind: "options: $root.natures_list,
-                  optionsText: 'name',
-                  value: $root.moveAnimalModalOptions.variant,
-                  optionsCaption: 'Choisir...'" } }
-          .modal-footer
-            %button.btn.btn-default{:type => "button", data: {bind: "click: $root.moveAnimals"}}
-              %i.icon.icon-plus-circle Déplacer
-            %button.close.btn.btn-default{"aria-label" => "Close", :type => "button", data: {bind: "click: $root.cancelAnimalsMoving"}} Annuler le déplacement
+      = modal_header("Déplacement")
+      .modal-body
+        %p Les animaux à déplacer:
+        %div{ data: {bind: 'foreach: animals()'}}
+          %p{ data: {bind: 'text: name'} }
+        %div{ data: {bind: 'if: $data.group' } }
+          %span Groupe:
+          %p{ data: {bind: 'text: $data.group().name'}}
+        %div{ data: {bind: 'if: $data.container' } }
+          %span Container:
+          %p{ data: {bind: 'text: $data.container().name'}}
+        %form
+          .form-group
+            %label{for: "started_at"} Date Début
+            %input{id: "started_at", :type => "date", data: { bind: "value: $root.moveAnimalModalOptions.started_at"}}
+          .form-group
+            %label{for: "stopped_at"} Date Fin
+            %input{id: "stopped_at", :type => "date", data: { bind: "value: $root.moveAnimalModalOptions.stopped_at"}}
+          .form-group
+            %label{for: "worker"} Soigneur
+            %select{data: { bind: "options: $root.workers_list,
+              optionsText: 'name',
+              value: $root.moveAnimalModalOptions.worker,
+              optionsCaption: 'Choisir...'" } }
+          .form-group
+            %label{for: "nature"} Nature
+            %select{data: { bind: "options: $root.natures_list,
+              optionsText: 'name',
+              value: $root.moveAnimalModalOptions.variant,
+              optionsCaption: 'Choisir...'" } }
+      .modal-footer
+        %button.btn.btn-default{:type => "button", data: {bind: "click: $root.moveAnimals"}}
+          %i.icon.icon-plus-circle Déplacer
+        %button.close.btn.btn-default{"aria-label" => "Close", :type => "button", data: {bind: "click: $root.cancelAnimalsMoving"}} Annuler le déplacement
 
     = modal(id: "new-container", "aria-hidden" => "true", "aria-labelledby" => "newContainer", data: {bind: "modal: showNewContainerModal(), with: containerModalOptions"}) do
-      .modal-dialog
-        .modal-content
-          .modal-header
-            %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-              %span{"aria-hidden" => "true"} &times;
-            %h4#newContainerTitle.modal-title Ajouter un emplacement
-          .modal-body
-            %select{data: { bind: "options: $root.containers_list,
-              optionsText: 'name',
-              value: $root.newContainer,
-              optionsCaption: 'Choisir...'" } }
-            %div{data: {bind: 'foreach: $root.droppedAnimals'}}
-              %div{data: {bind: 'text: $data.name'}}
-          .modal-footer
-            %button.btn.btn-default{:type => "button", data: {bind: "click: $root.addContainer"}}
-              %i.icon.icon-plus-circle Ajouter
-            %button.close.btn.btn-default{"aria-label" => "Close", :type => "button", data: {bind: "click: $root.cancelContainerAdding"}} Annuler l'ajout
+      = modal_header("Ajouter un emplacement")
+      .modal-body
+        %select{data: { bind: "options: $root.containers_list,
+          optionsText: 'name',
+          value: $root.newContainer,
+          optionsCaption: 'Choisir...'" } }
+        %div{data: {bind: 'foreach: $root.droppedAnimals'}}
+          %div{data: {bind: 'text: $data.name'}}
+      .modal-footer
+        %button.btn.btn-default{:type => "button", data: {bind: "click: $root.addContainer"}}
+          %i.icon.icon-plus-circle Ajouter
+        %button.close.btn.btn-default{"aria-label" => "Close", :type => "button", data: {bind: "click: $root.cancelContainerAdding"}} Annuler l'ajout
 
     = modal("aria-hidden" => "true", "aria-labelledby" => "viewAnimal", "data-bind" => "modal: showAnimalDetailsModal(), with: animalDetailsModalOptions") do
-      .modal-dialog
-        .modal-content
-          .modal-header
-            %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-              %span{"aria-hidden" => "true"} &times;
-            %h4.modal-title Détails de l'animal
-          .modal-body
-            .row
-              .col-md-3
-                -# %img.img-responsive{"data-bind" => "attr: {src: img}"}
-              .col-md-9
-                %p
-                  Nom:
-                  %span{"data-bind" => "text: name"}
-                %p
-                  Sexe:
-                  %i.icon{data: {bind: "css: animalSexClass"}}
-                %p
-                  Status:
-                  %span{"data-bind" => "css: animalFlagClass"}
-          .modal-footer
-            %button.btn.btn-link{:type => "button"}
-              %i.icon.icon-plus-circle
-              Plus d'infos
+      = modal_header("Détails de l'animal")
+      .modal-body
+        .row
+          .col-md-3
+            -# %img.img-responsive{"data-bind" => "attr: {src: img}"}
+          .col-md-9
+            %p
+              Nom:
+              %span{"data-bind" => "text: name"}
+            %p
+              Sexe:
+              %i.icon{data: {bind: "css: animalSexClass"}}
+            %p
+              Status:
+              %span{"data-bind" => "css: animalFlagClass"}
+      .modal-footer
+        %button.btn.btn-link{:type => "button"}
+          %i.icon.icon-plus-circle
+          Plus d'infos

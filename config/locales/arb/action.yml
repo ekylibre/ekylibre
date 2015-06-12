@@ -95,6 +95,8 @@ arb:
       # index: "Catalogs"
       # new: "New catalog"
       # show: "Catalog: %{name}"
+    backend/cells/stewardship_cells:
+      # show: "Stewardship cell: %{name}"
     backend/companies:  #?
       register: "تسجيل شركة" #?
     backend/company:  #?
@@ -970,6 +972,10 @@ arb:
     counts_by_nature: "عدد ونوع السجلات"
     create: "انشاء"
     create_journal: "-- انشاء دفتر يومي --"
+    # create_or_import_equipments: "Create or import equipments"
+    # create_or_import_incoming_deliveries: "Create or import incoming deliveries"
+    # create_or_import_interventions: "Create or import interventions"
+    # create_or_import_workers: "Create or import workers"
     created_at: "انشأ في"
     # created_at_by: "Created at %{at} by %{author}"
     created_between: "تم التسجيل بين %{started_at} و %{stopped_at}"
@@ -985,6 +991,7 @@ arb:
     csv_statistics: "نموذج احصائيات القيمة النقدية" #?
     # cultivable_zone: "Cultivable zone"
     # cultivable_zone_abbreviation: "CZ"
+    # cultivable_zones: "Cultivable zones"
     cumul: "رقم الرصيد التراكمي الكلي والسابق%{number}"
     current: "الحالية"
     # current_cultivation: "Current cultivation"
@@ -1027,6 +1034,7 @@ arb:
     deposit_update: "تعديل اقتطاعات البنك" #?
     depositable: "تكملة المعلومات" #?
     # depositable_options: "Deposit options"
+    # deposits: "Deposits"
     # depreciation: "Depreciation"
     # depreciations: "Depreciations"
     description: "الوصف"
@@ -1079,6 +1087,7 @@ arb:
     entity_create: "انشاء سجل جديد" #?
     entity_link_create: "اضافة رابط جديد" #?
     entity_link_nature_create: "اضافة نوع رابط جديد" #?
+    # entity_links: "Entity links"
     entity_nature_create: "اضافة نوع ملف جديد" #?
     entity_print: "طباعة الملف" #?
     entity_to_delete: "( دمج التكرار (وجعله يختفي"
@@ -1108,6 +1117,7 @@ arb:
       one: "حدث واحد" #? String excepted (Hash:{:one=>"حدث واحد", :other=>"%{count} احداث اخرى", :zero=>"ولا حدث"})
       other: "%{count} احداث اخرى" #? String excepted (Hash:{:one=>"حدث واحد", :other=>"%{count} احداث اخرى", :zero=>"ولا حدث"})
       zero: "ولا حدث" #? String excepted (Hash:{:one=>"حدث واحد", :other=>"%{count} احداث اخرى", :zero=>"ولا حدث"})
+    # evolution: "Evolution"
     example: "مثال&nbsp;: %{value}"
     # exchange: "Exchange"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
@@ -1285,6 +1295,7 @@ arb:
       other: "%{count} بريد الكتروني اخر"
       zero: "ولا بريد الكتروني "
     # main_settings: "Main settings"
+    # make_your_production_support: "Make your production support"
     management: "ادارة الاعمال" #?
     management_index: "دليل ادارة الاعمال" #?
     mandate_create: "انشاء تفويض" #?
@@ -1310,14 +1321,14 @@ arb:
       stock_transfers: "تحويلات الاسهم والضائع منها" #?
       stocks_tasks: "الاسهم" #?
       tools: "الادوات" #?
-    menus:  #?
-      accountancy: "المحاسبة" #?
-      finances: "المالية" #?
-      general: "شركة" #?
-      home: "إستقبال" #?
-      production: "المنتج" #?
-      relations: "العلاقات" #?
-      trade: "التجارة" #?
+    menus:  #? String excepted (Hash:{:accountancy=>"المحاسبة", :finances=>"المالية", :general=>"شركة", :home=>"إستقبال", :production=>"المنتج", :relations=>"العلاقات", :trade=>"التجارة"})
+      accountancy: "المحاسبة" #? String excepted (Hash:{:accountancy=>"المحاسبة", :finances=>"المالية", :general=>"شركة", :home=>"إستقبال", :production=>"المنتج", :relations=>"العلاقات", :trade=>"التجارة"})
+      finances: "المالية" #? String excepted (Hash:{:accountancy=>"المحاسبة", :finances=>"المالية", :general=>"شركة", :home=>"إستقبال", :production=>"المنتج", :relations=>"العلاقات", :trade=>"التجارة"})
+      general: "شركة" #? String excepted (Hash:{:accountancy=>"المحاسبة", :finances=>"المالية", :general=>"شركة", :home=>"إستقبال", :production=>"المنتج", :relations=>"العلاقات", :trade=>"التجارة"})
+      home: "إستقبال" #? String excepted (Hash:{:accountancy=>"المحاسبة", :finances=>"المالية", :general=>"شركة", :home=>"إستقبال", :production=>"المنتج", :relations=>"العلاقات", :trade=>"التجارة"})
+      production: "المنتج" #? String excepted (Hash:{:accountancy=>"المحاسبة", :finances=>"المالية", :general=>"شركة", :home=>"إستقبال", :production=>"المنتج", :relations=>"العلاقات", :trade=>"التجارة"})
+      relations: "العلاقات" #? String excepted (Hash:{:accountancy=>"المحاسبة", :finances=>"المالية", :general=>"شركة", :home=>"إستقبال", :production=>"المنتج", :relations=>"العلاقات", :trade=>"التجارة"})
+      trade: "التجارة" #? String excepted (Hash:{:accountancy=>"المحاسبة", :finances=>"المالية", :general=>"شركة", :home=>"إستقبال", :production=>"المنتج", :relations=>"العلاقات", :trade=>"التجارة"})
     merge: "دمج"
     # method: "Method"
     # minimal_temperature: "Minimal temperature"
@@ -1412,6 +1423,9 @@ arb:
     observation_create: "اضافة ملاحظة" #?
     on_account: "أ€ يضع على الحساب"
     one_condition: "ما لا يقل عن شرط واحد"
+    # open_a_campaign: "Open a campaign"
+    # open_a_production: "Open a production"
+    # open_an_activity: "Open an activity"
     operation: "" #?
     operation_create: "اضافة عمل" #?
     operation_nature_create: "انشاء نوع عمل جديد" #?
@@ -1434,6 +1448,7 @@ arb:
     outgoing_payment_create: "اضافة نفقة" #?
     outgoing_payment_update: "تعديل دفعة الشراء" #?
     outgoing_payment_use_create: "تسديد سعر الشراء" #?
+    # outgoing_payments: "Outgoing payments"
     overflow: "فائض رصيد الدائن" #?
     page_title: "%{company_code} - %{menu} - %{action}"
     page_title_by_default: "Ekylibre - %{action}"
@@ -1666,6 +1681,7 @@ arb:
     # simplified_linear_options: "Simplified linear options"
     # simulator: "Simulator"
     source: "مصدر البيانات"
+    # spraying_map: "Spraying map"
     start: "ابتداء من"
     # start_new_intervention_here: "Start new intervention here"
     state: "الحالة"
@@ -1703,6 +1719,7 @@ arb:
     # supports_chart: "Supports chart"
     synthesis: "تجميع الوثائق"
     # target: "Target"
+    # tasks: "Tasks"
     tax_create: "اضافة ضريبة جديدة" #?
     tax_declaration_create: "اضافة تصريح جديد" #?
     # taxations: "Taxations"
@@ -1819,6 +1836,7 @@ arb:
     # wind_speed: "Wind speed"
     # with_fixed_assets_depreciations: "With fixed assets depreciations"
     with_prints: "(وتشمل الطباعة (الفواتير والاوامر" #?
+    # workers: "Workers"
     # working_duration: "Working duration"
     # working_sets_stocks: "Working sets stocks"
     x_cashes:

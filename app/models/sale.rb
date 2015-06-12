@@ -130,7 +130,7 @@ class Sale < Ekylibre::Record::Base
     event :correct do
       transition :estimate => :draft
       transition :refused => :draft
-      transition :order => :draft, if: lambda{|sale| !sale.partially_closed?}
+      transition :order => :draft#, if: lambda{|sale| !sale.partially_closed?}
     end
     event :refuse do
       transition :estimate => :refused, if: :has_content?

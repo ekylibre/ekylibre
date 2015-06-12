@@ -1736,6 +1736,9 @@
       <item name="animals">
         <page to="backend/animals#add_group"/>
       </item>
+      <item name="stewardship_cells">
+        <page to="backend/cells/stewardship_cells#show"/>
+      </item>
     </group>
   </untreated-actions>
 </navigation>

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # = Informations
 #
 # == License
@@ -68,14 +67,14 @@ class Intervention < Ekylibre::Record::Base
   has_one :activity, through: :production
   has_one :campaign, through: :production
   has_one :storage, through: :production_support
-  enumerize :reference_name, in: Procedo.names.sort
+  enumerize :reference_name, in: (Procedo.names + ["base-animal_changing-0"]).sort
   enumerize :state, in: [:undone, :squeezed, :in_progress, :done], default: :undone, predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_inclusion_of :provisional, :recommended, in: [true, false]
   validates_presence_of :natures, :production, :reference_name, :state
   #]VALIDATORS]
-  validates_inclusion_of :reference_name, in: self.reference_name.values
+  # validates_inclusion_of :reference_name, in: self.reference_name.values
   validates_presence_of  :started_at, :stopped_at
   validates_presence_of :recommender, if: :recommended?
 
@@ -133,7 +132,6 @@ class Intervention < Ekylibre::Record::Base
     if p = self.reference
       self.natures = p.natures.sort.join(" ")
     end
-    self.natures = self.natures.to_s.strip.split(/[\s\,]+/).sort.join(" ")
     # set production_id
     if self.production_support
       self.production_id ||= self.production_support.production_id
@@ -156,8 +154,11 @@ class Intervention < Ekylibre::Record::Base
   end
 
   before_save do
-    if self.duration < self.reference.fixed_duration
-      self.stopped_at += self.reference.fixed_duration
+    self.natures = self.natures.to_s.strip.split(/[\s\,]+/).sort.join(" ")
+    if self.reference
+      if self.duration < self.reference.fixed_duration
+        self.stopped_at += self.reference.fixed_duration
+      end
     end
     columns = {name: self.name, started_at: self.started_at, stopped_at: self.stopped_at, nature: :production_intervention}
     if self.event
@@ -186,7 +187,7 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def name
-    tc(:name, intervention: self.reference.human_name, number: self.number)
+    tc(:name, intervention: (self.reference ? self.reference.human_name : "procedures.#{self.reference_name}".t(default: self.reference_name.humanize)), number: self.number)
   end
 
   def start_time
@@ -238,12 +239,12 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def need_parameters?
-    self.reference.need_parameters?
+    self.reference and self.reference.need_parameters?
   end
 
 
   def runnable?
-    return false unless self.undone?
+    return false unless self.undone? and self.reference
     valid = true
     for variable in self.reference.variables.values
       unless cast = self.casts.find_by(reference_name: variable.name) and cast.runnable?
@@ -257,6 +258,7 @@ class Intervention < Ekylibre::Record::Base
   def run!(period = {}, parameters = {})
     # TODO raise something unless runnable?
     # raise StandardError unless self.runnable?
+    raise "Cannot run intervention without reference procedure" unless self.reference
     self.class.transaction do
       self.state = :in_progress
       self.parameters = parameters.with_indifferent_access if parameters
@@ -341,13 +343,19 @@ class Intervention < Ekylibre::Record::Base
     # In next versions, all intervention will be considered as mono-operation and truly atomic.
     def write(*natures)
       options = natures.extract_options!
-      options[:reference_name] ||= "base-#{natures.first}-0"
+      options[:namespace] ||= "base"
+      options[:short_name] ||= natures.first
+      options[:version] ||= 0
+      unless options.has_key? :reference_name
+        options[:reference_name] = "#{options[:namespace]}-#{options[:short_name]}-#{options[:version]}"
+      end
 
       transaction do
         attrs = options.slice(:reference_name, :description, :issue_id, :prescription_id, :production, :production_support, :recommender_id, :started_at, :stopped_at)
         attrs[:started_at] ||= Time.now
         attrs[:stopped_at] ||= Time.now
         attrs[:natures] = natures.join(" ")
+        puts attrs.inspect.red
         recorder = Intervention::Recorder.new(attrs)
 
         yield recorder
@@ -359,7 +367,7 @@ class Intervention < Ekylibre::Record::Base
 
     # match
     # Returns an array of procedures matching the given actors ordered by relevance
-    # whose structure is [[procedure, relevance, arity], [procedure, relevance, arity], …]
+    # whose structure is [[procedure, relevance, arity], [procedure, relevance, arity], ...]
     # where 'procedure' is a Procedo::Procedure object, 'relevance' is a float, 'arity' is the number of actors
     # matched in the procedure
     # ==== parameters:
