@@ -90,7 +90,7 @@ class Backend::AnimalsController < Backend::MattersController
 
     Animal.select(:id, :name, :identification_number, :nature_id, :dead_at).each do |a|
       if a.container.nil? or a.memberships.length == 0
-        without_container << { animal: a }
+        without_container << { animal: a.to_json(:methods => [:picture_path, :sex_text, :status]) }
       end
     end
 

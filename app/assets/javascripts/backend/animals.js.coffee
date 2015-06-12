@@ -448,7 +448,8 @@
 
             ko.utils.arrayForEach j.others, (other) =>
               if other.animal
-                window.app.animals.push new dashboardViewModel.Animal(other.animal.id, other.animal.name, '', '', '', other.animal.identification_number, 0, 0)
+                animal = $.parseJSON(other.animal)
+                window.app.animals.push new dashboardViewModel.Animal(animal.id, animal.name, '', animal.status, animal.sex_text, animal.identification_number, 0, 0)
 
 
         window.loadPreferences()
