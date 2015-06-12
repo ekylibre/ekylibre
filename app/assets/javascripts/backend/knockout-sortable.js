@@ -23,6 +23,7 @@
         CONTAINERKEY = "ko_containerItem",
         GROUPKEY = "ko_groupItem",
         PARENTGROUPKEY = "ko_parentGroupItem",
+        sortableIn = 0;
         unwrap = ko.utils.unwrapObservable,
         dataGet = ko.utils.domData.get,
         dataSet = ko.utils.domData.set,
@@ -143,7 +144,6 @@
                 templateOptions = prepareTemplateOptions(valueAccessor, "foreach"),
                 sortable = {},
                 startActual, updateActual;
-            var sortableIn = 0;
 
             stripTemplateWhitespace(element, templateOptions.name);
 
@@ -261,6 +261,7 @@
 
                             ui.item.data('items', el);
                             $('.animal-container .body .animal-dropzone').addClass('grow-empty-zone');
+                            $('.add-container').css('display','block');
                             $('.add-container').addClass('grow-empty-zone');
 
                         }
@@ -338,6 +339,7 @@
 
                          $('.animal-container .body .animal-dropzone').removeClass('grow-empty-zone');
                          $('.add-container').removeClass('grow-empty-zone');
+                         $('.add-container').css('display','none');
 
                          if(dataGet(el,GROUPKEY) != undefined)
                          {
@@ -515,6 +517,8 @@
             dropActual = droppable.options.drop;
 
             $element.droppable(ko.utils.extend(droppable.options, {
+                out: function(e, ui) {
+                },
                 over: function( e, ui ){
                     var container;
                     if((container = dataGet($(this)[0], CONTAINERKEY)))
@@ -528,23 +532,24 @@
                         item = dataGet(el, ITEMKEY) || dataGet(el, DRAGKEY);
 
 
-                    if (item && item.clone)
-                        item = item.clone();
+                    if(!sortableIn)
+                    {
+                        if (item && item.clone)
+                            item = item.clone();
 
-                    if (item) {
-                        sourceParent = dataGet(el, PARENTKEY);
+                        if (item) {
 
-                        targetGroup = dataGet($(this).closest('.animal-group')[0], GROUPKEY);
-                        targetParent = droppable.data;
-
-
-                        window.app.droppedAnimals.push(item);
-
-                        window.app.toggleNewContainerModal(targetGroup);
+                            targetGroup = dataGet($(this).closest('.animal-group')[0], GROUPKEY);
 
 
-                        if (dropActual) {
-                            dropActual.apply(this, arguments);
+                            window.app.droppedAnimals.push(item);
+
+                            window.app.toggleNewContainerModal(targetGroup);
+
+
+                            if (dropActual) {
+                                dropActual.apply(this, arguments);
+                            }
                         }
                     }
                 }

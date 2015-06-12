@@ -133,6 +133,8 @@
       @toggleNewContainerModal = (group) =>
         @containerModalOptions group.id
         @showNewContainerModal true
+        #Be sure only one modal is displayed
+        @showMoveAnimalModal false
         $.ajax '/backend/animals/load_containers',
           type: 'GET',
           dataType: 'JSON',
