@@ -37,7 +37,7 @@ por:
         # last_of_template: "Last of template"
         # none: "None of type"
         # none_of_template: "None of template"
-    entities:
+    entity:
       nature:
         contact: "Contato"
         organization: "Organização"

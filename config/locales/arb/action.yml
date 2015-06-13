@@ -1113,7 +1113,7 @@ arb:
     # evaluated_tool_cost: "Evaluated tool cost"
     event_create: "اضافة حدث" #?
     event_nature_create: "اضافة نوع الحدث" #?
-    events:  #? String excepted (Hash:{:one=>"حدث واحد", :other=>"%{count} احداث اخرى", :zero=>"ولا حدث"})
+    x_events:  #? String excepted (Hash:{:one=>"حدث واحد", :other=>"%{count} احداث اخرى", :zero=>"ولا حدث"})
       one: "حدث واحد" #? String excepted (Hash:{:one=>"حدث واحد", :other=>"%{count} احداث اخرى", :zero=>"ولا حدث"})
       other: "%{count} احداث اخرى" #? String excepted (Hash:{:one=>"حدث واحد", :other=>"%{count} احداث اخرى", :zero=>"ولا حدث"})
       zero: "ولا حدث" #? String excepted (Hash:{:one=>"حدث واحد", :other=>"%{count} احداث اخرى", :zero=>"ولا حدث"})
