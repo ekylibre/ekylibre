@@ -90,6 +90,7 @@
 entities_001:
   active: true
   activity_code: ''
+  born_at: 2015-01-06 09:00:00.000000000 Z
   client: false
   country: fr
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -99,9 +100,9 @@ entities_001:
   first_name: ''
   full_name: C. Ferstivall LTD
   id: 1
-  language: eng
+  language: fra
   last_name: C. Ferstivall LTD
-  lock_version: 11
+  lock_version: 12
   locked: false
   meeting_origin: ''
   nature: organization
@@ -116,7 +117,7 @@ entities_001:
   siren: ''
   supplier: false
   transporter: false
-  updated_at: 2014-11-07 15:13:53.028918000 Z
+  updated_at: 2015-06-13 09:45:03.481910000 Z
   updater_id: 1
   vat_number: FR00123456789
   vat_subjected: true
@@ -279,6 +280,7 @@ entities_008:
   activity_code: ''
   client: true
   client_account_id: 202
+  country: fr
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
@@ -288,7 +290,7 @@ entities_008:
   id: 8
   language: fra
   last_name: Yuey LTD
-  lock_version: 2
+  lock_version: 3
   locked: false
   meeting_origin: ''
   nature: organization
@@ -296,11 +298,11 @@ entities_008:
   of_company: false
   prospect: false
   reminder_submissive: false
-  siren: ''
+  siren: '123698745'
   supplier: true
   supplier_account_id: 207
   transporter: false
-  updated_at: 2014-11-03 11:29:45.623972000 Z
+  updated_at: 2015-06-13 09:43:31.283068000 Z
   updater_id: 1
   vat_number: ''
   vat_subjected: true

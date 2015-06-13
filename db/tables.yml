@@ -5279,6 +5279,7 @@ tasks:
     type: text
   due_at:
     type: datetime
+    required: true
   entity_id:
     type: integer
     references: entity

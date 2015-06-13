@@ -153,9 +153,13 @@ eng:
         quantity: "Subscription by number"
     task:
       nature:
-        call: "Call"
         document: "Document"
-        mail: "Mail"
+        incoming_call: "Incoming call"
+        incoming_email: "Incoming email"
+        incoming_mail: "Incoming mail"
+        outgoing_call: "Outgoing call"
+        outgoing_email: "Outgoing email"
+        outgoing_mail: "Outgoing mail"
         quote: "Quote"
     tax:
       nature:

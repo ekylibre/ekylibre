@@ -154,9 +154,13 @@ fra:
         quantity: "Par numéros"
     task:
       nature:
-        call: "Appel"
         document: "Document"
-        mail: "Courrier"
+        incoming_call: "Appel entrant"
+        incoming_email: "Courriel entrant"
+        incoming_mail: "Courrier entrant"
+        outgoing_call: "Appel sortant"
+        outgoing_email: "Courriel sortant"
+        outgoing_mail: "Courrier sortant"
         quote: "Évaluation"
     tax:
       nature:

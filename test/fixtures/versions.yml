@@ -10859,3 +10859,110 @@ versions_213:
     created_at: 2015-06-06 22:22:24.435582000 Z
     creator_id: 1
   item_type: Task
+versions_214:
+  created_at: 2015-06-13 09:43:31.288690000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 251
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    type: LegalEntity
+    nature: company
+    country:
+    siren: ''
+    of_company: true
+    title:
+  item_id: 8
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 8
+    nature: organization
+    last_name: Yuey LTD
+    first_name: ''
+    number: '3'
+    active: true
+    born_at:
+    dead_at:
+    client: true
+    client_account_id: 202
+    supplier: true
+    supplier_account_id: 207
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: fra
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: '123698745'
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+    title:
+  item_type: Entity
+versions_215:
+  created_at: 2015-06-13 09:45:03.486337000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 252
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    type: Entity
+    nature: company
+    born_at:
+    language: eng
+    title:
+  item_id: 1
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 1
+    nature: organization
+    last_name: C. Ferstivall LTD
+    first_name: ''
+    number: '129'
+    active: true
+    born_at: 2015-01-06 09:00:00.000000000 Z
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: fra
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: FR00123456789
+    siren: ''
+    locked: false
+    of_company: true
+    picture_file_name: logo.png
+    picture_content_type: image/png
+    picture_file_size: 9354
+    picture_updated_at: 2014-11-03 16:19:14.889629000 Z
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+    title:
+  item_type: Entity

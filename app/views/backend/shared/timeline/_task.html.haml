@@ -1,4 +1,4 @@
-.log.log-with-content{class: "log-#{task.nature}"}
+.log.log-with-content{class: "log-#{task.nature.to_s.dasherize}"}
   .log-avatar= image_tag step.author.avatar_url(size: avatar_size)
   .log-wrapper
     .log-symbol
@@ -11,10 +11,14 @@
       = link_to(edit_backend_task_path(task, redirect: request.fullpath), class: "log-action log-action-edit") do
         %i
         = :edit.tl
-      - if task.call?
-        = :timeline_call.th(defaults)
-      - elsif task.mail? or task.email?
-        = :timeline_mail.th(defaults)
+      - if task.outgoing_call?
+        = :timeline_outgoing_call.th(defaults)
+      - elsif task.incoming_call?
+        = :timeline_incoming_call.th(defaults)
+      - elsif task.outgoing_mail? or task.outgoing_email?
+        = :timeline_outgoing_mail.th(defaults)
+      - elsif task.incoming_mail? or task.incoming_email?
+        = :timeline_incoming_mail.th(defaults)
       - else
         = :timeline_task.th(defaults)
 

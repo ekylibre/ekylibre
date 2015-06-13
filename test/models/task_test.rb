@@ -25,7 +25,7 @@
 #  created_at          :datetime         not null
 #  creator_id          :integer
 #  description         :text
-#  due_at              :datetime
+#  due_at              :datetime         not null
 #  entity_id           :integer          not null
 #  executor_id         :integer
 #  id                  :integer          not null, primary key

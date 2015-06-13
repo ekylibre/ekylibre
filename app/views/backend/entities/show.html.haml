@@ -26,7 +26,7 @@
         - l.side :incoming_payments, new: false
       - if resource.outgoing_payments.any? or resource.supplier?
         - l.side :outgoing_payments, new: false
-      - l.side :tasks, params: {entity_id: resource.id, executor_id: current_user.person_id, state: :todo}
+      - l.side :tasks, params: {entity_id: resource.id, executor_id: current_user.person_id, state: :todo}, at: :due_at
       - l.side :issues, params: {target_type: "Entity", nature: "issue", gravity: 2, priority: 2, without_geolocation: 1}
       - l.side :observations
       - l.side :direct_links

@@ -160,14 +160,20 @@
       &.log-product-phase .log-symbol {
         @include use-icon(share);
       }
-      &.log-call .log-symbol {
-        @include use-icon(phone);
+      &.log-incoming-call, &.log-outgoing-call {
+        .log-symbol {
+          @include use-icon(phone);
+        }
       }
-      &.log-mail .log-symbol {
-        @include use-icon(envelope-o);
+      &.log-incoming-mail, &.log-outgoing-mail {
+        .log-symbol {
+          @include use-icon(envelope-o);
+        }
       }
-      &.log-email .log-symbol {
-        @include use-icon(envelope-o);
+      &.log-incoming-email, &.log-outgoing-email {
+        .log-symbol {
+          @include use-icon(envelope-o);
+        }
       }
       &.log-document .log-symbol {
         @include use-icon(briefcase);
