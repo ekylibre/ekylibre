@@ -22,5 +22,14 @@
       html: true
     return
 
+  $(document).behave "load", "*[data-toggle='popover']", () ->
+    $(this).popover
+      trigger: "click"
+      placement: "bottom"
+      container: "#wrap"
+      content: $($(this).attr("href")).html()
+      html: true
+    return false
+
   return
 ) jQuery

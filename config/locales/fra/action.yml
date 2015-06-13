@@ -1405,6 +1405,9 @@ fra:
     refresh: "Rafraîchir"
     related_people: "En lien avec"
     relationship: "Tiers"
+    relationship_of_entity: "%{relationship} de %{entity}"
+    relationship_of_entity_as_inverse_post: "%{relationship} de %{entity} (%{inverse_post})"
+    relationship_of_entity_as_post: "%{post} de %{entity}"
     remove: "Supprimer"
     remove_item: "Supprimer un élément"
     remove_reading: "Supprimer un relevé d’indicateur" #?

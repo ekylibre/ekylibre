@@ -1,0 +1,22 @@
+- nature = Nomen::EntityLinkNatures.find(link.nature)
+- post, inverse_post = nil, nil
+- attrs = {}
+- if entity == link.entity
+  - linked = link_to(link.linked.full_name, {controller: :entities, action: :show, id: link.linked.id})
+  - relationship = nature.human_notion_name(:entity)
+  - post = link.post
+- else
+  - linked = link_to(link.entity.full_name, {controller: :entities, action: :show, id: link.entity.id})
+  - relationship = nature.human_notion_name(:linked)
+  - inverse_post = link.post
+- if post.blank? and inverse_post.blank?
+  = :relationship_of_entity.tl(entity: linked, relationship: relationship).html_safe
+- elsif inverse_post.blank?
+  = :relationship_of_entity_as_post.tl(entity: linked, relationship: relationship, post: post).html_safe
+- else
+  = :relationship_of_entity_as_inverse_post.tl(entity: linked, relationship: relationship, inverse_post: inverse_post).html_safe
+- unless popover.nil?
+  - id = "links-#{link.id}"
+  .popover{style: "display: none", id: id}= popover
+  = link_to("##{id}", data: {toggle: "popover"}, class: "info-action info-action-important") do
+    %i.icon.icon-link

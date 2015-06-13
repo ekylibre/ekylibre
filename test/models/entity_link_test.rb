@@ -22,20 +22,22 @@
 #
 # == Table: entity_links
 #
-#  created_at    :datetime         not null
-#  creator_id    :integer
-#  description   :text
-#  entity_1_id   :integer          not null
-#  entity_1_role :string           not null
-#  entity_2_id   :integer          not null
-#  entity_2_role :string           not null
-#  id            :integer          not null, primary key
-#  lock_version  :integer          default(0), not null
-#  nature        :string           not null
-#  started_at    :datetime
-#  stopped_at    :datetime
-#  updated_at    :datetime         not null
-#  updater_id    :integer
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  description  :text
+#  entity_id    :integer          not null
+#  entity_role  :string           not null
+#  id           :integer          not null, primary key
+#  linked_id    :integer          not null
+#  linked_role  :string           not null
+#  lock_version :integer          default(0), not null
+#  main         :boolean          default(FALSE), not null
+#  nature       :string           not null
+#  post         :string
+#  started_at   :datetime
+#  stopped_at   :datetime
+#  updated_at   :datetime         not null
+#  updater_id   :integer
 #
 
 

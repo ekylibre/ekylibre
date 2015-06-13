@@ -823,11 +823,28 @@ form.search {
     color: #777;
     // @include padding-right($default-gap);
   }
-  span.value {
-    &, & * {
-      font-weight: bold;
+  a {
+    &, * {
+      color: $link-color;
     }
   }
+  span.value {
+    color: $text-color;
+  }
+  .info-action {
+    opacity: 0;
+    @include transition(opacity 0.3s);
+    &.info-action-important {
+      opacity: 0.5;
+    }
+    i {
+      font-size: 14px;
+    }
+  }
+  &:hover .info-action {
+    opacity: 1;
+  }
+
 }
 
 .attributes-list {

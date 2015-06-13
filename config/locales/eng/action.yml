@@ -1259,8 +1259,11 @@ eng:
     reflected: "Reflected changes" #?
     reflections: "Reflections" #?
     refresh: "Refresh" #?
-    related_people: "Related people"
+    related_people: "Related people" #?!
     relationship: "Relationship"
+    relationship_of_entity: "%{relationship} of %{entity}"
+    relationship_of_entity_as_inverse_post: "%{relationship} of %{entity} (%{inverse_post})"
+    relationship_of_entity_as_post: "%{relationship} of %{entity} as %{post}"
     remove: "Remove"
     remove_item: "Remove item"
     remove_subscription: "Remove subscription"

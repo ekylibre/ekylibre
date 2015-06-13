@@ -501,6 +501,16 @@ namespace :clean do
         line = Clean::Support.exp(ref, nomenclature.name, :items, item.name.to_sym)
         translation << (item.root? ? line : line.ljust(50) + " #< #{item.parent.name}").dig(4)
       end
+      if nomenclature.notions.any?
+        translation << "      notions:\n"
+        nomenclature.notions.each do |notion|
+          translation << "        #{notion}:\n"
+          for item in nomenclature.list.sort{|a,b| a.name.to_s <=> b.name.to_s}
+            line = Clean::Support.exp(ref, nomenclature.name, :notions, notion, item.name.to_sym, default: "#{notion.to_s.humanize} of #{item.name.to_s.humanize}")
+            translation << line.dig(5)
+          end
+        end
+      end
     end
 
     File.open(file, "wb") do |file|

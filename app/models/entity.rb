@@ -90,13 +90,13 @@ class Entity < Ekylibre::Record::Base
   has_many :faxes,     -> { where(canal: "fax",     deleted_at: nil) }, class_name: "EntityAddress", inverse_of: :entity
   has_many :websites,  -> { where(canal: "website", deleted_at: nil) }, class_name: "EntityAddress", inverse_of: :entity
   has_many :auto_updateable_addresses, -> { where(deleted_at: nil, mail_auto_update: true) }, class_name: "EntityAddress"
-  has_many :direct_links, class_name: "EntityLink", foreign_key: :entity_1_id
+  has_many :direct_links, class_name: "EntityLink", foreign_key: :entity_id
   has_many :events, through: :participations
   has_many :gaps, dependent: :restrict_with_error
   has_many :issues, as: :target, dependent: :destroy
   has_many :godchildren, class_name: "Entity", foreign_key: "proposer_id"
   has_many :incoming_payments, foreign_key: :payer_id, inverse_of: :payer
-  has_many :indirect_links, class_name: "EntityLink", foreign_key: :entity_2_id
+  has_many :indirect_links, class_name: "EntityLink", foreign_key: :linked_id
   has_many :ownerships, class_name: "ProductOwnership", foreign_key: :owner_id
   has_many :participations, class_name: "EventParticipation", foreign_key: :participant_id
   has_many :prices, class_name: "ProductPriceTemplate"
@@ -143,7 +143,7 @@ class Entity < Ekylibre::Record::Base
   scope :transporters, -> { where(transporter: true) }
   scope :clients,      -> { where(client: true) }
   scope :related_to, lambda { |entity|
-    where("id IN (SELECT entity_2_id FROM #{EntityLink.table_name} WHERE entity_1_id = ?) OR id IN (SELECT entity_1_id FROM #{EntityLink.table_name} WHERE entity_2_id = ?)", entity.id, entity.id)
+    where("id IN (SELECT linked_id FROM #{EntityLink.table_name} WHERE entity_id = ?) OR id IN (SELECT entity_id FROM #{EntityLink.table_name} WHERE linked_id = ?)", entity.id, entity.id)
   }
   scope :users, -> { where(id: User.all.pluck(:person_id)) }
   scope :responsibles,  -> { contacts }
@@ -165,7 +165,7 @@ class Entity < Ekylibre::Record::Base
     self.first_name = self.first_name.to_s.strip
     self.last_name  = self.last_name.to_s.strip
     # FIXME: I18nize full name computation
-    self.full_name = (self.last_name.to_s + " " + self.first_name.to_s)
+    self.full_name = (self.title.to_s + " " + self.first_name.to_s + " " + self.last_name.to_s).strip
     # unless self.nature.nil?
     # self.full_name = (self.nature.title.to_s + ' ' + self.full_name).strip unless self.nature.in_name? # or self.nature.abbreviation == "-")
     # end
@@ -297,15 +297,15 @@ class Entity < Ekylibre::Record::Base
 
   def is_linked_to!(entity, options = {})
     nature = options[:as] || :undefined
-    unless self.direct_links.actives.where(nature: nature.to_s, entity_2_id: entity.id).any?
-      self.direct_links.create!(nature: nature.to_s, entity_2_id: entity.id)
+    unless self.direct_links.actives.where(nature: nature.to_s, linked_id: entity.id).any?
+      self.direct_links.create!(nature: nature.to_s, linked_id: entity.id)
     end
   end
 
   def maximal_reduction_percentage(computed_at = Date.today)
     return Subscription
-      .joins("JOIN #{SubscriptionNature.table_name} AS sn ON (#{Subscription.table_name}.nature_id = sn.id) LEFT JOIN #{EntityLink.table_name} AS el ON (el.nature = sn.entity_link_nature AND #{Subscription.table_name}.subscriber_id IN (entity_1_id, entity_2_id))")
-      .where("? IN (#{Subscription.table_name}.subscriber_id, entity_1_id, entity_2_id) AND ? BETWEEN #{Subscription.table_name}.started_at AND #{Subscription.table_name}.stopped_at AND COALESCE(#{Subscription.table_name}.sale_id, 0) NOT IN (SELECT id FROM #{Sale.table_name} WHERE state='estimate')", self.id, computed_at)
+      .joins("JOIN #{SubscriptionNature.table_name} AS sn ON (#{Subscription.table_name}.nature_id = sn.id) LEFT JOIN #{EntityLink.table_name} AS el ON (el.nature = sn.entity_link_nature AND #{Subscription.table_name}.subscriber_id IN (entity_id, linked_id))")
+      .where("? IN (#{Subscription.table_name}.subscriber_id, entity_id, linked_id) AND ? BETWEEN #{Subscription.table_name}.started_at AND #{Subscription.table_name}.stopped_at AND COALESCE(#{Subscription.table_name}.sale_id, 0) NOT IN (SELECT id FROM #{Sale.table_name} WHERE state='estimate')", self.id, computed_at)
       .maximum(:reduction_percentage).to_f || 0.0
   end
 

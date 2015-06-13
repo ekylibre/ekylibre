@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150613084318) do
+ActiveRecord::Schema.define(version: 20150613103941) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -690,27 +690,29 @@ ActiveRecord::Schema.define(version: 20150613084318) do
   add_index "entity_addresses", ["updater_id"], name: "index_entity_addresses_on_updater_id", using: :btree
 
   create_table "entity_links", force: :cascade do |t|
-    t.string   "nature",                    null: false
-    t.integer  "entity_1_id",               null: false
-    t.string   "entity_1_role",             null: false
-    t.integer  "entity_2_id",               null: false
-    t.string   "entity_2_role",             null: false
+    t.string   "nature",                       null: false
+    t.integer  "entity_id",                    null: false
+    t.string   "entity_role",                  null: false
+    t.integer  "linked_id",                    null: false
+    t.string   "linked_role",                  null: false
     t.datetime "started_at"
     t.datetime "stopped_at"
     t.text     "description"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",  default: 0, null: false
+    t.integer  "lock_version", default: 0,     null: false
+    t.string   "post"
+    t.boolean  "main",         default: false, null: false
   end
 
   add_index "entity_links", ["created_at"], name: "index_entity_links_on_created_at", using: :btree
   add_index "entity_links", ["creator_id"], name: "index_entity_links_on_creator_id", using: :btree
-  add_index "entity_links", ["entity_1_id"], name: "index_entity_links_on_entity_1_id", using: :btree
-  add_index "entity_links", ["entity_1_role"], name: "index_entity_links_on_entity_1_role", using: :btree
-  add_index "entity_links", ["entity_2_id"], name: "index_entity_links_on_entity_2_id", using: :btree
-  add_index "entity_links", ["entity_2_role"], name: "index_entity_links_on_entity_2_role", using: :btree
+  add_index "entity_links", ["entity_id"], name: "index_entity_links_on_entity_id", using: :btree
+  add_index "entity_links", ["entity_role"], name: "index_entity_links_on_entity_role", using: :btree
+  add_index "entity_links", ["linked_id"], name: "index_entity_links_on_linked_id", using: :btree
+  add_index "entity_links", ["linked_role"], name: "index_entity_links_on_linked_role", using: :btree
   add_index "entity_links", ["nature"], name: "index_entity_links_on_nature", using: :btree
   add_index "entity_links", ["updated_at"], name: "index_entity_links_on_updated_at", using: :btree
   add_index "entity_links", ["updater_id"], name: "index_entity_links_on_updater_id", using: :btree

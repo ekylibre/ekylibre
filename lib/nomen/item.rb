@@ -85,6 +85,11 @@ module Nomen
     end
     alias :humanize :human_name
 
+
+    def human_notion_name(notion_name, options = {})
+      "nomenclatures.#{nomenclature.name}.notions.#{notion_name}.#{name}".t(options.merge(default: ["labels.#{name}".to_sym]))
+    end
+
     def <=>(other)
       self.nomenclature.name <=> other.nomenclature.name and self.name <=> other.name
     end

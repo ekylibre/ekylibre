@@ -1113,10 +1113,7 @@ arb:
     # evaluated_tool_cost: "Evaluated tool cost"
     event_create: "اضافة حدث" #?
     event_nature_create: "اضافة نوع الحدث" #?
-    x_events:  #? String excepted (Hash:{:one=>"حدث واحد", :other=>"%{count} احداث اخرى", :zero=>"ولا حدث"})
-      one: "حدث واحد" #? String excepted (Hash:{:one=>"حدث واحد", :other=>"%{count} احداث اخرى", :zero=>"ولا حدث"})
-      other: "%{count} احداث اخرى" #? String excepted (Hash:{:one=>"حدث واحد", :other=>"%{count} احداث اخرى", :zero=>"ولا حدث"})
-      zero: "ولا حدث" #? String excepted (Hash:{:one=>"حدث واحد", :other=>"%{count} احداث اخرى", :zero=>"ولا حدث"})
+    # events: "Events"
     # evolution: "Evolution"
     example: "مثال&nbsp;: %{value}"
     # exchange: "Exchange"
@@ -1572,6 +1569,9 @@ arb:
     # related_people: "Related people"
     relations: "ادارة علاقات العملاء / والمموليين" #?
     # relationship: "Relationship"
+    # relationship_of_entity: "%{relationship} of %{entity}"
+    # relationship_of_entity_as_inverse_post: "%{relationship} of %{entity} (%{inverse_post})"
+    # relationship_of_entity_as_post: "%{relationship} of %{entity} as %{post}"
     # remove: "Remove"
     # remove_item: "Remove item"
     # remove_subscription: "Remove subscription"

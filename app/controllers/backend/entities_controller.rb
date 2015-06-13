@@ -80,12 +80,12 @@ class Backend::EntitiesController < Backend::BaseController
     t.column :deposit, url: true, hidden: true
   end
 
-  list(:links, model: :entity_links, conditions: ["#{EntityLink.table_name}.stopped_at IS NULL AND (#{EntityLink.table_name}.entity_1_id = ? OR #{EntityLink.table_name}.entity_2_id = ?)", 'params[:id]'.c, 'params[:id]'.c], :per_page => 5) do |t|
+  list(:links, model: :entity_links, conditions: ["#{EntityLink.table_name}.stopped_at IS NULL AND (#{EntityLink.table_name}.entity_id = ? OR #{EntityLink.table_name}.linked_id = ?)", 'params[:id]'.c, 'params[:id]'.c], :per_page => 5) do |t|
     t.action :edit
     t.action :destroy
-    t.column :entity_1, url: true
+    t.column :entity, url: true
     t.column :nature
-    t.column :entity_2, url: true
+    t.column :linked, url: true
     t.column :description, hidden: true
   end
 

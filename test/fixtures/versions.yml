@@ -10966,3 +10966,106 @@ versions_215:
     creator_id: 1
     title:
   item_type: Entity
+versions_216:
+  created_at: 2015-06-13 16:50:36.721997000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 253
+  item_id: 16
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 16
+    nature: organization
+    last_name: NERV
+    first_name: ''
+    number: P00000006
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: false
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: jpn
+    country: jp
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin:
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2015-06-13 16:50:36.717344000 Z
+    creator_id: 1
+    title:
+  item_type: Entity
+versions_217:
+  created_at: 2015-06-13 16:54:12.713262000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 254
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    type: Person
+    nature: person
+    deliveries_conditions:
+    language: eng
+    country:
+    meeting_origin:
+    of_company: true
+    title: Mme
+  item_id: 12
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 12
+    nature: contact
+    last_name: IKARI
+    first_name: Yui
+    number: P00000002
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: fra
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code:
+    vat_number:
+    siren:
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-11-03 16:56:06.570291000 Z
+    creator_id: 1
+    title: Mme
+  item_type: Entity
