@@ -1,2 +1,2 @@
-====== Liens entre personnes ======
-Les liens entre personnes permettent de donner une idées des relations que peuvent entretenir certaines personnes. Exemple: M. MARTIN //gère la société// MARTIN SA
+====== Liens entre tiers ======
+Les liens entre tiers permettent de donner une idées des relations que peuvent entretenir certaines personnes et organisations. Exemple: M. MARTIN //gère la société// MARTIN SA.

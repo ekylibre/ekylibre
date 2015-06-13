@@ -9163,7 +9163,7 @@ fra:
         ekylibre_bank_statements: "Relevé de banque - Ekylibre"
         ekylibre_budgets: "Budgets ‒ Ekylibre "
         ekylibre_cultivable_zones: "Zones cultivables (SHP/ZIP) ‒ Ekylibre"
-        ekylibre_entities: "Personnes ‒ Ekylibre"
+        ekylibre_entities: "Tiers ‒ Ekylibre"
         ekylibre_equipments: "Equipements ‒ Ekylibre"
         ekylibre_georeadings: "Relevés topographiques (SHP/ZIP) ‒ Ekylibre"
         ekylibre_incoming_payments: "Encaissements (CSV) - Ekylibre"

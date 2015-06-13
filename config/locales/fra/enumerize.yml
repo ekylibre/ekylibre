@@ -125,7 +125,7 @@ fra:
         cash_transfers: "Numérotation des virements internes"
         deposits: "Numérotation des remises en banque"
         documents: "Numérotation des documents"
-        entities: "Numérotation des personnes"
+        entities: "Numérotation des tiers"
         fixed_assets: "Numérotation des immobilisations"
         gaps: "Numérotation des écarts"
         incoming_deliveries: "Numérotation des bons de réceptions"

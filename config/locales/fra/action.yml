@@ -170,7 +170,7 @@ fra:
       edit: "Modifier la fiche\_: %{full_name}"
       export: "Exportation de fiches"
       import: "Importation de fiches"
-      index: "Personnes"
+      index: "Tiers"
       merge: "Fusionner un doublon à sa fiche d’origine"
       new: "Nouvelle fiche client/fournisseur"
       picture: "Portrait" #?
@@ -936,8 +936,8 @@ fra:
     employee: "Employé" #?
     employee_name: "Employé" #?
     end: "au"
-    entities: "Personnes"
-    entity: "Personne"
+    entities: "Tiers"
+    entity: "Tiers"
     entity_links: "Liens entre entité"
     entity_to_delete: "Doublon à fusionner (et faire disparaitre)"
     entity_to_update: "Fiche à mettre à jour avec les éléments du doublon"
