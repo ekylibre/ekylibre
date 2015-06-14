@@ -1422,18 +1422,34 @@ spa:
         # category: "Category"
     entity_link_natures:
       items:
-        # association: "Association"
         # collaboration: "Collaboration"
-        # cooperation: "Cooperation"
         # direct_kinship: "Direct kinship"
-        # management: "Management"
+        # hierarchy: "Hierarchy"
+        # membership: "Membership"
+        # sibling_kinship: "Sibling kinship"
         # transform: "Transform"
         # undefined: "Undefined"
-        # work: "Work"
       # name: "Entity link natures"
+      notions:
+        entity:
+          # collaboration: "Collaborator"
+          # direct_kinship: "Parent"
+          # hierarchy: "Manager"
+          # membership: "Member"
+          # sibling_kinship: "Sibling"
+          # transform: "Old organization"
+          # undefined: "Acquaintance"
+        linked:
+          # collaboration: "Collaborator"
+          # direct_kinship: "Child"
+          # hierarchy: "Managee"
+          # membership: "Organization"
+          # sibling_kinship: "Sibling"
+          # transform: "New organization"
+          # undefined: "Acquaintance"
       property_natures:
-        # entity_1: "Entity 1"
-        # entity_2: "Entity 2"
+        # entity: "Entity"
+        # linked: "Linked"
         # symmetric: "Symmetric"
     event_natures:
       items:

@@ -89,7 +89,7 @@
 
   - if resource.intervention_casts.any?
     - c.cobble(:intervention_casts) do
-      = list(:intervention_casts)
+      = cobble_list(:intervention_casts)
 
   - c.cobble(:readings, title: :x_readings.tl(count: resource.readings.count)) do
-    = list(:readings)
+    = cobble_list(:readings)

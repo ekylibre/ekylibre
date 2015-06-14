@@ -1113,10 +1113,7 @@ arb:
     # evaluated_tool_cost: "Evaluated tool cost"
     event_create: "اضافة حدث" #?
     event_nature_create: "اضافة نوع الحدث" #?
-    events:  #? String excepted (Hash:{:one=>"حدث واحد", :other=>"%{count} احداث اخرى", :zero=>"ولا حدث"})
-      one: "حدث واحد" #? String excepted (Hash:{:one=>"حدث واحد", :other=>"%{count} احداث اخرى", :zero=>"ولا حدث"})
-      other: "%{count} احداث اخرى" #? String excepted (Hash:{:one=>"حدث واحد", :other=>"%{count} احداث اخرى", :zero=>"ولا حدث"})
-      zero: "ولا حدث" #? String excepted (Hash:{:one=>"حدث واحد", :other=>"%{count} احداث اخرى", :zero=>"ولا حدث"})
+    # events: "Events"
     # evolution: "Evolution"
     example: "مثال&nbsp;: %{value}"
     # exchange: "Exchange"
@@ -1187,6 +1184,7 @@ arb:
     # inactive: "Inactive"
     include_blank: "--- ولا اية منظمة ---"
     income_statement: "حسابات الناتج"
+    # incoming_deliveries: "Incoming deliveries"
     incoming_payment_create: "اضافة دفعة جديدة" #?
     incoming_payment_update: "تعديل الدفعة" #?
     incoming_payment_use_create: "اضافة دفعة للشراء" #?
@@ -1365,6 +1363,7 @@ arb:
     # net_surface_area: "Net surface area"
     net_vat_amount: "صافي قيمة الضريبة الاضافية المستحقة" #?
     new: "انشاء دفعة جديدة"
+    # new_animal: "New animal"
     # new_box: "New box"
     # new_call: "New call"
     # new_contact: "New contact"
@@ -1570,6 +1569,9 @@ arb:
     # related_people: "Related people"
     relations: "ادارة علاقات العملاء / والمموليين" #?
     # relationship: "Relationship"
+    # relationship_of_entity: "%{relationship} of %{entity}"
+    # relationship_of_entity_as_inverse_post: "%{relationship} of %{entity} (%{inverse_post})"
+    # relationship_of_entity_as_post: "%{relationship} of %{entity} as %{post}"
     # remove: "Remove"
     # remove_item: "Remove item"
     # remove_subscription: "Remove subscription"
@@ -1686,6 +1688,7 @@ arb:
     # start_new_intervention_here: "Start new intervention here"
     state: "الحالة"
     # statistics: "Statistics"
+    # stewardship: "Stewardship"
     # stock: "Stock"
     # stock_container_map: "Stock map"
     stock_max: "الحد الاقصى للاسهم" #?
@@ -1730,12 +1733,14 @@ arb:
     # time_cost_per_hectare: "Time cost per hectare"
     # time_zone: "Time zone"
     # timeline: "Timeline"
-    # timeline_call: "%{author} called %{entity} about %{name} %{ago} ago"
     # timeline_comment: "%{author} commented %{ago} ago"
     # timeline_entity_link: "Timeline entity link"
     # timeline_event: "%{name} with %{participants} %{ago} ago"
+    # timeline_incoming_call: "%{author} called %{entity} about %{name} %{ago} ago"
+    # timeline_incoming_mail: "%{entity} wrote to %{author} about %{name} %{ago} ago"
     # timeline_item: "%{type} %{name} added by %{author} %{ago} ago"
-    # timeline_mail: "%{author} wrote to %{entity} about %{name} %{ago} ago"
+    # timeline_outgoing_call: "%{author} called %{entity} about %{name} %{ago} ago"
+    # timeline_outgoing_mail: "%{author} wrote to %{entity} about %{name} %{ago} ago"
     # timeline_payment: "%{type} %{name} of %{amount} by %{mode} added by %{author} %{ago} ago"
     # timeline_sale: "%{type} %{name} of %{amount} added by %{author} %{ago} ago"
     # timeline_task: "%{author} added task %{name} %{ago} ago"
@@ -1861,7 +1866,7 @@ arb:
     x_entities:
       one: "تسجيل سجل واحد"
       other: "%{count} تسجيل سجلات اخرى"
-      zero: "عدم تسجيل اية سجل"
+      zero: "عدم تسجيل اية سجل" #?
     x_entity_links:
       one: "رابط واحد"
       other: "%{count} روابط اخرى"
@@ -1896,7 +1901,7 @@ arb:
     x_mandates:
       one: "تفويض واحد"
       other: "%{count} تفويض اخر"
-      zero: "ولا اية تفويض"
+      zero: "ولا اية تفويض" #?
     x_months:
       # one: "%{count} month"
       # other: "%{count} months"
@@ -1924,18 +1929,20 @@ arb:
       # one: "1 purchase"
       # other: "%{count} purchases"
     x_readings:
-      # one: "%{count} indicator"
-      # other: "%{count} indicators"
-      # zero: "No indicator"
+      # one: "%{count} reading"
+      # other: "%{count} readings"
     x_results:
       # one: "%{count} result found"
       # other: "%{count} results found"
       # zero: "No results found"
+    x_sale_opportunities:
+      # one: "%{count} opportunity"
+      # other: "%{count} opportunities"
     x_sales:
-      # one: "1 sale"
+      # one: "%{count} sale"
       # other: "%{count} sales"
     x_sales_invoices:
-      # one: "1 sales invoice"
+      # one: "%{count} sales invoice"
       # other: "%{count} sales invoices"
     x_stock_transfers_to_confirm:
       # one: "%{count} stock transfer to confirm"

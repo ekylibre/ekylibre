@@ -929,6 +929,7 @@ spa:
     # inactive: "Inactive"
     # include_blank: "Include blank"
     income_statement: "cuentos de résultos"
+    # incoming_deliveries: "Incoming deliveries"
     # incoming_payments: "Incoming payments"
     # incoming_payments_to_deposit: "Incoming payments to deposit"
     # indicator: "Indicators"
@@ -1061,6 +1062,7 @@ spa:
     # net_surface_area: "Net surface area"
     net_vat_amount: "TVA neta deuda" #?
     # new: "New"
+    # new_animal: "New animal"
     # new_box: "New box"
     # new_call: "New call"
     # new_contact: "New contact"
@@ -1214,6 +1216,9 @@ spa:
     # related_people: "Related people"
     relations: "Relaciones clientos/abastecedores" #?
     # relationship: "Relationship"
+    # relationship_of_entity: "%{relationship} of %{entity}"
+    # relationship_of_entity_as_inverse_post: "%{relationship} of %{entity} (%{inverse_post})"
+    # relationship_of_entity_as_post: "%{relationship} of %{entity} as %{post}"
     # remove: "Remove"
     # remove_item: "Remove item"
     # remove_subscription: "Remove subscription"
@@ -1309,6 +1314,7 @@ spa:
     # start_new_intervention_here: "Start new intervention here"
     # state: "State"
     # statistics: "Statistics"
+    # stewardship: "Stewardship"
     # stock: "Stock"
     # stock_container_map: "Stock map"
     stock_move_create: "Añadir un movimiento de deposito" #?
@@ -1345,12 +1351,14 @@ spa:
     # time_cost_per_hectare: "Time cost per hectare"
     # time_zone: "Time zone"
     # timeline: "Timeline"
-    # timeline_call: "%{author} called %{entity} about %{name} %{ago} ago"
     # timeline_comment: "%{author} commented %{ago} ago"
     # timeline_entity_link: "Timeline entity link"
     # timeline_event: "%{name} with %{participants} %{ago} ago"
+    # timeline_incoming_call: "%{author} called %{entity} about %{name} %{ago} ago"
+    # timeline_incoming_mail: "%{entity} wrote to %{author} about %{name} %{ago} ago"
     # timeline_item: "%{type} %{name} added by %{author} %{ago} ago"
-    # timeline_mail: "%{author} wrote to %{entity} about %{name} %{ago} ago"
+    # timeline_outgoing_call: "%{author} called %{entity} about %{name} %{ago} ago"
+    # timeline_outgoing_mail: "%{author} wrote to %{entity} about %{name} %{ago} ago"
     # timeline_payment: "%{type} %{name} of %{amount} by %{mode} added by %{author} %{ago} ago"
     # timeline_sale: "%{type} %{name} of %{amount} added by %{author} %{ago} ago"
     # timeline_task: "%{author} added task %{name} %{ago} ago"
@@ -1447,7 +1455,6 @@ spa:
     x_entities:
       # one: "%{count} person"
       # other: "%{count} people"
-      # zero: "No people"
     x_entity_links:
       # one: "%{count} link"
       # other: "%{count} links"
@@ -1480,7 +1487,6 @@ spa:
     x_mandates:
       # one: "%{count} mandate"
       # other: "%{count} mandates"
-      # zero: "No mandate"
     x_months:
       # one: "%{count} month"
       # other: "%{count} months"
@@ -1505,24 +1511,26 @@ spa:
       # one: "1 purchase"
       # other: "%{count} purchases"
     x_readings:
-      # one: "%{count} indicator"
-      # other: "%{count} indicators"
-      # zero: "No indicator"
+      # one: "%{count} reading"
+      # other: "%{count} readings"
     x_results:
       # one: "%{count} result found"
       # other: "%{count} results found"
       # zero: "No results found"
+    x_sale_opportunities:
+      # one: "%{count} opportunity"
+      # other: "%{count} opportunities"
     x_sales:
-      # one: "1 sale"
+      # one: "%{count} sale"
       # other: "%{count} sales"
     x_sales_invoices:
-      # one: "1 sales invoice"
+      # one: "%{count} sales invoice"
       # other: "%{count} sales invoices"
     x_stock_transfers_to_confirm:
       # one: "%{count} stock transfer to confirm"
       # other: "%{count} stock transfers to confirm"
     x_subscriptions:
-      # one: "1 subscription"
+      # one: "%{count} subscription"
       # other: "%{count} subscriptions"
     x_tasks:
       # one: "%{count} task"

@@ -12,7 +12,7 @@
       - l.custom_fields
 
   - c.cobble(:entities) do
-    = list(:entities)
+    = cobble_list(:entities)
 
   - c.cobble(:journal_entry_items) do
     = kujaku do |k|
@@ -27,7 +27,7 @@
     - totals[:balance_debit] = totals[:balance_credit] = 0.0
     - totals["balance_#{totals[:debit] > totals[:credit] ? 'debit' : 'credit'}".to_sym] = (totals[:debit] - totals[:credit]).abs
 
-    = list(:journal_entry_items) do
+    = cobble_list(:journal_entry_items) do
       - currency = Preference[:currency]
       %tr.total
         %th{colspan: 6}= :total.tl

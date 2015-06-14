@@ -46,18 +46,18 @@
         - l.custom_fields
 
   - c.cobble(:intervention_casts) do
-    = list(:intervention_casts)
+    = cobble_list(:intervention_casts)
 
   - c.cobble(:issues) do
-    = toolbar do |t|
+    = cobble_toolbar do |t|
       - t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name})
-      = list(:issues)
+      = cobble_list(:issues)
 
   - c.cobble(:readings, title: :x_readings.tl(count: resource.readings.count)) do
-    = list(:readings)
+    = cobble_list(:readings)
 
   -# c.cobble(:reading_tasks) do
-    = list(:reading_tasks)
+    = cobble_list(:reading_tasks)
   -# c.cobble(:places) do
-    = list(:places)
+    = cobble_list(:places)
 

@@ -20,15 +20,15 @@
           = human_age(resource.age, display: 2)
   - if resource.is_a?(ProductGroup)
     - c.cobble(:members) do
-      = list(:members)
+      = cobble_list(:members)
   - c.cobble(:groups) do
-    = list(:groups)
+    = cobble_list(:groups)
 
   - c.cobble(:variable_indicators) do
     = variable_readings(resource)
 
   -# c.cobble(tl(:x_readings, count: resource.readings.count)) do
-    = list(:readings)
+    = cobble_list(:readings)
 
   - count = 0
   - map = visualization do |v|
@@ -53,8 +53,8 @@
     = render "timeline"
 
   - c.cobble(:intervention_casts) do
-    = list(:intervention_casts)
+    = cobble_list(:intervention_casts)
   - c.cobble(:issues) do
-    = toolbar do |t|
+    = cobble_toolbar do |t|
       - t.new(params: {controller: :issues, :target_id => resource.id, :target_type => resource.class.name})
-    = list(:issues)
+    = cobble_list(:issues)

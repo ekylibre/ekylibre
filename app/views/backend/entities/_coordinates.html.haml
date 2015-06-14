@@ -1,8 +1,27 @@
 .picture
   - if resource.picture.file?
-    = image_tag(resource.picture.url(:identity))
+    = image_tag(resource.picture.url(:identity, style: :thumb))
   - else
     .picto{class: "picto-#{resource.organization? ? :building : :user}"}
+- main_links = EntityLink.of_entity(resource)
+- main_entities = [resource.id]
+- main_links.order("(entity_id = #{resource.id} and main) DESC, id ASC").each do |link|
+  .info
+    %span.title
+      - other = (link.entity == resource ? link.linked : link.entity)
+      - others = EntityLink.of_entity(other).where("entity_id NOT IN (?) AND linked_id NOT IN (?)", main_entities, main_entities)
+      - if others.any?
+        - seconds = capture do
+          %ul
+            - for indirect in others
+              %li= render "link", link: indirect, entity: other, popover: nil
+      - else
+        - seconds = nil
+      = render "link", link: link, entity: resource, popover: seconds
+    = link_to({controller: :entity_links, action: :edit, id: link.id, redirect: request.fullpath}, class: "info-action") do
+      %i.icon.icon-edit
+
+
 - for address in resource.addresses.order(:canal, :by_default)
   .info
     %span.title{class: "canal-#{address.canal}"}= address.canal.l
@@ -17,7 +36,4 @@
         = link_to(address.coordinate, address.coordinate)
       - else
         = address.coordinate
-- if EntityLink.of_entity(resource).actives.any?
-  .info
-    %span.title= :related_people.tl
-    %span.value= Entity.related_to(resource).map{|p| link_to(p.full_name, controller: :entities, action: :show, id: p.id)}.to_sentence.html_safe
+

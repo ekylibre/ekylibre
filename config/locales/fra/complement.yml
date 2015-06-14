@@ -7576,14 +7576,13 @@ fra:
         zw: "Zimbabwe"
     entity_link:
       nature:
-        association: "Association"
         collaboration: "Collaboration"
-        cooperation: "Coopération"
         direct_kinship: "Parenté directe"
-        management: "Management"
+        hierarchy: "Hiérarchie professionelle"
+        membership: "Membre d'organisation"
+        sibling_kinship: "Fraternité"
         transform: "Changement de statut"
         undefined: "Indéfini"
-        work: "Emploi"
     equipment:
       variety:
         acer: "Érable"
@@ -9164,7 +9163,7 @@ fra:
         ekylibre_bank_statements: "Relevé de banque - Ekylibre"
         ekylibre_budgets: "Budgets ‒ Ekylibre "
         ekylibre_cultivable_zones: "Zones cultivables (SHP/ZIP) ‒ Ekylibre"
-        ekylibre_entities: "Personnes ‒ Ekylibre"
+        ekylibre_entities: "Tiers ‒ Ekylibre"
         ekylibre_equipments: "Equipements ‒ Ekylibre"
         ekylibre_georeadings: "Relevés topographiques (SHP/ZIP) ‒ Ekylibre"
         ekylibre_incoming_payments: "Encaissements (CSV) - Ekylibre"
@@ -26343,14 +26342,13 @@ fra:
         web: "Internet"
     subscription_nature:
       entity_link_nature:
-        association: "Association"
         collaboration: "Collaboration"
-        cooperation: "Coopération"
         direct_kinship: "Parenté directe"
-        management: "Management"
+        hierarchy: "Hiérarchie professionelle"
+        membership: "Membre d'organisation"
+        sibling_kinship: "Fraternité"
         transform: "Changement de statut"
         undefined: "Indéfini"
-        work: "Emploi"
     tax:
       reference_name:
         fr_vat_intermediate: "TVA 10.00%"

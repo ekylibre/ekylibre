@@ -7552,14 +7552,13 @@ eng:
         zw: "Zimbabwe"
     entity_link:
       nature:
-        association: "Association"
         collaboration: "Collaboration"
-        cooperation: "Cooperation"
         direct_kinship: "Direct kinship"
-        management: "Management"
+        hierarchy: "Hierarchy"
+        membership: "Membership"
+        sibling_kinship: "Sibling kinship"
         transform: "Transform"
         undefined: "Undefined"
-        work: "Work"
     equipment:
       variety:
         acer: "Acer"
@@ -26267,14 +26266,13 @@ eng:
         web: "Web"
     subscription_nature:
       entity_link_nature:
-        association: "Association"
         collaboration: "Collaboration"
-        cooperation: "Cooperation"
         direct_kinship: "Direct kinship"
-        management: "Management"
+        hierarchy: "Hierarchy"
+        membership: "Membership"
+        sibling_kinship: "Sibling kinship"
         transform: "Transform"
         undefined: "Undefined"
-        work: "Work"
     tax:
       reference_name:
         french_vat_intermediate_2012: "French vat intermediate 2012"

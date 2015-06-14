@@ -37,7 +37,7 @@ fra:
         last_of_template: "Dernier du modèle"
         none: "Aucun du type"
         none_of_template: "Aucun du modèle"
-    entities:
+    entity:
       nature:
         contact: "Contact"
         organization: "Organisation"
@@ -125,7 +125,7 @@ fra:
         cash_transfers: "Numérotation des virements internes"
         deposits: "Numérotation des remises en banque"
         documents: "Numérotation des documents"
-        entities: "Numérotation des personnes"
+        entities: "Numérotation des tiers"
         fixed_assets: "Numérotation des immobilisations"
         gaps: "Numérotation des écarts"
         incoming_deliveries: "Numérotation des bons de réceptions"
@@ -154,9 +154,13 @@ fra:
         quantity: "Par numéros"
     task:
       nature:
-        call: "Appel"
         document: "Document"
-        mail: "Courrier"
+        incoming_call: "Appel entrant"
+        incoming_email: "Courriel entrant"
+        incoming_mail: "Courrier entrant"
+        outgoing_call: "Appel sortant"
+        outgoing_email: "Courriel sortant"
+        outgoing_mail: "Courrier sortant"
         quote: "Évaluation"
     tax:
       nature:

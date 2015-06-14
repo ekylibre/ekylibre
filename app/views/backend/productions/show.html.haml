@@ -146,7 +146,7 @@
 
       - if resource.with_supports
         - c.cobble(:supports) do
-          = list(:supports)
+          = cobble_list(:supports)
         - if resource.supports.any?
           - c.cobble(:supports_chart, title: Production.human_attribute_name(:supports)) do
             :ruby
@@ -170,4 +170,4 @@
 
 
       - c.cobble :interventions do
-        = list(:interventions)
+        = cobble_list(:interventions)

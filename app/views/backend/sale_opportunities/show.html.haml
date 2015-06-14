@@ -39,18 +39,18 @@
   - c.cobble :deals do
     = render "show", affair: resource, current_deal: nil
   - c.cobble :tasks, title: :x_tasks.tl(count: resource.tasks.count) do
-    = toolbar do |t|
+    = cobble_toolbar do |t|
       - t.new(params: {controller: :tasks, entity_id: resource.third_id, executor_id: current_user.id, state: :todo})
-    = list(:tasks)
+    = cobble_list(:tasks)
 
 
 = timeline(resource) do |l|
   - l.side :observations
-  - l.side :events, at: :started_at
+  - l.side :events, at: :started_at, params: {controller: :events, nature: :meeting, participations: {"0" => {participant_id: resource.third_id, state: :accepted}, "1" => {participant_id: current_user.person_id, state: :accepted}}}
   - l.side :sales, new: false
   - l.side :purchases, new: false
   - l.side :incoming_payments, new: false
   - l.side :outgoing_payments, new: false
   - l.side :gaps, new: false
-  - l.side :tasks
+  - l.side :tasks, at: :due_at
   - l.side :versions, new: false

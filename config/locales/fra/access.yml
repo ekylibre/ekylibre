@@ -37,7 +37,7 @@ fra:
       districts: "Districts"
       document_templates: "Modèles de documents"
       documents: "Documents"
-      entities: "Personnes (physiques et morales)"
+      entities: "Tiers"
       equipments: "Équipements"
       establishments: "Établissements" #?
       events: "Évènements"

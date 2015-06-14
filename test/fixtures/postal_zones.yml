@@ -175,3 +175,15 @@ postal_zones_011:
   postal_code: "Ἀθῆναι"
   updated_at: 2015-04-21 08:28:44.825771000 Z
   updater_id: 1
+postal_zones_012:
+  city: '3'
+  city_name: '3'
+  country: jp
+  created_at: 2015-06-13 16:50:36.693734000 Z
+  creator_id: 1
+  id: 12
+  lock_version: 0
+  name: TOKYO 3
+  postal_code: TOKYO
+  updated_at: 2015-06-13 16:50:36.693734000 Z
+  updater_id: 1

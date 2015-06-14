@@ -3,7 +3,7 @@ module Nomen
   # This class represent a nomenclature
   class Nomenclature
 
-    attr_reader :property_natures, :items, :name, :roots
+    attr_reader :property_natures, :items, :name, :roots, :notions
 
     # Instanciate a new nomenclature
     def initialize(name, translateable = true)
@@ -12,6 +12,7 @@ module Nomen
       @roots = []
       @property_natures = {}.with_indifferent_access
       @translateable = !!translateable
+      @notions = []
     end
 
     class << self
@@ -40,6 +41,7 @@ module Nomen
 
     # Browse and harvest items recursively
     def harvest(nomenclature, sets, options = {})
+      @notions += nomenclature.attr("notions").to_s.split(/\s*\,\s*/).map(&:to_sym)
       for nature in nomenclature.xpath('xmlns:property-natures/xmlns:property-nature')
         add_property_nature(nature)
       end

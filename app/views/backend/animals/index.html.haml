@@ -69,9 +69,9 @@
                     %i.icon.icon-plus.text-muted
                 %ul.list-group.animal-list-group{"data-bind" => "sortable: {template: 'animal-container-template', data: $root.displayedContainers($data), connectClass: 'container-dropzone', allowDrop: false, options: {handle: '.animal-container-dragger', cursor: 'move', tolerance: 'pointer', placeholder: 'sorting-container-placeholder', dropOnEmpty: false, forcePlaceholderSize: true, revert: true, opacity: 1}}"}
               .panel-footer
-                %button.btn.btn-link{data: {target: "#new-animal", toggle: "modal"}, type: "button"}
-                  %i.icon.icon-plus-circle
-                  %span Nouvel animal
+                = link_to("#", data: {target: "#new-animal", toggle: "modal"}) do
+                  %i.icon.icon-plus
+                  %span= :new_animal.tl
 
           /ko if: $root.showAddGroup($index)
           .add-group-panel-container
@@ -115,8 +115,7 @@
               %i.icon.icon-ellipsis-v.animal-element-handler.text-muted
           / /ko
 
-    = modal(id: "new-animal", "aria-hidden" => "true", "aria-labelledby" => "newAnimal") do
-      = modal_header("Nouvel animal")
+    = modal(id: "new-animal", "aria-hidden" => "true", "aria-labelledby" => "newAnimal", heading: "Nouvel animal") do
       .modal-body
         .btn-group-vertical{"aria-label" => "...", :role => "group"}
           %button.btn.btn-default{:type => "button"} Achat
@@ -124,25 +123,22 @@
           %button.btn.btn-default{:type => "button"} Naissance
           %button.btn.btn-default{:type => "button"} D&eacute;claration
 
-    = modal(id: "new-action-animal", "aria-hidden" => "true", "aria-labelledby" => "newActionAnimal") do
-      = modal_header("Nouvelle action")
+    = modal(id: "new-action-animal", "aria-hidden" => "true", "aria-labelledby" => "newActionAnimal", heading: "Nouvelle action") do
       .modal-body
         .btn-group-vertical{"aria-label" => "...", :role => "group"}
           %button.btn.btn-default{:type => "button"} Vendre
           %button.btn.btn-default{:type => "button"} Vacciner
 
-    = modal(id: "new-group", "aria-hidden" => "true", "aria-labelledby" => "newGroup", data: {bind: "modal: showNewGroupModal(), with: newGroupModalOptions"}) do
-      = modal_header("Nouveau Troupeau")
+    = modal(id: "new-group", "aria-hidden" => "true", "aria-labelledby" => "newGroup", data: {bind: "modal: showNewGroupModal(), with: newGroupModalOptions"}, heading: "Nouveau Troupeau") do
       .modal-body
         %label Nom:
         %input{:type => "text", data: { bind: "value: group"}}
       .modal-footer
         %button.btn.btn-default{:type => "button", data: {bind: "click: $root.addGroup"}}
-          %i.icon.icon-plus-circle Ajouter
-        %button.close.btn.btn-default{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"} Annuler
+          %i.icon.icon-plus Ajouter
+        %button.close.btn.btn-default{"aria-label" => :close.tl, "data-dismiss" => "modal", :type => "button"}= :cancel.ta
 
-    = modal(id: "move-animal", "aria-hidden" => "true", "aria-labelledby" => "moveAnimal", data: {bind: "modal: showMoveAnimalModal(), with: moveAnimalModalOptions"}) do
-      = modal_header("Déplacement")
+    = modal(id: "move-animal", "aria-hidden" => "true", "aria-labelledby" => "moveAnimal", data: {bind: "modal: showMoveAnimalModal(), with: moveAnimalModalOptions"}, header: "Déplacement") do
       .modal-body
         %p Les animaux à déplacer:
         %div{ data: {bind: 'foreach: animals()'}}
@@ -153,32 +149,35 @@
         %div{ data: {bind: 'if: $data.container' } }
           %span Container:
           %p{ data: {bind: 'text: $data.container().name'}}
-        %form
-          .form-group
-            %label{for: "started_at"} Date Début
-            %input{id: "started_at", :type => "date", data: { bind: "value: $root.moveAnimalModalOptions.started_at"}}
-          .form-group
-            %label{for: "stopped_at"} Date Fin
-            %input{id: "stopped_at", :type => "date", data: { bind: "value: $root.moveAnimalModalOptions.stopped_at"}}
-          .form-group
-            %label{for: "worker"} Soigneur
-            %select{data: { bind: "options: $root.workers_list,
-              optionsText: 'name',
-              value: $root.moveAnimalModalOptions.worker,
-              optionsCaption: 'Choisir...'" } }
-          .form-group
-            %label{for: "nature"} Nature
-            %select{data: { bind: "options: $root.natures_list,
-              optionsText: 'name',
-              value: $root.moveAnimalModalOptions.variant,
-              optionsCaption: 'Choisir...'" } }
+        %form.form-horizontal
+          .control-group
+            %label.control-label{for: "started_at"}= Intervention.human_attribute_name(:started_at)
+            .controls
+              = datetime_field_tag("started_at", nil, data: { bind: "value: $root.moveAnimalModalOptions.started_at"})
+          .control-group
+            %label.control-label{for: "stopped_at"}= Intervention.human_attribute_name(:stopped_at)
+            .controls
+              = datetime_field_tag("stopped_at", nil, data: { bind: "value: $root.moveAnimalModalOptions.stopped_at"})
+          .control-group
+            %label.control-label{for: "worker"} Soigneur
+            .controls
+              %select{data: {bind: "options: $root.workers_list,
+                optionsText: 'name',
+                value: $root.moveAnimalModalOptions.worker,
+                optionsCaption: 'Choisir...'" }}
+          .control-group
+            %label.control-label{for: "nature"} Nature
+            .controls
+              %select{data: { bind: "options: $root.natures_list,
+                optionsText: 'name',
+                value: $root.moveAnimalModalOptions.variant,
+                optionsCaption: 'Choisir...'" } }
       .modal-footer
         %button.btn.btn-default{:type => "button", data: {bind: "click: $root.moveAnimals"}}
-          %i.icon.icon-plus-circle Déplacer
-        %button.close.btn.btn-default{"aria-label" => "Close", :type => "button", data: {bind: "click: $root.cancelAnimalsMoving"}} Annuler le déplacement
+          %i.icon.icon-plus Déplacer
+        %button.close.btn.btn-default{"aria-label" => :close.tl, :type => "button", data: {bind: "click: $root.cancelAnimalsMoving"}}= :cancel.ta
 
-    = modal(id: "new-container", "aria-hidden" => "true", "aria-labelledby" => "newContainer", data: {bind: "modal: showNewContainerModal(), with: containerModalOptions"}) do
-      = modal_header("Ajouter un emplacement")
+    = modal(id: "new-container", "aria-hidden" => "true", "aria-labelledby" => "newContainer", data: {bind: "modal: showNewContainerModal(), with: containerModalOptions"}, heading: "Ajouter un emplacement") do
       .modal-body
         %select{data: { bind: "options: $root.containers_list,
           optionsText: 'name',
@@ -188,11 +187,10 @@
           %div{data: {bind: 'text: $data.name'}}
       .modal-footer
         %button.btn.btn-default{:type => "button", data: {bind: "click: $root.addContainer"}}
-          %i.icon.icon-plus-circle Ajouter
-        %button.close.btn.btn-default{"aria-label" => "Close", :type => "button", data: {bind: "click: $root.cancelContainerAdding"}} Annuler l'ajout
+          %i.icon.icon-plus Ajouter
+        %button.close.btn.btn-default{"aria-label" => :close.tl, :type => "button", data: {bind: "click: $root.cancelContainerAdding"}}= :cancel.ta
 
-    = modal("aria-hidden" => "true", "aria-labelledby" => "viewAnimal", "data-bind" => "modal: showAnimalDetailsModal(), with: animalDetailsModalOptions") do
-      = modal_header("Détails de l'animal")
+    = modal("aria-hidden" => "true", "aria-labelledby" => "viewAnimal", "data-bind" => "modal: showAnimalDetailsModal(), with: animalDetailsModalOptions", heading: "Détails de l'animal") do
       .modal-body
         .row
           .col-md-3
@@ -209,5 +207,5 @@
               %span{"data-bind" => "css: animalFlagClass"}
       .modal-footer
         %button.btn.btn-link{:type => "button"}
-          %i.icon.icon-plus-circle
+          %i.icon.icon-plus
           Plus d'infos

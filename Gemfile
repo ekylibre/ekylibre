@@ -150,7 +150,7 @@ group :development do
   # Webservers
   gem 'thin'
 
-  gem "intellij-coffee-script-debugger", :git => "git://github.com/JetBrains/intellij-coffee-script-debugger.git"
+  # gem "intellij-coffee-script-debugger", :git => "git://github.com/JetBrains/intellij-coffee-script-debugger.git"
 end
 
 group :development, :test do

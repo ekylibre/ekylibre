@@ -1,6 +1,8 @@
 -# TODO Manage permutations in forms ?
 = field_set do
-  = f.referenced_association :entity_1, :permute_with => :entity_2
+  = f.referenced_association :entity, :permute_with => :linked
   = f.input :nature
-  = f.referenced_association :entity_2, :permute_with => :entity_1
+  = f.input :post
+  = f.input :main
+  = f.referenced_association :linked, :permute_with => :entity
   = f.custom_fields

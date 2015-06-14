@@ -26,7 +26,7 @@
         - l.custom_fields
   - if resource.incoming_payment_modes.depositers.any?
     - c.cobble(:deposits, title: Cash.human_attribute_name(:deposits)) do
-      = toolbar do |t|
+      = cobble_toolbar do |t|
         :ruby
           variants = IncomingPaymentMode.depositers.where(cash_id: resource.id).inject({}) do |hash, mode|
             count = mode.depositable_payments.count
@@ -34,12 +34,12 @@
             hash
           end
         - t.new variants: variants, params: {controller: :deposits}
-      = list(:deposits)
+      = cobble_list(:deposits)
 
   - if resource.bank_account?
     - c.cobble(:bank_statements, title: Cash.human_attribute_name(:bank_statements)) do
-      = list(:bank_statements)
+      = cobble_list(:bank_statements)
 
   - if resource.cash_box?
     - c.cobble(:sessions, title: Cash.human_attribute_name(:sessions)) do
-      = list(:sessions)
+      = cobble_list(:sessions)

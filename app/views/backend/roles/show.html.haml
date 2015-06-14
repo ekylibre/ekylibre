@@ -9,7 +9,7 @@
       - l.custom_fields
 
   - c.cobble :users do
-    = list :users
+    = cobble_list :users
 
   - c.cobble :rights do
     = access_control_list(resource.rights)

@@ -1262,13 +1262,7 @@ arb:
     # enjoyer: "Enjoyer"
     # enjoyments: "Enjoyments"
     entities: "الافراد" #?
-    entity: "الفرد"
-    entity_1: "الملف الاول"
-    entity_1_id: "الملف الاول" #?
-    # entity_1_role: "Entity 1 role"
-    entity_2: "الملف الثاني"
-    entity_2_id: "الملف الثاني" #?
-    # entity_2_role: "Entity 2 role"
+    entity: "الملف الاول"
     entity_categories: "فئة الفرد" #?
     entity_id: "الفرد" #?
     # entity_link_direction: "Entity link direction"
@@ -1492,7 +1486,9 @@ arb:
     lines: "طرق تسديد الفاتورة" #?
     # linkage_points_list: "Linkage points list"
     # linkages: "Linkages"
-    # linked: "Linked"
+    linked: "الملف الثاني"
+    linked_id: "الملف الثاني" #?
+    # linked_role: "Entity 2 role"
     # links: "Links"
     listing: "الاستخراج"
     listing_id: "استخاج" #?

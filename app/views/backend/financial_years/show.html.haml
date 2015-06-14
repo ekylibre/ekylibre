@@ -22,7 +22,7 @@
       - l.custom_fields
 
   - c.cobble(resource.closed ? :balance : :last_computed_balance) do
-    = list :account_balances
+    = cobble_list :account_balances
 
   - c.cobble(:fixed_asset_depreciations) do
-    = list :fixed_asset_depreciations
+    = cobble_list :fixed_asset_depreciations

@@ -1320,29 +1320,35 @@ entity_links:
     references: user
   description:
     type: text
-  entity_1_id:
+  entity_id:
     type: integer
     references: entity
     required: true
-  entity_1_role:
-    type: string
-    required: true
-  entity_2_id:
-    type: integer
-    references: entity
-    required: true
-  entity_2_role:
+  entity_role:
     type: string
     required: true
   id:
     type: integer
     required: true
+  linked_id:
+    type: integer
+    references: entity
+    required: true
+  linked_role:
+    type: string
+    required: true
   lock_version:
     type: integer
     required: true
+  main:
+    type: boolean
+    required: true
+    default: false
   nature:
     type: string
     required: true
+  post:
+    type: string
   started_at:
     type: datetime
   stopped_at:
@@ -5279,6 +5285,7 @@ tasks:
     type: text
   due_at:
     type: datetime
+    required: true
   entity_id:
     type: integer
     references: entity

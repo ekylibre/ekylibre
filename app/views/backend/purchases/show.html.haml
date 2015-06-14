@@ -26,7 +26,7 @@
       - l.custom_fields
 
   - c.cobble :items, title: Purchase.human_attribute_name(:items) do
-    = list :items do
+    = cobble_list :items do
       %tr.total
         %th{colspan: 4}
         %td= resource.pretax_amount.l(currency: resource.currency)
@@ -40,4 +40,4 @@
 
   - if resource.deliveries.any?
     - c.cobble :deliveries, title: Purchase.human_attribute_name(:deliveries) do
-      = list :deliveries
+      = cobble_list :deliveries

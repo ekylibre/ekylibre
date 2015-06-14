@@ -395,17 +395,16 @@ module ApplicationHelper
     l = Ekylibre::Support::Lister.new(:links)
     yield l
     minimum = 0
-    if args[1].nil?
+    if args[0].nil?
       return nil unless l.links.any?
       minimum = 1
       args = l.links.first.args
     end
-    args[2] ||= {}
 
     if l.links.size > minimum
       return content_tag(:div, class: "btn-group") do # btn-group btn-group-dropdown  #{args[2][:class]}
         html = "".html_safe
-        html << tool_to(args.first, args.second, (args.third ? args.third.dup : nil))
+        html << tool_to(*args)
         html << link_to(content_tag(:i), "#dropdown", class: "btn btn-default dropdown-toggle", data: {toggle: 'dropdown'})
         html << content_tag(:ul, class: "dropdown-menu", role: "menu") do
           l.links.collect do |link|
@@ -954,12 +953,19 @@ module ApplicationHelper
     else
       options[:class] = options[:class].to_s + " modal fade"
     end
+    heading = options.delete(:heading)
     options[:tabindex] ||= "-1"
     options[:role] ||= "dialog"
     content_for(:popover) do
       content_tag(:div, options) do
         content_tag(:div, class: "modal-dialog") do
-          content_tag(:div, class: "modal-content", &block)
+          content_tag(:div, class: "modal-content") do
+            if heading
+              modal_header(heading) + capture(&block)
+            else
+              capture(&block)
+            end
+          end
         end
       end
     end

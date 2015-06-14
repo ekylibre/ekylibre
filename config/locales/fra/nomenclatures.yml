@@ -1426,18 +1426,34 @@ fra:
         category: "Catégories"
     entity_link_natures:
       items:
-        association: "Association"
         collaboration: "Collaboration"
-        cooperation: "Coopération"
         direct_kinship: "Parenté directe"
-        management: "Management"
+        hierarchy: "Hiérarchie professionelle"
+        membership: "Membre d'organisation"
+        sibling_kinship: "Fraternité"
         transform: "Changement de statut"
         undefined: "Indéfini"
-        work: "Emploi"
       name: "Types de liens sociaux"
+      notions:
+        entity:
+          collaboration: "Collaborateur"
+          direct_kinship: "Parent"
+          hierarchy: "Chef"
+          membership: "Membre"
+          sibling_kinship: "Frère ou sœur"
+          transform: "Nouvelle organisation"
+          undefined: "Relation"
+        linked:
+          collaboration: "Collaborateur"
+          direct_kinship: "Enfant"
+          hierarchy: "Subalterne"
+          membership: "Organisation"
+          sibling_kinship: "Frère ou sœur"
+          transform: "Ancienne organisation"
+          undefined: "Relation"
       property_natures:
-        entity_1: "Personne 1"
-        entity_2: "Personne 2"
+        entity: "Personne 1"
+        linked: "Personne 2"
         symmetric: "Lien symétrique"
     entity_natures:  #?
       items: #?
@@ -1504,7 +1520,7 @@ fra:
         ekylibre_bank_statements: "Relevé de banque - Ekylibre"
         ekylibre_budgets: "Budgets ‒ Ekylibre "
         ekylibre_cultivable_zones: "Zones cultivables (SHP/ZIP) ‒ Ekylibre"
-        ekylibre_entities: "Personnes ‒ Ekylibre"
+        ekylibre_entities: "Tiers ‒ Ekylibre"
         ekylibre_equipments: "Equipements ‒ Ekylibre"
         ekylibre_georeadings: "Relevés topographiques (SHP/ZIP) ‒ Ekylibre"
         ekylibre_incoming_payments: "Encaissements (CSV) - Ekylibre"

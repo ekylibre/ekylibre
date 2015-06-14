@@ -25,7 +25,7 @@
 #  created_at          :datetime         not null
 #  creator_id          :integer
 #  description         :text
-#  due_at              :datetime
+#  due_at              :datetime         not null
 #  entity_id           :integer          not null
 #  executor_id         :integer
 #  id                  :integer          not null, primary key
@@ -41,13 +41,13 @@
 class Task < Ekylibre::Record::Base
   include Versionable, Commentable
   enumerize :state, in: [:todo, :doing, :done], default: :todo, predicates: true
-  enumerize :nature, in: [:call, :mail, :quote, :document, :email], default: :mail, predicates: true
+  enumerize :nature, in: [:incoming_call, :outgoing_call, :incoming_mail, :outgoing_mail, :incoming_email, :outgoing_email, :quote, :document], default: :outgoing_call, predicates: true
   belongs_to :entity
   belongs_to :sale_opportunity
   belongs_to :executor, -> { responsibles }, class_name: "Entity"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :due_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
-  validates_presence_of :entity, :name, :nature, :state
+  validates_presence_of :due_at, :entity, :name, :nature, :state
   #]VALIDATORS]
   versionize
 
@@ -76,6 +76,17 @@ class Task < Ekylibre::Record::Base
     self.state ||= :todo
   end
 
+  def call?
+    self.incoming_call? or self.outgoing_call?
+  end
+
+  def mail?
+    self.incoming_mail? or self.outgoing_mail?
+  end
+
+  def email?
+    self.incoming_email? or self.outgoing_email?
+  end
 
   def status
     return :go if self.done?

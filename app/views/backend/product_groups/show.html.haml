@@ -13,22 +13,22 @@
       - l.attribute :description
 
   - c.cobble(:members) do
-    = list(:members)
+    = cobble_list(:members)
 
   - c.cobble(:groups) do
-    = list(:groups)
+    = cobble_list(:groups)
 
   - c.cobble(:contained_products) do
-    = list(:contained_products)
+    = cobble_list(:contained_products)
 
   - c.cobble(:places) do
-    = list(:places)
+    = cobble_list(:places)
 
   - c.cobble(:issues) do
-    = toolbar do |t|
+    = cobble_toolbar do |t|
       - t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name})
-    = list(:issues)
+    = cobble_list(:issues)
 
   - c.cobble(:readings, title: tl(:x_readings, count: resource.readings.count)) do
-    = list(:readings)
+    = cobble_list(:readings)
 

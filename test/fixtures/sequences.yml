@@ -73,17 +73,17 @@ sequences_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   id: 2
-  last_cweek: 22
-  last_month: 5
-  last_number: 5
+  last_cweek: 24
+  last_month: 6
+  last_number: 6
   last_year: 2015
-  lock_version: 8
+  lock_version: 9
   name: Personnes
   number_format: P[number|8]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2015-05-30 19:59:37.520607000 Z
+  updated_at: 2015-06-13 16:50:36.713030000 Z
   updater_id: 1
   usage: entities
 sequences_003:

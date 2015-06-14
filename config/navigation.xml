@@ -19,6 +19,7 @@
         <page to="backend/entities#list_observations"/>
         <page to="backend/entities#list_outgoing_payments"/>
         <page to="backend/entities#list_purchases"/>
+        <page to="backend/entities#list_sale_opportunities"/>
         <page to="backend/entities#list_sales"/>
         <page to="backend/entities#list_subscriptions"/>
         <page to="backend/entities#list_tasks"/>
@@ -644,7 +645,6 @@
         <page to="backend/animals#list_reading_tasks"/>
         <page to="backend/animals#take"/>
         <page to="backend/animals#unroll"/>
-        <page to="backend/animals#update_preferences"/>
       </item>
     </group>
     <group name="plant_productions" icon="wheat">
@@ -1437,7 +1437,6 @@
         <page to="backend/animals#load_containers"/>
         <page to="backend/animals#load_natures"/>
         <page to="backend/animals#load_workers"/>
-        <page to="backend/animals#load_preferences"/>
       </item>
       <item name="guides">
         <page to="backend/guides#index"/>
@@ -1463,6 +1462,11 @@
       <item name="beehives">
         <page to="backend/beehives#reset"/>
         <page to="backend/beehives#update"/>
+      </item>
+      <item name="golumns">
+        <page to="backend/golumns#reset"/>
+        <page to="backend/golumns#show"/>
+        <page to="backend/golumns#update"/>
       </item>
       <item name="kujakus">
         <page to="backend/kujakus#toggle"/>

@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  get 'golumns/update'
-
-  get 'golumns/reset'
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -323,6 +319,7 @@ Rails.application.routes.draw do
         get :list_purchases
         get :list_observations
         get :list_outgoing_payments
+        get :list_sale_opportunities
         get :list_sales
         get :list_subscriptions
         get :list_tasks
@@ -384,6 +381,12 @@ Rails.application.routes.draw do
     end
 
     resources :georeadings, concerns: [:list, :unroll]
+
+    resources :golumns, only: [:show, :update] do
+      member do
+        post :reset
+      end
+    end
 
     resources :guide_analyses, only: [:show], path: "guide-analyses" do
       member do

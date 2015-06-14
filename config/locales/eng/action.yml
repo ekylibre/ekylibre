@@ -51,12 +51,10 @@ eng:
       # load_animals: "Load animals animal: %{name}"
       # load_containers: "Load containers animal: %{name}"
       # load_natures: "Load natures animal: %{name}"
-      # load_preferences: "Load preferences animal: %{name}"
       # load_workers: "Load workers animal: %{name}"
       new: "New animal"
       show: "%{nature}: %{name}"
       # take: "Take animal: %{name}"
-      # update_preferences: "Update preferences animal: %{name}"
     backend/bank_statements:
       edit: "Edit bank statement %{number}"
       index: "Bank statements"
@@ -293,6 +291,9 @@ eng:
       index: "Georeadings"
       new: "New georeading"
       show: "Georeading: %{name}"
+    backend/golumns:
+      # reset: "Reset golumn: %{name}"
+      # show: "Golumn: %{name}"
     backend/guide_analyses:
       show: "Analysis #%{execution_number} of %{guide}"
     backend/guides:
@@ -1101,7 +1102,7 @@ eng:
     mail: "Send an email" #?
     mailing: "Mailing" #?
     mails:
-      one: "One email"
+      one: "%{count} email"
       other: "%{count} emails"
       zero: "No emails"
     main_settings: "Main settings"
@@ -1130,6 +1131,7 @@ eng:
     net_mass: "Net mass"
     net_surface_area: "Net surface area"
     new: "New" #?
+    new_animal: "New animal"
     new_box: "New box"
     new_call: "New call"
     new_contact: "New contact"
@@ -1257,8 +1259,11 @@ eng:
     reflected: "Reflected changes" #?
     reflections: "Reflections" #?
     refresh: "Refresh" #?
-    related_people: "Related people"
+    related_people: "Related people" #?!
     relationship: "Relationship"
+    relationship_of_entity: "%{relationship} of %{entity}"
+    relationship_of_entity_as_inverse_post: "%{relationship} of %{entity} (%{inverse_post})"
+    relationship_of_entity_as_post: "%{relationship} of %{entity} as %{post}"
     remove: "Remove"
     remove_item: "Remove item"
     remove_subscription: "Remove subscription"
@@ -1286,6 +1291,7 @@ eng:
     rss: "RSS" #?
     run: "Run"
     sale: "Sale" #?
+    # sale_opportunities: "Sale opportunities"
     sales: "Sales"
     sales_conditions: "Conditions of sales" #?
     sales_invoice: "Invoicing" #?
@@ -1322,7 +1328,7 @@ eng:
     start_new_intervention_here: "Start new intervention here"
     state: "State"
     statistics: "Statistics"
-    stewardship: "Stewardship"
+    stewardship: "Stewardship" #?
     stock: "Stock" #?
     stock_container_map: "Stock map"
     stock_of_x: "Stock of %{x}"
@@ -1354,12 +1360,14 @@ eng:
     time_cost_per_hectare: "Time cost per hectare"
     time_zone: "Time zone"
     timeline: "Timeline"
-    timeline_call: "%{author} called %{entity} about %{name} %{ago} ago"
     timeline_comment: "%{author} commented %{ago} ago"
     timeline_entity_link: "Timeline entity link"
     timeline_event: "%{name} with %{participants} %{ago} ago"
+    timeline_incoming_call: "%{author} called %{entity} about %{name} %{ago} ago"
+    timeline_incoming_mail: "%{entity} wrote to %{author} about %{name} %{ago} ago"
     timeline_item: "%{type} %{name} added by %{author} %{ago} ago"
-    timeline_mail: "%{author} wrote to %{entity} about %{name} %{ago} ago"
+    timeline_outgoing_call: "%{author} called %{entity} about %{name} %{ago} ago"
+    timeline_outgoing_mail: "%{author} wrote to %{entity} about %{name} %{ago} ago"
     timeline_payment: "%{type} %{name} of %{amount} by %{mode} added by %{author} %{ago} ago"
     timeline_sale: "%{type} %{name} of %{amount} added by %{author} %{ago} ago"
     timeline_task: "%{author} added task %{name} %{ago} ago"
@@ -1445,7 +1453,6 @@ eng:
     x_entities:
       one: "%{count} person"
       other: "%{count} people"
-      zero: "No people"
     x_entity_links:
       one: "%{count} link"
       other: "%{count} links"
@@ -1477,7 +1484,6 @@ eng:
     x_mandates:
       one: "%{count} mandate"
       other: "%{count} mandates"
-      zero: "No mandate"
     x_months:
       one: "%{count} month"
       other: "%{count} months"
@@ -1502,24 +1508,26 @@ eng:
       one: "1 purchase"
       other: "%{count} purchases"
     x_readings:
-      one: "%{count} indicator"
-      other: "%{count} indicators"
-      zero: "No indicator"
+      one: "%{count} reading"
+      other: "%{count} readings"
     x_results:
       one: "%{count} result found"
       other: "%{count} results found"
       zero: "No results found"
+    x_sale_opportunities:
+      one: "%{count} opportunity"
+      other: "%{count} opportunities"
     x_sales:
-      one: "1 sale"
+      one: "%{count} sale"
       other: "%{count} sales"
     x_sales_invoices:
-      one: "1 sales invoice"
+      one: "%{count} sales invoice"
       other: "%{count} sales invoices"
     x_stock_transfers_to_confirm:
       one: "%{count} stock transfer to confirm"
       other: "%{count} stock transfers to confirm"
     x_subscriptions:
-      one: "1 subscription"
+      one: "%{count} subscription"
       other: "%{count} subscriptions"
     x_tasks:
       one: "%{count} task"
@@ -1677,7 +1685,6 @@ eng:
       # load_animals: "Load animals"
       # load_containers: "Load containers"
       # load_natures: "Load natures"
-      # load_preferences: "Load preferences"
       # load_workers: "Load workers"
       lock: "Lock"
       lose: "Lose"
@@ -1727,7 +1734,6 @@ eng:
       up: "Up"
       update: "Update"
       update_password: "Update password"
-      # update_preferences: "Update preferences"
       win: "Win"
       # zticket: "Zticket"
   unrolls:

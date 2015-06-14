@@ -22,30 +22,33 @@
 #
 # == Table: entity_links
 #
-#  created_at    :datetime         not null
-#  creator_id    :integer
-#  description   :text
-#  entity_1_id   :integer          not null
-#  entity_1_role :string           not null
-#  entity_2_id   :integer          not null
-#  entity_2_role :string           not null
-#  id            :integer          not null, primary key
-#  lock_version  :integer          default(0), not null
-#  nature        :string           not null
-#  started_at    :datetime
-#  stopped_at    :datetime
-#  updated_at    :datetime         not null
-#  updater_id    :integer
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  description  :text
+#  entity_id    :integer          not null
+#  entity_role  :string           not null
+#  id           :integer          not null, primary key
+#  linked_id    :integer          not null
+#  linked_role  :string           not null
+#  lock_version :integer          default(0), not null
+#  main         :boolean          default(FALSE), not null
+#  nature       :string           not null
+#  post         :string
+#  started_at   :datetime
+#  stopped_at   :datetime
+#  updated_at   :datetime         not null
+#  updater_id   :integer
 #
 #
 # == Fixture: entity_links
 #
 # entity_links_001:
 #   creator: users_001
-#   entity_1: entity_1s_001
-#   entity_1_role: "Lorem ipsum"
-#   entity_2: entity_2s_001
-#   entity_2_role: "Lorem ipsum"
+#   entity: entities_001
+#   entity_role: "Lorem ipsum"
+#   linked: linkeds_001
+#   linked_role: "Lorem ipsum"
+#   main: true
 #   nature: "Lorem ipsum"
 #   updater: users_001
 #
@@ -53,36 +56,99 @@
 entity_links_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  entity_1_id: 6
-  entity_1_role: employer
-  entity_2_id: 7
-  entity_2_role: employee
+  entity_id: 6
+  entity_role: organization
   id: 1
+  linked_id: 7
+  linked_role: member
   lock_version: 0
-  nature: work
+  main: true
+  nature: membership
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 entity_links_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  entity_1_id: 7
-  entity_1_role: employer
-  entity_2_id: 6
-  entity_2_role: employee
+  entity_id: 7
+  entity_role: organization
   id: 2
+  linked_id: 6
+  linked_role: member
   lock_version: 0
-  nature: work
+  main: true
+  nature: membership
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 entity_links_003:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  entity_1_id: 7
-  entity_1_role: entity
-  entity_2_id: 8
-  entity_2_role: entity
+  entity_id: 7
+  entity_role: entity
   id: 3
+  linked_id: 8
+  linked_role: entity
   lock_version: 0
+  main: true
   nature: undefined
   updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+entity_links_004:
+  created_at: 2015-06-13 16:49:39.711361000 Z
+  creator_id: 1
+  entity_id: 10
+  entity_role: person
+  id: 4
+  linked_id: 9
+  linked_role: person
+  lock_version: 0
+  main: false
+  nature: collaboration
+  post: ''
+  started_at: 2015-06-13 16:49:39.704659000 Z
+  updated_at: 2015-06-13 16:49:39.711361000 Z
+  updater_id: 1
+entity_links_005:
+  created_at: 2015-06-13 16:51:03.084993000 Z
+  creator_id: 1
+  entity_id: 9
+  entity_role: member
+  id: 5
+  linked_id: 16
+  linked_role: organization
+  lock_version: 1
+  main: true
+  nature: membership
+  post: Commandant
+  started_at: 2015-06-13 16:51:03.079822000 Z
+  updated_at: 2015-06-13 17:07:43.818335000 Z
+  updater_id: 1
+entity_links_006:
+  created_at: 2015-06-13 16:53:55.980334000 Z
+  creator_id: 1
+  entity_id: 12
+  entity_role: member
+  id: 6
+  linked_id: 16
+  linked_role: organization
+  lock_version: 0
+  main: true
+  nature: membership
+  post: Directrice R&D
+  started_at: 2015-06-13 16:53:55.973992000 Z
+  updated_at: 2015-06-13 16:53:55.980334000 Z
+  updater_id: 1
+entity_links_007:
+  created_at: 2015-06-13 17:04:15.294416000 Z
+  creator_id: 1
+  entity_id: 10
+  entity_role: member
+  id: 7
+  linked_id: 16
+  linked_role: organization
+  lock_version: 1
+  main: true
+  nature: membership
+  post: Commandant en second
+  started_at: 2015-06-13 17:04:15.289088000 Z
+  updated_at: 2015-06-13 17:07:59.573090000 Z
   updater_id: 1

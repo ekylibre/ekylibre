@@ -22,37 +22,42 @@
 #
 # == Table: entity_links
 #
-#  created_at    :datetime         not null
-#  creator_id    :integer
-#  description   :text
-#  entity_1_id   :integer          not null
-#  entity_1_role :string           not null
-#  entity_2_id   :integer          not null
-#  entity_2_role :string           not null
-#  id            :integer          not null, primary key
-#  lock_version  :integer          default(0), not null
-#  nature        :string           not null
-#  started_at    :datetime
-#  stopped_at    :datetime
-#  updated_at    :datetime         not null
-#  updater_id    :integer
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  description  :text
+#  entity_id    :integer          not null
+#  entity_role  :string           not null
+#  id           :integer          not null, primary key
+#  linked_id    :integer          not null
+#  linked_role  :string           not null
+#  lock_version :integer          default(0), not null
+#  main         :boolean          default(FALSE), not null
+#  nature       :string           not null
+#  post         :string
+#  started_at   :datetime
+#  stopped_at   :datetime
+#  updated_at   :datetime         not null
+#  updater_id   :integer
 #
 
 
 class EntityLink < Ekylibre::Record::Base
-  belongs_to :entity_1, class_name: "Entity"
-  belongs_to :entity_2, class_name: "Entity"
+  belongs_to :entity
+  belongs_to :linked, class_name: "Entity"
   enumerize :nature, in: Nomen::EntityLinkNatures.all
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
-  validates_presence_of :entity_1, :entity_1_role, :entity_2, :entity_2_role, :nature
+  validates_inclusion_of :main, in: [true, false]
+  validates_presence_of :entity, :entity_role, :linked, :linked_role, :nature
   #]VALIDATORS]
   validates_inclusion_of :nature, in: self.nature.values
 
+  selects_among_all :main, scope: :entity_id
+
   scope :of_entity, lambda { |entity|
-    # where("stopped_at IS NULL AND ? IN (entity_1_id, entity_2_id)", entity.id)
-    # where(stopped_at: nil, entity.id => [:entity_1_id, :entity_2_id])
-    where(stopped_at: nil).where("? IN (entity_1_id, entity_2_id)", entity.id)
+    # where("stopped_at IS NULL AND ? IN (entity_id, linked_id)", entity.id)
+    # where(stopped_at: nil, entity.id => [:entity_id, :linked_id])
+    where(stopped_at: nil).where("? IN (entity_id, linked_id)", entity.id)
   }
   scope :at, lambda { |at|
     where(arel_table[:started_at].eq(nil).or(arel_table[:started_at].lt(at)).and(arel_table[:stopped_at].eq(nil).or(arel_table[:stopped_at].gt(at))) )
@@ -66,8 +71,8 @@ class EntityLink < Ekylibre::Record::Base
   before_validation do
     self.started_at ||= Time.now
     if item = Nomen::EntityLinkNatures[self.nature]
-      self.entity_1_role = item.entity_1
-      self.entity_2_role = item.entity_2
+      self.entity_role = item.entity
+      self.linked_role = item.linked
     end
   end
 

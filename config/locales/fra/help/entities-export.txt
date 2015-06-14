@@ -1,4 +1,4 @@
-====== Exporter des personnes ======
+====== Exporter des tiers ======
 
 ===== Colonnes =====
 Dans un premier temps, vous pouvez sélectionner les colonnes que vous désirez récupérer.
