@@ -2,7 +2,7 @@
 <navigation>
   <part name="relationship" icon="people">
     <page to="backend/dashboards#relationship"/>
-    <group name="people" icon="group">
+    <group name="entities" icon="group">
       <item name="entities">
         <page to="backend/entities#index"/>
         <page to="backend/entities#create"/>
