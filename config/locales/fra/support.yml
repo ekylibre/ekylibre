@@ -57,6 +57,9 @@ fra:
       x_seconds:
         one: "1 seconde"
         other: "%{count} secondes"
+    relative_distance_in_words:
+      in_sometime: "dans %{distance}"
+      sometime_ago: "il y a %{distance}"
   http:
     errors:
       internal_server_error:

@@ -55,6 +55,9 @@ spa:
       x_seconds:
         one: "1 segundo"
         other: "%{count} segundos"
+    relative_distance_in_words:
+      in_sometime: "en %{distance}"
+      sometime_ago: "hace %{distance}"
   http:
     errors:
       internal_server_error:

@@ -55,6 +55,9 @@ jpn:
       x_seconds:
         one: "1秒"
         other: "%{count}秒"
+    relative_distance_in_words:
+      # in_sometime: "in %{distance}"
+      # sometime_ago: "%{distance} ago"
   http:
     errors:
       internal_server_error:

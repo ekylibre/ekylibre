@@ -99,6 +99,9 @@ arb:
         other: "%{count} ثانية"
         two: "ثانيتان" #?
         zero: "صفر ثواني" #?
+    relative_distance_in_words:
+      # in_sometime: "in %{distance}"
+      # sometime_ago: "%{distance} ago"
   http:
     errors:
       internal_server_error:

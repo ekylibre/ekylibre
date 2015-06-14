@@ -984,4 +984,13 @@ module ApplicationHelper
     end
   end
 
+  def relative_distance_in_words(time)
+    now = Time.now
+    if time > now
+      "datetime.relative_distance_in_words.in_sometime".t(distance: time_ago_in_words(time))
+    else
+      "datetime.relative_distance_in_words.sometime_ago".t(distance: time_ago_in_words(time))
+    end
+  end
+
 end
