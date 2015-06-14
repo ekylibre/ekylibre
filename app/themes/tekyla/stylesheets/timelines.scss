@@ -1,12 +1,12 @@
+$line-color: #DDD;
+$frame-border: 1px solid $line-color;
 .timeline {
   $avatar-size: 48px;
   $log-size: $lh-normal + 2 * $default-gap;
-  $line-color: #DDD;
   $padding: 2 * $default-gap;
   padding: 0 $padding;
-  margin: $padding auto;
+  margin: 0 auto $padding;
   position: relative;
-  $frame-border: 1px solid $line-color;
 
   max-width: 120ex;
 
@@ -27,6 +27,10 @@
       display: none;
     }
     border-top: 1px solid #EEE;
+    &:first-child {
+      border-top: none;
+      padding-top: $default-gap;
+    }
     > .log {
       padding: $default-gap 0 $default-gap ($avatar-size + $default-gap);
       $line-height: $lh-normal;
@@ -160,9 +164,14 @@
       &.log-product-phase .log-symbol {
         @include use-icon(share);
       }
-      &.log-incoming-call, &.log-outgoing-call {
+      &.log-incoming-call {
         .log-symbol {
-          @include use-icon(phone);
+          @include use-icon(call-received);
+        }
+      }
+      &.log-outgoing-call {
+        .log-symbol {
+          @include use-icon(call-made);
         }
       }
       &.log-incoming-mail, &.log-outgoing-mail {
@@ -176,10 +185,10 @@
         }
       }
       &.log-document .log-symbol {
-        @include use-icon(briefcase);
+        @include use-icon(file-o);
       }
       &.log-quote .log-symbol {
-        @include use-icon(file-text-o);
+        @include use-icon(functions);
       }
     }
 
@@ -187,7 +196,11 @@
 }
 
 .timeline-tools {
-  padding: $default-gap*0.5;
+  max-width: 120ex;
+  margin: 0 auto;
+  padding: $default-gap;
+  background: white;
+  border: $frame-border;
   .timeline-tool {
     @include button-group;
     margin: $default-gap*0.5;

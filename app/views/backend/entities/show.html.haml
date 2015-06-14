@@ -11,8 +11,13 @@
   - j.face :timeline do
     - if resource.contact?
       - content_for :entity_tools do
-        %span.timeline-tool{class: "tl-call"}
-          = link_to({controller: :tasks, action: :new, nature: :call, state: :done, entity_id: resource.id, executor_id: current_user.person_id, redirect: request.fullpath}, class: "btn btn-new") do
+        - [:outgoing_call, :outgoing_email, :quote, :document].each do |nature|
+          %span.timeline-tool{class: "tl-#{nature.to_s.dasherize}"}
+            = link_to({controller: :tasks, action: :new, nature: nature, state: :done, entity_id: resource.id, executor_id: current_user.person_id, redirect: request.fullpath}, title: "new_#{nature}".tl, class: "btn btn-#{nature.to_s.dasherize}") do
+              %i
+
+        -# %span.timeline-tool{class: "tl-call"}
+          = link_to({controller: :tasks, action: :new, nature: :outgoing_call, state: :done, entity_id: resource.id, executor_id: current_user.person_id, redirect: request.fullpath}, class: "btn btn-outgoing-call") do
             %i
             = :new_call.tl
     = timeline(resource, id: :entity) do |l|
@@ -26,7 +31,7 @@
         - l.side :incoming_payments, new: false
       - if resource.outgoing_payments.any? or resource.supplier?
         - l.side :outgoing_payments, new: false
-      - l.side :tasks, params: {entity_id: resource.id, executor_id: current_user.person_id, state: :todo}, at: :due_at
+      - l.side :tasks, at: :due_at, new: false # , params: {entity_id: resource.id, executor_id: current_user.person_id, state: :todo}
       - l.side :issues, params: {target_type: "Entity", nature: "issue", gravity: 2, priority: 2, without_geolocation: 1}
       - l.side :observations
       - l.side :direct_links

@@ -23,8 +23,11 @@
 }
 
 @each $icon in $symbolic-icons {
-  @include iconics(nth($icon, 1)) {
-    @include icon(nth($icon, 2));
+  $name: nth($icon, 1);
+  @if $name != "3d-rotation" {
+    @include iconics(nth($icon, 1)) {
+      @include icon(nth($icon, 2));
+    }
   }
 }
 
