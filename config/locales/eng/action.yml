@@ -1167,6 +1167,7 @@ eng:
     normal: "Normal" #?
     not_delivered: "Not delivered" #?
     not_received: "Not received" #?
+    now: "Now" #?
     number: "Number" #?
     number_options: "Options Numbers"
     numbers: "Numbers" #?

@@ -1,5 +1,6 @@
 $line-color: #DDD;
 $frame-border: 1px solid $line-color;
+$marker-color: $caution-color;
 .timeline {
   $avatar-size: 48px;
   $log-size: $lh-normal + 2 * $default-gap;
@@ -31,6 +32,18 @@ $frame-border: 1px solid $line-color;
       border-top: none;
       padding-top: $default-gap;
     }
+    &.timestep-marker {
+      &:before {
+        background-color: $marker-color;
+        content: "";
+        display: block;
+        position: relative;
+        top: $lh-normal;
+        height: 2px;
+        z-index: -1;
+      }
+    }
+
     > .log {
       padding: $default-gap 0 $default-gap ($avatar-size + $default-gap);
       $line-height: $lh-normal;
@@ -41,6 +54,34 @@ $frame-border: 1px solid $line-color;
           @include float(left);
           @include margin-left(-1 * ($avatar-size + $default-gap));
           @include border-radius($default-border-radius);
+        }
+      }
+      .log-marker {
+        @include padding-right($default-gap);
+        @include inline-block;
+        background: $desktop-background;
+        font-weight: bold;
+        font-size: $fs-small;
+        text-transform: uppercase;
+        &, * {
+          color: $marker-color;
+          line-height: $lh-normal;
+          vertical-align: baseline;
+        }
+        i {
+          @include is-icon(14px);
+          @include use-icon(star);
+          // @include display(block);
+          // @include float(left);
+          @include text-align(center);
+          @include inline-block;
+          width: $log-size + 2px;
+        }
+        &.log-marker-past i {
+          @include use-icon(arrow-down);
+        }
+        &.log-marker-future i {
+          @include use-icon(arrow-up);
         }
       }
       .log-symbol {

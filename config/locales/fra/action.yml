@@ -1260,6 +1260,7 @@ fra:
     not_finishes: "Ne termine pas par" #?
     not_is: "N’est pas" #?
     not_received: "Non reçu"
+    now: "Maintenant"
     number: "Numéro"
     number_options: "Options de numérotations"
     numbers: "Numéros"

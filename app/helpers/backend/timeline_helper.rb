@@ -62,7 +62,7 @@ module Backend::TimelineHelper
 
       def steps
         @steps ||= records.collect do |record|
-          Step.new(self, record.send(at_method), record)
+          SideStep.new(self, record.send(at_method), record)
         end
       end
 
@@ -76,20 +76,35 @@ module Backend::TimelineHelper
     end
 
     class Step
-      attr_reader :side, :at, :record
+      attr_reader :at, :name
 
-      def initialize(side, at, record)
-        @side = side
+      def initialize(at, name)
         @at = at
-        @record = record
+        @name = name
       end
 
       def <=>(other)
-        @at <=> other.at
+        self.at <=> other.at
       end
+    end
 
-      def name
-        @record.send(side.label_method)
+    class MarkerStep < Step
+      attr_reader :key
+      def initialize(at, key, name = nil)
+        @key = key
+        name ||= key.tl
+        super(at, name)
+      end
+    end
+
+
+    class SideStep < Step
+      attr_reader :side, :record
+
+      def initialize(side, at, record)
+        @side = side
+        @record = record
+        super(at, @record.send(side.label_method))
       end
 
       def author
@@ -113,6 +128,17 @@ module Backend::TimelineHelper
       list = []
       @sides.each do |side|
         list += side.steps
+      end
+      now = Time.now
+      if list.detect{|s| s.at > now }
+        list << MarkerStep.new(now, :now)
+      end
+      count = 1
+      ago = now - 1.year
+      while list.detect{|s| s.at < ago }
+        list << MarkerStep.new(ago, :past, "datetime.distance_in_words.over_x_years".t(count: count))
+        count += 1
+        ago = now - count.year
       end
       return list.compact.sort.reverse
     end

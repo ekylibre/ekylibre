@@ -1416,6 +1416,7 @@ arb:
       information: "معلومة" #?
       success: "استكملت العملية بنجاح" #?
       warning: "!تحذير" #?
+    # now: "Now"
     number: "رقم"
     # number_options: "Options Numbers"
     # numbers: "Numbers"

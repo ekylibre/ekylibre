@@ -10,33 +10,40 @@
       = content_for("#{timeline.id}_tools".to_sym)
 .timeline
   - timeline.steps.each do |step|
-    :ruby
-      side = step.side
-      defaults = {type: h(side.model.model_name.human), author: (step.author ? link_to(step.author.full_name, backend_user_path(step.author)) : :unknown.tl), at: h(step.at.l), ago: content_tag(:span, time_ago_in_words(step.at), title: step.at.l(format: :long))}
+    - if step.is_a?(Backend::TimelineHelper::Timeline::MarkerStep)
+      .timestep.timestep-marker
+        .log
+          .log-marker{title: step.at.l, class: "log-marker-#{step.key}"}
+            %i
+            = step.name
+    - else
+      :ruby
+        side = step.side
+        defaults = {type: h(side.model.model_name.human), author: (step.author ? link_to(step.author.full_name, backend_user_path(step.author)) : :unknown.tl), at: h(step.at.l), ago: content_tag(:span, time_ago_in_words(step.at), title: step.at.l(format: :long))}
 
-      begin
-        url = url_for({controller: side.controller_name, action: :show, id: step.record.id})
-      rescue ActionController::UrlGenerationError
-        url = nil
-      end
+        begin
+          url = url_for({controller: side.controller_name, action: :show, id: step.record.id})
+        rescue ActionController::UrlGenerationError
+          url = nil
+        end
 
-      unless url.nil?
-        defaults[:name] = link_to(step.name.to_s, {controller: side.controller_name, action: :show, id: step.record.id})
-      else
-        defaults[:name] = step.name.to_s
-      end
-    - avatar_size = 32
-    .timestep{class: side.model_name}
-      - if Rails.root.join("app", "views", "backend", "shared", "timeline", "_#{side.model_name}.html.haml").exist?
-        = render "backend/shared/timeline/#{side.model_name}", avatar_size: avatar_size, side: side, step: step, defaults: defaults, side.model_name => step.record
-      - else
-        .log.log-without-content{class: "log-#{side.model_name.to_s.dasherize}"}
-          .log-wrapper
-            .log-symbol
-            .log-heading
-              - if step.record.respond_to? :status
-                %span.log-status= lights(step.record.status)
-              - if Rails.root.join("app", "views", "backend", "shared", "timeline", "content", "_#{side.model_name}.html.haml").exist?
-                = render "backend/shared/timeline/content/#{side.model_name}", avatar_size: avatar_size, side: side, step: step, defaults: defaults, side.model_name => step.record
-              - else
-                = :timeline_item.th(defaults)
+        unless url.nil?
+          defaults[:name] = link_to(step.name.to_s, {controller: side.controller_name, action: :show, id: step.record.id})
+        else
+          defaults[:name] = step.name.to_s
+        end
+      - avatar_size = 32
+      .timestep{class: side.model_name}
+        - if Rails.root.join("app", "views", "backend", "shared", "timeline", "_#{side.model_name}.html.haml").exist?
+          = render "backend/shared/timeline/#{side.model_name}", avatar_size: avatar_size, side: side, step: step, defaults: defaults, side.model_name => step.record
+        - else
+          .log.log-without-content{class: "log-#{side.model_name.to_s.dasherize}"}
+            .log-wrapper
+              .log-symbol
+              .log-heading
+                - if step.record.respond_to? :status
+                  %span.log-status= lights(step.record.status)
+                - if Rails.root.join("app", "views", "backend", "shared", "timeline", "content", "_#{side.model_name}.html.haml").exist?
+                  = render "backend/shared/timeline/content/#{side.model_name}", avatar_size: avatar_size, side: side, step: step, defaults: defaults, side.model_name => step.record
+                - else
+                  = :timeline_item.th(defaults)
