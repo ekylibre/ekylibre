@@ -228,9 +228,6 @@ $marker-color: $caution-color;
       &.log-document .log-symbol {
         @include use-icon(file-o);
       }
-      &.log-quote .log-symbol {
-        @include use-icon(functions);
-      }
     }
 
   }

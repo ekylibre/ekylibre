@@ -9,6 +9,7 @@
 @import "compass/typography/text/ellipsis";
 @import "compass/utilities/general/clearfix";
 @import "bootstrap/mixins";
+@import "bootstrap/panels";
 
 @function background-hover($background-color) {
   @return mix($background-color, opacify($hover-mask, 1), percentage($hover-transparency));
