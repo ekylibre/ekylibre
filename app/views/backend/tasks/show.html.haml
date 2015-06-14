@@ -12,5 +12,5 @@
     - l.attribute :description
 
 = timeline(resource) do |l|
-  - l.side :observations
+  - l.side :observations, at: :observed_at
   - l.side :versions, new: false

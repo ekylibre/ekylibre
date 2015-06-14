@@ -1519,6 +1519,7 @@ arb:
     # mail_line_6: "Postal code and city"
     # mail_postal_zone: "Mail postal_zone"
     # mails: "Mails"
+    # main: "Main"
     # main_activity: "Main activity"
     # main_production: "Main production"
     major_accounts: "الحسابات الئيسية" #?
@@ -1671,6 +1672,7 @@ arb:
     # population: "Population"
     # population_counting: "Population counting"
     position: "الوضع"
+    # post: "Post"
     # postal_code: "Postal code"
     postal_zone: "المنطقة البريدية" #?
     postal_zone_id: "العنوان البريدي" #?
