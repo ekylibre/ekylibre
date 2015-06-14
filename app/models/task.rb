@@ -76,6 +76,12 @@ class Task < Ekylibre::Record::Base
     self.state ||= :todo
   end
 
+  validate do
+    if self.due_at > Time.now and self.done?
+      errors.add(:state, :invalid)
+    end
+  end
+
   def call?
     self.incoming_call? or self.outgoing_call?
   end

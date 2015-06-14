@@ -1,9 +1,11 @@
 # Selectors for unroll action
 #= require jquery.scrollTo
-#
+
+
 (($) ->
   "use strict"
 
+  # This widget is one of the main. It's a classical dynamic selector
   $.widget "ui.selector",
     options:
       clear: false
