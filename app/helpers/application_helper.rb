@@ -956,12 +956,13 @@ module ApplicationHelper
     heading = options.delete(:heading)
     options[:tabindex] ||= "-1"
     options[:role] ||= "dialog"
+    options[:close_button] = (options[:close_button] == 'no') ? false: true
     content_for(:popover) do
       content_tag(:div, options) do
         content_tag(:div, class: "modal-dialog") do
           content_tag(:div, class: "modal-content") do
             if heading
-              modal_header(heading) + capture(&block)
+              modal_header(heading, options[:close_button]) + capture(&block)
             else
               capture(&block)
             end
@@ -971,12 +972,15 @@ module ApplicationHelper
     end
   end
 
-  def modal_header(title)
+  def modal_header(title, close_button)
     content_tag(:div, class: "modal-header") do
-      button_tag(class: "close", "aria-label" => :close.tl, data: {dismiss: "modal"}, type: "button") do
-        content_tag(:span, "&times;".html_safe, "aria-hidden" => "true")
-      end +
+      if close_button
+        button_tag(class: "close", "aria-label" => :close.tl, data: {dismiss: "modal"}, type: "button") do
+          content_tag(:span, "&times;".html_safe, "aria-hidden" => "true")
+        end + content_tag(:h4, title, class: "modal-title")
+      else
         content_tag(:h4, title, class: "modal-title")
+      end
     end
   end
 

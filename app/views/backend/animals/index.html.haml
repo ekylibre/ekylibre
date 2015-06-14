@@ -138,7 +138,7 @@
           %i.icon.icon-plus Ajouter
         %button.close.btn.btn-default{"aria-label" => :close.tl, "data-dismiss" => "modal", :type => "button"}= :cancel.ta
 
-    = modal(id: "move-animal", "aria-hidden" => "true", "aria-labelledby" => "moveAnimal", data: {bind: "modal: showMoveAnimalModal(), with: moveAnimalModalOptions"}, header: "Déplacement") do
+    = modal(id: "move-animal", "aria-hidden" => "true", "aria-labelledby" => "moveAnimal", data: {bind: "modal: showMoveAnimalModal(), with: moveAnimalModalOptions"}, heading: "Déplacement", close_button: 'no') do
       .modal-body
         %p Les animaux à déplacer:
         %div{ data: {bind: 'foreach: animals()'}}
@@ -147,7 +147,7 @@
           %span Groupe:
           %p{ data: {bind: 'text: $data.group().name'}}
         %div{ data: {bind: 'if: $data.container' } }
-          %span Container:
+          %span Emplacement:
           %p{ data: {bind: 'text: $data.container().name'}}
         %form.form-horizontal
           .control-group
@@ -177,7 +177,7 @@
           %i.icon.icon-plus Déplacer
         %button.close.btn.btn-default{"aria-label" => :close.tl, :type => "button", data: {bind: "click: $root.cancelAnimalsMoving"}}= :cancel.ta
 
-    = modal(id: "new-container", "aria-hidden" => "true", "aria-labelledby" => "newContainer", data: {bind: "modal: showNewContainerModal(), with: containerModalOptions"}, heading: "Ajouter un emplacement") do
+    = modal(id: "new-container", "aria-hidden" => "true", "aria-labelledby" => "newContainer", data: {bind: "modal: showNewContainerModal(), with: containerModalOptions"}, heading: "Ajouter un emplacement", close_button: 'no') do
       .modal-body
         %select{data: { bind: "options: $root.containers_list,
           optionsText: 'name',
