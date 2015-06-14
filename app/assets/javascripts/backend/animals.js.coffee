@@ -302,7 +302,6 @@
 
       @updatePreferences = () =>
 
-        #[{group: {id:301, containers:[{id:176, position: 0}]}},{group: {id:302, containers:[{id:176, position: 0}]}},{group: {id:305, containers:[{id:169, position: 0},{id: 5678, position: 1}]}}]
         data = []
 
         ko.utils.arrayForEach @groups(), (g) =>
@@ -318,8 +317,9 @@
               return 1
             else
               return -1
-          $.each containers, (item) ->
-            group.containers.push item
+
+          ko.utils.arrayForEach containers, (item) ->
+            group.containers.push item.id
           data.push group
 
         $.ajax
