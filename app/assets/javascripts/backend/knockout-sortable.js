@@ -40,15 +40,15 @@
                 {
 
                     dataSet(element, CONTAINERKEY, data);
-                    dataSet(element, PARENTGROUPKEY, dataGet($(element).closest('.animal-group')[0], GROUPKEY));
+                    dataSet(element, PARENTGROUPKEY, dataGet($(element).closest('.golumn-column')[0], GROUPKEY));
 
                 }
-            else if($(element).hasClass('animal-group'))
+            else if($(element).hasClass('golumn-column'))
                 {
 
                     dataSet(element, GROUPKEY, data);
                 }
-                else if($(element).hasClass('animal-element'))
+                else if($(element).hasClass('golumn-item'))
                 {
                     dataSet(element, ITEMKEY, data);
                 }
@@ -192,7 +192,7 @@
                         }
                         else if (dataGet(item[0],ITEMKEY) != undefined)
                         {
-                            elements = $('.checker.active').closest('.animal-element').find('.animal-element-infos .animal-element-name span').clone();
+                            elements = $('.checker.active').closest('.golumn-item').find('.golumn-item-infos .golumn-item-name span').clone();
 
                             if(!elements.length)
                             {
@@ -257,7 +257,7 @@
                         if(dataGet(el,ITEMKEY) != undefined)
                         {
 
-                            el = $('.checker.active').closest('.animal-element').not('.ui-sortable-placeholder');
+                            el = $('.checker.active').closest('.golumn-item').not('.ui-sortable-placeholder');
 
                             ui.item.data('items', el);
                             $('.animal-container .body .animal-dropzone').addClass('grow-empty-zone');
@@ -381,7 +381,7 @@
                             //sourceParent = dataGet(el, PARENTKEY);
                             var sourceParentGroup = dataGet(el, PARENTGROUPKEY);
                             var sourceIndex = dataGet(el, INDEXKEY);
-                            var targetParent = dataGet(ui.item.closest('.animal-group')[0], GROUPKEY);
+                            var targetParent = dataGet(ui.item.closest('.golumn-column')[0], GROUPKEY);
                             var targetIndex = ko.utils.arrayIndexOf(ui.item.parent().children(), el);
                             var containerItem;
 
@@ -539,7 +539,7 @@
 
                         if (item) {
 
-                            targetGroup = dataGet($(this).closest('.animal-group')[0], GROUPKEY);
+                            targetGroup = dataGet($(this).closest('.golumn-column')[0], GROUPKEY);
 
                             el = ui.draggable.data('items');
 

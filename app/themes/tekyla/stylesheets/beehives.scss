@@ -1,15 +1,3 @@
-
-@include keyframes(cell-rotate) {
-  0% {
-    transform: rotate(0);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-
-
 $min-width: round($mini-screen * 0.3);
 
 $spacing: round($default-gap * 0.8);
@@ -121,9 +109,7 @@ $configuring-min-height: 400px;
 
       &.loading {
         > .cell-inner > .cell-content > .cell-indicator {
-          opacity: 0.8;
-          @include use-icon(circle-o-notch);
-          @include animation(cell-rotate 2s infinite linear);
+          @include loading-indicator;
         }
       }
 

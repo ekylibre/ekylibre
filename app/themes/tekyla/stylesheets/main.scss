@@ -1180,7 +1180,7 @@ a.selector-dropdown {
   $color: $text-color;
   $background-color: lighten($active-color, 23%);
   color: $color;
-  margin: 0 0 $default-gap;
+  // margin: 0 0 $default-gap;
   padding: 0;
   background: $background-color; // mix(white, #CE0, 80%);
   @include clearfix;

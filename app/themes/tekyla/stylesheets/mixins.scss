@@ -462,3 +462,18 @@
   $margin-top: round(($total-height - $button-height) / 2);
   margin: $margin-top $default-gap ($total-height - $margin-top - $button-height);
 }
+
+@include keyframes(loading-rotate) {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@mixin loading-indicator() {
+  opacity: 0.8;
+  @include use-icon(circle-o-notch);
+  @include animation(cell-rotate 2s infinite linear);
+}
