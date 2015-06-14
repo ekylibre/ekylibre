@@ -21,6 +21,7 @@
             %i
             = :new_call.tl
     = timeline(resource, id: :entity) do |l|
+      - l.side :observations, at: :observed_at
       - if resource.sale_opportunities.any? or resource.client?
         - l.side :sale_opportunities, new: resource.client?
       - if resource.sales.any? or resource.client?
@@ -32,12 +33,11 @@
       - if resource.outgoing_payments.any? or resource.supplier?
         - l.side :outgoing_payments, new: false
       - l.side :tasks, at: :due_at, new: false # , params: {entity_id: resource.id, executor_id: current_user.person_id, state: :todo}
-      - l.side :issues, params: {target_type: "Entity", nature: "issue", gravity: 2, priority: 2, without_geolocation: 1}
-      - l.side :observations
-      - l.side :direct_links
+      - l.side :direct_links, at: :started_at
       - l.side :indirect_links, new: false
       -# l.side :addresses, new: false
       - l.side :events, params: {controller: :events, nature: :meeting, participations: {"0" => {participant_id: resource.id, state: :accepted}, "1" => {participant_id: current_user.person_id, state: :accepted}}}
+      - l.side :issues, params: {target_type: "Entity", nature: "issue", gravity: 2, priority: 2, without_geolocation: 1}, at: :observed_at
       - l.side :versions, new: false
   - j.face :cobbles do
     = cobbles do |c|

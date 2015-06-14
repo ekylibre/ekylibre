@@ -42,8 +42,8 @@
 
   - c.cobble :timeline do
     = timeline(resource) do |l|
-      - l.side :interventions
-      - l.side :observations
+      - l.side :observations, at: :observed_at
+      - l.side :interventions, at: :started_at
       - l.side :versions, new: false
   -# c.cobble(:interventions) do
     = cobble_toolbar do |t|
