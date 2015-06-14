@@ -79,7 +79,12 @@
         @containers.push newContainer
 
         if @droppedAnimals().length > 0
-          @toggleMoveAnimalModal(@droppedAnimals(),newContainer);
+          #Send animals by values instead of observableArray reference
+          animals = []
+          ko.utils.arrayForEach @droppedAnimals(), (a) =>
+            animals.push a
+
+          @toggleMoveAnimalModal(animals,newContainer);
 
 
 
