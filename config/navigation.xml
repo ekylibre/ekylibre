@@ -1463,6 +1463,9 @@
         <page to="backend/beehives#reset"/>
         <page to="backend/beehives#update"/>
       </item>
+      <item name="cobblers">
+        <page to="backend/cobblers#update"/>
+      </item>
       <item name="golumns">
         <page to="backend/golumns#reset"/>
         <page to="backend/golumns#show"/>

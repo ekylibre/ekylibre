@@ -4,6 +4,8 @@ module CobblesHelper
     cattr_reader :current
 
     attr_reader :name, :block, :id, :title, :content
+    attr_accessor :position
+
     def initialize(cobbler, name, options = {}, &block)
       @cobbler = cobbler
       @name = name
@@ -11,6 +13,7 @@ module CobblesHelper
       @title = options[:title] || @name.tl
       @@current = self
       @content = @cobbler.template.capture(&block)
+      @position = options[:position] || 1000
       @@current = nil
     end
 
@@ -20,11 +23,13 @@ module CobblesHelper
   end
 
   class Cobbler
-    attr_reader :items, :template
+    attr_reader :items, :template, :name
 
-    def initialize(template)
+    def initialize(template, name, options = {})
       @template = template
+      @name = name
       @items = []
+      @order = options[:order] || []
     end
 
     def cobble(name, options = {}, &block)
@@ -38,6 +43,19 @@ module CobblesHelper
       @items.any?
     end
 
+    def sort!
+      @order.each_with_index do |name, index|
+        @items.select do |cobble|
+          cobble.id.to_s == name.to_s
+        end.each do |cobble|
+          cobble.position = index + 1
+        end
+      end
+      @items.sort! do |a,b|
+        a.position <=> b.position
+      end
+    end
+
     def each(&block)
       @items.each(&block)
     end
@@ -46,10 +64,13 @@ module CobblesHelper
 
   # Cobbles are a simple layout with all cobble in one list.
   # List is sortable and cobbles are hideable/collapseable
-  def cobbles(&block)
-    cobbler = Cobbler.new(self)
+  def cobbles(options = {}, &block)
+    name = options[:name] || "#{controller_name}-#{action_name}".to_sym
+    config = YAML.load(current_user.preference("cobbler.#{name}", {}.to_yaml).value).deep_symbolize_keys
+    cobbler = Cobbler.new(self, name, order: config[:order])
     yield cobbler
     if cobbler.any?
+      cobbler.sort!
       render "cobbles", cobbler: cobbler
     end
   end

@@ -58,6 +58,7 @@
 #     - "backend/cells/threshold_commercialization_by_production_cells#show"
 #     - "backend/cells/weather_cells#show"
 #     - "backend/cells/working_sets_stocks_cells#show"
+#     - "backend/cobblers#update"
 #     - "backend/cultivable_zones#take"
 #     - "backend/dashboards#accountancy"
 #     - "backend/dashboards#create"

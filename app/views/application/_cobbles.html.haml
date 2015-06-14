@@ -1,7 +1,7 @@
-.cobbles{data: {cobbles: "true"}}
+.cobbles{data: {cobbles: backend_cobbler_path(cobbler.name)}}
   .cobbles-body
     - cobbler.each do |cobble|
-      .cobble{id: cobble.id}
+      .cobble{id: cobble.id, class: "cobble-#{cobble.id.to_s.singularize}"}
         .cobble-heading
           %h3.cobble-title
             %i

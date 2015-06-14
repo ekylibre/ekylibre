@@ -248,6 +248,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :cobblers, only: [:update]
+
     resources :crumbs, only: [:index, :update, :destroy] do
       member do
         post :convert

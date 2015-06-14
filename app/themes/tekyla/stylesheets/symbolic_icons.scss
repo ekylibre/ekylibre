@@ -16,7 +16,9 @@
   // picto
   .picto.picto-#{$symbol-name},
   // timeline
- .timeline .timestep .log-#{$symbol-name} .log-symbol
+ .timeline .timestep .log-#{$symbol-name} .log-symbol,
+  // cobbles
+ .cobbles .cobbles-body .cobble.cobble-#{$symbol-name} .cobble-title i
   {
     @content;
   }
