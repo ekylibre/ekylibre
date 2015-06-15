@@ -487,3 +487,17 @@ events_034:
   stopped_at: 2015-05-30 20:00:56.753284000 Z
   updated_at: 2015-05-30 20:00:46.761079000 Z
   updater_id: 1
+events_035:
+  created_at: 2015-06-15 11:39:31.630262000 Z
+  creator_id: 1
+  duration: 60
+  id: 43
+  lock_version: 0
+  name: Future meeting
+  nature: meeting
+  place: Tokyo III
+  restricted: true
+  started_at: 2025-06-15 11:38:00.000000000 Z
+  stopped_at: 2025-06-15 11:39:00.000000000 Z
+  updated_at: 2015-06-15 11:39:31.630262000 Z
+  updater_id: 1

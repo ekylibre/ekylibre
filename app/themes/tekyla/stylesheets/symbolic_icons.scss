@@ -1,3 +1,5 @@
+//= depend_on variables
+
 @mixin iconics($symbol-name) {
   // buttons
   a.btn.btn-#{$symbol-name} i,

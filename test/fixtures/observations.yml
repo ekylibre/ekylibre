@@ -100,3 +100,16 @@ observations_004:
   subject_type: Task
   updated_at: 2015-06-07 15:37:03.533841000 Z
   updater_id: 1
+observations_005:
+  author_id: 1
+  content: It was cool
+  created_at: 2015-06-15 11:38:07.805201000 Z
+  creator_id: 1
+  id: 5
+  importance: notice
+  lock_version: 1
+  observed_at: 2015-03-23 12:37:00.000000000 Z
+  subject_id: 12
+  subject_type: Entity
+  updated_at: 2015-06-15 11:40:02.042159000 Z
+  updater_id: 1

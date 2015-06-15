@@ -1,15 +1,20 @@
 require 'test_helper'
 
 class Backend::GolumnsControllerTest < ActionController::TestCase
-  test_restfully_all_actions except: [:update, :reset]
+  test_restfully_all_actions only: []
 
-  test "should get update" do
-    post :update
+  test "show" do
+    get :show, id: "fghjkl"
     assert_response :success
   end
 
-  test "should get reset" do
-    post :reset
+  test "update" do
+    post :update, id: "fghjkl", positions: {0 => {id: 123, containers: [1,2,3]}}
+    assert_response :success
+  end
+
+  test "reset" do
+    post :reset, id: "fghjkl"
     assert_response :success
   end
 

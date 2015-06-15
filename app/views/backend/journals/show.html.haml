@@ -13,6 +13,9 @@
 
 = main_list(:items)
 
+-# This line use a "c" variable which conflict with cobbles
+- conditions = eval(controller.class.journal_entries_conditions)
+
 = cobbles do |c|
   -# - c.cobble :entry_items, title: Journal.human_attribute_name(:entry_items) do
   -#   = journal_view_tag
@@ -21,7 +24,6 @@
   - c.cobble :totals, title: Journal.human_attribute_name(:totals) do
     :ruby
       absolute_currency = Preference[:currency]
-      conditions = eval(controller.class.journal_entries_conditions)
       totals = {}
       totals[:real_debit]  = JournalEntry.where(conditions).sum(:real_debit)
       totals[:real_credit] = JournalEntry.where(conditions).sum(:real_credit)

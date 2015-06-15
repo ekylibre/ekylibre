@@ -104,6 +104,7 @@ module Backend::TimelineHelper
       def initialize(side, at, record)
         @side = side
         @record = record
+        at ||= record.created_at
         super(at, @record.send(side.label_method))
       end
 
@@ -112,7 +113,7 @@ module Backend::TimelineHelper
       end
 
       def inspect
-        "<Step #{@side.name} #{@at.l} #{@record.id}>"
+        "<Step #{@side.name} #{@at ? @at.l : @at.inspect} #{@record.id}>"
       end
 
     end

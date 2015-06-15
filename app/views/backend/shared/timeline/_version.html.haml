@@ -1,5 +1,6 @@
+- changes = version.changes.delete_if{|c| c.old_value.blank? and c.new_value.blank? }
 - classes = ["log-version", "log-version-#{version.event}"]
-- classes << "log-without-content" unless version.update?
+- classes << "log-without-content" if (version.update? and changes.empty?) or !version.update?
 .log{class: classes}
   - if version.creator
     .log-avatar= image_tag version.creator.avatar_url(size: avatar_size)
@@ -9,10 +10,10 @@
       .log-heading= :created_by_ago.th(defaults)
     - elsif version.update?
       .log-heading= :updated_by_ago.th(defaults)
-      .log-body
-        %ul.log-changes
-          - for change in version.changes
-            - unless change.old_value.blank? and change.new_value.blank?
+      - if changes.any?
+        .log-body
+          %ul.log-changes
+            - for change in changes
               %li
                 %p
                   - if change.old_value.blank?
