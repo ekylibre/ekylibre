@@ -36,7 +36,7 @@
         ko.utils.arrayForEach(elements, function(element) {
 
             if (element.nodeType === 1) {
-                if($(element).hasClass('animal-container'))
+                if($(element).hasClass('golumn-group'))
                 {
 
                     dataSet(element, CONTAINERKEY, data);
@@ -260,7 +260,7 @@
                             el = $('.checker.active').closest('.golumn-item').not('.ui-sortable-placeholder');
 
                             ui.item.data('items', el);
-                            $('.animal-container .body .animal-dropzone').addClass('grow-empty-zone');
+                            $('.golumn-group .body .animal-dropzone').addClass('grow-empty-zone');
                             $('.add-container').css('display','block');
                             $('.add-container').addClass('grow-empty-zone');
 
@@ -298,7 +298,7 @@
                         var el = ui.item[0];
                         if((dataGet(el, ITEMKEY) != undefined) && sortableIn)
                         {
-                            var containerEl = ui.item.closest('.animal-container')[0];
+                            var containerEl = ui.item.closest('.golumn-group')[0];
                             var animals = [];
                             var containerItem;
 
@@ -337,7 +337,7 @@
 
                          var el = ui.item[0];
 
-                         $('.animal-container .body .animal-dropzone').removeClass('grow-empty-zone');
+                         $('.golumn-group .body .animal-dropzone').removeClass('grow-empty-zone');
                          $('.add-container').removeClass('grow-empty-zone');
                          $('.add-container').css('display','none');
 
