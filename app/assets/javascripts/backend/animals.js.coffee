@@ -63,11 +63,12 @@
         animals: ko.observableArray []
         started_at: ko.observable ''
         stopped_at: ko.observable ''
-        worker: ko.observable false
-        variant: ko.observable false
-        production_support: ko.observable false
-        group: ko.observable false
-        container: ko.observable false
+        worker: ko.observable undefined
+        variant: ko.observable undefined
+        production_support: ko.observable undefined
+        group: ko.observable undefined
+        container: ko.observable undefined
+        alert: ko.observable false
 
       @newGroupModalOptions =
         group: ko.observable ''
@@ -208,60 +209,51 @@
         animals_id = ko.utils.arrayMap @moveAnimalModalOptions.animals(), (a) =>
           return a.id
 
-        data =
-          animals_id: animals_id.join(',')
-          container_id: @moveAnimalModalOptions.container().id
-          group_id: @moveAnimalModalOptions.group().id
-          variant_id: @moveAnimalModalOptions.variant().id
-          worker_id: @moveAnimalModalOptions.worker().id
-          started_at: @moveAnimalModalOptions.started_at()
-          stopped_at: @moveAnimalModalOptions.stopped_at()
-          production_support_id: @moveAnimalModalOptions.production_support()
+        if animals_id.length > 0 and @moveAnimalModalOptions.container() != undefined and @moveAnimalModalOptions.group() != undefined and @moveAnimalModalOptions.worker() != undefined and @moveAnimalModalOptions.started_at() != '' and @moveAnimalModalOptions.stopped_at() != '' and @moveAnimalModalOptions.production_support() != undefined
 
-#        JSON.stringify data, (key, val) =>
-#          if val == false or val == ''
-#            return undefined
-#          else
-#            return val
-
-        #Note: ko method support json serializer for old browsers, stringify is only supported by modern browsers
-        json_data = ko.toJSON data, (key, val) =>
-          if val == false or val == ''
-            return undefined
-          else
-            return val
+          data =
+            animals_id: animals_id.join(',')
+            container_id: @moveAnimalModalOptions.container().id
+            group_id: @moveAnimalModalOptions.group().id
+            variant_id: @moveAnimalModalOptions.variant().id
+            worker_id: @moveAnimalModalOptions.worker().id
+            started_at: @moveAnimalModalOptions.started_at()
+            stopped_at: @moveAnimalModalOptions.stopped_at()
+            production_support_id: @moveAnimalModalOptions.production_support()
 
 
-        $.ajax '/backend/animals/change',
-          type: 'PUT',
-#          type: 'GET',
-          dataType: 'JSON',
-          data: data,
-          success: (res) =>
-            @showMoveAnimalModal false
+          $.ajax '/backend/animals/change',
+            type: 'PUT',
+  #          type: 'GET',
+            dataType: 'JSON',
+            data: data,
+            success: (res) =>
+              @showMoveAnimalModal false
 
-            # maj
-            ko.utils.arrayForEach @moveAnimalModalOptions.animals(), (a) =>
-               id = a.id
-               name = a.name
-               img = a.img
-               status = a.status
-               sex = a.sex
-               num = a.number_id
-               @animals.remove a
-               @animals.push new dashboardViewModel.Animal(id, name, img, status, sex, num, @moveAnimalModalOptions.container().id, @moveAnimalModalOptions.group().id)
-
-
-            @resetAnimalsMoving()
+              # maj
+              ko.utils.arrayForEach @moveAnimalModalOptions.animals(), (a) =>
+                 id = a.id
+                 name = a.name
+                 img = a.img
+                 status = a.status
+                 sex = a.sex
+                 num = a.number_id
+                 @animals.remove a
+                 @animals.push new dashboardViewModel.Animal(id, name, img, status, sex, num, @moveAnimalModalOptions.container().id, @moveAnimalModalOptions.group().id)
 
 
-            return true
+              @resetAnimalsMoving()
 
-          error: (res) =>
-            @showMoveAnimalModal false
-            alert res.statusText
-            @cancelAnimalsMoving()
-            return false
+
+              return true
+
+            error: (res) =>
+              @showMoveAnimalModal false
+              alert res.statusText
+              @cancelAnimalsMoving()
+              return false
+        else
+          @moveAnimalModalOptions.alert true
 
       @cancelAnimalsMoving = () =>
 
@@ -290,6 +282,7 @@
         @moveAnimalModalOptions.worker undefined
         @moveAnimalModalOptions.variant undefined
         @moveAnimalModalOptions.group undefined
+        @moveAnimalModalOptions.alert false
 
       @cancelContainerAdding = () =>
         @resetContainerAdding()

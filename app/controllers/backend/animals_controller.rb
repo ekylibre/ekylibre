@@ -213,40 +213,6 @@ class Backend::AnimalsController < Backend::MattersController
     @entity_of_company_full_name = Entity.of_company.full_name
     @entity_of_company_id = Entity.of_company.id
 
-
-    # @animals_containers = BuildingDivision.select(:id,:name)
-
-    # @animals_groups = AnimalGroup.select(:id,:name)
-
-    # @animals_data = Animal.select(:id, :name, :identification_number, :nature_id, :dead_at).to_json(:methods => [:picture_path, :sex_text, :status])
-    # @animals_data = Animal.select(:id, :name, :identification_number, :nature_id, :dead_at).to_json(:include => {:container => { :only => :id },:groups => { :only => :id }},:methods => [:picture_path, :sex_text, :status])
-
-    # byebug
-    # format data to delegate to front end engine
-
-    #####
-    # @grouped_animals = []
-    #
-    # AnimalGroup.all.select(:id, :name).each do |group|
-    #
-    #   #TODO Need to add sex, img
-    #   @grouped_animals << { group: group, places_and_animals: group.members_with_places_at }
-    #
-    #
-    # end
-    #######
-
-    # @animals_data << { id: animal.id, name: animal.name, sex: animal.sex, status: animal.status, img: animal.picture.url, container_id: container, group_id: group }
-
-    # render :json => @reports.to_json(:include =>
-    #                                      {:report_type => {}, :organisation => {},
-    #                                       :analysis => {:include => {:upload => {}}}})
-
-    # render :json => @grouped_animals.to_json(:include =>
-                                                # {:group => {}})
-    # respond_with @grouped_animals
-
-    #TODO reactivate
     respond_with @animals, :methods => [:picture_path, :sex_text, :variety_text], :include => [:initial_father, :initial_mother, :nature ,:variant]
   end
 

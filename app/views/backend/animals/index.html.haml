@@ -113,6 +113,7 @@
 
     = modal(id: "move-animal", "aria-hidden" => "true", "aria-labelledby" => "moveAnimal", data: {bind: "modal: showMoveAnimalModal(), with: moveAnimalModalOptions"}, heading: "Déplacement", close_button: 'no') do
       .modal-body
+        .alert.alert-danger{data: {bind: 'visible: alert'}} Des champs sont manquants
         %p Les animaux à déplacer:
         %div{ data: {bind: 'foreach: animals()'}}
           %p{ data: {bind: 'text: name'} }
