@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class Backend::AnimalsControllerTest < ActionController::TestCase
-  test_restfully_all_actions add_to_group: :get_and_post
+  test_restfully_all_actions add_to_group: :get_and_post, except: :change
 end

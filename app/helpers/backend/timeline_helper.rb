@@ -131,7 +131,7 @@ module Backend::TimelineHelper
         list += side.steps
       end
       now = Time.now
-      if list.detect{|s| puts s.inspect.red; s.at > now }
+      if list.detect{|s| s.at > now }
         list << MarkerStep.new(now, :now)
       end
       count = 1
