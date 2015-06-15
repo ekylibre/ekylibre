@@ -425,10 +425,11 @@
 
       return
 
-  @loadData = () =>
+  @loadData = (golumn) =>
     $.ajax '/backend/animals/load_animals',
       type: 'GET',
       dataType: 'JSON',
+      data: {golumn_id: golumn},
       beforeSend: () ->
         $('#loading').show()
         return
@@ -458,45 +459,22 @@
                 window.app.animals.push new dashboardViewModel.Animal(animal.id, animal.name, '', animal.status, animal.sex_text, animal.identification_number, 0, 0)
 
 
-        window.loadPreferences()
-
-        return true
-
-      error: (data) ->
-        return false
-
-    return
-
-  @loadPreferences = () =>
-    $.ajax '/backend/golumns/animal',
-      type: 'GET',
-      dataType: 'JSON',
-      success: (data) ->
-        console.log data
-        if data.positions
-          ko.utils.arrayForEach data.positions, (j, group_index) =>
-            if j.containers
-              ko.utils.arrayForEach j.containers, (jcontainer, container_index) =>
-                container = ko.utils.arrayFirst window.app.containers(), (c) =>
-                  c.group_id() == j.id && c.id == jcontainer
-                if container
-                  container.position container_index
-
         ko.applyBindings window.app
 
-
         return true
 
       error: (data) ->
         return false
 
     return
+
 
   $(document).ready ->
     $("*[data-golumns='animal']").each ->
 
-      window.app = new dashboardViewModel($(this).data("golumns"))
+      golumn_id = $(this).data("golumns")
+      window.app = new dashboardViewModel(golumn_id)
 
-      window.loadData()
+      window.loadData(golumn_id)
 
 ) jQuery

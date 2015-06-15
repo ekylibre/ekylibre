@@ -72,3 +72,6 @@ capybara*.html
 *.jrtx
 
 /.ruby-version
+
+Gemfile.local
+Gemfile.local.lock

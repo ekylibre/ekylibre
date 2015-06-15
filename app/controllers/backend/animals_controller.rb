@@ -86,6 +86,32 @@ class Backend::AnimalsController < Backend::MattersController
 
     end
 
+
+    preference = current_user.preference("golumn.#{params[:golumn_id]}", {}.to_yaml)
+    user_pref = YAML.load(preference.value)
+
+    @sorted = []
+
+    user_pref.deep_symbolize_keys!()
+
+    if user_pref[:positions].present?
+
+      user_pref[:positions].each do |g|
+
+        @grouped_animals.each do |h|
+
+          if h[:group].id == g[:id]
+            @sorted << h
+          end
+        end
+      end
+
+    else
+      @sorted = @grouped_animals
+
+    end
+
+
     without_container = []
 
     Animal.select(:id, :name, :identification_number, :nature_id, :dead_at).each do |a|
@@ -94,10 +120,10 @@ class Backend::AnimalsController < Backend::MattersController
       end
     end
 
-    @grouped_animals << {others: without_container}
+    @sorted << {others: without_container}
 
 
-    render :json => @grouped_animals.to_json()
+    render :json => @sorted.to_json()
 
   end
 
