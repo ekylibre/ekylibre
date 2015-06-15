@@ -136,7 +136,7 @@ $marker-color: $caution-color;
               @include use-icon(edit);
             }
             &.log-action-destroy i {
-              @include use-icon(remove);
+              @include use-icon(clear);
             }
             &:hover {
               opacity: 1;
@@ -191,29 +191,10 @@ $marker-color: $caution-color;
         @include use-icon(plus);
       }
       &.log-version-update .log-symbol {
-        @include use-icon(pencil);
+        @include use-icon(edit);
       }
       &.log-version-destroy .log-symbol {
-        @include use-icon(remove);
-      }
-      &.log-product-localization .log-symbol {
-        @include use-icon(map-marker);
-      }
-      &.log-product-ownership .log-symbol {
-        @include use-icon(key);
-      }
-      &.log-product-phase .log-symbol {
-        @include use-icon(share);
-      }
-      &.log-incoming-call {
-        .log-symbol {
-          @include use-icon(call-received);
-        }
-      }
-      &.log-outgoing-call {
-        .log-symbol {
-          @include use-icon(call-made);
-        }
+        @include use-icon(clear);
       }
       &.log-incoming-mail, &.log-outgoing-mail {
         .log-symbol {
@@ -222,7 +203,7 @@ $marker-color: $caution-color;
       }
       &.log-incoming-email, &.log-outgoing-email {
         .log-symbol {
-          @include use-icon(envelope-o);
+          @include use-icon(email);
         }
       }
       &.log-document .log-symbol {
