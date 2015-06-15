@@ -259,6 +259,8 @@
 
           error: (res) =>
             @showMoveAnimalModal false
+            alert res.statusText
+            @cancelAnimalsMoving()
             return false
 
       @cancelAnimalsMoving = () =>
