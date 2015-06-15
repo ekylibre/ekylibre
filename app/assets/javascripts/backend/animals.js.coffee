@@ -476,11 +476,11 @@
         if data.positions
           ko.utils.arrayForEach data.positions, (j, group_index) =>
             if j.containers
-              ko.utils.arrayForEach j.containers, (jcontainer) =>
-                container = ko.utils.arrayFirst window.app.containers(), (c, container_index) =>
-                  c.group_id() == j.id && c.id == jcontainer.id
+              ko.utils.arrayForEach j.containers, (jcontainer, container_index) =>
+                container = ko.utils.arrayFirst window.app.containers(), (c) =>
+                  c.group_id() == j.id && c.id == jcontainer
                 if container
-                  container.position container_index + 1
+                  container.position container_index
 
         ko.applyBindings window.app
 

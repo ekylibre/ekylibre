@@ -17,7 +17,7 @@
       cursor: move;
     }
     .golumn-column {
-      width: 20ex;
+      width: 23ex;
       @include inline-block;
       padding: $default-gap;
       @include float(left);
@@ -375,6 +375,21 @@
 
 .list-group-item-title {
   border-bottom: 1px solid #ddd;
+
+  div:nth-child(1) {
+    display: inline-block;
+    padding: 0 1px;
+  }
+
+  div:nth-child(2) {
+    display: inline-block;
+  }
+
+  div:nth-child(3) {
+    width: 7ex;
+    display: inline-block;
+    float: right;
+  }
 }
 
 .golumn-item {
@@ -407,7 +422,7 @@
   vertical-align: middle;
   display: inline-block;
   line-height: 30px;
-  width: 150px;
+  //width: 150px;
 }
 
 .golumn-item-dragger {
@@ -422,7 +437,8 @@
 }
 
 .golumn-item-actions {
-  width: 24px;
+  width: 35px;
+  float:right;
   display: inline-block;
   min-height: 30px;
   vertical-align: middle;

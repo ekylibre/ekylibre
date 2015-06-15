@@ -59,11 +59,11 @@
         %script#golumn-group-template{type: "text/html"}
           %li.list-group-item.golumn-group{data: {bind: "droppable: {data: $root.hoverdrop, options: {accept: '.golumn-item', tolerance: 'pointer'}}" }}
             .row.toggle.list-group-item-title.no-right-left-margin
-              .col-md-1.no-padding.xs-h-padding
+              %div
                 %i.icon.icon-ellipsis-v.golumn-group-dragger.text-muted
-              .col-md-8.no-padding.xs-h-padding
+              .no-padding.xs-h-padding
                 %span.golumn-group-title{"data-bind" => "text: name"}
-              .col-md-3.no-padding.xs-h-padding
+              .no-padding.xs-h-padding
                 %span.badge.golumn-group-badge{"data-bind" => "text: animalCount"}
                 .pull-right.btn-group.btn-group-xs{"aria-label" => "...", :role => "group"}
                   / <button type="button" class="btn btn-default btn-hover btn-xs"><i class="fa icon-pencil"></i></button>
@@ -80,12 +80,12 @@
               %button.btn.btn-link.no-padding.xs-h-padding.golumn-item-name{"data-bind" => "click: $root.toggleAnimalDetailsModal", :type => "button"}
                 %span{"data-bind" => "text: name"}
               %i.icon.text-muted{data: {bind: "css: animalSexClass"}}
+            .golumn-item-dragger
+              %i.icon.icon-ellipsis-v.golumn-item-handler.text-muted
             .golumn-item-actions.no-padding
               .pull-right.animal-selector
                 %button.btn.btn-default.btn-xs.btn-hover.checker{"data-bind" => "checkbox: checked", :type => "button"}
                   %i.icon.icon-check.check-icon
-            .golumn-item-dragger
-              %i.icon.icon-ellipsis-v.golumn-item-handler.text-muted
           / /ko
 
     = modal(id: "new-animal", "aria-hidden" => "true", "aria-labelledby" => "newAnimal", heading: "Nouvel animal") do
