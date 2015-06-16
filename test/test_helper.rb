@@ -542,20 +542,23 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
   # fixtures :all
 
   def wait_for_ajax
-    Timeout.timeout(Capybara.default_wait_time) do
-      loop until finished_all_ajax_requests?
-    end
+    sleep(Capybara.default_wait_time * 0.5)
+    # Timeout.timeout(Capybara.default_wait_time) do
+    #   loop if active_ajax_requests?
+    # end
   end
 
-  def finished_all_ajax_requests?
-    page.evaluate_script('$.turbo.isReady') and page.evaluate_script('jQuery.active').zero?
+  def active_ajax_requests?
+    # puts page.evaluate_script('$.active').inspect.red
+    sleep(0.1)
+    page.evaluate_script('$.turbo.isReady') && page.evaluate_script('jQuery.active').zero?
   end
 
   def shoot_screen(name = nil)
     name ||= current_url.split(/\:\d+\//).last
-    sleep(1)
     file = Rails.root.join("tmp", "screenshots", "#{name}.png")
     FileUtils.mkdir_p(file.dirname) unless file.dirname.exist?
+    wait_for_ajax
     save_page file.to_s.gsub(/\.png\z/, '.html')
     save_screenshot file # , full: true
   end
@@ -577,23 +580,19 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
   # http://jackhq.tumblr.com/post/3728330919/testing-jquery-autocomplete-using-capybara
   def fill_unroll(field, options = {})
     fill_in(field, with: options[:with])
-    # sleep(1)
-    # page.execute_script "$('input##{field}').focus();"
-    # page.execute_script "$('input##{field}').keydown();"
+
     if options[:name]
       shoot_screen "#{options[:name]}/unroll-before"
     end
 
-    # length = page.evaluate_script "$('#{selector}').length;"
-    # assert_equal length >= 1, "No unrolled elements"
+    wait_for_ajax
 
     script  = "$('input##{field}').next().next().find('.items-list .item"
     script << (options[:select] ? "[data-item-label~=\"#{options[:select]}\"]" : ":first-child")
     script << "').mouseenter().click();"
 
-    # puts script.red
     page.execute_script script
-    sleep(1)
+    wait_for_ajax
     if options[:name]
       shoot_screen "#{options[:name]}/unroll-after"
     end
