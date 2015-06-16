@@ -64,7 +64,7 @@ $configuring-min-height: 400px;
             @include text-align(center);
             i {
               @include is-icon($fs-normal);
-              @include use-icon(remove);
+              @include use-icon(clear);
             }
           }
         }

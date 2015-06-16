@@ -1087,6 +1087,7 @@ eng:
     letter: "Letter" #?
     line_number: "Line #%{number}"
     linear_options: "Linear options"
+    # link: "Link"
     list: "List"
     load: "Load"
     locale: "Language"
@@ -1125,6 +1126,7 @@ eng:
     net_surface_area: "Net surface area"
     new: "New" #?
     new_animal: "New animal"
+    # new_attachment: "New attachment"
     new_box: "New box"
     new_call: "New call"
     new_contact: "New contact"
@@ -1407,7 +1409,7 @@ eng:
     update: "Update"
     updated_at_by: "Updated at %{at} by %{author}"
     updated_by_ago: "Updated by %{author} %{when}"
-    upload: "Upload" #?
+    upload: "Upload"
     usage: "Usage" #?
     users: "Users"
     valid: "Valid" #?
