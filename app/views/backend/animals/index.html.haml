@@ -23,7 +23,7 @@
           %span
 
       .golumn-columns.animal-viewport
-        .golumn-column-container{'data-bind' => "sortable: {template: 'golumn-column-template', data: groups, connectClass: 'group-dropzone', options: {handle: '.golumn-column-dragger', cursor: 'move', tolerance: 'pointer', dropOnEmpty: true, opacity: 1, revert: true}}"}
+        .golumn-column-container{data: { bind: "sortable: {template: 'golumn-column-template', data: groups, connectClass: 'group-dropzone', options: {handle: '.golumn-column-dragger', cursor: 'move', tolerance: 'pointer', dropOnEmpty: true, opacity: 1, revert: true}}"}}
         .add-group-panel-container
           .panel.panel-default
             .panel-heading
@@ -41,16 +41,16 @@
                     %i.icon.icon-ellipsis-v.text-muted
                   .col-md-9.no-padding.xs-h-padding
                     %span.golumn-column-title
-                      %span{'data-bind' => 'text: name'}
+                      %span{data: { bind: 'text: name'}}
                   .col-md-2.pull-right.no-padding.xs-h-padding
                     .pull-right.btn-group.btn-group-xs{'aria-label' => '...', :role => 'group'}
-                      %button.btn.btn-default.btn-hover.animal-all-selector{'data-bind' => 'checkbox: toggleItems', :type => 'button'}
+                      %button.btn.btn-default.btn-hover.animal-all-selector{data:{ bind: 'checkbox: toggleItems'}, :type => 'button'}
                         %i.icon.icon-check-square-o
               .panel-body.no-padding
                 .add-container{data: {bind: "droppable: {data: $root.drop, afterMove: $root.groupMoved, options: {accept: '.golumn-item', hoverClass: 'container-drop-hover', tolerance: 'intersect'}}" },style:'display:none'}
                   %button.btn.btn-link{:type => 'button', data: { bind: 'click: $root.toggleNewContainerModal' }}
                     %i.icon.icon-plus.text-muted
-                %ul.list-group.animal-list-group{'data-bind' => "sortable: {template: 'golumn-group-template', data: $root.displayedContainers($data), connectClass: 'container-dropzone', allowDrop: false, options: {handle: '.golumn-group-dragger', cursor: 'move', tolerance: 'pointer', placeholder: 'sorting-container-placeholder', dropOnEmpty: false, forcePlaceholderSize: true, revert: true, opacity: 1}}"}
+                %ul.list-group.animal-list-group{data: { bind: "sortable: {template: 'golumn-group-template', data: $root.displayedContainers($data), connectClass: 'container-dropzone', allowDrop: false, options: {handle: '.golumn-group-dragger', cursor: 'move', tolerance: 'pointer', placeholder: 'sorting-container-placeholder', dropOnEmpty: false, forcePlaceholderSize: true, revert: true, opacity: 1}}"}}
               .panel-footer
                 = link_to('#', data: {target: '#new-animal', toggle: 'modal'}) do
                   %i.icon.icon-plus
@@ -62,29 +62,28 @@
               %div
                 %i.icon.icon-ellipsis-v.golumn-group-dragger.text-muted
               .no-padding.xs-h-padding
-                %span.golumn-group-title{'data-bind' => 'text: name'}
+                %span.golumn-group-title{data: { bind: 'text: name'}}
               .no-padding.xs-h-padding
-                %span.badge.golumn-group-badge{'data-bind' => 'text: animalCount'}
+                %span.badge.golumn-group-badge{data: { bind: 'text: animalCount'}}
                 .pull-right.btn-group.btn-group-xs{'aria-label' => '...', :role => 'group'}
                   / <button type="button" class="btn btn-default btn-hover btn-xs"><i class="fa icon-pencil"></i></button>
-                  %button.btn.btn-default.btn-xs.btn-hover.golumn-group-collapse-handler{'data-bind' => 'click: toggle', :type => 'button'}
+                  %button.btn.btn-default.btn-xs.btn-hover.golumn-group-collapse-handler{data: { bind: 'click: toggle'}, :type => 'button'}
                     %i.icon.icon-caret-down
-            %div.body{'data-bind' => "css: {'hide':hidden}"}
-              %div{'data-bind' => "sortable: {template: 'golumn-item-template', data: $root.animals, connectClass: 'animal-dropzone', options: {handle: '.golumn-item-dragger', cursor: 'move', placeholder: 'sorting-animal-placeholder', dropOnEmpty: true, forcePlaceholderSize: true, opacity: 1, revert: true, cursorAt: { left: 65 }, scrollSensitivity: 65, scrollSpeed: 30}}"}
+            %div.body{data: { bind: "css: {'hide':hidden}"}}
+              %div{data: { bind: "sortable: {template: 'golumn-item-template', data: $root.animals, connectClass: 'animal-dropzone', options: {handle: '.golumn-item-dragger', cursor: 'move', placeholder: 'sorting-animal-placeholder', dropOnEmpty: true, forcePlaceholderSize: true, opacity: 1, revert: true, cursorAt: { left: 65 }, scrollSensitivity: 65, scrollSpeed: 30}}"}}
 
         %script#golumn-item-template{:type => 'text/html'}
           /ko if: $parent.id == container_id() && $parent.group_id() == group_id()
           .golumn-item.row.no-right-left-margin
-            .golumn-item-infos{'data-bind' => 'css: animalStatusClass'}
-              / <button type="button" class="btn btn-link no-padding xs-h-padding golumn-item-name" data-toggle="modal" data-target="#view-animal" data-bind="text: name"></button>
-              %button.btn.btn-link.no-padding.xs-h-padding.golumn-item-name{'data-bind' => 'click: $root.toggleAnimalDetailsModal', :type => 'button'}
-                %span{'data-bind' => 'text: name'}
+            .golumn-item-infos{data: { bind: 'css: animalStatusClass'}}
+              %button.btn.btn-link.no-padding.xs-h-padding.golumn-item-name{data: { bind: 'click: $root.toggleAnimalDetailsModal'}, :type => 'button'}
+                %span{data: { bind: 'text: name'}}
               %i.icon.text-muted{data: {bind: 'css: animalSexClass'}}
             .golumn-item-dragger
               %i.icon.icon-ellipsis-v.golumn-item-handler.text-muted
             .golumn-item-actions.no-padding
               .pull-right.animal-selector
-                %button.btn.btn-default.btn-xs.btn-hover.checker{'data-bind' => 'checkbox: checked', :type => 'button'}
+                %button.btn.btn-default.btn-xs.btn-hover.checker{data: { bind: 'checkbox: checked'}, :type => 'button'}
                   %i.icon.icon-check.check-icon
           / /ko
 
@@ -171,19 +170,19 @@
           %i.icon.icon-plus Ajouter
         %button.close.btn.btn-default{'aria-label' => :close.tl, :type => 'button', data: {bind: 'click: $root.cancelContainerAdding'}}= :cancel.ta
 
-    = modal('aria-hidden' => 'true', 'aria-labelledby' => 'viewAnimal', 'data-bind' => 'modal: showAnimalDetailsModal(), with: animalDetailsModalOptions', heading: "Détails de l'animal", close_button: 'no') do
+    = modal('aria-hidden' => 'true', 'aria-labelledby' => 'viewAnimal', data: { bind: 'modal: showAnimalDetailsModal(), with: animalDetailsModalOptions'}, heading: "Détails de l'animal", close_button: 'no') do
       .modal-body
         .row
           .col-md-9
             %p
               Nom:
-              %span{'data-bind' => 'text: name'}
+              %span{data: { bind: 'text: name'}}
             %p
               Sexe:
               %i.icon{data: {bind: 'css: animalSexClass'}}
             %p
               Status:
-              %span{'data-bind' => 'css: animalFlagClass'}
+              %span{data: { bind: 'css: animalFlagClass'}}
       .modal-footer
         %button.btn.btn-link{:type => 'button'}
           %i.icon.icon-plus
