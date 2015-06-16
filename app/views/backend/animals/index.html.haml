@@ -28,7 +28,7 @@
           .panel.panel-default
             .panel-heading
               .add-group-btn
-                %button.btn.btn-link{:type => 'button', data: { bind: 'click: $root.toggleNewGroupModal' }}
+                %button.btn.btn-link{type: 'button', data: { bind: 'click: $root.toggleNewGroupModal' }}
                   %i.icon.icon-5x.icon-plus.text-muted
 
         %script#golumn-column-template{:type => 'text/html'}
@@ -43,12 +43,12 @@
                     %span.golumn-column-title
                       %span{data: { bind: 'text: name'}}
                   .col-md-2.pull-right.no-padding.xs-h-padding
-                    .pull-right.btn-group.btn-group-xs{'aria-label' => '...', :role => 'group'}
-                      %button.btn.btn-default.btn-hover.animal-all-selector{data:{ bind: 'checkbox: toggleItems'}, :type => 'button'}
+                    .pull-right.btn-group.btn-group-xs{aria: {label: '...'}, role: 'group'}
+                      %button.btn.btn-default.btn-hover.animal-all-selector{data:{ bind: 'checkbox: toggleItems'}, type: 'button'}
                         %i.icon.icon-check-square-o
               .panel-body.no-padding
                 .add-container{data: {bind: "droppable: {data: $root.drop, afterMove: $root.groupMoved, options: {accept: '.golumn-item', hoverClass: 'container-drop-hover', tolerance: 'intersect'}}" },style:'display:none'}
-                  %button.btn.btn-link{:type => 'button', data: { bind: 'click: $root.toggleNewContainerModal' }}
+                  %button.btn.btn-link{type: 'button', data: { bind: 'click: $root.toggleNewContainerModal' }}
                     %i.icon.icon-plus.text-muted
                 %ul.list-group.animal-list-group{data: { bind: "sortable: {template: 'golumn-group-template', data: $root.displayedContainers($data), connectClass: 'container-dropzone', allowDrop: false, options: {handle: '.golumn-group-dragger', cursor: 'move', tolerance: 'pointer', placeholder: 'sorting-container-placeholder', dropOnEmpty: false, forcePlaceholderSize: true, revert: true, opacity: 1}}"}}
               .panel-footer
@@ -65,9 +65,9 @@
                 %span.golumn-group-title{data: { bind: 'text: name'}}
               .no-padding.xs-h-padding
                 %span.badge.golumn-group-badge{data: { bind: 'text: animalCount'}}
-                .pull-right.btn-group.btn-group-xs{'aria-label' => '...', :role => 'group'}
+                .pull-right.btn-group.btn-group-xs{aria: {label: '...'}, role: 'group'}
                   / <button type="button" class="btn btn-default btn-hover btn-xs"><i class="fa icon-pencil"></i></button>
-                  %button.btn.btn-default.btn-xs.btn-hover.golumn-group-collapse-handler{data: { bind: 'click: toggle'}, :type => 'button'}
+                  %button.btn.btn-default.btn-xs.btn-hover.golumn-group-collapse-handler{data: { bind: 'click: toggle'}, type: 'button'}
                     %i.icon.icon-caret-down
             %div.body{data: { bind: "css: {'hide':hidden}"}}
               %div{data: { bind: "sortable: {template: 'golumn-item-template', data: $root.animals, connectClass: 'animal-dropzone', options: {handle: '.golumn-item-dragger', cursor: 'move', placeholder: 'sorting-animal-placeholder', dropOnEmpty: true, forcePlaceholderSize: true, opacity: 1, revert: true, cursorAt: { left: 65 }, scrollSensitivity: 65, scrollSpeed: 30}}"}}
@@ -76,42 +76,42 @@
           /ko if: $parent.id == container_id() && $parent.group_id() == group_id()
           .golumn-item.row.no-right-left-margin
             .golumn-item-infos{data: { bind: 'css: animalStatusClass'}}
-              %button.btn.btn-link.no-padding.xs-h-padding.golumn-item-name{data: { bind: 'click: $root.toggleAnimalDetailsModal'}, :type => 'button'}
+              %button.btn.btn-link.no-padding.xs-h-padding.golumn-item-name{data: { bind: 'click: $root.toggleAnimalDetailsModal'}, type: 'button'}
                 %span{data: { bind: 'text: name'}}
               %i.icon.text-muted{data: {bind: 'css: animalSexClass'}}
             .golumn-item-dragger
               %i.icon.icon-ellipsis-v.golumn-item-handler.text-muted
             .golumn-item-actions.no-padding
               .pull-right.animal-selector
-                %button.btn.btn-default.btn-xs.btn-hover.checker{data: { bind: 'checkbox: checked'}, :type => 'button'}
+                %button.btn.btn-default.btn-xs.btn-hover.checker{data: { bind: 'checkbox: checked'}, type: 'button'}
                   %i.icon.icon-check.check-icon
           / /ko
 
-    = modal(id: 'new-animal', 'aria-hidden' => 'true', 'aria-labelledby' => 'newAnimal', heading: 'Nouvel animal') do
+    = modal(:new_animal) do
       .modal-body
-        .btn-group-vertical{'aria-label' => '...', :role => 'group'}
-          %button.btn.btn-default{:type => 'button'} Achat
-          %button.btn.btn-default{:type => 'button'} Pension
-          %button.btn.btn-default{:type => 'button'} Naissance
-          %button.btn.btn-default{:type => 'button'} D&eacute;claration
+        .btn-group-vertical{aria: {label: '...'}, role: 'group'}
+          %button.btn.btn-default{type: 'button'} Achat
+          %button.btn.btn-default{type: 'button'} Pension
+          %button.btn.btn-default{type: 'button'} Naissance
+          %button.btn.btn-default{type: 'button'} D&eacute;claration
 
-    = modal(id: 'new-action-animal', 'aria-hidden' => 'true', 'aria-labelledby' => 'newActionAnimal', heading: 'Nouvelle action') do
+    = modal(:new_animal_intervention) do
       .modal-body
-        .btn-group-vertical{'aria-label' => '...', :role => 'group'}
-          %button.btn.btn-default{:type => 'button'} Vendre
-          %button.btn.btn-default{:type => 'button'} Vacciner
+        .btn-group-vertical{aria: {label: '...'}, role: 'group'}
+          %button.btn.btn-default{type: 'button'} Vendre
+          %button.btn.btn-default{type: 'button'} Vacciner
 
-    = modal(id: 'new-group', 'aria-hidden' => 'true', 'aria-labelledby' => 'newGroup', data: {bind: 'modal: showNewGroupModal(), with: newGroupModalOptions'}, heading: 'Nouveau Troupeau', close_button: 'no') do
+    = modal(:new_group, data: {bind: 'modal: showNewGroupModal(), with: newGroupModalOptions'}, close_button: false) do
       .modal-body
         %label Nom:
         %input{:type => 'text', data: { bind: 'value: group'}}
       .modal-footer
-        %button.btn.btn-default{:type => 'button', data: {bind: 'click: $root.addGroup'}}
+        %button.btn.btn-default{type: 'button', data: {bind: 'click: $root.addGroup'}}
           %i.icon.icon-plus Ajouter
-        %button.close.btn.btn-default{'aria-label' => :close.tl, :type => 'button', data: {bind: 'click: $root.cancelNewGroup'}}= :cancel.ta
+        %button.close.btn.btn-default{aria: {label: :close.tl}, type: 'button', data: {bind: 'click: $root.cancelNewGroup'}}= :cancel.ta
 
 
-    = modal(id: 'move-animal', 'aria-hidden' => 'true', 'aria-labelledby' => 'moveAnimal', data: {bind: 'modal: showMoveAnimalModal(), with: moveAnimalModalOptions'}, heading: 'Déplacement', close_button: 'no') do
+    = modal(:move_animal, data: {bind: 'modal: showMoveAnimalModal(), with: moveAnimalModalOptions'}, close_button: false) do
       .modal-body
         .alert.alert-danger{data: {bind: 'visible: alert'}} Des champs sont manquants
         %div
@@ -152,25 +152,25 @@
               = select_tag(:nature, nil, data: { bind: "options: $root.natures_list,
                 optionsText: 'name',
                 value: variant,
-                optionsCaption: 'Choisir...',enable: checkNature" } )
+                optionsCaption: 'Choisir...', enable: checkNature" } )
       .modal-footer
-        %button.btn.btn-default{:type => 'button', data: {bind: 'click: $root.moveAnimals'}}
+        %button.btn.btn-default{type: 'button', data: {bind: 'click: $root.moveAnimals'}}
           %i.icon.icon-plus Déplacer
-        %button.close.btn.btn-default{'aria-label' => :close.tl, :type => 'button', data: {bind: 'click: $root.cancelAnimalsMoving'}}= :cancel.ta
+        %button.close.btn.btn-default{aria: {label: :close.tl}, type: 'button', data: {bind: 'click: $root.cancelAnimalsMoving'}}= :cancel.ta
 
-    = modal(id: 'new-container', 'aria-hidden' => 'true', 'aria-labelledby' => 'newContainer', data: {bind: 'modal: showNewContainerModal(), with: containerModalOptions'}, heading: 'Ajouter un emplacement', close_button: 'no') do
+    = modal(:new_container, data: {bind: 'modal: showNewContainerModal(), with: containerModalOptions'}, close_button: false) do
       .modal-body
-        = label_tag(:containers_list, 'Choisissez le nouvel emplacement', class:'control-label')
+        = label_tag(:containers_list, 'Choisissez le nouvel emplacement', class: 'control-label')
         = select_tag(:containers_list, nil,  data: { bind: "options: $root.containers_list,
           optionsText: 'name',
           value: $root.newContainer,
           optionsCaption: 'Choisir...'" })
       .modal-footer
-        %button.btn.btn-default{:type => 'button', data: {bind: 'click: $root.addContainer'}}
+        %button.btn.btn-default{type: 'button', data: {bind: 'click: $root.addContainer'}}
           %i.icon.icon-plus Ajouter
-        %button.close.btn.btn-default{'aria-label' => :close.tl, :type => 'button', data: {bind: 'click: $root.cancelContainerAdding'}}= :cancel.ta
+        %button.close.btn.btn-default{aria: {label: :close.tl}, type: 'button', data: {bind: 'click: $root.cancelContainerAdding'}}= :cancel.ta
 
-    = modal('aria-hidden' => 'true', 'aria-labelledby' => 'viewAnimal', data: { bind: 'modal: showAnimalDetailsModal(), with: animalDetailsModalOptions'}, heading: "Détails de l'animal", close_button: 'no') do
+    = modal(:animal_details, data: { bind: 'modal: showAnimalDetailsModal(), with: animalDetailsModalOptions'}, close_button: false) do
       .modal-body
         .row
           .col-md-9
@@ -184,7 +184,7 @@
               Status:
               %span{data: { bind: 'css: animalFlagClass'}}
       .modal-footer
-        %button.btn.btn-link{:type => 'button'}
+        %button.btn.btn-link{type: 'button'}
           %i.icon.icon-plus
           Plus d'infos
-        %button.close.btn.btn-default{'aria-label' => :close.tl, :type => 'button', data: {bind: 'click: $root.cancelAnimalDetails'}}= :cancel.ta
+        %button.close.btn.btn-default{aria: {label: :close.tl}, type: 'button', data: {bind: 'click: $root.cancelAnimalDetails'}}= :cancel.ta
