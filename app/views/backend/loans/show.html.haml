@@ -20,6 +20,12 @@
   - c.cobble :repayments_graph do
     :ruby
       series = []
+      interests = []
+      interests_amount = 0
+      resource.repayments.collect do |r|
+        interests_amount += r.interest_amount
+        interests << interests_amount.to_f
+      end
       [:base_amount, :interest_amount, :insurance_amount].reverse.each do |info|
         series << {name: LoanRepayment.human_attribute_name(info), data: resource.repayments.pluck(info).map(&:to_f) }
       end

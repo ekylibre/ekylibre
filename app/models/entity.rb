@@ -195,7 +195,7 @@ class Entity < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    (self.id == self.of_company? or self.sales_invoices.any? or self.participations.any? and self.sales.any? and self.transports.any?)
+    (self.of_company? or self.sales_invoices.any? or self.participations.any? and self.sales.any? and self.transports.any?)
   end
 
   class << self
@@ -295,7 +295,7 @@ class Entity < Ekylibre::Record::Base
     self.default_address ? self.default_address.coordinate : '[NoDefaultEntityAddressError]'
   end
 
-  def is_linked_to!(entity, options = {})
+  def link_to!(entity, options = {})
     nature = options[:as] || :undefined
     unless self.direct_links.actives.where(nature: nature.to_s, linked_id: entity.id).any?
       self.direct_links.create!(nature: nature.to_s, linked_id: entity.id)

@@ -1,26 +1,17 @@
-:ruby
-  geolocations = Equipment.all.collect do |equipment|
-    { name:         equipment.name,
-      nature:       equipment.nature_name,
-      shape:        equipment.shape
-    }
-  end
-
-= kujaku do |k|
-  - k.text
-  - variants = ProductNatureVariant.of_variety(:equipment)
-  - if variants.any?
-    - k.helper do
-      %label= Equipment.human_attribute_name(:variant)
-      = select_tag(:variant_id, options_for_select([[]] + variants.order(:name).collect{|u| [u.name, u.id]}, params[:variant_id]))
-
 - main_toolbar do |t|
   - t.new
 
 = janus do |j|
   - if Equipment.any? && Equipment.all.map(&:shape).count > 1
     - j.face :map, title: :map do
-      = visualization do |v|
+      :ruby
+        geolocations = Equipment.all.collect do |equipment|
+          { name:         equipment.name,
+            nature:       equipment.nature_name,
+            shape:        equipment.shape
+          }
+        end
+      = visualization(box: {height: "100%"}) do |v|
         - v.serie :geolocations, geolocations
         - v.categories :nature, :geolocations
         - v.background "Esri.WorldImagery"
@@ -32,4 +23,12 @@
         - v.control :fullscreen
         - v.control :layer_selector
   - j.face :list do
+
+    = kujaku do |k|
+      - k.text
+      - variants = ProductNatureVariant.of_variety(:equipment)
+      - if variants.any?
+        - k.helper do
+          %label= Equipment.human_attribute_name(:variant)
+          = select_tag(:variant_id, options_for_select([[]] + variants.order(:name).collect{|u| [u.name, u.id]}, params[:variant_id]))
     = main_list

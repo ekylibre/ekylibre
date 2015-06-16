@@ -101,7 +101,7 @@ class Sale < Ekylibre::Record::Base
 
   acts_as_numbered :number, readonly: false
   acts_as_affairable :client, debit: :credit?
-  accepts_nested_attributes_for :items, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
 
   delegate :closed, to: :affair, prefix: true
 
@@ -313,27 +313,29 @@ class Sale < Ekylibre::Record::Base
   end
 
   # Duplicates a +sale+ in 'E' mode with its items and its active subscriptions
-  def duplicate(attributes={})
-    fields = [:client_id, :nature_id, :currency, :letter_format, :annotation, :subject, :function_title, :introduction, :conclusion, :description]
-    hash = {}
-    fields.each{|c| hash[c] = self.send(c)}
-    copy = self.class.build(attributes.merge(hash))
-    copy.save!
-    if copy.save
-      # Items
-      items = {}
-      for item in self.items.where("quantity > 0")
-        l = copy.items.create! :sale_id => copy.id, :product_id => item.product_id, :quantity => item.quantity, :building_id => item.building_id
-        items[item.id] = l.id
+  def duplicate(attributes = {})
+    hash = [:client_id, :nature_id, :currency, :letter_format, :annotation, :subject, :function_title, :introduction, :conclusion, :description, :computation_method, :currency].inject({}) do |h, field|
+      h[field] = self.send(field)
+      h
+    end.merge(attributes)
+    # Items
+    items_attributes = {}
+    self.items.each_with_index do |item, index|
+      items_attributes[index] = [:variant_id, :quantity, :reference_value, :amount, :currency, :label, :position, :pretax_amount, :reduction_percentage, :tax_id, :unit_amount, :unit_pretax_amount].inject({}) do |h, field|
+        h[field] = item.send(field)
+        # Subscriptions
+        h[:subscriptions_attributes] = {}
+        self.subscriptions.where(suspended: false).each_with_index do |subscription, j|
+          h[:subscriptions_attributes][j] = [:subscriber_id, :address_id, :quantity_id, :nature_id, :product_nature_id].inject({}) do |sh, field|
+            sh[field] = subscription.send(field)
+            sh
+          end
+        end
+        h
       end
-      # Subscriptions
-      for sub in self.subscriptions.where("NOT suspended")
-        copy.subscriptions.create!(:sale_id => copy.id, :entity_id => sub.entity_id, :address_id => sub.address_id, :quantity => sub.quantity, :nature_id => sub.nature_id, :product_id => sub.product_id, :sale_item_id => items[sub.sale_item_id])
-      end
-    else
-      raise StandardError.new(copy.errors.inspect)
     end
-    copy
+    hash[:items_attributes] = items_attributes
+    return self.class.create!(hash)
   end
 
   # Prints human name of current state

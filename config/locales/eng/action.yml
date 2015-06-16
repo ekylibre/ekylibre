@@ -93,10 +93,9 @@ eng:
       new: "New cash"
       show: "%{nature}: %{name}"
     backend/catalog_items:
-      edit: "Edit catalog price: %{name}"
-      index: "Catalog prices" #?
-      new: "New catalog price"
-      show: "Catalog price: %{name}"
+      edit: "Edit catalog item: %{name}"
+      new: "New catalog item"
+      show: "Catalog item: %{name}"
     backend/catalogs:
       edit: "Edit catalog: %{name}"
       index: "Catalogs"
@@ -479,7 +478,7 @@ eng:
       # incorporate: "Incorporate product nature category: %{name}"
       index: "Product categories"
       new: "New product category"
-      pick: "Pick product nature category"
+      pick: "Pick product category"
       show: "Product category: %{name}"
     backend/product_nature_variants:
       # detail: "Detail product nature variant: %{name}"
@@ -487,7 +486,7 @@ eng:
       # incorporate: "Incorporate product nature variant: %{name}"
       index: "Product variants"
       new: "New product variant"
-      pick: "Pick product nature variant"
+      pick: "Pick product variant"
       # quantifiers: "Quantifiers product nature variant: %{name}"
       show: "Product variant: %{name}"
     backend/product_natures:
@@ -495,7 +494,7 @@ eng:
       # incorporate: "Incorporate product nature: %{name}"
       index: "Product types"
       new: "New product type"
-      pick: "Pick product nature"
+      pick: "Pick product type"
       show: "Product type: %{name}"
     backend/production_supports:
       show: "Production support: %{name}"
@@ -610,7 +609,6 @@ eng:
     backend/synchronizations:
       index: "Synchronizations"
       run: "Run synchronization: %{name}"
-      show: "Synchronization: %{name}" #?
     backend/tasks:
       edit: "Edit task: %{name}"
       # finish: "Finish task: %{name}"
@@ -637,7 +635,6 @@ eng:
     backend/transports:
       edit: "Edit transport %{number}"
       index: "Transports"
-      new: "New transport" #?
       show: "Transport: %{number}"
     backend/trial_balances:
       show: "Trial balance"
@@ -838,7 +835,6 @@ eng:
     budget: "Budget"
     budget_per_working_indicator: "Budget per working indicator"
     budgets: "Budgets" #?
-    building_name: "Building name" #??
     by_year: "By year"
     calculate: "Calculate" #?
     calculators: "Calculators" #?
@@ -863,9 +859,8 @@ eng:
     children: "Children"
     choice_options: "Choice options"
     choices: "Choices"
-    choose_a_type_of_product: "Choose a type of product" #?
+    choose_a_type_of_product: "Choose a type of product"
     choose_mail_column: "Choose email column"
-    city_name: "City name" #?
     click_to_mail: "Click to email with your own mail software"
     client: "Client" #?
     client_informations: "Client informations"
@@ -876,7 +871,6 @@ eng:
     column: "Column"
     columns: "Columns to import"
     commission: "Commission"
-    concentrations_map: "Concentrations map" #?!
     conditions:
       filter_on_attribute_of_class: "Filter on attribute of class"
       special-subscriber: "Special-subscriber"
@@ -938,7 +932,6 @@ eng:
     depreciation: "Depreciation"
     depreciations: "Depreciations"
     description: "Description" #?
-    desposits: "Desposits" #?!
     destroy: "Destroy"
     destroyed_at_by: "Destroyed at %{at} by %{author}"
     destroyed_by_ago: "Destroyed by %{author} %{when}"
@@ -1126,7 +1119,7 @@ eng:
     movements: "Movements"
     name: "Name" #?
     nature: "Type"
-    natures: "Natures"
+    natures: "Types"
     net_margin: "Net margin"
     net_mass: "Net mass"
     net_surface_area: "Net surface area"
@@ -1139,29 +1132,28 @@ eng:
       one: "Make a deposit %{mode}: 1 available payment"
       other: "Make a deposit %{mode}: %{count} available payments"
       zero: "Make a deposit %{mode}: no available payments"
+    new_email: "New email"
     new_organization: "New organization"
     new_production_of_activity: "New production of %{activity}"
+    new_quote: "New quote"
     new_transport_of_x_deliveries:
       one: "New transport (%{count} delivery)"
       other: "New transport (%{count} deliveries)"
     new_transport_of_x_deliveries_for_y:
       one: "New transport for %{transporter} (%{count} delivery)"
       other: "New transport for %{transporter} (%{count} deliveries)"
+    new_writing: "New writing"
     next: "Next"
     nitrogen_concentration: "Nitrogen concentration" #?
     nitrogen_concentration_per_hectare: "Nitrogen concentration per hectare"
     no_crumbs_to_check: "No crumbs to check"
     no_data: "No data"
-    no_deliveries: "No deliveries" #??
     no_deposits: "No deposits"
-    no_origin: "No origin" #??
     no_particular_periods: "No particular period" #?
     no_products: "No products"
-    no_records: "No records" #??
     no_results: "No results"
     no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application (%{controller}#%{action})"
     no_right_defined_for_this_part_of_the_application_and_this_user: "No right defined for this part of the application and this user"
-    no_tracking: "No tracking" #??
     nominal_storable_easement_area: "Nominal storable easement area"
     none: "None"
     normal: "Normal" #?
@@ -1236,13 +1228,12 @@ eng:
     product: "Product"
     product_category: "Product category" #?
     product_name: "Product name" #?
-    product_natures: "Product natures"
+    product_natures: "Product types"
     production: "Production"
     production_cost: "Production cost"
     production_distribution: "Production distribution" #?
     production_support: "Production support"
     productions: "Productions"
-    productions_map: "Productions map" #??
     products: "Products"
     provisionnal_budget: "Provisionnal budget"
     purchase: "Purchase" #?
@@ -1260,7 +1251,6 @@ eng:
     reflected: "Reflected changes" #?
     reflections: "Reflections" #?
     refresh: "Refresh" #?
-    related_people: "Related people" #?!
     relationship: "Relationship"
     relationship_of_entity: "%{relationship} of %{entity}"
     relationship_of_entity_as_inverse_post: "%{relationship} of %{entity} (%{inverse_post})"
@@ -1284,7 +1274,7 @@ eng:
       other: "%{count} results" #?
       zero: "No results" #?
     revenues: "Revenues" #?
-    revenues_by_product_nature: "Revenues by product nature" #?
+    revenues_by_product_nature: "Revenues by product type" #?
     reverse: "Reverse condition"
     rights: "Rights"
     role: "Role" #?
@@ -1396,7 +1386,6 @@ eng:
     transfer: "Transfer" #?
     transformations: "Transformations"
     transport: "Transport" #?
-    treatment: "Treatment" #?
     undefined_container: "Undefined container"
     undelivered: "Undelivered" #?
     undone: "Undone" #?
@@ -1416,8 +1405,8 @@ eng:
     unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)" #?
     up: "Up" #?
     update: "Update"
-    updated_at_by: "Updated at %{at} by %{author}:"
-    updated_by_ago: "Updated by %{author} %{when}:"
+    updated_at_by: "Updated at %{at} by %{author}"
+    updated_by_ago: "Updated by %{author} %{when}"
     upload: "Upload" #?
     usage: "Usage" #?
     users: "Users"
@@ -1594,8 +1583,8 @@ eng:
       mails_are_sent: "The emails were sent"
       merge_is_done: "Merge is done"
       need_a_production_support: "Need a production support"
-      need_a_valid_purchase_nature_to_start_new_purchase: "Need a valid purchase nature to start new purchase"
-      need_a_valid_sale_nature_to_start_new_sale: "Need a valid sale nature to start new sale"
+      need_a_valid_purchase_nature_to_start_new_purchase: "Need a valid purchase type to start new purchase"
+      need_a_valid_sale_nature_to_start_new_sale: "Need a valid sale type to start new sale"
       need_building_to_record_stock_moves: "You must create a building to be able to manage stocks."
       need_cash_to_record_statements: "You must be at least create a bank account to enter a statement." #?
       need_entries_to_point: "No entry was found for the period of the bank statement."
@@ -1616,6 +1605,7 @@ eng:
       record_has_been_correctly_removed: "The record has been removed successfully"
       record_has_been_imported: "Record has been imported"
       record_not_found: "Record not found" #?
+      sale_is_not_duplicatable: "Sale is not duplicatable"
       select_entry_items_to_mark_together: "Select entry items to mark together"
       the_sales_invoice_is_not_cancellable: "The sales invoice is not cancellable"
       unavailable_resource: "Nonexistent %{type} #%{id}"

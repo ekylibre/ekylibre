@@ -154,7 +154,7 @@ fra:
         quantity: "Par numéros"
     task:
       nature:
-        document: "Document"
+        document: "Écrit"
         incoming_call: "Appel entrant"
         incoming_email: "Courriel entrant"
         incoming_mail: "Courrier entrant"

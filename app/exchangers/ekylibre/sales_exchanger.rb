@@ -25,7 +25,7 @@ class Ekylibre::SalesExchanger < ActiveExchanger::Base
         sale_reference_number = arr[2].to_s.upcase
       end
 
-      country =  Entity.of_company.country || Preference[:country]
+      country =  Preference[:country]
 
       # find an entity
       if entity_full_name

@@ -1,5 +1,22 @@
 = janus do |j|
-  - j.face :map do
-    = map(Product.can('store(wine)', 'store_liquid'))
+  - j.face :map, title: :map do
+    :ruby
+      geolocations = Product.of_working_set(:wine_tanks).collect do |tank|
+        { name:         tank.name,
+          nature:       tank.nature_name,
+          shape:        tank.shape
+        }
+      end
+    = visualization(box: {height: "100%"}) do |v|
+      - v.serie :geolocations, geolocations
+      - v.categories :nature, :geolocations
+      - v.background "Esri.WorldImagery"
+      - v.background 'OpenStreetMap.HOT'
+      - v.background 'Thunderforest.Transport'
+      - v.background 'Thunderforest.Outdoors'
+      - v.control :zoom
+      - v.control :scale
+      - v.control :fullscreen
+      - v.control :layer_selector
   - j.face :list do
     = main_list

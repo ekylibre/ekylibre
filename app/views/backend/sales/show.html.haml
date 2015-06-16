@@ -6,7 +6,7 @@
       - e.sales_order resource.number, resource
     - elsif resource.estimate? or resource.draft?  or resource.refused?
       - e.sales_estimate resource.number, resource
-  - t.duplicate resource, method: :post
+  - t.duplicate resource, method: :post, params: {redirect: nil}
   - if resource.invoice?
     - t.cancel(resource) if resource.cancellable?
   - t.edit resource if resource.draft?
@@ -28,7 +28,7 @@
       - l.attribute :credited_sale, url: true if resource.invoice? and resource.credited_sale
       - l.attribute :payment_delay, :label => :name
       - l.attribute :nature
-      - l.attribute :currency unless resource.currency == Entity.of_company.currency
+      - l.attribute :currency unless resource.currency == Preference[:currency]
       - l.attribute :description if resource.description?
       - l.attribute :address, :label => :coordinate
       -# l.attribute :delivery_address, :label => :coordinate
