@@ -114,16 +114,19 @@
     = modal(id: "move-animal", "aria-hidden" => "true", "aria-labelledby" => "moveAnimal", data: {bind: "modal: showMoveAnimalModal(), with: moveAnimalModalOptions"}, heading: "Déplacement", close_button: 'no') do
       .modal-body
         .alert.alert-danger{data: {bind: 'visible: alert'}} Des champs sont manquants
-        %p Les animaux à déplacer:
-        %div{ data: {bind: 'foreach: animals()'}}
-          %p{ data: {bind: 'text: name'} }
-        %div{ data: {bind: 'if: $data.group' } }
+        %div
+          %span Les animaux à déplacer:
+          %ul{ data: {bind: 'foreach: animals()'}}
+            %li{ data: {bind: 'text: name'} }
+        %div.v-spacer{ data: {bind: 'if: $data.group' } }
           %span Groupe:
-          %p{ data: {bind: 'text: $data.group().name'}}
-        %div{ data: {bind: 'if: $data.container' } }
+          %ul
+            %li{ data: {bind: 'text: $data.group().name'}}
+        %div.v-spacer{ data: {bind: 'if: $data.container' } }
           %span Emplacement:
-          %p{ data: {bind: 'text: $data.container().name'}}
-        %form.form-horizontal
+          %ul
+            %li{ data: {bind: 'text: $data.container().name'}}
+        %form.form-horizontal.v-spacer
           .control-group
             %label.control-label{for: "started_at"}= Intervention.human_attribute_name(:started_at)
             .controls
@@ -140,12 +143,16 @@
                 value: $root.moveAnimalModalOptions.worker,
                 optionsCaption: 'Choisir...'" }}
           .control-group
+            .controls
+              = check_box_tag(:check_nature,'1',false,{data: {bind: "checked: checkNature"}})
+              = label_tag(:check_nature, "La nature des animaux a changé")
+          .control-group
             %label.control-label{for: "nature"} Nature
             .controls
               %select{data: { bind: "options: $root.natures_list,
                 optionsText: 'name',
                 value: $root.moveAnimalModalOptions.variant,
-                optionsCaption: 'Choisir...'" } }
+                optionsCaption: 'Choisir...',enable: checkNature" } }
       .modal-footer
         %button.btn.btn-default{:type => "button", data: {bind: "click: $root.moveAnimals"}}
           %i.icon.icon-plus Déplacer

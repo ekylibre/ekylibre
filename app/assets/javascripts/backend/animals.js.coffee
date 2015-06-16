@@ -69,6 +69,11 @@
         group: ko.observable undefined
         container: ko.observable undefined
         alert: ko.observable false
+        checkNature: ko.observable false
+
+      @moveAnimalModalOptions.checkNature.subscribe (value) =>
+        if value != 1
+          @moveAnimalModalOptions.variant undefined
 
       @newGroupModalOptions =
         group: ko.observable ''
@@ -209,17 +214,20 @@
         animals_id = ko.utils.arrayMap @moveAnimalModalOptions.animals(), (a) =>
           return a.id
 
-        if animals_id.length > 0 and @moveAnimalModalOptions.container() != undefined and @moveAnimalModalOptions.group() != undefined and @moveAnimalModalOptions.worker() != undefined and @moveAnimalModalOptions.started_at() != '' and @moveAnimalModalOptions.stopped_at() != '' and @moveAnimalModalOptions.production_support() != undefined
+#        if animals_id.length > 0 and @moveAnimalModalOptions.container() != undefined and @moveAnimalModalOptions.group() != undefined and @moveAnimalModalOptions.worker() != undefined and @moveAnimalModalOptions.started_at() != '' and @moveAnimalModalOptions.stopped_at() != '' and @moveAnimalModalOptions.production_support() != undefined
+        if animals_id.length > 0 and @moveAnimalModalOptions.container() != undefined and @moveAnimalModalOptions.group() != undefined and @moveAnimalModalOptions.worker() != undefined and @moveAnimalModalOptions.started_at() != '' and @moveAnimalModalOptions.stopped_at() != ''
 
           data =
             animals_id: animals_id.join(',')
             container_id: @moveAnimalModalOptions.container().id
             group_id: @moveAnimalModalOptions.group().id
-            variant_id: @moveAnimalModalOptions.variant().id
             worker_id: @moveAnimalModalOptions.worker().id
             started_at: @moveAnimalModalOptions.started_at()
             stopped_at: @moveAnimalModalOptions.stopped_at()
             production_support_id: @moveAnimalModalOptions.production_support()
+
+          if @moveAnimalModalOptions.variant()
+             data['variant_id'] =  @moveAnimalModalOptions.variant().id
 
 
           $.ajax '/backend/animals/change',
@@ -283,6 +291,7 @@
         @moveAnimalModalOptions.variant undefined
         @moveAnimalModalOptions.group undefined
         @moveAnimalModalOptions.alert false
+        @moveAnimalModalOptions.checkNature false
 
       @cancelContainerAdding = () =>
         @resetContainerAdding()

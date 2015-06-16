@@ -641,6 +641,15 @@
   background-color: cornflowerblue;
 }
 
+.v-spacer {
+  margin-top: 1em;
+}
+
+.modal-body li {
+  font-weight: bold;
+  padding-left: 3em;
+}
+
 #loading {
   display: none;
 }
