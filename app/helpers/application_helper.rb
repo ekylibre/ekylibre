@@ -945,6 +945,9 @@ module ApplicationHelper
   # Define a simple frame for modals
   def modal(*args, &block)
     options = args.extract_options!
+    options[:aria] ||= {}
+    options[:aria][:hidden] ||= "true"
+    options[:aria][:labelledby] ||= options.delete(:labelledby) if options[:labelledby]
     if options[:class].is_a? Array
       options[:class] << "modal"
       options[:class] << "fade"
@@ -953,16 +956,25 @@ module ApplicationHelper
     else
       options[:class] = options[:class].to_s + " modal fade"
     end
-    heading = options.delete(:heading)
+    if id = args.shift and !options[:id]
+      if id.is_a?(Symbol)
+        options[:id] = id.to_s.dasherize
+        options[:title] ||= id.tl
+      else
+        options[:id] = id
+      end
+    end
+    title = options.delete(:title) || options.delete(:heading)
+    options[:aria][:labelledby] ||= options[:id].underscore.camelcase(:lower)
     options[:tabindex] ||= "-1"
     options[:role] ||= "dialog"
-    options[:close_button] = (options[:close_button] == 'no') ? false: true
+    header_options = options.slice(:close_button).merge(title_id: options[:aria][:labelledby])
     content_for(:popover) do
       content_tag(:div, options) do
         content_tag(:div, class: "modal-dialog") do
           content_tag(:div, class: "modal-content") do
-            if heading
-              modal_header(heading, options[:close_button]) + capture(&block)
+            if title
+              modal_header(title, header_options) + capture(&block)
             else
               capture(&block)
             end
@@ -972,14 +984,15 @@ module ApplicationHelper
     end
   end
 
-  def modal_header(title, close_button)
+  def modal_header(title, options = {})
+    title_id = options[:title_id] || title.parameterize.underscore.camelcase(:lower)
     content_tag(:div, class: "modal-header") do
-      if close_button
-        button_tag(class: "close", "aria-label" => :close.tl, data: {dismiss: "modal"}, type: "button") do
-          content_tag(:span, "&times;".html_safe, "aria-hidden" => "true")
-        end + content_tag(:h4, title, class: "modal-title")
+      if options[:close_button].is_a? FalseClass
+        content_tag(:h4, title, class: "modal-title", id: title_id)
       else
-        content_tag(:h4, title, class: "modal-title")
+        button_tag(class: "close", aria: {label: :close.tl}, data: {dismiss: "modal"}, type: "button") do
+          content_tag(:span, "&times;".html_safe, aria: {hidden: "true"})
+        end + content_tag(:h4, title, class: "modal-title", id: title_id)
       end
     end
   end
