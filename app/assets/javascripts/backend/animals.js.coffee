@@ -78,6 +78,14 @@
       @newGroupModalOptions =
         group: ko.observable ''
 
+
+      @cancelAnimalDetails = () =>
+        @animalDetailsModalOptions false
+        @showAnimalDetailsModal false
+
+      @cancelNewGroup = () =>
+        @showNewGroupModal false
+
       @addContainer = =>
         newContainer = new dashboardViewModel.Container(@newContainer().id, @newContainer().name, @containerModalOptions())
         @containers.push newContainer

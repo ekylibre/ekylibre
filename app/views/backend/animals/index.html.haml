@@ -102,14 +102,15 @@
           %button.btn.btn-default{:type => 'button'} Vendre
           %button.btn.btn-default{:type => 'button'} Vacciner
 
-    = modal(id: 'new-group', 'aria-hidden' => 'true', 'aria-labelledby' => 'newGroup', data: {bind: 'modal: showNewGroupModal(), with: newGroupModalOptions'}, heading: 'Nouveau Troupeau') do
+    = modal(id: 'new-group', 'aria-hidden' => 'true', 'aria-labelledby' => 'newGroup', data: {bind: 'modal: showNewGroupModal(), with: newGroupModalOptions'}, heading: 'Nouveau Troupeau', close_button: 'no') do
       .modal-body
         %label Nom:
         %input{:type => 'text', data: { bind: 'value: group'}}
       .modal-footer
         %button.btn.btn-default{:type => 'button', data: {bind: 'click: $root.addGroup'}}
           %i.icon.icon-plus Ajouter
-        %button.close.btn.btn-default{'aria-label' => :close.tl, 'data-dismiss' => 'modal', :type => 'button'}= :cancel.ta
+        %button.close.btn.btn-default{'aria-label' => :close.tl, :type => 'button', data: {bind: 'click: $root.cancelNewGroup'}}= :cancel.ta
+
 
     = modal(id: 'move-animal', 'aria-hidden' => 'true', 'aria-labelledby' => 'moveAnimal', data: {bind: 'modal: showMoveAnimalModal(), with: moveAnimalModalOptions'}, heading: 'Déplacement', close_button: 'no') do
       .modal-body
@@ -170,11 +171,9 @@
           %i.icon.icon-plus Ajouter
         %button.close.btn.btn-default{'aria-label' => :close.tl, :type => 'button', data: {bind: 'click: $root.cancelContainerAdding'}}= :cancel.ta
 
-    = modal('aria-hidden' => 'true', 'aria-labelledby' => 'viewAnimal', 'data-bind' => 'modal: showAnimalDetailsModal(), with: animalDetailsModalOptions', heading: "Détails de l'animal") do
+    = modal('aria-hidden' => 'true', 'aria-labelledby' => 'viewAnimal', 'data-bind' => 'modal: showAnimalDetailsModal(), with: animalDetailsModalOptions', heading: "Détails de l'animal", close_button: 'no') do
       .modal-body
         .row
-          .col-md-3
-            -# %img.img-responsive{"data-bind" => "attr: {src: img}"}
           .col-md-9
             %p
               Nom:
@@ -189,3 +188,4 @@
         %button.btn.btn-link{:type => 'button'}
           %i.icon.icon-plus
           Plus d'infos
+        %button.close.btn.btn-default{'aria-label' => :close.tl, :type => 'button', data: {bind: 'click: $root.cancelAnimalDetails'}}= :cancel.ta
