@@ -88,7 +88,7 @@
           else
             console.warn "JSON cannot be parsed. Get: #{request.responseText}."
         error: (request, status, error) ->
-          alert "Cannot get details of item on #{url} (#{status}): #{error}"
+          alert "Cannot get details of item on #{url} (#{request.status}/#{request.readyState}/#{request.statusCode()}) (#{status}): #{error}"
       this
 
     sourceURL: () ->
