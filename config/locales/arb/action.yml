@@ -86,10 +86,9 @@ arb:
       new: "التسجيل لخزينة جديدة"
       show: "%{nature_label} : %{name}"
     backend/catalog_items:
-      # edit: "Edit catalog price: %{name}"
-      # index: "Catalog prices"
-      # new: "New catalog price"
-      # show: "Catalog price: %{name}"
+      # edit: "Edit catalog item: %{name}"
+      # new: "New catalog item"
+      # show: "Catalog item: %{name}"
     backend/catalogs:
       # edit: "Edit catalog: %{name}"
       # index: "Catalogs"
@@ -476,7 +475,7 @@ arb:
       edit: "تعديل فئة المنتج : %{name}"
       index: "فئات المنتج"
       new: "اضافة فئة جديدة للمنتج"
-      # pick: "Pick product nature category"
+      # pick: "Pick product category"
       show: "تفاصيل فئة: %{name}"
     backend/product_nature_components:  #?
       edit: "تعديل عنصر المنتج %{product} " #?
@@ -485,13 +484,13 @@ arb:
       # edit: "Edit product variant: %{name}"
       # index: "Product variants"
       # new: "New product variant"
-      # pick: "Pick product nature variant"
+      # pick: "Pick product variant"
       # show: "Product variant: %{name}"
     backend/product_natures:
       edit: "تعديل المنتج : %{name}"
       index: "المنتجات"
       new: "اضافة منتج جديد"
-      # pick: "Pick product nature"
+      # pick: "Pick product type"
       show: "المنتجات : %{name}"
     backend/product_stock_moves:  #?
       edit: "تعديل حركة سهم : %{name}" #?
@@ -615,7 +614,6 @@ arb:
     backend/synchronizations:
       # index: "Synchronizations"
       # run: "Run synchronization: %{name}"
-      # show: "Synchronization: %{name}"
     backend/tasks:
       # edit: "Edit task: %{name}"
       # index: "Tasks"
@@ -650,7 +648,7 @@ arb:
       deliveries: "تسليم وسيلة النقل" #?
       edit: "تعديل وسيلة النقل"
       index: "وسائل النقل"
-      new: "اضافة وسيلة نقل جديدة"
+      new: "اضافة وسيلة نقل جديدة" #?
       show: "نقلت من %{created_at}"
     backend/trial_balances:
       show: "رصيد الحساب"
@@ -895,7 +893,7 @@ arb:
     # budgets: "Budgets"
     building: "مكان التخزين" #?
     building_create: "اضافة موقع تخزين" #?
-    building_name: "انتاج"
+    building_name: "انتاج" #?
     building_update: "تعديل موقع التخزين" #?
     buildings: "النظر بقائمة مواقع التخزين" #?
     # by_year: "By year"
@@ -928,7 +926,7 @@ arb:
     choices: "خيارات"
     # choose_a_type_of_product: "Choose a type of product"
     choose_mail_column: "الرجاء اختيار العمود المستخدم للرسالة"
-    city_name: "المدينة"
+    city_name: "المدينة" #?
     click_to_mail: "اكتب الرسالة بالبريد الالكتروني الخاص بك"
     client: "اختيار العميل"
     client_balance: "رصيد العميل" #?
@@ -945,7 +943,6 @@ arb:
     columns: "اعمدة الاستيراد"
     commission: "عمولة"
     components: "العناصر" #?
-    # concentrations_map: "Concentrations map"
     conditions:
       filter_on_attribute_of_class: "التصفية وفق %{attribute} (%{class})"
       special-subscriber: "تصفية وفق الاشتراك"
@@ -1038,7 +1035,6 @@ arb:
     # depreciation: "Depreciation"
     # depreciations: "Depreciations"
     description: "الوصف"
-    # desposits: "Desposits"
     # destroy: "Destroy"
     # destroyed_at_by: "Destroyed at %{at} by %{author}"
     # destroyed_by_ago: "Destroyed by %{author} %{when}"
@@ -1349,7 +1345,7 @@ arb:
     national_reduce_vat_collected: "معدل ضريبة القيمة المضافة المحلية المخفضة  %5.5" #?
     national_vat_collected: "الاجراءات التي حدثت في فرنسا" #?
     nature: "الطبع"
-    # natures: "Natures"
+    # natures: "Types"
     nb_mandates:  #?
       one: "تفويض واحد مسجل" #?
       other: "%{count} تفويضات اخرى" #?
@@ -1371,10 +1367,12 @@ arb:
       # one: "Make a deposit %{mode}: 1 available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"
       # zero: "Make a deposit %{mode}: no available payments"
+    # new_email: "New email"
     new_family: "اسرة جديدة" #?
     new_organization: "منظمة جديدة"
     new_payment: "تسجيل دفعة جديدة" #?
     # new_production_of_activity: "New production of %{activity}"
+    # new_quote: "New quote"
     new_sale: "بيعة جديدة" #?
     new_title: "عنوان جديد" #?
     new_transport_of_x_deliveries:
@@ -1384,26 +1382,27 @@ arb:
       # one: "New transport for %{transporter} (%{count} delivery)"
       # other: "New transport for %{transporter} (%{count} deliveries)"
     new_value: "قيمة جديدة" #?
+    # new_writing: "New writing"
     next: "التالي"
     # nitrogen_concentration: "Nitrogen concentration"
     # nitrogen_concentration_per_hectare: "Nitrogen concentration per hectare"
     no_commercial: "-- دون تداول --" #?
     # no_crumbs_to_check: "No crumbs to check"
     # no_data: "No data"
-    no_deliveries: "ليس هناك من تسليم بالانتظار"
+    no_deliveries: "ليس هناك من تسليم بالانتظار" #?
     no_deliveries_for_this_sale: "لم يتم التسليم لهذا الطلب من البيع" #?
     no_deposits: "التأكد من عدم اقتطاعات البنك"
     no_javascript: "ان متصفح الويب الخاص بك لا يدعم نسخة الجافا، لذا تحتاج الى تفعيله من اجل استخدام ايكيليبغ." #?
-    no_origin: "-- بدون مصدر --"
+    no_origin: "-- بدون مصدر --" #?
     # no_particular_periods: "No particular period"
     no_products: "Sans produit"
     no_proposer: "-- دون راعي او كفيل --" #?
     no_purchases: "لا شراء في انتظار الاستلام" #?
-    no_records: "ولا اية سجل"
+    no_records: "ولا اية سجل" #?
     # no_results: "No results"
     # no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application (%{controller}#%{action})"
     # no_right_defined_for_this_part_of_the_application_and_this_user: "No right defined for this part of the application and this user"
-    no_tracking: "ولا اي مسار"
+    no_tracking: "ولا اي مسار" #?
     no_transfers: "لم يتم اي عملية نقل" #?
     # nominal_storable_easement_area: "Nominal storable easement area"
     # none: "None"
@@ -1527,14 +1526,13 @@ arb:
     product_component_create: "اضافة عنصر للمنتج" #?
     product_create: "اضافة منتج جديد" #?
     product_name: "المنتج"
-    # product_natures: "Product natures"
+    # product_natures: "Product types"
     product_update: "تعديل تفاصيل المنتج" #?
     production: "ادارة الانتاج"
     # production_cost: "Production cost"
     # production_distribution: "Production distribution"
     # production_support: "Production support"
     productions: "المنتجات"
-    # productions_map: "Productions map"
     products: "فئة المنتج"
     # provisionnal_budget: "Provisionnal budget"
     purchase: "الطلب"
@@ -1567,7 +1565,6 @@ arb:
     # reflections: "Reflections"
     refresh: "تحديث"
     register: "تسجيل شركة جديدة" #?
-    # related_people: "Related people"
     relations: "ادارة علاقات العملاء / والمموليين" #?
     # relationship: "Relationship"
     # relationship_of_entity: "%{relationship} of %{entity}"
@@ -1596,7 +1593,7 @@ arb:
       other: "%{count} نتائج"
       zero: "ولا نتيجة"
     # revenues: "Revenues"
-    # revenues_by_product_nature: "Revenues by product nature"
+    # revenues_by_product_nature: "Revenues by product type"
     reverse: "تطبيق الحالة العكسية"
     right_parts:  #?
       accountancy: "حقوق المحاسبة" #?
@@ -1776,7 +1773,6 @@ arb:
     # transport: "Transport"
     transport_create: "اضافة وسيلة نقل جديدة" #?
     transport_deliveries: "تسليم وسائل النقل" #?
-    # treatment: "Treatment"
     unavailable:  #?
       entity: "السجل المطلوب غير متاح" #?
       financial_year: "السنة المالية غير متوفرة %{value}" #?
@@ -1813,8 +1809,8 @@ arb:
     up: "يرتفع"
     update: "تعديل"
     update_params: "تعديل البحث" #?
-    # updated_at_by: "Updated at %{at} by %{author}:"
-    # updated_by_ago: "Updated by %{author} %{when}:"
+    # updated_at_by: "Updated at %{at} by %{author}"
+    # updated_by_ago: "Updated by %{author} %{when}"
     upload: "تحميل الملفات"
     # usage: "Usage"
     use_forward: "اختر دفتر يومي للتقارير الجديدة" #?
@@ -2027,8 +2023,8 @@ arb:
       mails_are_sent: "تم ارسال رسائل البريد الالكتروني"
       # merge_is_done: "Merge is done"
       # need_a_production_support: "Need a production support"
-      # need_a_valid_purchase_nature_to_start_new_purchase: "Need a valid purchase nature to start new purchase"
-      # need_a_valid_sale_nature_to_start_new_sale: "Need a valid sale nature to start new sale"
+      # need_a_valid_purchase_nature_to_start_new_purchase: "Need a valid purchase type to start new purchase"
+      # need_a_valid_sale_nature_to_start_new_sale: "Need a valid sale type to start new sale"
       need_balanced_journal_to_tax_declaration: "يجب ان تكون جميع دفاتركم اليومية مغلقة ومتوازنة مع هذا التاريخ" #?
       need_building_to_create_purchase_item: "يجب عليك انشاء موقع للتخزين لتتمكن من اجراء عملية الشراء" #?
       need_building_to_create_sale_item: "يجب عليك انشاء موقع للتخزين لتتمكن من اجراء عملية البيع" #?

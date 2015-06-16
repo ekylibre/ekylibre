@@ -91,7 +91,7 @@ fra:
       show: "%{nature}\_: %{name}"
     backend/catalog_items:
       edit: "Modifier un prix"
-      index: "Prix"
+      index: "Prix" #?
       new: "Nouveau prix"
       show: "Prix"
     backend/catalogs:
@@ -537,7 +537,7 @@ fra:
     backend/synchronizations:
       index: "Synchronisations"
       run: "Lancer une synchronization: %{name}"
-      show: "Synchronisation: %{name}"
+      show: "Synchronisation: %{name}" #?
     backend/tasks:
       edit: "Modifier la tâche\_: %{name}"
       index: "Tâches"
@@ -565,7 +565,7 @@ fra:
       delivery_delete: "Retirer la livraison du transport" #?
       edit: "Modifier le transport %{number}"
       index: "Transports"
-      new: "Nouveau transport"
+      new: "Nouveau transport" #?
       show: "Transport %{number}"
     backend/trial_balances:
       show: "Balance"
@@ -743,7 +743,7 @@ fra:
     budget_per_working_indicator: "Budget par unité d’œuvre"
     budgets: "Budgets"
     building: "Lieu de stockage" #?
-    building_name: "Sortie de"
+    building_name: "Sortie de" #?
     buildings_map: "Carte des bâtiments" #?
     by_year: "Par an"
     calculate: "Calculer"
@@ -779,7 +779,7 @@ fra:
     choices: "Choix"
     choose_a_type_of_product: "Choisissez un type de produit"
     choose_mail_column: "Veuillez choisir la colonne à utiliser pour le mailing"
-    city_name: "Ville"
+    city_name: "Ville" #?
     click_to_mail: "Écrire votre message avec votre propre messagerie électronique"
     client: "Client"
     client_balance: "Solde du client" #?
@@ -801,7 +801,7 @@ fra:
     complement_sort: "Trier les choix par nom" #?
     complements: "Champs personnalisés" #?
     components: "Composants" #?
-    concentrations_map: "Carte des concentrations"
+    concentrations_map: "Carte des concentrations" #?
     conditions:
       filter_on_attribute_of_class: "Filtre sur %{attribute} (%{class})"
       special-subscriber: "Filtre Abonné"
@@ -897,7 +897,7 @@ fra:
     depreciation: "Ammortissement"
     depreciations: "Dépréciations"
     description: "Description"
-    desposits: "Remises en banque"
+    desposits: "Remises en banque" #?
     destroy: "Supprimer"
     destroyed_at_by: "Supprimé le %{at} par %{author}"
     destroyed_by_ago: "Supprimé par %{author} %{when}"
@@ -1211,6 +1211,8 @@ fra:
       one: "Effectuer une remise\_: %{mode} (%{count} encaissement disponible)"
       other: "Effectuer une remise\_: %{mode} (%{count} encaissements disponibles)"
       zero: "Effectuer une remise\_: %{mode} (Pas d’encaissements disponibles)"
+    new_document: "Nouveau document" #?
+    new_email: "Nouveau courriel"
     new_family: "Nouvelle famille" #?
     new_in_line: "Ajouter un produit intrant" #?
     new_organization: "Nouvelle organisation"
@@ -1218,6 +1220,7 @@ fra:
     new_payment: "Enregistrer un nouvel encaissement" #?
     new_production_of_activity: "Nouvelle production de %{activity}"
     new_purchase_price: "Créer un prix d’achat" #?
+    new_quote: "Nouvelle estimation"
     new_reservoir: "Ajouter un réservoir" #?
     new_sale: "Nouvelle vente" #?
     new_sales_price: "Ajouter un prix de vente" #?
@@ -1229,26 +1232,27 @@ fra:
       one: "Nouveau transport pour %{transporter} (%{count} livraison)"
       other: "Nouveau transport pour %{transporter} (%{count} livraisons)"
     new_value: "Nouvelle valeur" #?
+    new_writing: "Nouvel écrit "
     next: "Suivant"
     nitrogen_concentration: "Teneur en azote (N)"
     nitrogen_concentration_per_hectare: "Teneur en azote par hectare"
     no_crumbs_to_check: "Pas de miettes à qualifier"
     no_data: "Aucune donnée"
-    no_deliveries: "Aucune livraison en attente"
+    no_deliveries: "Aucune livraison en attente" #?
     no_deliveries_for_this_sale: "Cette vente n’est associée à aucune livraison" #?
     no_deposits: "Aucune remise en banque à valider"
     no_filters: "— Pas de filtre —" #?
     no_javascript: "Votre navigateur ne supporte pas le javascript. Vous devez l’activer pour pouvoir utiliser le logiciel. Merci de votre compréhension." #?
-    no_origin: "— Sans origine —"
+    no_origin: "— Sans origine —" #?
     no_particular_periods: "Aucune période en particulier"
     no_products: "Sans produit"
     no_proposer: "— Sans parrain ni marraine —" #?
     no_purchases: "Aucun achat en attente de reception" #?
-    no_records: "Pas d’enregistrements"
+    no_records: "Pas d’enregistrements" #?
     no_results: "Aucun résultat"
     no_right_defined_for_this_part_of_the_application: "Aucun droit défini pour cette partie de l’application (%{controller}#%{action})"
     no_right_defined_for_this_part_of_the_application_and_this_user: "Aucun droit défini pour cette partie de l’application et l’utilisateur"
-    no_tracking: "Aucun lot"
+    no_tracking: "Aucun lot" #?
     no_transfers: "Aucun transfert à réaliser" #?
     nominal_storable_easement_area: "Surface de stockage au sol"
     none: "Aucun"
@@ -1366,7 +1370,7 @@ fra:
     production_distribution: "Répartition de la production"
     production_support: "Support de production"
     productions: "Productions"
-    productions_map: "Carte des productions"
+    productions_map: "Carte des productions" #?
     products: "Produits"
     profitability: "Rentabilité" #?
     protein_matters_concentration: "Teneur en matières protéïques" #?
@@ -1404,7 +1408,7 @@ fra:
     reflected: "Changements répercutés"
     reflections: "Réflections"
     refresh: "Rafraîchir"
-    related_people: "En lien avec"
+    related_people: "En lien avec" #?
     relationship: "Tiers"
     relationship_of_entity: "%{relationship} de %{entity}"
     relationship_of_entity_as_inverse_post: "%{relationship} de %{entity} (%{inverse_post})"
@@ -1631,7 +1635,7 @@ fra:
       ready: "Prêts" #?
       shipped: "Expédié" #?
       waiting: "En attente" #?
-    treatment: "Traitement"
+    treatment: "Traitement" #?
     true: "Vrai" #?
     undefined_container: "Emplacement indéfini"
     undelivered: "Reste à livrer"

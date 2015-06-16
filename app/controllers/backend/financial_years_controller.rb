@@ -99,7 +99,7 @@ class Backend::FinancialYearsController < Backend::BaseController
     @financial_year.stopped_on = ((@financial_year.started_on - 1) >> 12).end_of_month
     @financial_year.code = @financial_year.default_code
     @financial_year.currency = @financial_year.previous.currency if @financial_year.previous
-    @financial_year.currency ||= Entity.of_company.currency
+    @financial_year.currency ||= Preference[:currency]
     # render_restfully_form
   end
 

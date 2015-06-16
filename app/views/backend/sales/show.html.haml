@@ -28,7 +28,7 @@
       - l.attribute :credited_sale, url: true if resource.invoice? and resource.credited_sale
       - l.attribute :payment_delay, :label => :name
       - l.attribute :nature
-      - l.attribute :currency unless resource.currency == Entity.of_company.currency
+      - l.attribute :currency unless resource.currency == Preference[:currency]
       - l.attribute :description if resource.description?
       - l.attribute :address, :label => :coordinate
       -# l.attribute :delivery_address, :label => :coordinate

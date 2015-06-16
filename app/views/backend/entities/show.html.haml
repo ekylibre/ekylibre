@@ -11,9 +11,9 @@
   - j.face :timeline do
     - if resource.contact?
       - content_for :entity_tools do
-        - [:outgoing_call, :outgoing_email, :quote, :document].each do |nature|
+        - {outgoing_call: :call, outgoing_email: :email, quote: :quote, document: :writing}.each do |nature, term|
           %span.timeline-tool{class: "tl-#{nature.to_s.dasherize}"}
-            = link_to({controller: :tasks, action: :new, nature: nature, state: :done, entity_id: resource.id, executor_id: current_user.person_id, redirect: request.fullpath}, title: "new_#{nature}".tl, class: "btn btn-#{nature.to_s.dasherize}") do
+            = link_to({controller: :tasks, action: :new, nature: nature, state: :done, entity_id: resource.id, executor_id: current_user.person_id, redirect: request.fullpath}, title: "new_#{term}".tl, class: "btn btn-#{nature.to_s.dasherize}") do
               %i
 
         -# %span.timeline-tool{class: "tl-call"}
