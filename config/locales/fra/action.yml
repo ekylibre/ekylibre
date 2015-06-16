@@ -1931,6 +1931,7 @@ fra:
       sale_already_invoiced: "La vente a déjà été facturée: vous ne pouvez pas définir de livraison" #?
       sale_cannot_be_updated: "Le devis n’est plus modifiable." #?
       sale_cant_be_deleted: "La vente ne peut plus être supprimée" #?
+      sale_is_not_duplicatable: "La vente n'est pas duplicable"
       select_entry_items_to_mark_together: "Sélectionnez des lignes d’écritures à lettrer ensemble"
       specify_filter: "Vous choisir appliquer au moins un filtre de recherche" #?
       specify_updates: "Vous devez spécifier au moins un champ à modifier" #?

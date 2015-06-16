@@ -178,17 +178,13 @@ class Backend::SalesController < Backend::BaseController
 
   def duplicate
     return unless @sale = find_and_check
-    copy = nil
-    begin
-      copy = @sale.duplicate(responsible: current_user.person)
-    rescue Exception => e
-      notify_error(:exception_raised, message: e.message)
-    end
-    if copy
-      redirect_to action: :show, id: copy.id
+    unless @sale.duplicatable?
+      notify_error :sale_is_not_duplicatable
+      redirect_to params[:redirect] || {action: :index}
       return
     end
-    redirect_to_back
+    copy = @sale.duplicate(responsible: current_user.person)
+    redirect_to params[:redirect] || {action: :show, id: copy.id}
   end
 
   def cancel

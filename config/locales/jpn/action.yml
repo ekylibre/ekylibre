@@ -1374,6 +1374,7 @@ jpn:
       # record_has_been_correctly_removed: "The record has been removed successfully"
       # record_has_been_imported: "Record has been imported"
       # record_not_found: "Record not found"
+      # sale_is_not_duplicatable: "Sale is not duplicatable"
       # select_entry_items_to_mark_together: "Select entry items to mark together"
       # the_sales_invoice_is_not_cancellable: "The sales invoice is not cancellable"
       # unavailable_resource: "Nonexistent %{type} #%{id}"

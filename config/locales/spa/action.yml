@@ -1650,6 +1650,7 @@ spa:
       sale_already_invoiced: "La vente a déjà été facturée: vous ne pouvez pas définir de livraison" #?
       sale_cannot_be_updated: "El presupuesto ya no esta modificable." #?
       sale_cant_be_deleted: "La venta no puede ser suprimida" #?
+      # sale_is_not_duplicatable: "Sale is not duplicatable"
       select_entries_to_letter_together: "Escroge escroturas para latrarlas juntas" #?
       # select_entry_items_to_mark_together: "Select entry items to mark together"
       specify_filter: "Se debe escoger aplicar a lo menos un filtro de busqueda" #?

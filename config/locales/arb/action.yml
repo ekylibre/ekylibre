@@ -2071,6 +2071,7 @@ arb:
       sale_already_invoiced: "قد سبق وتم فوترة البيع: ليس بامكانك تعري التسليم" #?
       sale_cannot_be_updated: "الطلب غير قابل للتعديل" #?
       sale_cant_be_deleted: "ليس بامكانك الغاء طلب البيع" #?
+      # sale_is_not_duplicatable: "Sale is not duplicatable"
       select_entries_to_letter_together: "اختر الادخالات للكتابة معا " #?
       # select_entry_items_to_mark_together: "Select entry items to mark together"
       specify_filter: "اختر تطبيق تصفية واحدة كحد ادنى للبحث" #?

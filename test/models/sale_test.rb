@@ -72,6 +72,17 @@ require 'test_helper'
 class SaleTest < ActiveSupport::TestCase
   test_fixtures
 
+  test "duplicatablity" do
+    count = 0
+    Sale.where.not(type: "SaleCredit").find_each do |sale|
+      if sale.duplicatable?
+        sale.duplicate
+        count += 1
+      end
+    end
+    assert count > 0, "No sale has been duplicated for test"
+  end
+
   context "A minimal configuration" do
 
     setup do
@@ -87,45 +98,44 @@ class SaleTest < ActiveSupport::TestCase
         assert @sale.save
       end
 
-      #should "be invoiced" do
-      #  assert !@sale.invoice
+      # should "be invoiced" do
+      #   assert !@sale.invoice
 
-      #  item = @sale.items.new(:quantity => 12, :product_id => products(:animals_001).id) # :price_id => product_nature_prices(:product_nature_prices_001).id) # , :warehouse_id => products(:warehouses_001).id)
-     #   assert item.save, item.errors.inspect
-     #   item = @sale.items.new(:quantity => 25, :product_id => products(:matters_001).id) # :price_id => product_nature_prices(:product_nature_prices_003).id) # , :warehouse_id => products(:warehouses_001).id)
-      #  assert item.save, item.errors.inspect
-      #  @sale.reload
-      #  assert_equal "draft", @sale.state
-     #   assert @sale.propose
-     #   assert_equal "estimate", @sale.state
-     #   assert @sale.can_invoice?, "Deliverables: " + @sale.items.collect{|l| l.product.attributes.inspect}.to_sentence
-      #  assert @sale.confirm
-      #  assert @sale.invoice
-      #  assert_equal "invoice", @sale.state
-     # end
+      #   item = @sale.items.new(:quantity => 12, :product_id => products(:animals_001).id) # :price_id => product_nature_prices(:product_nature_prices_001).id) # , :warehouse_id => products(:warehouses_001).id)
+      #   assert item.save, item.errors.inspect
+      #   item = @sale.items.new(:quantity => 25, :product_id => products(:matters_001).id) # :price_id => product_nature_prices(:product_nature_prices_003).id) # , :warehouse_id => products(:warehouses_001).id)
+      #   assert item.save, item.errors.inspect
+      #   @sale.reload
+      #   assert_equal "draft", @sale.state
+      #   assert @sale.propose
+      #   assert_equal "estimate", @sale.state
+      #   assert @sale.can_invoice?, "Deliverables: " + @sale.items.collect{|l| l.product.attributes.inspect}.to_sentence
+      #   assert @sale.confirm
+      #   assert @sale.invoice
+      #   assert_equal "invoice", @sale.state
+      # end
 
-    #  should "be printed" do
-        # DocumentTemplate.print(:sales_order, @sale)
-        # assert_nothing_raised do
-        #   DocumentTemplate.print(:sales_order, @sale)
-        # end
+      # should "be printed" do
+      #   DocumentTemplate.print(:sales_order, @sale)
+      #   assert_nothing_raised do
+      #   DocumentTemplate.print(:sales_order, @sale)
 
-        # # DocumentTemplate.print(:sales_order, @sale.number, Ekylibre::Datasource::SalesOrder.to_xml(@sale))
-        # # DocumentTemplate.print(:sales_order, @sale.number, @sale)
+      # # DocumentTemplate.print(:sales_order, @sale.number, Ekylibre::Datasource::SalesOrder.to_xml(@sale))
+      # # DocumentTemplate.print(:sales_order, @sale.number, @sale)
 
-        # # DocumentTemplate.print(:balance, started_at, stopped_at, options...)
+      # # DocumentTemplate.print(:balance, started_at, stopped_at, options...)
 
-        # # balance_template.print(started_at, stopped_at, options...)
+      # # balance_template.print(started_at, stopped_at, options...)
 
-        # # DocumentTemplate.print(:animal_list)
-        # # animal_list_template.print
+      # # DocumentTemplate.print(:animal_list)
+      # # animal_list_template.print
 
-        # # DocumentTemplate.print(:animals, :ill => true, :active => true, :external => true, :variety => 'bos')
+      # # DocumentTemplate.print(:animals, :ill => true, :active => true, :external => true, :variety => 'bos')
 
-        # # DocumentTemplate.print(:sales_order, @sale.number, @sale.to_xml(qsdqsdqsd))
-        # # DocumentTemplate.print(:sales_order, @sale.number, @sale.to_xml(qsdqsdqsd))
-        # # DocumentTemplate.print(@sale.to_xml, :sales_order, :sales_order => @sale)
-     # end
+      # # DocumentTemplate.print(:sales_order, @sale.number, @sale.to_xml(qsdqsdqsd))
+      # # DocumentTemplate.print(:sales_order, @sale.number, @sale.to_xml(qsdqsdqsd))
+      # # DocumentTemplate.print(@sale.to_xml, :sales_order, :sales_order => @sale)
+      # end
 
     end
 
@@ -154,21 +164,19 @@ class SaleTest < ActiveSupport::TestCase
         assert_equal Date.today, @sale.invoiced_at.to_date
       end
 
-      # @TODO test have to be modify in order to work when updating model was finished
-      #should "not be updateable" do
-       # amount = @sale.amount
-       # assert_raise ActiveModel::MassAssignmentSecurity::Error do
-       #   @sale.update_attributes(:amount => amount.to_i + 50)
-       # end
-       # @sale.reload
-       # assert_equal amount, @sale.amount, "State of sale is: #{@sale.state}"
-     # end
+      # # @TODO test have to be modify in order to work when updating model was finished
+      # should "not be updateable" do
+      #   amount = @sale.amount
+      #   assert_raise ActiveModel::MassAssignmentSecurity::Error do
+      #     @sale.update_attributes(:amount => amount.to_i + 50)
+      #   end
+      #   @sale.reload
+      #   assert_equal amount, @sale.amount, "State of sale is: #{@sale.state}"
+      # end
 
       # should "be printed and archived" do
       #   data = []
-
       #   DocumentTemplate.print(:sales_invoice, @sale)
-
       #   assert_nothing_raised do
       #     data << Digest::SHA256.hexdigest(DocumentTemplate.print(:sales_invoice, @sale)[0])
       #   end
