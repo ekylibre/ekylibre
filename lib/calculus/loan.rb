@@ -5,7 +5,8 @@ module Calculus
     def initialize(amount, count, options = {})
       @amount = amount
       @count = count
-      @interests = options[:interests]
+      @interests  = options[:interests] || {}
+      @insurances = options[:insurances] || {}
       @period = options[:period] || 1
       @precision = options[:precision] || 2
       @shift = options[:shift] || 0
@@ -28,11 +29,13 @@ module Calculus
 
     protected
 
+    # Compute shift period  calculations
     def compute_shift(&block)
       amount = @amount.dup
       return amount unless @shift > 0
       @shift.times do
         repayment = {base_amount: 0}
+        # Interests
         if @shift_method == :anatocism
           @interests.each do |name, rate|
             repayment[name] = 0
@@ -43,6 +46,12 @@ module Calculus
             repayment[name] = (@amount * rate / @period).round(@precision)
           end
         end
+
+        # Insurances
+        @insurances.each do |name, rate|
+          repayment[name] = (amount * rate / @period).round(@precision)
+        end
+
         repayment[:remaining_amount] = amount
         yield repayment
       end
@@ -60,6 +69,9 @@ module Calculus
         @interests.each do |name, rate|
           repayment[name] = (amount * rate / @period).round(@precision)
         end
+        @insurances.each do |name, rate|
+          repayment[name] = (amount * rate / @period).round(@precision)
+        end
         repayment[:base_amount] = m
         amount -= repayment[:base_amount]
         repayment[:remaining_amount] = amount
@@ -73,11 +85,14 @@ module Calculus
       amount = compute_shift do |repayment|
         array << repayment
       end
-      global_rate = @interests.values.sum / @period
+      global_rate = (@interests.values.sum  + @insurances.values.sum)/ @period
       repayment_amount = amount * global_rate / (1 - ( (1 + global_rate) ** -@count))
       @count.times do |index|
         repayment = {}
         @interests.each do |name, rate|
+          repayment[name] = (amount * rate / @period).round(@precision)
+        end
+        @insurances.each do |name, rate|
           repayment[name] = (amount * rate / @period).round(@precision)
         end
         repayment[:base_amount] = (repayment_amount - repayment.values.sum).round(@precision)

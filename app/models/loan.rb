@@ -89,7 +89,7 @@ class Loan < Ekylibre::Record::Base
   def generate_repayments
     period = self.repayment_period_month? ? 12 : 1
     ids = []
-    Calculus::Loan.new(self.amount, self.repayment_duration, interests: {interest_amount: self.interest_percentage/100.0, insurance_amount: self.insurance_percentage/100.0}, period: period, shift: self.shift_duration, shift_method: self.shift_method.to_sym, started_on: self.started_on).compute_repayments(self.repayment_method).each do |repayment|
+    Calculus::Loan.new(self.amount, self.repayment_duration, interests: {interest_amount: self.interest_percentage/100.0}, insurances: {insurance_amount: self.insurance_percentage/100.0}, period: period, shift: self.shift_duration, shift_method: self.shift_method.to_sym, started_on: self.started_on).compute_repayments(self.repayment_method).each do |repayment|
       if r = self.repayments.find_by(position: repayment[:position])
         r.update_attributes!(repayment)
       else
