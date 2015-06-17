@@ -3,7 +3,7 @@
 
   E.dialog =
     count: 0
-    
+
     open: (url, settings) ->
       frame_id = "dialog-#{E.dialog.count}"
       width = $(document).width()
@@ -116,11 +116,11 @@
           frame.dialog "close"
           frame.remove()
           return
-    
+
       # if ($.isFunction(settings.error)) { settings.error.call(form, frame, request, status, error); }
       false
 
-  
+
   # Submits dialog forms
   $(document).on "submit", ".ajax-dialog form[data-dialog]", E.dialog.submit
 
@@ -153,5 +153,5 @@
         invalid: (frame, data, status, request) ->
           frame.html request.responseText
           return
-  
+
 ) ekylibre, jQuery
