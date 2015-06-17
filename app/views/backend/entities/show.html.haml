@@ -15,8 +15,9 @@
           %span.timeline-tool{class: "tl-#{nature.to_s.dasherize}"}
             = link_to({controller: :tasks, action: :new, nature: nature, state: :done, entity_id: resource.id, executor_id: current_user.person_id, redirect: request.fullpath}, title: "new_#{term}".tl, class: "btn btn-#{nature.to_s.dasherize}") do
               %i
+
       -#
-        = modal(:new_attachment) do
+        -#= modal(:new_attachment) do
           = form_tag() do
             .modal-body
               %h2= :upload.tl
@@ -26,7 +27,7 @@
               = link_to(:add.tl, "#", class: "btn btn-default")
               = button_tag(:cancel.ta, data: {dismiss: "modal"}, class: "btn btn-default")
         %span.timeline-tool{class: "tl-attachment"}
-          = link_to("#new-attachment", title: "new_attachment".tl, class: "btn btn-attachment", data: {toggle: "modal", target: "#new-attachment"}) do
+          = link_to({controller: :tasks, action: :new, resource_type: resource.class.name, resource_id: resource.id, state: :done, entity_id: resource.id, executor_id: current_user.person_id, redirect: request.fullpath}, title: "new_attachment".tl, class: "btn btn-attachment", data: {toggle: "modal", target: "#new-attachment"}) do
             %i
     = timeline(resource, id: :entity) do |l|
       - l.side :observations, at: :observed_at

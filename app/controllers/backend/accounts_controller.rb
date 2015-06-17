@@ -23,10 +23,12 @@ class Backend::AccountsController < Backend::BaseController
 
   def self.accounts_conditions
     code  = ""
-    code << search_conditions(accounts: [:name, :number, :description])
-    code << "[0] += ' AND number LIKE ?'\n"
-    code << "c << params[:prefix].to_s+'%'\n"
-    code << "unless params[:period].blank?\n"
+    code << search_conditions(accounts: [:name, :number, :description]) + ";"
+    code << "if params[:prefix]\n"
+    code << "  c[0] += ' AND number LIKE ?'\n"
+    code << "  c << params[:prefix].to_s+'%'\n"
+    code << "end\n"
+    code << "unless params[:period].blank? or params[:period]='all'\n"
     code << "  c[0] += ' AND id IN (SELECT account_id FROM #{JournalEntryItem.table_name} AS jel JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id) WHERE '+JournalEntry.period_condition(params[:period], params[:started_at], params[:stopped_at], 'je')+')'\n"
     code << "end\n"
     code << "c\n"
@@ -34,7 +36,7 @@ class Backend::AccountsController < Backend::BaseController
     return code.c
   end
 
-  list(conditions: accounts_conditions, order: :number, :per_page => 20) do |t|
+  list(conditions: accounts_conditions, order: :number, per_page: 20) do |t|
     t.action :edit
     t.action :destroy, if: :destroyable?
     t.column :number, url: true
@@ -132,7 +134,9 @@ class Backend::AccountsController < Backend::BaseController
     if request.post?
       Account.chart = params[:chart]
       if Nomen::Accounts.property_natures.keys.include?(Account.chart.to_s)
-        Account.load
+        Account.load_defaults
+      else
+        raise "Arrrggggg"
       end
       redirect_to action: :index
     end

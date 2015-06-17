@@ -16,8 +16,10 @@ namespace :clean do
         end
       else
         unless missing_controllers.include?(controller)
-          log.write "Missing controller: #{controller}\n"
-          missing_controllers << controller
+          unless controller =~/\Arails\//
+            log.write "Missing controller: #{controller}\n"
+            missing_controllers << controller
+          end
         end
       end
     end

@@ -52,15 +52,15 @@
                 - else
                   .handler.long
                     .title= InterventionCast.human_attribute_name(:variant)
-                    .value= v.referenced_association_field :variant, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: {data: {procedure: procedure.name, variable: reference.name, variable_variant: reference.name, intervention_updater: "casting:#{reference.name}:variant"}}
+                    .value= v.referenced_association_field :variant, source: {scope: reference.scope_hash.merge(availables: true)}, new: false, input_html: {data: {procedure: procedure.name, variable: reference.name, variable_variant: reference.name, intervention_updater: "casting:#{reference.name}:variant"}}
               - else
                 .handler.long
                   .title= InterventionCast.human_attribute_name(:actor)
-                  .value= v.referenced_association_field :actor, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: {data: {procedure: procedure.name, variable: reference.name, variable_actor: reference.name, intervention_updater: "casting:#{reference.name}:actor"}}
+                  .value= v.referenced_association_field :actor, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, new: false, input_html: {data: {procedure: procedure.name, variable: reference.name, variable_actor: reference.name, intervention_updater: "casting:#{reference.name}:actor"}}
         - else
-          = v.referenced_association :actor, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: {data: {procedure: procedure.name, variable: reference.name, variable_actor: reference.name, intervention_updater: "casting:#{reference.name}:actor"}}
+          = v.referenced_association :actor, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, new: false, input_html: {data: {procedure: procedure.name, variable: reference.name, variable_actor: reference.name, intervention_updater: "casting:#{reference.name}:actor"}}
       - elsif reference.type_variant?
-        = v.referenced_association :variant, label: reference.human_name, source: {scope: reference.scope_hash}, input_html: {data: {procedure: procedure.name, variable: reference.name, variable_variant: reference.name, intervention_updater: "casting:#{reference.name}:variant"}}
+        = v.referenced_association :variant, label: reference.human_name, source: {scope: reference.scope_hash}, new: false, input_html: {data: {procedure: procedure.name, variable: reference.name, variable_variant: reference.name, intervention_updater: "casting:#{reference.name}:variant"}}
       - else
         - raise "Unknown type: #{reference.type.inspect}"
 

@@ -26,14 +26,13 @@
 //= require_self
 //= require ekylibre
 //= require formize/behave
-//= require formize/dialog
+//= require form/dialog
 //= require formize/observe
 //= require form/scope
 //= require form/dependents
 //= require form/toggle
 //= require form/dates
 //= require formize/autocomplete
-//= require formize/popover-form
 //= require cocoon
 //= require jquery/ext
 //= require selector

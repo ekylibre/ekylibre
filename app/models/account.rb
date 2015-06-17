@@ -78,7 +78,7 @@ class Account < Ekylibre::Record::Base
     unless Nomen::Accounts[usage]
       raise ArgumentError, "Unknown usage #{usage.inspect}"
     end
-    self.where("usages ~ E?", "\\\\m#{usage}\\\\M")
+    where("usages ~ E?", "\\\\m#{usage}\\\\M")
   }
   # return Account which contains usages mentionned (OR)
   scope :of_usages, lambda { |*usages|
@@ -175,11 +175,12 @@ class Account < Ekylibre::Record::Base
       return account
     end
 
-    # Find account with its usage among.all existing account records
+    # Find account with its usage among all existing account records
     def find_in_chart(usage)
       unless account = of_usage(usage).first
-        item = Nomen::Accounts[usage]
-        account = find_by(number: item.send(chart)) if item
+        if item = Nomen::Accounts[usage]
+          account = find_by(number: item.send(chart))
+        end
       end
       return account
     end
@@ -222,7 +223,8 @@ class Account < Ekylibre::Record::Base
       if account = find_in_chart(usage)
         return account
       elsif item = Nomen::Accounts[usage]
-        return create!(name: item.human_name, number: item.send(chart), debtor: !!item.debtor, usages: item.name)
+        account = create!(name: item.human_name, number: item.send(chart), debtor: !!item.debtor, usages: item.name)
+        return account
       else
         raise ArgumentError, "The usage #{usage.inspect} is unknown"
       end
@@ -256,13 +258,12 @@ class Account < Ekylibre::Record::Base
     end
 
     # Load a chart of account
-    def load # (name, options = {})
+    def load_defaults # (name, options = {})
       self.transaction do
         # Destroy unused existing accounts
         find_each do |account|
           account.destroy if account.destroyable?
         end
-
         for item in Nomen::Accounts.all
           find_or_create_in_chart(item)
         end

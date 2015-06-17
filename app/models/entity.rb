@@ -70,7 +70,7 @@
 require "digest/sha2"
 
 class Entity < Ekylibre::Record::Base
-  include Versionable, Commentable
+  include Versionable, Commentable, Attachable
   attr_accessor :password_confirmation, :old_password
   # belongs_to :attorney_account, class_name: "Account"
   belongs_to :client_account, class_name: "Account"
@@ -81,7 +81,6 @@ class Entity < Ekylibre::Record::Base
   belongs_to :proposer, class_name: "Entity"
   belongs_to :responsible, class_name: "User"
   belongs_to :supplier_account, class_name: "Account"
-  has_many :attachments, as: :resource
   has_many :clients, class_name: "Entity", foreign_key: :responsible_id, dependent: :nullify
   has_many :addresses, -> { where(deleted_at: nil) }, class_name: "EntityAddress", inverse_of: :entity
   has_many :mails,     -> { where(canal: "mail",    deleted_at: nil) }, class_name: "EntityAddress", inverse_of: :entity

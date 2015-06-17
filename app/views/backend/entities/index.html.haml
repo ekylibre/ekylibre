@@ -1,6 +1,7 @@
 = kujaku do |k|
   - k.text
   - k.multi_choice :state, [:client, :supplier, :active].map{ |s| [s.tl, s] }
+  - k.choice [:all.tl, :all], *resource_model.nature.values.map{ |s| [s.l, s] }, name: :nature, label: Entity.human_attribute_name(:nature)
 -# content_for :heading_toolbar do
   = form_tag(backend_search_path, :method => :get, :class => "search snippet-content") do
     = search_field_tag(:q, params[:q], :placeholder => tl(:search_placeholder))

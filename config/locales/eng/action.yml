@@ -796,7 +796,7 @@ eng:
     add_x: "Add “%{x}”"
     affair: "Affair"
     affairs: "Affairs"
-    all: "All" #?
+    all: "All"
     all_accounts: "All accounts"
     all_cash_balances: "All cash balances"
     all_columns: "All columns" #?
