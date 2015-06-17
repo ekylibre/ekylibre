@@ -95,7 +95,7 @@
 
 
   // Update DOM with new system
-  $(document).behave("ajax:success", "*[data-update]", function (event, data, status, request) {
+  $(document).on("ajax:success", "*[data-update]", function (event, data, status, request) {
     var element = $(this);
     var position = $.trim(element.data("update-at")).toLowerCase();
     var target, closest;
@@ -120,7 +120,7 @@
   });
 
   // Redirect to the given location
-  $(document).behave("ajax:success", "*[data-redirect]", function (event, data, status, xhr) {
+  $(document).on("ajax:success", "*[data-redirect]", function (event, data, status, xhr) {
     var element = $(this);
     window.location.replace(data);
   });
@@ -131,7 +131,7 @@
   });
 
 
-  $(document).behave("change keyup", "select[data-redirect]", function () {
+  $(document).on("change keyup", "select[data-redirect]", function () {
     var element = $(this), params = {};
     params[element.attr("name") || element.attr("id") || "undefined"] = element.val();
     window.location.replace($.buildURL(element.data("redirect"), params));
@@ -159,57 +159,6 @@
   });
 
 
-
-  // Old system adaptation to jQuery
-  $(document).on("click", "a[data-new-item]", function () {
-    var element = $(this), list_id, list;
-    list_id = '#'+element.data('new-item');
-    list = $(list_id);
-    if (list[0] === undefined || list[0] === null) {
-      alert("Cannot find element " + list_id);
-    } else {
-      $.ajaxDialog(element.attr('href'), {
-        returns: {
-          success: function (frame, data, status, request) {
-            var record_id = request.getResponseHeader("X-Saved-Record-Id"), combo_box, parameter, parameters, refresh_url;
-            // Reload selector with new record as default selection
-            // alert(list);
-            $.EkylibreSelector.set(list, record_id);
-            // // Updates manually fields like before
-            // combo_box = $('input[data-value-container="' + list.attr("id") + '"]');
-            // if (combo_box[0] !== undefined) {
-            //   $.ajax(combo_box.data('combo-box'), {
-            //     data: {id: record_id},
-            //     success: function (data, status, request) {
-            //       $.setComboBox(combo_box, $.parseJSON(request.responseText)[0]);
-            //     }
-            //   });
-            // } else if (refresh_url !== null && refresh_url !== undefined) { // Select case
-            //   parameter = list.data('id-parameter-name') || "selected";
-            //   parameters = {};
-            //   parameters[parameter] = record_id;
-            //   alert(refresh_url);
-            //   $.ajax(refresh_url, {
-            //     data: parameters,
-            //     success: function (data, status, request) {
-            //       list.html(request.responseText);
-            //       $(list_id).trigger("emulated:change");
-            //     }
-            //   });
-            // } else {
-            //   alert("Unrefreshable selector type");
-            // }
-            frame.dialog("close");
-          },
-          invalid: function (frame, data, textStatus, request) {
-            frame.html(request.responseText);
-          }
-        }
-      });
-    }
-    return false;
-  });
-
   // Use element to compute a calculation
   $(document).on("click", "*[data-close-dialog]", function () {
     var element = $(this), frame;
@@ -220,7 +169,7 @@
 
 
   // Removes DOM Element defined by the selector
-  $(document).behave("click", "a[data-remove]", function () {
+  $(document).on("click", "a[data-remove]", function () {
     $($(this).data("remove")).deepRemove();
     return false;
   });
@@ -466,7 +415,7 @@
 
 
   // Live copy
-  $(document).behave("keyup change emulated:change", "input[data-live-copy-to]", function () {
+  $(document).on("keyup change emulated:change", "input[data-live-copy-to]", function () {
     var element = $(this);
     $(element.data("live-copy-to")).val(element.val());
   });

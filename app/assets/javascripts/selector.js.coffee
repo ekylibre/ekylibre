@@ -2,7 +2,7 @@
 #= require jquery.scrollTo
 
 
-(($) ->
+((E, $) ->
   "use strict"
 
   # This widget is one of the main. It's a classical dynamic selector
@@ -173,7 +173,7 @@
           if selected.data("new-item").length > 0
             parameters.name = selected.data("new-item")
           that = this
-          $.ajaxDialog @element.data("selector-new-item"),
+          E.dialog.open @element.data("selector-new-item"),
             data: parameters
             returns:
               success: (frame, data, status, request) ->
@@ -263,4 +263,4 @@
       $(this).selector()
 
   return
-) jQuery
+) ekylibre, jQuery
