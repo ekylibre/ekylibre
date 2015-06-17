@@ -77,7 +77,7 @@ class Task < Ekylibre::Record::Base
   end
 
   validate do
-    if self.due_at > Time.now and self.done?
+    if self.due_at and self.due_at > Time.now and self.done?
       errors.add(:state, :invalid)
     end
   end
