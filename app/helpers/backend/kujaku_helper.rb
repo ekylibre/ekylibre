@@ -119,11 +119,17 @@ module Backend::KujakuHelper
         scope = @options[:scope] || [:labels]
         html = @template.content_tag(:label, @options[:label] || :state.tl)
         for choice in @choices
+          label = ::I18n.translate(choice, scope: scope)
+          value = choice
+          if choice.is_a?(Array)
+            label = choice[0]
+            value = choice[1]
+          end
           html << @template.content_tag(:span, class: "radio") do
-            @template.content_tag(:label, for: "#{@name}_#{choice}") do
-              @template.radio_button_tag(@name, choice, @template.params[@name] == choice.to_s) <<
+            @template.content_tag(:label, for: "#{@name}_#{value}") do
+              @template.radio_button_tag(@name, value, @template.params[@name] == value.to_s) <<
                 " ".html_safe <<
-                ::I18n.translate(choice, scope: scope)
+                label
             end
           end
         end

@@ -2,6 +2,11 @@
 @import "compass/css3/box-sizing";
 @import "compass/css3/columns";
 
+
+.icon {
+  @include is-icon(14px);
+}
+
 #top {
   margin-bottom: 0;
   @include background-active-gradient;
@@ -1021,9 +1026,6 @@ html.backend {
 
 }
 
-.ic {
-  @include is-icon(14px);
-}
 
 .flash {
   padding: $default-gap round($default-ratio*$default-gap);
@@ -1197,7 +1199,7 @@ a.selector-dropdown {
       line-height: $line-height;
       min-height: $line-height;
       label { color: $color; }
-      .filter {
+      .btn-filter {
         display: none;
       }
       &:first-child {
@@ -1208,7 +1210,7 @@ a.selector-dropdown {
     }
   }
   $icon-size: 21px;
-  button.filter {
+  button.btn-filter {
     .feathers & {
       font-size: 0;
       @include margin-left($default-gap);
@@ -1243,7 +1245,7 @@ a.selector-dropdown {
         display: none;
         &:first-child {
           display: block;
-          .filter {
+          .btn-filter {
             display: inline;
           }
         }
