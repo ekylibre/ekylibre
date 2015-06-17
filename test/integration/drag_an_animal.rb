@@ -19,18 +19,18 @@ class DragAnAnimal < CapybaraIntegrationTest
     Warden.test_reset!
   end
 
-  # test "should add a new group" do
-  #   group_name = 'My Group'
-  #   find(:xpath, "//div[contains(@class, 'add-group-btn')]/button").click
-  #   shoot_screen "animals/add-group-modal"
-  #   assert has_content?('Nouveau Troupeau'), "New Group Modal must appear on button click"
-  #   find(:xpath, "//div[@id='new-group']//input[@type='text']").set group_name
-  #   shoot_screen "animals/set-group-modal"
-  #   find(:xpath, "//div[@id='new-group']//div[@class='modal-footer']/*[1]").click
-  #   shoot_screen "animals/insert-group"
-  #   assert has_content?(group_name), "New Group Modal must be inserted"
-  #
-  # end
+  test "should add a new group" do
+    group_name = 'My Group'
+    find(:xpath, "//div[contains(@class, 'add-group-btn')]/button").click
+    shoot_screen "animals/add-group-modal"
+    assert has_content?('Nouveau Troupeau'), "New Group Modal must appear on button click"
+    find(:xpath, "//div[@id='new-group']//input[@type='text']").set group_name
+    shoot_screen "animals/set-group-modal"
+    find(:xpath, "//div[@id='new-group']//div[@class='modal-footer']/*[1]").click
+    shoot_screen "animals/insert-group"
+    assert has_content?(group_name), "New Group Modal must be inserted"
+
+  end
 
   # Drag an animal
   test "should drag an animal on an empty group to create a new container and move into it" do

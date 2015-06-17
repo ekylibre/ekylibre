@@ -89,7 +89,7 @@
 
     = modal(:new_animal) do
       .modal-body
-        .btn-group-vertical{aria: {label: '...'}, role: 'group'}
+        .btn-group-vertical
           %button.btn.btn-default{type: 'button'} Achat
           %button.btn.btn-default{type: 'button'} Pension
           %button.btn.btn-default{type: 'button'} Naissance
@@ -97,11 +97,11 @@
 
     = modal(:new_animal_intervention) do
       .modal-body
-        .btn-group-vertical{aria: {label: '...'}, role: 'group'}
+        .btn-group-vertical
           %button.btn.btn-default{type: 'button'} Vendre
           %button.btn.btn-default{type: 'button'} Vacciner
 
-    = modal(:new_group, data: {bind: 'modal: showNewGroupModal(), with: newGroupModalOptions'}, close_button: false) do
+    = modal(:new_group, data: {bind: 'modal: showNewGroupModal(), with: newGroupModalOptions', backdrop: 'static', keyboard: false}, close_button: false) do
       .modal-body
         %label Nom:
         %input{:type => 'text', data: { bind: 'value: group'}}
@@ -111,7 +111,7 @@
         %button.close.btn.btn-default{aria: {label: :close.tl}, type: 'button', data: {bind: 'click: $root.cancelNewGroup'}}= :cancel.ta
 
 
-    = modal(:move_animal, data: {bind: 'modal: showMoveAnimalModal(), with: moveAnimalModalOptions'}, close_button: false) do
+    = modal(:move_animal, data: {bind: 'modal: showMoveAnimalModal(), with: moveAnimalModalOptions', backdrop: 'static', keyboard: false}, close_button: false) do
       .modal-body
         .alert.alert-danger{data: {bind: 'visible: alert'}} Des champs sont manquants
         %div
@@ -158,7 +158,7 @@
           %i.icon.icon-plus Déplacer
         %button.close.btn.btn-default{aria: {label: :close.tl}, type: 'button', data: {bind: 'click: $root.cancelAnimalsMoving'}}= :cancel.ta
 
-    = modal(:new_container, data: {bind: 'modal: showNewContainerModal(), with: containerModalOptions'}, close_button: false) do
+    = modal(:new_container, data: {bind: 'modal: showNewContainerModal(), with: containerModalOptions', backdrop: 'static', keyboard: false}, close_button: false) do
       .modal-body
         = label_tag(:containers_list, 'Choisissez le nouvel emplacement', class: 'control-label')
         = select_tag(:containers_list, nil,  data: { bind: "options: $root.containers_list,
@@ -170,7 +170,7 @@
           %i.icon.icon-plus Ajouter
         %button.close.btn.btn-default{aria: {label: :close.tl}, type: 'button', data: {bind: 'click: $root.cancelContainerAdding'}}= :cancel.ta
 
-    = modal(:animal_details, data: { bind: 'modal: showAnimalDetailsModal(), with: animalDetailsModalOptions'}, close_button: false) do
+    = modal(:animal_details, data: { bind: 'modal: showAnimalDetailsModal(), with: animalDetailsModalOptions', backdrop: 'static', keyboard: false}, close_button: false) do
       .modal-body
         .row
           .col-md-9

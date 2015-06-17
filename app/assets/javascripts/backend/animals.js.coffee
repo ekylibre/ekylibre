@@ -449,7 +449,6 @@
         $('#loading').hide()
         return
       success: (json_data) ->
-        console.log json_data
         ko.utils.arrayForEach json_data, (j) =>
           if j.group
             window.app.groups.push new dashboardViewModel.Group(j.group.id, j.group.name)
