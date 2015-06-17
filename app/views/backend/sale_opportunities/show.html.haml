@@ -35,22 +35,26 @@
     - l.attribute :origin
     - l.custom_fields
 
-= cobbles do |c|
-  - c.cobble :deals do
-    = render "show", affair: resource, current_deal: nil
-  - c.cobble :tasks, title: :x_tasks.tl(count: resource.tasks.count) do
-    = cobble_toolbar do |t|
-      - t.new(params: {controller: :tasks, entity_id: resource.third_id, executor_id: current_user.id, state: :todo})
-    = cobble_list(:tasks)
+= janus do |j|
+  - j.face :timeline do
+    = timeline(resource) do |l|
+      - l.side :observations, at: :observed_at
+      - l.side :events, at: :started_at, params: {controller: :events, nature: :meeting, participations: {"0" => {participant_id: resource.third_id, state: :accepted}, "1" => {participant_id: current_user.person_id, state: :accepted}}}
+      - l.side :sales, new: false
+      - l.side :purchases, new: false
+      - l.side :incoming_payments, new: false
+      - l.side :outgoing_payments, new: false
+      - l.side :gaps, new: false
+      - l.side :tasks, at: :due_at
+      - l.side :versions, new: false
+
+  - j.face :cobbles do
+    = cobbles do |c|
+      - c.cobble :deals do
+        = render "show", affair: resource, current_deal: nil
+      - c.cobble :tasks, title: :x_tasks.tl(count: resource.tasks.count) do
+        = cobble_toolbar do |t|
+          - t.new(params: {controller: :tasks, entity_id: resource.third_id, executor_id: current_user.id, state: :todo})
+        = cobble_list(:tasks)
 
 
-= timeline(resource) do |l|
-  - l.side :observations, at: :observed_at
-  - l.side :events, at: :started_at, params: {controller: :events, nature: :meeting, participations: {"0" => {participant_id: resource.third_id, state: :accepted}, "1" => {participant_id: current_user.person_id, state: :accepted}}}
-  - l.side :sales, new: false
-  - l.side :purchases, new: false
-  - l.side :incoming_payments, new: false
-  - l.side :outgoing_payments, new: false
-  - l.side :gaps, new: false
-  - l.side :tasks, at: :due_at
-  - l.side :versions, new: false

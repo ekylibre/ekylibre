@@ -8,9 +8,10 @@
         %th= Gap.human_attribute_name(:reference)
         %th= Gap.human_attribute_name(:amount)
         %th.act
+          %i.icon.icon-remove
     %tfoot
       %tr
-        %td{:colspan => 3}
+        %td{colspan: 3}
           - if affair
             - unless affair.closed?
               %strong.action-intro= :attach_deal.tl

@@ -17,7 +17,7 @@
 #
 
 class Backend::TasksController < Backend::BaseController
-  manage_restfully nature: "params[:nature]".c
+  manage_restfully nature: "params[:nature]".c, due_at: "(params[:due_at] || Time.now)".c
 
   # unroll
 
