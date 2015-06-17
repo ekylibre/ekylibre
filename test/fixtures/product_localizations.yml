@@ -1825,3 +1825,15 @@ product_localizations_146:
   stopped_at: 2014-11-05 04:25:00.000000000 Z
   updated_at: 2014-11-07 19:36:59.713294000 Z
   updater_id: 1
+product_localizations_147:
+  container_id: 81
+  created_at: 2015-01-01 18:31:37.330701000 Z
+  creator_id: 1
+  id: 181
+  lock_version: 0
+  nature: interior
+  operation_id: 75
+  product_id: 2
+  started_at: 2015-01-01 18:31:37.330701000 Z
+  updated_at: 2015-01-02 18:31:37.330701000 Z
+  updater_id: 1

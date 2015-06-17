@@ -80,7 +80,7 @@ class Backend::AnimalsController < Backend::MattersController
 
     AnimalGroup.all.select(:id, :name).each do |group|
 
-      #TODO Need to add sex, img
+
       @grouped_animals << { group: group, places_and_animals: group.members_with_places_at }
 
 
