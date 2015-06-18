@@ -43,7 +43,7 @@
                     %span.golumn-column-title
                       %span{data: { bind: 'text: name'}}
                   .col-md-2.pull-right.no-padding.xs-h-padding
-                    .pull-right.btn-group.btn-group-xs{aria: {label: '...'}, role: 'group'}
+                    .pull-right.btn-group.btn-group-xs
                       %button.btn.btn-default.btn-hover.animal-all-selector{data:{ bind: 'checkbox: toggleItems'}, type: 'button'}
                         %i.icon.icon-check-square-o
               .panel-body.no-padding
@@ -90,40 +90,34 @@
     = modal(:new_animal) do
       .modal-body
         .btn-group-vertical
-          %button.btn.btn-default{type: 'button'} Achat
-          %button.btn.btn-default{type: 'button'} Pension
-          %button.btn.btn-default{type: 'button'} Naissance
+          %button.btn.btn-default{type: 'button'}= Purchase.model_name.human
+          %button.btn.btn-default{type: 'button'}= ::I18n.translate('enumerize.activity.family.animal_housing')
+          %button.btn.btn-default{type: 'button'}= Animal.human_attribute_name(:birth)
           %button.btn.btn-default{type: 'button'} D&eacute;claration
-
-    = modal(:new_animal_intervention) do
-      .modal-body
-        .btn-group-vertical
-          %button.btn.btn-default{type: 'button'} Vendre
-          %button.btn.btn-default{type: 'button'} Vacciner
 
     = modal(:new_group, data: {bind: 'modal: showNewGroupModal(), with: newGroupModalOptions', backdrop: 'static', keyboard: false}, close_button: false) do
       .modal-body
-        %label Nom:
+        %label=:new_group.tl
         %input{:type => 'text', data: { bind: 'value: group'}}
       .modal-footer
         %button.btn.btn-default{type: 'button', data: {bind: 'click: $root.addGroup'}}
-          %i.icon.icon-plus Ajouter
+          %i.icon.icon-plus= :add.tl
         %button.close.btn.btn-default{aria: {label: :close.tl}, type: 'button', data: {bind: 'click: $root.cancelNewGroup'}}= :cancel.ta
 
 
     = modal(:move_animal, data: {bind: 'modal: showMoveAnimalModal(), with: moveAnimalModalOptions', backdrop: 'static', keyboard: false}, close_button: false) do
       .modal-body
-        .alert.alert-danger{data: {bind: 'visible: alert'}} Des champs sont manquants
+        .alert.alert-danger{data: {bind: 'visible: alert'}}=:missing_attributes.tl
         %div
-          %span Les animaux à déplacer:
+          %span= :move.ta
           %ul{ data: {bind: 'foreach: animals()'}}
             %li{ data: {bind: 'text: name'} }
         %div.v-spacer{ data: {bind: 'if: group' } }
-          %span Groupe:
+          %span= ::I18n.translate('enumerize.equipment.variety.animal_group')
           %ul
             %li{ data: {bind: 'text: group().name'}}
         %div.v-spacer{ data: {bind: 'if: container' } }
-          %span Emplacement:
+          %span= :container.tl
           %ul
             %li{ data: {bind: 'text: container().name'}}
         %form.form-horizontal.v-spacer
@@ -136,26 +130,26 @@
             .controls
               = datetime_field_tag(:stopped_at, nil, data: { bind: 'value: stopped_at'})
           .control-group
-            = label_tag(:worker, 'Soigneur', class:'control-label')
+            = label_tag(:worker, ::I18n.translate('procedure_variables.caregiver'), class:'control-label')
             .controls
               = select_tag(:worker, nil, data: {bind: "options: $root.workers_list,
                 optionsText: 'name',
                 value: worker,
-                optionsCaption: 'Choisir...'" })
+                optionsCaption: '#{:choices.tl}'" })
           .control-group
             .controls
               = check_box_tag(:check_nature,'1', false, {data: {bind: 'checked: checkNature'}})
-              = label_tag(:check_nature, 'La nature des animaux a changé')
+              = label_tag(:check_nature, :nature_changed.tl)
           .control-group
             = label_tag(:nature, 'Nature', class:'control-label')
             .controls
               = select_tag(:nature, nil, data: { bind: "options: $root.natures_list,
                 optionsText: 'name',
                 value: variant,
-                optionsCaption: 'Choisir...', enable: checkNature" } )
+                optionsCaption: '#{:choices.tl}', enable: checkNature" } )
       .modal-footer
         %button.btn.btn-default{type: 'button', data: {bind: 'click: $root.moveAnimals'}}
-          %i.icon.icon-plus Déplacer
+          %i.icon.icon-plus=:move.ta
         %button.close.btn.btn-default{aria: {label: :close.tl}, type: 'button', data: {bind: 'click: $root.cancelAnimalsMoving'}}= :cancel.ta
 
     = modal(:new_container, data: {bind: 'modal: showNewContainerModal(), with: containerModalOptions', backdrop: 'static', keyboard: false}, close_button: false) do
@@ -164,10 +158,10 @@
         = select_tag(:containers_list, nil,  data: { bind: "options: $root.containers_list,
           optionsText: 'name',
           value: $root.newContainer,
-          optionsCaption: 'Choisir...'" })
+          optionsCaption: '#{:choices.tl}'" })
       .modal-footer
         %button.btn.btn-default{type: 'button', data: {bind: 'click: $root.addContainer'}}
-          %i.icon.icon-plus Ajouter
+          %i.icon.icon-plus=:add.tl
         %button.close.btn.btn-default{aria: {label: :close.tl}, type: 'button', data: {bind: 'click: $root.cancelContainerAdding'}}= :cancel.ta
 
     = modal(:animal_details, data: { bind: 'modal: showAnimalDetailsModal(), with: animalDetailsModalOptions', backdrop: 'static', keyboard: false}, close_button: false) do
@@ -175,16 +169,16 @@
         .row
           .col-md-9
             %p
-              Nom:
+              = Animal.human_attribute_name(:name)
               %span{data: { bind: 'text: name'}}
             %p
-              Sexe:
+              = :sex.tl
               %i.icon{data: {bind: 'css: animalSexClass'}}
             %p
-              Status:
+              = Animal.human_attribute_name(:status)
               %span{data: { bind: 'css: animalFlagClass'}}
       .modal-footer
         %button.btn.btn-link{type: 'button'}
           %i.icon.icon-plus
-          Plus d'infos
+          = :details.tl
         %button.close.btn.btn-default{aria: {label: :close.tl}, type: 'button', data: {bind: 'click: $root.cancelAnimalDetails'}}= :cancel.ta

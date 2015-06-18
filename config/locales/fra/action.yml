@@ -1181,6 +1181,7 @@ fra:
     method: "Méthode"
     milk_withdrawal_period: "Période d’attente avant remise en vente de lait" #?
     minimal_temperature: "Température minimale"
+    missing_attributes: "Des champs sont manquants"
     missing_help: "Page inexistante"
     mistake_on_quantities_sum: "La somme des quantités n’est pas égale à la quantité totale produite" #?
     mobile: "Portable"
@@ -1191,9 +1192,11 @@ fra:
     months: "Mois"
     moved_at: "Fait le" #?
     movements: "Mouvements"
+    move_animal: "Déplacement des animaux"
     moves: "Mouvements de stocks" #?
     name: "Nom"
     nature: "Type"
+    nature_changed: "Le type des animaux a changé"
     natures: "Types"
     need_building_to_create_production: "Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions" #?
     need_entities_to_consult_mandates: "Vous devez créer des fiches clients/fournisseurs avant" #?
@@ -1207,6 +1210,7 @@ fra:
     new_box: "Nouvelle boîte"
     new_call: "Nouvel appel"
     new_contact: "Nouveau contact"
+    new_container: "Nouvel emplacement"
     new_deposit:
       one: "Effectuer une remise\_: %{mode} (%{count} encaissement disponible)"
       other: "Effectuer une remise\_: %{mode} (%{count} encaissements disponibles)"
@@ -1214,6 +1218,7 @@ fra:
     new_document: "Nouveau document" #?
     new_email: "Nouveau courriel"
     new_family: "Nouvelle famille" #?
+    new_group: "Nouveau troupeau"
     new_in_line: "Ajouter un produit intrant" #?
     new_organization: "Nouvelle organisation"
     new_out_line: "Ajouter un produit sortant" #?

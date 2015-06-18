@@ -1110,6 +1110,7 @@ eng:
     merge: "Merge"
     method: "Method" #?
     minimal_temperature: "Minimal temperature"
+    missing_attributes: "Some attributes are missing"
     missing_help: "Missing page"
     mobile: "Mobile" #?
     mode: "Mode" #?
@@ -1118,8 +1119,10 @@ eng:
     monthly: "Monthly" #?
     months: "Months"
     movements: "Movements"
+    move_animal: "Move animals"
     name: "Name" #?
     nature: "Type"
+    nature_changed: "Le type des animaux a changé"
     natures: "Types"
     net_margin: "Net margin"
     net_mass: "Net mass"
@@ -1135,6 +1138,7 @@ eng:
       other: "Make a deposit %{mode}: %{count} available payments"
       zero: "Make a deposit %{mode}: no available payments"
     new_email: "New email"
+    new_group: "New group"
     new_organization: "New organization"
     new_production_of_activity: "New production of %{activity}"
     new_quote: "New quote"
