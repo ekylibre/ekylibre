@@ -120,7 +120,7 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
     # Load chart of account
     if chart = @manifest[:chart_of_accounts] || @manifest[:chart_of_account]
       Account.chart = chart
-      Account.load
+      Account.load_defaults
     end
     w.check_point
 

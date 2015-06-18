@@ -4,7 +4,7 @@ $vertical-spacing: round($spacing / $default-ratio);
 .fieldset {
   // @include border-radius($default-border-radius);
   padding: 0;
-  margin: 0 $spacing $spacing;
+  margin: $spacing;
   $fieldset-border: $menu-border;
   border: $fieldset-border;
   // @include incrust-shadow;
@@ -244,18 +244,24 @@ span.rad, label.radio, span.radio {
 
 $form-actions-height: 48px;
 .form-actions {
-  @include button-group;
   display: block;
   margin: 0;
   padding: $fs-normal;
-  // height: $form-actions-height;
-  // line-height: $form-actions-height;
   vertical-align: middle;
   @include text-align(center);
-  @include background(linear-gradient(rgba(black, 0.05), rgba(black, 0.03), rgba(black, 0.06)));
-  border-top: 1px solid rgba(black, 0.10);
+  // @include background(linear-gradient(rgba(black, 0.05), rgba(black, 0.03), rgba(black, 0.06)));
+  @include background(white);
+  border-top: 1px solid #DDD;
+  border-bottom: 1px solid #DDD;
   &:first-child {
     border-top: none;
+  }
+  & > input, & > .btn {
+    @include inline-block;
+    margin-left: $fs-normal;
+    &:first-child {
+      margin-left: 0;
+    }
   }
 }
 
