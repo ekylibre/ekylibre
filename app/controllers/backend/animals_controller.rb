@@ -192,18 +192,20 @@ class Backend::AnimalsController < Backend::MattersController
     Intervention.write(*procedure_natures, short_name: :animal_changing, started_at: params[:started_at], stopped_at: params[:stopped_at], production_support: ProductionSupport.find_by(id: params[:production_support_id])) do |i|
       i.cast :caregiver, role: 'animal_moving-doer'
       animals.each do |a|
-        i.cast :animal, a, role: ['animal_moving-target', 'animal_group_changing-target','animal_evolution-target']
+        i.cast :animal, a, role: ['animal_moving-input', 'animal_group_changing-input','animal_evolution-target']
         if procedure_natures.include?(:animal_moving)
-          i.cast :localizable, params[:container_id], role: ['animal_moving-localizable']
-          i.movement :animal, :localizable, :caregiver
+          # cast a product with correct role
+          i.cast :animal_housing, params[:container_id], role: ['animal_moving-target']
+          # call a movement in lib/procedo/actions
+          i.movement :animal, :animal_housing, :caregiver
         end
         if procedure_natures.include?(:animal_group_changing)
-          i.cast :group, params[:group_id], role: ['animal_group_changing-includer']
-          i.group_inclusion :animal, :group
+          i.cast :herd, params[:group_id], role: ['animal_group_changing-target']
+          i.group_inclusion :animal, :herd
         end
         if procedure_natures.include?(:animal_evolution)
-          i.cast :nature, params[:variant_id], role: ['animal_evolution-variant']
-          i.evolution :animal, :nature
+          i.cast :new_animal_variant, params[:variant_id], role: ['animal_evolution-variant']
+          i.evolution :animal, :new_animal_variant
         end
       end
     end

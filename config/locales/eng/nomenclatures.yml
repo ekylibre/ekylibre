@@ -2068,6 +2068,7 @@ eng:
         addition: "Addition"                               #< transformation
         administrative_task: "Administrative task"
         animal_care: "Animal care"
+        # animal_changing: "Animal changing"
         animal_curative_medicine_admission: "Animal curative medicine admission" #< animal_illness_treatment
         # animal_evolution: "Animal evolution"
         animal_fecondation: "Animal fecondation"

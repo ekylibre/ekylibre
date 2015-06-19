@@ -12,6 +12,7 @@
 #     - "authentication/sessions#new"
 #     - "backend/activities#family"
 #     - "backend/animals#add_group"
+#     - "backend/animals#load_production_supports"
 #     - "backend/animals#take"
 #     - "backend/beehives#reset"
 #     - "backend/beehives#update"

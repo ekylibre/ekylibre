@@ -1742,6 +1742,7 @@
     <group>
       <item name="animals">
         <page to="backend/animals#add_group"/>
+        <page to="backend/animals#load_production_supports"/>
       </item>
       <item name="stewardship_cells">
         <page to="backend/cells/stewardship_cells#show"/>
