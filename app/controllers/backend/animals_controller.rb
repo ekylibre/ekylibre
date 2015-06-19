@@ -148,6 +148,19 @@ class Backend::AnimalsController < Backend::MattersController
     render :json => @natures
   end
 
+  def load_production_supports
+
+    prod = {}
+    arr = []
+    ProductionSupport.where(storage: params[:group_id]).each do |p|
+      prod[:id] = p.id
+      prod[:name] = p.production.name+" (#{p.production.campaign.name})"
+      arr << prod
+    end
+
+    render :json => arr, status: 200
+  end
+
 
 
 

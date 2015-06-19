@@ -122,6 +122,12 @@
             %li{ data: {bind: 'text: container().name'}}
         %form.form-horizontal.v-spacer
           .control-group
+            = label_tag(:production_support, :production.tl, class:'control-label')
+            .controls
+              = select_tag(:production_support, nil, data: { bind: "options: $root.production_support_list,
+                optionsText: 'name',
+                value: production_support" } )
+          .control-group
             = label_tag(:started_at, Intervention.human_attribute_name(:started_at), class:'control-label')
             .controls
               = datetime_field_tag(:started_at, nil, data: { bind: 'value: started_at'})
@@ -141,7 +147,7 @@
               = check_box_tag(:check_nature,'1', false, {data: {bind: 'checked: checkNature'}})
               = label_tag(:check_nature, :nature_changed.tl)
           .control-group
-            = label_tag(:nature, 'Nature', class:'control-label')
+            = label_tag(:nature, :nature.tl , class:'control-label')
             .controls
               = select_tag(:nature, nil, data: { bind: "options: $root.natures_list,
                 optionsText: 'name',

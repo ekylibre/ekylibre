@@ -106,6 +106,7 @@
       @containers_list = ko.observableArray []
       @workers_list = ko.observableArray []
       @natures_list = ko.observableArray []
+      @production_support_list = ko.observableArray []
 
 
       @groups = ko.observableArray []
@@ -184,6 +185,15 @@
               window.app.natures_list.push j
             return true
 
+        $.ajax '/backend/animals/load_production_supports',
+          type: 'GET',
+          dataType: 'JSON',
+          data: {group_id: group.id},
+          success: (json_data) ->
+            ko.utils.arrayForEach json_data, (j) =>
+              window.app.production_support_list.push j
+            return true
+
       @moveContainer = (container, sourceGroup, sourceIndex, targetGroup, targetIndex) =>
         #Allow to update multiple containers
         offset = container.length || 1
@@ -228,15 +238,18 @@
           data =
             animals_id: animals_id.join(',')
             container_id: @moveAnimalModalOptions.container().id
-            group_id: @moveAnimalModalOptions.group().id
             worker_id: @moveAnimalModalOptions.worker().id
             started_at: @moveAnimalModalOptions.started_at()
             stopped_at: @moveAnimalModalOptions.stopped_at()
-            production_support_id: @moveAnimalModalOptions.production_support()
+
+          if @moveAnimalModalOptions.group().id != @moveAnimalModalOptions.animals()[0].group_id()
+            data['group_id'] = @moveAnimalModalOptions.group().id
 
           if @moveAnimalModalOptions.variant()
              data['variant_id'] =  @moveAnimalModalOptions.variant().id
 
+          if @moveAnimalModalOptions.production_support()
+            data['production_support_id'] = @moveAnimalModalOptions.production_support().id
 
           $.ajax '/backend/animals/change',
             type: 'PUT',
