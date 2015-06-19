@@ -160,7 +160,7 @@
 
     = modal(:new_container, data: {bind: 'modal: showNewContainerModal(), with: containerModalOptions', backdrop: 'static', keyboard: false}, close_button: false) do
       .modal-body
-        = label_tag(:containers_list, 'Choisissez le nouvel emplacement', class: 'control-label')
+        = label_tag(:containers_list, :new_container.tl, class: 'control-label')
         = select_tag(:containers_list, nil,  data: { bind: "options: $root.containers_list,
           optionsText: 'name',
           value: $root.newContainer,
