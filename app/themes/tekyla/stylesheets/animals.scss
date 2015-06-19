@@ -149,7 +149,7 @@
   color: rgb(239, 250, 235);
   text-align: center;
   font-size: 2em;
-  width: 180px;
+  width: 142px;
 }
 
 .dragging-on-empty-container {
@@ -423,6 +423,11 @@
   display: inline-block;
   line-height: 30px;
   //width: 150px;
+
+  .golumn-item-name {
+    height: 30px;
+  }
+
 }
 
 .golumn-item-dragger {
