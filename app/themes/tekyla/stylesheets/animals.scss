@@ -149,7 +149,7 @@
   color: rgb(239, 250, 235);
   text-align: center;
   font-size: 2em;
-  width: 142px;
+  width: 130px;
 }
 
 .dragging-on-empty-container {
@@ -242,7 +242,7 @@
 
 .golumn-column-container
 {
-  height: 100vh;
+  height: 80vh;
   display: inline-flex;
 }
 
@@ -436,13 +436,13 @@
   display: inline-block;
   min-height: 30px;
   vertical-align: middle;
-  text-align: center;
-  padding: 0;
+  padding: 0 5px;
   line-height: 30px;
+  text-align: center !important;
 }
 
 .golumn-item-actions {
-  width: 35px;
+  width: 18px;
   float:right;
   display: inline-block;
   min-height: 30px;
@@ -450,6 +450,11 @@
   padding: 0 10px;
   div.animal-selector {
     padding: 1px 0;
+
+    .btn {
+      padding-left: 1px;
+      padding-right: 1px;
+    }
   }
 }
 
@@ -494,6 +499,11 @@
   border: 0;
   padding-left: 0;
   padding-right: 0;
+  
+  .body {
+    max-height: 55vh;
+    overflow-y: scroll;
+  }
 }
 
 .animal-all-selector.btn-hover {
