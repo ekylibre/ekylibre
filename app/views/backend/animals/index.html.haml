@@ -90,10 +90,8 @@
     = modal(:new_animal) do
       .modal-body
         .btn-group-vertical
-          %button.btn.btn-default{type: 'button'}= Purchase.model_name.human
-          %button.btn.btn-default{type: 'button'}= ::I18n.translate('enumerize.activity.family.animal_housing')
-          %button.btn.btn-default{type: 'button'}= Animal.human_attribute_name(:birth)
-          %button.btn.btn-default{type: 'button'} D&eacute;claration
+          = link_to Purchase.model_name.human, new_backend_purchase_path, class: 'btn btn-default'
+          = link_to Animal.human_attribute_name(:birth), new_backend_animal_path, class: 'btn btn-default'
 
     = modal(:new_group, data: {bind: 'modal: showNewGroupModal(), with: newGroupModalOptions', backdrop: 'static', keyboard: false}, close_button: false) do
       .modal-body
