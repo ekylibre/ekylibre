@@ -51,6 +51,7 @@ eng:
       # load_animals: "Load animals animal: %{name}"
       # load_containers: "Load containers animal: %{name}"
       # load_natures: "Load natures animal: %{name}"
+      # load_production_supports: "Load production supports animal: %{name}"
       # load_workers: "Load workers animal: %{name}"
       new: "New animal"
       show: "%{nature}: %{name}"
@@ -1118,8 +1119,8 @@ eng:
     month_period: "%{code} - %{month} %{year}"
     monthly: "Monthly" #?
     months: "Months"
+    move_animal: "Move animals" #?
     movements: "Movements"
-    move_animal: "Move animals"
     name: "Name" #?
     nature: "Type"
     nature_changed: "Le type des animaux a changé"
@@ -1133,6 +1134,7 @@ eng:
     new_box: "New box"
     new_call: "New call"
     new_contact: "New contact"
+    # new_container: "New container"
     new_deposit:
       one: "Make a deposit %{mode}: 1 available payment"
       other: "Make a deposit %{mode}: %{count} available payments"
@@ -1312,6 +1314,7 @@ eng:
     # sessions: "Sessions"
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?
     settings: "Settings"
+    # sex: "Sex"
     shape: "Shape" #?
     ship: "Ship" #?
     show: "Show"
@@ -1682,6 +1685,7 @@ eng:
       # load_animals: "Load animals"
       # load_containers: "Load containers"
       # load_natures: "Load natures"
+      # load_production_supports: "Load production supports"
       # load_workers: "Load workers"
       lock: "Lock"
       lose: "Lose"

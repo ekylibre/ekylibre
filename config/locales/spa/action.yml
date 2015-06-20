@@ -1028,6 +1028,7 @@ spa:
     # merge: "Merge"
     # method: "Method"
     # minimal_temperature: "Minimal temperature"
+    # missing_attributes: "Some attributes are missing"
     missing_help: "La página no existe"
     # mobile: "Mobile"
     # mode: "Mode"
@@ -1035,6 +1036,7 @@ spa:
     # month_period: "%{code} - %{month} %{year}"
     monthly: "Mensual"
     # months: "Months"
+    # move_animal: "Move animals"
     # movements: "Movements"
     moves: "Movimientos de depositos" #?
     my_company: "Coja las informaciones sobre su sociedad" #?
@@ -1045,6 +1047,7 @@ spa:
     national_reduce_vat_collected: "Tasa réducida a 5,5%" #?
     national_vat_collected: "Opéraciones réalisadas en Francia métropolitaria" #?
     # nature: "Type"
+    # nature_changed: "Le type des animaux a changé"
     # natures: "Types"
     nb_purchases:  #?
       one: "Una compra en espera de recepción" #?
@@ -1064,6 +1067,7 @@ spa:
       # other: "Make a deposit %{mode}: %{count} available payments"
       # zero: "Make a deposit %{mode}: no available payments"
     # new_email: "New email"
+    # new_group: "New group"
     # new_organization: "New organization"
     # new_production_of_activity: "New production of %{activity}"
     # new_quote: "New quote"

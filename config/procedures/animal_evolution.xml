@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <!-- ######################################## ANIMAUX ########################################### -->
+  <procedure name="animal_evolution" natures="animal_evolution" version="0" status="frozen">
+    <variables>
+      <variable name="animal"             variety="animal" abilities="move" roles="animal_evolution-target"/>
+      <variable name="new_animal_variant" type="variant" variety=": animal" roles="animal_evolution-variant"/>
+    </variables>
+    <operations>
+      <operation id="100" >
+        <task do="[animal] variant cast into [new_animal_variant]"/>
+      </operation>
+    </operations>
+  </procedure>
+</procedures>

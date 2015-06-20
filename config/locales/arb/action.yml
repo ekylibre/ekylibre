@@ -1326,6 +1326,7 @@ arb:
     merge: "دمج"
     # method: "Method"
     # minimal_temperature: "Minimal temperature"
+    # missing_attributes: "Some attributes are missing"
     missing_help: "صفحات مفقودة"
     # mobile: "Mobile"
     # mode: "Mode"
@@ -1334,6 +1335,7 @@ arb:
     # month_period: "%{code} - %{month} %{year}"
     monthly: "Mensuelle"
     # months: "Months"
+    # move_animal: "Move animals"
     # movements: "Movements"
     moves: "حركات الاسهم" #?
     my_company: "عن شركتك" #?
@@ -1345,6 +1347,7 @@ arb:
     national_reduce_vat_collected: "معدل ضريبة القيمة المضافة المحلية المخفضة  %5.5" #?
     national_vat_collected: "الاجراءات التي حدثت في فرنسا" #?
     nature: "الطبع"
+    # nature_changed: "Le type des animaux a changé"
     # natures: "Types"
     nb_mandates:  #?
       one: "تفويض واحد مسجل" #?
@@ -1369,6 +1372,7 @@ arb:
       # zero: "Make a deposit %{mode}: no available payments"
     # new_email: "New email"
     new_family: "اسرة جديدة" #?
+    # new_group: "New group"
     new_organization: "منظمة جديدة"
     new_payment: "تسجيل دفعة جديدة" #?
     # new_production_of_activity: "New production of %{activity}"

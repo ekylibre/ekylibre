@@ -40,6 +40,7 @@ module Procedo
       # Phases (cast)
       nature_cast:  {product: :product, nature: :product_nature},
       variant_cast: {product: :product, variant: :product_variant},
+      evolution: {product: :product, variant: :product_variant},
       # Browsings
       browsing: {browser: :product, browsed: :product},
       # Measurement
