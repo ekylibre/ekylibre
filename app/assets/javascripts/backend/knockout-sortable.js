@@ -259,7 +259,12 @@
 
                             el = $('.checker.active').closest('.golumn-item').not('.ui-sortable-placeholder');
 
-                            ui.item.data('items', el);
+                            if(el.length)
+                            {
+                                ui.item.data('items', el);
+                            }
+
+
                             $('.golumn-group .body .animal-dropzone').addClass('grow-empty-zone');
                             $('.add-container').css('display','block');
                             $('.add-container').addClass('grow-empty-zone');
@@ -309,7 +314,15 @@
 
                                 var observableItem;
 
-                                el = ui.item.data('items');
+                                if(ui.item.data('items'))
+                                {
+                                    ui.item.data('items', el);
+                                }
+                                else
+                                {
+                                    el = ui.item;
+                                }
+
                                 ko.utils.arrayForEach(el, function(item) {
 
                                     if((observableItem = dataGet(item, ITEMKEY)) != null)
