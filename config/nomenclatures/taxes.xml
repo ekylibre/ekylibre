@@ -37,10 +37,12 @@
       <item name="spain_vat_reduced_2013"         country="es" nature="reduced_vat"      amount="4.0"  started_on="2012-09-01"/>
       <item name="spain_vat_intermediate_2013" 	  country="es" nature="intermediate_vat" amount="10.0" started_on="2012-09-01"/>
       <item name="spain_vat_normal_2013" 		  country="es" nature="normal_vat"       amount="21.0" started_on="2012-09-01"/>
-      
-    </items>
-  </nomenclature>
-</nomenclatures>
+
+       <!-- http://www.estv.admin.ch/mwst/themen/00155/?lang=fr -->
+      <item name="swiss_vat_null_2011"          country="ch" nature="null_vat"         amount="0.0" started_on="2011-01-01"/>
+      <item name="swiss_vat_reduced_2011"       country="ch" nature="reduced_vat"      amount="2.5" started_on="2011-01-01"/>
+      <item name="swiss_vat_particular_2011" 	country="ch" nature="particular_vat"   amount="3.8" started_on="2011-01-01"/>
+      <item name="swiss_vat_normal_2011" 	    country="ch" nature="normal_vat"       amount="8.0" started_on="2011-01-01"/>
 
 
     </items>

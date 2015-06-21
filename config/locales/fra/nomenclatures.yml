@@ -3546,6 +3546,10 @@ fra:
         spain_vat_intermediate_2013: "TVA espagnole intermédiaire 2013"
         spain_vat_normal_2013: "TVA espagnole normale 2013"
         spain_vat_reduced_2013: "TVA espagnole réduite 2013"
+        swiss_vat_normal_2011: "TVA suisse normale 2011"
+        swiss_vat_null_2011: "TVA suisse non-applicable 2011"
+        swiss_vat_particular_2011: "TVA suisse particulière 2011"
+        swiss_vat_reduced_2011: "TVA suisse réduite 2011"
       name: "Taxes"
       property_natures:
         active: "actif" #?

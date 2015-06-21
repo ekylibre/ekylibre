@@ -26296,3 +26296,7 @@ eng:
         spain_vat_intermediate_2013: "Spain vat intermediate 2013"
         spain_vat_normal_2013: "Spain vat normal 2013"
         spain_vat_reduced_2013: "Spain vat reduced 2013"
+        swiss_vat_normal_2011: "Swiss vat normal 2011"
+        swiss_vat_null_2011: "Swiss vat null 2011"
+        swiss_vat_particular_2011: "Swiss vat particular 2011"
+        swiss_vat_reduced_2011: "Swiss vat reduced 2011"
