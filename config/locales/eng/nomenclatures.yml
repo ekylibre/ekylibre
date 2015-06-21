@@ -2139,6 +2139,8 @@ eng:
         plant_nutrition: "Plant nutrition"
         plowing: "Plowing"                                 #< tillage
         pressing: "Pressing"                               #< transformation
+        product_evolution: "Product evolution"
+        product_moving: "Product moving"
         pruning: "Pruning"
         raking: "Raking"                                   #< tillage
         remontage: "Remontage"                             #< transformation

@@ -9269,6 +9269,8 @@ fra:
         base-plantation_unfixing: "Déchaussage"
         base-plastic_mulching: "Paillage plastique"
         base-plowing: "Labour"
+        base-product_evolution: "Evolution d'un produit"
+        base-product_moving: "Mouvement d'un produit"
         base-raking: "Hersage"
         base-silage_transport: "Transport d'ensilage"
         base-silage_unload: "Alimentation d’un troupeau via désileuse"

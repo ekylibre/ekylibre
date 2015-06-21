@@ -187,7 +187,11 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def name
-    tc(:name, intervention: (self.reference ? self.reference.human_name : "procedures.#{self.reference_name}".t(default: self.reference_name.humanize)), number: self.number)
+    if self.reference
+      tc(:name, intervention: (self.reference ? self.reference.human_name : "procedures.#{self.reference_name}".t(default: self.reference_name.humanize)), number: self.number)
+    else
+      return nil
+    end 
   end
 
   def start_time

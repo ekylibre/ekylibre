@@ -39,7 +39,10 @@ por:
       # new: "New animal group"
       # show: "Animal group: %{name}"
     backend/animals:
+      # add_group: "Add group animal: %{name}"
       # add_to_group: "Add to group"
+      # add_to_variant: "Add to variant animal: %{name}"
+      # change: "Change animal: %{name}"
       # edit: "Edit animal: %{name}"
       # index: "Animals"
       # new: "New animal"

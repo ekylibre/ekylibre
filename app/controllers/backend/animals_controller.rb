@@ -58,6 +58,8 @@ class Backend::AnimalsController < Backend::MattersController
     # t.action :show, url: {format: :pdf}, image: :print
     t.action :new,     on: :none
     t.action :add_to_group, on: :both
+    t.action :add_to_variant, on: :both
+    t.action :add_to_container, on: :both
     # t.action :new_issue,        on: :both, url: {action: :new, controller: :issues}
     # t.action :new_intervention, on: :both, url: {action: :new, controller: :interventions}
     t.action :edit
@@ -169,7 +171,6 @@ class Backend::AnimalsController < Backend::MattersController
     # params[:animals_id]
     # params[:container_id]
     # params[:group_id]
-
     #check animal exist
     if params[:animals_id]
       for animal in animals = params[:animals_id].split(',')
@@ -197,7 +198,7 @@ class Backend::AnimalsController < Backend::MattersController
           # cast a product with correct role
           i.cast :animal_housing, params[:container_id], role: ['animal_moving-target']
           # call a movement in lib/procedo/actions
-          i.movement :animal, :animal_housing, :caregiver
+          i.movement :animal, :animal_housing
         end
         if procedure_natures.include?(:animal_group_changing)
           i.cast :herd, params[:group_id], role: ['animal_group_changing-target']
@@ -255,9 +256,41 @@ class Backend::AnimalsController < Backend::MattersController
       return unless find_and_check(id: id)
     end
     if request.post?
-      if group = AnimalGroup.find(params[:group_id])  and production = Production.find_by(id: params[:production_id]) and params[:started_at]
-        group.add_animals(ids, at: params[:started_at], production: production, production_support: production.supports.find_by(id: params[:production_support_id]))
+      if group = AnimalGroup.find(params[:group_id]) and production = Production.find_by(id: params[:production_id]) and production_support = ProductionSupport.find_by(id: params[:production_support_id]) and params[:started_at]
+        group.add_animals(ids, at: params[:started_at], production: production, production_support: production_support)
         redirect_to params[:redirect] || backend_animal_group_url(group)
+      else
+        # redirect to a form to select group / started_at / stopped_at
+      end
+    else
+      params[:started_at] ||= Time.now
+    end
+  end
+
+  def add_to_variant
+    for id in ids = params[:id].split(',')
+      return unless find_and_check(id: id)
+    end
+    if request.post?
+      if variant = ProductNatureVariant.find(params[:variant_id]) and production = Production.find_by(id: params[:production_id]) and production_support = ProductionSupport.find_by(id: params[:production_support_id]) and params[:started_at]
+        variant.add_products(ids, at: params[:started_at], production: production, production_support: production_support)
+        redirect_to params[:redirect] || backend_product_nature_variant_url(variant)
+      else
+        # redirect to a form to select group / started_at / stopped_at
+      end
+    else
+      params[:started_at] ||= Time.now
+    end
+  end
+
+  def add_to_container
+    for id in ids = params[:id].split(',')
+      return unless find_and_check(id: id)
+    end
+    if request.post?
+      if container = Product.find(params[:container_id]) and production = Production.find_by(id: params[:production_id]) and production_support = ProductionSupport.find_by(id: params[:production_support_id]) and params[:started_at]
+        container.add_content_products(ids, at: params[:started_at], production: production, production_support: production_support)
+        redirect_to params[:redirect] || backend_product_url(container)
       else
         # redirect to a form to select group / started_at / stopped_at
       end

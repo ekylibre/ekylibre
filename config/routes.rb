@@ -192,10 +192,13 @@ Rails.application.routes.draw do
         put :change
         put :update_preferences
         put :add_group
+        put :add_variant
         get :load_preferences
       end
       member do
         match :add_to_group, via: [:get, :post]
+        match :add_to_variant, via: [:get, :post]
+        match :add_to_container, via: [:get, :post]
         get :list_children
       end
     end

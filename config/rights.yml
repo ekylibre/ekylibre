@@ -12,6 +12,8 @@
 #     - "authentication/sessions#new"
 #     - "backend/activities#family"
 #     - "backend/animals#add_group"
+#     - "backend/animals#add_to_container"
+#     - "backend/animals#add_to_variant"
 #     - "backend/animals#load_production_supports"
 #     - "backend/animals#take"
 #     - "backend/beehives#reset"

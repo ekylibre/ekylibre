@@ -1742,6 +1742,8 @@
     <group>
       <item name="animals">
         <page to="backend/animals#add_group"/>
+        <page to="backend/animals#add_to_container"/>
+        <page to="backend/animals#add_to_variant"/>
         <page to="backend/animals#load_production_supports"/>
       </item>
       <item name="stewardship_cells">

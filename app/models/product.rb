@@ -452,6 +452,26 @@ class Product < Ekylibre::Record::Base
     ProductGroup.groups_of(self, viewed_at || Time.now)
   end
 
+  # add products to current container
+  def add_content_products(products, options = {})
+    Intervention.write(:product_moving, options) do |i|
+      i.cast :container, self, as: 'product_moving-container'
+      products.each do |p|
+        product = (p.is_a?(Product) ? p : Product.find(p))
+        member = i.cast :product, product, as: 'product_moving-target'
+        i.movement member, :container
+      end
+    end
+  end
+  
+  # Returns the container for the product at a given time
+  def container_at(at)
+    if l = self.localizations.at(at).first
+      return l.container
+    end
+    return nil
+  end
+
   # Returns the current contents of the product at a given time (or now by default)
   def contains(varieties = :product, at = Time.now)
     localizations = self.content_localizations.at(at).of_product_varieties(varieties)
@@ -483,14 +503,6 @@ class Product < Ekylibre::Record::Base
   def owner
     if o = self.current_ownership
       return o.owner
-    end
-    return nil
-  end
-
-  # Returns the container for the product at a given time
-  def container_at(at)
-    if l = self.localizations.at(at).first
-      return l.container
     end
     return nil
   end

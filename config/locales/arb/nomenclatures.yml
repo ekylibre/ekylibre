@@ -2144,6 +2144,8 @@ arb:
         # plant_nutrition: "Plant nutrition"
         # plowing: "Plowing"
         # pressing: "Pressing"
+        # product_evolution: "Product evolution"
+        # product_moving: "Product moving"
         # pruning: "Pruning"
         # raking: "Raking"
         # remontage: "Remontage"

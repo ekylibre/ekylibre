@@ -10,6 +10,8 @@
       <!-- "Core" types -->
       <item name="group_inclusion"      roles="target, includer"                activity_families="exploitation, vegetal_crops, animal_farming, processing, service, maintenance"/>
       <item name="group_exclusion"      roles="target, includer"                activity_families="exploitation, vegetal_crops, animal_farming, processing, service, maintenance"/>
+      <item name="product_evolution"    roles="target, variant"                 activity_families="exploitation, vegetal_crops, animal_farming, processing, service, maintenance"/>
+      <item name="product_moving"       roles="target, container, doer"         activity_families="exploitation, vegetal_crops, animal_farming, processing, service, maintenance"/>
 
       <!-- "Complex" types -->
       <item name="animal_nutrition"     roles="input, target, doer, tool"       activity_families="animal_farming"/>

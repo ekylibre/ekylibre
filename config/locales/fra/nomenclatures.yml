@@ -2169,6 +2169,8 @@ fra:
         plant_nutrition: "Nutrition des plantes"
         plowing: "Labour"
         pressing: "Pressage"
+        product_evolution: "Evolution d'un produit"
+        product_moving: "Mouvement d'un produit"
         pruning: "Taille"
         raking: "Hersage"
         remontage: "Remontage"

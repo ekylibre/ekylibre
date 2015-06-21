@@ -155,6 +155,19 @@ class ProductNatureVariant < Ekylibre::Record::Base
     end
   end
 
+  # add animals to new variant
+  def add_products(products, options = {})
+    Intervention.write(:product_evolution, options) do |i|
+      i.cast :variant, self, as: 'product_evolution-variant'
+      products.each do |p|
+        product = (p.is_a?(Product) ? p : Product.find(p))
+        member = i.cast :product, product, as: 'product_evolution-target'
+        i.variant_cast :variant, member
+      end
+    end
+  end
+
+
   # Measure a product for a given indicator
   def read!(indicator, value, options = {})
     unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]

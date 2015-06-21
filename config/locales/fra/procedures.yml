@@ -15,6 +15,7 @@ fra:
       enjoyer_change: "Changement d'usufruitier de %{product} pour %{enjoyer}"
       enjoyment_loss: "Perte d'usufruit de %{product}"
       entering: "%{product} entre dans %{localizable}"
+      evolution: "Evolution de %{product} en %{variant}"
       given_home_coming: "%{product} va l’emplacement par défaut de  %{localizable}"
       group_exclusion: "%{member} sort du groupe %{group}"
       group_inclusion: "%{member} entre dans le groupe %{group}"
@@ -172,7 +173,7 @@ fra:
     mother_animal: "Mère" #?
     mower: "Faucheuse"
     mower_driver: "Conducteur de faucheuse"
-    new_animal_variant: "Nouveau variant de l'animal"
+    new_animal_variant: "Nouveau variant de l'animal" #?
     nuts: "Fruits à coques"
     nuts_harvester: "Récolteuse de fruits à coques"
     nuts_to_deliver: "Fruits à coques à livrer"
@@ -189,6 +190,7 @@ fra:
     plastic_to_mulch: "Plastique à poser"
     plow: "Charrue"
     press: "Presse"
+    product: "Produit"
     pruner: "Sécateur" #?
     residue: "Residue"
     second_chemical_input: "Second intrant de protection des végétaux"
@@ -232,6 +234,7 @@ fra:
     tool: "Outil"
     tractor: "Tracteur"
     trailer: "Remorque"
+    variant: "Variant"
     vial: "Paillette"
     vial_to_give: "Paillette à utiliser"
     walnuts: "Noix"
@@ -303,7 +306,7 @@ fra:
     base-manual_vine_harvest: "Vendange manuelle" #?
     base-mecanical_vine_harvest: "Vendange mécanique" #?
     base-mineral_fertilizing: "Fertilisation minérale"
-    base-moving: "Déplacement"
+    base-moving: "Déplacement" #?
     base-oil_replacement: "Vidange d’huile"
     base-organic_fertilizing: "Fertilisation organique"
     base-partial_wine_transfer: "Transfert de vin (Partiel)"
@@ -313,6 +316,8 @@ fra:
     base-plantation_unfixing: "Déchaussage"
     base-plastic_mulching: "Paillage plastique"
     base-plowing: "Labour"
+    base-product_evolution: "Evolution d'un produit"
+    base-product_moving: "Mouvement d'un produit"
     base-raking: "Hersage"
     base-silage_transport: "Transport d'ensilage"
     base-silage_unload: "Alimentation d’un troupeau via désileuse"
