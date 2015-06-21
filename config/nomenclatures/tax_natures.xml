@@ -14,6 +14,7 @@
       <item name="intermediate_vat" computation_method="percentage" deduction_account="deductible_vat" collect_account="collected_vat" suffix="3"/>
       <item name="normal_vat"       computation_method="percentage" deduction_account="deductible_vat" collect_account="collected_vat" suffix="4"/>
       <item name="inflated_vat"     computation_method="percentage" deduction_account="deductible_vat" collect_account="collected_vat" suffix="8"/>
+      <item name="asset_vat"        computation_method="percentage" deduction_account="deductible_asset_vat" collect_account="collected_vat" suffix="7"/>
     </items>
   </nomenclature>
 </nomenclatures>

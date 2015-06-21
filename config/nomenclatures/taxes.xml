@@ -27,10 +27,21 @@
       <item name="french_vat_normal_2000"  country="fr" nature="normal_vat" amount="19.6" started_on="2000-04-01" stopped_on="2013-12-31"/>
       <item name="french_vat_normal_2014"  country="fr" nature="normal_vat" amount="20.0" started_on="2014-01-01"/>
 
+      <item name="french_vat_normal_asset_1966"  country="fr" nature="asset_vat" amount="17.6" started_on="1966-01-01" stopped_on="1982-03-31"/>
+      <item name="french_vat_normal_asset_1982"  country="fr" nature="asset_vat" amount="18.6" started_on="1982-04-01" stopped_on="1995-07-31"/>
+      <item name="french_vat_normal_asset_1995"  country="fr" nature="asset_vat" amount="20.6" started_on="1995-08-01" stopped_on="2000-03-31"/>
+      <item name="french_vat_normal_asset_2000"  country="fr" nature="asset_vat" amount="19.6" started_on="2000-04-01" stopped_on="2013-12-31"/>
+      <item name="french_vat_normal_asset_2014"  country="fr" nature="asset_vat" amount="20.0" started_on="2014-01-01"/>
+
       <!-- http://ec.europa.eu/taxation_customs/resources/documents/taxation/vat/how_vat_works/rates/vat_rates_fr.pdf -->
       <item name="spain_vat_reduced_2013"         country="es" nature="reduced_vat"      amount="4.0"  started_on="2012-09-01"/>
       <item name="spain_vat_intermediate_2013" 	  country="es" nature="intermediate_vat" amount="10.0" started_on="2012-09-01"/>
       <item name="spain_vat_normal_2013" 		  country="es" nature="normal_vat"       amount="21.0" started_on="2012-09-01"/>
+      
+    </items>
+  </nomenclature>
+</nomenclatures>
+
 
     </items>
   </nomenclature>

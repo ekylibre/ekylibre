@@ -150,16 +150,22 @@
       <item name="clients"   fr_pcg82="411"/>
       <item name="staff_due_remunerations"   fr_pcg82="421"/>
       <item name="social_agricultural_mutuality"   fr_pcga="431"/>
-      <item name="vat"   fr_pcga="445"/>
-      <item name="deductible_vat"      fr_pcg82="445661"/>
+      <item name="vat" fr_pcga="445"/>
+      <item name="enterprise_deductible_vat"   fr_pcga="4456"/>
+      <item name="deductible_asset_vat" fr_pcg82="44562"/>
+      <item name="deductible_vat_to_resolve" fr_pcg82="44565"/>
+      <item name="deductible_vat" fr_pcg82="44566"/>
+      <item name="report_vat_credit" fr_pcg82="44567"/>
+      <item name="enterprise_collected_vat"   fr_pcga="4457"/>
       <item name="collected_vat" fr_pcg82="44571"/>
-      <item name="rectify_collected_vat" fr_pcg82="44575"/>
+      <item name="collected_vat_to_resolve" fr_pcg82="44575"/>
       <item name="waiting_vat" fr_pcg82="4458"/>
       <item name="associated_accounts" fr_pcga="455"/>
       <item name="principal_associated_accounts" fr_pcga="4551"/>
       <item name="usual_associated_accounts" fr_pcga="4552"/>
       <item name="locked_associated_accounts" fr_pcga="4553"/>
       <item name="attorneys" fr_pcg82="467"/>
+      <item name="temporary_operations" fr_pcg82="47"/>
       <item name="compensation_operations" fr_pcg82="472"/>
 
       <!--                      FINANCES              -->
