@@ -463,7 +463,7 @@ class Product < Ekylibre::Record::Base
       end
     end
   end
-  
+
   # Returns the container for the product at a given time
   def container_at(at)
     if l = self.localizations.at(at).first

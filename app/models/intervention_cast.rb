@@ -83,6 +83,10 @@ class InterventionCast < Ekylibre::Record::Base
     if self.reference
       self.roles = self.reference.roles.join(', ')
       self.position = self.reference.position
+    else
+      precision = 10 ** 8
+      now = Time.now
+      self.position ||= (precision * now.to_f).round - (precision * now.to_i)
     end
     if self.actor.is_a?(Product)
       self.variant  ||= self.actor.variant
@@ -95,7 +99,9 @@ class InterventionCast < Ekylibre::Record::Base
   end
 
   validate do
-    errors.add(:reference_name, :invalid) unless self.reference
+    if self.intervention and self.intervention.reference
+      errors.add(:reference_name, :invalid) unless self.reference
+    end
   end
 
   before_save do
@@ -140,7 +146,11 @@ class InterventionCast < Ekylibre::Record::Base
   end
 
   def reference
-    @reference ||= self.intervention.reference.variables[self.reference_name]
+    if self.intervention and reference = self.intervention.reference
+      @reference ||= reference.variables[self.reference_name]
+    else
+      @reference = nil
+    end
   end
 
   def variable_name
@@ -148,7 +158,7 @@ class InterventionCast < Ekylibre::Record::Base
   end
 
   def name
-    self.reference.human_name
+    self.reference ? self.reference.human_name : self.reference_name.humanize
   end
 
 

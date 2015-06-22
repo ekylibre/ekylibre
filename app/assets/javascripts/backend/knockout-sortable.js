@@ -192,7 +192,7 @@
                         }
                         else if (dataGet(item[0],ITEMKEY) != undefined)
                         {
-                            elements = $('.checker.active').closest('.golumn-item').find('.golumn-item-infos .golumn-item-name span').clone();
+                            elements = $('.checker.active').closest('.golumn-item').find('.golumn-item-title').clone();
 
                             if(!elements.length)
                             {

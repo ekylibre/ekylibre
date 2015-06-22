@@ -968,7 +968,7 @@ module ApplicationHelper
     options[:aria][:labelledby] ||= options[:id].underscore.camelcase(:lower)
     options[:tabindex] ||= "-1"
     options[:role] ||= "dialog"
-    header_options = options.slice(:close_button).merge(title_id: options[:aria][:labelledby])
+    header_options = options.slice(:close_button, :close_html).merge(title_id: options[:aria][:labelledby])
     content_for(:popover) do
       content_tag(:div, options) do
         content_tag(:div, class: "modal-dialog") do
@@ -990,7 +990,7 @@ module ApplicationHelper
       if options[:close_button].is_a? FalseClass
         content_tag(:h4, title, class: "modal-title", id: title_id)
       else
-        button_tag(class: "close", aria: {label: :close.tl}, data: {dismiss: "modal"}, type: "button") do
+        button_tag({class: "close", aria: {label: :close.tl}, data: {dismiss: "modal"}, type: "button"}.deep_merge(options[:close_html] || {})) do
           content_tag(:span, "&times;".html_safe, aria: {hidden: "true"})
         end + content_tag(:h4, title, class: "modal-title", id: title_id)
       end

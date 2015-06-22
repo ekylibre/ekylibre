@@ -29,8 +29,8 @@ module Procedo
       simple_attachment: {carrier: :product, carried: :product},
       simple_detachment: {carrier: :product, point: :symbol},
       # Memberships
-      group_inclusion: {group: :product_group, member: :product},
-      group_exclusion: {group: :product_group, member: :product},
+      group_inclusion: {member: :product, group: :product_group},
+      group_exclusion: {member: :product, group: :product_group},
       # Ownerships
       ownership_loss: {product: :product},
       owner_change:   {product: :product, owner: :entity},

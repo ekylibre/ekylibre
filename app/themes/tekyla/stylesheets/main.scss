@@ -2079,14 +2079,14 @@ svg.map {
     width:  $light-size;
     height: $light-size;
     margin: 0 ($fs-normal - $light-size) ($fs-normal - $light-size);
-    @include border-radius(1000px);
+    @include border-radius(50%);
     @include background(linear-gradient(top, lighten($default-color, $light-darken), $default-color, darken($default-color, $light-darken)));
   }
   @each $light in (go $success-color) (caution $caution-color) (stop $invalid-color) {
     $name: nth($light, 1);
     $color: rgba(nth($light, 2), 0.8);
     &.lights-#{$name} {
-      & > .#{$name} {
+      & > .#{$name}, & > .light-#{$name} {
       @include background(linear-gradient(top, lighten($color, $light-darken), $color, darken($color, $light-darken)));
       @include box-shadow(0 0 round($fs-normal*0.3) rgba(lighten($color, $light-darken), 0.7));
     }

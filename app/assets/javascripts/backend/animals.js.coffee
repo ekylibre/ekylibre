@@ -7,22 +7,21 @@
     xhr.setRequestHeader 'X-CSRF-Token', token
     return
 
-  ko.bindingHandlers.checkbox = init: (element, valueAccessor, allBindings, data, context) ->
-    $element = undefined
-    observable = undefined
-    observable = valueAccessor()
-    if !ko.isWriteableObservable(observable)
-      throw 'You must pass an observable or writeable computed'
-    $element = $(element)
-    $element.on 'click', ->
-      observable !observable()
-      return
-    ko.computed
-      disposeWhenNodeIsRemoved: element
-      read: ->
-        $element.toggleClass 'active', observable()
+  ko.bindingHandlers.checkbox =
+    init: (element, valueAccessor, allBindings, data, context) ->
+      observable = valueAccessor()
+      if !ko.isWriteableObservable(observable)
+        throw 'You must pass an observable or writeable computed'
+      $element = $(element)
+      $element.on 'click', ->
+        observable !observable()
         return
-    return
+      ko.computed
+        disposeWhenNodeIsRemoved: element
+        read: ->
+          $element.toggleClass 'active', observable()
+          return
+      return
 
   ko.bindingHandlers.modal =
     init: (element, valueAccessor) ->
@@ -427,22 +426,12 @@
         className
       #@number_id = number_id
       @animalStatusClass = ko.pureComputed () =>
-        if @status == 'go'
-          className = "status-ok"
-        if @status == 'caution'
-          className = "status-warning"
-        if @status == 'stop'
-          className = "status-danger"
-        className
+        return "status-#{@status}"
 
       @animalFlagClass = ko.pureComputed () =>
-        if @status == 'go'
-          className = "flag-ok"
-        if @status == 'caution'
-          className = "flag-warning"
-        if @status == 'stop'
-          className = "flag-danger"
-        className
+        return "lights-#{@status}"
+      @showUrl = ko.pureComputed () =>
+        "/backend/animals/#{@id}"
 
       @container_id = ko.observable container_id
       @group_id = ko.observable group_id
@@ -452,9 +441,10 @@
 
   @loadData = (golumn) =>
     $.ajax '/backend/animals/load_animals',
-      type: 'GET',
-      dataType: 'JSON',
-      data: {golumn_id: golumn},
+      type: 'GET'
+      dataType: 'JSON'
+      data:
+        golumn_id: golumn
       beforeSend: () ->
         $('#loading').show()
         return

@@ -53,7 +53,8 @@
               = link_to(resource.father.name, {action: :show, id: resource.father.id})
 
   - if resource.analyses.any?
-    - c.cobble :last_analyses, params: {nature: :unitary_cow_milk_analysis, product_id: resource.id}
+    - c.cobble :last_analyses do
+      = cell :last_analyses, params: {nature: :unitary_cow_milk_analysis, product_id: resource.id}
 
   - indicators = resource.variable_indicators.delete_if{|i| ![:measure, :decimal].include?(i.datatype)}
   - if indicators.any? and ProductReading.where(indicator_name: indicators.map(&:name), product: resource).any?

@@ -173,9 +173,9 @@ class Backend::AnimalsController < Backend::MattersController
     # params[:group_id]
     #check animal exist
     if params[:animals_id]
-      for animal in animals = params[:animals_id].split(',')
-        return unless find_and_check(id: animal)
-      end
+      animals = params[:animals_id].split(',').collect do |animal_id|
+        find_and_check(id: animal_id.to_i)
+      end.compact
     end
 
     procedure_natures = []
@@ -191,22 +191,29 @@ class Backend::AnimalsController < Backend::MattersController
     end
 
     Intervention.write(*procedure_natures, short_name: :animal_changing, started_at: params[:started_at], stopped_at: params[:stopped_at], production_support: ProductionSupport.find_by(id: params[:production_support_id])) do |i|
-      i.cast :caregiver, role: 'animal_moving-doer'
-      animals.each do |a|
-        i.cast :animal, a, role: ['animal_moving-input', 'animal_group_changing-input','animal_evolution-target']
+      i.cast :caregiver, Product.find_by(id: params[:worker_id]), role: 'animal_moving-doer', position: 1
+      ah, ag, av = nil, nil, nil
+      if procedure_natures.include?(:animal_moving)
+        ah = i.cast :animal_housing, Product.find_by(id: params[:container_id]), role: ['animal_moving-target'], position: 2
+      end
+      if procedure_natures.include?(:animal_group_changing)
+        ag = i.cast :herd, Product.find_by(id: params[:group_id]), role: ['animal_group_changing-target'], position: 3
+      end
+      if procedure_natures.include?(:animal_evolution)
+        av = i.cast :new_animal_variant, ProductNatureVariant.find_by(id: params[:variant_id]), role: ['animal_evolution-variant'], position: 4
+      end
+      animals.each_with_index do |a, index|
+        ac = i.cast :animal, a, role: ['animal_moving-input', 'animal_group_changing-input','animal_evolution-target'], position: index + 5
         if procedure_natures.include?(:animal_moving)
-          # cast a product with correct role
-          i.cast :animal_housing, params[:container_id], role: ['animal_moving-target']
-          # call a movement in lib/procedo/actions
-          i.movement :animal, :animal_housing
+          i.task :entering, product: ac, localizable: ah
         end
         if procedure_natures.include?(:animal_group_changing)
-          i.cast :herd, params[:group_id], role: ['animal_group_changing-target']
-          i.group_inclusion :animal, :herd
+          i.task :group_inclusion, member: ac, group: ag
+          # i.group_inclusion :animal, :herd
         end
         if procedure_natures.include?(:animal_evolution)
-          i.cast :new_animal_variant, params[:variant_id], role: ['animal_evolution-variant']
-          i.evolution :animal, :new_animal_variant
+          i.task :evolution, product: ac, variant: av
+          # i.evolution :animal, :new_animal_variant
         end
       end
     end

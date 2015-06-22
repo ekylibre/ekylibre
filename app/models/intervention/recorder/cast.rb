@@ -13,7 +13,7 @@ class Intervention
       end
 
       def save!
-        @recorder.intervention.add_cast!(reference_name: @name, actor: @object)
+        @recorder.intervention.add_cast!(@options.merge(reference_name: @name, actor: @object))
       end
 
     end

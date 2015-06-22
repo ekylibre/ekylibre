@@ -8,86 +8,223 @@
 //@import "bootstrap/dropdowns";
 @import "bootstrap/grid";
 
+$column-padding: $default-border-radius;
 .golumn {
-   background: mix($active-color, $desktop-background, 30%);
+  background: mix($active-color, $desktop-background, 30%);
+  overflow: auto;
+  height: 100%;
   .golumn-columns {
-    display: inline-flex;
-    padding: $default-gap;
-    .golumn-column-handle, .golumn-handle {
+    padding: $column-padding;
+    overflow: auto;
+    @include calc(height, "100% - #{2 * $column-padding}");
+    .golumn-columns-container {
+      @include display(inline-flex);
+      align-items: flex-start;
+      flex-direction: row;
+      height: 100%;
+      overflow: auto;
+    }
+
+    .golumn-column-handle, .golumn-group-handle, .golumn-item-handle {
       cursor: move;
     }
-    .golumn-column {
-      width: 23ex;
-      @include inline-block;
-      padding: $default-gap;
-      @include float(left);
-      .column-content {
-        background: white;
-        border: 1px solid #AAA;
-        @include transition(box-shadow 0.2s);
-        @include box-shadow(1px 1px 2px rgba(black, 0.1));
-        @include border-radius($default-border-radius);
-        display: block;
-        & > * {
-          display: block;
-          padding: round(0.5* $default-gap) $default-gap;
-        }
-        .golumn-column-header {
-          .golumn-column-handle {
-            @include ellipsis;
-            i {
-              @include inline-block;
-              width: $fs-normal;
-              @include text-align(center);
-            }
-            .golumn-column-title {
-              @include display(inline);
-              font-weight: bold;
-            }
-            &, * {
-              line-height: $lh-normal;
-            }
-          }
-        }
-        .golumn-column-body {
-          .golumn-group-list {
-          }
-        }
-        .golumn-column-footer {
-          display: block;
-          &, * {
-            color: $link-color;
-          }
-          &:hover {
-            background: rgba(black, 0.07);
-          }
-        }
+  }
+
+
+
+  // Golumn column
+  .golumn-column {
+    width: 28ex;
+    //@include inline-block;
+
+    margin: $column-padding;
+    padding: 0;
+    @include calc(max-height, "100% - #{2 * $column-padding}");
+
+    background: white;
+    border: 1px solid #AAA;
+    @include transition(box-shadow 0.2s);
+    @include box-shadow(1px 1px 2px rgba(black, 0.1));
+    @include border-radius($default-border-radius);
+    display: flex;
+    flex-direction: column;
+    // max-height: 100%;
+
+    .checker {
+      @include is-icon(14px);
+      @include use-icon(square-o);
+      cursor: pointer;
+      opacity: 0;
+      width: 14px;
+      @include text-align(center);
+      @include transition(opacity 0.2s);
+      &:hover, &.active {
+        opacity: 1;
       }
-      // When dragging
-      &.ui-sortable-helper {
-        .golumn-column-content {
-          @include box-shadow(2px 2px 3px rgba(black, 0.1));
-        }
-      }
-      &.new-column {
-        opacity: 0.4;
-        &:hover {
-          opacity: 1;
-        }
-        .golumn-column-body {
-          @include is-icon(64px);
-          line-height: 64px;
-          padding: $fs-normal;
-          @include use-icon(plus);
-          @include text-align(center);
-          &:hover {
-            background: rgba(black, 0.07);
-          }
-        }
+      &.active {
+        @include use-icon(check-square-o);
       }
     }
 
+
+    & > * {
+      display: block;
+      padding: round(0.5* $default-gap) $default-gap;
+    }
+    .golumn-column-header {
+      @include clearfix;
+      flex: none;
+      .golumn-column-actions {
+        @include float(right);
+      }
+      .golumn-column-handle {
+        @include ellipsis;
+        i {
+          @include inline-block;
+          width: $fs-normal;
+          @include text-align(center);
+        }
+        .golumn-column-title {
+          @include display(inline);
+          font-weight: bold;
+        }
+        &, * {
+          line-height: $lh-normal;
+        }
+      }
+      &:hover {
+        .checker {
+          opacity: 0.5;
+          &:hover, &.active {
+            opacity: 1;
+          }
+        }
+      }
+    }
+    .golumn-column-body {
+      flex: auto;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 0;
+      .golumn-groups {
+      }
+    }
+    .golumn-column-footer {
+      flex: none;
+      display: block;
+      &, * {
+        color: $link-color;
+      }
+      &:hover {
+        background: rgba(black, 0.07);
+      }
+    }
+
+    // When dragging
+    &.ui-sortable-helper {
+      .golumn-column-content {
+        @include box-shadow(2px 2px 3px rgba(black, 0.1));
+      }
+    }
+    &.new-column {
+      opacity: 0.4;
+      &:hover {
+        opacity: 1;
+      }
+      .golumn-column-body {
+        @include is-icon(64px);
+        line-height: 64px;
+        padding: $fs-normal;
+        @include use-icon(plus);
+        @include text-align(center);
+        &:hover {
+          background: rgba(black, 0.07);
+        }
+      }
+    }
   }
+
+
+
+  // Golumn group
+  .golumn-group {
+    border-top: 1px solid #AAA;
+    padding: $default-border-radius;
+    &:first-child {
+      border-top: none;
+    }
+    .golumn-group-header {
+      padding: round(0.5* $default-gap) $default-gap;
+      .golumn-group-actions {
+        @include float(right);
+        .collapser {
+          width: 14px;
+          @include text-align(center);
+          cursor: pointer;
+          @include inline-block;
+          @include is-icon(14px);
+          @include use-icon(caret-left);
+          @include transition(transform 0.2s);
+          &.active {
+            @include transform(rotate(-90deg));
+          }
+        }
+      }
+    }
+    .golumn-group-body {
+    }
+  }
+
+
+  // Golumn item
+  .golumn-item {
+    &, * {
+      line-height: $lh-normal;
+      font-size: $fs-normal;
+    }
+    background: #FFF;
+    margin: $default-border-radius;
+    padding: $default-border-radius $default-gap;
+    clear: both;
+    @include border-radius($default-border-radius);
+
+    $mix-prop: 90%;
+    $item-background: #FFF;
+    border-left: $default-border-radius solid #DDD;
+    @include background(mix($item-background, #DDD, $mix-prop));
+    &.status-go {
+      @include background(mix($item-background, $success-color, $mix-prop));
+      border-left-color: $success-color;
+    }
+    &.status-caution {
+      @include background(mix($item-background, $caution-color, $mix-prop));
+      border-left-color: $caution-color;
+    }
+    &.status-stop {
+      @include background(mix($item-background, $invalid-color, $mix-prop));
+      border-left-color: $invalid-color;
+    }
+    &.selected {
+      border-color: $active-color;
+      @include box-shadow(0 0 2px $active-color);
+    }
+    .golumn-item-actions {
+      @include float(right);
+    }
+    .golumn-item-title {
+      cursor: pointer;
+    }
+    &:hover {
+      .checker {
+        opacity: 0.5;
+        &:hover, &.active {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+
 
 }
 
@@ -162,13 +299,6 @@
   font-size: 10px;
 }
 
-.golumn-item.selected {
-  border-color: #428bca;
-  -webkit-box-shadow: 0 0 2px #428bca;
-  -moz-box-shadow: 0 0 2px #428bca;
-  box-shadow: 0 0 2px #428bca;
-}
-
 
 .group-dragging{
   transform: rotateZ(-10deg) scale(0.7);
@@ -177,7 +307,7 @@
 
 .animate-dragging {
   border: 1px solid #777;
-  background-color: #428bca;
+  background-color: $active-color;
   border-radius: 5%;
   text-align: center;
   vertical-align: middle;
@@ -187,7 +317,7 @@
 }
 
 .animate-dragging-number {
-  background-color: #428bca;
+  background-color: $active-color;
   border-radius: 50%;
   color: white;
   font-weight: bold;
@@ -226,26 +356,6 @@
   line-height:20px;
 }
 
-.golumn-column {
-  width: 200px;
-  display: inline-block;
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-  float: left;
-}
-
-.golumn-column-dragger:hover, .golumn-group-dragger:hover, .golumn-item-dragger:hover {
-  cursor: pointer;
-}
-
-.golumn-column-container
-{
-  height: 80vh;
-  display: inline-flex;
-}
-
 .add-group-panel-container {
   display: inline-block;
   position: relative;
@@ -263,23 +373,9 @@
   }
 }
 
-.golumn-column-title {
-  font-weight: bold;
-  font-size: 12px;
-}
 
 .golumn-group-badge {
   font-size: x-small;
-}
-
-.golumn-group-title {
-  font-weight: bold;
-  font-size: x-small;
-}
-
-.no-right-left-margin {
-  margin-left: 0;
-  margin-right: 0;
 }
 
 .animal-summary {
@@ -337,41 +433,43 @@
   }
 }
 
-.status-ok {
-  border-left: 5px solid #5cb85c;
+/*
+.status-go {
+  border-left: 5px solid $success-color;
 }
 
-.flag-ok {
-  background-color: #5cb85c;
+.flag-go {
+  background-color: $success-color;
   display: block;
   width: 30px;
   height: 30px;
   border-radius: 50%;
 }
 
-.status-warning {
-  border-left: 5px solid #f0ad4e;
+.status-caution {
+  border-left: 5px solid $caution-color;
 }
 
-.flag-warning {
-  background-color: #f0ad4e;
+.flag-caution {
+  background-color: $caution-color;
   display: block;
   width: 30px;
   height: 30px;
   border-radius: 50%;
 }
 
-.status-danger {
-  border-left: 5px solid #d9534f;
+.status-stop {
+  border-left: 5px solid $invalid-color;
 }
 
-.flag-danger {
-  background-color: #d9534f;
+.flag-stop {
+  background-color: $invalid-color;
   display: block;
   width: 30px;
   height: 30px;
   border-radius: 50%;
 }
+*/
 
 .list-group-item-title {
   border-bottom: 1px solid #ddd;
@@ -392,9 +490,6 @@
   }
 }
 
-.golumn-item {
-  border-bottom: 1px solid #ddd;
-}
 
 .golumn-item-img {
   height: 30px;
@@ -430,17 +525,7 @@
 
 }
 
-.golumn-item-dragger {
-  width: 5px;
-  float: right;
-  display: inline-block;
-  min-height: 30px;
-  vertical-align: middle;
-  padding: 0 5px;
-  line-height: 30px;
-  text-align: center !important;
-}
-
+/*
 .golumn-item-actions {
   width: 18px;
   float:right;
@@ -469,22 +554,7 @@
   background-color: inherit !important;
   border-color: transparent !important;
 }
-
-.golumn-item-actions .btn-hover {
-  font-weight: normal;
-  color: #333333;
-  cursor: pointer;
-  background-color: inherit;
-  border-color: transparent;
-  opacity: 0;
-  &:hover {
-    opacity: 0.5;
-    transition: all 0.5s;
-  }
-  &.active {
-    opacity: 1;
-  }
-}
+*/
 
 .golumn-column .animal-heading .btn-hover {
   font-weight: normal;
@@ -495,16 +565,6 @@
   opacity: 1;
 }
 
-.golumn-group {
-  border: 0;
-  padding-left: 0;
-  padding-right: 0;
-
-  .body {
-    max-height: 55vh;
-    overflow-y: scroll;
-  }
-}
 
 .animal-all-selector.btn-hover {
   background: transparent;
@@ -520,7 +580,7 @@
 }
 
 .golumn-item-infos .btn-link {
-  color: #428bca;
+  color: $active-color;
   //font-weight: 400;
   cursor: pointer;
   border-radius: 0;
@@ -531,18 +591,18 @@
   line-height: 30px;
 
   span {
-    color: #428bca;
+    color: $active-color;
     font-weight: bold;
 
   }
 }
 .golumn-item-infos .btn-link:hover, .btn-link:focus, .btn-link:active {
-  border-color: transparent;
-}
+                                                       border-color: transparent;
+                                                     }
 
 
 .golumn-column .panel-footer .btn-link {
-  color: #428bca;
+  color: $active-color;
   //font-weight: 400;
   cursor: pointer;
   border-radius: 0;
@@ -553,12 +613,12 @@
   //line-height: 30px;
 
   span, i {
-    color: #428bca !important;
+    color: $active-color !important;
   }
 }
 .golumn-column .panel-footer .btn-link:hover, .btn-link:focus, .btn-link:active {
-  border-color: transparent;
-}
+                                                                 border-color: transparent;
+                                                               }
 
 
 .add-group-panel-container .panel-heading
@@ -589,9 +649,6 @@
 
 
 
-.animal-list-group {
-  margin-bottom: 0;
-}
 
 .add-container {
   text-align: center !important;
@@ -667,6 +724,7 @@
 
 #loading {
   display: none;
+  margin: $fs-large auto;
 }
 
 @include keyframes(bubbling) {

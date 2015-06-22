@@ -104,12 +104,12 @@ class AnimalGroup < ProductGroup
     return animals.collect{|a| a.container}.uniq
   end
 
+  # DOC
   def members_with_places_at(viewed_at = nil)
     places_and_animals = []
     all_places = self.places(viewed_at)
     all_places.each do |place|
-
-      places_and_animals.push({:place => BuildingDivision.select(:id,:name).find(place.id),:animals => Animal.select(:id, :name, :identification_number, :nature_id, :dead_at).members_of(self,viewed_at || Time.now).members_of_place(place,viewed_at || Time.now).to_json(:methods => [:picture_path, :sex_text, :status])})
+      places_and_animals.push({place: Product.select(:id,:name).find(place.id),:animals => Animal.select(:id, :name, :identification_number, :nature_id, :dead_at).members_of(self,viewed_at || Time.now).members_of_place(place,viewed_at || Time.now).to_json(:methods => [:picture_path, :sex_text, :status])})
 
     end
     places_and_animals

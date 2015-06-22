@@ -20,6 +20,7 @@ class Intervention
           h[p.first] = if p.second.is_a?(Symbol)
                          intervention.casts.find_by!(reference_name: p.second)
                        elsif p.second.is_a?(Intervention::Recorder::Cast)
+                         puts p.second.inspect.yellow
                          intervention.casts.find_by!(actor_id: p.second.object.id)
                        else
                          p.second
