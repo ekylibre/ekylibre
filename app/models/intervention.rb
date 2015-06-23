@@ -187,6 +187,7 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def name
+    # raise self.inspect if self.reference_name.blank?
     tc(:name, intervention: (self.reference ? self.reference.human_name : "procedures.#{self.reference_name}".t(default: self.reference_name.humanize)), number: self.number)
   end
 

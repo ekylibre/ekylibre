@@ -101,7 +101,7 @@ class AnimalGroup < ProductGroup
     #   containers << animal.container
     # end
     # return containers.uniq
-    return animals.collect{|a| a.container}.uniq
+    return animals.collect{|a| a.container}.uniq.compact
   end
 
   # DOC
