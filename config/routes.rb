@@ -374,7 +374,7 @@ Rails.application.routes.draw do
 
     resources :fungi, concerns: :products
 
-    resources :gaps, concerns: [:list, :unroll] do
+    resources :gaps, concerns: [:list], except: [:new, :create, :edit, :update] do
       member do
         get  :list_items
       end
