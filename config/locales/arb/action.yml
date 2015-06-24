@@ -45,10 +45,7 @@ arb:
       # new: "New animal group"
       # show: "Animal group: %{name}"
     backend/animals:
-      # add_group: "Add group animal: %{name}"
       # add_to_group: "Add to group"
-      # add_to_variant: "Add to variant animal: %{name}"
-      # change: "Change animal: %{name}"
       # edit: "Edit animal: %{name}"
       # index: "Animals"
       # new: "New animal"
@@ -938,6 +935,7 @@ arb:
     # close_financial_year: "Close financial year"
     # close_journal: "Close the journal"
     closed: "مغلق"
+    # cobbles: "Cobbles"
     code: "الرمز" #?
     column: "البيانات"
     column_family: "الاسرة" #?

@@ -77,7 +77,7 @@
           - l.attribute :activity, url: true
 
       -# For budgets
-      - if resource.budgets.any?
+      - if resource.budgets.sum(:amount) > 0
         - c.cobble(:budget) do
           = render "margins", supports_quantity: supports_quantity
       - if resource.auxiliary? and resource.distributions.any?

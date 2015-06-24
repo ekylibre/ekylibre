@@ -49,10 +49,7 @@ fra:
     backend/animal_products:  #?
       index: "Produits animaux" #?
     backend/animals:
-      # add_group: "Add group animal: %{name}"
       add_to_group: "Ajouter au groupe"
-      # add_to_variant: "Add to variant animal: %{name}"
-      # change: "Change animal: %{name}"
       edit: "Modifier l’animal\_: %{name}"
       index: "Animaux"
       new: "Nouvel animal"
@@ -795,6 +792,7 @@ fra:
     closed: "Verrouillées"
     clostridial_spores_concentration: "Concentration en spores butyriques" #?
     clusters_work_number: "Numéro d’ilot(s)" #?
+    cobbles: "Pavés"
     column: "Donnée"
     column_family: "Famille" #?
     column_organization: "Organisation" #?

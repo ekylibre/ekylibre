@@ -45,12 +45,16 @@
   data_series << { name: "evaluated_input_cost".tl , y: (costs[:input]/divider).to_s.to_f, color: "#DD0000"} unless costs[:input].zero?
   data_series << { name: "evaluated_other_cost".tl , y: (costs[:other]/divider).to_s.to_f, color: "#DD0000"} unless costs[:other].zero?
 
-  data_series << { name: :raw_margin.tl, isSum: true, color: (balance >= 0 ? "#35DD00" : "#DD0000")}
+  if data_series.any?
+    data_series << { name: :raw_margin.tl, isSum: true, color: (balance >= 0 ? "#35DD00" : "#DD0000")}
+  end
 
   data_series << { name: "evaluated_tool_cost".tl , y: (costs[:tool]/divider).to_s.to_f, color: "#DD0000"} unless costs[:tool].zero?
   data_series << { name: "evaluated_doer_cost".tl , y: (costs[:doer]/divider).to_s.to_f, color: "#DD0000"} unless costs[:doer].zero?
 
-  data_series << { name: :direct_margin.tl, isSum: true, color: (balance >= 0 ? "#35DD00" : "#DD0000")}
+  if data_series.any?
+    data_series << { name: :direct_margin.tl, isSum: true, color: (balance >= 0 ? "#35DD00" : "#DD0000")}
+  end
 
   data_series << { name: :indirect_expenses.tl, y: (resource.indirect_budget_amount/divider).to_s.to_f, color: (resource.indirect_budget_amount >= 0 ? "#35DD00" : "#DD0000")} if resource.indirect_budget_amount != 0
 
