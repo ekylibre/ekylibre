@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CancelASalesInvoiceTest < CapybaraIntegrationTest
+class CreateAnEstimateTest < CapybaraIntegrationTest
 
   setup do
     I18n.locale = @locale = ENV["LOCALE"] || I18n.default_locale
@@ -93,6 +93,26 @@ class CancelASalesInvoiceTest < CapybaraIntegrationTest
       fill_unroll('sale_item_variant_id', with: 'pot')
       find(:css, '*[data-trade-component="quantity"]').set(15)
       find(:css, '*[data-trade-component="pretax_amount"]').set(500)
+    end
+    click_on :create.tl
+  end
+
+
+  test "create an empty sale from client" do
+    visit('/backend')
+    first('#top').click_on(:relationship.tl)
+    click_link("actions.backend/entities.index".t, href: backend_entities_path)
+    within('#core .kujaku') do
+      fill_in("q", with: "yue")
+      click_on :search.tl
+    end
+    click_on "Yuey LTD"
+    sleep(1)
+    # click_link :timeline.tl
+    page.execute_script("$(\"*[data-toggle='face'][href='timeline']\").click();")
+    sleep(1)
+    within('.timeline-tool.tl-sales') do
+      click_on "actions.backend/sales.new".t
     end
     click_on :create.tl
   end

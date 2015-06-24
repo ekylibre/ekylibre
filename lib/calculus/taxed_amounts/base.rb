@@ -19,6 +19,7 @@ module Calculus
         unless @computation_method
           @item.computation_method ||= :adaptative
           if @item.computation_method_adaptative?
+            @item.unit_pretax_amount ||= 0.0
             if @item.unit_pretax_amount >= 10 ** @item.tax.amount.decimal_count
               @computation_method = :tax_quantity
             else
