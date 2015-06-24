@@ -70,7 +70,6 @@
 require 'test_helper'
 
 class EntityTest < ActiveSupport::TestCase
-  test_fixtures
 
   test "nature" do
     entity = Entity.create(nature: :zarb)
@@ -80,4 +79,5 @@ class EntityTest < ActiveSupport::TestCase
     entity = Entity.create(nature: :organization)
     assert !entity.errors.include?(:nature), "Entity must accept organization nature"
   end
+
 end

@@ -48,5 +48,5 @@
 require 'test_helper'
 
 class AnalysisItemTest < ActiveSupport::TestCase
-  test_fixtures
+  # Add tests here...
 end

@@ -53,15 +53,14 @@
 require 'test_helper'
 
 class JournalEntryTest < ActiveSupport::TestCase
-  test_fixtures
 
   test "a journal forbids to write records before its closure date" do
-    @journal = journals(:journals_001)
+    journal = journals(:journals_001)
     assert_raise ActiveRecord::RecordInvalid do
-      record = @journal.entries.create!(printed_on: @journal.closed_on - 10)
+      record = journal.entries.create!(printed_on: journal.closed_on - 10)
     end
     assert_nothing_raised do
-      record = @journal.entries.create!(printed_on: @journal.closed_on + 1)
+      record = journal.entries.create!(printed_on: journal.closed_on + 1)
     end
   end
 

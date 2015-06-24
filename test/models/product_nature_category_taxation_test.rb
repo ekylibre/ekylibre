@@ -35,5 +35,5 @@
 require 'test_helper'
 
 class ProductNatureCategoryTaxationTest < ActiveSupport::TestCase
-  test_fixtures
+  # Add tests here...
 end

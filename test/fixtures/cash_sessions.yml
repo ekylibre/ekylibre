@@ -57,6 +57,7 @@ cash_sessions_001:
   lock_version: 1
   noticed_start_amount: 0.0
   noticed_stop_amount: 0.0
+  number: '1'
   started_at: 2014-10-31 17:19:32.000000000 Z
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
@@ -70,6 +71,7 @@ cash_sessions_002:
   lock_version: 1
   noticed_start_amount: 0.0
   noticed_stop_amount: 0.0
+  number: '2'
   started_at: 2014-10-31 17:19:32.000000000 Z
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1

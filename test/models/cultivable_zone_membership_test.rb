@@ -36,5 +36,5 @@
 require 'test_helper'
 
 class CultivableZoneMembershipTest < ActiveSupport::TestCase
-  test_fixtures
+  # Add tests here...
 end

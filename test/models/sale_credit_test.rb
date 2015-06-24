@@ -69,6 +69,6 @@ require 'test_helper'
 
 class SaleCreditTest < ActiveSupport::TestCase
 
-  test_fixtures
+  # Add tests here...
 
 end

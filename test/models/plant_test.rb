@@ -66,7 +66,6 @@
 require 'test_helper'
 
 class PlantTest < ActiveSupport::TestCase
-  test_fixtures
 
   test "plant status" do
     Plant.find_each do |plant|

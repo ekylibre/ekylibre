@@ -45,7 +45,6 @@
 require 'test_helper'
 
 class ProductNatureVariantTest < ActiveSupport::TestCase
-  test_fixtures
 
   test "working sets" do
     Nomen::WorkingSets.list.each do |item|

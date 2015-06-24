@@ -64,5 +64,5 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  test_fixtures
+  # Add tests here...
 end

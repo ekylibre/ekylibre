@@ -39,5 +39,5 @@
 require 'test_helper'
 
 class ProductDivisionTest < ActiveSupport::TestCase
-  test_fixtures
+  # Add tests here...
 end

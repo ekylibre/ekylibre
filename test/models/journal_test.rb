@@ -41,7 +41,6 @@
 require 'test_helper'
 
 class JournalTest < ActiveSupport::TestCase
-  test_fixtures
 
   test "presence of nature scopes" do
     for nature in Journal.nature.values

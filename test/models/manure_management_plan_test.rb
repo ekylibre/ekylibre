@@ -40,5 +40,5 @@
 require 'test_helper'
 
 class ManureManagementPlanTest < ActiveSupport::TestCase
-  test_fixtures
+  # Add tests here...
 end

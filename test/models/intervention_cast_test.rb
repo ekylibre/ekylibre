@@ -42,5 +42,5 @@
 require 'test_helper'
 
 class InterventionCastTest < ActiveSupport::TestCase
-  test_fixtures
+  # Add tests here...
 end

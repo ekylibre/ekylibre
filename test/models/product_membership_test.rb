@@ -40,5 +40,5 @@
 require 'test_helper'
 
 class ProductMembershipTest < ActiveSupport::TestCase
-  test_fixtures
+  # Add tests here...
 end

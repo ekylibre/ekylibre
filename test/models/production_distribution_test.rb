@@ -36,6 +36,6 @@ require 'test_helper'
 
 class ProductionDistributionTest < ActiveSupport::TestCase
 
-  test_fixtures
+  # Add tests here...
 
 end

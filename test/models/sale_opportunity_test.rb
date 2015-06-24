@@ -54,6 +54,6 @@ require 'test_helper'
 
 class SaleOpportunityTest < ActiveSupport::TestCase
 
-  test_fixtures
+  # Add tests here...
 
 end

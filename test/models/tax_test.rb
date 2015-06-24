@@ -43,5 +43,5 @@
 require 'test_helper'
 
 class TaxTest < ActiveSupport::TestCase
-  test_fixtures
+  # Add tests here...
 end

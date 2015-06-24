@@ -66,7 +66,6 @@
 require 'test_helper'
 
 class ProductTest < ActiveSupport::TestCase
-  test_fixtures
 
   test "working sets" do
     assert Product.of_expression("is product").any?
@@ -75,4 +74,5 @@ class ProductTest < ActiveSupport::TestCase
       assert Product.of_working_set(item.name).count >= 0
     end
   end
+
 end

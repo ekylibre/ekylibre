@@ -51,7 +51,6 @@
 require 'test_helper'
 
 class EntityAddressTest < ActiveSupport::TestCase
-  test_fixtures
 
   test "presence of canal scopes" do
     for canal in EntityAddress.canal.values
@@ -61,6 +60,6 @@ class EntityAddressTest < ActiveSupport::TestCase
       assert EntityAddress.respond_to?(scope_name), "EntityAddress must have a scope #{scope_name}"
       # TODO Check that scope works
     end
-
   end
+
 end

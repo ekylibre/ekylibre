@@ -60,7 +60,6 @@
 require 'test_helper'
 
 class JournalEntryItemTest < ActiveSupport::TestCase
-  test_fixtures
 
   test "the validity of entries" do
     item = journal_entry_items(:journal_entry_items_001)

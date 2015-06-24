@@ -45,5 +45,5 @@
 require 'test_helper'
 
 class DocumentTest < ActiveSupport::TestCase
-  test_fixtures
+  # Add tests here...
 end

@@ -40,7 +40,5 @@
 require 'test_helper'
 
 class CashSessionTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  # Add tests here...
 end

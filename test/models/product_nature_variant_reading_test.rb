@@ -46,5 +46,5 @@
 require 'test_helper'
 
 class ProductNatureVariantReadingTest < ActiveSupport::TestCase
-  test_fixtures
+  # Add tests here...
 end

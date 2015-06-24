@@ -41,9 +41,8 @@
 require 'test_helper'
 
 class FinancialYearTest < ActiveSupport::TestCase
-  test_fixtures
 
-  def test_chronology
+  test "chronology" do
     first_year = financial_years(:financial_years_001)
     assert_not_nil first_year
 

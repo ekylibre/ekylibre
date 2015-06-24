@@ -66,5 +66,5 @@
 require 'test_helper'
 
 class SubZoneTest < ActiveSupport::TestCase
-  test_fixtures
+  # Add tests here...
 end

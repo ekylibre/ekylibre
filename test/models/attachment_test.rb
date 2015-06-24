@@ -38,6 +38,6 @@ require 'test_helper'
 
 class AttachmentTest < ActiveSupport::TestCase
 
-  test_fixtures
+  # Add tests here...
 
 end

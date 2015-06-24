@@ -70,7 +70,6 @@
 require 'test_helper'
 
 class SaleTest < ActiveSupport::TestCase
-  test_fixtures
 
   test "duplicatablity" do
     count = 0

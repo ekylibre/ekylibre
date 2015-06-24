@@ -39,5 +39,5 @@
 require 'test_helper'
 
 class ProductBirthTest < ActiveSupport::TestCase
-  test_fixtures
+  # Add tests here...
 end

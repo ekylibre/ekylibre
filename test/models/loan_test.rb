@@ -47,10 +47,5 @@
 require 'test_helper'
 
 class LoanTest < ActiveSupport::TestCase
-  test_fixtures
-
-  test "something cool" do
-    # assert_equal 2, Loan.count
-  end
-
+  # Add tests here...
 end

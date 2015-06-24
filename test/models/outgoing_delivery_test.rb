@@ -45,7 +45,6 @@
 require 'test_helper'
 
 class OutgoingDeliveryTest < ActiveSupport::TestCase
-  test_fixtures
 
   test "ship giving a transporter" do
     OutgoingDelivery.ship(OutgoingDelivery.all, transporter_id: entities(:entities_001).id)

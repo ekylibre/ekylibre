@@ -40,18 +40,12 @@
 require 'test_helper'
 
 class AccountTest < ActiveSupport::TestCase
-  test_fixtures
 
-  # TODO: Test accounts load
-  # test "load the charts" do
-    # for locale in I18n.available_locales
-    #   I18n.locale = locale
-    #   assert_equal I18n.locale, locale
-    #   charts = Account.charts
-    #   for chart in charts
-    #     Account.load_chart(chart)
-    #   end
-    # end
-  # end
+  test "load the charts" do
+    Account.charts.each do |chart|
+      Account.chart = chart
+      Account.load_defaults
+    end
+  end
 
 end

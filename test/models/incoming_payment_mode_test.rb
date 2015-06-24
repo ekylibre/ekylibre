@@ -47,5 +47,5 @@
 require 'test_helper'
 
 class IncomingPaymentModeTest < ActiveSupport::TestCase
-  test_fixtures
+  # Add tests here...
 end

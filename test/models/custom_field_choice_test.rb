@@ -38,5 +38,5 @@
 require 'test_helper'
 
 class CustomFieldChoiceTest < ActiveSupport::TestCase
-  test_fixtures
+  # Add tests here...
 end

@@ -66,5 +66,5 @@
 require 'test_helper'
 
 class CultivableZoneTest < ActiveSupport::TestCase
-  test_fixtures
+  # Add tests here...
 end

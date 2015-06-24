@@ -91,31 +91,6 @@ class ActiveSupport::TestCase
     return attrs['id'].to_i
   end
 
-  def self.test_fixtures
-    model = self.name.gsub(/Test$/, '').constantize
-    record_type = model.name.underscore
-    test "validity of fixtures" do
-      # print "#{model.name.green}"
-      invalids = []
-      reflections = model.reflect_on_all_associations(:belongs_to).delete_if{|r| r.name.to_s == "item" and model == Version }
-      model.includes(reflections.collect(&:name)).find_each do |record|
-        unless record.valid?
-          invalids << "##{record.id}: #{record.errors.full_messages.to_sentence}"
-        end
-        reflections.each do |reflection|
-          id = record.send(reflection.foreign_key)
-          if id and id.to_i > 0 and record.send(reflection.name).blank?
-            invalids << "##{record.id}: Invalid #{reflection.foreign_key} value: #{record.send(reflection.foreign_key)} (#{reflection.class_name})"
-          end
-        end
-      end
-      assert invalids.empty?, "#{invalids.count} records are invalid: \n" + invalids.join("\n").dig(2)
-      # assert invalids.empty?, "Some records are invalid: " + invalids.collect do |id, errors|
-      #   "\n#{model.name} ##{id}:\n" + errors.join("\n").dig + "\n"
-      # end.join("\n")
-    end
-  end
-
 end
 
 

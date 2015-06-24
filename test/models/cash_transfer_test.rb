@@ -47,5 +47,5 @@
 require 'test_helper'
 
 class CashTransferTest < ActiveSupport::TestCase
-  test_fixtures
+  # Add tests here...
 end

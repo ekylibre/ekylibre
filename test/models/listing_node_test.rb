@@ -53,5 +53,5 @@
 require 'test_helper'
 
 class ListingNodeTest < ActiveSupport::TestCase
-  test_fixtures
+  # Add tests here...
 end

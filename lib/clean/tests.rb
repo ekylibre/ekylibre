@@ -18,8 +18,8 @@ module Clean
       def write_model_test_file(klass)
         code  = ""
         code << "require 'test_helper'\n\n"
-        code << "class #{klass} < ActiveSupport::TestCase\n\n"
-        code << "  test_fixtures\n\n"
+        code << "class #{klass} < ActiveSupport::TestCase\n"
+        code << "  # Add tests here...\n"
         code << "end\n"
         file = Rails.root.join("test", "models", klass.underscore + ".rb")
         FileUtils.mkdir_p(file.dirname)

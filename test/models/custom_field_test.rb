@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
 # = Informations
 #
 # == License
@@ -46,7 +46,6 @@
 require 'test_helper'
 
 class CustomFieldTest < ActiveSupport::TestCase
-  test_fixtures
 
   STATIC_VALUES = {
     text: "Lorem ipsum",
