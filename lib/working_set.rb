@@ -1,8 +1,9 @@
 module WorkingSet
 
-  autoload :AbilityArray,  'working_set/ability_array'
-  autoload :QueryLanguage, 'working_set/query_language'
-  autoload :SQLCompiler,   'working_set/sql_compiler'
+  autoload :AbilityArray,         'working_set/ability_array'
+  autoload :ActiveRecordCompiler, 'working_set/active_record_compiler'
+  autoload :QueryLanguage,        'working_set/query_language'
+  autoload :SQLCompiler,          'working_set/sql_compiler'
 
   class Parser < Treetop::Runtime::CompiledParser
     include QueryLanguage
@@ -44,6 +45,11 @@ module WorkingSet
     def to_sql(expression, options = {})
       tree = parse(expression)
       ::WorkingSet::SQLCompiler.new(tree).compile(options)
+    end
+
+    def check_record(expression, record)
+      tree = parse(expression)
+      ::WorkingSet::ActiveRecordCompiler.new(tree).compile(record)
     end
 
   end

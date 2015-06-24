@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
 # = Informations
 #
 # == License
@@ -198,7 +198,7 @@ class Crumb < Ekylibre::Record::Base
     intervention = nil
     Ekylibre::Record::Base.transaction do
       options[:actors_ids] ||= []
-      options[:actors_ids] << self.worker.id unless self.worker.nil?
+      options[:actors_ids] << self.worker.id if self.user and self.worker
       actors = Crumb.products(intervention_path.to_a).concat(Product.find(options[:actors_ids])).compact.uniq
       unless options[:support_id] ||= Crumb.production_supports(intervention_path.where(nature: :hard_start)).pluck(:id).first
         raise StandardError, :need_a_production_support.tn

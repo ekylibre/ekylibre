@@ -279,18 +279,18 @@ module Procedo
     def fulfilled_by?(actor)
       # do not test created variables
       return false if new?
-      result = nil
+      expr = []
       if @variety.present?
-        result = same_items?(@variety, actor.variety)
+        expr << "is #{@variety}"
       end
       if @derivative_of.present? && actor.derivative_of.present?
-        result = (result.nil?)? same_items?(@derivative_of, actor.derivative_of):result && same_items?(@derivative_of, actor.derivative_of)
+        expr << "derives from #{@derivative_of}"
       end
       if @abilities.present?
-        result = (result.nil?)? actor.able_to_each?(abilities): result && actor.able_to_each?(abilities)
+        expr << @abilities.map{|a| "can #{a}"}.join(" and ")
       end
-      # default
-      return result || false
+      return false if expr.empty?
+      return actor.of_expression(expr.join(" and "))
     end
 
     # match actors to variable. Returns an array of actors fulfilling variable

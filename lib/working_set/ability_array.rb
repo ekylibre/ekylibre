@@ -6,6 +6,7 @@ module WorkingSet
     class << self
 
       # Convert DB format (string) to SymbolArray
+      # "sow, treat(thing, other_thing), care" => ["sow", "treat(thing, other_thing)", "care"]
       def load(string)
         array = new
         tree = nil

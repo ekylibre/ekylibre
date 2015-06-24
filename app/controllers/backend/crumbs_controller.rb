@@ -1,7 +1,6 @@
-# coding: utf-8
 # == License
 # Ekylibre - Simple agricultural ERP
-# Copyright (C) 2014 Sébastien Gauvrit, Brice Texier
+# Copyright (C) 2014 Sebastien Gauvrit, Brice Texier
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -40,7 +39,7 @@ class Backend::CrumbsController < Backend::BaseController
       else
         redirect_to backend_interventions_path
       end
-    rescue Exception => e
+    rescue StandardError => e
       notify_error(e.message)
       redirect_to backend_crumbs_path
     end

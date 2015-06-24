@@ -1050,7 +1050,7 @@ eng:
     intervention_casts: "Intervention casts"
     interventions: "Interventions"
     interventions_count: "Interventions count"
-    interventions_paths: "Interventions paths"
+    interventions_paths: "Interventions paths" #?
     inventories: "Inventories"
     inventory: "Inventory" #?
     invoiced_amount: "Sales invoiced amount" #?
@@ -1275,7 +1275,6 @@ eng:
     resource: "View original document: %{resource} %{number}" #?
     # resource_map: "Resource map"
     resources: "Resources management" #?
-    # resources_map: "Resources map"
     rest: "Rest"
     restore: "Restore" #?
     result: "Result" #?

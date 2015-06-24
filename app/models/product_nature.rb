@@ -150,6 +150,12 @@ class ProductNature < Ekylibre::Record::Base
     self.indicators_list.include? indicator
   end
 
+  # Permit to check WSQL expression "locally" to ensure performance
+  def of_expression(expression)
+    WorkingSet.check_record(expression, self)
+  end
+
+
   # Returns the closest matching model based on the given variety
   def self.matching_model(variety)
     if item = Nomen::Varieties.find(variety)
@@ -235,53 +241,15 @@ class ProductNature < Ekylibre::Record::Base
     end
   end
 
-  # TODO Optimize this no DB should be better...
   def able_to?(ability)
-    self.class.of_expression("can #{ability}").where(id: self.id).any?
-    # exp = nil
-    # if ability =~ /\(.*\)\z/
-    #   params = ability.split(/\s*[\(\,\)]\s*/)
-    #   ability = params.shift.to_sym
-    #   unless item = Nomen::Abilities[ability]
-    #     raise ArgumentError, "Unknown ability: #{ability.inspect}"
-    #   end
-    #   parameters = item.parameters.collect do |p|
-    #     v = params.shift
-    #     e = nil
-    #     if p == :variety
-    #       unless child = Nomen::Varieties[v]
-    #         raise ArgumentError, "Unknown variety: #{v.inspect}"
-    #       end
-    #       e = "(" + child.self_and_parents.map(&:name).join("|") + ")"
-    #     else
-    #       raise StandardError, "Unknown type of parameter for an ability: #{p.inspect}"
-    #     end
-    #     e
-    #   end.join('\s*\,\s*')
-    #   exp = /\A#{ability}\(#{parameters}\)\z/
-    # else
-    #   unless Nomen::Abilities[ability]
-    #     raise ArgumentError, "Unknown ability: #{ability.inspect}"
-    #   end
-    #   exp = /\A#{ability}\z/
-    # end
-    # return self.abilities.select do |a|
-    #   a.to_s =~ exp
-    # end.any?
+    self.of_expression("can #{ability}")
   end
 
   # tests if all abilities are present
   # @params: *abilities, a list of abilities to check. Can't be empty
   # @returns: true if all abilities are matched, false if at least one ability is missing
-  # TODO Optimize this no DB should be better...
-  def able_to_each?(*abilities)
-    self.class.can_each(*abilities).where(id: self.id).any?
-    # if  abilities.length == 1 # case of the last ability to check
-    #   return able_to?(abilities[0])
-    # elsif !able_to?(abilities[0])
-    #   return false # it's useless to go on if one ability is missing
-    # end
-    # return able_to?(abilities[0]) && able_to_each?(abilities.drop(1))
+  def able_to_each?(abilities)
+    self.of_expression(abilities.map{|a| "can #{a}"}.join(" and "))
   end
 
   # Returns list of abilities as an array of ability items from the nomenclature

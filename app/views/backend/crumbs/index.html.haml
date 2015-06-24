@@ -38,27 +38,24 @@
     - k.needle_choice current_user.unconverted_crumb_days.collect{|d| [d.l, d]}, name: :worked_on, selected: @worked_on
 
   - if crumbs.any?
-    = beehive do |b|
-      - b.cell :resources_map, title: :map do
-        = visualization do |v|
-          - if supports.any?
-            - v.serie :production_supports, supports
-            - v.categories :activity, :production_supports
-          - v.serie :crumbs, crumbs
-          - v.paths :name, :crumbs, label: Intervention.model_name.human
-          - v.background 'OpenStreetMap.HOT'
-          - v.background 'Thunderforest.Transport'
-          - v.background 'Thunderforest.Outdoors'
-          - v.background 'Esri.WorldImagery'
-          - v.control :zoom
-          - v.control :scale
-          - v.control :fullscreen
-          - v.control :layer_selector
-
-      -# b.cell :interventions_paths do # TODO: implement slider
-        = render 'time_slider', crumbs: crumbs
+    = main_informations do
+      = visualization do |v|
+        - if supports.any?
+          - v.serie :production_supports, supports
+          - v.categories :activity, :production_supports
+        - v.serie :crumbs, crumbs
+        - v.paths :name, :crumbs, label: Intervention.model_name.human
+        - v.background 'OpenStreetMap.HOT'
+        - v.background 'Thunderforest.Transport'
+        - v.background 'Thunderforest.Outdoors'
+        - v.background 'Esri.WorldImagery'
+        - v.control :zoom
+        - v.control :scale
+        - v.control :fullscreen
+        - v.control :layer_selector
+    = cobbles do |c|
       - for intervention_path in interventions_paths
-        - b.cell "intervention_#{intervention_path.id}".to_sym, title: intervention_path.human_name do
+        - c.cobble "intervention_#{intervention_path.id}".to_sym, title: intervention_path.human_name do
           = render 'intervention', path: intervention_path
 - else
   = :no_crumbs_to_check.tl
