@@ -1,8 +1,9 @@
 = field_set do
   = f.input :name
-  = f.input :root_model, :source => :root_models
-  = f.input :conditions, :field => :text
-  = f.input :description, :field => :text
+  - if f.object.new_record?
+    = f.input :root_model, collection: root_models
+  = f.input :conditions
+  = f.input :description
   = f.custom_fields
   = render 'nodes_form'
 

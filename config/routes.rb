@@ -190,10 +190,7 @@ Rails.application.routes.draw do
         match "load_natures", via: [:get]
         match "load_production_supports", via: [:get]
         put :change
-        put :update_preferences
         put :add_group
-        put :add_variant
-        get :load_preferences
       end
       member do
         match :add_to_group, via: [:get, :post]
@@ -244,7 +241,7 @@ Rails.application.routes.draw do
 
     resources :cash_transfers, concerns: [:list, :unroll], path: "cash-transfers"
 
-    resources :catalog_items, concerns: [:list, :unroll]
+    resources :catalog_items, concerns: [:list, :unroll], except: [:index]
 
     resources :catalogs, concerns: [:list, :unroll] do
       member do

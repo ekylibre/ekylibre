@@ -40,7 +40,6 @@
 
 
 class Listing < Ekylibre::Record::Base
-  # attr_accessible :name, :root_model, :description, :conditions
   attr_readonly :root_model
   enumerize :root_model, in: Ekylibre::Schema.models
   has_many :columns, -> { where("nature = ?", "column") }, class_name: "ListingNode"
@@ -75,7 +74,7 @@ class Listing < Ekylibre::Record::Base
       conn = self.class.connection
       root = self.root
       query = "SELECT "+self.exportable_columns.collect{|n| "#{n.name} AS "+conn.quote_column_name(n.label)}.join(", ")
-      query << " FROM #{root.model.table_name} AS #{root.name}"+root.compute_joins
+      query << " FROM #{root.model.table_name} AS #{root.name}" + root.compute_joins
       unless self.compute_where.blank?
         query << " WHERE " + self.compute_where
       end
@@ -93,8 +92,8 @@ class Listing < Ekylibre::Record::Base
     conn = self.class.connection
     c = ""
     if klass = self.root_model.classify.constantize rescue nil
-      if klass.columns_definition[:type]
-        c << "#{root.name}.type = '#{klass.name}'"
+      if klass.columns_definition[:type] and klass.table_name != klass.name.tableize
+        c << "#{root.name}.type IN ('#{klass.name}'" + klass.descendants.map{ |k| ", '#{k.name}'"}.join + ")"
       end
     end
     #  No reflections => no columns => no conditions
