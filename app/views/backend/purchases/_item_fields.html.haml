@@ -2,7 +2,7 @@
 - classes = ["nested-fields"]
 - if item and item.variant and item.variant.depreciable?
   - classes << "with-fixed-asset"
-%tr{class: classes, data: {trade_item: true}}
+%tr{class: classes, data: {trade_item: "true"}}
   %td
     = f.input :reference_value, as: :hidden, input_html: {data: {trade_component: "reference_value"}}
     .annotable

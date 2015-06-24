@@ -81,7 +81,7 @@ class Backend::ProductNatureVariantsController < Backend::BaseController
     end
     if catalog and item = catalog.items.find_by(variant_id: @product_nature_variant.id)
       infos[:all_taxes_included] = item.all_taxes_included
-      unless infos[:tax_id] = item.reference_tax
+      unless infos[:tax_id] = (item.reference_tax ? item.reference_tax.id : nil)
         if items = SaleItem.where(variant_id: @product_nature_variant.id) and items.any?
           infos[:tax_id] = items.order(id: :desc).first.tax_id
         else
@@ -101,8 +101,15 @@ class Backend::ProductNatureVariantsController < Backend::BaseController
       if items = PurchaseItem.where(variant_id: @product_nature_variant.id) and items.any?
         item = items.order(id: :desc).first
         infos[:tax_id] = item.tax_id
-        infos[:unit][:pretax_amount] = item.pretax_amount
-        infos[:unit][:amount] = item.amount
+        infos[:unit][:pretax_amount] = item.unit_pretax_amount
+        infos[:unit][:amount] = item.unit_amount
+      end
+    elsif params[:mode] == "last_sale_item"
+      if items = SaleItem.where(variant_id: @product_nature_variant.id) and items.any?
+        item = items.order(id: :desc).first
+        infos[:tax_id] = item.tax_id
+        infos[:unit][:pretax_amount] = item.unit_pretax_amount
+        infos[:unit][:amount] = item.unit_amount
       end
     end
     render json: infos

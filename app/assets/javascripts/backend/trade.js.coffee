@@ -23,36 +23,39 @@
     variant_id = element.selector('value')
     reg = new RegExp("\\bRECORD_ID\\b", "g")
     if variant_id?
-      row = element.closest(options.scope or ".nested-fields")
+      item = element.closest("*[data-trade-item]")
       $.ajax
         url: options.url.replace(reg, variant_id)
         dataType: "json"
         success: (data, status, request) ->
           # Update fields
           if data.name
-            row.find(options.label_field or ".label").val(data.name)
+            item.find(options.label_field or ".label").val(data.name)
 
           if data.depreciable
-            row.addClass("with-fixed-asset")
+            item.addClass("with-fixed-asset")
           else
-            row.removeClass("with-fixed-asset")
+            item.removeClass("with-fixed-asset")
 
           if unit = data.unit
             if unit.name
-              row.find(options.unit_name_tag or ".unit-name").html(data.name)
+              item.find(options.unit_name_tag or ".unit-name").html(data.name)
 
             if unit.pretax_amount
-              row.find(options.unit_pretax_amount_field or ".unit-pretax-amount").val(unit.pretax_amount)
+              item.find(options.unit_pretax_amount_field or "*[data-trade-component='unit_pretax_amount']").val(unit.pretax_amount)
             else if !unit.pretax_amount
-              row.find(options.unit_pretax_amount_field or ".unit-pretax-amount").val(0)
+              item.find(options.unit_pretax_amount_field or "*[data-trade-component='unit_pretax_amount']").val(0)
 
             if unit.amount
-              row.find(options.unit_amount_field or ".unit-amount").val(unit.amount)
+              item.find(options.unit_amount_field or "*[data-trade-component='unit_amount']").val(unit.amount)
             else if !unit.amount
-              row.find(options.unit_amount_field or ".unit-amount").val(0)
+              item.find(options.unit_amount_field or "*[data-trade-component='unit_amount']").val(0)
 
           if data.tax_id?
-            row.find(options.tax or ".tax").val(data.tax_id)
+            item.find(options.tax or "*[data-trade-component='tax']").val(data.tax_id)
+          # Compute totals
+          E.trade.compute(item)
+
         error: (request, status, error) ->
           console.log("Error while retrieving price and tax fields content: #{error}")
     else
