@@ -1208,6 +1208,8 @@ listings:
 loans:
   read:
     actions:
+    - "backend/loan_repayments#index"
+    - "backend/loan_repayments#show"
     - "backend/loans#index"
     - "backend/loans#list"
     - "backend/loans#list_repayments"

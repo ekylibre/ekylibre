@@ -16,7 +16,18 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'test_helper'
-class Backend::OperationsControllerTest < ActionController::TestCase
-  test_restfully_all_actions show: :redirected_get, index: :redirected_get
+class Backend::LoanRepaymentsController < Backend::BaseController
+
+  def index
+    redirect_to backend_loans_url
+  end
+
+  def show
+    if @loan_repayment = LoanRepayment.find_by(id: params[:id])
+      redirect_to backend_loan_url(@loan_repayment.loan_id)
+    else
+      redirect_to backend_root_url
+    end
+  end
+
 end

@@ -516,7 +516,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :loan_repayments
+    resources :loan_repayments, only: [:index, :show]
 
     resources :manure_management_plans, concerns: [:list, :unroll] do
       member do
@@ -532,7 +532,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :observations
+    resources :observations, except: [:index, :show]
 
     resources :operations, only: [:index, :show]
 

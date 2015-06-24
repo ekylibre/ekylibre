@@ -407,6 +407,9 @@ eng:
       index: "Listings and mailings"
       mail: "Send an email to: %{name}"
       new: "New listing"
+    backend/loan_repayments:
+      # index: "Loan repayments"
+      # show: "Loan repayment: %{name}"
     backend/loans:
       edit: "Edit loan: %{name}"
       index: "Loans"

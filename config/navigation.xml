@@ -209,6 +209,8 @@
         <page to="backend/loans#show"/>
         <page to="backend/loans#unroll"/>
         <page to="backend/loans#update"/>
+        <page to="backend/loan_repayments#index"/>
+        <page to="backend/loan_repayments#show"/>
       </item>
       <item name="cash_transfers">
         <page to="backend/cash_transfers#index"/>
