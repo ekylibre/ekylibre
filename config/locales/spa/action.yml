@@ -639,6 +639,7 @@ spa:
     amount_with_taxes: "Total de la entrega TTC" #?
     # amounts_in_currency: "Amounts (%{currency})"
     # analyses: "Analyses"
+    # animal_details: "Animal details"
     # animal_productions: "Animal productions"
     # animals: "Animals"
     # archives: "Archives"

@@ -841,6 +841,7 @@ arb:
     amount_with_taxes: "مجموع قيمة التسليم مع كامل الضرائب" #?
     # amounts_in_currency: "Amounts (%{currency})"
     # analyses: "Analyses"
+    # animal_details: "Animal details"
     # animal_productions: "Animal productions"
     # animals: "Animals"
     apply: "تطبيق" #?

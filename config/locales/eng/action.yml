@@ -812,6 +812,7 @@ eng:
     amount_per_unit: "%{amount}/%{unit}"
     amounts_in_currency: "Amounts (%{currency})"
     analyses: "Analyses"
+    animal_details: "Animal details" #?
     animal_productions: "Animal productions"
     animals: "Animals"
     archives: "Archives"
