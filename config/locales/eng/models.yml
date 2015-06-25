@@ -294,12 +294,12 @@ eng:
       user: 'User'
       warehouse: 'Warehouse'
   attributes:
-    account: 'Account'
-    account_balances: 'Account balances'
+    account: 'Account' #!
+    account_balances: 'Account balances' #!
     account_id: 'Account'
     account_number: 'Account number'
     accounted_at: 'Accounted at'
-    accounts: 'Accounts'
+    accounts: 'Accounts' #!
     acquisition_amount: 'Acquisition amount'
     active: 'Active'
     activity_code: 'Activity code'
@@ -309,83 +309,83 @@ eng:
     agency_code: 'Agency code'
     amount: 'Amount'
     annotation: 'Annotation'
-    area: 'Area'
+    area: 'Area' #!
     area_measure: 'Area measure'
-    area_unit: 'Area unit'
+    area_unit: 'Area unit' #!
     area_unit_id: 'Area unit'
-    areas: 'Areas'
+    areas: 'Areas' #!
     arrived_on: 'Arrived on'
     assimilated_taxes_amount: 'Assimilated taxes amount'
     atmospheric_pressure: 'Atmospheric pressure'
     attorney: 'Attorney'
-    attorney_account: 'Attorney account'
-    attorney_accounts: 'Attorney accounts'
+    attorney_account: 'Attorney account' #!
+    attorney_accounts: 'Attorney accounts' #!
     attribute_name: 'Attribute name'
     authorized_payments_count: 'Authorized payments count'
-    available_prices: 'Available prices'
-    available_products: 'Available products'
+    available_prices: 'Available prices' #!
+    available_products: 'Available products' #!
     balance: 'Balance'
     balance_amount: 'Balance amount'
-    balances: 'Balances'
+    balances: 'Balances' #!
     bank: 'Bank'
     bank_code: 'Bank code'
-    bank_journals: 'Bank journals'
+    bank_journals: 'Bank journals' #!
     bank_name: 'Bank name'
-    bank_statement: 'Bank statement'
-    bank_statements: 'Bank statements'
-    banks_accounts: 'Banks accounts'
+    bank_statement: 'Bank statement' #!
+    bank_statements: 'Bank statements' #!
+    banks_accounts: 'Banks accounts' #!
     base: 'Base'
     bban: 'BBAN' #!
     bic: 'BIC'
     boolean_value: 'Boolean value'
     born_on: 'Born on'
-    building: 'Building'
+    building: 'Building' #!
     by_default: 'By default'
     cache: 'Cache'
-    cash: 'Cash'
+    cash: 'Cash' #!
     cash_id: 'Cash'
-    cash_journals: 'Cash journals'
-    cashes: 'Bank accounts'
-    cashes_accounts: 'Cashes accounts'
+    cash_journals: 'Cash journals' #!
+    cashes: 'Bank accounts' #!
+    cashes_accounts: 'Cashes accounts' #!
     catalog_description: 'Catalog description'
     catalog_name: 'Catalog name'
-    category: 'Category'
+    category: 'Category' #!
     category_id: 'Category'
     changes_reflected: 'Changes reflected'
-    charges_accounts: 'Charges accounts'
+    charges_accounts: 'Charges accounts' #!
     check_number: 'Check number'
     check_state: 'Check state'
-    children: 'Children'
-    choice_value: 'Choice value'
-    choices: 'Choices'
-    choices_count: 'Choices count'
+    children: 'Children' #!
+    choice_value: 'Choice value' #!
+    choices: 'Choices' #!
+    choices_count: 'Choices count' #!
     city: 'City'
     city_name: 'City name'
     client: 'Client'
-    client_account: 'Client account'
-    client_accounts: 'Client accounts'
+    client_account: 'Client account' #!
+    client_accounts: 'Client accounts' #!
     client_id: 'Client'
-    clients: 'Clients'
+    clients: 'Clients' #!
     closed: 'Closed'
     closed_on: 'Closed on'
     code: 'Code'
     code2: 'Code2'
     coefficient: 'Coefficient'
-    collected_account: 'Account collected'
+    collected_account: 'Account collected' #!
     collected_amount: 'Collected amount'
     color: 'Color'
     comment: 'Comment'
     commercial: 'Commercial'
-    commission_account: 'Commission account'
+    commission_account: 'Commission account' #!
     commission_account_id: 'Commission account'
     commission_amount: 'Commission amount'
     commission_base_amount: 'Base amount of the commission'
     commission_percent: 'Commission percent'
-    company: 'Company'
+    company: 'Company' #!
     company_id: 'Company'
-    component: 'Component'
-    components: 'Components'
-    compute: 'Compute'
+    component: 'Component' #!
+    components: 'Components' #!
+    compute: 'Compute' #!
     conclusion: 'Conclusion'
     condition_operator: 'Condition operator'
     condition_value: 'Condition value'
@@ -393,34 +393,34 @@ eng:
     confirmed_on: 'Confirmed on'
     connected_at: 'Connected at'
     consumption: 'Consumption'
-    contact: 'Contact'
+    contact: 'Contact' #!
     contact_id: 'Contact'
-    contacts: 'Contacts'
+    contacts: 'Contacts' #!
     country: 'Country'
     created_at: 'Created at'
     created_on: 'Created on'
-    creator: 'Creator'
+    creator: 'Creator' #!
     creator_id: 'Creator'
     credit: 'Credit'
     credit_lines: 'Credit lines' #!
-    credited_quantity: 'Credited quantity'
-    credits: 'Credits'
+    credited_quantity: 'Credited quantity' #!
+    credits: 'Credits' #!
     critic_quantity_min: 'Critic quantity min'
     crypt_key: 'Crypt key'
     crypt_mode: 'Crypt mode'
-    currencies: 'Currencies'
-    currency: 'Currency'
+    currencies: 'Currencies' #!
+    currency: 'Currency' #!
     currency_credit: 'Currency credit'
     currency_debit: 'Currency debit'
     currency_id: 'Currency'
     currency_rate: 'Currency rate'
-    current_financial_year: 'Current financial year'
-    custom_field: 'Custom field'
-    custom_field_choices: 'Custom field choices'
-    custom_field_data: 'Custom field data'
+    current_financial_year: 'Current financial year' #!
+    custom_field: 'Custom field' #!
+    custom_field_choices: 'Custom field choices' #!
+    custom_field_data: 'Custom field data' #!
     custom_field_id: 'Custom field'
-    custom_fields: 'Custom fields'
-    data: 'Data'
+    custom_fields: 'Custom fields' #!
+    data: 'Data' #!
     date_value: 'Date value'
     datetime_value: 'Datetime value'
     dead_on: 'Dead on'
@@ -429,41 +429,41 @@ eng:
     decimal_min: 'Decimal min'
     decimal_value: 'Decimal value'
     declared_on: 'Declared on'
-    default_contact: 'Default contact'
-    default_currency: 'Default currency'
+    default_contact: 'Default contact' #!
+    default_currency: 'Default currency' #!
     deferred_payment: 'Deferred payment'
-    delays: 'Delays'
+    delays: 'Delays' #!
     deleted_at: 'Deleted at'
     deliverable: 'Deliverable'
     delivered: 'Delivered'
-    deliveries: 'Deliveries'
+    deliveries: 'Deliveries' #!
     deliveries_conditions: 'Deliveries conditions'
-    delivery: 'Delivery'
-    delivery_contact: 'Delivery contact'
+    delivery: 'Delivery' #!
+    delivery_contact: 'Delivery contact' #!
     delivery_contact_id: 'Delivery contact'
     delivery_id: 'Delivery'
-    delivery_lines: 'Delivery lines'
-    density_label: 'Density label'
+    delivery_lines: 'Delivery lines' #!
+    density_label: 'Density label' #!
     departed_on: 'Departed on'
-    department: 'Department'
-    departments: 'Departments'
-    deposit: 'Deposit'
+    department: 'Department' #!
+    departments: 'Departments' #!
+    deposit: 'Deposit' #!
     deposit_id: 'Deposit'
-    depositable_payments: 'Embankable payments'
-    depositables_account: 'Embankables account'
-    deposits: 'Deposits'
+    depositable_payments: 'Embankable payments' #!
+    depositables_account: 'Embankables account' #!
+    deposits: 'Deposits' #!
     description: 'Description'
-    diff_less: 'Diff less'
-    diff_more: 'Diff more'
-    direct_links: 'Direct links'
+    diff_less: 'Diff less' #!
+    diff_more: 'Diff more' #!
+    direct_links: 'Direct links' #!
     direction: 'Direction'
-    direction_label: 'Direction label'
+    direction_label: 'Direction label' #!
     discount: 'Discount' #!
     discount_rate: 'Discount rate'
-    district: 'District'
-    districts: 'Districts'
-    document_templates: 'Document templates'
-    documents: 'Documents'
+    district: 'District' #!
+    districts: 'Districts' #!
+    document_templates: 'Document templates' #!
+    documents: 'Documents' #!
     downpayment: 'Downpayment'
     downpayment_amount: 'Downpayment amount'
     downpayment_minimum: 'Downpayment minimum'
@@ -474,46 +474,46 @@ eng:
     emitter_amount: 'Emitted amount'
     emitter_currency_rate: 'Emitted currency rate'
     employed: 'Employed'
-    employees: 'Employees'
+    employees: 'Employees' #!
     employment: 'Employment'
-    entities: 'People'
-    entity: 'Person'
-    entity_1: 'Person 1'
-    entity_2: 'Person 2'
-    entity_categories: 'Person categories'
+    entities: 'People' #!
+    entity: 'Person' #!
+    entity_1: 'Person 1' #!
+    entity_2: 'Person 2' #!
+    entity_categories: 'Person categories' #!
     entity_id: 'Entity'
-    entity_link_nature: 'Person link type'
-    entity_link_natures: 'Person link types'
-    entity_links: 'Person links'
-    entity_name: 'Person name'
-    entity_natures: 'Person types'
-    entries: 'Entries'
-    entry: 'Entry'
-    establishment: 'Establishment'
+    entity_link_nature: 'Person link type' #!
+    entity_link_natures: 'Person link types' #!
+    entity_links: 'Person links' #!
+    entity_name: 'Person name' #!
+    entity_natures: 'Person types' #!
+    entries: 'Entries' #!
+    entry: 'Entry' #!
+    establishment: 'Establishment' #!
     establishment_id: 'Establishment'
-    establishments: 'Establishments'
-    event_natures: 'Event types'
-    events: 'Events'
+    establishments: 'Establishments' #!
+    event_natures: 'Event types' #!
+    events: 'Events' #!
     examinated_at: 'Examinated at'
     excise: 'Excise'
-    expense: 'Expense'
+    expense: 'Expense' #!
     expense_id: 'Expense'
     expense_type: 'Expense type'
-    expiration: 'Expiration'
+    expiration: 'Expiration' #!
     expiration_id: 'Expiration'
     expired_on: 'Expired on'
     exportable: 'Exportable'
     expression: 'Expression'
     extension: 'Extension'
     family: 'Family'
-    family_label: 'Family label'
+    family_label: 'Family label' #!
     fax: 'Fax'
     filename: 'Filename'
     filesize: 'Filesize'
-    financial_year: 'Financial year'
+    financial_year: 'Financial year' #!
     financial_year_id: 'Financial year'
-    financial_years: 'Financial years'
-    finish: 'Finish'
+    financial_years: 'Financial years' #!
+    finish: 'Finish' #!
     first_met_on: 'First met on'
     first_name: 'First name'
     first_number: 'First number'
@@ -525,7 +525,7 @@ eng:
     format: 'Format'
     full_name: 'Full name'
     function_title: 'Function title'
-    future_events: 'Future events'
+    future_events: 'Future events' #!
     generated: 'Generated'
     global_balance: 'Global balance'
     global_count: 'Global count'
@@ -541,37 +541,37 @@ eng:
     in_cash: 'In cash'
     in_name: 'In name'
     included: 'Included'
-    incoming_payment_modes: 'Incoming payment modes'
-    incoming_payment_uses: 'Incoming payment parts'
-    incoming_payments: 'Incoming payments'
-    indirect_links: 'Indirect links'
+    incoming_payment_modes: 'Incoming payment modes' #!
+    incoming_payment_uses: 'Incoming payment parts' #!
+    incoming_payments: 'Incoming payments' #!
+    indirect_links: 'Indirect links' #!
     initial_number: 'Initial number'
     integer_value: 'Integer value'
     introduction: 'Introduction'
-    inventories: 'Inventories'
-    inventory: 'Inventory'
-    inventory_lines: 'Inventory lines'
-    invoice_contact: 'Sales invoice contact'
+    inventories: 'Inventories' #!
+    inventory: 'Inventory' #!
+    inventory_lines: 'Inventory lines' #!
+    invoice_contact: 'Sales invoice contact' #!
     invoiced_on: 'Invoiced on'
     invoices_count: 'Invoices count'
     is_debit: 'Is debit'
-    item_listing: 'Item listing'
-    item_listing_node: 'Item listing node'
+    item_listing: 'Item listing' #!
+    item_listing_node: 'Item listing node' #!
     item_nature: 'Item type'
     item_value: 'Item value'
-    items: 'Items'
-    journal: 'Journal'
-    journal_entries: 'Journal entries'
-    journal_entry: 'Journal entry'
+    items: 'Items' #!
+    journal: 'Journal' #!
+    journal_entries: 'Journal entries' #!
+    journal_entry: 'Journal entry' #!
     journal_entry_id: 'Journal entry'
-    journal_entry_lines: 'Journal entry lines'
+    journal_entry_lines: 'Journal entry lines' #!
     journal_id: 'Journal'
-    journals: 'Journals'
+    journals: 'Journals' #!
     key: 'Key'
     label: 'Label'
-    land_parcels: 'Land parcels'
+    land_parcels: 'Land parcels' #!
     language: 'Language'
-    last_bank_statement: 'Last bank statement'
+    last_bank_statement: 'Last bank statement' #!
     last_cweek: 'Last cweek'
     last_letter: 'Last letter'
     last_month: 'Last month'
@@ -587,13 +587,13 @@ eng:
     line_4: 'Line 4'
     line_5: 'Line 5'
     line_6: 'Line 6'
-    line_6_city: 'Line 6 city'
-    line_6_code: 'Line 6 code'
-    lines: 'Lines'
-    listing: 'Listing'
-    listing_node_items: 'Listing node items'
-    listing_nodes: 'Listing nodes'
-    listings: 'Listings'
+    line_6_city: 'Line 6 city' #!
+    line_6_code: 'Line 6 code' #!
+    lines: 'Lines' #!
+    listing: 'Listing' #!
+    listing_node_items: 'Listing node items' #!
+    listing_nodes: 'Listing nodes' #!
+    listings: 'Listings' #!
     local_balance: 'Local balance'
     local_count: 'Local count'
     local_credit: 'Local credit'
@@ -605,8 +605,8 @@ eng:
     lost: 'Lost'
     luminance: 'Luminance'
     mail: 'Mail'
-    major_accounts: 'Major accounts'
-    mandates: 'Mandates'
+    major_accounts: 'Major accounts' #!
+    mandates: 'Mandates' #!
     min_duration: 'Min duration'
     mobile: 'Mobile'
     mode: 'Mode'
@@ -618,98 +618,98 @@ eng:
     nature: 'Type'
     nature_code: 'Type code'
     nature_id: 'Nature'
-    nature_label: 'Type label'
+    nature_label: 'Type label' #!
     net_weight: 'Net weight (kg)'
     nic: 'Nic'
-    node: 'Node'
-    nodes: 'Nodes'
+    node: 'Node' #!
+    nodes: 'Nodes' #!
     number: 'Number'
     number_increment: 'Number increment'
     number_start: 'Number start'
-    observations: 'Observations'
+    observations: 'Observations' #!
     office: 'Office'
-    old_password: 'Old password'
-    operation: 'Operation'
+    old_password: 'Old password' #!
+    operation: 'Operation' #!
     operation_id: 'Operation'
-    operation_lines: 'Operation lines'
-    operation_natures: 'Operation types'
-    operation_uses: 'Tool uses'
-    operations: 'Operations'
+    operation_lines: 'Operation lines' #!
+    operation_natures: 'Operation types' #!
+    operation_uses: 'Tool uses' #!
+    operations: 'Operations' #!
     organization: 'Organization'
     origin: 'Origin'
     origin_id: 'Origin'
     origin_type: 'Origin type'
     original_name: 'Original name'
-    outgoing_payment_modes: 'Disbursement modes'
-    outgoing_payment_uses: 'Disbursement parts'
-    outgoing_payments: 'Disbursements'
-    owner: 'Owner'
+    outgoing_payment_modes: 'Disbursement modes' #!
+    outgoing_payment_uses: 'Disbursement parts' #!
+    outgoing_payments: 'Disbursements' #!
+    owner: 'Owner' #!
     owner_type: 'Owner type'
     paid: 'Paid' #!
-    paid_account: 'Account paid'
+    paid_account: 'Account paid' #!
     paid_amount: 'Paid amount'
     paid_on: 'Paid on'
-    parent: 'Parent'
+    parent: 'Parent' #!
     parent_id: 'Parent'
-    password: 'Password'
-    password_confirmation: 'Confirmation of password'
-    payee: 'Payee'
-    payer: 'Payer'
-    payment: 'Payment'
-    payment_delay: 'Payment delay'
+    password: 'Password' #!
+    password_confirmation: 'Confirmation of password' #!
+    payee: 'Payee' #!
+    payer: 'Payer' #!
+    payment: 'Payment' #!
+    payment_delay: 'Payment delay' #!
     payment_delay_id: 'Payment delay'
     payment_id: 'Payment'
-    payment_mode: 'Payment mode'
+    payment_mode: 'Payment mode' #!
     payment_mode_complement: 'Payment mode complement'
     payment_mode_id: 'Payment mode'
     payment_on: 'Payment on'
-    payment_uses: 'Payment parts'
-    payment_way: 'Payment way'
-    payments: 'Payments'
+    payment_uses: 'Payment parts' #!
+    payment_way: 'Payment way' #!
+    payments: 'Payments' #!
     payments_count: 'Payments count'
-    payments_to_deposit: 'Payments to deposit'
-    payments_to_deposit_accounts: 'Payments to deposit accounts'
+    payments_to_deposit: 'Payments to deposit' #!
+    payments_to_deposit_accounts: 'Payments to deposit accounts' #!
     period: 'Period'
-    period_name: 'Period name'
+    period_name: 'Period name' #!
     phone: 'Phone'
     photo: 'Photo'
     physical: 'Physical'
     planned_on: 'Planned on'
     position: 'Position'
     postcode: 'Postcode'
-    preferences: 'Preferences'
+    preferences: 'Preferences' #!
     pretax_amount: 'Pre-tax amount'
     price: 'Price'
     price_amount: 'Price amount'
     price_id: 'Price'
-    prices: 'Prices'
+    prices: 'Prices' #!
     printed_at: 'Printed at'
     printed_on: 'Printed on'
-    producer: 'Producer'
-    product: 'Product'
-    product_categories: 'Product categories'
-    product_components: 'Product components'
+    producer: 'Producer' #!
+    product: 'Product' #!
+    product_categories: 'Product categories' #!
+    product_components: 'Product components' #!
     product_id: 'Product'
-    productable_products: 'Productable products'
+    productable_products: 'Productable products' #!
     production_chain_id: 'Production chain'
-    products: 'Products'
-    products_accounts: 'Products accounts'
-    profession: 'Profession'
-    professions: 'Professions'
+    products: 'Products' #!
+    products_accounts: 'Products accounts' #!
+    profession: 'Profession' #!
+    professions: 'Professions' #!
     propagate_contacts: 'Propagate contacts'
-    proposer: 'Proposer'
+    proposer: 'Proposer' #!
     prospect: 'Prospect'
     published: 'Published'
     purchase_id: 'Purchase'
-    purchase_line: 'Purchase line'
-    purchase_lines: 'Purchase order lines'
-    purchases: 'Purchase orders'
-    purchases_account: 'Purchases account'
+    purchase_line: 'Purchase line' #!
+    purchase_lines: 'Purchase order lines' #!
+    purchases: 'Purchase orders' #!
+    purchases_account: 'Purchases account' #!
     quantity: 'Quantity'
     quantity_max: 'Quantity max'
     quantity_min: 'Quantity min'
     query: 'Query'
-    range: 'Range'
+    range: 'Range' #!
     rate: 'Rate'
     reason: 'Reason'
     receipt: 'Receipt'
@@ -717,47 +717,47 @@ eng:
     receiver_amount: 'Received amount'
     receiver_currency_rate: 'Received currency rate'
     reconcilable: 'Reconcilable'
-    record_value: 'Record value'
+    record_value: 'Record value' #!
     record_value_type: 'Record value type'
     reductible: 'Reductible'
-    reduction: 'Reduction'
-    reduction_origin: 'Reduction origin'
+    reduction: 'Reduction' #!
+    reduction_origin: 'Reduction origin' #!
     reduction_percent: 'Reduction percent'
     reduction_rate: 'Reduction rate'
     reduction_submissive: 'Reduction submissive'
-    reductions: 'Reductions'
+    reductions: 'Reductions' #!
     reference_number: 'Reference number'
     reflation_submissive: 'Reflation submissive'
     relative_humidity: 'Relative humidity'
-    remaining_duration: 'Remaining duration'
+    remaining_duration: 'Remaining duration' #!
     required: 'Required'
     reservoir: 'Reservoir'
-    resource: 'Resource'
+    resource: 'Resource' #!
     resource_type: 'Resource type'
-    responsible: 'Responsible'
+    responsible: 'Responsible' #!
     responsible_id: 'Responsible'
     rights: 'Rights'
-    role: 'Role'
-    roles: 'Roles'
+    role: 'Role' #!
+    roles: 'Roles' #!
     rome: 'Rome'
     root_model: 'Root model'
-    root_model_name: 'Root model name'
-    sale: 'sale'
+    root_model_name: 'Root model name' #!
+    sale: 'sale' #!
     sale_id: 'Sale'
     sale_line_id: 'Sale line'
-    sale_lines: 'sale lines'
-    sale_natures: 'sale types'
-    sales: 'sales'
-    sales_account: 'Sales account'
+    sale_lines: 'sale lines' #!
+    sale_natures: 'sale types' #!
+    sales: 'sales' #!
+    sales_account: 'Sales account' #!
     sales_conditions: 'Sales conditions'
-    sales_invoices: 'Sales invoices'
+    sales_invoices: 'Sales invoices' #!
     salt: 'Salt'
     scheduled: 'Scheduled'
-    second_warehouse: 'Second warehouse'
-    self_bank_accounts: 'Self bank accounts'
-    self_cashes: 'Self cashes'
-    self_contacts: 'Self contacts'
-    sequences: 'Sequences'
+    second_warehouse: 'Second warehouse' #!
+    self_bank_accounts: 'Self bank accounts' #!
+    self_cashes: 'Self cashes' #!
+    self_contacts: 'Self contacts' #!
+    sequences: 'Sequences' #!
     serial: 'Serial'
     service_coeff: 'Service coeff'
     sha256: 'SHA256'
@@ -774,97 +774,97 @@ eng:
     started_on: 'Started on'
     started_sec: 'Started sec'
     state: 'State'
-    state_label: 'State'
-    stock: 'Stock'
+    state_label: 'State' #!
+    stock: 'Stock' #!
     stock_move_id: 'Stock move'
-    stock_moves: 'Stock moves'
-    stock_transfers: 'Stock transfers'
+    stock_moves: 'Stock moves' #!
+    stock_transfers: 'Stock transfers' #!
     stockable: 'Manage stocks'
-    stockable_products: 'Stockable products'
-    stocks: 'Stocks'
+    stockable_products: 'Stockable products' #!
+    stocks: 'Stocks' #!
     stopped_at: 'Stopped at'
     stopped_on: 'Stopped on'
     story: 'Story'
     string_value: 'String value'
     subdir: 'Subdir'
     subject: 'Subject'
-    subscription_nature: 'Subscription type'
-    subscription_natures: 'Subscription types'
+    subscription_nature: 'Subscription type' #!
+    subscription_natures: 'Subscription types' #!
     subscription_period: 'Subscription period'
     subscription_quantity: 'Subscription quantity'
-    subscriptions: 'Subscriptions'
+    subscriptions: 'Subscriptions' #!
     sum_method: 'Sum method'
     supplier: 'Supplier'
-    supplier_account: 'Supplier account'
-    supplier_accounts: 'Supplier accounts'
+    supplier_account: 'Supplier account' #!
+    supplier_accounts: 'Supplier accounts' #!
     supplier_id: 'Supplier'
-    suppliers: 'Suppliers'
-    surface_units: 'Surface units'
+    suppliers: 'Suppliers' #!
+    surface_units: 'Surface units' #!
     suspended: 'Suspended'
     symbol: 'Symbol'
     symmetric: 'Symmetric'
-    target: 'Target'
+    target: 'Target' #!
     target_id: 'Target'
     target_quantity: 'Target quantity'
     target_type: 'Target type'
-    tax: 'Tax'
-    tax_declarations: 'Tax declarations'
+    tax: 'Tax' #!
+    tax_declarations: 'Tax declarations' #!
     tax_id: 'Tax'
-    taxes: 'Taxes'
+    taxes: 'Taxes' #!
     temperature: 'Temperature'
-    template: 'Template'
-    text_importance: 'Text importance'
-    text_nature: 'Text type'
+    template: 'Template' #!
+    text_importance: 'Text importance' #!
+    text_nature: 'Text type' #!
     theoric_quantity: 'Theoric quantity'
     title: 'Title'
-    to: 'To'
+    to: 'To' #!
     to_archive: 'To archive'
     to_bank_on: 'To bank on'
-    tool: 'Tool'
+    tool: 'Tool' #!
     tool_id: 'Tool'
-    tools: 'Tools'
+    tools: 'Tools' #!
     tools_list: 'Tools list'
     total_weight: 'Total weight (kg)'
     trackable: 'Trackable'
-    tracking: 'Tracking'
+    tracking: 'Tracking' #!
     tracking_id: 'Tracking'
     tracking_serial: 'Tracking serial'
-    trackings: 'Trackings'
-    transfers: 'Transfers'
-    transport: 'Transport'
+    trackings: 'Trackings' #!
+    transfers: 'Transfers' #!
+    transport: 'Transport' #!
     transport_on: 'Transport on'
     transporter: 'Transporter'
     transporter_id: 'Transporter'
-    transporters: 'Transporters'
-    transports: 'Transports'
-    type: 'Type'
-    undelivered_quantity: 'Undelivered quantity'
+    transporters: 'Transporters' #!
+    transports: 'Transports' #!
+    type: 'Type' #!
+    undelivered_quantity: 'Undelivered quantity' #!
     unique_tracking: 'Unique tracking'
-    unit: 'Unit'
+    unit: 'Unit' #!
     unit_id: 'Unit'
     unit_quantity: 'Unit quantity'
-    units: 'Units'
+    units: 'Units' #!
     unquantifiable: 'Unquantifiable'
     updated_at: 'Updated at'
-    updater: 'Updater'
+    updater: 'Updater' #!
     updater_id: 'Updater'
-    usable_incoming_payments: 'Usable incoming payments'
-    usable_outgoing_payments: 'Usable disbursements'
+    usable_incoming_payments: 'Usable incoming payments' #!
+    usable_outgoing_payments: 'Usable disbursements' #!
     usage: 'Usage'
-    usage_duration: 'Usage duration'
+    usage_duration: 'Usage duration' #!
     use_range: 'Use range'
     used_amount: 'Used amount'
-    user: 'User'
-    users: 'Users'
-    uses: 'Uses'
+    user: 'User' #!
+    users: 'Users' #!
+    uses: 'Uses' #!
     value: 'Value'
     vat_number: 'Vat number'
     vat_submissive: 'Vat submissive'
     virtual: 'Virtual'
     virtual_quantity: 'Virtual quantity'
-    warehouse: 'Warehouse'
+    warehouse: 'Warehouse' #!
     warehouse_id: 'Warehouse'
-    warehouses: 'Warehouses'
+    warehouses: 'Warehouses' #!
     webpass: 'Webpass'
     website: 'Website'
     weight: 'Weight (kg)'

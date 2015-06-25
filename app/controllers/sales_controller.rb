@@ -18,8 +18,6 @@
 #
 
 class SalesController < ApplicationController
-  include ActionView::Helpers::NumberHelper
-
 
   # management -> sales_conditions
   def self.sales_conditions

@@ -20,8 +20,9 @@ module List
         options[:records_variable_name]  = "@#{name}"
         table = List::Table.new(name, model, options)
         yield table
-        class_eval(table.send(:generate_controller_method_code), __FILE__, __LINE__)
-        ActionView::Base.send(:class_eval, table.send(:generate_view_method_code), __FILE__, __LINE__)
+        # code.split("\n").each_with_index{|l,x| puts((x+1).to_s.rjust(4)+": "+l)}
+        class_eval(table.send(:generate_controller_method_code), "(list::controller #{self.controller_name}##{name})")
+        ActionView::Base.send(:class_eval, table.send(:generate_view_method_code), "(list::view #{self.controller_name}##{name})")
       end
 
     end
