@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <template title="Example" lang="fr" version="2.0">
-   <infos>
+  <infos>
     <info name="authors">Brice Texier</info>
   </infos>
   <parameters>
@@ -10,37 +10,37 @@
   <document unit="mm" size="10">
     <page orientation="portrait" format="A4" margin="10mm">
       <part height="30mm">
-	<set>
+        <set>
           <image value="{{company.entity/photo}}" height="30mm">
             <text value="{{company.entity/full_name}}" size="16"/>
           </image>
-	</set>
+        </set>
       </part>
       <part height="14mm">
-	<set>
-	  <text value="Grand livre" left="50%" align="center" width="150mm" bold="true" size="12"/>
-	  <text value="Du {{started_on?format=month_letter}} au {{stopped_on?format=month_letter}}" left="50%" align="center" width="150mm" top="7mm" size="12"/>
-	</set>
+        <set>
+          <text value="Grand livre" left="50%" align="center" width="150mm" bold="true" size="12"/>
+          <text value="Du {{started_on?format=month_letter}} au {{stopped_on?format=month_letter}}" left="50%" align="center" width="150mm" top="7mm" size="12"/>
+        </set>
       </part>
       
       <!-- Array of entries of the journal for the matching period -->
       <iteration variable="account" collection="company.accounts">
 
-	<part height="6mm">
-	  <set top="2mm">
-	    <text value="{{account/number}} : {{account/name}}" width="150mm" bold="true"/>
-	  </set>
-	</part>
-	<table collection="account.journal_entry_lines_between(started_on, stopped_on)" fixed="true" if="account.journal_entry_lines_between(started_on, stopped_on).size &gt; 0">
-	  <column label="Date" property="entry/printed_on" width="20mm"/>
-	  <column label="Numéro" property="entry/number" width="30mm" align="left"/>
-	  <column label="Libellé de l'écriture" property="name" width="100mm"/>
-	  <column label="Débit" property="debit" width="20mm" numeric="money"/>
-	  <column label="Crédit" property="credit" width="20mm" numeric="money"/>
-	</table>
-      
-	<!-- Sum -->
-	<part height="10mm" if="account.journal_entry_lines_between(started_on, stopped_on).size &gt; 0">
+        <part height="6mm">
+          <set top="2mm">
+            <text value="{{account/number}} : {{account/name}}" width="150mm" bold="true"/>
+          </set>
+        </part>
+        <table collection="account.journal_entry_lines_between(started_on, stopped_on)" fixed="true" if="account.journal_entry_lines_between(started_on, stopped_on).size &gt; 0">
+          <column label="Date" property="entry/printed_on" width="20mm"/>
+          <column label="Numéro" property="entry/number" width="30mm" align="left"/>
+          <column label="Libellé de l'écriture" property="name" width="100mm"/>
+          <column label="Débit" property="debit" width="20mm" numeric="money"/>
+          <column label="Crédit" property="credit" width="20mm" numeric="money"/>
+        </table>
+        
+        <!-- Sum -->
+        <part height="10mm" if="account.journal_entry_lines_between(started_on, stopped_on).size &gt; 0">
           <set left="130mm">
             <text value="Totaux" top="0.5mm" left="19mm" align="right" bold="true"/>
             <text value="{{account.journal_entry_lines_calculate(:debit, started_on, stopped_on)?numeric}}" top="0.5mm" left="39.5mm" align="right" bold="true"/>
@@ -52,9 +52,9 @@
             <line path="20mm,0 ; 20mm,8mm" border="0.5 solid #000"/>
             <line path="40mm,0 ; 40mm,4mm" border="0.5 solid #000"/>
           </set>
-	</part>
+        </part>
       </iteration>
-         
+      
     </page>
     
   </document>
