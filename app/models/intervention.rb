@@ -356,7 +356,6 @@ class Intervention < Ekylibre::Record::Base
         attrs[:started_at] ||= Time.now
         attrs[:stopped_at] ||= Time.now
         attrs[:natures] = natures.join(" ")
-        puts attrs.inspect.red
         recorder = Intervention::Recorder.new(attrs)
 
         yield recorder

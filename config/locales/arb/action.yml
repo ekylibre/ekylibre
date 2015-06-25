@@ -925,6 +925,7 @@ arb:
     # choice_options: "Choice options"
     choices: "خيارات"
     # choose_a_type_of_product: "Choose a type of product"
+    # choose_creation_mode: "Choose creation mode"
     choose_mail_column: "الرجاء اختيار العمود المستخدم للرسالة"
     city_name: "المدينة" #?
     click_to_mail: "اكتب الرسالة بالبريد الالكتروني الخاص بك"

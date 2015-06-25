@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 module Procedo
 
   FORMULA_TRUC = {

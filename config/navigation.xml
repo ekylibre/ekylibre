@@ -626,6 +626,10 @@
       <item name="animals">
         <page to="backend/animals#index"/>
         <page to="backend/animals#add_to_group"/>
+        <page to="backend/animals#add_to_container"/>
+        <page to="backend/animals#add_to_variant"/>
+        <page to="backend/animals#add_group"/>
+        <page to="backend/animals#load_production_supports"/>
         <page to="backend/animals#create"/>
         <page to="backend/animals#destroy"/>
         <page to="backend/animals#edit"/>
@@ -1612,6 +1616,9 @@
       <item name="map_cells">
         <page to="backend/cells/map_cells#show"/>
       </item>
+      <item name="stewardship_cells">
+        <page to="backend/cells/stewardship_cells#show"/>
+      </item>
       <item name="weather_cells">
         <page to="backend/cells/weather_cells#show"/>
       </item>
@@ -1741,16 +1748,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="animals">
-        <page to="backend/animals#add_group"/>
-        <page to="backend/animals#add_to_container"/>
-        <page to="backend/animals#add_to_variant"/>
-        <page to="backend/animals#load_production_supports"/>
-      </item>
-      <item name="stewardship_cells">
-        <page to="backend/cells/stewardship_cells#show"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </navigation>

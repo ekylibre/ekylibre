@@ -55,11 +55,9 @@ class Backend::AnimalsController < Backend::MattersController
   end
 
   list(conditions: animals_conditions, joins: :variants) do |t|
-    # t.action :show, url: {format: :pdf}, image: :print
-    t.action :new,     on: :none
     t.action :add_to_group, on: :both
-    t.action :add_to_variant, on: :both
-    t.action :add_to_container, on: :both
+    # t.action :add_to_variant, on: :both
+    # t.action :add_to_container, on: :both
     # t.action :new_issue,        on: :both, url: {action: :new, controller: :issues}
     # t.action :new_intervention, on: :both, url: {action: :new, controller: :interventions}
     t.action :edit

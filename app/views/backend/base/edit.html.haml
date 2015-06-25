@@ -3,5 +3,5 @@
     = hidden_field_tag(:redirect, params[:redirect])
   - f.add(:submit, :update.tl, data: {disable_with: :please_wait.tl}, class: 'primary')
   = f.fields
-  - f.add(:link, :cancel.tl, (params[:redirect] || {action: :index}), (params[:dialog] ? {class: 'btn', data: {close_dialog: params[:dialog]}} : {class: 'btn'}))
+  - f.add(:link, :cancel.tl, (params[:redirect] || local_assigns[:cancel_url] || {action: :index}), (params[:dialog] ? {class: 'btn', data: {close_dialog: params[:dialog]}} : {class: 'btn'}))
   = f.actions

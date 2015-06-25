@@ -1,6 +1,7 @@
 - main_toolbar do |t|
   - t.export do |e|
     - e.animal_list Time.now.to_s, @animals
+  - t.new data: {target: '#new-animal', toggle: 'modal'}, href: "#"
 
 = janus do |j|
   - j.face :list do
@@ -43,10 +44,9 @@
                 %button.btn.btn-link{type: 'button', data: { bind: 'click: $root.toggleNewContainerModal' }}
                   %i.icon.icon-plus.text-muted
               %ul.golumn-groups{data: { bind: "sortable: {template: 'golumn-group-template', data: $root.displayedContainers($data), connectClass: 'container-dropzone', allowDrop: false, options: {handle: '.golumn-group-handle', cursor: 'move', tolerance: 'pointer', placeholder: 'sorting-container-placeholder', dropOnEmpty: false, forcePlaceholderSize: true, revert: true, opacity: 1}}"}}
-            .golumn-column-footer
-              = link_to('#', data: {target: '#new-animal', toggle: 'modal'}) do
-                %i.icon.icon-plus
-                %span= :new_animal.tl
+            -# = link_to('#', data: {target: '#new-animal', toggle: 'modal'}, class: "golumn-column-footer") do
+              %i.icon.icon-plus
+              %span= "actions.backend/animals.new".t
 
         %script#golumn-group-template{type: 'text/html'}
           %li.golumn-group{data: {bind: "droppable: {data: $root.hoverdrop, options: {accept: '.golumn-item', tolerance: 'pointer'}}" }}
@@ -78,9 +78,12 @@
 
     = modal(:new_animal) do
       .modal-body
-        .btn-group-vertical
-          = link_to Purchase.model_name.human, new_backend_purchase_path, class: 'btn btn-default'
-          = link_to Animal.human_attribute_name(:birth), new_backend_animal_path, class: 'btn btn-default'
+        .placeholding-message= :choose_creation_mode.tl
+      .modal-footer
+        = link_to IncomingDelivery.model_name.human, new_backend_incoming_delivery_path, class: 'btn btn-default'
+        - Procedo.procedures_of_nature(:viviparous_birth).each do |procedure|
+          = link_to procedure.human_name, new_backend_intervention_path(reference_name: procedure.name), class: 'btn btn-default'
+        = link_to "actions.backend/animals.new".t, new_backend_animal_path, class: 'btn btn-default'
 
 
     = modal(:new_group, data: {bind: 'modal: showNewGroupModal(), with: newGroupModalOptions', backdrop: 'static', keyboard: false}, close_html: {data: {bind: 'click: $root.cancelNewGroup'}}) do

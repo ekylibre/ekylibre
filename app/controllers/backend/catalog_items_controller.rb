@@ -17,7 +17,7 @@
 #
 
 class Backend::CatalogItemsController < Backend::BaseController
-  manage_restfully except: [:index]
+  manage_restfully except: [:index], destroy_to: "{controller: :catalogs, action: :show, id: RECORD.catalog_id}".c
 
   unroll
 

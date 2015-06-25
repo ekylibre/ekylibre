@@ -8,7 +8,7 @@ module RestfullyManageable
     def manage_restfully(defaults = {})
       name = self.controller_name
       path = self.controller_path
-      options = defaults.extract!(:t3e, :redirect_to, :xhr, :destroy_to, :subclass_inheritance, :partial, :multipart, :except, :only)
+      options = defaults.extract!(:t3e, :redirect_to, :xhr, :destroy_to, :subclass_inheritance, :partial, :multipart, :except, :only, :cancel_url)
       after_save_url    = options[:redirect_to]
       after_destroy_url = options[:destroy_to] || :index
       actions  = [:index, :show, :new, :create, :edit, :update, :destroy]
@@ -22,7 +22,7 @@ module RestfullyManageable
       if after_save_url.blank?
         if instance_methods(true).include?(:show) or actions.include?(:show)
           after_save_url = :show
-        else
+        elsif instance_methods(true).include?(:index) or actions.include?(:index)
           after_save_url = :index
         end
       end
@@ -42,7 +42,15 @@ module RestfullyManageable
       render_form_options = []
       render_form_options << "partial: '#{options[:partial]}'" if options[:partial]
       render_form_options << "multipart: true" if options[:multipart]
+      if actions.include?(:index)
+        options[:cancel_url] ||= {action: :index}
+      else
+        options[:cancel_url] ||= :back
+      end
+      render_form_options << "locals: {cancel_url: #{options[:cancel_url].inspect}}"
       render_form = "render(" + render_form_options.join(", ") + ")"
+
+      after_save_url ||= options[:cancel_url].inspect
 
       t3e_code = "t3e(@#{record_name}.attributes"
       if t3e = options[:t3e]

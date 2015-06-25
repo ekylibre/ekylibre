@@ -778,6 +778,7 @@ fra:
     choice_options: "Indicateur avec liste de choix"
     choices: "Choix"
     choose_a_type_of_product: "Choisissez un type de produit"
+    choose_creation_mode: "Choisissez un mode de création"
     choose_mail_column: "Veuillez choisir la colonne à utiliser pour le mailing"
     city_name: "Ville" #?
     click_to_mail: "Écrire votre message avec votre propre messagerie électronique"

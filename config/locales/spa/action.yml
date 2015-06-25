@@ -717,6 +717,7 @@ spa:
     # choice_options: "Choice options"
     # choices: "Choices"
     # choose_a_type_of_product: "Choose a type of product"
+    # choose_creation_mode: "Choose creation mode"
     choose_mail_column: "Por favor escoge la columna a utilizar para el mailing"
     click_to_mail: "Escribe su mensaje con su propia mensajeria electronica"
     # client: "Client"
