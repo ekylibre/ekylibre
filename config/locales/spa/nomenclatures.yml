@@ -1417,7 +1417,7 @@ spa:
         # stocks: "Stocks"
         # tax_assessment: "Tax assessment"
         # trial_balance: "Trial balance"
-        # vat_taxe_registry: "Vat taxe registry"
+        # vat_registry: "VAT registry"
         # veterinary_booklet: "Veterinary booklet"
         # vine_phytosanitary_registry: "Vine phytosanitary registry"
         # wine_bottling_registry: "Wine bottling registry"

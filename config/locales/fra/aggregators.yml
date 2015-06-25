@@ -99,4 +99,4 @@ fra:
     wages: "Salaires"
     working_area: "Zone de travail"
   aggregators:
-    vat_taxe_registry: "Bilan de TVA"
+    vat_registry: "Bilan de TVA"

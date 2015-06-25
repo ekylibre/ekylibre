@@ -349,6 +349,6 @@ document_templates_020:
   lock_version: 0
   managed: true
   name: Registre de TVA
-  nature: vat_taxe_registry
+  nature: vat_registry
   updated_at: 2015-03-19 07:20:14.121990000 Z
   updater_id: 1

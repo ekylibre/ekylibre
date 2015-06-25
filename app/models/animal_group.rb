@@ -126,10 +126,10 @@ class AnimalGroup < ProductGroup
 
   def add_animals(animals, options = {})
     Intervention.write(:group_inclusion, options) do |i|
-      i.cast :group, self, as: 'group_inclusion-target'
+      i.cast :group, self, as: 'group_inclusion-includer'
       animals.each do |a|
         animal = (a.is_a?(Animal) ? a : Animal.find(a))
-        member = i.cast :member, animal, as: 'group_inclusion-includer'
+        member = i.cast :member, animal, as: 'group_inclusion-target'
         i.group_inclusion :group, member
       end
     end

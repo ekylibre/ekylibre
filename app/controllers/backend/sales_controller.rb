@@ -64,11 +64,8 @@ class Backend::SalesController < Backend::BaseController
   def index
     respond_to do |format|
       format.html
-      format.xml  { render :xml => @sales }
-      # format.pdf  { render_print_sales(params[:established_at]||Date.today) }
-      format.pdf  { render :pdf => @sales, :with => params[:template] }
-      # format.odt  { render_print_sales(params[:established_at]||Date.today) }
-      # format.docx { render_print_sales(params[:established_at]||Date.today) }
+      format.xml { render xml: @sales }
+      format.pdf { render pdf: @sales, with: params[:template] }
     end
   end
 
@@ -136,16 +133,16 @@ class Backend::SalesController < Backend::BaseController
   def show
     return unless @sale = find_and_check
     @sale.other_deals
-    respond_with(@sale, :methods => [:taxes_amount, :affair_closed, :client_number, :sales_conditions, :sales_mentions],
-                        :include => {:address => {:methods => [:mail_coordinate]},
-                                     :nature => {:include => {:payment_mode => {:include => :cash}}},
-                                     :supplier => {:methods => [:picture_path], :include => {:default_mail_address => {:methods => [:mail_coordinate]}, :websites => {}, :emails => {}, :mobiles => {}}},
-                                     :credits => {},
-                                     :affair => {:methods => [:balance], :include => [:incoming_payments => {:include => :mode}]},
-                                     :invoice_address => {:methods => [:mail_coordinate]},
-                                     :items => {:methods => [:taxes_amount, :tax_name, :tax_short_label], :include => [:variant]}
-                                     }
-                                     ) do |format|
+    respond_with(@sale, methods: [:taxes_amount, :affair_closed, :client_number, :sales_conditions, :sales_mentions],
+                 include: {:address => {methods: [:mail_coordinate]},
+                           :nature => {include: {:payment_mode => {include: :cash}}},
+                           :supplier => {methods: [:picture_path], include: {:default_mail_address => {methods: [:mail_coordinate]}, :websites => {}, :emails => {}, :mobiles => {}}},
+                           :credits => {},
+                           :affair => {methods: [:balance], include: [:incoming_payments => {include: :mode}]},
+                           :invoice_address => {methods: [:mail_coordinate]},
+                           :items => {methods: [:taxes_amount, :tax_name, :tax_short_label], include: [:variant]}
+                          }
+                ) do |format|
       format.html do
         t3e @sale.attributes, client: @sale.client.full_name, state: @sale.state_label, label: @sale.label
       end

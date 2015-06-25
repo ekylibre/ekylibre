@@ -1,6 +1,6 @@
 class MergeDocumentArchivesToDocuments < ActiveRecord::Migration
 
-  def id_partition id
+  def id_partition(id)
     ("%09d" % id.to_i).scan(/\d{3}/).join("/")
   end
 
@@ -52,7 +52,6 @@ class MergeDocumentArchivesToDocuments < ActiveRecord::Migration
 
             if File.directory?(doc_a_dir)
 
-
               doc_dir = doc_path.join(self.id_partition(doc_a[1]))
 
               unless File.directory?(doc_dir)
@@ -60,9 +59,7 @@ class MergeDocumentArchivesToDocuments < ActiveRecord::Migration
               end
 
               if File.directory?(doc_dir)
-
                 FileUtils.mv Dir.glob("#{doc_a_dir}/*"), doc_dir
-
               end
 
             end
@@ -107,7 +104,6 @@ class MergeDocumentArchivesToDocuments < ActiveRecord::Migration
         add_index "document_archives", ["updated_at"], name: "index_document_archives_on_updated_at", using: :btree
         add_index "document_archives", ["updater_id"], name: "index_document_archives_on_updater_id", using: :btree
 
-
         execute <<-SQL
           INSERT INTO document_archives
            (document_id, archived_at, template_id, file_file_name, file_file_size, file_content_type,
@@ -133,7 +129,6 @@ class MergeDocumentArchivesToDocuments < ActiveRecord::Migration
 
             if File.directory?(doc_dir)
 
-
               doc_a_dir = doc_a_path.join(self.id_partition(doc[0]))
 
               unless File.directory?(doc_a_dir)
@@ -141,9 +136,7 @@ class MergeDocumentArchivesToDocuments < ActiveRecord::Migration
               end
 
               if File.directory?(doc_a_dir)
-
                 FileUtils.mv Dir.glob("#{doc_dir}/*"), doc_a_dir
-
               end
 
             end

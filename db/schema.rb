@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150613103941) do
+ActiveRecord::Schema.define(version: 20150624224705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -591,7 +591,7 @@ ActiveRecord::Schema.define(version: 20150613103941) do
   add_index "documents", ["created_at"], name: "index_documents_on_created_at", using: :btree
   add_index "documents", ["creator_id"], name: "index_documents_on_creator_id", using: :btree
   add_index "documents", ["name"], name: "index_documents_on_name", using: :btree
-  add_index "documents", ["nature", "key"], name: "index_documents_on_nature_and_key", unique: true, using: :btree
+  add_index "documents", ["nature", "key"], name: "index_documents_on_nature_and_key", using: :btree
   add_index "documents", ["nature"], name: "index_documents_on_nature", using: :btree
   add_index "documents", ["number"], name: "index_documents_on_number", using: :btree
   add_index "documents", ["template_id"], name: "index_documents_on_template_id", using: :btree
@@ -1170,8 +1170,8 @@ ActiveRecord::Schema.define(version: 20150613103941) do
   add_index "intervention_casts", ["variant_id"], name: "index_intervention_casts_on_variant_id", using: :btree
 
   create_table "interventions", force: :cascade do |t|
-    t.integer  "ressource_id"
-    t.string   "ressource_type"
+    t.integer  "resource_id"
+    t.string   "resource_type"
     t.integer  "provisional_intervention_id"
     t.integer  "production_support_id"
     t.boolean  "provisional",                 default: false, null: false
@@ -1206,7 +1206,7 @@ ActiveRecord::Schema.define(version: 20150613103941) do
   add_index "interventions", ["provisional_intervention_id"], name: "index_interventions_on_provisional_intervention_id", using: :btree
   add_index "interventions", ["recommender_id"], name: "index_interventions_on_recommender_id", using: :btree
   add_index "interventions", ["reference_name"], name: "index_interventions_on_reference_name", using: :btree
-  add_index "interventions", ["ressource_type", "ressource_id"], name: "index_interventions_on_ressource_type_and_ressource_id", using: :btree
+  add_index "interventions", ["resource_type", "resource_id"], name: "index_interventions_on_resource_type_and_resource_id", using: :btree
   add_index "interventions", ["started_at"], name: "index_interventions_on_started_at", using: :btree
   add_index "interventions", ["stopped_at"], name: "index_interventions_on_stopped_at", using: :btree
   add_index "interventions", ["updated_at"], name: "index_interventions_on_updated_at", using: :btree
@@ -2810,18 +2810,17 @@ ActiveRecord::Schema.define(version: 20150613103941) do
   add_index "taxes", ["updater_id"], name: "index_taxes_on_updater_id", using: :btree
 
   create_table "teams", force: :cascade do |t|
-    t.string   "name",                         null: false
+    t.string   "name",                     null: false
     t.text     "description"
     t.integer  "parent_id"
-    t.text     "sales_conditions"
     t.integer  "lft"
     t.integer  "rgt"
-    t.integer  "depth",            default: 0, null: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.integer  "depth",        default: 0, null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",     default: 0, null: false
+    t.integer  "lock_version", default: 0, null: false
   end
 
   add_index "teams", ["created_at"], name: "index_teams_on_created_at", using: :btree

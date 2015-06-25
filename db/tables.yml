@@ -2280,10 +2280,10 @@ interventions:
   reference_name:
     type: string
     required: true
-  ressource_id:
+  resource_id:
     type: integer
-    references: "~ressource_type"
-  ressource_type:
+    references: "~resource_type"
+  resource_type:
     type: string
   started_at:
     type: datetime
@@ -5393,8 +5393,6 @@ teams:
     references: team
   rgt:
     type: integer
-  sales_conditions:
-    type: text
   updated_at:
     type: datetime
     required: true

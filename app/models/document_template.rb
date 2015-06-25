@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # = Informations
 #
 # == License
@@ -206,22 +205,31 @@ class DocumentTemplate < Ekylibre::Record::Base
 
   # Archive the document using the given archiving method
   def document(data_or_path, key, format, options = {})
-
     document = nil
+    return document if self.archiving_none? or self.archiving_none_of_template?
 
-    unless self.archiving_none? or self.archiving_none_of_template?
-      unless document = Document.find_by(nature: self.nature, key: key)
-          # Adds the new archive if expected
-          if (self.archiving_first? and document.where("template_id IS NOT NULL").empty?) or
-              (self.archiving_first_of_template? and document.where(template_id: self.id).empty?) or
-              self.archiving.to_s =~ /^(last|all)(\_of\_template)?$/
+    # Gets historic of document
+    documents = Document.where(nature: self.nature, key: key).where("template_id IS NOT NULL")
 
-            # Create document if not exist
-            document = Document.create!(nature: self.nature, key: key, name: (options[:name] || tc('document_name', nature: self.nature.l, key: key)), file: File.open(data_or_path), template_id: self.id) # }, :without_protection => true)
+    # Checks if archiving is expected
+    return document unless (self.archiving_first? and documents.empty?) or
+      (self.archiving_first_of_template? and documents.where(template_id: self.id).empty?) or
+      self.archiving.to_s =~ /^(last|all)(\_of\_template)?$/
 
-          end
-      end
+    # Lists last documents to remove after archiving
+    removables = []
+    if self.archiving_last?
+      removables = documents.pluck(:id)
+    elsif self.archiving_last_of_template?
+      removables = documents.where(template_id: self.id).pluck(:id)
     end
+
+    # Creates document if not exist
+    document = Document.create!(nature: self.nature, key: key, name: (options[:name] || tc('document_name', nature: self.nature.l, key: key)), file: File.open(data_or_path), template_id: self.id)
+
+    # Removes useless docs
+    Document.destroy removables
+
     return document
   end
 

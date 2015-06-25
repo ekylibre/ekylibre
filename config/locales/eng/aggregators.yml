@@ -212,7 +212,7 @@ eng:
     #~ products_sheet: "Products sheet"
     #~ income_statement: "Profit and loss statement"
     #~ provisional_manure_management_plan: "Provisional manure management plan"
-    vat_taxe_registry: "Vat tax registry"
+    vat_registry: "Vat tax registry"
     #~ veterinary_booklet: "Veterinary booklet"
     #~ vine_phytosanitary_registry: "Vine phytosanitary registry"
     #~ wine_bottling_registry: "Wine bottling registry"

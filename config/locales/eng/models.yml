@@ -910,8 +910,6 @@ eng:
     resource: "Resource"
     resource_type: "Resource type"
     responsible: "Responsible"
-    ressource: "Ressource"
-    ressource_type: "Ressource type"
     restricted: "Restricted"
     revenues: "Revenues"
     rgt: "Right"

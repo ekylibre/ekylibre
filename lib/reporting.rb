@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Adds new renderers for the internal template system
 # Adds renderers for all formats
 for format in Ekylibre::Reporting.formats
@@ -19,9 +18,6 @@ for format in Ekylibre::Reporting.formats
   code << "  self.headers['Pragma'] = 'no-cache'\n"
   code << "  filename = options.delete(:filename) || (options[:name] ? (options[:name] + '.#{format}') : 'report.#{format}')\n"
   code << "  key = options.delete(:key)\n"
-  # Print & send data
-  # code << "  data = template.print(object.to_xml(options), key, :#{format}, options)\n"
-  # code << "  send_data(data, :filename => filename, :type => Mime::#{format.to_s.upcase}, :disposition => 'inline')\n"
   # Export & send file
   code << "  path = template.export(object.to_xml(options), key, :#{format}, options)\n"
   code << "  send_file(path, filename: filename, type: Mime::#{format.to_s.upcase}, disposition: 'inline')\n"

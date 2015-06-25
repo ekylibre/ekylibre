@@ -1825,8 +1825,6 @@ arb:
     resource_type: "نوع المصدر"
     responsible: "المسؤول"
     responsible_id: "المسؤول" #?
-    # ressource: "Ressource"
-    # ressource_type: "Ressource type"
     # restricted: "Restricted"
     # revenues: "Revenues"
     # rgt: "Right"

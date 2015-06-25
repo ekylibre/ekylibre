@@ -48,7 +48,7 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
   has_one :product_ownership, as: :originator, dependent: :destroy
   has_one :recipient, through: :delivery
   has_one :variant, through: :product
-  has_many :interventions, class_name: "Intervention", :as => :ressource
+  has_many :interventions, class_name: "Intervention", :as => :resource
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :net_mass, :population, allow_nil: true
   validates_presence_of :delivery, :product
