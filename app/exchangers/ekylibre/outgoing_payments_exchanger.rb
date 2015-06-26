@@ -3,45 +3,41 @@ class Ekylibre::OutgoingPaymentsExchanger < ActiveExchanger::Base
   def import
     rows = CSV.read(file, headers: true).delete_if{|r| r[0].blank?}
     w.count = rows.size
+    now = Time.now
 
-    # find an responsible
+    # find a responsible
     responsible = User.employees.first
 
-    rows.each do |row|
+    rows.each_with_index do |row, index|
+      line_index = index + 2
       next if row[2].blank?
       r = {
-        document_reference_number: (row[0].blank? ? nil : row[0].to_s),
-        outgoing_payment_mode_name: (row[1].blank? ? nil : row[1].to_s),
-        amount: (row[2].blank? ? nil : row[2].gsub(",", ".").to_d),
-        paid_on: (row[3].blank? ? nil : Date.parse(row[3]))
+        invoiced_at:        (row[0].blank? ? nil : Date.parse(row[0].to_s)),
+        supplier_full_name: (row[1].blank? ? nil : row[1]),
+        reference_number:   (row[2].blank? ? nil : row[2].upcase),
+        outgoing_payment_mode_name: (row[3].blank? ? nil : row[3].to_s),
+        amount: (row[4].blank? ? nil : row[4].gsub(",", ".").to_d),
+        paid_on: (row[5].blank? ? nil : Date.parse(row[5].to_s)),
+        # Extra infos
+        document_reference_number: "#{Date.parse(row[0].to_s).to_s}_#{row[1]}_#{row[2].upcase}".gsub(" ", "-"),
+        description: now.l
       }.to_struct
-
-      # get information from document_reference_number
-      # first part = purchase_invoiced_at
-      # second part = entity_full_name (replace - by space)
-      # third part = purchase_reference_number
-      if r.document_reference_number
-        arr = r.document_reference_number.strip.downcase.split('_')
-        purchase_invoiced_at = arr[0].to_datetime
-        entity_full_name = arr[1].to_s.gsub("-", " ")
-        purchase_reference_number = arr[2].to_s.upcase
-      end
 
       # set paid_at
       if r.paid_on
         paid_at = r.paid_on.to_datetime
-      elsif purchase_invoiced_at
-        paid_at = purchase_invoiced_at
+      elsif r.invoiced_at
+        paid_at = r.invoiced_at
       end
 
       # find an outgoing payment mode
-      if r.outgoing_payment_mode_name
-        op_mode = OutgoingPaymentMode.where(name: r.outgoing_payment_mode_name).first
+      unless op_mode = OutgoingPaymentMode.where(name: r.outgoing_payment_mode_name).first
+        raise "Cannot find outgoing payment mode #{r.outgoing_payment_mode_name} at line #{line_index}"
       end
 
       # find an entity
-      if entity_full_name
-        entity = Entity.where("full_name ILIKE ?", entity_full_name).first
+      unless entity = Entity.where("full_name ILIKE ?", r.supplier_full_name).first || entity = Entity.where("last_name ILIKE ?", r.supplier_full_name).first
+        raise "Cannot find supplier #{r.supplier_full_name} at line #{line_index}"
       end
 
       # find or create an outgoing payment
@@ -58,9 +54,9 @@ class Ekylibre::OutgoingPaymentsExchanger < ActiveExchanger::Base
       end
 
       # find an affair througt purchase and link affair and payment
-      if purchase_reference_number and entity and outgoing_payment
+      if r.reference_number and entity and outgoing_payment
         # see if purchase exist anyway
-        if purchase = Purchase.where(supplier_id: entity.id, invoiced_at: purchase_invoiced_at, reference_number: purchase_reference_number).first
+        if purchase = Purchase.where(supplier_id: entity.id, invoiced_at: r.invoiced_at, reference_number: r.reference_number).first
           if purchase.affair
             purchase.affair.attach(outgoing_payment)
           end

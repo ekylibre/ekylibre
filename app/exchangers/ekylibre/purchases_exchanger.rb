@@ -12,7 +12,7 @@ class Ekylibre::PurchasesExchanger < ActiveExchanger::Base
       line_index = index + 2
 
       r = {
-        invoiced_at:        (row[0].blank? ? nil : Date.civil(*row[0].split("-").map(&:to_i))),
+        invoiced_at:        (row[0].blank? ? nil : Date.parse(row[0].to_s)),
         supplier_full_name: (row[1].blank? ? nil : row[1]),
         reference_number:   (row[2].blank? ? nil : row[2].upcase),
         variant_code:       (row[3].blank? ? nil : row[3]),
@@ -32,7 +32,7 @@ class Ekylibre::PurchasesExchanger < ActiveExchanger::Base
         },
 
         # Extra infos
-        document_reference_number: "#{row[0]}_#{row[1]}_#{row[2]}".gsub(" ", "-"),
+        document_reference_number: "#{Date.parse(row[0].to_s).to_s}_#{row[1]}_#{row[2]}".gsub(" ", "-"),
         description: now.l
       }.to_struct
 
@@ -72,6 +72,7 @@ class Ekylibre::PurchasesExchanger < ActiveExchanger::Base
             category = ProductNatureCategory.create!(attrs.merge(active: true, pictogram: :undefined))
           end
           attrs[:variety]  = r.variant[:variety] || :product
+          puts r.variant[:variety].inspect.red
           unless nature = category.natures.first
             nature = category.natures.create!(name: attrs[:name], variety: attrs[:variety])
           end
