@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.2'
+gem 'rails', '4.2.3'
 
 # Database adapters
 gem 'pg' # Needed for some tasks
@@ -85,8 +85,8 @@ gem 'devise'
 gem 'devise-i18n-views'
 
 # Attachments
-gem 'paperclip', '4.2.0'
-gem 'paperclip-document', '>= 0.0.8'
+gem 'paperclip'
+gem 'paperclip-document', '> 0.0.8'
 
 # Forms
 gem 'simple_form', '~> 3.1.0'

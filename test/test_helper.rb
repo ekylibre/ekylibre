@@ -498,23 +498,20 @@ Capybara.javascript_driver = Capybara.default_driver
 # Capybara.server_port = 3333
 
 
+Capybara::Webkit.configure do |config|
+  config.allow_url 'a.tile.openstreetmap.fr'
+  config.allow_url 'b.tile.openstreetmap.fr'
+  config.allow_url 'c.tile.openstreetmap.fr'
+  config.allow_url 'server.arcgisonline.com'
+  config.allow_url 'secure.gravatar.com'
+end
+
+
 class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
   # include Capybara::Screenshot
   include Warden::Test::Helpers
   Warden.test_mode!
-
-
-  setup do
-    if page and page.driver and page.driver.respond_to? :allow_url
-      page.driver.allow_url 'a.tile.openstreetmap.fr'
-      page.driver.allow_url 'b.tile.openstreetmap.fr'
-      page.driver.allow_url 'c.tile.openstreetmap.fr'
-      page.driver.allow_url 'server.arcgisonline.com'
-      page.driver.allow_url 'secure.gravatar.com'
-    end
-  end
-  # fixtures :all
 
   def wait_for_ajax
     sleep(Capybara.default_wait_time * 0.5)

@@ -1,18 +1,17 @@
-- if @document.file.exists?
-  .picture
-    = link_to(backend_document_url(@document, format: :pdf)) do
-      = image_tag(backend_document_path(@document, format: :jpg))
-    .archived-at= @document.created_at.l
-    - if @document.template
-      .template-name= link_to(@document.template_name, backend_document_template_path(@document.template))
+= main_informations do
+  - if @document.file.exists?
+    .picture
+      = link_to(backend_document_url(@document, format: :pdf)) do
+        = image_tag(backend_document_path(@document, format: :jpg))
+      .archived-at= @document.created_at.l
+      - if @document.template
+        .template-name= link_to(@document.template_name, backend_document_template_path(@document.template))
 
-.panel
-  .panel-body
-    = attributes_list do |l|
-      - l.attribute :nature
-      - l.attribute :number
-      - l.attribute :key
-      -# l.attribute :file_pages_count
-      -# l.attribute :file_fingerprint
-      -# l.attribute :file_content_text
-      - l.custom_fields
+  = attributes_list do |l|
+    - l.attribute :nature
+    - l.attribute :number
+    - l.attribute :key
+    -# l.attribute :file_pages_count
+    -# l.attribute :file_fingerprint
+    -# l.attribute :file_content_text
+    - l.custom_fields
