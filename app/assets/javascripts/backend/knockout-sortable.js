@@ -306,7 +306,6 @@
                             var containerEl = ui.item.closest('.golumn-group')[0];
                             var animals = [];
                             var containerItem;
-
                             if(containerEl != undefined)
                             {
 
@@ -316,7 +315,7 @@
 
                                 if(ui.item.data('items'))
                                 {
-                                    ui.item.data('items', el);
+                                   el = ui.item.data('items');
                                 }
                                 else
                                 {
@@ -324,7 +323,6 @@
                                 }
 
                                 ko.utils.arrayForEach(el, function(item) {
-
                                     if((observableItem = dataGet(item, ITEMKEY)) != null)
                                     {
 
