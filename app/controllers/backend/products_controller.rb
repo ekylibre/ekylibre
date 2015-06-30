@@ -28,8 +28,22 @@ class Backend::ProductsController < Backend::BaseController
 
   unroll :name, :number, :work_number, "population:!", "unit_name:!"
 
-  list(conditions: search_conditions(products: [:name, :number], product_nature_variants: [:name])) do |t|
-    # t.action :show, url: {format: :pdf}, image: :print
+  # params:
+  #   :q Text search
+  #   :working_set
+  def self.working_set_conditions
+    code = search_conditions(products: [:name, :number], product_nature_variants: [:name]) + " ||= []\n"
+    code << "unless params[:working_set].blank?\n"
+    code << "  item = Nomen::WorkingSets.find(params[:working_set])\n"
+    code << "  puts item.expression.red\n"
+    code << "  c[0] << \" AND products.nature_id IN (SELECT id FROM product_natures WHERE \#{WorkingSet.to_sql(item.expression)})\"\n"
+    code << "end\n"
+    code << "c\n"
+    return code.c
+  end
+
+
+  list(conditions: working_set_conditions) do |t|
     t.action :edit
     t.action :destroy, if: :destroyable?
     t.column :number, url: true
