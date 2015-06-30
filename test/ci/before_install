@@ -4,10 +4,11 @@ echo ""
 echo "--------------------------------------------------------------------------------"
 echo "Configure PPA:"
 sudo apt-get install python-software-properties
-echo "yes" | sudo apt-add-repository ppa:sharpie/for-science
-echo "yes" | sudo apt-add-repository ppa:sharpie/postgis-stable
-echo "yes" | sudo apt-add-repository ppa:ubuntugis/ubuntugis-unstable
-sudo apt-get update
+sudo apt-add-repository --yes ppa:sharpie/for-science
+sudo apt-add-repository --yes ppa:sharpie/postgis-stable
+sudo apt-add-repository --yes ppa:ubuntugis/ubuntugis-unstable
+sudo apt-add-repository --yes ppa:ubuntu-sdk-team/ppa
+sudo apt-get update -qq
 
 echo ""
 echo "--------------------------------------------------------------------------------"
@@ -17,4 +18,4 @@ sudo apt-cache search postgis
 echo ""
 echo "--------------------------------------------------------------------------------"
 echo "Install packages:"
-sudo apt-get install -qq libgeos-dev libgeos++-dev libproj-dev postgresql-9.3-postgis-2.1 graphicsmagick tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data ghostscript
+sudo apt-get install -qq libgeos-dev libgeos++-dev libproj-dev postgresql-9.3-postgis-2.1 graphicsmagick tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data ghostscript libqt5webkit5-dev
