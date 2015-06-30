@@ -44,7 +44,7 @@ class Intervention
       else
         raise "Invalid action type: #{type}"
       end
-      @steps << Intervention::Recorder::Task.new(self, type, parameters, options)
+      @steps << ::Intervention::Recorder::Task.new(self, type, parameters, options)
     end
 
 
