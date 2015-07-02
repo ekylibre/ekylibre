@@ -299,7 +299,7 @@
 
         @showMoveAnimalModal false
 
-        @resetAnimalsMoving
+        @resetAnimalsMoving()
 
       @resetAnimalsMoving = () =>
         @moveAnimalModalOptions.animals.removeAll()
@@ -312,6 +312,9 @@
         @moveAnimalModalOptions.group undefined
         @moveAnimalModalOptions.alert false
         @moveAnimalModalOptions.checkNature false
+        @production_support_list.removeAll()
+        @workers_list.removeAll()
+        @natures_list.removeAll()
 
       @cancelContainerAdding = () =>
         @resetContainerAdding()
