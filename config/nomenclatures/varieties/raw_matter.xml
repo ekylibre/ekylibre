@@ -57,6 +57,7 @@
       <item name="grain" derivative_of="plant"/>
       <item name="walnut" derivative_of="juglans"/>
       <item name="hazelnut" derivative_of="corylus"/>
+      <item name="peanut" derivative_of="arachis"/>
     </items>
   </nomenclature>
 
