@@ -669,6 +669,15 @@
             variable_indicators="population, water_content_rate, impurity_concentration"
             frozen_indicators="net_mass"
             />
+      <item name="peanut"
+            category="fruit"
+            variety="peanut"
+            derivative_of="arachis"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population, water_content_rate, impurity_concentration"
+            frozen_indicators="net_mass"
+            />
       <!-- ANIMAL PROCESSED PRODUCT -->
       <item name="processed_meat"
             category="processed_meat"

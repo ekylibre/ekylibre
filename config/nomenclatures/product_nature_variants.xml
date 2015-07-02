@@ -648,6 +648,12 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
+      <item name="peanut_crop"
+            nature="crop"
+            variety="arachis"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
       <!-- TREE CROP -->
       <item name="plum_crop"
             nature="fruit_crop"
@@ -1118,6 +1124,12 @@
             derivative_of="triticum"
             unit_name="small_rectangular_bale"
             frozen_indicators_values="net_mass: 12.50kilogram, net_volume: 0.16cubic_meter"
+            />
+      <item name="peanut"
+            nature="peanut"
+            derivative_of="arachis"
+            unit_name="kilogram"
+            frozen_indicators_values="net_mass: 1.00kilogram"
             />
       <!-- TRANSFORM PRODUCT -->
       <!-- ANIMAL BASED -->
