@@ -198,7 +198,7 @@ class Backend::AnimalsController < Backend::MattersController
         ag = i.cast :herd, Product.find_by(id: params[:group_id]), role: ['animal_group_changing-target'], position: 3
       end
       if procedure_natures.include?(:animal_evolution)
-        av = i.cast :new_animal_variant, ProductNatureVariant.find_by(id: params[:variant_id]), role: ['animal_evolution-variant'], position: 4
+        av = i.cast :new_animal_variant, ProductNatureVariant.find_by(id: params[:variant_id]), role: ['animal_evolution-variant'], position: 4, variant: true
       end
       animals.each_with_index do |a, index|
         ac = i.cast :animal, a, role: ['animal_moving-input', 'animal_group_changing-input','animal_evolution-target'], position: index + 5
