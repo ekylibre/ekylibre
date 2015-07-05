@@ -16,7 +16,7 @@ class CharentesAlliance::IncomingDeliveriesExchanger < ActiveExchanger::Base
       variants_transcode[row[0]] = row[1].to_sym
     end
 
-    cooperative = Entity.find_by_last_name("CHARENTES ALLIANCE")
+    cooperative = Entity.find_by_last_name("CHARENTES ALLIANCE") || Entity.find_by_last_name("Charentes Alliance")
 
     # map sub_family to product_nature_variant XML Nomenclature
 
@@ -38,6 +38,7 @@ class CharentesAlliance::IncomingDeliveriesExchanger < ActiveExchanger::Base
                          :product_nature_name => (variants_transcode[row[3].to_s] || "small_equipment"),
                          :matter_name => row[4],
                          :coop_variant_reference_name => "coop:" + row[4].downcase.gsub(/[\W\_]+/, '_'),
+                         :coop_reference_name => row[4].to_s,
                          :quantity => (row[5].blank? ? nil : row[5].to_d),
                          :product_deliver_quantity => (row[6].blank? ? nil : row[6].to_d),
                          :product_unit_price => (row[7].blank? ? nil : row[7].to_d),
@@ -48,12 +49,15 @@ class CharentesAlliance::IncomingDeliveriesExchanger < ActiveExchanger::Base
         order   = IncomingDelivery.find_by_reference_number(r.order_number)
         order ||= IncomingDelivery.create!(reference_number: r.order_number, received_at: r.ordered_on, sender: cooperative, address: Entity.of_company.default_mail_address, mode: :ex_works)
         # find a product_nature_variant by mapping current name of matter in coop file in coop reference_name
-        unless product_nature_variant = ProductNatureVariant.find_by_reference_name(r.coop_variant_reference_name)
+        unless product_nature_variant = ProductNatureVariant.find_by_number(r.coop_reference_name)
           if Nomen::ProductNatureVariants.find(r.coop_variant_reference_name)
             product_nature_variant ||= ProductNatureVariant.import_from_nomenclature(r.coop_variant_reference_name)
-          end
-          # find a product_nature_variant by mapping current sub_family of matter in coop file in Ekylibre reference_name
-          product_nature_variant ||= ProductNatureVariant.import_from_nomenclature(r.product_nature_name)
+          else
+            # find a product_nature_variant by mapping current sub_family of matter in coop file in Ekylibre reference_name
+            product_nature_variant ||= ProductNatureVariant.import_from_nomenclature(r.product_nature_name)
+          end  
+          product_nature_variant.number = r.coop_reference_name if r.coop_reference_name
+          product_nature_variant.save!
         end
         # find a price from current supplier for a consider variant
         # @ TODO waiting for a product price capitalization method
