@@ -2311,6 +2311,7 @@ eng:
         pig_band: "Pig band"
         plant: "Plant"
         plant_medicine: "Plant medicine"
+        processed_grain: "Processed grain"
         processed_meat: "Processed meat"
         processed_milk: "Processed milk"
         professional_subscription: "Professional subscription"
@@ -2455,6 +2456,8 @@ eng:
         bos_vial: "Bos vial"
         bottle_75cl_wine: "Bottle 75cl wine"
         brassicaceae_fungicide: "Brassicaceae fungicide"
+        buckwheat_crop: "Buckwheat crop"
+        buckwheat_grain: "Buckwheat grain"
         building: "Building"
         building_division: "Building division"
         building_insurance: "Building insurance"
@@ -2676,6 +2679,7 @@ eng:
         fig_seedling: "Fig seedling"
         fiscal_fine: "Fiscal fine"
         flax_crop: "Flax crop"
+        flour: "Flour"
         food_equipment_division: "Food equipment division"
         food_show: "Food show"
         food_tank: "Food tank"
@@ -2767,6 +2771,7 @@ eng:
         leek_crop: "Leek crop"
         legal_registration: "Legal registration"
         lentil_crop: "Lentil crop"
+        lentil_grain: "Lentil grain"
         lettuce_crop: "Lettuce crop"
         lewis_hazelnut: "Lewis hazelnut"
         liquid_10_25_d1.4: "Liquid 10 25 d1.4"
@@ -2940,6 +2945,8 @@ eng:
         sorghum_seed_25: "Sorghum seed 25"
         sower: "Sower"
         soy_crop: "Soy crop"
+        soy_grain: "Soy grain"
+        spelt_grain: "Spelt grain"
         spelt_seed_25: "Spelt seed 25"
         spelt_wheat_crop: "Spelt wheat crop"
         sprayer: "Sprayer"
@@ -2971,6 +2978,7 @@ eng:
         tractor: "Tractor"
         trailer: "Trailer"
         triticale_crop: "Triticale crop"
+        triticale_grain: "Triticale grain"
         truck: "Truck"
         urban_compost: "Urban compost"
         various_loan_interest: "Various loan interest"
@@ -3203,6 +3211,7 @@ eng:
         preparation_division: "Preparation division"
         process_food: "Process food"
         processed_beef_meat: "Processed beef meat"
+        processed_grain: "Processed grain"
         processed_lamb_meat: "Processed lamb meat"
         processed_meat: "Processed meat"
         processed_pork_meat: "Processed pork meat"
@@ -4048,6 +4057,8 @@ eng:
         excrement: "Excrement"                             #< raw_matter
         fabaceae: "Fabaceae"                               #< plant
         fagaceae: "Fagaceae"                               #< plant
+        fagopyrum: "Fagopyrum"                             #< polygonaceae
+        fagopyrum_esculentum: "Fagopyrum esculentum"       #< fagopyrum
         fagus: "Beech"                                     #< fagaceae
         felidae: "Felidae"                                 #< mammalia
         fermented_juice: "Fermented juice"                 #< preparation
@@ -4283,10 +4294,12 @@ eng:
         poa: "Poa"                                         #< poaceae
         poaceae: "Poaceae"                                 #< plant
         pollen: "Pollen"                                   #< raw_matter
+        polygonaceae: "Polygonaceae"                       #< plant
         pomace: "Pomace"                                   #< preparation
         potassium_ferrocyanide: "Potassium ferrocyanide"   #< raw_matter
         preparation: "Preparation"                         #< matter
         press: "Press"                                     #< equipment
+        processed_grain: "Processed grain"                 #< preparation
         processed_meat: "Processed meat"                   #< preparation
         product: "Product"
         product_group: "Product group"                     #< product

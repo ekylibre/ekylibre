@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-polygonaceae" hierarchical="true">
+    <items>
+      <item name="fagopyrum" itis_tsn="21281"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-fagopyrum" hierarchical="true">
+    <items>
+      <item name="fagopyrum_esculentum" itis_tsn="502589"/>
+    </items>
+  </nomenclature>
+
+
+</nomenclatures>

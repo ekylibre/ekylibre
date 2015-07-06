@@ -428,6 +428,18 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
+       <item name="spelt_wheat_crop"
+            nature="cereal_crop"
+            variety="triticum_spelta"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+       <item name="buckwheat_crop"
+            nature="cereal_crop"
+            variety="fagopyrum_esculentum"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
       <!-- CORN CROP -->
       <item name="corn_crop"
             nature="cereal_crop"
@@ -450,12 +462,6 @@
       <item name="corn_seed_crop"
             nature="crop"
             variety="zea"
-            unit_name="hectare"
-            frozen_indicators_values="net_surface_area: 1.00hectare"
-            />
-      <item name="spelt_wheat_crop"
-            nature="cereal_crop"
-            variety="triticum_spelta"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
@@ -917,6 +923,12 @@
             unit_name="ton"
             frozen_indicators_values="net_mass: 1.00ton"
             />
+      <item name="triticale_grain"
+            nature="grain"
+            derivative_of="triticosecale"
+            unit_name="ton"
+            frozen_indicators_values="net_mass: 1.00ton"
+            />
       <item name="corn_grain"
             nature="grain"
             derivative_of="zea"
@@ -941,6 +953,18 @@
             unit_name="ton"
             frozen_indicators_values="net_mass: 1.00ton"
             />
+      <item name="spelt_grain"
+            nature="grain"
+            derivative_of="triticum_spelta"
+            unit_name="ton"
+            frozen_indicators_values="net_mass: 1.00ton"
+            />
+      <item name="buckwheat_grain"
+            nature="grain"
+            derivative_of="fagopyrum_esculentum"
+            unit_name="ton"
+            frozen_indicators_values="net_mass: 1.00ton"
+            />
       <item name="sunflower_grain"
             nature="grain"
             derivative_of="helianthus"
@@ -956,6 +980,18 @@
       <item name="oilrape_grain"
             nature="grain"
             derivative_of="brassica_napus"
+            unit_name="ton"
+            frozen_indicators_values="net_mass: 1.00ton"
+            />
+     <item name="soy_grain"
+            nature="grain"
+            derivative_of="glycine_max"
+            unit_name="ton"
+            frozen_indicators_values="net_mass: 1.00ton"
+            />
+      <item name="lentil_grain"
+            nature="grain"
+            derivative_of="lens"
             unit_name="ton"
             frozen_indicators_values="net_mass: 1.00ton"
             />
@@ -1132,6 +1168,12 @@
             frozen_indicators_values="net_mass: 1.00kilogram"
             />
       <!-- TRANSFORM PRODUCT -->
+      <!-- GRAIN BASED -->
+      <item name="flour"
+            nature="processed_grain"
+            unit_name="kilogram"
+            frozen_indicators_values="net_mass: 1000gram, net_volume: 100.00centiliter"
+            />
       <!-- ANIMAL BASED -->
       <item name="pork_dried_sausage"
             nature="processed_pork_meat"

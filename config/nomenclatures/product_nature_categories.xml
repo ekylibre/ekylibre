@@ -282,6 +282,15 @@
             storable="true"
             pictogram="wheat"
             />
+      <item name="processed_grain"
+            charge_account="raw_material_expenses"
+            product_account="processing_products_revenues"
+            stock_account="processing_products_stock"
+            purchasable="true"
+            saleable="true"
+            storable="true"
+            pictogram="wheat"
+            />
       <item name="wine"
             product_account="plant_derivatives_revenues"
             stock_account="plant_derivative_stock"

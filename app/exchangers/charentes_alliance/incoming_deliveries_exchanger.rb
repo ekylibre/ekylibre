@@ -55,7 +55,7 @@ class CharentesAlliance::IncomingDeliveriesExchanger < ActiveExchanger::Base
           else
             # find a product_nature_variant by mapping current sub_family of matter in coop file in Ekylibre reference_name
             product_nature_variant ||= ProductNatureVariant.import_from_nomenclature(r.product_nature_name)
-          end  
+          end
           product_nature_variant.number = r.coop_reference_name if r.coop_reference_name
           product_nature_variant.save!
         end

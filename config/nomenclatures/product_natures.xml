@@ -743,6 +743,15 @@
             frozen_indicators="net_volume, net_mass"
             />
       <!-- VEGETAL PROCESSED PRODUCT  -->
+      <item name="processed_grain"
+            category="processed_grain"
+            variety="processed_grain"
+            derivative_of="grain"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population, temperature"
+            frozen_indicators="net_volume, net_mass"
+            />
       <item name="grape_juice"
             category="fruit"
             variety="juice"
