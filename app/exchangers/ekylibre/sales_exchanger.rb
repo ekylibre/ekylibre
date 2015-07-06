@@ -34,7 +34,7 @@ class Ekylibre::SalesExchanger < ActiveExchanger::Base
 
       # find or import a variant
       if r.variant_nomen
-        variant = ProductNatureVariant.where(name: r.variant_nomen.to_s).first
+        variant = ProductNatureVariant.where(name: r.variant_nomen.to_s).first || ProductNatureVariant.where(number: r.variant_nomen.to_s).first
         if !variant
           variant = ProductNatureVariant.import_from_nomenclature(r.variant_nomen)
         end

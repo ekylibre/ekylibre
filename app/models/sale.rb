@@ -68,7 +68,7 @@
 
 
 class Sale < Ekylibre::Record::Base
-  enumerize :computation_method, in: [:adaptative, :quantity_tax, :tax_quantity], default: :adaptative, predicates: {prefix: true}
+  enumerize :computation_method, in: [:adaptative, :quantity_tax, :tax_quantity], default: :quantity_tax, predicates: {prefix: true}
   attr_readonly :currency
   belongs_to :affair
   belongs_to :client, class_name: "Entity"
