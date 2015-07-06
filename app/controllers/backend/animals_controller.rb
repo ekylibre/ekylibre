@@ -210,8 +210,8 @@ class Backend::AnimalsController < Backend::MattersController
           # i.group_inclusion :animal, :herd
         end
         if procedure_natures.include?(:animal_evolution)
-          i.task :evolution, product: ac, variant: av
-          # i.evolution :animal, :new_animal_variant
+          i.task :variant_cast, product: ac, variant: av
+          # i.variant_cast :animal, :new_animal_variant
         end
       end
     end

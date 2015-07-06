@@ -13,9 +13,9 @@ class Intervention
     def write!
       operation = @intervention.operations.create!(started_at: @intervention.started_at, stopped_at: @intervention.stopped_at, reference_name: "100")
       @steps.each do |step|
-        if step.is_a?(Intervention::Recorder::Cast)
+        if step.is_a?(::Intervention::Recorder::Cast)
           step.save!
-        elsif step.is_a?(Intervention::Recorder::Task)
+        elsif step.is_a?(::Intervention::Recorder::Task)
           step.perform!(operation)
         else
           raise "What #{step.inspect} step !!!"

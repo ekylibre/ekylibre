@@ -9,16 +9,20 @@ class Intervention
         @recorder = recorder
         @name = name
         @object = object
-        @variant = options.slice(:variant)
+        @variant = options.delete(:variant).is_a?(TrueClass)
         @options = {}
       end
 
       def save!
-        if @variant.present?
+        if variant?
           @recorder.intervention.add_cast!(@options.merge(reference_name: @name, variant: @object))
         else
           @recorder.intervention.add_cast!(@options.merge(reference_name: @name, actor: @object))
         end
+      end
+
+      def variant?
+        @variant
       end
 
     end
