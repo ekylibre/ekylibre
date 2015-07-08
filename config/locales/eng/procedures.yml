@@ -260,6 +260,7 @@ eng:
     base-complete_wine_transfer: "Complete wine transfert"
     base-cutting: "Cutting"
     base-detach: "Detach"
+    base-detasseling: "Detasseling"
     base-direct_silage: "Direct silage"
     base-double_chemical_mixing: "Chemical mix with two elements"
     base-double_food_mixing: "Food mix with two elements"

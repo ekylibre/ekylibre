@@ -62,7 +62,7 @@
 
 	<nomenclature name="procedure_natures-manual_working">
     <items>
-      <item name="garden_human_working" roles="target, doer" activity_families="market_garden_crops"/>
+      <item name="garden_human_working" roles="target, doer" activity_families="market_garden_crops, maize_crops"/>
     </items>
     </nomenclature>
 
