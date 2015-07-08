@@ -491,7 +491,7 @@ end
 #   Capybara::Poltergeist::Driver.new(app, debug: true, inspector: true)
 # end
 
-Capybara.default_driver    = (ENV["DRIVER"] == "webkit" ? :webkit : :selenium)
+Capybara.default_driver    = (ENV["DRIVER"] || "webkit").to_sym
 Capybara.current_driver    = Capybara.default_driver
 Capybara.javascript_driver = Capybara.default_driver
 # Capybara.default_wait_time = 5
