@@ -199,7 +199,7 @@ class Backend::AnimalsController < Backend::MattersController
       group = ProductGroup.create!(name: params[:name], variant: variant)
       render json: {id: group.id, name: group.name}, status: :ok
     else
-      render json: "Cannot save group: #{group.errors.full_messages}", status: :unprocessable_entity
+      render json: "Cannot save group. Parameters are missing.", status: :unprocessable_entity
     end
   end
 
