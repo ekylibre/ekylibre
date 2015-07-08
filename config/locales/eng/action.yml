@@ -106,8 +106,10 @@ eng:
       show: "Catalog: %{name}"
     backend/cells/calendar_cells:
       # show: "Calendar cell: %{name}"
-    backend/cells/cash_balances_cells:
-      # show: "Cash balances cell: %{name}"
+    backend/cells/cashes_balance_cells:
+      # show: "Cashes balance cell: %{name}"
+    backend/cells/cashes_balance_evolution_cells:
+      # show: "Cashes balance evolution cell: %{name}"
     backend/cells/cropping_plan_cells:
       # show: "Cropping plan cell: %{name}"
     backend/cells/cropping_plan_on_cultivable_zones_cells:
@@ -144,8 +146,12 @@ eng:
       # show: "Last purchases cell: %{name}"
     backend/cells/last_sales_cells:
       # show: "Last sales cell: %{name}"
+    backend/cells/main_settings_cells:
+      # show: "Main settings cell: %{name}"
     backend/cells/map_cells:
       # show: "Map cell: %{name}"
+    backend/cells/parts_cells:
+      # show: "Parts cell: %{name}"
     backend/cells/payable_taxes_cells:
       # show: "Payable taxes cell: %{name}"
     backend/cells/placeholder_cells:
@@ -156,12 +162,18 @@ eng:
       # show: "Revenues by product nature cell: %{name}"
     backend/cells/rss_cells:
       # show: "Rss cell: %{name}"
+    backend/cells/settings_cells:
+      # show: "Settings cell: %{name}"
+    backend/cells/settings_statistics_cells:
+      # show: "Settings statistics cell: %{name}"
     backend/cells/stewardship_cells:
       show: "Stewardship cell: %{name}"
     backend/cells/stock_container_map_cells:
       # show: "Stock container map cell: %{name}"
     backend/cells/threshold_commercialization_by_production_cells:
       # show: "Threshold commercialization by production cell: %{name}"
+    backend/cells/trade_counts_cells:
+      # show: "Trade counts cell: %{name}"
     backend/cells/weather_cells:
       # show: "Weather cell: %{name}"
     backend/cells/working_sets_stocks_cells:
@@ -804,7 +816,7 @@ eng:
     affairs: "Affairs"
     all: "All"
     all_accounts: "All accounts"
-    all_cash_balances: "All cash balances"
+    all_cash_balances: "All cash balances" #?!
     all_columns: "All columns" #?
     all_conditions: "All conditions"
     all_periods: "All financial years"
@@ -852,8 +864,9 @@ eng:
     cancelation: "Cancelation"
     cartography: "Cartography"
     cash: "Cash"
-    cash_balance: "Cash balance"
-    cash_balances: "Bank chart"
+    # cash_balance: "Cash balance"
+    cashes_balance: "Cashes balance"
+    cashes_balance_evolution: "Cashes balance evolution"
     casting: "Casting"
     casts: "Casts"
     catalog: "Catalog" #?
@@ -894,7 +907,7 @@ eng:
     cost_per_net_surface_area: "Cost per net surface area"
     costs: "Costs"
     costs_map: "Costs map" #?
-    counts: "Counts"
+    counts: "Counts" #?
     counts_by_nature: "Number of documents to account per type"
     create: "Create"
     create_journal: "— Create journal —"
@@ -911,7 +924,7 @@ eng:
     credits: "Credits"
     cropping_plan: "Cropping plan"
     cropping_plan_on_cultivable_zones: "Cropping plan on cultivable zones"
-    crumbs: "Crumbs"
+    crumbs: "Crumbs" #?
     cultivable_zone: "Cultivable zone"
     cultivable_zone_abbreviation: "CZ"
     cultivable_zones: "Cultivable zones"
@@ -968,7 +981,7 @@ eng:
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     earns: "Earns"
     edit: "Edit"
-    ekylibre: "www.ekylibre.org"
+    ekylibre: "www.ekylibre.org" #?
     elapsed_interventions_times_by_activities: "Elapsed interventions times by activities"
     email: "Email:" #?
     end: "to" #?
@@ -1097,7 +1110,7 @@ eng:
     line_number: "Line #%{number}"
     linear_options: "Linear options"
     # link: "Link"
-    list: "List"
+    list: "List" #?
     load: "Load"
     locale: "Language"
     localization: "Localization" #?
@@ -1108,7 +1121,7 @@ eng:
       one: "%{count} email"
       other: "%{count} emails"
       zero: "No emails"
-    main_settings: "Main settings"
+    main_settings: "Main settings" #?
     make_your_production_support: "Make your production support"
     manual_period: "from %{start} to %{finish}"
     manure_management_plan_chart: "Manure management plan chart"
@@ -1184,7 +1197,7 @@ eng:
     open_a_campaign: "Open a campaign"
     open_a_production: "Open a production"
     open_an_activity: "Open an activity"
-    operations: "Operations"
+    operations: "Operations" #?
     options: "Options"
     organic_matter_concentration: "Organic matter concentration" #?
     others: "Others"
@@ -1197,9 +1210,9 @@ eng:
     parameters: "Parameters"
     participants: "Participants"
     participations: "Participations"
-    parts: "Modules"
+    parts: "Modules" #?
     password: "Password" #?
-    paths_to_convert: "Paths to convert"
+    paths_to_convert: "Paths to convert" #?!
     payable_taxes: "Payable taxes" #?
     payment_amount: "Amount of payment" #?
     payment_at: "Payment on" #?
@@ -1255,6 +1268,7 @@ eng:
     purchase: "Purchase" #?
     purchase_items: "Purchase items" #?
     purchases: "Purchases"
+    # quandl: "Quandl"
     quantity: "Quantity"
     quantity_rest: "Remaining quantity"
     query: "Query:" #?
@@ -1321,6 +1335,7 @@ eng:
     # sessions: "Sessions"
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?
     settings: "Settings"
+    settings_statistics: "Settings statistics"
     # sex: "Sex"
     shape: "Shape" #?
     ship: "Ship" #?
@@ -1330,11 +1345,11 @@ eng:
     simplified_linear_options: "Simplified linear options"
     simulator: "Simulator"
     source: "Source" #?
-    spraying_map: "Spraying map"
+    spraying_map: "Spraying map" #?!
     start: "From" #?
     start_new_intervention_here: "Start new intervention here"
     state: "State"
-    statistics: "Statistics"
+    statistics: "Statistics" #?
     stewardship: "Stewardship" #?
     stock: "Stock" #?
     stock_container_map: "Stock map"
@@ -1362,6 +1377,7 @@ eng:
     tasks: "Tasks"
     taxations: "Taxations"
     taxes: "Taxes" #?
+    # threshold_commercialization_by_production: "Threshold commercialization by production"
     thumb: "Thumb" #?
     time_cost: "Time cost" #?
     time_cost_per_hectare: "Time cost per hectare"
@@ -1399,6 +1415,7 @@ eng:
     totals: "Totals"
     tracking: "Tracking" #?
     trade: "Trade"
+    trade_counts: "Trade counts" #?
     transfer: "Transfer" #?
     transformations: "Transformations"
     transport: "Transport" #?
@@ -1428,6 +1445,9 @@ eng:
     users: "Users"
     valid: "Valid" #?
     validate: "Validate"
+    validate_crumbs_for_x_interventions:
+      one: "Validate crumbs for %{count} intervention"
+      other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "Validate selected entries"
     values: "Values"
     variable_indicators: "Variable indicators"
@@ -1439,26 +1459,26 @@ eng:
     workers: "Workers"
     working_duration: "Working duration"
     working_sets_stocks: "Working sets stocks" #?
-    x_cashes:
-      one: "%{count} cash"
-      other: "%{count} cashes"
-    x_contacts:
-      one: "%{count} contact"
-      other: "%{count} contacts"
+    x_cashes: #?
+      one: "%{count} cash" #?
+      other: "%{count} cashes" #?
+    x_contacts: #??
+      one: "%{count} contact" #??
+      other: "%{count} contacts" #??
     x_days:
       one: "%{count} day"
       other: "%{count} days"
-    x_depositable_payments:
-      one: "1 incoming payment to deposit"
-      other: "%{count} incoming payments to deposit"
-      zero: "No incoming payments to deposit"
-    x_deposits_to_validate:
-      one: "%{count} deposit to validate"
-      other: "%{count} deposits to validate"
-      zero: "No deposits to validate"
-    x_entities:
-      one: "%{count} person"
-      other: "%{count} people"
+    x_depositable_payments: #?!
+      one: "1 incoming payment to deposit" #?!
+      other: "%{count} incoming payments to deposit" #?!
+      zero: "No incoming payments to deposit" #?!
+    x_deposits_to_validate: #?!
+      one: "%{count} deposit to validate" #?!
+      other: "%{count} deposits to validate" #?!
+      zero: "No deposits to validate" #?!
+    x_entities: #?
+      one: "%{count} person" #?
+      other: "%{count} people" #?
     x_entity_links:
       one: "%{count} link"
       other: "%{count} links"
@@ -1484,32 +1504,32 @@ eng:
     x_items_remain:
       one: "%{count} item remains"
       other: "%{count} items remain"
-    x_journal_entries:
-      one: "%{count} journal entries"
-      other: "%{count} journal entries"
-    x_mandates:
-      one: "%{count} mandate"
-      other: "%{count} mandates"
+    x_journal_entries: #?
+      one: "%{count} journal entries" #?
+      other: "%{count} journal entries" #?
+    x_mandates: #?!
+      one: "%{count} mandate" #?!
+      other: "%{count} mandates" #?!
     x_months:
       one: "%{count} month"
       other: "%{count} months"
-    x_observations:
-      one: "%{count} observation"
-      other: "%{count} observations"
+    x_observations: #?
+      one: "%{count} observation" #?
+      other: "%{count} observations" #?
     x_of_y: "%{x} of %{y}"
-    x_operations:
-      one: "1 operation"
-      other: "%{count} operations"
+    x_operations: #?
+      one: "1 operation" #?
+      other: "%{count} operations" #?
     x_outgoing_payments:
       one: "%{count} disbursement"
       other: "%{count} disbursements"
-    x_performed_operations:
-      one: "1 operation performed"
-      other: "%{count} operation performed"
-      zero: "No operation performed"
-    x_prices:
-      one: "1 price"
-      other: "%{count} prices"
+    x_performed_operations: #?!
+      one: "1 operation performed" #?!
+      other: "%{count} operation performed" #?!
+      zero: "No operation performed" #?!
+    x_prices: #??
+      one: "1 price" #??
+      other: "%{count} prices" #??
     x_purchases:
       one: "1 purchase"
       other: "%{count} purchases"
@@ -1529,9 +1549,9 @@ eng:
     x_sales_invoices:
       one: "%{count} sales invoice"
       other: "%{count} sales invoices"
-    x_stock_transfers_to_confirm:
-      one: "%{count} stock transfer to confirm"
-      other: "%{count} stock transfers to confirm"
+    x_stock_transfers_to_confirm: #?!
+      one: "%{count} stock transfer to confirm" #?!
+      other: "%{count} stock transfers to confirm" #?!
     x_subscriptions:
       one: "%{count} subscription"
       other: "%{count} subscriptions"
@@ -1539,16 +1559,16 @@ eng:
       one: "%{count} task"
       other: "%{count} tasks"
     x_thing: "%{x} %{thing}"
-    x_unit: "%{quantity}%{unit}"
-    x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
-    x_unit_per_second: "Flow: %{quantity}%{unit}/s"
-    x_units_of_product_y: "%{quantity}%{unit} of %{product}"
-    x_waiting_incoming_deliveries:
-      one: "%{count} waiting incoming delivery"
-      other: "%{count} waiting incoming deliveries"
-    x_waiting_outgoing_deliveries:
-      one: "%{count} waiting outgoing delivery"
-      other: "%{count} waiting outgoing deliveries"
+    x_unit: "%{quantity}%{unit}" #??
+    x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}" #?!
+    x_unit_per_second: "Flow: %{quantity}%{unit}/s" #?!
+    x_units_of_product_y: "%{quantity}%{unit} of %{product}" #?!
+    x_waiting_incoming_deliveries: #?!
+      one: "%{count} waiting incoming delivery" #?!
+      other: "%{count} waiting incoming deliveries" #?!
+    x_waiting_outgoing_deliveries: #?!
+      one: "%{count} waiting outgoing delivery" #?!
+      other: "%{count} waiting outgoing deliveries" #?!
     x_years:
       one: "1 year"
       other: "%{count} years"

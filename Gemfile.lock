@@ -20,7 +20,7 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
-    active_list (6.5.0)
+    active_list (6.5.1)
       arel (>= 5.0.0)
       code_string (>= 0.0.0)
       i18n-complements

@@ -1,0 +1,10 @@
+.big-infos
+  .big-info.important
+    %span.title= Sale.unpaid.count.l + " " + :unpaid_sales.tl
+    %span.value= link_to(Sale.unpaid.sum(:amount).round(2).l(currency: Preference[:currency]), backend_sales_path(s: "unpaid"))
+  .big-info.important
+    %span.title= Purchase.unpaid.count.l + " " + :unpaid_purchases.tl
+    %span.value= link_to(Purchase.unpaid.sum(:amount).round(2).l(currency: Preference[:currency]), backend_purchases_path(s: "unpaid"))
+  .big-info
+    %span.title= IncomingPayment.depositables.count.l + " " + :incoming_payments_to_deposit.tl
+    %span.value= link_to(IncomingPayment.depositables.sum(:amount).round(2).l(currency: Preference[:currency]), backend_incoming_payments_path(s: "depositable"))

@@ -1,0 +1,8 @@
+%ul.desc-list
+  - for model in [User, Team, Account, FinancialYear, ProductNatureCategory, ProductNature, ProductNatureVariant, Campaign, Worker, Building, LandParcel, LandParcelCluster]
+    %li.link
+      - collection = model.name.underscore.pluralize
+      = link_to(controller: "/backend/#{collection}", action: :index) do
+        %h3
+          = "actions.backend/#{collection}.index".t
+          %span.badge= model.count

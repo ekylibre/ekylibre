@@ -699,12 +699,12 @@ spa:
     cancelled: "Pasar en activos" #?
     # cartography: "Cartography"
     # cash: "Cash"
-    # cash_balance: "Cash balance"
-    # cash_balances: "Bank chart"
     cash_tabbox:  #?
       bank_statements: "Leventar de cuento" #?
       deposits: "Entregas en banca" #?
     cash_update: "Modificar la tresoreria" #?
+    # cashes_balance: "Cashes balance"
+    # cashes_balance_evolution: "Cashes balance evolution"
     # casting: "Casting"
     # casts: "Casts"
     # catalog: "Catalog"
@@ -1298,6 +1298,7 @@ spa:
     sequences_load: "Cargar las secuencias faltantes" #?
     # set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)"
     # settings: "Settings"
+    # settings_statistics: "Settings statistics"
     # shape: "Shape"
     shelf: "Categoria" #?
     # ship: "Ship"
@@ -1382,6 +1383,7 @@ spa:
     totals: "Totales (piezas validas y niebla)"
     # tracking: "Tracking"
     # trade: "Trade"
+    # trade_counts: "Trade counts"
     # transfer: "Transfer"
     # transformations: "Transformations"
     # transport: "Transport"
@@ -1420,6 +1422,9 @@ spa:
     # users: "Users"
     # valid: "Valid"
     validate: "Validar"
+    validate_crumbs_for_x_interventions:
+      # one: "Validate crumbs for %{count} intervention"
+      # other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "Validar la escrituras seleccionadas"
     # values: "Values"
     # variable_indicators: "Variable indicators"

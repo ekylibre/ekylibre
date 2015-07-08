@@ -1,15 +1,7 @@
 -#= journals_tag
 
 = beehive do |b|
-  - if Cash.any?
-    - b.cell :all_cash_balances, if: Cash.any? do
-      .big-infos
-        - Cash.order(:name).each do |cash|
-          - balance = cash.balance
-          .big-info{class: (balance > 0 ? :positive : balance < 0 ? :negative : :caution)}
-            %span.title= cash.name
-            %span.value= balance.l(currency: cash.currency)
-
+  - b.cell :cashes_balance, if: Cash.any?
   - b.hbox do
     - b.cell :payable_taxes
-    - b.cell :cash_balances
+    - b.cell :cashes_balance_evolution

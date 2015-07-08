@@ -1529,8 +1529,8 @@
       <item name="public">
         <page to="public#index"/>
       </item>
-      <item name="cash_balances_cells">
-        <page to="backend/cells/cash_balances_cells#show"/>
+      <item name="cashes_balance_evolution_cells">
+        <page to="backend/cells/cashes_balance_evolution_cells#show"/>
       </item>
       <item name="calendar_cells">
         <page to="backend/cells/calendar_cells#show"/>
@@ -1630,6 +1630,24 @@
       </item>
       <item name="working_sets_stocks_cells">
         <page to="backend/cells/working_sets_stocks_cells#show"/>
+      </item>
+      <item name="cashes_balance_cells">
+        <page to="backend/cells/cashes_balance_cells#show"/>
+      </item>
+      <item name="main_settings_cells">
+        <page to="backend/cells/main_settings_cells#show"/>
+      </item>
+      <item name="parts_cells">
+        <page to="backend/cells/parts_cells#show"/>
+      </item>
+      <item name="settings_cells">
+        <page to="backend/cells/settings_cells#show"/>
+      </item>
+      <item name="settings_statistics_cells">
+        <page to="backend/cells/settings_statistics_cells#show"/>
+      </item>
+      <item name="trade_counts_cells">
+        <page to="backend/cells/trade_counts_cells#show"/>
       </item>
     </group>
     <group>

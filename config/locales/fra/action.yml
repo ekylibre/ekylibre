@@ -758,8 +758,8 @@ fra:
     care: "soins" #?
     cartography: "Cartographie"
     cash: "Trésorerie"
-    cash_balance: "Solde de trésorerie"
-    cash_balances: "Soldes des comptes de trésorerie"
+    cashes_balance: "Soldes des trésoreries"
+    cashes_balance_evolution: "Évolution des soldes des trésoreries"
     casting: "Casting"
     casts: "Intervenants"
     catalog: "Description pour catalogue"
@@ -1529,6 +1529,7 @@ fra:
     sequences_load: "Charger les séquences manquantes" #?
     set_reconcilable_new_but_existing_third_accounts: "Rendre lettrables les nouveaux comptes tiers déjà existants"
     settings: "Configuration"
+    settings_statistics: "Statistiques des paramètres"
     sex: "Sexe" #?
     shape: "Forme"
     ship: "Prévue le"
@@ -1632,6 +1633,7 @@ fra:
     totals: "Totaux (pièces validées et brouillard)"
     tracking: "Lot"
     trade: "Ventes/Achats"
+    trade_counts: "Totaux commerciaux"
     transfer: "Effectuer les transferts"
     transformations: "Transformations"
     transformed_products: "Produits transformés" #?
@@ -1690,6 +1692,9 @@ fra:
     uses: "Matériel" #?
     valid: "Valider"
     validate: "Valider"
+    validate_crumbs_for_x_interventions:
+      one: "Valider mes miettes pour %{count} intervention"
+      other: "Valider mes miettes pour %{count} interventions"
     validate_selected_entries: "Valider les écritures sélectionnées"
     values: "Valeurs"
     variable_indicators: "Indicateurs variables"

@@ -908,10 +908,10 @@ arb:
     cancelled: "تم الالغاء" #?
     # cartography: "Cartography"
     cash: "حسابات بنكية"
-    # cash_balance: "Cash balance"
-    # cash_balances: "Bank chart"
     cash_create: "اضافة حساب بنكي جديد" #?
     cash_update: "تعديل الخزينة" #?
+    # cashes_balance: "Cashes balance"
+    # cashes_balance_evolution: "Cashes balance evolution"
     # casting: "Casting"
     # casts: "Casts"
     catalog: "مواصفات للفهرس"
@@ -1680,6 +1680,7 @@ arb:
     sequences_load: "تحميل التسلسلات المفقودة" #?
     # set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)"
     # settings: "Settings"
+    # settings_statistics: "Settings statistics"
     # shape: "Shape"
     ship: "بشريطة"
     # show: "Show"
@@ -1775,6 +1776,7 @@ arb:
     totals: "(المجموع (صلاحية العينات والمسودات"
     tracking: "المسار"
     # trade: "Trade"
+    # trade_counts: "Trade counts"
     transfer: "اجراء النقل"
     # transformations: "Transformations"
     # transport: "Transport"
@@ -1829,6 +1831,9 @@ arb:
     uses: "المادة" #?
     valid: "الصلاحية"
     validate: "التعديل"
+    validate_crumbs_for_x_interventions:
+      # one: "Validate crumbs for %{count} intervention"
+      # other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "التحقق من المدخلات المختارة"
     # values: "Values"
     # variable_indicators: "Variable indicators"

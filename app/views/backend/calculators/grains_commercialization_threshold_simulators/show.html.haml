@@ -1,6 +1,6 @@
 - productions = Production.of_activities(Activity.of_families(:field_crops)).of_campaign(Campaign.currents).reorder(:name).select{|p| p.budgets.any? }
 = cobbles do |c|
-  - productions[0..1].each do |production|
+  - productions.each do |production|
     - c.cobble "production_#{production.id}".to_sym, title: production.name do
       .row
         .col-md-4{style: "padding-left: 0; padding-right: 0"}= cell :threshold_commercialization_by_production, name: "threshold_commercialization_#{production.id}".to_sym, title: production.name, params: {production_id: production.id}

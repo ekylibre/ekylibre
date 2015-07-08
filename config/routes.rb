@@ -109,7 +109,8 @@ Rails.application.routes.draw do
     # resources :calculators, only: :index
 
     namespace :cells do
-      resource :cash_balances_cell, only: :show
+      resource :cashes_balance_cell, only: :show
+      resource :cashes_balance_evolution_cell, only: :show
       resource :calendar_cell, only: :show
       resource :payable_taxes_cell, only: :show
       resource :cropping_plan_cell, only: :show
@@ -130,14 +131,18 @@ Rails.application.routes.draw do
       resource :last_products_cell, only: :show, concerns: :list
       resource :last_purchases_cell, only: :show, concerns: :list
       resource :last_sales_cell, only: :show, concerns: :list
+      resource :main_settings_cell, only: :show
       resource :map_cell, only: :show
+      resource :parts_cell, only: :show
       resource :placeholder_cell, only: :show
       resource :quandl_cell, only: :show
       resource :revenues_by_product_nature_cell, only: :show
       resource :rss_cell, only: :show
+      resource :settings_statistics_cell, only: :show
       resource :stewardship_cell, only: :show
       resource :stock_container_map_cell, only: :show
       resource :threshold_commercialization_by_production_cell, only: :show
+      resource :trade_counts_cell, only: :show
       resource :weather_cell, only: :show
       resource :working_sets_stocks_cell, only: :show
     end
