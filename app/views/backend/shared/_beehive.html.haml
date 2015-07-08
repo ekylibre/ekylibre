@@ -8,9 +8,6 @@
       = :fullscreen.tl
 
 .beehive{id: beehive.id, data: {beehive: beehive.name, beehive_save_url: url_for(controller: "/backend/beehives", action: :update, id: beehive.name), beehive_reset_url: url_for(controller: "/backend/beehives", action: :reset, id: beehive.name)}}
-  .local-cells{style: "display: none"}
-    - beehive.local_cells.each do |cell|
-      = render "backend/shared/beehive/cell", cell: cell.to_hash, beehive: beehive
   .beehive-tools
     .btn-group
       = select_tag(:cell, options_for_select(beehive.available_cells))
@@ -23,7 +20,8 @@
   - beehive.layout(current_user)[:boxes].each_with_index do |box, box_index|
     .box.box-horizontal{data: {beehive_box: box_index}}
       - box[:cells].each_with_index do |cell, index|
-        = render "backend/shared/beehive/cell", cell: cell, beehive: beehive
+        - if beehive.available_cell_types.include?(cell[:type].to_s)
+          = render "backend/shared/beehive/cell", cell: cell, beehive: beehive
   = link_to("##{beehive.id}", class: "btn btn-new new-box", data: {beehive_task: "new-box"}) do
     %i
     = :new_box.tl

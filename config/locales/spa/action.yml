@@ -699,6 +699,7 @@ spa:
     cancelled: "Pasar en activos" #?
     # cartography: "Cartography"
     # cash: "Cash"
+    # cash_balance: "Cash balance"
     cash_tabbox:  #?
       bank_statements: "Leventar de cuento" #?
       deposits: "Entregas en banca" #?
@@ -985,7 +986,6 @@ spa:
     # last_events: "Last events"
     # last_incoming_deliveries: "Last incoming deliveries"
     # last_intervention: "Last intervention"
-    # last_interventions: "Last interventions"
     # last_issue: "Last issue"
     # last_issues: "Last issues"
     # last_outgoing_deliveries: "Last outgoing deliveries"
@@ -1345,6 +1345,7 @@ spa:
     # taxations: "Taxations"
     # taxes: "Taxes"
     theoric_quantity: "cantidad teorica" #?
+    # threshold_commercialization_by_production: "Threshold commercialization by production"
     # thumb: "Thumb"
     # time_cost: "Time cost"
     # time_cost_per_hectare: "Time cost per hectare"

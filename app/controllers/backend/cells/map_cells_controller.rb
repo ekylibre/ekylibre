@@ -6,7 +6,7 @@ class Backend::Cells::MapCellsController < Backend::Cells::BaseController
     elsif params[:campaign_id]
       @campaigns = Campaign.find(params[:campaign_id])
     else
-      @campaigns = Campaign.currents.last
+      @campaigns = current_campaign
     end
   end
 

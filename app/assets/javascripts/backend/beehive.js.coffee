@@ -56,35 +56,24 @@
       console.log "Adding #{name} cell..."
       $.beehive.addCellProposers(beehive)
       box = beehive.find("*[data-beehive-box]").first()
-      locals = $.grep beehive.find(".local-cells .cell[data-beehive-cell]"), (item, index) ->
-        console.log $(item).data("name"), name
-        $(item).data("beehive-cell").name == name
-      if locals.length > 0
-        clone = $(locals[0]).clone()
-        clone.appendTo(box)
-        infos = clone.data("beehive-cell")
-        infos.name = "#{name}_#{new Date().getTime()}"
-        clone.attr("data-beehive-cell", JSON.stringify(infos))
-        $.beehive.save(beehive)
-      else
-        $.ajax
-          url: "/backend/cells/#{name}_cell"
-          data:
-            beehive: beehive.data("beehive")
-            type: name
-            layout: true
-          dataType: "html"
-          success: (data, status, request) ->
-            console.log "Success..."
-            cell = $(data)
-            cell.appendTo(box)
-            cell.trigger('cell:load')
-            $(window).trigger('resize')
-            $.beehive.save(beehive)
-          error: (request, status, error) ->
-            console.log("Error while retrieving full cell #{name}: #{error}")
-            element.html(request.responseXML)
-            element.trigger('cell:error')
+      $.ajax
+        url: "/backend/cells/#{name}_cell"
+        data:
+          beehive: beehive.data("beehive")
+          type: name
+          layout: true
+        dataType: "html"
+        success: (data, status, request) ->
+          console.log "Success..."
+          cell = $(data)
+          cell.appendTo(box)
+          cell.trigger('cell:load')
+          $(window).trigger('resize')
+          $.beehive.save(beehive)
+        error: (request, status, error) ->
+          console.log("Error while retrieving full cell #{name}: #{error}")
+          element.html(request.responseXML)
+          element.trigger('cell:error')
 
     addCellProposers: (beehive) ->
       if beehive.find("*[data-beehive-box]").length <= 0

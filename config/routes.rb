@@ -126,7 +126,7 @@ Rails.application.routes.draw do
       resource :last_events_cell, only: :show, concerns: :list
       resource :last_incoming_deliveries_cell, only: :show, concerns: :list
       resource :last_issues_cell, only: :show, concerns: :list
-      resource :last_interventions_cell, only: :show
+      resource :last_intervention_cell, only: :show
       resource :last_outgoing_deliveries_cell, only: :show, concerns: :list
       resource :last_products_cell, only: :show, concerns: :list
       resource :last_purchases_cell, only: :show, concerns: :list

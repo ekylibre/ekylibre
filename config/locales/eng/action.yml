@@ -134,8 +134,8 @@ eng:
       # show: "Last events cell: %{name}"
     backend/cells/last_incoming_deliveries_cells:
       # show: "Last incoming deliveries cell: %{name}"
-    backend/cells/last_interventions_cells:
-      # show: "Last interventions cell: %{name}"
+    backend/cells/last_intervention_cells:
+      # show: "Last intervention cell: %{name}"
     backend/cells/last_issues_cells:
       # show: "Last issues cell: %{name}"
     backend/cells/last_outgoing_deliveries_cells:
@@ -864,7 +864,7 @@ eng:
     cancelation: "Cancelation"
     cartography: "Cartography"
     cash: "Cash"
-    # cash_balance: "Cash balance"
+    cash_balance: "Cash balance"
     cashes_balance: "Cashes balance"
     cashes_balance_evolution: "Cashes balance evolution"
     casting: "Casting"
@@ -922,7 +922,7 @@ eng:
     credit: "Credit" #?
     credited_quantity: "Quantity to credit" #?
     credits: "Credits"
-    cropping_plan: "Cropping plan"
+    cropping_plan: "Cropping plan" #?
     cropping_plan_on_cultivable_zones: "Cropping plan on cultivable zones"
     crumbs: "Crumbs" #?
     cultivable_zone: "Cultivable zone"
@@ -982,7 +982,7 @@ eng:
     earns: "Earns"
     edit: "Edit"
     ekylibre: "www.ekylibre.org" #?
-    elapsed_interventions_times_by_activities: "Elapsed interventions times by activities"
+    elapsed_interventions_times_by_activities: "Elapsed interventions times by activities" #?
     email: "Email:" #?
     end: "to" #?
     entities: "Entities"
@@ -1099,7 +1099,6 @@ eng:
     last_events: "Last events" #?
     last_incoming_deliveries: "Last incoming deliveries" #?
     last_intervention: "Last intervention"
-    last_interventions: "Last interventions"
     last_issue: "Last issue"
     last_issues: "Last issues" #?
     last_outgoing_deliveries: "Last outgoing deliveries" #?
@@ -1377,7 +1376,7 @@ eng:
     tasks: "Tasks"
     taxations: "Taxations"
     taxes: "Taxes" #?
-    # threshold_commercialization_by_production: "Threshold commercialization by production"
+    threshold_commercialization_by_production: "Threshold commercialization by production"
     thumb: "Thumb" #?
     time_cost: "Time cost" #?
     time_cost_per_hectare: "Time cost per hectare"

@@ -21,7 +21,5 @@
       = link_to("##{params[:beehive]}", data: {beehive_remove: "cell"}) do
         %i
       = params[:type].tl
-      - if @counter
-        %span.badge= @counter
     .cell-content= yield
     .cell-bottom

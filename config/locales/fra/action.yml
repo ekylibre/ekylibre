@@ -758,6 +758,7 @@ fra:
     care: "soins" #?
     cartography: "Cartographie"
     cash: "Trésorerie"
+    cash_balance: "Solde de trésorerie"
     cashes_balance: "Soldes des trésoreries"
     cashes_balance_evolution: "Évolution des soldes des trésoreries"
     casting: "Casting"
@@ -1115,8 +1116,7 @@ fra:
     last_entities: "Derniers tiers"
     last_events: "Derniers évènements"
     last_incoming_deliveries: "Derniers approvisionnements"
-    last_intervention: "Dernière intervention"
-    last_interventions: "Dernières interventions"
+    last_intervention: "Dernières interventions"
     last_issue: "Dernier incident"
     last_issues: "Derniers incidents"
     last_outgoing_deliveries: "Dernières livraisons"
@@ -1588,6 +1588,7 @@ fra:
     temperature: "Température" #?
     theoric_quantity: "Quantité théorique" #?
     third_informations: "Informations tierces" #?
+    threshold_commercialization_by_production: "Seuil de commercialisation par production"
     thumb: "Miniature"
     time_cost: "Coût de main d’œuvre"
     time_cost_per_hectare: "Coût de main d’œuvre par hectare"

@@ -40,7 +40,7 @@
 #     - "backend/cells/last_events_cells#show"
 #     - "backend/cells/last_incoming_deliveries_cells#list"
 #     - "backend/cells/last_incoming_deliveries_cells#show"
-#     - "backend/cells/last_interventions_cells#show"
+#     - "backend/cells/last_intervention_cells#show"
 #     - "backend/cells/last_issues_cells#list"
 #     - "backend/cells/last_issues_cells#show"
 #     - "backend/cells/last_outgoing_deliveries_cells#list"

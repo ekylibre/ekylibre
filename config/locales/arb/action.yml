@@ -908,6 +908,7 @@ arb:
     cancelled: "تم الالغاء" #?
     # cartography: "Cartography"
     cash: "حسابات بنكية"
+    # cash_balance: "Cash balance"
     cash_create: "اضافة حساب بنكي جديد" #?
     cash_update: "تعديل الخزينة" #?
     # cashes_balance: "Cashes balance"
@@ -1252,7 +1253,6 @@ arb:
     # last_events: "Last events"
     # last_incoming_deliveries: "Last incoming deliveries"
     # last_intervention: "Last intervention"
-    # last_interventions: "Last interventions"
     # last_issue: "Last issue"
     # last_issues: "Last issues"
     # last_outgoing_deliveries: "Last outgoing deliveries"
@@ -1734,6 +1734,7 @@ arb:
     # taxations: "Taxations"
     # taxes: "Taxes"
     theoric_quantity: "الكمية النظرية" #?
+    # threshold_commercialization_by_production: "Threshold commercialization by production"
     # thumb: "Thumb"
     # time_cost: "Time cost"
     # time_cost_per_hectare: "Time cost per hectare"

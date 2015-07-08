@@ -2,14 +2,14 @@
 
 = beehive(:production) do |b|
   - if current_campaign
-    - b.cell :map, params: {visualization: :nitrogen_footprint, campaign_id: current_campaign.id}
+    - b.cell :map, params: {visualization: :nitrogen_footprint}
   - b.hbox do
     - if current_campaign
-      - b.cell :last_interventions, params: {campaign_id: current_campaign.id}
+      - b.cell :last_intervention
     - if current_campaign
-      - b.cell :cropping_plan, params: {campaign_id: current_campaign.id}
+      - b.cell :cropping_plan
   - b.hbox do
     - if current_campaign
-      - b.cell :elapsed_interventions_times_by_activities, params: {campaign_id: current_campaign.id}
+      - b.cell :elapsed_interventions_times_by_activities
     - if Analysis.any?
       - b.cell :last_analyses

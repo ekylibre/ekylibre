@@ -1,4 +1,4 @@
-class Backend::Cells::LastInterventionsCellsController < Backend::Cells::BaseController
+class Backend::Cells::LastInterventionCellsController < Backend::Cells::BaseController
 
   def show
     scope = Intervention

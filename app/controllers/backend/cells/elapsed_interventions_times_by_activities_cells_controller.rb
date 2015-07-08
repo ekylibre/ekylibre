@@ -4,7 +4,7 @@ class Backend::Cells::ElapsedInterventionsTimesByActivitiesCellsController < Bac
     if params[:campaign_id] and campaign = Campaign.find(params[:campaign_id])
       @campaign = campaign
     else
-      @campaign = Campaign.currents.last
+      @campaign = current_campaign
     end
   end
 

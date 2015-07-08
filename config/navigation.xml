@@ -1573,8 +1573,8 @@
         <page to="backend/cells/last_incoming_deliveries_cells#list"/>
         <page to="backend/cells/last_incoming_deliveries_cells#show"/>
       </item>
-      <item name="last_interventions_cells">
-        <page to="backend/cells/last_interventions_cells#show"/>
+      <item name="last_intervention_cells">
+        <page to="backend/cells/last_intervention_cells#show"/>
       </item>
       <item name="last_analyses_cells">
         <page to="backend/cells/last_analyses_cells#show"/>

@@ -19,7 +19,7 @@
 
 module Backend::BeehiveHelper
 
-  FORMAT_VERSION = 1
+  FORMAT_VERSION = 2
 
   # 巣 Beehive permits to create modular interface organized in cells
   def beehive(name = nil, &block)
@@ -99,7 +99,7 @@ module Backend::BeehiveHelper
       end
 
       def to_hash
-        @options.merge(name: @name.to_s, type: @type.to_s)
+        {name: @name.to_s, type: @type.to_s, options: @options}
       end
 
     end
@@ -120,7 +120,8 @@ module Backend::BeehiveHelper
     def cell(name = :details, options = {}, &block)
       if @current_box
         if block_given?
-          options[:content] = @template.capture(&block)
+          raise StandardError, "No block accepted for cells"
+          # options[:content] = @template.capture(&block)
         end
         if @cells.keys.include? name.to_s
           raise StandardError, "A cell with a given name (#{name}) has already been given."
@@ -169,14 +170,10 @@ module Backend::BeehiveHelper
       @cells.values.select{ |c| c.name.to_s == name.to_s }.first
     end
 
-    def local_cells
-      @cells.values # .select{|c| c.content? }
-    end
-
     def available_cells
-      externals = Cell.controller_types.collect { |c| [c.tl, c.to_s] }
-      internals = @cells.values.collect{ |c| [c.title, c.name.to_s] }
-      return (externals + internals).sort do |a,b|
+      return Cell.controller_types.collect do |c|
+        [c.tl, c.to_s]
+      end.sort do |a,b|
         a.first.ascii <=> b.first.ascii
       end
     end
