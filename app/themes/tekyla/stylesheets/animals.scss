@@ -725,6 +725,7 @@ $column-padding: $default-border-radius;
 #loading {
   display: none;
   margin: $fs-large auto;
+  @include loading-indicator;
 }
 
 @include keyframes(bubbling) {

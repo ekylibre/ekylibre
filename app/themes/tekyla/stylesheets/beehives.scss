@@ -115,15 +115,13 @@ $configuring-min-height: 400px;
 
       &.errored {
         > .cell-inner > .cell-content > .cell-indicator {
-          color: $invalid-color;
-          @include use-icon(meh-o);
+          @include error-indicator;
         }
       }
 
       &.blank {
         > .cell-inner > .cell-content > .cell-indicator {
-          color: $caution-color;
-          @include use-icon(empty-o);
+          @include null-indicator;
         }
       }
 

@@ -465,15 +465,39 @@
 
 @include keyframes(loading-rotate) {
   0% {
-    transform: rotate(0);
+    transform: rotate(0deg);
   }
   100% {
     transform: rotate(360deg);
   }
 }
 
-@mixin loading-indicator() {
+@mixin base-indicator($size: $lh-ratio * 6 * $fs-normal) {
   opacity: 0.8;
+  $font-size: $size / $lh-ratio;
+  color: $neutral-color;
+  @include text-align(center);
+  @include is-icon($font-size);
+  line-height: $size;
+  height: $size;
+  width: $size;
+}
+
+
+@mixin loading-indicator {
+  @include base-indicator;
   @include use-icon(circle-o-notch);
-  @include animation(cell-rotate 2s infinite linear);
+  @include animation(loading-rotate 2s infinite linear);
+}
+
+@mixin error-indicator {
+  @include base-indicator;
+  color: $invalid-color;
+  @include use-icon(meh-o);
+}
+
+@mixin null-indicator {
+  @include base-indicator;
+  color: $caution-color;
+  @include use-icon(empty-o);
 }

@@ -18,12 +18,8 @@
     .golumn{data: {golumns: 'animal'}}
 
       .golumn-columns
+        #loading.loading-indicator
         .golumn-columns-container{data: { bind: "sortable: {template: 'golumn-column-template', data: groups, connectClass: 'group-dropzone', options: {handle: '.golumn-column-handle', cursor: 'move', tolerance: 'pointer', dropOnEmpty: true, opacity: 1, revert: true}}"}}
-          #loading
-            .bubbling
-              %span
-              %span
-              %span
         -# .add-group-panel-container
           .panel.panel-default
             .panel-heading
