@@ -3711,7 +3711,7 @@ eng:
         apium_graveolens_rapaceum: "Celeriac"              #< apium_graveolens
         apium_graveolens_secalinum: "Chinese celery"       #< apium_graveolens
         arachis: "Arachis"                                 #< fabaceae
-        arachis_hypogaea: "Peanut"                         #< arachis
+        arachis_hypogaea: "Common peanut"                  #< arachis
         arachis_pintoi: "Pintoi peanut"                    #< arachis
         arctium: "Arctium"                                 #< asteraceae
         arctium_lappa: "Arctium lappa"                     #< arctium
@@ -3961,20 +3961,20 @@ eng:
         cucurbita: "Cucurbita"                             #< cucurbitaceae
         cucurbita_argyrosperma: "Cushaw"                   #< cucurbita
         cucurbita_ficifolia: "Figleaf Gourd"               #< cucurbita
-        cucurbita_maxima: "WinterSquash"                   #< cucurbita
+        cucurbita_maxima: "Winter squash"                  #< cucurbita
         cucurbita_maxima_atlantic_giant: "Atlantic Giant"  #< cucurbita_maxima
         cucurbita_maxima_baleine: "Whale Pumpkin"          #< cucurbita_maxima
         cucurbita_maxima_blanc_de_mayet: "White Pumpkin"   #< cucurbita_maxima
-        cucurbita_maxima_bleu_de_hongrie: "Bleu de Hongrie Squash" #< cucurbita_maxima
-        cucurbita_maxima_buttercup: "Buttercup Squash"     #< cucurbita_maxima
+        cucurbita_maxima_bleu_de_hongrie: "Bleu de Hongrie squash" #< cucurbita_maxima
+        cucurbita_maxima_buttercup: "Buttercup squash"     #< cucurbita_maxima
         cucurbita_maxima_dalencon: "Alencon Gourd"         #< cucurbita_maxima
-        cucurbita_maxima_de_lohio: "Ohio Squash"           #< cucurbita_maxima
+        cucurbita_maxima_de_lohio: "Ohio squash"           #< cucurbita_maxima
         cucurbita_maxima_du_chili: "Chilian Gourd"         #< cucurbita_maxima
-        cucurbita_maxima_galeuse_deysines: "Galeux d'Eysines Squash" #< cucurbita_maxima
-        cucurbita_maxima_green_hubbard: "Green Hubbard Squash" #< cucurbita_maxima
+        cucurbita_maxima_galeuse_deysines: "Galeux d'Eysines squash" #< cucurbita_maxima
+        cucurbita_maxima_green_hubbard: "Green Hubbard squash" #< cucurbita_maxima
         cucurbita_maxima_gros_jaune_de_paris: "Yellow Gourd" #< cucurbita_maxima
-        cucurbita_maxima_marina_di_chioggia: "Marina di Chioggia Squash" #< cucurbita_maxima
-        cucurbita_maxima_maxima: "Common Winter Squash "   #< cucurbita_maxima
+        cucurbita_maxima_marina_di_chioggia: "Marina di Chioggia squash" #< cucurbita_maxima
+        cucurbita_maxima_maxima: "Common Winter squash "   #< cucurbita_maxima
         cucurbita_maxima_noir_du_bresil: "Black Brasilian Pumpkin" #< cucurbita_maxima
         cucurbita_maxima_potimarron: "Potimarron"          #< cucurbita_maxima
         cucurbita_maxima_rouge_vif_detampes: "Red Pumpkin" #< cucurbita_maxima
@@ -3997,7 +3997,7 @@ eng:
         cucurbita_pepo_ovifera: "Egg Field Pumpkin"        #< cucurbita_pepo
         cucurbita_pepo_pepo: "Zucchini"                    #< cucurbita_pepo
         cucurbita_pepo_round: "Round Zucchini"             #< cucurbita_pepo
-        cucurbita_pepo_spaghetti: "Spaghetti Squash"       #< cucurbita_pepo
+        cucurbita_pepo_spaghetti: "Spaghetti squash"       #< cucurbita_pepo
         cucurbitaceae: "Cucurbitaceae"                     #< plant
         cultivable_zone: "Cultivable zone"                 #< zone
         curculio_nucum: "Curculio nucum"                   #< insecta
