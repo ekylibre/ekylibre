@@ -22,7 +22,6 @@
         DROPKEY = "ko_dropItem",
         CONTAINERKEY = "ko_containerItem",
         GROUPKEY = "ko_groupItem",
-        PARENTGROUPKEY = "ko_parentGroupItem",
         sortableIn = 0;
         unwrap = ko.utils.unwrapObservable,
         dataGet = ko.utils.domData.get,
@@ -40,7 +39,6 @@
                 {
 
                     dataSet(element, CONTAINERKEY, data);
-                    dataSet(element, PARENTGROUPKEY, dataGet($(element).closest('.golumn-column')[0], GROUPKEY));
 
                 }
             else if($(element).hasClass('golumn-column'))
@@ -48,7 +46,7 @@
 
                     dataSet(element, GROUPKEY, data);
                 }
-                else if($(element).hasClass('golumn-item'))
+              else if($(element).hasClass('golumn-item'))
                 {
                     dataSet(element, ITEMKEY, data);
                 }
@@ -390,12 +388,10 @@
                             window.app.updatePreferences();
 
                         }
-
                         if (dataGet(el,CONTAINERKEY) != undefined)
                         {
 
-                            //sourceParent = dataGet(el, PARENTKEY);
-                            var sourceParentGroup = dataGet(el, PARENTGROUPKEY);
+                            var sourceParentGroup = dataGet($(el).closest('.golumn-column')[0], GROUPKEY)
                             var sourceIndex = dataGet(el, INDEXKEY);
                             var targetParent = dataGet(ui.item.closest('.golumn-column')[0], GROUPKEY);
                             var targetIndex = ko.utils.arrayIndexOf(ui.item.parent().children(), el);
