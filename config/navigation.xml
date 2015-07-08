@@ -1640,9 +1640,6 @@
       <item name="parts_cells">
         <page to="backend/cells/parts_cells#show"/>
       </item>
-      <item name="settings_cells">
-        <page to="backend/cells/settings_cells#show"/>
-      </item>
       <item name="settings_statistics_cells">
         <page to="backend/cells/settings_statistics_cells#show"/>
       </item>

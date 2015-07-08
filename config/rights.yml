@@ -59,7 +59,6 @@
 #     - "backend/cells/quandl_cells#show"
 #     - "backend/cells/revenues_by_product_nature_cells#show"
 #     - "backend/cells/rss_cells#show"
-#     - "backend/cells/settings_cells#show"
 #     - "backend/cells/settings_statistics_cells#show"
 #     - "backend/cells/stewardship_cells#show"
 #     - "backend/cells/stock_container_map_cells#show"

@@ -162,8 +162,6 @@ eng:
       # show: "Revenues by product nature cell: %{name}"
     backend/cells/rss_cells:
       # show: "Rss cell: %{name}"
-    backend/cells/settings_cells:
-      # show: "Settings cell: %{name}"
     backend/cells/settings_statistics_cells:
       # show: "Settings statistics cell: %{name}"
     backend/cells/stewardship_cells:
