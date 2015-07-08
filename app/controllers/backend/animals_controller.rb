@@ -75,81 +75,56 @@ class Backend::AnimalsController < Backend::MattersController
   end
 
   def load_animals
-
     @grouped_animals = []
-
     AnimalGroup.all.select(:id, :name).each do |group|
-
-
       @grouped_animals << { group: group, places_and_animals: group.members_with_places_at }
-
-
     end
-
 
     preference = current_user.preference("golumn.#{params[:golumn_id]}", {}.to_yaml)
     user_pref = YAML.load(preference.value)
 
     @sorted = []
-
     user_pref.deep_symbolize_keys!()
-
     if user_pref[:positions].present?
-
       user_pref[:positions].each do |g|
-
         @grouped_animals.each do |h|
-
           if h[:group].id == g[:id]
             @sorted << h
           end
         end
       end
-
     else
       @sorted = @grouped_animals
-
     end
 
-
     without_container = []
-
-    Animal.select(:id, :name, :identification_number, :nature_id, :dead_at).each do |a|
+    Animal.of_enjoyer(Entity.of_company).select(:id, :name, :identification_number, :nature_id, :dead_at).each do |a|
       if a.container.nil? or a.memberships.length == 0
         without_container << { animal: a.to_json(:methods => [:picture_path, :sex_text, :status]) }
       end
     end
-
-    @sorted << {others: without_container}
-
-
+    if without_container.any?
+      @sorted << {others: without_container}
+    end
     render :json => @sorted.to_json()
-
   end
 
   def load_containers
-
-    @containers = Product.select(:id,:name).of_expression('can store(bos_taurus)')
-
+    @containers = Product.select(:id,:name).of_expression('can store(animal)')
     render :json => @containers
   end
 
   def load_workers
-
     @workers = Worker.select(:id,:name).all
-
     render :json => @workers
   end
 
   def load_natures
-
     @natures = ProductNatureVariant.of_variety(:animal).select(:id,:name).all
-
     render :json => @natures
   end
 
   def load_production_supports
-
     prod = {}
     arr = []
     ProductionSupport.where(storage: params[:group_id]).each do |p|
@@ -157,7 +132,6 @@ class Backend::AnimalsController < Backend::MattersController
       prod[:name] = p.production.name+" (#{p.production.campaign.name})"
       arr << prod
     end
-
     render :json => arr, status: 200
   end
 
@@ -165,7 +139,6 @@ class Backend::AnimalsController < Backend::MattersController
 
 
   def change
-
     # params[:animals_id]
     # params[:container_id]
     # params[:group_id]
@@ -220,11 +193,14 @@ class Backend::AnimalsController < Backend::MattersController
   end
 
 
+  # Insert a group
   def add_group
-    if params[:name]
-      #Insert a group
+    if params[:name] and variant = ProductNatureVariant.find_by(id: params[:variant_id])
+      group = ProductGroup.create!(name: params[:name], variant: variant)
+      render json: {id: group.id, name: group.name}, status: :ok
+    else
+      render json: "Cannot save group: #{group.errors.full_messages}", status: :unprocessable_entity
     end
-    render :json => {id: 222, name: params[:name]}, :status => :ok
   end
 
   # Show a list of animal groups

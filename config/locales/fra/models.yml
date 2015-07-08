@@ -561,6 +561,7 @@ fra:
     currency_precision: "Nombre de décimales"
     currency_rate: "Taux de change"
     current_amount: "Montant actuel"
+    # current_enjoyment: "Current enjoyment"
     current_father_link: "Lien actuel vers le père"
     current_localization: "Localisation actuelle"
     current_memberships: "Appartenances actuelles"

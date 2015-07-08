@@ -472,7 +472,7 @@
   }
 }
 
-@mixin base-indicator($size: $lh-ratio * 6 * $fs-normal) {
+@mixin base-indicator($size: 6 * $lh-normal) {
   opacity: 0.8;
   $font-size: $size / $lh-ratio;
   color: $neutral-color;

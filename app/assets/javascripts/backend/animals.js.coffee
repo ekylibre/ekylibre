@@ -442,17 +442,17 @@
 
       return
 
-  @loadData = (golumn) =>
+  @loadData = (golumn, element) =>
     $.ajax '/backend/animals/load_animals',
       type: 'GET'
       dataType: 'JSON'
       data:
         golumn_id: golumn
       beforeSend: () ->
-        $('#loading').show()
+        element.addClass("loading")
         return
       complete: () ->
-        $('#loading').hide()
+        element.removeClass("loading")
         return
       success: (json_data) ->
         ko.utils.arrayForEach json_data, (j) =>
@@ -493,6 +493,6 @@
       golumn_id = $(this).data("golumns")
       window.app = new dashboardViewModel(golumn_id)
 
-      window.loadData(golumn_id)
+      window.loadData(golumn_id, $(this))
 
 ) jQuery

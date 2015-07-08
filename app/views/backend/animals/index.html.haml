@@ -15,61 +15,59 @@
     = main_list
 
   - j.face :column do
-    .golumn{data: {golumns: 'animal'}}
+    .golumn.loading{data: {golumns: 'animal'}}
 
+      .golumn-loading
       .golumn-columns
-        #loading.loading-indicator
         .golumn-columns-container{data: { bind: "sortable: {template: 'golumn-column-template', data: groups, connectClass: 'group-dropzone', options: {handle: '.golumn-column-handle', cursor: 'move', tolerance: 'pointer', dropOnEmpty: true, opacity: 1, revert: true}}"}}
-        -# .add-group-panel-container
-          .panel.panel-default
-            .panel-heading
-              .add-group-btn
-                %button.btn.btn-link{type: 'button', data: { bind: 'click: $root.toggleNewGroupModal' }}
-                  %i.icon.icon-5x.icon-plus.text-muted
+          -# .add-group-panel-container.golumn-column
+        .golumn-addon
+          = link_to("#new-group", class: "golumn-column-add", data: { bind: 'click: $root.toggleNewGroupModal' }) do
+            %i
 
-        %script#golumn-column-template{type: 'text/html'}
-          .golumn-column
-            .golumn-column-header
-              .golumn-column-actions
-                .checker{data: {bind: 'checkbox: toggleItems'}}
-              .golumn-column-handle
-                %i.icon.icon-ellipsis-v
-                %span.golumn-column-title{data: {bind: 'text: name'}}
-            .golumn-column-body
-              .add-container{data: {bind: "droppable: {data: $root.drop, afterMove: $root.groupMoved, options: {accept: '.golumn-item', hoverClass: 'container-drop-hover', tolerance: 'intersect'}}" },style:'display:none'}
-                %button.btn.btn-link{type: 'button', data: { bind: 'click: $root.toggleNewContainerModal' }}
-                  %i.icon.icon-plus.text-muted
-              %ul.golumn-groups{data: { bind: "sortable: {template: 'golumn-group-template', data: $root.displayedContainers($data), connectClass: 'container-dropzone', allowDrop: false, options: {handle: '.golumn-group-handle', cursor: 'move', tolerance: 'pointer', placeholder: 'sorting-container-placeholder', dropOnEmpty: false, forcePlaceholderSize: true, revert: true, opacity: 1}}"}}
-            -# = link_to('#', data: {target: '#new-animal', toggle: 'modal'}, class: "golumn-column-footer") do
-              %i.icon.icon-plus
-              %span= "actions.backend/animals.new".t
-
-        %script#golumn-group-template{type: 'text/html'}
-          %li.golumn-group{data: {bind: "droppable: {data: $root.hoverdrop, options: {accept: '.golumn-item', tolerance: 'pointer'}}" }}
-            .golumn-group-header
-              .golumn-group-actions
-                .collapser{data: { bind: "click: toggle, css: {'active': !hidden()}"}}
-              %span.golumn-group-handle
-                %i.icon.icon-ellipsis-v
-              %span.golumn-group-title{data: { bind: 'text: name'}}
-              %span.badge.golumn-group-badge{data: { bind: 'text: animalCount'}}
-            .golumn-group-body{data: { bind: "css: {'hide':hidden}"}}
-              %div{data: { bind: "sortable: {template: 'golumn-item-template', data: $root.animals, connectClass: 'animal-dropzone', options: {handle: '.golumn-item-handle', cursor: 'move', placeholder: 'sorting-animal-placeholder', dropOnEmpty: true, forcePlaceholderSize: true, opacity: 1, revert: true, cursorAt: { left: 65 }, scrollSensitivity: 65, scrollSpeed: 30}}"}}
-
-        %script#golumn-item-template{type: 'text/html'}
-          /ko if: $parent.id == container_id() && $parent.group_id() == group_id()
-          .golumn-item{data: { bind: 'css: animalStatusClass'}}
-            .golumn-item-actions
-              .checker{data: { bind: 'checkbox: checked'}}
-            %span.golumn-item-handle
+      %script#golumn-column-template{type: 'text/html'}
+        .golumn-column
+          .golumn-column-header
+            .golumn-column-actions
+              .checker{data: {bind: 'checkbox: toggleItems'}}
+            .golumn-column-handle
               %i.icon.icon-ellipsis-v
-            %span.golumn-item-title{data: { bind: 'text: name, click: $root.toggleAnimalDetailsModal'}}
-            %i.sex.icon{data: {bind: 'css: animalSexClass'}}
-            -# .golumn-item-infos
-              %button.btn.btn-link.no-padding.xs-h-padding.golumn-item-name{data: { bind: 'click: $root.toggleAnimalDetailsModal'}, type: 'button'}
-                %span{data: { bind: 'text: name'}}
-              %i.icon.text-muted{data: {bind: 'css: animalSexClass'}}
-          / /ko
+              %span.golumn-column-title{data: {bind: 'text: name'}}
+          .golumn-column-body
+            .add-container{data: {bind: "droppable: {data: $root.drop, afterMove: $root.groupMoved, options: {accept: '.golumn-item', hoverClass: 'container-drop-hover', tolerance: 'intersect'}}" },style:'display:none'}
+              %button.btn.btn-link{type: 'button', data: { bind: 'click: $root.toggleNewContainerModal' }}
+                %i.icon.icon-plus.text-muted
+            %ul.golumn-groups{data: { bind: "sortable: {template: 'golumn-group-template', data: $root.displayedContainers($data), connectClass: 'container-dropzone', allowDrop: false, options: {handle: '.golumn-group-handle', cursor: 'move', tolerance: 'pointer', placeholder: 'sorting-container-placeholder', dropOnEmpty: false, forcePlaceholderSize: true, revert: true, opacity: 1}}"}}
+          -# = link_to('#', data: {target: '#new-animal', toggle: 'modal'}, class: "golumn-column-footer") do
+            %i.icon.icon-plus
+            %span= "actions.backend/animals.new".t
+
+      %script#golumn-group-template{type: 'text/html'}
+        %li.golumn-group{data: {bind: "droppable: {data: $root.hoverdrop, options: {accept: '.golumn-item', tolerance: 'pointer'}}" }}
+          .golumn-group-header
+            .golumn-group-actions
+              .collapser{data: { bind: "click: toggle, css: {'active': !hidden()}"}}
+            %span.golumn-group-handle
+              %i.icon.icon-ellipsis-v
+            %span.golumn-group-title{data: { bind: 'text: name'}}
+            %span.badge.golumn-group-badge{data: { bind: 'text: animalCount'}}
+          .golumn-group-body{data: { bind: "css: {'hide':hidden}"}}
+            %div{data: { bind: "sortable: {template: 'golumn-item-template', data: $root.animals, connectClass: 'animal-dropzone', options: {handle: '.golumn-item-handle', cursor: 'move', placeholder: 'sorting-animal-placeholder', dropOnEmpty: true, forcePlaceholderSize: true, opacity: 1, revert: true, cursorAt: { left: 65 }, scrollSensitivity: 65, scrollSpeed: 30}}"}}
+
+      %script#golumn-item-template{type: 'text/html'}
+        /ko if: $parent.id == container_id() && $parent.group_id() == group_id()
+        .golumn-item{data: { bind: 'css: animalStatusClass'}}
+          .golumn-item-actions
+            .checker{data: { bind: 'checkbox: checked'}}
+          %span.golumn-item-handle
+            %i.icon.icon-ellipsis-v
+          %span.golumn-item-title{data: { bind: 'text: name, click: $root.toggleAnimalDetailsModal'}}
+          %i.sex.icon{data: {bind: 'css: animalSexClass'}}
+          -# .golumn-item-infos
+            %button.btn.btn-link.no-padding.xs-h-padding.golumn-item-name{data: { bind: 'click: $root.toggleAnimalDetailsModal'}, type: 'button'}
+              %span{data: { bind: 'text: name'}}
+            %i.icon.text-muted{data: {bind: 'css: animalSexClass'}}
+        / /ko
 
 
     = modal(:new_animal) do
@@ -84,11 +82,16 @@
 
     = modal(:new_group, data: {bind: 'modal: showNewGroupModal(), with: newGroupModalOptions', backdrop: 'static', keyboard: false}, close_html: {data: {bind: 'click: $root.cancelNewGroup'}}) do
       .modal-body
-        %label= :new_group.tl
-        %input{type: 'text', data: { bind: 'value: group'}}
+        .control-group
+          %label.control-label= ProductGroup.human_attribute_name(:name)
+          .controls
+            %input{type: 'text', data: { bind: 'value: group'}}
+        .control-group
+          %label.control-label= ProductGroup.human_attribute_name(:variant)
+          .controls
+            = select_tag(:variant_id, options_for_select(ProductNatureVariant.of_variety(:animal_group).map{|v| [v.name, v.id]}))
       .modal-footer
-        %button.btn.btn-default{type: 'button', data: {bind: 'click: $root.addGroup'}}
-          %i.icon.icon-plus
+        = link_to("#", data: {bind: 'click: $root.addGroup'}, class: "btn btn-default") do
           = :add.tl
 
 

@@ -9,11 +9,17 @@
 @import "bootstrap/grid";
 
 $column-padding: $default-border-radius;
+$column-background-color: white;
+$column-width: 28ex;
 .golumn {
   background: mix($active-color, $desktop-background, 30%);
   overflow: auto;
   height: 100%;
+  .golumn-loading{
+    display: none;
+  }
   .golumn-columns {
+    display: inline-flex;
     padding: $column-padding;
     overflow: auto;
     @include calc(height, "100% - #{2 * $column-padding}");
@@ -30,11 +36,39 @@ $column-padding: $default-border-radius;
     }
   }
 
+  .golumn-column-add {
+    height: $column-width;
+    line-height: $column-width;
+    width: $column-width;
+    display: block;
+    text-align: center;
+    opacity: 0.5;
+    i {
+      @include is-icon(6 * $fs-normal);
+      @include use-icon(plus);
+      line-height: 6 * $lh-normal;
+    }
+    &:hover {
+      background: $column-background-color;
+      opacity: 0.7;
+    }
+  }
+
+
+  &.loading {
+    .golumn-loading{
+      display: block;
+    }
+    .golumn-columns{
+      display: none;
+    }
+  }
+
 
 
   // Golumn column
   .golumn-column {
-    width: 28ex;
+    width: $column-width;
     //@include inline-block;
 
     margin: $column-padding;
@@ -722,7 +756,7 @@ $column-padding: $default-border-radius;
   padding-left: 3em;
 }
 
-#loading {
+.golumn-loading {
   display: none;
   margin: $fs-large auto;
   @include loading-indicator;

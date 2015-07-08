@@ -112,6 +112,7 @@ class Product < Ekylibre::Record::Base
   has_one :finish_junction, through: :finish_way, source: :junction
   has_one :current_phase,        -> { current }, class_name: "ProductPhase",        foreign_key: :product_id
   has_one :current_localization, -> { current }, class_name: "ProductLocalization", foreign_key: :product_id
+  has_one :current_enjoyment,    -> { current }, class_name: "ProductEnjoyment",    foreign_key: :product_id
   has_one :current_ownership,    -> { current }, class_name: "ProductOwnership",    foreign_key: :product_id
   has_many :current_memberships, -> { current }, class_name: "ProductMembership",    foreign_key: :member_id
   has_one :container, through: :current_localization
@@ -169,7 +170,10 @@ class Product < Ekylibre::Record::Base
   }
   scope :at, lambda { |at| where(arel_table[:born_at].lteq(at).and(arel_table[:dead_at].eq(nil).or(arel_table[:dead_at].gt(at)))) }
   scope :of_owner, lambda { |owner|
-    joins(:current_ownership).where("product_ownerships.owner_id" => Entity.of_company.id)
+    joins(:current_ownership).where("product_ownerships.owner_id" => owner.id)
+  }
+  scope :of_enjoyer, lambda { |owner|
+    joins(:current_enjoyment).where("product_enjoyments.enjoyer_id" => owner.id)
   }
 
   scope :of_productions, lambda { |*productions|
