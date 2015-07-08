@@ -73,18 +73,17 @@
       if id is null or id is undefined or id is ""
         @initializing = false
         return @valueField.val()
-      that = this
       url = this.sourceURL()
       $.ajax
         url: url
         dataType: "json"
         data:
           id: id
-        success: (data, status, request) ->
+        success: (data, status, request) =>
           listItem = $.parseJSON(request.responseText)[0]
           if listItem?
-            that._select listItem.id, listItem.label, triggerEvents
-            that.element.prop("ready", true)
+            @_select listItem.id, listItem.label, triggerEvents
+            @element.prop("ready", true)
           else
             console.warn "JSON cannot be parsed. Get: #{request.responseText}."
         error: (request, status, error) ->
@@ -172,12 +171,11 @@
           parameters = {}
           if selected.data("new-item").length > 0
             parameters.name = selected.data("new-item")
-          that = this
           E.dialog.open @element.data("selector-new-item"),
             data: parameters
             returns:
-              success: (frame, data, status, request) ->
-                that._set(request.getResponseHeader("X-Saved-Record-Id"), true)
+              success: (frame, data, status, request) =>
+                @_set(request.getResponseHeader("X-Saved-Record-Id"), true)
                 frame.dialog "close"
               invalid: (frame, data, status, request) ->
                 frame.html request.responseText
@@ -233,9 +231,8 @@
 
     _focusOut: (event) ->
       # console.log "focusout"
-      that = this
-      setTimeout ->
-        that._closeMenu()
+      setTimeout =>
+        @_closeMenu()
       , 300
       true
 
