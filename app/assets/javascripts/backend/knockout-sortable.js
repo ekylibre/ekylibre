@@ -205,7 +205,12 @@
                             {
                                 helper.append($("<div class='animate-dragging-number'>"+elements.length+"</div>"));
                                 var z = 0;
-                                for(var i=0;i < elements.length; i++)
+                                var render = 3;
+                                if(elements.length < render) {
+                                    render = elements.length
+                                }
+
+                                for(var i=0;i < render ; i++)
                                 {
                                     t = -i * 5;
 
