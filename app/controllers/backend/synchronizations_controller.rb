@@ -43,7 +43,7 @@ class Backend::SynchronizationsController < Backend::BaseController
       conn = CartoDBConnection.new(@cooperative_config[:account], @cooperative_config[:key])
       data = []
       company = @cooperative_config[:member]
-      activities = Activity.of_families(:orchard_crops)
+      activities = Activity.of_families(:arboriculture)
       Intervention.includes(:production, :production_support, :issue, :recommender, :activity, :campaign, :storage).of_activities(activities).find_each do |intervention|
         line = {
           company: company,
