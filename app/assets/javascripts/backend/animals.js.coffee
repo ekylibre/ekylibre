@@ -76,6 +76,7 @@
 
       @newGroupModalOptions =
         group: ko.observable ''
+        variantId: ko.observable ''
 
 
       @cancelAnimalDetails = () =>
@@ -365,7 +366,7 @@
             type: 'PUT',
 #            type: 'GET',
             dataType: 'JSON',
-            data: {name:group()},
+            data: {name:group(),variant_id: @newGroupModalOptions.variantId()},
             success: (res) =>
               if res.id
                 @groups.push new dashboardViewModel.Group(res.id, res.name)

@@ -89,7 +89,7 @@
         .control-group
           %label.control-label= ProductGroup.human_attribute_name(:variant)
           .controls
-            = select_tag(:variant_id, options_for_select(ProductNatureVariant.of_variety(:animal_group).map{|v| [v.name, v.id]}))
+            = select_tag(:variant_id, options_for_select(ProductNatureVariant.of_variety(:animal_group).map{|v| [v.name, v.id]}), data: {bind: 'value: variantId'})
       .modal-footer
         = link_to("#", data: {bind: 'click: $root.addGroup'}, class: "btn btn-default") do
           = :add.tl
