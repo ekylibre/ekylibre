@@ -57,7 +57,7 @@ class Preference < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_length_of :nature, allow_nil: true, maximum: 60
   validates_inclusion_of :nature, in: @@natures
-  validates_uniqueness_of :name, :scope => [:user_id]
+  validates_uniqueness_of :name, scope: [:user_id]
 
   alias_attribute :chart_of_accounts_value, :string_value
   alias_attribute :country_value, :string_value

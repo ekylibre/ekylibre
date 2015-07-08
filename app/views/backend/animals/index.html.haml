@@ -20,7 +20,6 @@
       .golumn-loading
       .golumn-columns
         .golumn-columns-container{data: { bind: "sortable: {template: 'golumn-column-template', data: groups, connectClass: 'group-dropzone', options: {handle: '.golumn-column-handle', cursor: 'move', tolerance: 'pointer', dropOnEmpty: true, opacity: 1, revert: true}}"}}
-          -# .add-group-panel-container.golumn-column
         .golumn-addon
           = link_to("#new-group", class: "golumn-column-add", data: { bind: 'click: $root.toggleNewGroupModal' }) do
             %i

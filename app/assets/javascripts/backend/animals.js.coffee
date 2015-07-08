@@ -489,11 +489,15 @@
 
 
   $(document).ready ->
-    $("*[data-golumns='animal']").each ->
+    # $("*[data-golumns]").mousewheel (event, delta) ->
+    #   if $(this).prop("wheelable") != "false"
+    #     @scrollLeft -= (delta * 30)
+    #     event.preventDefault()
 
+
+    $("*[data-golumns='animal']").each ->
       golumn_id = $(this).data("golumns")
       window.app = new dashboardViewModel(golumn_id)
-
       window.loadData(golumn_id, $(this))
 
 ) jQuery

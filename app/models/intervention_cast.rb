@@ -154,7 +154,7 @@ class InterventionCast < Ekylibre::Record::Base
   end
 
   def variable_name
-    self.reference.human_name
+    self.name
   end
 
   def name
