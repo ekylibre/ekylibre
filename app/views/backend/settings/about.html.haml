@@ -1,8 +1,7 @@
-= beehive do |b|
-  - b.cell :ekylibre do
-    #about-us= link_to(image_tag("logo.svg"), "http://www.ekylibre.org", class: :logo)
-    .big-infos
-      - for p in @properties
-        .big-info
-          %span.title= p[0]
-          %span.value= p[1]
+#about-us
+  = link_to("http://www.ekylibre.org", class: :logo) do
+    = image_tag("logo.svg")    
+  - for p in @properties
+    .med-info
+      %span.title= p[0]
+      %span.value= p[1]

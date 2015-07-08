@@ -494,18 +494,13 @@ html.exception {
   @include calc(height, "100vh - #{$header-height + $topbar-height + $toolbar-height}");
 }
 
-div[data-deck] > div {
-  display: none;
-}
-
-div[data-deck] > div#default {
-  display: block;
-}
-
 
 #about-us {
+  padding: 15vh 15vw;
   .logo {
     margin: 20px auto;
+    max-width: 60%;
+    display: block;
     img {
       width: 100%;
     }
@@ -521,10 +516,10 @@ div[data-deck] > div#default {
       @include margin-left(2*$fs-normal);
     }
   }
-  width: 40%;
   margin: 0 auto;
   @include respond-to(small) {
     width: 100%;
+    padding: 0 0;
   }
 }
 

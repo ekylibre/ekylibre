@@ -1,13 +1,12 @@
 - productions = Production.of_activities(Activity.of_families(:field_crops)).of_campaign(Campaign.currents).reorder(:name).select{|p| p.budgets.any? }
-= beehive do |b|
-  - b.hbox do
-    - productions.each do |production|
-      - b.cell "#{production.id}_quandl".to_sym, type: :quandl, title: production.name, params: {threshold: {3 => 172.25, 4 => 283.70}[production.id], dataset: production.quandl_dataset}
-  - b.hbox do
-    - productions.each do |production|
-      - b.cell "#{production.id}_threshold_commercialization".to_sym, type: :threshold_commercialization_by_production, title: production.name, params: {production_id: production.id}
+= cobbles do |c|
+  - productions[0..1].each do |production|
+    - c.cobble "production_#{production.id}".to_sym, title: production.name do
+      .row
+        .col-md-4{style: "padding-left: 0; padding-right: 0"}= cell :threshold_commercialization_by_production, name: "threshold_commercialization_#{production.id}".to_sym, title: production.name, params: {production_id: production.id}
+        .col-md-8{style: "padding-left: 0; padding-right: 0"}= cell :quandl, name: "quandl_#{production.id}".to_sym, title: production.name, params: {threshold: {3 => 172.25, 4 => 283.70}[production.id], dataset: production.quandl_dataset}
 
-  - b.cell :simulator, hideable: false do
+  - c.cobble :simulator, hideable: false do
     .regulator
       %span.name= "Salaire"
       %span.slider.slider-salary{data: {regulator: {value: 2000, unit: "€"}.to_json}}

@@ -95,7 +95,3 @@
       .info
         %span.title= Intervention.human_attribute_name(:description)
         %span.value= resource.description
-
-  -# if resource.operations.any?
-    - c.cobble(:operations) do
-      = cobble_list(:operations)

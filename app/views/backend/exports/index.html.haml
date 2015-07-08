@@ -1,10 +1,8 @@
-- categories = Nomen::DocumentCategories.to_a.select{|category| Aggeratio.of_category(category).size > 0}
-= beehive do |b|
-  - while categories.any?
-    - b.hbox do
-      - for category in categories.slice!(0, 3)
-        - b.cell("#{category}_exports".to_sym, title: Nomen::DocumentCategories[category].human_name) do
-          - for aggregator in Aggeratio.of_category(category)
-            = link_to({action: :show, id: aggregator.id}, class: "btn btn-big btn-#{aggregator.id} aggregator", title: aggregator.human_name) do
-              %i
-              = aggregator.human_name
+- categories = Nomen::DocumentCategories.to_a.select{|category| Aggeratio.of_category(category).any? }
+= cobbles do |c|
+  - categories.map{|c| Nomen::DocumentCategories[c] }.sort{|a,b| a.human_name.ascii <=> b.human_name.ascii }.each do |category|
+    - c.cobble category.name, title: category.human_name do
+      - Aggeratio.of_category(category.name).each do |aggregator|
+        = link_to({action: :show, id: aggregator.id}, class: "btn btn-big btn-#{aggregator.id} aggregator", title: aggregator.human_name, style: "min-width: 30ex") do
+          %i
+          = aggregator.human_name
