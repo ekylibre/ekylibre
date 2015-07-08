@@ -12,6 +12,9 @@ module ActiveExchanger
   class IncompatibleDataError < Error
   end
 
+  class InvalidDataError < Error
+  end
+
   autoload :Base,       'active_exchanger/base'
   autoload :Supervisor, 'active_exchanger/supervisor'
 
