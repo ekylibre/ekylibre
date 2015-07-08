@@ -1,7 +1,7 @@
 class Intervention
   class Recorder
 
-    class Task
+    class OperationTask
       def initialize(recorder, type, parameters = {}, options = {})
         @recorder = recorder
         @type = type

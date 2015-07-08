@@ -15,7 +15,7 @@ class Intervention
       @steps.each do |step|
         if step.is_a?(::Intervention::Recorder::Cast)
           step.save!
-        elsif step.is_a?(::Intervention::Recorder::Task)
+        elsif step.is_a?(::Intervention::Recorder::OperationTask)
           step.perform!(operation)
         else
           raise "What #{step.inspect} step !!!"
@@ -29,7 +29,6 @@ class Intervention
     def cast(name, *args)
       options = args.extract_options!
       object = args.shift || options[:object]
-      puts object.inspect.red
       cast = Cast.new(self, name, object, options)
       @casting[name] = cast
       @steps << cast
@@ -44,7 +43,7 @@ class Intervention
       else
         raise "Invalid action type: #{type}"
       end
-      @steps << ::Intervention::Recorder::Task.new(self, type, parameters, options)
+      @steps << ::Intervention::Recorder::OperationTask.new(self, type, parameters, options)
     end
 
 
