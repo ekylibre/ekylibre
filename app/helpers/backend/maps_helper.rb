@@ -58,7 +58,11 @@ module Backend::MapsHelper
 
   def shape_field_tag(name, value = nil, options = {})
     geometry = Charta::Geometry.new(value || Charta::Geometry.empty)
-    return text_field_tag(name, value, options.deep_merge(data: {map_editor: {box: {height: 240, width: 360}, edit: geometry.to_geojson}}))
+    box ||= {}
+    options[:box] ||= {}
+    box[:width] = options[:box][:width] || 360
+    box[:height] = options[:box][:height] || 240
+    return text_field_tag(name, value, options.deep_merge(data: {map_editor: { box: box.jsonize_keys, edit: geometry.to_geojson}}))
   end
 
 end

@@ -19,6 +19,7 @@
 //= require jquery-ui/sortable
 //= require jquery-ui/droppable
 //= require jquery_ujs
+//= require jquery.remotipart
 //= require jquery.turbolinks
 //= require turbolinks
 //= require active_list.jquery

@@ -91,6 +91,7 @@ gem 'paperclip-document', '> 0.0.8'
 # Forms
 gem 'simple_form', '~> 3.1.0'
 gem 'cocoon'
+gem 'remotipart', '~> 1.2'
 
 # I18n and localeapp
 gem 'i18n-complements', '>= 0.0.14'
