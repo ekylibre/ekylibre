@@ -15,7 +15,7 @@ Le bouton "Valider" permet de modifier les caractéristiques du transport.
 Si votre livraison est correctement définie, validez en cliquant sur "Valider et revenir à la liste des transports".
 
 ===== Poids des livraisons =====
-Si **le poids de votre livraison est incorrect**, **vérifiez le poids des produits qui composent cette livraison**. Si vous n'avez pas défini de poids à vos produits, le poids de votre livraison sera nul. 
+Si **le poids de votre livraison est incorrect**, **vérifiez le poids des produits qui composent cette livraison**. Si vous n'avez pas défini de poids à vos produits, le poids de votre livraison sera nul.
 
 Vous pouvez **définir le poids de vos produits** directement sur la fiche de [[>backend/products|vos produits]].
 

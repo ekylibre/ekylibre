@@ -244,8 +244,6 @@ spa:
       # purchase_nature: "Purchase type"
       # role: "Role"
       # sale: "Sale"
-      # sale_credit: "Sale credit"
-      # sale_credit_item: "Sale credit item"
       # sale_item: "Sale item"
       # sale_nature: "Sale type"
       # sale_opportunity: "Sale opportunity"
@@ -1225,6 +1223,7 @@ spa:
       # bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
       label:
         # aborted: "Aborted sale %{number}"
+        # credit: "Sale credit %{number}"
         # draft: "Estimate %{number} - draft"
         # estimate: "Estimate %{number} - sent"
         # invoice: "Sales invoice %{number}"
@@ -1245,9 +1244,6 @@ spa:
         # invoice: "Invoice"
         # order: "Order"
         # refused: "Refused estimate"
-    sale_credit:
-      label:
-        # invoice: "Sale credit %{number}"
     sale_item:
       # building_can_not_transfer_product: "The product %{product} can not be used with %{building}, because it contains only %{contained_product} "
       # can_not_use_this_tracking: "You can not use the tracking %{name}, the requested quantity is greater than the available quantity"

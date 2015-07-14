@@ -1,5 +1,3 @@
-# allows price and tax auto filling in sales view
-
 ((E, $) ->
   'use strict'
 
@@ -12,7 +10,7 @@
     link.hide()
     annotation = scope.find(link.data('annotate'))
     annotation.show()
-    annotation.find("textarea").focus()
+    autosize annotation.find("textarea").focus()
     return false
 
 
@@ -41,186 +39,145 @@
             if unit.name
               item.find(options.unit_name_tag or ".unit-name").html(data.name)
 
-            if unit.pretax_amount
-              item.find(options.unit_pretax_amount_field or "*[data-trade-component='unit_pretax_amount']").val(unit.pretax_amount)
-            else if !unit.pretax_amount
-              item.find(options.unit_pretax_amount_field or "*[data-trade-component='unit_pretax_amount']").val(0)
+            input = item.find(options.unit_pretax_amount_field or "*[data-trade-component='unit_pretax_amount']")
+            if unit.pretax_amount isnt undefined
+              input.val(unit.pretax_amount)
+            else if input.val() is ""
+              input.val(0)
 
-            if unit.amount
-              item.find(options.unit_amount_field or "*[data-trade-component='unit_amount']").val(unit.amount)
-            else if !unit.amount
-              item.find(options.unit_amount_field or "*[data-trade-component='unit_amount']").val(0)
+            input = item.find(options.unit_amount_field or "*[data-trade-component='unit_amount']")
+            if unit.amount isnt undefined
+              input.val(unit.amount)
+            else if input.val() is ""
+              input.val(0)
 
           if data.tax_id?
             item.find(options.tax or "*[data-trade-component='tax']").val(data.tax_id)
           # Compute totals
-          E.trade.compute(item)
+          # E.trade.compute(item)
 
         error: (request, status, error) ->
           console.log("Error while retrieving price and tax fields content: #{error}")
     else
       console.warn "Cannot get variant ID"
 
+
   E.trade =
-    # CSS class for reference fields
-    referenceClass: "special"
 
-    methods:
-      computeManual: (item, changedComponent) ->
-        console.log "Compute Manual method from #{changedComponent}"
-        # Do nothing for now
+    # Compute other amounts from unit pretax amount
+    updateUnitPretaxAmount: (item) ->
+      values = E.trade.itemValues(item)
+      updates = {}
+      # Compute pretax_amount
+      updates.pretax_amount = (values.unit_pretax_amount * values.quantity * (100.0 - values.reduction_percentage) / 100.0).toFixed(2)
+      # Compute amount
+      updates.amount = (updates.pretax_amount * values.tax).toFixed(2)
+      E.trade.itemValues(item, updates)
 
-      computeQuantityTax: (item, changedComponent) ->
-        console.log "Compute Quantity-Tax method from #{changedComponent}"
-        if changedComponent == "amount"
-          E.trade.ops.mmma(item)
-          E.trade.ops.mmmb(item)
-          E.trade.ops.mmmc(item)
-        else if changedComponent == "pretax_amount"
-          E.trade.ops.mmmd(item)
-          E.trade.ops.mmmb(item)
-          E.trade.ops.mmmc(item)
-        else if changedComponent == "unit_amount"
-          E.trade.ops.mmme(item)
-          E.trade.ops.mmmg(item)
-          E.trade.ops.mmmd(item)
-        else if changedComponent == "unit_pretax_amount"
-          E.trade.ops.mmmf(item)
-          E.trade.ops.mmmg(item)
-          E.trade.ops.mmmd(item)
-        else
-          console.error "Cannot compute anything for #{changedComponent}"
+    # Compute other amounts from pretax amount
+    updatePretaxAmount: (item) ->
+      values = E.trade.itemValues(item)
+      updates = {}
+      # Compute unit_pretax_amount
+      updates.unit_pretax_amount = (values.pretax_amount / (values.quantity * (100.0 - values.reduction_percentage) / 100.0)).toFixed(4)
+      # Compute amount
+      updates.amount = (values.pretax_amount * values.tax).toFixed(2)
+      E.trade.itemValues(item, updates)
 
-      computeTaxQuantity: (item, changedComponent) ->
-        console.log "Compute Tax-Quantity method from #{changedComponent}"
-        if changedComponent == "amount"
-          E.trade.ops.mmmb(item)
-          E.trade.ops.mmme(item)
-          E.trade.ops.mmmg(item)
-        else if changedComponent == "pretax_amount"
-          E.trade.ops.mmmc(item)
-          E.trade.ops.mmmf(item)
-          E.trade.ops.mmmh(item)
-        else if changedComponent == "unit_amount"
-          E.trade.ops.mmmh(item)
-          E.trade.ops.mmme(item)
-          E.trade.ops.mmmg(item)
-        else if changedComponent == "unit_pretax_amount"
-          E.trade.ops.mmmg(item)
-          E.trade.ops.mmmf(item)
-          E.trade.ops.mmmh(item)
-        else
-          console.error "Cannot compute anything for #{changedComponent}"
+    # Compute other amounts from amount
+    updateAmount: (item) ->
+      values = E.trade.itemValues(item)
+      updates = {}
+      # Compute pretax_amount
+      updates.pretax_amount = (values.amount / values.tax).toFixed(2)
+      # Compute unit_pretax_amount
+      updates.unit_pretax_amount = (updates.pretax_amount / (values.quantity * (100.0 - values.reduction_percentage) / 100.0)).toFixed(4)
+      E.trade.itemValues(item, updates)
 
-      computeAdaptive: (item, changedComponent) ->
-        adaptativeMethod = item.prop("adaptativeMethod")
-        if adaptativeMethod == "tax_quantity"
-          E.trade.methods.computeTaxQuantity(item, changedComponent)
-        else if adaptativeMethod == "quantity_tax"
-          E.trade.methods.computeQuantityTax(item, changedComponent)
-        # Evaluate if re-computation is needed
-        amount = E.trade.find("unit_pretax_amount", item)
-        tax = E.trade.find("tax", item)
-        taxPercentage = Math.round2(100.0 * tax.numericalValue() - 100.0, 0.000001)
-        count = Math.decimalCount(taxPercentage)
-        if amount.numericalValue() >= Math.pow(10, count)
-          if adaptativeMethod != "tax_quantity"
-            adaptativeMethod = "tax_quantity"
-            E.trade.methods.computeTaxQuantity(item, changedComponent)
-        else
-          if adaptativeMethod != "quantity_tax"
-            adaptativeMethod = "quantity_tax"
-            E.trade.methods.computeQuantityTax(item, changedComponent)
-        item.prop("adaptativeMethod", adaptativeMethod)
+    # Compute other amounts from amount
+    updateCreditedQuantity: (item) ->
+      values = E.trade.itemValues(item)
+      updates = {}
+      # Compute pretax_amount
+      updates.pretax_amount = (-1 * values.unit_pretax_amount * values.credited_quantity * (100.0 - values.reduction_percentage) / 100.0).toFixed(2)
+      # Compute unit_pretax_amount
+      updates.amount = (updates.pretax_amount * values.tax).toFixed(2)
+      E.trade.itemValues(item, updates)
 
-    ops:
-      mmma: (item) ->
-        E.trade.divide(item, "pretax_amount", "amount", "tax")
-      mmmb: (item) ->
-        E.trade.divide(item, "unit_amount", "amount", "quantity")
-      mmmc: (item) ->
-        E.trade.divide(item, "unit_pretax_amount", "pretax_amount", "quantity")
-      mmmd: (item) ->
-        E.trade.multiply(item, "amount", "pretax_amount", "tax")
-      mmme: (item) ->
-        E.trade.divide(item, "unit_pretax_amount", "unit_amount", "tax")
-      mmmf: (item) ->
-        E.trade.multiply(item, "unit_amount", "unit_pretax_amount", "tax")
-      mmmg: (item) ->
-        E.trade.multiply(item, "pretax_amount", "unit_pretax_amount", "quantity")
-      mmmh: (item) ->
-        E.trade.multiply(item, "amount", "unit_amount", "quantity")
-
-    find: (name, item) ->
+    find: (item, name) ->
       item.find("*[data-trade-component='#{name}']")
 
-    divide: (item, recipient, numerator, denominator) ->
-      r = E.trade.find(recipient, item)
-      n = E.trade.find(numerator, item)
-      d = E.trade.find(denominator, item)
-      value = n.numericalValue() / d.numericalValue()
-      r.val(value.toFixed(2))
-
-    multiply: (item, recipient, operand, coefficient) ->
-      r = E.trade.find(recipient, item)
-      o = E.trade.find(operand, item)
-      c = E.trade.find(coefficient, item)
-      value = o.numericalValue() * c.numericalValue()
-      r.val(value.toFixed(2))
-
-    setReferenceValue: (item, referenceValue, componentType = null) ->
-      unless componentType?
-        componentType = referenceValue.val()
-      if componentType == "unit_pretax_amount" or componentType == "unit_amount" or componentType == "pretax_amount" or componentType == "amount"
-        # Register reference value
-        referenceValue.val(componentType)
-        # Set class for reference field
-        item.find("*[data-trade-component].#{E.trade.referenceClass}").removeClass(E.trade.referenceClass)
-        item.find("*[data-trade-component='#{componentType}']").addClass(E.trade.referenceClass)
-
-    compute: (item, component = null) ->
-      form = item.closest("form")
-      changedComponent = null
-      referenceValue = item.find("*[data-trade-component='reference_value']")
-
-      if component
-        componentType = component.data("trade-component")
-        E.trade.setReferenceValue(item, referenceValue, componentType)
-
-      # Computes values
-      tradeMethod = form.find("*[data-trade-method]")
-      if tradeMethod.is("input[type='radio']")
-        method = form.find("*[data-trade-method]:checked").val()
+    itemValues: (item, updates = null) ->
+      if updates is null
+        values =
+          unit_pretax_amount: E.trade.find(item, "unit_pretax_amount").numericalValue()
+          quantity: E.trade.find(item, "quantity").numericalValue()
+          credited_quantity: E.trade.find(item, "credited_quantity").numericalValue()
+          reduction_percentage: E.trade.find(item, "reduction_percentage").numericalValue()
+          tax: E.trade.find(item, "tax").numericalValue()
+          pretax_amount: E.trade.find(item, "pretax_amount").numericalValue()
+          amount: E.trade.find(item, "amount").numericalValue()
+        return values
       else
-        method = tradeMethod.val()
+        for key, value of updates
+          E.trade.find(item, key).numericalValue(value)
 
-      # Get reference value
-      changedComponent = referenceValue.val()
+  E.purchasing =
 
-      # Apply method
-      if method == "quantity_tax"
-        E.trade.methods.computeQuantityTax(item, changedComponent)
-      else if method == "tax_quantity"
-        E.trade.methods.computeTaxQuantity(item, changedComponent)
-      else if method == "adaptative"
-        E.trade.methods.computeAdaptive(item, changedComponent)
-      else if method == "manual"
-        E.trade.methods.computeManual(item, changedComponent)
-      else
-        console.error "Cannot compute anything with #{method} method"
-
-  # Computes changes on items
-  $(document).behave "load", "form *[data-trade-item] *[data-trade-component='reference_value']", ->
-    E.trade.setReferenceValue $(this).closest("*[data-trade-item]"), $(this)
+    # Compute what have to be computed
+    compute: (item, changedComponent) ->
+      component = changedComponent.data("trade-component")
+      switch component
+        when 'unit_pretax_amount', 'quantity', 'reduction_percentage', 'tax'
+          E.trade.updateUnitPretaxAmount(item)
+        when 'pretax_amount'
+          E.trade.updatePretaxAmount(item)
+        when 'amount'
+          # Do nothing. Ability to customize precisely amount
+        else
+          console.error "Unknown component: #{component}"
 
   # Computes changes on items
-  $(document).on "keyup change", "form *[data-trade-item] *[data-trade-component]", ->
-    E.trade.compute $(this).closest("*[data-trade-item]"), $(this)
+  $(document).on "keyup change", "form *[data-trade-item='purchasing'] *[data-trade-component]", (event) ->
+    component = $(this)
+    E.purchasing.compute component.closest("*[data-trade-item]"), component
+
+  E.selling =
+
+    # Compute what have to be computed
+    compute: (item, changedComponent) ->
+      component = changedComponent.data("trade-component")
+      switch component
+        when 'unit_pretax_amount', 'quantity', 'reduction_percentage', 'tax'
+          E.trade.updateUnitPretaxAmount(item)
+        when 'pretax_amount'
+          E.trade.updatePretaxAmount(item)
+        when 'amount'
+          E.trade.updateAmount(item)
+        else
+          console.error "Unknown component: #{component}"
 
   # Computes changes on items
-  $(document).on "change", "form *[data-trade-method]", ->
-    $(this).closest("form").find("*[data-trade-item]").each ->
-      E.trade.compute $(this)
+  $(document).on "keyup change", "form *[data-trade-item='selling'] *[data-trade-component]", (event) ->
+    component = $(this)
+    E.selling.compute component.closest("*[data-trade-item]"), component
+
+
+  # Crediting workflow
+  E.crediting =
+    # Compute what have to be computed
+    compute: (item, changedComponent) ->
+      component = changedComponent.data("trade-component")
+      switch component
+        when 'credited_quantity'
+          E.trade.updateCreditedQuantity(item)
+        else
+          console.error "Unknown component: #{component}"
+
+  # Computes changes on items
+  $(document).on "keyup change", "form *[data-trade-item='crediting'] *[data-trade-component]", (event) ->
+    component = $(this)
+    E.crediting.compute component.closest("*[data-trade-item]"), component
 
   return
 ) ekylibre, jQuery

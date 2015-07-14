@@ -15,6 +15,8 @@ namespace :clean do
       files += Dir["#{dirs}/**/*.treetop"]
       files += Dir["#{dirs}/**/*.yml"]
       files += Dir["#{dirs}/**/*.xml"]
+      files += Dir["#{dirs}/**/*.txt"]
+      files += Dir["#{dirs}/**/*.rdoc"]
       files += Dir["#{dirs}/**/*.haml"]
       files += Dir["#{dirs}/**/*.erb"]
       files += Dir["#{dirs}/**/*.rjs"]

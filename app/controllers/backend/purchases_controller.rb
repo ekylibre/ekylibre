@@ -23,7 +23,6 @@ class Backend::PurchasesController < Backend::BaseController
 
   unroll :number, :amount, :currency, :created_at, supplier: :full_name
 
-
   # params:
   #   :q Text search
   #   :state State search
@@ -76,11 +75,10 @@ class Backend::PurchasesController < Backend::BaseController
     # t.action :destroy, if: :draft?
     t.column :variant, url: true
     t.column :annotation
-    #t.column :tracking_serial
     t.column :quantity
     t.column :unit_pretax_amount, currency: true
     t.column :unit_amount, currency: true, hidden: true
-    # t.column :indicator_name
+    t.column :reduction_percentage
     t.column :pretax_amount, currency: true
     t.column :amount, currency: true
   end

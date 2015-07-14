@@ -1,3 +1,3 @@
 ====== Comment pointer des écritures ? ======
 Vous avez un tableau répertoriant les différentes écritures correspondantes à la période du relevé avec, pour chacune d'elles, les montants apportés au débit et au crédit. Un jeu de couleurs Rouge ou Orange/Vert détermine si l'écriture est attachée ou non à un relevé bancaire, ce qui dans ce cas est précisé dans la colonne **N° Relevé**. En cliquant sur une écriture non attachée (**Rouge**), vous la rajouter au relevé actuel (**Vert**). En revanche, en cliquant sur une écriture ayant dejà fait l'objet d'un pointage pour un autre relevé (**Orange**), celle-ci revient sur la couleur rouge.
-Le bouton validation permet, quant à lui, de confirmer l'opération de pointage pour le relevé de compte.   
+Le bouton validation permet, quant à lui, de confirmer l'opération de pointage pour le relevé de compte.

@@ -10,7 +10,7 @@
   - if resource.invoice?
     - t.cancel(resource) if resource.cancellable?
   - t.edit resource if resource.draft?
-  - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if resource.destroyable?
+  - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl, params: {redirect: nil}) if resource.destroyable?
 
 = main_state_bar(resource)
 
@@ -46,7 +46,7 @@
   - c.cobble :items, title: Sale.human_attribute_name(:items) do
     = cobble_list :items do
       %tr.total
-        %th{colspan: 4}= :total.tl
+        %th{colspan: 5}= :total.tl
         %td= resource.pretax_amount.l(currency: resource.currency)
         %td= resource.amount.l(currency: resource.currency)
 

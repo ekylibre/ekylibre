@@ -10,7 +10,7 @@ Le type porte notament les codes comptables, le prix par défault, la race de ba
 **Numéro de travail** = numéro de boucle
 >>> Ex : Bovins : 4 chiffres
 
-**Numéro d'identification** = numéro national d'identification 
+**Numéro d'identification** = numéro national d'identification
 >>> Ex : Bovins : FR + DEPT + 8 chiffres
 
 **Externe à l'exploitation** = Tout animal que l'on doit utiliser mais qui n'est pas présent sur l'exploitation et qui ne comptera pas dans les stocks

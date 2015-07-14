@@ -8,6 +8,6 @@ Il contient toutes les pièces et écritures comptables qui sont la base de la c
 ===== Gestion d'un journal comptable =====
 
 Il est possible de consulter toutes les écritures à travers tous les exercices en utilisant les filtres sur les périodes. Par défaut, les écritrues sont filtrées sur l'exercice en cours.
-Les journaux sont visibles dans plusieurs modes. Le mode //Brouillard// permet de consulter les écritures en mode brouillard du journal seulement. 
+Les journaux sont visibles dans plusieurs modes. Le mode //Brouillard// permet de consulter les écritures en mode brouillard du journal seulement.
 
 

@@ -1,6 +1,6 @@
 ====== Bâtiments ======
 
-Vous avez accès au récapitulatif de certaines informations concernant vos bâtiments. 
+Vous avez accès au récapitulatif de certaines informations concernant vos bâtiments.
 
 !!! Un bâtiment est implanté sur une [[>backend/settlements|emprise primaire]].
 !!! Un bâtiment est divisé en une ou plusieurs [[>backend/building_divisions|zones]].

@@ -6,8 +6,8 @@ La comptabilité est le recensement et la mesure économique de l'activité et d
 ===== Comment gérer sa comptabilité ? =====
 Vous trouverez ici les différents outils nécéssaires à la gestion de votre comptabilité~:
   * les **travaux comptables**, c'est à dire les opérations comptables faites au cours de l'exercice (saisie des écritures, pointage des relevés de compte...)
- 
-  * les **documents comptables** (journaux, grand livre...) retraçant sous forme mensuelle ou annuelle les activités de l'entreprise. 
+
+  * les **documents comptables** (journaux, grand livre...) retraçant sous forme mensuelle ou annuelle les activités de l'entreprise.
 
   * les **paramètres** qui permettent d'enregistrer les informations de base de la comptabilité (création de comptes, journaux, exercices, comptes bancaires).
 

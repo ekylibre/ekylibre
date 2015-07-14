@@ -9,4 +9,4 @@ Dans le cas où vous souhaitez clore l'exercice, l'opération ne sera possible q
   * les **journaux** sont clos à des dates **antérieures** à la date choisie pour la clôture de l'exercice.
   * les **journaux** sont **équilibrés**.
 
-Après l'opération de clôture, les **dates de clôture** des journaux sont **ramenées** à la date de clôture de l'exercice. 
+Après l'opération de clôture, les **dates de clôture** des journaux sont **ramenées** à la date de clôture de l'exercice.

@@ -50,9 +50,9 @@ You can install postgresql-9.3-postgis-2.1 and libgeos-dev packages to get all d
 
   Or compile it from source. In one line:
     wget ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p481.tar.gz && tar xzvf ruby-2.0.0-p481.tar.gz && cd ruby-2.0.0-p481 && ./configure && make && sudo make install
-  
+
   NOTE : we advise you to take the RBENV method
-  
+
 == 3. Configuration
 
 * Configure a DB superuser as default user in your +config/database.yml+.
@@ -64,9 +64,9 @@ You can install postgresql-9.3-postgis-2.1 and libgeos-dev packages to get all d
 * Move to Ekylibre directory root and install gems with bundler:
     cd /path/to/ekylibre
     JAVA_HOME=/usr/lib/jvm/java-7-openjdk NOKOGIRI_USE_SYSTEM_LIBRARIES=1 bundle install
-    
+
   Or you can add the following lines in your +~/.bash_profile+ in your home directory and run +bundle install+ after:
-    
+
     export JAVA_HOME=/usr/lib/jvm/java-7-openjdk
     export NOKOGIRI_USE_SYSTEM_LIBRARIES=1
 

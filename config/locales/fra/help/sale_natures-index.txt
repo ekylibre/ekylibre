@@ -7,4 +7,4 @@ Vous pouvez :
   * le **modifier** :  {{icon:edit|modifier}}
   * le **supprimer** : {{icon:destroy|supprimer}}
 
- 
+

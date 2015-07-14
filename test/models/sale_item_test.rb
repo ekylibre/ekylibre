@@ -28,6 +28,7 @@
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  credited_item_id     :integer
+#  credited_quantity    :decimal(19, 4)
 #  currency             :string           not null
 #  id                   :integer          not null, primary key
 #  label                :text
@@ -36,10 +37,8 @@
 #  pretax_amount        :decimal(19, 4)   default(0.0), not null
 #  quantity             :decimal(19, 4)   default(1.0), not null
 #  reduction_percentage :decimal(19, 4)   default(0.0), not null
-#  reference_value      :string           not null
 #  sale_id              :integer          not null
 #  tax_id               :integer
-#  type                 :string
 #  unit_amount          :decimal(19, 4)   default(0.0), not null
 #  unit_pretax_amount   :decimal(19, 4)
 #  updated_at           :datetime         not null

@@ -8,7 +8,7 @@ Les remises en banques concernent les règlements en attente d'encaissement. Son
 
 Créer une remise de chèque consiste à **sélectionner un ou plusieurs chèques à déposer sur un compte**. Vous pourrez ensuite imprimer le **bordereau de remise de chèques** que vous pourrez envoyer, accompagnés des chèques, directement à votre banque.
 
-Vous avez le récapitulatif du nombre de chèques à encaisser ainsi que des remises de chèques précédemment effectuées. Si un chèque devait être encaissé depuis **plus de 15 jours**, vous en serez informé au niveau du tableau de bord de la gestion commerciale. 
+Vous avez le récapitulatif du nombre de chèques à encaisser ainsi que des remises de chèques précédemment effectuées. Si un chèque devait être encaissé depuis **plus de 15 jours**, vous en serez informé au niveau du tableau de bord de la gestion commerciale.
 
 ===== Validation  =====
 

@@ -28,7 +28,6 @@
 #  amount              :decimal(19, 4)   default(0.0), not null
 #  annotation          :text
 #  client_id           :integer          not null
-#  computation_method  :string           not null
 #  conclusion          :text
 #  confirmed_at        :datetime
 #  created_at          :datetime         not null
@@ -61,14 +60,12 @@
 #  state               :string           not null
 #  subject             :string
 #  transporter_id      :integer
-#  type                :string
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #
 
 
 class Sale < Ekylibre::Record::Base
-  enumerize :computation_method, in: [:adaptative, :quantity_tax, :tax_quantity], default: :quantity_tax, predicates: {prefix: true}
   attr_readonly :currency
   belongs_to :affair
   belongs_to :client, class_name: "Entity"
@@ -91,7 +88,7 @@ class Sale < Ekylibre::Record::Base
   validates_datetime :accounted_at, :confirmed_at, :expired_at, :invoiced_at, :payment_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :amount, :downpayment_amount, :pretax_amount, allow_nil: true
   validates_inclusion_of :credit, :has_downpayment, :letter_format, in: [true, false]
-  validates_presence_of :amount, :client, :computation_method, :currency, :downpayment_amount, :number, :payer, :payment_delay, :pretax_amount, :state
+  validates_presence_of :amount, :client, :currency, :downpayment_amount, :number, :payer, :payment_delay, :pretax_amount, :state
   #]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :initial_number, :number, :state, allow_nil: true, maximum: 60
@@ -309,19 +306,22 @@ class Sale < Ekylibre::Record::Base
   end
 
   def duplicatable?
-    true
+    !self.credit
   end
 
   # Duplicates a +sale+ in 'E' mode with its items and its active subscriptions
   def duplicate(attributes = {})
-    hash = [:client_id, :nature_id, :currency, :letter_format, :annotation, :subject, :function_title, :introduction, :conclusion, :description, :computation_method, :currency].inject({}) do |h, field|
+    unless self.duplicatable?
+      raise StandardError, "Uncancelable sale"
+    end
+    hash = [:client_id, :nature_id, :currency, :letter_format, :annotation, :subject, :function_title, :introduction, :conclusion, :description, :currency].inject({}) do |h, field|
       h[field] = self.send(field)
       h
     end.merge(attributes)
     # Items
     items_attributes = {}
     self.items.each_with_index do |item, index|
-      items_attributes[index] = [:variant_id, :quantity, :reference_value, :amount, :currency, :label, :position, :pretax_amount, :reduction_percentage, :tax_id, :unit_amount, :unit_pretax_amount].inject({}) do |h, field|
+      items_attributes[index] = [:variant_id, :quantity, :amount, :currency, :label, :position, :pretax_amount, :reduction_percentage, :tax_id, :unit_amount, :unit_pretax_amount].inject({}) do |h, field|
         h[field] = item.send(field)
         # Subscriptions
         h[:subscriptions_attributes] = {}
@@ -352,7 +352,7 @@ class Sale < Ekylibre::Record::Base
 
   # Label of the sales order depending on the state and the number
   def name
-    tc('label.' + self.state, :number => self.number)
+    tc("label.#{(self.credit? and self.invoice?) ? :credit : self.state}", number: self.number)
   end
   alias :label :name
 
@@ -416,25 +416,24 @@ class Sale < Ekylibre::Record::Base
 
   # Build a new sale with new items ready for correction and save
   def build_credit
-    attrs = [:affair, :client, :address, :responsible, :nature, :computation_method, :currency, :invoice_address, :transporter].inject({}) do |hash, attribute|
+    attrs = [:affair, :client, :address, :responsible, :nature, :currency, :invoice_address, :transporter].inject({}) do |hash, attribute|
       hash[attribute] = self.send(attribute) unless self.send(attribute).nil?
       hash
     end
     attrs[:invoiced_at] = Time.now
     attrs[:credit] = true
     attrs[:credited_sale] = self
-    sale_credit = SaleCredit.new(attrs)
+    sale_credit = Sale.new(attrs)
     self.items.each do |item|
       attrs = [:account, :currency, :variant, :unit_pretax_amount, :unit_amount, :reduction_percentage, :tax].inject({}) do |hash, attribute|
         hash[attribute] = item.send(attribute) unless item.send(attribute).nil?
         hash
       end
-      attrs[:quantity] = (item.quantity + item.credited_quantity)
-      attrs[:reference_value] = :quantity
+      attrs[:credited_quantity] = item.creditable_quantity
       attrs[:credited_item] = item
-      if attrs[:quantity] > 0
-        item_credit = sale_credit.items.build(attrs)
-        item_credit.compute_amounts
+      if attrs[:credited_quantity] > 0
+        sale_credit_item = sale_credit.items.build(attrs)
+        sale_credit_item.valid?
       end
     end
     # sale_credit.valid?

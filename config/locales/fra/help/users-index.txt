@@ -5,8 +5,8 @@ Un utilisateur est une personne qui peut se connecter pour utiliser //Ekylibre//
 
 ===== Gestion des utilisateurs =====
 Lors de l'enregistrement d'un utilisateur, vous pouvez utiliser les rôles qui vous facilite la gestion des droits quand le nombre d'utilisateur commence à gonfler.
-**Le rôle** permet de **sélectionner automatiquement une liste de droits** pour l'utilisateur. Vous pouvez créer différents rôles. 
-Par défaut, deux rôles vous sont créés, un donnant accès à l'intégralité du logiciel (Gérant), et un qui restreint l'accès seulement à l'accueil du logiciel (Public). 
+**Le rôle** permet de **sélectionner automatiquement une liste de droits** pour l'utilisateur. Vous pouvez créer différents rôles.
+Par défaut, deux rôles vous sont créés, un donnant accès à l'intégralité du logiciel (Gérant), et un qui restreint l'accès seulement à l'accueil du logiciel (Public).
 
 Les droits permettent d'autoriser ou non l'accès aux différentes parties du logiciel à l'utilisateur.
 

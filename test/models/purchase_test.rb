@@ -25,7 +25,6 @@
 #  accounted_at        :datetime
 #  affair_id           :integer
 #  amount              :decimal(19, 4)   default(0.0), not null
-#  computation_method  :string           not null
 #  confirmed_at        :datetime
 #  created_at          :datetime         not null
 #  creator_id          :integer

@@ -3098,3 +3098,14 @@ preferences_264:
   updated_at: 2015-06-15 11:37:30.552710000 Z
   updater_id: 1
   user_id: 1
+preferences_265:
+  created_at: 2015-07-14 13:21:33.166110000 Z
+  creator_id: 1
+  id: 266
+  lock_version: 0
+  name: cobbler.purchases-show
+  nature: string
+  string_value: {}
+  updated_at: 2015-07-14 13:21:33.166110000 Z
+  updater_id: 1
+  user_id: 1

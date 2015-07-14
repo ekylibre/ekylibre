@@ -28,7 +28,6 @@
 #  amount              :decimal(19, 4)   default(0.0), not null
 #  annotation          :text
 #  client_id           :integer          not null
-#  computation_method  :string           not null
 #  conclusion          :text
 #  confirmed_at        :datetime
 #  created_at          :datetime         not null
@@ -61,7 +60,6 @@
 #  state               :string           not null
 #  subject             :string
 #  transporter_id      :integer
-#  type                :string
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #
@@ -71,7 +69,6 @@
 # sales_001:
 #   amount: 0
 #   client: clients_001
-#   computation_method: "Lorem ipsum"
 #   creator: users_001
 #   credit: true
 #   currency: "Lorem ipsum"
@@ -90,7 +87,6 @@ sales_001:
   affair_id: 10
   amount: 1164.0
   client_id: 7
-  computation_method: tax_quantity
   conclusion: Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations
     distinguées.
   confirmed_at: 2014-11-05 09:58:26.701417000 Z
@@ -118,7 +114,6 @@ sales_001:
   responsible_id: 9
   state: invoice
   subject: ''
-  type: Sale
   updated_at: 2014-11-05 09:58:26.779080000 Z
   updater_id: 1
 sales_002:
@@ -127,7 +122,6 @@ sales_002:
   affair_id: 12
   amount: 792.0
   client_id: 13
-  computation_method: tax_quantity
   conclusion: Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations
     distinguées.
   created_at: 2014-11-05 10:01:39.833526000 Z
@@ -153,7 +147,6 @@ sales_002:
   responsible_id: 9
   state: draft
   subject: ''
-  type: Sale
   updated_at: 2014-11-06 18:25:07.883815000 Z
   updater_id: 1
 sales_003:
@@ -161,7 +154,6 @@ sales_003:
   affair_id: 14
   amount: 11.23
   client_id: 10
-  computation_method: quantity_tax
   conclusion: Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations
     distinguées.
   confirmed_at: 2014-11-05 10:03:12.709619000 Z
@@ -189,7 +181,6 @@ sales_003:
   responsible_id: 9
   state: invoice
   subject: ''
-  type: Sale
   updated_at: 2014-11-05 10:03:12.772201000 Z
   updater_id: 1
 sales_004:
@@ -197,7 +188,6 @@ sales_004:
   affair_id: 17
   amount: 19.2
   client_id: 10
-  computation_method: tax_quantity
   conclusion: Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations
     distinguées.
   created_at: 2014-11-05 13:36:08.943621000 Z
@@ -221,7 +211,6 @@ sales_004:
   responsible_id: 9
   state: draft
   subject: ''
-  type: Sale
   updated_at: 2014-11-05 13:36:08.971783000 Z
   updater_id: 1
 sales_005:
@@ -230,7 +219,6 @@ sales_005:
   affair_id: 34
   amount: 24.0
   client_id: 10
-  computation_method: tax_quantity
   conclusion: Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations
     distinguées.
   created_at: 2015-04-21 08:22:33.148952000 Z
@@ -256,7 +244,6 @@ sales_005:
   responsible_id: 9
   state: draft
   subject: ''
-  type: Sale
   updated_at: 2015-04-21 08:22:33.183125000 Z
   updater_id: 1
 sales_006:
@@ -265,7 +252,6 @@ sales_006:
   affair_id: 35
   amount: 187.2
   client_id: 14
-  computation_method: tax_quantity
   conclusion: Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations
     distinguées.
   created_at: 2015-04-21 08:29:05.156994000 Z
@@ -291,7 +277,6 @@ sales_006:
   responsible_id: 9
   state: draft
   subject: ''
-  type: Sale
   updated_at: 2015-04-21 08:29:05.180649000 Z
   updater_id: 1
 sales_007:
@@ -300,7 +285,6 @@ sales_007:
   affair_id: 36
   amount: 319.6
   client_id: 10
-  computation_method: adaptative
   conclusion: Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations
     distinguées.
   created_at: 2015-04-21 23:49:19.255043000 Z
@@ -326,7 +310,6 @@ sales_007:
   responsible_id: 9
   state: estimate
   subject: ''
-  type: Sale
   updated_at: 2015-04-21 23:49:34.591633000 Z
   updater_id: 1
 sales_008:
@@ -334,7 +317,6 @@ sales_008:
   affair_id: 37
   amount: 500.0
   client_id: 15
-  computation_method: adaptative
   conclusion: Please accept, Dear Madam, Dear Sir, the assurances of my highest consideration.
   confirmed_at: 2015-05-30 20:00:38.823042000 Z
   created_at: 2015-05-30 20:00:27.912910000 Z
@@ -363,12 +345,11 @@ sales_008:
   subject: ''
   updated_at: 2015-05-30 20:00:38.866273000 Z
   updater_id: 1
-sale_credits_001:
+sales_009:
   accounted_at: 2015-05-30 20:00:46.945057000 Z
   affair_id: 37
   amount: -500.0
   client_id: 15
-  computation_method: adaptative
   confirmed_at: 2015-05-30 20:00:46.859071000 Z
   created_at: 2015-05-30 20:00:46.698733000 Z
   creator_id: 1
@@ -392,6 +373,5 @@ sale_credits_001:
   pretax_amount: -417.5
   responsible_id: 9
   state: invoice
-  type: SaleCredit
   updated_at: 2015-05-30 20:00:46.940198000 Z
   updater_id: 1

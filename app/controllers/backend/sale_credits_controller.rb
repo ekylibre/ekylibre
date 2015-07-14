@@ -17,29 +17,19 @@
 #
 
 class Backend::SaleCreditsController < Backend::BaseController
-  manage_restfully only: []
+  before_action :find_credited_sale
+  after_action :render_form
 
-  def index
-    redirect_to controller: :sales, action: :index
-  end
-
-  def show
-    redirect_to controller: :sales, action: :show, id: params[:id]
-  end
-
-  def new
-    credited_sale = Sale.find_by(id: params[:credited_sale_id])
-    unless credited_sale.cancellable?
-      notify_error :the_sales_invoice_is_not_cancellable
-      redirect_to params[:redirect] || {action: :index}
-      return
-    end
-    @sale_credit = credited_sale.build_credit
+  def new # undo
+    @sale_credit = @credited_sale.build_credit
     t3e @sale_credit.credited_sale
   end
 
-  def create
-    @sale_credit = SaleCredit.new(permitted_params)
+  def create # cancel
+    attributes = permitted_params[:sale]
+    attributes[:credit] = true
+    attributes[:credited_sale_id] = @credited_sale.id
+    @sale_credit = Sale.new(attributes)
     saved = false
     if @sale_credit.save
       @sale_credit.reload
@@ -48,8 +38,28 @@ class Backend::SaleCreditsController < Backend::BaseController
       @sale_credit.invoice!
       saved = true
     end
-    return if save_and_redirect(@sale_credit, saved: saved, url: ({controller: :sales, action: :show, id: "id".c}))
+    return false if save_and_redirect(@sale_credit, saved: saved, url: ({controller: :sales, action: :show, id: "id".c}))
     t3e @sale_credit.credited_sale
+  end
+
+  protected
+
+  def permitted_params
+    params.permit!
+  end
+
+  def find_credited_sale
+    return false unless @credited_sale = find_and_check(:sale, params[:credited_sale_id])
+    unless @credited_sale.cancellable?
+      notify_error :the_sales_invoice_is_not_cancellable
+      redirect_to params[:redirect] || {action: :index}
+      return false
+    end
+  end
+
+  def render_form
+    @form_url = backend_sale_credits_url(credited_sale_id: @credited_sale.id)
+    # render locals: {cancel_url: backend_sales_url}
   end
 
 end

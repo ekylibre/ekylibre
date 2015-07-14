@@ -25,7 +25,6 @@
 #  accounted_at        :datetime
 #  affair_id           :integer
 #  amount              :decimal(19, 4)   default(0.0), not null
-#  computation_method  :string           not null
 #  confirmed_at        :datetime
 #  created_at          :datetime         not null
 #  creator_id          :integer
@@ -51,7 +50,6 @@
 
 class Purchase < Ekylibre::Record::Base
   include Attachable
-  enumerize :computation_method, in: [:adaptative, :quantity_tax, :tax_quantity, :manual], default: :adaptative, predicates: {prefix: true}
   attr_readonly :currency, :nature_id
   belongs_to :delivery_address, class_name: "EntityAddress"
   belongs_to :journal_entry
@@ -68,7 +66,7 @@ class Purchase < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :accounted_at, :confirmed_at, :invoiced_at, :planned_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :amount, :pretax_amount, allow_nil: true
-  validates_presence_of :amount, :computation_method, :currency, :number, :payee, :pretax_amount, :supplier
+  validates_presence_of :amount, :currency, :number, :payee, :pretax_amount, :supplier
   #]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :number, :state, allow_nil: true, maximum: 60
@@ -232,22 +230,12 @@ class Purchase < Ekylibre::Record::Base
     self.number# tc('label', :supplier => self.supplier.full_name.to_s, :address => self.delivery_address.mail_coordinate.to_s)
   end
 
-  # Need for use in list
-  def quantity
-    ''
-  end
-
   # Prints human name of current state
   def state_label
     self.class.state_machine.state(self.state.to_sym).human_name
   end
 
   def status
-    #if self.accounted_at == nil
-    #  return (self.invoice? ? :caution : :stop)
-    #elsif self.accounted_at
-    #  return :go
-    #end
     if self.invoice?
       return self.affair.status
     end

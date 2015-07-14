@@ -3,7 +3,7 @@
 
 == Models and Migrations
 
-Assuming we have a project dealing with animals husbandry 
+Assuming we have a project dealing with animals husbandry
 
 === Introduction
 
@@ -36,7 +36,7 @@ we make strangers keys with belongs_to
         t.date       :ceded_on
         t.stamps
         t.index :name
-      end    
+      end
     end
   end
 
@@ -104,9 +104,9 @@ and we want company_id be just readable. Take care to NOT MODIFY OR ADDING DIREC
   # app/controllers/backend/animals_controller.rb
   class Backend::AnimalsController < Backend::BaseController
     manage_restfully
-  
+
     unroll
-    
+
     list do |t|
       t.column :identification_number, url: true
       t.column :name
@@ -114,7 +114,7 @@ and we want company_id be just readable. Take care to NOT MODIFY OR ADDING DIREC
       t.action :edit
       t.action :destroy
     end
-    
+
   end
 
 `manage_restfully` will managed all our actions magically (index, show, new, create, edit, update, and destroy).

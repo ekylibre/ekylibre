@@ -6,15 +6,11 @@
   - c.cobble :general_informations do
     = attributes_list do |l|
       - l.attribute :amount
-      - l.attribute :computation_method
       - l.attribute :collect_account, url: true
       - l.attribute :deduction_account, url: true
-      - l.attribute :included
-      - l.attribute :reductible
       - l.attribute :reference_name
       - l.attribute :description
-      - if resource.custom_fields.any?
-        - l.custom_fields
+      - l.custom_fields
 
   - c.cobble :balance do
     :ruby

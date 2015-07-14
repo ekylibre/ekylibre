@@ -27,8 +27,6 @@ class Backend::TaxesController < Backend::BaseController
     t.column :name, url: true
     t.column :amount, precision: 3
     t.column :reference_name
-    t.column :included
-    t.column :reductible
     t.column :deduction_account, url: true
     t.column :collect_account, url: true
   end

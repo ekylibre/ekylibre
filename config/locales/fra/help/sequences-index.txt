@@ -1,6 +1,6 @@
 ====== Séquences ======
 
-Les séquences permettent de **préciser le format des numéros apparaissant sur les pièces** reçues ou produites par la société. 
+Les séquences permettent de **préciser le format des numéros apparaissant sur les pièces** reçues ou produites par la société.
 
 Le lien {{icon:load|charger}}**Charger** vous permet de créer automatiquement les séquences que vous ne possédez pas ou plus et de les **associer au bon paramètre de configuration** de votre société.
 

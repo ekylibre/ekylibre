@@ -24,16 +24,13 @@
 #
 #  amount               :decimal(19, 4)   default(0.0), not null
 #  collect_account_id   :integer
-#  computation_method   :string           not null
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  deduction_account_id :integer
 #  description          :text
 #  id                   :integer          not null, primary key
-#  included             :boolean          default(FALSE), not null
 #  lock_version         :integer          default(0), not null
 #  name                 :string           not null
-#  reductible           :boolean          default(TRUE), not null
 #  reference_name       :string
 #  updated_at           :datetime         not null
 #  updater_id           :integer
@@ -41,11 +38,8 @@
 
 
 class Tax < Ekylibre::Record::Base
-  attr_readonly :computation_method, :amount
+  attr_readonly :amount
   enumerize :reference_name, in: Nomen::Taxes.all
-  # No way to select amount until currency is not defined in tax clearly
-  # enumerize :computation_method, in: [:amount, :percentage], default: :percentage, predicates: true
-  enumerize :computation_method, in: [:percentage], default: :percentage, predicates: true
   belongs_to :collect_account, class_name: "Account"
   belongs_to :deduction_account, class_name: "Account"
   has_many :product_nature_category_taxations, dependent: :restrict_with_error
@@ -53,16 +47,13 @@ class Tax < Ekylibre::Record::Base
   has_many :sale_items
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, allow_nil: true
-  validates_inclusion_of :included, :reductible, in: [true, false]
-  validates_presence_of :amount, :computation_method, :name
+  validates_presence_of :amount, :name
   #]VALIDATORS]
-  validates_length_of :computation_method, allow_nil: true, maximum: 20
   validates_length_of :reference_name, allow_nil: true, maximum: 120
-  validates_inclusion_of :computation_method, in: self.computation_method.values
   validates_presence_of :collect_account
   validates_presence_of :deduction_account
   validates_uniqueness_of :name
-  validates_numericality_of :amount, in: 0..100, if: :percentage?
+  validates_numericality_of :amount, in: 0..100
 
   delegate :name, to: :collect_account, prefix: true
   delegate :name, to: :deduction_account, prefix: true
@@ -82,9 +73,60 @@ class Tax < Ekylibre::Record::Base
       end
     end
 
-  end
+    # Load a tax from tax nomenclature
+    def import_from_nomenclature(reference_name)
+      unless item = Nomen::Taxes.find(reference_name)
+        raise ArgumentError, "The tax #{reference_name.inspect} is not known"
+      end
+      unless tax = Tax.find_by_reference_name(reference_name)
+        nature = Nomen::TaxNatures.find(item.nature)
+        if nature.computation_method != :percentage
+          raise StandardError, "Can import only percentage computed taxes"
+        end
+        attributes = {
+          amount: item.amount,
+          name: item.human_name,
+          reference_name: item.name
+        }
+        for account in [:deduction, :collect]
+          if name = nature.send("#{account}_account")
+            # find the relative account tax  by name
+            tax_radical = Account.find_or_create_in_chart(name)
+            # find if already account tax  by number was created
+            tax_account = Account.find_or_create_by!(number: "#{tax_radical.number}#{nature.suffix}") do |a|
+              a.name = "#{tax_radical.name} - #{item.human_name}"
+              a.usages = tax_radical.usages
+            end
+            attributes["#{account}_account_id"] = tax_account.id
+          end
+        end
+        tax = self.create!(attributes)
+      end
+      return tax
+    end
 
-  scope :percentages, -> { where(:computation_method => 'percentage') }
+    # Load.all tax from tax nomenclature by country
+    def import_all_from_nomenclature(country = Preference[:country])
+      for tax in Nomen::Taxes.items.values.select{|i| i.country == country}
+        import_from_nomenclature(tax.name)
+      end
+    end
+
+    # find tax reference name with no stopped_at AKA currents reference taxes
+    # FIXME Invalid way to find current tax. Need to normalize tax use when no references
+    def currents
+      ids = []
+      Tax.find_each do |tax|
+        if item = Nomen::Taxes.find(tax.reference_name)
+          ids << tax.id unless item.stopped_on
+        else
+          ids << tax.id
+        end
+      end
+      return Tax.where(id: ids).order(:amount)
+    end
+
+  end
 
   protect(on: :destroy) do
     self.product_nature_category_taxations.any? or self.sale_items.any? or self.purchase_items.any?
@@ -94,23 +136,21 @@ class Tax < Ekylibre::Record::Base
   # If +with_taxes+ is true, it's considered that the given amount
   # is an amount with tax
   def compute(amount, all_taxes_included = false)
-    if self.percentage? and all_taxes_included
+    if all_taxes_included
       amount.to_d / (1 + 100/self.amount.to_d)
-    elsif self.percentage?
+    else
       amount.to_d * self.amount.to_d/100
-    elsif self.amount?
-      self.amount
     end
   end
 
   # Returns the pretax amount of an amount
   def pretax_amount_of(amount)
-    return (self.percentage? ? (amount.to_d / coefficient) : (amount.to_d - self.amount.to_d))
+    return (amount.to_d / coefficient)
   end
 
   # Returns the amount of a pretax amount
   def amount_of(pretax_amount)
-    return (self.percentage? ? (pretax_amount.to_d * coefficient) : (pretax_amount.to_d + self.amount.to_d))
+    return (pretax_amount.to_d * coefficient)
   end
 
   # Returns true if amount is equal to 0
@@ -121,69 +161,16 @@ class Tax < Ekylibre::Record::Base
   # Returns the matching coefficient k of the percentage
   # where pretax_amount * k = amount_with_tax
   def coefficient
-    raise StandardError("Can only use coefficient method with percentage taxes") unless self.percentage?
     return (100 + self.amount)/100
   end
 
   # Returns the short label of a tax
   def short_label
-    label = "#{self.amount}"
-    label << (self.percentage? ? '%' : '?')
+    label = "#{self.amount}%"
     if reference = Nomen::Taxes[self.reference_name]
       label << " (#{reference.country})"
     end
     return label
-  end
-
-
-  # Load a tax from tax nomenclature
-  def self.import_from_nomenclature(reference_name)
-    unless item = Nomen::Taxes.find(reference_name)
-      raise ArgumentError, "The tax #{reference_name.inspect} is not known"
-    end
-    unless tax = Tax.find_by_reference_name(reference_name)
-      attributes = {
-        :computation_method => Nomen::TaxNatures[item.nature].computation_method,
-        :amount => item.amount,
-        :name => item.human_name,
-        :reference_name => item.name
-      }
-      for account in [:deduction, :collect]
-        if name = Nomen::TaxNatures[item.nature].send("#{account}_account")
-          # find the relative account tax  by name
-          tax_radical = Account.find_or_create_in_chart(name)
-          # find if already account tax  by number was created
-          tax_account = Account.find_or_create_by!(:number => tax_radical.number + Nomen::TaxNatures[item.nature].suffix.to_s) do |a|
-            a.name = tax_radical.name + " - " + item.human_name
-            a.usages = tax_radical.usages
-          end
-          attributes["#{account}_account_id"] = tax_account.id
-        end
-      end
-      tax = self.create!(attributes)
-    end
-    return tax
-  end
-
-  # Load.all tax from tax nomenclature by country
-  def self.import_all_from_nomenclature(country = Preference[:country])
-    for tax in Nomen::Taxes.items.values.select{|i| i.country == country}
-      import_from_nomenclature(tax.name)
-    end
-  end
-
-  # find tax reference name with no stopped_at AKA currents reference taxes
-  # FIXME Invalid way to find current tax. Need to normalize tax use when no references
-  def self.currents
-    ids = []
-    Tax.find_each do |tax|
-      if item = Nomen::Taxes.find(tax.reference_name)
-        ids << tax.id unless item.stopped_on
-      else
-        ids << tax.id
-      end
-    end
-    return Tax.where(id: ids).order(:amount)
   end
 
 end

@@ -30,9 +30,10 @@ class CreateAPurchaseTest < CapybaraIntegrationTest
     click_on :add_item.tl
     within('#items tr.nested-fields:nth-child(2)') do
       fill_unroll('purchase_item_variant_id', with: 'big bag')
-      find(:css, '*[data-trade-component="unit_amount"]').set(100)
+      find(:css, '*[data-trade-component="unit_pretax_amount"]').set(120)
       find(:css, '*[data-trade-component="tax"]').select(1)
       find(:css, '*[data-trade-component="quantity"]').set(15)
+      find(:css, '*[data-trade-component="reduction_percentage"]').set(15)
     end
     click_on :add_item.tl
     within('#items tr.nested-fields:nth-child(3)') do
@@ -76,9 +77,10 @@ class CreateAPurchaseTest < CapybaraIntegrationTest
     click_on :add_item.tl
     within('#items tr.nested-fields:nth-child(2)') do
       fill_unroll('purchase_item_variant_id', with: 'aceta')
-      find(:css, '*[data-trade-component="unit_amount"]').set(100)
+      find(:css, '*[data-trade-component="unit_pretax_amount"]').set(1.15)
       find(:css, '*[data-trade-component="tax"]').select(1)
       find(:css, '*[data-trade-component="quantity"]').set(15)
+      find(:css, '*[data-trade-component="reduction_percentage"]').set(15)
     end
     click_on :add_item.tl
     within('#items tr.nested-fields:nth-child(3)') do
@@ -92,40 +94,6 @@ class CreateAPurchaseTest < CapybaraIntegrationTest
       fill_unroll('purchase_item_variant_id', with: 'pot')
       find(:css, '*[data-trade-component="quantity"]').set(15)
       find(:css, '*[data-trade-component="pretax_amount"]').set(500)
-    end
-    click_on :create.tl
-  end
-
-  test "create a manual purchase from supplier" do
-    visit('/backend')
-    first('#top').click_on(:relationship.tl)
-    click_link("actions.backend/entities.index".t, href: backend_entities_path)
-    within('#core .kujaku') do
-      fill_in("q", with: "taur")
-      click_on :search.tl
-    end
-    click_on "Taurus Plus"
-    sleep(1)
-    # click_link :timeline.tl
-    page.execute_script("$(\"*[data-toggle='face'][href='timeline']\").click();")
-    sleep(1)
-    within('.timeline-tool.tl-purchases') do
-      click_on "actions.backend/purchases.new".t
-    end
-    choose "purchase_computation_method_manual"
-    click_on :add_item.tl
-    within('#items tr.nested-fields:nth-child(1)') do
-      fill_unroll('purchase_item_variant_id', with: 'big bag')
-      find(:css, '*[data-trade-component="unit_pretax_amount"]').set(100)
-      find(:css, '*[data-trade-component="tax"]').select(1)
-      find(:css, '*[data-trade-component="quantity"]').set(15)
-    end
-    click_on :add_item.tl
-    within('#items tr.nested-fields:nth-child(2)') do
-      fill_unroll('purchase_item_variant_id', with: 'aceta')
-      find(:css, '*[data-trade-component="unit_amount"]').set(100)
-      find(:css, '*[data-trade-component="tax"]').select(1)
-      find(:css, '*[data-trade-component="quantity"]').set(15)
     end
     click_on :create.tl
   end

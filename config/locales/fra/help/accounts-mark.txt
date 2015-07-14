@@ -8,7 +8,7 @@ Vous avez un tableau répertoriant les différentes écritures relatives au comp
 
 ===== Lettrer =====
 
-Pour lettrer, vous devez cocher toutes les écritures à lettrer puis valider. La lettre en cours sera appliquée à toutes les écritures sélectionnées. 
+Pour lettrer, vous devez cocher toutes les écritures à lettrer puis valider. La lettre en cours sera appliquée à toutes les écritures sélectionnées.
 Le somme des débits/crédits des écritures cochées est affichées en bas du tableau.
 
 ===== Délettrer =====

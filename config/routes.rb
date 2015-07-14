@@ -639,11 +639,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :sale_credits, path: "sale-credits", only: [:index, :show, :new, :create] do
-      member do
-        post :duplicate
-      end
-    end
+    resources :sale_credits, only: [:new, :create], path: "sale-credits"
 
     resources :sale_natures, concerns: [:list, :unroll], path: "sale-natures"
 

@@ -253,8 +253,6 @@
         <page to="backend/sales#new"/>
         <page to="backend/sales#unroll"/>
         <page to="backend/sales#update"/>
-        <page to="backend/sale_credits#index"/>
-        <page to="backend/sale_credits#show"/>
         <page to="backend/sale_credits#new"/>
         <page to="backend/sale_credits#create"/>
       </item>

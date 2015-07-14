@@ -28,6 +28,7 @@
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  credited_item_id     :integer
+#  credited_quantity    :decimal(19, 4)
 #  currency             :string           not null
 #  id                   :integer          not null, primary key
 #  label                :text
@@ -36,10 +37,8 @@
 #  pretax_amount        :decimal(19, 4)   default(0.0), not null
 #  quantity             :decimal(19, 4)   default(1.0), not null
 #  reduction_percentage :decimal(19, 4)   default(0.0), not null
-#  reference_value      :string           not null
 #  sale_id              :integer          not null
 #  tax_id               :integer
-#  type                 :string
 #  unit_amount          :decimal(19, 4)   default(0.0), not null
 #  unit_pretax_amount   :decimal(19, 4)
 #  updated_at           :datetime         not null
@@ -56,36 +55,12 @@
 #   pretax_amount: 0
 #   quantity: 0
 #   reduction_percentage: 0
-#   reference_value: "Lorem ipsum"
 #   sale: sales_001
 #   unit_amount: 0
 #   updater: users_001
 #   variant: variants_001
 #
 ---
-sale_credit_items_001:
-  account_id: 152
-  amount: -500.0
-  created_at: 2015-05-30 20:00:46.769726000 Z
-  creator_id: 1
-  credited_item_id: 17
-  currency: EUR
-  id: 18
-  label: Bouteille Bordelaise 75cl
-  lock_version: 0
-  position: 1
-  pretax_amount: -417.5
-  quantity: -250.0
-  reduction_percentage: 0.0
-  reference_value: quantity
-  sale_id: 15
-  tax_id: 3
-  type: SaleCreditItem
-  unit_amount: 2.0
-  unit_pretax_amount: 1.67
-  updated_at: 2015-05-30 20:00:46.769726000 Z
-  updater_id: 1
-  variant_id: 63
 sale_items_001:
   account_id: 5
   amount: 84.0
@@ -99,10 +74,8 @@ sale_items_001:
   pretax_amount: 70.0
   quantity: 1.0
   reduction_percentage: 0.0
-  reference_value: unit_pretax_amount
   sale_id: 7
   tax_id: 3
-  type: SaleItem
   unit_amount: 84.0
   unit_pretax_amount: 70.0
   updated_at: 2014-11-05 09:52:05.569662000 Z
@@ -121,10 +94,8 @@ sale_items_002:
   pretax_amount: 900.0
   quantity: 5.0
   reduction_percentage: 0.0
-  reference_value: unit_pretax_amount
   sale_id: 7
   tax_id: 3
-  type: SaleItem
   unit_amount: 216.0
   unit_pretax_amount: 180.0
   updated_at: 2014-11-05 09:52:05.575226000 Z
@@ -143,10 +114,8 @@ sale_items_003:
   pretax_amount: 660.0
   quantity: 12.0
   reduction_percentage: 0.0
-  reference_value: unit_pretax_amount
   sale_id: 8
   tax_id: 3
-  type: SaleItem
   unit_amount: 66.0
   unit_pretax_amount: 55.0
   updated_at: 2014-11-05 10:01:39.877000000 Z
@@ -165,10 +134,8 @@ sale_items_004:
   pretax_amount: 9.36
   quantity: 6.0
   reduction_percentage: 0.0
-  reference_value: unit_pretax_amount
   sale_id: 9
   tax_id: 3
-  type: SaleItem
   unit_amount: 1.872
   unit_pretax_amount: 1.56
   updated_at: 2014-11-05 10:03:05.895615000 Z
@@ -187,10 +154,8 @@ sale_items_005:
   pretax_amount: 16.0
   quantity: 10.0
   reduction_percentage: 0.0
-  reference_value: unit_pretax_amount
   sale_id: 10
   tax_id: 3
-  type: SaleItem
   unit_amount: 1.92
   unit_pretax_amount: 1.6
   updated_at: 2014-11-05 13:36:08.975616000 Z
@@ -210,10 +175,8 @@ sale_items_006:
   pretax_amount: 20.0
   quantity: 2.0
   reduction_percentage: 0.0
-  reference_value: unit_amount
   sale_id: 11
   tax_id: 3
-  type: SaleItem
   unit_amount: 12.0
   unit_pretax_amount: 10.0
   updated_at: 2015-04-21 08:22:33.186082000 Z
@@ -233,10 +196,8 @@ sale_items_007:
   pretax_amount: 156.0
   quantity: 3.0
   reduction_percentage: 0.0
-  reference_value: unit_amount
   sale_id: 12
   tax_id: 3
-  type: SaleItem
   unit_amount: 62.4
   unit_pretax_amount: 52.0
   updated_at: 2015-04-21 08:29:05.182489000 Z
@@ -256,10 +217,8 @@ sale_items_008:
   pretax_amount: 100.0
   quantity: 100.0
   reduction_percentage: 0.0
-  reference_value: unit_pretax_amount
   sale_id: 13
   tax_id: 1
-  type: SaleItem
   unit_amount: 1.2
   unit_pretax_amount: 1.0
   updated_at: 2015-04-21 23:49:19.339881000 Z
@@ -279,10 +238,8 @@ sale_items_009:
   pretax_amount: 166.67
   quantity: 1.0
   reduction_percentage: 0.0
-  reference_value: amount
   sale_id: 13
   tax_id: 3
-  type: SaleItem
   unit_amount: 200.0
   unit_pretax_amount: 166.67
   updated_at: 2015-04-21 23:49:19.346386000 Z
@@ -302,11 +259,32 @@ sale_items_010:
   pretax_amount: 417.5
   quantity: 250.0
   reduction_percentage: 0.0
-  reference_value: unit_amount
   sale_id: 14
   tax_id: 3
   unit_amount: 2.0
   unit_pretax_amount: 1.67
   updated_at: 2015-05-30 20:00:27.935928000 Z
+  updater_id: 1
+  variant_id: 63
+sale_items_011:
+  account_id: 152
+  amount: -500.0
+  created_at: 2015-05-30 20:00:46.769726000 Z
+  creator_id: 1
+  credited_item_id: 17
+  credited_quantity: 250.0
+  currency: EUR
+  id: 18
+  label: Bouteille Bordelaise 75cl
+  lock_version: 0
+  position: 1
+  pretax_amount: -417.5
+  quantity: -250.0
+  reduction_percentage: 0.0
+  sale_id: 15
+  tax_id: 3
+  unit_amount: 2.0
+  unit_pretax_amount: 1.67
+  updated_at: 2015-05-30 20:00:46.769726000 Z
   updater_id: 1
   variant_id: 63

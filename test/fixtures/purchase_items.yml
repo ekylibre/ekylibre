@@ -37,7 +37,6 @@
 #  purchase_id          :integer          not null
 #  quantity             :decimal(19, 4)   default(1.0), not null
 #  reduction_percentage :decimal(19, 4)   default(0.0), not null
-#  reference_value      :string           not null
 #  tax_id               :integer          not null
 #  unit_amount          :decimal(19, 4)   default(0.0), not null
 #  unit_pretax_amount   :decimal(19, 4)   not null
@@ -58,7 +57,6 @@
 #   purchase: purchases_001
 #   quantity: 0
 #   reduction_percentage: 0
-#   reference_value: "Lorem ipsum"
 #   tax: taxes_001
 #   unit_amount: 0
 #   unit_pretax_amount: 0
@@ -82,7 +80,6 @@ purchase_items_001:
   purchase_id: 6
   quantity: 3.0
   reduction_percentage: 0.0
-  reference_value: unit_pretax_amount
   tax_id: 3
   unit_amount: 42.0
   unit_pretax_amount: 35.0
@@ -104,7 +101,6 @@ purchase_items_002:
   purchase_id: 7
   quantity: 1.0
   reduction_percentage: 0.0
-  reference_value: unit_pretax_amount
   tax_id: 2
   unit_amount: 1850.0
   unit_pretax_amount: 1850.0
@@ -127,7 +123,6 @@ purchase_items_003:
   purchase_id: 6
   quantity: 11.0
   reduction_percentage: 0.0
-  reference_value: unit_pretax_amount
   tax_id: 3
   unit_amount: 4.56
   unit_pretax_amount: 3.8
@@ -149,7 +144,6 @@ purchase_items_004:
   purchase_id: 8
   quantity: 10.0
   reduction_percentage: 0.0
-  reference_value: unit_pretax_amount
   tax_id: 3
   unit_amount: 184.8
   unit_pretax_amount: 154.0
@@ -171,7 +165,6 @@ purchase_items_005:
   purchase_id: 11
   quantity: 5000.0
   reduction_percentage: 0.0
-  reference_value: unit_pretax_amount
   tax_id: 3
   unit_amount: 4.104
   unit_pretax_amount: 3.42
@@ -193,7 +186,6 @@ purchase_items_006:
   purchase_id: 12
   quantity: 1.0
   reduction_percentage: 0.0
-  reference_value: unit_pretax_amount
   tax_id: 3
   unit_amount: 1848.0
   unit_pretax_amount: 1540.0

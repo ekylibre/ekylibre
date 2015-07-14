@@ -67,7 +67,6 @@
   $.fn.numericalValue = (newValue) ->
     element = $(@get(0))
     if isNaN(newValue) or newValue is undefined or newValue is null
-
       # Get
       value = element.extractNumericalValue()
       coeff = 1

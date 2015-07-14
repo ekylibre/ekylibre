@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150624224705) do
+ActiveRecord::Schema.define(version: 20150713153906) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2467,7 +2467,6 @@ ActiveRecord::Schema.define(version: 20150624224705) do
     t.integer  "lock_version",                                  default: 0,     null: false
     t.decimal  "unit_amount",          precision: 19, scale: 4, default: 0.0,   null: false
     t.boolean  "fixed",                                         default: false, null: false
-    t.string   "reference_value",                                               null: false
     t.decimal  "reduction_percentage", precision: 19, scale: 4, default: 0.0,   null: false
   end
 
@@ -2525,7 +2524,6 @@ ActiveRecord::Schema.define(version: 20150624224705) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                 default: 0,   null: false
-    t.string   "computation_method",                                         null: false
   end
 
   add_index "purchases", ["accounted_at"], name: "index_purchases_on_accounted_at", using: :btree
@@ -2578,8 +2576,7 @@ ActiveRecord::Schema.define(version: 20150624224705) do
     t.integer  "updater_id"
     t.integer  "lock_version",                                  default: 0,   null: false
     t.decimal  "unit_amount",          precision: 19, scale: 4, default: 0.0, null: false
-    t.string   "reference_value",                                             null: false
-    t.string   "type"
+    t.decimal  "credited_quantity",    precision: 19, scale: 4
   end
 
   add_index "sale_items", ["account_id"], name: "index_sale_items_on_account_id", using: :btree
@@ -2664,8 +2661,6 @@ ActiveRecord::Schema.define(version: 20150624224705) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                 default: 0,     null: false
-    t.string   "computation_method",                                           null: false
-    t.string   "type"
   end
 
   add_index "sales", ["accounted_at"], name: "index_sales_on_accounted_at", using: :btree
@@ -2786,20 +2781,17 @@ ActiveRecord::Schema.define(version: 20150624224705) do
   add_index "tasks", ["updater_id"], name: "index_tasks_on_updater_id", using: :btree
 
   create_table "taxes", force: :cascade do |t|
-    t.string   "name",                                                          null: false
-    t.boolean  "included",                                      default: false, null: false
-    t.boolean  "reductible",                                    default: true,  null: false
-    t.string   "computation_method",                                            null: false
-    t.decimal  "amount",               precision: 19, scale: 4, default: 0.0,   null: false
+    t.string   "name",                                                        null: false
+    t.decimal  "amount",               precision: 19, scale: 4, default: 0.0, null: false
     t.text     "description"
     t.integer  "collect_account_id"
     t.integer  "deduction_account_id"
     t.string   "reference_name"
-    t.datetime "created_at",                                                    null: false
-    t.datetime "updated_at",                                                    null: false
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                  default: 0,     null: false
+    t.integer  "lock_version",                                  default: 0,   null: false
   end
 
   add_index "taxes", ["collect_account_id"], name: "index_taxes_on_collect_account_id", using: :btree

@@ -2,9 +2,8 @@
 - classes = ["nested-fields"]
 - if item and item.variant and item.variant.depreciable?
   - classes << "with-fixed-asset"
-%tr{class: classes, data: {trade_item: "true"}}
+%tr{class: classes, data: {trade_item: "purchasing"}}
   %td
-    = f.input :reference_value, as: :hidden, input_html: {data: {trade_component: "reference_value"}}
     .annotable
       = f.referenced_association(:variant, wrapper: :nested, source: {scope: :purchaseables}, input_html: {data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", mode: :last_purchase_item)}}})
       - attrs = {}
@@ -12,12 +11,12 @@
         = link_to("#", data: {annotate: ".annotate", use_closest: "td"}, title: :add_annotation.tl) do
           %i
         - attrs[:style] = "display: none"
-    .annotate{attrs}= f.input(:annotation, wrapper: :nested, input_html: {class: "annotation"})
+    .annotate{attrs}= f.input(:annotation, wrapper: :nested, input_html: {class: "annotation", spellcheck: "true"})
     .with-fixed-asset= f.input(:fixed)
+  %td.decimal= f.input(:quantity, wrapper: :nested, input_html: {size: 7, data: {trade_component: "quantity"}})
   %td= f.input(:unit_pretax_amount, wrapper: :nested, input_html: {data: {trade_component: "unit_pretax_amount"}})
   %td.decimal= f.select(:tax_id, Tax.currents.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.amount)/100)}]}, {}, data: {value: 'rate', trade_component: "tax"})
-  %td= f.input(:unit_amount, wrapper: :nested, input_html: {data: {trade_component: "unit_amount"}})
-  %td.decimal= f.input(:quantity, wrapper: :nested, input_html: {size: 7, data: {trade_component: "quantity"}})
+  %td= f.input(:reduction_percentage, wrapper: :nested, input_html: {data: {trade_component: "reduction_percentage"}})
   %td.decimal= f.input(:pretax_amount, wrapper: :nested, input_html: {class: "pta", data: {trade_component: "pretax_amount"}})
   %td.decimal= f.input(:amount, wrapper: :nested, input_html: {class: "wta", data: {trade_component: "amount"}})
   %td.currency= f.object.purchase_currency

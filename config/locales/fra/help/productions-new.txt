@@ -20,5 +20,5 @@ La méthode de calcul permet de selectionner trois modes de proportionnalité :
 >>> **par unité d'oeuvre** : La ligne de budget est proportionnelle à chaque unité d'oeuvre de chaque support (exemple : 2 Litre par Hectare)
 
 >>> **par support de production** : La ligne de budget est proportionnelle à chaque support (exemple : 1 analyse de sol par zone cultivable)
-  
+
 >>> **par production** : La ligne de budget est proportionnelle à la production (exemple : 1 contrat par production)

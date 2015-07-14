@@ -28,6 +28,7 @@
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  credited_item_id     :integer
+#  credited_quantity    :decimal(19, 4)
 #  currency             :string           not null
 #  id                   :integer          not null, primary key
 #  label                :text
@@ -36,10 +37,8 @@
 #  pretax_amount        :decimal(19, 4)   default(0.0), not null
 #  quantity             :decimal(19, 4)   default(1.0), not null
 #  reduction_percentage :decimal(19, 4)   default(0.0), not null
-#  reference_value      :string           not null
 #  sale_id              :integer          not null
 #  tax_id               :integer
-#  type                 :string
 #  unit_amount          :decimal(19, 4)   default(0.0), not null
 #  unit_pretax_amount   :decimal(19, 4)
 #  updated_at           :datetime         not null
@@ -50,7 +49,6 @@
 
 class SaleItem < Ekylibre::Record::Base
   include PeriodicCalculable
-  enumerize :reference_value, in: [:unit_pretax_amount, :unit_amount, :pretax_amount, :amount, :quantity], default: :unit_pretax_amount, predicates: {prefix: true}
   attr_readonly :sale_id
   belongs_to :account
   belongs_to :sale, inverse_of: :items
@@ -64,9 +62,9 @@ class SaleItem < Ekylibre::Record::Base
   has_one :sale_nature, through: :sale, source: :nature
 
   accepts_nested_attributes_for :subscriptions
-  delegate :sold?, :invoiced_at, :number, :computation_method, :computation_method_quantity_tax?, :computation_method_tax_quantity?, :computation_method_adaptative?, to: :sale
-  delegate :currency, to: :sale, prefix: true
-  delegate :name, :short_label, to: :tax, prefix: true
+  delegate :sold?, :invoiced_at, :number, to: :sale
+  delegate :currency, :credit, to: :sale, prefix: true
+  delegate :name, :short_label, :amount, to: :tax, prefix: true
   delegate :nature, :name, to: :variant, prefix: true
   delegate :unit_name, :name, to: :variant
   delegate :subscribing?, :deliverable?, to: :product_nature, prefix: true
@@ -79,8 +77,8 @@ class SaleItem < Ekylibre::Record::Base
   sums :sale, :items, :pretax_amount, :amount
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, allow_nil: true
-  validates_presence_of :amount, :currency, :pretax_amount, :quantity, :reduction_percentage, :reference_value, :sale, :unit_amount, :variant
+  validates_numericality_of :amount, :credited_quantity, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, allow_nil: true
+  validates_presence_of :amount, :currency, :pretax_amount, :quantity, :reduction_percentage, :sale, :unit_amount, :variant
   #]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_presence_of :tax
@@ -103,15 +101,20 @@ class SaleItem < Ekylibre::Record::Base
   calculable period: :month, column: :pretax_amount, at: "invoiced_at"
 
   before_validation do
-    # self.pretax_amount ||= 0
-    # self.amount ||= 0
-
     if self.sale
       self.currency = self.sale.currency
     end
 
-    if self.quantity and self.tax
-      compute_amounts
+    if self.sale_credit
+      self.quantity = -1 * self.credited_quantity
+    end
+
+    if self.tax and self.unit_pretax_amount
+      item = Nomen::Currencies.find(self.currency)
+      precision = item ? item.precision : 2
+      self.unit_amount   = self.unit_pretax_amount * (100.0 + self.tax_amount) / 100.0
+      self.pretax_amount = (self.unit_pretax_amount * self.quantity * (100.0 - self.reduction_percentage) / 100.0).round(precision)
+      self.amount        = (self.pretax_amount * (100.0 + self.tax_amount) / 100.0).round(precision)
     end
 
     if self.variant
@@ -127,10 +130,6 @@ class SaleItem < Ekylibre::Record::Base
 
   protect(on: :update) do
     !self.sale.draft?
-  end
-
-  def compute_amounts
-    Calculus::TaxedAmounts::Default.new(self).compute
   end
 
   def undelivered_quantity
@@ -170,12 +169,12 @@ class SaleItem < Ekylibre::Record::Base
     self.amount - self.pretax_amount
   end
 
-  def credited_quantity
+  def already_credited_quantity
     self.credits.sum(:quantity)
   end
 
-  def uncredited_quantity
-    self.quantity + self.credited_quantity
+  def creditable_quantity
+    self.quantity + self.already_credited_quantity
   end
 
   # know how many percentage of invoiced VAT to declare

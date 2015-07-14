@@ -28,7 +28,6 @@
 #  amount              :decimal(19, 4)   default(0.0), not null
 #  annotation          :text
 #  client_id           :integer          not null
-#  computation_method  :string           not null
 #  conclusion          :text
 #  confirmed_at        :datetime
 #  created_at          :datetime         not null
@@ -61,7 +60,6 @@
 #  state               :string           not null
 #  subject             :string
 #  transporter_id      :integer
-#  type                :string
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #
@@ -73,7 +71,7 @@ class SaleTest < ActiveSupport::TestCase
 
   test "duplicatablity" do
     count = 0
-    Sale.where.not(type: "SaleCredit").find_each do |sale|
+    Sale.find_each do |sale|
       if sale.duplicatable?
         sale.duplicate
         count += 1

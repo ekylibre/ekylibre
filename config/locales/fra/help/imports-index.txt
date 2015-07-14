@@ -9,6 +9,6 @@ L'import des données se fait en cliquant sur le bouton {{icon:new|nouveau}}**No
   * Sélectionnez le **type** de document à importer dans le menu déroulant
   * Sélectionnez le fichier à importer en cliquant sur "parcourir"
   * Cliquez sur "Créer"
-  
+
 L'import peut prendre un certain temps.
 

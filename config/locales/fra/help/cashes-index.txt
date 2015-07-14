@@ -4,11 +4,11 @@ La trésorerie concerne tous les dépôts/réserves d'argent, c'est à dire les 
 Vous pouvez en définir autant que nécessaire. Ils sont aussi appelés **comptes de trésorerie**.
 
 ===== Gestion des comptes de trésorerie =====
-Le type de compte est défini **à la création**. Vous ne pouvez pas le modifier une fois créé. 
+Le type de compte est défini **à la création**. Vous ne pouvez pas le modifier une fois créé.
 S'il n'a pas servi vous pouvez toujours le supprimer.
 
 ===== Comptes bancaires =====
-Un compte bancaire est d'un compte ouvert par une banque au nom d'un particulier ou d'un commerce pour permettre à ce dernier de faire diverses opérations financières telles que déposer, retirer ou emprunter de l'argent, faire des chèques... 
+Un compte bancaire est d'un compte ouvert par une banque au nom d'un particulier ou d'un commerce pour permettre à ce dernier de faire diverses opérations financières telles que déposer, retirer ou emprunter de l'argent, faire des chèques...
 
 !!! Ne pas confondre les //comptes bancaires// et les [[>backend/accounts#index|comptes comptables]].
 

@@ -505,7 +505,7 @@ fra:
       propose: "Devis soumis au client" #?
       propose_and_invoice: "Facturer rapidement" #?
       refuse: "Devis refusé par le client" #?
-      show: "Vente\_: %{number} pour %{client} - %{state}"
+      show: "%{label} pour %{client}"
       statistics: "Statistiques  de ventes" #?
     backend/sequences:
       edit: "Modifier la séquence\_: %{name}"

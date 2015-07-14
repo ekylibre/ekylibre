@@ -1,7 +1,6 @@
 = field_set do
   = f.input :invoiced_at
   = f.referenced_association :responsible, source: {scope: :users}, new: {employed: 1}
-  = f.input :computation_method, as: (f.object.credited_sale ? :hidden : :radio_buttons), input_html: {data: {crediting_method: true}}
   = f.input :description
   = f.association :client, as: :hidden
   = f.association :affair, as: :hidden
@@ -9,16 +8,16 @@
   = f.input :credit, as: :hidden
   = f.custom_fields
 
-= field_set SaleCredit.human_attribute_name(:items) do
+= field_set Sale.human_attribute_name(:items) do
   .items
     %table
       %thead
         %tr
           %th= SaleItem.human_attribute_name(:variant)
           %th= SaleItem.human_attribute_name(:unit_pretax_amount)
+          %th= SaleItem.human_attribute_name(:credited_quantity)
           %th= SaleItem.human_attribute_name(:tax)
-          %th= SaleItem.human_attribute_name(:unit_amount)
-          %th= SaleItem.human_attribute_name(:quantity)
+          %th= SaleItem.human_attribute_name(:reduction_percentage)
           %th= SaleItem.human_attribute_name(:pretax_amount)
           %th= SaleItem.human_attribute_name(:amount)
           %th= SaleItem.human_attribute_name(:currency)

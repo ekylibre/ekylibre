@@ -31,9 +31,10 @@ class CreateAnEstimateTest < CapybaraIntegrationTest
     click_on :add_item.tl
     within('#items tr.nested-fields:nth-child(2)') do
       fill_unroll('sale_item_variant_id', with: 'big bag')
-      find(:css, '*[data-trade-component="unit_amount"]').set(100)
+      find(:css, '*[data-trade-component="unit_pretax_amount"]').set(100)
       find(:css, '*[data-trade-component="tax"]').select(1)
       find(:css, '*[data-trade-component="quantity"]').set(15)
+      find(:css, '*[data-trade-component="reduction_percentage"]').set(10)
     end
     click_on :add_item.tl
     within('#items tr.nested-fields:nth-child(3)') do
@@ -77,9 +78,10 @@ class CreateAnEstimateTest < CapybaraIntegrationTest
     click_on :add_item.tl
     within('#items tr.nested-fields:nth-child(2)') do
       fill_unroll('sale_item_variant_id', with: 'aceta')
-      find(:css, '*[data-trade-component="unit_amount"]').set(100)
+      find(:css, '*[data-trade-component="unit_pretax_amount"]').set(100)
       find(:css, '*[data-trade-component="tax"]').select(1)
       find(:css, '*[data-trade-component="quantity"]').set(15)
+      find(:css, '*[data-trade-component="reduction_percentage"]').set(15)
     end
     click_on :add_item.tl
     within('#items tr.nested-fields:nth-child(3)') do

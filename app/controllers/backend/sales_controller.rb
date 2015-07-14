@@ -77,7 +77,7 @@ class Backend::SalesController < Backend::BaseController
     t.column :amount, currency: true
   end
 
-  list(:deliveries, model: :outgoing_deliveries, :children => :items, conditions: {:sale_id => 'params[:id]'.c}) do |t|
+  list(:deliveries, model: :outgoing_deliveries, :children => :items, conditions: {sale_id: 'params[:id]'.c}) do |t|
     t.column :number, :children => :product_name, url: true
     t.column :transporter, children: false, url: true
     t.column :address, label_method: :coordinate, children: false
@@ -91,7 +91,7 @@ class Backend::SalesController < Backend::BaseController
     t.action :destroy, if: :destroyable?
   end
 
-  list(:subscriptions, conditions: {:sale_id => 'params[:id]'.c}) do |t|
+  list(:subscriptions, conditions: {sale_id: 'params[:id]'.c}) do |t|
     t.action :edit
     t.action :destroy
     t.column :number
@@ -103,7 +103,7 @@ class Backend::SalesController < Backend::BaseController
     t.column :quantity
   end
 
-  list(:undelivered_items, model: :sale_items, conditions: {:sale_id => 'params[:id]'.c}) do |t|
+  list(:undelivered_items, model: :sale_items, conditions: {sale_id: 'params[:id]'.c}) do |t|
     t.column :name, through: :variant
     # t.column :pretax_amount, currency: true, through: :price
     t.column :quantity
@@ -113,18 +113,18 @@ class Backend::SalesController < Backend::BaseController
     # t.column :undelivered_quantity, :datatype => :decimal
   end
 
-  list(:items, model: :sale_items, conditions: {:sale_id => 'params[:id]'.c}, order: :position, :export => false, :line_class => "((RECORD.variant.subscribing? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')".c, :include => [:variant, :subscriptions]) do |t|
+  list(:items, model: :sale_items, conditions: {sale_id: 'params[:id]'.c}, order: :position, :export => false, :line_class => "((RECORD.variant.subscribing? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')".c, :include => [:variant, :subscriptions]) do |t|
     # t.action :edit, if: 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
     # t.action :destroy, if: 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
     # t.column :name, through: :variant
     # t.column :position
     t.column :label
     t.column :annotation, hidden: true
-    # t.column :serial_number, through: :variant, url: true
     t.column :quantity
     t.column :unit_name
     t.column :unit_pretax_amount, currency: true
     t.column :unit_amount, currency: true, hidden: true
+    t.column :reduction_percentage
     t.column :pretax_amount, currency: true
     t.column :amount, currency: true
   end

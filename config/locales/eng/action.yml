@@ -550,9 +550,7 @@ eng:
       pick: "Pick role: %{name}"
       show: "Role: %{name}"
     backend/sale_credits:
-      # index: "Sale credits"
       new: "Cancel sales invoice %{number}"
-      # show: "Sale credit: %{name}"
     backend/sale_natures:
       edit: "Edit sale type: %{name}"
       index: "Sale types"
@@ -594,7 +592,7 @@ eng:
       # propose: "Propose sale: %{name}"
       # propose_and_invoice: "Propose and invoice sale: %{name}"
       # refuse: "Refuse sale: %{name}"
-      show: "Sale: %{label} for %{client}"
+      show: "%{label} for %{client}"
     backend/sequences:
       edit: "Edit sequence: %{name}"
       index: "Sequences"

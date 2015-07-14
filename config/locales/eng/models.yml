@@ -243,8 +243,6 @@ eng:
       purchase_nature: "Purchase type"
       role: "Role"
       sale: "Sale"
-      sale_credit: "Sale credit"
-      sale_credit_item: "Sale credit item"
       sale_item: "Sale item"
       sale_nature: "Sale type"
       sale_opportunity: "Sale opportunity"
@@ -587,7 +585,7 @@ eng:
     importance: "Importance"
     imported_at: "Imported at"
     importer: "Importer"
-    included: "Included"
+    included: "Included" #?
     incoming_deliveries: "Incoming deliveries"
     incoming_delivery_item: "Incoming delivery item"
     incoming_payment_modes: "Incoming payment modes"
@@ -891,7 +889,7 @@ eng:
     # reference_source_file_size: "Reference source file size"
     # reference_source_updated_at: "Reference source updated at"
     reference_tax: "Reference tax"
-    reference_value: "Reference value"
+    reference_value: "Reference value" #?
     reflected: "Changes reflected"
     reflected_at: "Reflected at"
     reflection_nodes: "Reflection nodes"
@@ -1245,6 +1243,7 @@ eng:
       bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
       label:
         aborted: "Aborted sale %{number}"
+        credit: "Sale credit %{number}"
         draft: "Estimate %{number} - draft"
         estimate: "Estimate %{number} - sent"
         invoice: "Sales invoice %{number}"
@@ -1265,9 +1264,6 @@ eng:
         invoice: "Invoice"
         order: "Order"
         refused: "Refused estimate"
-    sale_credit:
-      label:
-        invoice: "Sale credit %{number}"
     sale_item:
       building_can_not_transfer_product: "The product %{product} can not be used with %{building}, because it contains only %{contained_product} "
       can_not_use_this_tracking: "You can not use the tracking %{name}, the requested quantity is greater than the available quantity"

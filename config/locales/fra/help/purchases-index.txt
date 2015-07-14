@@ -1,20 +1,26 @@
 ====== Achats ======
 
-La liste des achats répertorie tous les achats effectués a vos différents fournisseurs.
+Les **achats** sont les factures de vos fournisseurs. Ils sont automatiquement transférés en comptabilité et facilitent la gestion des immobilisations.
 
 ===== Comment créer un nouvel achat ? =====
 
-Il vous suffit de sélectionner votre fournisseur dans la liste déroulante présentant vos différents fournisseurs et éventuellement d'ajouter une description à l'achat. Si le fournisseur de votre achat n'a pas encore été créé, vous pouvez le faire grâce au lien "Nouveau..." qui vous redirigera vers le formulaire de création d'un nouveau fournisseur. 
+La gestion des achats est similaire à la gestion des ventes. En effet, les rôles sont justes inversés. Il vous suffit de sélectionner votre fournisseur //a minima//.
 
-===== Création de l'achat ======
-La gestion des achats est similaire à la gestion des ventes. En effet, les rôles sont justes inversés.
+>>> Il est vivement recommandé de renseigner le numéro de facture du fournisseur pour mieux vous y retrouver.
 
 ==== Ajout d'un produit à la commande ====
 
-**Séléctionner un prix permet de sélectionner le produit.**
-Il faut sélectionner le prix à commander dans la liste déroulante correspondante. Si le prix n'a pas encore été créé, vous pouvez cliquer sur le lien "nouveau" qui vous redirigera vers le formulaire de création d'un nouveau prix.
+  - Cliquez sur "Ajouter un élément"
+  - Sélectionnez une variante de produit à acheter. Si vous avez définit un prix ou déjà acheté ce type de produit, un tarif vous sera proposé automatiquement
+  - Mettez à jour le prix unitaire hors-taxe (PUHT) si nécessaire
+  - Vérifiez la TVA
+  - Appliquez un pourcentage de réduction si nécessaire
 
-Lorsque vous sélectionnez un prix, **le montant HT et la TVA se mettent à jour** automatiquement. Si vous décidez de **modifier** la taxe ou le montant HT, ce **nouveau prix sera enregistré**, associé à votre achat et deviendra le nouveau prix par défaut du produit.
+Si vous n'avez pas d'écarts d'arrondis entre votre facture et celle de votre fournisseur vous pouvez continuer à ajouter des produits ou valider votre achat.
 
-De plus pour les produits gérés en stock dans plusieurs lieux de stockage, il est possible de préciser le lieu ou sera prélevé le produit.
+==== Calcul automatique et écarts d'arrondi ====
+
+  * En modifiant le prix unitaire hors-taxe, le montant HT et le montant TTC seront mis à jour en conséquence
+  * En modifiant le montant HT, le prix unitaire et le montant TTC seront mis à jour en conséquence
+  * Par contre, en modifiant le montant TTC, aucun autre champ ne sera mis à jour. Cela permet notamment de corriger les écarts d'arrondis entre la facture fournisseur et le logiciel.
 

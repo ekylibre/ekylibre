@@ -1,4 +1,7 @@
-= backend_form_for(resource, (params[:dialog] ? {data: {dialog: params[:dialog]}} : {})) do |f|
+- options = {}
+- options[:url] = @form_url if @form_url
+- options.deep_merge(data: {dialog: params[:dialog]}) if params[:dialog]
+= backend_form_for(resource, options) do |f|
   - if params[:redirect]
     = hidden_field_tag(:redirect, params[:redirect])
   - f.add(:submit, :create.tl, data: {disable_with: :please_wait.tl}, class: 'primary')

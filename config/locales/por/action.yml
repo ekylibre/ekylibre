@@ -433,7 +433,7 @@ por:
       # edit: "Edit sale %{number}"
       # index: "Sales"
       # new: "New sale"
-      # show: "Sale: %{label} for %{client}"
+      # show: "%{label} for %{client}"
     backend/sequences:
       # edit: "Edit sequence: %{name}"
       # index: "Sequences"

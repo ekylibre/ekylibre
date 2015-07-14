@@ -1,7 +1,7 @@
 = Aggregator
 
-Introduces concept of aggregators in Ekylibre. Aggregator defines a structure 
-of heterogeneous data extracted from many models of Ekylibre.   
+Introduces concept of aggregators in Ekylibre. Aggregator defines a structure
+of heterogeneous data extracted from many models of Ekylibre.
 
 Rules:
 
@@ -32,7 +32,7 @@ Main markup:
     section*
     sections*
     matrix*
-  
+
   sections(for?, in, name?, level?, if?): # Describe item structure like a section
     variable*
     title?
@@ -46,7 +46,7 @@ Main markup:
     (cell|matrix)+
 
   [title|property|cell](name, value?, of?, level?, if?):
- 
+
 Special markup <within> permits to set default name or value for a group of <title>, <property> or <cell>.
 
   within(name?, value?, of?, if?, level?):
@@ -54,8 +54,8 @@ Special markup <within> permits to set default name or value for a group of <tit
   variable(name, value, if?):
 
 
- 
-  
+
+
 
 == Sample
 

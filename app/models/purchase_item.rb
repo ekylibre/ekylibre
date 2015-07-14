@@ -37,7 +37,6 @@
 #  purchase_id          :integer          not null
 #  quantity             :decimal(19, 4)   default(1.0), not null
 #  reduction_percentage :decimal(19, 4)   default(0.0), not null
-#  reference_value      :string           not null
 #  tax_id               :integer          not null
 #  unit_amount          :decimal(19, 4)   default(0.0), not null
 #  unit_pretax_amount   :decimal(19, 4)   not null
@@ -49,10 +48,8 @@
 
 class PurchaseItem < Ekylibre::Record::Base
   include PeriodicCalculable
-  enumerize :reference_value, in: [:unit_pretax_amount, :unit_amount, :pretax_amount, :amount], default: :unit_pretax_amount
   belongs_to :account
   belongs_to :purchase, inverse_of: :items
-  # belongs_to :price, class_name: "CatalogItem"
   belongs_to :variant, class_name: "ProductNatureVariant", inverse_of: :purchase_items
   belongs_to :tax
   has_many :delivery_items, class_name: "IncomingDeliveryItem", foreign_key: :purchase_item_id
@@ -61,18 +58,17 @@ class PurchaseItem < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, allow_nil: true
   validates_inclusion_of :fixed, in: [true, false]
-  validates_presence_of :account, :amount, :currency, :pretax_amount, :purchase, :quantity, :reduction_percentage, :reference_value, :tax, :unit_amount, :unit_pretax_amount, :variant
+  validates_presence_of :account, :amount, :currency, :pretax_amount, :purchase, :quantity, :reduction_percentage, :tax, :unit_amount, :unit_pretax_amount, :variant
   #]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_presence_of :account, :tax
+  validates_presence_of :account, :tax, :reduction_percentage
   validates_associated :fixed_asset
-  # validates_uniqueness_of :tracking_serial, :scope => :price_id, allow_nil: true, if: Proc.new{|pl| !pl.tracking_serial.blank? }, :allow_blank => true
 
   delegate :invoiced_at, :number, :computation_method, :computation_method_quantity_tax?, :computation_method_tax_quantity?, :computation_method_adaptative?, :computation_method_manual?, to: :purchase
   delegate :purchased?, :draft?, :order?, :supplier, to: :purchase
   delegate :currency, to: :purchase, prefix: true
   delegate :name, to: :variant, prefix: true
-  delegate :name, :short_label, to: :tax, prefix: true
+  delegate :name, :amount, :short_label, to: :tax, prefix: true
   # delegate :subscribing?, :deliverable?, to: :product_nature, prefix: true
 
   accepts_nested_attributes_for :fixed_asset
@@ -99,15 +95,19 @@ class PurchaseItem < Ekylibre::Record::Base
   }
 
   before_validation do
-    self.pretax_amount ||= 0
-    self.amount ||= 0
-
     if self.purchase
       self.currency = self.purchase_currency
     end
 
-    if self.quantity and self.tax
-      Calculus::TaxedAmounts::Default.new(self).compute
+    self.quantity ||= 0
+    self.reduction_percentage ||= 0
+
+    if self.tax and self.unit_pretax_amount
+      item = Nomen::Currencies.find(self.currency)
+      precision = item ? item.precision : 2
+      self.unit_amount = self.unit_pretax_amount * (100.0 + self.tax_amount) / 100.0
+      self.pretax_amount ||= (self.unit_pretax_amount * self.quantity * (100.0 - self.reduction_percentage) / 100.0).round(precision)
+      self.amount        ||= (self.pretax_amount * (100.0 + self.tax_amount) / 100.0).round(precision)
     end
 
     if self.variant
@@ -116,7 +116,7 @@ class PurchaseItem < Ekylibre::Record::Base
       else
         self.account = self.variant.charge_account || Account.find_in_chart(:expenses)
       end
-      self.label     ||= self.variant.commercial_name
+      self.label ||= self.variant.commercial_name
     end
   end
 

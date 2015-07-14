@@ -354,8 +354,8 @@ fra:
       purchase_nature: "Type d’achat"
       role: "Rôle"
       sale: "Vente"
-      sale_credit: "Avoir"
-      sale_credit_item: "Ligne d’avoir"
+      sale_credit: "Avoir" #?
+      sale_credit_item: "Ligne d’avoir" #?
       sale_item: "Ligne de vente"
       sale_nature: "Type de vente"
       sale_opportunity: "Opportunité de vente"
@@ -547,7 +547,7 @@ fra:
     credit: "Crédit"
     credit_lines: "Lignes d’avoir" #?
     credited_item: "Élément annulé"
-    credited_quantity: "Quantité déjà passée en avoir"
+    credited_quantity: "Quantité passée en avoir"
     credited_sale: "Facture mise en avoir"
     credits: "Avoirs"
     crumbs: "Miettes"
@@ -1083,7 +1083,7 @@ fra:
     reduced_unit_pretax_amount: "PU HT réduit" #?
     reductible: "Soumis à réduction"
     reduction: "Ligne de réduction" #?
-    reduction_percentage: "Pourcentage de réduction"
+    reduction_percentage: "Réduction (%)"
     reductions: "Lignes de réductions" #?
     reference: "Référence" #?
     reference_name: "Référence"
@@ -1455,6 +1455,7 @@ fra:
       bookkeep: "[%{resource} %{number}] %{products} pour %{client} (%{sale})"
       label:
         aborted: "Vente abandonnée %{number}"
+        credit: "Avoir %{number}"
         draft: "Devis %{number} - brouillon"
         estimate: "Devis %{number} - envoyé"
         invoice: "Facture %{number}"
@@ -1475,9 +1476,9 @@ fra:
         invoice: "Facture"
         order: "Commande"
         refused: "Devis refusé"
-    sale_credit:
-      label:
-        invoice: "Avoir N°%{number}"
+    sale_credit:  #?
+      label: #?
+        invoice: "Avoir N°%{number}" #?
     sale_item:
       building_can_not_transfer_product: "Le produit %{product} ne peut être sorti du réservoir %{building}, celui-ci contient %{contained_product} "
       can_not_use_this_tracking: "Vous ne  pouvez pas utiliser le lot %{name}, la quantité commandée est supérieure à la quantité disponible "

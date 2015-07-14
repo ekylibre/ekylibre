@@ -24,16 +24,13 @@
 #
 #  amount               :decimal(19, 4)   default(0.0), not null
 #  collect_account_id   :integer
-#  computation_method   :string           not null
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  deduction_account_id :integer
 #  description          :text
 #  id                   :integer          not null, primary key
-#  included             :boolean          default(FALSE), not null
 #  lock_version         :integer          default(0), not null
 #  name                 :string           not null
-#  reductible           :boolean          default(TRUE), not null
 #  reference_name       :string
 #  updated_at           :datetime         not null
 #  updater_id           :integer

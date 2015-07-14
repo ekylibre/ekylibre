@@ -9,7 +9,7 @@ Si un compte est lettrable alors, vous pourrez utiliser le module de [[>backend/
 ===== Gestion des comptes  =====
 Le plan de compte est extensible à volonté, vous pouvez [[>backend/accounts#new|rajouter]] autant de comptes que nécessaire. Par la suite, il vous sera possible de les modifier {{icon:edit}} ou même de les supprimer {{icon:destroy}} à condition qu'il n'existe aucune écriture relative à ce compte.
 
->>> Il est possible de créer des comptes en alpha-numérique à partir du 4ème caractère. 
+>>> Il est possible de créer des comptes en alpha-numérique à partir du 4ème caractère.
 >>> Exemple~: 411MARTIN
 
 !!! Après enregistrement, le **numéro du compte ne pourra plus être modifié**. Si vous faites une erreur, vous pourrez toujours supprimer le compte aussitôt et le recréer à nouveau.

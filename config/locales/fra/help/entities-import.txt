@@ -1,7 +1,7 @@
 ====== Comment importer des tiers ? ======
 
 Une importation permet d'**ajouter** de nouvelles fiches sans modifier les fiches existantes. Il est possible de récupérer seulement les informations de description des tiers (Il n'est pas possible de récupérer un historique de ventes, évènements...).
-L'importation se passe en trois étapes.  
+L'importation se passe en trois étapes.
 
 ===== Sélection du fichier =====
 Avant de sélectionner votre fichier, pensez bien à utiliser le bon format :

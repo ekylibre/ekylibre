@@ -2,7 +2,7 @@
 
 ===== Calendrier =====
 
-Ce module affiche le calendrier des évènements. 
+Ce module affiche le calendrier des évènements.
 
 ===== Derniers tiers =====
 
