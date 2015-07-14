@@ -20,6 +20,8 @@
       = render "link", link: link, entity: resource, popover: seconds
     = link_to({controller: :entity_links, action: :edit, id: link.id, redirect: request.fullpath}, class: "info-action") do
       %i.icon.icon-edit
+    = link_to({controller: :entity_links, action: :destroy, id: link.id, redirect: request.fullpath}, class: "info-action", data: {confirm: :are_you_sure.tl}) do
+      %i.icon.icon-destroy
 
 
 - for address in resource.addresses.order(:canal, :by_default)

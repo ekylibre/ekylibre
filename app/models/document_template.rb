@@ -235,7 +235,7 @@ class DocumentTemplate < Ekylibre::Record::Base
       end
       return nil
     end
-    
+
     # Returns the root directory for the document templates's sources
     def sources_root
       Ekylibre::Tenant.private_directory.join("reporting")

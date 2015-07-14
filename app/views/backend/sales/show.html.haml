@@ -66,5 +66,6 @@
     - c.cobble :deliveries, title: Sale.human_attribute_name(:deliveries) do
       = cobble_list :deliveries
 
-  - c.cobble :credits do
-    = cobble_list :credits
+  - if resource.credits.any?
+    - c.cobble :credits do
+      = cobble_list :credits

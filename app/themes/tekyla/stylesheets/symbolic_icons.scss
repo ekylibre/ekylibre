@@ -7,6 +7,7 @@
   button.btn-#{$symbol-name} i,
   // tables
   .active-list table.list tr > .act > a.#{$symbol-name} > i,
+  .active-list table.list tr > .act > .icon.icon-#{$symbol-name},
   .active-list[data-list-source] table.list tr > .act > a.#{$symbol-name} > i,
   .active-list[data-list-source] table.list tr > .act[data-list-column="#{$symbol-name}"] > i,
   // snippets
@@ -18,9 +19,9 @@
   // picto
   .picto.picto-#{$symbol-name},
   // timeline
- .timeline .timestep .log-#{$symbol-name} .log-symbol,
+  .timeline .timestep .log-#{$symbol-name} .log-symbol,
   // cobbles
- .cobbles .cobbles-body .cobble.cobble-#{$symbol-name} .cobble-title i
+  .cobbles .cobbles-body .cobble.cobble-#{$symbol-name} .cobble-title i
   {
     @content;
   }

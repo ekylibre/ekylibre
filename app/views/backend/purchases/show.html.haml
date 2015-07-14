@@ -35,8 +35,9 @@
   - c.cobble :affair do
     = affair_of(resource)
 
-  - c.cobble :attachments, title: Purchase.human_attribute_name(:attachments) do
-    = attachments_of(resource)
+  - if resource.attachments.any?
+    - c.cobble :attachments, title: Purchase.human_attribute_name(:attachments) do
+      = attachments_of(resource)
 
   - if resource.deliveries.any?
     - c.cobble :deliveries, title: Purchase.human_attribute_name(:deliveries) do

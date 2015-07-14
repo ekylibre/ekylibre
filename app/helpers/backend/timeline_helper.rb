@@ -20,7 +20,7 @@
 module Backend::TimelineHelper
 
   class Timeline
-    attr_reader :object, :sides, :id
+    attr_reader :object, :sides, :id, :others
 
     class Side
       attr_reader :name, :model, :label_method, :at_method
@@ -34,6 +34,7 @@ module Backend::TimelineHelper
         @label = options[:label]
         @new = !options[:new].is_a?(FalseClass)
         @params = options[:params] || {}
+        @authorization_proc = options[:if]
       end
 
       def human_name
@@ -52,6 +53,10 @@ module Backend::TimelineHelper
         @new
       end
 
+      def authorized?
+        @authorization_proc.nil? or @authorization_proc.call(object)
+      end
+
       def object
         @timeline.object
       end
@@ -61,9 +66,19 @@ module Backend::TimelineHelper
       end
 
       def steps
-        @steps ||= records.collect do |record|
-          SideStep.new(self, record.send(at_method), record)
+        unless @steps
+          @steps = records.collect do |record|
+            SideStep.new(self, record.send(at_method), record)
+          end
+          @timeline.others.each do |other|
+            other.send(@name).collect do |record|
+              unless @steps.detect{|s| s.record == record }
+                @steps << SideStep.new(self, record.send(at_method), record)
+              end
+            end
+          end
         end
+        return @steps
       end
 
       def records
@@ -123,12 +138,13 @@ module Backend::TimelineHelper
       @model = @object.class
       @sides = []
       @id = options[:id]
+      @others = options[:others] || []
     end
 
     def steps
       list = []
       @sides.each do |side|
-        list += side.steps
+        list += side.steps if side.authorized?
       end
       now = Time.now
       if list.detect{|s| s.at > now }
