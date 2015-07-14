@@ -352,3 +352,33 @@ document_templates_020:
   nature: vat_registry
   updated_at: 2015-03-19 07:20:14.121990000 Z
   updater_id: 1
+document_templates_021:
+  active: true
+  archiving: last
+  by_default: true
+  created_at: 2015-07-14 13:21:02.782727000 Z
+  creator_id: 1
+  formats: ''
+  id: 23
+  language: fra
+  lock_version: 0
+  managed: true
+  name: Estimation
+  nature: purchases_estimate
+  updated_at: 2015-07-14 13:21:02.782727000 Z
+  updater_id: 1
+document_templates_022:
+  active: true
+  archiving: last
+  by_default: true
+  created_at: 2015-07-14 13:21:02.798429000 Z
+  creator_id: 1
+  formats: ''
+  id: 24
+  language: fra
+  lock_version: 0
+  managed: true
+  name: Commande d’achat
+  nature: purchases_order
+  updated_at: 2015-07-14 13:21:02.798429000 Z
+  updater_id: 1

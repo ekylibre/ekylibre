@@ -39,8 +39,8 @@ db/first_runs
 db/datasources
 
 # Ignore jasper files
-config/locales/*/prints/*.jrxml
-config/locales/*/prints/*.pdf
+config/locales/*/reporting/*.jasper
+config/locales/*/reporting/*.pdf
 
 # Ignore private files
 private/*

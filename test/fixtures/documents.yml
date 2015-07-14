@@ -158,3 +158,31 @@ documents_004:
   updated_at: 2015-01-04 14:28:55.133954000 Z
   updater_id: 1
   uploaded: false
+documents_005:
+  created_at: 2015-07-14 13:21:36.730242000 Z
+  creator_id: 1
+  file_content_text: "Coop Ain Coop'In\n33 rue de la société\n11110 MAROUSSAC\nFrance\n\nFacture
+    A201411000004\n\n05 mars 2008\nRef : null\n\nCode\n\nDésignation\n\nQté.\n\nPU
+    HT\n\nRemise\n\nMontant\nHT\n\nMontant\nTVA\n\nTaux\nTVA\n\nGWNVKRYVPNV0\n\nPlant
+    de vigne standard (So4)\n\n5000.0\n\n3,42\n\n0,00 %\n\n17100,00\n\n3420,00\n\n20%
+    VAT\n\n17100,00\n\n3420,00\n\nTotaux\nNet à payer (EUR)\n\nDate\n\nAffaires\n\n07/11/2014\n\nPar
+    chèque - D20140003\n\nEUR\n\n20520,00\n\nDébit\n\nCrédit\n9000.0\n\n20520,00\n\n9000,00\n\nA000000000022\n11520,00\n\nRéglement
+    à transmettre à Coop Ain Coop'In, 33 rue de la société,\n11110 MAROUSSAC, France\nClient\n\nNuméro
+    Pièce\n\nDate limite de paiement\nNet à payer\n\n14/07/2015 15.21.36\n\n20520
+    EUR\n1 /1\n\n- SIREN : 123456789\n\n\f"
+  file_content_type: application/pdf
+  file_file_name: beardley_nrhbs0_dllkw4b.pdf
+  file_file_size: 32836
+  file_fingerprint: 42be5a8fec987eb6bfe369e40a4e19ac
+  file_pages_count: 1
+  file_updated_at: 2015-07-14 13:21:36.485690000 Z
+  id: 7
+  key: A201411000004
+  lock_version: 0
+  name: Facture d’achat A201411000004
+  nature: purchases_invoice
+  number: D000000000005
+  template_id: 21
+  updated_at: 2015-07-14 13:21:36.730242000 Z
+  updater_id: 1
+  uploaded: false

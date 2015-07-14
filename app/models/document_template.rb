@@ -95,7 +95,8 @@ class DocumentTemplate < Ekylibre::Record::Base
             logger.info "Update <template> for document template #{self.nature}"
             template.children.remove
             style_file = Ekylibre::Tenant.private_directory.join("corporate_identity", "reporting_style.xml")
-            unless style_file.exist?
+            # TODO find a way to permit customization for users to restore that
+            if true # unless style_file.exist?
               FileUtils.mkdir_p(style_file.dirname)
               FileUtils.cp(Rails.root.join("config", "corporate_identity", "reporting_style.xml"), style_file)
             end
@@ -165,7 +166,7 @@ class DocumentTemplate < Ekylibre::Record::Base
   # @param datasource XML representation of data used by the template
   def print(datasource, key, format = :pdf, options = {})
     # Load the report
-    report = Beardley::Report.new(self.source_path)
+    report = Beardley::Report.new(self.source_path, locale: "i18n.iso2".t)
     # Call it with datasource
     data = report.send("to_#{format}", datasource)
     # Archive the document according to archiving method. See #document method.
@@ -180,7 +181,7 @@ class DocumentTemplate < Ekylibre::Record::Base
   # @param datasource XML representation of data used by the template
   def export(datasource, key, format = :pdf, options = {})
     # Load the report
-    report = Beardley::Report.new(self.source_path)
+    report = Beardley::Report.new(self.source_path, locale: "i18n.iso2".t)
     # Call it with datasource
     path = Pathname.new(report.to_file(format, datasource))
     # Archive the document according to archiving method. See #document method.
@@ -239,14 +240,35 @@ class DocumentTemplate < Ekylibre::Record::Base
     Ekylibre::Tenant.private_directory.join("reporting")
   end
 
+  def self.template_fallbacks(nature, locale)
+    root = Rails.root.join("config", "locales", locale, "reporting")
+    stack = []
+    stack << root.join("#{nature}.xml")
+    stack << root.join("#{nature}.jrxml")
+    fallback = {
+      sales_order: :sale,
+      sales_estimate: :sale,
+      sales_invoice: :sale,
+      purchases_order: :purchase,
+      purchases_estimate: :purchase,
+      purchases_invoice: :purchase,
+    }[nature.to_sym]
+    if fallback
+      stack << root.join("#{fallback}.xml")
+      stack << root.join("#{fallback}.jrxml")
+    end
+    puts stack.join("\n").red
+    return stack
+  end
+
   # Loads in DB all default document templates
   def self.load_defaults(options = {})
     locale = (options[:locale] || Preference[:language] || I18n.locale).to_s
     Ekylibre::Record::Base.transaction do
       manageds = self.where(managed: true).select(&:destroyable?)
       for nature in self.nature.values
-        source = Rails.root.join("config", "locales", locale, "reporting", "#{nature}.xml")
-        if source.exist?
+        if source = template_fallbacks(nature, locale).detect{|p| p.exist? }
+          puts "IMPORT #{source.to_s} for #{nature}".yellow
           File.open(source, "rb:UTF-8") do |f|
             unless template = self.find_by(nature: nature, managed: true)
               template = self.new(nature: nature, managed: true, active: true, by_default: false, archiving: "last")
