@@ -152,15 +152,6 @@ class DocumentTemplate < Ekylibre::Record::Base
     return self.source_dir.join("content.xml")
   end
 
-  # Print document with default active template for the given nature
-  # Returns nil if no template found.
-  def self.print(nature, datasource, key, format = :pdf, options = {})
-    if template = self.where(:nature => nature, :by_default => true, :active => true).first
-      return template.print(datasource, key, format, options)
-    end
-    return nil
-  end
-
   # Print a document with the given datasource and return raw data
   # Store if needed by template
   # @param datasource XML representation of data used by the template
@@ -234,59 +225,69 @@ class DocumentTemplate < Ekylibre::Record::Base
     return document
   end
 
+  class << self
 
-  # Returns the root directory for the document templates's sources
-  def self.sources_root
-    Ekylibre::Tenant.private_directory.join("reporting")
-  end
-
-  def self.template_fallbacks(nature, locale)
-    root = Rails.root.join("config", "locales", locale, "reporting")
-    stack = []
-    stack << root.join("#{nature}.xml")
-    stack << root.join("#{nature}.jrxml")
-    fallback = {
-      sales_order: :sale,
-      sales_estimate: :sale,
-      sales_invoice: :sale,
-      purchases_order: :purchase,
-      purchases_estimate: :purchase,
-      purchases_invoice: :purchase,
-    }[nature.to_sym]
-    if fallback
-      stack << root.join("#{fallback}.xml")
-      stack << root.join("#{fallback}.jrxml")
-    end
-    puts stack.join("\n").red
-    return stack
-  end
-
-  # Loads in DB all default document templates
-  def self.load_defaults(options = {})
-    locale = (options[:locale] || Preference[:language] || I18n.locale).to_s
-    Ekylibre::Record::Base.transaction do
-      manageds = self.where(managed: true).select(&:destroyable?)
-      for nature in self.nature.values
-        if source = template_fallbacks(nature, locale).detect{|p| p.exist? }
-          puts "IMPORT #{source.to_s} for #{nature}".yellow
-          File.open(source, "rb:UTF-8") do |f|
-            unless template = self.find_by(nature: nature, managed: true)
-              template = self.new(nature: nature, managed: true, active: true, by_default: false, archiving: "last")
-            end
-            manageds.delete(template)
-            template.attributes = {source: f, language: locale}
-            template.name ||= template.nature.l
-            template.save!
-          end
-          Rails.logger.info "Load a default document template #{nature}"
-        else
-          Rails.logger.warn "Cannot load a default document template #{nature}: No file found at #{source}"
-        end
+    # Print document with default active template for the given nature
+    # Returns nil if no template found.
+    def print(nature, datasource, key, format = :pdf, options = {})
+      if template = self.where(:nature => nature, :by_default => true, :active => true).first
+        return template.print(datasource, key, format, options)
       end
-      self.destroy(manageds.map(&:id))
+      return nil
     end
-    return true
-  end
+    
+    # Returns the root directory for the document templates's sources
+    def sources_root
+      Ekylibre::Tenant.private_directory.join("reporting")
+    end
 
+    # Compute fallback chain for a given document nature
+    def template_fallbacks(nature, locale)
+      root = Rails.root.join("config", "locales", locale, "reporting")
+      stack = []
+      stack << root.join("#{nature}.xml")
+      stack << root.join("#{nature}.jrxml")
+      fallback = {
+        sales_order: :sale,
+        sales_estimate: :sale,
+        sales_invoice: :sale,
+        purchases_order: :purchase,
+        purchases_estimate: :purchase,
+        purchases_invoice: :purchase,
+      }[nature.to_sym]
+      if fallback
+        stack << root.join("#{fallback}.xml")
+        stack << root.join("#{fallback}.jrxml")
+      end
+      return stack
+    end
+
+    # Loads in DB all default document templates
+    def load_defaults(options = {})
+      locale = (options[:locale] || Preference[:language] || I18n.locale).to_s
+      Ekylibre::Record::Base.transaction do
+        manageds = self.where(managed: true).select(&:destroyable?)
+        for nature in self.nature.values
+          if source = template_fallbacks(nature, locale).detect{|p| p.exist? }
+            File.open(source, "rb:UTF-8") do |f|
+              unless template = self.find_by(nature: nature, managed: true)
+                template = self.new(nature: nature, managed: true, active: true, by_default: false, archiving: "last")
+              end
+              manageds.delete(template)
+              template.attributes = {source: f, language: locale}
+              template.name ||= template.nature.l
+              template.save!
+            end
+            Rails.logger.info "Load a default document template #{nature}"
+          else
+            Rails.logger.warn "Cannot load a default document template #{nature}: No file found at #{source}"
+          end
+        end
+        self.destroy(manageds.map(&:id))
+      end
+      return true
+    end
+
+  end
 
 end
