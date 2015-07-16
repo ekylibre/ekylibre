@@ -99,7 +99,6 @@ class Entity < Ekylibre::Record::Base
   has_many :indirect_links, class_name: "EntityLink", foreign_key: :linked_id
   has_many :ownerships, class_name: "ProductOwnership", foreign_key: :owner_id
   has_many :participations, class_name: "EventParticipation", foreign_key: :participant_id
-  has_many :prices, class_name: "ProductPriceTemplate"
   has_many :purchase_invoices, -> { where(state: "invoice").order(created_at: :desc) }, class_name: "Purchase", foreign_key: :supplier_id
   has_many :purchases, foreign_key: :supplier_id
   has_many :outgoing_deliveries, foreign_key: :transporter_id
