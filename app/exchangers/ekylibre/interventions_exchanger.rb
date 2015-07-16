@@ -183,11 +183,24 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         workers = Worker.where(work_number: r.worker_codes)
       end
 
-      # Get products
-      first_product = Product.find_by_work_number(r.first_product_code) if r.first_product_code
-      second_product = Product.find_by_work_number(r.second_product_code) if r.second_product_code
-      third_product = Product.find_by_work_number(r.third_product_code) if r.third_product_code
-
+      # Get products or variants
+      if r.first_product_code
+        unless first_product = Product.find_by_work_number(r.first_product_code)
+          first_variant = ProductNatureVariant.find_by_number(r.first_product_code)
+        end
+      end
+      
+      if r.second_product_code
+        unless second_product = Product.find_by_work_number(r.second_product_code)
+          second_variant = ProductNatureVariant.find_by_number(r.second_product_code)
+        end
+      end
+      
+      if r.third_product_code
+        unless third_product = Product.find_by_work_number(r.third_product_code)
+          third_variant = ProductNatureVariant.find_by_number(r.third_product_code)
+        end
+      end
 
       if production_supports
 
@@ -233,6 +246,11 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
 
             def population_conversion(product, population, unit, unit_target_dose, working_area = Measure.new(0.0, :square_meter))
+              if product.is_a?(Product)
+                product_variant = product.variant
+              elsif product.is_a?(ProductNatureVariant)
+                product_variant = product
+              end
               value = population
               nomen_unit = nil
               # convert symbol into unit if needed
@@ -250,14 +268,14 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                 measure = Measure.new(value, unit)
                 if measure
                   if unit == :liter || unit == :cubic_meter || unit == :hectoliter
-                    variant_indicator = product.variant.send(:net_volume)
+                    variant_indicator = product_variant.send(:net_volume)
                   # convert measure to variant unit and divide by variant_indicator
                   # ex : for a wheat_seed_25kg
                   # 182.25 kilogram (converting in kilogram) / 25.00 kilogram
                   elsif unit == :kilogram || unit == :ton || unit == :quintal
-                    variant_indicator = product.variant.send(:net_mass)
+                    variant_indicator = product_variant.send(:net_mass)
                   elsif unit == :meter
-                    variant_indicator = product.variant.send(:net_length)
+                    variant_indicator = product_variant.send(:net_length)
                   else
                     w.warn "Bad unit: #{unit} for intervention ##{r.intervention_number}"
                   end
@@ -519,21 +537,26 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
               ####  HARVESTING   ####
               #######################
 
-              elsif r.procedure_name == :grains_harvest and plant and first_product and second_product
+              elsif r.procedure_name == :grains_harvest and plant and first_variant and second_variant
 
                 working_measure = plant.shape_area
                 w.info working_measure.inspect.green
-                first_product_input_population = population_conversion(first_product, r.first_product_input_population, r.first_product_input_unit_name, r.first_product_input_unit_target_dose, working_measure)
+                first_product_input_population = population_conversion(first_variant, r.first_product_input_population, r.first_product_input_unit_name, r.first_product_input_unit_target_dose, working_measure)
                 w.info first_product_input_population.inspect.green
-                second_product_input_population = population_conversion(second_product, r.second_product_input_population, r.second_product_input_unit_name, r.second_product_input_unit_target_dose, working_measure)
+                second_product_input_population = population_conversion(second_variant, r.second_product_input_population, r.second_product_input_unit_name, r.second_product_input_unit_target_dose, working_measure)
                 w.info second_product_input_population.inspect.green
-
+                
+                puts plant.inspect.red
+                puts equipments.inspect.yellow
+                puts first_variant.inspect.yellow
+                puts second_variant.inspect.yellow
+                
                 intervention = Ekylibre::FirstRun::Booker.force(:grains_harvest, intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
                   i.add_cast(reference_name: 'cropper',        actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "harvest(poaceae)") : i.find(Equipment, can: "harvest(poaceae)")))
                   i.add_cast(reference_name: 'cropper_driver', actor: (workers.any? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
                   i.add_cast(reference_name: 'cultivation',    actor: plant)
-                  i.add_cast(reference_name: 'grains',         population: first_product_input_population, variant: first_product.variant)
-                  i.add_cast(reference_name: 'straws',         population: second_product_input_population, variant: second_product.variant)
+                  i.add_cast(reference_name: 'grains',         population: first_product_input_population, variant: first_variant)
+                  i.add_cast(reference_name: 'straws',         population: second_product_input_population, variant: second_variant)
                 end
 
               elsif r.procedure_name == :direct_silage and plant and first_product

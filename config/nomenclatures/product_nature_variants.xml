@@ -3032,6 +3032,57 @@
             />
 
 
+
+	   <!--COOP RAW PRODUCT GRAIN BASED -->
+       <item name="coop:red_label_caphorn_wheat_grain"
+            nature="grain"
+            derivative_of="triticum_aestivum_caphorn"
+            unit_name="ton"
+            frozen_indicators_values="net_mass: 1.00ton"
+            />
+
+        <item name="coop:yellow_pea_grain"
+            nature="grain"
+            derivative_of="pisum"
+            unit_name="ton"
+            frozen_indicators_values="net_mass: 1.00ton"
+            />
+
+        <item name="coop:etincel_barley_grain"
+            nature="grain"
+            derivative_of="hordeum_hibernum_etincel"
+            unit_name="ton"
+            frozen_indicators_values="net_mass: 1.00ton"
+            />
+
+        <item name="coop:traveler_barley_grain"
+            nature="grain"
+            derivative_of="hordeum_vernum_traveler"
+            unit_name="ton"
+            frozen_indicators_values="net_mass: 1.00ton"
+            />
+
+        <item name="coop:arturio_barley_grain"
+            nature="grain"
+            derivative_of="hordeum_hibernum_arturio"
+            unit_name="ton"
+            frozen_indicators_values="net_mass: 1.00ton"
+            />
+
+        <item name="coop:class_a_corn_grain"
+            nature="grain"
+            derivative_of="zea"
+            unit_name="ton"
+            frozen_indicators_values="net_mass: 1.00ton"
+            />
+	    <item name="coop:oleic_sunflower_grain"
+            nature="grain"
+            derivative_of="helianthus_annuus"
+            unit_name="ton"
+            frozen_indicators_values="net_mass: 1.00ton"
+            />
+
+
 	    <!-- AGRICULTURAL SERVICES -->
 
         <!-- vegetal agricultural service -->
