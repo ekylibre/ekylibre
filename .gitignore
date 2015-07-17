@@ -75,3 +75,4 @@ capybara*.html
 
 Gemfile.local
 Gemfile.local.lock
+private/test/attachments/animals

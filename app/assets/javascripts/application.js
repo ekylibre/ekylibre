@@ -45,6 +45,7 @@
 //= require leaflet/fullscreen
 //= require leaflet/providers
 //= require leaflet/heatmap
+//= require leaflet/leaflet-measure
 //= require autosize
 //= require plugins
 //= require_tree .

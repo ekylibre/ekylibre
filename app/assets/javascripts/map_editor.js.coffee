@@ -39,6 +39,14 @@
           position: "bottomright"
           imperial: false
           maxWidth: 200
+        measure:
+          position: 'topright'
+          primaryLengthUnit: 'meters',
+          secondaryLengthUnit: 'kilometers'
+          primaryAreaUnit: 'hectares',
+          secondaryAreaUnit: undefined
+          activeCcolor: '#ABE67E'
+          completedCcolor: '#C8F2BE'
 
     _create: ->
       this.oldElementType = this.element.attr "type"
@@ -213,6 +221,9 @@
       unless this.options.controls.scale is false
         this.controls.scale = new L.Control.Scale(this.options.controls.scale)
         this.map.addControl this.controls.scale
+      unless this.options.controls.measure is false
+        this.controls.measure = new L.Control.Measure(this.options.controls.measure)
+        this.map.addControl this.controls.measure
 
     _saveUpdates: ->
       if this.edition?
