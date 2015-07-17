@@ -82,6 +82,8 @@
       this._refreshControls()
       # console.log "controlled"
 
+      widget.element.trigger "mapeditor:loaded"
+
     _destroy: ->
       this.element.attr this.oldElementType
       this.mapElement.remove()
