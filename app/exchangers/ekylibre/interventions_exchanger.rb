@@ -189,13 +189,13 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
           first_variant = ProductNatureVariant.find_by_number(r.first_product_code)
         end
       end
-      
+
       if r.second_product_code
         unless second_product = Product.find_by_work_number(r.second_product_code)
           second_variant = ProductNatureVariant.find_by_number(r.second_product_code)
         end
       end
-      
+
       if r.third_product_code
         unless third_product = Product.find_by_work_number(r.third_product_code)
           third_variant = ProductNatureVariant.find_by_number(r.third_product_code)
@@ -545,12 +545,12 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                 w.info first_product_input_population.inspect.green
                 second_product_input_population = population_conversion(second_variant, r.second_product_input_population, r.second_product_input_unit_name, r.second_product_input_unit_target_dose, working_measure)
                 w.info second_product_input_population.inspect.green
-                
+
                 puts plant.inspect.red
                 puts equipments.inspect.yellow
                 puts first_variant.inspect.yellow
                 puts second_variant.inspect.yellow
-                
+
                 intervention = Ekylibre::FirstRun::Booker.force(:grains_harvest, intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
                   i.add_cast(reference_name: 'cropper',        actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "harvest(poaceae)") : i.find(Equipment, can: "harvest(poaceae)")))
                   i.add_cast(reference_name: 'cropper_driver', actor: (workers.any? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))

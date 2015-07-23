@@ -992,7 +992,7 @@ fra:
     previous_cultivation_residue_mineralization: "Minéralisation des résidus de culture du précédent (Mr)"
     price: "Prix"
     price_templates: "Modèles de prix" #?
-    prices: "Prix"
+    prices: "Prix" #?
     printed_at: "Daté du"
     printed_on: "Daté du"
     priority: "Priorité"

@@ -41,13 +41,13 @@
           end
 
         end
-        
+
         if params[:visualization] == "grain_yield"
-        
+
           popup_content << {label: :grain_yield.tl, value: support.grains_yield.to_s.to_f.round(2)}
-        
+
         end
-        
+
         if support.storage
           popup_content << {label: CultivableZone.human_attribute_name(:net_surface_area), value: support.storage.net_surface_area.in_hectare.round(2).l}
         end

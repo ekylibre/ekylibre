@@ -1014,6 +1014,7 @@ fra:
     geolocation: "Géolocalisation"
     give_discount: "Octroyer une remise" #?
     go: "Valider"
+    grain_yield: "Rendement grain"
     grains_yield: "Rendement grains" #?
     graph_statistics: "Statistiques graphiques" #?
     gross_profit: "Marge brute"

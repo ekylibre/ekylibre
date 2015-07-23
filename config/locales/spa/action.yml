@@ -906,6 +906,7 @@ spa:
     # generate_last_journal_entry: "Generate last journal entry"
     # geolocation: "Geolocation"
     # go: "Go"
+    # grain_yield: "Grain yield"
     # gross_profit: "Gross profit"
     # group: "Group"
     # groups: "Groups"
