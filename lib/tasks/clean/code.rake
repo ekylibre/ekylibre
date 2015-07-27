@@ -31,7 +31,7 @@ namespace :clean do
     count = 0
     files.sort!
     for file in files
-      next if File.directory?(file)
+      next if File.directory?(file) or File.symlink?(file)
       original = File.read(file)
       source = original.dup
 
