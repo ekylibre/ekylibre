@@ -40,7 +40,7 @@ por:
     financial_year_name: "Nome ano fiscal"
     financial_years: "Anos fiscais"
     grains_yield: "Rendimento de grãos"
-    # human_roles: "Human roles"
+    human_roles: "Regras de pessoa"
     incoming_quantity: "Quantidade a receber"
     input_quantity: "Quantidade de entrada"
     input_unit_name: "Nome unidade de entrada"
