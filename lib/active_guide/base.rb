@@ -34,9 +34,11 @@ module ActiveGuide
     end
 
     # Run an analyses with default SimpleAnalyzer by default
-    def run(analyzer = nil)
+    def run(*args)
+      options  = args.extract_options!
+      analyzer = args.shift || options[:analyzer]
       analyzer ||= SimpleAnalyzer.new
-      analyzer.run(self)
+      analyzer.run(self, options)
     end
     
   end
