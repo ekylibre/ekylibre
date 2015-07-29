@@ -1,0 +1,85 @@
+/* Mixins *********************************************************************/
+/* Styles *********************************************************************/
+.leaflet-modal {
+  visibility: hidden;
+  pointer-events: none;
+}
+.leaflet-modal .overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: #222222;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  z-index: 10001;
+  -webkit-transition: opacity 0.25s linear;
+  -o-transition: opacity 0.25s linear;
+  transition: opacity 0.25s linear;
+}
+.leaflet-modal .close {
+  -webkit-appearance: none;
+  padding: 0;
+  cursor: pointer;
+  background: 0 0;
+  border: 0;
+  float: right;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: 0.2;
+  filter: alpha(opacity=20);
+}
+.leaflet-modal .close:hover {
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
+.leaflet-modal .modal {
+  display: block;
+  left: auto;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: auto;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  z-index: 10002;
+  overflow: auto;
+  height: 100%;
+}
+.leaflet-modal .modal-content {
+  padding: 15px;
+  background: #ffffff;
+  -webkit-box-shadow: 0 3px 9px rgba(0,0,0,.5);
+  box-shadow: 0 3px 9px rgba(0,0,0,.5);
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  outline: 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100%;
+  margin-bottom: 40px;
+  max-width: 600px;
+  -webkit-transition: margin 0.3s linear;
+  -o-transition: margin 0.3s linear;
+  transition: margin 0.3s linear;
+}
+.leaflet-modal.show {
+  width: 100%;
+  height: 100%;
+  visibility: visible;
+  pointer-events: visible;
+}
+.leaflet-modal.show .modal-content {
+  margin-top: 40px;
+}
+.leaflet-modal.show .overlay {
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+}
