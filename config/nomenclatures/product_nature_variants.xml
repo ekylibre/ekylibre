@@ -8,7 +8,7 @@
       <property-nature name="derivative_of" type="choice" nomenclature="varieties" required="false"/>
       <property-nature name="nature" type="choice" nomenclature="product_natures" required="true"/>
       <property-nature name="frozen_indicators_values" type="string" required="false"/>
-      <property-nature name="unit_name" type="choice" choices="month,server,domain, 100g_dose, dose, 1l_dose, 10ml_dose, 20ml_dose, 50ml_dose, 10kg_bag, 12kg_bag, 20kg_bag, 25kg_bag, 50tg_bag, 150tg_bag, 220tg_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, meal, night, square_meter, day, hour, kilogram, kilometer, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle, 100cl_bottle, plant, gram, 2g_pill, 5g_pill, group, subject, herd, roll, stake, package" required="true" default="unit"/>
+      <property-nature name="unit_name" type="choice" choices="month,server,domain, 100g_dose, dose, 1l_dose, quintal, 10ml_dose, 20ml_dose, 50ml_dose, 10kg_bag, 12kg_bag, 20kg_bag, 25kg_bag, 50tg_bag, 150tg_bag, 220tg_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, meal, night, square_meter, day, hour, kilogram, kilometer, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle, 100cl_bottle, plant, gram, 2g_pill, 5g_pill, group, subject, herd, roll, stake, package" required="true" default="unit"/>
     </property-natures>
     <items>
       <!-- ANIMAL VIAL -->
@@ -2667,56 +2667,56 @@
       <item name="coop:bth_s_arezzo_r1_gau_red_lat_s25kg"
             nature="seed"
             derivative_of="triticum_aestivum_arezzo"
-            unit_name="25kg_bag"
-            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
+            unit_name="quintal"
+            frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 42gram"
             />
       <item name="coop:bth_s_ascott_r1_gau_red_s25kg"
             nature="seed"
             derivative_of="triticum_aestivum_ascott"
-            unit_name="25kg_bag"
-            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
+            unit_name="quintal"
+            frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 42gram"
             />
       <item name="coop:bth_s_caphorn_r1_cel_gold_net_25kg"
             nature="seed"
             derivative_of="triticum_aestivum_caphorn"
-            unit_name="25kg_bag"
-            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
+            unit_name="quintal"
+            frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 42gram"
             />
       <item name="coop:bth_s_caphorn_r1_gau_red_25kg"
             nature="seed"
             derivative_of="triticum_aestivum_caphorn"
-            unit_name="25kg_bag"
-            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
+            unit_name="quintal"
+            frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 42gram"
             />
       <item name="coop:bth_s_caphorn_r1_gau_red_lat_s25kg"
             nature="seed"
             derivative_of="triticum_aestivum_caphorn"
-            unit_name="25kg_bag"
-            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
+            unit_name="quintal"
+            frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 42gram"
             />
       <item name="coop:bth_s_euclide_r1_gau_red_25kg"
             nature="seed"
             derivative_of="triticum_aestivum_euclide"
-            unit_name="25kg_bag"
-            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
+            unit_name="quintal"
+            frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 42gram"
             />
       <item name="coop:bth_s_euclide_r1_cel_gold_net_25kg"
             nature="seed"
             derivative_of="triticum_aestivum_euclide"
-            unit_name="25kg_bag"
-            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
+            unit_name="quintal"
+            frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 42gram"
             />
       <item name="coop:bth_s_premio_r1_gau_red_25kg"
             nature="seed"
             derivative_of="triticum_aestivum_premio"
-            unit_name="25kg_bag"
-            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
+            unit_name="quintal"
+            frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 42gram"
             />
       <item name="coop:bth_s_rubisko_r1_gau_red_s25kg"
             nature="seed"
             derivative_of="triticum_aestivum_rubisko"
-            unit_name="25kg_bag"
-            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
+            unit_name="quintal"
+            frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 42gram"
             />
 
       <!-- HARD WHEAT -->
@@ -2729,26 +2729,26 @@
       <item name="coop:bd_s_miradoux_r1_cel_gold_net_25kg"
             nature="seed"
             derivative_of="triticum_durum_miradoux"
-            unit_name="25kg_bag"
-            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 50gram"
+            unit_name="quintal"
+            frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 50gram"
             />
       <item name="coop:bd_s_miradoux_r1_gau_red_25kg"
             nature="seed"
             derivative_of="triticum_durum_miradoux"
-            unit_name="25kg_bag"
-            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 50gram"
+            unit_name="quintal"
+            frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 50gram"
             />
       <item name="coop:bd_s_tablur_r1_gau_red_25kg"
             nature="seed"
             derivative_of="triticum_durum_tablur"
-            unit_name="25kg_bag"
-            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
+            unit_name="quintal"
+            frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 42gram"
             />
       <item name="coop:bd_s_tablur_r1_cel_gold_net_25kg"
             nature="seed"
             derivative_of="triticum_durum_tablur"
-            unit_name="25kg_bag"
-            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 48gram"
+            unit_name="quintal"
+            frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 48gram"
             />
 
       <!-- FERTILIZER -->
