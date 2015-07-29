@@ -83,7 +83,7 @@ GEM
     bootstrap-sass (3.3.5.1)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.3.0)
-    browser (0.8.0)
+    browser (0.9.0)
     builder (3.2.2)
     burisu-docsplit (0.7.8)
     byebug (5.0.0)
@@ -404,7 +404,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
-    timecop (0.7.4)
+    timecop (0.8.0)
     timeliness (0.3.7)
     timers (4.0.1)
       hitimes
@@ -522,4 +522,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.10.5
+   1.10.6
