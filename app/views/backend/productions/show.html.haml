@@ -6,6 +6,7 @@
     popup_content << {label: :campaign.tl, value: link_to(support.production.campaign.name, backend_campaign_path(support.production.campaign))}
     popup_content << {label: :activity.tl, value: link_to(support.production.activity.name, backend_activity_path(support.production.activity))}
     popup_content << {label: :production_support.tl, value: link_to(support.name, backend_production_support_path(support))}
+    popup_content << {label: :grain_yield.tl, value: support.grains_yield.to_s.to_f.round(2)} if support.grains_yield.to_s.to_f.round(2) > 0.0
 
     for item in [:nitrogen_concentration, :phosphorus_concentration, :potassium_concentration]
       if value = support.soil_enrichment_indicator_content_per_area(item)
@@ -35,6 +36,7 @@
       phosphorus_concentration: support.soil_enrichment_indicator_content_per_area(:phosphorus_concentration).to_s.to_f.round(2),
       potassium_concentration:  support.soil_enrichment_indicator_content_per_area(:potassium_concentration).to_s.to_f.round(2),
       interventions_count: support.interventions.count,
+      grain_yield: support.grains_yield.to_s.to_f.round(2),
       popup: {header: true, content: popup_content}
     }
   end
@@ -53,6 +55,7 @@
         - v.background "Thunderforest.Landscape"
         - v.background "Esri.WorldImagery"
         - v.choropleth :interventions_count, :main
+        - v.choropleth :grain_yield, :main, stop_color: "#888888"
         - v.choropleth :nitrogen_concentration, :main, stop_color: "#777777"
         - v.choropleth :phosphorus_concentration, :main, stop_color: "#11BB99"
         - v.choropleth :potassium_concentration, :main, stop_color: "#AA00AA"

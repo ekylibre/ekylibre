@@ -1685,7 +1685,7 @@ arb:
     price: "سعر الكلفة"
     price_amount: "القيمة دون الضرائب" #?
     price_id: "سعر الوحدة" #?
-    prices: "الاسعار"
+    prices: "الاسعار" #?
     # printed_at: "Printed at"
     printed_on: "طبع يوم"
     # priority: "Priority"

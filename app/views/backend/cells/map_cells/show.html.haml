@@ -42,6 +42,12 @@
 
         end
 
+        if params[:visualization] == "grain_yield"
+
+          popup_content << {label: :grain_yield.tl, value: support.grains_yield.to_s.to_f.round(2)}
+
+        end
+
         if support.storage
           popup_content << {label: CultivableZone.human_attribute_name(:net_surface_area), value: support.storage.net_surface_area.in_hectare.round(2).l}
         end
@@ -71,6 +77,7 @@
           phosphorus_concentration: phosphorus_concentration.to_s.to_f.round(2),
           potassium_concentration:  potassium_concentration.to_s.to_f.round(2),
           interventions_count: interventions.count,
+          grain_yield: support.grains_yield.to_s.to_f.round(2),
           popup: {header: true, content: popup_content}
         }
         data << item
@@ -89,6 +96,10 @@
       - v.choropleth :nitrogen_concentration, :main, stop_color: "#777777"
       - v.choropleth :phosphorus_concentration, :main, stop_color: "#11BB99"
       - v.choropleth :potassium_concentration, :main, stop_color: "#AA00AA"
+    - elsif params[:visualization] == "grain_yield"
+      - v.categories :activity, :main
+      - v.choropleth :grain_yield, :main, stop_color: "#00AA00"
+      - v.choropleth :nitrogen_concentration, :main, stop_color: "#777777"
     - else
       - v.categories :activity, :main
       - v.choropleth :tool_cost, :main, stop_color: "#00AA00"

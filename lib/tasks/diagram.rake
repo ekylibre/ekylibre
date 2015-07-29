@@ -108,7 +108,7 @@ module Diagrams
     }
 
     attr_accessor :processor, :name
-    
+
     def initialize(*args)
       options = args.extract_options!
       @name = args.shift || options.delete(:name) || "G"
@@ -242,14 +242,14 @@ module Diagrams
           arrow_options[:label] = reflection.name if reflection.polymorphic? or reflection.name.to_s != reflection.class_name.underscore
           if reflection.polymorphic?
             polymorphism = true
-            graph.arrow(model.name, "AnyModel", arrow_options.merge(style: :dashed))            
+            graph.arrow(model.name, "AnyModel", arrow_options.merge(style: :dashed))
           else
             graph.arrow(model.name, reflection.class_name, arrow_options)
           end
         end
       end
       if polymorphism
-        graph.node("AnyModel", style: :dashed)        
+        graph.node("AnyModel", style: :dashed)
       end
       return graph
     end
@@ -286,7 +286,7 @@ namespace :diagrams do
       graph.write
     end
   end
-  
+
   task inheritance: :environment do
     [Product, ProductJunction, Affair].each do |model|
       graph = Diagrams.inheritance(model)

@@ -241,16 +241,18 @@ class ProductionSupport < Ekylibre::Record::Base
 
   # FIXME Not generic
   def grains_yield(mass_unit = :quintal, surface_unit = :hectare)
-    if self.interventions.real.of_nature(:harvest).count > 0
+    if self.interventions.real.of_nature(:grains_harvest).count > 0
       total_yield = []
-      for harvest in self.interventions.real.of_nature(:harvest)
+      for harvest in self.interventions.real.of_nature(:grains_harvest)
         for input in harvest.casts.of_role('harvest-output')
-          q = (input.actor ? input.actor.net_mass(input).to_d(mass_unit) : 0.0) if input.actor.variety == 'grain'
+          q = 0.0
+          q = input.actor.net_mass(input).to_d(mass_unit) if input.actor and input.actor.variety == 'grain'
           total_yield << q
         end
       end
       if self.storage.net_surface_area
-        return ((total_yield.compact.sum) / (self.storage.net_surface_area.to_d(surface_unit)))
+        grain_yield = ((total_yield.compact.sum).to_f / (self.storage.net_surface_area.to_d(surface_unit)).to_f)
+        return grain_yield
       end
     end
     return nil

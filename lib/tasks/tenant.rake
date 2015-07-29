@@ -27,6 +27,14 @@ namespace :tenant do
     end
   end
 
+  desc "Create a tenant (with TENANT variable)"
+  task :create  => :environment do
+    name = ENV["TENANT"] || ENV["name"]
+    unless Ekylibre::Tenant.exist?(name)
+      Ekylibre::Tenant.create(name)
+    end
+  end
+
   desc "Rename a tenant (with OLD/NEW variables)"
   task :rename  => :environment do
     old = ENV["OLD"] || ENV["name"]
@@ -46,7 +54,7 @@ namespace :tenant do
   desc "List tenants"
   task :list => :environment do
     if Ekylibre::Tenant.list.any?
-      puts Ekylibre::Tenant.list.to_sentence
+      puts Ekylibre::Tenant.list.join(", ")
     end
   end
 

@@ -69,7 +69,7 @@ class CharentesAlliance::IncomingDeliveriesExchanger < ActiveExchanger::Base
                                                               )
 
         product_model = product_nature_variant.nature.matching_model
-        incoming_item ||= product_model.create!(:variant => product_nature_variant, :name => r.matter_name + " " + r.ordered_on.to_s, :initial_owner => Entity.of_company, :identification_number => r.order_number, :initial_born_at => r.ordered_on, :created_at => r.ordered_on, :default_storage => building_division)
+        incoming_item ||= product_model.create!(:variant => product_nature_variant, :work_number =>  r.ordered_on.to_s + "_" + r.matter_name , :name => r.matter_name + " (" + r.ordered_on.to_s + ")", :initial_owner => Entity.of_company, :identification_number => r.ordered_on.to_s + "_" + r.order_number + "_" + r.matter_name, :initial_born_at => r.ordered_on, :created_at => r.ordered_on, :default_storage => building_division)
         unless incoming_item.frozen_indicators_list.include?(:population)
           incoming_item.read!(:population, r.quantity, :at => r.ordered_on.to_datetime)
         end

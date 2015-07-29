@@ -1158,6 +1158,7 @@ arb:
     # geolocation: "Geolocation"
     give_discount: "منح خصومات" #?
     go: "صلاحية"
+    # grain_yield: "Grain yield"
     graph_statistics: "رسومات احصائية" #?
     # gross_profit: "Gross profit"
     # group: "Group"

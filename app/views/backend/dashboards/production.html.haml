@@ -2,7 +2,7 @@
 
 = beehive(:production) do |b|
   - if current_campaign
-    - b.cell :map, params: {visualization: :nitrogen_footprint}
+    - b.cell :map, params: {visualization: :grain_yield}
   - b.hbox do
     - if current_campaign
       - b.cell :last_intervention
