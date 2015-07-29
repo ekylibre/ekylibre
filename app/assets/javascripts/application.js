@@ -46,6 +46,8 @@
 //= require leaflet/providers
 //= require leaflet/heatmap
 //= require leaflet/leaflet-measure
+//= require leaflet/easy-button
+//= require leaflet/Leaflet.Modal
 //= require autosize
 //= require plugins
 //= require_tree .

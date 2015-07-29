@@ -14,6 +14,7 @@
       showStyle:
         weight: 1
         color: "#333"
+        fillOpacity: 0.2
       editStyle:
         weight: 2
         color: "#33A"
@@ -47,6 +48,21 @@
           secondaryAreaUnit: undefined
           activeCcolor: '#ABE67E'
           completedCcolor: '#C8F2BE'
+        importers:
+          gml: true
+          title: ''
+          content: ''
+          template: '<div class="modal-header"><h2>{title}</h2></div>
+                       <hr>
+                       <div class="modal-body">{content}</div>
+                       <div class="modal-footer">
+                       <button class="{OK_CLS}" data-submit=true>{okText}</button>
+                       <button class="{CANCEL_CLS}" data-cancel=true>{cancelText}</button>
+                      </div>'
+          okText: 'Ok'
+          cancelText: 'Cancel'
+          OK_CLS: 'primary'
+          CANCEL_CLS: 'btn'
 
     _create: ->
       this.oldElementType = this.element.attr "type"
@@ -224,6 +240,19 @@
       unless this.options.controls.measure is false
         this.controls.measure = new L.Control.Measure(this.options.controls.measure)
         this.map.addControl this.controls.measure
+      unless this.options.controls.importers is false
+        unless this.options.controls.importers.gml is false
+          this.controls.importers_gml = new L.Control.EasyButton 'icon icon-download', (btn, map) =>
+            args =
+              title: this.options.controls.importers.title + ' GML'
+              onShow: (evt) ->
+                modal = evt.modal
+                $('*[data-submit]', modal._container).on 'click', () ->
+                  console.log 'je veux importer'
+
+            map.fire 'modal', $.extend(true, {}, this.options.controls.importers, args )
+
+          this.map.addControl this.controls.importers_gml
 
     _saveUpdates: ->
       if this.edition?

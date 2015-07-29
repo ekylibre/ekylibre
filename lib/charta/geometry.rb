@@ -19,6 +19,11 @@ module Charta
           else
             @ewkt = select_value("SELECT ST_AsEWKT(ST_GeomFromEWKB(E'\\\\x#{coordinates}'))")
           end
+        elsif coordinates =~ /<gml/ #gml
+          #TODO: improve gml matching (nokogiri ?)
+          #sanitize badly-formed markup
+          coordinates.squish!
+          @ewkt = select_value("SELECT ST_AsEWKT(ST_GeomFromGML('#{coordinates}'))")
         else # WKT expected
           if srs and srid = find_srid(srs)
             @ewkt = select_value("SELECT ST_AsEWKT(ST_GeomFromText('#{coordinates}', #{srid}))")
