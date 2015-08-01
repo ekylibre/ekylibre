@@ -348,7 +348,7 @@ GEM
       json (~> 1.0)
       redis (~> 3.2, >= 3.2.1)
       redis-namespace (~> 1.5, >= 1.5.2)
-    simple_calendar (0.1.11)
+    simple_calendar (1.1.10)
       rails (>= 3.0)
     simple_form (3.1.0)
       actionpack (~> 4.0)
@@ -480,7 +480,7 @@ DEPENDENCIES
   selenium-webdriver
   shoulda-context
   sidekiq
-  simple_calendar (~> 0.1)
+  simple_calendar (~> 1.0)
   simple_form (~> 3.1.0)
   spring
   state_machine

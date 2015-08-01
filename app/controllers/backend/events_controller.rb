@@ -35,11 +35,9 @@ class Backend::EventsController < Backend::BaseController
   end
 
   def index
-    year  = params[:year]  || Date.today.year
-    month = params[:month] || Date.today.month
-    started_at = Time.new(year.to_i, month.to_i, 1)
-    @events = Event.between(started_at, started_at.end_of_month)
-    if request.xhr? and params[:year] and params[:month]
+    started_on = (params[:started_on] ? Time.new(*params[:started_on].split("-")) : Time.now)
+    @events = Event.between(started_on.beginning_of_month, started_on.end_of_month).includes(participations: [:participant])
+    if request.xhr? and params[:started_on]
       render partial: "month"
     end
   end

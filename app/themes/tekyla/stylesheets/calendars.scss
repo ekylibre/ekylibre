@@ -3,17 +3,25 @@
 
 /* Calendar */
 /* @FIXME : need to be update ! */
-[data-simple-calendar] {
-  h2 {
+*[data-simple-calendar] {
+  height: 100%;
+  $calendar-header-height: $topbar-height;
+  .calendar-header {
+    margin: 0;
+    height: $calendar-header-height;
     @include text-align(center);
-    padding-bottom: $default-gap;
+    @include box-sizing(border-box);
     &, * {
       font-size: $fs-large;
       vertical-align: middle;
     }
+    > * {
+      height: $calendar-header-height;
+      line-height: $calendar-header-height;
+    }
     .next-month, .previous-month {
       padding: 0;
-      width: $fs-huge;
+      width: 10%;
       text-align: center;
       display: block;
     }
@@ -25,9 +33,17 @@
     }
   }
   table {
+    @include calc-height('100% - #{$calendar-header-height}');
     table-layout: fixed;
-    th {
-      text-align: center;
+    thead {
+      tr {
+        th {
+          height: $calendar-header-height - $default-gap;
+          line-height: $calendar-header-height - $default-gap;
+          vertical-align: middle;
+          text-align: center;
+        }
+      }
     }
     td.day {
       border: 1px solid #AAA;
@@ -66,7 +82,7 @@
       &.today {
         background: #FE9;
       }
-      &.not-current-month {
+      &.not-current-month, &.prev-month, &.next-month {
         > div {
           @include opacity(0.6);
           &:hover {
@@ -74,11 +90,9 @@
           }
         }
       }
-      .day_number {
-        padding: round($default-gap * 0.4);
-        display: block;
-        width: 2.5ex;
-        @include text-align(right);
+      .day-number {
+        padding: 0 round($default-gap * 0.5);
+        float: right;
         clear: both;
       }
     }

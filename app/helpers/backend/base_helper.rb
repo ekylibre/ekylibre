@@ -49,6 +49,29 @@ module Backend::BaseHelper
     Ekylibre.menu
   end
 
+  # Emulate old simple_calendar API
+  def basic_calendar(all_records, options = {}, &block)
+    # options[:events] = all_records
+    options[:param_name] = :started_on
+    options[:previous_link] = -> (param, date_range) do
+      link_to(raw("&laquo;"), {param => date_range.first - 1.day}, class: "previous-month")
+    end
+    options[:next_link] = -> (param, date_range) do
+      link_to(raw("&raquo;"), {param => date_range.last + 1.day}, class: "next-month")
+    end
+    month_calendar(options) do |event_on, records|
+      records = all_records.select do |event|
+        event_on == event.started_at.to_date
+      end
+      content_tag(:div) do
+        content_tag(:span, event_on.day, class: "day-number") +
+          records.collect do |event|
+          capture(event, &block)
+        end.join.html_safe
+      end
+    end
+  end
+
 
   def part_authorized?(part)
     part.children.each do |group|
