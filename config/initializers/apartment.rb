@@ -32,16 +32,32 @@ Apartment.configure do |config|
   # supply list of database names for migrations to run on
   config.tenant_names = lambda{ Ekylibre::Tenant.list }
 end
-##
-# Elevator Configuration
-# Rails.application.config.middleware.use 'Apartment::Elevators::Generic', lambda { |request|
-# # TODO: supply generic implementation
-# }
+
+module Apartment
+  module Elevators
+
+    # Special elevator which permit to switch on header "X-Tenant"
+    class Header < Apartment::Elevators::Generic
+
+      def parse_tenant_name(request)
+        return nil unless request.env["HTTP_X_TENANT"]
+        request.env.each do |k,v|
+          puts "#{k.to_s.rjust(30).yellow}: #{v.to_s.red}"
+        end
+        # puts request.env.keys.inspect.red
+        return request.env["HTTP_X_TENANT"]
+      end
+
+    end
+  end
+end
 
 if ENV["TENANT"]
   Rails.application.config.middleware.use 'Apartment::Elevators::Generic', Proc.new { |request| ENV["TENANT"] }
 elsif Rails.env.test?
   Rails.application.config.middleware.use 'Apartment::Elevators::Generic', Proc.new { |request| "test" }
+elsif ENV["ELEVATOR"] == "header"
+  Rails.application.config.middleware.use 'Apartment::Elevators::Header'
 else
   Rails.application.config.middleware.use 'Apartment::Elevators::Subdomain'
 end
