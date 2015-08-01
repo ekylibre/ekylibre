@@ -1,0 +1,10 @@
+====== Gestion des stocks ======
+
+===== Comment gérer ses stocks~? =====
+  * La première étape consiste à enregistrer ses **lieux de stockage**. L'affichage d'un lieu de stockage permet de consulter des **mouvements de stocks**.
+  * Les mouvements de stocks permettent de faire l'inventaire comptable permanent qui est est une organisation des comptes de stocks permettant de connaître de façon constante, en cours d'exercice, les **existants chiffrés** en quantités et en valeur. Les mouvements de stocks sont **créés automatiquement** lors d'**achats**, de **ventes**, expéditions de **livraisons**, receptions de **commandes**.
+  * Vous avez également la possibilité de paramétrer des informations telles que les types de **délais**, de **vente** ou de **paiement**, ou les **catégories de produits**. Autant de paramètres qui vous permettent d'affiner et de **personnaliser** votre gestion commerciale.
+
+===== Le tableau de bord =====
+  * Il vous permet en un coup d'œil d'avoir accès aux **événements** pouvant nécessiter un traitement rapide de votre part, ou à des **informations** générales.
+  * Il comporte également les éventuels produits pour lesquels le **niveau de stock** est **sous le seuil minimum critique**.
