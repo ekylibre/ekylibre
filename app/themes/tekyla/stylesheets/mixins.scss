@@ -1,15 +1,135 @@
-@import "compass/css3/images";
-@import "compass/css3/animation";
-@import "compass/css3/border-radius";
-@import "compass/css3/box-shadow";
-@import "compass/css3/box-sizing";
-@import "compass/css3/inline-block";
-@import "compass/css3/text-shadow";
-@import "compass/css3/transition";
-@import "compass/typography/text/ellipsis";
-@import "compass/utilities/general/clearfix";
 @import "bootstrap/mixins";
 @import "bootstrap/panels";
+
+@mixin calc($property, $expression) {
+  #{$property}: -webkit-calc(#{$expression});
+  #{$property}: -khtml-calc(#{$expression});
+  #{$property}: -moz-calc(#{$expression});
+  #{$property}: -ms-calc(#{$expression});
+  #{$property}: -o-calc(#{$expression});
+  #{$property}: calc(#{$expression});
+}
+
+@mixin prefixed-property($property, $value) {
+  -webkit-#{$property}: $value;
+  -khtml-#{$property}: $value;
+  -moz-#{$property}: $value;
+  -ms-#{$property}: $value;
+  -o-#{$property}: $value;
+  #{$property}: $value;
+}
+
+@mixin prefixed-property-value($property, $value) {
+  #{$property}: -webkit-#{$value};
+  #{$property}: -khtml-#{$value};
+  #{$property}: -moz-#{$value};
+  #{$property}: -ms-#{$value};
+  #{$property}: -o-#{$value};
+  #{$property}: $value;
+}
+
+
+@mixin animation($animate...) {
+  $max: length($animate);
+  $animations: '';
+
+  @for $i from 1 through $max {
+    $animations: #{$animations + nth($animate, $i)};
+
+    @if $i < $max {
+      $animations: #{$animations + ", "};
+    }
+  }
+  @include prefixed-property(animation, $animations);
+}
+
+@mixin keyframes($animation-name) {
+  @-webkit-keyframes #{$animation-name} {
+  @content;
+}
+  @-moz-keyframes #{$animation-name} {
+    @content;
+  }
+  @-o-keyframes #{$animation-name} {
+    @content;
+  }
+  @keyframes #{$animation-name} {
+    @content;
+  }
+}
+
+@mixin border-radius($radius) {
+  @include prefixed-property(border-radius, $radius);
+}
+
+@mixin background-size($size) {
+  @include prefixed-property(background-size, $size);
+}
+
+@mixin columns($width-and-count) {
+  @include prefixed-property(columns, $width-and-count);
+}
+
+@mixin column-count($count) {
+  @include prefixed-property(column-count, $count);
+}
+
+@mixin text-overflow($mode) {
+  @include prefixed-property(text-overflow, $mode);
+}
+
+@mixin transform($transform) {
+  @include prefixed-property(transform, $transform);
+}
+
+@mixin translateY($transform-y, $perspective: false) {
+  $trans: translateY($transform-y);
+  @if $perspective {
+    $trans: perspective($perspective) $trans;
+  }
+  @include transform($trans)
+}
+
+
+@mixin ellipsis($no-wrap: true) {
+  @if $no-wrap {
+    white-space: nowrap;
+  }
+  overflow: hidden;
+  @include text-overflow(ellipsis);
+}
+
+@mixin inline-block($alignment: middle) {
+  display: -moz-inline-stack;
+  display: inline-block;
+  @if $alignment and $alignment != none {
+    vertical-align: $alignment;
+  }
+}
+
+@mixin text-shadow($shadow...) {
+  $shadow: if(length($shadow) > 0, $shadow, default);
+  $default: -compass-space-list(compact($default-text-shadow-h-offset $default-text-shadow-v-offset $default-text-shadow-blur $default-text-shadow-spread $default-text-shadow-color));
+  $shadows-without-spread: join((), (), comma);
+  $shadows: join((), (), comma);
+  $has-spread: false;
+  @each $layer in $shadow {
+    $layer: if($layer == "default", $default, $layer);
+    @if length($layer) > 4 {
+      $has-spread: true;
+      $shadows-without-spread: append($shadows-without-spread, nth($layer, 1) nth($layer, 2) nth($layer, 3) nth($layer, 5));
+      $shadows: append($shadows, $layer);
+    }
+    @else {
+      $shadows-without-spread: append($shadows-without-spread, $layer);
+      $shadows: append($shadows, $layer);
+    }
+  }
+  @if $has-spread {
+    text-shadow: $shadows-without-spread;
+  }
+  text-shadow: $shadows;
+}
 
 @function background-hover($background-color) {
   @return mix($background-color, opacify($hover-mask, 1), percentage($hover-transparency));
@@ -31,14 +151,6 @@
   @else {
     @return rgba(#FFF, 0.8);
   }
-}
-
-@mixin calc($property, $expression) {
-  #{$property}: -webkit-calc(#{$expression});
-  #{$property}: -moz-calc(#{$expression});
-  #{$property}: -ms-calc(#{$expression});
-  #{$property}: -o-calc(#{$expression});
-  #{$property}: calc(#{$expression});
 }
 
 @mixin calc-height($expression) {
@@ -139,11 +251,7 @@
 
 @mixin display($mode) {
   @if $mode == box {
-    display: -o-box;
-    display: -ms-box;
-    display: -moz-box;
-    display: -webkit-box;
-    display: box;
+    @include prefixed-property-value(display, box);
   } @else {
     display: $mode;
   }
@@ -151,7 +259,7 @@
 
 @mixin background-active-gradient {
   background: $active-color;
-  @include background(linear-gradient(top, lighten($active-color, $default-lightness-variation), $active-color, darken($active-color, $default-lightness-variation)));
+  @include gradient-vertical(lighten($active-color, $default-lightness-variation), $active-color, darken($active-color, $default-lightness-variation));
 }
 
 @mixin title($font-size) {
@@ -172,7 +280,7 @@
 }
 
 @mixin menu-box {
-  @include background($menu-background);
+  background: $menu-background;
   @include menu-shadow;
   border: $menu-border;
 }
@@ -229,7 +337,8 @@
       @include margin-left(0);
       @include margin-right($horizontal-padding);
     }
-    &:focus, &:active {
+    &:focus,
+    &:active {
       outline: none;
     }
   }
@@ -320,7 +429,8 @@
       &:focus {
         @include box-shadow(0 0 round($fs-normal*0.6) rgba($base-color, 0.6));
       }
-      &:focus, &:active {
+      &:focus,
+      &:active {
         outline: none;
         border-color: $active-color;
       }

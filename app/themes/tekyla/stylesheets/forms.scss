@@ -249,8 +249,8 @@ $form-actions-height: 48px;
   padding: $fs-normal;
   vertical-align: middle;
   @include text-align(center);
-  // @include background(linear-gradient(rgba(black, 0.05), rgba(black, 0.03), rgba(black, 0.06)));
-  @include background(white);
+  // @include gradient-vertical(rgba(black, 0.05), rgba(black, 0.03), rgba(black, 0.06)));
+  background: white;
   border-top: 1px solid #DDD;
   border-bottom: 1px solid #DDD;
   &:first-child {

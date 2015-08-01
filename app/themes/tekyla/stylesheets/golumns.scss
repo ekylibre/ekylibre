@@ -1,11 +1,5 @@
-@import "compass/css3/transform";
 @import "bootstrap/modals";
 @import "bootstrap/alerts";
-//@import "bootstrap/forms";
-//@import "bootstrap/button-groups";
-//@import "bootstrap/buttons";
-//@import "bootstrap/navbar";
-//@import "bootstrap/dropdowns";
 @import "bootstrap/grid";
 
 $column-padding: $default-border-radius;
@@ -225,17 +219,17 @@ $column-width: 28ex;
     $mix-prop: 90%;
     $item-background: #FFF;
     border-left: $default-border-radius solid #DDD;
-    @include background(mix($item-background, #DDD, $mix-prop));
+    background: mix($item-background, #DDD, $mix-prop);
     &.status-go {
-      @include background(mix($item-background, $success-color, $mix-prop));
+      background: mix($item-background, $success-color, $mix-prop);
       border-left-color: $success-color;
     }
     &.status-caution {
-      @include background(mix($item-background, $caution-color, $mix-prop));
+      background: mix($item-background, $caution-color, $mix-prop);
       border-left-color: $caution-color;
     }
     &.status-stop {
-      @include background(mix($item-background, $invalid-color, $mix-prop));
+      background: mix($item-background, $invalid-color, $mix-prop);
       border-left-color: $invalid-color;
     }
     &.selected {

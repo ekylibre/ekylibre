@@ -5,6 +5,8 @@
  *= require_self
  */
 
+
+
 // Core variables and mixins
 @import "variables";
 @import "mixins";
@@ -18,25 +20,21 @@
 @import "themes/tekyla/plugins";
 
 // Specific
+@import "abilities";
+@import "accesses";
+@import "budget";
 @import "buttons";
 @import "beehives";
 @import "calendars";
-@import "abilities";
-@import "accesses";
-@import "leaflet";
-@import "tables";
 @import "datetimepickers";
-@import "timelines";
 @import "forms";
-@import "modals";
-@import "budget";
+@import "golumns";
 @import "grid";
-@import "animals";
+@import "leaflet";
 @import "main";
+@import "modals";
+@import "tables";
+@import "timelines";
 
-@import "leaflet-measure";
-@import "leaflet.modal";
-@import "easy-button";
-
-// Optimisation
+// Optimization
 @import "symbolic_icons";

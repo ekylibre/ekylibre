@@ -130,9 +130,7 @@ gem 'feedjira', require: false
 gem 'colored' #, require: false
 
 # Compass
-gem 'compass-rails'
 gem 'bootstrap-sass', '~> 3.1'
-gem 'oily_png'
 
 # Iconic font
 gem 'agric'

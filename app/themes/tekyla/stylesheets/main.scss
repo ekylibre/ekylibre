@@ -1,7 +1,3 @@
-@import "compass/css3/background-size";
-@import "compass/css3/box-sizing";
-@import "compass/css3/columns";
-
 
 i.icon {
   @include is-icon(14px);
@@ -25,7 +21,7 @@ i.icon {
     }
     font-weight: bold;
     &:hover {
-      @include background(rgba(black, 0.07));
+      background: rgba(black, 0.07);
       // @include box-shadow(0 0 round($fs-normal *0.7) rgba(black, 0.5) inset);
       @include transition(background 0.4s, box-shadow 0.4s);
     }
@@ -60,7 +56,7 @@ ul.dropdown-menu {
   }
 
   li.active > a, a.active{
-    @include background(rgba(black, 0.2));
+    background: rgba(black, 0.2);
     @include box-shadow(0 0 round($fs-normal *0.7) rgba(black, 0.2) inset);
   }
 
@@ -230,8 +226,8 @@ html.backend {
       max-width: 100%;
       & > #side {
         height: 100%;
-        //@include background(rgba(black, 0.05));
-        @include background(#EEE);
+        // background: rgba(black, 0.05);
+        background: #EEE;
         #user {
           display: none;
         }
@@ -369,7 +365,7 @@ html.zen {
 
 html.authentication, html.exception {
   background: $desktop-background;
-  @include background(radial-gradient(center, $desktop-background, $neutral-color));
+  @include gradient-radial($desktop-background, $neutral-color);
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center center;
@@ -458,13 +454,13 @@ html.authentication, html.exception {
 
 html.exception {
   background: $desktop-background;
-  @include background(radial-gradient(top, $desktop-background, $invalid-color));
+  @include gradient-radial($desktop-background, $invalid-color);
   h1, h2, h3 {
     font-weight: bold;
   }
   #header {
     background: $invalid-color;
-    @include background(linear-gradient(top, lighten($invalid-color, $default-lightness-variation), $invalid-color, darken($invalid-color, $default-lightness-variation)));
+    @include gradient-vertical(lighten($invalid-color, $default-lightness-variation), $invalid-color, darken($invalid-color, $default-lightness-variation));
     padding: 2em;
     h1 {
       color: $desktop-background;
@@ -675,7 +671,7 @@ form.search {
 
 .add {
   padding: $default-gap;
-  @include background(transparentize($base-color, 0.25));
+  background: transparentize($base-color, 0.25);
   text-align: center !important;
   margin-bottom: $default-gap;
 }
@@ -683,7 +679,7 @@ form.search {
 .subforms {
   .subform {
     .subform-title {
-      @include background(transparentize($base-color, 0.4));
+      background: transparentize($base-color, 0.4);
       padding: $default-gap;
       .remove {
         i {
@@ -694,7 +690,7 @@ form.search {
     }
     .subform-fields {
       padding-top: $default-gap;
-      @include background(transparentize($base-color, 0.95));
+      background: transparentize($base-color, 0.95);
     }
   }
 }
@@ -930,7 +926,7 @@ html.backend {
 
 #help {
   background: #EEE;
-  @include background(linear-gradient(top, #EED, #DDC));
+  @include gradient-vertical(#EED, #DDC);
   padding: 0;
   .header {
     height: $header-height;
@@ -1068,7 +1064,7 @@ html.backend {
                                                                                                                                              $level-color: nth($level, 2); // change-color(nth($level, 2), $lightness: 65%);
                                                                                                                                              &.#{$level-name} {
                                                                                                                                                border: 1px solid rgba($level-color, $opacity * 1.1);
-                                                                                                                                               // @include background(linear-gradient(top, rgba(lighten($level-color, $default-lightness-variation), $opacity), rgba($level-color, $opacity), rgba(darken($level-color, $default-lightness-variation), $opacity)));
+                                                                                                                                               // @include gradient-vertical(rgba(lighten($level-color, $default-lightness-variation), $opacity), rgba($level-color, $opacity), rgba(darken($level-color, $default-lightness-variation), $opacity)));
                                                                                                                                                background: rgba($level-color, $opacity);
                                                                                                                                                &, & * { color: darken($level-color, $default-lightness-variation); }
                                                                                                                                                .icon { @include use-icon(nth($level, 3)); }
@@ -1341,7 +1337,7 @@ a.selector-dropdown {
     cursor: default;
     border: $menu-border;
     @include border-radius(1000px);
-    @include background(linear-gradient(top, #FFF, #CCC));
+    @include gradient-vertical(#FFF, #CCC);
     @include box-shadow(1px 1px 1px rgba(black, 0.5), 1px 1px 2px rgba(black, 0.07) inset);
   }
   .ui-slider-range {
@@ -1758,7 +1754,7 @@ a[data-remove-closest], a[data-remove] {
       &:first-child {
         border-top: none;
       }
-      @include background(linear-gradient(top, rgba(#FFF, 0), rgba(#000, 0.1)));
+      @include gradient-vertical(rgba(#FFF, 0), rgba(#000, 0.1));
       .rss-entry-title {
         color: $base-color;
         i {
@@ -2030,7 +2026,7 @@ svg.map {
     font-weight: bold;
     padding: $default-gap;
     border-top: $menu-border;
-    @include background(white);
+    background: white;
     @include transition(background 0.2s, color 0.2s);
     &:hover {
       background: mix(white, $menu-border-color, 80%);
@@ -2075,19 +2071,30 @@ svg.map {
     height: $light-size;
     margin: 0 ($fs-normal - $light-size) ($fs-normal - $light-size);
     @include border-radius(50%);
-    @include background(linear-gradient(top, lighten($default-color, $light-darken), $default-color, darken($default-color, $light-darken)));
+    background-color: $default-color;
+    @include gradient-vertical(lighten($default-color, $light-darken), $default-color, darken($default-color, $light-darken));
   }
   @each $light in (go $success-color) (caution $caution-color) (stop $invalid-color) {
     $name: nth($light, 1);
     $color: rgba(nth($light, 2), 0.8);
     &.lights-#{$name} {
-      & > .#{$name}, & > .light-#{$name} {
-      @include background(linear-gradient(top, lighten($color, $light-darken), $color, darken($color, $light-darken)));
+      & > .#{$name},
+      & > .light-#{$name} {
+      background-color: $color;
+      @include gradient-vertical(lighten($color, $light-darken), $color, darken($color, $light-darken));
       @include box-shadow(0 0 round($fs-normal*0.3) rgba(lighten($color, $light-darken), 0.7));
     }
     }
   }
 
+  .med-info .value & {
+    & > * {
+      $light-size: 2 * round($fs-huge * 0.35);
+      width:  $light-size;
+      height: $light-size;
+      margin: 0 (0.25*$light-size) ($fs-huge - $light-size);
+    }
+  }
   .big-info .value & {
     & > * {
       $light-size: 2 * round($fs-awesome * 0.35);
@@ -2168,7 +2175,7 @@ svg.map {
       }
     }
     th {
-      @include background-image(linear-gradient(lighten($menu-background, $default-lightness-variation), $menu-background, darken($menu-background, $default-lightness-variation)));
+      @include gradient-vertical(lighten($menu-background, $default-lightness-variation), $menu-background, darken($menu-background, $default-lightness-variation));
     }
     table.matrix {
       width: 100%;

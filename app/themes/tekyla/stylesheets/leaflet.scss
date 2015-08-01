@@ -1,3 +1,8 @@
+// External dependencies
+@import "leaflet/measure";
+@import "leaflet/modal";
+@import "leaflet/easy-button";
+
 /* required styles */
 $map-button-size: round(2 * $fs-normal);
 
@@ -487,7 +492,7 @@ $map-button-size: round(2 * $fs-normal);
       @include rotate(45deg);
       border-right: $menu-border;
       border-top: $menu-border;
-      @include background($menu-background);
+      background: $menu-background;
       @include menu-shadow;
     }
   }

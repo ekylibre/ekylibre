@@ -52,6 +52,13 @@ $neutral-background: change-color($neutral-color, $lightness: 90%) !default;
 $input-background:   $desktop-background;
 $light-color: mix($base-color, $desktop-background, 50%);
 
+// Text-shadow
+$default-text-shadow-color: #AAAAAA;
+$default-text-shadow-h-offset: 0px;
+$default-text-shadow-v-offset: 0px;
+$default-text-shadow-blur: 1px;
+$default-text-shadow-spread: false;
+
 // Menu colors
 $menu-background: #F0F0F0 !default;
 $menu-border-color: mix($menu-background, #000000, 77%);
