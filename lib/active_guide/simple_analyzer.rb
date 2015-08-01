@@ -73,7 +73,7 @@ module ActiveGuide
             results[:passed] += 1
           else
             results[:failed] += 1
-          end            
+          end
           log_result(env, test.name, r, depth)
         end
       end
@@ -121,7 +121,7 @@ module ActiveGuide
       end
       return passed
     end
-    
+
     def log_group(env, message, depth = 0)
       return unless env.verbose
       if depth >= 0
@@ -129,7 +129,7 @@ module ActiveGuide
         puts "#{(prefix + message.to_s.humanize).yellow}"
       end
     end
-    
+
   end
 
 end

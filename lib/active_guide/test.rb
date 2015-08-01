@@ -20,7 +20,7 @@ module ActiveGuide
     def validate?
       !subtest?
     end
-    
+
     def subtest(name, *args, &block)
       if @validate_block.present?
         raise "Validation has been already defined in #{@name}"
@@ -43,7 +43,7 @@ module ActiveGuide
       end
       @validate_block = block
     end
-    
+
   end
 
 end

@@ -29,7 +29,7 @@ module ActiveGuide
       raise "Missing block" unless block_given?
       @after_block = block
     end
-    
+
   end
 
 end

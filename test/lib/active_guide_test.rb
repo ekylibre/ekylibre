@@ -25,7 +25,7 @@ class ActiveGuideTest < ActiveSupport::TestCase
             end
           end
         end
-        group :tests_2 do    
+        group :tests_2 do
           test :thing_5_quality do
             subtest :thin_a, Proc.new { true }
             subtest :thin_b, Proc.new { rand(100) > 30 }

@@ -2,7 +2,7 @@ module ActiveGuide
   class Group < Item
 
     attr_reader :items
-    
+
     def initialize(group, name, options = {}, &block)
       super group, name, options
       @items = []
@@ -37,6 +37,6 @@ module ActiveGuide
     def add_item(item)
       @items << item
     end
-    
+
   end
 end
