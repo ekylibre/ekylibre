@@ -63,7 +63,7 @@ por:
       new: "Novo prédio"
       show: "Prédio: %{name}"
     backend/calculators/grains_commercialization_threshold_simulators:
-       show: "Simulador de comercialização de grãos"
+      show: "Simulador de comercialização de grãos"
     backend/campaigns:
       edit: "Editar campanhas: %{name}"
       index: "Campanhas"
@@ -81,7 +81,7 @@ por:
       show: "%{nature}: %{name}"
     backend/catalog_items:
       edit: "Editar catalogo de preços: %{name}"
-      index: "Catalogo de preços"
+      index: "Catalogo de preços" #?
       new: "Novo catalogo de preços"
       show: "Catalogo de preço: %{name}"
     backend/catalogs:

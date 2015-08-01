@@ -36,7 +36,7 @@ por:
       signed_up_but_inactive: "Você se inscreveu com sucesso. No entanto precisamos que você ative sua conta para iniciar sua sessão."
       signed_up_but_locked: "Você iniciou sessão com sucesso. No entando não pudemos iniciar a mesma pois sua conta está bloqueada."
       signed_up_but_unconfirmed: "Uma mensagem de confirmação foi enviada para seu e-mail. Por favor abra o link para ativar sua conta."
-      update_needs_confirmation: "Você atualizou sua conta com sucesso, mas nós precisamos verificar seu e-mail. Por favor confira seu e-mail e clique para confirmar 
+      update_needs_confirmation: "Você atualizou sua conta com sucesso, mas nós precisamos verificar seu e-mail. Por favor confira seu e-mail e clique para confirmar."
       updated: "Você atualizou sua conta com sucesso."
     sessions:
       signed_in: "Sessão iniciada com sucesso."

@@ -99,4 +99,4 @@ por:
     wages: "Salários"
     working_area: "Área de trabalho"
   aggregators:
-    vat_taxe_registry: "Registro de imposto"
+    vat_registry: "Registro de imposto"
