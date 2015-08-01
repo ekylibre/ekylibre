@@ -2423,6 +2423,7 @@ fra:
           package: "Pack"
           person: "Personne"
           plant: "Plant"
+          quintal: "Quintal"
           roll: "Bobine"
           room: "Salle"
           round_bale: "Botte ronde"

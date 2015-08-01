@@ -2396,6 +2396,7 @@ eng:
           package: "Package"
           person: "Person"
           plant: "Plant"
+          quintal: "Quintal"
           roll: "Roll"
           room: "Room"
           round_bale: "Round bale"
