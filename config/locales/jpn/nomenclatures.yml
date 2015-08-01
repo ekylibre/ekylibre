@@ -59,7 +59,7 @@ jpn:
         # treat: "Treat"
         # uncompact: "Uncompact"
         # wrap: "Wrap"
-      # name: "Name"
+      # name: "Abilities"
       property_natures:
         # parameters: "Parameters"
     accounts:
@@ -366,7 +366,7 @@ jpn:
         # young_animal_assets: "Young animal assets"
         # young_animal_expenses: "Young animal expenses"
         # young_animal_revenues: "Young animal revenues"
-      # name: "Name"
+      # name: "Accounts"
       property_natures:
         # debtor: "Debtor"
         # fr_pcg82: "French PCG82"
@@ -1750,7 +1750,7 @@ jpn:
         # width: "Width"
         # woodstock_variety: "Woodstock variety"
         # zinc_concentration: "Zinc concentration"
-      # name: "Name"
+      # name: "Indicators"
       property_natures:
         # choices: "Choices"
         # curve: "Curve"
@@ -2167,7 +2167,7 @@ jpn:
         # transport: "Transport"
         # viviparous_birth: "Viviparous birth"
         # weed_killing: "Weed killing"
-      # name: "Name"
+      # name: "Procedure natures"
       property_natures:
         # activity_families: "Activity families"
         # roles: "Roles"
@@ -3282,7 +3282,7 @@ jpn:
         # wine_tank: "Wine tank"
         # wire: "Wire"
         # young_rabbit: "Young rabbit"
-      # name: "Name"
+      # name: "Product natures"
       property_natures:
         # abilities: "Abilities"
         # category: "Category"
@@ -3393,7 +3393,7 @@ jpn:
         # winter_rapeseed: "Winter rapeseed"
         # winter_soft_wheat: "Winter soft wheat"
         # without_crop: "Without crop"
-      # name: "Name"
+      # name: "Production natures"
       property_natures:
         # activity: "Activity"
         # production_code: "Production code"
@@ -3636,7 +3636,7 @@ jpn:
         # unity_per_liter: "Unity per liter"
         # unity_per_square_meter: "Unity per square meter"
         # watt: "Watt"
-      # name: "Name"
+      # name: "Units"
       property_natures:
         # a: "A"
         # b: "B"
@@ -4068,8 +4068,9 @@ jpn:
         # excrement: "Excrement"
         # fabaceae: "Fabaceae"
         # fagaceae: "Fagaceae"
-        # fagopyrum: "Fagopyrum"
-        # fagopyrum_esculentum: "Fagopyrum esculentum"
+        # fagopyrum: "Buckwheat"
+        # fagopyrum_esculentum: "Common buckwheat"
+        # fagopyrum_tataricum: "Japanese buckwheat"
         # fagus: "Beech"
         # felidae: "Felidae"
         # fermented_juice: "Fermented juice"
@@ -4987,7 +4988,7 @@ jpn:
         # zeuzera_pyrina: "Zeuzera pyrina"
         # zone: "Zone"
         # zone_property_title: "Zone property title"
-      # name: "Name"
+      # name: "Varieties"
       property_natures:
         # derivative_of: "Derivative of"
         # europa_tsn: "Europa number id"

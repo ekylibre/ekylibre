@@ -9,6 +9,7 @@
   <nomenclature name="varieties-fagopyrum" hierarchical="true">
     <items>
       <item name="fagopyrum_esculentum" itis_tsn="502589"/>
+      <item name="fagopyrum_tataricum" itis_tsn="21283"/>
     </items>
   </nomenclature>
 

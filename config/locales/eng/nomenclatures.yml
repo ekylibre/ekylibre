@@ -1,7 +1,7 @@
 eng:
   nomenclatures:
     abilities:
-      name: "Name"
+      name: "Abilities"
       property_natures:
         parameters: "Parameters"
       items:
@@ -63,7 +63,7 @@ eng:
         uncompact: "Uncompact"
         wrap: "Wrap"
     accounts:
-      name: "Name"
+      name: "Accounts"
       property_natures:
         debtor: "Debtor"
         fr_pcg82: "French PCG82"
@@ -1584,7 +1584,7 @@ eng:
         quandl_token: "Quandl token"
         synel_username: "Synel username"
     indicators:
-      name: "Name"
+      name: "Indicators"
       property_natures:
         choices: "Choices"
         curve: "Curve"
@@ -2067,7 +2067,7 @@ eng:
         high: "High"
         low: "Low"
     procedure_natures:
-      name: "Name"
+      name: "Procedure natures"
       property_natures:
         activity_families: "Activity families"
         roles: "Roles"
@@ -3021,7 +3021,7 @@ eng:
         young_rabbit: "Young rabbit"
         zea_herbicide: "Zea herbicide"
     product_natures:
-      name: "Name"
+      name: "Product natures"
       property_natures:
         abilities: "Abilities"
         category: "Category"
@@ -3286,7 +3286,7 @@ eng:
         wire: "Wire"
         young_rabbit: "Young rabbit"
     production_natures:
-      name: "Name"
+      name: "Production natures"
       property_natures:
         activity: "Activity"
         production_code: "Production code"
@@ -3530,7 +3530,7 @@ eng:
         swiss_vat_particular_2011: "Swiss vat particular 2011"
         swiss_vat_reduced_2011: "Swiss vat reduced 2011"
     units:
-      name: "Name"
+      name: "Units"
       property_natures:
         a: "A"
         b: "B"
@@ -3635,7 +3635,7 @@ eng:
         unity_per_square_meter: "Unity per square meter"
         watt: "Watt"
     varieties:
-      name: "Name"
+      name: "Varieties"
       property_natures:
         derivative_of: "Derivative of"
         europa_tsn: "Europa number id"
@@ -4065,8 +4065,9 @@ eng:
         excrement: "Excrement"                             #< raw_matter
         fabaceae: "Fabaceae"                               #< plant
         fagaceae: "Fagaceae"                               #< plant
-        fagopyrum: "Fagopyrum"                             #< polygonaceae
-        fagopyrum_esculentum: "Fagopyrum esculentum"       #< fagopyrum
+        fagopyrum: "Buckwheat"                             #< polygonaceae
+        fagopyrum_esculentum: "Common buckwheat"           #< fagopyrum
+        fagopyrum_tataricum: "Japanese buckwheat"          #< fagopyrum
         fagus: "Beech"                                     #< fagaceae
         felidae: "Felidae"                                 #< mammalia
         fermented_juice: "Fermented juice"                 #< preparation
