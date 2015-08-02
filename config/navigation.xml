@@ -1585,9 +1585,6 @@
         <page to="backend/cells/last_products_cells#list"/>
         <page to="backend/cells/last_products_cells#show"/>
       </item>
-      <item name="placeholder_cells">
-        <page to="backend/cells/placeholder_cells#show"/>
-      </item>
       <item name="quandl_cells">
         <page to="backend/cells/quandl_cells#show"/>
       </item>

@@ -154,8 +154,6 @@ eng:
       # show: "Parts cell: %{name}"
     backend/cells/payable_taxes_cells:
       # show: "Payable taxes cell: %{name}"
-    backend/cells/placeholder_cells:
-      # show: "Placeholder cell: %{name}"
     backend/cells/quandl_cells:
       # show: "Quandl cell: %{name}"
     backend/cells/revenues_by_product_nature_cells:
