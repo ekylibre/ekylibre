@@ -1,6 +1,6 @@
-languages:
-  Ruby: true
-  Javascript: true
-exclude_paths:
-- lib/procedo/handler_method.rb
-- lib/working_set/query_language.rb
+engines:
+  rubocop:
+    enabled: true
+    Exclude:
+      - lib/procedo/handler_method.rb
+      - lib/working_set/query_language.rb
