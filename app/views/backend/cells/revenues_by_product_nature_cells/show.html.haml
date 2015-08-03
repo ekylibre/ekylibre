@@ -64,7 +64,7 @@
     series << {type: 'pie', name: :total.tl, data: data, center: [50, 50], size: 100, show_in_legend: false, data_labels: { enabled: false }}
 
 
-  = column_chart(series, y_axis: {title: {text: :pretax_amount.tl}}, x_axis: { categories: categories.values}, legend: true)
+  = column_highcharts(series, y_axis: {title: {text: :pretax_amount.tl}}, x_axis: { categories: categories.values}, legend: true)
 
 - else
   = no_data

@@ -24,6 +24,6 @@
     series << {name: Production.model_name.human, data: productions_serie, size: "75%", inner_size: "50%", data_labels: {enabled: false}}
     series << {name: CultivableZone.model_name.human, data: storages_serie, size: "80%", inner_size: "75%"}
 
-  = pie_chart(series, tooltip: {point_format: '{point.y: 1.1f} Ha'}, title: @campaigns.name)
+  = pie_highcharts(series, tooltip: {point_format: '{point.y: 1.1f} Ha'}, title: @campaigns.name)
 - else
   = no_data

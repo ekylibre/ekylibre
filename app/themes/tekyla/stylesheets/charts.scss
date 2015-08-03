@@ -1,0 +1,28 @@
+/*
+ * This is a manifest file that'll be compiled into screen.css, which will include all the files
+ * listed below.
+ *
+ *= require 'c3'
+ */
+
+.c3 {
+  svg {
+    path {
+    fill: transparent;
+    }
+  }
+}
+.c3-line {
+  fill: transparent;
+  stroke-width: 2;
+}
+.c3-axis {
+  .tick {
+    line {
+      stroke: #CCC;
+    }
+  }
+  .domain {
+    stroke: #CCC;
+  }
+}

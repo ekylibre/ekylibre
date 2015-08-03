@@ -40,4 +40,4 @@
         data << - (last[:collect] + last[:deduction])
       end
       series << {name: tax.name, data: data }
-    = spline_chart(series, legend: { align: 'center', border_width: 0 }, x_axis: { title: {text: :months.tl}, categories: periods.keys}, y_axis: {title: {text: :amounts_in_currency.tl(currency: Preference[:currency])}})
+    = spline_highcharts(series, legend: { align: 'center', border_width: 0 }, x_axis: { title: {text: :months.tl}, categories: periods.keys}, y_axis: {title: {text: :amounts_in_currency.tl(currency: Preference[:currency])}})

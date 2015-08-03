@@ -51,7 +51,7 @@
             series << {name: product.name ,data: data }
           end
 
-      = spline_chart(series, legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom', border_width: 0 }, y_axis: {title: { text: :population.tl}, min: 0}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}})
+      = spline_highcharts(series, legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom', border_width: 0 }, y_axis: {title: { text: :population.tl}, min: 0}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}})
 
   - c.cobble(:catalog_items) do
     = cobble_list(:catalog_items)

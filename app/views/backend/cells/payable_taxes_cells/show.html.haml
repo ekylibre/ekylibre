@@ -24,6 +24,6 @@
       series << {name: tax.short_label, data: data }
     end
 
-  = spline_chart(series, legend: { align: 'center', border_width: 0 }, x_axis: { title: {text: :months.tl}, categories: periods.keys}, y_axis: {title: {text: :amounts_in_currency.tl(currency: Preference[:currency])}})
+  = spline_highcharts(series, legend: { align: 'center', border_width: 0 }, x_axis: { title: {text: :months.tl}, categories: periods.keys}, y_axis: {title: {text: :amounts_in_currency.tl(currency: Preference[:currency])}})
 - else
   = no_data

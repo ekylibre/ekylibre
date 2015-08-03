@@ -14,7 +14,7 @@
       series << {type: item.curve, name: item.human_name, data: data[item.name]}
     end
 
-  = spline_chart(series, y_axis: {title: {text: :indicator_value.tl} , opposite: true}, x_axis: {type: 'datetime'}, legend: true)
+  = spline_highcharts(series, y_axis: {title: {text: :indicator_value.tl} , opposite: true}, x_axis: {type: 'datetime'}, legend: true)
 - elsif @nature and @started_at and @stopped_at
   :ruby
     data = {}.with_indifferent_access
@@ -31,6 +31,6 @@
       series << {type: item.curve, name: item.human_name, data: data[item.name]}
     end
 
-  = spline_chart(series, y_axis: {title: {text: :indicator_value.tl} , opposite: true}, x_axis: {type: 'datetime'}, legend: true)
+  = spline_highcharts(series, y_axis: {title: {text: :indicator_value.tl} , opposite: true}, x_axis: {type: 'datetime'}, legend: true)
 - else
   = no_data

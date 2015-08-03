@@ -73,7 +73,7 @@
           end
         end
 
-      = column_chart(series, y_axis: {title: {text: :duration.tl}, stack_labels: {enabled: true, format: "{total} #{unit.symbol}"}, labels: { format: "{value} #{unit.symbol}" }}, x_axis: { categories: categories.values}, legend: true, plot_options: { column: {stacking: 'normal'}})
+      = column_highcharts(series, y_axis: {title: {text: :duration.tl}, stack_labels: {enabled: true, format: "{total} #{unit.symbol}"}, labels: { format: "{value} #{unit.symbol}" }}, x_axis: { categories: categories.values}, legend: true, plot_options: { column: {stacking: 'normal'}})
 
 
   - c.cobble(:intervention_casts, title: :x_intervention_casts.tl(count: resource.intervention_casts.count)) do

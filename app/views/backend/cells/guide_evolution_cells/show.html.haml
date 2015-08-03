@@ -16,7 +16,7 @@
       series << {name: "enumerize.guide_analysis.status.#{status}".t, data: data[status].values}
     end
 
-  = area_chart(series, colors: ["#8bbc21", "#e2af23", "#D12000", "#777777"], legend: true, y_axis: {title: { text: GuideAnalysis.human_attribute_name(:points)}, min: 0}, x_axis: {categories: categories}, plot_options: {area: {stacking: 'normal'}}, title: (@show_title ? {text: @guide.name} : nil))
+  = area_highcharts(series, colors: ["#8bbc21", "#e2af23", "#D12000", "#777777"], legend: true, y_axis: {title: { text: GuideAnalysis.human_attribute_name(:points)}, min: 0}, x_axis: {categories: categories}, plot_options: {area: {stacking: 'normal'}}, title: (@show_title ? {text: @guide.name} : nil))
 
 - else
   = no_data

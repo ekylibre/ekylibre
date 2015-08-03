@@ -77,7 +77,7 @@
           series << {up_color: cycle(*theme_colors), color: cycle(*theme_colors), data: data_series, data_labels: {enabled: false}}
 
         -# FIXME Some french to remove, arghh....
-        = waterfall_chart(series, tooltip: {point_format: '{point.y: 1.3f} kg N/Ha'}, title: {text: 'Bilan azote'}, legend: {enabled: false}, x_axis: {type: 'category'}, y_axis: {title: {text: 'kg N/Ha'}})
+        = waterfall_highcharts(series, tooltip: {point_format: '{point.y: 1.3f} kg N/Ha'}, title: {text: 'Bilan azote'}, legend: {enabled: false}, x_axis: {type: 'category'}, y_axis: {title: {text: 'kg N/Ha'}})
       - else
         = no_data
 
@@ -108,7 +108,7 @@
         series << {up_color: cycle(*theme_colors), color: cycle(*theme_colors), data: data_series, data_labels: {enabled: false}}
 
 
-      = waterfall_chart(series, tooltip: {point_format: '{point.y: 1.3f}'}, title: {text: 'Budget prévisionnel'}, legend: {enabled: false}, x_axis: {type: 'category'}, y_axis: {title: {text: '€'}})
+      = waterfall_highcharts(series, tooltip: {point_format: '{point.y: 1.3f}'}, title: {text: 'Budget prévisionnel'}, legend: {enabled: false}, x_axis: {type: 'category'}, y_axis: {title: {text: '€'}})
 
   - if resource.interventions.any? and Nomen::Varieties[resource.production.variant.variety] <= :plant
     - c.cobble :production_cost do
@@ -160,7 +160,7 @@
 
 
 
-      = column_chart(series, title: chart_title, tooltip: {point_format: "{point.y: 1.2f} #{symbol_measure}"}, y_axis: {title: {text: :cost_per_net_surface_area.tl + ' (' + symbol_measure + ')'}, stack_labels: {enabled: true, format: "{total} " + symbol_measure}, labels: { format: "{value}" }}, x_axis: { categories: categories}, legend: true, plot_options: { column: {stacking: 'normal'}})
+      = column_highcharts(series, title: chart_title, tooltip: {point_format: "{point.y: 1.2f} #{symbol_measure}"}, y_axis: {title: {text: :cost_per_net_surface_area.tl + ' (' + symbol_measure + ')'}, stack_labels: {enabled: true, format: "{total} " + symbol_measure}, labels: { format: "{value}" }}, x_axis: { categories: categories}, legend: true, plot_options: { column: {stacking: 'normal'}})
   - else
     = no_data
 

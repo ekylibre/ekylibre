@@ -112,7 +112,7 @@
             series << {type: 'spline', y_axis: 1, name: indicator.human_name, data: normalize_serie(item_h, categories.keys),  tooltip: {value_suffix: ' fois'}, marker: {line_width: 2}}
           end
         end
-      = column_chart(series, y_axis: [{labels: {format: '{value} kg'}, title: {text: :net_mass.tl}}, {labels: {format: '{value} fois'},title: {text: :illness.tl}, opposite: true}], x_axis: { categories: categories.values}, tooltip: {shared: true}, legend: true)
+      = column_highcharts(series, y_axis: [{labels: {format: '{value} kg'}, title: {text: :net_mass.tl}}, {labels: {format: '{value} fois'},title: {text: :illness.tl}, opposite: true}], x_axis: { categories: categories.values}, tooltip: {shared: true}, legend: true)
 
     - else
       = no_data

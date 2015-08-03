@@ -14,7 +14,7 @@
         [LoanRepayment.human_attribute_name(info), resource.repayments.sum(info).to_s.to_f ]
       end
       series << {name: :amounts, data: data}
-    = pie_chart(series)
+    = pie_highcharts(series)
   - c.cobble :repayments do
     = cobble_list :repayments
   - c.cobble :repayments_graph do
@@ -30,5 +30,5 @@
         series << {name: LoanRepayment.human_attribute_name(info), data: resource.repayments.pluck(info).map(&:to_f) }
       end
       series << {name: Loan.human_attribute_name(:remaining_amount), data: resource.repayments.pluck(:remaining_amount).map(&:to_f), type: 'line', marker: {enabled: false}, y_axis: 1}
-    = area_chart(series, legend: true, y_axis: [{title: { text: Loan.human_attribute_name(:repayments)}, min: 0}, {title: { text: Loan.human_attribute_name(:remaining_amount)}, min: 0, opposite: true}], plot_options: {area: {stacking: 'normal', marker: {enabled: false}}})
+    = area_highcharts(series, legend: true, y_axis: [{title: { text: Loan.human_attribute_name(:repayments)}, min: 0}, {title: { text: Loan.human_attribute_name(:remaining_amount)}, min: 0, opposite: true}], plot_options: {area: {stacking: 'normal', marker: {enabled: false}}})
 

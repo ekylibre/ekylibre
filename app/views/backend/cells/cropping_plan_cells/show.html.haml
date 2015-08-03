@@ -22,6 +22,6 @@
     series << {name: Activity.model_name.human, data: activities_serie, size: "60%", data_labels: {color: 'white', distance: -30}}
     series << {name: Production.model_name.human, data: productions_serie, size: "80%", inner_size: "60%", data_labels: {enabled: false}}
 
-  = pie_chart(series, tooltip: {point_format: "{point.y: 1.2f} #{surface_unit.symbol}"}, title: campaigns.map {|k,v| "#{k} (#{v.round(2)} #{surface_unit.symbol})"}.to_sentence, plot_options: { pie: { allow_point_select: true, cursor: 'pointer'}})
+  = pie_highcharts(series, tooltip: {point_format: "{point.y: 1.2f} #{surface_unit.symbol}"}, title: campaigns.map {|k,v| "#{k} (#{v.round(2)} #{surface_unit.symbol})"}.to_sentence, plot_options: { pie: { allow_point_select: true, cursor: 'pointer'}})
 - else
   = no_data

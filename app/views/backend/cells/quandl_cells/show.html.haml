@@ -18,6 +18,6 @@
       threshold = params[:threshold].to_f
       series << {name: "Threshold", data: [[point_start, threshold], [point_finish, threshold]], visible: true}
     end
-  = spline_chart(series, x_axis: {type: "datetime"}, y_axis: [{title: {text: :values.tl}, labels: {format: '{value}€'}}, {title: {text: :net_mass.tl}, labels: {format: '{value}t'}, opposite: true}], legend: true, plot_options: {series: {marker: {enabled: false}}})
+  = spline_highcharts(series, x_axis: {type: "datetime"}, y_axis: [{title: {text: :values.tl}, labels: {format: '{value}€'}}, {title: {text: :net_mass.tl}, labels: {format: '{value}t'}, opposite: true}], legend: true, plot_options: {series: {marker: {enabled: false}}})
 - else
   = no_data

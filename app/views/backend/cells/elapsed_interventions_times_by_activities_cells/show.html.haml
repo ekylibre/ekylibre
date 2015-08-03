@@ -49,6 +49,6 @@
     #series << {type: 'pie', name: :total.tl, data: data, center: [50, 50], size: 100, show_in_legend: false, data_labels: { enabled: false }}
 
 
-  = column_chart(series, y_axis: {title: {text: :duration.tl}, stack_labels: {enabled: true, format: "{total} #{unit.symbol}"}, labels: { format: "{value} #{unit.symbol}" }}, x_axis: { categories: categories.values}, legend: true, plot_options: { column: {stacking: 'normal'}})
+  = column_highcharts(series, y_axis: {title: {text: :duration.tl}, stack_labels: {enabled: true, format: "{total} #{unit.symbol}"}, labels: { format: "{value} #{unit.symbol}" }}, x_axis: { categories: categories.values}, legend: true, plot_options: { column: {stacking: 'normal'}})
 - else
   = no_data

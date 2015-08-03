@@ -6,7 +6,7 @@
 (($) ->
   "use strict"
 
-  $.widget "ui.chart",
+  $.widget "ui.highchart",
     options:
       chart:
         style:
@@ -22,18 +22,18 @@
         text: ""
 
     _create: ->
-      $.extend(true, @options, @element.data("chart"))
+      $.extend(true, @options, @element.data("highcharts"))
       @element.highcharts @options
 
     _destroy: ->
-      console.log("No chart destroy")
+      console.log("No highcharts destroy")
 
-  $.loadCharts = ->
-    $("*[data-chart]").each ->
-      $(this).chart()
+  $.loadHighcharts = ->
+    $("*[data-highcharts]").each ->
+      $(this).highchart()
     return
 
-  $(document).ready $.loadCharts
-  $(document).on "page:load cocoon:after-insert cell:load", $.loadCharts
+  $(document).ready $.loadHighcharts
+  $(document).on "page:load cocoon:after-insert cell:load", $.loadHighcharts
 
 ) jQuery

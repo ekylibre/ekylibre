@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2013 Brice Texier
@@ -17,7 +16,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-module Backend::ChartsHelper
+
+module ChartsHelper
 
   OPTIONS = [:colors, :credits, :exporting, :labels, :legend, :loading, :navigation, :pane, :plot_options, :series, :subtitle, :title, :tooltip, :x_axis, :y_axis].inject({}) do |hash, name|
     hash[name] = name.to_s.gsub('_', '-') # camelize(:lower)
@@ -41,7 +41,7 @@ module Backend::ChartsHelper
   end
 
   for type, absolute_type in TYPES
-    code  = "def #{type}_chart(series, options = {}, html_options = {})\n"
+    code  = "def #{type}_highcharts(series, options = {}, html_options = {})\n"
     code << "  options[:chart] ||= {}\n"
     code << "  options[:chart][:type] = '#{absolute_type}'\n"
     code << "  options[:chart][:style] ||= {}\n"
@@ -65,7 +65,7 @@ module Backend::ChartsHelper
       code << "  options[:#{name}][:enabled] = true if options[:#{name}].is_a?(Hash) and !options[:#{name}].has_key?(:enabled)\n"
     end
     code << "  html_options[:data] ||= {}\n"
-    code << "  html_options[:data][:chart] = options.jsonize_keys.to_json\n"
+    code << "  html_options[:data][:highcharts] = options.jsonize_keys.to_json\n"
     code << "  return content_tag(:div, nil, html_options)\n"
     code << "end\n"
     # code.split("\n").each_with_index{|x, i| puts((i+1).to_s.rjust(4)+": "+x)}
@@ -80,5 +80,68 @@ module Backend::ChartsHelper
      end
      return data
   end
+
+
+  # Permit to produce pie or gauge
+  # Values are represented relatively to all
+  #   engine:     Engine for rendering. c3 by default.
+  def distribution_chart(options = {})
+    raise NotImplemented
+  end
+
+
+  # Permits to draw a nonlinear chart (line, spline)
+  # Values are represented with given abscissa for each value
+  #   :abscissa
+  #   :ordinates
+  #   engine:     Engine for rendering. c3 by default.
+  def category_chart(options = {})
+    html_options = options.slice!(:series, :abscissa, :ordinates, :engine)
+    options[:type] = :nonlinear
+    # TODO Check options validity
+    html_options[:class] ||= "chart"
+    html_options.deep_merge!(data: {chart: options.to_json})
+    return content_tag(:div, nil, html_options)
+  end
+
+  # Permits to draw a linear chart (line, spline, bar)
+  # Values are represented with regular interval
+  #   series:    (Array of) Hash for series
+  #     name:       ID
+  #     values:     Array of numeric values
+  #     label:      Label for the legend
+  #     ordinate:   Name of the used ordinate
+  #     type:       One of: line, spline, bar
+  #     area:       Boolean
+  #     style:      Styles
+  #   abscissa:   X axis details
+  #     label:      Label for the X axis
+  #     values:     Array of labels used for indexes
+  #   ordinates: (Array of) Hash for Y axes
+  #     name:       ID
+  #     label:      Name of the Y axis
+  #   engine:     Engine for rendering. c3 by default.
+  def cartesian_chart(options = {})
+    html_options = options.slice!(:series, :abscissa, :ordinates, :engine)
+    options[:type] = :time
+    # TODO Check options validity
+    options[:series] = [options[:series]] unless options[:series].is_a?(Array)
+    options[:series].each do |serie|
+      serie[:values].each do |coordinates|
+        coordinates[0] = coordinates[0].utc.l(format: "%Y-%m-%dT%H:%M:%S")
+      end
+    end
+    html_options[:class] ||= "chart"
+    html_options.deep_merge!(data: {chart: options.to_json})
+    return content_tag(:div, nil, html_options)
+  end
+
+  # Permit to produce pie or gauge
+  # Values are represented relatively to all
+  #   engine:     Engine for rendering. c3 by default.
+  def tree_distribution_chart(options = {})
+    raise NotImplemented
+  end
+
 
 end
