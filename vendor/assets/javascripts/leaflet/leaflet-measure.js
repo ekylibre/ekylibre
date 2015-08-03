@@ -1151,11 +1151,11 @@ for (var func in conversions) {
   // export rgb2hsl and ["rgb"]["hsl"]
   convert[from] = convert[from] || {};
 
-  convert[from][to] = convert[func] = (function(func) { 
+  convert[from][to] = convert[func] = (function(func) {
     return function(arg) {
       if (typeof arg == "number")
         arg = Array.prototype.slice.call(arguments);
-      
+
       var val = conversions[func](arg);
       if (typeof val == "string" || val === undefined)
         return val; // keyword
@@ -1183,12 +1183,12 @@ Converter.prototype.routeSpace = function(space, args) {
    }
    // color.rgb(10, 10, 10)
    if (typeof values == "number") {
-      values = Array.prototype.slice.call(args);        
+      values = Array.prototype.slice.call(args);
    }
 
    return this.setValues(space, values);
 };
-  
+
 /* Set the values for a space, invalidating cache */
 Converter.prototype.setValues = function(space, values) {
    this.space = space;
@@ -2103,7 +2103,7 @@ exports.degrees = {
     return result.value;
   };
 
-  // Shuffle an array, using the modern version of the 
+  // Shuffle an array, using the modern version of the
   // [Fisher-Yates shuffle](http://en.wikipedia.org/wiki/Fisher–Yates_shuffle).
   _.shuffle = function(obj) {
     var rand;
@@ -3330,7 +3330,7 @@ exports.degrees = {
 
       // Seconds since UNIX epoch
       U: function () { return jsdate.getTime() / 1000 || 0; }
-    };    
+    };
 
     return format.replace(formatChr, formatChrCb);
   };
@@ -3523,7 +3523,7 @@ exports.degrees = {
   /**
    * Replaces line breaks in plain text with appropriate HTML
    * A single newline becomes an HTML line break (<br />) and a new line followed by a blank line becomes a paragraph break (</p>).
-   * 
+   *
    * For example:
    * If value is Joel\nis a\n\nslug, the output will be <p>Joel<br />is a</p><p>slug</p>
    */

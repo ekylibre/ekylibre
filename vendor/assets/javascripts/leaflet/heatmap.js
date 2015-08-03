@@ -12,7 +12,7 @@ L.TileLayer.WebGLHeatMap = L.Class.extend({
 	  gradientTexture: false,
 	  alphaRange: 1
   },
-  
+
   initialize: function (options) {
     this.data = [];
     L.Util.setOptions(this, options);
@@ -22,40 +22,40 @@ L.TileLayer.WebGLHeatMap = L.Class.extend({
     this.map = map;
 	  var mapsize = map.getSize();
 	  var options = this.options;
-	  
+
 	  var c = document.createElement("canvas");
 	  c.id = 'webgl-leaflet-' + L.Util.stamp(this);
     c.width = mapsize.x;
     c.height = mapsize.y;
     c.style.opacity = options.opacity;
     c.style.position = 'absolute';
-		
+
 	  map.getPanes().overlayPane.appendChild(c);
-    
-    this.WebGLHeatMap = createWebGLHeatmap({ 
-		  canvas: c, 
-		  gradientTexture: options.gradientTexture, 
+
+    this.WebGLHeatMap = createWebGLHeatmap({
+		  canvas: c,
+		  gradientTexture: options.gradientTexture,
 		  alphaRange: [0, options.alphaRange]
 	  });
 
     this.canvas = c;
-    
+
 	  map.on("move", this._plot, this);
 
 	  /* hide layer on zoom, because it doesn't animate zoom */
 	  map.on("zoomstart", this._hide, this);
 	  map.on("zoomend", this._show, this);
-		
+
     this._plot();
   },
-  
+
   onRemove: function (map) {
     map.getPanes().overlayPane.removeChild(this.canvas);
     map.off("move", this._plot, this);
 	  map.off("zoomstart", this._hide, this);
 	  map.off("zoomend", this._show, this);
   },
-	
+
   _hide : function () {
 	  this.canvas.style.display = 'none';
   },
@@ -63,15 +63,15 @@ L.TileLayer.WebGLHeatMap = L.Class.extend({
   _show : function () {
 	  this.canvas.style.display = 'block';
   },
-	
+
   _clear: function () {
 	  var heatmap = this.WebGLHeatMap;
 	  heatmap.clear();
 	  heatmap.display();
   },
-	
+
   _resizeRequest : undefined,
-	
+
   _plot: function () {
 	  this.active = true;
 	  var map = this.map;
@@ -98,7 +98,7 @@ L.TileLayer.WebGLHeatMap = L.Class.extend({
       heatmap.display();
     }
   },
-	
+
   _scale: function (latlng) {
 	  // necessary to maintain accurately sized circles
 	  // to change scale to miles (for example), you will need to convert 40075017 (equatorial circumference of the Earth in metres) to miles
@@ -106,10 +106,10 @@ L.TileLayer.WebGLHeatMap = L.Class.extend({
 	  var latlng2 = new L.LatLng(latlng.lat, latlng.lng - lngRadius);
 	  var point = this.map.latLngToLayerPoint(latlng);
 	  var point2 = this.map.latLngToLayerPoint(latlng2);
-    
+
 	  return Math.max(Math.round(point.x - point2.x), 1);
   },
-	
+
   resize: function () {
 	  //helpful for maps that change sizes
 	  var mapsize = this.map.getSize();
@@ -122,16 +122,16 @@ L.TileLayer.WebGLHeatMap = L.Class.extend({
   addDataPoint: function (lat, lon, value) {
     this.data.push( [ lat, lon, value / 100 ] );
   },
-	
+
   setData: function (dataset) {
 	  // format: [[lat, lon, intensity],...]
 	  this.data = dataset;
   },
-	
+
   clearData: function () {
 	  this.data = [];
   },
-	
+
   update: function () {
 	  this._plot();
   }
