@@ -195,7 +195,7 @@ module Backend::BaseHelper
     end
     return no_data if series.empty?
 
-    return line_chart(series, legend: {}, y_axis: {title: { text: :indicator.tl}}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}, min: min.to_usec})
+    return line_highcharts(series, legend: {}, y_axis: {title: { text: :indicator.tl}}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}, min: min.to_usec})
   end
 
 
