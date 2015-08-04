@@ -231,6 +231,11 @@ module Ekylibre
       Ekylibre::Navigation.exec_dsl(&block)
     end
 
+    # Remove existing permission from main list
+    def disable_right(right)
+      Ekylibre::Access.disable_right(right)
+    end
+
     # TODO: Add other callback for plugin integration
     # def add_cell
     # end
