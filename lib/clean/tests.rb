@@ -31,10 +31,7 @@ module Clean
         code  = ''
         code << "require 'test_helper'\n\n"
         code << "class #{klass} < ActionView::TestCase\n\n"
-        code << "  # Replace this with your real tests.'\n"
-        code << "  test \"the truth\" do\n"
-        code << "    assert true\n"
-        code << "  end\n\n"
+        code << "  # Add tests here...\n"
         code << "end\n"
         file = Rails.root.join('test', 'helpers', klass.underscore + '.rb')
         FileUtils.mkdir_p(file.dirname)
@@ -47,9 +44,7 @@ module Clean
         code  = ''
         code << "require 'test_helper'\n\n"
         code << "class #{klass} < ActiveJob::TestCase\n"
-        code << "  # test 'the truth' do\n"
-        code << "  #   assert true\n"
-        code << "  # end\n"
+        code << "  # Add tests here...\n"
         code << "end\n"
         file = Rails.root.join('test', 'jobs', klass.underscore + '.rb')
         FileUtils.mkdir_p(file.dirname)
