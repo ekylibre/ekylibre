@@ -261,6 +261,7 @@ namespace :diagrams do
       product: YAML.load_file(Rails.root.join('db', 'models.yml')).select do |m|
         m =~ /^product($|_)/ and not m =~ /^product_(group|nature)/ and m.pluralize == m.classify.constantize.table_name
       end.map(&:classify).map(&:constantize) + [Tracking],
+      cash: [Cash, CashSession, CashTransfer, BankStatement, Deposit, IncomingPaymentMode, OutgoingPaymentMode, Loan, LoanRepayment],
       entity: [Entity, EntityLink, EntityAddress, Task, Event, EventParticipation, Observation, PostalZone, District],
       journal: [Journal, JournalEntry, JournalEntryItem, Account, FinancialYear, AccountBalance, Loan, LoanRepayment, BankStatement, Cash, FixedAsset, FixedAssetDepreciation], # , CashTransfer, CashSession]
       product_nature: [Product, ProductNature, ProductNatureVariant, ProductNatureCategory, ProductNatureVariantReading, ProductNatureCategoryTaxation],
