@@ -2,16 +2,13 @@ require 'ffaker'
 
 module Ekylibre
   module FirstRun
-
     class Booker
-
       cattr_accessor :production
 
       class << self
-
         def find(model, options = {})
           relation = model
-          relation = relation.where("COALESCE(born_at, ?) <= ? ", options[:started_at], options[:started_at]) if options[:started_at]
+          relation = relation.where('COALESCE(born_at, ?) <= ? ', options[:started_at], options[:started_at]) if options[:started_at]
           relation = relation.of_work_numbers(options[:work_number]) if options[:work_number]
           relation = relation.can(options[:can]) if options[:can]
           relation = relation.of_variety(options[:variety]) if options[:variety]
@@ -26,8 +23,8 @@ module Ekylibre
             end
             if model == Worker
               options[:first_name] ||= ::FFaker::Name.first_name
-              options[:last_name]  ||= ::FFaker::Name.last_name
-              options[:born_at]    ||= Date.new(1970 + rand(20), 1 + rand(12), 1 + rand(28))
+              options[:last_name] ||= ::FFaker::Name.last_name
+              options[:born_at] ||= Date.new(1970 + rand(20), 1 + rand(12), 1 + rand(28))
               unless person = Contact.find_by(first_name: options[:first_name], last_name: options[:last_name])
                 person = Contact.create!(first_name: options[:first_name], last_name: options[:last_name], born_at: options[:born_at])
               end
@@ -36,7 +33,7 @@ module Ekylibre
             variants = ProductNatureVariant.find_or_import!(options[:variety] || model.name.underscore, derivative_of: options[:derivative_of])
             variants.can(options[:can]) if options[:can]
             unless attributes[:variant] = variants.first
-              raise StandardError, "Cannot find product variant with options #{options.inspect}"
+              fail StandardError, "Cannot find product variant with options #{options.inspect}"
             end
             return model.create!(attributes)
           end
@@ -47,16 +44,15 @@ module Ekylibre
         end
 
         def sunrise(on, shift = 1.5)
-          return shift + (24.0 - self.daytime_duration(on)) / 2.0
+          shift + (24.0 - daytime_duration(on)) / 2.0
         end
 
         def sunset(on, shift = 1.5)
-          self.daytime_duration(on) + self.sunrise(on, shift)
+          daytime_duration(on) + sunrise(on, shift)
         end
 
-
         # Duration is expected to be in hours
-        def intervene(procedure_code, year, month, day, duration, options = {}, &block)
+        def intervene(procedure_code, year, month, day, duration, options = {}, &_block)
           day_range = options[:range] || 30
 
           duration += 1.5 - rand(0.5)
@@ -64,16 +60,14 @@ module Ekylibre
           # Find procedure
           procedure_name = "#{options[:namespace] || Procedo::DEFAULT_NAMESPACE}#{Procedo::NAMESPACE_SEPARATOR}#{procedure_code}#{Procedo::VERSION_SEPARATOR}#{options[:version] || '0'}"
           unless procedure = Procedo[procedure_name]
-            raise ArgumentError, "Unknown procedure #{procedure_code} (#{procedure_name})"
+            fail ArgumentError, "Unknown procedure #{procedure_code} (#{procedure_name})"
           end
 
           # Find actors
           booker = new(procedure, Time.new(year, month, day), duration)
           yield booker
-          actors = booker.casts.collect{|c| c[:actor]}.compact
-          if actors.empty?
-            raise ArgumentError, "What's the fuck ? No actors ? "
-          end
+          actors = booker.casts.collect { |c| c[:actor] }.compact
+          fail ArgumentError, "What's the fuck ? No actors ? " if actors.empty?
 
           # Adds fixed durations to given time
           fixed_duration = procedure.fixed_duration / 3600
@@ -86,7 +80,7 @@ module Ekylibre
           on = nil
           begin
             on = Date.civil(year, month, day) + rand(day_range - duration_days).days
-          end while InterventionCast.joins(:intervention).where(actor_id: actors.map(&:id)).where("? BETWEEN started_at AND stopped_at OR ? BETWEEN started_at AND stopped_at", on, on + duration_days).any?
+          end while InterventionCast.joins(:intervention).where(actor_id: actors.map(&:id)).where('? BETWEEN started_at AND stopped_at OR ? BETWEEN started_at AND stopped_at', on, on + duration_days).any?
 
           # Compute real number of day
           # 11 days shifting is here respect solstice shifting with 1st day of year
@@ -99,10 +93,10 @@ module Ekylibre
           periods = []
           total = duration * 1.0 - fixed_duration
           duration_days.times do
-            started_at = on.to_time + self.sunrise(on).hours + 1.hour
+            started_at = on.to_time + sunrise(on).hours + 1.hour
             d = self.daytime_duration(on) - 2.0 - fixed_duration
             d = total if d > total
-            periods << {started_at: started_at, duration: (d + fixed_duration) * 3600} if d > 0
+            periods << { started_at: started_at, duration: (d + fixed_duration) * 3600 } if d > 0
             total -= d
             on += 1
           end
@@ -119,19 +113,18 @@ module Ekylibre
               intervention.run!(period, options[:parameters])
             end
           end
-          return intervention
+          intervention
         end
 
         # used for importing intervention from others editors
         # procedure_code symbol (from procedure)
         # started_at datetime
         # duration integer (hours)
-        def force(procedure_code, started_at, duration, options = {}, &block)
-
+        def force(procedure_code, started_at, duration, options = {}, &_block)
           # Find procedure
           procedure_name = "#{options[:namespace] || Procedo::DEFAULT_NAMESPACE}#{Procedo::NAMESPACE_SEPARATOR}#{procedure_code}#{Procedo::VERSION_SEPARATOR}#{options[:version] || '0'}"
           unless procedure = Procedo[procedure_name]
-            raise ArgumentError, "Unknown procedure #{procedure_code} (#{procedure_name})"
+            fail ArgumentError, "Unknown procedure #{procedure_code} (#{procedure_name})"
           end
 
           # Adds fixed durations to given time
@@ -141,31 +134,28 @@ module Ekylibre
           # Find actors
           booker = new(procedure, started_at, duration)
           yield booker
-          actors = booker.casts.collect{|c| c[:actor]}.compact
-          if actors.empty?
-            raise ArgumentError, "What's the fuck ? No actors ? "
-          end
+          actors = booker.casts.collect { |c| c[:actor] }.compact
+          fail ArgumentError, "What's the fuck ? No actors ? " if actors.empty?
 
           # Find a slot for all actors for given day and given duration
           at = nil
           9.times do |p|
             at = started_at + p
-            break unless InterventionCast.joins(:intervention).where(actor_id: actors.map(&:id)).where("? BETWEEN started_at AND stopped_at OR ? BETWEEN started_at AND stopped_at", at, at + duration.hours).any?
+            break unless InterventionCast.joins(:intervention).where(actor_id: actors.map(&:id)).where('? BETWEEN started_at AND stopped_at OR ? BETWEEN started_at AND stopped_at', at, at + duration.hours).any?
           end
 
           # Run interventions
           intervention = nil
-            stopped_at = at + duration.hours
-            if stopped_at < Time.now
-              intervention = Intervention.create!(reference_name: procedure_name, production: Booker.production, production_support: options[:support], started_at: at, stopped_at: stopped_at, description: options[:description])
-              for cast in booker.casts
-                intervention.add_cast!(cast)
-              end
-              intervention.run!({started_at: at, duration: duration.hours}, options[:parameters])
+          stopped_at = at + duration.hours
+          if stopped_at < Time.now
+            intervention = Intervention.create!(reference_name: procedure_name, production: Booker.production, production_support: options[:support], started_at: at, stopped_at: stopped_at, description: options[:description])
+            for cast in booker.casts
+              intervention.add_cast!(cast)
             end
-          return intervention
+            intervention.run!({ started_at: at, duration: duration.hours }, options[:parameters])
+          end
+          intervention
         end
-
       end
 
       attr_reader :casts, :duration, :started_at, :reference
@@ -179,7 +169,7 @@ module Ekylibre
 
       def add_cast(options = {})
         unless reference.variables[options[:reference_name]]
-          raise "Invalid variable: #{options[:reference_name]} in procedure #{reference.name}"
+          fail "Invalid variable: #{options[:reference_name]} in procedure #{reference.name}"
         end
         @casts << options
       end
@@ -190,7 +180,6 @@ module Ekylibre
         options.update(stopped_at: @started_at)
         self.class.find(model, options)
       end
-
     end
   end
 end

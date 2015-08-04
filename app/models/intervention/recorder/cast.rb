@@ -1,8 +1,6 @@
 class Intervention
   class Recorder
-
     class Cast
-
       attr_reader :object
 
       def initialize(recorder, name, object = nil, options = {})
@@ -24,8 +22,6 @@ class Intervention
       def variant?
         @variant
       end
-
     end
-
   end
 end

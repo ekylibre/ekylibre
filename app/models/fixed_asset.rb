@@ -54,45 +54,45 @@
 
 class FixedAsset < Ekylibre::Record::Base
   acts_as_numbered
-  enumerize :depreciation_method, in: [:simplified_linear, :linear], predicates: {prefix: true} # graduated
-  enumerize :currency, in: Nomen::Currencies.all, default: Proc.new { Preference[:currency] }
-  belongs_to :expenses_account, class_name: "Account"
-  belongs_to :allocation_account, class_name: "Account"
-  belongs_to :journal, class_name: "Journal"
+  enumerize :depreciation_method, in: [:simplified_linear, :linear], predicates: { prefix: true } # graduated
+  enumerize :currency, in: Nomen::Currencies.all, default: proc { Preference[:currency] }
+  belongs_to :expenses_account, class_name: 'Account'
+  belongs_to :allocation_account, class_name: 'Account'
+  belongs_to :journal, class_name: 'Journal'
   belongs_to :purchase_item, inverse_of: :fixed_asset
   belongs_to :purchase
-  has_many :depreciations, -> { order(:position) }, class_name: "FixedAssetDepreciation"
+  has_many :depreciations, -> { order(:position) }, class_name: 'FixedAssetDepreciation'
   has_many :delivery_items, through: :purchase_item
   has_many :delivery_products, through: :delivery_items, source: :product
   has_many :products
-  has_many :planned_depreciations, -> { order(:position).where("NOT locked OR accounted_at IS NULL") }, class_name: "FixedAssetDepreciation", dependent: :destroy
-  has_one :tool, class_name: "Equipment"
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  has_many :planned_depreciations, -> { order(:position).where('NOT locked OR accounted_at IS NULL') }, class_name: 'FixedAssetDepreciation', dependent: :destroy
+  has_one :tool, class_name: 'Equipment'
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_date :ceded_on, :purchased_on, :started_on, :stopped_on, allow_blank: true, on_or_after: Date.civil(1, 1, 1)
   validates_numericality_of :current_amount, :depreciable_amount, :depreciated_amount, :depreciation_percentage, :purchase_amount, allow_nil: true
   validates_presence_of :allocation_account, :currency, :depreciable_amount, :depreciated_amount, :depreciation_method, :journal, :name, :number, :started_on, :stopped_on
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_uniqueness_of :name
-  validates_inclusion_of :depreciation_method, in: self.depreciation_method.values
+  validates_inclusion_of :depreciation_method, in: depreciation_method.values
 
-  accepts_nested_attributes_for :products, :reject_if => :all_blank, :allow_destroy => false
+  accepts_nested_attributes_for :products, reject_if: :all_blank, allow_destroy: false
 
   before_validation(on: :create) do
     self.depreciated_amount ||= 0
   end
 
   before_validation do
-    self.purchase_amount ||= self.depreciable_amount
-    self.purchased_on ||= self.started_on
+    self.purchase_amount ||= depreciable_amount
+    self.purchased_on ||= started_on
     if self.depreciation_method_linear?
-      if self.stopped_on and self.started_on
-        self.depreciation_percentage = 100.0 * 365.25 / self.duration
+      if stopped_on && started_on
+        self.depreciation_percentage = 100.0 * 365.25 / duration
       end
     elsif self.depreciation_method_simplified_linear?
       self.depreciation_percentage ||= 20
       months = 12 * (100.0 / self.depreciation_percentage.to_f)
-      self.stopped_on = self.started_on >> months.floor
+      self.stopped_on = started_on >> months.floor
       self.stopped_on += (months - months.floor) * 30.0 - 1
     end
     # self.currency = self.journal.currency
@@ -100,17 +100,17 @@ class FixedAsset < Ekylibre::Record::Base
   end
 
   validate do
-    if self.currency and self.journal
-      errors.add(:currency, :invalid) if self.currency != self.journal.currency
+    if currency && journal
+      errors.add(:currency, :invalid) if currency != journal.currency
     end
-    if self.started_on
+    if started_on
       if fy = FinancialYear.reorder(:started_on).first
-        unless fy.started_on <= self.started_on
+        unless fy.started_on <= started_on
           errors.add(:started_on, :greater_than_or_equal_to, count: fy.started_on.l)
         end
       end
       if self.stopped_on
-        unless self.stopped_on >= self.started_on
+        unless self.stopped_on >= started_on
           errors.add(:started_on, :less_than_or_equal_to, count: self.stopped_on.l)
         end
       end
@@ -124,19 +124,19 @@ class FixedAsset < Ekylibre::Record::Base
 
   before_update do
     @auto_depreciate = false
-    old = self.class.find(self.id)
+    old = self.class.find(id)
     for attr in [:depreciable_amount, :started_on, :stopped_on, :depreciation_method, :depreciation_percentage, :currency]
-      @auto_depreciate = true if self.send(attr) != old.send(attr)
+      @auto_depreciate = true if send(attr) != old.send(attr)
     end
   end
 
   after_save do
-    if self.purchase_item
+    if purchase_item
       # Link products to fixed asset
-      self.delivery_products.each do |product|
+      delivery_products.each do |product|
         product.fixed_asset = self
         unless product.save
-          Rails.logger.warn("Cannot link fixed_asset to its products automatically")
+          Rails.logger.warn('Cannot link fixed_asset to its products automatically')
         end
       end
     end
@@ -144,30 +144,27 @@ class FixedAsset < Ekylibre::Record::Base
   end
 
   def depreciate!
-    self.planned_depreciations.clear
+    planned_depreciations.clear
     # Computes periods
-    starts = [self.started_on, self.stopped_on + 1]
-    starts += self.depreciations.pluck(:started_on)
+    starts = [started_on, self.stopped_on + 1]
+    starts += depreciations.pluck(:started_on)
 
     FinancialYear.at(self.stopped_on)
-    for financial_year in FinancialYear.where(started_on: self.started_on..self.stopped_on).reorder(:started_on)
+    for financial_year in FinancialYear.where(started_on: started_on..self.stopped_on).reorder(:started_on)
       start = financial_year.started_on
-      if self.started_on <= start and start <= self.stopped_on
-        starts << start
-      end
+      starts << start if started_on <= start && start <= self.stopped_on
     end
     starts = starts.uniq.sort
-    self.send("depreciate_with_#{self.depreciation_method}_method", starts)
-    return self
+    send("depreciate_with_#{depreciation_method}_method", starts)
+    self
   end
-
 
   # Depreciate using linear method
   def depreciate_with_linear_method(starts)
-    depreciable_days = self.duration.round(2)
+    depreciable_days = duration.round(2)
     depreciable_amount = self.depreciable_amount
-    for depreciation in self.depreciations
-      depreciable_days   -= depreciation.duration.round(2)
+    for depreciation in depreciations
+      depreciable_days -= depreciation.duration.round(2)
       depreciable_amount -= depreciation.amount
     end
 
@@ -176,10 +173,10 @@ class FixedAsset < Ekylibre::Record::Base
     position = 1
     starts.each_with_index do |start, index|
       unless starts[index + 1].nil? # Last
-        unless depreciation = self.depreciations.find_by(started_on: start)
-          depreciation = self.depreciations.new(started_on: start, stopped_on: starts[index + 1] - 1)
+        unless depreciation = depreciations.find_by(started_on: start)
+          depreciation = depreciations.new(started_on: start, stopped_on: starts[index + 1] - 1)
           duration = depreciation.duration.round(2)
-          depreciation.amount = [remaining_amount, self.currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
+          depreciation.amount = [remaining_amount, currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
           remaining_amount -= depreciation.amount
         end
         depreciation.financial_year = FinancialYear.at(depreciation.started_on)
@@ -187,20 +184,19 @@ class FixedAsset < Ekylibre::Record::Base
         depreciation.position = position
         position += 1
         unless depreciation.save
-          raise "AAAAAAAAAAAAAAAAAAAARrrrrrrrrrrrrrrrrr" + depreciation.errors.inspect
+          fail 'AAAAAAAAAAAAAAAAAAAARrrrrrrrrrrrrrrrrr' + depreciation.errors.inspect
         end
       end
     end
-
   end
 
   # Depreciate using simplified linear method
   # Years have 12 months with 30 days
   def depreciate_with_simplified_linear_method(starts)
-    depreciable_days = self.duration
+    depreciable_days = duration
     depreciable_amount = self.depreciable_amount
-    for depreciation in self.reload.depreciations
-      depreciable_days   -= depreciation.duration
+    for depreciation in reload.depreciations
+      depreciable_days -= depreciation.duration
       depreciable_amount -= depreciation.amount
     end
 
@@ -209,10 +205,10 @@ class FixedAsset < Ekylibre::Record::Base
     position = 1
     starts.each_with_index do |start, index|
       unless starts[index + 1].nil? # Last
-        unless depreciation = self.depreciations.find_by(started_on: start)
-          depreciation = self.depreciations.new(started_on: start, stopped_on: starts[index + 1] - 1)
+        unless depreciation = depreciations.find_by(started_on: start)
+          depreciation = depreciations.new(started_on: start, stopped_on: starts[index + 1] - 1)
           duration = depreciation.duration
-          depreciation.amount = [remaining_amount, self.currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
+          depreciation.amount = [remaining_amount, currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
           remaining_amount -= depreciation.amount
         end
         depreciation.financial_year = FinancialYear.at(depreciation.started_on)
@@ -222,13 +218,11 @@ class FixedAsset < Ekylibre::Record::Base
         depreciation.save!
       end
     end
-
   end
-
 
   # Returns the duration in days of all the depreciations
   def duration
-    return self.class.duration(self.started_on, self.stopped_on, mode: self.depreciation_method.to_sym)
+    self.class.duration(started_on, self.stopped_on, mode: depreciation_method.to_sym)
   end
 
   # Returns the duration in days between to 2 times
@@ -273,9 +267,8 @@ class FixedAsset < Ekylibre::Record::Base
     elsif options[:mode] == :linear
       days = (stopped_on - started_on) + 1
     else
-      raise "What ? #{options[:mode].inspect}"
+      fail "What ? #{options[:mode].inspect}"
     end
-    return days.to_f
+    days.to_f
   end
-
 end

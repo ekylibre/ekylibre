@@ -40,41 +40,41 @@
 class Activity < Ekylibre::Record::Base
   enumerize :family, in: Nomen::ActivityFamilies.all, predicates: true
   enumerize :nature, in: [:main, :auxiliary, :standalone], default: :main, predicates: true
-  has_many :distributions, -> { order(:main_activity_id) }, class_name: "ActivityDistribution", dependent: :destroy, inverse_of: :activity
+  has_many :distributions, -> { order(:main_activity_id) }, class_name: 'ActivityDistribution', dependent: :destroy, inverse_of: :activity
   has_many :productions
   has_many :supports, through: :productions
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_inclusion_of :with_cultivation, :with_supports, in: [true, false]
   validates_presence_of :family, :name, :nature
-  #]VALIDATORS]
-  validates_inclusion_of :family, in: self.family.values, allow_nil: true
+  # ]VALIDATORS]
+  validates_inclusion_of :family, in: family.values, allow_nil: true
   validates_presence_of :family
   validates_presence_of :cultivation_variety, if: :with_cultivation
   validates_presence_of :support_variety, if: :with_supports
   validates_uniqueness_of :name
   validates_associated :productions
 
-  scope :main, -> { where(nature: "main") }
+  scope :main, -> { where(nature: 'main') }
   scope :actives, -> { where(id: Production.actives.pluck(:activity_id)) }
   scope :availables, -> { order(:name) }
   # scope :main_activity, -> { where(nature: "main") }
   scope :of_campaign, lambda { |*campaigns|
     campaigns.flatten!
-    if campaigns.detect{ |campaign| !campaign.is_a?(Campaign) }
-      raise ArgumentError, "Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}"
+    if campaigns.detect { |campaign| !campaign.is_a?(Campaign) }
+      fail ArgumentError, "Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}"
     end
     where(id: Production.of_campaign(campaigns).pluck(:activity_id))
   }
 
-  scope :of_families, Proc.new { |*families|
-    where(family: families.flatten.collect{|f| Nomen::ActivityFamilies.all(f.to_sym) }.flatten.uniq.map(&:to_s))
+  scope :of_families, proc { |*families|
+    where(family: families.flatten.collect { |f| Nomen::ActivityFamilies.all(f.to_sym) }.flatten.uniq.map(&:to_s))
   }
 
   accepts_nested_attributes_for :distributions, reject_if: :all_blank, allow_destroy: true
 
   before_validation do
     if family = Nomen::ActivityFamilies[self.family]
-      if self.with_supports.nil?
+      if with_supports.nil?
         if variety = family.support_variety
           self.with_supports = true
           self.support_variety = variety
@@ -82,7 +82,7 @@ class Activity < Ekylibre::Record::Base
           self.with_supports = false
         end
       end
-      if self.with_cultivation.nil?
+      if with_cultivation.nil?
         if variety = family.cultivation_variety
           self.with_cultivation = true
           self.cultivation_variety = variety
@@ -96,10 +96,10 @@ class Activity < Ekylibre::Record::Base
 
   validate do
     if family = Nomen::ActivityFamilies[self.family]
-      if self.with_supports and variety = Nomen::Varieties[self.support_variety]
+      if with_supports && variety = Nomen::Varieties[support_variety]
         errors.add(:support_variety, :invalid) unless variety <= family.support_variety
       end
-      if self.with_cultivation and variety = Nomen::Varieties[self.cultivation_variety]
+      if with_cultivation && variety = Nomen::Varieties[cultivation_variety]
         errors.add(:cultivation_variety, :invalid) unless variety <= family.cultivation_variety
       end
     end
@@ -107,57 +107,52 @@ class Activity < Ekylibre::Record::Base
   end
 
   before_save do
-    unless self.with_supports
-      self.support_variety = nil
-    end
-    unless self.with_cultivation
-      self.cultivation_variety = nil
-    end
+    self.support_variety = nil unless with_supports
+    self.cultivation_variety = nil unless with_cultivation
   end
 
   after_save do
-    if self.auxiliary? and self.distributions.any?
-      total = self.distributions.sum(:affectation_percentage)
+    if self.auxiliary? && distributions.any?
+      total = distributions.sum(:affectation_percentage)
       if total != 100
         sum = 0
-        self.distributions.each do |distribution|
-          percentage = (distribution.affectation_percentage * 100.0/total).round(2)
+        distributions.each do |distribution|
+          percentage = (distribution.affectation_percentage * 100.0 / total).round(2)
           sum += percentage
           distribution.update_column(:affectation_percentage, percentage)
         end
         if sum != 100
-          distribution = self.distributions.last
+          distribution = distributions.last
           distribution.update_column(:affectation_percentage, distribution.affectation_percentage + (100 - sum))
         end
       end
     else
-      self.distributions.clear
+      distributions.clear
     end
   end
 
   protect(on: :destroy) do
-    self.productions.any?
+    productions.any?
   end
 
   def family_label
-    item = Nomen::ActivityFamilies[self.family].human_name
+    item = Nomen::ActivityFamilies[family].human_name
   end
 
   class << self
-
     def find_best_family(cultivation_variety, support_variety)
       rankings = Nomen::ActivityFamilies.list.inject({}) do |hash, item|
         valid = true
         valid = false unless !cultivation_variety == !item.cultivation_variety
         distance = 0
-        if valid and cultivation_variety
+        if valid && cultivation_variety
           if Nomen::Varieties[cultivation_variety] <= item.cultivation_variety
             distance += Nomen::Varieties[cultivation_variety].depth - Nomen::Varieties[item.cultivation_variety].depth
           else
             valid = false
           end
         end
-        if valid and support_variety
+        if valid && support_variety
           if Nomen::Varieties[support_variety] <= item.support_variety
             distance += Nomen::Varieties[support_variety].depth - Nomen::Varieties[item.support_variety].depth
           else
@@ -166,36 +161,33 @@ class Activity < Ekylibre::Record::Base
         end
         hash[item.name] = distance if valid
         hash
-      end.sort{ |a,b| a.second <=> b.second }
+      end.sort { |a, b| a.second <=> b.second }
       if best_choice = rankings.first
         return Nomen::ActivityFamilies.find(best_choice.first)
       end
-      return nil
+      nil
     end
-
   end
 
-
   def shape_area(*campaigns)
-    return productions.of_campaign(campaigns).map(&:shape_area).compact.sum
+    productions.of_campaign(campaigns).map(&:shape_area).compact.sum
   end
 
   def net_surface_area(*campaigns)
-    return productions.of_campaign(campaigns).map(&:net_surface_area).compact.sum
+    productions.of_campaign(campaigns).map(&:net_surface_area).compact.sum
   end
 
   def area(*campaigns)
     # raise "NO AREA"
     ActiveSupport::Deprecation.warn("#{self.class.name}#area is deprecated. Please use #{self.class.name}#net_surface_area instead.")
-    return net_surface_area(*campaigns)
+    net_surface_area(*campaigns)
   end
 
   def interventions_duration(*campaigns)
-    return productions.of_campaign(campaigns).map(&:duration).compact.sum
+    productions.of_campaign(campaigns).map(&:duration).compact.sum
   end
 
   def is_of_family?(family)
     Nomen::ActivityFamilies[self.family] <= family
   end
-
 end

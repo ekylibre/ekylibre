@@ -34,15 +34,14 @@
 #
 class ProductionDistribution < Ekylibre::Record::Base
   belongs_to :production, inverse_of: :distributions
-  belongs_to :main_production, class_name: "Production"
+  belongs_to :main_production, class_name: 'Production'
   has_one :activity, through: :production
   has_one :main_activity, through: :main_production, source: :activity
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :affectation_percentage, allow_nil: true
   validates_presence_of :affectation_percentage, :main_production, :production
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_numericality_of :affectation_percentage, greater_than: 0
 
   delegate :name, to: :main_production, prefix: true
-
 end

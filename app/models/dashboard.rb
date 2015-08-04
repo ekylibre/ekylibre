@@ -33,10 +33,10 @@
 #  updater_id   :integer
 #
 class Dashboard < Ekylibre::Record::Base
-  belongs_to :owner, class_name: "User"
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  belongs_to :owner, class_name: 'User'
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_presence_of :name, :owner
-  #]VALIDATORS]
+  # ]VALIDATORS]
 
   before_validation on: :create do
     self.owner ||= Version.current_user

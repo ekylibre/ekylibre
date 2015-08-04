@@ -17,7 +17,6 @@
 #
 
 class Backend::OperationsController < Backend::BaseController
-
   def index
     redirect_to backend_interventions_url
   end
@@ -29,5 +28,4 @@ class Backend::OperationsController < Backend::BaseController
       redirect_to backend_root_url
     end
   end
-
 end

@@ -1,28 +1,27 @@
 namespace :clean do
-
-  desc "Analyze test files and report"
-  task :tests => :environment do
+  desc 'Analyze test files and report'
+  task tests: :environment do
     Clean::Support.set_search_path!
-    verbose = !ENV["VERBOSE"].to_i.zero?
-    log = File.open(Rails.root.join("log", "clean-tests.log"), "wb")
+    verbose = !ENV['VERBOSE'].to_i.zero?
+    log = File.open(Rails.root.join('log', 'clean-tests.log'), 'wb')
     log.write(">> Init\n") if verbose
 
-    errors = {models: 0, controllers: 0, helpers: 0, fixtures: 0, jobs: 0}
+    errors = { models: 0, controllers: 0, helpers: 0, fixtures: 0, jobs: 0 }
     source = nil
 
     log.write(">> Start!\n") if verbose
 
     # Check model test files
-    print " - Tests: "
+    print ' - Tests: '
     log.write(">> Search models\n") if verbose
     models      = Clean::Support.models_in_file
-    files = Dir.glob(Rails.root.join("test", "models", "**", "*.rb")).map(&:to_s)
+    files = Dir.glob(Rails.root.join('test', 'models', '**', '*.rb')).map(&:to_s)
     for model in models
       log.write("> #{model}\n") if verbose
       class_name = "#{model.name}Test"
-      file = Rails.root.join("test", "models", class_name.underscore + ".rb")
+      file = Rails.root.join('test', 'models', class_name.underscore + '.rb')
       if File.exist?(file)
-        File.open(file, "rb") do |f|
+        File.open(file, 'rb') do |f|
           source = f.read
         end
         source.gsub!(/^\#[^\n]*\n/, '')
@@ -47,22 +46,19 @@ namespace :clean do
       errors[:models] += 1
       log.write(" - Error: Unexpected test file: #{file}\n")
     end
-    if files.any?
-      log.write("   > git rm #{files.join(' ')}\n")
-    end
+    log.write("   > git rm #{files.join(' ')}\n") if files.any?
 
     Clean::Tests.print_stat :models, errors, true
 
-
     # Check helper test files
-    print " - Tests: "
-    files = Dir.glob(Rails.root.join("test", "helpers", "**", "*_test.rb")).map(&:to_s)
+    print ' - Tests: '
+    files = Dir.glob(Rails.root.join('test', 'helpers', '**', '*_test.rb')).map(&:to_s)
     for helper_name in Clean::Support.helpers_in_file.to_a
       log.write("> #{helper_name}\n")  if verbose
-      test_class_name = (helper_name + "_test").classify
-      file = Rails.root.join("test", "helpers", (test_class_name + ".rb").underscore)
+      test_class_name = (helper_name + '_test').classify
+      file = Rails.root.join('test', 'helpers', (test_class_name + '.rb').underscore)
       if File.exist?(file)
-        File.open(file, "rb") do |f|
+        File.open(file, 'rb') do |f|
           source = f.read
         end
         source.gsub!(/^\#[^\n]*\n/, '')
@@ -87,24 +83,21 @@ namespace :clean do
       errors[:helpers] += 1
       log.write(" - Error: Unexpected test file: #{file}\n")
     end
-    if files.any?
-      log.write("   > git rm #{files.join(' ')}\n")
-    end
+    log.write("   > git rm #{files.join(' ')}\n") if files.any?
 
     Clean::Tests.print_stat :helpers, errors
 
-
     # Check controller test files
-    print " - Tests: "
+    print ' - Tests: '
     log.write(">> Search controllers\n") if verbose
     controllers = Clean::Support.controllers_in_file
-    files = Dir.glob(Rails.root.join("test", "controllers", "**", "*.rb")).collect{|f| f.to_s}
+    files = Dir.glob(Rails.root.join('test', 'controllers', '**', '*.rb')).collect(&:to_s)
     for controller in controllers
       log.write("> #{controller}\n") if verbose
       class_name = "#{controller.name}Test"
-      file = Rails.root.join("test", "controllers", class_name.underscore + ".rb")
+      file = Rails.root.join('test', 'controllers', class_name.underscore + '.rb')
       if File.exist?(file)
-        File.open(file, "rb") do |f|
+        File.open(file, 'rb') do |f|
           source = f.read
         end
         source.gsub!(/^\#[^\n]*\n/, '')
@@ -128,19 +121,17 @@ namespace :clean do
       errors[:controllers] += 1
       log.write(" - Error: Unexpected test files: #{file}\n")
     end
-    if files.any?
-      log.write("   > git rm #{files.join(' ')}\n")
-    end
+    log.write("   > git rm #{files.join(' ')}\n") if files.any?
     Clean::Tests.print_stat :controllers, errors
 
     # Check fixture files
-    print " - Tests: "
+    print ' - Tests: '
     yaml = nil
-    files = Dir.glob(Rails.root.join("test", "fixtures", "*.yml")).map(&:to_s)
+    files = Dir.glob(Rails.root.join('test', 'fixtures', '*.yml')).map(&:to_s)
     for table, columns in Ekylibre::Schema.tables
-      next unless columns.keys.include?("id")
+      next unless columns.keys.include?('id')
       log.write("> fixtures #{table}\n") if verbose
-      file = Rails.root.join("test", "fixtures", "#{table}.yml")
+      file = Rails.root.join('test', 'fixtures', "#{table}.yml")
       if File.exist?(file)
         begin
           yaml = YAML.load_file(file)
@@ -153,7 +144,7 @@ namespace :clean do
         model = table.singularize.camelize.constantize
         attributes  = columns.keys.map(&:to_s)
 
-        required_attributes = columns.values.select{|c| !c.null? and c.default.nil?}.map(&:name).map(&:to_s)
+        required_attributes = columns.values.select { |c| !c.null? && c.default.nil? }.map(&:name).map(&:to_s)
 
         if yaml.is_a?(Hash)
           if yaml.keys.size != yaml.keys.uniq.size
@@ -194,24 +185,19 @@ namespace :clean do
       errors[:fixtures] += 1
       log.write(" - Error: Unexpected fixture file: #{file}\n")
     end
-    if files.any?
-      log.write("   > git rm #{files.join(' ')}\n")
-    end
+    log.write("   > git rm #{files.join(' ')}\n") if files.any?
 
     Clean::Tests.print_stat :fixtures, errors
 
-
-
-
     # Check job test files
-    print " - Tests: "
-    files = Dir.glob(Rails.root.join("test", "jobs", "**", "*_test.rb")).map(&:to_s)
+    print ' - Tests: '
+    files = Dir.glob(Rails.root.join('test', 'jobs', '**', '*_test.rb')).map(&:to_s)
     for job_name in Clean::Support.jobs_in_file.to_a
       log.write("> #{job_name}\n")  if verbose
-      test_class_name = (job_name + "_test").classify
-      file = Rails.root.join("test", "jobs", (test_class_name + ".rb").underscore)
+      test_class_name = (job_name + '_test').classify
+      file = Rails.root.join('test', 'jobs', (test_class_name + '.rb').underscore)
       if File.exist?(file)
-        File.open(file, "rb") do |f|
+        File.open(file, 'rb') do |f|
           source = f.read
         end
         source.gsub!(/^\#[^\n]*\n/, '')
@@ -236,21 +222,12 @@ namespace :clean do
       errors[:jobs] += 1
       log.write(" - Error: Unexpected test file: #{file}\n")
     end
-    if files.any?
-      log.write("   > git rm #{files.join(' ')}\n")
-    end
+    log.write("   > git rm #{files.join(' ')}\n") if files.any?
 
     Clean::Tests.print_stat :jobs, errors
-
-
-
-
-
-
 
     # puts " " + errors.collect{|k,v| "#{k.to_s.humanize}: #{v.to_s.rjust(3)} errors"}.join(", ")
     # puts ""
     log.close
   end
-
 end

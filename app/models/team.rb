@@ -36,13 +36,12 @@
 #  updater_id   :integer
 #
 
-
 class Team < Ekylibre::Record::Base
-  has_many :employees, class_name: "Entity"
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  has_many :employees, class_name: 'Entity'
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :depth, :lft, :rgt, allow_nil: true, only_integer: true
   validates_presence_of :depth, :name
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_uniqueness_of :name
 
   acts_as_nested_set

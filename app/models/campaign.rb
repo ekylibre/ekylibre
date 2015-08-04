@@ -39,15 +39,15 @@ class Campaign < Ekylibre::Record::Base
   has_many :productions
   has_many :production_supports, through: :productions, source: :supports
   has_many :interventions, through: :productions
-  has_one :selected_manure_management_plan, -> { selecteds }, class_name: "ManureManagementPlan", foreign_key: :campaign_id, inverse_of: :campaign
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  has_one :selected_manure_management_plan, -> { selecteds }, class_name: 'ManureManagementPlan', foreign_key: :campaign_id, inverse_of: :campaign
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :closed_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :harvest_year, allow_nil: true, only_integer: true
   validates_inclusion_of :closed, in: [true, false]
   validates_presence_of :name, :number
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_length_of :number, allow_nil: true, maximum: 60
-  validates :harvest_year, length: {is: 4}, allow_nil: true
+  validates :harvest_year, length: { is: 4 }, allow_nil: true
   validates_uniqueness_of :name, :harvest_year
   before_validation :set_default_values, on: :create
 
@@ -55,36 +55,33 @@ class Campaign < Ekylibre::Record::Base
   scope :currents, -> { where(closed: false).reorder(:harvest_year) }
 
   protect(on: :destroy) do
-    self.productions.any? or self.interventions.any?
+    productions.any? || interventions.any?
   end
 
   # Sets name
   def set_default_values
-    self.name = self.harvest_year.to_s if self.name.blank? and self.harvest_year
+    self.name = harvest_year.to_s if name.blank? && harvest_year
   end
 
   def shape_area
-    return self.productions.map(&:shape_area).sum
+    productions.map(&:shape_area).sum
   end
 
   def previous
-    self.class.where("harvest_year < ?", self.harvest_year)
+    self.class.where('harvest_year < ?', harvest_year)
   end
-
 
   # Return the previous campaign
   def preceding
-    self.class.where("harvest_year < ?", self.harvest_year).order(harvest_year: :desc).first
+    self.class.where('harvest_year < ?', harvest_year).order(harvest_year: :desc).first
   end
 
   # Return the following campaign
   def following
-    self.class.where("harvest_year > ?", self.harvest_year).order(:harvest_year).first
+    self.class.where('harvest_year > ?', harvest_year).order(:harvest_year).first
   end
-
 
   def opened?
-    !self.closed
+    !closed
   end
-
 end

@@ -70,7 +70,7 @@ class Building < ProductGroup
   # Add a member to the group
   def add(member, started_at = nil)
     unless member.is_a?(BuildingDivision)
-      raise ArgumentError, "BuildingDivision expected, got #{member.class}:#{member.inspect}"
+      fail ArgumentError, "BuildingDivision expected, got #{member.class}:#{member.inspect}"
     end
     super(member, started_at)
   end
@@ -78,15 +78,13 @@ class Building < ProductGroup
   # Remove a member from the group
   def remove(member, stopped_at = nil)
     unless member.is_a?(BuildingDivision)
-      raise ArgumentError, "BuildingDivision expected, got #{member.class}:#{member.inspect}"
+      fail ArgumentError, "BuildingDivision expected, got #{member.class}:#{member.inspect}"
     end
     super(member, stopped_at)
   end
-
 
   # Returns members of the group at a given time (or now by default)
   def members_at(viewed_at = nil)
     BuildingDivision.members_of(self, viewed_at || Time.now)
   end
-
 end

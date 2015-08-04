@@ -40,20 +40,19 @@
 #  updater_id       :integer
 #
 
-
 class Deposit < Ekylibre::Record::Base
   acts_as_numbered
   belongs_to :cash
-  belongs_to :responsible, -> { contacts }, class_name: "Entity"
+  belongs_to :responsible, -> { contacts }, class_name: 'Entity'
   belongs_to :journal_entry
-  belongs_to :mode, class_name: "IncomingPaymentMode"
-  has_many :payments, class_name: "IncomingPayment", dependent: :nullify, counter_cache: true, inverse_of: :deposit
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  belongs_to :mode, class_name: 'IncomingPaymentMode'
+  has_many :payments, class_name: 'IncomingPayment', dependent: :nullify, counter_cache: true, inverse_of: :deposit
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :accounted_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :amount, allow_nil: true
   validates_inclusion_of :locked, in: [true, false]
   validates_presence_of :amount, :cash, :mode, :number
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_presence_of :responsible, :cash
 
   delegate :currency, to: :cash
@@ -62,11 +61,11 @@ class Deposit < Ekylibre::Record::Base
   scope :unvalidateds, -> { where(locked: false) }
 
   before_validation do
-    self.cash = self.mode.cash if self.mode
+    self.cash = mode.cash if mode
   end
 
   after_save do
-    self.update_columns(amount: self.payments.sum(:amount), payments_count: self.payments.count)
+    update_columns(amount: payments.sum(:amount), payments_count: payments.count)
   end
 
   # validate do
@@ -78,38 +77,37 @@ class Deposit < Ekylibre::Record::Base
   # This method permits to add journal entries corresponding to the payment
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
-    payments = self.reload.payments unless b.action == :destroy
+    payments = reload.payments unless b.action == :destroy
     amount = self.payments.sum(:amount)
-    b.journal_entry(self.cash.journal, if: !self.mode.depositables_account.nil?) do |entry|
-
-      commissions, commissions_amount = {}, 0
+    b.journal_entry(cash.journal, if: !mode.depositables_account.nil?) do |entry|
+      commissions = {}
+      commissions_amount = 0
       for payment in payments
         commissions[payment.commission_account_id.to_s] ||= 0
         commissions[payment.commission_account_id.to_s] += payment.commission_amount
         commissions_amount += payment.commission_amount
       end
 
-      label = tc(:bookkeep, resource: self.class.model_name.human, number: self.number, count: self.payments_count, mode: self.mode.name, responsible: self.responsible.label, description: self.description)
+      label = tc(:bookkeep, resource: self.class.model_name.human, number: number, count: payments_count, mode: mode.name, responsible: responsible.label, description: description)
 
-      entry.add_debit(label, self.cash.account_id, amount - commissions_amount)
+      entry.add_debit(label, cash.account_id, amount - commissions_amount)
       for commission_account_id, commission_amount in commissions
         entry.add_debit(label, commission_account_id.to_i, commission_amount) if commission_amount > 0
       end
 
-      if self.detail_payments # Preference[:detail_payments_in_deposit_bookkeeping]
+      if detail_payments # Preference[:detail_payments_in_deposit_bookkeeping]
         for payment in payments
-          label = tc(:bookkeep_with_payment, resource: self.class.model_name.human, number: self.number, mode: self.mode.name, payer: payment.payer.full_name, check_number: payment.bank_check_number, payment: payment.number)
-          entry.add_credit(label, self.mode.depositables_account_id, payment.amount)
+          label = tc(:bookkeep_with_payment, resource: self.class.model_name.human, number: number, mode: mode.name, payer: payment.payer.full_name, check_number: payment.bank_check_number, payment: payment.number)
+          entry.add_credit(label, mode.depositables_account_id, payment.amount)
         end
       else
-        entry.add_credit(label, self.mode.depositables_account_id, amount)
+        entry.add_credit(label, mode.depositables_account_id, amount)
       end
       true
     end
   end
 
   protect do
-    self.locked? or (self.journal_entry and self.journal_entry.closed?)
+    self.locked? || (journal_entry && journal_entry.closed?)
   end
-
 end

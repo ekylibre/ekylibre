@@ -30,7 +30,6 @@ module Ekylibre
       def polymorphic?
         @references.is_a?(String)
       end
-
     end
   end
 end

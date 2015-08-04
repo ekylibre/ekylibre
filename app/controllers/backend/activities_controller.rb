@@ -34,7 +34,6 @@ class Backend::ActivitiesController < Backend::BaseController
     t.column :support_variety, hidden: true
   end
 
-
   # Returns wanted varieties proposition for given family_name
   def family
     unless family = Nomen::ActivityFamilies[params[:name]]
@@ -54,9 +53,8 @@ class Backend::ActivitiesController < Backend::BaseController
     render json: data
   end
 
-
   # List of productions for one activity
-  list(:productions, conditions: {activity_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
+  list(:productions, conditions: { activity_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
     t.action :edit
     t.action :destroy
     t.column :name, url: true
@@ -68,9 +66,8 @@ class Backend::ActivitiesController < Backend::BaseController
   end
 
   # List of distribution for one activity
-  list(:distributions, model: :activity_distributions, conditions: {activity_id: 'params[:id]'.c}) do |t|
+  list(:distributions, model: :activity_distributions, conditions: { activity_id: 'params[:id]'.c }) do |t|
     t.column :affectation_percentage, percentage: true
     t.column :main_activity, url: true
   end
-
 end

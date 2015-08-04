@@ -23,7 +23,7 @@ module Backend::ThemeHelper
              '#f28f43', '#77a1e5', '#c42525', '#a6c96a'],
     font: {
       family: "'Open Sans', sans-serif",
-      size: "14px"
+      size: '14px'
     }
   }
 
@@ -42,5 +42,4 @@ module Backend::ThemeHelper
   def theme_font_size
     theme_config[:font][:size]
   end
-
 end

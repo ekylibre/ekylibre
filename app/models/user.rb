@@ -66,31 +66,31 @@
 class User < Ekylibre::Record::Base
   include Rightable
   belongs_to :team
-  belongs_to :person, -> { contacts }, class_name: "Entity"
+  belongs_to :person, -> { contacts }, class_name: 'Entity'
   belongs_to :role
   has_many :crumbs
   has_many :dashboards, foreign_key: :owner_id
   has_many :preferences, dependent: :destroy, foreign_key: :user_id
-  has_many :sales_invoices, -> { where(state: "invoice") }, through: :person, source: :managed_sales, class_name: "Sale"
+  has_many :sales_invoices, -> { where(state: 'invoice') }, through: :person, source: :managed_sales, class_name: 'Sale'
   has_many :sales, through: :person, source: :managed_sales
   has_many :transports, foreign_key: :responsible_id
-  has_many :unpaid_sales, -> { order(:created_at).where(state: ['order', 'invoice']).where(lost: false).where("paid_amount < amount") }, through: :person, source: :managed_sales, class_name: "Sale"
+  has_many :unpaid_sales, -> { order(:created_at).where(state: %w(order invoice)).where(lost: false).where('paid_amount < amount') }, through: :person, source: :managed_sales, class_name: 'Sale'
   has_one :worker, through: :person
 
   scope :employees, -> { where(employed: true) }
   scope :administrators, -> { where(administrator: true) }
 
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :confirmation_sent_at, :confirmed_at, :current_sign_in_at, :last_sign_in_at, :locked_at, :remember_created_at, :reset_password_sent_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :failed_attempts, allow_nil: true, only_integer: true
   validates_numericality_of :maximal_grantable_reduction_percentage, allow_nil: true
   validates_inclusion_of :administrator, :commercial, :employed, :locked, in: [true, false]
   validates_presence_of :email, :encrypted_password, :first_name, :language, :last_name, :maximal_grantable_reduction_percentage, :role
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_length_of :language, allow_nil: true, maximum: 3
   # validates_presence_of :password, :password_confirmation, if: Proc.new{|e| e.encrypted_password.blank? and e.loggable?}
   validates_confirmation_of :password
-  validates_numericality_of :maximal_grantable_reduction_percentage, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100
+  validates_numericality_of :maximal_grantable_reduction_percentage, greater_than_or_equal_to: 0, less_than_or_equal_to: 100
   validates_uniqueness_of :email, :person_id
   # validates_presence_of :person
   # validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, if: lambda{|r| !r.email.blank?}
@@ -105,25 +105,17 @@ class User < Ekylibre::Record::Base
 
   before_validation do
     self.maximal_grantable_reduction_percentage ||= 0
-    if self.administrator?
-      self.role ||= Role.first
-    end
-    if self.role
-      self.rights ||= self.role.rights
-    end
-    if self.rights
-      self.rights = self.rights.to_hash
-    end
+    self.role ||= Role.first if self.administrator?
+    self.rights ||= self.role.rights if self.role
+    self.rights = self.rights.to_hash if self.rights
   end
 
   validate on: :update do
-    if self.class.administrators.count <= 1 and old_record.administrator? and !self.administrator?
+    if self.class.administrators.count <= 1 && old_record.administrator? && !self.administrator?
       errors.add(:administrator, :accepted)
     end
-    if self.person and old_record.person
-      if self.person_id != old_record.person_id
-        errors.add(:person_id, :readonly)
-      end
+    if person && old_record.person
+      errors.add(:person_id, :readonly) if person_id != old_record.person_id
     end
   end
 
@@ -134,13 +126,13 @@ class User < Ekylibre::Record::Base
   end
 
   before_save do
-    unless self.person
-      self.create_person!(first_name: self.first_name, last_name: self.last_name, nature: :contact)
+    unless person
+      self.create_person!(first_name: first_name, last_name: last_name, nature: :contact)
     end
   end
 
   protect(on: :destroy) do
-    (self.administrator? and self.class.administrators.count <= 1) or self.class.count <= 1
+    (self.administrator? && self.class.administrators.count <= 1) || self.class.count <= 1
   end
 
   def full_name
@@ -149,62 +141,62 @@ class User < Ekylibre::Record::Base
 
   def name
     # TODO: I18nize the method User#name !
-    "#{self.first_name} #{self.last_name}"
+    "#{first_name} #{last_name}"
   end
 
   def label
-    self.name
+    name
   end
 
   # Returns the URL of the avatar of the user
   def avatar_url(options = {})
     size = options[:size] || 200
-    hash = Digest::MD5.hexdigest(self.email)
-    return "https://secure.gravatar.com/avatar/#{hash}?size=#{size}"
+    hash = Digest::MD5.hexdigest(email)
+    "https://secure.gravatar.com/avatar/#{hash}?size=#{size}"
   end
 
   # Find or create preference for given name
   def preference(name, default_value = nil, nature = :string)
-    prefs = self.preferences.select{ |p| p.name == name }
+    prefs = preferences.select { |p| p.name == name }
     return prefs.first if prefs.any?
-    p = self.preferences.build(name: name, nature: nature.to_s)
+    p = preferences.build(name: name, nature: nature.to_s)
     p.value  = default_value
     p.save!
     p
   end
-  alias :pref :preference
+  alias_method :pref, :preference
 
   def prefer!(name, value, nature = :string)
-    unless p = self.preferences.find_by(name: name)
-      p = self.preferences.build(name: name, nature: nature.to_s)
+    unless p = preferences.find_by(name: name)
+      p = preferences.build(name: name, nature: nature.to_s)
     end
     p.value = value
     p.save!
-    return p
+    p
   end
 
-  def authorization(controller_name, action_name, rights_list=nil)
-    rights_list = self.rights_array if rights_list.blank?
+  def authorization(controller_name, action_name, rights_list = nil)
+    rights_list = rights_array if rights_list.blank?
     message = nil
     if self.class.rights[controller_name.to_sym].nil?
       message = :no_right_defined_for_this_part_of_the_application.tl(controller: controller_name, action: action_name)
     elsif (rights = self.class.rights[controller_name.to_sym][action_name.to_sym]).nil?
       message = :no_right_defined_for_this_part_of_the_application.tl(controller: controller_name, action: action_name)
-    elsif (rights & [:__minimum__, :__public__]).empty? and (rights_list & rights).empty? and not self.administrator?
+    elsif (rights & [:__minimum__, :__public__]).empty? && (rights_list & rights).empty? && !self.administrator?
       message = :no_right_defined_for_this_part_of_the_application_and_this_user.tl
     end
-    return message
+    message
   end
 
   def can?(right)
-    self.administrator? or self.rights.match(/(^|\s)#{right}(\s|$)/)
+    self.administrator? || self.rights.match(/(^|\s)#{right}(\s|$)/)
   end
 
   def can_access?(url)
     return true if self.administrator?
     if url.is_a?(Hash)
-      unless url[:controller] and url[:action]
-        raise "Invalid URL for accessibility test: #{url.inspect}"
+      unless url[:controller] && url[:action]
+        fail "Invalid URL for accessibility test: #{url.inspect}"
       end
       key = "#{url[:controller].to_s.gsub(/^\//, '')}##{url[:action]}"
     else
@@ -215,8 +207,8 @@ class User < Ekylibre::Record::Base
       logger.debug "Unable to check access for action: #{key}. #{url.inspect}".yellow
       return true
     end
-    list &= self.resource_actions
-    return list.any?
+    list &= resource_actions
+    list.any?
   end
 
   # Lock the user
@@ -231,7 +223,7 @@ class User < Ekylibre::Record::Base
 
   # Returns the days where the user has crumbs present
   def unconverted_crumb_days
-    self.crumbs.unconverted.pluck(:read_at).map(&:to_date).uniq.sort
+    crumbs.unconverted.pluck(:read_at).map(&:to_date).uniq.sort
   end
 
   # Returns all crumbs, grouped by interventions paths, for the current user.
@@ -239,27 +231,26 @@ class User < Ekylibre::Record::Base
   # An intervention path is an array of crumbs, for a user, ordered by read_at,
   # between a start crumb and a stop crumb.
   def interventions_paths(options = {})
-    crumbs = self.reload.crumbs.unconverted.where(nature: :start)
+    crumbs = reload.crumbs.unconverted.where(nature: :start)
     if options[:on]
       crumbs = crumbs.where(read_at: options[:on].beginning_of_day..options[:on].end_of_day)
     end
-    return crumbs.order(read_at: :asc).map(&:intervention_path)
+    crumbs.order(read_at: :asc).map(&:intervention_path)
   end
 
   def current_campaign
     return nil unless default_campaign = Campaign.order(harvest_year: :desc).first
-    preference = self.preference("current_campaign.id", default_campaign.id, :integer)
+    preference = self.preference('current_campaign.id', default_campaign.id, :integer)
     unless campaign = Campaign.find_by(id: preference.value)
       campaign = default
-      self.prefer!("current_campaign.id", campaign.id)
+      self.prefer!('current_campaign.id', campaign.id)
     end
-    return campaign
+    campaign
   end
 
   def current_campaign=(campaign)
-    self.prefer!("current_campaign.id", campaign.id, :integer)
+    self.prefer!('current_campaign.id', campaign.id, :integer)
   end
-
 
   def card
     nil
@@ -273,14 +264,14 @@ class User < Ekylibre::Record::Base
   end
 
   # Used for generic password creation
-  def self.give_password(length=8, mode=:complex)
-    self.generate_password(length, mode)
+  def self.give_password(length = 8, mode = :complex)
+    generate_password(length, mode)
   end
 
   private
 
-  def self.generate_password(password_length=8, mode=:normal)
-    return '' if password_length.blank? or password_length<1
+  def self.generate_password(password_length = 8, mode = :normal)
+    return '' if password_length.blank? || password_length < 1
     case mode
     when :dummy then
       letters = %w(a b c d e f g h j k m n o p q r s t u w x y 3 4 6 7 8 9)
@@ -293,8 +284,7 @@ class User < Ekylibre::Record::Base
     end
     letters_length = letters.length
     password = ''
-    password_length.times{password+=letters[(letters_length*rand).to_i]}
+    password_length.times { password += letters[(letters_length * rand).to_i] }
     password
   end
-
 end

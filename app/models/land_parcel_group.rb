@@ -64,17 +64,16 @@
 #  work_number           :string
 #
 
-
 class LandParcelGroup < ProductGroup
-  enumerize :variety, in: Nomen::Varieties.all(:land_parcel_group), predicates: {prefix: true}
+  enumerize :variety, in: Nomen::Varieties.all(:land_parcel_group), predicates: { prefix: true }
   has_shape
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  #]VALIDATORS]
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # ]VALIDATORS]
 
   # Add a member to the group
   def add(member, options = {})
     unless member.is_a?(LandParcel)
-      raise ArgumentError, "LandParcel expected, got #{member.class}:#{member.inspect}"
+      fail ArgumentError, "LandParcel expected, got #{member.class}:#{member.inspect}"
     end
     super(member, options)
   end
@@ -82,7 +81,7 @@ class LandParcelGroup < ProductGroup
   # Remove a member from the group
   def remove(member, options = {})
     unless member.is_a?(LandParcel)
-      raise ArgumentError, "LandParcel expected, got #{member.class}:#{member.inspect}"
+      fail ArgumentError, "LandParcel expected, got #{member.class}:#{member.inspect}"
     end
     super(member, options)
   end
@@ -91,5 +90,4 @@ class LandParcelGroup < ProductGroup
   def members_at(viewed_at = nil)
     LandParcel.members_of(self, viewed_at || Time.now)
   end
-
 end

@@ -39,19 +39,19 @@ class ProductionSupport < Ekylibre::Record::Base
   enumerize :production_usage, in: Nomen::ProductionUsages.all, default: Nomen::ProductionUsages.default
 
   belongs_to :production, inverse_of: :supports
-  belongs_to :storage, class_name: "Product", inverse_of: :supports
+  belongs_to :storage, class_name: 'Product', inverse_of: :supports
   has_many :interventions
-  has_many :manure_management_plan_zones, class_name: "ManureManagementPlanZone", foreign_key: :support_id, inverse_of: :support
+  has_many :manure_management_plan_zones, class_name: 'ManureManagementPlanZone', foreign_key: :support_id, inverse_of: :support
   has_one :activity, through: :production
   has_one :campaign, through: :production
-  has_one :selected_manure_management_plan_zone, -> { selecteds }, class_name: "ManureManagementPlanZone", foreign_key: :support_id, inverse_of: :support
+  has_one :selected_manure_management_plan_zone, -> { selecteds }, class_name: 'ManureManagementPlanZone', foreign_key: :support_id, inverse_of: :support
   has_one :cultivation_variant, through: :production
   has_one :variant, through: :production
 
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :quantity, allow_nil: true
   validates_presence_of :production, :production_usage, :quantity, :quantity_indicator, :storage
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_uniqueness_of :storage_id, scope: :production_id
 
   delegate :name, :net_surface_area, :shape_area, to: :storage, prefix: true
@@ -68,12 +68,12 @@ class ProductionSupport < Ekylibre::Record::Base
     joins(:production).merge(Production.of_campaign(*campaigns))
   }
 
-  scope :of_currents_campaigns, -> { joins(:production).merge(Production.of_currents_campaigns)}
+  scope :of_currents_campaigns, -> { joins(:production).merge(Production.of_currents_campaigns) }
 
   scope :of_activities, lambda { |*activities|
     activities.flatten!
     for activity in activities
-      raise ArgumentError.new("Expected Activity, got #{activity.class.name}:#{activity.inspect}") unless activity.is_a?(Activity)
+      fail ArgumentError.new("Expected Activity, got #{activity.class.name}:#{activity.inspect}") unless activity.is_a?(Activity)
     end
     joins(:production).merge(Production.of_activities(activities))
   }
@@ -93,19 +93,17 @@ class ProductionSupport < Ekylibre::Record::Base
 
   before_validation do
     if self.production
-      self.quantity_indicator = self.support_variant_indicator
-      self.quantity_unit      = self.support_variant_unit
+      self.quantity_indicator = support_variant_indicator
+      self.quantity_unit      = support_variant_unit
     end
-    if self.storage and self.quantity_indicator
-      self.quantity ||= self.current_quantity
-    end
+    self.quantity ||= current_quantity if storage && quantity_indicator
   end
 
   validate do
     if self.production
-      errors.add(:quantity_indicator, :invalid) unless self.quantity_indicator == self.support_variant_indicator
-      if self.support_variant_unit
-        errors.add(:quantity_unit, :invalid) unless self.quantity_unit == self.support_variant_unit
+      errors.add(:quantity_indicator, :invalid) unless quantity_indicator == support_variant_indicator
+      if support_variant_unit
+        errors.add(:quantity_unit, :invalid) unless quantity_unit == support_variant_unit
       end
     end
   end
@@ -118,23 +116,23 @@ class ProductionSupport < Ekylibre::Record::Base
   end
 
   def active?
-    if self.activity.fallow_land?
+    if activity.fallow_land?
       return false
     else
       return true
     end
   end
 
-  def cost(role=:input)
+  def cost(role = :input)
     cost = []
-    for intervention in self.interventions
+    for intervention in interventions
       cost << intervention.cost(role)
     end
-    return cost.compact.sum
+    cost.compact.sum
   end
 
   # return the spreaded quantity of one chemicals components (N, P, K) per area unit
-  def soil_enrichment_indicator_content_per_area(indicator, from=nil, to=nil, area_unit=:hectare)
+  def soil_enrichment_indicator_content_per_area(indicator, from = nil, to = nil, area_unit = :hectare)
     balance = []
     # indicator could be (:potassium_concentration, :nitrogen_concentration, :phosphorus_concentration)
     # area_unit could be (:hectare, :square_meter)
@@ -142,7 +140,7 @@ class ProductionSupport < Ekylibre::Record::Base
     # get all intervention of nature 'soil_enrichment' and sum all indicator unity spreaded
     # m = net_mass of the input at intervention time
     # n = indicator (in %) of the input at intervention time
-    if from and to
+    if from && to
       interventions = self.interventions.real.of_nature(:soil_enrichment).between(from, to)
     else
       interventions = self.interventions.real.of_nature(:soil_enrichment)
@@ -150,16 +148,16 @@ class ProductionSupport < Ekylibre::Record::Base
     for intervention in interventions
       for input in intervention.casts.of_role('soil_enrichment-input')
         m = (input.actor ? input.actor.net_mass(input).to_d(:kilogram) : 0.0)
-        # TODO for method phosphorus_concentration(input)
+        # TODO: for method phosphorus_concentration(input)
         n = (input.actor ? input.actor.send(indicator).to_d(:unity) : 0.0)
-        balance <<  m * n
+        balance << m * n
       end
     end
     # if net_surface_area, make the division
-    if surface_area = self.storage_net_surface_area(self.started_at)
+    if surface_area = storage_net_surface_area(self.started_at)
       indicator_unity_per_hectare = (balance.compact.sum / surface_area.to_d(area_unit))
     end
-    return indicator_unity_per_hectare
+    indicator_unity_per_hectare
   end
 
   # @TODO for nitrogen balance but will be refactorize for any chemical components
@@ -168,121 +166,118 @@ class ProductionSupport < Ekylibre::Record::Base
     balance = 0.0
     nitrogen_mass = []
     nitrogen_unity_per_hectare = nil
-    if self.selected_manure_management_plan_zone
+    if selected_manure_management_plan_zone
       # get the output O aka nitrogen_input from opened_at (in kg N / Ha )
-      o = self.selected_manure_management_plan_zone.nitrogen_input || 0.0
+      o = selected_manure_management_plan_zone.nitrogen_input || 0.0
       # get the nitrogen input I from opened_at to now (in kg N / Ha )
-      opened_at = self.selected_manure_management_plan_zone.opened_at
-      i = self.soil_enrichment_indicator_content_per_area(:nitrogen_concentration, opened_at, Time.now)
-      if i and o
-        balance = o - i
-      end
+      opened_at = selected_manure_management_plan_zone.opened_at
+      i = soil_enrichment_indicator_content_per_area(:nitrogen_concentration, opened_at, Time.now)
+      balance = o - i if i && o
     end
-    return balance
+    balance
   end
 
   def potassium_balance
-    self.soil_enrichment_indicator_content_per_area(:potassium_concentration)
+    soil_enrichment_indicator_content_per_area(:potassium_concentration)
   end
 
   def phosphorus_balance
-    self.soil_enrichment_indicator_content_per_area(:phosphorus_concentration)
+    soil_enrichment_indicator_content_per_area(:phosphorus_concentration)
   end
 
-
   def provisional_nitrogen_input
-    return 0
+    0
   end
 
   def tool_cost(surface_unit = :hectare)
-    if self.storage_net_surface_area(self.started_at).to_s.to_f > 0.0
-      return self.cost(:tool)/(self.storage_net_surface_area(self.started_at).to_d(surface_unit).to_s.to_f)
+    if storage_net_surface_area(self.started_at).to_s.to_f > 0.0
+      return cost(:tool) / (storage_net_surface_area(self.started_at).to_d(surface_unit).to_s.to_f)
     end
-    return 0.0
+    0.0
   end
 
   def input_cost(surface_unit = :hectare)
-    if self.storage_net_surface_area(self.started_at).to_s.to_f > 0.0
-      return self.cost(:input)/(self.storage_net_surface_area(self.started_at).to_d(surface_unit).to_s.to_f)
+    if storage_net_surface_area(self.started_at).to_s.to_f > 0.0
+      return cost(:input) / (storage_net_surface_area(self.started_at).to_d(surface_unit).to_s.to_f)
     end
-    return 0.0
+    0.0
   end
 
   def time_cost(surface_unit = :hectare)
-    if self.storage_net_surface_area(self.started_at).to_s.to_f > 0.0
-      return self.cost(:doer)/(self.storage_net_surface_area(self.started_at).to_d(surface_unit).to_s.to_f)
+    if storage_net_surface_area(self.started_at).to_s.to_f > 0.0
+      return cost(:doer) / (storage_net_surface_area(self.started_at).to_d(surface_unit).to_s.to_f)
     end
-    return 0.0
+    0.0
   end
 
   # return the started_at attribute of the intervention of nature sowing if exist and if it's a vegetal production
 
   # when a plant is born in a production context ?
-  # FIXME Not generic
+  # FIXME: Not generic
   def implanted_at
     # case wine or tree
-    if implant_intervention = self.interventions.real.of_nature(:implanting).first
+    if implant_intervention = interventions.real.of_nature(:implanting).first
       return implant_intervention.started_at
     # case annual crop like cereals
-    elsif implant_intervention = self.interventions.real.of_nature(:sowing).first
+    elsif implant_intervention = interventions.real.of_nature(:sowing).first
       return implant_intervention.started_at
     end
-    return nil
+    nil
   end
 
   # return the started_at attribute of the intervention of nature harvesting if exist and if it's a vegetal production
-  # FIXME Not generic
+  # FIXME: Not generic
   def harvested_at
-    if harvest_intervention = self.interventions.real.of_nature(:harvest).first
+    if harvest_intervention = interventions.real.of_nature(:harvest).first
       return harvest_intervention.started_at
     end
-    return nil
+    nil
   end
 
-  # FIXME Not generic
+  # FIXME: Not generic
   def grains_yield(mass_unit = :quintal, surface_unit = :hectare)
-    if self.interventions.real.of_nature(:grains_harvest).count > 0
+    if interventions.real.of_nature(:grains_harvest).count > 0
       total_yield = []
-      for harvest in self.interventions.real.of_nature(:grains_harvest)
+      for harvest in interventions.real.of_nature(:grains_harvest)
         for input in harvest.casts.of_role('harvest-output')
           q = 0.0
-          q = input.actor.net_mass(input).to_d(mass_unit) if input.actor and input.actor.variety == 'grain'
+          q = input.actor.net_mass(input).to_d(mass_unit) if input.actor && input.actor.variety == 'grain'
           total_yield << q
         end
       end
-      if self.storage.net_surface_area
-        grain_yield = ((total_yield.compact.sum).to_f / (self.storage.net_surface_area.to_d(surface_unit)).to_f)
+      if storage.net_surface_area
+        grain_yield = ((total_yield.compact.sum).to_f / (storage.net_surface_area.to_d(surface_unit)).to_f)
         return grain_yield
       end
     end
-    return nil
+    nil
   end
 
-  # FIXME Not generic
+  # FIXME: Not generic
   def vine_yield(volume_unit = :hectoliter, surface_unit = :hectare)
-    if self.interventions.real.of_nature(:harvest).count > 0
+    if interventions.real.of_nature(:harvest).count > 0
       total_yield = []
-      for harvest in self.interventions.real.of_nature(:harvest)
+      for harvest in interventions.real.of_nature(:harvest)
         for input in harvest.casts.of_role('harvest-output')
           q = (input.actor ? input.actor.net_volume(input).to_d(volume_unit) : 0.0) if input.actor.variety == 'grape'
           total_yield << q
         end
       end
-      if self.storage.net_surface_area
-        return ((total_yield.compact.sum) / (self.storage.net_surface_area.to_d(surface_unit)))
+      if storage.net_surface_area
+        return ((total_yield.compact.sum) / (storage.net_surface_area.to_d(surface_unit)))
       end
     end
-    return nil
+    nil
   end
 
   # call method in production for instance
   def estimate_yield(options = {})
-    self.production.estimate_yield(options)
+    production.estimate_yield(options)
   end
 
   def current_cultivation
     # get the first object with variety 'plant', availables
-    if cultivation = self.storage.contents.where(type: Plant).of_variety(self.variant.variety).availables.reorder(:born_at).first
+    if cultivation = storage.contents.where(type: Plant).of_variety(variant.variety).availables.reorder(:born_at).first
       return cultivation
     else
       return nil
@@ -290,21 +285,21 @@ class ProductionSupport < Ekylibre::Record::Base
   end
 
   def unified_quantity_unit
-    self.quantity_unit.blank? ? :unity : self.quantity_unit
+    quantity_unit.blank? ? :unity : quantity_unit
   end
 
   # Compute quantity of a support as defined in production
   def current_quantity(options = {})
-    value = get(self.quantity_indicator, options)
-    value = value.in(self.quantity_unit) unless self.quantity_unit.blank?
-    return value.to_d
+    value = get(quantity_indicator, options)
+    value = value.in(quantity_unit) unless quantity_unit.blank?
+    value.to_d
   end
 
   def get(*args)
-    unless self.storage.present?
-      raise StandardError, "No storage defined. Got: #{self.storage.inspect}"
+    unless storage.present?
+      fail StandardError, "No storage defined. Got: #{storage.inspect}"
     end
-    self.storage.get(*args)
+    storage.get(*args)
   end
 
   # Returns value of an indicator if its name correspond to
@@ -312,9 +307,6 @@ class ProductionSupport < Ekylibre::Record::Base
     if Nomen::Indicators.all.include?(method_name.to_s)
       return get(method_name, *args)
     end
-    return super
+    super
   end
-
 end
-
-

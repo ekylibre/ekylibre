@@ -1,8 +1,7 @@
 class Ekylibre::AnimalsExchanger < ActiveExchanger::Base
-
   # Create or updates animals
   def import
-    rows = CSV.read(file, headers: true).delete_if{|r| r[0].blank?}
+    rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
     w.count = rows.size
 
     rows.each do |row|
@@ -14,10 +13,10 @@ class Ekylibre::AnimalsExchanger < ActiveExchanger::Base
                          born_at: (row[5].blank? ? (Date.today) : row[5]).to_datetime,
                          variety: (row[6].blank? ? nil : row[6].to_sym),
                          initial_owner: (row[7].blank? ? nil : row[7].to_s),
-                         indicators: row[8].blank? ? {} : row[8].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
+                         indicators: row[8].blank? ? {} : row[8].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.inject({}) do |h, i|
                            h[i.first.strip.downcase.to_sym] = i.second
                            h
-                         },
+                         end,
                          record: nil
                         )
 
@@ -36,7 +35,7 @@ class Ekylibre::AnimalsExchanger < ActiveExchanger::Base
         animal.initial_population = animal.population
         animal.variety = r.variety if r.variety
         animal.initial_owner = r.initial_owner if r.initial_owner
-        if r.group and animal_group = AnimalGroup.find_by(work_number: r.group)
+        if r.group && animal_group = AnimalGroup.find_by(work_number: r.group)
           animal.memberships.create!(group: animal_group, started_at: r.born_at, nature: :interior)
         end
         animal.save!
@@ -45,5 +44,4 @@ class Ekylibre::AnimalsExchanger < ActiveExchanger::Base
       w.check_point
     end
   end
-
 end

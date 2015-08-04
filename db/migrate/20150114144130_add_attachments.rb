@@ -3,8 +3,8 @@ class AddAttachments < ActiveRecord::Migration
     create_table :attachments do |t|
       t.references :resource,    polymorphic: true, null: false, index: true
       t.references :document,                       null: false, index: true
-      t.string     :nature,                         null: false
-      t.datetime   :expired_at
+      t.string :nature,                         null: false
+      t.datetime :expired_at
       t.stamps
     end
 

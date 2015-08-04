@@ -38,26 +38,24 @@
 #  updater_id              :integer
 #
 
-
 class Transport < Ekylibre::Record::Base
   acts_as_numbered
-  belongs_to :responsible, -> { contacts }, class_name: "Entity"
-  belongs_to :transporter, class_name: "Entity"
-  belongs_to :transporter_purchase, class_name: "Purchase"
-  has_many :deliveries, class_name: "OutgoingDelivery", dependent: :nullify
+  belongs_to :responsible, -> { contacts }, class_name: 'Entity'
+  belongs_to :transporter, class_name: 'Entity'
+  belongs_to :transporter_purchase, class_name: 'Purchase'
+  has_many :deliveries, class_name: 'OutgoingDelivery', dependent: :nullify
 
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :departed_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :net_mass, allow_nil: true
   validates_presence_of :transporter
-  #]VALIDATORS]
+  # ]VALIDATORS]
 
   protect(on: :destroy) do
-    self.deliveries.any?
+    deliveries.any?
   end
 
   def refresh
-    self.save
+    save
   end
-
 end

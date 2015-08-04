@@ -1,6 +1,5 @@
 module WorkingSet
   class ActiveRecordCompiler
-
     def initialize(tree)
       @tree = tree
     end
@@ -28,30 +27,30 @@ module WorkingSet
       if indicators = options[:variable_indicators] || options[:default]
         @tables[:variable_indicators_list] = indicators
       end
-      return compute(@tree, record)
+      compute(@tree, record)
     end
 
     protected
 
     def compute(object, record)
       if object.is_a?(WorkingSet::QueryLanguage::BooleanExpression)
-        "(" + compute(object.boolean_expression, record) + ")"
+        '(' + compute(object.boolean_expression, record) + ')'
       elsif object.is_a?(WorkingSet::QueryLanguage::Conjunction)
-        compute(object.head, record) and compute(object.operand, record)
+        compute(object.head, record) && compute(object.operand, record)
       elsif object.is_a?(WorkingSet::QueryLanguage::Disjunction)
-        compute(object.head, record) or compute(object.operand, record)
+        compute(object.head, record) || compute(object.operand, record)
       elsif object.is_a?(WorkingSet::QueryLanguage::NegativeTest)
         !compute(object.negated_test, record)
-      elsif object.is_a?(WorkingSet::QueryLanguage::EssenceTest) or object.is_a?(WorkingSet::QueryLanguage::DerivativeTest)
+      elsif object.is_a?(WorkingSet::QueryLanguage::EssenceTest) || object.is_a?(WorkingSet::QueryLanguage::DerivativeTest)
         column = object.is_a?(WorkingSet::QueryLanguage::EssenceTest) ? :variety : :derivative_of
         find_nomenclature_item(:varieties, object.variety_name.text_value) >= record.send(column)
       elsif object.is_a?(WorkingSet::QueryLanguage::AbilityTest)
         ability = object.ability
         unless ability_item = Nomen::Abilities.find(ability.ability_name.text_value)
-          raise "Unknown ability: #{ability.ability_name.text_value}"
+          fail "Unknown ability: #{ability.ability_name.text_value}"
         end
         parameters = []
-        if ability.ability_parameters.present? and ability.ability_parameters.parameters.present?
+        if ability.ability_parameters.present? && ability.ability_parameters.parameters.present?
           ps = ability.ability_parameters.parameters
           parameters << ps.first_parameter
           for other_parameter in ps.other_parameters.elements
@@ -67,20 +66,20 @@ module WorkingSet
               elsif parameter == :issue_nature
                 item = find_nomenclature_item(:issue_natures, parameters[index].text_value)
               else
-                raise "What parameter type: #{parameter}?"
+                fail "What parameter type: #{parameter}?"
               end
               lists << item.self_and_parents.map(&:name)
             end
-            exp = Regexp.new("^#{ability_item.name}\\(\\s*" + lists.map{|l| "(#{l.join('|')})"}.join("\\s*,\\s*") + "\\s*\\)$")
+            exp = Regexp.new("^#{ability_item.name}\\(\\s*" + lists.map { |l| "(#{l.join('|')})" }.join('\\s*,\\s*') + '\\s*\\)$')
             record.abilities_list.detect do |a|
               a =~ exp
             end.present?
           else
-            raise "Argument expected for ability #{ability_item.name}"
+            fail "Argument expected for ability #{ability_item.name}"
           end
         else
           if parameters.any?
-            raise "No argument expected for ability #{ability_item.name}"
+            fail "No argument expected for ability #{ability_item.name}"
           else
             record.abilities_list.include?(ability_item.name.to_s)
           end
@@ -99,20 +98,20 @@ module WorkingSet
         elsif only == :variable
           record.variable_indicators.include?(indicator_name)
         else
-          raise "Unknown only value: #{only.inspect}"
+          fail "Unknown only value: #{only.inspect}"
         end
       elsif object.nil?
         nil
       else
-        raise "Unknown node: #{object.class.name}"
+        fail "Unknown node: #{object.class.name}"
       end
     end
 
     def find_nomenclature_item(nomenclature, name)
       unless item = Nomen[nomenclature].find(name)
-        raise "Unknown item in #{nomenclature} nomenclature: #{name}"
+        fail "Unknown item in #{nomenclature} nomenclature: #{name}"
       end
-      return item
+      item
     end
 
     def column_for(name)
@@ -121,14 +120,12 @@ module WorkingSet
       elsif @tables[name].is_a?(String)
         return @tables[name]
       end
-      return name
+      name
     end
 
     def indicator_test(type, exp)
       column = column_for("#{type}_indicators_list".to_sym)
       "(#{column} IS NOT NULL AND #{column} ~ #{exp})"
     end
-
-
   end
 end

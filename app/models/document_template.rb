@@ -40,16 +40,16 @@
 
 # Sources are stored in :private/reporting/:id/content.xml
 class DocumentTemplate < Ekylibre::Record::Base
-  enumerize :archiving, in: [:none_of_template, :first_of_template, :last_of_template, :none, :first, :last], default: :none, predicates: {prefix: true}
-  enumerize :nature, in: Nomen::DocumentNatures.all, predicates: {prefix: true}
-  has_many :documents, class_name: "Document", foreign_key: :template_id, dependent: :nullify, inverse_of: :template
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  enumerize :archiving, in: [:none_of_template, :first_of_template, :last_of_template, :none, :first, :last], default: :none, predicates: { prefix: true }
+  enumerize :nature, in: Nomen::DocumentNatures.all, predicates: { prefix: true }
+  has_many :documents, class_name: 'Document', foreign_key: :template_id, dependent: :nullify, inverse_of: :template
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_inclusion_of :active, :by_default, :managed, in: [true, false]
   validates_presence_of :archiving, :language, :name, :nature
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_length_of :language, allow_nil: true, maximum: 3
   validates_length_of :archiving, :nature, allow_nil: true, maximum: 60
-  validates_inclusion_of :nature, in: self.nature.values
+  validates_inclusion_of :nature, in: nature.values
 
   selects_among_all scope: :nature
 
@@ -57,32 +57,32 @@ class DocumentTemplate < Ekylibre::Record::Base
   scope :of_nature, lambda { |*natures|
     natures.flatten!
     natures.compact!
-    return none unless natures.respond_to?(:any?) and natures.any?
-    invalids = natures.select{ |nature| Nomen::DocumentNatures[nature].nil? }
+    return none unless natures.respond_to?(:any?) && natures.any?
+    invalids = natures.select { |nature| Nomen::DocumentNatures[nature].nil? }
     if invalids.any?
-      raise ArgumentError, "Unknown nature(s) for a DocumentTemplate: #{invalids.map(&:inspect).to_sentence}"
+      fail ArgumentError, "Unknown nature(s) for a DocumentTemplate: #{invalids.map(&:inspect).to_sentence}"
     end
     where(nature: natures, active: true).order(:name)
   }
 
   protect(on: :destroy) do
-    self.documents.any?
+    documents.any?
   end
 
   before_validation do
     # Check that given formats are all known
-    unless self.formats.empty?
-      self.formats = self.formats.to_s.downcase.strip.split(/[\s\,]+/).delete_if do |f|
+    unless formats.empty?
+      self.formats = formats.to_s.downcase.strip.split(/[\s\,]+/).delete_if do |f|
         !Ekylibre::Reporting.formats.include?(f)
-      end.join(", ")
+      end.join(', ')
     end
   end
 
   after_save do
     # Install file after save only
     if @source
-      FileUtils.mkdir_p(self.source_path.dirname)
-      File.open(self.source_path, "wb") do |f|
+      FileUtils.mkdir_p(source_path.dirname)
+      File.open(source_path, 'wb') do |f|
         # Updates source to make it working
         document = Nokogiri::XML(@source) do |config|
           config.noblanks.nonet.strict
@@ -90,17 +90,17 @@ class DocumentTemplate < Ekylibre::Record::Base
         # Removes comments
         document.xpath('//comment()').remove
         # Updates template
-        if document.root and document.root.namespace and document.root.namespace.href == "http://jasperreports.sourceforge.net/jasperreports"
+        if document.root && document.root.namespace && document.root.namespace.href == 'http://jasperreports.sourceforge.net/jasperreports'
           if template = document.root.xpath('xmlns:template').first
             logger.info "Update <template> for document template #{self.nature}"
             template.children.remove
-            style_file = Ekylibre::Tenant.private_directory.join("corporate_identity", "reporting_style.xml")
-            # TODO find a way to permit customization for users to restore that
+            style_file = Ekylibre::Tenant.private_directory.join('corporate_identity', 'reporting_style.xml')
+            # TODO: find a way to permit customization for users to restore that
             if true # unless style_file.exist?
               FileUtils.mkdir_p(style_file.dirname)
-              FileUtils.cp(Rails.root.join("config", "corporate_identity", "reporting_style.xml"), style_file)
+              FileUtils.cp(Rails.root.join('config', 'corporate_identity', 'reporting_style.xml'), style_file)
             end
-            template.add_child(Nokogiri::XML::CDATA.new(document, style_file.relative_path_from(self.source_path.dirname).to_s.inspect))
+            template.add_child(Nokogiri::XML::CDATA.new(document, style_file.relative_path_from(source_path.dirname).to_s.inspect))
           else
             logger.info "Cannot find and update <template> in document template #{self.nature}"
           end
@@ -109,7 +109,7 @@ class DocumentTemplate < Ekylibre::Record::Base
         f.write(document.to_s)
       end
       # Remove .jasper file to force reloading
-      Dir.glob(self.source_path.dirname.join("*.jasper")).each do |file|
+      Dir.glob(source_path.dirname.join('*.jasper')).each do |file|
         FileUtils.rm_f(file)
       end
     end
@@ -117,39 +117,33 @@ class DocumentTemplate < Ekylibre::Record::Base
 
   # Updates archiving methods of other templates of same nature
   after_save do
-    if self.archiving.to_s =~ /\_of\_template$/
-      self.class.where("nature = ? AND NOT archiving LIKE ? AND id != ?", self.nature, "%_of_template", self.id).update_all("archiving = archiving || '_of_template'")
+    if archiving.to_s =~ /\_of\_template$/
+      self.class.where('nature = ? AND NOT archiving LIKE ? AND id != ?', self.nature, '%_of_template', id).update_all("archiving = archiving || '_of_template'")
     else
-      self.class.where("nature = ? AND id != ?", self.nature, self.id).update_all(:archiving => self.archiving)
+      self.class.where('nature = ? AND id != ?', self.nature, id).update_all(archiving: archiving)
     end
   end
 
   # Always after protect on destroy
   after_destroy do
-    if self.source_dir.exist?
-      FileUtils.rm_rf(self.source_dir)
-    end
+    FileUtils.rm_rf(source_dir) if source_dir.exist?
   end
 
   # Install the source of a document template
   # with all its dependencies
-  def source=(file)
-    @source = file
-  end
+  attr_writer :source
 
   # Returns source value
-  def source
-    @source
-  end
+  attr_reader :source
 
   # Returns the expected dir for the source file
   def source_dir
-    return self.class.sources_root.join(self.id.to_s)
+    self.class.sources_root.join(id.to_s)
   end
 
   # Returns the expected path for the source file
   def source_path
-    return self.source_dir.join("content.xml")
+    source_dir.join('content.xml')
   end
 
   # Print a document with the given datasource and return raw data
@@ -157,22 +151,21 @@ class DocumentTemplate < Ekylibre::Record::Base
   # @param datasource XML representation of data used by the template
   def print(datasource, key, format = :pdf, options = {})
     # Load the report
-    report = Beardley::Report.new(self.source_path, locale: "i18n.iso2".t)
+    report = Beardley::Report.new(source_path, locale: 'i18n.iso2'.t)
     # Call it with datasource
     data = report.send("to_#{format}", datasource)
     # Archive the document according to archiving method. See #document method.
-    self.document(data, key, format, options)
+    document(data, key, format, options)
     # Returns only the data (without filename)
-    return data
+    data
   end
-
 
   # Export a document with the given datasource and return path file
   # Store if needed by template
   # @param datasource XML representation of data used by the template
   def export(datasource, key, format = :pdf, options = {})
     # Load the report
-    report = Beardley::Report.new(self.source_path, locale: "i18n.iso2".t)
+    report = Beardley::Report.new(source_path, locale: 'i18n.iso2'.t)
     # Call it with datasource
     path = Pathname.new(report.to_file(format, datasource))
     # Archive the document according to archiving method. See #document method.
@@ -181,69 +174,66 @@ class DocumentTemplate < Ekylibre::Record::Base
       path = document.file.path(:original)
     end
     # Returns only the path
-    return path
+    path
   end
-
-
 
   # Returns the list of formats of the templates
   def formats
-    (self["formats"].blank? ? Ekylibre::Reporting.formats : self["formats"].strip.split(/[\s\,]+/))
+    (self['formats'].blank? ? Ekylibre::Reporting.formats : self['formats'].strip.split(/[\s\,]+/))
   end
 
   def formats=(value)
-    self["formats"] = (value.is_a?(Array) ? value.join(", ") : value.to_s)
+    self['formats'] = (value.is_a?(Array) ? value.join(', ') : value.to_s)
   end
 
   # Archive the document using the given archiving method
-  def document(data_or_path, key, format, options = {})
+  def document(data_or_path, key, _format, options = {})
     document = nil
-    return document if self.archiving_none? or self.archiving_none_of_template?
+    return document if self.archiving_none? || self.archiving_none_of_template?
 
     # Gets historic of document
-    documents = Document.where(nature: self.nature, key: key).where("template_id IS NOT NULL")
+    documents = Document.where(nature: nature, key: key).where('template_id IS NOT NULL')
 
     # Checks if archiving is expected
-    return document unless (self.archiving_first? and documents.empty?) or
-      (self.archiving_first_of_template? and documents.where(template_id: self.id).empty?) or
-      self.archiving.to_s =~ /^(last|all)(\_of\_template)?$/
+    return document unless (self.archiving_first? && documents.empty?) ||
+                           (self.archiving_first_of_template? && documents.where(template_id: id).empty?) ||
+                           archiving.to_s =~ /^(last|all)(\_of\_template)?$/
 
     # Lists last documents to remove after archiving
     removables = []
     if self.archiving_last?
       removables = documents.pluck(:id)
     elsif self.archiving_last_of_template?
-      removables = documents.where(template_id: self.id).pluck(:id)
+      removables = documents.where(template_id: id).pluck(:id)
     end
 
     # Creates document if not exist
-    document = Document.create!(nature: self.nature, key: key, name: (options[:name] || tc('document_name', nature: self.nature.l, key: key)), file: File.open(data_or_path), template_id: self.id)
+    document = Document.create!(nature: nature, key: key, name: (options[:name] || tc('document_name', nature: nature.l, key: key)), file: File.open(data_or_path), template_id: id)
 
     # Removes useless docs
     Document.destroy removables
 
-    return document
+    document
   end
 
   class << self
-
     # Print document with default active template for the given nature
     # Returns nil if no template found.
     def print(nature, datasource, key, format = :pdf, options = {})
-      if template = self.where(:nature => nature, :by_default => true, :active => true).first
+      if template = find_by(nature: nature, by_default: true, active: true)
         return template.print(datasource, key, format, options)
       end
-      return nil
+      nil
     end
 
     # Returns the root directory for the document templates's sources
     def sources_root
-      Ekylibre::Tenant.private_directory.join("reporting")
+      Ekylibre::Tenant.private_directory.join('reporting')
     end
 
     # Compute fallback chain for a given document nature
     def template_fallbacks(nature, locale)
-      root = Rails.root.join("config", "locales", locale, "reporting")
+      root = Rails.root.join('config', 'locales', locale, 'reporting')
       stack = []
       stack << root.join("#{nature}.xml")
       stack << root.join("#{nature}.jrxml")
@@ -253,28 +243,28 @@ class DocumentTemplate < Ekylibre::Record::Base
         sales_invoice: :sale,
         purchases_order: :purchase,
         purchases_estimate: :purchase,
-        purchases_invoice: :purchase,
+        purchases_invoice: :purchase
       }[nature.to_sym]
       if fallback
         stack << root.join("#{fallback}.xml")
         stack << root.join("#{fallback}.jrxml")
       end
-      return stack
+      stack
     end
 
     # Loads in DB all default document templates
     def load_defaults(options = {})
       locale = (options[:locale] || Preference[:language] || I18n.locale).to_s
       Ekylibre::Record::Base.transaction do
-        manageds = self.where(managed: true).select(&:destroyable?)
+        manageds = where(managed: true).select(&:destroyable?)
         for nature in self.nature.values
-          if source = template_fallbacks(nature, locale).detect{|p| p.exist? }
-            File.open(source, "rb:UTF-8") do |f|
-              unless template = self.find_by(nature: nature, managed: true)
-                template = self.new(nature: nature, managed: true, active: true, by_default: false, archiving: "last")
+          if source = template_fallbacks(nature, locale).detect(&:exist?)
+            File.open(source, 'rb:UTF-8') do |f|
+              unless template = find_by(nature: nature, managed: true)
+                template = new(nature: nature, managed: true, active: true, by_default: false, archiving: 'last')
               end
               manageds.delete(template)
-              template.attributes = {source: f, language: locale}
+              template.attributes = { source: f, language: locale }
               template.name ||= template.nature.l
               template.save!
             end
@@ -283,11 +273,9 @@ class DocumentTemplate < Ekylibre::Record::Base
             Rails.logger.warn "Cannot load a default document template #{nature}: No file found at #{source}"
           end
         end
-        self.destroy(manageds.map(&:id))
+        destroy(manageds.map(&:id))
       end
-      return true
+      true
     end
-
   end
-
 end

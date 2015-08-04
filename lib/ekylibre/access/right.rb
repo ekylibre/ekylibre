@@ -1,8 +1,6 @@
 module Ekylibre
   module Access
-
     class Right
-
       attr_reader :interaction, :resource, :actions, :dependencies
 
       def initialize(resource, interaction, options = {})
@@ -21,21 +19,17 @@ module Ekylibre
 
       # Add an access right action
       def add_action(action)
-        unless @actions.include? action
-          @actions << action
-        end
+        @actions << action unless @actions.include? action
       end
 
       # Add an access right dependency
       def add_dependency(right)
-        unless @dependencies.include?(right)
-          @dependencies << right
-        end
+        @dependencies << right unless @dependencies.include?(right)
       end
 
       # Equality is based on name
       def ==(other)
-        self.name == other.name
+        name == other.name
       end
 
       # Unique name of the right
@@ -50,8 +44,6 @@ module Ekylibre
       def human_interaction_name
         Ekylibre::Access.human_interaction_name(@interaction)
       end
-
     end
-
   end
 end

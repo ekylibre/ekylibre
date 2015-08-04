@@ -4,8 +4,8 @@ module Versionable
   included do
     has_many :versions, -> { order(created_at: :desc) }, as: :item, dependent: :delete_all
 
-    after_create  :add_creation_version
-    after_update  :add_update_version
+    after_create :add_creation_version
+    after_update :add_update_version
     before_destroy :add_destruction_version
 
     class_attribute :versioning_excluded_attributes
@@ -13,36 +13,32 @@ module Versionable
   end
 
   def add_creation_version
-    self.versions.create!(event: :create)
+    versions.create!(event: :create)
   end
 
   def add_update_version
-    if notably_changed?
-      self.versions.create!(event: :update)
-    end
+    versions.create!(event: :update) if notably_changed?
   end
 
   def add_destruction_version
-    self.versions.create!(event: :destroy)
+    versions.create!(event: :destroy)
   end
 
   def notably_changed?
-    if version = self.last_version
-      if Version.diff(self.version_object, version.item_object).empty?
-        return false
-      end
+    if version = last_version
+      return false if Version.diff(version_object, version.item_object).empty?
     end
-    return true
+    true
   end
 
   def last_version
-    self.versions.before(Time.now).first
+    versions.before(Time.now).first
   end
 
   def version_object
-    hash = self.attributes.with_indifferent_access
-    hash.delete_if{|k,v| self.class.versioning_excluded_attributes.include?(k.to_sym)}
-    return hash
+    hash = attributes.with_indifferent_access
+    hash.delete_if { |k, _v| self.class.versioning_excluded_attributes.include?(k.to_sym) }
+    hash
   end
 
   module ClassMethods
@@ -53,6 +49,4 @@ module Versionable
       end
     end
   end
-
-
 end

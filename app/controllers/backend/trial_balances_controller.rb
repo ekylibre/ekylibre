@@ -19,11 +19,7 @@
 #
 
 class Backend::TrialBalancesController < Backend::BaseController
-
   def show
-    if params[:period]
-      @balance = Journal.trial_balance(params)
-    end
+    @balance = Journal.trial_balance(params) if params[:period]
   end
-
 end

@@ -1,7 +1,6 @@
 class Ekylibre::IncomingPaymentsExchanger < ActiveExchanger::Base
-
   def import
-    rows = CSV.read(file, headers: true).delete_if{|r| r[0].blank?}
+    rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
     w.count = rows.size
 
     # find an responsible
@@ -12,7 +11,7 @@ class Ekylibre::IncomingPaymentsExchanger < ActiveExchanger::Base
       r = {
         document_reference_number: (row[0].blank? ? nil : row[0].to_s),
         incoming_payment_mode_name: (row[1].blank? ? nil : row[1].to_s),
-        amount: (row[2].blank? ? nil : row[2].gsub(",", ".").to_d),
+        amount: (row[2].blank? ? nil : row[2].gsub(',', '.').to_d),
         paid_on: (row[3].blank? ? nil : Date.parse(row[3]))
       }.to_struct
 
@@ -23,7 +22,7 @@ class Ekylibre::IncomingPaymentsExchanger < ActiveExchanger::Base
       if r.document_reference_number
         arr = r.document_reference_number.strip.downcase.split('_')
         sale_invoiced_at = arr[0].to_datetime
-        entity_full_name = arr[1].to_s.gsub("-", " ")
+        entity_full_name = arr[1].to_s.gsub('-', ' ')
         sale_reference_number = arr[2].to_s.upcase
       end
 
@@ -41,11 +40,11 @@ class Ekylibre::IncomingPaymentsExchanger < ActiveExchanger::Base
 
       # find an entity
       if entity_full_name
-        entity = Entity.where("full_name ILIKE ?", entity_full_name).first
+        entity = Entity.where('full_name ILIKE ?', entity_full_name).first
       end
 
       # find or create an outgoing payment
-      if op_mode and r.amount and paid_at and entity and responsible
+      if op_mode && r.amount && paid_at && entity && responsible
         unless incoming_payment = IncomingPayment.where(payer: entity, paid_at: paid_at, mode: op_mode, amount: r.amount).first
           incoming_payment = IncomingPayment.create!(mode: op_mode,
                                                      paid_at: paid_at,
@@ -59,17 +58,14 @@ class Ekylibre::IncomingPaymentsExchanger < ActiveExchanger::Base
       end
 
       # find an affair througt purchase and link affair and payment
-      if sale_reference_number and entity and incoming_payment
+      if sale_reference_number && entity && incoming_payment
         # see if purchase exist anyway
         if sale = Sale.where(client_id: entity.id, invoiced_at: sale_invoiced_at, reference_number: sale_reference_number).first
-          if sale.affair
-            sale.affair.attach(incoming_payment)
-          end
+          sale.affair.attach(incoming_payment) if sale.affair
         end
       end
 
       w.check_point
     end
   end
-
 end

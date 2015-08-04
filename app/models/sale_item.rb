@@ -46,18 +46,17 @@
 #  variant_id           :integer          not null
 #
 
-
 class SaleItem < Ekylibre::Record::Base
   include PeriodicCalculable
   attr_readonly :sale_id
   belongs_to :account
   belongs_to :sale, inverse_of: :items
-  belongs_to :credited_item, class_name: "SaleItem"
-  belongs_to :variant, class_name: "ProductNatureVariant"
+  belongs_to :credited_item, class_name: 'SaleItem'
+  belongs_to :variant, class_name: 'ProductNatureVariant'
   belongs_to :tax
   # belongs_to :tracking
-  has_many :delivery_items, class_name: "OutgoingDeliveryItem", foreign_key: :sale_item_id
-  has_many :credits, class_name: "SaleItem", foreign_key: :credited_item_id
+  has_many :delivery_items, class_name: 'OutgoingDeliveryItem', foreign_key: :sale_item_id
+  has_many :credits, class_name: 'SaleItem', foreign_key: :credited_item_id
   has_many :subscriptions, dependent: :destroy
   has_one :sale_nature, through: :sale, source: :nature
 
@@ -70,16 +69,16 @@ class SaleItem < Ekylibre::Record::Base
   delegate :subscribing?, :deliverable?, to: :product_nature, prefix: true
   delegate :entity_id, to: :address, prefix: true
 
-  alias :product_nature :variant_nature
+  alias_method :product_nature, :variant_nature
 
-  acts_as_list :scope => :sale
+  acts_as_list scope: :sale
 
   sums :sale, :items, :pretax_amount, :amount
 
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :credited_quantity, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, allow_nil: true
   validates_presence_of :amount, :currency, :pretax_amount, :quantity, :reduction_percentage, :sale, :unit_amount, :variant
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_presence_of :tax
 
@@ -98,93 +97,86 @@ class SaleItem < Ekylibre::Record::Base
     joins(:variant).merge(ProductNatureVariant.of_natures(product_nature))
   }
 
-  calculable period: :month, column: :pretax_amount, at: "invoiced_at"
+  calculable period: :month, column: :pretax_amount, at: 'invoiced_at'
 
   before_validation do
-    if self.sale
-      self.currency = self.sale.currency
-    end
+    self.currency = sale.currency if sale
 
-    if self.sale_credit
-      self.quantity = -1 * self.credited_quantity
-    end
+    self.quantity = -1 * credited_quantity if sale_credit
 
-    if self.tax and self.unit_pretax_amount
-      item = Nomen::Currencies.find(self.currency)
+    if tax && unit_pretax_amount
+      item = Nomen::Currencies.find(currency)
       precision = item ? item.precision : 2
-      self.unit_amount   = self.unit_pretax_amount * (100.0 + self.tax_amount) / 100.0
-      self.pretax_amount = (self.unit_pretax_amount * self.quantity * (100.0 - self.reduction_percentage) / 100.0).round(precision)
-      self.amount        = (self.pretax_amount * (100.0 + self.tax_amount) / 100.0).round(precision)
+      self.unit_amount   = unit_pretax_amount * (100.0 + tax_amount) / 100.0
+      self.pretax_amount = (unit_pretax_amount * quantity * (100.0 - reduction_percentage) / 100.0).round(precision)
+      self.amount        = (pretax_amount * (100.0 + tax_amount) / 100.0).round(precision)
     end
 
-    if self.variant
-      self.account_id = self.variant.nature.category.product_account_id
-      self.label ||= self.variant.commercial_name
+    if variant
+      self.account_id = variant.nature.category.product_account_id
+      self.label ||= variant.commercial_name
     end
   end
 
   validate do
-    errors.add(:quantity, :invalid) if self.quantity.zero?
-    # TODO validates responsible can make reduction and reduction percentage is convenient
+    errors.add(:quantity, :invalid) if quantity.zero?
+    # TODO: validates responsible can make reduction and reduction percentage is convenient
   end
 
   protect(on: :update) do
-    !self.sale.draft?
+    !sale.draft?
   end
 
   def undelivered_quantity
-    self.quantity - self.delivery_items.sum(:quantity)
+    quantity - delivery_items.sum(:quantity)
   end
 
   def designation
     d  = self.label
-    d << "\n" + self.annotation.to_s unless self.annotation.blank?
-    d << "\n" + tc(:tracking, :serial => self.tracking.serial.to_s) if self.tracking
-    return d
+    d << "\n" + annotation.to_s unless annotation.blank?
+    d << "\n" + tc(:tracking, serial: tracking.serial.to_s) if tracking
+    d
   end
 
-  def new_subscription(attributes={})
-    #raise StandardError.new attributes.inspect
-    subscription = Subscription.new((attributes||{}).merge(:sale_id => self.sale.id, :product_id => self.product_id, :nature_id => self.product.subscription_nature_id, :sale_item_id => self.id))
+  def new_subscription(attributes = {})
+    # raise StandardError.new attributes.inspect
+    subscription = Subscription.new((attributes || {}).merge(sale_id: sale.id, product_id: product_id, nature_id: product.subscription_nature_id, sale_item_id: id))
     subscription.attributes = attributes
     product = subscription.product
     nature  = subscription.nature
     if nature
       if nature.period?
         subscription.started_at ||= Date.today
-        subscription.stopped_at ||= Delay.compute((product.subscription_duration||'1 year')+", 1 day ago", subscription.started_at)
+        subscription.stopped_at ||= Delay.compute((product.subscription_duration || '1 year') + ', 1 day ago', subscription.started_at)
       else
         subscription.first_number ||= nature.actual_number.to_i
-        subscription.last_number  ||= subscription.first_number+(product.subscription_quantity||1)-1
+        subscription.last_number ||= subscription.first_number + (product.subscription_quantity || 1) - 1
       end
     end
-    subscription.quantity   ||= 1
-    subscription.address_id ||= self.sale.delivery_address_id
-    subscription.entity_id  ||= subscription.address_entity_id if subscription.address
+    subscription.quantity ||= 1
+    subscription.address_id ||= sale.delivery_address_id
+    subscription.entity_id ||= subscription.address_entity_id if subscription.address
     subscription
   end
 
-
   def taxes_amount
-    self.amount - self.pretax_amount
+    amount - pretax_amount
   end
 
   def already_credited_quantity
-    self.credits.sum(:quantity)
+    credits.sum(:quantity)
   end
 
   def creditable_quantity
-    self.quantity + self.already_credited_quantity
+    quantity + already_credited_quantity
   end
 
   # know how many percentage of invoiced VAT to declare
   def payment_ratio
-    if self.sale.affair.balanced?
+    if sale.affair.balanced?
       return 1.00
-    elsif self.sale.affair.credit != 0.0
-      return (1-(-self.sale.affair.balance  / self.sale.affair.credit)).to_f
+    elsif sale.affair.credit != 0.0
+      return (1 - (-sale.affair.balance / sale.affair.credit)).to_f
     end
   end
-
-
 end

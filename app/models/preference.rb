@@ -39,22 +39,21 @@
 #  user_id           :integer
 #
 
-
 class Preference < Ekylibre::Record::Base
   # attr_accessible :nature, :name, :value
   enumerize :nature, in: [:chart_of_accounts, :country, :currency, :boolean, :decimal, :language, :integer, :record, :spatial_reference_system, :string], default: :string, predicates: true
-  @@natures = self.nature.values
-  @@conversions = {float: :decimal, true_class: :boolean, false_class: :boolean, fixnum: :integer}
+  @@natures = nature.values
+  @@conversions = { float: :decimal, true_class: :boolean, false_class: :boolean, fixnum: :integer }
   cattr_reader :reference
   attr_readonly :user_id, :name, :nature
-  belongs_to :user, class_name: "Entity"
+  belongs_to :user, class_name: 'Entity'
   belongs_to :record_value, polymorphic: true
   # cattr_reader :reference
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :integer_value, allow_nil: true, only_integer: true
   validates_numericality_of :decimal_value, allow_nil: true
   validates_presence_of :name, :nature
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_length_of :nature, allow_nil: true, maximum: 60
   validates_inclusion_of :nature, in: @@natures
   validates_uniqueness_of :name, scope: [:user_id]
@@ -70,17 +69,17 @@ class Preference < Ekylibre::Record::Base
   def self.prefer(name, nature, default_value = nil)
     @@reference ||= HashWithIndifferentAccess.new
     unless self.nature.values.include?(nature.to_s)
-      raise ArgumentError, "Nature (#{nature.inspect}) is unacceptable. #{self.nature.values.to_sentence} are accepted."
+      fail ArgumentError, "Nature (#{nature.inspect}) is unacceptable. #{self.nature.values.to_sentence} are accepted."
     end
-    @@reference[name] = {name: :name, nature: nature.to_sym, default: default_value}
+    @@reference[name] = { name: :name, nature: nature.to_sym, default: default_value }
   end
 
   prefer :bookkeep_automatically, :boolean, true
   prefer :bookkeep_in_draft, :boolean, true
   prefer :detail_payments_in_deposit_bookkeeping, :boolean, true
-  prefer :host, :string, "erp.example.com"
+  prefer :host, :string, 'erp.example.com'
   prefer :use_entity_codes_for_account_numbers, :boolean, true
-  prefer :sales_conditions, :string, ""
+  prefer :sales_conditions, :string, ''
   prefer :chart_of_accounts, :chart_of_accounts, Nomen::ChartsOfAccounts.default
   prefer :language, :language, Nomen::Languages.default
   prefer :country,  :country, Nomen::Countries.default
@@ -88,11 +87,8 @@ class Preference < Ekylibre::Record::Base
   # prefer :map_measure_srid, :integer, 0
   prefer :map_measure_srs, :spatial_reference_system, Nomen::SpatialReferenceSystems.default
 
-
   before_validation do
-    if self.record?
-      self.record_value_type = self.record_value.class.base_class.name
-    end
+    self.record_value_type = record_value.class.base_class.name if self.record?
   end
 
   def self.check!
@@ -103,13 +99,13 @@ class Preference < Ekylibre::Record::Base
 
   def self.type_to_nature(object)
     klass = object.class.to_s
-    if object.is_a?(Nomen::Item) and nature = object.nomenclature.name.to_s.singularize.to_sym and nature.values.include?(nature)
+    if object.is_a?(Nomen::Item) && nature = object.nomenclature.name.to_s.singularize.to_sym and nature.values.include?(nature)
       nature
-    elsif ['String', 'Symbol'].include? klass
+    elsif %w(String Symbol).include? klass
       :string
-    elsif ['Integer', 'Fixnum', 'Bignum'].include? klass
+    elsif %w(Integer Fixnum Bignum).include? klass
       :integer
-    elsif ['TrueClass', 'FalseClass', 'Boolean'].include? klass
+    elsif %w(TrueClass FalseClass Boolean).include? klass
       :boolean
     elsif ['BigDecimal'].include? klass
       :decimal
@@ -119,80 +115,79 @@ class Preference < Ekylibre::Record::Base
   end
 
   def self.[](name)
-    return self.get(name).value
+    get(name).value
   end
-
 
   def self.get(name)
     name = name.to_s
     preference = Preference.find_by(name: name)
-    if preference.nil? and self.reference.has_key?(name)
-      preference = self.new
+    if preference.nil? && reference.key?(name)
+      preference = new
       preference.name = name
-      preference.nature = self.reference[name][:nature]
-      preference.value = self.reference[name][:default] if self.reference[name][:default]
+      preference.nature = reference[name][:nature]
+      preference.value = reference[name][:default] if reference[name][:default]
       preference.save!
     elsif preference.nil?
-      raise ArgumentError, "Undefined preference: #{name}"
+      fail ArgumentError, "Undefined preference: #{name}"
     end
-    return preference
+    preference
   end
 
   def self.get!(name, default_value = nil, nature = :string)
     name = name.to_s
     preference = Preference.find_by(name: name)
-    if preference.nil? and self.reference.has_key?(name)
-      preference = self.new name: name, nature: self.reference[name][:nature]
-      preference.value = default_value || self.reference[name][:default]
+    if preference.nil? && reference.key?(name)
+      preference = new name: name, nature: reference[name][:nature]
+      preference.value = default_value || reference[name][:default]
       preference.save!
     elsif preference.nil?
-      preference = self.new name: name, nature: nature
+      preference = new name: name, nature: nature
       preference.value = default_value
       preference.save!
     end
-    return preference
+    preference
   end
 
   def self.set!(name, value, nature = :string)
     name = name.to_s
     preference = Preference.find_by(name: name)
-    if preference.nil? and self.reference.has_key?(name)
-      preference = self.new name: name, nature: self.reference[name][:nature]
+    if preference.nil? && reference.key?(name)
+      preference = new name: name, nature: reference[name][:nature]
     elsif preference.nil?
-      preference = self.new name: name, nature: nature
+      preference = new name: name, nature: nature
     end
     preference.value = value
     preference.save!
-    return preference
+    preference
   end
 
   def value
-    self.send(self.nature + '_value')
+    send(nature + '_value')
   end
 
   def value=(object)
-#     if @@reference[self.name]
-#       self.nature = @@reference[self.name][:nature]
-#       self.record_value_type = @@reference[self.name][:model].name if @@reference[self.name][:model]
-#     end
+    #     if @@reference[self.name]
+    #       self.nature = @@reference[self.name][:nature]
+    #       self.record_value_type = @@reference[self.name][:model].name if @@reference[self.name][:model]
+    #     end
     self.nature ||= self.class.type_to_nature(object)
     unless @@natures.include? self.nature
-      raise ArgumentError, "Object to define as preference is an unknown type #{object.class.name}:#{self.nature}"
+      fail ArgumentError, "Object to define as preference is an unknown type #{object.class.name}:#{self.nature}"
     end
-    if self.nature == 'record' and object.class.name != self.record_value_type
+    if self.nature == 'record' && object.class.name != record_value_type
       begin
-        self.send(self.nature.to_s+'_value=', self.record_value_type.constantize.find(object.to_i))
+        send(self.nature.to_s + '_value=', record_value_type.constantize.find(object.to_i))
       rescue
         self.record_value_id = nil
       end
     else
-      self.send(self[:nature].to_s+'_value=', object)
+      send(self[:nature].to_s + '_value=', object)
     end
   end
 
   def set(object)
     self.value = object
-    self.save
+    save
   end
 
   def set!(object)
@@ -200,17 +195,17 @@ class Preference < Ekylibre::Record::Base
     self.save!
   end
 
-  def human_name(locale=nil)
-    "preferences.#{self.name}".t(locale: locale)
+  def human_name(locale = nil)
+    "preferences.#{name}".t(locale: locale)
   end
-  alias :label :human_name
+  alias_method :label, :human_name
 
   def record?
     self.nature == 'record'
   end
 
   def model
-    self.record? ? self.record_value_type.constantize : nil
+    self.record? ? record_value_type.constantize : nil
   end
 
   private
@@ -218,7 +213,7 @@ class Preference < Ekylibre::Record::Base
   def self.convert(nature, string)
     case nature.to_sym
     when :boolean
-      (string == "true" ? true : false)
+      (string == 'true' ? true : false)
     when :integer
       string.to_i
     when :decimal
@@ -227,5 +222,4 @@ class Preference < Ekylibre::Record::Base
       string
     end
   end
-
 end

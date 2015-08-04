@@ -56,12 +56,10 @@
 #  updater_id                :integer
 #
 
-
 require 'test_helper'
 
 class JournalEntryItemTest < ActiveSupport::TestCase
-
-  test "the validity of entries" do
+  test 'the validity of entries' do
     item = journal_entry_items(:journal_entry_items_001)
     assert item.valid?, item.inspect + "\n" + item.errors.full_messages.to_sentence
     item.real_debit = 5
@@ -71,5 +69,4 @@ class JournalEntryItemTest < ActiveSupport::TestCase
     item.real_debit = 0
     assert item.valid?, item.inspect + "\n" + item.errors.full_messages.to_sentence
   end
-
 end

@@ -1,5 +1,4 @@
 class Telepac::V2015::CapLandParcelsExchanger < ActiveExchanger::Base
-
   def import
     # Unzip file
     dir = w.tmp_dir
@@ -9,7 +8,7 @@ class Telepac::V2015::CapLandParcelsExchanger < ActiveExchanger::Base
       end
     end
 
-    RGeo::Shapefile::Reader.open(dir.join("ilot.shp").to_s, srid: 2154) do |file|
+    RGeo::Shapefile::Reader.open(dir.join('ilot.shp').to_s, srid: 2154) do |file|
       # Set number of shapes
       w.count = file.size
 
@@ -21,8 +20,8 @@ class Telepac::V2015::CapLandParcelsExchanger < ActiveExchanger::Base
           initial_born_at: Time.utc(1, 1, 1, 0, 0, 0),
           work_number: record.attributes['NUMERO'].to_s,
           variant_id: land_parcel_cluster_variant.id,
-          name: LandParcelCluster.model_name.human + " " + record.attributes['NUMERO'].to_s,
-          variety: "land_parcel_cluster",
+          name: LandParcelCluster.model_name.human + ' ' + record.attributes['NUMERO'].to_s,
+          variety: 'land_parcel_cluster',
           initial_owner: Entity.of_company,
           identification_number: record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s
         }
@@ -46,5 +45,4 @@ class Telepac::V2015::CapLandParcelsExchanger < ActiveExchanger::Base
       end
     end
   end
-
 end

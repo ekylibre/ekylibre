@@ -2,51 +2,49 @@
 require 'rubygems'
 require 'colored'
 
-
 class Releaser
-
   def self.run!
     root = File.dirname(File.expand_path(__FILE__))
 
     # TODO: Check VERSION is not already tagged
 
-    desc "Compile HTTP error pages"
-    exec "RAILS_ENV=production rake http:errors:compile"
+    desc 'Compile HTTP error pages'
+    exec 'RAILS_ENV=production rake http:errors:compile'
 
-    desc "Fixtures restoration"
-    exec "rake db:fixtures:restore"
+    desc 'Fixtures restoration'
+    exec 'rake db:fixtures:restore'
 
-    desc "Fixtures dump"
-    exec "rake db:fixtures:dump"
+    desc 'Fixtures dump'
+    exec 'rake db:fixtures:dump'
 
-    desc "General cleaning"
-    exec "rake clean clean:private"
+    desc 'General cleaning'
+    exec 'rake clean clean:private'
 
     # TODO: Check nomenclatures changes
     # TODO: Check Travis results (or test locally ?)
 
-    desc "Precompile assets"
+    desc 'Precompile assets'
     exec "rm -fr #{root}/../public/assets"
-    exec "RAILS_ENV=production rake assets:precompile"
+    exec 'RAILS_ENV=production rake assets:precompile'
 
-    desc "Create and load schema"
-    exec "RAILS_ENV=production rake db:drop db:create db:migrate"
+    desc 'Create and load schema'
+    exec 'RAILS_ENV=production rake db:drop db:create db:migrate'
 
     # TODO: Check schema and table presences
 
-    desc "Execute demo first run"
-    exec "RAILS_ENV=production rake first_run max=50 name=release folder=demo"
+    desc 'Execute demo first run'
+    exec 'RAILS_ENV=production rake first_run max=50 name=release folder=demo'
 
     # TODO: Check schema and table presences
     # TODO: Check data presence
 
-    desc "Run console"
-    exec "RAILS_ENV=production ./bin/rails console"
+    desc 'Run console'
+    exec 'RAILS_ENV=production ./bin/rails console'
 
     # TODO: Kill console after 40 seconds ?
 
-    desc "Remove release tenant"
-    exec "RAILS_ENV=production rake tenant:drop name=release"
+    desc 'Remove release tenant'
+    exec 'RAILS_ENV=production rake tenant:drop name=release'
 
     # desc "Run server"
     # pid = fork { exec "RAILS_ENV=production ./bin/rails s -p 3456" }
@@ -61,9 +59,9 @@ class Releaser
     # Process.kill("SIGINT", pid)
     # Process.wait
 
-    desc "General cleaning"
-    exec "rake clean:private"
-    exec "rm -fr public/assets"
+    desc 'General cleaning'
+    exec 'rake clean:private'
+    exec 'rm -fr public/assets'
   end
 
   def self.exec(command)
@@ -72,10 +70,9 @@ class Releaser
   end
 
   def self.desc(text)
-    text = " * " + text.to_s
+    text = ' * ' + text.to_s
     puts text.red
   end
-
 end
 
 Releaser.run!

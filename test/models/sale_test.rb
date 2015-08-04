@@ -64,12 +64,10 @@
 #  updater_id          :integer
 #
 
-
 require 'test_helper'
 
 class SaleTest < ActiveSupport::TestCase
-
-  test "duplicatablity" do
+  test 'duplicatablity' do
     count = 0
     Sale.find_each do |sale|
       if sale.duplicatable?
@@ -77,18 +75,16 @@ class SaleTest < ActiveSupport::TestCase
         count += 1
       end
     end
-    assert count > 0, "No sale has been duplicated for test"
+    assert count > 0, 'No sale has been duplicated for test'
   end
 
-  context "A minimal configuration" do
-
+  context 'A minimal configuration' do
     setup do
-      DocumentTemplate.load_defaults(:locale => :fra)
-      DocumentTemplate.update_all({:archiving => "last"}, {:nature => "sales_invoice"})
+      DocumentTemplate.load_defaults(locale: :fra)
+      DocumentTemplate.update_all({ archiving: 'last' }, nature: 'sales_invoice')
     end
 
-    context "A sale" do
-
+    context 'A sale' do
       setup do
         @sale = sales(:sales_001)
         assert @sale.draft?
@@ -133,31 +129,29 @@ class SaleTest < ActiveSupport::TestCase
       # # DocumentTemplate.print(:sales_order, @sale.number, @sale.to_xml(qsdqsdqsd))
       # # DocumentTemplate.print(@sale.to_xml, :sales_order, :sales_order => @sale)
       # end
-
     end
 
-    context "A sales invoice" do
-
+    context 'A sales invoice' do
       setup do
-        @sale = Sale.new(:client => entities(:entities_003), :nature => sale_natures(:sale_natures_001))
+        @sale = Sale.new(client: entities(:entities_003), nature: sale_natures(:sale_natures_001))
         assert @sale.save, @sale.errors.inspect
         assert_equal Date.today, @sale.created_at.to_date
-        assert !@sale.affair.nil?, "A sale must be linked to an affair"
+        assert !@sale.affair.nil?, 'A sale must be linked to an affair'
         assert_equal @sale.amount, @sale.affair_credit, "Affair amount is not the same as the sale amount (#{@sale.affair.inspect})"
 
         for y in 1..10
-          item = @sale.items.new(:quantity => 1 + rand(70)*rand, :product_id => products("matters_#{(3+rand(2)).to_s.rjust(3, '0')}".to_sym).id) # , :price_id => product_nature_prices("product_nature_prices_#{(3+rand(2)).to_s.rjust(3, '0')}".to_sym).id, :warehouse_id => products(:warehouses_001).id)
+          item = @sale.items.new(quantity: 1 + rand(70) * rand, product_id: products("matters_#{(3 + rand(2)).to_s.rjust(3, '0')}".to_sym).id) # , :price_id => product_nature_prices("product_nature_prices_#{(3+rand(2)).to_s.rjust(3, '0')}".to_sym).id, :warehouse_id => products(:warehouses_001).id)
           # assert item.valid?, [product.prices, item.price].inspect
           assert item.save, item.errors.inspect
         end
         @sale.reload
-        assert_equal "draft", @sale.state
+        assert_equal 'draft', @sale.state
         assert @sale.propose
-        assert_equal "estimate", @sale.state
-        assert @sale.can_invoice?, "Deliverables: " + @sale.items.collect{|l| l.product.attributes.inspect}.to_sentence
+        assert_equal 'estimate', @sale.state
+        assert @sale.can_invoice?, 'Deliverables: ' + @sale.items.collect { |l| l.product.attributes.inspect }.to_sentence
         assert @sale.confirm
         assert @sale.invoice
-        assert_equal "invoice", @sale.state
+        assert_equal 'invoice', @sale.state
         assert_equal Date.today, @sale.invoiced_at.to_date
       end
 
@@ -186,7 +180,6 @@ class SaleTest < ActiveSupport::TestCase
       #   assert_equal data[0], data[1], "The template doesn't seem to be archived"
       #   assert_equal data[0], data[2], "The template doesn't seem to be archived or understand Integers"
       # end
-
     end
   end
 end

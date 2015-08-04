@@ -21,17 +21,17 @@ class NormalizeEntityTypes < ActiveRecord::Migration
   }
 
   TITLES = {
-    sir: "M.",
-    sir_and_madam: "Mme M.",
-    madam: "Mme",
-    professor: "Pr",
-    doctor: "Dr"
+    sir: 'M.',
+    sir_and_madam: 'Mme M.',
+    madam: 'Mme',
+    professor: 'Pr',
+    doctor: 'Dr'
   }
 
   def up
     # Add title column
     add_column :entities, :title, :string
-    execute "UPDATE entities SET title = CASE " + TITLES.map { |nature, title| "WHEN nature = '#{nature}' THEN '#{title}'" }.join(" ") + " END"
+    execute 'UPDATE entities SET title = CASE ' + TITLES.map { |nature, title| "WHEN nature = '#{nature}' THEN '#{title}'" }.join(' ') + ' END'
 
     # execute "UPDATE #{quote_table_name(:affairs)} SET #{quote_column_name(:type)}='Entity' WHERE #{quote_column_name(:type)} IN ('Contact', 'Organization')"
     execute "UPDATE #{quote_table_name(:attachments)} SET #{quote_column_name(:resource_type)}='Entity' WHERE #{quote_column_name(:resource_type)} IN ('Contact', 'Organization')"
@@ -58,7 +58,7 @@ class NormalizeEntityTypes < ActiveRecord::Migration
     execute "UPDATE #{quote_table_name(:versions)} SET #{quote_column_name(:item_type)}='Entity' WHERE #{quote_column_name(:item_type)} IN ('Contact', 'Organization')"
 
     # Remove type column
-    execute "UPDATE entities SET nature = CASE " + NATURES.map { |old_nature, new_nature| "WHEN nature = '#{old_nature}' THEN '#{new_nature == :entity ? :organization : new_nature}'" }.join(" ") + " ELSE 'organization' END"
+    execute 'UPDATE entities SET nature = CASE ' + NATURES.map { |old_nature, new_nature| "WHEN nature = '#{old_nature}' THEN '#{new_nature == :entity ? :organization : new_nature}'" }.join(' ') + " ELSE 'organization' END"
     remove_column :entities, :type, :string
   end
 
@@ -91,9 +91,7 @@ class NormalizeEntityTypes < ActiveRecord::Migration
     # execute "UPDATE #{quote_table_name(:sales)} SET #{quote_column_name(:type)} = ex.type FROM entities AS ex WHERE ex.id = resource_id AND  #{quote_column_name(:type)} = 'Entity'"
     execute "UPDATE #{quote_table_name(:versions)} SET #{quote_column_name(:item_type)} = ex.type FROM entities AS ex WHERE ex.id = item_id AND  #{quote_column_name(:item_type)} = 'Entity'"
 
-
     # Remove title column
     remove_column :entities, :title
   end
-
 end

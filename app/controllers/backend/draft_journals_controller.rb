@@ -21,10 +21,10 @@
 class Backend::DraftJournalsController < Backend::BaseController
   include JournalEntriesCondition
 
-  list(:journal_entry_items, conditions: journal_entries_conditions(with_journals: true, state: :draft), joins: :entry, :line_class => "(RECORD.position==1 ? 'first-item' : '')".c, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+  list(:journal_entry_items, conditions: journal_entries_conditions(with_journals: true, state: :draft), joins: :entry, line_class: "(RECORD.position==1 ? 'first-item' : '')".c, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
     t.column :journal, url: true
     t.column :entry_number, url: true
-    t.column :printed_on, :datatype => :date
+    t.column :printed_on, datatype: :date
     t.column :account, url: true
     t.column :account_number, through: :account, label_method: :number, url: true, hidden: true
     t.column :account_name, through: :account, label_method: :name, url: true, hidden: true
@@ -54,9 +54,8 @@ class Backend::DraftJournalsController < Backend::BaseController
       end
       notify_success(:draft_journal_entries_have_been_validated, count: journal_entries.size - undone)
     rescue Exception => e
-      notify_error(:exception_raised, :message => e.message)
+      notify_error(:exception_raised, message: e.message)
     end
     redirect_to action: :show
   end
-
 end

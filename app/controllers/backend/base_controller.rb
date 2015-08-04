@@ -44,7 +44,6 @@ class Backend::BaseController < BaseController
     end
   end
 
-
   # Overrides respond_with method in order to use specific parameters for reports
   # Adds :with and :key, :name parameters
   def respond_with_with_template(*resources, &block)
@@ -62,7 +61,7 @@ class Backend::BaseController < BaseController
   # Find a record with the current environment or given parameters and check availability of it
   def find_and_check(*args)
     options = args.extract_options!
-    model = args.shift || options[:model] || self.controller_name.singularize
+    model = args.shift || options[:model] || controller_name.singularize
     id    = args.shift || options[:id] || params[:id]
     klass = nil
     begin
@@ -80,16 +79,16 @@ class Backend::BaseController < BaseController
       redirect_to_back
       return false
     end
-    return record
+    record
   end
 
-  def save_and_redirect(record, options={}, &block)
+  def save_and_redirect(record, options = {}, &_block)
     record.attributes = options[:attributes] if options[:attributes]
     ActiveRecord::Base.transaction do
       if options[:saved] || record.send(:save)
         yield record if block_given?
-        response.headers["X-Return-Code"] = "success"
-        response.headers["X-Saved-Record-Id"] = record.id.to_s
+        response.headers['X-Return-Code'] = 'success'
+        response.headers['X-Saved-Record-Id'] = record.id.to_s
         if params[:dialog]
           head :ok
         else
@@ -102,7 +101,7 @@ class Backend::BaseController < BaseController
             url = options[:url]
             record.reload
             if url.is_a? Hash
-              url.each do |k,v|
+              url.each do |k, v|
                 url[k] = (v.is_a?(CodeString) ? record.send(v) : v)
               end
             end
@@ -112,8 +111,8 @@ class Backend::BaseController < BaseController
         return true
       end
     end
-    response.headers["X-Return-Code"] = "invalid"
-    return false
+    response.headers['X-Return-Code'] = 'invalid'
+    false
   end
 
   # For title I18n : t3e :)
@@ -122,9 +121,9 @@ class Backend::BaseController < BaseController
     for arg in args
       arg = arg.attributes if arg.respond_to?(:attributes)
       unless arg.is_a? Hash
-        raise ArgumentError, "Hash expected, got #{arg.class.name}:#{arg.inspect}"
+        fail ArgumentError, "Hash expected, got #{arg.class.name}:#{arg.inspect}"
       end
-      arg.each do |k,v|
+      arg.each do |k, v|
         @title[k.to_sym] = (v.respond_to?(:localize) ? v.localize : v.to_s)
       end
     end
@@ -133,19 +132,18 @@ class Backend::BaseController < BaseController
   private
 
   def dialog_or_not
-    return (request.xhr? ? "popover" : params[:dialog] ? "dialog" : "backend")
+    (request.xhr? ? 'popover' : params[:dialog] ? 'dialog' : 'backend')
   end
-
 
   # Set HTTP headers to block page caching
   def no_cache
     # Change headers to force zero cache
-    response.headers["Last-Modified"] = Time.now.httpdate
-    response.headers["Expires"] = '0'
+    response.headers['Last-Modified'] = Time.now.httpdate
+    response.headers['Expires'] = '0'
     # HTTP 1.0
-    response.headers["Pragma"] = "no-cache"
+    response.headers['Pragma'] = 'no-cache'
     # HTTP 1.1 'pre-check=0, post-check=0' (IE specific)
-    response.headers["Cache-Control"] = 'no-store, no-cache, must-revalidate, max-age=0, pre-check=0, post-check=0'
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0, pre-check=0, post-check=0'
   end
 
   def set_versioner
@@ -156,14 +154,13 @@ class Backend::BaseController < BaseController
     # TODO: Dynamic theme choosing
     if current_user
       if %w(margarita tekyla tekyla-sunrise).include?(params[:theme])
-        current_user.prefer!("theme", params[:theme])
+        current_user.prefer!('theme', params[:theme])
       end
-      @current_theme = current_user.preference("theme", "tekyla").value
+      @current_theme = current_user.preference('theme', 'tekyla').value
     else
-      @current_theme = "tekyla"
+      @current_theme = 'tekyla'
     end
   end
-
 
   # Controls access to every view in Ekylibre.
   def authorize_user!
@@ -172,7 +169,7 @@ class Backend::BaseController < BaseController
       list = Ekylibre::Access.rights_of("#{controller_path}##{action_name}")
       if list.empty?
         return true
-        notify_error(:access_denied, reason: "OUT OF SCOPE", url: request.url.inspect)
+        notify_error(:access_denied, reason: 'OUT OF SCOPE', url: request.url.inspect)
         redirect_to root_url
         return false
       end
@@ -180,22 +177,22 @@ class Backend::BaseController < BaseController
       # Search for one of found access in rights of current user
       list &= current_user.resource_actions
       unless list.any?
-        notify_error(:access_denied, reason: "RESTRICTED", url: request.url.inspect)
+        notify_error(:access_denied, reason: 'RESTRICTED', url: request.url.inspect)
         redirect_to root_url
         return false
       end
     end
-    return true
+    true
   end
 
   def search_article(article = nil)
     # session[:help_history] = [] unless session[:help_history].is_a? [].class
-    article ||= "#{self.controller_path}-#{self.action_name}"
+    article ||= "#{controller_path}-#{action_name}"
     file = nil
     for locale in [I18n.locale, I18n.default_locale]
       for f, attrs in Ekylibre.helps
         next if attrs[:locale].to_s != locale.to_s
-        file_name = [article, article.split("-")[0] + "-index"].detect{|name| attrs[:name] == name}
+        file_name = [article, article.split('-')[0] + '-index'].detect { |name| attrs[:name] == name }
         file = f and break unless file_name.blank?
       end
       break unless file.nil?
@@ -204,10 +201,10 @@ class Backend::BaseController < BaseController
     #   session[:help_history] << file
     # end
     file ||= article.to_sym
-    return file
+    file
   end
 
-  def redirect_to_back(options={})
+  def redirect_to_back(options = {})
     if params[:redirect].present?
       redirect_to params[:redirect], options
     elsif request.referer and request.referer != request.fullpath
@@ -217,13 +214,12 @@ class Backend::BaseController < BaseController
     end
   end
 
-  def redirect_to_current(options={})
-    ActiveSupport::Deprecation.warn("Use redirect_to_back instead of redirect_to_current")
+  def redirect_to_current(options = {})
+    ActiveSupport::Deprecation.warn('Use redirect_to_back instead of redirect_to_current')
     redirect_to_back(options.merge(direct: true))
   end
 
   class << self
-
     # Autocomplete helper
     def autocomplete_for(column, options = {})
       model = (options.delete(:model) || controller_name).to_s.classify.constantize
@@ -246,82 +242,80 @@ class Backend::BaseController < BaseController
     end
 
     # search is a hash like {table: [columns...]}
-    def search_conditions(search = {}, options={})
+    def search_conditions(search = {}, options = {})
       conditions = options[:conditions] || 'c'
-      options[:except]  ||= []
+      options[:except] ||= []
       options[:filters] ||= {}
-      variable ||= options[:variable] || "params[:q]"
-      tables = search.keys.select{|t| !options[:except].include? t}
+      variable ||= options[:variable] || 'params[:q]'
+      tables = search.keys.select { |t| !options[:except].include? t }
       code = "\n#{conditions} = ['1=1']\n"
       columns = search.collect do |table, filtered_columns|
         filtered_columns.collect do |column|
           ActiveRecord::Base.connection.quote_table_name(table.is_a?(Symbol) ? table.to_s.classify.constantize.table_name : table) +
-            "." +
-            ActiveRecord::Base.connection.quote_column_name(column)
+          '.' +
+          ActiveRecord::Base.connection.quote_column_name(column)
         end
       end.flatten
       code << "for kw in #{variable}.to_s.lower.split(/\\s+/)\n"
       code << "  kw = '%'+kw+'%'\n"
       filters = columns.collect do |x|
-        'LOWER(CAST('+x.to_s+' AS VARCHAR)) LIKE ?'
+        'LOWER(CAST(' + x.to_s + ' AS VARCHAR)) LIKE ?'
       end
-      values = '['+(['kw']*columns.size).join(', ')+']'
+      values = '[' + (['kw'] * columns.size).join(', ') + ']'
       for k, v in options[:filters]
         filters << k
-        v = '['+v.join(', ')+']' if v.is_a? Array
-        values += "+"+v
+        v = '[' + v.join(', ') + ']' if v.is_a? Array
+        values += '+' + v
       end
       code << "  #{conditions}[0] += ' AND (#{filters.join(' OR ')})'\n"
       code << "  #{conditions} += #{values}\n"
       code << "end\n"
       code << "#{conditions}"
-      return code.c
+      code.c
     end
 
-
     # accountancy -> accounts_range_crit
-    def accounts_range_crit(variable, conditions='c')
+    def accounts_range_crit(variable, conditions = 'c')
       variable = "params[:#{variable}]" unless variable.is_a? String
-      code = ""
+      code = ''
       # code << "ac, #{variable}[:accounts] = \n"
       code << "#{conditions}[0] += ' AND '+Account.range_condition(#{variable}[:accounts])\n"
-      return code.c
+      code.c
     end
 
     # accountancy -> crit_params
     def crit_params(hash)
       nh = {}
-      keys = JournalEntry.state_machine.states.collect{|s| s.name}
+      keys = JournalEntry.state_machine.states.collect(&:name)
       keys += [:period, :started_at, :stopped_at, :accounts, :centralize]
       for k, v in hash
         nh[k] = hash[k] if k.to_s.match(/^(journal|level)_\d+$/) or keys.include? k.to_sym
       end
-      return nh
+      nh
     end
 
     # accountancy -> journal_entries_states_crit
-    def journal_entries_states_crit(variable, conditions='c')
+    def journal_entries_states_crit(variable, conditions = 'c')
       variable = "params[:#{variable}]" unless variable.is_a? String
-      code = ""
+      code = ''
       code << "#{conditions}[0] += ' AND '+JournalEntry.state_condition(#{variable}[:states])\n"
-      return code.c
+      code.c
     end
 
     # accountancy -> journal_period_crit
-    def journal_period_crit(variable, conditions='c')
+    def journal_period_crit(variable, conditions = 'c')
       variable = "params[:#{variable}]" unless variable.is_a? String
-      code = ""
+      code = ''
       code << "#{conditions}[0] += ' AND '+JournalEntry.period_condition(#{variable}[:period], #{variable}[:started_at], #{variable}[:stopped_at])\n"
-      return code.c
+      code.c
     end
 
     # accountancy -> journals_crit
-    def journals_crit(variable, conditions='c')
+    def journals_crit(variable, conditions = 'c')
       variable = "params[:#{variable}]" unless variable.is_a? String
-      code = ""
+      code = ''
       code << "#{conditions}[0] += ' AND '+JournalEntry.journal_condition(#{variable}[:journals])\n"
-      return code.c
+      code.c
     end
   end
-
 end

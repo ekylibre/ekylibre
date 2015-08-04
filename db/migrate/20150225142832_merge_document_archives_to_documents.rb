@@ -1,11 +1,9 @@
 class MergeDocumentArchivesToDocuments < ActiveRecord::Migration
-
   def id_partition(id)
-    ("%09d" % id.to_i).scan(/\d{3}/).join("/")
+    ('%09d' % id.to_i).scan(/\d{3}/).join('/')
   end
 
   def change
-
     add_column :documents, :uploaded, :boolean, null: false, default: false
 
     # add_column :documents, :archived_at, :datetime, null: false
@@ -22,7 +20,6 @@ class MergeDocumentArchivesToDocuments < ActiveRecord::Migration
 
     reversible do |r|
       r.up do
-
         execute <<-SQL
           UPDATE documents
           SET template_id = document_archives.template_id,
@@ -42,21 +39,17 @@ class MergeDocumentArchivesToDocuments < ActiveRecord::Migration
 
         if doc_path.is_a?(Pathname) && doc_a_path.is_a?(Pathname)
 
-          unless File.directory?(doc_path)
-            FileUtils.mkdir_p(doc_path)
-          end
+          FileUtils.mkdir_p(doc_path) unless File.directory?(doc_path)
 
-          for doc_a in connection.select_rows("SELECT id, document_id FROM document_archives")
+          for doc_a in connection.select_rows('SELECT id, document_id FROM document_archives')
 
-            doc_a_dir = doc_a_path.join(self.id_partition(doc_a[0]))
+            doc_a_dir = doc_a_path.join(id_partition(doc_a[0]))
 
             if File.directory?(doc_a_dir)
 
-              doc_dir = doc_path.join(self.id_partition(doc_a[1]))
+              doc_dir = doc_path.join(id_partition(doc_a[1]))
 
-              unless File.directory?(doc_dir)
-                FileUtils.mkdir_p(doc_dir)
-              end
+              FileUtils.mkdir_p(doc_dir) unless File.directory?(doc_dir)
 
               if File.directory?(doc_dir)
                 FileUtils.mv Dir.glob("#{doc_a_dir}/*"), doc_dir
@@ -66,43 +59,41 @@ class MergeDocumentArchivesToDocuments < ActiveRecord::Migration
 
           end
 
-          FileUtils.remove_dir(doc_a_path,true)
+          FileUtils.remove_dir(doc_a_path, true)
 
         else
-          raise "Not a path"
+          fail 'Not a path'
         end
 
-
         drop_table :document_archives
-
       end
 
       r.down do
-        create_table "document_archives", force: :cascade do |t|
-          t.integer  "document_id",                   null: false
-          t.datetime "archived_at",                   null: false
-          t.integer  "template_id"
-          t.string   "file_file_name"
-          t.integer  "file_file_size"
-          t.string   "file_content_type"
-          t.datetime "file_updated_at"
-          t.string   "file_fingerprint"
-          t.integer  "file_pages_count"
-          t.text     "file_content_text"
-          t.datetime "created_at",                    null: false
-          t.datetime "updated_at",                    null: false
-          t.integer  "creator_id"
-          t.integer  "updater_id"
-          t.integer  "lock_version",      default: 0, null: false
+        create_table 'document_archives', force: :cascade do |t|
+          t.integer 'document_id',                   null: false
+          t.datetime 'archived_at',                   null: false
+          t.integer 'template_id'
+          t.string 'file_file_name'
+          t.integer 'file_file_size'
+          t.string 'file_content_type'
+          t.datetime 'file_updated_at'
+          t.string 'file_fingerprint'
+          t.integer 'file_pages_count'
+          t.text 'file_content_text'
+          t.datetime 'created_at',                    null: false
+          t.datetime 'updated_at',                    null: false
+          t.integer 'creator_id'
+          t.integer 'updater_id'
+          t.integer 'lock_version',      default: 0, null: false
         end
 
-        add_index "document_archives", ["archived_at"], name: "index_document_archives_on_archived_at", using: :btree
-        add_index "document_archives", ["created_at"], name: "index_document_archives_on_created_at", using: :btree
-        add_index "document_archives", ["creator_id"], name: "index_document_archives_on_creator_id", using: :btree
-        add_index "document_archives", ["document_id"], name: "index_document_archives_on_document_id", using: :btree
-        add_index "document_archives", ["template_id"], name: "index_document_archives_on_template_id", using: :btree
-        add_index "document_archives", ["updated_at"], name: "index_document_archives_on_updated_at", using: :btree
-        add_index "document_archives", ["updater_id"], name: "index_document_archives_on_updater_id", using: :btree
+        add_index 'document_archives', ['archived_at'], name: 'index_document_archives_on_archived_at', using: :btree
+        add_index 'document_archives', ['created_at'], name: 'index_document_archives_on_created_at', using: :btree
+        add_index 'document_archives', ['creator_id'], name: 'index_document_archives_on_creator_id', using: :btree
+        add_index 'document_archives', ['document_id'], name: 'index_document_archives_on_document_id', using: :btree
+        add_index 'document_archives', ['template_id'], name: 'index_document_archives_on_template_id', using: :btree
+        add_index 'document_archives', ['updated_at'], name: 'index_document_archives_on_updated_at', using: :btree
+        add_index 'document_archives', ['updater_id'], name: 'index_document_archives_on_updater_id', using: :btree
 
         execute <<-SQL
           INSERT INTO document_archives
@@ -112,28 +103,23 @@ class MergeDocumentArchivesToDocuments < ActiveRecord::Migration
             file_fingerprint, file_pages_count, file_content_text, file_updated_at, file_updated_at from documents
         SQL
 
-
         # restore file structure
         doc_path =  Ekylibre::Tenant.private_directory.join('attachments').join('documents')
         doc_a_path =  Ekylibre::Tenant.private_directory.join('attachments').join('document_archives')
 
         if doc_path.is_a?(Pathname) && doc_a_path.is_a?(Pathname)
 
-          unless File.directory?(doc_a_path)
-            FileUtils.mkdir_p(doc_a_path)
-          end
+          FileUtils.mkdir_p(doc_a_path) unless File.directory?(doc_a_path)
 
-          for doc in connection.select_rows("SELECT id, document_id FROM document_archives")
+          for doc in connection.select_rows('SELECT id, document_id FROM document_archives')
 
-            doc_dir = doc_path.join(self.id_partition(doc[1]))
+            doc_dir = doc_path.join(id_partition(doc[1]))
 
             if File.directory?(doc_dir)
 
-              doc_a_dir = doc_a_path.join(self.id_partition(doc[0]))
+              doc_a_dir = doc_a_path.join(id_partition(doc[0]))
 
-              unless File.directory?(doc_a_dir)
-                FileUtils.mkdir_p(doc_a_dir)
-              end
+              FileUtils.mkdir_p(doc_a_dir) unless File.directory?(doc_a_dir)
 
               if File.directory?(doc_a_dir)
                 FileUtils.mv Dir.glob("#{doc_dir}/*"), doc_a_dir
@@ -143,15 +129,12 @@ class MergeDocumentArchivesToDocuments < ActiveRecord::Migration
 
           end
 
-          FileUtils.remove_dir(doc_path,true)
+          FileUtils.remove_dir(doc_path, true)
 
         else
-          raise "Not a path"
+          fail 'Not a path'
         end
-
-
       end
     end
-
   end
 end

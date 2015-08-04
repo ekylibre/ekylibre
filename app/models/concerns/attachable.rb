@@ -4,5 +4,4 @@ module Attachable
   included do
     has_many :attachments, as: :resource
   end
-
 end

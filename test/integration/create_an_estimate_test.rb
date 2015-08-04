@@ -1,9 +1,8 @@
 require 'test_helper'
 
 class CreateAnEstimateTest < CapybaraIntegrationTest
-
   setup do
-    I18n.locale = @locale = ENV["LOCALE"] || I18n.default_locale
+    I18n.locale = @locale = ENV['LOCALE'] || I18n.default_locale
     visit("/authentication/sign_in?locale=#{@locale}")
     login_as(users(:users_001), scope: :user)
   end
@@ -12,14 +11,14 @@ class CreateAnEstimateTest < CapybaraIntegrationTest
     Warden.test_reset!
   end
 
-  test "create a sale from sales" do
+  test 'create a sale from sales' do
     visit('/backend')
     first('#top').click_on(:trade.tl)
-    click_link("actions.backend/sales.index".t, href: backend_sales_path)
+    click_link('actions.backend/sales.index'.t, href: backend_sales_path)
     within('.main-toolbar') do
       first('.btn-new').click
     end
-    fill_unroll('sale_client_id', with: "karam") # , select: "Gandhi Mohandas Karamchand, 196")
+    fill_unroll('sale_client_id', with: 'karam') # , select: "Gandhi Mohandas Karamchand, 196")
     check Sale.human_attribute_name(:letter_format)
     click_on :add_item.tl
     within('#items tr.nested-fields:nth-child(1)') do
@@ -52,21 +51,21 @@ class CreateAnEstimateTest < CapybaraIntegrationTest
     click_on :create.tl
   end
 
-  test "create a sale from client" do
+  test 'create a sale from client' do
     visit('/backend')
     first('#top').click_on(:relationship.tl)
-    click_link("actions.backend/entities.index".t, href: backend_entities_path)
+    click_link('actions.backend/entities.index'.t, href: backend_entities_path)
     within('#core .kujaku') do
-      fill_in("q", with: "yue")
+      fill_in('q', with: 'yue')
       click_on :search.tl
     end
-    click_on "Yuey LTD"
+    click_on 'Yuey LTD'
     sleep(1)
     # click_link :timeline.tl
     page.execute_script("$(\"*[data-toggle='face'][href='timeline']\").click();")
     sleep(1)
     within('.timeline-tool.tl-sales') do
-      click_on "actions.backend/sales.new".t
+      click_on 'actions.backend/sales.new'.t
     end
     click_on :add_item.tl
     within('#items tr.nested-fields:nth-child(1)') do
@@ -99,24 +98,22 @@ class CreateAnEstimateTest < CapybaraIntegrationTest
     click_on :create.tl
   end
 
-
-  test "create an empty sale from client" do
+  test 'create an empty sale from client' do
     visit('/backend')
     first('#top').click_on(:relationship.tl)
-    click_link("actions.backend/entities.index".t, href: backend_entities_path)
+    click_link('actions.backend/entities.index'.t, href: backend_entities_path)
     within('#core .kujaku') do
-      fill_in("q", with: "yue")
+      fill_in('q', with: 'yue')
       click_on :search.tl
     end
-    click_on "Yuey LTD"
+    click_on 'Yuey LTD'
     sleep(1)
     # click_link :timeline.tl
     page.execute_script("$(\"*[data-toggle='face'][href='timeline']\").click();")
     sleep(1)
     within('.timeline-tool.tl-sales') do
-      click_on "actions.backend/sales.new".t
+      click_on 'actions.backend/sales.new'.t
     end
     click_on :create.tl
   end
-
 end

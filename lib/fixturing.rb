@@ -2,13 +2,12 @@ require 'active_record/fixtures'
 
 module Fixturing
   class << self
-
     def current_version
       CSV.read(migrations_file).last.first.to_i
     end
 
     def directory
-      Rails.root.join("test", "fixtures")
+      Rails.root.join('test', 'fixtures')
     end
 
     def migrations_file
@@ -16,7 +15,7 @@ module Fixturing
     end
 
     def migrations_table
-      "schema_migrations"
+      'schema_migrations'
     end
 
     def up_to_date?
@@ -24,8 +23,8 @@ module Fixturing
     end
 
     def tables_from_files
-      return Dir.glob(directory.join("*.yml")).collect do |f|
-        Pathname.new(f).basename(".*").to_s
+      Dir.glob(directory.join('*.yml')).collect do |f|
+        Pathname.new(f).basename('.*').to_s
       end.sort
     end
 
@@ -37,12 +36,10 @@ module Fixturing
       Ekylibre::Tenant.migrate(tenant, to: current_version)
       # table_names = Ekylibre::Record::Base.connection.tables.delete_if{ |t| %w(schema_migrations spatial_ref_sys).include?(t) }
       table_names = tables_from_files
-      say "Load fixtures"
+      say 'Load fixtures'
       Ekylibre::Tenant.switch!(tenant)
       ActiveRecord::FixtureSet.create_fixtures(directory, table_names)
-      unless up_to_date?
-        migrate(tenant)
-      end
+      migrate(tenant) unless up_to_date?
     end
 
     def reverse(tenant, steps = 1)
@@ -56,10 +53,10 @@ module Fixturing
 
       migrate(tenant) unless up_to_date?
 
-      backup = "#{directory.to_s}~"
+      backup = "#{directory}~"
       FileUtils.rm_rf(backup)
       FileUtils.cp_r(directory, backup)
-      Dir[directory.join("*.yml").to_s].each do |f|
+      Dir[directory.join('*.yml').to_s].each do |f|
         FileUtils.rm_rf(f)
       end
 
@@ -82,13 +79,13 @@ module Fixturing
           records["#{table}_#{row['id'].rjust(3, '0')}"] = record
         end
 
-        File.open(directory.join("#{table}.yml"), "wb") do |f|
+        File.open(directory.join("#{table}.yml"), 'wb') do |f|
           f.write records.to_yaml.gsub(/[\ \t]+\n/, "\n")
         end
       end
 
       # Dump last schema_migrations into schema_migrations file
-      File.open(migrations_file, "wb") do |f|
+      File.open(migrations_file, 'wb') do |f|
         f.write ActiveRecord::Base.connection.select_value("SELECT * FROM #{migrations_table} ORDER BY 1 DESC")
       end
 
@@ -97,17 +94,16 @@ module Fixturing
       beautify_fixture_ids
     end
 
-
     def migrate(tenant)
       target = ActiveRecord::Migrator.last_version
       origin = current_version
       if target != origin
-        say "Migrate fixtures from " + origin.inspect + " to " + target.inspect
+        say 'Migrate fixtures from ' + origin.inspect + ' to ' + target.inspect
         Ekylibre::Tenant.switch(tenant) do
           ActiveRecord::Migrator.migrate(ActiveRecord::Migrator.migrations_paths, target)
         end
       else
-        say "No more migrations", :green
+        say 'No more migrations', :green
       end
     end
 
@@ -120,9 +116,8 @@ module Fixturing
 
     def say(text, color = :yellow)
       size = text.size
-      puts "== " + text.send(color) + " " + "=" * (79 - size - 4) + "\n\n"
+      puts '== ' + text.send(color) + ' ' + '=' * (79 - size - 4) + "\n\n"
     end
-
 
     # Convert reflection to hard representation in fixtures
     #   my_thing: things_001             => my_thing_id: 1
@@ -131,14 +126,14 @@ module Fixturing
     def columnize_keys
       # Load and prepare fixtures
       data = {}
-      Ekylibre::Schema.tables.each do |table, columns|
+      Ekylibre::Schema.tables.each do |table, _columns|
         records = YAML.load_file(directory.join("#{table}.yml"))
-        ids = records.values.collect{|a| a["id"]}.compact.map(&:to_i)
+        ids = records.values.collect { |a| a['id'] }.compact.map(&:to_i)
         records.each do |record, attributes|
-          unless attributes["id"]
-            id = record.split("_").last.to_i
-            attributes["id"] = ids.include?(id) ? (1..(ids.max + 10)).to_a.detect{|x| !ids.include?(x) } : id
-            ids << attributes["id"]
+          unless attributes['id']
+            id = record.split('_').last.to_i
+            attributes['id'] = ids.include?(id) ? (1..(ids.max + 10)).to_a.detect { |x| !ids.include?(x) } : id
+            ids << attributes['id']
           end
         end
         data[table.to_s] = records
@@ -156,9 +151,9 @@ module Fixturing
               reflection = column.to_s.gsub(/\_id\z/, '')
               next unless fixture_id = attributes[reflection]
               if attrs = data[foreign_model.table_name][fixture_id]
-                attributes[column.to_s] = attrs["id"]
+                attributes[column.to_s] = attrs['id']
               else
-                raise "Cannot find #{fixture_id} for #{references} in #{table}##{record}"
+                fail "Cannot find #{fixture_id} for #{references} in #{table}##{record}"
               end
               attributes.delete(reflection)
             end
@@ -167,21 +162,21 @@ module Fixturing
             data[table.to_s].each do |record, attributes|
               reflection = column.to_s.gsub(/\_id\z/, '')
               next unless attributes[reflection]
-              type_column = reflection + "_type"
+              type_column = reflection + '_type'
               fixture_id, class_name = attributes[reflection].split(/[\(\)\s]+/)[0..1]
               foreign_model = class_name.constantize
               if attrs = data[foreign_model.table_name][fixture_id]
-                attributes[column.to_s] = attrs["id"]
+                attributes[column.to_s] = attrs['id']
                 attributes[type_column] = foreign_model.name
               else
-                raise "Cannot find #{fixture_id} for #{references} in #{table}##{record}"
+                fail "Cannot find #{fixture_id} for #{references} in #{table}##{record}"
               end
               attributes.delete(reflection)
             end
           end
         end
         data[table.to_s].each do |record, attributes|
-          data[table.to_s][record] = attributes.sort{|a,b| a.first <=> b.first }.inject({}) do |hash, pair|
+          data[table.to_s][record] = attributes.sort { |a, b| a.first <=> b.first }.inject({}) do |hash, pair|
             hash[pair.first] = pair.second
             hash
           end
@@ -189,8 +184,8 @@ module Fixturing
       end
 
       # Write
-      Ekylibre::Schema.tables.each do |table, columns|
-        File.open(directory.join("#{table}.yml"), "wb") do |f|
+      Ekylibre::Schema.tables.each do |table, _columns|
+        File.open(directory.join("#{table}.yml"), 'wb') do |f|
           f.write data[table].to_yaml
         end
       end
@@ -205,12 +200,12 @@ module Fixturing
       # Load and prepare fixtures
       data = {}
       model_ids = {}
-      Ekylibre::Schema.tables.each do |table, columns|
+      Ekylibre::Schema.tables.each do |table, _columns|
         records = YAML.load_file(directory.join("#{table}.yml"))
         base_model = table.to_s.classify
         counter = {}
-        data[table.to_s] = records.values.sort{|a,b| [a["type"] || base_model, a["id"]] <=> [b["type"] || base_model, b["id"]] }.inject({}) do |hash, attributes|
-          model = attributes["type"] ? attributes["type"].underscore.pluralize : table.to_s
+        data[table.to_s] = records.values.sort { |a, b| [a['type'] || base_model, a['id']] <=> [b['type'] || base_model, b['id']] }.inject({}) do |hash, attributes|
+          model = attributes['type'] ? attributes['type'].underscore.pluralize : table.to_s
           counter[model] ||= 0
           counter[model] += 1
           hash["#{model}_#{counter[model].to_s.rjust(3, '0')}"] = attributes
@@ -228,23 +223,23 @@ module Fixturing
             puts references.inspect.red unless data[foreign_model.table_name]
             data[table.to_s].each do |record, attributes|
               next unless fixture_id = attributes[column.to_s]
-              if attrs = data[foreign_model.table_name].detect{|r, a| a["id"] == fixture_id}
+              if attrs = data[foreign_model.table_name].detect { |_r, a| a['id'] == fixture_id }
                 attributes[column.to_s.gsub(/\_id\z/, '')] = attrs.first
               else
-                raise "Cannot find #{foreign_model.name} #{fixture_id} for #{column} in #{table}##{record}"
+                fail "Cannot find #{foreign_model.name} #{fixture_id} for #{column} in #{table}##{record}"
               end
               attributes.delete(column.to_s)
             end
           else
             # Polymorphic reflection case
             data[table.to_s].each do |record, attributes|
-              type_column = column.to_s.gsub(/\_id\z/, '') + "_type"
+              type_column = column.to_s.gsub(/\_id\z/, '') + '_type'
               next unless fixture_id = attributes[column.to_s] and fixture_type = attributes[type_column]
               foreign_model = fixture_type.constantize
-              if attrs = data[foreign_model.table_name].detect{|r,a| a["id"] == fixture_id and (a["type"] || foreign_model.name) == fixture_type}
+              if attrs = data[foreign_model.table_name].detect { |_r, a| a['id'] == fixture_id && (a['type'] || foreign_model.name) == fixture_type }
                 attributes[column.to_s.gsub(/\_id\z/, '')] = "#{attrs.first} (#{fixture_type})"
               else
-                raise "Cannot find #{fixture_type}##{fixture_id} for #{column} in #{table}##{record} (#{attributes['id']})"
+                fail "Cannot find #{fixture_type}##{fixture_id} for #{column} in #{table}##{record} (#{attributes['id']})"
               end
               attributes.delete(column.to_s)
               attributes.delete(type_column)
@@ -255,7 +250,7 @@ module Fixturing
 
       data.each do |table, records|
         records.each do |record, attributes|
-          data[table][record] = attributes.delete_if{|k,v| k == "id" }.sort{|a,b| a.first <=> b.first }.inject({}) do |hash, pair|
+          data[table][record] = attributes.delete_if { |k, _v| k == 'id' }.sort { |a, b| a.first <=> b.first }.inject({}) do |hash, pair|
             hash[pair.first] = pair.second
             hash
           end
@@ -263,8 +258,8 @@ module Fixturing
       end
 
       # Write
-      Ekylibre::Schema.tables.each do |table, columns|
-        File.open(directory.join("#{table}.yml"), "wb") do |f|
+      Ekylibre::Schema.tables.each do |table, _columns|
+        File.open(directory.join("#{table}.yml"), 'wb') do |f|
           f.write data[table].to_yaml
         end
       end
@@ -273,26 +268,17 @@ module Fixturing
       Clean::Annotations.run(only: :fixtures, verbose: false)
     end
 
-
-
-
-
-
-
-
-
-
     # Adds model conform fixture ids
     def beautify_fixture_ids
       # Load and prepare fixtures
       data = {}
       model_ids = {}
-      Ekylibre::Schema.tables.each do |table, columns|
+      Ekylibre::Schema.tables.each do |table, _columns|
         records = YAML.load_file(directory.join("#{table}.yml"))
         base_model = table.to_s.classify
         counter = {}
-        data[table.to_s] = records.values.sort{|a,b| [a["type"] || base_model, a["id"]] <=> [b["type"] || base_model, b["id"]] }.inject({}) do |hash, attributes|
-          model = attributes["type"] ? attributes["type"].underscore.pluralize : table.to_s
+        data[table.to_s] = records.values.sort { |a, b| [a['type'] || base_model, a['id']] <=> [b['type'] || base_model, b['id']] }.inject({}) do |hash, attributes|
+          model = attributes['type'] ? attributes['type'].underscore.pluralize : table.to_s
           counter[model] ||= 0
           counter[model] += 1
           hash["#{model}_#{counter[model].to_s.rjust(3, '0')}"] = attributes
@@ -302,7 +288,7 @@ module Fixturing
 
       data.each do |table, records|
         records.each do |record, attributes|
-          data[table][record] = attributes.sort{|a,b| a.first <=> b.first }.inject({}) do |hash, pair|
+          data[table][record] = attributes.sort { |a, b| a.first <=> b.first }.inject({}) do |hash, pair|
             hash[pair.first] = pair.second
             hash
           end
@@ -310,8 +296,8 @@ module Fixturing
       end
 
       # Write
-      Ekylibre::Schema.tables.each do |table, columns|
-        File.open(directory.join("#{table}.yml"), "wb") do |f|
+      Ekylibre::Schema.tables.each do |table, _columns|
+        File.open(directory.join("#{table}.yml"), 'wb') do |f|
           f.write data[table].to_yaml
         end
       end
@@ -320,28 +306,23 @@ module Fixturing
       Clean::Annotations.run(only: :fixtures, verbose: false)
     end
 
-
-
-
-
-
     def yaml_escape(value, type = :string)
       value = value.to_s
-      value = if type == :float or type == :decimal or type == :integer
+      value = if type == :float || type == :decimal || type == :integer
                 value
               elsif type == :boolean
-                (['1', 't', 'T', 'true', 'yes', 'TRUE'].include?(value) ? 'true' : 'false')
+                (%w(1 t T true yes TRUE).include?(value) ? 'true' : 'false')
               else
                 value.to_yaml.gsub(/^\-\-\-\s*/, '').strip
               end
-      return value
+      value
     end
 
     def convert_value(value, type = :string)
       value = value.to_s
       value = if type == :float
                 value.to_f
-              elsif type == :geometry or type == :point
+              elsif type == :geometry || type == :point
                 Charta::Geometry.new(value).to_ewkt
               elsif type == :decimal
                 value.to_f
@@ -352,13 +333,12 @@ module Fixturing
               elsif type == :datetime
                 value.to_time(:utc)
               elsif type == :boolean
-                (['1', 't', 'T', 'true', 'yes', 'TRUE'].include?(value) ? true : false)
+                (%w(1 t T true yes TRUE).include?(value) ? true : false)
               else
-                puts type.inspect.red unless type == :string or type == :text
+                puts type.inspect.red unless type == :string || type == :text
                 value =~ /\A\-\-\-(\s+|\z)/ ? YAML.load(value) : value
               end
-      return value
+      value
     end
-
   end
 end

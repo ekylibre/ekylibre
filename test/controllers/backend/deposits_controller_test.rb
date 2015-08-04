@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class Backend::DepositsControllerTest < ActionController::TestCase
-  test_restfully_all_actions new: {mode_id: identify(:incoming_payment_modes_001)}, list_depositable_payments: {mode_id: identify(:incoming_payment_modes_001)}
+  test_restfully_all_actions new: { mode_id: identify(:incoming_payment_modes_001) }, list_depositable_payments: { mode_id: identify(:incoming_payment_modes_001) }
 end

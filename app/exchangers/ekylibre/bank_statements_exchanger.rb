@@ -1,6 +1,5 @@
 # coding: utf-8
 class Ekylibre::BankStatementsExchanger < ActiveExchanger::Base
-
   def import
     s = Roo::OpenOffice.new(file)
     w.count = s.sheets.count
@@ -18,11 +17,11 @@ class Ekylibre::BankStatementsExchanger < ActiveExchanger::Base
       if cash = Cash.find_by(name: cash_name)
         w.info "Bank statement will be created in #{cash.name}"
       else
-        w.error "Missing informations to get existing cash, you must update your file or create a cash before importing"
+        w.error 'Missing informations to get existing cash, you must update your file or create a cash before importing'
       end
 
       # get bank_statement if exist in DB or create it
-      bank_statement = BankStatement.where(cash: cash, number: bank_statement_number).first if cash and bank_statement_number
+      bank_statement = BankStatement.where(cash: cash, number: bank_statement_number).first if cash && bank_statement_number
       if bank_statement
         # try to know if any items exist
         if bank_statement.items.any?
@@ -31,18 +30,17 @@ class Ekylibre::BankStatementsExchanger < ActiveExchanger::Base
           w.info "Bank statement #{bank_statement.number} already exist but is blank, we will use it"
         end
 
-      elsif cash and bank_statement_number and bank_statement_started_on and bank_statement_stopped_on
+      elsif cash && bank_statement_number && bank_statement_started_on && bank_statement_stopped_on
         bank_statement = BankStatement.create!(cash: cash,
                                                number: bank_statement_number,
                                                started_at: bank_statement_started_on.to_time,
-                                               stopped_at: bank_statement_stopped_on.to_time,
-                                               )
+                                               stopped_at: bank_statement_stopped_on.to_time
+                                              )
       else
-        w.error "Missing informations to create a bank statement"
+        w.error 'Missing informations to create a bank statement'
       end
 
       w.debug "Bank statement #{bank_statement.number} in Cash #{cash.name}"
-
 
       # file format (CSV from common bank)
       # A operation_date
@@ -61,14 +59,12 @@ class Ekylibre::BankStatementsExchanger < ActiveExchanger::Base
           debit: (s.cell('C', row_number).blank? ? nil : s.cell('C', row_number).to_d),
           credit: (s.cell('D', row_number).blank? ? nil : s.cell('D', row_number).to_d),
           description: (s.cell('E', row_number).blank? ? nil : s.cell('E', row_number).to_s.strip),
-          global_balance: (s.cell('F', row_number).blank? ? nil : s.cell('F', row_number).to_d),
+          global_balance: (s.cell('F', row_number).blank? ? nil : s.cell('F', row_number).to_d)
         }.to_struct
 
         w.info "#{r.operation_date.l} -  #{r.description}"
-
       end
       w.check_point
     end
   end
-
 end

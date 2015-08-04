@@ -1,31 +1,31 @@
 module Procedo
   class Variable
-
     attr_reader :abilities, :birth_nature, :derivative_of, :default_name, :destinations, :default_actor, :default_variant, :handlers, :name, :position, :procedure, :producer_name, :roles, :type, :value, :variety
 
     def initialize(procedure, element, position)
       @procedure = procedure
       @position = position
-      @name = element.attr("name").to_sym
-      if element.has_attribute?("new")
+      @name = element.attr('name').to_sym
+      if element.has_attribute?('new')
         @new_variable = true
-        new = element.attr("new").to_s
+        new = element.attr('new').to_s
         unless new.match(/\A(parted\-from|produced-by)\:/)
-          raise StandardError, "The new variable #{@name} in procedure #{@procedure.name} must specify where does it comes from"
+          fail StandardError, "The new variable #{@name} in procedure #{@procedure.name} must specify where does it comes from"
         end
         new_array = new.split(/\s*\:\s*/)
         @birth_nature  = new_array.shift.underscore.to_sym
         @producer_name = new_array.shift.to_sym
       end
-      @type = element.has_attribute?('type') ? element.attr("type").underscore.to_sym : :product
+      @type = element.has_attribute?('type') ? element.attr('type').underscore.to_sym : :product
       unless [:product, :variant].include?(@type)
-        raise StandardError, "Unknown variable type: #{@type.inspect}"
+        fail StandardError, "Unknown variable type: #{@type.inspect}"
       end
-      @default_name = element.attr("default-name").to_s
-      @default_actor   = element.has_attribute?('default-actor')   ? element.attr("default-actor").underscore.to_sym   : :none
-      @default_variant = element.has_attribute?('default-variant') ? element.attr("default-variant").underscore.to_sym : :none
+      @default_name = element.attr('default-name').to_s
+      @default_actor   = element.has_attribute?('default-actor') ? element.attr('default-actor').underscore.to_sym : :none
+      @default_variant = element.has_attribute?('default-variant') ? element.attr('default-variant').underscore.to_sym : :none
       # Handlers
-      @handlers, @needs = [], []
+      @handlers = []
+      @needs = []
       element.xpath('xmlns:handler').each do |el|
         handler = Handler.new(self, el)
         @handlers << handler
@@ -34,10 +34,10 @@ module Procedo
       end
       hnames = @handlers.map(&:name)
       if hnames.size != hnames.uniq.size
-        raise StandardError, "Duplicated handlers in #{@procedure.name}##{@name}"
+        fail StandardError, "Duplicated handlers in #{@procedure.name}##{@name}"
       end
       if @handlers.empty?
-        @needs = element.attr("need").to_s.split(/\s*\,\s*/).map(&:to_sym)
+        @needs = element.attr('need').to_s.split(/\s*\,\s*/).map(&:to_sym)
         for need in @needs
           @handlers << Handler.new(self, indicator: need)
         end
@@ -50,37 +50,36 @@ module Procedo
           @default_destinations[destination] = element.attr(attr_name)
         end
       end
-      @value = element.attr("value").to_s
-      @abilities = WorkingSet::AbilityArray.load(element.attr("abilities").to_s)
+      @value = element.attr('value').to_s
+      @abilities = WorkingSet::AbilityArray.load(element.attr('abilities').to_s)
       @abilities.check!
-      if element.has_attribute?("variety")
-        @variety = element.attr("variety").to_s.strip
+      if element.has_attribute?('variety')
+        @variety = element.attr('variety').to_s.strip
       elsif parted?
         @variety = ":#{@producer_name}"
       end
-      if element.has_attribute?("derivative-of")
-        @derivative_of = element.attr("derivative-of").to_s.strip
+      if element.has_attribute?('derivative-of')
+        @derivative_of = element.attr('derivative-of').to_s.strip
       elsif parted?
         @derivative_of = ":#{@producer_name}"
       end
-      @roles = element.attr("roles").to_s.strip.split(/\s*\,\s*/)
-      if element.has_attribute?("variant")
+      @roles = element.attr('roles').to_s.strip.split(/\s*\,\s*/)
+      if element.has_attribute?('variant')
         if parted?
-          raise StandardError, "'variant' attribute must be removed to limit ambiguity when new variable is parted from another"
+          fail StandardError, "'variant' attribute must be removed to limit ambiguity when new variable is parted from another"
         end
-        @variant = element.attr("variant").to_s.strip
+        @variant = element.attr('variant').to_s.strip
         if @variant =~ /\A\:/
           unless @procedure.variable_names.include?(@variant[1..-1].to_sym)
-            raise StandardError, "Unknown variable for variant attribute: #{@variant}"
+            fail StandardError, "Unknown variable for variant attribute: #{@variant}"
           end
         else
           unless Nomen::ProductNatureVariants[@variant]
-            raise StandardError, "Unknown variant in product_nature_variants nomenclature: #{@variant}"
+            fail StandardError, "Unknown variant in product_nature_variants nomenclature: #{@variant}"
           end
         end
       end
     end
-
 
     # Returns the name of procedure (LOD)
     def procedure_name
@@ -109,7 +108,7 @@ module Procedo
 
     # Returns an handler by its name
     def [](name)
-      @handlers.select{|h| h.name.to_s == name.to_s}.first
+      @handlers.find { |h| h.name.to_s == name.to_s }
     end
 
     #
@@ -117,20 +116,18 @@ module Procedo
       !@value.blank?
     end
 
-    def needs
-      @needs
-    end
+    attr_reader :needs
 
     def need_population?
-      new? and @needs.include?(:population)
+      new? && @needs.include?(:population)
     end
 
     def need_shape?
-      new? and @needs.include?(:shape)
+      new? && @needs.include?(:shape)
     end
 
     def worked?
-      new? or @needs.any?
+      new? || @needs.any?
     end
 
     def new?
@@ -138,11 +135,11 @@ module Procedo
     end
 
     def parted?
-      new? and @birth_nature == :parted_from
+      new? && @birth_nature == :parted_from
     end
 
     def produced?
-      new? and @birth_nature == :produced_by
+      new? && @birth_nature == :produced_by
     end
 
     def default_name?
@@ -157,7 +154,6 @@ module Procedo
       @type == :variant
     end
 
-
     def producer
       @producer ||= @procedure.variables[@producer_name]
     end
@@ -166,50 +162,47 @@ module Procedo
       if @variety
         if @variety =~ /\:/
           attr, other = @variety.split(/\:/)[0..1].map(&:strip)
-          attr = "variety" if attr.blank?
-          attr.gsub!(/\-/, "_")
+          attr = 'variety' if attr.blank?
+          attr.gsub!(/\-/, '_')
           unless variable = @procedure.variables[other]
-            raise Procedo::Errors::MissingVariable, "Variable #{other.inspect} can not be found"
+            fail Procedo::Errors::MissingVariable, "Variable #{other.inspect} can not be found"
           end
           return variable.send("computed_#{attr}")
         else
           return @variety
         end
       end
-      return nil
+      nil
     end
 
     def computed_derivative_of
       if @derivative_of
         if @derivative_of =~ /\:/
           attr, other = @derivative_of.split(/\:/)[0..1].map(&:strip)
-          attr = "derivative_of" if attr.blank?
-          attr.gsub!(/\-/, "_")
+          attr = 'derivative_of' if attr.blank?
+          attr.gsub!(/\-/, '_')
           unless variable = @procedure.variables[other]
-            raise Procedo::Errors::MissingVariable, "Variable #{other.inspect} can not be found"
+            fail Procedo::Errors::MissingVariable, "Variable #{other.inspect} can not be found"
           end
           return variable.send("computed_#{attr}")
         else
           return @derivative_of
         end
       end
-      return nil
+      nil
     end
 
     # Returns scope hash for unroll
     def scope_hash
       hash = {}
-      unless @abilities.empty?
-        hash[:can_each] = @abilities.join(',')
-      end
+      hash[:can_each] = @abilities.join(',') unless @abilities.empty?
       hash[:of_variety] = computed_variety if computed_variety
       hash[:derivative_of] = computed_derivative_of if computed_derivative_of
-      return hash
+      hash
     end
 
-
     def known_variant?
-      !@variant.nil? or parted?
+      !@variant.nil? || parted?
     end
 
     # Return a ProductNatureVariant based on given informations
@@ -223,7 +216,7 @@ module Procedo
         end
         return variant
       end
-      return nil
+      nil
     end
 
     def variant_variable
@@ -233,14 +226,14 @@ module Procedo
         other = @variant[1..-1]
         return @procedure.variables[other]
       end
-      return nil
+      nil
     end
 
     def variant_indication
       if v = variant_variable
-        return "same_variant_as_x".tl(x: v.human_name)
+        return 'same_variant_as_x'.tl(x: v.human_name)
       end
-      return "unknown_variant".tl
+      'unknown_variant'.tl
     end
 
     # Returns default given destination if exists
@@ -250,26 +243,25 @@ module Procedo
 
     # Returns backward converters from a given destination
     def backward_converters_from(destination)
-      return handlers.collect do |handler|
+      handlers.collect do |handler|
         handler.converters.select do |converter|
-          converter.destination == destination and converter.backward?
+          converter.destination == destination && converter.backward?
         end
       end.flatten.compact
     end
-
 
     # Returns dependent variables. Variables that point on me
     def dependent_variables
       procedure.variables.values.select do |v|
         # v.producer == self or
-        v.variety =~ /\:\s*#{self.name}\z/ or v.derivative_of =~ /\:\s*#{self.name}\z/
+        v.variety =~ /\:\s*#{name}\z/ || v.derivative_of =~ /\:\s*#{name}\z/
       end
     end
 
     # Returns dependings variables. Variables that I point
     def depending_variables
       # self.producer
-      [procedure.variables[self.variety.split(/\:\s*/)], procedure.variables[self.derivative_of.split(/\:\s*/)]].compact
+      [procedure.variables[variety.split(/\:\s*/)], procedure.variables[derivative_of.split(/\:\s*/)]].compact
     end
 
     # check if a given actor might fulfill the procedure's variable
@@ -280,17 +272,15 @@ module Procedo
       # do not test created variables
       return false if new?
       expr = []
-      if @variety.present?
-        expr << "is #{@variety}"
-      end
+      expr << "is #{@variety}" if @variety.present?
       if @derivative_of.present? && actor.derivative_of.present?
         expr << "derives from #{@derivative_of}"
       end
       if @abilities.present?
-        expr << @abilities.map{|a| "can #{a}"}.join(" and ")
+        expr << @abilities.map { |a| "can #{a}" }.join(' and ')
       end
       return false if expr.empty?
-      return actor.of_expression(expr.join(" and "))
+      actor.of_expression(expr.join(' and '))
     end
 
     # match actors to variable. Returns an array of actors fulfilling variable
@@ -302,10 +292,11 @@ module Procedo
       actors.each do |actor|
         result << actor if fulfilled_by?(actor)
       end
-      return result
+      result
     end
 
     private
+
     # compare two Nomen::Varieties items
     # returns true if actor's item is the same as variable's one or if
     # actor's item is a child of variable's variety, false otherwise
@@ -314,9 +305,7 @@ module Procedo
     #           - actor_item, the actor's variety or derivative_of to compare
     def same_items?(variable_item, actor_item)
       # if possible it is better to squeeze nomenclature items comparison since it's quite slow
-      if actor_item == variable_item
-        return true
-      end
+      return true if actor_item == variable_item
 
       begin
         return Nomen::Varieties[variable_item] >= actor_item

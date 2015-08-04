@@ -40,14 +40,14 @@
 
 class ProductLocalization < Ekylibre::Record::Base
   include Taskable, TimeLineable
-  belongs_to :container, class_name: "Product"
+  belongs_to :container, class_name: 'Product'
   belongs_to :product
   enumerize :nature, in: [:transfer, :interior, :exterior], predicates: true
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_presence_of :nature, :product
-  #]VALIDATORS]
-  validates_inclusion_of :nature, in: self.nature.values
+  # ]VALIDATORS]
+  validates_inclusion_of :nature, in: nature.values
   validates_presence_of :container, if: :interior?
 
   scope :of_product_varieties, lambda { |*varieties|
@@ -55,15 +55,13 @@ class ProductLocalization < Ekylibre::Record::Base
   }
 
   before_validation do
-    if self.nature.blank? and container = self.product.container_at(self.started_at)
+    if nature.blank? && container = product.container_at(started_at)
       self.nature = (container.owner == Entity.of_company ? :interior : :exterior)
     end
   end
 
   before_save do
-    unless self.interior?
-      self.container = nil
-    end
+    self.container = nil unless self.interior?
   end
 
   after_save do
@@ -72,30 +70,25 @@ class ProductLocalization < Ekylibre::Record::Base
     #   self.product_linkages.create!(carrier_id: linkage.carrier_id, point: linkage.point, started_at: self.started_at, nature: :available)
     # end
     # Move carried products
-    self.product.linkages.at(self.started_at).find_each do |linkage|
-      if linkage.occupied? and carried = linkage.carried
-        localization = carried.localizations.at(self.started_at).first
-        if localization.nil? or (localization.nature != self.nature or localization.container_id != self.container_id)
-          self.product_localizations.create!(product: linkage.carried, operation: self.operation, nature: self.nature, container: self.container, started_at: self.started_at)
+    product.linkages.at(started_at).find_each do |linkage|
+      if linkage.occupied? && carried = linkage.carried
+        localization = carried.localizations.at(started_at).first
+        if localization.nil? || (localization.nature != nature || localization.container_id != container_id)
+          product_localizations.create!(product: linkage.carried, operation: operation, nature: nature, container: self.container, started_at: started_at)
         end
       end
     end
   end
 
   protect do
-    unless self.destroyed_by_association
-      return self.intervention.present?
-    end
+    return intervention.present? unless destroyed_by_association
     return false
   end
-
-
 
   private
 
   # Returns all siblings in the chronological line
   def siblings
-    (self.product ? self.product.localizations : self.class.none)
+    (product ? product.localizations : self.class.none)
   end
-
 end

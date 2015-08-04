@@ -49,12 +49,10 @@
 #  updater_id         :integer
 #
 
-
 require 'test_helper'
 
 class JournalEntryTest < ActiveSupport::TestCase
-
-  test "a journal forbids to write records before its closure date" do
+  test 'a journal forbids to write records before its closure date' do
     journal = journals(:journals_001)
     assert_raise ActiveRecord::RecordInvalid do
       record = journal.entries.create!(printed_on: journal.closed_on - 10)
@@ -63,5 +61,4 @@ class JournalEntryTest < ActiveSupport::TestCase
       record = journal.entries.create!(printed_on: journal.closed_on + 1)
     end
   end
-
 end

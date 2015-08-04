@@ -18,10 +18,7 @@
 #
 
 module Backend::AttachmentsHelper
-
-  def attachments_of(resource, options = {})
-    render "/backend/attachments/thumbs", attachments: resource.attachments
+  def attachments_of(resource, _options = {})
+    render '/backend/attachments/thumbs', attachments: resource.attachments
   end
-
-
 end

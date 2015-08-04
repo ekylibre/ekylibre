@@ -21,7 +21,7 @@ class Backend::FinancialYearsController < Backend::BaseController
 
   unroll
 
-  list(order: {started_on: :desc}) do |t|
+  list(order: { started_on: :desc }) do |t|
     # t.action :close, if: '!RECORD.closed and RECORD.closable?'
     t.action :edit, unless: :closed?
     t.action :destroy, unless: :closed?
@@ -33,7 +33,7 @@ class Backend::FinancialYearsController < Backend::BaseController
     # t.column :currency_precision
   end
 
-  list(:account_balances, joins: :account, conditions: {financial_year_id: 'params[:id]'.c}, order: "accounts.number") do |t|
+  list(:account_balances, joins: :account, conditions: { financial_year_id: 'params[:id]'.c }, order: 'accounts.number') do |t|
     t.column :account, url: true
     t.column :account_number, through: :account, label_method: :number, url: true, hidden: true
     t.column :account_name,   through: :account, label_method: :name, url: true, hidden: true
@@ -41,7 +41,7 @@ class Backend::FinancialYearsController < Backend::BaseController
     t.column :local_credit, currency: true
   end
 
-  list(:fixed_asset_depreciations, conditions: {financial_year_id: 'params[:id]'.c}) do |t|
+  list(:fixed_asset_depreciations, conditions: { financial_year_id: 'params[:id]'.c }) do |t|
     t.column :fixed_asset, url: true
     t.column :started_on
     t.column :stopped_on
@@ -53,13 +53,13 @@ class Backend::FinancialYearsController < Backend::BaseController
     return unless @financial_year = find_and_check
     respond_to do |format|
       format.html do
-        if @financial_year.closed? and @financial_year.account_balances.empty?
+        if @financial_year.closed? && @financial_year.account_balances.empty?
           @financial_year.compute_balances!
         end
         t3e @financial_year.attributes
       end
       format.pdf do
-        if params[:n] == "balance_sheet"
+        if params[:n] == 'balance_sheet'
           render_print_balance_sheet(@financial_year)
         else
           render_print_income_statement(@financial_year)
@@ -74,12 +74,11 @@ class Backend::FinancialYearsController < Backend::BaseController
     redirect_to_back
   end
 
-
   def close
     # Launch close process
     return unless @financial_year = find_and_check
     if request.post?
-      params[:journal_id] = Journal.create!(nature: :forward).id if params[:journal_id] == "0"
+      params[:journal_id] = Journal.create!(nature: :forward).id if params[:journal_id] == '0'
       if @financial_year.close(params[:financial_year][:stopped_on].to_date, journal_id: params[:journal_id])
         notify_success(:closed_financial_years)
         redirect_to(action: :index)
@@ -114,5 +113,4 @@ class Backend::FinancialYearsController < Backend::BaseController
     end
     t3e @financial_year.attributes
   end
-
 end

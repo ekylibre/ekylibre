@@ -19,14 +19,14 @@
 #
 
 class Backend::ProductsController < Backend::BaseController
-  manage_restfully t3e: {nature: :nature_name}, subclass_inheritance: true
+  manage_restfully t3e: { nature: :nature_name }, subclass_inheritance: true
   manage_restfully_picture
 
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
   before_action :check_variant_availability, only: :new
 
-  unroll :name, :number, :work_number, "population:!", "unit_name:!"
+  unroll :name, :number, :work_number, 'population:!', 'unit_name:!'
 
   # params:
   #   :q Text search
@@ -39,9 +39,8 @@ class Backend::ProductsController < Backend::BaseController
     code << "  c[0] << \" AND products.nature_id IN (SELECT id FROM product_natures WHERE \#{WorkingSet.to_sql(item.expression)})\"\n"
     code << "end\n"
     code << "c\n"
-    return code.c
+    code.c
   end
-
 
   list(conditions: working_set_conditions) do |t|
     t.action :edit
@@ -55,7 +54,7 @@ class Backend::ProductsController < Backend::BaseController
   end
 
   # Lists contained products of the current product
-  list(:contained_products, model: :product_localizations, conditions: {container_id: 'params[:id]'.c, stopped_at: nil}, order: {started_at: :desc}) do |t|
+  list(:contained_products, model: :product_localizations, conditions: { container_id: 'params[:id]'.c, stopped_at: nil }, order: { started_at: :desc }) do |t|
     t.column :product, url: true
     t.column :nature, hidden: true
     t.column :intervention, url: true
@@ -64,7 +63,7 @@ class Backend::ProductsController < Backend::BaseController
   end
 
   # Lists localizations of the current product
-  list(:places, model: :product_localizations, conditions: {product_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
+  list(:places, model: :product_localizations, conditions: { product_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
     t.column :nature
     t.column :container, url: true
     t.column :intervention, url: true
@@ -73,7 +72,7 @@ class Backend::ProductsController < Backend::BaseController
   end
 
   # Lists carried linkages of the current product
-  list(:carried_linkages, model: :product_linkages, conditions: {carrier_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
+  list(:carried_linkages, model: :product_linkages, conditions: { carrier_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
     t.column :carried, url: true
     t.column :point
     t.column :nature
@@ -83,7 +82,7 @@ class Backend::ProductsController < Backend::BaseController
   end
 
   # Lists carrier linkages of the current product
-  list(:carrier_linkages, model: :product_linkages, conditions: {carried_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
+  list(:carrier_linkages, model: :product_linkages, conditions: { carried_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
     t.column :carrier, url: true
     t.column :point
     t.column :nature
@@ -93,7 +92,7 @@ class Backend::ProductsController < Backend::BaseController
   end
 
   # Lists groups of the current product
-  list(:groups, model: :product_memberships, conditions: {member_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
+  list(:groups, model: :product_memberships, conditions: { member_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
     t.column :group, url: true
     t.column :intervention, url: true
     t.column :started_at
@@ -101,7 +100,7 @@ class Backend::ProductsController < Backend::BaseController
   end
 
   # Lists members of the current product
-  list(:members, model: :product_memberships, conditions: {group_id: 'params[:id]'.c}, order: :started_at) do |t|
+  list(:members, model: :product_memberships, conditions: { group_id: 'params[:id]'.c }, order: :started_at) do |t|
     t.column :member, url: true
     t.column :intervention, url: true
     t.column :started_at
@@ -109,7 +108,7 @@ class Backend::ProductsController < Backend::BaseController
   end
 
   # Lists reading tasks of the current product
-  list(:reading_tasks, model: :product_reading_tasks, conditions: {product_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
+  list(:reading_tasks, model: :product_reading_tasks, conditions: { product_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
     t.column :indicator_name
     t.column :value
     t.column :reporter
@@ -117,29 +116,28 @@ class Backend::ProductsController < Backend::BaseController
   end
 
   # Lists readings of the current product
-  list(:readings, model: :product_readings, conditions: {product_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
+  list(:readings, model: :product_readings, conditions: { product_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
     t.column :indicator_name
     t.column :read_at
     t.column :value
   end
 
   # Lists issues of the current product
-  list(:issues, conditions: {target_id: 'params[:id]'.c, target_type: 'Product'}, order: {observed_at: :desc}) do |t|
-    t.action :new, url: {controller: :interventions, issue_id: 'RECORD.id'.c, id: nil}
+  list(:issues, conditions: { target_id: 'params[:id]'.c, target_type: 'Product' }, order: { observed_at: :desc }) do |t|
+    t.action :new, url: { controller: :interventions, issue_id: 'RECORD.id'.c, id: nil }
     t.column :nature, url: true
     t.column :observed_at
     t.status
   end
 
   # Lists intervention casts of the current product
-  list(:intervention_casts, conditions: {actor_id: 'params[:id]'.c}, order: "interventions.started_at DESC") do |t|
+  list(:intervention_casts, conditions: { actor_id: 'params[:id]'.c }, order: 'interventions.started_at DESC') do |t|
     t.column :intervention, url: true
     t.column :roles, hidden: true
     t.column :name, sort: :reference_name
     t.column :started_at, through: :intervention, datatype: :datetime
     t.column :stopped_at, through: :intervention, datatype: :datetime, hidden: true
   end
-
 
   # Returns value of an indicator
   def take
@@ -154,21 +152,19 @@ class Backend::ProductsController < Backend::BaseController
       if unit = Nomen::Units[params[:unit]]
         value = value.convert(unit)
       end
-      value = {unit: value.unit, value: value.to_d.round(4)}
+      value = { unit: value.unit, value: value.to_d.round(4) }
     elsif [:integer, :decimal].include? indicator.datatype
-      value = {value: value.to_d.round(4)}
+      value = { value: value.to_d.round(4) }
     end
     render json: value
   end
 
   protected
 
-  def check_variant_availability()
+  def check_variant_availability
     unless ProductNatureVariant.of_variety(controller_name.to_s.underscore.singularize).any?
       redirect_to new_backend_product_nature_url
       return false
     end
   end
-
-
 end

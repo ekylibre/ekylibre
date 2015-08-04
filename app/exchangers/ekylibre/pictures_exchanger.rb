@@ -1,5 +1,4 @@
 class Ekylibre::PicturesExchanger < ActiveExchanger::Base
-
   # Create or updates pictures
   def import
     # Unzip file
@@ -13,19 +12,19 @@ class Ekylibre::PicturesExchanger < ActiveExchanger::Base
     end
 
     mimetype = File.read(dir.join('mimetype')).to_s.strip
-    nature = mimetype.split(".").last
+    nature = mimetype.split('.').last
 
     identifier = File.read(dir.join('identifier')).to_s.strip.to_sym
 
     klass = nil
-    if nature == "products"
+    if nature == 'products'
       klass = Product
     else
-      raise "Unknown picture type: #{mimetype.inspect}"
+      fail "Unknown picture type: #{mimetype.inspect}"
     end
 
-    Dir.chdir(dir.join("pictures")) do
-      Dir.glob("*") do |picture|
+    Dir.chdir(dir.join('pictures')) do
+      Dir.glob('*') do |picture|
         path = Pathname.new(picture)
         extn = path.extname
         id = File.basename(picture, extn)
@@ -37,5 +36,4 @@ class Ekylibre::PicturesExchanger < ActiveExchanger::Base
       end
     end
   end
-
 end

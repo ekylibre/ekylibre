@@ -11,27 +11,26 @@ module Userstamp
         include InstanceMethods
 
         # Should ActiveRecord record userstamps? Defaults to true.
-        class_attribute  :record_userstamp
+        class_attribute :record_userstamp
         self.record_userstamp = true
 
         # Which class is responsible for stamping? Defaults to :user.
-        class_attribute  :stamper_class_name
+        class_attribute :stamper_class_name
 
         # What column should be used for the creator stamp?
         # Defaults to :creator_id when compatibility mode is off
         # Defaults to :created_by when compatibility mode is on
-        class_attribute  :creator_attribute
+        class_attribute :creator_attribute
 
         # What column should be used for the updater stamp?
         # Defaults to :updater_id when compatibility mode is off
         # Defaults to :updated_by when compatibility mode is on
-        class_attribute  :updater_attribute
+        class_attribute :updater_attribute
 
         # What column should be used for the deleter stamp?
         # Defaults to :deleter_id when compatibility mode is off
         # Defaults to :deleted_by when compatibility mode is on
-        class_attribute  :deleter_attribute
-
+        class_attribute :deleter_attribute
       end
     end
 
@@ -51,10 +50,10 @@ module Userstamp
       # and <tt>before_create</tt> filters for doing the stamping.
       def stampable(options = {})
         defaults  = {
-          :stamper_class_name => :user,
-          :creator_attribute => :creator_id,
-          :updater_attribute => :updater_id,
-          :deleter_attribute => :deleter_id
+          stamper_class_name: :user,
+          creator_attribute: :creator_id,
+          updater_attribute: :updater_id,
+          deleter_attribute: :deleter_id
         }.merge(options)
 
         self.stamper_class_name = defaults[:stamper_class_name].to_sym
@@ -67,7 +66,7 @@ module Userstamp
           belongs_to(:creator, class_name: klass, foreign_key: creator_attribute)
           belongs_to(:updater, class_name: klass, foreign_key: updater_attribute)
 
-          before_save   :set_updater_attribute
+          before_save :set_updater_attribute
           before_create :set_creator_attribute
 
           # if self.respond_to?(:columns_definition) && self.columns_definition[:deleter_id]
@@ -75,7 +74,6 @@ module Userstamp
           #   before_destroy :set_deleter_attribute
           # end
         end
-
       end
 
       # Temporarily allows you to turn stamping off. For example:
@@ -86,7 +84,7 @@ module Userstamp
       #     post.save
       #   end
       def without_stamps
-        original_value = self.record_userstamp
+        original_value = record_userstamp
         self.record_userstamp = false
         yield
         self.record_userstamp = original_value
@@ -99,34 +97,33 @@ module Userstamp
 
     module InstanceMethods #:nodoc:
       private
+
       def has_stamper?
         !self.class.stamper_class.nil? && !self.class.stamper_class.stamper.nil? rescue false
       end
 
       def set_creator_attribute
-        return unless self.record_userstamp
-        if respond_to?(self.creator_attribute.to_sym) && has_stamper?
-          self.send("#{self.creator_attribute}=".to_sym, self.class.stamper_class.stamper)
+        return unless record_userstamp
+        if respond_to?(creator_attribute.to_sym) && has_stamper?
+          send("#{creator_attribute}=".to_sym, self.class.stamper_class.stamper)
         end
       end
 
       def set_updater_attribute
-        return unless self.record_userstamp
-        if respond_to?(self.updater_attribute.to_sym) && has_stamper?
-          self.send("#{self.updater_attribute}=".to_sym, self.class.stamper_class.stamper)
+        return unless record_userstamp
+        if respond_to?(updater_attribute.to_sym) && has_stamper?
+          send("#{updater_attribute}=".to_sym, self.class.stamper_class.stamper)
         end
       end
 
       def set_deleter_attribute
-        return unless self.record_userstamp
-        if respond_to?(self.deleter_attribute.to_sym) && has_stamper?
-          self.send("#{self.deleter_attribute}=".to_sym, self.class.stamper_class.stamper)
+        return unless record_userstamp
+        if respond_to?(deleter_attribute.to_sym) && has_stamper?
+          send("#{deleter_attribute}=".to_sym, self.class.stamper_class.stamper)
           save
         end
       end
-      #end private
+      # end private
     end
   end
 end
-
-

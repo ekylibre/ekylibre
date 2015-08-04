@@ -47,19 +47,16 @@
 #  updater_id          :integer
 #
 
-
 require 'test_helper'
 
 class EntityAddressTest < ActiveSupport::TestCase
-
-  test "presence of canal scopes" do
+  test 'presence of canal scopes' do
     for canal in EntityAddress.canal.values
       scope_name = canal.to_s.pluralize.to_sym
       assert EntityAddress.respond_to?(scope_name), "EntityAddress must have a scope #{scope_name}"
-      scope_name = ("own_" + canal.to_s.pluralize).to_sym
+      scope_name = ('own_' + canal.to_s.pluralize).to_sym
       assert EntityAddress.respond_to?(scope_name), "EntityAddress must have a scope #{scope_name}"
-      # TODO Check that scope works
+      # TODO: Check that scope works
     end
   end
-
 end

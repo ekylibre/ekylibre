@@ -17,7 +17,7 @@
 #
 
 class Backend::CashesController < Backend::BaseController
-  manage_restfully mode: 'Cash.mode.default_value'.c, currency: 'Preference[:currency]'.c, nature: 'Cash.nature.default_value'.c, t3e: {nature: 'RECORD.nature.l'.c}
+  manage_restfully mode: 'Cash.mode.default_value'.c, currency: 'Preference[:currency]'.c, nature: 'Cash.nature.default_value'.c, t3e: { nature: 'RECORD.nature.l'.c }
 
   unroll
 
@@ -28,7 +28,6 @@ class Backend::CashesController < Backend::BaseController
       notify_now(:x_unpointed_journal_entry_items, count: count)
     end
   end
-
 
   list(order: :name) do |t|
     t.action :new, on: :none
@@ -42,11 +41,11 @@ class Backend::CashesController < Backend::BaseController
     t.column :journal, url: true
   end
 
-  list(:bank_statements, conditions: {cash_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
+  list(:bank_statements, conditions: { cash_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
     t.action :point
     t.action :edit
     t.action :destroy
-    t.action :new, on: :none, url: {cash_id: 'params[:id]'.c}
+    t.action :new, on: :none, url: { cash_id: 'params[:id]'.c }
     t.column :number, url: true
     t.column :started_at
     t.column :stopped_at
@@ -54,7 +53,7 @@ class Backend::CashesController < Backend::BaseController
     t.column :credit, currency: true
   end
 
-  list(:deposits, conditions: {cash_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
+  list(:deposits, conditions: { cash_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
     t.column :number, url: true
     t.column :created_at
     t.column :payments_count
@@ -63,7 +62,7 @@ class Backend::CashesController < Backend::BaseController
     t.column :description
   end
 
-  list(:sessions, model: :cash_session, conditions: {cash_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
+  list(:sessions, model: :cash_session, conditions: { cash_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
     t.column :number
     t.column :started_at
     t.column :stopped_at
@@ -71,5 +70,4 @@ class Backend::CashesController < Backend::BaseController
     t.column :noticed_start_amount, currency: true
     t.column :noticed_stop_amount, currency: true
   end
-
 end

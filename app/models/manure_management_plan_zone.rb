@@ -50,8 +50,8 @@
 #  updater_id                                      :integer
 #
 class ManureManagementPlanZone < Ekylibre::Record::Base
-  belongs_to :plan, class_name: "ManureManagementPlan", inverse_of: :zones
-  belongs_to :support, class_name: "ProductionSupport"
+  belongs_to :plan, class_name: 'ManureManagementPlan', inverse_of: :zones
+  belongs_to :support, class_name: 'ProductionSupport'
   has_one :activity, through: :production
   has_one :campaign, through: :plan
   has_one :cultivable_zone, through: :support, source: :storage
@@ -60,10 +60,10 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
   enumerize :soil_nature, in: Nomen::SoilNatures.all
   enumerize :cultivation_variety, in: Nomen::Varieties.all(:plant)
   enumerize :administrative_area, in: Nomen::AdministrativeAreas.all
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :absorbed_nitrogen_at_opening, :expected_yield, :humus_mineralization, :intermediate_cultivation_residue_mineralization, :irrigation_water_nitrogen, :maximum_nitrogen_input, :meadow_humus_mineralization, :mineral_nitrogen_at_opening, :nitrogen_at_closing, :nitrogen_input, :nitrogen_need, :organic_fertilizer_mineral_fraction, :previous_cultivation_residue_mineralization, :soil_production, allow_nil: true
   validates_presence_of :computation_method, :plan, :support
-  #]VALIDATORS]
+  # ]VALIDATORS]
 
   delegate :locked?, :opened_at, to: :plan
   delegate :name, to: :cultivable_zone
@@ -75,15 +75,15 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
   end
 
   def estimate_expected_yield
-    if self.computation_method
-      self.expected_yield = Calculus::ManureManagementPlan.estimate_expected_yield(parameters).to_f(self.plan.mass_density_unit)
+    if computation_method
+      self.expected_yield = Calculus::ManureManagementPlan.estimate_expected_yield(parameters).to_f(plan.mass_density_unit)
     end
   end
 
   def compute
     for name, value in Calculus::ManureManagementPlan.compute(parameters)
       if %w(absorbed_nitrogen_at_opening expected_yield humus_mineralization intermediate_cultivation_residue_mineralization irrigation_water_nitrogen maximum_nitrogen_input meadow_humus_mineralization mineral_nitrogen_at_opening nitrogen_at_closing nitrogen_input nitrogen_need organic_fertilizer_mineral_fraction previous_cultivation_residue_mineralization soil_production).include?(name.to_s)
-        self.send("#{name}=", value.to_f(:kilogram_per_hectare))
+        send("#{name}=", value.to_f(:kilogram_per_hectare))
       end
     end
     self.save!
@@ -91,49 +91,46 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
 
   def parameters
     hash = {
-      available_water_capacity: self.available_water_capacity,
-      opened_at: self.opened_at,
-      support: self.support
+      available_water_capacity: available_water_capacity,
+      opened_at: opened_at,
+      support: support
     }
-    if self.support.production_usage
-      hash[:production_usage] = Nomen::ProductionUsages[self.support.production_usage]
+    if support.production_usage
+      hash[:production_usage] = Nomen::ProductionUsages[support.production_usage]
     end
-    if self.computation_method
-      hash[:method] = Nomen::ManureManagementPlanComputationMethods[self.computation_method]
+    if computation_method
+      hash[:method] = Nomen::ManureManagementPlanComputationMethods[computation_method]
     end
-    if self.administrative_area
-      hash[:administrative_area] = Nomen::AdministrativeAreas[self.administrative_area]
+    if administrative_area
+      hash[:administrative_area] = Nomen::AdministrativeAreas[administrative_area]
     end
-    if self.cultivation_variety
-      hash[:variety] = Nomen::Varieties[self.cultivation_variety]
+    if cultivation_variety
+      hash[:variety] = Nomen::Varieties[cultivation_variety]
     end
-    if self.soil_nature
-      hash[:soil_nature] = Nomen::SoilNatures[self.soil_nature]
+    hash[:soil_nature] = Nomen::SoilNatures[soil_nature] if soil_nature
+    if expected_yield
+      hash[:expected_yield] = expected_yield.in(plan.mass_density_unit)
     end
-    if self.expected_yield
-      hash[:expected_yield] = self.expected_yield.in(self.plan.mass_density_unit)
-    end
-    return hash
+    hash
   end
 
   # TODO: Compute available from parcels or CZ ?
   def available_water_capacity
-    return 0.0.in_liter_per_hectare
+    0.0.in_liter_per_hectare
   end
 
-  #To have human_name in report
+  # To have human_name in report
   def soil_nature_name
-    unless item = Nomen::SoilNatures[self.soil_nature].human_name
+    unless item = Nomen::SoilNatures[soil_nature].human_name
       return nil
     end
-    return item
+    item
   end
 
   def cultivation_variety_name
-    unless item = Nomen::Varieties[self.cultivation_variety].human_name
+    unless item = Nomen::Varieties[cultivation_variety].human_name
       return nil
     end
-    return item
+    item
   end
-
 end

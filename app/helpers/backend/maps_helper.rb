@@ -18,13 +18,12 @@
 #
 
 module Backend::MapsHelper
-
-  def map(resources, options = {}, html_options = {}, &block)
+  def map(resources, options = {}, html_options = {}, &_block)
     resources = [resources] unless resources.respond_to?(:each)
 
     global = nil
     options[:geometries] = resources.collect do |resource|
-      hash = (block_given? ? yield(resource) : {name: resource.name, shape: resource.shape})
+      hash = (block_given? ? yield(resource) : { name: resource.name, shape: resource.shape })
       hash[:url] ||= url_for(controller: "/backend/#{resource.class.name.tableize}", action: :show, id: resource.id)
       if hash[:shape]
         global = (global ? global.merge(hash[:shape]) : Charta::Geometry.new(hash[:shape]))
@@ -43,18 +42,16 @@ module Backend::MapsHelper
       options[:view][:bounding_box] = global.bounding_box.to_a
     end
 
-    return content_tag(:div, nil, html_options.merge(data: {map: options.jsonize_keys.to_json}))
+    content_tag(:div, nil, html_options.merge(data: { map: options.jsonize_keys.to_json }))
   end
-
 
   def mini_map(resources, options = {}, html_options = {}, &block)
     options[:box] ||= {}
-    options[:box] = {width: 300, height: 300}.merge(options[:box])
-    html_options[:class] ||= ""
-    html_options[:class] << " picture mini-map"
+    options[:box] = { width: 300, height: 300 }.merge(options[:box])
+    html_options[:class] ||= ''
+    html_options[:class] << ' picture mini-map'
     map(resources, options, html_options, &block)
   end
-
 
   def shape_field_tag(name, value = nil, options = {})
     geometry = Charta::Geometry.new(value || Charta::Geometry.empty)
@@ -62,7 +59,6 @@ module Backend::MapsHelper
     options[:box] ||= {}
     box[:width] = options[:box][:width] || 360
     box[:height] = options[:box][:height] || 240
-    return text_field_tag(name, value, options.deep_merge(data: {map_editor: { box: box.jsonize_keys, edit: geometry.to_geojson}}))
+    text_field_tag(name, value, options.deep_merge(data: { map_editor: { box: box.jsonize_keys, edit: geometry.to_geojson } }))
   end
-
 end

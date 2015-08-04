@@ -1,5 +1,4 @@
 class NormalizeStringColumns < ActiveRecord::Migration
-
   LIMITS = [
     [:gap_items, [:currency], 3],
     [:crumbs, [:device_uid, :nature], 255],
@@ -176,15 +175,15 @@ class NormalizeStringColumns < ActiveRecord::Migration
     LIMITS.each do |l|
       l.second.each do |column|
         # change_column l.first, column, :string, limit: nil
-        # FIXME Use rails way ASAP
+        # FIXME: Use rails way ASAP
         execute "ALTER TABLE \"#{l.first}\" ALTER COLUMN \"#{column}\" TYPE character varying"
       end
     end
   end
 
   def down
-    LIMITS.reverse.each do |l|
-      l.second.reverse.each do |column|
+    LIMITS.reverse_each do |l|
+      l.second.reverse_each do |column|
         change_column l.first, column, :string, limit: l.third
       end
     end

@@ -37,7 +37,5 @@
 require 'test_helper'
 
 class AttachmentTest < ActiveSupport::TestCase
-
   # Add tests here...
-
 end

@@ -17,11 +17,11 @@
 #
 
 class Backend::BankStatementsController < Backend::BaseController
-  manage_restfully started_at: "Cash.find(params[:cash_id]).last_bank_statement.stopped_at+1 rescue (Date.today-1.month-2.days)".c, stopped_at: "Cash.find(params[:cash_id]).last_bank_statement.stopped_at>>1 rescue (Date.today-2.days)".c, redirect_to: '{action: :point, id: "id".c}'.c
+  manage_restfully started_at: 'Cash.find(params[:cash_id]).last_bank_statement.stopped_at+1 rescue (Date.today-1.month-2.days)'.c, stopped_at: 'Cash.find(params[:cash_id]).last_bank_statement.stopped_at>>1 rescue (Date.today-2.days)'.c, redirect_to: '{action: :point, id: "id".c}'.c
 
   unroll
 
-  list(order: {started_at: :desc}) do |t|
+  list(order: { started_at: :desc }) do |t|
     t.action :point
     t.action :edit
     t.action :destroy
@@ -38,7 +38,7 @@ class Backend::BankStatementsController < Backend::BaseController
     redirect_to backend_cashes_url
   end
 
-  list(:items, model: :journal_entry_items, conditions: {bank_statement_id: 'params[:id]'.c}, order: :entry_id) do |t|
+  list(:items, model: :journal_entry_items, conditions: { bank_statement_id: 'params[:id]'.c }, order: :entry_id) do |t|
     t.column :journal, url: true
     t.column :entry_number, url: true
     t.column :printed_on
@@ -51,7 +51,7 @@ class Backend::BankStatementsController < Backend::BaseController
   def point
     return unless @bank_statement = find_and_check
     if request.post?
-      if @bank_statement.point(params[:journal_entry_items].select{|k, v| v[:checked].to_i > 0 and JournalEntryItem.find_by(id: k)}.collect{|k, v| k.to_i})
+      if @bank_statement.point(params[:journal_entry_items].select { |k, v| v[:checked].to_i > 0 && JournalEntryItem.find_by(id: k) }.collect { |k, _v| k.to_i })
         redirect_to action: :index
         return
       end
@@ -64,5 +64,4 @@ class Backend::BankStatementsController < Backend::BaseController
     end
     t3e @bank_statement, cash: @bank_statement.cash_name
   end
-
 end

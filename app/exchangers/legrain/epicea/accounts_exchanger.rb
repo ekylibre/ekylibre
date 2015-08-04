@@ -1,7 +1,6 @@
 class Legrain::Epicea::AccountsExchanger < ActiveExchanger::Base
-
   def import
-    rows = CSV.read(file, headers: true, encoding: "cp1252", col_sep: ";", quote_char: "'")
+    rows = CSV.read(file, headers: true, encoding: 'cp1252', col_sep: ';', quote_char: "'")
     w.count = rows.count
 
     # asociate usage to its account number
@@ -18,7 +17,7 @@ class Legrain::Epicea::AccountsExchanger < ActiveExchanger::Base
         account = Account.find_or_create_in_chart(usage)
       else
         upper_account_number = account_number.chop
-        while upper_account_number.present? do
+        while upper_account_number.present?
           usage = usage_by_account_number[upper_account_number]
           break if usage.present?
           upper_account_number.chop!
@@ -29,5 +28,4 @@ class Legrain::Epicea::AccountsExchanger < ActiveExchanger::Base
       w.check_point
     end
   end
-
 end

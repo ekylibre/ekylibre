@@ -1,5 +1,4 @@
 class RenameFinancialAssetDepreciationsToFixedAssetDepreciations < ActiveRecord::Migration
-
   def change
     rename_table :financial_asset_depreciations, :fixed_asset_depreciations
     # Polymorphic columns
@@ -63,7 +62,5 @@ class RenameFinancialAssetDepreciationsToFixedAssetDepreciations < ActiveRecord:
     end
 
     # Add your specific code here...
-
   end
-
 end

@@ -18,5 +18,5 @@
 
 require 'test_helper'
 class Backend::IncomingDeliveryItemsControllerTest < ActionController::TestCase
-  test_restfully_all_actions new: {mode: :index_xhr, params: {variant_id: identify(:product_nature_variants_001), incoming_delivery_id: identify(:incoming_deliveries_001)}}
+  test_restfully_all_actions new: { mode: :index_xhr, params: { variant_id: identify(:product_nature_variants_001), incoming_delivery_id: identify(:incoming_deliveries_001) } }
 end

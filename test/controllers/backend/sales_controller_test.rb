@@ -22,15 +22,14 @@ require 'test_helper'
 class Backend::SalesControllerTest < ActionController::TestCase
   test_restfully_all_actions cancel: :redirected_get, contacts: :index_xhr
 
-  test "should print an invoice" do
+  test 'should print an invoice' do
     sale = sales(:sales_001)
     assert sale.valid?, "Sales 001 must be valid (#{sale.errors.inspect})"
     template = DocumentTemplate.of_nature(:sales_invoice).first
-    assert template, "No template found for sales_invoice"
+    assert template, 'No template found for sales_invoice'
     assert_nothing_raised do # "Template #{template.inspect} doesn't seems to work"
-      get :show, {id: sale.id, format: :pdf, key: sale.number, template: template.id}
+      get :show, id: sale.id, format: :pdf, key: sale.number, template: template.id
     end
     assert_response :success
   end
-
 end

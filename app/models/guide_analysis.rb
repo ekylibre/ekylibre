@@ -37,15 +37,15 @@
 #
 class GuideAnalysis < Ekylibre::Record::Base
   belongs_to :guide, inverse_of: :analyses
-  has_many :points, class_name: "GuideAnalysisPoint", inverse_of: :analysis, foreign_key: :analysis_id
+  has_many :points, class_name: 'GuideAnalysisPoint', inverse_of: :analysis, foreign_key: :analysis_id
   enumerize :acceptance_status, in: [:passed, :passed_with_warnings, :failed, :errored], predicates: true
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :execution_number, allow_nil: true, only_integer: true
   validates_inclusion_of :latest, in: [true, false]
   validates_presence_of :acceptance_status, :execution_number, :guide, :started_at, :stopped_at
-  #]VALIDATORS]
-  validates_inclusion_of :acceptance_status, in: self.acceptance_status.values
+  # ]VALIDATORS]
+  validates_inclusion_of :acceptance_status, in: acceptance_status.values
 
   scope :latests, -> { where(latest: true) }
   selects_among_all :latest, scope: :guide_id
@@ -58,15 +58,14 @@ class GuideAnalysis < Ekylibre::Record::Base
 
   # Sets the execution number with the last number incremented by 1
   def set_execution_number
-    self.execution_number = self.guide.analyses.maximum(:execution_number).to_i + 1
+    self.execution_number = guide.analyses.maximum(:execution_number).to_i + 1
   end
 
   def status
-    {passed: :go, failed: :stop, errored: :stop, passed_with_warnings: :caution}.with_indifferent_access[self.acceptance_status]
+    { passed: :go, failed: :stop, errored: :stop, passed_with_warnings: :caution }.with_indifferent_access[acceptance_status]
   end
 
   def points_count(status)
-    self.points.where(acceptance_status: status).count
+    points.where(acceptance_status: status).count
   end
-
 end

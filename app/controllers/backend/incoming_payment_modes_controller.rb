@@ -23,8 +23,8 @@ class Backend::IncomingPaymentModesController < Backend::BaseController
   unroll
 
   list(order: :position) do |t|
-    t.action :up,   method: :post, :unless => :first?
-    t.action :down, method: :post, :unless => :last?
+    t.action :up,   method: :post, unless: :first?
+    t.action :down, method: :post, unless: :last?
     t.action :reflect, method: :post, confirm: true
     t.action :edit
     t.action :destroy, if: :destroyable?
@@ -43,5 +43,4 @@ class Backend::IncomingPaymentModesController < Backend::BaseController
     @incoming_payment_mode.reflect
     redirect_to action: :index
   end
-
 end

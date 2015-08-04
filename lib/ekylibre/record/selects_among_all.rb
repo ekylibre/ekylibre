@@ -1,33 +1,29 @@
 module Ekylibre::Record
   module SelectsAmongAll #:nodoc:
-
     def self.included(base)
       base.extend(ClassMethods)
     end
 
     module ClassMethods
-
       # Manage
       def selects_among_all(*columns)
         options = columns.extract_options!
 
         columns = [:by_default] if columns.empty?
-        code  = ""
+        code  = ''
 
-        scope = self.table_name.classify.constantize.name # "self.class"
-        if options[:subset]
-          scope << ".#{options[:subset]}"
-        end
+        scope = table_name.classify.constantize.name # "self.class"
+        scope << ".#{options[:subset]}" if options[:subset]
         scope_columns = []
         if s = options[:scope]
           s = [s] if s.is_a?(Symbol)
-          unless s.is_a?(Symbol) or s.is_a?(Array)
-            raise ArgumentError, "Scope must be given as a Symbol or an Array of Symbol"
+          unless s.is_a?(Symbol) || s.is_a?(Array)
+            fail ArgumentError, 'Scope must be given as a Symbol or an Array of Symbol'
           end
-          scope << ".where(" + s.collect do |c|
+          scope << '.where(' + s.collect do |c|
             scope_columns << c.to_sym
             "#{c}: self.#{c}"
-          end.join(", ") + ")"
+          end.join(', ') + ')'
         end
 
         for column in columns
@@ -96,20 +92,19 @@ module Ekylibre::Record
           end
           code << "end\n"
 
-          code << "def self.#{column}(" + scope_columns.collect{|c| "#{c} = nil"}.join(', ') + ")\n"
+          code << "def self.#{column}(" + scope_columns.collect { |c| "#{c} = nil" }.join(', ') + ")\n"
           if scope_columns.any?
-            code << "  if " + scope_columns.collect{|c| "#{c}.nil?"}.join(" or ") + "\n"
-            code << "    raise ArgumentError, '#{scope_columns.size} arguments expected: " + scope_columns.join(", ") + "'\n"
+            code << '  if ' + scope_columns.collect { |c| "#{c}.nil?" }.join(' or ') + "\n"
+            code << "    raise ArgumentError, '#{scope_columns.size} arguments expected: " + scope_columns.join(', ') + "'\n"
             code << "  end\n"
           end
-          code << "  self.find_by(" + scope_columns.collect{|c| "#{c}: #{c}, "}.join + "#{column}: true)\n"
+          code << '  self.find_by(' + scope_columns.collect { |c| "#{c}: #{c}, " }.join + "#{column}: true)\n"
           code << "end\n"
         end
 
         class_eval code
       end
     end
-
   end
 end
 Ekylibre::Record::Base.send(:include, Ekylibre::Record::SelectsAmongAll)

@@ -17,7 +17,7 @@
 #
 
 class Backend::ImportsController < Backend::BaseController
-  manage_restfully t3e: {name: :name}
+  manage_restfully t3e: { name: :name }
 
   list line_class: "RECORD.errored? ? 'error' : ''".c do |t|
     t.action :new, on: :none
@@ -44,5 +44,4 @@ class Backend::ImportsController < Backend::BaseController
     # ImportJob.enqueue(import.id)
     redirect_to action: :index
   end
-
 end

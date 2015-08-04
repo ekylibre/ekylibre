@@ -17,7 +17,7 @@
 #
 
 class Backend::CatalogItemsController < Backend::BaseController
-  manage_restfully except: [:index], destroy_to: "{controller: :catalogs, action: :show, id: RECORD.catalog_id}".c
+  manage_restfully except: [:index], destroy_to: '{controller: :catalogs, action: :show, id: RECORD.catalog_id}'.c
 
   unroll
 
@@ -31,5 +31,4 @@ class Backend::CatalogItemsController < Backend::BaseController
     t.column :all_taxes_included
     t.column :catalog, url: true
   end
-
 end

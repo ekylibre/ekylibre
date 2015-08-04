@@ -36,33 +36,30 @@
 #
 class Georeading < Ekylibre::Record::Base
   enumerize :nature, in: [:point, :linestring, :polygon], predicates: true
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_presence_of :content, :name, :nature
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_presence_of :number
   validates_uniqueness_of :number
 
   def to_geom
-    if self.content
-     return geom = Charta::Geometry.new(self.content).transform(:WGS84)
-    end
+    return geom = Charta::Geometry.new(content).transform(:WGS84) if content
   end
 
   def label_area(unit = :hectare)
     if self.polygon?
-      value = self.to_geom.area.to_d(unit).round(3).l
+      value = to_geom.area.to_d(unit).round(3).l
       unit = Nomen::Units[unit].human_name
       return "#{value} #{unit}"
     end
   end
 
   def content=(value)
-    if value.is_a?(String) and value =~ /\A\{.*\}\z/
+    if value.is_a?(String) && value =~ /\A\{.*\}\z/
       value = Charta::Geometry.new(JSON.parse(value).to_json, :WGS84).to_rgeo
     elsif !value.blank?
       value = Charta::Geometry.new(value).to_rgeo
     end
-    self["content"] = value
+    self['content'] = value
   end
-
 end

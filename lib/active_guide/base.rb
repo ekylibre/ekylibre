@@ -1,5 +1,4 @@
 module ActiveGuide
-
   # This class defines a DSL in order to define guides for
   # various purpose like best pratices
   #
@@ -26,10 +25,9 @@ module ActiveGuide
   #   end
   #
   class Base
-
     attr_reader :root
 
-    def initialize(name, &block)
+    def initialize(_name, &block)
       @root = Group.new(nil, :root, &block)
     end
 
@@ -40,7 +38,5 @@ module ActiveGuide
       analyzer ||= SimpleAnalyzer.new
       analyzer.run(self, options)
     end
-
   end
-
 end

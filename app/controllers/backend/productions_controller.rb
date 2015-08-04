@@ -17,9 +17,9 @@
 #
 
 class Backend::ProductionsController < Backend::BaseController
-  manage_restfully(t3e: {name: :name}, campaign_id: "(params[:campaign_id] ? params[:campaign_id] : current_campaign ? current_campaign.id : nil)".c)
+  manage_restfully(t3e: { name: :name }, campaign_id: '(params[:campaign_id] ? params[:campaign_id] : current_campaign ? current_campaign.id : nil)'.c)
 
-  unroll :name, {activity: :name, campaign: :name, cultivation_variant: :name}, order: :name
+  unroll :name, { activity: :name, campaign: :name, cultivation_variant: :name }, order: :name
 
   # params:
   #   :q Text search
@@ -27,7 +27,7 @@ class Backend::ProductionsController < Backend::BaseController
   #   :campaign_id
   #   :cultivation_variant_id
   def self.productions_conditions
-    code = ""
+    code = ''
     code = search_conditions(productions: [:state], activities: [:name], product_nature_variants: [:name]) + " ||= []\n"
     # code << "unless params[:s].blank?\n"
     # code << "  unless params[:s] == 'all'\n"
@@ -44,7 +44,7 @@ class Backend::ProductionsController < Backend::BaseController
     code << "  c << params[:cultivation_variant_id].to_i\n"
     code << "end\n"
     code << "c\n "
-    return code.c
+    code.c
   end
 
   list(conditions: productions_conditions) do |t|
@@ -70,8 +70,8 @@ class Backend::ProductionsController < Backend::BaseController
   end
 
   # List supports for one production
-  list(:supports, model: :production_supports, conditions: {production_id: 'params[:id]'.c}, order: {created_at: :desc}, per_page: 10) do |t|
-    t.action :new, url: {controller: :interventions, production_support_id: 'RECORD.id'.c, id: nil}
+  list(:supports, model: :production_supports, conditions: { production_id: 'params[:id]'.c }, order: { created_at: :desc }, per_page: 10) do |t|
+    t.action :new, url: { controller: :interventions, production_support_id: 'RECORD.id'.c, id: nil }
     t.column :name, url: true
     t.column :work_number, hidden: true
     t.column :irrigated, hidden: true
@@ -80,13 +80,13 @@ class Backend::ProductionsController < Backend::BaseController
   end
 
   # List budgets for one production
-  list(:budgets, conditions: {production_id: 'params[:id]'.c}, model: :production_budgets, order: {direction: :desc}) do |t|
+  list(:budgets, conditions: { production_id: 'params[:id]'.c }, model: :production_budgets, order: { direction: :desc }) do |t|
     t.column :variant, url: true
     t.column :amount, currency: true
   end
 
   # List interventions for one production
-  list(:interventions, conditions: {production_id: 'params[:id]'.c}, order: {created_at: :desc}, line_class: :status, per_page: 10) do |t|
+  list(:interventions, conditions: { production_id: 'params[:id]'.c }, order: { created_at: :desc }, line_class: :status, per_page: 10) do |t|
     t.column :name, url: true
     t.status
     t.column :issue, url: true
@@ -94,5 +94,4 @@ class Backend::ProductionsController < Backend::BaseController
     t.column :stopped_at, hidden: true
     # t.column :provisional
   end
-
 end

@@ -44,5 +44,4 @@ class Backend::CrumbsController < Backend::BaseController
       redirect_to backend_crumbs_path
     end
   end
-
 end

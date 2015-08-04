@@ -46,7 +46,6 @@
 #  with_accounting         :boolean          default(FALSE), not null
 #
 
-
 require 'test_helper'
 
 class SaleNatureTest < ActiveSupport::TestCase

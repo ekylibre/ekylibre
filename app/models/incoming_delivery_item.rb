@@ -37,39 +37,35 @@
 #  updater_id       :integer
 #
 
-
 class IncomingDeliveryItem < Ekylibre::Record::Base
   attr_readonly :product_id
   attr_accessor :product_nature_variant_id
-  belongs_to :delivery, class_name: "IncomingDelivery", inverse_of: :items
-  belongs_to :container, class_name: "Product"
+  belongs_to :delivery, class_name: 'IncomingDelivery', inverse_of: :items
+  belongs_to :container, class_name: 'Product'
   belongs_to :product
-  belongs_to :purchase_item, class_name: "PurchaseItem"
+  belongs_to :purchase_item, class_name: 'PurchaseItem'
   has_one :variant, through: :product
   has_one :product_localization, as: :originator
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :net_mass, :population, allow_nil: true
   validates_presence_of :delivery, :product
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_presence_of :product, :container
 
   accepts_nested_attributes_for :product
   delegate :variant, :name, to: :product, prefix: true
 
   before_validation(on: :create) do
-    if self.product
-      self.population = -999999
-    end
+    self.population = -999_999 if product
   end
 
   after_create do
     # all indicators have the datetime of the receive delivery
-    self.product.readings.update_all(read_at: self.delivery.received_at)
-    self.create_product_localization!(product: self.product, container: self.container, nature: :interior, started_at: self.delivery.received_at)
+    product.readings.update_all(read_at: delivery.received_at)
+    self.create_product_localization!(product: product, container: container, nature: :interior, started_at: delivery.received_at)
   end
 
   after_save do
-    self.update_column(:population, self.product.population)
+    update_column(:population, product.population)
   end
-
 end

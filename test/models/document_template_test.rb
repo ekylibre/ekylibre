@@ -38,18 +38,15 @@
 #  updater_id   :integer
 #
 
-
 require 'test_helper'
 
 class DocumentTemplateTest < ActiveSupport::TestCase
-
   # Tests all templates
-  test "compile all templates" do
+  test 'compile all templates' do
     # Load all templates
     assert_nothing_raised do
       DocumentTemplate.load_defaults
     end
     # TODO: Check that XML are good to use
   end
-
 end

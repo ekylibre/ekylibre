@@ -1,23 +1,22 @@
 require 'test_helper'
 
 class WorkingSetsTest < ActiveSupport::TestCase
-
-  test "valid expressions" do
+  test 'valid expressions' do
     invalids = []
     [
-      "is aix",
-      "is   sus",
-      "derives from mammalia",
-      "derives   from   immatter",
-      "has indicator net_mass",
-      "has frozen indicator net_volume",
-      "has variable indicator population",
-      "can grow",
-      "can grow()",
-      "can treat(diarrhea, bison)",
-      "can consume(water)",
-      "can consume(water) and is bos",
-      "can consume(water) and (is bos or is felidae)",
+      'is aix',
+      'is   sus',
+      'derives from mammalia',
+      'derives   from   immatter',
+      'has indicator net_mass',
+      'has frozen indicator net_volume',
+      'has variable indicator population',
+      'can grow',
+      'can grow()',
+      'can treat(diarrhea, bison)',
+      'can consume(water)',
+      'can consume(water) and is bos',
+      'can consume(water) and (is bos or is felidae)'
     ].each do |expression|
       done = false
       begin
@@ -25,7 +24,7 @@ class WorkingSetsTest < ActiveSupport::TestCase
         done = true
         ProductNature.where(sql).count
       rescue WorkingSet::SyntaxError => e
-        invalids << {expression: expression, exception: e}
+        invalids << { expression: expression, exception: e }
       end
     end
 
@@ -36,21 +35,21 @@ class WorkingSetsTest < ActiveSupport::TestCase
     assert invalids.empty?, "#{invalids.count} working sets have invalid syntax:\n" + details.dig
   end
 
-  test "invalid expressions" do
+  test 'invalid expressions' do
     invalids = []
     [
-      "is not aix",
-      "isnot aix",
-      "  is aix",
-      " is aix ",
-      "is aix  ",
-      "dont derives from mammalia",
-      "hasnt indicator net_mass",
-      "hasnot frozen indicator net_volume",
-      "has not variable indicator population",
-      "cannot treat(diarrhea, bison)",
-      "can not consume(water)",
-      "can consume(water) and is bos or bison",
+      'is not aix',
+      'isnot aix',
+      '  is aix',
+      ' is aix ',
+      'is aix  ',
+      'dont derives from mammalia',
+      'hasnt indicator net_mass',
+      'hasnot frozen indicator net_volume',
+      'has not variable indicator population',
+      'cannot treat(diarrhea, bison)',
+      'can not consume(water)',
+      'can consume(water) and is bos or bison'
     ].each do |expression|
       done = false
       assert_raise WorkingSet::SyntaxError, "An expression #{expression.inspect} should fail" do
@@ -58,5 +57,4 @@ class WorkingSetsTest < ActiveSupport::TestCase
       end
     end
   end
-
 end

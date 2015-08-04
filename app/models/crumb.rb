@@ -44,15 +44,15 @@ class Crumb < Ekylibre::Record::Base
   belongs_to :user
   belongs_to :intervention_cast
   has_one :worker, through: :user
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :read_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :accuracy, allow_nil: true
   validates_presence_of :accuracy, :device_uid, :geolocation, :nature, :read_at
-  #]VALIDATORS]
+  # ]VALIDATORS]
   serialize :metadata, Hash
 
-  scope :after,   lambda { |at| where(arel_table[:read_at].gt(at)) }
-  scope :before,  lambda { |at| where(arel_table[:read_at].lt(at)) }
+  scope :after,   ->(at) { where(arel_table[:read_at].gt(at)) }
+  scope :before,  ->(at) { where(arel_table[:read_at].lt(at)) }
   scope :unconverted, -> { where(intervention_cast_id: nil) }
 
   # returns all crumbs for a given day. Default: the current day
@@ -63,47 +63,42 @@ class Crumb < Ekylibre::Record::Base
 
   before_validation do
     if self.start?
-      if self.previous and original = self.previous.siblings.where(nature: :start).first
+      if previous && original = previous.siblings.find_by(nature: :start)
         self.metadata ||= original.metadata
-        self.metadata["procedure_nature"] ||= original.metadata["procedure_nature"]
+        self.metadata['procedure_nature'] ||= original.metadata['procedure_nature']
       else
         self.metadata ||= {}
-        self.metadata["procedure_nature"] ||= "administrative_task"
+        self.metadata['procedure_nature'] ||= 'administrative_task'
       end
     end
   end
 
   after_destroy do
-    if self.start?
-      self.intervention_path.delete_all
-    end
+    intervention_path.delete_all if self.start?
   end
 
   after_update do
-    if self.start? and previous = self.previous
-      unless previous.stop?
-        previous.update_column(:nature, :stop)
-      end
+    if self.start? && previous = self.previous
+      previous.update_column(:nature, :stop) unless previous.stop?
     end
   end
 
   # Returns the previous crumb if it exists
   def previous
-    self.siblings.before(self.read_at).reorder(read_at: :desc).first
+    siblings.before(read_at).reorder(read_at: :desc).first
   end
 
   # Returns the next crumb if it exists
   def following
-    self.siblings.after(self.read_at).reorder(read_at: :asc).first
+    siblings.after(read_at).reorder(read_at: :asc).first
   end
 
   # Returns siblings of the crumbs (same user, same device)
   def siblings
-    Crumb.where(user_id: self.user_id, device_uid: self.device_uid).order(read_at: :asc)
+    Crumb.where(user_id: user_id, device_uid: device_uid).order(read_at: :asc)
   end
 
   class << self
-
     # Returns all products whose shape contains the given crumbs or any crumb if no crumb is given
     # options:  no_content: excludes contents. Default: false
     # TODO: when refactoring, move this method to Product model, as Product#of_crumbs(*crumbs)
@@ -112,7 +107,7 @@ class Crumb < Ekylibre::Record::Base
       crumbs.flatten!
       raw_products = Product.distinct.joins(:readings)
                      .joins("INNER JOIN crumbs ON (indicator_datatype = 'geometry' AND ST_Contains(ST_CollectionExtract(product_readings.geometry_value, 3), crumbs.geolocation))")
-                     .where(crumbs.any? ? ["crumbs.id IN (?)", crumbs.map(&:id)] : "crumbs.id IS NOT NULL")
+                     .where(crumbs.any? ? ['crumbs.id IN (?)', crumbs.map(&:id)] : 'crumbs.id IS NOT NULL')
       contents = []
       contents = raw_products.map(&:contents) unless options[:no_contents]
       raw_products.concat(contents).flatten.uniq
@@ -130,7 +125,7 @@ class Crumb < Ekylibre::Record::Base
       options[:campaigns] ||= Campaign.currents
       ProductionSupport.of_campaign(options[:campaigns]).distinct
         .joins(:storage)
-        .where("products.id IN (?)", Crumb.products(*crumbs, no_contents: true).map(&:id))
+        .where('products.id IN (?)', Crumb.products(*crumbs, no_contents: true).map(&:id))
     end
 
     # Returns all crumbs, grouped by interventions paths, for a given user.
@@ -143,8 +138,8 @@ class Crumb < Ekylibre::Record::Base
     # requalify crumbs manually.
     # TODO : put this into User model
     def interventions_paths(user)
-      ActiveSupport::Deprecation.warn("Use User#interventions_paths instead")
-      return user.interventions_paths
+      ActiveSupport::Deprecation.warn('Use User#interventions_paths instead')
+      user.interventions_paths
     end
 
     # # returns all the dates for which a given user has pushed crumbs
@@ -156,27 +151,23 @@ class Crumb < Ekylibre::Record::Base
   # returns all the crumbs corresponding to the same intervention as the current crumb, i.e. the nearest start crumb including itself,
   # the nearest stop crumb including itself, and all the crumbs in between including the crumb itself.
   def intervention_path
-    start_read_at = self.read_at.utc
+    start_read_at = read_at.utc
     unless start?
-      start = self.siblings.where(nature: :start)
-              .where("read_at <= ?", start_read_at)
+      start = siblings.where(nature: :start)
+              .where('read_at <= ?', start_read_at)
               .order(read_at: :desc)
               .first
-      if start
-        start_read_at = start.read_at.utc
-      end
+      start_read_at = start.read_at.utc if start
     end
-    stop_read_at = self.read_at.utc
+    stop_read_at = read_at.utc
     unless stop?
-      stop = self.siblings.where(nature: :stop)
-             .where("read_at >= ?", stop_read_at)
+      stop = siblings.where(nature: :stop)
+             .where('read_at >= ?', stop_read_at)
              .order(nature: :desc, read_at: :asc)
              .first
-      if stop
-        stop_read_at  = stop.read_at.utc
-      end
+      stop_read_at  = stop.read_at.utc if stop
     end
-    return CrumbSet.new(self.siblings.where(read_at: start_read_at..stop_read_at).order(read_at: :asc))
+    CrumbSet.new(siblings.where(read_at: start_read_at..stop_read_at).order(read_at: :asc))
   end
 
   # Turns a crumb into an actual intervention and returns the created intervention if any
@@ -198,10 +189,10 @@ class Crumb < Ekylibre::Record::Base
     intervention = nil
     Ekylibre::Record::Base.transaction do
       options[:actors_ids] ||= []
-      options[:actors_ids] << self.worker.id if self.user and self.worker
+      options[:actors_ids] << worker.id if user && worker
       actors = Crumb.products(intervention_path.to_a).concat(Product.find(options[:actors_ids])).compact.uniq
       unless options[:support_id] ||= Crumb.production_supports(intervention_path.where(nature: :hard_start)).pluck(:id).first
-        raise StandardError, :need_a_production_support.tn
+        fail StandardError, :need_a_production_support.tn
       end
       support = ProductionSupport.find(options[:support_id])
       options[:procedure_name] ||= Intervention.match(actors, options).first[0].name
@@ -223,7 +214,7 @@ class Crumb < Ekylibre::Record::Base
         attributes[:actor] = actor
         attributes[:reference_name] = variable.name
         cast = intervention.add_cast!(attributes)
-        if self.worker and actor == self.worker
+        if worker && actor == worker
           intervention_path.update_all(intervention_cast_id: cast.id)
         end
       end
@@ -235,13 +226,12 @@ class Crumb < Ekylibre::Record::Base
         end
       end
     end
-    return intervention
+    intervention
   end
 
   # Returns possible procedures matching a crumb and its corresponding intervention path
   # Options: the same as Intervention#match
   def possible_procedures_matching(options = {})
-    Intervention.match(Crumb.products(intervention_path.to_a), options).map{|procedure, *| procedure}
+    Intervention.match(Crumb.products(intervention_path.to_a), options).map { |procedure, *| procedure }
   end
-
 end

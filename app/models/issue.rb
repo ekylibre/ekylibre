@@ -45,27 +45,25 @@
 #  updater_id           :integer
 #
 
-
 class Issue < Ekylibre::Record::Base
   include Versionable, Commentable
-  enumerize :nature, in: Nomen::IssueNatures.all, default: Nomen::IssueNatures.default, predicates: {prefix: true}
+  enumerize :nature, in: Nomen::IssueNatures.all, default: Nomen::IssueNatures.default, predicates: { prefix: true }
   has_many :interventions
-  belongs_to :target , polymorphic: true
+  belongs_to :target, polymorphic: true
 
   has_picture
 
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :observed_at, :picture_updated_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :gravity, :picture_file_size, :priority, allow_nil: true, only_integer: true
   validates_presence_of :name, :nature, :observed_at, :target, :target_type
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_inclusion_of :priority, :gravity, in: 0..5
   validates_attachment_content_type :picture, content_type: /image/
 
   delegate :name, to: :target, prefix: true
 
-  state_machine :state, :initial => :opened do
-
+  state_machine :state, initial: :opened do
     ## define states
     state :opened
     state :closed
@@ -81,34 +79,31 @@ class Issue < Ekylibre::Record::Base
     # way A2
     event :close do
       # transition :in_progress => :closed, if: :has_intervention?
-      transition :opened => :closed # , if: :has_intervention?
+      transition opened: :closed # , if: :has_intervention?
     end
 
     # way B1
     event :abort do
-      transition :opened => :aborted
+      transition opened: :aborted
       # transition :in_progress => :aborted
     end
 
     # way A3 || B2
     event :reopen do
-      transition :closed => :opened
-      transition :aborted => :opened
+      transition closed: :opened
+      transition aborted: :opened
     end
 
     ## define callbacks after and before transition
-
   end
 
   before_validation do
     self.state ||= :opened
-    if self.target
-      self.target_type = self.target.class.base_class.name
-    end
+    self.target_type = target.class.base_class.name if target
     self.priority ||= 0
-    self.gravity  ||= 0
-    if self.nature
-      self.name = (self.target ? tc(:name_with_target, nature: self.nature.l, target: target.name) : tc(:name_without_target, nature: self.nature.l))
+    self.gravity ||= 0
+    if nature
+      self.name = (target ? tc(:name_with_target, nature: nature.l, target: target.name) : tc(:name_without_target, nature: nature.l))
     end
   end
 
@@ -117,7 +112,7 @@ class Issue < Ekylibre::Record::Base
   end
 
   def has_intervention?
-    self.interventions.any?
+    interventions.any?
   end
 
   def status
@@ -128,21 +123,18 @@ class Issue < Ekylibre::Record::Base
     end
   end
 
-  def picture_path(style=:original)
-    self.picture.path(style)
+  def picture_path(style = :original)
+    picture.path(style)
   end
 
-  def interventions_count
-    self.interventions.count
-  end
+  delegate :count, to: :interventions, prefix: true
 
   def geolocation=(value)
-    if value.is_a?(String) and value =~ /\A\{.*\}\z/
+    if value.is_a?(String) && value =~ /\A\{.*\}\z/
       value = Charta::Geometry.new(JSON.parse(value).to_json, :WGS84).to_rgeo
     elsif !value.blank?
       value = Charta::Geometry.new(value).to_rgeo
     end
-    self["geolocation"] = value
+    self['geolocation'] = value
   end
-
 end

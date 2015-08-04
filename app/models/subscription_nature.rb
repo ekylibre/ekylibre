@@ -37,23 +37,22 @@
 #  updater_id            :integer
 #
 
-
 class SubscriptionNature < Ekylibre::Record::Base
   attr_readonly :nature
   enumerize :nature, in: [:period, :quantity], default: :period, predicates: true
   enumerize :entity_link_nature, in: Nomen::EntityLinkNatures.all
-  enumerize :entity_link_direction, in: [:direct, :indirect, :all], default: :all, predicates: {prefix: true}
+  enumerize :entity_link_direction, in: [:direct, :indirect, :all], default: :all, predicates: { prefix: true }
   has_many :product_nature_categories
   has_many :subscriptions, foreign_key: :nature_id
 
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :actual_number, allow_nil: true, only_integer: true
   validates_numericality_of :reduction_percentage, allow_nil: true
   validates_presence_of :name, :nature
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_length_of :entity_link_direction, allow_nil: true, maximum: 30
   validates_length_of :entity_link_nature, allow_nil: true, maximum: 120
-  validates_numericality_of :reduction_percentage, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100
+  validates_numericality_of :reduction_percentage, greater_than_or_equal_to: 0, less_than_or_equal_to: 100
 
   # default_scope -> { order(:name) }
 
@@ -62,11 +61,11 @@ class SubscriptionNature < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    self.subscriptions.any? or self.product_nature_categories.any?
+    subscriptions.any? || product_nature_categories.any?
   end
 
   def now
-    return (self.period? ? Date.today : self.actual_number)
+    (self.period? ? Date.today : actual_number)
   end
 
   def fields
@@ -78,12 +77,10 @@ class SubscriptionNature < Ekylibre::Record::Base
   end
 
   def start
-    return fields.first
+    fields.first
   end
 
   def finish
-    return fields.second
+    fields.second
   end
-
 end
-

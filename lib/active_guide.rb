@@ -7,5 +7,3 @@ module ActiveGuide
   autoload :SimpleAnalyzer, 'active_guide/simple_analyzer'
   autoload :Test,           'active_guide/test'
 end
-
-

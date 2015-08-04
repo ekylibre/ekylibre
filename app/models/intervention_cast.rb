@@ -41,20 +41,20 @@
 #
 
 class InterventionCast < Ekylibre::Record::Base
-  enumerize :nature, in: [:product, :variant], default: :product, predicates: {prefix: true}
-  belongs_to :actor, class_name: "Product", inverse_of: :intervention_casts
+  enumerize :nature, in: [:product, :variant], default: :product, predicates: { prefix: true }
+  belongs_to :actor, class_name: 'Product', inverse_of: :intervention_casts
   belongs_to :event_participation, dependent: :destroy
   belongs_to :intervention, inverse_of: :casts
-  belongs_to :variant, class_name: "ProductNatureVariant"
+  belongs_to :variant, class_name: 'ProductNatureVariant'
   has_many :crumbs, dependent: :destroy
   has_one :product_nature, through: :variant, source: :nature
   has_one :activity, through: :intervention
   has_one :campaign, through: :intervention
   has_one :event,    through: :intervention
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :population, allow_nil: true
   validates_presence_of :intervention, :nature, :reference_name
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_length_of :roles, allow_nil: true, maximum: 320
 
   delegate :name, to: :actor, prefix: true
@@ -66,54 +66,52 @@ class InterventionCast < Ekylibre::Record::Base
 
   scope :of_role, lambda { |role|
     unless role.to_s =~ /\-/
-      raise ArgumentError, "Need a valid role: <procedure_nature>-<role>"
+      fail ArgumentError, 'Need a valid role: <procedure_nature>-<role>'
     end
     nature, role = role.to_s.split('-')[0..1]
-    where("roles ~ E?", "\\\\m(#{Nomen::ProcedureNatures.all(nature).sort.join('|')})-#{role}\\\\M")
+    where('roles ~ E?', "\\\\m(#{Nomen::ProcedureNatures.all(nature).sort.join('|')})-#{role}\\\\M")
   }
 
   scope :of_generic_role, lambda { |role|
-    where("roles ~ E?", (role =~ /\-/  ? "\\\\m#{role}\\\\M" : "-#{role}\\\\M"))
+    where('roles ~ E?', (role =~ /\-/ ? "\\\\m#{role}\\\\M" : "-#{role}\\\\M"))
   }
 
-  scope :of_actor, lambda { |actor| where(actor_id: actor.id) }
+  scope :of_actor, ->(actor) { where(actor_id: actor.id) }
   scope :with_actor, -> { where.not(actor_id: nil) }
 
   before_validation do
-    if self.reference
-      self.roles = self.reference.roles.join(', ')
-      self.position = self.reference.position
+    if reference
+      self.roles = reference.roles.join(', ')
+      self.position = reference.position
     else
-      precision = 10 ** 8
+      precision = 10**8
       now = Time.now
       self.position ||= (precision * now.to_f).round - (precision * now.to_i)
     end
     if self.actor.is_a?(Product)
-      self.variant  ||= self.actor.variant
+      self.variant ||= self.actor.variant
       for indicator_name in self.actor.whole_indicators_list
-        if self.send(indicator_name).blank? # and !reference.worked?
-          self.send("#{indicator_name}=", self.actor.send(indicator_name, self.started_at))
+        if send(indicator_name).blank? # and !reference.worked?
+          send("#{indicator_name}=", self.actor.send(indicator_name, started_at))
         end
       end
     end
   end
 
   validate do
-    if self.intervention and self.intervention.reference
-      errors.add(:reference_name, :invalid) unless self.reference
+    if intervention && intervention.reference
+      errors.add(:reference_name, :invalid) unless reference
     end
   end
 
   before_save do
-    if self.nature_variant?
-      self.actor = nil
-    end
+    self.actor = nil if self.nature_variant?
 
-    if self.actor and self.actor.respond_to?(:person) and self.actor.person
-      columns = {event_id: self.event.id, participant_id: self.actor.person_id, state: :accepted}
-      if self.event_participation
+    if self.actor && self.actor.respond_to?(:person) && self.actor.person
+      columns = { event_id: event.id, participant_id: self.actor.person_id, state: :accepted }
+      if event_participation
         # self.event_participation.update_columns(columns)
-        self.event_participation.attributes = columns
+        event_participation.attributes = columns
       else
         event_participation = EventParticipation.create!(columns)
         # self.update_column(:event_participation_id, event_participation.id)
@@ -126,49 +124,46 @@ class InterventionCast < Ekylibre::Record::Base
 
   # multiply evaluated_price of an actor(product) and used population in this cast
   def cost
-    if self.actor and price = self.evaluated_price
+    if actor && price = evaluated_price
       if self.input?
-        return price * (self.population || 0.0)
-      elsif self.tool? or self.doer?
-        return price * ((self.stopped_at - self.started_at).to_d / 3600)
+        return price * (population || 0.0)
+      elsif self.tool? || self.doer?
+        return price * ((stopped_at - started_at).to_d / 3600)
       end
     end
-    return nil
+    nil
   end
 
   def earn
-    if self.actor and price = self.evaluated_price
-      if self.output?
-        return price * (self.population || 0.0)
-      end
+    if actor && price = evaluated_price
+      return price * (population || 0.0) if self.output?
     end
-    return nil
+    nil
   end
 
   def reference
-    if self.intervention and reference = self.intervention.reference
-      @reference ||= reference.variables[self.reference_name]
+    if intervention && reference = intervention.reference
+      @reference ||= reference.variables[reference_name]
     else
       @reference = nil
     end
   end
 
   def variable_name
-    self.name
+    name
   end
 
   def name
-    self.reference ? self.reference.human_name : self.reference_name.humanize
+    reference ? reference.human_name : reference_name.humanize
   end
 
-
   def shape=(value)
-    if value.is_a?(String) and value =~ /\A\{.*\}\z/
+    if value.is_a?(String) && value =~ /\A\{.*\}\z/
       value = Charta::Geometry.new(JSON.parse(value).to_json, :WGS84).to_rgeo
     elsif !value.blank?
       value = Charta::Geometry.new(value).to_rgeo
     end
-    self["shape"] = value
+    self['shape'] = value
   end
 
   # def shape
@@ -176,9 +171,9 @@ class InterventionCast < Ekylibre::Record::Base
   # end
 
   def shape_svg(options = {})
-    geom = Charta::Geometry.new(self["shape"])
+    geom = Charta::Geometry.new(self['shape'])
     geom = geom.transform(options[:srid]) if options[:srid]
-    return geom.to_svg
+    geom.to_svg
   end
 
   for role in [:input, :output, :target, :tool, :doer]
@@ -193,35 +188,34 @@ class InterventionCast < Ekylibre::Record::Base
   end
 
   def roles_array
-    self.roles.to_s.split(/[\,[[:space:]]]+/).collect{|role| role.split(/\-/)[0..1].map(&:to_sym) }
+    roles.to_s.split(/[\,[[:space:]]]+/).collect { |role| role.split(/\-/)[0..1].map(&:to_sym) }
   end
 
   def human_roles
-    self.roles_array.collect do |role|
+    roles_array.collect do |role|
       :x_of_y.tl(x: Nomen::ProcedureRoles[role.second].human_name, y: Nomen::ProcedureNatures[role.first].human_name.mb_chars.downcase)
     end.to_sentence
   end
-
 
   # Change name with default name like described in procedure
   # if default-name attribute is given too.
   # It uses interpolation to compose the wanted name. Not very i18nized
   # for now, but permits to do the job.
   def set_default_name!
-    if self.reference.default_name? and produced = self.actor
-      produced.update_column(:name, self.default_name)
+    if reference.default_name? && produced = actor
+      produced.update_column(:name, default_name)
     end
   end
 
   # Compute a default with given environment
   def default_name
     text = nil
-    if self.reference.default_name?
+    if reference.default_name?
       words = {
-        campaign: self.campaign.name,
-        activity: self.activity.name
+        campaign: campaign.name,
+        activity: activity.name
       }.with_indifferent_access
-      if produced = self.actor
+      if produced = actor
         words[:variant]     = produced.variant_name
         words[:variety]     = Nomen::Varieties[produced.variety].human_name
         words[:derivative_of] = (produced.derivative_of ? Nomen::Varieties[produced.variety].human_name : nil)
@@ -232,54 +226,51 @@ class InterventionCast < Ekylibre::Record::Base
         words[:birth_year]  = produced.born_at.year.to_s.rjust(4, '0')
         words[:birth_month] = produced.born_at.month.to_s.rjust(2, '0')
         words[:birth_day]   = produced.born_at.day.to_s.rjust(2, '0')
-        words[:birth_month_name] = "date.month_names".t[produced.born_at.month]
-        words[:birth_day_name]   = "date.day_names"[produced.born_at.wday]
-        words[:birth_month_abbr] = "date.abbr_month_names".t[produced.born_at.month]
-        words[:birth_day_abbr]   = "date.abbr_day_names"[produced.born_at.wday]
+        words[:birth_month_name] = 'date.month_names'.t[produced.born_at.month]
+        words[:birth_day_name]   = 'date.day_names'[produced.born_at.wday]
+        words[:birth_month_abbr] = 'date.abbr_month_names'.t[produced.born_at.month]
+        words[:birth_day_abbr]   = 'date.abbr_day_names'[produced.born_at.wday]
       end
-      text = self.reference.default_name.dup.gsub(/\{\{\w+\}\}/) do |key|
+      text = reference.default_name.dup.gsub(/\{\{\w+\}\}/) do |key|
         words[key[2..-3]]
       end
     end
-    return text
+    text
   end
-
 
   # Define if the cast is valid for run
   def runnable?
-    if self.reference.parted?
-      if self.reference.known_variant?
-        return self.population.present?
+    if reference.parted?
+      if reference.known_variant?
+        return population.present?
       else
-        return (self.variant and self.population.present?)
+        return (self.variant && population.present?)
       end
-    elsif self.reference.produced?
+    elsif reference.produced?
       return self.variant
-    elsif self.reference.type_variant?
+    elsif reference.type_variant?
       return self.variant
     else
-      return self.actor
+      return actor
     end
-    return false
+    false
   end
-
 
   # FIXME: Seems that Rails does not define population method when aggregators are used...
   def population
-    self["population"]
+    self['population']
   end
 
   # FIXME: Seems that Rails does not define population method when aggregators are used...
   def shape
-    self["shape"]
+    self['shape']
   end
 
   # Returns value of an indicator if its name correspond to
   def method_missing(method_name, *args)
-    if Nomen::Indicators.all.include?(method_name.to_s) and self.actor and self.actor.respond_to?(:get)
-      return self.actor.get(method_name, self)
+    if Nomen::Indicators.all.include?(method_name.to_s) && actor && actor.respond_to?(:get)
+      return actor.get(method_name, self)
     end
-    return super
+    super
   end
-
 end

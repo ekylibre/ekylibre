@@ -64,11 +64,10 @@
 #  work_number           :string
 #
 
-
 class LandParcelCluster < LandParcelGroup
-  enumerize :variety, in: Nomen::Varieties.all(:land_parcel_cluster), predicates: {prefix: true}
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  #]VALIDATORS]
+  enumerize :variety, in: Nomen::Varieties.all(:land_parcel_cluster), predicates: { prefix: true }
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # ]VALIDATORS]
 
   # TODO: Add check on contiguity of whole land_parcels
 end

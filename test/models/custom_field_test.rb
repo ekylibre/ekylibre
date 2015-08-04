@@ -42,13 +42,11 @@
 #  updater_id      :integer
 #
 
-
 require 'test_helper'
 
 class CustomFieldTest < ActiveSupport::TestCase
-
   STATIC_VALUES = {
-    text: "Lorem ipsum",
+    text: 'Lorem ipsum',
     decimal:  3.14159,
     boolean: true,
     date: Date.civil(1953, 3, 16),
@@ -58,19 +56,19 @@ class CustomFieldTest < ActiveSupport::TestCase
   Ekylibre::Schema.models.each do |model_name|
     model = model_name.to_s.camelcase.constantize
     test "manage custom field on #{model_name}" do
-      I18n.locale = ENV["LOCALE"] || I18n.default_locale
+      I18n.locale = ENV['LOCALE'] || I18n.default_locale
       if !CustomField.customized_type.values.include?(model.name)
         assert_raise ActiveRecord::RecordInvalid, "Cannot add custom field on not customizable models like #{model.name}" do
-          CustomField.create!(name: "たてがみ", nature: :text, customized_type: model.name)
+          CustomField.create!(name: 'たてがみ', nature: :text, customized_type: model.name)
         end
       else
         CustomField.nature.values.each do |nature|
           field = CustomField.create!(name: "#{nature.capitalize} info", nature: nature, customized_type: model.name)
-          assert model.connection.columns(model.table_name).detect{|c| c.name.to_s == field.column_name}
+          assert model.connection.columns(model.table_name).detect { |c| c.name.to_s == field.column_name }
 
           field.name = "#{nature.capitalize} インフォ"
           field.save!
-          assert model.connection.columns(model.table_name).detect{|c| c.name.to_s == field.column_name}
+          assert model.connection.columns(model.table_name).detect { |c| c.name.to_s == field.column_name }
 
           if field.choice?
             5.times do |index|
@@ -82,13 +80,13 @@ class CustomFieldTest < ActiveSupport::TestCase
           assert record.present?, "A #{model.name} record must exist to test custom field on it"
 
           method_name = "#{field.column_name}="
-          if STATIC_VALUES.has_key?(field.nature)
+          if STATIC_VALUES.key?(field.nature)
             record.send(method_name, STATIC_VALUES[field.nature])
           elsif field.choice?
             choice = field.choices.sample
             record.send(method_name, choice.value)
           else
-            raise "Unknown custom field datatype: #{field.nature.inspect}"
+            fail "Unknown custom field datatype: #{field.nature.inspect}"
           end
 
           record.save!
@@ -96,25 +94,24 @@ class CustomFieldTest < ActiveSupport::TestCase
           value = record.send(field.column_name)
           assert value.present?, "A value must be present in custom field #{field.column_name} after update"
 
-          if STATIC_VALUES.has_key?(field.nature)
+          if STATIC_VALUES.key?(field.nature)
             assert_equal STATIC_VALUES[field.nature], value, "Recorded value in custom field #{field.column_name} differs from expected"
           elsif field.choice?
             assert_equal choice.value, value, "Selected choice in custom field #{field.column_name} differs from expected"
           else
-            raise "Unknown custom field datatype: #{field.nature.inspect}"
+            fail "Unknown custom field datatype: #{field.nature.inspect}"
           end
 
           column_name = field.column_name
           field.destroy!
-          assert !model.connection.columns(model.table_name).detect{|c| c.name.to_s == column_name}
-          assert !model.connection.columns(model.table_name).detect{|c| c.name.to_s =~ /^\_/}
+          assert !model.connection.columns(model.table_name).detect { |c| c.name.to_s == column_name }
+          assert !model.connection.columns(model.table_name).detect { |c| c.name.to_s =~ /^\_/ }
         end
 
         # Force reset and test again
         model.reset_column_information
-        assert !model.connection.columns(model.table_name).detect{|c| c.name.to_s =~ /^\_/}
+        assert !model.connection.columns(model.table_name).detect { |c| c.name.to_s =~ /^\_/ }
       end
     end
   end
-
 end

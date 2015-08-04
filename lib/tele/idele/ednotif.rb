@@ -4,14 +4,11 @@ require 'curl'
 
 module Tele
   module Idele
-
     autoload :Errors, 'tele/idele/ednotif/errors'
     autoload :Hash,   'tele/idele/ednotif/hash'
 
     class Ednotif
-
       attr_accessor :directory_wsdl, :company_code, :geo, :app_name, :ednotif_service_name, :ednotif_site_service_code, :ednotif_site_version_code, :ednotif_site_version, :user_id, :user_password
-
 
       ###### LOW-LEVEL SOAP API #########
 
@@ -41,29 +38,25 @@ module Tele
         @business_wsdl = nil
       end
 
-
       ##
       # Authenticate through Idele's webservices and fetch gained access token
       # return true if authentication succeeded and set @token
       def authenticate
         success = false
         if @token.nil?
-          if get_urls and get_token
-            success = true
-          end
+          success = true if get_urls && get_token
         else
           success = true
         end
-        return success
+        success
       end
 
       ##
       # Connect to wsAnnuaire and fetch wsGuichet and wsMetier wsdl urls
       # return true if wsdl retrieved and set @business_wsdl and @customs_wsdl
       def get_urls
-        connect(wsdl: @directory_wsdl, namespace_identifier: "tk", namespaces: {'xmlns:tk' => 'http://www.fiea.org/tk/','xmlns:typ' => 'http://www.fiea.org/types/'}) do |client|
-
-          #tips: savonrb xml builder (aka wasabi) doesn't support automagic nested namespace. Need to give it by hand https://github.com/savonrb/savon/issues/532
+        connect(wsdl: @directory_wsdl, namespace_identifier: 'tk', namespaces: { 'xmlns:tk' => 'http://www.fiea.org/tk/', 'xmlns:typ' => 'http://www.fiea.org/types/' }) do |client|
+          # tips: savonrb xml builder (aka wasabi) doesn't support automagic nested namespace. Need to give it by hand https://github.com/savonrb/savon/issues/532
           res = client.call(:tk_get_url,
                             message_tag: 'tkGetUrlRequest',
                             response_parser: :nokogiri,
@@ -86,18 +79,16 @@ module Tele
           err = doc.at_xpath('//anomalie')
 
           # error level 1 : hard error
-          if result == 'false' and err
+          if result == 'false' && err
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
-
+            fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
 
           # error level 2: could be sweet error or info notice
-          elsif result == 'true' and err
+          elsif result == 'true' && err
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
-
+            fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
 
           # everything is good
           elsif result == 'true'
@@ -105,8 +96,8 @@ module Tele
             business =  doc.at_xpath('//wsdl-metier/child::text()')
             customs =  doc.at_xpath('//wsdl-guichet/child::text()')
 
-            if business.nil? or customs.nil?
-              raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: 'WSRW0', message: 'Missing WSDL urls in xml from Reswel get url')
+            if business.nil? || customs.nil?
+              fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: 'WSRW0', message: 'Missing WSDL urls in xml from Reswel get url')
             end
 
             @business_wsdl = business.to_s
@@ -118,14 +109,12 @@ module Tele
         end
       end
 
-
       ##
       # Fetch access token and set @token
       # return true if token retrieved
 
       def get_token
-        connect(wsdl: @customs_wsdl, namespace_identifier: "tk", namespaces: {'xmlns:tk' => 'http://www.fiea.org/tk/','xmlns:typ' => 'http://www.fiea.org/types/'}) do |client|
-
+        connect(wsdl: @customs_wsdl, namespace_identifier: 'tk', namespaces: { 'xmlns:tk' => 'http://www.fiea.org/tk/', 'xmlns:typ' => 'http://www.fiea.org/types/' }) do |client|
           res = client.call(:tk_create_identification,
                             message_tag: 'tkCreateIdentificationRequest',
                             response_parser: :nokogiri,
@@ -137,41 +126,37 @@ module Tele
                                   'typ:Entreprise' => @company_code,
                                   'typ:Zone' => @geo,
                                   'typ:Application' => @app_name
-                                }.reject{ |_,v| v.nil? }
+                                }.reject { |_, v| v.nil? }
                               }
                             })
 
           doc = Nokogiri::XML(res.body[:tk_create_identification_response].to_xml)
 
-
           result = doc.at_xpath('//resultat/child::text()').to_s
           err = doc.at_xpath('//anomalie')
 
           # error level 1 : hard error
-          if result == 'false' and err
+          if result == 'false' && err
 
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
-
+            fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
 
           # error level 2: could be sweet error or info notice
-          elsif result == 'true' and err
+          elsif result == 'true' && err
 
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
-
+            fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
 
           # everything is good
           elsif result == 'true'
 
             token =  doc.at_xpath('//jeton/child::text()')
 
-
             if token.nil?
 
-              raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: 'WSRW1', message: 'Missing token in xml from Reswel get token')
+              fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: 'WSRW1', message: 'Missing token in xml from Reswel get token')
 
             end
 
@@ -180,7 +165,6 @@ module Tele
           end
 
           return true
-
         end
       end
 
@@ -198,8 +182,8 @@ module Tele
       # @param [string] src_owner_name: Nom du détenteur. max length: 60
       # @param [string] prod_code: Le code atelier, du type AtelierBovinIPG(cf p18). length: 2
       # @param [string] cattle_categ_code: Le code catégorie du bovin (cf p18). length: 2
-      def create_cattle_entrance( options = {} )
-        connect_business do |client, status|
+      def create_cattle_entrance(options = {})
+        connect_business do |client, _status|
           res = client.call(:ip_b_create_entree,
                             message_tag: 'IpBCreateEntreeRequest',
                             response_parser: :nokogiri,
@@ -224,7 +208,7 @@ module Tele
                               },
                               'sch:CodeAtelier' => options[:prod_code],
                               'sch:CodeCategorieBovin' => options[:cattle_categ_code]
-                            }.reject{ |_,v| v.nil? })
+                            }.reject { |_, v| v.nil? })
 
           doc = Nokogiri::XML(res.body[:ip_b_create_entree_response].to_xml)
 
@@ -232,17 +216,17 @@ module Tele
           err = doc.at_xpath('//anomalie')
 
           # error level 1 : hard error
-          if result == 'false' and err
+          if result == 'false' && err
 
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
 
           # error level 2: could be sweet error or info notice
-          elsif result == 'true' and err
+          elsif result == 'true' && err
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
 
           # everything is good
           elsif result == 'true'
@@ -252,16 +236,11 @@ module Tele
               status = 'waiting validation'
             end
 
-            unless doc.at_xpath('//sortie-validee').nil?
-              status = 'validated'
-            end
+            status = 'validated' unless doc.at_xpath('//sortie-validee').nil?
 
           end
-
         end
       end
-
-
 
       ##
       # create_cattle_exit: Notifier la sortie d'un bovin d'une exploitation française
@@ -275,9 +254,8 @@ module Tele
       # @param [string] dest_country_code: Code pays de l'exploitation de destination. length: 2
       # @param [string] dest_farm_number: Numéro d'exploitation de destination. length: 12
       # @param [string] dest_owner_name: Nom du détenteur. max length: 60
-      def create_cattle_exit( options = {} )
-        connect_business do |client, status|
-
+      def create_cattle_exit(options = {})
+        connect_business do |client, _status|
           res = client.call(:ip_b_create_sortie,
                             message_tag: 'IpBCreateSortieRequest',
                             response_parser: :nokogiri,
@@ -300,7 +278,7 @@ module Tele
                                 },
                                 'sch:NomExploitation' => options[:dest_owner_name]
                               }
-                            }.reject{ |_,v| v.nil? })
+                            }.reject { |_, v| v.nil? })
 
           doc = Nokogiri::XML(res.body[:ip_b_create_sortie_response].to_xml)
 
@@ -308,18 +286,17 @@ module Tele
           err = doc.at_xpath('//anomalie')
 
           # error level 1 : hard error
-          if result == 'false' and err
+          if result == 'false' && err
 
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
 
           # error level 2: could be sweet error or info notice
-          elsif result == 'true' and err
+          elsif result == 'true' && err
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
-
+            fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
 
           # everything is good
           elsif result == 'true'
@@ -329,15 +306,10 @@ module Tele
               status = 'waiting validation'
             end
 
-            unless doc.at_xpath('//sortie-validee').nil?
-              status = 'validated'
-            end
+            status = 'validated' unless doc.at_xpath('//sortie-validee').nil?
           end
-
         end
       end
-
-
 
       ##
       # create_cattle_new_birth: Notifier la naissance d'un bovin sur une exploitation française
@@ -366,8 +338,8 @@ module Tele
       # @param [string] father_race_code: Type racial du père IPG . length: 2
       # @param [Boolean] passport_ask: Indique si une demande d'édition du passeport en urgence
       # @param [Object] prod_code: Le type d'atelier du type AtelierBovinIPG. length: 2
-      def create_cattle_new_birth( options = {} )
-        connect_business do |client, status|
+      def create_cattle_new_birth(options = {})
+        connect_business do |client, _status|
           res = client.call(:ip_b_create_naissance,
                             message_tag: 'IpBCreateNaissanceRequest',
                             response_parser: :nokogiri,
@@ -393,10 +365,10 @@ module Tele
                                 'sch:ConditionNaissance' => options[:birth_condition],
                                 'sch:Poids' => {
                                   'sch:PoidsNaissance' => options[:birth_weight],
-                                  'sch:PoidsPese' => options[:weighed],
-                                }.reject{ |_,v| v.nil? },
+                                  'sch:PoidsPese' => options[:weighed]
+                                }.reject { |_, v| v.nil? },
                                 'sch:TourPoitrine' => options[:buts_size]
-                              }.reject{ |_,v| v.nil? },
+                              }.reject { |_, v| v.nil? },
                               'sch:MerePorteuse' => {
                                 'sch:Bovin' => {
                                   'sch:CodePays' => options[:mother_animal_country_code],
@@ -410,41 +382,34 @@ module Tele
                                   'sch:NumeroNational' => options[:father_animal_id]
                                 },
                                 'sch:TypeRacial' => options[:father_race_code]
-                              }.reject{ |_,v| v.nil? },
+                              }.reject { |_, v| v.nil? },
                               'sch:DemandePasseport' => options[:passport_ask],
                               'sch:CodeAtelier' => options[:prod_code]
-                            }.reject{ |_,v| v.nil? })
+                            }.reject { |_, v| v.nil? })
 
           doc = Nokogiri::XML(res.body[:ip_b_create_naissance_response].to_xml)
-
 
           result = doc.at_xpath('//resultat/child::text()').to_s
           err = doc.at_xpath('//anomalie')
 
           # error level 1 : hard error
-          if result == 'false' and err
+          if result == 'false' && err
 
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
-
-
+            fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
 
           # error level 2: could be sweet error or info notice
-          elsif result == 'true' and err
+          elsif result == 'true' && err
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
-
+            fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
 
           # everything is good
           elsif result == 'true'
             status = false
-            unless doc.at_xpath('//identite-bovin').nil?
-              status = 'validated'
-            end
+            status = 'validated' unless doc.at_xpath('//identite-bovin').nil?
           end
-
         end
       end
 
@@ -470,8 +435,8 @@ module Tele
       # @param [string] father_animal_country_code: Code Pays du père IPG. length: 2
       # @param [string] father_animal_id: Numéro national du père IPG. max length: 12
       # @param [string] father_race_code: Type racial du père IPG . length: 2
-      def create_cattle_new_stillbirth( options = {} )
-        connect_business do |client, status|
+      def create_cattle_new_stillbirth(options = {})
+        connect_business do |client, _status|
           res = client.call(:ip_b_create_mort_ne,
                             message_tag: 'IpBCreateMortNeRequest',
                             response_parser: :nokogiri,
@@ -492,10 +457,10 @@ module Tele
                                 'sch:ConditionNaissance' => options[:birth_condition],
                                 'sch:Poids' => {
                                   'sch:PoidsNaissance' => options[:birth_weight],
-                                  'sch:PoidsPese' => options[:weighed],
-                                }.reject{ |_,v| v.nil? },
+                                  'sch:PoidsPese' => options[:weighed]
+                                }.reject { |_, v| v.nil? },
                                 'sch:TourPoitrine' => options[:buts_size]
-                              }.reject{ |_,v| v.nil? },
+                              }.reject { |_, v| v.nil? },
                               'sch:MerePorteuse' => {
                                 'sch:Bovin' => {
                                   'sch:CodePays' => options[:mother_animal_country_code],
@@ -509,39 +474,32 @@ module Tele
                                   'sch:NumeroNational' => options[:father_animal_id]
                                 },
                                 'sch:TypeRacial' => options[:father_race_code]
-                              }.reject{ |_,v| v.nil? }
-                            }.reject{ |_,v| v.nil? })
+                              }.reject { |_, v| v.nil? }
+                            }.reject { |_, v| v.nil? })
 
           doc = Nokogiri::XML(res.body[:ip_b_create_mort_ne_response].to_xml)
-
 
           result = doc.at_xpath('//resultat/child::text()').to_s
           err = doc.at_xpath('//anomalie')
 
           # error level 1 : hard error
-          if result == 'false' and err
+          if result == 'false' && err
 
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
-
-
+            fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
 
           # error level 2: could be sweet error or info notice
-          elsif result == 'true' and err
+          elsif result == 'true' && err
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
-
+            fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
 
           # everything is good
           elsif result == 'true'
             status = false
-            unless doc.at_xpath('//identite-bovin').nil?
-              status = 'validated'
-            end
+            status = 'validated' unless doc.at_xpath('//identite-bovin').nil?
           end
-
         end
       end
 
@@ -573,8 +531,8 @@ module Tele
       # @param [string] src_owner_name: Nom du détenteur. max length: 60
       # @param [string] prod_code: Le type d'atelier du type AtelierBovinIPG. length: 2
       # @param [string] cattle_categ_code: Le code catégorie du bovin. length: 2
-      def create_switched_animal( options = {} )
-        connect_business do |client, status|
+      def create_switched_animal(options = {})
+        connect_business do |client, _status|
           res = client.call(:ip_b_create_animal_echange,
                             message_tag: 'IpBCreateAnimalEchangeRequest',
                             response_parser: :nokogiri,
@@ -609,7 +567,7 @@ module Tele
                                   'sch:NumeroNational' => options[:father_animal_id]
                                 },
                                 'sch:TypeRacial' => options[:father_race_code]
-                              }.reject{ |_,v| v.nil? },
+                              }.reject { |_, v| v.nil? },
                               'sch:ExploitationNaissance' => {
                                 'sch:CodePays' => options[:birth_farm_country_code],
                                 'sch:NumeroExploitation' => options[:birth_farm_number]
@@ -625,40 +583,32 @@ module Tele
                               },
                               'sch:CodeAtelier' => options[:prod_code],
                               'sch:CodeCategorieBovin' => options[:cattle_categ_code]
-                            }.reject{ |_,v| v.nil? })
-
+                            }.reject { |_, v| v.nil? })
 
           doc = Nokogiri::XML(res.body[:ip_b_create_animal_echange_response].to_xml)
-
 
           result = doc.at_xpath('//resultat/child::text()').to_s
           err = doc.at_xpath('//anomalie')
 
           # error level 1 : hard error
-          if result == 'false' and err
+          if result == 'false' && err
 
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
-
-
+            fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
 
           # error level 2: could be sweet error or info notice
-          elsif result == 'true' and err
+          elsif result == 'true' && err
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
-
+            fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
 
           # everything is good
           elsif result == 'true'
             status = false
 
-            unless doc.at_xpath('//identite-bovin').nil?
-              status = 'validated'
-            end
+            status = 'validated' unless doc.at_xpath('//identite-bovin').nil?
           end
-
         end
       end
 
@@ -669,8 +619,8 @@ module Tele
       # @param [string] farm_number: Numéro d'exploitation française. length: 8
       # @param [string] src_animal_country_code: Code pays d'origine du bovin. length: 2
       # @param [string] src_animal_id: Numéro national d'origine du bovin. max length: 12
-      def create_imported_animal_notice( options = {} )
-        connect_business do |client, status|
+      def create_imported_animal_notice(options = {})
+        connect_business do |client, _status|
           res = client.call(:ip_b_create_avis_animal_importe,
                             message_tag: 'IpBCreateAvisAnimalImporteRequest',
                             response_parser: :nokogiri,
@@ -686,31 +636,28 @@ module Tele
                               }
                             })
 
-
           doc = Nokogiri::XML(res.body[:ip_b_create_avis_animal_importe_response].to_xml)
-
 
           result = doc.at_xpath('//resultat/child::text()').to_s
           err = doc.at_xpath('//anomalie')
 
           # error level 1 : hard error
-          if result == 'false' and err
+          if result == 'false' && err
 
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
 
           # error level 2: could be sweet error or info notice
-          elsif result == 'true' and err
+          elsif result == 'true' && err
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
 
           # everything is good
           elsif result == 'true'
             status = 'validated'
           end
-
         end
       end
 
@@ -744,8 +691,8 @@ module Tele
       # @param [string] src_farm_owner_name: Nom du détenteur. max length: 60
       # @param [string] prod_code: Le type d'atelier du type AtelierBovinIPG. length: 2
       # @param [string] cattle_categ_code: Le code catégorie du bovin. length: 2
-      def create_imported_animal( options = {} )
-        connect_business do |client, status|
+      def create_imported_animal(options = {})
+        connect_business do |client, _status|
           res = client.call(:ip_b_create_animal_importe,
                             message_tag: 'IpBCreateAnimalImporteRequest',
                             response_parser: :nokogiri,
@@ -780,7 +727,7 @@ module Tele
                                   'sch:NumeroNational' => options[:father_animal_id]
                                 },
                                 'sch:TypeRacial' => options[:father_race_code]
-                              }.reject{ |_,v| v.nil? },
+                              }.reject { |_, v| v.nil? },
                               'sch:ExploitationNaissance' => {
                                 'sch:CodePays' => options[:birth_farm_country_code],
                                 'sch:NumeroExploitation' => options[:birth_farm_number]
@@ -798,39 +745,31 @@ module Tele
                               },
                               'sch:CodeAtelier' => options[:prod_code],
                               'sch:CodeCategorieBovin' => options[:cattle_categ_code]
-                            }.reject{ |_,v| v.nil? })
-
+                            }.reject { |_, v| v.nil? })
 
           doc = Nokogiri::XML(res.body[:ip_b_create_animal_importe_response].to_xml)
-
 
           result = doc.at_xpath('//resultat/child::text()').to_s
           err = doc.at_xpath('//anomalie')
 
           # error level 1 : hard error
-          if result == 'false' and err
+          if result == 'false' && err
 
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
-
-
+            fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
 
           # error level 2: could be sweet error or info notice
-          elsif result == 'true' and err
+          elsif result == 'true' && err
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
-
+            fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
 
           # everything is good
           elsif result == 'true'
             status = false
-            unless doc.at_xpath('//identite-bovin').nil?
-              status = 'validated'
-            end
+            status = 'validated' unless doc.at_xpath('//identite-bovin').nil?
           end
-
         end
       end
 
@@ -842,8 +781,8 @@ module Tele
       # @param [date] start_date: Date début de période de présence des bovins
       # @param [date] end_date: Date fin de période de présence des bovins
       # @param [Object] stock: Indique si le stock de boucles doit être retourné
-      def get_cattle_list( options = {} )
-        connect_business do |client, status|
+      def get_cattle_list(options = {})
+        connect_business do |client, _status|
           res = client.call(:ip_b_get_inventaire,
                             message_tag: 'IpBGetInventaireRequest',
                             response_parser: :nokogiri,
@@ -856,30 +795,25 @@ module Tele
                               'sch:DateDebut' => options[:start_date],
                               'sch:DateFin' => options[:end_date],
                               'sch:StockBoucles' => options[:stock]
-                            }.reject{ |_,v| v.nil? })
-
+                            }.reject { |_, v| v.nil? })
 
           doc = Nokogiri::XML(res.body[:ip_b_get_inventaire_response].to_xml)
-
 
           result = doc.at_xpath('//resultat/child::text()').to_s
           err = doc.at_xpath('//anomalie')
 
           # error level 1 : hard error
-          if result == 'false' and err
+          if result == 'false' && err
 
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
-
-
+            fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
 
           # error level 2: could be sweet error or info notice
-          elsif result == 'true' and err
+          elsif result == 'true' && err
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
-
+            fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
 
           # everything is good
           elsif result == 'true'
@@ -887,10 +821,9 @@ module Tele
             unless doc.at_xpath('//nb-bovins').nil?
               status = 'validated'
               message_zip = doc.at_xpath('//message-zip/child::text()').to_s
-              {output_hash: self.class.decode_zip(message_zip)}
+              { output_hash: self.class.decode_zip(message_zip) }
             end
           end
-
         end
       end
 
@@ -899,8 +832,8 @@ module Tele
       # @param [string] farm_country_code: Toujours 'FR'. length: 2
       # @param [string] farm_number: Numéro d'exploitation française concernée par la demande de dossiers. length: 8
       # @param [date] start_date: Date début de fourniture des dossiers
-      def get_case_feedback( options = {} )
-        connect_business do |client, status|
+      def get_case_feedback(options = {})
+        connect_business do |client, _status|
           res = client.call(:ip_b_get_retour_dossiers,
                             message_tag: 'IpBGetRetourDossiersRequest',
                             response_parser: :nokogiri,
@@ -911,30 +844,25 @@ module Tele
                                 'sch:NumeroExploitation' => options[:farm_number]
                               },
                               'sch:DateDebut' => options[:start_date]
-                            }.reject{ |_,v| v.nil? })
-
+                            }.reject { |_, v| v.nil? })
 
           doc = Nokogiri::XML(res.body[:ip_b_get_retour_dossiers_response].to_xml)
-
 
           result = doc.at_xpath('//resultat/child::text()').to_s
           err = doc.at_xpath('//anomalie')
 
           # error level 1 : hard error
-          if result == 'false' and err
+          if result == 'false' && err
 
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
-
-
+            fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
 
           # error level 2: could be sweet error or info notice
-          elsif result == 'true' and err
+          elsif result == 'true' && err
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
-
+            fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
 
           # everything is good
           elsif result == 'true'
@@ -944,10 +872,9 @@ module Tele
             unless doc.at_xpath('//nb-bovins').nil?
               status = 'validated'
               message_zip = doc.at_xpath('//message-zip/child::text()').to_s
-              {output_hash: self.class.decode_zip(message_zip)}
+              { output_hash: self.class.decode_zip(message_zip) }
             end
           end
-
         end
       end
 
@@ -958,8 +885,8 @@ module Tele
       # @param [string] farm_number: Numéro d'exploitation française. length: 8
       # @param [string] animal_country_code: Code Pays UE. length: 2
       # @param [string] animal_id: Numéro national du bovin. max length: 12
-      def get_animal_case( options = {} )
-        connect_business do |client, status|
+      def get_animal_case(options = {})
+        connect_business do |client, _status|
           res = client.call(:ip_b_get_dossier_animal,
                             message_tag: 'IpBGetDossierAnimalRequest',
                             response_parser: :nokogiri,
@@ -973,30 +900,25 @@ module Tele
                                 'sch:CodePays' => options[:animal_country_code],
                                 'sch:NumeroNational' => options[:animal_id]
                               }
-                            }.reject{ |_,v| v.nil? })
-
+                            }.reject { |_, v| v.nil? })
 
           doc = Nokogiri::XML(res.body[:ip_b_get_dossier_animal_response].to_xml)
-
 
           result = doc.at_xpath('//resultat/child::text()').to_s
           err = doc.at_xpath('//anomalie')
 
           # error level 1 : hard error
-          if result == 'false' and err
+          if result == 'false' && err
 
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
-
-
+            fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
 
           # error level 2: could be sweet error or info notice
-          elsif result == 'true' and err
+          elsif result == 'true' && err
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
-
+            fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
 
           # everything is good
           elsif result == 'true'
@@ -1004,10 +926,9 @@ module Tele
             status = false
             unless doc.at_xpath('//bovin').nil?
               status = 'validated'
-              {output_hash: Hash.from_xml(doc.at_xpath('//bovin').to_s)}
+              { output_hash: Hash.from_xml(doc.at_xpath('//bovin').to_s) }
             end
           end
-
         end
       end
 
@@ -1022,9 +943,8 @@ module Tele
       # @param [string] reference_pinces: Code produit des pinces commandées.
       # @param [integer] nb_pointeaux: Nombre de pointeaux à commander. max: 9
       # @param [string] reference_pointeaux: Code produit des pointeaux commandés.
-      def create_commande_boucles( options = {} )
-        connect_business do |client, status|
-
+      def create_commande_boucles(options = {})
+        connect_business do |client, _status|
           res = client.call(:ip_b_create_commande_boucles,
                             message_tag: 'IpBCreateCommandeBouclesRequest',
                             response_parser: :nokogiri,
@@ -1037,16 +957,16 @@ module Tele
                               'sch:Boucle' => {
                                 'sch:NbPairesBoucles' => options[:nb_paires_boucles],
                                 'sch:ReferenceBoucles' => options[:reference_boucles]
-                              }.reject{ |_,v| v.nil? },
+                              }.reject { |_, v| v.nil? },
                               'sch:Pince' => {
                                 'sch:NbPinces' => options[:nb_pinces],
                                 'sch:ReferencePinces' => options[:reference_pinces]
-                              }.reject{ |_,v| v.nil? },
+                              }.reject { |_, v| v.nil? },
                               'sch:Pointeau' => {
                                 'sch:NbPointeaux' => options[:nb_pointeaux],
                                 'sch:ReferencePointeaux' => options[:reference_pointeaux]
-                              }.reject{ |_,v| v.nil? }
-                            }.reject{ |_,v| v.nil? })
+                              }.reject { |_, v| v.nil? }
+                            }.reject { |_, v| v.nil? })
 
           doc = Nokogiri::XML(res.body[:ip_b_create_commande_boucles_response].to_xml)
 
@@ -1054,26 +974,22 @@ module Tele
           err = doc.at_xpath('//anomalie')
 
           # error level 1 : hard error
-          if result == 'false' and err
+          if result == 'false' && err
 
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
-
-
+            fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
 
           # error level 2: could be sweet error or info notice
-          elsif result == 'true' and err
+          elsif result == 'true' && err
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
-
+            fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
 
           # everything is good
           elsif result == 'true'
             status = 'validated'
           end
-
         end
       end
 
@@ -1088,8 +1004,8 @@ module Tele
       # @param [boolean] boucle_travail: Si la boucle conventionnelle avec numéro de travail uniquement
       # @param [boolean] boucle_electronique: Indique si la boucle est electronique
       # @param [string] cause_remplacement: Motif de la commande de la boucle de rebouclage. length: 1 (C/E/I/L/P/X/Y/Z) Cassé/Electronisation/Illisible/électronique perdu/perdu/anomalie de commande/anomalie de pose/anomalie de fabrication
-      def create_rebouclage( options = {} )
-        connect_business do |client, status|
+      def create_rebouclage(options = {})
+        connect_business do |client, _status|
           res = client.call(:ip_b_create_rebouclage,
                             message_tag: 'IpBCreateRebouclageRequest',
                             response_parser: :nokogiri,
@@ -1108,40 +1024,34 @@ module Tele
                                   'sch:BoucleTravail' => options[:boucle_travail]
                                 },
                                 'sch:BoucleElectronique' => options[:reference_pinces]
-                              }.reject{ |_,v| v.nil? },
+                              }.reject { |_, v| v.nil? },
                               'sch:CauseRemplacement' => options[:cause_remplacement]
-                            }.reject{ |_,v| v.nil? })
+                            }.reject { |_, v| v.nil? })
 
           doc = Nokogiri::XML(res.body[:ip_b_create_rebouclage_response].to_xml)
-
 
           result = doc.at_xpath('//resultat/child::text()').to_s
           err = doc.at_xpath('//anomalie')
 
           # error level 1 : hard error
-          if result == 'false' and err
+          if result == 'false' && err
 
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
-
-
+            fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
 
           # error level 2: could be sweet error or info notice
-          elsif result == 'true' and err
+          elsif result == 'true' && err
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
-
+            fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
 
           # everything is good
           elsif result == 'true'
             status = 'validated'
           end
-
         end
       end
-
 
       ##
       # create_insemination: permet de notifier une insémination réalisée par l’éleveur (IPE).
@@ -1160,10 +1070,9 @@ module Tele
       # @param [string] paillette_fractionnee: Nature de la paillette utilisée. length: 1 (1/2/B/D/M/P/Q/T)1: non fractionnée, 2: fractionnée, B: double dose, D: demi, M: morceau, P: entière, Q: Quart, T: tiers
       # @param [string] reference_paillette: Référence de la paillette. length: 2
       # @param [string] semence_sexee: Nature du sexage de la paillette. length: 2 (0/1/2) 0: non sexée, 1: sexée mâle, 2: sexée femelle
-      private def create_insemination( token, farm_country_code, farm_number, female_animal_country_code, female_animal_id, insemination_date, bull_animal_country_code, bull_animal_id, public, collect, insemination, traitement_hormonal, paillette_fractionnee, reference_paillette, semence_sexee )
-
+      private def create_insemination(token, farm_country_code, farm_number, female_animal_country_code, female_animal_id, insemination_date, bull_animal_country_code, bull_animal_id, public, collect, insemination, traitement_hormonal, paillette_fractionnee, reference_paillette, semence_sexee)
         { jeton_authentification: token, exploitation: { code_pays: farm_country_code, numero_exploitation: farm_number }, femelle: { code_pays: female_animal_country_code, numero_national: female_animal_id }, date_insemination: insemination_date, taureau: { code_pays: bull_animal_country_code, numero_national: bull_animal_id }, monte_publique: public, pour_collecte_embryon: collect, mode_insemination: insemination, traitement_hormonal: traitement_hormonal, paillette_fractionnee: paillette_fractionnee, reference_paillette: reference_paillette, semence_sexee: semence_sexee }
-        #TODO
+        # TODO
       end
 
       ##
@@ -1171,8 +1080,8 @@ module Tele
       # @param [string] token: token from reswel, length: 50
       # @param [string] farm_country_code: Toujours 'FR'. length: 2
       # @param [string] farm_number: Numéro d'exploitation française. length: 8
-      def get_presumed_exit( options = {} )
-        connect_business do |client, status|
+      def get_presumed_exit(options = {})
+        connect_business do |client, _status|
           res = client.call(:ip_b_get_sorties_presumees,
                             message_tag: 'IpBGetSortiesPresumeesRequest',
                             response_parser: :nokogiri,
@@ -1182,30 +1091,25 @@ module Tele
                                 'sch:CodePays' => options[:farm_country_code],
                                 'sch:NumeroExploitation' => options[:farm_number]
                               }
-                            }.reject{ |_,v| v.nil? })
-
+                            }.reject { |_, v| v.nil? })
 
           doc = Nokogiri::XML(res.body[:ip_b_get_sorties_presumees_response].to_xml)
-
 
           result = doc.at_xpath('//resultat/child::text()').to_s
           err = doc.at_xpath('//anomalie')
 
           # error level 1 : hard error
-          if result == 'false' and err
+          if result == 'false' && err
 
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
-
-
+            fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
 
           # error level 2: could be sweet error or info notice
-          elsif result == 'true' and err
+          elsif result == 'true' && err
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
-
+            fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
 
           # everything is good
           elsif result == 'true'
@@ -1215,18 +1119,15 @@ module Tele
             unless doc.at_xpath('//nb-bovins').nil?
               status = 'validated'
               message_zip = doc.at_xpath('//message-zip/child::text()').to_s
-              {output_hash: self.class.decode_zip(message_zip)}
+              { output_hash: self.class.decode_zip(message_zip) }
             end
 
           end
-
         end
       end
 
-
       class << self
-
-        def decode_zip(base64_zip)
+        def decode_zip(_base64_zip)
           stream = ::Base64.decode64(message_zip)
           data = nil
           Zip::File.open_buffer(stream) do |f|
@@ -1235,40 +1136,32 @@ module Tele
               data =  Hash.from_xml(xml.to_s)
             end
           end
-          return data
+          data
         end
-
       end
-
 
       protected
 
-
-      def call(call_options = {}, options = {}, &block)
-        connect(options = {}) do |client|
+      def call(call_options = {}, options = {}, &_block)
+        connect(options) do |client|
           result = client.call(call_options)
           status = :undefined
           yield result, status
         end
-        return status
+        status
       end
 
-
-      def connect_business(options = {}, &block)
+      def connect_business(options = {}, &_block)
         status = true
-        connect({wdsl: @business_wsdl, namespaces: {'xmlns:sch' => 'http://www.idele.fr/XML/Schema/'}, namespace_identifier: 'sch'}.merge(options)) do |client|
+        connect({ wdsl: @business_wsdl, namespaces: { 'xmlns:sch' => 'http://www.idele.fr/XML/Schema/' }, namespace_identifier: 'sch' }.merge(options)) do |client|
           results = yield(client, status) || {}
         end
-        return results.merge(status: status)
+        results.merge(status: status)
       end
 
-
-
       # Connect to given SOAP service and provides client to call it
-      def connect(options = {}, &block)
-        unless options[:wsdl]
-          raise "No WSDL given"
-        end
+      def connect(options = {}, &_block)
+        fail 'No WSDL given' unless options[:wsdl]
         options[:convert_request_keys_to] ||= :camelcase
         options[:log] ||= true
         options[:env_namespace] ||= :soapenv
@@ -1292,10 +1185,8 @@ module Tele
         rescue Nokogiri::XML::SyntaxError => error
           raise ::Tele::Idele::Ednotif::Errors::NokogiriError.new(message: error.to_s)
         end
-        return results
+        results
       end
-
-
     end
   end
 end

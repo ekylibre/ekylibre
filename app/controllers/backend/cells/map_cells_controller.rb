@@ -1,5 +1,4 @@
 class Backend::Cells::MapCellsController < Backend::Cells::BaseController
-
   def show
     if params[:campaign_ids]
       @campaigns = Campaign.find(params[:campaign_ids])
@@ -9,5 +8,4 @@ class Backend::Cells::MapCellsController < Backend::Cells::BaseController
       @campaigns = current_campaign
     end
   end
-
 end

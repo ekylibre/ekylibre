@@ -1,18 +1,15 @@
 module Clean
   module Annotations
-
-    MODELS_DIR      = Rails.root.join("app", "models")
-    FIXTURES_DIR    = Rails.root.join("test", "fixtures")
-    MODEL_TESTS_DIR = Rails.root.join("test", "models")
-    PREFIX = "= Informations"
+    MODELS_DIR      = Rails.root.join('app', 'models')
+    FIXTURES_DIR    = Rails.root.join('test', 'fixtures')
+    MODEL_TESTS_DIR = Rails.root.join('test', 'models')
+    PREFIX = '= Informations'
 
     class << self
-
-
       # Simple quoting for the default column value
       def quote_value(value, type = :string)
         case type
-        when :boolean                 then (value == "true" ? "TRUE" : "FALSE")
+        when :boolean                 then (value == 'true' ? 'TRUE' : 'FALSE')
         when :decimal, :float, :integer then value.to_s
         else
           value.inspect
@@ -22,9 +19,9 @@ module Clean
       # Simple quoting for the default column value
       def quote(value)
         case value
-        when NilClass                 then "NULL"
-        when TrueClass                then "TRUE"
-        when FalseClass               then "FALSE"
+        when NilClass                 then 'NULL'
+        when TrueClass                then 'TRUE'
+        when FalseClass               then 'FALSE'
         when Float, Fixnum, Bignum    then value.to_s
         # BigDecimals need to be output in a non-normalized form and quoted.
         when BigDecimal               then value.to_s('F')
@@ -33,9 +30,8 @@ module Clean
         end
       end
 
-
       def validable_column?(column)
-        return ![:created_at, :creator_id, :creator, :updated_at, :updater_id, :updater, :position, :lock_version].include?(column.name.to_sym)
+        ![:created_at, :creator_id, :creator, :updated_at, :updater_id, :updater, :position, :lock_version].include?(column.name.to_sym)
       end
 
       # Use the column information in an ActiveRecord class
@@ -48,22 +44,22 @@ module Clean
         info << "# == Table: #{klass.table_name}\n#\n"
         #    info << "# Table name: #{klass.table_name}\n#\n"
 
-        max_size = klass.column_names.collect{|name| name.size}.max
-        klass.columns.sort{|a,b| a.name <=> b.name}.each do |col|
+        max_size = klass.column_names.collect(&:size).max
+        klass.columns.sort { |a, b| a.name <=> b.name }.each do |col|
           next if col.name.to_s =~ /\A\_/ # Custom fields
           attrs = []
           if col.default
             if col.default.is_a? Date
-              attrs << "default(CURRENT_DATE)"
+              attrs << 'default(CURRENT_DATE)'
             else
               attrs << "default(#{quote_value(col.default, col.type)})"
             end
           end
-          attrs << "not null" unless col.null
-          attrs << "primary key" if col.name == klass.primary_key
+          attrs << 'not null' unless col.null
+          attrs << 'primary key' if col.name == klass.primary_key
 
           col_type = col.type.to_s
-          if col_type == "decimal"
+          if col_type == 'decimal'
             col_type << "(#{col.precision}, #{col.scale})"
           elsif col.limit
             col_type << "(#{col.limit.inspect})"
@@ -83,16 +79,16 @@ module Clean
       def default_fixture(klass)
         info  = "#\n# == Fixture: #{klass.table_name}\n#\n"
         info += "# #{klass.table_name}_001:\n"
-        klass.columns.sort{|a,b| a.name <=> b.name}.each do |col|
+        klass.columns.sort { |a, b| a.name <=> b.name }.each do |col|
           next if [:created_at, :updated_at, :id, :lock_version].include? col.name.to_sym
           next if col.name =~ /\A\_/ # Custom fields
-          next if col.name =~ /\_type$/ and klass.columns_hash[col.name.gsub(/\_type$/, "_id")]
-          if !col.null or [:creator_id, :updater_id].include?(col.name.to_sym)
+          next if col.name =~ /\_type$/ && klass.columns_hash[col.name.gsub(/\_type$/, '_id')]
+          if !col.null || [:creator_id, :updater_id].include?(col.name.to_sym)
             if col.name.match(/_id$/)
               name = col.name.gsub(/_id$/, '')
-              model = {"creator" => "user", "updater" => "user"}[name] || name
+              model = { 'creator' => 'user', 'updater' => 'user' }[name] || name
               info << "#   #{name}: #{model.pluralize}_001"
-              info << " (Model)" if klass.columns_hash["#{name}_type"]
+              info << ' (Model)' if klass.columns_hash["#{name}_type"]
             else
               info << "#   #{col.name}: "
               if col.name.match(/_at$/)
@@ -101,8 +97,8 @@ module Clean
                 info << "#{Date.today.year - 1}-#{Date.today.year.modulo(12).to_s.rjust(2, '0')}-#{Date.today.year.modulo(28).to_s.rjust(2, '0')}"
               elsif col.type == :boolean
                 info << 'true'
-              elsif col.type == :decimal or col.type == :integer
-                info << "0"
+              elsif col.type == :decimal || col.type == :integer
+                info << '0'
               else
                 info << '"Lorem ipsum"'
               end
@@ -111,9 +107,8 @@ module Clean
           end
         end
         info << "#\n"
-        return info
+        info
       end
-
 
       # Add a schema block to a file. If the file already contains
       # a schema info block (a comment starting
@@ -123,9 +118,9 @@ module Clean
         if File.exist?(file_name)
           content = File.read(file_name)
 
-          content = "# #{PREFIX}\n"+content unless content.match(PREFIX)
+          content = "# #{PREFIX}\n" + content unless content.match(PREFIX)
 
-          File.open(file_name, "w") do |f|
+          File.open(file_name, 'w') do |f|
             f.puts content.sub(/# #{PREFIX}.*\n(#.*\n)*/, info_block).gsub!(/\ +\n/, "\n")
           end
         end
@@ -140,17 +135,17 @@ module Clean
         info = get_schema_info(klass, header)
 
         if types.include?(:models)
-          model_file_name = MODELS_DIR.join(klass.name.underscore + ".rb")
+          model_file_name = MODELS_DIR.join(klass.name.underscore + '.rb')
           annotate_one_file(model_file_name, info)
         end
 
         if types.include?(:fixtures)
-          fixture_file_name = FIXTURES_DIR.join(klass.table_name + ".yml")
-          annotate_one_file(fixture_file_name, info+default_fixture(klass))
+          fixture_file_name = FIXTURES_DIR.join(klass.table_name + '.yml')
+          annotate_one_file(fixture_file_name, info + default_fixture(klass))
         end
 
         if types.include?(:model_tests)
-          unit_file_name = MODEL_TESTS_DIR.join(klass.name.underscore + "_test.rb")
+          unit_file_name = MODEL_TESTS_DIR.join(klass.name.underscore + '_test.rb')
           annotate_one_file(unit_file_name, info)
         end
       end
@@ -164,8 +159,8 @@ module Clean
         models = []
         if models.empty?
           Dir.chdir(MODELS_DIR) do
-            models = Dir["**/*.rb"].sort
-            models.delete_if{|m| m =~ /\Aconcerns\// }
+            models = Dir['**/*.rb'].sort
+            models.delete_if { |m| m =~ /\Aconcerns\// }
           end
         end
         models
@@ -178,7 +173,7 @@ module Clean
 
       def run(options = {})
         if verbose = !options[:verbose].is_a?(FalseClass)
-          print " - Annotations: "
+          print ' - Annotations: '
         end
 
         Clean::Support.set_search_path!
@@ -186,7 +181,6 @@ module Clean
         types  = [:models, :fixtures, :model_tests]
         types &= [options.delete(:only)].flatten if options[:only]
         types -= [options.delete(:except)].flatten if options[:except]
-
 
         header = PREFIX.dup
 
@@ -197,25 +191,23 @@ module Clean
 
         errors = []
         get_model_names.each do |m|
-          class_name = m.sub(/\.rb$/,'').camelize
+          class_name = m.sub(/\.rb$/, '').camelize
           begin
-            klass = class_name.split('::').inject(Object){ |klass,part| klass.const_get(part) }
+            klass = class_name.split('::').inject(Object) { |klass, part| klass.const_get(part) }
             if klass < ActiveRecord::Base && !klass.abstract_class?
               annotate(klass, header, types)
             end
           rescue Exception => e
-            errors << "Unable to annotate #{class_name}: #{e.message}\n"+e.backtrace.join("\n")
+            errors << "Unable to annotate #{class_name}: #{e.message}\n" + e.backtrace.join("\n")
           end
         end
         if verbose
           print "#{errors.size.to_s.rjust(3)} errors\n"
           for error in errors
-            puts error.gsub(/^/, "     ")
+            puts error.gsub(/^/, '     ')
           end
         end
       end
-
     end
-
   end
 end

@@ -2,25 +2,24 @@
 require 'test_helper'
 
 class MeasureTest < ActiveSupport::TestCase
-
-  test "instanciation" do
+  test 'instanciation' do
     assert_nothing_raised do
-      Measure.new(55.23, "kilogram")
+      Measure.new(55.23, 'kilogram')
     end
     assert_nothing_raised do
       Measure.new(55.23, :kilogram)
     end
     assert_nothing_raised do
-      Measure.new("55.23 kilogram")
+      Measure.new('55.23 kilogram')
     end
     assert_nothing_raised do
-      Measure.new("55.23kilogram")
+      Measure.new('55.23kilogram')
     end
     assert_nothing_raised do
-      Measure.new("55.23 kg")
+      Measure.new('55.23 kg')
     end
     assert_nothing_raised do
-      Measure.new("55.23kg")
+      Measure.new('55.23kg')
     end
     assert_nothing_raised do
       55.23.in_kilogram
@@ -29,25 +28,24 @@ class MeasureTest < ActiveSupport::TestCase
       55.23.in(:kilogram)
     end
     assert_nothing_raised do
-      55.23.in("kilogram")
+      55.23.in('kilogram')
     end
   end
 
-  test "conversions" do
+  test 'conversions' do
     m = 1452.218534748545.in_ton
     assert_equal m.to_f, 1452.218534748545
     assert_equal m.to_d, 1452.218534748545
     assert_equal m.to_r, 1452.218534748545
   end
 
-
-  test "operations" do
+  test 'operations' do
     m1 = 155.in_kilogram
     m2 = 1.045.in_ton
 
-    assert_equal m1.unit, "kilogram"
+    assert_equal m1.unit, 'kilogram'
     assert_equal m1.value, 155
-    assert_equal m2.unit, "ton"
+    assert_equal m2.unit, 'ton'
     assert_equal m2.value, 1.045
     # Test equality with conversion
     assert_equal m1, 0.155.in_ton
@@ -55,7 +53,7 @@ class MeasureTest < ActiveSupport::TestCase
     assert_equal 1045.in_kilogram, m2.in_kilogram
     # Checks that value is not impacted by previous conversion
     # due to a possible side effect
-    assert_equal m2.unit, "ton"
+    assert_equal m2.unit, 'ton'
     assert_equal m2.value, 1.045
     assert_equal m2, 1.045.in_ton
 
@@ -79,13 +77,13 @@ class MeasureTest < ActiveSupport::TestCase
     end
     assert_equal m3, 1.2.in_ton
     assert_equal m3, 1200.in_kilogram
-    assert_equal m3, 1200000.in_gram
+    assert_equal m3, 1_200_000.in_gram
 
-    assert_equal m3/2, 600.in_kilogram
-    assert_equal m3*2, 2400.in_kilogram
-    assert_equal m3*2.to_f, 2400.in_kilogram
-    assert_equal m3*2.to_d, 2400.in_kilogram
-    assert_equal m3*2.to_r, 2400.in_kilogram
+    assert_equal m3 / 2, 600.in_kilogram
+    assert_equal m3 * 2, 2400.in_kilogram
+    assert_equal m3 * 2.to_f, 2400.in_kilogram
+    assert_equal m3 * 2.to_d, 2400.in_kilogram
+    assert_equal m3 * 2.to_r, 2400.in_kilogram
 
     m4 = 1.2.in_cubic_meter
 
@@ -94,13 +92,13 @@ class MeasureTest < ActiveSupport::TestCase
     end
   end
 
-  test "special units" do
-    m1 = Measure.new("1000.")
-    m2 = Measure.new("1k.")
+  test 'special units' do
+    m1 = Measure.new('1000.')
+    m2 = Measure.new('1k.')
     assert_equal m1, m2
   end
 
-  test "all units" do
+  test 'all units' do
     value = 5123.23
     for unit in Nomen::Units.list
       assert_nothing_raised do
@@ -115,5 +113,4 @@ class MeasureTest < ActiveSupport::TestCase
       end
     end
   end
-
 end

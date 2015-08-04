@@ -26,7 +26,6 @@ for format in Ekylibre::Reporting.formats
 end
 
 class ActionController::Responder
-
   # Adds responders to catch default view rendering and call the previous renderers
   for format in Ekylibre::Reporting.formats
     code  = "def to_#{format}\n"
@@ -34,5 +33,4 @@ class ActionController::Responder
     code << "end\n"
     eval(code)
   end
-
 end

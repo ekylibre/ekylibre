@@ -30,12 +30,11 @@ class Backend::CampaignsController < Backend::BaseController
   end
 
   # List of productions for one campaign
-  list(:productions, conditions: {campaign_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
+  list(:productions, conditions: { campaign_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
     t.column :name, url: true
     # t.column :product_nature, url: true
     t.column :state
     t.column :started_at
     t.column :stopped_at
   end
-
 end

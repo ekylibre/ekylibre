@@ -1,5 +1,4 @@
 module Tele::Idele::Errors
-
   module ExceptionNormalization
     module Initializer
       attr_reader :code, :message
@@ -9,18 +8,13 @@ module Tele::Idele::Errors
         @message = options[:message]
         log = ''
 
-        unless @code.nil?
-          log = @code + ': '
-        end
+        log = @code + ': ' unless @code.nil?
 
-        unless @message.nil?
-          log += @message
-        end
+        log += @message unless @message.nil?
 
         Rails.logger.warn log
         super @message
       end
-
     end
 
     def self.included(klass)
@@ -43,5 +37,4 @@ module Tele::Idele::Errors
   class NokogiriError < Nokogiri::XML::SyntaxError
     include ExceptionNormalization
   end
-
 end

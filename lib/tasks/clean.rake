@@ -1,10 +1,8 @@
 require 'clean'
 
-desc "Clean all"
+desc 'Clean all'
 task :clean do
-  unless ENV["PLUGIN"]
-    ENV["PLUGIN"] = "false"
-  end
+  ENV['PLUGIN'] = 'false' unless ENV['PLUGIN']
   Rake::Task[:environment].invoke
   [:themes, :schema, :annotations, :tests, :rights, :routes,
    :navigation, :validations, :locales, :views, :code].each do |cleaner|

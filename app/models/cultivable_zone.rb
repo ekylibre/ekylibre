@@ -65,23 +65,22 @@
 #  work_number           :string
 #
 
-
 class CultivableZone < Zone
-  enumerize :variety, in: Nomen::Varieties.all(:cultivable_zone), predicates: {prefix: true}
-  has_many :supports, class_name: "ProductionSupport", foreign_key: :storage_id
-  has_many :productions, class_name: "Production", through: :supports
-  has_many :memberships, class_name: "CultivableZoneMembership", foreign_key: :group_id
-  has_many :members, class_name: "Product", through: :memberships
-  has_many :land_parcels, class_name: "LandParcel", through: :memberships, source: :member
+  enumerize :variety, in: Nomen::Varieties.all(:cultivable_zone), predicates: { prefix: true }
+  has_many :supports, class_name: 'ProductionSupport', foreign_key: :storage_id
+  has_many :productions, class_name: 'Production', through: :supports
+  has_many :memberships, class_name: 'CultivableZoneMembership', foreign_key: :group_id
+  has_many :members, class_name: 'Product', through: :memberships
+  has_many :land_parcels, class_name: 'LandParcel', through: :memberships, source: :member
 
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  #]VALIDATORS]
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # ]VALIDATORS]
 
   scope :of_campaign, lambda { |*campaigns|
     campaigns.flatten!
     for campaign in campaigns
       unless campaign.is_a?(Campaign)
-        raise ArgumentError, "Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}"
+        fail ArgumentError, "Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}"
       end
     end
     joins(:productions).where('campaign_id IN (?)', campaigns.map(&:id))
@@ -90,54 +89,52 @@ class CultivableZone < Zone
   scope :of_production, lambda { |*productions|
     productions.flatten!
     for production in productions
-      raise ArgumentError.new("Expected Production, got #{production.class.name}:#{production.inspect}") unless production.is_a?(Production)
+      fail ArgumentError.new("Expected Production, got #{production.class.name}:#{production.inspect}") unless production.is_a?(Production)
     end
     joins(:productions).where('production_id IN (?)', productions.map(&:id))
   }
 
   after_create do
     # Compute population
-    if self.initial_shape
-      self.initial_shape = Charta::Geometry.new(self.initial_shape).multi_polygon
-      if self.variable_indicators_list.include?(:net_surface_area)
-        self.read!(:net_surface_area, ::Charta::Geometry.new(self.initial_shape).area, at: self.initial_born_at)
+    if initial_shape
+      self.initial_shape = Charta::Geometry.new(initial_shape).multi_polygon
+      if variable_indicators_list.include?(:net_surface_area)
+        self.read!(:net_surface_area, ::Charta::Geometry.new(initial_shape).area, at: initial_born_at)
       end
-      if self.variable_indicators_list.include?(:population)
-        self.initial_population = ::Charta::Geometry.new(self.initial_shape).area / self.variant.net_surface_area
+      if variable_indicators_list.include?(:population)
+        self.initial_population = ::Charta::Geometry.new(initial_shape).area / variant.net_surface_area
       end
     end
   end
 
   protect(on: :destroy) do
-    self.supports.any?
+    supports.any?
   end
 
   # Returns members of the group at a given time (or now by default)
-  def members_at(viewed_at = nil)
+  def members_at(_viewed_at = nil)
     LandParcel.zone_members_of(self)
   end
 
   # return the work_number of LandParcelClusters if exist for a CultivableLAndParcel
   def clusters_work_number(viewed_at = nil)
-    land_parcels = self.members_at(viewed_at)
+    land_parcels = members_at(viewed_at)
     numbers = []
     if land_parcels.any?
       for land_parcel in land_parcels
         groups = land_parcel.groups
         for group in groups
-          if group.is_a?(LandParcelCluster)
-            numbers << group.work_number
-          end
+          numbers << group.work_number if group.is_a?(LandParcelCluster)
         end
       end
       return numbers.to_sentence
     end
-    return nil
+    nil
   end
 
   # return the variety of all land_parcel members of the cultivable land parcel
   def soil_varieties(viewed_at = nil)
-    land_parcels = self.members_at(viewed_at)
+    land_parcels = members_at(viewed_at)
     varieties = []
     if land_parcels.any?
       for land_parcel in land_parcels
@@ -150,27 +147,27 @@ class CultivableZone < Zone
   end
 
   def soil_varieties_label(viewed_at = nil)
-    land_parcels = self.members_at(viewed_at)
+    land_parcels = members_at(viewed_at)
     varieties = []
     if land_parcels.any?
       for land_parcel in land_parcels
         if land_parcel.soil_nature
-         if item = Nomen::SoilNatures[land_parcel.soil_nature]
-          varieties << item.human_name
-         end
+          if item = Nomen::SoilNatures[land_parcel.soil_nature]
+            varieties << item.human_name
+          end
         end
       end
       return varieties.to_sentence
     else
-     return nil
+      return nil
     end
   end
 
   # return the last_production before the production in parameter where the cultivable land parcel is a support
-  # @TODO replace created_at by started_at when an input field will exist
+  #  @TODO replace created_at by started_at when an input field will exist
   def last_production_before(production)
-    if production.is_a?(Production) and production.started_at
-      last_support = self.supports.where('created_at <= ? ',production.started_at).reorder('created_at DESC').limit(2).last
+    if production.is_a?(Production) && production.started_at
+      last_support = supports.where('created_at <= ? ', production.started_at).reorder('created_at DESC').limit(2).last
       if last_support
         return last_support.production.name
       else
@@ -183,7 +180,7 @@ class CultivableZone < Zone
 
   def current_cultivation
     # get the first object with variety 'plant', availables
-    if cultivation = self.contents.where(type: Plant).of_variety(:plant).availables.reorder(:born_at).first
+    if cultivation = contents.where(type: Plant).of_variety(:plant).availables.reorder(:born_at).first
       return cultivation
     else
       return nil
@@ -193,20 +190,19 @@ class CultivableZone < Zone
   def administrative_area
     address = Entity.of_company.default_mail_address
     # raise address.mail_country.inspect
-    if address.mail_country == "fr"
-      return Nomen::AdministrativeAreas.where(code: "FR-#{address.mail_postal_code.to_s[0..1]}").first.name
+    if address.mail_country == 'fr'
+      return Nomen::AdministrativeAreas.find_by(code: "FR-#{address.mail_postal_code.to_s[0..1]}").name
     else
       return nil
     end
   end
 
   def estimated_soil_nature
-    for land_parcel in self.land_parcels
+    for land_parcel in land_parcels
       if nature = land_parcel.soil_nature
         return nature
       end
     end
-    return nil
+    nil
   end
-
 end

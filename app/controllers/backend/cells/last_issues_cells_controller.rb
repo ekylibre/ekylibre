@@ -1,7 +1,6 @@
 class Backend::Cells::LastIssuesCellsController < Backend::Cells::BaseController
-
-  list(model: :issues, :order => "observed_at DESC", :per_page => 10, line_class: :status) do |t|
-    t.column :name, url: {controller: "/backend/issues"}
+  list(model: :issues, order: 'observed_at DESC', per_page: 10, line_class: :status) do |t|
+    t.column :name, url: { controller: '/backend/issues' }
     t.status
     t.column :nature
     t.column :target_name
@@ -9,8 +8,6 @@ class Backend::Cells::LastIssuesCellsController < Backend::Cells::BaseController
     t.column :state
   end
 
-
   def show
   end
-
 end

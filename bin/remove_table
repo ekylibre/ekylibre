@@ -12,21 +12,19 @@ STDOUT.sync = true
 
 def execute(command)
   puts "#{command.send(@simulate ? :yellow : :red)}"
-  unless @simulate
-    system(command)
-  end
+  system(command) unless @simulate
 end
 
 table = ARGV.shift
 
 unless $PROGRAM_NAME.match(/^(.\/)?bin\//)
-  puts "Script must be started from Rails root."
+  puts 'Script must be started from Rails root.'
   exit 0
 end
 
-raise "No table given" if table.blank?
+fail 'No table given' if table.blank?
 
-root = Pathname.new(".")
+root = Pathname.new('.')
 
 records = table
 record = records.singularize
@@ -41,7 +39,5 @@ files = ["app/models/#{record}.rb",
          "test/controllers/backend/#{records}_controller_test.rb"]
 
 for file in files
-  if File.exist?(file)
-    execute("git rm -fr #{file}")
-  end
+  execute("git rm -fr #{file}") if File.exist?(file)
 end

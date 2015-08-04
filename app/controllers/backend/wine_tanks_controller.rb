@@ -17,7 +17,6 @@
 #
 
 class Backend::WineTanksController < Backend::BaseController
-
   list model: :products, scope: [:availables, "can('store(wine)')".c, "can('store_liquid')".c] do |t|
     t.action :edit
     t.action :destroy, if: :destroyable?
@@ -30,5 +29,4 @@ class Backend::WineTanksController < Backend::BaseController
 
   def index
   end
-
 end

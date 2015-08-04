@@ -1,9 +1,7 @@
 module Ekylibre::FirstRun::Faker
-
   class Base
-
     def self.run(options = {})
-      self.new(options).run
+      new(options).run
     end
 
     def initialize(options = {})
@@ -11,17 +9,17 @@ module Ekylibre::FirstRun::Faker
     end
 
     def files
-      Pathname.new(__FILE__).dirname.join("files")
+      Pathname.new(__FILE__).dirname.join('files')
     end
 
     def path(*args)
       files.join(*args)
     end
 
-    def count(name, options = {}, &block)
+    def count(name, options = {}, &_block)
       STDOUT.sync = true
-      f = Ekylibre::FirstRun::Counter.new(@max) do |count, increment|
-        print "."
+      f = Ekylibre::FirstRun::Counter.new(@max) do |_count, _increment|
+        print '.'
       end
       start = Time.now
       label_size = options[:label_size] || 21
@@ -30,15 +28,12 @@ module Ekylibre::FirstRun::Faker
       print "[#{'FAKE'.magenta}] #{label.blue}: "
       begin
         yield(f)
-        print " " * (@max - f.count) if 0 < @max and @max > f.count
-        print "  "
+        print ' ' * (@max - f.count) if 0 < @max and @max > f.count
+        print '  '
       rescue Ekylibre::FirstRun::Counter::CountExceeded => e
-        print "! "
+        print '! '
       end
       puts "#{(Time.now - start).round(2).to_s.rjust(6)}s"
     end
-
-
   end
-
 end

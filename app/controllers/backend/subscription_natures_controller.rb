@@ -17,16 +17,16 @@
 #
 
 class Backend::SubscriptionNaturesController < Backend::BaseController
-  manage_restfully nature: "SubscriptionNature.nature.default_value".c, entity_link_direction: "SubscriptionNature.entity_link_direction.default_value".c
+  manage_restfully nature: 'SubscriptionNature.nature.default_value'.c, entity_link_direction: 'SubscriptionNature.entity_link_direction.default_value'.c
 
   unroll
 
-  list(:children => :product_nature_categories) do |t|
+  list(children: :product_nature_categories) do |t|
     t.action :increment, method: :post, if: :quantity?
     t.action :decrement, method: :post, if: :quantity?
     t.action :edit
     t.action :destroy, if: :destroyable?
-    t.column :name, url: {id: 'nil'.c, action: :index, controller: :subscriptions, nature_id: "RECORD.id".c}
+    t.column :name, url: { id: 'nil'.c, action: :index, controller: :subscriptions, nature_id: 'RECORD.id'.c }
     t.column :nature, children: false
     t.column :actual_number, children: false
     t.column :reduction_percentage, children: false
@@ -40,15 +40,14 @@ class Backend::SubscriptionNaturesController < Backend::BaseController
   def decrement
     return unless subscription_nature = find_and_check
     subscription_nature.decrement!(:actual_number)
-    notify_success(:new_actual_number, :actual_number => subscription_nature.actual_number)
+    notify_success(:new_actual_number, actual_number: subscription_nature.actual_number)
     redirect_to_back
   end
 
   def increment
     return unless subscription_nature = find_and_check
     subscription_nature.increment!(:actual_number)
-    notify_success(:new_actual_number, :actual_number => subscription_nature.actual_number)
+    notify_success(:new_actual_number, actual_number: subscription_nature.actual_number)
     redirect_to_back
   end
-
 end

@@ -1,29 +1,27 @@
 module Ekylibre::Record
   module HasShape #:nodoc:
-
     def self.included(base)
       base.extend(ClassMethods)
     end
 
     module ClassMethods
-
       SRID = {
-        :wgs84 => 4326,
-        :rgf93 => 2154
+        wgs84: 4326,
+        rgf93: 2154
       }
 
       # Returns the corresponding SRID from its name or number
       def srid(srname)
         return srname if srname.is_a?(Integer)
         unless id = SRID[srname]
-          raise ArgumentError.new("Unreferenced SRID: #{srname.inspect}")
+          fail ArgumentError.new("Unreferenced SRID: #{srname.inspect}")
         end
-        return id
+        id
       end
 
       def has_shape(*indicators)
         options = (indicators[-1].is_a?(Hash) ? indicators.delete_at(-1) : {})
-        code = ""
+        code = ''
         indicators = [:shape] if indicators.empty?
         column = :geometry_value
 
@@ -111,14 +109,12 @@ module Ekylibre::Record
           code << "  return (self.#{indicator}_y_max(options) - self.#{indicator}_y_min(options))\n"
           code << "end\n"
 
-
         end
 
         # code.split(/\n/).each_with_index{|l, i| puts (i+1).to_s.rjust(4) + ": " + l}
 
         class_eval code
       end
-
     end
   end
 end

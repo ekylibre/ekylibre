@@ -1,6 +1,5 @@
 module Procedo
   class CompiledProcedure
-
     # def initialize(casting = {})
     #   cast(casting) if casting
     # end
@@ -29,25 +28,22 @@ module Procedo
       args.each_with_index do |arg, index|
         return false if arg != @__updater__[index]
       end
-      return true
+      true
     end
 
     @@list = {}.with_indifferent_access
 
     class << self
-
       def [](name)
         @@list[name]
       end
 
       def []=(name, compiled)
         unless compiled < self
-          raise ArgumentError, "Invalid value. #{self.name} expected, got #{self.class.name}."
+          fail ArgumentError, "Invalid value. #{self.name} expected, got #{self.class.name}."
         end
         @@list[name] = compiled
       end
-
     end
-
   end
 end

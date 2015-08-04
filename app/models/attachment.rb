@@ -38,18 +38,13 @@ class Attachment < Ekylibre::Record::Base
   belongs_to :document
   belongs_to :resource, polymorphic: true
   enumerize :nature, in: Nomen::DocumentNatures.all
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :expired_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_presence_of :document, :nature, :resource, :resource_type
-  #]VALIDATORS]
+  # ]VALIDATORS]
 
   before_validation do
-    if self.resource
-      self.resource_type = self.resource.class.base_class.name
-    end
-    if self.document
-      self.nature = self.document.nature
-    end
+    self.resource_type = resource.class.base_class.name if resource
+    self.nature = document.nature if document
   end
-
 end

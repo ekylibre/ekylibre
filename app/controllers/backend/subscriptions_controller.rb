@@ -17,12 +17,12 @@
 #
 
 class Backend::SubscriptionsController < Backend::BaseController
-  manage_restfully except: [:index], address_id: "EntityAddress.find_by(entity_id: params[:subscriber_id]).id rescue 0".c, nature_id: "SubscriptionNature.first.id rescue 0".c, t3e: {nature: "@subscription.nature.name".c, start: "@subscription.start".c, finish: "@subscription.finish".c}
+  manage_restfully except: [:index], address_id: 'EntityAddress.find_by(entity_id: params[:subscriber_id]).id rescue 0'.c, nature_id: 'SubscriptionNature.first.id rescue 0'.c, t3e: { nature: '@subscription.nature.name'.c, start: '@subscription.start'.c, finish: '@subscription.finish'.c }
 
   unroll
 
-  def self.subscriptions_conditions(options={})
-    code  = ""
+  def self.subscriptions_conditions(_options = {})
+    code  = ''
     code << "conditions = [ \" COALESCE(#{Subscription.table_name}.sale_id, 0) NOT IN (SELECT id FROM #{Sale.table_name} WHERE state NOT IN ('invoice', 'order'))\" ]\n"
     code << "unless session[:subscriptions_nature_id].to_i.zero?\n"
     code << "  conditions[0] += \" AND #{Subscription.table_name}.nature_id = ?\"\n"
@@ -38,16 +38,16 @@ class Backend::SubscriptionsController < Backend::BaseController
     code << "  end\n"
     code << "end\n"
     code << "conditions\n"
-    return code.c
+    code.c
   end
 
-  list(conditions: subscriptions_conditions, order: {id: :desc}) do |t|
+  list(conditions: subscriptions_conditions, order: { id: :desc }) do |t|
     t.column :mail_line_1, through: :address, url: true
-    t.column :mail_line_2, through: :address, :label => :column
-    t.column :mail_line_3, through: :address, :label => :column
-    t.column :mail_line_4, through: :address, :label => :column
-    t.column :mail_line_5, through: :address, :label => :column
-    t.column :mail_line_6, through: :address, :label => :column
+    t.column :mail_line_2, through: :address, label: :column
+    t.column :mail_line_3, through: :address, label: :column
+    t.column :mail_line_4, through: :address, label: :column
+    t.column :mail_line_5, through: :address, label: :column
+    t.column :mail_line_6, through: :address, label: :column
     t.column :product_nature
     t.column :quantity
     t.column :start
@@ -64,7 +64,7 @@ class Backend::SubscriptionsController < Backend::BaseController
     if request.xhr?
       return unless @subscription_nature = find_and_check(:subscription_nature, params[:nature_id])
       session[:subscriptions_instant] = @subscription_nature.now
-      render :partial => "options"
+      render partial: 'options'
       return
     end
     if params[:nature_id]
@@ -74,7 +74,6 @@ class Backend::SubscriptionsController < Backend::BaseController
     instant = (@subscription_nature.period? ? params[:instant].to_date : params[:instant].to_i) rescue nil
     session[:subscriptions_nature_id]  = @subscription_nature.id
     session[:subscriptions_nature_nature] = @subscription_nature.nature.to_sym
-    session[:subscriptions_instant] = ((instant.blank? or instant == 0) ? @subscription_nature.now : instant)
+    session[:subscriptions_instant] = ((instant.blank? || instant == 0) ? @subscription_nature.now : instant)
   end
-
 end

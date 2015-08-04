@@ -33,12 +33,11 @@
 #  value        :text
 #
 
-
 class ListingNodeItem < Ekylibre::Record::Base
-  belongs_to :node, class_name: "ListingNode"
+  belongs_to :node, class_name: 'ListingNode'
   attr_readonly :node_id
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_presence_of :nature, :node
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_length_of :nature, allow_nil: true, maximum: 10
 end

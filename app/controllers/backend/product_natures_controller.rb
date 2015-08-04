@@ -24,9 +24,9 @@ class Backend::ProductNaturesController < Backend::BaseController
   unroll
 
   # management -> product_conditions
-  def self.product_natures_conditions(options={})
-    code = ""
-    code = search_conditions(:product_natures => [:number, :name, :description])+"\n"
+  def self.product_natures_conditions(_options = {})
+    code = ''
+    code = search_conditions(product_natures: [:number, :name, :description]) + "\n"
     code << "if params[:s] == 'active'\n"
     code << "  c[0] += ' AND active = ?'\n"
     code << "  c << true\n"
@@ -35,7 +35,7 @@ class Backend::ProductNaturesController < Backend::BaseController
     code << "  c << false\n"
     code << "end\n"
     code << "c\n"
-    return code.c
+    code.c
   end
 
   list do |t|
@@ -49,8 +49,8 @@ class Backend::ProductNaturesController < Backend::BaseController
     t.column :derivative_of
   end
 
-  list(:variants, model: :product_nature_variants, conditions: {nature_id: 'params[:id]'.c}, order: :name) do |t|
-    t.action :new, on: :none, url: {nature_id: 'params[:id]'.c, redirect: 'request.fullpath'.c}
+  list(:variants, model: :product_nature_variants, conditions: { nature_id: 'params[:id]'.c }, order: :name) do |t|
+    t.action :new, on: :none, url: { nature_id: 'params[:id]'.c, redirect: 'request.fullpath'.c }
     t.action :edit
     t.action :destroy
     t.column :active
@@ -60,5 +60,4 @@ class Backend::ProductNaturesController < Backend::BaseController
     t.column :derivative_of
     t.column :unit_name
   end
-
 end

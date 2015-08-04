@@ -1,6 +1,5 @@
 module Visualization
   class Configuration
-
     def initialize(config = {})
       @config = config
       @categories_colors = @config.delete(:categories_colors)
@@ -16,7 +15,7 @@ module Visualization
 
     def overlay(name, provider_name)
       @config[:overlays] ||= []
-      @config[:overlays] << {name: name, provider_name: provider_name}
+      @config[:overlays] << { name: name, provider_name: provider_name }
     end
 
     # def layer(name, list = {})
@@ -30,7 +29,7 @@ module Visualization
       end
       name = name.to_s.parameterize.gsub('-', '_') unless name.is_a?(Symbol)
       @config[:layers] ||= []
-      @config[:layers] << {reference: name.to_s.camelcase(:lower)}.merge(options.merge(name: name, serie: serie.to_s.camelcase(:lower)))
+      @config[:layers] << { reference: name.to_s.camelcase(:lower) }.merge(options.merge(name: name, serie: serie.to_s.camelcase(:lower)))
     end
 
     def simple(name, serie, options = {})
@@ -54,19 +53,19 @@ module Visualization
     end
 
     def categories(name, serie, options = {})
-      layer(name, serie, {colors: @categories_colors}.merge(options.merge(type: :categories)))
+      layer(name, serie, { colors: @categories_colors }.merge(options.merge(type: :categories)))
     end
 
     def paths(name, serie, options = {})
-      layer(name, serie, {colors: @categories_colors}.merge(options.merge(type: :paths)))
+      layer(name, serie, { colors: @categories_colors }.merge(options.merge(type: :paths)))
     end
 
     def path(name, serie, options = {})
-      layer(name, serie, {colors: @categories_colors}.merge(options.merge(type: :path)))
+      layer(name, serie, { colors: @categories_colors }.merge(options.merge(type: :path)))
     end
 
     def points(name, serie, options = {})
-      layer(name, serie, {colors: @categories_colors}.merge(options.merge(type: :points)))
+      layer(name, serie, { colors: @categories_colors }.merge(options.merge(type: :points)))
     end
 
     # def multi_points(name, serie, options = {})
@@ -75,15 +74,13 @@ module Visualization
 
     # Add a serie of geo data
     def serie(name, data)
-      unless data.is_a? Array
-        raise StandardError, "data must be an array"
-      end
+      fail StandardError, 'data must be an array' unless data.is_a? Array
       @config[:series] ||= {}.with_indifferent_access
       @config[:series][name] = data.compact.collect do |item|
         next unless item[:shape]
         item
-          .merge(shape: Charta::Geometry.new(item[:shape]).transform(:WGS84).to_geojson)
-          .merge(item[:popup] ? {popup: compile_visualization_popup(item[:popup], item)} : {})
+        .merge(shape: Charta::Geometry.new(item[:shape]).transform(:WGS84).to_geojson)
+        .merge(item[:popup] ? { popup: compile_visualization_popup(item[:popup], item) } : {})
       end.compact
     end
 
@@ -102,7 +99,7 @@ module Visualization
     # Build a data structure for popup building
     def compile_visualization_popup(object, item)
       if object.is_a?(TrueClass)
-        hash = {header: item[:name]}
+        hash = { header: item[:name] }
         for key, value in item
           unless [:header, :footer, :name, :shape].include?(key)
             hash[key] = value.to_s
@@ -110,7 +107,7 @@ module Visualization
         end
         compile_visualization_popup(hash, item)
       elsif object.is_a?(String)
-        return [{type: :content, content: object}]
+        return [{ type: :content, content: object }]
       elsif object.is_a?(Hash)
         blocks = []
         if header = object[:header]
@@ -118,7 +115,7 @@ module Visualization
         end
         if content = object[:content]
           if content.is_a? String
-            blocks << {type: :content, content: content}
+            blocks << { type: :content, content: content }
           elsif content.is_a? Array
             for value in content
               block = {}
@@ -127,7 +124,7 @@ module Visualization
               elsif value.is_a? Hash
                 block.update(value)
               else
-                raise "Not implemented array block for #{object.class}"
+                fail "Not implemented array block for #{object.class}"
               end
               if block[:label].is_a?(TrueClass)
                 block[:label] = "attributes.#{attribute}".t(default: ["labels.#{attribute}".to_sym, attribute.to_s.humanize])
@@ -146,7 +143,7 @@ module Visualization
               elsif value.is_a? TrueClass
                 block.update(value: item[attribute].to_s, label: true)
               else
-                raise "Not implemented hash block for #{object.class}"
+                fail "Not implemented hash block for #{object.class}"
               end
               if block[:label].is_a?(TrueClass)
                 block[:label] = "attributes.#{attribute}".t(default: ["labels.#{attribute}".to_sym, attribute.to_s.humanize])
@@ -156,7 +153,7 @@ module Visualization
               blocks << block.merge(type: :content)
             end
           else
-            raise "Not implemented content for #{content.class}"
+            fail "Not implemented content for #{content.class}"
           end
         end
         if footer = object[:footer]
@@ -164,37 +161,33 @@ module Visualization
         end
         return blocks
       else
-        raise "Not implemented for #{object.class}"
+        fail "Not implemented for #{object.class}"
       end
     end
-
 
     def compile_block(*args)
       options = args.extract_options!
       info = args.shift
       type = args.shift || options[:type]
       if info.is_a? String
-        block = {type: type, content: info}
+        block = { type: type, content: info }
       elsif info.is_a? TrueClass
         if options[:content]
-          block = {type: type, content: options[:content]}
+          block = { type: type, content: options[:content] }
         else
-          raise StandardError, "Option :content must be given when info is a TrueClass"
+          fail StandardError, 'Option :content must be given when info is a TrueClass'
         end
       elsif info.is_a? Hash
         block = info.merge(type: type)
       else
-        raise StandardError, "Not implemented #{type} for #{object.class}"
+        fail StandardError, "Not implemented #{type} for #{object.class}"
       end
-      return block
+      block
     end
-
-
   end
 end
 
 module VisualizationsHelper
-
   # Example of how to use in HAML view:
   #
   #   = visualization do |v|
@@ -209,9 +202,8 @@ module VisualizationsHelper
   #     - v.control :search
   #
   def visualization(options = {}, html_options = {})
-    config = Visualization::Configuration.new({categories_colors: theme_colors}.merge(options))
+    config = Visualization::Configuration.new({ categories_colors: theme_colors }.merge(options))
     yield config
-    return content_tag(:div, nil, html_options.deep_merge(data: {visualization: config.to_json}))
+    content_tag(:div, nil, html_options.deep_merge(data: { visualization: config.to_json }))
   end
-
 end

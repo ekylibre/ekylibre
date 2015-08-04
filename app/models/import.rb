@@ -40,28 +40,26 @@
 #
 
 class Import < Ekylibre::Record::Base
-  belongs_to :importer, class_name: "User"
+  belongs_to :importer, class_name: 'User'
   enumerize :nature, in: Nomen::ExchangeNatures.all
   enumerize :state, in: [:undone, :in_progress, :errored, :aborted, :finished], predicates: true, default: :undone
   has_attached_file :archive, path: ':tenant/:class/:id/:style.:extension'
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :archive_updated_at, :imported_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :archive_file_size, allow_nil: true, only_integer: true
   validates_numericality_of :progression_percentage, allow_nil: true
   validates_presence_of :nature, :state
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_inclusion_of :progression_percentage, in: 0..100, allow_blank: true
   do_not_validate_attachment_file_type :archive
 
-
   class << self
-
     # Create an import and run it in background
     def launch(nature, file)
       f = File.open(file)
       import = create!(nature: nature, archive: f)
       ImportRunJob.perform_later(import.id)
-      return import
+      import
     end
 
     # Create an import and run it directly
@@ -69,40 +67,31 @@ class Import < Ekylibre::Record::Base
       f = File.open(file)
       import = create!(nature: nature, archive: f)
       import.run(&block)
-      return import
+      import
     end
-
   end
 
   def name
-    self.nature ? self.nature.text : :unknown.tl
+    nature ? nature.text : :unknown.tl
   end
-
 
   # Run an import.
   # The optional code block permit have access to progression on each check point
-  def run(&block)
-    begin
-      self.update_columns(state: :in_progress, progression_percentage: 0)
-      Ekylibre::Record::Base.transaction do
-        ActiveExchanger::Base.import(self.nature.to_sym, self.archive.path) do |progression, count|
-          self.update_columns(progression_percentage: progression)
-          if block_given?
-            break unless yield(progression, count)
-          end
-        end
+  def run(&_block)
+    update_columns(state: :in_progress, progression_percentage: 0)
+    Ekylibre::Record::Base.transaction do
+      ActiveExchanger::Base.import(nature.to_sym, archive.path) do |progression, count|
+        update_columns(progression_percentage: progression)
+        break unless yield(progression, count) if block_given?
       end
-      self.update_columns(state: :finished, progression_percentage: 100, imported_at: Time.now, importer_id: (User.stamper.is_a?(User) ? User.stamper.id : User.stamper.is_a?(Fixnum) ? User.stamper : nil))
-    rescue ActiveExchanger::Error => e
-      self.update_columns(state: :errored, progression_percentage: 0)
-      raise ActiveExchanger::Error, e.message
     end
+    update_columns(state: :finished, progression_percentage: 100, imported_at: Time.now, importer_id: (User.stamper.is_a?(User) ? User.stamper.id : User.stamper.is_a?(Fixnum) ? User.stamper : nil))
+  rescue ActiveExchanger::Error => e
+    update_columns(state: :errored, progression_percentage: 0)
+    raise ActiveExchanger::Error, e.message
   end
-
-
 
   def runnable?
     !self.finished?
   end
-
 end

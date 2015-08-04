@@ -18,7 +18,6 @@
 #
 
 class Api::V1::CrumbsController < Api::V1::BaseController
-
   def index
     render json: current_user.crumbs, status: :ok
   end
@@ -27,7 +26,7 @@ class Api::V1::CrumbsController < Api::V1::BaseController
     crumb = Crumb.new(permitted_params)
     crumb.user = current_user
     if crumb.save
-      render json: {id: crumb.id}, status: :created
+      render json: { id: crumb.id }, status: :created
     else
       render json: crumb.errors, status: :unprocessable_entity
     end
@@ -39,5 +38,4 @@ class Api::V1::CrumbsController < Api::V1::BaseController
     params.permit(:nature, :geolocation, :read_at, :accuracy, :device_uid, metadata: [:procedure_nature, :name, :scanned_code, :quantity, :unit])
     # params.permit!
   end
-
 end

@@ -13,20 +13,18 @@ STDOUT.sync = true
 
 def execute(command)
   puts command
-  unless @simulate
-    system(command)
-  end
+  system(command) unless @simulate
 end
 
 options = {}
 OptionParser.new do |opts|
   opts.banner = "Usage: #{$PROGRAM_NAME} [options] <old_cell> <new_cell>"
 
-  opts.on_tail("-h", "--help", "Show this message") do
+  opts.on_tail('-h', '--help', 'Show this message') do
     puts opts
     exit
   end
-  opts.on_tail("-s", "--simulate", "Simulate changes") do
+  opts.on_tail('-s', '--simulate', 'Simulate changes') do
     options[:simulate] = true
     @simulate = true
   end
@@ -36,66 +34,60 @@ old_cell = ARGV.shift
 new_cell = ARGV.shift
 
 unless $PROGRAM_NAME.match(/^(.\/)?bin\//)
-  puts "Script must be started from Rails root."
+  puts 'Script must be started from Rails root.'
   exit 0
 end
 
-root = Pathname.new(".")
+root = Pathname.new('.')
 
-app = root.join("app")
+app = root.join('app')
 
 # app/controllers/backend
-of = app.join("controllers", "backend", "cells", "#{old_cell}_controller.rb")
-nf = app.join("controllers", "backend", "cells", "#{new_cell}_controller.rb")
-if File.exist?(of)
-  execute("git mv #{of} #{nf}")
-end
+of = app.join('controllers', 'backend', 'cells', "#{old_cell}_controller.rb")
+nf = app.join('controllers', 'backend', 'cells', "#{new_cell}_controller.rb")
+execute("git mv #{of} #{nf}") if File.exist?(of)
 if File.exist?(nf)
   execute("sed -i 's/class Backend::Cells::#{old_cell.camelcase}Controller /class Backend::Cells::#{new_cell.camelcase}Controller /' #{nf}")
 end
 
 # app/views/backend
-of = app.join("views", "backend", "cells", old_cell)
-nf = app.join("views", "backend", "cells", new_cell)
-if File.exist?(of)
-  execute("git mv #{of} #{nf}")
-end
+of = app.join('views', 'backend', 'cells', old_cell)
+nf = app.join('views', 'backend', 'cells', new_cell)
+execute("git mv #{of} #{nf}") if File.exist?(of)
 
 # app/helpers/backend
-of = app.join("helpers", "backend", "cells", "#{old_cell}_helper.rb")
-nf = app.join("helpers", "backend", "cells", "#{new_cell}_helper.rb")
-if File.exist?(of)
-  execute("git mv #{of} #{nf}")
-end
+of = app.join('helpers', 'backend', 'cells', "#{old_cell}_helper.rb")
+nf = app.join('helpers', 'backend', 'cells', "#{new_cell}_helper.rb")
+execute("git mv #{of} #{nf}") if File.exist?(of)
 if File.exist?(nf)
   execute("sed -i 's/module Backend::Cells::#{old_cell.camelcase}Helper/module Backend::Cells::#{new_cell.camelcase}Helper/' #{nf}")
 end
 
-config = root.join("config")
+config = root.join('config')
 
 # config/locales/*/action.yml
-for file in Dir[config.join("locales", "*", "action.yml")].sort
+for file in Dir[config.join('locales', '*', 'action.yml')].sort
   lf = Pathname(file)
   tr = YAML.load_file(lf)
   locale = tr.keys.first
-  if tr[locale]["actions"]
-    if tr[locale]["actions"]["backend/cells/#{old_cell}"]
-      tr[locale]["actions"]["backend/cells/#{new_cell}"] = tr[locale]["actions"].delete("backend/cells/#{old_cell}")
+  if tr[locale]['actions']
+    if tr[locale]['actions']["backend/cells/#{old_cell}"]
+      tr[locale]['actions']["backend/cells/#{new_cell}"] = tr[locale]['actions'].delete("backend/cells/#{old_cell}")
     end
   end
-  if tr[locale]["controllers"]
-    if tr[locale]["controllers"]["backend/cells/#{old_cell}"]
-      tr[locale]["controllers"]["backend/cells/#{new_cell}"] = tr[locale]["controllers"].delete("backend/cells/#{old_cell}")
+  if tr[locale]['controllers']
+    if tr[locale]['controllers']["backend/cells/#{old_cell}"]
+      tr[locale]['controllers']["backend/cells/#{new_cell}"] = tr[locale]['controllers'].delete("backend/cells/#{old_cell}")
     end
   end
-  if tr[locale]["unroll"]
-    if tr[locale]["unroll"]["backend/cells/#{old_cell}"]
-      tr[locale]["unroll"]["backend/cells/#{new_cell}"] = tr[locale]["unroll"].delete("backend/cells/#{old_cell}")
+  if tr[locale]['unroll']
+    if tr[locale]['unroll']["backend/cells/#{old_cell}"]
+      tr[locale]['unroll']["backend/cells/#{new_cell}"] = tr[locale]['unroll'].delete("backend/cells/#{old_cell}")
     end
   end
-  if tr[locale]["labels"]
-    if tr[locale]["labels"][old_cell.gsub(/_cells/, '')]
-      tr[locale]["labels"][new_cell.gsub(/_cells/, '')] = tr[locale]["labels"].delete(old_cell.gsub(/_cells/, ''))
+  if tr[locale]['labels']
+    if tr[locale]['labels'][old_cell.gsub(/_cells/, '')]
+      tr[locale]['labels'][new_cell.gsub(/_cells/, '')] = tr[locale]['labels'].delete(old_cell.gsub(/_cells/, ''))
     end
   end
 
@@ -103,7 +95,7 @@ for file in Dir[config.join("locales", "*", "action.yml")].sort
 
   puts "Update #{lf}"
   unless @simulate
-    File.open(lf, "wb") do |f|
+    File.open(lf, 'wb') do |f|
       f.write code
     end
   end
@@ -116,88 +108,82 @@ end
 #   execute("git mv #{of} #{nf}")
 # end
 
-# TODO Updates links in help files
-
+# TODO: Updates links in help files
 
 # config/navigation
-nf = config.join("navigation.xml")
+nf = config.join('navigation.xml')
 puts "Update #{nf}"
 source = nil
-File.open(nf, "rb") do |f|
+File.open(nf, 'rb') do |f|
   source = f.read
 end
 unless @simulate
   source.gsub!(/(\"backend\/cells\/)#{old_cell}(\#)/, '\1' + new_cell + '\2')
   source.gsub!(/(\")#{old_cell}(\")/, '\1' + new_cell + '\2')
-  File.open(nf, "wb") do |f|
+  File.open(nf, 'wb') do |f|
     f.write source
   end
 end
 
 # config/rights
-nf = config.join("rights.yml")
+nf = config.join('rights.yml')
 puts "Update #{nf}"
 source = nil
-File.open(nf, "rb") do |f|
+File.open(nf, 'rb') do |f|
   source = f.read
 end
 unless @simulate
   source.gsub!(/(\"backend\/cells\/)#{old_cell}(\#)/, '\1' + new_cell + '\2')
-  File.open(nf, "wb") do |f|
+  File.open(nf, 'wb') do |f|
     f.write source
   end
 end
 
 # config/routes.rb
-nf = config.join("routes.rb")
+nf = config.join('routes.rb')
 puts "Update #{nf}"
 source = nil
-File.open(nf, "rb") do |f|
+File.open(nf, 'rb') do |f|
   source = f.read
 end
 unless @simulate
   source.gsub!(/(resource\ )+:#{old_cell.singularize}(\,|\s|$)/, '\1:' + new_cell.singularize + '\2')
-  File.open(nf, "wb") do |f|
+  File.open(nf, 'wb') do |f|
     f.write source
   end
 end
 
-test = root.join("test")
-
+test = root.join('test')
 
 # test/helpers/backend
-of = test.join("helpers", "backend", "cells", "#{old_cell}_helper_test.rb")
-nf = test.join("helpers", "backend", "cells", "#{new_cell}_helper_test.rb")
-if File.exist?(of)
-  execute("git mv #{of} #{nf}")
-end
+of = test.join('helpers', 'backend', 'cells', "#{old_cell}_helper_test.rb")
+nf = test.join('helpers', 'backend', 'cells', "#{new_cell}_helper_test.rb")
+execute("git mv #{of} #{nf}") if File.exist?(of)
 if File.exist?(nf)
   execute("sed -i 's/class Backend::Cells::#{old_cell.camelcase}HelperTest /class Backend::Cells::#{new_cell.camelcase}HelperTest /' #{nf}")
 end
 
 # test/controllers/backend
-of = test.join("controllers", "backend", "cells", "#{old_cell}_controller_test.rb")
-nf = test.join("controllers", "backend", "cells", "#{new_cell}_controller_test.rb")
-if File.exist?(of)
-  execute("git mv #{of} #{nf}")
-end
+of = test.join('controllers', 'backend', 'cells', "#{old_cell}_controller_test.rb")
+nf = test.join('controllers', 'backend', 'cells', "#{new_cell}_controller_test.rb")
+execute("git mv #{of} #{nf}") if File.exist?(of)
 if File.exist?(nf)
   execute("sed -i 's/class Backend::Cells::#{old_cell.camelcase}ControllerTest /class Backend::Cells::#{new_cell.camelcase}ControllerTest /' #{nf}")
 end
 
 # General replacing
-print "replace "
-for file in Dir[app.join("**", "*.rb")] + Dir[app.join("**", "*.haml")] + Dir[app.join("**", "*.yml")]
+print 'replace '
+for file in Dir[app.join('**', '*.rb')] + Dir[app.join('**', '*.haml')] + Dir[app.join('**', '*.yml')]
   source = nil
-  File.open(file, "rb") do |f|
+  File.open(file, 'rb') do |f|
     source = f.read
   end
   ns = source.dup
   ns.gsub!(/([^a-zA-Z0-9\_]|^)#{old_cell.classify}([^a-zA-Z0-9\_]|$)/, '\1' + new_cell.classify + '\2')
   # ns.gsub!(/^(\ +)has\_many\ \:#{old_cell}(\s?)$/, '\1has_many :' + old_cell + ', :class_name => "'+ new_cell.classify + '"')
   # ns.gsub!(/^(\ +)belongs\_to\ \:#{old_cell.singularize}(\s?)$/, '\1belongs_to :' + old_cell.singularize + ', :class_name => "'+ new_cell.classify + '"')
-  ns.gsub!(/^(\ +)has\_many\ \:#{old_cell}(\s?)$/, '\1has_many :' + old_cell + ', class_name: "'+ new_cell.classify + '"')
-  ns.gsub!(/^(\ +)belongs\_to\ \:#{old_cell.singularize}(\s?)$/, '\1belongs_to :' + old_cell.singularize + ', class_name: "'+ new_cell.classify + '"')
+  ns.gsub!(/^(\ +)has\_many\ \:#{old_cell}(\s?)$/, '\1has_many :' + old_cell + ', class_name: "' + new_cell.classify + '"')
+  ns.gsub!(/^(\ +)belongs\_to\ \:#{old_cell.singularize}(\s?)$/, '\1belongs_to :' + old_cell.singularize + ', class_name: "' + new_cell.classify + '"')
   ns.gsub!(/:model\ *\=\>\ *:#{old_cell}([^a-z\_]|$)/, 'model: :' + new_cell + '\1')
   ns.gsub!(/:model\ *\=\>\ *:#{old_cell.singularize}([^a-z\_]|$)/, 'model: :' + new_cell.singularize + '\1')
   ns.gsub!(/model\:\ *:#{old_cell}([^a-z\_]|$)/, 'model: :' + new_cell + '\1')
@@ -219,15 +205,15 @@ for file in Dir[app.join("**", "*.rb")] + Dir[app.join("**", "*.haml")] + Dir[ap
 
   if ns != source
     unless @simulate
-      File.open(file, "wb") do |f|
+      File.open(file, 'wb') do |f|
         f.write ns
       end
     end
-    print "+"
+    print '+'
   else
-    print "."
+    print '.'
   end
 end
-puts "!"
+puts '!'
 
-puts "Clean with `rake clean` at the end"
+puts 'Clean with `rake clean` at the end'

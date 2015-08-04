@@ -65,21 +65,21 @@
 #
 
 class Animal < Bioproduct
-  enumerize :variety, in: Nomen::Varieties.all(:animal), predicates: {prefix: true}
-  belongs_to :initial_father, class_name: "Animal"
-  belongs_to :initial_mother, class_name: "Animal"
+  enumerize :variety, in: Nomen::Varieties.all(:animal), predicates: { prefix: true }
+  belongs_to :initial_father, class_name: 'Animal'
+  belongs_to :initial_mother, class_name: 'Animal'
 
   validates_presence_of :identification_number
   validates_uniqueness_of :identification_number
 
-  scope :fathers, -> { indicate(sex: "male", reproductor: true).order(:name) }
-  scope :mothers, -> { indicate(sex: "female", reproductor: true).order(:name) }
+  scope :fathers, -> { indicate(sex: 'male', reproductor: true).order(:name) }
+  scope :mothers, -> { indicate(sex: 'female', reproductor: true).order(:name) }
 
   def status
     if self.dead_at?
       return :stop
-    elsif self.indicators_list.include? :healthy
-      return (self.healthy ? :go : :caution)
+    elsif indicators_list.include? :healthy
+      return (healthy ? :go : :caution)
     else
       return :go
     end
@@ -93,31 +93,28 @@ class Animal < Bioproduct
 
     # get data
     # age (if born_at not present then animal has 24 month)
-    if self.age
-      animal_age = (self.age / (3600*24*30)).to_d
-    end
+    animal_age = (age / (3600 * 24 * 30)).to_d if age
     # production (if a cow, get annual milk production)
-    if Nomen::Varieties[self.variety] <= :bos
-      if self.milk_daily_production
-        animal_milk_production = (self.milk_daily_production * 365).to_d
+    if Nomen::Varieties[variety] <= :bos
+      if milk_daily_production
+        animal_milk_production = (milk_daily_production * 365).to_d
       end
     end
     items = Nomen::NmpFranceAbacusNitrogenAnimalProduction.list.select do |item|
-      item.minimum_age <= animal_age.to_i and animal_age.to_i < item.maximum_age and item.minimum_milk_production <= animal_milk_production.to_i and animal_milk_production.to_i < item.maximum_milk_production and item.variant.to_s == self.variant.reference_name.to_s
+      item.minimum_age <= animal_age.to_i && animal_age.to_i < item.maximum_age && item.minimum_milk_production <= animal_milk_production.to_i && animal_milk_production.to_i < item.maximum_milk_production && item.variant.to_s == variant.reference_name.to_s
     end
     if items.any?
       quantity_per_year = items.first.quantity
       quantity = (quantity_per_year / 365).in_kilogram_per_day
     end
-    return quantity
+    quantity
   end
 
   def sex_text
-    "nomenclatures.sexes.items.#{self.sex}".t
+    "nomenclatures.sexes.items.#{sex}".t
   end
 
   def variety_text
-    "nomenclatures.varieties.items.#{self.variety}".t
+    "nomenclatures.varieties.items.#{variety}".t
   end
-
 end

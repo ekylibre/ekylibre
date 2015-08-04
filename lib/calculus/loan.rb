@@ -1,7 +1,5 @@
 module Calculus
-
   class Loan
-
     def initialize(amount, count, options = {})
       @amount = amount
       @count = count
@@ -24,17 +22,17 @@ module Calculus
         r[:position] = index + 1
         due_on += 1.month
       end
-      return array
+      array
     end
 
     protected
 
     # Compute shift period  calculations
-    def compute_shift(&block)
+    def compute_shift(&_block)
       amount = @amount.dup
       return amount unless @shift > 0
       @shift.times do
-        repayment = {base_amount: 0}
+        repayment = { base_amount: 0 }
         # Interests
         if @shift_method == :anatocism
           @interests.each do |name, rate|
@@ -55,7 +53,7 @@ module Calculus
         repayment[:remaining_amount] = amount
         yield repayment
       end
-      return amount
+      amount
     end
 
     def compute_constant_rate_repayments
@@ -64,7 +62,7 @@ module Calculus
         array << repayment
       end
       m = (amount / @count).round(@precision)
-      @count.times do |index|
+      @count.times do |_index|
         repayment = {}
         @interests.each do |name, rate|
           repayment[name] = (amount * rate / @period).round(@precision)
@@ -77,7 +75,7 @@ module Calculus
         repayment[:remaining_amount] = amount
         array << repayment
       end
-      return array
+      array
     end
 
     def compute_constant_amount_repayments
@@ -85,9 +83,9 @@ module Calculus
       amount = compute_shift do |repayment|
         array << repayment
       end
-      global_rate = (@interests.values.sum  + @insurances.values.sum)/ @period
-      repayment_amount = amount * global_rate / (1 - ( (1 + global_rate) ** -@count))
-      @count.times do |index|
+      global_rate = (@interests.values.sum + @insurances.values.sum) / @period
+      repayment_amount = amount * global_rate / (1 - ((1 + global_rate)**-@count))
+      @count.times do |_index|
         repayment = {}
         @interests.each do |name, rate|
           repayment[name] = (amount * rate / @period).round(@precision)
@@ -100,9 +98,7 @@ module Calculus
         repayment[:remaining_amount] = amount
         array << repayment
       end
-      return array
+      array
     end
-
   end
-
 end

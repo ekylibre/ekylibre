@@ -17,7 +17,6 @@
 #
 
 class Backend::ExportsController < Backend::BaseController
-
   respond_to :pdf, :odt, :ods, :docx, :xlsx, :xml, :json, :html, :csv
 
   def index
@@ -42,6 +41,4 @@ class Backend::ExportsController < Backend::BaseController
     t3e name: klass.human_name
     respond_with @aggregator
   end
-
-
 end

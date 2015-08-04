@@ -66,8 +66,7 @@
 require 'test_helper'
 
 class PlantTest < ActiveSupport::TestCase
-
-  test "plant status" do
+  test 'plant status' do
     Plant.find_each do |plant|
       assert [:go, :caution, :stop].include?(plant.status)
     end

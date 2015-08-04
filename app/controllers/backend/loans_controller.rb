@@ -33,7 +33,7 @@ class Backend::LoansController < Backend::BaseController
     t.column :shift_duration
   end
 
-  list :repayments, model: :loan_repayments, conditions: {loan_id: "params[:id]".c} do |t|
+  list :repayments, model: :loan_repayments, conditions: { loan_id: 'params[:id]'.c } do |t|
     t.column :position
     t.column :due_on
     t.column :amount, currency: true

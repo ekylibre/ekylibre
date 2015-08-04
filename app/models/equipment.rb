@@ -67,14 +67,14 @@
 class Equipment < Matter
   include Attachable
   has_shape
-  enumerize :variety, in: Nomen::Varieties.all(:equipment), predicates: {prefix: true}
-  has_many :supports, class_name: "ProductionSupport", foreign_key: :storage_id
-  has_many :productions, class_name: "Production", through: :supports
+  enumerize :variety, in: Nomen::Varieties.all(:equipment), predicates: { prefix: true }
+  has_many :supports, class_name: 'ProductionSupport', foreign_key: :storage_id
+  has_many :productions, class_name: 'Production', through: :supports
 
   scope :of_production, lambda { |*productions|
     productions.flatten!
     for production in productions
-      raise ArgumentError.new("Expected Production, got #{production.class.name}:#{production.inspect}") unless production.is_a?(Production)
+      fail ArgumentError.new("Expected Production, got #{production.class.name}:#{production.inspect}") unless production.is_a?(Production)
     end
     joins(:productions).where('production_id IN (?)', productions.map(&:id))
   }
@@ -82,11 +82,10 @@ class Equipment < Matter
   def status
     if self.dead_at?
       return :stop
-    elsif self.issues.any?
-      return (self.issues.where(state: :opened).any? ? :caution : :go)
+    elsif issues.any?
+      return (issues.where(state: :opened).any? ? :caution : :go)
     else
       return :go
     end
   end
-
 end

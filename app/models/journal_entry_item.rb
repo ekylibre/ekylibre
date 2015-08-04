@@ -66,36 +66,36 @@ class JournalEntryItem < Ekylibre::Record::Base
   belongs_to :account
   belongs_to :financial_year
   belongs_to :journal, inverse_of: :entry_items
-  belongs_to :entry, class_name: "JournalEntry", inverse_of: :items
+  belongs_to :entry, class_name: 'JournalEntry', inverse_of: :items
   belongs_to :bank_statement
 
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_date :printed_on, allow_blank: true, on_or_after: Date.civil(1, 1, 1)
   validates_numericality_of :absolute_credit, :absolute_debit, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :debit, :real_balance, :real_credit, :real_currency_rate, :real_debit, allow_nil: true
   validates_presence_of :absolute_credit, :absolute_currency, :absolute_debit, :account, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :currency, :debit, :entry, :entry_number, :financial_year, :journal, :name, :printed_on, :real_balance, :real_credit, :real_currency, :real_currency_rate, :real_debit, :state
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_length_of :absolute_currency, :currency, :real_currency, allow_nil: true, maximum: 3
   validates_length_of :letter, allow_nil: true, maximum: 10
   validates_length_of :state, allow_nil: true, maximum: 30
-  validates_numericality_of :debit, :credit, :real_debit, :real_credit, :greater_than_or_equal_to => 0
+  validates_numericality_of :debit, :credit, :real_debit, :real_credit, greater_than_or_equal_to: 0
   validates_presence_of :account
   # validates_uniqueness_of :letter, :scope => :account_id, if: Proc.new{|x| !x.letter.blank?}
 
   delegate :balanced?, to: :entry, prefix: true
 
-  acts_as_list :scope => :entry
+  acts_as_list scope: :entry
 
-  before_update  :uncumulate
+  before_update :uncumulate
   before_destroy :uncumulate
-  after_create  :update_entry
+  after_create :update_entry
   after_destroy :update_entry
   after_destroy :unmark
-  after_update  :update_entry
+  after_update :update_entry
 
   scope :between, lambda { |started_at, stopped_at|
     where(printed_on: started_at..stopped_at)
   }
-  state_machine :state, :initial => :draft do
+  state_machine :state, initial: :draft do
     state :draft
     state :confirmed
     state :closed
@@ -103,47 +103,47 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   #
   before_validation do
-    self.name = self.name.to_s[0..254]
-    self.letter = nil if self.letter.blank?
+    self.name = name.to_s[0..254]
+    self.letter = nil if letter.blank?
     # computes the values depending on currency rate
     # for debit and credit.
-    self.real_debit  ||= 0
+    self.real_debit ||= 0
     self.real_credit ||= 0
-    if self.entry
-      self.entry_number = self.entry.number
+    if entry
+      self.entry_number = entry.number
       for replicated in [:financial_year_id, :printed_on, :journal_id, :state, :currency, :absolute_currency, :real_currency, :real_currency_rate]
-        self.send("#{replicated}=", self.entry.send(replicated))
+        send("#{replicated}=", entry.send(replicated))
       end
       unless self.closed?
-        self.debit  = self.entry.real_currency.to_currency.round(self.real_debit * self.real_currency_rate)
-        self.credit = self.entry.real_currency.to_currency.round(self.real_credit * self.real_currency_rate)
+        self.debit  = entry.real_currency.to_currency.round(self.real_debit * real_currency_rate)
+        self.credit = entry.real_currency.to_currency.round(self.real_credit * real_currency_rate)
       end
     end
 
     self.absolute_currency = Preference[:currency]
-    if self.absolute_currency == self.currency
-      self.absolute_debit = self.debit
-      self.absolute_credit = self.credit
-    elsif self.absolute_currency == self.real_currency
+    if absolute_currency == currency
+      self.absolute_debit = debit
+      self.absolute_credit = credit
+    elsif absolute_currency == real_currency
       self.absolute_debit = self.real_debit
       self.absolute_credit = self.real_credit
     else
-      # FIXME We need to do something better when currencies don't match
-      raise "You create an entry where the absolute currency (#{self.absolute_currency.inspect}) is not the real (#{self.real_currency.inspect}) or current one (#{self.currency.inspect})"
+      # FIXME: We need to do something better when currencies don't match
+      fail "You create an entry where the absolute currency (#{absolute_currency.inspect}) is not the real (#{real_currency.inspect}) or current one (#{currency.inspect})"
     end
-    self.cumulated_absolute_debit  = self.absolute_debit
-    self.cumulated_absolute_credit = self.absolute_credit
+    self.cumulated_absolute_debit  = absolute_debit
+    self.cumulated_absolute_credit = absolute_credit
     if previous = self.previous
-      self.cumulated_absolute_debit  += previous.cumulated_absolute_debit
+      self.cumulated_absolute_debit += previous.cumulated_absolute_debit
       self.cumulated_absolute_credit += previous.cumulated_absolute_credit
     end
 
-    self.balance = self.debit - self.credit
+    self.balance = debit - credit
     self.real_balance = self.real_debit - self.real_credit
   end
 
   validate(on: :update) do
-    old = self.old_record
+    old = old_record
     errors.add(:account_id, :entry_has_been_already_validated) if old.closed?
     # Forbids to change "manually" the letter. Use Account#mark/unmark.
     # if old.letter != self.letter and not (old.balanced_letter? and self.balanced_letter?)
@@ -157,70 +157,67 @@ class JournalEntryItem < Ekylibre::Record::Base
     #   errors.add(:number, :closed_entry)
     #   return
     # end
-    errors.add(:credit, :unvalid_amounts) if self.debit != 0 and self.credit != 0
+    errors.add(:credit, :unvalid_amounts) if debit != 0 && credit != 0
   end
 
   after_save do
-    self.followings.update_all("cumulated_absolute_debit = cumulated_absolute_debit + #{self.absolute_debit}, cumulated_absolute_credit = cumulated_absolute_credit + #{self.absolute_credit}")
+    followings.update_all("cumulated_absolute_debit = cumulated_absolute_debit + #{absolute_debit}, cumulated_absolute_credit = cumulated_absolute_credit + #{absolute_credit}")
   end
 
   protect do
-    self.closed? or (self.entry and self.entry.protected_on_update?)
+    self.closed? || (entry && entry.protected_on_update?)
   end
 
   # Prints human name of current state
   def state_label
-    JournalEntry.tc("states.#{self.state}")
+    JournalEntry.tc("states.#{state}")
   end
 
   # Updates the amounts to the debit and the credit
   # for the matching entry.
   def update_entry
-    self.entry.refresh
+    entry.refresh
   end
 
   # Cancel old values if specific columns have been updated
   def uncumulate
-    old = self.old_record
-    if self.absolute_debit != old.absolute_debit or self.absolute_credit != old.absolute_credit or self.printed_on != old.printed_on
+    old = old_record
+    if absolute_debit != old.absolute_debit || absolute_credit != old.absolute_credit || printed_on != old.printed_on
       # self.cumulated_absolute_debit  -= old.absolute_debit
       # self.cumulated_absolute_credit -= old.absolute_credit
-      old.followings.update_all("cumulated_absolute_debit = cumulated_absolute_debit - #{old.absolute_debit.to_s}, cumulated_absolute_credit = cumulated_absolute_credit - #{old.absolute_debit}")
+      old.followings.update_all("cumulated_absolute_debit = cumulated_absolute_debit - #{old.absolute_debit}, cumulated_absolute_credit = cumulated_absolute_credit - #{old.absolute_debit}")
     end
   end
 
   # Unmark all the journal entry items with the same mark in the same account
   def unmark
-    self.account.unmark(self.letter) unless self.letter.blank?
+    account.unmark(letter) unless letter.blank?
   end
-
 
   # Returns the previous item
   def previous
-    return nil unless self.account
+    return nil unless account
     if self.new_record?
-      self.account.journal_entry_items.order(printed_on: :desc, id: :desc).where("printed_on <= ?", self.printed_on).limit(1).first
+      account.journal_entry_items.order(printed_on: :desc, id: :desc).where('printed_on <= ?', printed_on).limit(1).first
     else
-      self.account.journal_entry_items.order(printed_on: :desc, id: :desc).where("(printed_on = ? AND id < ?) OR printed_on < ?", self.printed_on, self.id, self.printed_on).limit(1).first
+      account.journal_entry_items.order(printed_on: :desc, id: :desc).where('(printed_on = ? AND id < ?) OR printed_on < ?', printed_on, id, printed_on).limit(1).first
     end
   end
 
-
   # Returns following items
   def followings
-    return self.class.none unless self.account
+    return self.class.none unless account
     if self.new_record?
-      self.account.journal_entry_items.where("printed_on > ?", self.printed_on)
+      account.journal_entry_items.where('printed_on > ?', printed_on)
     else
-      self.account.journal_entry_items.where("(printed_on = ? AND id > ?) OR printed_on > ?", self.printed_on, self.id, self.printed_on)
+      account.journal_entry_items.where('(printed_on = ? AND id > ?) OR printed_on > ?', printed_on, id, printed_on)
     end
   end
 
   # Returns the balance as cumulated_absolute_debit - cumulated_absolute_credit
   def cumulated_absolute_balance
-    return (self.cumulated_absolute_debit - self.cumulated_absolute_credit)
+    (self.cumulated_absolute_debit - self.cumulated_absolute_credit)
   end
-
 
   #   # this method allows to lock the entry_item.
   #   def close
@@ -234,20 +231,20 @@ class JournalEntryItem < Ekylibre::Record::Base
   # Check if the current letter is balanced with all entry items with the same letter
   def balanced_letter?
     return true if letter.blank?
-    self.account.balanced_letter?(letter)
+    account.balanced_letter?(letter)
   end
 
   # this method allows to fix a display color if the entry_item is in draft mode.
   def mode
-    mode = ""
-    mode += "warning" if self.draft?
+    mode = ''
+    mode += 'warning' if self.draft?
     mode
   end
 
   #
   def resource
-    if self.entry
-      return self.entry.resource_type
+    if entry
+      return entry.resource_type
     else
       :none.tl
     end
@@ -255,16 +252,16 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   # This method returns the name of journal which the entries are saved.
   def journal_name
-    if self.entry
-      return self.entry.journal.name
+    if entry
+      return entry.journal.name
     else
       :none.tl
     end
   end
 
-  #this method:allows to fix a display color if the entry containing the entry_item is balanced or not.
+  # this method:allows to fix a display color if the entry containing the entry_item is balanced or not.
   def balanced_entry
-    return (self.entry.balanced? ? "balanced" : "unbalanced")
+    (entry.balanced? ? 'balanced' : 'unbalanced')
   end
 
   # this method creates a next entry_item with an initialized value matching to the previous entry.
@@ -275,8 +272,6 @@ class JournalEntryItem < Ekylibre::Record::Base
     elsif balance < 0
       entry_item.real_debit  = balance.abs
     end
-    return entry_item
+    entry_item
   end
-
 end
-

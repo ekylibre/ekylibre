@@ -35,22 +35,21 @@
 class Identifier < Ekylibre::Record::Base
   enumerize :nature, in: Nomen::IdentifierNatures.all
   belongs_to :net_service
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_presence_of :nature, :value
-  #]VALIDATORS]
+  # ]VALIDATORS]
 
   delegate :reference, to: :net_service, prefix: true
 
   validate do
-    if self.net_service and self.net_service_reference
-      unless self.net_service_reference.identifiers.include?(self.nature.to_sym)
+    if net_service && net_service_reference
+      unless net_service_reference.identifiers.include?(nature.to_sym)
         errors.add(:nature, :inclusion)
       end
     end
   end
 
   def name
-    (self.nature ? Nomen::IdentifierNatures[self.nature].human_name : :unknown.tl)
+    (nature ? Nomen::IdentifierNatures[nature].human_name : :unknown.tl)
   end
-
 end

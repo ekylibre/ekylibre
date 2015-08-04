@@ -52,19 +52,18 @@
 #  updater_id             :integer
 #
 
-
 class SaleOpportunity < Affair
   include Versionable, Commentable
   attr_readonly :currency
   enumerize :origin, in: Nomen::OpportunityOrigins.all, predicates: true
-  belongs_to :client, class_name: "Entity", foreign_key: :third_id
+  belongs_to :client, class_name: 'Entity', foreign_key: :third_id
   has_many :tasks
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  #]VALIDATORS]
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # ]VALIDATORS]
   validates_presence_of :client, :responsible
   validates_numericality_of :probability_percentage, in: 0..100
 
-  state_machine :state, :initial => :prospecting do
+  state_machine :state, initial: :prospecting do
     state :prospecting
     state :qualification
     state :value_proposition
@@ -106,7 +105,7 @@ class SaleOpportunity < Affair
 
     event :win do
       transition all => :won
-      # transition :negociation => :won
+      #  transition :negociation => :won
     end
 
     event :lose do
@@ -145,16 +144,13 @@ class SaleOpportunity < Affair
 
   # Returns timeleft in seconds of the sale opportunities
   def timeleft(at = Time.now)
-    return nil if ( self.dead_line_at.nil? || self.dead_line_at <= at )
-    return (self.dead_line_at - at)
+    return nil if  dead_line_at.nil? || dead_line_at <= at
+    (dead_line_at - at)
   end
 
   # Returns age in seconds of the sale opportunities
   def age(at = Time.now)
-    return nil if self.created_at.nil?
-    return (at - self.created_at)
+    return nil if created_at.nil?
+    (at - created_at)
   end
-
 end
-
-

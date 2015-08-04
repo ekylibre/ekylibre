@@ -1,10 +1,10 @@
 module SVF
-
   class Occurrence
     attr_reader :name, :range, :line
     def initialize(name, definition)
       @name = name.to_s
-      @line, @range = @name, definition
+      @line = @name
+      @range = definition
       if definition.to_s.match('-')
         @line, @range = definition.split('-')[0..1]
         @line = @line.to_sym
@@ -25,5 +25,4 @@ module SVF
       end
     end
   end
-
 end

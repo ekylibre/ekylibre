@@ -35,7 +35,5 @@
 require 'test_helper'
 
 class DashboardTest < ActiveSupport::TestCase
-
   # Add tests here...
-
 end

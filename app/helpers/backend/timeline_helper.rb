@@ -18,7 +18,6 @@
 # ##### END LICENSE BLOCK #####
 
 module Backend::TimelineHelper
-
   class Timeline
     attr_reader :object, :sides, :id, :others
 
@@ -54,7 +53,7 @@ module Backend::TimelineHelper
       end
 
       def authorized?
-        @authorization_proc.nil? or @authorization_proc.call(object)
+        @authorization_proc.nil? || @authorization_proc.call(object)
       end
 
       def object
@@ -72,22 +71,20 @@ module Backend::TimelineHelper
           end
           @timeline.others.each do |other|
             other.send(@name).collect do |record|
-              unless @steps.detect{|s| s.record == record }
+              unless @steps.detect { |s| s.record == record }
                 @steps << SideStep.new(self, record.send(at_method), record)
               end
             end
           end
         end
-        return @steps
+        @steps
       end
 
       def records
         @records ||= @timeline.object.send(@name)
       end
 
-      def params
-        @params
-      end
+      attr_reader :params
     end
 
     class Step
@@ -99,7 +96,7 @@ module Backend::TimelineHelper
       end
 
       def <=>(other)
-        self.at <=> other.at
+        at <=> other.at
       end
     end
 
@@ -111,7 +108,6 @@ module Backend::TimelineHelper
         super(at, name)
       end
     end
-
 
     class SideStep < Step
       attr_reader :side, :record
@@ -130,7 +126,6 @@ module Backend::TimelineHelper
       def inspect
         "<Step #{@side.name} #{@at ? @at.l : @at.inspect} #{@record.id}>"
       end
-
     end
 
     def initialize(object, options = {})
@@ -147,26 +142,24 @@ module Backend::TimelineHelper
         list += side.steps if side.authorized?
       end
       now = Time.now
-      if list.detect{|s| s.at > now }
-        list << MarkerStep.new(now, :now)
-      end
+      list << MarkerStep.new(now, :now) if list.detect { |s| s.at > now }
       count = 1
       ago = now - 1.year
-      while list.detect{|s| s.at < ago }
-        list << MarkerStep.new(ago, :past, "datetime.distance_in_words.over_x_years".t(count: count))
+      while list.detect { |s| s.at < ago }
+        list << MarkerStep.new(ago, :past, 'datetime.distance_in_words.over_x_years'.t(count: count))
         count += 1
         ago = now - count.year
       end
-      return list.compact.sort.reverse
+      list.compact.sort.reverse
     end
 
     def side(name, options = {})
       unless reflection = @model.reflect_on_association(name)
-        raise ArgumentError, "Invalid reflection #{name.inspect} for #{@model.name}"
+        fail ArgumentError, "Invalid reflection #{name.inspect} for #{@model.name}"
       end
       klass = reflection.class_name.constantize
       available_methods = klass.columns_hash.keys.map(&:to_sym)
-      options[:label_method] ||= [:label, :name, :number, :coordinates, :id].detect{|m| available_methods.include?(m) } || :id
+      options[:label_method] ||= [:label, :name, :number, :coordinates, :id].detect { |m| available_methods.include?(m) } || :id
       options[:params] ||= {}
       options[:params][reflection.foreign_key.to_sym] ||= @object.id
       options[:params]["#{reflection.options[:as]}_type".to_sym] ||= @model.name if reflection.options[:as]
@@ -177,16 +170,13 @@ module Backend::TimelineHelper
     def method_missing(method_name, *args)
       side(method_name.to_sym, *args)
     end
-
   end
 
-
-  def timeline(object, options = {}, &block)
+  def timeline(object, options = {}, &_block)
     if object
       line = Timeline.new(object, options)
       yield line
-      render partial: "backend/shared/timeline", locals: {timeline: line}
+      render partial: 'backend/shared/timeline', locals: { timeline: line }
     end
   end
-
 end

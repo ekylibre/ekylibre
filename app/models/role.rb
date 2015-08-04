@@ -33,30 +33,29 @@
 #  updater_id     :integer
 #
 
-
 class Role < Ekylibre::Record::Base
   include Rightable
   has_many :users
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_presence_of :name
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_uniqueness_of :name
 
   protect(on: :destroy) do
-    self.users.any?
+    users.any?
   end
 
   # Impact changes and only changes on users
   before_update do
-    new_rights_array = self.rights_array
+    new_rights_array = rights_array
     old_rights_array = old_record.rights_array
     granted_rights = new_rights_array - old_rights_array
     revoked_rights = old_rights_array - new_rights_array
 
-    self.users.find_each do |user|
+    users.find_each do |user|
       # Remove revoked rights
       revoked_rights.each do |right|
-        resource, action = right.split("-")
+        resource, action = right.split('-')
         if user.rights[resource]
           user.rights[resource].delete(action)
           user.rights.delete(resource) if user.rights[resource].blank?
@@ -65,7 +64,7 @@ class Role < Ekylibre::Record::Base
 
       # Add granted rights
       granted_rights.each do |right|
-        resource, action = right.split("-")
+        resource, action = right.split('-')
         user.rights[resource] = [] unless user.rights[resource].is_a?(Array)
         unless user.rights[resource].include?(action)
           user.rights[resource] << action
@@ -78,21 +77,22 @@ class Role < Ekylibre::Record::Base
   end
 
   # Load a role from nomenclature
-  def self.import_from_nomenclature(reference_name, force = false)
+  def self.import_from_nomenclature(reference_name, _force = false)
     unless item = Nomen::Roles[reference_name]
-      raise ArgumentError, "The role #{reference_name.inspect} is not known"
+      fail ArgumentError, "The role #{reference_name.inspect} is not known"
     end
 
     # parse rights
     rights = item.accesses.inject({}) do |hash, right|
-      array = right.to_s.split("-")
-      array.insert(0, "all") if array.size < 3
-      array << "all" if array.size < 3
-      resource, action = array.second, array.third
+      array = right.to_s.split('-')
+      array.insert(0, 'all') if array.size < 3
+      array << 'all' if array.size < 3
+      resource = array.second
+      action = array.third
       unless Nomen::EnterpriseResources[resource]
-        raise StandardError, "Unknown enterprise resource: #{resource.inspect}"
+        fail StandardError, "Unknown enterprise resource: #{resource.inspect}"
       end
-      action = Nomen::EnterpriseResources[resource].accesses if action == "all"
+      action = Nomen::EnterpriseResources[resource].accesses if action == 'all'
       hash[resource] ||= []
       hash[resource] += [action].flatten.map(&:to_s)
       hash
@@ -108,7 +108,6 @@ class Role < Ekylibre::Record::Base
     # create role
     role = self.create!(attributes)
 
-    return role
+    role
   end
-
 end

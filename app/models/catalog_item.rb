@@ -39,18 +39,17 @@
 #  variant_id             :integer          not null
 #
 
-
 # CatalogItem stores all the prices used in sales and purchases.
 class CatalogItem < Ekylibre::Record::Base
   enumerize :currency, in: Nomen::Currencies.all
-  belongs_to :variant, class_name: "ProductNatureVariant"
-  belongs_to :reference_tax, class_name: "Tax"
+  belongs_to :variant, class_name: 'ProductNatureVariant'
+  belongs_to :reference_tax, class_name: 'Tax'
   belongs_to :catalog
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, allow_nil: true
   validates_inclusion_of :all_taxes_included, in: [true, false]
   validates_presence_of :amount, :catalog, :currency, :name, :variant
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
 
   # delegate :product_nature_id, :product_nature, to: :template
@@ -67,21 +66,17 @@ class CatalogItem < Ekylibre::Record::Base
   }
 
   scope :saleables, lambda {
-    joins(variant: :category).where(product_nature_categories: {saleable: true})
+    joins(variant: :category).where(product_nature_categories: { saleable: true })
   }
 
   before_validation on: :create do
-    self.currency = Preference[:currency] if self.currency.blank?
+    self.currency = Preference[:currency] if currency.blank?
   end
 
   before_validation do
-    if self.amount
-      self.amount = self.amount.round(4)
-    end
-    self.name = self.commercial_name
-    if self.commercial_name.blank? and self.variant
-      self.name = self.variant_name
-    end
+    self.amount = amount.round(4) if amount
+    self.name = commercial_name
+    self.name = variant_name if commercial_name.blank? && self.variant
   end
 
   # def compute(quantity = nil, pretax_amount = nil, amount = nil)
@@ -160,5 +155,4 @@ class CatalogItem < Ekylibre::Record::Base
 
   #   return price
   # end
-
 end

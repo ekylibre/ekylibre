@@ -45,21 +45,20 @@
 #  variant_id           :integer          not null
 #
 
-
 class PurchaseItem < Ekylibre::Record::Base
   include PeriodicCalculable
   belongs_to :account
   belongs_to :purchase, inverse_of: :items
-  belongs_to :variant, class_name: "ProductNatureVariant", inverse_of: :purchase_items
+  belongs_to :variant, class_name: 'ProductNatureVariant', inverse_of: :purchase_items
   belongs_to :tax
-  has_many :delivery_items, class_name: "IncomingDeliveryItem", foreign_key: :purchase_item_id
+  has_many :delivery_items, class_name: 'IncomingDeliveryItem', foreign_key: :purchase_item_id
   has_many :products, through: :delivery_items
   has_one :fixed_asset, foreign_key: :purchase_item_id, inverse_of: :purchase_item
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, allow_nil: true
   validates_inclusion_of :fixed, in: [true, false]
   validates_presence_of :account, :amount, :currency, :pretax_amount, :purchase, :quantity, :reduction_percentage, :tax, :unit_amount, :unit_pretax_amount, :variant
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_presence_of :account, :tax, :reduction_percentage
   validates_associated :fixed_asset
@@ -75,10 +74,10 @@ class PurchaseItem < Ekylibre::Record::Base
 
   alias_attribute :name, :label
 
-  acts_as_list :scope => :purchase
+  acts_as_list scope: :purchase
   sums :purchase, :items, :pretax_amount, :amount
 
-  calculable period: :month, at: "invoiced_at", column: :pretax_amount
+  calculable period: :month, at: 'invoiced_at', column: :pretax_amount
 
   # return all purchase items  between two dates
   scope :between, lambda { |started_at, stopped_at|
@@ -95,65 +94,60 @@ class PurchaseItem < Ekylibre::Record::Base
   }
 
   before_validation do
-    if self.purchase
-      self.currency = self.purchase_currency
-    end
+    self.currency = purchase_currency if purchase
 
     self.quantity ||= 0
     self.reduction_percentage ||= 0
 
-    if self.tax and self.unit_pretax_amount
-      item = Nomen::Currencies.find(self.currency)
+    if tax && unit_pretax_amount
+      item = Nomen::Currencies.find(currency)
       precision = item ? item.precision : 2
-      self.unit_amount = self.unit_pretax_amount * (100.0 + self.tax_amount) / 100.0
-      self.pretax_amount ||= (self.unit_pretax_amount * self.quantity * (100.0 - self.reduction_percentage) / 100.0).round(precision)
-      self.amount        ||= (self.pretax_amount * (100.0 + self.tax_amount) / 100.0).round(precision)
+      self.unit_amount = unit_pretax_amount * (100.0 + tax_amount) / 100.0
+      self.pretax_amount ||= (unit_pretax_amount * self.quantity * (100.0 - self.reduction_percentage) / 100.0).round(precision)
+      self.amount ||= (self.pretax_amount * (100.0 + tax_amount) / 100.0).round(precision)
     end
 
-    if self.variant
-      if self.fixed
-        self.account = self.variant.fixed_asset_account || Account.find_in_chart(:fixed_assets)
+    if variant
+      if fixed
+        self.account = variant.fixed_asset_account || Account.find_in_chart(:fixed_assets)
       else
-        self.account = self.variant.charge_account || Account.find_in_chart(:expenses)
+        self.account = variant.charge_account || Account.find_in_chart(:expenses)
       end
-      self.label ||= self.variant.commercial_name
+      self.label ||= variant.commercial_name
     end
   end
 
-
   validate do
-    if self.purchase
-      errors.add(:currency, :invalid) if self.currency != self.purchase_currency
-    end
+    errors.add(:currency, :invalid) if currency != purchase_currency if purchase
     errors.add(:quantity, :invalid) if self.quantity.zero?
   end
 
   before_validation do
-    if variant = self.variant and variant.depreciable? and self.fixed and !self.fixed_asset
+    if variant = self.variant and variant.depreciable? and fixed and !fixed_asset
       # Create asset
       attributes = {
-        started_on: self.purchase.invoiced_at.to_date,
+        started_on: purchase.invoiced_at.to_date,
         depreciable_amount: self.pretax_amount,
         depreciation_method: variant.fixed_asset_depreciation_method,
         depreciation_percentage: variant.fixed_asset_depreciation_percentage,
-        journal: Journal.where(nature: :various).first,
-        allocation_account: variant.fixed_asset_allocation_account, #28
-        expenses_account: variant.fixed_asset_expenses_account #68
+        journal: Journal.find_by(nature: :various),
+        allocation_account: variant.fixed_asset_allocation_account, # 28
+        expenses_account: variant.fixed_asset_expenses_account # 68
       }
-      if self.products.any?
-        attributes[:name] = self.delivery_items.collect(&:name).to_sentence
+      if products.any?
+        attributes[:name] = delivery_items.collect(&:name).to_sentence
       end
-      attributes[:name] ||= self.name
+      attributes[:name] ||= name
 
       if FixedAsset.find_by(name: attributes[:name])
-        attributes[:name] << " " + rand(FixedAsset.count * 36 ** 3).to_s(36).upcase
+        attributes[:name] << ' ' + rand(FixedAsset.count * 36**3).to_s(36).upcase
       end
-      self.build_fixed_asset(attributes)
+      build_fixed_asset(attributes)
     end
   end
 
   def product_name
-    self.variant.name
+    variant.name
   end
 
   def taxes_amount
@@ -161,23 +155,22 @@ class PurchaseItem < Ekylibre::Record::Base
   end
 
   def designation
-    d  = self.product_name
-    d << "\n" + self.annotation.to_s unless self.annotation.blank?
-    d << "\n" + tc(:tracking, serial: self.tracking.serial.to_s) if self.tracking
+    d  = product_name
+    d << "\n" + annotation.to_s unless annotation.blank?
+    d << "\n" + tc(:tracking, serial: tracking.serial.to_s) if tracking
     d
   end
 
   def undelivered_quantity
-    return self.quantity - self.delivery_items.sum(:quantity)
+    self.quantity - delivery_items.sum(:quantity)
   end
 
   # know how many percentage of invoiced VAT to declare
   def payment_ratio
-    if self.purchase.affair.balanced?
+    if purchase.affair.balanced?
       return 1.00
-    elsif self.purchase.affair.debit != 0.0
-      return (1-(self.purchase.affair.balance  / self.purchase.affair.debit)).to_f
+    elsif purchase.affair.debit != 0.0
+      return (1 - (purchase.affair.balance / purchase.affair.debit)).to_f
     end
   end
-
 end

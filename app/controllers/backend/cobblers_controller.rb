@@ -17,19 +17,17 @@
 #
 
 class Backend::CobblersController < Backend::BaseController
-
   def update
-    unless params["order"]
+    unless params['order']
       head :unprocessable_entity
       return
     end
-    order = params["order"].to_a
+    order = params['order'].to_a
     begin
-      current_user.prefer!("cobbler.#{params[:id]}", {order: order}.deep_stringify_keys.to_yaml)
+      current_user.prefer!("cobbler.#{params[:id]}", { order: order }.deep_stringify_keys.to_yaml)
       head :ok
     rescue ActiveRecord::StaleObjectError
       head :locked
     end
   end
-
 end

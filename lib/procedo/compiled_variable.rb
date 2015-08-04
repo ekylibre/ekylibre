@@ -1,10 +1,9 @@
 module Procedo
-
   class CompiledVariable
     attr_accessor :destinations, :handlers, :procedure, :actor, :variant
 
     def initialize(procedure)
-      raise "Invalid procedure" unless procedure.is_a?(Procedo::CompiledProcedure)
+      fail 'Invalid procedure' unless procedure.is_a?(Procedo::CompiledProcedure)
       @procedure = procedure
       @destinations = {}.with_indifferent_access
       @handlers = {}.with_indifferent_access
@@ -25,12 +24,8 @@ module Procedo
     end
 
     def contents_count
-      if @actor
-        return @actor.containeds(at: now).select(&:available?).size
-      end
-      return 0
+      return @actor.containeds(at: now).count(&:available?) if @actor
+      0
     end
-
   end
-
 end

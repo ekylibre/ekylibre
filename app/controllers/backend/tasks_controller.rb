@@ -17,11 +17,11 @@
 #
 
 class Backend::TasksController < Backend::BaseController
-  manage_restfully nature: "params[:nature]".c, due_at: "(params[:due_at] || Time.now)".c
+  manage_restfully nature: 'params[:nature]'.c, due_at: '(params[:due_at] || Time.now)'.c
 
   # unroll
 
-  list(line_class: "RECORD.state".c) do |t|
+  list(line_class: 'RECORD.state'.c) do |t|
     t.action :edit
     t.action :destroy
     t.column :name, url: true
@@ -45,7 +45,6 @@ class Backend::TasksController < Backend::BaseController
   def fire_event(event)
     return unless @task = find_and_check
     @task.send(event)
-    redirect_to params[:redirect] || {action: :show, id: @task.id}
+    redirect_to params[:redirect] || { action: :show, id: @task.id }
   end
-
 end

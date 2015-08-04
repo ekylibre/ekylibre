@@ -17,13 +17,13 @@
 #
 
 class Backend::AccountsController < Backend::BaseController
-  manage_restfully number: "params[:number]".c
+  manage_restfully number: 'params[:number]'.c
 
   unroll
 
   def self.accounts_conditions
-    code  = ""
-    code << search_conditions(accounts: [:name, :number, :description]) + ";"
+    code  = ''
+    code << search_conditions(accounts: [:name, :number, :description]) + ';'
     code << "if params[:prefix]\n"
     code << "  c[0] += ' AND number LIKE ?'\n"
     code << "  c << params[:prefix].to_s+'%'\n"
@@ -33,7 +33,7 @@ class Backend::AccountsController < Backend::BaseController
     code << "end\n"
     code << "c\n"
     # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-    return code.c
+    code.c
   end
 
   list(conditions: accounts_conditions, order: :number, per_page: 20) do |t|
@@ -49,22 +49,22 @@ class Backend::AccountsController < Backend::BaseController
   def index
   end
 
-  def self.account_moves_conditions(options={})
-    code = ""
-    code << search_conditions({:journal_entry_item => [:name, :debit, :credit, :real_debit, :real_credit], :journal_entry => [:number]}, conditions: "c", :variable => "params[:b]".c)+"\n"
-    code << journal_period_crit("params")
-    code << journal_entries_states_crit("params")
+  def self.account_moves_conditions(_options = {})
+    code = ''
+    code << search_conditions({ journal_entry_item: [:name, :debit, :credit, :real_debit, :real_credit], journal_entry: [:number] }, conditions: 'c', variable: 'params[:b]'.c) + "\n"
+    code << journal_period_crit('params')
+    code << journal_entries_states_crit('params')
     # code << journals_crit("params")
     code << "c[0] << ' AND #{JournalEntryItem.table_name}.account_id = ?'\n"
     code << "c << params[:id]\n"
     code << "c\n"
-    return code.c
+    code.c
   end
 
   list(:journal_entry_items, joins: :entry, conditions: account_moves_conditions, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
     t.column :journal, url: true
     t.column :entry_number, url: true
-    t.column :printed_on, :datatype => :date, :label => :column
+    t.column :printed_on, datatype: :date, label: :column
     t.column :name
     t.column :state_label
     t.column :letter
@@ -76,7 +76,7 @@ class Backend::AccountsController < Backend::BaseController
     t.column :absolute_credit, currency: :absolute_currency
   end
 
-  list(:entities, conditions: ["? IN (client_account_id, supplier_account_id)", 'params[:id]'.c], order: {created_at: :desc}) do |t|
+  list(:entities, conditions: ['? IN (client_account_id, supplier_account_id)', 'params[:id]'.c], order: { created_at: :desc }) do |t|
     t.column :number, url: true
     t.column :full_name, url: true
     t.column :client_account, url: true
@@ -87,13 +87,13 @@ class Backend::AccountsController < Backend::BaseController
     code  = search_conditions(accounts: [:name, :number, :description], journal_entries: [:number], JournalEntryItem.table_name => [:name, :debit, :credit]) + "[0] += ' AND accounts.reconcilable = ?'\n"
     code << "c << true\n"
     code << "c[0] += ' AND (letter IS NULL OR LENGTH(TRIM(letter)) <= 0)'\n"
-    code << "c"
-    return code.c
+    code << 'c'
+    code.c
   end
 
-  list(:reconciliation, model: :journal_entry_items, joins: [:entry, :account], conditions: account_reconciliation_conditions, order: "accounts.number, journal_entries.printed_on") do |t|
-    t.column :account_number, through: :account, label_method: :number, url: {action: :mark}
-    t.column :account_name, through: :account, label_method: :name, url: {action: :mark}
+  list(:reconciliation, model: :journal_entry_items, joins: [:entry, :account], conditions: account_reconciliation_conditions, order: 'accounts.number, journal_entries.printed_on') do |t|
+    t.column :account_number, through: :account, label_method: :number, url: { action: :mark }
+    t.column :account_name, through: :account, label_method: :name, url: { action: :mark }
     t.column :entry_number
     t.column :name
     t.column :real_debit,  currency: :real_currency, hidden: true
@@ -111,11 +111,11 @@ class Backend::AccountsController < Backend::BaseController
     return unless @account = find_and_check
     if request.post?
       if params[:journal_entry_item]
-        letter = @account.mark(params[:journal_entry_item].select{|k,v| v[:to_mark].to_i==1}.collect{|k,v| k.to_i})
+        letter = @account.mark(params[:journal_entry_item].select { |_k, v| v[:to_mark].to_i == 1 }.collect { |k, _v| k.to_i })
         if letter.nil?
           notify_error_now(:cannot_mark_entry_items)
         else
-          notify_success_now(:journal_entry_items_marked_with_letter, :letter => letter)
+          notify_success_now(:journal_entry_items_marked_with_letter, letter: letter)
         end
       else
         notify_warning_now(:select_entry_items_to_mark_together)
@@ -136,10 +136,9 @@ class Backend::AccountsController < Backend::BaseController
       if Nomen::Accounts.property_natures.keys.include?(Account.chart.to_s)
         Account.load_defaults
       else
-        raise "Arrrggggg"
+        fail 'Arrrggggg'
       end
       redirect_to action: :index
     end
   end
-
 end

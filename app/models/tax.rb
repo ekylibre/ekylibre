@@ -36,19 +36,18 @@
 #  updater_id           :integer
 #
 
-
 class Tax < Ekylibre::Record::Base
   attr_readonly :amount
   enumerize :reference_name, in: Nomen::Taxes.all
-  belongs_to :collect_account, class_name: "Account"
-  belongs_to :deduction_account, class_name: "Account"
+  belongs_to :collect_account, class_name: 'Account'
+  belongs_to :deduction_account, class_name: 'Account'
   has_many :product_nature_category_taxations, dependent: :restrict_with_error
   has_many :purchase_items
   has_many :sale_items
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, allow_nil: true
   validates_presence_of :amount, :name
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_length_of :reference_name, allow_nil: true, maximum: 120
   validates_presence_of :collect_account
   validates_presence_of :deduction_account
@@ -61,13 +60,13 @@ class Tax < Ekylibre::Record::Base
 
   class << self
     def used_for_untaxed_deals
-      self.where(amount: 0).reorder(:id).first
+      where(amount: 0).reorder(:id).first
     end
 
     # Returns TaxNature items which are used by recorded taxes
     def available_natures
       Nomen::TaxNatures.list.select do |item|
-        references = Nomen::Taxes.list.keep_if{ |tax| tax.nature.to_s == item.name.to_s }
+        references = Nomen::Taxes.list.keep_if { |tax| tax.nature.to_s == item.name.to_s }
         taxes = Tax.where(reference_name: references.map(&:name))
         taxes.any?
       end
@@ -76,12 +75,12 @@ class Tax < Ekylibre::Record::Base
     # Load a tax from tax nomenclature
     def import_from_nomenclature(reference_name)
       unless item = Nomen::Taxes.find(reference_name)
-        raise ArgumentError, "The tax #{reference_name.inspect} is not known"
+        fail ArgumentError, "The tax #{reference_name.inspect} is not known"
       end
       unless tax = Tax.find_by_reference_name(reference_name)
         nature = Nomen::TaxNatures.find(item.nature)
         if nature.computation_method != :percentage
-          raise StandardError, "Can import only percentage computed taxes"
+          fail StandardError, 'Can import only percentage computed taxes'
         end
         attributes = {
           amount: item.amount,
@@ -102,18 +101,18 @@ class Tax < Ekylibre::Record::Base
         end
         tax = self.create!(attributes)
       end
-      return tax
+      tax
     end
 
     # Load.all tax from tax nomenclature by country
     def import_all_from_nomenclature(country = Preference[:country])
-      for tax in Nomen::Taxes.items.values.select{|i| i.country == country}
+      for tax in Nomen::Taxes.items.values.select { |i| i.country == country }
         import_from_nomenclature(tax.name)
       end
     end
 
     # find tax reference name with no stopped_at AKA currents reference taxes
-    # FIXME Invalid way to find current tax. Need to normalize tax use when no references
+    # FIXME: Invalid way to find current tax. Need to normalize tax use when no references
     def currents
       ids = []
       Tax.find_each do |tax|
@@ -123,13 +122,12 @@ class Tax < Ekylibre::Record::Base
           ids << tax.id
         end
       end
-      return Tax.where(id: ids).order(:amount)
+      Tax.where(id: ids).order(:amount)
     end
-
   end
 
   protect(on: :destroy) do
-    self.product_nature_category_taxations.any? or self.sale_items.any? or self.purchase_items.any?
+    product_nature_category_taxations.any? || sale_items.any? || purchase_items.any?
   end
 
   # Compute the tax amount
@@ -137,40 +135,39 @@ class Tax < Ekylibre::Record::Base
   # is an amount with tax
   def compute(amount, all_taxes_included = false)
     if all_taxes_included
-      amount.to_d / (1 + 100/self.amount.to_d)
+      amount.to_d / (1 + 100 / self.amount.to_d)
     else
-      amount.to_d * self.amount.to_d/100
+      amount.to_d * self.amount.to_d / 100
     end
   end
 
   # Returns the pretax amount of an amount
   def pretax_amount_of(amount)
-    return (amount.to_d / coefficient)
+    (amount.to_d / coefficient)
   end
 
   # Returns the amount of a pretax amount
   def amount_of(pretax_amount)
-    return (pretax_amount.to_d * coefficient)
+    (pretax_amount.to_d * coefficient)
   end
 
   # Returns true if amount is equal to 0
   def null_amount?
-    self.amount.zero?
+    amount.zero?
   end
 
   # Returns the matching coefficient k of the percentage
   # where pretax_amount * k = amount_with_tax
   def coefficient
-    return (100 + self.amount)/100
+    (100 + amount) / 100
   end
 
   # Returns the short label of a tax
   def short_label
-    label = "#{self.amount}%"
-    if reference = Nomen::Taxes[self.reference_name]
+    label = "#{amount}%"
+    if reference = Nomen::Taxes[reference_name]
       label << " (#{reference.country})"
     end
-    return label
+    label
   end
-
 end

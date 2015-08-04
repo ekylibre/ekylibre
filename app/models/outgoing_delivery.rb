@@ -41,27 +41,26 @@
 #  with_transport   :boolean          default(FALSE), not null
 #
 
-
 class OutgoingDelivery < Ekylibre::Record::Base
   attr_readonly :number
-  belongs_to :address, class_name: "EntityAddress"
+  belongs_to :address, class_name: 'EntityAddress'
   # belongs_to :mode, class_name: "OutgoingDeliveryMode"
-  belongs_to :recipient, class_name: "Entity"
+  belongs_to :recipient, class_name: 'Entity'
   belongs_to :sale, inverse_of: :deliveries
   belongs_to :transport
-  belongs_to :transporter, class_name: "Entity"
-  has_many :items, class_name: "OutgoingDeliveryItem", foreign_key: :delivery_id, dependent: :destroy, inverse_of: :delivery
-  has_many :interventions, class_name: "Intervention", :as => :resource
+  belongs_to :transporter, class_name: 'Entity'
+  has_many :items, class_name: 'OutgoingDeliveryItem', foreign_key: :delivery_id, dependent: :destroy, inverse_of: :delivery
+  has_many :interventions, class_name: 'Intervention', as: :resource
   has_many :issues, as: :target
 
   enumerize :mode, in: Nomen::DeliveryModes.all
   # has_many :product_moves, :as => :origin, dependent: :destroy
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :sent_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :net_mass, allow_nil: true
   validates_inclusion_of :with_transport, in: [true, false]
   validates_presence_of :address, :mode, :number, :recipient
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_presence_of :sent_at, unless: :with_transport
   validates_presence_of :transporter, if: :with_transport
 
@@ -77,21 +76,19 @@ class OutgoingDelivery < Ekylibre::Record::Base
     # if self.transport
     #   self.transporter ||= self.transport.transporter
     # end
-    if self.with_transport and self.transport
-      self.sent_at = self.transport.departed_at
-    end
+    self.sent_at = transport.departed_at if with_transport && transport
   end
 
   validate do
-    if self.transport and self.transporter
-      if self.transport.transporter != self.transporter
+    if transport && transporter
+      if transport.transporter != transporter
         errors.add :transporter_id, :invalid
       end
     end
   end
 
   after_update do
-    self.items.each(&:save!)
+    items.each(&:save!)
   end
 
   # protect do
@@ -130,29 +127,29 @@ class OutgoingDelivery < Ekylibre::Record::Base
   # end
 
   def done?
-    self.sent_at.present?
+    sent_at.present?
   end
 
   def address_coordinate
-    self.address.coordinate if self.address
+    address.coordinate if address
   end
 
   def address_mail_coordinate
-    return (self.address || self.sale.client.default_mail_address).mail_coordinate
+    (address || sale.client.default_mail_address).mail_coordinate
   end
 
   def parcel_sum
-    self.items.sum(:quantity)
+    items.sum(:quantity)
   end
 
   def has_issue?
-    self.issues.any?
+    issues.any?
   end
 
   def status
-    if self.sent_at == nil
+    if sent_at.nil?
       return (has_issue? ? :stop : :caution)
-    elsif self.sent_at
+    elsif sent_at
       return (has_issue? ? :caution : :go)
     end
   end
@@ -166,12 +163,12 @@ class OutgoingDelivery < Ekylibre::Record::Base
   def self.ship(deliveries, options = {})
     transport = nil
     transaction do
-      unless options[:transporter_id] and Entity.find_by(id: options[:transporter_id])
+      unless options[:transporter_id] && Entity.find_by(id: options[:transporter_id])
         transporter_ids = transporters_of(deliveries).uniq
         if transporter_ids.size == 1
           options[:transporter_id] = transporter_ids.first
         else
-          raise StandardError, "Need an obvious transporter to ship deliveries"
+          fail StandardError, 'Need an obvious transporter to ship deliveries'
         end
       end
       transport = Transport.create!(departed_at: Time.now, transporter_id: options[:transporter_id], responsible_id: options[:responsible_id])
@@ -184,7 +181,7 @@ class OutgoingDelivery < Ekylibre::Record::Base
 
       transport.save!
     end
-    return transport
+    transport
   end
 
   # Returns an array of all the transporter ids for the given deliveries
@@ -192,19 +189,18 @@ class OutgoingDelivery < Ekylibre::Record::Base
     deliveries.map(&:transporter_id).compact
   end
 
-
   def self.invoice(deliveries)
     sale = nil
     transaction do
       deliveries = deliveries.flatten.collect do |d|
-        (d.is_a?(self) ? d : self.find(d))
-      end.sort{|a,b| a.sent_at <=> b.sent_at }
+        (d.is_a?(self) ? d : find(d))
+      end.sort { |a, b| a.sent_at <=> b.sent_at }
       recipients = deliveries.map(&:recipient_id).uniq
-      raise "Need unique recipient (#{recipients.inspect})" if recipients.count > 1
+      fail "Need unique recipient (#{recipients.inspect})" if recipients.count > 1
       planned_at = deliveries.map(&:sent_at).last || Time.now
       unless nature = SaleNature.actives.first
         unless journal = Journal.sales.opened_at(planned_at).first
-          raise "No sale journal"
+          fail 'No sale journal'
         end
         nature = SaleNature.create!(active: true, currency: Preference[:currency], with_accounting: true, journal: journal, by_default: true, name: SaleNature.tc('default.name', default: SaleNature.model_name.human))
       end
@@ -216,8 +212,8 @@ class OutgoingDelivery < Ekylibre::Record::Base
       # Adds items
       for delivery in deliveries
         for item in delivery.items
-          #raise "#{item.variant.name} cannot be sold" unless item.variant.saleable?
-          if !item.variant.saleable?
+          # raise "#{item.variant.name} cannot be sold" unless item.variant.saleable?
+          unless item.variant.saleable?
             item.category.product_account = Account.find_or_create_in_chart(:revenues)
             item.category.saleable = true
           end
@@ -242,7 +238,6 @@ class OutgoingDelivery < Ekylibre::Record::Base
       # Refreshes affair
       sale.save!
     end
-    return sale
+    sale
   end
-
 end

@@ -36,9 +36,8 @@ class NormalizeEntityLinks < ActiveRecord::Migration
 
     reversible do |dir|
       dir.up do
-        execute "UPDATE entity_links SET main = TRUE FROM (SELECT el.id, ROW_NUMBER() OVER (PARTITION BY el.entity_id ORDER BY el.id DESC) AS rank FROM entity_links AS el) AS l WHERE l.rank = 1"
+        execute 'UPDATE entity_links SET main = TRUE FROM (SELECT el.id, ROW_NUMBER() OVER (PARTITION BY el.entity_id ORDER BY el.id DESC) AS rank FROM entity_links AS el) AS l WHERE l.rank = 1'
       end
     end
-
   end
 end

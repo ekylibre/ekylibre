@@ -47,7 +47,6 @@
 #  updater_id          :integer
 #
 
-
 require 'test_helper'
 
 class PurchaseTest < ActiveSupport::TestCase

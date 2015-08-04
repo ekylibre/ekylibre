@@ -31,13 +31,13 @@ class NormalizeVariousMistakes < ActiveRecord::Migration
     # Invert bad role for group_inclusion special procedures
     reversible do |dir|
       dir.up do
-        reporting_tables.each do |table|
+        reporting_tables.each do |_table|
           execute "UPDATE intervention_casts SET roles='group_inclusion-includer' WHERE roles='group_inclusion-target' AND reference_name = 'member'"
           execute "UPDATE intervention_casts SET roles='group_inclusion-target' WHERE roles='group_inclusion-includer' AND reference_name = 'group'"
         end
       end
       dir.down do
-        reporting_tables.each do |table|
+        reporting_tables.each do |_table|
           execute "UPDATE intervention_casts SET roles='group_inclusion-target' WHERE roles='group_inclusion-includer' AND reference_name = 'member'"
           execute "UPDATE intervention_casts SET roles='group_inclusion-includer' WHERE roles='group_inclusion-target' AND reference_name = 'group'"
         end
@@ -47,20 +47,20 @@ class NormalizeVariousMistakes < ActiveRecord::Migration
     # Moves LegalEntities/People images to their new home
     removed = []
     [:legal_entities, :people].each do |type|
-      old_dir = Ekylibre::Tenant.private_directory.join("attachments", type.to_s)
-      new_dir = Ekylibre::Tenant.private_directory.join("attachments", "entities")
+      old_dir = Ekylibre::Tenant.private_directory.join('attachments', type.to_s)
+      new_dir = Ekylibre::Tenant.private_directory.join('attachments', 'entities')
       removed << old_dir
       reversible do |dir|
         dir.up do
-          Dir.glob(old_dir.join("**", "*.*")).each do |f|
+          Dir.glob(old_dir.join('**', '*.*')).each do |f|
             new_file = new_dir.join(Pathname.new(f).relative_path_from(old_dir))
             FileUtils.mkdir_p new_file.dirname
             FileUtils.cp f, new_file.to_s
           end
         end
         dir.down do
-          # TODO Replace it with valid code based on DB content
-          raise ActiveRecord::IrreversibleMigration
+          # TODO: Replace it with valid code based on DB content
+          fail ActiveRecord::IrreversibleMigration
         end
       end
     end
@@ -73,6 +73,5 @@ class NormalizeVariousMistakes < ActiveRecord::Migration
         end
       end
     end
-
   end
 end

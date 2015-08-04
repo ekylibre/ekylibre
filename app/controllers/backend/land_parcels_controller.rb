@@ -17,7 +17,6 @@
 #
 
 class Backend::LandParcelsController < Backend::MattersController
-
   list do |t|
     t.action :edit
     t.action :destroy
@@ -26,5 +25,4 @@ class Backend::LandParcelsController < Backend::MattersController
     t.column :work_number
     t.column :net_surface_area, datatype: :measure
   end
-
 end

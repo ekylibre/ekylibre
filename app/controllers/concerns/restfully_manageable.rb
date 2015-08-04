@@ -2,12 +2,10 @@ module RestfullyManageable
   extend ActiveSupport::Concern
 
   module ClassMethods
-
-
     # Build standard RESTful actions to manage records of a model
     def manage_restfully(defaults = {})
-      name = self.controller_name
-      path = self.controller_path
+      name = controller_name
+      path = controller_path
       options = defaults.extract!(:t3e, :redirect_to, :xhr, :destroy_to, :subclass_inheritance, :partial, :multipart, :except, :only, :cancel_url)
       after_save_url    = options[:redirect_to]
       after_destroy_url = options[:destroy_to] || :index
@@ -20,9 +18,9 @@ module RestfullyManageable
       model = model_name.constantize
 
       if after_save_url.blank?
-        if instance_methods(true).include?(:show) or actions.include?(:show)
+        if instance_methods(true).include?(:show) || actions.include?(:show)
           after_save_url = :show
-        elsif instance_methods(true).include?(:index) or actions.include?(:index)
+        elsif instance_methods(true).include?(:index) || actions.include?(:index)
           after_save_url = :index
         end
       end
@@ -30,35 +28,33 @@ module RestfullyManageable
       if after_save_url == :show
         after_save_url = "{action: :show, id: 'id'.c}".c
       elsif after_save_url == :index
-        after_save_url = "{action: :index}".c
+        after_save_url = '{action: :index}'.c
       elsif after_save_url.is_a?(CodeString)
         after_save_url.gsub!(/RECORD/, "@#{record_name}")
       elsif after_save_url.is_a?(Hash)
         after_save_url = after_save_url.inspect.gsub(/RECORD/, "@#{record_name}")
       end
 
-
-
       render_form_options = []
       render_form_options << "partial: '#{options[:partial]}'" if options[:partial]
-      render_form_options << "multipart: true" if options[:multipart]
+      render_form_options << 'multipart: true' if options[:multipart]
       if actions.include?(:index)
-        options[:cancel_url] ||= {action: :index}
+        options[:cancel_url] ||= { action: :index }
       else
         options[:cancel_url] ||= :back
       end
       render_form_options << "locals: {cancel_url: #{options[:cancel_url].inspect}}"
-      render_form = "render(" + render_form_options.join(", ") + ")"
+      render_form = 'render(' + render_form_options.join(', ') + ')'
 
       after_save_url ||= options[:cancel_url].inspect
 
       t3e_code = "t3e(@#{record_name}.attributes"
       if t3e = options[:t3e]
-        t3e_code << ".merge(" + t3e.collect{|k,v|
-          "#{k}: (" + (v.is_a?(Symbol) ? "@#{record_name}.#{v}" : v.inspect.gsub(/RECORD/, '@' + record_name)) + ")"
-        }.join(", ") + ")"
+        t3e_code << '.merge(' + t3e.collect do|k, v|
+          "#{k}: (" + (v.is_a?(Symbol) ? "@#{record_name}.#{v}" : v.inspect.gsub(/RECORD/, '@' + record_name)) + ')'
+        end.join(', ') + ')'
       end
-      t3e_code << ")"
+      t3e_code << ')'
 
       code = ''
 
@@ -82,8 +78,8 @@ module RestfullyManageable
         while parents.last.superclass < ActionController::Base
           parents << parents.last.superclass
         end
-        lookup = Rails.root.join("app", "views", "{#{parents.map(&:controller_path).join(',')}}")
-        if Dir.glob(lookup.join("show.*")).any?
+        lookup = Rails.root.join('app', 'views', "{#{parents.map(&:controller_path).join(',')}}")
+        if Dir.glob(lookup.join('show.*')).any?
           if options[:subclass_inheritance]
             code << "  if @#{record_name}.type and @#{record_name}.type != '#{model_name}'\n"
             code << "    redirect_to controller: @#{record_name}.type.tableize, action: :show, id: @#{record_name}.id\n"
@@ -95,10 +91,10 @@ module RestfullyManageable
           code << "    format.xml  { render xml:  @#{record_name} }\n"
           code << "    format.json { render json: @#{record_name} }\n"
           code << "  end\n"
-        elsif Dir.glob(lookup.join("index.*")).any?
+        elsif Dir.glob(lookup.join('index.*')).any?
           code << "  redirect_to action: :index, '#{name}-id' => @#{record_name}.id\n"
         else
-          raise StandardError, "Cannot build a default show action without view for show or index actions in #{parents.map(&:controller_path).to_sentence(locale: :eng)} (#{lookup.join('show.*')})."
+          fail StandardError, "Cannot build a default show action without view for show or index actions in #{parents.map(&:controller_path).to_sentence(locale: :eng)} (#{lookup.join('show.*')})."
         end
         code << "end\n"
       end
@@ -117,7 +113,7 @@ module RestfullyManageable
       if options[:subclass_inheritance]
         if self != Backend::BaseController
           code << "def self.inherited(subclass)\n"
-          # TODO inherit from superclass parameters (superclass.manage_restfully_options)
+          # TODO: inherit from superclass parameters (superclass.manage_restfully_options)
           code << "  subclass.manage_restfully(#{options.inspect})\n"
           code << "end\n"
         end
@@ -127,11 +123,11 @@ module RestfullyManageable
         code << "def new\n"
         # values = model.accessible_attributes.to_a.inject({}) do |hash, attr|
         columns = model.columns_definition.keys
-        columns = columns.delete_if{|c| [:depth, :rgt, :lft, :id, :lock_version, :updated_at, :updater_id, :creator_id, :created_at].include?(c.to_sym) }
+        columns = columns.delete_if { |c| [:depth, :rgt, :lft, :id, :lock_version, :updated_at, :updater_id, :creator_id, :created_at].include?(c.to_sym) }
         values = columns.map(&:to_sym).uniq.inject({}) do |hash, attr|
-          hash[attr] = "params[:#{attr}]".c unless attr.blank? or attr.to_s.match(/_attributes$/)
+          hash[attr] = "params[:#{attr}]".c unless attr.blank? || attr.to_s.match(/_attributes$/)
           hash
-        end.merge(defaults).collect{|k,v| "#{k}: (#{v.inspect})"}.join(", ")
+        end.merge(defaults).collect { |k, v| "#{k}: (#{v.inspect})" }.join(', ')
         code << "  @#{record_name} = resource_model.new(#{values})\n"
         # code << "  @#{record_name} = resource_model.new(permitted_params)\n"
         if xhr = options[:xhr]
@@ -204,9 +200,9 @@ module RestfullyManageable
 
       # code.split("\n").each_with_index{|l, x| puts((x+1).to_s.rjust(4)+": "+l)}
       unless Rails.env.production?
-        file = Rails.root.join("tmp", "code", "manage_restfully", "#{controller_path}.rb")
+        file = Rails.root.join('tmp', 'code', 'manage_restfully', "#{controller_path}.rb")
         FileUtils.mkdir_p(file.dirname)
-        File.open(file, "wb") do |f|
+        File.open(file, 'wb') do |f|
           f.write code
         end
       end
@@ -214,18 +210,18 @@ module RestfullyManageable
       class_eval(code)
     end
 
-
     # Build standard actions to manage records of a model
     def manage_restfully_list(order_by = :id)
-      name = self.controller_name
+      name = controller_name
       record_name = name.to_s.singularize
       model = name.to_s.singularize.classify.constantize
       records = model.name.underscore.pluralize
-      raise ArgumentError.new("Unknown column for #{model.name}") unless model.columns_definition[order_by]
+      fail ArgumentError.new("Unknown column for #{model.name}") unless model.columns_definition[order_by]
       code = ''
 
-      sort = ""
-      position, conditions = "#{record_name}_position_column", "#{record_name}_conditions"
+      sort = ''
+      position = "#{record_name}_position_column"
+      conditions = "#{record_name}_conditions"
       sort << "#{position}, #{conditions} = #{record_name}.position_column, #{record_name}.scope_condition\n"
       sort << "#{records} = #{model.name}.where(#{conditions}).order(#{position}+', #{order_by}')\n"
       sort << "#{records}_count = #{records}.count(#{position})\n"
@@ -238,14 +234,14 @@ module RestfullyManageable
       code << "def up\n"
       code << "  return unless #{record_name} = find_and_check(:#{record_name})\n"
       code << "  #{record_name}.move_higher\n"
-      code << sort.gsub(/^/, "  ")
+      code << sort.gsub(/^/, '  ')
       code << "  redirect_to_back\n"
       code << "end\n"
 
       code << "def down\n"
       code << "  return unless #{record_name} = find_and_check(:#{record_name})\n"
       code << "  #{record_name}.move_lower\n"
-      code << sort.gsub(/^/, "  ")
+      code << sort.gsub(/^/, '  ')
       code << "  redirect_to_back\n"
       code << "end\n"
 
@@ -253,21 +249,20 @@ module RestfullyManageable
       class_eval(code)
     end
 
-
     # Build standard actions to manage records of a model
     def manage_restfully_incorporation
-      name = self.controller_name
+      name = controller_name
       record_name = name.to_s.singularize
       model = name.to_s.singularize.classify.constantize
       records = model.name.underscore.pluralize
       code = ''
 
       columns = model.columns_definition.keys
-      columns = columns.delete_if{|c| [:depth, :rgt, :lft, :id, :lock_version, :updated_at, :updater_id, :creator_id, :created_at].include?(c.to_sym) }
+      columns = columns.delete_if { |c| [:depth, :rgt, :lft, :id, :lock_version, :updated_at, :updater_id, :creator_id, :created_at].include?(c.to_sym) }
       values = columns.inject({}) do |hash, attr|
-        hash[attr] = "params[:#{attr}]".c unless attr.blank? or attr.to_s.match(/_attributes$/)
+        hash[attr] = "params[:#{attr}]".c unless attr.blank? || attr.to_s.match(/_attributes$/)
         hash
-      end.collect{|k,v| "#{k}: (#{v.inspect})"}.join(", ")
+      end.collect { |k, v| "#{k}: (#{v.inspect})" }.join(', ')
       code << "def pick\n"
       code << "  @#{record_name} = resource_model.new(#{values})\n"
       code << "  already_imported_records = #{model}.select(:reference_name).collect(&:reference_name)\n"
@@ -296,10 +291,9 @@ module RestfullyManageable
       class_eval(code)
     end
 
-
     #
     def manage_restfully_picture
-      name = self.controller_name
+      name = controller_name
       record_name = name.to_s.singularize
       code = ''
       code << "def picture\n"
@@ -312,8 +306,5 @@ module RestfullyManageable
       code << "end\n"
       class_eval(code)
     end
-
-
   end
-
 end

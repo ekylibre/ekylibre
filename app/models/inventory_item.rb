@@ -36,22 +36,21 @@
 #  updater_id          :integer
 #
 
-
 class InventoryItem < Ekylibre::Record::Base
   belongs_to :inventory, inverse_of: :items
   belongs_to :product
   has_one :container, through: :product
 
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :actual_population, :expected_population, allow_nil: true
   validates_presence_of :actual_population, :expected_population, :inventory, :product
-  #]VALIDATORS]
+  # ]VALIDATORS]
 
   delegate :name, :unit_name, :population_counting_unitary?, to: :product
 
   before_validation do
     if self.population_counting_unitary?
-      self.actual_population = self.expected_population
+      self.actual_population = expected_population
     end
   end
 
@@ -67,5 +66,4 @@ class InventoryItem < Ekylibre::Record::Base
   # def tracking_name
   #   return self.tracking ? self.tracking.name : ""
   # end
-
 end

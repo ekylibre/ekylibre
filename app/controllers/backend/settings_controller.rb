@@ -17,7 +17,6 @@
 #
 
 class Backend::SettingsController < Backend::BaseController
-
   def edit
     Preference.check!
   end
@@ -34,15 +33,13 @@ class Backend::SettingsController < Backend::BaseController
         end
       end
     end
-    redirect_to_back and return if saved
+    redirect_to_back && return if saved
     render :edit
   end
 
-
   def about
     @properties = []
-    @properties.insert(0, ["Ekylibre version", Ekylibre.version])
-    @properties << ["Database version", ActiveRecord::Migrator.current_version]
+    @properties.insert(0, ['Ekylibre version', Ekylibre.version])
+    @properties << ['Database version', ActiveRecord::Migrator.current_version]
   end
-
 end

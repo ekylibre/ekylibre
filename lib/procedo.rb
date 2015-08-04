@@ -1,5 +1,5 @@
 module Procedo
-  XML_NAMESPACE       = "http://www.ekylibre.org/XML/2013/procedures".freeze
+  XML_NAMESPACE       = 'http://www.ekylibre.org/XML/2013/procedures'.freeze
   DEFAULT_NAMESPACE   = :base
   NAMESPACE_SEPARATOR = '-'
   VERSION_SEPARATOR   = NAMESPACE_SEPARATOR
@@ -27,19 +27,17 @@ module Procedo
   @@list = HashWithIndifferentAccess.new
 
   class << self
-
     def list(options = {})
       l = @@list
-      l = l.select{|k,v| !v.system? } unless options[:with_system]
-      return l
+      l = l.select { |_k, v| !v.system? } unless options[:with_system]
+      l
     end
-
 
     # Returns the names of the procedures
     def procedures(options = {})
-      return list(options).keys
+      list(options).keys
     end
-    alias :names :procedures
+    alias_method :names, :procedures
 
     # Give access to named procedures
     def [](name)
@@ -51,15 +49,15 @@ module Procedo
       tree = {}
       for namespace in @@list.values.map(&:namespace).uniq
         tree[namespace] ||= {}
-        procedures = @@list.values.select{|p| p.namespace == namespace }
+        procedures = @@list.values.select { |p| p.namespace == namespace }
         for short_name in procedures.map(&:short_name).uniq
           tree[namespace][short_name] ||= {}
-          for procedure in procedures.select{|p| p.short_name == short_name }
+          for procedure in procedures.select { |p| p.short_name == short_name }
             tree[namespace][short_name][procedure.version] = procedure
           end
         end
       end
-      return tree
+      tree
     end
 
     # Returns direct procedures of nature
@@ -78,11 +76,11 @@ module Procedo
     end
 
     # Returns procedures of nature and sub natures
-    def procedures_of_nature_and_its_children(nature, options = {})
+    def procedures_of_nature_and_its_children(nature, _options = {})
       procedures_of_nature(*Nomen::ProcedureNatures.all(nature).map(&:to_sym), options = {})
     end
 
-    def each_variable(&block)
+    def each_variable(&_block)
       for procedure in list.values
         for variable in procedure.variables.values
           yield variable
@@ -93,8 +91,8 @@ module Procedo
     # Load all files
     def load
       # Inventory procedures
-      for path in Dir.glob(root.join("*.xml")).sort
-        f = File.open(path, "rb")
+      for path in Dir.glob(root.join('*.xml')).sort
+        f = File.open(path, 'rb')
         document = Nokogiri::XML(f) do |config|
           config.strict.nonet.noblanks.noent
         end
@@ -109,17 +107,15 @@ module Procedo
           Rails.logger.info("File #{path} is not a procedure as defined by #{XML_NAMESPACE}")
         end
       end
-      return true
+      true
     end
 
     # Returns the root of the procedures
     def root
-      Rails.root.join("config", "procedures")
+      Rails.root.join('config', 'procedures')
     end
-
   end
-
 end
 
 Procedo.load
-Rails.logger.info "Loaded procedures: " + Procedo.names.to_sentence
+Rails.logger.info 'Loaded procedures: ' + Procedo.names.to_sentence

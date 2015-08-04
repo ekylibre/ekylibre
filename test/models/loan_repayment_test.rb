@@ -42,7 +42,5 @@
 require 'test_helper'
 
 class LoanRepaymentTest < ActiveSupport::TestCase
-
   # Add tests here...
-
 end

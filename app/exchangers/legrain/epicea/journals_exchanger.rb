@@ -1,7 +1,6 @@
 class Legrain::Epicea::JournalsExchanger < ActiveExchanger::Base
-
   def import
-    rows = CSV.read(file, headers: true, encoding: "cp1252", col_sep: ";", skip_blanks: true)
+    rows = CSV.read(file, headers: true, encoding: 'cp1252', col_sep: ';', skip_blanks: true)
     journal_nature_by_code = {
       AC: :purchases,
       B: :bank,
@@ -13,11 +12,11 @@ class Legrain::Epicea::JournalsExchanger < ActiveExchanger::Base
 
     entries = {}
     w.reset!(rows.count, :yellow)
-    rows.each_with_index do |row, index|
+    rows.each_with_index do |row, _index|
       number = row[1].to_s.strip
       unless entries[number]
         unless journal = Journal.find_by(code: row[0])
-          journal = Journal.create!(code: row[0], name: "Journal #{row[0]}", currency: "EUR", nature: journal_nature_by_code[row[0].sub(/[0-9]/,'')])
+          journal = Journal.create!(code: row[0], name: "Journal #{row[0]}", currency: 'EUR', nature: journal_nature_by_code[row[0].sub(/[0-9]/, '')])
         end
         entries[number] = {
           printed_on: Date.parse(row[2]),
@@ -40,7 +39,7 @@ class Legrain::Epicea::JournalsExchanger < ActiveExchanger::Base
       }
     end
 
-    started_on = entries.values.map{ |v| v[:printed_on] }.uniq.sort.first
+    started_on = entries.values.map { |v| v[:printed_on] }.uniq.sort.first
     FinancialYear.create!(started_on: started_on.beginning_of_month) unless FinancialYear.at(started_on)
 
     w.reset!(entries.keys.size)
@@ -49,5 +48,4 @@ class Legrain::Epicea::JournalsExchanger < ActiveExchanger::Base
       w.check_point
     end
   end
-
 end

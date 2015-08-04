@@ -1,6 +1,5 @@
 class Intervention
   class Recorder
-
     attr_reader :intervention
 
     def initialize(attributes = {})
@@ -11,14 +10,14 @@ class Intervention
     end
 
     def write!
-      operation = @intervention.operations.create!(started_at: @intervention.started_at, stopped_at: @intervention.stopped_at, reference_name: "100")
+      operation = @intervention.operations.create!(started_at: @intervention.started_at, stopped_at: @intervention.stopped_at, reference_name: '100')
       @steps.each do |step|
         if step.is_a?(::Intervention::Recorder::Cast)
           step.save!
         elsif step.is_a?(::Intervention::Recorder::OperationTask)
           step.perform!(operation)
         else
-          raise "What #{step.inspect} step !!!"
+          fail "What #{step.inspect} step !!!"
         end
       end
       @intervention.state = :done
@@ -32,28 +31,26 @@ class Intervention
       cast = Cast.new(self, name, object, options)
       @casting[name] = cast
       @steps << cast
-      return cast
+      cast
     end
 
     def task(type, parameters = {}, options = {})
       if p = Procedo::Action::TYPES[type]
         p.keys.each do |x|
-          raise "Missing parameter: #{x.inspect} for #{type}" unless parameters.has_key? x
+          fail "Missing parameter: #{x.inspect} for #{type}" unless parameters.key? x
         end
       else
-        raise "Invalid action type: #{type}"
+        fail "Invalid action type: #{type}"
       end
       @steps << ::Intervention::Recorder::OperationTask.new(self, type, parameters, options)
     end
 
-
     Procedo::Action::TYPES.each do |name, args|
       # Add a task
       code  = "def #{name}(" + args.keys.join(', ') + ", options = {})\n"
-      code << "  task(:#{name}, {" + args.keys.map{ |k| "#{k}: #{k}" }.join(", ") + "}, options)\n"
+      code << "  task(:#{name}, {" + args.keys.map { |k| "#{k}: #{k}" }.join(', ') + "}, options)\n"
       code << "end\n"
       class_eval code
     end
-
   end
 end

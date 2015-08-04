@@ -40,7 +40,5 @@
 require 'test_helper'
 
 class TaskTest < ActiveSupport::TestCase
-
   # Add tests here...
-
 end

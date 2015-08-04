@@ -45,7 +45,7 @@ class Backend::AffairsController < Backend::BaseController
     if deal = params[:deal_type].camelcase.constantize.find_by(id: params[:deal_id]) rescue nil
       deal.deal_with! @affair
       # @affair.attach(deal)
-      redirect_to params[:redirect] || {controller: deal.class.name.tableize, action: :show, id: deal.id}
+      redirect_to params[:redirect] || { controller: deal.class.name.tableize, action: :show, id: deal.id }
     else
       notify_error(:cannot_find_deal_to_attach)
       redirect_to_best_page
@@ -57,19 +57,16 @@ class Backend::AffairsController < Backend::BaseController
     if deal = params[:deal_type].camelcase.constantize.find_by(id: params[:deal_id]) rescue nil
       deal.undeal! @affair
       # @affair.detach(deal)
-      redirect_to params[:redirect] || {controller: deal.class.name.tableize, action: :show, id: deal.id}
+      redirect_to params[:redirect] || { controller: deal.class.name.tableize, action: :show, id: deal.id }
     else
       notify_error(:cannot_find_deal_to_detach)
       redirect_to_best_page
     end
   end
 
-
   def finish
     return unless @affair = find_and_check
-    unless @affair.finish
-      notify_error :cannot_finish_affair
-    end
+    notify_error :cannot_finish_affair unless @affair.finish
     redirect_to_best_page
   end
 
@@ -78,7 +75,6 @@ class Backend::AffairsController < Backend::BaseController
   def redirect_to_best_page(affair = nil)
     affair ||= @affair
     originator = affair.originator
-    redirect_to params[:redirect] || (originator ? {controller: originator.class.name.tableize, action: :show, id: originator.id} : {action: :show, id: affair.id})
+    redirect_to params[:redirect] || (originator ? { controller: originator.class.name.tableize, action: :show, id: originator.id } : { action: :show, id: affair.id })
   end
-
 end

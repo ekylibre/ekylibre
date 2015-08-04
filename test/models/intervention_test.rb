@@ -51,15 +51,14 @@
 require 'test_helper'
 
 class InterventionTest < ActiveSupport::TestCase
-
-  test "scopes" do
+  test 'scopes' do
     cast = intervention_casts(:intervention_casts_001)
     actor = cast.actor
     assert_nothing_raised do
       Intervention.with_generic_cast(:tool, actor)
     end
     assert_nothing_raised do
-      Intervention.with_generic_cast("tool", actor)
+      Intervention.with_generic_cast('tool', actor)
     end
     assert_nothing_raised do
       Intervention.with_cast(:'grinding-tool', actor)
@@ -68,18 +67,17 @@ class InterventionTest < ActiveSupport::TestCase
       Intervention.with_cast('grinding-tool', actor)
     end
     assert_raise ArgumentError do
-      Intervention.with_cast("tool", actor)
+      Intervention.with_cast('tool', actor)
     end
     assert_raise ArgumentError do
       Intervention.with_cast(:tool, actor)
     end
   end
 
-  test "protect on destroy" do
+  test 'protect on destroy' do
     # It should not be possible to destroy an intervention marked as done
     assert_raise Ekylibre::Record::RecordNotDestroyable do
       Intervention.destroy(interventions(:interventions_001).id)
     end
   end
-
 end

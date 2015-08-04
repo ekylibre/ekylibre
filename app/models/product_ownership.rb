@@ -39,22 +39,21 @@
 #
 class ProductOwnership < Ekylibre::Record::Base
   include Taskable, TimeLineable
-  belongs_to :owner, class_name: "Entity"
+  belongs_to :owner, class_name: 'Entity'
   belongs_to :product
   enumerize :nature, in: [:unknown, :own, :other], default: :unknown, predicates: true
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_presence_of :nature, :product
-  #]VALIDATORS]
+  # ]VALIDATORS]
 
   before_validation do
-    self.nature = (self.owner.blank? ? :unknown : (self.owner == Entity.of_company) ? :own : :other)
+    self.nature = (owner.blank? ? :unknown : (owner == Entity.of_company) ? :own : :other)
   end
 
   private
 
   def siblings
-    self.product.ownerships
+    product.ownerships
   end
-
 end

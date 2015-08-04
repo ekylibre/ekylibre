@@ -1,22 +1,19 @@
 class Backend::GolumnsController < Backend::BaseController
-
   # Save golumn config in preferences
   def update
-    unless params["positions"].nil?
-      positions = params["positions"].sort do |a,b |
+    unless params['positions'].nil?
+      positions = params['positions'].sort do |a, b|
         a[0] <=> b[0]
       end.map do |group|
-        next unless group.second["id"] and !group.second["id"].to_i.zero?
-        g = { id: group.second["id"].to_i}
-        if group.second["containers"]
-          g[:containers] = group.second["containers"].map do |container|
-            container.to_i
-          end
+        next unless group.second['id'] && !group.second['id'].to_i.zero?
+        g = { id: group.second['id'].to_i }
+        if group.second['containers']
+          g[:containers] = group.second['containers'].map(&:to_i)
         end
         g
       end.compact
       begin
-        current_user.prefer!("golumn.#{params[:id]}", {positions: positions}.deep_stringify_keys.to_yaml)
+        current_user.prefer!("golumn.#{params[:id]}", { positions: positions }.deep_stringify_keys.to_yaml)
         head :ok
       rescue ActiveRecord::StaleObjectError
         head :locked
@@ -35,5 +32,4 @@ class Backend::GolumnsController < Backend::BaseController
     end
     head :ok
   end
-
 end

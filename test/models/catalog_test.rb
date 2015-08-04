@@ -37,7 +37,6 @@
 #  usage              :string           not null
 #
 
-
 require 'test_helper'
 
 class CatalogTest < ActiveSupport::TestCase

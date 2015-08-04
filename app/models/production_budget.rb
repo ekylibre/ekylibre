@@ -53,10 +53,10 @@ class ProductionBudget < Ekylibre::Record::Base
   belongs_to :variant, class_name: 'ProductNatureVariant'
   has_many :supports, through: :production, class_name: 'ProductionSupport'
 
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :quantity, :unit_amount, :unit_population, allow_nil: true
   validates_presence_of :computation_method, :currency, :direction, :production, :unit_currency
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_presence_of :variant, :production
 
   delegate :supports, :supports_quantity, :supports_count, :support_variant_indicator, :support_variant_unit, to: :production
@@ -66,31 +66,29 @@ class ProductionBudget < Ekylibre::Record::Base
   scope :expenses, -> { where(direction: :expense) }
 
   before_validation do
-    self.unit_currency = Preference[:currency] if self.unit_currency.blank?
-    self.currency = self.unit_currency if self.currency.blank?
+    self.unit_currency = Preference[:currency] if unit_currency.blank?
+    self.currency = unit_currency if currency.blank?
   end
 
   validate do
-    if self.currency and self.unit_currency
-      errors.add(:currency, :invalid) if self.currency != self.unit_currency
+    if currency && unit_currency
+      errors.add(:currency, :invalid) if currency != unit_currency
     end
   end
 
   after_validation do
-    self.amount = self.unit_amount * self.quantity * self.coefficient
+    self.amount = unit_amount * quantity * coefficient
   end
-
 
   # Computes the coefficient to use for amount computation
   def coefficient(options = {})
-    return 0 unless self.production
-    options[:at] ||= self.production ? self.production.started_at : Time.now
+    return 0 unless production
+    options[:at] ||= production ? production.started_at : Time.now
     if self.per_production_support?
-      return self.supports_count
+      return supports_count
     elsif self.per_working_unit?
-      return self.supports_quantity
+      return supports_quantity
     end
-    return 1
+    1
   end
-
 end

@@ -67,21 +67,21 @@ class Affair < Ekylibre::Record::Base
   belongs_to :cash_session
   belongs_to :journal_entry
   # belongs_to :originator, polymorphic: true
-  belongs_to :responsible, -> { contacts }, class_name: "Entity"
-  belongs_to :third, class_name: "Entity"
+  belongs_to :responsible, -> { contacts }, class_name: 'Entity'
+  belongs_to :third, class_name: 'Entity'
   # FIXME: Gap#affair_id MUST NOT be mandatory
   has_many :events
-  has_many :gaps,              inverse_of: :affair #, dependent: :delete_all
+  has_many :gaps,              inverse_of: :affair # , dependent: :delete_all
   has_many :sales,             inverse_of: :affair, dependent: :nullify
   has_many :purchases,         inverse_of: :affair, dependent: :nullify
   has_many :incoming_payments, inverse_of: :affair, dependent: :nullify
   has_many :outgoing_payments, inverse_of: :affair, dependent: :nullify
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :accounted_at, :closed_at, :dead_line_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :credit, :debit, :pretax_amount, :probability_percentage, allow_nil: true
   validates_inclusion_of :closed, in: [true, false]
   validates_presence_of :credit, :currency, :debit, :number, :third, :third_role
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
   # validates_inclusion_of :third_role, in: self.third_role.values
 
@@ -93,14 +93,16 @@ class Affair < Ekylibre::Record::Base
     #   self.originator_type = self.originator.class.base_class.name
     # end
     deals = self.deals
-    self.debit, self.credit, self.deals_count = 0, 0, deals.count
+    self.debit = 0
+    self.credit = 0
+    self.deals_count = deals.count
     for deal in deals
-      self.debit  += deal.deal_debit_amount
+      self.debit += deal.deal_debit_amount
       self.credit += deal.deal_credit_amount
     end
     # Check state
     if self.credit == self.debit # and self.debit != 0
-      self.closed_at = Time.now unless self.closed
+      self.closed_at = Time.now unless closed
       self.closed = true
     else
       self.closed = false
@@ -118,7 +120,7 @@ class Affair < Ekylibre::Record::Base
   # end
 
   bookkeep do |b|
-    label = tc(:bookkeep, resource: self.class.model_name.human, number: self.number, third: self.third.full_name)
+    label = tc(:bookkeep, resource: self.class.model_name.human, number: number, third: third.full_name)
     all_deals = self.deals
     thirds = all_deals.inject({}) do |hash, deal|
       if third = deal.deal_third
@@ -128,8 +130,8 @@ class Affair < Ekylibre::Record::Base
         hash[account.id] += deal.deal_debit_amount - deal.deal_credit_amount
       end
       hash
-    end.delete_if{|k, v| v.zero?}
-    b.journal_entry(self.class.journal, printed_on: (all_deals.last ? all_deals.last.dealt_at : Time.now).to_date, if: (self.balanced? and thirds.size > 1)) do |entry|
+    end.delete_if { |_k, v| v.zero? }
+    b.journal_entry(self.class.journal, printed_on: (all_deals.last ? all_deals.last.dealt_at : Time.now).to_date, if: (self.balanced? && thirds.size > 1)) do |entry|
       for account_id, amount in thirds
         entry.add_debit(label, account_id, amount)
       end
@@ -137,7 +139,6 @@ class Affair < Ekylibre::Record::Base
   end
 
   class << self
-
     # Find or create journal for affairs
     def journal
       unless j = Journal.used_for_affairs
@@ -147,7 +148,7 @@ class Affair < Ekylibre::Record::Base
           j = Journal.create!(name: Affair.model_name.human, nature: :various, used_for_affairs: true)
         end
       end
-      return j
+      j
     end
 
     # Returns types of accepted deals
@@ -157,10 +158,10 @@ class Affair < Ekylibre::Record::Base
 
     # Removes empty affairs in the whole table
     def clean_deads
-      self.where("journal_entry_id NOT IN (SELECT id FROM #{connection.quote_table_name(:journal_entries)})" + self.class.affairable_types.collect do |type|
-                   model = type.constantize
-                   " AND id NOT IN (SELECT #{model.reflect_on_association(:affair).foreign_key} FROM #{connection.quote_table_name(model.table_name)})"
-                 end.join).delete_all
+      where("journal_entry_id NOT IN (SELECT id FROM #{connection.quote_table_name(:journal_entries)})" + self.class.affairable_types.collect do |type|
+        model = type.constantize
+        " AND id NOT IN (SELECT #{model.reflect_on_association(:affair).foreign_key} FROM #{connection.quote_table_name(model.table_name)})"
+      end.join).delete_all
     end
 
     # Returns heterogen list of deals of the affair
@@ -168,14 +169,13 @@ class Affair < Ekylibre::Record::Base
       code  = "def deals\n"
       array = affairable_types.collect do |class_name|
         "#{class_name}.where(affair_id: self.id).to_a"
-      end.join(" + ")
+      end.join(' + ')
       code << "  return (#{array}).compact.sort do |a, b|\n"
       code << "    a.dealt_at <=> b.dealt_at\n"
       code << "  end\n"
       code << "end\n"
       class_eval code
     end
-
   end
 
   generate_deals_method
@@ -193,12 +193,12 @@ class Affair < Ekylibre::Record::Base
   end
 
   def status
-    (self.closed? ? :go : self.deals_count > 1 ? :caution : :stop)
+    (self.closed? ? :go : deals_count > 1 ? :caution : :stop)
   end
 
   # Reload and save! affair to force counts and sums computation
   def refresh!
-    self.reload
+    reload
     self.save!
   end
 
@@ -212,22 +212,20 @@ class Affair < Ekylibre::Record::Base
     balance = self.balance
     return false if balance.zero?
     thirds = self.thirds
-    if distribution.nil?
-      distribution = self.thirds_distribution
-    end
+    distribution = thirds_distribution if distribution.nil?
     if distribution.values.sum != balance
-      raise StandardError, "Cannot finish the affair with invalid distribution"
+      fail StandardError, 'Cannot finish the affair with invalid distribution'
     end
     self.class.transaction do
       # raise thirds.map(&:name).inspect
       for third in thirds
-        attributes = {affair: self, amount: balance, currency: self.currency, entity: third, entity_role: self.third_role, direction: (losing? ? :loss : :profit), items: []}
+        attributes = { affair: self, amount: balance, currency: currency, entity: third, entity_role: third_role, direction: (losing? ? :loss : :profit), items: [] }
         pretax_amount = 0.0.to_d
-        self.tax_items_for(third, distribution[third.id], (!losing? ? :debit : :credit)).each_with_index do |item, index|
+        tax_items_for(third, distribution[third.id], (!losing? ? :debit : :credit)).each_with_index do |item, _index|
           raw_pretax_amount = (item[:tax] ? item[:tax].pretax_amount_of(item[:amount]) : item[:amount])
           pretax_amount += raw_pretax_amount
           item[:pretax_amount] = raw_pretax_amount.round(currency_precision)
-          item[:currency] = self.currency
+          item[:currency] = currency
           attributes[:items] << GapItem.new(item)
         end
         # Ensures no needed cents are forgotten or added
@@ -242,7 +240,7 @@ class Affair < Ekylibre::Record::Base
       end
       self.refresh!
     end
-    return true
+    true
   end
 
   # def third_role
@@ -250,29 +248,28 @@ class Affair < Ekylibre::Record::Base
   # end
 
   def originator
-    self.deals.first
+    deals.first
   end
 
   # Returns deals of the given third
   def deals_of(third)
-    return deals.select do |deal|
+    deals.select do |deal|
       deal.deal_third == third
     end
   end
 
   def deals_of_type(klass)
     if klass.is_a?(Class)
-      klass.where(affair_id: self.id)
+      klass.where(affair_id: id)
     else
-      klass.constantize.where(affair_id: self.id)
+      klass.constantize.where(affair_id: id)
     end
   end
 
   # Returns all associated thirds of the affair
   def thirds
-    return self.deals.map(&:deal_third).uniq
+    deals.map(&:deal_third).uniq
   end
-
 
   # Permit to attach a deal from affair
   def attach(deal)
@@ -283,7 +280,6 @@ class Affair < Ekylibre::Record::Base
   def detach(deal)
     deal.undeal!(self)
   end
-
 
   # Returns a hash with each amount for each third
   # Amounts are always positive although it'a loss or a profit
@@ -318,7 +314,7 @@ class Affair < Ekylibre::Record::Base
     unless sum != balance
       distribution[distribution.keys.last] += (balance - sum)
     end
-    return distribution
+    distribution
   end
 
   # Globalizes taxes of deals and returns an array of hash per tax
@@ -328,35 +324,31 @@ class Affair < Ekylibre::Record::Base
   # deals are negatives and substracted to debit deals.
   def tax_items_for(third, amount, mode)
     totals = {}
-    for deal in self.deals_of(third)
+    for deal in deals_of(third)
       for total in deal.deal_taxes(mode)
         total[:tax] ||= Tax.used_for_untaxed_deals
-        totals[total[:tax].id] ||= {amount: 0.0.to_d, tax: total[:tax]}
+        totals[total[:tax].id] ||= { amount: 0.0.to_d, tax: total[:tax] }
         totals[total[:tax].id][:amount] += total[:amount]
       end
     end
     # raise totals.values.collect{|a| [a[:tax].name, a[:amount].to_f]}.inspect
     # Proratize amount against tax submitted amounts
-    total_amount = totals.values.collect{|t| t[:amount] }.sum
+    total_amount = totals.values.collect { |t| t[:amount] }.sum
     amounts = totals.values.collect do |total|
       # raise [amount, total[:amount], total_amount].map(&:to_f).inspect
-      {tax: total[:tax], amount: (amount * (total[:amount] / total_amount)).round(currency_precision)}
+      { tax: total[:tax], amount: (amount * (total[:amount] / total_amount)).round(currency_precision) }
     end
     # raise amounts.collect{|a| [a[:tax].name, a[:amount].to_f]}.inspect
     # Ensures no needed cents are forgotten or added
     if amounts.any?
-      sum = amounts.collect{|t| t[:amount] }.sum
-      unless sum != amount
-        amounts.last[:amount] += (amount - sum)
-      end
+      sum = amounts.collect { |t| t[:amount] }.sum
+      amounts.last[:amount] += (amount - sum) unless sum != amount
     end
-    return amounts
+    amounts
   end
 
   # Returns the currency precision to use in affair
   def currency_precision(default = 2)
     FinancialYear.at.currency_precision || default
   end
-
-
 end

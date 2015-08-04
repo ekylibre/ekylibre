@@ -43,7 +43,6 @@
 #  with_deposit            :boolean          default(FALSE), not null
 #
 
-
 require 'test_helper'
 
 class IncomingPaymentModeTest < ActiveSupport::TestCase

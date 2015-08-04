@@ -1,8 +1,7 @@
 class Ekylibre::CultivableZonesExchanger < ActiveExchanger::Base
-
   # Create or updates cultivable zones
   def import
-    rows = CSV.read(file, headers: true).delete_if{|r| r[0].blank?}
+    rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
     w.count = rows.size
 
     born_at = Time.utc(1900, 1, 1, 0, 0, 0)
@@ -57,7 +56,6 @@ class Ekylibre::CultivableZonesExchanger < ActiveExchanger::Base
         end
       end
 
-
       # # Add available_water_capacity indicator
       # if r.land_parcel_available_water_capacity
       #   land_parcel.read!(:available_water_capacity_per_area, r.land_parcel_available_water_capacity.in_liter_per_square_meter, at: r.born_at)
@@ -69,5 +67,4 @@ class Ekylibre::CultivableZonesExchanger < ActiveExchanger::Base
       w.check_point
     end
   end
-
 end

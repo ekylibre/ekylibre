@@ -17,11 +17,11 @@
 #
 
 class Backend::UsersController < Backend::BaseController
-  manage_restfully language: "params[:language] || Preference[:language]".c
+  manage_restfully language: 'params[:language] || Preference[:language]'.c
 
   unroll :first_name, :last_name
 
-  list(order: "users.locked, users.last_name", line_class: "(RECORD.locked ? 'critic' : '')".c) do |t|
+  list(order: 'users.locked, users.last_name', line_class: "(RECORD.locked ? 'critic' : '')".c) do |t|
     t.action :lock, method: :post, if: '!RECORD.locked and RECORD.id != current_user.id'.c
     t.action :unlock, method: :post, if: 'RECORD.locked and RECORD.id != current_user.id'.c
     t.action :edit, controller: :users
@@ -48,5 +48,4 @@ class Backend::UsersController < Backend::BaseController
     @user.unlock
     redirect_to_back
   end
-
 end

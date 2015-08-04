@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class Backend::IncomingPaymentsControllerTest < ActionController::TestCase
-  test_restfully_all_actions create: {incoming_payment: {mode_id: identify(:incoming_payment_modes_001)}}
+  test_restfully_all_actions create: { incoming_payment: { mode_id: identify(:incoming_payment_modes_001) } }
 end

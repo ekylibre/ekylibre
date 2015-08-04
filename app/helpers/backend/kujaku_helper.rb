@@ -17,12 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-
 module Backend::KujakuHelper
-
   # Kujaku 孔雀
   # Search bar
-  def kujaku(*args, &block)
+  def kujaku(*args, &_block)
     options = args.extract_options!
     url = options[:url] || {}
     name = args.shift || ("#{controller_path}-#{action_name}-" + caller.first.split(/\:/).second).parameterize
@@ -32,33 +30,27 @@ module Backend::KujakuHelper
     else
       k.text
     end
-    return "" unless k.feathers.any?
-    collapsed = current_user.preference("interface.kujakus.#{k.uid}.collapsed", (options.has_key?(:collapsed) ? !!options[:collapsed] : true), :boolean).value
-    return render("backend/shared/kujaku", kujaku: k, url: url, collapsed: collapsed, with_form: !options[:form].is_a?(FalseClass))
+    return '' unless k.feathers.any?
+    collapsed = current_user.preference("interface.kujakus.#{k.uid}.collapsed", (options.key?(:collapsed) ? !!options[:collapsed] : true), :boolean).value
+    render('backend/shared/kujaku', kujaku: k, url: url, collapsed: collapsed, with_form: !options[:form].is_a?(FalseClass))
   end
 
   class Kujaku
-
     # Hane means "feather". It designs a criterion
     class Feather
-
       class << self
-
         def inherited(subclass)
           class_name = subclass.name
-          unless class_name =~ /Feather$/
-            raise "Invalid feather name"
-          end
-          feather_name = class_name.gsub(/Feather$/, "").underscore.split("/").last.to_sym
+          fail 'Invalid feather name' unless class_name =~ /Feather$/
+          feather_name = class_name.gsub(/Feather$/, '').underscore.split('/').last.to_sym
           Kujaku.send(:define_method, feather_name) do |*args, &block|
             add_feather(subclass.new(self, "#{@uid}:#{@feathers.size}", *args, &block))
           end
         end
 
         def feather_name
-          @feather_name ||= self.name.gsub(/Feather$/, "").underscore.split("/").last.to_sym
+          @feather_name ||= name.gsub(/Feather$/, '').underscore.split('/').last.to_sym
         end
-
       end
 
       attr_reader :uid
@@ -77,20 +69,17 @@ module Backend::KujakuHelper
       end
 
       def to_html
-        raise NotImplementedError
+        fail NotImplementedError
       end
 
       def inspect
         "<#{self.class.name}##{@uid}>"
       end
-
     end
-
 
     # Text feather permits full text search
     class TextFeather < Feather
-
-      def configure(*args)
+      def configure(*_args)
         @name  = @options.delete(:name) || :q
       end
 
@@ -99,16 +88,14 @@ module Backend::KujakuHelper
         @template.params[@name] ||= p.value
         p.set!(@template.params[@name])
         html = @template.content_tag(:label, @options[:label] || :search.tl)
-        html << " ".html_safe
+        html << ' '.html_safe
         html << @template.text_field_tag(@name, @template.params[@name])
-        return html
+        html
       end
-
     end
 
     # Choice feather permit to select one among many choice to filter
     class ChoiceFeather < Feather
-
       def configure(*args)
         @name = @options.delete(:name) || :s
         @choices = args
@@ -125,22 +112,20 @@ module Backend::KujakuHelper
             label = choice[0]
             value = choice[1]
           end
-          html << @template.content_tag(:span, class: "radio") do
+          html << @template.content_tag(:span, class: 'radio') do
             @template.content_tag(:label, for: "#{@name}_#{value}") do
               @template.radio_button_tag(@name, value, @template.params[@name] == value.to_s) <<
-                " ".html_safe <<
+                ' '.html_safe <<
                 label
             end
           end
         end
-        return html
+        html
       end
-
     end
 
     # Multi choice feather permits to select multiple choice in a list
     class MultiChoiceFeather < Feather
-
       def configure(*args)
         @choices = args.last.is_a?(Array) ? args.delete_at(-1) : []
         @name  = args.shift || @options.delete(:name) || :c
@@ -150,66 +135,58 @@ module Backend::KujakuHelper
         @template.params[@name] ||= []
         html = @template.content_tag(:label, @options[:label] || :state.tl)
         for human_name, choice in @choices
-          html << @template.content_tag(:span, class: "radio") do
+          html << @template.content_tag(:span, class: 'radio') do
             @template.content_tag(:label, for: "#{@name}_#{choice}") do
               @template.check_box_tag("#{@name}[]", choice, @template.params[@name].include?(choice.to_s), id: "#{@name}_#{choice}") <<
-                " ".html_safe << human_name
-
+                ' '.html_safe << human_name
             end
           end
         end
-        return html
+        html
       end
-
     end
 
     # Multi choice feather permits to select one choice in a long list
     # Like a "search a needle in hay"
     class NeedleChoiceFeather < ChoiceFeather
-
       def configure(*args)
         @selection = args.last.is_a?(Array) ? args.delete_at(-1) : []
         @name  = args.shift || @options.delete(:name) || :o
       end
 
       def to_html
-        @template.params[@name] ||= @selection.first.second if @selection and @selection.first
+        @template.params[@name] ||= @selection.first.second if @selection && @selection.first
         html = @template.content_tag(:label, @options[:label] || :options.tl)
-        html << " ".html_safe
+        html << ' '.html_safe
         html << @template.content_tag(:span, class: :slc) do
           @template.select_tag(@name, @template.options_for_select(@selection, @options[:selected] || @template.params[@name]))
         end
-        return html
+        html
       end
-
     end
-
 
     # Date search field
     class DateFeather < ChoiceFeather
-
       def configure(*args)
         @name  = args.shift || @options.delete(:name) || :d
       end
 
       def to_html
         html = @template.content_tag(:label, @options[:label] || :select_date.tl)
-        html << " ".html_safe
+        html << ' '.html_safe
         html << @template.date_field_tag(@name, @template.params[@name])
-        return html
+        html
       end
-
     end
 
     # Custom search field based on rendering helper method
     class HelperFeather < ChoiceFeather
-
       def configure(*args)
         if @block
         elsif @name = args.shift
           @args = args
         else
-          raise ArgumentError, "block or name is missing for helper feather"
+          fail ArgumentError, 'block or name is missing for helper feather'
         end
       end
 
@@ -220,7 +197,6 @@ module Backend::KujakuHelper
           return @template.send(@name, *@args)
         end
       end
-
     end
 
     attr_reader :feathers, :template, :uid
@@ -240,6 +216,4 @@ module Backend::KujakuHelper
       @feathers << feather
     end
   end
-
-
 end

@@ -31,7 +31,7 @@ class Backend::DocumentsController < Backend::BaseController
     t.column :name, url: true
     t.column :nature
     t.column :created_at
-    t.column :file_updated_at, url: {format: :pdf}
+    t.column :file_updated_at, url: { format: :pdf }
     t.column :template, url: true
     t.column :file_pages_count
     t.column :file_file_size
@@ -39,11 +39,10 @@ class Backend::DocumentsController < Backend::BaseController
     t.column :file_fingerprint, hidden: true
   end
 
-
   def show
     return unless @document = find_and_check
     respond_to do |format|
-      format.html { t3e @document}
+      format.html { t3e @document }
       format.json
       format.xml
       format.pdf { send_file(@document.file.path(:default), disposition: 'inline') }

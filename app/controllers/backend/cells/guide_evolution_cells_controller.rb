@@ -1,5 +1,4 @@
 class Backend::Cells::GuideEvolutionCellsController < Backend::Cells::BaseController
-
   def show
     @show_title = true
     if params[:id]
@@ -9,5 +8,4 @@ class Backend::Cells::GuideEvolutionCellsController < Backend::Cells::BaseContro
       @guide = analysis.guide
     end
   end
-
 end

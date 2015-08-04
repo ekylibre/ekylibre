@@ -17,7 +17,7 @@
 #
 
 class Backend::PostalZonesController < Backend::BaseController
-  manage_restfully country: "Preference[:country]".c
+  manage_restfully country: 'Preference[:country]'.c
 
   unroll
 
@@ -33,5 +33,4 @@ class Backend::PostalZonesController < Backend::BaseController
     t.column :district, url: true
     t.column :country
   end
-
 end

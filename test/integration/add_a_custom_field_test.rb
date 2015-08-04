@@ -2,7 +2,6 @@
 require 'test_helper'
 
 class AddACustomFieldTest < CapybaraIntegrationTest
-
   # setup do
   #   # Need to go on page to set tenant
   #   visit('/authentication/sign_in')

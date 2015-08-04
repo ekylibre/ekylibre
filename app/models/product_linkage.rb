@@ -44,13 +44,13 @@ class ProductLinkage < Ekylibre::Record::Base
   belongs_to :carried, class_name: 'Product'
   enumerize :nature, in: [:available, :unavailable, :occupied], default: :available, predicates: true
   enumerize :point, in: [:rear, :front]
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_presence_of :carrier, :nature, :point
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_presence_of :carried, if: :occupied?
 
-  scope :with, lambda { |point| where(point: point) }
+  scope :with, ->(point) { where(point: point) }
 
   after_save do
     # # If carried is already carried, detach it!
@@ -65,7 +65,6 @@ class ProductLinkage < Ekylibre::Record::Base
 
   # Returns all siblings in the chronological line
   def siblings
-    self.carrier.linkages.with(self.point)
+    carrier.linkages.with(point)
   end
-
 end

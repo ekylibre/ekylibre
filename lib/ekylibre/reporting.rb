@@ -1,7 +1,5 @@
 module Ekylibre
-
   module Reporting
-
     FORMATS = %w(pdf odt ods docx xlsx).freeze
 
     # Returns the list of formats used by default for the reporting.
@@ -10,6 +8,4 @@ module Ekylibre
       FORMATS
     end
   end
-
 end
-

@@ -1,5 +1,4 @@
 class PrepareCastsForOtherActorTypes < ActiveRecord::Migration
-
   def up
     # add_column :intervention_casts, :actor_type, :string
     add_column :intervention_casts, :nature, :string
@@ -10,5 +9,4 @@ class PrepareCastsForOtherActorTypes < ActiveRecord::Migration
 
     change_column_null :intervention_casts, :nature, false
   end
-
 end

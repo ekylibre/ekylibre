@@ -37,14 +37,14 @@
 #
 class ProductJunctionWay < Ekylibre::Record::Base
   attr_readonly :nature
-  belongs_to :junction, class_name: "ProductJunction", inverse_of: :ways
-  belongs_to :road, inverse_of: :junction_ways, class_name: "Product"
+  belongs_to :junction, class_name: 'ProductJunction', inverse_of: :ways
+  belongs_to :road, inverse_of: :junction_ways, class_name: 'Product'
   enumerize :nature, in: [:start, :continuity, :finish], predicates: true
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :population, allow_nil: true
   validates_presence_of :junction, :nature, :road, :role
-  #]VALIDATORS]
-  validates_inclusion_of :nature, in: self.nature.values
+  # ]VALIDATORS]
+  validates_inclusion_of :nature, in: nature.values
 
   delegate :started_at, :stopped_at, to: :junction
 
@@ -52,16 +52,16 @@ class ProductJunctionWay < Ekylibre::Record::Base
   # accepts_nested_attributes_for :junction
 
   before_validation do
-    if self.nature.blank?
-      if self.junction and self.role
-        self.nature = self.junction.class.send("#{self.role}_options")[:nature]
+    if nature.blank?
+      if junction && role
+        self.nature = junction.class.send("#{role}_options")[:nature]
       end
     end
   end
 
   before_update do
     unless self.continuity?
-      if self.road_id != old_record.road_id
+      if road_id != old_record.road_id
         old_record.road.update_column(touch_column, nil)
       end
     end
@@ -69,17 +69,17 @@ class ProductJunctionWay < Ekylibre::Record::Base
 
   after_save do
     unless self.continuity?
-      if self.road and self.stopped_at != self.road.send(touch_column)
-        self.road.update_column(touch_column, self.stopped_at)
+      if road && stopped_at != road.send(touch_column)
+        road.update_column(touch_column, stopped_at)
       end
       if self.start?
         # Sets frozen and given indicators
-        for reading in self.road.variant.readings
-          self.road.read!(reading.indicator_name, reading.value, at: self.stopped_at, force: true)
+        for reading in road.variant.readings
+          road.read!(reading.indicator_name, reading.value, at: stopped_at, force: true)
         end
-        for indicator in self.road.whole_indicators_list - self.road.frozen_indicators_list
-          if self.send(indicator)
-            self.road.read!(indicator, self.send(indicator), at: self.stopped_at, force: true)
+        for indicator in road.whole_indicators_list - road.frozen_indicators_list
+          if send(indicator)
+            road.read!(indicator, send(indicator), at: stopped_at, force: true)
           end
         end
       end
@@ -102,5 +102,4 @@ class ProductJunctionWay < Ekylibre::Record::Base
   def touch_column
     (self.start? ? :born_at : self.finish? ? :dead_at : nil)
   end
-
 end

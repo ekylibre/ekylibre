@@ -5,7 +5,6 @@ class ChangeBalanceToJournalEntries < ActiveRecord::Migration
 
     reversible do |r|
       r.up do
-
         execute <<-SQL
           UPDATE journal_entries
           SET balance = debit - credit
@@ -25,8 +24,6 @@ class ChangeBalanceToJournalEntries < ActiveRecord::Migration
           UPDATE journal_entry_items
           SET real_balance = real_debit - real_credit
         SQL
-
-
       end
 
       r.down do
@@ -36,7 +33,6 @@ class ChangeBalanceToJournalEntries < ActiveRecord::Migration
           SET balance = 0
         SQL
       end
-
     end
   end
 end

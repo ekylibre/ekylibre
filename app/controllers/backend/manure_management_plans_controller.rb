@@ -35,7 +35,7 @@ class Backend::ManureManagementPlansController < Backend::BaseController
     t.column :annotation
   end
 
-  list :zones, model: :manure_management_plan_zones, conditions: {plan_id: "params[:id]".c} do |t|
+  list :zones, model: :manure_management_plan_zones, conditions: { plan_id: 'params[:id]'.c } do |t|
     t.column :activity, url: true
     t.column :cultivable_zone, url: true
     t.column :nitrogen_need
@@ -57,8 +57,6 @@ class Backend::ManureManagementPlansController < Backend::BaseController
   def show
     return unless @manure_management_plan = find_and_check
     t3e @manure_management_plan
-    respond_with(@manure_management_plan, :include => [:campaign, :recommender, {:zones => {:methods => [:soil_nature_name, :cultivation_variety_name], :include => [{:support => {:include => :storage}}, :activity, :production]}}])
-
+    respond_with(@manure_management_plan, include: [:campaign, :recommender, { zones: { methods: [:soil_nature_name, :cultivation_variety_name], include: [{ support: { include: :storage } }, :activity, :production] } }])
   end
-
 end

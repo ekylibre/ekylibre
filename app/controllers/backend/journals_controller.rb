@@ -19,7 +19,7 @@
 class Backend::JournalsController < Backend::BaseController
   include JournalEntriesCondition
 
-  manage_restfully nature: "params[:nature]".c, currency: "Preference[:currency]".c
+  manage_restfully nature: 'params[:nature]'.c, currency: 'Preference[:currency]'.c
 
   unroll
 
@@ -38,12 +38,12 @@ class Backend::JournalsController < Backend::BaseController
 
   hide_action :journal_views
 
-  @@journal_views = ["items", "entries", "mixed"]
+  @@journal_views = %w(items entries mixed)
   cattr_reader :journal_views
 
   list(:items, model: :journal_entry_items, conditions: journal_entries_conditions, joins: :entry, line_class: "(RECORD.position==1 ? 'first-item' : '') + (RECORD.entry_balanced? ? '' : ' error')".c, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
     t.column :entry_number, url: true
-    t.column :printed_on, through: :entry, :datatype => :date
+    t.column :printed_on, through: :entry, datatype: :date
     t.column :account, url: true
     t.column :account_number, through: :account, label_method: :number, url: true, hidden: true
     t.column :account_name, through: :account, label_method: :name, url: true, hidden: true
@@ -57,7 +57,7 @@ class Backend::JournalsController < Backend::BaseController
     t.column :absolute_credit, currency: :absolute_currency, hidden: true
   end
 
-  list(:entries, model: :journal_entries, conditions: journal_entries_conditions, line_class: "(RECORD.balanced? ? '' : 'error')".c, order: {created_at: :desc}) do |t|
+  list(:entries, model: :journal_entries, conditions: journal_entries_conditions, line_class: "(RECORD.balanced? ? '' : 'error')".c, order: { created_at: :desc }) do |t|
     t.action :edit, if: :updateable?
     t.action :destroy, if: :destroyable?
     t.column :number, url: true
@@ -71,11 +71,11 @@ class Backend::JournalsController < Backend::BaseController
     t.column :absolute_credit, currency: :absolute_currency, hidden: true
   end
 
-  list(:mixed, model: :journal_entries, conditions: journal_entries_conditions, children: :items, line_class: "(RECORD.balanced? ? '' : 'error')".c, order: {created_at: :desc}, per_page: 10) do |t|
+  list(:mixed, model: :journal_entries, conditions: journal_entries_conditions, children: :items, line_class: "(RECORD.balanced? ? '' : 'error')".c, order: { created_at: :desc }, per_page: 10) do |t|
     t.action :edit, if: :updateable?
     t.action :destroy, if: :destroyable?
-    t.column :number, url: true, :children => :name
-    t.column :printed_on, :datatype => :date, :children => false
+    t.column :number, url: true, children: :name
+    t.column :printed_on, datatype: :date, children: false
     # t.column :label, through: :account, url: {action: :account}
     t.column :state_label
     t.column :real_debit,  currency: :real_currency
@@ -90,8 +90,8 @@ class Backend::JournalsController < Backend::BaseController
   def show
     return unless @journal = find_and_check
     journal_view = current_user.preference("interface.journal.#{@journal.code}.view")
-    journal_view.value = self.journal_views[0] unless self.journal_views.include? journal_view.value
-    if view = self.journal_views.detect{|x| params[:view] == x}
+    journal_view.value = journal_views[0] unless journal_views.include? journal_view.value
+    if view = journal_views.detect { |x| params[:view] == x }
       journal_view.value = view
       journal_view.save
     end
@@ -131,16 +131,13 @@ class Backend::JournalsController < Backend::BaseController
     t3e @journal
   end
 
-
-
-
   def bookkeep
     params[:stopped_on] = params[:stopped_on].to_date rescue Date.today
     params[:started_on] = params[:started_on].to_date rescue (params[:stopped_on] - 1.year).beginning_of_month
     @natures = [:sale, :incoming_payment, :deposit, :purchase, :outgoing_payment, :cash_transfer, :affair] # , transfer
 
     if request.get?
-      notify_now(:bookkeeping_works_only_with, :list => @natures.collect{|x| x.to_s.classify.constantize.model_name.human}.to_sentence)
+      notify_now(:bookkeeping_works_only_with, list: @natures.collect { |x| x.to_s.classify.constantize.model_name.human }.to_sentence)
       @step = 1
     elsif request.put?
       @step = 2
@@ -153,7 +150,7 @@ class Backend::JournalsController < Backend::BaseController
       session[:started_on] = params[:started_on]
       @records = {}
       for nature in @natures
-        conditions = ["created_at BETWEEN ? AND ?", session[:started_on].to_time.beginning_of_day, session[:stopped_on].to_time.end_of_day]
+        conditions = ['created_at BETWEEN ? AND ?', session[:started_on].to_time.beginning_of_day, session[:stopped_on].to_time.end_of_day]
         @records[nature] = nature.to_s.classify.constantize.where(conditions)
       end
 
@@ -168,8 +165,5 @@ class Backend::JournalsController < Backend::BaseController
         redirect_to action: (state == :draft ? :draft : :bookkeep)
       end
     end
-
   end
-
-
 end

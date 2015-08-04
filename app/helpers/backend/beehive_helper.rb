@@ -18,12 +18,11 @@
 #
 
 module Backend::BeehiveHelper
-
   FORMAT_VERSION = 2
 
   # 巣 Beehive permits to create modular interface organized in cells
   def beehive(name = nil, &block)
-    html = ""
+    html = ''
     # return html unless block_given?
     name ||= "#{controller_name}_#{action_name}".to_sym
     board = Beehive.new(name, self)
@@ -34,21 +33,19 @@ module Backend::BeehiveHelper
         block[board]
       end
     end
-    return render(partial: "backend/shared/beehive", object: board)
+    render(partial: 'backend/shared/beehive', object: board)
   end
-
 
   # Permits to display cell content independently
   def cell(type, options = {})
     url = options[:params] || {}
-    content_tag(:div, nil, data: {cell: url_for(url.merge(controller: "backend/cells/#{type}_cells", action: :show))})
+    content_tag(:div, nil, data: { cell: url_for(url.merge(controller: "backend/cells/#{type}_cells", action: :show)) })
   end
 
   class Beehive
-
     class Box < Array
       def self.short_name
-        "box"
+        'box'
       end
 
       def to_hash
@@ -63,30 +60,28 @@ module Backend::BeehiveHelper
       def self.controller_types
         unless @controller_types
           Dir.chdir(Rails.root.join('app/controllers/backend/cells')) do
-            @controller_types = Dir["*_cells_controller.rb"].map do |path|
+            @controller_types = Dir['*_cells_controller.rb'].map do |path|
               path.gsub(/_cells_controller.rb$/, '').to_sym
             end.compact
           end
         end
-        return @controller_types
+        @controller_types
       end
 
       def initialize(name, options = {})
         unless name.is_a?(Symbol)
-          raise "Only symbol for cell name. Use :title option to specify title."
+          fail 'Only symbol for cell name. Use :title option to specify title.'
         end
         @name = name.to_sym
         @options = options
         @type = @options.delete(:type) || @name
-        @has_content = @options.has_key?(:content)
+        @has_content = @options.key?(:content)
         @content = @options.delete(:content)
         @i18n = @options.delete(:i18n) || @options
         if self.class.controller_types.include?(@type)
-          if content?
-            raise "Local type cannot be: #{@type}. Already taken."
-          end
+          fail "Local type cannot be: #{@type}. Already taken." if content?
         elsif !content?
-          raise "Invalid cell. Need content or a valid controller cell name (Not #{@name} alone)"
+          fail "Invalid cell. Need content or a valid controller cell name (Not #{@name} alone)"
         end
       end
 
@@ -99,11 +94,9 @@ module Backend::BeehiveHelper
       end
 
       def to_hash
-        {name: @name.to_s, type: @type.to_s, options: @options}
+        { name: @name.to_s, type: @type.to_s, options: @options }
       end
-
     end
-
 
     attr_reader :name, :boxes, :cells
 
@@ -120,11 +113,11 @@ module Backend::BeehiveHelper
     def cell(name = :details, options = {}, &block)
       if @current_box
         if block_given?
-          raise StandardError, "No block accepted for cells"
+          fail StandardError, 'No block accepted for cells'
           # options[:content] = @template.capture(&block)
         end
         if @cells.keys.include? name.to_s
-          raise StandardError, "A cell with a given name (#{name}) has already been given."
+          fail StandardError, "A cell with a given name (#{name}) has already been given."
         end
         c = Cell.new(name, options)
         @cells[name] = c
@@ -137,7 +130,7 @@ module Backend::BeehiveHelper
     end
 
     def hbox(&block)
-      return box(&block)
+      box(&block)
     end
 
     def to_hash
@@ -148,9 +141,9 @@ module Backend::BeehiveHelper
       hash = nil
       if preference = user.preferences.find_by(name: preference_name)
         got = YAML.load(preference.value).deep_symbolize_keys
-        hash = got if got[:version] and got[:version] >= FORMAT_VERSION
+        hash = got if got[:version] && got[:version] >= FORMAT_VERSION
       end
-      return hash || self.to_hash
+      hash || to_hash
     end
 
     def id
@@ -161,19 +154,18 @@ module Backend::BeehiveHelper
       "beehive.#{@name}"
     end
 
-
     def find_by_type(type)
-      @cells.values.select{ |c| c.type.to_s == type.to_s }.first
+      @cells.values.find { |c| c.type.to_s == type.to_s }
     end
 
     def find_by_name(name)
-      @cells.values.select{ |c| c.name.to_s == name.to_s }.first
+      @cells.values.find { |c| c.name.to_s == name.to_s }
     end
 
     def available_cells
-      return Cell.controller_types.collect do |c|
+      Cell.controller_types.collect do |c|
         [c.tl, c.to_s]
-      end.sort do |a,b|
+      end.sort do |a, b|
         a.first.ascii <=> b.first.ascii
       end
     end
@@ -185,9 +177,7 @@ module Backend::BeehiveHelper
     protected
 
     def box(&block)
-      if @current_box
-        raise StandardError, "Cannot define box in other box"
-      end
+      fail StandardError, 'Cannot define box in other box' if @current_box
       old_current_box = @current_box
       if block_given?
         @current_box = Box.new
@@ -196,7 +186,5 @@ module Backend::BeehiveHelper
       end
       @current_box = old_current_box
     end
-
   end
-
 end

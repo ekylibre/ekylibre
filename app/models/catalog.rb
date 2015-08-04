@@ -37,15 +37,14 @@
 #  usage              :string           not null
 #
 
-
 class Catalog < Ekylibre::Record::Base
   enumerize :usage, in: [:purchase, :sale, :stock, :cost], default: :sale
   # has_many :active_items, -> { where(active: true) }, class_name: "CatalogItem"
-  has_many :items, class_name: "CatalogItem", dependent: :destroy, inverse_of: :catalog
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  has_many :items, class_name: 'CatalogItem', dependent: :destroy, inverse_of: :catalog
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_inclusion_of :all_taxes_included, :by_default, in: [true, false]
   validates_presence_of :code, :currency, :name, :usage
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :code, :usage, allow_nil: true, maximum: 20
   validates_uniqueness_of :code
@@ -60,8 +59,7 @@ class Catalog < Ekylibre::Record::Base
 
   before_validation do
     self.currency ||= Preference[:currency]
-    self.code = self.name.to_s.codeize if self.code.blank?
-    self.code = self.code[0..19]
+    self.code = name.to_s.codeize if code.blank?
+    self.code = code[0..19]
   end
-
 end

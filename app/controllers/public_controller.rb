@@ -18,9 +18,7 @@
 #
 
 class PublicController < BaseController
-
   def index
     redirect_to(backend_root_url)
   end
-
 end

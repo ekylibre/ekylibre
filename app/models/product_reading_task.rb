@@ -53,33 +53,32 @@
 class ProductReadingTask < Ekylibre::Record::Base
   include Taskable, TimeLineable, ReadingStorable
   belongs_to :product
-  belongs_to :reporter, class_name: "Worker"
-  belongs_to :tool, class_name: "Product"
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  belongs_to :reporter, class_name: 'Worker'
+  belongs_to :tool, class_name: 'Product'
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :integer_value, allow_nil: true, only_integer: true
   validates_numericality_of :absolute_measure_value_value, :decimal_value, :measure_value_value, allow_nil: true
   validates_inclusion_of :boolean_value, in: [true, false]
   validates_presence_of :indicator_datatype, :indicator_name, :product, :started_at
-  #]VALIDATORS]
+  # ]VALIDATORS]
 
   validate do
-    if self.product and self.indicator
-      unless self.product.indicators.include?(self.indicator)
+    if product && indicator
+      unless product.indicators.include?(indicator)
         errors.add(:indicator_name, :invalid)
       end
     end
   end
 
   after_create do
-    self.product.read!(self.indicator, self.value, at: self.started_at)
+    product.read!(indicator, value, at: started_at)
     # reading = self.product_readings.build(product: self.product, indicator: self.indicator, read_at: self.stopped_at)
     # reading.value = self.value
     # reading.save!
   end
 
   def siblings
-    self.product.reading_tasks
+    product.reading_tasks
   end
-
 end

@@ -45,7 +45,6 @@
 #  variant_id           :integer          not null
 #
 
-
 require 'test_helper'
 
 class PurchaseItemTest < ActiveSupport::TestCase

@@ -18,7 +18,6 @@
 #
 
 class Backend::DashboardsController < Backend::BaseController
-
   manage_restfully destroy_to: :root_url
 
   list do |t|
@@ -43,24 +42,23 @@ class Backend::DashboardsController < Backend::BaseController
   end
 
   SIMILAR_LETTERS = [
-                     %w(C Ç),
-                     %w(A Á À Â Ä Ǎ Ă Ā Ã Å),
-                     %w(Æ Ǽ Ǣ),
-                     %w(E É È Ė Ê Ë Ě Ĕ Ē),
-                     %w(I Í Ì İ Î Ï Ǐ Ĭ Ī Ĩ),
-                     %w(O Ó Ò Ô Ö Ǒ Ŏ Ō Õ Ő),
-                     %w(U Ú Ù Û Ü Ǔ Ŭ Ū Ũ Ű Ů),
-                     %w(Y Ý Ỳ Ŷ Ÿ Ȳ Ỹ),
-                     %w(c ç),
-                     %w(a á à â ä ǎ ă ā ã å),
-                     %w(æ ǽ ǣ),
-                     %w(e é è ė ê ë ě ĕ ē),
-                     %w(i í ì i î ï ǐ ĭ ī ĩ),
-                     %w(o ó ò ô ö ǒ ŏ ō õ ő),
-                     %w(u ú ù û ü ǔ ŭ ū ũ ű ů),
-                     %w(ý ỳ ŷ ÿ ȳ ỹ)
+    %w(C Ç),
+    %w(A Á À Â Ä Ǎ Ă Ā Ã Å),
+    %w(Æ Ǽ Ǣ),
+    %w(E É È Ė Ê Ë Ě Ĕ Ē),
+    %w(I Í Ì İ Î Ï Ǐ Ĭ Ī Ĩ),
+    %w(O Ó Ò Ô Ö Ǒ Ŏ Ō Õ Ő),
+    %w(U Ú Ù Û Ü Ǔ Ŭ Ū Ũ Ű Ů),
+    %w(Y Ý Ỳ Ŷ Ÿ Ȳ Ỹ),
+    %w(c ç),
+    %w(a á à â ä ǎ ă ā ã å),
+    %w(æ ǽ ǣ),
+    %w(e é è ė ê ë ě ĕ ē),
+    %w(i í ì i î ï ǐ ĭ ī ĩ),
+    %w(o ó ò ô ö ǒ ŏ ō õ ő),
+    %w(u ú ù û ü ǔ ŭ ū ũ ű ů),
+    %w(ý ỳ ŷ ÿ ȳ ỹ)
   ]
-
 
   # Global search method is put there for now waiting for a better place
   # This action permits to search across all the main data of the application
@@ -73,29 +71,29 @@ class Backend::DashboardsController < Backend::BaseController
     query = params[:q].to_s.gsub(/[\'\"\(\)\[\]\=\-\|\{\}]+/, ' ').strip.gsub(/[[:space:]]+/, ' ')
     words = query.split(/\s+/)
     SIMILAR_LETTERS.each do |group|
-      exp = "(" + group.join("|") + ")"
+      exp = '(' + group.join('|') + ')'
       query.gsub!(Regexp.new(exp), exp)
     end
     regexps = query.split(/\s+/)
 
-    pertinence = "1"
+    pertinence = '1'
     if regexps.any?
       # max is the maximal points count that can be obtained for a key word
       # here it's equivalent to find 5 times the sole word.
       max = 4 * 5
-      pertinence = "ROUND(100.0 * CAST((" + regexps.collect do |regexp|
+      pertinence = 'ROUND(100.0 * CAST((' + regexps.collect do |regexp|
         points = [regexp, "#{regexp}\\\\M", "#{regexp}\\\\M", "\\\\M#{regexp}\\\\M"].collect do |exp|
           # Count occurrences
           "ARRAY_LENGTH(REGEXP_SPLIT_TO_ARRAY(indexer, E'#{exp}', 'i'), 1)-1"
-        end.join("+")
+        end.join('+')
         "(CASE WHEN (#{points}) > #{max} THEN #{max} ELSE (#{points}) END)"
-      end.join(" * ") + ") AS FLOAT)/#{max ** regexps.count}.0)"
+      end.join(' * ') + ") AS FLOAT)/#{max**regexps.count}.0)"
     end
 
-    filtered = "SELECT record_id, record_type, title, indexer, (" + pertinence + ") AS pertinence FROM (#{@@centralizing_query}) AS centralizer GROUP BY record_type, record_id, title, indexer"
+    filtered = 'SELECT record_id, record_type, title, indexer, (' + pertinence + ") AS pertinence FROM (#{@@centralizing_query}) AS centralizer GROUP BY record_type, record_id, title, indexer"
 
     filter  = " FROM (#{filtered}) AS filtered"
-    filter << " WHERE filtered.pertinence > 0"
+    filter << ' WHERE filtered.pertinence > 0'
 
     @search = {}
 
@@ -106,7 +104,7 @@ class Backend::DashboardsController < Backend::BaseController
 
     # Select results
     query = "SELECT record_id, record_type, title, indexer, pertinence #{filter}"
-    query << " ORDER BY filtered.pertinence DESC, title"
+    query << ' ORDER BY filtered.pertinence DESC, title'
     query << " LIMIT #{per_page}"
     query << " OFFSET #{per_page * (page - 1)}"
     @search[:records] = Ekylibre::Record::Base.connection.select_all(query)
@@ -121,13 +119,12 @@ class Backend::DashboardsController < Backend::BaseController
 
     @search[:words] = words
 
-    if @search[:count].zero? and page > 1
-      redirect_to(action: :search, :q => params[:q], :page => 1)
+    if @search[:count].zero? && page > 1
+      redirect_to(action: :search, q: params[:q], page: 1)
     end
     params[:page] = page
-    t3e :searched => params[:q]
+    t3e searched: params[:q]
   end
-
 
   private
 
@@ -145,45 +142,45 @@ class Backend::DashboardsController < Backend::BaseController
       model = model_name.to_s.camelcase.constantize
       next unless model.superclass == Ekylibre::Record::Base
       cols = model.columns_definition.keys
-      title = [:label, :name, :full_name, :reason, :code, :number].detect{|x| cols.include?(x.to_s)}
+      title = [:label, :name, :full_name, :reason, :code, :number].detect { |x| cols.include?(x.to_s) }
       next unless title
-      main_model, reflection = nil, nil
+      main_model = nil
+      reflection = nil
       if auxiliaries[model_name]
         reflection = model.reflect_on_association(auxiliaries[model_name])
         unless reflection.macro == :belongs_to
-          raise "Cannot use this auxiliary. Only works with belongs_to for now."
+          fail 'Cannot use this auxiliary. Only works with belongs_to for now.'
         end
         main_model = reflection.class_name.constantize
       end
       columns = model.columns_definition.values.delete_if do |c|
         [:created_at, :creator_id, :depth, :id, :lft, :lock_version,
-         :position, :rights, :rgt, :type, :updated_at, :updater_id].include?(c[:name]) or
-          [:boolean, :spatial, :geometry].include? c[:type] or
-          c[:name].to_s =~ /\_file_size$/ or
-          c[:name].to_s =~ /\_type$/ or
-          c[:name].to_s =~ /\_id$/
+         :position, :rights, :rgt, :type, :updated_at, :updater_id].include?(c[:name]) ||
+        [:boolean, :spatial, :geometry].include?(c[:type]) ||
+        c[:name].to_s =~ /\_file_size$/ ||
+        c[:name].to_s =~ /\_type$/ ||
+        c[:name].to_s =~ /\_id$/
       end.collect do |c|
         name = c[:name]
         name = "#{model.table_name}.#{name}" if main_model
-        if model.respond_to?(name) and model.send(name).respond_to?(:options) and options = model.send(name).send(:options) and options.any?
-          "CASE " + options.collect{|l, v| "WHEN #{name} = '#{v}' THEN '" + l.to_s.gsub("'", "''") + " '"}.join(" ") + " ELSE '' END"
+        if model.respond_to?(name) && model.send(name).respond_to?(:options) && options = model.send(name).send(:options) and options.any?
+          'CASE ' + options.collect { |l, v| "WHEN #{name} = '#{v}' THEN '" + l.to_s.gsub("'", "''") + " '" }.join(' ') + " ELSE '' END"
         else
           "COALESCE(#{name} || ' ', '')"
         end
       end
       if columns.any?
         if main_model
-          query =  "SELECT #{Ekylibre::Record::Base.connection.quote(model.model_name.human)} || ' ' || " + columns.join(" || ") + " AS indexer, #{title} AS title, " + (main_model.columns_definition[:type] ? "CASE WHEN LENGTH(TRIM(#{main_model.table_name}.type)) > 0 THEN #{main_model.table_name}.type ELSE '#{main_model.table_name.to_s.classify}' END" : "'#{main_model.name}'") + " AS record_type, #{main_model.table_name}.id AS record_id FROM #{model.table_name} LEFT JOIN #{main_model.table_name} ON (#{model.table_name}.#{reflection.foreign_key} = #{main_model.table_name}.id)"
+          query =  "SELECT #{Ekylibre::Record::Base.connection.quote(model.model_name.human)} || ' ' || " + columns.join(' || ') + " AS indexer, #{title} AS title, " + (main_model.columns_definition[:type] ? "CASE WHEN LENGTH(TRIM(#{main_model.table_name}.type)) > 0 THEN #{main_model.table_name}.type ELSE '#{main_model.table_name.to_s.classify}' END" : "'#{main_model.name}'") + " AS record_type, #{main_model.table_name}.id AS record_id FROM #{model.table_name} LEFT JOIN #{main_model.table_name} ON (#{model.table_name}.#{reflection.foreign_key} = #{main_model.table_name}.id)"
         else
-          query =  "SELECT #{Ekylibre::Record::Base.connection.quote(model.model_name.human)} || ' ' || " + columns.join(" || ") + " AS indexer, #{title} AS title, " + (model.columns_definition[:type] ? "CASE WHEN LENGTH(TRIM(type)) > 0 THEN type ELSE '#{model.table_name.to_s.classify}' END" : "'#{model.name}'") + " AS record_type, id AS record_id FROM #{model.table_name}"
+          query =  "SELECT #{Ekylibre::Record::Base.connection.quote(model.model_name.human)} || ' ' || " + columns.join(' || ') + " AS indexer, #{title} AS title, " + (model.columns_definition[:type] ? "CASE WHEN LENGTH(TRIM(type)) > 0 THEN type ELSE '#{model.table_name.to_s.classify}' END" : "'#{model.name}'") + " AS record_type, id AS record_id FROM #{model.table_name}"
         end
         queries << query
       end
     end
 
-    @@centralizing_query = "(" + queries.join(") UNION ALL (") + ")"
+    @@centralizing_query = '(' + queries.join(') UNION ALL (') + ')'
   end
 
   build_centralizing_query
-
 end

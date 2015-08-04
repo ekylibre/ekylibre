@@ -1,10 +1,8 @@
 module Procedo
-
   class Error < StandardError
   end
 
   module Errors
-
     class MissingAttribute < Error
     end
 
@@ -52,6 +50,5 @@ module Procedo
 
     class FailedFunctionCall < UncomputableFormula
     end
-
   end
 end

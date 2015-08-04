@@ -7,4 +7,3 @@ json.thousandsSeparator ''
 json.format nil
 json.isMain (resource.name == Preference[:currency])
 json.isActive resource.active
-

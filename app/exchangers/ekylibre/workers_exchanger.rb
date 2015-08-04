@@ -1,9 +1,8 @@
 class Ekylibre::WorkersExchanger < ActiveExchanger::Base
-
   def import
     if building_division = BuildingDivision.first
 
-      rows = CSV.read(file, headers: true).delete_if{|r| r[0].blank?}
+      rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
       w.count = rows.size
 
       rows.each do |row|
@@ -28,8 +27,8 @@ class Ekylibre::WorkersExchanger < ActiveExchanger::Base
         pmodel = variant.matching_model
 
         # create a price
-        if r.unit_pretax_amount and catalog = Catalog.where(usage: :cost).first and variant.catalog_items.where(catalog_id: catalog.id).empty?
-          variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: r.unit_pretax_amount, currency: "EUR") # , indicator_name: r.price_indicator.to_s
+        if r.unit_pretax_amount && catalog = Catalog.where(usage: :cost).first and variant.catalog_items.where(catalog_id: catalog.id).empty?
+          variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: r.unit_pretax_amount, currency: 'EUR') # , indicator_name: r.price_indicator.to_s
         end
 
         # create the owner if not exist
@@ -38,7 +37,7 @@ class Ekylibre::WorkersExchanger < ActiveExchanger::Base
         end
 
         # create the user
-        if person and r.email.present? and !User.where(person_id: person.id).any?
+        if person && r.email.present? && !User.where(person_id: person.id).any?
           unless user = User.find_by(email: r.email)
             password = User.generate_password(100, :hard)
             user = User.create!(first_name: r.first_name, last_name: r.last_name, email: r.email, password: password, password_confirmation: password, language: Preference[:language], role: Role.order(:id).first)
@@ -48,7 +47,6 @@ class Ekylibre::WorkersExchanger < ActiveExchanger::Base
             user.save!
           end
         end
-
 
         owner = Entity.of_company
 
@@ -66,13 +64,11 @@ class Ekylibre::WorkersExchanger < ActiveExchanger::Base
           end
         end
 
-
         w.check_point
       end
 
     else
-      w.warn "Need a BuildingDivision"
+      w.warn 'Need a BuildingDivision'
     end
   end
-
 end

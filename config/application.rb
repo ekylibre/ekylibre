@@ -11,7 +11,7 @@ module Ekylibre
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-    config.autoload_paths << Rails.root.join("lib")
+    config.autoload_paths << Rails.root.join('lib')
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
@@ -34,7 +34,7 @@ module Ekylibre
 
     # Configure defaults for generators
     config.generators do |g|
-      g.orm             :active_record
+      g.orm :active_record
       g.template_engine :haml
     end
 
@@ -47,24 +47,23 @@ module Ekylibre
 
     # Configure layouts for devise
     config.to_prepare do
-      Devise::SessionsController.layout "authentication"
-      Devise::RegistrationsController.layout proc{ |controller| user_signed_in? ? "backend" : "authentication" }
-      Devise::ConfirmationsController.layout "authentication"
-      Devise::UnlocksController.layout "authentication"
-      Devise::PasswordsController.layout "authentication"
+      Devise::SessionsController.layout 'authentication'
+      Devise::RegistrationsController.layout proc { |_controller| user_signed_in? ? 'backend' : 'authentication' }
+      Devise::ConfirmationsController.layout 'authentication'
+      Devise::UnlocksController.layout 'authentication'
+      Devise::PasswordsController.layout 'authentication'
     end
 
     initializer :after_append_asset_paths, group: :all, after: :append_assets_path do
-      { "jquery-ui-rails" => ["app/assets/images"],
-        "active_list" => ["app/assets/images"],
-        "bootstrap-sass" => ["assets/images", "assets/fonts"]
+      { 'jquery-ui-rails' => ['app/assets/images'],
+        'active_list' => ['app/assets/images'],
+        'bootstrap-sass' => ['assets/images', 'assets/fonts']
       }.each do |gem, paths|
         root = Pathname.new(Gem.loaded_specs[gem].full_gem_path)
         paths.each do |path|
-          config.assets.paths.delete_if{|p| p.to_s == root.join(path).to_s}
+          config.assets.paths.delete_if { |p| p.to_s == root.join(path).to_s }
         end
       end
     end
-
   end
 end

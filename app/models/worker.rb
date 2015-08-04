@@ -66,7 +66,7 @@
 
 class Worker < Product
   include Attachable
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  #]VALIDATORS]
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # ]VALIDATORS]
   validates_presence_of :person
 end

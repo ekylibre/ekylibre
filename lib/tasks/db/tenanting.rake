@@ -9,22 +9,20 @@
 ##################################################
 
 namespace :db do
-
   desc 'Also create shared extensions schemas'
-  task :extensions => :environment do
+  task extensions: :environment do
     Ekylibre::Schema.setup_extensions
   end
-
 end
 
-Rake::Task["db:create"].enhance do
-  Rake::Task["db:extensions"].invoke
+Rake::Task['db:create'].enhance do
+  Rake::Task['db:extensions'].invoke
 end
 
-Rake::Task["db:drop"].enhance do
-  Rake::Task["tenant:clear"].invoke
+Rake::Task['db:drop'].enhance do
+  Rake::Task['tenant:clear'].invoke
 end
 
-Rake::Task["db:test:purge"].enhance do
-  Rake::Task["db:extensions"].invoke
+Rake::Task['db:test:purge'].enhance do
+  Rake::Task['db:extensions'].invoke
 end

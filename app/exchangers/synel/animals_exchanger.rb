@@ -1,5 +1,4 @@
 class Synel::AnimalsExchanger < ActiveExchanger::Base
-
   # Create or updates animals
   def import
     is_a_demo_instance = Preference.get!(:demo, false, :boolean).value
@@ -7,26 +6,26 @@ class Synel::AnimalsExchanger < ActiveExchanger::Base
     owner = Entity.of_company
     now = Time.now
 
-    rows = CSV.read(file, encoding: "CP1252", col_sep: ";", headers: true).delete_if{|r| r[4].blank?}
+    rows = CSV.read(file, encoding: 'CP1252', col_sep: ';', headers: true).delete_if { |r| r[4].blank? }
     w.count = rows.size
 
     rows.each do |row|
       born_on = (row[4].blank? ? nil : Date.parse(row[4]))
       dead_on = (row[10].blank? ? nil : Date.parse(row[10]))
-      r = OpenStruct.new(:country => row[0],
-                         :identification_number => row[1],
-                         :work_number => row[2],
-                         :name => (row[3].blank? ? FFaker::Name.first_name + " (MN)" : row[3].capitalize),
-                         :born_on => born_on,
+      r = OpenStruct.new(country: row[0],
+                         identification_number: row[1],
+                         work_number: row[2],
+                         name: (row[3].blank? ? FFaker::Name.first_name + ' (MN)' : row[3].capitalize),
+                         born_on: born_on,
                          born_at: (born_on ? born_on.to_datetime + 10.hours : nil),
                          age: (born_on ? (Date.today - born_on) : 0).to_f,
-                         :corabo => row[5],
-                         :sex => (row[6] == "F" ? :female : :male),
+                         corabo: row[5],
+                         sex: (row[6] == 'F' ? :female : :male),
                          # :arrival_cause => (arrival_causes[row[7]] || row[7]),
                          # :initial_arrival_cause => (initial_arrival_causes[row[7]] || row[7]),
-                         :arrived_on => (row[8].blank? ? nil : Date.parse(row[8])),
+                         arrived_on: (row[8].blank? ? nil : Date.parse(row[8])),
                          # :departure_cause => (departure_causes[row[9]] ||row[9]),
-                         :departed_on => dead_on,
+                         departed_on: dead_on,
                          dead_at: (dead_on ? dead_on.to_datetime : nil)
                         )
       unless animal = Animal.find_by(identification_number: r.identification_number)
@@ -70,9 +69,9 @@ class Synel::AnimalsExchanger < ActiveExchanger::Base
       # load demo data weight and state
       if is_a_demo_instance
         weighted_at = r.born_at
-        if weighted_at and weighted_at < Time.now
+        if weighted_at && weighted_at < Time.now
           variation = 0.02
-          while (r.dead_at.nil? or weighted_at < r.dead_at) and weighted_at < Time.now
+          while (r.dead_at.nil? || weighted_at < r.dead_at) && weighted_at < Time.now
             age = (weighted_at - r.born_at).to_f
             weight = (age < 990 ? 700 * Math.sin(age / (100 * 2 * Math::PI)) + 50.0 : 750)
             weight += rand(weight * variation * 2) - (weight * variation)
@@ -92,5 +91,4 @@ class Synel::AnimalsExchanger < ActiveExchanger::Base
       w.check_point
     end
   end
-
 end

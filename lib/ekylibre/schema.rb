@@ -3,14 +3,13 @@ module Ekylibre
     autoload :Column, 'ekylibre/schema/column'
 
     class << self
-
       def setup_extensions
         ActiveRecord::Base.connection.execute 'CREATE SCHEMA IF NOT EXISTS postgis;'
         ActiveRecord::Base.connection.execute 'CREATE EXTENSION IF NOT EXISTS postgis SCHEMA postgis;'
       end
 
       def root
-        Rails.root.join("db")
+        Rails.root.join('db')
       end
 
       def models
@@ -18,7 +17,7 @@ module Ekylibre
       end
 
       def references(table = nil, column = nil)
-        if table.present? and column.present?
+        if table.present? && column.present?
           if t = tables[table]
             if c = t[column]
               return c.references
@@ -46,17 +45,17 @@ module Ekylibre
       end
 
       def model_names
-        @model_names ||= models.collect{|m| m.to_s.camelcase.to_sym}.sort.freeze
+        @model_names ||= models.collect { |m| m.to_s.camelcase.to_sym }.sort.freeze
       end
 
       protected
 
       def read_models
-        return YAML.load_file(root.join("models.yml")).map(&:to_sym)
+        YAML.load_file(root.join('models.yml')).map(&:to_sym)
       end
 
       def read_tables
-        hash = YAML.load_file(root.join("tables.yml")).deep_symbolize_keys rescue {}
+        hash = YAML.load_file(root.join('tables.yml')).deep_symbolize_keys rescue {}
         tables = {}.with_indifferent_access
         for table, columns in hash
           tables[table] = columns.inject({}.with_indifferent_access) do |h, pair|
@@ -70,13 +69,8 @@ module Ekylibre
             h
           end
         end
-        return tables
+        tables
       end
-
-
-
     end
-
   end
-
 end

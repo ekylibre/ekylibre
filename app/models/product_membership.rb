@@ -38,26 +38,24 @@
 #  updater_id      :integer
 #
 
-
 class ProductMembership < Ekylibre::Record::Base
   include Taskable, TimeLineable
   enumerize :nature, in: [:interior, :exterior], default: :interior, predicates: true
-  belongs_to :group, class_name: "ProductGroup", inverse_of: :memberships
-  belongs_to :member, class_name: "Product", inverse_of: :memberships
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  belongs_to :group, class_name: 'ProductGroup', inverse_of: :memberships
+  belongs_to :member, class_name: 'Product', inverse_of: :memberships
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_presence_of :group, :member, :nature, :started_at
-  #]VALIDATORS]
+  # ]VALIDATORS]
 
   before_validation do
-    self.nature ||= (self.group ? :interior : :exterior)
+    self.nature ||= (group ? :interior : :exterior)
   end
 
   private
 
   def siblings
     # self.member.memberships
-    self.class.where(member: self.member) # group: self.group,
+    self.class.where(member: member) # group: self.group,
   end
-
 end

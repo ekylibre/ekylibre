@@ -1,9 +1,8 @@
 namespace :clean do
-
-  desc "Check routes validity"
-  task :routes => :environment do
+  desc 'Check routes validity'
+  task routes: :environment do
     ref = Clean::Support.actions_hash
-    log = File.open(Rails.root.join("log", "clean-routes.log"), "wb")
+    log = File.open(Rails.root.join('log', 'clean-routes.log'), 'wb')
     missing_controllers = []
     missing_actions = []
     Rails.application.routes.routes.each do |route|
@@ -16,7 +15,7 @@ namespace :clean do
         end
       else
         unless missing_controllers.include?(controller)
-          unless controller =~/\Arails\//
+          unless controller =~ /\Arails\//
             log.write "Missing controller: #{controller}\n"
             missing_controllers << controller
           end
@@ -26,5 +25,4 @@ namespace :clean do
     log.close
     puts " - Routes: #{missing_actions.count} missing actions and #{missing_controllers.count} missing controllers"
   end
-
 end

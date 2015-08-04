@@ -64,25 +64,23 @@
 #  work_number           :string
 #
 
-
 class AnimalGroup < ProductGroup
-  enumerize :variety, in: Nomen::Varieties.all(:animal_group), predicates: {prefix: true}
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  #]VALIDATORS]
+  enumerize :variety, in: Nomen::Varieties.all(:animal_group), predicates: { prefix: true }
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # ]VALIDATORS]
 
   # Add a member to the group
   def add(member, options = {})
     unless member.is_a?(Animal)
-      raise ArgumentError, "Animal expected, got #{member.class}:#{member.inspect}"
+      fail ArgumentError, "Animal expected, got #{member.class}:#{member.inspect}"
     end
     super(member, options)
   end
 
-
   # Remove a member from the group
   def remove(member, options = {})
     unless member.is_a?(Animal)
-      raise ArgumentError, "Animal expected, got #{member.class}:#{member.inspect}"
+      fail ArgumentError, "Animal expected, got #{member.class}:#{member.inspect}"
     end
     super(member, options)
   end
@@ -92,37 +90,34 @@ class AnimalGroup < ProductGroup
     Animal.members_of(self, viewed_at || Time.now)
   end
 
-
   def places(viewed_at = nil)
-    animals = self.members_at(viewed_at || Time.now)
+    animals = members_at(viewed_at || Time.now)
     # containers = []
     # byebug
     # animals.each do |animal|
     #   containers << animal.container
     # end
     # return containers.uniq
-    return animals.collect{|a| a.container}.uniq.compact
+    animals.collect(&:container).uniq.compact
   end
 
   # DOC
   def members_with_places_at(viewed_at = nil)
     places_and_animals = []
-    all_places = self.places(viewed_at)
+    all_places = places(viewed_at)
     all_places.each do |place|
-      places_and_animals.push({place: Product.select(:id,:name).find(place.id),:animals => Animal.select(:id, :name, :identification_number, :nature_id, :dead_at).members_of(self,viewed_at || Time.now).members_of_place(place,viewed_at || Time.now).to_json(:methods => [:picture_path, :sex_text, :status])})
-
+      places_and_animals.push(place: Product.select(:id, :name).find(place.id), animals: Animal.select(:id, :name, :identification_number, :nature_id, :dead_at).members_of(self, viewed_at || Time.now).members_of_place(place, viewed_at || Time.now).to_json(methods: [:picture_path, :sex_text, :status]))
     end
     places_and_animals
   end
 
   def daily_nitrogen_production(viewed_at = nil)
     quantity = []
-    for animal in self.members_at(viewed_at)
+    for animal in members_at(viewed_at)
       quantity << animal.daily_nitrogen_production.to_d
     end
-    return quantity.compact.sum.in_kilogram_per_day
+    quantity.compact.sum.in_kilogram_per_day
   end
-
 
   def add_animals(animals, options = {})
     Intervention.write(:group_inclusion, options) do |i|
@@ -134,5 +129,4 @@ class AnimalGroup < ProductGroup
       end
     end
   end
-
 end

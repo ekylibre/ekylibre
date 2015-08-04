@@ -24,9 +24,8 @@ class Pasteque::V5::TicketsController < Pasteque::V5::BaseController
 
   def open
     @records = model.tickets.openeds
-    render "index"
+    render 'index'
   end
-
 
   # Save tickets
   def save
@@ -37,7 +36,7 @@ class Pasteque::V5::TicketsController < Pasteque::V5::BaseController
       tickets += JSON.parse(params[:tickets]).map(&:with_indifferent_access)
     end
     unless cash = Cash.find_by(id: params[:cashId])
-      render json: { status: :rej, content: "Cannot find cash" }
+      render json: { status: :rej, content: 'Cannot find cash' }
       return
     end
     saved = []
@@ -66,5 +65,4 @@ class Pasteque::V5::TicketsController < Pasteque::V5::BaseController
   def permitted_params
     params.require(:ticket).permit!
   end
-
 end

@@ -43,58 +43,52 @@
 #  updater_id                 :integer
 #
 
-
 class CashTransfer < Ekylibre::Record::Base
   acts_as_numbered
   attr_readonly :number
-  belongs_to :emission_cash, class_name: "Cash"
-  belongs_to :emission_journal_entry, class_name: "JournalEntry"
-  belongs_to :reception_cash, class_name: "Cash"
-  belongs_to :reception_journal_entry, class_name: "JournalEntry"
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  belongs_to :emission_cash, class_name: 'Cash'
+  belongs_to :emission_journal_entry, class_name: 'JournalEntry'
+  belongs_to :reception_cash, class_name: 'Cash'
+  belongs_to :reception_journal_entry, class_name: 'JournalEntry'
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :accounted_at, :transfered_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :currency_rate, :emission_amount, :reception_amount, allow_nil: true
   validates_presence_of :currency_rate, :emission_amount, :emission_cash, :emission_currency, :number, :reception_amount, :reception_cash, :reception_currency, :transfered_at
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_length_of :emission_currency, :reception_currency, allow_nil: true, maximum: 3
   validates_numericality_of :emission_amount, greater_than: 0.0
   validates_presence_of :transfered_at
 
   before_validation do
     self.transfered_at ||= Date.today
-    if self.emission_cash
-      self.emission_currency = self.emission_cash.currency
-    end
-    if self.reception_cash
-      self.reception_currency = self.reception_cash.currency
-    end
-    if self.currency_rate.blank?
-      if self.emission_currency == self.reception_currency
+    self.emission_currency = emission_cash.currency if emission_cash
+    self.reception_currency = reception_cash.currency if reception_cash
+    if currency_rate.blank?
+      if emission_currency == reception_currency
         self.currency_rate = 1
       else
-        self.currency_rate = I18n.currency_rate(self.emission_currency, self.reception_currency)
+        self.currency_rate = I18n.currency_rate(emission_currency, reception_currency)
       end
     end
-    if self.emission_amount and self.currency_rate
-      self.reception_amount = self.currency_rate * self.emission_amount
+    if emission_amount && currency_rate
+      self.reception_amount = currency_rate * emission_amount
     end
   end
 
   validate do
-    errors.add(:reception_cash_id, :invalid) if self.reception_cash_id == self.emission_cash_id
+    errors.add(:reception_cash_id, :invalid) if reception_cash_id == emission_cash_id
   end
 
   bookkeep do |b|
     transfer_account = Account.find_in_chart(:internal_transfers)
-    label = tc(:bookkeep, resource: self.class.model_name.human, number: self.number, description: self.description, emission: self.emission_cash.name, reception: self.reception_cash.name)
-    b.journal_entry(self.emission_cash.journal, printed_on: self.transfered_at.to_date, column: :emission_journal_entry_id) do |entry|
-      entry.add_debit( label, transfer_account.id, self.emission_amount)
-      entry.add_credit(label, self.emission_cash.account_id, self.emission_amount)
+    label = tc(:bookkeep, resource: self.class.model_name.human, number: number, description: description, emission: emission_cash.name, reception: reception_cash.name)
+    b.journal_entry(emission_cash.journal, printed_on: self.transfered_at.to_date, column: :emission_journal_entry_id) do |entry|
+      entry.add_debit(label, transfer_account.id, emission_amount)
+      entry.add_credit(label, emission_cash.account_id, emission_amount)
     end
-    b.journal_entry(self.reception_cash.journal, printed_on: self.transfered_at.to_date, column: :reception_journal_entry_id) do |entry|
-      entry.add_debit( label, self.reception_cash.account_id, self.reception_amount)
-      entry.add_credit(label, transfer_account.id, self.reception_amount)
+    b.journal_entry(reception_cash.journal, printed_on: self.transfered_at.to_date, column: :reception_journal_entry_id) do |entry|
+      entry.add_debit(label, reception_cash.account_id, reception_amount)
+      entry.add_credit(label, transfer_account.id, reception_amount)
     end
   end
-
 end

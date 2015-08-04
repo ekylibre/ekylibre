@@ -17,24 +17,23 @@
 #
 
 class Backend::BeehivesController < Backend::BaseController
-
   # Save beehive config in preferences
   def update
-    unless params["boxes"].nil?
-      boxes = params["boxes"].sort do |a,b|
+    unless params['boxes'].nil?
+      boxes = params['boxes'].sort do |a, b|
         a[0] <=> b[0]
       end.map do |box|
-        next unless box.second["cells"]
-        cells = box.second["cells"].symbolize_keys.sort do |a,b|
+        next unless box.second['cells']
+        cells = box.second['cells'].symbolize_keys.sort do |a, b|
           a[0] <=> b[0]
         end.map do |cell|
           cell.second.symbolize_keys
         end.compact
         cells.any? ? { cells: cells } : nil
       end.compact
-      puts({version: Backend::BeehiveHelper::FORMAT_VERSION, boxes: boxes}.deep_stringify_keys.to_yaml.yellow)
+      puts({ version: Backend::BeehiveHelper::FORMAT_VERSION, boxes: boxes }.deep_stringify_keys.to_yaml.yellow)
       begin
-        current_user.prefer!("beehive.#{params[:id]}", {version: Backend::BeehiveHelper::FORMAT_VERSION, boxes: boxes}.deep_stringify_keys.to_yaml)
+        current_user.prefer!("beehive.#{params[:id]}", { version: Backend::BeehiveHelper::FORMAT_VERSION, boxes: boxes }.deep_stringify_keys.to_yaml)
         head :ok
       rescue ActiveRecord::StaleObjectError
         head :locked
@@ -42,12 +41,10 @@ class Backend::BeehivesController < Backend::BaseController
     end
   end
 
-
   def reset
     if preference = current_user.preferences.find_by(name: "beehive.#{params[:id]}")
       preference.destroy!
     end
     head :ok
   end
-
 end

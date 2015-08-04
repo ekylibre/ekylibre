@@ -47,38 +47,34 @@
 #  updater_id                   :integer
 #
 
-
 class ProductReading < Ekylibre::Record::Base
   include ReadingStorable, PeriodicCalculable
   belongs_to :product, inverse_of: :readings
   belongs_to :originator, polymorphic: true
   has_one :variant, through: :product
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :read_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :integer_value, allow_nil: true, only_integer: true
   validates_numericality_of :absolute_measure_value_value, :decimal_value, :measure_value_value, allow_nil: true
   validates_inclusion_of :boolean_value, in: [true, false]
   validates_presence_of :indicator_datatype, :indicator_name, :product, :read_at
-  #]VALIDATORS]
+  # ]VALIDATORS]
 
   scope :between, lambda { |started_at, stopped_at|
     where(read_at: started_at..stopped_at)
   }
-  scope :measured_between, lambda { |started_at, stopped_at| between(started_at, stopped_at) }
+  scope :measured_between, ->(started_at, stopped_at) { between(started_at, stopped_at) }
   scope :of_products, lambda { |products, indicator_name, at = nil|
     at ||= Time.now
-    where("id IN (SELECT p1.id FROM #{self.indicator_table_name(indicator_name)} AS p1 LEFT OUTER JOIN #{self.indicator_table_name(indicator_name)} AS p2 ON (p1.product_id = p2.product_id AND p1.indicator_name = p2.indicator_name AND (p1.read_at < p2.read_at OR (p1.read_at = p2.read_at AND p1.id < p2.id)) AND p2.read_at <= ?) WHERE p1.read_at <= ? AND p1.product_id IN (?) AND p1.indicator_name = ? AND p2 IS NULL)", at, at, products.pluck(:id), indicator_name)
+    where("id IN (SELECT p1.id FROM #{indicator_table_name(indicator_name)} AS p1 LEFT OUTER JOIN #{indicator_table_name(indicator_name)} AS p2 ON (p1.product_id = p2.product_id AND p1.indicator_name = p2.indicator_name AND (p1.read_at < p2.read_at OR (p1.read_at = p2.read_at AND p1.id < p2.id)) AND p2.read_at <= ?) WHERE p1.read_at <= ? AND p1.product_id IN (?) AND p1.indicator_name = ? AND p2 IS NULL)", at, at, products.pluck(:id), indicator_name)
   }
 
   calculable period: :month, at: :read_at, column: :measure_value_value
 
   before_validation(on: :create) do
-    if self.originator
-      self.originator_type = self.originator.class.base_class.name
-    end
-    if self.product and self.product.initial_born_at
-      self.read_at ||= self.product.initial_born_at
+    self.originator_type = originator.class.base_class.name if originator
+    if product && product.initial_born_at
+      self.read_at ||= product.initial_born_at
     end
   end
-
 end

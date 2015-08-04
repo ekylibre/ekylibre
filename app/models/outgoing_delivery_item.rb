@@ -37,22 +37,21 @@
 #  updater_id   :integer
 #
 
-
 class OutgoingDeliveryItem < Ekylibre::Record::Base
   attr_readonly :sale_item_id, :product_id
-  belongs_to :container, class_name: "Product"
-  belongs_to :delivery, class_name: "OutgoingDelivery", inverse_of: :items
+  belongs_to :container, class_name: 'Product'
+  belongs_to :delivery, class_name: 'OutgoingDelivery', inverse_of: :items
   belongs_to :product
   belongs_to :sale_item
   has_one :category, through: :variant
   has_one :product_ownership, as: :originator, dependent: :destroy
   has_one :recipient, through: :delivery
   has_one :variant, through: :product
-  has_many :interventions, class_name: "Intervention", :as => :resource
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  has_many :interventions, class_name: 'Intervention', as: :resource
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :net_mass, :population, allow_nil: true
   validates_presence_of :delivery, :product
-  #]VALIDATORS]
+  # ]VALIDATORS]
 
   delegate :net_mass, to: :product
   delegate :sent_at, to: :delivery
@@ -60,28 +59,28 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
   sums :delivery, :items, :net_mass, from: :measure
 
   before_validation do
-    if self.product
-      self.population = self.product.population
-      self.shape = self.product.shape if self.product.shape
+    if product
+      self.population = product.population
+      self.shape = product.shape if product.shape
     end
     true
   end
 
   # Create product ownership linked to product
   after_save do
-    if self.delivery.done?
+    if delivery.done?
       attributes = {
-        product_id: self.product_id,
-        started_at: self.sent_at,
-        owner_id: self.recipient.id
+        product_id: product_id,
+        started_at: sent_at,
+        owner_id: recipient.id
       }
-      if self.product_ownership
-        self.product_ownership.update_attributes!(attributes)
+      if product_ownership
+        product_ownership.update_attributes!(attributes)
       else
         self.create_product_ownership!(attributes)
       end
-    elsif self.product_ownership
-      self.product_ownership.destroy!
+    elsif product_ownership
+      product_ownership.destroy!
     end
   end
 
@@ -103,8 +102,5 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
   #  self.sale_item.undelivered_quantity
   # end
 
-  def source_product_name
-    self.source_product.name
-  end
-
+  delegate :name, to: :source_product, prefix: true
 end

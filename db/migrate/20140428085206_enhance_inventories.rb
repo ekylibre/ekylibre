@@ -8,7 +8,7 @@ class EnhanceInventories < ActiveRecord::Migration
     remove_column :inventory_items, :product_reading_task_id
 
     add_column :inventories, :achieved_at, :datetime
-    execute "UPDATE inventories SET achieved_at = reflected_at"
+    execute 'UPDATE inventories SET achieved_at = reflected_at'
 
     rename_column :inventory_items, :theoric_population, :expected_population
     rename_column :inventory_items, :population, :actual_population

@@ -16,9 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-
 module ChartsHelper
-
   OPTIONS = [:colors, :credits, :exporting, :labels, :legend, :loading, :navigation, :pane, :plot_options, :series, :subtitle, :title, :tooltip, :x_axis, :y_axis].inject({}) do |hash, name|
     hash[name] = name.to_s.gsub('_', '-') # camelize(:lower)
     hash
@@ -30,14 +28,16 @@ module ChartsHelper
   end.freeze
 
   def ligthen(color, rate)
-    r, g, b = color[1..2].to_i(16), color[3..4].to_i(16), color[5..6].to_i(16)
-    r *= (1+rate)
-    g *= (1+rate)
-    b *= (1+rate)
+    r = color[1..2].to_i(16)
+    g = color[3..4].to_i(16)
+    b = color[5..6].to_i(16)
+    r *= (1 + rate)
+    g *= (1 + rate)
+    b *= (1 + rate)
     r = 255 if r > 255
     g = 255 if g > 255
     b = 255 if b > 255
-    return '#' + r.to_i.to_s(16).rjust(2, '0') + g.to_i.to_s(16).rjust(2, '0') + b.to_i.to_s(16).rjust(2, '0')
+    '#' + r.to_i.to_s(16).rjust(2, '0') + g.to_i.to_s(16).rjust(2, '0') + b.to_i.to_s(16).rjust(2, '0')
   end
 
   for type, absolute_type in TYPES
@@ -72,23 +72,20 @@ module ChartsHelper
     eval(code)
   end
 
-
   def normalize_serie(values, x_values, default = 0.0)
-     data = []
-     for x in x_values
-       data << (values[x] || default).to_s.to_f
-     end
-     return data
+    data = []
+    for x in x_values
+      data << (values[x] || default).to_s.to_f
+    end
+    data
   end
-
 
   # Permit to produce pie or gauge
   # Values are represented relatively to all
   #   engine:     Engine for rendering. c3 by default.
-  def distribution_chart(options = {})
-    raise NotImplemented
+  def distribution_chart(_options = {})
+    fail NotImplemented
   end
-
 
   # Permits to draw a nonlinear chart (line, spline)
   # Values are represented with given abscissa for each value
@@ -98,10 +95,10 @@ module ChartsHelper
   def category_chart(options = {})
     html_options = options.slice!(:series, :abscissa, :ordinates, :engine)
     options[:type] = :nonlinear
-    # TODO Check options validity
-    html_options[:class] ||= "chart"
-    html_options.deep_merge!(data: {chart: options.to_json})
-    return content_tag(:div, nil, html_options)
+    # TODO: Check options validity
+    html_options[:class] ||= 'chart'
+    html_options.deep_merge!(data: { chart: options.to_json })
+    content_tag(:div, nil, html_options)
   end
 
   # Permits to draw a linear chart (line, spline, bar)
@@ -124,24 +121,22 @@ module ChartsHelper
   def cartesian_chart(options = {})
     html_options = options.slice!(:series, :abscissa, :ordinates, :engine)
     options[:type] = :time
-    # TODO Check options validity
+    # TODO: Check options validity
     options[:series] = [options[:series]] unless options[:series].is_a?(Array)
     options[:series].each do |serie|
       serie[:values].each do |coordinates|
-        coordinates[0] = coordinates[0].utc.l(format: "%Y-%m-%dT%H:%M:%S")
+        coordinates[0] = coordinates[0].utc.l(format: '%Y-%m-%dT%H:%M:%S')
       end
     end
-    html_options[:class] ||= "chart"
-    html_options.deep_merge!(data: {chart: options.to_json})
-    return content_tag(:div, nil, html_options)
+    html_options[:class] ||= 'chart'
+    html_options.deep_merge!(data: { chart: options.to_json })
+    content_tag(:div, nil, html_options)
   end
 
   # Permit to produce pie or gauge
   # Values are represented relatively to all
   #   engine:     Engine for rendering. c3 by default.
-  def tree_distribution_chart(options = {})
-    raise NotImplemented
+  def tree_distribution_chart(_options = {})
+    fail NotImplemented
   end
-
-
 end

@@ -8,36 +8,34 @@ module Ekylibre::Record  #:nodoc:
       attr_reader :resource, :action, :draft
 
       cattr_reader :id
-      @@id = "0"
+      @@id = '0'
 
       def self.next_id
         @@id.succ!
-        return @@id
+        @@id
       end
 
       def initialize(resource, action, draft)
-        raise ArgumentError.new("Unvalid action #{action.inspect} (#{Ekylibre::Record::Bookkeep::actions.to_sentence} are accepted)") unless Ekylibre::Record::Bookkeep::actions.include? action
+        fail ArgumentError.new("Unvalid action #{action.inspect} (#{Ekylibre::Record::Bookkeep.actions.to_sentence} are accepted)") unless Ekylibre::Record::Bookkeep.actions.include? action
         @resource = resource
         @action = action
         @draft = draft
       end
 
-
-
-      def journal_entry(journal, options={}, &block)
+      def journal_entry(journal, options = {}, &_block)
         column = options.delete(:column) || :journal_entry_id
-        condition = (options.has_key?(:if) ? options.delete(:if) : !options.delete(:unless))
+        condition = (options.key?(:if) ? options.delete(:if) : !options.delete(:unless))
 
         attributes = options
-        attributes[:resource]   ||= @resource
+        attributes[:resource] ||= @resource
         # attributes[:state]      ||= @state
         attributes[:printed_on] ||= @resource.created_at.to_date if @resource.respond_to? :created_at
         unless attributes[:printed_on].is_a?(Date)
-          raise ArgumentError, "Date of journal_entry (printed_on) must be given. Date expected, got #{attributes[:printed_on].class.name} (#{attributes[:printed_on].inspect})"
+          fail ArgumentError, "Date of journal_entry (printed_on) must be given. Date expected, got #{attributes[:printed_on].class.name} (#{attributes[:printed_on].inspect})"
         end
         if condition
           unless journal.is_a? Journal
-            raise ArgumentError, "Unknown journal: (#{journal.inspect})"
+            fail ArgumentError, "Unknown journal: (#{journal.inspect})"
           end
           attributes[:journal_id] = journal.id
         end
@@ -45,7 +43,7 @@ module Ekylibre::Record  #:nodoc:
         Ekylibre::Record::Base.transaction do
           if journal_entry = JournalEntry.find_by(id: @resource.send(column))
             # Cancel the existing journal_entry
-            if journal_entry.draft? and condition and (attributes[:journal_id] == journal_entry.journal_id)
+            if journal_entry.draft? && condition && (attributes[:journal_id] == journal_entry.journal_id)
               journal_entry.items.destroy_all
               journal_entry.reload
               journal_entry.update_attributes!(attributes)
@@ -56,18 +54,16 @@ module Ekylibre::Record  #:nodoc:
           end
 
           # Add journal items
-          if block_given? and condition and @action != :destroy
+          if block_given? && condition && @action != :destroy
             journal_entry ||= JournalEntry.create!(attributes)
             yield(journal_entry)
             journal_entry.reload.confirm unless @draft
           end
 
           # Set accounted columns
-          @resource.class.where(:id => @resource.id).update_all(:accounted_at => Time.now, column => (journal_entry ? journal_entry.id : nil))
+          @resource.class.where(id: @resource.id).update_all(:accounted_at => Time.now, column => (journal_entry ? journal_entry.id : nil))
         end
       end
-
-
     end
 
     def self.included(base)
@@ -75,18 +71,17 @@ module Ekylibre::Record  #:nodoc:
     end
 
     module ClassMethods
-
       def bookkeep(options = {}, &block)
-        raise ArgumentError.new("No given block") unless block_given?
-        raise ArgumentError.new("Wrong number of arguments (#{block.arity} for 1)") unless block.arity == 1
-        configuration = {on: Ekylibre::Record::Bookkeep::actions, column: :accounted_at, method_name: __method__ }
+        fail ArgumentError.new('No given block') unless block_given?
+        fail ArgumentError.new("Wrong number of arguments (#{block.arity} for 1)") unless block.arity == 1
+        configuration = { on: Ekylibre::Record::Bookkeep.actions, column: :accounted_at, method_name: __method__ }
         configuration.update(options) if options.is_a?(Hash)
         configuration[:column] = configuration[:column].to_s
         method_name = configuration[:method_name].to_s
         core_method_name ||= "_#{method_name}_#{Ekylibre::Record::Bookkeep::Base.next_id}"
 
         unless columns_definition[configuration[:column]]
-          Rails.logger.fatal "#{configuration[:column]} is needed for #{self.name}::bookkeep"
+          Rails.logger.fatal "#{configuration[:column]} is needed for #{name}::bookkeep"
           # raise StandardError, "#{configuration[:column]} is needed for #{self.name}::bookkeep"
         end
 
@@ -99,7 +94,7 @@ module Ekylibre::Record  #:nodoc:
         code << "end\n"
 
         configuration[:on] = [configuration[:on]].flatten
-        for action in Ekylibre::Record::Bookkeep::actions
+        for action in Ekylibre::Record::Bookkeep.actions
           if configuration[:on].include? action
             code << "after_#{action} do \n"
             code << "  if ::Preference[:bookkeep_automatically]\n"
@@ -111,17 +106,15 @@ module Ekylibre::Record  #:nodoc:
 
         class_eval code
 
-        self.send(:define_method, core_method_name, &block)
+        send(:define_method, core_method_name, &block)
       end
-
     end
 
     module InstanceMethods
       def accounted?
-        not self.accounted_at.nil?
+        !accounted_at.nil?
       end
     end
-
   end
 end
 Ekylibre::Record::Base.send(:include, Ekylibre::Record::Bookkeep)

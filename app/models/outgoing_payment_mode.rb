@@ -35,22 +35,20 @@
 #  with_accounting :boolean          default(FALSE), not null
 #
 
-
 class OutgoingPaymentMode < Ekylibre::Record::Base
   acts_as_list
   belongs_to :cash
-  has_many :payments, class_name: "OutgoingPayment", foreign_key: :mode_id, inverse_of: :mode
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  has_many :payments, class_name: 'OutgoingPayment', foreign_key: :mode_id, inverse_of: :mode
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_inclusion_of :active, :with_accounting, in: [true, false]
   validates_presence_of :name
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_length_of :name, allow_nil: true, maximum: 50
   validates_presence_of :cash
 
   delegate :currency, to: :cash
 
   protect(on: :destroy) do
-    self.payments.any?
+    payments.any?
   end
-
 end

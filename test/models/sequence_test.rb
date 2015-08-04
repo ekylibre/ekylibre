@@ -40,7 +40,6 @@
 #  usage            :string
 #
 
-
 require 'test_helper'
 
 class SequenceTest < ActiveSupport::TestCase

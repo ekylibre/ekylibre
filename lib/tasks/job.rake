@@ -1,9 +1,8 @@
 require 'sidekiq/api'
 
 namespace :job do
-
   task :status do
-    puts "Queues:"
+    puts 'Queues:'
     Sidekiq::Queue.all.each do |queue|
       puts " #{queue.name}:"
       queue.each do |job|
@@ -35,8 +34,7 @@ namespace :job do
       #   'enqueued_at' => 1427811033.2067106 }
     end
   end
-
 end
 
-desc "Show jobs status"
-task :job => "job:status"
+desc 'Show jobs status'
+task job: 'job:status'

@@ -1,24 +1,21 @@
 # Inspired from Redmine and Discourse
 # http://www.redmine.org/projects/redmine/repository/entry/trunk/lib/redmine/plugin.rb
 module Ekylibre
-
   class PluginRequirementError < StandardError
   end
 
   class Plugin
-
     @registered_plugins = {}
 
     cattr_accessor :directory, :mirrored_assets_directory
-    self.directory = Ekylibre.root.join("plugins")
+    self.directory = Ekylibre.root.join('plugins')
     # Where the plugins assets are gathered for asset pipeline
-    self.mirrored_assets_directory = Ekylibre.root.join("tmp", "plugins", "assets")
+    self.mirrored_assets_directory = Ekylibre.root.join('tmp', 'plugins', 'assets')
 
     # Returns a type (stylesheets, fonts...) directory for all plugins
     def self.type_assets_directory(type)
       mirrored_assets_directory.join(type)
     end
-
 
     class << self
       attr_accessor :registered_plugins
@@ -35,14 +32,14 @@ module Ekylibre
 
       # Load all plugins
       def load
-        Dir.glob(File.join(self.directory, '*')).sort.each do |directory|
+        Dir.glob(File.join(directory, '*')).sort.each do |directory|
           if File.directory?(directory)
-            lib = File.join(directory, "lib")
+            lib = File.join(directory, 'lib')
             if File.directory?(lib)
-              $:.unshift lib
+              $LOAD_PATH.unshift lib
               ActiveSupport::Dependencies.autoload_paths += [lib]
             end
-            initializer = File.join(directory, "Plugfile")
+            initializer = File.join(directory, 'Plugfile')
             if File.file?(initializer)
               plugin = new(initializer)
               registered_plugins[plugin.name] = plugin
@@ -65,8 +62,8 @@ module Ekylibre
         generate_javascript_index
       end
 
-      def each(&block)
-        registered_plugins.each do |key, plugin|
+      def each(&_block)
+        registered_plugins.each do |_key, plugin|
           yield plugin
         end
       end
@@ -74,7 +71,7 @@ module Ekylibre
       # Generate a javascript for all plugins which refes by theme to add addons import.
       # This way permit to use natural sprocket cache approach without ERB filtering
       def generate_javascript_index
-        base_dir = Rails.root.join("tmp", "plugins", "javascript-addons")
+        base_dir = Rails.root.join('tmp', 'plugins', 'javascript-addons')
         Rails.application.config.assets.paths << base_dir.to_s
         script = "# This files contains JS addons from plugins\n"
         each do |plugin|
@@ -83,7 +80,7 @@ module Ekylibre
           end
         end
         # <base_dir>/plugins.js.coffee
-        file = base_dir.join("plugins.js.coffee")
+        file = base_dir.join('plugins.js.coffee')
         FileUtils.mkdir_p file.dirname
         File.write(file, script)
       end
@@ -91,13 +88,13 @@ module Ekylibre
       # Generate a stylesheet by theme to add addons import.
       # This way permit to use natural sprocket cache approach without ERB filtering
       def generate_themes_stylesheets
-        base_dir = Rails.root.join("tmp", "plugins", "theme-addons")
+        base_dir = Rails.root.join('tmp', 'plugins', 'theme-addons')
         Rails.application.config.assets.paths << base_dir.to_s
         Ekylibre.themes.each do |theme|
           stylesheet = "// This files contains #{theme} theme addons from plugins\n\n"
           each do |plugin|
             plugin.themes_assets.each do |name, addons|
-              next unless name == theme or name == "*" or (name.respond_to?(:match) and theme.match(name))
+              next unless name == theme || name == '*' || (name.respond_to?(:match) && theme.match(name))
               stylesheet << "// #{plugin.name}\n"
               addons[:stylesheets].each do |file|
                 stylesheet << "@import \"plugins/#{plugin.name}/#{file}\";"
@@ -105,17 +102,15 @@ module Ekylibre
             end
           end
           # <base_dir>/themes/<theme>/plugins.scss
-          file = base_dir.join("themes", theme.to_s, "plugins.scss")
+          file = base_dir.join('themes', theme.to_s, 'plugins.scss')
           FileUtils.mkdir_p file.dirname
           File.write(file, stylesheet)
         end
       end
-
     end
 
     attr_reader :root, :themes_assets, :routes, :javascripts
     field_accessor :name, :summary, :description, :url, :author, :author_url, :version
-
 
     # Links plugin into app
     def initialize(plugfile_path)
@@ -127,26 +122,20 @@ module Ekylibre
       if @name
         @name = @name.to_sym
       else
-        raise "Need a name for plugin #{plugfile_path}"
+        fail "Need a name for plugin #{plugfile_path}"
       end
-      if [:ekylibre].include?(@name)
-        raise "Plugin name cannot be #{@name}."
-      end
+      fail "Plugin name cannot be #{@name}." if [:ekylibre].include?(@name)
 
       # Adds lib
-      @lib_dir = @root.join("lib")
+      @lib_dir = @root.join('lib')
       if @lib_dir.exist?
-        $:.unshift(@lib_dir.to_s)
-        unless @required.is_a?(FalseClass)
-          require @name.to_s
-        end
+        $LOAD_PATH.unshift(@lib_dir.to_s)
+        require @name.to_s unless @required.is_a?(FalseClass)
       end
 
       # Adds rights
-      @right_file = root.join("config", "rights.yml")
-      if @right_file.exist?
-        Ekylibre::Access.load_file(@right_file)
-      end
+      @right_file = root.join('config', 'rights.yml')
+      Ekylibre::Access.load_file(@right_file) if @right_file.exist?
 
       # Adds locales
       Rails.application.config.i18n.load_path += Dir.glob(@root.join('config', 'locales', '**', '*.{rb,yml}'))
@@ -168,9 +157,9 @@ module Ekylibre
         # Emulate "subdir by plugin" config
         # plugins/<plugin>/app/assets/*/ => tmp/plugins/assets/*/plugins/<plugin>/
         Dir.chdir(assets_directory) do
-          Dir.glob("*") do |type|
+          Dir.glob('*') do |type|
             type_dir = self.class.type_assets_directory(type)
-            plugin_type_dir = type_dir.join("plugins", @name.to_s) # mirrored_assets_directory(type)
+            plugin_type_dir = type_dir.join('plugins', @name.to_s) # mirrored_assets_directory(type)
             FileUtils.rm_rf plugin_type_dir
             FileUtils.mkdir_p(plugin_type_dir.dirname) unless plugin_type_dir.dirname.exist?
             FileUtils.ln_sf(assets_directory.join(type).relative_path_from(plugin_type_dir.dirname), plugin_type_dir)
@@ -185,7 +174,6 @@ module Ekylibre
     def app_version
       Ekylibre.version
     end
-
 
     # def gem
     # end
@@ -202,22 +190,19 @@ module Ekylibre
       options = requirements.extract_options!
       requirements.each do |requirement|
         unless requirement =~ /\A((~>|>=|>|<|<=)\s+)?\d.\d(\.[a-z0-9]+)*\z/
-          raise PluginRequirementError, "Invalid version requirement expression: #{requirement}"
+          fail PluginRequirementError, "Invalid version requirement expression: #{requirement}"
         end
       end
       unless Gem::Requirement.new(*requirements) =~ Gem::Version.create(Ekylibre.version)
-        raise PluginRequirementError, "Plugin (#{@name}) is incompatible with current version of app (#{Ekylibre.version} not #{requirements.inspect})"
+        fail PluginRequirementError, "Plugin (#{@name}) is incompatible with current version of app (#{Ekylibre.version} not #{requirements.inspect})"
       end
-      return true
+      true
     end
-
-
 
     # Adds a snippet in app (for side or help places)
     def add_snippet(name, options = {})
       Ekylibre::Snippet.add("#{@name}-#{name}", snippets_directory.join(name), options)
     end
-
 
     # Require a JS file from application.js
     def require_javascript(path)
@@ -245,7 +230,7 @@ module Ekylibre
       Ekylibre::Navigation.exec_dsl(&block)
     end
 
-    # TODO Add other callback for plugin integration
+    # TODO: Add other callback for plugin integration
     # def add_cell
     # end
 
@@ -255,15 +240,15 @@ module Ekylibre
     private
 
     def snippets_directory
-      @view_path.join("snippets")
+      @view_path.join('snippets')
     end
 
     def assets_directory
-      @root.join("app", "assets")
+      @root.join('app', 'assets')
     end
 
     def themes_directory
-      @root.join("app", "themes")
+      @root.join('app', 'themes')
     end
 
     def add_theme_asset(theme, file, type)
@@ -271,6 +256,5 @@ module Ekylibre
       @themes_assets[theme][type] ||= []
       @themes_assets[theme][type] << file
     end
-
   end
 end

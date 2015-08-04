@@ -17,7 +17,6 @@
 #
 
 class Backend::ProductGroupsController < Backend::ProductsController
-
   list do |t|
     # t.action :show, url: {format: :pdf}, image: :print
     t.action :edit
@@ -26,5 +25,4 @@ class Backend::ProductGroupsController < Backend::ProductsController
     t.column :variety
     t.column :description
   end
-
 end

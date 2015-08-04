@@ -1,5 +1,4 @@
 module Aggeratio
-
   class InvalidDocument < StandardError
   end
 
@@ -12,14 +11,13 @@ module Aggeratio
   # autoload :CSV,  'aggeratio/csv'
   # autoload :XSD,  'aggeratio/xsd'
 
-  XMLNS = "http://www.ekylibre.org/XML/2013/aggregators".freeze
-  NS_SEPARATOR = "-"
+  XMLNS = 'http://www.ekylibre.org/XML/2013/aggregators'.freeze
+  NS_SEPARATOR = '-'
 
   @@list = HashWithIndifferentAccess.new
   @@categories = HashWithIndifferentAccess.new
 
   class << self
-
     def each(&block)
       if block.arity == 2
         @@list.each(&block)
@@ -47,13 +45,13 @@ module Aggeratio
         @@categories[cat] ||= []
         @@categories[cat] << aggregator.id unless @@categories[cat].include?(aggregator.id)
       end
-      return true
+      true
     end
 
     # Browse all aggregator elements in XML files
-    def each_xml_aggregator(&block)
-      for path in Dir.glob(root.join("*.xml")).sort
-        f = File.open(path, "rb")
+    def each_xml_aggregator(&_block)
+      for path in Dir.glob(root.join('*.xml')).sort
+        f = File.open(path, 'rb')
         document = Nokogiri::XML(f) do |config|
           config.strict.nonet.noblanks.noent
         end
@@ -71,34 +69,36 @@ module Aggeratio
 
     # Returns the root of the aggregators
     def root
-      Rails.root.join("config", "aggregators")
+      Rails.root.join('config', 'aggregators')
     end
 
     def of_category(cat)
-      return (@@categories[cat] || []).collect{|a| Aggeratio[a]}
+      (@@categories[cat] || []).collect { |a| Aggeratio[a] }
     end
 
     def clean(element)
       # Merge <within>s
       for within in element.xpath('//xmlns:within')
-        name, of, of_type = within.attr('name'), within.attr('of'), within.attr('of-type')
+        name = within.attr('name')
+        of = within.attr('of')
+        of_type = within.attr('of-type')
         of ||= name
         for child in within.children
-          unless child.has_attribute?("value")
-            child["value"] = child.attr("name").to_s
+          unless child.has_attribute?('value')
+            child['value'] = child.attr('name').to_s
           end
           unless of.blank?
-            if child.has_attribute?("of")
-              child["of"] = of + "." + child.attr("of").to_s
+            if child.has_attribute?('of')
+              child['of'] = of + '.' + child.attr('of').to_s
             else
-              child["of"] = of
+              child['of'] = of
             end
           end
-          unless child.has_attribute?("of-type") or of_type.blank?
-            child["of-type"] = of_type
+          unless child.has_attribute?('of-type') || of_type.blank?
+            child['of-type'] = of_type
           end
           if name
-            child["name"] = (child.has_attribute?("name") ? name + "-" + child.attr("name").to_s : name)
+            child['name'] = (child.has_attribute?('name') ? name + '-' + child.attr('name').to_s : name)
           end
           within.add_previous_sibling(child)
         end
@@ -107,27 +107,25 @@ module Aggeratio
 
       # Flatten <section> and <sections>
       for section in element.xpath('//*[self::xmlns:section or self::xmlns:sections]')
-        of, of_type = section.attr('of'), section.attr('of-type')
-        if section.name == "section"
-          section['if'] = of unless of.blank?
-        end
+        of = section.attr('of')
+        of_type = section.attr('of-type')
+        section['if'] = of unless of.blank? if section.name == 'section'
         for child in section.children
           unless of.blank?
-            if child.has_attribute?("of")
-              child["of"] = of + "." + child.attr("of").to_s
+            if child.has_attribute?('of')
+              child['of'] = of + '.' + child.attr('of').to_s
             else
-              child["of"] = of
+              child['of'] = of
             end
           end
-          unless child.has_attribute?("of-type") or of_type.blank?
-            child["of-type"] = of_type
+          unless child.has_attribute?('of-type') || of_type.blank?
+            child['of-type'] = of_type
           end
         end
       end
       # element.to_xml.split(/\n/).each_with_index{|l,i| puts (i+1).to_s.rjust(4)+": "+l}
-      return element
+      element
     end
-
 
     def build(element)
       agg = Base.new(element)
@@ -141,9 +139,9 @@ module Aggeratio
       code << "  class << self\n"
 
       code << "    def parameters\n"
-      code << "      [" + agg.parameters.collect do |parameter|
+      code << '      [' + agg.parameters.collect do |parameter|
         "Parameter.new(#{parameter.name.inspect}, :#{parameter.type}, #{parameter.options.inspect}).freeze"
-      end.join(", ") + "].freeze\n"
+      end.join(', ') + "].freeze\n"
       code << "    end\n"
 
       code << "    def aggregator_name\n"
@@ -157,7 +155,7 @@ module Aggeratio
 
       code << "  end\n"
 
-      params = "options"
+      params = 'options'
       code << "  def initialize(#{params} = nil)\n"
       code << "    #{params} ||= {}\n"
       for p in parameters
@@ -214,7 +212,7 @@ module Aggeratio
       code << "end\n"
 
       if true # Rails.env.development?
-        f = Rails.root.join("tmp", "code", "aggregators", "#{agg.name}.rb")
+        f = Rails.root.join('tmp', 'code', 'aggregators', "#{agg.name}.rb")
         FileUtils.mkdir_p(f.dirname)
         File.write(f, code)
       end
@@ -222,13 +220,10 @@ module Aggeratio
 
       class_eval(code)
 
-      return "Aggeratio::#{agg.class_name}".constantize
+      "Aggeratio::#{agg.class_name}".constantize
     end
-
   end
-
-
 end
 
 Aggeratio.load
-Rails.logger.info "Loaded aggregators: " + Aggeratio.names.to_sentence
+Rails.logger.info 'Loaded aggregators: ' + Aggeratio.names.to_sentence

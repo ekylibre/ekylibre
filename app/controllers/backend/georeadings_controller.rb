@@ -29,5 +29,4 @@ class Backend::GeoreadingsController < Backend::BaseController
     t.column :nature
     t.column :description
   end
-
 end

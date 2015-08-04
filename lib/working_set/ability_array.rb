@@ -1,10 +1,6 @@
 module WorkingSet
-
-
   class AbilityArray < Array
-
     class << self
-
       # Convert DB format (string) to SymbolArray
       # "sow, treat(thing, other_thing), care" => ["sow", "treat(thing, other_thing)", "care"]
       def load(string)
@@ -15,7 +11,7 @@ module WorkingSet
         rescue WorkingSet::SyntaxError => e
           Rails.logger.warn("Cannot parse invalid ability array: #{string.inspect}")
         end
-        if tree and list = tree.list and list.present?
+        if tree && list = tree.list and list.present?
           array << list.first_ability.text_value
           if other_abilities = list.other_abilities and other_abilities.present?
             other_abilities.elements.each do |other_ability|
@@ -24,16 +20,15 @@ module WorkingSet
           end
         end
         # puts "#{string.inspect} => #{array.inspect}".blue
-        return array
+        array
       end
 
       # Convert SymbolArray to DB format (string)
       def dump(array)
         string = [array].flatten.map(&:to_s).sort.join(', ')
         # puts "#{string.inspect} <= #{array.inspect}".red
-        return string
+        string
       end
-
     end
 
     # Checks that all abilities are valid
@@ -47,10 +42,10 @@ module WorkingSet
         end
 
         unless ability_item = Nomen::Abilities.find(ability.ability_name.text_value)
-          raise InvalidExpression, "Unknown ability: #{ability.ability_name.text_value}"
+          fail InvalidExpression, "Unknown ability: #{ability.ability_name.text_value}"
         end
         parameters = []
-        if ability.ability_parameters.present? and ability.ability_parameters.parameters.present?
+        if ability.ability_parameters.present? && ability.ability_parameters.parameters.present?
           ps = ability.ability_parameters.parameters
           parameters << ps.first_parameter
           for other_parameter in ps.other_parameters.elements
@@ -66,32 +61,31 @@ module WorkingSet
               elsif parameter == :issue_nature
                 item = find_nomenclature_item(:issue_natures, parameters[index].text_value)
               else
-                raise StandardError, "What parameter type: #{parameter}?"
+                fail StandardError, "What parameter type: #{parameter}?"
               end
               unless item
-                raise InvalidExpression, "Parameter #{parameter} (#{parameters[index].text_value}) is unknown in its nomenclature"
+                fail InvalidExpression, "Parameter #{parameter} (#{parameters[index].text_value}) is unknown in its nomenclature"
               end
             end
           else
-            raise InvalidExpression, "Argument expected for ability #{ability_item.name}"
+            fail InvalidExpression, "Argument expected for ability #{ability_item.name}"
           end
         else
           if parameters.any?
-            raise InvalidExpression, "No argument expected for ability #{ability_item.name}"
+            fail InvalidExpression, "No argument expected for ability #{ability_item.name}"
           end
         end
       end
-      return true
+      true
     end
 
     protected
 
     def find_nomenclature_item(nomenclature, name)
       unless item = Nomen[nomenclature].find(name)
-        raise "Unknown item in #{nomenclature} nomenclature: #{name}"
+        fail "Unknown item in #{nomenclature} nomenclature: #{name}"
       end
-      return item
+      item
     end
-
   end
 end

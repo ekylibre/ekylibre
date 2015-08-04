@@ -29,7 +29,7 @@ class Backend::GapsController < Backend::BaseController
     t.column :printed_at
   end
 
-  list(:items, model: :gap_items, conditions: {gap_id: 'params[:id]'.c}) do |t|
+  list(:items, model: :gap_items, conditions: { gap_id: 'params[:id]'.c }) do |t|
     t.column :tax, url: true
     t.column :pretax_amount, currency: true
     t.column :amount, currency: true

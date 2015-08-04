@@ -38,11 +38,11 @@
 #
 class ProductJunction < Ekylibre::Record::Base
   include Taskable
-  belongs_to :tool, class_name: "Product"
-  has_many :ways, class_name: "ProductJunctionWay", inverse_of: :junction, foreign_key: :junction_id, dependent: :destroy
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  belongs_to :tool, class_name: 'Product'
+  has_many :ways, class_name: 'ProductJunctionWay', inverse_of: :junction, foreign_key: :junction_id, dependent: :destroy
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_presence_of :started_at, :stopped_at
 
   before_validation do
@@ -51,11 +51,10 @@ class ProductJunction < Ekylibre::Record::Base
   end
 
   class << self
-
     def has_way(name, *args)
       options = args.extract_options!
       options[:nature] ||= :continuity
-      code = ""
+      code = ''
       code << "has_one :#{name}_way, -> { where(role: '#{name}') }, class_name: 'ProductJunctionWay', foreign_key: :junction_id, inverse_of: :junction\n"
       code << "has_one :#{name}, through: :#{name}_way, source: :road\n"
 
@@ -83,9 +82,5 @@ class ProductJunction < Ekylibre::Record::Base
       options[:nature] = :start
       has_way(name, *args, options)
     end
-
   end
-
-
-
 end

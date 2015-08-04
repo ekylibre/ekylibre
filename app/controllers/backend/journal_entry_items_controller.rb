@@ -17,22 +17,21 @@
 #
 
 class Backend::JournalEntryItemsController < Backend::BaseController
-
   unroll :entry_number, :name, :real_debit, :real_credit, :currency, account: :number
 
   def new
-
     @journal_entry_item = JournalEntryItem.new
     @journal_entry_item.name = params[:name] if params[:name]
-    if params["entry-real-debit"] and params["entry-real-credit"]
-      debit, credit = params["entry-real-debit"].to_f, params["entry-real-credit"].to_f
+    if params['entry-real-debit'] && params['entry-real-credit']
+      debit = params['entry-real-debit'].to_f
+      credit = params['entry-real-credit'].to_f
       if debit > credit
         @journal_entry_item.real_credit = debit - credit
       else
         @journal_entry_item.real_debit  = credit - debit
       end
     end
-    if params[:journal_id] and @journal = Journal.find_by(id: params[:journal_id])
+    if params[:journal_id] && @journal = Journal.find_by(id: params[:journal_id])
       if @journal.cashes.count == 1
         @journal_entry_item.account = @journal.cashes.first.account
       end
@@ -42,7 +41,7 @@ class Backend::JournalEntryItemsController < Backend::BaseController
       @financial_year = FinancialYear.at(params[:printed_on])
     end
     if request.xhr?
-      render partial: "backend/journal_entry_items/row_form", object: @journal_entry_item
+      render partial: 'backend/journal_entry_items/row_form', object: @journal_entry_item
     else
       redirect_to_back
     end
@@ -55,5 +54,4 @@ class Backend::JournalEntryItemsController < Backend::BaseController
       redirect_to backend_root_url
     end
   end
-
 end

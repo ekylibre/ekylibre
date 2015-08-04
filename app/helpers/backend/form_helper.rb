@@ -17,7 +17,6 @@
 #
 
 module Backend::FormHelper
-
   # Date field tag override default formize date_field_tag helper to
   # simplify use for now
   def date_field_tag(name, value = nil, html_options = {})
@@ -32,7 +31,7 @@ module Backend::FormHelper
   # simplify use for now
   def datetime_field_tag(name, value = nil, html_options = {})
     html_options[:size] ||= 16
-    html_options[:lang] ||= "i18n.iso2".t
+    html_options[:lang] ||= 'i18n.iso2'.t
     html_options[:type] = :datetime
     html_options[:name] = name
     html_options[:value] = value || params[name]
@@ -45,14 +44,14 @@ module Backend::FormHelper
     datatype = args.shift || options[:datatype]
     value = args.shift || options[:value]
     if datatype == :boolean
-      hidden_field_tag(name, "0") + check_box_tag(name, "1", value)
+      hidden_field_tag(name, '0') + check_box_tag(name, '1', value)
     elsif datatype == :measure
       unless unit = options[:unit] || (value ? value.unit : nil)
-        raise StandardError, "Need unit"
+        fail StandardError, 'Need unit'
       end
-      content_tag(:div, class: "input-append") do
+      content_tag(:div, class: 'input-append') do
         text_field_tag("#{name}[value]", (value ? value.to_d : nil)) +
-          select_tag("#{name}[unit]", options_for_select(Measure.siblings(unit).collect{|u| [Nomen::Units[u].human_name, u]}, (value ? value.unit : unit)))
+          select_tag("#{name}[unit]", options_for_select(Measure.siblings(unit).collect { |u| [Nomen::Units[u].human_name, u] }, (value ? value.unit : unit)))
       end
     elsif [:string, :integer, :decimal].include? datatype
       text_field_tag(name, value)
@@ -68,7 +67,6 @@ module Backend::FormHelper
     end
   end
 
-
   def indicator_field_tag(*args)
     options = args.extract_options!
     name = args.shift
@@ -76,11 +74,11 @@ module Backend::FormHelper
     value = args.shift
     datatype = indicator.datatype
     if datatype == :boolean
-      hidden_field_tag(name, "0") + check_box_tag(name, "1", value)
+      hidden_field_tag(name, '0') + check_box_tag(name, '1', value)
     elsif datatype == :measure
-      content_tag(:div, class: "input-append") do
+      content_tag(:div, class: 'input-append') do
         text_field_tag("#{name}[value]", (value ? value.to_d : nil)) +
-          select_tag("#{name}[unit]", options_for_select(Measure.siblings(indicator.unit).collect{|u| [Nomen::Units[u].human_name, u]}, (value ? value.unit : indicator.unit)))
+          select_tag("#{name}[unit]", options_for_select(Measure.siblings(indicator.unit).collect { |u| [Nomen::Units[u].human_name, u] }, (value ? value.unit : indicator.unit)))
       end
     elsif [:string, :integer, :decimal].include? datatype
       text_field_tag(name, value)
@@ -90,5 +88,4 @@ module Backend::FormHelper
       return indicator.name.upcase
     end
   end
-
 end

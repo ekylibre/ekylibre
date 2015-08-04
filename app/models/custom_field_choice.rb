@@ -34,41 +34,39 @@
 #  value           :string
 #
 
-
 class CustomFieldChoice < Ekylibre::Record::Base
   belongs_to :custom_field, inverse_of: :choices
-  acts_as_list :scope => :custom_field
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  acts_as_list scope: :custom_field
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_presence_of :custom_field, :name
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_presence_of :value
-  validates_uniqueness_of :value, :name, :scope => :custom_field_id
+  validates_uniqueness_of :value, :name, scope: :custom_field_id
 
   before_validation do
-    self.value ||= self.name.to_s.codeize # if self.value.blank?
+    self.value ||= name.to_s.codeize # if self.value.blank?
     self.value = self.value.mb_chars.downcase.gsub(/[[:space:]\_]+/, '-').gsub(/(^\-+|\-+$)/, '')[0..62]
-    if self.custom_field
-      while self.custom_field.choices.where(:value => self.value).where("id != ?", self.id || 0).count > 0
+    if custom_field
+      while custom_field.choices.where(value: self.value).where('id != ?', id || 0).count > 0
         self.value.succ!
       end
     end
   end
 
   before_update do
-    old = self.old_record
-    if self.value != old.value and self.custom_field.column_exists?
-      self.custom_field.customized_model.where(self.custom_field.column_name => old.value).update_all(self.custom_field.column_name => self.value)
+    old = old_record
+    if self.value != old.value && custom_field.column_exists?
+      custom_field.customized_model.where(custom_field.column_name => old.value).update_all(custom_field.column_name => self.value)
     end
   end
 
   # Check that no records are present with this choice
   protect(on: :destroy) do
-    return self.records.any?
+    return records.any?
   end
 
   # Returns all linked records for the given model
   def records
-    return self.custom_field.customized_model.where(self.custom_field.column_name => self.value)
+    custom_field.customized_model.where(custom_field.column_name => self.value)
   end
-
 end

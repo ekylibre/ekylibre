@@ -44,26 +44,25 @@ class LoanRepayment < Ekylibre::Record::Base
   belongs_to :loan
   has_one :cash, through: :loan
   has_one :journal, through: :cash
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_date :due_on, allow_blank: true, on_or_after: Date.civil(1, 1, 1)
   validates_datetime :accounted_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :amount, :base_amount, :insurance_amount, :interest_amount, :remaining_amount, allow_nil: true
   validates_presence_of :amount, :base_amount, :due_on, :insurance_amount, :interest_amount, :loan, :remaining_amount
-  #]VALIDATORS]
+  # ]VALIDATORS]
   delegate :currency, :name, to: :loan
 
   before_validation do
-    self.amount = self.base_amount + self.insurance_amount + self.interest_amount
+    self.amount = base_amount + insurance_amount + interest_amount
   end
 
   bookkeep do |b|
-    b.journal_entry(self.journal, printed_on: self.due_on, if: (self.amount > 0 and self.due_on <= Date.today)) do |entry|
-      label = tc(:bookkeep, resource: self.class.model_name.human, name: self.name, year: self.due_on.year, month: self.due_on.month, position: self.position)
-      entry.add_debit(label, Account.find_or_create_in_chart(:loans).id, self.base_amount) unless self.base_amount.zero?
-      entry.add_debit(label, Account.find_or_create_in_chart(:loans_interests).id, self.interest_amount) unless self.interest_amount.zero?
-      entry.add_debit(label, Account.find_or_create_in_chart(:insurance_expenses).id, self.insurance_amount) unless self.insurance_amount.zero?
-      entry.add_credit(label, self.cash.account_id, self.amount)
+    b.journal_entry(journal, printed_on: due_on, if: (amount > 0 && due_on <= Date.today)) do |entry|
+      label = tc(:bookkeep, resource: self.class.model_name.human, name: name, year: due_on.year, month: due_on.month, position: position)
+      entry.add_debit(label, Account.find_or_create_in_chart(:loans).id, base_amount) unless base_amount.zero?
+      entry.add_debit(label, Account.find_or_create_in_chart(:loans_interests).id, interest_amount) unless interest_amount.zero?
+      entry.add_debit(label, Account.find_or_create_in_chart(:insurance_expenses).id, insurance_amount) unless insurance_amount.zero?
+      entry.add_credit(label, cash.account_id, amount)
     end
   end
-
 end

@@ -66,18 +66,15 @@
 #  vat_subjected             :boolean          default(TRUE), not null
 #
 
-
 require 'test_helper'
 
 class EntityTest < ActiveSupport::TestCase
-
-  test "nature" do
+  test 'nature' do
     entity = Entity.create(nature: :zarb)
-    assert entity.errors.include?(:nature), "Entity must not accept invalid nature"
+    assert entity.errors.include?(:nature), 'Entity must not accept invalid nature'
     entity = Entity.create(nature: :contact)
-    assert !entity.errors.include?(:nature), "Entity must accept contact nature"
+    assert !entity.errors.include?(:nature), 'Entity must accept contact nature'
     entity = Entity.create(nature: :organization)
-    assert !entity.errors.include?(:nature), "Entity must accept organization nature"
+    assert !entity.errors.include?(:nature), 'Entity must accept organization nature'
   end
-
 end

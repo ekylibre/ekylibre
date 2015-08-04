@@ -17,9 +17,9 @@
 #
 
 class Backend::IdentifiersController < Backend::BaseController
-  manage_restfully t3e: {name: :nature}
+  manage_restfully t3e: { name: :nature }
 
-  list conditions: {net_service_id: nil} do |t|
+  list conditions: { net_service_id: nil } do |t|
     t.action :new, on: :none
     t.action :edit
     t.action :destroy

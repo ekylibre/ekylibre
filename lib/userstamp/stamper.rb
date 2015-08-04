@@ -7,7 +7,7 @@ module Userstamp
     module ClassMethods
       def model_stamper
         # don't allow multiple calls
-        return if self.included_modules.include?(Userstamp::Stamper::InstanceMethods)
+        return if included_modules.include?(Userstamp::Stamper::InstanceMethods)
         send(:extend, Userstamp::Stamper::InstanceMethods)
       end
     end
@@ -22,17 +22,17 @@ module Userstamp
                            object
                          end
 
-        Thread.current["#{self.to_s.downcase}_#{self.object_id}_stamper"] = object_stamper
+        Thread.current["#{to_s.downcase}_#{object_id}_stamper"] = object_stamper
       end
 
       # Retrieves the existing stamper for the current request.
       def stamper
-        Thread.current["#{self.to_s.downcase}_#{self.object_id}_stamper"]
+        Thread.current["#{to_s.downcase}_#{object_id}_stamper"]
       end
 
       # Sets the stamper back to +nil+ to prepare for the next request.
       def reset_stamper
-        Thread.current["#{self.to_s.downcase}_#{self.object_id}_stamper"] = nil
+        Thread.current["#{to_s.downcase}_#{object_id}_stamper"] = nil
       end
     end
   end

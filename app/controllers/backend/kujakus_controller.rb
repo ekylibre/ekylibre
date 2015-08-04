@@ -18,7 +18,6 @@
 #
 
 class Backend::KujakusController < Backend::BaseController
-
   # Saves the state of the kujakus クジャク（孔雀）
   def toggle
     collapsed = !params[:collapsed].to_i.zero?
@@ -31,5 +30,4 @@ class Backend::KujakusController < Backend::BaseController
       head :ok
     end
   end
-
 end

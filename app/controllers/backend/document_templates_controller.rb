@@ -17,7 +17,7 @@
 #
 
 class Backend::DocumentTemplatesController < Backend::BaseController
-  manage_restfully language: "Preference[:language]".c
+  manage_restfully language: 'Preference[:language]'.c
 
   unroll
 
@@ -38,5 +38,4 @@ class Backend::DocumentTemplatesController < Backend::BaseController
     notify_success(:update_is_done)
     redirect_to action: :index
   end
-
 end

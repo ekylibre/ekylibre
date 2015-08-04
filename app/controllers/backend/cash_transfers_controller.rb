@@ -32,5 +32,4 @@ class Backend::CashTransfersController < Backend::BaseController
     t.column :transfered_at
     t.column :description, hidden: true
   end
-
 end

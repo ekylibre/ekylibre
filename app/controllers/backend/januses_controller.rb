@@ -17,7 +17,6 @@
 #
 
 class Backend::JanusesController < Backend::BaseController
-
   # Saves the state of the kujakus
   def toggle
     face = params[:face].to_s
@@ -25,15 +24,14 @@ class Backend::JanusesController < Backend::BaseController
     if janus.blank?
       head :not_found
     else
-      default = params[:default] || "list"
+      default = params[:default] || 'list'
       preference_name = "interface.janus.#{janus}.current_face"
       preference = current_user.preferences.find_by(name: preference_name)
-      if face != default or (preference and face != preference.value.to_s)
+      if face != default || (preference && face != preference.value.to_s)
         p = current_user.preference(preference_name, default)
         p.set!(face)
       end
       head :ok
     end
   end
-
 end

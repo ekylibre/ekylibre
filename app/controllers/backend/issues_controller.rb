@@ -17,8 +17,7 @@
 #
 
 class Backend::IssuesController < Backend::BaseController
-
-  manage_restfully t3e: {name: :target_name}, observed_at: "Time.now".c
+  manage_restfully t3e: { name: :target_name }, observed_at: 'Time.now'.c
   manage_restfully_picture
 
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
@@ -27,7 +26,7 @@ class Backend::IssuesController < Backend::BaseController
 
   list do |t|
     t.action :edit
-    t.action :new, url: {controller: :interventions, issue_id: 'RECORD.id'.c, id: nil}
+    t.action :new, url: { controller: :interventions, issue_id: 'RECORD.id'.c, id: nil }
     t.action :destroy, if: :destroyable?
     t.column :name, url: true
     t.column :nature
@@ -37,7 +36,7 @@ class Backend::IssuesController < Backend::BaseController
     t.column :priority, hidden: true
   end
 
-  list(:interventions, conditions: {issue_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
+  list(:interventions, conditions: { issue_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
     t.column :reference_name, label_method: :name, url: true
     t.column :casting, hidden: true
     t.column :started_at
@@ -48,26 +47,19 @@ class Backend::IssuesController < Backend::BaseController
 
   def close
     return unless @issue = find_and_check
-    if @issue.can_close?
-      @issue.close
-    end
+    @issue.close if @issue.can_close?
     redirect_to_back
   end
 
   def abort
     return unless @issue = find_and_check
-    if @issue.can_abort?
-      @issue.abort
-    end
+    @issue.abort if @issue.can_abort?
     redirect_to_back
   end
 
   def reopen
     return unless @issue = find_and_check
-    if @issue.can_reopen?
-      @issue.reopen
-    end
+    @issue.reopen if @issue.can_reopen?
     redirect_to_back
   end
-
 end

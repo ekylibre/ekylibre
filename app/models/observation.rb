@@ -36,37 +36,33 @@
 #  updater_id   :integer
 #
 
-
 class Observation < Ekylibre::Record::Base
   enumerize :importance, in: [:important, :normal, :notice], default: :notice, predicates: true
   belongs_to :subject, polymorphic: true
-  belongs_to :author, class_name: "User"
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  belongs_to :author, class_name: 'User'
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :observed_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_presence_of :author, :content, :importance, :observed_at, :subject, :subject_type
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_length_of :importance, allow_nil: true, maximum: 10
 
   before_validation do
-    if self.subject
-      self.subject_type = self.subject.class.base_class.name
-    end
+    self.subject_type = subject.class.base_class.name if subject
     self.importance ||= self.class.importance.default_value
     self.observed_at ||= Time.now
     self.author_id ||= self.class.stamper_class.stamper rescue nil
   end
 
   validate do
-    if self.observed_at and self.observed_at > Time.now
+    if self.observed_at && self.observed_at > Time.now
       errors.add(:observed_at, :invalid)
     end
   end
 
   def subject_type=(class_name)
     unless normalized_class_name = class_name.to_s.classify.constantize.base_class.name rescue nil
-      raise "Invalid class name: #{class_name.inspect}"
+      fail "Invalid class name: #{class_name.inspect}"
     end
     super(normalized_class_name)
   end
-
 end

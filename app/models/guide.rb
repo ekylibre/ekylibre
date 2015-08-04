@@ -41,38 +41,37 @@
 #
 
 class Guide < Ekylibre::Record::Base
-  has_many :analyses, class_name: "GuideAnalysis"
-  has_one :last_analysis, -> { where(latest: true) }, class_name: "GuideAnalysis"
+  has_many :analyses, class_name: 'GuideAnalysis'
+  has_one :last_analysis, -> { where(latest: true) }, class_name: 'GuideAnalysis'
   enumerize :nature, in: Nomen::GuideNatures.all
   enumerize :frequency, in: [:hourly, :daily, :weekly, :monthly, :yearly, :decadely, :none], default: :none
   enumerize :reference_name, in: []
 
   has_attached_file :reference_source, path: ':tenant/:class/:id/source.xml'
 
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :reference_source_updated_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :reference_source_file_size, allow_nil: true, only_integer: true
   validates_inclusion_of :active, :external, in: [true, false]
   validates_presence_of :frequency, :name, :nature
-  #]VALIDATORS]
-  validates_inclusion_of :nature, in: self.nature.values
-  validates_inclusion_of :frequency, in: self.frequency.values
+  # ]VALIDATORS]
+  validates_inclusion_of :nature, in: nature.values
+  validates_inclusion_of :frequency, in: frequency.values
   validates_attachment_content_type :reference_source, content_type: /xml/
 
   delegate :status, to: :last_analysis, prefix: true
 
   def status
-    self.last_analysis ? self.last_analysis_status : :undefined
+    last_analysis ? last_analysis_status : :undefined
   end
 
   def run!(started_at = Time.now)
     statuses = [:passed, :passed_with_warnings, :failed]
     global_status = statuses.sample
-    analysis = self.analyses.create!(acceptance_status: global_status, started_at: started_at, stopped_at: started_at + 10)
-    (4 * self.name.size).times do |i|
+    analysis = analyses.create!(acceptance_status: global_status, started_at: started_at, stopped_at: started_at + 10)
+    (4 * name.size).times do |i|
       status = statuses[0..(statuses.index(global_status))].sample
-      analysis.points.create!(acceptance_status: status, reference_name: "#{self.name.parameterize.underscore}_check_#{i}", advice_reference_name: (status.to_s == "failed" ? "do_something" : nil))
+      analysis.points.create!(acceptance_status: status, reference_name: "#{name.parameterize.underscore}_check_#{i}", advice_reference_name: (status.to_s == 'failed' ? 'do_something' : nil))
     end
   end
-
 end

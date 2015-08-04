@@ -39,14 +39,14 @@
 #
 class ManureManagementPlan < Ekylibre::Record::Base
   belongs_to :campaign
-  belongs_to :recommender, class_name: "Entity"
-  has_many :zones, class_name: "ManureManagementPlanZone", dependent: :destroy, inverse_of: :plan, foreign_key: :plan_id
+  belongs_to :recommender, class_name: 'Entity'
+  has_many :zones, class_name: 'ManureManagementPlanZone', dependent: :destroy, inverse_of: :plan, foreign_key: :plan_id
   enumerize :default_computation_method, in: Nomen::ManureManagementPlanComputationMethods.all
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :opened_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_inclusion_of :locked, :selected, in: [true, false]
   validates_presence_of :campaign, :default_computation_method, :name, :opened_at, :recommender
-  #]VALIDATORS]
+  # ]VALIDATORS]
 
   accepts_nested_attributes_for :zones
   selects_among_all :selected, scope: :campaign_id
@@ -60,18 +60,18 @@ class ManureManagementPlan < Ekylibre::Record::Base
   after_save :compute
 
   def compute
-    self.zones.map(&:compute)
+    zones.map(&:compute)
   end
 
   def build_missing_zones
     active = false
-    active = true if self.zones.empty?
-    return false unless self.campaign
-    for support in campaign.production_supports.includes(:storage).order(:production_id, "products.name")
+    active = true if zones.empty?
+    return false unless campaign
+    for support in campaign.production_supports.includes(:storage).order(:production_id, 'products.name')
       # support.active? return all activies except fallow_land
-      if support.storage.is_a?(CultivableZone) and support.active?
-        unless self.zones.find_by(support: support)
-          zone = self.zones.build(support: support, computation_method: self.default_computation_method, administrative_area: support.storage.administrative_area, cultivation_variety: support.production_variant.variety, soil_nature: support.storage.soil_nature || support.storage.estimated_soil_nature)
+      if support.storage.is_a?(CultivableZone) && support.active?
+        unless zones.find_by(support: support)
+          zone = zones.build(support: support, computation_method: default_computation_method, administrative_area: support.storage.administrative_area, cultivation_variety: support.production_variant.variety, soil_nature: support.storage.soil_nature || support.storage.estimated_soil_nature)
           zone.estimate_expected_yield
         end
       end
@@ -81,5 +81,4 @@ class ManureManagementPlan < Ekylibre::Record::Base
   def mass_density_unit
     :quintal_per_hectare
   end
-
 end

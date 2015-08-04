@@ -17,23 +17,23 @@
 #
 
 class Backend::SaleOpportunitiesController < Backend::AffairsController
-  manage_restfully currency: "Preference[:currency]".c, responsible: "current_user.person".c, probability_percentage: 50
+  manage_restfully currency: 'Preference[:currency]'.c, responsible: 'current_user.person'.c, probability_percentage: 50
 
   respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
   # management -> sales_conditions
   def self.conditions
-    code = ""
-    code = search_conditions(:sale_opportunities => [:pretax_amount, :number, :description], :entities => [:number, :full_name]) + " ||= []\n"
+    code = ''
+    code = search_conditions(sale_opportunities: [:pretax_amount, :number, :description], entities: [:number, :full_name]) + " ||= []\n"
     code << "if params[:responsible_id].to_i > 0\n"
     code << "  c[0] += \" AND \#{SaleOpportunity.table_name}.responsible_id = ?\"\n"
     code << "  c << params[:responsible_id]\n"
     code << "end\n"
     code << "c\n "
-    return code.c
+    code.c
   end
 
-  list(conditions: conditions, joins: :client, order: {created_at: :desc, number: :desc}) do |t|
+  list(conditions: conditions, joins: :client, order: { created_at: :desc, number: :desc }) do |t|
     t.action :edit
     t.action :destroy
     t.column :number, url: true
@@ -48,7 +48,7 @@ class Backend::SaleOpportunitiesController < Backend::AffairsController
     t.column :pretax_amount, currency: true
   end
 
-  list(:tasks, conditions: {sale_opportunity_id: 'params[:id]'.c}, order: :state, line_class: "RECORD.state".c) do |t|
+  list(:tasks, conditions: { sale_opportunity_id: 'params[:id]'.c }, order: :state, line_class: 'RECORD.state'.c) do |t|
     t.action :edit
     t.action :destroy
     t.column :name, url: true
@@ -71,7 +71,6 @@ class Backend::SaleOpportunitiesController < Backend::AffairsController
   def fire_event(event)
     return unless @sale_opportunity = find_and_check
     @sale_opportunity.send(event)
-    redirect_to params[:redirect] || {action: :show, id: @sale_opportunity.id}
+    redirect_to params[:redirect] || { action: :show, id: @sale_opportunity.id }
   end
-
 end

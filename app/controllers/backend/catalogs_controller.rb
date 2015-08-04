@@ -33,7 +33,7 @@ class Backend::CatalogsController < Backend::BaseController
     t.column :by_default
   end
 
-  list(:items, model: :catalog_items, conditions: {catalog_id: 'params[:id]'.c}) do |t|
+  list(:items, model: :catalog_items, conditions: { catalog_id: 'params[:id]'.c }) do |t|
     t.action :edit
     t.action :destroy
     t.column :name, url: true
@@ -42,5 +42,4 @@ class Backend::CatalogsController < Backend::BaseController
     t.column :all_taxes_included
     t.column :reference_tax, url: true
   end
-
 end

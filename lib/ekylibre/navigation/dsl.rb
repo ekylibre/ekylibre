@@ -1,8 +1,6 @@
 module Ekylibre
   module Navigation
-
     class DSL
-
       def self.run!(tree, &block)
         dsl = new(tree)
         dsl.instance_exec(&block)
@@ -23,9 +21,7 @@ module Ekylibre
 
       def group(name, options = {}, &block)
         unless node = current_node
-          unless node.type == :part
-            raise "group must be in a part"
-          end
+          fail 'group must be in a part' unless node.type == :part
         end
         unless child = node.index[name]
           child = Node.new(:group, name, options)
@@ -36,9 +32,7 @@ module Ekylibre
 
       def item(name, options = {}, &block)
         unless node = current_node
-          unless node.type == :group
-            raise "item must be in a group"
-          end
+          fail 'item must be in a group' unless node.type == :group
         end
         unless child = node.index[name]
           child = Node.new(:item, name, options)
@@ -47,10 +41,8 @@ module Ekylibre
         yield_in_node(child, &block)
       end
 
-      def page(to, options = {}, &block)
-        unless current_node
-          raise "No part/group/item given"
-        end
+      def page(to, options = {}, &_block)
+        fail 'No part/group/item given' unless current_node
         current_node.add_page(to, options)
       end
 
@@ -60,14 +52,12 @@ module Ekylibre
         @stack.first
       end
 
-      def yield_in_node(node, &block)
+      def yield_in_node(node, &_block)
         @stack ||= []
         @stack.insert(0, node)
         yield
         @stack.shift
       end
-
     end
-
   end
 end

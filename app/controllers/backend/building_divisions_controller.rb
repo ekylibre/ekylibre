@@ -17,7 +17,6 @@
 #
 
 class Backend::BuildingDivisionsController < Backend::MattersController
-
   list do |t|
     t.action :edit
     t.action :destroy
@@ -26,5 +25,4 @@ class Backend::BuildingDivisionsController < Backend::MattersController
     t.column :work_number
     t.column :description
   end
-
 end

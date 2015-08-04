@@ -1,39 +1,37 @@
 module Ekylibre::Record
   module Acts #:nodoc:
     module Numbered #:nodoc:
-
       def self.included(base)
         base.extend(ClassMethods)
       end
 
       module ClassMethods
-
         # Use preference to select preferred sequence to attribute number
         # in column
         def acts_as_numbered(*args)
           options = args[-1].is_a?(Hash) ? args.delete_at(-1) : {}
           column = args.shift || :number
 
-          unless self.columns_definition[column]
-            Rails.logger.fatal "Method #{column.inspect} must be an existent column of the table #{self.table_name}"
+          unless columns_definition[column]
+            Rails.logger.fatal "Method #{column.inspect} must be an existent column of the table #{table_name}"
           end
 
-          options = {start: '00000001'}.merge(options)
+          options = { start: '00000001' }.merge(options)
 
           main_class = self
-          while main_class.superclass != Ekylibre::Record::Base and main_class.superclass != ActiveRecord::Base
-            main_class = self.superclass
+          while main_class.superclass != Ekylibre::Record::Base && main_class.superclass != ActiveRecord::Base
+            main_class = superclass
           end
           class_name = main_class.name
 
           usage = options[:usage] || class_name.tableize
           unless Sequence.usage.values.include?(usage)
-            raise "Usage #{usage} must be defined in Sequence usages"
+            fail "Usage #{usage} must be defined in Sequence usages"
           end
 
           last  = "#{class_name}.where('#{column} IS NOT NULL').reorder('LENGTH(#{column}) DESC, #{column} DESC').first"
 
-          code  = ""
+          code  = ''
 
           code << "attr_readonly :#{column}\n" unless options[:readonly].is_a? FalseClass
 
@@ -52,7 +50,6 @@ module Ekylibre::Record
           code << "  end\n" if options[:force].is_a?(FalseClass)
           code << "  return true\n"
           code << "end\n"
-
 
           code << "def load_unique_reliable_#{column}\n"
           code << "  unless self.#{column}\n" if options[:force].is_a?(FalseClass)
@@ -75,7 +72,6 @@ module Ekylibre::Record
           class_eval code
         end
       end
-
     end
   end
 end

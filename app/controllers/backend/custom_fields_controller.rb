@@ -21,9 +21,9 @@ class Backend::CustomFieldsController < Backend::BaseController
   manage_restfully_list
   unroll
 
-  list(order: "customized_type, position") do |t|
-    t.action :up, method: :post, :unless => :first?
-    t.action :down, method: :post, :unless => :last?
+  list(order: 'customized_type, position') do |t|
+    t.action :up, method: :post, unless: :first?
+    t.action :down, method: :post, unless: :last?
     t.action :edit
     t.action :destroy, if: :destroyable?
     t.column :name, url: true
@@ -31,12 +31,12 @@ class Backend::CustomFieldsController < Backend::BaseController
     t.column :nature
     t.column :required
     t.column :active
-    t.column :choices_count, :datatype => :integer
+    t.column :choices_count, datatype: :integer
   end
 
-  list(:choices, model: :custom_field_choices, conditions: {custom_field_id: 'params[:id]'.c}, order: 'position') do |t|
-    t.action :up, :unless => :first?, method: :post
-    t.action :down, :unless => :last?, method: :post
+  list(:choices, model: :custom_field_choices, conditions: { custom_field_id: 'params[:id]'.c }, order: 'position') do |t|
+    t.action :up, unless: :first?, method: :post
+    t.action :down, unless: :last?, method: :post
     t.action :edit
     t.action :destroy, if: :destroyable?
     t.column :name
@@ -49,5 +49,4 @@ class Backend::CustomFieldsController < Backend::BaseController
     @custom_field.sort_choices!
     redirect_to_back
   end
-
 end

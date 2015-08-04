@@ -17,18 +17,17 @@
 #
 
 class Backend::ListingsController < Backend::BaseController
-
   unroll
 
   list(order: :name) do |t|
-    t.action :extract, url: {format: :csv}, image: :action
+    t.action :extract, url: { format: :csv }, image: :action
     # t.action :extract, url: {format: :csv, mode: :no_mail}, if: :can_mail?, image: :nomail
     t.action :mail, if: :can_mail?
     t.action :duplicate, method: :post
     t.action :edit
     t.action :destroy
     t.action :new, on: :none
-    t.column :name, url: {action: :edit}
+    t.column :name, url: { action: :edit }
     t.column :root_model_name
     t.column :description
   end
@@ -44,27 +43,27 @@ class Backend::ListingsController < Backend::BaseController
       @listing.save unless @listing.query?
       query = @listing.query.to_s
       # FIXME: This is dirty code to solve quickly no_mail mode
-      query.gsub!(" ORDER BY ", " AND (" + @listing.coordinate_columns.collect{|c| "#{c.name} NOT LIKE '%@%.%'" }.join(" AND ") + ") ORDER BY ") if params[:mode] == "no_mail"
+      query.gsub!(' ORDER BY ', ' AND (' + @listing.coordinate_columns.collect { |c| "#{c.name} NOT LIKE '%@%.%'" }.join(' AND ') + ') ORDER BY ') if params[:mode] == 'no_mail'
       # FIXME: Manage suppression of CURRENT_COMPANY...
       first_item = []
-      @listing.exportable_columns.each {|item| first_item << item.label}
+      @listing.exportable_columns.each { |item| first_item << item.label }
       result = ActiveRecord::Base.connection.select_rows(query)
       result.insert(0, first_item)
 
       respond_to do |format|
-        format.xml { render :xml => result.to_xml, :filename => @listing.name.simpleize+'.xml' }
+        format.xml { render xml: result.to_xml, filename: @listing.name.simpleize + '.xml' }
         format.csv do
           csv_string = Ekylibre::CSV.generate do |csv|
             for item in result
               csv << item
             end
           end
-          send_data(csv_string, :filename => @listing.name.simpleize+'.csv', :type => Mime::CSV)
+          send_data(csv_string, filename: @listing.name.simpleize + '.csv', type: Mime::CSV)
         end
       end
 
     rescue Exception => e
-      notify_error(:fails_to_extract_listing, :message => e.message)
+      notify_error(:fails_to_extract_listing, message: e.message)
       redirect_to_back
     end
   end
@@ -76,7 +75,7 @@ class Backend::ListingsController < Backend::BaseController
 
   def create
     @listing = Listing.new listing_params
-    return if save_and_redirect(@listing, url: {action: :edit, id: "id".c})
+    return if save_and_redirect(@listing, url: { action: :edit, id: 'id'.c })
     # render_restfully_form
   end
 
@@ -89,16 +88,14 @@ class Backend::ListingsController < Backend::BaseController
   def update
     return unless @listing = find_and_check
     @listing.attributes = listing_params
-    return if save_and_redirect(@listing, url: {action: :edit, id: "id".c})
+    return if save_and_redirect(@listing, url: { action: :edit, id: 'id'.c })
     t3e @listing.attributes
     # render_restfully_form
   end
 
   def destroy
     return unless @listing = find_and_check
-    if request.post? or request.delete?
-      Listing.destroy(@listing.id) if @listing
-    end
+    Listing.destroy(@listing.id) if @listing if request.post? || request.delete?
     redirect_to action: :index
   end
 
@@ -115,17 +112,17 @@ class Backend::ListingsController < Backend::BaseController
       query = @listing.query
     end
     query = query.to_s
-    if !@listing.can_mail? or query.blank?
+    if !@listing.can_mail? || query.blank?
       notify_warning(:you_must_have_an_email_column)
       redirect_to_back
       return
     end
-    if session[:listing_coordinate_column] or @listing.coordinate_columns.count == 1
+    if session[:listing_coordinate_column] || @listing.coordinate_columns.count == 1
       full_results = ActiveRecord::Base.connection.select_all(query)
       listing_coordinate_column = @listing.coordinate_columns.count == 1 ? @listing.coordinate_columns[0] : find_and_check(:listing_node, session[:listing_coordinate_column])
-      #raise StandardError.new listing_coordinate_column.inspect
-      results = full_results.select{|c| !c[listing_coordinate_column.label].blank? }
-      @mails = results.collect{|c| c[listing_coordinate_column.label] }
+      # raise StandardError.new listing_coordinate_column.inspect
+      results = full_results.select { |c| !c[listing_coordinate_column.label].blank? }
+      @mails = results.collect { |c| c[listing_coordinate_column.label] }
       # @mails.uniq! ### CHECK ????????
       @columns = (full_results.size > 0 ? full_results[0].keys.sort : [])
       session[:mail] ||= {}
@@ -141,7 +138,7 @@ class Backend::ListingsController < Backend::BaseController
         if attachment = (params[:attachment].blank? ? nil : params[:attachment])
           # file = "#{Rails.root.to_s}/tmp/uploads/attachment_#{attachment.original_filename.gsub(/\W/,'_')}"
           # File.open(file, "wb") { |f| f.write(attachment.read)}
-          attachment = {:filename => attachment.original_filename, :content_type => attachment.content_type, :body => attachment.read.dup}
+          attachment = { filename: attachment.original_filename, content_type: attachment.content_type, body: attachment.read.dup }
         end
         if params[:send_test]
           results = [results[0]]
@@ -150,7 +147,7 @@ class Backend::ListingsController < Backend::BaseController
         for result in results
           ts = texts.collect do |t|
             r = t.to_s.dup
-            @columns.each{|c| r.gsub!(/\{\{#{c}\}\}/, result[c].to_s)}
+            @columns.each { |c| r.gsub!(/\{\{#{c}\}\}/, result[c].to_s) }
             r
           end
           Mailman.mailing(params[:from], result[listing_coordinate_column.label], ts[0], ts[1], attachment).deliver
@@ -164,8 +161,7 @@ class Backend::ListingsController < Backend::BaseController
 
   protected
 
-  def listing_params()
+  def listing_params
     params.require(:listing).permit!
   end
-
 end

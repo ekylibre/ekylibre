@@ -1,6 +1,5 @@
 module Ekylibre
   module FirstRun
-
     class Counter
       attr_reader :count
 
@@ -16,12 +15,8 @@ module Ekylibre
       def check_point(increment = 1)
         @count += increment
         @block.call(@count, increment) if @block
-        if @maximum > 0
-          raise CountExceeded if @count >= @maximum
-        end
+        fail CountExceeded if @count >= @maximum if @maximum > 0
       end
-
     end
-
   end
 end

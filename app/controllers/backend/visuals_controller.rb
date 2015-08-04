@@ -27,5 +27,4 @@ class Backend::VisualsController < Backend::BaseController
       head :not_found
     end
   end
-
 end

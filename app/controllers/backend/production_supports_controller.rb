@@ -17,12 +17,12 @@
 #
 
 class Backend::ProductionSupportsController < Backend::BaseController
-  manage_restfully(t3e: {name: :name}, only: :show)
+  manage_restfully(t3e: { name: :name }, only: :show)
 
-  unroll production: [:name, {activity: :name, campaign: :name, variant: :name}], storage: :name
+  unroll production: [:name, { activity: :name, campaign: :name, variant: :name }], storage: :name
 
   # List interventions for one production support
-  list(:interventions, conditions: {production_support_id: 'params[:id]'.c}, order: {created_at: :desc}, line_class: :status) do |t|
+  list(:interventions, conditions: { production_support_id: 'params[:id]'.c }, order: { created_at: :desc }, line_class: :status) do |t|
     t.column :name, url: true
     t.status
     t.column :issue, url: true
@@ -30,5 +30,4 @@ class Backend::ProductionSupportsController < Backend::BaseController
     t.column :stopped_at, hidden: true
     # t.column :provisional
   end
-
 end

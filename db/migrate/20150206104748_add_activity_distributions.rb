@@ -1,6 +1,5 @@
 class AddActivityDistributions < ActiveRecord::Migration
   def change
-
     reversible do |dir|
       dir.up do
         execute "UPDATE activities SET nature = 'standalone' WHERE nature ='none'"
@@ -21,17 +20,16 @@ class AddActivityDistributions < ActiveRecord::Migration
 
     create_table :activity_distributions do |t|
       t.references :activity,                                        null: false, index: true
-      t.decimal    :affectation_percentage, precision: 19, scale: 4, null: false
+      t.decimal :affectation_percentage, precision: 19, scale: 4, null: false
       t.references :main_activity,                                   null: false, index: true
       t.stamps
     end
 
     create_table :production_distributions do |t|
       t.references :production,                                      null: false, index: true
-      t.decimal    :affectation_percentage, precision: 19, scale: 4, null: false
+      t.decimal :affectation_percentage, precision: 19, scale: 4, null: false
       t.references :main_production,                                 null: false, index: true
       t.stamps
     end
-
   end
 end

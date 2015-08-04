@@ -1,7 +1,5 @@
 module Ekylibre::FirstRun::Faker
-
   class Interventions < Base
-
     def run
       # interventions for all poaceae
       autumn_sowables = [:poa, :hordeum_hibernum, :secale, :triticosecale, :triticum, :brassica_napus, :pisum_hibernum].collect do |n|
@@ -18,7 +16,7 @@ module Ekylibre::FirstRun::Faker
 
       GC.start
 
-      self.count :cultural_interventions do |w|
+      count :cultural_interventions do |w|
         workers = Worker.all
         products = {
           manure: Product.where(variety: :manure).can('fertilize').all,
@@ -31,19 +29,19 @@ module Ekylibre::FirstRun::Faker
           sow: Product.can('sow').all,
           sprayer: Product.can('spray').all,
           fertilizer: Product.where(variety: :preparation).can('fertilize').all,
-          plant_medicine: Product.where(variety: :preparation).can('care(plant)').all,
+          plant_medicine: Product.where(variety: :preparation).can('care(plant)').all
         }
         Production.joins(:variant, :activity, :campaign).find_each do |production|
           next unless production.active?
           variety = Nomen::Varieties[production.variant.variety]
-          if autumn_sowables.detect{|v| variety <= v}
+          if autumn_sowables.detect { |v| variety <= v }
             year = production.campaign.name.to_i
             Ekylibre::FirstRun::Booker.production = production
-            production.supports.joins(:storage,:activity).find_each do |support|
+            production.supports.joins(:storage, :activity).find_each do |support|
               next unless support.active?
               land_parcel = support.storage
               next unless area = land_parcel.shape_area
-              coeff = (area.to_s.to_f / 10000.0) / 6.0
+              coeff = (area.to_s.to_f / 10_000.0) / 6.0
               # 7.99 -> 20.11 -> 40.21
 
               # Organic Fertilizing  01-09-N-1 -> 30-09-N-1
@@ -57,7 +55,7 @@ module Ekylibre::FirstRun::Faker
               end
 
               # Plowing 15-09-N -> 15-10-N
-              Ekylibre::FirstRun::Booker.intervene(:plowing, year - 1, 9, 15, 9.78 * coeff, support: support, parameters: {readings: {"base-plowing-0-500-1" => "plowed"}}) do |i|
+              Ekylibre::FirstRun::Booker.intervene(:plowing, year - 1, 9, 15, 9.78 * coeff, support: support, parameters: { readings: { 'base-plowing-0-500-1' => 'plowed' } }) do |i|
                 i.add_cast(reference_name: 'driver',  actor: workers.sample)
                 i.add_cast(reference_name: 'tractor', actor: products[:tractor][:plower].sample)
                 i.add_cast(reference_name: 'plow',    actor: products[:plow].sample)
@@ -65,16 +63,15 @@ module Ekylibre::FirstRun::Faker
               end
 
               # Sowing 15-10-N -> 30-10-N
-              int = Ekylibre::FirstRun::Booker.intervene(:sowing, year - 1, 10, 15, 6.92 * coeff, range: 15, support: support, parameters: {readings: {"base-sowing-0-750-2" => 2000000 + rand(250000)}}) do |i|
-                i.add_cast(reference_name: 'seeds',        actor: i.find(Product, variety: :seed, derivative_of: variety.name, can: "grow"))
+              int = Ekylibre::FirstRun::Booker.intervene(:sowing, year - 1, 10, 15, 6.92 * coeff, range: 15, support: support, parameters: { readings: { 'base-sowing-0-750-2' => 2_000_000 + rand(250_000) } }) do |i|
+                i.add_cast(reference_name: 'seeds',        actor: i.find(Product, variety: :seed, derivative_of: variety.name, can: 'grow'))
                 i.add_cast(reference_name: 'seeds_to_sow', population: rand(5) + 1)
                 i.add_cast(reference_name: 'sower',        actor: products[:sow].sample)
                 i.add_cast(reference_name: 'driver',       actor: workers.sample)
                 i.add_cast(reference_name: 'tractor',      actor: products[:tractor][:sower].sample)
                 i.add_cast(reference_name: 'land_parcel',  actor: land_parcel)
-                i.add_cast(reference_name: 'cultivation',  variant: ProductNatureVariant.find_or_import!(variety.name).first, population: (area.to_s.to_f / 10000.0), shape: land_parcel.shape)
+                i.add_cast(reference_name: 'cultivation',  variant: ProductNatureVariant.find_or_import!(variety.name).first, population: (area.to_s.to_f / 10_000.0), shape: land_parcel.shape)
               end
-
 
               # Fertilizing  01-03-M -> 31-03-M
               Ekylibre::FirstRun::Booker.intervene(:mineral_fertilizing, year, 3, 1, 0.96 * coeff, support: support) do |i|
@@ -105,7 +102,7 @@ module Ekylibre::FirstRun::Faker
       end
       GC.start
 
-      self.count :zea_cultural_interventions do |w|
+      count :zea_cultural_interventions do |w|
         workers = Worker.all
         products = {
           tractor: { spreader: Product.can('tow(spreader)').all,
@@ -119,7 +116,7 @@ module Ekylibre::FirstRun::Faker
           fertilizer: Product.where(variety: :preparation).can('fertilize').all,
           plant_medicine: Product.where(variety: :preparation).can('care(plant)', 'kill(plant)').all,
           insecticide: Product.where(variety: :preparation).can('kill(insecta)').all,
-          molluscicide: Product.where(variety: :preparation).can('kill(gastropoda)').all,
+          molluscicide: Product.where(variety: :preparation).can('kill(gastropoda)').all
         }
         equipments = {
           sower: Equipment.can('spread(preparation)', 'sow', 'spray').all,
@@ -128,17 +125,17 @@ module Ekylibre::FirstRun::Faker
         Production.joins(:variant, :activity, :campaign).find_each do |production|
           next unless production.active?
           variety = Nomen::Varieties[production.variant.variety]
-          if later_spring_sowables.detect{|v| variety <= v}
+          if later_spring_sowables.detect { |v| variety <= v }
             year = production.campaign.name.to_i
             Ekylibre::FirstRun::Booker.production = production
-            production.supports.joins(:activity,:storage).find_each do |support|
+            production.supports.joins(:activity, :storage).find_each do |support|
               next unless support.active?
               land_parcel = support.storage
               next unless area = land_parcel.shape_area
-              coeff = (area.to_s.to_f / 10000.0) / 6.0
+              coeff = (area.to_s.to_f / 10_000.0) / 6.0
 
               # Plowing 15-03-N -> 15-04-N
-              Ekylibre::FirstRun::Booker.intervene(:plowing, year, 4, 15, 9.78 * coeff, support: support, parameters: {readings: {"base-plowing-0-500-1" => "plowed"}}) do |i|
+              Ekylibre::FirstRun::Booker.intervene(:plowing, year, 4, 15, 9.78 * coeff, support: support, parameters: { readings: { 'base-plowing-0-500-1' => 'plowed' } }) do |i|
                 i.add_cast(reference_name: 'driver',  actor: workers.sample)
                 i.add_cast(reference_name: 'tractor', actor: products[:tractor][:plower].sample)
                 i.add_cast(reference_name: 'plow',    actor: products[:plow].sample)
@@ -146,8 +143,8 @@ module Ekylibre::FirstRun::Faker
               end
 
               # Sowing 15-04-N -> 30-05-N
-              int = Ekylibre::FirstRun::Booker.intervene(:all_in_one_sowing, year, 5, 2, 6.92 * coeff, range: 15, support: support, parameters: {readings: {"base-all_in_one_sowing-0-1200-2" => 80000 + rand(10000)}}) do |i|
-                i.add_cast(reference_name: 'seeds',        actor: i.find(Product, variety: :seed, derivative_of: variety.name, can: "grow"))
+              int = Ekylibre::FirstRun::Booker.intervene(:all_in_one_sowing, year, 5, 2, 6.92 * coeff, range: 15, support: support, parameters: { readings: { 'base-all_in_one_sowing-0-1200-2' => 80_000 + rand(10_000) } }) do |i|
+                i.add_cast(reference_name: 'seeds',        actor: i.find(Product, variety: :seed, derivative_of: variety.name, can: 'grow'))
                 i.add_cast(reference_name: 'seeds_to_sow', population: (rand(4) + 6) * coeff)
 
                 i.add_cast(reference_name: 'fertilizer',   actor: products[:fertilizer].sample)
@@ -160,7 +157,7 @@ module Ekylibre::FirstRun::Faker
                 i.add_cast(reference_name: 'driver',       actor: workers.sample)
                 i.add_cast(reference_name: 'tractor',      actor: products[:tractor][:sower].sample)
                 i.add_cast(reference_name: 'land_parcel',  actor: land_parcel)
-                i.add_cast(reference_name: 'cultivation',  variant: ProductNatureVariant.find_or_import!(variety.name).first, population: (area.to_s.to_f / 10000.0), shape: land_parcel.shape)
+                i.add_cast(reference_name: 'cultivation',  variant: ProductNatureVariant.find_or_import!(variety.name).first, population: (area.to_s.to_f / 10_000.0), shape: land_parcel.shape)
               end
 
               # Fertilizing  01-05-M -> 15-06-M
@@ -189,7 +186,7 @@ module Ekylibre::FirstRun::Faker
               end
 
               # Hoeing  01-06-M -> 30-07-M
-              Ekylibre::FirstRun::Booker.intervene(:hoeing, year, 6, 20, 3 * coeff, support: support, parameters: {readings: {"base-hoeing-0-500-1" => "covered"}}) do |i|
+              Ekylibre::FirstRun::Booker.intervene(:hoeing, year, 6, 20, 3 * coeff, support: support, parameters: { readings: { 'base-hoeing-0-500-1' => 'covered' } }) do |i|
                 i.add_cast(reference_name: 'cultivator',  actor: equipments[:hoe].sample)
                 i.add_cast(reference_name: 'driver',      actor: workers.sample)
                 i.add_cast(reference_name: 'tractor',     actor: products[:tractor][:equipment].sample)
@@ -201,8 +198,7 @@ module Ekylibre::FirstRun::Faker
         end
       end
 
-
-      self.count :irrigation_interventions do |w|
+      count :irrigation_interventions do |w|
         a = Activity.of_families(:maize_crops)
         Production.of_activities(a).where(irrigated: true).joins(:activity, :campaign).find_each do |production|
           next unless production.active?
@@ -212,7 +208,7 @@ module Ekylibre::FirstRun::Faker
             next unless support.active?
             land_parcel = support.storage
             next unless area = land_parcel.shape_area
-            coeff = (area.to_s.to_f / 10000.0) / 6.0
+            coeff = (area.to_s.to_f / 10_000.0) / 6.0
 
             if sowing_intervention = support.interventions.of_nature(:sowing).reorder(:started_at).last
               cultivation = sowing_intervention.casts.find_by(reference_name: 'cultivation').actor
@@ -220,7 +216,7 @@ module Ekylibre::FirstRun::Faker
               Ekylibre::FirstRun::Booker.intervene(:watering, year, 7, 15, 0.96 * coeff, support: support) do |i|
                 i.add_cast(reference_name: 'water',      actor: i.find(Product, variety: :water))
                 i.add_cast(reference_name: 'water_to_spread', population: 200 * coeff)
-                i.add_cast(reference_name: 'spreader',    actor: i.find(Product, can: "spread(water)"))
+                i.add_cast(reference_name: 'spreader',    actor: i.find(Product, can: 'spread(water)'))
                 i.add_cast(reference_name: 'land_parcel', actor: land_parcel)
                 i.add_cast(reference_name: 'cultivation', actor: cultivation)
               end
@@ -231,35 +227,35 @@ module Ekylibre::FirstRun::Faker
       end
 
       # interventions for grass
-      self.count :grass_interventions do |w|
-        Production.joins(:variant,:activity,:campaign).find_each do |production|
+      count :grass_interventions do |w|
+        Production.joins(:variant, :activity, :campaign).find_each do |production|
           next unless production.active?
           variety = Nomen::Varieties[production.variant.variety]
           next unless variety <= :poa
           year = production.campaign.name.to_i
           Ekylibre::FirstRun::Booker.production = production
-          production.supports.joins(:storage,:activity).find_each do |support|
+          production.supports.joins(:storage, :activity).find_each do |support|
             next unless support.active?
             land_parcel = support.storage
             next unless area = land_parcel.shape_area
-            coeff = (area.to_s.to_f / 10000.0) / 6.0
+            coeff = (area.to_s.to_f / 10_000.0) / 6.0
             bob = nil
-            sowing = support.interventions.where(reference_name: "sowing").where("started_at < ?", Date.civil(year, 6, 6)).order("stopped_at DESC").first
+            sowing = support.interventions.where(reference_name: 'sowing').where('started_at < ?', Date.civil(year, 6, 6)).order('stopped_at DESC').first
             if cultivation = sowing.casts.find_by(reference_name: 'cultivation').actor rescue nil
               int = Ekylibre::FirstRun::Booker.intervene(:plant_mowing, year, 6, 6, 2.8 * coeff, support: support) do |i|
                 bob = i.find(Worker)
                 i.add_cast(reference_name: 'mower_driver', actor: bob)
-                i.add_cast(reference_name: 'tractor',      actor: i.find(Product, can: "tow(mower)"))
-                i.add_cast(reference_name: 'mower',        actor: i.find(Product, can: "mow"))
+                i.add_cast(reference_name: 'tractor',      actor: i.find(Product, can: 'tow(mower)'))
+                i.add_cast(reference_name: 'mower',        actor: i.find(Product, can: 'mow'))
                 i.add_cast(reference_name: 'cultivation',  actor: cultivation)
                 i.add_cast(reference_name: 'straw', population: 1.5 * coeff, variant: ProductNatureVariant.find_or_import!(:straw, derivative_of: cultivation.variety).first)
               end
 
               straw = int.casts.find_by(reference_name: 'straw').actor
               Ekylibre::FirstRun::Booker.intervene(:straw_bunching, year, 6, 20, 3.13 * coeff, support: support) do |i|
-                i.add_cast(reference_name: 'tractor',        actor: i.find(Product, can: "tow(baler)"))
+                i.add_cast(reference_name: 'tractor',        actor: i.find(Product, can: 'tow(baler)'))
                 i.add_cast(reference_name: 'baler_driver',   actor: i.find(bob.others))
-                i.add_cast(reference_name: 'baler',          actor: i.find(Product, can: "bunch"))
+                i.add_cast(reference_name: 'baler',          actor: i.find(Product, can: 'bunch'))
                 i.add_cast(reference_name: 'straw_to_bunch', actor: straw)
                 i.add_cast(reference_name: 'straw_bales', population: 1.5 * coeff, variant: ProductNatureVariant.import_from_nomenclature(cultivation.variety.to_s == 'triticum_durum' ? :hard_wheat_straw_bales : :wheat_straw_bales))
               end
@@ -270,23 +266,23 @@ module Ekylibre::FirstRun::Faker
       end
 
       # interventions for cereals
-      self.count :cereals_interventions do |w|
-        Production.joins(:variant,:activity,:campaign).find_each do |production|
+      count :cereals_interventions do |w|
+        Production.joins(:variant, :activity, :campaign).find_each do |production|
           next unless production.active?
           variety = Nomen::Varieties[production.variant.variety]
-          next unless variety <= :triticum_aestivum or variety <= :triticum_durum or variety <= :zea or variety <= :hordeum
+          next unless variety <= :triticum_aestivum || variety <= :triticum_durum || variety <= :zea || variety <= :hordeum
           year = production.campaign.name.to_i
           Ekylibre::FirstRun::Booker.production = production
-          production.supports.joins(:storage,:activity).find_each do |support|
+          production.supports.joins(:storage, :activity).find_each do |support|
             next unless support.active?
             land_parcel = support.storage
             next unless area = land_parcel.shape_area
-            coeff = (area.to_s.to_f / 10000.0) / 6.0
+            coeff = (area.to_s.to_f / 10_000.0) / 6.0
             # Harvest 01-07-M 30-07-M
-            sowing = support.interventions.where(reference_name: "sowing").where("started_at < ?", Date.civil(year, 7, 1)).order("stopped_at DESC").first
+            sowing = support.interventions.where(reference_name: 'sowing').where('started_at < ?', Date.civil(year, 7, 1)).order('stopped_at DESC').first
             if cultivation = sowing.casts.find_by(reference_name: 'cultivation').actor rescue nil
               Ekylibre::FirstRun::Booker.intervene(:grains_harvest, year, 7, 1, 3.13 * coeff, support: support) do |i|
-                i.add_cast(reference_name: 'cropper',        actor: i.find(Product, can: "harvest(poaceae)"))
+                i.add_cast(reference_name: 'cropper',        actor: i.find(Product, can: 'harvest(poaceae)'))
                 i.add_cast(reference_name: 'cropper_driver', actor: i.find(Worker))
                 i.add_cast(reference_name: 'cultivation',    actor: cultivation)
                 i.add_cast(reference_name: 'grains',         population: 4.2 * coeff, variant: ProductNatureVariant.find_or_import!(:grain, derivative_of: cultivation.variety).first)
@@ -300,10 +296,10 @@ module Ekylibre::FirstRun::Faker
       GC.start
 
       # intervention for animal treatment
-      self.count :animal_treatment_interventions do |w|
+      count :animal_treatment_interventions do |w|
         workers = Worker.all
         products = Product.where(variety: 'preparation').can('care(bos)').all
-        Production.joins(:variant,:campaign).find_each do |production|
+        Production.joins(:variant, :campaign).find_each do |production|
           variety = Nomen::Varieties[production.variant.variety]
           next unless variety <= :bos
           year = production.campaign.name.to_i
@@ -311,7 +307,7 @@ module Ekylibre::FirstRun::Faker
           production.supports.joins(:storage).find_each do |support|
             next unless support.storage.is_a?(AnimalGroup)
             support.storage.members_at.find_each do |animal|
-              Ekylibre::FirstRun::Booker.intervene(:animal_treatment, year - 1, 9, 15, 0.5, support: support, parameters: {readings: {"base-animal_treatment-0-100-1" => "false"}}) do |i|
+              Ekylibre::FirstRun::Booker.intervene(:animal_treatment, year - 1, 9, 15, 0.5, support: support, parameters: { readings: { 'base-animal_treatment-0-100-1' => 'false' } }) do |i|
                 i.add_cast(reference_name: 'animal',           actor: animal)
                 i.add_cast(reference_name: 'caregiver',        actor: workers.sample)
                 i.add_cast(reference_name: 'animal_medicine',  actor: products.sample)
@@ -325,26 +321,26 @@ module Ekylibre::FirstRun::Faker
       end
 
       # intervention for animal insemination
-      self.count :animal_insemination_interventions do |w|
+      count :animal_insemination_interventions do |w|
         workers = Worker.can('administer_inseminate(animal)').all
         products = Product.where(variety: :vial).derivative_of(:bos).can('inseminate(animal)').all
         unless workers.any?
-          puts "No workers".red
+          puts 'No workers'.red
           break
         end
         unless products.any?
-          puts "No vials".red
+          puts 'No vials'.red
           break
         end
-        Production.joins(:variant,:campaign).find_each do |production|
+        Production.joins(:variant, :campaign).find_each do |production|
           variety = Nomen::Varieties[production.variant.variety]
-          next unless variety <= :bos and production.variant.sex == 'female'
+          next unless variety <= :bos && production.variant.sex == 'female'
           year = production.campaign.name.to_i
           Ekylibre::FirstRun::Booker.production = production
           production.supports.joins(:storage).find_each do |support|
             next unless support.storage.is_a?(AnimalGroup)
             support.storage.members_at.find_each do |animal|
-              Ekylibre::FirstRun::Booker.intervene(:animal_artificial_insemination, year - 1, 9, 15, 0.5, support: support, parameters: {readings: {"base-animal_artificial_insemination-0-400-0" => "heat", "base-animal_artificial_insemination-0-400-1" => "true", "base-animal_artificial_insemination-0-400-2" => "false"}}) do |i|
+              Ekylibre::FirstRun::Booker.intervene(:animal_artificial_insemination, year - 1, 9, 15, 0.5, support: support, parameters: { readings: { 'base-animal_artificial_insemination-0-400-0' => 'heat', 'base-animal_artificial_insemination-0-400-1' => 'true', 'base-animal_artificial_insemination-0-400-2' => 'false' } }) do |i|
                 i.add_cast(reference_name: 'animal',       actor: animal)
                 i.add_cast(reference_name: 'inseminator',  actor: workers.sample)
                 i.add_cast(reference_name: 'vial',         actor: products.sample)
@@ -357,15 +353,15 @@ module Ekylibre::FirstRun::Faker
         end
       end
 
-      self.count :wine_interventions do |w|
-        Production.joins(:variant,:campaign).find_each do |production|
+      count :wine_interventions do |w|
+        Production.joins(:variant, :campaign).find_each do |production|
           variety = Nomen::Varieties[production.variant.variety]
           next unless variety <= :wine
           year = production.campaign.name.to_i
           Ekylibre::FirstRun::Booker.production = production
           production.supports.joins(:storage).find_each do |support|
             next unless support.storage.contents.count > 0
-            Ekylibre::FirstRun::Booker.intervene(:complete_wine_transfer, year - 1, 9, 15, 0.5, support: support ) do |i|
+            Ekylibre::FirstRun::Booker.intervene(:complete_wine_transfer, year - 1, 9, 15, 0.5, support: support) do |i|
               i.add_cast(reference_name: 'tank',             actor: support.storage)
               i.add_cast(reference_name: 'wine',             actor: support.storage.contents.first)
               i.add_cast(reference_name: 'wine_man',         actor: i.find(Worker))
@@ -375,8 +371,6 @@ module Ekylibre::FirstRun::Faker
           w.check_point
         end
       end
-
-
     end
   end
 end

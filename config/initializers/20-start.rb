@@ -26,7 +26,7 @@ autoload :Procedo,   'procedo'
 # Measure
 require 'measure'
 class ::Numeric
-  eval(Measure.units.inject("") do |code, unit|
+  eval(Measure.units.inject('') do |code, unit|
          code << "def in_#{unit}\n"
          code << "  Measure.new(self, :#{unit})\n"
          code << "end\n"
@@ -49,7 +49,5 @@ require 'state_machine/i18n'
 # ::ActionController::Base.send(:include, ActiveList::ActionPack::ActionController)
 # ::ActionView::Base.send(:include, ActiveList::ActionPack::ViewsHelper)
 
-unless ENV["PLUGIN"] == "false"
-  Ekylibre::Plugin.load
-end
+Ekylibre::Plugin.load unless ENV['PLUGIN'] == 'false'
 Ekylibre::Plugin.plug

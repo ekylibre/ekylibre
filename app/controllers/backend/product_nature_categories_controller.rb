@@ -35,7 +35,7 @@ class Backend::ProductNatureCategoriesController < Backend::BaseController
     t.column :depreciable
   end
 
-  list(:products, conditions: {category_id: 'params[:id]'.c}, order: {born_at: :desc}) do |t|
+  list(:products, conditions: { category_id: 'params[:id]'.c }, order: { born_at: :desc }) do |t|
     t.column :name, url: true
     t.column :identification_number
     t.column :born_at
@@ -44,16 +44,15 @@ class Backend::ProductNatureCategoriesController < Backend::BaseController
     t.column :population
   end
 
-  list(:product_natures, conditions: {category_id: 'params[:id]'.c}, order: :name) do |t|
+  list(:product_natures, conditions: { category_id: 'params[:id]'.c }, order: :name) do |t|
     t.action :edit
     t.action :destroy, if: :destroyable?
     t.column :name, url: true
     t.column :variety
   end
 
-  list(:taxations, model: :product_nature_category_taxations, conditions: {product_nature_category_id: 'params[:id]'.c}, order: :id) do |t|
+  list(:taxations, model: :product_nature_category_taxations, conditions: { product_nature_category_id: 'params[:id]'.c }, order: :id) do |t|
     t.column :tax, url: true
     t.column :usage
   end
-
 end

@@ -23,10 +23,10 @@ class Backend::DepositsController < Backend::BaseController
 
   unroll
 
-  list(order: {created_at: :desc}) do |t|
+  list(order: { created_at: :desc }) do |t|
     # t.action :show, url: {format: :pdf}, image: :print
-    t.action :edit, :unless => :locked?
-    t.action :destroy, :unless => :locked?
+    t.action :edit, unless: :locked?
+    t.action :destroy, unless: :locked?
     t.column :number, url: true
     t.column :amount, currency: true, url: true
     t.column :payments_count
@@ -44,7 +44,7 @@ class Backend::DepositsController < Backend::BaseController
     end
   end
 
-  list(:payments, model: :incoming_payments, conditions: {deposit_id: 'params[:id]'.c}, :pagination => :none, order: :number) do |t|
+  list(:payments, model: :incoming_payments, conditions: { deposit_id: 'params[:id]'.c }, pagination: :none, order: :number) do |t|
     t.column :number, url: true
     t.column :payer, url: true
     t.column :bank_name
@@ -58,12 +58,11 @@ class Backend::DepositsController < Backend::BaseController
   def show
     return unless @deposit = find_and_check
     t3e @deposit
-    respond_with(@deposit, :include => [:responsible, :journal_entry, :mode, :cash,
-                                        {:payments => {:include => :payer}}])
+    respond_with(@deposit, include: [:responsible, :journal_entry, :mode, :cash,
+                                     { payments: { include: :payer } }])
   end
 
-
-  list(:depositable_payments, model: :incoming_payments, conditions: ["deposit_id=? OR (mode_id=? AND deposit_id IS NULL)", 'params[:id]'.c, '(resource.mode_id rescue params[:mode_id])'.c], paginate: false, order: [:to_bank_at, :created_at], :line_class => "((resource.payments.exists?(RECORD.id) rescue false) ? 'success' : (RECORD.to_bank_at||Date.yesterday) > Date.today ? 'critic' : '')".c) do |t|
+  list(:depositable_payments, model: :incoming_payments, conditions: ['deposit_id=? OR (mode_id=? AND deposit_id IS NULL)', 'params[:id]'.c, '(resource.mode_id rescue params[:mode_id])'.c], paginate: false, order: [:to_bank_at, :created_at], line_class: "((resource.payments.exists?(RECORD.id) rescue false) ? 'success' : (RECORD.to_bank_at||Date.yesterday) > Date.today ? 'critic' : '')".c) do |t|
     t.column :number, url: true
     t.column :payer, url: true
     t.column :bank_name
@@ -72,7 +71,7 @@ class Backend::DepositsController < Backend::BaseController
     t.column :paid_at
     t.column :responsible
     t.column :amount, currency: true
-    t.check_box :to_deposit, value: '(resource.payments.exists?(RECORD.id) rescue false) || (RECORD.to_bank_at<=Date.today and (params[:id].blank? ? (RECORD.responsible.nil? or RECORD.responsible_id == current_user.person_id) : (RECORD.deposit_id == params[:id])))'.c, label: :to_deposit.tl, form_name: "deposit[payment_ids][]", form_value: "RECORD.id".c
+    t.check_box :to_deposit, value: '(resource.payments.exists?(RECORD.id) rescue false) || (RECORD.to_bank_at<=Date.today and (params[:id].blank? ? (RECORD.responsible.nil? or RECORD.responsible_id == current_user.person_id) : (RECORD.deposit_id == params[:id])))'.c, label: :to_deposit.tl, form_name: 'deposit[payment_ids][]', form_value: 'RECORD.id'.c
   end
 
   def new
@@ -97,16 +96,16 @@ class Backend::DepositsController < Backend::BaseController
 
   def update
     return unless @deposit = find_and_check
-    return if save_and_redirect(@deposit, attributes: permitted_params, url: {action: :index})
+    return if save_and_redirect(@deposit, attributes: permitted_params, url: { action: :index })
     t3e @deposit
   end
 
-  list(:unvalidateds, model: :deposits, conditions: {:locked => false}) do |t|
+  list(:unvalidateds, model: :deposits, conditions: { locked: false }) do |t|
     t.column :created_at
     t.column :amount
     t.column :payments_count
     t.column :cash, url: true
-    t.check_box :validated, :value => 'RECORD.created_at<=Date.today-(15)'.c
+    t.check_box :validated, value: 'RECORD.created_at<=Date.today-(15)'.c
   end
 
   def unvalidateds
@@ -114,7 +113,7 @@ class Backend::DepositsController < Backend::BaseController
     if request.post?
       for id, values in params[:unvalidateds] || {}
         return unless deposit = find_and_check(id: id)
-        deposit.update_attributes!(:locked => true) if deposit and values[:validated].to_i == 1
+        deposit.update_attributes!(locked: true) if deposit && values[:validated].to_i == 1
       end
       redirect_to action: :unvalidateds
     end
@@ -128,7 +127,7 @@ class Backend::DepositsController < Backend::BaseController
       redirect_to action: :index
       return nil
     end
-    if params[:deposit] and params[:deposit][:mode_id] and params[:deposit][:mode_id].to_i != mode.id
+    if params[:deposit] && params[:deposit][:mode_id] && params[:deposit][:mode_id].to_i != mode.id
       notify_error(:need_payment_mode_to_create_deposit)
       redirect_to action: :index
       return nil
@@ -138,7 +137,6 @@ class Backend::DepositsController < Backend::BaseController
       redirect_to action: :index
       return nil
     end
-    return mode
+    mode
   end
-
 end

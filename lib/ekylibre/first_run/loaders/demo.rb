@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 Ekylibre::FirstRun.add_loader :demo do |first_run|
-
   if Preference.get!(:demo, false, :boolean).value
 
     # replace by sales.csv / purchases.csv more real.
@@ -14,5 +13,4 @@ Ekylibre::FirstRun.add_loader :demo do |first_run|
     Ekylibre::FirstRun::Faker::Crumbs.run(max: first_run.max)
 
   end
-
 end

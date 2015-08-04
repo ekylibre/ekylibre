@@ -47,10 +47,9 @@
 #  updater_id          :integer
 #
 
-
 class EntityAddress < Ekylibre::Record::Base
   attr_readonly :entity_id
-  belongs_to :mail_postal_zone, class_name: "PostalZone"
+  belongs_to :mail_postal_zone, class_name: 'PostalZone'
   belongs_to :entity, inverse_of: :addresses
   has_many :incoming_deliveries
   has_many :outgoing_deliveries
@@ -61,63 +60,61 @@ class EntityAddress < Ekylibre::Record::Base
   enumerize :canal, in: [:mail, :email, :phone, :mobile, :fax, :website], default: :email, predicates: true
   # enumerize :country, in: Nomen::Countries.all
 
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :deleted_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_inclusion_of :by_default, :mail_auto_update, in: [true, false]
   validates_presence_of :canal, :coordinate, :entity
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_length_of :mail_country, allow_nil: true, maximum: 2
   validates_length_of :canal, allow_nil: true, maximum: 20
   validates_length_of :coordinate, allow_nil: true, maximum: 500
   validates_format_of :coordinate, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, if: :email?
-  validates_inclusion_of :canal, in: self.canal.values
+  validates_inclusion_of :canal, in: canal.values
   validates_presence_of :mail_country, if: :mail?
-
 
   selects_among_all scope: [:entity_id, :canal], subset: :actives
 
   # Use unscoped to get all historic
   default_scope -> { actives }
-  scope :actives, -> { where("deleted_at IS NULL").order(:coordinate) }
+  scope :actives, -> { where('deleted_at IS NULL').order(:coordinate) }
 
   # Defines test and scope methods for.all canals
-  self.canal.values.each do |canal|
+  canal.values.each do |canal|
     scope canal.to_s.pluralize, -> { where(canal: canal.to_s) }
     scope "own_#{canal.to_s.pluralize}", -> { where(canal: canal.to_s, entity_id: Entity.of_company.id) }
   end
 
-
   before_validation do
-    if self.coordinate.is_a?(String)
-      self.coordinate.strip!
-      self.coordinate.downcase!
+    if coordinate.is_a?(String)
+      coordinate.strip!
+      coordinate.downcase!
     end
     if self.mail?
-      self.mail_country = Preference[:country] if self.mail_country.blank?
-      if self.mail_line_6
-        self.mail_line_6 = self.mail_line_6.to_s.gsub(/\s+/,' ').strip
-        if self.mail_line_6.blank?
+      self.mail_country = Preference[:country] if mail_country.blank?
+      if mail_line_6
+        self.mail_line_6 = mail_line_6.to_s.gsub(/\s+/, ' ').strip
+        if mail_line_6.blank?
           self.mail_postal_zone_id = nil
         else
-          unless self.mail_postal_zone = PostalZone.where("LOWER(TRIM(name)) LIKE ?", self.mail_line_6.lower).first
-            self.mail_postal_zone = PostalZone.create!(name: self.mail_line_6, country: self.mail_country)
+          unless self.mail_postal_zone = PostalZone.find_by('LOWER(TRIM(name)) LIKE ?', mail_line_6.lower)
+            self.mail_postal_zone = PostalZone.create!(name: mail_line_6, country: mail_country)
           end
         end
       end
-      self.mail_line_1 = self.entity.full_name if self.mail_line_1.blank?
-      self.mail_auto_update = (self.entity.full_name == self.mail_line_1 ? true : false)
-      self.coordinate = self.mail_lines
+      self.mail_line_1 = entity.full_name if mail_line_1.blank?
+      self.mail_auto_update = (entity.full_name == mail_line_1 ? true : false)
+      self.coordinate = mail_lines
     elsif self.website?
-      self.coordinate = "http://"+self.coordinate unless self.coordinate.match(/^.+p.*\/\//)
+      self.coordinate = 'http://' + coordinate unless coordinate.match(/^.+p.*\/\//)
     end
   end
 
   # Each address have a distinct thread
   before_validation(on: :create) do
-    if self.thread.blank?
+    if thread.blank?
       self.thread = 'AAAA'
-      while self.class.where("entity_id = ? AND canal = ? AND thread = ?", self.entity_id, self.canal, self.thread).count > 0 do
-        self.thread.succ!
+      while self.class.where('entity_id = ? AND canal = ? AND thread = ?', entity_id, self.canal, thread).count > 0
+        thread.succ!
       end
     end
   end
@@ -129,57 +126,54 @@ class EntityAddress < Ekylibre::Record::Base
     # raise stamper.inspect unless stamper.nil?
     stamper_id = stamper.id if stamper.is_a? Entity
     nc = self.class.new
-    for attr, val in self.attributes.merge(:created_at => current_time, :updated_at => current_time, :creator_id => stamper_id, :updater_id => stamper_id).delete_if{|k,v| k.to_s == "id"}
+    for attr, val in attributes.merge(created_at: current_time, updated_at: current_time, creator_id: stamper_id, updater_id: stamper_id).delete_if { |k, _v| k.to_s == 'id' }
       nc.send("#{attr}=", val)
     end
     nc.save!
-    self.class.where(:id => self.id).update_all(:deleted_at => current_time)
-    return nc
+    self.class.where(id: id).update_all(deleted_at: current_time)
+    nc
   end
 
   def destroy # _without_.allbacks
-    unless new_record?
-      self.class.where(:id => self.id).update_all(:deleted_at => Time.now)
-    end
+    self.class.where(id: id).update_all(deleted_at: Time.now) unless new_record?
   end
 
   def self.exportable_columns
-    return self.content_columns.delete_if{|c| [:deleted_at, :closed_at, :lock_version, :thread, :created_at, :updated_at].include?(c.name.to_sym)}
+    content_columns.delete_if { |c| [:deleted_at, :closed_at, :lock_version, :thread, :created_at, :updated_at].include?(c.name.to_sym) }
   end
 
   def label
-    self.entity.number + ". " + self.coordinate
+    entity.number + '. ' + coordinate
   end
 
   def mail_line_6_code
-    self.mail_postal_zone.postal_code if self.mail_postal_zone
+    mail_postal_zone.postal_code if mail_postal_zone
   end
-  alias :mail_postal_code :mail_line_6_code
+  alias_method :mail_postal_code, :mail_line_6_code
 
   def mail_line_6_code=(value)
-    self.mail_line_6 = (value.to_s+" "+self.mail_line_6.to_s).strip
+    self.mail_line_6 = (value.to_s + ' ' + mail_line_6.to_s).strip
   end
 
   def mail_mail_line_6_city
-    self.mail_postal_zone.city if self.mail_postal_zone
+    mail_postal_zone.city if mail_postal_zone
   end
 
   def mail_line_6_city=(value)
-    self.mail_line_6 = (self.mail_line_6.to_s+" "+value.to_s).strip
+    self.mail_line_6 = (mail_line_6.to_s + ' ' + value.to_s).strip
   end
 
   def mail_lines(options = {})
-    options = {:separator => ', ', :with_city => true, :with_country => true}.merge(options)
-    lines = [self.mail_line_1, self.mail_line_2, self.mail_line_3, self.mail_line_4, self.mail_line_5]
-    lines << self.mail_line_6.to_s if options[:with_city]
-    lines << (Nomen::Countries[self.mail_country] ? Nomen::Countries[self.mail_country].human_name : '') if options[:with_country]
-    lines = lines.compact.collect{|x| x.gsub(options[:separator], ' ').gsub(/\ +/, ' ')}
-    lines.delete ""
-    return lines.join(options[:separator])
+    options = { separator: ', ', with_city: true, with_country: true }.merge(options)
+    lines = [mail_line_1, mail_line_2, mail_line_3, mail_line_4, mail_line_5]
+    lines << mail_line_6.to_s if options[:with_city]
+    lines << (Nomen::Countries[mail_country] ? Nomen::Countries[mail_country].human_name : '') if options[:with_country]
+    lines = lines.compact.collect { |x| x.gsub(options[:separator], ' ').gsub(/\ +/, ' ') }
+    lines.delete ''
+    lines.join(options[:separator])
   end
 
   def mail_coordinate
-    return self.mail_lines(:separator => "\r\n")
+    mail_lines(separator: "\r\n")
   end
-
 end

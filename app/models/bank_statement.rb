@@ -37,65 +37,60 @@
 #  updater_id   :integer
 #
 
-
 class BankStatement < Ekylibre::Record::Base
   belongs_to :cash
-  has_many :items, class_name: "JournalEntryItem", dependent: :nullify
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  has_many :items, class_name: 'JournalEntryItem', dependent: :nullify
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :credit, :debit, allow_nil: true
   validates_presence_of :cash, :credit, :currency, :debit, :number, :started_at, :stopped_at
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_uniqueness_of :number, scope: :cash_id
 
   delegate :name, :currency, :account_id, to: :cash, prefix: true
 
   before_validation do
-    if self.cash
-      self.currency = self.cash_currency
-    end
-    self.debit  = self.items.sum(:real_debit)
-    self.credit = self.items.sum(:real_credit)
+    self.currency = cash_currency if cash
+    self.debit  = items.sum(:real_debit)
+    self.credit = items.sum(:real_credit)
   end
 
   # A bank account statement has to contain.all the planned records.
   validate do
-    if self.started_at and self.stopped_at
-      if self.started_at >= self.stopped_at
-        errors.add(:stopped_at, :posterior, to: self.started_at.l)
+    if started_at && stopped_at
+      if started_at >= stopped_at
+        errors.add(:stopped_at, :posterior, to: started_at.l)
       end
     end
   end
 
   def balance_credit
-    return (self.debit > self.credit ? 0.0 : self.credit-self.debit)
+    (debit > credit ? 0.0 : credit - debit)
   end
 
   def balance_debit
-    return (self.debit > self.credit ? self.debit-self.credit : 0.0)
+    (debit > credit ? debit - credit : 0.0)
   end
 
   def previous
-    self.class.where("stopped_at <= ?", self.started_at).reorder(stopped_at: :desc).first
+    self.class.where('stopped_at <= ?', started_at).reorder(stopped_at: :desc).first
   end
 
   def next
-    self.class.where("started_at >= ?", self.stopped_at).reorder(started_at: :asc).first
+    self.class.where('started_at >= ?', stopped_at).reorder(started_at: :asc).first
   end
 
   def eligible_items
-    JournalEntryItem.where("bank_statement_id = ? OR (account_id = ? AND (bank_statement_id IS NULL OR journal_entries.created_at BETWEEN ? AND ?))", self.id, self.cash_account_id, self.started_at, self.stopped_at).joins("INNER JOIN #{JournalEntry.table_name} AS journal_entries ON journal_entries.id = entry_id").order("bank_statement_id DESC, #{JournalEntry.table_name}.printed_on DESC, #{JournalEntryItem.table_name}.position")
+    JournalEntryItem.where('bank_statement_id = ? OR (account_id = ? AND (bank_statement_id IS NULL OR journal_entries.created_at BETWEEN ? AND ?))', id, cash_account_id, started_at, stopped_at).joins("INNER JOIN #{JournalEntry.table_name} AS journal_entries ON journal_entries.id = entry_id").order("bank_statement_id DESC, #{JournalEntry.table_name}.printed_on DESC, #{JournalEntryItem.table_name}.position")
   end
 
   def point(item_ids)
     return false if self.new_record?
-    JournalEntryItem.where(bank_statement_id: self.id).update_all(bank_statement_id: nil)
-    JournalEntryItem.where(bank_statement_id: nil, id: item_ids).update_all(bank_statement_id: self.id)
+    JournalEntryItem.where(bank_statement_id: id).update_all(bank_statement_id: nil)
+    JournalEntryItem.where(bank_statement_id: nil, id: item_ids).update_all(bank_statement_id: id)
     # Computes debit and credit
     self.save!
-    return true
+    true
   end
-
-
 end

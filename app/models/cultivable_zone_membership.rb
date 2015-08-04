@@ -34,27 +34,25 @@
 #  updater_id   :integer
 #
 
-
 class CultivableZoneMembership < Ekylibre::Record::Base
-  belongs_to :group, class_name: "CultivableZone"
-  belongs_to :member, class_name: "LandParcel"
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  belongs_to :group, class_name: 'CultivableZone'
+  belongs_to :member, class_name: 'LandParcel'
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :population, allow_nil: true
   validates_presence_of :group, :member
-  #]VALIDATORS]
+  # ]VALIDATORS]
 
   def net_surface_area
-    return Charta::Geometry.new(self.shape).area
-    #return self.class.where(id: self.id).select("ST_Area(shape) AS area").first.area.in_square_meter
+    Charta::Geometry.new(shape).area
+    # return self.class.where(id: self.id).select("ST_Area(shape) AS area").first.area.in_square_meter
   end
 
   def shape=(value)
-    if value.is_a?(String) and value =~ /\A\{.*\}\z/
+    if value.is_a?(String) && value =~ /\A\{.*\}\z/
       value = Charta::Geometry.new(JSON.parse(value).to_json, :WGS84).to_rgeo
     elsif !value.blank?
       value = Charta::Geometry.new(value).to_rgeo
     end
-    self["shape"] = value
+    self['shape'] = value
   end
-
 end

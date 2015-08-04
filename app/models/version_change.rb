@@ -21,9 +21,8 @@
 # along with this program.  If not, see http://www.gnu.org/licenses.
 
 class VersionChange < Struct.new(:version, :attribute, :old_value, :new_value)
-
   def human_attribute_name
-    self.version.item.class.human_attribute_name(self.attribute)
+    version.item.class.human_attribute_name(attribute)
   end
 
   def human_old_value
@@ -44,5 +43,4 @@ class VersionChange < Struct.new(:version, :attribute, :old_value, :new_value)
     attr = model.enumerized_attributes[attribute]
     (attr ? attr.human_value_name(value) : value.respond_to?(:l) ? value.l : value).to_s
   end
-
 end

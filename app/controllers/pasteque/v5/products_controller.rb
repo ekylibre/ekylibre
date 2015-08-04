@@ -3,6 +3,6 @@ class Pasteque::V5::ProductsController < Pasteque::V5::BaseController
 
   def category
     @records = ProductNatureVariant.of_category(params[:id]).saleables
-    render template: "index"
+    render template: 'index'
   end
 end

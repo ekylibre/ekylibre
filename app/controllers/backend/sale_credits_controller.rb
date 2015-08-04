@@ -38,7 +38,7 @@ class Backend::SaleCreditsController < Backend::BaseController
       @sale_credit.invoice!
       saved = true
     end
-    return false if save_and_redirect(@sale_credit, saved: saved, url: ({controller: :sales, action: :show, id: "id".c}))
+    return false if save_and_redirect(@sale_credit, saved: saved, url: ({ controller: :sales, action: :show, id: 'id'.c }))
     t3e @sale_credit.credited_sale
   end
 
@@ -52,7 +52,7 @@ class Backend::SaleCreditsController < Backend::BaseController
     return false unless @credited_sale = find_and_check(:sale, params[:credited_sale_id])
     unless @credited_sale.cancellable?
       notify_error :the_sales_invoice_is_not_cancellable
-      redirect_to params[:redirect] || {action: :index}
+      redirect_to params[:redirect] || { action: :index }
       return false
     end
   end
@@ -61,5 +61,4 @@ class Backend::SaleCreditsController < Backend::BaseController
     @form_url = backend_sale_credits_url(credited_sale_id: @credited_sale.id)
     # render locals: {cancel_url: backend_sales_url}
   end
-
 end

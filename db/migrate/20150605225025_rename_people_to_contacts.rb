@@ -1,5 +1,4 @@
 class RenamePeopleToContacts < ActiveRecord::Migration
-
   def change
     # Polymorphic columns
     reversible do |dir|
@@ -97,5 +96,4 @@ class RenamePeopleToContacts < ActiveRecord::Migration
       end
     end
   end
-
 end

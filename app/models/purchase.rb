@@ -47,27 +47,26 @@
 #  updater_id          :integer
 #
 
-
 class Purchase < Ekylibre::Record::Base
   include Attachable
   attr_readonly :currency, :nature_id
-  belongs_to :delivery_address, class_name: "EntityAddress"
+  belongs_to :delivery_address, class_name: 'EntityAddress'
   belongs_to :journal_entry
-  belongs_to :nature, class_name: "PurchaseNature"
-  belongs_to :payee, class_name: "Entity", foreign_key: :supplier_id
-  belongs_to :supplier, class_name: "Entity"
-  belongs_to :responsible, class_name: "User"
-  has_many :deliveries, class_name: "IncomingDelivery"
-  has_many :documents, :as => :owner
-  has_many :items, class_name: "PurchaseItem", dependent: :destroy, inverse_of: :purchase
-  has_many :journal_entries, :as => :resource
-  has_many :products, -> { uniq }, :through => :items
-  has_many :fixed_assets, :through => :items
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  belongs_to :nature, class_name: 'PurchaseNature'
+  belongs_to :payee, class_name: 'Entity', foreign_key: :supplier_id
+  belongs_to :supplier, class_name: 'Entity'
+  belongs_to :responsible, class_name: 'User'
+  has_many :deliveries, class_name: 'IncomingDelivery'
+  has_many :documents, as: :owner
+  has_many :items, class_name: 'PurchaseItem', dependent: :destroy, inverse_of: :purchase
+  has_many :journal_entries, as: :resource
+  has_many :products, -> { uniq }, through: :items
+  has_many :fixed_assets, through: :items
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :accounted_at, :confirmed_at, :invoiced_at, :planned_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :amount, :pretax_amount, allow_nil: true
   validates_presence_of :amount, :currency, :number, :payee, :pretax_amount, :supplier
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :number, :state, allow_nil: true, maximum: 60
   validates_presence_of :created_at, :currency, :state, :nature
@@ -76,7 +75,7 @@ class Purchase < Ekylibre::Record::Base
 
   acts_as_numbered
   acts_as_affairable :supplier
-  accepts_nested_attributes_for :items, reject_if: Proc.new {|item| item[:variant_id].blank?}, allow_destroy: true
+  accepts_nested_attributes_for :items, reject_if: proc { |item| item[:variant_id].blank? }, allow_destroy: true
 
   delegate :closed, to: :affair, prefix: true
 
@@ -84,12 +83,12 @@ class Purchase < Ekylibre::Record::Base
     where(invoiced_at: started_at..stopped_at)
   }
 
-  scope :unpaid, -> { where(state: ["order", "invoice"]).joins(:affair).where("NOT closed") }
-  scope :current, lambda { unpaid }
-  scope :current_or_self, lambda { |purchase| where(unpaid).or(where(id: (purchase.is_a?(Purchase) ? purchase.id : purchase))) }
-  scope :of_supplier, lambda { |supplier| where(supplier_id: (supplier.is_a?(Entity) ? supplier.id : supplier)) }
+  scope :unpaid, -> { where(state: %w(order invoice)).joins(:affair).where('NOT closed') }
+  scope :current, -> { unpaid }
+  scope :current_or_self, ->(purchase) { where(unpaid).or(where(id: (purchase.is_a?(Purchase) ? purchase.id : purchase))) }
+  scope :of_supplier, ->(supplier) { where(supplier_id: (supplier.is_a?(Entity) ? supplier.id : supplier)) }
 
-  state_machine :state, :initial => :draft do
+  state_machine :state, initial: :draft do
     state :draft
     state :estimate
     state :refused
@@ -97,21 +96,21 @@ class Purchase < Ekylibre::Record::Base
     state :invoice
     state :aborted
     event :propose do
-      transition :draft => :estimate, if: :has_content?
+      transition draft: :estimate, if: :has_content?
     end
     event :correct do
       transition [:estimate, :refused, :order] => :draft
     end
     event :refuse do
-      transition :estimate => :refused, if: :has_content?
+      transition estimate: :refused, if: :has_content?
     end
     event :confirm do
-      transition :estimate => :order, if: :has_content?
+      transition estimate: :order, if: :has_content?
     end
     event :invoice do
-      transition :order => :invoice, if: :has_content?
-      transition :estimate => :invoice, if: :has_content_not_deliverable?
-      transition :draft => :invoice
+      transition order: :invoice, if: :has_content?
+      transition estimate: :invoice, if: :has_content_not_deliverable?
+      transition draft: :invoice
     end
     event :abort do
       transition [:draft, :estimate] => :aborted # , :order
@@ -120,114 +119,114 @@ class Purchase < Ekylibre::Record::Base
 
   before_validation(on: :create) do
     self.state ||= :draft
-    self.currency = self.nature.currency if self.nature
+    self.currency = nature.currency if nature
   end
 
   before_validation do
     self.created_at ||= Time.now
     self.planned_at ||= self.created_at
-    self.pretax_amount = self.items.sum(:pretax_amount)
-    self.amount = self.items.sum(:amount)
+    self.pretax_amount = items.sum(:pretax_amount)
+    self.amount = items.sum(:amount)
   end
 
   validate do
-    if self.invoiced_at
-      errors.add(:invoiced_at, :before, restriction: Time.now.l) if self.invoiced_at > Time.now
+    if invoiced_at
+      errors.add(:invoiced_at, :before, restriction: Time.now.l) if invoiced_at > Time.now
     end
   end
 
   after_create do
-    self.supplier.add_event(:purchase_creation, self.updater.person) if self.updater
+    self.supplier.add_event(:purchase_creation, updater.person) if updater
   end
 
   # This callback permits to add journal entries corresponding to the purchase order/invoice
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
-    b.journal_entry(self.nature.journal, printed_on: self.invoiced_on, if: self.invoice?) do |entry|
-      label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :supplier => self.supplier.full_name, :products => (self.description.blank? ? self.items.collect{|x| x.name}.to_sentence : self.description))
-      for item in self.items
+    b.journal_entry(nature.journal, printed_on: invoiced_on, if: self.invoice?) do |entry|
+      label = tc(:bookkeep, resource: self.class.model_name.human, number: number, supplier: self.supplier.full_name, products: (description.blank? ? items.collect(&:name).to_sentence : description))
+      for item in items
         entry.add_debit(label, item.account, item.pretax_amount) unless item.pretax_amount.zero?
         entry.add_debit(label, item.tax.deduction_account_id, item.taxes_amount) unless item.taxes_amount.zero?
       end
-      entry.add_credit(label, self.supplier.account(:supplier).id, self.amount)
+      entry.add_credit(label, self.supplier.account(:supplier).id, amount)
     end
   end
 
   def invoiced_on
-    self.dealt_at.to_date
+    dealt_at.to_date
   end
 
   def dealt_at
-    return (self.invoice? ? self.invoiced_at : self.created_at? ? self.created_at : Time.now)
+    (self.invoice? ? invoiced_at : self.created_at? ? self.created_at : Time.now)
   end
 
   # Globalizes taxes into an array of hash
   def deal_taxes(mode = :debit)
-    return [] if self.deal_mode_amount(mode).zero?
+    return [] if deal_mode_amount(mode).zero?
     taxes = {}
     coeff = (1).to_d # (self.send("deal_#{mode}?") ? 1 : -1)
-    for item in self.items
-      taxes[item.tax_id] ||= {amount: 0.0.to_d, tax: item.tax}
+    for item in items
+      taxes[item.tax_id] ||= { amount: 0.0.to_d, tax: item.tax }
       taxes[item.tax_id][:amount] += coeff * item.amount
     end
-    return taxes.values
+    taxes.values
   end
 
   def refresh
-    self.save
+    save
   end
 
   def has_content?
-    self.items.any?
+    items.any?
   end
 
   def purchased?
-    return (self.order? or self.invoice?)
+    (self.order? || self.invoice?)
   end
 
   def has_content_not_deliverable?
     return false unless self.has_content?
     deliverable = false
-    for item in self.items
+    for item in items
       deliverable = true if item.variant.deliverable?
     end
-    return !deliverable
+    !deliverable
   end
 
   # Computes an amount (with or without taxes) of the undelivered products
   # - +column+ can be +:amount+ or +:pretax_amount+
   def undelivered(column)
-    sum  = self.send(column)
-    sum -= self.deliveries.sum(column)
+    sum  = send(column)
+    sum -= deliveries.sum(column)
     sum.round(2)
   end
 
   def deliverable?
-    # TODO How to compute if it remains deliverable products
-    return true
+    # TODO: How to compute if it remains deliverable products
+    true
     # (self.quantity - self.undelivered(:population)) > 0 and not self.invoice?
   end
 
   # Save the last date when the purchase was confirmed
   def confirm(confirmed_at = nil)
     return false unless self.can_confirm?
-    self.reload
+    reload
     self.confirmed_at ||= confirmed_at || Time.now
     self.save!
-    return super
+    super
   end
 
   # Save the last date when the invoice of purchase was received
   def invoice(invoiced_at = nil)
     return false unless self.can_invoice?
-    self.reload
+    reload
     self.invoiced_at ||= invoiced_at || Time.now
     self.save!
-    return super
+    super
   end
 
   def label
-    self.number# tc('label', :supplier => self.supplier.full_name.to_s, :address => self.delivery_address.mail_coordinate.to_s)
+    number # tc('label', :supplier => self.supplier.full_name.to_s, :address => self.delivery_address.mail_coordinate.to_s)
   end
 
   # Prints human name of current state
@@ -236,25 +235,22 @@ class Purchase < Ekylibre::Record::Base
   end
 
   def status
-    if self.invoice?
-      return self.affair.status
-    end
-    return :stop
+    return affair.status if self.invoice?
+    :stop
   end
 
   def supplier_address
-    if self.supplier.default_mail_address
-      return self.supplier.default_mail_address.mail_coordinate
+    if supplier.default_mail_address
+      return supplier.default_mail_address.mail_coordinate
     end
-    return nil
+    nil
   end
 
   def client_address
-    return Entity.of_company.default_mail_address.mail_coordinate
+    Entity.of_company.default_mail_address.mail_coordinate
   end
 
   def taxes_amount
-    self.amount - self.pretax_amount
+    amount - pretax_amount
   end
-
 end

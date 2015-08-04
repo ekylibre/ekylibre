@@ -1,9 +1,8 @@
 namespace :clean do
-
-  desc "Update and sort config/navigation.xml"
-  task :navigation => :environment do
-    print " - Navigation: "
-    menu_file = Rails.root.join("config", "navigation.xml")
+  desc 'Update and sort config/navigation.xml'
+  task navigation: :environment do
+    print ' - Navigation: '
+    menu_file = Rails.root.join('config', 'navigation.xml')
 
     # Read file
     doc = nil
@@ -26,13 +25,13 @@ namespace :clean do
     deleted = 0
     unused_actions = []
     for page in doc.xpath('//page')
-      to = page.attr("to")
-      url = to.to_s.strip.split("#")
-      if ref[url[0]] and ref[url[0]].include?(url[1])
+      to = page.attr('to')
+      url = to.to_s.strip.split('#')
+      if ref[url[0]] && ref[url[0]].include?(url[1])
         page.remove_attribute('nonexistent')
         ref[url[0]].delete(url[1])
       else
-        if ENV["FORCE"]
+        if ENV['FORCE']
           page.remove
         else
           page['nonexistent'] = 'true'
@@ -47,7 +46,7 @@ namespace :clean do
       next unless actions.size > 0
       item = Nokogiri::XML::Node.new('item', doc)
       item['name'] = controller.to_s.split(/[\/]+/).last
-      if first = actions.delete("index")
+      if first = actions.delete('index')
         page = Nokogiri::XML::Node.new('page', doc)
         page['to'] = "#{controller}##{first}"
         item.add_child(page)
@@ -68,7 +67,5 @@ namespace :clean do
       f.write doc.to_s
     end
     print "#{unused_actions.size.to_s.rjust(3)} unused actions, #{deleted.to_s.rjust(3)} deletable actions\n"
-
   end
-
 end

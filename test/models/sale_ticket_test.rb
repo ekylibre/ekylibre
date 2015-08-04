@@ -53,7 +53,5 @@
 require 'test_helper'
 
 class SaleTicketTest < ActiveSupport::TestCase
-
   # Add tests here...
-
 end

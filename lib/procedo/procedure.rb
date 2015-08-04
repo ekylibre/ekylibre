@@ -1,34 +1,31 @@
 module Procedo
-
   FORMULA_TRUC = {
-    shape: ["whole#net_surface_area"]
+    shape: ['whole#net_surface_area']
   }
-
 
   # This class represents a procedure
   class Procedure
-
     attr_reader :id, :short_name, :namespace, :operations, :natures, :parent, :position, :variables, :variable_names, :version
 
     def initialize(element, options = {})
-      short_name = element.attr("name").to_s.split(NAMESPACE_SEPARATOR)
+      short_name = element.attr('name').to_s.split(NAMESPACE_SEPARATOR)
       if short_name.size == 2
         @namespace = short_name.shift.to_sym
       elsif short_name.size != 1
-        raise ArgumentError, "Bad name of procedure: #{element.attr("name").to_s.inspect}"
+        fail ArgumentError, "Bad name of procedure: #{element.attr('name').to_s.inspect}"
       end
       @namespace = DEFAULT_NAMESPACE if @namespace.blank?
       @short_name = short_name.shift.to_s.to_sym
-      @required = (element.attr('required').to_s == "true" ? true : false)
+      @required = (element.attr('required').to_s == 'true' ? true : false)
       @parent = options[:parent] if options[:parent]
       @position = options[:position] || 0
 
-      @system = !!(element.attr('system') == "true")
+      @system = !!(element.attr('system') == 'true')
 
       # Check version
-      @version = element.attr("version").to_s
+      @version = element.attr('version').to_s
       unless @version =~ /\A\d+\z/
-        raise Procedo::Errors::MissingAttribute, "Valid attribute 'version' must be given for the procedure #{not_so_short_name}"
+        fail Procedo::Errors::MissingAttribute, "Valid attribute 'version' must be given for the procedure #{not_so_short_name}"
       end
       @version = @version.to_i
 
@@ -39,55 +36,56 @@ module Procedo
       roles  = []
       for nature in @natures
         unless item = Nomen::ProcedureNatures[nature]
-          raise Procedo::Errors::UnknownProcedureNature, "Procedure nature #{nature} is unknown for #{self.name}."
+          fail Procedo::Errors::UnknownProcedureNature, "Procedure nature #{nature} is unknown for #{name}."
         end
         # List all roles
-        roles += item.roles.collect{|role| "#{nature}-#{role}"}
+        roles += item.roles.collect { |role| "#{nature}-#{role}" }
       end
       roles.uniq!
 
       # Load variable_names
       @variable_names = []
-      for item in element.xpath("xmlns:variables/xmlns:variable")
-        @variable_names << item.attr("name").to_sym
+      for item in element.xpath('xmlns:variables/xmlns:variable')
+        @variable_names << item.attr('name').to_sym
       end
 
       # Load and check variables
-      given_roles, position = [], 1
-      @variables = element.xpath("xmlns:variables/xmlns:variable").inject(HashWithIndifferentAccess.new) do |hash, variable|
+      given_roles = []
+      position = 1
+      @variables = element.xpath('xmlns:variables/xmlns:variable').inject(HashWithIndifferentAccess.new) do |hash, variable|
         v = Variable.new(self, variable, position)
         position += 1
         for role in v.roles
           if roles.include?(role)
             given_roles << role
           else
-            raise Procedo::Errors::UnknownRole, "Role #{role} is ungiveable in procedure #{self.name}"
+            fail Procedo::Errors::UnknownRole, "Role #{role} is ungiveable in procedure #{name}"
           end
         end
-        hash[variable.attr("name").to_s] = v
+        hash[variable.attr('name').to_s] = v
         hash
       end
 
       # Check ungiven roles
       remaining_roles = roles - given_roles.uniq
       if remaining_roles.any?
-        raise Procedo::Errors::MissingRole, "Remaining roles of procedure #{self.name} are not given: #{remaining_roles.join(', ')}"
+        fail Procedo::Errors::MissingRole, "Remaining roles of procedure #{name} are not given: #{remaining_roles.join(', ')}"
       end
 
       # Check producers
       for variable in new_variables
         unless variable.producer.is_a?(Variable)
-          raise  Procedo::Errors::UnknownAspect, "Unknown variable producer for #{variable.name}"
+          fail Procedo::Errors::UnknownAspect, "Unknown variable producer for #{variable.name}"
         end
       end
 
       # Load operations
-      @operations = element.xpath("xmlns:operations/xmlns:operation").inject({}) do |hash, operation|
-        hash[operation.attr("id").to_s] = Operation.new(self, operation)
+      @operations = element.xpath('xmlns:operations/xmlns:operation').inject({}) do |hash, operation|
+        hash[operation.attr('id').to_s] = Operation.new(self, operation)
         hash
       end
-      unless @operations.keys.size == element.xpath("xmlns:operations/xmlns:operation").size
-        raise Procedo::Errors::NotUniqueIdentifier.new("Each operation must have a unique identifier (#{self.name})")
+      unless @operations.keys.size == element.xpath('xmlns:operations/xmlns:operation').size
+        fail Procedo::Errors::NotUniqueIdentifier.new("Each operation must have a unique identifier (#{name})")
       end
 
       # Compile it
@@ -104,34 +102,33 @@ module Procedo
     end
 
     def of_activity_family?(*families)
-      (self.activity_families & families).any?
+      (activity_families & families).any?
     end
 
     # Returns activity families of the procedure
     def activity_families
-      @activity_families ||= self.natures.map do |n|
+      @activity_families ||= natures.map do |n|
         Nomen::ProcedureNatures[n].activity_families.map do |f|
           Nomen::ActivityFamilies.all(f)
         end
       end.flatten.uniq.map(&:to_sym)
     end
 
-
     def not_so_short_name
       namespace.to_s + NAMESPACE_SEPARATOR + short_name.to_s
     end
 
     def name
-      not_so_short_name + VERSION_SEPARATOR + self.version.to_s
+      not_so_short_name + VERSION_SEPARATOR + version.to_s
     end
-    alias :uid :name
+    alias_method :uid, :name
 
     def flat_version
-      "v" + self.version.to_s.gsub(/\W/, '_')
+      'v' + version.to_s.gsub(/\W/, '_')
     end
 
     def need_parameters?
-      return self.operations.values.detect(&:need_parameters?)
+      operations.values.detect(&:need_parameters?)
     end
 
     # Returns if the procedure is system
@@ -152,18 +149,18 @@ module Procedo
       default << "labels.procedures.#{short_name}".to_sym
       default << "labels.#{short_name}".to_sym
       default << short_name.to_s.humanize
-      return "procedures.#{not_so_short_name}".t(options.merge(default: default))
+      "procedures.#{not_so_short_name}".t(options.merge(default: default))
     end
 
     # Returns the fixed time for a procedure
     def minimal_duration
-      return self.operations.values.map(&:duration).compact.sum
+      operations.values.map(&:duration).compact.sum
     end
-    alias :fixed_duration :minimal_duration
+    alias_method :fixed_duration, :minimal_duration
 
     # Returns the spread duration for operation with unknown duration
     def spread_time(duration)
-      return (duration - self.fixed_duration).to_d / self.operations.values.select(&:no_duration?).count
+      (duration - fixed_duration).to_d / operations.values.count(&:no_duration?)
     end
 
     # Returns only variables which must be built during runnning process
@@ -174,7 +171,6 @@ module Procedo
     def handled_variables
       @variables.values.select(&:handled?)
     end
-
 
     def cast_expr(expr, datatype = :string)
       if datatype == :integer
@@ -187,7 +183,7 @@ module Procedo
         "#{expr}.to_f"
       elsif datatype == :boolean
         "['t', 'true', '1'].include?(#{expr}.to_s)"
-      elsif datatype == :point or datatype == :geometry
+      elsif datatype == :point || datatype == :geometry
         "(#{expr}.blank? ? Charta::Geometry.empty : Charta::Geometry.new(#{expr}, :WGS84))"
       else
         "#{expr}.to_s"
@@ -197,7 +193,7 @@ module Procedo
     # Compile a procedure to manage interventions
     def compile!
       rubyist = Procedo::Compilers::Rubyist.new
-      full_name = ["::Procedo", "CompiledProcedures", self.namespace.to_s.camelcase, self.short_name.to_s.camelcase, "V#{self.version}"]
+      full_name = ['::Procedo', 'CompiledProcedures', namespace.to_s.camelcase, short_name.to_s.camelcase, "V#{version}"]
       code = "class #{full_name.last} < ::Procedo::CompiledProcedure\n\n"
 
       for variable in @variables.values
@@ -260,7 +256,7 @@ module Procedo
         code << "      return (datatype == :decimal ? value.to_s.to_f : value)\n"
         code << "    end\n\n"
 
-        rubyist.self_value = "self"
+        rubyist.self_value = 'self'
 
         # Destinations
         for destination in variable.destinations
@@ -329,14 +325,14 @@ module Procedo
 
         # Actor or Variant
         code << "    def impact_#{variable.new? ? :variant : :actor}!\n"
-        if variable.others.detect{|other| other.parted? and other.producer == variable }
-          variant      = (variable.new? ? "@variant" : "@actor.variant")
+        if variable.others.detect { |other| other.parted? && other.producer == variable }
+          variant      = (variable.new? ? '@variant' : '@actor.variant')
           variant_test = (variable.new? ? variant : "@actor and #{variant}")
           code << "      if #{variant_test}\n"
 
           # Set variants of "parted-from variables"
           for other in variable.others
-            if other.parted? and other.producer == variable
+            if other.parted? && other.producer == variable
               code << "        # Updates variant of #{other.name} if possible\n"
               code << "        if procedure.#{other.name}.variant != #{variant}\n"
               code << "          procedure.#{other.name}.variant = #{variant}\n"
@@ -355,7 +351,7 @@ module Procedo
               code << "      # Updates default #{destination} of #{ref} if possible\n"
               dest = "procedure.#{ref}.destinations[:#{destination}]"
               code << "      if #{dest}.blank? or procedure.updater?(:casting, :#{variable.name})"
-              code << " or procedure.updater?(:global, :support)" if [:storage, :variant_localized_in_storage].include?(variable.default_actor)
+              code << ' or procedure.updater?(:global, :support)' if [:storage, :variant_localized_in_storage].include?(variable.default_actor)
               code << "\n"
 
               code << "        begin\n"
@@ -395,7 +391,7 @@ module Procedo
             code << "      # Updates #{handler.name} of self if possible\n"
             code << "      impact_handler_#{handler.name}!\n"
           elsif handler.backward_depend_on?(:self)
-            for converter in handler.converters.select{|c| c.backward_depend_on?(:self) }
+            for converter in handler.converters.select { |c| c.backward_depend_on?(:self) }
               code << "      # Updates #{converter.destination} of self if possible\n"
               code << "      impact_destination_#{converter.destination}!\n"
             end
@@ -408,7 +404,7 @@ module Procedo
               code << "      # Updates #{handler.name} of #{other.name} if possible\n"
               code << "      procedure.#{other.name}.impact_handler_#{handler.name}!\n"
             elsif handler.backward_depend_on?(variable.name)
-              for converter in handler.converters.select{|c| c.backward_depend_on?(variable.name) }
+              for converter in handler.converters.select { |c| c.backward_depend_on?(variable.name) }
                 code << "      # Updates #{converter.destination} of self if possible\n"
                 code << "      impact_destination_#{converter.destination}!\n"
               end
@@ -421,7 +417,7 @@ module Procedo
         code << "  end\n\n"
       end
 
-      code << "  attr_reader " + @variables.keys.collect{|v| ":#{v}" }.join(', ') + "\n\n"
+      code << '  attr_reader ' + @variables.keys.collect { |v| ":#{v}" }.join(', ') + "\n\n"
 
       code << "  def initialize(casting, global, updater)\n"
       max = @variables.keys.map(&:size).max
@@ -433,11 +429,10 @@ module Procedo
       code << "    @__updater__ = updater.split(':').map(&:to_sym)\n"
       code << "  end\n\n"
 
-
       code << "  def impact!\n"
       code << "    if @__updater__.first == :global\n"
       code << "      if @__updater__.second == :support\n"
-      for variable in self.variables.values
+      for variable in variables.values
         if variable.new?
           if variable.default_variant == :production
             code << "        #{variable.name}.variant = @__support__.production_variant\n"
@@ -457,30 +452,30 @@ module Procedo
             code << "          #{variable.name}.impact_actor!\n"
             code << "        end\n"
           elsif variable.default_actor.to_s =~ /\Afirst_localized_in\:/
-            unless v = self.variables[variable.default_actor.to_s.split(":").second.strip]
-              raise Procedo::Errors::UnknownVariable, "Unknown variable used in #{variable.default_actor}"
+            unless v = variables[variable.default_actor.to_s.split(':').second.strip]
+              fail Procedo::Errors::UnknownVariable, "Unknown variable used in #{variable.default_actor}"
             end
             code << "        if #{v.name}.actor and #{v.name}.actor.containeds(now!).any?\n"
             code << "          #{variable.name}.actor = #{v.name}.actor.containeds.first\n"
             code << "          #{variable.name}.impact_actor!\n"
             code << "        end\n"
           elsif variable.default_actor != :none
-            raise Procedo::Errors::InvalidExpression, "Invalid default-actor expression: #{variable.default_actor.inspect}"
+            fail Procedo::Errors::InvalidExpression, "Invalid default-actor expression: #{variable.default_actor.inspect}"
           end
         end
       end
       # global:at is called at every interventions form call so we use it
-      # TODO replace this in a cleaner way with a global updater like "global:start"
+      # TODO: replace this in a cleaner way with a global updater like "global:start"
       code << "      elsif @__updater__.second == :at\n"
       # What to do ? Check existence and destinations of products at this moment ?
-      for variable in self.variables.values
+      for variable in variables.values
         for destination in variable.destinations
           code << "        #{variable.name}.impact_destination_#{destination}!\n"
         end
       end
       code << "      end\n"
       code << "    elsif @__updater__.first == :casting\n"
-      code << self.variables.values.collect do |variable|
+      code << variables.values.collect do |variable|
         vcode  = "if @__updater__.second == :#{variable.name}\n"
         vcode << "  if @__updater__.third == :#{variable.new? ? :variant : :actor}\n"
         vcode << "    #{variable.name}.impact_#{variable.new? ? :variant : :actor}!\n"
@@ -489,7 +484,7 @@ module Procedo
           vcode << variable.handlers.collect do |handler|
             hcode  = "if @__updater__.fourth == :#{handler.name}\n"
             hcode << "  #{variable.name}.impact_handler_#{handler.name}!\n"
-          end.join("els").dig(2)
+          end.join('els').dig(2)
           vcode << "    else\n"
           vcode << "      raise Procedo::Errors::UnknownHandler, \"Unknown handler \#{@__updater__.fourth} for #{variable.name}\"\n"
           vcode << "    end\n"
@@ -497,13 +492,13 @@ module Procedo
         vcode << "  else\n"
         vcode << "    raise Procedo::Errors::UnknownAspect, \"Unknown aspect \#{@__updater__.third} for #{variable.name}\"\n"
         vcode << "  end\n"
-      end.join("els").dig(3)
+      end.join('els').dig(3)
       code << "      else\n"
       code << "        raise Procedo::Errors::UnknownVariable, \"Unknown variable \#{@__updater__.second}\"\n"
       code << "      end\n"
       code << "    elsif @__updater__.first == :initial\n"
       # Refresh all handlers from all destinations
-      for variable in self.variables.values
+      for variable in variables.values
         if variable.handlers.any?
           for destination in variable.destinations
             code << "      #{variable.name}.impact_destination_#{destination}!\n"
@@ -516,7 +511,7 @@ module Procedo
       code << "  end\n\n"
 
       code << "  def casting\n"
-      code << "    { " + @variables.values.collect do |variable|
+      code << '    { ' + @variables.values.collect do |variable|
         vcode = "#{variable.name}: "
         if variable.new?
           vcode << "{variant: @#{variable.name}.variant_id"
@@ -524,7 +519,7 @@ module Procedo
           vcode << "{actor: @#{variable.name}.actor_id"
         end
         if variable.handlers.any?
-          vcode << ", destinations: {"
+          vcode << ', destinations: {'
           vcode << variable.destinations.collect do |destination|
             indicator = Nomen::Indicators[destination]
             if [:geometry, :point].include?(indicator.datatype)
@@ -533,7 +528,7 @@ module Procedo
               "#{destination}: @#{variable.name}.destinations[:#{destination}]"
             end
           end.join(', ')
-          vcode << "}, handlers: {"
+          vcode << '}, handlers: {'
           vcode << variable.handlers.collect do |handler|
             indicator = handler.indicator
             hcode = "#{handler.name}: {value: "
@@ -547,12 +542,12 @@ module Procedo
               hcode << "@#{variable.name}.handlers[:#{handler.name}]"
             end
             hcode << ", usable: @#{variable.name}.can_use_#{handler.name}?"
-            hcode << "}"
+            hcode << '}'
             hcode
           end.join(', ')
-          vcode << "}"
+          vcode << '}'
         end
-        vcode << "}"
+        vcode << '}'
         vcode
       end.join(",\n").dig(3).strip + "\n"
       code << "    }\n"
@@ -561,28 +556,28 @@ module Procedo
       code << "end\n"
 
       for mod in full_name[0..-2].reverse
-        code = "module #{mod}\n" + code.dig + "end"
+        code = "module #{mod}\n" + code.dig + 'end'
       end
 
       if Rails.env.development?
-        file = Rails.root.join("tmp", "code", "compiled_procedures", "#{self.name}.rb")
+        file = Rails.root.join('tmp', 'code', 'compiled_procedures', "#{name}.rb")
         FileUtils.mkdir_p(file.dirname)
         File.write(file, code)
       end
 
-      class_eval(code, "(procedure #{self.name})")
-      Procedo::CompiledProcedure[self.name] = full_name.join("::").constantize
+      class_eval(code, "(procedure #{name})")
+      Procedo::CompiledProcedure[name] = full_name.join('::').constantize
     end
 
     # Computes what have to be updated if the given value in
     # the casting is considered to be updated
     # Returns a hash with the list of updates
     def impact(casting, global, updater)
-      proc = Procedo::CompiledProcedure[self.name].new(casting, global, updater)
+      proc = Procedo::CompiledProcedure[name].new(casting, global, updater)
       before = proc.casting
       proc.impact!
       after = proc.casting
-      return after
+      after
     end
 
     # generates a hash associating one actor (as the hash value) to each procedure variable (as the hash key) whenever possible
@@ -593,7 +588,7 @@ module Procedo
       result = {}
       # generating arrays of actors matching each variable
       # and variables matching each actor
-      actors_for_each_variable = Hash.new
+      actors_for_each_variable = {}
       @variables.values.each do |variable|
         actors_for_each_variable[variable] = variable.possible_matching_for(actors)
       end
@@ -664,10 +659,11 @@ module Procedo
         end
 
       end
-      return result.delete_if{|k,v|v.nil?}
+      result.delete_if { |_k, v| v.nil? }
     end
 
     private
+
     # clean
     # removes newly matched actor and variable from hashes
     # associating all possible actors for each variable and
@@ -678,13 +674,11 @@ module Procedo
       # deleting actor from hash "actor => variables"
       actors_hash.delete(actor)
       # deleting actor for all remaining variables
-      variables_hash.values.each {|ary| ary.delete(actor)}
+      variables_hash.values.each { |ary| ary.delete(actor) }
       # removing current variable for all remaining actors
-      actors_hash.values.each {|ary| ary.delete(variable)}
+      actors_hash.values.each { |ary| ary.delete(variable) }
       # removing current variable from hash "variable => actors"
       variables_hash.delete(variable)
     end
-
   end
-
 end

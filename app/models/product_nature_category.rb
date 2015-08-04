@@ -53,33 +53,33 @@
 #
 class ProductNatureCategory < Ekylibre::Record::Base
   # Be careful with the fact that it depends directly on the nomenclature definition
-  enumerize :pictogram, in: Nomen::ProductNatureCategories.pictogram.choices, predicates: {prefix: true}
-  belongs_to :fixed_asset_account, class_name: "Account"
-  belongs_to :fixed_asset_allocation_account, class_name: "Account"
-  belongs_to :fixed_asset_expenses_account, class_name: "Account"
-  belongs_to :charge_account,    class_name: "Account"
-  belongs_to :product_account,   class_name: "Account"
-  belongs_to :stock_account,     class_name: "Account"
+  enumerize :pictogram, in: Nomen::ProductNatureCategories.pictogram.choices, predicates: { prefix: true }
+  belongs_to :fixed_asset_account, class_name: 'Account'
+  belongs_to :fixed_asset_allocation_account, class_name: 'Account'
+  belongs_to :fixed_asset_expenses_account, class_name: 'Account'
+  belongs_to :charge_account,    class_name: 'Account'
+  belongs_to :product_account,   class_name: 'Account'
+  belongs_to :stock_account,     class_name: 'Account'
   belongs_to :subscription_nature
   has_many :subscriptions, foreign_key: :product_nature_id
-  has_many :natures, class_name: "ProductNature", foreign_key: :category_id, inverse_of: :category
+  has_many :natures, class_name: 'ProductNature', foreign_key: :category_id, inverse_of: :category
   has_many :products, foreign_key: :category_id
-  has_many :taxations, class_name: "ProductNatureCategoryTaxation"
-  has_many :variants, class_name: "ProductNatureVariant", foreign_key: :category_id, inverse_of: :category
-  has_many :sale_taxations,     -> { where(usage: "sale") },     class_name: "ProductNatureCategoryTaxation", inverse_of: :product_nature_category
-  has_many :sale_taxes,     class_name: "Tax", through: :sale_taxations,     source: :tax
-  has_many :purchase_taxations, -> { where(usage: "purchase") }, class_name: "ProductNatureCategoryTaxation", inverse_of: :product_nature_category
-  has_many :purchase_taxes, class_name: "Tax", through: :purchase_taxations, source: :tax
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  has_many :taxations, class_name: 'ProductNatureCategoryTaxation'
+  has_many :variants, class_name: 'ProductNatureVariant', foreign_key: :category_id, inverse_of: :category
+  has_many :sale_taxations,     -> { where(usage: 'sale') },     class_name: 'ProductNatureCategoryTaxation', inverse_of: :product_nature_category
+  has_many :sale_taxes,     class_name: 'Tax', through: :sale_taxations,     source: :tax
+  has_many :purchase_taxations, -> { where(usage: 'purchase') }, class_name: 'ProductNatureCategoryTaxation', inverse_of: :product_nature_category
+  has_many :purchase_taxes, class_name: 'Tax', through: :purchase_taxations, source: :tax
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :fixed_asset_depreciation_percentage, allow_nil: true
   validates_inclusion_of :active, :depreciable, :purchasable, :reductible, :saleable, :storable, :subscribing, in: [true, false]
   validates_presence_of :name, :number
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_length_of :number, allow_nil: true, maximum: 30
   validates_length_of :pictogram, allow_nil: true, maximum: 120
   validates_presence_of :subscription_nature,   if: :subscribing?
-  validates_presence_of :subscription_duration, if: Proc.new{|u| u.subscribing? and u.subscription_nature and u.subscription_nature.period? }
-  validates_presence_of :subscription_quantity, if: Proc.new{|u| u.subscribing? and u.subscription_nature and u.subscription_nature.quantity? }
+  validates_presence_of :subscription_duration, if: proc { |u| u.subscribing? && u.subscription_nature && u.subscription_nature.period? }
+  validates_presence_of :subscription_quantity, if: proc { |u| u.subscribing? && u.subscription_nature && u.subscription_nature.quantity? }
   validates_presence_of :product_account, if: :saleable?
   validates_presence_of :charge_account,  if: :purchasable?
   validates_presence_of :stock_account,   if: :storable?
@@ -92,29 +92,24 @@ class ProductNatureCategory < Ekylibre::Record::Base
   accepts_nested_attributes_for :natures,            reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :sale_taxations,     reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :purchase_taxations, reject_if: :all_blank, allow_destroy: true
-  acts_as_numbered :force => false
+  acts_as_numbered force: false
 
   scope :availables,    -> { where(active: true).order(:name) }
   scope :stockables,    -> { where(storable: true).order(:name) }
   scope :saleables,     -> { where(saleable: true).order(:name) }
   scope :purchaseables, -> { where(purchasable: true).order(:name) }
   scope :depreciables, -> { where(depreciable: true).order(:name) }
-  scope :stockables_or_depreciables, -> { where("depreciable = ? OR storable = ?", true, true).order(:name) }
-  scope :with_catalog_items, -> { where(id: Catalog.joins(items: {variant: :category}).pluck("category_id")) }
-  scope :with_sale_catalog_items, -> { where(id: Catalog.for_sale.joins(items: {variant: :category}).pluck("category_id")) }
-
+  scope :stockables_or_depreciables, -> { where('depreciable = ? OR storable = ?', true, true).order(:name) }
+  scope :with_catalog_items, -> { where(id: Catalog.joins(items: { variant: :category }).pluck('category_id')) }
+  scope :with_sale_catalog_items, -> { where(id: Catalog.for_sale.joins(items: { variant: :category }).pluck('category_id')) }
 
   protect(on: :destroy) do
-    self.natures.any? and self.products.any?
+    natures.any? && products.any?
   end
 
   before_validation do
-    unless self.deliverable?
-      self.storable = false
-    end
-    unless self.subscribing?
-      self.subscription_nature_id = nil
-    end
+    self.storable = false unless self.deliverable?
+    self.subscription_nature_id = nil unless self.subscribing?
   end
 
   def to
@@ -122,7 +117,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
     to << :sales if self.saleable?
     to << :purchases if self.purchasable?
     # to << :produce if self.producible?
-    to.collect{|x| tc('to.'+x.to_s)}.to_sentence
+    to.collect { |x| tc('to.' + x.to_s) }.to_sentence
   end
 
   def deliverable?
@@ -130,67 +125,66 @@ class ProductNatureCategory < Ekylibre::Record::Base
   end
 
   def label
-    self.name # tc('label', :product_nature_category => self["name"])
+    name # tc('label', :product_nature_category => self["name"])
   end
 
   def duration
-    #raise StandardError.new self.subscription_nature.nature.inspect+" blabla"
-    if self.subscription_nature
-      self.send('subscription_'+self.subscription_nature.nature)
+    # raise StandardError.new self.subscription_nature.nature.inspect+" blabla"
+    if subscription_nature
+      send('subscription_' + subscription_nature.nature)
     else
       return nil
     end
-
   end
 
   def duration=(value)
-    #raise StandardError.new subscription.inspect+self.subscription_nature_id.inspect
-    if self.subscription_nature
-      self.send('subscription_'+self.subscription_nature.nature+'=', value)
+    # raise StandardError.new subscription.inspect+self.subscription_nature_id.inspect
+    if subscription_nature
+      send('subscription_' + subscription_nature.nature + '=', value)
     end
   end
 
   def default_start
     # self.subscription_nature.nature == "period" ? Date.today.beginning_of_year : self.subscription_nature.actual_number
-    self.subscription_nature.nature == "period" ? Date.today : self.subscription_nature.actual_number
+    subscription_nature.nature == 'period' ? Date.today : subscription_nature.actual_number
   end
 
   def default_finish
-    period = self.subscription_duration || '1 year'
+    period = subscription_duration || '1 year'
     # self.subscription_nature.nature == "period" ? Date.today.next_year.beginning_of_year.next_month.end_of_month : (self.subscription_nature.actual_number + ((self.subscription_quantity-1)||0))
-    self.subscription_nature.nature == "period" ? Delay.compute(period+", 1 day ago", Date.today) : (self.subscription_nature.actual_number + ((self.subscription_quantity-1)||0))
+    subscription_nature.nature == 'period' ? Delay.compute(period + ', 1 day ago', Date.today) : (subscription_nature.actual_number + ((subscription_quantity - 1) || 0))
   end
 
   def default_subscription_label_for(entity)
-    return nil unless self.nature == "subscrip"
+    return nil unless nature == 'subscrip'
     entity  = nil unless entity.is_a? Entity
     address = entity.default_contact.address rescue nil
-    entity = entity.full_name rescue "???"
-    if self.subscription_nature.nature == "period"
-      return tc('subscription_label.period', :start => ::I18n.localize(Date.today), :finish => ::I18n.localize(Delay.compute(self.subscription_duration.blank? ? '1 year, 1 day ago' : self.product.subscription_duration)), :entity => entity, :address => address, :subscription_nature => self.subscription_nature.name)
-    elsif self.subscription_nature.nature == "quantity"
-      return tc('subscription_label.quantity', :start => self.subscription_nature.actual_number.to_i, :finish => (self.subscription_nature.actual_number.to_i + ((self.subscription_quantity-1)||0)), :entity => entity, :address => address, :subscription_nature => self.subscription_nature.name)
+    entity = entity.full_name rescue '???'
+    if subscription_nature.nature == 'period'
+      return tc('subscription_label.period', start: ::I18n.localize(Date.today), finish: ::I18n.localize(Delay.compute(subscription_duration.blank? ? '1 year, 1 day ago' : product.subscription_duration)), entity: entity, address: address, subscription_nature: subscription_nature.name)
+    elsif subscription_nature.nature == 'quantity'
+      return tc('subscription_label.quantity', start: subscription_nature.actual_number.to_i, finish: (subscription_nature.actual_number.to_i + ((subscription_quantity - 1) || 0)), entity: entity, address: address, subscription_nature: subscription_nature.name)
     end
   end
 
   # Load a product nature category from product nature category nomenclature
   def self.import_from_nomenclature(reference_name, force = false)
     unless item = Nomen::ProductNatureCategories.find(reference_name)
-      raise ArgumentError, "The product_nature_category #{reference_name.inspect} is unknown"
+      fail ArgumentError, "The product_nature_category #{reference_name.inspect} is unknown"
     end
-    if !force and category = ProductNatureCategory.find_by_reference_name(reference_name)
+    if !force && category = ProductNatureCategory.find_by_reference_name(reference_name)
       return category
     end
     attributes = {
-      :active => true,
-      :name => item.human_name,
-      :reference_name => item.name,
-      :pictogram => item.pictogram,
-      :depreciable => item.depreciable,
-      :purchasable => item.purchasable,
-      :reductible => item.reductible,
-      :saleable => item.saleable,
-      :storable => item.storable,
+      active: true,
+      name: item.human_name,
+      reference_name: item.name,
+      pictogram: item.pictogram,
+      depreciable: item.depreciable,
+      purchasable: item.purchasable,
+      reductible: item.reductible,
+      saleable: item.saleable,
+      storable: item.storable,
       fixed_asset_depreciation_percentage: (item.depreciation_percentage.present? ? item.depreciation_percentage : 20),
       fixed_asset_depreciation_method: :simplified_linear
     }.with_indifferent_access
@@ -200,9 +194,9 @@ class ProductNatureCategory < Ekylibre::Record::Base
         attributes["#{account}_account"] = Account.find_or_create_in_chart(name)
       end
     end
-    # TODO add in rake clean method a way to detect same translation in nomenclatures by locale (to avoid conflict with validation on uniq name for example)
+    # TODO: add in rake clean method a way to detect same translation in nomenclatures by locale (to avoid conflict with validation on uniq name for example)
     # puts "#{item.human_name} - #{item.name}".red
-    return self.create!(attributes)
+    self.create!(attributes)
   end
 
   # Load.all product nature from product nature nomenclature
@@ -211,5 +205,4 @@ class ProductNatureCategory < Ekylibre::Record::Base
       import_from_nomenclature(product_nature_category)
     end
   end
-
 end

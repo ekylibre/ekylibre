@@ -36,5 +36,4 @@ class Backend::SequencesController < Backend::BaseController
     Sequence.load_defaults
     redirect_to_back
   end
-
 end

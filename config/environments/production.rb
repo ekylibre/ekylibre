@@ -65,12 +65,10 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # Configure exception notification
-  config.middleware.use ExceptionNotification::Rack, {
-    :email => {
-      :email_prefix => "[Exception] ",
-      :sender_address => %{"Ekylibre" <notifications@ekylibre.org>},
-      :exception_recipients => %w{dev@ekylibre.org}
-    }
+  config.middleware.use ExceptionNotification::Rack,     email: {
+    email_prefix: '[Exception] ',
+    sender_address: %("Ekylibre" <notifications@ekylibre.org>),
+    exception_recipients: %w(dev@ekylibre.org)
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to

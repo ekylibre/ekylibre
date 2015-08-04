@@ -1,7 +1,5 @@
 module Ekylibre::FirstRun::Faker
-
   class Sales < Base
-
     # Generate all
     def self.generate_sale_cycle(sale, d, options = {})
       factor = options[:factor] || 1
@@ -34,16 +32,16 @@ module Ekylibre::FirstRun::Faker
         # Sale.where(id: sale.id).update_all(invoiced_at: d, payment_at: (d + 30.days))
       end
       # Payment
-      return if rand(factor * 4).zero? or sale.amount <= 0
+      return if rand(factor * 4).zero? || sale.amount <= 0
       d += rand(30).days
       Timecop.travel(d) do
         payment = sale.client.incoming_payments.create!(mode: IncomingPaymentMode.all.sample, amount: (sale.amount / (1.0 + rand(3))).to_s.to_f.round(2), to_bank_at: d)
         sale.affair.attach(payment)
       end
-      return true
+      true
     end
 
-    def self.find_or_create_catalog_item(catalog, variant, amount, d, options = {})
+    def self.find_or_create_catalog_item(catalog, variant, amount, _d, options = {})
       options[:currency] ||= Preference[:currency]
       options[:amount]  = amount
       options[:variant] = variant
@@ -51,12 +49,11 @@ module Ekylibre::FirstRun::Faker
       unless item = catalog.items.where(variant_id: variant.id).first
         item = catalog.items.create!(options)
       end
-      return item
+      item
     end
 
     def run
-
-      self.count :variant_import do |w|
+      count :variant_import do |w|
         # Create product_nature for crop plant product
         wheat_crop  = ProductNatureVariant.import_from_nomenclature(:wheat_crop)
         barley_crop = ProductNatureVariant.import_from_nomenclature(:winter_barley_crop)
@@ -80,25 +77,24 @@ module Ekylibre::FirstRun::Faker
         w.check_point
       end
 
-      self.count :wheat_sales do |w|
-
-        unless cooperative = Entity.where("LOWER(full_name) LIKE ?", "%Kazeni%".mb_chars.downcase).first
-          cooperative = Entity.create!(last_name: "Kazeni",
+      count :wheat_sales do |w|
+        unless cooperative = Entity.where('LOWER(full_name) LIKE ?', '%Kazeni%'.mb_chars.downcase).first
+          cooperative = Entity.create!(last_name: 'Kazeni',
                                        nature: :organization,
-                                       vat_number: "FR00123456789",
+                                       vat_number: 'FR00123456789',
                                        supplier: true, client: true,
                                        mails_attributes: {
                                          0 => {
-                                           canal: "mail",
-                                           mail_line_4: "145 rue du port",
-                                           mail_line_6: "17000 LAROCHELLE",
+                                           canal: 'mail',
+                                           mail_line_4: '145 rue du port',
+                                           mail_line_6: '17000 LAROCHELLE',
                                            mail_country: :fr
                                          }
                                        },
                                        emails_attributes: {
                                          0 => {
-                                           canal: "email",
-                                           coordinate: "contact@kazeni.coop"
+                                           canal: 'email',
+                                           coordinate: 'contact@kazeni.coop'
                                          }
                                        })
         end
@@ -112,11 +108,11 @@ module Ekylibre::FirstRun::Faker
 
         # Sale nature
         sale_nature   = SaleNature.actives.first
-        sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => Preference[:currency], :active => true)
+        sale_nature ||= SaleNature.create!(name: I18n.t('models.sale_nature.default.name'), currency: Preference[:currency], active: true)
         (140 + rand(20)).times do |i|
           # Sale
-          d = Time.now - (7*i - rand(4)).days
-          sale = Sale.create!(:created_at => d, :client_id => cooperative.id, :nature_id => sale_nature.id, responsible: responsibles.sample)
+          d = Time.now - (7 * i - rand(4)).days
+          sale = Sale.create!(created_at: d, client_id: cooperative.id, nature_id: sale_nature.id, responsible: responsibles.sample)
           # Sale items
           (rand(5) + 1).times do
             catalog_item = self.class.find_or_create_catalog_item(catalog, wheat, rand(60) + 180, d, reference_tax: wheat_taxes.sample)
@@ -127,42 +123,41 @@ module Ekylibre::FirstRun::Faker
         end
       end
 
-      self.count :calf_sales do |w|
-
-        unless cooperative = Entity.where("LOWER(full_name) LIKE ?", "%Caroli%".mb_chars.downcase).first
-          cooperative = Entity.create!(last_name: "Caroli",
+      count :calf_sales do |w|
+        unless cooperative = Entity.where('LOWER(full_name) LIKE ?', '%Caroli%'.mb_chars.downcase).first
+          cooperative = Entity.create!(last_name: 'Caroli',
                                        nature: :organization,
-                                       vat_number: "FR00123456789",
+                                       vat_number: 'FR00123456789',
                                        supplier: true, client: true,
                                        mails_attributes: {
                                          0 => {
-                                           canal: "mail",
-                                           mail_line_4: "145 rue du port",
-                                           mail_line_6: "16000 ANGOULEME",
+                                           canal: 'mail',
+                                           mail_line_4: '145 rue du port',
+                                           mail_line_6: '16000 ANGOULEME',
                                            mail_country: :fr
                                          }
                                        },
                                        emails_attributes: {
                                          0 => {
-                                           canal: "email",
-                                           coordinate: "contact@caroli.coop"
+                                           canal: 'email',
+                                           coordinate: 'contact@caroli.coop'
                                          }
                                        })
         end
 
         # Create cow product
-        cow = ProductNatureVariant.find_by(:reference_name => 'calf')
+        cow = ProductNatureVariant.find_by(reference_name: 'calf')
         cow ||= ProductNatureVariant.import_from_nomenclature(:calf)
         catalog = Catalog.first
         cow_catalog_item_template_taxes = Tax.all
 
         # Sale nature
         sale_nature   = SaleNature.actives.first
-        sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => Preference[:currency], :active => true)
+        sale_nature ||= SaleNature.create!(name: I18n.t('models.sale_nature.default.name'), currency: Preference[:currency], active: true)
         (140 + rand(20)).times do |i|
           # Sale
-          d = Time.now - (7*i - rand(4)).days
-          sale = Sale.create!(:created_at => d, :client_id => cooperative.id, :nature_id => sale_nature.id)
+          d = Time.now - (7 * i - rand(4)).days
+          sale = Sale.create!(created_at: d, client_id: cooperative.id, nature_id: sale_nature.id)
           # Sale items
           (rand(5) + 1).times do
             catalog_item = self.class.find_or_create_catalog_item(catalog, cow, rand(40) + 140, d, reference_tax: cow_catalog_item_template_taxes.sample)
@@ -173,67 +168,64 @@ module Ekylibre::FirstRun::Faker
         end
       end
 
-      self.count :milk_sales do |w|
-
-        unless cooperative = Entity.where("LOWER(full_name) LIKE ?", "%TerriLacti%".mb_chars.downcase).first
-          cooperative = Entity.create!(last_name: "TerriLacti",
+      count :milk_sales do |w|
+        unless cooperative = Entity.where('LOWER(full_name) LIKE ?', '%TerriLacti%'.mb_chars.downcase).first
+          cooperative = Entity.create!(last_name: 'TerriLacti',
                                        nature: :organization,
-                                       vat_number: "FR00123456789",
+                                       vat_number: 'FR00123456789',
                                        supplier: true, client: true,
                                        mails_attributes: {
                                          0 => {
-                                           canal: "mail",
-                                           mail_line_4: "145 rue du port",
-                                           mail_line_6: "17000 SURGERES",
+                                           canal: 'mail',
+                                           mail_line_4: '145 rue du port',
+                                           mail_line_6: '17000 SURGERES',
                                            mail_country: :fr
                                          }
                                        },
                                        emails_attributes: {
                                          0 => {
-                                           canal: "email",
-                                           coordinate: "contact@terrilacti.coop"
+                                           canal: 'email',
+                                           coordinate: 'contact@terrilacti.coop'
                                          }
                                        })
         end
         # Create milk product
         milk = ProductNatureVariant.import_from_nomenclature(:cow_milk)
-        catalog = Catalog.find_by(:usage => 'sale')
-        milk_catalog_item_template_tax = Tax.find_by(:reference_name => 'french_vat_reduced')
+        catalog = Catalog.find_by(usage: 'sale')
+        milk_catalog_item_template_tax = Tax.find_by(reference_name: 'french_vat_reduced')
 
         sale_nature   = SaleNature.actives.first
-        sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => Preference[:currency], :active => true)
+        sale_nature ||= SaleNature.create!(name: I18n.t('models.sale_nature.default.name'), currency: Preference[:currency], active: true)
         120.times do |i|
           # Sale
           d = Time.now - i.months
           sale = Sale.create!(created_at: d, client: cooperative, nature: sale_nature)
           # Sale items
-          catalog_item = self.class.find_or_create_catalog_item(catalog, milk, rand(0.04)+0.300, d, reference_tax: milk_catalog_item_template_tax)
-          sale.items.create!(quantity: rand(5000) + 30000, unit_pretax_amount: catalog_item.amount, variant: catalog_item.variant, tax: milk_catalog_item_template_tax)
+          catalog_item = self.class.find_or_create_catalog_item(catalog, milk, rand(0.04) + 0.300, d, reference_tax: milk_catalog_item_template_tax)
+          sale.items.create!(quantity: rand(5000) + 30_000, unit_pretax_amount: catalog_item.amount, variant: catalog_item.variant, tax: milk_catalog_item_template_tax)
           self.class.generate_sale_cycle(sale, d)
           w.check_point
         end
       end
 
-
-      self.count :bottle_wine_sales do |w|
-
-        unless cooperative = Entity.where("LOWER(full_name) LIKE ?", "%Vitis%".mb_chars.downcase).first
-          cooperative = Entity.create!(last_name: "Vitis",
+      count :bottle_wine_sales do |w|
+        unless cooperative = Entity.where('LOWER(full_name) LIKE ?', '%Vitis%'.mb_chars.downcase).first
+          cooperative = Entity.create!(last_name: 'Vitis',
                                        nature: :organization,
-                                       vat_number: "FR00123456789",
+                                       vat_number: 'FR00123456789',
                                        supplier: true, client: true,
                                        mails_attributes: {
                                          0 => {
-                                           canal: "mail",
-                                           mail_line_4: "145 rue du port",
-                                           mail_line_6: "17300 JONZAC",
+                                           canal: 'mail',
+                                           mail_line_4: '145 rue du port',
+                                           mail_line_6: '17300 JONZAC',
                                            mail_country: :fr
                                          }
                                        },
                                        emails_attributes: {
                                          0 => {
-                                           canal: "email",
-                                           coordinate: "contact@vitis.coop"
+                                           canal: 'email',
+                                           coordinate: 'contact@vitis.coop'
                                          }
                                        })
         end
@@ -247,11 +239,11 @@ module Ekylibre::FirstRun::Faker
 
         # Sale nature
         sale_nature   = SaleNature.actives.first
-        sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => Preference[:currency], :active => true)
+        sale_nature ||= SaleNature.create!(name: I18n.t('models.sale_nature.default.name'), currency: Preference[:currency], active: true)
         (140 + rand(20)).times do |i|
           # Sale
-          d = Time.now - (7*i - rand(4)).days
-          sale = Sale.create!(:created_at => d, :client_id => cooperative.id, :nature_id => sale_nature.id, responsible: responsibles.sample)
+          d = Time.now - (7 * i - rand(4)).days
+          sale = Sale.create!(created_at: d, client_id: cooperative.id, nature_id: sale_nature.id, responsible: responsibles.sample)
           # Sale items
           (rand(5) + 1).times do
             catalog_item = self.class.find_or_create_catalog_item(catalog, wine, rand(2.8) + 8, d, reference_tax: wine_taxes.sample)
@@ -262,25 +254,24 @@ module Ekylibre::FirstRun::Faker
         end
       end
 
-      self.count :bulk_wine_sales do |w|
-
-        unless cooperative = Entity.where("LOWER(full_name) LIKE ?", "%Vitis%".mb_chars.downcase).first
-          cooperative = Entity.create!(last_name: "Vitis",
+      count :bulk_wine_sales do |w|
+        unless cooperative = Entity.where('LOWER(full_name) LIKE ?', '%Vitis%'.mb_chars.downcase).first
+          cooperative = Entity.create!(last_name: 'Vitis',
                                        nature: :organization,
-                                       vat_number: "FR00123456789",
+                                       vat_number: 'FR00123456789',
                                        supplier: true, client: true,
                                        mails_attributes: {
                                          0 => {
-                                           canal: "mail",
-                                           mail_line_4: "145 rue du port",
-                                           mail_line_6: "17300 JONZAC",
+                                           canal: 'mail',
+                                           mail_line_4: '145 rue du port',
+                                           mail_line_6: '17300 JONZAC',
                                            mail_country: :fr
                                          }
                                        },
                                        emails_attributes: {
                                          0 => {
-                                           canal: "email",
-                                           coordinate: "contact@vitis.coop"
+                                           canal: 'email',
+                                           coordinate: 'contact@vitis.coop'
                                          }
                                        })
         end
@@ -294,31 +285,30 @@ module Ekylibre::FirstRun::Faker
 
         # Sale nature
         sale_nature   = SaleNature.actives.first
-        sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => Preference[:currency], :active => true)
+        sale_nature ||= SaleNature.create!(name: I18n.t('models.sale_nature.default.name'), currency: Preference[:currency], active: true)
         (2 + rand(2)).times do |i|
           # Sale
-          d = Time.now - (7*i - rand(4)).days
-          sale = Sale.create!(:created_at => d, :client_id => cooperative.id, :nature_id => sale_nature.id, responsible: responsibles.sample)
+          d = Time.now - (7 * i - rand(4)).days
+          sale = Sale.create!(created_at: d, client_id: cooperative.id, nature_id: sale_nature.id, responsible: responsibles.sample)
           # Sale items
           (rand(5) + 1).times do
             # # find or create a catalog_item
             # # @FIXME = waiting for a working method in ProductCatalog_Item.catalog_item
             # catalog_item = ble.catalog_item(:amount => rand(150)+25, :tax => wheat_tax)
             catalog_item = catalog.items.find_by(variant_id: wine.id)
-            catalog_item ||= catalog.items.create!(:currency => Preference[:currency],
-                                                   :amount => rand(130) + 850,
-                                                   :reference_tax => wine_taxes.sample,
-                                                   :variant_id => wine.id
+            catalog_item ||= catalog.items.create!(currency: Preference[:currency],
+                                                   amount: rand(130) + 850,
+                                                   reference_tax: wine_taxes.sample,
+                                                   variant_id: wine.id
                                                   )
 
-            sale.items.create!(:quantity => rand(25) + 10,
-                               :tax => wine_taxes.sample, unit_pretax_amount: catalog_item.amount, variant: catalog_item.variant)
+            sale.items.create!(quantity: rand(25) + 10,
+                               tax: wine_taxes.sample, unit_pretax_amount: catalog_item.amount, variant: catalog_item.variant)
           end
           self.class.generate_sale_cycle(sale, d)
           w.check_point
         end
       end
     end
-
   end
 end

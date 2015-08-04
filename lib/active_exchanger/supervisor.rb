@@ -1,39 +1,33 @@
 module ActiveExchanger
-
   class Supervisor
-
     attr_reader :color
 
     def initialize(&block)
       if block_given?
-        unless (1..2).include?(block.arity)
-          raise "Invalid arity must be 1..2"
-        end
+        fail 'Invalid arity must be 1..2' unless (1..2).include?(block.arity)
         @block = block
       end
-      @max = ENV["max"].to_i
+      @max = ENV['max'].to_i
       @count = nil
       @color = :green
       @cursor = 0
     end
 
     def count=(value)
-      raise "Need a positive value" unless value > 0
+      fail 'Need a positive value' unless value > 0
       @count = value
-      @count = @max if @max > 0 and @count > @max
+      @count = @max if @max > 0 && @count > @max
     end
 
     def check_point(new_cursor = nil)
-      unless @count
-        raise "You need to set count before calling check_point"
-      end
+      fail 'You need to set count before calling check_point' unless @count
       if new_cursor
         @cursor = new_cursor
       else
         @cursor += 1
       end
       if @block
-        value = (100.0*(@cursor.to_f / @count.to_f)).to_i
+        value = (100.0 * (@cursor.to_f / @count.to_f)).to_i
         if value != @last_value
           if @block.arity == 1
             @block.call(value)
@@ -52,42 +46,39 @@ module ActiveExchanger
     end
 
     def verbose?
-      ENV["VERBOSE"].to_i > 0
+      ENV['VERBOSE'].to_i > 0
     end
 
     def debug(msg)
-      print("\n" + "DEBUG".white + ": " + msg) if verbose?
+      print("\n" + 'DEBUG'.white + ': ' + msg) if verbose?
       Rails.logger.debug(msg)
     end
 
     def info(msg)
-      print("\n" + "INFO".green + ": " + msg) if verbose?
+      print("\n" + 'INFO'.green + ': ' + msg) if verbose?
       Rails.logger.info(msg)
     end
 
     def warn(msg)
-      print("\n" + "WARNING".yellow + ": " + msg) if verbose?
+      print("\n" + 'WARNING'.yellow + ': ' + msg) if verbose?
       Rails.logger.error(msg)
     end
 
     def error(msg)
-      print("\n" + "ERROR".red + ": " + msg) if verbose?
+      print("\n" + 'ERROR'.red + ': ' + msg) if verbose?
       Rails.logger.error(msg)
     end
 
     def fatal(msg)
-      print("\n" + "FATAL".red + ": " + msg) if verbose?
+      print("\n" + 'FATAL'.red + ': ' + msg) if verbose?
       Rails.logger.fatal(msg)
     end
 
     def tmp_dir(*subdirs)
-      number = (1000 * Time.now.to_f).to_i.to_s(36) + 3.times.collect{ rand(1679616) }.sum.to_s(36)
-      dir = Rails.root.join("tmp", "exchangers", number, *subdirs)
+      number = (1000 * Time.now.to_f).to_i.to_s(36) + 3.times.collect { rand(1_679_616) }.sum.to_s(36)
+      dir = Rails.root.join('tmp', 'exchangers', number, *subdirs)
       FileUtils.mkdir_p(dir)
-      return dir
+      dir
     end
-
   end
-
-
 end

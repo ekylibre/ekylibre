@@ -36,12 +36,12 @@
 #  updater_id   :integer
 #
 class Tracking < Ekylibre::Record::Base
-  belongs_to :producer, class_name: "Entity"
+  belongs_to :producer, class_name: 'Entity'
   belongs_to :product
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_inclusion_of :active, in: [true, false]
   validates_presence_of :name
-  #]VALIDATORS]
+  # ]VALIDATORS]
 
   alias_attribute :serial_number, :serial
 end

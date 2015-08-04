@@ -5,5 +5,4 @@ json.name resource.full_name
 json.roleId resource.id.to_s
 json.visible !resource.locked
 json.hasImage resource.picture.present?
-json.card "9876543210"
-
+json.card '9876543210'

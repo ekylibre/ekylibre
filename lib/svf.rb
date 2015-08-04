@@ -1,5 +1,4 @@
 module SVF
-
   autoload :Cell,      'svf/cell'
   autoload :Formater,  'svf/formater'
   autoload :Line,      'svf/line'
@@ -20,14 +19,13 @@ module SVF
         occurrences << Occurrence.new(name, definition)
       end
     end
-    return occurrences
+    occurrences
   end
 
   # Returns the default path where the norms are loaded
   def norms_path
-    Pathname.new(__FILE__).dirname.join("svf", "norms")
+    Pathname.new(__FILE__).dirname.join('svf', 'norms')
   end
-
 end
 
 # Load Parser/Exporter based on SVF structures

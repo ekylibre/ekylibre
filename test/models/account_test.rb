@@ -40,12 +40,10 @@
 require 'test_helper'
 
 class AccountTest < ActiveSupport::TestCase
-
-  test "load the charts" do
+  test 'load the charts' do
     Account.charts.each do |chart|
       Account.chart = chart
       Account.load_defaults
     end
   end
-
 end

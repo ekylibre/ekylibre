@@ -1,5 +1,4 @@
 class RenameFinancialAssetsToFixedAssets < ActiveRecord::Migration
-
   def change
     rename_table :financial_assets, :fixed_assets
     # Polymorphic columns
@@ -81,5 +80,4 @@ class RenameFinancialAssetsToFixedAssets < ActiveRecord::Migration
     rename_column :product_nature_categories, :financial_asset_depreciation_percentage, :fixed_asset_depreciation_percentage
     rename_column :product_nature_categories, :financial_asset_expenses_account_id,     :fixed_asset_expenses_account_id
   end
-
 end

@@ -26,7 +26,7 @@ class Backend::InventoriesController < Backend::BaseController
   list do |t|
     # t.action :show, url: {format: :pdf}, image: :print
     t.action :refresh,   if: :editable?, method: :post, confirm: :are_you_sure
-    t.action :reflect, if: :reflectable?, method: :post, image: "action", confirm: :are_you_sure
+    t.action :reflect, if: :reflectable?, method: :post, image: 'action', confirm: :are_you_sure
     t.action :edit
     t.action :destroy
     t.column :name, url: true
@@ -46,11 +46,10 @@ class Backend::InventoriesController < Backend::BaseController
   def show
     return unless @inventory = find_and_check
     t3e @inventory
-    respond_with(@inventory, :include => [:responsible, {:items => {:methods => :unit_name, :include => [:product , :container]}}])
-
+    respond_with(@inventory, include: [:responsible, { items: { methods: :unit_name, include: [:product, :container] } }])
   end
 
-  list(:items, model: :inventory_items, conditions: {inventory_id: 'params[:id]'.c}, order: :id) do |t|
+  list(:items, model: :inventory_items, conditions: { inventory_id: 'params[:id]'.c }, order: :id) do |t|
     # t.column :name, through: :building, url: true
     t.column :product, url: true
     # t.column :serial_number, through: :product
@@ -74,5 +73,4 @@ class Backend::InventoriesController < Backend::BaseController
     end
     redirect_to action: :index
   end
-
 end

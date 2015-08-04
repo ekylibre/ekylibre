@@ -1,21 +1,17 @@
 module Ekylibre
   module Navigation
-
     class Node
-
       class << self
-
         def browse_element(element, levels)
-          node = new(levels[0], element.attr("name").to_s.to_sym, icon: element.attr("icon"))
+          node = new(levels[0], element.attr('name').to_s.to_sym, icon: element.attr('icon'))
           element.xpath('page').each do |page|
-            node.add_page(page.attr("to"), default: (page.attr("default").to_s == "true"))
+            node.add_page(page.attr('to'), default: (page.attr('default').to_s == 'true'))
           end
           element.xpath("#{levels[1]}").each do |item|
             node.add_child(browse_element(item, levels[1..-1]))
           end if levels[1]
-          return node
+          node
         end
-
       end
 
       attr_reader :type, :name, :parent, :pages, :icon, :index, :children, :pages, :default_page
@@ -31,7 +27,7 @@ module Ekylibre
       end
 
       def add_child(node)
-        node.instance_variable_set("@parent", self)
+        node.instance_variable_set('@parent', self)
         @children << node
       end
 
@@ -40,15 +36,13 @@ module Ekylibre
       def add_page(to, options = {})
         page = (to.is_a?(Page) ? to : Page.new(to))
         @pages << page unless @pages.include?(page)
-        if options[:default] or @pages.size == 1
-          @default_page = page
-        end
+        @default_page = page if options[:default] || @pages.size == 1
       end
 
       def get(*keys)
         key = keys.shift
         return @index[key].get(keys) if keys.any?
-        return @index[key]
+        @index[key]
       end
 
       def rebuild_index!
@@ -72,7 +66,7 @@ module Ekylibre
           hash[page.controller][page.action] ||= {}
           hash[page.controller][page.action][@type] = self
         end
-        return hash
+        hash
       end
 
       def human_name
@@ -85,8 +79,6 @@ module Ekylibre
       def inspect
         "<#{self.class.name}/#{@type} #{@name}>"
       end
-
     end
-
   end
 end

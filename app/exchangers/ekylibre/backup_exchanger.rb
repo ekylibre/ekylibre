@@ -1,10 +1,8 @@
 class Ekylibre::BackupExchanger < ActiveExchanger::Base
-
   class Backup < Hash
-
     MODELS = [:account, :account_balance, :area, :asset, :asset_depreciation, :bank_statement, :cash, :cash_transfer, :contact, :cultivation, :custom_field, :custom_field_choice, :custom_field_datum, :delay, :department, :deposit, :deposit_line, :district, :document, :document_template, :entity, :entity_category, :entity_link, :entity_link_nature, :entity_nature, :establishment, :event, :event_nature, :financial_year, :incoming_delivery, :incoming_delivery_line, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :incoming_payment_use, :inventory, :inventory_line, :journal, :journal_entry, :journal_entry_line, :land_parcel, :land_parcel_group, :land_parcel_kinship, :listing, :listing_node, :listing_node_item, :mandate, :observation, :operation, :operation_line, :operation_nature, :operation_use, :outgoing_delivery, :outgoing_delivery_line, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :outgoing_payment_use, :preference, :price, :product, :product_category, :product_component, :production_chain, :production_chain_conveyor, :production_chain_work_center, :production_chain_work_center_use, :profession, :purchase, :purchase_line, :purchase_nature, :role, :sale, :sale_line, :sale_nature, :sequence, :stock, :stock_move, :stock_transfer, :subscription, :subscription_nature, :tax, :tax_declaration, :tool, :tracking, :tracking_state, :transfer, :transport, :unit, :user, :warehouse]
 
-    SCHEMA = YAML.load_file(Pathname.new(__FILE__).dirname.join("backup", "schema-0.4.yml")).deep_symbolize_keys.freeze
+    SCHEMA = YAML.load_file(Pathname.new(__FILE__).dirname.join('backup', 'schema-0.4.yml')).deep_symbolize_keys.freeze
 
     attr_reader :matchings
 
@@ -25,7 +23,7 @@ class Ekylibre::BackupExchanger < ActiveExchanger::Base
             value = pair.second.to_s
             if SCHEMA[table] and SCHEMA[table][attribute] and type = SCHEMA[table][attribute][:type].to_sym
               if type == :boolean
-                value = (value == "true" ? true : false)
+                value = (value == 'true' ? true : false)
               elsif type == :integer
                 value = (value.blank? ? nil : value.to_i)
               elsif type == :decimal
@@ -40,22 +38,18 @@ class Ekylibre::BackupExchanger < ActiveExchanger::Base
               value = nil if value.zero?
             end
             # value = nil if value.blank?
-            unless [:company_id].include?(attribute)
-              hash[attribute] = value
-            end
+            hash[attribute] = value unless [:company_id].include?(attribute)
             hash
           end.to_struct
         end
       end
-      return backup
+      backup
     end
-
 
     def initialize(*args)
       super(*args)
       @matchings = {}.with_indifferent_access
     end
-
 
     def value_of(item, old_column, references = nil, converter = nil)
       value = nil
@@ -71,18 +65,18 @@ class Ekylibre::BackupExchanger < ActiveExchanger::Base
             elsif @matchings[ref]
               value = @matchings[ref][value]
             else
-              raise "Cannot match #{ref.inspect} (polymorphic)"
+              fail "Cannot match #{ref.inspect} (polymorphic)"
             end
           else
             if @matchings[references]
               value = @matchings[references][value]
             else
-              raise "Cannot match #{references.inspect}"
+              fail "Cannot match #{references.inspect}"
             end
           end
         end
       end
-      return value
+      value
     end
 
     def import(backup_model, *args)
@@ -95,16 +89,16 @@ class Ekylibre::BackupExchanger < ActiveExchanger::Base
         [:company_id, :creator_id, :updater_id, :id, :lock_version].include? c
       end
       keys.each do |key|
-        raise "Invalid key for record identification: #{key}" unless columns.include? key
+        fail "Invalid key for record identification: #{key}" unless columns.include? key
       end
       renamings = columns.keys.inject({}) do |h, k|
-        h[k] = {comment: :description, department_id: :team_id}[k] || k
+        h[k] = { comment: :description, department_id: :team_id }[k] || k
         h
       end
       converters = options.delete(:converters) || {}
       default_values = options[:default_values] || {}
       options[:rename].each do |old_column, new_column|
-        raise "What is #{old_column}? #{columns.keys.sort.to_sentence} only are accepted." unless columns.keys.include?(old_column)
+        fail "What is #{old_column}? #{columns.keys.sort.to_sentence} only are accepted." unless columns.keys.include?(old_column)
         renamings[old_column] = new_column
       end if options[:rename]
       model = options[:model] || backup_model
@@ -136,18 +130,15 @@ class Ekylibre::BackupExchanger < ActiveExchanger::Base
       end
     end
 
-    def browse_and_match(backup_model, &block)
+    def browse_and_match(backup_model, &_block)
       @matchings[backup_model] ||= {}
       self[backup_model].each do |item|
         @matchings[backup_model][item.id] = yield(item)
       end
     end
-
   end
 
-
   def import
-
     # Unzip file
     dir = w.tmp_dir
     Zip::File.open(file) do |zile|
@@ -156,7 +147,7 @@ class Ekylibre::BackupExchanger < ActiveExchanger::Base
       end
     end
 
-    database = dir.join("backup.xml")
+    database = dir.join('backup.xml')
     if database.exist?
       # CAUTION Fixed manually by counting points
       w.count = 15
@@ -167,7 +158,7 @@ class Ekylibre::BackupExchanger < ActiveExchanger::Base
       f.close
 
       root = doc.root
-      if root.attr(:version).to_s == "20120806083148" # Ekylibre v0.4
+      if root.attr(:version).to_s == '20120806083148' # Ekylibre v0.4
         data = Backup.load(root.children.first)
         # :accounts, :cultivations, :custom_fields, :delays, :districts, :document_templates, :entity_categories, :entity_link_natures, :entity_natures, :establishments, :event_natures, :incoming_delivery_modes, :journals, :land_parcel_groups, :listings, :operation_natures, :outgoing_delivery_modes, :production_chains, :professions, :roles, :sequences, :tools, :units
 
@@ -191,46 +182,45 @@ class Ekylibre::BackupExchanger < ActiveExchanger::Base
         w.check_point
 
         # Import financial_years
-        data.import(:financial_year, :code, rename: {last_journal_entry_id: nil})
+        data.import(:financial_year, :code, rename: { last_journal_entry_id: nil })
         w.check_point
         data.import(:department, :name, model: :team)
         w.check_point
         data.import(:district, :name, :code)
         w.check_point
         data.import(:journal, :name, converters: {
-                      nature: lambda{ |j| j.nature == "renew" ? "forward" : j.nature }
+                      nature: lambda { |j| j.nature == 'renew' ? 'forward' : j.nature }
                     })
         w.check_point
         data.import(:sequence, :number_format)
         w.check_point
-        data.import(:role, :name, rename: {rights: nil})
+        data.import(:role, :name, rename: { rights: nil })
         w.check_point
         data[:user].each do |item|
-          item.email = item.name + "@ekylibre.org" if item.email.blank?
+          item.email = item.name + '@ekylibre.org' if item.email.blank?
         end
-        password = "12345678"
-        data.import(:user, :email, rename: {admin: :administrator, office: nil, profession_id: nil, arrived_on: nil, departed_on: nil, hashed_password: nil, salt: nil, reduction_percent: :maximal_grantable_reduction_percentage, connected_at: :last_sign_in_at, name: nil, rights: nil}, default_values: {password: password, password_confirmation: password})
+        password = '12345678'
+        data.import(:user, :email, rename: { admin: :administrator, office: nil, profession_id: nil, arrived_on: nil, departed_on: nil, hashed_password: nil, salt: nil, reduction_percent: :maximal_grantable_reduction_percentage, connected_at: :last_sign_in_at, name: nil, rights: nil }, default_values: { password: password, password_confirmation: password })
         w.check_point
-        data.import(:entity, :code, rename: {code: :number, category_id: nil, nature_id: nil, payment_delay_id: nil, payment_mode_id: nil, webpass: nil, vat_submissive: :vat_subjected, soundex: nil, salt: nil, hashed_password: nil, invoices_count: nil, origin: :meeting_origin, attorney: nil, attorney_account_id: nil, born_on: :born_at, dead_on: :dead_at, discount_rate: nil, reduction_rate: nil, reflation_submissive: :reminder_submissive, ean13: nil, excise: nil, first_met_on: :first_met_at, website: nil, photo: nil}, default_values: {type: "Entity"})
+        data.import(:entity, :code, rename: { code: :number, category_id: nil, nature_id: nil, payment_delay_id: nil, payment_mode_id: nil, webpass: nil, vat_submissive: :vat_subjected, soundex: nil, salt: nil, hashed_password: nil, invoices_count: nil, origin: :meeting_origin, attorney: nil, attorney_account_id: nil, born_on: :born_at, dead_on: :dead_at, discount_rate: nil, reduction_rate: nil, reflation_submissive: :reminder_submissive, ean13: nil, excise: nil, first_met_on: :first_met_at, website: nil, photo: nil }, default_values: { type: 'Entity' })
         w.check_point
-        data.import(:cash, :name, rename: {iban_label: :spaced_iban, address: :bank_agency_address, agency_code: :bank_agency_code, bic: :bank_identifier_code, by_default: nil, entity_id: :owner_id, key: :bank_account_key, number: :bank_account_number})
+        data.import(:cash, :name, rename: { iban_label: :spaced_iban, address: :bank_agency_address, agency_code: :bank_agency_code, bic: :bank_identifier_code, by_default: nil, entity_id: :owner_id, key: :bank_account_key, number: :bank_account_number })
         w.check_point
-        data.import(:bank_statement, :cash_id, :number, rename: {started_on: :started_at, stopped_on: :stopped_at})
+        data.import(:bank_statement, :cash_id, :number, rename: { started_on: :started_at, stopped_on: :stopped_at })
         w.check_point
-        data.import(:custom_field, :name, rename: {decimal_max: :maximal_value, decimal_min: :minimal_value, length_max: :maximal_length}, default_values: {customized_type: 'Entity'})
+        data.import(:custom_field, :name, rename: { decimal_max: :maximal_value, decimal_min: :minimal_value, length_max: :maximal_length }, default_values: { customized_type: 'Entity' })
         w.check_point
-        data.import(:journal_entry, :journal_id, :number, rename: {original_debit: :real_debit, original_credit: :real_credit, original_currency: :real_currency, original_currency_rate: :real_currency_rate, created_on: nil})
+        data.import(:journal_entry, :journal_id, :number, rename: { original_debit: :real_debit, original_credit: :real_credit, original_currency: :real_currency, original_currency_rate: :real_currency_rate, created_on: nil })
         w.check_point
-        data.import(:journal_entry_line, :entry_id, :position, rename: {original_debit: :real_debit, original_credit: :real_credit}, model: :journal_entry_item)
+        data.import(:journal_entry_line, :entry_id, :position, rename: { original_debit: :real_debit, original_credit: :real_credit }, model: :journal_entry_item)
         w.check_point
 
       # puts (data.keys - data.matchings.keys).inspect.red
       else
-        raise NotSupportedFormatError
+        fail NotSupportedFormatError
       end
     else
-      raise NotWellFormedFileError
+      fail NotWellFormedFileError
     end
   end
-
 end

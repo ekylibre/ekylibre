@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 class Mailman < ActionMailer::Base
-
-  def mailing(expedier, recipient, subject, text, piece=nil)
+  def mailing(expedier, recipient, subject, text, piece = nil)
     # from       expedier
     # recipients recipient
     # subject    subject
@@ -14,7 +13,6 @@ class Mailman < ActionMailer::Base
       #                  :body => piece.read,
       #                  :filename=>piece.original_filename)
     end
-    mail(:from => expedier, :to => recipient, :subject => subject)
+    mail(from: expedier, to: recipient, subject: subject)
   end
-
 end

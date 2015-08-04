@@ -46,18 +46,17 @@
 #  with_accounting         :boolean          default(FALSE), not null
 #
 
-
 class SaleNature < Ekylibre::Record::Base
   belongs_to :catalog
   belongs_to :journal
-  belongs_to :payment_mode, class_name: "IncomingPaymentMode"
+  belongs_to :payment_mode, class_name: 'IncomingPaymentMode'
   has_many :sales
 
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :downpayment_minimum, :downpayment_percentage, allow_nil: true
   validates_inclusion_of :active, :by_default, :downpayment, :with_accounting, in: [true, false]
   validates_presence_of :catalog, :currency, :expiration_delay, :name, :payment_delay
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_presence_of :journal, if: :with_accounting?
   validates_presence_of :currency
@@ -69,23 +68,22 @@ class SaleNature < Ekylibre::Record::Base
   scope :actives, -> { where(active: true) }
 
   before_validation do
-    self.expiration_delay = "0 minutes" if self.expiration_delay.blank?
-    self.payment_delay    = "0 minutes" if self.payment_delay.blank?
-    self.downpayment_minimum    ||= 0
+    self.expiration_delay = '0 minutes' if expiration_delay.blank?
+    self.payment_delay    = '0 minutes' if payment_delay.blank?
+    self.downpayment_minimum ||= 0
     self.downpayment_percentage ||= 0
   end
 
   validate do
-    if self.journal
-      unless self.currency == self.journal.currency
-        errors.add(:journal, :currency_does_not_match, currency: self.currency)
+    if journal
+      unless currency == journal.currency
+        errors.add(:journal, :currency_does_not_match, currency: currency)
       end
     end
-    if self.payment_mode
-      unless self.currency == self.payment_mode.currency
-        errors.add(:payment_mode, :currency_does_not_match, currency: self.currency)
+    if payment_mode
+      unless currency == payment_mode.currency
+        errors.add(:payment_mode, :currency_does_not_match, currency: currency)
       end
     end
   end
-
 end

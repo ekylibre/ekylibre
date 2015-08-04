@@ -19,18 +19,17 @@
 #
 
 class Backend::GeneralLedgersController < Backend::BaseController
-
-  def self.general_ledger_conditions(options={})
+  def self.general_ledger_conditions(_options = {})
     conn = ActiveRecord::Base.connection
-    code = ""
-    code << search_conditions({journal_entry_item: [:name, :debit, :credit, :real_debit, :real_credit]}, conditions: "c")+"\n"
-    code << journal_period_crit("params")
-    code << journal_entries_states_crit("params")
-    code << accounts_range_crit("params")
-    code << journals_crit("params")
+    code = ''
+    code << search_conditions({ journal_entry_item: [:name, :debit, :credit, :real_debit, :real_credit] }, conditions: 'c') + "\n"
+    code << journal_period_crit('params')
+    code << journal_entries_states_crit('params')
+    code << accounts_range_crit('params')
+    code << journals_crit('params')
     code << "c\n"
     # code.split("\n").each_with_index{|x, i| puts((i+1).to_s.rjust(4)+": "+x)}
-    return code.c # .gsub(/\s*\n\s*/, ";")
+    code.c # .gsub(/\s*\n\s*/, ";")
   end
 
   list(:journal_entry_items, conditions: general_ledger_conditions, joins: [:entry, :account], order: "accounts.number, journal_entries.number, #{JournalEntryItem.table_name}.position") do |t|
@@ -52,5 +51,4 @@ class Backend::GeneralLedgersController < Backend::BaseController
 
   def show
   end
-
 end

@@ -26,9 +26,6 @@ module Taskable
   end
 
   def ensure_originator_type
-    if self.originator
-      self.originator_type = self.originator.class.base_class.name
-    end
+    self.originator_type = originator.class.base_class.name if originator
   end
-
 end

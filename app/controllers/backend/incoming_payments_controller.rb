@@ -17,12 +17,12 @@
 #
 
 class Backend::IncomingPaymentsController < Backend::BaseController
-  manage_restfully to_bank_at: "Date.today".c, paid_at: "Date.today".c, responsible_id: "current_user.id".c, mode_id: "params[:mode_id] ? params[:mode_id] : (payer = Entity.find_by(id: params[:entity_id].to_i)) ? payer.incoming_payments.reorder(id: :desc).first.mode_id : nil".c, t3e: {payer: "RECORD.payer.full_name".c, entity: "RECORD.payer.full_name".c , number: "RECORD.number".c}
+  manage_restfully to_bank_at: 'Date.today'.c, paid_at: 'Date.today'.c, responsible_id: 'current_user.id'.c, mode_id: 'params[:mode_id] ? params[:mode_id] : (payer = Entity.find_by(id: params[:entity_id].to_i)) ? payer.incoming_payments.reorder(id: :desc).first.mode_id : nil'.c, t3e: { payer: 'RECORD.payer.full_name'.c, entity: 'RECORD.payer.full_name'.c, number: 'RECORD.number'.c }
 
   unroll :number, :amount, :currency, mode: :name, payer: :full_name
 
-  def self.incoming_payments_conditions(options={})
-    code = search_conditions(:incoming_payments => [:amount, :bank_check_number, :number, :bank_account_number], :entities => [:number, :full_name])+"||=[]\n"
+  def self.incoming_payments_conditions(_options = {})
+    code = search_conditions(incoming_payments: [:amount, :bank_check_number, :number, :bank_account_number], entities: [:number, :full_name]) + "||=[]\n"
     code << "if params[:s] == 'not_received'\n"
     code << "  c[0] += ' AND received=?'\n"
     code << "  c << false\n"
@@ -36,10 +36,10 @@ class Backend::IncomingPaymentsController < Backend::BaseController
     # code << "  c[0] += ' AND used_amount != amount'\n"
     code << "end\n"
     code << "c\n"
-    return code.c
+    code.c
   end
 
-  list(conditions: incoming_payments_conditions, joins: :payer, order: {to_bank_at: :desc}) do |t|
+  list(conditions: incoming_payments_conditions, joins: :payer, order: { to_bank_at: :desc }) do |t|
     t.action :edit, unless: :deposit?
     t.action :destroy, if: :destroyable?
     t.column :number, url: true
@@ -52,5 +52,4 @@ class Backend::IncomingPaymentsController < Backend::BaseController
     t.column :received, hidden: true
     t.column :deposit, url: true
   end
-
 end

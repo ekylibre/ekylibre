@@ -20,5 +20,4 @@
 class Backend::Calculators::GrainsCommercializationThresholdSimulatorsController < Backend::Calculators::BaseController
   def show
   end
-
 end

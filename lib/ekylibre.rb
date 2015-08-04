@@ -16,10 +16,9 @@ module Ekylibre
   CSV = ::CSV.freeze
 
   class << self
-
     def http_languages
       ::I18n.available_locales.inject({}) do |h, l|
-        h["i18n.iso2".t(locale: l)] = l
+        h['i18n.iso2'.t(locale: l)] = l
         h
       end
     end
@@ -37,11 +36,11 @@ module Ekylibre
     # Returns list of themes
     def themes
       unless @themes
-        Dir.chdir(root.join("app", "themes")) do
-          @themes = Dir.glob("*")
+        Dir.chdir(root.join('app', 'themes')) do
+          @themes = Dir.glob('*')
         end
       end
-      return @themes
+      @themes
     end
 
     # Returns all helps files indexed by locale and controller-action
@@ -51,20 +50,18 @@ module Ekylibre
       @helps = HashWithIndifferentAccess.new
       for locale in ::I18n.available_locales
         @helps[locale] = HashWithIndifferentAccess.new
-        locales_dir = root.join("config", "locales", locale.to_s, "help")
-        for file in Dir[locales_dir.join("**", "*.txt")].sort
+        locales_dir = root.join('config', 'locales', locale.to_s, 'help')
+        for file in Dir[locales_dir.join('**', '*.txt')].sort
           path = Pathname.new(file).relative_path_from(locales_dir)
           File.open(file, 'rb:UTF-8') do |f|
-            help = {title: f.read[/^======\s*(.*)\s*======$/, 1].strip, name: path.to_s.gsub(/\.txt$/, ''), file: file}
+            help = { title: f.read[/^======\s*(.*)\s*======$/, 1].strip, name: path.to_s.gsub(/\.txt$/, ''), file: file }
             unless help[:title].blank?
               @helps[locale][path.to_s.gsub(/\.txt$/, '')] = help
             end
           end
         end
       end
-      return @helps
+      @helps
     end
-
   end
-
 end

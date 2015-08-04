@@ -41,30 +41,26 @@
 class ProductPhase < Ekylibre::Record::Base
   include Taskable, TimeLineable
   belongs_to :product
-  belongs_to :variant,  class_name: "ProductNatureVariant"
-  belongs_to :nature,   class_name: "ProductNature"
-  belongs_to :category, class_name: "ProductNatureCategory"
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  belongs_to :variant,  class_name: 'ProductNatureVariant'
+  belongs_to :nature,   class_name: 'ProductNature'
+  belongs_to :category, class_name: 'ProductNatureCategory'
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_presence_of :category, :nature, :product, :variant
-  #]VALIDATORS]
+  # ]VALIDATORS]
 
   delegate :variety, :derivative_of, :name, :nature, to: :variant, prefix: true
 
   # Sets nature and variety from variant
   before_validation on: :create do
-    if self.variant
-      self.nature   = self.variant.nature
-    end
-    if self.nature
-      self.category = self.nature.category
-    end
+    self.nature   = variant.nature if variant
+    self.category = nature.category if nature
   end
 
   # Updates product
   after_save do
     if self.last_for_now?
-      self.product.update_columns(variant_id: self.variant_id, nature_id: self.nature_id, category_id: self.category_id)
+      product.update_columns(variant_id: variant_id, nature_id: nature_id, category_id: category_id)
     end
   end
 
@@ -72,11 +68,9 @@ class ProductPhase < Ekylibre::Record::Base
   before_destroy do
     if self.last_for_now?
       if previous = self.previous
-        self.product.update_columns(variant_id: previous.variant_id, nature_id: previous.nature_id, category_id: previous.category_id)
+        product.update_columns(variant_id: previous.variant_id, nature_id: previous.nature_id, category_id: previous.category_id)
       else
-        unless self.destroyed_by_association
-          raise "Cannot destroy this product phase"
-        end
+        fail 'Cannot destroy this product phase' unless destroyed_by_association
       end
     end
   end
@@ -84,7 +78,6 @@ class ProductPhase < Ekylibre::Record::Base
   private
 
   def siblings
-    self.product.phases
+    product.phases
   end
-
 end

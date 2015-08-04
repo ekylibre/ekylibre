@@ -5,7 +5,7 @@ module Rightable
     serialize :rights
 
     before_validation do
-      self.rights = self.rights.to_hash if self.rights
+      self.rights = rights.to_hash if rights
     end
   end
 
@@ -13,30 +13,27 @@ module Rightable
   def rights_array
     array = []
     each_right do |resource, action|
-      array << resource + "-" + action
+      array << resource + '-' + action
     end
-    return array
+    array
   end
-
 
   # Returns rights as a list of "action-resource" strings
   def resource_actions
     array = []
     each_right do |resource, action|
-      array << action + "-" + resource
+      array << action + '-' + resource
     end
-    return array
+    array
   end
 
   # Browse all resource/action pair
-  def each_right(&block)
-    return unless self.rights
-    self.rights.each do |resource, actions|
+  def each_right(&_block)
+    return unless rights
+    rights.each do |resource, actions|
       actions.each do |action|
         yield resource, action
       end
     end
   end
-
-
 end

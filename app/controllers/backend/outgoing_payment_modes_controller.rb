@@ -31,5 +31,4 @@ class Backend::OutgoingPaymentModesController < Backend::BaseController
     t.column :cash, url: true
     t.column :with_accounting
   end
-
 end

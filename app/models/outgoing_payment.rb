@@ -45,49 +45,47 @@
 #  updater_id        :integer
 #
 
-
 class OutgoingPayment < Ekylibre::Record::Base
   belongs_to :cash
   belongs_to :journal_entry
-  belongs_to :mode, class_name: "OutgoingPaymentMode"
-  belongs_to :payee, class_name: "Entity"
-  belongs_to :responsible, class_name: "User"
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  belongs_to :mode, class_name: 'OutgoingPaymentMode'
+  belongs_to :payee, class_name: 'Entity'
+  belongs_to :responsible, class_name: 'User'
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :accounted_at, :paid_at, :to_bank_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :amount, allow_nil: true
   validates_inclusion_of :delivered, :downpayment, in: [true, false]
   validates_presence_of :amount, :cash, :currency, :mode, :payee, :responsible, :to_bank_at
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_numericality_of :amount, greater_than: 0
   validates_presence_of :to_bank_at
 
   acts_as_numbered
-  acts_as_affairable :payee, dealt_at: :to_bank_at, debit: false, role: "supplier"
+  acts_as_affairable :payee, dealt_at: :to_bank_at, debit: false, role: 'supplier'
 
   before_validation do
-    if self.mode
-      self.cash = self.mode.cash
-      self.currency = self.mode.currency
+    if mode
+      self.cash = mode.cash
+      self.currency = mode.currency
     end
   end
 
   protect do
-    (self.journal_entry && self.journal_entry.closed?)
+    (journal_entry && journal_entry.closed?)
   end
 
   # This method permits to add journal entries corresponding to the payment
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
-    label = tc(:bookkeep, resource: self.class.model_name.human, number: self.number, payee: self.payee.full_name, mode: self.mode.name, check_number: self.bank_check_number)
-    b.journal_entry(self.mode.cash.journal, printed_on: self.to_bank_at.to_date, if: (self.mode.with_accounting? and self.delivered)) do |entry|
-      entry.add_debit(label, self.payee.account(:supplier).id, self.amount)
-      entry.add_credit(label, self.mode.cash.account_id, self.amount)
+    label = tc(:bookkeep, resource: self.class.model_name.human, number: number, payee: payee.full_name, mode: mode.name, check_number: bank_check_number)
+    b.journal_entry(mode.cash.journal, printed_on: to_bank_at.to_date, if: (mode.with_accounting? && delivered)) do |entry|
+      entry.add_debit(label, payee.account(:supplier).id, amount)
+      entry.add_credit(label, mode.cash.account_id, amount)
     end
   end
 
   def label
-    tc(:label, amount: self.amount.l(currency: self.currency), date: self.to_bank_at.l, mode: self.mode.name, payee: self.payee.full_name, number: self.number)
+    tc(:label, amount: amount.l(currency: currency), date: to_bank_at.l, mode: mode.name, payee: payee.full_name, number: number)
   end
-
 end

@@ -1,6 +1,5 @@
 module ActiveGuide
   class Group < Item
-
     attr_reader :items
 
     def initialize(group, name, options = {}, &block)
@@ -28,7 +27,7 @@ module ActiveGuide
       elsif proc = args.shift and proc.respond_to? :call
         add_item Test.new(self, name, options.merge(validate: proc))
       else
-        raise "Cannot do anything with test #{name}"
+        fail "Cannot do anything with test #{name}"
       end
     end
 
@@ -37,6 +36,5 @@ module ActiveGuide
     def add_item(item)
       @items << item
     end
-
   end
 end

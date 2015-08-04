@@ -10,21 +10,19 @@ STDOUT.sync = true
 
 def execute(command)
   puts command
-  unless @simulate
-    system(command)
-  end
+  system(command) unless @simulate
 end
 
 cell = ARGV.shift
 
 unless $PROGRAM_NAME.match(/^(.\/)?bin\//)
-  puts "Script must be started from Rails root."
+  puts 'Script must be started from Rails root.'
   exit 0
 end
 
-raise "Not cell given" if cell.blank?
+fail 'Not cell given' if cell.blank?
 
-root = Pathname.new(".")
+root = Pathname.new('.')
 
 records = cell
 record = records.singularize
@@ -36,7 +34,5 @@ files = ["app/controllers/backend/cells/#{cell}_cells_controller.rb",
          "test/controllers/backend/#{cell}_cells_controller_test.rb"]
 
 for file in files
-  if File.exist?(file)
-    execute("git rm -fr #{file}")
-  end
+  execute("git rm -fr #{file}") if File.exist?(file)
 end

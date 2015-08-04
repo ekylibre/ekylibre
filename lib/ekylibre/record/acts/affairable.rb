@@ -1,35 +1,35 @@
 module Ekylibre::Record
   module Acts #:nodoc:
     module Affairable #:nodoc:
-
       def self.included(base)
         base.extend(ClassMethods)
       end
 
       module ClassMethods
-
         def acts_as_affairable(*args)
           options = args.extract_options!
-          reflection = self.reflect_on_association(options[:reflection] || :affair)
+          reflection = reflect_on_association(options[:reflection] || :affair)
           currency = options[:currency] || :currency
           options[:dealt_at] ||= :created_at
           options[:amount] ||= :amount
-          options[:debit] = true unless options.has_key?(:debit)
+          options[:debit] = true unless options.key?(:debit)
 
           options[:third] ||= args.shift || :third
-          options[:role]  ||= options[:third].to_s
-          options[:good]  ||= :debit
-          code  = ""
+          options[:role] ||= options[:third].to_s
+          options[:good] ||= :debit
+          code  = ''
 
-          affair, affair_id = :affair, :affair_id
+          affair = :affair
+          affair_id = :affair_id
           if reflection
-            affair, affair_id = reflection.name, reflection.foreign_key
+            affair = reflection.name
+            affair_id = reflection.foreign_key
           else
-            unless self.columns_definition[affair_id]
-              Rails.logger.fatal "Unable to acts as affairable without affair column"
+            unless columns_definition[affair_id]
+              Rails.logger.fatal 'Unable to acts as affairable without affair column'
               # raise StandardError, "Unable to acts as affairable no affair column"
             end
-            code << "belongs_to :#{affair}, inverse_of: :#{self.name.underscore.pluralize}\n"
+            code << "belongs_to :#{affair}, inverse_of: :#{name.underscore.pluralize}\n"
           end
           # code << "has_many :affairs, as: :originator, dependent: :destroy\n"
 
@@ -72,7 +72,6 @@ module Ekylibre::Record
           code << "  end\n"
           # code << "  return true\n"
           code << "end\n"
-
 
           # Refresh after each save
           code << "def deal_with!(affair, dones = [])\n"
@@ -117,7 +116,6 @@ module Ekylibre::Record
           code << "def detachable?\n"
           code << "  return self.other_deals.any?\n"
           code << "end\n"
-
 
           # # Create "empty" affair if missing before every save
           # code << "before_save do\n"
@@ -166,7 +164,7 @@ module Ekylibre::Record
           elsif options[:debit].is_a?(Symbol)
             code << "  return self.#{options[:debit]}\n"
           else
-            raise ArgumentError, "Option :debit must be boolean or Symbol"
+            fail ArgumentError, 'Option :debit must be boolean or Symbol'
           end
           code << "end\n"
 
@@ -234,7 +232,6 @@ module Ekylibre::Record
             code << "end\n"
           end
 
-
           # Define the third of the deal
           code << "def deal_third_role\n"
           if options[:role].is_a?(Symbol)
@@ -249,7 +246,6 @@ module Ekylibre::Record
           class_eval(code)
         end
       end
-
     end
   end
 end

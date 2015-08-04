@@ -1,10 +1,8 @@
 module Ekylibre
   class Snippet
-
     @snippets = {}.with_indifferent_access
 
     class << self
-
       def add(name, path, options = {})
         place = options.delete(:place) || :side
         @snippets[place] ||= []
@@ -14,7 +12,6 @@ module Ekylibre
       def at(place)
         @snippets[place] || []
       end
-
     end
 
     attr_reader :name, :path
@@ -28,6 +25,5 @@ module Ekylibre
     def options
       @options.dup
     end
-
   end
 end

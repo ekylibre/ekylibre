@@ -25,8 +25,8 @@ class Backend::SalesController < Backend::BaseController
 
   # management -> sales_conditions
   def self.sales_conditions
-    code = ""
-    code = search_conditions(:sales => [:pretax_amount, :amount, :number, :initial_number, :description], :entities => [:number, :full_name]) + " ||= []\n"
+    code = ''
+    code = search_conditions(sales: [:pretax_amount, :amount, :number, :initial_number, :description], entities: [:number, :full_name]) + " ||= []\n"
 
     code << "unless params[:s].blank?\n"
     code << "  if params[:s] == 'current'\n"
@@ -41,15 +41,15 @@ class Backend::SalesController < Backend::BaseController
     code << "  c << params[:responsible_id]\n"
     code << "end\n"
     code << "c\n "
-    return code.c
+    code.c
   end
 
-  list(conditions: sales_conditions, joins: :client, order: {created_at: :desc, number: :desc}) do |t| # , :line_class => 'RECORD.tags'
+  list(conditions: sales_conditions, joins: :client, order: { created_at: :desc, number: :desc }) do |t| # , :line_class => 'RECORD.tags'
     # t.action :show, url: {format: :pdf}, image: :print
     t.action :edit, if: :draft?
     t.action :cancel, if: :cancellable?
     t.action :destroy, if: :aborted?
-    t.column :number, url: {action: :show}
+    t.column :number, url: { action: :show }
     t.column :created_at
     t.column :invoiced_at
     t.column :client, url: true
@@ -69,16 +69,16 @@ class Backend::SalesController < Backend::BaseController
     end
   end
 
-  list(:credits, model: :sales, conditions: {:credited_sale_id => 'params[:id]'.c }, :children => :items) do |t|
-    t.column :number, url: true, :children => :designation
+  list(:credits, model: :sales, conditions: { credited_sale_id: 'params[:id]'.c }, children: :items) do |t|
+    t.column :number, url: true, children: :designation
     t.column :client, children: false
     t.column :created_at, children: false
     t.column :pretax_amount, currency: true
     t.column :amount, currency: true
   end
 
-  list(:deliveries, model: :outgoing_deliveries, :children => :items, conditions: {sale_id: 'params[:id]'.c}) do |t|
-    t.column :number, :children => :product_name, url: true
+  list(:deliveries, model: :outgoing_deliveries, children: :items, conditions: { sale_id: 'params[:id]'.c }) do |t|
+    t.column :number, children: :product_name, url: true
     t.column :transporter, children: false, url: true
     t.column :address, label_method: :coordinate, children: false
     t.column :sent_at, children: false, hidden: true
@@ -91,7 +91,7 @@ class Backend::SalesController < Backend::BaseController
     t.action :destroy, if: :destroyable?
   end
 
-  list(:subscriptions, conditions: {sale_id: 'params[:id]'.c}) do |t|
+  list(:subscriptions, conditions: { sale_id: 'params[:id]'.c }) do |t|
     t.action :edit
     t.action :destroy
     t.column :number
@@ -103,7 +103,7 @@ class Backend::SalesController < Backend::BaseController
     t.column :quantity
   end
 
-  list(:undelivered_items, model: :sale_items, conditions: {sale_id: 'params[:id]'.c}) do |t|
+  list(:undelivered_items, model: :sale_items, conditions: { sale_id: 'params[:id]'.c }) do |t|
     t.column :name, through: :variant
     # t.column :pretax_amount, currency: true, through: :price
     t.column :quantity
@@ -113,7 +113,7 @@ class Backend::SalesController < Backend::BaseController
     # t.column :undelivered_quantity, :datatype => :decimal
   end
 
-  list(:items, model: :sale_items, conditions: {sale_id: 'params[:id]'.c}, order: :position, :export => false, :line_class => "((RECORD.variant.subscribing? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')".c, :include => [:variant, :subscriptions]) do |t|
+  list(:items, model: :sale_items, conditions: { sale_id: 'params[:id]'.c }, order: :position, export: false, line_class: "((RECORD.variant.subscribing? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')".c, include: [:variant, :subscriptions]) do |t|
     # t.action :edit, if: 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
     # t.action :destroy, if: 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
     # t.column :name, through: :variant
@@ -134,20 +134,19 @@ class Backend::SalesController < Backend::BaseController
     return unless @sale = find_and_check
     @sale.other_deals
     respond_with(@sale, methods: [:taxes_amount, :affair_closed, :client_number, :sales_conditions, :sales_mentions],
-                 include: {:address => {methods: [:mail_coordinate]},
-                           :nature => {include: {:payment_mode => {include: :cash}}},
-                           :supplier => {methods: [:picture_path], include: {:default_mail_address => {methods: [:mail_coordinate]}, :websites => {}, :emails => {}, :mobiles => {}}},
-                           :credits => {},
-                           :affair => {methods: [:balance], include: [:incoming_payments => {include: :mode}]},
-                           :invoice_address => {methods: [:mail_coordinate]},
-                           :items => {methods: [:taxes_amount, :tax_name, :tax_short_label], include: [:variant]}
+                        include: { address: { methods: [:mail_coordinate] },
+                                   nature: { include: { payment_mode: { include: :cash } } },
+                                   supplier: { methods: [:picture_path], include: { default_mail_address: { methods: [:mail_coordinate] }, websites: {}, emails: {}, mobiles: {} } },
+                                   credits: {},
+                                   affair: { methods: [:balance], include: [incoming_payments: { include: :mode }] },
+                                   invoice_address: { methods: [:mail_coordinate] },
+                                   items: { methods: [:taxes_amount, :tax_name, :tax_short_label], include: [:variant] }
                           }
                 ) do |format|
       format.html do
         t3e @sale.attributes, client: @sale.client.full_name, state: @sale.state_label, label: @sale.label
       end
     end
-
   end
 
   def new
@@ -158,10 +157,10 @@ class Backend::SalesController < Backend::BaseController
     end
     @sale = Sale.new(nature: nature)
     @sale.currency = @sale.nature.currency
-    if client = Entity.find_by_id(params[:client_id]||params[:entity_id]||session[:current_entity_id])
+    if client = Entity.find_by_id(params[:client_id] || params[:entity_id] || session[:current_entity_id])
       if client.default_mail_address
         cid = client.default_mail_address.id
-        @sale.attributes = {address_id: cid, delivery_address_id: cid, invoice_address_id: cid}
+        @sale.attributes = { address_id: cid, delivery_address_id: cid, invoice_address_id: cid }
       end
     end
     session[:current_entity_id] = (client ? client.id : nil)
@@ -177,16 +176,16 @@ class Backend::SalesController < Backend::BaseController
     return unless @sale = find_and_check
     unless @sale.duplicatable?
       notify_error :sale_is_not_duplicatable
-      redirect_to params[:redirect] || {action: :index}
+      redirect_to params[:redirect] || { action: :index }
       return
     end
     copy = @sale.duplicate(responsible: current_user.person)
-    redirect_to params[:redirect] || {action: :show, id: copy.id}
+    redirect_to params[:redirect] || { action: :show, id: copy.id }
   end
 
   def cancel
     return unless @sale = find_and_check
-    url = {controller: :sale_credits, action: :new, credited_sale_id: @sale.id}
+    url = { controller: :sale_credits, action: :new, credited_sale_id: @sale.id }
     url[:redirect] = params[:redirect] if params[:redirect]
     redirect_to url
   end
@@ -199,8 +198,9 @@ class Backend::SalesController < Backend::BaseController
 
   def contacts
     if request.xhr?
-      client, address_id = nil, nil
-      client = if params[:selected] and address = EntityAddress.find_by_id(params[:selected])
+      client = nil
+      address_id = nil
+      client = if params[:selected] && address = EntityAddress.find_by_id(params[:selected])
                  address.entity
                else
                  Entity.find_by_id(params[:client_id])
@@ -209,8 +209,8 @@ class Backend::SalesController < Backend::BaseController
         session[:current_entity_id] = client.id
         address_id = (address ? address.id : client.default_mail_address.id)
       end
-      @sale = Sale.find_by_id(params[:sale_id])||Sale.new(:address_id => address_id, :delivery_address_id => address_id, :invoice_address_id => address_id)
-      render :partial => 'addresses_form', :locals => {:client => client, :object => @sale}
+      @sale = Sale.find_by_id(params[:sale_id]) || Sale.new(address_id: address_id, delivery_address_id: address_id, invoice_address_id: address_id)
+      render partial: 'addresses_form', locals: { client: client, object: @sale }
     else
       redirect_to action: :index
     end
@@ -231,7 +231,7 @@ class Backend::SalesController < Backend::BaseController
   def invoice
     return unless @sale = find_and_check
     ActiveRecord::Base.transaction do
-      raise ActiveRecord::Rollback unless @sale.invoice
+      fail ActiveRecord::Rollback unless @sale.invoice
     end
     redirect_to action: :show, id: @sale.id
   end
@@ -245,10 +245,10 @@ class Backend::SalesController < Backend::BaseController
   def propose_and_invoice
     return unless @sale = find_and_check
     ActiveRecord::Base.transaction do
-      raise ActiveRecord::Rollback unless @sale.propose
-      raise ActiveRecord::Rollback unless @sale.confirm
+      fail ActiveRecord::Rollback unless @sale.propose
+      fail ActiveRecord::Rollback unless @sale.confirm
       # raise ActiveRecord::Rollback unless @sale.deliver
-      raise ActiveRecord::Rollback unless @sale.invoice
+      fail ActiveRecord::Rollback unless @sale.invoice
     end
     redirect_to action: :show, id: @sale.id
   end
@@ -258,5 +258,4 @@ class Backend::SalesController < Backend::BaseController
     @sale.refuse
     redirect_to action: :show, id: @sale.id
   end
-
 end

@@ -1,7 +1,6 @@
 class Backend::Cells::LastAnalysesCellsController < Backend::Cells::BaseController
-
   def show
-    if @nature = Nomen::AnalysisNatures[params[:nature] || "cow_milk_analysis"]
+    if @nature = Nomen::AnalysisNatures[params[:nature] || 'cow_milk_analysis']
       months = params[:months].to_i
       months = 12 if months.zero?
       @product = Product.find(params[:product_id]) rescue nil
@@ -10,5 +9,4 @@ class Backend::Cells::LastAnalysesCellsController < Backend::Cells::BaseControll
       @stopped_at = @started_at.end_of_month if @stopped_at < @started_at
     end
   end
-
 end

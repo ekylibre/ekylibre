@@ -1,7 +1,7 @@
 namespace :test do
-  desc "Run tests for libraries"
-  Rails::TestTask.new(lib: "test:prepare") do |t|
-    t.pattern = "test/lib/**/*_test.rb"
+  desc 'Run tests for libraries'
+  Rails::TestTask.new(lib: 'test:prepare') do |t|
+    t.pattern = 'test/lib/**/*_test.rb'
   end
 
   task core: ['test:units', 'test:functionals', 'test:lib']
@@ -9,4 +9,3 @@ namespace :test do
   # Append test for lib
   task run_all: ['test:units', 'test:functionals', 'test:integration', 'test:lib']
 end
-

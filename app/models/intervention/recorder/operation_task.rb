@@ -1,20 +1,18 @@
 class Intervention
   class Recorder
-
     class OperationTask
-      def initialize(recorder, type, parameters = {}, options = {})
+      def initialize(recorder, type, parameters = {}, _options = {})
         @recorder = recorder
         @type = type
         @parameters = parameters
         @options = {}
       end
 
-
       def perform!(operation)
         operation.send("perform_#{@type}", nil, actors)
       end
 
-      # FIXME Variant only not working
+      # FIXME: Variant only not working
       def actors
         @parameters.inject({}) do |h, p|
           h[p.first] = if p.second.is_a?(Symbol)
@@ -35,9 +33,6 @@ class Intervention
       def intervention
         @recorder.intervention
       end
-
     end
-
-
   end
 end

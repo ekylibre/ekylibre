@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'
 
@@ -35,7 +34,7 @@ gem 'jquery-turbolinks'
 # jQuery UI Javascript framework
 gem 'jquery-ui-rails'
 # gem 'jquery_mobile_rails'
-gem "jquery-scrollto-rails"
+gem 'jquery-scrollto-rails'
 
 # Forms helper
 gem 'formize', '~> 2.1.0'
@@ -70,8 +69,8 @@ gem 'exception_notification'
 
 # Views helpers
 gem 'haml'
-gem "simple_calendar", "~> 1.0"
-gem "active_list", '>= 6.5.0' #, path: "../active_list"
+gem 'simple_calendar', '~> 1.0'
+gem 'active_list', '>= 6.5.0' # , path: "../active_list"
 
 # Models helpers
 gem 'acts_as_list'
@@ -127,7 +126,7 @@ gem 'ffaker', '>= 2.0.0'
 gem 'feedjira', require: false
 
 # Adds colors in terminal
-gem 'colored' #, require: false
+gem 'colored' # , require: false
 
 # Compass
 gem 'bootstrap-sass', '~> 3.1'
@@ -137,13 +136,14 @@ gem 'agric'
 
 # Idele webservices
 gem 'mechanize'
-gem 'savon' #, '~> 2.5.1'
+gem 'savon' # , '~> 2.5.1'
 
 group :development do
   gem 'quiet_assets'
   # gem 'rack-mini-profiler'
 
   # Code metrics
+  gem 'rails_best_practices', require: false
   gem 'rubocop', require: false
 
   # Webservers
@@ -169,4 +169,3 @@ group :test do
   gem 'database_cleaner'
   gem 'coveralls', '>= 0.6', require: false
 end
-

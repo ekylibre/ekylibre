@@ -1,5 +1,4 @@
 module CobblesHelper
-
   class Cobble
     cattr_reader :current
 
@@ -18,7 +17,7 @@ module CobblesHelper
     end
 
     def others
-      @cobbler.items.select{|c| c.id != @id }
+      @cobbler.items.select { |c| c.id != @id }
     end
   end
 
@@ -33,12 +32,10 @@ module CobblesHelper
     end
 
     def cobble(name, options = {}, &block)
-      if @items.detect{|i| i.name.to_s == name.to_s }
-        raise "Already taken. You already use #{name.inspect}"
+      if @items.detect { |i| i.name.to_s == name.to_s }
+        fail "Already taken. You already use #{name.inspect}"
       end
-      unless block_given?
-        raise "Need a block for #{name} in cobbler #{@name}"
-      end
+      fail "Need a block for #{name} in cobbler #{@name}" unless block_given?
       @items << Cobble.new(self, name, options, &block)
     end
 
@@ -54,7 +51,7 @@ module CobblesHelper
           cobble.position = index + 1
         end
       end
-      @items.sort! do |a,b|
+      @items.sort! do |a, b|
         a.position <=> b.position
       end
     end
@@ -62,25 +59,24 @@ module CobblesHelper
     def each(&block)
       @items.each(&block)
     end
-
   end
 
   # Cobbles are a simple layout with all cobble in one list.
   # List is sortable and cobbles are hideable/collapseable
-  def cobbles(options = {}, &block)
+  def cobbles(options = {}, &_block)
     name = options[:name] || "#{controller_name}-#{action_name}".to_sym
     config = YAML.load(current_user.preference("cobbler.#{name}", {}.to_yaml).value).deep_symbolize_keys
     cobbler = Cobbler.new(self, name, order: config[:order])
     yield cobbler
     if cobbler.any?
       cobbler.sort!
-      render "cobbles", cobbler: cobbler
+      render 'cobbles', cobbler: cobbler
     end
   end
 
   def cobble_toolbar(options = {}, &block)
     content_for("cobble_#{Cobble.current.id}_main_toolbar".to_sym, toolbar(options.merge(wrap: false), &block))
-    return nil
+    nil
   end
 
   def cobble_list(name, options = {}, &block)
@@ -98,6 +94,4 @@ module CobblesHelper
       content_tag(:div, content_for(tbid), class: "cobble-toolbar cobble-#{name.to_s.dasherize}-toolbar")
     end
   end
-
-
 end

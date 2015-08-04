@@ -33,7 +33,6 @@
 #  value        :text
 #
 
-
 require 'test_helper'
 
 class ListingNodeItemTest < ActiveSupport::TestCase

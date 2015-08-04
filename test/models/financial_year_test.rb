@@ -37,16 +37,14 @@
 #  updater_id            :integer
 #
 
-
 require 'test_helper'
 
 class FinancialYearTest < ActiveSupport::TestCase
-
-  test "chronology" do
+  test 'chronology' do
     first_year = financial_years(:financial_years_001)
     assert_not_nil first_year
 
-    assert_nil first_year.previous, "No previous financial year expected"
+    assert_nil first_year.previous, 'No previous financial year expected'
 
     assert_not_nil first_year.next, "No next financial year found... #{first_year.attributes.inspect}"
 
@@ -55,5 +53,4 @@ class FinancialYearTest < ActiveSupport::TestCase
 
     assert_not_nil FinancialYear.at(Time.now + 50.years)
   end
-
 end

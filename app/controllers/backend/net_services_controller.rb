@@ -17,7 +17,7 @@
 #
 
 class Backend::NetServicesController < Backend::BaseController
-  manage_restfully t3e: {name: :name}
+  manage_restfully t3e: { name: :name }
 
   # unroll
 
@@ -28,9 +28,8 @@ class Backend::NetServicesController < Backend::BaseController
     t.column :url
   end
 
-  list(:identifiers, conditions: {net_service_id: 'params[:id]'.c}) do |t|
+  list(:identifiers, conditions: { net_service_id: 'params[:id]'.c }) do |t|
     t.column :nature, url: true
     t.column :value
   end
-
 end

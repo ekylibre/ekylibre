@@ -110,6 +110,8 @@ GEM
     cocaine (0.5.7)
       climate_control (>= 0.0.3, < 1.0)
     cocoon (1.2.6)
+    code_analyzer (0.4.5)
+      sexp_processor
     code_string (0.0.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -268,6 +270,15 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.2)
       loofah (~> 2.0)
+    rails_best_practices (1.15.7)
+      activesupport
+      code_analyzer (>= 0.4.3)
+      colored
+      erubis
+      i18n
+      json
+      require_all
+      ruby-progressbar
     railties (4.2.3)
       actionpack (= 4.2.3)
       activesupport (= 4.2.3)
@@ -282,6 +293,7 @@ GEM
       redis (~> 3.0, >= 3.0.4)
     ref (2.0.0)
     remotipart (1.2.1)
+    require_all (1.3.2)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
     rest-client (1.8.0)
@@ -336,6 +348,7 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
+    sexp_processor (4.6.0)
     shoulda-context (1.2.1)
     sidekiq (3.4.2)
       celluloid (~> 0.16.0)
@@ -462,6 +475,7 @@ DEPENDENCIES
   pg
   quiet_assets
   rails (= 4.2.3)
+  rails_best_practices
   remotipart (~> 1.2)
   rgeo-geojson
   rgeo-shapefile

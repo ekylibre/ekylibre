@@ -17,7 +17,6 @@
 #
 
 class Backend::OutgoingDeliveriesController < Backend::BaseController
-
   manage_restfully
 
   unroll
@@ -40,7 +39,7 @@ class Backend::OutgoingDeliveriesController < Backend::BaseController
     t.column :sale, url: true
   end
 
-  list(:items, model: :outgoing_delivery_items, conditions: {delivery_id: 'params[:id]'.c}) do |t|
+  list(:items, model: :outgoing_delivery_items, conditions: { delivery_id: 'params[:id]'.c }) do |t|
     t.column :product, url: true
     t.column :product_work_number, through: :product, label_method: :work_number
     t.column :population
@@ -73,10 +72,9 @@ class Backend::OutgoingDeliveriesController < Backend::BaseController
       # default case: render the transporter selector
       transporters = OutgoingDelivery.transporters_of(deliveries)
       if transporters.any?
-        params[:transporter_id] = transporters.group_by{|transporter_id| transporter_id}.max_by{|k, v| v.count}.first
+        params[:transporter_id] = transporters.group_by { |transporter_id| transporter_id }.max_by { |_k, v| v.count }.first
       end
       params[:responsible_id] = current_user.person.id
     end
   end
-
 end

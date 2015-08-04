@@ -29,8 +29,8 @@ class Backend::RolesController < Backend::BaseController
     t.action :destroy, if: :destroyable?
   end
 
-  list(:users, conditions: {role_id: "params[:id]".c}, line_class: "(RECORD.locked ? 'critic' : '')".c, order: :last_name) do |t|
-    t.action :locked, actions: {true => {controller: :users, action: :unlock}, false => {controller: :users, action: :lock}}, method: :post, if: 'RECORD.id != current_user.id'.c
+  list(:users, conditions: { role_id: 'params[:id]'.c }, line_class: "(RECORD.locked ? 'critic' : '')".c, order: :last_name) do |t|
+    t.action :locked, actions: { true => { controller: :users, action: :unlock }, false => { controller: :users, action: :lock } }, method: :post, if: 'RECORD.id != current_user.id'.c
     t.action :edit
     t.action :destroy, if: :destroyable?
     t.column :first_name, url: true
@@ -38,5 +38,4 @@ class Backend::RolesController < Backend::BaseController
     t.column :administrator
     t.column :team
   end
-
 end

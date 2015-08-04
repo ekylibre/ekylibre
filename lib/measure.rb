@@ -16,28 +16,26 @@ class Measure
   @@units      = Nomen::Units
 
   class << self
-
     # Lists all units. Can be filtered on a given dimension
     def units(dimension = nil)
       return @@units.all unless dimension
       unless @@dimensions.all.include?(dimension.to_s)
-        raise ArgumentError, "Unknown dimension #{dimension.inspect}"
+        fail ArgumentError, "Unknown dimension #{dimension.inspect}"
       end
-      @@units.items.select do |n, i|
+      @@units.items.select do |_n, i|
         i.dimension.to_s == dimension.to_s
       end.keys.map(&:to_sym)
     end
 
     # Returns the units of same dimension of the given unit
     def siblings(unit)
-      return self.units(self.dimension(unit))
+      units(dimension(unit))
     end
 
     # Returns the dimension of the given unit
     def dimension(unit)
       @@units[unit].dimension.to_sym
     end
-
   end
 
   # Ways to instanciate a measure
@@ -49,11 +47,12 @@ class Measure
   # $ 55.23.in(:kilogram)
   # $ 55.23.in("kilogram")
   def initialize(*args)
-    value, unit = nil, nil
+    value = nil
+    unit = nil
     if args.size == 1
       expr  = args.shift.to_s.gsub(/[[:space:]]+/, ' ').strip
       unless expr.match(/\A([\,\.]\d+|\d+([\,\.]\d+)?)\s*[^\s]+\z/)
-        raise InvalidExpression, "#{expr} cannot be parsed."
+        fail InvalidExpression, "#{expr} cannot be parsed."
       end
       unit  = expr.gsub(/\A([\,\.]\d+|\d+([\,\.]\d+)?)\s*/, '').strip
       value = expr[0..-(unit.size)].strip.to_d # expr.split(/[a-zA-Z\s]/).first.strip.gsub(/\,/, '.').to_d
@@ -61,23 +60,21 @@ class Measure
       value = args.shift
       unit  = args.shift
     else
-      raise ArgumentError, "wrong number of arguments (#{args.size} for 1 or 2)"
+      fail ArgumentError, "wrong number of arguments (#{args.size} for 1 or 2)"
     end
     value = 0 if value.blank?
     unless value.is_a? Numeric
-      raise ArgumentError, "Value can't be converted to float: #{value.inspect}"
+      fail ArgumentError, "Value can't be converted to float: #{value.inspect}"
     end
     @value = value.to_r
-    if unit.is_a?(Nomen::Item)
-      unit = unit.name.to_s
-    end
+    unit = unit.name.to_s if unit.is_a?(Nomen::Item)
     @unit = unit.to_s
     unless @@units.items[@unit]
       units = @@units.where(symbol: @unit)
       if units.size > 1
-        raise AmbiguousUnit, "The unit #{@unit} match with too many units: #{units.map(&:name).to_sentence}."
+        fail AmbiguousUnit, "The unit #{@unit} match with too many units: #{units.map(&:name).to_sentence}."
       elsif units.size.zero?
-        raise ArgumentError, "Unknown unit: #{unit.inspect}"
+        fail ArgumentError, "Unknown unit: #{unit.inspect}"
       else
         @unit = units.first.name.to_s
       end
@@ -86,19 +83,19 @@ class Measure
 
   def convert(unit)
     # return (@unit == unit.to_s ? self : Measure.new(self.to_r(unit), unit))
-    return Measure.new(self.to_r(unit), unit)
+    Measure.new(to_r(unit), unit)
   end
-  alias :in :convert
+  alias_method :in, :convert
 
-  eval(Measure.units.inject("") do |code, unit|
+  eval(Measure.units.inject('') do |code, unit|
          code << "def in_#{unit}\n"
          code << "  self.in(:#{unit})\n"
          code << "end\n"
          code
        end)
 
-  def round(ndigits=0)
-    Measure.new(self.to_d.round(ndigits), self.unit)
+  def round(ndigits = 0)
+    Measure.new(to_d.round(ndigits), unit)
   end
 
   def inspect
@@ -117,53 +114,53 @@ class Measure
   # Test if the other measure is equal to self
   def !=(other)
     return true unless other.is_a?(Measure)
-    self.to_r != other.to_r(unit)
+    to_r != other.to_r(unit)
   end
 
   # Test if the other measure is equal to self
   def ==(other)
     return false unless other.is_a?(Measure)
-    self.to_r == other.to_r(unit)
+    to_r == other.to_r(unit)
   end
 
   # Returns if self is less than other
   def <(other)
     unless other.is_a?(Measure)
-      raise ArgumentError, "Only measure can be compared to another measure"
+      fail ArgumentError, 'Only measure can be compared to another measure'
     end
-    self.to_r < other.to_r(unit)
+    to_r < other.to_r(unit)
   end
 
   # Returns if self is greater than other
   def >(other)
     unless other.is_a?(Measure)
-      raise ArgumentError, "Only measure can be compared to another measure"
+      fail ArgumentError, 'Only measure can be compared to another measure'
     end
-    self.to_r > other.to_r(unit)
+    to_r > other.to_r(unit)
   end
 
   # Returns if self is less than or equal to other
   def <=(other)
     unless other.is_a?(Measure)
-      raise ArgumentError, "Only measure can be compared to another measure"
+      fail ArgumentError, 'Only measure can be compared to another measure'
     end
-    self.to_r <= other.to_r(unit)
+    to_r <= other.to_r(unit)
   end
 
   # Returns if self is greater than or equal to other
   def >=(other)
     unless other.is_a?(Measure)
-      raise ArgumentError, "Only measure can be compared to another measure"
+      fail ArgumentError, 'Only measure can be compared to another measure'
     end
-    self.to_r >= other.to_r(unit)
+    to_r >= other.to_r(unit)
   end
 
   # Returns if self is greater than other
   def <=>(other)
     unless other.is_a?(Measure)
-      raise ArgumentError, "Only measure can be compared to another measure"
+      fail ArgumentError, 'Only measure can be compared to another measure'
     end
-    self.to_r <=> other.to_r(unit)
+    to_r <=> other.to_r(unit)
   end
 
   # Test if measure is null
@@ -174,14 +171,14 @@ class Measure
   # Returns the dimension of a other
   def +(other)
     unless other.is_a?(Measure)
-      raise ArgumentError, "Only measure can be added to another measure"
+      fail ArgumentError, 'Only measure can be added to another measure'
     end
     self.class.new(@value + other.to_r(unit), unit)
   end
 
   def -(other)
     unless other.is_a?(Measure)
-      raise ArgumentError, "Only measure can be substracted to another measure"
+      fail ArgumentError, 'Only measure can be substracted to another measure'
     end
     self.class.new(@value - other.to_r(unit), unit)
   end
@@ -202,9 +199,9 @@ class Measure
     elsif numeric_or_measure.is_a? Measure
       # Find matching dimension
       # Convert
-      raise NotImplementedError
+      fail NotImplementedError
     else
-      raise ArgumentError, "Only numerics and measures can be multiplicated to a measure"
+      fail ArgumentError, 'Only numerics and measures can be multiplicated to a measure'
     end
   end
 
@@ -214,16 +211,15 @@ class Measure
     elsif numeric_or_measure.is_a? Measure
       # Find matching dimension
       # Convert
-      if self.dimension == numeric_or_measure.dimension
-        self.to_d / numeric_or_measure.to_d(unit)
+      if dimension == numeric_or_measure.dimension
+        to_d / numeric_or_measure.to_d(unit)
       else
-        raise NotImplementedError
+        fail NotImplementedError
       end
     else
-      raise ArgumentError, "Only numerics and measures can divide to a measure"
+      fail ArgumentError, 'Only numerics and measures can divide to a measure'
     end
   end
-
 
   def to_r(other_unit = nil, precision = 16)
     if other_unit.nil?
@@ -231,10 +227,10 @@ class Measure
     else
       other_unit = other_unit.name if other_unit.is_a?(Nomen::Item)
       unless @@units[other_unit]
-        raise ArgumentError, "Unknown unit: #{other_unit.inspect}"
+        fail ArgumentError, "Unknown unit: #{other_unit.inspect}"
       end
       if @@units[unit.to_s].dimension != @@units[other_unit.to_s].dimension
-        raise IncompatibleDimensions, "Measure can't be converted from one dimension (#{@@units[unit].dimension}) to an other (#{@@units[other_unit].dimension})"
+        fail IncompatibleDimensions, "Measure can't be converted from one dimension (#{@@units[unit].dimension}) to an other (#{@@units[other_unit].dimension})"
       end
       return value if unit.to_s == other_unit.to_s
       # Reduce to base
@@ -248,23 +244,21 @@ class Measure
 
   # Return Float value
   def to_f(unit = nil, precision = 16)
-    self.to_r(unit, precision).to_f
+    to_r(unit, precision).to_f
   end
 
   # Return BigDecimal value
   def to_d(unit = nil, precision = 16)
-    self.to_r(unit, precision).to_d(precision)
+    to_r(unit, precision).to_d(precision)
   end
 
   # Localize a measure
   def l
-    "#{self.value.to_f.l} #{@@units.items[unit].symbol}"
+    "#{value.to_f.l} #{@@units.items[unit].symbol}"
   end
 
   # Returns the unit from the nomenclature
   def nomenclature_unit
     @@units[unit]
   end
-
 end
-

@@ -21,7 +21,7 @@ class Backend::TransportsController < Backend::BaseController
 
   unroll
 
-  list(conditions: search_conditions(:transports => [:number, :annotation], :entities => [:number, :full_name])) do |t|
+  list(conditions: search_conditions(transports: [:number, :annotation], entities: [:number, :full_name])) do |t|
     t.action :edit
     t.action :destroy
     t.column :number, url: true
@@ -31,7 +31,7 @@ class Backend::TransportsController < Backend::BaseController
     t.column :net_mass
   end
 
-  list(:deliveries, model: :outgoing_deliveries, conditions: {transport_id: 'params[:id]'.c}) do |t|
+  list(:deliveries, model: :outgoing_deliveries, conditions: { transport_id: 'params[:id]'.c }) do |t|
     t.column :number, url: true
     t.column :reference_number
     t.column :address, label_method: :coordinate
@@ -39,5 +39,4 @@ class Backend::TransportsController < Backend::BaseController
     t.column :sent_at
     t.column :net_mass
   end
-
 end

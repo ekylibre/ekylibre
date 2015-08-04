@@ -39,10 +39,10 @@
 class PurchaseNature < Ekylibre::Record::Base
   belongs_to :journal
   has_many :purchases
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_inclusion_of :active, :by_default, :with_accounting, in: [true, false]
   validates_presence_of :currency
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_presence_of :journal, if: :with_accounting?
   validates_presence_of :currency
@@ -56,9 +56,8 @@ class PurchaseNature < Ekylibre::Record::Base
 
   validate do
     self.journal = nil unless self.with_accounting?
-    if self.journal
-      errors.add(:journal, :currency_does_not_match, currency: self.journal_currency) if self.currency != self.journal_currency
+    if journal
+      errors.add(:journal, :currency_does_not_match, currency: journal_currency) if currency != journal_currency
     end
   end
-
 end

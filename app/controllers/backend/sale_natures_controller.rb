@@ -17,8 +17,8 @@
 #
 
 class Backend::SaleNaturesController < Backend::BaseController
-  manage_restfully# t3e: {percent: :downpayment_percentage, amount: :downpayment}
-  manage_restfully currency: "Preference[:currency]".c
+  manage_restfully # t3e: {percent: :downpayment_percentage, amount: :downpayment}
+  manage_restfully currency: 'Preference[:currency]'.c
 
   unroll
 
@@ -35,7 +35,6 @@ class Backend::SaleNaturesController < Backend::BaseController
     # t.column :downpayment_percentage
     t.column :with_accounting
     t.column :journal, url: true
-    #t.column :description
+    # t.column :description
   end
-
 end

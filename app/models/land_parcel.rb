@@ -65,32 +65,29 @@
 #  work_number           :string
 #
 
-
 class LandParcel < Easement
   # has_many :members, class_name: "CultivableZoneMembership"
-  has_many :zone_memberships, class_name: "CultivableZoneMembership"
-  has_many :memberships, class_name: "CultivableZoneMembership", foreign_key: :member_id
-  has_many :cultivable_zones, class_name: "CultivableZone", through: :memberships, source: :group
-  has_many :product_memberships, class_name: "ProductMembership", foreign_key: :member_id
-  has_many :groups, class_name: "Product", through: :product_memberships, source: :group
+  has_many :zone_memberships, class_name: 'CultivableZoneMembership'
+  has_many :memberships, class_name: 'CultivableZoneMembership', foreign_key: :member_id
+  has_many :cultivable_zones, class_name: 'CultivableZone', through: :memberships, source: :group
+  has_many :product_memberships, class_name: 'ProductMembership', foreign_key: :member_id
+  has_many :groups, class_name: 'Product', through: :product_memberships, source: :group
 
   scope :members_of_zone, lambda { |group|
     where("id IN (SELECT member_id FROM #{CultivableZoneMembership.table_name} WHERE group_id = ?)", group.id)
   }
-  scope :zone_members_of, lambda { |group| members_of_zone(group) }
+  scope :zone_members_of, ->(group) { members_of_zone(group) }
 
   protect(on: :destroy) do
-    self.cultivable_zones.any?
+    cultivable_zones.any?
   end
 
   # return the work_number of LandParcelClusters if exist for a CultivableLAndParcel
-  def clusters_work_number(viewed_at = nil)
+  def clusters_work_number(_viewed_at = nil)
     numbers = []
     groups = self.groups
     for group in groups
-      if group.is_a?(LandParcelCluster)
-        numbers << group.work_number
-      end
+      numbers << group.work_number if group.is_a?(LandParcelCluster)
     end
     if numbers.count > 0
       numbers.to_sentence
@@ -98,5 +95,4 @@ class LandParcel < Easement
       return nil
     end
   end
-
 end

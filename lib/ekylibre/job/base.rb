@@ -1,11 +1,9 @@
 module Ekylibre
   module Job
-
     class Base < ActiveJob::Base
-
       rescue_from(Exception) do |exception|
         # retry_job wait: 5.minutes, queue: :low_priority
-        ExceptionNotifier.notify_exception(exception, data: {message: "was doing something wrong"})
+        ExceptionNotifier.notify_exception(exception, data: { message: 'was doing something wrong' })
       end
 
       before_enqueue do |job|
@@ -20,8 +18,6 @@ module Ekylibre
           block.call
         end
       end
-
     end
-
   end
 end

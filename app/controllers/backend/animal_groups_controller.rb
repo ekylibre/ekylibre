@@ -31,17 +31,16 @@ class Backend::AnimalGroupsController < Backend::BaseController
     t.column :description
   end
 
-  list(:animals, model: :product_memberships, conditions: {group_id: 'params[:id]'.c}, order: :started_at) do |t|
+  list(:animals, model: :product_memberships, conditions: { group_id: 'params[:id]'.c }, order: :started_at) do |t|
     t.column :member, url: true
     t.column :started_at
     t.column :stopped_at
   end
 
-  list(:places, model: :product_localizations, conditions: {product_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
+  list(:places, model: :product_localizations, conditions: { product_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
     t.column :container, url: true
     t.column :nature
     t.column :started_at
     t.column :stopped_at
   end
-
 end

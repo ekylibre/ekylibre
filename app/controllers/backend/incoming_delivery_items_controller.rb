@@ -17,19 +17,17 @@
 #
 
 class Backend::IncomingDeliveryItemsController < Backend::BaseController
-
   def new
-    if request.xhr? and params[:variant_id]
+    if request.xhr? && params[:variant_id]
       unless @incoming_delivery = IncomingDelivery.find_by(id: params[:incoming_delivery_id])
         @incoming_delivery = IncomingDelivery.new
       end
       return unless variant = find_and_check(:product_nature_variant, params[:variant_id])
       params[:external] ||= false
       @incoming_delivery.items.build(product_nature_variant_id: variant.id) # (id: rand(1_000_000_000))
-      render partial: "nested_form"
+      render partial: 'nested_form'
     else
       redirect_to backend_root_url
     end
   end
-
 end

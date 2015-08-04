@@ -51,17 +51,14 @@
 #  updater_id            :integer
 #
 
-
 require 'test_helper'
 
 class IncomingPaymentTest < ActiveSupport::TestCase
-
-  test "the bookkeeping of a payment" do
+  test 'the bookkeeping of a payment' do
     payment = incoming_payments(:incoming_payments_001)
     payment.bookkeep(:create)
     assert_not_nil payment.journal_entry
     assert_equal payment.amount, payment.journal_entry.real_debit
     assert_equal payment.amount, payment.journal_entry.real_credit
   end
-
 end

@@ -8,13 +8,14 @@ module Userstamp
     # See the documentation for <tt>set_stamper</tt> and <tt>reset_stamper</tt> for
     # specific implementation details.
     def self.included(base) # :nodoc:
-      base.send           :include, InstanceMethods
-      base.before_filter  :set_stamper
-      base.after_filter   :reset_stamper
+      base.send :include, InstanceMethods
+      base.before_filter :set_stamper
+      base.after_filter :reset_stamper
     end
 
     module InstanceMethods
       private
+
       # The <tt>set_stamper</tt> method as implemented here assumes a couple
       # of things. First, that you are using a +User+ model as the stamper
       # and second that your controller has a <tt>current_user</tt> method
@@ -23,7 +24,7 @@ module Userstamp
       # your own implementation of this method to the private section of
       # the controller where you are including the Userstamp module.
       def set_stamper
-        User.stamper = self.current_user
+        User.stamper = current_user
       end
 
       # The <tt>reset_stamper</tt> method as implemented here assumes that a
@@ -34,8 +35,7 @@ module Userstamp
       def reset_stamper
         User.reset_stamper
       end
-      #end private
+      # end private
     end
   end
 end
-

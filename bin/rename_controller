@@ -14,24 +14,22 @@ STDOUT.sync = true
 
 def execute(command)
   puts command
-  unless @simulate
-    system(command)
-  end
+  system(command) unless @simulate
 end
 
 options = {}
 OptionParser.new do |opts|
   opts.banner = "Usage: #{$PROGRAM_NAME} [options] <old_controller> <new_controller>"
 
-  opts.on_tail("-h", "--help", "Show this message") do
+  opts.on_tail('-h', '--help', 'Show this message') do
     puts opts
     exit
   end
-  opts.on_tail("-s", "--simulate", "Simulate changes") do
+  opts.on_tail('-s', '--simulate', 'Simulate changes') do
     options[:simulate] = true
     @simulate = true
   end
-  opts.on_tail("-m", "--migration", "Generate migration file") do
+  opts.on_tail('-m', '--migration', 'Generate migration file') do
     options[:migrate] = true
   end
 end.parse!
@@ -40,61 +38,55 @@ old_controller = ARGV.shift
 new_controller = ARGV.shift
 
 unless $PROGRAM_NAME.match(/^(.\/)?bin\//)
-  puts "Script must be started from Rails root."
+  puts 'Script must be started from Rails root.'
   exit 0
 end
 
-root = Pathname.new(".")
+root = Pathname.new('.')
 
-app = root.join("app")
+app = root.join('app')
 
 # app/controllers
-of = app.join("controllers", "#{old_controller}_controller.rb")
-nf = app.join("controllers", "#{new_controller}_controller.rb")
-if File.exist?(of)
-  execute("git mv #{of} #{nf}")
-end
+of = app.join('controllers', "#{old_controller}_controller.rb")
+nf = app.join('controllers', "#{new_controller}_controller.rb")
+execute("git mv #{of} #{nf}") if File.exist?(of)
 if File.exist?(nf)
   execute("sed -i 's/class #{old_controller.camelcase}Controller /class #{new_controller.camelcase}Controller /' #{nf}")
 end
 
 # app/views
-of = app.join("views", old_controller)
-nf = app.join("views", new_controller)
-if File.exist?(of)
-  execute("git mv #{of} #{nf}")
-end
+of = app.join('views', old_controller)
+nf = app.join('views', new_controller)
+execute("git mv #{of} #{nf}") if File.exist?(of)
 
 # app/helpers
-of = app.join("helpers", "#{old_controller}_helper.rb")
-nf = app.join("helpers", "#{new_controller}_helper.rb")
-if File.exist?(of)
-  execute("git mv #{of} #{nf}")
-end
+of = app.join('helpers', "#{old_controller}_helper.rb")
+nf = app.join('helpers', "#{new_controller}_helper.rb")
+execute("git mv #{of} #{nf}") if File.exist?(of)
 if File.exist?(nf)
   execute("sed -i 's/module #{old_controller.camelcase}Helper/module #{new_controller.camelcase}Helper/' #{nf}")
 end
 
-config = root.join("config")
+config = root.join('config')
 
 # config/locales/*/action.yml
-for file in Dir[config.join("locales", "*", "action.yml")].sort
+for file in Dir[config.join('locales', '*', 'action.yml')].sort
   lf = Pathname(file)
   tr = YAML.load_file(lf)
   locale = tr.keys.first
-  if tr[locale]["actions"]
-    if tr[locale]["actions"][old_controller]
-      tr[locale]["actions"][new_controller] = tr[locale]["actions"].delete(old_controller)
+  if tr[locale]['actions']
+    if tr[locale]['actions'][old_controller]
+      tr[locale]['actions'][new_controller] = tr[locale]['actions'].delete(old_controller)
     end
   end
-  if tr[locale]["controllers"]
-    if tr[locale]["controllers"][old_controller]
-      tr[locale]["controllers"][new_controller] = tr[locale]["controllers"].delete(old_controller)
+  if tr[locale]['controllers']
+    if tr[locale]['controllers'][old_controller]
+      tr[locale]['controllers'][new_controller] = tr[locale]['controllers'].delete(old_controller)
     end
   end
-  if tr[locale]["unroll"]
-    if tr[locale]["unroll"][old_controller]
-      tr[locale]["unroll"][new_controller] = tr[locale]["unroll"].delete(old_controller)
+  if tr[locale]['unroll']
+    if tr[locale]['unroll'][old_controller]
+      tr[locale]['unroll'][new_controller] = tr[locale]['unroll'].delete(old_controller)
     end
   end
 
@@ -102,99 +94,94 @@ for file in Dir[config.join("locales", "*", "action.yml")].sort
 
   puts "Update #{lf}"
   unless @simulate
-    File.open(lf, "wb") do |f|
+    File.open(lf, 'wb') do |f|
       f.write code
     end
   end
 end
 
 # config/locales/*/help/
-for file in Dir[config.join("locales", "*", "help", "#{old_controller}-*.txt")].sort
+for file in Dir[config.join('locales', '*', 'help', "#{old_controller}-*.txt")].sort
   of = Pathname.new(file)
-  nf = of.join("..", "#{new_controller}-" + of.basename.to_s.split(/[\-\.]+/)[1..-2].join('-') + ".txt")
+  nf = of.join('..', "#{new_controller}-" + of.basename.to_s.split(/[\-\.]+/)[1..-2].join('-') + '.txt')
   execute("git mv #{of} #{nf}")
 end
 
-# TODO Updates links in help files
-
+# TODO: Updates links in help files
 
 # config/navigation
-nf = config.join("navigation.xml")
+nf = config.join('navigation.xml')
 puts "Update #{nf}"
 source = nil
-File.open(nf, "rb") do |f|
+File.open(nf, 'rb') do |f|
   source = f.read
 end
 unless @simulate
   source.gsub!(/(\")#{old_controller}(\#)/, '\1' + new_controller + '\2')
-  File.open(nf, "wb") do |f|
+  File.open(nf, 'wb') do |f|
     f.write source
   end
 end
 
 # config/rights
-nf = config.join("rights.yml")
+nf = config.join('rights.yml')
 puts "Update #{nf}"
 source = nil
-File.open(nf, "rb") do |f|
+File.open(nf, 'rb') do |f|
   source = f.read
 end
 unless @simulate
   source.gsub!(/(\")#{old_controller}(\#)/, '\1' + new_controller + '\2')
-  File.open(nf, "wb") do |f|
+  File.open(nf, 'wb') do |f|
     f.write source
   end
 end
 
 # config/routes.rb
-nf = config.join("routes.rb")
+nf = config.join('routes.rb')
 puts "Update #{nf}"
 source = nil
-File.open(nf, "rb") do |f|
+File.open(nf, 'rb') do |f|
   source = f.read
 end
 unless @simulate
   source.gsub!(/(resources\ )+:#{old_controller}(\,|\s|$)/, '\1:' + new_controller + '\2')
-  File.open(nf, "wb") do |f|
+  File.open(nf, 'wb') do |f|
     f.write source
   end
 end
 
-test = root.join("test")
+test = root.join('test')
 
 # test/helpers
-of = test.join("helpers", "#{old_controller}_helper_test.rb")
-nf = test.join("helpers", "#{new_controller}_helper_test.rb")
-if File.exist?(of)
-  execute("git mv #{of} #{nf}")
-end
+of = test.join('helpers', "#{old_controller}_helper_test.rb")
+nf = test.join('helpers', "#{new_controller}_helper_test.rb")
+execute("git mv #{of} #{nf}") if File.exist?(of)
 if File.exist?(nf)
   execute("sed -i 's/class #{old_controller.camelcase}HelperTest /class #{new_controller.camelcase}HelperTest /' #{nf}")
 end
 
 # test/controllers
-of = test.join("controllers", "#{old_controller}_controller_test.rb")
-nf = test.join("controllers", "#{new_controller}_controller_test.rb")
-if File.exist?(of)
-  execute("git mv #{of} #{nf}")
-end
+of = test.join('controllers', "#{old_controller}_controller_test.rb")
+nf = test.join('controllers', "#{new_controller}_controller_test.rb")
+execute("git mv #{of} #{nf}") if File.exist?(of)
 if File.exist?(nf)
   execute("sed -i 's/class #{old_controller.camelcase}ControllerTest /class #{new_controller.camelcase}ControllerTest /' #{nf}")
 end
 
 # General replacing
-print "replace "
-for file in Dir[app.join("**", "*.rb")] + Dir[app.join("**", "*.yml")]
+print 'replace '
+for file in Dir[app.join('**', '*.rb')] + Dir[app.join('**', '*.yml')]
   source = nil
-  File.open(file, "rb") do |f|
+  File.open(file, 'rb') do |f|
     source = f.read
   end
   ns = source.dup
   ns.gsub!(/([^a-zA-Z0-9\_]|^)#{old_controller.classify}([^a-zA-Z0-9\_]|$)/, '\1' + new_controller.classify + '\2')
   # ns.gsub!(/^(\ +)has\_many\ \:#{old_controller}(\s?)$/, '\1has_many :' + old_controller + ', :class_name => "'+ new_controller.classify + '"')
   # ns.gsub!(/^(\ +)belongs\_to\ \:#{old_controller.singularize}(\s?)$/, '\1belongs_to :' + old_controller.singularize + ', :class_name => "'+ new_controller.classify + '"')
-  ns.gsub!(/^(\ +)has\_many\ \:#{old_controller}(\s?)$/, '\1has_many :' + old_controller + ', class_name: "'+ new_controller.classify + '"')
-  ns.gsub!(/^(\ +)belongs\_to\ \:#{old_controller.singularize}(\s?)$/, '\1belongs_to :' + old_controller.singularize + ', class_name: "'+ new_controller.classify + '"')
+  ns.gsub!(/^(\ +)has\_many\ \:#{old_controller}(\s?)$/, '\1has_many :' + old_controller + ', class_name: "' + new_controller.classify + '"')
+  ns.gsub!(/^(\ +)belongs\_to\ \:#{old_controller.singularize}(\s?)$/, '\1belongs_to :' + old_controller.singularize + ', class_name: "' + new_controller.classify + '"')
   ns.gsub!(/:model\ *\=\>\ *:#{old_controller}([^a-z\_]|$)/, 'model: :' + new_controller + '\1')
   ns.gsub!(/:model\ *\=\>\ *:#{old_controller.singularize}([^a-z\_]|$)/, 'model: :' + new_controller.singularize + '\1')
   ns.gsub!(/model\:\ *:#{old_controller}([^a-z\_]|$)/, 'model: :' + new_controller + '\1')
@@ -214,15 +201,15 @@ for file in Dir[app.join("**", "*.rb")] + Dir[app.join("**", "*.yml")]
 
   if ns != source
     unless @simulate
-      File.open(file, "wb") do |f|
+      File.open(file, 'wb') do |f|
         f.write ns
       end
     end
-    print "+"
+    print '+'
   else
-    print "."
+    print '.'
   end
 end
-puts "!"
+puts '!'
 
-puts "Clean with `rake clean` at the end"
+puts 'Clean with `rake clean` at the end'

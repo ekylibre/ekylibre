@@ -64,7 +64,6 @@
 #  work_number           :string
 #
 
-
 require 'test_helper'
 
 class BuildingTest < ActiveSupport::TestCase

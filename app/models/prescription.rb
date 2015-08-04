@@ -35,12 +35,12 @@
 #
 class Prescription < Ekylibre::Record::Base
   include Attachable
-  belongs_to :prescriptor, class_name: "Entity"
+  belongs_to :prescriptor, class_name: 'Entity'
   has_many :interventions
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :delivered_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_presence_of :prescriptor
-  #]VALIDATORS]
+  # ]VALIDATORS]
 
-  delegate :name, to: :prescriptor#, prefix: true
+  delegate :name, to: :prescriptor # , prefix: true
 end

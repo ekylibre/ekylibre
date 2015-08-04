@@ -17,7 +17,7 @@
 #
 
 class Backend::PurchasesController < Backend::BaseController
-  manage_restfully planned_at: "Date.today+2".c, redirect_to: '{action: :show, id: "id".c}'.c, except: :new
+  manage_restfully planned_at: 'Date.today+2'.c, redirect_to: '{action: :show, id: "id".c}'.c, except: :new
 
   respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
@@ -28,8 +28,8 @@ class Backend::PurchasesController < Backend::BaseController
   #   :state State search
   #   :period Two Dates with _ separator
   def self.purchases_conditions
-    code = ""
-    code = search_conditions(:purchases => [:created_at, :pretax_amount, :amount, :number, :reference_number, :description, :state], :entities => [:number, :full_name]) + " ||= []\n"
+    code = ''
+    code = search_conditions(purchases: [:created_at, :pretax_amount, :amount, :number, :reference_number, :description, :state], entities: [:number, :full_name]) + " ||= []\n"
     code << "unless (params[:period].blank? or params[:period].is_a? Symbol)\n"
     code << "  if params[:period] != 'all'\n"
     code << "    interval = params[:period].split('_')\n"
@@ -47,10 +47,10 @@ class Backend::PurchasesController < Backend::BaseController
     code << "  end\n "
     code << "end\n "
     code << "c\n "
-    return code.c
+    code.c
   end
 
-  list(conditions: purchases_conditions, joins: :supplier, :line_class => :status, order: {created_at: :desc, number: :desc}) do |t|
+  list(conditions: purchases_conditions, joins: :supplier, line_class: :status, order: { created_at: :desc, number: :desc }) do |t|
     t.action :edit
     t.action :destroy, if: :destroyable?
     t.column :number, url: true
@@ -69,7 +69,7 @@ class Backend::PurchasesController < Backend::BaseController
     t.column :amount, currency: true, hidden: true
   end
 
-  list(:items, model: :purchase_items, conditions: {purchase_id: 'params[:id]'.c}) do |t|
+  list(:items, model: :purchase_items, conditions: { purchase_id: 'params[:id]'.c }) do |t|
     # t.action :new, on: :none, url: {purchase_id: 'params[:id]'.c}, if: :draft?
     # t.action :edit, if: :draft?
     # t.action :destroy, if: :draft?
@@ -83,7 +83,7 @@ class Backend::PurchasesController < Backend::BaseController
     t.column :amount, currency: true
   end
 
-  list(:deliveries, model: :incoming_deliveries, :children => :items, conditions: {purchase_id: 'params[:id]'.c}) do |t|
+  list(:deliveries, model: :incoming_deliveries, children: :items, conditions: { purchase_id: 'params[:id]'.c }) do |t|
     t.action :edit, if: :order?
     t.action :destroy, if: :order?
     t.column :number, url: true
@@ -95,15 +95,14 @@ class Backend::PurchasesController < Backend::BaseController
     # t.column :amount, currency: true
   end
 
-
   # Displays details of one purchase selected with +params[:id]+
   def show
     return unless @purchase = find_and_check
-    respond_with(@purchase, :methods => [:taxes_amount, :affair_closed],
-                 :include => {:delivery_address => {:methods => [:mail_coordinate]},
-                              :supplier => {:methods => [:picture_path], :include => {:default_mail_address => {:methods => [:mail_coordinate]}}},
-                              :affair => {:methods => [:balance], :include => [:outgoing_payments => {:include => :mode}]},
-                              :items => {:methods => [:taxes_amount, :tax_name, :tax_short_label], :include => [:variant]}
+    respond_with(@purchase, methods: [:taxes_amount, :affair_closed],
+                            include: { delivery_address: { methods: [:mail_coordinate] },
+                                       supplier: { methods: [:picture_path], include: { default_mail_address: { methods: [:mail_coordinate] } } },
+                                       affair: { methods: [:balance], include: [outgoing_payments: { include: :mode }] },
+                                       items: { methods: [:taxes_amount, :tax_name, :tax_short_label], include: [:variant] }
                              }
                 ) do |format|
       format.html do
@@ -123,14 +122,11 @@ class Backend::PurchasesController < Backend::BaseController
     @purchase.responsible = current_user
     @purchase.planned_at = Time.now
     @purchase.invoiced_at = Time.now
-    if params[:supplier_id]
-      @purchase.supplier_id = params[:supplier_id]
-    end
+    @purchase.supplier_id = params[:supplier_id] if params[:supplier_id]
     if address = Entity.of_company.default_mail_address
       @purchase.delivery_address = address
     end
   end
-
 
   def abort
     return unless @purchase = find_and_check
@@ -153,7 +149,7 @@ class Backend::PurchasesController < Backend::BaseController
   def invoice
     return unless @purchase = find_and_check
     ActiveRecord::Base.transaction do
-      raise ActiveRecord::Rollback unless @purchase.invoice(params[:invoiced_at])
+      fail ActiveRecord::Rollback unless @purchase.invoice(params[:invoiced_at])
     end
     redirect_to action: :show, id: @purchase.id
   end
@@ -167,10 +163,10 @@ class Backend::PurchasesController < Backend::BaseController
   def propose_and_invoice
     return unless @purchase = find_and_check
     ActiveRecord::Base.transaction do
-      raise ActiveRecord::Rollback unless @purchase.propose
-      raise ActiveRecord::Rollback unless @purchase.confirm
+      fail ActiveRecord::Rollback unless @purchase.propose
+      fail ActiveRecord::Rollback unless @purchase.confirm
       # raise ActiveRecord::Rollback unless @purchase.deliver
-      raise ActiveRecord::Rollback unless @purchase.invoice
+      fail ActiveRecord::Rollback unless @purchase.invoice
     end
     redirect_to action: :show, id: @purchase.id
   end
@@ -180,5 +176,4 @@ class Backend::PurchasesController < Backend::BaseController
     @purchase.refuse
     redirect_to action: :show, id: @purchase.id
   end
-
 end

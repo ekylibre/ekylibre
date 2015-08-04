@@ -1,9 +1,7 @@
 class Ekylibre::AnimalGroupsExchanger < ActiveExchanger::Base
-
   # Create or updates animal groups
   def import
-
-    rows = CSV.read(file, headers: true).delete_if{|r| r[0].blank?}
+    rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
     w.count = rows.size
 
     rows.each do |row|
@@ -16,13 +14,12 @@ class Ekylibre::AnimalGroupsExchanger < ActiveExchanger::Base
                          sex: (row[6].blank? ? nil : row[6].to_sym),
                          place: (row[7].blank? ? nil : row[7].to_sym),
                          indicators_at: (row[8].blank? ? (Date.today) : row[8]).to_datetime,
-                         indicators: row[9].blank? ? {} : row[9].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
+                         indicators: row[9].blank? ? {} : row[9].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.inject({}) do |h, i|
                            h[i.first.strip.downcase.to_sym] = i.second
                            h
-                         },
+                         end,
                          record: nil
                         )
-
 
       unless r.record = AnimalGroup.find_by(work_number: r.code)
         r.record = AnimalGroup.create!(name: r.name,
@@ -42,5 +39,4 @@ class Ekylibre::AnimalGroupsExchanger < ActiveExchanger::Base
       w.check_point
     end
   end
-
 end

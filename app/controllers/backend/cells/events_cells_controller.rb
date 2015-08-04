@@ -1,5 +1,4 @@
 class Backend::Cells::EventsCellsController < Backend::Cells::BaseController
-
   def show
     mode = (params[:mode] || :all).to_s.gsub('_', '-')
     @events = (mode =~ /\bmy\b/ ? Event.with_participant(current_user.person) : Event.without_restrictions_for(current_user.person))
@@ -10,8 +9,7 @@ class Backend::Cells::EventsCellsController < Backend::Cells::BaseController
       @events = @events.before(now).reorder(started_at: :desc)
     end
     count = params[:count].to_i
-    count = 5 unless 0 < count and count <= 50
+    count = 5 unless 0 < count && count <= 50
     @events = @events.limit(count)
   end
-
 end

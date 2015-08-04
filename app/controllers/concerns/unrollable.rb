@@ -2,18 +2,17 @@ module Unrollable
   extend ActiveSupport::Concern
 
   module ClassMethods
-
     # Create unroll action for all scopes in the model corresponding to the controller
     # including the default scope
     def unroll(*columns)
       available_options = [:model, :max, :order, :partial, :fill_in, :scope]
-      if columns.last.is_a?(Hash) and (columns.last.keys - available_options).empty?
+      if columns.last.is_a?(Hash) && (columns.last.keys - available_options).empty?
         options = columns.last.slice!(available_options)
       else
         options = {}
       end
       model = (options.delete(:model) || controller_name).to_s.classify.constantize
-      scope_name = options.delete(:scope) || "unscoped"
+      scope_name = options.delete(:scope) || 'unscoped'
       max = options[:max] || 80
       available_methods = model.columns_definition.keys.map(&:to_sym)
 
@@ -27,7 +26,7 @@ module Unrollable
       end
 
       if columns.blank?
-        raise  "Cannot unroll #{model.name} records. No column available (#{columns.inspect})."
+        fail "Cannot unroll #{model.name} records. No column available (#{columns.inspect})."
       end
 
       # Normalize parameters
@@ -35,31 +34,31 @@ module Unrollable
       includes = includify(columns)
 
       unless order = options[:order]
-        order = filters.map{|f| f[:search] }.compact
+        order = filters.map { |f| f[:search] }.compact
         order ||= :id
       end
 
-      roots = filters.select{|f| f[:root] }
-      fill_in = (options.has_key?(:fill_in) ? options[:fill_in] : roots.any? ? roots.first[:column_name] : nil)
+      roots = filters.select { |f| f[:root] }
+      fill_in = (options.key?(:fill_in) ? options[:fill_in] : roots.any? ? roots.first[:column_name] : nil)
       fill_in = fill_in.to_sym unless fill_in.nil?
 
-      if !fill_in.nil? and !filters.detect{|c| c[:name] == fill_in }
-        raise StandardError, "Label (#{filters.inspect}) of unroll must include the primary column: #{fill_in.inspect}"
+      if !fill_in.nil? && !filters.detect { |c| c[:name] == fill_in }
+        fail StandardError, "Label (#{filters.inspect}) of unroll must include the primary column: #{fill_in.inspect}"
       end
 
-      searchable_filters = filters.select{ |c| c[:pattern] and c[:column_type] != :boolean }
+      searchable_filters = filters.select { |c| c[:pattern] && c[:column_type] != :boolean }
       unless searchable_filters.any?
-        raise "No searchable filters for #{self.controller_path}#unroll.\nFilters: #{filters.inspect}\nColumns: #{columns.inspect}"
+        fail "No searchable filters for #{controller_path}#unroll.\nFilters: #{filters.inspect}\nColumns: #{columns.inspect}"
       end
 
-      item_label = "'unrolls.#{self.controller_path}'.t(" + filters.map do |f|
+      item_label = "'unrolls.#{controller_path}'.t(" + filters.map do |f|
         "#{f[:name]}: #{f[:expression]}, "
-      end.join + "default: '" + filters.map{ |f| "%{#{f[:name]}}"}.join(', ') + "')"
+      end.join + "default: '" + filters.map { |f| "%{#{f[:name]}}" }.join(', ') + "')"
 
-      haml  = ""
+      haml  = ''
       haml << "- if items.any?\n"
       haml << "  %ul.items-list\n"
-      haml << "    - items.limit(items.count > #{(max*1.5).round} ? #{max} : #{max*2}).each do |item|\n"
+      haml << "    - items.limit(items.count > #{(max * 1.5).round} ? #{max} : #{max * 2}).each do |item|\n"
       haml << "      - item_label = #{item_label}\n"
       haml << "      %li.item{data: {item: {label: item_label, id: item.id}}}\n"
       if options[:partial]
@@ -67,7 +66,7 @@ module Unrollable
       else
         haml << "        = highlight(item_label, keys)\n"
       end
-      haml << "  - if items.count > #{(max*1.5).round}\n"
+      haml << "  - if items.count > #{(max * 1.5).round}\n"
       haml << "    %span.items-status.items-status-too-many-records\n"
       haml << "      = 'labels.x_items_remain'.t(count: (items.count - #{max}))\n"
       haml << "- elsif params[:insert].to_i > 0\n"
@@ -82,14 +81,13 @@ module Unrollable
       haml << "    = :no_results.tl\n"
 
       # Write haml in cache
-      path = self.controller_path.split('/')
-      path[-1] << ".html.haml"
-      view = Rails.root.join("tmp", "cache", "unroll", *path)
+      path = controller_path.split('/')
+      path[-1] << '.html.haml'
+      view = Rails.root.join('tmp', 'cache', 'unroll', *path)
       FileUtils.mkdir_p(view.dirname)
-      File.open(view, "wb") do |f|
+      File.open(view, 'wb') do |f|
         f.write(haml)
       end
-
 
       code  = "def unroll\n"
       code << "  conditions = []\n"
@@ -100,7 +98,7 @@ module Unrollable
         code << ".includes(#{includes.inspect})"
         code << ".references(#{includes.inspect})"
       end
-      code <<  ".reorder(#{order.inspect})\n"
+      code << ".reorder(#{order.inspect})\n"
       code << "  if scopes = params[:scope]\n"
       code << "    scopes = {scopes.to_sym => true} if scopes.is_a?(String) or scopes.is_a?(Symbol)\n"
       code << "    for scope, parameters in scopes.symbolize_keys\n"
@@ -127,13 +125,13 @@ module Unrollable
       code << "    conditions = ['(']\n"
       code << "    keys.each_with_index do |key, index|\n"
       code << "      conditions[0] << ') AND (' if index > 0\n"
-      code << "      conditions[0] << " + searchable_filters.collect do |column|
+      code << '      conditions[0] << ' + searchable_filters.collect do |column|
         "LOWER(CAST(#{column[:search]} AS VARCHAR)) ILIKE E?"
       end.join(' OR ').inspect + "\n"
-      code << "      conditions += [" + searchable_filters.collect do |column|
+      code << '      conditions += [' + searchable_filters.collect do |column|
         column[:pattern].inspect.gsub('X', '" + key + "')
           .gsub(/(^\"\"\s*\+\s*|\s*\+\s*\"\"\s*\+\s*|\s*\+\s*\"\"$)/, '')
-      end.join(", ") + "]\n"
+      end.join(', ') + "]\n"
       code << "    end\n"
       code << "    conditions[0] << ')'\n"
       code << "    items = items.where(conditions)\n"
@@ -144,10 +142,10 @@ module Unrollable
       code << "    format.json { render json: items.collect{|item| {label: #{item_label}, id: item.id}} }\n"
       code << "    format.xml  { render  xml: items.collect{|item| {label: #{item_label}, id: item.id}} }\n"
       code << "  end\n"
-      code << "end"
+      code << 'end'
       # code.split("\n").each_with_index{|l, x| puts((x+1).to_s.rjust(4)+": "+l.blue)}
       class_eval(code)
-      return :unroll
+      :unroll
     end
 
     private
@@ -155,45 +153,45 @@ module Unrollable
     # Converts parameters to a list of value
     def filterify(object, model, parents = [])
       if object.is_a?(Array)
-        object.map{|o| filterify(o, model, parents) }.flatten
+        object.map { |o| filterify(o, model, parents) }.flatten
       elsif object.is_a?(Hash)
         object.map do |k, v|
           unless reflection = model.reflect_on_association(k)
-            raise "Cannot find a reflection #{k} for #{model.name}"
+            fail "Cannot find a reflection #{k} for #{model.name}"
           end
           fmodel = reflection.class_name.constantize
           filterify(v, fmodel, parents + [k.to_sym])
         end.flatten
-      elsif object.is_a?(Symbol) or object.is_a?(String)
-        infos = object.to_s.split(":")
+      elsif object.is_a?(Symbol) || object.is_a?(String)
+        infos = object.to_s.split(':')
         name = infos[2] || [parents.last, infos.first].compact.join('_')
-        test = parents.each_with_index.map do |parent, index|
-          "item." + parents[0..index].join('.')
+        test = parents.each_with_index.map do |_parent, index|
+          'item.' + parents[0..index].join('.')
         end
-        test << "item." + (parents + [infos.first]).join('.')
+        test << 'item.' + (parents + [infos.first]).join('.')
         filter = {
           name: name.to_sym,
           expression: "((#{test.join(' and ')}) ? #{test.last}.l : '')",
           root: parents.empty?
         }
-        return filter if infos.second == "!"
+        return filter if infos.second == '!'
         unless definition = model.columns_definition[infos.first]
-          raise "Cannot find column definition for #{model.table_name}##{infos.first}"
+          fail "Cannot find column definition for #{model.table_name}##{infos.first}"
         end
         filter[:search]  = "#{model.table_name}.#{infos.first}"
-        filter[:pattern] = infos.second || "%X%"
+        filter[:pattern] = infos.second || '%X%'
         filter[:column_name] = definition.name
         filter[:column_type] = definition.type
         return filter
       else
-        raise "What a parameter? #{object.inspect}"
+        fail "What a parameter? #{object.inspect}"
       end
     end
 
     # Converts parameters to a valid :includes option for ARel
     def includify(object)
       if object.is_a?(Array)
-        a = object.map{|o| includify(o)}.compact
+        a = object.map { |o| includify(o) }.compact
         return (a.size == 1 ? a.first : a)
       elsif object.is_a?(Hash)
         n = object.inject({}) do |h, pair|
@@ -201,31 +199,28 @@ module Unrollable
           h
         end
         return n.inject([]) do |a, pair|
-          a << (pair.second.nil? ? pair.first : {pair.first => pair.second})
+          a << (pair.second.nil? ? pair.first : { pair.first => pair.second })
           a
         end
-      elsif object.is_a?(Symbol) or object.is_a?(String)
+      elsif object.is_a?(Symbol) || object.is_a?(String)
         return nil
       else
-        raise "What a parameter? #{object.inspect}"
+        fail "What a parameter? #{object.inspect}"
       end
     end
-
 
     # Converts parameters to a valid :includes option for ARel
     def compactify(object)
       if object.is_a?(Array)
-        a = object.map{|o| compactify(o)}.compact
+        a = object.map { |o| compactify(o) }.compact
         return (a.empty? ? nil : a)
       elsif object.is_a?(Hash)
-        return (object.keys.empty? ? nil : object.inject({}){|h,p| h[p.first] = compactify(p.second); h })
-      elsif object.is_a?(Symbol) or object.is_a?(String)
+        return (object.keys.empty? ? nil : object.inject({}) { |h, p| h[p.first] = compactify(p.second); h })
+      elsif object.is_a?(Symbol) || object.is_a?(String)
         return object
       else
-        raise "What a parameter? #{object.inspect}"
+        fail "What a parameter? #{object.inspect}"
       end
     end
-
   end
-
 end

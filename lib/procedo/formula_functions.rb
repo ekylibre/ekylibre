@@ -1,15 +1,11 @@
 module Procedo
   module FormulaFunctions
-
     class << self
-
-
       def area(shape)
         return shape.area.to_f(:square_meter)
       rescue
         raise Procedo::FailedFunctionCall
       end
-
 
       def intersection(shape, other_shape)
         return shape.intersection(other_shape)
@@ -29,11 +25,10 @@ module Procedo
       end
 
       def contents_count(container)
-        return container.actor.containeds.select(&:available?).size
+        return container.actor.containeds.count(&:available?)
       rescue
         raise Procedo::FailedFunctionCall
       end
-
     end
   end
 end

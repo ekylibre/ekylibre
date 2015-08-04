@@ -44,31 +44,31 @@ class Task < Ekylibre::Record::Base
   enumerize :nature, in: [:incoming_call, :outgoing_call, :incoming_mail, :outgoing_mail, :incoming_email, :outgoing_email], default: :outgoing_call, predicates: true # , :quote, :document
   belongs_to :entity
   belongs_to :sale_opportunity
-  belongs_to :executor, -> { responsibles }, class_name: "Entity"
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  belongs_to :executor, -> { responsibles }, class_name: 'Entity'
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :due_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_presence_of :due_at, :entity, :name, :nature, :state
-  #]VALIDATORS]
+  # ]VALIDATORS]
   versionize
 
-  state_machine :state, :initial => :todo do
+  state_machine :state, initial: :todo do
     state :todo
     state :doing
     state :done
 
     event :reset do
-      transition :doing => :todo
-      transition :done => :todo
+      transition doing: :todo
+      transition done: :todo
     end
 
     event :start do
-      transition :todo => :doing
-      transition :done => :doing
+      transition todo: :doing
+      transition done: :doing
     end
 
     event :finish do
-      transition :todo => :done
-      transition :doing => :done
+      transition todo: :done
+      transition doing: :done
     end
   end
 
@@ -77,21 +77,19 @@ class Task < Ekylibre::Record::Base
   end
 
   validate do
-    if self.due_at and self.due_at > Time.now and self.done?
-      errors.add(:state, :invalid)
-    end
+    errors.add(:state, :invalid) if due_at && due_at > Time.now && self.done?
   end
 
   def call?
-    self.incoming_call? or self.outgoing_call?
+    self.incoming_call? || self.outgoing_call?
   end
 
   def mail?
-    self.incoming_mail? or self.outgoing_mail?
+    self.incoming_mail? || self.outgoing_mail?
   end
 
   def email?
-    self.incoming_email? or self.outgoing_email?
+    self.incoming_email? || self.outgoing_email?
   end
 
   def status

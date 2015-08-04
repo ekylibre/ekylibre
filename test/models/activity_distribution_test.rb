@@ -35,7 +35,5 @@
 require 'test_helper'
 
 class ActivityDistributionTest < ActiveSupport::TestCase
-
   # Add tests here...
-
 end

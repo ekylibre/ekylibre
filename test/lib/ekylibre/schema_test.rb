@@ -2,9 +2,8 @@
 require 'test_helper'
 
 class Ekylibre::SchemaTest < ActiveSupport::TestCase
-
   # Checks the validity of references files for models
-  test "ekylibre tables" do
+  test 'ekylibre tables' do
     for k, v in Ekylibre::Schema.tables
       for n, column in v
         unless column.references.nil?
@@ -19,12 +18,10 @@ class Ekylibre::SchemaTest < ActiveSupport::TestCase
     end
   end
 
-  test "uniqueness of model human names" do
+  test 'uniqueness of model human names' do
     names = Ekylibre::Schema.models.collect do |model|
       model.to_s.classify.constantize.model_name.human
     end
-    assert_equal names.size, names.uniq.size, "Not unique names in models: " + names.uniq.select{|t| names.select{|l| l == t }.size > 1}.sort.to_sentence(locale: :eng)
-
+    assert_equal names.size, names.uniq.size, 'Not unique names in models: ' + names.uniq.select { |t| names.count { |l| l == t } > 1 }.sort.to_sentence(locale: :eng)
   end
-
 end

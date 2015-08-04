@@ -1,5 +1,4 @@
 class Backend::Cells::CroppingPlanCellsController < Backend::Cells::BaseController
-
   def show
     if params[:campaign_ids]
       @campaigns = Campaign.find(params[:campaign_ids])
@@ -9,5 +8,4 @@ class Backend::Cells::CroppingPlanCellsController < Backend::Cells::BaseControll
       @campaigns = [current_campaign]
     end
   end
-
 end

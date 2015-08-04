@@ -55,27 +55,27 @@ end
 class Intervention < Ekylibre::Record::Base
   attr_readonly :reference_name, :production_id
   belongs_to :event, dependent: :destroy, inverse_of: :intervention
-  belongs_to :resource , polymorphic: true
+  belongs_to :resource, polymorphic: true
   belongs_to :production, inverse_of: :interventions
   belongs_to :production_support
   belongs_to :issue
   belongs_to :prescription
-  belongs_to :provisional_intervention, class_name: "Intervention"
-  belongs_to :recommender, class_name: "Entity"
-  has_many :casts, -> { order(:position) }, class_name: "InterventionCast", inverse_of: :intervention, dependent: :destroy
+  belongs_to :provisional_intervention, class_name: 'Intervention'
+  belongs_to :recommender, class_name: 'Entity'
+  has_many :casts, -> { order(:position) }, class_name: 'InterventionCast', inverse_of: :intervention, dependent: :destroy
   has_many :operations, inverse_of: :intervention, dependent: :destroy
   has_one :activity, through: :production
   has_one :campaign, through: :production
   has_one :storage, through: :production_support
-  enumerize :reference_name, in: (Procedo.names + ["base-animal_changing-0"]).sort
+  enumerize :reference_name, in: (Procedo.names + ['base-animal_changing-0']).sort
   enumerize :state, in: [:undone, :squeezed, :in_progress, :done], default: :undone, predicates: true
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_inclusion_of :provisional, :recommended, in: [true, false]
   validates_presence_of :natures, :production, :reference_name, :state
-  #]VALIDATORS]
+  # ]VALIDATORS]
   # validates_inclusion_of :reference_name, in: self.reference_name.values
-  validates_presence_of  :started_at, :stopped_at
+  validates_presence_of :started_at, :stopped_at
   validates_presence_of :recommender, if: :recommended?
 
   serialize :parameters, HashWithIndifferentAccess
@@ -91,16 +91,16 @@ class Intervention < Ekylibre::Record::Base
     where(started_at: started_at..stopped_at)
   }
 
-  scope :of_currents_campaigns, -> { joins(:production).merge(Production.of_currents_campaigns)}
+  scope :of_currents_campaigns, -> { joins(:production).merge(Production.of_currents_campaigns) }
 
   scope :of_nature, lambda { |*natures|
-    where("natures ~ E?", "\\\\m(" + natures.collect{|n| Nomen::ProcedureNatures.all(n)}.flatten.sort.join("|") + ")\\\\M")
+    where('natures ~ E?', '\\\\m(' + natures.collect { |n| Nomen::ProcedureNatures.all(n) }.flatten.sort.join('|') + ')\\\\M')
   }
 
   scope :of_campaign, lambda { |*campaigns|
     campaigns.flatten!
     for campaign in campaigns
-      raise ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}") unless campaign.is_a?(Campaign)
+      fail ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}") unless campaign.is_a?(Campaign)
     end
     joins(:production).merge(Production.of_campaign(campaigns))
   }
@@ -108,7 +108,7 @@ class Intervention < Ekylibre::Record::Base
   scope :of_activities, lambda { |*activities|
     activities.flatten!
     for activity in activities
-      raise ArgumentError.new("Expected Activity, got #{activity.class.name}:#{activity.inspect}") unless activity.is_a?(Activity)
+      fail ArgumentError.new("Expected Activity, got #{activity.class.name}:#{activity.inspect}") unless activity.is_a?(Activity)
     end
     joins(:production).merge(Production.of_activities(activities))
   }
@@ -125,28 +125,26 @@ class Intervention < Ekylibre::Record::Base
   }
 
   before_validation do
-    if self.resource
-      self.resource_type = self.resource.class.base_class.name
-    end
+    self.resource_type = resource.class.base_class.name if resource
     self.state ||= self.class.state.default
-    if p = self.reference
-      self.natures = p.natures.sort.join(" ")
+    if p = reference
+      self.natures = p.natures.sort.join(' ')
     end
     # set production_id
-    if self.production_support
-      self.production_id ||= self.production_support.production_id
+    if production_support
+      self.production_id ||= production_support.production_id
     end
   end
 
   validate do
-    if self.production
-      if self.production_support
-        errors.add(:production_id, :invalid) if self.production_support.production != self.production
+    if production
+      if production_support
+        errors.add(:production_id, :invalid) if production_support.production != production
       else
-        errors.add(:production_support_id, :blank) if self.production.with_supports
+        errors.add(:production_support_id, :blank) if production.with_supports
       end
     end
-    if self.started_at and self.stopped_at
+    if self.started_at && self.stopped_at
       if self.stopped_at <= self.started_at
         errors.add(:stopped_at, :posterior, to: self.started_at.l)
       end
@@ -154,16 +152,16 @@ class Intervention < Ekylibre::Record::Base
   end
 
   before_save do
-    self.natures = self.natures.to_s.strip.split(/[\s\,]+/).sort.join(" ")
-    if self.reference
-      if self.duration < self.reference.fixed_duration
-        self.stopped_at += self.reference.fixed_duration
+    self.natures = self.natures.to_s.strip.split(/[\s\,]+/).sort.join(' ')
+    if reference
+      if duration < reference.fixed_duration
+        self.stopped_at += reference.fixed_duration
       end
     end
-    columns = {name: self.name, started_at: self.started_at, stopped_at: self.stopped_at, nature: :production_intervention}
-    if self.event
+    columns = { name: name, started_at: self.started_at, stopped_at: self.stopped_at, nature: :production_intervention }
+    if event
       # self.event.update_columns(columns)
-      self.event.attributes = columns
+      event.attributes = columns
     else
       event = Event.create!(columns)
       # self.update_column(:event_id, event.id)
@@ -178,31 +176,31 @@ class Intervention < Ekylibre::Record::Base
 
   # Main reference
   def reference
-    Procedo[self.reference_name]
+    Procedo[reference_name]
   end
 
   # Returns variable names
   def casting
-    self.casts.map(&:actor).compact.map(&:name).sort.to_sentence
+    casts.map(&:actor).compact.map(&:name).sort.to_sentence
   end
 
   def name
     # raise self.inspect if self.reference_name.blank?
-    tc(:name, intervention: (self.reference ? self.reference.human_name : "procedures.#{self.reference_name}".t(default: self.reference_name.humanize)), number: self.number)
+    tc(:name, intervention: (reference ? reference.human_name : "procedures.#{reference_name}".t(default: reference_name.humanize)), number: number)
   end
 
   def start_time
-    self.started_at
+    started_at
   end
 
   # Returns total duration of an intervention
   def duration
-    return (self.stopped_at - self.started_at)
+    (self.stopped_at - started_at)
   end
 
   # Sums all intervention_cast total_cost of a particular role (see ProcedureNature nomenclature for more details)
   def cost(role = :input)
-    selected_casts = self.casts.select{|c| c.roles =~ /.*-#{role}$/ and c.actor_id }
+    selected_casts = casts.select { |c| c.roles =~ /.*-#{role}$/ && c.actor_id }
     if selected_casts.any?
       selected_casts = selected_casts.map(&:cost)
       selected_casts.compact!
@@ -213,22 +211,22 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def earn
-    if self.casts.of_generic_role(:output).any?
-      self.casts.of_generic_role(:output).where.not(actor_id: nil).map(&:earn).compact.sum
+    if casts.of_generic_role(:output).any?
+      casts.of_generic_role(:output).where.not(actor_id: nil).map(&:earn).compact.sum
     else
       return nil
     end
   end
 
-  def working_area(unit = :hectare)
-    if self.casts.of_generic_role(:target).any?
-      if target = self.casts.of_generic_role(:target).where.not(actor_id: nil).first
+  def working_area(_unit = :hectare)
+    if casts.of_generic_role(:target).any?
+      if target = casts.of_generic_role(:target).where.not(actor_id: nil).first
         return target.actor.net_surface_area.round(2)
       else
         return nil
       end
     end
-    return nil
+    nil
   end
 
   def status
@@ -240,50 +238,49 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def need_parameters?
-    self.reference and self.reference.need_parameters?
+    reference && reference.need_parameters?
   end
 
-
   def runnable?
-    return false unless self.undone? and self.reference
+    return false unless self.undone? && reference
     valid = true
-    for variable in self.reference.variables.values
-      unless cast = self.casts.find_by(reference_name: variable.name) and cast.runnable?
+    for variable in reference.variables.values
+      unless cast = casts.find_by(reference_name: variable.name) and cast.runnable?
         valid = false
       end
     end
-    return valid
+    valid
   end
 
   # Run the procedure
   def run!(period = {}, parameters = {})
-    # TODO raise something unless runnable?
+    # TODO: raise something unless runnable?
     # raise StandardError unless self.runnable?
-    raise "Cannot run intervention without reference procedure" unless self.reference
+    fail 'Cannot run intervention without reference procedure' unless reference
     self.class.transaction do
       self.state = :in_progress
       self.parameters = parameters.with_indifferent_access if parameters
       self.save!
 
       started_at = period[:started_at] ||= self.started_at
-      duration   = period[:duration]  ||= (self.stopped_at - self.started_at)
+      duration   = period[:duration] ||= (self.stopped_at - self.started_at)
       stopped_at = started_at + duration
 
       reference = self.reference
       # Check variables presence
       for variable in reference.variables.values
-        unless self.casts.find_by(reference_name: variable.name)
-          raise MissingVariable, "Variable #{variable.name} is missing"
+        unless casts.find_by(reference_name: variable.name)
+          fail MissingVariable, "Variable #{variable.name} is missing"
         end
       end
       # Build new products
       for variable in reference.new_variables
-        produced = self.casts.find_by!(reference_name: variable.name)
-        producer = self.casts.find_by!(reference_name: variable.producer_name)
+        produced = casts.find_by!(reference_name: variable.name)
+        producer = casts.find_by!(reference_name: variable.producer_name)
         if variable.parted?
           # Parted from
           unless variant = producer.variant
-            puts "No variant given for #{variable.producer_name} in #{self.reference_name} (##{self.id})".red
+            puts "No variant given for #{variable.producer_name} in #{reference_name} (##{id})".red
           end
           produced.actor = variant.matching_model.new(variant: variant, initial_born_at: stopped_at, initial_owner: producer.actor.owner, initial_container: producer.actor.container, initial_population: produced.population, initial_shape: produced.shape, name: producer.name, extjuncted: true, tracking: producer.actor.tracking)
           unless produced.actor.save
@@ -291,16 +288,16 @@ class Intervention < Ekylibre::Record::Base
             logger.debug produced.actor.inspect
             logger.debug '-' * 80
             logger.debug produced.actor.errors.inspect
-            raise "Stop"
+            fail 'Stop'
           end
         elsif variable.produced?
           # Produced by
           unless variant = produced.variant || variable.variant(self)
-            raise StandardError, "No variant for #{variable.name} in intervention ##{self.id} (#{self.reference_name})"
+            fail StandardError, "No variant for #{variable.name} in intervention ##{id} (#{reference_name})"
           end
           produced.actor = variant.matching_model.create!(variant: variant, initial_born_at: stopped_at, initial_owner: producer.actor.owner, initial_container: producer.actor.container, initial_population: produced.population, initial_shape: produced.shape, extjuncted: true)
         else
-          raise StandardError, "Don't known how to create the variable #{variable.name} for procedure #{self.reference_name}"
+          fail StandardError, "Don't known how to create the variable #{variable.name} for procedure #{reference_name}"
         end
         produced.save!
       end
@@ -308,11 +305,11 @@ class Intervention < Ekylibre::Record::Base
       rep = reference.spread_time(duration)
       for name, operation in reference.operations
         d = operation.duration || rep
-        operation = self.operations.create!(started_at: started_at, stopped_at: (started_at + d), reference_name: name)
+        operation = operations.create!(started_at: started_at, stopped_at: (started_at + d), reference_name: name)
         operation.perform_all!
         started_at += d
       end
-      self.reload
+      reload
       self.started_at = period[:started_at]
       self.stopped_at = started_at
       self.state = :done
@@ -320,34 +317,31 @@ class Intervention < Ekylibre::Record::Base
 
       # Sets name for newborns
       for variable in reference.new_variables
-        self.casts.find_by!(reference_name: variable.name).set_default_name!
+        casts.find_by!(reference_name: variable.name).set_default_name!
       end
-
     end
   end
 
   def add_cast!(attributes)
-    self.casts.create!(attributes)
+    casts.create!(attributes)
   end
 
   class << self
-
-    def run!(attributes, period, &block)
+    def run!(attributes, period, &_block)
       intervention = create!(attributes)
       yield intervention
       intervention.run!(period)
-      return intervention
+      intervention
     end
-
 
     # Register and runs an intervention directly with only one operation with "100" as reference
     # In next versions, all intervention will be considered as mono-operation and truly atomic.
     def write(*natures)
       options = natures.extract_options!
-      options[:namespace] ||= "base"
+      options[:namespace] ||= 'base'
       options[:short_name] ||= natures.first
       options[:version] ||= 0
-      unless options.has_key? :reference_name
+      unless options.key? :reference_name
         options[:reference_name] = "#{options[:namespace]}-#{options[:short_name]}-#{options[:version]}"
       end
 
@@ -355,14 +349,13 @@ class Intervention < Ekylibre::Record::Base
         attrs = options.slice(:reference_name, :description, :issue_id, :prescription_id, :production, :production_support, :recommender_id, :started_at, :stopped_at)
         attrs[:started_at] ||= Time.now
         attrs[:stopped_at] ||= Time.now
-        attrs[:natures] = natures.join(" ")
+        attrs[:natures] = natures.join(' ')
         recorder = Intervention::Recorder.new(attrs)
 
         yield recorder
 
         recorder.write!
       end
-
     end
 
     # match
@@ -392,25 +385,23 @@ class Intervention < Ekylibre::Record::Base
       history = Hash.new(0)
       provisional = []
       actors_id = []
-      if options[:history] || options[:provisional]
-        actors_id = actors.map(&:id)
-      end
+      actors_id = actors.map(&:id) if options[:history] || options[:provisional]
 
       # Select interventions from all actors history
       if options[:history]
-        history.merge!(Intervention.joins(:casts).
-                        where("intervention_casts.actor_id IN (#{actors_id.join(', ')})").
-                        where(started_at: (Time.now.midnight - 1.year)..(Time.now)). # history is considered relevant on 1 year
-                        group('interventions.reference_name').
-                        count('interventions.reference_name'))
+        history.merge!(Intervention.joins(:casts)
+                        .where("intervention_casts.actor_id IN (#{actors_id.join(', ')})")
+                        .where(started_at: (Time.now.midnight - 1.year)..(Time.now)) # history is considered relevant on 1 year
+                        .group('interventions.reference_name')
+                        .count('interventions.reference_name'))
       end
 
       if options[:provisional]
-        provisional.concat(Intervention.distinct.
-                            joins(:casts).
-                            where("intervention_casts.actor_id IN (#{actors_id.join(', ')})").
-                            where(started_at: (Time.now.midnight - 1.day)..(Time.now + 3.days)).
-                            pluck('interventions.reference_name')).uniq!
+        provisional.concat(Intervention.distinct
+                            .joins(:casts)
+                            .where("intervention_casts.actor_id IN (#{actors_id.join(', ')})")
+                            .where(started_at: (Time.now.midnight - 1.day)..(Time.now + 3.days))
+                            .pluck('interventions.reference_name')).uniq!
       end
 
       coeff = {}
@@ -424,18 +415,16 @@ class Intervention < Ekylibre::Record::Base
 
       result = []
       Procedo.list.map do |procedure_key, procedure|
-        coeff[procedure_key] = 1.0 + 2.0*(history[procedure_key].to_f/history_size) + 3.0*provisional.count(procedure_key).to_f
+        coeff[procedure_key] = 1.0 + 2.0 * (history[procedure_key].to_f / history_size) + 3.0 * provisional.count(procedure_key).to_f
         matched_variables = procedure.matching_variables_for(actors)
         if matched_variables.count > 0
-          result << [procedure, (((matched_variables.values.count.to_f/actors.count)*coeff[procedure_key])/denominator),matched_variables.values.count]
+          result << [procedure, (((matched_variables.values.count.to_f / actors.count) * coeff[procedure_key]) / denominator), matched_variables.values.count]
           maximum_arity = matched_variables.values.count if maximum_arity < matched_variables.values.count
         end
       end
-      result.delete_if{|procedure, relevance, arity| relevance < relevance_threshold}
-      result.delete_if{|procedure, relevance, arity| arity < maximum_arity} if options[:max_arity]
-      return result.sort_by{|procedure, relevance, arity| -relevance}[0..limit]
+      result.delete_if { |_procedure, relevance, _arity| relevance < relevance_threshold }
+      result.delete_if { |_procedure, _relevance, arity| arity < maximum_arity } if options[:max_arity]
+      result.sort_by { |_procedure, relevance, _arity| -relevance }[0..limit]
     end
-
   end
-
 end

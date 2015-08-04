@@ -6,13 +6,11 @@ require 'rails/test_help'
 require 'capybara/rails'
 
 # Permits to test locales
-if ENV['LOCALE']
-  I18n.locale = ENV['LOCALE']
-end
+I18n.locale = ENV['LOCALE'] if ENV['LOCALE']
 
 # Configure tenants.yml
-Ekylibre::Tenant.setup!("sekindovall")
-Ekylibre::Tenant.setup!("test", keep_files: true)
+Ekylibre::Tenant.setup!('sekindovall')
+Ekylibre::Tenant.setup!('test', keep_files: true)
 
 class FixtureRetriever
   ROLES = %w(zeroth first second third fourth fifth sixth seventh eighth nineth tenth)
@@ -21,12 +19,10 @@ class FixtureRetriever
   def initialize(model, options = {}, fixture_options = nil)
     if model and model < Ekylibre::Record::Base
       fixture_options ||= {}
-      @model  = fixture_options.delete(:model)  || model
+      @model  = fixture_options.delete(:model) || model
       @prefix = fixture_options.delete(:prefix) || @model.name.underscore.pluralize
-      @table  = fixture_options.delete(:table)  || @model.table_name
-      if options and !options.is_a?(Hash)
-        options = {first: normalize(options)}
-      end
+      @table  = fixture_options.delete(:table) || @model.table_name
+      options = { first: normalize(options) } if options and !options.is_a?(Hash)
       @options = options || {}
     end
   end
@@ -35,7 +31,7 @@ class FixtureRetriever
     if @model
       "#{@table}(#{normalize(@options[role] || default_value || role).inspect})"
     else
-      raise "No valid model given, cannot retrieve fixture from that"
+      fail 'No valid model given, cannot retrieve fixture from that'
     end
   end
 
@@ -44,13 +40,13 @@ class FixtureRetriever
   def normalize(value)
     if value.is_a?(Integer)
       unless @@truc[@table]
-        @@truc[@table] = YAML.load_file(Rails.root.join("test", "fixtures", "#{@table}.yml")).inject({}) do |hash, pair|
-          hash[pair.second["id"].to_i] = pair.first.to_sym
+        @@truc[@table] = YAML.load_file(Rails.root.join('test', 'fixtures', "#{@table}.yml")).inject({}) do |hash, pair|
+          hash[pair.second['id'].to_i] = pair.first.to_sym
           hash
         end
       end
       unless name = @@truc[@table][value]
-        raise "Cannot find fixture in #{@table} with id=#{value.inspect}"
+        fail "Cannot find fixture in #{@table} with id=#{value.inspect}"
       end
       return name
     elsif value.is_a?(Symbol)
@@ -64,12 +60,10 @@ class FixtureRetriever
     elsif value.is_a?(CodeString)
       return value
     else
-      raise "What kind of value (#{value.class.name}:#{value.inspect})"
+      fail "What kind of value (#{value.class.name}:#{value.inspect})"
     end
   end
-
 end
-
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
@@ -80,51 +74,43 @@ class ActiveSupport::TestCase
   # Returns ID of the given label
   def self.identify(label)
     # ActiveRecord::FixtureSet.identify(label)
-    elements = label.to_s.split("_")
+    elements = label.to_s.split('_')
     id = elements.delete_at(-1)
-    model = elements.join("_").classify.constantize
+    model = elements.join('_').classify.constantize
     @@fixtures ||= {}
-    @@fixtures[model.table_name] ||= YAML.load_file(Rails.root.join("test", "fixtures", "#{model.table_name}.yml"))
+    @@fixtures[model.table_name] ||= YAML.load_file(Rails.root.join('test', 'fixtures', "#{model.table_name}.yml"))
     unless attrs = @@fixtures[model.table_name][label.to_s]
-      raise "Unknown fixture #{label}"
+      fail "Unknown fixture #{label}"
     end
-    return attrs['id'].to_i
+    attrs['id'].to_i
   end
-
 end
 
-
 class HashCollector
-
   def initialize
     @hash = {}
   end
 
   def to_hash
-    return @hash
+    @hash
   end
 
-  def method_missing(method_name, *args, &block)
+  def method_missing(method_name, *args, &_block)
     @hash[method_name.to_sym] = args.first
   end
-
 end
-
 
 class ActionController::TestCase
   include Devise::TestHelpers
 
   class << self
-
-    def test_restfully_pasteque_actions(options = {})
+    def test_restfully_pasteque_actions(_options = {})
       # test_restfully_all_actions({strictness: :api, params: {format: :json, user: "admin@ekylibre.org", password: "12345678"}, sign_in: false}.deep_merge(options))
     end
 
-
-
-    def test_restfully_all_actions(options = {}, &block)
-      controller_name = self.controller_class.controller_name
-      controller_path = self.controller_class.controller_path
+    def test_restfully_all_actions(options = {}, &_block)
+      controller_name = controller_class.controller_name
+      controller_path = controller_class.controller_path
       table_name = options.delete(:table_name) || controller_name
       model_name = options.delete(:class_name) || table_name.classify
       model = model_name.constantize rescue nil
@@ -143,13 +129,13 @@ class ActionController::TestCase
           [:depth, :lft, :rgt].include?(c)
         }
         attributes += options.delete(:other_attributes) || []
-        attributes = ("{" + attributes.map(&:to_sym).uniq.collect do |a|
+        attributes = ('{' + attributes.map(&:to_sym).uniq.collect do |a|
                         if file_columns[a]
                           "#{a}: fixture_file_upload('files/sample_image.png')"
                         else
                           "#{a}: #{record}.#{a}"
                         end
-                      end.join(", ")+ "}").c
+                      end.join(', ') + '}').c
       end
 
       if block_given?
@@ -158,7 +144,7 @@ class ActionController::TestCase
         options.update(collector.to_hash)
       end
 
-      code  = ""
+      code  = ''
 
       code << "setup do\n"
       code << "  Ekylibre::Tenant.switch!('test')\n"
@@ -198,11 +184,11 @@ class ActionController::TestCase
       code << "end\n"
       code << "\n"
 
-      actions = self.controller_class.action_methods.to_a.map(&:to_sym)
+      actions = controller_class.action_methods.to_a.map(&:to_sym)
       actions &= [options.delete(:only)].flatten if options[:only]
       actions -= [options.delete(:except)].flatten if options[:except]
 
-      ignored = self.controller_class.action_methods.to_a.map(&:to_sym) - actions
+      ignored = controller_class.action_methods.to_a.map(&:to_sym) - actions
       puts "Ignore in #{controller_path}: " + ignored.join(', ') if ignored.any?
 
       infos = []
@@ -215,7 +201,7 @@ class ActionController::TestCase
       code << infos.join(" +\n  \"\\n\" + ").dig
       code << "end\n\n"
 
-      context = "show_context"
+      context = 'show_context'
       # context = infos.join(' + "\n" + ')
 
       default_params = options[:params] || {}
@@ -224,7 +210,8 @@ class ActionController::TestCase
       actions.sort.each do |action|
         action_label = "#{controller_path}##{action}"
 
-        params, mode = {}.merge(default_params), options[action]
+        params = {}.merge(default_params)
+        mode = options[action]
         if mode.is_a?(Hash)
           if mode[:params].is_a?(Hash)
             params.update mode[:params]
@@ -238,15 +225,15 @@ class ActionController::TestCase
 
         params.deep_symbolize_keys!
         fixtures_to_use = FixtureRetriever.new(model, params.delete(:fixture), params.delete(:fixture_options))
-        test_code = ""
+        test_code = ''
 
-        sanitized_params = Proc.new { |p = {}|
+        sanitized_params = proc { |p = {}|
           p.deep_symbolize_keys
-            .merge(locale: "@locale".c)
-            .deep_merge(params)
-            .inspect
-            .gsub('OTHER_RECORD', other_record)
-            .gsub('RECORD', record)
+          .merge(locale: '@locale'.c)
+          .deep_merge(params)
+          .inspect
+          .gsub('OTHER_RECORD', other_record)
+          .gsub('RECORD', record)
         }
         if mode == :index
           test_code << "get :#{action}, #{sanitized_params[]}\n"
@@ -408,7 +395,7 @@ class ActionController::TestCase
               test_code << "xhr :get, :#{action}, #{sanitized_params[scopes: scope.name, id: 'RECORD.id'.c]}\n"
               test_code << "assert_response :success, #{context}\n"
             end
-            # TODO test complex scopes
+            # TODO: test complex scopes
           end
         elsif mode == :get
           test_code << "get :#{action}, #{sanitized_params[]}\n"
@@ -437,9 +424,9 @@ class ActionController::TestCase
       end
       # code << "end\n"
 
-      file = Rails.root.join("tmp", "code", "test", "#{controller_path}.rb")
+      file = Rails.root.join('tmp', 'code', 'test', "#{controller_path}.rb")
       FileUtils.mkdir_p(file.dirname)
-      File.open(file, "wb") do |f|
+      File.open(file, 'wb') do |f|
         f.write(code)
       end
 
@@ -476,13 +463,10 @@ class ActionController::TestCase
       for exp, mode in MODES
         return mode if action =~ exp
       end
-      return :get
+      :get
     end
-
-
   end
 end
-
 
 # Cheat Sheet
 # https://gist.github.com/zhengjia/428105
@@ -491,12 +475,11 @@ end
 #   Capybara::Poltergeist::Driver.new(app, debug: true, inspector: true)
 # end
 
-Capybara.default_driver    = (ENV["DRIVER"] || "webkit").to_sym
+Capybara.default_driver    = (ENV['DRIVER'] || 'webkit').to_sym
 Capybara.current_driver    = Capybara.default_driver
 Capybara.javascript_driver = Capybara.default_driver
 # Capybara.default_wait_time = 5
 # Capybara.server_port = 3333
-
 
 Capybara::Webkit.configure do |config|
   config.allow_url 'a.tile.openstreetmap.fr'
@@ -505,7 +488,6 @@ Capybara::Webkit.configure do |config|
   config.allow_url 'server.arcgisonline.com'
   config.allow_url 'secure.gravatar.com'
 end
-
 
 class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
@@ -528,7 +510,7 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
 
   def shoot_screen(name = nil)
     name ||= current_url.split(/\:\d+\//).last
-    file = Rails.root.join("tmp", "screenshots", "#{name}.png")
+    file = Rails.root.join('tmp', 'screenshots', "#{name}.png")
     FileUtils.mkdir_p(file.dirname) unless file.dirname.exist?
     wait_for_ajax
     save_page file.to_s.gsub(/\.png\z/, '.html')
@@ -542,7 +524,7 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
     elsif driver == :selenium
       page.driver.browser.manage.window.resize_to(width, height)
     else
-      raise NotImplemented, "Not implemented for #{driver.inspect}"
+      fail NotImplemented, "Not implemented for #{driver.inspect}"
     end
   end
 
@@ -553,21 +535,16 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
   def fill_unroll(field, options = {})
     fill_in(field, with: options[:with])
 
-    if options[:name]
-      shoot_screen "#{options[:name]}/unroll-before"
-    end
+    shoot_screen "#{options[:name]}/unroll-before" if options[:name]
 
     wait_for_ajax
 
     script  = "$('input##{field}').next().next().find('.items-list .item"
-    script << (options[:select] ? "[data-item-label~=\"#{options[:select]}\"]" : ":first-child")
+    script << (options[:select] ? "[data-item-label~=\"#{options[:select]}\"]" : ':first-child')
     script << "').mouseenter().click();"
 
     page.execute_script script
     wait_for_ajax
-    if options[:name]
-      shoot_screen "#{options[:name]}/unroll-after"
-    end
+    shoot_screen "#{options[:name]}/unroll-after" if options[:name]
   end
-
 end

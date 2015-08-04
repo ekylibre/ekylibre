@@ -42,17 +42,17 @@
 class Event < Ekylibre::Record::Base
   belongs_to :affair
   has_one :intervention, inverse_of: :event
-  has_many :participations, class_name: "EventParticipation", dependent: :destroy, inverse_of: :event
-  has_many :participants, :through => :participations
+  has_many :participations, class_name: 'EventParticipation', dependent: :destroy, inverse_of: :event
+  has_many :participants, through: :participations
   enumerize :nature, in: Nomen::EventNatures.all, default: Nomen::EventNatures.default
 
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :duration, allow_nil: true, only_integer: true
   validates_inclusion_of :restricted, in: [true, false]
   validates_presence_of :name, :nature, :started_at
-  #]VALIDATORS]
-  validates_inclusion_of :nature, in: self.nature.values
+  # ]VALIDATORS]
+  validates_inclusion_of :nature, in: nature.values
   validates_presence_of :stopped_at
 
   accepts_nested_attributes_for :participations
@@ -60,8 +60,8 @@ class Event < Ekylibre::Record::Base
   scope :between, lambda { |started_at, stopped_at|
     where(started_at: started_at..stopped_at)
   }
-  scope :after,   lambda { |at| where(arel_table[:started_at].gt(at)) }
-  scope :before,  lambda { |at| where(arel_table[:started_at].lt(at)) }
+  scope :after,   ->(at) { where(arel_table[:started_at].gt(at)) }
+  scope :before,  ->(at) { where(arel_table[:started_at].lt(at)) }
   scope :without_restrictions_for, lambda { |*entities|
     where("NOT restricted OR (restricted AND id IN (SELECT event_id FROM #{EventParticipation.table_name} WHERE participant_id IN (?)))", entities.flatten.map(&:id))
   }
@@ -80,9 +80,9 @@ class Event < Ekylibre::Record::Base
     if nature = Nomen::EventNatures[self.nature]
       self.duration ||= nature.default_duration.to_i
     end
-    if self.stopped_at and self.started_at
+    if self.stopped_at && self.started_at
       self.duration = (self.stopped_at - self.started_at).to_i
-    elsif self.started_at and self.duration
+    elsif self.started_at && self.duration
       self.stopped_at = self.started_at + self.duration
     else
       self.duration = 0
@@ -90,7 +90,7 @@ class Event < Ekylibre::Record::Base
   end
 
   validate do
-    if self.started_at and self.stopped_at
+    if self.started_at && self.stopped_at
       if self.stopped_at < self.started_at
         errors.add(:stopped_at, :posterior, to: self.started_at.l)
       end
@@ -98,17 +98,15 @@ class Event < Ekylibre::Record::Base
   end
 
   def updateable?
-    !self.intervention.present?
+    !intervention.present?
   end
 
-  # TODO Make it better if possible
+  # TODO: Make it better if possible
   def casting
-    self.participants.map(&:label).to_sentence
+    participants.map(&:label).to_sentence
   end
 
   def start_time
     self.started_at
   end
-
 end
-

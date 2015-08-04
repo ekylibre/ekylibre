@@ -1,22 +1,20 @@
 # coding: utf-8
 module Ekylibre
   module FirstRun
-
     class Base
-
       attr_reader :max, :path, :verbose, :mode, :force
 
       def initialize(path, options = {})
-	      require 'colored' unless defined? Colored
+        require 'colored' unless defined? Colored
 
         @verbose = !options[:verbose].is_a?(FalseClass)
         @force = options[:force].is_a?(TrueClass)
         @mode = options[:mode].to_s.downcase
-        @mode = "normal" if @mode.blank?
+        @mode = 'normal' if @mode.blank?
         @mode = @mode.to_sym
         @path = path
         unless @path.exist?
-          raise ArgumentError, "Need a valid folder path. #{@path} doesn't exist."
+          fail ArgumentError, "Need a valid folder path. #{@path} doesn't exist."
         end
         @term_width = `/usr/bin/env tput cols`.to_i rescue 80
         @term_width = 80 unless @term_width > 0
@@ -26,14 +24,14 @@ module Ekylibre
 
       # Compute a path for first run directory
       def path(*args)
-        return @path.join(*args)
+        @path.join(*args)
       end
 
       def hard?
-        @mode == :hard or Rails.env.production?
+        @mode == :hard || Rails.env.production?
       end
 
-      def import_pictures(base, type, identifier, options = {})
+      def import_pictures(base, type, identifier, _options = {})
         if path("#{base}/pictures").exist?
           file = path("#{base}/pictures.zip")
           FileUtils.rm_rf file
@@ -45,11 +43,11 @@ module Ekylibre
           File.write(idenfile, identifier.to_s)
 
           files = {
-            "mimetype" => "pictures.mimetype",
-            "identifier" => "pictures.identifier"
+            'mimetype' => 'pictures.mimetype',
+            'identifier' => 'pictures.identifier'
           }
           Dir.chdir(path("#{base}")) do
-            Dir.glob("pictures/*").each do |picture|
+            Dir.glob('pictures/*').each do |picture|
               p = Pathname.new(picture).basename.to_s
               files[picture] = "pictures/#{p}"
             end
@@ -63,13 +61,13 @@ module Ekylibre
       end
 
       def import_file(nature, file, options = {})
-        p = self.path(file)
+        p = path(file)
         if p.exist?
-          self.import(nature, p, options)
+          import(nature, p, options)
         elsif @verbose
           text = ["#{nature.to_s.humanize} (#{p.basename})"]
           if text.join.length < @term_width
-            text << " " * (@term_width - text.join.length)
+            text << ' ' * (@term_width - text.join.length)
           end
           text[0] = text[0].red
           puts text.join
@@ -86,7 +84,7 @@ module Ekylibre
       def check_archive(target, *files)
         files.flatten!
         options = files.extract_options!
-        working_path = @path.join(options[:in] ? options.delete(:in) : ".")
+        working_path = @path.join(options[:in] ? options.delete(:in) : '.')
         prevent = options.delete(:prevent).is_a?(FalseClass)
         target_path = working_path.join(target)
         map = options
@@ -94,13 +92,11 @@ module Ekylibre
         map.each do |dest, source|
           map[dest] = working_path.join(source)
         end
-        if target_path.exist?
-          FileUtils.rm_rf(target_path)
-        end
-        expected = map.values.select{|source| !source.exist?}
+        FileUtils.rm_rf(target_path) if target_path.exist?
+        expected = map.values.select { |source| !source.exist? }
         if expected.any?
           if expected.size != map.values.size
-            raise "Missing files to build #{target} archive: #{expected.to_sentence}"
+            fail "Missing files to build #{target} archive: #{expected.to_sentence}"
           end
         else
           begin
@@ -117,16 +113,15 @@ module Ekylibre
           end
         end
         # end
-        return target_path
+        target_path
       end
-
 
       # Import a given file
       def import!(nature, file, options = {})
         # puts "> import(:#{nature.to_s}, '#{file.to_s}', #{options.inspect})"
-        last = ""
+        last = ''
         start = Time.now
-        basename = nature.to_s.humanize+ " (" + Pathname.new(file).basename.to_s + ") "
+        basename = nature.to_s.humanize + ' (' + Pathname.new(file).basename.to_s + ') '
         total = 0
         max = options[:max] || @max
         Import.launch!(nature, file) do |progress, count|
@@ -139,33 +134,33 @@ module Ekylibre
             end
             l = @term_width - status.join.length
             if l > 0
-              status.insert(1, "|" * l)
+              status.insert(1, '|' * l)
             elsif l < 0
-              status[0] = basename[0..(l - 4)] + "..."
+              status[0] = basename[0..(l - 4)] + '...'
             end
             line = status.join
             done = (progress * @term_width / 100.0).round.to_i
             done = @term_width if done > @term_width
-            print "\r" * last.size + line[0..done].green + (done == @term_width ? "" : line[(done+1)..-1])
+            print "\r" * last.size + line[0..done].green + (done == @term_width ? '' : line[(done + 1)..-1])
             last = line
             total = count
           end
-          max <= 0 or count < max
+          max <= 0 || count < max
         end
         if @verbose
           stop = Time.now
           status = [basename]
-          status << " " + total.to_s
-          status << " done in "
+          status << ' ' + total.to_s
+          status << ' done in '
           status << "#{(stop - start).to_i}s"
           l = @term_width - status.join.length
           n = 0
           if l > 0
-            status.insert(1 + n, " " * l)
+            status.insert(1 + n, ' ' * l)
             status[2 + n] = status[2 + n].blue
             status[4 + n] = status[4 + n].blue
           elsif l < 0
-            status[0 + n] = basename[0..(l - 4)] + "..."
+            status[0 + n] = basename[0..(l - 4)] + '...'
             status[1 + n] = status[1 + n].blue
             status[3 + n] = status[3 + n].blue
           end
@@ -180,14 +175,13 @@ module Ekylibre
       end
 
       def self.ellipse(text, size = 32)
-        ellipsis = "..."
+        ellipsis = '...'
         if text.size > size
           first = ((size - ellipsis.size).to_f / 2).round
-          return text[0..(first-1)] + ellipsis + text[-(size - first - ellipsis.size)..-1]
+          return text[0..(first - 1)] + ellipsis + text[-(size - first - ellipsis.size)..-1]
         end
-        return text
+        text
       end
-
     end
   end
 end

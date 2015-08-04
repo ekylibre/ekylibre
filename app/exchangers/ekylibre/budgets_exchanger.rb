@@ -1,6 +1,5 @@
 # coding: utf-8
 class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
-
   def import
     s = Roo::OpenOffice.new(file)
     w.count = s.sheets.count
@@ -43,8 +42,8 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
           family = Activity.find_best_family((cultivation_variant ? cultivation_variant.variety : nil), (support_variant ? support_variant.variety : nil))
         end
         unless family
-          w.error "Cannot determine activity"
-          raise ActiveExchanger::Error, "Cannot determine activity with support #{support_variant ? support_variant.variety.inspect : '?'} and cultivation #{cultivation_variant ? cultivation_variant.variety.inspect : '?'} in production #{sheet_name}"
+          w.error 'Cannot determine activity'
+          fail ActiveExchanger::Error, "Cannot determine activity with support #{support_variant ? support_variant.variety.inspect : '?'} and cultivation #{cultivation_variant ? cultivation_variant.variety.inspect : '?'} in production #{sheet_name}"
         end
         activity = Activity.create!(name: activity_name[0].strip, family: family.name, nature: family.nature)
       end
@@ -60,22 +59,22 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
         stopped_at: Date.new(campaign.harvest_year, 8, 1),
         state: :opened
       }
-      if activity.with_supports and support_variant and Nomen::Varieties.find(:cultivable_zone) <= support_variant.variety
+      if activity.with_supports && support_variant && Nomen::Varieties.find(:cultivable_zone) <= support_variant.variety
         attributes[:support_variant_indicator] = :net_surface_area
         attributes[:support_variant_unit] = :hectare
       end
 
-      unless production = Production.find_by(attributes.slice(:name, :campaign)) #|| Production.find_by(attributes.slice(:campaign, :activity, :cultivation_variant))
+      unless production = Production.find_by(attributes.slice(:name, :campaign)) # || Production.find_by(attributes.slice(:campaign, :activity, :cultivation_variant))
         production = Production.create! attributes
       end
 
-      if production.support_variant.blank? and support_variant
+      if production.support_variant.blank? && support_variant
         production.support_variant = support_variant
       end
-      if production_indicator[0] and (production.support_variant_indicator.blank? || production.support_variant_indicator != production_indicator[0].strip.to_sym)
+      if production_indicator[0] && (production.support_variant_indicator.blank? || production.support_variant_indicator != production_indicator[0].strip.to_sym)
         production.support_variant_indicator = production_indicator[0].strip.to_sym
       end
-      if production_indicator[1] and (production.support_variant_unit.blank? || production.support_variant_unit != production_indicator[1].strip.to_sym)
+      if production_indicator[1] && (production.support_variant_unit.blank? || production.support_variant_unit != production_indicator[1].strip.to_sym)
         production.support_variant_unit = production_indicator[1].strip.to_sym
       end
       production.save!
@@ -132,11 +131,11 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
 
         # Find unit and matching indicator
         unit = r.item_quantity_unity.first
-        if unit.present? and !Nomen::Units[unit]
+        if unit.present? && !Nomen::Units[unit]
           if u = Nomen::Units.find_by(symbol: unit)
             unit = u.name.to_s
           else
-            raise ActiveExchanger::NotWellFormedFileError, "Unknown unit #{unit.inspect} for variant #{item_variant.name.inspect}."
+            fail ActiveExchanger::NotWellFormedFileError, "Unknown unit #{unit.inspect} for variant #{item_variant.name.inspect}."
           end
         end
         unless indicator = (unit.blank? ? :population : r.item_quantity_unity.second)
@@ -149,13 +148,13 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
             if indics.include?(default_indicators[dimension].to_s)
               indicator = default_indicators[dimension]
             else
-              raise ActiveExchanger::NotWellFormedFileError, "Ambiguity on unit #{unit.inspect} for variant #{item_variant.name.inspect} between #{indics.to_sentence(locale: :eng)}. Cannot known what is wanted, insert indicator name after unit like: '#{unit} (#{indics.first})'."
+              fail ActiveExchanger::NotWellFormedFileError, "Ambiguity on unit #{unit.inspect} for variant #{item_variant.name.inspect} between #{indics.to_sentence(locale: :eng)}. Cannot known what is wanted, insert indicator name after unit like: '#{unit} (#{indics.first})'."
             end
           elsif indics.empty?
-            if unit == "hour"
-              indicator = "working_duration"
+            if unit == 'hour'
+              indicator = 'working_duration'
             else
-              raise ActiveExchanger::NotWellFormedFileError, "Unit #{unit.inspect} is invalid for variant #{item_variant.name.inspect}. No indicator can be used with this unit."
+              fail ActiveExchanger::NotWellFormedFileError, "Unit #{unit.inspect} is invalid for variant #{item_variant.name.inspect}. No indicator can be used with this unit."
             end
           else
             indicator = indics.first
@@ -170,10 +169,8 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
         budget.unit_amount       = r.item_unit_price_amount
         budget.quantity          = r.item_quantity
         budget.save!
-
       end
       w.check_point
     end
   end
-
 end

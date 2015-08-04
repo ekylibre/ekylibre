@@ -41,19 +41,18 @@
 #  updater_id       :integer
 #
 
-
 class Gap < Ekylibre::Record::Base
   enumerize :direction, in: [:profit, :loss], predicates: true
   enumerize :entity_role, in: [:client, :supplier], predicates: true
   belongs_to :journal_entry
   belongs_to :entity
-  has_many :items, class_name: "GapItem", inverse_of: :gap, dependent: :destroy
+  has_many :items, class_name: 'GapItem', inverse_of: :gap, dependent: :destroy
 
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :accounted_at, :printed_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :amount, :pretax_amount, allow_nil: true
   validates_presence_of :amount, :currency, :direction, :entity, :entity_role, :number, :pretax_amount, :printed_at
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
 
   accepts_nested_attributes_for :items
@@ -66,17 +65,17 @@ class Gap < Ekylibre::Record::Base
   end
 
   bookkeep do |b|
-    b.journal_entry(Journal.used_for_gaps, printed_on: self.printed_at.to_date, :unless => self.amount.zero?) do |entry|
-      label = tc(:bookkeep, resource: self.direction.l, number: self.number, entity: self.entity.full_name)
+    b.journal_entry(Journal.used_for_gaps, printed_on: self.printed_at.to_date, unless: amount.zero?) do |entry|
+      label = tc(:bookkeep, resource: direction.l, number: number, entity: entity.full_name)
       if self.profit?
-        entry.add_debit(label, self.entity.account(self.entity_role).id, self.amount)
-        for item in self.items
+        entry.add_debit(label, entity.account(entity_role).id, amount)
+        for item in items
           entry.add_credit(label, Account.find_or_create_in_chart(:other_usual_running_profits), item.pretax_amount)
           entry.add_credit(label, item.tax.collect_account_id, item.taxes_amount)
         end
       else
-        entry.add_credit(label, self.entity.account(self.entity_role).id, self.amount)
-        for item in self.items
+        entry.add_credit(label, entity.account(entity_role).id, amount)
+        for item in items
           entry.add_debit(label, Account.find_or_create_in_chart(:other_usual_running_expenses), item.pretax_amount)
           entry.add_debit(label, item.tax.deduction_account_id, item.taxes_amount)
         end
@@ -86,7 +85,6 @@ class Gap < Ekylibre::Record::Base
 
   # Gives the amount to use for affair bookkeeping
   def deal_amount
-    return (self.loss? ? -self.amount : self.amount)
+    (self.loss? ? -amount : amount)
   end
-
 end

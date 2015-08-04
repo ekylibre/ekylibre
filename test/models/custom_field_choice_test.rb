@@ -34,7 +34,6 @@
 #  value           :string
 #
 
-
 require 'test_helper'
 
 class CustomFieldChoiceTest < ActiveSupport::TestCase

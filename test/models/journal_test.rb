@@ -37,17 +37,14 @@
 #  used_for_gaps    :boolean          default(FALSE), not null
 #
 
-
 require 'test_helper'
 
 class JournalTest < ActiveSupport::TestCase
-
-  test "presence of nature scopes" do
+  test 'presence of nature scopes' do
     for nature in Journal.nature.values
       scope_name = nature.to_s.pluralize.to_sym
       assert Journal.respond_to?(scope_name), "Journal must have a scope #{scope_name}"
-      # TODO Check that scope works
+      # TODO: Check that scope works
     end
   end
-
 end

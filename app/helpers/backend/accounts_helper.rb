@@ -18,33 +18,27 @@
 #
 
 module Backend::AccountsHelper
-
-
   def major_accounts_tabs_tag
     majors = Account.majors
     if majors.count > 0
       html  = content_tag(:dt, :accounts.tl)
-      html <<  content_tag(:dd, link_to(:all_accounts.tl, params.merge(:controller => :accounts, :action => :index, :prefix => nil)), (params[:prefix].blank? ? {:class => :active} : nil))
+      html << content_tag(:dd, link_to(:all_accounts.tl, params.merge(controller: :accounts, action: :index, prefix: nil)), (params[:prefix].blank? ? { class: :active } : nil))
       for account in majors
-        html << content_tag(:dd, link_to(account.label, params.merge(:controller => :accounts, :action => :index, :prefix => account.number)), (params[:prefix] == account.number.to_s ? {:class => :active} : nil))
+        html << content_tag(:dd, link_to(account.label, params.merge(controller: :accounts, action: :index, prefix: account.number)), (params[:prefix] == account.number.to_s ? { class: :active } : nil))
       end
-      return content_tag(:dl, html, :id => 'major-accounts')
+      return content_tag(:dl, html, id: 'major-accounts')
     end
-    return ""
+    ''
   end
-
-
 
   # Create a widget to select ranges of account
   # See Account#range_condition
   def accounts_range_crit
     id = :accounts
     params[id] = Account.clean_range_condition(params[id])
-    code = ""
-    code << content_tag(:label, :accounts.tl, :for => id)
-    code << " " << text_field_tag(id, params[id], :size => 30)
-    return code.html_safe
+    code = ''
+    code << content_tag(:label, :accounts.tl, for: id)
+    code << ' ' << text_field_tag(id, params[id], size: 30)
+    code.html_safe
   end
-
-
 end

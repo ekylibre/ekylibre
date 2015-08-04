@@ -1,5 +1,4 @@
 class Ekylibre::GeoreadingsExchanger < ActiveExchanger::Base
-
   def import
     # Unzip file
     dir = w.tmp_dir
@@ -10,9 +9,9 @@ class Ekylibre::GeoreadingsExchanger < ActiveExchanger::Base
     end
 
     mimetype = File.read(dir.join('mimetype')).to_s.strip
-    nature = mimetype.split(".").last
+    nature = mimetype.split('.').last
 
-    RGeo::Shapefile::Reader.open(dir.join("georeading.shp").to_s, srid: 4326) do |file|
+    RGeo::Shapefile::Reader.open(dir.join('georeading.shp').to_s, srid: 4326) do |file|
       # Set number of shapes
       w.count = file.size
 
@@ -20,7 +19,7 @@ class Ekylibre::GeoreadingsExchanger < ActiveExchanger::Base
         # puts record.attributes['number'].inspect.red
         if record.geometry
           if !record.attributes['name'].blank?
-            # TODO find how to fix non UTF-8 name
+            # TODO: find how to fix non UTF-8 name
             # puts record.attributes['name'].inspect.red
             name = record.attributes['name'].mb_chars.downcase.capitalize
           else
@@ -41,5 +40,4 @@ class Ekylibre::GeoreadingsExchanger < ActiveExchanger::Base
       end
     end
   end
-
 end

@@ -2,15 +2,15 @@ module ReadingStorable
   extend ActiveSupport::Concern
 
   included do
-    enumerize :indicator_name, in: Nomen::Indicators.all, default: Nomen::Indicators.default, predicates: {prefix: true}
-    enumerize :indicator_datatype, in: Nomen::Indicators.datatype.choices, predicates: {prefix: true}
-    enumerize :measure_value_unit, in: Nomen::Units.all, predicates: {prefix: true}
+    enumerize :indicator_name, in: Nomen::Indicators.all, default: Nomen::Indicators.default, predicates: { prefix: true }
+    enumerize :indicator_datatype, in: Nomen::Indicators.datatype.choices, predicates: { prefix: true }
+    enumerize :measure_value_unit, in: Nomen::Units.all, predicates: { prefix: true }
 
-    composed_of :measure_value, class_name: "Measure", mapping: [%w(measure_value_value to_d), %w(measure_value_unit unit)]
-    composed_of :absolute_measure_value, class_name: "Measure", mapping: [%w(absolute_measure_value_value to_d), %w(absolute_measure_value_unit unit)]
+    composed_of :measure_value, class_name: 'Measure', mapping: [%w(measure_value_value to_d), %w(measure_value_unit unit)]
+    composed_of :absolute_measure_value, class_name: 'Measure', mapping: [%w(absolute_measure_value_value to_d), %w(absolute_measure_value_unit unit)]
 
-    validates_inclusion_of :indicator_name, in: self.indicator_name.values
-    validates_inclusion_of :indicator_datatype, in: self.indicator_datatype.values
+    validates_inclusion_of :indicator_name, in: indicator_name.values
+    validates_inclusion_of :indicator_datatype, in: indicator_datatype.values
 
     validates_inclusion_of :boolean_value, in: [true, false], if: :indicator_datatype_boolean?
     validates_presence_of :choice_value,   if: :indicator_datatype_choice?
@@ -29,36 +29,36 @@ module ReadingStorable
   end
 
   def set_datatype
-    self.indicator_datatype = self.indicator.datatype
+    self.indicator_datatype = indicator.datatype
   end
 
   def absolutize_measure
-    if self.indicator_datatype_measure? and self.measure_value.is_a?(Measure)
-      self.absolute_measure_value = self.measure_value.in(self.indicator.unit)
+    if self.indicator_datatype_measure? && measure_value.is_a?(Measure)
+      self.absolute_measure_value = measure_value.in(indicator.unit)
     end
   end
 
   def validate_value
     if self.indicator_datatype_measure?
-      # TODO Check unit
+      # TODO: Check unit
       # errors.add(:unit, :invalid) if unit.dimension != indicator.unit.dimension
     end
   end
 
   # Read value from good place
   def value
-    datatype = self.indicator_datatype || self.indicator.datatype
-    self.send(datatype.to_s + '_value')
+    datatype = indicator_datatype || indicator.datatype
+    send(datatype.to_s + '_value')
   end
 
   # Write value into good place
   def value=(object)
-    datatype = (self.indicator_datatype || self.indicator.datatype).to_sym
+    datatype = (indicator_datatype || indicator.datatype).to_sym
     if object.is_a?(String)
       if datatype == :measure
         object = Measure.new(object)
       elsif datatype == :boolean
-        object = ["1", "t", "true", "y", "yes", "ok"].include?(object.to_s.strip.downcase)
+        object = %w(1 t true y yes ok).include?(object.to_s.strip.downcase)
       elsif datatype == :decimal
         object = object.to_d
       elsif datatype == :integer
@@ -68,7 +68,7 @@ module ReadingStorable
     if datatype == :geometry
       object = Charta::Geometry.new(object).transform(:WGS84).to_rgeo
     end
-    self.send("#{datatype}_value=", object)
+    send("#{datatype}_value=", object)
   end
 
   # # Retrieve datatype from nomenclature NOT from database
@@ -77,31 +77,26 @@ module ReadingStorable
   # end
 
   def indicator
-    Nomen::Indicators[self.indicator_name]
+    Nomen::Indicators[indicator_name]
   end
 
   def indicator=(item)
     self.indicator_name = item.name
   end
 
-  def indicator_human_name
-    self.indicator.human_name
-  end
+  delegate :human_name, to: :indicator, prefix: true
 
   # methods defined here are going to extend the class, not the instance of it
   module ClassMethods
-
     def value_column(indicator_name)
       unless indicator = Nomen::Indicators[indicator_name]
-        raise ArgumentError, "Expecting an indicator name. Got #{indicator_name.inspect}."
+        fail ArgumentError, "Expecting an indicator name. Got #{indicator_name.inspect}."
       end
-      return {measure: :measure_value_value}[indicator.datatype] || "#{indicator.datatype}_value".to_sym
+      { measure: :measure_value_value }[indicator.datatype] || "#{indicator.datatype}_value".to_sym
     end
 
-    def indicator_table_name(indicator_name)
+    def indicator_table_name(_indicator_name)
       table_name
     end
-
   end
-
 end

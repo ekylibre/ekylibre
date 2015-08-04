@@ -1,5 +1,4 @@
 module Ekylibre::Record
-
   class RecordNotUpdateable < ActiveRecord::RecordNotSaved
   end
 
@@ -13,11 +12,10 @@ module Ekylibre::Record
       end
 
       module ClassMethods
-
         # Blocks update or destroy if necessary
         def protect(options = {}, &block)
           options[:on] = [:update, :destroy] unless options[:on]
-          code = "".c
+          code = ''.c
           for callback in [options[:on]].flatten
             method_name = "protected_on_#{callback}?".to_sym
 
@@ -33,19 +31,16 @@ module Ekylibre::Record
             code << "  !#{method_name}\n"
             code << "end\n"
 
-            if block_given?
-              define_method(method_name, &block)
-            end
+            define_method(method_name, &block) if block_given?
           end
           class_eval code
         end
-
 
         # Blocks update or destroy if necessary
         # If result is false, it stops intervention
         def secure(options = {}, &block)
           options[:on] = [:update, :destroy] unless options[:on]
-          code = "".c
+          code = ''.c
           for callback in [options[:on]].flatten
             method_name = "secured_on_#{callback}?".to_sym
 
@@ -61,13 +56,10 @@ module Ekylibre::Record
             code << "  #{method_name}\n"
             code << "end\n"
 
-            if block_given?
-              define_method(method_name, &block)
-            end
+            define_method(method_name, &block) if block_given?
           end
           class_eval code
         end
-
       end
     end
   end

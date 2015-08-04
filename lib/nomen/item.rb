@@ -1,5 +1,4 @@
 module Nomen
-
   # An item of a nomenclature is the core data.
   class Item
     attr_reader :nomenclature, :name, :properties, :parent, :left, :right, :depth
@@ -7,7 +6,7 @@ module Nomen
     # New item
     def initialize(nomenclature, element, options = {})
       @nomenclature = nomenclature
-      @name = element.attr("name").to_s
+      @name = element.attr('name').to_s
       @parent = options[:parent]
       @properties = element.attributes.inject(HashWithIndifferentAccess.new) do |h, pair|
         h[pair[0]] = cast_property(pair[0], pair[1].to_s)
@@ -16,39 +15,38 @@ module Nomen
     end
 
     def root?
-      !self.parent
+      !parent
     end
 
     def original_nomenclature_name
-      return self.parent.name.to_sym unless root?
-      return nil
+      return parent.name.to_sym unless root?
+      nil
     end
 
     # Returns children recursively by default
     def children(recursively = true)
       if recursively
         return @children ||= nomenclature.list.select do |item|
-          item != self and @left <= item.left and item.right <= @right
+          item != self && @left <= item.left && item.right <= @right
         end
       end
-      return nomenclature.list.select do |item|
+      nomenclature.list.select do |item|
         (item.parent == self)
       end
     end
 
     # Returns direct parents from the closest to the farthest
     def parents
-      @parents ||= (self.parent.nil? ? [] : [self.parent] + self.parent.parents)
+      @parents ||= (parent.nil? ? [] : [parent] + parent.parents)
     end
 
     def self_and_children
-      [self] + self.children
+      [self] + children
     end
 
     def self_and_parents
-      [self] + self.parents
+      [self] + parents
     end
-
 
     # Computes left/right value for nested set
     # Returns right index
@@ -60,9 +58,8 @@ module Nomen
       for child in children
         @right = child.rebuild_tree!(@right, @depth + 1) + 1
       end
-      return @right
+      @right
     end
-
 
     # Returns true if the given item name match the current item or its children
     def include?(other)
@@ -70,60 +67,59 @@ module Nomen
         item = other
       else
         unless item = nomenclature.items[other]
-          raise StandardError, "Cannot find item #{other.inspect} in #{nomenclature.name}"
+          fail StandardError, "Cannot find item #{other.inspect} in #{nomenclature.name}"
         end
       end
-      unless item.nomenclature == self.nomenclature
-        raise StandardError, "Invalid item"
+      unless item.nomenclature == nomenclature
+        fail StandardError, 'Invalid item'
       end
-      return (@left <= item.left and item.right <= @right)
+      (@left <= item.left && item.right <= @right)
     end
 
     # Return human name of item
     def human_name(options = {})
       "nomenclatures.#{nomenclature.name}.items.#{name}".t(options.merge(default: ["items.#{name}".to_sym, "enumerize.#{nomenclature.name}.#{name}".to_sym, "labels.#{name}".to_sym, name.humanize]))
     end
-    alias :humanize :human_name
-
+    alias_method :humanize, :human_name
 
     def human_notion_name(notion_name, options = {})
       "nomenclatures.#{nomenclature.name}.notions.#{notion_name}.#{name}".t(options.merge(default: ["labels.#{name}".to_sym]))
     end
 
     def <=>(other)
-      self.nomenclature.name <=> other.nomenclature.name and self.name <=> other.name
+      nomenclature.name <=> other.nomenclature.name && name <=> other.name
     end
 
     def <(other)
-      unless other = (other.is_a?(Item) ? other : self.nomenclature[other])
-        raise StandardError, "Invalid operand to compare"
+      unless other = (other.is_a?(Item) ? other : nomenclature[other])
+        fail StandardError, 'Invalid operand to compare'
       end
       # other.children.include?(self)
-      return (other.left < @left and @right < other.right)
+      (other.left < @left && @right < other.right)
     end
 
     def >(other)
-      unless other = (other.is_a?(Item) ? other : self.nomenclature[other])
-        raise StandardError, "Invalid operand to compare"
+      unless other = (other.is_a?(Item) ? other : nomenclature[other])
+        fail StandardError, 'Invalid operand to compare'
       end
       # self.children.include?(other)
-      return (@left < other.left and other.right < @right)
+      (@left < other.left && other.right < @right)
    end
 
     def <=(other)
-      unless other = (other.is_a?(Item) ? other : self.nomenclature[other])
-        raise StandardError, "Invalid operand to compare"
+      unless other = (other.is_a?(Item) ? other : nomenclature[other])
+        fail StandardError, 'Invalid operand to compare'
       end
       # other.self_and_children.include?(self)
-      return (other.left <= @left and @right <= other.right)
+      (other.left <= @left && @right <= other.right)
     end
 
     def >=(other)
-      unless other = (other.is_a?(Item) ? other : self.nomenclature[other])
-        raise StandardError, "Invalid operand to compare (#{other} not in #{self.nomenclature.name})"
+      unless other = (other.is_a?(Item) ? other : nomenclature[other])
+        fail StandardError, "Invalid operand to compare (#{other} not in #{nomenclature.name})"
       end
       # self.self_and_children.include?(other)
-      return (@left <= other.left and other.right <= @right)
+      (@left <= other.left && other.right <= @right)
     end
 
     def inspect
@@ -134,7 +130,7 @@ module Nomen
     def property(name)
       property_nature = @nomenclature.property_natures[name]
       value = @properties[name]
-      if value.nil? and property_nature.fallbacks
+      if value.nil? && property_nature.fallbacks
         for fallback in property_nature.fallbacks
           value ||= @properties[fallback]
           break if value
@@ -144,24 +140,23 @@ module Nomen
       if property_nature.default
         value ||= cast_property(name, property_nature.default)
       end
-      return value
+      value
     end
 
     def selection(name)
       property_nature = @nomenclature.property_natures[name]
       if property_nature.type == :list
-        return self.property(name).collect do |i|
+        return property(name).collect do |i|
           ["nomenclatures.#{@nomenclature.name}.item_lists.#{self.name}.#{name}.#{i}".t, i]
         end
       elsif property_nature.type == :nomenclature
-        return Nomen[self.property(name)].list.collect do |i|
+        return Nomen[property(name)].list.collect do |i|
           [i.human_name, i.name]
         end
       else
-        raise StandardError, "Cannot call selection for a non-list property_nature"
+        fail StandardError, 'Cannot call selection for a non-list property_nature'
       end
     end
-
 
     # Checks if item has property with given name
     def has_property?(name)
@@ -171,7 +166,7 @@ module Nomen
     # Returns property descriptor
     def method_missing(method_name, *args)
       return property(method_name) if has_property?(method_name)
-      return super
+      super
     end
 
     private
@@ -181,30 +176,27 @@ module Nomen
       if property_nature = @nomenclature.property_natures[name]
         if property_nature.type == :choice
           if value =~ /\,/
-            raise InvalidPropertyNature, "A property nature of choice type cannot contain commas"
+            fail InvalidPropertyNature, 'A property nature of choice type cannot contain commas'
           end
           value = value.strip.to_sym
         elsif property_nature.type == :list
           value = value.strip.split(/[[:space:]]*\,[[:space:]]*/).map(&:to_sym)
         elsif property_nature.type == :boolean
-          value = (value == "true" ? true : value == "false" ? false : nil)
+          value = (value == 'true' ? true : value == 'false' ? false : nil)
         elsif property_nature.type == :decimal
           value = value.to_d
         elsif property_nature.type == :integer
           value = value.to_i
         elsif property_nature.type == :symbol
           unless value =~ /\A\w+\z/
-            raise InvalidPropertyNature, "A property '#{name}' must contains a symbol. /[a-z0-9_]/ accepted. No spaces. Got #{value.inspect}"
+            fail InvalidPropertyNature, "A property '#{name}' must contains a symbol. /[a-z0-9_]/ accepted. No spaces. Got #{value.inspect}"
           end
           value = value.to_sym
         end
-      elsif !["name", "aliases"].include?(name.to_s)
-        raise ArgumentError, "Undefined property '#{name}' in #{@nomenclature.name}"
+      elsif !%w(name aliases).include?(name.to_s)
+        fail ArgumentError, "Undefined property '#{name}' in #{@nomenclature.name}"
       end
-      return value
+      value
     end
-
   end
-
-
 end

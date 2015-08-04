@@ -3,7 +3,7 @@ json.number resource.number
 json.key resource.full_name
 json.dispName resource.full_name
 # json.card resource.card if resource.respond_to? :card
-json.card "123456789"
+json.card '123456789'
 json.custTaxId resource.vat_number
 # json.discountProfiledId nil
 json.prepaid 0.0

@@ -34,14 +34,13 @@
 
 class District < Ekylibre::Record::Base
   has_many :postal_zones
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_presence_of :name
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_uniqueness_of :name
   validates_uniqueness_of :code, allow_blank: true
 
   def self.exportable_columns
-    self.content_columns.delete_if{|c| ![:name].include?(c.name.to_sym)}
+    content_columns.delete_if { |c| ![:name].include?(c.name.to_sym) }
   end
-
 end

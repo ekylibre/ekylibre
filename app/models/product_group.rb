@@ -64,27 +64,26 @@
 #  work_number           :string
 #
 
-
 class ProductGroup < Product
-  enumerize :variety, in: Nomen::Varieties.all(:product_group), predicates: {prefix: true}
-  belongs_to :parent, class_name: "ProductGroup"
-  has_many :memberships, class_name: "ProductMembership", foreign_key: :group_id, dependent: :destroy, inverse_of: :group
+  enumerize :variety, in: Nomen::Varieties.all(:product_group), predicates: { prefix: true }
+  belongs_to :parent, class_name: 'ProductGroup'
+  has_many :memberships, class_name: 'ProductMembership', foreign_key: :group_id, dependent: :destroy, inverse_of: :group
   has_many :members, through: :memberships
 
   scope :groups_of, lambda { |member, viewed_at|
-    where("id IN (SELECT group_id FROM #{ProductMembership.table_name} WHERE member_id = ? AND nature = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", member.id, "interior", viewed_at, viewed_at, viewed_at)
+    where("id IN (SELECT group_id FROM #{ProductMembership.table_name} WHERE member_id = ? AND nature = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", member.id, 'interior', viewed_at, viewed_at, viewed_at)
   }
 
   # FIXME
   # accepts_nested_attributes_for :memberships, :reject_if => :all_blank, :allow_destroy => true
 
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  #]VALIDATORS]
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # ]VALIDATORS]
 
   # Add a member to the group
   def add(member, options = {})
     unless member.is_a?(Product)
-      raise ArgumentError, "Product expected, got #{member.class}:#{member.inspect}"
+      fail ArgumentError, "Product expected, got #{member.class}:#{member.inspect}"
     end
     Intervention.write(:group_inclusion, options) do |i|
       i.cast :group, self, as: 'group_inclusion-target'
@@ -95,9 +94,9 @@ class ProductGroup < Product
   end
 
   # Remove a member from the group
-  def remove(member, options = {})
+  def remove(member, _options = {})
     unless member.is_a?(Product)
-      raise ArgumentError, "Product expected, got #{member.class}:#{member.inspect}"
+      fail ArgumentError, "Product expected, got #{member.class}:#{member.inspect}"
     end
     Intervention.write(:group_exclusion, at: started_at, production: production) do |i|
       i.cast :group, self, as: 'group_exclusion-target'
@@ -107,10 +106,8 @@ class ProductGroup < Product
     # self.memberships.create!(member: member, started_at: (options[:at] || Time.now), nature: :exterior)
   end
 
-
   # Returns members of the group at a given time (or now by default)
   def members_at(viewed_at = nil)
     Product.members_of(self, viewed_at || Time.now)
   end
-
 end

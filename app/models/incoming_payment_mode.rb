@@ -43,26 +43,25 @@
 #  with_deposit            :boolean          default(FALSE), not null
 #
 
-
 class IncomingPaymentMode < Ekylibre::Record::Base
   attr_readonly :cash_id, :cash
   acts_as_list
   belongs_to :cash
-  belongs_to :commission_account, class_name: "Account"
-  belongs_to :depositables_account, class_name: "Account"
-  belongs_to :depositables_journal, class_name: "Journal"
-  has_many :depositable_payments, -> { where(:deposit_id => nil) }, class_name: "IncomingPayment", foreign_key: :mode_id
-  has_many :payments, foreign_key: :mode_id, class_name: "IncomingPayment"
+  belongs_to :commission_account, class_name: 'Account'
+  belongs_to :depositables_account, class_name: 'Account'
+  belongs_to :depositables_journal, class_name: 'Journal'
+  has_many :depositable_payments, -> { where(deposit_id: nil) }, class_name: 'IncomingPayment', foreign_key: :mode_id
+  has_many :payments, foreign_key: :mode_id, class_name: 'IncomingPayment'
   # has_many :unlocked_payments, -> { where("journal_entry_id IN (SELECT id FROM #{JournalEntry.table_name} WHERE state=#{connection.quote("draft")})") }, foreign_key: :mode_id, class_name: "IncomingPayment"
-  has_many :unlocked_payments, -> { where(journal_entry_id: JournalEntry.where(state: "draft")) }, foreign_key: :mode_id, class_name: "IncomingPayment"
+  has_many :unlocked_payments, -> { where(journal_entry_id: JournalEntry.where(state: 'draft')) }, foreign_key: :mode_id, class_name: 'IncomingPayment'
 
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :commission_base_amount, :commission_percentage, allow_nil: true
   validates_inclusion_of :detail_payments, :with_accounting, :with_commission, :with_deposit, in: [true, false]
   validates_presence_of :commission_base_amount, :commission_percentage, :name
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_length_of :name, allow_nil: true, maximum: 50
-  validates_numericality_of :commission_percentage, :greater_than_or_equal_to => 0, if: :with_commission?
+  validates_numericality_of :commission_percentage, greater_than_or_equal_to: 0, if: :with_commission?
   validates_presence_of :depositables_account, if: :with_deposit?
   validates_presence_of :depositables_journal, if: :with_deposit?
   validates_presence_of :cash
@@ -73,7 +72,7 @@ class IncomingPaymentMode < Ekylibre::Record::Base
   scope :depositers, -> { where(with_deposit: true).order(:name) }
 
   before_validation do
-    if self.cash and self.cash.cash_box?
+    if cash && cash.cash_box?
       self.with_deposit = false
       self.with_commission = false
     end
@@ -81,25 +80,24 @@ class IncomingPaymentMode < Ekylibre::Record::Base
       self.depositables_account = nil
       self.depositables_journal = nil
     end
-    unless self.with_commission
+    unless with_commission
       self.commission_base_amount ||= 0
-      self.commission_percentage  ||= 0
+      self.commission_percentage ||= 0
     end
     true
   end
 
   protect(on: :destroy) do
-    self.payments.any?
+    payments.any?
   end
 
   def commission_amount(amount)
-    return (amount * self.commission_percentage * 0.01 + self.commission_base_amount).round(2)
+    (amount * self.commission_percentage * 0.01 + self.commission_base_amount).round(2)
   end
 
   def reflect
-    self.unlocked_payments.find_each do |payment|
+    unlocked_payments.find_each do |payment|
       payment.update_attributes(commission_account_id: nil, commission_amount: nil)
     end
   end
-
 end

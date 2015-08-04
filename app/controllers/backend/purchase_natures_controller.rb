@@ -17,7 +17,7 @@
 #
 
 class Backend::PurchaseNaturesController < Backend::BaseController
-  manage_restfully currency: "Preference[:currency]".c
+  manage_restfully currency: 'Preference[:currency]'.c
 
   unroll
 
@@ -30,5 +30,4 @@ class Backend::PurchaseNaturesController < Backend::BaseController
     t.column :with_accounting
     t.column :journal, url: true
   end
-
 end

@@ -1,7 +1,6 @@
 class Backend::Cells::LastDocumentsCellsController < Backend::Cells::BaseController
-
-  list(model: :documents, order: {created_at: :desc}, per_page: 10) do |t|
-    t.column :name, url: {controller: "/backend/documents"}
+  list(model: :documents, order: { created_at: :desc }, per_page: 10) do |t|
+    t.column :name, url: { controller: '/backend/documents' }
     t.column :nature
     t.column :key, hidden: true
     t.column :uploaded
@@ -11,5 +10,4 @@ class Backend::Cells::LastDocumentsCellsController < Backend::Cells::BaseControl
 
   def show
   end
-
 end

@@ -1,8 +1,6 @@
 module Calculus
   module ManureManagementPlan
-
     class Method
-
       def initialize(options = {})
         @options        = options
         @variety        = options[:variety]
@@ -14,20 +12,16 @@ module Calculus
         @expected_yield = options[:expected_yield] || 0.0.in_kilogram_per_square_meter
       end
 
-      def activity
-        production.activity
-      end
+      delegate :activity, to: :production
 
-      def campaign
-        production.campaign
-      end
+      delegate :campaign, to: :production
 
       def production
         @support.production
       end
 
       def soil_natures
-        return @soil_natures ||= (@options[:soil_nature] ? @options[:soil_nature].self_and_parents : [:undefined])
+        @soil_natures ||= (@options[:soil_nature] ? @options[:soil_nature].self_and_parents : [:undefined])
       end
 
       # Returns matching crop set for the given variety
@@ -38,20 +32,16 @@ module Calculus
             @variety <= v
           end
         end
-        return @crop_sets
+        @crop_sets
       end
 
       def estimate_expected_yield
-        raise NotImplemented
+        fail NotImplemented
       end
 
       def compute
-        raise NotImplemented
+        fail NotImplemented
       end
-
-
-
     end
-
   end
 end

@@ -30,5 +30,4 @@ class Backend::TaxesController < Backend::BaseController
     t.column :deduction_account, url: true
     t.column :collect_account, url: true
   end
-
 end

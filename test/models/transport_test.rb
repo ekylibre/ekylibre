@@ -38,7 +38,6 @@
 #  updater_id              :integer
 #
 
-
 require 'test_helper'
 
 class TransportTest < ActiveSupport::TestCase

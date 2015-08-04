@@ -1,5 +1,4 @@
 class Ekylibre::LandParcelsExchanger < ActiveExchanger::Base
-
   def import
     # Set count of rows
     rows = CSV.read(file, headers: true)
@@ -29,8 +28,8 @@ class Ekylibre::LandParcelsExchanger < ActiveExchanger::Base
       elsif georeading = Georeading.find_by(number: r.shape_number)
         zone_variant = ProductNatureVariant.import_from_nomenclature(r.nature)
         pmodel = zone_variant.nature.matching_model
-        zone = pmodel.create!(:variant_id => zone_variant.id, :work_number => r.code,
-                              :name => r.name, :initial_born_at => born_at, :initial_owner => Entity.of_company, initial_shape: georeading.content)
+        zone = pmodel.create!(variant_id: zone_variant.id, work_number: r.code,
+                              name: r.name, initial_born_at: born_at, initial_owner: Entity.of_company, initial_shape: georeading.content)
       end
 
       if zone
@@ -39,7 +38,7 @@ class Ekylibre::LandParcelsExchanger < ActiveExchanger::Base
           zone.save!
         end
         # link a land parcel to a land parcel cluster
-        if land_parcel_cluster = LandParcelCluster.find_by(work_number: r.land_parcel_cluster_code) and zone.clusters_work_number == nil
+        if land_parcel_cluster = LandParcelCluster.find_by(work_number: r.land_parcel_cluster_code) and zone.clusters_work_number.nil?
           ProductMembership.create!(member: zone, group: land_parcel_cluster, started_at: born_at, nature: :interior)
         end
         if r.soil_nature
@@ -55,5 +54,4 @@ class Ekylibre::LandParcelsExchanger < ActiveExchanger::Base
       w.check_point
     end
   end
-
 end

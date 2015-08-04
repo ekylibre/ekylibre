@@ -1,13 +1,11 @@
 module Ekylibre
   module Access
-
     # autoload :Resource, 'ekylibre/access/resource'
     autoload :Right,    'ekylibre/access/right'
 
     class << self
-
       def config_file
-        Rails.root.join("config", "rights.yml")
+        Rails.root.join('config', 'rights.yml')
       end
 
       # Load a right definition file
@@ -41,10 +39,8 @@ module Ekylibre
 
       # Find a given right by resource and interaction
       def find(resource, interaction)
-        if @resources[resource]
-          return @resources[resource][interaction]
-        end
-        return nil
+        return @resources[resource][interaction] if @resources[resource]
+        nil
       end
 
       # Returns the translated name of a resource
@@ -59,14 +55,14 @@ module Ekylibre
 
       # Returns list of interactions
       def interactions
-        return @resources.collect do |name, interactions|
+        @resources.collect do |_name, interactions|
           interactions.keys
         end.flatten.uniq.sort.map(&:to_sym)
       end
 
       # Returns a hash for all known rights
       def all_rights
-        return @resources.inject({}) do |hash, pair|
+        @resources.inject({}) do |hash, pair|
           hash[pair.first.to_s] = pair.second.keys.map(&:to_s)
           hash
         end
@@ -74,18 +70,15 @@ module Ekylibre
 
       def rights_of(action)
         list = []
-        @resources.each do |resource, interactions|
-          interactions.each do |interaction, right|
+        @resources.each do |_resource, interactions|
+          interactions.each do |_interaction, right|
             list << right.name if right.actions.include?(action)
           end
         end
-        return list
+        list
       end
-
     end
 
-
     load_file(config_file, :ekylibre)
-
   end
 end

@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 class Backend::InterventionsController < Backend::BaseController
-  manage_restfully t3e: {procedure_name: "RECORD.reference.human_name".c}
+  manage_restfully t3e: { procedure_name: 'RECORD.reference.human_name'.c }
 
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
@@ -29,8 +29,8 @@ class Backend::InterventionsController < Backend::BaseController
   #   :product_nature_id
   #   :storage_id
   def self.interventions_conditions
-    code = ""
-    code = search_conditions(:interventions => [:state, :number], :activities => [:name], :campaigns => [:name], :productions => [:name], :products => [:name]) + " ||= []\n"
+    code = ''
+    code = search_conditions(interventions: [:state, :number], activities: [:name], campaigns: [:name], productions: [:name], products: [:name]) + " ||= []\n"
     code << "unless params[:state].blank?\n"
     code << "  c[0] << ' AND #{Intervention.table_name}.state IN (?)'\n"
     code << "  c << params[:state].flatten\n"
@@ -53,13 +53,13 @@ class Backend::InterventionsController < Backend::BaseController
     code << "  c << params[:storage_id].to_i\n"
     code << "end\n"
     code << "c\n "
-    return code.c
+    code.c
   end
 
   # INDEX
   # @TODO conditions: interventions_conditions, joins: [:production, :activity, :campaign, :storage]
 
-  list(conditions: interventions_conditions, joins: [:production, :activity, :campaign, :storage], order: {started_at: :desc}, line_class: :status) do |t|
+  list(conditions: interventions_conditions, joins: [:production, :activity, :campaign, :storage], order: { started_at: :desc }, line_class: :status) do |t|
     t.action :run,  if: :runnable?, method: :post, confirm: true
     t.action :edit, if: :updateable?
     t.action :destroy, if: :destroyable?
@@ -85,7 +85,7 @@ class Backend::InterventionsController < Backend::BaseController
 
   # SHOW
 
-  list(:casts, model: :intervention_casts, conditions: {intervention_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
+  list(:casts, model: :intervention_casts, conditions: { intervention_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
     t.column :name, sort: :reference_name
     t.column :actor, url: true
     t.column :human_roles, sort: :roles, label: :roles
@@ -95,7 +95,7 @@ class Backend::InterventionsController < Backend::BaseController
     t.column :variant, url: true
   end
 
-  list(:operations, conditions: {intervention_id: 'params[:id]'.c}, order: :started_at) do |t|
+  list(:operations, conditions: { intervention_id: 'params[:id]'.c }, order: :started_at) do |t|
     t.column :reference_name
     t.column :description
     # t.column :name, url: true
@@ -108,16 +108,15 @@ class Backend::InterventionsController < Backend::BaseController
   def show
     return unless @intervention = find_and_check
     t3e @intervention, procedure_name: @intervention.name
-    if params[:mode] == "spraying"
-      render "spraying"
+    if params[:mode] == 'spraying'
+      render 'spraying'
       return
     end
-    respond_with(@intervention, :methods => [:cost, :earn, :status, :name, :duration],
-                :include => [{:casts => {:methods => [:variable_name, :default_name], :include => {:actor => {:methods => [:picture_path, :nature_name, :unit_name]}}}}, {:storage => {}}, :recommender, :prescription],
-                procs: Proc.new{|options| options[:builder].tag!(:url, backend_intervention_url(@intervention))}
+    respond_with(@intervention, methods: [:cost, :earn, :status, :name, :duration],
+                                include: [{ casts: { methods: [:variable_name, :default_name], include: { actor: { methods: [:picture_path, :nature_name, :unit_name] } } } }, { storage: {} }, :recommender, :prescription],
+                                procs: proc { |options| options[:builder].tag!(:url, backend_intervention_url(@intervention)) }
                 )
   end
-
 
   def set
     return unless @intervention = find_and_check
@@ -125,7 +124,7 @@ class Backend::InterventionsController < Backend::BaseController
 
   def run
     return unless intervention = find_and_check
-    if intervention.need_parameters? and !params[:parameters]
+    if intervention.need_parameters? && !params[:parameters]
       redirect_to action: :set, id: intervention.id
       return
     end
@@ -148,10 +147,9 @@ class Backend::InterventionsController < Backend::BaseController
       end
     rescue Procedo::Error => e
       respond_to do |format|
-        format.xml  { render xml:  {errors: e.message}, status: 500 }
-        format.json { render json: {errors: e.message}, status: 500 }
+        format.xml  { render xml:  { errors: e.message }, status: 500 }
+        format.json { render json: { errors: e.message }, status: 500 }
       end
     end
   end
-
 end

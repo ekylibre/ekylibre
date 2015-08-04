@@ -1,11 +1,12 @@
 module Charta
-
   class BoundingBox
-
     attr_reader :y_min, :x_min, :y_max, :x_max
 
     def initialize(y_min, x_min, y_max, x_max)
-      @y_min, @x_min, @y_max, @x_max = y_min, x_min, y_max, x_max
+      @y_min = y_min
+      @x_min = x_min
+      @y_max = y_max
+      @x_max = x_max
     end
 
     def width
@@ -17,13 +18,11 @@ module Charta
     end
 
     def svg_view_box
-      return [x_min, -y_max, width, height]
+      [x_min, -y_max, width, height]
     end
 
     def to_a
-      return [[@y_min, @x_min], [@y_max, @x_max]]
+      [[@y_min, @x_min], [@y_max, @x_max]]
     end
-
   end
-
 end

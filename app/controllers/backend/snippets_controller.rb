@@ -17,7 +17,6 @@
 #
 
 class Backend::SnippetsController < Backend::BaseController
-
   # Saves the state of the side snippets
   def toggle
     collapsed = !params[:collapsed].to_i.zero?
@@ -30,5 +29,4 @@ class Backend::SnippetsController < Backend::BaseController
       head :ok
     end
   end
-
 end

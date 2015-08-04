@@ -1,10 +1,7 @@
 module Ekylibre
   module Navigation
-
     class Tree
-
       class << self
-
         def load_file(file, root, levels)
           # Parse XML file
           f = File.open(file)
@@ -16,14 +13,12 @@ module Ekylibre
           # Collect levels
           tree = Tree.new(levels)
 
-
           doc.xpath("/#{root}/#{levels.first}").each do |element|
             tree.add_child Node.browse_element(element, levels)
           end
           tree.rebuild_index!
-          return tree
+          tree
         end
-
       end
 
       attr_reader :levels, :children, :index
@@ -41,12 +36,12 @@ module Ekylibre
       def get(*keys)
         key = keys.shift
         return @index[key].get(keys) if keys.any?
-        return @index[key]
+        @index[key]
       end
 
       def add_child(node)
         unless node.type == levels.first
-          raise "Invalid node type: #{node.type.inspect}. Expecting #{levels.first.inspect}"
+          fail "Invalid node type: #{node.type.inspect}. Expecting #{levels.first.inspect}"
         end
         @children << node
       end
@@ -62,17 +57,13 @@ module Ekylibre
       end
 
       def reverse(controller, action)
-        if @reversions[controller]
-          return @reversions[controller][action]
-        end
-        return nil
+        return @reversions[controller][action] if @reversions[controller]
+        nil
       end
 
       def inspect
         "<#{self.class.name} #{levels.inspect}>"
       end
-
     end
-
   end
 end

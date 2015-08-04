@@ -1,23 +1,18 @@
 module ActiveExchanger
-
   class Base
-
     cattr_accessor :exchangers
 
     @@exchangers = {}
 
     class << self
-
       def inherited(subclass)
         name = subclass.exchanger_name
-        unless Nomen::ExchangeNatures[name]
-          raise "Unknown exchange: #{name}"
-        end
+        fail "Unknown exchange: #{name}" unless Nomen::ExchangeNatures[name]
         ActiveExchanger::Base.register_exchanger(subclass)
       end
 
       def exchanger_name
-        return self.name.to_s.underscore.gsub(/_exchanger$/, '').gsub('/', '_').to_sym
+        name.to_s.underscore.gsub(/_exchanger$/, '').gsub('/', '_').to_sym
       end
 
       def register_exchanger(klass)
@@ -25,11 +20,11 @@ module ActiveExchanger
       end
 
       def importers
-        @@exchangers.select{|k,v| v.method_defined?(:import) }.keys
+        @@exchangers.select { |_k, v| v.method_defined?(:import) }.keys
       end
 
       def exporters
-        @@exchangers.select{|k,v| v.method_defined?(:export) }.keys
+        @@exchangers.select { |_k, v| v.method_defined?(:export) }.keys
       end
 
       def import(nature, file, options = {}, &block)
@@ -40,12 +35,12 @@ module ActiveExchanger
         build(nature, file, options, &block).export
       end
 
-      def build(nature, file, options = {}, &block)
+      def build(nature, file, _options = {}, &block)
         supervisor = Supervisor.new(&block)
         unless @@exchangers[nature]
-          raise "Unable to find exchanger #{nature.inspect}. (#{@@exchangers.inspect})"
+          fail "Unable to find exchanger #{nature.inspect}. (#{@@exchangers.inspect})"
         end
-        return @@exchangers[nature].new(file, supervisor)
+        @@exchangers[nature].new(file, supervisor)
       end
 
       # This method check file by default by trying a run and
@@ -56,12 +51,11 @@ module ActiveExchanger
         ActiveRecord::Base.transaction do
           new(file, supervisor).import
           valid = true
-          raise ActiveRecord::Rollback
+          fail ActiveRecord::Rollback
         end
         GC.start
-        return valid
+        valid
       end
-
     end
 
     attr_reader :file, :supervisor
@@ -71,7 +65,7 @@ module ActiveExchanger
       @supervisor = supervisor
     end
 
-    alias :w :supervisor
+    alias_method :w, :supervisor
 
     # def import
     #   raise NotImplementedError
@@ -80,7 +74,5 @@ module ActiveExchanger
     # def export
     #   raise NotImplementedError
     # end
-
   end
-
 end

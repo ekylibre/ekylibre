@@ -17,12 +17,12 @@
 #
 
 class Backend::OutgoingPaymentsController < Backend::BaseController
-  manage_restfully :to_bank_at => "Date.today".c, :paid_at => "Date.today".c, :responsible_id => "current_user.id".c, :amount => "params[:amount].to_f".c, t3e: {payee: "RECORD.payee.full_name".c}
+  manage_restfully to_bank_at: 'Date.today'.c, paid_at: 'Date.today'.c, responsible_id: 'current_user.id'.c, amount: 'params[:amount].to_f'.c, t3e: { payee: 'RECORD.payee.full_name'.c }
 
   unroll :amount, :bank_check_number, :number, :currency, mode: :name, payee: :full_name
 
-  def self.outgoing_payments_conditions(options={})
-    code = search_conditions(:outgoing_payments => [:amount, :bank_check_number, :number], :entities => [:number, :full_name]) + " ||= []\n"
+  def self.outgoing_payments_conditions(_options = {})
+    code = search_conditions(outgoing_payments: [:amount, :bank_check_number, :number], entities: [:number, :full_name]) + " ||= []\n"
     code << "if params[:s] == 'not_delivered'\n"
     code << "  c[0] += ' AND delivered = ?'\n"
     code << "  c << false\n"
@@ -33,10 +33,10 @@ class Backend::OutgoingPaymentsController < Backend::BaseController
     # code << "  c[0] += ' AND used_amount != amount'\n"
     code << "end\n"
     code << "c\n"
-    return code.c
+    code.c
   end
 
-  list(conditions: outgoing_payments_conditions, joins: :payee, order: {to_bank_at: :desc}) do |t| # , :line_class => "(RECORD.used_amount.zero? ? 'critic' : RECORD.unused_amount>0 ? 'warning' : '')"
+  list(conditions: outgoing_payments_conditions, joins: :payee, order: { to_bank_at: :desc }) do |t| # , :line_class => "(RECORD.used_amount.zero? ? 'critic' : RECORD.unused_amount>0 ? 'warning' : '')"
     t.action :edit, if: :updateable?
     t.action :destroy, if: :destroyable?
     t.column :number, url: true
@@ -49,5 +49,4 @@ class Backend::OutgoingPaymentsController < Backend::BaseController
     t.column :delivered, hidden: true
     # t.column :label, through: :responsible
   end
-
 end

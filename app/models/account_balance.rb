@@ -41,15 +41,14 @@
 #  updater_id        :integer
 #
 
-
 class AccountBalance < Ekylibre::Record::Base
   belongs_to :account
   belongs_to :financial_year
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :global_balance, :global_credit, :global_debit, :local_balance, :local_credit, :local_debit, allow_nil: true
   validates_presence_of :account, :currency, :financial_year, :global_balance, :global_credit, :global_debit, :local_balance, :local_credit, :local_debit
-  #]VALIDATORS]
-  validates_uniqueness_of :account_id, :scope => :financial_year_id
+  # ]VALIDATORS]
+  validates_uniqueness_of :account_id, scope: :financial_year_id
 
   alias_attribute :debit, :local_debit
   alias_attribute :credit, :local_credit
@@ -57,15 +56,14 @@ class AccountBalance < Ekylibre::Record::Base
   alias_attribute :journal_entry_items_count, :local_count
 
   before_validation do
-    self.balance = self.debit - self.credit
+    self.balance = debit - credit
   end
 
   def balance_debit
-    return (self.balance > 0 ? self.balance.abs : 0)
+    (balance > 0 ? balance.abs : 0)
   end
 
   def balance_credit
-    return (self.balance > 0 ? 0 : self.balance.abs)
+    (balance > 0 ? 0 : balance.abs)
   end
-
 end

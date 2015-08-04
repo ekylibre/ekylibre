@@ -1,5 +1,4 @@
 class Telepac::V2014::LandParcelsExchanger < ActiveExchanger::Base
-
   def import
     # Unzip file
     dir = w.tmp_dir
@@ -8,7 +7,6 @@ class Telepac::V2014::LandParcelsExchanger < ActiveExchanger::Base
         entry.extract(dir.join(entry.name))
       end
     end
-
 
     #############################################################################
     # Import landparcel_shapefile from TELEPAC
@@ -27,9 +25,7 @@ class Telepac::V2014::LandParcelsExchanger < ActiveExchanger::Base
     # AGRI_BIO
     # ANNEE_ENGM
 
-
-
-    RGeo::Shapefile::Reader.open(dir.join("parcelle.shp").to_s, srid: 2154) do |file|
+    RGeo::Shapefile::Reader.open(dir.join('parcelle.shp').to_s, srid: 2154) do |file|
       # Set number of shapes
       w.count = file.size
 
@@ -41,11 +37,11 @@ class Telepac::V2014::LandParcelsExchanger < ActiveExchanger::Base
         attributes = {
           initial_born_at: Time.utc(1, 1, 1, 0, 0, 0),
           variant_id: land_parcel_variant.id,
-          name: LandParcel.model_name.human + " " + record.attributes['NUMERO'].to_s + "-" + record.attributes['NUMERO_SI'].to_s,
-          work_number: :land_parcel_abbreviation.tl(default: "LP") + record.attributes['NUMERO'].to_s + "-" + record.attributes['NUMERO_SI'].to_s,
-          variety: "land_parcel",
+          name: LandParcel.model_name.human + ' ' + record.attributes['NUMERO'].to_s + '-' + record.attributes['NUMERO_SI'].to_s,
+          work_number: :land_parcel_abbreviation.tl(default: 'LP') + record.attributes['NUMERO'].to_s + '-' + record.attributes['NUMERO_SI'].to_s,
+          variety: 'land_parcel',
           initial_owner: Entity.of_company,
-          identification_number: :land_parcel_abbreviation.tl(default: "LP") + record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s + record.attributes['NUMERO_SI'].to_s
+          identification_number: :land_parcel_abbreviation.tl(default: 'LP') + record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s + record.attributes['NUMERO_SI'].to_s
         }
 
         # Find or create land parcel
@@ -57,12 +53,12 @@ class Telepac::V2014::LandParcelsExchanger < ActiveExchanger::Base
         geom = Charta::Geometry.new(record.geometry).transform(:WGS84) if record.geometry
 
         # if geometry, load into georeadings
-        if geom and geom.area.to_d(:square_meter) > 10.0
+        if geom && geom.area.to_d(:square_meter) > 10.0
           land_parcel.read!(:shape, geom, at: land_parcel.initial_born_at)
 
           a = (land_parcel.shape_area.to_d / land_parcel_variant.net_surface_area.to_d(:square_meter))
 
-          # TODO Fix population zero?
+          # TODO: Fix population zero?
 
           land_parcel.read!(:population, a, at: land_parcel.initial_born_at)
 
@@ -78,32 +74,28 @@ class Telepac::V2014::LandParcelsExchanger < ActiveExchanger::Base
           georeading.save!
         end
 
-
-
         # link a land parcel to a land parcel cluster
         if land_parcel_cluster = LandParcelCluster.find_by(work_number: record.attributes['NUMERO'].to_s)
           ProductMembership.create!(member: land_parcel, group: land_parcel_cluster, started_at: land_parcel.initial_born_at, nature: :interior)
         end
 
-
         # Create activities if option true
         if Preference.get!(:create_activities_from_telepac, true, :boolean).value
           cultivable_zone = nil
-          if geom and geom.area.to_d(:square_meter) > 10.0
+          if geom && geom.area.to_d(:square_meter) > 10.0
             # Create a cultivable zone
             attributes = {
               variant_id: cultivable_zone_variant.id,
-              name: CultivableZone.model_name.human + " " + land_parcel.name,
-              work_number: :cultivable_zone_abbreviation.tl(default: "CZ") + record.attributes['NUMERO'].to_s + "-" + record.attributes['NUMERO_SI'].to_s,
-              variety: "cultivable_zone",
+              name: CultivableZone.model_name.human + ' ' + land_parcel.name,
+              work_number: :cultivable_zone_abbreviation.tl(default: 'CZ') + record.attributes['NUMERO'].to_s + '-' + record.attributes['NUMERO_SI'].to_s,
+              variety: 'cultivable_zone',
               initial_born_at: land_parcel.born_at,
               initial_owner: Entity.of_company,
-              identification_number: :cultivable_zone_abbreviation.tl(default: "CZ") + record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s + record.attributes['NUMERO_SI'].to_s
+              identification_number: :cultivable_zone_abbreviation.tl(default: 'CZ') + record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s + record.attributes['NUMERO_SI'].to_s
             }
             unless cultivable_zone = CultivableZone.find_by(attributes.slice(:work_number, :variety, :identification_number))
               cultivable_zone = CultivableZone.create!(attributes)
             end
-
 
             # Add readings
             cultivable_zone.read!(:shape, geom, at: cultivable_zone.born_at)
@@ -122,7 +114,6 @@ class Telepac::V2014::LandParcelsExchanger < ActiveExchanger::Base
 
           end
 
-
           # Create a campaign if not exist
           attributes = {
             harvest_year: record.attributes['CAMPAGNE'].to_i,
@@ -134,8 +125,8 @@ class Telepac::V2014::LandParcelsExchanger < ActiveExchanger::Base
 
           # Create an activity if not exist with production_code
           production_nature = Nomen::ProductionNatures.find_by(telepac_crop_code: record.attributes['TYPE'].to_s)
-          unless production_nature and activity_family = Nomen::ActivityFamilies[production_nature.activity]
-            raise "No activity family found. (#{record.attributes['TYPE']})"
+          unless production_nature && activity_family = Nomen::ActivityFamilies[production_nature.activity]
+            fail "No activity family found. (#{record.attributes['TYPE']})"
           end
 
           name = activity_family.human_name
@@ -146,7 +137,7 @@ class Telepac::V2014::LandParcelsExchanger < ActiveExchanger::Base
           }
           if activity = Activity.find_by(attributes.slice(:name))
             i = 0
-            while activity.family.to_s != activity_family.name.to_s do
+            while activity.family.to_s != activity_family.name.to_s
               i += 1
               attributes[:name] = name + " (#{i})"
               unless activity = Activity.find_by(attributes.slice(:name))
@@ -162,7 +153,7 @@ class Telepac::V2014::LandParcelsExchanger < ActiveExchanger::Base
           if activity.with_cultivation
             unless cultivation_variant = ProductNatureVariant.of_variety(activity.cultivation_variety).first
               variety = Nomen::Varieties[activity.cultivation_variety]
-              item = Nomen::ProductNatureVariants.list.select{|i| i.variety.present? and variety >= i.variety }.sample
+              item = Nomen::ProductNatureVariants.list.select { |i| i.variety.present? && variety >= i.variety }.sample
               cultivation_variant = ProductNatureVariant.import_from_nomenclature(item.name)
             end
           end
@@ -192,5 +183,4 @@ class Telepac::V2014::LandParcelsExchanger < ActiveExchanger::Base
       end
     end
   end
-
 end

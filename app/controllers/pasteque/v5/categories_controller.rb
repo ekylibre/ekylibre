@@ -3,7 +3,6 @@ class Pasteque::V5::CategoriesController < Pasteque::V5::BaseController
 
   # No children for categories for now
   def children
-    render json: {status: "ok", content: []}
+    render json: { status: 'ok', content: [] }
   end
-
 end

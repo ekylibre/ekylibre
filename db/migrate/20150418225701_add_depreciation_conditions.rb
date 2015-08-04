@@ -1,5 +1,4 @@
 class AddDepreciationConditions < ActiveRecord::Migration
-
   def change
     rename_column :financial_assets, :charges_account_id, :expenses_account_id
 
@@ -19,5 +18,4 @@ class AddDepreciationConditions < ActiveRecord::Migration
     add_index :documents, :template_id
     add_index :imports, :importer_id
   end
-
 end

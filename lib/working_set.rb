@@ -1,5 +1,4 @@
 module WorkingSet
-
   autoload :AbilityArray,         'working_set/ability_array'
   autoload :ActiveRecordCompiler, 'working_set/active_record_compiler'
   autoload :QueryLanguage,        'working_set/query_language'
@@ -17,29 +16,28 @@ module WorkingSet
 
   module QueryLanguage
     class Base < Treetop::Runtime::SyntaxNode; end
-    class BooleanExpression           < Base              ; end
-    class BooleanOperation            < Base              ; end
-    class Conjunction                 < BooleanOperation  ; end
-    class Disjunction                 < BooleanOperation  ; end
-    class Test                        < Base              ; end # Abstract
-    class NegativeTest                < Test              ; end
-    class AbilityTest                 < Test              ; end
-    class EssenceTest                 < Test              ; end
-    class DerivativeTest              < Test              ; end
-    class IndicatorTest               < Test              ; end
-    class AbilityName                 < Base              ; end
-    class AbilityArgument             < Base              ; end
-    class VarietyName                 < Base              ; end
+    class BooleanExpression < Base; end
+    class BooleanOperation < Base; end
+    class Conjunction < BooleanOperation; end
+    class Disjunction < BooleanOperation; end
+    class Test < Base; end # Abstract
+    class NegativeTest < Test; end
+    class AbilityTest < Test; end
+    class EssenceTest < Test; end
+    class DerivativeTest < Test; end
+    class IndicatorTest < Test; end
+    class AbilityName < Base; end
+    class AbilityArgument < Base; end
+    class VarietyName < Base; end
   end
 
   class << self
-
     def parse(expression, options = {})
       @parser ||= ::WorkingSet::Parser.new
       unless tree = @parser.parse(expression.to_s, options)
-        raise SyntaxError, @parser.failure_reason + "\nExpression: " + expression.inspect
+        fail SyntaxError, @parser.failure_reason + "\nExpression: " + expression.inspect
       end
-      return tree
+      tree
     end
 
     def to_sql(expression, options = {})
@@ -51,6 +49,5 @@ module WorkingSet
       tree = parse(expression)
       ::WorkingSet::ActiveRecordCompiler.new(tree).compile(record)
     end
-
   end
 end

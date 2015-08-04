@@ -38,7 +38,5 @@
 require 'test_helper'
 
 class ProductionSupportTest < ActiveSupport::TestCase
-
   # Add tests here...
-
 end

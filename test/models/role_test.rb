@@ -33,7 +33,6 @@
 #  updater_id     :integer
 #
 
-
 require 'test_helper'
 
 class RoleTest < ActiveSupport::TestCase

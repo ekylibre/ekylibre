@@ -40,37 +40,38 @@ class ApplicationController < ActionController::Base
 
   def self.human_action_name(action, options = {})
     options = {} unless options.is_a?(Hash)
-    root, action = "actions." + self.controller_path + ".", action.to_s
+    root = 'actions.' + controller_path + '.'
+    action = action.to_s
     options[:default] ||= []
-    if action == "create" and !options[:default].include? (root + "new").to_sym
-      options[:default] << (root + "new").to_sym
-    elsif action == "update" and !options[:default].include? (root + "edit").to_sym
-      options[:default] << (root + "edit").to_sym
+    if action == 'create' and !options[:default].include? (root + 'new').to_sym
+      options[:default] << (root + 'new').to_sym
+    elsif action == 'update' and !options[:default].include? (root + 'edit').to_sym
+      options[:default] << (root + 'edit').to_sym
     end
-    klass = self.superclass
-    while klass != ApplicationController do
+    klass = superclass
+    while klass != ApplicationController
       default = "actions.#{klass.controller_path}.#{action}".to_sym
       options[:default] << default unless options[:default].include?(default)
       klass = klass.superclass
     end
-    return ::I18n.translate(root + action, options)
+    ::I18n.translate(root + action, options)
   end
 
   helper_method :human_action_name
   def human_action_name
-    return self.class.human_action_name(action_name.to_s, @title)
+    self.class.human_action_name(action_name.to_s, @title)
   end
 
   def authorized?(url_options = {})
-    return true if url_options == "#" or current_user.administrator?
+    return true if url_options == '#' || current_user.administrator?
     if url_options.is_a?(Hash)
-      url_options[:controller] ||= self.controller_path
+      url_options[:controller] ||= controller_path
       url_options[:action] ||= :index
-    elsif url_options.is_a?(String) and url_options.match(/\#/)
-      action = url_options.split("#")
-      url_options = {:controller => action[0].to_sym, :action => action[1].to_sym}
+    elsif url_options.is_a?(String) && url_options.match(/\#/)
+      action = url_options.split('#')
+      url_options = { controller: action[0].to_sym, action: action[1].to_sym }
     else
-      raise ArgumentError, "Invalid URL: " + url_options.inspect
+      fail ArgumentError, 'Invalid URL: ' + url_options.inspect
     end
     if current_user
       return current_user.can_access?(url_options)
@@ -89,22 +90,43 @@ class ApplicationController < ActionController::Base
     options[:default] ||= []
     options[:default] = [options[:default]] unless options[:default].is_a?(Array)
     options[:default] << message.to_s.humanize
-    options[:scope] = "notifications.messages"
+    options[:scope] = 'notifications.messages'
     nature = nature.to_s
     notistore = (mode == :now ? flash.now : flash)
     notistore[:notifications] = {} unless notistore[:notifications].is_a? Hash
     notistore[:notifications][nature] = [] unless notistore[:notifications][nature].is_a? Array
     notistore[:notifications][nature] << (message.is_a?(String) ? message : message.to_s.t(options))
   end
-  def notify_error(message, options={});   notify(message, options, :error); end
-  def notify_warning(message, options={}); notify(message, options, :warning); end
-  def notify_success(message, options={}); notify(message, options, :success); end
-  def notify_now(message, options={});         notify(message, options, :information, :now); end
-  def notify_error_now(message, options={});   notify(message, options, :error, :now); end
-  def notify_warning_now(message, options={}); notify(message, options, :warning, :now); end
-  def notify_success_now(message, options={}); notify(message, options, :success, :now); end
 
-  def has_notifications?(nature=nil)
+  def notify_error(message, options = {})
+    notify(message, options, :error)
+  end
+
+  def notify_warning(message, options = {})
+    notify(message, options, :warning)
+  end
+
+  def notify_success(message, options = {})
+    notify(message, options, :success)
+  end
+
+  def notify_now(message, options = {})
+    notify(message, options, :information, :now)
+  end
+
+  def notify_error_now(message, options = {})
+    notify(message, options, :error, :now)
+  end
+
+  def notify_warning_now(message, options = {})
+    notify(message, options, :warning, :now)
+  end
+
+  def notify_success_now(message, options = {})
+    notify(message, options, :success, :now)
+  end
+
+  def has_notifications?(nature = nil)
     return false unless flash[:notifications].is_a? Hash
     if nature.nil?
       for nature, messages in flash[:notifications]
@@ -113,7 +135,7 @@ class ApplicationController < ActionController::Base
     elsif flash[:notifications][nature].is_a?(Array)
       return true if flash[:notifications][nature].any?
     end
-    return false
+    false
   end
 
   def set_theme
@@ -139,28 +161,23 @@ class ApplicationController < ActionController::Base
 
   # Change the time zone from the given params or reuse session variable
   def set_time_zone
-    if params[:time_zone]
-      session[:time_zone] = params[:time_zone]
-    end
-    session[:time_zone] ||= "UTC"
+    session[:time_zone] = params[:time_zone] if params[:time_zone]
+    session[:time_zone] ||= 'UTC'
     Time.zone = session[:time_zone]
   end
 
   # Sets mailer host on each request to ensure to get the valid domain
   def set_mailer_host
-    ActionMailer::Base.default_url_options = {host: request.host_with_port}
+    ActionMailer::Base.default_url_options = { host: request.host_with_port }
   end
 
   def check_browser
-    browser = Browser.new(ua: request.headers["HTTP_USER_AGENT"], accept_language: request.headers["HTTP_ACCEPT_LANGUAGE"])
-    if browser.ie?
-      notify_warning_now :incompatible_browser
-    end
+    browser = Browser.new(ua: request.headers['HTTP_USER_AGENT'], accept_language: request.headers['HTTP_ACCEPT_LANGUAGE'])
+    notify_warning_now :incompatible_browser if browser.ie?
   end
 
   def configure_application(exception)
-    title = exception.class.name.underscore.t(scope: "exceptions")
-    render "/public/configure_application", layout: "exception", locals: {title: title, message: exception.message, class_name: exception.class.name}, status: 500
+    title = exception.class.name.underscore.t(scope: 'exceptions')
+    render '/public/configure_application', layout: 'exception', locals: { title: title, message: exception.message, class_name: exception.class.name }, status: 500
   end
-
 end

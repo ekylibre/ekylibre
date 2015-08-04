@@ -9,19 +9,18 @@ module ExternalApiAdaptable
   extend ActiveSupport::Concern
 
   module ClassMethods
-
     def manage_restfully(defaults = {})
       options = defaults.extract! :except, :model, :only, :output_name, :partial_path, :resource_name, :scope
       actions  = [:index, :show, :new, :create, :edit, :destroy, :search]
       actions &= [options[:only]].flatten   if options[:only]
       actions -= [options[:except]].flatten if options[:except]
 
-      name = self.controller_name
+      name = controller_name
       resource_name = options[:resource_name] || name.to_s.singularize.to_sym
       model = options[:model].present? ? options[:model].to_s.singularize.classify.constantize : name.to_s.singularize.classify.constantize rescue nil
       model = model.send options[:scope] if options[:scope].present?
 
-      api_path = self.controller_path.split('/')[0..-2].join('/')
+      api_path = controller_path.split('/')[0..-2].join('/')
 
       output_name = options[:output_name] || name
       locals = {}
@@ -38,9 +37,9 @@ module ExternalApiAdaptable
       # a search filter is a hash associating the api key to its ekylibre equivalent.
       # Example with Pasteque API : the "label" key in Pasteque is equivalent to "name"
       # in Ekylibre.
-      get_filters = defaults[:get_filters] || {id: :id}
+      get_filters = defaults[:get_filters] || { id: :id }
 
-      model_fields = model.column_names - ['created_at', 'updated_at', 'creator_id', 'updater_id', 'lock_version', 'left', 'right'] rescue nil
+      model_fields = model.column_names - %w(created_at updated_at creator_id updater_id lock_version left right) rescue nil
 
       show = lambda do
         api_key = params.slice(*get_filters.keys).keys.first
@@ -50,7 +49,7 @@ module ExternalApiAdaptable
         if @record.present?
           render locals: locals
         else
-          render json: { status: :rej, content: "Cannot find record" }
+          render json: { status: :rej, content: 'Cannot find record' }
         end
       end
 
@@ -62,9 +61,9 @@ module ExternalApiAdaptable
         end
         record = model.new(create_params)
         if record.save
-          render locals: { output_name.singularize.to_sym => record}
+          render locals: { output_name.singularize.to_sym => record }
         else
-          render json: { status: :rej, content: "Cannot create record" }
+          render json: { status: :rej, content: 'Cannot create record' }
         end
       end
 
@@ -73,7 +72,7 @@ module ExternalApiAdaptable
         if @record.destroy
           render json: { status: :ok }
         else
-          render json: { status: :rej, content: "Cannot destroy record" }
+          render json: { status: :rej, content: 'Cannot destroy record' }
         end
       end
 
@@ -111,5 +110,4 @@ module ExternalApiAdaptable
       private :permitted_params, :model
     end
   end
-
 end

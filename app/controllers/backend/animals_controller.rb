@@ -17,14 +17,13 @@
 #
 
 class Backend::AnimalsController < Backend::MattersController
-
   # params:
   #   :q Text search
   #   :s State search
   #   :period Two Dates with _ separator
   #   :variant_id
   def self.animals_conditions
-    code = ""
+    code = ''
     code = search_conditions(product_nature_variants: [:name]) + " ||= []\n"
     code << "unless (params[:period].blank? or params[:period].is_a? Symbol)\n"
     code << "  if params[:period] != 'all'\n"
@@ -51,7 +50,7 @@ class Backend::AnimalsController < Backend::MattersController
     code << "    c << params[:variant_id].to_i\n"
     code << "  end\n"
     code << "c\n"
-    return code.c
+    code.c
   end
 
   list(conditions: animals_conditions, joins: :variants) do |t|
@@ -84,13 +83,11 @@ class Backend::AnimalsController < Backend::MattersController
     user_pref = YAML.load(preference.value)
 
     @sorted = []
-    user_pref.deep_symbolize_keys!()
+    user_pref.deep_symbolize_keys!
     if user_pref[:positions].present?
       user_pref[:positions].each do |g|
         @grouped_animals.each do |h|
-          if h[:group].id == g[:id]
-            @sorted << h
-          end
+          @sorted << h if h[:group].id == g[:id]
         end
       end
     else
@@ -99,29 +96,27 @@ class Backend::AnimalsController < Backend::MattersController
 
     without_container = []
     Animal.of_enjoyer(Entity.of_company).select(:id, :name, :identification_number, :nature_id, :dead_at).each do |a|
-      if a.container.nil? or a.memberships.length == 0
-        without_container << { animal: a.to_json(:methods => [:picture_path, :sex_text, :status]) }
+      if a.container.nil? || a.memberships.length == 0
+        without_container << { animal: a.to_json(methods: [:picture_path, :sex_text, :status]) }
       end
     end
-    if without_container.any?
-      @sorted << {others: without_container}
-    end
-    render :json => @sorted.to_json()
+    @sorted << { others: without_container } if without_container.any?
+    render json: @sorted.to_json
   end
 
   def load_containers
-    @containers = Product.select(:id,:name).of_expression('can store(animal)')
-    render :json => @containers
+    @containers = Product.select(:id, :name).of_expression('can store(animal)')
+    render json: @containers
   end
 
   def load_workers
-    @workers = Worker.select(:id,:name).all
-    render :json => @workers
+    @workers = Worker.select(:id, :name).all
+    render json: @workers
   end
 
   def load_natures
-    @natures = ProductNatureVariant.of_variety(:animal).select(:id,:name).all
-    render :json => @natures
+    @natures = ProductNatureVariant.of_variety(:animal).select(:id, :name).all
+    render json: @natures
   end
 
   def load_production_supports
@@ -129,20 +124,17 @@ class Backend::AnimalsController < Backend::MattersController
     arr = []
     ProductionSupport.where(storage: params[:group_id]).each do |p|
       prod[:id] = p.id
-      prod[:name] = p.production.name+" (#{p.production.campaign.name})"
+      prod[:name] = p.production.name + " (#{p.production.campaign.name})"
       arr << prod
     end
-    render :json => arr, status: 200
+    render json: arr, status: 200
   end
-
-
-
 
   def change
     # params[:animals_id]
     # params[:container_id]
     # params[:group_id]
-    #check animal exist
+    # check animal exist
     if params[:animals_id]
       animals = params[:animals_id].split(',').collect do |animal_id|
         find_and_check(id: animal_id.to_i)
@@ -151,19 +143,15 @@ class Backend::AnimalsController < Backend::MattersController
 
     procedure_natures = []
 
-    if params[:container_id].present?
-      procedure_natures << :animal_moving
-    end
-    if params[:group_id].present?
-      procedure_natures << :animal_group_changing
-    end
-    if params[:variant_id].present?
-      procedure_natures << :animal_evolution
-    end
+    procedure_natures << :animal_moving if params[:container_id].present?
+    procedure_natures << :animal_group_changing if params[:group_id].present?
+    procedure_natures << :animal_evolution if params[:variant_id].present?
 
     Intervention.write(*procedure_natures, short_name: :animal_changing, started_at: params[:started_at], stopped_at: params[:stopped_at], production_support: ProductionSupport.find_by(id: params[:production_support_id])) do |i|
       i.cast :caregiver, Product.find_by(id: params[:worker_id]), role: 'animal_moving-doer', position: 1
-      ah, ag, av = nil, nil, nil
+      ah = nil
+      ag = nil
+      av = nil
       if procedure_natures.include?(:animal_moving)
         ah = i.cast :animal_housing, Product.find_by(id: params[:container_id]), role: ['animal_moving-target'], position: 2
       end
@@ -174,7 +162,7 @@ class Backend::AnimalsController < Backend::MattersController
         av = i.cast :new_animal_variant, ProductNatureVariant.find_by(id: params[:variant_id]), role: ['animal_evolution-variant'], position: 4, variant: true
       end
       animals.each_with_index do |a, index|
-        ac = i.cast :animal, a, role: ['animal_moving-input', 'animal_group_changing-input','animal_evolution-target'], position: index + 5
+        ac = i.cast :animal, a, role: ['animal_moving-input', 'animal_group_changing-input', 'animal_evolution-target'], position: index + 5
         if procedure_natures.include?(:animal_moving)
           i.task :entering, product: ac, localizable: ah
         end
@@ -189,17 +177,16 @@ class Backend::AnimalsController < Backend::MattersController
       end
     end
 
-    render json: {result: 'ok'}
+    render json: { result: 'ok' }
   end
-
 
   # Insert a group
   def add_group
-    if params[:name] and variant = ProductNatureVariant.find_by(id: params[:variant_id])
+    if params[:name] && variant = ProductNatureVariant.find_by(id: params[:variant_id])
       group = ProductGroup.create!(name: params[:name], variant: variant)
-      render json: {id: group.id, name: group.name}, status: :ok
+      render json: { id: group.id, name: group.name }, status: :ok
     else
-      render json: "Cannot save group. Parameters are missing.", status: :unprocessable_entity
+      render json: 'Cannot save group. Parameters are missing.', status: :unprocessable_entity
     end
   end
 
@@ -210,11 +197,11 @@ class Backend::AnimalsController < Backend::MattersController
     @entity_of_company_full_name = Entity.of_company.full_name
     @entity_of_company_id = Entity.of_company.id
 
-    respond_with @animals, :methods => [:picture_path, :sex_text, :variety_text], :include => [:initial_father, :initial_mother, :nature ,:variant]
+    respond_with @animals, methods: [:picture_path, :sex_text, :variety_text], include: [:initial_father, :initial_mother, :nature, :variant]
   end
 
   # Children list
-  list(:children, model: :product_links, conditions: {linked_id: 'params[:id]'.c, nature: %w(father mother)}, order: {started_at: :desc}) do |t|
+  list(:children, model: :product_links, conditions: { linked_id: 'params[:id]'.c, nature: %w(father mother) }, order: { started_at: :desc }) do |t|
     t.column :name, through: :product, url: true
     t.column :born_at, through: :product, datatype: :datetime
     t.column :sex, through: :product
@@ -224,12 +211,11 @@ class Backend::AnimalsController < Backend::MattersController
   def show
     return unless @animal = find_and_check
     t3e @animal, nature: @animal.nature_name
-    respond_with(@animal, :methods => [:picture_path, :sex_text, :variety_text], :include => [:father, :mother, :variant, :nature, :variety,
-                                                                                              {:readings => {}},
-                                                                                              {:intervention_casts => {:include => :intervention}},
-                                                                                              {:memberships => {:include => :group}},
-                                                                                              {:localizations => {:include => :container}}])
-
+    respond_with(@animal, methods: [:picture_path, :sex_text, :variety_text], include: [:father, :mother, :variant, :nature, :variety,
+                                                                                        { readings: {} },
+                                                                                        { intervention_casts: { include: :intervention } },
+                                                                                        { memberships: { include: :group } },
+                                                                                        { localizations: { include: :container } }])
   end
 
   def add_to_group
@@ -240,8 +226,6 @@ class Backend::AnimalsController < Backend::MattersController
       if group = AnimalGroup.find(params[:group_id]) and production = Production.find_by(id: params[:production_id]) and production_support = ProductionSupport.find_by(id: params[:production_support_id]) and params[:started_at]
         group.add_animals(ids, at: params[:started_at], production: production, production_support: production_support)
         redirect_to params[:redirect] || backend_animal_group_url(group)
-      else
-        # redirect to a form to select group / started_at / stopped_at
       end
     else
       params[:started_at] ||= Time.now
@@ -256,8 +240,6 @@ class Backend::AnimalsController < Backend::MattersController
       if variant = ProductNatureVariant.find(params[:variant_id]) and production = Production.find_by(id: params[:production_id]) and production_support = ProductionSupport.find_by(id: params[:production_support_id]) and params[:started_at]
         variant.add_products(ids, at: params[:started_at], production: production, production_support: production_support)
         redirect_to params[:redirect] || backend_product_nature_variant_url(variant)
-      else
-        # redirect to a form to select group / started_at / stopped_at
       end
     else
       params[:started_at] ||= Time.now
@@ -272,12 +254,9 @@ class Backend::AnimalsController < Backend::MattersController
       if container = Product.find(params[:container_id]) and production = Production.find_by(id: params[:production_id]) and production_support = ProductionSupport.find_by(id: params[:production_support_id]) and params[:started_at]
         container.add_content_products(ids, at: params[:started_at], production: production, production_support: production_support)
         redirect_to params[:redirect] || backend_product_url(container)
-      else
-        # redirect to a form to select group / started_at / stopped_at
       end
     else
       params[:started_at] ||= Time.now
     end
   end
-
 end

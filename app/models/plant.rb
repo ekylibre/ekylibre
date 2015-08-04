@@ -64,26 +64,25 @@
 #  work_number           :string
 #
 class Plant < Bioproduct
-  enumerize :variety, in: Nomen::Varieties.all(:plant), predicates: {prefix: true}
+  enumerize :variety, in: Nomen::Varieties.all(:plant), predicates: { prefix: true }
 
   has_shape
 
   # Return all Plant object who is alive in the given campaigns
   scope :of_campaign, lambda { |campaign|
-    raise ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}") unless campaign.is_a?(Campaign)
+    fail ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}") unless campaign.is_a?(Campaign)
     started_at = Date.new(campaign.harvest_year.to_f, 01, 01)
     stopped_at = Date.new(campaign.harvest_year.to_f, 12, 31)
-    where('born_at <= ? AND ( dead_at IS NULL OR dead_at <= ?)', stopped_at, stopped_at )
+    where('born_at <= ? AND ( dead_at IS NULL OR dead_at <= ?)', stopped_at, stopped_at)
   }
 
   def status
     if self.dead_at?
       return :stop
-    elsif self.issues.any?
-      return (self.issues.where(state: :opened).any? ? :caution : :go)
+    elsif issues.any?
+      return (issues.where(state: :opened).any? ? :caution : :go)
     else
       return :go
     end
   end
-
 end

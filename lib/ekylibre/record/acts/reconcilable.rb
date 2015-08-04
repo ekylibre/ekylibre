@@ -1,26 +1,25 @@
 module Ekylibre::Record
   module Acts #:nodoc:
     module Reconcilable #:nodoc:
-
       def self.included(base)
         base.extend(ClassMethods)
       end
 
       module ClassMethods
-
         # Add methods for reconciliating
-        def acts_as_reconcilable(expense_owner, payment_owner, options={})
-
-          use = options[:use]||"use"
+        def acts_as_reconcilable(expense_owner, payment_owner, options = {})
+          use = options[:use] || 'use'
           uses = use.pluralize
-          expense = options[:expense]||"expense"
-          payment = options[:payment]||"payment"
-          attorney = options[:attorney]||"attorney"
-          expenses, payments = expense.pluralize, payment.pluralize
-          expense_owners, payment_owners = expense_owner.to_s.pluralize, payment_owner.to_s.pluralize
-          neighbours = options[:neighbours]||"neighbours"
+          expense = options[:expense] || 'expense'
+          payment = options[:payment] || 'payment'
+          attorney = options[:attorney] || 'attorney'
+          expenses = expense.pluralize
+          payments = payment.pluralize
+          expense_owners = expense_owner.to_s.pluralize
+          payment_owners = payment_owner.to_s.pluralize
+          neighbours = options[:neighbours] || 'neighbours'
 
-          code  = ""
+          code  = ''
           code += "def #{neighbours}(#{uses}=[])\n"
           code += "  for #{use} in self.#{expense}.#{uses}+self.#{payment}.#{uses}\n"
           code += "    unless #{uses}.include? #{use}\n"
@@ -83,7 +82,6 @@ module Ekylibre::Record
           class_eval code
         end
       end
-
     end
   end
 end

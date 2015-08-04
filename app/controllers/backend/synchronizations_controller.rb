@@ -17,28 +17,22 @@
 #
 
 class Backend::SynchronizationsController < Backend::BaseController
-
   def index
   end
 
-
   def run
-    if params[:id] == "cooperative_cartodb"
-      cooperative_cartodb
-    end
-    redirect_to params[:redirect] || {action: :index}
+    cooperative_cartodb if params[:id] == 'cooperative_cartodb'
+    redirect_to params[:redirect] || { action: :index }
   end
 
-
   protected
-
 
   # for testing data upload for unicoque traceability in cartodb account
   # Activity :orchard_crops
   def cooperative_cartodb
     if account = Identifier.find_by_nature(:cooperative_cartodb_account) and
-        key = Identifier.find_by_nature(:cooperative_cartodb_key)
-      @cooperative_config = {account: account.value, key: key.value}
+       key = Identifier.find_by_nature(:cooperative_cartodb_key)
+      @cooperative_config = { account: account.value, key: key.value }
       @cooperative_config[:member] = Entity.of_company.name.downcase
       conn = CartoDBConnection.new(@cooperative_config[:account], @cooperative_config[:key])
       data = []
@@ -72,7 +66,7 @@ class Backend::SynchronizationsController < Backend::BaseController
           insert << name
           values << ActiveRecord::Base.connection.quote(value)
         end
-        q = "INSERT INTO interventions (" + insert.join(', ') + ") SELECT " + values.join(', ')
+        q = 'INSERT INTO interventions (' + insert.join(', ') + ') SELECT ' + values.join(', ')
         conn.exec(q)
       end
     end
@@ -89,5 +83,4 @@ class Backend::SynchronizationsController < Backend::BaseController
       Rails.logger.debug "[#{@account}] " + Net::HTTP.get(URI.parse("http://#{@account}.cartodb.com/api/v2/sql?q=#{URI.encode(sql)}&api_key=#{@key}"))
     end
   end
-
 end

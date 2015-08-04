@@ -51,27 +51,26 @@ class AnalysisItem < Ekylibre::Record::Base
   belongs_to :analysis, inverse_of: :items
   belongs_to :product_reading, dependent: :destroy
   has_one :product, through: :analysis
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :integer_value, allow_nil: true, only_integer: true
   validates_numericality_of :absolute_measure_value_value, :decimal_value, :measure_value_value, allow_nil: true
   validates_inclusion_of :boolean_value, in: [true, false]
   validates_presence_of :analysis, :indicator_datatype, :indicator_name
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_uniqueness_of :indicator_name, scope: :analysis_id
 
   delegate :sampled_at, to: :analysis
 
   after_save do
-    if self.product
-      if reading = self.product_reading
-        reading.read_at = self.sampled_at
-        reading.value = self.value
+    if product
+      if reading = product_reading
+        reading.read_at = sampled_at
+        reading.value = value
         reading.save!
       else
-        reading = self.product.read!(indicator, self.value, at: self.sampled_at)
-        self.update_column(:product_reading_id, reading.id)
+        reading = product.read!(indicator, value, at: sampled_at)
+        update_column(:product_reading_id, reading.id)
       end
     end
   end
-
 end

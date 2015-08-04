@@ -1,15 +1,14 @@
 module Procedo
   class Indicator
-
     attr_reader :task, :stakeholder, :indicator, :value
 
     def initialize(task, stakeholder, indicator, value = nil)
       @task = task
       unless @stakeholder = @task.procedure.variables[stakeholder]
-        raise ArgumentError, "Unknown stakeholder: #{stakeholder.inspect}"
+        fail ArgumentError, "Unknown stakeholder: #{stakeholder.inspect}"
       end
       unless @indicator = Nomen::Indicators[indicator]
-        raise ArgumentError, "Unknown indicator: #{indicator.inspect}"
+        fail ArgumentError, "Unknown indicator: #{indicator.inspect}"
       end
       unless value.blank?
         @value = value
@@ -25,7 +24,7 @@ module Procedo
     end
 
     def inspect
-      "#{self.name} (#{@task.expression} in operation #{@task.operation.name})"
+      "#{name} (#{@task.expression} in operation #{@task.operation.name})"
     end
 
     def name
@@ -51,7 +50,5 @@ module Procedo
     def reference
       @indicator
     end
-
   end
-
 end

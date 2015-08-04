@@ -38,15 +38,14 @@
 #  updater_id       :integer
 #
 
-
 class Inventory < Ekylibre::Record::Base
-  belongs_to :responsible, -> { contacts }, class_name: "Entity"
-  has_many :items, class_name: "InventoryItem", dependent: :destroy, inverse_of: :inventory
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  belongs_to :responsible, -> { contacts }, class_name: 'Entity'
+  has_many :items, class_name: 'InventoryItem', dependent: :destroy, inverse_of: :inventory
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :accounted_at, :achieved_at, :reflected_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_inclusion_of :reflected, in: [true, false]
   validates_presence_of :name
-  #]VALIDATORS]
+  # ]VALIDATORS]
   validates_length_of :number, allow_nil: true, maximum: 20
   validates_presence_of :achieved_at
 
@@ -58,35 +57,35 @@ class Inventory < Ekylibre::Record::Base
     self.achieved_at ||= Time.now
   end
 
-  bookkeep on: :nothing do |b|
+  bookkeep on: :nothing do |_b|
   end
 
   protect do
-    self.old_record.reflected?
+    old_record.reflected?
   end
 
   def reflectable?
-    !self.reflected? and self.class.unreflecteds.where(self.class.arel_table[:achieved_at].lt(self.achieved_at)).empty?
+    !self.reflected? && self.class.unreflecteds.where(self.class.arel_table[:achieved_at].lt(self.achieved_at)).empty?
   end
 
   # Apply deltas on products
   def reflect
     unless self.reflectable?
-      raise StandardError, "Cannot reflect reflected inventory"
+      fail StandardError, 'Cannot reflect reflected inventory'
     end
     self.class.transaction do
       self.reflected_at = Time.now
       self.reflected = true
       self.save!
-      for item in self.items
-        if item.actual_population != item.expected_population and product = item.product
+      for item in items
+        if item.actual_population != item.expected_population && product = item.product
           delta = item.actual_population - item.expected_population
 
           # Adds reading now if not found before
           product.read!(:population, item.actual_population, at: self.achieved_at, originator: item)
 
           # Updates
-          for reading in product.readings.where(indicator_name: "population").where("read_at > ?", self.achieved_at)
+          for reading in product.readings.where(indicator_name: 'population').where('read_at > ?', self.achieved_at)
             reading.value += delta
             reading.save!
           end
@@ -98,21 +97,20 @@ class Inventory < Ekylibre::Record::Base
   def build_missing_items
     self.achieved_at ||= Time.now
     for product in Matter.at(achieved_at).of_owner(Entity.of_company)
-      unless self.items.detect{|i| i.product_id == product.id }
+      unless items.detect { |i| i.product_id == product.id }
         population = product.population(at: self.achieved_at)
         # shape = product.shape(at: self.achieved_at)
-        self.items.build(product_id: product.id, actual_population: population, expected_population: population)
+        items.build(product_id: product.id, actual_population: population, expected_population: population)
       end
     end
   end
 
   def refresh!
     unless self.editable?
-      raise StandardError, "Cannot refresh uneditable inventory"
+      fail StandardError, 'Cannot refresh uneditable inventory'
     end
-    self.items.clear
-    self.build_missing_items
+    items.clear
+    build_missing_items
     self.save!
   end
-
 end
