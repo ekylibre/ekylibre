@@ -62,7 +62,7 @@ module Ekylibre
         generate_javascript_index
       end
 
-      def each(&_block)
+      def each
         registered_plugins.each do |_key, plugin|
           yield plugin
         end
@@ -116,7 +116,8 @@ module Ekylibre
     def initialize(plugfile_path)
       @root = Pathname.new(plugfile_path).dirname
       @themes_assets = {}.with_indifferent_access
-
+      @javascripts ||= []
+      
       instance_eval(File.read(plugfile_path), plugfile_path, 1)
 
       if @name
@@ -152,6 +153,7 @@ module Ekylibre
         ActiveSupport::Dependencies.autoload_paths += [dir]
       end
 
+      
       # Adds assets
       if assets_directory.exist?
         # Emulate "subdir by plugin" config
@@ -206,7 +208,6 @@ module Ekylibre
 
     # Require a JS file from application.js
     def require_javascript(path)
-      @javascripts ||= []
       @javascripts << path
     end
 
