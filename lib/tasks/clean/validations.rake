@@ -20,8 +20,8 @@ namespace :clean do
           end
 
           # Look for tag
-          tag_start = '#[VALIDATORS['
-          tag_end = '#]VALIDATORS]'
+          tag_start = '# [VALIDATORS['
+          tag_end = '# ]VALIDATORS]'
 
           regexp = /\ *#{Regexp.escape(tag_start)}[^\A]*#{Regexp.escape(tag_end)}\ */x
           tag = regexp.match(content)
@@ -71,8 +71,8 @@ namespace :clean do
           end
 
           # Look for tag
-          tag_start = '#[VALIDATORS['
-          tag_end = '#]VALIDATORS]'
+          tag_start = '# [VALIDATORS['
+          tag_end = '# ]VALIDATORS]'
 
           regexp = /\ *#{Regexp.escape(tag_start)}[^\A]*#{Regexp.escape(tag_end)}\ */x
           tag = regexp.match(content)
