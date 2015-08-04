@@ -6,7 +6,7 @@ gem 'rails', '4.2.3'
 
 # Database adapters
 gem 'pg' # Needed for some tasks
-gem 'activerecord-postgis-adapter', '>= 3.0.0.beta2'
+gem 'activerecord-postgis-adapter', '>= 3.0.0'
 
 # Multi-tenancy
 gem 'apartment', '>= 1.0.0', '< 2.0'
@@ -60,7 +60,7 @@ gem 'sidekiq'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
-gem 'unicorn'
+gem 'unicorn', group: :production
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -143,16 +143,12 @@ group :development do
   gem 'quiet_assets'
   # gem 'rack-mini-profiler'
 
-  # Project management
-  gem 'rails_best_practices'
+  # Code metrics
+  gem 'rubocop', require: false
 
   # Webservers
   gem 'thin'
 
-  # gem "intellij-coffee-script-debugger", :git => "git://github.com/JetBrains/intellij-coffee-script-debugger.git"
-end
-
-group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
@@ -161,16 +157,15 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+end
 
-  gem 'factory_girl_rails'
+group :test do
   gem 'shoulda-context'
 
   gem 'capybara'
   gem 'capybara-webkit'
   gem 'selenium-webdriver'
 
-  # gem 'awesome_print'
-  # gem 'pry'
   gem 'database_cleaner'
   gem 'coveralls', '>= 0.6', require: false
 end

@@ -1,5 +1,5 @@
 language: ruby
-bundler_args: --full-index
+bundler_args: --full-index --without development
 rvm:
   - 2.2.1
 env:

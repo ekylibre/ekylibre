@@ -9,7 +9,8 @@ More details can be found on the official website http://ekylibre.org.
 {<img src="https://api.travis-ci.org/ekylibre/ekylibre.png?branch=master"/>}[https://travis-ci.org/ekylibre/ekylibre]
 {<img src="https://gemnasium.com/ekylibre/ekylibre.png"/>}[https://gemnasium.com/ekylibre/ekylibre]
 {<img src="https://codeclimate.com/github/ekylibre/ekylibre.png" />}[https://codeclimate.com/github/ekylibre/ekylibre]
-{<img src="https://coveralls.io/repos/ekylibre/ekylibre/badge.png?branch=master" alt="Coverage Status" />}[https://coveralls.io/r/ekylibre/ekylibre]
+{<img src="https://img.shields.io/coveralls/bbatsov/rubocop/master.svg" alt="Coverage Status" />}[https://coveralls.io/r/ekylibre/ekylibre]
+{<img src="https://img.shields.io/github/tag/ekylibre/ekylibre.svg" alt="Version" />}[https://github.com/ekylibre/ekylibre]
 
 == Guides
 

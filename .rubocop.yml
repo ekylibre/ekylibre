@@ -1,0 +1,12 @@
+AllCops:
+  RunRailsCops: true
+  Exclude:
+    - 'vendor/**/*'
+    - 'tmp/**/*'
+    - 'plugins/**/*'
+    - 'lib/procedo/handler_method.rb'
+    - 'lib/working_set/query_language.rb'
+    - 'db/schema.rb'
+
+Metrics/LineLength:
+  Enabled: false
