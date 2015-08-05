@@ -25,18 +25,34 @@ module ActiveGuide
   #   end
   #
   class Base
-    attr_reader :root
+    cattr_reader :root
 
-    def initialize(_name, &block)
-      @root = Group.new(nil, :root, &block)
+    class << self
+
+      delegate :result, :group, :question, :test, :before, :after, :accept, to: :root
+
+      def inherited(subclass)
+        @@root = Group.new(nil, :root)
+        subclass.import_from(self)
+      end
+
+      def import_from(guide)
+        if guide.root
+          guide.root.items.each do |item|
+            @@root.add_item item.dup
+          end
+        end
+      end
+
+      # Run an analyses with default SimpleAnalyzer by default
+      def run(*args)
+        options  = args.extract_options!
+        analyzer = args.shift || options[:analyzer]
+        analyzer ||= SimpleAnalyzer.new
+        analyzer.run(self, options)
+      end
+
     end
 
-    # Run an analyses with default SimpleAnalyzer by default
-    def run(*args)
-      options  = args.extract_options!
-      analyzer = args.shift || options[:analyzer]
-      analyzer ||= SimpleAnalyzer.new
-      analyzer.run(self, options)
-    end
   end
 end

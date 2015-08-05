@@ -2,7 +2,8 @@ require 'test_helper'
 
 class ActiveGuideTest < ActiveSupport::TestCase
   test 'sample guide' do
-    guide = ActiveGuide::Base.new :test_guide do
+    # guide = ActiveGuide::Base.new :test_guide do
+    class TestGuide < ActiveGuide::Base
       result :penalty
       before do
         variables.penalty = 0
@@ -37,6 +38,6 @@ class ActiveGuideTest < ActiveSupport::TestCase
       end
     end
 
-    guide.run(verbose: false)
+    TestGuide.run(verbose: false)
   end
 end

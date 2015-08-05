@@ -117,7 +117,7 @@ module Ekylibre
       @root = Pathname.new(plugfile_path).dirname
       @themes_assets = {}.with_indifferent_access
       @javascripts ||= []
-      
+
       instance_eval(File.read(plugfile_path), plugfile_path, 1)
 
       if @name
@@ -149,11 +149,11 @@ module Ekylibre
       end
 
       # Adds the app/{controllers,helpers,models} directories of the plugin to the autoload path
-      Dir.glob File.expand_path(@root.join('app', '{controllers,helpers,models,jobs,mailers,inputs}')) do |dir|
+      Dir.glob File.expand_path(@root.join('app', '{controllers,helpers,models,jobs,mailers,inputs,guides}')) do |dir|
         ActiveSupport::Dependencies.autoload_paths += [dir]
       end
 
-      
+
       # Adds assets
       if assets_directory.exist?
         # Emulate "subdir by plugin" config

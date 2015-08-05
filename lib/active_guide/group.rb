@@ -5,7 +5,7 @@ module ActiveGuide
     def initialize(group, name, options = {}, &block)
       super group, name, options
       @items = []
-      instance_eval(&block)
+      instance_eval(&block) if block_given?
     end
 
     def result(name, type = :numeric)
@@ -31,9 +31,10 @@ module ActiveGuide
       end
     end
 
-    protected
-
     def add_item(item)
+      unless item.is_a?(ActiveGuide::Item) || item.is_a?(ActiveGuide::Result)
+        fail "Invalid item. Got #{item.inspect}:#{item.class.name}"
+      end
       @items << item
     end
   end
