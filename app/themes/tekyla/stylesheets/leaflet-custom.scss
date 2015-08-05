@@ -1,0 +1,35 @@
+.spinner-loading {
+  visibility: hidden;
+
+  i {
+    @include is-icon(2 * $fs-normal);
+    @include use-icon(spinner);
+    line-height: 2 * $lh-normal;
+  }
+
+  &.active {
+    visibility: visible;
+    //display: inline;
+  }
+}
+
+i.leaflet-importer-ctrl {
+  @include is-icon(2 * $fs-normal);
+  @include use-icon(download);
+  line-height: 2 * $lh-normal;
+}
+
+.leaflet-importers-toolbar {
+
+  &.disabled {
+    height: 0;
+    button {
+      height: 0;
+
+    }
+  }
+}
+
+span.leaflet-importer-geojson, span.leaflet-importer-gml {
+  font-size: 8px;
+}
