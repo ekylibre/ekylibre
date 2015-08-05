@@ -153,7 +153,6 @@ module Ekylibre
         ActiveSupport::Dependencies.autoload_paths += [dir]
       end
 
-
       # Adds assets
       if assets_directory.exist?
         # Emulate "subdir by plugin" config
