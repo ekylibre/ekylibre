@@ -33,7 +33,7 @@ namespace :clean do
     # Enregistrement du nouveau fichier
     yaml = ''
     if unused_actions.any?
-      yaml << "# THESE COMMENTED ACTIONS ARE ALL ACCESSIBLE AFTER LOGIN WITHOUT RESTRICTION\n"
+      yaml << "# THESE FOLLOWING ACTIONS ARE PUBLICLY ACCESSIBLE\n"
       for action in unused_actions.sort
         yaml << "#     - \"#{action}\"\n"
       end
@@ -65,6 +65,6 @@ namespace :clean do
       file.write yaml
     end
 
-    print "#{unused_actions.size.to_s.rjust(3)} unused actions, #{unexistent_actions.size.to_s.rjust(3)} deletable actions\n"
+    print "#{unused_actions.size.to_s.rjust(3)} public actions, #{unexistent_actions.size.to_s.rjust(3)} deletable actions\n"
   end
 end

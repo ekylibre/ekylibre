@@ -162,25 +162,12 @@ class Backend::BaseController < BaseController
     end
   end
 
-  # Controls access to every view in Ekylibre.
+  # Controls access to every action/view in Ekylibre.
   def authorize_user!
-    unless current_user.administrator?
-      # Get accesses matching the current action
-      list = Ekylibre::Access.rights_of("#{controller_path}##{action_name}")
-      if list.empty?
-        return true
-        notify_error(:access_denied, reason: 'OUT OF SCOPE', url: request.url.inspect)
-        redirect_to root_url
-        return false
-      end
-
-      # Search for one of found access in rights of current user
-      list &= current_user.resource_actions
-      unless list.any?
-        notify_error(:access_denied, reason: 'RESTRICTED', url: request.url.inspect)
-        redirect_to root_url
-        return false
-      end
+    unless authorized?(controller: controller_path, action: action_name)
+      notify_error(:access_denied, reason: 'RESTRICTED', url: request.url.inspect)
+      redirect_to root_url
+      return false
     end
     true
   end

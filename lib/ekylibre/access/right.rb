@@ -1,5 +1,6 @@
 module Ekylibre
   module Access
+    # Right class permit to define which resource is concerned, which interaction
     class Right
       attr_reader :interaction, :resource, :actions, :dependencies
 
