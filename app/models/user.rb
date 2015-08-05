@@ -104,6 +104,7 @@ class User < Ekylibre::Record::Base
   delegate :name, to: :role, prefix: true
 
   before_validation do
+    self.language = Preference[:language] if language.blank?
     self.maximal_grantable_reduction_percentage ||= 0
     self.role ||= Role.first if self.administrator?
     self.rights ||= self.role.rights if self.role

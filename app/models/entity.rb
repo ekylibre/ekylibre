@@ -169,11 +169,9 @@ class Entity < Ekylibre::Record::Base
     # end
     full_name.strip!
     # self.name = self.name.to_s.strip.downcase.gsub(/[^a-z0-9\.\_]/,'')
-    if entity = Entity.of_company
-      self.language = entity.language if language.blank?
-      self.currency = entity.currency if currency.blank?
-      self.country  = entity.country  if country.blank?
-    end
+    self.language = Preference[:language] if language.blank?
+    self.currency = Preference[:currency] if currency.blank?
+    self.country  = Preference[:country]  if country.blank?
   end
 
   # validate do
