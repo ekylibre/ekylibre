@@ -53,12 +53,15 @@ module Backend::MapsHelper
     map(resources, options, html_options, &block)
   end
 
-  def shape_field_tag(name, value = nil, options = {})
+
+  def shape_field_tag(name, value = nil, options = {}, &block)
     geometry = Charta::Geometry.new(value || Charta::Geometry.empty)
     box ||= {}
     options[:box] ||= {}
     box[:width] = options[:box][:width] || 360
     box[:height] = options[:box][:height] || 240
-    text_field_tag(name, value, options.deep_merge(data: { map_editor: { box: box.jsonize_keys, edit: geometry.to_geojson } }))
+    options.deep_merge!(data: {map_editor: { controls:{ importers: { content: capture(&block) } } } }) if block_given?
+    return text_field_tag(name, value, options.deep_merge(data: {map_editor: { box: box.jsonize_keys, edit: geometry.to_geojson}}))
   end
+
 end

@@ -3,7 +3,7 @@ module Charta
   class Geometry
     attr_reader :ewkt
 
-    def initialize(coordinates, srs = nil)
+    def initialize(coordinates, srs = nil, format = nil )
       if coordinates.nil?
         @ewkt = self.class.empty(srs).to_ewkt
       elsif coordinates.is_a?(self.class)
@@ -18,11 +18,11 @@ module Charta
           else
             @ewkt = select_value("SELECT ST_AsEWKT(ST_GeomFromEWKB(E'\\\\x#{coordinates}'))")
           end
-        elsif coordinates =~ /<gml/ # gml
-          # TODO: improve gml matching (nokogiri ?)
-          # sanitize badly-formed markup
-          coordinates.squish!
-          @ewkt = select_value("SELECT ST_AsEWKT(ST_GeomFromGML('#{coordinates}'))")
+        elsif ::Charta::GML.valid?(coordinates) and format == 'gml'
+          # required format 'cause kml geometries return empty instead of failing
+          @ewkt = ::Charta::GML.new(coordinates, srid).to_ewkt
+        elsif ::Charta::KML.valid?(coordinates) and format == 'kml'
+          @ewkt = ::Charta::KML.new(coordinates, srid).to_ewkt
         else # WKT expected
           if srs && srid = find_srid(srs)
             @ewkt = select_value("SELECT ST_AsEWKT(ST_GeomFromText('#{coordinates}', #{srid}))")

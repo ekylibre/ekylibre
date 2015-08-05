@@ -1,6 +1,20 @@
 (($) ->
   "use strict"
 
+  # allow to inject jquery objects and interpolate
+  L.Map.Modal.prototype.reloadContent = (content, options) ->
+    inject = L.Util.template(
+      content,
+      options
+    )
+    $(this._getInnerContentContainer()).find('.modal-body').empty()
+#    $(this._getInnerContentContainer()).find('.modal-body > :first-child').replaceWith($content)
+    $(this._getInnerContentContainer()).find('.modal-body').append($(inject))
+    this.update()
+
+  L.Control.EasyBar.addCustomClasses = (el, classes) ->
+    L.DomUtil.addClass(el.container,classes)
+
   $.widget "ui.mapeditor",
     options:
       box:
@@ -50,18 +64,19 @@
           completedCcolor: '#C8F2BE'
         importers:
           gml: true
+          geojson: false
+          kml: false
           title: ''
           content: ''
           template: '<div class="modal-header"><h2>{title}</h2></div>
-                       <hr>
-                       <div class="modal-body">{content}</div>
-                       <div class="modal-footer">
-                       <button class="{OK_CLS}" data-submit=true>{okText}</button>
-                       <button class="{CANCEL_CLS}" data-cancel=true>{cancelText}</button>
+                     <div class="modal-body">{content}</div>
+                     <div class="modal-footer">
+                       <button class="{OK_CLS}" data-editor-submit=true>{okText}</button>
+                       <button class="{CANCEL_CLS}" data-editor-cancel=true>{cancelText}</button>
                       </div>'
           okText: 'Ok'
           cancelText: 'Cancel'
-          OK_CLS: 'primary'
+          OK_CLS: 'btn'
           CANCEL_CLS: 'btn'
 
     _create: ->
@@ -241,18 +256,138 @@
         this.controls.measure = new L.Control.Measure(this.options.controls.measure)
         this.map.addControl this.controls.measure
       unless this.options.controls.importers is false
+
+        #TODO: refactor importers and make an importer bar
         unless this.options.controls.importers.gml is false
-          this.controls.importers_gml = new L.Control.EasyButton 'icon icon-download', (btn, map) =>
+          inject =
+            importer: 'gml'
+
+          this.controls.importers_gml = new L.Control.EasyButton '<span class="leaflet-importer-gml">Gml</i>', (btn, map) =>
             args =
-              title: this.options.controls.importers.title + ' GML'
-              onShow: (evt) ->
+              title: this.options.controls.importers.title + ' ' + inject.importer.toUpperCase()
+              onShow: (evt) =>
                 modal = evt.modal
-                $('*[data-submit]', modal._container).on 'click', () ->
-                  console.log 'je veux importer'
+
+                modal.reloadContent(this.options.controls.importers.content, inject)
+
+                $('*[data-editor-submit]', modal._container).on 'click', (e) ->
+                  $(modal._container).find('form[data-importer-form]').submit()
+                  e.preventDefault
+                  return false
+
+                $('*[data-editor-cancel]', modal._container).on 'click', (e) =>
+                  e.preventDefault
+                  modal.hide()
+                  return false
+
+                $('form[data-importer-form]', modal._container).submit ->
+                  $(this).find('[data-importer-spinner]').addClass('active')
+
+                $('form[data-importer-form]', modal._container).on 'ajax:success', (e) =>
+                  $(e.currentTarget).find('[data-importer-spinner]').removeClass('active')
+
+              onHide: (evt) ->
+                modal = evt.modal
+                $('*[data-editor-submit], *[data-editor-cancel]', modal._container).off 'click'
+
 
             map.fire 'modal', $.extend(true, {}, this.options.controls.importers, args )
 
-          this.map.addControl this.controls.importers_gml
+
+        unless this.options.controls.importers.geojson is false
+          inject2 =
+            importer: 'geojson'
+
+          this.controls.importers_geojson = new L.Control.EasyButton '<span class="leaflet-importer-geojson">Geojson</span>', (btn, map) =>
+            args =
+              title: this.options.controls.importers.title + ' ' + inject2.importer.toUpperCase()
+              onShow: (evt) =>
+                modal = evt.modal
+
+                modal.reloadContent(this.options.controls.importers.content, inject2)
+
+                $('*[data-editor-submit]', modal._container).on 'click', (e) ->
+                  $(modal._container).find('form[data-importer-form]').submit()
+                  e.preventDefault
+                  return false
+
+                $('*[data-editor-cancel]', modal._container).on 'click', (e) =>
+                  e.preventDefault
+                  modal.hide()
+                  return false
+
+                $('form[data-importer-form]', modal._container).submit ->
+                  $(this).find('[data-importer-spinner]').addClass('active')
+
+                $('form[data-importer-form]', modal._container).on 'ajax:success', (e) =>
+                  $(e.currentTarget).find('[data-importer-spinner]').removeClass('active')
+
+              onHide: (evt) ->
+                modal = evt.modal
+                $('*[data-editor-submit], *[data-editor-cancel]', modal._container).off 'click'
+
+
+            map.fire 'modal', $.extend(true, {}, this.options.controls.importers, args )
+
+        unless this.options.controls.importers.kml is false
+          inject3 =
+            importer: 'kml'
+
+          this.controls.importers_kml = new L.Control.EasyButton '<span class="leaflet-importer-kml">KML</i>', (btn, map) =>
+            args =
+              title: this.options.controls.importers.title + ' ' + inject3.importer.toUpperCase()
+              onShow: (evt) =>
+                modal = evt.modal
+
+                modal.reloadContent(this.options.controls.importers.content, inject3)
+
+                $('*[data-editor-submit]', modal._container).on 'click', (e) ->
+                  $(modal._container).find('form[data-importer-form]').submit()
+                  e.preventDefault
+                  return false
+
+                $('*[data-editor-cancel]', modal._container).on 'click', (e) =>
+                  e.preventDefault
+                  modal.hide()
+                  return false
+
+                $('form[data-importer-form]', modal._container).submit ->
+                  $(this).find('[data-importer-spinner]').addClass('active')
+
+                $('form[data-importer-form]', modal._container).on 'ajax:success', (e) =>
+                  #TODO: event not fired
+                  $(e.currentTarget).find('[data-importer-spinner]').removeClass('active')
+
+              onHide: (evt) ->
+                modal = evt.modal
+                $('*[data-editor-submit], *[data-editor-cancel]', modal._container).off 'click'
+
+
+            map.fire 'modal', $.extend(true, {}, this.options.controls.importers, args )
+
+
+          this.controls.importers_toolbar = new L.Control.EasyBar [this.controls.importers_gml, this.controls.importers_geojson, this.controls.importers_kml]
+#          this.map.addControl this.controls.importers_geojson
+#          this.map.addControl this.controls.importers_gml
+
+          L.Control.EasyBar.addCustomClasses(this.controls.importers_toolbar, 'leaflet-importers-toolbar')
+
+          this.controls.importers_ctrl = new L.Control.EasyButton '<i class="leaflet-importer-ctrl"></i>', (btn, map) =>
+
+            if this.controls.importers_toolbar.options.visible
+              this.controls.importers_toolbar.disable()
+              this.controls.importers_toolbar.options.visible = 0
+            else
+              this.controls.importers_toolbar.enable()
+              this.controls.importers_toolbar.options.visible = 1
+
+          this.map.addControl this.controls.importers_ctrl
+
+#          this.controls.importers_ctrl._container.appendChild this.controls.importers_toolbar.container
+          this.map.addControl this.controls.importers_toolbar
+          this.controls.importers_toolbar.options.visible = 0
+          this.controls.importers_toolbar.disable()
+
 
     _saveUpdates: ->
       if this.edition?
