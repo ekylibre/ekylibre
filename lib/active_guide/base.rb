@@ -28,7 +28,6 @@ module ActiveGuide
     cattr_reader :root
 
     class << self
-
       delegate :result, :group, :question, :test, :before, :after, :accept, to: :root
 
       def inherited(subclass)
@@ -51,8 +50,6 @@ module ActiveGuide
         analyzer ||= SimpleAnalyzer.new
         analyzer.run(self, options)
       end
-
     end
-
   end
 end
