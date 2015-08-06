@@ -1,13 +1,13 @@
 engines:
   rubocop:
     enabled: true
-    AllCops:
-      RunRailsCops: true
-      Exclude:
-        - 'vendor/**/*'
-        - 'tmp/**/*'
-        - lib/procedo/handler_method.rb
-        - lib/working_set/query_language.rb
-
-    Metrics/LineLength:
-      Enabled: false
+exclude_paths:
+- 'vendor/**/*'
+- 'tmp/**/*'
+- 'lib/procedo/handler_method.rb'
+- 'lib/working_set/query_language.rb'
+- 'db/schema.rb'
+- 'bin/spring'
+- 'bin/rails'
+- 'bin/rake'
+        
