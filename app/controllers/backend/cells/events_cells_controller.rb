@@ -1,6 +1,6 @@
 class Backend::Cells::EventsCellsController < Backend::Cells::BaseController
   def show
-    mode = (params[:mode] || :all).to_s.gsub('_', '-')
+    mode = (params[:mode] || :all).to_s.tr('_', '-')
     @events = (mode =~ /\bmy\b/ ? Event.with_participant(current_user.person) : Event.without_restrictions_for(current_user.person))
     now = Time.now
     if mode =~ /\bfuture\b/

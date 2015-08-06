@@ -6,7 +6,7 @@ class RemoveEstablishments < ActiveRecord::Migration
 
   def down
     create_table 'establishments', force: :cascade do |t|
-      t.string 'name',                     null: false
+      t.string 'name', null: false
       t.string 'code'
       t.text 'description'
       t.datetime 'created_at',               null: false

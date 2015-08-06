@@ -144,7 +144,7 @@ class ActionController::TestCase
         options.update(collector.to_hash)
       end
 
-      code  = ''
+      code = ''
 
       code << "setup do\n"
       code << "  Ekylibre::Tenant.switch!('test')\n"
@@ -436,8 +436,8 @@ class ActionController::TestCase
     MODES = {
       /\Abackend\/cells\/.*\#show\z/ => :get,
       # /\Abackend\/cells\/.*\#list\z/ => :index_xhr,
-      /\#(index|new|pick|set)\z/   => :index,
-      /\#(show|edit|detail)\z/   => :show,
+      /\#(index|new|pick|set)\z/ => :index,
+      /\#(show|edit|detail)\z/ => :show,
       /\#picture\z/       => :picture,
       /\#list\_\w+\z/     => :list_things,
       /\#list\z/          => :list,
@@ -539,7 +539,7 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
 
     wait_for_ajax
 
-    script  = "$('input##{field}').next().next().find('.items-list .item"
+    script = "$('input##{field}').next().next().find('.items-list .item"
     script << (options[:select] ? "[data-item-label~=\"#{options[:select]}\"]" : ':first-child')
     script << "').mouseenter().click();"
 

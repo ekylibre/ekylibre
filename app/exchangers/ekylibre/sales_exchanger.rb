@@ -7,9 +7,9 @@ class Ekylibre::SalesExchanger < ActiveExchanger::Base
       r = {
         document_reference_number: (row[0].blank? ? nil : row[0].to_s),
         variant_nomen: (row[1].blank? ? nil : row[1].to_sym),
-        quantity: (row[2].blank? ? nil : row[2].gsub(',', '.').to_d),
-        unit_pretax_amount: (row[3].blank? ? nil : row[3].gsub(',', '.').to_d),
-        vat_rate: (row[4].blank? ? nil : row[4].gsub(',', '.').to_d),
+        quantity: (row[2].blank? ? nil : row[2].tr(',', '.').to_d),
+        unit_pretax_amount: (row[3].blank? ? nil : row[3].tr(',', '.').to_d),
+        vat_rate: (row[4].blank? ? nil : row[4].tr(',', '.').to_d),
         description: (row[5].blank? ? '' : row[5].to_s)
       }.to_struct
 
@@ -20,11 +20,11 @@ class Ekylibre::SalesExchanger < ActiveExchanger::Base
       if r.document_reference_number
         arr = r.document_reference_number.strip.downcase.split('_')
         sale_invoiced_at = arr[0].to_datetime
-        entity_full_name = arr[1].to_s.gsub('-', ' ')
+        entity_full_name = arr[1].to_s.tr('-', ' ')
         sale_reference_number = arr[2].to_s.upcase
       end
 
-      country =  Preference[:country]
+      country = Preference[:country]
 
       # find an entity
       if entity_full_name

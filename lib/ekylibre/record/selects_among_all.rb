@@ -31,7 +31,7 @@ module Ekylibre::Record
           code << "before_save(:set_#{column}_if_alone, on: :update)\n"
           code << "after_save(:ensure_#{column}_uniqueness)\n"
 
-          pode  = "self.update_column(:#{column}, true)\n"
+          pode = "self.update_column(:#{column}, true)\n"
           code << "def set_#{column}\n"
           if options[:if]
             code << "  if self.#{options[:if]}\n"
@@ -44,7 +44,7 @@ module Ekylibre::Record
           end
           code << "end\n"
 
-          pode  = "self.update_attributes!(#{column}: true)\n"
+          pode = "self.update_attributes!(#{column}: true)\n"
           code << "def set_#{column}!\n"
           if options[:if]
             code << "  if self.#{options[:if]}\n"
@@ -57,7 +57,7 @@ module Ekylibre::Record
           end
           code << "end\n"
 
-          pode  = "self.#{column} = true unless #{scope}.where(#{column}: true).any?\n"
+          pode = "self.#{column} = true unless #{scope}.where(#{column}: true).any?\n"
           code << "def set_#{column}_if_first\n"
           if options[:if]
             code << "  if self.#{options[:if]}\n"
@@ -79,7 +79,7 @@ module Ekylibre::Record
           end
           code << "end\n"
 
-          pode  = "if self.#{column}?\n"
+          pode = "if self.#{column}?\n"
           pode << "  #{scope}.where(#{column}: true).where.not(id: self.id).update_all(#{column}: false)\n"
           pode << "end\n"
           code << "def ensure_#{column}_uniqueness\n"

@@ -34,8 +34,8 @@ class MergeDocumentArchivesToDocuments < ActiveRecord::Migration
           WHERE document_archives.document_id = documents.id
         SQL
 
-        doc_path =  Ekylibre::Tenant.private_directory.join('attachments').join('documents')
-        doc_a_path =  Ekylibre::Tenant.private_directory.join('attachments').join('document_archives')
+        doc_path = Ekylibre::Tenant.private_directory.join('attachments').join('documents')
+        doc_a_path = Ekylibre::Tenant.private_directory.join('attachments').join('document_archives')
 
         if doc_path.is_a?(Pathname) && doc_a_path.is_a?(Pathname)
 
@@ -70,8 +70,8 @@ class MergeDocumentArchivesToDocuments < ActiveRecord::Migration
 
       r.down do
         create_table 'document_archives', force: :cascade do |t|
-          t.integer 'document_id',                   null: false
-          t.datetime 'archived_at',                   null: false
+          t.integer 'document_id', null: false
+          t.datetime 'archived_at', null: false
           t.integer 'template_id'
           t.string 'file_file_name'
           t.integer 'file_file_size'
@@ -84,7 +84,7 @@ class MergeDocumentArchivesToDocuments < ActiveRecord::Migration
           t.datetime 'updated_at',                    null: false
           t.integer 'creator_id'
           t.integer 'updater_id'
-          t.integer 'lock_version',      default: 0, null: false
+          t.integer 'lock_version', default: 0, null: false
         end
 
         add_index 'document_archives', ['archived_at'], name: 'index_document_archives_on_archived_at', using: :btree
@@ -104,8 +104,8 @@ class MergeDocumentArchivesToDocuments < ActiveRecord::Migration
         SQL
 
         # restore file structure
-        doc_path =  Ekylibre::Tenant.private_directory.join('attachments').join('documents')
-        doc_a_path =  Ekylibre::Tenant.private_directory.join('attachments').join('document_archives')
+        doc_path = Ekylibre::Tenant.private_directory.join('attachments').join('documents')
+        doc_a_path = Ekylibre::Tenant.private_directory.join('attachments').join('document_archives')
 
         if doc_path.is_a?(Pathname) && doc_a_path.is_a?(Pathname)
 

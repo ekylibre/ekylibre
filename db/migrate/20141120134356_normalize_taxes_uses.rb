@@ -19,7 +19,7 @@ class NormalizeTaxesUses < ActiveRecord::Migration
 
     # Sale
     rename_column :sale_items, :unit_price_amount, :unit_pretax_amount
-    add_column :sale_items, :unit_amount,                :decimal, precision: 19, scale: 4, default: 0.0, null: false
+    add_column :sale_items, :unit_amount, :decimal, precision: 19, scale: 4, default: 0.0, null: false
     execute 'UPDATE sale_items SET unit_amount = unit_pretax_amount * (100 + taxes.amount) / 100 FROM taxes WHERE taxes.id = tax_id'
     add_column :sale_items, :reduced_unit_pretax_amount, :decimal, precision: 19, scale: 4, default: 0.0, null: false
     add_column :sale_items, :reduced_unit_amount,        :decimal, precision: 19, scale: 4, default: 0.0, null: false
@@ -38,7 +38,7 @@ class NormalizeTaxesUses < ActiveRecord::Migration
 
     # Purchase
     rename_column :purchase_items, :unit_price_amount, :unit_pretax_amount
-    add_column :purchase_items, :unit_amount,                :decimal, precision: 19, scale: 4, default: 0.0, null: false
+    add_column :purchase_items, :unit_amount, :decimal, precision: 19, scale: 4, default: 0.0, null: false
     execute 'UPDATE purchase_items SET unit_amount = unit_pretax_amount * (100 + taxes.amount) / 100 FROM taxes WHERE taxes.id = tax_id'
     add_column :purchase_items, :all_taxes_included, :boolean, null: false, default: false
     remove_column :purchase_items, :indicator_name

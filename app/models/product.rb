@@ -114,7 +114,7 @@ class Product < Ekylibre::Record::Base
   has_one :current_localization, -> { current }, class_name: 'ProductLocalization', foreign_key: :product_id
   has_one :current_enjoyment,    -> { current }, class_name: 'ProductEnjoyment',    foreign_key: :product_id
   has_one :current_ownership,    -> { current }, class_name: 'ProductOwnership',    foreign_key: :product_id
-  has_many :current_memberships, -> { current }, class_name: 'ProductMembership',    foreign_key: :member_id
+  has_many :current_memberships, -> { current }, class_name: 'ProductMembership', foreign_key: :member_id
   has_one :container, through: :current_localization
   has_many :groups, through: :current_memberships
   has_one :incoming_delivery_item, class_name: 'IncomingDeliveryItem', foreign_key: :product_id, inverse_of: :product
@@ -191,9 +191,9 @@ class Product < Ekylibre::Record::Base
   # scope :saleables, -> { joins(:nature).where(:active => true, :product_natures => {:saleable => true}) }
   scope :saleables, -> { joins(:nature).merge(ProductNature.saleables) }
   scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
-  scope :production_supports,  -> { where(variety: ['cultivable_zone']) }
-  scope :supportables,  -> { of_variety([:cultivable_zone, :animal_group, :equipment]) }
-  scope :supporters,  -> { where(id: ProductionSupport.pluck(:storage_id)) }
+  scope :production_supports, -> { where(variety: ['cultivable_zone']) }
+  scope :supportables, -> { of_variety([:cultivable_zone, :animal_group, :equipment]) }
+  scope :supporters, -> { where(id: ProductionSupport.pluck(:storage_id)) }
   scope :availables, -> { where(dead_at: nil).not_indicate(population: 0) }
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -364,7 +364,7 @@ class Product < Ekylibre::Record::Base
   # Sets nature and variety from variant
   def set_default_values
     if variant
-      self.nature_id    = variant.nature_id
+      self.nature_id = variant.nature_id
       self.variety ||= variant.variety
       if derivative_of.blank? && !variant.derivative_of.blank?
         self.derivative_of = variant.derivative_of
@@ -377,7 +377,7 @@ class Product < Ekylibre::Record::Base
   def update_default_values
     if current_phase
       phase_variant = current_phase.variant
-      self.nature_id    = phase_variant.nature_id
+      self.nature_id = phase_variant.nature_id
       self.variety ||= phase_variant.variety
       if derivative_of.blank? && !phase_variant.derivative_of.nil?
         self.derivative_of = phase_variant.derivative_of

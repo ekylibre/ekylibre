@@ -16,9 +16,9 @@ class Ekylibre::PurchasesExchanger < ActiveExchanger::Base
         reference_number:   (row[2].blank? ? nil : row[2].upcase),
         variant_code:       (row[3].blank? ? nil : row[3]),
         annotation:         (row[4].blank? ? nil : row[4]),
-        quantity:           (row[5].blank? ? nil : row[5].gsub(',', '.').to_d),
-        unit_pretax_amount: (row[6].blank? ? nil : row[6].gsub(',', '.').to_d),
-        vat_percentage:     (row[7].blank? ? nil : row[7].gsub(',', '.').to_d),
+        quantity:           (row[5].blank? ? nil : row[5].tr(',', '.').to_d),
+        unit_pretax_amount: (row[6].blank? ? nil : row[6].tr(',', '.').to_d),
+        vat_percentage:     (row[7].blank? ? nil : row[7].tr(',', '.').to_d),
         depreciate:         %w(1 t true yes ok).include?(row[8].to_s.strip.downcase),
         # Variant definition
         variant: {
@@ -31,7 +31,7 @@ class Ekylibre::PurchasesExchanger < ActiveExchanger::Base
         },
 
         # Extra infos
-        document_reference_number: "#{Date.parse(row[0].to_s)}_#{row[1]}_#{row[2]}".gsub(' ', '-'),
+        document_reference_number: "#{Date.parse(row[0].to_s)}_#{row[1]}_#{row[2]}".tr(' ', '-'),
         description: now.l
       }.to_struct
 
@@ -70,7 +70,7 @@ class Ekylibre::PurchasesExchanger < ActiveExchanger::Base
           unless category = ProductNatureCategory.find_by(attrs)
             category = ProductNatureCategory.create!(attrs.merge(active: true, pictogram: :undefined))
           end
-          attrs[:variety]  = r.variant[:variety] || :product
+          attrs[:variety] = r.variant[:variety] || :product
           puts r.variant[:variety].inspect.red
           unless nature = category.natures.first
             nature = category.natures.create!(name: attrs[:name], variety: attrs[:variety])

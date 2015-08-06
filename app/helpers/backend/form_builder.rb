@@ -147,7 +147,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     html_options = { data: { variant_quantifier: "#{@object.class.name.underscore}_#{reflection.foreign_key}" } }
     # Adds quantifier
     [:population, :working_duration].each do |quantifier|
-      html_options[:data]["quantifiers_#{quantifier}".to_sym] = true if  options[quantifier]
+      html_options[:data]["quantifiers_#{quantifier}".to_sym] = true if options[quantifier]
     end
     # Specify scope
     html_options[:data][:use_closest] = options[:closest] if options[:closest]
@@ -161,7 +161,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
         @template.content_tag(:option, :unit_and_indicator.tl(indicator: quantifier[:indicator][:human_name], unit: quantifier[:unit][:human_name]), attrs)
       end.join.html_safe
     end
-    html  = @template.select_tag("#{association}_quantifier", option_tags, html_options)
+    html = @template.select_tag("#{association}_quantifier", option_tags, html_options)
     html << input_field(indicator_column, as: :hidden, class: 'quantifier-indicator')
     html << input_field(unit_column, as: :hidden, class: 'quantifier-unit')
     html
@@ -183,7 +183,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
   def picture(attribute_name = :picture, options = {}, &_block)
     format = options.delete(:format) || :thumb
     input(attribute_name, options) do
-      html  = file_field(attribute_name)
+      html = file_field(attribute_name)
       if @object.send(attribute_name).file?
         html << @template.content_tag(:div, @template.image_tag(@object.send(attribute_name).url(format)), class: 'preview picture')
       end
@@ -240,13 +240,13 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
           end
           @template.content_tag(:option, a.human_name, attrs)
         end.join.html_safe
-        widget  = @template.content_tag(:span, class: 'abilities') do
+        widget = @template.content_tag(:span, class: 'abilities') do
           if list = @object.send(attribute_name)
             list.collect do |a|
               ar = a.to_s.split(/[\(\,\s\)]+/).compact
               ability = Nomen::Abilities[ar.shift]
               @template.content_tag(:div, data: { ability: ability.name }, class: :ability) do
-                html  = @template.label_tag ability.human_name
+                html = @template.label_tag ability.human_name
                 html << @template.hidden_field_tag(prefix, a, class: 'ability-value')
                 ar.each_with_index do |p, index|
                   html << @template.select_tag(nil, @template.options_for_select(data_lists[ability.parameters[index]], p), data: { ability_parameter: index })
@@ -348,7 +348,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     options = args.extract_options!
     currency_attribute_name = args.shift || options[:currency_attribute] || :currency
     input(attribute_name, options.merge(wrapper: :append)) do
-      html  = input_field(attribute_name)
+      html = input_field(attribute_name)
       html << input_field(currency_attribute_name, collection: Nomen::Currencies.items.values.collect { |c| [c.human_name, c.name.to_s] }.sort)
       html
     end
@@ -403,7 +403,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
       whole_indicators = variant.whole_indicators
       # Add product type selector
       html << @template.field_set do
-        fs  = input(:variant_id, value: variant.id, as: :hidden)
+        fs = input(:variant_id, value: variant.id, as: :hidden)
         # Add name
         fs << input(:name)
         # Add variant selector
@@ -499,7 +499,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     varieties         = Nomen::Varieties.selection(scope ? scope.variety : nil)
     @object.variety ||= (scope ? scope.variety : varieties.first ? varieties.first.last : nil)
     if options[:derivative_of] || (scope && scope.derivative_of)
-      derivatives     = Nomen::Varieties.selection(scope ? scope.derivative_of : nil)
+      derivatives = Nomen::Varieties.selection(scope ? scope.derivative_of : nil)
       @object.derivative_of ||= (scope ? scope.derivative_of : derivatives.first ? derivatives.first.last : nil)
       return input(:variety, wrapper: :append, class: :inline) do
         field = ('<span class="add-on">' <<

@@ -5,7 +5,7 @@ class Ekylibre::TenantTest < ActiveSupport::TestCase
     Ekylibre::Tenant.create('foobar')
     assert Ekylibre::Tenant.exist?('foobar')
     Ekylibre::Tenant.switch!('foobar')
-    assert_equal 'foobar',  Ekylibre::Tenant.current
+    assert_equal 'foobar', Ekylibre::Tenant.current
     Ekylibre::Tenant.create('foobarbaz')
     Ekylibre::Tenant.switch('foobarbaz') do
       assert_equal 'foobarbaz', Ekylibre::Tenant.current

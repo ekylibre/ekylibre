@@ -118,7 +118,7 @@ module Ekylibre::Record
         has_attached_file :picture,           url: '/backend/:class/:id/picture/:style',
                                               path: ':tenant/:class/:attachment/:id_partition/:style.:extension',
                                               styles: {
-                                                thumb:     ['64x64>',  :jpg],
+                                                thumb: ['64x64>', :jpg],
                                                 identity: ['180x180>', :jpg]
                                               },
                                               convert_options: {

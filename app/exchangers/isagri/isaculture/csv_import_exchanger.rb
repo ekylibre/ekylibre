@@ -120,12 +120,12 @@ class Isagri::Isaculture::CsvImportExchanger < ActiveExchanger::Base
           r = OpenStruct.new(intervention_number: buffer[0].to_s.downcase,
                              cultivable_zone_code: buffer[1].to_s.downcase,
                              production_informations: buffer[2].to_s.downcase,
-                             working_area: buffer[4].gsub(',', '.').to_d,
+                             working_area: buffer[4].tr(',', '.').to_d,
                              unit_name: buffer[5].to_s.downcase,
                              intervention_started_at: (buffer[6].blank? ? nil : Date.strptime(buffer[6].to_s, '%d/%m/%Y')),
                              intervention_stopped_at: (buffer[7].blank? ? nil : Date.strptime(buffer[7].to_s, '%d/%m/%Y')),
                              procedure_name: buffer[10].to_s.downcase, # to transcode
-                             intervention_duration_in_hour: (buffer[11].blank? ? nil : buffer[11].gsub(',', '.').to_d),
+                             intervention_duration_in_hour: (buffer[11].blank? ? nil : buffer[11].tr(',', '.').to_d),
                              # one or more intrant_product could be in each buffer cell
                              products_code: (buffer[14].blank? ? nil : buffer[14].split(';').reject(&:empty?)), # .gsub(",","_").to_s.downcase
                              products_name: (buffer[15].blank? ? nil : buffer[15].split(';').reject(&:empty?)), # .gsub(",","_").to_s.downcase
@@ -180,7 +180,7 @@ class Isagri::Isaculture::CsvImportExchanger < ActiveExchanger::Base
           intervention_month = intervention_started_at.month
           intervention_day = intervention_started_at.day
 
-          production_array = r.production_informations.gsub('/', ',').split(',').map(&:strip)
+          production_array = r.production_informations.tr('/', ',').split(',').map(&:strip)
 
           campaign = Campaign.find_by_harvest_year(production_array[1])
           campaign ||= Campaign.create!(name: production_array[1], harvest_year: production_array[1])
@@ -235,8 +235,8 @@ class Isagri::Isaculture::CsvImportExchanger < ActiveExchanger::Base
             # input_product[0] = population
             # input_product[0] = unit
             # create intrant if variant exist
-            product_name = input_product[0].gsub(',', '_').to_s.downcase
-            product_input_population = input_product[1].gsub(',', '.').to_d if input_product[1]
+            product_name = input_product[0].tr(',', '_').to_s.downcase
+            product_input_population = input_product[1].tr(',', '.').to_d if input_product[1]
             product_input_unit = input_product[2].to_s.downcase if input_product[2]
             product_input_code = input_product[3].to_s if input_product[3]
 
@@ -289,8 +289,8 @@ class Isagri::Isaculture::CsvImportExchanger < ActiveExchanger::Base
             # input_product[0] = population
             # input_product[0] = unit
             # create intrant if variant exist
-            extrant_name = extrant_product[0].gsub(',', '_').to_s.downcase
-            extrant_population = extrant_product[1].gsub(',', '.').to_d if extrant_product[1]
+            extrant_name = extrant_product[0].tr(',', '_').to_s.downcase
+            extrant_population = extrant_product[1].tr(',', '.').to_d if extrant_product[1]
             extrant_unit = extrant_product[2].to_s.downcase if extrant_product[2]
             # create extrant variant if variant exist
             if variants_transcode[extrant_name]
@@ -344,7 +344,7 @@ class Isagri::Isaculture::CsvImportExchanger < ActiveExchanger::Base
             elsif procedures_transcode[r.procedure_name] == :grinding
 
               intervention = Ekylibre::FirstRun::Booker.force(:grinding, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (2.96 * coeff.to_f)), support: support) do |i|
-                i.add_cast(reference_name: 'grinder',      actor: (equipments_work_number.count > 0 ? i.find(Equipment, work_number: equipments_work_number, can: 'grind(plant)') : i.find(Equipment, can: 'grind(plant)')))
+                i.add_cast(reference_name: 'grinder', actor: (equipments_work_number.count > 0 ? i.find(Equipment, work_number: equipments_work_number, can: 'grind(plant)') : i.find(Equipment, can: 'grind(plant)')))
                 i.add_cast(reference_name: 'driver',      actor: (workers_work_number.count > 0 ? i.find(Worker, work_number: workers_work_number) : i.find(Worker)))
                 i.add_cast(reference_name: 'tractor',     actor: (equipments_work_number.count > 0 ? i.find(Equipment, work_number: equipments_work_number, can: 'catch(equipment)') : i.find(Equipment, can: 'catch(equipment)')))
                 i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
@@ -362,13 +362,13 @@ class Isagri::Isaculture::CsvImportExchanger < ActiveExchanger::Base
             elsif procedures_transcode[r.procedure_name] == :administrative_task
 
               intervention = Ekylibre::FirstRun::Booker.force(:administrative_task, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (0.15 * coeff.to_f)), support: support) do |i|
-                i.add_cast(reference_name: 'worker',      actor: (workers_work_number.count > 0 ? i.find(Worker, work_number: workers_work_number) : i.find(Worker)))
+                i.add_cast(reference_name: 'worker', actor: (workers_work_number.count > 0 ? i.find(Worker, work_number: workers_work_number) : i.find(Worker)))
               end
 
             elsif procedures_transcode[r.procedure_name] == :maintenance_task && plant
 
               intervention = Ekylibre::FirstRun::Booker.force(:maintenance_task, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (0.15 * coeff.to_f)), support: support) do |i|
-                i.add_cast(reference_name: 'worker',      actor: (workers_work_number.count > 0 ? i.find(Worker, work_number: workers_work_number) : i.find(Worker)))
+                i.add_cast(reference_name: 'worker', actor: (workers_work_number.count > 0 ? i.find(Worker, work_number: workers_work_number) : i.find(Worker)))
                 i.add_cast(reference_name: 'maintained', actor: plant)
               end
 
@@ -384,7 +384,7 @@ class Isagri::Isaculture::CsvImportExchanger < ActiveExchanger::Base
                 # Mineral fertilizing
 
                 intervention = Ekylibre::FirstRun::Booker.force(:mineral_fertilizing, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (0.96 * coeff.to_f)), support: support) do |i|
-                  i.add_cast(reference_name: 'fertilizer',  actor: intrant)
+                  i.add_cast(reference_name: 'fertilizer', actor: intrant)
                   i.add_cast(reference_name: 'fertilizer_to_spread', population: intrant.population)
                   i.add_cast(reference_name: 'spreader',    actor: (equipments_work_number.count > 0 ? i.find(Equipment, work_number: equipments_work_number, can: 'spread(preparation)') : i.find(Equipment, can: 'spread(preparation)')))
                   i.add_cast(reference_name: 'driver',      actor: (workers_work_number.count > 0 ? i.find(Worker, work_number: workers_work_number) : i.find(Worker)))
@@ -408,7 +408,7 @@ class Isagri::Isaculture::CsvImportExchanger < ActiveExchanger::Base
 
                 # Chemical weed
                 intervention = Ekylibre::FirstRun::Booker.force(:chemical_weed_killing, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (1.07 * coeff.to_f)), support: support, parameters: { readings: { 'base-chemical_weed_killing-0-800-2' => 'nude' } }) do |i|
-                  i.add_cast(reference_name: 'weedkiller',      actor: intrant)
+                  i.add_cast(reference_name: 'weedkiller', actor: intrant)
                   i.add_cast(reference_name: 'weedkiller_to_spray', population: intrant.population)
                   i.add_cast(reference_name: 'sprayer',     actor: (equipments_work_number.count > 0 ? i.find(Equipment, work_number: equipments_work_number, can: 'spray') : i.find(Equipment, can: 'spray')))
                   i.add_cast(reference_name: 'driver',      actor: (workers_work_number.count > 0 ? i.find(Worker, work_number: workers_work_number) : i.find(Worker)))
@@ -518,7 +518,7 @@ class Isagri::Isaculture::CsvImportExchanger < ActiveExchanger::Base
                       i.add_cast(reference_name: 'nuts_harvester',        actor: i.find(Product, can: 'harvest(walnut)'))
                       i.add_cast(reference_name: 'driver',                actor: (workers_work_number.count > 0 ? i.find(Worker, work_number: workers_work_number) : i.find(Worker)))
                       i.add_cast(reference_name: 'cultivation',           actor: plant)
-                      i.add_cast(reference_name: 'walnuts',             population: extrant[:global_extrant_value], variant: extrant[:extrant_variant])
+                      i.add_cast(reference_name: 'walnuts', population: extrant[:global_extrant_value], variant: extrant[:extrant_variant])
                     end
 
                   end

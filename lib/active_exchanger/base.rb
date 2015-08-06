@@ -12,7 +12,7 @@ module ActiveExchanger
       end
 
       def exchanger_name
-        name.to_s.underscore.gsub(/_exchanger$/, '').gsub('/', '_').to_sym
+        name.to_s.underscore.gsub(/_exchanger$/, '').tr('/', '_').to_sym
       end
 
       def register_exchanger(klass)

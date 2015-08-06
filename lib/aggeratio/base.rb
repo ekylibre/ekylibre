@@ -63,7 +63,7 @@ module Aggeratio
 
     def normalize_name(name)
       name = name.attr('name') unless name.is_a?(String)
-      name.to_s.strip.gsub('_', '-')
+      name.to_s.strip.tr('_', '-')
     end
 
     def value_of(element)
@@ -78,7 +78,7 @@ module Aggeratio
       tag = args.shift
 
       value = value_of(element)
-      type = (element.has_attribute?('type') ? element.attr('type').to_s : :string).to_s.gsub('-', '_').to_sym
+      type = (element.has_attribute?('type') ? element.attr('type').to_s : :string).to_s.tr('-', '_').to_sym
       code = if type == :date || type == :datetime
                "xml.text(#{value}.l) unless #{value}.nil?"
              elsif type == :measure
@@ -106,7 +106,7 @@ module Aggeratio
     def human_name_of(element)
       name = element.attr('value').to_s.downcase # unless name.is_a?(String)
       name = element.attr('name') unless name.match(/^\w+$/)
-      name = name.to_s.strip.gsub('-', '_')
+      name = name.to_s.strip.tr('-', '_')
       "'aggregator_properties.#{name}'.t(default: [:'attributes.#{name}', :'labels.#{name}', :'activerecord.models.#{name}', #{name.to_s.humanize.inspect}])"
     end
 

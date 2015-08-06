@@ -5,7 +5,7 @@ class AddGeoreadings < ActiveRecord::Migration
       t.string :nature,                  null: false
       t.string :number
       t.text :description
-      t.geometry :content,     srid: 4326, null: false
+      t.geometry :content, srid: 4326, null: false
       t.stamps
       t.index :name
       t.index :number

@@ -9,7 +9,7 @@ module Clean
       # Simple quoting for the default column value
       def quote_value(value, type = :string)
         case type
-        when :boolean                 then (value == 'true' ? 'TRUE' : 'FALSE')
+        when :boolean then (value == 'true' ? 'TRUE' : 'FALSE')
         when :decimal, :float, :integer then value.to_s
         else
           value.inspect

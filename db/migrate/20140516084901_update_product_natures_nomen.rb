@@ -90,7 +90,7 @@ class UpdateProductNaturesNomen < ActiveRecord::Migration
     { table: 'product_nature_variants', column: 'reference_name', old: 'coop:ammonitre_33,5%_vr', new: 'coop:ammonitre_33,5__vr' },
     { table: 'product_nature_variants', column: 'reference_name', old: 'coop:super_46%_gr._vr', new: 'coop:super_46__gr__vr' },
     { table: 'product_nature_variants', column: 'reference_name', old: 'coop:chlorure_60%_gr_vr', new: 'coop:chlorure_60__gr_vr' },
-    { table: 'product_nature_variants', column: 'unit_name', old: 'bag', new: '20kg_bag', reference_name:  'coop:metarex_rg_tds_20kg' }
+    { table: 'product_nature_variants', column: 'unit_name', old: 'bag', new: '20kg_bag', reference_name: 'coop:metarex_rg_tds_20kg' }
   ]
 
   PRODUCT_NATURE_VARIANT_READING_ITEMS = [

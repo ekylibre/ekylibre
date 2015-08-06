@@ -13,7 +13,7 @@ module Nomen
         @fallbacks = element.attr('fallbacks').to_s.strip.split(/[[:space:]]*\,[[:space:]]*/).map(&:to_sym)
       end
       if element.has_attribute?('default')
-        @default  = element.attr('default').to_sym
+        @default = element.attr('default').to_sym
       end
       @required = !!(element.attr('required').to_s == 'true')
       @inherit  = !!(element.attr('inherit').to_s == 'true')

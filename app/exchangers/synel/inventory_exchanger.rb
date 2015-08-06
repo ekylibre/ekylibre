@@ -1,7 +1,7 @@
 class Synel::InventoryExchanger < ActiveExchanger::Base
   # Create or updates Synel Inventories
   def import
-    male_adult_cow   = ProductNatureVariant.import_from_nomenclature(:male_adult_cow)
+    male_adult_cow = ProductNatureVariant.import_from_nomenclature(:male_adult_cow)
     place = BuildingDivision.last # find_by_work_number("B07_D2")
     owner = Entity.where(of_company: false).reorder(:id).first
 
@@ -44,7 +44,7 @@ class Synel::InventoryExchanger < ActiveExchanger::Base
       # Find mother
       unless r.mother_identification_number.blank? && Animal.find_by(identification_number: r.mother_identification_number)
         parents[:mother][r.mother_identification_number] ||= Animal.find_by(identification_number: r.mother_identification_number)
-        link = animal.links.new(nature: :mother,  started_at: animal.born_at)
+        link = animal.links.new(nature: :mother, started_at: animal.born_at)
         link.linked = parents[:mother][r.mother_identification_number]
         link.save
       end
@@ -69,7 +69,7 @@ class Synel::InventoryExchanger < ActiveExchanger::Base
                          initial_owner: owner,
                          initial_container: place,
                          default_storage: place)
-        link = animal.links.new(nature: :father,  started_at: animal.born_at)
+        link = animal.links.new(nature: :father, started_at: animal.born_at)
         link.linked = parents[:father][r.father_identification_number]
         link.save
       end

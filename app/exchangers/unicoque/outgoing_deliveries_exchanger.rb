@@ -37,10 +37,10 @@ class Unicoque::OutgoingDeliveriesExchanger < ActiveExchanger::Base
                          name: row[3].to_s + ' ' + row[5].to_s + ' - ' + row[0].to_s,
                          variety: (row[4].blank? ? nil : varieties_transcode[row[4].to_s]),
                          variety_radical_code: (row[4].blank? ? nil : row[4].to_s.at(0..1)),
-                         harvest_area_sna: (row[6].blank? ? nil : row[6].gsub(',', '.').to_d),
-                         harvest_area_sea: (row[7].blank? ? nil : row[7].gsub(',', '.').to_d),
-                         total_quantity_in_kg: (row[8].blank? ? nil : row[8].gsub(',', '.').to_d),
-                         total_value_in_euro: (row[10].blank? ? nil : row[10].gsub(',', '.').to_d)
+                         harvest_area_sna: (row[6].blank? ? nil : row[6].tr(',', '.').to_d),
+                         harvest_area_sea: (row[7].blank? ? nil : row[7].tr(',', '.').to_d),
+                         total_quantity_in_kg: (row[8].blank? ? nil : row[8].tr(',', '.').to_d),
+                         total_value_in_euro: (row[10].blank? ? nil : row[10].tr(',', '.').to_d)
                         )
 
       born_at = (row[0].to_s + '-09-01 00:00').to_datetime

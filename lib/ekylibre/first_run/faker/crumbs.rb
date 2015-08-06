@@ -133,7 +133,7 @@ module Ekylibre::FirstRun::Faker
         Ekylibre::FirstRun::Booker.production = support.production
         # Chemical weed
         intervention = Ekylibre::FirstRun::Booker.intervene(:chemical_weed_killing, 2014, 6, 1, 1.07, support: support, parameters: { readings: { 'base-chemical_weed_killing-0-800-2' => 'covered' } }) do |i|
-          i.add_cast(reference_name: 'weedkiller',      actor: intrant)
+          i.add_cast(reference_name: 'weedkiller', actor: intrant)
           i.add_cast(reference_name: 'weedkiller_to_spray', population: intrant_population)
           i.add_cast(reference_name: 'sprayer',     actor: sprayer)
           i.add_cast(reference_name: 'driver',      actor: worker)

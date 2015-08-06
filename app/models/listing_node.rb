@@ -177,7 +177,7 @@ class ListingNode < Ekylibre::Record::Base
   end
 
   def self.condition(column, operator, value, datatype = 'string')
-    operation =  @@corresponding_comparators[operator.to_sym] || @@corresponding_comparators[:equal]
+    operation = @@corresponding_comparators[operator.to_sym] || @@corresponding_comparators[:equal]
     c = operation.gsub('{{COLUMN}}', column)
     c.gsub!('{{LIST}}', '(' + value.to_s.gsub(/\,\,/, "\t").split(/\s*\,\s*/).collect { |x| connection.quote(x.gsub(/\t/, ',')) }.join(', ') + ')')
     c.gsub!(/\{\{[^\}]*VALUE[^\}]*\}\}/) do |m|

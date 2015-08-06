@@ -9,7 +9,7 @@ module Aggeratio
     def build
       # Build code
       document_variable = '__doc__'
-      code  = parameter_initialization
+      code = parameter_initialization
       code << "#{document_variable} = Nokogiri::HTML::DocumentFragment.parse('')\n"
       code << "builder = Nokogiri::HTML::Builder.with(#{document_variable}) do |xml|\n"
       code << build_element(@root).dig
@@ -83,7 +83,7 @@ module Aggeratio
 
     def build_property(element)
       # return "" if element.attr("level") == "api"
-      code  = "xml.dl do\n"
+      code = "xml.dl do\n"
       code << "  xml.dd(#{human_name_of(element)})\n"
       # code << "  xml.dt(#{human_value_of(element)})\n"
       code << human_value_of(element, :dt).dig
@@ -92,10 +92,10 @@ module Aggeratio
     end
 
     def build_matrix(element, mode = :table, vertical = false)
-      item  = element.attr('for')
+      item = element.attr('for')
       columns = element.xpath("*[(self::xmlns:cell or self::xmlns:matrix) and (not(@level) or @level != 'api')]")
       code = ''
-      code  = "xml.table(:class => 'matrix') do\n"
+      code = "xml.table(:class => 'matrix') do\n"
 
       if mode == :table || mode == :head
         code << "  xml.thead do\n"

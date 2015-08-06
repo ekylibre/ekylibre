@@ -41,9 +41,9 @@ class FIEA::GalacteaExchanger < ActiveExchanger::Base
                          animal_work_number: row[4].to_s,
                          lactation_number: row[5].to_s,
                          control_number: row[6].to_s,
-                         milk_daily_production: row[7].blank? ? nil : (row[7].gsub(',', '.').to_d).in_kilogram_per_day,
-                         tb_daily_production: row[9].blank? ? nil : (row[9].gsub(',', '.').to_d).in_gram_per_liter,
-                         tp_daily_production: row[10].blank? ? nil : (row[10].gsub(',', '.').to_d).in_gram_per_liter,
+                         milk_daily_production: row[7].blank? ? nil : (row[7].tr(',', '.').to_d).in_kilogram_per_day,
+                         tb_daily_production: row[9].blank? ? nil : (row[9].tr(',', '.').to_d).in_gram_per_liter,
+                         tp_daily_production: row[10].blank? ? nil : (row[10].tr(',', '.').to_d).in_gram_per_liter,
                          animal_state: (row[11].blank? ? nil : trans_animal_state[row[11].to_s]),
                          somatic_cell_concentration: row[12].blank? ? nil : (row[12].to_i).in_thousand_per_milliliter,
                          calving_date: (row[13].blank? ? nil : Date.civil(*row[0].to_s.split(/\//).reverse.map(&:to_i))),
@@ -70,8 +70,8 @@ class FIEA::GalacteaExchanger < ActiveExchanger::Base
       if animal = Animal.find_by_work_number(r.animal_work_number)
         analysis.product = animal
         analysis.save!
-        animal.read!(:healthy, true,  at: r.at, force: true) if r.animal_state == :good
-        animal.read!(:healthy, false,  at: r.at, force: true) if r.animal_state == :bad
+        animal.read!(:healthy, true, at: r.at, force: true) if r.animal_state == :good
+        animal.read!(:healthy, false, at: r.at, force: true) if r.animal_state == :bad
       end
 
       w.check_point

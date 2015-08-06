@@ -14,7 +14,7 @@ namespace :clean do
     # Check model test files
     print ' - Tests: '
     log.write(">> Search models\n") if verbose
-    models      = Clean::Support.models_in_file
+    models = Clean::Support.models_in_file
     files = Dir.glob(Rails.root.join('test', 'models', '**', '*.rb')).map(&:to_s)
     for model in models
       log.write("> #{model}\n") if verbose
@@ -142,7 +142,7 @@ namespace :clean do
         end
 
         model = table.singularize.camelize.constantize
-        attributes  = columns.keys.map(&:to_s)
+        attributes = columns.keys.map(&:to_s)
 
         required_attributes = columns.values.select { |c| !c.null? && c.default.nil? }.map(&:name).map(&:to_s)
 

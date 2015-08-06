@@ -96,20 +96,20 @@ class RenameBudgetsToProductionBudgets < ActiveRecord::Migration
 
       dir.down do
         create_table 'production_support_markers', force: :cascade do |t|
-          t.integer 'support_id',                                                                                                     null: false
-          t.string 'aim',                                                                                                            null: false
+          t.integer 'support_id', null: false
+          t.string 'aim', null: false
           t.string 'subject'
           t.string 'derivative'
           t.string 'indicator_name',                                                                                                 null: false
           t.string 'indicator_datatype',                                                                                             null: false
-          t.decimal 'absolute_measure_value_value',                                          precision: 19, scale: 4
+          t.decimal 'absolute_measure_value_value', precision: 19, scale: 4
           t.string 'absolute_measure_value_unit'
-          t.boolean 'boolean_value',                                                                                  default: false, null: false
+          t.boolean 'boolean_value', default: false, null: false
           t.string 'choice_value'
-          t.decimal 'decimal_value',                                                         precision: 19, scale: 4
-          t.geometry 'geometry_value',               limit: { srid: 4326, type: 'geometry' }
+          t.decimal 'decimal_value', precision: 19, scale: 4
+          t.geometry 'geometry_value', limit: { srid: 4326, type: 'geometry' }
           t.integer 'integer_value'
-          t.decimal 'measure_value_value',                                                   precision: 19, scale: 4
+          t.decimal 'measure_value_value', precision: 19, scale: 4
           t.string 'measure_value_unit'
           t.st_point 'point_value', srid: 4326
           t.text 'string_value'
@@ -117,7 +117,7 @@ class RenameBudgetsToProductionBudgets < ActiveRecord::Migration
           t.datetime 'updated_at',                                                                                                     null: false
           t.integer 'creator_id'
           t.integer 'updater_id'
-          t.integer 'lock_version',                                                                                   default: 0,     null: false
+          t.integer 'lock_version', default: 0, null: false
         end
 
         add_index 'production_support_markers', ['created_at'], name: 'index_production_support_markers_on_created_at', using: :btree
@@ -128,7 +128,7 @@ class RenameBudgetsToProductionBudgets < ActiveRecord::Migration
         add_index 'production_support_markers', ['updater_id'], name: 'index_production_support_markers_on_updater_id', using: :btree
 
         create_table 'budget_items', force: :cascade do |t|
-          t.integer 'budget_id',                                                                null: false
+          t.integer 'budget_id', null: false
           t.integer 'production_support_id'
           t.decimal 'quantity',                          precision: 19, scale: 4, default: 1.0, null: false
           t.decimal 'global_amount',                     precision: 19, scale: 4, default: 0.0, null: false
@@ -137,7 +137,7 @@ class RenameBudgetsToProductionBudgets < ActiveRecord::Migration
           t.datetime 'updated_at',                                                               null: false
           t.integer 'creator_id'
           t.integer 'updater_id'
-          t.integer 'lock_version',                                               default: 0,   null: false
+          t.integer 'lock_version', default: 0, null: false
         end
 
         add_index 'budget_items', ['budget_id'], name: 'index_budget_items_on_budget_id', using: :btree

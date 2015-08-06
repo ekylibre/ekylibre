@@ -67,8 +67,8 @@ class Subscription < Ekylibre::Record::Base
   before_validation do
     self.sale_id      = sale_item.sale_id if sale_item
     self.address_id ||= sale.delivery_address_id if sale
-    self.subscriber_id    = address.entity_id if address
-    self.nature_id    = product_nature.subscription_nature_id if product_nature
+    self.subscriber_id = address.entity_id if address
+    self.nature_id = product_nature.subscription_nature_id if product_nature
     true
   end
 

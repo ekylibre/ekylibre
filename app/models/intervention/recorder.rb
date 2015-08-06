@@ -47,7 +47,7 @@ class Intervention
 
     Procedo::Action::TYPES.each do |name, args|
       # Add a task
-      code  = "def #{name}(" + args.keys.join(', ') + ", options = {})\n"
+      code = "def #{name}(" + args.keys.join(', ') + ", options = {})\n"
       code << "  task(:#{name}, {" + args.keys.map { |k| "#{k}: #{k}" }.join(', ') + "}, options)\n"
       code << "end\n"
       class_eval code

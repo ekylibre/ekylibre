@@ -55,7 +55,7 @@ module Unrollable
         "#{f[:name]}: #{f[:expression]}, "
       end.join + "default: '" + filters.map { |f| "%{#{f[:name]}}" }.join(', ') + "')"
 
-      haml  = ''
+      haml = ''
       haml << "- if items.any?\n"
       haml << "  %ul.items-list\n"
       haml << "    - items.limit(items.count > #{(max * 1.5).round} ? #{max} : #{max * 2}).each do |item|\n"
@@ -89,7 +89,7 @@ module Unrollable
         f.write(haml)
       end
 
-      code  = "def unroll\n"
+      code = "def unroll\n"
       code << "  conditions = []\n"
 
       code << "  klass = controller_name.classify.constantize\n"

@@ -1,7 +1,6 @@
 module Charta
   # Represents a Geometry with SRID
   class KML
-
     attr_reader :srid
 
     def initialize(data, srid = :WGS84)
@@ -21,15 +20,12 @@ module Charta
     end
 
     class << self
-
       # Test is given data is a valid GML
       def valid?(data, srid = :WGS84)
         new(data, srid).valid?
       rescue
         false
       end
-
     end
-
   end
 end

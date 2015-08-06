@@ -5,7 +5,7 @@ module Procedo
       attr_accessor :value, :self_value
 
       def initialize(options = {})
-        @self_value  = options[:self] || 'self'
+        @self_value = options[:self] || 'self'
         @value = options[:value] || 'value'
       end
 
@@ -63,7 +63,7 @@ module Procedo
         elsif object.is_a?(Procedo::HandlerMethod::Numeric)
           object.text_value.to_s
         elsif object.is_a?(Procedo::HandlerMethod::Access)
-          rewrite(object.actor) + '.' + object.accessor.text_value.gsub('-', '_')
+          rewrite(object.actor) + '.' + object.accessor.text_value.tr('-', '_')
         elsif object.is_a?(Procedo::HandlerMethod::ActorPresenceTest)
           rewrite(object.actor) + '.present?'
         elsif object.is_a?(Procedo::HandlerMethod::IndicatorPresenceTest)

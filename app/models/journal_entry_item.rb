@@ -270,7 +270,7 @@ class JournalEntryItem < Ekylibre::Record::Base
     if balance > 0
       entry_item.real_credit = balance.abs
     elsif balance < 0
-      entry_item.real_debit  = balance.abs
+      entry_item.real_debit = balance.abs
     end
     entry_item
   end

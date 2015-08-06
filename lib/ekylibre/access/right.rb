@@ -9,7 +9,7 @@ module Ekylibre
         @interaction  = interaction.to_sym
         @actions      = []
         @dependencies = []
-        @origin  = options[:origin] || :unknown
+        @origin = options[:origin] || :unknown
         options[:dependencies].each do |dependency|
           add_dependency(dependency)
         end if options[:dependencies]

@@ -22,7 +22,7 @@ class Backend::SubscriptionsController < Backend::BaseController
   unroll
 
   def self.subscriptions_conditions(_options = {})
-    code  = ''
+    code = ''
     code << "conditions = [ \" COALESCE(#{Subscription.table_name}.sale_id, 0) NOT IN (SELECT id FROM #{Sale.table_name} WHERE state NOT IN ('invoice', 'order'))\" ]\n"
     code << "unless session[:subscriptions_nature_id].to_i.zero?\n"
     code << "  conditions[0] += \" AND #{Subscription.table_name}.nature_id = ?\"\n"
@@ -72,7 +72,7 @@ class Backend::SubscriptionsController < Backend::BaseController
     end
     @subscription_nature ||= SubscriptionNature.first
     instant = (@subscription_nature.period? ? params[:instant].to_date : params[:instant].to_i) rescue nil
-    session[:subscriptions_nature_id]  = @subscription_nature.id
+    session[:subscriptions_nature_id] = @subscription_nature.id
     session[:subscriptions_nature_nature] = @subscription_nature.nature.to_sym
     session[:subscriptions_instant] = ((instant.blank? || instant == 0) ? @subscription_nature.now : instant)
   end

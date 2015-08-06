@@ -174,7 +174,7 @@ module Diagrams
     end
 
     def to_dot
-      graph  = "#{@type} #{@name.to_s.underscore} {\n"
+      graph = "#{@type} #{@name.to_s.underscore} {\n"
       graph << "  graph #{options_for_dot(@options)};\n"
       graph << "  node  #{options_for_dot(@node_options)};\n"
       graph << "  edge  #{options_for_dot(@edge_options)};\n"

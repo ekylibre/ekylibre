@@ -28,7 +28,7 @@ Ekylibre::FirstRun.add_loader :land_parcels do |first_run|
   first_run.import_file(:ekylibre_plants, 'alamano/plants.csv')
 
   # VINITECA vines
-  first_run.import_archive(:viniteca_plant_zones, 'vines.zip', 'plant.shp', 'plant.dbf', 'plant.shx', 'plant.prj', 'varieties_transcode.csv', 'certifications_transcode.csv', 'cultivable_zones_transcode.csv',  in: 'viniteca')
+  first_run.import_archive(:viniteca_plant_zones, 'vines.zip', 'plant.shp', 'plant.dbf', 'plant.shx', 'plant.prj', 'varieties_transcode.csv', 'certifications_transcode.csv', 'cultivable_zones_transcode.csv', in: 'viniteca')
 
   # UNICOQUE orchards
   first_run.import_archive(:unicoque_plant_zones, 'plantation.zip', 'plantation.shp', 'plantation.dbf', 'plantation.shx', 'plantation.prj', 'varieties_transcode.csv', in: 'unicoque/plantation')

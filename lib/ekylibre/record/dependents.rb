@@ -1,4 +1,4 @@
-module Ekylibre::Record  #:nodoc:
+module Ekylibre::Record #:nodoc:
   module Dependents
     def self.included(base)
       base.send(:include, InstanceMethods)

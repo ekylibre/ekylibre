@@ -80,7 +80,7 @@ class LaGraineInformatique::Vinifera::EntitiesExchanger < ActiveExchanger::Base
       mail_attributes.store(:mail_line_5, r.address_line_3) if r.address_line_3
       mail_attributes.store(:mail_line_6, r.postal_code_city) if r.postal_code_city
       mail_attributes.store(:mail_country, r.country) if r.country
-      unless r.postal_code_city.blank? || person.mails.where('mail_line_6 ILIKE ?',  r.postal_code_city).where(mail_country: r.country).any?
+      unless r.postal_code_city.blank? || person.mails.where('mail_line_6 ILIKE ?', r.postal_code_city).where(mail_country: r.country).any?
         person.mails.create!(mail_attributes)
       end
 

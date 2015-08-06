@@ -84,7 +84,7 @@ class ::String
     ss.gsub!(/(\\|\/|\-|\_|\&|\||\,|\.|\!|\?|\*|\+|\=|\(|\)|\[|\]|\{|\}|\$|\#)/, ' ')
 
     # Analyse phonétique
-    ss.gsub!('y', 'i')
+    ss.tr!('y', 'i')
     ss.gsub!(/(a|e|é|i|o|u)s(a|e|é|i|o|u)/, '\1z\2')
     ss.gsub!(/oi/, 'oa')
     ss.gsub!(/ii/,  'ie')
@@ -97,7 +97,7 @@ class ::String
     ss.gsub!(/oe/, 'e')
     ss.gsub!(/(.)ent( |$)/, '\1e\2')
     ss.gsub!(/eu(s|x)?/, 'e')
-    ss.gsub!(/(ai|ei)n/,  'in')
+    ss.gsub!(/(ai|ei)n/, 'in')
     ss.gsub!(/(i|u|y)e(\ |$)/, '\1 ')
     ss.gsub!(/(e|a)i/, 'é')
     ss.gsub!(/est( |$)/, 'é\1')
@@ -124,7 +124,7 @@ class ::String
     ss.gsub!('skh', 'sh')
     ss.gsub!('kh', 'sh')
     ss.gsub!('sh', '@')
-    ss.gsub!('h', '')
+    ss.delete!('h')
     ss.gsub!('@', 'sh')
     ss.gsub!(/[^a-z0-9]/, ' ')
     ss.squeeze! ' '
@@ -147,7 +147,7 @@ class ::String
     word.gsub!(/ca/, 'ka')
     #    word.gsub!(/co/,"ko")
     #    word.gsub!(/cu/,"ku")
-    word.gsub!(/q/, 'k')
+    word.tr!('q', 'k')
     word.gsub!(/cc/, 'k')
     word.gsub!(/ck/, 'k')
     steps += word + ' / '
@@ -173,7 +173,7 @@ class ::String
     word.gsub!(/[atds]$/, '')
     steps += word + ' / '
     word[0] = '@' if word[0] == 'a'
-    word.gsub!(/a/, '')
+    word.delete!('a')
     word.gsub!(/@/, 'a')
     steps += word + ' / '
     word.squeeze!

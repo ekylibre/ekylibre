@@ -1,7 +1,7 @@
 class AddManureManagementPlanTables < ActiveRecord::Migration
   def change
     create_table :manure_management_plans do |t|
-      t.string :name,           null: false
+      t.string :name, null: false
       t.references :campaign,       null: false, index: true
       t.references :recommender,    null: false, index: true
       t.datetime :opened_at,      null: false
@@ -16,7 +16,7 @@ class AddManureManagementPlanTables < ActiveRecord::Migration
     create_table :manure_management_plan_zones do |t|
       t.references :plan,                 null: false, index: true
       t.references :support,              null: false, index: true
-      t.string :computation_method,   null: false
+      t.string :computation_method, null: false
       t.string :administrative_area
       t.string :cultivation_variety
       t.string :soil_nature

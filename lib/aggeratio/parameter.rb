@@ -20,7 +20,7 @@ module Aggeratio
         hash
       end
       name = options.delete(:name).to_s
-      type = options.delete(:type).to_s.gsub('-', '_').to_sym
+      type = options.delete(:type).to_s.tr('-', '_').to_sym
       new(name, type, options)
     end
 

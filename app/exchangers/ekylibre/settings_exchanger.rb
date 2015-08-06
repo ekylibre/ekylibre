@@ -125,7 +125,7 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
     if can_load_default?(:accounts)
       @manifest[:accounts] = Cash.nature.values.inject({}) do |hash, nature|
         hash[nature] = { name: "enumerize.cash.nature.#{nature}".t,
-                         number:  sprintf('%08d', rand(10**7)) }
+                         number: sprintf('%08d', rand(10**7)) }
         hash
       end
     end

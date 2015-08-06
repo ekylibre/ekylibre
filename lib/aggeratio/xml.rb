@@ -7,7 +7,7 @@ module Aggeratio
 
     def build
       # Build code
-      code  = parameter_initialization
+      code = parameter_initialization
       code << "builder = Nokogiri::XML::Builder.new do |xml|\n"
       code << build_element(@root).dig
       code << "end\n"
@@ -43,7 +43,7 @@ module Aggeratio
 
     def build_sections(element)
       item  = element.attr('for')
-      code  =  "for #{item} in #{element.attr('in')}\n"
+      code  = "for #{item} in #{element.attr('in')}\n"
       code << build_elements(element.xpath('xmlns:variable')).dig
       code << build_properties_hash(element.xpath('*[self::xmlns:property or self::xmlns:title]'), var: 'attrs').dig
       code << "  xml.send('#{normalize_name(item)}', attrs) do\n"
@@ -68,15 +68,15 @@ module Aggeratio
     end
 
     def build_matrix(element)
-      item  = element.attr('for')
+      item = element.attr('for')
       code = build_children_of(element)
       if element.has_attribute?('in')
-        code  = "for #{item} in #{element.attr('in')}\n" +
-                build_elements(element.xpath('xmlns:variable')).dig +
-                "  xml.send('#{normalize_name(item)}') do\n" +
-                code.dig(2) +
-                "  end\n" \
-                "end\n"
+        code = "for #{item} in #{element.attr('in')}\n" +
+               build_elements(element.xpath('xmlns:variable')).dig +
+               "  xml.send('#{normalize_name(item)}') do\n" +
+               code.dig(2) +
+               "  end\n" \
+               "end\n"
       end
       if element.has_attribute?('name')
         code = "xml.send('#{normalize_name(element)}') do\n" + code.dig + "end\n"
@@ -102,7 +102,7 @@ module Aggeratio
       options = args.extract_options!
       element = args.shift
       value = value_of(element)
-      type = (element.has_attribute?('type') ? element.attr('type').to_s : :string).to_s.gsub('-', '_').to_sym
+      type = (element.has_attribute?('type') ? element.attr('type').to_s : :string).to_s.tr('-', '_').to_sym
       code = if type == :date || type == :datetime
                "(#{value} ? #{value}.xmlschema : #{value})"
              else

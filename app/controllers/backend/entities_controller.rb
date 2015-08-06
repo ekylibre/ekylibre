@@ -158,7 +158,7 @@ class Backend::EntitiesController < Backend::BaseController
     t.column :pretax_amount, currency: true
   end
 
-  list(:subscriptions, conditions: { subscriber_id:  'params[:id]'.c }, order: 'stopped_at DESC, first_number DESC', line_class: "(RECORD.active? ? 'enough' : '')".c) do |t|
+  list(:subscriptions, conditions: { subscriber_id: 'params[:id]'.c }, order: 'stopped_at DESC, first_number DESC', line_class: "(RECORD.active? ? 'enough' : '')".c) do |t|
     t.action :edit
     t.action :destroy
     t.column :number
@@ -171,7 +171,7 @@ class Backend::EntitiesController < Backend::BaseController
     t.column :suspended, hidden: true
   end
 
-  list(:tasks, conditions: { entity_id:  'params[:id]'.c }, order: :state, line_class: 'RECORD.state'.c) do |t|
+  list(:tasks, conditions: { entity_id: 'params[:id]'.c }, order: :state, line_class: 'RECORD.state'.c) do |t|
     t.action :edit
     t.action :destroy
     t.column :name, url: true
@@ -215,7 +215,7 @@ class Backend::EntitiesController < Backend::BaseController
               end
             end
           else
-            select_array << [k.gsub('-', '.'), v[:label]]
+            select_array << [k.tr('-', '.'), v[:label]]
           end
         end
         if params[:conditions]

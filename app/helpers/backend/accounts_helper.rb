@@ -21,7 +21,7 @@ module Backend::AccountsHelper
   def major_accounts_tabs_tag
     majors = Account.majors
     if majors.count > 0
-      html  = content_tag(:dt, :accounts.tl)
+      html = content_tag(:dt, :accounts.tl)
       html << content_tag(:dd, link_to(:all_accounts.tl, params.merge(controller: :accounts, action: :index, prefix: nil)), (params[:prefix].blank? ? { class: :active } : nil))
       for account in majors
         html << content_tag(:dd, link_to(account.label, params.merge(controller: :accounts, action: :index, prefix: account.number)), (params[:prefix] == account.number.to_s ? { class: :active } : nil))

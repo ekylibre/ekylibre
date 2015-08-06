@@ -26,7 +26,7 @@ module Clean
 
       def hash_to_yaml(hash, depth = 0)
         code = "\n"
-        x = hash.to_a.sort { |a, b| a[0].to_s.gsub('_', ' ').strip <=> b[0].to_s.gsub('_', ' ').strip }
+        x = hash.to_a.sort { |a, b| a[0].to_s.tr('_', ' ').strip <=> b[0].to_s.tr('_', ' ').strip }
         x.each_index do |i|
           k = x[i][0]
           v = x[i][1]
@@ -104,7 +104,7 @@ module Clean
       def hash_diff(hash, ref, depth = 0, mode = nil)
         hash ||= {}
         ref ||= {}
-        keys = (ref.keys + hash.keys).uniq.sort { |a, b| a.to_s.gsub('_', ' ').strip <=> b.to_s.gsub('_', ' ').strip }
+        keys = (ref.keys + hash.keys).uniq.sort { |a, b| a.to_s.tr('_', ' ').strip <=> b.to_s.tr('_', ' ').strip }
         code = ''
         count = 0
         total = 0

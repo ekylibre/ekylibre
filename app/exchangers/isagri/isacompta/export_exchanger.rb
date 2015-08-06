@@ -121,7 +121,7 @@ class Isagri::Isacompta::ExportExchanger < ActiveExchanger::Base
               number = number[0..255]
             end
             unless entry
-              entry = JournalEntry.create(number: number, journal_id: all_journals[isa_entry.journal], printed_on: isa_entry.printed_on, created_on: isa_entry.created_on, updated_at: isa_entry.updated_on, lock_version: isa_entry.version_number)  # , :state => (isa_entry.unupdateable? ? :confirmed : :draft)
+              entry = JournalEntry.create(number: number, journal_id: all_journals[isa_entry.journal], printed_on: isa_entry.printed_on, created_on: isa_entry.created_on, updated_at: isa_entry.updated_on, lock_version: isa_entry.version_number) # , :state => (isa_entry.unupdateable? ? :confirmed : :draft)
               fail isa_entry.inspect + "\n" + entry.errors.full_messages.to_sentence unless entry.valid?
             end
           end
@@ -135,7 +135,7 @@ class Isagri::Isacompta::ExportExchanger < ActiveExchanger::Base
               isa_line.debit = isa_line.credit.abs
               isa_line.credit = debit.abs
             end
-            line =  entry.lines.create(account_id: all_accounts[isa_line.account], name: "#{isa_line.label} (#{isa_entry.label})", real_debit: isa_line.debit, real_credit: isa_line.credit, letter: (isa_line.lettering > 0 ? isa_line.letter : nil), comment: isa_line.to_s)
+            line = entry.lines.create(account_id: all_accounts[isa_line.account], name: "#{isa_line.label} (#{isa_entry.label})", real_debit: isa_line.debit, real_credit: isa_line.credit, letter: (isa_line.lettering > 0 ? isa_line.letter : nil), comment: isa_line.to_s)
             fail isa_line.to_s + "\n" + line.errors.full_messages.to_sentence unless line.valid?
           end
 

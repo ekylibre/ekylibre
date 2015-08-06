@@ -103,7 +103,7 @@ class Delay
       elsif step == :bom
         :eom
       else
-        [step.first,  -step.second]
+        [step.first, -step.second]
       end
     end
     self

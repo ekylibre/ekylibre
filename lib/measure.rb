@@ -50,7 +50,7 @@ class Measure
     value = nil
     unit = nil
     if args.size == 1
-      expr  = args.shift.to_s.gsub(/[[:space:]]+/, ' ').strip
+      expr = args.shift.to_s.gsub(/[[:space:]]+/, ' ').strip
       unless expr.match(/\A([\,\.]\d+|\d+([\,\.]\d+)?)\s*[^\s]+\z/)
         fail InvalidExpression, "#{expr} cannot be parsed."
       end

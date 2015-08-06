@@ -3,7 +3,7 @@ module Procedo
     class Base < Treetop::Runtime::SyntaxNode; end
     class Expression < Base; end
     class Condition < Base; end
-    class Operation < Base; end  # Abstract
+    class Operation < Base; end # Abstract
     class Multiplication < Operation; end
     class Division < Operation; end
     class Addition < Operation; end

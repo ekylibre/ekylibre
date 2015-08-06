@@ -161,7 +161,7 @@ class User < Ekylibre::Record::Base
     prefs = preferences.select { |p| p.name == name }
     return prefs.first if prefs.any?
     p = preferences.build(name: name, nature: nature.to_s)
-    p.value  = default_value
+    p.value = default_value
     p.save!
     p
   end

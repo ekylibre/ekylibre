@@ -25,7 +25,7 @@ class Backend::InventoriesController < Backend::BaseController
 
   list do |t|
     # t.action :show, url: {format: :pdf}, image: :print
-    t.action :refresh,   if: :editable?, method: :post, confirm: :are_you_sure
+    t.action :refresh, if: :editable?, method: :post, confirm: :are_you_sure
     t.action :reflect, if: :reflectable?, method: :post, image: 'action', confirm: :are_you_sure
     t.action :edit
     t.action :destroy

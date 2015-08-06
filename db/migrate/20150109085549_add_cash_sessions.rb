@@ -1,9 +1,9 @@
 class AddCashSessions < ActiveRecord::Migration
   def change
     create_table :cash_sessions do |t|
-      t.references :cash,                 null: false, index: true
-      t.references :sequence,                          index: true
-      t.datetime :started_at,           null: false
+      t.references :cash, null: false, index: true
+      t.references :sequence, index: true
+      t.datetime :started_at, null: false
       t.datetime :stopped_at
       t.string :currency, limit: 3
       t.decimal :noticed_start_amount, default: 0.0, precision: 19, scale: 4
@@ -13,7 +13,7 @@ class AddCashSessions < ActiveRecord::Migration
     end
 
     change_table :affairs do |t|
-      t.references :cash_session,                      index: true
+      t.references :cash_session, index: true
     end
   end
 end

@@ -391,7 +391,7 @@ class Entity < Ekylibre::Record::Base
     # columns << [tc("import.generate_choice_custom_field"), "special-generate_choice_custom_field"]
     cols = Entity.content_columns.delete_if { |c| [:active, :full_name, :lock_version, :updated_at, :created_at].include?(c.name.to_sym) || c.type == :boolean }.collect(&:name)
     columns += cols.collect { |c| [Entity.model_name.human + '/' + Entity.human_attribute_name(c), 'entity-' + c] }.sort
-    cols = EntityAddress.content_columns.collect(&:name).delete_if { |c| [:number, :started_at, :stopped_at, :deleted, :address, :by_default, :closed_at, :lock_version, :active,  :updated_at, :created_at].include?(c.to_sym) } + %w(item_6_city item_6_code)
+    cols = EntityAddress.content_columns.collect(&:name).delete_if { |c| [:number, :started_at, :stopped_at, :deleted, :address, :by_default, :closed_at, :lock_version, :active, :updated_at, :created_at].include?(c.to_sym) } + %w(item_6_city item_6_code)
     columns += cols.collect { |c| [EntityAddress.model_name.human + '/' + EntityAddress.human_attribute_name(c), 'address-' + c] }.sort
     columns += %w(name abbreviation).collect { |c| [EntityNature.model_name.human + '/' + EntityNature.human_attribute_name(c), 'entity_nature-' + c] }.sort
     # columns += ["name"].collect{|c| [Catalog.model_name.human+"/"+Catalog.human_attribute_name(c), "product_price_listing-"+c]}.sort

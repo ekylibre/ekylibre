@@ -1,7 +1,7 @@
 # Adds new renderers for the internal template system
 # Adds renderers for all formats
 for format in Ekylibre::Reporting.formats
-  code  = "ActionController::Renderers.add(:#{format}) do |object, options|\n"
+  code = "ActionController::Renderers.add(:#{format}) do |object, options|\n"
   # Find template
   code << "  name = options[:with]\n"
   code << "  unless template = DocumentTemplate.where(active: true)\n"
@@ -28,7 +28,7 @@ end
 class ActionController::Responder
   # Adds responders to catch default view rendering and call the previous renderers
   for format in Ekylibre::Reporting.formats
-    code  = "def to_#{format}\n"
+    code = "def to_#{format}\n"
     code << "  controller.render(options.merge(#{format}: resource))\n"
     code << "end\n"
     eval(code)

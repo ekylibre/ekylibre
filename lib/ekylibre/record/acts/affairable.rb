@@ -17,7 +17,7 @@ module Ekylibre::Record
           options[:third] ||= args.shift || :third
           options[:role] ||= options[:third].to_s
           options[:good] ||= :debit
-          code  = ''
+          code = ''
 
           affair = :affair
           affair_id = :affair_id

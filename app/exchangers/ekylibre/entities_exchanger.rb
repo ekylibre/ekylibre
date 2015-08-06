@@ -79,7 +79,7 @@ class Ekylibre::EntitiesExchanger < ActiveExchanger::Base
 
       # Add mail address if given
       line_6 = r.postal_code + ' ' + r.city
-      unless r.postal_code.blank? || r.city.blank? || person.mails.where('mail_line_6 ILIKE ?',  line_6).where(mail_country: r.country).any?
+      unless r.postal_code.blank? || r.city.blank? || person.mails.where('mail_line_6 ILIKE ?', line_6).where(mail_country: r.country).any?
         person.mails.create!(mail_line_4: r.address, mail_line_6: line_6, mail_country: r.country)
       end
 

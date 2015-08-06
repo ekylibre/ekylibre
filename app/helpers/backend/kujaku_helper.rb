@@ -80,7 +80,7 @@ module Backend::KujakuHelper
     # Text feather permits full text search
     class TextFeather < Feather
       def configure(*_args)
-        @name  = @options.delete(:name) || :q
+        @name = @options.delete(:name) || :q
       end
 
       def to_html
@@ -128,7 +128,7 @@ module Backend::KujakuHelper
     class MultiChoiceFeather < Feather
       def configure(*args)
         @choices = args.last.is_a?(Array) ? args.delete_at(-1) : []
-        @name  = args.shift || @options.delete(:name) || :c
+        @name = args.shift || @options.delete(:name) || :c
       end
 
       def to_html
@@ -151,7 +151,7 @@ module Backend::KujakuHelper
     class NeedleChoiceFeather < ChoiceFeather
       def configure(*args)
         @selection = args.last.is_a?(Array) ? args.delete_at(-1) : []
-        @name  = args.shift || @options.delete(:name) || :o
+        @name = args.shift || @options.delete(:name) || :o
       end
 
       def to_html
@@ -168,7 +168,7 @@ module Backend::KujakuHelper
     # Date search field
     class DateFeather < ChoiceFeather
       def configure(*args)
-        @name  = args.shift || @options.delete(:name) || :d
+        @name = args.shift || @options.delete(:name) || :d
       end
 
       def to_html

@@ -94,7 +94,7 @@ class Cash < Ekylibre::Record::Base
 
   scope :bank_accounts, -> { where(nature: 'bank_account') }
   scope :cash_boxes,    -> { where(nature: 'cash_box') }
-  scope :associated_accounts,    -> { where(nature: %w(associated_account owner_account)) }
+  scope :associated_accounts, -> { where(nature: %w(associated_account owner_account)) }
 
   # before create a bank account, this computes automati.ally code iban.
   before_validation do

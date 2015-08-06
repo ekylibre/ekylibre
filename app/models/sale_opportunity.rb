@@ -144,7 +144,7 @@ class SaleOpportunity < Affair
 
   # Returns timeleft in seconds of the sale opportunities
   def timeleft(at = Time.now)
-    return nil if  dead_line_at.nil? || dead_line_at <= at
+    return nil if dead_line_at.nil? || dead_line_at <= at
     (dead_line_at - at)
   end
 

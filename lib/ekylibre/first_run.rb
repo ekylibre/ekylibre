@@ -44,7 +44,7 @@ module Ekylibre
         end
         base = Base.new(path, options)
         secure_tenant(name) do
-          sentence  = 'Launch first run'
+          sentence = 'Launch first run'
           sentence << " in tenant #{name}" if name
           sentence << " from #{base.path.relative_path_from(Rails.root)}"
           # sentence << " in #{base.mode} mode"

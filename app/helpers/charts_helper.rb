@@ -18,12 +18,12 @@
 
 module ChartsHelper
   OPTIONS = [:colors, :credits, :exporting, :labels, :legend, :loading, :navigation, :pane, :plot_options, :series, :subtitle, :title, :tooltip, :x_axis, :y_axis].inject({}) do |hash, name|
-    hash[name] = name.to_s.gsub('_', '-') # camelize(:lower)
+    hash[name] = name.to_s.tr('_', '-') # camelize(:lower)
     hash
   end.freeze
 
   TYPES = [:line, :spline, :area, :area_spline, :column, :bar, :pie, :scatter, :area_range, :area_spline_range, :column_range, :waterfall].inject({}) do |hash, name|
-    hash[name] = name.to_s.gsub('_', '')
+    hash[name] = name.to_s.delete('_')
     hash
   end.freeze
 
@@ -41,7 +41,7 @@ module ChartsHelper
   end
 
   for type, absolute_type in TYPES
-    code  = "def #{type}_highcharts(series, options = {}, html_options = {})\n"
+    code = "def #{type}_highcharts(series, options = {}, html_options = {})\n"
     code << "  options[:chart] ||= {}\n"
     code << "  options[:chart][:type] = '#{absolute_type}'\n"
     code << "  options[:chart][:style] ||= {}\n"

@@ -111,7 +111,7 @@ class Journal < Ekylibre::Record::Base
     # Creates the journal if not exists
     def get(name)
       name = name.to_s
-      pref_name  = "#{name}_journal"
+      pref_name = "#{name}_journal"
       fail ArgumentError.new("Unvalid journal name: #{name.inspect}") unless self.class.preferences_reference.key? pref_name
       unless journal = preferred(pref_name)
         journal = journals.find_by_nature(name)
@@ -253,7 +253,7 @@ class Journal < Ekylibre::Record::Base
 
     # Total
     items = []
-    query  = "SELECT '', -1, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), '#{'Z' * 16}' AS skey"
+    query = "SELECT '', -1, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), '#{'Z' * 16}' AS skey"
     query << from_where
     query << journal_entries_states
     query << account_range
@@ -262,7 +262,7 @@ class Journal < Ekylibre::Record::Base
     # Sub-totals
     for name, value in options.select { |k, v| k.to_s.match(/^level_\d+$/) && v.to_i == 1 }
       level = name.split(/\_/)[-1].to_i
-      query  = "SELECT SUBSTR(#{accounts}.number, 1, #{level}) AS subtotal, -2, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), SUBSTR(#{accounts}.number, 1, #{level})||'#{'Z' * (16 - level)}' AS skey"
+      query = "SELECT SUBSTR(#{accounts}.number, 1, #{level}) AS subtotal, -2, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), SUBSTR(#{accounts}.number, 1, #{level})||'#{'Z' * (16 - level)}' AS skey"
       query << from_where
       query << journal_entries_states
       query << account_range
@@ -272,7 +272,7 @@ class Journal < Ekylibre::Record::Base
     end
 
     # NOT centralized accounts (default)
-    query  = "SELECT #{accounts}.number, #{accounts}.id AS account_id, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{accounts}.number AS skey"
+    query = "SELECT #{accounts}.number, #{accounts}.id AS account_id, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{accounts}.number AS skey"
     query << from_where
     query << journal_entries_states
     query << account_range
@@ -283,7 +283,7 @@ class Journal < Ekylibre::Record::Base
 
     # Centralized accounts
     for prefix in centralize
-      query  = "SELECT SUBSTR(#{accounts}.number, 1, #{prefix.size}) AS centralize, -3, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{conn.quote(prefix)} AS skey"
+      query = "SELECT SUBSTR(#{accounts}.number, 1, #{prefix.size}) AS centralize, -3, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{conn.quote(prefix)} AS skey"
       query << from_where
       query << journal_entries_states
       query << account_range

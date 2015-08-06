@@ -1,7 +1,7 @@
 class UPRA::ReproductorsExchanger < ActiveExchanger::Base
   # Create or updates UPRA reproductors
   def import
-    male_adult_cow   = ProductNatureVariant.import_from_nomenclature(:male_adult_cow)
+    male_adult_cow = ProductNatureVariant.import_from_nomenclature(:male_adult_cow)
     # female_adult_cow = ProductNatureVariant.import_from_nomenclature(:female_adult_cow)
     owner = Entity.where(of_company: false).reorder(:id).first
     now = Time.now - 2.months

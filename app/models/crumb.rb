@@ -165,7 +165,7 @@ class Crumb < Ekylibre::Record::Base
              .where('read_at >= ?', stop_read_at)
              .order(nature: :desc, read_at: :asc)
              .first
-      stop_read_at  = stop.read_at.utc if stop
+      stop_read_at = stop.read_at.utc if stop
     end
     CrumbSet.new(siblings.where(read_at: start_read_at..stop_read_at).order(read_at: :asc))
   end

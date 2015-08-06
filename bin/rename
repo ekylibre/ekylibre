@@ -127,7 +127,7 @@ class Renamer
       tables = YAML.load_file(root.join('db', 'tables.yml')).deep_symbolize_keys
       file = root.join('db', 'migrate', Time.now.strftime('%Y%m%d%H%M%S') + "_#{name}.rb")
 
-      code  = "class #{name.camelcase} < ActiveRecord::Migration\n\n"
+      code = "class #{name.camelcase} < ActiveRecord::Migration\n\n"
       code << "  def change\n"
       if @type == :table
         code << "    rename_table :#{old_table}, :#{new_table}\n"

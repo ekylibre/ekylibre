@@ -1,4 +1,4 @@
-module Ekylibre::Record  #:nodoc:
+module Ekylibre::Record #:nodoc:
   module Bookkeep
     def self.actions
       [:create, :update, :destroy]
@@ -85,7 +85,7 @@ module Ekylibre::Record  #:nodoc:
           # raise StandardError, "#{configuration[:column]} is needed for #{self.name}::bookkeep"
         end
 
-        code  = "include Ekylibre::Record::Bookkeep::InstanceMethods\n"
+        code = "include Ekylibre::Record::Bookkeep::InstanceMethods\n"
 
         code << "def #{method_name}(action = :create, draft = nil)\n"
         code << "  draft = ::Preference[:bookkeep_in_draft] if draft.nil?\n"

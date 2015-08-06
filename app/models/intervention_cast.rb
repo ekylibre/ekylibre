@@ -177,7 +177,7 @@ class InterventionCast < Ekylibre::Record::Base
   end
 
   for role in [:input, :output, :target, :tool, :doer]
-    code  = "def #{role}?(procedure_nature = nil)\n"
+    code = "def #{role}?(procedure_nature = nil)\n"
     code << "  if procedure_nature\n"
     code << "    self.roles_array.detect{|r| r.first == procedure_nature and r.second == :#{role}}\n"
     code << "  else\n"
@@ -219,7 +219,7 @@ class InterventionCast < Ekylibre::Record::Base
         words[:variant]     = produced.variant_name
         words[:variety]     = Nomen::Varieties[produced.variety].human_name
         words[:derivative_of] = (produced.derivative_of ? Nomen::Varieties[produced.variety].human_name : nil)
-        words[:container]   = (produced.container ? produced.container.name : nil)
+        words[:container] = (produced.container ? produced.container.name : nil)
         words[:default_storage] = (produced.default_storage ? produced.default_storage.name : nil)
         words[:born_at]     = produced.born_at.l
         words[:born_on]     = produced.born_at.to_date.l

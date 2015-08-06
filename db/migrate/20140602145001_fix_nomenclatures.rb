@@ -53,7 +53,7 @@ class FixNomenclatures < ActiveRecord::Migration
 
   ]
 
-  PRODUCT_READING_ITEMS =  [
+  PRODUCT_READING_ITEMS = [
     { table: 'product_readings', column: 'indicator_name', old_value: 'potassium_concentration', reference_name: 'bulk_ammonitrate_33' },
     { table: 'product_readings', column: 'indicator_name', old_value: 'phosphorus_concentration', reference_name: 'bulk_ammonitrate_33' },
     { table: 'product_readings', column: 'indicator_name', old_value: 'potassium_concentration', reference_name: 'coop:ammonitre_27_____vr' },

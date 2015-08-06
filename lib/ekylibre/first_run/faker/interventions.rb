@@ -75,7 +75,7 @@ module Ekylibre::FirstRun::Faker
 
               # Fertilizing  01-03-M -> 31-03-M
               Ekylibre::FirstRun::Booker.intervene(:mineral_fertilizing, year, 3, 1, 0.96 * coeff, support: support) do |i|
-                i.add_cast(reference_name: 'fertilizer',  actor: products[:fertilizer].sample)
+                i.add_cast(reference_name: 'fertilizer', actor: products[:fertilizer].sample)
                 i.add_cast(reference_name: 'fertilizer_to_spread', population: 0.4 + coeff * rand(0.6))
                 i.add_cast(reference_name: 'spreader',    actor: products[:spreader].sample)
                 i.add_cast(reference_name: 'driver',      actor: workers.sample)
@@ -149,9 +149,9 @@ module Ekylibre::FirstRun::Faker
 
                 i.add_cast(reference_name: 'fertilizer',   actor: products[:fertilizer].sample)
                 i.add_cast(reference_name: 'fertilizer_to_spread', population: (rand(0.2) + 1) * coeff)
-                i.add_cast(reference_name: 'insecticide',   actor: products[:insecticide].sample)
+                i.add_cast(reference_name: 'insecticide', actor: products[:insecticide].sample)
                 i.add_cast(reference_name: 'insecticide_to_input', population: (rand(0.2) + 1) * coeff)
-                i.add_cast(reference_name: 'molluscicide',   actor: products[:molluscicide].sample)
+                i.add_cast(reference_name: 'molluscicide', actor: products[:molluscicide].sample)
                 i.add_cast(reference_name: 'molluscicide_to_input', population: (rand(0.2) + 1) * coeff)
                 i.add_cast(reference_name: 'sower',        actor: equipments[:sower].sample)
                 i.add_cast(reference_name: 'driver',       actor: workers.sample)
@@ -162,7 +162,7 @@ module Ekylibre::FirstRun::Faker
 
               # Fertilizing  01-05-M -> 15-06-M
               Ekylibre::FirstRun::Booker.intervene(:mineral_fertilizing, year, 5, 25, 0.96 * coeff, support: support) do |i|
-                i.add_cast(reference_name: 'fertilizer',  actor: products[:fertilizer].sample)
+                i.add_cast(reference_name: 'fertilizer', actor: products[:fertilizer].sample)
                 i.add_cast(reference_name: 'fertilizer_to_spread', population: 0.4 + coeff * rand(0.6))
                 i.add_cast(reference_name: 'spreader',    actor: products[:spreader].sample)
                 i.add_cast(reference_name: 'driver',      actor: workers.sample)

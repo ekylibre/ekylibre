@@ -11,7 +11,7 @@ class Ekylibre::IncomingPaymentsExchanger < ActiveExchanger::Base
       r = {
         document_reference_number: (row[0].blank? ? nil : row[0].to_s),
         incoming_payment_mode_name: (row[1].blank? ? nil : row[1].to_s),
-        amount: (row[2].blank? ? nil : row[2].gsub(',', '.').to_d),
+        amount: (row[2].blank? ? nil : row[2].tr(',', '.').to_d),
         paid_on: (row[3].blank? ? nil : Date.parse(row[3]))
       }.to_struct
 
@@ -22,7 +22,7 @@ class Ekylibre::IncomingPaymentsExchanger < ActiveExchanger::Base
       if r.document_reference_number
         arr = r.document_reference_number.strip.downcase.split('_')
         sale_invoiced_at = arr[0].to_datetime
-        entity_full_name = arr[1].to_s.gsub('-', ' ')
+        entity_full_name = arr[1].to_s.tr('-', ' ')
         sale_reference_number = arr[2].to_s.upcase
       end
 

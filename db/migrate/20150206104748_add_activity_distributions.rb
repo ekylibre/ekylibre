@@ -19,16 +19,16 @@ class AddActivityDistributions < ActiveRecord::Migration
     end
 
     create_table :activity_distributions do |t|
-      t.references :activity,                                        null: false, index: true
+      t.references :activity, null: false, index: true
       t.decimal :affectation_percentage, precision: 19, scale: 4, null: false
-      t.references :main_activity,                                   null: false, index: true
+      t.references :main_activity, null: false, index: true
       t.stamps
     end
 
     create_table :production_distributions do |t|
-      t.references :production,                                      null: false, index: true
+      t.references :production, null: false, index: true
       t.decimal :affectation_percentage, precision: 19, scale: 4, null: false
-      t.references :main_production,                                 null: false, index: true
+      t.references :main_production, null: false, index: true
       t.stamps
     end
   end

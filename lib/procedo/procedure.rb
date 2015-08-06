@@ -33,7 +33,7 @@ module Procedo
       @natures = element.attr('natures').to_s.strip.split(/[\s\,]+/).compact.map(&:to_sym)
 
       # Check roles with procedure natures
-      roles  = []
+      roles = []
       for nature in @natures
         unless item = Nomen::ProcedureNatures[nature]
           fail Procedo::Errors::UnknownProcedureNature, "Procedure nature #{nature} is unknown for #{name}."
@@ -476,7 +476,7 @@ module Procedo
       code << "      end\n"
       code << "    elsif @__updater__.first == :casting\n"
       code << variables.values.collect do |variable|
-        vcode  = "if @__updater__.second == :#{variable.name}\n"
+        vcode = "if @__updater__.second == :#{variable.name}\n"
         vcode << "  if @__updater__.third == :#{variable.new? ? :variant : :actor}\n"
         vcode << "    #{variable.name}.impact_#{variable.new? ? :variant : :actor}!\n"
         if variable.handlers.any?

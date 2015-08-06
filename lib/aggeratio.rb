@@ -131,7 +131,7 @@ module Aggeratio
       agg = Base.new(element)
       name = agg.name
 
-      code  = "class #{agg.class_name} < Aggregator\n"
+      code = "class #{agg.class_name} < Aggregator\n"
 
       parameters = agg.parameters
       root = agg.root

@@ -1,7 +1,7 @@
 class ChangeBalanceToJournalEntries < ActiveRecord::Migration
   def change
     add_column :journal_entries, :real_balance, :decimal, precision: 19, scale: 4,  default: 0.0, null: false
-    add_column :journal_entry_items, :real_balance, :decimal, precision: 19, scale: 4,  default: 0.0, null: false
+    add_column :journal_entry_items, :real_balance, :decimal, precision: 19, scale: 4, default: 0.0, null: false
 
     reversible do |r|
       r.up do

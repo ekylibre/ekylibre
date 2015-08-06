@@ -1,7 +1,7 @@
 module Ekylibre
   module Access
     # autoload :Resource, 'ekylibre/access/resource'
-    autoload :Right,    'ekylibre/access/right'
+    autoload :Right, 'ekylibre/access/right'
 
     class << self
       def config_file

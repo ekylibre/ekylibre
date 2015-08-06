@@ -2,7 +2,7 @@ module Clean
   module Tests
     class << self
       def write_controller_test_file(klass)
-        code  = ''
+        code = ''
         code << "require 'test_helper'\n"
         code << "class #{klass} < ActionController::TestCase\n"
         code << "  test_restfully_all_actions\n"
@@ -15,7 +15,7 @@ module Clean
       end
 
       def write_model_test_file(klass)
-        code  = ''
+        code = ''
         code << "require 'test_helper'\n\n"
         code << "class #{klass} < ActiveSupport::TestCase\n"
         code << "  # Add tests here...\n"
@@ -28,7 +28,7 @@ module Clean
       end
 
       def write_helper_test_file(klass)
-        code  = ''
+        code = ''
         code << "require 'test_helper'\n\n"
         code << "class #{klass} < ActionView::TestCase\n\n"
         code << "  # Add tests here...\n"
@@ -41,7 +41,7 @@ module Clean
       end
 
       def write_job_test_file(klass)
-        code  = ''
+        code = ''
         code << "require 'test_helper'\n\n"
         code << "class #{klass} < ActiveJob::TestCase\n"
         code << "  # Add tests here...\n"

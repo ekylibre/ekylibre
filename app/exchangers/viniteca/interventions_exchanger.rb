@@ -45,19 +45,19 @@ class Viniteca::InterventionsExchanger < ActiveExchanger::Base
 
       CSV.foreach(path, headers: true, col_sep: ';') do |row|
         r = OpenStruct.new(cultivable_zone_name: row[1].gsub('-h', '').downcase,
-                           working_area: row[2].gsub(',', '.').to_d,
-                           cultivable_zone_area: row[3].gsub(',', '.').to_d,
+                           working_area: row[2].tr(',', '.').to_d,
+                           cultivable_zone_area: row[3].tr(',', '.').to_d,
                            intervention_started_at: (row[4].blank? ? nil : DateTime.strptime(row[4].to_s, '%d/%m/%Y %H:%M')),
 
                            intervention_stopped_at: (row[5].blank? ? nil : DateTime.strptime(row[5].to_s, '%d/%m/%Y %H:%M')),
                            procedure_name: row[6].to_s.downcase, # to transcode
                            product_name: row[7].to_s.downcase, # to create
-                           product_input_population: row[8].gsub(',', '.').to_d,
-                           product_input_population_per_hectare: row[9].gsub(',', '.').to_d,
-                           product_input_dose_per_hectare: (row[10].blank? ? nil : row[10].gsub(',', '.').to_d), # for legal quantity ?
+                           product_input_population: row[8].tr(',', '.').to_d,
+                           product_input_population_per_hectare: row[9].tr(',', '.').to_d,
+                           product_input_dose_per_hectare: (row[10].blank? ? nil : row[10].tr(',', '.').to_d), # for legal quantity ?
                            issue_description: (row[11].blank? ? nil : row[11].to_s), # to transcode
                            dar: (row[12].blank? ? nil : row[12].to_i), # indicator on product for delay_before_harvest in day
-                           product_input_approved_dose_per_hectare: (row[13].blank? ? nil : row[13].gsub(',', '.').to_d) # legal quantity in liter per hectare
+                           product_input_approved_dose_per_hectare: (row[13].blank? ? nil : row[13].tr(',', '.').to_d) # legal quantity in liter per hectare
 
                           )
 
@@ -139,7 +139,7 @@ class Viniteca::InterventionsExchanger < ActiveExchanger::Base
               if procedures_transcode[r.procedure_name] == :mineral_fertilizing
                 # Mineral fertilizing
                 intervention = Ekylibre::FirstRun::Booker.intervene(:mineral_fertilizing, intervention_year, intervention_month, intervention_day, 0.96 * coeff, support: support) do |i|
-                  i.add_cast(reference_name: 'fertilizer',  actor: intrant)
+                  i.add_cast(reference_name: 'fertilizer', actor: intrant)
                   i.add_cast(reference_name: 'fertilizer_to_spread', population: r.product_input_population)
                   i.add_cast(reference_name: 'spreader',    actor: i.find(Product, can: 'spread(preparation)'))
                   i.add_cast(reference_name: 'driver',      actor: i.find(Worker))
@@ -163,9 +163,9 @@ class Viniteca::InterventionsExchanger < ActiveExchanger::Base
 
                 # Chemical weed
                 intervention = Ekylibre::FirstRun::Booker.intervene(:chemical_weed_killing, intervention_year, intervention_month, intervention_day, 1.07 * coeff, support: support, parameters: { readings: { 'base-chemical_weed_killing-0-800-2' => 'covered' } }) do |i|
-                  i.add_cast(reference_name: 'weedkiller',      actor: intrant)
+                  i.add_cast(reference_name: 'weedkiller', actor: intrant)
                   i.add_cast(reference_name: 'weedkiller_to_spray', population: r.product_input_population)
-                  i.add_cast(reference_name: 'sprayer',    actor: i.find(Product, can: 'spray'))
+                  i.add_cast(reference_name: 'sprayer', actor: i.find(Product, can: 'spray'))
                   i.add_cast(reference_name: 'driver',      actor: i.find(Worker))
                   i.add_cast(reference_name: 'tractor',     actor: i.find(Product, can: 'catch'))
                   i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)

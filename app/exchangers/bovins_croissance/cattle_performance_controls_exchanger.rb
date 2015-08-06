@@ -1,6 +1,6 @@
 class BovinsCroissance::CattlePerformanceControlsExchanger < ActiveExchanger::Base
   def import
-    rows = CSV.read(file,  encoding: 'CP1252', col_sep: "\t", headers: true)
+    rows = CSV.read(file, encoding: 'CP1252', col_sep: "\t", headers: true)
     w.count = rows.size
 
     rows.each do |row|
@@ -17,11 +17,11 @@ class BovinsCroissance::CattlePerformanceControlsExchanger < ActiveExchanger::Ba
                         )
       # if an animal exist , link to weight
       if animal = Animal.find_by_work_number(r.animal_work_number)
-        animal.read!(:net_mass, r.animal_weight_at_birth,  at: animal.born_at, force: true) if r.animal_weight_at_birth
-        animal.read!(:net_mass, r.first_weighting_value,  at: r.first_weighting_at, force: true) if r.first_weighting_at
-        animal.read!(:net_mass, r.second_weighting_value,  at: r.second_weighting_at, force: true) if r.second_weighting_at
-        animal.read!(:net_mass, r.third_weighting_value,  at: r.third_weighting_at, force: true) if r.third_weighting_at
-        animal.read!(:net_mass, r.fourth_weighting_value,  at: r.fourth_weighting_at, force: true) if r.fourth_weighting_at
+        animal.read!(:net_mass, r.animal_weight_at_birth, at: animal.born_at, force: true) if r.animal_weight_at_birth
+        animal.read!(:net_mass, r.first_weighting_value, at: r.first_weighting_at, force: true) if r.first_weighting_at
+        animal.read!(:net_mass, r.second_weighting_value, at: r.second_weighting_at, force: true) if r.second_weighting_at
+        animal.read!(:net_mass, r.third_weighting_value, at: r.third_weighting_at, force: true) if r.third_weighting_at
+        animal.read!(:net_mass, r.fourth_weighting_value, at: r.fourth_weighting_at, force: true) if r.fourth_weighting_at
       end
 
       w.check_point

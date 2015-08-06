@@ -110,22 +110,22 @@ module Calculus
         values[:meadow_humus_mineralization]    = estimate_meadow_humus_mineralization
 
         # Mr
-        values[:previous_cultivation_residue_mineralization]         = estimate_previous_cultivation_residue_mineralization
+        values[:previous_cultivation_residue_mineralization] = estimate_previous_cultivation_residue_mineralization
 
         # Mrci
         values[:intermediate_cultivation_residue_mineralization] = estimate_intermediate_cultivation_residue_mineralization
 
         # Nirr
-        values[:irrigation_water_nitrogen]      = estimate_irrigation_water_nitrogen
+        values[:irrigation_water_nitrogen] = estimate_irrigation_water_nitrogen
 
         # Xa
         values[:organic_fertilizer_mineral_fraction] = estimate_organic_fertilizer_mineral_fraction
 
         # Rf
-        values[:nitrogen_at_closing]              = estimate_nitrogen_at_closing
+        values[:nitrogen_at_closing] = estimate_nitrogen_at_closing
 
         # Po
-        values[:soil_production]       = estimate_soil_production
+        values[:soil_production] = estimate_soil_production
 
         # Xmax
         values[:maximum_nitrogen_input] = estimate_maximum_nitrogen_input

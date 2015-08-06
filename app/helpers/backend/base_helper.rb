@@ -55,7 +55,7 @@ module Backend::BaseHelper
     options[:previous_link] = lambda  do |param, date_range|
       link_to(raw('&laquo;'), { param => date_range.first - 1.day }, class: 'previous-month')
     end
-    options[:next_link] = lambda  do |param, date_range|
+    options[:next_link] = lambda do |param, date_range|
       link_to(raw('&raquo;'), { param => date_range.last + 1.day }, class: 'next-month')
     end
     month_calendar(options) do |event_on, records|

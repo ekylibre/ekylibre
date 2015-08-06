@@ -71,7 +71,7 @@ namespace :clean do
 
     untranslated = to_translate = translated = 0
     warnings = []
-    translation  = "#{locale}:\n"
+    translation = "#{locale}:\n"
 
     # Actions
     translation << "  actions:\n"
@@ -388,7 +388,7 @@ namespace :clean do
       untranslated += 1 if v[1] == :undefined
     end
 
-    translation  = "#{locale}:\n"
+    translation = "#{locale}:\n"
     translation << "  activerecord:\n"
     to_translate += Clean::Support.hash_count(::I18n.translate('activerecord.attributes'))
     translation << '    attributes:' + Clean::Support.hash_to_yaml(::I18n.translate('activerecord.attributes'), 3) + "\n"
@@ -435,7 +435,7 @@ namespace :clean do
     file = locale_dir.join('nomenclatures.yml')
     ref = Clean::Support.yaml_to_hash(file)[locale][:nomenclatures] rescue nil
     ref ||= {}
-    translation  = "#{locale}:\n"
+    translation = "#{locale}:\n"
     translation << "  nomenclatures:\n"
     for name in Nomen.names.sort { |a, b| a.to_s <=> b.to_s }
       nomenclature = Nomen[name]

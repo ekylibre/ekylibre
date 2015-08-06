@@ -22,7 +22,7 @@ class Backend::AccountsController < Backend::BaseController
   unroll
 
   def self.accounts_conditions
-    code  = ''
+    code = ''
     code << search_conditions(accounts: [:name, :number, :description]) + ';'
     code << "if params[:prefix]\n"
     code << "  c[0] += ' AND number LIKE ?'\n"
@@ -84,7 +84,7 @@ class Backend::AccountsController < Backend::BaseController
   end
 
   def self.account_reconciliation_conditions
-    code  = search_conditions(accounts: [:name, :number, :description], journal_entries: [:number], JournalEntryItem.table_name => [:name, :debit, :credit]) + "[0] += ' AND accounts.reconcilable = ?'\n"
+    code = search_conditions(accounts: [:name, :number, :description], journal_entries: [:number], JournalEntryItem.table_name => [:name, :debit, :credit]) + "[0] += ' AND accounts.reconcilable = ?'\n"
     code << "c << true\n"
     code << "c[0] += ' AND (letter IS NULL OR LENGTH(TRIM(letter)) <= 0)'\n"
     code << 'c'

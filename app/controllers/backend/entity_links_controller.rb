@@ -17,7 +17,7 @@
 #
 
 class Backend::EntityLinksController < Backend::BaseController
-  manage_restfully entity_id: '(params[:entity_id] || params[:entity_id])'.c, nature: '(params[:nature] || :membership)'.c,  except: [:index, :show]
+  manage_restfully entity_id: '(params[:entity_id] || params[:entity_id])'.c, nature: '(params[:nature] || :membership)'.c, except: [:index, :show]
 
   def show
     if @entity_link = EntityLink.find_by(id: params[:id])

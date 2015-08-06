@@ -9,7 +9,7 @@ namespace :clean do
     # Lecture du fichier existant
     old_rights = YAML.load_file(Ekylibre::Access.config_file).deep_symbolize_keys
 
-    read_exp =  /\#(list(\_\w+)*|index|show|unroll|picture)$/
+    read_exp = /\#(list(\_\w+)*|index|show|unroll|picture)$/
 
     rights = {}
     for resource, interactions in Ekylibre::Access.resources.sort

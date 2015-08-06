@@ -59,17 +59,17 @@ module MigrationHelper
         options[:null] = true unless options.key?(:null)
         string :indicator_name,        null: options[:null]
         string :indicator_datatype,    null: options[:null]
-        decimal :absolute_measure_value_value,   precision: 19, scale: 4
+        decimal :absolute_measure_value_value, precision: 19, scale: 4
         string :absolute_measure_value_unit
-        boolean :boolean_value,         default: false, null: false
+        boolean :boolean_value, default: false, null: false
         string :choice_value
-        decimal :decimal_value,         precision: 19, scale: 4
-        geometry :geometry_value,        srid: 4326
+        decimal :decimal_value, precision: 19, scale: 4
+        geometry :geometry_value, srid: 4326
         integer :integer_value
-        decimal :measure_value_value,   precision: 19, scale: 4
+        decimal :measure_value_value, precision: 19, scale: 4
         string :measure_value_unit
         # self.multi_polygon :multi_polygon_value,   srid: 4326
-        st_point :point_value,           srid: 4326
+        st_point :point_value, srid: 4326
         text :string_value
         if options[:index]
           options[:index] = {} unless options[:index].is_a?(Hash)

@@ -24,11 +24,11 @@ class Backend::CashTransfersController < Backend::BaseController
   list do |t|
     t.action :edit
     t.action :destroy
-    t.column :number,           url: true
-    t.column :emission_amount,             currency: :emission_currency
-    t.column :emission_cash,    url: true
-    t.column :reception_amount,            currency: :reception_currency
-    t.column :reception_cash,   url: true
+    t.column :number, url: true
+    t.column :emission_amount, currency: :emission_currency
+    t.column :emission_cash, url: true
+    t.column :reception_amount, currency: :reception_currency
+    t.column :reception_cash, url: true
     t.column :transfered_at
     t.column :description, hidden: true
   end

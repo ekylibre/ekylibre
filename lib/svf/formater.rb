@@ -13,7 +13,7 @@ module SVF
     end
 
     def generate
-      code  = "module #{@name.to_s.classify}\n"
+      code = "module #{@name.to_s.classify}\n"
 
       code << "\n  module Lines\n\n"
       for element in @lines.values
@@ -68,7 +68,7 @@ module SVF
     end
 
     def compile_element(element, _depth = 0)
-      code  = "class #{element.class_name}\n"
+      code = "class #{element.class_name}\n"
       code << '  attr_accessor ' + element.cells.collect { |c| ":#{c.name}" }.join(', ') + "\n" if element.has_cells?
       code << '  attr_accessor ' + element.children.collect { |c| ":#{c.name}" }.join(', ') + "\n" if element.has_children?
       code << "  attr_accessor :text\n" if element.to
@@ -98,7 +98,7 @@ module SVF
     def parse_code(siblings = [], options = {})
       parents = options[:parents] || []
       all_parents = options[:all_parents] || []
-      code  = ''
+      code = ''
       code << "line = self.parse_line(#{options[:file]}.gets)\n"
       code << "line_number += 1\n"
       code << "while (line)\n"

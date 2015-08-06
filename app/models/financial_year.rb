@@ -251,14 +251,14 @@ class FinancialYear < Ekylibre::Record::Base
     balance = FinancialYear.balance_expr(credit)
     if forceds.size > 0 || negatives.size > 0
       forceds_and_negatives = forceds & negatives
-      balance  = 'CASE'
+      balance = 'CASE'
       balance << ' WHEN ' + forceds_and_negatives.sort.collect { |c| "a.number LIKE '#{c}%'" }.join(' OR ') + " THEN -#{FinancialYear.balance_expr(!credit, forced: true)}" if forceds_and_negatives.size > 0
       balance << ' WHEN ' + forceds.collect { |c| "a.number LIKE '#{c}%'" }.join(' OR ') + " THEN #{FinancialYear.balance_expr(credit, forced: true)}" if forceds.size > 0
       balance << ' WHEN ' + negatives.sort.collect { |c| "a.number LIKE '#{c}%'" }.join(' OR ') + " THEN -#{FinancialYear.balance_expr(!credit)}" if negatives.size > 0
       balance << " ELSE #{FinancialYear.balance_expr(credit)} END"
     end
 
-    query  = "SELECT sum(#{balance}) AS balance FROM #{AccountBalance.table_name} AS ab JOIN #{Account.table_name} AS a ON (a.id=ab.account_id) WHERE ab.financial_year_id=#{id}"
+    query = "SELECT sum(#{balance}) AS balance FROM #{AccountBalance.table_name} AS ab JOIN #{Account.table_name} AS a ON (a.id=ab.account_id) WHERE ab.financial_year_id=#{id}"
     query << ' AND (' + normals.sort.collect { |c| "a.number LIKE '#{c}%'" }.join(' OR ') + ')'
     query << ' AND NOT (' + excepts.sort.collect { |c| "a.number LIKE '#{c}%'" }.join(' OR ') + ')' if excepts.size > 0
     balance = ActiveRecord::Base.connection.select_value(query)

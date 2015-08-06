@@ -188,7 +188,7 @@ module ApplicationHelper
   end
 
   def li_link_to(*args)
-    options      = args[1] || {}
+    options = args[1] || {}
     # if authorized?({:controller => controller_name, :action => action_name}.merge(options))
     if authorized?({ controller: controller_path, action: :index }.merge(options))
       content_tag(:li, link_to(*args).html_safe)
@@ -452,7 +452,7 @@ module ApplicationHelper
 
   def icon_tags(options = {})
     # Favicon
-    html  = tag(:link, rel: 'icon', type: 'image/png', href: image_path('icon/favicon.png'), 'data-turbolinks-track' => true)
+    html = tag(:link, rel: 'icon', type: 'image/png', href: image_path('icon/favicon.png'), 'data-turbolinks-track' => true)
     html << "\n".html_safe + tag(:link, rel: 'shortcut icon', href: image_path('icon/favicon.ico'), 'data-turbolinks-track' => true)
     # Apple touch icon
     icon_sizes = { iphone: '57x57', ipad: '72x72', 'iphone-retina' => '114x114', 'ipad-retina' => '144x144' }
@@ -855,11 +855,11 @@ module ApplicationHelper
     name = args.shift || 'general-informations'.to_sym
     buttons = [options[:buttons] || []].flatten
     buttons << link_to('', '#', :class => 'toggle', 'data-toggle' => 'fields')
-    class_names  = 'fieldset ' + name.to_s + (options[:class] ? ' ' + options[:class].to_s : '')
+    class_names = 'fieldset ' + name.to_s + (options[:class] ? ' ' + options[:class].to_s : '')
     class_names << (options[:collapsed] ? ' collapsed' : ' not-collapsed')
     wrap(content_tag(:div,
                      content_tag(:div,
-                                 link_to(content_tag(:i) + h(name.is_a?(Symbol) ? name.to_s.gsub('-', '_').tl(default: ["form.legends.#{name.to_s.gsub('-', '_')}".to_sym, name.to_s.humanize]) : name.to_s), '#', :class => 'title', 'data-toggle' => 'fields') +
+                                 link_to(content_tag(:i) + h(name.is_a?(Symbol) ? name.to_s.tr('-', '_').tl(default: ["form.legends.#{name.to_s.tr('-', '_')}".to_sym, name.to_s.humanize]) : name.to_s), '#', :class => 'title', 'data-toggle' => 'fields') +
                                  content_tag(:span, buttons.join.html_safe, class: :buttons),
                                  class: 'fieldset-legend') +
                      content_tag(:div, capture(&block), class: options[:fields_class]), class: class_names, id: name), options[:in])

@@ -155,7 +155,7 @@ class PurchaseItem < Ekylibre::Record::Base
   end
 
   def designation
-    d  = product_name
+    d = product_name
     d << "\n" + annotation.to_s unless annotation.blank?
     d << "\n" + tc(:tracking, serial: tracking.serial.to_s) if tracking
     d

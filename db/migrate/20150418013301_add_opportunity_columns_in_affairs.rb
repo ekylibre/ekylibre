@@ -1,14 +1,14 @@
 class AddOpportunityColumnsInAffairs < ActiveRecord::Migration
   def change
     change_table :affairs do |t|
-      t.references :responsible,       index: true
+      t.references :responsible, index: true
       # t.references :affair,      index: true
       # t.references :client,      index: true, null: false
       t.datetime :dead_line_at
       t.string :name
       # t.string     :number
       t.text :description
-      t.decimal :pretax_amount,   precision: 19, scale: 4, default: 0.0
+      t.decimal :pretax_amount, precision: 19, scale: 4, default: 0.0
       # t.string     :currency
       # t.string     :origin => :nature
       t.string :origin

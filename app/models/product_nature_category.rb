@@ -66,8 +66,8 @@ class ProductNatureCategory < Ekylibre::Record::Base
   has_many :products, foreign_key: :category_id
   has_many :taxations, class_name: 'ProductNatureCategoryTaxation'
   has_many :variants, class_name: 'ProductNatureVariant', foreign_key: :category_id, inverse_of: :category
-  has_many :sale_taxations,     -> { where(usage: 'sale') },     class_name: 'ProductNatureCategoryTaxation', inverse_of: :product_nature_category
-  has_many :sale_taxes,     class_name: 'Tax', through: :sale_taxations,     source: :tax
+  has_many :sale_taxations, -> { where(usage: 'sale') }, class_name: 'ProductNatureCategoryTaxation', inverse_of: :product_nature_category
+  has_many :sale_taxes, class_name: 'Tax', through: :sale_taxations, source: :tax
   has_many :purchase_taxations, -> { where(usage: 'purchase') }, class_name: 'ProductNatureCategoryTaxation', inverse_of: :product_nature_category
   has_many :purchase_taxes, class_name: 'Tax', through: :purchase_taxations, source: :tax
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -83,7 +83,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
   validates_presence_of :product_account, if: :saleable?
   validates_presence_of :charge_account,  if: :purchasable?
   validates_presence_of :stock_account,   if: :storable?
-  validates_presence_of :fixed_asset_account,  if: :depreciable?
+  validates_presence_of :fixed_asset_account, if: :depreciable?
   validates_presence_of :fixed_asset_allocation_account, if: :depreciable?
   validates_presence_of :fixed_asset_expenses_account, if: :depreciable?
   validates_uniqueness_of :number

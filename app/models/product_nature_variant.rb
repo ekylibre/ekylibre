@@ -71,7 +71,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   delegate :depreciable?, :depreciation_rate, :deliverable?, :purchasable?, :saleable?, :subscribing?, :fixed_asset_depreciation_method, :fixed_asset_depreciation_percentage, :fixed_asset_account, :fixed_asset_allocation_account, :fixed_asset_expenses_account, :product_account, :charge_account, :stock_account, to: :category
 
   accepts_nested_attributes_for :products, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :readings, reject_if: proc { |params| params['measure_value_value'].blank?  }, allow_destroy: true
+  accepts_nested_attributes_for :readings, reject_if: proc { |params| params['measure_value_value'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :catalog_items, reject_if: :all_blank, allow_destroy: true
   # acts_as_numbered
 
@@ -227,7 +227,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
     variety = Nomen::Varieties.find(self.variety)
     # Specials indicators
     if variety <= :product_group
-      list << 'members_count'      unless list.include?('members_count/unity')
+      list << 'members_count' unless list.include?('members_count/unity')
       if variety <= :animal_group
         list << 'members_livestock_unit' unless list.include?('members_livestock_unit/unity')
       end
@@ -243,13 +243,13 @@ class ProductNatureVariant < Ekylibre::Record::Base
       indicator = Nomen::Indicators.find(pair.first)
       unit = (pair.second.blank? ? nil : Nomen::Units.find(pair.second))
       hash = { indicator: { name: indicator.name, human_name: indicator.human_name } }
-      hash[:unit] =  if unit
-                       { name: unit.name, symbol: unit.symbol, human_name: unit.human_name }
-                     elsif indicator.name =~ /^members\_/
-                       unit = Nomen::Units.find(:unity)
-                       { name: '', symbol: unit.symbol, human_name: unit.human_name }
-                     else
-                       { name: '', symbol: unit_name, human_name: unit_name }
+      hash[:unit] = if unit
+                      { name: unit.name, symbol: unit.symbol, human_name: unit.human_name }
+                    elsif indicator.name =~ /^members\_/
+                      unit = Nomen::Units.find(:unity)
+                      { name: '', symbol: unit.symbol, human_name: unit.human_name }
+                    else
+                      { name: '', symbol: unit_name, human_name: unit_name }
                      end
       hash
     end

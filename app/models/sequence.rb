@@ -127,7 +127,7 @@ class Sequence < Ekylibre::Record::Base
     today = Date.today
     period = self.period.to_s
     if last_number.nil?
-      self.last_number  = number_start
+      self.last_number = number_start
     else
       self.last_number += number_increment
     end

@@ -93,8 +93,8 @@ module Tele
           # everything is good
           elsif result == 'true'
 
-            business =  doc.at_xpath('//wsdl-metier/child::text()')
-            customs =  doc.at_xpath('//wsdl-guichet/child::text()')
+            business = doc.at_xpath('//wsdl-metier/child::text()')
+            customs = doc.at_xpath('//wsdl-guichet/child::text()')
 
             if business.nil? || customs.nil?
               fail ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: 'WSRW0', message: 'Missing WSDL urls in xml from Reswel get url')
@@ -152,7 +152,7 @@ module Tele
           # everything is good
           elsif result == 'true'
 
-            token =  doc.at_xpath('//jeton/child::text()')
+            token = doc.at_xpath('//jeton/child::text()')
 
             if token.nil?
 
@@ -1133,7 +1133,7 @@ module Tele
           Zip::File.open_buffer(stream) do |f|
             f.each do |entry|
               xml = Nokogiri::XML(entry.get_input_stream.read)
-              data =  Hash.from_xml(xml.to_s)
+              data = Hash.from_xml(xml.to_s)
             end
           end
           data

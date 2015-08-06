@@ -28,7 +28,7 @@ class Backend::DashboardsController < Backend::BaseController
   end
 
   Ekylibre::Navigation.parts.each do |part|
-    code  = "def #{part.name}\n"
+    code = "def #{part.name}\n"
     # code << " notify_warning_now(:dashboard_is_being_developed)"
     # code << "  render :file => 'backend/dashboards/#{part}', :layout => dialog_or_not\n"
     code << "end\n"
@@ -92,7 +92,7 @@ class Backend::DashboardsController < Backend::BaseController
 
     filtered = 'SELECT record_id, record_type, title, indexer, (' + pertinence + ") AS pertinence FROM (#{@@centralizing_query}) AS centralizer GROUP BY record_type, record_id, title, indexer"
 
-    filter  = " FROM (#{filtered}) AS filtered"
+    filter = " FROM (#{filtered}) AS filtered"
     filter << ' WHERE filtered.pertinence > 0'
 
     @search = {}
@@ -171,9 +171,9 @@ class Backend::DashboardsController < Backend::BaseController
       end
       if columns.any?
         if main_model
-          query =  "SELECT #{Ekylibre::Record::Base.connection.quote(model.model_name.human)} || ' ' || " + columns.join(' || ') + " AS indexer, #{title} AS title, " + (main_model.columns_definition[:type] ? "CASE WHEN LENGTH(TRIM(#{main_model.table_name}.type)) > 0 THEN #{main_model.table_name}.type ELSE '#{main_model.table_name.to_s.classify}' END" : "'#{main_model.name}'") + " AS record_type, #{main_model.table_name}.id AS record_id FROM #{model.table_name} LEFT JOIN #{main_model.table_name} ON (#{model.table_name}.#{reflection.foreign_key} = #{main_model.table_name}.id)"
+          query = "SELECT #{Ekylibre::Record::Base.connection.quote(model.model_name.human)} || ' ' || " + columns.join(' || ') + " AS indexer, #{title} AS title, " + (main_model.columns_definition[:type] ? "CASE WHEN LENGTH(TRIM(#{main_model.table_name}.type)) > 0 THEN #{main_model.table_name}.type ELSE '#{main_model.table_name.to_s.classify}' END" : "'#{main_model.name}'") + " AS record_type, #{main_model.table_name}.id AS record_id FROM #{model.table_name} LEFT JOIN #{main_model.table_name} ON (#{model.table_name}.#{reflection.foreign_key} = #{main_model.table_name}.id)"
         else
-          query =  "SELECT #{Ekylibre::Record::Base.connection.quote(model.model_name.human)} || ' ' || " + columns.join(' || ') + " AS indexer, #{title} AS title, " + (model.columns_definition[:type] ? "CASE WHEN LENGTH(TRIM(type)) > 0 THEN type ELSE '#{model.table_name.to_s.classify}' END" : "'#{model.name}'") + " AS record_type, id AS record_id FROM #{model.table_name}"
+          query = "SELECT #{Ekylibre::Record::Base.connection.quote(model.model_name.human)} || ' ' || " + columns.join(' || ') + " AS indexer, #{title} AS title, " + (model.columns_definition[:type] ? "CASE WHEN LENGTH(TRIM(type)) > 0 THEN type ELSE '#{model.table_name.to_s.classify}' END" : "'#{model.name}'") + " AS record_type, id AS record_id FROM #{model.table_name}"
         end
         queries << query
       end
