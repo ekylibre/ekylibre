@@ -3,6 +3,7 @@
   <nomenclature name="varieties-helianthus" hierarchical="true">
     <items>
       <item name="helianthus_annuus" itis_tsn="36616"/>
+      <item name="helianthus_tuberosus" itis_tsn="36691"/>
     </items>
   </nomenclature>
 
