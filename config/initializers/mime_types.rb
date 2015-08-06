@@ -28,3 +28,7 @@ Mime::Type.register('application/vnd.openxmlformats-officedocument.spreadsheetml
 Mime::Type.register('application/vnd.openxmlformats-officedocument.presentationml.template', :potx) unless defined? Mime::POTX
 # First-Run Archive
 Mime::Type.register('application/vnd.ekylibre.first-run.archive', :fra) unless defined? Mime::FRA
+# Geograpgic
+Mime::Type.register('application/gml+xml', :gml) unless defined? Mime::GML
+Mime::Type.register('application/vnd.google-earth.kml+xml', :kml) unless defined? Mime::KML
+Mime::Type.register('application/vnd.google-earth.kmz', :kmz) unless defined? Mime::KMZ
