@@ -52,7 +52,7 @@ module Ekylibre
               files[picture] = "pictures/#{p}"
             end
           end
-          check_archive(file, files.merge(in: "#{base}"))
+          check_archive(:ekylibre_pictures, file, files.merge(in: "#{base}"))
 
           FileUtils.rm_f mimefile
           FileUtils.rm_f idenfile
@@ -65,23 +65,24 @@ module Ekylibre
         if p.exist?
           import(nature, p, options)
         elsif @verbose
-          text = ["#{nature.to_s.humanize} (#{p.basename})"]
+          text = ["∅ #{nature.to_s.humanize} (#{p.basename})"]
           if text.join.length < @term_width
             text << ' ' * (@term_width - text.join.length)
           end
-          text[0] = text[0].red
+          text[0] = text[0].yellow
           puts text.join
         end
       end
 
       def import_archive(nature, target, *files)
-        file = check_archive(target, *files)
-        import_file(nature, file)
+        if file = check_archive(nature, target, *files)
+          import_file(nature, file)
+        end
       end
 
       # Check that archive exist if not try to build one if existing file
       # Given files must exist
-      def check_archive(target, *files)
+      def check_archive(nature, target, *files)
         files.flatten!
         options = files.extract_options!
         working_path = @path.join(options[:in] ? options.delete(:in) : '.')
@@ -96,7 +97,9 @@ module Ekylibre
         expected = map.values.select { |source| !source.exist? }
         if expected.any?
           if expected.size != map.values.size
-            fail "Missing files to build #{target} archive: #{expected.to_sentence}"
+            puts "☠ #{nature.to_s.humanize} (#{target})".red
+            puts ("  Missing files to build #{target} archive: " + expected.map{|f| f.relative_path_from(@path) }.to_sentence).red
+            return false
           end
         else
           begin

@@ -94,7 +94,7 @@ module Ekylibre
             @loaders[loader].call(base)
             Preference.set!("first_run.#{loader}.executed", true, :boolean)
           else
-            puts 'Skip'.red + " #{loader} loader"
+            puts 'Skip'.yellow + " #{loader} loader"
           end
         end
       end
