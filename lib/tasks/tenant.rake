@@ -46,6 +46,27 @@ namespace :tenant do
     Ekylibre::Tenant.clear!
   end
 
+  task dump: :environment do
+    unless name = ENV['TENANT'] || ENV['name']
+      fail "Need TENANT or name env variable"
+    end
+    Ekylibre::Tenant.dump(name)
+  end
+
+  task restore: :environment do
+    archive = ENV['ARCHIVE'] || ENV['archive']
+    name = ENV['TENANT'] || ENV['name']
+    options = {}
+    if name.present?
+      archive ||= Rails.root.join("tmp", "archives", "#{name}.zip")
+      options[:tenant] = name
+    end
+    unless archive
+      fail "Need ARCHIVE env variable to find archive"
+    end
+    Ekylibre::Tenant.restore(archive, options)
+  end
+
   desc 'List tenants'
   task list: :environment do
     puts Ekylibre::Tenant.list.join(', ') if Ekylibre::Tenant.list.any?

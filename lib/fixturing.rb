@@ -18,28 +18,32 @@ module Fixturing
       'schema_migrations'
     end
 
-    def up_to_date?
-      current_version == ActiveRecord::Migrator.last_version
+    # Returns true if current_version is last DB version
+    def up_to_date?(options = {})
+      version = options[:version] || current_version
+      version == ActiveRecord::Migrator.last_version
     end
 
-    def tables_from_files
-      Dir.glob(directory.join('*.yml')).collect do |f|
+    def tables_from_files(options = {})
+      path = options[:path] || directory
+      Dir.glob(path.join('*.yml')).collect do |f|
         Pathname.new(f).basename('.*').to_s
       end.sort
     end
 
-    def restore(tenant)
+    def restore(tenant, options = {})
+      path = options[:path] || directory
+      version = options[:version] || current_version
       Apartment.connection.execute("DROP SCHEMA IF EXISTS \"#{tenant}\" CASCADE")
       Apartment.connection.execute("CREATE SCHEMA \"#{tenant}\"")
       Ekylibre::Tenant.add(tenant)
       Apartment.connection.execute("SET search_path TO '#{tenant}, postgis'")
-      Ekylibre::Tenant.migrate(tenant, to: current_version)
-      # table_names = Ekylibre::Record::Base.connection.tables.delete_if{ |t| %w(schema_migrations spatial_ref_sys).include?(t) }
-      table_names = tables_from_files
+      Ekylibre::Tenant.migrate(tenant, to: version)
+      table_names = tables_from_files(path: path)
       say 'Load fixtures'
       Ekylibre::Tenant.switch!(tenant)
-      ActiveRecord::FixtureSet.create_fixtures(directory, table_names)
-      migrate(tenant) unless up_to_date?
+      ActiveRecord::FixtureSet.create_fixtures(path, table_names)
+      migrate(tenant, origin: version) unless up_to_date?(version: version)
     end
 
     def reverse(tenant, steps = 1)
@@ -60,7 +64,25 @@ module Fixturing
         FileUtils.rm_rf(f)
       end
 
-      # ActiveRecord::Base.establish_connection(:development)
+      version = extract(path: directory)
+
+      # Updates fixtures name with models
+      beautify_fixture_ids(path: directory)
+
+      # Clean annotations
+      Clean::Annotations.run(only: :fixtures, verbose: false)
+
+      # Dump last schema_migrations into schema_migrations file
+      File.open(migrations_file, 'wb') do |f|
+        f.write version
+      end
+    end
+
+
+    # Extract data from DB into given path or test/fixtures by default
+    # Returns version of DB (as integer)
+    def extract(options = {})
+      path = options[:path] || directory
       Ekylibre::Schema.tables.each do |table, columns|
         records = {}
         for row in ActiveRecord::Base.connection.select_all("SELECT * FROM #{table} ORDER BY id")
@@ -79,24 +101,19 @@ module Fixturing
           records["#{table}_#{row['id'].rjust(3, '0')}"] = record
         end
 
-        File.open(directory.join("#{table}.yml"), 'wb') do |f|
+        File.open(path.join("#{table}.yml"), 'wb') do |f|
           f.write records.to_yaml.gsub(/[\ \t]+\n/, "\n")
         end
       end
 
-      # Dump last schema_migrations into schema_migrations file
-      File.open(migrations_file, 'wb') do |f|
-        f.write ActiveRecord::Base.connection.select_value("SELECT * FROM #{migrations_table} ORDER BY 1 DESC")
-      end
-
-      # Clean fixtures
-      # reflectionize_keys
-      beautify_fixture_ids
+      version = ActiveRecord::Base.connection.select_value("SELECT * FROM #{migrations_table} ORDER BY 1 DESC")
+      version.to_i
     end
 
-    def migrate(tenant)
+
+    def migrate(tenant, options = {})
       target = ActiveRecord::Migrator.last_version
-      origin = current_version
+      origin = options[:origin] || current_version
       if target != origin
         say 'Migrate fixtures from ' + origin.inspect + ' to ' + target.inspect
         Ekylibre::Tenant.switch(tenant) do
@@ -269,12 +286,15 @@ module Fixturing
     end
 
     # Adds model conform fixture ids
-    def beautify_fixture_ids
+    # In STI, fixture name are rewritten with name of model
+    # Example: product_153 will become plant_009
+    def beautify_fixture_ids(options = {})
+      path = options[:path] || directory
       # Load and prepare fixtures
       data = {}
       model_ids = {}
       Ekylibre::Schema.tables.each do |table, _columns|
-        records = YAML.load_file(directory.join("#{table}.yml"))
+        records = YAML.load_file(path.join("#{table}.yml"))
         base_model = table.to_s.classify
         counter = {}
         data[table.to_s] = records.values.sort { |a, b| [a['type'] || base_model, a['id']] <=> [b['type'] || base_model, b['id']] }.inject({}) do |hash, attributes|
@@ -297,13 +317,10 @@ module Fixturing
 
       # Write
       Ekylibre::Schema.tables.each do |table, _columns|
-        File.open(directory.join("#{table}.yml"), 'wb') do |f|
+        File.open(path.join("#{table}.yml"), 'wb') do |f|
           f.write data[table].to_yaml
         end
       end
-
-      # Clean
-      Clean::Annotations.run(only: :fixtures, verbose: false)
     end
 
     def yaml_escape(value, type = :string)
