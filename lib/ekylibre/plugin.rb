@@ -60,6 +60,8 @@ module Ekylibre
         generate_themes_stylesheets
         # Generate JS file
         generate_javascript_index
+        # Load initializers
+        run_initializers
       end
 
       def each
@@ -107,16 +109,27 @@ module Ekylibre
           File.write(file, stylesheet)
         end
       end
+
+      # Run all initializers of plugins
+      def run_initializers
+        each do |plugin|
+          plugin.initializers do |name, block|
+            Rails.logger.info "Run initialize #{name}"
+            block.call(Rails.application)
+          end
+        end
+      end
     end
 
-    attr_reader :root, :themes_assets, :routes, :javascripts
+    attr_reader :root, :themes_assets, :routes, :javascripts, :initializers
     field_accessor :name, :summary, :description, :url, :author, :author_url, :version
 
     # Links plugin into app
     def initialize(plugfile_path)
       @root = Pathname.new(plugfile_path).dirname
       @themes_assets = {}.with_indifferent_access
-      @javascripts ||= []
+      @javascripts = []
+      @initializers = {}
 
       instance_eval(File.read(plugfile_path), plugfile_path, 1)
 
@@ -230,9 +243,8 @@ module Ekylibre
       Ekylibre::Navigation.exec_dsl(&block)
     end
 
-    # Remove existing permission from main list
-    def disable_right(right)
-      Ekylibre::Access.disable_right(right)
+    def initializer(name, &block)
+      @initializers[name] = block
     end
 
     # TODO: Add other callback for plugin integration

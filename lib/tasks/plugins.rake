@@ -4,7 +4,7 @@ namespace :test do
   task :plugins do
     Rake::Task["test:plugins:all"].invoke
   end
-  
+
   namespace :plugins do
 
     desc 'Runs the plugins all tests.'
@@ -13,7 +13,7 @@ namespace :test do
       t.verbose = true
       t.pattern = "plugins/#{ENV['PLUGIN'] || ENV['NAME'] || '*'}/test/{models,controllers,mailers,jobs,integration,helpers,lib}/**/*_test.rb"
     end
-    
+
     desc 'Runs the plugins model tests.'
     Rake::TestTask.new :models => "db:test:prepare" do |t|
       t.libs << "test"
@@ -30,14 +30,14 @@ namespace :test do
 
     desc 'Runs the plugins units test'
     task units: [:models, :helpers]
-    
+
     desc 'Runs the plugins controller tests.'
     Rake::TestTask.new :controllers => "db:test:prepare" do |t|
       t.libs << "test"
       t.verbose = true
       t.pattern = "plugins/#{ENV['PLUGIN'] || ENV['NAME'] || '*'}/test/controllers/**/*_test.rb"
     end
-    
+
     desc 'Runs the plugins mailers tests.'
     Rake::TestTask.new :mailers => "db:test:prepare" do |t|
       t.libs << "test"
@@ -47,7 +47,7 @@ namespace :test do
 
     desc 'Runs the plugins functionals test'
     task functionals: [:controllers, :mailers]
-    
+
     desc 'Runs the plugins integration tests.'
     Rake::TestTask.new :integration => "db:test:prepare" do |t|
       t.libs << "test"
@@ -70,7 +70,7 @@ namespace :test do
     end
 
   end
-  
+
 end
 
 # Load plugins rake tasks
