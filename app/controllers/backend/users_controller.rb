@@ -24,7 +24,7 @@ class Backend::UsersController < Backend::BaseController
   list(order: 'users.locked, users.last_name', line_class: "(RECORD.locked ? 'critic' : '')".c) do |t|
     t.action :lock, method: :post, if: '!RECORD.locked and RECORD.id != current_user.id'.c
     t.action :unlock, method: :post, if: 'RECORD.locked and RECORD.id != current_user.id'.c
-    t.action :edit, controller: :users
+    t.action :edit
     t.action :destroy, if: 'RECORD.id != current_user.id'.c
     t.column :full_name, url: true
     t.column :first_name, url: true, hidden: true

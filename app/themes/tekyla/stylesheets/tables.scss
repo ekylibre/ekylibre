@@ -83,6 +83,12 @@ table {
         }
         margin: 0 auto;
         border: none;
+        &.forbidden {
+          &, * {
+            cursor: default;
+            color: rgba(#000, 0.1);
+          }
+        }
       }
 
     }

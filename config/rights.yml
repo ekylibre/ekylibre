@@ -11,10 +11,6 @@
 #     - "authentication/sessions#destroy"
 #     - "authentication/sessions#new"
 #     - "backend/activities#family"
-#     - "backend/animals#add_group"
-#     - "backend/animals#add_to_container"
-#     - "backend/animals#add_to_variant"
-#     - "backend/animals#load_production_supports"
 #     - "backend/animals#take"
 #     - "backend/beehives#reset"
 #     - "backend/beehives#update"
@@ -305,7 +301,10 @@ animals:
     dependencies:
     - read-animals
     actions:
+    - "backend/animals#add_group"
+    - "backend/animals#add_to_container"
     - "backend/animals#add_to_group"
+    - "backend/animals#add_to_variant"
     - "backend/animals#change"
     - "backend/animals#create"
     - "backend/animals#destroy"
@@ -313,6 +312,7 @@ animals:
     - "backend/animals#load_animals"
     - "backend/animals#load_containers"
     - "backend/animals#load_natures"
+    - "backend/animals#load_production_supports"
     - "backend/animals#load_workers"
     - "backend/animals#new"
     - "backend/animals#update"

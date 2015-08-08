@@ -24,9 +24,9 @@ class Backend::RolesController < Backend::BaseController
   unroll
 
   list(order: :name) do |t|
-    t.column :name, url: true
     t.action :edit
     t.action :destroy, if: :destroyable?
+    t.column :name, url: true
   end
 
   list(:users, conditions: { role_id: 'params[:id]'.c }, line_class: "(RECORD.locked ? 'critic' : '')".c, order: :last_name) do |t|
@@ -36,6 +36,6 @@ class Backend::RolesController < Backend::BaseController
     t.column :first_name, url: true
     t.column :last_name, url: true
     t.column :administrator
-    t.column :team
+    t.column :team, url: true
   end
 end

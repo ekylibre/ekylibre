@@ -73,6 +73,12 @@ class ApplicationController < ActionController::Base
     else
       fail ArgumentError, 'Invalid URL: ' + url_options.inspect
     end
+    unless url_options[:controller] =~ /\/\w+/
+      namespace = controller_path.gsub(/\/\w+$/, '')
+      unless namespace.blank?
+        url_options[:controller] = "/#{namespace}/#{url_options[:controller]}"
+      end
+    end
     if current_user
       return current_user.can_access?(url_options)
       # if url_options[:controller].blank? or url_options[:action].blank?

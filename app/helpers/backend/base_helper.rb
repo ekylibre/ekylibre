@@ -51,12 +51,13 @@ module Backend::BaseHelper
   # Emulate old simple_calendar API
   def basic_calendar(all_records, options = {}, &block)
     # options[:events] = all_records
+    options[:params] ||= {}
     options[:param_name] = :started_on
     options[:previous_link] = lambda  do |param, date_range|
-      link_to(raw('&laquo;'), { param => date_range.first - 1.day }, class: 'previous-month')
+      link_to(raw('&laquo;'), options[:params].merge(param => date_range.first - 1.day), class: 'previous-month')
     end
     options[:next_link] = lambda do |param, date_range|
-      link_to(raw('&raquo;'), { param => date_range.last + 1.day }, class: 'next-month')
+      link_to(raw('&raquo;'), options[:params].merge(param => date_range.last + 1.day), class: 'next-month')
     end
     month_calendar(options) do |event_on, records|
       records = all_records.select do |event|
