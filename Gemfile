@@ -134,9 +134,10 @@ gem 'bootstrap-sass', '~> 3.1'
 # Iconic font
 gem 'agric'
 
-# Idele webservices
+# Web services
 gem 'mechanize'
-gem 'savon' # , '~> 2.5.1'
+gem 'savon'
+gem 'rest-client', require: false
 
 group :development do
   gem 'quiet_assets'

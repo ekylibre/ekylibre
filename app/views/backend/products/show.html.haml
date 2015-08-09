@@ -49,12 +49,10 @@
   - if count > 0
     - c.cobble :container do
       = map
-  - c.cobble :timeline do
-    = render "timeline"
-
   - c.cobble(:intervention_casts) do
     = cobble_list(:intervention_casts)
   - c.cobble(:issues) do
     = cobble_toolbar do |t|
       - t.new(params: {controller: :issues, :target_id => resource.id, :target_type => resource.class.name})
     = cobble_list(:issues)
+= render "timeline"

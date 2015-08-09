@@ -278,6 +278,8 @@ class Product < Ekylibre::Record::Base
 
   # set initial owner and localization
   def set_initial_values
+    self.initial_born_at ||= Time.now
+
     # Add first owner on a product
     unless ownership = ownerships.first_of_all
       ownership = ownerships.build
@@ -399,7 +401,7 @@ class Product < Ekylibre::Record::Base
 
   # Returns age in seconds of the product
   def age(at = Time.now)
-    return nil if born_at.nil? || born_at >= at
+    return 0 if born_at.nil? || born_at >= at
     ((dead_at || at) - born_at)
   end
 

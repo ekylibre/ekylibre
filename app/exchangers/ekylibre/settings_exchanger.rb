@@ -196,7 +196,7 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
         hash[nature] = { name: OutgoingPaymentMode.tc("default.#{nature}.name"),
                          with_accounting: true,
                          cash: Cash.find_by(nature:
-                                             Cash.nature.values.include?(nature) ? nature : :bank_account) }
+                                              Cash.nature.values.include?(nature) ? nature : :bank_account) }
         hash
       end
     end

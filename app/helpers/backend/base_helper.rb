@@ -85,8 +85,8 @@ module Backend::BaseHelper
     render(partial: 'layouts/side')
   end
 
-  def add_snippets(_place, _options = {})
-    Ekylibre::Snippet.at(:side).each do |s|
+  def add_snippets(place, _options = {})
+    Ekylibre::Snippet.at(place).each do |s|
       snippet(s.name, { icon: :plug }.merge(s.options)) do
         render(file: s.path)
       end

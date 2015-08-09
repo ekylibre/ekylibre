@@ -11,41 +11,43 @@
       - t.send(event, resource, method: :post, "data-confirm" => are_you_sure_you_want_to("#{event}_issue"))
   - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if resource.destroyable?
 
-= cobbles do |c|
-  - if resource.geolocation
-    - c.cobble :resource_map do
-      = visualization(view: {zoom: 18}) do |v|
-        - v.serie :main, [{name: "origine", shape: resource.geolocation}]
-        - v.background "Esri.WorldImagery"
-        - v.background "OpenStreetMap.HOT"
-        - v.background "OpenStreetMap.Mapnik"
-        - v.background "Thunderforest.Landscape"
-        - v.points :geolocation, :main
-        - v.control :zoom, 18
-        - v.control :scale
-        - v.control :fullscreen
-        - v.control :layer_selector
+= main_informations do
+  - if resource.picture.exists?
+    .picture= image_tag(resource.picture.url(:identity))
+  .big-infos
+    .med-info.important
+      %span.title= Issue.human_attribute_name(:state)
+      %span.value= lights(resource.status)
+    .med-info.important
+      %span.title= Issue.human_attribute_name(:target)
+      %span.value= link_to resource.target.name, {controller: resource.target.class.base_class.name.tableize, action: :show, id: resource.target_id}
+  - if resource.description?
+    .description= resource.description
 
-  - c.cobble :general_informations do
-    - if resource.picture.exists?
-      .picture= image_tag(resource.picture.url(:identity))
-    .big-infos
-      .big-info.important
-        %span.title= Issue.human_attribute_name(:state)
-        %span.value= lights(resource.status)
-      .med-info.important
-        %span.title= Issue.human_attribute_name(:target)
-        %span.value= link_to resource.target.name, {controller: resource.target.class.base_class.name.tableize, action: :show, id: resource.target_id}
-      .med-info.important
-        %span.title= Issue.human_attribute_name(:description)
-        %span.value= resource.description
+= janus do |j|
+  - j.face :cobbles do
+    = cobbles do |c|
+      - if resource.geolocation
+        - c.cobble :map do
+          = visualization(view: {zoom: 18}) do |v|
+            - v.serie :main, [{name: "origine", shape: resource.geolocation}]
+            - v.background "Esri.WorldImagery"
+            - v.background "OpenStreetMap.HOT"
+            - v.background "OpenStreetMap.Mapnik"
+            - v.background "Thunderforest.Landscape"
+            - v.points :geolocation, :main
+            - v.control :zoom, 18
+            - v.control :scale
+            - v.control :fullscreen
+            - v.control :layer_selector
 
-  - c.cobble :timeline do
+      - c.cobble(:interventions) do
+        = cobble_toolbar do |t|
+          - t.new(params: {controller: :interventions, issue_id: resource.id})
+        = cobble_list(:interventions)
+
+  - j.face :timeline do
     = timeline(resource) do |l|
       - l.side :observations, at: :observed_at
       - l.side :interventions, at: :started_at
       - l.side :versions, new: false
-  -# c.cobble(:interventions) do
-    = cobble_toolbar do |t|
-      - t.new(params: {controller: :interventions, issue_id: resource.id})
-    = cobble_list(:interventions)

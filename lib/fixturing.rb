@@ -34,14 +34,16 @@ module Fixturing
     def restore(tenant, options = {})
       path = options[:path] || directory
       version = options[:version] || current_version
+      verbose = !options[:verbose].is_a?(FalseClass)
       Apartment.connection.execute("DROP SCHEMA IF EXISTS \"#{tenant}\" CASCADE")
       Apartment.connection.execute("CREATE SCHEMA \"#{tenant}\"")
       Ekylibre::Tenant.add(tenant)
       Apartment.connection.execute("SET search_path TO '#{tenant}, postgis'")
       Ekylibre::Tenant.migrate(tenant, to: version)
       table_names = tables_from_files(path: path)
-      say 'Load fixtures'
+      say 'Load fixtures' if verbose
       Ekylibre::Tenant.switch!(tenant)
+      ActiveRecord::FixtureSet.reset_cache
       ActiveRecord::FixtureSet.create_fixtures(path, table_names)
       migrate(tenant, origin: version) unless up_to_date?(version: version)
     end

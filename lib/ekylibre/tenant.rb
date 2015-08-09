@@ -135,6 +135,7 @@ module Ekylibre
       # Restore an archive
       def restore(archive_file, options = {})
         code = options[:tenant] || Time.now.to_i.to_s(36) + rand(999_999_999).to_s(36)
+        verbose = !options[:verbose].is_a?(FalseClass)
 
         archive_path = Rails.root.join("tmp", "archives", "#{code}-restore")
         tables_path = archive_path.join("tables")
@@ -143,14 +144,14 @@ module Ekylibre
         FileUtils.rm_rf(archive_path)
         FileUtils.mkdir_p(archive_path)
 
-        puts "Decompressing #{archive_file.basename} to #{archive_path.basename}...".yellow
+        puts "Decompressing #{archive_file.basename} to #{archive_path.basename}...".yellow if verbose
         Zip::File.open(archive_file.to_s) do |zile|
           zile.each do |entry|
             entry.extract(archive_path.join(entry.name))
           end
         end
 
-        puts "Checking archive...".yellow
+        puts "Checking archive...".yellow if verbose
         unless archive_path.join("manifest.yml").exist?
           fail "Invalid archive"
         end
@@ -170,7 +171,7 @@ module Ekylibre
           fail "Too recent archive"
         end
 
-        puts "Resetting tenant #{name}...".yellow
+        puts "Resetting tenant #{name}...".yellow if verbose
         if exist?(name)
           drop(name)
         end
@@ -178,15 +179,16 @@ module Ekylibre
 
         switch(name) do
           if files_path.exist?
-            puts "Restoring files...".yellow
+            puts "Restoring files...".yellow if verbose
             FileUtils.rm_rf private_directory
             FileUtils.mv files_path, private_directory
           else
-            puts "No files to restore".yellow
+            puts "No files to restore".yellow if verbose
           end
 
-          puts "Restoring database and migrating...".yellow
-          Fixturing.restore(name, version: database_version, path: tables_path)
+          puts "Restoring database and migrating...".yellow if verbose
+          Fixturing.restore(name, version: database_version, path: tables_path, verbose: verbose)
+          puts "Done!".yellow if verbose
         end
 
         FileUtils.rm_rf(archive_path)
@@ -277,9 +279,17 @@ module Ekylibre
       end
 
       def write
-        FileUtils.mkdir_p(config_file.dirname)
-        File.write(config_file, @list.to_yaml)
+        semaphore.synchronize do
+          FileUtils.mkdir_p(config_file.dirname)
+          File.write(config_file, @list.to_yaml)
+        end
       end
+
+      def semaphore
+        @@semaphore ||= Mutex.new
+      end
+
+
     end
   end
 end

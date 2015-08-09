@@ -113,7 +113,7 @@ module Ekylibre
       # Run all initializers of plugins
       def run_initializers
         each do |plugin|
-          plugin.initializers do |name, block|
+          plugin.initializers.each do |name, block|
             Rails.logger.info "Run initialize #{name}"
             block.call(Rails.application)
           end
@@ -127,6 +127,7 @@ module Ekylibre
     # Links plugin into app
     def initialize(plugfile_path)
       @root = Pathname.new(plugfile_path).dirname
+      @view_path = @root.join('app', 'views')
       @themes_assets = {}.with_indifferent_access
       @javascripts = []
       @initializers = {}
@@ -155,7 +156,6 @@ module Ekylibre
       Rails.application.config.i18n.load_path += Dir.glob(@root.join('config', 'locales', '**', '*.{rb,yml}'))
 
       # Adds view path
-      @view_path = @root.join('app', 'views')
       if @view_path.directory?
         ActionController::Base.prepend_view_path(@view_path)
         ActionMailer::Base.prepend_view_path(@view_path)
@@ -214,8 +214,8 @@ module Ekylibre
     end
 
     # Adds a snippet in app (for side or help places)
-    def add_snippet(name, options = {})
-      Ekylibre::Snippet.add("#{@name}-#{name}", snippets_directory.join(name), options)
+    def snippet(name, options = {})
+      Ekylibre::Snippet.add("#{@name}-#{name}", snippets_directory.join(name.to_s), options)
     end
 
     # Require a JS file from application.js
