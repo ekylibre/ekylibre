@@ -50,5 +50,66 @@
 require 'test_helper'
 
 class PurchaseTest < ActiveSupport::TestCase
-  # Add tests here...
+
+  test "simple creation" do
+    nature = PurchaseNature.first
+    assert nature
+    supplier = Entity.where(supplier: true).first
+    assert supplier
+    purchase = Purchase.create!(nature: nature, supplier: supplier)
+    5.times do |index|
+      variant = ProductNatureVariant.all.sample
+      tax = Tax.find_by(amount: 20)
+      quantity = index + 1
+      item = purchase.items.build(variant: variant, unit_pretax_amount: 100, tax: tax, quantity: quantity)
+      item.save!
+      assert_equal(quantity * 100, item.pretax_amount, "Item pre-tax amount should be #{quantity * 100}. Got #{item.pretax_amount.inspect}")
+      assert_equal(quantity * 120, item.amount, "Item amount should be #{quantity * 120}. Got #{item.amount.inspect}")
+      assert purchase.amount > 0, "Purchase amount should be greater than 0. Got: #{purchase.amount}"
+    end
+    assert_equal 5, purchase.items.count
+
+    variant = ProductNatureVariant.all.sample
+
+    item = purchase.items.build(variant: variant, unit_pretax_amount: 100, tax: Tax.find_by(amount: 20), quantity: 0.999, pretax_amount: 100)
+    item.save!
+    assert_equal 100, item.pretax_amount
+
+    item = purchase.items.build(variant: variant, unit_pretax_amount: 100, tax: Tax.find_by(amount: 20), quantity: 0.999, pretax_amount: 99, amount: 120)
+    item.save!
+    assert_equal 120, item.amount
+
+    assert_equal 7, purchase.items.count
+  end
+
+  test "simple creation with nested items" do
+    attributes = {
+      nature: PurchaseNature.first,
+      supplier: Entity.where(supplier: true).first,
+      items_attributes: {
+        "0" => {
+          tax: Tax.find_by!(amount: 20),
+          variant: ProductNatureVariant.first,
+          unit_pretax_amount: 100,
+          quantity: 1
+        },
+        "1" => {
+          tax: Tax.find_by!(amount: 0),
+          variant_id: ProductNatureVariant.first.id,
+          unit_pretax_amount: 450,
+          quantity: 2
+        },
+        "2" => { # Invalid item (rejected)
+          tax: Tax.find_by!(amount: 19.6),
+          unit_pretax_amount: 123,
+          quantity: 17
+        }
+      }
+    }.deep_stringify_keys
+    purchase = Purchase.create!(attributes)
+    assert_equal 2, purchase.items.count
+    assert_equal 1000, purchase.pretax_amount
+    assert_equal 1020, purchase.amount
+  end
+
 end

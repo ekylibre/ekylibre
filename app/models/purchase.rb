@@ -75,7 +75,7 @@ class Purchase < Ekylibre::Record::Base
 
   acts_as_numbered
   acts_as_affairable :supplier
-  accepts_nested_attributes_for :items, reject_if: proc { |item| item[:variant_id].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :items, reject_if: proc { |item| item[:variant_id].blank? and item[:variant].blank?}, allow_destroy: true
 
   delegate :closed, to: :affair, prefix: true
 

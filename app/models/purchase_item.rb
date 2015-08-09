@@ -103,13 +103,39 @@ class PurchaseItem < Ekylibre::Record::Base
       item = Nomen::Currencies.find(currency)
       precision = item ? item.precision : 2
       self.unit_amount = unit_pretax_amount * (100.0 + tax_amount) / 100.0
-      self.pretax_amount ||= (unit_pretax_amount * self.quantity * (100.0 - self.reduction_percentage) / 100.0).round(precision)
-      self.amount ||= (self.pretax_amount * (100.0 + tax_amount) / 100.0).round(precision)
+      if self.pretax_amount.zero? || self.pretax_amount.nil?
+        self.pretax_amount = (unit_pretax_amount * self.quantity * (100.0 - self.reduction_percentage) / 100.0).round(precision)
+      end
+      if self.amount.zero? || self.amount.nil?
+        self.amount = (self.pretax_amount * (100.0 + tax_amount) / 100.0).round(precision)
+      end
     end
 
     if variant
       if fixed
         self.account = variant.fixed_asset_account || Account.find_in_chart(:fixed_assets)
+        unless fixed_asset
+          # Create asset
+          asset_attributes = {
+            started_on: purchase.invoiced_at.to_date,
+            depreciable_amount: self.pretax_amount,
+            depreciation_method: variant.fixed_asset_depreciation_method,
+            depreciation_percentage: variant.fixed_asset_depreciation_percentage,
+            journal: Journal.find_by(nature: :various),
+            allocation_account: variant.fixed_asset_allocation_account, # 28
+            expenses_account: variant.fixed_asset_expenses_account # 68
+          }
+          if products.any?
+            asset_attributes[:name] = delivery_items.collect(&:name).to_sentence
+          end
+          asset_attributes[:name] ||= name
+
+          if FixedAsset.find_by(name: asset_attributes[:name])
+            asset_attributes[:name] << ' ' + rand(FixedAsset.count * 36**3).to_s(36).upcase
+          end
+          build_fixed_asset(asset_attributes)
+        end
+
       else
         self.account = variant.charge_account || Account.find_in_chart(:expenses)
       end
@@ -120,30 +146,6 @@ class PurchaseItem < Ekylibre::Record::Base
   validate do
     errors.add(:currency, :invalid) if currency != purchase_currency if purchase
     errors.add(:quantity, :invalid) if self.quantity.zero?
-  end
-
-  before_validation do
-    if variant = self.variant and variant.depreciable? and fixed and !fixed_asset
-      # Create asset
-      attributes = {
-        started_on: purchase.invoiced_at.to_date,
-        depreciable_amount: self.pretax_amount,
-        depreciation_method: variant.fixed_asset_depreciation_method,
-        depreciation_percentage: variant.fixed_asset_depreciation_percentage,
-        journal: Journal.find_by(nature: :various),
-        allocation_account: variant.fixed_asset_allocation_account, # 28
-        expenses_account: variant.fixed_asset_expenses_account # 68
-      }
-      if products.any?
-        attributes[:name] = delivery_items.collect(&:name).to_sentence
-      end
-      attributes[:name] ||= name
-
-      if FixedAsset.find_by(name: attributes[:name])
-        attributes[:name] << ' ' + rand(FixedAsset.count * 36**3).to_s(36).upcase
-      end
-      build_fixed_asset(attributes)
-    end
   end
 
   def product_name
