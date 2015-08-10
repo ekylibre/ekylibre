@@ -112,6 +112,7 @@ class PurchaseItem < Ekylibre::Record::Base
     end
 
     if variant
+      self.label ||= variant.commercial_name
       if fixed
         self.account = variant.fixed_asset_account || Account.find_in_chart(:fixed_assets)
         unless fixed_asset
@@ -128,18 +129,15 @@ class PurchaseItem < Ekylibre::Record::Base
           if products.any?
             asset_attributes[:name] = delivery_items.collect(&:name).to_sentence
           end
-          asset_attributes[:name] ||= name
-
-          if FixedAsset.find_by(name: asset_attributes[:name])
+          asset_attributes[:name] = name if asset_attributes[:name].blank?
+          while FixedAsset.find_by(name: asset_attributes[:name])
             asset_attributes[:name] << ' ' + rand(FixedAsset.count * 36**3).to_s(36).upcase
           end
           build_fixed_asset(asset_attributes)
         end
-
       else
         self.account = variant.charge_account || Account.find_in_chart(:expenses)
       end
-      self.label ||= variant.commercial_name
     end
   end
 
