@@ -38,6 +38,7 @@
             featureGroup: null
             edit:
               color: "#A40"
+              popup: false
           draw:
             marker: false
             polyline: false
@@ -123,6 +124,29 @@
 
       widget.element.trigger "mapeditor:loaded"
 
+
+    findLayer: (feature_id) ->
+      containerLayer = undefined
+      this.edition.eachLayer (layer) =>
+        if (layer.feature.properties.internal_id == feature_id)
+          containerLayer = layer
+          return
+      return containerLayer
+
+    navigateToLayer: (layer) ->
+      this.map.fitBounds layer.getBounds()
+
+    onEachFeature: (feature, layer) ->
+      $(document).trigger('mapeditor:feature_add', [feature, layer])
+
+      if (feature.properties && feature.properties.type?)
+        popup = ""
+        popup += "<div class='popup-content'>"
+        popup += "<span class='popup-block-content'>#{feature.properties.type}: #{feature.properties.name}</span>"
+        popup += "</div>"
+
+        layer.bindPopup popup
+
     _destroy: ->
       this.element.attr this.oldElementType
       this.mapElement.remove()
@@ -189,9 +213,13 @@
       if this.edition?
         this.map.removeLayer this.edition
       if this.options.edit?
-        this.edition = L.GeoJSON.geometryToLayer(this.options.edit)
+#        this.edition = L.GeoJSON.geometryToLayer(this.options.edit)
+        this.edition = L.geoJson(this.options.edit, {
+          onEachFeature: this.onEachFeature
+        })
       else
         this.edition = new L.GeoJSON()
+
       this.edition.setStyle this.options.editStyle
       this.edition.addTo this.map
       this._refreshControls()
