@@ -84,15 +84,14 @@ module Ekylibre
         @list[env] << new.to_s
       end
 
-
       # Dump database and files data to a zip archive with specific places
       # This archive is database independent
       def dump(name, infos = {})
         switch(name) do
-          archive_file = Rails.root.join("tmp", "archives", "#{name}.zip")
-          archive_path = Rails.root.join("tmp", "archives", "#{name}-dump")
-          tables_path = archive_path.join("tables")
-          files_path = archive_path.join("files")
+          archive_file = Rails.root.join('tmp', 'archives', "#{name}.zip")
+          archive_path = Rails.root.join('tmp', 'archives', "#{name}-dump")
+          tables_path = archive_path.join('tables')
+          files_path = archive_path.join('files')
 
           FileUtils.rm_rf(archive_path)
 
@@ -104,17 +103,17 @@ module Ekylibre
             FileUtils.cp_r(private_directory.to_s, files_path.to_s)
           end
 
-          File.open(archive_path.join("mimetype"), 'wb') do |f|
-            f.write "application/vnd.ekylibre.tenant.archive"
+          File.open(archive_path.join('mimetype'), 'wb') do |f|
+            f.write 'application/vnd.ekylibre.tenant.archive'
           end
 
-          File.open(archive_path.join("manifest.yml"), 'wb') do |f|
+          File.open(archive_path.join('manifest.yml'), 'wb') do |f|
             infos.update(
               tenant: name,
-              format_version: "2.0",
+              format_version: '2.0',
               database_version: version,
               creation_at: Time.now,
-              created_with: "Ekylibre #{Ekylibre::VERSION}",
+              created_with: "Ekylibre #{Ekylibre::VERSION}"
             )
             f.write infos.stringify_keys.to_yaml
           end
@@ -122,7 +121,7 @@ module Ekylibre
           FileUtils.rm_rf(archive_file)
           Zip::File.open(archive_file, Zip::File::CREATE) do |zile|
             Dir.chdir archive_path do
-              Dir.glob("**/*").each do |path|
+              Dir.glob('**/*').each do |path|
                 zile.add(path, archive_path.join(path))
               end
             end
@@ -137,9 +136,9 @@ module Ekylibre
         code = options[:tenant] || Time.now.to_i.to_s(36) + rand(999_999_999).to_s(36)
         verbose = !options[:verbose].is_a?(FalseClass)
 
-        archive_path = Rails.root.join("tmp", "archives", "#{code}-restore")
-        tables_path = archive_path.join("tables")
-        files_path = archive_path.join("files")
+        archive_path = Rails.root.join('tmp', 'archives', "#{code}-restore")
+        tables_path = archive_path.join('tables')
+        files_path = archive_path.join('files')
 
         FileUtils.rm_rf(archive_path)
         FileUtils.mkdir_p(archive_path)
@@ -151,49 +150,44 @@ module Ekylibre
           end
         end
 
-        puts "Checking archive...".yellow if verbose
-        unless archive_path.join("manifest.yml").exist?
-          fail "Invalid archive"
-        end
+        puts 'Checking archive...'.yellow if verbose
+        fail 'Invalid archive' unless archive_path.join('manifest.yml').exist?
 
-        manifest = YAML.load_file(archive_path.join("manifest.yml")).symbolize_keys
+        manifest = YAML.load_file(archive_path.join('manifest.yml')).symbolize_keys
         format_version = manifest[:format_version]
-        unless format_version == "2.0"
+        unless format_version == '2.0'
           fail "Cannot handle this version of archive: #{format_version}"
         end
 
         unless name = options[:tenant] || manifest[:tenant]
-          fail "No given name for the tenant"
+          fail 'No given name for the tenant'
         end
 
         database_version = manifest[:database_version].to_i
         if database_version > ActiveRecord::Migrator.last_version
-          fail "Too recent archive"
+          fail 'Too recent archive'
         end
 
         puts "Resetting tenant #{name}...".yellow if verbose
-        if exist?(name)
-          drop(name)
-        end
+        drop(name) if exist?(name)
         create(name)
 
         switch(name) do
           if files_path.exist?
-            puts "Restoring files...".yellow if verbose
+            puts 'Restoring files...'.yellow if verbose
             FileUtils.rm_rf private_directory
             FileUtils.mv files_path, private_directory
           else
-            puts "No files to restore".yellow if verbose
+            puts 'No files to restore'.yellow if verbose
           end
 
-          puts "Restoring database and migrating...".yellow if verbose
+          puts 'Restoring database and migrating...'.yellow if verbose
           Fixturing.restore(name, version: database_version, path: tables_path, verbose: verbose)
-          puts "Done!".yellow if verbose
+          puts 'Done!'.yellow if verbose
         end
 
         FileUtils.rm_rf(archive_path)
       end
-
 
       # Change current tenant
       def switch(name, &block)
@@ -288,8 +282,6 @@ module Ekylibre
       def semaphore
         @@semaphore ||= Mutex.new
       end
-
-
     end
   end
 end

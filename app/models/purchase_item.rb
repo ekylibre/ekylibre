@@ -103,11 +103,11 @@ class PurchaseItem < Ekylibre::Record::Base
       item = Nomen::Currencies.find(currency)
       precision = item ? item.precision : 2
       self.unit_amount = unit_pretax_amount * (100.0 + tax_amount) / 100.0
-      if self.pretax_amount.zero? || self.pretax_amount.nil?
+      if pretax_amount.zero? || pretax_amount.nil?
         self.pretax_amount = (unit_pretax_amount * self.quantity * (100.0 - self.reduction_percentage) / 100.0).round(precision)
       end
-      if self.amount.zero? || self.amount.nil?
-        self.amount = (self.pretax_amount * (100.0 + tax_amount) / 100.0).round(precision)
+      if amount.zero? || amount.nil?
+        self.amount = (pretax_amount * (100.0 + tax_amount) / 100.0).round(precision)
       end
     end
 
@@ -119,7 +119,7 @@ class PurchaseItem < Ekylibre::Record::Base
           # Create asset
           asset_attributes = {
             started_on: purchase.invoiced_at.to_date,
-            depreciable_amount: self.pretax_amount,
+            depreciable_amount: pretax_amount,
             depreciation_method: variant.fixed_asset_depreciation_method,
             depreciation_percentage: variant.fixed_asset_depreciation_percentage,
             journal: Journal.find_by(nature: :various),
@@ -151,7 +151,7 @@ class PurchaseItem < Ekylibre::Record::Base
   end
 
   def taxes_amount
-    self.amount - self.pretax_amount
+    amount - pretax_amount
   end
 
   def designation

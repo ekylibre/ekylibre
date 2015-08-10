@@ -86,7 +86,6 @@ class Charta::GeometryTest < ActiveSupport::TestCase
     end
   end
 
-
   test 'different GML format input' do
     samples = []
 
@@ -108,7 +107,6 @@ class Charta::GeometryTest < ActiveSupport::TestCase
       geom = Charta::Geometry.new(sample, nil, 'gml').transform(:WGS84)
 
       assert_equal 4326, geom.srid
-
     end
   end
 
@@ -117,13 +115,13 @@ class Charta::GeometryTest < ActiveSupport::TestCase
 
     samples << '<MultiGeometry srsName="EPSG:2154" xmlns:gml="http://www.opengis.net/kml/2.2">
     <Polygon>
-				<outerBoundaryIs>
-					<LinearRing>
-						<tessellate>1</tessellate>
-						<coordinates>-0.6333554,44.8059247,0.0 -0.6347930000000002,44.80565070000001,0.0 -0.6340957000000002,44.8046611,0.0 -0.6328510999999999,44.80490470000001,0.0 -0.6333554,44.8059247,0.0</coordinates>
-					</LinearRing>
-				</outerBoundaryIs>
-		</Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <tessellate>1</tessellate>
+            <coordinates>-0.6333554,44.8059247,0.0 -0.6347930000000002,44.80565070000001,0.0 -0.6340957000000002,44.8046611,0.0 -0.6328510999999999,44.80490470000001,0.0 -0.6333554,44.8059247,0.0</coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+    </Polygon>
 </MultiGeometry>'
 
     samples.each_with_index do |sample, _index|
@@ -132,7 +130,6 @@ class Charta::GeometryTest < ActiveSupport::TestCase
       geom = Charta::Geometry.new(sample, nil, 'kml').transform(:WGS84)
 
       assert_equal 4326, geom.srid
-
     end
   end
 end

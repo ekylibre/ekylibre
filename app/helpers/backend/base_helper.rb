@@ -53,7 +53,7 @@ module Backend::BaseHelper
     # options[:events] = all_records
     options[:params] ||= {}
     options[:param_name] = :started_on
-    options[:previous_link] = lambda  do |param, date_range|
+    options[:previous_link] = lambda do |param, date_range|
       link_to(raw('&laquo;'), options[:params].merge(param => date_range.first - 1.day), class: 'previous-month')
     end
     options[:next_link] = lambda do |param, date_range|

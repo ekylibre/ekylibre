@@ -160,7 +160,7 @@ module ApplicationHelper
       html_options = args[2] || {}
 
       if options.is_a? Hash
-        return (html_options[:remove] ? '' : content_tag(:a, name, class: html_options[:class].to_s + " forbidden", disabled: true)) unless authorized?(options)
+        return (html_options[:remove] ? '' : content_tag(:a, name, class: html_options[:class].to_s + ' forbidden', disabled: true)) unless authorized?(options)
       end
 
       html_options = convert_options_to_data_attributes(options, html_options)
@@ -171,7 +171,7 @@ module ApplicationHelper
         raise uge unless Rails.env.production?
         ExceptionNotifier::Notifier.exception_notification(request.env, uge).deliver
         request.env['exception_notifier.delivered'] = true
-        return content_tag(:a, name, class: html_options[:class].to_s + " invalid invalid-route", disabled: true)
+        return content_tag(:a, name, class: html_options[:class].to_s + ' invalid invalid-route', disabled: true)
       end
 
       if html_options

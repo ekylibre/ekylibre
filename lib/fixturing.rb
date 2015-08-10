@@ -80,7 +80,6 @@ module Fixturing
       end
     end
 
-
     # Extract data from DB into given path or test/fixtures by default
     # Returns version of DB (as integer)
     def extract(options = {})
@@ -111,7 +110,6 @@ module Fixturing
       version = ActiveRecord::Base.connection.select_value("SELECT * FROM #{migrations_table} ORDER BY 1 DESC")
       version.to_i
     end
-
 
     def migrate(tenant, options = {})
       target = ActiveRecord::Migrator.last_version

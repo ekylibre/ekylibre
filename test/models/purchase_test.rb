@@ -50,8 +50,7 @@
 require 'test_helper'
 
 class PurchaseTest < ActiveSupport::TestCase
-
-  test "simple creation" do
+  test 'simple creation' do
     nature = PurchaseNature.first
     assert nature
     supplier = Entity.where(supplier: true).first
@@ -82,24 +81,24 @@ class PurchaseTest < ActiveSupport::TestCase
     assert_equal 7, purchase.items.count
   end
 
-  test "simple creation with nested items" do
+  test 'simple creation with nested items' do
     attributes = {
       nature: PurchaseNature.first,
       supplier: Entity.where(supplier: true).first,
       items_attributes: {
-        "0" => {
+        '0' => {
           tax: Tax.find_by!(amount: 20),
           variant: ProductNatureVariant.first,
           unit_pretax_amount: 100,
           quantity: 1
         },
-        "1" => {
+        '1' => {
           tax: Tax.find_by!(amount: 0),
           variant_id: ProductNatureVariant.first.id,
           unit_pretax_amount: 450,
           quantity: 2
         },
-        "2" => { # Invalid item (rejected)
+        '2' => { # Invalid item (rejected)
           tax: Tax.find_by!(amount: 19.6),
           unit_pretax_amount: 123,
           quantity: 17
@@ -111,5 +110,4 @@ class PurchaseTest < ActiveSupport::TestCase
     assert_equal 1000, purchase.pretax_amount
     assert_equal 1020, purchase.amount
   end
-
 end

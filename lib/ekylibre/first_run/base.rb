@@ -98,7 +98,7 @@ module Ekylibre
         if expected.any?
           if expected.size != map.values.size
             puts "☠ #{nature.to_s.humanize} (#{target})".red
-            puts ("  Missing files to build #{target} archive: " + expected.map{|f| f.relative_path_from(@path) }.to_sentence).red
+            puts ("  Missing files to build #{target} archive: " + expected.map { |f| f.relative_path_from(@path) }.to_sentence).red
             return false
           end
         else
