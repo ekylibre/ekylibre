@@ -1,17 +1,23 @@
 module ActiveGuide
   class Item
-    attr_reader :name, :before_block, :after_block, :accept_block
+    attr_reader :name, :before_block, :after_block, :accept_block, :parent
 
-    def initialize(group, name, options = {})
-      @group = group
+    def initialize(parent, name, options = {})
+      @parent = parent
       @name = name
       before(&options.delete(:before)) if options[:before].respond_to?(:call)
       after(&options.delete(:after)) if options[:after].respond_to?(:call)
       accept(&options.delete(:if)) if options[:if].respond_to?(:call)
     end
 
+
+    def unique_name
+      @unique_name ||= (@parent ? @parent.unique_name.to_s + ':' + @name.to_s : @name.to_s)
+    end
+
+
     def guide
-      @group.guide
+      @parent.guide
     end
 
     def accept(&block)

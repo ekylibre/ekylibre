@@ -24,9 +24,9 @@ module ActiveGuide
       options = args.extract_options!
       test = nil
       if block_given?
-        test = Test.new(@group, name, options, &block)
+        test = Test.new(self, name, options, &block)
       elsif proc = args.shift and proc.respond_to? :call
-        test = Test.new(@group, name, options.merge(validate: proc))
+        test = Test.new(self, name, options.merge(validate: proc))
       else
         fail "Cannot do anything with test #{name}"
       end

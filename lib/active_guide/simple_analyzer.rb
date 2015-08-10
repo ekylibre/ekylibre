@@ -5,23 +5,36 @@ module ActiveGuide
 
       def initialize(verbose = true)
         @variables = OpenStruct.new
-        @results = OpenStruct.new
+        @results = []
         @answer = nil
         @verbose = verbose
       end
     end
 
     def run(guide, options = {})
+      started_at = Time.now
       env = Env.new
       env.verbose = !options[:verbose].is_a?(FalseClass)
       puts 'Running...'.yellow if env.verbose
-      results = analyze_item(guide.root, env, -1)
-      if env.verbose
-        puts "#{results[:failed].to_s.red} tests failed, #{results[:passed].to_s.green} tests passed"
-        env.results.to_h.each do |name, _r|
-          puts " > #{name.to_s.humanize}: #{env.variables.send(name).to_s.yellow}"
+      report = analyze_item(guide.root, env, -1)
+      # Adds results if any
+      unless env.results.empty?
+        report[:results] = []
+        env.results.each do |result|
+          report[:results] << { item: result, value: env.variables.send(result.name) }
         end
       end
+      # Adds end time
+      report[:started_at] = started_at
+      report[:stopped_at] = Time.now
+      # Display report if wanted
+      if env.verbose
+        puts "#{report[:failed].to_s.red} tests failed, #{report[:passed].to_s.green} tests passed"
+        report[:results].each do |r|
+          puts " > #{r[:item].name.to_s.humanize}: #{r[:value].to_s.yellow}"
+        end if report[:results]
+      end
+      return report
     end
 
     def analyze_item(item, env, depth = 0)
@@ -39,61 +52,70 @@ module ActiveGuide
     end
 
     def analyze_group(group, env, depth = 0)
-      results = { failed: 0, passed: 0 }
+      report = { failed: 0, passed: 0, points: [] }
       log_group(env, group.name, depth)
       call_callbacks(group, env) do
         group.items.each do |item|
           r = analyze_item(item, env, depth + 1)
-          results[:failed] += r[:failed]
-          results[:passed] += r[:passed]
+          report[:failed] += r[:failed]
+          report[:passed] += r[:passed]
+          report[:points] += r[:points]
         end
       end
-      results
+      report
     end
 
     def analyze_test(test, env, depth = 0)
-      results = { failed: 0, passed: 0 }
+      report = { failed: 0, passed: 0, points: [] }
       call_callbacks(test, env) do
         if test.validate?
           if r = !!env.instance_exec(&test.validate_block)
-            results[:passed] += 1
+            report[:passed] += 1
           else
-            results[:failed] += 1
+            report[:failed] += 1
           end
+          report[:points] << {item: test, success: r }
           log_result(env, test.name, r, depth)
         else
           failed = 0
+          subtests = []
           test.subtests.each do |subtest|
             r = analyze_test(subtest, env, depth + 1)
-            failed += 1 if r[:failed] > 0
+            rr = r[:failed]
+            if rr > 0
+              failed += 1
+            end
+            subtests << { item: test, success: rr }
           end
           if r = failed.zero?
-            results[:passed] += 1
+            report[:passed] += 1
           else
-            results[:failed] += 1
+            report[:failed] += 1
           end
+          report[:points] << {item: test, success: r, subtests: subtests }
           log_result(env, test.name, r, depth)
         end
       end
-      results
+      report
     end
 
     def analyze_question(question, env, depth)
-      results = { failed: 0, passed: 0 }
+      report = { failed: 0, passed: 0, points: [] }
       call_callbacks(question, env) do
         if r = rand > 0.5
-          results[:passed] += 1
+          report[:passed] += 1
         else
-          results[:failed] += 1
+          report[:failed] += 1
         end
+        report[:points] << {item: question, success: r }
         log_result(env, "#{question.name.to_s.humanize} ?", r, depth)
       end
-      results
+      report
     end
 
     def analyze_result(result, env)
-      env.results[result.name] = result
-      { failed: 0, passed: 0 }
+      env.results << result
+      { failed: 0, passed: 0, points: [] }
     end
 
     protected
