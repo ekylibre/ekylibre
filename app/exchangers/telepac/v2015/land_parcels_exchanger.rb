@@ -142,7 +142,7 @@ class Telepac::V2015::LandParcelsExchanger < ActiveExchanger::Base
           unless production_nature && activity_family = Nomen::ActivityFamilies[production_nature.activity]
             fail "No activity family found. (#{record.attributes['TYPE']})"
           end
-          
+
           # find the sub-variety if exist
           crop_type = Nomen::TelepacV2015CapCropCode.find_by(telepac_crop_code: record.attributes['TYPE'].to_s)
           if crop_type and crop_type.telepac_complementary_information_sub_varieties.present? and record.attributes['CODE_VAR']
