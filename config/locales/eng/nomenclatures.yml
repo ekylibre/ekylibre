@@ -2707,6 +2707,7 @@ eng:
         gas: "Gas"
         gasoline: "Gasoline"
         generic_animal_medicine: "Generic animal medicine"
+        # girasole_crop: "Girasole crop"
         goat_herd: "Goat herd"
         goat_milk: "Goat milk"
         gooseberry_crop: "Gooseberry crop"
@@ -3292,6 +3293,7 @@ eng:
         activity: "Activity"
         production_code: "Production code"
         telepac_crop_code: "Telepac crop code"
+        # telepac_crop_code_v2015: "Telepac crop code v2015"
         variant_support: "Variant support"
       items:
         administrative: "Administrative"
@@ -4131,6 +4133,7 @@ eng:
         helianthus_annuus_pr64h41: "Annual sunflower pr64h41" #< helianthus_annuus
         helianthus_annuus_rapala: "Annual sunflower rapala" #< helianthus_annuus
         helianthus_annuus_sy_valeo: "Annual sunflower sy valeo" #< helianthus_annuus
+        # helianthus_tuberosus: "Helianthus tuberosus"     #< helianthus
         helicidae: "Helicidae"                             #< gastropoda
         helix: "Helix"                                     #< helicidae
         helix_aperta: "Helix aperta"                       #< helix
@@ -4398,6 +4401,7 @@ eng:
         seedling: "Seedling"                               #< raw_matter
         service: "Service"                                 #< immatter
         setaria: "Bristlegrass"                            #< poaceae
+        # setaria_italica: "Setaria italica"               #< setaria
         settlement: "Settlement"                           #< easement
         shepherdia: "Shepherdia"                           #< elaeagnaceae
         silage: "Silage"                                   #< preparation
@@ -4848,18 +4852,37 @@ eng:
         trifolium_repens_triple: "Trifolium repens triple" #< trifolium_repens
         triticosecale: "Triticale"                         #< poaceae
         triticum: "Wheat"                                  #< poaceae
+        # triticum_aestivu_bon_moulinm: "Triticum aestivu bon moulinm" #< triticum_aestivum
         triticum_aestivum: "Common wheat"                  #< triticum
+        # triticum_aestivum_allies: "Triticum aestivum allies" #< triticum_aestivum
         triticum_aestivum_apache: "Common wheat Apache"    #< triticum_aestivum
         triticum_aestivum_arezzo: "Common wheat arezzo"    #< triticum_aestivum
         triticum_aestivum_ascott: "Common wheat Ascott"    #< triticum_aestivum
         triticum_aestivum_autan: "Common wheat Autan"      #< triticum_aestivum
+        # triticum_aestivum_automne_rouge_barbu: "Triticum aestivum automne rouge barbu" #< triticum_aestivum
+        # triticum_aestivum_autrichien: "Triticum aestivum autrichien" #< triticum_aestivum
         triticum_aestivum_aztec: "Common wheat Aztec"      #< triticum_aestivum
+        # triticum_aestivum_blanc_de_flandre: "Triticum aestivum blanc de flandre" #< triticum_aestivum
+        # triticum_aestivum_ble_de_crepi: "Triticum aestivum ble de crepi" #< triticum_aestivum
+        # triticum_aestivum_ble_de_redon: "Triticum aestivum ble de redon" #< triticum_aestivum
+        # triticum_aestivum_bon_fermier: "Triticum aestivum bon fermier" #< triticum_aestivum
+        # triticum_aestivum_bordier: "Triticum aestivum bordier" #< triticum_aestivum
         triticum_aestivum_bussard: "Common wheat Bussard"  #< triticum_aestivum
         triticum_aestivum_caphorn: "Common wheat Caphorn"  #< triticum_aestivum
+        # triticum_aestivum_champ_joli: "Triticum aestivum champ joli" #< triticum_aestivum
+        # triticum_aestivum_chanteclair: "Triticum aestivum chanteclair" #< triticum_aestivum
+        # triticum_aestivum_chiddam_d_automne_blanc: "Triticum aestivum chiddam d automne blanc" #< triticum_aestivum
+        # triticum_aestivum_chiddam_d_automne_rouge: "Triticum aestivum chiddam d automne rouge" #< triticum_aestivum
+        # triticum_aestivum_cote_d_or: "Triticum aestivum cote d or" #< triticum_aestivum
         triticum_aestivum_courtot: "Common wheat Courtot"  #< triticum_aestivum
+        # triticum_aestivum_dattel: "Triticum aestivum dattel" #< triticum_aestivum
         triticum_aestivum_esperia: "Common wheat Esperia"  #< triticum_aestivum
         triticum_aestivum_euclide: "Common wheat Euclide"  #< triticum_aestivum
+        # triticum_aestivum_fleche_d_or: "Triticum aestivum fleche d or" #< triticum_aestivum
         triticum_aestivum_galibier: "Common wheat Galibier" #< triticum_aestivum
+        # triticum_aestivum_gerbor: "Triticum aestivum gerbor" #< triticum_aestivum
+        # triticum_aestivum_goldentrop: "Triticum aestivum goldentrop" #< triticum_aestivum
+        # triticum_aestivum_gros_bleu: "Triticum aestivum gros bleu" #< triticum_aestivum
         triticum_aestivum_isengrain: "Common wheat Isengrain" #< triticum_aestivum
         triticum_aestivum_levis: "Common wheat Levis"      #< triticum_aestivum
         triticum_aestivum_lona: "Common wheat Lona"        #< triticum_aestivum
@@ -4878,9 +4901,26 @@ eng:
         triticum_aestivum_texel: "Common wheat Texel"      #< triticum_aestivum
         triticum_aestivum_tremie: "Common wheat Tremie"    #< triticum_aestivum
         triticum_durum: "Durum wheat"                      #< triticum
+        # triticum_durum_acalou: "Triticum durum acalou"   #< triticum_durum
+        # triticum_durum_actisur: "Triticum durum actisur" #< triticum_durum
+        # triticum_durum_ailandur: "Triticum durum ailandur" #< triticum_durum
+        # triticum_durum_akenaton: "Triticum durum akenaton" #< triticum_durum
         triticum_durum_alexis: "Durum wheat Alexis"        #< triticum_durum
+        # triticum_durum_alfaro: "Triticum durum alfaro"   #< triticum_durum
+        # triticum_durum_anco_marzio: "Triticum durum anco marzio" #< triticum_durum
+        # triticum_durum_anvergur: "Triticum durum anvergur" #< triticum_durum
+        # triticum_durum_argeles: "Triticum durum argeles" #< triticum_durum
+        # triticum_durum_athoris: "Triticum durum athoris" #< triticum_durum
+        # triticum_durum_atoudur: "Triticum durum atoudur" #< triticum_durum
+        # triticum_durum_attila: "Triticum durum attila"   #< triticum_durum
+        # triticum_durum_augur: "Triticum durum augur"     #< triticum_durum
+        # triticum_durum_auris: "Triticum durum auris"     #< triticum_durum
         triticum_durum_aventur: "Durum wheat Aventur"      #< triticum_durum
+        # triticum_durum_babylone: "Triticum durum babylone" #< triticum_durum
         triticum_durum_biensur: "Durum wheat Biensur"      #< triticum_durum
+        # triticum_durum_byblos: "Triticum durum byblos"   #< triticum_durum
+        # triticum_durum_casteldoux: "Triticum durum casteldoux" #< triticum_durum
+        # triticum_durum_catervo: "Triticum durum catervo" #< triticum_durum
         triticum_durum_cultur: "Durum wheat Cultur"        #< triticum_durum
         triticum_durum_fabulis: "Durum wheat Fabulis"      #< triticum_durum
         triticum_durum_karur: "Durum wheat Karur"          #< triticum_durum

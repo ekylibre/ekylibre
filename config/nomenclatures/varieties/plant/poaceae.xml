@@ -24,6 +24,12 @@
     </items>
   </nomenclature>
 
+  <nomenclature name="varieties-dactylis" hierarchical="true">
+    <items>
+      <item name="dactylis_lazuly" itis_tsn="12345"/>
+    </items>
+  </nomenclature>
+
   <nomenclature name="varieties-phalaris" hierarchical="true">
     <items>
       <item name="phalaris_canariensis" itis_tsn="41336"/>
@@ -36,11 +42,12 @@
     </items>
   </nomenclature>
 
-  <nomenclature name="varieties-dactylis" hierarchical="true">
+  <nomenclature name="varieties-setaria" hierarchical="true">
     <items>
-      <item name="dactylis_lazuly" itis_tsn="12345"/>
+      <item name="setaria_italica" itis_tsn="41248"/>
     </items>
   </nomenclature>
+
 
   <nomenclature name="varieties-lolium" hierarchical="true">
     <items>

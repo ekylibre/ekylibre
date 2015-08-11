@@ -648,6 +648,12 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
+      <item name="girasole_crop"
+            nature="vegetable_crop"
+            variety="helianthus_tuberosus"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
       <item name="muskmelon_crop"
             nature="melon_crop"
             variety="cucumis_melo"

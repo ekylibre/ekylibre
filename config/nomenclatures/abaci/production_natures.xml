@@ -8,6 +8,7 @@
       <property-nature name="activity" type="choice" nomenclature="activity_families" required="true"/>
       <property-nature name="production_code" type="string" required="false"/>
       <property-nature name="telepac_crop_code" type="string" required="false"/>
+      <property-nature name="telepac_crop_code_v2015" type="string" required="false"/>
       <property-nature name="variant_support" type="choice" nomenclature="product_nature_variants" required="false"/>
     </property-natures>
 
@@ -42,78 +43,91 @@
             production_code="1100"
             activity="common_wheat_crops"
             telepac_crop_code="BH"
+            telepac_crop_code_v2015="BTH"
             variant_support="wheat_crop"
             />
       <item name="spring_soft_wheat"
             production_code="1100"
             activity="common_wheat_crops"
             telepac_crop_code="BP"
+            telepac_crop_code_v2015="BTP"
             variant_support="wheat_crop"
             />
       <item name="winter_hard_wheat"
             production_code="1200"
             activity="durum_wheat_crops"
             telepac_crop_code="BA"
+            telepac_crop_code_v2015="BDH"
             variant_support="hard_wheat_crop"
             />
       <item name="spring_hard_wheat"
             production_code="1230"
             activity="durum_wheat_crops"
             telepac_crop_code="BB"
+            telepac_crop_code_v2015="BDP"
             variant_support="hard_wheat_crop"
             />
       <item name="rye"
             production_code="1300"
             activity="rye_crops"
             telepac_crop_code="SE"
+            telepac_crop_code_v2015="RIZ"
             variant_support="rye_crop"
             />
       <item name="winter_barley"
             production_code="1410"
             activity="barley_crops"
             telepac_crop_code="OH"
+            telepac_crop_code_v2015="ORH"
             variant_support="winter_barley_crop"
             />
       <item name="escourgeon_barley"
             production_code="1420"
             activity="bere_crops"
             telepac_crop_code="OH"
+            telepac_crop_code_v2015="ORH"
             variant_support="escourgeon_barley_crop"
             />
       <item name="spring_barley"
             production_code="1430"
             activity="barley_crops"
             telepac_crop_code="OP"
+            telepac_crop_code_v2015="ORP"
             variant_support="spring_barley_crop"
             />
       <item name="winter_oat"
             production_code="1510"
             activity="oat_crops"
             telepac_crop_code="AH"
+            telepac_crop_code_v2015="AVH"
             variant_support="winter_oat_crop"
             />
       <item name="spring_oat"
             production_code="1520"
             activity="oat_crops"
             telepac_crop_code="AP"
+            telepac_crop_code_v2015="AVP"
             variant_support="spring_oat_crop"
             />
       <item name="grain_corn"
             production_code="1710"
             activity="maize_crops"
             telepac_crop_code="MA"
+            telepac_crop_code_v2015="MIS"
             variant_support="corn_grain_crop"
             />
       <item name="seed_corn"
             production_code="1712"
             activity="maize_crops"
             telepac_crop_code="MS"
+            telepac_crop_code_v2015="MIS"
             variant_support="corn_seed_crop"
             />
       <item name="triticale"
             production_code="1800"
             activity="triticale_crops"
             telepac_crop_code="TR"
+            telepac_crop_code_v2015="TTH"
             variant_support="triticale_crop"
             />
       <!-- 2 - INDUSTRIALS, MEDICINES CROP -->
