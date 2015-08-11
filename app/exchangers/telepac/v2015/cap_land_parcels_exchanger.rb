@@ -18,7 +18,7 @@ class Telepac::V2015::CapLandParcelsExchanger < ActiveExchanger::Base
       file.each do |record|
         attributes = {
           initial_born_at: Time.utc(1, 1, 1, 0, 0, 0),
-          work_number: record.attributes['NUMERO'].to_s,
+          work_number: record.attributes['PACAGE'].to_s + '-' + record.attributes['NUMERO'].to_s,
           variant_id: land_parcel_cluster_variant.id,
           name: LandParcelCluster.model_name.human + ' ' + record.attributes['NUMERO'].to_s,
           variety: 'land_parcel_cluster',

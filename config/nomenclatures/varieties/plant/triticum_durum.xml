@@ -2,18 +2,35 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-triticum_durum" hierarchical="true">
     <items>
-      <item name="triticum_durum_pescadou"/>
-      <item name="triticum_durum_tablur"/>
-      <item name="triticum_durum_aventur"/>
-      <item name="triticum_durum_biensur"/>
-      <item name="triticum_durum_karur"/>
-      <item name="triticum_durum_cultur"/>
-      <item name="triticum_durum_sy_banco"/>
+      <item name="triticum_durum_acalou"/>
+      <item name="triticum_durum_actisur"/>
+      <item name="triticum_durum_ailandur"/>
+      <item name="triticum_durum_akenaton"/>
       <item name="triticum_durum_alexis"/>
+      <item name="triticum_durum_alfaro"/>
+      <item name="triticum_durum_anco_marzio"/>
+      <item name="triticum_durum_anvergur"/>
+      <item name="triticum_durum_argeles"/>
+      <item name="triticum_durum_athoris"/>
+      <item name="triticum_durum_atoudur"/>
+      <item name="triticum_durum_attila"/>
+      <item name="triticum_durum_augur"/>
+      <item name="triticum_durum_auris"/>
+      <item name="triticum_durum_aventur"/>
+      <item name="triticum_durum_babylone"/>
+      <item name="triticum_durum_biensur"/>
+      <item name="triticum_durum_byblos"/>
+      <item name="triticum_durum_casteldoux"/>
+      <item name="triticum_durum_catervo"/>
+      <item name="triticum_durum_cultur"/>
       <item name="triticum_durum_fabulis"/>
+      <item name="triticum_durum_karur"/>
       <item name="triticum_durum_miradoux"/>
+      <item name="triticum_durum_pescadou"/>
       <item name="triticum_durum_sculptur"/>
+      <item name="triticum_durum_sy_banco"/>
       <item name="triticum_durum_sy_cysco"/>
+      <item name="triticum_durum_tablur"/>
     </items>
   </nomenclature>
 </nomenclatures>

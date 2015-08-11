@@ -52,7 +52,7 @@ class Telepac::V2015::LandParcelsExchanger < ActiveExchanger::Base
           initial_born_at: Time.utc(1, 1, 1, 0, 0, 0),
           variant_id: land_parcel_variant.id,
           name: LandParcel.model_name.human + ' ' + record.attributes['NUMERO'].to_s + '-' + record.attributes['NUMERO_SI'].to_s,
-          work_number: :land_parcel_abbreviation.tl(default: 'LP') + record.attributes['NUMERO'].to_s + '-' + record.attributes['NUMERO_SI'].to_s,
+          work_number: :land_parcel_abbreviation.tl(default: 'LP') + record.attributes['PACAGE'].to_s + '-' + record.attributes['NUMERO'].to_s + '-' + record.attributes['NUMERO_SI'].to_s,
           variety: 'land_parcel',
           initial_owner: Entity.of_company,
           identification_number: :land_parcel_abbreviation.tl(default: 'LP') + record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s + record.attributes['NUMERO_SI'].to_s
@@ -89,7 +89,7 @@ class Telepac::V2015::LandParcelsExchanger < ActiveExchanger::Base
         end
 
         # link a land parcel to a land parcel cluster
-        if land_parcel_cluster = LandParcelCluster.find_by(work_number: record.attributes['NUMERO'].to_s)
+        if land_parcel_cluster = LandParcelCluster.find_by(identification_number: record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s)
           ProductMembership.create!(member: land_parcel, group: land_parcel_cluster, started_at: land_parcel.initial_born_at, nature: :interior)
         end
 
@@ -138,7 +138,18 @@ class Telepac::V2015::LandParcelsExchanger < ActiveExchanger::Base
           end
 
           # Create an activity if not exist with production_code
-          production_nature = Nomen::ProductionNatures.find_by(telepac_crop_code: record.attributes['TYPE'].to_s)
+          production_nature = Nomen::ProductionNatures.find_by(telepac_crop_code_v2015: record.attributes['TYPE'].to_s)
+          unless production_nature && activity_family = Nomen::ActivityFamilies[production_nature.activity]
+            fail "No activity family found. (#{record.attributes['TYPE']})"
+          end
+          
+          # find the sub-variety if exist
+          crop_type = Nomen::TelepacV2015CapCropCode.find_by(telepac_crop_code: record.attributes['TYPE'].to_s)
+          if crop_type and crop_type.telepac_complementary_information_sub_varieties.present? and record.attributes['CODE_VAR']
+            sub_nomen = "Nomen::" + crop_type.telepac_complementary_information_sub_varieties.to_s.camelize
+            sub_variety = eval(sub_nomen).find_by(telepac_crop_code: record.attributes['CODE_VAR'].to_s)
+          end
+
           unless production_nature && activity_family = Nomen::ActivityFamilies[production_nature.activity]
             fail "No activity family found. (#{record.attributes['TYPE']})"
           end
