@@ -122,8 +122,31 @@
       this._refreshControls()
       # console.log "controlled"
 
+      $(document).on 'click', '.updateAttributesInPopup', (e) =>
+        e.preventDefault()
+
+        featureId = $(e.currentTarget).closest('.leaflet-popup-content').find('*[data-internal-id]').data('internal-id')
+        newName = $(e.currentTarget).closest('.popup-content').find('input[type="text"]').val()
+
+        this.updateFeatureProperties(featureId, 'name', newName)
+
+        layer = this.findLayer(featureId)
+
+        #update popup
+        this.popupize layer.feature, layer
+
+        $(document).trigger('mapeditor:feature_update', layer.feature)
+
+        widget._saveUpdates()
+        false
+
       widget.element.trigger "mapeditor:loaded"
 
+    updateFeatureProperties: (feature_id, attributeName, attributeValue) ->
+      layer = this.findLayer(feature_id)
+
+      if layer
+        layer.feature.properties[attributeName] = attributeValue
 
     findLayer: (feature_id) ->
       containerLayer = undefined
@@ -136,16 +159,20 @@
     navigateToLayer: (layer) ->
       this.map.fitBounds layer.getBounds()
 
-    onEachFeature: (feature, layer) ->
-      $(document).trigger('mapeditor:feature_add', [feature, layer])
+    popupize: (feature, layer) ->
+      popup = ""
+      popup += "<div class='popup-content'>"
+      popup += "<span class='popup-block-content' data-internal-id='#{feature.properties.internal_id}'>##{feature.properties.id}: #{feature.properties.name}</span>"
+      popup += "</div>"
+      popup += "<div class='popup-content'>"
+      popup += "<span class='popup-block-content'>#{feature.properties.type}</span>"
+      popup += "</div>"
+      popup += "<div class='popup-content'>"
+      popup += "<input type='text' value='#{feature.properties.name}'/>"
+      popup += "<input class='updateAttributesInPopup' type='button' value='ok'/>"
+      popup += "</div>"
 
-      if (feature.properties && feature.properties.type?)
-        popup = ""
-        popup += "<div class='popup-content'>"
-        popup += "<span class='popup-block-content'>#{feature.properties.type}: #{feature.properties.name}</span>"
-        popup += "</div>"
-
-        layer.bindPopup popup
+      layer.bindPopup popup
 
     _destroy: ->
       this.element.attr this.oldElementType
@@ -215,7 +242,12 @@
       if this.options.edit?
 #        this.edition = L.GeoJSON.geometryToLayer(this.options.edit)
         this.edition = L.geoJson(this.options.edit, {
-          onEachFeature: this.onEachFeature
+          onEachFeature: (feature, layer) =>
+            $(document).trigger('mapeditor:feature_add', feature)
+
+            if feature.properties?
+              this.popupize(feature, layer)
+
         })
       else
         this.edition = new L.GeoJSON()
