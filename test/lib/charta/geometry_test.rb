@@ -102,7 +102,7 @@ class Charta::GeometryTest < ActiveSupport::TestCase
 </gml:MultiSurface>'
 
     samples.each_with_index do |sample, _index|
-      print sample
+      # print sample
       assert ::Charta::GML.valid?(sample), 'Invalid gml'
       geom = Charta::Geometry.new(sample, nil, 'gml').transform(:WGS84)
 
