@@ -25,6 +25,7 @@
       edit: null
       change: null
       view: 'auto'
+      useFeatures: false
       showStyle:
         weight: 1
         color: "#333"
@@ -56,6 +57,7 @@
           imperial: false
           maxWidth: 200
         measure:
+          show :false
           position: 'topright'
           primaryLengthUnit: 'meters',
           secondaryLengthUnit: 'kilometers'
@@ -64,7 +66,7 @@
           activeCcolor: '#ABE67E'
           completedCcolor: '#C8F2BE'
         importers:
-          gml: true
+          gml: false
           geojson: false
           kml: false
           title: ''
@@ -240,15 +242,16 @@
       if this.edition?
         this.map.removeLayer this.edition
       if this.options.edit?
-#        this.edition = L.GeoJSON.geometryToLayer(this.options.edit)
-        this.edition = L.geoJson(this.options.edit, {
-          onEachFeature: (feature, layer) =>
-            $(document).trigger('mapeditor:feature_add', feature)
+        if this.options.useFeatures
+          this.edition = L.geoJson(this.options.edit, {
+            onEachFeature: (feature, layer) =>
+              $(document).trigger('mapeditor:feature_add', feature)
 
-            if feature.properties?
-              this.popupize(feature, layer)
-
-        })
+              if feature.properties?
+                this.popupize(feature, layer)
+          })
+        else
+          this.edition = L.GeoJSON.geometryToLayer(this.options.edit)
       else
         this.edition = new L.GeoJSON()
 
@@ -271,7 +274,10 @@
       else if view is 'show'
         this.map.fitBounds this.reference.getLayers()[0].getBounds()
       else if view is 'edit'
-        this.map.fitBounds this.edition.getLayers()[0].getBounds()
+         try
+          this.map.fitBounds this.edition.getLayers()[0].getBounds()
+         catch
+           this._setDefaultView()
       else if view is 'default'
         this._setDefaultView()
       else if view.center?
@@ -312,7 +318,7 @@
       unless this.options.controls.scale is false
         this.controls.scale = new L.Control.Scale(this.options.controls.scale)
         this.map.addControl this.controls.scale
-      unless this.options.controls.measure is false
+      unless this.options.controls.measure.show is false
         this.controls.measure = new L.Control.Measure(this.options.controls.measure)
         this.map.addControl this.controls.measure
       unless this.options.controls.importers is false
