@@ -8,7 +8,7 @@ module Diagrams
       arrow_head: 'arrowhead',
       arrow_size: 'arrowsize',
       arrow_tail: 'arrowtail',
-      bouding_box: 'bb',
+      bounding_box: 'bb',
       background_color: 'bgcolor',
       cluster_rank: 'clusterrank',
       color_scheme: 'colorscheme',
