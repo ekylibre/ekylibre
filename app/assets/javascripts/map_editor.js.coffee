@@ -124,9 +124,8 @@
       this._refreshControls()
       # console.log "controlled"
 
-      $(document).on 'click', '.updateAttributesInPopup', (e) =>
+      $(this.mapElement).on 'click', '.updateAttributesInPopup', (e) =>
         e.preventDefault()
-
         featureId = $(e.currentTarget).closest('.leaflet-popup-content').find('*[data-internal-id]').data('internal-id')
         newName = $(e.currentTarget).closest('.popup-content').find('input[type="text"]').val()
 
@@ -137,7 +136,7 @@
         #update popup
         this.popupize layer.feature, layer
 
-        $(document).trigger('mapeditor:feature_update', layer.feature)
+        $(this.element).trigger('mapeditor:feature_update', layer.feature)
 
         widget._saveUpdates()
         false
@@ -160,6 +159,11 @@
 
     navigateToLayer: (layer) ->
       this.map.fitBounds layer.getBounds()
+
+
+    removeLayer: (layer) ->
+      this.map.removeLayer layer
+
 
     popupize: (feature, layer) ->
       popup = ""
@@ -245,7 +249,7 @@
         if this.options.useFeatures
           this.edition = L.geoJson(this.options.edit, {
             onEachFeature: (feature, layer) =>
-              $(document).trigger('mapeditor:feature_add', feature)
+              $(this.element).trigger('mapeditor:feature_add', feature)
 
               if feature.properties?
                 this.popupize(feature, layer)
