@@ -98,8 +98,15 @@
 
       widget = this
 
-      this.map.on "draw:created", (e) ->
-        widget.edition.addLayer e.layer
+      this.map.on "draw:created", (e) =>
+        #Attempt to add a geojson feature
+        try
+          feature = e.layer.toGeoJSON()
+          feature.properties['internal_id'] = new Date().getTime()
+          widget.edition.addData feature
+        catch
+          widget.edition.addLayer e.layer
+
         widget._saveUpdates()
         widget.element.trigger "mapchange"
 
@@ -139,6 +146,7 @@
         $(this.element).trigger('mapeditor:feature_update', layer.feature)
 
         widget._saveUpdates()
+        $(this.element).trigger('mapchange')
         false
 
       widget.element.trigger "mapeditor:loaded"
@@ -152,7 +160,7 @@
     findLayer: (feature_id) ->
       containerLayer = undefined
       this.edition.eachLayer (layer) =>
-        if (layer.feature.properties.internal_id == feature_id)
+        if (parseInt(layer.feature.properties.internal_id) == feature_id)
           containerLayer = layer
           return
       return containerLayer
@@ -162,7 +170,7 @@
 
 
     removeLayer: (layer) ->
-      this.map.removeLayer layer
+      this.edition.removeLayer layer
 
 
     popupize: (feature, layer) ->
@@ -238,7 +246,13 @@
       if this.reference?
         this.map.removeLayer this.reference
       if this.options.show?
-        this.reference = L.GeoJSON.geometryToLayer(this.options.show).setStyle this.options.showStyle
+        if this.options.useFeatures
+          this.reference = L.geoJson(this.options.show)
+        else
+          this.reference = L.GeoJSON.geometryToLayer(this.options.show)
+
+        this.reference.setStyle this.options.showStyle
+#        this.reference = L.GeoJSON.geometryToLayer(this.options.show).setStyle this.options.showStyle
         this.reference.addTo this.map
       this
 
@@ -463,6 +477,10 @@
       if this.edition?
         this.element.val JSON.stringify(this.edition.toGeoJSON())
       true
+
+    update: ->
+      this._saveUpdates()
+      this.element.trigger "mapchange"
 
   $(document).ready ->
     $("input[data-map-editor]").each ->
