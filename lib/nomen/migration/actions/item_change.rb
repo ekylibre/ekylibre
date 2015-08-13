@@ -1,21 +1,15 @@
 module Nomen
   module Migration
     module Actions
-
       class ItemChange < Nomen::Migration::Actions::Base
-
         attr_reader :nomenclature, :name, :parent, :properties, :new_name, :new_parent, :new_properties
         def initialize(element)
-          name = element["item"].split('#')
+          name = element['item'].split('#')
           @nomenclature = name.first
           @name = name.second
-          if element.key?("name")
-            @new_name = element["name"]
-          end
-          if element.key?("parent")
-            @new_parent = element["parent"]
-          end
-          @new_properties = element.attributes.delete_if do |k, v|
+          @new_name = element['name'] if element.key?('name')
+          @new_parent = element['parent'] if element.key?('parent')
+          @new_properties = element.attributes.delete_if do |k, _v|
             k =~ /name(:[a-z]{3})?/ || %w(item parent nomenclature).include?(k)
           end
         end
@@ -48,9 +42,7 @@ module Nomen
           end
           sentence = "Change item #{@nomenclature}##{@name} with " + updates.to_sentence
         end
-
       end
-
     end
   end
 end

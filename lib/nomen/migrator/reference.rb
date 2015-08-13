@@ -1,7 +1,6 @@
 module Nomen
   module Migrator
     class Reference
-
       def self.run(migration)
         ref = new
         migration.each_action do |action|
@@ -55,8 +54,6 @@ module Nomen
       def item_merging(action)
         @set.merge_item(action.nomenclature, action.name, action.into)
       end
-
-
     end
   end
 end

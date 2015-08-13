@@ -2,7 +2,6 @@ module Nomen
   class PropertyNature
     attr_reader :nomenclature, :name, :type, :fallbacks, :default, :source
 
-
     # New item
     def initialize(nomenclature, name, type, options = {})
       @nomenclature = nomenclature
@@ -12,9 +11,7 @@ module Nomen
       @fallbacks = options[:fallbacks] if options[:fallbacks]
       @default = options[:default] if options[:default]
       @required = !!options[:required]
-      if reference? and options[:choices]
-        @source = options[:choices]
-      end
+      @source = options[:choices] if reference? && options[:choices]
     end
 
     Nomen::PROPERTY_TYPES.each do |type|
@@ -34,10 +31,10 @@ module Nomen
           attrs[:choices] = @source.to_s
         end
       end
-      attrs[:required] = "true" if @required
+      attrs[:required] = 'true' if @required
       attrs[:fallbacks] = @fallbacks.join(', ') if @fallbacks
       attrs[:default] = @default.to_s if @default
-      return attrs
+      attrs
     end
 
     # Returns if property is required

@@ -145,8 +145,8 @@ class Telepac::V2015::LandParcelsExchanger < ActiveExchanger::Base
 
           # find the sub-variety if exist
           crop_type = Nomen::TelepacV2015CapCropCode.find_by(telepac_crop_code: record.attributes['TYPE'].to_s)
-          if crop_type and crop_type.telepac_complementary_information_sub_varieties.present? and record.attributes['CODE_VAR']
-            sub_nomen = "Nomen::" + crop_type.telepac_complementary_information_sub_varieties.to_s.camelize
+          if crop_type && crop_type.telepac_complementary_information_sub_varieties.present? && record.attributes['CODE_VAR']
+            sub_nomen = 'Nomen::' + crop_type.telepac_complementary_information_sub_varieties.to_s.camelize
             sub_variety = eval(sub_nomen).find_by(telepac_crop_code: record.attributes['CODE_VAR'].to_s)
           end
 

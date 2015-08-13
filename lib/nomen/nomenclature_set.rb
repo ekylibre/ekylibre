@@ -1,8 +1,6 @@
 module Nomen
-
   # This class represents a set of nomenclature like the reference DB
   class NomenclatureSet
-
     attr_accessor :version
 
     def initialize
@@ -35,7 +33,7 @@ module Nomen
     def [](name)
       @nomenclatures[name]
     end
-    alias :find :[]
+    alias_method :find, :[]
 
     def exist?(name)
       @nomenclatures[name].present?
@@ -61,15 +59,15 @@ module Nomen
     def to_xml
       builder = Nokogiri::XML::Builder.new do |xml|
         xml.nomenclatures(xmlns: Nomen::XMLNS, version: @version) do
-          @nomenclatures.values.sort{|a,b| a.name <=> b.name}.each do |nomenclature|
+          @nomenclatures.values.sort { |a, b| a.name <=> b.name }.each do |nomenclature|
             xml.nomenclature(nomenclature.to_xml_attrs) do
               xml.properties do
-                nomenclature.properties.values.sort{|a,b| a.name <=> b.name}.each do |property|
+                nomenclature.properties.values.sort { |a, b| a.name <=> b.name }.each do |property|
                   xml.property(property.to_xml_attrs)
                 end
               end
               xml.items do
-                nomenclature.items.values.sort{|a,b| a.name <=> b.name}.each do |item|
+                nomenclature.items.values.sort { |a, b| a.name <=> b.name }.each do |item|
                   xml.item(item.to_xml_attrs)
                 end
               end
@@ -77,7 +75,7 @@ module Nomen
           end
         end
       end
-      return builder.to_xml
+      builder.to_xml
     end
 
     def harvest_nomenclature(element)
@@ -86,9 +84,7 @@ module Nomen
     end
 
     def add_nomenclature(name, options = {})
-      if @nomenclatures[name]
-        fail "Nomenclature #{name} already exists"
-      end
+      fail "Nomenclature #{name} already exists" if @nomenclatures[name]
       options[:set] = self
       @nomenclatures[name] = Nomenclature.new(name, options)
     end
@@ -97,19 +93,15 @@ module Nomen
       unless @nomenclatures[old_name]
         fail "Nomenclature #{old_name} does not exist"
       end
-      if @nomenclatures[new_name]
-        fail "Nomenclature #{new_name} already exists"
-      end
+      fail "Nomenclature #{new_name} already exists" if @nomenclatures[new_name]
       @nomenclatures[new_name] = @nomenclatures.delete(old_name)
       @nomenclatures[new_name].name = new_name.to_s
       @nomenclatures[new_name]
     end
 
     def remove_nomenclature(name)
-      # TODO Check dependencies
-      unless @nomenclatures[name]
-        fail "Nomenclature #{name} does not exist"
-      end
+      # TODO: Check dependencies
+      fail "Nomenclature #{name} does not exist" unless @nomenclatures[name]
       @nomenclatures.delete(name)
     end
 
@@ -131,7 +123,6 @@ module Nomen
     # TODO
     # def remove_property(nomenclature, name, options = {})
     # end
-
 
     def add_item(nomenclature, name, properties = {})
       unless n = @nomenclatures[nomenclature]
@@ -160,7 +151,5 @@ module Nomen
       end
       n.remove_item(name, into)
     end
-
   end
-
 end

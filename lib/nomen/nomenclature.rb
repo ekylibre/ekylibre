@@ -1,9 +1,8 @@
 module Nomen
   # This class represents a nomenclature
   class Nomenclature
-
     attr_reader :properties, :items, :name, :roots, :notions, :translateable
-    alias :property_natures :properties
+    alias_method :property_natures, :properties
 
     # Instanciate a new nomenclature
     def initialize(name, options = {})
@@ -21,7 +20,7 @@ module Nomen
         notions = element.attr('notions').to_s.split(/\s*\,\s*/).map(&:to_sym)
         options[:notions] = notions if notions.any?
         options[:translateable] = !(element.attr('translateable').to_s == 'false')
-        name = element.attr("name").to_s
+        name = element.attr('name').to_s
         nomenclature = new(name, options)
         for property in element.xpath('xmlns:properties/xmlns:property')
           nomenclature.harvest_property(property)
@@ -37,7 +36,7 @@ module Nomen
     def references
       unless @references
         @references = []
-        self.properties.each do |_p, property|
+        properties.each do |_p, property|
           if property.item_reference?
             @references << Nomen::Reference.new(@set, property, @set.find(property.source), property.item_list? ? :array : :key)
           end
@@ -47,7 +46,7 @@ module Nomen
     end
 
     def to_xml_attrs
-      attrs = {name: name, translateable: translateable.to_s}
+      attrs = { name: name, translateable: translateable.to_s }
       attrs[:notions] = @notions.join(', ') if @notions.any?
       attrs
     end
@@ -65,7 +64,7 @@ module Nomen
     # Add an item to the nomenclature from an XML element
     def harvest_item(element, options = {})
       name = element.attr('name').to_s
-      parent = options[:parent_name] || (options[:parent] ? options[:parent].name : element.key?("parent") ? element["parent"] : nil)
+      parent = options[:parent_name] || (options[:parent] ? options[:parent].name : element.key?('parent') ? element['parent'] : nil)
       properties = element.attributes.each_with_object(HashWithIndifferentAccess.new) do |(k, v), h|
         next if %w(name parent parent_name).include?(k)
         h[k] = cast_property(k, v.to_s)
@@ -94,13 +93,13 @@ module Nomen
       elsif type == :choice
         type = :item if element.has_attribute?('nomenclature')
       end
-      if (type == :choice || type == :choice_list)
+      if type == :choice || type == :choice_list
         if element.has_attribute?('choices')
           options[:choices] = element.attr('choices').to_s.strip.split(/[[:space:]]*\,[[:space:]]*/).map(&:to_sym)
         else
           type = :string_list
         end
-      elsif (type == :item || type == :item_list)
+      elsif type == :item || type == :item_list
         if element.has_attribute?('choices')
           options[:choices] = element.attr('choices').to_s.strip.to_sym
         elsif element.has_attribute?('nomenclature')
@@ -114,8 +113,6 @@ module Nomen
       end
       add_property(name, type, options)
     end
-
-
 
     # Add an item to the nomenclature
     def add_item(name, properties = {})
@@ -132,14 +129,14 @@ module Nomen
       i = find!(name)
       if new_parent = changes.delete(:parent)
         i.parent = find!(new_parent)
-      end      
+      end
       if new_name = changes.delete(:name)
         rename_item(name, new_name)
       end
       changes.each do |k, v|
         i.set(k, v)
       end
-      return i
+      i
     end
 
     def rename_item(name, new_name)
@@ -153,19 +150,17 @@ module Nomen
           if p.list?
             reference.nomenclature.find_each do |item|
               v = item.property(p.name)
-              if v and v.include?(i.name.to_sym)
+              if v && v.include?(i.name.to_sym)
                 l = v.map do |n|
                   n == i.name.to_sym ? new_name : n
                 end
                 item.set(p.name, l)
               end
-            end              
+            end
           else
             reference.nomenclature.find_each do |item|
               v = item.property(p.name)
-              if v == i.name.to_sym
-                item.set(p.name, new_name)
-              end
+              item.set(p.name, new_name) if v == i.name.to_sym
             end
           end
         end
@@ -182,7 +177,7 @@ module Nomen
         child.parent = dest
       end
     end
-    
+
     # Add an property to the nomenclature
     def add_property(name, type, options = {})
       p = PropertyNature.new(self, name, type, options)
@@ -197,7 +192,6 @@ module Nomen
     def sibling(name)
       @set.find(name)
     end
-
 
     def check!
       # Check properties
@@ -239,7 +233,7 @@ module Nomen
     end
 
     def inspect
-      "Nomen::#{self.name.to_s.classify}"
+      "Nomen::#{name.to_s.classify}"
     end
 
     def translateable?
@@ -248,7 +242,7 @@ module Nomen
 
     # Return human name
     def human_name(options = {})
-      "nomenclatures.#{self.name}.name".t(options.merge(default: ["labels.#{name}".to_sym, name.to_s.humanize]))
+      "nomenclatures.#{name}.name".t(options.merge(default: ["labels.#{name}".to_sym, name.to_s.humanize]))
     end
     alias_method :humanize, :human_name
 
@@ -259,7 +253,7 @@ module Nomen
 
     # List all item names. Can filter on a given item name and its children
     def to_a(item_name = nil)
-      if item_name.present? and @items[item_name]
+      if item_name.present? && @items[item_name]
         return @items[item_name].self_and_children.map(&:name)
       else
         return @items.keys.sort
@@ -271,12 +265,12 @@ module Nomen
       unless @dependency_index
         @dependency_index = 0
         properties.each do |_n, p|
-          if p.choices_nomenclature and !p.inline_choices?
+          if p.choices_nomenclature && !p.inline_choices?
             @dependency_index += 1 + Nomen[p.choices_nomenclature].dependency_index
           end
         end
       end
-      return @dependency_index
+      @dependency_index
     end
 
     # Returns a list for select as an array of pair (array)
@@ -330,7 +324,6 @@ module Nomen
       i
     end
 
-
     # Returns list of items as an Array
     def list
       @items.values
@@ -338,7 +331,7 @@ module Nomen
 
     # Iterates on items
     def find_each(&block)
-      return list.each(&block)
+      list.each(&block)
     end
 
     # List items with properties filtering
@@ -391,7 +384,6 @@ module Nomen
       @properties[method_name] || super
     end
 
-
     def cast_property(name, value)
       value = value.to_s
       if property = properties[name]
@@ -419,6 +411,5 @@ module Nomen
       end
       value
     end
-
   end
 end

@@ -1,9 +1,7 @@
 module Nomen
-
   class Reference
-
     attr_reader :set, :property, :foreign_nomenclature
-    
+
     def initialize(set, property, foreign_nomenclature, type = :key)
       @set = set
       @type = type
@@ -16,5 +14,4 @@ module Nomen
       @property.nomenclature
     end
   end
-
 end

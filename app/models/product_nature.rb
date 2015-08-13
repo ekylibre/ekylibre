@@ -56,7 +56,7 @@ class ProductNature < Ekylibre::Record::Base
   refers_to :reference_name, class_name: 'ProductNature'
   # Be careful with the fact that it depends directly on the nomenclature definition
   # refers_to :population_counting, class_name: 'ProductNature::PopulationCounting'
-  enumerize :population_counting, in: [:unitary, :integer, :decimal], predicates: {prefix: true}
+  enumerize :population_counting, in: [:unitary, :integer, :decimal], predicates: { prefix: true }
   # has_many :available_stocks, class_name: "ProductStock", :conditions => ["quantity > 0"], foreign_key: :product_id
   # has_many :prices, foreign_key: :product_nature_id, class_name: "ProductPriceTemplate"
   belongs_to :category, class_name: 'ProductNatureCategory'

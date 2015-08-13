@@ -41,7 +41,7 @@
 #
 
 class Analysis < Ekylibre::Record::Base
-  refers_to :nature, class_name: "AnalysisNature"
+  refers_to :nature, class_name: 'AnalysisNature'
   belongs_to :analyser, class_name: 'Entity'
   belongs_to :sampler, class_name: 'Entity'
   belongs_to :product

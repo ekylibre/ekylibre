@@ -25,13 +25,12 @@ module Nomen
   autoload :Reflection,          'nomen/reflection'
 
   class << self
-
     def migrations_path
-      Rails.root.join("db", "nomenclatures", "migrate")
+      Rails.root.join('db', 'nomenclatures', 'migrate')
     end
 
     def reference_path
-      Rails.root.join("db", "nomenclatures.xml")
+      Rails.root.join('db', 'nomenclatures.xml')
     end
 
     # Returns version of DB
@@ -46,12 +45,12 @@ module Nomen
         config.strict.nonet.noblanks.noent
       end
       f.close
-      return document
+      document
     end
 
     # Returns list of Nomen::Migration
     def migrations
-      Dir.glob(migrations_path.join("*.xml")).sort.collect do |f|
+      Dir.glob(migrations_path.join('*.xml')).sort.collect do |f|
         Nomen::Migration::Base.parse(Pathname.new(f))
       end
     end
@@ -59,7 +58,7 @@ module Nomen
     # Returns list of migrations since last done
     def missing_migrations
       last_version = reference_version
-      return migrations.select do |m|
+      migrations.select do |m|
         m.number > last_version
       end
     end

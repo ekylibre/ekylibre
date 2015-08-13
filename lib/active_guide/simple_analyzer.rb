@@ -34,7 +34,7 @@ module ActiveGuide
           puts " > #{r[:item].name.to_s.humanize}: #{r[:value].to_s.yellow}"
         end if report[:results]
       end
-      return report
+      report
     end
 
     def analyze_item(item, env, depth = 0)
@@ -74,7 +74,7 @@ module ActiveGuide
           else
             report[:failed] += 1
           end
-          report[:points] << {item: test, success: r }
+          report[:points] << { item: test, success: r }
           log_result(env, test.name, r, depth)
         else
           failed = 0
@@ -82,9 +82,7 @@ module ActiveGuide
           test.subtests.each do |subtest|
             r = analyze_test(subtest, env, depth + 1)
             rr = r[:failed]
-            if rr > 0
-              failed += 1
-            end
+            failed += 1 if rr > 0
             subtests << { item: test, success: rr }
           end
           if r = failed.zero?
@@ -92,7 +90,7 @@ module ActiveGuide
           else
             report[:failed] += 1
           end
-          report[:points] << {item: test, success: r, subtests: subtests }
+          report[:points] << { item: test, success: r, subtests: subtests }
           log_result(env, test.name, r, depth)
         end
       end
@@ -107,7 +105,7 @@ module ActiveGuide
         else
           report[:failed] += 1
         end
-        report[:points] << {item: question, success: r }
+        report[:points] << { item: question, success: r }
         log_result(env, "#{question.name.to_s.humanize} ?", r, depth)
       end
       report

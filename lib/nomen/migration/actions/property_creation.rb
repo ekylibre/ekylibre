@@ -1,15 +1,13 @@
 module Nomen
   module Migration
     module Actions
-
       class PropertyCreation < Nomen::Migration::Actions::Base
-
         attr_reader :nomenclature, :name, :type, :options
         def initialize(element)
-          name = element["property"].split('.')
+          name = element['property'].split('.')
           @nomenclature = name.first
           @name = name.second
-          @type = element["type"].to_sym
+          @type = element['type'].to_sym
           unless Nomen::PROPERTY_TYPES.include?(@type)
             fail ArgumentError, "Property #{name} type is unknown: #{@type.inspect}"
           end
@@ -23,9 +21,9 @@ module Nomen
           @options[:required] = !!(element.attr('required').to_s == 'true')
           # @options[:inherit]  = !!(element.attr('inherit').to_s == 'true')
           if element.has_attribute?('choices')
-            if (type == :choice || type == :choice_list)
-               @options[:choices] = element.attr('choices').to_s.strip.split(/[[:space:]]*\,[[:space:]]*/).map(&:to_sym)
-            elsif (type == :item || type == :item_list)
+            if type == :choice || type == :choice_list
+              @options[:choices] = element.attr('choices').to_s.strip.split(/[[:space:]]*\,[[:space:]]*/).map(&:to_sym)
+            elsif type == :item || type == :item_list
               @options[:choices] = element.attr('choices').to_s.strip.to_sym
             end
           end
@@ -39,9 +37,7 @@ module Nomen
           end
           sentence = "Create property #{@nomenclature}.#{@name} with " + updates.to_sentence
         end
-
       end
-
     end
   end
 end

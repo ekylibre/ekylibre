@@ -1,8 +1,6 @@
 module Nomen
   module Migration
-
     class Base
-
       def self.parse(file)
         f = File.open(file, 'rb')
         document = Nokogiri::XML(f) do |config|
@@ -11,7 +9,7 @@ module Nomen
         f.close
         root = document.root
         number = file.basename.to_s.split('_').first.to_i
-        new(number, root["name"], root)
+        new(number, root['name'], root)
       end
 
       attr_reader :number, :name
@@ -33,10 +31,8 @@ module Nomen
       end
 
       def inspect
-        "#<#{self.class.name}:#{sprintf('%#x', self.object_id)} ##{number} #{name.inspect} (#{@actions.size} actions)>"
+        "#<#{self.class.name}:#{sprintf('%#x', object_id)} ##{number} #{name.inspect} (#{@actions.size} actions)>"
       end
-
     end
   end
-
 end

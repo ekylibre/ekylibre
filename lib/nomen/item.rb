@@ -21,7 +21,7 @@ module Nomen
 
     def parent=(item)
       if item.nomenclature != nomenclature || item.parents.include?(self)
-        fail "Invalid parent"
+        fail 'Invalid parent'
       end
       @parent = item
       @parent_name = @parent.name
@@ -34,9 +34,9 @@ module Nomen
       @parent_name = name
     end
 
-    def rename(new_name)
+    def rename(_new_name)
     end
-    
+
     def parent?
       parent.present?
     end
@@ -156,8 +156,8 @@ module Nomen
 
     def to_xml_attrs
       attrs = {}
-      attrs[:name] = self.name
-      attrs[:parent] = self.parent_name if self.parent?
+      attrs[:name] = name
+      attrs[:parent] = parent_name if self.parent?
       properties.each do |pname, pvalue|
         if p = nomenclature.properties[pname.to_s]
           if p.type == :decimal
@@ -168,7 +168,7 @@ module Nomen
         end
         attrs[pname] = pvalue.to_s
       end
-      return attrs
+      attrs
     end
 
     # Returns property value
@@ -182,9 +182,7 @@ module Nomen
             break if value
           end
         end
-        if property.default
-          value ||= cast_property(name, property.default)
-        end
+        value ||= cast_property(name, property.default) if property.default
       end
       value
     end
@@ -217,11 +215,9 @@ module Nomen
 
     def set(name, value)
       fail "Invalid property: #{name.inspect}" if [:name, :parent, :parent_name].include?(name.to_sym)
-      # TODO check format
+      # TODO: check format
       if property = nomenclature.properties[name]
-        if property.list?
-          value ||= []
-        end
+        value ||= [] if property.list?
       end
       @properties[name] = value
     end
