@@ -64,7 +64,7 @@
 #  work_number           :string
 #
 class Easement < Zone
-  enumerize :variety, in: Nomen::Varieties.all(:easement), predicates: { prefix: true }
+  refers_to :variety, scope: :easement
   # @TODO : update method with the last area indicator of the consider product
   # @TODO : waiting for has_shape update method
 end

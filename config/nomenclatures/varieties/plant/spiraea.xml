@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
-  <nomenclature name="varieties-spiraea" hierarchical="true">
-    <items>
-      <item name="spiraea_x_billiardii" itis_tsn="25332"/>
-    </items>
-  </nomenclature>
-
-</nomenclatures>

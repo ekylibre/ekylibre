@@ -40,7 +40,7 @@
 class CashSession < Ekylibre::Record::Base
   belongs_to :cash
   has_many :affairs
-  enumerize :currency, in: Nomen::Currencies.all, default: Preference[:currency]
+  refers_to :currency
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :expected_stop_amount, :noticed_start_amount, :noticed_stop_amount, allow_nil: true

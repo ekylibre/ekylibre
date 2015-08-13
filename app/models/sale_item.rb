@@ -49,6 +49,7 @@
 class SaleItem < Ekylibre::Record::Base
   include PeriodicCalculable
   attr_readonly :sale_id
+  refers_to :currency
   belongs_to :account
   belongs_to :sale, inverse_of: :items
   belongs_to :credited_item, class_name: 'SaleItem'

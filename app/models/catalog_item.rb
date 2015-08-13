@@ -41,7 +41,7 @@
 
 # CatalogItem stores all the prices used in sales and purchases.
 class CatalogItem < Ekylibre::Record::Base
-  enumerize :currency, in: Nomen::Currencies.all
+  refers_to :currency
   belongs_to :variant, class_name: 'ProductNatureVariant'
   belongs_to :reference_tax, class_name: 'Tax'
   belongs_to :catalog

@@ -1,8 +1,12 @@
 module Nomen
   XMLNS = 'http://www.ekylibre.org/XML/2013/nomenclatures'.freeze
   NS_SEPARATOR = '-'
+  PROPERTY_TYPES = [:boolean, :item, :item_list, :choice, :choice_list, :string_list, :date, :decimal, :integer, :nomenclature, :string, :symbol]
 
   class MissingNomenclature < StandardError
+  end
+
+  class MissingChoices < StandardError
   end
 
   class InvalidPropertyNature < StandardError
@@ -11,95 +15,150 @@ module Nomen
   class InvalidProperty < StandardError
   end
 
-  autoload :Nomenclature,        'nomen/nomenclature'
   autoload :Item,                'nomen/item'
+  autoload :Migration,           'nomen/migration'
+  autoload :Migrator,            'nomen/migrator'
+  autoload :Nomenclature,        'nomen/nomenclature'
+  autoload :NomenclatureSet,     'nomen/nomenclature_set'
   autoload :PropertyNature,      'nomen/property_nature'
-
-  @@list = HashWithIndifferentAccess.new
+  autoload :Reflection,          'nomen/reflection'
 
   class << self
+
+    def migrations_path
+      Rails.root.join("db", "nomenclatures", "migrate")
+    end
+
+    def reference_path
+      Rails.root.join("db", "nomenclatures.xml")
+    end
+
+    # Returns version of DB
+    def reference_version
+      return 0 unless reference_path.exist?
+      reference_document.root['version'].to_i
+    end
+
+    def reference_document
+      f = File.open(reference_path, 'rb')
+      document = Nokogiri::XML(f) do |config|
+        config.strict.nonet.noblanks.noent
+      end
+      f.close
+      return document
+    end
+
+    # Returns list of Nomen::Migration
+    def migrations
+      Dir.glob(migrations_path.join("*.xml")).sort.collect do |f|
+        Nomen::Migration::Base.parse(Pathname.new(f))
+      end
+    end
+
+    # Returns list of migrations since last done
+    def missing_migrations
+      last_version = reference_version
+      return migrations.select do |m|
+        m.number > last_version
+      end
+    end
+
     # Returns the names of the nomenclatures
     def names
-      @@list.keys
+      @@set.nomenclature_names
+    end
+
+    def all
+      @@set.nomenclatures
     end
 
     # Give access to named nomenclatures
     def [](name)
-      @@list[name]
+      @@set[name]
+    end
+
+    # Give access to named nomenclatures
+    def find(name)
+      @@set[name] || Nomenclature.new(name)
     end
 
     # Browse all nomenclatures
     def each(&block)
-      if block.arity == 2
-        @@list.each(&block)
-      else
-        @@list.values.each(&block)
-      end
+      @@set.each(&block)
     end
 
-    # Load all files
     def load
-      sets = HashWithIndifferentAccess.new
-
-      # Inventory nomenclatures and sub-nomenclatures
-      for path in Dir.glob(root.join('**', '*.xml')).sort
-        f = File.open(path, 'rb')
-        document = Nokogiri::XML(f) do |config|
-          config.strict.nonet.noblanks.noent
-        end
-        f.close
-        # Add a better syntax check
-        if document.root.namespace.href.to_s == XMLNS
-          document.root.xpath('xmlns:nomenclature').each do |nomenclature|
-            namespace, name = nomenclature.attr('name').to_s.split(NS_SEPARATOR)[0..1]
-            name = :root if name.blank?
-            sets[namespace] ||= HashWithIndifferentAccess.new
-            sets[namespace][name] = nomenclature
-          end
-        else
-          Rails.logger.info("File #{path} is not a nomenclature as defined by #{XMLNS}")
-        end
+      if reference_path.exist?
+        @@set = NomenclatureSet.load_file(reference_path)
+      else
+        @@set = NomenclatureSet.new
       end
-
-      # Checks sets
-      for namespace, nomenclatures in sets
-        unless nomenclatures.keys.include?('root')
-          fail StandardError, "All nomenclatures must have a root nomenclature (See #{namespace})"
-        end
-      end
-
-      # Merge and load nomenclature sets
-      for name, nomenclatures in sets
-        # Rails.logger.debug "Load set #{name}... " + nomenclatures.values.collect{|n| n.attr("name") }.to_sentence
-        load_set(name, nomenclatures.values)
-      end
-
-      # Checks nomenclatures
-      for nomenclature in @@list.values
-        nomenclature.check!
-      end
-
-      true
     end
 
-    # Returns the root of the nomenclatures
-    def root
-      Rails.root.join('config', 'nomenclatures')
-    end
+    # # Load all files
+    # def load
+    #   sets = HashWithIndifferentAccess.new
 
-    # Load a set/namespace of nomenclatures
-    def load_set(name, nomenclatures)
-      n = Nomenclature.harvest(name, nomenclatures)
-      @@list[n.name] = n
-      n
-    end
+    #   # Inventory nomenclatures and sub-nomenclatures
+    #   for path in Dir.glob(root.join('**', '*.xml')).sort
+    #     f = File.open(path, 'rb')
+    #     document = Nokogiri::XML(f) do |config|
+    #       config.strict.nonet.noblanks.noent
+    #     end
+    #     f.close
+    #     # Add a better syntax check
+    #     if document.root.namespace.href.to_s == XMLNS
+    #       document.root.xpath('xmlns:nomenclature').each do |nomenclature|
+    #         namespace, name = nomenclature.attr('name').to_s.split(NS_SEPARATOR)[0..1]
+    #         name = :root if name.blank?
+    #         sets[namespace] ||= HashWithIndifferentAccess.new
+    #         sets[namespace][name] = nomenclature
+    #       end
+    #     else
+    #       Rails.logger.info("File #{path} is not a nomenclature as defined by #{XMLNS}")
+    #     end
+    #   end
+
+    #   # Checks sets
+    #   for namespace, nomenclatures in sets
+    #     unless nomenclatures.keys.include?('root')
+    #       fail StandardError, "All nomenclatures must have a root nomenclature (See #{namespace})"
+    #     end
+    #   end
+
+    #   # Merge and load nomenclature sets
+    #   for name, nomenclatures in sets
+    #     # Rails.logger.debug "Load set #{name}... " + nomenclatures.values.collect{|n| n.attr("name") }.to_sentence
+    #     load_set(name, nomenclatures.values)
+    #   end
+
+    #   # Checks nomenclatures
+    #   for nomenclature in @@list.values
+    #     nomenclature.check!
+    #   end
+
+    #   true
+    # end
+
+    # # Returns the root of the nomenclatures
+    # def root
+    #   Rails.root.join('config', 'nomenclatures')
+    # end
+
+    # # Load a set/namespace of nomenclatures
+    # def load_set(name, nomenclatures)
+    #   n = Nomenclature.harvest(name, nomenclatures)
+    #   @@list[n.name] = n
+    #   n
+    # end
 
     # Returns the matching nomenclature
     def const_missing(name)
       n = name.to_s.underscore.to_sym
-      unless @@list.key?(n)
-        fail MissingNomenclature, "Nomenclature #{n} is missing. Availables are: #{names.to_sentence(locale: :eng)}"
-      end
+      super unless @@set.exist?(n)
+
+      #   fail MissingNomenclature, "Nomenclature #{n} is missing. Availables are: #{names.to_sentence(locale: :eng)}"
+      # end
       self[n]
     end
   end

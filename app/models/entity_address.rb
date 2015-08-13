@@ -58,7 +58,7 @@ class EntityAddress < Ekylibre::Record::Base
   has_many :subscriptions
   has_many :buildings
   enumerize :canal, in: [:mail, :email, :phone, :mobile, :fax, :website], default: :email, predicates: true
-  # enumerize :country, in: Nomen::Countries.all
+  refers_to :mail_country, class_name: 'Country'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :deleted_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')

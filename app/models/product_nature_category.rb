@@ -53,7 +53,8 @@
 #
 class ProductNatureCategory < Ekylibre::Record::Base
   # Be careful with the fact that it depends directly on the nomenclature definition
-  enumerize :pictogram, in: Nomen::ProductNatureCategories.pictogram.choices, predicates: { prefix: true }
+  enumerize :pictogram, in: Nomen::ProductNatureCategories.pictogram.choices
+  # refers_to :pictogram, class_name: 'ProductPictograms'
   belongs_to :fixed_asset_account, class_name: 'Account'
   belongs_to :fixed_asset_allocation_account, class_name: 'Account'
   belongs_to :fixed_asset_expenses_account, class_name: 'Account'

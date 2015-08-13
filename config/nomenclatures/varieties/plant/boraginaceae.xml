@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
-  <nomenclature name="varieties-boraginaceae" hierarchical="true">
-    <items>
-      <item name="phacelia" itis_tsn="31433"/>
-    </items>
-  </nomenclature>
-</nomenclatures>

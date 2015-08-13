@@ -44,6 +44,7 @@
 class Gap < Ekylibre::Record::Base
   enumerize :direction, in: [:profit, :loss], predicates: true
   enumerize :entity_role, in: [:client, :supplier], predicates: true
+  refers_to :currency
   belongs_to :journal_entry
   belongs_to :entity
   has_many :items, class_name: 'GapItem', inverse_of: :gap, dependent: :destroy

@@ -51,12 +51,12 @@
 #
 
 class ProductNature < Ekylibre::Record::Base
-  enumerize :variety,       in: Nomen::Varieties.all
-  enumerize :derivative_of, in: Nomen::Varieties.all
-  enumerize :reference_name, in: Nomen::ProductNatures.all
+  refers_to :variety
+  refers_to :derivative_of, class_name: 'Variety'
+  refers_to :reference_name, class_name: 'ProductNature'
   # Be careful with the fact that it depends directly on the nomenclature definition
-  enumerize :population_counting, in: Nomen::ProductNatures.population_counting.choices, default: Nomen::ProductNatures.population_counting.choices.first, predicates: { prefix: true }
-  # enumerize :population_counting, in: Nomen::ProductNatures.attributes[:population_counting].choices, predicates: {prefix: true}, default: Nomen::ProductNatures.attributes[:population_counting].choices.first
+  # refers_to :population_counting, class_name: 'ProductNature::PopulationCounting'
+  enumerize :population_counting, in: [:unitary, :integer, :decimal], predicates: {prefix: true}
   # has_many :available_stocks, class_name: "ProductStock", :conditions => ["quantity > 0"], foreign_key: :product_id
   # has_many :prices, foreign_key: :product_nature_id, class_name: "ProductPriceTemplate"
   belongs_to :category, class_name: 'ProductNatureCategory'

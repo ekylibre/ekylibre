@@ -1,19 +1,38 @@
 module Nomen
-  # This class represent a nomenclature
+  # This class represents a nomenclature
   class Nomenclature
-    attr_reader :property_natures, :items, :name, :roots, :notions
+
+    attr_reader :properties, :items, :name, :roots, :notions, :translateable
+    alias :property_natures :properties
 
     # Instanciate a new nomenclature
-    def initialize(name, translateable = true)
+    def initialize(name, options = {})
       @name = name.to_sym
       @items = HashWithIndifferentAccess.new
       @roots = []
-      @property_natures = {}.with_indifferent_access
-      @translateable = !!translateable
-      @notions = []
+      @properties = {}.with_indifferent_access
+      @translateable = !options[:translateable].is_a?(FalseClass)
+      @notions = options[:notions] || []
     end
 
     class << self
+      def harvest_nomenclature(element)
+        options = {}
+        notions = element.attr('notions').to_s.split(/\s*\,\s*/).map(&:to_sym)
+        options[:notions] = notions if notions.any?
+        options[:translateable] = !(element.attr('translateable').to_s == 'false')
+        name = element.attr("name").to_s
+        nomenclature = new(name, options)
+        for property in element.xpath('xmlns:properties/xmlns:property')
+          nomenclature.harvest_property(property)
+        end
+        for item in element.xpath('xmlns:items/xmlns:item')
+          nomenclature.harvest_item(item)
+        end
+        nomenclature.rebuild_tree!
+        nomenclature
+      end
+
       def harvest(nomenclature_name, nomenclatures)
         sets = HashWithIndifferentAccess.new
         for nomenclature in nomenclatures
@@ -28,28 +47,17 @@ module Nomen
         end
 
         # Browse recursively nomenclatures and sub-nomenclatures
-        n = Nomenclature.new(nomenclature_name, !(root.attr('translateable').to_s == 'false'))
+        n = Nomenclature.new(nomenclature_name, translateable: !(root.attr('translateable').to_s == 'false'))
         n.harvest(root, sets, root: true)
         n.rebuild_tree!
         n
       end
     end
 
-    # Browse and harvest items recursively
-    def harvest(nomenclature, sets, options = {})
-      @notions += nomenclature.attr('notions').to_s.split(/\s*\,\s*/).map(&:to_sym)
-      for nature in nomenclature.xpath('xmlns:property-natures/xmlns:property-nature')
-        add_property_nature(nature)
-      end
-      # Items
-      for item in nomenclature.xpath('xmlns:items/xmlns:item')
-        i = add_item(item, parent: options[:parent]) # , :property_natures => property_natures
-        @roots << i if options[:root]
-        if sets[i.name]
-          harvest(sets[i.name], sets, parent: i) # , :property_natures => property_natures
-        end
-      end
-      self
+    def to_xml_attrs
+      attrs = {name: name, translateable: translateable.to_s}
+      attrs[:notions] = @notions.join(', ') if @notions.any?
+      attrs
     end
 
     # Build a nested set index on items
@@ -62,48 +70,129 @@ module Nomen
       left - 1
     end
 
+    # Browse and harvest items recursively
+    def harvest(nomenclature, sets, options = {})
+      @notions += nomenclature.attr('notions').to_s.split(/\s*\,\s*/).map(&:to_sym)
+      for nature in nomenclature.xpath('xmlns:property-natures/xmlns:property-nature')
+        harvest_property(nature)
+      end
+      # Items
+      for item in nomenclature.xpath('xmlns:items/xmlns:item')
+        i = harvest_item(item, parent_name: options[:parent_name]) # , :properties => properties
+        @roots << i if options[:root]
+        if sets[i.name]
+          harvest(sets[i.name], sets, parent_name: i.name) # , :properties => properties
+        end
+      end
+      self
+    end
+
+    # Add an item to the nomenclature from an XML element
+    def harvest_item(element, options = {})
+      name = element.attr('name').to_s
+      parent = options[:parent_name] || (options[:parent] ? options[:parent].name : element.key?("parent") ? element["parent"] : nil)
+      properties = element.attributes.each_with_object(HashWithIndifferentAccess.new) do |(k, v), h|
+        next if k == "name"
+        h[k] = cast_property(k, v.to_s)
+      end
+      properties[:parent_name] = parent if parent
+      item = add_item(name, properties)
+      @roots << item unless item.parent_name
+      item
+    end
+
+    # Add an property to the nomenclature from an XML element
+    def harvest_property(element)
+      name = element.attr('name').to_sym
+      type = element.attr('type').to_sym
+      options = {}
+      if element.has_attribute?('fallbacks')
+        options[:fallbacks] = element.attr('fallbacks').to_s.strip.split(/[[:space:]]*\,[[:space:]]*/).map(&:to_sym)
+      end
+      if element.has_attribute?('default')
+        options[:default] = element.attr('default').to_sym
+      end
+      options[:required] = !!(element.attr('required').to_s == 'true')
+      # options[:inherit]  = !!(element.attr('inherit').to_s == 'true')
+      if type == :list
+        type = element.has_attribute?('nomenclature') ? :item_list : :choice_list
+      elsif type == :choice
+        type = :item if element.has_attribute?('nomenclature')
+      end
+      if (type == :choice || type == :choice_list)
+        if element.has_attribute?('choices')
+          options[:choices] = element.attr('choices').to_s.strip.split(/[[:space:]]*\,[[:space:]]*/).map(&:to_sym)
+        else
+          type = :string_list
+        end
+      elsif (type == :item || type == :item_list)
+        if element.has_attribute?('choices')
+          options[:choices] = element.attr('choices').to_s.strip.to_sym
+        elsif element.has_attribute?('nomenclature')
+          options[:choices] = element.attr('nomenclature').to_s.strip.to_sym
+        else
+          fail MissingChoices, "[#{@name}] Property #{name} must have nomenclature as choices"
+        end
+      end
+      unless Nomen::PROPERTY_TYPES.include?(type)
+        fail ArgumentError, "Property #{name} type is unknown: #{type.inspect}"
+      end
+      add_property(name, type, options)
+    end
+
+
+
     # Add an item to the nomenclature
-    def add_item(element, options = {})
-      i = Item.new(self, element, options)
+    def add_item(name, properties = {})
+      i = Item.new(self, name, properties)
       if @items[i.name]
-        fail "Item #{i.name} is already defined in nomenclature #{name}"
+        fail "Item #{i.name} is already defined in nomenclature #{@name}"
       end
       @items[i.name] = i
       i
     end
 
-    # Add an property_nature to the nomenclature
-    def add_property_nature(element, options = {})
-      a = PropertyNature.new(self, element, options)
-      @property_natures[a.name] = a
-      a
+    # Add an property to the nomenclature
+    def add_property(name, type, options = {})
+      p = PropertyNature.new(self, name, type, options)
+      if @properties[p.name]
+        fail "Property #{p.name} is already defined in nomenclature #{@name}"
+      end
+      @properties[p.name] = p
+      p
     end
 
+    def sibling(name)
+      # @set.find(name)
+      Nomen[name.to_s]
+    end
+
+
     def check!
-      # Check property_natures
-      for property_nature in @property_natures.values
-        if property_nature.choices_nomenclature && !property_nature.inline_choices? && !Nomen[property_nature.choices_nomenclature.to_s]
-          fail InvalidPropertyNature, "[#{name}] #{property_nature.name} nomenclature property_nature must refer to an existing nomenclature. Got #{property_nature.choices_nomenclature.inspect}. Expecting: #{Nomen.names.inspect}"
+      # Check properties
+      for property in @properties.values
+        if property.choices_nomenclature && !property.inline_choices? && !Nomen[property.choices_nomenclature.to_s]
+          fail InvalidPropertyNature, "[#{name}] #{property.name} nomenclature property must refer to an existing nomenclature. Got #{property.choices_nomenclature.inspect}. Expecting: #{Nomen.names.inspect}"
         end
-        if property_nature.type == :choice && property_nature.default
-          unless property_nature.choices.include?(property_nature.default)
-            fail InvalidPropertyNature, "The default choice #{property_nature.default.inspect} is invalid (in #{name}##{property_nature.name}). Pick one from #{property_nature.choices.sort.inspect}."
+        if property.type == :choice && property.default
+          unless property.choices.include?(property.default)
+            fail InvalidPropertyNature, "The default choice #{property.default.inspect} is invalid (in #{name}##{property.name}). Pick one from #{property.choices.sort.inspect}."
           end
         end
       end
 
       # Check items
       for item in list
-        for property_nature in @property_natures.values
-          choices = property_nature.choices
-          if item.property(property_nature.name) && property_nature.type == :choice
+        for property in @properties.values
+          choices = property.choices
+          if item.property(property.name) && property.type == :choice
             # Cleans for parametric reference
-            name = item.property(property_nature.name).to_s.split(/\(/).first.to_sym
+            name = item.property(property.name).to_s.split(/\(/).first.to_sym
             unless choices.include?(name)
               fail InvalidProperty, "The given choice #{name.inspect} is invalid (in #{self.name}##{item.name}). Pick one from #{choices.sort.inspect}."
             end
-          elsif item.property(property_nature.name) && property_nature.type == :list && property_nature.choices_nomenclature
-            for name in item.property(property_nature.name) || []
+          elsif item.property(property.name) && property.type == :list && property.choices_nomenclature
+            for name in item.property(property.name) || []
               # Cleans for parametric reference
               name = name.to_s.split(/\(/).first.to_sym
               unless choices.include?(name)
@@ -118,13 +207,17 @@ module Nomen
       true
     end
 
+    def inspect
+      "Nomen::#{self.name.to_s.classify}"
+    end
+
     def translateable?
       @translateable
     end
 
     # Return human name
-    def human_name
-      "nomenclatures.#{nomenclature.name}.name".t(default: ["labels.#{name}".to_sym, name.humanize])
+    def human_name(options = {})
+      "nomenclatures.#{self.name}.name".t(options.merge(default: ["labels.#{name}".to_sym, name.to_s.humanize]))
     end
     alias_method :humanize, :human_name
 
@@ -135,13 +228,25 @@ module Nomen
 
     # List all item names. Can filter on a given item name and its children
     def to_a(item_name = nil)
-      if item_name
+      if item_name.present? and @items[item_name]
         return @items[item_name].self_and_children.map(&:name)
       else
         return @items.keys.sort
       end
     end
     alias_method :all, :to_a
+
+    def dependency_index
+      unless @dependency_index
+        @dependency_index = 0
+        properties.each do |_n, p|
+          if p.choices_nomenclature and !p.inline_choices?
+            @dependency_index += 1 + Nomen[p.choices_nomenclature].dependency_index
+          end
+        end
+      end
+      return @dependency_index
+    end
 
     # Returns a list for select as an array of pair (array)
     def selection(item_name = nil)
@@ -187,6 +292,13 @@ module Nomen
       @items[item_name]
     end
 
+    def find!(item_name)
+      unless i = @items[item_name]
+        fail "Cannot find item #{item_name} in #{name}"
+      end
+    end
+
+
     # Returns list of items as an Array
     def list
       @items.values
@@ -197,7 +309,7 @@ module Nomen
     #   return list.each(&block)
     # end
 
-    # List items with property_natures filtering
+    # List items with properties filtering
     def where(properties)
       @items.values.select do |item|
         valid = true
@@ -244,7 +356,37 @@ module Nomen
 
     # Returns property nature
     def method_missing(method_name, *args)
-      @property_natures[method_name] || super
+      @properties[method_name] || super
     end
+
+
+    def cast_property(name, value)
+      value = value.to_s
+      if property = properties[name]
+        if property.type == :choice
+          if value =~ /\,/
+            fail InvalidPropertyNature, 'A property nature of choice type cannot contain commas'
+          end
+          value = value.strip.to_sym
+        elsif property.type == :choice_list || property.type == :item_list || property.type == :string_list
+          value = value.strip.split(/[[:space:]]*\,[[:space:]]*/).map(&:to_sym)
+        elsif property.type == :boolean
+          value = (value == 'true' ? true : value == 'false' ? false : nil)
+        elsif property.type == :decimal
+          value = value.to_d
+        elsif property.type == :integer
+          value = value.to_i
+        elsif property.type == :symbol
+          unless value =~ /\A\w+\z/
+            fail InvalidPropertyNature, "A property '#{name}' must contains a symbol. /[a-z0-9_]/ accepted. No spaces. Got #{value.inspect}"
+          end
+          value = value.to_sym
+        end
+      elsif !%w(name parent aliases).include?(name.to_s)
+        fail ArgumentError, "Undefined property '#{name}' in #{@name}"
+      end
+      value
+    end
+
   end
 end

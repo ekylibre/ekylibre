@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
-  <nomenclature name="varieties-iridaceae" hierarchical="true">
-    <items>
-      <item name="crocus" itis_tsn="43285"/>
-    </items>
-  </nomenclature>
-</nomenclatures>

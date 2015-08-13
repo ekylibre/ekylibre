@@ -66,6 +66,7 @@
 
 class Sale < Ekylibre::Record::Base
   attr_readonly :currency
+  refers_to :currency
   belongs_to :affair
   belongs_to :client, class_name: 'Entity'
   belongs_to :payer, class_name: 'Entity', foreign_key: :client_id

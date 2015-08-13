@@ -50,6 +50,7 @@
 class Purchase < Ekylibre::Record::Base
   include Attachable
   attr_readonly :currency, :nature_id
+  refers_to :currency
   belongs_to :delivery_address, class_name: 'EntityAddress'
   belongs_to :journal_entry
   belongs_to :nature, class_name: 'PurchaseNature'

@@ -35,6 +35,7 @@
 #  updater_id    :integer
 #
 class GapItem < Ekylibre::Record::Base
+  refers_to :currency
   belongs_to :gap, inverse_of: :items
   belongs_to :tax
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

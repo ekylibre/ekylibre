@@ -31,7 +31,7 @@
 #  updater_id     :integer
 #
 class NetService < Ekylibre::Record::Base
-  enumerize :reference_name, in: Nomen::NetServices.all
+  refers_to :reference_name, class_name: 'NetService'
   has_many :identifiers, -> { order(:nature) }
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_presence_of :reference_name

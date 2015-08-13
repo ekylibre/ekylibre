@@ -63,6 +63,9 @@
 #   * cumulated_absolute_(credit|debit) are in currency of the company too
 class JournalEntryItem < Ekylibre::Record::Base
   attr_readonly :entry_id, :journal_id, :state
+  refers_to :currency
+  refers_to :real_currency, class_name: 'Currency'
+  refers_to :absolute_currency, class_name: 'Currency'
   belongs_to :account
   belongs_to :financial_year
   belongs_to :journal, inverse_of: :entry_items

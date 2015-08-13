@@ -56,6 +56,9 @@
 #  - absolute_* in global currency (the same as current financial year's theoretically)
 class JournalEntry < Ekylibre::Record::Base
   attr_readonly :journal_id
+  refers_to :currency
+  refers_to :real_currency, class_name: 'Currency'
+  refers_to :absolute_currency, class_name: 'Currency'
   belongs_to :financial_year
   belongs_to :journal, inverse_of: :entries
   belongs_to :resource, polymorphic: true

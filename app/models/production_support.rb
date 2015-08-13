@@ -36,7 +36,7 @@
 #  updater_id         :integer
 #
 class ProductionSupport < Ekylibre::Record::Base
-  enumerize :production_usage, in: Nomen::ProductionUsages.all, default: Nomen::ProductionUsages.default
+  refers_to :production_usage
 
   belongs_to :production, inverse_of: :supports
   belongs_to :storage, class_name: 'Product', inverse_of: :supports

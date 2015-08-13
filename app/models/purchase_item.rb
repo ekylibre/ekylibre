@@ -47,6 +47,7 @@
 
 class PurchaseItem < Ekylibre::Record::Base
   include PeriodicCalculable
+  refers_to :currency
   belongs_to :account
   belongs_to :purchase, inverse_of: :items
   belongs_to :variant, class_name: 'ProductNatureVariant', inverse_of: :purchase_items

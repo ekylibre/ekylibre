@@ -55,7 +55,7 @@
 class FixedAsset < Ekylibre::Record::Base
   acts_as_numbered
   enumerize :depreciation_method, in: [:simplified_linear, :linear], predicates: { prefix: true } # graduated
-  enumerize :currency, in: Nomen::Currencies.all, default: proc { Preference[:currency] }
+  refers_to :currency
   belongs_to :expenses_account, class_name: 'Account'
   belongs_to :allocation_account, class_name: 'Account'
   belongs_to :journal, class_name: 'Journal'

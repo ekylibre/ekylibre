@@ -51,7 +51,7 @@ class Document < Ekylibre::Record::Base
                                                    default:   { format: :pdf, processors: [:reader, :counter, :freezer], clean: true },
                                                    thumbnail: { format: :jpg, processors: [:sketcher, :thumbnail], geometry: '320x320>' }
                                                  }
-  enumerize :nature, in: Nomen::DocumentNatures.all
+  refers_to :nature, class_name: "DocumentNature"
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :file_updated_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :file_file_size, allow_nil: true, only_integer: true

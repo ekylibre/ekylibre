@@ -43,8 +43,8 @@
 #  updater_id                :integer
 #
 class Production < Ekylibre::Record::Base
-  # enumerize :support_variant_unit, in: Nomen::Units.all
-  # enumerize :support_variant_indicator, in: Nomen::Indicators.where(datatype: :measure).map(&:name) + [:population, :working_duration]
+  # refers_to :support_variant_unit, class_name: 'Unit'
+  # refers_to :support_variant_indicator, -> { where(datatype: :measure) }, class_name: 'Indicator' # [:population, :working_duration]
   belongs_to :activity
   belongs_to :campaign
   belongs_to :cultivation_variant, class_name: 'ProductNatureVariant'

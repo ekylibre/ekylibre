@@ -68,8 +68,8 @@ require 'ffaker'
 
 class Product < Ekylibre::Record::Base
   include Versionable, Indicateable
-  enumerize :variety, in: Nomen::Varieties.all, predicates: { prefix: true }
-  enumerize :derivative_of, in: Nomen::Varieties.all
+  refers_to :variety
+  refers_to :derivative_of, class_name: 'Variety'
   belongs_to :address, class_name: 'EntityAddress'
   belongs_to :category, class_name: 'ProductNatureCategory'
   belongs_to :default_storage, class_name: 'Product'

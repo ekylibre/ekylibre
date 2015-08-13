@@ -53,7 +53,7 @@ class OutgoingDelivery < Ekylibre::Record::Base
   has_many :interventions, class_name: 'Intervention', as: :resource
   has_many :issues, as: :target
 
-  enumerize :mode, in: Nomen::DeliveryModes.all
+  refers_to :mode, class_name: 'DeliveryMode'
   # has_many :product_moves, :as => :origin, dependent: :destroy
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :sent_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')

@@ -38,7 +38,7 @@
 
 class Tax < Ekylibre::Record::Base
   attr_readonly :amount
-  enumerize :reference_name, in: Nomen::Taxes.all
+  refers_to :reference_name, class_name: 'Tax'
   belongs_to :collect_account, class_name: 'Account'
   belongs_to :deduction_account, class_name: 'Account'
   has_many :product_nature_category_taxations, dependent: :restrict_with_error

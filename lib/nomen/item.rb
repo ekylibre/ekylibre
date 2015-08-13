@@ -1,21 +1,38 @@
 module Nomen
   # An item of a nomenclature is the core data.
   class Item
-    attr_reader :nomenclature, :name, :properties, :parent, :left, :right, :depth
+    attr_reader :nomenclature, :name, :properties, :left, :right, :depth, :aliases, :parent_name
 
     # New item
-    def initialize(nomenclature, element, options = {})
+    def initialize(nomenclature, name, properties = {})
       @nomenclature = nomenclature
-      @name = element.attr('name').to_s
-      @parent = options[:parent]
-      @properties = element.attributes.inject(HashWithIndifferentAccess.new) do |h, pair|
-        h[pair[0]] = cast_property(pair[0], pair[1].to_s)
-        h
+      @name = name.to_s
+      @parent_name = properties.delete(:parent_name)
+      @properties = properties
+      unknown = @properties.keys.select do |p|
+        !@nomenclature.properties[p]
       end
+      # fail "Unknown properties in #{@nomenclature.name}##{@name}: #{unknown.to_sentence}" if unknown.any?
     end
 
     def root?
       !parent
+    end
+
+    def parent=(item)
+      if item.nomenclature != nomenclature || include?(item)
+        fail "Invalid parent"
+      end
+      @parent = item
+      @parent_name = @parent.name
+    end
+
+    def parent?
+      parent.present?
+    end
+
+    def parent
+      @parent ||= @nomenclature.find(@parent_name)
     end
 
     def original_nomenclature_name
@@ -126,6 +143,12 @@ module Nomen
       "#{@nomenclature.name}-#{@name}"
     end
 
+    def to_xml_attrs
+      attrs = properties.merge(name: self.name)
+      attrs[:parent] = self.parent_name if self.parent?
+      return attrs
+    end
+
     # Returns property value
     def property(name)
       property_nature = @nomenclature.property_natures[name]
@@ -172,31 +195,7 @@ module Nomen
     private
 
     def cast_property(name, value)
-      value = value.to_s
-      if property_nature = @nomenclature.property_natures[name]
-        if property_nature.type == :choice
-          if value =~ /\,/
-            fail InvalidPropertyNature, 'A property nature of choice type cannot contain commas'
-          end
-          value = value.strip.to_sym
-        elsif property_nature.type == :list
-          value = value.strip.split(/[[:space:]]*\,[[:space:]]*/).map(&:to_sym)
-        elsif property_nature.type == :boolean
-          value = (value == 'true' ? true : value == 'false' ? false : nil)
-        elsif property_nature.type == :decimal
-          value = value.to_d
-        elsif property_nature.type == :integer
-          value = value.to_i
-        elsif property_nature.type == :symbol
-          unless value =~ /\A\w+\z/
-            fail InvalidPropertyNature, "A property '#{name}' must contains a symbol. /[a-z0-9_]/ accepted. No spaces. Got #{value.inspect}"
-          end
-          value = value.to_sym
-        end
-      elsif !%w(name aliases).include?(name.to_s)
-        fail ArgumentError, "Undefined property '#{name}' in #{@nomenclature.name}"
-      end
-      value
+      @nomenclature.cast_property(name, value)
     end
   end
 end

@@ -37,6 +37,7 @@
 #  with_accounting :boolean          default(FALSE), not null
 #
 class PurchaseNature < Ekylibre::Record::Base
+  refers_to :currency
   belongs_to :journal
   has_many :purchases
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

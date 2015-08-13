@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
-  <nomenclature name="cation_exchange_capacity_analysis_methods">
-    <items>
-      <item name="metson"/>
-      <item name="cobaltihexamine"/>
-    </items>
-  </nomenclature>
-</nomenclatures>

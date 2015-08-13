@@ -66,7 +66,7 @@
 #
 
 class CultivableZone < Zone
-  enumerize :variety, in: Nomen::Varieties.all(:cultivable_zone), predicates: { prefix: true }
+  refers_to :variety, scope: :cultivable_zone
   has_many :supports, class_name: 'ProductionSupport', foreign_key: :storage_id
   has_many :productions, class_name: 'Production', through: :supports
   has_many :memberships, class_name: 'CultivableZoneMembership', foreign_key: :group_id

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
-  <nomenclature name="varieties-saccharomyces_cerevisiae" hierarchical="true">
-    <items>
-      <item name="saccharomyces_cerevisiae_jb3" itis_tsn="0000"/>
-    </items>
-  </nomenclature>
-
-</nomenclatures>

@@ -65,7 +65,7 @@
 #
 
 class Animal < Bioproduct
-  enumerize :variety, in: Nomen::Varieties.all(:animal), predicates: { prefix: true }
+  refers_to :variety, scope: :animal
   belongs_to :initial_father, class_name: 'Animal'
   belongs_to :initial_mother, class_name: 'Animal'
 

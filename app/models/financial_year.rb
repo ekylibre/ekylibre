@@ -39,6 +39,7 @@
 
 class FinancialYear < Ekylibre::Record::Base
   attr_readonly :currency
+  refers_to :currency
   belongs_to :last_journal_entry, class_name: 'JournalEntry'
   has_many :account_balances, class_name: 'AccountBalance', foreign_key: :financial_year_id, dependent: :delete_all
   has_many :fixed_asset_depreciations, class_name: 'FixedAssetDepreciation'

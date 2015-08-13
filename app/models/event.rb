@@ -44,7 +44,7 @@ class Event < Ekylibre::Record::Base
   has_one :intervention, inverse_of: :event
   has_many :participations, class_name: 'EventParticipation', dependent: :destroy, inverse_of: :event
   has_many :participants, through: :participations
-  enumerize :nature, in: Nomen::EventNatures.all, default: Nomen::EventNatures.default
+  refers_to :nature, class_name: 'EventNature'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')

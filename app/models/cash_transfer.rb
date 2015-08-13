@@ -46,8 +46,10 @@
 class CashTransfer < Ekylibre::Record::Base
   acts_as_numbered
   attr_readonly :number
+  refers_to :emission_currency, class_name: 'Currency'
   belongs_to :emission_cash, class_name: 'Cash'
   belongs_to :emission_journal_entry, class_name: 'JournalEntry'
+  refers_to :reception_currency, class_name: 'Currency'
   belongs_to :reception_cash, class_name: 'Cash'
   belongs_to :reception_journal_entry, class_name: 'JournalEntry'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

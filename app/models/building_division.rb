@@ -65,7 +65,7 @@
 #
 
 class BuildingDivision < SubZone
-  enumerize :variety, in: Nomen::Varieties.all(:building_division), predicates: { prefix: true }
+  refers_to :variety, scope: :building_division
   has_many :supports, class_name: 'ProductionSupport', foreign_key: :storage_id
   has_many :productions, class_name: 'Production', through: :supports
 

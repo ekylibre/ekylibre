@@ -38,7 +38,9 @@
 #  with_supports       :boolean          not null
 #
 class Activity < Ekylibre::Record::Base
-  enumerize :family, in: Nomen::ActivityFamilies.all, predicates: true
+  refers_to :family, class_name: "ActivityFamily"
+  refers_to :cultivation_variety, class_name: "Variety"
+  refers_to :support_variety, class_name: "Variety"
   enumerize :nature, in: [:main, :auxiliary, :standalone], default: :main, predicates: true
   has_many :distributions, -> { order(:main_activity_id) }, class_name: 'ActivityDistribution', dependent: :destroy, inverse_of: :activity
   has_many :productions
