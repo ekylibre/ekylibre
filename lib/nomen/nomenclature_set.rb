@@ -18,7 +18,6 @@ module Nomen
       end
       f.close
       document.root.children.each do |nomenclature|
-        # puts "Harvest #{nomenclature['name'].inspect}".yellow
         set.harvest_nomenclature(nomenclature)
       end
       set.version = document.root['version'].to_i
@@ -36,6 +35,7 @@ module Nomen
     def [](name)
       @nomenclatures[name]
     end
+    alias :find :[]
 
     def exist?(name)
       @nomenclatures[name].present?
@@ -49,10 +49,18 @@ module Nomen
       end
     end
 
+    # Returns references between nomenclatures
+    def references
+      list = []
+      each do |nomenclature|
+        list += nomenclature.references
+      end
+      list
+    end
 
     def to_xml
       builder = Nokogiri::XML::Builder.new do |xml|
-        xml.nomenclatures(xmlns: Nomen::XMLNS) do
+        xml.nomenclatures(xmlns: Nomen::XMLNS, version: @version) do
           @nomenclatures.values.sort{|a,b| a.name <=> b.name}.each do |nomenclature|
             xml.nomenclature(nomenclature.to_xml_attrs) do
               xml.properties do
@@ -73,7 +81,7 @@ module Nomen
     end
 
     def harvest_nomenclature(element)
-      n = Nomenclature.harvest_nomenclature(element)
+      n = Nomenclature.harvest(element, set: self)
       @nomenclatures[n.name] = n
     end
 
@@ -81,6 +89,7 @@ module Nomen
       if @nomenclatures[name]
         fail "Nomenclature #{name} already exists"
       end
+      options[:set] = self
       @nomenclatures[name] = Nomenclature.new(name, options)
     end
 
@@ -135,7 +144,7 @@ module Nomen
       unless n = @nomenclatures[nomenclature]
         fail "Nomenclature #{nomenclature} does not exist"
       end
-      n.add_item(name, options)
+      n.change_item(name, changes)
     end
 
     def merge_item(nomenclature, name, into)
@@ -150,10 +159,6 @@ module Nomen
         fail "Nomenclature #{nomenclature} does not exist"
       end
       n.remove_item(name, into)
-    end
-
-    def write(file)
-      puts "Write"
     end
 
   end

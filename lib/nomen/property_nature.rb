@@ -25,9 +25,8 @@ module Nomen
 
     def to_xml_attrs
       attrs = {}
-      attrs[:fallbacks] = @fallbacks.join(', ') if @fallbacks
-      attrs[:default] = @default.to_s if @default
-      attrs[:required] = "true" if @required
+      attrs[:name] = @name.to_s
+      attrs[:type] = @type.to_s
       if @source
         if inline_choices?
           attrs[:choices] = @source.join(', ')
@@ -35,8 +34,9 @@ module Nomen
           attrs[:choices] = @source.to_s
         end
       end
-      attrs[:type] = @type.to_s
-      attrs[:name] = @name.to_s
+      attrs[:required] = "true" if @required
+      attrs[:fallbacks] = @fallbacks.join(', ') if @fallbacks
+      attrs[:default] = @default.to_s if @default
       return attrs
     end
 

@@ -8,6 +8,7 @@ module Nomen
     # Instanciate a new nomenclature
     def initialize(name, options = {})
       @name = name.to_sym
+      @set = options.delete(:set)
       @items = HashWithIndifferentAccess.new
       @roots = []
       @properties = {}.with_indifferent_access
@@ -16,8 +17,7 @@ module Nomen
     end
 
     class << self
-      def harvest_nomenclature(element)
-        options = {}
+      def harvest(element, options = {})
         notions = element.attr('notions').to_s.split(/\s*\,\s*/).map(&:to_sym)
         options[:notions] = notions if notions.any?
         options[:translateable] = !(element.attr('translateable').to_s == 'false')
@@ -32,26 +32,18 @@ module Nomen
         nomenclature.rebuild_tree!
         nomenclature
       end
+    end
 
-      def harvest(nomenclature_name, nomenclatures)
-        sets = HashWithIndifferentAccess.new
-        for nomenclature in nomenclatures
-          namespace, name = nomenclature.attr('name').to_s.split(NS_SEPARATOR)[0..1]
-          name = :root if name.blank?
-          sets[name] = nomenclature
+    def references
+      unless @references
+        @references = []
+        self.properties.each do |_p, property|
+          if property.item_reference?
+            @references << Nomen::Reference.new(@set, property, @set.find(property.source), property.item_list? ? :array : :key)
+          end
         end
-
-        # Find root
-        unless root = sets[:root]
-          fail ArgumentError, "Missing root nomenclature in set #{nomenclature_name}"
-        end
-
-        # Browse recursively nomenclatures and sub-nomenclatures
-        n = Nomenclature.new(nomenclature_name, translateable: !(root.attr('translateable').to_s == 'false'))
-        n.harvest(root, sets, root: true)
-        n.rebuild_tree!
-        n
       end
+      @references
     end
 
     def to_xml_attrs
@@ -70,29 +62,12 @@ module Nomen
       left - 1
     end
 
-    # Browse and harvest items recursively
-    def harvest(nomenclature, sets, options = {})
-      @notions += nomenclature.attr('notions').to_s.split(/\s*\,\s*/).map(&:to_sym)
-      for nature in nomenclature.xpath('xmlns:property-natures/xmlns:property-nature')
-        harvest_property(nature)
-      end
-      # Items
-      for item in nomenclature.xpath('xmlns:items/xmlns:item')
-        i = harvest_item(item, parent_name: options[:parent_name]) # , :properties => properties
-        @roots << i if options[:root]
-        if sets[i.name]
-          harvest(sets[i.name], sets, parent_name: i.name) # , :properties => properties
-        end
-      end
-      self
-    end
-
     # Add an item to the nomenclature from an XML element
     def harvest_item(element, options = {})
       name = element.attr('name').to_s
       parent = options[:parent_name] || (options[:parent] ? options[:parent].name : element.key?("parent") ? element["parent"] : nil)
       properties = element.attributes.each_with_object(HashWithIndifferentAccess.new) do |(k, v), h|
-        next if k == "name"
+        next if %w(name parent parent_name).include?(k)
         h[k] = cast_property(k, v.to_s)
       end
       properties[:parent_name] = parent if parent
@@ -152,6 +127,62 @@ module Nomen
       i
     end
 
+    # Add an item to the nomenclature
+    def change_item(name, changes = {})
+      i = find!(name)
+      if new_parent = changes.delete(:parent)
+        i.parent = find!(new_parent)
+      end      
+      if new_name = changes.delete(:name)
+        rename_item(name, new_name)
+      end
+      changes.each do |k, v|
+        i.set(k, v)
+      end
+      return i
+    end
+
+    def rename_item(name, new_name)
+      i = find!(name)
+      i.children.each do |child|
+        child.parent_name = self.name
+      end
+      @set.references.each do |reference|
+        if reference.foreign_nomenclature == self
+          p = reference.property
+          if p.list?
+            reference.nomenclature.find_each do |item|
+              v = item.property(p.name)
+              if v and v.include?(i.name.to_sym)
+                l = v.map do |n|
+                  n == i.name.to_sym ? new_name : n
+                end
+                item.set(p.name, l)
+              end
+            end              
+          else
+            reference.nomenclature.find_each do |item|
+              v = item.property(p.name)
+              if v == i.name.to_sym
+                item.set(p.name, new_name)
+              end
+            end
+          end
+        end
+      end
+      i = @items.delete(i.name)
+      i.name = new_name
+      @items[new_name] = i
+    end
+
+    def merge_item(name, into)
+      i = find!(name)
+      dest = find!(into)
+      i.children.each do |child|
+        child.parent = dest
+      end
+    end
+    
     # Add an property to the nomenclature
     def add_property(name, type, options = {})
       p = PropertyNature.new(self, name, type, options)
@@ -159,12 +190,12 @@ module Nomen
         fail "Property #{p.name} is already defined in nomenclature #{@name}"
       end
       @properties[p.name] = p
+      @references = nil
       p
     end
 
     def sibling(name)
-      # @set.find(name)
-      Nomen[name.to_s]
+      @set.find(name)
     end
 
 
@@ -296,6 +327,7 @@ module Nomen
       unless i = @items[item_name]
         fail "Cannot find item #{item_name} in #{name}"
       end
+      i
     end
 
 
@@ -304,10 +336,10 @@ module Nomen
       @items.values
     end
 
-    # # Iterates on items
-    # def each(&block)
-    #   return list.each(&block)
-    # end
+    # Iterates on items
+    def find_each(&block)
+      return list.each(&block)
+    end
 
     # List items with properties filtering
     def where(properties)
@@ -363,12 +395,12 @@ module Nomen
     def cast_property(name, value)
       value = value.to_s
       if property = properties[name]
-        if property.type == :choice
+        if property.type == :choice || property.type == :item
           if value =~ /\,/
             fail InvalidPropertyNature, 'A property nature of choice type cannot contain commas'
           end
           value = value.strip.to_sym
-        elsif property.type == :choice_list || property.type == :item_list || property.type == :string_list
+        elsif property.list?
           value = value.strip.split(/[[:space:]]*\,[[:space:]]*/).map(&:to_sym)
         elsif property.type == :boolean
           value = (value == 'true' ? true : value == 'false' ? false : nil)

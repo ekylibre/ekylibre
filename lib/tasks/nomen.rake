@@ -72,11 +72,11 @@ namespace :nomen do
 
   desc "Generate migration file (in db/migrate) for corresponding "
   task migrate: :environment do
-    # Rails.application.eager_load! if Rails.env.development?
+    Rails.application.eager_load! if Rails.env.development?
     Nomen.missing_migrations.each do |migration|
       Nomen::Migrator::Reference.run(migration)
-      # Nomen::Migrator::Model.run(migration)
-      # Nomen::Migrator::Translation.run(migration)
+      Nomen::Migrator::Model.run(migration)
+      Nomen::Migrator::Translation.run(migration)
     end
   end
 

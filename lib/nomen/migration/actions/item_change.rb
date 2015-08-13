@@ -32,6 +32,13 @@ module Nomen
           @new_properties.any?
         end
 
+        def changes
+          hash = new_properties || {}
+          hash[:name] = new_name if new_name?
+          hash[:parent] = new_parent if new_parent?
+          hash
+        end
+
         def human_name
           updates = []
           updates << "new name #{@new_name}" if new_name?

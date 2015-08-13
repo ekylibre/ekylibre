@@ -1,18 +1,18 @@
 module Nomen
   # An item of a nomenclature is the core data.
   class Item
-    attr_reader :nomenclature, :name, :properties, :left, :right, :depth, :aliases, :parent_name
+    attr_reader :nomenclature, :left, :right, :depth, :aliases, :parent_name
+    attr_accessor :name, :properties
 
     # New item
     def initialize(nomenclature, name, properties = {})
       @nomenclature = nomenclature
       @name = name.to_s
       @parent_name = properties.delete(:parent_name)
-      @properties = properties
-      unknown = @properties.keys.select do |p|
-        !@nomenclature.properties[p]
+      @properties = {}.with_indifferent_access
+      properties.each do |k, v|
+        set(k, v)
       end
-      # fail "Unknown properties in #{@nomenclature.name}##{@name}: #{unknown.to_sentence}" if unknown.any?
     end
 
     def root?
@@ -20,13 +20,23 @@ module Nomen
     end
 
     def parent=(item)
-      if item.nomenclature != nomenclature || include?(item)
+      if item.nomenclature != nomenclature || item.parents.include?(self)
         fail "Invalid parent"
       end
       @parent = item
       @parent_name = @parent.name
+      @nomenclature.rebuild_tree!
     end
 
+    # Changes parent without rebuilding
+    def parent_name=(name)
+      @parent = nil
+      @parent_name = name
+    end
+
+    def rename(new_name)
+    end
+    
     def parent?
       parent.present?
     end
@@ -83,13 +93,14 @@ module Nomen
       if other.is_a?(Item)
         item = other
       else
-        unless item = nomenclature.items[other]
+        unless item = nomenclature.find(other)
           fail StandardError, "Cannot find item #{other.inspect} in #{nomenclature.name}"
         end
       end
       unless item.nomenclature == nomenclature
         fail StandardError, 'Invalid item'
       end
+      puts [@left, item.left, item.right, @right].inspect
       (@left <= item.left && item.right <= @right)
     end
 
@@ -144,52 +155,75 @@ module Nomen
     end
 
     def to_xml_attrs
-      attrs = properties.merge(name: self.name)
+      attrs = {}
+      attrs[:name] = self.name
       attrs[:parent] = self.parent_name if self.parent?
+      properties.each do |pname, pvalue|
+        if p = nomenclature.properties[pname.to_s]
+          if p.type == :decimal
+            pvalue = pvalue.to_s.to_f
+          elsif p.list?
+            pvalue = pvalue.join(', ')
+          end
+        end
+        attrs[pname] = pvalue.to_s
+      end
       return attrs
     end
 
     # Returns property value
     def property(name)
-      property_nature = @nomenclature.property_natures[name]
+      property = @nomenclature.properties[name]
       value = @properties[name]
-      if value.nil? && property_nature.fallbacks
-        for fallback in property_nature.fallbacks
-          value ||= @properties[fallback]
-          break if value
+      if property
+        if value.nil? && property.fallbacks
+          for fallback in property.fallbacks
+            value ||= @properties[fallback]
+            break if value
+          end
         end
-      end
-
-      if property_nature.default
-        value ||= cast_property(name, property_nature.default)
+        if property.default
+          value ||= cast_property(name, property.default)
+        end
       end
       value
     end
 
     def selection(name)
-      property_nature = @nomenclature.property_natures[name]
-      if property_nature.type == :list
+      property = @nomenclature.properties[name]
+      if property.list?
         return property(name).collect do |i|
           ["nomenclatures.#{@nomenclature.name}.item_lists.#{self.name}.#{name}.#{i}".t, i]
         end
-      elsif property_nature.type == :nomenclature
+      elsif property.nomenclature?
         return Nomen[property(name)].list.collect do |i|
           [i.human_name, i.name]
         end
       else
-        fail StandardError, 'Cannot call selection for a non-list property_nature'
+        fail StandardError, 'Cannot call selection for a non-list property'
       end
     end
 
     # Checks if item has property with given name
     def has_property?(name)
-      !@nomenclature.property_natures[name].nil?
+      !@nomenclature.properties[name].nil?
     end
 
     # Returns property descriptor
     def method_missing(method_name, *args)
       return property(method_name) if has_property?(method_name)
       super
+    end
+
+    def set(name, value)
+      fail "Invalid property: #{name.inspect}" if [:name, :parent, :parent_name].include?(name.to_sym)
+      # TODO check format
+      if property = nomenclature.properties[name]
+        if property.list?
+          value ||= []
+        end
+      end
+      @properties[name] = value
     end
 
     private

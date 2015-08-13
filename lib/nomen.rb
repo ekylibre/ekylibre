@@ -21,6 +21,7 @@ module Nomen
   autoload :Nomenclature,        'nomen/nomenclature'
   autoload :NomenclatureSet,     'nomen/nomenclature_set'
   autoload :PropertyNature,      'nomen/property_nature'
+  autoload :Reference,           'nomen/reference'
   autoload :Reflection,          'nomen/reflection'
 
   class << self
@@ -79,7 +80,7 @@ module Nomen
 
     # Give access to named nomenclatures
     def find(name)
-      @@set[name] || Nomenclature.new(name)
+      @@set[name] || Nomenclature.new(name, set: @@set)
     end
 
     # Browse all nomenclatures
@@ -95,70 +96,10 @@ module Nomen
       end
     end
 
-    # # Load all files
-    # def load
-    #   sets = HashWithIndifferentAccess.new
-
-    #   # Inventory nomenclatures and sub-nomenclatures
-    #   for path in Dir.glob(root.join('**', '*.xml')).sort
-    #     f = File.open(path, 'rb')
-    #     document = Nokogiri::XML(f) do |config|
-    #       config.strict.nonet.noblanks.noent
-    #     end
-    #     f.close
-    #     # Add a better syntax check
-    #     if document.root.namespace.href.to_s == XMLNS
-    #       document.root.xpath('xmlns:nomenclature').each do |nomenclature|
-    #         namespace, name = nomenclature.attr('name').to_s.split(NS_SEPARATOR)[0..1]
-    #         name = :root if name.blank?
-    #         sets[namespace] ||= HashWithIndifferentAccess.new
-    #         sets[namespace][name] = nomenclature
-    #       end
-    #     else
-    #       Rails.logger.info("File #{path} is not a nomenclature as defined by #{XMLNS}")
-    #     end
-    #   end
-
-    #   # Checks sets
-    #   for namespace, nomenclatures in sets
-    #     unless nomenclatures.keys.include?('root')
-    #       fail StandardError, "All nomenclatures must have a root nomenclature (See #{namespace})"
-    #     end
-    #   end
-
-    #   # Merge and load nomenclature sets
-    #   for name, nomenclatures in sets
-    #     # Rails.logger.debug "Load set #{name}... " + nomenclatures.values.collect{|n| n.attr("name") }.to_sentence
-    #     load_set(name, nomenclatures.values)
-    #   end
-
-    #   # Checks nomenclatures
-    #   for nomenclature in @@list.values
-    #     nomenclature.check!
-    #   end
-
-    #   true
-    # end
-
-    # # Returns the root of the nomenclatures
-    # def root
-    #   Rails.root.join('config', 'nomenclatures')
-    # end
-
-    # # Load a set/namespace of nomenclatures
-    # def load_set(name, nomenclatures)
-    #   n = Nomenclature.harvest(name, nomenclatures)
-    #   @@list[n.name] = n
-    #   n
-    # end
-
     # Returns the matching nomenclature
     def const_missing(name)
       n = name.to_s.underscore.to_sym
       super unless @@set.exist?(n)
-
-      #   fail MissingNomenclature, "Nomenclature #{n} is missing. Availables are: #{names.to_sentence(locale: :eng)}"
-      # end
       self[n]
     end
   end
