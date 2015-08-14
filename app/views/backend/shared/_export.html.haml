@@ -4,7 +4,7 @@
       .modal-header
         = button_tag(class: "close", type: "button", data: {dismiss: "modal"}) do
           %span{aria: {hidden: "true"}}= "&times;".html_safe
-        %h4.modal-title= :printing_document.tl(document: Nomen::DocumentNatures.find(nature.name).human_name)
+        %h4.modal-title= :printing_document.tl(document: Nomen::DocumentNature.find(nature.name).human_name)
       .modal-body
         - if Document.of(nature.name, key).any?
           %ul.thumbs

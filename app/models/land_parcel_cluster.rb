@@ -65,7 +65,7 @@
 #
 
 class LandParcelCluster < LandParcelGroup
-  enumerize :variety, in: Nomen::Varieties.all(:land_parcel_cluster), predicates: { prefix: true }
+  refers_to :variety, scope: :land_parcel_cluster
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   # ]VALIDATORS]
 

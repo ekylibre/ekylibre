@@ -10,6 +10,6 @@
     series << {name: :minimal_temperature.tl, data: @forecast[:list].collect{|d| d[:temperatures][:min].to_f(:celsius).round(1) }, tooltip: {value_suffix: '°C' } }
     series << {name: :maximal_temperature.tl, data: @forecast[:list].collect{|d| d[:temperatures][:max].to_f(:celsius).round(1) }, tooltip: {value_suffix: '°C' } }
 
-  = spline_highcharts(series, x_axis: {categories: categories}, y_axis: [{title: {text: Nomen::Indicators[:temperature].human_name}, labels: { format: '{value} °C' }}, {title: { text: :precipitation.tl }, labels: { format: '{value} mm' }, opposite: true}, {title: { text: :wind_speed.tl }, labels: { format: '{value} km/h' }, opposite: true}], legend: true)
+  = spline_highcharts(series, x_axis: {categories: categories}, y_axis: [{title: {text: Nomen::Indicator[:temperature].human_name}, labels: { format: '{value} °C' }}, {title: { text: :precipitation.tl }, labels: { format: '{value} mm' }, opposite: true}, {title: { text: :wind_speed.tl }, labels: { format: '{value} km/h' }, opposite: true}], legend: true)
 - else
   = no_data

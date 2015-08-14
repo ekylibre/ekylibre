@@ -16,9 +16,9 @@
 
 = field_set :items do
   :ruby
-    if params[:nature] and nature = Nomen::AnalysisNatures.find(params[:nature])
+    if params[:nature] and nature = Nomen::AnalysisNature.find(params[:nature])
       nature.items.each do |item|
-        next unless indicator = Nomen::Indicators.find(item.to_s)
+        next unless indicator = Nomen::Indicator.find(item.to_s)
         unless f.object.items.detect{|i| i.indicator_name.to_s == item.to_s}
           attrs = {indicator_name: item}
           if indicator.datatype == :measure
@@ -36,5 +36,5 @@
   .links
     - id = rand(1_000_000).to_s(36)
     %span.nested-add= :add_item.tl
-    %span.input-append= select_tag(:indicator_name, options_for_select(Nomen::Indicators.selection), id: id)
+    %span.input-append= select_tag(:indicator_name, options_for_select(Nomen::Indicator.selection), id: id)
     = link_to(:add.tl, {action: :new, controller: :analysis_items}, class: "btn btn-default", remote: true, data: {update: '#analysis-items', update_at: 'bottom', with: "##{id}"})

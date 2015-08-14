@@ -6,9 +6,9 @@
   %td= f.input :production_usage, wrapper: :nested
   %td.decimal
     %span.support-current-quantity= (f.object.storage ? f.object.current_quantity : 0).round(4)
-    %span.support-unit= Nomen::Units[f.object.unified_quantity_unit].symbol
+    %span.support-unit= Nomen::Unit[f.object.unified_quantity_unit].symbol
   %td.decimal
     = f.input :quantity, wrapper: :nested_append do
       = f.input_field :quantity, class: "support-quantity", data: {calculate_round: 2}, size: 5
-      %span.add-on.support-unit= Nomen::Units[f.object.unified_quantity_unit || :unity].symbol
+      %span.add-on.support-unit= Nomen::Unit[f.object.unified_quantity_unit || :unity].symbol
   %td= link_to_remove_nested_association(:support, f)

@@ -61,6 +61,6 @@ module Backend::MapsHelper
     box[:height] = options[:box][:height] || 240
     options.deep_merge!(data: { map_editor: { controls: { importers: { content: capture(&block) } } } }) if block_given?
     options.deep_merge!(data: { map_editor: { edit: geometry.to_geojson } }) unless value.nil?
-    text_field_tag(name, value, options.deep_merge(data: { map_editor: { box: box.jsonize_keys}}))
+    text_field_tag(name, value, options.deep_merge(data: { map_editor: { box: box.jsonize_keys } }))
   end
 end

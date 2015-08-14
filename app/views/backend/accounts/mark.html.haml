@@ -14,7 +14,7 @@
   = field_set :items do
     - for x in [:period, :started_at, :stopped_at]
       = hidden_field_tag(x, params[x])
-    - precision = Nomen::Currencies[Preference[:currency]].precision
+    - precision = Nomen::Currency[Preference[:currency]].precision
     .active-list
       %table.list
         %thead

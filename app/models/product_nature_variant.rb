@@ -45,8 +45,8 @@
 
 class ProductNatureVariant < Ekylibre::Record::Base
   include Attachable
-  enumerize :variety,       in: Nomen::Varieties.all
-  enumerize :derivative_of, in: Nomen::Varieties.all
+  refers_to :variety
+  refers_to :derivative_of, class_name: 'Variety'
   belongs_to :nature, class_name: 'ProductNature', inverse_of: :variants
   belongs_to :category, class_name: 'ProductNatureCategory', inverse_of: :variants
   has_many :catalog_items, foreign_key: :variant_id, dependent: :destroy
@@ -81,10 +81,10 @@ class ProductNatureVariant < Ekylibre::Record::Base
   scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
   scope :stockables_or_depreciables, -> { joins(:nature).merge(ProductNature.stockables_or_depreciables).order(:name) }
   scope :of_variety, proc { |*varieties|
-    where(variety: varieties.collect { |v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
+    where(variety: varieties.collect { |v| Nomen::Variety.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }
   scope :derivative_of, proc { |*varieties|
-    where(derivative_of: varieties.collect { |v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
+    where(derivative_of: varieties.collect { |v| Nomen::Variety.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }
   scope :can, proc { |*abilities|
     # where(nature_id: ProductNature.can(*abilities))
@@ -95,10 +95,10 @@ class ProductNatureVariant < Ekylibre::Record::Base
     of_expression(abilities.map { |a| "can #{a}" }.join(' and '))
   }
   scope :of_working_set, lambda { |working_set|
-    if item = Nomen::WorkingSets.find(working_set)
+    if item = Nomen::WorkingSet.find(working_set)
       of_expression(item.expression)
     else
-      fail StandardError, "#{working_set.inspect} is not in Nomen::WorkingSets nomenclature"
+      fail StandardError, "#{working_set.inspect} is not in Nomen::WorkingSet nomenclature"
     end
   }
 
@@ -143,12 +143,12 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   validate do
     if self.nature
-      unless Nomen::Varieties.all(nature_variety).include?(self.variety.to_s)
-        logger.debug "#{nature_variety}#{Nomen::Varieties.all(nature_variety)} not include #{self.variety.inspect}"
+      unless Nomen::Variety.all(nature_variety).include?(self.variety.to_s)
+        logger.debug "#{nature_variety}#{Nomen::Variety.all(nature_variety)} not include #{self.variety.inspect}"
         errors.add(:variety, :invalid)
       end
       if self.derivative_of
-        unless Nomen::Varieties.all(nature_derivative_of).include?(self.derivative_of.to_s)
+        unless Nomen::Variety.all(nature_derivative_of).include?(self.derivative_of.to_s)
           errors.add(:derivative_of, :invalid)
         end
       end
@@ -169,8 +169,8 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   # Measure a product for a given indicator
   def read!(indicator, value, _options = {})
-    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicators[indicator]
-      fail ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
+    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
+      fail ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
     end
     reading = readings.find_or_initialize_by(indicator_name: indicator.name)
     reading.value = value
@@ -180,16 +180,16 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   # Return the reading
   def reading(indicator)
-    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicators[indicator]
-      fail ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
+    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
+      fail ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
     end
     readings.find_by(indicator_name: indicator.name)
   end
 
   # Returns the direct value of an indicator of variant
   def get(indicator)
-    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicators[indicator]
-      fail ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
+    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
+      fail ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
     end
     if reading = reading(indicator.name)
       return reading.value
@@ -224,7 +224,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
         list << indicator.name.to_s
       end
     end
-    variety = Nomen::Varieties.find(self.variety)
+    variety = Nomen::Variety.find(self.variety)
     # Specials indicators
     if variety <= :product_group
       list << 'members_count' unless list.include?('members_count/unity')
@@ -240,13 +240,13 @@ class ProductNatureVariant < Ekylibre::Record::Base
   def unified_quantifiers(options = {})
     list = quantifiers.map do |quantifier|
       pair = quantifier.split('/')
-      indicator = Nomen::Indicators.find(pair.first)
-      unit = (pair.second.blank? ? nil : Nomen::Units.find(pair.second))
+      indicator = Nomen::Indicator.find(pair.first)
+      unit = (pair.second.blank? ? nil : Nomen::Unit.find(pair.second))
       hash = { indicator: { name: indicator.name, human_name: indicator.human_name } }
       hash[:unit] = if unit
                       { name: unit.name, symbol: unit.symbol, human_name: unit.human_name }
                     elsif indicator.name =~ /^members\_/
-                      unit = Nomen::Units.find(:unity)
+                      unit = Nomen::Unit.find(:unity)
                       { name: '', symbol: unit.symbol, human_name: unit.human_name }
                     else
                       { name: '', symbol: unit_name, human_name: unit_name }
@@ -256,13 +256,13 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
     # Add population
     if options[:population]
-      indicator = Nomen::Indicators[:population]
+      indicator = Nomen::Indicator[:population]
       list << { indicator: { name: indicator.name, human_name: indicator.human_name }, unit: { name: '', symbol: unit_name, human_name: unit_name } }
     end
 
     # Add working duration (intervention durations)
     if options[:working_duration]
-      for unit in Nomen::Units.where(dimension: :time)
+      for unit in Nomen::Unit.where(dimension: :time)
         list << { indicator: { name: :working_duration, human_name: :working_duration.tl }, unit: { name: unit.name, symbol: unit.symbol, human_name: unit.human_name } }
       end
     end
@@ -276,7 +276,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   # if option :interpolate is true, it returns the interpolated value
   # :interpolate and :reading options are incompatible
   def method_missing(method_name, *args)
-    return super unless Nomen::Indicators.items[method_name]
+    return super unless Nomen::Indicator.items[method_name]
     get(method_name)
   end
 
@@ -322,10 +322,10 @@ class ProductNatureVariant < Ekylibre::Record::Base
       end
       if variants.empty?
         # Flatten variants for search
-        nomenclature = Nomen::ProductNatureVariants.list.collect do |item|
-          nature = Nomen::ProductNatures[item.nature]
-          h = { reference_name: item.name, variety: Nomen::Varieties[item.variety || nature.variety] } # , nature: nature
-          if d = Nomen::Varieties[item.derivative_of || nature.derivative_of]
+        nomenclature = Nomen::ProductNatureVariant.list.collect do |item|
+          nature = Nomen::ProductNature[item.nature]
+          h = { reference_name: item.name, variety: Nomen::Variety[item.variety || nature.variety] } # , nature: nature
+          if d = Nomen::Variety[item.derivative_of || nature.derivative_of]
             h[:derivative_of] = d
           end
           h
@@ -344,10 +344,10 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
     # Load a product nature variant from product nature variant nomenclature
     def import_from_nomenclature(reference_name, force = false)
-      unless item = Nomen::ProductNatureVariants[reference_name]
+      unless item = Nomen::ProductNatureVariant[reference_name]
         fail ArgumentError, "The product_nature_variant #{reference_name.inspect} is not known"
       end
-      unless nature_item = Nomen::ProductNatures[item.nature]
+      unless nature_item = Nomen::ProductNature[item.nature]
         fail ArgumentError, "The nature of the product_nature_variant #{item.nature.inspect} is not known"
       end
       unless !force && variant = ProductNatureVariant.find_by(reference_name: reference_name.to_s)

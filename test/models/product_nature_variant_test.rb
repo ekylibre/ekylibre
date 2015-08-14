@@ -46,7 +46,7 @@ require 'test_helper'
 
 class ProductNatureVariantTest < ActiveSupport::TestCase
   test 'working sets' do
-    Nomen::WorkingSets.list.each do |item|
+    Nomen::WorkingSet.list.each do |item|
       assert ProductNatureVariant.of_working_set(item.name).count >= 0
     end
   end

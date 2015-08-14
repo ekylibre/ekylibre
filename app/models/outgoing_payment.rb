@@ -46,6 +46,7 @@
 #
 
 class OutgoingPayment < Ekylibre::Record::Base
+  refers_to :currency
   belongs_to :cash
   belongs_to :journal_entry
   belongs_to :mode, class_name: 'OutgoingPaymentMode'

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
-  <nomenclature name="varieties-juglandaceae" hierarchical="true">
-    <items>
-      <item name="juglans" itis_tsn="19248"/>
-    </items>
-  </nomenclature>
-</nomenclatures>

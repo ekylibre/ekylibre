@@ -46,7 +46,7 @@
   - t.edit resource
 
 = janus do |j|
-  - if resource.with_supports and resource.supports.any? and variety = Nomen::Varieties[resource.support_variety] and variety <= :cultivable_zone
+  - if resource.with_supports and resource.supports.any? and variety = Nomen::Variety[resource.support_variety] and variety <= :cultivable_zone
     - j.face :map, title: :costs_map do
       - visualization(box: {height: "100%"}) do |v|
         - v.serie :main, data
@@ -100,9 +100,9 @@
         -# TODO need to be renovated but the idea is here
         - total_earn = nil
         - total_cost = nil
-        - currency = Nomen::Currencies.find(Preference[:currency])
+        - currency = Nomen::Currency.find(Preference[:currency])
         - precision = currency.precision - 2
-        - unit = Nomen::Units[resource.support_variant_unit]
+        - unit = Nomen::Unit[resource.support_variant_unit]
         - c.cobble(:costs) do
           .big-infos.costs
             - total_cost = 0
@@ -160,14 +160,14 @@
               series << {name: resource.support_variant.name, data: supports_serie, size: "80%"}
 
               if resource.support_variant_unit
-                support_variant_unit = Nomen::Units.find(resource.support_variant_unit)
+                support_variant_unit = Nomen::Unit.find(resource.support_variant_unit)
               else
-                support_variant_unit = Nomen::Units[:unity]
+                support_variant_unit = Nomen::Unit[:unity]
               end
 
             = pie_highcharts(series, tooltip: {point_format: "{point.y: 1.2f}#{support_variant_unit ? support_variant_unit.symbol : ''}"}, title: {text: "#{supports_quantity.round(3).l}#{support_variant_unit ? support_variant_unit.symbol : ''}"}, plot_options: { pie: { allow_point_select: true, cursor: 'pointer', show_in_legend: true}}, legend: true)
 
-        - if resource.cultivation_variant and Nomen::Varieties[resource.cultivation_variety] and Nomen::Varieties[resource.cultivation_variety] <= :animal
+        - if resource.cultivation_variant and Nomen::Variety[resource.cultivation_variety] and Nomen::Variety[resource.cultivation_variety] <= :animal
           - c.cobble :last_analyses do
             = cell :last_analyses, params: {campaign_id: resource.campaign_id}
 

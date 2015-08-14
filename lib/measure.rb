@@ -12,8 +12,8 @@ class Measure
   cattr_reader :dimensions
   delegate :symbol, to: :nomenclature_unit
 
-  @@dimensions = Nomen::Dimensions
-  @@units      = Nomen::Units
+  @@dimensions = Nomen.find(:dimensions)
+  @@units      = Nomen.find(:units)
 
   class << self
     # Lists all units. Can be filtered on a given dimension

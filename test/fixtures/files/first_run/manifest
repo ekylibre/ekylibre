@@ -25,7 +25,7 @@ users:
     first_name: Michel                           # Prénom
     last_name: DURAND                            # Nom de famille
     password: 12345678                           # Mot de passe
-chart_of_account: fr_pcga                        # Code plan comptable
+accounting_system: fr_pcga                       # Code plan comptable
 financial_years:
   EX1998:                                        # Code d'un exercice comptable
     started_on: 1998-01-01                       # Début d'un exercice comptable (format AAAA-MM-JJ)

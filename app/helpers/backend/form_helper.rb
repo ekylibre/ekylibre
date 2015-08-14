@@ -51,15 +51,15 @@ module Backend::FormHelper
       end
       content_tag(:div, class: 'input-append') do
         text_field_tag("#{name}[value]", (value ? value.to_d : nil)) +
-          select_tag("#{name}[unit]", options_for_select(Measure.siblings(unit).collect { |u| [Nomen::Units[u].human_name, u] }, (value ? value.unit : unit)))
+          select_tag("#{name}[unit]", options_for_select(Measure.siblings(unit).collect { |u| [Nomen::Unit[u].human_name, u] }, (value ? value.unit : unit)))
       end
     elsif [:string, :integer, :decimal].include? datatype
       text_field_tag(name, value)
     elsif datatype == :choice
       choices = options[:choices] || []
       select_tag(name, options_for_select(choices, value))
-    elsif datatype == :chart_of_accounts
-      select_tag(name, options_for_select(Nomen::ChartsOfAccounts.selection, value))
+    elsif datatype == :accounting_system
+      select_tag(name, options_for_select(Nomen::AccountingSystem.selection, value))
     elsif nomenclature = Nomen[datatype.to_s.pluralize]
       select_tag(name, options_for_select(nomenclature.selection, value))
     else
@@ -78,7 +78,7 @@ module Backend::FormHelper
     elsif datatype == :measure
       content_tag(:div, class: 'input-append') do
         text_field_tag("#{name}[value]", (value ? value.to_d : nil)) +
-          select_tag("#{name}[unit]", options_for_select(Measure.siblings(indicator.unit).collect { |u| [Nomen::Units[u].human_name, u] }, (value ? value.unit : indicator.unit)))
+          select_tag("#{name}[unit]", options_for_select(Measure.siblings(indicator.unit).collect { |u| [Nomen::Unit[u].human_name, u] }, (value ? value.unit : indicator.unit)))
       end
     elsif [:string, :integer, :decimal].include? datatype
       text_field_tag(name, value)

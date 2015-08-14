@@ -17,7 +17,7 @@
       %span.value= resource.net_surface_area.in_hectare.round(2).l
     .med-info.important
       %span.title= Plant.human_attribute_name(:variety)
-      %span.value= Nomen::Varieties[resource.variety].human_name
+      %span.value= Nomen::Variety[resource.variety].human_name
     - if resource.container
       .med-info
         %span.title= :container.tl

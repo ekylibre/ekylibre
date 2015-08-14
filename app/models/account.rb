@@ -49,10 +49,6 @@ class Account < Ekylibre::Record::Base
   has_many :collected_taxes,     class_name: 'Tax', foreign_key: :collect_account_id
   has_many :commissioned_incoming_payment_modes, class_name: 'IncomingPaymentMode', foreign_key: :commission_account_id
   has_many :depositables_incoming_payment_modes, class_name: 'IncomingPaymentMode', foreign_key: :depositables_account_id
-  # Not used:
-  # has_many :fixed_assets_categories, class_name: "ProductNatureCategory", foreign_key: :fixed_asset_account_id
-  # has_many :fixed_assets_depreciations, class_name: "ProductNatureCategory", foreign_key: :fixed_asset_allocation_account_id
-  # has_many :fixed_asset_depreciations_inputations_expenses_categories, class_name: "ProductNatureCategory", foreign_key: :fixed_asset_expenses_account_id
   has_many :journal_entry_items,  class_name: 'JournalEntryItem'
   has_many :paid_taxes,           class_name: 'Tax', foreign_key: :deduction_account_id
   has_many :charges_categories,   class_name: 'ProductNatureCategory', foreign_key: :charge_account_id
@@ -74,7 +70,7 @@ class Account < Ekylibre::Record::Base
   # default_scope order(:number, :name)
   scope :majors, -> { where("number LIKE '_'").order(:number, :name) }
   scope :of_usage, lambda { |usage|
-    unless Nomen::Accounts[usage]
+    unless Nomen::Account[usage]
       fail ArgumentError, "Unknown usage #{usage.inspect}"
     end
     where('usages ~ E?', "\\\\m#{usage}\\\\M")
@@ -89,12 +85,6 @@ class Account < Ekylibre::Record::Base
     where(id: JournalEntryItem.between(started_at, stopped_at).select(:account_id))
   }
 
-  # scope :used_in_journal_entry_items, lambda { |started_at, stopped_at|
-  #  joins("JOIN #{JournalEntryItem.table_name} AS journal_entry_items ON (journal_entry_items.account_id=id)").joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where(printed_on: started_at..stopped_at).order("printed_on, journal_entries.id, journal_entry_items.id")
-  # }
-
-  # scope :deposit_pending_payments, lambda { where('number LIKE ?', self.chart_number(:deposit_pending_payments)+"%").order(:number, :name) }
-  # scope :attorney_thirds,          lambda { where('number LIKE ?', self.chart_number(:attorney_thirds)+"%").order(:number, :name) }
   scope :clients,   -> { of_usage(:clients) }
   scope :suppliers, -> { of_usage(:suppliers) }
   scope :attorneys, -> { of_usage(:attorneys) }
@@ -118,14 +108,6 @@ class Account < Ekylibre::Record::Base
   # scope :asset_depreciations_inputations_expenses, -> { where('number LIKE ?', '68%').order(:number, :name) }
   scope :asset_depreciations_inputations_expenses, -> { of_usages(:incorporeals_depreciations_inputations_expenses, :land_parcel_construction_depreciations_inputations_expenses, :building_depreciations_inputations_expenses, :animals_depreciations_inputations_expenses, :equipments_depreciations_inputations_expenses, :others_corporeals_depreciations_inputations_expenses) }
 
-  # scope :supplier_thirds,          lambda { where('number LIKE ?', self.chart_number(:supplier_thirds)+"%").order(:number, :name) }
-  # scope :product_natures,          lambda { where('number LIKE ?', self.chart_number(:product_natures)+"%").order(:number, :name) }
-  # scope :charges,                  lambda { where('number LIKE ?', self.chart_number(:charges)+"%").order(:number, :name) }
-  # scope :banks,                    lambda { where('number LIKE ?', self.chart_number(:banks)+"%").order(:number, :name) }
-  # scope :cashes,                   lambda { where('number LIKE ?', self.chart_number(:cashes)+"%").order(:number, :name) }
-  # scope :collected_taxes,          lambda { where('number LIKE ?', self.chart_number(:taxes_collected)+"%").order(:number, :name) }
-  # scope :paid_taxes,               lambda { where('number LIKE ?', self.chart_number(:taxes_paid)+"%").order(:number, :name) }
-
   # This method:allows to create the parent accounts if it is necessary.
   before_validation do
     self.reconcilable = self.reconcilableable? if reconcilable.nil?
@@ -143,16 +125,16 @@ class Account < Ekylibre::Record::Base
     # Create an account with its number (and name)
     # Account#get(number[, name][, options])
     def get(*args)
-      ActiveSupport::Deprecation.warn('Account::get is deprecated. Please use Account::find_or_create_in_chart instead.')
+      ActiveSupport::Deprecation.warn('Account::get is deprecated. Please use Account::find_or_import_from_nomenclature instead.')
       options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
       number = args.shift.to_s.strip
       options[:name] ||= args.shift
-      numbers = Nomen::Accounts.items.values.collect { |i| i.send(chart) } # map(&chart.to_sym)
+      numbers = Nomen::Account.items.values.collect { |i| i.send(accounting_system) } # map(&accounting_system.to_sym)
       while number =~ /0$/
         break if numbers.include?(number)
         number.gsub!(/0$/, '')
       end unless numbers.include?(number)
-      item = Nomen::Accounts.items.values.detect { |i| i.send(chart) == number }
+      item = Nomen::Account.items.values.detect { |i| i.send(accounting_system) == number }
       if account = find_by_number(number)
         if item && !account.usages_array.include?(item)
           account.usages ||= ''
@@ -172,10 +154,10 @@ class Account < Ekylibre::Record::Base
     end
 
     # Find account with its usage among all existing account records
-    def find_in_chart(usage)
+    def find_in_nomenclature(usage)
       unless account = of_usage(usage).first
-        if item = Nomen::Accounts[usage]
-          account = find_by(number: item.send(chart))
+        if item = Nomen::Account[usage]
+          account = find_by(number: item.send(accounting_system))
         end
       end
       account
@@ -215,54 +197,52 @@ class Account < Ekylibre::Record::Base
       where(regexp_condition(expr))
     end
 
-    # Find or create an account with its name in chart if not exist in DB
-    def find_or_create_in_chart(usage)
-      if account = find_in_chart(usage)
+    # Find or create an account with its name in accounting system if not exist in DB
+    def find_or_import_from_nomenclature(usage)
+      if account = find_in_nomenclature(usage)
         return account
-      elsif item = Nomen::Accounts[usage]
-        account = create!(name: item.human_name, number: item.send(chart), debtor: !!item.debtor, usages: item.name)
+      elsif item = Nomen::Account.find(usage)
+        account = create!(name: item.human_name, number: item.send(accounting_system), debtor: !!item.debtor, usages: item.name)
         return account
       else
         fail ArgumentError, "The usage #{usage.inspect} is unknown"
       end
     end
 
-    # Returns the name of the used chart of accounts
+    # Returns the name of the used accounting system
     # It takes the information in preferences
-    def chart
-      Preference[:chart_of_accounts]
+    def accounting_system
+      Preference[:accounting_system]
     end
-    alias_method :chart_of_accounts, :chart
 
-    # Returns the name of the used chart of accounts
+    # Returns the name of the used accounting system
     # It takes the information in preferences
-    def chart=(name)
-      unless item = Nomen::ChartsOfAccounts[name]
-        fail ArgumentError, "The chart of accounts #{name.inspect} is unknown."
+    def accounting_system=(name)
+      unless item = Nomen::AccountingSystem[name]
+        fail ArgumentError, "The accounting system #{name.inspect} is unknown."
       end
-      Preference.get(:chart_of_accounts).set!(item.name)
-    end
-    alias_method :chart_of_accounts=, :chart=
-
-    # Returns the human name of the chart of accounts
-    def chart_name(name = nil)
-      Nomen::ChartsOfAccounts[name || chart].human_name
+      Preference.get(:accounting_system).set!(item.name)
     end
 
-    # Find.all available accounting systems in.all languages
-    def charts
-      Nomen::ChartsOfAccounts.all
+    # Returns the human name of the accounting system
+    def accounting_system_name(name = nil)
+      Nomen::AccountingSystem[name || accounting_system].human_name
     end
 
-    # Load a chart of account
-    def load_defaults # (name, options = {})
+    # Find.all available accounting systems in all languages
+    def accounting_systems
+      Nomen::AccountingSystem.all
+    end
+
+    # Load a accounting system
+    def load_defaults
       transaction do
         # Destroy unused existing accounts
         find_each do |account|
           account.destroy if account.destroyable?
         end
-        for item in Nomen::Accounts.all
-          find_or_create_in_chart(item)
+        Nomen::Account.find_each do |item|
+          find_or_import_from_nomenclature(item.name)
         end
       end
       true
@@ -312,7 +292,7 @@ class Account < Ekylibre::Record::Base
     # Returns list of reconcilable prefixes defined in preferences
     def reconcilable_prefixes
       [:client, :supplier, :attorney].collect do |mode|
-        Nomen::Accounts[mode].send(chart).to_s
+        Nomen::Account[mode].send(accounting_system).to_s
       end
     end
 
@@ -325,61 +305,10 @@ class Account < Ekylibre::Record::Base
   # Returns list of usages as an array of usage items from the nomenclature
   def usages_array
     usages.to_s.strip.split(/[\,\s]/).collect do |i|
-      Nomen::Accounts[i]
+      Nomen::Account[i]
     end.compact
   end
 
-  # # Return the number corresponding to the name
-  # def self.chart_number(name)
-  #   return ""
-  # end
-
-  # def self.get(number, name=nil)
-  #   number = number.to_s
-  #   account = self.find_by_number(number)
-  #   return account || self.create!(:number => number, :name => name || number.to_s)
-  # end
-
-  # def self.human_chart_name(chart)
-  #   return ::I18n.translate("accounting_systems.#{chart}.name")
-  # end
-
-  # # Find.all available accounting systems in.all languages
-  # def self.charts
-  #   ac = ::I18n.translate("accounting_systems")
-  #   return (ac.is_a?(Hash) ? ac.keys : [])
-  # end
-
-  # # Replace current chart of account with a new
-  # def self.load_chart(name, options = {})
-  #   chart = ::I18n.translate("accounting_systems.#{name}")
-  #   if chart.is_a? Hash
-
-  #     self.transaction do
-  #       # Destroy unused existing accounts
-  #       self.destroy_all
-
-  #       regexp = self.reconcilable_regexp
-
-  #       # Existing accounts
-  #       self.find_each do |account|
-  #         account.update_column(:reconcilable, true) if account.number.match(regexp)
-  #       end if options[:reconcilable]
-
-  #       # Create new accounts
-  #       for num, name in chart.all.sort{|a,b| a[0].to_s <=>  b[0].to_s}.select{|k, v| k.to_s.match(/^n\_/)}
-  #         number = num.to_s[2..-1]
-  #         if account = self.find_by_number(number)
-  #           account.update_attributes!(:name => name, :reconcilable => (options[:reconcilable] and number.match(regexp)))
-  #         else
-  #           raise number.inspect unless self.create(:number => number, :name => name, :reconcilable => (number.match(regexp) ? true : false))
-  #         end
-  #       end
-  #     end
-  #     return true
-  #   end
-  #   return false
-  # end
 
   # Check if the account is a third account and therefore returns if it should be reconcilable
   def reconcilableable?
@@ -387,7 +316,6 @@ class Account < Ekylibre::Record::Base
   end
 
   def reconcilable_entry_items(period, started_at, stopped_at)
-    # self.journal_entry_items.joins("JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id)").where(JournalEntry.period_condition(period, started_at, stopped_at, 'je')).reorder("letter DESC, je.number DESC, #{JournalEntryItem.table_name}.position")
     journal_entry_items.joins("JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id)").where(JournalEntry.period_condition(period, started_at, stopped_at, 'je')).reorder('letter DESC, je.printed_on')
   end
 

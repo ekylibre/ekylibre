@@ -38,6 +38,7 @@
 #
 
 class PostalZone < Ekylibre::Record::Base
+  refers_to :country
   belongs_to :district
   has_many :mail_addresses, class_name: 'EntityAddress', foreign_key: :mail_postal_zone_id
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

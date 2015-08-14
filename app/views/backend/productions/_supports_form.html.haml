@@ -7,14 +7,14 @@
         %th= ProductionSupport.human_attribute_name(:current_quantity)
         %th= ProductionSupport.human_attribute_name(:quantity)
         %th
-    - precision = Nomen::Currencies[Preference[:currency]].precision
+    - precision = Nomen::Currency[Preference[:currency]].precision
     %tfoot
       %tr.total
         %th= link_to_add_association :add_support.tl, f, :supports, partial: 'support_fields', 'data-association-insertion-node' => '#supports', 'data-association-insertion-method' => :append, class: "btn primary"
         %th{colspan: 2}= :total.tl
         %td.decimal
           %span#supports-quantity{data: {use: ".nested-fields input.support-quantity", calculate: "sum", calculate_round: precision, use_closest: ".fieldset-fields"}}
-          - unit = Nomen::Units[f.object.support_variant_unit]
+          - unit = Nomen::Unit[f.object.support_variant_unit]
           %span.working-unit= (unit ? unit.symbol : "?")
         %th
     %tbody#supports

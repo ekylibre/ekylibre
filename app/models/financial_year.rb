@@ -39,6 +39,7 @@
 
 class FinancialYear < Ekylibre::Record::Base
   attr_readonly :currency
+  refers_to :currency
   belongs_to :last_journal_entry, class_name: 'JournalEntry'
   has_many :account_balances, class_name: 'AccountBalance', foreign_key: :financial_year_id, dependent: :delete_all
   has_many :fixed_asset_depreciations, class_name: 'FixedAssetDepreciation'
@@ -101,7 +102,7 @@ class FinancialYear < Ekylibre::Record::Base
 
   before_validation do
     self.currency ||= Preference[:currency]
-    if ref = Nomen::Currencies.find(self.currency)
+    if ref = Nomen::Currency.find(self.currency)
       self.currency_precision ||= ref.precision
     end
     # self.started_on = self.started_on.beginning_of_day if self.started_on
@@ -187,10 +188,10 @@ class FinancialYear < Ekylibre::Record::Base
         if account_balances.any?
           entry = journal.entries.create!(printed_on: to_close_on + 1, currency: journal.currency)
           result   = 0
-          profit   = Account.find_in_chart(:financial_year_result_profit)
-          losses   = Account.find_in_chart(:financial_year_result_loss)
-          expenses = Account.find_in_chart(:expenses)
-          revenues = Account.find_in_chart(:revenues)
+          profit   = Account.find_in_nomenclature(:financial_year_result_profit)
+          losses   = Account.find_in_nomenclature(:financial_year_result_loss)
+          expenses = Account.find_in_nomenclature(:expenses)
+          revenues = Account.find_in_nomenclature(:revenues)
 
           for balance in account_balances.joins(:account).order('number')
             if balance.account.number.to_s.match(/^(#{expenses.number}|#{revenues.number})/)

@@ -43,7 +43,7 @@
 class Guide < Ekylibre::Record::Base
   has_many :analyses, class_name: 'GuideAnalysis'
   has_one :last_analysis, -> { where(latest: true) }, class_name: 'GuideAnalysis'
-  enumerize :nature, in: Nomen::GuideNatures.all
+  refers_to :nature, class_name: 'GuideNature'
   enumerize :frequency, in: [:hourly, :daily, :weekly, :monthly, :yearly, :decadely, :none], default: :none
   enumerize :reference_name, in: []
 

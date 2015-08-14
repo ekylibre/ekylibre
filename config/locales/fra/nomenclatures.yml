@@ -62,6 +62,12 @@ fra:
       name: "Compétences"
       property_natures:
         parameters: "Paramètres"
+    accounting_systems:
+      items:
+        fr_pcg82: "Plan comptable général de 1982 ‒ Arrêté du 14/12/2007"
+        fr_pcga: "Plan comptable agricole ‒ Arrêté du 11/12/1986"
+        ifrs: "Normes internationales d’information financière (IFRS)" #?
+      name: "Plans de comptes"
     accounts:
       items:
         accrued_bank_interests: "Intérêts bancaires courus"
@@ -702,12 +708,6 @@ fra:
       property_natures:
         labels: "Labels"
         land: "Terroir"
-    charts_of_accounts:
-      items:
-        fr_pcg82: "Plan comptable général de 1982 ‒ Arrêté du 14/12/2007"
-        fr_pcga: "Plan comptable agricole ‒ Arrêté du 11/12/1986"
-        ifrs: "Normes internationales d’information financière (IFRS)" #?
-      name: "Plans de comptes"
     chemical_elements:
       items:
         actinium: "Actinium"
@@ -3328,110 +3328,110 @@ fra:
         variable_indicators: "Indicateurs variables"
         variety: "Variété"
     production_natures:
-      items:
-        administrative: "Administratif"
-        annual_frost_fallow_land: "Gel annuel"
-        apple: "Pomme"
-        asparagus: "Asperge"
-        bean: "Haricot"
-        beet: "Betterave"
-        building: "Bâtiment"
-        calf: "Veau"
-        carrot: "Carotte"
-        chicken: "Poulet"
-        duck: "Canard"
-        escourgeon_barley: "Orge escourgeon"
-        exploitation: "Exploitation"
-        five_years_temporary_meadow: "Prairie temporaire de plus de 5 ans"
-        fixed_frost_fallow_land: "Gel fixe"
-        flax: "Lin"
-        forager_lupin: "Lupin fourrager"
-        forager_soy: "Soja fourrager"
-        fruit_processing: "Transformation de fruits"
-        garden_center: "Pépinière"
-        garlic: "Ail"
-        goat: "Chèvre"
-        gooseberry: "Groseille"
-        grain_corn: "Maïs grain"
-        green_fallow_land: "Gel vert"
-        hazel: "Noisetier"
-        horsebean: "Féverolle"
-        lavender: "Lavande"
-        laying_hen: "Poule pondeuse"
-        lentil: "Lentille"
-        maintenance: "Maintenance"
-        market_gardening: "Maraîchage"
-        market_gardening_under_greenhouse: "Maraîchage sous serre"
-        marketable_bean: "Haricot commercialisé"
-        marketable_flax: "Lin commercialisé"
-        marketable_forager_lupin: "Lupin fourrager commercialisé"
-        marketable_forager_soy: "Soja fourrager commercialisé"
-        marketable_garden_center: "Pépinière commercialisée"
-        marketable_hazel: "Noisette commercialisée"
-        marketable_lentil: "Lentille commercialisée"
-        marketable_soy: "Soja commercialisé"
-        marketable_sunflower: "Tournesol commercialisé"
-        marketable_walnut: "Noix commercialisée"
-        meat_cattle: "Bovins Viande"
-        melon: "Melon"
-        milk_bull_calf: "Taurillons Lait"
-        milk_cattle: "Bovins Lait"
-        other_crop: "Autre culture"
-        other_gardening: "Autres fruits et légumes"
-        others_usages: "Autres utilisations (non admissibles)"
-        oyster: "Huître"
-        peach: "Péche"
-        pear: "Poire"
-        permanent_meadow: "Prairie permanente"
-        pig: "Porc"
-        plum: "Prune"
-        potato: "Pomme de terre"
-        raspberry: "Framboise"
-        rose: "Rose"
-        rye: "Seigle"
-        saffron: "Safran"
-        salmon: "Saumon"
-        seed_bean: "Haricot semence"
-        seed_corn: "Maïs semence"
-        seed_pea: "Pois semence"
-        services: "Services"
-        silage_corn: "Maïs ensilage"
-        sorghum: "Sorgho"
-        soy: "Soja"
-        specific_fallow_land: "Gel spécifique"
-        spring_barley: "Orge de printemps"
-        spring_hard_wheat: "Blé dur de printemps"
-        spring_oat: "Avoine de printemps"
-        spring_pea: "Pois de printemps"
-        spring_rapeseed: "Colza de printemps"
-        spring_soft_wheat: "Blé de printemps"
-        strawberry: "Fraise"
-        sunflower: "Tournesol"
-        table_grape_vine: "Vigne à raisin de table"
-        temporary_meadow: "Prairie temporaire"
-        thicket: "Taillis"
-        tobacco: "Tabac"
-        trade: "Commerce"
-        triticale: "Triticale"
-        unexploited_cultivable_zone: "Zone cultivable inexploitée"
-        vine: "Vigne"
-        vine_restructuration: "Restructuration vigne"
-        walnut: "Noyer"
-        wine_storehouse: "Cave"
-        winery: "Chai"
-        winter_barley: "Orge d’hiver"
-        winter_hard_wheat: "Blé dur d’hiver"
-        winter_oat: "Avoine d’hiver"
-        winter_pea: "Pois d’hiver"
-        winter_rapeseed: "Colza d’hiver"
-        winter_soft_wheat: "Blé tendre d’hiver"
-        without_crop: "Hors culture"
+      items:  #?
+        administrative: "Administratif" #?
+        annual_frost_fallow_land: "Gel annuel" #?
+        apple: "Pomme" #?
+        asparagus: "Asperge" #?
+        bean: "Haricot" #?
+        beet: "Betterave" #?
+        building: "Bâtiment" #?
+        calf: "Veau" #?
+        carrot: "Carotte" #?
+        chicken: "Poulet" #?
+        duck: "Canard" #?
+        escourgeon_barley: "Orge escourgeon" #?
+        exploitation: "Exploitation" #?
+        five_years_temporary_meadow: "Prairie temporaire de plus de 5 ans" #?
+        fixed_frost_fallow_land: "Gel fixe" #?
+        flax: "Lin" #?
+        forager_lupin: "Lupin fourrager" #?
+        forager_soy: "Soja fourrager" #?
+        fruit_processing: "Transformation de fruits" #?
+        garden_center: "Pépinière" #?
+        garlic: "Ail" #?
+        goat: "Chèvre" #?
+        gooseberry: "Groseille" #?
+        grain_corn: "Maïs grain" #?
+        green_fallow_land: "Gel vert" #?
+        hazel: "Noisetier" #?
+        horsebean: "Féverolle" #?
+        lavender: "Lavande" #?
+        laying_hen: "Poule pondeuse" #?
+        lentil: "Lentille" #?
+        maintenance: "Maintenance" #?
+        market_gardening: "Maraîchage" #?
+        market_gardening_under_greenhouse: "Maraîchage sous serre" #?
+        marketable_bean: "Haricot commercialisé" #?
+        marketable_flax: "Lin commercialisé" #?
+        marketable_forager_lupin: "Lupin fourrager commercialisé" #?
+        marketable_forager_soy: "Soja fourrager commercialisé" #?
+        marketable_garden_center: "Pépinière commercialisée" #?
+        marketable_hazel: "Noisette commercialisée" #?
+        marketable_lentil: "Lentille commercialisée" #?
+        marketable_soy: "Soja commercialisé" #?
+        marketable_sunflower: "Tournesol commercialisé" #?
+        marketable_walnut: "Noix commercialisée" #?
+        meat_cattle: "Bovins Viande" #?
+        melon: "Melon" #?
+        milk_bull_calf: "Taurillons Lait" #?
+        milk_cattle: "Bovins Lait" #?
+        other_crop: "Autre culture" #?
+        other_gardening: "Autres fruits et légumes" #?
+        others_usages: "Autres utilisations (non admissibles)" #?
+        oyster: "Huître" #?
+        peach: "Péche" #?
+        pear: "Poire" #?
+        permanent_meadow: "Prairie permanente" #?
+        pig: "Porc" #?
+        plum: "Prune" #?
+        potato: "Pomme de terre" #?
+        raspberry: "Framboise" #?
+        rose: "Rose" #?
+        rye: "Seigle" #?
+        saffron: "Safran" #?
+        salmon: "Saumon" #?
+        seed_bean: "Haricot semence" #?
+        seed_corn: "Maïs semence" #?
+        seed_pea: "Pois semence" #?
+        services: "Services" #?
+        silage_corn: "Maïs ensilage" #?
+        sorghum: "Sorgho" #?
+        soy: "Soja" #?
+        specific_fallow_land: "Gel spécifique" #?
+        spring_barley: "Orge de printemps" #?
+        spring_hard_wheat: "Blé dur de printemps" #?
+        spring_oat: "Avoine de printemps" #?
+        spring_pea: "Pois de printemps" #?
+        spring_rapeseed: "Colza de printemps" #?
+        spring_soft_wheat: "Blé de printemps" #?
+        strawberry: "Fraise" #?
+        sunflower: "Tournesol" #?
+        table_grape_vine: "Vigne à raisin de table" #?
+        temporary_meadow: "Prairie temporaire" #?
+        thicket: "Taillis" #?
+        tobacco: "Tabac" #?
+        trade: "Commerce" #?
+        triticale: "Triticale" #?
+        unexploited_cultivable_zone: "Zone cultivable inexploitée" #?
+        vine: "Vigne" #?
+        vine_restructuration: "Restructuration vigne" #?
+        walnut: "Noyer" #?
+        wine_storehouse: "Cave" #?
+        winery: "Chai" #?
+        winter_barley: "Orge d’hiver" #?
+        winter_hard_wheat: "Blé dur d’hiver" #?
+        winter_oat: "Avoine d’hiver" #?
+        winter_pea: "Pois d’hiver" #?
+        winter_rapeseed: "Colza d’hiver" #?
+        winter_soft_wheat: "Blé tendre d’hiver" #?
+        without_crop: "Hors culture" #?
       name: "Types de productions"
-      property_natures:
-        activity: "Activité"
-        production_code: "Code"
-        telepac_crop_code: "Code de type de culture TéléPAC"
-        variant_support: "Variant"
+      property_natures:  #?
+        activity: "Activité" #?
+        production_code: "Code" #?
+        telepac_crop_code: "Code de type de culture TéléPAC" #?
+        variant_support: "Variant" #?
     production_usages:
       items:
         fodder: "Fourrage"
@@ -4192,16 +4192,169 @@ fra:
         hippophae_rhamnoides: "Argousier"
         honey: "Miel"
         hordeum: "Orge"
-        hordeum_hibernum: "Orge d’hiver"
-        hordeum_hibernum_arturio: "Orge d’hiver Arturio"
-        hordeum_hibernum_cerevisiae: "Orge d’hiver de brasserie"
-        hordeum_hibernum_cerevisiae_hypoproteinae: "Orge d’hiver de brasserie (à faible teneur en protéines)"
-        hordeum_hibernum_etincel: "Orge d’hiver Etincel"
-        hordeum_vernum: "Orge de printemps"
-        hordeum_vernum_hypoproteinae: "Orge de printemps (à faible teneur en protéines)"
-        hordeum_vernum_traveler: "Orge de printemps Traveler"
-        hordeum_vulgare: "Orge escourgeon"
-        hordeum_vulgare_hexastichum: "Escourgeon"
+        hordeum_distichum: "Orge de printemps"
+        hordeum_distichum_astoria: "Orge de printemps astoria"
+        hordeum_distichum_azalea: "Orge de printemps azalea"
+        hordeum_distichum_beatrix: "Orge de printemps beatrix"
+        hordeum_distichum_bellini: "Orge de printemps bellini"
+        hordeum_distichum_brennus: "Orge de printemps brennus"
+        hordeum_distichum_calcule: "Orge de printemps calcule"
+        hordeum_distichum_ceria: "Orge de printemps ceria"
+        hordeum_distichum_challenge: "Orge de printemps challenge"
+        hordeum_distichum_concerto: "Orge de printemps concerto"
+        hordeum_distichum_crescendo: "Orge de printemps crescendo"
+        hordeum_distichum_diligence: "Orge de printemps diligence"
+        hordeum_distichum_dorinka: "Orge de printemps dorinka"
+        hordeum_distichum_dragoon: "Orge de printemps dragoon"
+        hordeum_distichum_endora: "Orge de printemps endora"
+        hordeum_distichum_explorer: "Orge de printemps explorer"
+        hordeum_distichum_extase: "Orge de printemps extase"
+        hordeum_distichum_gesine: "Orge de printemps gesine"
+        hordeum_distichum_grace: "Orge de printemps grace"
+        hordeum_distichum_henley: "Orge de printemps henley"
+        hordeum_distichum_kws_fabienne: "Orge de printemps kws fabienne"
+        hordeum_distichum_kws_irina: "Orge de printemps kws irina"
+        hordeum_distichum_marylin: "Orge de printemps marylin"
+        hordeum_distichum_milford: "Orge de printemps milford"
+        hordeum_distichum_nfc_tipple: "Orge de printemps nfc tipple"
+        hordeum_distichum_odyssey: "Orge de printemps odyssey"
+        hordeum_distichum_olympic: "Orge de printemps olympic"
+        hordeum_distichum_overture: "Orge de printemps overture"
+        hordeum_distichum_paustian: "Orge de printemps paustian"
+        hordeum_distichum_pewter: "Orge de printemps pewter"
+        hordeum_distichum_pionier: "Orge de printemps pionier"
+        hordeum_distichum_prestige: "Orge de printemps prestige"
+        hordeum_distichum_prunella: "Orge de printemps prunella"
+        hordeum_distichum_quantum: "Orge de printemps quantum"
+        hordeum_distichum_rgt_bazille: "Orge de printemps rgt bazille"
+        hordeum_distichum_rgt_planet: "Orge de printemps rgt planet"
+        hordeum_distichum_rhyncostar: "Orge de printemps rhyncostar"
+        hordeum_distichum_sanette: "Orge de printemps sanette"
+        hordeum_distichum_sangria: "Orge de printemps sangria"
+        hordeum_distichum_scrabble: "Orge de printemps scrabble"
+        hordeum_distichum_sebastian: "Orge de printemps sebastian"
+        hordeum_distichum_shandy: "Orge de printemps shandy"
+        hordeum_distichum_sirish: "Orge de printemps sirish"
+        hordeum_distichum_soulmate: "Orge de printemps soulmate"
+        hordeum_distichum_style: "Orge de printemps style"
+        hordeum_distichum_sunshine: "Orge de printemps sunshine"
+        hordeum_distichum_tamtam: "Orge de printemps tamtam"
+        hordeum_distichum_tango: "Orge de printemps tango"
+        hordeum_distichum_torbellino: "Orge de printemps torbellino"
+        hordeum_distichum_traveler: "Orge de printemps Traveler"
+        hordeum_distichum_zeppelin: "Orge de printemps zeppelin"
+        hordeum_distichum_zythos: "Orge de printemps zythos"
+        hordeum_hexastichum: "Orge d’hiver"
+        hordeum_hexastichum_abondance: "Orge d’hiver abondance"
+        hordeum_hexastichum_albertine: "Orge d’hiver albertine"
+        hordeum_hexastichum_alinghi: "Orge d’hiver alinghi"
+        hordeum_hexastichum_amarena: "Orge d’hiver amarena"
+        hordeum_hexastichum_amistar: "Orge d’hiver amistar"
+        hordeum_hexastichum_arturio: "Orge d’hiver Arturio"
+        hordeum_hexastichum_atomo: "Orge d’hiver atomo"
+        hordeum_hexastichum_augusta: "Orge d’hiver augusta"
+        hordeum_hexastichum_azurel: "Orge d’hiver azurel"
+        hordeum_hexastichum_bagoo: "Orge d’hiver bagoo"
+        hordeum_hexastichum_berline: "Orge d’hiver berline"
+        hordeum_hexastichum_bivouac: "Orge d’hiver bivouac"
+        hordeum_hexastichum_bonnie: "Orge d’hiver bonnie"
+        hordeum_hexastichum_california: "Orge d’hiver california"
+        hordeum_hexastichum_calypso: "Orge d’hiver calypso"
+        hordeum_hexastichum_campagne: "Orge d’hiver campagne"
+        hordeum_hexastichum_campanile: "Orge d’hiver campanile"
+        hordeum_hexastichum_cantare: "Orge d’hiver cantare"
+        hordeum_hexastichum_caravan: "Orge d’hiver caravan"
+        hordeum_hexastichum_cardinale: "Orge d’hiver cardinale"
+        hordeum_hexastichum_casanova: "Orge d’hiver casanova"
+        hordeum_hexastichum_casino: "Orge d’hiver casino"
+        hordeum_hexastichum_cassiopee: "Orge d’hiver cassiopee"
+        hordeum_hexastichum_catherine: "Orge d’hiver catherine"
+        hordeum_hexastichum_cervoise: "Orge d’hiver cervoise"
+        hordeum_hexastichum_champie: "Orge d’hiver champie"
+        hordeum_hexastichum_citadel: "Orge d’hiver citadel"
+        hordeum_hexastichum_daisy: "Orge d’hiver daisy"
+        hordeum_hexastichum_daxor: "Orge d’hiver daxor"
+        hordeum_hexastichum_declic: "Orge d’hiver declic"
+        hordeum_hexastichum_detroit: "Orge d’hiver detroit"
+        hordeum_hexastichum_diadem: "Orge d’hiver diadem"
+        hordeum_hexastichum_domino: "Orge d’hiver domino"
+        hordeum_hexastichum_dribble: "Orge d’hiver dribble"
+        hordeum_hexastichum_emotion: "Orge d’hiver emotion"
+        hordeum_hexastichum_escadre: "Orge d’hiver escadre"
+        hordeum_hexastichum_esterel: "Orge d’hiver esterel"
+        hordeum_hexastichum_etincel: "Orge d’hiver Etincel"
+        hordeum_hexastichum_gigga: "Orge d’hiver gigga"
+        hordeum_hexastichum_goody: "Orge d’hiver goody"
+        hordeum_hexastichum_henriette: "Orge d’hiver henriette"
+        hordeum_hexastichum_hercule: "Orge d’hiver hercule"
+        hordeum_hexastichum_hickory: "Orge d’hiver hickory"
+        hordeum_hexastichum_himalaya: "Orge d’hiver himalaya"
+        hordeum_hexastichum_hobbit: "Orge d’hiver hobbit"
+        hordeum_hexastichum_imax: "Orge d’hiver imax"
+        hordeum_hexastichum_isocel: "Orge d’hiver isocel"
+        hordeum_hexastichum_jallon: "Orge d’hiver jallon"
+        hordeum_hexastichum_jenny: "Orge d’hiver jenny"
+        hordeum_hexastichum_joker: "Orge d’hiver joker"
+        hordeum_hexastichum_ketos: "Orge d’hiver ketos"
+        hordeum_hexastichum_kws_cassia: "Orge d’hiver kws cassia"
+        hordeum_hexastichum_kws_glacier: "Orge d’hiver kws glacier"
+        hordeum_hexastichum_kws_infinity: "Orge d’hiver kws infinity"
+        hordeum_hexastichum_kws_kosmos: "Orge d’hiver kws kosmos"
+        hordeum_hexastichum_kws_meridian: "Orge d’hiver kws meridian"
+        hordeum_hexastichum_kws_orwell: "Orge d’hiver kws orwell"
+        hordeum_hexastichum_kws_salsa: "Orge d’hiver kws salsa"
+        hordeum_hexastichum_kws_tonic: "Orge d’hiver kws tonic"
+        hordeum_hexastichum_laverda: "Orge d’hiver laverda"
+        hordeum_hexastichum_limpid: "Orge d’hiver limpid"
+        hordeum_hexastichum_magistral: "Orge d’hiver magistral"
+        hordeum_hexastichum_malicorne: "Orge d’hiver malicorne"
+        hordeum_hexastichum_maltesse: "Orge d’hiver maltesse"
+        hordeum_hexastichum_mangoo: "Orge d’hiver mangoo"
+        hordeum_hexastichum_marado: "Orge d’hiver marado"
+        hordeum_hexastichum_marcorel: "Orge d’hiver marcorel"
+        hordeum_hexastichum_marmara: "Orge d’hiver marmara"
+        hordeum_hexastichum_mascara: "Orge d’hiver mascara"
+        hordeum_hexastichum_matesca: "Orge d’hiver matesca"
+        hordeum_hexastichum_meseta: "Orge d’hiver meseta"
+        hordeum_hexastichum_metaxa: "Orge d’hiver metaxa"
+        hordeum_hexastichum_orbise: "Orge d’hiver orbise"
+        hordeum_hexastichum_ordinale: "Orge d’hiver ordinale"
+        hordeum_hexastichum_origami: "Orge d’hiver origami"
+        hordeum_hexastichum_orjoie: "Orge d’hiver orjoie"
+        hordeum_hexastichum_orpaille: "Orge d’hiver orpaille"
+        hordeum_hexastichum_otto: "Orge d’hiver otto"
+        hordeum_hexastichum_passerel: "Orge d’hiver passerel"
+        hordeum_hexastichum_platine: "Orge d’hiver platine"
+        hordeum_hexastichum_pluriel: "Orge d’hiver pluriel"
+        hordeum_hexastichum_pompadour: "Orge d’hiver pompadour"
+        hordeum_hexastichum_precosa: "Orge d’hiver precosa"
+        hordeum_hexastichum_quad: "Orge d’hiver quad"
+        hordeum_hexastichum_quadriga: "Orge d’hiver quadriga"
+        hordeum_hexastichum_ramata: "Orge d’hiver ramata"
+        hordeum_hexastichum_reflexion: "Orge d’hiver reflexion"
+        hordeum_hexastichum_salamandre: "Orge d’hiver salamandre"
+        hordeum_hexastichum_sandra: "Orge d’hiver sandra"
+        hordeum_hexastichum_scandal: "Orge d’hiver scandal"
+        hordeum_hexastichum_seduction: "Orge d’hiver seduction"
+        hordeum_hexastichum_shangrila: "Orge d’hiver shangrila"
+        hordeum_hexastichum_silex: "Orge d’hiver silex"
+        hordeum_hexastichum_smooth: "Orge d’hiver smooth"
+        hordeum_hexastichum_souleyka: "Orge d’hiver souleyka"
+        hordeum_hexastichum_suzuka: "Orge d’hiver suzuka"
+        hordeum_hexastichum_sy_bamboo: "Orge d’hiver sy bamboo"
+        hordeum_hexastichum_sy_boogy: "Orge d’hiver sy boogy"
+        hordeum_hexastichum_sy_tepee: "Orge d’hiver sy tepee"
+        hordeum_hexastichum_taranie: "Orge d’hiver taranie"
+        hordeum_hexastichum_tatoo: "Orge d’hiver tatoo"
+        hordeum_hexastichum_tektoo: "Orge d’hiver tektoo"
+        hordeum_hexastichum_theresa: "Orge d’hiver theresa"
+        hordeum_hexastichum_tooty: "Orge d’hiver tooty"
+        hordeum_hexastichum_touareg: "Orge d’hiver touareg"
+        hordeum_hexastichum_vanessa: "Orge d’hiver vanessa"
+        hordeum_hexastichum_verticale: "Orge d’hiver verticale"
+        hordeum_hexastichum_volume: "Orge d’hiver volume"
+        hordeum_hexastichum_voyel: "Orge d’hiver voyel"
+        hordeum_vulgare: "Orge commune"
         humulus: "Humulus"
         humulus_lupulus: "Houblon"
         hydrangeaceae: "Hydrangeaceae"
@@ -4938,7 +5091,7 @@ fra:
         triticum_durum_karur: "Blé dur Karur"
         triticum_durum_miradoux: "Blé dur Miradoux"
         triticum_durum_pescadou: "Blé dur Pescadou"
-        triticum_durum_pharaon: "Blé dur Pharaon"
+        triticum_durum_pharaon: "Blé dur Pharaon" #?
         triticum_durum_sculptur: "Blé dur Sculptur"
         triticum_durum_sy_banco: "Blé dur Sy Banco"
         triticum_durum_sy_cysco: "Blé dur Sy Cysco"
@@ -5026,16 +5179,17 @@ fra:
         xanthomonas_arboricola: "Xanthomonas arboricola"
         yeast: "Levure"
         zea: "Maïs"
-        zea_aallexia: "Maïs Aallexia"
-        zea_bergxxon: "Maïs Bergxxon"
-        zea_boomer: "Maïs Boomer"
-        zea_dkc3912: "Maïs DKC 3912"
-        zea_lg30533: "Maïs LG 30.533"
-        zea_lg3490: "Maïs LG 34.90"
-        zea_lg3530: "Maïs LG 35.30"
+        zea_mays: "Maïs commun"
+        zea_mays_aallexia: "Maïs Aallexia"
+        zea_mays_bergxxon: "Maïs Bergxxon"
+        zea_mays_boomer: "Maïs Boomer"
+        zea_mays_dkc3912: "Maïs DKC 3912"
         zea_mays_everta: "Pop corn"
+        zea_mays_lg30533: "Maïs LG 30.533"
+        zea_mays_lg3490: "Maïs LG 34.90"
+        zea_mays_lg3530: "Maïs LG 35.30"
         zea_mays_saccharata: "Maïs doux"
-        zea_shannon: "Maïs Shannon"
+        zea_mays_shannon: "Maïs Shannon"
         zeuzera_pyrina: "Zeuzera pyrina"
         zone: "Zone physique"
         zone_property_title: "Titre de propriété terrienne"

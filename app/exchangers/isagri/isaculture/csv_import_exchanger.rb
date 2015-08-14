@@ -245,7 +245,7 @@ class Isagri::Isaculture::CsvImportExchanger < ActiveExchanger::Base
               intrant = variant.generate(product_name, r.intervention_started_at, cultivable_zone)
 
               unless intrant.frozen_indicators_list.include?(:population)
-                # transcode unit in file in a Nomen::Units.item
+                # transcode unit in file in a Nomen::Unit.item
                 # ex: kg to kilogram
                 unit = units_transcode[product_input_unit]
                 value = product_input_population
@@ -501,7 +501,7 @@ class Isagri::Isaculture::CsvImportExchanger < ActiveExchanger::Base
                 end
 
               elsif procedures_transcode[r.procedure_name] == :harvest && plant && extrant[:extrant_variant]
-                variety_plant = Nomen::Varieties.find(plant.variety)
+                variety_plant = Nomen::Variety.find(plant.variety)
                 if variety_plant
                   if variety_plant <= :corylus
                     # Hazelnuts harvest

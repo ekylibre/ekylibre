@@ -51,10 +51,10 @@ module Clean
           end
         end
 
-        enumerize[:product_reading] ||= {}
-        enumerize[:product_reading][:indicator_name] = Clean::Support.rec(hash, locale, :nomenclatures, :indicators, :items)
-        enumerize[:product_nature_variant_reading] ||= {}
-        enumerize[:product_nature_variant_reading][:indicator_name] = Clean::Support.rec(hash, locale, :nomenclatures, :indicators, :items)
+        # enumerize[:product_reading] ||= {}
+        # enumerize[:product_reading][:indicator_name] = Clean::Support.rec(hash, locale, :nomenclatures, :indicators, :items)
+        # enumerize[:product_nature_variant_reading] ||= {}
+        # enumerize[:product_nature_variant_reading][:indicator_name] = Clean::Support.rec(hash, locale, :nomenclatures, :indicators, :items)
         enumerize[:intervention] ||= {}
         enumerize[:intervention][:reference_name] = Clean::Support.rec(hash, locale, :procedures)
         enumerize[:intervention_cast] ||= {}

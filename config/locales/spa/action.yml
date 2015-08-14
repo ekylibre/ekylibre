@@ -1691,9 +1691,9 @@ spa:
       # you_need_to_review_your_application_configuration: "You need to review your application configuration"
       you_will_lose_all_your_current_data: "Si continua, va a perder todos los datos en curso de embargo. Se quiere perseguir ?" #?
   preferences:
+    # accounting_system: "Chart of accounts"
     # bookkeep_automatically: "Activate the automatic bookkeeping"
     # bookkeep_in_draft: "Save the records in draft mode during bookkeeping"
-    # chart_of_accounts: "Chart of accounts"
     # country: "Country"
     # currency: "Currency"
     # detail_payments_in_deposit_bookkeeping: "Detail all the payments in deposit bookkeeping"

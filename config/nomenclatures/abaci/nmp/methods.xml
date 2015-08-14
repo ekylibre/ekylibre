@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
-  <nomenclature name="nmp_methods" hierarchical="false">
-    <items>
-      <item name="poitou_charentes"/>
-      <item name="france"/>
-    </items>
-  </nomenclature>
-</nomenclatures>

@@ -6,7 +6,7 @@ module Charta
     def initialize(data, srid = :WGS84)
       if data.is_a? Nokogiri::XML::Document
         @gml = data.root.to_xml
-      elsif data.is_a? Nokogiri::XML::NodeSet or data.is_a? Nokogiri::XML::Element
+      elsif data.is_a?(Nokogiri::XML::NodeSet) || data.is_a?(Nokogiri::XML::Element)
         @gml = data.to_xml
       else
         @gml = data

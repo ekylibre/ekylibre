@@ -1,6 +1,6 @@
 - main_toolbar do |t|
   :ruby
-    variants = Nomen::NetServices.list.sort.inject({}) do |hash, net_service|
+    variants = Nomen::NetService.list.sort.inject({}) do |hash, net_service|
       unless NetService.find_by(reference_name: net_service.name)
         hash[net_service.human_name] = {reference_name: net_service.name}
       end

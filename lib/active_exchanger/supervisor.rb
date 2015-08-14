@@ -2,11 +2,12 @@ module ActiveExchanger
   class Supervisor
     attr_reader :color
 
-    def initialize(&block)
+    def initialize(mode = :normal, &block)
       if block_given?
         fail 'Invalid arity must be 1..2' unless (1..2).include?(block.arity)
         @block = block
       end
+      @mode = mode
       @max = ENV['max'].to_i
       @count = nil
       @color = :green

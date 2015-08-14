@@ -47,6 +47,7 @@
 #
 
 class SaleNature < Ekylibre::Record::Base
+  refers_to :currency
   belongs_to :catalog
   belongs_to :journal
   belongs_to :payment_mode, class_name: 'IncomingPaymentMode'

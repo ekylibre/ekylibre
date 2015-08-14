@@ -74,8 +74,10 @@ class Entity < Ekylibre::Record::Base
   attr_accessor :password_confirmation, :old_password
   # belongs_to :attorney_account, class_name: "Account"
   belongs_to :client_account, class_name: 'Account'
-  enumerize :country, in: Nomen::Countries.all
-  enumerize :nature, in: [:organization, :contact], default: :organization, predicates: true # Nomen::EntityNatures.all, default: :entity, predicates: {prefix: true}
+  refers_to :currency
+  refers_to :language
+  refers_to :country
+  enumerize :nature, in: [:organization, :contact], default: :organization, predicates: true
   versionize exclude: [:full_name]
   # belongs_to :payment_mode, class_name: "IncomingPaymentMode"
   belongs_to :proposer, class_name: 'Entity'
@@ -248,7 +250,7 @@ class Entity < Ekylibre::Record::Base
     end
     valid_account = send("#{nature}_account")
     if valid_account.nil?
-      prefix = Nomen::Accounts[nature.to_s.pluralize].send(Account.chart)
+      prefix = Nomen::Account[nature.to_s.pluralize].send(Account.chart)
       if Preference[:use_entity_codes_for_account_numbers]
         number = prefix.to_s + self.number.to_s
         unless valid_account = Account.find_by(number: number)
@@ -278,7 +280,7 @@ class Entity < Ekylibre::Record::Base
   end
 
   def add_event(usage, operator, at = Time.now)
-    if operator && item = Nomen::EventNatures[usage]
+    if operator && item = Nomen::EventNature[usage]
       Event.create!(name: item.human_name, started_at: at, duration: item.default_duration.to_i, participations_attributes: { '0' => { participant_id: id, state: 'informative' }, '1' => { participant_id: operator.id, state: 'accepted' } })
     end
   end

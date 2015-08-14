@@ -55,7 +55,7 @@
 class FixedAsset < Ekylibre::Record::Base
   acts_as_numbered
   enumerize :depreciation_method, in: [:simplified_linear, :linear], predicates: { prefix: true } # graduated
-  enumerize :currency, in: Nomen::Currencies.all, default: proc { Preference[:currency] }
+  refers_to :currency
   belongs_to :expenses_account, class_name: 'Account'
   belongs_to :allocation_account, class_name: 'Account'
   belongs_to :journal, class_name: 'Journal'
@@ -72,7 +72,6 @@ class FixedAsset < Ekylibre::Record::Base
   validates_numericality_of :current_amount, :depreciable_amount, :depreciated_amount, :depreciation_percentage, :purchase_amount, allow_nil: true
   validates_presence_of :allocation_account, :currency, :depreciable_amount, :depreciated_amount, :depreciation_method, :journal, :name, :number, :started_on, :stopped_on
   # ]VALIDATORS]
-  validates_length_of :currency, allow_nil: true, maximum: 3
   validates_uniqueness_of :name
   validates_inclusion_of :depreciation_method, in: depreciation_method.values
 

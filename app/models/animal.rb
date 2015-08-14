@@ -65,7 +65,7 @@
 #
 
 class Animal < Bioproduct
-  enumerize :variety, in: Nomen::Varieties.all(:animal), predicates: { prefix: true }
+  refers_to :variety, scope: :animal
   belongs_to :initial_father, class_name: 'Animal'
   belongs_to :initial_mother, class_name: 'Animal'
 
@@ -95,7 +95,7 @@ class Animal < Bioproduct
     # age (if born_at not present then animal has 24 month)
     animal_age = (age / (3600 * 24 * 30)).to_d if age
     # production (if a cow, get annual milk production)
-    if Nomen::Varieties[variety] <= :bos
+    if Nomen::Variety[variety] <= :bos
       if milk_daily_production
         animal_milk_production = (milk_daily_production * 365).to_d
       end

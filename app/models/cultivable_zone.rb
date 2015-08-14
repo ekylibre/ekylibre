@@ -66,7 +66,7 @@
 #
 
 class CultivableZone < Zone
-  enumerize :variety, in: Nomen::Varieties.all(:cultivable_zone), predicates: { prefix: true }
+  refers_to :variety, scope: :cultivable_zone
   has_many :supports, class_name: 'ProductionSupport', foreign_key: :storage_id
   has_many :productions, class_name: 'Production', through: :supports
   has_many :memberships, class_name: 'CultivableZoneMembership', foreign_key: :group_id
@@ -152,7 +152,7 @@ class CultivableZone < Zone
     if land_parcels.any?
       for land_parcel in land_parcels
         if land_parcel.soil_nature
-          if item = Nomen::SoilNatures[land_parcel.soil_nature]
+          if item = Nomen::SoilNature[land_parcel.soil_nature]
             varieties << item.human_name
           end
         end
@@ -191,7 +191,7 @@ class CultivableZone < Zone
     address = Entity.of_company.default_mail_address
     # raise address.mail_country.inspect
     if address.mail_country == 'fr'
-      return Nomen::AdministrativeAreas.find_by(code: "FR-#{address.mail_postal_code.to_s[0..1]}").name
+      return Nomen::AdministrativeArea.find_by(code: "FR-#{address.mail_postal_code.to_s[0..1]}").name
     else
       return nil
     end

@@ -40,7 +40,7 @@
 class SubscriptionNature < Ekylibre::Record::Base
   attr_readonly :nature
   enumerize :nature, in: [:period, :quantity], default: :period, predicates: true
-  enumerize :entity_link_nature, in: Nomen::EntityLinkNatures.all
+  refers_to :entity_link_nature, class_name: 'EntityLinkNature'
   enumerize :entity_link_direction, in: [:direct, :indirect, :all], default: :all, predicates: { prefix: true }
   has_many :product_nature_categories
   has_many :subscriptions, foreign_key: :nature_id

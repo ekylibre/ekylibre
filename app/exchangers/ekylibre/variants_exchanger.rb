@@ -56,8 +56,8 @@ class Ekylibre::VariantsExchanger < ActiveExchanger::Base
 
             unit = r.price_unity.first
 
-            if unit.present? && !Nomen::Units[unit]
-              if u = Nomen::Units.find_by(symbol: unit)
+            if unit.present? && !Nomen::Unit[unit]
+              if u = Nomen::Unit.find_by(symbol: unit)
                 unit = u.name.to_s
                 measure_unit_price = Measure.new(1.00, unit.to_sym) if unit
               else

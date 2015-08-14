@@ -46,8 +46,10 @@
 class CashTransfer < Ekylibre::Record::Base
   acts_as_numbered
   attr_readonly :number
+  refers_to :emission_currency, class_name: 'Currency'
   belongs_to :emission_cash, class_name: 'Cash'
   belongs_to :emission_journal_entry, class_name: 'JournalEntry'
+  refers_to :reception_currency, class_name: 'Currency'
   belongs_to :reception_cash, class_name: 'Cash'
   belongs_to :reception_journal_entry, class_name: 'JournalEntry'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -80,7 +82,7 @@ class CashTransfer < Ekylibre::Record::Base
   end
 
   bookkeep do |b|
-    transfer_account = Account.find_in_chart(:internal_transfers)
+    transfer_account = Account.find_in_nomenclature(:internal_transfers)
     label = tc(:bookkeep, resource: self.class.model_name.human, number: number, description: description, emission: emission_cash.name, reception: reception_cash.name)
     b.journal_entry(emission_cash.journal, printed_on: self.transfered_at.to_date, column: :emission_journal_entry_id) do |entry|
       entry.add_debit(label, transfer_account.id, emission_amount)

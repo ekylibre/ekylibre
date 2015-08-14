@@ -224,14 +224,14 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     input(attribute_name, options) do
       data_lists = {}
       @template.content_tag(:span, class: 'control-group abilities-list') do
-        abilities_for_select = Nomen::Abilities.list.sort { |a, b| a.human_name <=> b.human_name }.map do |a|
+        abilities_for_select = Nomen::Ability.list.sort { |a, b| a.human_name <=> b.human_name }.map do |a|
           attrs = { value: a.name }
           if a.parameters
             a.parameters.each do |parameter|
               if parameter == :variety
-                data_lists[parameter] ||= Nomen::Varieties.selection
+                data_lists[parameter] ||= Nomen::Variety.selection
               elsif parameter == :issue_nature
-                data_lists[parameter] ||= Nomen::IssueNatures.selection
+                data_lists[parameter] ||= Nomen::IssueNature.selection
               else
                 fail "Unknown parameter type for an ability: #{parameter.inspect}"
               end
@@ -244,7 +244,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
           if list = @object.send(attribute_name)
             list.collect do |a|
               ar = a.to_s.split(/[\(\,\s\)]+/).compact
-              ability = Nomen::Abilities[ar.shift]
+              ability = Nomen::Ability[ar.shift]
               @template.content_tag(:div, data: { ability: ability.name }, class: :ability) do
                 html = @template.label_tag ability.human_name
                 html << @template.hidden_field_tag(prefix, a, class: 'ability-value')
@@ -349,7 +349,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     currency_attribute_name = args.shift || options[:currency_attribute] || :currency
     input(attribute_name, options.merge(wrapper: :append)) do
       html = input_field(attribute_name)
-      html << input_field(currency_attribute_name, collection: Nomen::Currencies.items.values.collect { |c| [c.human_name, c.name.to_s] }.sort)
+      html << input_field(currency_attribute_name, collection: Nomen::Currency.items.values.collect { |c| [c.human_name, c.name.to_s] }.sort)
       html
     end
   end
@@ -455,7 +455,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
                 if indicator.datatype == :measure
                   reading.measure_value_unit ||= indicator.unit
                   m << indfi.number_field("#{indicator.datatype}_value_value", label: indicator.human_name)
-                  m << indfi.input_field("#{indicator.datatype}_value_unit", label: indicator.human_name, collection: Measure.siblings(indicator.unit).collect { |u| [Nomen::Units[u].human_name, u] })
+                  m << indfi.input_field("#{indicator.datatype}_value_unit", label: indicator.human_name, collection: Measure.siblings(indicator.unit).collect { |u| [Nomen::Unit[u].human_name, u] })
                 elsif indicator.datatype == :choice
                   m << indfi.input_field("#{indicator.datatype}_value", label: indicator.human_name, collection: indicator.selection(:choices))
                 elsif [:boolean, :string, :decimal].include?(indicator.datatype)
@@ -463,7 +463,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
                 else
                   m << indfi.input_field("#{indicator.datatype}_value", label: indicator.human_name, as: :string)
                 end
-                if indfi.object.indicator_name_population?
+                if indfi.object.indicator_name.to_s == "population"
                   m << @template.content_tag(:span, variant.unit_name, class: 'add-on')
                 end
                 m
@@ -496,10 +496,10 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
 
   def variety(options = {})
     scope = options[:scope]
-    varieties         = Nomen::Varieties.selection(scope ? scope.variety : nil)
+    varieties         = Nomen::Variety.selection(scope ? scope.variety : nil)
     @object.variety ||= (scope ? scope.variety : varieties.first ? varieties.first.last : nil)
     if options[:derivative_of] || (scope && scope.derivative_of)
-      derivatives = Nomen::Varieties.selection(scope ? scope.derivative_of : nil)
+      derivatives = Nomen::Variety.selection(scope ? scope.derivative_of : nil)
       @object.derivative_of ||= (scope ? scope.derivative_of : derivatives.first ? derivatives.first.last : nil)
       return input(:variety, wrapper: :append, class: :inline) do
         field = ('<span class="add-on">' <<

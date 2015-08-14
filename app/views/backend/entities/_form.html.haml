@@ -39,10 +39,10 @@
   = f.input :reminder_submissive, :show => :reduction_percentage
   = f.input :authorized_payments_count
   = f.input :deliveries_conditions, :field => :text
-  = f.referenced_association :client_account, :source => :thirds, :buttons => {:new => {:number => Account.find_or_create_in_chart(:clients).number}}
+  = f.referenced_association :client_account, :source => :thirds, :buttons => {:new => {:number => Account.find_or_import_from_nomenclature(:clients).number}}
 
 = field_set(:supplier_informations) do
-  = f.referenced_association :supplier_account, :source => :thirds, :buttons => {:new => {:number => Account.find_or_create_in_chart(:suppliers).number}}
+  = f.referenced_association :supplier_account, :source => :thirds, :buttons => {:new => {:number => Account.find_or_import_from_nomenclature(:suppliers).number}}
 
 = field_set(:coordinates, :major => true) do
   = f.nested_association(:emails)

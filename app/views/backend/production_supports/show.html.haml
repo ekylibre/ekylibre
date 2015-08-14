@@ -110,16 +110,16 @@
 
       = waterfall_highcharts(series, tooltip: {point_format: '{point.y: 1.3f}'}, title: {text: 'Budget prévisionnel'}, legend: {enabled: false}, x_axis: {type: 'category'}, y_axis: {title: {text: '€'}})
 
-  - if resource.interventions.any? and Nomen::Varieties[resource.production.variant.variety] <= :plant
+  - if resource.interventions.any? and Nomen::Variety[resource.production.variant.variety] <= :plant
     - c.cobble :production_cost do
       :ruby
         # prepare an array of hash
 
         unit = :hectare
-        unit_item = Nomen::Units[unit]
+        unit_item = Nomen::Unit[unit]
 
         currency = Preference[:currency]
-        currency_item = Nomen::Currencies[currency]
+        currency_item = Nomen::Currency[currency]
 
         series = []
         categories = [:input_cost.tl, :doer_cost.tl, :tool_cost.tl]

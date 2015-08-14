@@ -65,7 +65,7 @@
 #
 
 class ProductGroup < Product
-  enumerize :variety, in: Nomen::Varieties.all(:product_group), predicates: { prefix: true }
+  refers_to :variety, scope: :product_group
   belongs_to :parent, class_name: 'ProductGroup'
   has_many :memberships, class_name: 'ProductMembership', foreign_key: :group_id, dependent: :destroy, inverse_of: :group
   has_many :members, through: :memberships

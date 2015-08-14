@@ -10,7 +10,7 @@
     currency = Preference[:currency]
     title_legend_complement = " (#{currency})"
     # get working indicator and unit (ex: net_surface_area and hectare)
-    if support_variant_unit = Nomen::Units[@production.support_variant_unit]
+    if support_variant_unit = Nomen::Unit[@production.support_variant_unit]
       title_legend_complement = " (#{currency}/#{support_variant_unit.human_name})"
     end
 
@@ -32,7 +32,7 @@
 
     @production.expenses.each do |expense|
       value = expense.amount
-      variant_variety = Nomen::Varieties.find(expense.variant.variety)
+      variant_variety = Nomen::Variety.find(expense.variant.variety)
       if variant_variety <= :worker
         worker_balance += value
       elsif variant_variety <= :equipment

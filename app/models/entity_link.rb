@@ -43,7 +43,7 @@
 class EntityLink < Ekylibre::Record::Base
   belongs_to :entity
   belongs_to :linked, class_name: 'Entity'
-  enumerize :nature, in: Nomen::EntityLinkNatures.all
+  refers_to :nature, class_name: 'EntityLinkNature'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_inclusion_of :main, in: [true, false]
@@ -64,12 +64,12 @@ class EntityLink < Ekylibre::Record::Base
   scope :actives, -> { at(Time.now) }
 
   scope :of_nature, lambda { |*natures|
-    where(nature: natures.collect { |v| Nomen::EntityLinkNatures.all(v.to_sym) }.flatten.map(&:to_s).uniq)
+    where(nature: natures.collect { |v| Nomen::EntityLinkNature.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }
 
   before_validation do
     self.started_at ||= Time.now
-    if item = Nomen::EntityLinkNatures[nature]
+    if item = Nomen::EntityLinkNature[nature]
       self.entity_role = item.entity
       self.linked_role = item.linked
     end

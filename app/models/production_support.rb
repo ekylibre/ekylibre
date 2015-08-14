@@ -36,7 +36,7 @@
 #  updater_id         :integer
 #
 class ProductionSupport < Ekylibre::Record::Base
-  enumerize :production_usage, in: Nomen::ProductionUsages.all, default: Nomen::ProductionUsages.default
+  refers_to :production_usage
 
   belongs_to :production, inverse_of: :supports
   belongs_to :storage, class_name: 'Product', inverse_of: :supports
@@ -92,6 +92,9 @@ class ProductionSupport < Ekylibre::Record::Base
   }
 
   before_validation do
+    unless self.production_usage
+      self.production_usage = Nomen::ProductionUsage.first
+    end
     if self.production
       self.quantity_indicator = support_variant_indicator
       self.quantity_unit      = support_variant_unit
@@ -116,7 +119,7 @@ class ProductionSupport < Ekylibre::Record::Base
   end
 
   def active?
-    if activity.fallow_land?
+    if activity.family.to_s == "fallow_land"
       return false
     else
       return true
@@ -304,7 +307,7 @@ class ProductionSupport < Ekylibre::Record::Base
 
   # Returns value of an indicator if its name correspond to
   def method_missing(method_name, *args)
-    if Nomen::Indicators.all.include?(method_name.to_s)
+    if Nomen::Indicator.all.include?(method_name.to_s)
       return get(method_name, *args)
     end
     super

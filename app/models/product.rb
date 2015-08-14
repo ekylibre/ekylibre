@@ -68,8 +68,8 @@ require 'ffaker'
 
 class Product < Ekylibre::Record::Base
   include Versionable, Indicateable
-  enumerize :variety, in: Nomen::Varieties.all, predicates: { prefix: true }
-  enumerize :derivative_of, in: Nomen::Varieties.all
+  refers_to :variety
+  refers_to :derivative_of, class_name: 'Variety'
   belongs_to :address, class_name: 'EntityAddress'
   belongs_to :category, class_name: 'ProductNatureCategory'
   belongs_to :default_storage, class_name: 'Product'
@@ -136,10 +136,10 @@ class Product < Ekylibre::Record::Base
   }
 
   scope :of_variety, lambda { |*varieties|
-    where(variety: varieties.flatten.collect { |v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
+    where(variety: varieties.flatten.collect { |v| Nomen::Variety.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }
   scope :derivative_of, lambda { |*varieties|
-    where(derivative_of: varieties.flatten.collect { |v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
+    where(derivative_of: varieties.flatten.collect { |v| Nomen::Variety.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }
   scope :can, lambda { |*abilities|
     # where(nature_id: ProductNature.can(*abilities))
@@ -151,10 +151,10 @@ class Product < Ekylibre::Record::Base
   }
 
   scope :of_working_set, lambda { |working_set|
-    if item = Nomen::WorkingSets.find(working_set)
+    if item = Nomen::WorkingSet.find(working_set)
       of_expression(item.expression)
     else
-      fail StandardError, "#{working_set.inspect} is not in Nomen::WorkingSets nomenclature"
+      fail StandardError, "#{working_set.inspect} is not in Nomen::WorkingSet nomenclature"
     end
   }
 
@@ -235,12 +235,12 @@ class Product < Ekylibre::Record::Base
     end
     if self.variant
       if variety
-        unless Nomen::Varieties[variant_variety].include? variety
+        unless Nomen::Variety[variant_variety].include? variety
           errors.add(:variety, :invalid)
         end
       end
       if derivative_of
-        unless Nomen::Varieties[variant_derivative_of].include? derivative_of.to_s
+        unless Nomen::Variety[variant_derivative_of].include? derivative_of.to_s
           errors.add(:derivative_of, :invalid)
         end
       end
@@ -532,7 +532,7 @@ class Product < Ekylibre::Record::Base
 
   # Returns value of an indicator if its name correspond to
   def method_missing(method_name, *args)
-    if Nomen::Indicators.all.include?(method_name.to_s.gsub(/\!\z/, ''))
+    if Nomen::Indicator.all.include?(method_name.to_s.gsub(/\!\z/, ''))
       if method_name.to_s =~ /\!\z/
         return get!(method_name.to_s.gsub(/\!\z/, ''), *args)
       else
@@ -549,8 +549,8 @@ class Product < Ekylibre::Record::Base
   def variables(_options = {})
     list = []
     abilities = self.abilities
-    variety       = Nomen::Varieties[self.variety]
-    derivative_of = Nomen::Varieties[self.derivative_of]
+    variety       = Nomen::Variety[self.variety]
+    derivative_of = Nomen::Variety[self.derivative_of]
     Procedo.each_variable do |variable|
       next if variable.new?
       if v = variable.computed_variety

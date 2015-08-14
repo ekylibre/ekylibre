@@ -40,6 +40,6 @@
   -# cond = ["created_at BETWEEN ? AND ?", started_at, stopped_at]
   -# c.cobble :x_events, count: current_user.events.where(cond).count do
     %ul
-      - for event_nature in Nomen::EventNatures.all
+      - for event_nature in Nomen::EventNature.all
         - cond = ["nature_id=? AND created_at BETWEEN ? AND ?", event_nature.id, started_at, stopped_at]
         %li= :x_events_of_nature_y.tl(count: current_user.events.where(cond).count.to_i, nature: event_nature.name, duration: current_user.events.where(cond).sum(:duration).to_i)

@@ -71,11 +71,11 @@ module Procedo
         elsif object.is_a?(Procedo::HandlerMethod::Reading)
           unit = nil
           if object.options && object.options.respond_to?(:unit)
-            unless unit = Nomen::Units[object.options.unit.text_value]
+            unless unit = Nomen::Unit[object.options.unit.text_value]
               fail "Valid unit expected in #{object.inspect}"
             end
           end
-          unless indicator = Nomen::Indicators[object.indicator.text_value]
+          unless indicator = Nomen::Indicator[object.indicator.text_value]
             fail "Invalid indicator: #{object.indicator.text_value.inspect}"
           end
           rewrite(object.actor) +

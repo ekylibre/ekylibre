@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
-  <nomenclature name="varieties-medicago" hierarchical="true">
-    <items>
-      <item name="medicago_comete" itis_tsn="12345"/>
-    </items>
-  </nomenclature>
-</nomenclatures>

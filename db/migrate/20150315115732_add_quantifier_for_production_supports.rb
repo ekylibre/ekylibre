@@ -149,10 +149,10 @@ class AddQuantifierForProductionSupports < ActiveRecord::Migration
       end
       # Update supports
       if p.with_supports
-        unless p.support_variant && Nomen::Varieties.find(p.support_variant.variety) <= p.support_variety
-          support_variety = Nomen::Varieties.find(p.support_variety)
-          item = Nomen::ProductNatureVariants.list.detect do |i|
-            variety = i.variety || Nomen::ProductNatures.find(i.nature).variety
+        unless p.support_variant && Nomen::Variety.find(p.support_variant.variety) <= p.support_variety
+          support_variety = Nomen::Variety.find(p.support_variety)
+          item = Nomen::ProductNatureVariant.list.detect do |i|
+            variety = i.variety || Nomen::ProductNature.find(i.nature).variety
             support_variety >= variety
           end
           if item
@@ -174,10 +174,10 @@ class AddQuantifierForProductionSupports < ActiveRecord::Migration
       end
       # Set cultivation
       if p.with_cultivation
-        unless p.cultivation_variant && Nomen::Varieties.find(p.cultivation_variant.variety) <= p.cultivation_variety
-          cultivation_variety = Nomen::Varieties.find(p.cultivation_variety)
-          item = Nomen::ProductNatureVariants.list.detect do |i|
-            variety = i.variety || Nomen::ProductNatures.find(i.nature).variety
+        unless p.cultivation_variant && Nomen::Variety.find(p.cultivation_variant.variety) <= p.cultivation_variety
+          cultivation_variety = Nomen::Variety.find(p.cultivation_variety)
+          item = Nomen::ProductNatureVariant.list.detect do |i|
+            variety = i.variety || Nomen::ProductNature.find(i.nature).variety
             cultivation_variety >= variety
           end
           if item

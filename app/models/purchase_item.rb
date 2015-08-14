@@ -47,6 +47,7 @@
 
 class PurchaseItem < Ekylibre::Record::Base
   include PeriodicCalculable
+  refers_to :currency
   belongs_to :account
   belongs_to :purchase, inverse_of: :items
   belongs_to :variant, class_name: 'ProductNatureVariant', inverse_of: :purchase_items
@@ -100,7 +101,7 @@ class PurchaseItem < Ekylibre::Record::Base
     self.reduction_percentage ||= 0
 
     if tax && unit_pretax_amount
-      item = Nomen::Currencies.find(currency)
+      item = Nomen::Currency.find(currency)
       precision = item ? item.precision : 2
       self.unit_amount = unit_pretax_amount * (100.0 + tax_amount) / 100.0
       if pretax_amount.zero? || pretax_amount.nil?
@@ -114,10 +115,11 @@ class PurchaseItem < Ekylibre::Record::Base
     if variant
       self.label ||= variant.commercial_name
       if fixed
-        self.account = variant.fixed_asset_account || Account.find_in_chart(:fixed_assets)
+        self.account = variant.fixed_asset_account || Account.find_in_nomenclature(:fixed_assets)
         unless fixed_asset
           # Create asset
           asset_attributes = {
+            currency: currency,
             started_on: purchase.invoiced_at.to_date,
             depreciable_amount: pretax_amount,
             depreciation_method: variant.fixed_asset_depreciation_method,
@@ -136,7 +138,7 @@ class PurchaseItem < Ekylibre::Record::Base
           build_fixed_asset(asset_attributes)
         end
       else
-        self.account = variant.charge_account || Account.find_in_chart(:expenses)
+        self.account = variant.charge_account || Account.find_in_nomenclature(:expenses)
       end
     end
   end

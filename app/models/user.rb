@@ -65,6 +65,7 @@
 
 class User < Ekylibre::Record::Base
   include Rightable
+  refers_to :language
   belongs_to :team
   belongs_to :person, -> { contacts }, class_name: 'Entity'
   belongs_to :role

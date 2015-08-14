@@ -124,8 +124,8 @@ class Telepac::V2014::LandParcelsExchanger < ActiveExchanger::Base
           end
 
           # Create an activity if not exist with production_code
-          production_nature = Nomen::ProductionNatures.find_by(telepac_crop_code: record.attributes['TYPE'].to_s)
-          unless production_nature && activity_family = Nomen::ActivityFamilies[production_nature.activity]
+          production_nature = Nomen::ProductionNature.find_by(telepac_crop_code: record.attributes['TYPE'].to_s)
+          unless production_nature && activity_family = Nomen::ActivityFamily[production_nature.activity]
             fail "No activity family found. (#{record.attributes['TYPE']})"
           end
 
@@ -152,8 +152,8 @@ class Telepac::V2014::LandParcelsExchanger < ActiveExchanger::Base
           cultivation_variant = nil
           if activity.with_cultivation
             unless cultivation_variant = ProductNatureVariant.of_variety(activity.cultivation_variety).first
-              variety = Nomen::Varieties[activity.cultivation_variety]
-              item = Nomen::ProductNatureVariants.list.select { |i| i.variety.present? && variety >= i.variety }.sample
+              variety = Nomen::Variety[activity.cultivation_variety]
+              item = Nomen::ProductNatureVariant.list.select { |i| i.variety.present? && variety >= i.variety }.sample
               cultivation_variant = ProductNatureVariant.import_from_nomenclature(item.name)
             end
           end

@@ -64,6 +64,7 @@
 #
 class Affair < Ekylibre::Record::Base
   enumerize :third_role, in: [:client, :supplier], predicates: true
+  refers_to :currency
   belongs_to :cash_session
   belongs_to :journal_entry
   # belongs_to :originator, polymorphic: true

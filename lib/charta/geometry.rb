@@ -199,7 +199,7 @@ module Charta
     class << self
       # Link to the nomenclature
       def systems
-        Nomen::SpatialReferenceSystems
+        Nomen::SpatialReferenceSystem
       end
 
       def empty(srid = :WGS84)

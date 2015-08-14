@@ -1,8 +1,8 @@
 - params[:target_type] ||= "Product"
 
 = field_set do
-  - natures = Nomen::IssueNatures.list
-  - if variety = Nomen::Varieties[params[:target_type].underscore]
+  - natures = Nomen::IssueNature.list
+  - if variety = Nomen::Variety[params[:target_type].underscore]
     - natures = natures.select{|i| i.target and i.target.detect{|t| variety.include?(t)}}
   = f.input :nature, collection: natures.collect{|i| [i.human_name, i.name]}.sort{|a,b| a.first.ascii <=> b.first.ascii}
   = f.input :observed_at

@@ -138,19 +138,19 @@ class Telepac::V2015::LandParcelsExchanger < ActiveExchanger::Base
           end
 
           # Create an activity if not exist with production_code
-          production_nature = Nomen::ProductionNatures.find_by(telepac_crop_code_v2015: record.attributes['TYPE'].to_s)
-          unless production_nature && activity_family = Nomen::ActivityFamilies[production_nature.activity]
+          production_nature = Nomen::ProductionNature.find_by(telepac_crop_code_v2015: record.attributes['TYPE'].to_s)
+          unless production_nature && activity_family = Nomen::ActivityFamily[production_nature.activity]
             fail "No activity family found. (#{record.attributes['TYPE']})"
           end
 
           # find the sub-variety if exist
           crop_type = Nomen::TelepacV2015CapCropCode.find_by(telepac_crop_code: record.attributes['TYPE'].to_s)
-          if crop_type and crop_type.telepac_complementary_information_sub_varieties.present? and record.attributes['CODE_VAR']
-            sub_nomen = "Nomen::" + crop_type.telepac_complementary_information_sub_varieties.to_s.camelize
+          if crop_type && crop_type.telepac_complementary_information_sub_varieties.present? && record.attributes['CODE_VAR']
+            sub_nomen = 'Nomen::' + crop_type.telepac_complementary_information_sub_varieties.to_s.camelize
             sub_variety = eval(sub_nomen).find_by(telepac_crop_code: record.attributes['CODE_VAR'].to_s)
           end
 
-          unless production_nature && activity_family = Nomen::ActivityFamilies[production_nature.activity]
+          unless production_nature && activity_family = Nomen::ActivityFamily[production_nature.activity]
             fail "No activity family found. (#{record.attributes['TYPE']})"
           end
 
@@ -177,8 +177,8 @@ class Telepac::V2015::LandParcelsExchanger < ActiveExchanger::Base
           cultivation_variant = nil
           if activity.with_cultivation
             unless cultivation_variant = ProductNatureVariant.of_variety(activity.cultivation_variety).first
-              variety = Nomen::Varieties[activity.cultivation_variety]
-              item = Nomen::ProductNatureVariants.list.select { |i| i.variety.present? && variety >= i.variety }.sample
+              variety = Nomen::Variety[activity.cultivation_variety]
+              item = Nomen::ProductNatureVariant.list.select { |i| i.variety.present? && variety >= i.variety }.sample
               cultivation_variant = ProductNatureVariant.import_from_nomenclature(item.name)
             end
           end

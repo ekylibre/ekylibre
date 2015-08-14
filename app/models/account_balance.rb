@@ -42,6 +42,7 @@
 #
 
 class AccountBalance < Ekylibre::Record::Base
+  refers_to :currency
   belongs_to :account
   belongs_to :financial_year
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

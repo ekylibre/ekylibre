@@ -11,7 +11,7 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
       campaign_harvest_year = s.cell('A', 2).to_i
       activity_name = (s.cell('B', 2).blank? ? [] : s.cell('B', 2).to_s.strip.split('/'))
       # activity_name[0] : activity_name, ex : 'Les papiers'
-      # activity_name[1] : Nomen::ActivityFamilies code, ex : administrative
+      # activity_name[1] : Nomen::ActivityFamily code, ex : administrative
       production_name = s.cell('C', 2)
       production_support_numbers = (s.cell('D', 2).blank? ? [] : s.cell('D', 2).to_s.strip.upcase.split(/[\s\,]+/))
       cultivation_variant_reference_name = s.cell('E', 2)
@@ -37,7 +37,7 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
 
       unless activity = Activity.find_by(name: activity_name[0].strip)
         if activity_name[1]
-          family = Nomen::ActivityFamilies[activity_name[1].strip]
+          family = Nomen::ActivityFamily[activity_name[1].strip]
         else
           family = Activity.find_best_family((cultivation_variant ? cultivation_variant.variety : nil), (support_variant ? support_variant.variety : nil))
         end
@@ -59,7 +59,7 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
         stopped_at: Date.new(campaign.harvest_year, 8, 1),
         state: :opened
       }
-      if activity.with_supports && support_variant && Nomen::Varieties.find(:cultivable_zone) <= support_variant.variety
+      if activity.with_supports && support_variant && Nomen::Variety.find(:cultivable_zone) <= support_variant.variety
         attributes[:support_variant_indicator] = :net_surface_area
         attributes[:support_variant_unit] = :hectare
       end
@@ -116,7 +116,7 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
           next
         else
           unless item_variant = ProductNatureVariant.find_by(number: r.item_code_variant) || ProductNatureVariant.find_by(reference_name: r.item_code_variant)
-            unless Nomen::ProductNatureVariants[r.item_code_variant]
+            unless Nomen::ProductNatureVariant[r.item_code_variant]
               w.error "Cannot find valid variant for budget: #{r.item_code_variant.inspect.red}"
               next
             end
@@ -131,8 +131,8 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
 
         # Find unit and matching indicator
         unit = r.item_quantity_unity.first
-        if unit.present? && !Nomen::Units[unit]
-          if u = Nomen::Units.find_by(symbol: unit)
+        if unit.present? && !Nomen::Unit[unit]
+          if u = Nomen::Unit.find_by(symbol: unit)
             unit = u.name.to_s
           else
             fail ActiveExchanger::NotWellFormedFileError, "Unknown unit #{unit.inspect} for variant #{item_variant.name.inspect}."

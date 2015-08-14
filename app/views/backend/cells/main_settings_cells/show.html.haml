@@ -1,14 +1,13 @@
 .big-infos
   .big-info
     %span.title= :currency.t(scope: 'preferences')
-    %span.value= Nomen::Currencies[Preference[:currency]].human_name rescue "?"
+    %span.value= Nomen::Currency[Preference[:currency]].human_name rescue "?"
   .big-info
     %span.title= :country.t(scope: 'preferences')
-    %span.value= Nomen::Countries[Preference[:country]].human_name rescue "?"
+    %span.value= Nomen::Country[Preference[:country]].human_name rescue "?"
   .big-info
     %span.title= :language.t(scope: 'preferences')
-    %span.value= Nomen::Languages[Preference[:language]].human_name rescue "?"
+    %span.value= Nomen::Language[Preference[:language]].human_name rescue "?"
   .big-info
-    %span.title= :chart_of_accounts.t(scope: 'preferences')
-    -# %span.value= Nomen::ChartsOfAccounts[Preference[:chart_of_account]].human_name
-    %span.value= Preference[:chart_of_accounts].mb_chars.upcase.gsub('_', '-') rescue "?"
+    %span.title= :accounting_system.t(scope: 'preferences')
+    %span.value= Preference[:accounting_system].mb_chars.upcase.gsub('_', '-') rescue "?"

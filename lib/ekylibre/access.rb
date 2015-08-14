@@ -60,6 +60,11 @@ module Ekylibre
         end.flatten.uniq.sort.map(&:to_sym)
       end
 
+      # Returns interactions of a given resource
+      def interactions_of(resource)
+        @resources[resource].keys
+      end
+
       # Returns a hash for all known rights
       def all_rights
         @resources.inject({}) do |hash, pair|

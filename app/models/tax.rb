@@ -38,7 +38,7 @@
 
 class Tax < Ekylibre::Record::Base
   attr_readonly :amount
-  enumerize :reference_name, in: Nomen::Taxes.all
+  refers_to :reference_name, class_name: 'Tax'
   belongs_to :collect_account, class_name: 'Account'
   belongs_to :deduction_account, class_name: 'Account'
   has_many :product_nature_category_taxations, dependent: :restrict_with_error
@@ -65,8 +65,8 @@ class Tax < Ekylibre::Record::Base
 
     # Returns TaxNature items which are used by recorded taxes
     def available_natures
-      Nomen::TaxNatures.list.select do |item|
-        references = Nomen::Taxes.list.keep_if { |tax| tax.nature.to_s == item.name.to_s }
+      Nomen::TaxNature.list.select do |item|
+        references = Nomen::Tax.list.keep_if { |tax| tax.nature.to_s == item.name.to_s }
         taxes = Tax.where(reference_name: references.map(&:name))
         taxes.any?
       end
@@ -74,11 +74,11 @@ class Tax < Ekylibre::Record::Base
 
     # Load a tax from tax nomenclature
     def import_from_nomenclature(reference_name)
-      unless item = Nomen::Taxes.find(reference_name)
+      unless item = Nomen::Tax.find(reference_name)
         fail ArgumentError, "The tax #{reference_name.inspect} is not known"
       end
       unless tax = Tax.find_by_reference_name(reference_name)
-        nature = Nomen::TaxNatures.find(item.nature)
+        nature = Nomen::TaxNature.find(item.nature)
         if nature.computation_method != :percentage
           fail StandardError, 'Can import only percentage computed taxes'
         end
@@ -90,7 +90,7 @@ class Tax < Ekylibre::Record::Base
         for account in [:deduction, :collect]
           if name = nature.send("#{account}_account")
             # find the relative account tax  by name
-            tax_radical = Account.find_or_create_in_chart(name)
+            tax_radical = Account.find_or_import_from_nomenclature(name)
             # find if already account tax  by number was created
             tax_account = Account.find_or_create_by!(number: "#{tax_radical.number}#{nature.suffix}") do |a|
               a.name = "#{tax_radical.name} - #{item.human_name}"
@@ -106,7 +106,7 @@ class Tax < Ekylibre::Record::Base
 
     # Load.all tax from tax nomenclature by country
     def import_all_from_nomenclature(country = Preference[:country])
-      for tax in Nomen::Taxes.items.values.select { |i| i.country == country }
+      for tax in Nomen::Tax.items.values.select { |i| i.country == country }
         import_from_nomenclature(tax.name)
       end
     end
@@ -116,7 +116,7 @@ class Tax < Ekylibre::Record::Base
     def currents
       ids = []
       Tax.find_each do |tax|
-        if item = Nomen::Taxes.find(tax.reference_name)
+        if item = Nomen::Tax.find(tax.reference_name)
           ids << tax.id unless item.stopped_on
         else
           ids << tax.id
@@ -165,7 +165,7 @@ class Tax < Ekylibre::Record::Base
   # Returns the short label of a tax
   def short_label
     label = "#{amount}%"
-    if reference = Nomen::Taxes[reference_name]
+    if reference = Nomen::Tax[reference_name]
       label << " (#{reference.country})"
     end
     label

@@ -41,7 +41,8 @@
 # Sources are stored in :private/reporting/:id/content.xml
 class DocumentTemplate < Ekylibre::Record::Base
   enumerize :archiving, in: [:none_of_template, :first_of_template, :last_of_template, :none, :first, :last], default: :none, predicates: { prefix: true }
-  enumerize :nature, in: Nomen::DocumentNatures.all, predicates: { prefix: true }
+  refers_to :language
+  refers_to :nature, class_name: 'DocumentNature'
   has_many :documents, class_name: 'Document', foreign_key: :template_id, dependent: :nullify, inverse_of: :template
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_inclusion_of :active, :by_default, :managed, in: [true, false]
@@ -58,7 +59,7 @@ class DocumentTemplate < Ekylibre::Record::Base
     natures.flatten!
     natures.compact!
     return none unless natures.respond_to?(:any?) && natures.any?
-    invalids = natures.select { |nature| Nomen::DocumentNatures[nature].nil? }
+    invalids = natures.select { |nature| Nomen::DocumentNature[nature].nil? }
     if invalids.any?
       fail ArgumentError, "Unknown nature(s) for a DocumentTemplate: #{invalids.map(&:inspect).to_sentence}"
     end

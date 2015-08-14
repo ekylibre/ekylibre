@@ -1,21 +1,48 @@
 module Nomen
   # An item of a nomenclature is the core data.
   class Item
-    attr_reader :nomenclature, :name, :properties, :parent, :left, :right, :depth
+    attr_reader :nomenclature, :left, :right, :depth, :aliases, :parent_name
+    attr_accessor :name, :properties
 
     # New item
-    def initialize(nomenclature, element, options = {})
+    def initialize(nomenclature, name, properties = {})
       @nomenclature = nomenclature
-      @name = element.attr('name').to_s
-      @parent = options[:parent]
-      @properties = element.attributes.inject(HashWithIndifferentAccess.new) do |h, pair|
-        h[pair[0]] = cast_property(pair[0], pair[1].to_s)
-        h
+      @name = name.to_s
+      @parent_name = properties.delete(:parent_name)
+      @properties = {}.with_indifferent_access
+      properties.each do |k, v|
+        set(k, v)
       end
     end
 
     def root?
       !parent
+    end
+
+    def parent=(item)
+      if item.nomenclature != nomenclature || item.parents.include?(self)
+        fail 'Invalid parent'
+      end
+      @parent = item
+      @parent_name = @parent.name
+      @nomenclature.rebuild_tree!
+    end
+
+    # Changes parent without rebuilding
+    def parent_name=(name)
+      @parent = nil
+      @parent_name = name
+    end
+
+    def rename(_new_name)
+    end
+
+    def parent?
+      parent.present?
+    end
+
+    def parent
+      @parent ||= @nomenclature.find(@parent_name)
     end
 
     def original_nomenclature_name
@@ -66,7 +93,7 @@ module Nomen
       if other.is_a?(Item)
         item = other
       else
-        unless item = nomenclature.items[other]
+        unless item = nomenclature.find(other)
           fail StandardError, "Cannot find item #{other.inspect} in #{nomenclature.name}"
         end
       end
@@ -86,39 +113,33 @@ module Nomen
       "nomenclatures.#{nomenclature.name}.notions.#{notion_name}.#{name}".t(options.merge(default: ["labels.#{name}".to_sym]))
     end
 
+    def ==(other)
+      other = item_for_comparison(other)
+      nomenclature == other.nomenclature && name == other.name
+    end
+
     def <=>(other)
+      other = item_for_comparison(other)
       nomenclature.name <=> other.nomenclature.name && name <=> other.name
     end
 
     def <(other)
-      unless other = (other.is_a?(Item) ? other : nomenclature[other])
-        fail StandardError, 'Invalid operand to compare'
-      end
-      # other.children.include?(self)
+      other = item_for_comparison(other)
       (other.left < @left && @right < other.right)
     end
 
     def >(other)
-      unless other = (other.is_a?(Item) ? other : nomenclature[other])
-        fail StandardError, 'Invalid operand to compare'
-      end
-      # self.children.include?(other)
+      other = item_for_comparison(other)
       (@left < other.left && other.right < @right)
    end
 
     def <=(other)
-      unless other = (other.is_a?(Item) ? other : nomenclature[other])
-        fail StandardError, 'Invalid operand to compare'
-      end
-      # other.self_and_children.include?(self)
+      other = item_for_comparison(other)
       (other.left <= @left && @right <= other.right)
     end
 
     def >=(other)
-      unless other = (other.is_a?(Item) ? other : nomenclature[other])
-        fail StandardError, "Invalid operand to compare (#{other} not in #{nomenclature.name})"
-      end
-      # self.self_and_children.include?(other)
+      other = item_for_comparison(other)
       (@left <= other.left && other.right <= @right)
     end
 
@@ -126,41 +147,57 @@ module Nomen
       "#{@nomenclature.name}-#{@name}"
     end
 
+    def to_xml_attrs
+      attrs = {}
+      attrs[:name] = name
+      attrs[:parent] = parent_name if self.parent?
+      properties.each do |pname, pvalue|
+        if p = nomenclature.properties[pname.to_s]
+          if p.type == :decimal
+            pvalue = pvalue.to_s.to_f
+          elsif p.list?
+            pvalue = pvalue.join(', ')
+          end
+        end
+        attrs[pname] = pvalue.to_s
+      end
+      attrs
+    end
+
     # Returns property value
     def property(name)
-      property_nature = @nomenclature.property_natures[name]
+      property = @nomenclature.properties[name]
       value = @properties[name]
-      if value.nil? && property_nature.fallbacks
-        for fallback in property_nature.fallbacks
-          value ||= @properties[fallback]
-          break if value
+      if property
+        if value.nil? && property.fallbacks
+          for fallback in property.fallbacks
+            value ||= @properties[fallback]
+            break if value
+          end
         end
-      end
-
-      if property_nature.default
-        value ||= cast_property(name, property_nature.default)
+        value ||= cast_property(name, property.default) if property.default
       end
       value
     end
 
     def selection(name)
-      property_nature = @nomenclature.property_natures[name]
-      if property_nature.type == :list
+      property = @nomenclature.properties[name]
+      if property.list?
         return property(name).collect do |i|
           ["nomenclatures.#{@nomenclature.name}.item_lists.#{self.name}.#{name}.#{i}".t, i]
         end
-      elsif property_nature.type == :nomenclature
+      elsif property.nomenclature?
         return Nomen[property(name)].list.collect do |i|
           [i.human_name, i.name]
         end
       else
-        fail StandardError, 'Cannot call selection for a non-list property_nature'
+        fail StandardError, 'Cannot call selection for a non-list property'
       end
     end
 
     # Checks if item has property with given name
     def has_property?(name)
-      !@nomenclature.property_natures[name].nil?
+      !@nomenclature.properties[name].nil?
     end
 
     # Returns property descriptor
@@ -169,34 +206,26 @@ module Nomen
       super
     end
 
+    def set(name, value)
+      fail "Invalid property: #{name.inspect}" if [:name, :parent, :parent_name].include?(name.to_sym)
+      # TODO: check format
+      if property = nomenclature.properties[name]
+        value ||= [] if property.list?
+      end
+      @properties[name] = value
+    end
+
     private
 
     def cast_property(name, value)
-      value = value.to_s
-      if property_nature = @nomenclature.property_natures[name]
-        if property_nature.type == :choice
-          if value =~ /\,/
-            fail InvalidPropertyNature, 'A property nature of choice type cannot contain commas'
-          end
-          value = value.strip.to_sym
-        elsif property_nature.type == :list
-          value = value.strip.split(/[[:space:]]*\,[[:space:]]*/).map(&:to_sym)
-        elsif property_nature.type == :boolean
-          value = (value == 'true' ? true : value == 'false' ? false : nil)
-        elsif property_nature.type == :decimal
-          value = value.to_d
-        elsif property_nature.type == :integer
-          value = value.to_i
-        elsif property_nature.type == :symbol
-          unless value =~ /\A\w+\z/
-            fail InvalidPropertyNature, "A property '#{name}' must contains a symbol. /[a-z0-9_]/ accepted. No spaces. Got #{value.inspect}"
-          end
-          value = value.to_sym
-        end
-      elsif !%w(name aliases).include?(name.to_s)
-        fail ArgumentError, "Undefined property '#{name}' in #{@nomenclature.name}"
+      @nomenclature.cast_property(name, value)
+    end
+
+    def item_for_comparison(other)
+      unless item = (other.is_a?(Item) ? other : nomenclature[other])
+        fail StandardError, "Invalid operand to compare: #{other.inspect} not in #{nomenclature.name}"
       end
-      value
+      return item
     end
   end
 end

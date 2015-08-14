@@ -48,6 +48,7 @@ class Loan < Ekylibre::Record::Base
   enumerize :repayment_method, in: [:constant_rate, :constant_amount], default: :constant_amount
   enumerize :shift_method, in: [:immediate_payment, :anatocism], default: :immediate_payment
   enumerize :repayment_period, in: [:month, :year], default: :month, predicates: { prefix: true }
+  refers_to :currency
   belongs_to :cash
   belongs_to :journal_entry
   belongs_to :lender, class_name: 'Entity'
@@ -80,7 +81,7 @@ class Loan < Ekylibre::Record::Base
     b.journal_entry(journal, printed_on: started_on, if: started_on <= Date.today) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, name: name)
       entry.add_debit(label, cash.account_id, amount)
-      entry.add_credit(label, Account.find_or_create_in_chart(:loans).id, amount)
+      entry.add_credit(label, Account.find_or_import_from_nomenclature(:loans).id, amount)
     end
   end
 

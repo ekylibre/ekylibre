@@ -49,6 +49,7 @@
 class SaleItem < Ekylibre::Record::Base
   include PeriodicCalculable
   attr_readonly :sale_id
+  refers_to :currency
   belongs_to :account
   belongs_to :sale, inverse_of: :items
   belongs_to :credited_item, class_name: 'SaleItem'
@@ -105,7 +106,7 @@ class SaleItem < Ekylibre::Record::Base
     self.quantity = -1 * credited_quantity if sale_credit
 
     if tax && unit_pretax_amount
-      item = Nomen::Currencies.find(currency)
+      item = Nomen::Currency.find(currency)
       precision = item ? item.precision : 2
       self.unit_amount   = unit_pretax_amount * (100.0 + tax_amount) / 100.0
       self.pretax_amount = (unit_pretax_amount * quantity * (100.0 - reduction_percentage) / 100.0).round(precision)

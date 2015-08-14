@@ -10,7 +10,7 @@
     end
     series = []
     for item in @nature.items
-      item = Nomen::Indicators[item]
+      item = Nomen::Indicator[item]
       series << {type: item.curve, name: item.human_name, data: data[item.name]}
     end
 
@@ -27,7 +27,7 @@
     end
     series = []
     for item in @nature.items
-      item = Nomen::Indicators[item]
+      item = Nomen::Indicator[item]
       series << {type: item.curve, name: item.human_name, data: data[item.name]}
     end
 

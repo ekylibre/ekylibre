@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<migration name="Fix zea">
+  <item-creation item="varieties#zea_mays" itis_tsn="42269" parent="zea"/>
+  <item-change item="varieties#zea_aallexia" parent="zea_mays" itis_tsn="" name="zea_mays_aallexia"/>
+  <item-change item="varieties#zea_boomer"   parent="zea_mays" itis_tsn="" name="zea_mays_boomer"/>
+  <item-change item="varieties#zea_bergxxon" parent="zea_mays" itis_tsn="" name="zea_mays_bergxxon"/>
+  <item-change item="varieties#zea_dkc3912"  parent="zea_mays" itis_tsn="" name="zea_mays_dkc3912"/>
+  <item-change item="varieties#zea_lg30533"  parent="zea_mays" itis_tsn="" name="zea_mays_lg30533"/>
+  <item-change item="varieties#zea_lg3490"   parent="zea_mays" itis_tsn="" name="zea_mays_lg3490"/>
+  <item-change item="varieties#zea_lg3530"   parent="zea_mays" itis_tsn="" name="zea_mays_lg3530"/>
+  <item-change item="varieties#zea_shannon"  parent="zea_mays" itis_tsn="" name="zea_mays_shannon"/>
+  <item-change item="varieties#zea_mays_saccharata" parent="zea_mays" itis_tsn=""/>
+  <item-change item="varieties#zea_mays_everta"     parent="zea_mays" itis_tsn=""/>
+</migration>

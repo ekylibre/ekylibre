@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
-  <nomenclature name="varieties-crocus" hierarchical="true">
-    <items>
-      <item name="crocus_sativus" itis_tsn="501794"/>
-    </items>
-  </nomenclature>
-</nomenclatures>

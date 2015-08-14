@@ -41,7 +41,7 @@ class Backend::EventsController < Backend::BaseController
   end
 
   def change_minutes
-    return unless nature = Nomen::EventNatures[params[:nature]]
+    return unless nature = Nomen::EventNature[params[:nature]]
     value = nature.send(params[:field] || :name)
     render text: value.to_s, layout: false
   end

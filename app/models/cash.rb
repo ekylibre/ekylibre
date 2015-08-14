@@ -53,9 +53,10 @@ class Cash < Ekylibre::Record::Base
   BBAN_TRANSLATIONS = {
     fr: %w(abcdefghijklmonpqrstuvwxyz 12345678912345678923456789)
   }
-  # attr_accessible :name, :nature, :mode, :iban, :bank_identifier_code, :bank_account_key, :bank_name, :bank_code, :bank_agency_code, :bank_account_number, :bank_agency_address, :account_id, :journal_id, :country, :currency
   attr_readonly :nature
   attr_readonly :currency, if: :used?
+  refers_to :country
+  refers_to :currency
   belongs_to :account
   belongs_to :container, class_name: 'Product'
   belongs_to :journal
@@ -73,7 +74,7 @@ class Cash < Ekylibre::Record::Base
 
   enumerize :nature, in: [:bank_account, :cash_box, :associated_account], default: :bank_account, predicates: true
   enumerize :mode, in: [:iban, :bban], default: :iban, predicates: { prefix: true }
-  # enumerize :currency, in: Nomen::Currencies.all
+  # refers_to :currency
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :last_number, allow_nil: true, only_integer: true

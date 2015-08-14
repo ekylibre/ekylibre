@@ -65,7 +65,7 @@
 #
 
 class LandParcelGroup < ProductGroup
-  enumerize :variety, in: Nomen::Varieties.all(:land_parcel_group), predicates: { prefix: true }
+  refers_to :variety, scope: :land_parcel_group
   has_shape
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   # ]VALIDATORS]

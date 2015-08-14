@@ -56,10 +56,10 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
   has_one :campaign, through: :plan
   has_one :cultivable_zone, through: :support, source: :storage
   has_one :production, through: :support
-  enumerize :computation_method, in: Nomen::ManureManagementPlanComputationMethods.all
-  enumerize :soil_nature, in: Nomen::SoilNatures.all
-  enumerize :cultivation_variety, in: Nomen::Varieties.all(:plant)
-  enumerize :administrative_area, in: Nomen::AdministrativeAreas.all
+  refers_to :computation_method, class_name: 'ManureManagementPlanComputationMethod'
+  refers_to :soil_nature
+  refers_to :cultivation_variety, class_name: 'Variety'
+  refers_to :administrative_area
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :absorbed_nitrogen_at_opening, :expected_yield, :humus_mineralization, :intermediate_cultivation_residue_mineralization, :irrigation_water_nitrogen, :maximum_nitrogen_input, :meadow_humus_mineralization, :mineral_nitrogen_at_opening, :nitrogen_at_closing, :nitrogen_input, :nitrogen_need, :organic_fertilizer_mineral_fraction, :previous_cultivation_residue_mineralization, :soil_production, allow_nil: true
   validates_presence_of :computation_method, :plan, :support
@@ -96,18 +96,18 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
       support: support
     }
     if support.production_usage
-      hash[:production_usage] = Nomen::ProductionUsages[support.production_usage]
+      hash[:production_usage] = Nomen::ProductionUsage[support.production_usage]
     end
     if computation_method
-      hash[:method] = Nomen::ManureManagementPlanComputationMethods[computation_method]
+      hash[:method] = Nomen::ManureManagementPlanComputationMethod[computation_method]
     end
     if administrative_area
-      hash[:administrative_area] = Nomen::AdministrativeAreas[administrative_area]
+      hash[:administrative_area] = Nomen::AdministrativeArea[administrative_area]
     end
     if cultivation_variety
-      hash[:variety] = Nomen::Varieties[cultivation_variety]
+      hash[:variety] = Nomen::Variety[cultivation_variety]
     end
-    hash[:soil_nature] = Nomen::SoilNatures[soil_nature] if soil_nature
+    hash[:soil_nature] = Nomen::SoilNature[soil_nature] if soil_nature
     if expected_yield
       hash[:expected_yield] = expected_yield.in(plan.mass_density_unit)
     end
@@ -121,14 +121,14 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
 
   # To have human_name in report
   def soil_nature_name
-    unless item = Nomen::SoilNatures[soil_nature].human_name
+    unless item = Nomen::SoilNature[soil_nature].human_name
       return nil
     end
     item
   end
 
   def cultivation_variety_name
-    unless item = Nomen::Varieties[cultivation_variety].human_name
+    unless item = Nomen::Variety[cultivation_variety].human_name
       return nil
     end
     item

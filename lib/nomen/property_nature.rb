@@ -1,34 +1,40 @@
 module Nomen
   class PropertyNature
-    attr_reader :nomenclature, :name, :type, :fallbacks, :default
-
-    TYPES = [:boolean, :choice, :date, :decimal, :integer, :list, :nomenclature, :string, :symbol]
+    attr_reader :nomenclature, :name, :type, :fallbacks, :default, :source
 
     # New item
-    def initialize(nomenclature, element, _options = {})
+    def initialize(nomenclature, name, type, options = {})
       @nomenclature = nomenclature
-      @name = element.attr('name').to_sym
-      @type = element.attr('type').to_sym
-      if element.has_attribute?('fallbacks')
-        @fallbacks = element.attr('fallbacks').to_s.strip.split(/[[:space:]]*\,[[:space:]]*/).map(&:to_sym)
+      @name = name
+      @type = type
+      fail "Invalid type: #{@type.inspect}" unless Nomen::PROPERTY_TYPES.include?(@type)
+      @fallbacks = options[:fallbacks] if options[:fallbacks]
+      @default = options[:default] if options[:default]
+      @required = !!options[:required]
+      @source = options[:choices] if reference? && options[:choices]
+    end
+
+    Nomen::PROPERTY_TYPES.each do |type|
+      define_method "#{type}?" do
+        @type == type
       end
-      if element.has_attribute?('default')
-        @default = element.attr('default').to_sym
-      end
-      @required = !!(element.attr('required').to_s == 'true')
-      @inherit  = !!(element.attr('inherit').to_s == 'true')
-      unless TYPES.include?(@type)
-        fail ArgumentError, "Property #{@name} type is unknown"
-      end
-      if @type == :choice || @type == :list
-        if element.has_attribute?('choices')
-          @choices = element.attr('choices').to_s.strip.split(/[[:space:]]*\,[[:space:]]*/).map(&:to_sym)
-        elsif element.has_attribute?('nomenclature')
-          @choices = element.attr('nomenclature').to_s.strip.to_sym
-        elsif @type != :list
-          fail ArgumentError, "[#{@nomenclature.name}] Property #{@name} must have choices or nomenclature property"
+    end
+
+    def to_xml_attrs
+      attrs = {}
+      attrs[:name] = @name.to_s
+      attrs[:type] = @type.to_s
+      if @source
+        if inline_choices?
+          attrs[:choices] = @source.join(', ')
+        else
+          attrs[:choices] = @source.to_s
         end
       end
+      attrs[:required] = 'true' if @required
+      attrs[:fallbacks] = @fallbacks.join(', ') if @fallbacks
+      attrs[:default] = @default.to_s if @default
+      attrs
     end
 
     # Returns if property is required
@@ -36,25 +42,32 @@ module Nomen
       @required
     end
 
-    # Returns if property is inherited for child items
-    def inherit?
-      @inherit
+    def inline_choices?
+      choice? || choice_list?
     end
 
-    def inline_choices?
-      !@choices.is_a?(Symbol)
+    def item_reference?
+      item? || item_list?
+    end
+
+    def reference?
+      choice_list? || item_list? || string_list? || choice? || item?
+    end
+
+    def list?
+      choice_list? || item_list? || string_list?
     end
 
     def choices_nomenclature
-      @choices
-     end
+      @source
+    end
 
     # Returns list of choices for a given property
     def choices
       if inline_choices?
-        return @choices || []
-      else
-        return Nomen[@choices.to_s].all.map(&:to_sym)
+        return @source || []
+      elsif item_reference?
+        return @nomenclature.sibling(@source).all.map(&:to_sym)
       end
     end
 
@@ -63,8 +76,8 @@ module Nomen
         return choices.collect do |c|
           [c, c]
         end
-      else
-        return Nomen[@choices.to_s].selection
+      elsif item_reference?
+        return @nomenclature.sibling(@source).selection
       end
     end
 

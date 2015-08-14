@@ -31,7 +31,7 @@
 #  updater_id     :integer
 #
 class NetService < Ekylibre::Record::Base
-  enumerize :reference_name, in: Nomen::NetServices.all
+  refers_to :reference_name, class_name: 'NetService'
   has_many :identifiers, -> { order(:nature) }
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_presence_of :reference_name
@@ -47,13 +47,13 @@ class NetService < Ekylibre::Record::Base
   end
 
   def reference
-    Nomen::NetServices[reference_name]
+    Nomen::NetService[reference_name]
   end
 
   def each_identifier(&_block)
     if reference
       reference.identifiers.each do |identifier|
-        yield Nomen::IdentifierNatures[identifier]
+        yield Nomen::IdentifierNature[identifier]
       end
     end
   end

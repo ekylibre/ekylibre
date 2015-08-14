@@ -57,7 +57,7 @@ module Procedo
   end
 
   class Converter
-    @@whole_indicators = Nomen::Indicators.where(related_to: :whole).collect { |i| i.name.to_sym }
+    @@whole_indicators = Nomen::Indicator.where(related_to: :whole).collect { |i| i.name.to_sym }
     cattr_reader :whole_indicators
 
     attr_reader :destination, :backward_tree, :forward_tree, :handler

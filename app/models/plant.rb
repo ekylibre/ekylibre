@@ -64,7 +64,7 @@
 #  work_number           :string
 #
 class Plant < Bioproduct
-  enumerize :variety, in: Nomen::Varieties.all(:plant), predicates: { prefix: true }
+  refers_to :variety, scope: :plant
 
   has_shape
 

@@ -168,6 +168,18 @@ module Ekylibre::Record
       end
       alias_method_chain :scope, :registration
 
+      def nomenclature_reflections
+        @nomenclature_reflections ||= {}.with_indifferent_access
+      end
+
+      # Link to nomenclature
+      def refers_to(name, options = {})
+        reflection = Nomen::Reflection.new(self, name, options)
+        @nomenclature_reflections ||= {}.with_indifferent_access
+        @nomenclature_reflections[reflection.name] = reflection
+        enumerize reflection.name, in: reflection.klass.all(reflection.scope), i18n_scope: ["nomenclatures.#{reflection.nomenclature}.items"]
+      end
+
       # Permits to consider something and something_id like the same
       def human_attribute_name_with_id(attribute, options = {})
         human_attribute_name_without_id(attribute.to_s.gsub(/_id\z/, ''), options)

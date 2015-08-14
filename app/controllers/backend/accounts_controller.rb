@@ -132,8 +132,8 @@ class Backend::AccountsController < Backend::BaseController
 
   def load
     if request.post?
-      Account.chart = params[:chart]
-      if Nomen::Accounts.property_natures.keys.include?(Account.chart.to_s)
+      Account.accounting_system = params[:accounting_system]
+      if Nomen::Account.property_natures.keys.include?(Account.accounting_system.to_s)
         Account.load_defaults
       else
         fail 'Arrrggggg'

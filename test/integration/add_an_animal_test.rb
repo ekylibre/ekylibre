@@ -24,7 +24,7 @@ class AddAnAnimalTest < CapybaraIntegrationTest
     id = ProductNatureVariant.of_variety('bos').first.id
     visit("/backend/animals/new?variant_id=#{id}")
     shoot_screen 'animals/new'
-    select(Nomen::Varieties[:bos].human_name, from: 'animal[variety]')
+    select(Nomen::Variety[:bos].human_name, from: 'animal[variety]')
     fill_in('animal[name]', with: 'Linette')
     fill_in('animal[work_number]', with: '9253')
     fill_in('animal[identification_number]', with: 'FR17129253')

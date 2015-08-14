@@ -1,4 +1,4 @@
 = field_set do
-  = f.input :nature, collection: ActiveExchanger::Base.importers.collect{|x| [Nomen::ExchangeNatures[x].human_name, x]}.sort
+  = f.input :nature, collection: ActiveExchanger::Base.importers.collect{|x| [Nomen::ExchangeNature[x].human_name, x]}.sort
   = f.input :archive
   = f.custom_fields

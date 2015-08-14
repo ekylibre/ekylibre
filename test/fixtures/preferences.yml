@@ -394,8 +394,8 @@ preferences_031:
   creator_id: 1
   id: 31
   lock_version: 0
-  name: chart_of_accounts
-  nature: chart_of_accounts
+  name: accounting_system
+  nature: accounting_system
   string_value: fr_pcg82
   updated_at: 2014-10-31 18:36:11.733725000 Z
   updater_id: 1

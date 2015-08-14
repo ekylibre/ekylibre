@@ -78,9 +78,11 @@ class Ekylibre::EntitiesExchanger < ActiveExchanger::Base
       end
 
       # Add mail address if given
-      line_6 = r.postal_code + ' ' + r.city
-      unless r.postal_code.blank? || r.city.blank? || person.mails.where('mail_line_6 ILIKE ?', line_6).where(mail_country: r.country).any?
-        person.mails.create!(mail_line_4: r.address, mail_line_6: line_6, mail_country: r.country)
+      if r.postal_code && r.city
+        line_6 = r.postal_code + ' ' + r.city
+        unless r.postal_code.blank? || r.city.blank? || person.mails.where('mail_line_6 ILIKE ?', line_6).where(mail_country: r.country).any?
+          person.mails.create!(mail_line_4: r.address, mail_line_6: line_6, mail_country: r.country)
+        end
       end
 
       # Add phone number if given
@@ -105,7 +107,7 @@ class Ekylibre::EntitiesExchanger < ActiveExchanger::Base
       if r.link_nature && r.link_entity_full_name
         entity_linked = Entity.where('full_name ILIKE ?', r.link_entity_full_name)
         nature = NATURES[r.link_nature] || r.link_nature
-        person.link_to!(entity_linked.first, as: nature) if entity_linked
+        person.link_to!(entity_linked.first, as: nature) if entity_linked.first && nature
       end
 
       w.check_point

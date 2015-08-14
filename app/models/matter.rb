@@ -64,7 +64,7 @@
 #  work_number           :string
 #
 class Matter < Product
-  enumerize :variety, in: Nomen::Varieties.all(:matter), predicates: { prefix: true }
+  refers_to :variety, scope: :matter
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   # ]VALIDATORS]
 end

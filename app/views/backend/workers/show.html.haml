@@ -49,7 +49,7 @@
         started_at = Operation.of_campaign(campaign).with_generic_cast(:doer, resource).reorder(:started_at).first.started_at.to_date
         stopped_at = Operation.of_campaign(campaign).with_generic_cast(:doer, resource).reorder(:started_at).last.stopped_at.to_date
 
-        unit = Nomen::Units[:hour]
+        unit = Nomen::Unit[:hour]
 
         series = []
         categories = {}

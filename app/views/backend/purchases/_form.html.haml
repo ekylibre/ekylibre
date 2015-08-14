@@ -26,7 +26,7 @@
       %tbody#items
         = f.simple_fields_for :items, resource.items do |item|
           = render 'item_fields', f: item
-      - precision = Nomen::Currencies[resource.currency].precision
+      - precision = Nomen::Currency[resource.currency].precision
       %tfoot
         %tr.total
           %td= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: {association_insertion_node: '#items', association_insertion_method: :append}, class: "btn primary"

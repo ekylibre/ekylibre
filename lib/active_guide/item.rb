@@ -10,11 +10,9 @@ module ActiveGuide
       accept(&options.delete(:if)) if options[:if].respond_to?(:call)
     end
 
-
     def unique_name
       @unique_name ||= (@parent ? @parent.unique_name.to_s + ':' + @name.to_s : @name.to_s)
     end
-
 
     def guide
       @parent.guide

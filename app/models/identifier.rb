@@ -33,7 +33,7 @@
 #  value          :string           not null
 #
 class Identifier < Ekylibre::Record::Base
-  enumerize :nature, in: Nomen::IdentifierNatures.all
+  refers_to :nature, class_name: 'IdentifierNature'
   belongs_to :net_service
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_presence_of :nature, :value
@@ -50,6 +50,6 @@ class Identifier < Ekylibre::Record::Base
   end
 
   def name
-    (nature ? Nomen::IdentifierNatures[nature].human_name : :unknown.tl)
+    (nature ? Nomen::IdentifierNature[nature].human_name : :unknown.tl)
   end
 end
