@@ -119,6 +119,7 @@ class PurchaseItem < Ekylibre::Record::Base
         unless fixed_asset
           # Create asset
           asset_attributes = {
+            currency: currency,
             started_on: purchase.invoiced_at.to_date,
             depreciable_amount: pretax_amount,
             depreciation_method: variant.fixed_asset_depreciation_method,

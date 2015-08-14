@@ -109,7 +109,7 @@ class Ekylibre::PurchasesExchanger < ActiveExchanger::Base
       tax = Tax.import_from_nomenclature(item.name)
 
       # find or create a purchase line
-      unless purchase_item = purchase.items.find_by(pretax_amount: r.pretax_amount, variant_id: variant.id, tax_id: tax.id)
+      unless purchase.items.find_by(pretax_amount: r.pretax_amount, variant_id: variant.id, tax_id: tax.id)
         fail "Missing quantity at line #{line_index}" unless r.quantity
         purchase.items.create!(quantity: r.quantity, tax: tax, unit_pretax_amount: r.unit_pretax_amount, variant: variant, fixed: r.depreciate)
       end

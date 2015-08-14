@@ -72,7 +72,6 @@ class FixedAsset < Ekylibre::Record::Base
   validates_numericality_of :current_amount, :depreciable_amount, :depreciated_amount, :depreciation_percentage, :purchase_amount, allow_nil: true
   validates_presence_of :allocation_account, :currency, :depreciable_amount, :depreciated_amount, :depreciation_method, :journal, :name, :number, :started_on, :stopped_on
   # ]VALIDATORS]
-  validates_length_of :currency, allow_nil: true, maximum: 3
   validates_uniqueness_of :name
   validates_inclusion_of :depreciation_method, in: depreciation_method.values
 

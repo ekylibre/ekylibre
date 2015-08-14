@@ -68,9 +68,8 @@ class Purchase < Ekylibre::Record::Base
   validates_numericality_of :amount, :pretax_amount, allow_nil: true
   validates_presence_of :amount, :currency, :number, :payee, :pretax_amount, :supplier
   # ]VALIDATORS]
-  validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :number, :state, allow_nil: true, maximum: 60
-  validates_presence_of :created_at, :currency, :state, :nature
+  validates_presence_of :created_at, :state, :nature
   validates_uniqueness_of :number
   validates_associated :items
 

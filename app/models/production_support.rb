@@ -92,6 +92,9 @@ class ProductionSupport < Ekylibre::Record::Base
   }
 
   before_validation do
+    unless self.production_usage
+      self.production_usage = Nomen::ProductionUsage.first
+    end
     if self.production
       self.quantity_indicator = support_variant_indicator
       self.quantity_unit      = support_variant_unit
