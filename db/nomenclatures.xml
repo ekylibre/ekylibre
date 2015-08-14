@@ -396,7 +396,7 @@
       <item name="bean_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="phaseolus"/>
       <item name="beekeeping" parent="animal_farming" support_variety="animal_group" cultivation_variety="apidae"/>
       <item name="beet_crops" parent="field_crops" support_variety="cultivable_zone" cultivation_variety="beta"/>
-      <item name="bere_crops" parent="cereal_crops" support_variety="cultivable_zone" cultivation_variety="hordeum_vulgare_hexastichum"/>
+      <item name="bere_crops" parent="cereal_crops" support_variety="cultivable_zone" cultivation_variety="hordeum_hexastichum"/>
       <item name="bison_farming" parent="animal_farming" support_variety="animal_group" cultivation_variety="bison"/>
       <item name="black_mustard_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="brassica_nigra"/>
       <item name="blackcurrant_crops" parent="arboriculture" support_variety="cultivable_zone" cultivation_variety="ribes_nigrum"/>
@@ -2579,7 +2579,7 @@
       <item name="aventur_wheat_crop" cultivation_variety="triticum_durum_aventur" coefficient="4.1" nitrogen_stock_before_bolting="80.0"/>
       <item name="aztec_wheat_crop" cultivation_variety="triticum_aestivum_aztec" coefficient="3.0"/>
       <item name="biensur_wheat_crop" cultivation_variety="triticum_durum_biensur" coefficient="3.7" nitrogen_stock_before_bolting="40.0"/>
-      <item name="brassage_barley_crop" cultivation_variety="hordeum_hibernum_cerevisiae" coefficient="2.2"/>
+      <item name="brassage_barley_crop" cultivation_variety="hordeum_hexastichum" coefficient="2.2"/>
       <item name="brown_tobacco_crop" cultivation_variety="nicotiana_tabacum_brown" coefficient="8.5"/>
       <item name="burley_tobacco_crop" cultivation_variety="nicotiana_tabacum_burley" coefficient="9.5"/>
       <item name="bussard_wheat_crop" cultivation_variety="triticum_aestivum_bussard" coefficient="4.1" nitrogen_stock_before_bolting="80.0"/>
@@ -2602,8 +2602,8 @@
       <item name="lona_wheat_crop" cultivation_variety="triticum_aestivum_lona" coefficient="4.1" nitrogen_stock_before_bolting="80.0"/>
       <item name="low_fodder_corn_crop" cultivation_variety="zea" usage="fodder" coefficient="14.0" maximum_yield_aim="120.0"/>
       <item name="low_grain_corn_crop" cultivation_variety="zea" usage="grain" coefficient="2.3" maximum_yield_aim="100.0"/>
-      <item name="low_protein_brassage_barley_crop" cultivation_variety="hordeum_hibernum_cerevisiae_hypoproteinae" coefficient="2.5"/>
-      <item name="low_protein_spring_barley_crop" cultivation_variety="hordeum_vernum_hypoproteinae" coefficient="2.4"/>
+      <item name="low_protein_brassage_barley_crop" cultivation_variety="hordeum_hexastichum" coefficient="2.5"/>
+      <item name="low_protein_spring_barley_crop" cultivation_variety="hordeum_distichum" coefficient="2.4"/>
       <item name="low_seed_corn_crop" cultivation_variety="zea" usage="seed" coefficient="4.0" maximum_yield_aim="35.0"/>
       <item name="manital_wheat_crop" cultivation_variety="triticum_aestivum_manital" coefficient="3.7" nitrogen_stock_before_bolting="40.0"/>
       <item name="max_fodder_corn_crop" cultivation_variety="zea" usage="fodder" coefficient="12.0" minimum_yield_aim="180.0"/>

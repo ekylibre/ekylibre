@@ -127,7 +127,6 @@ module Nomen
     # Add an item to the nomenclature
     def change_item(name, changes = {})
       i = find!(name)
-      # puts [i, i.parent].inspect.red
       new_parent = changes.delete(:parent)
       new_name = changes.delete(:name)
       changes.each do |k, v|
@@ -135,25 +134,32 @@ module Nomen
       end
       i.parent = find!(new_parent) if new_parent
       i = rename_item(name, new_name) if new_name
-      # puts [i, i.parent].inspect.green
       i
     end
 
     def rename_item(name, new_name)
       i = find!(name)
       i.children.each do |child|
-        # puts child.inspect.blue
         child.parent_name = new_name
       end
+      cascade_item_renaming(name.to_sym, new_name.to_sym)
+      i = @items.delete(i.name)
+      i.name = new_name
+      @items[new_name] = i
+      i
+    end
+
+    # name and new_name are Symbol
+    def cascade_item_renaming(name, new_name)
       @set.references.each do |reference|
         if reference.foreign_nomenclature == self
           p = reference.property
           if p.list?
             reference.nomenclature.find_each do |item|
               v = item.property(p.name)
-              if v && v.include?(i.name.to_sym)
+              if v && v.include?(name)
                 l = v.map do |n|
-                  n == i.name.to_sym ? new_name : n
+                  n == name ? new_name : n
                 end
                 item.set(p.name, l)
               end
@@ -161,15 +167,11 @@ module Nomen
           else
             reference.nomenclature.find_each do |item|
               v = item.property(p.name)
-              item.set(p.name, new_name) if v == i.name.to_sym
+              item.set(p.name, new_name) if v == name
             end
           end
         end
       end
-      i = @items.delete(i.name)
-      i.name = new_name
-      @items[new_name] = i
-      i
     end
 
     def merge_item(name, into)
@@ -178,6 +180,7 @@ module Nomen
       i.children.each do |child|
         child.parent = dest
       end
+      cascade_item_renaming(name.to_sym, into.to_sym)
       @items.delete(name)
     end
 

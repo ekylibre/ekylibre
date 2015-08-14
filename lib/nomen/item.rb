@@ -100,7 +100,6 @@ module Nomen
       unless item.nomenclature == nomenclature
         fail StandardError, 'Invalid item'
       end
-      puts [@left, item.left, item.right, @right].inspect
       (@left <= item.left && item.right <= @right)
     end
 
@@ -114,39 +113,33 @@ module Nomen
       "nomenclatures.#{nomenclature.name}.notions.#{notion_name}.#{name}".t(options.merge(default: ["labels.#{name}".to_sym]))
     end
 
+    def ==(other)
+      other = item_for_comparison(other)
+      nomenclature == other.nomenclature && name == other.name
+    end
+
     def <=>(other)
+      other = item_for_comparison(other)
       nomenclature.name <=> other.nomenclature.name && name <=> other.name
     end
 
     def <(other)
-      unless other = (other.is_a?(Item) ? other : nomenclature[other])
-        fail StandardError, 'Invalid operand to compare'
-      end
-      # other.children.include?(self)
+      other = item_for_comparison(other)
       (other.left < @left && @right < other.right)
     end
 
     def >(other)
-      unless other = (other.is_a?(Item) ? other : nomenclature[other])
-        fail StandardError, 'Invalid operand to compare'
-      end
-      # self.children.include?(other)
+      other = item_for_comparison(other)
       (@left < other.left && other.right < @right)
    end
 
     def <=(other)
-      unless other = (other.is_a?(Item) ? other : nomenclature[other])
-        fail StandardError, 'Invalid operand to compare'
-      end
-      # other.self_and_children.include?(self)
+      other = item_for_comparison(other)
       (other.left <= @left && @right <= other.right)
     end
 
     def >=(other)
-      unless other = (other.is_a?(Item) ? other : nomenclature[other])
-        fail StandardError, "Invalid operand to compare (#{other} not in #{nomenclature.name})"
-      end
-      # self.self_and_children.include?(other)
+      other = item_for_comparison(other)
       (@left <= other.left && other.right <= @right)
     end
 
@@ -226,6 +219,13 @@ module Nomen
 
     def cast_property(name, value)
       @nomenclature.cast_property(name, value)
+    end
+
+    def item_for_comparison(other)
+      unless item = (other.is_a?(Item) ? other : nomenclature[other])
+        fail StandardError, "Invalid operand to compare: #{other.inspect} not in #{nomenclature.name}"
+      end
+      return item
     end
   end
 end
