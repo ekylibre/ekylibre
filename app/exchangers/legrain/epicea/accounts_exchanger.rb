@@ -14,7 +14,7 @@ class Legrain::Epicea::AccountsExchanger < ActiveExchanger::Base
       label = row[1].to_s.tr("\"", "'")
       usage = usage_by_account_number[account_number]
       if usage.present?
-        account = Account.find_or_create_in_chart(usage)
+        account = Account.find_or_import_from_nomenclature(usage)
       else
         upper_account_number = account_number.chop
         while upper_account_number.present?

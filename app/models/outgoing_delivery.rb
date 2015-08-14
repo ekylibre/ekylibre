@@ -214,7 +214,7 @@ class OutgoingDelivery < Ekylibre::Record::Base
         for item in delivery.items
           # raise "#{item.variant.name} cannot be sold" unless item.variant.saleable?
           unless item.variant.saleable?
-            item.category.product_account = Account.find_or_create_in_chart(:revenues)
+            item.category.product_account = Account.find_or_import_from_nomenclature(:revenues)
             item.category.saleable = true
           end
           next unless item.population > 0

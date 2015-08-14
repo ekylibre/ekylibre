@@ -348,7 +348,7 @@ class Production < Ekylibre::Record::Base
       return 'CHRIS/LIFFE_EBM4'
     elsif Nomen::Varieties[cultivation_variant_variety.to_sym] <= :brassica_napus
       return 'CHRIS/LIFFE_ECO4'
-    elsif Nomen::Varieties[cultivation_variant_variety.to_sym] <= :hordeum_vernum
+    elsif Nomen::Varieties[cultivation_variant_variety.to_sym] <= :hordeum_distichum
       return 'ODA/PBARL_USD'
     end
   end

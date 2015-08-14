@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<migration name="Rename charts of accounts">
+  <nomenclature-change nomenclature="charts_of_accounts" name="accounting_systems"/>
+</migration>

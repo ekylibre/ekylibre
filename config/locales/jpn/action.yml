@@ -1401,9 +1401,9 @@ jpn:
       # you_must_have_an_email_column: "You must have an email address in your extraction"
       # you_need_to_review_your_application_configuration: "You need to review your application configuration"
   preferences:
+    # accounting_system: "Chart of accounts"
     # bookkeep_automatically: "Activate the automatic bookkeeping"
     # bookkeep_in_draft: "Save the records in draft mode during bookkeeping"
-    # chart_of_accounts: "Chart of accounts"
     # country: "Country"
     # currency: "Currency"
     # detail_payments_in_deposit_bookkeeping: "Detail all the payments in deposit bookkeeping"

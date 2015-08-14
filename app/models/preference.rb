@@ -41,7 +41,7 @@
 
 class Preference < Ekylibre::Record::Base
   # attr_accessible :nature, :name, :value
-  enumerize :nature, in: [:chart_of_accounts, :country, :currency, :boolean, :decimal, :language, :integer, :record, :spatial_reference_system, :string], default: :string, predicates: true
+  enumerize :nature, in: [:accounting_system, :country, :currency, :boolean, :decimal, :language, :integer, :record, :spatial_reference_system, :string], default: :string, predicates: true
   @@natures = nature.values
   @@conversions = { float: :decimal, true_class: :boolean, false_class: :boolean, fixnum: :integer }
   cattr_reader :reference
@@ -58,7 +58,7 @@ class Preference < Ekylibre::Record::Base
   validates_inclusion_of :nature, in: @@natures
   validates_uniqueness_of :name, scope: [:user_id]
 
-  alias_attribute :chart_of_accounts_value, :string_value
+  alias_attribute :accounting_system_value, :string_value
   alias_attribute :country_value, :string_value
   alias_attribute :currency_value, :string_value
   alias_attribute :language_value, :string_value
@@ -80,10 +80,10 @@ class Preference < Ekylibre::Record::Base
   prefer :host, :string, 'erp.example.com'
   prefer :use_entity_codes_for_account_numbers, :boolean, true
   prefer :sales_conditions, :string, ''
-  prefer :chart_of_accounts, :chart_of_accounts, Nomen::ChartsOfAccounts.default
-  prefer :language, :language, Nomen::Languages.default
-  prefer :country,  :country, Nomen::Countries.default
-  prefer :currency, :currency, Nomen::Currencies.default
+  prefer :accounting_system, :accounting_system, Nomen::AccountingSystem.default
+  prefer :language, :language, Nomen::Language.default
+  prefer :country,  :country, Nomen::Country.default
+  prefer :currency, :currency, Nomen::Currency.default
   # prefer :map_measure_srid, :integer, 0
   prefer :map_measure_srs, :spatial_reference_system, Nomen::SpatialReferenceSystems.default
 

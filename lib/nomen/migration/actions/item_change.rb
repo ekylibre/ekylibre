@@ -2,28 +2,22 @@ module Nomen
   module Migration
     module Actions
       class ItemChange < Nomen::Migration::Actions::Base
-        attr_reader :nomenclature, :name, :parent, :properties, :new_name, :new_parent, :new_properties
+        attr_reader :nomenclature, :name, :changes
         def initialize(element)
           name = element['item'].split('#')
           @nomenclature = name.first
           @name = name.second
-          @new_name = element['name'] if element.key?('name')
-          @new_parent = element['parent'] if element.key?('parent')
-          @new_properties = element.attributes.delete_if do |k, _v|
-            k =~ /name(:[a-z]{3})?/ || %w(item parent nomenclature).include?(k)
-          end
+          @changes = element.attributes.delete_if do |k, _v|
+            k =~ /name(:[a-z]{3})?/ || %w(item).include?(k)
+          end.symbolize_keys
         end
 
         def new_name?
-          @new_name.present?
+          @changes[:name].present?
         end
 
-        def new_parent?
-          @new_parent.present?
-        end
-
-        def new_properties?
-          @new_properties.any?
+        def new_name
+          @changes[:name]
         end
 
         def changes
@@ -34,13 +28,7 @@ module Nomen
         end
 
         def human_name
-          updates = []
-          updates << "new name #{@new_name}" if new_name?
-          updates << "new parent #{@new_parent}" if new_parent?
-          @new_properties.each do |k, v|
-            updates << "new #{k} #{v}"
-          end
-          sentence = "Change item #{@nomenclature}##{@name} with " + updates.to_sentence
+          "Change item #{@nomenclature}##{@name} with " + changes.to_sentence
         end
       end
     end

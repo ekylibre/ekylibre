@@ -2137,9 +2137,9 @@ arb:
         purchases: "مشتريات دورية افتراضية" #?
         sales: "مبيعات دورية افتراضية" #?
         various: "الاجراءات اليومية المختلفة افتراضيا" #?
+    # accounting_system: "Chart of accounts"
     # bookkeep_automatically: "Activate the automatic bookkeeping"
     # bookkeep_in_draft: "Save the records in draft mode during bookkeeping"
-    # chart_of_accounts: "Chart of accounts"
     # country: "Country"
     # currency: "Currency"
     # detail_payments_in_deposit_bookkeeping: "Detail all the payments in deposit bookkeeping"

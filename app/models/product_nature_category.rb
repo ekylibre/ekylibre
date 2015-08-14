@@ -192,7 +192,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
     for account in [:fixed_asset, :fixed_asset_allocation, :fixed_asset_expenses, :charge, :product, :stock]
       name = item.send("#{account}_account")
       unless name.blank?
-        attributes["#{account}_account"] = Account.find_or_create_in_chart(name)
+        attributes["#{account}_account"] = Account.find_or_import_from_nomenclature(name)
       end
     end
     # TODO: add in rake clean method a way to detect same translation in nomenclatures by locale (to avoid conflict with validation on uniq name for example)

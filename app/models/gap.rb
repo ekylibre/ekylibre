@@ -71,13 +71,13 @@ class Gap < Ekylibre::Record::Base
       if self.profit?
         entry.add_debit(label, entity.account(entity_role).id, amount)
         for item in items
-          entry.add_credit(label, Account.find_or_create_in_chart(:other_usual_running_profits), item.pretax_amount)
+          entry.add_credit(label, Account.find_or_import_from_nomenclature(:other_usual_running_profits), item.pretax_amount)
           entry.add_credit(label, item.tax.collect_account_id, item.taxes_amount)
         end
       else
         entry.add_credit(label, entity.account(entity_role).id, amount)
         for item in items
-          entry.add_debit(label, Account.find_or_create_in_chart(:other_usual_running_expenses), item.pretax_amount)
+          entry.add_debit(label, Account.find_or_import_from_nomenclature(:other_usual_running_expenses), item.pretax_amount)
           entry.add_debit(label, item.tax.deduction_account_id, item.taxes_amount)
         end
       end

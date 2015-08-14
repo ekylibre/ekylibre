@@ -59,7 +59,7 @@ module Nomen
     def to_xml
       builder = Nokogiri::XML::Builder.new do |xml|
         xml.nomenclatures(xmlns: Nomen::XMLNS, version: @version) do
-          @nomenclatures.values.sort { |a, b| a.name <=> b.name }.each do |nomenclature|
+          @nomenclatures.values.sort.each do |nomenclature|
             xml.nomenclature(nomenclature.to_xml_attrs) do
               xml.properties do
                 nomenclature.properties.values.sort { |a, b| a.name <=> b.name }.each do |property|
@@ -89,14 +89,22 @@ module Nomen
       @nomenclatures[name] = Nomenclature.new(name, options)
     end
 
-    def rename_nomenclature(old_name, new_name)
+    def move_nomenclature(old_name, new_name)
       unless @nomenclatures[old_name]
         fail "Nomenclature #{old_name} does not exist"
       end
       fail "Nomenclature #{new_name} already exists" if @nomenclatures[new_name]
       @nomenclatures[new_name] = @nomenclatures.delete(old_name)
-      @nomenclatures[new_name].name = new_name.to_s
       @nomenclatures[new_name]
+    end
+
+    def change_nomenclature(name, changes = {})
+      nomenclature = find(name)
+      nomenclature.update_attributes(changes)
+      if changes[:name]
+        nomenclature = move_nomenclature(name, changes[:name])
+      end
+      return nomenclature
     end
 
     def remove_nomenclature(name)

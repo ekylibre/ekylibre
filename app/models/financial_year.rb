@@ -188,10 +188,10 @@ class FinancialYear < Ekylibre::Record::Base
         if account_balances.any?
           entry = journal.entries.create!(printed_on: to_close_on + 1, currency: journal.currency)
           result   = 0
-          profit   = Account.find_in_chart(:financial_year_result_profit)
-          losses   = Account.find_in_chart(:financial_year_result_loss)
-          expenses = Account.find_in_chart(:expenses)
-          revenues = Account.find_in_chart(:revenues)
+          profit   = Account.find_in_nomenclature(:financial_year_result_profit)
+          losses   = Account.find_in_nomenclature(:financial_year_result_loss)
+          expenses = Account.find_in_nomenclature(:expenses)
+          revenues = Account.find_in_nomenclature(:revenues)
 
           for balance in account_balances.joins(:account).order('number')
             if balance.account.number.to_s.match(/^(#{expenses.number}|#{revenues.number})/)

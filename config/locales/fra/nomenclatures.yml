@@ -62,6 +62,12 @@ fra:
       name: "Compétences"
       property_natures:
         parameters: "Paramètres"
+    accounting_systems:
+      items:
+        fr_pcg82: "Plan comptable général de 1982 ‒ Arrêté du 14/12/2007"
+        fr_pcga: "Plan comptable agricole ‒ Arrêté du 11/12/1986"
+        ifrs: "Normes internationales d’information financière (IFRS)" #?
+      name: "Plans de comptes"
     accounts:
       items:
         accrued_bank_interests: "Intérêts bancaires courus"
@@ -702,12 +708,6 @@ fra:
       property_natures:
         labels: "Labels"
         land: "Terroir"
-    charts_of_accounts:
-      items:
-        fr_pcg82: "Plan comptable général de 1982 ‒ Arrêté du 14/12/2007"
-        fr_pcga: "Plan comptable agricole ‒ Arrêté du 11/12/1986"
-        ifrs: "Normes internationales d’information financière (IFRS)" #?
-      name: "Plans de comptes"
     chemical_elements:
       items:
         actinium: "Actinium"

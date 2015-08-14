@@ -62,6 +62,11 @@ eng:
         treat: "Treat"
         uncompact: "Uncompact"
         wrap: "Wrap"
+    accounting_systems:
+      name: "Accounting systems"
+      items:
+        fr_pcg82: "French PCG82"
+        fr_pcga: "French PCGA"
     accounts:
       name: "Accounts"
       property_natures:
@@ -694,11 +699,6 @@ eng:
         cognac: "Cognac"
         eau_de_vie_de_cognac: "Eau de vie de cognac"
         eau_de_vie_des_charentes: "Eau de vie des charentes"
-    charts_of_accounts:
-      name: "Charts of accounts"
-      items:
-        fr_pcg82: "French PCG 1982"
-        fr_pcga: "French PCGA"
     chemical_elements:
       name: "Chemical elements"
       property_natures:

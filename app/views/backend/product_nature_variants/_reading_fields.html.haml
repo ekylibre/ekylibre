@@ -13,5 +13,5 @@
       = f.input_field("#{indicator.datatype}_value", label: indicator.human_name, as: indicator.datatype)
     - else
       = f.input_field("#{indicator.datatype}_value", label: indicator.human_name, as: :string)
-    - if !f.object.new_record? and f.object.indicator_name_population?
+    - if !f.object.new_record? and f.object.indicator_name.to_s == "population"
       %span.add-on= f.object.variant.unit_name

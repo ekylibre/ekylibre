@@ -115,7 +115,7 @@ class PurchaseItem < Ekylibre::Record::Base
     if variant
       self.label ||= variant.commercial_name
       if fixed
-        self.account = variant.fixed_asset_account || Account.find_in_chart(:fixed_assets)
+        self.account = variant.fixed_asset_account || Account.find_in_nomenclature(:fixed_assets)
         unless fixed_asset
           # Create asset
           asset_attributes = {
@@ -138,7 +138,7 @@ class PurchaseItem < Ekylibre::Record::Base
           build_fixed_asset(asset_attributes)
         end
       else
-        self.account = variant.charge_account || Account.find_in_chart(:expenses)
+        self.account = variant.charge_account || Account.find_in_nomenclature(:expenses)
       end
     end
   end

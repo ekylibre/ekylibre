@@ -62,6 +62,11 @@ jpn:
       # name: "Abilities"
       property_natures:
         # parameters: "Parameters"
+    accounting_systems:
+      items:
+        # fr_pcg82: "French PCG82"
+        # fr_pcga: "French PCGA"
+      # name: "Accounting systems"
     accounts:
       items:
         # accrued_bank_interests: "Accrued bank interests"
@@ -694,11 +699,6 @@ jpn:
       property_natures:
         # labels: "Labels"
         # land: "Land"
-    charts_of_accounts:
-      items:
-        # fr_pcg82: "French PCG 1982"
-        # fr_pcga: "French PCGA"
-      # name: "Charts of accounts"
     chemical_elements:
       items:
         # actinium: "Actinium"

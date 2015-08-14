@@ -43,12 +43,16 @@ module Nomen
         @set.add_property(action.nomenclature, action.name, action.type, action.options)
       end
 
+      def property_change(action)
+        @set.add_property(action.nomenclature, action.changes)
+      end
+
       def item_creation(action)
         @set.add_item(action.nomenclature, action.name, action.properties)
       end
 
       def item_change(action)
-        @set.change_item(action.nomenclature, action.name, action.changes)
+        @set.change_item(action.nomenclature, action.changes)
       end
 
       def item_merging(action)

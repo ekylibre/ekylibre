@@ -114,9 +114,14 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
     create_records(:catalogs, :code)
     w.check_point
 
-    # Load chart of account
-    if chart = @manifest[:chart_of_accounts] || @manifest[:chart_of_account]
-      Account.chart = chart
+    # Load accouting accounting_system
+    unless accounting_system = @manifest[:accounting_system]
+      if accounting_system = @manifest[:chart_of_accounts] || @manifest[:chart_of_account]
+        ActiveSupport::Deprecation.warn('chart_of_accounts has been deprecated in settings. Please use accounting_system instead.')
+      end
+    end
+    if accounting_system
+      Account.accounting_system = accounting_system
       Account.load_defaults
     end
     w.check_point
@@ -179,7 +184,7 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
           hash[nature] = { name: IncomingPaymentMode.tc("default.#{nature}.name"), with_accounting: true, cash: cash, with_deposit: (nature == 'check' ? true : false) }
           if hash[nature][:with_deposit] && journal = Journal.find_by(nature: 'bank')
             hash[nature][:depositables_journal] = journal
-            hash[nature][:depositables_account] = Account.find_or_create_in_chart(:pending_deposit_payments)
+            hash[nature][:depositables_account] = Account.find_or_import_from_nomenclature(:pending_deposit_payments)
           else
             hash[nature][:with_deposit] = false
           end

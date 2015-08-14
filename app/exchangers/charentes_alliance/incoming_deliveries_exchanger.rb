@@ -4,7 +4,7 @@ class CharentesAlliance::IncomingDeliveriesExchanger < ActiveExchanger::Base
     here = Pathname.new(__FILE__).dirname
 
     catalog = Catalog.find_by_code('ACHAT') || Catalog.first
-    supplier_account = Account.find_or_create_in_chart(:suppliers)
+    supplier_account = Account.find_or_import_from_nomenclature(:suppliers)
     appro_price_template_tax = Tax.first
     building_division = BuildingDivision.first
     suppliers = Entity.where(of_company: false, supplier: true).reorder(:supplier_account_id, :last_name)

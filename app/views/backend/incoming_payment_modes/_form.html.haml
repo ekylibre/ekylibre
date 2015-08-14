@@ -9,11 +9,11 @@
   = f.input :with_commission, :show => :commission
 
 = field_set(:deposit, :in => :accountancy_options) do
-  = f.referenced_association :depositables_account, source: {scope: {of_usage: :pending_deposit_payments}}, new: {number: Account.find_or_create_in_chart(:pending_deposit_payments).number}
+  = f.referenced_association :depositables_account, source: {scope: {of_usage: :pending_deposit_payments}}, new: {number: Account.find_or_import_from_nomenclature(:pending_deposit_payments).number}
   = f.referenced_association :depositables_journal
   = f.input :detail_payments
 
 = field_set(:commission, :in => :accountancy_options) do
   = f.input :commission_base_amount
   = f.input :commission_percentage
-  = f.referenced_association :commission_account, :source => {scope: {of_usage: :expenses}}, :new => {:number => Account.find_or_create_in_chart(:expenses)}
+  = f.referenced_association :commission_account, :source => {scope: {of_usage: :expenses}}, :new => {:number => Account.find_or_import_from_nomenclature(:expenses)}

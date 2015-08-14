@@ -1,7 +1,8 @@
 module Nomen
   # This class represents a nomenclature
   class Nomenclature
-    attr_reader :properties, :items, :name, :roots, :notions, :translateable
+    attr_reader :properties, :items, :name, :roots
+    attr_accessor :name, :notions, :translateable
     alias_method :property_natures, :properties
 
     # Instanciate a new nomenclature
@@ -30,6 +31,16 @@ module Nomen
         end
         nomenclature.rebuild_tree!
         nomenclature
+      end
+    end
+
+    def name=(value)
+      @name = value.to_sym
+    end
+
+    def update_attributes(attributes = {})
+      attributes.each do |attribute, value|
+        self.send("#{attribute}=", value)
       end
     end
 
@@ -266,6 +277,10 @@ module Nomen
       end
     end
     alias_method :all, :to_a
+
+    def <=>(other)
+      self.name <=> other.name
+    end
 
     def dependency_index
       unless @dependency_index

@@ -169,11 +169,11 @@ class Ekylibre::BackupExchanger < ActiveExchanger::Base
         w.check_point
 
         # Import accounts
-        chart_of_accounts = Preference[:chart_of_accounts]
+        accounting_system = Preference[:accounting_system]
         data.browse_and_match(:account) do |item|
           unless account = Account.find_by(number: item.number)
             reference = Nomen::Accounts.list.detect do |ref|
-              ref.send(chart_of_accounts).to_s == item.number
+              ref.send(accounting_system).to_s == item.number
             end
             account = Account.create!(number: item.number, name: item.name, last_letter: item.last_letter, debtor: item.is_debit, reconcilable: item.reconcilable, usages: (reference ? reference.name : nil))
           end
