@@ -119,7 +119,7 @@ class ProductionSupport < Ekylibre::Record::Base
   end
 
   def active?
-    if activity.fallow_land?
+    if activity.family.to_s == "fallow_land"
       return false
     else
       return true

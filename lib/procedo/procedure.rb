@@ -108,8 +108,9 @@ module Procedo
     # Returns activity families of the procedure
     def activity_families
       @activity_families ||= natures.map do |n|
-        Nomen::ProcedureNatures[n].activity_families.map do |f|
-          Nomen::ActivityFamilies.all(f)
+        families = Nomen::ProcedureNature[n].activity_families || []
+        families.map do |f|
+          Nomen::ActivityFamily.all(f)
         end
       end.flatten.uniq.map(&:to_sym)
     end

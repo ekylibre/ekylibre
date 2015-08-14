@@ -230,7 +230,7 @@ class Account < Ekylibre::Record::Base
     end
 
     # Find.all available accounting systems in all languages
-    def accouting_systems
+    def accounting_systems
       Nomen::AccountingSystem.all
     end
 

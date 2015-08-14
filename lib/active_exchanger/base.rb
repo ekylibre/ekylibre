@@ -7,7 +7,7 @@ module ActiveExchanger
     class << self
       def inherited(subclass)
         name = subclass.exchanger_name
-        fail "Unknown exchange: #{name}" unless Nomen::ExchangeNatures[name]
+        fail "Unknown exchange: #{name}" unless Nomen::ExchangeNature.find(name)
         ActiveExchanger::Base.register_exchanger(subclass)
       end
 
@@ -27,35 +27,60 @@ module ActiveExchanger
         @@exchangers.select { |_k, v| v.method_defined?(:export) }.keys
       end
 
-      def import(nature, file, options = {}, &block)
+      # Import file without check
+      def import!(nature, file, options = {}, &block)
         build(nature, file, options, &block).import
+      end
+
+      # Import file with check if possible
+      def import(nature, file, options = {}, &block)
+        if method_defined?(:check)
+          if check(nature, file, options, &block)
+            import!(nature, file, options, &block)
+          end
+        else
+          import!(nature, file, options, &block)
+        end
       end
 
       def export(nature, file, options = {}, &block)
         build(nature, file, options, &block).export
       end
 
-      def build(nature, file, _options = {}, &block)
-        supervisor = Supervisor.new(&block)
-        unless @@exchangers[nature]
-          fail "Unable to find exchanger #{nature.inspect}. (#{@@exchangers.inspect})"
-        end
-        @@exchangers[nature].new(file, supervisor)
-      end
-
-      # This method check file by default by trying a run and
-      # and if no exception raise, it's fine so changes are rolled back.
-      def check_file!(file, &block)
+      def check(nature, file, options = {}, &block)
+        supervisor = Supervisor.new(:check, &block)
+        exchanger = find(nature).new(file, supervisor)
         valid = false
-        supervisor = Supervisor.new(&block)
         ActiveRecord::Base.transaction do
-          new(file, supervisor).import
+          exchanger.check
           valid = true
           fail ActiveRecord::Rollback
         end
         GC.start
         valid
       end
+
+      def build(nature, file, _options = {}, &block)
+        supervisor = Supervisor.new(&block)
+        find(nature).new(file, supervisor)
+      end
+
+      def find(nature)
+        klass = @@exchangers[nature]
+        unless klass
+          fail "Unable to find exchanger #{nature.inspect}. (#{@@exchangers.inspect})"
+        end
+        klass
+      end
+
+      # This method check file by default by trying a run and
+      # and if no exception raise, it's fine so changes are rolled back.
+      def check_by_default
+        define_method :check do
+          import
+        end
+      end
+
     end
 
     attr_reader :file, :supervisor
@@ -72,6 +97,10 @@ module ActiveExchanger
     # end
 
     # def export
+    #   raise NotImplementedError
+    # end
+
+    # def check
     #   raise NotImplementedError
     # end
   end

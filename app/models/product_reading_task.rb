@@ -66,6 +66,7 @@ class ProductReadingTask < Ekylibre::Record::Base
   validate do
     if product && indicator
       unless product.indicators.include?(indicator)
+        puts product.inspect.red + indicator.inspect + product.indicators.inspect.green
         errors.add(:indicator_name, :invalid)
       end
     end
