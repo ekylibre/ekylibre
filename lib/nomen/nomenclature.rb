@@ -127,22 +127,23 @@ module Nomen
     # Add an item to the nomenclature
     def change_item(name, changes = {})
       i = find!(name)
-      if new_parent = changes.delete(:parent)
-        i.parent = find!(new_parent)
-      end
-      if new_name = changes.delete(:name)
-        rename_item(name, new_name)
-      end
+      # puts [i, i.parent].inspect.red
+      new_parent = changes.delete(:parent)
+      new_name = changes.delete(:name)
       changes.each do |k, v|
         i.set(k, v)
       end
+      i.parent = find!(new_parent) if new_parent
+      i = rename_item(name, new_name) if new_name
+      # puts [i, i.parent].inspect.green
       i
     end
 
     def rename_item(name, new_name)
       i = find!(name)
       i.children.each do |child|
-        child.parent_name = self.name
+        # puts child.inspect.blue
+        child.parent_name = new_name
       end
       @set.references.each do |reference|
         if reference.foreign_nomenclature == self
@@ -168,6 +169,7 @@ module Nomen
       i = @items.delete(i.name)
       i.name = new_name
       @items[new_name] = i
+      i
     end
 
     def merge_item(name, into)
@@ -176,6 +178,7 @@ module Nomen
       i.children.each do |child|
         child.parent = dest
       end
+      @items.delete(name)
     end
 
     # Add an property to the nomenclature

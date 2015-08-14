@@ -5268,7 +5268,7 @@
       <item name="hordeum_distichum_tamtam" parent="hordeum_distichum"/>
       <item name="hordeum_distichum_tango" parent="hordeum_distichum"/>
       <item name="hordeum_distichum_torbellino" parent="hordeum_distichum"/>
-      <item name="hordeum_distichum_traveler"/>
+      <item name="hordeum_distichum_traveler" parent="hordeum_distichum"/>
       <item name="hordeum_distichum_zeppelin" parent="hordeum_distichum"/>
       <item name="hordeum_distichum_zythos" parent="hordeum_distichum"/>
       <item name="hordeum_hexastichum" parent="hordeum_vulgare"/>
@@ -5277,7 +5277,7 @@
       <item name="hordeum_hexastichum_alinghi" parent="hordeum_hexastichum"/>
       <item name="hordeum_hexastichum_amarena" parent="hordeum_hexastichum"/>
       <item name="hordeum_hexastichum_amistar" parent="hordeum_hexastichum"/>
-      <item name="hordeum_hexastichum_arturio"/>
+      <item name="hordeum_hexastichum_arturio" parent="hordeum_hexastichum"/>
       <item name="hordeum_hexastichum_atomo" parent="hordeum_hexastichum"/>
       <item name="hordeum_hexastichum_augusta" parent="hordeum_hexastichum"/>
       <item name="hordeum_hexastichum_azurel" parent="hordeum_hexastichum"/>
@@ -5309,7 +5309,7 @@
       <item name="hordeum_hexastichum_emotion" parent="hordeum_hexastichum"/>
       <item name="hordeum_hexastichum_escadre" parent="hordeum_hexastichum"/>
       <item name="hordeum_hexastichum_esterel" parent="hordeum_hexastichum"/>
-      <item name="hordeum_hexastichum_etincel"/>
+      <item name="hordeum_hexastichum_etincel" parent="hordeum_hexastichum"/>
       <item name="hordeum_hexastichum_gigga" parent="hordeum_hexastichum"/>
       <item name="hordeum_hexastichum_goody" parent="hordeum_hexastichum"/>
       <item name="hordeum_hexastichum_henriette" parent="hordeum_hexastichum"/>
@@ -5381,11 +5381,7 @@
       <item name="hordeum_hexastichum_verticale" parent="hordeum_hexastichum"/>
       <item name="hordeum_hexastichum_volume" parent="hordeum_hexastichum"/>
       <item name="hordeum_hexastichum_voyel" parent="hordeum_hexastichum"/>
-      <item name="hordeum_hibernum_cerevisiae"/>
-      <item name="hordeum_hibernum_cerevisiae_hypoproteinae"/>
-      <item name="hordeum_vernum_hypoproteinae"/>
       <item name="hordeum_vulgare" parent="hordeum"/>
-      <item name="hordeum_vulgare_hexastichum" parent="hordeum_vulgare"/>
       <item name="humulus" parent="cannabaceae" itis_tsn="19159"/>
       <item name="humulus_lupulus" parent="humulus" itis_tsn="19160"/>
       <item name="hydrangeaceae" parent="plant" itis_tsn="24093"/>

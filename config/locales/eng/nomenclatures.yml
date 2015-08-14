@@ -4040,173 +4040,169 @@ eng:
         hippophae_rhamnoides: "Hippophae rhamnoides"       #< hippophae
         honey: "Honey"                                     #< raw_matter
         hordeum: "Barley"                                  #< poaceae
-        hordeum_distichum: "Spring hordeum"                #< hordeum_vulgare
-        # hordeum_distichum_astoria: "Hordeum distichum astoria" #< hordeum_distichum
-        # hordeum_distichum_azalea: "Hordeum distichum azalea" #< hordeum_distichum
-        # hordeum_distichum_beatrix: "Hordeum distichum beatrix" #< hordeum_distichum
-        # hordeum_distichum_bellini: "Hordeum distichum bellini" #< hordeum_distichum
-        # hordeum_distichum_brennus: "Hordeum distichum brennus" #< hordeum_distichum
-        # hordeum_distichum_calcule: "Hordeum distichum calcule" #< hordeum_distichum
-        # hordeum_distichum_ceria: "Hordeum distichum ceria" #< hordeum_distichum
-        # hordeum_distichum_challenge: "Hordeum distichum challenge" #< hordeum_distichum
-        # hordeum_distichum_concerto: "Hordeum distichum concerto" #< hordeum_distichum
-        # hordeum_distichum_crescendo: "Hordeum distichum crescendo" #< hordeum_distichum
-        # hordeum_distichum_diligence: "Hordeum distichum diligence" #< hordeum_distichum
-        # hordeum_distichum_dorinka: "Hordeum distichum dorinka" #< hordeum_distichum
-        # hordeum_distichum_dragoon: "Hordeum distichum dragoon" #< hordeum_distichum
-        # hordeum_distichum_endora: "Hordeum distichum endora" #< hordeum_distichum
-        # hordeum_distichum_explorer: "Hordeum distichum explorer" #< hordeum_distichum
-        # hordeum_distichum_extase: "Hordeum distichum extase" #< hordeum_distichum
-        # hordeum_distichum_gesine: "Hordeum distichum gesine" #< hordeum_distichum
-        # hordeum_distichum_grace: "Hordeum distichum grace" #< hordeum_distichum
-        # hordeum_distichum_henley: "Hordeum distichum henley" #< hordeum_distichum
-        # hordeum_distichum_kws_fabienne: "Hordeum distichum kws fabienne" #< hordeum_distichum
-        # hordeum_distichum_kws_irina: "Hordeum distichum kws irina" #< hordeum_distichum
-        # hordeum_distichum_marylin: "Hordeum distichum marylin" #< hordeum_distichum
-        # hordeum_distichum_milford: "Hordeum distichum milford" #< hordeum_distichum
-        # hordeum_distichum_nfc_tipple: "Hordeum distichum nfc tipple" #< hordeum_distichum
-        # hordeum_distichum_odyssey: "Hordeum distichum odyssey" #< hordeum_distichum
-        # hordeum_distichum_olympic: "Hordeum distichum olympic" #< hordeum_distichum
-        # hordeum_distichum_overture: "Hordeum distichum overture" #< hordeum_distichum
-        # hordeum_distichum_paustian: "Hordeum distichum paustian" #< hordeum_distichum
-        # hordeum_distichum_pewter: "Hordeum distichum pewter" #< hordeum_distichum
-        # hordeum_distichum_pionier: "Hordeum distichum pionier" #< hordeum_distichum
-        # hordeum_distichum_prestige: "Hordeum distichum prestige" #< hordeum_distichum
-        # hordeum_distichum_prunella: "Hordeum distichum prunella" #< hordeum_distichum
-        # hordeum_distichum_quantum: "Hordeum distichum quantum" #< hordeum_distichum
-        # hordeum_distichum_rgt_bazille: "Hordeum distichum rgt bazille" #< hordeum_distichum
-        # hordeum_distichum_rgt_planet: "Hordeum distichum rgt planet" #< hordeum_distichum
-        # hordeum_distichum_rhyncostar: "Hordeum distichum rhyncostar" #< hordeum_distichum
-        # hordeum_distichum_sanette: "Hordeum distichum sanette" #< hordeum_distichum
-        # hordeum_distichum_sangria: "Hordeum distichum sangria" #< hordeum_distichum
-        # hordeum_distichum_scrabble: "Hordeum distichum scrabble" #< hordeum_distichum
-        # hordeum_distichum_sebastian: "Hordeum distichum sebastian" #< hordeum_distichum
-        # hordeum_distichum_shandy: "Hordeum distichum shandy" #< hordeum_distichum
-        # hordeum_distichum_sirish: "Hordeum distichum sirish" #< hordeum_distichum
-        # hordeum_distichum_soulmate: "Hordeum distichum soulmate" #< hordeum_distichum
-        # hordeum_distichum_style: "Hordeum distichum style" #< hordeum_distichum
-        # hordeum_distichum_sunshine: "Hordeum distichum sunshine" #< hordeum_distichum
-        # hordeum_distichum_tamtam: "Hordeum distichum tamtam" #< hordeum_distichum
-        # hordeum_distichum_tango: "Hordeum distichum tango" #< hordeum_distichum
-        # hordeum_distichum_torbellino: "Hordeum distichum torbellino" #< hordeum_distichum
-        hordeum_distichum_traveler: "Spring hordeum traveler"
-        # hordeum_distichum_zeppelin: "Hordeum distichum zeppelin" #< hordeum_distichum
-        # hordeum_distichum_zythos: "Hordeum distichum zythos" #< hordeum_distichum
-        hordeum_hexastichum: "Winter Barley"               #< hordeum_vulgare
-        # hordeum_hexastichum_abondance: "Hordeum hexastichum abondance" #< hordeum_hexastichum
-        # hordeum_hexastichum_albertine: "Hordeum hexastichum albertine" #< hordeum_hexastichum
-        # hordeum_hexastichum_alinghi: "Hordeum hexastichum alinghi" #< hordeum_hexastichum
-        # hordeum_hexastichum_amarena: "Hordeum hexastichum amarena" #< hordeum_hexastichum
-        # hordeum_hexastichum_amistar: "Hordeum hexastichum amistar" #< hordeum_hexastichum
-        hordeum_hexastichum_arturio: "Winter Barley arturio"
-        # hordeum_hexastichum_atomo: "Hordeum hexastichum atomo" #< hordeum_hexastichum
-        # hordeum_hexastichum_augusta: "Hordeum hexastichum augusta" #< hordeum_hexastichum
-        # hordeum_hexastichum_azurel: "Hordeum hexastichum azurel" #< hordeum_hexastichum
-        # hordeum_hexastichum_bagoo: "Hordeum hexastichum bagoo" #< hordeum_hexastichum
-        # hordeum_hexastichum_berline: "Hordeum hexastichum berline" #< hordeum_hexastichum
-        # hordeum_hexastichum_bivouac: "Hordeum hexastichum bivouac" #< hordeum_hexastichum
-        # hordeum_hexastichum_bonnie: "Hordeum hexastichum bonnie" #< hordeum_hexastichum
-        # hordeum_hexastichum_california: "Hordeum hexastichum california" #< hordeum_hexastichum
-        # hordeum_hexastichum_calypso: "Hordeum hexastichum calypso" #< hordeum_hexastichum
-        # hordeum_hexastichum_campagne: "Hordeum hexastichum campagne" #< hordeum_hexastichum
-        # hordeum_hexastichum_campanile: "Hordeum hexastichum campanile" #< hordeum_hexastichum
-        # hordeum_hexastichum_cantare: "Hordeum hexastichum cantare" #< hordeum_hexastichum
-        # hordeum_hexastichum_caravan: "Hordeum hexastichum caravan" #< hordeum_hexastichum
-        # hordeum_hexastichum_cardinale: "Hordeum hexastichum cardinale" #< hordeum_hexastichum
-        # hordeum_hexastichum_casanova: "Hordeum hexastichum casanova" #< hordeum_hexastichum
-        # hordeum_hexastichum_casino: "Hordeum hexastichum casino" #< hordeum_hexastichum
-        # hordeum_hexastichum_cassiopee: "Hordeum hexastichum cassiopee" #< hordeum_hexastichum
-        # hordeum_hexastichum_catherine: "Hordeum hexastichum catherine" #< hordeum_hexastichum
-        # hordeum_hexastichum_cervoise: "Hordeum hexastichum cervoise" #< hordeum_hexastichum
-        # hordeum_hexastichum_champie: "Hordeum hexastichum champie" #< hordeum_hexastichum
-        # hordeum_hexastichum_citadel: "Hordeum hexastichum citadel" #< hordeum_hexastichum
-        # hordeum_hexastichum_daisy: "Hordeum hexastichum daisy" #< hordeum_hexastichum
-        # hordeum_hexastichum_daxor: "Hordeum hexastichum daxor" #< hordeum_hexastichum
-        # hordeum_hexastichum_declic: "Hordeum hexastichum declic" #< hordeum_hexastichum
-        # hordeum_hexastichum_detroit: "Hordeum hexastichum detroit" #< hordeum_hexastichum
-        # hordeum_hexastichum_diadem: "Hordeum hexastichum diadem" #< hordeum_hexastichum
-        # hordeum_hexastichum_domino: "Hordeum hexastichum domino" #< hordeum_hexastichum
-        # hordeum_hexastichum_dribble: "Hordeum hexastichum dribble" #< hordeum_hexastichum
-        # hordeum_hexastichum_emotion: "Hordeum hexastichum emotion" #< hordeum_hexastichum
-        # hordeum_hexastichum_escadre: "Hordeum hexastichum escadre" #< hordeum_hexastichum
-        # hordeum_hexastichum_esterel: "Hordeum hexastichum esterel" #< hordeum_hexastichum
-        hordeum_hexastichum_etincel: "Winter Barley etincel"
-        # hordeum_hexastichum_gigga: "Hordeum hexastichum gigga" #< hordeum_hexastichum
-        # hordeum_hexastichum_goody: "Hordeum hexastichum goody" #< hordeum_hexastichum
-        # hordeum_hexastichum_henriette: "Hordeum hexastichum henriette" #< hordeum_hexastichum
-        # hordeum_hexastichum_hercule: "Hordeum hexastichum hercule" #< hordeum_hexastichum
-        # hordeum_hexastichum_hickory: "Hordeum hexastichum hickory" #< hordeum_hexastichum
-        # hordeum_hexastichum_himalaya: "Hordeum hexastichum himalaya" #< hordeum_hexastichum
-        # hordeum_hexastichum_hobbit: "Hordeum hexastichum hobbit" #< hordeum_hexastichum
-        # hordeum_hexastichum_imax: "Hordeum hexastichum imax" #< hordeum_hexastichum
-        # hordeum_hexastichum_isocel: "Hordeum hexastichum isocel" #< hordeum_hexastichum
-        # hordeum_hexastichum_jallon: "Hordeum hexastichum jallon" #< hordeum_hexastichum
-        # hordeum_hexastichum_jenny: "Hordeum hexastichum jenny" #< hordeum_hexastichum
-        # hordeum_hexastichum_joker: "Hordeum hexastichum joker" #< hordeum_hexastichum
-        # hordeum_hexastichum_ketos: "Hordeum hexastichum ketos" #< hordeum_hexastichum
-        # hordeum_hexastichum_kws_cassia: "Hordeum hexastichum kws cassia" #< hordeum_hexastichum
-        # hordeum_hexastichum_kws_glacier: "Hordeum hexastichum kws glacier" #< hordeum_hexastichum
-        # hordeum_hexastichum_kws_infinity: "Hordeum hexastichum kws infinity" #< hordeum_hexastichum
-        # hordeum_hexastichum_kws_kosmos: "Hordeum hexastichum kws kosmos" #< hordeum_hexastichum
-        # hordeum_hexastichum_kws_meridian: "Hordeum hexastichum kws meridian" #< hordeum_hexastichum
-        # hordeum_hexastichum_kws_orwell: "Hordeum hexastichum kws orwell" #< hordeum_hexastichum
-        # hordeum_hexastichum_kws_salsa: "Hordeum hexastichum kws salsa" #< hordeum_hexastichum
-        # hordeum_hexastichum_kws_tonic: "Hordeum hexastichum kws tonic" #< hordeum_hexastichum
-        # hordeum_hexastichum_laverda: "Hordeum hexastichum laverda" #< hordeum_hexastichum
-        # hordeum_hexastichum_limpid: "Hordeum hexastichum limpid" #< hordeum_hexastichum
-        # hordeum_hexastichum_magistral: "Hordeum hexastichum magistral" #< hordeum_hexastichum
-        # hordeum_hexastichum_malicorne: "Hordeum hexastichum malicorne" #< hordeum_hexastichum
-        # hordeum_hexastichum_maltesse: "Hordeum hexastichum maltesse" #< hordeum_hexastichum
-        # hordeum_hexastichum_mangoo: "Hordeum hexastichum mangoo" #< hordeum_hexastichum
-        # hordeum_hexastichum_marado: "Hordeum hexastichum marado" #< hordeum_hexastichum
-        # hordeum_hexastichum_marcorel: "Hordeum hexastichum marcorel" #< hordeum_hexastichum
-        # hordeum_hexastichum_marmara: "Hordeum hexastichum marmara" #< hordeum_hexastichum
-        # hordeum_hexastichum_mascara: "Hordeum hexastichum mascara" #< hordeum_hexastichum
-        # hordeum_hexastichum_matesca: "Hordeum hexastichum matesca" #< hordeum_hexastichum
-        # hordeum_hexastichum_meseta: "Hordeum hexastichum meseta" #< hordeum_hexastichum
-        # hordeum_hexastichum_metaxa: "Hordeum hexastichum metaxa" #< hordeum_hexastichum
-        # hordeum_hexastichum_orbise: "Hordeum hexastichum orbise" #< hordeum_hexastichum
-        # hordeum_hexastichum_ordinale: "Hordeum hexastichum ordinale" #< hordeum_hexastichum
-        # hordeum_hexastichum_origami: "Hordeum hexastichum origami" #< hordeum_hexastichum
-        # hordeum_hexastichum_orjoie: "Hordeum hexastichum orjoie" #< hordeum_hexastichum
-        # hordeum_hexastichum_orpaille: "Hordeum hexastichum orpaille" #< hordeum_hexastichum
-        # hordeum_hexastichum_otto: "Hordeum hexastichum otto" #< hordeum_hexastichum
-        # hordeum_hexastichum_passerel: "Hordeum hexastichum passerel" #< hordeum_hexastichum
-        # hordeum_hexastichum_platine: "Hordeum hexastichum platine" #< hordeum_hexastichum
-        # hordeum_hexastichum_pluriel: "Hordeum hexastichum pluriel" #< hordeum_hexastichum
-        # hordeum_hexastichum_pompadour: "Hordeum hexastichum pompadour" #< hordeum_hexastichum
-        # hordeum_hexastichum_precosa: "Hordeum hexastichum precosa" #< hordeum_hexastichum
-        # hordeum_hexastichum_quad: "Hordeum hexastichum quad" #< hordeum_hexastichum
-        # hordeum_hexastichum_quadriga: "Hordeum hexastichum quadriga" #< hordeum_hexastichum
-        # hordeum_hexastichum_ramata: "Hordeum hexastichum ramata" #< hordeum_hexastichum
-        # hordeum_hexastichum_reflexion: "Hordeum hexastichum reflexion" #< hordeum_hexastichum
-        # hordeum_hexastichum_salamandre: "Hordeum hexastichum salamandre" #< hordeum_hexastichum
-        # hordeum_hexastichum_sandra: "Hordeum hexastichum sandra" #< hordeum_hexastichum
-        # hordeum_hexastichum_scandal: "Hordeum hexastichum scandal" #< hordeum_hexastichum
-        # hordeum_hexastichum_seduction: "Hordeum hexastichum seduction" #< hordeum_hexastichum
-        # hordeum_hexastichum_shangrila: "Hordeum hexastichum shangrila" #< hordeum_hexastichum
-        # hordeum_hexastichum_silex: "Hordeum hexastichum silex" #< hordeum_hexastichum
-        # hordeum_hexastichum_smooth: "Hordeum hexastichum smooth" #< hordeum_hexastichum
-        # hordeum_hexastichum_souleyka: "Hordeum hexastichum souleyka" #< hordeum_hexastichum
-        # hordeum_hexastichum_suzuka: "Hordeum hexastichum suzuka" #< hordeum_hexastichum
-        # hordeum_hexastichum_sy_bamboo: "Hordeum hexastichum sy bamboo" #< hordeum_hexastichum
-        # hordeum_hexastichum_sy_boogy: "Hordeum hexastichum sy boogy" #< hordeum_hexastichum
-        # hordeum_hexastichum_sy_tepee: "Hordeum hexastichum sy tepee" #< hordeum_hexastichum
-        # hordeum_hexastichum_taranie: "Hordeum hexastichum taranie" #< hordeum_hexastichum
-        # hordeum_hexastichum_tatoo: "Hordeum hexastichum tatoo" #< hordeum_hexastichum
-        # hordeum_hexastichum_tektoo: "Hordeum hexastichum tektoo" #< hordeum_hexastichum
-        # hordeum_hexastichum_theresa: "Hordeum hexastichum theresa" #< hordeum_hexastichum
-        # hordeum_hexastichum_tooty: "Hordeum hexastichum tooty" #< hordeum_hexastichum
-        # hordeum_hexastichum_touareg: "Hordeum hexastichum touareg" #< hordeum_hexastichum
-        # hordeum_hexastichum_vanessa: "Hordeum hexastichum vanessa" #< hordeum_hexastichum
-        # hordeum_hexastichum_verticale: "Hordeum hexastichum verticale" #< hordeum_hexastichum
-        # hordeum_hexastichum_volume: "Hordeum hexastichum volume" #< hordeum_hexastichum
-        # hordeum_hexastichum_voyel: "Hordeum hexastichum voyel" #< hordeum_hexastichum
-        hordeum_hibernum_cerevisiae: "Winter Barley cerevisiae"
-        hordeum_hibernum_cerevisiae_hypoproteinae: "Winter Barley cerevisiae hypoproteinae"
-        hordeum_vernum_hypoproteinae: "Spring hordeum hypoproteinae"
+        hordeum_distichum: "Spring barley"                 #< hordeum_vulgare
+        hordeum_distichum_astoria: "Spring barley astoria" #< hordeum_distichum
+        hordeum_distichum_azalea: "Spring barley azalea"   #< hordeum_distichum
+        hordeum_distichum_beatrix: "Spring barley beatrix" #< hordeum_distichum
+        hordeum_distichum_bellini: "Spring barley bellini" #< hordeum_distichum
+        hordeum_distichum_brennus: "Spring barley brennus" #< hordeum_distichum
+        hordeum_distichum_calcule: "Spring barley calcule" #< hordeum_distichum
+        hordeum_distichum_ceria: "Spring barley ceria"     #< hordeum_distichum
+        hordeum_distichum_challenge: "Spring barley challenge" #< hordeum_distichum
+        hordeum_distichum_concerto: "Spring barley concerto" #< hordeum_distichum
+        hordeum_distichum_crescendo: "Spring barley crescendo" #< hordeum_distichum
+        hordeum_distichum_diligence: "Spring barley diligence" #< hordeum_distichum
+        hordeum_distichum_dorinka: "Spring barley dorinka" #< hordeum_distichum
+        hordeum_distichum_dragoon: "Spring barley dragoon" #< hordeum_distichum
+        hordeum_distichum_endora: "Spring barley endora"   #< hordeum_distichum
+        hordeum_distichum_explorer: "Spring barley explorer" #< hordeum_distichum
+        hordeum_distichum_extase: "Spring barley extase"   #< hordeum_distichum
+        hordeum_distichum_gesine: "Spring barley gesine"   #< hordeum_distichum
+        hordeum_distichum_grace: "Spring barley grace"     #< hordeum_distichum
+        hordeum_distichum_henley: "Spring barley henley"   #< hordeum_distichum
+        hordeum_distichum_kws_fabienne: "Spring barley kws fabienne" #< hordeum_distichum
+        hordeum_distichum_kws_irina: "Spring barley kws irina" #< hordeum_distichum
+        hordeum_distichum_marylin: "Spring barley marylin" #< hordeum_distichum
+        hordeum_distichum_milford: "Spring barley milford" #< hordeum_distichum
+        hordeum_distichum_nfc_tipple: "Spring barley nfc tipple" #< hordeum_distichum
+        hordeum_distichum_odyssey: "Spring barley odyssey" #< hordeum_distichum
+        hordeum_distichum_olympic: "Spring barley olympic" #< hordeum_distichum
+        hordeum_distichum_overture: "Spring barley overture" #< hordeum_distichum
+        hordeum_distichum_paustian: "Spring barley paustian" #< hordeum_distichum
+        hordeum_distichum_pewter: "Spring barley pewter"   #< hordeum_distichum
+        hordeum_distichum_pionier: "Spring barley pionier" #< hordeum_distichum
+        hordeum_distichum_prestige: "Spring barley prestige" #< hordeum_distichum
+        hordeum_distichum_prunella: "Spring barley prunella" #< hordeum_distichum
+        hordeum_distichum_quantum: "Spring barley quantum" #< hordeum_distichum
+        hordeum_distichum_rgt_bazille: "Spring barley rgt bazille" #< hordeum_distichum
+        hordeum_distichum_rgt_planet: "Spring barley rgt planet" #< hordeum_distichum
+        hordeum_distichum_rhyncostar: "Spring barley rhyncostar" #< hordeum_distichum
+        hordeum_distichum_sanette: "Spring barley sanette" #< hordeum_distichum
+        hordeum_distichum_sangria: "Spring barley sangria" #< hordeum_distichum
+        hordeum_distichum_scrabble: "Spring barley scrabble" #< hordeum_distichum
+        hordeum_distichum_sebastian: "Spring barley sebastian" #< hordeum_distichum
+        hordeum_distichum_shandy: "Spring barley shandy"   #< hordeum_distichum
+        hordeum_distichum_sirish: "Spring barley sirish"   #< hordeum_distichum
+        hordeum_distichum_soulmate: "Spring barley soulmate" #< hordeum_distichum
+        hordeum_distichum_style: "Spring barley style"     #< hordeum_distichum
+        hordeum_distichum_sunshine: "Spring barley sunshine" #< hordeum_distichum
+        hordeum_distichum_tamtam: "Spring barley tamtam"   #< hordeum_distichum
+        hordeum_distichum_tango: "Spring barley tango"     #< hordeum_distichum
+        hordeum_distichum_torbellino: "Spring barley torbellino" #< hordeum_distichum
+        hordeum_distichum_traveler: "Spring barley traveler" #< hordeum_distichum
+        hordeum_distichum_zeppelin: "Spring barley zeppelin" #< hordeum_distichum
+        hordeum_distichum_zythos: "Spring barley zythos"   #< hordeum_distichum
+        hordeum_hexastichum: "Winter barley"               #< hordeum_vulgare
+        hordeum_hexastichum_abondance: "Winter barley abondance" #< hordeum_hexastichum
+        hordeum_hexastichum_albertine: "Winter barley albertine" #< hordeum_hexastichum
+        hordeum_hexastichum_alinghi: "Winter barley alinghi" #< hordeum_hexastichum
+        hordeum_hexastichum_amarena: "Winter barley amarena" #< hordeum_hexastichum
+        hordeum_hexastichum_amistar: "Winter barley amistar" #< hordeum_hexastichum
+        hordeum_hexastichum_arturio: "Winter barley arturio" #< hordeum_hexastichum
+        hordeum_hexastichum_atomo: "Winter barley atomo"   #< hordeum_hexastichum
+        hordeum_hexastichum_augusta: "Winter barley augusta" #< hordeum_hexastichum
+        hordeum_hexastichum_azurel: "Winter barley azurel" #< hordeum_hexastichum
+        hordeum_hexastichum_bagoo: "Winter barley bagoo"   #< hordeum_hexastichum
+        hordeum_hexastichum_berline: "Winter barley berline" #< hordeum_hexastichum
+        hordeum_hexastichum_bivouac: "Winter barley bivouac" #< hordeum_hexastichum
+        hordeum_hexastichum_bonnie: "Winter barley bonnie" #< hordeum_hexastichum
+        hordeum_hexastichum_california: "Winter barley california" #< hordeum_hexastichum
+        hordeum_hexastichum_calypso: "Winter barley calypso" #< hordeum_hexastichum
+        hordeum_hexastichum_campagne: "Winter barley campagne" #< hordeum_hexastichum
+        hordeum_hexastichum_campanile: "Winter barley campanile" #< hordeum_hexastichum
+        hordeum_hexastichum_cantare: "Winter barley cantare" #< hordeum_hexastichum
+        hordeum_hexastichum_caravan: "Winter barley caravan" #< hordeum_hexastichum
+        hordeum_hexastichum_cardinale: "Winter barley cardinale" #< hordeum_hexastichum
+        hordeum_hexastichum_casanova: "Winter barley casanova" #< hordeum_hexastichum
+        hordeum_hexastichum_casino: "Winter barley casino" #< hordeum_hexastichum
+        hordeum_hexastichum_cassiopee: "Winter barley cassiopee" #< hordeum_hexastichum
+        hordeum_hexastichum_catherine: "Winter barley catherine" #< hordeum_hexastichum
+        hordeum_hexastichum_cervoise: "Winter barley cervoise" #< hordeum_hexastichum
+        hordeum_hexastichum_champie: "Winter barley champie" #< hordeum_hexastichum
+        hordeum_hexastichum_citadel: "Winter barley citadel" #< hordeum_hexastichum
+        hordeum_hexastichum_daisy: "Winter barley daisy"   #< hordeum_hexastichum
+        hordeum_hexastichum_daxor: "Winter barley daxor"   #< hordeum_hexastichum
+        hordeum_hexastichum_declic: "Winter barley declic" #< hordeum_hexastichum
+        hordeum_hexastichum_detroit: "Winter barley detroit" #< hordeum_hexastichum
+        hordeum_hexastichum_diadem: "Winter barley diadem" #< hordeum_hexastichum
+        hordeum_hexastichum_domino: "Winter barley domino" #< hordeum_hexastichum
+        hordeum_hexastichum_dribble: "Winter barley dribble" #< hordeum_hexastichum
+        hordeum_hexastichum_emotion: "Winter barley emotion" #< hordeum_hexastichum
+        hordeum_hexastichum_escadre: "Winter barley escadre" #< hordeum_hexastichum
+        hordeum_hexastichum_esterel: "Winter barley esterel" #< hordeum_hexastichum
+        hordeum_hexastichum_etincel: "Winter barley etincel" #< hordeum_hexastichum
+        hordeum_hexastichum_gigga: "Winter barley gigga"   #< hordeum_hexastichum
+        hordeum_hexastichum_goody: "Winter barley goody"   #< hordeum_hexastichum
+        hordeum_hexastichum_henriette: "Winter barley henriette" #< hordeum_hexastichum
+        hordeum_hexastichum_hercule: "Winter barley hercule" #< hordeum_hexastichum
+        hordeum_hexastichum_hickory: "Winter barley hickory" #< hordeum_hexastichum
+        hordeum_hexastichum_himalaya: "Winter barley himalaya" #< hordeum_hexastichum
+        hordeum_hexastichum_hobbit: "Winter barley hobbit" #< hordeum_hexastichum
+        hordeum_hexastichum_imax: "Winter barley imax"     #< hordeum_hexastichum
+        hordeum_hexastichum_isocel: "Winter barley isocel" #< hordeum_hexastichum
+        hordeum_hexastichum_jallon: "Winter barley jallon" #< hordeum_hexastichum
+        hordeum_hexastichum_jenny: "Winter barley jenny"   #< hordeum_hexastichum
+        hordeum_hexastichum_joker: "Winter barley joker"   #< hordeum_hexastichum
+        hordeum_hexastichum_ketos: "Winter barley ketos"   #< hordeum_hexastichum
+        hordeum_hexastichum_kws_cassia: "Winter barley kws cassia" #< hordeum_hexastichum
+        hordeum_hexastichum_kws_glacier: "Winter barley kws glacier" #< hordeum_hexastichum
+        hordeum_hexastichum_kws_infinity: "Winter barley kws infinity" #< hordeum_hexastichum
+        hordeum_hexastichum_kws_kosmos: "Winter barley kws kosmos" #< hordeum_hexastichum
+        hordeum_hexastichum_kws_meridian: "Winter barley kws meridian" #< hordeum_hexastichum
+        hordeum_hexastichum_kws_orwell: "Winter barley kws orwell" #< hordeum_hexastichum
+        hordeum_hexastichum_kws_salsa: "Winter barley kws salsa" #< hordeum_hexastichum
+        hordeum_hexastichum_kws_tonic: "Winter barley kws tonic" #< hordeum_hexastichum
+        hordeum_hexastichum_laverda: "Winter barley laverda" #< hordeum_hexastichum
+        hordeum_hexastichum_limpid: "Winter barley limpid" #< hordeum_hexastichum
+        hordeum_hexastichum_magistral: "Winter barley magistral" #< hordeum_hexastichum
+        hordeum_hexastichum_malicorne: "Winter barley malicorne" #< hordeum_hexastichum
+        hordeum_hexastichum_maltesse: "Winter barley maltesse" #< hordeum_hexastichum
+        hordeum_hexastichum_mangoo: "Winter barley mangoo" #< hordeum_hexastichum
+        hordeum_hexastichum_marado: "Winter barley marado" #< hordeum_hexastichum
+        hordeum_hexastichum_marcorel: "Winter barley marcorel" #< hordeum_hexastichum
+        hordeum_hexastichum_marmara: "Winter barley marmara" #< hordeum_hexastichum
+        hordeum_hexastichum_mascara: "Winter barley mascara" #< hordeum_hexastichum
+        hordeum_hexastichum_matesca: "Winter barley matesca" #< hordeum_hexastichum
+        hordeum_hexastichum_meseta: "Winter barley meseta" #< hordeum_hexastichum
+        hordeum_hexastichum_metaxa: "Winter barley metaxa" #< hordeum_hexastichum
+        hordeum_hexastichum_orbise: "Winter barley orbise" #< hordeum_hexastichum
+        hordeum_hexastichum_ordinale: "Winter barley ordinale" #< hordeum_hexastichum
+        hordeum_hexastichum_origami: "Winter barley origami" #< hordeum_hexastichum
+        hordeum_hexastichum_orjoie: "Winter barley orjoie" #< hordeum_hexastichum
+        hordeum_hexastichum_orpaille: "Winter barley orpaille" #< hordeum_hexastichum
+        hordeum_hexastichum_otto: "Winter barley otto"     #< hordeum_hexastichum
+        hordeum_hexastichum_passerel: "Winter barley passerel" #< hordeum_hexastichum
+        hordeum_hexastichum_platine: "Winter barley platine" #< hordeum_hexastichum
+        hordeum_hexastichum_pluriel: "Winter barley pluriel" #< hordeum_hexastichum
+        hordeum_hexastichum_pompadour: "Winter barley pompadour" #< hordeum_hexastichum
+        hordeum_hexastichum_precosa: "Winter barley precosa" #< hordeum_hexastichum
+        hordeum_hexastichum_quad: "Winter barley quad"     #< hordeum_hexastichum
+        hordeum_hexastichum_quadriga: "Winter barley quadriga" #< hordeum_hexastichum
+        hordeum_hexastichum_ramata: "Winter barley ramata" #< hordeum_hexastichum
+        hordeum_hexastichum_reflexion: "Winter barley reflexion" #< hordeum_hexastichum
+        hordeum_hexastichum_salamandre: "Winter barley salamandre" #< hordeum_hexastichum
+        hordeum_hexastichum_sandra: "Winter barley sandra" #< hordeum_hexastichum
+        hordeum_hexastichum_scandal: "Winter barley scandal" #< hordeum_hexastichum
+        hordeum_hexastichum_seduction: "Winter barley seduction" #< hordeum_hexastichum
+        hordeum_hexastichum_shangrila: "Winter barley shangrila" #< hordeum_hexastichum
+        hordeum_hexastichum_silex: "Winter barley silex"   #< hordeum_hexastichum
+        hordeum_hexastichum_smooth: "Winter barley smooth" #< hordeum_hexastichum
+        hordeum_hexastichum_souleyka: "Winter barley souleyka" #< hordeum_hexastichum
+        hordeum_hexastichum_suzuka: "Winter barley suzuka" #< hordeum_hexastichum
+        hordeum_hexastichum_sy_bamboo: "Winter barley sy bamboo" #< hordeum_hexastichum
+        hordeum_hexastichum_sy_boogy: "Winter barley sy boogy" #< hordeum_hexastichum
+        hordeum_hexastichum_sy_tepee: "Winter barley sy tepee" #< hordeum_hexastichum
+        hordeum_hexastichum_taranie: "Winter barley taranie" #< hordeum_hexastichum
+        hordeum_hexastichum_tatoo: "Winter barley tatoo"   #< hordeum_hexastichum
+        hordeum_hexastichum_tektoo: "Winter barley tektoo" #< hordeum_hexastichum
+        hordeum_hexastichum_theresa: "Winter barley theresa" #< hordeum_hexastichum
+        hordeum_hexastichum_tooty: "Winter barley tooty"   #< hordeum_hexastichum
+        hordeum_hexastichum_touareg: "Winter barley touareg" #< hordeum_hexastichum
+        hordeum_hexastichum_vanessa: "Winter barley vanessa" #< hordeum_hexastichum
+        hordeum_hexastichum_verticale: "Winter barley verticale" #< hordeum_hexastichum
+        hordeum_hexastichum_volume: "Winter barley volume" #< hordeum_hexastichum
+        hordeum_hexastichum_voyel: "Winter barley voyel"   #< hordeum_hexastichum
         hordeum_vulgare: "Hordeum vulgare"                 #< hordeum
-        hordeum_vulgare_hexastichum: "Bere"                #< hordeum_vulgare
         humulus: "Humulus"                                 #< cannabaceae
         humulus_lupulus: "Hop"                             #< humulus
         hydrangeaceae: "Hydrangeaceae"                     #< plant
@@ -5026,8 +5022,8 @@ eng:
         xanthomonas: "Xanthomonas"                         #< xanthomonadaceae
         xanthomonas_arboricola: "Xanthomonas arboricola"   #< xanthomonas
         yeast: "Yeast"                                     #< preparation
-        zea: "Corn"                                        #< poaceae
-        # zea_mays: "Zea mays"                             #< zea
+        zea: "Zea"                                         #< poaceae
+        zea_mays: "Corn"                                   #< zea
         zea_mays_aallexia: "Corn Aallexia"                 #< zea_mays
         zea_mays_bergxxon: "Corn Bergxxon"                 #< zea_mays
         zea_mays_boomer: "Corn Boomer"                     #< zea_mays
