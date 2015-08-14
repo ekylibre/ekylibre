@@ -41,7 +41,7 @@ require 'test_helper'
 
 class AccountTest < ActiveSupport::TestCase
   test 'load the accounts' do
-    Account.accouting_systems.each do |accounting_system|
+    Account.accounting_systems.each do |accounting_system|
       Account.accounting_system = accounting_system
       Account.load_defaults
     end

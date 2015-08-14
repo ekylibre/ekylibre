@@ -16,7 +16,7 @@ class NomenTest < ActiveSupport::TestCase
 
   test 'working_sets expression' do
     invalids = []
-    Nomen::WorkingSets.list.each do |item|
+    Nomen::WorkingSet.list.each do |item|
       begin
         WorkingSet.to_sql(item.expression)
       rescue WorkingSet::SyntaxError => e
@@ -36,7 +36,7 @@ class NomenTest < ActiveSupport::TestCase
 
   test 'product_natures abilities' do
     invalids = []
-    Nomen::ProductNatures.list.each do |item|
+    Nomen::ProductNature.list.each do |item|
       begin
         WorkingSet::AbilityArray.load(item.abilities).check!
       rescue Exception => e

@@ -22,7 +22,7 @@ class Backend::AnalysisItemsController < Backend::BaseController
       unless @analysis = Analysis.find_by(id: params[:analysis_id])
         @analysis = Analysis.new
       end
-      unless indicator = Nomen::Indicators.find(params[:indicator_name])
+      unless indicator = Nomen::Indicator.find(params[:indicator_name])
         head :not_found
         return
       end

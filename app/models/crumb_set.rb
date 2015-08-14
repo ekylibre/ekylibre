@@ -28,7 +28,7 @@ class CrumbSet
   def initialize(crumbs)
     @crumbs = crumbs
     @start = @crumbs.first
-    unless @procedure_nature = Nomen::ProcedureNatures[@start.metadata['procedure_nature']]
+    unless @procedure_nature = Nomen::ProcedureNature[@start.metadata['procedure_nature']]
       Rails.logger.warn "Unknown procedure nature: #{@start.metadata['procedure_nature'].inspect}"
     end
     @started_at = @start.read_at

@@ -78,7 +78,7 @@ class Event < Ekylibre::Record::Base
   before_validation do
     self.nature ||= :meeting
     self.started_at ||= Time.now
-    if nature = Nomen::EventNatures[self.nature]
+    if nature = Nomen::EventNature[self.nature]
       self.duration ||= nature.default_duration.to_i
     end
     if self.stopped_at && self.started_at

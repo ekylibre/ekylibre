@@ -74,8 +74,8 @@ class Analysis < Ekylibre::Record::Base
 
   # Measure a product for a given indicator
   def read!(indicator, value, options = {})
-    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicators[indicator]
-      fail ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
+    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
+      fail ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
     end
     fail ArgumentError, 'Value must be given' if value.nil?
     options[:indicator_name] = indicator.name
@@ -88,8 +88,8 @@ class Analysis < Ekylibre::Record::Base
   end
 
   def get(indicator, *args)
-    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicators[indicator]
-      fail ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
+    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
+      fail ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
     end
     options = args.extract_options!
     items = self.items.where(indicator_name: indicator.name.to_s)
@@ -99,7 +99,7 @@ class Analysis < Ekylibre::Record::Base
 
   # Returns value of an indicator if its name correspond to
   def method_missing(method_name, *args)
-    if Nomen::Indicators.all.include?(method_name.to_s)
+    if Nomen::Indicator.all.include?(method_name.to_s)
       return get(method_name, *args)
     end
     super

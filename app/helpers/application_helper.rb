@@ -278,7 +278,7 @@ module ApplicationHelper
     elsif value.respond_to?(:text)
       value = value.send(:text)
     elsif attribute.to_s.match(/(^|_)currency$/)
-      value = Nomen::Currencies[value].human_name
+      value = Nomen::Currency[value].human_name
     elsif options[:currency] && value.is_a?(Numeric)
       value = ::I18n.localize(value, currency: (options[:currency].is_a?(TrueClass) ? object.send(:currency) : options[:currency].is_a?(Symbol) ? object.send(options[:currency]) : options[:currency]))
       value = link_to(value.to_s, options[:url]) if options[:url]
@@ -653,7 +653,7 @@ module ApplicationHelper
       default = exporter.natures.first
       return dropdown_button(content_tag(:i) + ' ' + :print.tl, "##{default.name}-printing", class: 'btn btn-print', data: { toggle: 'modal' }) do |l|
         exporter.natures.each do |nature|
-          l.link_to(content_tag(:i) + ' ' + h(Nomen::DocumentNatures.find(nature.name).human_name), "##{nature.name}-printing", data: { toggle: 'modal' })
+          l.link_to(content_tag(:i) + ' ' + h(Nomen::DocumentNature.find(nature.name).human_name), "##{nature.name}-printing", data: { toggle: 'modal' })
         end if exporter.natures.size > 1
       end
     end

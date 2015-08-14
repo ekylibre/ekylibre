@@ -86,7 +86,7 @@
         #
         #  data for bar chart indicator and by month
         #
-        bar_indicators = [:net_mass].collect{|i| Nomen::Indicators[i] }
+        bar_indicators = [:net_mass].collect{|i| Nomen::Indicator[i] }
         for indicator in bar_indicators
           items = ProductReading.where(indicator_name: indicator.name, :product => resource).measured_between(started_at, stopped_at)
           if items.count > 0
@@ -101,7 +101,7 @@
         #
         #  data for bar chart indicator and by month
         #
-        spline_indicators = [:healthy].collect{|i| Nomen::Indicators[i] }
+        spline_indicators = [:healthy].collect{|i| Nomen::Indicator[i] }
         for indicator in spline_indicators
           items = ProductReading.where(indicator_name: indicator.name, :product => resource).measured_between(started_at, stopped_at)
           if items.count > 0

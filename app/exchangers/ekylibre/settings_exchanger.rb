@@ -27,7 +27,7 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
     if srs = @manifest[:map_measure_srs]
       Preference.set!(:map_measure_srs, srs)
     elsif srid = @manifest[:map_measure_srid]
-      Preference.set!(:map_measure_srs, Nomen::SpatialReferenceSystems.find_by(srid: srid.to_i).name)
+      Preference.set!(:map_measure_srs, Nomen::SpatialReferenceSystem.find_by(srid: srid.to_i).name)
     end
     Preference.set!(:demo, !!@manifest[:demo], :boolean)
     Preference.set!(:create_activities_from_telepac, !!@manifest[:create_activities_from_telepac], :boolean)

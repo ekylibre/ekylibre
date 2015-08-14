@@ -5,8 +5,8 @@ class Legrain::Epicea::AccountsExchanger < ActiveExchanger::Base
 
     # asociate usage to its account number
     usage_by_account_number = {}
-    Nomen::Accounts.all.each do |usage|
-      usage_by_account_number[Nomen::Accounts[usage].fr_pcga] = usage
+    Nomen::Account.all.each do |usage|
+      usage_by_account_number[Nomen::Account[usage].fr_pcga] = usage
     end
 
     rows.each do |row|

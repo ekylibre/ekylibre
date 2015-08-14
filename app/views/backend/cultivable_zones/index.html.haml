@@ -9,7 +9,7 @@
       :ruby
         data = resource_model.find_each.collect do |zone|
           content = []
-          content << {label: Nomen::Indicators.find(:net_surface_area).human_name, value: zone.net_surface_area.l}
+          content << {label: Nomen::Indicator.find(:net_surface_area).human_name, value: zone.net_surface_area.l}
           content << link_to(:show.tl, {action: :show, id: zone.id}, class: "btn btn-default")
           {name: zone.name, shape: zone.shape, popup: {header: true, content: content}}
         end

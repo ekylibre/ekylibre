@@ -97,12 +97,9 @@ module Nomen
 
     # Returns the matching nomenclature
     def const_missing(name)
-      n = name.to_s.underscore
+      n = name.to_s.underscore.pluralize
       if @@set.exist?(n)
-        # ActiveSupport::Depreaction.warn("Plural nomenclature name will be removed. Please use instead Nomen::#{name.singularize}")
         return self[n]
-      elsif @@set.exist?(n.pluralize)
-        return self[n.pluralize]
       end
       super
     end

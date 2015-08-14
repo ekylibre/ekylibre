@@ -35,7 +35,7 @@ module Procedo
       # Check roles with procedure natures
       roles = []
       for nature in @natures
-        unless item = Nomen::ProcedureNatures[nature]
+        unless item = Nomen::ProcedureNature[nature]
           fail Procedo::Errors::UnknownProcedureNature, "Procedure nature #{nature} is unknown for #{name}."
         end
         # List all roles
@@ -208,7 +208,7 @@ module Procedo
           code << "      @actor = (attributes[:actor].blank? ? nil : Product.find(attributes[:actor]))\n"
         end
         for destination in variable.destinations
-          code << "      @destinations[:#{destination}] = " + cast_expr("attributes[:destinations][:#{destination}]", Nomen::Indicators[destination].datatype) + "\n"
+          code << "      @destinations[:#{destination}] = " + cast_expr("attributes[:destinations][:#{destination}]", Nomen::Indicator[destination].datatype) + "\n"
         end
         for handler in variable.handlers
           code << "      if attributes[:handlers][:#{handler.name}].is_a? Hash\n"
@@ -253,7 +253,7 @@ module Procedo
         code << "      unless value\n"
         code << "        raise Procedo::Errors::UnavailableReading, \"Nil \#{'individual ' if options[:individual]}reading given #{variable.name}#\#{indicator.inspect}\"\n"
         code << "      end\n"
-        code << "      datatype = Nomen::Indicators[indicator].datatype\n"
+        code << "      datatype = Nomen::Indicator[indicator].datatype\n"
         code << "      return (datatype == :decimal ? value.to_s.to_f : value)\n"
         code << "    end\n\n"
 
@@ -359,7 +359,7 @@ module Procedo
               code << "          #{dest} = "
               code << "@destinations[:#{destination}] || " if variable.destinations.include?(destination)
               code << "self.get(:#{destination}, at: now)\n"
-              if [:geometry, :point].include?(Nomen::Indicators[destination].datatype)
+              if [:geometry, :point].include?(Nomen::Indicator[destination].datatype)
                 code << "          #{dest} = (#{dest}.blank? ? Charta::Geometry.empty : Charta::Geometry.new(#{dest}))\n"
               end
               code << "          procedure.#{ref}.impact_destination_#{destination}!\n"
@@ -376,7 +376,7 @@ module Procedo
             dest = "@destinations[:#{destination}]"
             code << "        begin\n"
             code << "          #{dest} = self.get(:#{destination}, at: now)\n"
-            if [:geometry, :point].include?(Nomen::Indicators[destination].datatype)
+            if [:geometry, :point].include?(Nomen::Indicator[destination].datatype)
               code << "          #{dest} = (#{dest}.blank? ? Charta::Geometry.empty : Charta::Geometry.new(#{dest}))\n"
             end
             code << "          impact_destination_#{destination}!\n"
@@ -522,7 +522,7 @@ module Procedo
         if variable.handlers.any?
           vcode << ', destinations: {'
           vcode << variable.destinations.collect do |destination|
-            indicator = Nomen::Indicators[destination]
+            indicator = Nomen::Indicator[destination]
             if [:geometry, :point].include?(indicator.datatype)
               "#{destination}: @#{variable.name}.destinations[:#{destination}].to_geojson"
             else

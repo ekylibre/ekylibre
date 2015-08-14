@@ -1,6 +1,6 @@
 class Backend::Cells::LastAnalysesCellsController < Backend::Cells::BaseController
   def show
-    if @nature = Nomen::AnalysisNatures[params[:nature] || 'cow_milk_analysis']
+    if @nature = Nomen::AnalysisNature[params[:nature] || 'cow_milk_analysis']
       months = params[:months].to_i
       months = 12 if months.zero?
       @product = Product.find(params[:product_id]) rescue nil

@@ -59,7 +59,7 @@ class DocumentTemplate < Ekylibre::Record::Base
     natures.flatten!
     natures.compact!
     return none unless natures.respond_to?(:any?) && natures.any?
-    invalids = natures.select { |nature| Nomen::DocumentNatures[nature].nil? }
+    invalids = natures.select { |nature| Nomen::DocumentNature[nature].nil? }
     if invalids.any?
       fail ArgumentError, "Unknown nature(s) for a DocumentTemplate: #{invalids.map(&:inspect).to_sentence}"
     end

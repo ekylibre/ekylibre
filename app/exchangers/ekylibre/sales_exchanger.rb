@@ -56,7 +56,7 @@ class Ekylibre::SalesExchanger < ActiveExchanger::Base
       # TODO: search country before for good tax request (country and amount)
       # country via entity if information exist
       if r.vat_rate && country
-        item = Nomen::Taxes.where(country: country.to_sym, amount: r.vat_rate).first
+        item = Nomen::Tax.where(country: country.to_sym, amount: r.vat_rate).first
         if item
           unless sale_item_tax = Tax.where(reference_name: item.name).first
             sale_item_tax = Tax.import_from_nomenclature(item.name)

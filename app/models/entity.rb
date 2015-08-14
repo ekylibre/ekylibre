@@ -250,7 +250,7 @@ class Entity < Ekylibre::Record::Base
     end
     valid_account = send("#{nature}_account")
     if valid_account.nil?
-      prefix = Nomen::Accounts[nature.to_s.pluralize].send(Account.chart)
+      prefix = Nomen::Account[nature.to_s.pluralize].send(Account.chart)
       if Preference[:use_entity_codes_for_account_numbers]
         number = prefix.to_s + self.number.to_s
         unless valid_account = Account.find_by(number: number)
@@ -280,7 +280,7 @@ class Entity < Ekylibre::Record::Base
   end
 
   def add_event(usage, operator, at = Time.now)
-    if operator && item = Nomen::EventNatures[usage]
+    if operator && item = Nomen::EventNature[usage]
       Event.create!(name: item.human_name, started_at: at, duration: item.default_duration.to_i, participations_attributes: { '0' => { participant_id: id, state: 'informative' }, '1' => { participant_id: operator.id, state: 'accepted' } })
     end
   end

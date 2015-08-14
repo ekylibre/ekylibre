@@ -34,7 +34,7 @@ class Backend::ProductsController < Backend::BaseController
   def self.working_set_conditions
     code = search_conditions(products: [:name, :number], product_nature_variants: [:name]) + " ||= []\n"
     code << "unless params[:working_set].blank?\n"
-    code << "  item = Nomen::WorkingSets.find(params[:working_set])\n"
+    code << "  item = Nomen::WorkingSet.find(params[:working_set])\n"
     code << "  puts item.expression.red\n"
     code << "  c[0] << \" AND products.nature_id IN (SELECT id FROM product_natures WHERE \#{WorkingSet.to_sql(item.expression)})\"\n"
     code << "end\n"
@@ -142,14 +142,14 @@ class Backend::ProductsController < Backend::BaseController
   # Returns value of an indicator
   def take
     return unless @product = find_and_check
-    unless indicator = Nomen::Indicators[params[:indicator]]
+    unless indicator = Nomen::Indicator[params[:indicator]]
       head :unprocessable_entity
       return
     end
 
     value = @product.get(indicator)
     if indicator.datatype == :measure
-      if unit = Nomen::Units[params[:unit]]
+      if unit = Nomen::Unit[params[:unit]]
         value = value.convert(unit)
       end
       value = { unit: value.unit, value: value.to_d.round(4) }

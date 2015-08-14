@@ -157,10 +157,10 @@ class Production < Ekylibre::Record::Base
       end
       if with_supports
         if support_variant
-          if indicator = Nomen::Indicators[support_variant_indicator]
+          if indicator = Nomen::Indicator[support_variant_indicator]
             if indicator.datatype == :measure
-              if unit = Nomen::Units[support_variant_unit]
-                if unit.dimension.to_s != Nomen::Units[indicator.unit].dimension.to_s
+              if unit = Nomen::Unit[support_variant_unit]
+                if unit.dimension.to_s != Nomen::Unit[indicator.unit].dimension.to_s
                   errors.add(:support_variant_unit, :invalid)
                 end
               else
@@ -179,14 +179,14 @@ class Production < Ekylibre::Record::Base
 
   def variant_variety_label
     # To have human_name in report
-    unless item = Nomen::Varieties[variant_variety].human_name
+    unless item = Nomen::Variety[variant_variety].human_name
       return nil
     end
     item
   end
 
   def cultivation_variety_name
-    unless item = Nomen::Varieties[cultivation_variety].human_name
+    unless item = Nomen::Variety[cultivation_variety].human_name
       return nil
     end
     item
@@ -344,11 +344,11 @@ class Production < Ekylibre::Record::Base
   end
 
   def quandl_dataset
-    if Nomen::Varieties[cultivation_variant_variety.to_sym] <= :triticum_aestivum
+    if Nomen::Variety[cultivation_variant_variety.to_sym] <= :triticum_aestivum
       return 'CHRIS/LIFFE_EBM4'
-    elsif Nomen::Varieties[cultivation_variant_variety.to_sym] <= :brassica_napus
+    elsif Nomen::Variety[cultivation_variant_variety.to_sym] <= :brassica_napus
       return 'CHRIS/LIFFE_ECO4'
-    elsif Nomen::Varieties[cultivation_variant_variety.to_sym] <= :hordeum_distichum
+    elsif Nomen::Variety[cultivation_variant_variety.to_sym] <= :hordeum_distichum
       return 'ODA/PBARL_USD'
     end
   end

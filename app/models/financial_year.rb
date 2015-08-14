@@ -102,7 +102,7 @@ class FinancialYear < Ekylibre::Record::Base
 
   before_validation do
     self.currency ||= Preference[:currency]
-    if ref = Nomen::Currencies.find(self.currency)
+    if ref = Nomen::Currency.find(self.currency)
       self.currency_precision ||= ref.precision
     end
     # self.started_on = self.started_on.beginning_of_day if self.started_on

@@ -78,7 +78,7 @@ class Role < Ekylibre::Record::Base
 
   # Load a role from nomenclature
   def self.import_from_nomenclature(reference_name, _force = false)
-    unless item = Nomen::Roles[reference_name]
+    unless item = Nomen::Role[reference_name]
       fail ArgumentError, "The role #{reference_name.inspect} is not known"
     end
 
@@ -89,10 +89,9 @@ class Role < Ekylibre::Record::Base
       array << 'all' if array.size < 3
       resource = array.second
       action = array.third
-      unless Nomen::EnterpriseResources[resource]
-        fail StandardError, "Unknown enterprise resource: #{resource.inspect}"
+      if action == 'all'
+        action = Ekylibre::Access.interactions_of(resource)
       end
-      action = Nomen::EnterpriseResources[resource].accesses if action == 'all'
       hash[resource] ||= []
       hash[resource] += [action].flatten.map(&:to_s)
       hash

@@ -96,18 +96,18 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
       support: support
     }
     if support.production_usage
-      hash[:production_usage] = Nomen::ProductionUsages[support.production_usage]
+      hash[:production_usage] = Nomen::ProductionUsage[support.production_usage]
     end
     if computation_method
-      hash[:method] = Nomen::ManureManagementPlanComputationMethods[computation_method]
+      hash[:method] = Nomen::ManureManagementPlanComputationMethod[computation_method]
     end
     if administrative_area
-      hash[:administrative_area] = Nomen::AdministrativeAreas[administrative_area]
+      hash[:administrative_area] = Nomen::AdministrativeArea[administrative_area]
     end
     if cultivation_variety
-      hash[:variety] = Nomen::Varieties[cultivation_variety]
+      hash[:variety] = Nomen::Variety[cultivation_variety]
     end
-    hash[:soil_nature] = Nomen::SoilNatures[soil_nature] if soil_nature
+    hash[:soil_nature] = Nomen::SoilNature[soil_nature] if soil_nature
     if expected_yield
       hash[:expected_yield] = expected_yield.in(plan.mass_density_unit)
     end
@@ -121,14 +121,14 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
 
   # To have human_name in report
   def soil_nature_name
-    unless item = Nomen::SoilNatures[soil_nature].human_name
+    unless item = Nomen::SoilNature[soil_nature].human_name
       return nil
     end
     item
   end
 
   def cultivation_variety_name
-    unless item = Nomen::Varieties[cultivation_variety].human_name
+    unless item = Nomen::Variety[cultivation_variety].human_name
       return nil
     end
     item

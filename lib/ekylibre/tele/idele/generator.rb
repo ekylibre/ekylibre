@@ -32,7 +32,7 @@ module Ekylibre
               idele_race_code['bos_taurus_' + key] = { code: row[0], human_name: row[1], matched: 0 }
             end
 
-            Nomen::Varieties[:bos_taurus].children.each do |v|
+            Nomen::Variety[:bos_taurus].children.each do |v|
               nomen_varieties[v.name] = { matched: 0 }
             end
 
@@ -158,7 +158,7 @@ module Ekylibre
 
             print idele_sexes.inspect
 
-            Nomen::Sexes.all.each do |s|
+            Nomen::Sex.all.each do |s|
               key = s[0].to_s.upcase
               nomen_sexes[key] = { matched: 0, nomenclature: s }
             end
@@ -271,7 +271,7 @@ module Ekylibre
           nomen_countries = {}
           idele_countries = {}
 
-          Nomen::Countries.all.each do |c|
+          Nomen::Country.all.each do |c|
             nomen_countries[c] = c.to_s.upcase
             idele_countries[c.to_s.upcase] = c
           end
@@ -310,7 +310,7 @@ module Ekylibre
 
             print idele_mammalia_birth_conditions.inspect
 
-            Nomen::MammaliaBirthConditions.all.each do |s|
+            Nomen::MammaliaBirthCondition.all.each do |s|
               nomen_mammalia_birth_conditions[s] = { matched: 0 }
             end
 
@@ -448,7 +448,7 @@ module Ekylibre
             print idele_entry_reason.inspect
 
             # TODO
-            # Nomen::MammaliaBirthConditions.all.each do |s|
+            # Nomen::MammaliaBirthCondition.all.each do |s|
 
             #  nomen_entry_reason[s] = {matched: 0}
             # end
@@ -590,7 +590,7 @@ module Ekylibre
             print idele_exit_reason.inspect
 
             # TODO
-            # Nomen::MammaliaBirthConditions.all.each do |s|
+            # Nomen::MammaliaBirthCondition.all.each do |s|
 
             #  nomen_exit_reason[s] = {matched: 0}
             # end
@@ -722,7 +722,7 @@ module Ekylibre
             print idele_temoin_completude.inspect
 
             # TODO
-            # Nomen::MammaliaBirthConditions.all.each do |s|
+            # Nomen::MammaliaBirthCondition.all.each do |s|
 
             #  nomen_temoin_completude[s] = {matched: 0}
             # end
@@ -855,7 +855,7 @@ module Ekylibre
             print idele_temoin_fin_de_vie.inspect
 
             # TODO
-            # Nomen::MammaliaBirthConditions.all.each do |s|
+            # Nomen::MammaliaBirthCondition.all.each do |s|
 
             #  nomen_temoin_fin_de_vie[s] = {matched: 0}
             # end
@@ -992,7 +992,7 @@ module Ekylibre
             print idele_cause_remplacement.inspect
 
             # TODO
-            # Nomen::MammaliaBirthConditions.all.each do |s|
+            # Nomen::MammaliaBirthCondition.all.each do |s|
 
             #  nomen_cause_remplacement[s] = {matched: 0}
             # end
@@ -1123,7 +1123,7 @@ module Ekylibre
             print idele_mode_insemination.inspect
 
             # TODO
-            # Nomen::MammaliaBirthConditions.all.each do |s|
+            # Nomen::MammaliaBirthCondition.all.each do |s|
 
             #  nomen_mode_insemination[s] = {matched: 0}
             # end
@@ -1260,7 +1260,7 @@ module Ekylibre
             print idele_paillette_fractionnee.inspect
 
             # TODO
-            # Nomen::MammaliaBirthConditions.all.each do |s|
+            # Nomen::MammaliaBirthCondition.all.each do |s|
 
             #  nomen_paillette_fractionnee[s] = {matched: 0}
             # end
@@ -1392,7 +1392,7 @@ module Ekylibre
             print idele_semence_sexee.inspect
 
             # TODO
-            # Nomen::MammaliaBirthConditions.all.each do |s|
+            # Nomen::MammaliaBirthCondition.all.each do |s|
 
             #  nomen_semence_sexee[s] = {matched: 0}
             # end

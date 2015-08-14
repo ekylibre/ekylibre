@@ -6,7 +6,7 @@
     - if indicator.datatype == :measure
       - f.object.measure_value_unit ||= indicator.unit
       = f.number_field("#{indicator.datatype}_value_value", label: indicator.human_name)
-      = f.input_field("#{indicator.datatype}_value_unit", label: indicator.human_name, collection: Measure.siblings(indicator.unit).collect{|u| [Nomen::Units[u].human_name, u]})
+      = f.input_field("#{indicator.datatype}_value_unit", label: indicator.human_name, collection: Measure.siblings(indicator.unit).collect{|u| [Nomen::Unit[u].human_name, u]})
     - elsif indicator.datatype == :choice
       = f.input_field("#{indicator.datatype}_value", label: indicator.human_name, collection: indicator.selection(:choices))
     - elsif [:boolean, :string, :decimal].include?(indicator.datatype)

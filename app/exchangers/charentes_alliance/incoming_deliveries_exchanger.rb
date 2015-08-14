@@ -49,7 +49,7 @@ class CharentesAlliance::IncomingDeliveriesExchanger < ActiveExchanger::Base
         order ||= IncomingDelivery.create!(reference_number: r.order_number, received_at: r.ordered_on, sender: cooperative, address: Entity.of_company.default_mail_address, mode: :ex_works)
         # find a product_nature_variant by mapping current name of matter in coop file in coop reference_name
         unless product_nature_variant = ProductNatureVariant.find_by_number(r.coop_reference_name)
-          if Nomen::ProductNatureVariants.find(r.coop_variant_reference_name)
+          if Nomen::ProductNatureVariant.find(r.coop_variant_reference_name)
             product_nature_variant ||= ProductNatureVariant.import_from_nomenclature(r.coop_variant_reference_name)
           else
             # find a product_nature_variant by mapping current sub_family of matter in coop file in Ekylibre reference_name

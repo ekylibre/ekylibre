@@ -101,7 +101,7 @@ class PurchaseItem < Ekylibre::Record::Base
     self.reduction_percentage ||= 0
 
     if tax && unit_pretax_amount
-      item = Nomen::Currencies.find(currency)
+      item = Nomen::Currency.find(currency)
       precision = item ? item.precision : 2
       self.unit_amount = unit_pretax_amount * (100.0 + tax_amount) / 100.0
       if pretax_amount.zero? || pretax_amount.nil?

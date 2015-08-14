@@ -94,7 +94,7 @@ class Intervention < Ekylibre::Record::Base
   scope :of_currents_campaigns, -> { joins(:production).merge(Production.of_currents_campaigns) }
 
   scope :of_nature, lambda { |*natures|
-    where('natures ~ E?', '\\\\m(' + natures.collect { |n| Nomen::ProcedureNatures.all(n) }.flatten.sort.join('|') + ')\\\\M')
+    where('natures ~ E?', '\\\\m(' + natures.collect { |n| Nomen::ProcedureNature.all(n) }.flatten.sort.join('|') + ')\\\\M')
   }
 
   scope :of_campaign, lambda { |*campaigns|

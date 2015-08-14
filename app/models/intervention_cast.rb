@@ -69,7 +69,7 @@ class InterventionCast < Ekylibre::Record::Base
       fail ArgumentError, 'Need a valid role: <procedure_nature>-<role>'
     end
     nature, role = role.to_s.split('-')[0..1]
-    where('roles ~ E?', "\\\\m(#{Nomen::ProcedureNatures.all(nature).sort.join('|')})-#{role}\\\\M")
+    where('roles ~ E?', "\\\\m(#{Nomen::ProcedureNature.all(nature).sort.join('|')})-#{role}\\\\M")
   }
 
   scope :of_generic_role, lambda { |role|
@@ -193,7 +193,7 @@ class InterventionCast < Ekylibre::Record::Base
 
   def human_roles
     roles_array.collect do |role|
-      :x_of_y.tl(x: Nomen::ProcedureRoles[role.second].human_name, y: Nomen::ProcedureNatures[role.first].human_name.mb_chars.downcase)
+      :x_of_y.tl(x: Nomen::ProcedureRole[role.second].human_name, y: Nomen::ProcedureNature[role.first].human_name.mb_chars.downcase)
     end.to_sentence
   end
 
@@ -217,8 +217,8 @@ class InterventionCast < Ekylibre::Record::Base
       }.with_indifferent_access
       if produced = actor
         words[:variant]     = produced.variant_name
-        words[:variety]     = Nomen::Varieties[produced.variety].human_name
-        words[:derivative_of] = (produced.derivative_of ? Nomen::Varieties[produced.variety].human_name : nil)
+        words[:variety]     = Nomen::Variety[produced.variety].human_name
+        words[:derivative_of] = (produced.derivative_of ? Nomen::Variety[produced.variety].human_name : nil)
         words[:container] = (produced.container ? produced.container.name : nil)
         words[:default_storage] = (produced.default_storage ? produced.default_storage.name : nil)
         words[:born_at]     = produced.born_at.l
@@ -268,7 +268,7 @@ class InterventionCast < Ekylibre::Record::Base
 
   # Returns value of an indicator if its name correspond to
   def method_missing(method_name, *args)
-    if Nomen::Indicators.all.include?(method_name.to_s) && actor && actor.respond_to?(:get)
+    if Nomen::Indicator.all.include?(method_name.to_s) && actor && actor.respond_to?(:get)
       return actor.get(method_name, self)
     end
     super

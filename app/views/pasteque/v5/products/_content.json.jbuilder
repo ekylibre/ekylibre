@@ -10,7 +10,7 @@ json.scaled false
 json.categoryId resource.category_id.to_s
 # json.dispOrder nil
 taxations = resource.category.sale_taxations
-json.taxCatId (taxations.any? ? Nomen::Taxes.find(taxations.first.reference_name).nature : Tax.available_natures.first.name)
+json.taxCatId (taxations.any? ? Nomen::Tax.find(taxations.first.reference_name).nature : Tax.available_natures.first.name)
 # json.attributeSetId nil
 json.hasImage resource.respond_to? :picture
 json.discountEnabled false

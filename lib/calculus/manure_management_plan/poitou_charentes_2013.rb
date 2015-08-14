@@ -131,7 +131,7 @@ module Calculus
         found = nil
         for campaign in self.campaign.previous.reorder(harvest_year: :desc)
           for support in campaign.production_supports.where(storage_id: @support.storage.id)
-            variety_support = Nomen::Varieties.find(support.production.variant_variety)
+            variety_support = Nomen::Variety.find(support.production.variant_variety)
             if variety_support <= :poa
               found = support
               break
@@ -162,14 +162,14 @@ module Calculus
             # if an implantation intervention exist, get the plant output
             if previous_implantation_intervention = support.interventions.of_nature(:implantation).where(state: :done).order(:started_at).last
               if previous_cultivation = previous_implantation_intervention.casts.of_generic_role(:output).first.actor
-                previous_variety = Nomen::Varieties.find(previous_cultivation.variety)
+                previous_variety = Nomen::Variety.find(previous_cultivation.variety)
                 previous_cultivation_dead_at = previous_cultivation.dead_at
                 break
               end
               break if previous_variety
             # elsif get the production_variant
             elsif support.production_variant
-              previous_variety = Nomen::Varieties.find(support.production_variant.variety)
+              previous_variety = Nomen::Variety.find(support.production_variant.variety)
               break
             end
             break if previous_variety
@@ -179,7 +179,7 @@ module Calculus
 
         if previous_variety
           # find corresponding crop_sets to previous_variety
-          previous_crop_sets = Nomen::CropSets.list.select do |i|
+          previous_crop_sets = Nomen::CropSet.list.select do |i|
             i.varieties.detect do |v|
               previous_variety <= v
             end
@@ -234,7 +234,7 @@ module Calculus
                   break if previous_variety
                 # elsif get the production_variant
                 elsif support.production_variant
-                  previous_variety = Nomen::Varieties.find(support.production_variant.variety)
+                  previous_variety = Nomen::Variety.find(support.production_variant.variety)
                   break
                 end
                 break if previous_variety
@@ -244,7 +244,7 @@ module Calculus
 
             if previous_variety
               # find corresponding crop_sets to previous_variety
-              previous_crop_sets = Nomen::CropSets.list.select do |i|
+              previous_crop_sets = Nomen::CropSet.list.select do |i|
                 i.varieties.detect do |v|
                   previous_variety <= v
                 end
@@ -450,7 +450,7 @@ module Calculus
         sets = crop_sets.map(&:name).map(&:to_s)
 
         if @variety && (@variety <= :poaceae || @variety <= :brassicaceae || @variety <= :medicago || @variety <= :helianthus || @variety <= :nicotiana || @variety <= :linum)
-          if soil_natures.include?(Nomen::SoilNatures[:clay_limestone_soil]) || soil_natures.include?(Nomen::SoilNatures[:chesnut_red_soil]) and @variety and @variety > :nicotiana
+          if soil_natures.include?(Nomen::SoilNature[:clay_limestone_soil]) || soil_natures.include?(Nomen::SoilNature[:chesnut_red_soil]) and @variety and @variety > :nicotiana
             # CAU = 0.8
             # X = [(Pf - Po - Mr - MrCi - Nirr) / CAU] - Xa
             fertilizer_apparent_use_coeffient = 0.8.to_d
@@ -474,7 +474,7 @@ module Calculus
                                        values[:nitrogen_at_closing])
           end
 
-          if soil_natures.include?(Nomen::SoilNatures[:clay_limestone_soil])
+          if soil_natures.include?(Nomen::SoilNature[:clay_limestone_soil])
             values[:nitrogen_input] *= 1.15.to_d
           else
             values[:nitrogen_input] *= 1.10.to_d

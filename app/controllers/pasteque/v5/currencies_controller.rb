@@ -1,7 +1,7 @@
 class Pasteque::V5::CurrenciesController < Pasteque::V5::BaseController
   def index
     availables = SaleNature.pluck :currency
-    @records = Nomen::Currencies.list.select { |currency| availables.include?(currency.name) }
+    @records = Nomen::Currency.list.select { |currency| availables.include?(currency.name) }
   end
 
   def show
@@ -15,7 +15,7 @@ class Pasteque::V5::CurrenciesController < Pasteque::V5::BaseController
   protected
 
   def find_and_render(name)
-    unless @record = Nomen::Currencies[name]
+    unless @record = Nomen::Currency[name]
       render json: { status: 'rej', content: 'Cannot find currency' }
     end
   end

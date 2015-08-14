@@ -48,7 +48,7 @@ module WorkingSet
         "#{column_for(column)} IN (#{compliants})"
       elsif object.is_a?(WorkingSet::QueryLanguage::AbilityTest)
         ability = object.ability
-        unless ability_item = Nomen::Abilities.find(ability.ability_name.text_value)
+        unless ability_item = Nomen::Ability.find(ability.ability_name.text_value)
           fail "Unknown ability: #{ability.ability_name.text_value}"
         end
         parameters = []

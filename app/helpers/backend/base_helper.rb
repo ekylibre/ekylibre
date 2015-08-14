@@ -175,7 +175,7 @@ module Backend::BaseHelper
     window = 1.day
     min = (resource.born_at ? resource.born_at : now - window)
     min = now - window if (now - min) < window
-    for indicator in indicators # [:population, :nitrogen_concentration].collect{|i| Nomen::Indicators[i] }
+    for indicator in indicators # [:population, :nitrogen_concentration].collect{|i| Nomen::Indicator[i] }
       items = ProductReading.where(indicator_name: indicator.name, product: resource).where('? < read_at AND read_at < ?', min, now).order(:read_at)
       next unless items.any?
       data = []

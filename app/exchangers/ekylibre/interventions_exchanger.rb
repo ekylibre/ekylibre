@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-3# coding: utf-8
+# coding: utf-8
 class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   def check
     rows = CSV.read(file, headers: true, col_sep: ';').delete_if { |r| r[0].blank? }.sort { |a, b| [a[2].split(/\D/).reverse.join, a[0]] <=> [b[2].split(/\D/).reverse.join, b[0]] }
@@ -237,7 +236,6 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
             w.info ' workers_name : ' + workers.pluck(:name).inspect.yellow if workers
             w.info ' equipments_name : ' + equipments.pluck(:name).inspect.yellow if equipments
 
-            
 
             area = cultivable_zone.shape
             coeff = ((cultivable_zone.shape_area / 10_000.0) / 6.0).to_d if area

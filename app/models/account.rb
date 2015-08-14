@@ -129,12 +129,12 @@ class Account < Ekylibre::Record::Base
       options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
       number = args.shift.to_s.strip
       options[:name] ||= args.shift
-      numbers = Nomen::Accounts.items.values.collect { |i| i.send(accounting_system) } # map(&accounting_system.to_sym)
+      numbers = Nomen::Account.items.values.collect { |i| i.send(accounting_system) } # map(&accounting_system.to_sym)
       while number =~ /0$/
         break if numbers.include?(number)
         number.gsub!(/0$/, '')
       end unless numbers.include?(number)
-      item = Nomen::Accounts.items.values.detect { |i| i.send(accounting_system) == number }
+      item = Nomen::Account.items.values.detect { |i| i.send(accounting_system) == number }
       if account = find_by_number(number)
         if item && !account.usages_array.include?(item)
           account.usages ||= ''
@@ -156,7 +156,7 @@ class Account < Ekylibre::Record::Base
     # Find account with its usage among all existing account records
     def find_in_nomenclature(usage)
       unless account = of_usage(usage).first
-        if item = Nomen::Accounts[usage]
+        if item = Nomen::Account[usage]
           account = find_by(number: item.send(accounting_system))
         end
       end
@@ -292,7 +292,7 @@ class Account < Ekylibre::Record::Base
     # Returns list of reconcilable prefixes defined in preferences
     def reconcilable_prefixes
       [:client, :supplier, :attorney].collect do |mode|
-        Nomen::Accounts[mode].send(accounting_system).to_s
+        Nomen::Account[mode].send(accounting_system).to_s
       end
     end
 
@@ -305,7 +305,7 @@ class Account < Ekylibre::Record::Base
   # Returns list of usages as an array of usage items from the nomenclature
   def usages_array
     usages.to_s.strip.split(/[\,\s]/).collect do |i|
-      Nomen::Accounts[i]
+      Nomen::Account[i]
     end.compact
   end
 

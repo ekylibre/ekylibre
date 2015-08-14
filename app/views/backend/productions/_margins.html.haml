@@ -6,11 +6,11 @@
     doer: 0,
     other: 0
   }
-  currency = Nomen::Currencies.find(Preference[:currency])
+  currency = Nomen::Currency.find(Preference[:currency])
   title_legend_complement = ''
   # get support_variant indicator and unit (ex: net_surface_area and hectare)
-  support_variant_indicator = Nomen::Indicators[resource.support_variant_indicator]
-  support_variant_unit      = Nomen::Units[resource.support_variant_unit]
+  support_variant_indicator = Nomen::Indicator[resource.support_variant_indicator]
+  support_variant_unit      = Nomen::Unit[resource.support_variant_unit]
 
   if support_variant_unit
     title_legend_complement = " (#{ currency.symbol || currency.name}/#{ support_variant_unit.symbol })"
@@ -27,7 +27,7 @@
 
   resource.expenses.each do |expense|
     amount = expense.amount
-    variant_variety = Nomen::Varieties[expense.variant.variety]
+    variant_variety = Nomen::Variety[expense.variant.variety]
     if expense.variant_indicator.to_s == "working_duration"
       if variant_variety <= :worker
         costs[:doer] -= amount

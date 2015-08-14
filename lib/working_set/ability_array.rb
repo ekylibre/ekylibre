@@ -41,7 +41,7 @@ module WorkingSet
           raise InvalidExpression, "Cannot parse invalid ability: #{string.inspect}: #{e.message}"
         end
 
-        unless ability_item = Nomen::Abilities.find(ability.ability_name.text_value)
+        unless ability_item = Nomen::Ability.find(ability.ability_name.text_value)
           fail InvalidExpression, "Unknown ability: #{ability.ability_name.text_value}"
         end
         parameters = []

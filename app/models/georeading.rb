@@ -49,7 +49,7 @@ class Georeading < Ekylibre::Record::Base
   def label_area(unit = :hectare)
     if self.polygon?
       value = to_geom.area.to_d(unit).round(3).l
-      unit = Nomen::Units[unit].human_name
+      unit = Nomen::Unit[unit].human_name
       return "#{value} #{unit}"
     end
   end

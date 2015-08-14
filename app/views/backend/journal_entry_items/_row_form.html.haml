@@ -23,8 +23,8 @@
 - if @financial_year and @journal and @journal.currency != @financial_year.currency
   %tr{id: "#{id}-real-values", class: "#{id}-item"}
     %td.dec{colspan: 2}
-    %td.dec.debit{data: {use: "#items_#{id}_real_debit,#journal_entry_real_currency_rate", calculate: "mul", calculate_round: Nomen::Currencies[@financial_year.currency].precision}}
+    %td.dec.debit{data: {use: "#items_#{id}_real_debit,#journal_entry_real_currency_rate", calculate: "mul", calculate_round: Nomen::Currency[@financial_year.currency].precision}}
     %td= @financial_year.currency
-    %td.dec.credit{data: {use: "#items_#{id}_real_credit,#journal_entry_real_currency_rate", calculate: "mul", calculate_round: Nomen::Currencies[@financial_year.currency].precision}}
+    %td.dec.credit{data: {use: "#items_#{id}_real_credit,#journal_entry_real_currency_rate", calculate: "mul", calculate_round: Nomen::Currency[@financial_year.currency].precision}}
     %td= @financial_year.currency
     %td.act

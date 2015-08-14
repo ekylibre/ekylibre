@@ -69,13 +69,13 @@ class Activity < Ekylibre::Record::Base
   }
 
   scope :of_families, proc { |*families|
-    where(family: families.flatten.collect { |f| Nomen::ActivityFamilies.all(f.to_sym) }.flatten.uniq.map(&:to_s))
+    where(family: families.flatten.collect { |f| Nomen::ActivityFamily.all(f.to_sym) }.flatten.uniq.map(&:to_s))
   }
 
   accepts_nested_attributes_for :distributions, reject_if: :all_blank, allow_destroy: true
 
   before_validation do
-    if family = Nomen::ActivityFamilies[self.family]
+    if family = Nomen::ActivityFamily[self.family]
       if with_supports.nil?
         if variety = family.support_variety
           self.with_supports = true
@@ -97,11 +97,11 @@ class Activity < Ekylibre::Record::Base
   end
 
   validate do
-    if family = Nomen::ActivityFamilies[self.family]
-      if with_supports && variety = Nomen::Varieties[support_variety]
+    if family = Nomen::ActivityFamily[self.family]
+      if with_supports && variety = Nomen::Variety[support_variety]
         errors.add(:support_variety, :invalid) unless variety <= family.support_variety
       end
-      if with_cultivation && variety = Nomen::Varieties[cultivation_variety]
+      if with_cultivation && variety = Nomen::Variety[cultivation_variety]
         errors.add(:cultivation_variety, :invalid) unless variety <= family.cultivation_variety
       end
     end
@@ -138,25 +138,25 @@ class Activity < Ekylibre::Record::Base
   end
 
   def family_label
-    item = Nomen::ActivityFamilies[family].human_name
+    item = Nomen::ActivityFamily[family].human_name
   end
 
   class << self
     def find_best_family(cultivation_variety, support_variety)
-      rankings = Nomen::ActivityFamilies.list.inject({}) do |hash, item|
+      rankings = Nomen::ActivityFamily.list.inject({}) do |hash, item|
         valid = true
         valid = false unless !cultivation_variety == !item.cultivation_variety
         distance = 0
         if valid && cultivation_variety
-          if Nomen::Varieties[cultivation_variety] <= item.cultivation_variety
-            distance += Nomen::Varieties[cultivation_variety].depth - Nomen::Varieties[item.cultivation_variety].depth
+          if Nomen::Variety[cultivation_variety] <= item.cultivation_variety
+            distance += Nomen::Variety[cultivation_variety].depth - Nomen::Variety[item.cultivation_variety].depth
           else
             valid = false
           end
         end
         if valid && support_variety
-          if Nomen::Varieties[support_variety] <= item.support_variety
-            distance += Nomen::Varieties[support_variety].depth - Nomen::Varieties[item.support_variety].depth
+          if Nomen::Variety[support_variety] <= item.support_variety
+            distance += Nomen::Variety[support_variety].depth - Nomen::Variety[item.support_variety].depth
           else
             valid = false
           end
@@ -165,7 +165,7 @@ class Activity < Ekylibre::Record::Base
         hash
       end.sort { |a, b| a.second <=> b.second }
       if best_choice = rankings.first
-        return Nomen::ActivityFamilies.find(best_choice.first)
+        return Nomen::ActivityFamily.find(best_choice.first)
       end
       nil
     end
@@ -190,6 +190,6 @@ class Activity < Ekylibre::Record::Base
   end
 
   def is_of_family?(family)
-    Nomen::ActivityFamilies[self.family] <= family
+    Nomen::ActivityFamily[self.family] <= family
   end
 end

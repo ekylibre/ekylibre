@@ -17,14 +17,14 @@ module Procedo
       end
 
       # Check indicator
-      unless @indicator = Nomen::Indicators[element[:indicator]]
+      unless @indicator = Nomen::Indicator[element[:indicator]]
         fail Procedo::Errors::InvalidHandler, "Handler of #{@variable.name} must have a valid 'indicator' attribute. Got: #{element[:indicator].inspect}"
       end
 
       # Get and check measure unit
       if @indicator.datatype == :measure
         if element.key?(:unit)
-          unless @unit = Nomen::Units[element[:unit]]
+          unless @unit = Nomen::Unit[element[:unit]]
             fail Procedo::Errors::InvalidHandler, "Handler must have a valid 'unit' attribute. Got: #{element[:unit].inspect}"
           end
         else

@@ -53,7 +53,7 @@
 #
 class ProductNatureCategory < Ekylibre::Record::Base
   # Be careful with the fact that it depends directly on the nomenclature definition
-  enumerize :pictogram, in: Nomen::ProductNatureCategories.pictogram.choices
+  enumerize :pictogram, in: Nomen::ProductNatureCategory.pictogram.choices
   # refers_to :pictogram, class_name: 'ProductPictograms'
   belongs_to :fixed_asset_account, class_name: 'Account'
   belongs_to :fixed_asset_allocation_account, class_name: 'Account'
@@ -170,7 +170,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
 
   # Load a product nature category from product nature category nomenclature
   def self.import_from_nomenclature(reference_name, force = false)
-    unless item = Nomen::ProductNatureCategories.find(reference_name)
+    unless item = Nomen::ProductNatureCategory.find(reference_name)
       fail ArgumentError, "The product_nature_category #{reference_name.inspect} is unknown"
     end
     if !force && category = ProductNatureCategory.find_by_reference_name(reference_name)
@@ -202,7 +202,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
 
   # Load.all product nature from product nature nomenclature
   def self.import_all_from_nomenclature
-    for product_nature_category in Nomen::ProductNatureCategories.all
+    for product_nature_category in Nomen::ProductNatureCategory.all
       import_from_nomenclature(product_nature_category)
     end
   end

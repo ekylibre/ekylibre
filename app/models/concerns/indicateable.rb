@@ -9,7 +9,7 @@ module Indicateable
       ids = []
       # TODO: Build conditions to filter on indicator_values
       for name, value in indicator_values
-        data = ProductReading.of_products(self, name, read_at).where("#{Nomen::Indicators[name].datatype}_value" => value)
+        data = ProductReading.of_products(self, name, read_at).where("#{Nomen::Indicator[name].datatype}_value" => value)
         ids += data.pluck(:product_id) if data.any?
       end
       where(id: ids)
@@ -20,7 +20,7 @@ module Indicateable
       ids = []
       # TODO: Build conditions to filter on indicator_values
       for name, value in indicator_values
-        data = ProductReading.of_products(self, name, read_at).where("#{Nomen::Indicators[name].datatype}_value" => value)
+        data = ProductReading.of_products(self, name, read_at).where("#{Nomen::Indicator[name].datatype}_value" => value)
         ids += data.pluck(:product_id) if data.any?
       end
       where.not(id: ids)
@@ -50,8 +50,8 @@ module Indicateable
 
   # Measure a product for a given indicator
   def read!(indicator, value, options = {})
-    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicators[indicator]
-      fail ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
+    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
+      fail ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
     end
     fail ArgumentError, 'Value must be given' if value.nil?
     if !options[:force] && frozen_indicators.include?(indicator)
@@ -69,8 +69,8 @@ module Indicateable
 
   # Return the indicator reading
   def reading(indicator, options = {})
-    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicators[indicator]
-      fail ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
+    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
+      fail ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
     end
     read_at = options[:at] || Time.now
     indicator_name = indicator.name
@@ -82,8 +82,8 @@ module Indicateable
   # if option :at specify at which moment
   # if option :interpolate is true, it returns the interpolated value
   def get(indicator, *args)
-    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicators[indicator]
-      fail ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
+    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
+      fail ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
     end
     options = args.extract_options!
     cast_or_time = args.shift || options[:cast] || options[:at] || Time.now
@@ -142,8 +142,8 @@ module Indicateable
   end
 
   def get!(indicator, *args)
-    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicators[indicator]
-      fail ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
+    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
+      fail ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
     end
     unless value = get(indicator, *args)
       fail "Cannot get value of #{indicator.name} for product ##{id}"
@@ -159,20 +159,20 @@ module Indicateable
 
   def density(numerator, denominator, options = {})
     # Check indicator
-    unless numerator.is_a?(Nomen::Item) || numerator = Nomen::Indicators[numerator]
-      fail ArgumentError, "Unknown indicator #{numerator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
+    unless numerator.is_a?(Nomen::Item) || numerator = Nomen::Indicator[numerator]
+      fail ArgumentError, "Unknown indicator #{numerator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
     end
-    unless denominator.is_a?(Nomen::Item) || denominator = Nomen::Indicators[denominator]
-      fail ArgumentError, "Unknown indicator #{denominator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
+    unless denominator.is_a?(Nomen::Item) || denominator = Nomen::Indicator[denominator]
+      fail ArgumentError, "Unknown indicator #{denominator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
     end
 
     # Find dimension and unit
-    numerator_dimension   = Nomen::Dimensions.find_by(symbol: numerator.symbol)
-    denominator_dimension = Nomen::Dimensions.find_by(symbol: denominator.symbol)
-    unless dimension = Nomen::Dimensions.find_by(symbol: "#{numerator_dimension.symbol}/#{denominator_dimension.symbol}")
+    numerator_dimension   = Nomen::Dimension.find_by(symbol: numerator.symbol)
+    denominator_dimension = Nomen::Dimension.find_by(symbol: denominator.symbol)
+    unless dimension = Nomen::Dimension.find_by(symbol: "#{numerator_dimension.symbol}/#{denominator_dimension.symbol}")
       fail "No dimension found for: #{numerator.symbol}/#{denominator.symbol}"
     end
-    unless unit = Nomen::Units.find_by(dimension: dimension)
+    unless unit = Nomen::Unit.find_by(dimension: dimension)
       fail "No unit found for: #{dimension.inspect}"
     end
 
@@ -203,8 +203,8 @@ module Indicateable
   end
 
   def operate_on_readings(indicator, value, options = {})
-    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicators[indicator]
-      fail ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
+    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
+      fail ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
     end
     data = readings.where(indicator_name: indicator.name)
     operation = options.delete(:operation)

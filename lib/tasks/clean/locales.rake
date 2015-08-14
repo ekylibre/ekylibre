@@ -303,7 +303,7 @@ namespace :clean do
       agg_name = aggregator.aggregator_name.to_sym
       if name = ref[:aggregators][agg_name] and name.present?
         translation << "    #{aggregator.aggregator_name}: " + Clean::Support.yaml_value(name) + "\n"
-      elsif item = Nomen::DocumentNatures[agg_name]
+      elsif item = Nomen::DocumentNature[agg_name]
         to_translate -= 1
         translation << "    #~ #{aggregator.aggregator_name}: " + Clean::Support.yaml_value(item.human_name) + "\n"
       else
@@ -535,7 +535,7 @@ namespace :clean do
       to_translate += 1
       if name = ref[:procedure_handlers][handler]
         translation << "    #{handler}: " + Clean::Support.yaml_value(name) + "\n"
-      elsif Nomen::Indicators[handler] # Facultative translation
+      elsif Nomen::Indicator[handler] # Facultative translation
         to_translate -= 1
         translation << "    #~ #{handler}: " + Clean::Support.yaml_value(handler.to_s.humanize) + "\n"
       else

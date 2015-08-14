@@ -16,7 +16,7 @@
   = f.custom_fields
 
 :ruby
-  currency = Nomen::Currencies[Preference[:currency]]
+  currency = Nomen::Currency[Preference[:currency]]
   currency_symbol = currency.symbol || currency.name
   precision = currency.precision
 
@@ -49,7 +49,7 @@
           %th.with-some-supports
             %span= ProductionBudget.human_attribute_name(:amount)
             %span= "/"
-            - unit = Nomen::Units[f.object.support_variant_unit]
+            - unit = Nomen::Unit[f.object.support_variant_unit]
             %span.working-unit= (unit ? unit.symbol : "?")
           %th
       %tfoot

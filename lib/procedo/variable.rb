@@ -74,7 +74,7 @@ module Procedo
             fail StandardError, "Unknown variable for variant attribute: #{@variant}"
           end
         else
-          unless Nomen::ProductNatureVariants[@variant]
+          unless Nomen::ProductNatureVariant[@variant]
             fail StandardError, "Unknown variant in product_nature_variants nomenclature: #{@variant}"
           end
         end
@@ -210,7 +210,7 @@ module Procedo
       if @variant =~ /\A\:/
         other = @variant[1..-1]
         return intervention.casts.find_by(variable: other).variant
-      elsif Nomen::ProductNatureVariants[@variant]
+      elsif Nomen::ProductNatureVariant[@variant]
         unless variant = ProductNatureVariant.find_by(nomen: @variant.to_s)
           variant = ProductNatureVariant.import_from_nomenclature(@variant)
         end
@@ -297,7 +297,7 @@ module Procedo
 
     private
 
-    # compare two Nomen::Varieties items
+    # compare two Nomen::Variety items
     # returns true if actor's item is the same as variable's one or if
     # actor's item is a child of variable's variety, false otherwise
     # ==== Parameters:
@@ -308,7 +308,7 @@ module Procedo
       return true if actor_item == variable_item
 
       begin
-        return Nomen::Varieties[variable_item] >= actor_item
+        return Nomen::Variety[variable_item] >= actor_item
       rescue # manage the case when there is no item in nomenclature for the varieties to compare
         return false
       end

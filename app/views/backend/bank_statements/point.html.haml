@@ -23,7 +23,7 @@
             %th= JournalEntry.human_attribute_name(:number)
 
 
-        - precision = Nomen::Currencies[resource.currency].precision
+        - precision = Nomen::Currency[resource.currency].precision
         %tfoot
           %tr.total
             %th{colspan: 3}= :total.tl

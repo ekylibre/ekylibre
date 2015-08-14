@@ -1,3 +1,3 @@
 - main_toolbar do |t|
-  - t.new variants: Nomen::AnalysisNatures.list.inject({}){|h,n| h[n.human_name] = {nature: n.name}; h}
+  - t.new variants: Nomen::AnalysisNature.list.inject({}){|h,n| h[n.human_name] = {nature: n.name}; h}
 = main_list

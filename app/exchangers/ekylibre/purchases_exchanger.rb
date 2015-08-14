@@ -40,7 +40,7 @@ class Ekylibre::PurchasesExchanger < ActiveExchanger::Base
         fail "Variant identifiant must be given at line #{line_index}"
       end
       unless variant = ProductNatureVariant.find_by(number: r.variant_code)
-        if Nomen::ProductNatureVariants.find(r.variant_code)
+        if Nomen::ProductNatureVariant.find(r.variant_code)
           variant = ProductNatureVariant.import_from_nomenclature(r.variant_code)
         else
           if r.variant[:fixed_asset_account]
@@ -105,7 +105,7 @@ class Ekylibre::PurchasesExchanger < ActiveExchanger::Base
       # TODO: search country before for good tax request (country and amount)
       # country via supplier if information exist
       fail "Missing VAT at line #{line_index}" unless r.vat_percentage
-      item = Nomen::Taxes.find_by(country: purchase.supplier.country.to_sym, amount: r.vat_percentage)
+      item = Nomen::Tax.find_by(country: purchase.supplier.country.to_sym, amount: r.vat_percentage)
       tax = Tax.import_from_nomenclature(item.name)
 
       # find or create a purchase line

@@ -50,6 +50,6 @@ class Identifier < Ekylibre::Record::Base
   end
 
   def name
-    (nature ? Nomen::IdentifierNatures[nature].human_name : :unknown.tl)
+    (nature ? Nomen::IdentifierNature[nature].human_name : :unknown.tl)
   end
 end

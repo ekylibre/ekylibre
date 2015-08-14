@@ -77,7 +77,7 @@ module Procedo
 
     # Returns procedures of nature and sub natures
     def procedures_of_nature_and_its_children(nature, _options = {})
-      procedures_of_nature(*Nomen::ProcedureNatures.all(nature).map(&:to_sym), options = {})
+      procedures_of_nature(*Nomen::ProcedureNature.all(nature).map(&:to_sym), options = {})
     end
 
     def each_variable(&_block)

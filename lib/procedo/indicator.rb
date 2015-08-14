@@ -7,7 +7,7 @@ module Procedo
       unless @stakeholder = @task.procedure.variables[stakeholder]
         fail ArgumentError, "Unknown stakeholder: #{stakeholder.inspect}"
       end
-      unless @indicator = Nomen::Indicators[indicator]
+      unless @indicator = Nomen::Indicator[indicator]
         fail ArgumentError, "Unknown indicator: #{indicator.inspect}"
       end
       unless value.blank?

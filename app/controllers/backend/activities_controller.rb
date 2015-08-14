@@ -36,7 +36,7 @@ class Backend::ActivitiesController < Backend::BaseController
 
   # Returns wanted varieties proposition for given family_name
   def family
-    unless family = Nomen::ActivityFamilies[params[:name]]
+    unless family = Nomen::ActivityFamily[params[:name]]
       head :not_found
       return
     end
@@ -45,10 +45,10 @@ class Backend::ActivitiesController < Backend::BaseController
       name: family.name
     }
     if family.cultivation_variety
-      data[:cultivation_varieties] = Nomen::Varieties.selection_hash(family.cultivation_variety)
+      data[:cultivation_varieties] = Nomen::Variety.selection_hash(family.cultivation_variety)
     end
     if family.support_variety
-      data[:support_varieties] = Nomen::Varieties.selection_hash(family.support_variety)
+      data[:support_varieties] = Nomen::Variety.selection_hash(family.support_variety)
     end
     render json: data
   end
