@@ -103,6 +103,8 @@
         try
           feature = e.layer.toGeoJSON()
           feature.properties['internal_id'] = new Date().getTime()
+          feature.properties['removable'] = true
+          feature.properties['level'] = 0
           widget.edition.addData feature
         catch
           widget.edition.addLayer e.layer
@@ -115,6 +117,10 @@
         widget.element.trigger "mapchange"
 
       this.map.on "draw:deleted", (e) ->
+        layers = e.layers
+        layers.eachLayer (layer) =>
+          widget.element.trigger 'mapeditor:feature_delete', layer.feature
+
         widget._saveUpdates()
         widget.element.trigger "mapchange"
 
@@ -136,6 +142,11 @@
         featureId = $(e.currentTarget).closest('.leaflet-popup-content').find('*[data-internal-id]').data('internal-id')
         newName = $(e.currentTarget).closest('.popup-content').find('input[type="text"]').val()
 
+        if this.options.multiLevels?
+          level = $(e.currentTarget).closest('.popup-content').find('select').val()
+          this.updateFeatureProperties(featureId, 'level', level)
+
+
         this.updateFeatureProperties(featureId, 'name', newName)
 
         layer = this.findLayer(featureId)
@@ -150,6 +161,14 @@
         false
 
       widget.element.trigger "mapeditor:loaded"
+
+    updateFeature: (feature_id, attributeName, attributeValue) ->
+      this.updateFeatureProperties(feature_id, attributeName, attributeValue)
+      layer = this.findLayer(feature_id)
+
+      #update popup
+      this.popupize layer.feature, layer
+
 
     updateFeatureProperties: (feature_id, attributeName, attributeValue) ->
       layer = this.findLayer(feature_id)
@@ -183,6 +202,18 @@
       popup += "</div>"
       popup += "<div class='popup-content'>"
       popup += "<input type='text' value='#{feature.properties.name}'/>"
+
+      if this.options.multiLevels?
+        popup += "<select>"
+        for level in [parseInt(this.options.multiLevels.minLevel)..parseInt(this.options.multiLevels.maxLevel)]
+          selected = ""
+          if level == parseInt(feature.properties.level)
+            selected = "selected"
+
+          popup += "<option value='#{level}' #{selected}>#{level}</option>"
+
+        popup += "</select>"
+
       popup += "<input class='updateAttributesInPopup' type='button' value='ok'/>"
       popup += "</div>"
 
@@ -271,7 +302,13 @@
         else
           this.edition = L.GeoJSON.geometryToLayer(this.options.edit)
       else
-        this.edition = new L.GeoJSON()
+        this.edition = L.geoJson(this.options.edit, {
+          onEachFeature: (feature, layer) =>
+            $(this.element).trigger('mapeditor:feature_add', feature)
+
+            if feature.properties?
+              this.popupize(feature, layer)
+        })
 
       this.edition.setStyle this.options.editStyle
       this.edition.addTo this.map
