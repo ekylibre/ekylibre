@@ -71,9 +71,9 @@ class Ekylibre::PurchasesExchanger < ActiveExchanger::Base
             category = ProductNatureCategory.create!(attrs.merge(active: true, pictogram: :undefined))
           end
           attrs[:variety] = r.variant[:variety] || :product
-          puts r.variant[:variety].inspect.red
+          # puts r.variant[:variety].inspect.red
           unless nature = category.natures.first
-            nature = category.natures.create!(name: attrs[:name], variety: attrs[:variety])
+            nature = category.natures.create!(name: attrs[:name], variety: attrs[:variety], population_counting: :decimal)
           end
           unless variant = nature.variants.first
             variant = nature.variants.create!(name: attrs[:name], variety: attrs[:variety], unit_name: 'Unit')
@@ -111,6 +111,7 @@ class Ekylibre::PurchasesExchanger < ActiveExchanger::Base
       # find or create a purchase line
       unless purchase.items.find_by(pretax_amount: r.pretax_amount, variant_id: variant.id, tax_id: tax.id)
         fail "Missing quantity at line #{line_index}" unless r.quantity
+        # puts r.variant_code.inspect.red
         purchase.items.create!(quantity: r.quantity, tax: tax, unit_pretax_amount: r.unit_pretax_amount, variant: variant, fixed: r.depreciate)
       end
 

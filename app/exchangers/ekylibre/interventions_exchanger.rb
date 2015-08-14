@@ -36,11 +36,102 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
       # info, warn, error
       # valid = false if error
-
-      procedure_nomen = Procedo[procedure_name]
+      #
+      # PROCEDURE EXIST IN NOMENCLATURE
+      #
+      procedure_long_name = "base-" + procedure_name.to_s + "-0"
+      procedure_nomen = Procedo[procedure_long_name]
       unless procedure_nomen
         w.error "#{line_number}: No procedure given"
         valid = false
+      end
+      #
+      # PROCEDURE HAVE A DURATION
+      #
+      intervention_started_at = r.intervention_started_at
+      if duration_in_seconds = r.intervention_duration_in_hour.hours
+        intervention_stopped_at = intervention_started_at + duration_in_seconds
+      else
+        w.warn "#{line_number}: Need a duration"
+      end
+      #
+      # PROCEDURE GIVE A CAMPAIGN WHO DOES NOT EXIST IN DB
+      #
+      unless campaign = Campaign.find_by_name(r.campaign_code)
+        w.info "#{line_number}: #{r.campaign_code} will be created as a campaign"
+      end
+      #
+      # PROCEDURE GIVE SUPPORTS CODES BUT NOT EXIST IN DB
+      #
+      if r.support_codes
+        unless supports = Product.where(work_number: r.support_codes)
+          w.warn "#{line_number}: #{r.support_codes} does not exist in DB"
+          w.info "#{line_number}: a standard activity will be set"
+        end
+      end
+      #
+      # PROCEDURE GIVE VARIANT OR VARIETY CODES BUT NOT EXIST IN DB OR IN NOMENCLATURE
+      #
+      if r.target_variety && !r.target_variant
+        unless Nomen::Varieties.find(r.target_variety)
+          w.error "#{line_number}: #{r.target_variety} does not exist in NOMENCLATURE"
+          valid = false
+        end
+      elsif r.target_variant
+        if variant = ProductNatureVariant.find_by(number: r.target_variant)
+          w.info "#{line_number}: #{r.target_variant} exist in DB ( #{variant.name} )"
+        elsif item = Nomen::ProductNatureVariants.find(r.target_variant)
+          w.info "#{line_number}: #{r.target_variant} exist in NOMENCLATURE ( #{item.name} )"
+        else
+          w.error "#{line_number}: #{r.target_variant} does not exist in NOMENCLATURE or DB"
+          valid = false
+        end
+      end     
+      #
+      # PROCEDURE GIVE EQUIPMENTS CODES BUT NOT EXIST IN DB
+      #
+      if r.equipment_codes
+        unless equipments = Equipment.where(work_number: r.equipment_codes)
+          w.warn "#{line_number}: #{r.equipment_codes} does not exist in DB"
+        end
+      end
+      #
+      # PROCEDURE GIVE WORKERS CODES BUT NOT EXIST IN DB
+      #
+      if r.worker_codes
+        unless workers = Worker.where(work_number: r.worker_codes)
+          w.warn "#{line_number}: #{r.worker_codes} does not exist in DB"
+        end
+      end
+      #
+      # PROCEDURE GIVE PRODUCTS OR VARIANTS BUT NOT EXIST IN DB
+      #
+      for product in [r.first_product_code, r.second_product_code, r.third_product_code]
+        if product
+          if p = Product.find_by_work_number(product)
+            w.info "#{line_number}: #{product} exist in DB as a product ( #{p.name} )"
+          elsif v = ProductNatureVariant.find_by_number(product)
+            w.info "#{line_number}: #{product} exist in DB as a variant ( #{p.name} )"
+          elsif item = Nomen::ProductNatureVariants.find(r.target_variant)
+            w.info "#{line_number}: #{product} exist in NOMENCLATURE as a variant ( #{item.name} )"
+          else
+            w.error "#{line_number}: #{product} does not exist in DB as a product or as a variant in DB or NOMENCLATURE"
+            valid = false
+          end
+        end
+      end
+      #
+      # PROCEDURE GIVE UNIT BUT NOT EXIST IN NOMENCLATURE
+      #
+      for unit in [r.first_product_input_unit_name, r.second_product_input_unit_name, r.third_product_input_unit_name]
+        if Nomen::Units[unit]
+          w.info "#{line_number}: #{unit} exist in NOMENCLATURE as a unit"
+        elsif u = Nomen::Units.find_by(symbol: unit)
+          w.info "#{line_number}: #{unit} exist in NOMENCLATURE as a symbol of #{u.name}"
+        else
+          w.error "#{line_number}: Unknown unit #{unit}"
+          valid = false
+        end
       end
     end
     valid
@@ -160,21 +251,20 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         production = Production.where(activity: activity, campaign: campaign).first if activity && campaign
       end
 
-      # Get existing equipments and workers
-      if r.equipment_codes
-        equipments = Equipment.where(work_number: r.equipment_codes)
-      end
+      # Get existing equipments  
+      equipments = Equipment.where(work_number: r.equipment_codes) if r.equipment_codes
+      workers = Worker.where(work_number: r.worker_codes) if r.worker_codes
 
       # Get target_variant
       target_variant = nil
-      if r.target_variety
+      if r.target_variety && !r.target_variant
         target_variant = ProductNatureVariant.find_or_import!(r.target_variety).first
       end
       if target_variant.nil? && r.target_variant
-        target_variant = ProductNatureVariant.import_from_nomenclature(r.target_variant)
+        unless target_variant = ProductNatureVariant.find_by(number: r.target_variant)
+          target_variant = ProductNatureVariant.import_from_nomenclature(r.target_variant)
+        end
       end
-
-      workers = Worker.where(work_number: r.worker_codes) if r.worker_codes
 
       # Get products or variants
       if r.first_product_code
