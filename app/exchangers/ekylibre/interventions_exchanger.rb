@@ -13,7 +13,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       #
       # PROCEDURE EXIST IN NOMENCLATURE
       #
-      procedure_long_name = "base-" + procedure_name.to_s + "-0"
+      procedure_long_name = "base-" + r.procedure_name.to_s + "-0"
       procedure_nomen = Procedo[procedure_long_name]
       unless procedure_nomen
         w.error "#{line_number}: No procedure given"
@@ -249,17 +249,17 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                 intervention = send("record_#{r.procedure_name}", r, support, duration)
 
               ####  SOIL W  ####
-              elsif (r.procedure_name == :raking || r.procedure_name == :plowing || r.procedure_name == :hoeing || r.procedure_name == :land_parcel_grinding ) && cultivable_zone
+              elsif (r.procedure_name == :raking || r.procedure_name == :plowing || r.procedure_name == :hoeing || r.procedure_name == :land_parcel_grinding )
 
                 intervention = send("record_#{r.procedure_name}", r, support, duration)
 
               ####  FERTILIZING  ####
-              elsif (r.procedure_name == :organic_fertilizing || r.procedure_name == :mineral_fertilizing) && cultivable_zone && r.first.product
+              elsif (r.procedure_name == :organic_fertilizing || r.procedure_name == :mineral_fertilizing)
 
                 intervention = send("record_#{r.procedure_name}", r, support, duration)
 
               ####  SOWING / IMPLANTING       ####
-              elsif (r.procedure_name == :sowing || r.procedure_name == :implanting) && cultivable_zone && r.target_variant && r.first.product
+              elsif (r.procedure_name == :sowing || r.procedure_name == :implanting)
 
                 intervention = send("record_#{r.procedure_name}", r, support, duration)
 
@@ -277,21 +277,21 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                 intervention = send("record_#{r.procedure_name}", r, support, duration)
 
               ####  WATERING     ####
-              elsif r.procedure_name == :watering && cultivable_zone && r.first.product
+              elsif r.procedure_name == :watering && r.first.product
 
                 intervention = send("record_#{r.procedure_name}", r, support, duration)
 
               ####  INPLANTING   ####
-              elsif r.procedure_name == :plastic_mulching && cultivable_zone && r.first.product
+              elsif r.procedure_name == :plastic_mulching  && r.first.product
 
                 intervention = send("record_#{r.procedure_name}", r, support, duration)
 
-              elsif r.procedure_name == :implant_helping && cultivable_zone
+              elsif r.procedure_name == :implant_helping
 
                 intervention = send("record_#{r.procedure_name}", r, support, duration)
 
               ####  MAINTENANCE   ####
-              elsif r.procedure_name == :technical_task && cultivable_zone
+              elsif r.procedure_name == :technical_task
 
                 intervention = send("record_#{r.procedure_name}", r, support, duration)
 
@@ -308,11 +308,11 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
               Ekylibre::FirstRun::Booker.production = support.production
 
               #### MAINTENANCE ####
-              if r.procedure_name == :maintenance_task && zone
+              if r.procedure_name == :maintenance_task
 
                 intervention = send("record_#{r.procedure_name}", r, support, duration)
 
-              elsif r.procedure_name == :technical_task && zone
+              elsif r.procedure_name == :technical_task
 
                 intervention = send("record_#{r.procedure_name}", r, support, duration)
 
@@ -391,7 +391,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     unit = unit.to_sym if unit
     nomen_unit = Nomen::Units[unit] if unit
     #
-    if value > 0.0 && nomen_unit
+    if value >= 0.0 && nomen_unit
       measure = Measure.new(value, unit)
       if measure.dimension == :volume
         variant_indicator = product_variant.send(:net_volume)
@@ -405,7 +405,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       population_value = ((measure.to_f(variant_indicator.unit.to_sym)) / variant_indicator.value.to_f)
 
       # case population
-    elsif value > 0.0 && !nomen_unit
+    elsif value >= 0.0 && !nomen_unit
       population_value = value
     end
     if working_area.to_d(:square_meter) > 0.0
@@ -491,8 +491,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   ########################
 
   def record_spraying_on_land_parcel(r, support, duration)
-
-    return nil unless cultivable_zone = support.storage && cultivable_zone.is_a?(CultivableZone) && r.first.product
+    
+    cultivable_zone = support.storage
+    return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && r.first.product
 
     working_measure = cultivable_zone.shape_area
     first_product_input_population = actor_population_conversion(r.first, working_measure)
@@ -510,8 +511,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   end
 
   def record_double_spraying_on_land_parcel(r, support, duration)
-
-    return nil unless cultivable_zone = support.storage && cultivable_zone.is_a?(CultivableZone) && r.first.product && r.second.product
+    
+    cultivable_zone = support.storage
+    return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && r.first.product && r.second.product
 
     working_measure = cultivable_zone.shape_area
     first_product_input_population = actor_population_conversion(r.first, working_measure)
@@ -582,8 +584,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   #######################
 
   def record_sowing(r, support, duration)
-
-    return nil unless cultivable_zone = support.storage && cultivable_zone.is_a?(CultivableZone) && r.target_variant && r.first.product
+    
+    cultivable_zone = support.storage
+    return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && r.target_variant && r.first.product
 
                 working_measure = cultivable_zone.shape_area
                 first_product_input_population = actor_population_conversion(r.first, working_measure)
@@ -607,8 +610,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   end
 
   def record_implanting(r, support, duration)
-
-    return nil unless cultivable_zone = support.storage && cultivable_zone.is_a?(CultivableZone) && r.target_variant && r.first.product
+    
+    cultivable_zone = support.storage
+    return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && r.target_variant && r.first.product
 
                 working_measure = cultivable_zone.shape_area
                 first_product_input_population = actor_population_conversion(r.first, working_measure)
@@ -645,8 +649,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   end
 
   def record_plastic_mulching(r, support, duration)
-
-    return nil unless cultivable_zone = support.storage && cultivable_zone.is_a?(CultivableZone) && r.first.product
+    
+    cultivable_zone = support.storage
+    return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && r.first.product
 
                 working_measure = cultivable_zone.shape_area
                 first_product_input_population = actor_population_conversion(r.first, working_measure)
@@ -680,8 +685,8 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
   def record_organic_fertilizing(r, support, duration)
 
-    return nil unless cultivable_zone = support.storage && cultivable_zone.is_a?(CultivableZone) && r.first.product
-
+      cultivable_zone = support.storage
+      return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && r.first.product
                 working_measure = cultivable_zone.shape_area
                 first_product_input_population = actor_population_conversion(r.first, working_measure)
 
@@ -697,13 +702,14 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   end
 
   def record_mineral_fertilizing(r, support, duration)
-
-    return nil unless cultivable_zone = support.storage && cultivable_zone.is_a?(CultivableZone) && r.first.product
+    
+    cultivable_zone = support.storage
+    return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && r.first.product
 
                 working_measure = cultivable_zone.shape_area
                 first_product_input_population = actor_population_conversion(r.first, working_measure)
 
-    intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
+    intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
                   i.add_cast(reference_name: 'fertilizer',      actor: r.first.product)
                   i.add_cast(reference_name: 'fertilizer_to_spread', population: first_product_input_population)
                   i.add_cast(reference_name: 'spreader',    actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'spread(preparation)') : i.find(Equipment, can: 'spread(preparation)')))
@@ -719,8 +725,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   #######################
 
   def record_plowing(r, support, duration)
-
-       return nil unless cultivable_zone = support.storage && cultivable_zone.is_a?(CultivableZone)
+       
+       cultivable_zone = support.storage
+       return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone)
 
        intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, parameters: { readings: { 'base-plowing-0-500-1' => 'plowed' } }, description: r.procedure_description) do |i|
                   i.add_cast(reference_name: 'plow', actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'plow') : i.find(Equipment, can: 'plow')))
@@ -732,8 +739,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   end
 
   def record_raking(r, support, duration)
-
-    return nil unless cultivable_zone = support.storage && cultivable_zone.is_a?(CultivableZone)
+    
+    cultivable_zone = support.storage
+    return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone)
 
     intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, parameters: { readings: { 'base-raking-0-500-1' => 'plowed' } }, description: r.procedure_description) do |i|
                   i.add_cast(reference_name: 'harrow',      actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'plow_superficially') : i.find(Equipment, can: 'plow_superficially')))
@@ -745,8 +753,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   end
 
   def record_hoeing(r, support, duration)
-
-    return nil unless cultivable_zone = support.storage && cultivable_zone.is_a?(CultivableZone)
+    
+    cultivable_zone = support.storage
+    return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone)
 
     intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, parameters: { readings: { 'base-hoeing-0-500-1' => 'plowed' } }, description: r.procedure_description) do |i|
                   i.add_cast(reference_name: 'cultivator',      actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'hoe') : i.find(Equipment, can: 'hoe')))
@@ -758,8 +767,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   end
 
   def record_land_parcel_grinding(r, support, duration)
-
-    return nil unless cultivable_zone = support.storage && cultivable_zone.is_a?(CultivableZone)
+    
+    cultivable_zone = support.storage
+    return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone)
 
     intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
                   i.add_cast(reference_name: 'grinder', actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'grind(cultivable_zone)') : i.find(Equipment, can: 'grind(cultivable_zone)')))
@@ -775,9 +785,10 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   #######################
 
   def record_watering(r, support, duration)
-
+    
+    cultivable_zone = support.storage
     plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
-    return nil unless cultivable_zone = support.storage && cultivable_zone.is_a?(CultivableZone) && plant && r.first.product
+    return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && plant && r.first.product
 
                 working_measure = cultivable_zone.shape_area
                 first_product_input_population = actor_population_conversion(r.first, working_measure)
@@ -801,7 +812,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
 
     return nil unless plant && r.first.variant && r.second.variant
-
+    
                 working_measure = plant.shape_area
 
                 first_product_input_population = actor_population_conversion(r.first, working_measure)
@@ -854,8 +865,11 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
    #################################
 
    def record_technical_task(r, support, duration)
-
-    return nil unless (zone = support.storage and (zone.is_a?(BuildingDivision) || zone.is_a?(Equipment))) || (cultivable_zone = support.storage && cultivable_zone.is_a?(CultivableZone))
+    
+    
+    zone = support.storage
+    cultivable_zone = support.storage
+    return nil unless (zone and (zone.is_a?(BuildingDivision) || zone.is_a?(Equipment))) || (cultivable_zone && cultivable_zone.is_a?(CultivableZone))
 
                 intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, duration_in_seconds, support: support, description: r.procedure_description) do |i|
                   i.add_cast(reference_name: 'worker', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
@@ -865,8 +879,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
    end
 
    def record_maintenance_task(r, support, duration)
-
-     return nil unless zone = support.storage and (zone.is_a?(BuildingDivision) || zone.is_a?(Equipment))
+     
+     zone = support.storage
+     return nil unless zone and (zone.is_a?(BuildingDivision) || zone.is_a?(Equipment))
 
                 intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, duration_in_seconds, support: support, description: r.procedure_description) do |i|
                   i.add_cast(reference_name: 'worker', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))

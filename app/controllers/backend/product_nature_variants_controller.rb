@@ -27,6 +27,7 @@ class Backend::ProductNatureVariantsController < Backend::BaseController
     t.action :edit
     t.action :destroy, if: :destroyable?
     t.column :name, url: true
+    t.column :number
     t.column :nature, url: true
     t.column :unit_name
   end
