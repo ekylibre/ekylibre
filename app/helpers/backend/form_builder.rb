@@ -463,7 +463,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
                 else
                   m << indfi.input_field("#{indicator.datatype}_value", label: indicator.human_name, as: :string)
                 end
-                if indfi.object.indicator_name.to_s == "population"
+                if indfi.object.indicator_name.to_s == 'population'
                   m << @template.content_tag(:span, variant.unit_name, class: 'add-on')
                 end
                 m

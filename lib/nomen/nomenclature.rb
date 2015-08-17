@@ -45,7 +45,7 @@ module Nomen
 
     def update_attributes(attributes = {})
       attributes.each do |attribute, value|
-        self.send("#{attribute}=", value)
+        send("#{attribute}=", value)
       end
     end
 
@@ -141,7 +141,7 @@ module Nomen
     # Add an item to the nomenclature
     def change_item(name, changes = {})
       i = find!(name)
-      has_parent = changes.has_key?(:parent)
+      has_parent = changes.key?(:parent)
       new_parent = changes.delete(:parent)
       new_name = changes.delete(:name)
       changes.each do |k, v|
@@ -264,19 +264,15 @@ module Nomen
       "Nomen::#{name.to_s.classify}"
     end
 
-
     # Returns hash with items in tree: {a => nil, b => {c => nil}}
-    def tree()
-      x = @roots.collect do |i|
-        i.tree
-      end.join
+    def tree
+      x = @roots.collect(&:tree).join
       return x
       i.attributes.merge(parent: i.parent_name, name: i.name, left: i.left, right: i.right, depth: i.depth).deep_stringify_keys
       return x
-      @roots.map do |i|
+      @roots.map do |_i|
       end
     end
-
 
     def translateable?
       @translateable
@@ -294,7 +290,7 @@ module Nomen
         @forest_right += 1
         boundaries << @forest_right
       end
-      return boundaries
+      boundaries
     end
 
     # Returns the given item
@@ -313,7 +309,7 @@ module Nomen
     alias_method :all, :to_a
 
     def <=>(other)
-      self.name <=> other.name
+      name <=> other.name
     end
 
     def dependency_index
@@ -371,7 +367,7 @@ module Nomen
     def find(item_name)
       @items[item_name]
     end
-    alias :item :find
+    alias_method :item, :find
 
     def property(property_name)
       @properties[property_name]

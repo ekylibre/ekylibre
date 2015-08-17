@@ -13,7 +13,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       #
       # PROCEDURE EXIST IN NOMENCLATURE
       #
-      procedure_long_name = "base-" + r.procedure_name.to_s + "-0"
+      procedure_long_name = 'base-' + r.procedure_name.to_s + '-0'
       procedure_nomen = Procedo[procedure_long_name]
       unless procedure_nomen
         w.error "#{line_number}: No procedure given"
@@ -108,7 +108,6 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     end
     valid
   end
-
 
   def import
     rows = CSV.read(file, headers: true, col_sep: ';').delete_if { |r| r[0].blank? }.sort { |a, b| [a[2].split(/\D/).reverse.join, a[0]] <=> [b[2].split(/\D/).reverse.join, b[0]] }
@@ -223,7 +222,6 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         # puts r.procedure_name.inspect.green
 
         production_supports.each do |support|
-
           if cultivable_zone = support.storage and cultivable_zone.is_a?(CultivableZone)
 
             duration = (r.intervention_duration_in_hour.hours * (cultivable_zone.shape_area.to_d / r.production_supports_area.to_d).to_d).round(2) if cultivable_zone.shape
@@ -240,10 +238,10 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
             w.info ' workers_name : ' + r.workers.pluck(:name).inspect.yellow if r.workers
             w.info ' equipments_name : ' + r.equipments.pluck(:name).inspect.yellow if r.equipments
 
-
             area = cultivable_zone.shape
             coeff = ((cultivable_zone.shape_area / 10_000.0) / 6.0).to_d if area
 
+<<<<<<< HEAD
               intervention = nil
 
               Ekylibre::FirstRun::Booker.production = support.production
@@ -255,60 +253,72 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
               ####  SOIL W  ####
               elsif (r.procedure_name == :raking || r.procedure_name == :plowing || r.procedure_name == :hoeing || r.procedure_name == :land_parcel_grinding )
+=======
+            intervention = nil
 
-                intervention = send("record_#{r.procedure_name}", r, support, duration)
+            Ekylibre::FirstRun::Booker.production = support.production
 
-              ####  FERTILIZING  ####
-              elsif (r.procedure_name == :organic_fertilizing || r.procedure_name == :mineral_fertilizing)
+            #### SPRAYING ####
+            if r.procedure_name == :double_spraying_on_cultivation || r.procedure_name == :spraying_on_cultivation || r.procedure_name == :spraying_on_land_parcel || r.procedure_name == :double_spraying_on_land_parcel
 
-                intervention = send("record_#{r.procedure_name}", r, support, duration)
+              intervention = send("record_#{r.procedure_name}", r, support, duration)
+>>>>>>> Cleans code with rubocop
 
-              ####  SOWING / IMPLANTING       ####
-              elsif (r.procedure_name == :sowing || r.procedure_name == :implanting)
+            ####  SOIL W  ####
+            elsif r.procedure_name == :raking || r.procedure_name == :plowing || r.procedure_name == :hoeing || r.procedure_name == :land_parcel_grinding
 
-                intervention = send("record_#{r.procedure_name}", r, support, duration)
+              intervention = send("record_#{r.procedure_name}", r, support, duration)
 
-              ####  HARVESTING   ####
-              elsif r.procedure_name == :grains_harvest && r.first.variant && r.second.variant
+            ####  FERTILIZING  ####
+            elsif r.procedure_name == :organic_fertilizing || r.procedure_name == :mineral_fertilizing
 
-                intervention = send("record_#{r.procedure_name}", r, support, duration)
+              intervention = send("record_#{r.procedure_name}", r, support, duration)
 
-              elsif r.procedure_name == :direct_silage && r.first.variant
+            ####  SOWING / IMPLANTING       ####
+            elsif r.procedure_name == :sowing || r.procedure_name == :implanting
 
-                intervention = send("record_#{r.procedure_name}", r, support, duration)
+              intervention = send("record_#{r.procedure_name}", r, support, duration)
 
-              elsif r.procedure_name == :plantation_unfixing
+            ####  HARVESTING   ####
+            elsif r.procedure_name == :grains_harvest && r.first.variant && r.second.variant
 
-                intervention = send("record_#{r.procedure_name}", r, support, duration)
+              intervention = send("record_#{r.procedure_name}", r, support, duration)
 
-              ####  WATERING     ####
-              elsif r.procedure_name == :watering && r.first.product
+            elsif r.procedure_name == :direct_silage && r.first.variant
 
-                intervention = send("record_#{r.procedure_name}", r, support, duration)
+              intervention = send("record_#{r.procedure_name}", r, support, duration)
 
-              ####  INPLANTING   ####
-              elsif r.procedure_name == :plastic_mulching  && r.first.product
+            elsif r.procedure_name == :plantation_unfixing
 
-                intervention = send("record_#{r.procedure_name}", r, support, duration)
+              intervention = send("record_#{r.procedure_name}", r, support, duration)
 
-              elsif r.procedure_name == :implant_helping
+            ####  WATERING     ####
+            elsif r.procedure_name == :watering && r.first.product
 
-                intervention = send("record_#{r.procedure_name}", r, support, duration)
+              intervention = send("record_#{r.procedure_name}", r, support, duration)
 
-              ####  MAINTENANCE   ####
-              elsif r.procedure_name == :technical_task
+            ####  INPLANTING   ####
+            elsif r.procedure_name == :plastic_mulching && r.first.product
 
-                intervention = send("record_#{r.procedure_name}", r, support, duration)
+              intervention = send("record_#{r.procedure_name}", r, support, duration)
 
-              end
+            elsif r.procedure_name == :implant_helping
 
+              intervention = send("record_#{r.procedure_name}", r, support, duration)
 
+            ####  MAINTENANCE   ####
+            elsif r.procedure_name == :technical_task
+
+              intervention = send("record_#{r.procedure_name}", r, support, duration)
+
+            end
 
             # for the same intervention session
             r.intervention_started_at += duration.seconds if cultivable_zone.shape
 
           elsif zone = support.storage and (zone.is_a?(BuildingDivision) || zone.is_a?(Equipment))
 
+<<<<<<< HEAD
               intervention = nil
               
               Ekylibre::FirstRun::Booker.production = support.production
@@ -317,12 +327,29 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
               #### MAINTENANCE ####
               if r.procedure_name == :maintenance_task || r.procedure_name == :technical_task || r.procedure_name == :fuel_up
+=======
+            intervention = nil
+            Ekylibre::FirstRun::Booker.production = support.production
 
-                intervention = send("record_#{r.procedure_name}", r, support, duration)
+            #### MAINTENANCE ####
+            if r.procedure_name == :maintenance_task
 
+              intervention = send("record_#{r.procedure_name}", r, support, duration)
+
+            elsif r.procedure_name == :technical_task
+>>>>>>> Cleans code with rubocop
+
+              intervention = send("record_#{r.procedure_name}", r, support, duration)
+
+<<<<<<< HEAD
               end
               # for the same intervention session
               r.intervention_started_at += duration.seconds
+=======
+            end
+            # for the same intervention session
+            r.intervention_started_at += duration.seconds if cultivable_zone.shape
+>>>>>>> Cleans code with rubocop
 
           end
           if intervention
@@ -420,6 +447,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
   # parse a row of the current file
   def parse_row(row)
+<<<<<<< HEAD
     return OpenStruct.new(intervention_number: row[0].to_i,
                           campaign_code: row[1].to_s,
                           intervention_started_at: ((row[2].blank? || row[3].blank?) ? nil : Time.strptime(Date.parse(row[2].to_s).strftime('%d/%m/%Y') + ' ' + row[3].to_s, '%d/%m/%Y %H:%M')),
@@ -442,17 +470,40 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                             h
                           end
                           )
+=======
+    OpenStruct.new(intervention_number: row[0].to_i,
+                   campaign_code: row[1].to_s,
+                   intervention_started_at: ((row[2].blank? || row[3].blank?) ? nil : Time.strptime(Date.parse(row[2].to_s).strftime('%d/%m/%Y') + ' ' + row[3].to_s, '%d/%m/%Y %H:%M')),
+                   intervention_duration_in_hour: (row[4].blank? ? nil : row[4].tr(',', '.').to_d),
+                   procedure_name: (row[5].blank? ? nil : row[5].to_s.downcase.to_sym), # to transcode
+                   procedure_description: row[6].to_s,
+                   support_codes: (row[7].blank? ? nil : row[7].to_s.strip.delete(' ').upcase.split(',')),
+                   target_variant: (row[8].blank? ? nil : row[8].to_s.downcase.to_sym),
+                   target_variety: (row[9].blank? ? nil : row[9].to_s.downcase.to_sym),
+                   worker_codes: (row[10].blank? ? nil : row[10].to_s.strip.delete(' ').upcase.split(',')),
+                   equipment_codes: (row[11].blank? ? nil : row[11].to_s.strip.delete(' ').upcase.split(',')),
+                   ### FIRST PRODUCT
+                   first: parse_actor(row, 12),
+                   ### SECOND PRODUCT
+                   second: parse_actor(row, 16),
+                   ### THIRD PRODUCT
+                   third: parse_actor(row, 20),
+                   indicators: row[24].blank? ? {} : row[24].to_s.strip.split(/[[:space:]]*\,[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.inject({}) do |h, i|
+                     h[i.first.strip.downcase.to_sym] = i.second
+                     h
+                   end
+                  )
+>>>>>>> Cleans code with rubocop
   end
 
   # parse an actor of a current row
   def parse_actor(row, index)
-
     a = OpenStruct.new(
-                       product_code: (row[index].blank? ? nil : row[index].to_s.upcase),
-                       input_population: (row[index+1].blank? ? nil : row[index+1].tr(',', '.').to_d),
-                       input_unit_name: (row[index+2].blank? ? nil : row[index+2].to_s.downcase),
-                       input_unit_target_dose: (row[index+3].blank? ? nil : row[index+3].to_s.downcase)
-                       )
+      product_code: (row[index].blank? ? nil : row[index].to_s.upcase),
+      input_population: (row[index + 1].blank? ? nil : row[index + 1].tr(',', '.').to_d),
+      input_unit_name: (row[index + 2].blank? ? nil : row[index + 2].to_s.downcase),
+      input_unit_target_dose: (row[index + 3].blank? ? nil : row[index + 3].to_s.downcase)
+    )
     if a.product_code
       if a.product = Product.find_by_work_number(a.product_code)
         a.variant = a.product.variant
@@ -461,26 +512,24 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       end
     end
 
-    return a
-
+    a
   end
 
   # find the best plant for the current support and cultivable zone
   def find_best_plant(options = {})
     plant = nil
-    if options[:support] and options[:support].storage and options[:support].storage.shape
+    if options[:support] && options[:support].storage && options[:support].storage.shape
       # try to find the current plant on cultivable zone if exist
       cultivable_zone_shape = Charta::Geometry.new(options[:support].storage.shape)
       if cultivable_zone_shape && product_around = cultivable_zone_shape.actors_matching(nature: Plant).first
         plant = product_around
       end
     end
-    if options[:variety] and options[:at]
+    if options[:variety] && options[:at]
       members = options[:support].storage.contains(options[:variety], options[:at])
       plant = members.first.product if members
     end
-    return plant
-
+    plant
   end
 
   ########################
@@ -488,7 +537,6 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   ########################
 
   def record_spraying_on_land_parcel(r, support, duration)
-    
     cultivable_zone = support.storage
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && r.first.product
 
@@ -503,12 +551,10 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       i.add_cast(reference_name: 'tractor',  actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'catch(sprayer)') : i.find(Equipment, can: 'catch(sprayer)')))
       i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
     end
-    return intervention
-
+    intervention
   end
 
   def record_double_spraying_on_land_parcel(r, support, duration)
-    
     cultivable_zone = support.storage
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && r.first.product && r.second.product
 
@@ -526,13 +572,10 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       i.add_cast(reference_name: 'tractor',  actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'catch(sprayer)') : i.find(Equipment, can: 'catch(sprayer)')))
       i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
     end
-    return intervention
-
+    intervention
   end
 
-
   def record_spraying_on_cultivation(r, support, duration)
-
     plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
 
     return nil unless plant && r.first.product
@@ -548,12 +591,10 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       i.add_cast(reference_name: 'tractor',  actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'catch(sprayer)') : i.find(Equipment, can: 'catch(sprayer)')))
       i.add_cast(reference_name: 'cultivation', actor: plant)
     end
-    return intervention
-
+    intervention
   end
 
   def record_double_spraying_on_cultivation(r, support, duration)
-
     plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
 
     return nil unless plant && r.first.product && r.second.product
@@ -572,8 +613,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       i.add_cast(reference_name: 'tractor',  actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'catch(sprayer)') : i.find(Equipment, can: 'catch(sprayer)')))
       i.add_cast(reference_name: 'cultivation', actor: plant)
     end
-    return intervention
-
+    intervention
   end
 
   #######################
@@ -581,100 +621,100 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   #######################
 
   def record_sowing(r, support, duration)
-    
     cultivable_zone = support.storage
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && r.target_variant && r.first.product
 
-                working_measure = cultivable_zone.shape_area
-                first_product_input_population = actor_population_conversion(r.first, working_measure)
+    working_measure = cultivable_zone.shape_area
+    first_product_input_population = actor_population_conversion(r.first, working_measure)
 
-                cultivation_population = (working_measure.to_s.to_f / 10_000.0) if working_measure
-                # get density from first_product
-                # (density in g per hectare / PMG) * 1000 * cultivable_area in hectare
-                pmg = r.first.variant.thousand_grains_mass.to_d
-                plants_count = (first_product_input_population * 1000 * 1000) / pmg if pmg && pmg != 0
+    cultivation_population = (working_measure.to_s.to_f / 10_000.0) if working_measure
+    # get density from first_product
+    # (density in g per hectare / PMG) * 1000 * cultivable_area in hectare
+    pmg = r.first.variant.thousand_grains_mass.to_d
+    plants_count = (first_product_input_population * 1000 * 1000) / pmg if pmg && pmg != 0
 
-                intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description, parameters: { readings: { 'base-sowing-0-750-2' => plants_count.to_i } }) do |i|
-                  i.add_cast(reference_name: 'seeds',        actor: r.first.product)
-                  i.add_cast(reference_name: 'seeds_to_sow', population: first_product_input_population)
-                  i.add_cast(reference_name: 'sower',        actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'sow') : i.find(Equipment, can: 'sow')))
-                  i.add_cast(reference_name: 'driver',       actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
-                  i.add_cast(reference_name: 'tractor',      actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'tow(sower)') : i.find(Equipment, can: 'tow(sower)')))
-                  i.add_cast(reference_name: 'land_parcel',  actor: cultivable_zone)
-                  i.add_cast(reference_name: 'cultivation',  variant: r.target_variant, population: cultivation_population, shape: cultivable_zone.shape)
-                end
-                return intervention
+    intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description, parameters: { readings: { 'base-sowing-0-750-2' => plants_count.to_i } }) do |i|
+      i.add_cast(reference_name: 'seeds',        actor: r.first.product)
+      i.add_cast(reference_name: 'seeds_to_sow', population: first_product_input_population)
+      i.add_cast(reference_name: 'sower',        actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'sow') : i.find(Equipment, can: 'sow')))
+      i.add_cast(reference_name: 'driver',       actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+      i.add_cast(reference_name: 'tractor',      actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'tow(sower)') : i.find(Equipment, can: 'tow(sower)')))
+      i.add_cast(reference_name: 'land_parcel',  actor: cultivable_zone)
+      i.add_cast(reference_name: 'cultivation',  variant: r.target_variant, population: cultivation_population, shape: cultivable_zone.shape)
+    end
+    intervention
   end
 
   def record_implanting(r, support, duration)
-    
     cultivable_zone = support.storage
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && r.target_variant && r.first.product
 
-                working_measure = cultivable_zone.shape_area
-                first_product_input_population = actor_population_conversion(r.first, working_measure)
+    working_measure = cultivable_zone.shape_area
+    first_product_input_population = actor_population_conversion(r.first, working_measure)
 
-                cultivation_population = (working_measure.to_s.to_f / 10_000.0) if working_measure
+    cultivation_population = (working_measure.to_s.to_f / 10_000.0) if working_measure
 
-                rows_interval = 0
-                plants_interval = 0
-                # check indicators linked to matters
-                if r.indicators
-                  for indicator, value in r.indicators
-                    if indicator.to_sym == :rows_interval
-                      rows_interval = value
-                    elsif indicator.to_sym == :plants_interval
-                      plants_interval = value
-                    end
-                  end
-                end
-                # reading indicators on 750-2/3/4
-                plants_count = cultivation_population
+    rows_interval = 0
+    plants_interval = 0
+    # check indicators linked to matters
+    if r.indicators
+      for indicator, value in r.indicators
+        if indicator.to_sym == :rows_interval
+          rows_interval = value
+        elsif indicator.to_sym == :plants_interval
+          plants_interval = value
+        end
+      end
+    end
+    # reading indicators on 750-2/3/4
+    plants_count = cultivation_population
 
-                intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description, parameters: { readings: { 'base-implanting-0-750-2' => rows_interval.to_d, 'base-implanting-0-750-3' => plants_interval.to_d, 'base-implanting-0-750-4' => plants_count.to_i } }) do |i|
-                  i.add_cast(reference_name: 'plants',        actor: r.first.product)
-                  i.add_cast(reference_name: 'plants_to_fix', population: first_product_input_population)
-                  i.add_cast(reference_name: 'implanter_tool', actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'implant') : i.find(Equipment, can: 'implant')))
-                  i.add_cast(reference_name: 'driver', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
-                  i.add_cast(reference_name: 'implanter_man',       actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
-                  i.add_cast(reference_name: 'tractor',      actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'tow(equipment)') : i.find(Equipment, can: 'tow(equipment)')))
-                  i.add_cast(reference_name: 'land_parcel',  actor: cultivable_zone)
-                  i.add_cast(reference_name: 'cultivation',  variant: r.target_variant, population: cultivation_population, shape: cultivable_zone.shape)
-                end
-                return intervention
-
+    intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description, parameters: { readings: { 'base-implanting-0-750-2' => rows_interval.to_d, 'base-implanting-0-750-3' => plants_interval.to_d, 'base-implanting-0-750-4' => plants_count.to_i } }) do |i|
+      i.add_cast(reference_name: 'plants',        actor: r.first.product)
+      i.add_cast(reference_name: 'plants_to_fix', population: first_product_input_population)
+      i.add_cast(reference_name: 'implanter_tool', actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'implant') : i.find(Equipment, can: 'implant')))
+      i.add_cast(reference_name: 'driver', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+      i.add_cast(reference_name: 'implanter_man',       actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+      i.add_cast(reference_name: 'tractor',      actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'tow(equipment)') : i.find(Equipment, can: 'tow(equipment)')))
+      i.add_cast(reference_name: 'land_parcel',  actor: cultivable_zone)
+      i.add_cast(reference_name: 'cultivation',  variant: r.target_variant, population: cultivation_population, shape: cultivable_zone.shape)
+    end
+    intervention
   end
 
   def record_plastic_mulching(r, support, duration)
-    
     cultivable_zone = support.storage
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && r.first.product
 
-                working_measure = cultivable_zone.shape_area
-                first_product_input_population = actor_population_conversion(r.first, working_measure)
+    working_measure = cultivable_zone.shape_area
+    first_product_input_population = actor_population_conversion(r.first, working_measure)
 
-                intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
-                  i.add_cast(reference_name: 'plastic', actor: r.first.product)
-                  i.add_cast(reference_name: 'plastic_to_mulch', population: first_product_input_population)
-                  i.add_cast(reference_name: 'implanter', actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'seat(canvas_cover)') : i.find(Equipment, can: 'seat(canvas_cover)')))
-                  i.add_cast(reference_name: 'driver',   actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
-                  i.add_cast(reference_name: 'tractor',  actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'catch(implanter)') : i.find(Equipment, can: 'catch(implanter)')))
-                  i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
-                end
-                return intervention
+    intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
+      i.add_cast(reference_name: 'plastic', actor: r.first.product)
+      i.add_cast(reference_name: 'plastic_to_mulch', population: first_product_input_population)
+      i.add_cast(reference_name: 'implanter', actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'seat(canvas_cover)') : i.find(Equipment, can: 'seat(canvas_cover)')))
+      i.add_cast(reference_name: 'driver',   actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+      i.add_cast(reference_name: 'tractor',  actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'catch(implanter)') : i.find(Equipment, can: 'catch(implanter)')))
+      i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
+    end
+    intervention
   end
 
+<<<<<<< HEAD
   def record_implant_helping(r, support, duration)
 
+=======
+  def record_plastic_mulching(r, support, duration)
+>>>>>>> Cleans code with rubocop
     plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
     cultivable_zone = support.storage
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone)
 
-                intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
-                  i.add_cast(reference_name: 'implanter_man', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
-                  i.add_cast(reference_name: 'cultivation', actor: (plant.present? ? plant : cultivable_zone))
-                end
-                return intervention
+    intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
+      i.add_cast(reference_name: 'implanter_man', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+      i.add_cast(reference_name: 'cultivation', actor: (plant.present? ? plant : cultivable_zone))
+    end
+    intervention
   end
 
 
@@ -683,40 +723,38 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   #######################
 
   def record_organic_fertilizing(r, support, duration)
+    cultivable_zone = support.storage
+    return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && r.first.product
+    working_measure = cultivable_zone.shape_area
+    first_product_input_population = actor_population_conversion(r.first, working_measure)
 
-      cultivable_zone = support.storage
-      return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && r.first.product
-                working_measure = cultivable_zone.shape_area
-                first_product_input_population = actor_population_conversion(r.first, working_measure)
-
-               intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
-                  i.add_cast(reference_name: 'manure',      actor: r.first.product)
-                  i.add_cast(reference_name: 'manure_to_spread', population: first_product_input_population)
-                  i.add_cast(reference_name: 'spreader',    actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'spread(preparation)') : i.find(Equipment, can: 'spread(preparation)')))
-                  i.add_cast(reference_name: 'driver',      actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
-                  i.add_cast(reference_name: 'tractor',     actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'tow(spreader)') : i.find(Equipment, can: 'tow(spreader)')))
-                  i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
-                end
-                return intervention
+    intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
+      i.add_cast(reference_name: 'manure', actor: r.first.product)
+      i.add_cast(reference_name: 'manure_to_spread', population: first_product_input_population)
+      i.add_cast(reference_name: 'spreader',    actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'spread(preparation)') : i.find(Equipment, can: 'spread(preparation)')))
+      i.add_cast(reference_name: 'driver',      actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+      i.add_cast(reference_name: 'tractor',     actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'tow(spreader)') : i.find(Equipment, can: 'tow(spreader)')))
+      i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
+    end
+    intervention
   end
 
   def record_mineral_fertilizing(r, support, duration)
-    
     cultivable_zone = support.storage
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && r.first.product
 
-                working_measure = cultivable_zone.shape_area
-                first_product_input_population = actor_population_conversion(r.first, working_measure)
+    working_measure = cultivable_zone.shape_area
+    first_product_input_population = actor_population_conversion(r.first, working_measure)
 
     intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
-                  i.add_cast(reference_name: 'fertilizer',      actor: r.first.product)
-                  i.add_cast(reference_name: 'fertilizer_to_spread', population: first_product_input_population)
-                  i.add_cast(reference_name: 'spreader',    actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'spread(preparation)') : i.find(Equipment, can: 'spread(preparation)')))
-                  i.add_cast(reference_name: 'driver',      actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
-                  i.add_cast(reference_name: 'tractor',     actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'tow(spreader)') : i.find(Equipment, can: 'tow(spreader)')))
-                  i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
-                end
-                return intervention
+      i.add_cast(reference_name: 'fertilizer', actor: r.first.product)
+      i.add_cast(reference_name: 'fertilizer_to_spread', population: first_product_input_population)
+      i.add_cast(reference_name: 'spreader',    actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'spread(preparation)') : i.find(Equipment, can: 'spread(preparation)')))
+      i.add_cast(reference_name: 'driver',      actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+      i.add_cast(reference_name: 'tractor',     actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'tow(spreader)') : i.find(Equipment, can: 'tow(spreader)')))
+      i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
+    end
+    intervention
   end
 
   #######################
@@ -724,59 +762,55 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   #######################
 
   def record_plowing(r, support, duration)
-       
-       cultivable_zone = support.storage
-       return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone)
+    cultivable_zone = support.storage
+    return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone)
 
-       intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, parameters: { readings: { 'base-plowing-0-500-1' => 'plowed' } }, description: r.procedure_description) do |i|
-                  i.add_cast(reference_name: 'plow', actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'plow') : i.find(Equipment, can: 'plow')))
-                  i.add_cast(reference_name: 'driver',      actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
-                  i.add_cast(reference_name: 'tractor',     actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'catch(equipment)') : i.find(Equipment, can: 'catch(equipment)')))
-                  i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
-                end
-                return intervention
+    intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, parameters: { readings: { 'base-plowing-0-500-1' => 'plowed' } }, description: r.procedure_description) do |i|
+      i.add_cast(reference_name: 'plow', actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'plow') : i.find(Equipment, can: 'plow')))
+      i.add_cast(reference_name: 'driver',      actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+      i.add_cast(reference_name: 'tractor',     actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'catch(equipment)') : i.find(Equipment, can: 'catch(equipment)')))
+      i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
+    end
+    intervention
   end
 
   def record_raking(r, support, duration)
-    
     cultivable_zone = support.storage
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone)
 
     intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, parameters: { readings: { 'base-raking-0-500-1' => 'plowed' } }, description: r.procedure_description) do |i|
-                  i.add_cast(reference_name: 'harrow',      actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'plow_superficially') : i.find(Equipment, can: 'plow_superficially')))
-                  i.add_cast(reference_name: 'driver',      actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
-                  i.add_cast(reference_name: 'tractor',     actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'catch(equipment)') : i.find(Equipment, can: 'catch(equipment)')))
-                  i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
-                end
-                return intervention
+      i.add_cast(reference_name: 'harrow', actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'plow_superficially') : i.find(Equipment, can: 'plow_superficially')))
+      i.add_cast(reference_name: 'driver',      actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+      i.add_cast(reference_name: 'tractor',     actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'catch(equipment)') : i.find(Equipment, can: 'catch(equipment)')))
+      i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
+    end
+    intervention
   end
 
   def record_hoeing(r, support, duration)
-    
     cultivable_zone = support.storage
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone)
 
     intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, parameters: { readings: { 'base-hoeing-0-500-1' => 'plowed' } }, description: r.procedure_description) do |i|
-                  i.add_cast(reference_name: 'cultivator',      actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'hoe') : i.find(Equipment, can: 'hoe')))
-                  i.add_cast(reference_name: 'driver',      actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
-                  i.add_cast(reference_name: 'tractor',     actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'catch(equipment)') : i.find(Equipment, can: 'catch(equipment)')))
-                  i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
-                end
-                return intervention
+      i.add_cast(reference_name: 'cultivator', actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'hoe') : i.find(Equipment, can: 'hoe')))
+      i.add_cast(reference_name: 'driver',      actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+      i.add_cast(reference_name: 'tractor',     actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'catch(equipment)') : i.find(Equipment, can: 'catch(equipment)')))
+      i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
+    end
+    intervention
   end
 
   def record_land_parcel_grinding(r, support, duration)
-    
     cultivable_zone = support.storage
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone)
 
     intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
-                  i.add_cast(reference_name: 'grinder', actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'grind(cultivable_zone)') : i.find(Equipment, can: 'grind(cultivable_zone)')))
-                  i.add_cast(reference_name: 'driver',      actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
-                  i.add_cast(reference_name: 'tractor',     actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'tow(equipment)') : i.find(Equipment, can: 'tow(equipment)')))
-                  i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
-                end
-                return intervention
+      i.add_cast(reference_name: 'grinder', actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'grind(cultivable_zone)') : i.find(Equipment, can: 'grind(cultivable_zone)')))
+      i.add_cast(reference_name: 'driver',      actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+      i.add_cast(reference_name: 'tractor',     actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'tow(equipment)') : i.find(Equipment, can: 'tow(equipment)')))
+      i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
+    end
+    intervention
   end
 
   #######################
@@ -784,22 +818,21 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   #######################
 
   def record_watering(r, support, duration)
-    
     cultivable_zone = support.storage
     plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && plant && r.first.product
 
-                working_measure = cultivable_zone.shape_area
-                first_product_input_population = actor_population_conversion(r.first, working_measure)
+    working_measure = cultivable_zone.shape_area
+    first_product_input_population = actor_population_conversion(r.first, working_measure)
 
-                intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
-                  i.add_cast(reference_name: 'water',      actor: r.first.product)
-                  i.add_cast(reference_name: 'water_to_spread', population: first_product_input_population)
-                  i.add_cast(reference_name: 'spreader',    actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'spread(water)') : i.find(Equipment, can: 'spread(water)')))
-                  i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
-                  i.add_cast(reference_name: 'cultivation', actor: plant)
-                end
-                return intervention
+    intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
+      i.add_cast(reference_name: 'water',      actor: r.first.product)
+      i.add_cast(reference_name: 'water_to_spread', population: first_product_input_population)
+      i.add_cast(reference_name: 'spreader',    actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'spread(water)') : i.find(Equipment, can: 'spread(water)')))
+      i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
+      i.add_cast(reference_name: 'cultivation', actor: plant)
+    end
+    intervention
   end
 
   #######################
@@ -807,58 +840,56 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   #######################
 
   def record_grains_harvest(r, support, duration)
-
     plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
 
     return nil unless plant && r.first.variant && r.second.variant
-    
-                working_measure = plant.shape_area
 
-                first_product_input_population = actor_population_conversion(r.first, working_measure)
-                second_product_input_population = actor_population_conversion(r.second, working_measure)
+    working_measure = plant.shape_area
 
-                intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
-                  i.add_cast(reference_name: 'cropper',        actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'harvest(poaceae)') : i.find(Equipment, can: 'harvest(poaceae)')))
-                  i.add_cast(reference_name: 'cropper_driver', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
-                  i.add_cast(reference_name: 'cultivation',    actor: plant)
-                  i.add_cast(reference_name: 'grains',         population: first_product_input_population, variant: r.first.variant)
-                  i.add_cast(reference_name: 'straws',         population: second_product_input_population, variant: r.second.variant)
-                end
-                return intervention
+    first_product_input_population = actor_population_conversion(r.first, working_measure)
+    second_product_input_population = actor_population_conversion(r.second, working_measure)
+
+    intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
+      i.add_cast(reference_name: 'cropper',        actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'harvest(poaceae)') : i.find(Equipment, can: 'harvest(poaceae)')))
+      i.add_cast(reference_name: 'cropper_driver', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+      i.add_cast(reference_name: 'cultivation',    actor: plant)
+      i.add_cast(reference_name: 'grains',         population: first_product_input_population, variant: r.first.variant)
+      i.add_cast(reference_name: 'straws',         population: second_product_input_population, variant: r.second.variant)
+    end
+    intervention
   end
 
   def record_direct_silage(r, support, duration)
-
     plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
 
     return nil unless plant && r.first.variant
 
-                working_measure = plant.shape_area
-                first_product_input_population = actor_population_conversion(r.first, working_measure)
+    working_measure = plant.shape_area
+    first_product_input_population = actor_population_conversion(r.first, working_measure)
 
     intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
-                  i.add_cast(reference_name: 'forager',        actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'harvest(plant)') : i.find(Equipment, can: 'harvest(plant)')))
-                  i.add_cast(reference_name: 'forager_driver', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
-                  i.add_cast(reference_name: 'cultivation',    actor: plant)
-                  i.add_cast(reference_name: 'silage',         population: first_product_input_population, variant: r.first.variant)
-                end
-                return intervention
+      i.add_cast(reference_name: 'forager', actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'harvest(plant)') : i.find(Equipment, can: 'harvest(plant)')))
+      i.add_cast(reference_name: 'forager_driver', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+      i.add_cast(reference_name: 'cultivation',    actor: plant)
+      i.add_cast(reference_name: 'silage',         population: first_product_input_population, variant: r.first.variant)
+    end
+    intervention
   end
 
   def record_plantation_unfixing(r, support, duration)
-
     plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
     return nil unless plant
 
-                intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
-                  i.add_cast(reference_name: 'driver',   actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
-                  i.add_cast(reference_name: 'tractor',  actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'tow(equipment)') : i.find(Equipment, can: 'tow(equipment)')))
-                  i.add_cast(reference_name: 'compressor',  actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'blow') : i.find(Equipment, can: 'blow')))
-                  i.add_cast(reference_name: 'cultivation', actor: plant)
-                end
-                return intervention
+    intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
+      i.add_cast(reference_name: 'driver',   actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+      i.add_cast(reference_name: 'tractor',  actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'tow(equipment)') : i.find(Equipment, can: 'tow(equipment)')))
+      i.add_cast(reference_name: 'compressor',  actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'blow') : i.find(Equipment, can: 'blow')))
+      i.add_cast(reference_name: 'cultivation', actor: plant)
+    end
+    intervention
    end
 
+<<<<<<< HEAD
    #################################
    #### Technical & Maintenance ####
    #################################
@@ -939,4 +970,32 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
    end
    
+=======
+  #################################
+  #### Technical & Maintenance ####
+  #################################
+
+  def record_technical_task(r, support, _duration)
+    zone = support.storage
+    cultivable_zone = support.storage
+    return nil unless (zone && (zone.is_a?(BuildingDivision) || zone.is_a?(Equipment))) || (cultivable_zone && cultivable_zone.is_a?(CultivableZone))
+
+    intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, duration_in_seconds, support: support, description: r.procedure_description) do |i|
+      i.add_cast(reference_name: 'worker', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+      i.add_cast(reference_name: 'target', actor: (cultivable_zone.present? ? cultivable_zone : zone))
+    end
+    intervention
+  end
+
+  def record_maintenance_task(r, support, _duration)
+    zone = support.storage
+    return nil unless zone && (zone.is_a?(BuildingDivision) || zone.is_a?(Equipment))
+
+    intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, duration_in_seconds, support: support, description: r.procedure_description) do |i|
+      i.add_cast(reference_name: 'worker', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+      i.add_cast(reference_name: 'maintained', actor: zone)
+    end
+    intervention
+  end
+>>>>>>> Cleans code with rubocop
 end

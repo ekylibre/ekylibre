@@ -3,7 +3,7 @@ module Nomen
   class Item
     attr_reader :nomenclature, :left, :right, :depth, :aliases, :parent_name
     attr_accessor :name, :attributes
-    alias :properties :attributes
+    alias_method :properties, :attributes
 
     # New item
     def initialize(nomenclature, name, options = {})
@@ -12,7 +12,7 @@ module Nomen
       @left, @right = @nomenclature.new_boundaries
       @depth = 0
       parent = options.delete(:parent)
-      if parent.is_a?(Symbol) or parent.is_a?(String)
+      if parent.is_a?(Symbol) || parent.is_a?(String)
         @parent_name = parent.to_s
       else
         self.parent = parent
@@ -33,21 +33,19 @@ module Nomen
         @parent = nil
         @parent_name = nil
       else
-        if item.is_a?(Symbol) or item.is_a?(String)
+        if item.is_a?(Symbol) || item.is_a?(String)
           item = nomenclature.find!(item.to_s)
         end
         if item.nomenclature != nomenclature
           fail 'Item must come from same nomenclature'
         end
-        if item.parents.include?(self) or item == self
+        if item.parents.include?(self) || item == self
           fail 'Circular dependency. Item can be parent of itself.'
         end
         @parent = item
         @parent_name = @parent.name.to_s
       end
-      if old_parent_name != @parent_name
-        @nomenclature.rebuild_tree!
-      end
+      @nomenclature.rebuild_tree! if old_parent_name != @parent_name
     end
 
     # Changes parent without rebuilding
@@ -98,7 +96,7 @@ module Nomen
     end
 
     def root
-      self.parent? ? self.parent.root : self
+      self.parent? ? parent.root : self
     end
 
     # Returns direct parents from the closest to the farthest
@@ -117,7 +115,7 @@ module Nomen
     # Computes left/right value for nested set
     # Returns right index
     def rebuild_tree!
-      @nomenclature.forest_right = self.rebuild_tree(@nomenclature.forest_right + 1)
+      @nomenclature.forest_right = rebuild_tree(@nomenclature.forest_right + 1)
     end
 
     # Computes left/right value for nested set
@@ -132,7 +130,6 @@ module Nomen
       end
       @right
     end
-
 
     # Returns true if the given item name match the current item or its children
     def include?(other)
@@ -194,11 +191,11 @@ module Nomen
     end
 
     def tree(depth = 0)
-      text = "#{self.left.to_s.rjust(4)}-#{self.right.to_s.ljust(4)} #{'  ' * depth}#{@name}:\n"
-      text << self.children(index: false, recursively: false).collect do |c|
+      text = "#{left.to_s.rjust(4)}-#{right.to_s.ljust(4)} #{'  ' * depth}#{@name}:\n"
+      text << children(index: false, recursively: false).collect do |c|
         c.tree(depth + 1)
       end.join("\n")
-      return text
+      text
     end
 
     def to_xml_attrs
@@ -280,7 +277,7 @@ module Nomen
       unless item
         fail StandardError, "Invalid operand to compare: #{other.inspect} not in #{nomenclature.name}"
       end
-      return item
+      item
     end
   end
 end

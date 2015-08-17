@@ -47,7 +47,7 @@ module ActiveExchanger
         build(nature, file, options, &block).export
       end
 
-      def check(nature, file, options = {}, &block)
+      def check(nature, file, _options = {}, &block)
         supervisor = Supervisor.new(:check, &block)
         exchanger = find(nature).new(file, supervisor)
         valid = false
@@ -80,7 +80,6 @@ module ActiveExchanger
           import
         end
       end
-
     end
 
     attr_reader :file, :supervisor

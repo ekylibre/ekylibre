@@ -10,9 +10,7 @@ module Nomen
           @options = element.attributes.delete_if do |k, _v|
             k =~ /name(:[a-z]{3})?/ || %w(item parent nomenclature).include?(k)
           end
-          if element.key?('parent')
-            @options[:parent] = element['parent'].to_sym
-          end
+          @options[:parent] = element['parent'].to_sym if element.key?('parent')
         end
 
         def options?

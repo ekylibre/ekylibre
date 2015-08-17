@@ -13,7 +13,7 @@ module Nomen
           @options[:translateable] = !(element.attr('translateable').to_s == 'false')
         end
 
-        alias :name :nomenclature
+        alias_method :name, :nomenclature
 
         def human_name
           "Create nomenclature #{@name}"

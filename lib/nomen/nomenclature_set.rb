@@ -53,7 +53,7 @@ module Nomen
       unless nomenclature = @nomenclatures[name]
         fail "Nomenclature #{name} does not exist"
       end
-      return nomenclature
+      nomenclature
     end
 
     def exist?(name)
@@ -91,7 +91,7 @@ module Nomen
                 nomenclature.items.values.sort { |a, b| a.name <=> b.name }.each do |item|
                   xml.item(item.to_xml_attrs)
                 end
-              end  if nomenclature.items.any?
+              end if nomenclature.items.any?
             end
           end
         end
@@ -125,7 +125,7 @@ module Nomen
       if updates[:name]
         nomenclature = move_nomenclature(nomenclature_name, updates[:name])
       end
-      return nomenclature
+      nomenclature
     end
 
     def remove_nomenclature(nomenclature_name)
@@ -138,11 +138,11 @@ module Nomen
       nomenclature.add_property(property_name, type, options)
     end
 
-    def change_property(nomenclature_name, property_name, updates = {})
+    def change_property(_nomenclature_name, _property_name, _updates = {})
       fail NotImplementedError
     end
 
-    def remove_property(nomenclature_name, property_name, options = {})
+    def remove_property(_nomenclature_name, _property_name, _options = {})
       fail NotImplementedError
     end
 
