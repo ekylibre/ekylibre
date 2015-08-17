@@ -14,7 +14,7 @@ module Calculus
         # puts cultivation_varieties.inspect.blue
         # puts soil_natures.inspect.white
         # FIXME: for production_usage
-        if items = Nomen::NmpFranceAbacusCultivationYield.where(cultivation_variety: cultivation_varieties, administrative_area: @options[:administrative_area] || :undefined) and items.any? # production_usage: @usage
+        if items = Nomen::NmpFranceCultivationYield.where(cultivation_variety: cultivation_varieties, administrative_area: @options[:administrative_area] || :undefined) and items.any? # production_usage: @usage
           # puts items.inspect.green
           expected_yield = items.first.expected_yield.in_quintal_per_hectare
         end

@@ -50,6 +50,16 @@ namespace :nomen do
     end
   end
 
+  task list: :environment do
+    Nomen.all.each do |n|
+      if n.name.to_s.classify.tableize != n.name.to_s
+        puts n.name.to_s.red
+      else
+        puts n.name
+      end
+    end
+  end
+
   namespace :migrate do
 
     task generate: :environment do

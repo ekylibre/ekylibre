@@ -2021,40 +2021,40 @@ fra:
         identifiers: "Identifiants"
         nature: "Type"
         url: "URL"
-    nmp_france_abacus_cultivation_yield:
-      name: "Références de rendement par produit et par département"
-    nmp_france_abacus_maximum_nitrogen_input_per_cultivation:
-      name: "Référence des doses afond d’apport en azote par produit et département"
-    nmp_france_abacus_nitrogen_animal_production:
+    nmp_france_animal_nitrogen_productions:
       name: "Normes d’excrétion d’azote par espèce animale"
+    nmp_france_cultivation_nitrogen_input_maxima:
+      name: "Référence des doses afond d’apport en azote par produit et département"
+    nmp_france_cultivation_yields:
+      name: "Références de rendement par produit et par département"
     nmp_methods:
       items:
         france: "France"
         poitou_charentes: "Poitou charentes"
       name: "Méthodes de calcul du bilan azoté"
-    nmp_poitou_charentes_abacus_eight:
+    nmp_poitou_charentes_abacus_eight_rows:
       name: "Abaque 8 de la méthode de calcul de bilan azoté Poitou-Charentes"
-    nmp_poitou_charentes_abacus_eleven:
+    nmp_poitou_charentes_abacus_eleven_rows:
       name: "Abaque 11 de la méthode de calcul de bilan azoté Poitou-Charentes"
-    nmp_poitou_charentes_abacus_five:
+    nmp_poitou_charentes_abacus_five_rows:
       name: "Abaque 5 de la méthode de calcul de bilan azoté Poitou-Charentes"
-    nmp_poitou_charentes_abacus_four:
+    nmp_poitou_charentes_abacus_four_rows:
       name: "Abaque 4 de la méthode de calcul de bilan azoté Poitou-Charentes"
-    nmp_poitou_charentes_abacus_nine:
+    nmp_poitou_charentes_abacus_nine_rows:
       name: "Abaque 9 de la méthode de calcul de bilan azoté Poitou-Charentes"
     nmp_poitou_charentes_abacus_one:  #?
       name: "Abaque 1 de la méthode de calcul de bilan azoté Poitou-Charentes" #?
-    nmp_poitou_charentes_abacus_seven:
+    nmp_poitou_charentes_abacus_seven_rows:
       name: "Abaque 7 de la méthode de calcul de bilan azoté Poitou-Charentes"
-    nmp_poitou_charentes_abacus_six:
+    nmp_poitou_charentes_abacus_six_rows:
       name: "Abaque 6 de la méthode de calcul de bilan azoté Poitou-Charentes"
-    nmp_poitou_charentes_abacus_ten:
+    nmp_poitou_charentes_abacus_ten_rows:
       name: "Abaque 10 de la méthode de calcul de bilan azoté Poitou-Charentes"
-    nmp_poitou_charentes_abacus_three:
+    nmp_poitou_charentes_abacus_three_rows:
       name: "Abaque 3 de la méthode de calcul de bilan azoté Poitou-Charentes"
-    nmp_poitou_charentes_abacus_twelve:
+    nmp_poitou_charentes_abacus_twelve_rows:
       name: "Abaque 12 de la méthode de calcul de bilan azoté Poitou-Charentes"
-    nmp_poitou_charentes_abacus_two:
+    nmp_poitou_charentes_abacus_two_rows:
       name: "Abaque 2 de la méthode de calcul de bilan azoté Poitou-Charentes"
     opportunity_origins:
       items:
