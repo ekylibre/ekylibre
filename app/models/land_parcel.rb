@@ -66,6 +66,7 @@
 #
 
 class LandParcel < Easement
+  refers_to :variety, scope: :land_parcel
   # has_many :members, class_name: "CultivableZoneMembership"
   has_many :zone_memberships, class_name: 'CultivableZoneMembership'
   has_many :memberships, class_name: 'CultivableZoneMembership', foreign_key: :member_id

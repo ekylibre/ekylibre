@@ -64,4 +64,5 @@
 #  work_number           :string
 #
 class Fungus < Bioproduct
+  refers_to :variety, scope: :fungus
 end

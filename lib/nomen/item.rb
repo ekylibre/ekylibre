@@ -2,15 +2,23 @@ module Nomen
   # An item of a nomenclature is the core data.
   class Item
     attr_reader :nomenclature, :left, :right, :depth, :aliases, :parent_name
-    attr_accessor :name, :properties
+    attr_accessor :name, :attributes
+    alias :properties :attributes
 
     # New item
-    def initialize(nomenclature, name, properties = {})
+    def initialize(nomenclature, name, options = {})
       @nomenclature = nomenclature
       @name = name.to_s
-      @parent_name = properties.delete(:parent_name)
-      @properties = {}.with_indifferent_access
-      properties.each do |k, v|
+      @left, @right = @nomenclature.new_boundaries
+      @depth = 0
+      parent = options.delete(:parent)
+      if parent.is_a?(Symbol) or parent.is_a?(String)
+        @parent_name = parent.to_s
+      else
+        self.parent = parent
+      end
+      @attributes = {}.with_indifferent_access
+      options.each do |k, v|
         set(k, v)
       end
     end
@@ -20,21 +28,32 @@ module Nomen
     end
 
     def parent=(item)
-      if item.nomenclature != nomenclature || item.parents.include?(self)
-        fail 'Invalid parent'
+      old_parent_name = @parent_name
+      if item.nil?
+        @parent = nil
+        @parent_name = nil
+      else
+        if item.is_a?(Symbol) or item.is_a?(String)
+          item = nomenclature.find!(item.to_s)
+        end
+        if item.nomenclature != nomenclature
+          fail 'Item must come from same nomenclature'
+        end
+        if item.parents.include?(self) or item == self
+          fail 'Circular dependency. Item can be parent of itself.'
+        end
+        @parent = item
+        @parent_name = @parent.name.to_s
       end
-      @parent = item
-      @parent_name = @parent.name
-      @nomenclature.rebuild_tree!
+      if old_parent_name != @parent_name
+        @nomenclature.rebuild_tree!
+      end
     end
 
     # Changes parent without rebuilding
     def parent_name=(name)
       @parent = nil
-      @parent_name = name
-    end
-
-    def rename(_new_name)
+      @parent_name = name.to_s
     end
 
     def parent?
@@ -51,15 +70,35 @@ module Nomen
     end
 
     # Returns children recursively by default
-    def children(recursively = true)
-      if recursively
-        return @children ||= nomenclature.list.select do |item|
-          item != self && @left <= item.left && item.right <= @right
+    def children(options = {})
+      if options[:index].is_a?(FalseClass)
+        if options[:recursively].is_a?(FalseClass)
+          return nomenclature.list.select do |item|
+            (item.parent == self)
+          end
+        else
+          return children(index: false, recursive: false).each_with_object([]) do |item, list|
+            list << item
+            list += item.children(index: false, recursive: true)
+            list
+          end
+        end
+      else
+        if options[:recursively].is_a?(FalseClass)
+          return nomenclature.list.select do |item|
+            @left < item.left && item.right < @right && item.depth == @depth + 1
+          end
+        else
+          # @children ||=
+          return nomenclature.list.select do |item|
+            @left < item.left && item.right < @right
+          end
         end
       end
-      nomenclature.list.select do |item|
-        (item.parent == self)
-      end
+    end
+
+    def root
+      self.parent? ? self.parent.root : self
     end
 
     # Returns direct parents from the closest to the farthest
@@ -67,8 +106,8 @@ module Nomen
       @parents ||= (parent.nil? ? [] : [parent] + parent.parents)
     end
 
-    def self_and_children
-      [self] + children
+    def self_and_children(options = {})
+      [self] + children(options)
     end
 
     def self_and_parents
@@ -77,16 +116,23 @@ module Nomen
 
     # Computes left/right value for nested set
     # Returns right index
-    def rebuild_tree!(left = 0, depth = 0)
+    def rebuild_tree!
+      @nomenclature.forest_right = self.rebuild_tree(@nomenclature.forest_right + 1)
+    end
+
+    # Computes left/right value for nested set
+    # Returns right index
+    def rebuild_tree(left = 0, depth = 0)
       @depth = depth
       @left = left
       @right = @left + 1
-      children = self.children(false)
+      children = self.children(index: false, recursively: false)
       for child in children
-        @right = child.rebuild_tree!(@right, @depth + 1) + 1
+        @right = child.rebuild_tree(@right, @depth + 1) + 1
       end
       @right
     end
+
 
     # Returns true if the given item name match the current item or its children
     def include?(other)
@@ -144,13 +190,21 @@ module Nomen
     end
 
     def inspect
-      "#{@nomenclature.name}-#{@name}"
+      "#{@nomenclature.name}-#{@name}(#{@left}-#{@right})"
+    end
+
+    def tree(depth = 0)
+      text = "#{self.left.to_s.rjust(4)}-#{self.right.to_s.ljust(4)} #{'  ' * depth}#{@name}:\n"
+      text << self.children(index: false, recursively: false).collect do |c|
+        c.tree(depth + 1)
+      end.join("\n")
+      return text
     end
 
     def to_xml_attrs
       attrs = {}
       attrs[:name] = name
-      attrs[:parent] = parent_name if self.parent?
+      attrs[:parent] = @parent_name if self.parent?
       properties.each do |pname, pvalue|
         if p = nomenclature.properties[pname.to_s]
           if p.type == :decimal
@@ -167,11 +221,11 @@ module Nomen
     # Returns property value
     def property(name)
       property = @nomenclature.properties[name]
-      value = @properties[name]
+      value = @attributes[name]
       if property
         if value.nil? && property.fallbacks
           for fallback in property.fallbacks
-            value ||= @properties[fallback]
+            value ||= @attributes[fallback]
             break if value
           end
         end
@@ -207,12 +261,12 @@ module Nomen
     end
 
     def set(name, value)
-      fail "Invalid property: #{name.inspect}" if [:name, :parent, :parent_name].include?(name.to_sym)
+      fail "Invalid property: #{name.inspect}" if [:name, :parent].include?(name.to_sym)
       # TODO: check format
       if property = nomenclature.properties[name]
         value ||= [] if property.list?
       end
-      @properties[name] = value
+      @attributes[name] = value
     end
 
     private
@@ -222,7 +276,8 @@ module Nomen
     end
 
     def item_for_comparison(other)
-      unless item = (other.is_a?(Item) ? other : nomenclature[other])
+      item = nomenclature[other.is_a?(Item) ? other.name : other]
+      unless item
         fail StandardError, "Invalid operand to compare: #{other.inspect} not in #{nomenclature.name}"
       end
       return item

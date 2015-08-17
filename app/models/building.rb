@@ -65,6 +65,7 @@
 #
 
 class Building < ProductGroup
+  refers_to :variety, scope: :building
   has_shape
 
   # Add a member to the group
