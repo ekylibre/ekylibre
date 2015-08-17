@@ -25,12 +25,16 @@ module Nomen
   autoload :Reflection,          'nomen/reflection'
 
   class << self
+    def root_path
+      Rails.root.join('db', 'nomenclatures')
+    end
+
     def migrations_path
-      Rails.root.join('db', 'nomenclatures', 'migrate')
+      root_path.join('migrate')
     end
 
     def reference_path
-      Rails.root.join('db', 'nomenclatures.xml')
+      root_path.join('db.xml')
     end
 
     # Returns version of DB
