@@ -150,7 +150,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
     information_import_context = "Import Ekylibre interventions on #{Time.now.l}"
 
-    rows.each do |row| #
+    rows.each do |row, index| #
       # CSV.foreach(path, headers: true, col_sep: ";") do |row|
 
       r = parse_row(row)
@@ -173,8 +173,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       # Get supports and existing production_supports or activity by activity family input
       production_supports = nil
       production = nil
+      supports = nil
       supports = Product.where(work_number: r.support_codes)
-      if supports
+      if supports.any?
         ps_ids = []
         # FIXME: add a way to be more accurate
         # find a uniq support for each product because a same cultivable zone could be a support of many productions
@@ -185,18 +186,24 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         production_supports = ProductionSupport.of_campaign(campaign).find(ps_ids)
         # Get global supports area (square_meter)
         r.production_supports_area = production_supports.map(&:storage_shape_area).compact.sum
-      elsif r.support_codes
-        activity = Activity.where(family: r.support_codes.first.to_sym).first
+      elsif r.support_codes.present?
+        puts r.support_codes.inspect.red
+        activity = Activity.where(family: r.support_codes.flatten.first.downcase.to_sym).first
+        puts activity.name.inspect.green if activity
         production = Production.where(activity: activity, campaign: campaign).first if activity && campaign
+        puts production.name.inspect.green if production
       else
         activity = Activity.where(nature: :auxiliary, with_supports: false, with_cultivation: false).first
         production = Production.where(activity: activity, campaign: campaign).first if activity && campaign
       end
 
       # Get existing equipments
-      r.equipments = (r.equipment_codes? ? Equipment.where(work_number: r.equipment_codes) : nil)
-      r.workers = (r.worker_codes? ? Worker.where(work_number: r.worker_codes) : nil)
-
+      
+      r.equipments = Equipment.where(work_number: r.equipment_codes) if r.equipment_codes?
+      
+      puts r.worker_codes.inspect
+      r.workers = Worker.where(work_number: r.worker_codes)
+      
       # Get target_variant
       target_variant = nil
       if r.target_variety && !r.target_variant
@@ -208,7 +215,8 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         end
       end
       r.target_variant = target_variant
-
+      
+      # case 1 support and production find
       if production_supports
 
         # puts r.intervention_number.inspect.red
@@ -235,9 +243,6 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
             area = cultivable_zone.shape
             coeff = ((cultivable_zone.shape_area / 10_000.0) / 6.0).to_d if area
-
-
-
 
               intervention = nil
 
@@ -305,20 +310,19 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
           elsif zone = support.storage and (zone.is_a?(BuildingDivision) || zone.is_a?(Equipment))
 
               intervention = nil
+              
               Ekylibre::FirstRun::Booker.production = support.production
+              
+              duration = (r.intervention_duration_in_hour.hours / supports.count)
 
               #### MAINTENANCE ####
-              if r.procedure_name == :maintenance_task
-
-                intervention = send("record_#{r.procedure_name}", r, support, duration)
-
-              elsif r.procedure_name == :technical_task
+              if r.procedure_name == :maintenance_task || r.procedure_name == :technical_task || r.procedure_name == :fuel_up
 
                 intervention = send("record_#{r.procedure_name}", r, support, duration)
 
               end
               # for the same intervention session
-              r.intervention_started_at += duration.seconds if cultivable_zone.shape
+              r.intervention_started_at += duration.seconds
 
           end
           if intervention
@@ -329,7 +333,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
             w.info 'Intervention is in a black hole'.red
           end
         end
-
+        # end of support loop
+      
+      # case 2 no support but production find
       elsif production
 
         if r.procedure_name
@@ -337,31 +343,22 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
           Ekylibre::FirstRun::Booker.production = production
 
-          ########################
-          #### ADMINISTRATIVE ####
-          ########################
-
-          # case no supports
-          if r.procedure_name == :maintenance_task && workers.present? && equipments.present?
-            # Maintenance_task
-            intervention = Ekylibre::FirstRun::Booker.force(:maintenance_task, intervention_started_at, duration_in_seconds, description: r.procedure_description) do |i|
-              i.add_cast(reference_name: 'worker', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
-              i.add_cast(reference_name: 'maintained', actor: i.find(Equipment, work_number: r.equipment_codes))
-            end
-          elsif r.procedure_name == :administrative_task && workers.present?
-            # Administrative task
-            intervention = Ekylibre::FirstRun::Booker.force(:administrative_task, intervention_started_at, duration_in_seconds, description: r.procedure_description) do |i|
-              i.add_cast(reference_name: 'worker', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
-            end
+          if r.procedure_name == :maintenance_task || r.procedure_name == :administrative_task
+            puts "IN CASE 2"
+            intervention = send("record_#{r.procedure_name}", r, production, r.intervention_duration_in_hour)
+            
           end
+          
         end
+        
         if intervention
-          intervention.description += ' - ' + information_import_context + ' - N° : ' + r.intervention_number.to_s + ' - ' + support.name
+          intervention.description += ' - ' + information_import_context + ' - N° : ' + r.intervention_number.to_s
           intervention.save!
           w.info "Intervention n°#{intervention.id} - #{intervention.name} has been created".green
         else
           w.info 'Intervention is in a black hole'.red
         end
+        
       end
       w.check_point
     end
@@ -400,7 +397,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       elsif measure.dimension == :length
         variant_indicator = product_variant.send(:net_length)
       else
-        w.warn "Bad unit: #{unit} for intervention ##{r.intervention_number}"
+        w.warn "Bad unit: #{unit} for intervention"
       end
       population_value = ((measure.to_f(variant_indicator.unit.to_sym)) / variant_indicator.value.to_f)
 
@@ -408,7 +405,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     elsif value >= 0.0 && !nomen_unit
       population_value = value
     end
-    if working_area.to_d(:square_meter) > 0.0
+    if working_area and working_area.to_d(:square_meter) > 0.0
       global_intrant_value = population_value.to_d * working_area.to_d(unit_target_dose.to_sym)
       return global_intrant_value
     else
@@ -432,7 +429,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                           support_codes: (row[7].blank? ? nil : row[7].to_s.strip.delete(' ').upcase.split(',')),
                           target_variant: (row[8].blank? ? nil : row[8].to_s.downcase.to_sym),
                           target_variety: (row[9].blank? ? nil : row[9].to_s.downcase.to_sym),
-                          worker_codes: (row[10].blank? ? nil : row[10].to_s.strip.delete(' ').upcase.split(',')),
+                          worker_codes: row[10].to_s.strip.upcase.split(/\s*\,\s*/),
                           equipment_codes: (row[11].blank? ? nil : row[11].to_s.strip.delete(' ').upcase.split(',')),
                           ### FIRST PRODUCT
                           first: parse_actor(row, 12),
@@ -667,10 +664,11 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                 return intervention
   end
 
-  def record_plastic_mulching(r, support, duration)
+  def record_implant_helping(r, support, duration)
 
     plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
-    return nil unless cultivable_zone = support.storage && cultivable_zone.is_a?(CultivableZone)
+    cultivable_zone = support.storage
+    return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone)
 
                 intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
                   i.add_cast(reference_name: 'implanter_man', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
@@ -678,6 +676,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                 end
                 return intervention
   end
+
 
   #######################
   ####  FERTILIZING  ####
@@ -863,7 +862,26 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
    #################################
    #### Technical & Maintenance ####
    #################################
+   
+   def record_fuel_up(r, support, duration)
+    
+    equipment = support.storage
+    
+    return nil unless equipment and equipment.is_a?(Equipment) and r.first
+      
+      working_measure = nil
+      
+      first_product_input_population = actor_population_conversion(r.first, working_measure)
 
+                intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
+                  i.add_cast(reference_name: 'mechanic', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+                  i.add_cast(reference_name: 'fuel',      actor: r.first.product)
+                  i.add_cast(reference_name: 'fuel_to_input', population: first_product_input_population)
+                  i.add_cast(reference_name: 'equipment', actor: equipment)
+                end
+                return intervention
+   end
+   
    def record_technical_task(r, support, duration)
     
     
@@ -871,7 +889,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     cultivable_zone = support.storage
     return nil unless (zone and (zone.is_a?(BuildingDivision) || zone.is_a?(Equipment))) || (cultivable_zone && cultivable_zone.is_a?(CultivableZone))
 
-                intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, duration_in_seconds, support: support, description: r.procedure_description) do |i|
+                intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
                   i.add_cast(reference_name: 'worker', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
                   i.add_cast(reference_name: 'target', actor: (cultivable_zone.present? ? cultivable_zone : zone))
                 end
@@ -880,14 +898,45 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
    def record_maintenance_task(r, support, duration)
      
-     zone = support.storage
-     return nil unless zone and (zone.is_a?(BuildingDivision) || zone.is_a?(Equipment))
+     if support.is_a?(ProductionSupport)
+      zone = support.storage
+      return nil unless zone and (zone.is_a?(BuildingDivision) || zone.is_a?(Equipment))
 
-                intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, duration_in_seconds, support: support, description: r.procedure_description) do |i|
+                intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
                   i.add_cast(reference_name: 'worker', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
                   i.add_cast(reference_name: 'maintained', actor: zone)
                 end
-                return intervention
+                
+     elsif support.is_a?(Production)
+       
+      return nil unless r.equipments.present? && r.workers.present?
+      
+       intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), description: r.procedure_description) do |i|
+                  i.add_cast(reference_name: 'worker', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+                  i.add_cast(reference_name: 'maintained', actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes) : zone))
+                end
+       
+     end
+     return intervention
+     
    end
+   
+   def record_administrative_task(r, production, duration)
+    
+    puts "IN ADMINISTRATIVE TASK"
+    
+    puts r.workers.inspect.red
+    puts r.worker_codes.inspect.yellow
+    
+    return nil unless r.workers.present?
 
+                intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), description: r.procedure_description) do |i|
+                  i.add_cast(reference_name: 'worker', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+                end
+                return intervention
+                
+              
+
+   end
+   
 end

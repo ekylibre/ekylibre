@@ -9,14 +9,10 @@
       <variable name="mechanic"       abilities="drive(equipment)" roles="consummables_addition-doer"/>
     </variables>
     <operations>
-      <operation id="100">
-        <task do="[mechanic] moves at [equipment]"/>
-      </operation>
-      <operation id="200" duration="10 minutes">
+      <operation id="500" duration="10 minutes">
         <task do="[fuel] parts with [fuel_to_input]"/>
         <task do="[equipment] consumes [fuel_to_input]"/>
       </operation>
     </operations>
   </procedure>
-
 </procedures>

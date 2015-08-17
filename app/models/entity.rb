@@ -250,7 +250,7 @@ class Entity < Ekylibre::Record::Base
     end
     valid_account = send("#{nature}_account")
     if valid_account.nil?
-      prefix = Nomen::Account[nature.to_s.pluralize].send(Account.chart)
+      prefix = Nomen::Account[nature.to_s.pluralize].send(Account.accounting_system)
       if Preference[:use_entity_codes_for_account_numbers]
         number = prefix.to_s + self.number.to_s
         unless valid_account = Account.find_by(number: number)
