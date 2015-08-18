@@ -35,9 +35,9 @@ module Nomen
       end
     end
 
-    # def roots
-    #   @items.values.select(&:root?)
-    # end
+    def roots
+      @items.values.select(&:root?)
+    end
 
     def name=(value)
       @name = value.to_sym
@@ -75,15 +75,15 @@ module Nomen
     end
 
     # Add an item to the nomenclature from an XML element
-    def harvest_item(element, options = {})
+    def harvest_item(element, attributes = {})
       name = element.attr('name').to_s
-      parent = options[:parent] || (element.key?('parent') ? element['parent'] : nil)
-      options = element.attributes.each_with_object(HashWithIndifferentAccess.new) do |(k, v), h|
+      parent = attributes[:parent] || (element.key?('parent') ? element['parent'] : nil)
+      attributes = element.attributes.each_with_object(HashWithIndifferentAccess.new) do |(k, v), h|
         next if %w(name parent).include?(k)
         h[k] = cast_property(k, v.to_s)
       end
-      options[:parent] = parent if parent
-      item = add_item(name, options, rebuild: false)
+      attributes[:parent] = parent if parent
+      item = add_item(name, attributes, rebuild: false)
       item
     end
 

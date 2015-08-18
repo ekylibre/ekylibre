@@ -124,8 +124,7 @@ module Nomen
       @depth = depth
       @left = left
       @right = @left + 1
-      children = self.children(index: false, recursively: false)
-      for child in children
+      children(index: false, recursively: false).each do |child|
         @right = child.rebuild_tree(@right, @depth + 1) + 1
       end
       @right
@@ -133,17 +132,7 @@ module Nomen
 
     # Returns true if the given item name match the current item or its children
     def include?(other)
-      if other.is_a?(Item)
-        item = other
-      else
-        unless item = nomenclature.find(other)
-          fail StandardError, "Cannot find item #{other.inspect} in #{nomenclature.name}"
-        end
-      end
-      unless item.nomenclature == nomenclature
-        fail StandardError, 'Invalid item'
-      end
-      (@left <= item.left && item.right <= @right)
+      self >= other
     end
 
     # Return human name of item
