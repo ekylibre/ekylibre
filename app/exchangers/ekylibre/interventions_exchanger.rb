@@ -197,10 +197,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       end
 
       # Get existing equipments
-
-      r.equipments = Equipment.where(work_number: r.equipment_codes) if r.equipment_codes?
-
-      puts r.worker_codes.inspect
+      r.equipments = nil
+      r.equipments = Equipment.where(work_number: r.equipment_codes)
+      r.workers = nil
       r.workers = Worker.where(work_number: r.worker_codes)
 
       # Get target_variant
@@ -428,7 +427,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
                           target_variant: (row[8].blank? ? nil : row[8].to_s.downcase.to_sym),
                           target_variety: (row[9].blank? ? nil : row[9].to_s.downcase.to_sym),
                           worker_codes: row[10].to_s.strip.upcase.split(/\s*\,\s*/),
-                          equipment_codes: (row[11].blank? ? nil : row[11].to_s.strip.delete(' ').upcase.split(',')),
+                          equipment_codes: row[11].to_s.strip.upcase.split(/\s*\,\s*/),
                           ### FIRST PRODUCT
                           first: parse_actor(row, 12),
                           ### SECOND PRODUCT
@@ -501,7 +500,12 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   end
 
   def record_double_spraying_on_land_parcel(r, support, duration)
+    
+    puts r.first.product.inspect.red
+    puts r.second.product.inspect.red
+    
     cultivable_zone = support.storage
+    
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && r.first.product && r.second.product
 
     working_measure = cultivable_zone.shape_area
@@ -895,19 +899,12 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
   def record_administrative_task(r, production, duration)
 
-    puts "IN ADMINISTRATIVE TASK"
-
-    puts r.workers.inspect.red
-    puts r.worker_codes.inspect.yellow
-
     return nil unless r.workers.present?
 
     intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), description: r.procedure_description) do |i|
       i.add_cast(reference_name: 'worker', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
     end
     return intervention
-
-
 
   end
 
