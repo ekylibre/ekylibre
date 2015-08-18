@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20150817202608">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20150818152001">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -1521,6 +1521,7 @@
       <item name="isagri_isacompta_export"/>
       <item name="isagri_isaculture_csv_import"/>
       <item name="la_graine_informatique_vinifera_entities"/>
+      <item name="la_graine_informatique_vinifera_products"/>
       <item name="legrain_epicea_accounts"/>
       <item name="legrain_epicea_journals"/>
       <item name="lilco_milk_analyses"/>
@@ -3489,7 +3490,17 @@
       <item name="bordelaise_100cl_bottle" nature="bottle" variety="cork_bottle" frozen_indicators_values="net_volume: 100.00centiliter"/>
       <item name="bordelaise_75cl_bottle" nature="bottle" variety="cork_bottle" frozen_indicators_values="net_volume: 75.00centiliter"/>
       <item name="bos_vial" nature="vial" derivative_of="bos"/>
+      <item name="bottle_100cl_wine" nature="wine" frozen_indicators_values="net_mass: 1050gram, net_volume: 100.00centiliter"/>
+      <item name="bottle_120dl_wine" nature="wine" frozen_indicators_values="net_mass: 12180gram, net_volume: 1200.00centiliter"/>
+      <item name="bottle_150cl_wine" nature="wine" frozen_indicators_values="net_mass: 1550gram, net_volume: 150.00centiliter"/>
+      <item name="bottle_200cl_wine" nature="wine" frozen_indicators_values="net_mass: 2050gram, net_volume: 200.00centiliter"/>
+      <item name="bottle_300cl_wine" nature="wine" frozen_indicators_values="net_mass: 3080gram, net_volume: 300.00centiliter"/>
+      <item name="bottle_375ml_wine" nature="wine" frozen_indicators_values="net_mass: 380gram, net_volume: 37.50centiliter"/>
+      <item name="bottle_500cl_wine" nature="wine" frozen_indicators_values="net_mass: 5090gram, net_volume: 500.00centiliter"/>
+      <item name="bottle_50cl_wine" nature="wine" frozen_indicators_values="net_mass: 510gram, net_volume: 50.00centiliter"/>
+      <item name="bottle_600cl_wine" nature="wine" frozen_indicators_values="net_mass: 6100gram, net_volume: 600.00centiliter"/>
       <item name="bottle_75cl_wine" nature="wine" frozen_indicators_values="net_mass: 760gram, net_volume: 75.00centiliter"/>
+      <item name="bottle_900cl_wine" nature="wine" frozen_indicators_values="net_mass: 9150gram, net_volume: 900.00centiliter"/>
       <item name="brassicaceae_fungicide" nature="fungicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"/>
       <item name="buckwheat_crop" nature="cereal_crop" variety="fagopyrum_esculentum" frozen_indicators_values="net_surface_area: 1.00hectare"/>
       <item name="buckwheat_grain" nature="grain" derivative_of="fagopyrum_esculentum" frozen_indicators_values="net_mass: 1.00ton"/>
