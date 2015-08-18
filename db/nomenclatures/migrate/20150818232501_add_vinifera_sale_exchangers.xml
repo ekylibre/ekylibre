@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="20150818232501_add_vinifera_sale_exchangers">
+  <item-creation item="exchange_natures#la_graine_informatique_vinifera_sales"/>
+</migration>

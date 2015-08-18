@@ -7,8 +7,6 @@ Ekylibre::FirstRun.add_loader :base do |first_run|
 
   first_run.import_file(:ekylibre_variants, 'alamano/variants.ods')
   
-  first_run.import_archive(:la_graine_informatique_vinifera_products, 'products.zip', 'products.csv', 'units_transcode.csv', 'variants_transcode.csv', in: 'vinifera')
-
   # set extensions
   extensions = %w(jpeg jpg png)
   # load default logo for of_company

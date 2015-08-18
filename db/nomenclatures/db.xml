@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20150818152001">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20150818232501">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -1522,6 +1522,7 @@
       <item name="isagri_isaculture_csv_import"/>
       <item name="la_graine_informatique_vinifera_entities"/>
       <item name="la_graine_informatique_vinifera_products"/>
+      <item name="la_graine_informatique_vinifera_sales"/>
       <item name="legrain_epicea_accounts"/>
       <item name="legrain_epicea_journals"/>
       <item name="lilco_milk_analyses"/>

@@ -44,10 +44,18 @@ class Backend::ProductNatureVariantsController < Backend::BaseController
   list(:products, conditions: { variant_id: 'params[:id]'.c }, order: { born_at: :desc }) do |t|
     t.column :name, url: true
     t.column :identification_number
-    t.column :born_at
+    t.column :born_at, datatype: :datetime
     t.column :net_mass
     t.column :net_volume
     t.column :population
+  end
+  
+  list(:sale_items, conditions: { variant_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
+    t.column :number, through: :sale, url: true
+    t.column :invoiced_at, through: :sale, datatype: :datetime
+    t.column :quantity
+    t.column :reduction_percentage
+    t.column :unit_pretax_amount
   end
 
   # Returns quantifiers for a given variant

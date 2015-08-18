@@ -63,7 +63,8 @@ class LaGraineInformatique::Vinifera::EntitiesExchanger < ActiveExchanger::Base
                             last_name: r.full_name,
                             full_name: r.full_name,
                             country: r.country,
-                            nature: nature
+                            nature: nature,
+                            description: r.number
                            )
         person.save!
       end
