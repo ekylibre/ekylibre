@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="20150818152001_add_wine_bottles">
+  <item-creation item="product_nature_variants#bottle_375ml_wine" nature="wine" frozen_indicators_values="net_mass: 380gram, net_volume: 37.50centiliter"/>
+  <item-creation item="product_nature_variants#bottle_50cl_wine"  nature="wine" frozen_indicators_values="net_mass: 510gram, net_volume: 50.00centiliter"/>
+  <item-creation item="product_nature_variants#bottle_100cl_wine" nature="wine" frozen_indicators_values="net_mass: 1050gram, net_volume: 100.00centiliter"/>
+  <item-creation item="product_nature_variants#bottle_150cl_wine" nature="wine" frozen_indicators_values="net_mass: 1550gram, net_volume: 150.00centiliter"/>
+  <item-creation item="product_nature_variants#bottle_200cl_wine" nature="wine" frozen_indicators_values="net_mass: 2050gram, net_volume: 200.00centiliter"/>
+  <item-creation item="product_nature_variants#bottle_300cl_wine" nature="wine" frozen_indicators_values="net_mass: 3080gram, net_volume: 300.00centiliter"/>
+  <item-creation item="product_nature_variants#bottle_500cl_wine" nature="wine" frozen_indicators_values="net_mass: 5090gram, net_volume: 500.00centiliter"/>
+  <item-creation item="product_nature_variants#bottle_600cl_wine" nature="wine" frozen_indicators_values="net_mass: 6100gram, net_volume: 600.00centiliter"/>
+  <item-creation item="product_nature_variants#bottle_900cl_wine" nature="wine" frozen_indicators_values="net_mass: 9150gram, net_volume: 900.00centiliter"/>
+  <item-creation item="product_nature_variants#bottle_120dl_wine" nature="wine" frozen_indicators_values="net_mass: 12180gram, net_volume: 1200.00centiliter"/>
+</migration>

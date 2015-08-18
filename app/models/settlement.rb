@@ -65,4 +65,5 @@
 #
 
 class Settlement < Easement
+  refers_to :variety, scope: :settlement
 end

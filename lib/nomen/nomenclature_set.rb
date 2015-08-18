@@ -30,10 +30,31 @@ module Nomen
       @nomenclatures.values
     end
 
-    def [](name)
-      @nomenclatures[name]
+    # Find nomenclature
+    def [](nomenclature_name)
+      @nomenclatures[nomenclature_name]
     end
     alias_method :find, :[]
+    alias_method :nomenclature, :[]
+
+    # Find item
+    def item(nomenclature_name, item_name)
+      nomenclature = find!(nomenclature_name)
+      nomenclature.item(item_name)
+    end
+
+    # Find property
+    def property(nomenclature_name, property_name)
+      nomenclature = find!(nomenclature_name)
+      nomenclature.property(property_name)
+    end
+
+    def find!(name)
+      unless nomenclature = @nomenclatures[name]
+        fail "Nomenclature #{name} does not exist"
+      end
+      nomenclature
+    end
 
     def exist?(name)
       @nomenclatures[name].present?
@@ -65,12 +86,12 @@ module Nomen
                 nomenclature.properties.values.sort { |a, b| a.name <=> b.name }.each do |property|
                   xml.property(property.to_xml_attrs)
                 end
-              end
+              end if nomenclature.properties.any?
               xml.items do
                 nomenclature.items.values.sort { |a, b| a.name <=> b.name }.each do |item|
                   xml.item(item.to_xml_attrs)
                 end
-              end
+              end if nomenclature.items.any?
             end
           end
         end
@@ -79,8 +100,8 @@ module Nomen
     end
 
     def harvest_nomenclature(element)
-      n = Nomenclature.harvest(element, set: self)
-      @nomenclatures[n.name] = n
+      nomenclature = Nomenclature.harvest(element, set: self)
+      @nomenclatures[nomenclature.name] = nomenclature
     end
 
     def add_nomenclature(name, options = {})
@@ -98,66 +119,51 @@ module Nomen
       @nomenclatures[new_name]
     end
 
-    def change_nomenclature(name, changes = {})
-      nomenclature = find(name)
-      nomenclature.update_attributes(changes)
-      if changes[:name]
-        nomenclature = move_nomenclature(name, changes[:name])
+    def change_nomenclature(nomenclature_name, updates = {})
+      nomenclature = find!(nomenclature_name)
+      nomenclature.update_attributes(updates)
+      if updates[:name]
+        nomenclature = move_nomenclature(nomenclature_name, updates[:name])
       end
-      return nomenclature
+      nomenclature
     end
 
-    def remove_nomenclature(name)
-      # TODO: Check dependencies
-      fail "Nomenclature #{name} does not exist" unless @nomenclatures[name]
-      @nomenclatures.delete(name)
+    def remove_nomenclature(nomenclature_name)
+      nomenclature = find!(nomenclature_name)
+      @nomenclatures.delete(nomenclature_name)
     end
 
-    def add_property(nomenclature, name, type, options = {})
-      unless n = @nomenclatures[nomenclature]
-        fail "Nomenclature #{nomenclature} does not exist"
-      end
-      n.add_property(name, type, options)
+    def add_property(nomenclature_name, property_name, type, options = {})
+      nomenclature = find!(nomenclature_name)
+      nomenclature.add_property(property_name, type, options)
     end
 
-    # TODO
-    # def change_property(nomenclature, name, changes = {})
-    #   unless n = @nomenclatures[nomenclature]
-    #     fail "Nomenclature #{nomenclature} does not exist"
-    #   end
-    #   n.rename_property(name, changes = {})
-    # end
-
-    # TODO
-    # def remove_property(nomenclature, name, options = {})
-    # end
-
-    def add_item(nomenclature, name, properties = {})
-      unless n = @nomenclatures[nomenclature]
-        fail "Nomenclature #{nomenclature} does not exist"
-      end
-      n.add_item(name, properties)
+    def change_property(_nomenclature_name, _property_name, _updates = {})
+      fail NotImplementedError
     end
 
-    def change_item(nomenclature, name, changes = {})
-      unless n = @nomenclatures[nomenclature]
-        fail "Nomenclature #{nomenclature} does not exist"
-      end
-      n.change_item(name, changes)
+    def remove_property(_nomenclature_name, _property_name, _options = {})
+      fail NotImplementedError
     end
 
-    def merge_item(nomenclature, name, into)
-      unless n = @nomenclatures[nomenclature]
-        fail "Nomenclature #{nomenclature} does not exist"
-      end
-      n.merge_item(name, into)
+    def add_item(nomenclature_name, item_name, options = {})
+      nomenclature = find!(nomenclature_name)
+      nomenclature.add_item(item_name, options)
     end
 
-    def remove_item(nomenclature, name)
-      unless n = @nomenclatures[nomenclature]
-        fail "Nomenclature #{nomenclature} does not exist"
-      end
-      n.remove_item(name, into)
+    def change_item(nomenclature_name, item_name, updates = {})
+      nomenclature = find!(nomenclature_name)
+      nomenclature.change_item(item_name, updates)
+    end
+
+    def merge_item(nomenclature_name, item_name, into)
+      nomenclature = find!(nomenclature_name)
+      nomenclature.merge_item(item_name, into)
+    end
+
+    def remove_item(nomenclature_name, item_name)
+      nomenclature = find!(nomenclature_name)
+      nomenclature.remove_item(item_name)
     end
   end
 end

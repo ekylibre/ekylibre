@@ -48,7 +48,7 @@ module Nomen
       end
 
       def item_creation(action)
-        @set.add_item(action.nomenclature, action.name, action.properties)
+        @set.add_item(action.nomenclature, action.name, action.options)
       end
 
       def item_change(action)

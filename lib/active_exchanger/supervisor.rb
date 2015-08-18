@@ -56,7 +56,7 @@ module ActiveExchanger
     end
 
     def info(msg)
-      print("\n" + 'INFO'.green + ': ' + msg) if verbose?
+      print("\n" + msg.gsub(/^/, 'INFO'.green + ': ')) if verbose?
       Rails.logger.info(msg)
     end
 

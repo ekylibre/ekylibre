@@ -14,8 +14,8 @@ module Nomen
               ref[action.nomenclature.to_sym][:items][action.new_name.to_sym] ||= ref[action.nomenclature.to_sym][:items].delete(action.name.to_sym)
             elsif action.is_a?(Nomen::Migration::Actions::ItemMerging)
               ref[action.nomenclature.to_sym][:items][action.into.to_sym] ||= ref[action.nomenclature.to_sym][:items].delete(action.name.to_sym)
-            elsif action.is_a?(Nomen::Migration::Actions::ItemChange) && action.changes[:name]
-              ref[action.changes[:name]] = ref.delete(action.nomenclature)
+            elsif action.is_a?(Nomen::Migration::Actions::NomenclatureChange) && action.changes[:name]
+              ref[action.changes[:name].to_sym] = ref.delete(action.nomenclature.to_sym)
             elsif !action.is_a?(Nomen::Migration::Actions::Base)
               fail "Cannot handle: #{action.inspect}"
             end

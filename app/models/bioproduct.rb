@@ -63,7 +63,9 @@
 #  variety               :string           not null
 #  work_number           :string
 #
+
 class Bioproduct < Matter
+  refers_to :variety, scope: :bioproduct
   has_one :current_father_link, -> { where(nature: 'father').current }, class_name: 'ProductLink', foreign_key: :product_id
   has_one :current_mother_link, -> { where(nature: 'mother').current }, class_name: 'ProductLink', foreign_key: :product_id
   has_one :father, through: :current_father_link, source: :linked

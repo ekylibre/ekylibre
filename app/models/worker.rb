@@ -65,6 +65,7 @@
 #
 
 class Worker < Product
+  refers_to :variety, scope: :worker
   include Attachable
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   # ]VALIDATORS]

@@ -13,10 +13,10 @@ module Calculus
         # puts @options.inspect.yellow
         # puts cultivation_varieties.inspect.blue
         # puts soil_natures.inspect.white
-        if items = Nomen::NmpFranceAbacusCultivationYield.where(cultivation_variety: cultivation_varieties, administrative_area: @options[:administrative_area] || :undefined) and items.any? and (@variety <= :avena || @variety <= :secale)
+        if items = Nomen::NmpFranceCultivationYield.where(cultivation_variety: cultivation_varieties, administrative_area: @options[:administrative_area] || :undefined) and items.any? and (@variety <= :avena || @variety <= :secale)
           # puts items.inspect.green
           expected_yield = items.first.expected_yield.in_quintal_per_hectare
-        elsif capacity = @options[:available_water_capacity].in_liter_per_square_meter and items = Nomen::NmpPoitouCharentesAbacusTwo.where(cultivation_variety: cultivation_varieties, soil_nature: soil_natures) and items = items.select { |i| i.minimum_available_water_capacity.in_liter_per_square_meter <= capacity && capacity < i.maximum_available_water_capacity.in_liter_per_square_meter } and items.any?
+        elsif capacity = @options[:available_water_capacity].in_liter_per_square_meter and items = Nomen::NmpPoitouCharentesAbacusTwoRow.where(cultivation_variety: cultivation_varieties, soil_nature: soil_natures) and items = items.select { |i| i.minimum_available_water_capacity.in_liter_per_square_meter <= capacity && capacity < i.maximum_available_water_capacity.in_liter_per_square_meter } and items.any?
           # puts items.inspect.green
           expected_yield = items.first.expected_yield.in_quintal_per_hectare
         else
@@ -37,7 +37,7 @@ module Calculus
         expected_yield = @expected_yield.to_f(:quintal_per_hectare)
         b = 3
         if @variety
-          items = Nomen::NmpPoitouCharentesAbacusThree.list.select do |i|
+          items = Nomen::NmpPoitouCharentesAbacusThreeRow.list.select do |i|
             @variety <= i.cultivation_variety &&
             i.usage.to_sym == @usage &&
             i.minimum_yield_aim <= expected_yield && expected_yield <= i.maximum_yield_aim &&
@@ -49,7 +49,7 @@ module Calculus
             b = 2.4
           end
         end
-        # if @variety and items = Nomen::NmpPoitouCharentesAbacusThree.best_match(:cultivation_variety, @variety.name) and items.any?
+        # if @variety and items = Nomen::NmpPoitouCharentesAbacusThreeRow.best_match(:cultivation_variety, @variety.name) and items.any?
         #   b = items.first.coefficient
         # end
         @expected_yield.in_kilogram_per_hectare * b / 100.0.to_d
@@ -62,14 +62,14 @@ module Calculus
           quantity = 0.in_kilogram_per_hectare
         elsif @cultivation
           if count = @cultivation.leaf_count(at: @opened_at) and activity.nature.to_sym == :cereal_crops
-            items = Nomen::NmpPoitouCharentesAbacusFour.list.select do |item|
+            items = Nomen::NmpPoitouCharentesAbacusFourRow.list.select do |item|
               item.minimum_leaf_count <= count && count <= item.minimum_leaf_count
             end
             if items.any?
               quantity = items.first.absorbed_nitrogen.in_kilogram_per_hectare
             end
           elsif @variety && @variety <= :brassica_napus && @cultivation.indicators_list.include?(:fresh_mass) && @cultivation.indicators_list.include?(:net_surface_area)
-            items = Nomen::NmpPoitouCharentesAbacusTwelve.list.select do |item|
+            items = Nomen::NmpPoitouCharentesAbacusTwelveRow.list.select do |item|
               @administrative_area <= item.administrative_area
             end
             if items.any?
@@ -99,7 +99,7 @@ module Calculus
         sets = crop_sets.map(&:name).map(&:to_s)
         campaigns = campaign.previous.reorder(harvest_year: :desc)
         if sets.any? && @soil_nature
-          items = Nomen::NmpPoitouCharentesAbacusFive.list.select do |item|
+          items = Nomen::NmpPoitouCharentesAbacusFiveRow.list.select do |item|
             @soil_nature <= item.soil_nature &&
             sets.include?(item.cereal_typology.to_s)
           end
@@ -143,7 +143,7 @@ module Calculus
         if rank > 0 && found && cultivation = found.cultivation
           age = (cultivation.dead_at - cultivation.born_at) / 1.month
           season = ([9, 10, 11, 12].include?(cultivation.dead_at.month) ? :autumn : [3, 4, 5, 6].include?(cultivation.dead_at.month) ? :spring : nil)
-          items = Nomen::NmpPoitouCharentesAbacusSix.list.select do |item|
+          items = Nomen::NmpPoitouCharentesAbacusSixRow.list.select do |item|
             item.minimum_age <= age && age <= item.maximum_age &&
             item.rank == rank
           end
@@ -207,7 +207,7 @@ module Calculus
         end
         # find items in abacus 7
         if previous_sets && previous_crop_age && previous_crop_destruction_period && current_crop_implantation_period
-          items = Nomen::NmpPoitouCharentesAbacusSeven.list.select do |item|
+          items = Nomen::NmpPoitouCharentesAbacusSevenRow.list.select do |item|
             previous_sets.include?(item.previous_crop.to_s) && (item.previous_crop_minimum_age.to_i <= previous_crop_age.to_i && previous_crop_age.to_i < item.previous_crop_maximum_age.to_i) && (item.previous_crop_destruction_period_start.to_i <= previous_crop_destruction_period.to_i && previous_crop_destruction_period.to_i < item.previous_crop_destruction_period_stop.to_i) && current_crop_implantation_period.to_i >= item.current_crop_implantation_period_start.to_i
           end
           quantity = items.first.quantity.in_kilogram_per_hectare if items.any?
@@ -263,7 +263,7 @@ module Calculus
             end
             if previous_sets && previous_crop_destruction_period && previous_crop_plants_growth_level
               # get value from abacus 11
-              items = Nomen::NmpPoitouCharentesAbacusEleven.list.select do |item|
+              items = Nomen::NmpPoitouCharentesAbacusElevenRow.list.select do |item|
                 previous_sets.include?(item.intermediate_crop_variety.to_s) && (item.intermediate_crop_destruction_period_start.to_i <= previous_crop_destruction_period.to_i && previous_crop_destruction_period.to_i < item.intermediate_crop_destruction_period_stop.to_i) && previous_crop_plants_growth_level.to_s == item.growth_level.to_s
               end
               quantity = items.first.mrci.in_kilogram_per_hectare if items.any?
@@ -322,7 +322,7 @@ module Calculus
                 # get the crop_set
                 sets = crop_sets.map(&:name).map(&:to_s)
                 # get keq
-                items = Nomen::NmpPoitouCharentesAbacusEight.list.select do |item|
+                items = Nomen::NmpPoitouCharentesAbacusEightRow.list.select do |item|
                   variant.to_s == item.variant.to_s && sets.include?(item.crop.to_s) && month.to_i >= item.input_period_start.to_i
                 end
                 keq = items.first.keq.to_d if items.any?
@@ -346,7 +346,7 @@ module Calculus
           quantity = 50.in_kilogram_per_hectare
         end
         if @soil_nature && capacity = @options[:available_water_capacity].in_liter_per_square_meter
-          items = Nomen::NmpPoitouCharentesAbacusNine.list.select do |item|
+          items = Nomen::NmpPoitouCharentesAbacusNineRow.list.select do |item|
             @soil_nature <= item.soil_nature && item.minimum_available_water_capacity.in_liter_per_square_meter <= capacity && capacity < item.maximum_available_water_capacity.in_liter_per_square_meter
           end
           quantity = items.first.rf.in_kilogram_per_hectare if items.any?
@@ -374,13 +374,13 @@ module Calculus
               plant_growth = 'low'
             end
 
-            items = Nomen::NmpPoitouCharentesAbacusTen.list.select do |item|
+            items = Nomen::NmpPoitouCharentesAbacusTenRow.list.select do |item|
               item.plant_developpment == plant_growth.to_s && sets.include?(item.crop.to_s) && (item.precipitations_min.in_liter_per_square_meter <= water_falls && water_falls < item.precipitations_max.in_liter_per_square_meter)
             end
 
           elsif @variety
 
-            items = Nomen::NmpPoitouCharentesAbacusTen.list.select do |item|
+            items = Nomen::NmpPoitouCharentesAbacusTenRow.list.select do |item|
               (item.minimum_available_water_capacity.in_liter_per_square_meter <= capacity && capacity < item.maximum_available_water_capacity.in_liter_per_square_meter) && sets.include?(item.crop.to_s) && (item.precipitations_min.in_liter_per_square_meter <= water_falls && water_falls < item.precipitations_max.in_liter_per_square_meter)
             end
           else
@@ -395,7 +395,7 @@ module Calculus
         quantity = 170.in_kilogram_per_hectare
         if department_item = @options[:administrative_area] and @variety
           cultivation_varieties = @variety.self_and_parents
-          items = Nomen::NmpFranceAbacusMaximumNitrogenInputPerCultivation.list.select do |i|
+          items = Nomen::NmpFranceCultivationNitrogenInputMaxima.list.select do |i|
             @variety <= i.cultivation_variety && i.administrative_area.to_s == department_item.parent_area.to_s
           end
           if items.any?

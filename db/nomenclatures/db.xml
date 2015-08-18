@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="4">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20150818152001">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -65,7 +65,6 @@
     </items>
   </nomenclature>
   <nomenclature name="accounting_systems" translateable="true">
-    <properties/>
     <items>
       <item name="fr_pcg82"/>
       <item name="fr_pcga"/>
@@ -668,7 +667,6 @@
     </items>
   </nomenclature>
   <nomenclature name="animal_life_states" translateable="true">
-    <properties/>
     <items>
       <item name="aging"/>
       <item name="first_growth"/>
@@ -677,14 +675,12 @@
     </items>
   </nomenclature>
   <nomenclature name="cation_exchange_capacity_analysis_methods" translateable="true">
-    <properties/>
     <items>
       <item name="cobaltihexamine"/>
       <item name="metson"/>
     </items>
   </nomenclature>
   <nomenclature name="certification_labels" translateable="true">
-    <properties/>
     <items>
       <item name="aoc"/>
       <item name="aop"/>
@@ -1487,7 +1483,6 @@
     </items>
   </nomenclature>
   <nomenclature name="exchange_natures" translateable="true">
-    <properties/>
     <items>
       <item name="agro_systemes_soil_analyses"/>
       <item name="agro_systemes_water_analyses"/>
@@ -1526,6 +1521,7 @@
       <item name="isagri_isacompta_export"/>
       <item name="isagri_isaculture_csv_import"/>
       <item name="la_graine_informatique_vinifera_entities"/>
+      <item name="la_graine_informatique_vinifera_products"/>
       <item name="legrain_epicea_accounts"/>
       <item name="legrain_epicea_journals"/>
       <item name="lilco_milk_analyses"/>
@@ -1543,7 +1539,6 @@
     </items>
   </nomenclature>
   <nomenclature name="fence_perimeters" translateable="true">
-    <properties/>
     <items>
       <item name="barbed_wire_fences"/>
       <item name="electric_wire_fences"/>
@@ -1553,7 +1548,6 @@
     </items>
   </nomenclature>
   <nomenclature name="figures" translateable="true">
-    <properties/>
     <items>
       <item name="biped"/>
       <item name="building"/>
@@ -1566,7 +1560,6 @@
     </items>
   </nomenclature>
   <nomenclature name="guide_natures" translateable="true">
-    <properties/>
     <items>
       <item name="best_practices"/>
       <item name="regulations"/>
@@ -1800,7 +1793,6 @@
     </items>
   </nomenclature>
   <nomenclature name="lands" translateable="true">
-    <properties/>
     <items>
       <item name="blaye"/>
       <item name="bordeaux"/>
@@ -1810,7 +1802,6 @@
     </items>
   </nomenclature>
   <nomenclature name="languages" translateable="true">
-    <properties/>
     <items>
       <item name="afr"/>
       <item name="amh"/>
@@ -1919,7 +1910,6 @@
     </items>
   </nomenclature>
   <nomenclature name="mammalia_birth_conditions" translateable="true">
-    <properties/>
     <items>
       <item name="caesarean"/>
       <item name="few_help"/>
@@ -1929,7 +1919,6 @@
     </items>
   </nomenclature>
   <nomenclature name="mammalia_reproduction_states" translateable="true">
-    <properties/>
     <items>
       <item name="back_heat"/>
       <item name="heat"/>
@@ -1937,7 +1926,6 @@
     </items>
   </nomenclature>
   <nomenclature name="manure_management_plan_computation_methods" translateable="true">
-    <properties/>
     <items>
       <item name="aquitaine_2013"/>
       <item name="external"/>
@@ -1992,7 +1980,96 @@
       <item name="telepac" nature="vegetal_crops" url="https://www3.telepac.agriculture.gouv.fr/telepac/auth/accueil.action" approach="human" identifiers="pacage_number, password"/>
     </items>
   </nomenclature>
-  <nomenclature name="nmp_france_abacus_cultivation_yield" translateable="false">
+  <nomenclature name="nmp_france_animal_nitrogen_productions" translateable="false">
+    <properties>
+      <property name="maximum_age" type="integer" required="true" default="720"/>
+      <property name="maximum_milk_production" type="integer" required="true" default="16000"/>
+      <property name="maximum_outside_presence" type="integer" required="true" default="12"/>
+      <property name="minimum_age" type="integer" required="true" default="0"/>
+      <property name="minimum_milk_production" type="integer" required="true" default="0"/>
+      <property name="minimum_outside_presence" type="integer" required="true" default="0"/>
+      <property name="quantity" type="decimal" required="true"/>
+      <property name="variant" type="item" choices="product_nature_variants" required="true"/>
+    </properties>
+    <items>
+      <item name="calf" variant="calf" maximum_age="12" quantity="25.0"/>
+      <item name="female_adult_cow" variant="female_adult_cow" minimum_age="36" quantity="67.0"/>
+      <item name="female_adult_goat" variant="female_adult_goat" quantity="10.0"/>
+      <item name="female_adult_sheep" variant="female_adult_sheep" quantity="10.0"/>
+      <item name="female_young_adult_cow" variant="female_adult_cow" minimum_age="24" quantity="53.0"/>
+      <item name="female_young_cow" variant="female_young_cow" minimum_age="12" maximum_age="24" quantity="42.0"/>
+      <item name="female_young_goat" variant="female_young_goat" quantity="5.0"/>
+      <item name="lamb" variant="lamb" quantity="5.0"/>
+      <item name="male_adult_cow" variant="male_adult_cow" minimum_age="24" quantity="72.0"/>
+      <item name="male_adult_goat" variant="male_adult_goat" quantity="10.0"/>
+      <item name="male_adult_sheep" variant="male_adult_sheep" quantity="10.0"/>
+      <item name="male_young_cow" variant="male_young_cow" minimum_age="12" maximum_age="24" quantity="42.0"/>
+      <item name="male_young_goat" variant="male_young_goat" quantity="5.0"/>
+      <item name="milking_cow_outside_max_prod_max" variant="female_adult_cow" minimum_outside_presence="7" minimum_milk_production="8000" quantity="126.0"/>
+      <item name="milking_cow_outside_max_prod_med" variant="female_adult_cow" minimum_outside_presence="7" minimum_milk_production="6000" maximum_milk_production="8000" quantity="115.0"/>
+      <item name="milking_cow_outside_max_prod_min" variant="female_adult_cow" minimum_outside_presence="7" maximum_milk_production="6000" quantity="104.0"/>
+      <item name="milking_cow_outside_med_prod_max" variant="female_adult_cow" minimum_outside_presence="4" maximum_outside_presence="7" minimum_milk_production="8000" quantity="111.0"/>
+      <item name="milking_cow_outside_med_prod_med" variant="female_adult_cow" minimum_outside_presence="4" maximum_outside_presence="7" minimum_milk_production="6000" maximum_milk_production="8000" quantity="101.0"/>
+      <item name="milking_cow_outside_med_prod_min" variant="female_adult_cow" minimum_outside_presence="4" maximum_outside_presence="7" maximum_milk_production="6000" quantity="92.0"/>
+      <item name="milking_cow_outside_min_prod_max" variant="female_adult_cow" maximum_outside_presence="4" minimum_milk_production="8000" quantity="91.0"/>
+      <item name="milking_cow_outside_min_prod_med" variant="female_adult_cow" maximum_outside_presence="4" minimum_milk_production="6000" maximum_milk_production="8000" quantity="83.0"/>
+      <item name="milking_cow_outside_min_prod_min" variant="female_adult_cow" maximum_outside_presence="4" maximum_milk_production="6000" quantity="75.0"/>
+    </items>
+  </nomenclature>
+  <nomenclature name="nmp_france_cultivation_nitrogen_input_maxima" translateable="false">
+    <properties>
+      <property name="administrative_area" type="item" choices="administrative_areas" required="true"/>
+      <property name="cultivation_variety" type="item" choices="varieties" required="true"/>
+      <property name="irrigated" type="boolean"/>
+      <property name="maximum_nitrogen_input" type="decimal" required="true"/>
+      <property name="production_usage" type="item" choices="production_usages" required="true" default="grain"/>
+    </properties>
+    <items>
+      <item name="apple_cabbage_aquitaine" cultivation_variety="brassica_oleracea_capitata" administrative_area="france_region_aquitaine" maximum_nitrogen_input="250.0"/>
+      <item name="apple_cabbage_poitou_charentes" cultivation_variety="brassica_oleracea_capitata" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="200.0"/>
+      <item name="artichoke_aquitaine" cultivation_variety="cynara" administrative_area="france_region_aquitaine" maximum_nitrogen_input="180.0"/>
+      <item name="artichoke_poitou_charentes" cultivation_variety="cynara" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="120.0"/>
+      <item name="asparagus_aquitaine" cultivation_variety="asparagus" administrative_area="france_region_aquitaine" maximum_nitrogen_input="170.0"/>
+      <item name="asparagus_poitou_charentes" cultivation_variety="asparagus" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="120.0"/>
+      <item name="bean_aquitaine" cultivation_variety="phaseolus" administrative_area="france_region_aquitaine" maximum_nitrogen_input="120.0"/>
+      <item name="bean_poitou_charentes" cultivation_variety="phaseolus" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="50.0"/>
+      <item name="beet_aquitaine" cultivation_variety="beta_vulgaris" administrative_area="france_region_aquitaine" maximum_nitrogen_input="250.0"/>
+      <item name="beet_poitou_charentes" cultivation_variety="beta_vulgaris" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="170.0"/>
+      <item name="brussels_sprout_aquitaine" cultivation_variety="brassica_oleracea_gemmifera" administrative_area="france_region_aquitaine" maximum_nitrogen_input="210.0"/>
+      <item name="brussels_sprout_poitou_charentes" cultivation_variety="brassica_oleracea_gemmifera" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="160.0"/>
+      <item name="carrot_aquitaine" cultivation_variety="daucus_carota" administrative_area="france_region_aquitaine" maximum_nitrogen_input="180.0"/>
+      <item name="carrot_poitou_charentes" cultivation_variety="daucus_carota" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="120.0"/>
+      <item name="cauliflower_aquitaine" cultivation_variety="brassica_oleracea_botrytis" administrative_area="france_region_aquitaine" maximum_nitrogen_input="340.0"/>
+      <item name="cauliflower_poitou_charentes" cultivation_variety="brassica_oleracea_botrytis" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="170.0"/>
+      <item name="corn_salad_aquitaine" cultivation_variety="valerianella_locusta" administrative_area="france_region_aquitaine" maximum_nitrogen_input="70.0"/>
+      <item name="corn_salad_poitou_charentes" cultivation_variety="valerianella_locusta" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="70.0"/>
+      <item name="cucumber_aquitaine" cultivation_variety="cucurbita" administrative_area="france_region_aquitaine" maximum_nitrogen_input="300.0"/>
+      <item name="cucumber_poitou_charentes" cultivation_variety="cucurbita" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="170.0"/>
+      <item name="curly_chicory_aquitaine" cultivation_variety="cichorium_endivia" administrative_area="france_region_aquitaine" maximum_nitrogen_input="145.0"/>
+      <item name="eggplant_aquitaine" cultivation_variety="solanum_melongena" administrative_area="france_region_aquitaine" maximum_nitrogen_input="250.0"/>
+      <item name="eggplant_poitou_charentes" cultivation_variety="solanum_melongena" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="250.0"/>
+      <item name="lettuce_aquitaine" cultivation_variety="lactuca" administrative_area="france_region_aquitaine" maximum_nitrogen_input="120.0"/>
+      <item name="lettuce_poitou_charentes" cultivation_variety="lactuca" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="120.0"/>
+      <item name="muskmelon_salad_aquitaine" cultivation_variety="cucumis" administrative_area="france_region_aquitaine" maximum_nitrogen_input="160.0"/>
+      <item name="muskmelon_salad_poitou_charentes" cultivation_variety="cucumis" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="140.0"/>
+      <item name="onion_aquitaine" cultivation_variety="allium" administrative_area="france_region_aquitaine" maximum_nitrogen_input="150.0"/>
+      <item name="onion_poitou_charentes" cultivation_variety="allium" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="150.0"/>
+      <item name="shallot_aquitaine" cultivation_variety="allium_cepa" administrative_area="france_region_aquitaine" maximum_nitrogen_input="100.0"/>
+      <item name="shallot_poitou_charentes" cultivation_variety="allium_cepa" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="110.0"/>
+      <item name="spinach_aquitaine" cultivation_variety="spinacia_oleracea" administrative_area="france_region_aquitaine" maximum_nitrogen_input="220.0"/>
+      <item name="spinach_poitou_charentes" cultivation_variety="spinacia_oleracea" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="120.0"/>
+      <item name="strawberry_aquitaine" cultivation_variety="fragaria" administrative_area="france_region_aquitaine" maximum_nitrogen_input="250.0"/>
+      <item name="table_vine_aquitaine" cultivation_variety="vitis" administrative_area="france_region_aquitaine" maximum_nitrogen_input="210.0"/>
+      <item name="table_vine_poitou_charentes" cultivation_variety="vitis" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="80.0"/>
+      <item name="vine_aquitaine" cultivation_variety="vitis_vinifera" administrative_area="france_region_aquitaine" maximum_nitrogen_input="100.0"/>
+      <item name="vine_poitou_charentes" cultivation_variety="vitis_vinifera" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="80.0"/>
+      <item name="wild_celery_aquitaine" cultivation_variety="apium_graveolens" administrative_area="france_region_aquitaine" maximum_nitrogen_input="260.0"/>
+      <item name="wild_celery_poitou_charentes" cultivation_variety="apium_graveolens" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="170.0"/>
+      <item name="zucchini_aquitaine" cultivation_variety="cucurbita_pepo" administrative_area="france_region_aquitaine" maximum_nitrogen_input="300.0"/>
+      <item name="zucchini_poitou_charentes" cultivation_variety="cucurbita_pepo" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="160.0"/>
+    </items>
+  </nomenclature>
+  <nomenclature name="nmp_france_cultivation_yields" translateable="false">
     <properties>
       <property name="administrative_area" type="item" choices="administrative_areas" required="true"/>
       <property name="cultivation_variety" type="item" choices="varieties" required="true"/>
@@ -2127,103 +2204,13 @@
       <item name="winter_barley_yield_64" cultivation_variety="hordeum_hexastichum" administrative_area="france_department_pyrenees_atlantiques" expected_yield="48.0"/>
     </items>
   </nomenclature>
-  <nomenclature name="nmp_france_abacus_maximum_nitrogen_input_per_cultivation" translateable="false">
-    <properties>
-      <property name="administrative_area" type="item" choices="administrative_areas" required="true"/>
-      <property name="cultivation_variety" type="item" choices="varieties" required="true"/>
-      <property name="irrigated" type="boolean"/>
-      <property name="maximum_nitrogen_input" type="decimal" required="true"/>
-      <property name="production_usage" type="item" choices="production_usages" required="true" default="grain"/>
-    </properties>
-    <items>
-      <item name="apple_cabbage_aquitaine" cultivation_variety="brassica_oleracea_capitata" administrative_area="france_region_aquitaine" maximum_nitrogen_input="250.0"/>
-      <item name="apple_cabbage_poitou_charentes" cultivation_variety="brassica_oleracea_capitata" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="200.0"/>
-      <item name="artichoke_aquitaine" cultivation_variety="cynara" administrative_area="france_region_aquitaine" maximum_nitrogen_input="180.0"/>
-      <item name="artichoke_poitou_charentes" cultivation_variety="cynara" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="120.0"/>
-      <item name="asparagus_aquitaine" cultivation_variety="asparagus" administrative_area="france_region_aquitaine" maximum_nitrogen_input="170.0"/>
-      <item name="asparagus_poitou_charentes" cultivation_variety="asparagus" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="120.0"/>
-      <item name="bean_aquitaine" cultivation_variety="phaseolus" administrative_area="france_region_aquitaine" maximum_nitrogen_input="120.0"/>
-      <item name="bean_poitou_charentes" cultivation_variety="phaseolus" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="50.0"/>
-      <item name="beet_aquitaine" cultivation_variety="beta_vulgaris" administrative_area="france_region_aquitaine" maximum_nitrogen_input="250.0"/>
-      <item name="beet_poitou_charentes" cultivation_variety="beta_vulgaris" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="170.0"/>
-      <item name="brussels_sprout_aquitaine" cultivation_variety="brassica_oleracea_gemmifera" administrative_area="france_region_aquitaine" maximum_nitrogen_input="210.0"/>
-      <item name="brussels_sprout_poitou_charentes" cultivation_variety="brassica_oleracea_gemmifera" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="160.0"/>
-      <item name="carrot_aquitaine" cultivation_variety="daucus_carota" administrative_area="france_region_aquitaine" maximum_nitrogen_input="180.0"/>
-      <item name="carrot_poitou_charentes" cultivation_variety="daucus_carota" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="120.0"/>
-      <item name="cauliflower_aquitaine" cultivation_variety="brassica_oleracea_botrytis" administrative_area="france_region_aquitaine" maximum_nitrogen_input="340.0"/>
-      <item name="cauliflower_poitou_charentes" cultivation_variety="brassica_oleracea_botrytis" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="170.0"/>
-      <item name="corn_salad_aquitaine" cultivation_variety="valerianella_locusta" administrative_area="france_region_aquitaine" maximum_nitrogen_input="70.0"/>
-      <item name="corn_salad_poitou_charentes" cultivation_variety="valerianella_locusta" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="70.0"/>
-      <item name="cucumber_aquitaine" cultivation_variety="cucurbita" administrative_area="france_region_aquitaine" maximum_nitrogen_input="300.0"/>
-      <item name="cucumber_poitou_charentes" cultivation_variety="cucurbita" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="170.0"/>
-      <item name="curly_chicory_aquitaine" cultivation_variety="cichorium_endivia" administrative_area="france_region_aquitaine" maximum_nitrogen_input="145.0"/>
-      <item name="eggplant_aquitaine" cultivation_variety="solanum_melongena" administrative_area="france_region_aquitaine" maximum_nitrogen_input="250.0"/>
-      <item name="eggplant_poitou_charentes" cultivation_variety="solanum_melongena" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="250.0"/>
-      <item name="lettuce_aquitaine" cultivation_variety="lactuca" administrative_area="france_region_aquitaine" maximum_nitrogen_input="120.0"/>
-      <item name="lettuce_poitou_charentes" cultivation_variety="lactuca" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="120.0"/>
-      <item name="muskmelon_salad_aquitaine" cultivation_variety="cucumis" administrative_area="france_region_aquitaine" maximum_nitrogen_input="160.0"/>
-      <item name="muskmelon_salad_poitou_charentes" cultivation_variety="cucumis" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="140.0"/>
-      <item name="onion_aquitaine" cultivation_variety="allium" administrative_area="france_region_aquitaine" maximum_nitrogen_input="150.0"/>
-      <item name="onion_poitou_charentes" cultivation_variety="allium" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="150.0"/>
-      <item name="shallot_aquitaine" cultivation_variety="allium_cepa" administrative_area="france_region_aquitaine" maximum_nitrogen_input="100.0"/>
-      <item name="shallot_poitou_charentes" cultivation_variety="allium_cepa" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="110.0"/>
-      <item name="spinach_aquitaine" cultivation_variety="spinacia_oleracea" administrative_area="france_region_aquitaine" maximum_nitrogen_input="220.0"/>
-      <item name="spinach_poitou_charentes" cultivation_variety="spinacia_oleracea" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="120.0"/>
-      <item name="strawberry_aquitaine" cultivation_variety="fragaria" administrative_area="france_region_aquitaine" maximum_nitrogen_input="250.0"/>
-      <item name="table_vine_aquitaine" cultivation_variety="vitis" administrative_area="france_region_aquitaine" maximum_nitrogen_input="210.0"/>
-      <item name="table_vine_poitou_charentes" cultivation_variety="vitis" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="80.0"/>
-      <item name="vine_aquitaine" cultivation_variety="vitis_vinifera" administrative_area="france_region_aquitaine" maximum_nitrogen_input="100.0"/>
-      <item name="vine_poitou_charentes" cultivation_variety="vitis_vinifera" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="80.0"/>
-      <item name="wild_celery_aquitaine" cultivation_variety="apium_graveolens" administrative_area="france_region_aquitaine" maximum_nitrogen_input="260.0"/>
-      <item name="wild_celery_poitou_charentes" cultivation_variety="apium_graveolens" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="170.0"/>
-      <item name="zucchini_aquitaine" cultivation_variety="cucurbita_pepo" administrative_area="france_region_aquitaine" maximum_nitrogen_input="300.0"/>
-      <item name="zucchini_poitou_charentes" cultivation_variety="cucurbita_pepo" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="160.0"/>
-    </items>
-  </nomenclature>
-  <nomenclature name="nmp_france_abacus_nitrogen_animal_production" translateable="false">
-    <properties>
-      <property name="maximum_age" type="integer" required="true" default="720"/>
-      <property name="maximum_milk_production" type="integer" required="true" default="16000"/>
-      <property name="maximum_outside_presence" type="integer" required="true" default="12"/>
-      <property name="minimum_age" type="integer" required="true" default="0"/>
-      <property name="minimum_milk_production" type="integer" required="true" default="0"/>
-      <property name="minimum_outside_presence" type="integer" required="true" default="0"/>
-      <property name="quantity" type="decimal" required="true"/>
-      <property name="variant" type="item" choices="product_nature_variants" required="true"/>
-    </properties>
-    <items>
-      <item name="calf" variant="calf" maximum_age="12" quantity="25.0"/>
-      <item name="female_adult_cow" variant="female_adult_cow" minimum_age="36" quantity="67.0"/>
-      <item name="female_adult_goat" variant="female_adult_goat" quantity="10.0"/>
-      <item name="female_adult_sheep" variant="female_adult_sheep" quantity="10.0"/>
-      <item name="female_young_adult_cow" variant="female_adult_cow" minimum_age="24" quantity="53.0"/>
-      <item name="female_young_cow" variant="female_young_cow" minimum_age="12" maximum_age="24" quantity="42.0"/>
-      <item name="female_young_goat" variant="female_young_goat" quantity="5.0"/>
-      <item name="lamb" variant="lamb" quantity="5.0"/>
-      <item name="male_adult_cow" variant="male_adult_cow" minimum_age="24" quantity="72.0"/>
-      <item name="male_adult_goat" variant="male_adult_goat" quantity="10.0"/>
-      <item name="male_adult_sheep" variant="male_adult_sheep" quantity="10.0"/>
-      <item name="male_young_cow" variant="male_young_cow" minimum_age="12" maximum_age="24" quantity="42.0"/>
-      <item name="male_young_goat" variant="male_young_goat" quantity="5.0"/>
-      <item name="milking_cow_outside_max_prod_max" variant="female_adult_cow" minimum_outside_presence="7" minimum_milk_production="8000" quantity="126.0"/>
-      <item name="milking_cow_outside_max_prod_med" variant="female_adult_cow" minimum_outside_presence="7" minimum_milk_production="6000" maximum_milk_production="8000" quantity="115.0"/>
-      <item name="milking_cow_outside_max_prod_min" variant="female_adult_cow" minimum_outside_presence="7" maximum_milk_production="6000" quantity="104.0"/>
-      <item name="milking_cow_outside_med_prod_max" variant="female_adult_cow" minimum_outside_presence="4" maximum_outside_presence="7" minimum_milk_production="8000" quantity="111.0"/>
-      <item name="milking_cow_outside_med_prod_med" variant="female_adult_cow" minimum_outside_presence="4" maximum_outside_presence="7" minimum_milk_production="6000" maximum_milk_production="8000" quantity="101.0"/>
-      <item name="milking_cow_outside_med_prod_min" variant="female_adult_cow" minimum_outside_presence="4" maximum_outside_presence="7" maximum_milk_production="6000" quantity="92.0"/>
-      <item name="milking_cow_outside_min_prod_max" variant="female_adult_cow" maximum_outside_presence="4" minimum_milk_production="8000" quantity="91.0"/>
-      <item name="milking_cow_outside_min_prod_med" variant="female_adult_cow" maximum_outside_presence="4" minimum_milk_production="6000" maximum_milk_production="8000" quantity="83.0"/>
-      <item name="milking_cow_outside_min_prod_min" variant="female_adult_cow" maximum_outside_presence="4" maximum_milk_production="6000" quantity="75.0"/>
-    </items>
-  </nomenclature>
   <nomenclature name="nmp_methods" translateable="true">
-    <properties/>
     <items>
       <item name="france"/>
       <item name="poitou_charentes"/>
     </items>
   </nomenclature>
-  <nomenclature name="nmp_poitou_charentes_abacus_eight" translateable="false">
+  <nomenclature name="nmp_poitou_charentes_abacus_eight_rows" translateable="false">
     <properties>
       <property name="crop" type="item" choices="crop_sets" required="true"/>
       <property name="input_method" type="choice" choices="before_cipan, on_top, buried"/>
@@ -2273,7 +2260,7 @@
       <item name="urban_compost_on_spring_crop" variant="urban_compost" crop="spring_crop" input_period_start="06" input_period_stop="12" input_method="before_cipan" keq="0.3"/>
     </items>
   </nomenclature>
-  <nomenclature name="nmp_poitou_charentes_abacus_eleven" translateable="false">
+  <nomenclature name="nmp_poitou_charentes_abacus_eleven_rows" translateable="false">
     <properties>
       <property name="growth_level" type="item" choices="plants_growth_levels"/>
       <property name="intermediate_crop_destruction_period_start" type="string"/>
@@ -2298,7 +2285,7 @@
       <item name="secale_phacelia_low" intermediate_crop_variety="secale_phacelia" growth_level="low" intermediate_crop_destruction_period_start="0101" intermediate_crop_destruction_period_stop="1031" mrci="5"/>
     </items>
   </nomenclature>
-  <nomenclature name="nmp_poitou_charentes_abacus_five" translateable="false">
+  <nomenclature name="nmp_poitou_charentes_abacus_five_rows" translateable="false">
     <properties>
       <property name="cereal_crop" type="integer"/>
       <property name="cereal_typology" type="item" choices="crop_sets"/>
@@ -2362,7 +2349,7 @@
       <item name="valley_terrace_winter_straw_cereal" soil_nature="valley_terrace_soil" cereal_typology="winter_straw_cereal" cereal_crop="30" husbandry="35" mixed_crop="40" husbandry_with_mixed_crop="45"/>
     </items>
   </nomenclature>
-  <nomenclature name="nmp_poitou_charentes_abacus_four" translateable="false">
+  <nomenclature name="nmp_poitou_charentes_abacus_four_rows" translateable="false">
     <properties>
       <property name="absorbed_nitrogen" type="decimal"/>
       <property name="maximum_leaf_count" type="integer" required="true" default="100"/>
@@ -2374,7 +2361,7 @@
       <item name="no_growth" minimum_leaf_count="0" maximum_leaf_count="1" absorbed_nitrogen="10.0"/>
     </items>
   </nomenclature>
-  <nomenclature name="nmp_poitou_charentes_abacus_nine" translateable="false">
+  <nomenclature name="nmp_poitou_charentes_abacus_nine_rows" translateable="false">
     <properties>
       <property name="maximum_available_water_capacity" type="decimal"/>
       <property name="minimum_available_water_capacity" type="decimal"/>
@@ -2424,7 +2411,7 @@
       <item name="valley_terrace_min" soil_nature="valley_terrace_soil" rf="15.0" minimum_available_water_capacity="0.0" maximum_available_water_capacity="80.0"/>
     </items>
   </nomenclature>
-  <nomenclature name="nmp_poitou_charentes_abacus_seven" translateable="false">
+  <nomenclature name="nmp_poitou_charentes_abacus_seven_rows" translateable="false">
     <properties>
       <property name="crop_destruction_method" type="item" choices="residue_elimination_methods"/>
       <property name="current_crop_implantation_period_start" type="string"/>
@@ -2476,7 +2463,7 @@
       <item name="vetch" previous_crop="vetch" previous_crop_minimum_age="0" previous_crop_maximum_age="36" previous_crop_destruction_period_start="0101" previous_crop_destruction_period_stop="1231" current_crop_implantation_period_start="0101" quantity="30"/>
     </items>
   </nomenclature>
-  <nomenclature name="nmp_poitou_charentes_abacus_six" translateable="false">
+  <nomenclature name="nmp_poitou_charentes_abacus_six_rows" translateable="false">
     <properties>
       <property name="cereal_typology" type="item" choices="crop_sets"/>
       <property name="maximum_age" type="integer" required="true" default="1000"/>
@@ -2504,7 +2491,7 @@
       <item name="spring_60_120_second" cereal_typology="spring_straw_cereal" minimum_age="60" maximum_age="120" rank="2" quantity="35.0"/>
     </items>
   </nomenclature>
-  <nomenclature name="nmp_poitou_charentes_abacus_ten" translateable="false">
+  <nomenclature name="nmp_poitou_charentes_abacus_ten_rows" translateable="false">
     <properties>
       <property name="crop" type="item" choices="crop_sets" required="true"/>
       <property name="maximum_available_water_capacity" type="decimal"/>
@@ -2561,7 +2548,7 @@
       <item name="wheat_ru_min_2" crop="wheat" po="50.0" minimum_available_water_capacity="0.0" maximum_available_water_capacity="80.0" precipitations_started_period="10" precipitations_stopped_period="03" precipitations_min="350.0" precipitations_max="1000.0"/>
     </items>
   </nomenclature>
-  <nomenclature name="nmp_poitou_charentes_abacus_three" translateable="false">
+  <nomenclature name="nmp_poitou_charentes_abacus_three_rows" translateable="false">
     <properties>
       <property name="coefficient" type="decimal" required="true"/>
       <property name="cultivation_variety" type="item" choices="varieties"/>
@@ -2642,7 +2629,7 @@
       <item name="winter_barley_crop" cultivation_variety="hordeum_hexastichum" coefficient="2.5"/>
     </items>
   </nomenclature>
-  <nomenclature name="nmp_poitou_charentes_abacus_twelve" translateable="false">
+  <nomenclature name="nmp_poitou_charentes_abacus_twelve_rows" translateable="false">
     <properties>
       <property name="administrative_area" type="item" choices="administrative_areas" required="true"/>
       <property name="coefficient" type="integer" required="true"/>
@@ -2651,7 +2638,7 @@
       <item name="rapeseed_pc_coefficient" administrative_area="france_region_poitou_charentes" coefficient="65"/>
     </items>
   </nomenclature>
-  <nomenclature name="nmp_poitou_charentes_abacus_two" translateable="false">
+  <nomenclature name="nmp_poitou_charentes_abacus_two_rows" translateable="false">
     <properties>
       <property name="cultivation_variety" type="item" choices="varieties"/>
       <property name="expected_yield" type="decimal"/>
@@ -3164,7 +3151,6 @@
     </items>
   </nomenclature>
   <nomenclature name="opportunity_origins" translateable="true">
-    <properties/>
     <items>
       <item name="advertisement"/>
       <item name="employee_referral"/>
@@ -3176,7 +3162,6 @@
     </items>
   </nomenclature>
   <nomenclature name="phosphorus_analysis_methods" translateable="true">
-    <properties/>
     <items>
       <item name="dyer"/>
       <item name="joret_hebert"/>
@@ -3201,7 +3186,6 @@
     </items>
   </nomenclature>
   <nomenclature name="plant_reproduction_states" translateable="true">
-    <properties/>
     <items>
       <item name="flowering"/>
       <item name="grain_maturity"/>
@@ -3211,7 +3195,6 @@
     </items>
   </nomenclature>
   <nomenclature name="plants_growth_levels" translateable="true">
-    <properties/>
     <items>
       <item name="high"/>
       <item name="low"/>
@@ -3314,7 +3297,6 @@
     </items>
   </nomenclature>
   <nomenclature name="procedure_roles" translateable="true">
-    <properties/>
     <items>
       <item name="container"/>
       <item name="doer"/>
@@ -3508,7 +3490,17 @@
       <item name="bordelaise_100cl_bottle" nature="bottle" variety="cork_bottle" frozen_indicators_values="net_volume: 100.00centiliter"/>
       <item name="bordelaise_75cl_bottle" nature="bottle" variety="cork_bottle" frozen_indicators_values="net_volume: 75.00centiliter"/>
       <item name="bos_vial" nature="vial" derivative_of="bos"/>
+      <item name="bottle_100cl_wine" nature="wine" frozen_indicators_values="net_mass: 1050gram, net_volume: 100.00centiliter"/>
+      <item name="bottle_120dl_wine" nature="wine" frozen_indicators_values="net_mass: 12180gram, net_volume: 1200.00centiliter"/>
+      <item name="bottle_150cl_wine" nature="wine" frozen_indicators_values="net_mass: 1550gram, net_volume: 150.00centiliter"/>
+      <item name="bottle_200cl_wine" nature="wine" frozen_indicators_values="net_mass: 2050gram, net_volume: 200.00centiliter"/>
+      <item name="bottle_300cl_wine" nature="wine" frozen_indicators_values="net_mass: 3080gram, net_volume: 300.00centiliter"/>
+      <item name="bottle_375ml_wine" nature="wine" frozen_indicators_values="net_mass: 380gram, net_volume: 37.50centiliter"/>
+      <item name="bottle_500cl_wine" nature="wine" frozen_indicators_values="net_mass: 5090gram, net_volume: 500.00centiliter"/>
+      <item name="bottle_50cl_wine" nature="wine" frozen_indicators_values="net_mass: 510gram, net_volume: 50.00centiliter"/>
+      <item name="bottle_600cl_wine" nature="wine" frozen_indicators_values="net_mass: 6100gram, net_volume: 600.00centiliter"/>
       <item name="bottle_75cl_wine" nature="wine" frozen_indicators_values="net_mass: 760gram, net_volume: 75.00centiliter"/>
+      <item name="bottle_900cl_wine" nature="wine" frozen_indicators_values="net_mass: 9150gram, net_volume: 900.00centiliter"/>
       <item name="brassicaceae_fungicide" nature="fungicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"/>
       <item name="buckwheat_crop" nature="cereal_crop" variety="fagopyrum_esculentum" frozen_indicators_values="net_surface_area: 1.00hectare"/>
       <item name="buckwheat_grain" nature="grain" derivative_of="fagopyrum_esculentum" frozen_indicators_values="net_mass: 1.00ton"/>
@@ -4458,7 +4450,6 @@
     </items>
   </nomenclature>
   <nomenclature name="residue_elimination_methods" translateable="true">
-    <properties/>
     <items>
       <item name="burning"/>
       <item name="burying"/>
@@ -4498,7 +4489,6 @@
     </items>
   </nomenclature>
   <nomenclature name="sexes" translateable="true">
-    <properties/>
     <items>
       <item name="female"/>
       <item name="hermaphrodite"/>
@@ -4507,7 +4497,6 @@
     </items>
   </nomenclature>
   <nomenclature name="soil_cultural_states" translateable="true">
-    <properties/>
     <items>
       <item name="covered"/>
       <item name="grown"/>
@@ -4517,7 +4506,6 @@
     </items>
   </nomenclature>
   <nomenclature name="soil_natures" translateable="true">
-    <properties/>
     <items>
       <item name="aubues_soil"/>
       <item name="black_valley_soil"/>

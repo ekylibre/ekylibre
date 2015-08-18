@@ -70,10 +70,12 @@ class Plant < Bioproduct
 
   # Return all Plant object who is alive in the given campaigns
   scope :of_campaign, lambda { |campaign|
-    fail ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}") unless campaign.is_a?(Campaign)
+    unless campaign.is_a?(Campaign)
+      fail ArgumentError, "Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}"
+    end
     started_at = Date.new(campaign.harvest_year.to_f, 01, 01)
     stopped_at = Date.new(campaign.harvest_year.to_f, 12, 31)
-    where('born_at <= ? AND ( dead_at IS NULL OR dead_at <= ?)', stopped_at, stopped_at)
+    where('born_at <= ? AND (dead_at IS NULL OR dead_at <= ?)', stopped_at, stopped_at)
   }
 
   def status

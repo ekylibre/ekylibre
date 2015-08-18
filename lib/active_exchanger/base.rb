@@ -34,12 +34,13 @@ module ActiveExchanger
 
       # Import file with check if possible
       def import(nature, file, options = {}, &block)
-        if method_defined?(:check)
-          if check(nature, file, options, &block)
-            import!(nature, file, options, &block)
+        exchanger = build(nature, file, options, &block)
+        if exchanger.respond_to? :check
+          if exchanger.check
+            exchanger.import
           end
         else
-          import!(nature, file, options, &block)
+          exchanger.import
         end
       end
 
@@ -47,7 +48,7 @@ module ActiveExchanger
         build(nature, file, options, &block).export
       end
 
-      def check(nature, file, options = {}, &block)
+      def check(nature, file, _options = {}, &block)
         supervisor = Supervisor.new(:check, &block)
         exchanger = find(nature).new(file, supervisor)
         valid = false
@@ -80,7 +81,6 @@ module ActiveExchanger
           import
         end
       end
-
     end
 
     attr_reader :file, :supervisor

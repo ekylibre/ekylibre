@@ -2,7 +2,7 @@ module Nomen
   # This class represents a nomenclature
   class Nomenclature
     attr_reader :properties, :items, :name, :roots
-    attr_accessor :name, :notions, :translateable
+    attr_accessor :name, :notions, :translateable, :forest_right
     alias_method :property_natures, :properties
 
     # Instanciate a new nomenclature
@@ -10,6 +10,7 @@ module Nomen
       @name = name.to_sym
       @set = options.delete(:set)
       @items = HashWithIndifferentAccess.new
+      @forest_right = 0
       @roots = []
       @properties = {}.with_indifferent_access
       @translateable = !options[:translateable].is_a?(FalseClass)
@@ -34,13 +35,17 @@ module Nomen
       end
     end
 
+    def roots
+      @items.values.select(&:root?)
+    end
+
     def name=(value)
       @name = value.to_sym
     end
 
     def update_attributes(attributes = {})
       attributes.each do |attribute, value|
-        self.send("#{attribute}=", value)
+        send("#{attribute}=", value)
       end
     end
 
@@ -65,24 +70,20 @@ module Nomen
     # Build a nested set index on items
     # Returns last right value
     def rebuild_tree!
-      left = 0
-      for item in roots
-        left = item.rebuild_tree!(left) + 1
-      end
-      left - 1
+      @forest_right = 0
+      roots.each(&:rebuild_tree!)
     end
 
     # Add an item to the nomenclature from an XML element
-    def harvest_item(element, options = {})
+    def harvest_item(element, attributes = {})
       name = element.attr('name').to_s
-      parent = options[:parent_name] || (options[:parent] ? options[:parent].name : element.key?('parent') ? element['parent'] : nil)
-      properties = element.attributes.each_with_object(HashWithIndifferentAccess.new) do |(k, v), h|
-        next if %w(name parent parent_name).include?(k)
+      parent = attributes[:parent] || (element.key?('parent') ? element['parent'] : nil)
+      attributes = element.attributes.each_with_object(HashWithIndifferentAccess.new) do |(k, v), h|
+        next if %w(name parent).include?(k)
         h[k] = cast_property(k, v.to_s)
       end
-      properties[:parent_name] = parent if parent
-      item = add_item(name, properties)
-      @roots << item unless item.parent_name
+      attributes[:parent] = parent if parent
+      item = add_item(name, attributes, rebuild: false)
       item
     end
 
@@ -126,29 +127,39 @@ module Nomen
     end
 
     # Add an item to the nomenclature
-    def add_item(name, properties = {})
-      i = Item.new(self, name, properties)
+    def add_item(name, attributes = {}, options = {})
+      i = Item.new(self, name, attributes)
       if @items[i.name]
         fail "Item #{i.name} is already defined in nomenclature #{@name}"
       end
       @items[i.name] = i
+      @roots << i unless i.parent?
+      i.rebuild_tree! unless options[:rebuild].is_a?(FalseClass)
       i
     end
 
     # Add an item to the nomenclature
     def change_item(name, changes = {})
       i = find!(name)
+      has_parent = changes.key?(:parent)
       new_parent = changes.delete(:parent)
       new_name = changes.delete(:name)
       changes.each do |k, v|
         i.set(k, v)
       end
-      i.parent = find!(new_parent) if new_parent
+      if has_parent
+        @roots << i if i.parent? && new_parent.nil?
+        @roots.delete(i) if i.root? && new_parent
+        i.parent = new_parent
+      end
       i = rename_item(name, new_name) if new_name
       i
     end
 
     def rename_item(name, new_name)
+      if @items[new_name]
+        fail "Item #{new_name} is already defined in nomenclature #{@name}. Use merging instead."
+      end
       i = find!(name)
       i.children.each do |child|
         child.parent_name = new_name
@@ -253,6 +264,16 @@ module Nomen
       "Nomen::#{name.to_s.classify}"
     end
 
+    # Returns hash with items in tree: {a => nil, b => {c => nil}}
+    def tree
+      x = @roots.collect(&:tree).join
+      return x
+      i.attributes.merge(parent: i.parent_name, name: i.name, left: i.left, right: i.right, depth: i.depth).deep_stringify_keys
+      return x
+      @roots.map do |_i|
+      end
+    end
+
     def translateable?
       @translateable
     end
@@ -262,6 +283,15 @@ module Nomen
       "nomenclatures.#{name}.name".t(options.merge(default: ["labels.#{name}".to_sym, name.to_s.humanize]))
     end
     alias_method :humanize, :human_name
+
+    def new_boundaries(count = 2)
+      boundaries = []
+      count.times do
+        @forest_right += 1
+        boundaries << @forest_right
+      end
+      boundaries
+    end
 
     # Returns the given item
     def [](item_name)
@@ -279,7 +309,7 @@ module Nomen
     alias_method :all, :to_a
 
     def <=>(other)
-      self.name <=> other.name
+      name <=> other.name
     end
 
     def dependency_index
@@ -336,6 +366,11 @@ module Nomen
     # Return the Item for the given name
     def find(item_name)
       @items[item_name]
+    end
+    alias_method :item, :find
+
+    def property(property_name)
+      @properties[property_name]
     end
 
     def find!(item_name)

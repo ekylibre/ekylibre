@@ -104,9 +104,7 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
     if administrative_area
       hash[:administrative_area] = Nomen::AdministrativeArea[administrative_area]
     end
-    if cultivation_variety
-      hash[:variety] = Nomen::Variety[cultivation_variety]
-    end
+    hash[:variety] = Nomen::Variety[cultivation_variety] if cultivation_variety
     hash[:soil_nature] = Nomen::SoilNature[soil_nature] if soil_nature
     if expected_yield
       hash[:expected_yield] = expected_yield.in(plan.mass_density_unit)

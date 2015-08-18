@@ -100,7 +100,7 @@ class Animal < Bioproduct
         animal_milk_production = (milk_daily_production * 365).to_d
       end
     end
-    items = Nomen::NmpFranceAbacusNitrogenAnimalProduction.list.select do |item|
+    items = Nomen::NmpFranceAnimalNitrogenProductions.list.select do |item|
       item.minimum_age <= animal_age.to_i && animal_age.to_i < item.maximum_age && item.minimum_milk_production <= animal_milk_production.to_i && animal_milk_production.to_i < item.maximum_milk_production && item.variant.to_s == variant.reference_name.to_s
     end
     if items.any?

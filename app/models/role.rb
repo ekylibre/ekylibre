@@ -89,9 +89,7 @@ class Role < Ekylibre::Record::Base
       array << 'all' if array.size < 3
       resource = array.second
       action = array.third
-      if action == 'all'
-        action = Ekylibre::Access.interactions_of(resource)
-      end
+      action = Ekylibre::Access.interactions_of(resource) if action == 'all'
       hash[resource] ||= []
       hash[resource] += [action].flatten.map(&:to_s)
       hash

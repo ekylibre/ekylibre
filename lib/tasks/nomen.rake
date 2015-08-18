@@ -50,7 +50,41 @@ namespace :nomen do
     end
   end
 
+  task list: :environment do
+    Nomen.all.each do |n|
+      if n.name.to_s.classify.tableize != n.name.to_s
+        puts n.name.to_s.red
+      else
+        puts n.name
+      end
+    end
+  end
+
   namespace :migrate do
+
+    task generate: :environment do
+      unless name = ENV["NAME"]
+        puts "Use command with NAME: rake nomen:migrate:generate NAME=add_some_stuff"
+        exit 1
+      end
+      name = name.downcase.gsub(/[\s\-\_]+/, '_')
+      full_name = Time.now.l(format: '%Y%m%d%H%M%S') + "_#{name}"
+      file = Rails.root.join("db", "nomenclatures", "migrate", "#{full_name}.xml")
+      found = Dir.glob(Nomen.migrations_path.join("*.xml")).detect do |file|
+        File.basename(file).to_s =~ /^\d+\_#{name}\.xml/
+      end
+      if found
+        puts "A migration with same name #{name} already exists: #{Pathname.new(found).relative_path_from(Rails.root)}"
+        exit 2
+      end
+      xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+      xml << "<migration name=\"#{name.humanize}\">\n"
+      xml << "  <!-- Add your changes here -->\n"
+      xml << "</migration>\n"
+      File.write(file, xml)
+      puts "Create #{file.to_s.yellow}"
+    end
+
     task model: :environment do
       Nomen.missing_migrations.each do |migration|
         Nomen::Migrator::Model.run(migration)

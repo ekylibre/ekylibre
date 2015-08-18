@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="20150817202608 rename abaci">
+  <nomenclature-change nomenclature="nmp_france_abacus_cultivation_yield" name="nmp_france_cultivation_yields"/>
+  <nomenclature-change nomenclature="nmp_france_abacus_maximum_nitrogen_input_per_cultivation" name="nmp_france_cultivation_nitrogen_input_maxima"/>
+  <nomenclature-change nomenclature="nmp_france_abacus_nitrogen_animal_production" name="nmp_france_animal_nitrogen_productions"/>
+
+  <nomenclature-change nomenclature="nmp_poitou_charentes_abacus_two" name="nmp_poitou_charentes_abacus_two_rows"/>
+  <nomenclature-change nomenclature="nmp_poitou_charentes_abacus_three" name="nmp_poitou_charentes_abacus_three_rows"/>
+  <nomenclature-change nomenclature="nmp_poitou_charentes_abacus_four" name="nmp_poitou_charentes_abacus_four_rows"/>
+  <nomenclature-change nomenclature="nmp_poitou_charentes_abacus_five" name="nmp_poitou_charentes_abacus_five_rows"/>
+  <nomenclature-change nomenclature="nmp_poitou_charentes_abacus_six" name="nmp_poitou_charentes_abacus_six_rows"/>
+  <nomenclature-change nomenclature="nmp_poitou_charentes_abacus_seven" name="nmp_poitou_charentes_abacus_seven_rows"/>
+  <nomenclature-change nomenclature="nmp_poitou_charentes_abacus_eight" name="nmp_poitou_charentes_abacus_eight_rows"/>
+  <nomenclature-change nomenclature="nmp_poitou_charentes_abacus_nine" name="nmp_poitou_charentes_abacus_nine_rows"/>
+  <nomenclature-change nomenclature="nmp_poitou_charentes_abacus_ten" name="nmp_poitou_charentes_abacus_ten_rows"/>
+  <nomenclature-change nomenclature="nmp_poitou_charentes_abacus_eleven" name="nmp_poitou_charentes_abacus_eleven_rows"/>
+  <nomenclature-change nomenclature="nmp_poitou_charentes_abacus_twelve" name="nmp_poitou_charentes_abacus_twelve_rows"/>
+
+</migration>

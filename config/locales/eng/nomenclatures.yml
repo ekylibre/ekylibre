@@ -1519,6 +1519,7 @@ eng:
         isagri_isacompta_export: "Isagri isacompta export"
         isagri_isaculture_csv_import: "Isagri isaculture csv import"
         la_graine_informatique_vinifera_entities: "La graine informatique vinifera entities"
+        # la_graine_informatique_vinifera_products: "La graine informatique vinifera products"
         legrain_epicea_accounts: "Legrain epicea accounts"
         legrain_epicea_journals: "Legrain epicea journals"
         lilco_milk_analyses: "Lilco milk analyses"
@@ -1989,38 +1990,38 @@ eng:
         synel: "Synel"
         synest: "Synest"
         telepac: "Telepac"
-    nmp_france_abacus_cultivation_yield:
-      name: "Nmp france abacus cultivation yield"
-    nmp_france_abacus_maximum_nitrogen_input_per_cultivation:
-      name: "Nmp france abacus maximum nitrogen input per cultivation"
-    nmp_france_abacus_nitrogen_animal_production:
+    nmp_france_animal_nitrogen_productions:
       name: "Nmp france abacus nitrogen animal production"
+    nmp_france_cultivation_nitrogen_input_maxima:
+      name: "Nmp france abacus maximum nitrogen input per cultivation"
+    nmp_france_cultivation_yields:
+      name: "Nmp france abacus cultivation yield"
     nmp_methods:
       name: "Nmp methods"
       items:
         france: "France"
         poitou_charentes: "Poitou charentes"
-    nmp_poitou_charentes_abacus_eight:
+    nmp_poitou_charentes_abacus_eight_rows:
       name: "Abacus 8 of the Poitou-Charentes manure management plan computation method"
-    nmp_poitou_charentes_abacus_eleven:
+    nmp_poitou_charentes_abacus_eleven_rows:
       name: "Abacus 11 of the Poitou-Charentes manure management plan computation method"
-    nmp_poitou_charentes_abacus_five:
+    nmp_poitou_charentes_abacus_five_rows:
       name: "Abacus 5 of the Poitou-Charentes manure management plan computation method"
-    nmp_poitou_charentes_abacus_four:
+    nmp_poitou_charentes_abacus_four_rows:
       name: "Abacus 4 of the Poitou-Charentes manure management plan computation method"
-    nmp_poitou_charentes_abacus_nine:
+    nmp_poitou_charentes_abacus_nine_rows:
       name: "Abacus 9 of the Poitou-Charentes manure management plan computation method"
-    nmp_poitou_charentes_abacus_seven:
+    nmp_poitou_charentes_abacus_seven_rows:
       name: "Abacus 7 of the Poitou-Charentes manure management plan computation method"
-    nmp_poitou_charentes_abacus_six:
+    nmp_poitou_charentes_abacus_six_rows:
       name: "Abacus 6 of the Poitou-Charentes manure management plan computation method"
-    nmp_poitou_charentes_abacus_ten:
+    nmp_poitou_charentes_abacus_ten_rows:
       name: "Abacus 10 of the Poitou-Charentes manure management plan computation method"
-    nmp_poitou_charentes_abacus_three:
+    nmp_poitou_charentes_abacus_three_rows:
       name: "Abacus 3 of the Poitou-Charentes manure management plan computation method"
-    nmp_poitou_charentes_abacus_twelve:
+    nmp_poitou_charentes_abacus_twelve_rows:
       name: "Abacus 12 of the Poitou-Charentes manure management plan computation method"
-    nmp_poitou_charentes_abacus_two:
+    nmp_poitou_charentes_abacus_two_rows:
       name: "Abacus 2 of the Poitou-Charentes manure management plan computation method"
     opportunity_origins:
       name: "Opportunity origins"
@@ -2456,7 +2457,17 @@ eng:
         bordelaise_100cl_bottle: "Bordelaise 100cl bottle"
         bordelaise_75cl_bottle: "Bordelaise 75cl bottle"
         bos_vial: "Bos vial"
+        bottle_100cl_wine: "Bottle 100cl wine"
+        bottle_120dl_wine: "Bottle 120dl wine"
+        bottle_150cl_wine: "Bottle 150cl wine"
+        bottle_200cl_wine: "Bottle 200cl wine"
+        bottle_300cl_wine: "Bottle 300cl wine"
+        bottle_375ml_wine: "Bottle 375ml wine"
+        bottle_500cl_wine: "Bottle 500cl wine"
+        bottle_50cl_wine: "Bottle 50cl wine"
+        bottle_600cl_wine: "Bottle 600cl wine"
         bottle_75cl_wine: "Bottle 75cl wine"
+        bottle_900cl_wine: "Bottle 900cl wine"
         brassicaceae_fungicide: "Brassicaceae fungicide"
         buckwheat_crop: "Buckwheat crop"
         buckwheat_grain: "Buckwheat grain"

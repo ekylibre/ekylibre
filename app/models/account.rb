@@ -309,7 +309,6 @@ class Account < Ekylibre::Record::Base
     end.compact
   end
 
-
   # Check if the account is a third account and therefore returns if it should be reconcilable
   def reconcilableable?
     (number.to_s.match(self.class.reconcilable_regexp) ? true : false)
