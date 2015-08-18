@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Set Ruby version
+echo "ruby '2.2.1'" > Gemfile.local
+# Set DB config
+cp -f packaging/conf/database.yml config/database.yml

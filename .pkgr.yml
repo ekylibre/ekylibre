@@ -1,3 +1,5 @@
+user: ekylibre
+group: ekylibre
 env:
   - "JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64"
   - "NOKOGIRI_USE_SYSTEM_LIBRARIES=1"
@@ -16,6 +18,7 @@ dependencies:
   - ghostscript
   - openjdk-7-jdk
   - libicu52
+  - nginx
 build_dependencies:
   - libcurl4-openssl-dev
   - openjdk-7-jdk
@@ -36,3 +39,5 @@ targets:
       - postgresql-9.3-postgis-2.1
 services:
   - postgres
+before_precompile: "packaging/setup"
+after_install: "packaging/postinst"
