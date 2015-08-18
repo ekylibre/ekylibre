@@ -34,12 +34,13 @@ module ActiveExchanger
 
       # Import file with check if possible
       def import(nature, file, options = {}, &block)
-        if method_defined?(:check)
-          if check(nature, file, options, &block)
-            import!(nature, file, options, &block)
+        exchanger = build(nature, file, options, &block)
+        if exchanger.respond_to? :check
+          if exchanger.check
+            exchanger.import
           end
         else
-          import!(nature, file, options, &block)
+          exchanger.import
         end
       end
 
