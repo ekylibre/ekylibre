@@ -6,6 +6,8 @@ Ekylibre::FirstRun.add_loader :base do |first_run|
   first_run.import_file(:ekylibre_backup, 'ekylibre/backup.zip')
 
   first_run.import_file(:ekylibre_variants, 'alamano/variants.ods')
+  
+  first_run.import_file(:la_graine_informatique_vinifera_products, 'vinifera/products.csv')
 
   # set extensions
   extensions = %w(jpeg jpg png)
