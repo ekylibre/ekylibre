@@ -33,3 +33,19 @@ i.leaflet-importer-ctrl {
 span.leaflet-importer-geojson, span.leaflet-importer-gml {
   font-size: 8px;
 }
+
+.leaflet-multilevel-legend {
+  i {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+  }
+  span {
+    display: inline-block;
+    margin-left: 10px;
+  }
+}
+
+.referenceLabel {
+  background-color: #fff;
+}

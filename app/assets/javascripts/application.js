@@ -48,6 +48,7 @@
 //= require leaflet/leaflet-measure
 //= require leaflet/easy-button
 //= require leaflet/Leaflet.Modal
+//= require leaflet/leaflet.label
 //= require autosize
 //= require plugins
 //= require_tree .
