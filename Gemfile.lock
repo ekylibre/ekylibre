@@ -99,7 +99,7 @@ GEM
     capybara-webkit (1.6.0)
       capybara (>= 2.3.0, < 2.5.0)
       json
-    celluloid (0.16.1)
+    celluloid (0.16.0)
       timers (~> 4.0.0)
     charlock_holmes (0.7.3)
     childprocess (0.5.6)
@@ -442,6 +442,7 @@ DEPENDENCIES
   byebug
   capybara
   capybara-webkit
+  celluloid (= 0.16.0)
   charlock_holmes
   cocoon
   code_string
