@@ -1,0 +1,13 @@
+#!/usr/bash
+
+# # Set Ruby version
+# echo "ruby '2.2.1'" >> Gemfile
+
+# # Set complementary gems
+# echo "gem 'rails_12factor'" >> Gemfile
+
+# # Updates Gemfile.lock
+# bundle update
+
+# Removes useless files
+rm -fr log/*.log tmp/* test doc private/* db/first_runs .sass-cache coverage *~ config/database.yml config/tenant.yml

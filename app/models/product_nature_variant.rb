@@ -52,6 +52,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   has_many :catalog_items, foreign_key: :variant_id, dependent: :destroy
   has_many :products, foreign_key: :variant_id
   has_many :purchase_items, foreign_key: :variant_id, inverse_of: :variant
+  has_many :sale_items, foreign_key: :variant_id, inverse_of: :variant
   has_many :readings, class_name: 'ProductNatureVariantReading', foreign_key: :variant_id, inverse_of: :variant
   has_picture
 

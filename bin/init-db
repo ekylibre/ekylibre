@@ -1,0 +1,36 @@
+#!/bin/sh
+# Use it as postgres
+
+user=$1
+dbname=$2
+password=`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c32`
+
+# Create User
+count=`psql -q -t -A -c "SELECT count(*) FROM pg_catalog.pg_user WHERE usename='${user}'"`
+if [ "${count}" = "0" ]; then
+    psql -q -c "CREATE USER ${user} WITH ENCRYPTED PASSWORD '${password}'"
+else
+    psql -q -c "ALTER USER ${user} WITH ENCRYPTED PASSWORD '${password}'"
+fi
+
+# Create DB
+count=`psql -q -t -A -c "SELECT count(*) FROM pg_catalog.pg_database WHERE datname='${dbname}'"`
+if [ "${count}" = "0" ]; then
+    psql -q -c "CREATE DATABASE ${dbname} WITH OWNER %{user}"
+else
+    psql -q -c "ALTER DATABASE ${dbname} OWNER TO %{user}"
+fi
+psql -q -c "GRANT ALL ON DATABASE ${dbname} TO ${user}"
+
+# Create Postgis extension
+postgis="postgis"
+count=`psql -d ${dbname} -q -t -A -c "SELECT count(*) FROM pg_catalog.pg_namespace WHERE nspname='${postgis}'"`
+if [ "${count}" = "0" ]; then
+    psql -d ${dbname} -q -c "CREATE SCHEMA ${postgis} AUTHORIZATION %{user}"
+else
+    psql -d ${dbname} -q -c "ALTER SCHEMA ${postgis} OWNER TO %{user}"
+fi
+psql -d ${dbname} -c "CREATE EXTENSION IF NOT EXISTS postgis WITH SCHEMA ${postgis};"
+
+
+echo ${password}

@@ -97,6 +97,7 @@ module Nomen
       else
         @@set = NomenclatureSet.new
       end
+      Rails.logger.info 'Loaded nomenclatures: ' + Nomen.names.to_sentence
     end
 
     # Returns the matching nomenclature
@@ -109,4 +110,3 @@ module Nomen
 end
 
 Nomen.load
-Rails.logger.info 'Loaded nomenclatures: ' + Nomen.names.to_sentence

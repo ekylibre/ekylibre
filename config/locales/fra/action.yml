@@ -49,6 +49,8 @@ fra:
     backend/animal_products:  #?
       index: "Produits animaux" #?
     backend/animals:
+      # add_group: "Add group animal: %{name}"
+      # add_to_container: "Add to container animal: %{name}"
       add_to_group: "Ajouter au groupe"
       edit: "Modifier l’animal\_: %{name}"
       index: "Animaux"

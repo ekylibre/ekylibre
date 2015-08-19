@@ -60,7 +60,7 @@ GEM
     ast (2.1.0)
     astrolabe (1.3.1)
       parser (~> 2.2)
-    autoprefixer-rails (5.2.1.1)
+    autoprefixer-rails (5.2.1.2)
       execjs
       json
     awesome_nested_set (3.0.2)
@@ -89,8 +89,7 @@ GEM
     browser (0.9.1)
     builder (3.2.2)
     burisu-docsplit (0.7.8)
-    byebug (5.0.0)
-      columnize (= 0.9.0)
+    byebug (6.0.0)
     capybara (2.4.4)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -100,7 +99,7 @@ GEM
     capybara-webkit (1.6.0)
       capybara (>= 2.3.0, < 2.5.0)
       json
-    celluloid (0.16.1)
+    celluloid (0.16.0)
       timers (~> 4.0.0)
     charlock_holmes (0.7.3)
     childprocess (0.5.6)
@@ -121,7 +120,6 @@ GEM
       execjs
     coffee-script-source (1.9.1.1)
     colored (1.2)
-    columnize (0.9.0)
     connection_pool (2.2.0)
     coveralls (0.8.2)
       json (~> 1.8)
@@ -152,7 +150,7 @@ GEM
     exception_notification (4.1.1)
       actionmailer (>= 3.0.4)
       activesupport (>= 3.0.4)
-    execjs (2.5.2)
+    execjs (2.6.0)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.10.0)
@@ -205,7 +203,7 @@ GEM
     json (1.8.3)
     kgio (2.9.3)
     libv8 (3.16.14.11)
-    loofah (2.0.2)
+    loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
@@ -264,7 +262,7 @@ GEM
       sprockets-rails
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
-    rails-dom-testing (1.0.6)
+    rails-dom-testing (1.0.7)
       activesupport (>= 4.2.0.beta, < 5.0)
       nokogiri (~> 1.6.0)
       rails-deprecated_sanitizer (>= 1.0.1)
@@ -367,7 +365,7 @@ GEM
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
     spring (1.3.6)
-    sprockets (3.3.0)
+    sprockets (3.3.1)
       rack (~> 1.0)
     sprockets-rails (2.3.2)
       actionpack (>= 3.0)
@@ -444,6 +442,7 @@ DEPENDENCIES
   byebug
   capybara
   capybara-webkit
+  celluloid (= 0.16.0)
   charlock_holmes
   cocoon
   code_string

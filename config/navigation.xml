@@ -1758,6 +1758,10 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="product_nature_variants">
+        <page to="backend/product_nature_variants#list_sale_items"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

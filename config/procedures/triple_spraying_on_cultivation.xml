@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="triple_spraying_on_cultivation" natures="plant_illness_treatment" version="0" status="frozen">
+    <variables>
+      <variable name="first_plant_medicine"          variety="preparation" abilities="care(plant)" roles="plant_illness_treatment-input_origin"/>
+      <variable name="first_plant_medicine_to_spray" new="parted-from: first_plant_medicine" roles="plant_illness_treatment-input" default-population=":first_plant_medicine" default-name="{{variant}} - [{{birth_day}}/{{birth_month}}/{{birth_year}}]">
+        <handler indicator="population" />
+        <handler indicator="mass_area_density"   unit="kilogram_per_hectare"   to="population" if="first_plant_medicine_to_spray? &amp; first_plant_medicine_to_spray..net_mass(kilogram) > 0"
+                 forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(kilogram)"
+                 backward="(value * self..net_mass(kilogram)) / cultivation.net_surface_area(hectare)"
+                 /> <!-- kg / ha -->
+        <handler indicator="volume_area_density"   unit="liter_per_hectare"   to="population"
+                 if="first_plant_medicine_to_spray? &amp; first_plant_medicine_to_spray..net_volume(liter) > 0"
+                 forward="(value * cultivation.net_surface_area(hectare)) / self..net_volume(liter)"
+                 backward="(value * self..net_volume(liter)) / cultivation.net_surface_area(hectare)"
+                 /> <!-- l / ha -->
+      </variable>
+      <variable name="second_plant_medicine"          variety="preparation" abilities="care(plant)" roles="plant_illness_treatment-input_origin"/>
+      <variable name="second_plant_medicine_to_spray" new="parted-from: second_plant_medicine" roles="plant_illness_treatment-input" default-population=":second_plant_medicine" default-name="{{variant}} - [{{birth_day}}/{{birth_month}}/{{birth_year}}]">
+        <handler indicator="population" />
+        <handler indicator="mass_area_density"   unit="kilogram_per_hectare"   to="population" if="second_plant_medicine_to_spray? &amp; second_plant_medicine_to_spray..net_mass(kilogram) > 0"
+                 forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(kilogram)"
+                 backward="(value * self..net_mass(kilogram)) / cultivation.net_surface_area(hectare)"
+                 /> <!-- kg / ha -->
+        <handler indicator="volume_area_density"   unit="liter_per_hectare"   to="population"
+                 if="second_plant_medicine_to_spray? &amp; second_plant_medicine_to_spray..net_volume(liter) > 0"
+                 forward="(value * cultivation.net_surface_area(hectare)) / self..net_volume(liter)"
+                 backward="(value * self..net_volume(liter)) / cultivation.net_surface_area(hectare)"
+                 /> <!-- l / ha -->
+      </variable>
+      <variable name="third_plant_medicine"          variety="preparation" abilities="care(plant)" roles="plant_illness_treatment-input_origin"/>
+      <variable name="third_plant_medicine_to_spray" new="parted-from: third_plant_medicine" roles="plant_illness_treatment-input" default-population=":third_plant_medicine" default-name="{{variant}} - [{{birth_day}}/{{birth_month}}/{{birth_year}}]">
+        <handler indicator="population" />
+        <handler indicator="mass_area_density"   unit="kilogram_per_hectare"   to="population" if="third_plant_medicine_to_spray? &amp; third_plant_medicine_to_spray..net_mass(kilogram) > 0"
+                 forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(kilogram)"
+                 backward="(value * self..net_mass(kilogram)) / cultivation.net_surface_area(hectare)"
+                 /> <!-- kg / ha -->
+        <handler indicator="volume_area_density"   unit="liter_per_hectare"   to="population"
+                 if="third_plant_medicine_to_spray? &amp; third_plant_medicine_to_spray..net_volume(liter) > 0"
+                 forward="(value * cultivation.net_surface_area(hectare)) / self..net_volume(liter)"
+                 backward="(value * self..net_volume(liter)) / cultivation.net_surface_area(hectare)"
+                 /> <!-- l / ha -->
+      </variable>
+      <variable name="tractor" variety="equipment" abilities="catch(sprayer)" roles="plant_illness_treatment-tool"/>
+      <variable name="sprayer" abilities="spray" roles="plant_illness_treatment-tool"/>
+      <variable name="driver"  abilities="drive(tractor)" roles="plant_illness_treatment-doer"/>
+      <variable name="cultivation" variety="plant" roles="plant_illness_treatment-target" need="shape" default-actor="variant-localized-in-storage" default-shape=":cultivation">
+        <handler indicator="shape">
+          <converter to="shape"      forward="intersection(value, cultivation.shape)" backward="value"/>
+          <converter to="population" forward="area(value) / cultivation..net_surface_area(square_meter)"/>
+        </handler>
+      </variable>
+    </variables>
+    <operations>
+      <operation id="800">
+        <!-- tant que le [tractor] travaille (? = sous-entendu le tracteur tourne,le conducteur roule, le pulvé tourne) les task tournent -->
+        <task do="[first_plant_medicine] parts with [first_plant_medicine_to_spray]"/>
+        <task do="[second_plant_medicine] parts with [second_plant_medicine_to_spray]"/>
+        <task do="[third_plant_medicine] parts with [third_plant_medicine_to_spray]"/>
+        <task do="[first_plant_medicine_to_spray] moves in [cultivation]"/>
+        <task do="[second_plant_medicine_to_spray] moves in [cultivation]"/>
+        <task do="[third_plant_medicine_to_spray] moves in [cultivation]"/>
+        <task do="[cultivation] consumes [first_plant_medicine_to_spray]"/>
+        <task do="[cultivation] consumes [second_plant_medicine_to_spray]"/>
+        <task do="[cultivation] consumes [third_plant_medicine_to_spray]"/>
+      </operation>
+    </operations>
+  </procedure>
+</procedures>
