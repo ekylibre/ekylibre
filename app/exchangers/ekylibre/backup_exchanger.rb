@@ -90,21 +90,14 @@ class Ekylibre::BackupExchanger < ActiveExchanger::Base
 
     def uniqify_doubles!(backup_model, keys, options = {})
       build_index(backup_model, keys)
-      puts keys.inspect
       doubles = @indexes[backup_model].size - @indexes[backup_model].uniq.size
-      puts keys.inspect
       undoubler = options[:undoubler] || keys.reject { |k| k.to_s =~ /(^|\_)id$/ }.last
-      puts keys.inspect
-      puts undoubler.inspect
       unless doubles.zero?
-        puts ''
-        puts "#{doubles} doubles detected on #{backup_model}".red
         dones = []
         separator = options[:undoubler_separator] || '-'
         self[backup_model].each do |item|
           unique_code = keys.collect { |k| item.send(k) }.join('-')
           if dones.include?(unique_code)
-            puts unique_code.red
             prefix = item.send(undoubler)
             undoubler_value = prefix
             counter = 1
@@ -114,7 +107,6 @@ class Ekylibre::BackupExchanger < ActiveExchanger::Base
               break unless dones.include?(unique_code)
               counter += 1
             end
-            puts unique_code.green
             item.send("#{undoubler}=", undoubler_value)
           end
           dones << unique_code
