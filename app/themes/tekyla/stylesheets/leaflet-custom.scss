@@ -47,5 +47,19 @@ span.leaflet-importer-geojson, span.leaflet-importer-gml {
 }
 
 .referenceLabel {
-  background-color: #fff;
+  //background-color: #fff;
+}
+
+.ghostLabel {
+  color: white;
+  text-shadow: 0 0 2px black;
+  font-size: 13px;
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+  &:before, &:after {
+    box-shadow: none;
+    border: none;
+    background: transparent;
+  }
 }

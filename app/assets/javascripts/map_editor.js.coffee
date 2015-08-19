@@ -30,7 +30,12 @@
         weight: 1
         color: "#333"
         fillOpacity: 0.2
-      defaultLabel: 'Sans nom'
+      ghostStyle:
+        weight: 4
+        color: "#FFF"
+        fillOpacity: 0
+      defaultLabel: 'Unnamed'
+      defaultLevelLabel: 'Level'
       editStyle:
         weight: 2
         color: "#33A"
@@ -138,6 +143,8 @@
       this._refreshReferenceLayerGroup()
       # console.log "shown"
       this._refreshEditionLayerGroup()
+      this._refreshGhostLayerGroup()
+
       # console.log "edited"
       this._refreshView()
       # console.log "viewed"
@@ -163,8 +170,7 @@
 
         $(this.element).trigger('mapeditor:feature_update', layer.feature)
 
-        widget._saveUpdates()
-        $(this.element).trigger('mapchange')
+#        this.update()
         false
 
       widget.element.trigger "mapeditor:loaded"
@@ -204,9 +210,6 @@
       popup += "<div class='popup-content'>"
       id = if feature.properties.id? then "#{feature.properties.id}: " else ''
       popup += "<span class='popup-block-content' data-internal-id='#{feature.properties.internal_id}'>#{id}#{feature.properties.name || this.options.defaultLabel}</span>"
-      popup += "</div>"
-      popup += "<div class='popup-content'>"
-      popup += "<span class='popup-block-content'>#{feature.properties.type}</span>"
       popup += "</div>"
       popup += "<div class='popup-content'>"
       popup += "<input type='text' value='#{feature.properties.name || this.options.defaultLabel}'/>"
@@ -284,6 +287,15 @@
         if this.options.back.constructor.name is "String"
           this.backgroundLayer = L.tileLayer.provider(this.options.back)
           this.backgroundLayer.addTo this.map
+        else if this.options.back.constructor.name is "Array"
+          baseLayers = {}
+          for layer, index in @options.back
+            backgroundLayer = L.tileLayer.provider(layer)
+            baseLayers[layer] = backgroundLayer
+            this.map.addLayer(backgroundLayer) if index == 0
+
+          this.options.controls.overlaySelector = new L.Control.Layers(baseLayers)
+          @map.addControl  this.options.controls.overlaySelector
         else
           console.log "How to set background with #{this.options.back}?"
           console.log this.options.back
@@ -296,6 +308,11 @@
         if this.options.useFeatures
           this.reference = L.geoJson(this.options.show, {
             onEachFeature: (feature, layer) =>
+
+              #required for cap_land_parcel_clusters as names are set later
+              if not feature.properties.name?
+                feature.properties.name = if feature.properties.id? then "#{this.options.defaultEditionFeaturePrefix}#{feature.properties.id}" else this.defaultLabel
+
               label = new L.Label({direction: 'auto', className:'referenceLabel'})
               label.setContent(feature.properties.name || feature.properties.id)
               label.setLatLng(layer.getBounds().getCenter())
@@ -306,7 +323,35 @@
 
         this.reference.setStyle this.options.showStyle
 #        this.reference = L.GeoJSON.geometryToLayer(this.options.show).setStyle this.options.showStyle
+        this.options.controls.overlaySelector.addOverlay(this.reference, 'Parcelles PAC')
+
         this.reference.addTo this.map
+      this
+
+    _refreshGhostLayerGroup: ->
+      if this.ghost?
+        this.map.removeLayer this.ghost
+      if this.options.ghost?
+        if this.options.useFeatures
+          this.ghost = L.geoJson(this.options.ghost, {
+            onEachFeature: (feature, layer) =>
+
+              #required for cap_land_parcel_clusters as names are set later
+#              if not feature.properties.name?
+#                feature.properties.name = if feature.properties.id? then "#{this.options.defaultEditionFeaturePrefix}#{feature.properties.id}" else this.defaultLabel
+#
+              label = new L.Label({direction: 'bottom', className:'ghostLabel', offset: [0, -50], opacity: 0.7})
+              label.setContent(feature.properties.name || feature.properties.id)
+              label.setLatLng(layer.getBounds().getCenter())
+              this.map.showLabel(label)
+          })
+        else
+          this.ghost = L.GeoJSON.geometryToLayer(this.options.ghost)
+
+        this.ghost.setStyle this.options.ghostStyle
+        this.ghost.addTo this.map
+
+        this.options.controls.overlaySelector.addOverlay(this.ghost, 'Ilôt PAC')
       this
 
     _refreshEditionLayerGroup: ->
@@ -316,6 +361,10 @@
         if this.options.useFeatures
           this.edition = L.geoJson(this.options.edit, {
             onEachFeature: (feature, layer) =>
+
+              if not feature.properties.name?
+                feature.properties.name = if feature.properties.id? then "#{this.options.defaultEditionFeaturePrefix}#{feature.properties.id}" else this.defaultLabel
+
               $(this.element).trigger('mapeditor:feature_add', feature)
 
               if feature.properties?
@@ -343,6 +392,8 @@
 
 #      this.edition.setStyle this.options.editStyle
       this.edition.addTo this.map
+      this.options.controls.overlaySelector.addOverlay(this.edition, 'Parcelles')
+
       this._refreshControls()
       this._saveUpdates()
       this
@@ -362,7 +413,7 @@
 
         color = this.colorize(level)
         html += "<i style='background-color: #{color}' title='#{level}'></i>"
-        html += "<span>#{level}</span>"
+        html += "<span>#{this.options.defaultLevelLabel} #{level}</span>"
         html += "</div>"
         html += "</div>"
 
@@ -573,6 +624,7 @@
     _saveUpdates: ->
       if this.edition?
         this.element.val JSON.stringify(this.edition.toGeoJSON())
+        this.element.trigger "mapchange"
       true
 
     update: ->
