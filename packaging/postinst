@@ -6,6 +6,21 @@ CLI="ekylibre"
 
 rake_commands="db:migrate"
 
+
+# database.yml
+rm config/database.yml
+ln -s /etc/ekylibre/database.yml config/database.yml
+if [ ! -f /etc/ekylibre/database.yml ]; then
+   echo '--- {}' > /etc/ekylibre/database.yml
+fi
+
+# tenants.yml
+rm config/tenants.yml
+ln -s /etc/ekylibre/tenants.yml config/tenants.yml
+if [ ! -f /etc/ekylibre/tenants.yml ]; then
+   echo '--- {}' > /etc/ekylibre/tenants.yml
+fi
+
 # set SECRET_TOKEN env variable
 secret_token=$(${CLI} config:get SECRET_KEY_BASE || ${CLI} run rake -s secret | tail -1)
 ${CLI} config:set SECRET_KEY_BASE="$secret_token"
