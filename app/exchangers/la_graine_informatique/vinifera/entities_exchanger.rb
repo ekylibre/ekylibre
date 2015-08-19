@@ -98,6 +98,7 @@ class LaGraineInformatique::Vinifera::EntitiesExchanger < ActiveExchanger::Base
       }.each do |expr, name|
         if r.full_name =~ /^#{expr}/i
           nature = name
+          r.title = expr.upcase
           r.last_name = r.full_name.gsub(/^#{expr}/i, '').strip
           break
         end
@@ -107,7 +108,8 @@ class LaGraineInformatique::Vinifera::EntitiesExchanger < ActiveExchanger::Base
         person.update_attributes!(country: r.country) if person.country.blank?
       elsif
         person = Entity.new(number: r.number,
-                            last_name: r.full_name,
+                            title: r.title,
+                            last_name: r.last_name,
                             full_name: r.full_name,
                             country: r.country,
                             nature: nature,
