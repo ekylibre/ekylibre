@@ -9,8 +9,5 @@
 # # Updates Gemfile.lock
 # bundle update
 
-# Set DB config
-# cp -f packaging/conf/database.yml config/database.yml
-
 # Removes useless files
-rm -fr log/*.log tmp/* test doc private/* db/first_runs .sass-cache coverage *~
+rm -fr log/*.log tmp/* test doc private/* db/first_runs .sass-cache coverage *~ config/database.yml config/tenant.yml

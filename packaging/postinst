@@ -6,12 +6,6 @@ CLI="ekylibre"
 
 rake_commands="db:migrate"
 
-DB="ekylibre_production"
-USER="ekylibre"
-
-# configure db
-# su postgres -c 'bin/init-db ${USER} ${DB}'
-
 # set SECRET_TOKEN env variable
 secret_token=$(${CLI} config:get SECRET_KEY_BASE || ${CLI} run rake -s secret | tail -1)
 ${CLI} config:set SECRET_KEY_BASE="$secret_token"
@@ -20,7 +14,7 @@ ${CLI} config:set SECRET_KEY_BASE="$secret_token"
 ${CLI} run rake ${rake_commands} || true
 
 # install default instance
-${CLI} run rake first_run name=main folder=default || true
+# ${CLI} run rake first_run name=main folder=default || true
 
 # scale
 ${CLI} scale web=1 || true
@@ -30,17 +24,3 @@ ${CLI} config:set ELEVATOR=header
 
 # restart
 service ${APP_NAME} restart
-
-# # setup nginx configuration
-# cat > /etc/nginx/sites-available/default <<EOF
-# server {
-#   listen          80;
-#   location / {
-#     proxy_pass       http://localhost:6000;
-#     proxy_set_header X-Tenant main;
-#   }
-# }
-# EOF
-
-# # restart nginx
-# sudo service nginx restart

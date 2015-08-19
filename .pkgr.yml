@@ -3,21 +3,8 @@ group: ekylibre
 env:
   - "JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64"
   - "NOKOGIRI_USE_SYSTEM_LIBRARIES=1"
-dependencies:
-  - graphicsmagick
-  - tesseract-ocr
-  - tesseract-ocr-ara
-  - tesseract-ocr-jpn
-  - tesseract-ocr-fra
-  - tesseract-ocr-eng
-  - tesseract-ocr-spa
-  - pdftk
-  - libreoffice
-  - poppler-utils
-  - poppler-data
-  - ghostscript
-  - openjdk-7-jdk
-  - libicu52
+# Global dependencies are not merged with specific dependencies
+# dependencies:
 build_dependencies:
   - libcurl4-openssl-dev
   - openjdk-7-jdk
@@ -32,9 +19,39 @@ build_dependencies:
 targets:
   debian-8:
     dependencies:
+      - graphicsmagick
+      - tesseract-ocr
+      - tesseract-ocr-ara
+      - tesseract-ocr-jpn
+      - tesseract-ocr-fra
+      - tesseract-ocr-eng
+      - tesseract-ocr-spa
+      - pdftk
+      - libreoffice
+      - poppler-utils
+      - poppler-data
+      - ghostscript
+      - openjdk-7-jdk
+      - libicu52
+      # Specific to Debian
       - postgresql-9.4-postgis-2.1
   ubuntu-14.04:
     dependencies:
+      - graphicsmagick
+      - tesseract-ocr
+      - tesseract-ocr-ara
+      - tesseract-ocr-jpn
+      - tesseract-ocr-fra
+      - tesseract-ocr-eng
+      - tesseract-ocr-spa
+      - pdftk
+      - libreoffice
+      - poppler-utils
+      - poppler-data
+      - ghostscript
+      - openjdk-7-jdk
+      - libicu52
+      # Specific to Ubuntu 14.04
       - postgresql-9.3-postgis-2.1
 services:
   - postgres
