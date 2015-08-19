@@ -49,7 +49,7 @@ class Backend::ProductNatureVariantsController < Backend::BaseController
     t.column :net_volume
     t.column :population
   end
-  
+
   list(:sale_items, conditions: { variant_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
     t.column :number, through: :sale, url: true
     t.column :invoiced_at, through: :sale, datatype: :datetime

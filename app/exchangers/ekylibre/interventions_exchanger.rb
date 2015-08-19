@@ -487,6 +487,32 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     intervention
   end
 
+  def record_triple_spraying_on_cultivation(r, support, duration)
+
+    plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
+
+    return nil unless plant && r.first.product && r.second.product && r.third.product
+
+    working_measure = plant.shape_area
+    first_product_input_population = actor_population_conversion(r.first, working_measure)
+    second_product_input_population = actor_population_conversion(r.second, working_measure)
+    third_product_input_population = actor_population_conversion(r.third, working_measure)
+
+    intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
+      i.add_cast(reference_name: 'first_plant_medicine', actor: r.first.product)
+      i.add_cast(reference_name: 'first_plant_medicine_to_spray', population: first_product_input_population)
+      i.add_cast(reference_name: 'second_plant_medicine', actor: r.second.product)
+      i.add_cast(reference_name: 'second_plant_medicine_to_spray', population: second_product_input_population)
+      i.add_cast(reference_name: 'third_plant_medicine', actor: r.third.product)
+      i.add_cast(reference_name: 'third_plant_medicine_to_spray', population: third_product_input_population)
+      i.add_cast(reference_name: 'sprayer',  actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'spray') : i.find(Equipment, can: 'spray')))
+      i.add_cast(reference_name: 'driver',   actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+      i.add_cast(reference_name: 'tractor',  actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'catch(sprayer)') : i.find(Equipment, can: 'catch(sprayer)')))
+      i.add_cast(reference_name: 'cultivation', actor: plant)
+    end
+    intervention
+  end
+
   #######################
   ####  IMPLANTING  ####
   #######################
@@ -751,6 +777,18 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       i.add_cast(reference_name: 'tractor',  actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'tow(equipment)') : i.find(Equipment, can: 'tow(equipment)')))
       i.add_cast(reference_name: 'compressor',  actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'blow') : i.find(Equipment, can: 'blow')))
       i.add_cast(reference_name: 'cultivation', actor: plant)
+    end
+    intervention
+  end
+
+  def record_harvest_helping(r, support, duration)
+    plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
+    cultivable_zone = support.storage
+    return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone)
+
+    intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
+      i.add_cast(reference_name: 'harvester_man', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+      i.add_cast(reference_name: 'cultivation', actor: (plant.present? ? plant : cultivable_zone))
     end
     intervention
   end

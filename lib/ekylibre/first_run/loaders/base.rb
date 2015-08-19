@@ -6,7 +6,7 @@ Ekylibre::FirstRun.add_loader :base do |first_run|
   first_run.import_file(:ekylibre_backup, 'ekylibre/backup.zip')
 
   first_run.import_file(:ekylibre_variants, 'alamano/variants.ods')
-  
+
   # set extensions
   extensions = %w(jpeg jpg png)
   # load default logo for of_company

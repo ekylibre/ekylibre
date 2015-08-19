@@ -39,6 +39,8 @@ por:
       new: "Novo grupo de animais"
       show: "Grupo de animais: %{name}"
     backend/animals:
+      # add_group: "Add group animal: %{name}"
+      # add_to_container: "Add to container animal: %{name}"
       add_to_group: "Adicionar ao grupo"
       edit: "Editar animal: %{name}"
       index: "Animais"

@@ -2,7 +2,7 @@
 class LaGraineInformatique::Vinifera::ProductsExchanger < ActiveExchanger::Base
 
   def import
-    
+
     # Unzip file
     dir = w.tmp_dir
     Zip::File.open(file) do |zile|
@@ -10,7 +10,7 @@ class LaGraineInformatique::Vinifera::ProductsExchanger < ActiveExchanger::Base
         entry.extract(dir.join(entry.name))
       end
     end
-    
+
     file = dir.join('products.csv')
     rows = CSV.read(file, headers: true, encoding: 'cp1252', col_sep: ';')
     w.count = rows.count
@@ -59,11 +59,11 @@ class LaGraineInformatique::Vinifera::ProductsExchanger < ActiveExchanger::Base
           complement_name_1: row[5].blank? ? nil : row[5].to_s,
           complement_name_2: row[6].blank? ? nil : row[6].to_s
       }.to_struct
-      
+
       number = nil
       number = r.appelation + "-" + r.year + "-" + r.unity if r.appelation && r.year && r.unity
       w.info number.inspect.red
-      
+
       if number
         # find variant in DB by number
         unless variant = ProductNatureVariant.find_by_number(number)

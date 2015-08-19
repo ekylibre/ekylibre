@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="harvest_helping" natures="garden_human_working" version="0" status="frozen">
+    <variables>
+      <variable name="harvester_man" variety="worker" abilities="move" roles="garden_human_working-doer"/>
+      <variable name="cultivation"   roles="garden_human_working-target" need="shape" default-actor="variant-localized-in-storage" default-shape=":cultivation">
+        <handler indicator="shape">
+          <converter to="shape"      forward="intersection(value, cultivation.shape)" backward="value"/>
+          <converter to="population" forward="area(value) / cultivation..net_surface_area(square_meter)"/>
+        </handler>
+      </variable>
+    </variables>
+    <operations>
+      <operation id="700">
+        <task do="[harvester_man] acts on [cultivation]"/>
+      </operation>
+    </operations>
+  </procedure>
+</procedures>
