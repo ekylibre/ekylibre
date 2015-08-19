@@ -1,8 +1,6 @@
 # coding: utf-8
 class LaGraineInformatique::Vinifera::SalesExchanger < ActiveExchanger::Base
-
   def import
-
     rows = CSV.read(file, headers: true, encoding: 'cp1252', col_sep: ';')
     w.count = rows.count
 
@@ -20,36 +18,33 @@ class LaGraineInformatique::Vinifera::SalesExchanger < ActiveExchanger::Base
 
     rows.each do |row|
       r = {
-          client_code: row[0].blank? ? nil : row[0].to_s,
-          original_date: row[1].blank? ? nil : row[1].to_s,
-          sale_number: row[3].blank? ? nil : row[3].to_s,
-          sale_item_number: row[4].blank? ? nil : row[4].to_s,
-          appelation: row[6].blank? ? nil : row[6].to_s,
-          year: row[7].blank? ? nil : row[7].to_s,
-          unity: row[8].blank? ? nil : row[8].to_s,
-          quantity: (row[10].blank? ? nil : row[10].tr(',', '.').to_d),
-          unit_pretax_amount: (row[11].blank? ? nil : row[11].tr(',', '.').to_d),
-          vat_rate: (row[28].blank? ? nil : row[28].tr(',', '.').to_d),
+        client_code: row[0].blank? ? nil : row[0].to_s,
+        original_date: row[1].blank? ? nil : row[1].to_s,
+        sale_number: row[3].blank? ? nil : row[3].to_s,
+        sale_item_number: row[4].blank? ? nil : row[4].to_s,
+        appelation: row[6].blank? ? nil : row[6].to_s,
+        year: row[7].blank? ? nil : row[7].to_s,
+        unity: row[8].blank? ? nil : row[8].to_s,
+        quantity: (row[10].blank? ? nil : row[10].tr(',', '.').to_d),
+        unit_pretax_amount: (row[11].blank? ? nil : row[11].tr(',', '.').to_d),
+        vat_rate: (row[28].blank? ? nil : row[28].tr(',', '.').to_d)
       }.to_struct
 
       if r.original_date
         day = r.original_date[0..1].to_i
         month = r.original_date[3..4].to_i
         year = 1900 + r.original_date[7..9].to_i
-        sale_invoiced_at = Date.new(year,month,day).to_time
+        sale_invoiced_at = Date.new(year, month, day).to_time
         w.info sale_invoiced_at.inspect.green
       end
 
-
       # find an entity link to this client
-      if r.client_code
-        entity = Entity.where(description: r.client_code).first
-      end
+      entity = Entity.where(description: r.client_code).first if r.client_code
 
       # find a the external number of the product
 
       variant_number = nil
-      variant_number = r.appelation + "-" + r.year + "-" + r.unity if r.appelation && r.year && r.unity
+      variant_number = r.appelation + '-' + r.year + '-' + r.unity if r.appelation && r.year && r.unity
       w.info variant_number.inspect.red
 
       # find a variant link to this external number
@@ -57,7 +52,7 @@ class LaGraineInformatique::Vinifera::SalesExchanger < ActiveExchanger::Base
         # find variant in DB by number (external number)
         unless variant = ProductNatureVariant.find_by_number(variant_number)
           w.warn "No way to find #{variant_number} in variant DB"
-          #fail "Import variant first"
+          # fail "Import variant first"
         end
       end
 

@@ -36,9 +36,7 @@ module ActiveExchanger
       def import(nature, file, options = {}, &block)
         exchanger = build(nature, file, options, &block)
         if exchanger.respond_to? :check
-          if exchanger.check
-            exchanger.import
-          end
+          exchanger.import if exchanger.check
         else
           exchanger.import
         end

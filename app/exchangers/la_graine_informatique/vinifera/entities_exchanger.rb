@@ -1,8 +1,5 @@
-# coding: utf-8
 class LaGraineInformatique::Vinifera::EntitiesExchanger < ActiveExchanger::Base
-  
   def import
-    
     # Unzip file
     dir = w.tmp_dir
     Zip::File.open(file) do |zile|
@@ -10,34 +7,9 @@ class LaGraineInformatique::Vinifera::EntitiesExchanger < ActiveExchanger::Base
         entry.extract(dir.join(entry.name))
       end
     end
-    
-    h_transcode = {}.with_indifferent_access
-    
-    custom_file = dir.join('custom_choices.csv')
-    if custom_file.exist?
-      CSV.foreach(custom_file, headers: true) do |row|
-        r = {
-        column_name: row[0].blank? ? '' : row[0].to_s,
-        column_customized_type: row[1].blank? ? '' : row[1].to_sym,
-        column_nature: row[2].blank? ? '' : row[2].to_sym,
-        choices_file: row[3].blank? ? '' : row[3].to_s
-      }.to_struct
-        # get list for custom_field : 'vinifera_type_client'
-        column_values = []
-        path = dir.join(r.choices_file)
-        if path.exist?
-          CSV.foreach(path, headers: true) do |under_row|
-            h_transcode[under_row[0]] = under_row[1].to_s.downcase if under_row[1]
-            column_values << under_row[1].to_s.downcase if under_row[1]
-          end
-          cf = create_custom_field(r.column_name, r.column_nature, r.column_customized_type, column_values)
-          w.info "#{cf.name} with column : #{cf.column_name} have been created" if cf
-        else
-          w.warn "No path found"
-        end
-      end
-    end
-    
+
+    custom_file = dir.join('custom_fields.csv')
+    custom_fields = create_custom_fields(custom_file, dir)
 
     file = dir.join('entities.csv')
     rows = CSV.read(file, headers: true, encoding: 'cp1252', col_sep: ';')
@@ -54,8 +26,8 @@ class LaGraineInformatique::Vinifera::EntitiesExchanger < ActiveExchanger::Base
     # 9 FAX
     # 10 PHONE 2
     # 11 CONTACT NAME
-    # 12 TYPE CLIENT / client_types_transcode 
-    # 33 ORIGIN (Transcode) - col 1 perso 
+    # 12 TYPE CLIENT / client_types_transcode
+    # 33 ORIGIN (Transcode) - col 1 perso
     # 34 CLIENT QUALITY (Transcode) - col 2 perso
     # 35 - - col 3 perso
     # 36 - col 4 perso
@@ -79,11 +51,11 @@ class LaGraineInformatique::Vinifera::EntitiesExchanger < ActiveExchanger::Base
         fax_number: row[9].blank? ? nil : row[9].to_s,
         cell_number: row[10].blank? ? nil : row[10].to_s,
         country: row[13].blank? ? country_preference : row[13].to_s.downcase,
-        client_types: row[12].blank? ? nil : row[12].to_s,
-        price_types: row[13].blank? ? nil : row[13].to_s,
-        client_origins: row[33].blank? ? nil : row[33].to_s,
-        client_qualities: row[34].blank? ? nil : row[34].to_s,
-        client_evolutions: row[36].blank? ? nil : row[36].to_s,
+        client_type: row[12].blank? ? nil : row[12].to_s,
+        client_price_type: row[13].blank? ? nil : row[13].to_s,
+        client_origin: row[33].blank? ? nil : row[33].to_s,
+        client_quality: row[34].blank? ? nil : row[34].to_s,
+        client_evolution: row[36].blank? ? nil : row[36].to_s,
         email: row[67].blank? ? nil : row[67].to_s,
         description: row[59].blank? ? nil : row[59].to_s,
         active: row[15].blank? ? false : true,
@@ -105,7 +77,7 @@ class LaGraineInformatique::Vinifera::EntitiesExchanger < ActiveExchanger::Base
       end
 
       if person = Entity.where('full_name ILIKE ?', r.full_name.strip).first
-        person.update_attributes!(country: r.country) if person.country.blank?
+        person.country = r.country if person.country.blank?
       elsif
         person = Entity.new(number: r.number,
                             title: r.title,
@@ -115,55 +87,25 @@ class LaGraineInformatique::Vinifera::EntitiesExchanger < ActiveExchanger::Base
                             nature: nature,
                             description: r.number
                            )
-        person.save!
       end
-      
-      if r.client_types
-       if r.client_types == "X" || r.client_types == "Y" || r.client_types == "Z"
-         account_number = 412
-       else
-         account_number = 411
-       end
-       person.client = true
-       person.client_account = Account.get(account_number, name: person.full_name)
-       person.save!
-      end
-      
-      if r.client_types
-        if value = h_transcode[r.client_types]
-          person['_vinifera_type_client'] = value
-          person.save!
+
+      if r.client_type
+        if r.client_type == 'X' || r.client_type == 'Y' || r.client_type == 'Z'
+          account_number = 412
+        else
+          account_number = 411
         end
+        person.client = true
+        person.client_account = Account.get(account_number, name: person.full_name)
       end
-      
-      if r.price_types
-        if value = h_transcode[r.price_types]
-          person['_vinifera_type_tarif'] = value
-          person.save!
-        end
+
+      custom_fields.each do |f|
+        val = r.send(f.name).to_s.strip.gsub(/[[:space:]\_]+/, '-')
+        person[f.field.column_name] = val unless val.blank?
       end
-      
-      if r.client_origins
-        if value = h_transcode[r.client_origins]
-          person['_vinifera_origine_client'] = value
-          person.save!
-        end
-      end
-      
-      if r.client_qualities
-        if value = h_transcode[r.client_qualities]
-          person['_vinifera_qualite_client'] = value
-          person.save!
-        end
-      end
-      
-      if r.client_evolutions
-        if value = h_transcode[r.client_evolutions]
-          person['_vinifera_evolution_client'] = value
-          person.save!
-        end
-      end
-      
+
+      person.save!
+
       # Add mail address if given
       mail_attributes = {}
       mail_attributes.store(:mail_line_3, r.address_line_1) if r.address_line_1
@@ -196,22 +138,46 @@ class LaGraineInformatique::Vinifera::EntitiesExchanger < ActiveExchanger::Base
       w.check_point
     end
   end
-  
+
   private
-  
-  def create_custom_field(column_name, column_nature, column_customized_type, values = [])
+
+  def create_custom_fields(file, dir)
+    list = []
+    return list unless file.exist?
+    CSV.foreach(file, headers: true) do |row|
+      r = {
+        name: row[0].to_s,
+        label: row[1].to_s,
+        nature: row[2].blank? ? :string : row[2].to_sym,
+        customized_type: 'Entity',
+        choices: {}
+      }.to_struct
+      path = dir.join("#{r.name.pluralize}_transcode.csv")
+      if path.exist?
+        CSV.foreach(path, headers: true) do |under_row|
+          r.choices[under_row[0].strip.gsub(/[[:space:]\_]+/, '-')] = under_row[1].strip
+        end
+      elsif nature == :choice
+        w.warn 'No path found for choices'
+      end
+      r.field = create_custom_field(r.label, r.customized_type, choices: r.choices, nature: r.nature, column_name: r.name)
+      list << r
+    end
+    list
+  end
+
+  def create_custom_field(name, customized_type, options = {})
     # create custom field if not exist
-    unless cf = CustomField.find_by_name(column_name)
+    unless cf = CustomField.find_by_name(name)
       # create custom field
-      cf = CustomField.create!(name: column_name, customized_type: column_customized_type, nature: column_nature)
+      cf = CustomField.create!(name: name, customized_type: customized_type, nature: options[:nature] || :string, column_name: options[:column_name])
       # create custom field choice if nature is choice
-      if cf && column_nature == :choice  && values.any?
-        for value in values
-          cf.choices.create!(name: value)
+      if cf.choice? && options[:choices]
+        for value, label in options[:choices]
+          cf.choices.create!(name: label, value: value)
         end
       end
     end
-    return cf
+    cf
   end
-  
 end

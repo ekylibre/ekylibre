@@ -61,16 +61,15 @@ namespace :nomen do
   end
 
   namespace :migrate do
-
     task generate: :environment do
-      unless name = ENV["NAME"]
-        puts "Use command with NAME: rake nomen:migrate:generate NAME=add_some_stuff"
+      unless name = ENV['NAME']
+        puts 'Use command with NAME: rake nomen:migrate:generate NAME=add_some_stuff'
         exit 1
       end
       name = name.downcase.gsub(/[\s\-\_]+/, '_')
       full_name = Time.now.l(format: '%Y%m%d%H%M%S') + "_#{name}"
-      file = Rails.root.join("db", "nomenclatures", "migrate", "#{full_name}.xml")
-      found = Dir.glob(Nomen.migrations_path.join("*.xml")).detect do |file|
+      file = Rails.root.join('db', 'nomenclatures', 'migrate', "#{full_name}.xml")
+      found = Dir.glob(Nomen.migrations_path.join('*.xml')).detect do |file|
         File.basename(file).to_s =~ /^\d+\_#{name}\.xml/
       end
       if found

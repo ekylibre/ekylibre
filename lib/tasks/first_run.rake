@@ -1,33 +1,32 @@
 # First-runs tasks
 namespace :first_run do
-
   namespace :default do
     task generate: :environment do
       dir = Ekylibre::FirstRun.path.join('default')
       FileUtils.mkdir_p dir.to_s
       manifest = {
         revision: 1,
-        host: "default.ekylibre.lan",
+        host: 'default.ekylibre.lan',
         demo: false,
-        currency: "EUR",
-        language: "fra",
-        country: "fr",
+        currency: 'EUR',
+        language: 'fra',
+        country: 'fr',
         company: {
           addresses: {
             mail: {
-              line_6: "33600 PESSAC"
+              line_6: '33600 PESSAC'
             }
           }
         },
         users: {
-          "admin@ekylibre.org" => {
-            first_name: "Duke",
-            last_name: "Doe",
-            password: "12345678"
+          'admin@ekylibre.org' => {
+            first_name: 'Duke',
+            last_name: 'Doe',
+            password: '12345678'
           }
         }
       }
-      File.write(dir.join("manifest.yml"), manifest.deep_stringify_keys.to_yaml)
+      File.write(dir.join('manifest.yml'), manifest.deep_stringify_keys.to_yaml)
     end
   end
 

@@ -49,6 +49,7 @@ class Ekylibre::BackupExchanger < ActiveExchanger::Base
     def initialize(*args)
       super(*args)
       @matchings = {}.with_indifferent_access
+      @indexes = {}.with_indifferent_access
     end
 
     def value_of(item, old_column, references = nil, converter = nil)
@@ -79,6 +80,48 @@ class Ekylibre::BackupExchanger < ActiveExchanger::Base
       value
     end
 
+    def build_index(backup_model, keys)
+      @indexes[backup_model] = []
+      self[backup_model].each do |item|
+        unique_code = keys.collect { |k| item.send(k) }.join('-')
+        @indexes[backup_model] << unique_code
+      end
+    end
+
+    def uniqify_doubles!(backup_model, keys, options = {})
+      build_index(backup_model, keys)
+      puts keys.inspect
+      doubles = @indexes[backup_model].size - @indexes[backup_model].uniq.size
+      puts keys.inspect
+      undoubler = options[:undoubler] || keys.reject { |k| k.to_s =~ /(^|\_)id$/ }.last
+      puts keys.inspect
+      puts undoubler.inspect
+      unless doubles.zero?
+        puts ''
+        puts "#{doubles} doubles detected on #{backup_model}".red
+        dones = []
+        separator = options[:undoubler_separator] || '-'
+        self[backup_model].each do |item|
+          unique_code = keys.collect { |k| item.send(k) }.join('-')
+          if dones.include?(unique_code)
+            puts unique_code.red
+            prefix = item.send(undoubler)
+            undoubler_value = prefix
+            counter = 1
+            loop do
+              undoubler_value = prefix + separator + counter.to_s
+              unique_code = keys.collect { |k| k == undoubler ? undoubler_value : item.send(k) }.join('-')
+              break unless dones.include?(unique_code)
+              counter += 1
+            end
+            puts unique_code.green
+            item.send("#{undoubler}=", undoubler_value)
+          end
+          dones << unique_code
+        end
+      end
+    end
+
     def import(backup_model, *args)
       # puts "Import #{backup_model.to_s.red}"
       # puts self[backup_model].first.inspect.yellow
@@ -103,6 +146,10 @@ class Ekylibre::BackupExchanger < ActiveExchanger::Base
       end if options[:rename]
       model = options[:model] || backup_model
       klass = model.to_s.camelcase.constantize
+
+      # Look for doubles
+      uniqify_doubles!(backup_model, keys, options.slice(:undoubler, :undoubler_separator))
+
       browse_and_match(backup_model) do |item|
         # puts item.inspect.magenta
         finder = keys.inject({}) do |hash, key|
@@ -130,7 +177,7 @@ class Ekylibre::BackupExchanger < ActiveExchanger::Base
       end
     end
 
-    def browse_and_match(backup_model, &_block)
+    def browse_and_match(backup_model)
       @matchings[backup_model] ||= {}
       self[backup_model].each do |item|
         @matchings[backup_model][item.id] = yield(item)
@@ -139,6 +186,10 @@ class Ekylibre::BackupExchanger < ActiveExchanger::Base
   end
 
   def import
+    # CAUTION Fixed manually by counting points
+    # grep -rin check_point app/exchangers/ekylibre/backup_exchanger.rb | wc -l
+    w.count = 20 - 1
+
     # Unzip file
     dir = w.tmp_dir
     Zip::File.open(file) do |zile|
@@ -147,81 +198,87 @@ class Ekylibre::BackupExchanger < ActiveExchanger::Base
       end
     end
 
+    w.check_point
+
+    # Check database
     database = dir.join('backup.xml')
-    if database.exist?
-      # CAUTION Fixed manually by counting points
-      w.count = 15
-      f = File.open(database)
-      doc = Nokogiri::XML(f) do |config|
-        config.strict.nonet.noblanks.noent
-      end
-      f.close
+    fail NotWellFormedFileError unless database.exist?
 
-      root = doc.root
-      if root.attr(:version).to_s == '20120806083148' # Ekylibre v0.4
-        data = Backup.load(root.children.first)
-        # :accounts, :cultivations, :custom_fields, :delays, :districts, :document_templates, :entity_categories, :entity_link_natures, :entity_natures, :establishments, :event_natures, :incoming_delivery_modes, :journals, :land_parcel_groups, :listings, :operation_natures, :outgoing_delivery_modes, :production_chains, :professions, :roles, :sequences, :tools, :units
+    w.check_point
 
-        delays = data[:delay].inject({}) do |hash, item|
-          hash[item.id] = item.expression
-          hash
-        end
-        w.check_point
-
-        # Import accounts
-        accounting_system = Preference[:accounting_system]
-        data.browse_and_match(:account) do |item|
-          unless account = Account.find_by(number: item.number)
-            reference = Nomen::Account.list.detect do |ref|
-              ref.send(accounting_system).to_s == item.number
-            end
-            account = Account.create!(number: item.number, name: item.name, last_letter: item.last_letter, debtor: item.is_debit, reconcilable: item.reconcilable, usages: (reference ? reference.name : nil))
-          end
-          account.id
-        end
-        w.check_point
-
-        # Import financial_years
-        data.import(:financial_year, :code, rename: { last_journal_entry_id: nil })
-        w.check_point
-        data.import(:department, :name, model: :team, rename: { sales_conditions: nil })
-        w.check_point
-        data.import(:district, :name, :code)
-        w.check_point
-        data.import(:journal, :name, converters: {
-                      nature: lambda { |j| j.nature == 'renew' ? 'forward' : j.nature }
-                    })
-        w.check_point
-        data.import(:sequence, :number_format)
-        w.check_point
-        data.import(:role, :name, rename: { rights: nil })
-        w.check_point
-        data[:user].each do |item|
-          item.email = item.name + '@ekylibre.org' if item.email.blank?
-        end
-        password = '12345678'
-        data.import(:user, :email, rename: { admin: :administrator, office: nil, profession_id: nil, arrived_on: nil, departed_on: nil, hashed_password: nil, salt: nil, reduction_percent: :maximal_grantable_reduction_percentage, connected_at: :last_sign_in_at, name: nil, rights: nil, establishment_id: nil }, default_values: { password: password, password_confirmation: password })
-        w.check_point
-        data.import(:entity, :code, rename: { code: :number, category_id: nil, nature_id: nil, payment_delay_id: nil, payment_mode_id: nil, webpass: nil, vat_submissive: :vat_subjected, soundex: nil, salt: nil, hashed_password: nil, invoices_count: nil, origin: :meeting_origin, attorney: nil, attorney_account_id: nil, born_on: :born_at, dead_on: :dead_at, discount_rate: nil, reduction_rate: nil, reflation_submissive: :reminder_submissive, ean13: nil, excise: nil, first_met_on: :first_met_at, website: nil, photo: nil }, default_values: { nature: 'organization' })
-        Entity.where('title ILIKE ? OR title ILIKE ? OR title ILIKE ?', '%Madame%', '%Monsieur%', 'M%').update_all(nature: 'contact')
-        w.check_point
-        data.import(:cash, :name, rename: { iban_label: :spaced_iban, address: :bank_agency_address, agency_code: :bank_agency_code, bic: :bank_identifier_code, by_default: nil, entity_id: :owner_id, key: :bank_account_key, number: :bank_account_number })
-        w.check_point
-        data.import(:bank_statement, :cash_id, :number, rename: { started_on: :started_at, stopped_on: :stopped_at })
-        w.check_point
-        data.import(:custom_field, :name, rename: { decimal_max: :maximal_value, decimal_min: :minimal_value, length_max: :maximal_length }, default_values: { customized_type: 'Entity' })
-        w.check_point
-        data.import(:journal_entry, :journal_id, :number, rename: { original_debit: :real_debit, original_credit: :real_credit, original_currency: :real_currency, original_currency_rate: :real_currency_rate, created_on: nil })
-        w.check_point
-        data.import(:journal_entry_line, :entry_id, :position, rename: { original_debit: :real_debit, original_credit: :real_credit }, model: :journal_entry_item)
-        w.check_point
-
-      # puts (data.keys - data.matchings.keys).inspect.red
-      else
-        fail NotSupportedFormatError
-      end
-    else
-      fail NotWellFormedFileError
+    #
+    f = File.open(database)
+    doc = Nokogiri::XML(f) do |config|
+      config.strict.nonet.noblanks.noent
     end
+    f.close
+
+    w.check_point
+
+    root = doc.root
+    unless root.attr(:version).to_s == '20120806083148' # Ekylibre v0.4
+      fail NotSupportedFormatError
+    end
+    data = Backup.load(root.children.first)
+
+    w.check_point
+
+    # :accounts, :cultivations, :custom_fields, :delays, :districts, :document_templates, :entity_categories, :entity_link_natures, :entity_natures, :establishments, :event_natures, :incoming_delivery_modes, :journals, :land_parcel_groups, :listings, :operation_natures, :outgoing_delivery_modes, :production_chains, :professions, :roles, :sequences, :tools, :units
+
+    delays = data[:delay].inject({}) do |hash, item|
+      hash[item.id] = item.expression
+      hash
+    end
+    w.check_point
+
+    # Import accounts
+    accounting_system = Preference[:accounting_system]
+    data.browse_and_match(:account) do |item|
+      unless account = Account.find_by(number: item.number)
+        reference = Nomen::Account.list.detect do |ref|
+          ref.send(accounting_system).to_s == item.number
+        end
+        account = Account.create!(number: item.number, name: item.name, last_letter: item.last_letter, debtor: item.is_debit, reconcilable: item.reconcilable, usages: (reference ? reference.name : nil))
+      end
+      account.id
+    end
+    w.check_point
+
+    # Import financial_years
+    data.import(:financial_year, :code, rename: { last_journal_entry_id: nil })
+    w.check_point
+    data.import(:department, :name, model: :team, rename: { sales_conditions: nil })
+    w.check_point
+    data.import(:district, :name, :code)
+    w.check_point
+    data.import(:journal, :name, converters: {
+                  nature: lambda { |j| j.nature == 'renew' ? 'forward' : j.nature }
+                })
+    w.check_point
+    data.import(:sequence, :number_format)
+    w.check_point
+    data.import(:role, :name, rename: { rights: nil })
+    w.check_point
+    data[:user].each do |item|
+      item.email = item.name + '@ekylibre.org' if item.email.blank?
+    end
+    password = '12345678'
+    data.import(:user, :email, rename: { admin: :administrator, office: nil, profession_id: nil, arrived_on: nil, departed_on: nil, hashed_password: nil, salt: nil, reduction_percent: :maximal_grantable_reduction_percentage, connected_at: :last_sign_in_at, name: nil, rights: nil, establishment_id: nil }, default_values: { password: password, password_confirmation: password })
+    w.check_point
+    data.import(:entity, :code, rename: { code: :number, category_id: nil, nature_id: nil, payment_delay_id: nil, payment_mode_id: nil, webpass: nil, vat_submissive: :vat_subjected, soundex: nil, salt: nil, hashed_password: nil, invoices_count: nil, origin: :meeting_origin, attorney: nil, attorney_account_id: nil, born_on: :born_at, dead_on: :dead_at, discount_rate: nil, reduction_rate: nil, reflation_submissive: :reminder_submissive, ean13: nil, excise: nil, first_met_on: :first_met_at, website: nil, photo: nil }, default_values: { nature: 'organization' })
+    Entity.where('title ILIKE ? OR title ILIKE ? OR title ILIKE ?', '%Madame%', '%Monsieur%', 'M%').update_all(nature: 'contact')
+    w.check_point
+    data.import(:cash, :name, rename: { iban_label: :spaced_iban, address: :bank_agency_address, agency_code: :bank_agency_code, bic: :bank_identifier_code, by_default: nil, entity_id: :owner_id, key: :bank_account_key, number: :bank_account_number })
+    w.check_point
+    data.import(:bank_statement, :cash_id, :number, rename: { started_on: :started_at, stopped_on: :stopped_at })
+    w.check_point
+    data.import(:custom_field, :name, rename: { decimal_max: :maximal_value, decimal_min: :minimal_value, length_max: :maximal_length }, default_values: { customized_type: 'Entity' })
+    w.check_point
+    data.import(:journal_entry, :journal_id, :number, rename: { original_debit: :real_debit, original_credit: :real_credit, original_currency: :real_currency, original_currency_rate: :real_currency_rate, created_on: nil }, undoubler_separator: 'D')
+    w.check_point
+    data.import(:journal_entry_line, :entry_id, :position, rename: { original_debit: :real_debit, original_credit: :real_credit }, model: :journal_entry_item)
+    w.check_point
+
+    # puts (data.keys - data.matchings.keys).inspect.red
   end
 end
