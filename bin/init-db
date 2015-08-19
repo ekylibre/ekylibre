@@ -28,7 +28,7 @@ count=`psql -d ${dbname} -q -t -A -c "SELECT count(*) FROM pg_catalog.pg_namespa
 if [ "${count}" = "0" ]; then
     psql -d ${dbname} -q -c "CREATE SCHEMA ${postgis} AUTHORIZATION %{user}"
 else
-    psql -d ${dbname} -q -c "ALTER SCHEMA ${postgis} OWNER TO %{user}"    
+    psql -d ${dbname} -q -c "ALTER SCHEMA ${postgis} OWNER TO %{user}"
 fi
 psql -d ${dbname} -c "CREATE EXTENSION IF NOT EXISTS postgis WITH SCHEMA ${postgis};"
 
