@@ -9,10 +9,8 @@ rake_commands="db:migrate"
 DB="ekylibre_production"
 USER="ekylibre"
 
-# set postgis on db
-su postgres -c "psql -c 'CREATE DATABASE ${DB} WITH OWNER ${USER};'"
-su postgres -c "psql -d ${DB} -c 'CREATE SCHEMA IF NOT EXISTS postgis AUTHORIZATION ${USER};'"
-su postgres -c "psql -d ${DB} -c 'CREATE EXTENSION IF NOT EXISTS postgis WITH SCHEMA postgis;'"
+# configure db
+# su postgres -c 'bin/init-db ${USER} ${DB}'
 
 # set SECRET_TOKEN env variable
 secret_token=$(${CLI} config:get SECRET_KEY_BASE || ${CLI} run rake -s secret | tail -1)

@@ -40,4 +40,5 @@ targets:
 services:
   - postgres
 before_precompile: "packaging/setup"
+after_precompile: "packaging/clean"
 after_install: "packaging/postinst"
