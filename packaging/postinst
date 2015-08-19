@@ -10,9 +10,9 @@ DB="ekylibre_production"
 USER="ekylibre"
 
 # set postgis on db
-psql -U postgres -c "CREATE DATABASE IF NOT EXISTS ${DB} WITH OWNER ${USER};"
-psql -U postgres -d ${DB} -c "CREATE SCHEMA IF NOT EXISTS postgis AUTHORIZATION ${USER};"
-psql -U postgres -d ${DB} -c "CREATE EXTENSION IF NOT EXISTS postgis WITH SCHEMA postgis;"
+su postgres -c "psql -c 'CREATE DATABASE ${DB} WITH OWNER ${USER};'"
+su postgres -c "psql -d ${DB} -c 'CREATE SCHEMA IF NOT EXISTS postgis AUTHORIZATION ${USER};'"
+su postgres -c "psql -d ${DB} -c 'CREATE EXTENSION IF NOT EXISTS postgis WITH SCHEMA postgis;'"
 
 # set SECRET_TOKEN env variable
 secret_token=$(${CLI} config:get SECRET_KEY_BASE || ${CLI} run rake -s secret | tail -1)
