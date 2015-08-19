@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bash
 
 # # Set Ruby version
 # echo "ruby '2.2.1'" >> Gemfile

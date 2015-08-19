@@ -2,24 +2,31 @@
 
 set -e
 
-CLI="ekylibre"
-
 rake_commands="db:migrate"
 
+APP_DIR=/opt/${APP_NAME}
+echo "APP_NAME: ${APP_NAME}"
+echo "APP_DIR: ${APP_DIR}"
+echo "APP_HOME: ${APP_HOME}"
+echo "CLI: ${CLI}"
+
+CLI=${APP_NAME}
 
 # database.yml
-rm -f config/database.yml
-ln -s /etc/ekylibre/database.yml config/database.yml
-if [ ! -f /etc/ekylibre/database.yml ]; then
-   echo '--- {}' > /etc/ekylibre/database.yml
+rm -f ${APP_DIR}/config/database.yml
+if [ ! -f /etc/${APP_NAME}/database.yml ]; then
+   echo '# Please configure database connection' > /etc/${APP_NAME}/database.yml
+   echo '--- {}' >> /etc/${APP_NAME}/database.yml
 fi
+ln -sf /etc/${APP_NAME}/database.yml ${APP_DIR}/config/database.yml
 
 # tenants.yml
-rm -f config/tenants.yml
-ln -s /etc/ekylibre/tenants.yml config/tenants.yml
-if [ ! -f /etc/ekylibre/tenants.yml ]; then
-   echo '--- {}' > /etc/ekylibre/tenants.yml
+rm -f ${APP_DIR}/config/tenants.yml
+if [ ! -f /etc/${APP_NAME}/tenants.yml ]; then
+   echo "# Managed by ${APP_NAME}" > /etc/${APP_NAME}/tenants.yml
+   echo '--- {}' >> /etc/${APP_NAME}/tenants.yml
 fi
+ln -sf /etc/${APP_NAME}/tenants.yml ${APP_DIR}/config/tenants.yml
 
 # set SECRET_TOKEN env variable
 secret_token=$(${CLI} config:get SECRET_KEY_BASE || ${CLI} run rake -s secret | tail -1)
@@ -28,13 +35,10 @@ ${CLI} config:set SECRET_KEY_BASE="$secret_token"
 # migrate
 ${CLI} run rake ${rake_commands} || true
 
-# install default instance
-# ${CLI} run rake first_run name=main folder=default || true
-
 # scale
 ${CLI} scale web=1 || true
 
-# set
+# set elevator mode based on HTTP header
 ${CLI} config:set ELEVATOR=header
 
 # restart
