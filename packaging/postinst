@@ -31,16 +31,16 @@ ${CLI} config:set ELEVATOR=header
 # restart
 service ${APP_NAME} restart
 
-# setup nginx configuration
-cat > /etc/nginx/sites-available/default <<EOF
-server {
-  listen          80;
-  location / {
-    proxy_pass       http://localhost:6000;
-    proxy_set_header X-Tenant main;
-  }
-}
-EOF
+# # setup nginx configuration
+# cat > /etc/nginx/sites-available/default <<EOF
+# server {
+#   listen          80;
+#   location / {
+#     proxy_pass       http://localhost:6000;
+#     proxy_set_header X-Tenant main;
+#   }
+# }
+# EOF
 
-# restart nginx
-sudo service nginx restart
+# # restart nginx
+# sudo service nginx restart

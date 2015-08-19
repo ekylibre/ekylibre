@@ -18,7 +18,6 @@ dependencies:
   - ghostscript
   - openjdk-7-jdk
   - libicu52
-  - nginx
 build_dependencies:
   - libcurl4-openssl-dev
   - openjdk-7-jdk
