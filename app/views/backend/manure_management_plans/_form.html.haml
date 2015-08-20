@@ -3,7 +3,7 @@
   = f.referenced_association :campaign
   = f.referenced_association :recommender
   - if f.object.new_record?
-    = f.input :default_computation_method
+    = f.input :default_computation_method, collection: Calculus::ManureManagementPlan.method_selection
   = f.input :opened_at
   = f.input :selected
   = f.input :annotation

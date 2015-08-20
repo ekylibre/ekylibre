@@ -56,7 +56,6 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
   has_one :campaign, through: :plan
   has_one :cultivable_zone, through: :support, source: :storage
   has_one :production, through: :support
-  refers_to :computation_method, class_name: 'ManureManagementPlanComputationMethod'
   refers_to :soil_nature
   refers_to :cultivation_variety, class_name: 'Variety'
   refers_to :administrative_area
@@ -98,9 +97,7 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
     if support.production_usage
       hash[:production_usage] = Nomen::ProductionUsage[support.production_usage]
     end
-    if computation_method
-      hash[:method] = Nomen::ManureManagementPlanComputationMethod[computation_method]
-    end
+    hash[:method] = computation_method.to_sym if computation_method
     if administrative_area
       hash[:administrative_area] = Nomen::AdministrativeArea[administrative_area]
     end
