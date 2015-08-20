@@ -1,14 +1,17 @@
 # coding: utf-8
 class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   def check
-    rows = CSV.read(file, headers: true, col_sep: ';').delete_if { |r| r[0].blank? }.sort { |a, b| [a[2].split(/\D/).reverse.join, a[0]] <=> [b[2].split(/\D/).reverse.join, b[0]] }
+    rows = CSV.read(file, headers: true, col_sep: ';')
     valid = true
     w.count = rows.size
     rows.each_with_index do |row, index|
-      line_number = index
+      line_number = index +2
       prompt = "L#{line_number.to_s.yellow}"
       r = parse_row(row)
-
+      if row[0].blank?
+        w.info "#{prompt} Skipped"
+        next
+      end
       # info, warn, error
       # valid = false if error
 
@@ -79,19 +82,19 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
       # CHECK ACTORS
       #
-      [r.first, r.second, r.third].each_with_index do |actor, index|
+      [r.first, r.second, r.third].each_with_index do |actor, i|
         next if actor.product_code.blank?
 
         # PROCEDURE GIVE PRODUCTS OR VARIANTS BUT NOT EXIST IN DB
         #
         if actor.product.is_a?(Product)
-        # w.info "#{prompt} Actor ##{index + 1} exist in DB as a product (#{actor.product.name})"
+        # w.info "#{prompt} Actor ##{i + 1} exist in DB as a product (#{actor.product.name})"
         elsif actor.variant.is_a?(ProductNatureVariant)
-        # w.info "#{prompt} Actor ##{index + 1} exist in DB as a variant (#{actor.variant.name})"
+        # w.info "#{prompt} Actor ##{i + 1} exist in DB as a variant (#{actor.variant.name})"
         elsif item = Nomen::ProductNatureVariants.find(actor.target_variant)
-        # w.info "#{prompt} Actor ##{index + 1} exist in NOMENCLATURE as a variant (#{item.name})"
+        # w.info "#{prompt} Actor ##{i + 1} exist in NOMENCLATURE as a variant (#{item.name})"
         else
-          w.error "#{prompt} Actor ##{index + 1} (#{actor.product_code}) does not exist in DB as a product or as a variant in DB or NOMENCLATURE"
+          w.error "#{prompt} Actor ##{i + 1} (#{actor.product_code}) does not exist in DB as a product or as a variant in DB or NOMENCLATURE"
           valid = false
         end
 
@@ -174,8 +177,8 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
             w.info ' third product : ' + r.third.product.name.inspect.red if r.third.product
             w.info ' cultivable_zone : ' + storage.name.inspect.yellow + ' - ' + storage.work_number.inspect.yellow if storage
             w.info ' support : ' + support.name.inspect.yellow if support
-            w.info ' workers_name : ' + r.workers.pluck(:name).inspect.yellow if r.workers
-            w.info ' equipments_name : ' + r.equipments.pluck(:name).inspect.yellow if r.equipments
+            w.info ' workers_name : ' + r.workers.map(&:name).inspect.yellow if r.workers
+            w.info ' equipments_name : ' + r.equipments.map(&:name).inspect.yellow if r.equipments
 
             area = storage.shape
             coeff = ((storage.shape_area / 10_000.0) / 6.0).to_d if area
@@ -185,7 +188,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
             # for the same intervention session
             r.intervention_started_at += duration.seconds if storage.shape
           elsif storage.is_a?(BuildingDivision) || storage.is_a?(Equipment)
-            duration = (r.intervention_duration_in_hour.hours / supports.count)
+            duration = (r.intervention_duration_in_hour.hours / r.supports.count)
             intervention = send("record_#{r.procedure_name}", r, support, duration)
             # for the same intervention session
             r.intervention_started_at += duration.seconds
@@ -248,9 +251,8 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         w.warn "Bad unit: #{unit} for intervention"
       end
       population_value = ((measure.to_f(variant_indicator.unit.to_sym)) / variant_indicator.value.to_f)
-
     # case population
-    elsif value >= 0.0 && !nomen_unit
+    elsif value >= 0.0 && measure.dimension == :none
       population_value = value
     end
     if working_area && working_area.to_d(:square_meter) > 0.0
@@ -372,6 +374,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     records = list.collect do |c|
       record = klass.find_by(column => c)
       unfound << c unless record
+      record
     end
     if unfound.any?
       fail "Cannot find #{klass.name.tableize} with #{column}: #{unfound.to_sentence}"
