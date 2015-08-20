@@ -121,20 +121,26 @@
         catch
           widget.edition.addLayer e.layer
 
-        widget._saveUpdates()
-        widget.element.trigger "mapchange"
+#        widget._saveUpdates()
+#        widget.element.trigger "mapchange"
+
+        this._refreshControls()
+        widget.update()
 
       this.map.on "draw:edited", (e) ->
-        widget._saveUpdates()
-        widget.element.trigger "mapchange"
+#        widget._saveUpdates()
+#        widget.element.trigger "mapchange"
+        widget.update()
+
 
       this.map.on "draw:deleted", (e) ->
         layers = e.layers
         layers.eachLayer (layer) =>
           widget.element.trigger 'mapeditor:feature_delete', layer.feature
 
-        widget._saveUpdates()
-        widget.element.trigger "mapchange"
+        widget.update()
+#        widget._saveUpdates()
+#        widget.element.trigger "mapchange"
 
       this._resize()
       # console.log "resized"
@@ -165,6 +171,11 @@
 
         layer = this.findLayer(featureId)
 
+        #update label
+        layer.updateLabelContent(layer.feature.properties.name)
+
+        layer.setStyle(this.setFeatureStyle(layer.feature))
+
         #update popup
         this.popupize layer.feature, layer
 
@@ -179,6 +190,12 @@
       this.updateFeatureProperties(feature_id, attributeName, attributeValue)
       layer = this.findLayer(feature_id)
 
+      #update label
+      layer.updateLabelContent(layer.feature.properties.name)
+
+      #update style
+      layer.setStyle(this.setFeatureStyle(layer.feature))
+
       #update popup
       this.popupize layer.feature, layer
 
@@ -188,6 +205,14 @@
 
       if layer
         layer.feature.properties[attributeName] = attributeValue
+
+    setFeatureStyle: (feature) ->
+      levelStyle = {}
+
+      if this.options.multiLevels?
+        levelStyle = {fillColor: this.colorize(feature.properties.level)}
+
+      $.extend(true, {}, this.options.editStyle, levelStyle)
 
     findLayer: (feature_id) ->
       containerLayer = undefined
@@ -294,8 +319,8 @@
             baseLayers[layer] = backgroundLayer
             this.map.addLayer(backgroundLayer) if index == 0
 
-          this.options.controls.overlaySelector = new L.Control.Layers(baseLayers)
-          @map.addControl  this.options.controls.overlaySelector
+          @layerSelector = new L.Control.Layers(baseLayers)
+          @map.addControl  @layerSelector
         else
           console.log "How to set background with #{this.options.back}?"
           console.log this.options.back
@@ -313,18 +338,16 @@
               if not feature.properties.name?
                 feature.properties.name = if feature.properties.id? then "#{this.options.defaultEditionFeaturePrefix}#{feature.properties.id}" else this.defaultLabel
 
-              label = new L.Label({direction: 'auto', className:'referenceLabel'})
-              label.setContent(feature.properties.name || feature.properties.id)
-              label.setLatLng(layer.getBounds().getCenter())
-              this.map.showLabel(label)
+#              label = new L.Label({direction: 'auto', className:'referenceLabel'})
+#              label.setContent(feature.properties.name || feature.properties.id)
+#              label.setLatLng(layer.getBounds().getCenter())
+#              this.map.showLabel(label)
           })
         else
           this.reference = L.GeoJSON.geometryToLayer(this.options.show)
 
         this.reference.setStyle this.options.showStyle
 #        this.reference = L.GeoJSON.geometryToLayer(this.options.show).setStyle this.options.showStyle
-        this.options.controls.overlaySelector.addOverlay(this.reference, 'Parcelles PAC')
-
         this.reference.addTo this.map
       this
 
@@ -350,8 +373,6 @@
 
         this.ghost.setStyle this.options.ghostStyle
         this.ghost.addTo this.map
-
-        this.options.controls.overlaySelector.addOverlay(this.ghost, 'Ilôt PAC')
       this
 
     _refreshEditionLayerGroup: ->
@@ -365,6 +386,8 @@
               if not feature.properties.name?
                 feature.properties.name = if feature.properties.id? then "#{this.options.defaultEditionFeaturePrefix}#{feature.properties.id}" else this.defaultLabel
 
+              layer.bindLabel(feature.properties.name || feature.properties.id, {direction: 'auto', className:'referenceLabel'})
+
               $(this.element).trigger('mapeditor:feature_add', feature)
 
               if feature.properties?
@@ -375,7 +398,6 @@
 
               if this.options.multiLevels?
                 levelStyle = {fillColor: this.colorize(feature.properties.level)}
-
 
               $.extend(true, {}, this.options.editStyle, levelStyle)
           })
@@ -392,8 +414,6 @@
 
 #      this.edition.setStyle this.options.editStyle
       this.edition.addTo this.map
-      this.options.controls.overlaySelector.addOverlay(this.edition, 'Parcelles')
-
       this._refreshControls()
       this._saveUpdates()
       this
@@ -430,7 +450,10 @@
           catch
             this._setDefaultView()
       else if view is 'show'
-        this.map.fitBounds this.reference.getLayers()[0].getBounds()
+        try
+          this.map.fitBounds this.reference.getLayers()[0].getBounds()
+        catch
+          this.map.fitBounds this.ghost.getLayers()[0].getBounds()
       else if view is 'edit'
          try
           this.map.fitBounds this.edition.getLayers()[0].getBounds()
@@ -621,14 +644,20 @@
         legend = this.controls.multiLevelLegend.getContainer()
         legend.innerHTML += this.buildLegend(this.edition)
 
+      if @options.overlaySelector?
+        selector = @layerSelector || new L.Control.Layers()
+        selector.addOverlay(@ghost, @options.overlaySelector.ghostLayer) if @ghost? and @ghost.getLayers().length > 0
+        selector.addOverlay(@reference, @options.overlaySelector.referenceLayer) if @reference? and @reference.getLayers().length > 0
+        selector.addOverlay(@edition, @options.overlaySelector.editionLayer) if @edition? and @edition.getLayers().length > 0
+
     _saveUpdates: ->
       if this.edition?
         this.element.val JSON.stringify(this.edition.toGeoJSON())
-        this.element.trigger "mapchange"
       true
 
     update: ->
       this._saveUpdates()
+      this._refreshControls()
       this.element.trigger "mapchange"
 
   $(document).ready ->
