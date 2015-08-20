@@ -1944,12 +1944,6 @@ arb:
         # heat: "Heat"
         # pregnancy: "Pregnancy"
       # name: "Mammalia reproduction states"
-    manure_management_plan_computation_methods:
-      items:
-        # aquitaine_2013: "Aquitaine 2013"
-        # external: "External"
-        # poitou_charentes_2013: "Poitou-Charentes 2013"
-      # name: "Manure management plan computation methods"
     molecules:
       items:
         # ammonia: "Ammonia"
@@ -2000,39 +1994,6 @@ arb:
         # identifiers: "Identifiers"
         # nature: "Nature"
         # url: "Url"
-    nmp_france_animal_nitrogen_productions:
-      # name: "Nmp france abacus nitrogen animal production"
-    nmp_france_cultivation_nitrogen_input_maxima:
-      # name: "Nmp france abacus maximum nitrogen input per cultivation"
-    nmp_france_cultivation_yields:
-      # name: "Nmp france abacus cultivation yield"
-    nmp_methods:
-      items:
-        # france: "France"
-        # poitou_charentes: "Poitou charentes"
-      # name: "Nmp methods"
-    nmp_poitou_charentes_abacus_eight_rows:
-      # name: "Abacus 8 of the Poitou-Charentes manure management plan computation method"
-    nmp_poitou_charentes_abacus_eleven_rows:
-      # name: "Abacus 11 of the Poitou-Charentes manure management plan computation method"
-    nmp_poitou_charentes_abacus_five_rows:
-      # name: "Abacus 5 of the Poitou-Charentes manure management plan computation method"
-    nmp_poitou_charentes_abacus_four_rows:
-      # name: "Abacus 4 of the Poitou-Charentes manure management plan computation method"
-    nmp_poitou_charentes_abacus_nine_rows:
-      # name: "Abacus 9 of the Poitou-Charentes manure management plan computation method"
-    nmp_poitou_charentes_abacus_seven_rows:
-      # name: "Abacus 7 of the Poitou-Charentes manure management plan computation method"
-    nmp_poitou_charentes_abacus_six_rows:
-      # name: "Abacus 6 of the Poitou-Charentes manure management plan computation method"
-    nmp_poitou_charentes_abacus_ten_rows:
-      # name: "Abacus 10 of the Poitou-Charentes manure management plan computation method"
-    nmp_poitou_charentes_abacus_three_rows:
-      # name: "Abacus 3 of the Poitou-Charentes manure management plan computation method"
-    nmp_poitou_charentes_abacus_twelve_rows:
-      # name: "Abacus 12 of the Poitou-Charentes manure management plan computation method"
-    nmp_poitou_charentes_abacus_two_rows:
-      # name: "Abacus 2 of the Poitou-Charentes manure management plan computation method"
     opportunity_origins:
       items:
         # advertisement: "Advertisement"

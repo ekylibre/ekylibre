@@ -300,6 +300,7 @@ eng:
     affectation_percentage: "Affectation percentage"
     affected_at: "Affected at" #?
     age: "Age"
+    # all_addresses: "All addresses"
     all_taxes_included: "All taxes included"
     allocation_account: "Allocation account"
     amount: "Amount"
