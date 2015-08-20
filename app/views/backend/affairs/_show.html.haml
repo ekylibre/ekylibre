@@ -11,23 +11,22 @@
         %th= Gap.human_attribute_name(:amount)
     %tfoot
       %tr
-        %td{colspan: 3}
+        %td{colspan: 4}
           - if affair
             - unless affair.closed?
-              %strong.action-intro= :attach_deal.tl
-              - third_id = (affair.deals.first ? affair.deals.first.deal_third.id : nil)
-
+              %span.action-intro= :attach_deal.tl
             %span.btn-group<
+              - third_id = (affair.deals.first ? affair.deals.first.deal_third.id : nil)
               - for type in (Affair.affairable_types - %w(Gap))
                 - model = type.underscore
                 = link_to({action: :select, controller: :affairs, id: affair.id, :deal_type => model, :third_id => third_id, redirect: request.fullpath}, class: "btn btn-link") do
                   %i
                   = Ekylibre::Record.human_name(model)
         %td.total
-          - if affair and affair.closed?
-            = :balance.tl
-          - else
-            - if affair
+          - if affair
+            - if affair.closed?
+              = :balance.tl
+            - else
               - unless affair.balance.zero?
                 %span.btn-group<
                   = link_to({controller: :affairs, action: :finish, id: affair.id, redirect: request.fullpath}, method: :post, class: "btn btn-check primary") do
@@ -35,9 +34,10 @@
                     = "convert_balance_into_#{affair.losing? ? :loss : :profit}".tl
         - if affair
           %td.total.amount.sum{class: (affair.balance == 0 ? "debit" : "credit")}= affair.balance.l(currency: affair.currency)
-          %td.act
-    %tbody
-      - if affair
+        - else
+          %td.total.amount.sum
+    - if affair
+      %tbody
         - for deal in affair.deals.sort{|a,b| a.dealt_at <=> b.dealt_at and a.created_at <=> b.created_at }
           %tr
             %td.act
