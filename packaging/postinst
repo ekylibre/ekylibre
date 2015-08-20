@@ -30,7 +30,7 @@ ${CLI} config:set SECRET_KEY_BASE="$secret_token"
 ${CLI} run rake ${rake_commands} || true
 
 # scale
-${CLI} scale web=1 || true
+${CLI} scale web=3 || true
 
 # set elevator mode based on HTTP header
 ${CLI} config:set ELEVATOR=header
