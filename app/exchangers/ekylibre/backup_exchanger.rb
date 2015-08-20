@@ -230,7 +230,7 @@ class Ekylibre::BackupExchanger < ActiveExchanger::Base
         reference = Nomen::Account.list.detect do |ref|
           ref.send(accounting_system).to_s == item.number
         end
-        account = Account.create!(number: item.number, name: item.name, last_letter: item.last_letter, debtor: item.is_debit, reconcilable: item.reconcilable, usages: (reference ? reference.name : nil))
+        account = Account.create!(number: item.number, name: item.name, label: item.label, last_letter: item.last_letter, debtor: item.is_debit, reconcilable: item.reconcilable, usages: (reference ? reference.name : nil), description: item.comment)
       end
       account.id
     end
