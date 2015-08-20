@@ -11,8 +11,6 @@ gem 'activerecord-postgis-adapter', '>= 3.0.0'
 
 # Multi-tenancy
 gem 'apartment', '>= 1.0.0', '< 2.0'
-# Fix manually
-gem 'celluloid', '0.16.0'
 
 # Code manipulation
 gem 'code_string'
