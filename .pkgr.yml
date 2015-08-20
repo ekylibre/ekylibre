@@ -19,6 +19,7 @@ build_dependencies:
 targets:
   debian-8:
     dependencies:
+      - imagemagick
       - graphicsmagick
       - tesseract-ocr
       - tesseract-ocr-ara
@@ -37,6 +38,7 @@ targets:
       - postgresql-9.4-postgis-2.1
   ubuntu-14.04:
     dependencies:
+      - imagemagick
       - graphicsmagick
       - tesseract-ocr
       - tesseract-ocr-ara
