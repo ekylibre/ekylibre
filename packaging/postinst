@@ -4,29 +4,23 @@ set -e
 
 rake_commands="db:migrate"
 
-APP_DIR=/opt/${APP_NAME}
-echo "APP_NAME: ${APP_NAME}"
-echo "APP_DIR: ${APP_DIR}"
-echo "APP_HOME: ${APP_HOME}"
-echo "CLI: ${CLI}"
-
 CLI=${APP_NAME}
 
 # database.yml
-rm -f ${APP_DIR}/config/database.yml
+rm -f ${APP_HOME}/config/database.yml
 if [ ! -f /etc/${APP_NAME}/database.yml ]; then
    echo '# Please configure database connection' > /etc/${APP_NAME}/database.yml
    echo '--- {}' >> /etc/${APP_NAME}/database.yml
 fi
-ln -sf /etc/${APP_NAME}/database.yml ${APP_DIR}/config/database.yml
+ln -sf /etc/${APP_NAME}/database.yml ${APP_HOME}/config/database.yml
 
 # tenants.yml
-rm -f ${APP_DIR}/config/tenants.yml
+rm -f ${APP_HOME}/config/tenants.yml
 if [ ! -f /etc/${APP_NAME}/tenants.yml ]; then
    echo "# Managed by ${APP_NAME}" > /etc/${APP_NAME}/tenants.yml
    echo '--- {}' >> /etc/${APP_NAME}/tenants.yml
 fi
-ln -sf /etc/${APP_NAME}/tenants.yml ${APP_DIR}/config/tenants.yml
+ln -sf /etc/${APP_NAME}/tenants.yml ${APP_HOME}/config/tenants.yml
 
 # set SECRET_TOKEN env variable
 secret_token=$(${CLI} config:get SECRET_KEY_BASE || ${CLI} run rake -s secret | tail -1)
@@ -36,7 +30,7 @@ ${CLI} config:set SECRET_KEY_BASE="$secret_token"
 ${CLI} run rake ${rake_commands} || true
 
 # scale
-${CLI} scale web=1 || true
+${CLI} scale web=3 || true
 
 # set elevator mode based on HTTP header
 ${CLI} config:set ELEVATOR=header

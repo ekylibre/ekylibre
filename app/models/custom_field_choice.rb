@@ -41,11 +41,11 @@ class CustomFieldChoice < Ekylibre::Record::Base
   validates_presence_of :custom_field, :name
   # ]VALIDATORS]
   validates_presence_of :value
-  validates_uniqueness_of :value, :name, scope: :custom_field_id
+  validates_uniqueness_of :value, :name, scope: :custom_field_id, case_sensitive: false
 
   before_validation do
     self.value ||= name.to_s.codeize # if self.value.blank?
-    self.value = self.value.mb_chars.downcase.gsub(/[[:space:]\_]+/, '-').gsub(/(^\-+|\-+$)/, '')[0..62]
+    self.value = self.value.mb_chars.gsub(/[[:space:]\_]+/, '-').gsub(/(^\-+|\-+$)/, '')[0..62]
     if custom_field
       while custom_field.choices.where(value: self.value).where('id != ?', id || 0).count > 0
         self.value.succ!

@@ -1,8 +1,6 @@
 # coding: utf-8
 class LaGraineInformatique::Vinifera::ProductsExchanger < ActiveExchanger::Base
-
   def import
-
     # Unzip file
     dir = w.tmp_dir
     Zip::File.open(file) do |zile|
@@ -45,23 +43,23 @@ class LaGraineInformatique::Vinifera::ProductsExchanger < ActiveExchanger::Base
     # 7 familly
     # 12 manage lot (O/N)
     # 13 manage stock (O/N)
-    # 15 initial stock
+    #  15 initial stock
     # 43 (pdtpxv01) - first sale price (link to catalog)
     # to
     # 72 (pdtpxv30) - 30th sale price
 
     rows.each do |row|
       r = {
-          appelation: row[1].blank? ? nil : row[1].to_s,
-          year: row[2].blank? ? nil : row[2].to_s,
-          unity: row[3].blank? ? nil : row[3].to_s,
-          name: row[4].blank? ? nil : row[4].to_s,
-          complement_name_1: row[5].blank? ? nil : row[5].to_s,
-          complement_name_2: row[6].blank? ? nil : row[6].to_s
+        appelation: row[1].blank? ? nil : row[1].to_s,
+        year: row[2].blank? ? nil : row[2].to_s,
+        unity: row[3].blank? ? nil : row[3].to_s,
+        name: row[4].blank? ? nil : row[4].to_s,
+        complement_name_1: row[5].blank? ? nil : row[5].to_s,
+        complement_name_2: row[6].blank? ? nil : row[6].to_s
       }.to_struct
 
       number = nil
-      number = r.appelation + "-" + r.year + "-" + r.unity if r.appelation && r.year && r.unity
+      number = r.appelation + '-' + r.year + '-' + r.unity if r.appelation && r.year && r.unity
       w.info number.inspect.red
 
       if number

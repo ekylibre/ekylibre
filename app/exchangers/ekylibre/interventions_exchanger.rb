@@ -1,14 +1,17 @@
 # coding: utf-8
 class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   def check
-    rows = CSV.read(file, headers: true, col_sep: ';').delete_if { |r| r[0].blank? }.sort { |a, b| [a[2].split(/\D/).reverse.join, a[0]] <=> [b[2].split(/\D/).reverse.join, b[0]] }
+    rows = CSV.read(file, headers: true, col_sep: ';')
     valid = true
     w.count = rows.size
     rows.each_with_index do |row, index|
-      line_number = index
+      line_number = index +2
       prompt = "L#{line_number.to_s.yellow}"
       r = parse_row(row)
-
+      if row[0].blank?
+        w.info "#{prompt} Skipped"
+        next
+      end
       # info, warn, error
       # valid = false if error
 
@@ -79,19 +82,19 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
       # CHECK ACTORS
       #
-      [r.first, r.second, r.third].each_with_index do |actor, index|
+      [r.first, r.second, r.third].each_with_index do |actor, i|
         next if actor.product_code.blank?
 
         # PROCEDURE GIVE PRODUCTS OR VARIANTS BUT NOT EXIST IN DB
         #
         if actor.product.is_a?(Product)
-        # w.info "#{prompt} Actor ##{index + 1} exist in DB as a product (#{actor.product.name})"
+        # w.info "#{prompt} Actor ##{i + 1} exist in DB as a product (#{actor.product.name})"
         elsif actor.variant.is_a?(ProductNatureVariant)
-        # w.info "#{prompt} Actor ##{index + 1} exist in DB as a variant (#{actor.variant.name})"
+        # w.info "#{prompt} Actor ##{i + 1} exist in DB as a variant (#{actor.variant.name})"
         elsif item = Nomen::ProductNatureVariants.find(actor.target_variant)
-        # w.info "#{prompt} Actor ##{index + 1} exist in NOMENCLATURE as a variant (#{item.name})"
+        # w.info "#{prompt} Actor ##{i + 1} exist in NOMENCLATURE as a variant (#{item.name})"
         else
-          w.error "#{prompt} Actor ##{index + 1} (#{actor.product_code}) does not exist in DB as a product or as a variant in DB or NOMENCLATURE"
+          w.error "#{prompt} Actor ##{i + 1} (#{actor.product_code}) does not exist in DB as a product or as a variant in DB or NOMENCLATURE"
           valid = false
         end
 
@@ -107,7 +110,6 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
           valid = false
         end
       end
-
     end
     valid
   end
@@ -117,7 +119,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     w.count = rows.size
 
     information_import_context = "Import Ekylibre interventions on #{Time.now.l}"
-    rows.each do |row, index|
+    rows.each do |row, _index|
       r = parse_row(row)
 
       if r.intervention_duration_in_hour.hours
@@ -156,7 +158,6 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         production = Production.where(activity: activity, campaign: r.campaign).first if activity && r.campaign
       end
 
-
       # case 1 support and production find
       if r.production_supports.any?
         r.production_supports.each do |support|
@@ -176,8 +177,8 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
             w.info ' third product : ' + r.third.product.name.inspect.red if r.third.product
             w.info ' cultivable_zone : ' + storage.name.inspect.yellow + ' - ' + storage.work_number.inspect.yellow if storage
             w.info ' support : ' + support.name.inspect.yellow if support
-            w.info ' workers_name : ' + r.workers.pluck(:name).inspect.yellow if r.workers
-            w.info ' equipments_name : ' + r.equipments.pluck(:name).inspect.yellow if r.equipments
+            w.info ' workers_name : ' + r.workers.map(&:name).inspect.yellow if r.workers
+            w.info ' equipments_name : ' + r.equipments.map(&:name).inspect.yellow if r.equipments
 
             area = storage.shape
             coeff = ((storage.shape_area / 10_000.0) / 6.0).to_d if area
@@ -187,7 +188,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
             # for the same intervention session
             r.intervention_started_at += duration.seconds if storage.shape
           elsif storage.is_a?(BuildingDivision) || storage.is_a?(Equipment)
-            duration = (r.intervention_duration_in_hour.hours / supports.count)
+            duration = (r.intervention_duration_in_hour.hours / r.supports.count)
             intervention = send("record_#{r.procedure_name}", r, support, duration)
             # for the same intervention session
             r.intervention_started_at += duration.seconds
@@ -250,12 +251,11 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         w.warn "Bad unit: #{unit} for intervention"
       end
       population_value = ((measure.to_f(variant_indicator.unit.to_sym)) / variant_indicator.value.to_f)
-
     # case population
-    elsif value >= 0.0 && !nomen_unit
+    elsif value >= 0.0 && measure.dimension == :none
       population_value = value
     end
-    if working_area and working_area.to_d(:square_meter) > 0.0
+    if working_area && working_area.to_d(:square_meter) > 0.0
       global_intrant_value = population_value.to_d * working_area.to_d(unit_target_dose.to_sym)
       return global_intrant_value
     else
@@ -332,7 +332,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       r.campaign = Campaign.create!(name: r.campaign_code, harvest_year: r.campaign_code)
     end
     # Get supports
-    r.supports = parse_record_list(r.support_codes.delete_if{|s| %w(EXPLOITATION).include?(s)}, Product, :work_number)
+    r.supports = parse_record_list(r.support_codes.delete_if { |s| %w(EXPLOITATION).include?(s) }, Product, :work_number)
     # Get equipments
     r.equipments = parse_record_list(r.equipment_codes, Equipment, :work_number)
     # Get workers
@@ -348,7 +348,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       end
     end
     r.target_variant = target_variant
-    return r
+    r
   end
 
   # parse an actor of a current row
@@ -374,11 +374,12 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     records = list.collect do |c|
       record = klass.find_by(column => c)
       unfound << c unless record
+      record
     end
     if unfound.any?
       fail "Cannot find #{klass.name.tableize} with #{column}: #{unfound.to_sentence}"
     end
-    return records
+    records
   end
 
   # find the best plant for the current support and cultivable zone
@@ -421,7 +422,6 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   end
 
   def record_double_spraying_on_land_parcel(r, support, duration)
-
     puts r.first.product.inspect.red
     puts r.second.product.inspect.red
 
@@ -488,7 +488,6 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   end
 
   def record_triple_spraying_on_cultivation(r, support, duration)
-
     plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
 
     return nil unless plant && r.first.product && r.second.product && r.third.product
@@ -608,7 +607,6 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     end
     intervention
   end
-
 
   #######################
   ####  FERTILIZING  ####
@@ -798,10 +796,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   #################################
 
   def record_fuel_up(r, support, duration)
-
     equipment = support.storage
 
-    return nil unless equipment and equipment.is_a?(Equipment) and r.first
+    return nil unless equipment && equipment.is_a?(Equipment) && r.first
 
     working_measure = nil
 
@@ -809,29 +806,29 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
     intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
       i.add_cast(reference_name: 'mechanic', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
-      i.add_cast(reference_name: 'fuel',      actor: r.first.product)
+      i.add_cast(reference_name: 'fuel', actor: r.first.product)
       i.add_cast(reference_name: 'fuel_to_input', population: first_product_input_population)
       i.add_cast(reference_name: 'equipment', actor: equipment)
     end
-    return intervention
+    intervention
   end
 
   def record_technical_task(r, support, duration)
     zone = support.storage
     cultivable_zone = support.storage
-    return nil unless (zone and (zone.is_a?(BuildingDivision) || zone.is_a?(Equipment))) || (cultivable_zone && cultivable_zone.is_a?(CultivableZone))
+    return nil unless (zone && (zone.is_a?(BuildingDivision) || zone.is_a?(Equipment))) || (cultivable_zone && cultivable_zone.is_a?(CultivableZone))
 
     intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
       i.add_cast(reference_name: 'worker', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
       i.add_cast(reference_name: 'target', actor: (cultivable_zone.present? ? cultivable_zone : zone))
     end
-    return intervention
+    intervention
   end
 
   def record_maintenance_task(r, support, duration)
     if support.is_a?(ProductionSupport)
       zone = support.storage
-      return nil unless zone and (zone.is_a?(BuildingDivision) || zone.is_a?(Equipment))
+      return nil unless zone && (zone.is_a?(BuildingDivision) || zone.is_a?(Equipment))
       intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
         i.add_cast(reference_name: 'worker', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
         i.add_cast(reference_name: 'maintained', actor: zone)
@@ -843,16 +840,15 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         i.add_cast(reference_name: 'maintained', actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes) : zone))
       end
     end
-    return intervention
+    intervention
   end
 
   # Record administrative task
-  def record_administrative_task(r, production, duration)
+  def record_administrative_task(r, _production, duration)
     return nil unless r.workers.present?
     intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), description: r.procedure_description) do |i|
       i.add_cast(reference_name: 'worker', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
     end
-    return intervention
+    intervention
   end
-
 end

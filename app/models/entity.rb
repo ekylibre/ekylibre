@@ -84,14 +84,15 @@ class Entity < Ekylibre::Record::Base
   belongs_to :responsible, class_name: 'User'
   belongs_to :supplier_account, class_name: 'Account'
   has_many :clients, class_name: 'Entity', foreign_key: :responsible_id, dependent: :nullify
-  has_many :addresses, -> { where(deleted_at: nil) }, class_name: 'EntityAddress', inverse_of: :entity
-  has_many :mails,     -> { where(canal: 'mail',    deleted_at: nil) }, class_name: 'EntityAddress', inverse_of: :entity
-  has_many :emails,    -> { where(canal: 'email',   deleted_at: nil) }, class_name: 'EntityAddress', inverse_of: :entity
-  has_many :phones,    -> { where(canal: 'phone',   deleted_at: nil) }, class_name: 'EntityAddress', inverse_of: :entity
-  has_many :mobiles,   -> { where(canal: 'mobile',  deleted_at: nil) }, class_name: 'EntityAddress', inverse_of: :entity
-  has_many :faxes,     -> { where(canal: 'fax',     deleted_at: nil) }, class_name: 'EntityAddress', inverse_of: :entity
-  has_many :websites,  -> { where(canal: 'website', deleted_at: nil) }, class_name: 'EntityAddress', inverse_of: :entity
-  has_many :auto_updateable_addresses, -> { where(deleted_at: nil, mail_auto_update: true) }, class_name: 'EntityAddress'
+  has_many :all_addresses, class_name: 'EntityAddress', inverse_of: :entity, dependent: :destroy
+  has_many :addresses, -> { actives }, class_name: 'EntityAddress', inverse_of: :entity
+  has_many :mails,     -> { actives.mails    }, class_name: 'EntityAddress', inverse_of: :entity
+  has_many :emails,    -> { actives.emails   }, class_name: 'EntityAddress', inverse_of: :entity
+  has_many :phones,    -> { actives.phones   }, class_name: 'EntityAddress', inverse_of: :entity
+  has_many :mobiles,   -> { actives.mobiles  }, class_name: 'EntityAddress', inverse_of: :entity
+  has_many :faxes,     -> { actives.faxes    }, class_name: 'EntityAddress', inverse_of: :entity
+  has_many :websites,  -> { actives.websites }, class_name: 'EntityAddress', inverse_of: :entity
+  has_many :auto_updateable_addresses, -> { actives.where(mail_auto_update: true) }, class_name: 'EntityAddress'
   has_many :direct_links, class_name: 'EntityLink', foreign_key: :entity_id
   has_many :events, through: :participations
   has_many :gaps, dependent: :restrict_with_error
