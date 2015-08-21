@@ -51,3 +51,6 @@ require 'state_machine/i18n'
 
 Ekylibre::Plugin.load unless ENV['PLUGIN'] == 'false'
 Ekylibre::Plugin.plug
+
+Aggeratio.load_path += Dir.glob(Rails.root.join('config', 'aggregators', '**', '*.xml'))
+Aggeratio.load

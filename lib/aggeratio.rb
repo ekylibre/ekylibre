@@ -1,4 +1,9 @@
 module Aggeratio
+
+  @@load_path = []
+
+  mattr_accessor :load_path
+
   class InvalidDocument < StandardError
   end
 
@@ -45,13 +50,14 @@ module Aggeratio
         @@categories[cat] ||= []
         @@categories[cat] << aggregator.id unless @@categories[cat].include?(aggregator.id)
       end
+      Rails.logger.info 'Loaded aggregators: ' + Aggeratio.names.to_sentence
       true
     end
 
     # Browse all aggregator elements in XML files
     def each_xml_aggregator(&_block)
-      for path in Dir.glob(root.join('*.xml')).sort
-        f = File.open(path, 'rb')
+      @@load_path.sort.each do |file_path|
+        f = File.open(file_path, 'rb')
         document = Nokogiri::XML(f) do |config|
           config.strict.nonet.noblanks.noent
         end
@@ -62,14 +68,9 @@ module Aggeratio
             yield clean(element)
           end
         else
-          Rails.logger.info("File #{path} is not a aggregator as defined by #{XMLNS}")
+          Rails.logger.info("File #{file_path} is not a aggregator as defined by #{XMLNS}")
         end
       end
-    end
-
-    # Returns the root of the aggregators
-    def root
-      Rails.root.join('config', 'aggregators')
     end
 
     def of_category(cat)
@@ -224,6 +225,3 @@ module Aggeratio
     end
   end
 end
-
-Aggeratio.load
-Rails.logger.info 'Loaded aggregators: ' + Aggeratio.names.to_sentence
