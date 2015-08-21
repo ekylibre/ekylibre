@@ -39,6 +39,10 @@ module Nomen
         @set.change_nomenclature(action.nomenclature, action.changes)
       end
 
+      def nomenclature_removal(action)
+        @set.remove_nomenclature(action.nomenclature)
+      end
+
       def property_creation(action)
         @set.add_property(action.nomenclature, action.name, action.type, action.options)
       end

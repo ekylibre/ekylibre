@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Remove abaci">
+  <nomenclature-removal nomenclature="nmp_poitou_charentes_abacus_eight_rows"/>
+  <nomenclature-removal nomenclature="nmp_poitou_charentes_abacus_eleven_rows"/>
+  <nomenclature-removal nomenclature="nmp_poitou_charentes_abacus_five_rows"/>
+  <nomenclature-removal nomenclature="nmp_poitou_charentes_abacus_four_rows"/>
+  <nomenclature-removal nomenclature="nmp_poitou_charentes_abacus_nine_rows"/>
+  <nomenclature-removal nomenclature="nmp_poitou_charentes_abacus_seven_rows"/>
+  <nomenclature-removal nomenclature="nmp_poitou_charentes_abacus_six_rows"/>
+  <nomenclature-removal nomenclature="nmp_poitou_charentes_abacus_ten_rows"/>
+  <nomenclature-removal nomenclature="nmp_poitou_charentes_abacus_three_rows"/>
+  <nomenclature-removal nomenclature="nmp_poitou_charentes_abacus_twelve_rows"/>
+  <nomenclature-removal nomenclature="nmp_poitou_charentes_abacus_two_rows"/>
+  <nomenclature-removal nomenclature="nmp_france_animal_nitrogen_productions"/>
+  <nomenclature-removal nomenclature="nmp_france_cultivation_nitrogen_input_maxima"/>
+  <nomenclature-removal nomenclature="nmp_france_cultivation_yields"/>
+  <nomenclature-removal nomenclature="nmp_methods"/>
+  <nomenclature-removal nomenclature="manure_management_plan_computation_methods"/>
+</migration>

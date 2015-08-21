@@ -61,6 +61,20 @@ module Nomen
       @references
     end
 
+    # Write CSV file with all items an there properties
+    def to_csv(file, _options = {})
+      properties = @properties.values
+      CSV.open(file, 'wb') do |csv|
+        csv << [:name] + properties.map do |p|
+          suffix = (p.decimal? ? ' D' : p.integer? ? ' I' : p.boolean? ? ' B' : p.item? ? " R(#{p.choices_nomenclature})" : '')
+          "#{p.name}#{suffix}"
+        end
+        @items.values.each do |i|
+          csv << [i.name] + properties.map { |p| i.attributes[p.name] }
+        end
+      end
+    end
+
     def to_xml_attrs
       attrs = { name: name, translateable: translateable.to_s }
       attrs[:notions] = @notions.join(', ') if @notions.any?

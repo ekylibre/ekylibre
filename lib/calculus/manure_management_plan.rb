@@ -1,21 +1,40 @@
 module Calculus
   module ManureManagementPlan
-    # autoload :Aquitaine2013,       'calculus/manure_management_plan/aquitaine_2013'
-    # autoload :External,            'calculus/manure_management_plan/external'
-    # autoload :Method,              'calculus/manure_management_plan/method'
-    # autoload :PoitouCharentes2013, 'calculus/manure_management_plan/poitou_charentes_2013'
+    @registered_methods = {}.with_indifferent_access
 
     class << self
       def estimate_expected_yield(options = {})
-        find_method(options).estimate_expected_yield
+        new_method(options).estimate_expected_yield
       end
 
       def compute(options = {})
-        find_method(options).compute
+        new_method(options).compute
       end
 
-      def find_method(options)
-        Calculus::ManureManagementPlan.const_get(options[:method].name.to_s.camelize).new(options)
+      def find_method(name)
+        class_name = @registered_methods[name]
+        fail "Cannot find method: #{name.inspect}" unless class_name
+        class_name.constantize
+      end
+
+      def new_method(options)
+        find_method(options[:method]).new(options)
+      end
+
+      # Register a method for manure management plan
+      def register_method(name, class_name)
+        @registered_methods[name] = class_name
+      end
+
+      # Produces an array for select options
+      def method_selection(options = {})
+        @registered_methods.keys.collect do |n|
+          [human_method_name(n, options), n.to_s]
+        end.sort { |a, b| a.first <=> b.first }
+      end
+
+      def human_method_name(name, options = {})
+        "manure_management_method.#{name}".t({ default: ["labels.#{name}".to_sym, name.to_s.humanize] }.merge(options))
       end
     end
   end
@@ -23,5 +42,5 @@ end
 
 require 'calculus/manure_management_plan/method'
 require 'calculus/manure_management_plan/external'
-require 'calculus/manure_management_plan/poitou_charentes_2013'
-require 'calculus/manure_management_plan/aquitaine_2013'
+
+Calculus::ManureManagementPlan.register_method :external, 'Calculus::ManureManagementPlan::External'

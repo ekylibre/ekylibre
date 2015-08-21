@@ -60,6 +60,20 @@ namespace :nomen do
     end
   end
 
+  namespace :export do
+    desc 'Export nomenclatures as CSV in tmp/nomenclatures'
+    task csv: :environment do
+      output = Rails.root.join('tmp', 'nomenclatures')
+      FileUtils.rm_rf(output)
+      FileUtils.mkdir_p(output)
+      Nomen.all.each do |n|
+        n.to_csv(output.join("#{n.name}.csv"))
+      end
+    end
+  end
+
+  task export: 'export:csv'
+
   namespace :migrate do
     task generate: :environment do
       unless name = ENV['NAME']

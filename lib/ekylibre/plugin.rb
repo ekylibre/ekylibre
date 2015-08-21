@@ -251,6 +251,10 @@ module Ekylibre
       @initializers[name] = block
     end
 
+    def register_manure_management_method(name, class_name)
+      Calculus::ManureManagementPlan.register_method(name, class_name)
+    end
+
     # TODO: Add other callback for plugin integration
     # def add_cell
     # end
