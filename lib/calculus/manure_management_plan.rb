@@ -17,6 +17,10 @@ module Calculus
         class_name.constantize
       end
 
+      def method_exist?(name)
+        @registered_methods[name].present?
+      end
+
       def new_method(options)
         find_method(options[:method]).new(options)
       end
