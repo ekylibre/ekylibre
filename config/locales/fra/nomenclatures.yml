@@ -1382,7 +1382,7 @@ fra:
         acta_category: "Catégorie ACTA"
     document_natures:
       items:
-        activity_cost: "Coût de production par activité et intervention"
+        activity_cost: "Coût de production détaillé"
         animal_husbandry_registry: "Registre d’élevage"
         animal_list: "Liste des animaux"
         animal_sheet: "Fiche animal"

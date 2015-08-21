@@ -120,7 +120,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
     information_import_context = "Import Ekylibre interventions on #{Time.now.l}"
     rows.each_with_index do |row, _index|
-      
+
       line_number = _index +2
       r = parse_row(row)
 
@@ -182,8 +182,8 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
             w.info ' support : ' + support.name.inspect.yellow if support
             w.info ' workers_name : ' + r.workers.map(&:name).inspect.yellow if r.workers
             w.info ' equipments_name : ' + r.equipments.map(&:name).inspect.yellow if r.equipments
-            
-            
+
+
 
             area = storage.shape
             coeff = ((storage.shape_area / 10_000.0) / 6.0).to_d if area
@@ -192,7 +192,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
             # for the same intervention session
             r.intervention_started_at += duration.seconds if storage.shape
-            
+
           elsif storage.is_a?(BuildingDivision) || storage.is_a?(Equipment)
             duration = (r.intervention_duration_in_hour.hours / r.supports.count)
             intervention = send("record_#{r.procedure_name}", r, support, duration)
@@ -256,7 +256,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         variant_indicator = product_variant.send(:net_length)
         population_value = ((measure.to_f(variant_indicator.unit.to_sym)) / variant_indicator.value.to_f)
       elsif measure.dimension == :none
-        population_value = value   
+        population_value = value
       else
         w.warn "Bad unit: #{unit} for intervention"
       end
@@ -405,7 +405,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     end
     plant
   end
-  
+
   def check_indicator_presence(object, indicator, type = nil)
     nature = object.is_a?(ProductNature) ? object : object.nature
     puts nature.indicators.inspect.red
@@ -413,7 +413,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       type ||= :frozen if object.is_a?(ProductNatureVariant)
       if type == :frozen
         nature.frozen_indicators_list << indicator
-      else    
+      else
         nature.variable_indicators_list << indicator
       end
       nature.save!
@@ -570,7 +570,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     first_product_input_population = actor_population_conversion(r.first, working_measure)
 
     cultivation_population = (working_measure.to_s.to_f * 10_000.0) if working_measure
-    
+
     # reading indicators on 750-2/3/4
     if r.indicators
       for indicator, value in r.indicators
@@ -583,7 +583,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         end
       end
     end
-    
+
     plants_count = cultivation_population.to_i
 
     intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description, parameters: { readings: { 'base-implanting-0-750-2' => rows_interval, 'base-implanting-0-750-3' => plants_interval, 'base-implanting-0-750-4' => plants_count } }) do |i|
@@ -729,7 +729,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   #######################
 
   def record_watering(r, support, duration)
-    
+
     cultivable_zone = support.storage
     plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && plant && r.first.product
