@@ -19,7 +19,7 @@ module Aggeratio
     end
 
     def build
-      fail NotImplementedEror.new
+      fail NotImplementedError
     end
 
     def build_variable(element)

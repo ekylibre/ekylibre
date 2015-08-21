@@ -5,7 +5,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     valid = true
     w.count = rows.size
     rows.each_with_index do |row, index|
-      line_number = index +2
+      line_number = index + 2
       prompt = "L#{line_number.to_s.yellow}"
       r = parse_row(row)
       if row[0].blank?
@@ -119,7 +119,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     w.count = rows.size
 
     information_import_context = "Import Ekylibre interventions on #{Time.now.l}"
-    rows.each do |row, _index|
+    rows.each_with_index do |row, _index|
+      
+      line_number = _index +2
       r = parse_row(row)
 
       if r.intervention_duration_in_hour.hours
@@ -168,7 +170,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
             duration = (r.intervention_duration_in_hour.hours * (storage.shape_area.to_d / r.production_supports_area.to_d).to_d).round(2) if storage.shape
 
             # w.info r.to_h.to_yaml
-            w.info "----------- #{r.intervention_number} / #{support.name} -----------".blue
+            w.info "----------- L#{line_number.to_s.yellow} : #{r.intervention_number} / #{support.name} -----------".blue
             w.info ' procedure : ' + r.procedure_name.inspect.green
             w.info ' started_at : ' + r.intervention_started_at.inspect.yellow if r.intervention_started_at
             w.info ' first product : ' + r.first.product.name.inspect.red if r.first.product
@@ -176,9 +178,12 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
             w.info ' second product : ' + r.second.product.name.inspect.red if r.second.product
             w.info ' third product : ' + r.third.product.name.inspect.red if r.third.product
             w.info ' cultivable_zone : ' + storage.name.inspect.yellow + ' - ' + storage.work_number.inspect.yellow if storage
+            w.info ' target variety : ' + r.target_variety.inspect.yellow if r.target_variety
             w.info ' support : ' + support.name.inspect.yellow if support
             w.info ' workers_name : ' + r.workers.map(&:name).inspect.yellow if r.workers
             w.info ' equipments_name : ' + r.equipments.map(&:name).inspect.yellow if r.equipments
+            
+            
 
             area = storage.shape
             coeff = ((storage.shape_area / 10_000.0) / 6.0).to_d if area
@@ -187,6 +192,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
             # for the same intervention session
             r.intervention_started_at += duration.seconds if storage.shape
+            
           elsif storage.is_a?(BuildingDivision) || storage.is_a?(Equipment)
             duration = (r.intervention_duration_in_hour.hours / r.supports.count)
             intervention = send("record_#{r.procedure_name}", r, support, duration)
@@ -242,18 +248,19 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       measure = Measure.new(value, unit)
       if measure.dimension == :volume
         variant_indicator = product_variant.send(:net_volume)
+        population_value = ((measure.to_f(variant_indicator.unit.to_sym)) / variant_indicator.value.to_f)
       elsif measure.dimension == :mass
         variant_indicator = product_variant.send(:net_mass)
+        population_value = ((measure.to_f(variant_indicator.unit.to_sym)) / variant_indicator.value.to_f)
       elsif measure.dimension == :distance
         variant_indicator = product_variant.send(:net_length)
+        population_value = ((measure.to_f(variant_indicator.unit.to_sym)) / variant_indicator.value.to_f)
+      elsif measure.dimension == :none
+        population_value = value   
       else
-        puts unit.inspect.red
         w.warn "Bad unit: #{unit} for intervention"
       end
-      population_value = ((measure.to_f(variant_indicator.unit.to_sym)) / variant_indicator.value.to_f)
     # case population
-    elsif value >= 0.0 && measure.dimension == :none
-      population_value = value
     end
     if working_area && working_area.to_d(:square_meter) > 0.0
       global_intrant_value = population_value.to_d * working_area.to_d(unit_target_dose.to_sym)
@@ -322,8 +329,8 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       second: parse_actor(row, 16),
       ### THIRD PRODUCT
       third: parse_actor(row, 20),
-      indicators: row[24].blank? ? {} : row[24].to_s.strip.split(/[[:space:]]*\,[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.inject({}) do |h, i|
-        h[i.first.strip.downcase.to_sym] = i.second
+      indicators: row[24].blank? ? {} : row[24].to_s.strip.split(/[[:space:]]*\,[[:space:]]*/).collect { |i| i.split(/[[:space:]]*(\:|\=)[[:space:]]*/) }.inject({}) do |h, i|
+        h[i.first.strip.downcase.to_sym] = i.third
         h
       end
     )
@@ -397,6 +404,20 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       plant = members.first.product if members
     end
     plant
+  end
+  
+  def check_indicator_presence(object, indicator, type = nil)
+    nature = object.is_a?(ProductNature) ? object : object.nature
+    puts nature.indicators.inspect.red
+    unless nature.indicators.include?(indicator)
+      type ||= :frozen if object.is_a?(ProductNatureVariant)
+      if type == :frozen
+        nature.frozen_indicators_list << indicator
+      else    
+        nature.variable_indicators_list << indicator
+      end
+      nature.save!
+    end
   end
 
   ########################
@@ -548,24 +569,24 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     working_measure = cultivable_zone.shape_area
     first_product_input_population = actor_population_conversion(r.first, working_measure)
 
-    cultivation_population = (working_measure.to_s.to_f / 10_000.0) if working_measure
-
-    rows_interval = 0
-    plants_interval = 0
-    # check indicators linked to matters
+    cultivation_population = (working_measure.to_s.to_f * 10_000.0) if working_measure
+    
+    # reading indicators on 750-2/3/4
     if r.indicators
       for indicator, value in r.indicators
         if indicator.to_sym == :rows_interval
+          check_indicator_presence(r.target_variant, indicator.to_sym, :variable)
           rows_interval = value
         elsif indicator.to_sym == :plants_interval
+          check_indicator_presence(r.target_variant, indicator.to_sym, :variable)
           plants_interval = value
         end
       end
     end
-    # reading indicators on 750-2/3/4
-    plants_count = cultivation_population
+    
+    plants_count = cultivation_population.to_i
 
-    intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description, parameters: { readings: { 'base-implanting-0-750-2' => rows_interval.to_d, 'base-implanting-0-750-3' => plants_interval.to_d, 'base-implanting-0-750-4' => plants_count.to_i } }) do |i|
+    intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description, parameters: { readings: { 'base-implanting-0-750-2' => rows_interval, 'base-implanting-0-750-3' => plants_interval, 'base-implanting-0-750-4' => plants_count } }) do |i|
       i.add_cast(reference_name: 'plants',        actor: r.first.product)
       i.add_cast(reference_name: 'plants_to_fix', population: first_product_input_population)
       i.add_cast(reference_name: 'implanter_tool', actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'implant') : i.find(Equipment, can: 'implant')))
@@ -708,10 +729,10 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   #######################
 
   def record_watering(r, support, duration)
+    
     cultivable_zone = support.storage
     plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && plant && r.first.product
-
     working_measure = cultivable_zone.shape_area
     first_product_input_population = actor_population_conversion(r.first, working_measure)
 

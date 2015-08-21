@@ -1210,6 +1210,7 @@
         <page to="backend/product_nature_variants#update"/>
         <page to="backend/product_nature_variants#list_catalog_items"/>
         <page to="backend/product_nature_variants#list_products"/>
+        <page to="backend/product_nature_variants#list_sale_items"/>
         <page to="backend/product_nature_variants#unroll"/>
       </item>
       <item name="catalogs">
@@ -1758,10 +1759,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="product_nature_variants">
-        <page to="backend/product_nature_variants#list_sale_items"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </navigation>

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20150820212931">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20150821082601">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -2579,6 +2579,7 @@
       <item name="goat_milk" nature="milk" derivative_of="capra" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.031kilogram"/>
       <item name="gooseberry_crop" nature="fruit_crop" variety="ribes" frozen_indicators_values="net_surface_area: 1.00hectare"/>
       <item name="gooseberry_seedling" nature="seedling" derivative_of="ribes"/>
+      <item name="grain" nature="grain" derivative_of="plant" frozen_indicators_values="net_mass: 1.00ton"/>
       <item name="grain_crusher" nature="food_distributor" frozen_indicators_values="population: 1"/>
       <item name="grain_tank" nature="grain_tank" frozen_indicators_values="population: 1"/>
       <item name="granulated_insecticide_12" nature="insecticide" frozen_indicators_values="net_volume: 12.00liter, net_mass: 12.00kilogram"/>

@@ -12,7 +12,7 @@ por:
     breeding_number: "Número de reprodução"
     campaigns: "Campanhas"
     capitalised_production: "Produção capitalizada"
-    cluster_pac_number: "Número do aglomerado"
+    cluster_pac_number: "Número do aglomerado" #?
     container_name: "Nome container"
     current_result_before_taxes: "Resultado atual sem impostos"
     depreciations_inputations_expenses: "Despesas de depreciação"
@@ -41,9 +41,9 @@ por:
     financial_years: "Anos fiscais"
     grains_yield: "Rendimento de grãos"
     human_roles: "Regras de pessoa"
-    incoming_quantity: "Quantidade a receber"
-    input_quantity: "Quantidade de entrada"
-    input_unit_name: "Nome unidade de entrada"
+    incoming_quantity: "Quantidade a receber" #?
+    input_quantity: "Quantidade de entrada" #?
+    input_unit_name: "Nome unidade de entrada" #?
     intervention_durations: "Duração das intervenções"
     loss_balance: "Balanço de perdas"
     losses: "Perdas"
@@ -82,7 +82,7 @@ por:
     raw_matters_stocks_variation: "Variação de estoque de matérias primas"
     recommender_full_name: "Nome completo recomendado"
     recommender_mail_coordinate: "Recomendado e-mail"
-    sender_address: "Endereço emitente"
+    sender_address: "Endereço emitente" #?
     sex: "Sexo"
     social_expenses: "Despesas sociais"
     soil_varieties: "Variedades de solo"
@@ -91,12 +91,12 @@ por:
     stocks_variation: "Variação de estoque"
     subsidies: "Subsidios"
     target_name: "Nome alvo"
-    unitary_quantity: "Quantidade unitária"
+    unitary_quantity: "Quantidade unitária" #?
     variable_name: "Nome variável"
     variant_name: "Nome da variante"
     variant_variety: "Variedade de variantes"
     vine_yield: "Produção por planta"
     wages: "Salários"
-    working_area: "Área de trabalho"
+    working_area: "Área de trabalho" #?
   aggregators:
     vat_registry: "Registro de imposto"

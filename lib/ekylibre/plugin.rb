@@ -147,10 +147,15 @@ module Ekylibre
         $LOAD_PATH.unshift(@lib_dir.to_s)
         require @name.to_s unless @required.is_a?(FalseClass)
       end
-
       # Adds rights
       @right_file = root.join('config', 'rights.yml')
       Ekylibre::Access.load_file(@right_file) if @right_file.exist?
+
+      # Adds aggregators
+      @aggregators_path = @root.join('config', 'aggregators')
+      if @aggregators_path.exist?
+        Aggeratio.load_path += Dir.glob(@aggregators_path.join('**', '*.xml'))
+      end
 
       # Adds locales
       Rails.application.config.i18n.load_path += Dir.glob(@root.join('config', 'locales', '**', '*.{rb,yml}'))
