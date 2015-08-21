@@ -2,7 +2,6 @@ arb:
   aggregator_parameters:
     # campaigns: "Campaigns"
   aggregator_properties:
-    # animal_husbandry_registry: "Animal husbandry registry"
     # area: "Area"
     # area_in_hectare: "Area in hectare"
     # breeding_number: "Breeding number"
@@ -71,5 +70,3 @@ arb:
     # variant_variety: "Variant variety"
     # vine_yield: "Vine yield"
     # wages: "Wages"
-  aggregators:
-    # vat_registry: "Vat tax registry"

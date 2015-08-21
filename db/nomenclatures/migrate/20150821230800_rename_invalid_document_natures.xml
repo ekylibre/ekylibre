@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Rename invalid document natures">
+  <item-change item="document_natures#vat_registry"              name="vat_register"/>
+  <item-change item="document_natures#animal_husbandry_registry" name="animal_husbandry_register"/>
+  <item-change item="document_natures#intervention_registry"     name="intervention_register"/>
+  <item-change item="document_natures#land_parcel_registry"      name="land_parcel_register"/>
+  <item-change item="document_natures#phytosanitary_registry"    name="phytosanitary_register"/>
+  <item-change item="document_natures#wine_manipulation_registry"  name="wine_manipulation_register"/>
+  <item-change item="document_natures#wine_bottling_registry"      name="wine_bottling_register"/>
+  <item-change item="document_natures#wine_detention_registry"     name="wine_detention_register"/>
+  <item-change item="document_natures#vine_phytosanitary_registry" name="vine_phytosanitary_register"/>
+</migration>

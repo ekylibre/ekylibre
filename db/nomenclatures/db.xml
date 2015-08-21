@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20150821082601">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20150821230800">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -1391,7 +1391,7 @@
     </properties>
     <items>
       <item name="activity_cost" category="management"/>
-      <item name="animal_husbandry_registry" category="animal_farming"/>
+      <item name="animal_husbandry_register" category="animal_farming"/>
       <item name="animal_list" category="animal_farming"/>
       <item name="animal_sheet" category="animal_farming"/>
       <item name="balance_sheet" category="accountancy"/>
@@ -1403,17 +1403,17 @@
       <item name="general_ledger" category="accountancy"/>
       <item name="income_statement" category="accountancy"/>
       <item name="incoming_delivery_docket" category="exploitation"/>
-      <item name="intervention_registry" category="management"/>
+      <item name="intervention_register" category="management"/>
       <item name="intervention_sheet" category="management"/>
       <item name="inventory_sheet" category="exploitation"/>
       <item name="journal" category="accountancy"/>
-      <item name="land_parcel_registry" category="land_parcel_management"/>
+      <item name="land_parcel_register" category="land_parcel_management"/>
       <item name="manure_management_plan" category="land_parcel_management"/>
       <item name="manure_management_plan_sheet" category="land_parcel_management"/>
       <item name="outgoing_deliveries_journal" category="exploitation"/>
       <item name="outgoing_delivery_docket" category="exploitation"/>
       <item name="phytosanitary_certification" category="land_parcel_management"/>
-      <item name="phytosanitary_registry" category="land_parcel_management"/>
+      <item name="phytosanitary_register" category="land_parcel_management"/>
       <item name="prescription" category="health"/>
       <item name="products_sheet" category="management"/>
       <item name="provisional_manure_management_plan" category="land_parcel_management"/>
@@ -1428,12 +1428,12 @@
       <item name="stocks" category="exploitation"/>
       <item name="tax_assessment" category="accountancy"/>
       <item name="trial_balance" category="accountancy"/>
-      <item name="vat_registry" category="accountancy"/>
+      <item name="vat_register" category="accountancy"/>
       <item name="veterinary_booklet" category="health"/>
-      <item name="vine_phytosanitary_registry" category="land_parcel_management"/>
-      <item name="wine_bottling_registry" category="vinification"/>
-      <item name="wine_detention_registry" category="vinification"/>
-      <item name="wine_manipulation_registry" category="vinification"/>
+      <item name="vine_phytosanitary_register" category="land_parcel_management"/>
+      <item name="wine_bottling_register" category="vinification"/>
+      <item name="wine_detention_register" category="vinification"/>
+      <item name="wine_manipulation_register" category="vinification"/>
     </items>
   </nomenclature>
   <nomenclature name="entity_link_natures" translateable="true" notions="entity, linked">

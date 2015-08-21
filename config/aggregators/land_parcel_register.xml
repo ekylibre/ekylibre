@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aggregators xmlns="http://www.ekylibre.org/XML/2013/aggregators">
-  <aggregator name="land_parcel_registry" version="0.0" category="land_parcel_management">
+  <aggregator name="land_parcel_register" version="0.0" category="land_parcel_management">
     <parameters>
       <parameter name="campaigns" type="record-list" of="campaign" default="currents"/>
     </parameters>

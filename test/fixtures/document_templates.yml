@@ -94,7 +94,7 @@ document_templates_003:
   lock_version: 0
   managed: true
   name: Registre d’élevage
-  nature: animal_husbandry_registry
+  nature: animal_husbandry_register
   updated_at: 2014-11-03 11:24:19.545160000 Z
   updater_id: 1
 document_templates_004:
@@ -169,7 +169,7 @@ document_templates_008:
   lock_version: 0
   managed: true
   name: Registre des interventions
-  nature: intervention_registry
+  nature: intervention_register
   updated_at: 2014-11-03 11:24:19.579352000 Z
   updater_id: 1
 document_templates_009:
@@ -214,40 +214,10 @@ document_templates_011:
   lock_version: 0
   managed: true
   name: Cahier de tracabilité ‒ Parcelles
-  nature: land_parcel_registry
+  nature: land_parcel_register
   updated_at: 2014-11-03 11:24:19.596697000 Z
   updater_id: 1
 document_templates_012:
-  active: true
-  archiving: last
-  by_default: true
-  created_at: 2014-11-03 11:24:19.602791000 Z
-  creator_id: 1
-  formats: ''
-  id: 14
-  language: fra
-  lock_version: 0
-  managed: true
-  name: Cahier d’épandage
-  nature: manure_management_plan
-  updated_at: 2014-11-03 11:24:19.602791000 Z
-  updater_id: 1
-document_templates_013:
-  active: true
-  archiving: last
-  by_default: true
-  created_at: 2014-11-03 11:24:19.610129000 Z
-  creator_id: 1
-  formats: ''
-  id: 15
-  language: fra
-  lock_version: 0
-  managed: true
-  name: Plan prévisionnel de fumure détaillé
-  nature: manure_management_plan_sheet
-  updated_at: 2014-11-03 11:24:19.610129000 Z
-  updater_id: 1
-document_templates_014:
   active: true
   archiving: last
   by_default: true
@@ -259,25 +229,10 @@ document_templates_014:
   lock_version: 0
   managed: true
   name: Registre phytosanitaire
-  nature: phytosanitary_registry
+  nature: phytosanitary_register
   updated_at: 2014-11-03 11:24:19.616757000 Z
   updater_id: 1
-document_templates_015:
-  active: true
-  archiving: last
-  by_default: true
-  created_at: 2014-11-03 11:24:19.623299000 Z
-  creator_id: 1
-  formats: ''
-  id: 17
-  language: fra
-  lock_version: 0
-  managed: true
-  name: Plan prévisionnel de fumure (PPF)
-  nature: provisional_manure_management_plan
-  updated_at: 2014-11-03 11:24:19.623299000 Z
-  updater_id: 1
-document_templates_016:
+document_templates_013:
   active: true
   archiving: last
   by_default: true
@@ -292,7 +247,7 @@ document_templates_016:
   nature: sales_estimate
   updated_at: 2014-11-03 11:24:19.630599000 Z
   updater_id: 1
-document_templates_017:
+document_templates_014:
   active: true
   archiving: last
   by_default: true
@@ -307,7 +262,7 @@ document_templates_017:
   nature: sales_order
   updated_at: 2014-11-03 11:24:19.643132000 Z
   updater_id: 1
-document_templates_018:
+document_templates_015:
   active: true
   archiving: last
   by_default: true
@@ -322,7 +277,7 @@ document_templates_018:
   nature: veterinary_booklet
   updated_at: 2014-11-03 11:24:19.649644000 Z
   updater_id: 1
-document_templates_019:
+document_templates_016:
   active: true
   archiving: last
   by_default: true
@@ -337,7 +292,7 @@ document_templates_019:
   nature: purchases_invoice
   updated_at: 2015-03-19 07:20:14.089619000 Z
   updater_id: 1
-document_templates_020:
+document_templates_017:
   active: true
   archiving: last
   by_default: true
@@ -349,10 +304,10 @@ document_templates_020:
   lock_version: 0
   managed: true
   name: Registre de TVA
-  nature: vat_registry
+  nature: vat_register
   updated_at: 2015-03-19 07:20:14.121990000 Z
   updater_id: 1
-document_templates_021:
+document_templates_018:
   active: true
   archiving: last
   by_default: true
@@ -367,7 +322,7 @@ document_templates_021:
   nature: purchases_estimate
   updated_at: 2015-07-14 13:21:02.782727000 Z
   updater_id: 1
-document_templates_022:
+document_templates_019:
   active: true
   archiving: last
   by_default: true

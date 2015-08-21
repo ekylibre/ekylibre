@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aggregators xmlns="http://www.ekylibre.org/XML/2013/aggregators">
-  <aggregator name="animal_husbandry_registry" version="0.0" category="animal_farming">
+  <aggregator name="animal_husbandry_register" version="0.0" category="animal_farming">
     <parameters>
       <parameter name="campaigns" type="record-list" of="campaign" default="currents"/>
       <parameter name="started_on" type="date" default="2013-01-01"/>
       <parameter name="stopped_on" type="date" default="2013-12-31"/>
     </parameters>
-    <section name="animal_husbandry_registry">
+    <section name="animal_husbandry_register">
       <section name="enterprise">
         <variable name="company" value="Entity.of_company"/>
         <property name="entity_name" value="company.full_name"/>

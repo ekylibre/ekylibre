@@ -6,7 +6,7 @@ por:
     actor_name: "Nome ator" #?
     animal_group_name: "Nome do grupo de animais" #?
     animal_group_population: "População do grupo de animais" #?
-    animal_husbandry_registry: "Registro de pecuária"
+    animal_husbandry_register: "Registro de pecuária" #?
     area: "Área"
     area_in_hectare: "Área em hectares"
     breeding_number: "Número de reprodução"
@@ -98,5 +98,5 @@ por:
     vine_yield: "Produção por planta"
     wages: "Salários"
     working_area: "Área de trabalho" #?
-  aggregators:
-    vat_registry: "Registro de imposto"
+  aggregators:  #?
+    vat_register: "Registro de imposto" #?

@@ -8,7 +8,9 @@ module Nomen
           @nomenclature = name.first
           @name = name.second
           @changes = element.attributes.delete_if do |k, _v|
-            k =~ /name(:[a-z]{3})?/ || %w(item).include?(k)
+            %w(item).include?(k)
+          end.each_with_object({}) do |(k,v), h|
+            h[k] = v.to_s
           end.symbolize_keys
         end
 
@@ -20,15 +22,8 @@ module Nomen
           @changes[:name]
         end
 
-        def changes
-          hash = new_properties || {}
-          hash[:name] = new_name if new_name?
-          hash[:parent] = new_parent if new_parent?
-          hash
-        end
-
         def human_name
-          "Change item #{@nomenclature}##{@name} with " + changes.to_sentence
+          "Change item #{@nomenclature}##{@name} with " + changes.inspect
         end
       end
     end

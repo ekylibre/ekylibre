@@ -6,7 +6,7 @@ fra:
     actor_name: "Nom de l'acteur" #?
     animal_group_name: "Nom du groupe d'animaux" #?
     animal_group_population: "Population du groupe d'animaux" #?
-    animal_husbandry_registry: "Registre d'élevage"
+    animal_husbandry_register: "Registre d'élevage" #?
     area: "Surface"
     area_in_hectare: "Surface (ha)"
     breeding_number: "Numéro d'élevage"
@@ -91,5 +91,5 @@ fra:
     variant_variety: "Variété de la variante"
     vine_yield: "Rendement en vin"
     wages: "Salaires"
-  aggregators:
-    vat_registry: "Bilan de TVA"
+  aggregators:  #?
+    vat_register: "Registre de TVA" #?
