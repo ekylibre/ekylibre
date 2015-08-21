@@ -1,0 +1,9 @@
+- current_index = all_steps.find_index(current_step)
+.container-fluid
+  .row.bs-wizard
+    -for step in all_steps do
+      .col-xs-1.bs-wizard-step{class: ((step.equal? current_step) ? 'active': (all_steps.find_index(step) < current_index) ? 'complete': 'disabled')}
+        .text-center.bs-wizard-stepnum=step
+        .progress
+          .progress-bar
+        = link_to '', {controller: step, action: :show}, class:'bs-wizard-dot'
