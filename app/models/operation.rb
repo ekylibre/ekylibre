@@ -359,7 +359,7 @@ class Operation < Ekylibre::Record::Base
     else
       if intervention.parameters.is_a?(Hash) && intervention.parameters[:readings].is_a?(Hash) && value = intervention.parameters[:readings][reference.uid]
         if indicatus.indicator.datatype == :measure
-          value = value[:value].to_f.in(value[:unit])
+          value = value.is_a?(String) ? Measure.new(value) : value[:value].to_f.in(value[:unit])
         end
       end
       # Rails.logger.warn("Measure without value are not possible for now")

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="20150821082601_add_grain_variants">
+  <item-creation item="product_nature_variants#grain" nature="grain" derivative_of="plant" frozen_indicators_values="net_mass: 1.00ton"/>
+</migration>
