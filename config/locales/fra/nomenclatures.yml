@@ -1391,7 +1391,7 @@ fra:
         deposit_list: "Remise en banque"
         entity_sheet: "Fiche tiers"
         equipment_certification: "Certification des equipements"
-        exchange_accountancy_file_fr: "Fichier des Ecritures Comptables (FEC)"
+        exchange_accountancy_file_fr: "Écritures comptables (FEC)"
         general_journal: "Journal général"
         general_ledger: "Grand livre"
         income_statement: "Compte de résultat"
