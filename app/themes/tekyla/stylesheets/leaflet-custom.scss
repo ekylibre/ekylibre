@@ -19,17 +19,6 @@ i.leaflet-importer-ctrl {
   line-height: 2 * $lh-normal;
 }
 
-.leaflet-importers-toolbar {
-
-  &.disabled {
-    height: 0;
-    button {
-      height: 0;
-
-    }
-  }
-}
-
 span.leaflet-importer-geojson, span.leaflet-importer-gml {
   font-size: 8px;
 }
