@@ -1,5 +1,4 @@
 module Aggeratio
-
   @@load_path = []
 
   mattr_accessor :load_path

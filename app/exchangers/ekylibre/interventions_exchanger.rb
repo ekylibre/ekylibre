@@ -5,7 +5,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     valid = true
     w.count = rows.size
     rows.each_with_index do |row, index|
-      line_number = index +2
+      line_number = index + 2
       prompt = "L#{line_number.to_s.yellow}"
       r = parse_row(row)
       if row[0].blank?

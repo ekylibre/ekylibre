@@ -39,8 +39,6 @@ jpn:
       # new: "New animal group"
       # show: "Animal group: %{name}"
     backend/animals:
-      # add_group: "Add group animal: %{name}"
-      # add_to_container: "Add to container animal: %{name}"
       # add_to_group: "Add to group"
       # edit: "Edit animal: %{name}"
       # index: "Animals"
