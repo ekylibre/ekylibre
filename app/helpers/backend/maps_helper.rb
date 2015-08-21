@@ -57,8 +57,15 @@ module Backend::MapsHelper
     geometry = Charta::Geometry.new(value)
     box ||= {}
     options[:box] ||= {}
-    box[:width] = options[:box][:width] || 360
-    box[:height] = options[:box][:height] || 240
+
+    if options[:data][:map_editor].key? :customClass
+      box[:width] = options[:box][:width]
+      box[:height] = options[:box][:height]
+    else
+      box[:width] = options[:box][:width] || 360
+      box[:height] = options[:box][:height] || 240
+    end
+
     options.deep_merge!(data: { map_editor: { controls: { importers: { content: capture(&block) } } } }) if block_given?
     options.deep_merge!(data: { map_editor: { edit: geometry.to_geojson } }) unless value.nil?
     text_field_tag(name, value, options.deep_merge(data: { map_editor: { box: box.jsonize_keys } }))

@@ -20,6 +20,7 @@
       box:
         height: 400
         width: null
+      customClass: ''
       back: "Esri.WorldImagery"
       show: null
       edit: null
@@ -98,7 +99,7 @@
 
       $.extend(true, this.options, this.element.data("map-editor"))
 
-      this.mapElement = $("<div>", class: "map")
+      this.mapElement = $("<div>", class: "map #{this.options.customClass}")
         .insertAfter(this.element)
       this.map = L.map(this.mapElement[0],
         maxZoom: 25

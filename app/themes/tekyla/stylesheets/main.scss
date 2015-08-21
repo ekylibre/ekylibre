@@ -491,6 +491,21 @@ html.exception {
 }
 
 
+$zen-form-actions-height: 30px;
+
+#core .form-actions {
+  height: $zen-form-actions-height;
+  width: 100%;
+  padding-left: 0;
+  float: left;
+  padding-right: 0;
+}
+
+.responsive-map {
+  @include calc(height, "100vh - #{$header-height + $topbar-height + $toolbar-height + $zen-form-actions-height}");
+}
+
+
 #about-us {
   padding: 15vh 15vw;
   .logo {
