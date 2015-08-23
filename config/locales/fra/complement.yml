@@ -73,6 +73,7 @@ fra:
         base-silage_transport: "Transport d'ensilage"
         base-silage_unload: "Alimentation d’un troupeau via désileuse"
         base-sowing: "Semis"
+        base-sowing_with_insecticide_and_molluscicide: "Semis (avec insecticide et molluscicide)"
         base-spraying_on_cultivation: "Pulvérisation sur culture"
         base-spraying_on_land_parcel: "Pulvérisation sur parcelle"
         base-standard_enclosing: "Pose de clôture standard"

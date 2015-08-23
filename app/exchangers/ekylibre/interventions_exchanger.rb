@@ -864,12 +864,12 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     end
     intervention
   end
-  
+
   def record_detasseling(r, support, duration)
-    
-    
+
+
     plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
-    
+
     return nil unless plant
 
     intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
