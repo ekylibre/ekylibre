@@ -9,7 +9,7 @@ class Ekylibre::MattersExchanger < ActiveExchanger::Base
         next if row[0].blank?
         r = {
           name: row[0].blank? ? nil : row[0].to_s.strip,
-          variant_reference_name: row[1].blank? ? nil : row[1].downcase.to_sym,
+          variant_reference_name: row[1].blank? ? nil : row[1].to_s,
           work_number: row[2].blank? ? nil : row[2].to_s.strip,
           place_code: row[3].blank? ? nil : row[3].to_s.strip,
           born_at: (row[4].blank? ? (Date.today - 200) : row[4]).to_datetime,
@@ -27,7 +27,13 @@ class Ekylibre::MattersExchanger < ActiveExchanger::Base
 
         if r.variant_reference_name
           # find or import from variant reference_nameclature the correct ProductNatureVariant
-          variant = ProductNatureVariant.import_from_nomenclature(r.variant_reference_name)
+          unless variant = ProductNatureVariant.find_by(number: r.variant_reference_name)
+            if Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
+              variant = ProductNatureVariant.import_from_nomenclature(r.variant_reference_name.downcase.to_sym)
+            else
+              fail "No variant exist in NOMENCLATURE for #{r.variant_reference_name.inspect}"
+            end
+          end
           pmodel = variant.nature.matching_model
 
           # create a price
