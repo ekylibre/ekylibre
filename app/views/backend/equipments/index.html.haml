@@ -1,6 +1,8 @@
 - main_toolbar do |t|
   - t.new
 
+- main_campaign_selector
+
 = janus do |j|
   - if Equipment.any? && Equipment.all.map(&:shape).count > 1
     - j.face :map, title: :map do
