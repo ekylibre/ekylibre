@@ -30,8 +30,8 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
       # PROCEDURE HAVE A DURATION
       #
-      unless r.intervention_duration_in_hour.hours
-        w.error "#{prompt} Need a duration"
+      unless r.intervention_duration_in_hour.hours && r.intervention_duration_in_hour.hours.to_f > 0.0
+        w.error "#{prompt} Need a duration > 0"
         valid = false
       end
 
@@ -226,10 +226,13 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   # ex : for a wheat_seed_25kg
   # 182.25 kilogram (converting in kilogram) / 25.00 kilogram
   def population_conversion(product, population, unit, unit_target_dose, working_area = 0.0.square_meter)
+    puts "population : #{population.inspect}"
+    puts "unit : #{unit.inspect}"
+    puts "unit_target_dose : #{unit_target_dose.inspect}"
     if product.is_a?(Product)
-      product_variant = product.variant
+      variant = product.variant
     elsif product.is_a?(ProductNatureVariant)
-      product_variant = product
+      variant = product
     end
     value = population
     nomen_unit = nil
@@ -244,17 +247,32 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     unit = unit.to_sym if unit
     nomen_unit = Nomen::Units[unit] if unit
     #
+    puts value.inspect.yellow
     if value >= 0.0 && nomen_unit
       measure = Measure.new(value, unit)
+      puts measure.inspect.yellow
+      puts variant.name.inspect.yellow
       if measure.dimension == :volume
-        variant_indicator = product_variant.send(:net_volume)
-        population_value = ((measure.to_f(variant_indicator.unit.to_sym)) / variant_indicator.value.to_f)
+        variant_indicator = variant.send(:net_volume)
+        if variant_indicator.value.to_f != 0.0
+          population_value = ((measure.to_f(variant_indicator.unit.to_sym)) / variant_indicator.value.to_f)
+        else
+          fail "No way to divide by zero : variant indicator value is #{variant_indicator.inspect}"
+        end
       elsif measure.dimension == :mass
-        variant_indicator = product_variant.send(:net_mass)
-        population_value = ((measure.to_f(variant_indicator.unit.to_sym)) / variant_indicator.value.to_f)
+        variant_indicator = variant.send(:net_mass)
+        if variant_indicator.value.to_f != 0.0
+          population_value = ((measure.to_f(variant_indicator.unit.to_sym)) / variant_indicator.value.to_f)
+        else
+          fail "No way to divide by zero : variant indicator value is #{variant_indicator.inspect}"
+        end
       elsif measure.dimension == :distance
-        variant_indicator = product_variant.send(:net_length)
-        population_value = ((measure.to_f(variant_indicator.unit.to_sym)) / variant_indicator.value.to_f)
+        variant_indicator = variant.send(:net_length)
+        if variant_indicator.value.to_f != 0.0
+          population_value = ((measure.to_f(variant_indicator.unit.to_sym)) / variant_indicator.value.to_f)
+        else
+          fail "No way to divide by zero : variant indicator value is #{variant_indicator.inspect}"
+        end
       elsif measure.dimension == :none
         population_value = value
       else
@@ -263,6 +281,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     # case population
     end
     if working_area && working_area.to_d(:square_meter) > 0.0
+      puts working_area.inspect.green
+      puts variant_indicator.inspect.green
+      puts population_value.inspect.red
       global_intrant_value = population_value.to_d * working_area.to_d(unit_target_dose.to_sym)
       return global_intrant_value
     else
@@ -562,6 +583,38 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     intervention
   end
 
+  def record_sowing_with_insecticide_and_molluscicide(r, support, duration)
+
+    cultivable_zone = support.storage
+    return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && r.target_variant && r.first.product && r.second.product && r.third.product
+
+    working_measure = cultivable_zone.shape_area
+    first_product_input_population = actor_population_conversion(r.first, working_measure)
+    second_product_input_population = actor_population_conversion(r.second, working_measure)
+    third_product_input_population = actor_population_conversion(r.third, working_measure)
+
+    cultivation_population = (working_measure.to_s.to_f / 10_000.0) if working_measure
+    # get density from first_product
+    # (density in g per hectare / PMG) * 1000 * cultivable_area in hectare
+    pmg = r.first.variant.thousand_grains_mass.to_d
+    plants_count = (first_product_input_population * 1000 * 1000) / pmg if pmg && pmg != 0
+
+    intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description, parameters: { readings: { 'base-sowing_with_insecticide_and_molluscicide-0-600-2' => plants_count.to_i } }) do |i|
+      i.add_cast(reference_name: 'seeds',        actor: r.first.product)
+      i.add_cast(reference_name: 'seeds_to_sow', population: first_product_input_population)
+      i.add_cast(reference_name: 'insecticide',        actor: r.second.product)
+      i.add_cast(reference_name: 'insecticide_to_input', population: second_product_input_population)
+      i.add_cast(reference_name: 'molluscicide',        actor: r.third.product)
+      i.add_cast(reference_name: 'molluscicide_to_input', population: third_product_input_population)
+      i.add_cast(reference_name: 'sower',        actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'sow') : i.find(Equipment, can: 'sow')))
+      i.add_cast(reference_name: 'driver',       actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+      i.add_cast(reference_name: 'tractor',      actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'tow(sower)') : i.find(Equipment, can: 'tow(sower)')))
+      i.add_cast(reference_name: 'land_parcel',  actor: cultivable_zone)
+      i.add_cast(reference_name: 'cultivation',  variant: r.target_variant, population: cultivation_population, shape: cultivable_zone.shape)
+    end
+    intervention
+  end
+
   def record_implanting(r, support, duration)
     cultivable_zone = support.storage
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && r.target_variant && r.first.product
@@ -746,9 +799,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     intervention
   end
 
-  #######################
-  ####  HARVESTING   ####
-  #######################
+  #################################
+  ####  HARVESTING AND OTHER   ####
+  #################################
 
   def record_grains_harvest(r, support, duration)
     plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
@@ -808,6 +861,20 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
       i.add_cast(reference_name: 'harvester_man', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
       i.add_cast(reference_name: 'cultivation', actor: (plant.present? ? plant : cultivable_zone))
+    end
+    intervention
+  end
+  
+  def record_detasseling(r, support, duration)
+    
+    
+    plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
+    
+    return nil unless plant
+
+    intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
+      i.add_cast(reference_name: 'doer', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+      i.add_cast(reference_name: 'cultivation', actor: plant )
     end
     intervention
   end
