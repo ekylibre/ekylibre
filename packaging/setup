@@ -3,6 +3,9 @@
 # # Set Ruby version
 # echo "ruby '2.2.1'" >> Gemfile
 
+# While 2.2.3 is not available
+sed -i "s/ruby '2.2.3'/ruby '2.2.2'/g" Gemfile
+
 # # Set complementary gems
 # echo "gem 'rails_12factor'" >> Gemfile
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="intervention_registry" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="intervention_register" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
   <property name="ireport.zoom" value="1.0"/>
   <property name="ireport.x" value="0"/>
   <property name="ireport.y" value="383"/>
-  <property name="com.jaspersoft.studio.data.defaultdataadapter" value="land_parcel_registry"/>
+  <property name="com.jaspersoft.studio.data.defaultdataadapter" value="land_parcel_register"/>
   <template><![CDATA["../../corporate_identity/reporting_style.xml"]]></template>
   <style name="Title" fontName="Open Sans" fontSize="30" isBold="true" pdfFontName="Open Sans"/>
   <style name="SubTitle" forecolor="#736343" fontName="Open Sans" fontSize="18"/>

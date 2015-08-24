@@ -2,11 +2,11 @@ fra:
   aggregator_parameters:
     campaigns: "Campagnes"
   aggregator_properties:
-    activity_family: "Famille d'activité"
-    actor_name: "Nom de l'acteur"
-    animal_group_name: "Nom du groupe d'animaux"
-    animal_group_population: "Population du groupe d'animaux"
-    animal_husbandry_registry: "Registre d'élevage"
+    activity_family: "Famille d'activité" #?
+    actor_name: "Nom de l'acteur" #?
+    animal_group_name: "Nom du groupe d'animaux" #?
+    animal_group_population: "Population du groupe d'animaux" #?
+    animal_husbandry_register: "Registre d'élevage" #?
     area: "Surface"
     area_in_hectare: "Surface (ha)"
     breeding_number: "Numéro d'élevage"
@@ -43,27 +43,27 @@ fra:
     intervention_durations: "Durées d'intervention"
     loss_balance: "Solde de perte"
     losses: "Pertes"
-    manure_management_plan_default_computation_method: "Méthode de calcul du PPF"
-    manure_management_plan_name: "PPF"
-    manure_management_plan_opened_at: "PPF ouvert le"
+    manure_management_plan_default_computation_method: "Méthode de calcul du PPF" #?
+    manure_management_plan_name: "PPF" #?
+    manure_management_plan_opened_at: "PPF ouvert le" #?
     meat_saleable_on: "Viande vendable le"
     meat_withdrawal_period: "Période de retrait de la viande"
     milk_saleable_on: "Lait vendable le"
     milk_withdrawal_period: "Période de retrait du lait"
     net_revenue: "Revenu net"
     net_surface_area: "Surface nette"
-    nitrogen_balance: "Balance azotée"
-    nitrogen_input_prev: "Apport d'azote prev"
-    original_input_name: "Stock de l'intrant"
-    original_input_unit_name: "Unité du stocks de l'intrant"
-    original_input_variant_name: "Type du stock de l'intrant"
+    nitrogen_balance: "Balance azotée" #?
+    nitrogen_input_prev: "Apport d'azote prev" #?
+    original_input_name: "Stock de l'intrant" #?
+    original_input_unit_name: "Unité du stocks de l'intrant" #?
+    original_input_variant_name: "Type du stock de l'intrant" #?
     other_expenses: "Autres charges"
     other_products: "Autres produits"
     other_purchases: "Autres achats"
-    pasturing_period: "Période pâturage"
-    pasturing_working_area: "Zone de pâturage"
-    previous_production_name: "Précédente production"
-    product_nature_name: "Type de produit"
+    pasturing_period: "Période pâturage" #?
+    pasturing_working_area: "Zone de pâturage" #?
+    previous_production_name: "Précédente production" #?
+    product_nature_name: "Type de produit" #?
     productions_sales: "Ventes de productions"
     products_purchases: "Achats de produits"
     products_sales: "Ventes de produits"
@@ -71,17 +71,17 @@ fra:
     profit_or_loss: "Perte ou profit"
     profits: "Profits"
     profits_taxes: "Taxes sur profits"
-    provisional_grains_yield: "Rendement prévisionnel en grains"
+    provisional_grains_yield: "Rendement prévisionnel en grains" #?
     provisional_yield: "Rendement prévisionnel"
     provisions_revenues: "Revenus de provisions"
     raw_matters_purchases: "Achats de matières brutes"
     raw_matters_stocks_variation: "Variation de stocks de matières brutes"
-    recommender_full_name: "Nom du préconisateur"
-    recommender_mail_coordinate: "Adresse du préconisateur"
+    recommender_full_name: "Nom du préconisateur" #?
+    recommender_mail_coordinate: "Adresse du préconisateur" #?
     sex: "Sexe"
     social_expenses: "Charges sociales"
     soil_varieties: "Variétés de sol"
-    sowed_at: "Semé le"
+    sowed_at: "Semé le" #?
     stock_production: "Production de stock"
     stocks_variation: "Variation de stocks"
     subsidies: "Subventions"
@@ -91,5 +91,5 @@ fra:
     variant_variety: "Variété de la variante"
     vine_yield: "Rendement en vin"
     wages: "Salaires"
-  aggregators:
-    vat_registry: "Bilan de TVA"
+  aggregators:  #?
+    vat_register: "Registre de TVA" #?

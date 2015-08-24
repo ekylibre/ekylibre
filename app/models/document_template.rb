@@ -217,6 +217,10 @@ class DocumentTemplate < Ekylibre::Record::Base
     document
   end
 
+
+  @@load_path = []
+  mattr_accessor :load_path
+
   class << self
     # Print document with default active template for the given nature
     # Returns nil if no template found.
@@ -234,21 +238,23 @@ class DocumentTemplate < Ekylibre::Record::Base
 
     # Compute fallback chain for a given document nature
     def template_fallbacks(nature, locale)
-      root = Rails.root.join('config', 'locales', locale, 'reporting')
       stack = []
-      stack << root.join("#{nature}.xml")
-      stack << root.join("#{nature}.jrxml")
-      fallback = {
-        sales_order: :sale,
-        sales_estimate: :sale,
-        sales_invoice: :sale,
-        purchases_order: :purchase,
-        purchases_estimate: :purchase,
-        purchases_invoice: :purchase
-      }[nature.to_sym]
-      if fallback
-        stack << root.join("#{fallback}.xml")
-        stack << root.join("#{fallback}.jrxml")
+      load_path.each do |path|
+        root = path.join(locale, 'reporting')
+        stack << root.join("#{nature}.xml")
+        stack << root.join("#{nature}.jrxml")
+        fallback = {
+          sales_order: :sale,
+          sales_estimate: :sale,
+          sales_invoice: :sale,
+          purchases_order: :purchase,
+          purchases_estimate: :purchase,
+          purchases_invoice: :purchase
+        }[nature.to_sym]
+        if fallback
+          stack << root.join("#{fallback}.xml")
+          stack << root.join("#{fallback}.jrxml")
+        end
       end
       stack
     end
@@ -280,3 +286,6 @@ class DocumentTemplate < Ekylibre::Record::Base
     end
   end
 end
+
+# Load default path
+DocumentTemplate.load_path << Rails.root.join('config', 'locales')

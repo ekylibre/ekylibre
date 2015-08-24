@@ -312,6 +312,7 @@ por:
     # base-silage_transport: "Silage transport"
     # base-silage_unload: "Silage unload"
     # base-sowing: "Sowing"
+    # base-sowing_with_insecticide_and_molluscicide: "Sowing with insecticide and molluscicide"
     # base-spraying_on_cultivation: "Spraying on cultivation"
     # base-spraying_on_land_parcel: "Spraying on land parcel"
     # base-standard_enclosing: "Standard enclosing"

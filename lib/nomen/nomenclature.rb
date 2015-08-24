@@ -156,9 +156,10 @@ module Nomen
     def change_item(name, changes = {})
       i = find!(name)
       has_parent = changes.key?(:parent)
-      new_parent = changes.delete(:parent)
-      new_name = changes.delete(:name)
+      new_parent = changes[:parent]
+      new_name = changes[:name]
       changes.each do |k, v|
+        next if [:parent, :name].include? k
         i.set(k, v)
       end
       if has_parent

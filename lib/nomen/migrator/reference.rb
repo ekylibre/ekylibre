@@ -48,7 +48,7 @@ module Nomen
       end
 
       def property_change(action)
-        @set.add_property(action.nomenclature, action.changes)
+        @set.add_property(action.nomenclature, action.name, action.changes)
       end
 
       def item_creation(action)
@@ -56,7 +56,7 @@ module Nomen
       end
 
       def item_change(action)
-        @set.change_item(action.nomenclature, action.changes)
+        @set.change_item(action.nomenclature, action.name, action.changes)
       end
 
       def item_merging(action)

@@ -157,8 +157,12 @@ module Ekylibre
         Aggeratio.load_path += Dir.glob(@aggregators_path.join('**', '*.xml'))
       end
 
-      # Adds locales
-      Rails.application.config.i18n.load_path += Dir.glob(@root.join('config', 'locales', '**', '*.{rb,yml}'))
+      # Adds locales (translation and reporting)
+      @locales_path = @root.join('config', 'locales')
+      if @locales_path.exist?
+        Rails.application.config.i18n.load_path += Dir.glob(@locales_path.join('**', '*.{rb,yml}'))
+        DocumentTemplate.load_path << @locales_path
+      end
 
       # Adds view path
       if @view_path.directory?
