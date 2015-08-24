@@ -80,7 +80,7 @@
           template: '<div class="modal-header"><h2>{title}</h2></div>
                      <div class="modal-body">{content}</div>
                      <div class="modal-footer">
-                       <button class="{OK_CLS}" data-editor-submit=true>{okText}</button>
+                       <button type="submit" class="{OK_CLS}" data-editor-submit=true>{okText}</button>
                        <button class="{CANCEL_CLS}" data-editor-cancel=true>{cancelText}</button>
                       </div>'
           okText: 'Ok'
@@ -524,8 +524,8 @@
               $('form[data-importer-form]', modal._container).submit ->
                 $(this).find('[data-importer-spinner]').addClass('active')
 
-              $('form[data-importer-form]', modal._container).on 'ajax:success', (e) =>
-                #TODO: event not fired
+              $(modal._container).on 'ajax:complete','form[data-importer-form]', (e,data) =>
+                this.edit $.parseJSON(data.responseText)
                 $(e.currentTarget).find('[data-importer-spinner]').removeClass('active')
 
             onHide: (evt) ->

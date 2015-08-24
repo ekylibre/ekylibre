@@ -4,7 +4,13 @@ module Charta
     attr_reader :srid
 
     def initialize(data, srid = :WGS84)
-      @kml = Nokogiri::XML(data).root.nil? ? data : Nokogiri::XML(data).root.to_xml
+      if data.is_a? Nokogiri::XML::Document
+        @kml = data.root.to_xml
+      elsif data.is_a?(Nokogiri::XML::NodeSet) || data.is_a?(Nokogiri::XML::Element)
+        @kml = data.to_xml
+      else
+        @kml = data
+      end
       @srid = Geometry.find_srid(srid)
     end
 
@@ -20,7 +26,7 @@ module Charta
     end
 
     class << self
-      # Test is given data is a valid GML
+      # Test is given data is a valid KML
       def valid?(data, srid = :WGS84)
         new(data, srid).valid?
       rescue

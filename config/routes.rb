@@ -523,6 +523,12 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :map_editor do
+      collection do
+        post :upload
+      end
+    end
+
     resources :matters, concerns: :products
 
     resources :net_services, concerns: [:list, :unroll] do

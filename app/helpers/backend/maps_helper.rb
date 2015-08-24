@@ -53,7 +53,22 @@ module Backend::MapsHelper
     map(resources, options, html_options, &block)
   end
 
-  def shape_field_tag(name, value = nil, options = {}, &block)
+  def importer_form(options = {})
+    imports = options
+    html = ''
+    html += form_tag({controller: '/backend/map_editor', action: :upload}, {method: :post, multipart: true, remote: true, :authenticity_token => true, data: { 'importer-form': true }}) do
+      content_tag(:div, class: 'row') do
+        imports.collect do |k|
+          radio_button_tag(:importer_format, k) + label_tag("importer_format_#{k}".to_sym, k)
+        end.join.html_safe
+      end + content_tag(:div, class: 'row') do
+        file_field_tag( :import_file) + content_tag(:span, content_tag(:i), {class: 'spinner-loading', data: { 'importer-spinner': true }})
+      end
+    end
+    html
+  end
+
+  def shape_field_tag(name, value = nil, options = {})
     geometry = Charta::Geometry.new(value)
     box ||= {}
     options[:box] ||= {}
@@ -66,7 +81,10 @@ module Backend::MapsHelper
       box[:height] = options[:box][:height] || 240
     end
 
-    options.deep_merge!(data: { map_editor: { controls: { importers: { content: capture(&block) } } } }) if block_given?
+    if options[:data][:map_editor][:controls].key? :importers
+      options.deep_merge!(data: { map_editor: { controls: { importers: { content: importer_form(options[:data][:map_editor][:controls][:importers][:formats]) } } } })
+    end
+
     options.deep_merge!(data: { map_editor: { edit: geometry.to_geojson } }) unless value.nil?
     text_field_tag(name, value, options.deep_merge(data: { map_editor: { box: box.jsonize_keys } }))
   end
