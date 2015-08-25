@@ -21,11 +21,12 @@ class Backend::MapEditorController < Backend::BaseController
           # geometries = import.as_wrapped_kml
         end
       when "geojson"
-        import = GeojsonImport.new({file: Hajimari.geojson_import_file})
-        import.save file.read
+        import = GeojsonImport.new
+        import.xml file.read
 
         if import.valid?
-          geometries = import.shapes({to: :json})
+          import.shapes(to: :json)
+          geometries = import.as_geojson
         end
     end
     geometries
