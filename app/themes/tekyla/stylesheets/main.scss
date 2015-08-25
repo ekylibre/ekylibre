@@ -350,6 +350,7 @@ html.backend {
 
 
 $zen-padding : 4vh;
+$zen-w-padding : 4vw;
 $zen-lh-header: 6vh;
 
 html.zen {
@@ -364,7 +365,7 @@ html.zen {
         line-height: $zen-lh-header;
       }
     }
-    padding: $zen-padding;
+    padding: $zen-padding $zen-w-padding;
   }
 }
 
@@ -516,6 +517,27 @@ $zen-form-actions-height: 3vh;
 .responsive-map {
   float: left;
   @include calc(height, "100vh - #{$zen-padding*2 + $zen-padding + $zen-step-breadcrumbs + $zen-lh-header + $zen-form-actions-height}");
+}
+
+.file-import {
+  float: left;
+  @include calc(height, "100vh - #{$zen-padding*2 + $zen-padding + $zen-step-breadcrumbs + $zen-lh-header + $zen-form-actions-height}");
+  @include calc(width, "70vw - #{$zen-w-padding}");
+}
+.file-recipe {
+  height: 30vh;
+  padding: 2vh 2vw;
+}
+
+.file-uploader {
+  height: 37vh;
+  padding: 2vh 2vw;
+}
+.file-burger {
+  float: left;
+  @include calc(width, "30vw - 6vw");
+  @include calc(height, "100vh - #{$zen-padding*2 + $zen-padding + $zen-step-breadcrumbs + $zen-lh-header + $zen-form-actions-height}");
+  border: 1px solid #777777;
 }
 
 
