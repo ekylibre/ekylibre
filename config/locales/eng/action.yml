@@ -428,6 +428,9 @@ eng:
       index: "Manure management plans"
       new: "New manure management plan"
       show: "Manure management plan: %{name}"
+    backend/map_editor:
+      # import_shapes: "Import shapes map editor: %{name}"
+      # upload: "Upload map editor: %{name}"
     backend/matters:
       edit: "Edit matter: %{name}"
       index: "Matters"
@@ -1376,6 +1379,7 @@ eng:
     thumb: "Thumb" #?
     time_cost: "Time cost" #?
     time_cost_per_hectare: "Time cost per hectare"
+    # time_spend_by_activities: "Time spend by activities"
     time_zone: "Time zone"
     timeline: "Timeline"
     timeline_comment: "%{author} commented %{when}"
@@ -1700,6 +1704,7 @@ eng:
       finish: "Finish"
       generate_last_journal_entry: "Generate last journal entry"
       import: "Import"
+      # import_shapes: "Import shapes"
       incorporate: "Incorporate"
       increment: "Increment"
       index: "Index"
@@ -1759,6 +1764,7 @@ eng:
       up: "Up"
       update: "Update"
       update_password: "Update password"
+      # upload: "Upload"
       win: "Win"
       # zticket: "Zticket"
   unrolls:

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add production usages">
+  <item-creation item="production_usages#fallow_land" />
+  <item-creation item="production_usages#meadow" />
+</migration>
