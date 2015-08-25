@@ -34,7 +34,7 @@ namespace :first_run do
   task default: :environment do
     ENV['name'] ||= ENV['TENANT']
     unless Ekylibre::FirstRun.path.join('default').exist?
-      Rake::Task.invoke('first_run:default:generate')
+      Rake::Task['first_run:default:generate'].invoke
     end
     Ekylibre::FirstRun.launch!({ folder: 'default' }.merge(ENV.to_hash.symbolize_keys.slice(:folder, :name, :max, :mode, :verbose, :path)))
   end
