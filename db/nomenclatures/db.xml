@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20150821230800">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20150825180658">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -3266,8 +3266,10 @@
       <property name="crop_sets" type="item_list" choices="crop_sets"/>
     </properties>
     <items>
+      <item name="fallow_land"/>
       <item name="fodder" crop_sets="corn_sorghum, grass_leguminous, secale_phacelia"/>
       <item name="grain" crop_sets="wheat, corn, straw_cereal, sunflower"/>
+      <item name="meadow"/>
       <item name="meat"/>
       <item name="milk"/>
       <item name="seed" crop_sets="wheat, corn, straw_cereal, bean, peas"/>
