@@ -11,8 +11,8 @@
   %body
     #wrap
       #main
-        = render partial: 'layouts/step_breadcrumbs', locals: {current_step: controller_name.to_sym, all_steps: controller.get_steps}
         %header.header
+          = yield :before_title if content_for? :before_title
           = heading_toolbar_tag
           = heading_tag
         #content

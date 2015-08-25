@@ -349,16 +349,22 @@ html.backend {
 }
 
 
+$zen-padding : 4vh;
+$zen-lh-header: 6vh;
+
 html.zen {
   background: $desktop-background;
+  height: 100vh;
   body {
     header {
       h1 {
-        font-size: $fs-very-huge;
-        line-height: $lh-very-huge;
+        //font-size: $fs-very-huge;
+        //line-height: $lh-very-huge;
+        font-size: 5vh;
+        line-height: $zen-lh-header;
       }
     }
-    padding: 10vh 10vw;
+    padding: $zen-padding;
   }
 }
 
@@ -485,24 +491,30 @@ html.exception {
   }
 }
 
+$zen-step-breadcrumbs: 12vh;
+$zen-bc-padding: 2vh;
+.step-breadcrumbs {
+  height: $zen-step-breadcrumbs;
+  padding-bottom: $zen-bc-padding;
+}
+
 #core {
   clear: both;
-  @include calc(height, "100vh - #{$header-height + $topbar-height + $toolbar-height}");
+  @include calc(height, "100vh - #{$zen-padding*2 + $zen-bc-padding + $zen-step-breadcrumbs + $zen-lh-header}");
 }
 
 
-$zen-form-actions-height: 30px;
 
+$zen-form-actions-height: 3vh;
 #core .form-actions {
   height: $zen-form-actions-height;
+  padding: 2vh 0;
   width: 100%;
-  padding-left: 0;
   float: left;
-  padding-right: 0;
 }
 
 .responsive-map {
-  @include calc(height, "100vh - #{$header-height + $topbar-height + $toolbar-height + $zen-form-actions-height}");
+  @include calc(height, "100vh - #{$zen-padding*2 + $zen-padding + $zen-step-breadcrumbs + $zen-lh-header + $zen-form-actions-height}");
 }
 
 
