@@ -514,6 +514,7 @@ $zen-form-actions-height: 3vh;
 }
 
 .responsive-map {
+  float: left;
   @include calc(height, "100vh - #{$zen-padding*2 + $zen-padding + $zen-step-breadcrumbs + $zen-lh-header + $zen-form-actions-height}");
 }
 
