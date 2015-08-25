@@ -179,6 +179,15 @@ module Ekylibre
         ActiveSupport::Dependencies.autoload_paths += [dir]
       end
 
+      # Load helpers
+      helpers_path = @root.join('app', 'helpers')
+      Dir.glob File.expand_path(helpers_path.join('**', '*.rb')) do |dir|
+        helper_module = Pathname.new(dir).relative_path_from(helpers_path).to_s.gsub(/\.rb$/, '').camelcase
+        initializer "include helper #{helper_module}" do
+          ::ActionView::Base.send(:include, helper_module.constantize)
+        end
+      end
+
       # Adds assets
       if assets_directory.exist?
         # Emulate "subdir by plugin" config
