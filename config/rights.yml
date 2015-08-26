@@ -94,6 +94,8 @@
 #     - "backend/land_parcel_clusters#take"
 #     - "backend/land_parcel_groups#take"
 #     - "backend/land_parcels#take"
+#     - "backend/map_editor#import_shapes"
+#     - "backend/map_editor#upload"
 #     - "backend/matters#take"
 #     - "backend/plants#take"
 #     - "backend/product_groups#take"

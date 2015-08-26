@@ -1485,6 +1485,10 @@
       <item name="snippets">
         <page to="backend/snippets#toggle"/>
       </item>
+      <item name="map_editor">
+        <page to="backend/map_editor#import_shapes"/>
+        <page to="backend/map_editor#upload"/>
+      </item>
       <item name="passwords">
         <page to="authentication/passwords#create"/>
         <page to="authentication/passwords#edit"/>

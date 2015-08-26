@@ -217,7 +217,6 @@ class DocumentTemplate < Ekylibre::Record::Base
     document
   end
 
-
   @@load_path = []
   mattr_accessor :load_path
 

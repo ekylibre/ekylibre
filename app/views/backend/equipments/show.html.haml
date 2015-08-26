@@ -122,7 +122,7 @@
 
   - c.cobble(:readings, title: :x_readings.tl(count: resource.readings.count)) do
     = cobble_list(:readings)
-  
+
   - c.cobble(:time_spend_by_activities) do
     - if current_campaign and Operation.of_campaign(current_campaign).any? and series.any?
       = column_highcharts(series, y_axis: {title: {text: :duration.tl}, stack_labels: {enabled: true, format: "{total} #{unit.symbol}"}, labels: { format: "{value} #{unit.symbol}" }}, x_axis: { categories: categories.values}, legend: true, plot_options: { column: {stacking: 'normal'}})

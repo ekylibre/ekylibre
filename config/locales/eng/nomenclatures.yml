@@ -3267,10 +3267,10 @@ eng:
       property_natures:
         crop_sets: "Crop sets"
       items:
-        # fallow_land: "Fallow land"
+        fallow_land: "Fallow land"
         fodder: "Fodder"
         grain: "Grain"
-        # meadow: "Meadow"
+        meadow: "Meadow"
         meat: "Meat"
         milk: "Milk"
         seed: "Seed"
