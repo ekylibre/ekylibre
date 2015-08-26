@@ -56,13 +56,13 @@ module Backend::MapsHelper
   def importer_form(options = {})
     imports = options
     html = ''
-    html += form_tag({controller: '/backend/map_editor', action: :upload}, {method: :post, multipart: true, remote: true, :authenticity_token => true, data: { 'importer-form': true }}) do
+    html += form_tag({ controller: '/backend/map_editor', action: :upload }, method: :post, multipart: true, remote: true, authenticity_token: true, data: { 'importer-form': true }) do
       content_tag(:div, class: 'row') do
         imports.collect do |k|
           radio_button_tag(:importer_format, k) + label_tag("importer_format_#{k}".to_sym, k)
         end.join.html_safe
       end + content_tag(:div, class: 'row') do
-        file_field_tag( :import_file) + content_tag(:span, content_tag(:i), {class: 'spinner-loading', data: { 'importer-spinner': true }})
+        file_field_tag(:import_file) + content_tag(:span, content_tag(:i), class: 'spinner-loading', data: { 'importer-spinner': true })
       end
     end
     html

@@ -120,8 +120,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
     information_import_context = "Import Ekylibre interventions on #{Time.now.l}"
     rows.each_with_index do |row, _index|
-
-      line_number = _index +2
+      line_number = _index + 2
       r = parse_row(row)
 
       if r.intervention_duration_in_hour.hours
@@ -182,8 +181,6 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
             w.info ' support : ' + support.name.inspect.yellow if support
             w.info ' workers_name : ' + r.workers.map(&:name).inspect.yellow if r.workers
             w.info ' equipments_name : ' + r.equipments.map(&:name).inspect.yellow if r.equipments
-
-
 
             area = storage.shape
             coeff = ((storage.shape_area / 10_000.0) / 6.0).to_d if area
@@ -278,7 +275,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       else
         w.warn "Bad unit: #{unit} for intervention"
       end
-    # case population
+      # case population
     end
     if working_area && working_area.to_d(:square_meter) > 0.0
       puts working_area.inspect.green
@@ -584,7 +581,6 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   end
 
   def record_sowing_with_insecticide_and_molluscicide(r, support, duration)
-
     cultivable_zone = support.storage
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && r.target_variant && r.first.product && r.second.product && r.third.product
 
@@ -602,9 +598,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description, parameters: { readings: { 'base-sowing_with_insecticide_and_molluscicide-0-600-2' => plants_count.to_i } }) do |i|
       i.add_cast(reference_name: 'seeds',        actor: r.first.product)
       i.add_cast(reference_name: 'seeds_to_sow', population: first_product_input_population)
-      i.add_cast(reference_name: 'insecticide',        actor: r.second.product)
+      i.add_cast(reference_name: 'insecticide', actor: r.second.product)
       i.add_cast(reference_name: 'insecticide_to_input', population: second_product_input_population)
-      i.add_cast(reference_name: 'molluscicide',        actor: r.third.product)
+      i.add_cast(reference_name: 'molluscicide', actor: r.third.product)
       i.add_cast(reference_name: 'molluscicide_to_input', population: third_product_input_population)
       i.add_cast(reference_name: 'sower',        actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'sow') : i.find(Equipment, can: 'sow')))
       i.add_cast(reference_name: 'driver',       actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
@@ -782,7 +778,6 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   #######################
 
   def record_watering(r, support, duration)
-
     cultivable_zone = support.storage
     plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && plant && r.first.product
@@ -866,15 +861,13 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   end
 
   def record_detasseling(r, support, duration)
-
-
     plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
 
     return nil unless plant
 
     intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
       i.add_cast(reference_name: 'doer', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
-      i.add_cast(reference_name: 'cultivation', actor: plant )
+      i.add_cast(reference_name: 'cultivation', actor: plant)
     end
     intervention
   end

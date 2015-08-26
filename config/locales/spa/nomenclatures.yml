@@ -3268,8 +3268,10 @@ spa:
       # name: "Production natures"
     production_usages:
       items:
+        # fallow_land: "Fallow land"
         # fodder: "Fodder"
         # grain: "Grain"
+        # meadow: "Meadow"
         # meat: "Meat"
         # milk: "Milk"
         # seed: "Seed"

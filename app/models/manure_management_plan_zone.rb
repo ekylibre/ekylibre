@@ -97,7 +97,7 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
     if support.production_usage
       hash[:production_usage] = Nomen::ProductionUsage[support.production_usage]
     end
-    if computation_method and Calculus::ManureManagementPlan.method_exist? computation_method.to_sym
+    if computation_method && Calculus::ManureManagementPlan.method_exist?(computation_method.to_sym)
       hash[:method] = computation_method.to_sym
     else
       Rails.logger.warn "Method #{computation_method} doesn't exist. Use default method instead."

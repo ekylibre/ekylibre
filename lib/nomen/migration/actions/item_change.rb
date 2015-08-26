@@ -9,7 +9,7 @@ module Nomen
           @name = name.second
           @changes = element.attributes.delete_if do |k, _v|
             %w(item).include?(k)
-          end.each_with_object({}) do |(k,v), h|
+          end.each_with_object({}) do |(k, v), h|
             h[k] = v.to_s
           end.symbolize_keys
         end

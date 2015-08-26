@@ -2713,7 +2713,7 @@ fra:
         goat_milk: "Lait de chèvre"
         gooseberry_crop: "Culture de groseillier"
         gooseberry_seedling: "Plant de groseillier"
-        # grain: "Grain"
+        grain: "Grain"
         grain_crusher: "Broyeur à grain"
         grain_tank: "Silo à grains"
         granulated_insecticide_12: "Insecticide granulés"
@@ -3408,8 +3408,10 @@ fra:
         variant_support: "Variant" #?
     production_usages:
       items:
+        fallow_land: "Jachère"
         fodder: "Fourrage"
         grain: "Grain"
+        meadow: "Prairie"
         meat: "Viande"
         milk: "Lait"
         seed: "Semence"
