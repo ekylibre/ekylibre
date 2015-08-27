@@ -382,10 +382,14 @@
           this.edition = L.geoJson(this.options.edit, {
             onEachFeature: (feature, layer) =>
 
-              if not feature.properties.name?
-                feature.properties.name = if feature.properties.id? then "#{this.options.defaultEditionFeaturePrefix}#{feature.properties.id}" else this.defaultLabel
+              if not feature.properties.internal_id?
+                feature.properties['internal_id'] = new Date().getTime()
+                feature.properties['removable'] = true
 
-              feature.properties['level'] = 0 if this.options.multiLevels?
+              if not feature.properties.name?
+                feature.properties.name = if feature.properties.id? then "#{this.options.defaultEditionFeaturePrefix}#{feature.properties.id}" else this.options.defaultLabel
+
+              feature.properties['level'] = 0 if this.options.multiLevels? and not feature.properties.level?
 
               layer.bindLabel(feature.properties.name || feature.properties.id, {direction: 'auto', className:'referenceLabel'})
 
