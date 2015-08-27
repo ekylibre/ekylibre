@@ -385,6 +385,8 @@
               if not feature.properties.name?
                 feature.properties.name = if feature.properties.id? then "#{this.options.defaultEditionFeaturePrefix}#{feature.properties.id}" else this.defaultLabel
 
+              feature.properties['level'] = 0 if this.options.multiLevels?
+
               layer.bindLabel(feature.properties.name || feature.properties.id, {direction: 'auto', className:'referenceLabel'})
 
               $(this.element).trigger('mapeditor:feature_add', feature)
