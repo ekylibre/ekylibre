@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add eis plant">
+  <!-- Add your changes here -->
+<item-creation item="bromus" parent="poaceae" itis_tsn="40478"/>
+<item-creation item="borago" parent="boraginaceae" itis_tsn="31726"/>
+<item-creation item="camelina" parent="brassicaceae" itis_tsn="22598"/>
+<item-creation item="camelina_sativa" parent="camelina" itis_tsn="22600"/>
+<item-creation item="lepidium" parent="brassicaceae" itis_tsn="22953"/>
+<item-creation item="lepidium_sativum" parent="lepidium" itis_tsn="22978"/>
+<item-creation item="phleum" parent="poaceae" itis_tsn="41061"/>
+<item-creation item="trigonella" parent="fabaceae" itis_tsn="27008"/>
+<item-creation item="trigonella_foenum-graecum" parent="trigonella" itis_tsn="505590"/>
+<item-creation item="festuca" parent="poaceae" itis_tsn="40792"/>
+<item-creation item="lathyrus" parent="fabaceae" itis_tsn="25834"/>
+<item-creation item="lathyrus_sativus" parent="lathyrus" itis_tsn="25877"/>
+<item-creation item="lotus" parent="fabaceae" itis_tsn="26361"/>
+<item-creation item="lotus_corniculatus" parent="lotus" itis_tsn="26362"/>
+<item-creation item="medicago_sativa" parent="medicago" itis_tsn="183623"/>
+<item-creation item="setaria_italica" parent="setaria" itis_tsn="41248"/>
+<item-creation item="panicum" parent="poaceae" itis_tsn="40901"/>
+<item-creation item="panicum_miliaceum" parent="panicum" itis_tsn="40946"/>
+<item-creation item="medicago_lupulina" parent="medicago" itis_tsn="503721"/>
+<item-creation item="melilotus" parent="fabaceae" itis_tsn="26148"/>
+<item-creation item="guizotia" parent="asteraceae" itis_tsn="37476"/>
+<item-creation item="guizotia_abyssinica" parent="guizotia" itis_tsn="37477"/>
+<item-creation item="poa_trivialis" parent="poa" itis_tsn="41163"/>
+<item-creation item="raphanus" parent="brassicaceae" itis_tsn="23288"/>
+<item-creation item="raphanus_sativus" parent="raphanus" itis_tsn="23290"/>
+<item-creation item="eruca" parent="brassicaceae" itis_tsn="23123"/>
+<item-creation item="eruca_vesicaria" parent="eruca" itis_tsn="502429"/>
+<item-creation item="plumbaginaceae" parent="plant" itis_tsn="21324"/>
+<item-creation item="limonium" parent="plumbaginaceae" itis_tsn="21329"/>
+<item-creation item="limonium_vulgare" parent="limonium" itis_tsn="503466"/>
+<item-creation item="onobrychis" parent="fabaceae" itis_tsn="26809"/>
+<item-creation item="x_schedolium" parent="poaceae" itis_tsn="781314"/>
+</migration>
