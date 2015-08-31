@@ -120,15 +120,11 @@
         catch
           widget.edition.addLayer e.layer
 
-#        widget._saveUpdates()
-#        widget.element.trigger "mapchange"
 
         this._refreshControls()
         widget.update()
 
       this.map.on "draw:edited", (e) ->
-#        widget._saveUpdates()
-#        widget.element.trigger "mapchange"
         widget.update()
 
 
@@ -138,8 +134,6 @@
           widget.element.trigger 'mapeditor:feature_delete', layer.feature
 
         widget.update()
-#        widget._saveUpdates()
-#        widget.element.trigger "mapchange"
 
       this._resize()
       # console.log "resized"
@@ -337,16 +331,11 @@
               if not feature.properties.name?
                 feature.properties.name = if feature.properties.id? then "#{this.options.defaultEditionFeaturePrefix}#{feature.properties.id}" else this.defaultLabel
 
-#              label = new L.Label({direction: 'auto', className:'referenceLabel'})
-#              label.setContent(feature.properties.name || feature.properties.id)
-#              label.setLatLng(layer.getBounds().getCenter())
-#              this.map.showLabel(label)
           })
         else
           this.reference = L.GeoJSON.geometryToLayer(this.options.show)
 
         this.reference.setStyle this.options.showStyle
-#        this.reference = L.GeoJSON.geometryToLayer(this.options.show).setStyle this.options.showStyle
         this.reference.addTo this.map
       this
 
@@ -358,10 +347,6 @@
           this.ghost = L.geoJson(this.options.ghost, {
             onEachFeature: (feature, layer) =>
 
-              #required for cap_land_parcel_clusters as names are set later
-#              if not feature.properties.name?
-#                feature.properties.name = if feature.properties.id? then "#{this.options.defaultEditionFeaturePrefix}#{feature.properties.id}" else this.defaultLabel
-#
               label = new L.Label({direction: 'bottom', className:'ghostLabel', offset: [0, -50], opacity: 0.7})
               label.setContent(feature.properties.name || feature.properties.id)
               label.setLatLng(layer.getBounds().getCenter())
