@@ -4649,6 +4649,8 @@ purchase_items:
     type: integer
     references: account
     required: true
+  accounted_at:
+    type: datetime
   amount:
     type: decimal
     precision: 19
@@ -4672,6 +4674,8 @@ purchase_items:
   id:
     type: integer
     required: true
+  invoiced_at:
+    type: datetime
   label:
     type: text
   lock_version:
@@ -4861,6 +4865,8 @@ sale_items:
   account_id:
     type: integer
     references: account
+  accounted_at:
+    type: datetime
   amount:
     type: decimal
     precision: 19
@@ -4887,11 +4893,15 @@ sale_items:
   id:
     type: integer
     required: true
+  invoiced_at:
+    type: datetime
   label:
     type: text
   lock_version:
     type: integer
     required: true
+  payment_at:
+    type: datetime
   position:
     type: integer
   pretax_amount:

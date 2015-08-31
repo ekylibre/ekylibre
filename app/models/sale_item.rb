@@ -23,6 +23,7 @@
 # == Table: sale_items
 #
 #  account_id           :integer
+#  accounted_at         :datetime
 #  amount               :decimal(19, 4)   default(0.0), not null
 #  annotation           :text
 #  created_at           :datetime         not null
@@ -31,8 +32,10 @@
 #  credited_quantity    :decimal(19, 4)
 #  currency             :string           not null
 #  id                   :integer          not null, primary key
+#  invoiced_at          :datetime
 #  label                :text
 #  lock_version         :integer          default(0), not null
+#  payment_at           :datetime
 #  position             :integer
 #  pretax_amount        :decimal(19, 4)   default(0.0), not null
 #  quantity             :decimal(19, 4)   default(1.0), not null
@@ -77,6 +80,7 @@ class SaleItem < Ekylibre::Record::Base
   sums :sale, :items, :pretax_amount, :amount
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_datetime :accounted_at, :invoiced_at, :payment_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :amount, :credited_quantity, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, allow_nil: true
   validates_presence_of :amount, :currency, :pretax_amount, :quantity, :reduction_percentage, :sale, :unit_amount, :variant
   # ]VALIDATORS]
@@ -98,12 +102,18 @@ class SaleItem < Ekylibre::Record::Base
     joins(:variant).merge(ProductNatureVariant.of_natures(product_nature))
   }
 
-  calculable period: :month, column: :pretax_amount, at: 'invoiced_at'
+  calculable period: :month, column: :pretax_amount, at: :invoiced_at, name: :sum
 
   before_validation do
     self.currency = sale.currency if sale
 
     self.quantity = -1 * credited_quantity if sale_credit
+
+    if sale
+      for replicated in [:accounted_at, :invoiced_at, :payment_at]
+        send("#{replicated}=", sale.send(replicated))
+      end
+    end
 
     if tax && unit_pretax_amount
       item = Nomen::Currency.find(currency)

@@ -46,6 +46,7 @@
 #
 
 class OutgoingPayment < Ekylibre::Record::Base
+  include PeriodicCalculable
   refers_to :currency
   belongs_to :cash
   belongs_to :journal_entry
@@ -64,6 +65,12 @@ class OutgoingPayment < Ekylibre::Record::Base
 
   acts_as_numbered
   acts_as_affairable :payee, dealt_at: :to_bank_at, debit: false, role: 'supplier'
+
+  scope :between, lambda { |started_at, stopped_at|
+    where(paid_at: started_at..stopped_at)
+  }
+
+  calculable period: :month, column: :amount, at: :paid_at, name: :sum
 
   before_validation do
     if mode

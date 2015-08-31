@@ -23,6 +23,7 @@
 # == Table: purchase_items
 #
 #  account_id           :integer          not null
+#  accounted_at         :datetime
 #  amount               :decimal(19, 4)   default(0.0), not null
 #  annotation           :text
 #  created_at           :datetime         not null
@@ -30,6 +31,7 @@
 #  currency             :string           not null
 #  fixed                :boolean          default(FALSE), not null
 #  id                   :integer          not null, primary key
+#  invoiced_at          :datetime
 #  label                :text
 #  lock_version         :integer          default(0), not null
 #  position             :integer

@@ -928,6 +928,7 @@ spa:
     # include_blank: "Include blank"
     income_statement: "cuentos de résultos"
     # incoming_deliveries: "Incoming deliveries"
+    # incoming_payment: "Incoming payment"
     # incoming_payments: "Incoming payments"
     # incoming_payments_to_deposit: "Incoming payments to deposit"
     # indicator: "Indicators"
@@ -1063,9 +1064,11 @@ spa:
     net_vat_amount: "TVA neta deuda" #?
     # new: "New"
     # new_animal: "New animal"
+    # new_attachment: "New attachment"
     # new_box: "New box"
     # new_call: "New call"
     # new_contact: "New contact"
+    # new_container: "New container"
     new_deposit:
       # one: "Make a deposit %{mode}: 1 available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"
@@ -1118,6 +1121,7 @@ spa:
     other_services: "Otros bienes y servicios" #?
     others: "Otra TVA a deducir"
     out_vat_amount: "Basa fuera de tarifa" #?
+    # outgoing_payment: "Outgoing payment"
     # outgoing_payments: "Outgoing payments"
     overflow: "CREDITO O ECCEDENTE" #?
     page_title: "%{company_code} - %{menu} - %{action}"
@@ -1297,9 +1301,11 @@ spa:
     sequence_create: "Añadir une sequencia" #?
     sequences: "Séquencias" #?
     sequences_load: "Cargar las secuencias faltantes" #?
+    # sessions: "Sessions"
     # set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)"
     # settings: "Settings"
     # settings_statistics: "Settings statistics"
+    # sex: "Sex"
     # shape: "Shape"
     shelf: "Categoria" #?
     # ship: "Ship"
@@ -1350,6 +1356,7 @@ spa:
     # thumb: "Thumb"
     # time_cost: "Time cost"
     # time_cost_per_hectare: "Time cost per hectare"
+    # time_spend_by_activities: "Time spend by activities"
     # time_zone: "Time zone"
     # timeline: "Timeline"
     # timeline_comment: "%{author} commented %{when}"
@@ -1386,6 +1393,7 @@ spa:
     # tracking: "Tracking"
     # trade: "Trade"
     # trade_counts: "Trade counts"
+    # transactions_by_month: "Transactions by month"
     # transfer: "Transfer"
     # transformations: "Transformations"
     # transport: "Transport"

@@ -1046,6 +1046,7 @@ fra:
     include_blank: "— Aucune organisation —"
     income_statement: "Compte de résultat"
     incoming_deliveries: "Approvisionnements"
+    incoming_payment: "Encaissement"
     incoming_payment_conditions: "Conditions d’encaissement" #?
     incoming_payments: "Encaissements"
     incoming_payments_states:  #?
@@ -1211,10 +1212,11 @@ fra:
     net_volume: "Volume net" #?
     new: "Nouveau"
     new_animal: "Nouvel animal"
+    # new_attachment: "New attachment"
     new_box: "Nouvelle boîte"
     new_call: "Nouvel appel"
     new_contact: "Nouveau contact"
-    new_container: "Nouvel emplacement" #?
+    new_container: "Nouvel emplacement"
     new_deposit:
       one: "Effectuer une remise\_: %{mode} (%{count} encaissement disponible)"
       other: "Effectuer une remise\_: %{mode} (%{count} encaissements disponibles)"
@@ -1291,6 +1293,7 @@ fra:
     organic_matter_concentration: "Teneur en matière organique"
     other_results: "Autres résultats…" #?
     others: "Autres"
+    outgoing_payment: "Décaissement"
     outgoing_payments: "Décaissements"
     outgoing_payments_states:  #?
       all: "Tous" #?
@@ -1528,10 +1531,11 @@ fra:
     send_mail: "Envoyer le mail"
     send_test_mail: "Envoyer un mail de test"
     sequences_load: "Charger les séquences manquantes" #?
+    # sessions: "Sessions"
     set_reconcilable_new_but_existing_third_accounts: "Rendre lettrables les nouveaux comptes tiers déjà existants"
     settings: "Configuration"
     settings_statistics: "Statistiques des paramètres"
-    sex: "Sexe" #?
+    sex: "Sexe"
     shape: "Forme"
     ship: "Prévue le"
     show: "Afficher"
@@ -1593,6 +1597,7 @@ fra:
     thumb: "Miniature"
     time_cost: "Coût de main d’œuvre"
     time_cost_per_hectare: "Coût de main d’œuvre par hectare"
+    time_spend_by_activities: "Temps passé par activités"
     time_zone: "Fuseau horaire"
     timeline: "Chronologie"
     timeline_comment: "%{author} a commenté %{when}"
@@ -1636,6 +1641,7 @@ fra:
     tracking: "Lot"
     trade: "Ventes/Achats"
     trade_counts: "Totaux commerciaux"
+    transactions_by_month: "Transactions par mois"
     transfer: "Effectuer les transferts"
     transformations: "Transformations"
     transformed_products: "Produits transformés" #?

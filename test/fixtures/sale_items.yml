@@ -23,6 +23,7 @@
 # == Table: sale_items
 #
 #  account_id           :integer
+#  accounted_at         :datetime
 #  amount               :decimal(19, 4)   default(0.0), not null
 #  annotation           :text
 #  created_at           :datetime         not null
@@ -31,8 +32,10 @@
 #  credited_quantity    :decimal(19, 4)
 #  currency             :string           not null
 #  id                   :integer          not null, primary key
+#  invoiced_at          :datetime
 #  label                :text
 #  lock_version         :integer          default(0), not null
+#  payment_at           :datetime
 #  position             :integer
 #  pretax_amount        :decimal(19, 4)   default(0.0), not null
 #  quantity             :decimal(19, 4)   default(1.0), not null
