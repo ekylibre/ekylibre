@@ -835,6 +835,7 @@ eng:
     are_you_sure_you_want_to_delete_delivery: "Are you sure you want to remove the delivery of transport?"
     are_you_sure_you_want_to_invoice: "Are you sure you want to invoice?"
     are_you_sure_you_want_to_send_mails: "Are you sure you want to send emails?"
+    # area: "Area"
     attach_deal: "Add a deal"
     attachment: "Attachment"
     attachments: "Attachments"
@@ -919,7 +920,7 @@ eng:
     credit: "Credit" #?
     credited_quantity: "Quantity to credit" #?
     credits: "Credits"
-    cropping_plan: "Cropping plan" #?
+    cropping_plan: "Cropping plan"
     cropping_plan_on_cultivable_zones: "Cropping plan on cultivable zones"
     crumbs: "Crumbs" #?
     cultivable_zone: "Cultivable zone"
