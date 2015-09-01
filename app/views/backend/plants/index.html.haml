@@ -30,7 +30,7 @@
           end
 
           if container = p.container
-            popup_content << {label: :cultivable_zone.tl, value: link_to(container.name, backend_product_path(container)) }
+            popup_content << {label: :cultivable_zone.tl, value: link_to(container.work_name, backend_product_path(container)) }
           end
 
           if interventions = Intervention.with_generic_cast(:target, p).reorder(:started_at)

@@ -272,6 +272,10 @@ class Product < Ekylibre::Record::Base
     dead_at.nil? && !population.zero?
   end
 
+  def work_name
+    return "#{self.name} (#{self.work_number})"
+  end
+
   def unroll_name
     'unrolls.backend/products'.t(attributes.symbolize_keys.merge(population: population, unit_name: unit_name))
   end
