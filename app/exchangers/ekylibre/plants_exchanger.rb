@@ -7,7 +7,7 @@ class Ekylibre::PlantsExchanger < ActiveExchanger::Base
       r = {
         name: row[0].to_s.strip,
         work_number: row[1].to_s.strip,
-        variant: (row[2].blank? ? nil : row[2].to_sym),
+        variant: (row[2].blank? ? nil : row[2].to_s),
         container_number: (row[3].blank? ? nil : row[3].to_s.strip),
         born_at: (row[4].blank? ? nil : row[4].to_datetime),
         variety: (row[5].blank? ? nil : row[5].to_s.strip),
@@ -19,7 +19,9 @@ class Ekylibre::PlantsExchanger < ActiveExchanger::Base
       }.to_struct
 
       # find or import from variant reference_nameclature the correct ProductNatureVariant
-      variant = ProductNatureVariant.import_from_nomenclature(r.variant)
+      unless variant = ProductNatureVariant.find_by(number: r.variant) || ProductNatureVariant.find_by(reference_name: r.variant.to_sym)
+        variant = ProductNatureVariant.import_from_nomenclature(r.variant.to_sym)
+      end
       # find the container
       unless container = Product.find_by_work_number(r.container_number)
         fail 'No container for cultivation!'
@@ -45,6 +47,8 @@ class Ekylibre::PlantsExchanger < ActiveExchanger::Base
       elsif container && shape = container.shape(r.born_at)
         product.read!(:shape, shape, at: r.born_at, force: true)
       end
+      a = (product.shape_area.to_d / product.variant.net_surface_area.to_d(:square_meter)) if product.shape
+      product.read!(:population, a.to_s.to_f, at: product.initial_born_at, force: true) if a
 
       w.check_point
     end
