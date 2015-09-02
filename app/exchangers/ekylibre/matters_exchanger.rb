@@ -1,10 +1,65 @@
 class Ekylibre::MattersExchanger < ActiveExchanger::Base
+  def check
+    valid = true
+     
+    #Check building division presence
+    unless building_division = BuildingDivision.first
+      w.error "Need almost one BuildingDivision"
+      valid = false
+    end
+    
+    rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
+    w.count = rows.size
+    rows.each_with_index do |row, index|
+      line_number = index + 2
+      prompt = "L#{line_number.to_s.yellow}"
+        next if row[0].blank?
+        r = {
+          name: row[0].blank? ? nil : row[0].to_s.strip,
+          variant_reference_name: row[1].blank? ? nil : row[1].to_s,
+          work_number: row[2].blank? ? nil : row[2].to_s.strip,
+          place_code: row[3].blank? ? nil : row[3].to_s.strip,
+          born_at: (row[4].blank? ? (Date.today - 200) : row[4]).to_datetime,
+          variety: row[5].blank? ? nil : row[5].to_s.strip,
+          derivative_of: row[6].blank? ? nil : row[6].to_s.strip,
+          external: !row[7].blank?,
+          indicators: row[8].blank? ? {} : row[8].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.inject({}) do |h, i|
+            h[i.first.strip.downcase.to_sym] = i.second
+            h
+          end,
+          owner_name: row[7].blank? ? nil : row[7].to_s.strip,
+          notes: row[9].blank? ? nil : row[9].to_s.strip,
+          unit_pretax_amount: row[10].blank? ? nil : row[10].to_d
+        }.to_struct
+        
+        # FILE GIVE VARIANT OR VARIETY CODES BUT NOT EXIST IN DB OR IN NOMENCLATURE
+        if r.variety
+          unless Nomen::Variety.find(r.variety)
+            w.error "#{prompt} #{r.variety} does not exist in NOMENCLATURE"
+            valid = false
+          end
+        end
+        
+        if r.variant_reference_name
+          unless variant = ProductNatureVariant.find_by(number: r.variant_reference_name)
+           unless nomen = Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
+            w.error "No variant exist in NOMENCLATURE for #{r.variant_reference_name.inspect}"
+            valid = false
+           end
+          end
+        end
+    
+    end
+    
+  end
+  
   def import
-    if building_division = BuildingDivision.first
-
+    
       rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
       w.count = rows.size
-
+      
+      building_division = BuildingDivision.first
+      
       rows.each do |row|
         next if row[0].blank?
         r = {
@@ -73,9 +128,5 @@ class Ekylibre::MattersExchanger < ActiveExchanger::Base
           w.warn "Need a Variant for #{r.name}"
         end
       end
-
-    else
-      w.warn 'Need a BuildingDivision'
     end
-  end
 end

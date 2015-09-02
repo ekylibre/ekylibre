@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20150826103353">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20150902081701">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -4092,6 +4092,8 @@
       <item name="hevea" parent="euphorbiaceae" itis_tsn="500755"/>
       <item name="hibiscus" parent="malvaceae" itis_tsn="21611"/>
       <item name="hibiscus_syriacus" parent="hibiscus" itis_tsn="21638"/>
+      <item name="hibiscus_syriacus_marina" parent="hibiscus_syriacus" itis_tsn=""/>
+      <item name="hibiscus_syriacus_woodbridge" parent="hibiscus_syriacus" itis_tsn=""/>
       <item name="hippophae" parent="elaeagnaceae" itis_tsn="500326"/>
       <item name="hippophae_rhamnoides" parent="hippophae" itis_tsn="503044"/>
       <item name="honey" parent="raw_matter" derivative_of="apis"/>
@@ -4287,6 +4289,8 @@
       <item name="laburnum" parent="fabaceae" itis_tsn="26760"/>
       <item name="laburnum_anagyroides" parent="laburnum" itis_tsn="26761"/>
       <item name="lactuca" parent="asteraceae" itis_tsn="36594"/>
+      <item name="lactuca_sativa" parent="lactuca" itis_tsn="36607"/>
+      <item name="lactuca_sativa_butterhead" parent="lactuca_sativa" itis_tsn=""/>
       <item name="lamiaceae" parent="plant" itis_tsn="32251"/>
       <item name="land_parcel" parent="easement"/>
       <item name="land_parcel_cluster" parent="land_parcel_group"/>

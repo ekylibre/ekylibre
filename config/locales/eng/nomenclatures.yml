@@ -4074,6 +4074,8 @@ eng:
         hevea: "Hevea"                                     #< euphorbiaceae
         hibiscus: "Hibiscus"                               #< malvaceae
         hibiscus_syriacus: "Hibiscus syriacus"             #< hibiscus
+        # hibiscus_syriacus_marina: "Hibiscus syriacus marina" #< hibiscus_syriacus
+        # hibiscus_syriacus_woodbridge: "Hibiscus syriacus woodbridge" #< hibiscus_syriacus
         hippophae: "Hippophae"                             #< elaeagnaceae
         hippophae_rhamnoides: "Hippophae rhamnoides"       #< hippophae
         honey: "Honey"                                     #< raw_matter
@@ -4269,6 +4271,8 @@ eng:
         laburnum: "Laburnum"                               #< fabaceae
         laburnum_anagyroides: "Laburnum anagyroides"       #< laburnum
         lactuca: "Lettuce"                                 #< asteraceae
+        # lactuca_sativa: "Lactuca sativa"                 #< lactuca
+        # lactuca_sativa_butterhead: "Lactuca sativa butterhead" #< lactuca_sativa
         lamiaceae: "Lamiaceae"                             #< plant
         land_parcel: "Land parcel"                         #< easement
         land_parcel_cluster: "Land parcel cluster"         #< land_parcel_group
