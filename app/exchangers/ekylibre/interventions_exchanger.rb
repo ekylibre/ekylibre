@@ -741,7 +741,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && r.first.product
 
     working_measure = support.net_surface_area
-    
+
     puts working_measure.inspect.green
     first_product_input_population = actor_population_conversion(r.first, working_measure)
 

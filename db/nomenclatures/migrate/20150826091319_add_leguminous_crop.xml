@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <migration name="Add leguminous crop">
   <!-- Add your changes here -->
-<item-creation item="vigna" parent="fabaceae" itis_tsn="27015"/>
-<item-creation item="vigna_unguiculata" parent="vigna" itis_tsn="27018"/>
-<item-creation item="trigonella" parent="fabaceae" itis_tsn="270008"/>
-<item-creation item="trigonella_foenum-graecum" parent="trigonella" itis_tsn="505590"/>
-<item-creation item="lathyrus" parent="fabaceae" itis_tsn="25834"/>
-<item-creation item="lathyrus_sativus" parent="lathyrus" itis_tsn="25877"/>
-<item-creation item="lotus" parent="fabaceae" itis_tsn="26361"/>
-<item-creation item="lotus_corniculatus" parent="lotus" itis_tsn="26362"/>
-<item-creation item="medicago_luoulina" parent="medicago" itis_tsn="503721"/>
+<item-creation item="varieties#vigna" parent="fabaceae" itis_tsn="27015"/>
+<item-creation item="varieties#vigna_unguiculata" parent="vigna" itis_tsn="27018"/>
+<item-creation item="varieties#trigonella" parent="fabaceae" itis_tsn="270008"/>
+<item-creation item="varieties#trigonella_foenum_graecum" parent="trigonella" itis_tsn="505590"/>
+<item-creation item="varieties#lathyrus" parent="fabaceae" itis_tsn="25834"/>
+<item-creation item="varieties#lathyrus_sativus" parent="lathyrus" itis_tsn="25877"/>
+<item-creation item="varieties#lotus" parent="fabaceae" itis_tsn="26361"/>
+<item-creation item="varieties#lotus_corniculatus" parent="lotus" itis_tsn="26362"/>
+<item-creation item="varieties#medicago_luoulina" parent="medicago" itis_tsn="503721"/>
 </migration>

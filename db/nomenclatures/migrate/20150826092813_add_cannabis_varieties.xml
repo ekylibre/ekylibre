@@ -11,8 +11,8 @@
 <item-creation item="varieties#cannabis_chamaeleon"      parent="cannabis"/>
 <item-creation item="varieties#cannabis_codimono"      parent="cannabis"/>
 <item-creation item="varieties#cannabis_dacia_seculeni"      parent="cannabis"/>
-<item-creation item="varieties#cannabis_delta-405"      parent="cannabis"/>
-<item-creation item="varieties#cannabis_delta-ilosa"      parent="cannabis"/>
+<item-creation item="varieties#cannabis_delta_405"      parent="cannabis"/>
+<item-creation item="varieties#cannabis_delta_ilosa"      parent="cannabis"/>
 <item-creation item="varieties#cannabis_denise"      parent="cannabis"/>
 <item-creation item="varieties#cannabis_diana"      parent="cannabis"/>
 <item-creation item="varieties#cannabis_dioica_88"      parent="cannabis"/>
@@ -24,7 +24,6 @@
 <item-creation item="varieties#cannabis_fibrol"      parent="cannabis"/>
 <item-creation item="varieties#cannabis_finola"      parent="cannabis"/>
 <item-creation item="varieties#cannabis_futura_75"      parent="cannabis"/>
-<item-creation item="varieties#cannabis_ferimon"      parent="cannabis"/>
 <item-creation item="varieties#cannabis_ivory"      parent="cannabis"/>
 <item-creation item="varieties#cannabis_kc_dora"      parent="cannabis"/>
 <item-creation item="varieties#cannabis_kc_virtus"      parent="cannabis"/>
@@ -46,7 +45,7 @@
 <item-creation item="varieties#cannabis_tisza"      parent="cannabis"/>
 <item-creation item="varieties#cannabis_tygra"      parent="cannabis"/>
 <item-creation item="varieties#cannabis_uniko_b"      parent="cannabis"/>
-<item-creation item="varieties#cannabis_uso-31"      parent="cannabis"/>
+<item-creation item="varieties#cannabis_uso_31"      parent="cannabis"/>
 <item-creation item="varieties#cannabis_wielkopolskie"      parent="cannabis"/>
 <item-creation item="varieties#cannabis_wojko"      parent="cannabis"/>
 <item-creation item="varieties#cannabis_zenit"      parent="cannabis"/>
