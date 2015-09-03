@@ -87,6 +87,9 @@ module Procedo
       unless @operations.keys.size == element.xpath('xmlns:operations/xmlns:operation').size
         fail Procedo::Errors::NotUniqueIdentifier.new("Each operation must have a unique identifier (#{name})")
       end
+      unless @operations.keys.size == 1
+        fail Procedo::Errors::NotUniqueIdentifier.new("Only one operation accepted by procedure")
+      end
 
       # Compile it
       self.compile!
