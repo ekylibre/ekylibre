@@ -8,7 +8,7 @@
     -#= plugins_link_tag
     = theme_link_tag
     = javascript_include_tag :application, "data-turbolinks-track" => true
-  %body
+  %body.body-backend
     = navigation_tag
     - attrs = (help_shown? ? {class: "show-help"} : {})
     #wrap{attrs}
