@@ -273,7 +273,7 @@ class Product < Ekylibre::Record::Base
   end
 
   def work_name
-    return "#{self.name} (#{self.work_number})"
+    "#{name} (#{work_number})"
   end
 
   def unroll_name

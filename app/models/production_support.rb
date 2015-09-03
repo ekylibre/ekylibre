@@ -306,12 +306,12 @@ class ProductionSupport < Ekylibre::Record::Base
 
   def net_surface_area
     area = 0.0.in_square_meter
-    area = self.quantity.in(self.quantity_unit) if self.quantity_indicator == 'net_surface_area'
-    return area
+    area = self.quantity.in(quantity_unit) if quantity_indicator == 'net_surface_area'
+    area
   end
 
   def work_name
-    return "#{self.storage.work_name} - #{self.net_surface_area}"
+    "#{storage.work_name} - #{net_surface_area}"
   end
 
   def get(*args)

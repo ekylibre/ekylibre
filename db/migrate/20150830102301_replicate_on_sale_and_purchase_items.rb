@@ -9,12 +9,10 @@ class ReplicateOnSaleAndPurchaseItems < ActiveRecord::Migration
     add_column :purchase_items, :accounted_at, :datetime
 
     # add values in tables
-    execute "UPDATE sale_items SET invoiced_at=(SELECT invoiced_at FROM sales  WHERE sales.id = sale_items.sale_id)"
-    execute "UPDATE sale_items SET accounted_at=(SELECT accounted_at FROM sales WHERE sales.id = sale_items.sale_id)"
-    execute "UPDATE sale_items SET payment_at=(SELECT payment_at FROM sales  WHERE sales.id = sale_items.sale_id)"
-    execute "UPDATE purchase_items SET invoiced_at=(SELECT invoiced_at FROM purchases WHERE purchases.id = purchase_items.purchase_id)"
-    execute "UPDATE purchase_items SET accounted_at=(SELECT accounted_at FROM purchases WHERE purchases.id = purchase_items.purchase_id)"
-
-
+    execute 'UPDATE sale_items SET invoiced_at=(SELECT invoiced_at FROM sales  WHERE sales.id = sale_items.sale_id)'
+    execute 'UPDATE sale_items SET accounted_at=(SELECT accounted_at FROM sales WHERE sales.id = sale_items.sale_id)'
+    execute 'UPDATE sale_items SET payment_at=(SELECT payment_at FROM sales  WHERE sales.id = sale_items.sale_id)'
+    execute 'UPDATE purchase_items SET invoiced_at=(SELECT invoiced_at FROM purchases WHERE purchases.id = purchase_items.purchase_id)'
+    execute 'UPDATE purchase_items SET accounted_at=(SELECT accounted_at FROM purchases WHERE purchases.id = purchase_items.purchase_id)'
   end
 end

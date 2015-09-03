@@ -1,5 +1,4 @@
 class Ekylibre::PurchasesExchanger < ActiveExchanger::Base
-
   def check
     rows = CSV.read(file, headers: true)
     w.count = rows.size

@@ -23,7 +23,7 @@ class Backend::PlantsController < Backend::MattersController
     t.column :name, url: true
     t.column :work_number
     t.column :variety
-    t.column :work_name ,through: :container, url: true
+    t.column :work_name, through: :container, url: true
     t.column :net_surface_area, datatype: :measure
     t.column :born_at
   end

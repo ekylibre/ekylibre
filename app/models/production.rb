@@ -268,8 +268,8 @@ class Production < Ekylibre::Record::Base
 
   def net_surface_area(unit = :hectare)
     area = 0.0.in_square_meter
-    area = supports.sum(:quantity).in(self.support_variant_unit) if supports.any?
-    return area.in(unit)
+    area = supports.sum(:quantity).in(support_variant_unit) if supports.any?
+    area.in(unit)
   end
 
   # Returns the count of supports

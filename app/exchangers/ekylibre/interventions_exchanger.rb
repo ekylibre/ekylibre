@@ -174,7 +174,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
           storage = support.storage
           Ekylibre::FirstRun::Booker.production = support.production
           if storage.is_a?(CultivableZone)
-            if support.quantity_indicator == :net_surface_area and support.quantity
+            if support.quantity_indicator == :net_surface_area && support.quantity
               area = support.get(:net_surface_area).to_d(:square_meter)
             else
               area = storage.shape_area.to_d
@@ -433,7 +433,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       members = options[:support].storage.contains(options[:variety], options[:at])
       plant = members.first.product if members
     elsif options[:variant] && options[:at]
-      members = options[:support].storage.localized_variants(options[:variant], {at: options[:at]})
+      members = options[:support].storage.localized_variants(options[:variant], at: options[:at])
       plant = members.first.product if members
     end
     plant
@@ -446,7 +446,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       members = options[:support].storage.contains(options[:variety], options[:at])
       area = members.map(&:shape_area).compact.sum if members
     elsif options[:variant] && options[:at]
-      members = options[:support].storage.localized_variants(options[:variant], {at: options[:at]})
+      members = options[:support].storage.localized_variants(options[:variant], at: options[:at])
       area = members.map(&:shape_area).compact.sum if members
     end
     area
@@ -516,7 +516,6 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   end
 
   def record_spraying_on_cultivation(r, support, duration)
-
     plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
 
     return nil unless plant && r.first.product

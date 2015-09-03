@@ -40,8 +40,6 @@
 #  recommended                 :boolean          default(FALSE), not null
 #  recommender_id              :integer
 #  reference_name              :string           not null
-#  resource_id                 :integer
-#  resource_type               :string
 #  started_at                  :datetime
 #  state                       :string           not null
 #  stopped_at                  :datetime
@@ -55,7 +53,6 @@ end
 class Intervention < Ekylibre::Record::Base
   attr_readonly :reference_name, :production_id
   belongs_to :event, dependent: :destroy, inverse_of: :intervention
-  belongs_to :resource, polymorphic: true
   belongs_to :production, inverse_of: :interventions
   belongs_to :production_support
   belongs_to :issue

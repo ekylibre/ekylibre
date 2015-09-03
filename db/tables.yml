@@ -2280,11 +2280,6 @@ interventions:
   reference_name:
     type: string
     required: true
-  resource_id:
-    type: integer
-    references: "~resource_type"
-  resource_type:
-    type: string
   started_at:
     type: datetime
   state:
