@@ -1,15 +1,14 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <!-- ######################################## ANIMAUX ########################################### -->
-  <procedure name="product_moving" natures="product_moving" version="0" status="frozen">
-
+  <procedure name="product_moving" natures="product_moving" version="0">
     <variables>
-      <variable name="product"       variety="product" roles="product_moving-target"/>
-      <variable name="container"     roles="product_moving-container" default-actor="default-storage-of-support" />
-      <variable name="doer"          variety="worker" abilities="move" roles="product_moving-doer"/>
+      <variable name="product" variety="product" roles="product_moving-target"/>
+      <variable name="container" roles="product_moving-container" default-actor="default_storage_of_support"/>
+      <variable name="doer" variety="worker" abilities="move" roles="product_moving-doer"/>
     </variables>
     <operations>
-      <operation id="100">
+      <operation id="1">
+        <!-- Operation 100 -->
         <task do="[doer] moves at [product]"/>
         <task do="[product] moves in [container]"/>
       </operation>

@@ -60,7 +60,7 @@ module Procedo
     @@whole_indicators = Nomen::Indicator.where(related_to: :whole).collect { |i| i.name.to_sym }
     cattr_reader :whole_indicators
 
-    attr_reader :destination, :backward_tree, :forward_tree, :handler
+    attr_reader :destination, :backward_tree, :forward_tree, :handler, :attributes
 
     class << self
       def count_variables(node, name)
@@ -79,31 +79,33 @@ module Procedo
     def initialize(handler, element = nil)
       @handler = handler
       # Extract attributes from XML element
-      unless element.is_a?(Hash)
-        element = %w(forward backward to).inject({}) do |hash, attr|
+      if element.is_a?(Hash)
+        @attributes = element
+      else
+        @attributes = %w(to forward backward).inject({}) do |hash, attr|
           hash[attr.to_sym] = element.attr(attr) if element.has_attribute?(attr)
           hash
         end
       end
 
-      @destination = (element[:to] || @handler.indicator.name).to_sym
+      @destination = (@attributes[:to] || @handler.indicator.name).to_sym
       unless @@whole_indicators.include?(@destination)
         fail Procedo::Errors::InvalidHandler, "Handler must have a valid destination (#{@@whole_indicators.to_sentence} expected, got #{@destination})"
       end
 
-      if element[:forward]
+      if @attributes[:forward]
         begin
-          @forward_tree = HandlerMethod.parse(element[:forward].to_s)
+          @forward_tree = HandlerMethod.parse(@attributes[:forward].to_s)
         rescue SyntaxError => e
-          raise SyntaxError, "A procedure handler (#{element.inspect}) #{handler.procedure.name} has a syntax error on forward formula: #{e.message}"
+          raise SyntaxError, "A procedure handler (#{@attributes.inspect}) #{handler.procedure.name} has a syntax error on forward formula: #{e.message}"
         end
       end
 
-      if element[:backward]
+      if @attributes[:backward]
         begin
-          @backward_tree = HandlerMethod.parse(element[:backward].to_s)
+          @backward_tree = HandlerMethod.parse(@attributes[:backward].to_s)
         rescue SyntaxError => e
-          raise SyntaxError, "A procedure handler (#{element.inspect}) #{handler.procedure.name} has a syntax error on backward formula: #{e.message}"
+          raise SyntaxError, "A procedure handler (#{@attributes.inspect}) #{handler.procedure.name} has a syntax error on backward formula: #{e.message}"
         end
       end
     end

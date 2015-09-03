@@ -1,12 +1,14 @@
 module Procedo
   class Handler
-    attr_reader :name, :unit, :indicator, :converters, :widget, :usability_tree
+    attr_reader :name, :unit, :indicator, :converters, :widget, :usability_tree, :attributes
 
     def initialize(variable, element = nil)
       @variable = variable
       # Extract attributes from XML element
-      unless element.is_a?(Hash)
-        element = %w(forward backward indicator unit to datatype name widget converters if).inject({}) do |hash, attr|
+      if element.is_a?(Hash)
+        @attributes = element
+      else
+        @attributes = %w(forward backward indicator unit to datatype name widget converters if).inject({}) do |hash, attr|
           if attr == 'converters'
             hash[:converters] = element.xpath('xmlns:converter').to_a
           elsif element.has_attribute?(attr)
@@ -17,15 +19,15 @@ module Procedo
       end
 
       # Check indicator
-      unless @indicator = Nomen::Indicator[element[:indicator]]
-        fail Procedo::Errors::InvalidHandler, "Handler of #{@variable.name} must have a valid 'indicator' attribute. Got: #{element[:indicator].inspect}"
+      unless @indicator = Nomen::Indicator[@attributes[:indicator]]
+        fail Procedo::Errors::InvalidHandler, "Handler of #{@variable.name} must have a valid 'indicator' attribute. Got: #{@attributes[:indicator].inspect}"
       end
 
       # Get and check measure unit
       if @indicator.datatype == :measure
-        if element.key?(:unit)
-          unless @unit = Nomen::Unit[element[:unit]]
-            fail Procedo::Errors::InvalidHandler, "Handler must have a valid 'unit' attribute. Got: #{element[:unit].inspect}"
+        if @attributes.key?(:unit)
+          unless @unit = Nomen::Unit[@attributes[:unit]]
+            fail Procedo::Errors::InvalidHandler, "Handler must have a valid 'unit' attribute. Got: #{@attributes[:unit].inspect}"
           end
         else
           @unit = @indicator.unit
@@ -33,7 +35,7 @@ module Procedo
       end
 
       # Set name
-      name = element[:name].to_s
+      name = @attributes[:name].to_s
       if name.blank?
         name = @indicator.name.dup
         if @unit && @variable.handlers.detect { |h| h.name.to_s == name }
@@ -44,30 +46,30 @@ module Procedo
 
       # Collect converters
       @converters = []
-      if element[:converters] && element[:converters].any?
-        for converter in element[:converters]
+      if @attributes[:converters] && @attributes[:converters].any?
+        for converter in @attributes[:converters]
           @converters << Converter.new(self, converter)
         end
       else
-        element[:to] ||= @indicator.name
-        converter = { to: element[:to].to_sym }
-        converter[:forward]  = (element[:forward].blank? ? 'value' : element[:forward])
-        converter[:backward] = (element[:backward].blank? ? 'value' : element[:backward])
+        @attributes[:to] ||= @indicator.name
+        converter = { to: @attributes[:to].to_sym }
+        converter[:forward]  = (@attributes[:forward].blank? ? 'value' : @attributes[:forward])
+        converter[:backward] = (@attributes[:backward].blank? ? 'value' : @attributes[:backward])
         @converters << Converter.new(self, converter)
         # else
         #   raise Procedo::Errors::InvalidHandler, "Handler #{unique_name} (in #{procedure.name}) must have one converter at least with attribute 'to' or <converter> tags."
       end
 
-      if element[:if]
+      if @attributes[:if]
         begin
-          @usability_tree = HandlerMethod.parse(element[:if].to_s, root: 'boolean_expression')
+          @usability_tree = HandlerMethod.parse(@attributes[:if].to_s, root: 'boolean_expression')
         rescue SyntaxError => e
-          raise SyntaxError, "A procedure handler (#{element.inspect}) #{variable.procedure.name} has a syntax error on usability test (if): #{e.message}"
+          raise SyntaxError, "A procedure handler (#{@attributes.inspect}) #{variable.procedure.name} has a syntax error on usability test (if): #{e.message}"
         end
       end
 
       # Define widget
-      @widget = (element[:widget] || (@indicator.datatype == :geometry ? :map : :number)).to_sym
+      @widget = (@attributes[:widget] || (@indicator.datatype == :geometry ? :map : :number)).to_sym
     end
 
     def procedure

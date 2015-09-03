@@ -1,5 +1,4 @@
 class Ekylibre::OutgoingPaymentsExchanger < ActiveExchanger::Base
-
   def check
     rows = CSV.read(file, headers: true).delete_if { |r| r[2].blank? }
     valid = true
@@ -8,7 +7,7 @@ class Ekylibre::OutgoingPaymentsExchanger < ActiveExchanger::Base
 
     # find a responsible
     unless responsible = User.employees.first
-      w.error "No responsible found"
+      w.error 'No responsible found'
       valid = false
     end
 
@@ -36,7 +35,7 @@ class Ekylibre::OutgoingPaymentsExchanger < ActiveExchanger::Base
         paid_at = r.invoiced_at
         w.info " Date : #{r.invoiced_at} "
       else
-        w.warn "No date given"
+        w.warn 'No date given'
         valid = false
       end
 
@@ -62,10 +61,9 @@ class Ekylibre::OutgoingPaymentsExchanger < ActiveExchanger::Base
         if purchase = Purchase.where(supplier_id: entity.id, invoiced_at: r.invoiced_at, reference_number: r.reference_number).first
           w.info "Purchase found with ID : #{purchase.id}"
         else
-          w.warn "No purchase found. Outgoing payment will be in stand-by"
+          w.warn 'No purchase found. Outgoing payment will be in stand-by'
         end
       end
-
     end
     valid
   end

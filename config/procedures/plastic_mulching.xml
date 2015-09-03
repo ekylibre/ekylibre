@@ -1,31 +1,26 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="plastic_mulching" natures="mulching" version="0" status="frozen">
+  <procedure name="plastic_mulching" natures="mulching" version="0">
     <variables>
       <variable name="plastic" variety="preparation" abilities="wrap(cultivable_zone)" roles="mulching-input_origin"/>
-      <variable name="plastic_to_mulch" new="parted-from: plastic" roles="mulching-input" default-population=":plastic">
-	<handler indicator="population" />
-	<handler indicator="net_length"   unit="meter"   to="population" if="plastic_to_mulch? &amp; plastic_to_mulch.net_length(meter) >= 0.1"
-                 forward="(value * plastic_to_mulch.net_length(meter))"
-                 backward="(value / plastic_to_mulch.net_length(meter))"
-                 /> <!-- m -->
-	<handler indicator="surface_area_percentage"   unit="percent"   to="population" if="land_parcel? &amp; land_parcel.net_surface_area(hectare) >= 0.1 &amp; plastic_to_mulch? &amp; plastic_to_mulch.net_length(meter) >= 0.1 &amp; plastic_to_mulch.width(meter) >= 0.1"
-                 forward="(value * land_parcel.net_surface_area(hectare)) / (plastic_to_mulch.net_length(meter) * plastic_to_mulch.width(meter))"
-                 backward="(value * plastic_to_mulch.net_length(meter) * plastic_to_mulch.width(meter)) / land_parcel.net_surface_area(hectare)"
-                 /> <!-- m/ha -->
+      <variable name="plastic_to_mulch" variety=":plastic" derivative-of=":plastic" new="parted-from: plastic" roles="mulching-input" default-population=":plastic">
+        <handler indicator="population"/>
+        <handler indicator="net_length" unit="meter" if="plastic_to_mulch? &amp; plastic_to_mulch.net_length(meter) &gt;= 0.1" to="population" backward="(value / plastic_to_mulch.net_length(meter))" forward="(value * plastic_to_mulch.net_length(meter))"/>
+        <handler indicator="surface_area_percentage" unit="percent" if="land_parcel? &amp; land_parcel.net_surface_area(hectare) &gt;= 0.1 &amp; plastic_to_mulch? &amp; plastic_to_mulch.net_length(meter) &gt;= 0.1 &amp; plastic_to_mulch.width(meter) &gt;= 0.1" to="population" backward="(value * plastic_to_mulch.net_length(meter) * plastic_to_mulch.width(meter)) / land_parcel.net_surface_area(hectare)" forward="(value * land_parcel.net_surface_area(hectare)) / (plastic_to_mulch.net_length(meter) * plastic_to_mulch.width(meter))"/>
       </variable>
-      <variable name="implanter" abilities="seat(canvas_cover)" roles="mulching-tool"/><!-- paramètre réprésentant des objets qui possede la compétence "Epandre"  un produit de la variété "organic_matter"-->
-      <variable name="driver"  abilities="drive(tractor)" roles="mulching-doer"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
-      <variable name="tractor" variety="equipment" abilities="catch(implanter)" roles="mulching-tool"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
-      <variable name="land_parcel" variety="cultivable_zone" roles="mulching-target" default-actor="storage" need="shape" default-shape=":land_parcel">
+      <variable name="implanter" abilities="seat(canvas_cover)" roles="mulching-tool"/>
+      <variable name="driver" abilities="drive(tractor)" roles="mulching-doer"/>
+      <variable name="tractor" variety="equipment" abilities="catch(implanter)" roles="mulching-tool"/>
+      <variable name="land_parcel" variety="cultivable_zone" roles="mulching-target" default-shape=":land_parcel" default-actor="storage">
         <handler indicator="shape">
-          <converter to="shape"      forward="intersection(value, land_parcel.shape)" backward="value"/>
+          <converter to="shape" forward="intersection(value, land_parcel.shape)" backward="value"/>
           <converter to="population" forward="area(value) / land_parcel..net_surface_area(square_meter)"/>
         </handler>
       </variable>
     </variables>
     <operations>
-      <operation id="800" repeatable="true">
+      <operation id="1">
+        <!-- Operation 800 -->
         <task do="[plastic] parts with [plastic_to_mulch]"/>
         <task do="[plastic_to_mulch] moves in [land_parcel]"/>
         <task do="[land_parcel] consumes [plastic_to_mulch]"/>

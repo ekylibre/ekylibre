@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="filling" natures="filling" version="0" status="frozen">
+  <procedure name="filling" natures="filling" version="0">
     <variables>
-      <variable name="items"       variety="preparation" roles="filling-input_origin"/>
-      <variable name="items_to_fill" new="parted-from: items" roles="filling-input" default-population=":items" default-name="{{variant}} - [{{derivative_of}}]">
-        <handler indicator="population" />
+      <variable name="items" variety="preparation" roles="filling-input_origin"/>
+      <variable name="items_to_fill" variety=":items" derivative-of=":items" new="parted-from: items" roles="filling-input" default-name="{{variant}} - [{{derivative_of}}]" default-population=":items">
+        <handler indicator="population"/>
       </variable>
-      <variable name="tank"         varieties="equipment" roles="filling-target"/>
-      <variable name="doer"         abilities="move" roles="filling-doer"/>
+      <variable name="tank" roles="filling-target"/>
+      <variable name="doer" abilities="move" roles="filling-doer"/>
     </variables>
     <operations>
-      <operation id="100">
+      <operation id="1">
+        <!-- Operation 100 -->
         <task do="[items] moves at [tank]"/>
-      </operation>
-      <operation id="200">
+        <!-- Operation 200 -->
         <task do="[items] parts with [items_to_fill]"/>
         <task do="[items_to_fill] moves in [tank]"/>
       </operation>

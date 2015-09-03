@@ -1,13 +1,14 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="administrative_task" natures="administrative_task" version="0">
+  <procedure name="group_inclusion" natures="group_inclusion" version="0">
     <variables>
-      <variable name="worker" variety="worker" roles="administrative_task-doer"/>
+      <variable name="member" roles="group_inclusion-target"/>
+      <variable name="group" roles="group_inclusion-includer"/>
     </variables>
     <operations>
       <operation id="1">
         <!-- Operation 100 -->
-        <task do="[worker] moves in default storage"/>
+        <task do="member goes into group"/>
       </operation>
     </operations>
   </procedure>

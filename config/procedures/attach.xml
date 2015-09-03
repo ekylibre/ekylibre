@@ -1,22 +1,18 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="attach" natures="coupling" version="0" status="frozen">
-    <!-- Labour d'une zone cultivable -->
+  <procedure name="attach" natures="coupling" version="0">
     <variables>
-      <variable name="driver"      abilities="drive(tractor)" roles="coupling-doer"/>
-      <variable name="tractor"     abilities="tow(equipment)" roles="coupling-tool"/>
-      <variable name="tool"        variety="equipment" roles="coupling-tool"/>
+      <variable name="driver" abilities="drive(tractor)" roles="coupling-doer"/>
+      <variable name="tractor" abilities="tow(equipment)" roles="coupling-tool"/>
+      <variable name="tool" variety="equipment" roles="coupling-tool"/>
     </variables>
     <operations>
-      <operation id="100">
-      	<task do="[driver] moves in [tractor]"/>
-      </operation>
-      <operation id="200">
-        <!-- le chauffeur et le tracteur se déplace vers le lieu actuel de l'outil-->
+      <operation id="1">
+        <!-- Operation 100 -->
+        <task do="[driver] moves in [tractor]"/>
+        <!-- Operation 200 -->
         <task do="[tractor] moves at [tool]"/>
-      </operation>
-      <operation id="300">
-        <!-- le chauffeur attache l'outil au tracteur -->
+        <!-- Operation 300 -->
         <task do="[tractor] catches [tool]"/>
       </operation>
     </operations>

@@ -1,38 +1,29 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="indirect_silage" natures="straw_processing" version="0" status="frozen">
+  <procedure name="indirect_silage" natures="straw_processing" version="0">
     <variables>
-      <variable name="forager"        variety="forager" abilities="harvest(plant)" roles="straw_processing-tool"/>
+      <variable name="forager" variety="forager" abilities="harvest(plant)" roles="straw_processing-tool"/>
       <variable name="forager_driver" abilities="drive(forager)" roles="straw_processing-doer"/>
-      <variable name="straw_to_bunch" variety="straw" derivative-of="poaceae" roles="straw_processing-input" />
-      <variable name="silage"    variant=":straw_to_bunch" new="produced-by: straw_to_bunch" roles="straw_processing-output" need="population" default-name="{{variant}} {{birth_year}} ({{container}})">
-    <handler indicator="population" />
-        <handler indicator="net_mass"            unit="ton"               to="population"
-                 forward="value / self..net_mass(ton)"
-                 backward="value * self..net_mass(ton)"
-                 /> <!-- t -->
-        <handler indicator="net_volume"            unit="cubic_meter"               to="population"
-                 forward="value / self..net_volume(cubic_meter)"
-                 backward="value * self..net_volume(cubic_meter)"
-                 /> <!-- t -->
+      <variable name="straw_to_bunch" variety="straw" derivative-of="poaceae" roles="straw_processing-input"/>
+      <variable name="silage" new="produced-by: straw_to_bunch" roles="straw_processing-output" default-name="{{variant}} {{birth_year}} ({{container}})">
+        <handler indicator="population"/>
+        <handler indicator="net_mass" unit="ton" to="population" backward="value * self..net_mass(ton)" forward="value / self..net_mass(ton)"/>
+        <handler indicator="net_volume" unit="cubic_meter" to="population" backward="value * self..net_volume(cubic_meter)" forward="value / self..net_volume(cubic_meter)"/>
       </variable>
     </variables>
     <operations>
-      <operation id="100" duration="4 minutes">
+      <operation id="1">
+        <!-- Operation 100 (4 minutes) -->
         <task do="[forager_driver] moves in [forager]"/>
-      </operation>
-      <operation id="200" duration="18 minutes">
+        <!-- Operation 200 (18 minutes) -->
         <task do="[forager] moves at [straw_to_bunch]"/>
-      </operation>
-      <operation id="300">
+        <!-- Operation 300 -->
         <task do="[forager] consumes [straw_to_bunch]"/>
         <task do="[forager] produces [silage]"/>
         <task do="[silage] is at [cultivation]"/>
-      </operation>
-      <operation id="400" duration="18 minutes">
+        <!-- Operation 400 (18 minutes) -->
         <task do="[forager] moves in default storage"/>
-      </operation>
-      <operation id="500" duration="4 minutes">
+        <!-- Operation 500 (4 minutes) -->
         <task do="[forager_driver] moves in default storage"/>
       </operation>
     </operations>

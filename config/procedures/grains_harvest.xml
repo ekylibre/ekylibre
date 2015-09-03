@@ -1,57 +1,34 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="grains_harvest" natures="grains_harvest" version="0" status="frozen">
+  <procedure name="grains_harvest" natures="grains_harvest" version="0">
     <variables>
-      <!-- paramètre réprésentant des objets qui possede la compétence "Semer"  -->
       <variable name="cropper_driver" abilities="drive(reaper)" roles="grains_harvest-doer"/>
-      <!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble de semis" -->
       <variable name="cropper" variety="reaper" abilities="harvest(plant)" roles="grains_harvest-tool"/>
-      <!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble de semis" -->
-      <variable name="cultivation" variety="plant" abilities="produce(grain), produce(straw)" roles="grains_harvest-target" need="shape" default-actor="variant-localized-in-storage" default-shape=":cultivation" >
+      <variable name="cultivation" variety="plant" abilities="produce(grain), produce(straw)" roles="grains_harvest-target" default-shape=":cultivation" default-actor="variant_localized_in_storage">
         <handler indicator="shape">
-          <converter to="shape"      forward="intersection(value, cultivation.shape)" backward="value"/>
+          <converter to="shape" forward="intersection(value, cultivation.shape)" backward="value"/>
           <converter to="population" forward="area(value) / cultivation..net_surface_area(square_meter)"/>
         </handler>
       </variable>
-      <variable name="grains" variety="grain" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="grains_harvest-output" need="population" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
-        <handler indicator="population" />
-        <handler indicator="net_mass"            unit="quintal"               to="population"
-                 forward="value / self..net_mass(quintal)"
-                 backward="value * self..net_mass(quintal)"
-                 /> <!-- qt    -->
-        <handler indicator="net_mass"            unit="ton"               to="population"
-                 forward="value / self..net_mass(ton)"
-                 backward="value * self..net_mass(ton)"
-                 /> <!-- t    -->
-        <handler indicator="mass_area_density"   unit="quintal_per_hectare"   to="population"
-                 forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(quintal)"
-                 backward="(value * self..net_mass(quintal)) / cultivation.net_surface_area(hectare)"
-                 /> <!-- qt/ha -->
+      <variable name="grains" variety="grain" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="grains_harvest-output" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
+        <handler indicator="population"/>
+        <handler indicator="net_mass" unit="quintal" to="population" backward="value * self..net_mass(quintal)" forward="value / self..net_mass(quintal)"/>
+        <handler name="net_mass_in_ton" indicator="net_mass" unit="ton" to="population" backward="value * self..net_mass(ton)" forward="value / self..net_mass(ton)"/>
+        <handler indicator="mass_area_density" unit="quintal_per_hectare" to="population" backward="(value * self..net_mass(quintal)) / cultivation.net_surface_area(hectare)" forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(quintal)"/>
       </variable>
-      <variable name="straws" variety="straw" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="grains_harvest-output" need="population" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
-        <handler indicator="population" />
-        <handler indicator="net_mass"            unit="ton"               to="population"
-                 forward="value / self..net_mass(ton)"
-                 backward="value * self..net_mass(ton)"
-                 /> <!-- t    -->
-        <handler indicator="mass_area_density"   unit="ton_per_hectare"   to="population"
-                 forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(ton)"
-                 backward="(value * self..net_mass(ton)) / cultivation.net_surface_area(hectare)"
-                 /> <!-- t/ha -->
+      <variable name="straws" variety="straw" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="grains_harvest-output" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
+        <handler indicator="population"/>
+        <handler indicator="net_mass" unit="ton" to="population" backward="value * self..net_mass(ton)" forward="value / self..net_mass(ton)"/>
+        <handler indicator="mass_area_density" unit="ton_per_hectare" to="population" backward="(value * self..net_mass(ton)) / cultivation.net_surface_area(hectare)" forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(ton)"/>
       </variable>
     </variables>
     <operations>
-
-      <operation id="200">
+      <operation id="1">
+        <!-- Operation 200 -->
         <task do="[cropper] moves at [cultivation]"/>
-        <!-- le chauffeur et la moissonneuse se déplace vers le lieu à récolter -->
-      </operation>
-      <operation id="300">
-        <!-- tant que le [cropper] travaille (? = sous-entendu la moissonneuse tourne,le conducteur roule, le batteur tourne) les sub-task tournent -->
+        <!-- Operation 300 -->
         <task do="[cultivation] produces [grains]"/>
         <task do="[cultivation] produces [straws]"/>
-        <!-- le traitement tombe sur la sole de blé car le pulvé tourne (?) -->
-        <!-- la sole de blé consomme le traitement épandu car il se dépose sur les feuilles des plants de blé -->
         <task do="[straws] is at [cultivation]"/>
         <task do="[grains] is at [cultivation]"/>
         <task do="[cultivation] dies"/>

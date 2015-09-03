@@ -1,55 +1,32 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <!-- ############################## EPANDRE DU FUMIER ######################################## -->
-  <!-- name avec namespace séparé par ; natures appelle les noms de procedure fichier procedure-nature-->
-  <procedure name="organic_fertilizing" version="0" status="frozen" natures="manual_soil_enrichment">
-    <!-- les variables non transmises seront obligatoirement demandées lors de l'utilisation de la procédure-->
-    <!-- parameter = false , alors la variable ne sera pas demandée et peut servir de variable interne -->
-    <!-- same-nature-of = "parameter" quand une variable interne est issue d'un objet passé en paramètre -->
-    <!-- les compétences (abilities) sont notés sous la forme d'une compétence sur une variété : compétence(variété)-->
+  <procedure name="organic_fertilizing" natures="manual_soil_enrichment" version="0">
     <variables>
       <variable name="manure" variety="excrement" abilities="fertilize" roles="manual_soil_enrichment-input_origin"/>
-      <variable name="manure_to_spread" new="parted-from: manure" roles="manual_soil_enrichment-input" default-population=":manure">
-     <handler indicator="population" />
-     <handler indicator="mass_area_density"   unit="ton_per_hectare"   to="population"
-                 forward="(value * land_parcel.net_surface_area(hectare)) / self..net_mass(ton)"
-                 backward="(value * self..net_mass(ton)) / land_parcel.net_surface_area(hectare)"
-                 /> <!-- t /ha -->
-     <handler indicator="mass_area_density"   name="nitrogen_unities_density" unit="kilogram_per_hectare"   to="population"
-     if="self.nitrogen_concentration? &amp; self.nitrogen_concentration(percent) > 0"
-                 forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.nitrogen_concentration(percent) / 100)"
-                 backward="(value * self..net_mass(kilogram) * (self.nitrogen_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)"
-                 /> <!-- kg N/ha -->
-  <handler indicator="mass_area_density"   name="phosphorus_unities_density" unit="kilogram_per_hectare" to="population"
-     if="self.phosphorus_concentration? &amp; self.phosphorus_concentration(percent) > 0"
-                 forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.phosphorus_concentration(percent) / 100)"
-                 backward="(value * self..net_mass(kilogram) * (self.phosphorus_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)"
-                 /> <!-- kg P/ha -->
-  <handler indicator="mass_area_density"   name="potassium_unities_density" unit="kilogram_per_hectare" to="population"
-     if="self.potassium_concentration? &amp; self.potassium_concentration(percent) > 0"
-                 forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.potassium_concentration(percent) / 100)"
-                 backward="(value * self..net_mass(kilogram) * (self.potassium_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)"
-                 /> <!-- kg K/ha -->
+      <variable name="manure_to_spread" variety=":manure" derivative-of=":manure" new="parted-from: manure" roles="manual_soil_enrichment-input" default-population=":manure">
+        <handler indicator="population"/>
+        <handler indicator="mass_area_density" unit="ton_per_hectare" to="population" backward="(value * self..net_mass(ton)) / land_parcel.net_surface_area(hectare)" forward="(value * land_parcel.net_surface_area(hectare)) / self..net_mass(ton)"/>
+        <handler name="nitrogen_unities_density" indicator="mass_area_density" unit="kilogram_per_hectare" if="self.nitrogen_concentration? &amp; self.nitrogen_concentration(percent) &gt; 0" to="population" backward="(value * self..net_mass(kilogram) * (self.nitrogen_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)" forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.nitrogen_concentration(percent) / 100)"/>
+        <handler name="phosphorus_unities_density" indicator="mass_area_density" unit="kilogram_per_hectare" if="self.phosphorus_concentration? &amp; self.phosphorus_concentration(percent) &gt; 0" to="population" backward="(value * self..net_mass(kilogram) * (self.phosphorus_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)" forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.phosphorus_concentration(percent) / 100)"/>
+        <handler name="potassium_unities_density" indicator="mass_area_density" unit="kilogram_per_hectare" if="self.potassium_concentration? &amp; self.potassium_concentration(percent) &gt; 0" to="population" backward="(value * self..net_mass(kilogram) * (self.potassium_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)" forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.potassium_concentration(percent) / 100)"/>
       </variable>
-      <variable name="spreader" abilities="spread(excrement)" roles="manual_soil_enrichment-tool"/><!-- paramètre réprésentant des objets qui possede la compétence "Epandre"  un produit de la variété "organic_matter"-->
-      <variable name="driver"  abilities="drive(tractor)" roles="manual_soil_enrichment-doer"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
-      <variable name="tractor" variety="equipment" abilities="tow(equipment),catch(equipment)" roles="manual_soil_enrichment-tool"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
-      <variable name="land_parcel" variety="cultivable_zone" roles="manual_soil_enrichment-target" default-actor="storage" need="shape" default-shape=":land_parcel">
+      <variable name="spreader" abilities="spread(excrement)" roles="manual_soil_enrichment-tool"/>
+      <variable name="driver" abilities="drive(tractor)" roles="manual_soil_enrichment-doer"/>
+      <variable name="tractor" variety="equipment" abilities="tow(equipment), catch(equipment)" roles="manual_soil_enrichment-tool"/>
+      <variable name="land_parcel" variety="cultivable_zone" roles="manual_soil_enrichment-target" default-shape=":land_parcel" default-actor="storage">
         <handler indicator="shape">
-          <converter to="shape"      forward="intersection(value, land_parcel.shape)" backward="value"/>
+          <converter to="shape" forward="intersection(value, land_parcel.shape)" backward="value"/>
           <converter to="population" forward="area(value) / land_parcel..net_surface_area(square_meter)"/>
         </handler>
       </variable>
     </variables>
     <operations>
-      <operation id="800" repeatable="true">
-        <!-- Tant que le [tractor] travaille (? = sous-entendu le tracteur tourne,le conducteur roule, l'épandeur tourne) les task tournent -->
+      <operation id="1">
+        <!-- Operation 800 -->
         <task do="[manure] parts with [manure_to_spread]"/>
-        <task do="[manure_to_spread] moves in [land_parcel]"/><!-- le fumier tombe par terre car l'épandeur tourne (?) -->
-        <task do="[land_parcel] consumes [manure_to_spread]"/><!-- la parcelle consomme le fumier épandu -->
-        <!-- À terme, on devrait être capable de faire IF l'épandeur est vide alors j'arrete de travailler -->
-        <!-- et je retourne charger du fumier sur le tas global-->
-      </operation><!-- a terme, on devrait être capable de faire une boucle WHILE tant que la parcelle n'a pas eu la dose de fumier , je continue de charger et épandre  -->
+        <task do="[manure_to_spread] moves in [land_parcel]"/>
+        <task do="[land_parcel] consumes [manure_to_spread]"/>
+      </operation>
     </operations>
   </procedure>
 </procedures>

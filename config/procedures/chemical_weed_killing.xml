@@ -1,37 +1,28 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="chemical_weed_killing" natures="chemical_weed_killing" version="0" status="frozen">
+  <procedure name="chemical_weed_killing" natures="chemical_weed_killing" version="0">
     <variables>
-      <variable name="weedkiller"     variety="preparation" abilities="kill(plant)" roles="chemical_weed_killing-input_origin"/>
-      <variable name="weedkiller_to_spray" new="parted-from: weedkiller" roles="chemical_weed_killing-input" default-population=":weedkiller" default-name="{{variant}} - [{{birth_day}}/{{birth_month}}/{{birth_year}}]">
-      <handler indicator="population" />
-      <handler indicator="mass_area_density"   unit="kilogram_per_hectare"   to="population" if="weedkiller_to_spray? &amp; weedkiller_to_spray..net_mass(kilogram) > 0"
-                 forward="(value * land_parcel.net_surface_area(hectare)) / self..net_mass(kilogram)"
-                 backward="(value * self..net_mass(kilogram)) / land_parcel.net_surface_area(hectare)"
-                 /> <!-- kg / ha -->
-      <handler indicator="volume_area_density"   unit="liter_per_hectare"   to="population"
-        if="weedkiller_to_spray? &amp; weedkiller_to_spray..net_volume(liter) > 0"
-                 forward="(value * land_parcel.net_surface_area(hectare)) / self..net_volume(liter)"
-                 backward="(value * self..net_volume(liter)) / land_parcel.net_surface_area(hectare)"
-                 /> <!-- l / ha -->
+      <variable name="weedkiller" variety="preparation" abilities="kill(plant)" roles="chemical_weed_killing-input_origin"/>
+      <variable name="weedkiller_to_spray" variety=":weedkiller" derivative-of=":weedkiller" new="parted-from: weedkiller" roles="chemical_weed_killing-input" default-name="{{variant}} - [{{birth_day}}/{{birth_month}}/{{birth_year}}]" default-population=":weedkiller">
+        <handler indicator="population"/>
+        <handler indicator="mass_area_density" unit="kilogram_per_hectare" if="weedkiller_to_spray? &amp; weedkiller_to_spray..net_mass(kilogram) &gt; 0" to="population" backward="(value * self..net_mass(kilogram)) / land_parcel.net_surface_area(hectare)" forward="(value * land_parcel.net_surface_area(hectare)) / self..net_mass(kilogram)"/>
+        <handler indicator="volume_area_density" unit="liter_per_hectare" if="weedkiller_to_spray? &amp; weedkiller_to_spray..net_volume(liter) &gt; 0" to="population" backward="(value * self..net_volume(liter)) / land_parcel.net_surface_area(hectare)" forward="(value * land_parcel.net_surface_area(hectare)) / self..net_volume(liter)"/>
       </variable>
       <variable name="tractor" variety="equipment" abilities="catch(sprayer)" roles="chemical_weed_killing-tool"/>
       <variable name="sprayer" abilities="spray" roles="chemical_weed_killing-tool"/>
-      <variable name="driver"  abilities="drive(tractor)" roles="chemical_weed_killing-doer"/>
-
-
-      <variable name="land_parcel"  abilities="store(plant)" roles="chemical_weed_killing-target" need="shape" default-actor="storage" default-shape=":land_parcel">
+      <variable name="driver" abilities="drive(tractor)" roles="chemical_weed_killing-doer"/>
+      <variable name="land_parcel" abilities="store(plant)" roles="chemical_weed_killing-target" default-shape=":land_parcel" default-actor="storage">
         <handler indicator="shape">
-          <converter to="shape"      forward="intersection(value, land_parcel.shape)" backward="value"/>
+          <converter to="shape" forward="intersection(value, land_parcel.shape)" backward="value"/>
           <converter to="population" forward="area(value) / land_parcel..net_surface_area(square_meter)"/>
         </handler>
       </variable>
     </variables>
     <operations>
-      <operation id="700" duration="18 minutes">
+      <operation id="1">
+        <!-- Operation 700 (18 minutes) -->
         <task do="[tractor] moves in [land_parcel]"/>
-      </operation>
-      <operation id="800">
+        <!-- Operation 800 -->
         <task do="[weedkiller] parts with [weedkiller_to_spray]"/>
         <task do="[weedkiller_to_spray] moves in [land_parcel]"/>
         <task do="land_parcel|soil_cultural_state is measured"/>

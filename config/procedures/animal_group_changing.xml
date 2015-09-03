@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <!-- ######################################## ANIMAUX ########################################### -->
-  <procedure name="animal_group_changing" natures="animal_group_changing" version="0" status="frozen">
+  <procedure name="animal_group_changing" natures="animal_group_changing" version="0">
     <variables>
-      <variable name="animal"             variety="animal" abilities="move" roles="animal_group_changing-input"/>
-      <variable name="herd"               variety="animal_group" derivative-of="animal" roles="animal_group_changing-target" default-actor="storage"/>
+      <variable name="animal" variety="animal" abilities="move" roles="animal_group_changing-input"/>
+      <variable name="herd" variety="animal_group" derivative-of="animal" roles="animal_group_changing-target" default-actor="storage"/>
     </variables>
     <operations>
-      <operation id="100">
+      <operation id="1">
+        <!-- Operation 100 -->
         <task do="[animal] goes into [herd]"/>
       </operation>
     </operations>

@@ -1,58 +1,45 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="walnuts_transport" natures="nuts_transport" version="0" status="frozen">
+  <procedure name="walnuts_transport" natures="nuts_transport" version="0">
     <variables>
-      <variable name="zone"  variety="cultivable_zone" default-actor="storage"/>
-      <variable name="nuts" variety="walnut" default-actor="first-localized-in: zone" read-only="true"/>
-      <variable name="nuts_to_deliver" new="parted-from: nuts" roles="nuts_transport-target" default-population=":nuts" default-name="{{variant}} {{birth_year}} ({{container}})">
-     <handler indicator="population" />
-     <handler indicator="net_mass"   unit="ton"   to="population"
-                 forward="(value / self..net_mass(ton))"
-                 backward="(value * self..net_mass(ton))"
-                 /> <!-- t -->
+      <variable name="zone" variety="cultivable_zone" default-actor="storage"/>
+      <variable name="nuts" variety="walnut" default-actor="first_localized_in: zone"/>
+      <variable name="nuts_to_deliver" variety=":nuts" derivative-of=":nuts" new="parted-from: nuts" roles="nuts_transport-target" default-name="{{variant}} {{birth_year}} ({{container}})" default-population=":nuts">
+        <handler indicator="population"/>
+        <handler indicator="net_mass" unit="ton" to="population" backward="(value * self..net_mass(ton))" forward="(value / self..net_mass(ton))"/>
       </variable>
       <variable name="trailer" variety="trailer" abilities="store(walnut)" roles="nuts_transport-tool"/>
-      <variable name="driver"  abilities="drive(tractor)" roles="nuts_transport-doer"/>
-      <variable name="tractor" variety="equipment" abilities="tow(equipment),catch(equipment)" roles="nuts_transport-tool"/>
-      <variable name="silo"    abilities="store(walnut)" roles="nuts_transport-container"/>
+      <variable name="driver" abilities="drive(tractor)" roles="nuts_transport-doer"/>
+      <variable name="tractor" variety="equipment" abilities="tow(equipment), catch(equipment)" roles="nuts_transport-tool"/>
+      <variable name="silo" abilities="store(walnut)" roles="nuts_transport-container"/>
     </variables>
     <operations>
-     <operation id="100" duration="4 minutes">
+      <operation id="1">
+        <!-- Operation 100 (4 minutes) -->
         <task do="[driver] moves in [tractor]"/>
-      </operation>
-      <operation id="200" duration="7 minutes">
+        <!-- Operation 200 (7 minutes) -->
         <task do="[tractor] moves at [trailer]"/>
-      </operation>
-      <operation id="300" duration="4 minutes">
+        <!-- Operation 300 (4 minutes) -->
         <task do="[tractor] catches [trailer]"/>
-      </operation>
-      <operation id="400" duration="4 minutes">
+        <!-- Operation 400 (4 minutes) -->
         <task do="[tractor] moves at [nuts]"/>
-      </operation>
-      <operation id="500" duration="1 minutes">
+        <!-- Operation 500 (1 minutes) -->
         <task do="[nuts] parts with [nuts_to_deliver]"/>
-      </operation>
-      <operation id="600" duration="4 minutes">
+        <!-- Operation 600 (4 minutes) -->
         <task do="[nuts_to_deliver] moves in [trailer]"/>
-      </operation>
-      <operation id="700" duration="18 minutes">
+        <!-- Operation 700 (18 minutes) -->
         <task do="[tractor] moves at [silo]"/>
-      </operation>
-      <operation id="800" repeatable="true">
+        <!-- Operation 800 -->
         <task do="[nuts_to_deliver] moves in [silo]"/>
         <task do="nuts_to_deliver|water_content_rate is measured"/>
         <task do="nuts_to_deliver|impurity_concentration is measured"/>
-      </operation>
-      <operation id="900" duration="18 minutes">
+        <!-- Operation 900 (18 minutes) -->
         <task do="[tractor] moves in default storage of [trailer]"/>
-      </operation>
-      <operation id="1000" duration="4 minutes">
+        <!-- Operation 1000 (4 minutes) -->
         <task do="[tractor] releases [trailer]"/>
-      </operation>
-      <operation id="1100" duration="7 minutes">
+        <!-- Operation 1100 (7 minutes) -->
         <task do="[tractor] moves in default storage"/>
-      </operation>
-      <operation id="1200" duration="4 minutes">
+        <!-- Operation 1200 (4 minutes) -->
         <task do="[driver] moves in default storage"/>
       </operation>
     </operations>

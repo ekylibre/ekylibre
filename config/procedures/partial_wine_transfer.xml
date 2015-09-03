@@ -1,26 +1,24 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="partial_wine_transfer" natures="transfer" version="0" status="frozen">
+  <procedure name="partial_wine_transfer" natures="transfer" version="0">
     <variables>
       <variable name="tank" variety="equipment" abilities="store(wine), store_liquid" default-actor="storage"/>
-      <variable name="wine" variety="wine" default-actor="first-localized-in: tank" read-only="true"/>
-      <variable name="wine_to_move" new="parted-from: wine" roles="transfer-target" default-population=":wine" default-name="{{variant}} {{birth_year}} ({{container}})">
-        <handler indicator="population" />
+      <variable name="wine" variety="wine" default-actor="first_localized_in: tank"/>
+      <variable name="wine_to_move" variety=":wine" derivative-of=":wine" new="parted-from: wine" roles="transfer-target" default-name="{{variant}} {{birth_year}} ({{container}})" default-population=":wine">
+        <handler indicator="population"/>
       </variable>
       <variable name="destination_tank" variety="equipment" abilities="store(wine), store_liquid" roles="transfer-container"/>
       <variable name="wine_man" variety="worker" abilities="move" roles="transfer-doer"/>
     </variables>
     <operations>
-      <operation id="100" duration="4 minutes">
+      <operation id="1">
+        <!-- Operation 100 (4 minutes) -->
         <task do="[wine_man] moves at [wine]"/>
-      </operation>
-      <operation id="200" duration="4 minutes">
+        <!-- Operation 200 (4 minutes) -->
         <task do="[wine] parts with [wine_to_move]"/>
-      </operation>
-      <operation id="300" duration="7 minutes">
+        <!-- Operation 300 (7 minutes) -->
         <task do="[wine_to_move] moves in [destination_tank]"/>
-      </operation>
-      <operation id="400" duration="4 minutes">
+        <!-- Operation 400 (4 minutes) -->
         <task do="[wine_man] moves in default storage"/>
       </operation>
     </operations>

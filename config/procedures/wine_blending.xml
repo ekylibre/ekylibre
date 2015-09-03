@@ -1,38 +1,36 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="wine_blending" natures="blending" version="0" status="frozen">
-     <variables>
-      <variable name="tank" variety="tank" abilities="store_liquid" roles="blending-container" default-actor="storage">
-        <checker if="contents_count(tank) > 1" level="error" indication="too_many_products_in_the_tank"/>
+  <procedure name="wine_blending" natures="blending" version="0">
+    <variables>
+      <variable name="tank" variety="tank" abilities="store_liquid" roles="blending-container" default-actor="storage"/>
+      <variable name="wine" variety="wine" derivative-of="vitis" roles="blending-input_origin" default-actor="first_localized_in: tank"/>
+      <variable name="wine_to_blend" variety=":wine" derivative-of=":wine" new="parted-from: wine" roles="blending-input">
+        <handler indicator="population"/>
       </variable>
-      <variable name="wine"       variety="wine" roles="blending-input_origin" derivative-of="vitis" default-actor="first-localized-in: tank" read-only="true"/>
-      <variable name="wine_to_blend" new="parted-from: wine" roles="blending-input" need="population"/>
-
-      <variable name="adding_wine"       variety="wine" roles="blending-input_origin" derivative-of="vitis" />
-      <variable name="adding_wine_to_blend" new="parted-from: adding_wine" roles="blending-input" need="population"/>
-
-      <variable name="wine_blended" variety="wine" derivative-of="derivative-of: wine" new="produced-by: wine" roles="blending-output" hidden="true" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" need="population" default-variant="production"/>
-
+      <variable name="adding_wine" variety="wine" derivative-of="vitis" roles="blending-input_origin"/>
+      <variable name="adding_wine_to_blend" variety=":adding_wine" derivative-of=":adding_wine" new="parted-from: adding_wine" roles="blending-input">
+        <handler indicator="population"/>
+      </variable>
+      <variable name="wine_blended" variety="wine" derivative-of="derivative-of: wine" new="produced-by: wine" roles="blending-output" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" default-variant="production">
+        <handler indicator="population"/>
+      </variable>
       <variable name="wine_man" variety="worker" abilities="move" roles="blending-doer"/>
     </variables>
     <operations>
-      <operation id="100" duration="4 minutes">
+      <operation id="1">
+        <!-- Operation 100 (4 minutes) -->
         <task do="[wine_man] moves at [wine]"/>
-      </operation>
-      <operation id="200" duration="4 minutes">
+        <!-- Operation 200 (4 minutes) -->
         <task do="[wine] parts with [wine_to_blend]"/>
         <task do="[wine_to_blend] moves in [tank]"/>
-      </operation>
-       <operation id="300" duration="4 minutes">
+        <!-- Operation 300 (4 minutes) -->
         <task do="[wine_man] moves at [minor_wine]"/>
-      </operation>
-      <operation id="400" duration="4 minutes">
+        <!-- Operation 400 (4 minutes) -->
         <task do="[adding_wine] parts with [adding_wine_to_blend]"/>
         <task do="[adding_wine_to_blend] moves in [tank]"/>
         <task do="[adding_wine_to_blend] and [wine_to_blend] are mixed into [wine_blended]"/>
         <task do="[wine_blended] moves in [tank]"/>
-      </operation>
-      <operation id="500" duration="4 minutes">
+        <!-- Operation 500 (4 minutes) -->
         <task do="[wine_man] moves in default storage"/>
       </operation>
     </operations>

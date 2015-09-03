@@ -1,6 +1,6 @@
 module Procedo
   class Variable
-    attr_reader :abilities, :birth_nature, :derivative_of, :default_name, :destinations, :default_actor, :default_variant, :handlers, :name, :position, :procedure, :producer_name, :roles, :type, :value, :variety
+    attr_reader :abilities, :birth_nature, :derivative_of, :default_name, :destinations, :default_actor, :default_variant, :handlers, :name, :position, :procedure, :producer_name, :roles, :type, :value, :variety, :new_value
 
     def initialize(procedure, element, position)
       @procedure = procedure
@@ -8,11 +8,11 @@ module Procedo
       @name = element.attr('name').to_sym
       if element.has_attribute?('new')
         @new_variable = true
-        new = element.attr('new').to_s
-        unless new.match(/\A(parted\-from|produced-by)\:/)
+        @new_value = element.attr('new').to_s
+        unless @new_value.match(/\A(parted\-from|produced-by)\:/)
           fail StandardError, "The new variable #{@name} in procedure #{@procedure.name} must specify where does it comes from"
         end
-        new_array = new.split(/\s*\:\s*/)
+        new_array = @new_value.split(/\s*\:\s*/)
         @birth_nature  = new_array.shift.underscore.to_sym
         @producer_name = new_array.shift.to_sym
       end
@@ -60,6 +60,8 @@ module Procedo
       end
       if element.has_attribute?('derivative-of')
         @derivative_of = element.attr('derivative-of').to_s.strip
+      elsif element.has_attribute?('derivative_of')
+        @derivative_of = element.attr('derivative_of').to_s.strip
       elsif parted?
         @derivative_of = ":#{@producer_name}"
       end

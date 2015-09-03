@@ -1,23 +1,23 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <!-- ######################################## TRAITEMENT VETERINAIRE ########################################### -->
-  <procedure name="oil_replacement" natures="consummables_addition" version="0" status="frozen">
+  <procedure name="oil_replacement" natures="consummables_addition" version="0">
     <variables>
-      <variable name="equipment"     variety="equipment" abilities="consume(oil)" roles="consummables_addition-target"/>
-      <variable name="oil"           variety="oil" abilities="lubricate(equipment)"/>
-      <variable name="oil_to_input"  new="parted-from: oil" roles="consummables_addition-input" need="population"/>
-      <variable name="mechanic"      abilities="repair(equipment)" roles="consummables_addition-doer"/>
+      <variable name="equipment" variety="equipment" abilities="consume(oil)" roles="consummables_addition-target"/>
+      <variable name="oil" variety="oil" abilities="lubricate(equipment)"/>
+      <variable name="oil_to_input" variety=":oil" derivative-of=":oil" new="parted-from: oil" roles="consummables_addition-input">
+        <handler indicator="population"/>
+      </variable>
+      <variable name="mechanic" abilities="repair(equipment)" roles="consummables_addition-doer"/>
     </variables>
     <operations>
-      <operation id="100">
+      <operation id="1">
+        <!-- Operation 100 -->
         <task do="[mechanic] moves at [equipment]"/>
         <task do="[mechanic] measures [equipment|healthy]"/>
-      </operation>
-      <operation id="200" duration="10 minutes">
+        <!-- Operation 200 (10 minutes) -->
         <task do="[oil] parts with [oil_to_input]"/>
         <task do="[equipment] consumes [oil_to_input]"/>
       </operation>
     </operations>
   </procedure>
-
 </procedures>
