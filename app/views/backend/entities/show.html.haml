@@ -1,58 +1,3 @@
-- if (resource.client == true && resource.sales.count > 0) || (resource.supplier == true && resource.purchases.count > 0)
-  :ruby
-    started_at = Date.today - 12.months
-    stopped_at = Date.today
-
-    series = []
-    categories = {}
-
-    date = started_at
-    stopped_at = started_at + 1 if started_at >= stopped_at
-    while date < stopped_at
-      categories[date.year.to_s + date.month.to_s.rjust(3, '0')] = date.l(format: "%b %Y")
-      date = date >> 1
-    end
-
-
-      sale_items = resource.sale_items.between(started_at, stopped_at)
-      if sale_items.count > 0
-        item_h = sale_items.sums_of_periods.sort.inject({}) do |hash, pair|
-          hash[pair.expr.to_i.to_s] = pair.sum.to_d
-          hash
-        end
-        series << {type: 'column', name: :sales.tl, data: normalize_serie(item_h, categories.keys) }
-      end
-
-      purchase_items = resource.purchase_items.between(started_at, stopped_at)
-      if purchase_items.count > 0
-        item_h = purchase_items.sums_of_periods.sort.inject({}) do |hash, pair|
-          hash[pair.expr.to_i.to_s] = pair.sum.to_d
-          hash
-        end
-        series << {type: 'column', name: :purchases.tl, data: normalize_serie(item_h, categories.keys) }
-      end
-
-      outgoing_payments = resource.outgoing_payments.between(started_at, stopped_at)
-      if outgoing_payments.count > 0
-        item_h = outgoing_payments.sums_of_periods.sort.inject({}) do |hash, pair|
-          hash[pair.expr.to_i.to_s] = pair.sum.to_d
-          hash
-        end
-        series << {type: 'column', name: :outgoing_payments.tl, data: normalize_serie(item_h, categories.keys) }
-      end
-
-      incoming_payments = resource.incoming_payments.between(started_at, stopped_at)
-      if incoming_payments.count > 0
-        item_h = incoming_payments.sums_of_periods.sort.inject({}) do |hash, pair|
-          hash[pair.expr.to_i.to_s] = pair.sum.to_d
-          hash
-        end
-        series << {type: 'column', name: :incoming_payments.tl, data: normalize_serie(item_h, categories.keys) }
-      end
-
-
-
-
 - main_toolbar do |t|
   - t.export :entity, resource
   - t.edit resource
@@ -60,7 +5,6 @@
 
 = main_informations do
   = render "coordinates"
-
 
 = janus do |j|
   - j.face :timeline do
@@ -141,9 +85,7 @@
             %span.title= cash.name
             %span.value= balance.l(currency: cash.currency)
 
-      - if series.present?
-        - c.cobble(:transactions_by_month) do
-          = column_highcharts(series, y_axis: {title: {text: :pretax_amount.tl}}, x_axis: { categories: categories.values}, legend: true)
+      - transactions_by_month_chart(resource, cobbler: c)
 
       - c.cobble(:events, title: :x_events.tl(count: resource.participations.count)) do
         = cobble_toolbar do |t|

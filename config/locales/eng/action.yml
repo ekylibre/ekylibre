@@ -1418,7 +1418,7 @@ eng:
     tracking: "Tracking" #?
     trade: "Trade"
     trade_counts: "Trade counts" #?
-    transactions_by_month: "Transactions by month"
+    transactions_by_month: "Transactions by month" #?
     transfer: "Transfer" #?
     transformations: "Transformations"
     transport: "Transport" #?

@@ -23,7 +23,6 @@
 # == Table: purchase_items
 #
 #  account_id           :integer          not null
-#  accounted_at         :datetime
 #  amount               :decimal(19, 4)   default(0.0), not null
 #  annotation           :text
 #  created_at           :datetime         not null
@@ -31,7 +30,6 @@
 #  currency             :string           not null
 #  fixed                :boolean          default(FALSE), not null
 #  id                   :integer          not null, primary key
-#  invoiced_at          :datetime
 #  label                :text
 #  lock_version         :integer          default(0), not null
 #  position             :integer
@@ -58,7 +56,6 @@ class PurchaseItem < Ekylibre::Record::Base
   has_many :products, through: :delivery_items
   has_one :fixed_asset, foreign_key: :purchase_item_id, inverse_of: :purchase_item
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :accounted_at, :invoiced_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, allow_nil: true
   validates_inclusion_of :fixed, in: [true, false]
   validates_presence_of :account, :amount, :currency, :pretax_amount, :purchase, :quantity, :reduction_percentage, :tax, :unit_amount, :unit_pretax_amount, :variant
@@ -81,7 +78,7 @@ class PurchaseItem < Ekylibre::Record::Base
   acts_as_list scope: :purchase
   sums :purchase, :items, :pretax_amount, :amount
 
-  calculable period: :month, column: :pretax_amount, at: :invoiced_at, name: :sum
+  calculable period: :month, column: :pretax_amount, at: 'purchases.invoiced_at', name: :sum, joins: :purchase
 
   # return all purchase items  between two dates
   scope :between, lambda { |started_at, stopped_at|
@@ -112,12 +109,6 @@ class PurchaseItem < Ekylibre::Record::Base
       end
       if amount.zero? || amount.nil?
         self.amount = (pretax_amount * (100.0 + tax_amount) / 100.0).round(precision)
-      end
-    end
-
-    if purchase
-      for replicated in [:accounted_at, :invoiced_at]
-        send("#{replicated}=", purchase.send(replicated))
       end
     end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150830102301) do
+ActiveRecord::Schema.define(version: 20150822190206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2465,8 +2465,6 @@ ActiveRecord::Schema.define(version: 20150830102301) do
     t.decimal  "unit_amount",          precision: 19, scale: 4, default: 0.0,   null: false
     t.boolean  "fixed",                                         default: false, null: false
     t.decimal  "reduction_percentage", precision: 19, scale: 4, default: 0.0,   null: false
-    t.datetime "invoiced_at"
-    t.datetime "accounted_at"
   end
 
   add_index "purchase_items", ["account_id"], name: "index_purchase_items_on_account_id", using: :btree
@@ -2576,9 +2574,6 @@ ActiveRecord::Schema.define(version: 20150830102301) do
     t.integer  "lock_version",                                  default: 0,   null: false
     t.decimal  "unit_amount",          precision: 19, scale: 4, default: 0.0, null: false
     t.decimal  "credited_quantity",    precision: 19, scale: 4
-    t.datetime "invoiced_at"
-    t.datetime "accounted_at"
-    t.datetime "payment_at"
   end
 
   add_index "sale_items", ["account_id"], name: "index_sale_items_on_account_id", using: :btree
