@@ -348,6 +348,8 @@ html.backend {
 
 }
 
+
+
 html.authentication, html.exception {
   background: $desktop-background;
   @include gradient-radial($desktop-background, $neutral-color);
@@ -470,6 +472,10 @@ html.exception {
   }
 }
 
+#core {
+  clear: both;
+  @include calc(height, "100vh - #{$header-height + $topbar-height + $toolbar-height}");
+}
 
 #about-us {
   padding: 15vh 15vw;
