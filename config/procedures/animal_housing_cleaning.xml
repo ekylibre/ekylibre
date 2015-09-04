@@ -21,25 +21,8 @@
     </variables>
     <operations>
       <operation id="1">
-        <!-- Operation 100 (4 minutes) -->
-        <task do="[driver] moves in [tractor]"/>
-        <!-- Operation 200 (4 minutes) -->
-        <task do="[tractor] moves at [cleaner]"/>
-        <!-- Operation 300 (7 minutes) -->
-        <task do="[tractor] catches [cleaner]"/>
-        <!-- Operation 400 (4 minutes) -->
-        <task do="[tractor] moves at [animal_housing]"/>
-        <!-- Operation 500 -->
         <task do="[animal_housing] produces [excrement]"/>
         <task do="[excrement] is in [excrement_zone]"/>
-        <!-- Operation 600 (18 minutes) -->
-        <task do="[tractor] moves in default storage of [cleaner]"/>
-        <!-- Operation 700 (4 minutes) -->
-        <task do="[tractor] releases [cleaner]"/>
-        <!-- Operation 800 (7 minutes) -->
-        <task do="[tractor] moves in default storage"/>
-        <!-- Operation 900 (4 minutes) -->
-        <task do="[driver] moves in default storage"/>
       </operation>
     </operations>
   </procedure>

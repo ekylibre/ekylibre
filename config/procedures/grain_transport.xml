@@ -15,11 +15,7 @@
     </variables>
     <operations>
       <operation id="1">
-        <!-- Operation 500 -->
         <task do="[grain] parts with [grain_to_deliver]"/>
-        <!-- Operation 600 -->
-        <task do="[tractor] moves at [silo]"/>
-        <!-- Operation 700 -->
         <task do="[grain_to_deliver] moves in [silo]"/>
         <task do="grain_to_deliver|water_content_rate is measured"/>
         <task do="grain_to_deliver|protein_concentration is measured"/>

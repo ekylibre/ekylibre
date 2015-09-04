@@ -122,7 +122,6 @@ class Intervention < Ekylibre::Record::Base
   }
 
   before_validation do
-    self.resource_type = resource.class.base_class.name if resource
     self.state ||= self.class.state.default
     if p = reference
       self.natures = p.natures.sort.join(' ')

@@ -12,7 +12,6 @@
     </variables>
     <operations>
       <operation id="1">
-        <!-- Operation 500 -->
         <task do="[baler] consumes [straw_to_bunch]"/>
         <task do="[baler] produces [straw_bales]"/>
         <task do="[straw_bales] is at [baler]"/>

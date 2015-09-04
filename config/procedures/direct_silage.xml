@@ -19,9 +19,6 @@
     </variables>
     <operations>
       <operation id="1">
-        <!-- Operation 200 (18 minutes) -->
-        <task do="[forager] moves at [cultivation]"/>
-        <!-- Operation 300 -->
         <task do="[forager] consumes [cultivation]"/>
         <task do="[forager] produces [silage]"/>
         <task do="[silage] is at [cultivation]"/>

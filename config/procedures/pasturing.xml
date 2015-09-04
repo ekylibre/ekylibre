@@ -19,14 +19,8 @@
     </variables>
     <operations>
       <operation id="1">
-        <!-- Operation 100 -->
-        <task do="[herd] moves at [cultivation]"/>
-        <!-- Operation 200 (10 minutes) -->
         <task do="[cultivation] produces [grass]"/>
-        <!-- Operation 300 (10 minutes) -->
         <task do="[herd] consumes [grass]"/>
-        <!-- Operation 400 -->
-        <task do="[herd] moves in default storage"/>
       </operation>
     </operations>
   </procedure>

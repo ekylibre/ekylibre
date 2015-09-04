@@ -15,30 +15,10 @@
     </variables>
     <operations>
       <operation id="1">
-        <!-- Operation 100 (4 minutes) -->
-        <task do="[driver] moves in [tractor]"/>
-        <!-- Operation 200 (7 minutes) -->
-        <task do="[tractor] moves at [trailer]"/>
-        <!-- Operation 300 (4 minutes) -->
-        <task do="[tractor] catches [trailer]"/>
-        <!-- Operation 400 (4 minutes) -->
-        <task do="[tractor] moves at [straw]"/>
-        <!-- Operation 500 (1 minutes) -->
         <task do="[straw] parts with [straw_to_deliver]"/>
-        <!-- Operation 600 (4 minutes) -->
         <task do="[straw_to_deliver] moves in [trailer]"/>
-        <!-- Operation 700 (18 minutes) -->
         <task do="[tractor] moves at [silo]"/>
-        <!-- Operation 800 -->
         <task do="[straw_to_deliver] moves in [silo]"/>
-        <!-- Operation 900 (18 minutes) -->
-        <task do="[tractor] moves in default storage of [trailer]"/>
-        <!-- Operation 1000 (4 minutes) -->
-        <task do="[tractor] releases [trailer]"/>
-        <!-- Operation 1100 (7 minutes) -->
-        <task do="[tractor] moves in default storage"/>
-        <!-- Operation 1200 (4 minutes) -->
-        <task do="[driver] moves in default storage"/>
       </operation>
     </operations>
   </procedure>

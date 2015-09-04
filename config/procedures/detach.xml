@@ -8,14 +8,7 @@
     </variables>
     <operations>
       <operation id="1">
-        <!-- Operation 100 -->
-        <task do="[tractor] moves in default storage of [tool]"/>
-        <!-- Operation 200 -->
         <task do="[tractor] releases [tool]"/>
-        <!-- Operation 300 -->
-        <task do="[tractor] moves in default storage"/>
-        <!-- Operation 400 -->
-        <task do="[driver] moves in default storage"/>
       </operation>
     </operations>
   </procedure>

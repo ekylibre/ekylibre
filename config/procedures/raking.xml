@@ -16,7 +16,7 @@
       <operation id="1">
         <!-- Operation 500 -->
         <task do="[tractor] acts on [land_parcel]"/>
-        <task do="[driver] measures [land_parcel|soil_cultural_state]"/>
+        <task do="[driver] measures [land_parcel|soil_cultural_state]" id="readstate"/>
       </operation>
     </operations>
   </procedure>

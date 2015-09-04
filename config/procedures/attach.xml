@@ -8,11 +8,6 @@
     </variables>
     <operations>
       <operation id="1">
-        <!-- Operation 100 -->
-        <task do="[driver] moves in [tractor]"/>
-        <!-- Operation 200 -->
-        <task do="[tractor] moves at [tool]"/>
-        <!-- Operation 300 -->
         <task do="[tractor] catches [tool]"/>
       </operation>
     </operations>

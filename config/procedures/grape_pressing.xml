@@ -23,16 +23,11 @@
     </variables>
     <operations>
       <operation id="1">
-        <!-- Operation 100 (5 minutes) -->
-        <task do="[wine_man] moves at [tank_for_wine]"/>
-        <!-- Operation 200 (25 minutes) -->
         <task do="[grape] parts with [grape_to_press]"/>
         <task do="[grape_to_press] produces [juice]"/>
         <task do="[grape_to_press] produces [residue]"/>
         <task do="[juice] moves in [tank_for_wine]"/>
         <task do="[residue] moves in [tank_for_residue]"/>
-        <!-- Operation 300 (5 minutes) -->
-        <task do="[wine_man] moves in default storage"/>
       </operation>
     </operations>
   </procedure>

@@ -14,25 +14,8 @@
     </variables>
     <operations>
       <operation id="1">
-        <!-- Operation 100 (4 minutes) -->
-        <task do="[driver] moves in [tractor]"/>
-        <!-- Operation 200 (7 minutes) -->
-        <task do="[tractor] moves at [harrow]"/>
-        <!-- Operation 300 (4 minutes) -->
-        <task do="[tractor] catches [harrow]"/>
-        <!-- Operation 400 (18 minutes) -->
-        <task do="[tractor] moves in [land_parcel]"/>
-        <!-- Operation 500 -->
         <task do="[tractor] acts on [land_parcel]"/>
         <task do="[driver] measures [land_parcel|soil_cultural_state]"/>
-        <!-- Operation 600 (18 minutes) -->
-        <task do="[tractor] moves in default storage of [harrow]"/>
-        <!-- Operation 700 (4 minutes) -->
-        <task do="[tractor] releases [harrow]"/>
-        <!-- Operation 800 (7 minutes) -->
-        <task do="[tractor] moves in default storage"/>
-        <!-- Operation 900 (4 minutes) -->
-        <task do="[driver] moves in default storage"/>
       </operation>
     </operations>
   </procedure>

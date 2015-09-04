@@ -15,17 +15,9 @@
     </variables>
     <operations>
       <operation id="1">
-        <!-- Operation 400 (2 minutes) -->
-        <task do="[caregiver] moves at [silage]"/>
-        <!-- Operation 500 (15 minutes) -->
         <task do="[silage] parts with [silage_to_give]"/>
-        <!-- Operation 600 (2 minutes) -->
-        <task do="[caregiver] moves at [herd]"/>
         <task do="[silage_to_give] moves at [herd]"/>
-        <!-- Operation 700 (15 minutes) -->
         <task do="[herd] consumes [silage_to_give]"/>
-        <!-- Operation 800 (2 minutes) -->
-        <task do="[caregiver] moves in default storage"/>
       </operation>
     </operations>
   </procedure>

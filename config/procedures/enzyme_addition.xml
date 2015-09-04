@@ -12,15 +12,9 @@
     </variables>
     <operations>
       <operation id="1">
-        <!-- Operation 100 (4 minutes) -->
-        <task do="[wine_man] moves at [tank]"/>
-        <!-- Operation 200 (4 minutes) -->
         <task do="[oenological_intrant] parts with [oenological_intrant_to_put]"/>
-        <!-- Operation 300 -->
         <task do="[oenological_intrant_to_put] moves at [wine_to_treat]"/>
         <task do="[wine_to_treat] consumes [oenological_intrant_to_put]"/>
-        <!-- Operation 400 (4 minutes) -->
-        <task do="[wine_man] moves in default storage"/>
       </operation>
     </operations>
   </procedure>

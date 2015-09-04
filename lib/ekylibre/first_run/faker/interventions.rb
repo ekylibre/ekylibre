@@ -55,7 +55,7 @@ module Ekylibre::FirstRun::Faker
               end
 
               # Plowing 15-09-N -> 15-10-N
-              Ekylibre::FirstRun::Booker.intervene(:plowing, year - 1, 9, 15, 9.78 * coeff, support: support, parameters: { readings: { 'base-plowing-0-500-1' => 'plowed' } }) do |i|
+              Ekylibre::FirstRun::Booker.intervene(:plowing, year - 1, 9, 15, 9.78 * coeff, support: support, parameters: { readings: { 'base-plowing-0-1-readstate' => 'plowed' } }) do |i|
                 i.add_cast(reference_name: 'driver',  actor: workers.sample)
                 i.add_cast(reference_name: 'tractor', actor: products[:tractor][:plower].sample)
                 i.add_cast(reference_name: 'plow',    actor: products[:plow].sample)
@@ -63,7 +63,7 @@ module Ekylibre::FirstRun::Faker
               end
 
               # Sowing 15-10-N -> 30-10-N
-              int = Ekylibre::FirstRun::Booker.intervene(:sowing, year - 1, 10, 15, 6.92 * coeff, range: 15, support: support, parameters: { readings: { 'base-sowing-0-750-2' => 2_000_000 + rand(250_000) } }) do |i|
+              int = Ekylibre::FirstRun::Booker.intervene(:sowing, year - 1, 10, 15, 6.92 * coeff, range: 15, support: support, parameters: { readings: { 'base-sowing-0-1-readcount' => 2_000_000 + rand(250_000) } }) do |i|
                 i.add_cast(reference_name: 'seeds',        actor: i.find(Product, variety: :seed, derivative_of: variety.name, can: 'grow'))
                 i.add_cast(reference_name: 'seeds_to_sow', population: rand(5) + 1)
                 i.add_cast(reference_name: 'sower',        actor: products[:sow].sample)
@@ -135,7 +135,7 @@ module Ekylibre::FirstRun::Faker
               coeff = (area.to_s.to_f / 10_000.0) / 6.0
 
               # Plowing 15-03-N -> 15-04-N
-              Ekylibre::FirstRun::Booker.intervene(:plowing, year, 4, 15, 9.78 * coeff, support: support, parameters: { readings: { 'base-plowing-0-500-1' => 'plowed' } }) do |i|
+              Ekylibre::FirstRun::Booker.intervene(:plowing, year, 4, 15, 9.78 * coeff, support: support, parameters: { readings: { 'base-plowing-0-1-readstate' => 'plowed' } }) do |i|
                 i.add_cast(reference_name: 'driver',  actor: workers.sample)
                 i.add_cast(reference_name: 'tractor', actor: products[:tractor][:plower].sample)
                 i.add_cast(reference_name: 'plow',    actor: products[:plow].sample)
@@ -143,7 +143,7 @@ module Ekylibre::FirstRun::Faker
               end
 
               # Sowing 15-04-N -> 30-05-N
-              int = Ekylibre::FirstRun::Booker.intervene(:all_in_one_sowing, year, 5, 2, 6.92 * coeff, range: 15, support: support, parameters: { readings: { 'base-all_in_one_sowing-0-1200-2' => 80_000 + rand(10_000) } }) do |i|
+              int = Ekylibre::FirstRun::Booker.intervene(:all_in_one_sowing, year, 5, 2, 6.92 * coeff, range: 15, support: support, parameters: { readings: { 'base-all_in_one_sowing-0-1-readcount' => 80_000 + rand(10_000) } }) do |i|
                 i.add_cast(reference_name: 'seeds',        actor: i.find(Product, variety: :seed, derivative_of: variety.name, can: 'grow'))
                 i.add_cast(reference_name: 'seeds_to_sow', population: (rand(4) + 6) * coeff)
 
@@ -186,7 +186,7 @@ module Ekylibre::FirstRun::Faker
               end
 
               # Hoeing  01-06-M -> 30-07-M
-              Ekylibre::FirstRun::Booker.intervene(:hoeing, year, 6, 20, 3 * coeff, support: support, parameters: { readings: { 'base-hoeing-0-500-1' => 'covered' } }) do |i|
+              Ekylibre::FirstRun::Booker.intervene(:hoeing, year, 6, 20, 3 * coeff, support: support, parameters: { readings: { 'base-hoeing-0-1-readstate' => 'covered' } }) do |i|
                 i.add_cast(reference_name: 'cultivator',  actor: equipments[:hoe].sample)
                 i.add_cast(reference_name: 'driver',      actor: workers.sample)
                 i.add_cast(reference_name: 'tractor',     actor: products[:tractor][:equipment].sample)
@@ -307,7 +307,7 @@ module Ekylibre::FirstRun::Faker
           production.supports.joins(:storage).find_each do |support|
             next unless support.storage.is_a?(AnimalGroup)
             support.storage.members_at.find_each do |animal|
-              Ekylibre::FirstRun::Booker.intervene(:animal_treatment, year - 1, 9, 15, 0.5, support: support, parameters: { readings: { 'base-animal_treatment-0-100-1' => 'false' } }) do |i|
+              Ekylibre::FirstRun::Booker.intervene(:animal_treatment, year - 1, 9, 15, 0.5, support: support, parameters: { readings: { 'base-animal_treatment-0-1-readhealth' => 'false' } }) do |i|
                 i.add_cast(reference_name: 'animal',           actor: animal)
                 i.add_cast(reference_name: 'caregiver',        actor: workers.sample)
                 i.add_cast(reference_name: 'animal_medicine',  actor: products.sample)
@@ -340,7 +340,7 @@ module Ekylibre::FirstRun::Faker
           production.supports.joins(:storage).find_each do |support|
             next unless support.storage.is_a?(AnimalGroup)
             support.storage.members_at.find_each do |animal|
-              Ekylibre::FirstRun::Booker.intervene(:animal_artificial_insemination, year - 1, 9, 15, 0.5, support: support, parameters: { readings: { 'base-animal_artificial_insemination-0-400-0' => 'heat', 'base-animal_artificial_insemination-0-400-1' => 'true', 'base-animal_artificial_insemination-0-400-2' => 'false' } }) do |i|
+              Ekylibre::FirstRun::Booker.intervene(:animal_artificial_insemination, year - 1, 9, 15, 0.5, support: support, parameters: { readings: { 'base-animal_artificial_insemination-0-1-readstate' => 'heat', 'base-animal_artificial_insemination-0-1-readhealth' => 'true', 'base-animal_artificial_insemination-0-1-readembryo' => 'false' } }) do |i|
                 i.add_cast(reference_name: 'animal',       actor: animal)
                 i.add_cast(reference_name: 'inseminator',  actor: workers.sample)
                 i.add_cast(reference_name: 'vial',         actor: products.sample)

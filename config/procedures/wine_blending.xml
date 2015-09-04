@@ -18,20 +18,13 @@
     </variables>
     <operations>
       <operation id="1">
-        <!-- Operation 100 (4 minutes) -->
-        <task do="[wine_man] moves at [wine]"/>
-        <!-- Operation 200 (4 minutes) -->
         <task do="[wine] parts with [wine_to_blend]"/>
         <task do="[wine_to_blend] moves in [tank]"/>
-        <!-- Operation 300 (4 minutes) -->
         <task do="[wine_man] moves at [minor_wine]"/>
-        <!-- Operation 400 (4 minutes) -->
         <task do="[adding_wine] parts with [adding_wine_to_blend]"/>
         <task do="[adding_wine_to_blend] moves in [tank]"/>
         <task do="[adding_wine_to_blend] and [wine_to_blend] are mixed into [wine_blended]"/>
         <task do="[wine_blended] moves in [tank]"/>
-        <!-- Operation 500 (4 minutes) -->
-        <task do="[wine_man] moves in default storage"/>
       </operation>
     </operations>
   </procedure>

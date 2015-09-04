@@ -20,17 +20,8 @@
     </variables>
     <operations>
       <operation id="1">
-        <!-- Operation 100 (4 minutes) -->
-        <task do="[grape_reaper_driver] moves in [grape_reaper]"/>
-        <!-- Operation 200 (18 minutes) -->
-        <task do="[grape_reaper] moves at [cultivation]"/>
-        <!-- Operation 300 -->
         <task do="[cultivation] produces [fruits]"/>
         <task do="[fruits] is at [cultivation]"/>
-        <!-- Operation 400 (18 minutes) -->
-        <task do="[grape_reaper] moves in default storage"/>
-        <!-- Operation 500 (4 minutes) -->
-        <task do="[grape_reaper_driver] moves in default storage"/>
       </operation>
     </operations>
   </procedure>

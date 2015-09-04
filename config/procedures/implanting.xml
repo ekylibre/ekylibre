@@ -21,18 +21,16 @@
     </variables>
     <operations>
       <operation id="1">
-        <!-- Operation 700 -->
         <task do="[plants] parts with [plants_to_fix]"/>
         <task do="[plants_to_fix] moves in [land_parcel]"/>
         <task do="[land_parcel] consumes [plants_to_fix]"/>
         <task do="[land_parcel] produces [cultivation]"/>
         <task do="cultivation is in land_parcel"/>
-        <!-- Operation 750 -->
         <task do="cultivation|population|superficial_count:cultivation is measured"/>
         <task do="land_parcel|soil_cultural_state|covered is measured"/>
-        <task do="cultivation|rows_interval is measured"/>
-        <task do="cultivation|plants_interval is measured"/>
-        <task do="cultivation|plants_count is measured"/>
+        <task do="cultivation|rows_interval is measured" id="readrowint"/>
+        <task do="cultivation|plants_interval is measured" id="readint"/>
+        <task do="cultivation|plants_count is measured" id="readcount"/>
       </operation>
     </operations>
   </procedure>

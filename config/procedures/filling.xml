@@ -11,9 +11,6 @@
     </variables>
     <operations>
       <operation id="1">
-        <!-- Operation 100 -->
-        <task do="[items] moves at [tank]"/>
-        <!-- Operation 200 -->
         <task do="[items] parts with [items_to_fill]"/>
         <task do="[items_to_fill] moves in [tank]"/>
       </operation>

@@ -144,7 +144,7 @@ class Backend::EntitiesController < Backend::BaseController
     t.column :number, url: true, children: :label
     t.column :responsible, children: false, hidden: true
     t.column :created_at,  children: false, hidden: true
-    t.column :invoiced_at,  children: false, hidden: true
+    t.column :invoiced_at, children: false, hidden: true
     t.column :state_label, children: false
     t.column :amount, currency: true
   end

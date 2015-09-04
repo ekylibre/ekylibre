@@ -59,9 +59,10 @@ module Procedo
       '{product} is received from {supplier}' => :identified_incoming_delivery
     }.collect { |expr, type| Action.new(expr, type) }.freeze
 
-    def initialize(operation, id, element)
+    def initialize(operation, element, default_id = nil)
       @operation = operation
-      @id = id
+      @id = element.attr('id') if element.has_attribute?('id')
+      @id ||= default_id
       if element.has_attribute?('do')
         @expression = element.attr('do').to_s.strip.gsub(/[[:space:]]+/, ' ')
       else

@@ -11,12 +11,7 @@
     </variables>
     <operations>
       <operation id="1">
-        <!-- Operation 100 -->
-        <task do="[doer] moves at [bird_band]"/>
-        <!-- Operation 200 -->
         <task do="[bird_band] produces [eggs]"/>
-        <!-- Operation 300 -->
-        <task do="[doer] moves at [container]"/>
         <task do="[eggs] is in [container]"/>
       </operation>
     </operations>

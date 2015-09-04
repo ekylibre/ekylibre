@@ -36,7 +36,6 @@
     </variables>
     <operations>
       <operation id="1">
-        <!-- Operation 500 -->
         <task do="[seeds] parts with [seeds_to_sow]"/>
         <task do="[seeds_to_sow] moves in [land_parcel]"/>
         <task do="[insecticide] parts with [insecticide_to_input]"/>
@@ -48,10 +47,9 @@
         <task do="[land_parcel] consumes [molluscicide_to_input]"/>
         <task do="[land_parcel] produces [cultivation]"/>
         <task do="cultivation is in land_parcel"/>
-        <!-- Operation 600 -->
-        <task do="cultivation|population|superficial_count:cultivation is measured"/>
-        <task do="land_parcel|soil_cultural_state|covered is measured"/>
-        <task do="cultivation|plants_count is measured"/>
+        <task do="cultivation|population|superficial_count:cultivation is measured" id="readpop"/>
+        <task do="land_parcel|soil_cultural_state|covered is measured" id="readstate"/>
+        <task do="cultivation|plants_count is measured" id="readcount"/>
       </operation>
     </operations>
   </procedure>

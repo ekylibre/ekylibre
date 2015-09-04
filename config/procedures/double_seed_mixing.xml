@@ -20,17 +20,10 @@
     </variables>
     <operations>
       <operation id="1">
-        <!-- Operation 100 (4 minutes) -->
-        <task do="[worker] moves at [first_seed_input]"/>
-        <!-- Operation 200 (4 minutes) -->
         <task do="[first_seed_input] parts with [first_seed_input_to_use]"/>
         <task do="[second_seed_input] parts with [second_seed_input_to_use]"/>
-        <!-- Operation 300 -->
         <task do="[first_seed_input_to_use] and [second_seed_input_to_use] are mixed into [seed_mix]"/>
-        <!-- Operation 400 (4 minutes) -->
         <task do="[seed_mix] moves in [seed_storage]"/>
-        <!-- Operation 500 (4 minutes) -->
-        <task do="[worker] moves in default storage"/>
       </operation>
     </operations>
   </procedure>

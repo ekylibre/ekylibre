@@ -9,9 +9,6 @@
     </variables>
     <operations>
       <operation id="1">
-        <!-- Operation 400 (18 minutes) -->
-        <task do="[tractor] moves in [land_parcel]"/>
-        <!-- Operation 500 -->
         <task do="[tractor] acts on [land_parcel]"/>
       </operation>
     </operations>

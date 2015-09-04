@@ -13,18 +13,9 @@
     </variables>
     <operations>
       <operation id="1">
-        <!-- Operation 100 (4 minutes) -->
-        <task do="[forager_driver] moves in [forager]"/>
-        <!-- Operation 200 (18 minutes) -->
-        <task do="[forager] moves at [straw_to_bunch]"/>
-        <!-- Operation 300 -->
         <task do="[forager] consumes [straw_to_bunch]"/>
         <task do="[forager] produces [silage]"/>
         <task do="[silage] is at [cultivation]"/>
-        <!-- Operation 400 (18 minutes) -->
-        <task do="[forager] moves in default storage"/>
-        <!-- Operation 500 (4 minutes) -->
-        <task do="[forager_driver] moves in default storage"/>
       </operation>
     </operations>
   </procedure>

@@ -20,9 +20,6 @@
     </variables>
     <operations>
       <operation id="1">
-        <!-- Operation 700 (18 minutes) -->
-        <task do="[tractor] moves in [cultivation]"/>
-        <!-- Operation 800 -->
         <task do="[plant_medicine] parts with [plant_medicine_to_spray]"/>
         <task do="[plant_medicine_to_spray] moves in [cultivation]"/>
         <task do="[cultivation] consumes [plant_medicine_to_spray]"/>

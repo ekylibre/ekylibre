@@ -24,9 +24,6 @@
     </variables>
     <operations>
       <operation id="1">
-        <!-- Operation 200 -->
-        <task do="[cropper] moves at [cultivation]"/>
-        <!-- Operation 300 -->
         <task do="[cultivation] produces [grains]"/>
         <task do="[cultivation] produces [straws]"/>
         <task do="[straws] is at [cultivation]"/>

@@ -334,7 +334,7 @@ class Isagri::Isaculture::CsvImportExchanger < ActiveExchanger::Base
             if procedures_transcode[r.procedure_name] == :raking
               # Raking
 
-              intervention = Ekylibre::FirstRun::Booker.force(:raking, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (2.96 * coeff.to_f)), support: support, parameters: { readings: { 'base-raking-0-500-1' => 'plowed' } }) do |i|
+              intervention = Ekylibre::FirstRun::Booker.force(:raking, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (2.96 * coeff.to_f)), support: support, parameters: { readings: { 'base-raking-0-1-readstate' => 'plowed' } }) do |i|
                 i.add_cast(reference_name: 'harrow',      actor: (equipments_work_number.count > 0 ? i.find(Equipment, work_number: equipments_work_number, can: 'plow_superficially') : i.find(Equipment, can: 'plow_superficially')))
                 i.add_cast(reference_name: 'driver',      actor: (workers_work_number.count > 0 ? i.find(Worker, work_number: workers_work_number) : i.find(Worker)))
                 i.add_cast(reference_name: 'tractor',     actor: (equipments_work_number.count > 0 ? i.find(Equipment, work_number: equipments_work_number, can: 'catch(equipment)') : i.find(Equipment, can: 'catch(equipment)')))
@@ -407,7 +407,7 @@ class Isagri::Isaculture::CsvImportExchanger < ActiveExchanger::Base
               elsif procedures_transcode[r.procedure_name] == :chemical_weed_killing && intrant
 
                 # Chemical weed
-                intervention = Ekylibre::FirstRun::Booker.force(:chemical_weed_killing, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (1.07 * coeff.to_f)), support: support, parameters: { readings: { 'base-chemical_weed_killing-0-800-2' => 'nude' } }) do |i|
+                intervention = Ekylibre::FirstRun::Booker.force(:chemical_weed_killing, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (1.07 * coeff.to_f)), support: support, parameters: { readings: { 'base-chemical_weed_killing-0-1-readstate' => 'nude' } }) do |i|
                   i.add_cast(reference_name: 'weedkiller', actor: intrant)
                   i.add_cast(reference_name: 'weedkiller_to_spray', population: intrant.population)
                   i.add_cast(reference_name: 'sprayer',     actor: (equipments_work_number.count > 0 ? i.find(Equipment, work_number: equipments_work_number, can: 'spray') : i.find(Equipment, can: 'spray')))
@@ -445,7 +445,7 @@ class Isagri::Isaculture::CsvImportExchanger < ActiveExchanger::Base
               elsif procedures_transcode[r.procedure_name] == :sowing && intrant && plant_variant && intrant.able_to?('grow')
 
                 # Spraying on cultivation
-                intervention = Ekylibre::FirstRun::Booker.force(:sowing, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (1.07 * coeff.to_f)), support: support, parameters: { readings: { 'base-sowing-0-750-2' => global_intrant_value.to_i } }) do |i|
+                intervention = Ekylibre::FirstRun::Booker.force(:sowing, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (1.07 * coeff.to_f)), support: support, parameters: { readings: { 'base-sowing-0-1-readcount' => global_intrant_value.to_i } }) do |i|
                   i.add_cast(reference_name: 'seeds',        actor: intrant)
                   i.add_cast(reference_name: 'seeds_to_sow', population: intrant.population)
                   i.add_cast(reference_name: 'sower',        actor: (equipments_work_number.count > 0 ? i.find(Equipment, work_number: equipments_work_number, can: 'sow') : i.find(Equipment, can: 'sow')))

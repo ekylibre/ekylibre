@@ -19,11 +19,6 @@
     </variables>
     <operations>
       <operation id="1">
-        <!-- Operation 100 (4 minutes) -->
-        <task do="[cropper_driver] moves in [cropper]"/>
-        <!-- Operation 200 (18 minutes) -->
-        <task do="[cropper] moves at [cultivation]"/>
-        <!-- Operation 300 -->
         <task do="[cultivation] produces [hazelnuts]"/>
         <task do="[hazelnuts] is at [cultivation]"/>
       </operation>

@@ -22,9 +22,6 @@
     </variables>
     <operations>
       <operation id="1">
-        <!-- Operation 400 (18 minutes) -->
-        <task do="[doer] moves in [land_parcel]"/>
-        <!-- Operation 500 -->
         <task do="[stakes] parts with [stakes_to_plant]"/>
         <task do="[wire_fence] parts with [wire_fence_to_put]"/>
         <task do="[land_parcel] consumes [stakes_to_plant]"/>

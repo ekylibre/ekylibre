@@ -1,5 +1,4 @@
 module Backend::EntitiesHelper
-
   # Compute a column chart with main transactions of an entity
   def transactions_by_month_chart(entity, options = {})
     stopped_on = options[:stopped_on] || Date.today
@@ -11,7 +10,7 @@ module Backend::EntitiesHelper
     date = started_on
     stopped_on = started_on + 1 if started_on >= stopped_on
     while date < stopped_on
-      categories[date.year.to_s + date.month.to_s.rjust(3, '0')] = date.l(format: "%b %Y")
+      categories[date.year.to_s + date.month.to_s.rjust(3, '0')] = date.l(format: '%b %Y')
       date = date >> 1
     end
 
@@ -21,7 +20,7 @@ module Backend::EntitiesHelper
         hash[pair.expr.to_i.to_s] = pair.sum.to_d
         hash
       end
-      series << {type: 'column', name: :sales.tl, data: normalize_serie(item_h, categories.keys) }
+      series << { type: 'column', name: :sales.tl, data: normalize_serie(item_h, categories.keys) }
     end
 
     purchase_items = entity.purchase_items.between(started_on, stopped_on)
@@ -30,7 +29,7 @@ module Backend::EntitiesHelper
         hash[pair.expr.to_i.to_s] = pair.sum.to_d
         hash
       end
-      series << {type: 'column', name: :purchases.tl, data: normalize_serie(item_h, categories.keys) }
+      series << { type: 'column', name: :purchases.tl, data: normalize_serie(item_h, categories.keys) }
     end
 
     outgoing_payments = entity.outgoing_payments.between(started_on, stopped_on)
@@ -39,7 +38,7 @@ module Backend::EntitiesHelper
         hash[pair.expr.to_i.to_s] = pair.sum.to_d
         hash
       end
-      series << {type: 'column', name: :outgoing_payments.tl, data: normalize_serie(item_h, categories.keys) }
+      series << { type: 'column', name: :outgoing_payments.tl, data: normalize_serie(item_h, categories.keys) }
     end
 
     incoming_payments = entity.incoming_payments.between(started_on, stopped_on)
@@ -48,14 +47,12 @@ module Backend::EntitiesHelper
         hash[pair.expr.to_i.to_s] = pair.sum.to_d
         hash
       end
-      series << {type: 'column', name: :incoming_payments.tl, data: normalize_serie(item_h, categories.keys) }
+      series << { type: 'column', name: :incoming_payments.tl, data: normalize_serie(item_h, categories.keys) }
     end
 
-    unless options[:blank].is_a?(FalseClass)
-      return nil unless series.any?
-    end
+    return nil unless series.any? unless options[:blank].is_a?(FalseClass)
 
-    html = column_highcharts(series, y_axis: {title: {text: :pretax_amount.tl}}, x_axis: { categories: categories.values}, legend: true)
+    html = column_highcharts(series, y_axis: { title: { text: :pretax_amount.tl } }, x_axis: { categories: categories.values }, legend: true)
 
     if options[:cobbler]
       options[:cobbler].cobble(options[:title] || :transactions_by_month) do
@@ -66,5 +63,4 @@ module Backend::EntitiesHelper
       return html
     end
   end
-
 end

@@ -13,11 +13,7 @@
     </variables>
     <operations>
       <operation id="1">
-        <!-- Operation 100 -->
-        <task do="[caregiver] moves at [animal]"/>
-        <task do="[caregiver] measures [animal|healthy]"/>
-        <!-- Operation 200 (10 minutes) -->
-        <task do="[caregiver] moves at [animal_medicine]"/>
+        <task do="[caregiver] measures [animal|healthy]" id="readhealth"/>
         <task do="[animal_medicine] parts with [animal_medicine_to_give]"/>
         <task do="[animal_medicine_to_give] moves in [caregiver]"/>
         <!-- Operation 300 -->

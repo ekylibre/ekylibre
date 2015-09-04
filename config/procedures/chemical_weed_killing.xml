@@ -20,12 +20,9 @@
     </variables>
     <operations>
       <operation id="1">
-        <!-- Operation 700 (18 minutes) -->
-        <task do="[tractor] moves in [land_parcel]"/>
-        <!-- Operation 800 -->
         <task do="[weedkiller] parts with [weedkiller_to_spray]"/>
         <task do="[weedkiller_to_spray] moves in [land_parcel]"/>
-        <task do="land_parcel|soil_cultural_state is measured"/>
+        <task do="land_parcel|soil_cultural_state is measured" id="readstate"/>
         <task do="[land_parcel] consumes [weedkiller_to_spray]"/>
       </operation>
     </operations>

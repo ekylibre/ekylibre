@@ -13,9 +13,6 @@
     </variables>
     <operations>
       <operation id="1">
-        <!-- Operation 100 (10 minutes) -->
-        <task do="[caregiver] moves at [mammal_herd_to_milk]"/>
-        <!-- Operation 200 -->
         <task do="[mammal_herd_to_milk] produces [milk]"/>
         <task do="[milk] is in [container]"/>
       </operation>

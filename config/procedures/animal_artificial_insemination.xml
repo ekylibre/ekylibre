@@ -11,17 +11,11 @@
     </variables>
     <operations>
       <operation id="1">
-        <!-- Operation 100 -->
         <task do="[vial] parts with [vial_to_give]"/>
-        <task do="[vial_to_give] moves in [inseminator]"/>
-        <!-- Operation 200 (10 minutes) -->
-        <task do="[inseminator] moves at [animal]"/>
-        <!-- Operation 300 -->
         <task do="[animal] consumes [vial_to_give]"/>
-        <!-- Operation 400 -->
-        <task do="animal|mammalia_reproduction_state is measured"/>
-        <task do="animal|healthy is measured"/>
-        <task do="animal|mammalia_reproduction_method_embryo_transplant is measured"/>
+        <task do="animal|mammalia_reproduction_state is measured" id="readstate"/>
+        <task do="animal|healthy is measured" id="readhealth"/>
+        <task do="animal|mammalia_reproduction_method_embryo_transplant is measured" id="readembryo"/>
       </operation>
     </operations>
   </procedure>
