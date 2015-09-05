@@ -3560,22 +3560,13 @@ product_junction_ways:
   nature:
     type: string
     required: true
-  population:
-    type: decimal
-    precision: 19
-    scale: 4
-  road_id:
+  product_id:
     type: integer
     references: product
     required: true
   role:
     type: string
     required: true
-  shape:
-    type: geometry
-    limit:
-      srid: 4326
-      type: geometry
   updated_at:
     type: datetime
     required: true
@@ -3595,6 +3586,9 @@ product_junctions:
   lock_version:
     type: integer
     required: true
+  nature:
+    type: string
+    required: true
   operation_id:
     type: integer
     references: operation
@@ -3610,8 +3604,6 @@ product_junctions:
   tool_id:
     type: integer
     references: product
-  type:
-    type: string
   updated_at:
     type: datetime
     required: true

@@ -278,7 +278,7 @@ class Intervention < Ekylibre::Record::Base
           unless variant = producer.variant
             puts "No variant given for #{variable.producer_name} in #{reference_name} (##{id})".red
           end
-          produced.actor = variant.matching_model.new(variant: variant, initial_born_at: stopped_at, initial_owner: producer.actor.owner, initial_container: producer.actor.container, initial_population: produced.population, initial_shape: produced.shape, name: producer.name, extjuncted: true, tracking: producer.actor.tracking)
+          produced.actor = producer.actor.part_with(produced.population, born_at: stopped_at, shape: produced.shape)
           unless produced.actor.save
             logger.debug '*' * 80 + variant.matching_model.name
             logger.debug produced.actor.inspect

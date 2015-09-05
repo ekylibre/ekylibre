@@ -41,23 +41,14 @@ end
 class Operation < Ekylibre::Record::Base
   include PeriodicCalculable
   belongs_to :intervention, inverse_of: :operations
-  has_many :product_births,            dependent: :destroy
-  has_many :product_consumptions,      dependent: :destroy
-  has_many :product_creations,         dependent: :destroy
-  has_many :product_deaths,            dependent: :destroy
-  has_many :product_divisions,         dependent: :destroy
   has_many :product_enjoyments,        dependent: :destroy
+  has_many :product_junctions,         dependent: :destroy
   has_many :product_linkages,          dependent: :destroy
   has_many :product_localizations,     dependent: :destroy
   has_many :product_memberships,       dependent: :destroy
-  has_many :product_mergings,          dependent: :destroy
-  has_many :product_mixings,           dependent: :destroy
   has_many :product_ownerships,        dependent: :destroy
   has_many :product_phases,            dependent: :destroy
-  has_many :product_quadruple_mixings, dependent: :destroy
-  has_many :product_quintuple_mixings, dependent: :destroy
   has_many :product_reading_tasks,     dependent: :destroy
-  has_many :product_triple_mixings,    dependent: :destroy
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
@@ -211,80 +202,127 @@ class Operation < Ekylibre::Record::Base
   # == Births
 
   def perform_creation(_reference, params)
-    # self.product_creations.create!(started_at: self.started_at, stopped_at: self.stopped_at, product: params[:product].actor, producer: params[:producer].actor)
-    producer = params[:producer].actor
-    attributes = { started_at: started_at, stopped_at: stopped_at, product_way_attributes: { road: params[:product].actor }, producer: producer }
-    for indicator_name in producer.whole_indicators_list
-      attributes[:product_way_attributes][indicator_name] = params[:product].send(indicator_name)
-    end
-    product_creations.create!(attributes)
+    produced = params[:product].actor
+    junction = product_junctions.create!(
+      nature: :production,
+      started_at: started_at,
+      stopped_at: stopped_at,
+      ways_attributes: [
+        { role: :producer, product: params[:producer].actor },
+        { role: :produced, product: produced }
+      ]
+    )
+    produced.read_whole_indicators_from!(params[:product], at: stopped_at, force: true, originator: junction)
   end
 
   def perform_division(_reference, params)
-    producer = params[:producer].actor
-    attributes = { started_at: started_at, stopped_at: stopped_at, product_way_attributes: { road: params[:product].actor }, producer: producer }
-    for indicator_name in producer.whole_indicators_list
-      attributes[:product_way_attributes][indicator_name] = params[:product].send(indicator_name)
-    end
-    product_divisions.create!(attributes)
+    reduced = params[:producer].actor
+    separated = params[:product].actor
+    junction = product_junctions.create!(
+      nature: :division,
+      started_at: started_at,
+      stopped_at: stopped_at,
+      ways_attributes: [
+        { role: :reduced, product: reduced },
+        { role: :separated, product: separated }
+      ]
+    )
+
+    # Duplicate individual indicator data
+    separated.copy_readings_of!(reduced, at: stopped_at, taken_at: started_at, originator: junction)
+
+    # Impact on following readings
+    reduced.substract_and_read(params[:product], at: stopped_at, taken_at: started_at, originator: junction)
   end
 
   # == Deaths
 
   def perform_death(_reference, params)
-    product_deaths.create!(started_at: started_at, stopped_at: stopped_at, product: params[:product].actor)
+    product_junctions.create!(
+      nature: :death,
+      started_at: started_at,
+      stopped_at: stopped_at,
+      ways_attributes: [{ role: :dead, product: params[:product].actor }]
+    )
   end
 
   def perform_consumption(_reference, params)
-    product_consumptions.create!(started_at: started_at, stopped_at: stopped_at, product: params[:product].actor, consumer: params[:absorber].actor)
+    product_junctions.create!(
+      nature: :consumption,
+      started_at: started_at,
+      stopped_at: stopped_at,
+      ways_attributes: [
+        { role: :consumer, product: params[:absorber].actor },
+        { role: :consumed, product: params[:product].actor }
+      ]
+    )
   end
 
   def perform_merging(_reference, params)
-    product_mergings.create!(started_at: started_at, stopped_at: stopped_at, product: params[:product].actor, absorber: params[:absorber].actor)
+    absorber = params[:absorber].actor
+    absorbed = params[:product].actor
+    junction = product_junctions.create!(
+      nature: :merging,
+      started_at: started_at,
+      stopped_at: stopped_at,
+      ways_attributes: [
+        { role: :absorber, product: absorber },
+        { role: :absorbed, product: absorbed }
+      ]
+    )
+    # Duplicate individual indicator data
+    absorbed.copy_readings_of!(absorber, at: stopped_at, taken_at: started_at, originator: junction)
+
+    # Add whole indicator data
+    absorbed.add_and_read(params[:product], at: stopped_at, taken_at: started_at, originator: junction)
   end
 
   # == Phases
 
   def perform_variant_cast(_reference, params)
-    product_phases.create!(started_at: stopped_at, product: params[:product].actor, variant: params[:variant].variant)
+    product_phases.create!(
+      started_at: stopped_at,
+      product: params[:product].actor,
+      variant: params[:variant].variant
+    )
   end
 
   def perform_nature_cast(_reference, params)
-    product_phases.create!(started_at: stopped_at, product: params[:product].actor, variant: params[:nature].variant.nature)
+    product_phases.create!(
+      started_at: stopped_at,
+      product: params[:product].actor,
+      variant: params[:nature].variant.nature
+    )
   end
 
   # == Mixing
 
   def perform_mixing(_reference, params)
-    attributes = { started_at: started_at, stopped_at: stopped_at, product_way_attributes: { road: params[:product].actor }, first_producer: params[:first_producer].actor, second_producer: params[:second_producer].actor }
-    for indicator_name in params[:product].actor.whole_indicators_list
-      attributes[:product_way_attributes][indicator_name] = params[:product].send(indicator_name)
+    produced = params[:product].actor
+    ways = [{ role: :produced, product: produced }]
+    [:first_producer, :second_producer, :third_producer, :fourth_producer,
+     :fifth_producer].each do |role|
+      ways << { role: :mixed, product: params[role].actor } if params[role]
     end
-    product_mixings.create!(attributes)
+    junction = product_junctions.create!(
+      nature: :mixing,
+      started_at: started_at,
+      stopped_at: stopped_at,
+      ways_attributes: ways
+    )
+    produced.read_whole_indicators_from!(params[:product], at: stopped_at, force: true, originator: junction)
   end
 
-  def perform_triple_mixing(_reference, params)
-    attributes = { started_at: started_at, stopped_at: stopped_at, product_way_attributes: { road: params[:product].actor }, first_producer: params[:first_producer].actor, second_producer: params[:second_producer].actor, third_producer: params[:third_producer].actor }
-    for indicator_name in params[:product].actor.whole_indicators_list
-      attributes[:product_way_attributes][indicator_name] = params[:product].send(indicator_name)
-    end
-    product_triple_mixings.create!(attributes)
+  def perform_triple_mixing(reference, params)
+    perform_mixing(reference, params)
   end
 
-  def perform_quadruple_mixing(_reference, params)
-    attributes = { started_at: started_at, stopped_at: stopped_at, product_way_attributes: { road: params[:product].actor }, first_producer: params[:first_producer].actor, second_producer: params[:second_producer].actor, third_producer: params[:third_producer].actor, fourth_producer: params[:fourth_producer].actor }
-    for indicator_name in params[:product].actor.whole_indicators_list
-      attributes[:product_way_attributes][indicator_name] = params[:product].send(indicator_name)
-    end
-    product_quadruple_mixings.create!(attributes)
+  def perform_quadruple_mixing(reference, params)
+    perform_mixing(reference, params)
   end
 
-  def perform_quintuple_mixing(_reference, params)
-    attributes = { started_at: started_at, stopped_at: stopped_at, product_way_attributes: { road: params[:product].actor }, first_producer: params[:first_producer].actor, second_producer: params[:second_producer].actor, third_producer: params[:third_producer].actor, fourth_producer: params[:fourth_producer].actor, fifth_producer: params[:fifth_producer].actor }
-    for indicator_name in params[:product].actor.whole_indicators_list
-      attributes[:product_way_attributes][indicator_name] = params[:product].send(indicator_name)
-    end
-    product_quintuple_mixings.create!(attributes)
+  def perform_quintuple_mixing(reference, params)
+    perform_mixing(reference, params)
   end
 
   # == Linkages

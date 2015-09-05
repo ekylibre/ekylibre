@@ -181,15 +181,93 @@ module Indicateable
             get(denominator, options).to_d(denominator_dimension.symbol)).in(unit)
   end
 
+  # Read only whole indicators and store it with given options
+  def read_whole_indicators_from!(source, options = {})
+    whole_indicators_list.each do |indicator|
+      value = source.send(indicator)
+      self.read!(indicator, value, options) if value
+    end
+  end
+
   # Copy individual indicators of the other at given times
   def copy_readings_of!(other, options = {})
     options[:at] ||= Time.now
-    options[:taken_at] ||= options[:at]
+    options[:taken_at] ||= options[:at] - 0.000001
     for indicator_name in other.individual_indicators_list - frozen_indicators_list
       if reading = other.reading(indicator_name, at: options[:taken_at])
         self.read!(indicator_name, reading.value, at: options[:at], originator: options[:originator])
       end
     end
+  end
+
+  def substract_and_read(operand, options = {})
+    compute_and_read(operand, options.merge(operation: :substract))
+  end
+
+  def add_and_read(operand, options = {})
+    compute_and_read(operand, options.merge(operation: :add))
+  end
+
+  # Substract a value to a list of indicator data
+  def compute_and_read(operand, options = {})
+    read_at = options[:at] || Time.now
+    taken_at = options[:taken_at] || read_at - 0.000001
+    operation = options[:operation] || :add
+    whole_indicators_list.each do |indicator_name|
+      operand_value = operand.send(indicator_name)
+      unless operand_value
+        fail StandardError, "No given #{indicator_name} value"
+      end
+      indicator = Nomen::Indicator.find(indicator_name)
+      # Perform operation
+      value = get(indicator, at: taken_at)
+      value = Charta::Geometry.new(value) if indicator.datatype == :shape
+      if operation == :add
+        value += operand_value
+      elsif operation == :substract
+        value -= operand_value
+      else
+        fail StandardError, "Unknown operation: #{operation.inspect}"
+      end
+      # Read new value
+      reading = readings.find_or_initialize_by(
+        indicator_name: indicator_name,
+        read_at: read_at,
+        originator: options[:originator]
+      )
+      reading.value = value
+      reading.save!
+    end
+  end
+
+  # # Substract a value to a list of indicator data
+  # def substract_to_readings_from(source, options = {})
+  #   self.whole_indicators_list.each do |indicator_name|
+  #     self.read!(indicator_name, self.get(indicator_name, at: options[:at]), at: options[:at])
+  #     product_reading_value = source.send(indicator_name)
+  #     if product_reading_value
+  #       self.substract_to_readings(indicator_name, product_reading_value, after: options[:at])
+  #     else
+  #       fail StandardError, "No given #{indicator_name} for division."
+  #     end
+  #   end
+  # end
+
+  def operate_on_readings(indicator, value, options = {})
+    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
+      fail ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
+    end
+    data = readings.where(indicator_name: indicator.name)
+    operation = options.delete(:operation)
+    read_at = options[:at] || Time.now
+    if operation == :add
+      expr = (indicator.datatype == :shape ? 'ST_Union(VALUE, ?)' : 'VALUE + ?')
+    elsif operation == :substract
+      expr = (indicator.datatype == :shape ? 'ST_Difference(VALUE, ?)' : 'VALUE - ?')
+    else
+      fail StandardError, "Unknown operation: #{operation.inspect}"
+    end
+    data.update_all(["VALUE = #{expr}".gsub('VALUE', "#{indicator.datatype}_value"), value])
   end
 
   # Substract a value to a list of indicator data

@@ -95,7 +95,7 @@ class Product < Ekylibre::Record::Base
   # has_many :groups, :through => :memberships
   has_many :reading_tasks, class_name: 'ProductReadingTask', dependent: :destroy
   # has_many :incoming_delivery_items
-  has_many :junction_ways, class_name: 'ProductJunctionWay', foreign_key: :road_id, dependent: :destroy
+  has_many :junction_ways, class_name: 'ProductJunctionWay', foreign_key: :product_id, dependent: :destroy
   has_many :junctions, class_name: 'ProductJunction', through: :junction_ways
   has_many :linkages, class_name: 'ProductLinkage', foreign_key: :carrier_id, dependent: :destroy
   has_many :links, class_name: 'ProductLink', foreign_key: :product_id, dependent: :destroy
@@ -106,8 +106,8 @@ class Product < Ekylibre::Record::Base
   has_many :phases, class_name: 'ProductPhase', dependent: :destroy
   has_many :supports, class_name: 'ProductionSupport', foreign_key: :storage_id, inverse_of: :storage
   has_many :variants, class_name: 'ProductNatureVariant', through: :phases
-  has_one :start_way,  -> { where(nature: 'start') },  class_name: 'ProductJunctionWay', inverse_of: :road, foreign_key: :road_id
-  has_one :finish_way, -> { where(nature: 'finish') }, class_name: 'ProductJunctionWay', inverse_of: :road, foreign_key: :road_id
+  has_one :start_way,  -> { where(nature: 'start') },  class_name: 'ProductJunctionWay', inverse_of: :product, foreign_key: :product_id
+  has_one :finish_way, -> { where(nature: 'finish') }, class_name: 'ProductJunctionWay', inverse_of: :product, foreign_key: :product_id
   has_one :start_junction,  through: :start_way,  source: :junction
   has_one :finish_junction, through: :finish_way, source: :junction
   has_one :current_phase,        -> { current }, class_name: 'ProductPhase',        foreign_key: :product_id
@@ -312,12 +312,12 @@ class Product < Ekylibre::Record::Base
       # Add default start junction
       if start_junction
         start_junction.update_column(:started_at, initial_born_at)
-        way = start_junction.product_way
-        way.population = initial_population
-        way.shape = initial_shape
-        way.save!
       else
-        ProductBirth.create!(product_way_attributes: { road: self, population: initial_population, shape: initial_shape }, started_at: initial_born_at)
+        ProductJunction.create!(
+          nature: :birth,
+          started_at: initial_born_at,
+          ways_attributes: [{ role: :born, product: self }]
+        )
         reload
       end
 
@@ -329,8 +329,24 @@ class Product < Ekylibre::Record::Base
           finish_junction.destroy
         end
       elsif initial_dead_at
-        ProductDeath.create!(product_way_attributes: { road: self }, started_at: initial_dead_at)
+        ProductJunction.create!(
+          nature: :death,
+          started_at: initial_dead_at,
+          ways_attributes: [{ role: :dead, product: self }]
+        )
         reload
+      end
+    end
+
+    if start_junction
+      %w(population shape).each do |indicator|
+        initial_value = send("initial_#{indicator}")
+        if initial_value
+          readings.create!(indicator_name: indicator,
+                           value: initial_value,
+                           originator: start_junction,
+                           read_at: born_at)
+        end
       end
     end
 
@@ -546,10 +562,48 @@ class Product < Ekylibre::Record::Base
     super
   end
 
+  # Create a new product parted from self
+  # See part!
+  def part_with!(population, options = {})
+    product = part_with(population, options)
+    product.save!
+    product
+  end
+
+  # Build a new product parted from self
+  # No product_division created.
+  # Options can be shape, name, born_at
+  def part_with(population, options = {})
+    attributes = options.slice(:name, :number, :work_number, :identification_number, :tracking, :default_storage, :description, :picture)
+    attributes[:extjuncted] = true
+    attributes[:name] ||= name
+    attributes[:tracking] ||= tracking
+    attributes[:variant] = variant
+    # Initial values
+    attributes[:initial_population] = population
+    attributes[:initial_shape] ||= options[:shape] || shape
+    attributes[:initial_born_at] = options[:born_at] if options[:born_at]
+    attributes[:initial_dead_at] = options[:dead_at] if options[:dead_at]
+    ownership = current_ownership
+    if ownership && !ownership.unknown?
+      attributes[:initial_owner] ||= ownership.owner
+    end
+    enjoyment = current_enjoyment
+    if enjoyment && !enjoyment.unknown?
+      attributes[:initial_enjoyer] ||= enjoyment.enjoyer
+    end
+    localization = current_localization
+    if localization && localization.interior?
+      attributes[:initial_container] ||= localization.container
+    end
+    matching_model.new(attributes)
+  end
+
   def initializeable?
     self.new_record? || !(incoming_delivery_item.present? || outgoing_delivery_items.any? || intervention_casts.any? || fixed_asset.present?)
   end
 
+  # TODO: Doc
   def variables(_options = {})
     list = []
     abilities = self.abilities
@@ -567,13 +621,5 @@ class Product < Ekylibre::Record::Base
       list << variable
     end
     list
-  end
-  # methods used by Pasteque
-  def x
-    id % 4
-  end
-
-  def y
-    id / 4
   end
 end
