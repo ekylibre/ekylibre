@@ -3265,6 +3265,13 @@ outgoing_delivery_items:
     type: decimal
     precision: 19
     scale: 4
+  parted:
+    type: boolean
+    required: true
+    default: false
+  parted_product_id:
+    type: integer
+    references: product
   population:
     type: decimal
     precision: 19

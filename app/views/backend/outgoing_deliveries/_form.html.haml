@@ -9,15 +9,18 @@
   = f.custom_fields
 
 = field_set OutgoingDelivery.human_attribute_name(:items) do
-  %table
+  %table.list
     %thead
       %tr
+        %th.act
         %th= OutgoingDeliveryItem.human_attribute_name(:product)
-        %th
+        %th= OutgoingDeliveryItem.human_attribute_name(:parted)
+        %th= OutgoingDeliveryItem.human_attribute_name(:population)
+        %th= OutgoingDeliveryItem.human_attribute_name(:shape)
+
     %tbody#items
       = f.simple_fields_for :items, @outgoing_delivery.items do |item|
         = render 'item_fields', f: item
     %tfoot
       %tr.total
-        %td= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', 'data-association-insertion-node' => '#items', 'data-association-insertion-method' => :append, class: "btn primary"
-        %th
+        %th{colspan: 5}= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', 'data-association-insertion-node' => '#items', 'data-association-insertion-method' => :append, class: "btn primary"

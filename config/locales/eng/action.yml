@@ -1269,8 +1269,8 @@ eng:
     purchase_items: "Purchase items" #?
     purchases: "Purchases"
     # quandl: "Quandl"
-    quantity: "Quantity"
-    quantity_rest: "Remaining quantity"
+    quantity: "Quantity" #?
+    quantity_rest: "Remaining quantity" #?!
     query: "Query:" #?
     raw_margin: "Raw margin"
     reading_tasks: "Reading tasks"
@@ -1412,7 +1412,7 @@ eng:
     total_paid_amount: "Total paid amount"
     total_pretax_expenses: "Total pre-tax expenses"
     total_pretax_revenues: "Total pre-tax revenues"
-    total_quantity: "Total quantity"
+    total_quantity: "Total quantity" #?
     total_unpaid_amount: "Total unpaid amount"
     totals: "Totals"
     tracking: "Tracking" #?
@@ -1793,6 +1793,6 @@ eng:
     backend/product_natures: "%{name}"
     backend/production_supports: "%{storage_name} (%{production_name} %{campaign_name})"
     backend/productions: "%{name} (%{campaign_name})"
-    backend/products: "%{work_number} %{name} (%{population} %{unit_name})"
+    backend/products: "%{work_number} %{name} (%{number})"
     backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"
     backend/users: "%{first_name} %{last_name}"

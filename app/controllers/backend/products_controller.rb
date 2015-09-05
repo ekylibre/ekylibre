@@ -26,7 +26,7 @@ class Backend::ProductsController < Backend::BaseController
 
   before_action :check_variant_availability, only: :new
 
-  unroll :name, :number, :work_number, 'population:!', 'unit_name:!'
+  unroll :name, :number, :work_number, :identification_number # , 'population:!', 'unit_name:!'
 
   # params:
   #   :q Text search

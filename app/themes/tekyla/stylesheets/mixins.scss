@@ -91,6 +91,10 @@
 }
 
 
+@mixin hyphens($mode: auto) {
+  @include prefixed-property(hyphens, $mode);
+}
+
 @mixin ellipsis($no-wrap: true) {
   @if $no-wrap {
     white-space: nowrap;

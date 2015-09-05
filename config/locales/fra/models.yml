@@ -1010,6 +1010,7 @@ fra:
     product_deaths: "Morts de produit"
     product_divisions: "Divisions de produit"
     product_enjoyments: "Jouissances de produit"
+    # product_junctions: "Product junctions"
     product_linkages: "Attelages de produit"
     product_localization: "Localisation de produit"
     product_localizations: "Localisations de produit"

@@ -1812,6 +1812,6 @@ spa:
     # backend/product_natures: "%{name}"
     # backend/production_supports: "%{storage_name} (%{production_name} %{campaign_name})"
     # backend/productions: "%{name} (%{campaign_name})"
-    # backend/products: "%{work_number} %{name} (%{population} %{unit_name})"
+    # backend/products: "%{work_number} %{name} (%{number})"
     # backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"
     # backend/users: "%{first_name} %{last_name}"

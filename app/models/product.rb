@@ -338,14 +338,17 @@ class Product < Ekylibre::Record::Base
       end
     end
 
-    if start_junction
-      %w(population shape).each do |indicator|
+    if born_at
+      %w(population shape).each do |indicator_name|
         initial_value = send("initial_#{indicator}")
         if initial_value
-          readings.create!(indicator_name: indicator,
-                           value: initial_value,
-                           originator: start_junction,
-                           read_at: born_at)
+          reading = readings.find_or_initialize_by(
+            indicator_name: indicator_name,
+            read_at: born_at,
+            originator: self
+          )
+          reading.value = initial_value
+          reading.save!
         end
       end
     end

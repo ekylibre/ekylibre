@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150904144552) do
+ActiveRecord::Schema.define(version: 20150905114009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1667,18 +1667,20 @@ ActiveRecord::Schema.define(version: 20150904144552) do
   add_index "outgoing_deliveries", ["updater_id"], name: "index_outgoing_deliveries_on_updater_id", using: :btree
 
   create_table "outgoing_delivery_items", force: :cascade do |t|
-    t.integer  "delivery_id",                                                                                null: false
+    t.integer  "delivery_id",                                                                                         null: false
     t.integer  "sale_item_id"
-    t.decimal  "population",                                            precision: 19, scale: 4
-    t.integer  "product_id",                                                                                 null: false
-    t.datetime "created_at",                                                                                 null: false
-    t.datetime "updated_at",                                                                                 null: false
+    t.decimal  "population",                                                 precision: 19, scale: 4
+    t.integer  "product_id",                                                                                          null: false
+    t.datetime "created_at",                                                                                          null: false
+    t.datetime "updated_at",                                                                                          null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                   default: 0, null: false
-    t.geometry "shape",        limit: {:srid=>4326, :type=>"geometry"}
-    t.decimal  "net_mass",                                              precision: 19, scale: 4
+    t.integer  "lock_version",                                                                        default: 0,     null: false
+    t.geometry "shape",             limit: {:srid=>4326, :type=>"geometry"}
+    t.decimal  "net_mass",                                                   precision: 19, scale: 4
     t.integer  "container_id"
+    t.boolean  "parted",                                                                              default: false, null: false
+    t.integer  "parted_product_id"
   end
 
   add_index "outgoing_delivery_items", ["container_id"], name: "index_outgoing_delivery_items_on_container_id", using: :btree
