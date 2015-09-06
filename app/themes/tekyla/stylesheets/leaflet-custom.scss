@@ -26,8 +26,15 @@ span.leaflet-importer-geojson, span.leaflet-importer-gml {
 .leaflet-multilevel-legend {
   i {
     display: inline-block;
-    width: 18px;
-    height: 18px;
+    width: 18px !important;
+    height: 18px !important;
+
+    &.active {
+      @include is-icon(10px);
+      @include use-icon(check);
+      color: white;
+      text-align: center;
+    }
   }
   span {
     display: inline-block;

@@ -107,14 +107,12 @@
 
       widget = this
 
+      this.counter = 1
+
       this.map.on "draw:created", (e) =>
         #Attempt to add a geojson feature
         try
           feature = e.layer.toGeoJSON()
-          feature.properties['internal_id'] = new Date().getTime()
-          feature.properties['removable'] = true
-          feature.properties['level'] = 0 if this.options.multiLevels?
-          feature.properties['name'] = this.options.defaultLabel
 
           widget.edition.addData feature
         catch
@@ -174,7 +172,7 @@
 
         $(this.element).trigger('mapeditor:feature_update', layer.feature)
 
-#        this.update()
+        layer.closePopup()
         false
 
       widget.element.trigger "mapeditor:loaded"
@@ -347,7 +345,7 @@
           this.ghost = L.geoJson(this.options.ghost, {
             onEachFeature: (feature, layer) =>
 
-              label = new L.Label({direction: 'bottom', className:'ghostLabel', offset: [0, -50], opacity: 0.7})
+              label = new L.Label({direction: 'bottom', className:'ghostLabel', offset: [0, -50], opacity: 0.6})
               label.setContent(feature.properties.name || feature.properties.id)
               label.setLatLng(layer.getBounds().getCenter())
               this.map.showLabel(label)
@@ -359,6 +357,32 @@
         this.ghost.addTo this.map
       this
 
+    onEachFeature: (feature, layer) ->
+      if not feature.properties.internal_id?
+        feature.properties['internal_id'] = new Date().getTime()
+        feature.properties['removable'] = true
+
+      if not feature.properties.name?
+        feature.properties.name = if feature.properties.id? then "#{this.counter}-  #{this.options.defaultEditionFeaturePrefix}#{feature.properties.id}" else "#{this.counter}-  #{this.options.defaultLabel}"
+
+      this.counter += 1
+      feature.properties['level'] = 0 if this.options.multiLevels? and not feature.properties.level?
+
+      layer.bindLabel(feature.properties.name || feature.properties.id, {direction: 'auto', className:'referenceLabel'})
+
+      $(this.element).trigger('mapeditor:feature_add', feature)
+
+      if feature.properties?
+        this.popupize(feature, layer)
+
+    featureStyling: (feature) ->
+      levelStyle = {}
+
+      if this.options.multiLevels?
+        levelStyle = {fillColor: this.colorize(feature.properties.level)}
+
+      $.extend(true, {}, this.options.editStyle, levelStyle)
+
     _refreshEditionLayerGroup: ->
       if this.edition?
         this.map.removeLayer this.edition
@@ -366,40 +390,22 @@
         if this.options.useFeatures
           this.edition = L.geoJson(this.options.edit, {
             onEachFeature: (feature, layer) =>
-
-              if not feature.properties.internal_id?
-                feature.properties['internal_id'] = new Date().getTime()
-                feature.properties['removable'] = true
-
-              if not feature.properties.name?
-                feature.properties.name = if feature.properties.id? then "#{this.options.defaultEditionFeaturePrefix}#{feature.properties.id}" else this.options.defaultLabel
-
-              feature.properties['level'] = 0 if this.options.multiLevels? and not feature.properties.level?
-
-              layer.bindLabel(feature.properties.name || feature.properties.id, {direction: 'auto', className:'referenceLabel'})
-
-              $(this.element).trigger('mapeditor:feature_add', feature)
-
-              if feature.properties?
-                this.popupize(feature, layer)
+              #nested function cause geojson doesn't seem to pass binding context
+              @onEachFeature(feature, layer)
 
             style: (feature) =>
-              levelStyle = {}
-
-              if this.options.multiLevels?
-                levelStyle = {fillColor: this.colorize(feature.properties.level)}
-
-              $.extend(true, {}, this.options.editStyle, levelStyle)
+              @featureStyling feature
           })
         else
           this.edition = L.GeoJSON.geometryToLayer(this.options.edit)
       else
         this.edition = L.geoJson(this.options.edit, {
           onEachFeature: (feature, layer) =>
-            $(this.element).trigger('mapeditor:feature_add', feature)
+            #nested function cause geojson doesn't seem to pass binding context
+            @onEachFeature(feature, layer)
 
-            if feature.properties?
-              this.popupize(feature, layer)
+          style: (feature) =>
+            @featureStyling feature
         })
 
 #      this.edition.setStyle this.options.editStyle
@@ -419,10 +425,10 @@
 
       for level in levels
         html += "<div class='leaflet-legend-item'>"
-        html += "<div class='leaflet-legend-body leaflet-multilevel-legend'>"
+        html += "<div class='leaflet-legend-body leaflet-multilevel-legend' data-level='#{level}'>"
 
         color = this.colorize(level)
-        html += "<i style='background-color: #{color}' title='#{level}'></i>"
+        html += "<i class='active' style='background-color: #{color}' title='#{this.options.defaultLevelLabel} #{level}'></i>"
         html += "<span>#{this.options.defaultLevelLabel} #{level}</span>"
         html += "</div>"
         html += "</div>"
@@ -443,7 +449,10 @@
         try
           this.map.fitBounds this.reference.getLayers()[0].getBounds()
         catch
-          this.map.fitBounds this.ghost.getLayers()[0].getBounds()
+          try
+            this.map.fitBounds this.ghost.getLayers()[0].getBounds()
+          catch
+            this._setDefaultView()
       else if view is 'edit'
          try
           this.map.fitBounds this.edition.getLayers()[0].getBounds()
@@ -516,7 +525,15 @@
                 $(this).find('[data-importer-spinner]').addClass('active')
 
               $(modal._container).on 'ajax:complete','form[data-importer-form]', (e,data) =>
-                this.edit $.parseJSON(data.responseText)
+                response = L.geoJson($.parseJSON(data.responseText))
+
+                response.eachLayer (layer) =>
+                  this.edition.addData layer.feature
+
+                this.update
+
+                modal.hide()
+
                 $(e.currentTarget).find('[data-importer-spinner]').removeClass('active')
 
             onHide: (evt) ->
@@ -539,7 +556,32 @@
         legend = this.controls.multiLevelLegend.getContainer()
         legend.innerHTML += this.buildLegend(this.edition)
 
+        $(legend).on 'click', '.leaflet-multilevel-legend', (e) =>
+          e.preventDefault()
+          level = $(e.currentTarget).data('level')
+          if level?
+            this.edition.eachLayer (layer) =>
+              if parseInt(layer.feature.properties.level) == level
+                shape = $(layer._container)
+                shape.toggle()
+                $(e.currentTarget).children('i').toggleClass('active')
+
       if @options.overlaySelector?
+
+        @map.on "overlayadd", (event) =>
+          if event.name == @options.overlaySelector.ghostLayer
+            @map.eachLayer (layer) =>
+              if layer.options? and layer.options.className == "ghostLabel"
+                label = $(layer._container)
+                label.show()
+
+        @map.on "overlayremove", (event) =>
+          if event.name == @options.overlaySelector.ghostLayer
+            @map.eachLayer (layer) =>
+              if layer.options? and layer.options.className == "ghostLabel"
+                label = $(layer._container)
+                label.hide()
+
         selector = @layerSelector || new L.Control.Layers()
         selector.addOverlay(@ghost, @options.overlaySelector.ghostLayer) if @ghost? and @ghost.getLayers().length > 0
         selector.addOverlay(@reference, @options.overlaySelector.referenceLayer) if @reference? and @reference.getLayers().length > 0

@@ -77,7 +77,7 @@ class KmlImport
       if ::Charta::KML.valid?(geometry)
 
         # properties
-        id = Digest::MD5.hexdigest(Time.now.to_i.to_s + Time.now.usec.to_s)
+        id = (Time.now.to_i.to_s+Time.now.usec.to_s)
 
         geojson_feature = {
           type: 'Feature',
