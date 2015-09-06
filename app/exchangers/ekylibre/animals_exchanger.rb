@@ -34,7 +34,9 @@ class Ekylibre::AnimalsExchanger < ActiveExchanger::Base
         end
         animal.initial_population = animal.population
         animal.variety = r.variety if r.variety
-        animal.initial_owner = r.initial_owner if r.initial_owner
+        if owner = Entity.find_by_full_name(r.initial_owner)
+          animal.initial_owner = owner
+        end
         if r.group && animal_group = AnimalGroup.find_by(work_number: r.group)
           animal.memberships.create!(group: animal_group, started_at: r.born_at, nature: :interior)
         end

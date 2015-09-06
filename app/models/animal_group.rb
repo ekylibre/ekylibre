@@ -120,12 +120,39 @@ class AnimalGroup < ProductGroup
   end
 
   def add_animals(animals, options = {})
-    Intervention.write(:group_inclusion, options) do |i|
-      i.cast :group, self, as: 'group_inclusion-includer'
-      animals.each do |a|
-        animal = (a.is_a?(Animal) ? a : Animal.find(a))
-        member = i.cast :member, animal, as: 'group_inclusion-target'
-        i.group_inclusion :group, member
+
+    procedure_natures = []
+    procedure_natures << :animal_group_changing
+    procedure_natures << :animal_moving if options[:container_id].present?
+    procedure_natures << :animal_evolution if options[:variant_id].present?
+
+    Intervention.write(*procedure_natures, started_at: options[:started_at], stopped_at: options[:stopped_at], production_support: ProductionSupport.find_by(id: options[:production_support_id])) do |i|
+      i.cast :caregiver, Product.find_by(id: options[:worker_id]), role: 'animal_moving-doer', position: 1 if options[:worker_id]
+      ah = nil
+      ag = nil
+      av = nil
+      if procedure_natures.include?(:animal_moving)
+        ah = i.cast :animal_housing, Product.find_by(id: options[:container_id]), role: ['animal_moving-target'], position: 2
+      end
+      if procedure_natures.include?(:animal_group_changing)
+        ag = i.cast :herd, self, role: ['animal_group_changing-target'], position: 3
+      end
+      if procedure_natures.include?(:animal_evolution)
+        av = i.cast :new_animal_variant, ProductNatureVariant.find_by(id: options[:variant_id]), role: ['animal_evolution-variant'], position: 4, variant: true
+      end
+      animals.each_with_index do |a, index|
+        ac = i.cast :animal, a, role: ['animal_moving-input', 'animal_group_changing-input', 'animal_evolution-target'], position: index + 5
+        if procedure_natures.include?(:animal_moving)
+          i.task :entering, product: ac, localizable: ah
+        end
+        if procedure_natures.include?(:animal_group_changing)
+          i.task :group_inclusion, member: ac, group: ag
+          # i.group_inclusion :animal, :herd
+        end
+        if procedure_natures.include?(:animal_evolution)
+          i.task :variant_cast, product: ac, variant: av
+          # i.variant_cast :animal, :new_animal_variant
+        end
       end
     end
   end
