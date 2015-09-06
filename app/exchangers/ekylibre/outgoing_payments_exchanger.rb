@@ -1,17 +1,16 @@
 class Ekylibre::OutgoingPaymentsExchanger < ActiveExchanger::Base
-  
   def check
     rows = CSV.read(file, headers: true).delete_if { |r| r[2].blank? }
     valid = true
     now = Time.now
     w.count = rows.size
-    
+
     # find a responsible
     unless responsible = User.employees.first
-      w.error "No responsible found"
+      w.error 'No responsible found'
       valid = false
     end
-    
+
     rows.each_with_index do |row, index|
       line_number = index + 2
       prompt = "L#{line_number.to_s.yellow}"
@@ -26,7 +25,7 @@ class Ekylibre::OutgoingPaymentsExchanger < ActiveExchanger::Base
         document_reference_number: "#{Date.parse(row[0].to_s)}_#{row[1]}_#{row[2].upcase}".tr(' ', '-'),
         description: now.l
       }.to_struct
-      
+
       # Check date
       paid_at = nil
       if r.paid_on
@@ -36,39 +35,39 @@ class Ekylibre::OutgoingPaymentsExchanger < ActiveExchanger::Base
         paid_at = r.invoiced_at
         w.info " Date : #{r.invoiced_at} "
       else
-        w.warn "No date given"
+        w.warn 'No date given'
         valid = false
       end
-      
+
       # Check outgoing payment mode
       unless payment_mode = OutgoingPaymentMode.where(name: r.outgoing_payment_mode_name).first
         w.error ActiveExchanger::InvalidDataError, "Cannot find outgoing payment mode #{r.outgoing_payment_mode_name} at line #{line_index.to_s.yellow}"
         valid = false
       end
-      
+
       # Check an entity presence
       unless entity = Entity.where('full_name ILIKE ?', r.payee_full_name).first || Entity.where('last_name ILIKE ?', r.payee_full_name).first
         w.info " Entity will be created with #{r.payee_full_name} "
       end
-      
+
       # Check Outgoing payment presence
       if outgoing_payment = OutgoingPayment.where(payee: entity, paid_at: paid_at, mode: payment_mode, amount: r.amount).first
         w.info " Outgoing payment is already present with ID : #{outgoing_payment.id} "
       end
-      
+
       # Check affair presence
       if r.reference_number && entity
         # see if purchase exist anyway
         if purchase = Purchase.where(supplier_id: entity.id, invoiced_at: r.invoiced_at, reference_number: r.reference_number).first
           w.info "Purchase found with ID : #{purchase.id}"
         else
-          w.warn "No purchase found. Outgoing payment will be in stand-by"
+          w.warn 'No purchase found. Outgoing payment will be in stand-by'
         end
       end
-      
     end
+    valid
   end
-  
+
   def import
     rows = CSV.read(file, headers: true).delete_if { |r| r[2].blank? }
     w.count = rows.size
@@ -127,7 +126,7 @@ class Ekylibre::OutgoingPaymentsExchanger < ActiveExchanger::Base
       # find an affair througt purchase and link affair and payment
       if r.reference_number && entity && outgoing_payment
         # see if purchase exist anyway
-        if purchase = Purchase.where(supplier_id: entity.id, invoiced_at: r.invoiced_at, reference_number: r.reference_number).first
+        if purchase = Purchase.where(supplier_id: entity.id, reference_number: r.reference_number).first
           purchase.affair.attach(outgoing_payment) if purchase.affair
         end
       end

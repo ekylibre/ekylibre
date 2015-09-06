@@ -14,6 +14,9 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
       # activity_name[1] : Nomen::ActivityFamily code, ex : administrative
       production_name = s.cell('C', 2)
       production_support_numbers = (s.cell('D', 2).blank? ? [] : s.cell('D', 2).to_s.strip.upcase.split(/[\s\,]+/))
+      # production_support_numbers[0] : support number, ex : ZC32
+      # production_support_numbers[1] : quantity, ex : 1.52
+      # production_support_numbers could be ZC32:1.5, ZC33
       cultivation_variant_reference_name = s.cell('E', 2)
       support_variant_reference_name = s.cell('F', 2).to_s.strip
       support_variant_reference_name = nil if support_variant_reference_name.blank?
@@ -81,10 +84,19 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
 
       # Create support if doesn't exist ?
       production_support_numbers.each do |number|
-        if product = Product.find_by(number: number) || Product.find_by(identification_number: number) || Product.find_by(work_number: number)
-          production.supports.find_or_create_by!(storage_id: product.id)
+        # get quantity and number given
+        arr = nil
+        arr = number.to_s.strip.delete(' ').split(':')
+        production_support_number = arr[0]
+        production_support_quantity = arr[1]
+        if product = Product.find_by(number: production_support_number) || Product.find_by(identification_number: production_support_number) || Product.find_by(work_number: production_support_number)
+          ps = production.supports.find_or_create_by!(storage_id: product.id)
         else
           w.warn "Cannot find support with number: #{number.inspect}"
+        end
+        if production_support_quantity
+          ps.quantity = production_support_quantity
+          ps.save!
         end
       end
 

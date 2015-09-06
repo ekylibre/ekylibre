@@ -3,7 +3,11 @@ class EBP::EDIExchanger < ActiveExchanger::Base
     w.count = `wc -l #{file}`.split.first.to_i - 6
 
     File.open(file, 'rb:CP1252') do |f|
-      header = f.readline.strip rescue nil
+      header = begin
+                 f.readline.strip
+               rescue
+                 nil
+               end
       unless header == 'EBP.EDI'
         fail ActiveExchanger::NotWellFormedFileError.new("Start is not valid. Got #{header.inspect}.")
       end

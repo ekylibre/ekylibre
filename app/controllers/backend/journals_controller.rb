@@ -132,8 +132,16 @@ class Backend::JournalsController < Backend::BaseController
   end
 
   def bookkeep
-    params[:stopped_on] = params[:stopped_on].to_date rescue Date.today
-    params[:started_on] = params[:started_on].to_date rescue (params[:stopped_on] - 1.year).beginning_of_month
+    params[:stopped_on] = begin
+                            params[:stopped_on].to_date
+                          rescue
+                            Date.today
+                          end
+    params[:started_on] = begin
+                            params[:started_on].to_date
+                          rescue
+                            (params[:stopped_on] - 1.year).beginning_of_month
+                          end
     @natures = [:sale, :incoming_payment, :deposit, :purchase, :outgoing_payment, :cash_transfer, :affair] # , transfer
 
     if request.get?

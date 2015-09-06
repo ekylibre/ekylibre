@@ -116,7 +116,7 @@ product_reading_tasks_004:
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
-  operation_id: 13
+  operation_id: 12
   product_id: 90
   started_at: 2013-11-10 14:45:00.000000000 Z
   updated_at: 2014-11-05 15:40:16.357769000 Z
@@ -130,7 +130,7 @@ product_reading_tasks_005:
   indicator_datatype: choice
   indicator_name: soil_cultural_state
   lock_version: 0
-  operation_id: 13
+  operation_id: 12
   product_id: 83
   started_at: 2013-11-10 14:45:00.000000000 Z
   updated_at: 2014-11-05 15:40:16.373150000 Z
@@ -144,7 +144,7 @@ product_reading_tasks_006:
   indicator_name: plants_count
   integer_value: 3000
   lock_version: 0
-  operation_id: 13
+  operation_id: 12
   product_id: 90
   started_at: 2013-11-10 14:45:00.000000000 Z
   updated_at: 2014-11-05 15:40:16.387769000 Z
@@ -174,7 +174,7 @@ product_reading_tasks_008:
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
-  operation_id: 18
+  operation_id: 17
   product_id: 92
   started_at: 2012-10-17 14:00:00.000000000 Z
   updated_at: 2014-11-06 17:50:07.342193000 Z
@@ -188,7 +188,7 @@ product_reading_tasks_009:
   indicator_datatype: choice
   indicator_name: soil_cultural_state
   lock_version: 0
-  operation_id: 18
+  operation_id: 17
   product_id: 84
   started_at: 2012-10-17 14:00:00.000000000 Z
   updated_at: 2014-11-06 17:50:07.355554000 Z
@@ -202,7 +202,7 @@ product_reading_tasks_010:
   indicator_name: plants_count
   integer_value: 17000
   lock_version: 0
-  operation_id: 18
+  operation_id: 17
   product_id: 92
   started_at: 2012-10-17 14:00:00.000000000 Z
   updated_at: 2014-11-06 17:50:07.369059000 Z
@@ -230,7 +230,7 @@ product_reading_tasks_012:
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
-  operation_id: 28
+  operation_id: 27
   product_id: 103
   started_at: 2007-09-29 13:40:00.000000000 Z
   updated_at: 2014-11-07 15:45:46.086457000 Z
@@ -244,7 +244,7 @@ product_reading_tasks_013:
   indicator_datatype: choice
   indicator_name: soil_cultural_state
   lock_version: 0
-  operation_id: 28
+  operation_id: 27
   product_id: 80
   started_at: 2007-09-29 13:40:00.000000000 Z
   updated_at: 2014-11-07 15:45:46.103164000 Z
@@ -258,7 +258,7 @@ product_reading_tasks_014:
   indicator_name: plants_count
   integer_value: 5000
   lock_version: 0
-  operation_id: 28
+  operation_id: 27
   product_id: 103
   started_at: 2007-09-29 13:40:00.000000000 Z
   updated_at: 2014-11-07 15:45:46.117160000 Z
@@ -272,7 +272,7 @@ product_reading_tasks_015:
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
-  operation_id: 39
+  operation_id: 38
   product_id: 110
   started_at: 2008-03-15 22:00:00.000000000 Z
   updated_at: 2014-11-07 16:50:07.566680000 Z
@@ -286,7 +286,7 @@ product_reading_tasks_016:
   indicator_datatype: choice
   indicator_name: soil_cultural_state
   lock_version: 0
-  operation_id: 39
+  operation_id: 38
   product_id: 106
   started_at: 2008-03-15 22:00:00.000000000 Z
   updated_at: 2014-11-07 16:50:07.580805000 Z
@@ -303,7 +303,7 @@ product_reading_tasks_017:
   lock_version: 0
   measure_value_unit: meter
   measure_value_value: 2.0
-  operation_id: 39
+  operation_id: 38
   product_id: 110
   started_at: 2008-03-15 22:00:00.000000000 Z
   updated_at: 2014-11-07 16:50:07.594022000 Z
@@ -320,7 +320,7 @@ product_reading_tasks_018:
   lock_version: 0
   measure_value_unit: meter
   measure_value_value: 0.8
-  operation_id: 39
+  operation_id: 38
   product_id: 110
   started_at: 2008-03-15 22:00:00.000000000 Z
   updated_at: 2014-11-07 16:50:07.607420000 Z
@@ -334,7 +334,7 @@ product_reading_tasks_019:
   indicator_name: plants_count
   integer_value: 5000
   lock_version: 0
-  operation_id: 39
+  operation_id: 38
   product_id: 110
   started_at: 2008-03-15 22:00:00.000000000 Z
   updated_at: 2014-11-07 16:50:07.620455000 Z

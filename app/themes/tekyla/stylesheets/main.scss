@@ -348,6 +348,8 @@ html.backend {
 
 }
 
+
+
 html.authentication, html.exception {
   background: $desktop-background;
   @include gradient-radial($desktop-background, $neutral-color);
@@ -470,6 +472,10 @@ html.exception {
   }
 }
 
+#core {
+  clear: both;
+  @include calc(height, "100vh - #{$header-height + $topbar-height + $toolbar-height}");
+}
 
 #about-us {
   padding: 15vh 15vw;
@@ -664,7 +670,7 @@ form.search {
       .remove {
         i {
           @include is-icon;
-          @include use-icon(times);
+          @include use-icon(clear);
         }
       }
     }
@@ -928,6 +934,7 @@ html.backend {
     font-size: $content-font-size;
     text-align: justify;
     // font-family: $condensed-font-family;
+    @include hyphens(auto);
     @include text-shadow(1px 1px 1px rgba(white, 0.7));
   }
   text-align: justify;
@@ -1262,7 +1269,7 @@ a.selector-dropdown {
     .ui-dialog-titlebar-close {
       float: right;
       @include is-icon;
-      @include use-icon(times);
+      @include use-icon(clear);
       color: $text-color;
       background: transparent;
       @include opacity(0.6);
@@ -1548,7 +1555,7 @@ a.selector-dropdown {
 a[data-remove-closest], a[data-remove] {
   i {
     @include is-icon;
-    @include use-icon(times);
+    @include use-icon(clear);
   }
 }
 
@@ -1620,7 +1627,7 @@ a[data-remove-closest], a[data-remove] {
   font-size: 0;
   i {
     @include is-icon;
-    @include use-icon(times);
+    @include use-icon(clear);
   }
 }
 
@@ -1660,7 +1667,7 @@ a[data-remove-closest], a[data-remove] {
           font-size: 0;
           i {
             @include is-icon;
-            @include use-icon(times);
+            @include use-icon(clear);
           }
         }
       }
@@ -2473,4 +2480,9 @@ a[data-annotate] {
     }
   }
 
+}
+
+
+.hidden {
+  display: none;
 }

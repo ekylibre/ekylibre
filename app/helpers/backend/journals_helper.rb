@@ -59,8 +59,16 @@ module Backend::JournalsHelper
     custom_id = "#{configuration[:id]}_#{configuration[:custom]}"
     toggle_method = "toggle#{custom_id.camelcase}"
     if configuration[:custom]
-      params[:started_at] = params[:started_at].to_date rescue (fy ? fy.started_on : Date.today)
-      params[:stopped_at] = params[:stopped_at].to_date rescue (fy ? fy.stopped_on : Date.today)
+      params[:started_at] = begin
+                              params[:started_at].to_date
+                            rescue
+                              (fy ? fy.started_on : Date.today)
+                            end
+      params[:stopped_at] = begin
+                              params[:stopped_at].to_date
+                            rescue
+                              (fy ? fy.stopped_on : Date.today)
+                            end
       params[:stopped_at] = params[:started_at] if params[:started_at] > params[:stopped_at]
       list.insert(0, [configuration[:custom].tl, configuration[:custom]])
     end

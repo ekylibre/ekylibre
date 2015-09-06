@@ -28,7 +28,11 @@ namespace :clean do
 
     # Access
     file = locale_dir.join('access.yml')
-    ref = Clean::Support.yaml_to_hash(file)[locale] rescue {}
+    ref = begin
+            Clean::Support.yaml_to_hash(file)[locale]
+          rescue
+            {}
+          end
     to_translate = 0
     untranslated = 0
 
@@ -77,7 +81,11 @@ namespace :clean do
     translation << "  actions:\n"
     # raise controllers_hash.inspect
     for controller_path, actions in Clean::Support.actions_hash
-      existing_actions = ::I18n.translate("actions.#{controller_path}").stringify_keys.keys rescue []
+      existing_actions = begin
+                           ::I18n.translate("actions.#{controller_path}").stringify_keys.keys
+                         rescue
+                           []
+                         end
       translateable_actions = []
       translateable_actions += (actions.delete_if { |a| [:update, :create, :picture, :destroy, :up, :down, :decrement, :increment, :duplicate, :reflect].include?(a.to_sym) || a.to_s.match(/^(list|unroll)(\_|$)/) } | existing_actions).sort
       if translateable_actions.any?
@@ -244,7 +252,11 @@ namespace :clean do
 
     # Aggregators
     file = locale_dir.join('aggregators.yml')
-    ref = Clean::Support.yaml_to_hash(file)[locale] rescue {}
+    ref = begin
+            Clean::Support.yaml_to_hash(file)[locale]
+          rescue
+            {}
+          end
     to_translate = 0
     untranslated = 0
 
@@ -433,7 +445,11 @@ namespace :clean do
 
     # Nomenclatures
     file = locale_dir.join('nomenclatures.yml')
-    ref = Clean::Support.yaml_to_hash(file)[locale][:nomenclatures] rescue nil
+    ref = begin
+            Clean::Support.yaml_to_hash(file)[locale][:nomenclatures]
+          rescue
+            nil
+          end
     ref ||= {}
     translation = "#{locale}:\n"
     translation << "  nomenclatures:\n"
@@ -505,7 +521,11 @@ namespace :clean do
 
     # Procedures
     file = locale_dir.join('procedures.yml')
-    ref = Clean::Support.yaml_to_hash(file)[locale] rescue {}
+    ref = begin
+            Clean::Support.yaml_to_hash(file)[locale]
+          rescue
+            {}
+          end
     to_translate = 0
     untranslated = 0
 

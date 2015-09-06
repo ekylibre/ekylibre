@@ -1186,6 +1186,7 @@ arb:
     include_blank: "--- ولا اية منظمة ---"
     income_statement: "حسابات الناتج"
     # incoming_deliveries: "Incoming deliveries"
+    # incoming_payment: "Incoming payment"
     incoming_payment_create: "اضافة دفعة جديدة" #?
     incoming_payment_update: "تعديل الدفعة" #?
     incoming_payment_use_create: "اضافة دفعة للشراء" #?
@@ -1367,9 +1368,11 @@ arb:
     net_vat_amount: "صافي قيمة الضريبة الاضافية المستحقة" #?
     new: "انشاء دفعة جديدة"
     # new_animal: "New animal"
+    # new_attachment: "New attachment"
     # new_box: "New box"
     # new_call: "New call"
     # new_contact: "New contact"
+    # new_container: "New container"
     new_deposit:
       # one: "Make a deposit %{mode}: 1 available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"
@@ -1452,6 +1455,7 @@ arb:
     out_vat_amount: "مبلغ الضريبة على القيمة المضافة" #?
     outgoing_delivery: "التسليم" #?
     outgoing_delivery_create: "اضافة تسليم" #?
+    # outgoing_payment: "Outgoing payment"
     outgoing_payment_create: "اضافة نفقة" #?
     outgoing_payment_update: "تعديل دفعة الشراء" #?
     outgoing_payment_use_create: "تسديد سعر الشراء" #?
@@ -1679,9 +1683,11 @@ arb:
     sequence_create: "اضافة تسلسل" #?
     sequences: "التسلسل" #?
     sequences_load: "تحميل التسلسلات المفقودة" #?
+    # sessions: "Sessions"
     # set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)"
     # settings: "Settings"
     # settings_statistics: "Settings statistics"
+    # sex: "Sex"
     # shape: "Shape"
     ship: "بشريطة"
     # show: "Show"
@@ -1739,6 +1745,7 @@ arb:
     # thumb: "Thumb"
     # time_cost: "Time cost"
     # time_cost_per_hectare: "Time cost per hectare"
+    # time_spend_by_activities: "Time spend by activities"
     # time_zone: "Time zone"
     # timeline: "Timeline"
     # timeline_comment: "%{author} commented %{when}"
@@ -1779,6 +1786,7 @@ arb:
     tracking: "المسار"
     # trade: "Trade"
     # trade_counts: "Trade counts"
+    # transactions_by_month: "Transactions by month"
     transfer: "اجراء النقل"
     # transformations: "Transformations"
     # transport: "Transport"
@@ -2270,6 +2278,6 @@ arb:
     # backend/product_natures: "%{name}"
     # backend/production_supports: "%{storage_name} (%{production_name} %{campaign_name})"
     # backend/productions: "%{name} (%{campaign_name})"
-    # backend/products: "%{work_number} %{name} (%{population} %{unit_name})"
+    # backend/products: "%{work_number} %{name} (%{number})"
     # backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"
     # backend/users: "%{first_name} %{last_name}"

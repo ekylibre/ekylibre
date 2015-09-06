@@ -144,6 +144,7 @@ class Backend::EntitiesController < Backend::BaseController
     t.column :number, url: true, children: :label
     t.column :responsible, children: false, hidden: true
     t.column :created_at,  children: false, hidden: true
+    t.column :invoiced_at, children: false, hidden: true
     t.column :state_label, children: false
     t.column :amount, currency: true
   end
@@ -231,7 +232,11 @@ class Backend::EntitiesController < Backend::BaseController
                        subscribed_at = ''
                        if subn[:use_subscribed_at]
                          subscribed_at = ' AND (' + if nature.period?
-                                                      x = subn[:subscribed_at].to_date rescue Date.today
+                                                      x = begin
+                                                            subn[:subscribed_at].to_date
+                                                          rescue
+                                                            Date.today
+                                                          end
                                                       "'" + ActiveRecord::Base.connection.quoted_date(x) + "'"
                                                     else
                                                       subn[:subscribed_at].to_i.to_s
@@ -239,8 +244,16 @@ class Backend::EntitiesController < Backend::BaseController
                        end
                        timestamp = ''
                        if condition[:use_timestamp]
-                         x = condition[:timestamp][:started_at].to_date rescue Date.today
-                         y = condition[:timestamp][:stopped_at].to_date rescue Date.today
+                         x = begin
+                               condition[:timestamp][:started_at].to_date
+                             rescue
+                               Date.today
+                             end
+                         y = begin
+                               condition[:timestamp][:stopped_at].to_date
+                             rescue
+                               Date.today
+                             end
                          timestamp = " AND (created_at BETWEEN '#{ActiveRecord::Base.connection.quoted_date(x)}' AND '#{ActiveRecord::Base.connection.quoted_date(y)}')"
                        end
                        "entity.id IN (SELECT entity_id FROM #{Subscription.table_name} AS subscriptions WHERE nature_id=#{nature.id}" + products + subscribed_at + timestamp + ')'
@@ -273,7 +286,11 @@ class Backend::EntitiesController < Backend::BaseController
   end
 
   def import
-    @step = params[:id].to_sym rescue :upload
+    @step = begin
+              params[:id].to_sym
+            rescue
+              :upload
+            end
     if @step == :upload
       @formats = [['CSV', :csv]] # , ["CSV Excel", :xcsv], ["XLS Excel", :xls], ["OpenDocument", :ods]]
       if request.post? && params[:upload]

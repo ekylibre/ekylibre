@@ -98,7 +98,7 @@ class SaleItem < Ekylibre::Record::Base
     joins(:variant).merge(ProductNatureVariant.of_natures(product_nature))
   }
 
-  calculable period: :month, column: :pretax_amount, at: 'invoiced_at'
+  calculable period: :month, column: :pretax_amount, at: 'sales.invoiced_at', name: :sum, joins: :sale
 
   before_validation do
     self.currency = sale.currency if sale

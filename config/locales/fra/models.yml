@@ -317,11 +317,11 @@ fra:
       preference: "Préférence"
       prescription: "Prescription"
       product: "Produits"
-      product_birth: "Naissance de produits"
-      product_consumption: "Consommation de produits"
-      product_creation: "Création de produits"
-      product_death: "Mort de produits"
-      product_division: "Division de produits"
+      product_birth: "Naissance de produits" #?
+      product_consumption: "Consommation de produits" #?
+      product_creation: "Création de produits" #?
+      product_death: "Mort de produits" #?
+      product_division: "Division de produits" #?
       product_enjoyment: "Jouissances de produits"
       product_group: "Groupe de produit"
       product_junction: "Jonction de vie de produits"
@@ -330,8 +330,8 @@ fra:
       product_linkage: "Lien d’attache entre produits"
       product_localization: "Passage d’un produit en un lieu"
       product_membership: "Passage d’un produit dans un groupe"
-      product_merging: "Fusion de produits"
-      product_mixing: "Mélange de produits"
+      product_merging: "Fusion de produits" #?
+      product_mixing: "Mélange de produits" #?
       product_nature: "Type de produit"
       product_nature_category: "Catégorie de type de produit"
       product_nature_category_taxation: "Taxation de catégorie de type de produit"
@@ -339,11 +339,11 @@ fra:
       product_nature_variant_reading: "Valeur d’indicateur de variante"
       product_ownership: "Propriété de produit"
       product_phase: "Phase de produits"
-      product_quadruple_mixing: "Quadruple mélange de produits"
-      product_quintuple_mixing: "Quintuple mélange de produits"
+      product_quadruple_mixing: "Quadruple mélange de produits" #?
+      product_quintuple_mixing: "Quintuple mélange de produits" #?
       product_reading: "Valeur d’indicateur"
       product_reading_task: "Relevé d’indicateur"
-      product_triple_mixing: "Triple mélange de produits"
+      product_triple_mixing: "Triple mélange de produits" #?
       production: "Production"
       production_budget: "Budget"
       production_distribution: "Répartition entre production"
@@ -387,7 +387,7 @@ fra:
     absolute_measure_value_value: "Valeur de la mesure absolue"
     absorbed_nitrogen_at_opening: "Azote absorbé à l’ouverture du bilan (Pi)"
     absorber: "Absorbeur"
-    absorber_way: "Voie de l’absorbeur"
+    absorber_way: "Voie de l’absorbeur" #?
     acceptance_status: "Statut d’acceptation"
     account: "Compte comptable"
     account_balances: "Balances de compte"
@@ -527,7 +527,7 @@ fra:
     confirmation_token: "Jeton de confirmation"
     confirmed_at: "Confirmée le"
     consumer: "Consommateur"
-    consumer_way: "Voie du consommateur"
+    consumer_way: "Voie du consommateur" #?
     container: "Contenant"
     content: "Contenu"
     content_indicator: "Indicateur du contenu" #?
@@ -694,7 +694,7 @@ fra:
     father: "Père"
     faxes: "Fax"
     fifth_producer: "Cinquième producteur"
-    fifth_producer_way: "Voie du cinquième producteur"
+    fifth_producer_way: "Voie du cinquième producteur" #?
     filtered_columns: "Colonnes filtrées"
     financial_year: "Exercice"
     financial_year_as_last: "Exercice (en tant que écriture de fin d’exercice)"
@@ -705,7 +705,7 @@ fra:
     first_name: "Prénom"
     first_number: "Premier numéro"
     first_producer: "Premier producteur"
-    first_producer_way: "Voie du premier producteur"
+    first_producer_way: "Voie du premier producteur" #?
     fixed: "Immobilisé"
     fixed_asset: "Immobilisation"
     fixed_asset_account: "Compte d’immobilisation"
@@ -720,7 +720,7 @@ fra:
     fixed_assets_categories: "Catégories de produits avec immobilisation" #?
     formats: "Formats"
     fourth_producer: "Quatrième producteur"
-    fourth_producer_way: "Voie du quatrième producteur"
+    fourth_producer_way: "Voie du quatrième producteur" #?
     frequency: "Fréquence"
     frozen_indicators: "Indicateurs gelés" #?
     frozen_indicators_list: "Liste des indicateurs fixes"
@@ -1000,22 +1000,23 @@ fra:
     procedures: "Procédures" #?
     process: "Process" #?
     producer: "Producteur"
-    producer_way: "Voie du producteur"
+    producer_way: "Voie du producteur" #?
     producible: "Produisible" #?
     product: "Produit"
     product_account: "Compte de produit"
-    product_births: "Naissances de produit"
-    product_consumptions: "Consommations de produit"
-    product_creations: "Créations de produit"
-    product_deaths: "Morts de produit"
-    product_divisions: "Divisions de produit"
+    product_births: "Naissances de produit" #?
+    product_consumptions: "Consommations de produit" #?
+    product_creations: "Créations de produit" #?
+    product_deaths: "Morts de produit" #?
+    product_divisions: "Divisions de produit" #?
     product_enjoyments: "Jouissances de produit"
+    # product_junctions: "Product junctions"
     product_linkages: "Attelages de produit"
     product_localization: "Localisation de produit"
     product_localizations: "Localisations de produit"
     product_memberships: "Appartenances de produit"
-    product_mergings: "Fusions de produit"
-    product_mixings: "Mélanges de produit"
+    product_mergings: "Fusions de produit" #?
+    product_mixings: "Mélanges de produit" #?
     product_moves: "Mouvements de produit" #?
     product_nature: "Type de produit"
     product_nature_categories: "Catégories de type de produit"
@@ -1024,13 +1025,13 @@ fra:
     product_ownership: "Propriété de produit"
     product_ownerships: "Propriétés de produit"
     product_phases: "Phases de produit"
-    product_quadruple_mixings: "Quadruple mélanges de produit"
-    product_quintuple_mixings: "Quintuple mélanges de produit"
+    product_quadruple_mixings: "Quadruple mélanges de produit" #?
+    product_quintuple_mixings: "Quintuple mélanges de produit" #?
     product_reading: "Relevé d’indicateur de produit"
     product_reading_tasks: "Tâches de relevé d’indicateur de produit"
     product_readings: "Relevés d’indicateur de produit"
-    product_triple_mixings: "Triple mélanges de produit"
-    product_way: "Voie du produit"
+    product_triple_mixings: "Triple mélanges de produit" #?
+    product_way: "Voie du produit" #?
     production: "Production"
     production_support: "Support de production"
     production_supports: "Supports de production"
@@ -1113,7 +1114,7 @@ fra:
     revenues: "Produits"
     rgt: "Limite droite"
     rights: "Droits"
-    road: "Route"
+    road: "Route" #?
     role: "Rôle de base"
     roles: "Rôles"
     root_model: "Racine"
@@ -1135,7 +1136,7 @@ fra:
     sampler: "Préleveur"
     scheduled: "Encaissement programmé"
     second_producer: "Second producteur"
-    second_producer_way: "Voie du second producteur"
+    second_producer_way: "Voie du second producteur" #?
     selected: "Sélectionné"
     selected_manure_management_plan: "Plan de fumure sélectionné"
     selected_manure_management_plan_zone: "Zone de plan de fumure sélectionné"
@@ -1202,7 +1203,7 @@ fra:
     theoric_quantity: "Quantité théorique" #?
     third: "Tiers"
     third_producer: "Producteur tiers"
-    third_producer_way: "Voie du producteur tiers"
+    third_producer_way: "Voie du producteur tiers" #?
     third_role: "Rôle tiers"
     thread: "Fil"
     ticket: "Ticket" #?

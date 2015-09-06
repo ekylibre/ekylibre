@@ -1,4 +1,59 @@
 class Ekylibre::PurchasesExchanger < ActiveExchanger::Base
+  def check
+    rows = CSV.read(file, headers: true)
+    w.count = rows.size
+    purchase_ids = []
+    now = Time.now
+    valid = true
+
+    vinfos = 9 - 1
+
+    rows.each_with_index do |row, index|
+      line_number = index + 2
+      prompt = "L#{line_number.to_s.yellow}"
+
+      r = {
+        invoiced_at:        (row[0].blank? ? nil : Date.parse(row[0].to_s)),
+        supplier_full_name: (row[1].blank? ? nil : row[1]),
+        reference_number:   (row[2].blank? ? nil : row[2].upcase),
+        variant_code:       (row[3].blank? ? nil : row[3]),
+        annotation:         (row[4].blank? ? nil : row[4]),
+        quantity:           (row[5].blank? ? nil : row[5].tr(',', '.').to_d),
+        unit_pretax_amount: (row[6].blank? ? nil : row[6].tr(',', '.').to_d),
+        vat_percentage:     (row[7].blank? ? nil : row[7].tr(',', '.').to_d),
+        depreciate:         %w(1 t true yes ok).include?(row[8].to_s.strip.downcase),
+        # Variant definition
+        variant: {
+          variety:                 row[vinfos + 1],
+          product_account:         row[vinfos + 2],
+          charge_account:          row[vinfos + 3],
+          fixed_asset_account: row[vinfos + 4],
+          fixed_asset_allocation_account: row[vinfos + 5],
+          fixed_asset_expenses_account:   row[vinfos + 6]
+        }
+      }.to_struct
+
+      # Check date
+      unless r.invoiced_at
+        w.error "No date given at #{prompt}"
+        valid = false
+      end
+
+      # Check variant
+      unless r.variant_code
+        w.error "Variant identifiant must be given at #{prompt}"
+        valid = false
+      end
+
+      # Check supplier
+      unless supplier = Entity.where('full_name ILIKE ?', r.supplier_full_name).first
+        w.error "Cannot find supplier #{r.supplier_full_name} at #{prompt}"
+        valid = false
+      end
+    end
+    valid
+  end
+
   def import
     rows = CSV.read(file, headers: true)
     w.count = rows.size

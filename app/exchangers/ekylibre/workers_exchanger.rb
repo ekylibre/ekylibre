@@ -13,7 +13,7 @@ class Ekylibre::WorkersExchanger < ActiveExchanger::Base
           variant_reference_name: row[3].downcase.to_sym,
           work_number: row[4],
           place_code: row[5],
-          born_at: (row[6].blank? ? Date.civil(1980, 2, 2) : Date.new(*(row[6].split('-').map(&:to_i)))).to_datetime,
+          born_at: (row[6].blank? ? Date.civil(1980, 2, 2) : Date.parse(row[6]).to_datetime),
           notes: row[7].to_s,
           unit_pretax_amount: row[8].blank? ? nil : row[8].to_d,
           price_indicator: row[9].blank? ? nil : row[9].to_sym,

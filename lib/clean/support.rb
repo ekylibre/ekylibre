@@ -81,7 +81,11 @@ module Clean
         hash.inject({}) do |result, (key, value)|
           value = deep_symbolize_keys(value) if value.is_a? Hash
           key = :no if key.to_s == '__no_is_not__false__'
-          result[(key.to_sym rescue key) || key] = value
+          result[(begin
+                    key.to_sym
+                  rescue
+                    key
+                  end) || key] = value
           result
         end
       end

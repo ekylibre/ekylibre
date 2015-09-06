@@ -314,7 +314,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
       end
     end
     editor[:show] = union.to_geojson unless union.empty?
-    input(attribute_name, options.merge(input_html: { data: { map_editor: editor } }))
+    input(attribute_name, options.deep_merge(input_html: { data: { map_editor: editor } }))
   end
 
   def shape_field(attribute_name = :shape, options = {})

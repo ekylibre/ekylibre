@@ -28,75 +28,67 @@
 #  junction_id  :integer          not null
 #  lock_version :integer          default(0), not null
 #  nature       :string           not null
-#  population   :decimal(19, 4)
-#  road_id      :integer          not null
+#  product_id   :integer          not null
 #  role         :string           not null
-#  shape        :geometry({:srid=>4326, :type=>"geometry"})
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
 class ProductJunctionWay < Ekylibre::Record::Base
   attr_readonly :nature
   belongs_to :junction, class_name: 'ProductJunction', inverse_of: :ways
-  belongs_to :road, inverse_of: :junction_ways, class_name: 'Product'
+  belongs_to :product, inverse_of: :junction_ways, class_name: 'Product'
   enumerize :nature, in: [:start, :continuity, :finish], predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :population, allow_nil: true
-  validates_presence_of :junction, :nature, :road, :role
+  validates_presence_of :junction, :nature, :product, :role
   # ]VALIDATORS]
   validates_inclusion_of :nature, in: nature.values
 
   delegate :started_at, :stopped_at, to: :junction
-
-  # DO NOT USE NESTED ATTRIBUTES LIKE THAT
-  # accepts_nested_attributes_for :junction
+  delegate :nature, to: :junction, prefix: true
+  delegate :variant, to: :product, prefix: true
 
   before_validation do
-    if nature.blank?
-      if junction && role
-        self.nature = junction.class.send("#{role}_options")[:nature]
-      end
+    if junction && nature.blank? && role
+      reflection = junction.reflect_on(role)
+      self.nature = reflection.type if reflection
     end
   end
 
   before_update do
     unless self.continuity?
-      if road_id != old_record.road_id
-        old_record.road.update_column(touch_column, nil)
+      if product_id != old_record.product_id
+        old_record.product.update_column(touch_column, nil)
+      end
+    end
+  end
+
+  validate do
+    if junction
+      reflection = junction.reflect_on(role)
+      if reflection
+        # TODO: check cardinality
+      else
+        errors.add(:role, :invalid)
       end
     end
   end
 
   after_save do
     unless self.continuity?
-      if road && stopped_at != road.send(touch_column)
-        road.update_column(touch_column, stopped_at)
+      if product && stopped_at != product.send(touch_column)
+        product.update_column(touch_column, stopped_at)
       end
       if self.start?
         # Sets frozen and given indicators
-        for reading in road.variant.readings
-          road.read!(reading.indicator_name, reading.value, at: stopped_at, force: true)
-        end
-        for indicator in road.whole_indicators_list - road.frozen_indicators_list
-          if send(indicator)
-            road.read!(indicator, send(indicator), at: stopped_at, force: true)
-          end
+        product_variant.readings.each do |reading|
+          product.read!(reading.indicator_name, reading.value, at: stopped_at, force: true)
         end
       end
-      # if self.finish?
-      #   self.road.read!(:population, 0, at: self.stopped_at)
-      # end
     end
   end
 
   before_destroy do
-    unless self.continuity?
-      old_record.road.update_column(touch_column, nil)
-      # old_record.road.readings.where(indicator: "population", read_at: old_record.stopped_at).destroy_all
-      # if self.start? and self.population
-      #   old_record.road.readings.where(indicator: "population").where("read_at > ?", old_record.stopped_at).update_all("population = population - ?", self.population)
-      # end
-    end
+    old_record.product.update_column(touch_column, nil) unless self.continuity?
   end
 
   def touch_column

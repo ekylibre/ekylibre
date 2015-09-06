@@ -26,13 +26,13 @@
 #  creator_id      :integer
 #  id              :integer          not null, primary key
 #  lock_version    :integer          default(0), not null
+#  nature          :string           not null
 #  operation_id    :integer
 #  originator_id   :integer
 #  originator_type :string
 #  started_at      :datetime
 #  stopped_at      :datetime
 #  tool_id         :integer
-#  type            :string
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #

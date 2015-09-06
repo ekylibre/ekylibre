@@ -835,6 +835,7 @@ eng:
     are_you_sure_you_want_to_delete_delivery: "Are you sure you want to remove the delivery of transport?"
     are_you_sure_you_want_to_invoice: "Are you sure you want to invoice?"
     are_you_sure_you_want_to_send_mails: "Are you sure you want to send emails?"
+    # area: "Area"
     attach_deal: "Add a deal"
     attachment: "Attachment"
     attachments: "Attachments"
@@ -919,7 +920,7 @@ eng:
     credit: "Credit" #?
     credited_quantity: "Quantity to credit" #?
     credits: "Credits"
-    cropping_plan: "Cropping plan" #?
+    cropping_plan: "Cropping plan"
     cropping_plan_on_cultivable_zones: "Cropping plan on cultivable zones"
     crumbs: "Crumbs" #?
     cultivable_zone: "Cultivable zone"
@@ -1050,6 +1051,7 @@ eng:
     include_blank: "Include blank" #?
     income_statement: "Income Statement" #?
     incoming_deliveries: "Incoming deliveries"
+    incoming_payment: "Incoming payment" #?
     incoming_payments: "Incoming payments"
     incoming_payments_to_deposit: "Incoming payments to deposit"
     indicator: "Indicators"
@@ -1148,11 +1150,11 @@ eng:
     net_surface_area: "Net surface area"
     new: "New" #?
     new_animal: "New animal"
-    # new_attachment: "New attachment"
+    new_attachment: "New attachment"
     new_box: "New box"
     new_call: "New call"
     new_contact: "New contact"
-    # new_container: "New container"
+    new_container: "New container"
     new_deposit:
       one: "Make a deposit %{mode}: 1 available payment"
       other: "Make a deposit %{mode}: %{count} available payments"
@@ -1198,6 +1200,7 @@ eng:
     options: "Options"
     organic_matter_concentration: "Organic matter concentration" #?
     others: "Others"
+    outgoing_payment: "Outgoing payment" #?
     outgoing_payments: "Outgoing payments"
     page_title: "%{company_code} · %{menu} · %{action}"
     page_title_by_default: "Ekylibre · %{action}"
@@ -1266,8 +1269,8 @@ eng:
     purchase_items: "Purchase items" #?
     purchases: "Purchases"
     # quandl: "Quandl"
-    quantity: "Quantity"
-    quantity_rest: "Remaining quantity"
+    quantity: "Quantity" #?
+    quantity_rest: "Remaining quantity" #?!
     query: "Query:" #?
     raw_margin: "Raw margin"
     reading_tasks: "Reading tasks"
@@ -1330,11 +1333,11 @@ eng:
     selection: "Selection" #?
     send_mail: "Send mail"
     send_test_mail: "Send test mail"
-    # sessions: "Sessions"
+    sessions: "Sessions"
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?
     settings: "Settings"
     settings_statistics: "Settings statistics"
-    # sex: "Sex"
+    sex: "Sex"
     shape: "Shape" #?
     ship: "Ship" #?
     show: "Show"
@@ -1379,7 +1382,7 @@ eng:
     thumb: "Thumb" #?
     time_cost: "Time cost" #?
     time_cost_per_hectare: "Time cost per hectare"
-    # time_spend_by_activities: "Time spend by activities"
+    time_spend_by_activities: "Time spend by activities"
     time_zone: "Time zone"
     timeline: "Timeline"
     timeline_comment: "%{author} commented %{when}"
@@ -1409,12 +1412,13 @@ eng:
     total_paid_amount: "Total paid amount"
     total_pretax_expenses: "Total pre-tax expenses"
     total_pretax_revenues: "Total pre-tax revenues"
-    total_quantity: "Total quantity"
+    total_quantity: "Total quantity" #?
     total_unpaid_amount: "Total unpaid amount"
     totals: "Totals"
     tracking: "Tracking" #?
     trade: "Trade"
     trade_counts: "Trade counts" #?
+    transactions_by_month: "Transactions by month" #?
     transfer: "Transfer" #?
     transformations: "Transformations"
     transport: "Transport" #?
@@ -1789,6 +1793,6 @@ eng:
     backend/product_natures: "%{name}"
     backend/production_supports: "%{storage_name} (%{production_name} %{campaign_name})"
     backend/productions: "%{name} (%{campaign_name})"
-    backend/products: "%{work_number} %{name} (%{population} %{unit_name})"
+    backend/products: "%{work_number} %{name} (%{number})"
     backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"
     backend/users: "%{first_name} %{last_name}"

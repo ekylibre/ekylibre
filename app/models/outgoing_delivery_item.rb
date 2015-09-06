@@ -22,19 +22,21 @@
 #
 # == Table: outgoing_delivery_items
 #
-#  container_id :integer
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  delivery_id  :integer          not null
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  net_mass     :decimal(19, 4)
-#  population   :decimal(19, 4)
-#  product_id   :integer          not null
-#  sale_item_id :integer
-#  shape        :geometry({:srid=>4326, :type=>"geometry"})
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  container_id      :integer
+#  created_at        :datetime         not null
+#  creator_id        :integer
+#  delivery_id       :integer          not null
+#  id                :integer          not null, primary key
+#  lock_version      :integer          default(0), not null
+#  net_mass          :decimal(19, 4)
+#  parted            :boolean          default(FALSE), not null
+#  parted_product_id :integer
+#  population        :decimal(19, 4)
+#  product_id        :integer          not null
+#  sale_item_id      :integer
+#  shape             :geometry({:srid=>4326, :type=>"geometry"})
+#  updated_at        :datetime         not null
+#  updater_id        :integer
 #
 
 class OutgoingDeliveryItem < Ekylibre::Record::Base
@@ -42,32 +44,34 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
   belongs_to :container, class_name: 'Product'
   belongs_to :delivery, class_name: 'OutgoingDelivery', inverse_of: :items
   belongs_to :product
+  belongs_to :parted_product, class_name: 'Product'
   belongs_to :sale_item
   has_one :category, through: :variant
   has_one :product_ownership, as: :originator, dependent: :destroy
+  has_one :product_division, as: :originator, dependent: :destroy, class_name: 'ProductJunction'
   has_one :recipient, through: :delivery
   has_one :variant, through: :product
   has_many :interventions, class_name: 'Intervention', as: :resource
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :net_mass, :population, allow_nil: true
+  validates_inclusion_of :parted, in: [true, false]
   validates_presence_of :delivery, :product
   # ]VALIDATORS]
 
-  delegate :net_mass, to: :product
   delegate :sent_at, to: :delivery
 
   sums :delivery, :items, :net_mass, from: :measure
 
   before_validation do
     if product
-      self.population = product.population
-      self.shape = product.shape if product.shape
+      self.population ||= product.population
+      self.shape ||= product.shape if product.shape
     end
     true
   end
 
-  # Create product ownership linked to product
-  after_save do
+  # Create product ownership and division linked to product
+  before_save do
     if delivery.done?
       attributes = {
         product_id: product_id,
@@ -79,28 +83,47 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
       else
         self.create_product_ownership!(attributes)
       end
-    elsif product_ownership
-      product_ownership.destroy!
+      if parted
+        if parted_product
+          parted_product.initial_population = self.population
+          parted_product.initial_shape = self.shape
+          parted_product.initial_born_at = sent_at
+          parted_product.save!
+        else
+          self.parted_product = product.part_with!(self.population, shape: self.shape, born_at: sent_at)
+        end
+        separated = parted_product
+        reduced = product
+        attributes = {
+          nature: :division,
+          started_at: sent_at,
+          ways_attributes: [
+            { role: :separated, product: separated },
+            { role: :reduced, product: reduced }
+          ]
+        }
+        if product_division
+          product_division.update_attributes!(attributes)
+        else
+          self.create_product_division!(attributes)
+        end
+
+        # FIXME: Copied from Operation#perform_division
+
+        # Duplicate individual indicator data
+        separated.copy_readings_of!(reduced, at: sent_at, originator: product_division)
+
+        # Impact on following readings
+        reduced.substract_and_read(self, at: sent_at, originator: product_division)
+
+      end
+    else
+      product_ownership.destroy! if product_ownership
+      product_division.destroy! if product_division
     end
   end
 
-  # validate(on: :create) do
-  #   if self.source_product
-  #     maximum = self.source_product.population || 0
-  #     errors.add(:population, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.source_product.variant.unit_name, :product => self.source_product_name) if (self.population > maximum)
-  #   end
-  #   true
-  # end
-
-  # validate(on: :update) do
-  #   old_self = self.old_record
-  #   maximum = self.product.population || 0
-  #   errors.add(:population, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.product.variant.unit_name, :product => self.product_name) if (self.population > maximum)
-  # end
-
-  # def undelivered_quantity
-  #  self.sale_item.undelivered_quantity
-  # end
-
-  delegate :name, to: :source_product, prefix: true
+  def net_mass
+    (parted ? parted_product : product).net_mass
+  end
 end

@@ -212,7 +212,9 @@ class ListingNode < Ekylibre::Record::Base
       listing.root_model
     else
       parent.model.reflect_on_association(attribute_name).class_name
-    end.pluralize.classify.constantize rescue nil
+  end.pluralize.classify.constantize
+  rescue
+    nil
   end
 
   def reflection

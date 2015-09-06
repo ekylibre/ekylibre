@@ -23,7 +23,7 @@
         %span.title= :container.tl
         %span.value
           %i.picto{class: "zone"}
-          = link_to(resource.container.name, {controller: resource.container.type.tableize, action: :show, id: resource.container.id})
+          = link_to(resource.container.work_name, {controller: resource.container.type.tableize, action: :show, id: resource.container.id})
 
   - c.cobble :detail do
     .med-info.important

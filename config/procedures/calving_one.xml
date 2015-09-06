@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <!-- ######################################## VELAGE PRODUISANT UN VEAU ########################################### -->
-  <procedure name="calving_one" natures="viviparous_birth" version="0" status="frozen">
+  <procedure name="calving_one" natures="viviparous_birth" version="0">
     <variables>
       <variable name="mother" variety="bos" abilities="produce(bos)" roles="viviparous_birth-target"/>
-      <variable name="child"  variety="bos" new="produced-by: mother" before-run="work_number, identification_number, description, picture" roles="viviparous_birth-output"/>
+      <variable name="child" variety="bos" new="produced-by: mother" roles="viviparous_birth-output"/>
       <variable name="caregiver" abilities="administer_care(bos)"/>
     </variables>
     <operations>
-      <operation id="100">
+      <operation id="1">
+        <!-- Operation 100 -->
         <task do="[mother] produces [child]"/>
         <task do="[child] is at [mother]"/>
         <task do="[caregiver] measures [child|mammalia_birth_condition]"/>
@@ -16,7 +16,7 @@
         <task do="[caregiver] measures [mother|mammalia_birth_count]"/>
         <task do="[caregiver] measures [mother|mammalia_reproduction_method_embryo_transplant]"/>
         <task do="[caregiver] measures [mother|mammalia_reproduction_event_abortion]"/>
-       </operation>
+      </operation>
     </operations>
   </procedure>
 </procedures>

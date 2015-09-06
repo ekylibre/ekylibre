@@ -1,38 +1,25 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <!-- ######################################## TRAITEMENT VETERINAIRE ########################################### -->
-  <procedure name="animal_treatment" natures="animal_curative_medicine_admission" version="0" status="frozen">
+  <procedure name="animal_treatment" natures="animal_curative_medicine_admission" version="0">
     <variables>
-      <variable name="animal"           variety="animal" roles="animal_curative_medicine_admission-target"/>
-      <variable name="animal_medicine"         abilities="care(animal)" roles="animal_curative_medicine_admission-input_origin"/>
-      <variable name="animal_medicine_to_give" new="parted-from: animal_medicine" roles="animal_curative_medicine_admission-input" need="population" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
-     <handler indicator="population" />
-     <handler indicator="net_mass"   unit="gram"   to="population" if="animal_medicine.net_mass(gram) > 0"
-                 forward="(value / self..net_mass(gram))"
-                 backward="(value * self..net_mass(gram))"
-                 /> <!-- g -->
-     <handler indicator="net_volume"   unit="milliliter"   to="population" if="animal_medicine.net_volume(milliliter) > 0"
-                 forward="(value / self..net_volume(milliliter))"
-                 backward="(value * self..net_volume(milliliter))"
-                 /> <!-- ml -->
+      <variable name="animal" variety="animal" roles="animal_curative_medicine_admission-target"/>
+      <variable name="animal_medicine" abilities="care(animal)" roles="animal_curative_medicine_admission-input_origin"/>
+      <variable name="animal_medicine_to_give" variety=":animal_medicine" derivative-of=":animal_medicine" new="parted-from: animal_medicine" roles="animal_curative_medicine_admission-input" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
+        <handler indicator="population"/>
+        <handler indicator="net_mass" unit="gram" if="animal_medicine.net_mass(gram) &gt; 0" to="population" backward="(value * self..net_mass(gram))" forward="(value / self..net_mass(gram))"/>
+        <handler indicator="net_volume" unit="milliliter" if="animal_medicine.net_volume(milliliter) &gt; 0" to="population" backward="(value * self..net_volume(milliliter))" forward="(value / self..net_volume(milliliter))"/>
       </variable>
-      <variable name="caregiver"        abilities="administer_care(animal)" roles="animal_curative_medicine_admission-doer"/>
+      <variable name="caregiver" abilities="administer_care(animal)" roles="animal_curative_medicine_admission-doer"/>
     </variables>
     <operations>
-      <operation id="100">
-        <task do="[caregiver] moves at [animal]"/>
-        <task do="[caregiver] measures [animal|healthy]"/>
-      </operation>
-      <operation id="200" duration="10 minutes">
-        <task do="[caregiver] moves at [animal_medicine]"/>
+      <operation id="1">
+        <task do="[caregiver] measures [animal|healthy]" id="readhealth"/>
         <task do="[animal_medicine] parts with [animal_medicine_to_give]"/>
         <task do="[animal_medicine_to_give] moves in [caregiver]"/>
-      </operation>
-      <operation id="300">
+        <!-- Operation 300 -->
         <task do="[caregiver] moves at [animal]"/>
         <task do="[animal] consumes [animal_medicine_to_give]"/>
       </operation>
     </operations>
   </procedure>
-
 </procedures>

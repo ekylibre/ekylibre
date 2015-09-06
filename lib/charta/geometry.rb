@@ -91,6 +91,7 @@ module Charta
     def to_geojson
       JSON.parse(select_value("SELECT ST_AsGeoJSON(#{geom})"))
     end
+    alias_method :to_json, :to_geojson
 
     # Test if the other measure is equal to self
     def ==(other_geometry)
@@ -157,11 +158,18 @@ module Charta
       other = self.class.new(other_geometry).transform(srid)
       self.class.new(select_value("SELECT ST_AsEWKT(ST_Union(#{geom}, #{other.geom}))"))
     end
+    alias_method :+, :merge
 
     def intersection(other_geometry)
       other = self.class.new(other_geometry).transform(srid)
       self.class.new(select_value("SELECT ST_AsEWKT(ST_Multi(ST_CollectionExtract(ST_CollectionHomogenize(ST_Multi(ST_Intersection(#{geom}, #{other.geom}))), 3)))"))
     end
+
+    def difference(other_geometry)
+      other = self.class.new(other_geometry).transform(srid)
+      self.class.new(select_value("SELECT ST_AsEWKT(ST_Multi(ST_CollectionExtract(ST_CollectionHomogenize(ST_Multi(ST_Difference(#{geom}, #{other.geom}))), 3)))"))
+    end
+    alias_method :-, :difference
 
     def bounding_box
       unless @bounding_box

@@ -54,6 +54,7 @@ class Backend::ProductionsController < Backend::BaseController
     t.column :activity, url: true
     t.column :campaign, url: true
     t.column :cultivation_variant, url: true
+    t.column :net_surface_area
     t.column :state_label
   end
 

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="group_exclusion" natures="group_exclusion" version="0">
+    <variables>
+      <variable name="member" roles="group_exclusion-target"/>
+      <variable name="group" roles="group_exclusion-includer"/>
+    </variables>
+    <operations>
+      <operation id="1">
+        <!-- Operation 100 -->
+        <task do="member goes out group"/>
+      </operation>
+    </operations>
+  </procedure>
+</procedures>

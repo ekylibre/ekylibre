@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150821235105) do
+ActiveRecord::Schema.define(version: 20150905114009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -267,7 +267,7 @@ ActiveRecord::Schema.define(version: 20150821235105) do
 
   create_table "cash_sessions", force: :cascade do |t|
     t.integer  "cash_id",                                                     null: false
-    t.integer  "number"
+    t.string   "number"
     t.datetime "started_at",                                                  null: false
     t.datetime "stopped_at"
     t.string   "currency"
@@ -1170,8 +1170,6 @@ ActiveRecord::Schema.define(version: 20150821235105) do
   add_index "intervention_casts", ["variant_id"], name: "index_intervention_casts_on_variant_id", using: :btree
 
   create_table "interventions", force: :cascade do |t|
-    t.integer  "resource_id"
-    t.string   "resource_type"
     t.integer  "provisional_intervention_id"
     t.integer  "production_support_id"
     t.boolean  "provisional",                 default: false, null: false
@@ -1206,7 +1204,6 @@ ActiveRecord::Schema.define(version: 20150821235105) do
   add_index "interventions", ["provisional_intervention_id"], name: "index_interventions_on_provisional_intervention_id", using: :btree
   add_index "interventions", ["recommender_id"], name: "index_interventions_on_recommender_id", using: :btree
   add_index "interventions", ["reference_name"], name: "index_interventions_on_reference_name", using: :btree
-  add_index "interventions", ["resource_type", "resource_id"], name: "index_interventions_on_resource_type_and_resource_id", using: :btree
   add_index "interventions", ["started_at"], name: "index_interventions_on_started_at", using: :btree
   add_index "interventions", ["stopped_at"], name: "index_interventions_on_stopped_at", using: :btree
   add_index "interventions", ["updated_at"], name: "index_interventions_on_updated_at", using: :btree
@@ -1670,18 +1667,20 @@ ActiveRecord::Schema.define(version: 20150821235105) do
   add_index "outgoing_deliveries", ["updater_id"], name: "index_outgoing_deliveries_on_updater_id", using: :btree
 
   create_table "outgoing_delivery_items", force: :cascade do |t|
-    t.integer  "delivery_id",                                                                                null: false
+    t.integer  "delivery_id",                                                                                         null: false
     t.integer  "sale_item_id"
-    t.decimal  "population",                                            precision: 19, scale: 4
-    t.integer  "product_id",                                                                                 null: false
-    t.datetime "created_at",                                                                                 null: false
-    t.datetime "updated_at",                                                                                 null: false
+    t.decimal  "population",                                                 precision: 19, scale: 4
+    t.integer  "product_id",                                                                                          null: false
+    t.datetime "created_at",                                                                                          null: false
+    t.datetime "updated_at",                                                                                          null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                   default: 0, null: false
-    t.geometry "shape",        limit: {:srid=>4326, :type=>"geometry"}
-    t.decimal  "net_mass",                                              precision: 19, scale: 4
+    t.integer  "lock_version",                                                                        default: 0,     null: false
+    t.geometry "shape",             limit: {:srid=>4326, :type=>"geometry"}
+    t.decimal  "net_mass",                                                   precision: 19, scale: 4
     t.integer  "container_id"
+    t.boolean  "parted",                                                                              default: false, null: false
+    t.integer  "parted_product_id"
   end
 
   add_index "outgoing_delivery_items", ["container_id"], name: "index_outgoing_delivery_items_on_container_id", using: :btree
@@ -1840,24 +1839,22 @@ ActiveRecord::Schema.define(version: 20150821235105) do
   add_index "product_enjoyments", ["updater_id"], name: "index_product_enjoyments_on_updater_id", using: :btree
 
   create_table "product_junction_ways", force: :cascade do |t|
-    t.integer  "junction_id",                                                                                null: false
-    t.string   "role",                                                                                       null: false
-    t.string   "nature",                                                                                     null: false
-    t.integer  "road_id",                                                                                    null: false
-    t.decimal  "population",                                            precision: 19, scale: 4
-    t.geometry "shape",        limit: {:srid=>4326, :type=>"geometry"}
-    t.datetime "created_at",                                                                                 null: false
-    t.datetime "updated_at",                                                                                 null: false
+    t.integer  "junction_id",              null: false
+    t.string   "role",                     null: false
+    t.string   "nature",                   null: false
+    t.integer  "product_id",               null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                   default: 0, null: false
+    t.integer  "lock_version", default: 0, null: false
   end
 
   add_index "product_junction_ways", ["created_at"], name: "index_product_junction_ways_on_created_at", using: :btree
   add_index "product_junction_ways", ["creator_id"], name: "index_product_junction_ways_on_creator_id", using: :btree
   add_index "product_junction_ways", ["junction_id"], name: "index_product_junction_ways_on_junction_id", using: :btree
   add_index "product_junction_ways", ["nature"], name: "index_product_junction_ways_on_nature", using: :btree
-  add_index "product_junction_ways", ["road_id"], name: "index_product_junction_ways_on_road_id", using: :btree
+  add_index "product_junction_ways", ["product_id"], name: "index_product_junction_ways_on_product_id", using: :btree
   add_index "product_junction_ways", ["role"], name: "index_product_junction_ways_on_role", using: :btree
   add_index "product_junction_ways", ["updated_at"], name: "index_product_junction_ways_on_updated_at", using: :btree
   add_index "product_junction_ways", ["updater_id"], name: "index_product_junction_ways_on_updater_id", using: :btree
@@ -1866,7 +1863,7 @@ ActiveRecord::Schema.define(version: 20150821235105) do
     t.integer  "operation_id"
     t.integer  "originator_id"
     t.string   "originator_type"
-    t.string   "type"
+    t.string   "nature",                      null: false
     t.integer  "tool_id"
     t.datetime "started_at"
     t.datetime "stopped_at"

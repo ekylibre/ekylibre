@@ -68,6 +68,14 @@ class ProductionSupport < Ekylibre::Record::Base
     joins(:production).merge(Production.of_campaign(*campaigns))
   }
 
+  scope :of_cultivation_variants, lambda { |*variants|
+    joins(:production).merge(Production.of_cultivation_variants(*variants))
+  }
+
+  scope :of_cultivation_varieties, lambda { |*varieties|
+    joins(:production).merge(Production.of_cultivation_varieties(*varieties))
+  }
+
   scope :of_currents_campaigns, -> { joins(:production).merge(Production.of_currents_campaigns) }
 
   scope :of_activities, lambda { |*activities|
@@ -294,6 +302,16 @@ class ProductionSupport < Ekylibre::Record::Base
     value = get(quantity_indicator, options)
     value = value.in(quantity_unit) unless quantity_unit.blank?
     value.to_d
+  end
+
+  def net_surface_area
+    area = 0.0.in_square_meter
+    area = self.quantity.in(quantity_unit) if quantity_indicator == 'net_surface_area'
+    area
+  end
+
+  def work_name
+    "#{storage.work_name} - #{net_surface_area}"
   end
 
   def get(*args)

@@ -40,8 +40,6 @@
 #  recommended                 :boolean          default(FALSE), not null
 #  recommender_id              :integer
 #  reference_name              :string           not null
-#  resource_id                 :integer
-#  resource_type               :string
 #  started_at                  :datetime
 #  state                       :string           not null
 #  stopped_at                  :datetime
@@ -55,7 +53,6 @@ end
 class Intervention < Ekylibre::Record::Base
   attr_readonly :reference_name, :production_id
   belongs_to :event, dependent: :destroy, inverse_of: :intervention
-  belongs_to :resource, polymorphic: true
   belongs_to :production, inverse_of: :interventions
   belongs_to :production_support
   belongs_to :issue
@@ -125,7 +122,6 @@ class Intervention < Ekylibre::Record::Base
   }
 
   before_validation do
-    self.resource_type = resource.class.base_class.name if resource
     self.state ||= self.class.state.default
     if p = reference
       self.natures = p.natures.sort.join(' ')
@@ -282,7 +278,7 @@ class Intervention < Ekylibre::Record::Base
           unless variant = producer.variant
             puts "No variant given for #{variable.producer_name} in #{reference_name} (##{id})".red
           end
-          produced.actor = variant.matching_model.new(variant: variant, initial_born_at: stopped_at, initial_owner: producer.actor.owner, initial_container: producer.actor.container, initial_population: produced.population, initial_shape: produced.shape, name: producer.name, extjuncted: true, tracking: producer.actor.tracking)
+          produced.actor = producer.actor.part_with(produced.population, born_at: stopped_at, shape: produced.shape)
           unless produced.actor.save
             logger.debug '*' * 80 + variant.matching_model.name
             logger.debug produced.actor.inspect

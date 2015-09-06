@@ -6,7 +6,6 @@
 = main_informations do
   = render "coordinates"
 
-
 = janus do |j|
   - j.face :timeline do
     - content_for :entity_tools do
@@ -85,6 +84,8 @@
           .big-info{class: (balance < 0 ? :positive : balance > 0 ? :negative : :caution)}
             %span.title= cash.name
             %span.value= balance.l(currency: cash.currency)
+
+      - transactions_by_month_chart(resource, cobbler: c)
 
       - c.cobble(:events, title: :x_events.tl(count: resource.participations.count)) do
         = cobble_toolbar do |t|

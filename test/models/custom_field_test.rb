@@ -47,7 +47,7 @@ require 'test_helper'
 class CustomFieldTest < ActiveSupport::TestCase
   STATIC_VALUES = {
     text: 'Lorem ipsum',
-    decimal:  3.14159,
+    decimal: 3.14159,
     boolean: true,
     date: Date.civil(1953, 3, 16),
     datetime: Time.new(1953, 3, 16, 12, 23)

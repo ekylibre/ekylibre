@@ -1,22 +1,19 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <!-- ######################################## TRAITEMENT VETERINAIRE ########################################### -->
-  <procedure name="item_replacement" natures="piece_replacement" version="0" status="frozen">
+  <procedure name="item_replacement" natures="piece_replacement" version="0">
     <variables>
-      <variable name="equipment"       variety="equipment" roles="piece_replacement-target"/>
-      <variable name="item"            variety="matter" derivative-of="variety:equipment" />
-      <variable name="item_to_change"  new="parted-from: item" roles="piece_replacement-input" need="population"/>
-      <variable name="mechanic"        abilities="repair(equipment)" roles="piece_replacement-doer"/>
+      <variable name="equipment" variety="equipment" roles="piece_replacement-target"/>
+      <variable name="item" variety="matter" derivative-of="variety:equipment"/>
+      <variable name="item_to_change" variety=":item" derivative-of=":item" new="parted-from: item" roles="piece_replacement-input">
+        <handler indicator="population"/>
+      </variable>
+      <variable name="mechanic" abilities="repair(equipment)" roles="piece_replacement-doer"/>
     </variables>
     <operations>
-      <operation id="100">
-        <task do="[mechanic] moves at [equipment]"/>
-      </operation>
-      <operation id="200" duration="10 minutes">
+      <operation id="1">
         <task do="[item] parts with [item_to_change]"/>
         <task do="[equipment] consumes [item_to_change]"/>
       </operation>
     </operations>
   </procedure>
-
 </procedures>

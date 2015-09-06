@@ -3,13 +3,13 @@
 %html{:xmlns => "http://www.w3.org/1999/xhtml", :dir => t("i18n.dir"), :lang => t("i18n.iso2"), "xml:lang" => t("i18n.iso2"), :class => "backend true-dialog"}
   %head
     %link{:rel => "icon", :type => "image/png", :href => image_path("favicon.png")}
-    =meta_viewport_tag
-    =title_tag
-    =csrf_meta_tags
-    =stylesheet_link_tag :application
-    =theme_link_tag(@current_theme)
-    =javascript_include_tag :application
-  %body
-    =heading_tag
-    =notifications_tag
-    =yield
+    = meta_viewport_tag
+    = title_tag
+    = csrf_meta_tags
+    = stylesheet_link_tag :application
+    = theme_link_tag
+    = javascript_include_tag :application
+  %body.body-dialog
+    = heading_tag
+    = notifications_tag
+    = yield

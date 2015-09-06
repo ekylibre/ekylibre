@@ -36,7 +36,11 @@ class Backend::JournalEntryItemsController < Backend::BaseController
         @journal_entry_item.account = @journal.cashes.first.account
       end
     end
-    params[:printed_on] = params[:printed_on].to_date rescue nil
+    params[:printed_on] = begin
+                            params[:printed_on].to_date
+                          rescue
+                            nil
+                          end
     if params[:printed_on]
       @financial_year = FinancialYear.at(params[:printed_on])
     end

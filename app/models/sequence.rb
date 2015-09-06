@@ -68,7 +68,11 @@ class Sequence < Ekylibre::Record::Base
     def of(usage)
       unless sequence = find_by(usage: usage)
         sequence = new(usage: usage)
-        sequence.name = sequence.usage.to_s.classify.constantize.model_name.human rescue sequence.usage
+        sequence.name = begin
+                          sequence.usage.to_s.classify.constantize.model_name.human
+                        rescue
+                          sequence.usage
+                        end
         sequence.number_format = tc("default.#{usage}", default: sequence.usage.to_s.split(/\_/).map { |w| w[0..0] }.join.upcase + '[number|12]')
         while find_by(number_format: sequence.number_format)
           sequence.number_format = ('A'..'Z').to_a.sample + sequence.number_format

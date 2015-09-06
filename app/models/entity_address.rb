@@ -122,7 +122,11 @@ class EntityAddress < Ekylibre::Record::Base
   def update # _without_.allbacks
     # raise StandardError.new "UPDAAAAAAAAAAAATE"
     current_time = Time.now
-    stamper = self.class.stamper_class.stamper rescue nil
+    stamper = begin
+                self.class.stamper_class.stamper
+              rescue
+                nil
+              end
     # raise stamper.inspect unless stamper.nil?
     stamper_id = stamper.id if stamper.is_a? Entity
     nc = self.class.new

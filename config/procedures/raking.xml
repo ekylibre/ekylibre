@@ -1,22 +1,22 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="raking" natures="raking" version="0" status="frozen">
-    <!-- Hersage d'une zone cultivable -->
+  <procedure name="raking" natures="raking" version="0">
     <variables>
-      <variable name="driver"  abilities="drive(tractor)" roles="raking-doer"/>
+      <variable name="driver" abilities="drive(tractor)" roles="raking-doer"/>
       <variable name="tractor" variety="equipment" abilities="catch(equipment)" roles="raking-tool"/>
-      <variable name="land_parcel" variety="cultivable_zone" roles="raking-target" default-actor="storage" need="shape" default-shape=":land_parcel">
+      <variable name="land_parcel" variety="cultivable_zone" roles="raking-target" default-shape=":land_parcel" default-actor="storage">
         <handler indicator="shape">
-          <converter to="shape"      forward="intersection(value, land_parcel.shape)" backward="value"/>
+          <converter to="shape" forward="intersection(value, land_parcel.shape)" backward="value"/>
           <converter to="population" forward="area(value) / land_parcel..net_surface_area(square_meter)"/>
         </handler>
       </variable>
       <variable name="harrow" abilities="plow_superficially" roles="raking-tool"/>
     </variables>
     <operations>
-      <operation id="500">
-        <task do="[tractor] acts on [land_parcel]"/><!-- le tracteur et le chauffeur laboure la parcelle-->
-        <task do="[driver] measures [land_parcel|soil_cultural_state]"/><!-- le chauffeur du tracteur mesure / observe l'état de la parcelle au niveau de sa surface (valeur attendue = raw)-->
+      <operation id="1">
+        <!-- Operation 500 -->
+        <task do="[tractor] acts on [land_parcel]"/>
+        <task do="[driver] measures [land_parcel|soil_cultural_state]" id="readstate"/>
       </operation>
     </operations>
   </procedure>

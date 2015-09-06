@@ -130,10 +130,18 @@ class JournalEntry < Ekylibre::Record::Base
     else
       conditions = []
       started_at, stopped_at = period.to_s.split('_')[0..1] unless period == 'interval'
-      if (started_at = started_at.to_date rescue nil)
+      if (started_at = begin
+                         started_at.to_date
+                       rescue
+                         nil
+                       end)
         conditions << "#{table}.printed_on >= #{connection.quote(started_at)}"
       end
-      if (stopped_at = stopped_at.to_date rescue nil)
+      if (stopped_at = begin
+                         stopped_at.to_date
+                       rescue
+                         nil
+                       end)
         conditions << "#{table}.printed_on <= #{connection.quote(stopped_at)}"
       end
       return connection.quoted_false if conditions.empty?

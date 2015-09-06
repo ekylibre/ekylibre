@@ -1,18 +1,16 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <!-- ######################################## PRODUCTION LAITIERE ########################################### -->
-  <procedure name="mammal_milking" natures="milk_production" version="0" status="frozen">
+  <procedure name="mammal_milking" natures="milk_production" version="0">
     <variables>
-      <variable name="mammal_to_milk" variety="mammalia" abilities="produce(milk)"  roles="milk_production-target"/>
-      <variable name="milk"           variety="milk" derivative-of="variety: mammal_to_milk" roles="milk_production-output" new="produced-by: mammal_to_milk" need="population" default-name="{{variant}} {{birth_year}}-{{birth_month}}-{{birth_day}}"/>
-      <variable name="caregiver"      abilities="milk(mammalia)"   roles="milk_production-doer"/>
-      <variable name="container"      abilities="store(milk)"/>
+      <variable name="mammal_to_milk" variety="mammalia" abilities="produce(milk)" roles="milk_production-target"/>
+      <variable name="milk" variety="milk" derivative-of="variety: mammal_to_milk" new="produced-by: mammal_to_milk" roles="milk_production-output" default-name="{{variant}} {{birth_year}}-{{birth_month}}-{{birth_day}}">
+        <handler indicator="population"/>
+      </variable>
+      <variable name="caregiver" abilities="milk(mammalia)" roles="milk_production-doer"/>
+      <variable name="container" abilities="store(milk)"/>
     </variables>
     <operations>
-      <operation id="100" duration="10 minutes">
-        <task do="[caregiver] moves at [mammal_to_milk]"/>
-      </operation>
-      <operation id="200">
+      <operation id="1">
         <task do="[mammal_to_milk] produces [milk]"/>
         <task do="[milk] is in [container]"/>
       </operation>

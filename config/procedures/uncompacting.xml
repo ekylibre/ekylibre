@@ -1,46 +1,21 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="uncompacting" natures="plowing" version="0" status="frozen">
-    <!-- Décompactage d'une zone cultivable -->
+  <procedure name="uncompacting" natures="plowing" version="0">
     <variables>
-      <variable name="driver"                      abilities="drive(tractor)" roles="plowing-doer"/>
-      <variable name="tractor" variety="equipment" abilities="tow(equipment),catch(equipment)" roles="plowing-tool"/>
-      <variable name="land_parcel" variety="cultivable_zone" roles="plowing-target" default-actor="storage" need="shape" default-shape=":land_parcel" >
+      <variable name="driver" abilities="drive(tractor)" roles="plowing-doer"/>
+      <variable name="tractor" variety="equipment" abilities="tow(equipment), catch(equipment)" roles="plowing-tool"/>
+      <variable name="land_parcel" variety="cultivable_zone" roles="plowing-target" default-shape=":land_parcel" default-actor="storage">
         <handler indicator="shape">
-          <converter to="shape"      forward="intersection(value, land_parcel.shape)" backward="value"/>
+          <converter to="shape" forward="intersection(value, land_parcel.shape)" backward="value"/>
           <converter to="population" forward="area(value) / land_parcel..net_surface_area(square_meter)"/>
         </handler>
       </variable>
       <variable name="harrow" abilities="uncompact" roles="plowing-tool"/>
     </variables>
     <operations>
-      <operation id="100" duration="4 minutes">
-        <task do="[driver] moves in [tractor]"/><!-- le chauffeur se déplace vers le tracteur et rentre dedant (?) -->
-      </operation>
-      <operation id="200" duration="7 minutes">
-        <task do="[tractor] moves at [harrow]"/><!-- le chauffeur et le tracteur se déplace vers le lieu actuel de la charrue-->
-      </operation>
-      <operation id="300" duration="4 minutes">
-        <task do="[tractor] catches [harrow]"/><!-- le chauffeur attache la charrue au tracteur -->
-      </operation>
-      <operation id="400" duration="18 minutes">
-        <task do="[tractor] moves in [land_parcel]"/><!-- le chauffeur + son tracteur et sa charrue se déplace vers la parcelle et rentre dedant (?) -->
-      </operation>
-      <operation id="500">
-        <task do="[tractor] acts on [land_parcel]"/><!-- le tracteur et le chauffeur laboure la parcelle-->
-        <task do="[driver] measures [land_parcel|soil_cultural_state]"/><!-- le chauffeur du tracteur mesure / observe l'état de la parcelle au niveau de sa surface (valeur attendue = raw)-->
-      </operation>
-      <operation id="600" duration="18 minutes">
-        <task do="[tractor] moves in default storage of [harrow]"/>
-      </operation>
-      <operation id="700" duration="4 minutes">
-        <task do="[tractor] releases [harrow]"/>
-      </operation>
-      <operation id="800" duration="7 minutes">
-        <task do="[tractor] moves in default storage"/>
-      </operation>
-      <operation id="900" duration="4 minutes">
-        <task do="[driver] moves in default storage"/>
+      <operation id="1">
+        <task do="[tractor] acts on [land_parcel]"/>
+        <task do="[driver] measures [land_parcel|soil_cultural_state]"/>
       </operation>
     </operations>
   </procedure>

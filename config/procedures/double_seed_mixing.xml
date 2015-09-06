@@ -1,45 +1,29 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="double_seed_mixing" natures="seed_mixing" version="0" status="frozen">
+  <procedure name="double_seed_mixing" natures="seed_mixing" version="0">
     <variables>
-      <variable name="first_seed_input"        variety="seed" abilities="grow"/>
-      <variable name="first_seed_input_to_use" new="parted-from: first_seed_input" roles="seed_mixing-input" default-name="{{variant}} ({{container}})">
-        <handler indicator="population" />
-        <handler indicator="net_mass" unit="kilogram"   to="population" if="first_seed_input.net_mass(kilogram) > 0"
-                 forward="value / self..net_mass(kilogram)"
-                 backward="value * self..net_mass(kilogram)"
-                 /> <!-- kg    -->
+      <variable name="first_seed_input" variety="seed" abilities="grow"/>
+      <variable name="first_seed_input_to_use" variety=":first_seed_input" derivative-of=":first_seed_input" new="parted-from: first_seed_input" roles="seed_mixing-input" default-name="{{variant}} ({{container}})">
+        <handler indicator="population"/>
+        <handler indicator="net_mass" unit="kilogram" if="first_seed_input.net_mass(kilogram) &gt; 0" to="population" backward="value * self..net_mass(kilogram)" forward="value / self..net_mass(kilogram)"/>
       </variable>
-      <variable name="second_seed_input"        variety="seed" abilities="grow"/>
-      <variable name="second_seed_input_to_use" new="parted-from: second_seed_input" roles="seed_mixing-input" default-name="{{variant}} ({{container}})">
-        <handler indicator="population" />
-        <handler indicator="net_mass" unit="kilogram"   to="population" if="second_seed_input.net_mass(kilogram) > 0"
-                 forward="value / self..net_mass(kilogram)"
-                 backward="value * self..net_mass(kilogram)"
-                 /> <!-- kg    -->
+      <variable name="second_seed_input" variety="seed" abilities="grow"/>
+      <variable name="second_seed_input_to_use" variety=":second_seed_input" derivative-of=":second_seed_input" new="parted-from: second_seed_input" roles="seed_mixing-input" default-name="{{variant}} ({{container}})">
+        <handler indicator="population"/>
+        <handler indicator="net_mass" unit="kilogram" if="second_seed_input.net_mass(kilogram) &gt; 0" to="population" backward="value * self..net_mass(kilogram)" forward="value / self..net_mass(kilogram)"/>
       </variable>
-      <variable name="worker"       variety="worker" roles="seed_mixing-doer"/>
-      <variable name="seed_mix"  variety="seed" new="produced-by: first_seed_input" roles="seed_mixing-output" hidden="true" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})" >
-	<handler indicator="population" />
+      <variable name="worker" variety="worker" roles="seed_mixing-doer"/>
+      <variable name="seed_mix" variety="seed" new="produced-by: first_seed_input" roles="seed_mixing-output" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
+        <handler indicator="population"/>
       </variable>
-    <variable name="seed_storage" abilities="store(seed)" />
+      <variable name="seed_storage" abilities="store(seed)"/>
     </variables>
     <operations>
-      <operation id="100" duration="4 minutes">
-        <task do="[worker] moves at [first_seed_input]"/>
-      </operation>
-      <operation id="200" duration="4 minutes">
+      <operation id="1">
         <task do="[first_seed_input] parts with [first_seed_input_to_use]"/>
         <task do="[second_seed_input] parts with [second_seed_input_to_use]"/>
-      </operation>
-      <operation id="300">
         <task do="[first_seed_input_to_use] and [second_seed_input_to_use] are mixed into [seed_mix]"/>
-      </operation>
-      <operation id="400" duration="4 minutes">
         <task do="[seed_mix] moves in [seed_storage]"/>
-      </operation>
-      <operation id="500" duration="4 minutes">
-        <task do="[worker] moves in default storage"/>
       </operation>
     </operations>
   </procedure>

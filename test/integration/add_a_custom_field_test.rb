@@ -59,14 +59,11 @@ class AddACustomFieldTest < CapybaraIntegrationTest
   #       click_on :create.tl
   #       # wait_for_ajax
 
-  #       # puts "OK".red
   #       # TODO: get real column name after create
   #       field = CustomField.find_by(name: custom_field_name)
   #       assert field, "Cannot find created custom field '#{custom_field_name}'"
   #       assert_equal custom_field_name, field.name
   #       column_name = field.column_name
-
-  #       # puts "OK".green
 
   #       # using custom field in model
   #       visit "/backend/#{model.tableize}/#{id}/edit"
@@ -86,7 +83,6 @@ class AddACustomFieldTest < CapybaraIntegrationTest
   #         raise "Unknown custom field datatype"
   #       end
   #       first("#title").click # useful to prevent datetime selector from overlaping "update" button
-  #       # puts (CustomField.of model).inspect.yellow
   #       click_on :update.tl
   #       wait_for_ajax
 

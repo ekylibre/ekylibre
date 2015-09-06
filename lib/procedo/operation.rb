@@ -16,7 +16,7 @@ module Procedo
       @tasks = HashWithIndifferentAccess.new
       element.xpath('xmlns:task').each_with_index do |task, index|
         key = index.to_s
-        @tasks[key] = Task.new(self, key, task)
+        @tasks[key] = Task.new(self, task, key)
       end
     end
 

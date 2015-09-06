@@ -1,51 +1,33 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="grape_pressing" natures="pressing" version="0" status="frozen">
+  <procedure name="grape_pressing" natures="pressing" version="0">
     <variables>
-      <variable name="grape"          variety="grape" roles="pressing-input_origin" derivative-of="vitis" />
-      <variable name="grape_to_press" new="parted-from: grape" roles="pressing-input" need="population"/>
-      <!-- <variable name="tank"         variety="tank" abilities="store_liquid" roles="pressing-target" default-actor="storage"/> -->
-      <variable name="tank_for_wine"         variety="tank" abilities="store_liquid" roles="pressing-target" default-actor="storage"/>
-      <variable name="tank_for_residue"      variety="tank" abilities="store_liquid" />
-      <variable name="press"        variety="equipment" abilities="press(grape)" roles="pressing-tool"/>
-      <variable name="wine_man"     abilities="move, drive(press)" roles="pressing-doer"/>
-      <!-- <variable name="juice"        variety="variety: grape_to_press" derivative-of="derivative-of: grape_to_press" new="produced-by: grape_to_press" roles="pressing-output" need="population" default-name="{{variant}} {{birth_year}} ({{container}})"> -->
-      <variable name="juice"        variety="juice" derivative-of="variety: grape_to_press" new="produced-by: grape_to_press" roles="pressing-output" need="population" default-name="{{variant}} {{birth_year}} ({{container}})">
-        <handler indicator="population" />
-        <handler indicator="net_volume"            unit="hectoliter"               to="population"
-                 forward="value / self..net_volume(hectoliter)"
-                 backward="value * self..net_volume(hectoliter)"
-                 /> <!-- hl    -->
-        <handler indicator="net_mass"            unit="ton"               to="population"
-                 forward="value / self..net_mass(ton)"
-                 backward="value * self..net_mass(ton)"
-                 /> <!-- t    -->
-        <handler indicator="net_mass"            unit="kilogram"               to="population"
-                 forward="value / self..net_mass(kilogram)"
-                 backward="value * self..net_mass(kilogram)"
-                 /> <!-- kg    -->
+      <variable name="grape" variety="grape" derivative-of="vitis" roles="pressing-input_origin"/>
+      <variable name="grape_to_press" variety=":grape" derivative-of=":grape" new="parted-from: grape" roles="pressing-input">
+        <handler indicator="population"/>
       </variable>
-      <variable name="residue"        variety="pomace" derivative-of=": grape_to_press" new="produced-by: grape_to_press" roles="pressing-output" need="population" default-name="{{variant}} {{birth_year}} ({{container}})">
-        <handler indicator="population" />
-        <handler indicator="net_mass"            unit="kilogram"               to="population"
-                 forward="value / self..net_mass(kilogram)"
-                 backward="value * self..net_mass(kilogram)"
-                 /> <!-- kg    -->
+      <variable name="tank_for_wine" variety="tank" abilities="store_liquid" roles="pressing-target" default-actor="storage"/>
+      <variable name="tank_for_residue" variety="tank" abilities="store_liquid"/>
+      <variable name="press" variety="equipment" abilities="press(grape)" roles="pressing-tool"/>
+      <variable name="wine_man" abilities="move, drive(press)" roles="pressing-doer"/>
+      <variable name="juice" variety="juice" derivative-of="variety: grape_to_press" new="produced-by: grape_to_press" roles="pressing-output" default-name="{{variant}} {{birth_year}} ({{container}})">
+        <handler indicator="population"/>
+        <handler indicator="net_volume" unit="hectoliter" to="population" backward="value * self..net_volume(hectoliter)" forward="value / self..net_volume(hectoliter)"/>
+        <handler indicator="net_mass" unit="ton" to="population" backward="value * self..net_mass(ton)" forward="value / self..net_mass(ton)"/>
+        <handler name="net_mass_in_kilogram" indicator="net_mass" unit="kilogram" to="population" backward="value * self..net_mass(kilogram)" forward="value / self..net_mass(kilogram)"/>
+      </variable>
+      <variable name="residue" variety="pomace" derivative-of=": grape_to_press" new="produced-by: grape_to_press" roles="pressing-output" default-name="{{variant}} {{birth_year}} ({{container}})">
+        <handler indicator="population"/>
+        <handler indicator="net_mass" unit="kilogram" to="population" backward="value * self..net_mass(kilogram)" forward="value / self..net_mass(kilogram)"/>
       </variable>
     </variables>
     <operations>
-      <operation id="100" duration="5 minutes">
-        <task do="[wine_man] moves at [tank_for_wine]"/>
-      </operation>
-      <operation id="200" duration="25 minutes">
+      <operation id="1">
         <task do="[grape] parts with [grape_to_press]"/>
         <task do="[grape_to_press] produces [juice]"/>
         <task do="[grape_to_press] produces [residue]"/>
         <task do="[juice] moves in [tank_for_wine]"/>
         <task do="[residue] moves in [tank_for_residue]"/>
-      </operation>
-      <operation id="300" duration="5 minutes">
-        <task do="[wine_man] moves in default storage"/>
       </operation>
     </operations>
   </procedure>

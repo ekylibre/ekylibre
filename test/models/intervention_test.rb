@@ -40,8 +40,6 @@
 #  recommended                 :boolean          default(FALSE), not null
 #  recommender_id              :integer
 #  reference_name              :string           not null
-#  resource_id                 :integer
-#  resource_type               :string
 #  started_at                  :datetime
 #  state                       :string           not null
 #  stopped_at                  :datetime

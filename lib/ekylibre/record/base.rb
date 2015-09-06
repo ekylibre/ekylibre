@@ -162,7 +162,11 @@ module Ekylibre::Record
                                          )
         end
         @scopes ||= []
-        arity = body.arity rescue 0
+        arity = begin
+                  body.arity
+                rescue
+                  0
+                end
         @scopes << Scope.new(name.to_sym, arity)
         scope_without_registration(name, body, &block)
       end

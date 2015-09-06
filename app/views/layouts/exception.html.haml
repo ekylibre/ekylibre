@@ -6,12 +6,11 @@
     = icon_tags
     = theme_link_tag(:tekyla)
     = javascript_include_tag :application, "data-turbolinks-track" => true
-  %body
+  %body.body-exception
     #wrap
       #main
         #header
           %h1= :error.tl
         #content
-
           = yield
     %footer#legals= legals_sentence

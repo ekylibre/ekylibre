@@ -45,7 +45,7 @@ class Backend::OutgoingDeliveriesController < Backend::BaseController
     t.column :population
     t.column :unit_name, through: :variant
     t.column :net_mass, through: :product, datatype: :measure
-    # t.column :name, through: :building, url: true
+    t.column :parted_product, url: true, hidden: true
   end
 
   def invoice

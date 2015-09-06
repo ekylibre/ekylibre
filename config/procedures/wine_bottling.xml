@@ -1,61 +1,39 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="wine_bottling" natures="bottling" version="0" status="frozen">
+  <procedure name="wine_bottling" natures="bottling" version="0">
     <variables>
-      <variable name="tank"   variety="equipment" abilities="store(wine)" default-actor="storage"/>
-      <variable name="wine"   variety="wine" default-actor="first-localized-in: tank" roles="bottling-target" read-only="true" />
-      <variable name="wine_to_pack" new="parted-from: wine" roles="bottling-input" default-name="{{variant}} ({{container}})">
-	      <handler indicator="population" />
-        <handler indicator="net_volume"            unit="hectoliter"               to="population" if="wine_to_pack? &amp; wine_to_pack.net_volume(liter) > 0"
-                 forward="value / self..net_volume(hectoliter)"
-                 backward="value * self..net_volume(hectoliter)"
-                 /> <!-- hl    -->
-        <handler indicator="net_volume"            unit="liter"               to="population" if="wine_to_pack? &amp; wine_to_pack.net_volume(liter) > 0"
-                 forward="value / self..net_volume(liter)"
-                 backward="value * self..net_volume(liter)"
-                 /> <!-- l    -->
+      <variable name="tank" variety="equipment" abilities="store(wine)" default-actor="storage"/>
+      <variable name="wine" variety="wine" roles="bottling-target" default-actor="first_localized_in: tank"/>
+      <variable name="wine_to_pack" variety=":wine" derivative-of=":wine" new="parted-from: wine" roles="bottling-input" default-name="{{variant}} ({{container}})">
+        <handler indicator="population"/>
+        <handler indicator="net_volume" unit="hectoliter" if="wine_to_pack? &amp; wine_to_pack.net_volume(liter) &gt; 0" to="population" backward="value * self..net_volume(hectoliter)" forward="value / self..net_volume(hectoliter)"/>
+        <handler name="net_volume_in_liter" indicator="net_volume" unit="liter" if="wine_to_pack? &amp; wine_to_pack.net_volume(liter) &gt; 0" to="population" backward="value * self..net_volume(liter)" forward="value / self..net_volume(liter)"/>
       </variable>
-      <variable name="bottles"        variety="cork_bottle" abilities="store(wine)"/>
-      <variable name="bottles_to_use" new="parted-from: bottles" roles="bottling-input" default-name="{{variant}} ({{container}})">
-        <handler indicator="population" />
-        <handler indicator="net_volume"            unit="hectoliter"               to="population" if="bottles_to_use? &amp; bottles_to_use.net_volume(liter) > 0"
-                 forward="value / self..net_volume(hectoliter)"
-                 backward="value * self..net_volume(hectoliter)"
-                 /> <!-- l    -->
-        <handler indicator="net_volume"            unit="liter"               to="population" if="bottles_to_use? &amp; bottles_to_use.net_volume(liter) > 0"
-                 forward="value / self..net_volume(liter)"
-                 backward="value * self..net_volume(liter)"
-                 /> <!-- l    -->
+      <variable name="bottles" variety="cork_bottle" abilities="store(wine)"/>
+      <variable name="bottles_to_use" variety=":bottles" derivative-of=":bottles" new="parted-from: bottles" roles="bottling-input" default-name="{{variant}} ({{container}})">
+        <handler indicator="population"/>
+        <handler indicator="net_volume" unit="hectoliter" if="bottles_to_use? &amp; bottles_to_use.net_volume(liter) &gt; 0" to="population" backward="value * self..net_volume(hectoliter)" forward="value / self..net_volume(hectoliter)"/>
+        <handler name="net_volume_in_liter" indicator="net_volume" unit="liter" if="bottles_to_use? &amp; bottles_to_use.net_volume(liter) &gt; 0" to="population" backward="value * self..net_volume(liter)" forward="value / self..net_volume(liter)"/>
       </variable>
-      <variable name="corks"        variety="cork" abilities="close(cork_bottle)"/>
-      <variable name="corks_to_use" new="parted-from: corks" roles="bottling-input" default-name="{{variant}} ({{container}})">
-	      <handler indicator="population" />
+      <variable name="corks" variety="cork" abilities="close(cork_bottle)"/>
+      <variable name="corks_to_use" variety=":corks" derivative-of=":corks" new="parted-from: corks" roles="bottling-input" default-name="{{variant}} ({{container}})">
+        <handler indicator="population"/>
       </variable>
-      <variable name="wine_man"                         abilities="drive(corker), drive(bottler), move" roles="bottling-doer"/>
-      <variable name="hand_drawn"   variety="equipment" abilities="fill(bottle)" roles="bottling-tool"/>
-      <variable name="corker"       variety="equipment" abilities="close(bottle)" roles="bottling-tool"/>
-      <variable name="wine_bottles" variety="wine" derivative-of=":wine_to_pack" new="produced-by: wine_to_pack" roles="bottling-output" hidden="true" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" >
-	      <handler indicator="population" />
+      <variable name="wine_man" abilities="drive(corker), drive(bottler), move" roles="bottling-doer"/>
+      <variable name="hand_drawn" variety="equipment" abilities="fill(bottle)" roles="bottling-tool"/>
+      <variable name="corker" variety="equipment" abilities="close(bottle)" roles="bottling-tool"/>
+      <variable name="wine_bottles" variety="wine" derivative-of=":wine_to_pack" new="produced-by: wine_to_pack" roles="bottling-output" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})">
+        <handler indicator="population"/>
       </variable>
-      <variable name="wine_storage" variety="building_division" abilities="store(wine)" />
+      <variable name="wine_storage" variety="building_division" abilities="store(wine)"/>
     </variables>
     <operations>
-      <operation id="100" duration="4 minutes">
-        <task do="[wine_man] moves at [tank]"/>
-      </operation>
-      <operation id="200" duration="4 minutes">
+      <operation id="1">
         <task do="[wine] parts with [wine_to_pack]"/>
         <task do="[bottles] parts with [bottles_to_use]"/>
         <task do="[corks] parts with [corks_to_use]"/>
-      </operation>
-      <operation id="300">
         <task do="[wine_to_pack], [bottles_to_use] and [corks_to_use] are mixed into [wine_bottles]"/>
-      </operation>
-      <operation id="400" duration="4 minutes">
         <task do="[wine_bottles] moves in [wine_storage]"/>
-      </operation>
-      <operation id="500" duration="4 minutes">
-        <task do="[wine_man] moves in default storage"/>
       </operation>
     </operations>
   </procedure>

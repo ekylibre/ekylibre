@@ -78,7 +78,7 @@ class PurchaseItem < Ekylibre::Record::Base
   acts_as_list scope: :purchase
   sums :purchase, :items, :pretax_amount, :amount
 
-  calculable period: :month, at: 'invoiced_at', column: :pretax_amount
+  calculable period: :month, column: :pretax_amount, at: 'purchases.invoiced_at', name: :sum, joins: :purchase
 
   # return all purchase items  between two dates
   scope :between, lambda { |started_at, stopped_at|

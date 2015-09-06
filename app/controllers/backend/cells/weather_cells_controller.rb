@@ -9,7 +9,11 @@ class Backend::Cells::WeatherCellsController < Backend::Cells::BaseController
         http.read_timeout = 3
         res = http.get("/data/2.5/forecast/daily?lat=#{coordinates.first}&lon=#{coordinates.second}&cnt=14&mode=json")
 
-        json = JSON.load(res.body) rescue nil
+        json = begin
+                 JSON.load(res.body)
+               rescue
+                 nil
+               end
         unless json.nil?
 
           @forecast = json.deep_symbolize_keys

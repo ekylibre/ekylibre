@@ -162,7 +162,7 @@ class Viniteca::InterventionsExchanger < ActiveExchanger::Base
               elsif procedures_transcode[r.procedure_name] == :chemical_weed_killing
 
                 # Chemical weed
-                intervention = Ekylibre::FirstRun::Booker.intervene(:chemical_weed_killing, intervention_year, intervention_month, intervention_day, 1.07 * coeff, support: support, parameters: { readings: { 'base-chemical_weed_killing-0-800-2' => 'covered' } }) do |i|
+                intervention = Ekylibre::FirstRun::Booker.intervene(:chemical_weed_killing, intervention_year, intervention_month, intervention_day, 1.07 * coeff, support: support, parameters: { readings: { 'base-chemical_weed_killing-0-1-readstate' => 'covered' } }) do |i|
                   i.add_cast(reference_name: 'weedkiller', actor: intrant)
                   i.add_cast(reference_name: 'weedkiller_to_spray', population: r.product_input_population)
                   i.add_cast(reference_name: 'sprayer', actor: i.find(Product, can: 'spray'))

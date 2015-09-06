@@ -86,6 +86,20 @@ class Production < Ekylibre::Record::Base
     where(campaign_id: campaigns.map(&:id))
   }
 
+  scope :of_cultivation_variants, lambda { |*variants|
+    variants.flatten!
+    for variant in variants
+      unless variant.is_a?(ProductNatureVariant)
+        fail ArgumentError.new("Expected Variant, got #{variant.class.name}:#{variant.inspect}")
+      end
+    end
+    where(cultivation_variant_id: variants.map(&:id))
+  }
+
+  scope :of_cultivation_varieties, lambda { |*varieties|
+    where(cultivation_variant_id: ProductNatureVariant.of_variety(varieties).map(&:id))
+  }
+
   scope :main_of_campaign, ->(campaign) { where(activity: Activity.main, campaign_id: (campaign.is_a?(Campaign) ? campaign.id : campaign.to_i)) }
 
   scope :of_currents_campaigns, -> { joins(:campaign).merge(Campaign.currents) }
@@ -252,9 +266,11 @@ class Production < Ekylibre::Record::Base
     0.0.in_square_meter
   end
 
-  def net_surface_area
-    return supports.map(&:storage_net_surface_area).compact.sum if supports.any?
-    0.0.in_square_meter
+  def net_surface_area(unit = nil)
+    unit ||= :hectare
+    area = 0.0.in_square_meter
+    area = supports.sum(:quantity).in(support_variant_unit) if supports.any?
+    area.in(unit)
   end
 
   # Returns the count of supports

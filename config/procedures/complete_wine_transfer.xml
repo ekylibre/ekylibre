@@ -1,21 +1,15 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="complete_wine_transfer" natures="transfer" version="0" status="frozen">
+  <procedure name="complete_wine_transfer" natures="transfer" version="0">
     <variables>
       <variable name="tank" variety="equipment" abilities="store(wine), store_liquid" default-actor="storage"/>
-      <variable name="wine" variety="wine" default-actor="first-localized-in: tank" read-only="true" roles="transfer-target"/>
+      <variable name="wine" variety="wine" roles="transfer-target" default-actor="first_localized_in: tank"/>
       <variable name="destination_tank" variety="equipment" abilities="store(wine), store_liquid" roles="transfer-container"/>
       <variable name="wine_man" variety="worker" abilities="move" roles="transfer-doer"/>
     </variables>
     <operations>
-      <operation id="100" duration="4 minutes">
-        <task do="[wine_man] moves at [wine]"/>
-      </operation>
-      <operation id="300" duration="7 minutes">
+      <operation id="1">
         <task do="[wine] moves in [destination_tank]"/>
-      </operation>
-      <operation id="400" duration="4 minutes">
-        <task do="[wine_man] moves in default storage"/>
       </operation>
     </operations>
   </procedure>

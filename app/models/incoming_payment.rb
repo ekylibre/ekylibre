@@ -52,6 +52,7 @@
 #
 
 class IncomingPayment < Ekylibre::Record::Base
+  include PeriodicCalculable
   attr_readonly :payer_id
   attr_readonly :amount, :account_number, :bank, :bank_check_number, :mode_id, if: proc { deposit && deposit.locked? }
   refers_to :currency
@@ -85,6 +86,12 @@ class IncomingPayment < Ekylibre::Record::Base
     where('to_bank_at <= ?', Time.now).where('deposit_id = ? OR (deposit_id IS NULL AND mode_id = ?)', deposit.id, (mode ? mode_id : deposit.mode_id))
   }
   scope :last_updateds, -> { order(updated_at: :desc) }
+
+  scope :between, lambda { |started_at, stopped_at|
+    where(paid_at: started_at..stopped_at)
+  }
+
+  calculable period: :month, column: :amount, at: :paid_at, name: :sum
 
   before_validation(on: :create) do
     self.to_bank_at ||= Time.now

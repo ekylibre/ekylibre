@@ -17,10 +17,11 @@
     popup_content << {label: Campaign.model_name.human, value: support.campaign_name}
     popup_content << {label: Activity.model_name.human, value: support.activity_name}
     popup_content << {label: Production.model_name.human, value: link_to(support.production_name, backend_production_path(support.production))}
-    popup_content << {label: ProductionSupport.model_name.human, value: link_to(support.name, backend_production_support_path(support))}
+    popup_content << {label: ProductionSupport.model_name.human, value: link_to(support.work_name, backend_production_support_path(support))}
 
     if support.storage
-      popup_content << {label: CultivableZone.human_attribute_name(:net_surface_area), value: support.storage_net_surface_area.in_hectare.round(2).l}
+      popup_content << {label: :area.tl, value: support.storage_net_surface_area.in_hectare.round(2).l}
+      popup_content << {label: :net_surface_area.tl, value: support.net_surface_area.in_hectare.round(2).l}
     end
 
     if interventions = Intervention.where(production_support: support).reorder(:started_at)
@@ -70,3 +71,5 @@
 
   - j.face :list do
     = main_list
+  - j.face :chart do
+    = cell :cropping_plan

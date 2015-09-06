@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <migration name="Add thicket varieties">
   <!-- Add your changes here -->
-<item-creation item="betula" parent="betulaceae" itis_tsn="19478"/>
-<item-creation item="betula_pendula" parent="betula" itis_tsn="19495"/>
-<item-creation item="myrtaceae" parent="myrtaceae" itis_tsn="27172"/>
-<item-creation item="eucalyptus" parent="betula" itis_tsn="27187"/>
-<item-creation item="fraxinus" parent="oleaceae" itis_tsn="32928"/>
-<item-creation item="fraxinus_excelsior" parent="fraxinus" itis_tsn="502663"/>
+<item-creation item="varieties#betula" parent="betulaceae" itis_tsn="19478"/>
+<item-creation item="varieties#betula_pendula" parent="betula" itis_tsn="19495"/>
+<item-creation item="varieties#myrtaceae" parent="plant" itis_tsn="27172"/>
+<item-creation item="varieties#eucalyptus" parent="betula" itis_tsn="27187"/>
+<item-creation item="varieties#fraxinus" parent="oleaceae" itis_tsn="32928"/>
+<item-creation item="varieties#fraxinus_excelsior" parent="fraxinus" itis_tsn="502663"/>
 </migration>

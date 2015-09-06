@@ -9,7 +9,12 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   font-size: $fs-normal;
   line-height: $lh-normal;
   color: $text-color;
-  @include text-align(left);
+}
+
+html {
+  &, * {
+    @include text-align(left);
+  }
 }
 
 mark {

@@ -89,7 +89,7 @@ module RestfullyManageable
           code << "  respond_to do |format|\n"
           code << "    format.html { #{t3e_code} }\n"
           code << "    format.xml  { render xml:  @#{record_name} }\n"
-          code << "    format.json { render json: @#{record_name} }\n"
+          code << "    format.json\n" #  { render json: @#{record_name} }
           code << "  end\n"
         elsif Dir.glob(lookup.join('index.*')).any?
           code << "  redirect_to action: :index, '#{name}-id' => @#{record_name}.id\n"
