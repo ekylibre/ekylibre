@@ -53,7 +53,7 @@ product_junction_ways_001:
   lock_version: 0
   nature: start
   product_id: 13
-  role: product
+  role: born
   updated_at: 2014-10-31 20:12:30.960076000 Z
   updater_id: 1
 product_junction_ways_002:
@@ -64,7 +64,7 @@ product_junction_ways_002:
   lock_version: 1
   nature: start
   product_id: 14
-  role: product
+  role: born
   updated_at: 2014-11-07 14:30:00.671680000 Z
   updater_id: 1
 product_junction_ways_003:
@@ -75,7 +75,7 @@ product_junction_ways_003:
   lock_version: 1
   nature: start
   product_id: 19
-  role: product
+  role: born
   updated_at: 2014-11-07 14:41:44.759738000 Z
   updater_id: 1
 product_junction_ways_004:
@@ -86,7 +86,7 @@ product_junction_ways_004:
   lock_version: 0
   nature: start
   product_id: 20
-  role: product
+  role: born
   updated_at: 2014-10-31 20:23:26.789990000 Z
   updater_id: 1
 product_junction_ways_005:
@@ -97,7 +97,7 @@ product_junction_ways_005:
   lock_version: 0
   nature: start
   product_id: 53
-  role: product
+  role: born
   updated_at: 2014-10-31 20:23:37.054421000 Z
   updater_id: 1
 product_junction_ways_006:
@@ -108,7 +108,7 @@ product_junction_ways_006:
   lock_version: 1
   nature: start
   product_id: 21
-  role: product
+  role: born
   updated_at: 2014-10-31 20:26:47.202010000 Z
   updater_id: 1
 product_junction_ways_007:
@@ -119,7 +119,7 @@ product_junction_ways_007:
   lock_version: 0
   nature: start
   product_id: 54
-  role: product
+  role: born
   updated_at: 2014-11-01 16:00:08.179898000 Z
   updater_id: 1
 product_junction_ways_008:
@@ -130,7 +130,7 @@ product_junction_ways_008:
   lock_version: 0
   nature: start
   product_id: 55
-  role: product
+  role: born
   updated_at: 2014-11-01 16:00:08.361327000 Z
   updater_id: 1
 product_junction_ways_009:
@@ -141,7 +141,7 @@ product_junction_ways_009:
   lock_version: 0
   nature: start
   product_id: 56
-  role: product
+  role: born
   updated_at: 2014-11-01 16:01:24.194166000 Z
   updater_id: 1
 product_junction_ways_010:
@@ -152,7 +152,7 @@ product_junction_ways_010:
   lock_version: 0
   nature: start
   product_id: 5
-  role: product
+  role: born
   updated_at: 2014-11-01 19:29:58.256910000 Z
   updater_id: 1
 product_junction_ways_011:
@@ -163,7 +163,7 @@ product_junction_ways_011:
   lock_version: 0
   nature: start
   product_id: 6
-  role: product
+  role: born
   updated_at: 2014-11-01 19:35:50.401187000 Z
   updater_id: 1
 product_junction_ways_012:
@@ -174,7 +174,7 @@ product_junction_ways_012:
   lock_version: 0
   nature: start
   product_id: 57
-  role: product
+  role: born
   updated_at: 2014-11-01 20:19:35.427159000 Z
   updater_id: 1
 product_junction_ways_013:
@@ -185,7 +185,7 @@ product_junction_ways_013:
   lock_version: 0
   nature: start
   product_id: 58
-  role: product
+  role: born
   updated_at: 2014-11-01 20:23:55.168744000 Z
   updater_id: 1
 product_junction_ways_014:
@@ -196,7 +196,7 @@ product_junction_ways_014:
   lock_version: 0
   nature: start
   product_id: 59
-  role: product
+  role: born
   updated_at: 2014-11-01 20:23:55.268692000 Z
   updater_id: 1
 product_junction_ways_015:
@@ -207,7 +207,7 @@ product_junction_ways_015:
   lock_version: 0
   nature: start
   product_id: 79
-  role: product
+  role: born
   updated_at: 2014-11-01 20:30:35.608922000 Z
   updater_id: 1
 product_junction_ways_016:
@@ -218,7 +218,7 @@ product_junction_ways_016:
   lock_version: 0
   nature: start
   product_id: 29
-  role: product
+  role: born
   updated_at: 2014-11-02 18:22:30.606162000 Z
   updater_id: 1
 product_junction_ways_017:
@@ -229,7 +229,7 @@ product_junction_ways_017:
   lock_version: 0
   nature: start
   product_id: 30
-  role: product
+  role: born
   updated_at: 2014-11-02 18:23:23.682370000 Z
   updater_id: 1
 product_junction_ways_018:
@@ -240,7 +240,7 @@ product_junction_ways_018:
   lock_version: 0
   nature: start
   product_id: 31
-  role: product
+  role: born
   updated_at: 2014-11-02 18:29:41.499312000 Z
   updater_id: 1
 product_junction_ways_019:
@@ -251,7 +251,7 @@ product_junction_ways_019:
   lock_version: 0
   nature: start
   product_id: 32
-  role: product
+  role: born
   updated_at: 2014-11-02 18:37:22.427061000 Z
   updater_id: 1
 product_junction_ways_020:
@@ -262,7 +262,7 @@ product_junction_ways_020:
   lock_version: 0
   nature: start
   product_id: 80
-  role: product
+  role: born
   updated_at: 2014-11-04 17:12:23.408443000 Z
   updater_id: 1
 product_junction_ways_021:
@@ -273,7 +273,7 @@ product_junction_ways_021:
   lock_version: 0
   nature: start
   product_id: 81
-  role: product
+  role: born
   updated_at: 2014-11-04 17:15:04.631028000 Z
   updater_id: 1
 product_junction_ways_022:
@@ -284,7 +284,7 @@ product_junction_ways_022:
   lock_version: 0
   nature: start
   product_id: 82
-  role: product
+  role: born
   updated_at: 2014-11-04 17:17:04.696432000 Z
   updater_id: 1
 product_junction_ways_023:
@@ -295,7 +295,7 @@ product_junction_ways_023:
   lock_version: 0
   nature: start
   product_id: 83
-  role: product
+  role: born
   updated_at: 2014-11-04 17:19:31.157696000 Z
   updater_id: 1
 product_junction_ways_024:
@@ -306,7 +306,7 @@ product_junction_ways_024:
   lock_version: 0
   nature: start
   product_id: 84
-  role: product
+  role: born
   updated_at: 2014-11-04 17:22:31.697978000 Z
   updater_id: 1
 product_junction_ways_025:
@@ -317,7 +317,7 @@ product_junction_ways_025:
   lock_version: 0
   nature: start
   product_id: 85
-  role: product
+  role: born
   updated_at: 2014-11-04 17:28:40.092317000 Z
   updater_id: 1
 product_junction_ways_026:
@@ -328,7 +328,7 @@ product_junction_ways_026:
   lock_version: 0
   nature: start
   product_id: 86
-  role: product
+  role: born
   updated_at: 2014-11-04 17:32:46.002017000 Z
   updater_id: 1
 product_junction_ways_027:
@@ -339,7 +339,7 @@ product_junction_ways_027:
   lock_version: 0
   nature: start
   product_id: 87
-  role: product
+  role: born
   updated_at: 2014-11-04 18:39:58.393925000 Z
   updater_id: 1
 product_junction_ways_028:
@@ -350,7 +350,7 @@ product_junction_ways_028:
   lock_version: 0
   nature: start
   product_id: 88
-  role: product
+  role: born
   updated_at: 2014-11-04 18:41:16.448446000 Z
   updater_id: 1
 product_junction_ways_029:
@@ -361,7 +361,7 @@ product_junction_ways_029:
   lock_version: 0
   nature: start
   product_id: 89
-  role: product
+  role: separated
   updated_at: 2014-11-05 15:40:16.110543000 Z
   updater_id: 1
 product_junction_ways_030:
@@ -372,7 +372,7 @@ product_junction_ways_030:
   lock_version: 0
   nature: continuity
   product_id: 53
-  role: producer
+  role: reduced
   updated_at: 2014-11-05 15:40:16.157378000 Z
   updater_id: 1
 product_junction_ways_031:
@@ -383,7 +383,7 @@ product_junction_ways_031:
   lock_version: 0
   nature: finish
   product_id: 89
-  role: product
+  role: consumed
   updated_at: 2014-11-05 15:40:16.231238000 Z
   updater_id: 1
 product_junction_ways_032:
@@ -405,7 +405,7 @@ product_junction_ways_033:
   lock_version: 0
   nature: start
   product_id: 90
-  role: product
+  role: produced
   updated_at: 2014-11-05 15:40:16.273311000 Z
   updater_id: 1
 product_junction_ways_034:
@@ -427,7 +427,7 @@ product_junction_ways_035:
   lock_version: 0
   nature: start
   product_id: 91
-  role: product
+  role: separated
   updated_at: 2014-11-06 17:50:07.107112000 Z
   updater_id: 1
 product_junction_ways_036:
@@ -438,7 +438,7 @@ product_junction_ways_036:
   lock_version: 0
   nature: continuity
   product_id: 53
-  role: producer
+  role: reduced
   updated_at: 2014-11-06 17:50:07.175719000 Z
   updater_id: 1
 product_junction_ways_037:
@@ -449,7 +449,7 @@ product_junction_ways_037:
   lock_version: 0
   nature: finish
   product_id: 91
-  role: product
+  role: consumed
   updated_at: 2014-11-06 17:50:07.240636000 Z
   updater_id: 1
 product_junction_ways_038:
@@ -471,7 +471,7 @@ product_junction_ways_039:
   lock_version: 0
   nature: start
   product_id: 92
-  role: product
+  role: produced
   updated_at: 2014-11-06 17:50:07.278009000 Z
   updater_id: 1
 product_junction_ways_040:
@@ -493,7 +493,7 @@ product_junction_ways_041:
   lock_version: 0
   nature: start
   product_id: 93
-  role: product
+  role: born
   updated_at: 2014-11-07 14:39:41.486177000 Z
   updater_id: 1
 product_junction_ways_042:
@@ -504,7 +504,7 @@ product_junction_ways_042:
   lock_version: 0
   nature: start
   product_id: 94
-  role: product
+  role: separated
   updated_at: 2014-11-07 14:44:18.972377000 Z
   updater_id: 1
 product_junction_ways_043:
@@ -515,7 +515,7 @@ product_junction_ways_043:
   lock_version: 0
   nature: continuity
   product_id: 59
-  role: producer
+  role: reduced
   updated_at: 2014-11-07 14:44:19.019678000 Z
   updater_id: 1
 product_junction_ways_044:
@@ -526,7 +526,7 @@ product_junction_ways_044:
   lock_version: 0
   nature: finish
   product_id: 94
-  role: product
+  role: consumed
   updated_at: 2014-11-07 14:44:19.109503000 Z
   updater_id: 1
 product_junction_ways_045:
@@ -548,7 +548,7 @@ product_junction_ways_046:
   lock_version: 0
   nature: start
   product_id: 95
-  role: product
+  role: born
   updated_at: 2014-11-07 15:01:32.335535000 Z
   updater_id: 1
 product_junction_ways_047:
@@ -559,7 +559,7 @@ product_junction_ways_047:
   lock_version: 0
   nature: start
   product_id: 96
-  role: product
+  role: separated
   updated_at: 2014-11-07 15:02:58.875729000 Z
   updater_id: 1
 product_junction_ways_048:
@@ -570,7 +570,7 @@ product_junction_ways_048:
   lock_version: 0
   nature: continuity
   product_id: 57
-  role: producer
+  role: reduced
   updated_at: 2014-11-07 15:02:59.136528000 Z
   updater_id: 1
 product_junction_ways_049:
@@ -581,7 +581,7 @@ product_junction_ways_049:
   lock_version: 0
   nature: finish
   product_id: 96
-  role: product
+  role: consumed
   updated_at: 2014-11-07 15:02:59.209000000 Z
   updater_id: 1
 product_junction_ways_050:
@@ -603,7 +603,7 @@ product_junction_ways_051:
   lock_version: 0
   nature: start
   product_id: 97
-  role: product
+  role: born
   updated_at: 2014-11-07 15:23:45.201811000 Z
   updater_id: 1
 product_junction_ways_052:
@@ -614,7 +614,7 @@ product_junction_ways_052:
   lock_version: 0
   nature: start
   product_id: 98
-  role: product
+  role: born
   updated_at: 2014-11-07 15:25:51.237124000 Z
   updater_id: 1
 product_junction_ways_053:
@@ -625,7 +625,7 @@ product_junction_ways_053:
   lock_version: 0
   nature: start
   product_id: 99
-  role: product
+  role: separated
   updated_at: 2014-11-07 15:26:50.611725000 Z
   updater_id: 1
 product_junction_ways_054:
@@ -636,7 +636,7 @@ product_junction_ways_054:
   lock_version: 0
   nature: continuity
   product_id: 98
-  role: producer
+  role: reduced
   updated_at: 2014-11-07 15:26:50.650000000 Z
   updater_id: 1
 product_junction_ways_055:
@@ -647,7 +647,7 @@ product_junction_ways_055:
   lock_version: 0
   nature: finish
   product_id: 99
-  role: product
+  role: consumed
   updated_at: 2014-11-07 15:26:50.718420000 Z
   updater_id: 1
 product_junction_ways_056:
@@ -669,7 +669,7 @@ product_junction_ways_057:
   lock_version: 0
   nature: start
   product_id: 100
-  role: product
+  role: born
   updated_at: 2014-11-07 15:44:20.499612000 Z
   updater_id: 1
 product_junction_ways_058:
@@ -680,7 +680,7 @@ product_junction_ways_058:
   lock_version: 0
   nature: start
   product_id: 101
-  role: product
+  role: born
   updated_at: 2014-11-07 15:44:20.622560000 Z
   updater_id: 1
 product_junction_ways_059:
@@ -691,7 +691,7 @@ product_junction_ways_059:
   lock_version: 0
   nature: start
   product_id: 102
-  role: product
+  role: separated
   updated_at: 2014-11-07 15:45:45.871526000 Z
   updater_id: 1
 product_junction_ways_060:
@@ -702,7 +702,7 @@ product_junction_ways_060:
   lock_version: 0
   nature: continuity
   product_id: 101
-  role: producer
+  role: reduced
   updated_at: 2014-11-07 15:45:45.905599000 Z
   updater_id: 1
 product_junction_ways_061:
@@ -713,7 +713,7 @@ product_junction_ways_061:
   lock_version: 0
   nature: finish
   product_id: 102
-  role: product
+  role: consumed
   updated_at: 2014-11-07 15:45:45.966225000 Z
   updater_id: 1
 product_junction_ways_062:
@@ -735,7 +735,7 @@ product_junction_ways_063:
   lock_version: 0
   nature: start
   product_id: 103
-  role: product
+  role: produced
   updated_at: 2014-11-07 15:45:46.004696000 Z
   updater_id: 1
 product_junction_ways_064:
@@ -757,7 +757,7 @@ product_junction_ways_065:
   lock_version: 0
   nature: start
   product_id: 105
-  role: product
+  role: produced
   updated_at: 2014-11-07 15:50:04.504926000 Z
   updater_id: 1
 product_junction_ways_066:
@@ -779,7 +779,7 @@ product_junction_ways_067:
   lock_version: 0
   nature: finish
   product_id: 105
-  role: product
+  role: consumed
   updated_at: 2014-11-07 15:50:04.582884000 Z
   updater_id: 1
 product_junction_ways_068:
@@ -801,7 +801,7 @@ product_junction_ways_069:
   lock_version: 0
   nature: start
   product_id: 106
-  role: product
+  role: born
   updated_at: 2014-11-07 16:26:53.216876000 Z
   updater_id: 1
 product_junction_ways_070:
@@ -812,7 +812,7 @@ product_junction_ways_070:
   lock_version: 0
   nature: start
   product_id: 107
-  role: product
+  role: born
   updated_at: 2014-11-07 16:47:34.879308000 Z
   updater_id: 1
 product_junction_ways_071:
@@ -823,7 +823,7 @@ product_junction_ways_071:
   lock_version: 0
   nature: start
   product_id: 108
-  role: product
+  role: born
   updated_at: 2014-11-07 16:49:26.181615000 Z
   updater_id: 1
 product_junction_ways_072:
@@ -834,7 +834,7 @@ product_junction_ways_072:
   lock_version: 0
   nature: start
   product_id: 109
-  role: product
+  role: separated
   updated_at: 2014-11-07 16:50:07.270054000 Z
   updater_id: 1
 product_junction_ways_073:
@@ -845,7 +845,7 @@ product_junction_ways_073:
   lock_version: 0
   nature: continuity
   product_id: 107
-  role: producer
+  role: reduced
   updated_at: 2014-11-07 16:50:07.297249000 Z
   updater_id: 1
 product_junction_ways_074:
@@ -856,7 +856,7 @@ product_junction_ways_074:
   lock_version: 0
   nature: finish
   product_id: 109
-  role: product
+  role: consumed
   updated_at: 2014-11-07 16:50:07.358938000 Z
   updater_id: 1
 product_junction_ways_075:
@@ -878,7 +878,7 @@ product_junction_ways_076:
   lock_version: 0
   nature: start
   product_id: 110
-  role: product
+  role: produced
   updated_at: 2014-11-07 16:50:07.394076000 Z
   updater_id: 1
 product_junction_ways_077:
@@ -900,7 +900,7 @@ product_junction_ways_078:
   lock_version: 0
   nature: start
   product_id: 111
-  role: product
+  role: separated
   updated_at: 2014-11-07 16:59:09.891288000 Z
   updater_id: 1
 product_junction_ways_079:
@@ -911,7 +911,7 @@ product_junction_ways_079:
   lock_version: 0
   nature: continuity
   product_id: 57
-  role: producer
+  role: reduced
   updated_at: 2014-11-07 16:59:10.088345000 Z
   updater_id: 1
 product_junction_ways_080:
@@ -922,7 +922,7 @@ product_junction_ways_080:
   lock_version: 0
   nature: finish
   product_id: 111
-  role: product
+  role: consumed
   updated_at: 2014-11-07 16:59:10.160735000 Z
   updater_id: 1
 product_junction_ways_081:
@@ -944,7 +944,7 @@ product_junction_ways_082:
   lock_version: 0
   nature: start
   product_id: 112
-  role: product
+  role: born
   updated_at: 2014-11-07 17:05:10.482969000 Z
   updater_id: 1
 product_junction_ways_083:
@@ -955,7 +955,7 @@ product_junction_ways_083:
   lock_version: 0
   nature: start
   product_id: 114
-  role: product
+  role: produced
   updated_at: 2014-11-07 17:08:50.510007000 Z
   updater_id: 1
 product_junction_ways_084:
@@ -977,7 +977,7 @@ product_junction_ways_085:
   lock_version: 0
   nature: start
   product_id: 115
-  role: product
+  role: born
   updated_at: 2014-11-07 17:18:26.064067000 Z
   updater_id: 1
 product_junction_ways_086:
@@ -988,7 +988,7 @@ product_junction_ways_086:
   lock_version: 0
   nature: start
   product_id: 116
-  role: product
+  role: born
   updated_at: 2014-11-07 17:19:35.263096000 Z
   updater_id: 1
 product_junction_ways_087:
@@ -999,7 +999,7 @@ product_junction_ways_087:
   lock_version: 0
   nature: start
   product_id: 117
-  role: product
+  role: born
   updated_at: 2014-11-07 17:20:24.000951000 Z
   updater_id: 1
 product_junction_ways_088:
@@ -1010,7 +1010,7 @@ product_junction_ways_088:
   lock_version: 0
   nature: start
   product_id: 118
-  role: product
+  role: born
   updated_at: 2014-11-07 17:22:41.880793000 Z
   updater_id: 1
 product_junction_ways_089:
@@ -1021,7 +1021,7 @@ product_junction_ways_089:
   lock_version: 0
   nature: start
   product_id: 119
-  role: product
+  role: born
   updated_at: 2014-11-07 17:23:41.412971000 Z
   updater_id: 1
 product_junction_ways_090:
@@ -1032,7 +1032,7 @@ product_junction_ways_090:
   lock_version: 0
   nature: start
   product_id: 123
-  role: product
+  role: separated
   updated_at: 2014-11-07 19:02:56.394689000 Z
   updater_id: 1
 product_junction_ways_091:
@@ -1043,7 +1043,7 @@ product_junction_ways_091:
   lock_version: 0
   nature: continuity
   product_id: 114
-  role: producer
+  role: reduced
   updated_at: 2014-11-07 19:02:56.428227000 Z
   updater_id: 1
 product_junction_ways_092:
@@ -1054,7 +1054,7 @@ product_junction_ways_092:
   lock_version: 0
   nature: start
   product_id: 124
-  role: product
+  role: produced
   updated_at: 2014-11-07 19:02:56.452066000 Z
   updater_id: 1
 product_junction_ways_093:
@@ -1076,7 +1076,7 @@ product_junction_ways_094:
   lock_version: 0
   nature: start
   product_id: 125
-  role: product
+  role: produced
   updated_at: 2014-11-07 19:02:56.522290000 Z
   updater_id: 1
 product_junction_ways_095:
@@ -1098,7 +1098,7 @@ product_junction_ways_096:
   lock_version: 0
   nature: start
   product_id: 126
-  role: product
+  role: born
   updated_at: 2014-11-07 19:05:46.923778000 Z
   updater_id: 1
 product_junction_ways_097:
@@ -1109,7 +1109,7 @@ product_junction_ways_097:
   lock_version: 0
   nature: start
   product_id: 127
-  role: product
+  role: born
   updated_at: 2014-11-07 19:05:46.999833000 Z
   updater_id: 1
 product_junction_ways_098:
@@ -1120,7 +1120,7 @@ product_junction_ways_098:
   lock_version: 0
   nature: start
   product_id: 128
-  role: product
+  role: born
   updated_at: 2014-11-07 19:05:47.068867000 Z
   updater_id: 1
 product_junction_ways_099:
@@ -1131,7 +1131,7 @@ product_junction_ways_099:
   lock_version: 0
   nature: start
   product_id: 129
-  role: product
+  role: separated
   updated_at: 2014-11-07 19:08:55.370013000 Z
   updater_id: 1
 product_junction_ways_100:
@@ -1142,7 +1142,7 @@ product_junction_ways_100:
   lock_version: 0
   nature: continuity
   product_id: 128
-  role: producer
+  role: reduced
   updated_at: 2014-11-07 19:08:55.409137000 Z
   updater_id: 1
 product_junction_ways_101:
@@ -1153,7 +1153,7 @@ product_junction_ways_101:
   lock_version: 0
   nature: finish
   product_id: 129
-  role: product
+  role: consumed
   updated_at: 2014-11-07 19:08:55.481668000 Z
   updater_id: 1
 product_junction_ways_102:
@@ -1175,7 +1175,7 @@ product_junction_ways_103:
   lock_version: 0
   nature: finish
   product_id: 124
-  role: product
+  role: consumed
   updated_at: 2014-11-07 19:08:55.556208000 Z
   updater_id: 1
 product_junction_ways_104:
@@ -1197,7 +1197,7 @@ product_junction_ways_105:
   lock_version: 0
   nature: start
   product_id: 130
-  role: product
+  role: produced
   updated_at: 2014-11-07 19:08:55.593655000 Z
   updater_id: 1
 product_junction_ways_106:
@@ -1219,7 +1219,7 @@ product_junction_ways_107:
   lock_version: 0
   nature: start
   product_id: 131
-  role: product
+  role: born
   updated_at: 2014-11-07 19:12:04.975365000 Z
   updater_id: 1
 product_junction_ways_108:
@@ -1230,7 +1230,7 @@ product_junction_ways_108:
   lock_version: 0
   nature: start
   product_id: 132
-  role: product
+  role: separated
   updated_at: 2014-11-07 19:12:42.923747000 Z
   updater_id: 1
 product_junction_ways_109:
@@ -1241,7 +1241,7 @@ product_junction_ways_109:
   lock_version: 0
   nature: continuity
   product_id: 131
-  role: producer
+  role: reduced
   updated_at: 2014-11-07 19:12:42.952157000 Z
   updater_id: 1
 product_junction_ways_110:
@@ -1252,7 +1252,7 @@ product_junction_ways_110:
   lock_version: 0
   nature: finish
   product_id: 132
-  role: product
+  role: consumed
   updated_at: 2014-11-07 19:12:43.009087000 Z
   updater_id: 1
 product_junction_ways_111:
@@ -1274,7 +1274,7 @@ product_junction_ways_112:
   lock_version: 0
   nature: start
   product_id: 133
-  role: product
+  role: born
   updated_at: 2014-11-07 19:22:38.303427000 Z
   updater_id: 1
 product_junction_ways_113:
@@ -1285,7 +1285,7 @@ product_junction_ways_113:
   lock_version: 0
   nature: start
   product_id: 134
-  role: product
+  role: separated
   updated_at: 2014-11-07 19:24:10.315581000 Z
   updater_id: 1
 product_junction_ways_114:
@@ -1296,7 +1296,7 @@ product_junction_ways_114:
   lock_version: 0
   nature: continuity
   product_id: 133
-  role: producer
+  role: reduced
   updated_at: 2014-11-07 19:24:10.354412000 Z
   updater_id: 1
 product_junction_ways_115:
@@ -1307,7 +1307,7 @@ product_junction_ways_115:
   lock_version: 0
   nature: finish
   product_id: 134
-  role: product
+  role: consumed
   updated_at: 2014-11-07 19:24:10.424626000 Z
   updater_id: 1
 product_junction_ways_116:
@@ -1329,7 +1329,7 @@ product_junction_ways_117:
   lock_version: 0
   nature: start
   product_id: 135
-  role: product
+  role: born
   updated_at: 2014-11-07 19:34:09.498315000 Z
   updater_id: 1
 product_junction_ways_118:
@@ -1340,7 +1340,7 @@ product_junction_ways_118:
   lock_version: 0
   nature: start
   product_id: 136
-  role: product
+  role: born
   updated_at: 2014-11-07 19:34:09.573892000 Z
   updater_id: 1
 product_junction_ways_119:
@@ -1351,7 +1351,7 @@ product_junction_ways_119:
   lock_version: 0
   nature: start
   product_id: 137
-  role: product
+  role: born
   updated_at: 2014-11-07 19:36:09.060920000 Z
   updater_id: 1
 product_junction_ways_120:
@@ -1362,7 +1362,7 @@ product_junction_ways_120:
   lock_version: 0
   nature: start
   product_id: 138
-  role: product
+  role: born
   updated_at: 2014-11-07 19:36:30.013114000 Z
   updater_id: 1
 product_junction_ways_121:
@@ -1373,7 +1373,7 @@ product_junction_ways_121:
   lock_version: 0
   nature: start
   product_id: 139
-  role: product
+  role: separated
   updated_at: 2014-11-07 19:36:59.311629000 Z
   updater_id: 1
 product_junction_ways_122:
@@ -1384,7 +1384,7 @@ product_junction_ways_122:
   lock_version: 0
   nature: continuity
   product_id: 130
-  role: producer
+  role: reduced
   updated_at: 2014-11-07 19:36:59.345569000 Z
   updater_id: 1
 product_junction_ways_123:
@@ -1395,7 +1395,7 @@ product_junction_ways_123:
   lock_version: 0
   nature: start
   product_id: 140
-  role: product
+  role: separated
   updated_at: 2014-11-07 19:36:59.368367000 Z
   updater_id: 1
 product_junction_ways_124:
@@ -1406,7 +1406,7 @@ product_junction_ways_124:
   lock_version: 0
   nature: continuity
   product_id: 135
-  role: producer
+  role: reduced
   updated_at: 2014-11-07 19:36:59.396718000 Z
   updater_id: 1
 product_junction_ways_125:
@@ -1417,7 +1417,7 @@ product_junction_ways_125:
   lock_version: 0
   nature: start
   product_id: 141
-  role: product
+  role: separated
   updated_at: 2014-11-07 19:36:59.521537000 Z
   updater_id: 1
 product_junction_ways_126:
@@ -1428,7 +1428,7 @@ product_junction_ways_126:
   lock_version: 0
   nature: continuity
   product_id: 136
-  role: producer
+  role: reduced
   updated_at: 2014-11-07 19:36:59.546098000 Z
   updater_id: 1
 product_junction_ways_127:
@@ -1439,7 +1439,7 @@ product_junction_ways_127:
   lock_version: 0
   nature: start
   product_id: 142
-  role: product
+  role: produced
   updated_at: 2014-11-07 19:36:59.599100000 Z
   updater_id: 1
 product_junction_ways_128:
@@ -1450,7 +1450,7 @@ product_junction_ways_128:
   lock_version: 0
   nature: finish
   product_id: 139
-  role: first_producer
+  role: mixed
   updated_at: 2014-11-07 19:36:59.634550000 Z
   updater_id: 1
 product_junction_ways_129:
@@ -1461,7 +1461,7 @@ product_junction_ways_129:
   lock_version: 0
   nature: finish
   product_id: 140
-  role: second_producer
+  role: mixed
   updated_at: 2014-11-07 19:36:59.654769000 Z
   updater_id: 1
 product_junction_ways_130:
@@ -1472,6 +1472,6 @@ product_junction_ways_130:
   lock_version: 0
   nature: finish
   product_id: 141
-  role: third_producer
+  role: mixed
   updated_at: 2014-11-07 19:36:59.674018000 Z
   updater_id: 1
