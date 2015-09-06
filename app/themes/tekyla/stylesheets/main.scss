@@ -348,6 +348,19 @@ html.backend {
 
 }
 
+html.zen {
+  background: $desktop-background;
+  height: 100vh;
+  body.body-zen {
+    padding: $zen-vertical-padding $zen-horizontal-padding;
+    header {
+      h1 {
+        font-size: $zen-header-font-size;
+        line-height: $zen-header-line-height;
+      }
+    }
+  }
+}
 
 
 html.authentication, html.exception {

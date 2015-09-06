@@ -77,7 +77,7 @@
           kml: false
           title: ''
           content: ''
-          template: '<div class="modal-header"><h2>{title}</h2></div>
+          template: '<div class="modal-header"><h4>{title}</h4></div>
                      <div class="modal-body">{content}</div>
                      <div class="modal-footer">
                        <button type="submit" class="{OK_CLS}" data-editor-submit=true>{okText}</button>

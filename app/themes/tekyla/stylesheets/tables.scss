@@ -11,7 +11,6 @@ $list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
 // $default-border-color: $menu-border-color;
 // $zz-menu-width: 250px;
 
-$row-border: $menu-border-width solid darken($menu-background, 2 * $default-lightness-variation);
 
 table {
   border-collapse: collapse;
