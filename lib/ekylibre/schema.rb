@@ -55,7 +55,11 @@ module Ekylibre
       end
 
       def read_tables
-        hash = YAML.load_file(root.join('tables.yml')).deep_symbolize_keys rescue {}
+        hash = begin
+                 YAML.load_file(root.join('tables.yml')).deep_symbolize_keys
+               rescue
+                 {}
+               end
         tables = {}.with_indifferent_access
         for table, columns in hash
           tables[table] = columns.inject({}.with_indifferent_access) do |h, pair|

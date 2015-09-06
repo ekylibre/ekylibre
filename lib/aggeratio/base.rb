@@ -135,7 +135,11 @@ module Aggeratio
       if element == @root
         return prefix + name
       elsif element.parent && !element.parent.is_a?(Nokogiri::XML::Document)
-        return xpath(element.parent) + prefix + name rescue nil
+        begin
+          return xpath(element.parent) + prefix + name
+        rescue
+          nil
+        end
       else
         return nil
       end

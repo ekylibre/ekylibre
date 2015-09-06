@@ -16,7 +16,11 @@ module Ekylibre
         unless @path.exist?
           fail ArgumentError, "Need a valid folder path. #{@path} doesn't exist."
         end
-        @term_width = `/usr/bin/env tput cols`.to_i rescue 80
+        @term_width = begin
+                        `/usr/bin/env tput cols`.to_i
+                      rescue
+                        80
+                      end
         @term_width = 80 unless @term_width > 0
         ::I18n.locale = Preference[:language]
         @max = options[:max].to_i

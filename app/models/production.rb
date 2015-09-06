@@ -266,7 +266,8 @@ class Production < Ekylibre::Record::Base
     0.0.in_square_meter
   end
 
-  def net_surface_area(unit = :hectare)
+  def net_surface_area(unit = nil)
+    unit ||= :hectare
     area = 0.0.in_square_meter
     area = supports.sum(:quantity).in(support_variant_unit) if supports.any?
     area.in(unit)

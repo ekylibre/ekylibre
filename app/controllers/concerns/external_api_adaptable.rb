@@ -17,7 +17,11 @@ module ExternalApiAdaptable
 
       name = controller_name
       resource_name = options[:resource_name] || name.to_s.singularize.to_sym
-      model = options[:model].present? ? options[:model].to_s.singularize.classify.constantize : name.to_s.singularize.classify.constantize rescue nil
+      model = begin
+                options[:model].present? ? options[:model].to_s.singularize.classify.constantize : name.to_s.singularize.classify.constantize
+              rescue
+                nil
+              end
       model = model.send options[:scope] if options[:scope].present?
 
       api_path = controller_path.split('/')[0..-2].join('/')
@@ -28,7 +32,11 @@ module ExternalApiAdaptable
       locals[:partial_path] = options[:partial_path] || "#{output_name.pluralize}/#{output_name.singularize}"
 
       index = lambda do
-        @records = model.all rescue []
+        @records = begin
+                     model.all
+                   rescue
+                     []
+                   end
         render locals: locals
       end
 
@@ -39,7 +47,11 @@ module ExternalApiAdaptable
       # in Ekylibre.
       get_filters = defaults[:get_filters] || { id: :id }
 
-      model_fields = model.column_names - %w(created_at updated_at creator_id updater_id lock_version left right) rescue nil
+      model_fields = begin
+                       model.column_names - %w(created_at updated_at creator_id updater_id lock_version left right)
+                     rescue
+                       nil
+                     end
 
       show = lambda do
         api_key = params.slice(*get_filters.keys).keys.first

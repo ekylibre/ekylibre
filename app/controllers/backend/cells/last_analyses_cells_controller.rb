@@ -3,9 +3,21 @@ class Backend::Cells::LastAnalysesCellsController < Backend::Cells::BaseControll
     if @nature = Nomen::AnalysisNature[params[:nature] || 'cow_milk_analysis']
       months = params[:months].to_i
       months = 12 if months.zero?
-      @product = Product.find(params[:product_id]) rescue nil
-      @stopped_at = params[:stopped_at].to_date rescue Date.today.end_of_month << 1
-      @started_at = params[:started_at].to_date rescue @stopped_at.beginning_of_month << (months - 1)
+      @product = begin
+                   Product.find(params[:product_id])
+                 rescue
+                   nil
+                 end
+      @stopped_at = begin
+                      params[:stopped_at].to_date
+                    rescue
+                      Date.today.end_of_month << 1
+                    end
+      @started_at = begin
+                      params[:started_at].to_date
+                    rescue
+                      @stopped_at.beginning_of_month << (months - 1)
+                    end
       @stopped_at = @started_at.end_of_month if @stopped_at < @started_at
     end
   end

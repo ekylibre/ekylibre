@@ -21,7 +21,11 @@ namespace :clean do
       schema_yaml << "\n#{table}:\n"
       columns = Ekylibre::Record::Base.connection.columns(table).sort { |a, b| a.name <=> b.name }
       max = columns.map(&:name).map(&:size).max + 1
-      model = table.classify.constantize rescue nil
+      model = begin
+                table.classify.constantize
+              rescue
+                nil
+              end
       for column in columns
         next if column.name =~ /\A\_/
         column_hash = { type: column.type.to_s }

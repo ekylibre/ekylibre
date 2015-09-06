@@ -159,8 +159,16 @@ class ProductNatureCategory < Ekylibre::Record::Base
   def default_subscription_label_for(entity)
     return nil unless nature == 'subscrip'
     entity  = nil unless entity.is_a? Entity
-    address = entity.default_contact.address rescue nil
-    entity = entity.full_name rescue '???'
+    address = begin
+                entity.default_contact.address
+              rescue
+                nil
+              end
+    entity = begin
+               entity.full_name
+             rescue
+               '???'
+             end
     if subscription_nature.nature == 'period'
       return tc('subscription_label.period', start: ::I18n.localize(Date.today), finish: ::I18n.localize(Delay.compute(subscription_duration.blank? ? '1 year, 1 day ago' : product.subscription_duration)), entity: entity, address: address, subscription_nature: subscription_nature.name)
     elsif subscription_nature.nature == 'quantity'

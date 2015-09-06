@@ -12,7 +12,11 @@ module TimeLineable
     scope :current, -> { at(Time.now) }
 
     before_validation do
-      following = siblings.after(started_at).order(:started_at).first rescue nil
+      following = begin
+                    siblings.after(started_at).order(:started_at).first
+                  rescue
+                    nil
+                  end
       if started_at && following
         self.stopped_at = following.started_at
       else

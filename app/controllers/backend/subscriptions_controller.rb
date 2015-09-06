@@ -71,7 +71,11 @@ class Backend::SubscriptionsController < Backend::BaseController
       return unless @subscription_nature = find_and_check(:subscription_nature, params[:nature_id])
     end
     @subscription_nature ||= SubscriptionNature.first
-    instant = (@subscription_nature.period? ? params[:instant].to_date : params[:instant].to_i) rescue nil
+    instant = begin
+                (@subscription_nature.period? ? params[:instant].to_date : params[:instant].to_i)
+              rescue
+                nil
+              end
     session[:subscriptions_nature_id] = @subscription_nature.id
     session[:subscriptions_nature_nature] = @subscription_nature.nature.to_sym
     session[:subscriptions_instant] = ((instant.blank? || instant == 0) ? @subscription_nature.now : instant)

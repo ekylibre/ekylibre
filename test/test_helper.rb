@@ -113,7 +113,11 @@ class ActionController::TestCase
       controller_path = controller_class.controller_path
       table_name = options.delete(:table_name) || controller_name
       model_name = options.delete(:class_name) || table_name.classify
-      model = model_name.constantize rescue nil
+      model = begin
+                model_name.constantize
+              rescue
+                nil
+              end
       record = model_name.underscore
       other_record = "other_#{record}"
       attributes = nil
@@ -454,10 +458,18 @@ class ActionController::TestCase
       array = action.to_s.split('#')
       action_name = array.last.to_sym
       if action_name == :new
-        model = array.first.split(/\//).last.classify.constantize rescue nil
+        model = begin
+                  array.first.split(/\//).last.classify.constantize
+                rescue
+                  nil
+                end
         return :new_product if model and model <= Product
       elsif action_name == :show
-        model = array.first.split(/\//).last.classify.constantize rescue nil
+        model = begin
+                  array.first.split(/\//).last.classify.constantize
+                rescue
+                  nil
+                end
         return :show_sti_record if model and (model <= Product or model <= Affair)
       end
       for exp, mode in MODES

@@ -60,7 +60,10 @@ class Listing < Ekylibre::Record::Base
 
   def root_model_name
     # Ekylibre::Record.human_name(self.root_model.underscore)
-    root_model.classify.constantize.model_name.human rescue '???'
+
+    root_model.classify.constantize.model_name.human
+  rescue
+    '???'
   end
 
   def root
@@ -87,7 +90,11 @@ class Listing < Ekylibre::Record::Base
   def compute_where
     conn = self.class.connection
     c = ''
-    if klass = root_model.classify.constantize rescue nil
+    if klass = begin
+                 root_model.classify.constantize
+               rescue
+                 nil
+               end
       if klass.columns_definition[:type] && klass.table_name != klass.name.tableize
         c << "#{root.name}.type IN ('#{klass.name}'" + klass.descendants.map { |k| ", '#{k.name}'" }.join + ')'
       end

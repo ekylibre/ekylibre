@@ -91,7 +91,9 @@ module Userstamp
       end
 
       def stamper_class #:nodoc:
-        stamper_class_name.to_s.capitalize.constantize rescue nil
+        stamper_class_name.to_s.capitalize.constantize
+      rescue
+        nil
       end
     end
 
@@ -99,7 +101,9 @@ module Userstamp
       private
 
       def has_stamper?
-        !self.class.stamper_class.nil? && !self.class.stamper_class.stamper.nil? rescue false
+        !self.class.stamper_class.nil? && !self.class.stamper_class.stamper.nil?
+      rescue
+        false
       end
 
       def set_creator_attribute

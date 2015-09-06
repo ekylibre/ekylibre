@@ -124,6 +124,6 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
   end
 
   def net_mass
-    parted ? parted_product.net_mass : product
+    (parted ? parted_product : product).net_mass
   end
 end

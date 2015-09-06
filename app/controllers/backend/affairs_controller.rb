@@ -42,7 +42,11 @@ class Backend::AffairsController < Backend::BaseController
 
   def attach
     return unless @affair = find_and_check
-    if deal = params[:deal_type].camelcase.constantize.find_by(id: params[:deal_id]) rescue nil
+    if deal = begin
+                params[:deal_type].camelcase.constantize.find_by(id: params[:deal_id])
+              rescue
+                nil
+              end
       deal.deal_with! @affair
       # @affair.attach(deal)
       redirect_to params[:redirect] || { controller: deal.class.name.tableize, action: :show, id: deal.id }
@@ -54,7 +58,11 @@ class Backend::AffairsController < Backend::BaseController
 
   def detach
     return unless @affair = find_and_check
-    if deal = params[:deal_type].camelcase.constantize.find_by(id: params[:deal_id]) rescue nil
+    if deal = begin
+                params[:deal_type].camelcase.constantize.find_by(id: params[:deal_id])
+              rescue
+                nil
+              end
       deal.undeal! @affair
       # @affair.detach(deal)
       redirect_to params[:redirect] || { controller: deal.class.name.tableize, action: :show, id: deal.id }

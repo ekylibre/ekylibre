@@ -50,7 +50,11 @@ class Observation < Ekylibre::Record::Base
     self.subject_type = subject.class.base_class.name if subject
     self.importance ||= self.class.importance.default_value
     self.observed_at ||= Time.now
-    self.author_id ||= self.class.stamper_class.stamper rescue nil
+    begin
+      self.author_id ||= self.class.stamper_class.stamper
+    rescue
+      nil
+    end
   end
 
   validate do
@@ -60,7 +64,11 @@ class Observation < Ekylibre::Record::Base
   end
 
   def subject_type=(class_name)
-    unless normalized_class_name = class_name.to_s.classify.constantize.base_class.name rescue nil
+    unless normalized_class_name = begin
+                                     class_name.to_s.classify.constantize.base_class.name
+                                   rescue
+                                     nil
+                                   end
       fail "Invalid class name: #{class_name.inspect}"
     end
     super(normalized_class_name)

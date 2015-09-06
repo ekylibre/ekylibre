@@ -18,7 +18,15 @@
 
 class Backend::MyselvesController < Backend::BaseController
   def show
-    params[:stopped_at] = params[:stopped_at].to_date rescue Date.today
-    params[:started_at] = params[:started_at].to_date rescue params[:stopped_at] << 12
+    params[:stopped_at] = begin
+                            params[:stopped_at].to_date
+                          rescue
+                            Date.today
+                          end
+    params[:started_at] = begin
+                            params[:started_at].to_date
+                          rescue
+                            params[:stopped_at] << 12
+                          end
   end
 end

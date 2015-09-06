@@ -340,7 +340,7 @@ class Product < Ekylibre::Record::Base
 
     if born_at
       %w(population shape).each do |indicator_name|
-        initial_value = send("initial_#{indicator}")
+        initial_value = send("initial_#{indicator_name}")
         if initial_value
           reading = readings.find_or_initialize_by(
             indicator_name: indicator_name,

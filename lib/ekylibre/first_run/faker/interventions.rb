@@ -241,7 +241,11 @@ module Ekylibre::FirstRun::Faker
             coeff = (area.to_s.to_f / 10_000.0) / 6.0
             bob = nil
             sowing = support.interventions.where(reference_name: 'sowing').where('started_at < ?', Date.civil(year, 6, 6)).order('stopped_at DESC').first
-            if cultivation = sowing.casts.find_by(reference_name: 'cultivation').actor rescue nil
+            if cultivation = begin
+                               sowing.casts.find_by(reference_name: 'cultivation').actor
+                             rescue
+                               nil
+                             end
               int = Ekylibre::FirstRun::Booker.intervene(:plant_mowing, year, 6, 6, 2.8 * coeff, support: support) do |i|
                 bob = i.find(Worker)
                 i.add_cast(reference_name: 'mower_driver', actor: bob)
@@ -280,7 +284,11 @@ module Ekylibre::FirstRun::Faker
             coeff = (area.to_s.to_f / 10_000.0) / 6.0
             # Harvest 01-07-M 30-07-M
             sowing = support.interventions.where(reference_name: 'sowing').where('started_at < ?', Date.civil(year, 7, 1)).order('stopped_at DESC').first
-            if cultivation = sowing.casts.find_by(reference_name: 'cultivation').actor rescue nil
+            if cultivation = begin
+                               sowing.casts.find_by(reference_name: 'cultivation').actor
+                             rescue
+                               nil
+                             end
               Ekylibre::FirstRun::Booker.intervene(:grains_harvest, year, 7, 1, 3.13 * coeff, support: support) do |i|
                 i.add_cast(reference_name: 'cropper',        actor: i.find(Product, can: 'harvest(poaceae)'))
                 i.add_cast(reference_name: 'cropper_driver', actor: i.find(Worker))
