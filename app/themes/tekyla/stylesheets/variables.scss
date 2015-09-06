@@ -84,6 +84,9 @@ $label-width: 25% !default;
 // Tables
 $row-border: $menu-border-width solid darken($menu-background, 2 * $default-lightness-variation);
 
+// Map
+$map-button-size: round(2 * $fs-normal);
+
 // Buttons
 $buttons-aliases: ("abort" "times") ("action" "cog") ("backup" "backward") ("bar-chart" "bar-chart-o") ("beaker" "flask") ("cancel" "undo") ("checked" "check") ("close" "lock") ("column" "columns") ("confirm" "check") ("configure" "wrench") ("correct" "edit") ("destroy" "clear") ("create" "plus") ("delete" "times") ("divide" "expand") ("down" "arrow-down") ("drop" "tint") ("duplicate" "copy") ("edit" "edit") ("exclude" "minus-circle") ("extract" "download") ("filter" "filter") ("firefox" "chevron-down") ("help" "support") ("import" "upload") ("include" "plus-circle") ("index" "bars") ("invoice" "file-text-o") ("letter" "pencil") ("load" "refresh") ("logout" "power-off") ("mail" "envelope") ("merge" "compress") ("new" "plus") ("pick" "plus") ("play" "play") ("point" "check") ("print" "print") ("reflect" "cog") ("refuse" "times") ("register" "plus") ("reopen" "unlock") ("reset" "refresh") ("restore" "chevron-left") ("ship" "truck") ("show" "print") ("sort" "sort") ("table" "table") ("unchecked" "square-o") ("unmark" "eraser") ("up" "arrow-up") ("update" "edit") ("increment" "plus-circle") ("decrement" "minus-circle") ("remove" "clear")
 

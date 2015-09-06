@@ -3,10 +3,8 @@
 @import "leaflet/modal";
 @import "leaflet/easy-button";
 @import "leaflet/label";
-@import "leaflet-custom";
 
 /* required styles */
-$map-button-size: round(2 * $fs-normal);
 
 .leaflet-map-pane, .leaflet-tile, .leaflet-marker-icon, .leaflet-marker-shadow, .leaflet-tile-pane, .leaflet-tile-container, .leaflet-overlay-pane, .leaflet-shadow-pane, .leaflet-marker-pane, .leaflet-popup-pane, .leaflet-overlay-pane svg, .leaflet-zoom-box, .leaflet-image-layer, .leaflet-layer {
   position: absolute;
@@ -262,10 +260,13 @@ $map-button-size: round(2 * $fs-normal);
     }
     &:last-child {
       // @include border-bottom-radius($default-border-radius);
-            border-bottom: none;
+      border-bottom: none;
     }
     &.leaflet-disabled {
-      &, &:active, &:focus, &:hover {
+      &,
+      &:active,
+      &:focus,
+      &:hover {
         outline: none;
         cursor: default;
         // background-color: rgba($neutral-color, $default-opacity);
@@ -331,7 +332,7 @@ $map-button-size: round(2 * $fs-normal);
 
 .leaflet-retina .leaflet-control-layers-toggle {
   // background-image: url(images/layers-2x.png);
-   background-size: 26px 26px;
+  background-size: 26px 26px;
 }
 
 .leaflet-touch .leaflet-control-layers-toggle {
@@ -557,7 +558,7 @@ $map-button-size: round(2 * $fs-normal);
 
 /* ================================================================== */
 /* Toolbars
-   /* ================================================================== */
+/* ================================================================== */
 
 .leaflet-draw-section {
   position: relative;
@@ -582,7 +583,7 @@ $map-button-size: round(2 * $fs-normal);
 
 /* ================================================================== */
 /* Toolbar actions menu
-   /* ================================================================== */
+/* ================================================================== */
 
 .leaflet-draw-actions {
   display: none;
@@ -663,7 +664,7 @@ $map-button-size: round(2 * $fs-normal);
 
 /* ================================================================== */
 /* Draw toolbar
-   /* ================================================================== */
+/* ================================================================== */
 
 .leaflet-draw-toolbar {
   .leaflet-draw-draw-polyline {
@@ -691,11 +692,11 @@ $map-button-size: round(2 * $fs-normal);
 
 /* ================================================================== */
 /* Edit toolbar
-   /* ================================================================== */
+/* ================================================================== */
 
 /* ================================================================== */
 /* Drawing styles
-   /* ================================================================== */
+/* ================================================================== */
 
 .leaflet-mouse-marker {
   background-color: #fff;
@@ -755,7 +756,7 @@ $map-button-size: round(2 * $fs-normal);
 
 /* ================================================================== */
 /* Edit styles
-   /* ================================================================== */
+/* ================================================================== */
 
 .leaflet-edit-marker-selected {
   background: rgba(254, 87, 161, 0.1);
@@ -773,7 +774,7 @@ $map-button-size: round(2 * $fs-normal);
 
 /* ================================================================== */
 /* Old IE styles
-   /* ================================================================== */
+/* ================================================================== */
 
 .leaflet-oldie {
   .leaflet-draw-toolbar {
@@ -818,7 +819,7 @@ $map-button-size: round(2 * $fs-normal);
 
 /* ================================================================== */
 /* Legends
-   /* ================================================================== */
+/* ================================================================== */
 
 .leaflet-legend-control {
   $cell-height: $fs-small;
@@ -835,8 +836,8 @@ $map-button-size: round(2 * $fs-normal);
     display: block;
     min-width: 15 * $lh-normal;
     &.first, &:first-child {
-      border-top: none;
-    }
+               border-top: none;
+             }
     h3 {
       color: $text-color;
       font-size: $fs-normal;
@@ -926,4 +927,56 @@ $map-button-size: round(2 * $fs-normal);
     margin-top: 8px;
   }
 
+}
+
+
+
+i.leaflet-importer-ctrl {
+  @include is-icon;
+  @include use-icon(download);
+  color: $active-link-color;
+  width: $map-button-size;
+  height: $map-button-size;
+  line-height: $map-button-size;
+}
+
+span.leaflet-importer-geojson, span.leaflet-importer-gml {
+  font-size: 8px;
+}
+
+.leaflet-multilevel-legend {
+  i {
+    display: inline-block;
+    width: 18px !important;
+    height: 18px !important;
+
+    &.active {
+      @include is-icon(10px);
+      @include use-icon(check);
+      color: white;
+      text-align: center;
+    }
+  }
+  span {
+    display: inline-block;
+    margin-left: 10px;
+  }
+}
+
+.referenceLabel {
+  //background-color: #fff;
+}
+
+.ghostLabel {
+  color: white;
+  text-shadow: 0 0 2px black;
+  font-size: 13px;
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+  &:before, &:after {
+    box-shadow: none;
+    border: none;
+    background: transparent;
+  }
 }

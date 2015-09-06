@@ -3,7 +3,6 @@
   padding-bottom: 10px;
   line-height: 1em;
   font-weight: normal;
-  font-size: 1.1em;
   border-bottom: solid 1px #DDD
 }
 
@@ -48,22 +47,23 @@
 }
 
 .leaflet-control-measure {
-  background: #fff;
-  border-radius: 5px;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4)
+  background: $menu-background;
+  border-bottom: $menu-border;
 }
 
-.leaflet-control-measure .leaflet-control-measure-toggle, .leaflet-control-measure .leaflet-control-measure-toggle:hover {
+.leaflet-control-measure .leaflet-control-measure-toggle,
+.leaflet-control-measure .leaflet-control-measure-toggle:hover {
+  @include is-icon;
+  @include use-icon(map-marker);
   display: block;
-  width: 36px;
-  height: 36px;
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-  background-image: url(measure/rulers.png);
-  border-radius: 5px;
-  text-indent: 100%;
-  white-space: nowrap;
-  overflow: hidden
+  width: $map-button-size;
+  height: $map-button-size;
+  line-height: $map-button-size;
+  overflow: hidden;
+  @include text-align(center);
+  text-decoration: none;
+  color: $active-link-color;
+  @include transition(background 0.2s);
 }
 
 .leaflet-retina .leaflet-control-measure .leaflet-control-measure-toggle, .leaflet-retina .leaflet-control-measure .leaflet-control-measure-toggle:hover {

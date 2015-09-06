@@ -2499,3 +2499,15 @@ a[data-annotate] {
 .hidden {
   display: none;
 }
+
+.spinner-loading {
+  visibility: hidden;
+  i {
+    @include is-icon(2 * $fs-normal);
+    @include use-icon(spinner);
+    line-height: 2 * $lh-normal;
+  }
+  &.active {
+    visibility: visible;
+  }
+}

@@ -45,10 +45,10 @@
 //= require leaflet/fullscreen
 //= require leaflet/providers
 //= require leaflet/heatmap
-//= require leaflet/leaflet-measure
+//= require leaflet/measure
 //= require leaflet/easy-button
-//= require leaflet/Leaflet.Modal
-//= require leaflet/leaflet.label
+//= require leaflet/modal
+//= require leaflet/label
 //= require autosize
 //= require plugins
 //= require_tree .
