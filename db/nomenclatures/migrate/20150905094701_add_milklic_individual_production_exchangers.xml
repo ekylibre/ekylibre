@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="20150905094701_add_milklic_individual_production_exchangers">
+  <item-creation item="exchange_natures#milklic_individual_production"/>
+</migration>
