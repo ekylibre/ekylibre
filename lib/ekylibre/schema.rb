@@ -48,6 +48,14 @@ module Ekylibre
         @model_names ||= models.collect { |m| m.to_s.camelcase.to_sym }.sort.freeze
       end
 
+      def reset!
+        @models = nil
+        @model_names = nil
+        @tables = nil
+        @table_names = nil
+        @references = nil
+      end
+
       protected
 
       def read_models

@@ -93,6 +93,8 @@ namespace :clean do
       f.write(models.collect { |m| m.name.underscore }.to_yaml)
     end
 
+    Ekylibre::Schema.reset!
+
     puts "#{errors.to_s.rjust(3)} errors"
   end
 end
