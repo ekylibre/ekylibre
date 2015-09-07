@@ -101,7 +101,7 @@ class Product < Ekylibre::Record::Base
   has_many :links, class_name: 'ProductLink', foreign_key: :product_id, dependent: :destroy
   has_many :localizations, class_name: 'ProductLocalization', foreign_key: :product_id, dependent: :destroy
   has_many :memberships, class_name: 'ProductMembership', foreign_key: :member_id, dependent: :destroy
-  has_many :outgoing_delivery_items, dependent: :restrict_with_exception
+  has_many :outgoing_parcel_items, dependent: :restrict_with_exception
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :product_id, dependent: :destroy
   has_many :phases, class_name: 'ProductPhase', dependent: :destroy
   has_many :supports, class_name: 'ProductionSupport', foreign_key: :storage_id, inverse_of: :storage
@@ -439,7 +439,7 @@ class Product < Ekylibre::Record::Base
     }
     incoming_item = incoming_delivery_item
     incoming_purchase_item = incoming_item.purchase_item if incoming_item
-    outgoing_item = outgoing_delivery_items.first
+    outgoing_item = outgoing_parcel_items.first
     outgoing_sale_item = outgoing_item.sale_item if outgoing_item
 
     if incoming_purchase_item
@@ -603,7 +603,7 @@ class Product < Ekylibre::Record::Base
   end
 
   def initializeable?
-    self.new_record? || !(incoming_delivery_item.present? || outgoing_delivery_items.any? || intervention_casts.any? || fixed_asset.present?)
+    self.new_record? || !(incoming_delivery_item.present? || outgoing_parcel_items.any? || intervention_casts.any? || fixed_asset.present?)
   end
 
   # TODO: Doc

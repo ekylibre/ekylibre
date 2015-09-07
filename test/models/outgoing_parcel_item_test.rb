@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: outgoing_delivery_items
+# == Table: outgoing_parcel_items
 #
 #  container_id      :integer
 #  created_at        :datetime         not null
@@ -41,6 +41,6 @@
 
 require 'test_helper'
 
-class OutgoingDeliveryItemTest < ActiveSupport::TestCase
+class OutgoingParcelItemTest < ActiveSupport::TestCase
   # Add tests here...
 end

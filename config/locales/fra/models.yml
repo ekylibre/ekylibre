@@ -211,7 +211,7 @@ fra:
           closed_entry: "L’écriture est verrouillée. Il n’est pas possible de la modifier."
           empty_amounts: "L’écriture doit être renseignée soit au débit, soit au crédit."
           unvalid_amounts: "L’écriture doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps."
-        outgoing_delivery_item:
+        outgoing_parcel_item:
           greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
         purchase_item:
           building_can_not_receive_product: "Le réservoir %{building} ne peut pas recevoir le produit %{product}, il contient déjà le produit %{contained_product}."
@@ -309,7 +309,7 @@ fra:
       operation: "Opération"
       organization: "Organisation" #?
       outgoing_delivery: "Livraison"
-      outgoing_delivery_item: "Ligne de livraison"
+      outgoing_parcel_item: "Ligne de livraison"
       outgoing_payment: "Décaissement"
       outgoing_payment_mode: "Mode de décaissement"
       plant: "Plante"
@@ -934,8 +934,8 @@ fra:
     originator: "Initiateur"
     originator_type: "Type de l’initiateur"
     outgoing_deliveries: "Livraisons sortantes"
-    outgoing_delivery_items: "Lignes de livraisons sortantes"
     outgoing_delivery_modes: "Modes de livraisons sortantes" #?
+    outgoing_parcel_items: "Lignes de livraisons sortantes"
     outgoing_payment_modes: "Modes de décaissement"
     outgoing_payments: "Décaissements"
     owner: "Propriétaire"
@@ -1381,7 +1381,7 @@ fra:
     outgoing_delivery:
       label: "%{client} à %{address}"
       sale: "Vente %{number}"
-    outgoing_delivery_item:
+    outgoing_parcel_item:
       sale: "Vente %{number}"
     outgoing_payment:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} pour %{payee}"

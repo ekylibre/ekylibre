@@ -55,7 +55,7 @@ class OutgoingDeliveryTest < ActiveSupport::TestCase
   end
 
   test 'prevent empty items' do
-    item = outgoing_delivery_items(:outgoing_delivery_items_001).attributes.slice('product_id', 'population', 'shape')
+    item = outgoing_parcel_items(:outgoing_parcel_items_001).attributes.slice('product_id', 'population', 'shape')
     delivery = OutgoingDelivery.new items_attributes: { '123456789' => { 'product_id' => '', '_destroy' => 'false' }, '852' => item }
     delivery.items.map(&:net_mass)
   end

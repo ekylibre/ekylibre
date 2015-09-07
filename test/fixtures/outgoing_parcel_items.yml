@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: outgoing_delivery_items
+# == Table: outgoing_parcel_items
 #
 #  container_id      :integer
 #  created_at        :datetime         not null
@@ -39,9 +39,9 @@
 #  updater_id        :integer
 #
 #
-# == Fixture: outgoing_delivery_items
+# == Fixture: outgoing_parcel_items
 #
-# outgoing_delivery_items_001:
+# outgoing_parcel_items_001:
 #   creator: users_001
 #   delivery: deliveries_001
 #   parted: true
@@ -49,7 +49,7 @@
 #   updater: users_001
 #
 ---
-outgoing_delivery_items_001:
+outgoing_parcel_items_001:
   created_at: 2014-11-05 14:15:20.018501000 Z
   creator_id: 1
   delivery_id: 3
@@ -60,7 +60,7 @@ outgoing_delivery_items_001:
   product_id: 55
   updated_at: 2014-11-05 14:15:20.018501000 Z
   updater_id: 1
-outgoing_delivery_items_002:
+outgoing_parcel_items_002:
   created_at: 2014-11-05 14:15:20.026550000 Z
   creator_id: 1
   delivery_id: 3
@@ -71,7 +71,7 @@ outgoing_delivery_items_002:
   product_id: 53
   updated_at: 2014-11-05 14:15:20.026550000 Z
   updater_id: 1
-outgoing_delivery_items_003:
+outgoing_parcel_items_003:
   created_at: 2014-11-05 14:16:19.775348000 Z
   creator_id: 1
   delivery_id: 4
@@ -82,7 +82,7 @@ outgoing_delivery_items_003:
   product_id: 11
   updated_at: 2014-11-05 14:16:19.775348000 Z
   updater_id: 1
-outgoing_delivery_items_004:
+outgoing_parcel_items_004:
   created_at: 2014-11-05 14:16:48.644715000 Z
   creator_id: 1
   delivery_id: 5
@@ -93,7 +93,7 @@ outgoing_delivery_items_004:
   product_id: 56
   updated_at: 2014-11-05 14:16:48.644715000 Z
   updater_id: 1
-outgoing_delivery_items_005:
+outgoing_parcel_items_005:
   created_at: 2014-11-07 14:13:05.516637000 Z
   creator_id: 1
   delivery_id: 6

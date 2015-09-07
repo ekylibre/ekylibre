@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: outgoing_delivery_items
+# == Table: outgoing_parcel_items
 #
 #  container_id      :integer
 #  created_at        :datetime         not null
@@ -39,7 +39,7 @@
 #  updater_id        :integer
 #
 
-class OutgoingDeliveryItem < Ekylibre::Record::Base
+class OutgoingParcelItem < Ekylibre::Record::Base
   attr_readonly :sale_item_id, :product_id
   belongs_to :container, class_name: 'Product'
   belongs_to :delivery, class_name: 'OutgoingDelivery', inverse_of: :items

@@ -3241,7 +3241,7 @@ outgoing_deliveries:
     type: boolean
     required: true
     default: false
-outgoing_delivery_items:
+outgoing_parcel_items:
   container_id:
     type: integer
     references: product

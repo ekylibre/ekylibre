@@ -176,7 +176,7 @@ fra:
         operation: "Opération"
         organization: "Organisation"
         outgoing_delivery: "Livraison"
-        outgoing_delivery_item: "Ligne de livraison"
+        outgoing_parcel_item: "Ligne de livraison"
         outgoing_payment: "Décaissement"
         outgoing_payment_mode: "Mode de décaissement"
         plant: "Plante"

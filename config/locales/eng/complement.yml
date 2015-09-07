@@ -168,7 +168,7 @@ eng:
         observation: "Observation"
         operation: "Operation"
         outgoing_delivery: "Outgoing delivery"
-        outgoing_delivery_item: "Outgoing delivery item"
+        outgoing_parcel_item: "Outgoing parcel item"
         outgoing_payment: "Disbursement"
         outgoing_payment_mode: "Disbursement mode"
         plant: "Plant"

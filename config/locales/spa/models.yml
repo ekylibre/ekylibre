@@ -105,7 +105,7 @@ spa:
           # closed_entry: "The journal entry is locked. You can not update it."
           # empty_amounts: "The journal entry must be filled either debit or credit"
           # unvalid_amounts: "The journal entry must be filled either debit or credit but not at the same time."
-        outgoing_delivery_item:
+        outgoing_parcel_item:
           # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
         purchase_item:
           # building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
@@ -200,7 +200,7 @@ spa:
       # observation: "Observation"
       # operation: "Operation"
       # outgoing_delivery: "Outgoing delivery"
-      # outgoing_delivery_item: "Outgoing delivery item"
+      # outgoing_parcel_item: "Outgoing parcel item"
       # outgoing_payment: "Disbursement"
       # outgoing_payment_mode: "Disbursement mode"
       # plant: "Plant"
@@ -723,7 +723,7 @@ spa:
     # originator: "Originator"
     # originator_type: "Originator type"
     # outgoing_deliveries: "Outgoing deliveries"
-    # outgoing_delivery_items: "Outgoing delivery items"
+    # outgoing_parcel_items: "Outgoing parcel items"
     # outgoing_payment_modes: "Disbursement modes"
     # outgoing_payments: "Disbursements"
     # owner: "Owner"
@@ -1118,7 +1118,7 @@ spa:
     outgoing_delivery:
       # label: "%{client} at %{address}"
       # sale: "Sale %{number}"
-    outgoing_delivery_item:
+    outgoing_parcel_item:
       # sale: "Sale %{number}"
     outgoing_payment:
       # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"

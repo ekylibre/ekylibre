@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -17,7 +16,5 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'test_helper'
-class Backend::OutgoingDeliveryItemsControllerTest < ActionController::TestCase
-  test_restfully_all_actions
+class Backend::OutgoingParcelItemsController < Backend::BaseController
 end

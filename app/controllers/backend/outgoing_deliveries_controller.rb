@@ -39,7 +39,7 @@ class Backend::OutgoingDeliveriesController < Backend::BaseController
     t.column :sale, url: true
   end
 
-  list(:items, model: :outgoing_delivery_items, conditions: { delivery_id: 'params[:id]'.c }) do |t|
+  list(:items, model: :outgoing_parcel_items, conditions: { delivery_id: 'params[:id]'.c }) do |t|
     t.column :product, url: true
     t.column :product_work_number, through: :product, label_method: :work_number
     t.column :population

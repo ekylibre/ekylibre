@@ -49,7 +49,7 @@ class OutgoingDelivery < Ekylibre::Record::Base
   belongs_to :sale, inverse_of: :deliveries
   belongs_to :transport
   belongs_to :transporter, class_name: 'Entity'
-  has_many :items, class_name: 'OutgoingDeliveryItem', foreign_key: :delivery_id, dependent: :destroy, inverse_of: :delivery
+  has_many :items, class_name: 'OutgoingParcelItem', foreign_key: :delivery_id, dependent: :destroy, inverse_of: :delivery
   has_many :interventions, class_name: 'Intervention', as: :resource
   has_many :issues, as: :target
 
