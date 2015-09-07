@@ -54,16 +54,18 @@ module Fixturing
     end
 
     # Dump data of database into fixtures
-    def dump(tenant)
+    def dump(tenant, options = {})
       Ekylibre::Tenant.switch!(tenant)
 
       migrate(tenant) unless up_to_date?
 
-      backup = "#{directory}~"
-      FileUtils.rm_rf(backup)
-      FileUtils.cp_r(directory, backup)
-      Dir[directory.join('*.yml').to_s].each do |f|
-        FileUtils.rm_rf(f)
+      if options[:backup]
+        backup = "#{directory}~"
+        FileUtils.rm_rf(backup)
+        FileUtils.cp_r(directory, backup)
+        Dir[directory.join('*.yml').to_s].each do |f|
+          FileUtils.rm_rf(f)
+        end
       end
 
       version = extract(path: directory)
