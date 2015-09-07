@@ -167,7 +167,7 @@ eng:
         net_service: "Net service"
         observation: "Observation"
         operation: "Operation"
-        outgoing_delivery: "Outgoing delivery"
+        outgoing_parcel: "Outgoing delivery"
         outgoing_parcel_item: "Outgoing parcel item"
         outgoing_payment: "Disbursement"
         outgoing_payment_mode: "Disbursement mode"

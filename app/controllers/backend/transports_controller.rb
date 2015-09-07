@@ -31,7 +31,7 @@ class Backend::TransportsController < Backend::BaseController
     t.column :net_mass
   end
 
-  list(:deliveries, model: :outgoing_deliveries, conditions: { transport_id: 'params[:id]'.c }) do |t|
+  list(:deliveries, model: :outgoing_parcels, conditions: { transport_id: 'params[:id]'.c }) do |t|
     t.column :number, url: true
     t.column :reference_number
     t.column :address, label_method: :coordinate

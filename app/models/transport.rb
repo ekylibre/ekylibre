@@ -43,7 +43,7 @@ class Transport < Ekylibre::Record::Base
   belongs_to :responsible, -> { contacts }, class_name: 'Entity'
   belongs_to :transporter, class_name: 'Entity'
   belongs_to :transporter_purchase, class_name: 'Purchase'
-  has_many :deliveries, class_name: 'OutgoingDelivery', dependent: :nullify
+  has_many :deliveries, class_name: 'OutgoingParcel', dependent: :nullify
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :departed_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')

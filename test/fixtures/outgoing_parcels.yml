@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: outgoing_deliveries
+# == Table: outgoing_parcels
 #
 #  address_id       :integer          not null
 #  created_at       :datetime         not null
@@ -41,9 +41,9 @@
 #  with_transport   :boolean          default(FALSE), not null
 #
 #
-# == Fixture: outgoing_deliveries
+# == Fixture: outgoing_parcels
 #
-# outgoing_deliveries_001:
+# outgoing_parcels_001:
 #   address: addresses_001
 #   creator: users_001
 #   mode: "Lorem ipsum"
@@ -53,7 +53,7 @@
 #   with_transport: true
 #
 ---
-outgoing_deliveries_001:
+outgoing_parcels_001:
   address_id: 12
   created_at: 2014-11-05 14:15:20.016507000 Z
   creator_id: 1
@@ -69,7 +69,7 @@ outgoing_deliveries_001:
   updated_at: 2014-11-05 15:14:00.950218000 Z
   updater_id: 1
   with_transport: true
-outgoing_deliveries_002:
+outgoing_parcels_002:
   address_id: 7
   created_at: 2014-11-05 14:16:19.773131000 Z
   creator_id: 1
@@ -85,7 +85,7 @@ outgoing_deliveries_002:
   updated_at: 2014-11-05 15:14:00.962449000 Z
   updater_id: 1
   with_transport: true
-outgoing_deliveries_003:
+outgoing_parcels_003:
   address_id: 12
   created_at: 2014-11-05 14:16:48.643201000 Z
   creator_id: 1
@@ -99,7 +99,7 @@ outgoing_deliveries_003:
   updated_at: 2014-11-05 14:16:48.643201000 Z
   updater_id: 1
   with_transport: false
-outgoing_deliveries_004:
+outgoing_parcels_004:
   address_id: 8
   created_at: 2014-11-07 14:13:05.515052000 Z
   creator_id: 1

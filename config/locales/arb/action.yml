@@ -411,16 +411,16 @@ arb:
       new: "انشاء عمل جديد" #?
       show: "تفاصيل العمل %{name}"
       unvalidateds: "تحقيق الاعمال" #?
-    backend/outgoing_deliveries:
+    backend/outgoing_delivery_modes:  #?
+      edit: "تعديل وسيلة التسليم : %{name}" #?
+      index: "وسائل التسليم" #?
+      new: "اضافة وسيلة جديدة للتسليم" #?
+    backend/outgoing_parcels:
       edit: "تعديل التسليم"
       # index: "Outgoing deliveries"
       new: "اضافة تسليم"
       # ship: "Ship:"
       # show: "Outgoing delivery: %{number}"
-    backend/outgoing_delivery_modes:  #?
-      edit: "تعديل وسيلة التسليم : %{name}" #?
-      index: "وسائل التسليم" #?
-      new: "اضافة وسيلة جديدة للتسليم" #?
     backend/outgoing_payment_modes:
       edit: "تعديل طريقة تسديد الفعة"
       index: "طرق تسديد الدفعات"

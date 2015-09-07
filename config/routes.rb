@@ -543,7 +543,7 @@ Rails.application.routes.draw do
 
     # resources :organizations, concerns: :entities
 
-    resources :outgoing_deliveries, concerns: [:list, :unroll] do
+    resources :outgoing_parcels, concerns: [:list, :unroll] do
       member do
         post :invoice
         get :list_items

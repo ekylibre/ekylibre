@@ -311,7 +311,7 @@ sequences_016:
   period: year
   updated_at: 2014-11-07 14:13:05.513428000 Z
   updater_id: 1
-  usage: outgoing_deliveries
+  usage: outgoing_parcels
 sequences_017:
   created_at: 2014-11-01 16:25:18.981743000 Z
   creator_id: 1

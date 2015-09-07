@@ -450,10 +450,10 @@ eng:
     backend/operations:
       index: "Operations"
       show: "Operation Details %{name}"
-    backend/outgoing_deliveries:
+    backend/outgoing_parcels:
       edit: "Edit outgoing delivery: %{number}"
       index: "Outgoing deliveries"
-      # invoice: "Invoice outgoing delivery: %{name}"
+      # invoice: "Invoice outgoing parcel: %{name}"
       new: "New outgoing delivery"
       ship: "Ship:"
       show: "Outgoing delivery: %{number}"

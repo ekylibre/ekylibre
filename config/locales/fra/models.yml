@@ -66,7 +66,7 @@ fra:
       matter:  #?
         born_at: "Fabriqué le" #?
         dead_at: "Détruit/consommé le" #?
-      outgoing_delivery:  #?
+      outgoing_parcel:  #?
         items: "Lignes de livraison" #?
       outgoing_payment:
         delivered: "Remis au bénéficiaire"
@@ -308,7 +308,7 @@ fra:
       observation: "Observation"
       operation: "Opération"
       organization: "Organisation" #?
-      outgoing_delivery: "Livraison"
+      outgoing_parcel: "Livraison"
       outgoing_parcel_item: "Ligne de livraison"
       outgoing_payment: "Décaissement"
       outgoing_payment_mode: "Mode de décaissement"
@@ -936,6 +936,7 @@ fra:
     outgoing_deliveries: "Livraisons sortantes"
     outgoing_delivery_modes: "Modes de livraisons sortantes" #?
     outgoing_parcel_items: "Lignes de livraisons sortantes"
+    # outgoing_parcels: "Outgoing parcels"
     outgoing_payment_modes: "Modes de décaissement"
     outgoing_payments: "Décaissements"
     owner: "Propriétaire"
@@ -1378,7 +1379,7 @@ fra:
       bookkeep: "[%{resource} %{name}] Réception des fonds"
     loan_repayment:
       bookkeep: "[%{resource} %{name}] Remboursement n°%{position}"
-    outgoing_delivery:
+    outgoing_parcel:
       label: "%{client} à %{address}"
       sale: "Vente %{number}"
     outgoing_parcel_item:

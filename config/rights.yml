@@ -1313,20 +1313,20 @@ observations:
 outgoing_deliveries:
   read:
     actions:
-    - "backend/outgoing_deliveries#index"
-    - "backend/outgoing_deliveries#list"
-    - "backend/outgoing_deliveries#list_items"
-    - "backend/outgoing_deliveries#show"
-    - "backend/outgoing_deliveries#unroll"
+    - "backend/outgoing_parcels#index"
+    - "backend/outgoing_parcels#list"
+    - "backend/outgoing_parcels#list_items"
+    - "backend/outgoing_parcels#show"
+    - "backend/outgoing_parcels#unroll"
   write:
     dependencies:
     - read-outgoing_deliveries
     actions:
-    - "backend/outgoing_deliveries#create"
-    - "backend/outgoing_deliveries#destroy"
-    - "backend/outgoing_deliveries#edit"
-    - "backend/outgoing_deliveries#new"
-    - "backend/outgoing_deliveries#update"
+    - "backend/outgoing_parcels#create"
+    - "backend/outgoing_parcels#destroy"
+    - "backend/outgoing_parcels#edit"
+    - "backend/outgoing_parcels#new"
+    - "backend/outgoing_parcels#update"
 
 outgoing_payment_modes:
   read:
@@ -1672,7 +1672,7 @@ sales:
     dependencies:
     - read-sales
     actions:
-    - "backend/outgoing_deliveries#invoice"
+    - "backend/outgoing_parcels#invoice"
     - "backend/sale_opportunities#attach"
     - "backend/sale_opportunities#create"
     - "backend/sale_opportunities#destroy"
@@ -1889,7 +1889,7 @@ transports:
     - read-outgoing_deliveries
     - read-transports
     actions:
-    - "backend/outgoing_deliveries#ship"
+    - "backend/outgoing_parcels#ship"
     - "backend/transports#destroy"
     - "backend/transports#edit"
     - "backend/transports#update"

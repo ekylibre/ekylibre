@@ -77,7 +77,7 @@ class Backend::SalesController < Backend::BaseController
     t.column :amount, currency: true
   end
 
-  list(:deliveries, model: :outgoing_deliveries, children: :items, conditions: { sale_id: 'params[:id]'.c }) do |t|
+  list(:deliveries, model: :outgoing_parcels, children: :items, conditions: { sale_id: 'params[:id]'.c }) do |t|
     t.column :number, children: :product_name, url: true
     t.column :transporter, children: false, url: true
     t.column :address, label_method: :coordinate, children: false

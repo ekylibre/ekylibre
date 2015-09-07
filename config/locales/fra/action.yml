@@ -382,7 +382,7 @@ fra:
       index: "Organisations" #?
       new: "Nouvelle organisation" #?
       show: "Organisation\_: %{full_name}" #?
-    backend/outgoing_deliveries:
+    backend/outgoing_parcels:
       edit: "Modifier la livraison sortante\_: %{number}"
       index: "Livraisons sortantes"
       new: "Nouvelle livraison sortante"

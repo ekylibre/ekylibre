@@ -16,12 +16,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::OutgoingDeliveriesController < Backend::BaseController
+class Backend::OutgoingParcelsController < Backend::BaseController
   manage_restfully
 
   unroll
 
-  list(conditions: search_conditions(outgoing_deliveries: [:number, :reference_number, :net_mass], entities: [:full_name, :number])) do |t|
+  list(conditions: search_conditions(outgoing_parcels: [:number, :reference_number, :net_mass], entities: [:full_name, :number])) do |t|
     t.action :new,     on: :none
     t.action :invoice, on: :both, method: :post
     t.action :ship,    on: :both, method: :post
@@ -52,7 +52,7 @@ class Backend::OutgoingDeliveriesController < Backend::BaseController
     for id in ids = params[:id].split(',')
       return unless find_and_check(id: id)
     end
-    sale = OutgoingDelivery.invoice(ids)
+    sale = OutgoingParcel.invoice(ids)
     redirect_to backend_sale_url(sale)
   end
 
@@ -63,14 +63,14 @@ class Backend::OutgoingDeliveriesController < Backend::BaseController
       deliveries << delivery
     end
     if params[:transporter_id].to_i > 0
-      transport = OutgoingDelivery.ship(deliveries, params.slice(:transporter_id, :responsible_id))
+      transport = OutgoingParcel.ship(deliveries, params.slice(:transporter_id, :responsible_id))
       redirect_to backend_transport_url(transport)
-    elsif OutgoingDelivery.transporters_of(deliveries).uniq.count == 1
-      transport = OutgoingDelivery.ship(deliveries, params.slice(:responsible_id))
+    elsif OutgoingParcel.transporters_of(deliveries).uniq.count == 1
+      transport = OutgoingParcel.ship(deliveries, params.slice(:responsible_id))
       redirect_to backend_transport_url(transport)
     else
       # default case: render the transporter selector
-      transporters = OutgoingDelivery.transporters_of(deliveries)
+      transporters = OutgoingParcel.transporters_of(deliveries)
       if transporters.any?
         params[:transporter_id] = transporters.group_by { |transporter_id| transporter_id }.max_by { |_k, v| v.count }.first
       end

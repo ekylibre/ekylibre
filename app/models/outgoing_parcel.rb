@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: outgoing_deliveries
+# == Table: outgoing_parcels
 #
 #  address_id       :integer          not null
 #  created_at       :datetime         not null
@@ -41,10 +41,9 @@
 #  with_transport   :boolean          default(FALSE), not null
 #
 
-class OutgoingDelivery < Ekylibre::Record::Base
+class OutgoingParcel < Ekylibre::Record::Base
   attr_readonly :number
   belongs_to :address, class_name: 'EntityAddress'
-  # belongs_to :mode, class_name: "OutgoingDeliveryMode"
   belongs_to :recipient, class_name: 'Entity'
   belongs_to :sale, inverse_of: :deliveries
   belongs_to :transport

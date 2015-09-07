@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150907134647) do
+ActiveRecord::Schema.define(version: 20150907163339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1636,36 +1636,6 @@ ActiveRecord::Schema.define(version: 20150907134647) do
   add_index "operations", ["updated_at"], name: "index_operations_on_updated_at", using: :btree
   add_index "operations", ["updater_id"], name: "index_operations_on_updater_id", using: :btree
 
-  create_table "outgoing_deliveries", force: :cascade do |t|
-    t.string   "number",                                                    null: false
-    t.integer  "recipient_id",                                              null: false
-    t.string   "reference_number"
-    t.integer  "sale_id"
-    t.integer  "address_id",                                                null: false
-    t.datetime "sent_at"
-    t.decimal  "net_mass",         precision: 19, scale: 4
-    t.integer  "transport_id"
-    t.integer  "transporter_id"
-    t.datetime "created_at",                                                null: false
-    t.datetime "updated_at",                                                null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                              default: 0,     null: false
-    t.boolean  "with_transport",                            default: false, null: false
-    t.string   "mode",                                                      null: false
-  end
-
-  add_index "outgoing_deliveries", ["address_id"], name: "index_outgoing_deliveries_on_address_id", using: :btree
-  add_index "outgoing_deliveries", ["created_at"], name: "index_outgoing_deliveries_on_created_at", using: :btree
-  add_index "outgoing_deliveries", ["creator_id"], name: "index_outgoing_deliveries_on_creator_id", using: :btree
-  add_index "outgoing_deliveries", ["number"], name: "index_outgoing_deliveries_on_number", using: :btree
-  add_index "outgoing_deliveries", ["recipient_id"], name: "index_outgoing_deliveries_on_recipient_id", using: :btree
-  add_index "outgoing_deliveries", ["sale_id"], name: "index_outgoing_deliveries_on_sale_id", using: :btree
-  add_index "outgoing_deliveries", ["transport_id"], name: "index_outgoing_deliveries_on_transport_id", using: :btree
-  add_index "outgoing_deliveries", ["transporter_id"], name: "index_outgoing_deliveries_on_transporter_id", using: :btree
-  add_index "outgoing_deliveries", ["updated_at"], name: "index_outgoing_deliveries_on_updated_at", using: :btree
-  add_index "outgoing_deliveries", ["updater_id"], name: "index_outgoing_deliveries_on_updater_id", using: :btree
-
   create_table "outgoing_parcel_items", force: :cascade do |t|
     t.integer  "delivery_id",                                                                                         null: false
     t.integer  "sale_item_id"
@@ -1691,6 +1661,36 @@ ActiveRecord::Schema.define(version: 20150907134647) do
   add_index "outgoing_parcel_items", ["sale_item_id"], name: "index_outgoing_parcel_items_on_sale_item_id", using: :btree
   add_index "outgoing_parcel_items", ["updated_at"], name: "index_outgoing_parcel_items_on_updated_at", using: :btree
   add_index "outgoing_parcel_items", ["updater_id"], name: "index_outgoing_parcel_items_on_updater_id", using: :btree
+
+  create_table "outgoing_parcels", force: :cascade do |t|
+    t.string   "number",                                                    null: false
+    t.integer  "recipient_id",                                              null: false
+    t.string   "reference_number"
+    t.integer  "sale_id"
+    t.integer  "address_id",                                                null: false
+    t.datetime "sent_at"
+    t.decimal  "net_mass",         precision: 19, scale: 4
+    t.integer  "transport_id"
+    t.integer  "transporter_id"
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                              default: 0,     null: false
+    t.boolean  "with_transport",                            default: false, null: false
+    t.string   "mode",                                                      null: false
+  end
+
+  add_index "outgoing_parcels", ["address_id"], name: "index_outgoing_parcels_on_address_id", using: :btree
+  add_index "outgoing_parcels", ["created_at"], name: "index_outgoing_parcels_on_created_at", using: :btree
+  add_index "outgoing_parcels", ["creator_id"], name: "index_outgoing_parcels_on_creator_id", using: :btree
+  add_index "outgoing_parcels", ["number"], name: "index_outgoing_parcels_on_number", using: :btree
+  add_index "outgoing_parcels", ["recipient_id"], name: "index_outgoing_parcels_on_recipient_id", using: :btree
+  add_index "outgoing_parcels", ["sale_id"], name: "index_outgoing_parcels_on_sale_id", using: :btree
+  add_index "outgoing_parcels", ["transport_id"], name: "index_outgoing_parcels_on_transport_id", using: :btree
+  add_index "outgoing_parcels", ["transporter_id"], name: "index_outgoing_parcels_on_transporter_id", using: :btree
+  add_index "outgoing_parcels", ["updated_at"], name: "index_outgoing_parcels_on_updated_at", using: :btree
+  add_index "outgoing_parcels", ["updater_id"], name: "index_outgoing_parcels_on_updater_id", using: :btree
 
   create_table "outgoing_payment_modes", force: :cascade do |t|
     t.string   "name",                            null: false

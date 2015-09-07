@@ -360,16 +360,16 @@ spa:
     backend/operations:
       # index: "Operations"
       # show: "Operation Details %{name}"
-    backend/outgoing_deliveries:
+    backend/outgoing_delivery_modes:  #?
+      edit: "Modificacion del modo de entrega\_: %{name}" #?
+      index: "Modos de entrega" #?
+      new: "Añadir un nuevo modo de entrega" #?
+    backend/outgoing_parcels:
       edit: "Modificacion de la entrega"
       # index: "Outgoing deliveries"
       new: "Añadir una entrega"
       # ship: "Ship:"
       # show: "Outgoing delivery: %{number}"
-    backend/outgoing_delivery_modes:  #?
-      edit: "Modificacion del modo de entrega\_: %{name}" #?
-      index: "Modos de entrega" #?
-      new: "Añadir un nuevo modo de entrega" #?
     backend/outgoing_payment_modes:
       # edit: "Edit disbursement mode"
       # index: "Disbursement modes"

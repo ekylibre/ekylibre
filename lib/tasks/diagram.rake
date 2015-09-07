@@ -266,7 +266,7 @@ namespace :diagrams do
       journal: [Journal, JournalEntry, JournalEntryItem, Account, FinancialYear, AccountBalance, Loan, LoanRepayment, BankStatement, Cash, FixedAsset, FixedAssetDepreciation], # , CashTransfer, CashSession]
       product_nature: [Product, ProductNature, ProductNatureVariant, ProductNatureCategory, ProductNatureVariantReading, ProductNatureCategoryTaxation],
       production: [Activity, ActivityDistribution, Campaign, Production, ProductionBudget, ProductionDistribution, ProductionSupport, Intervention, InterventionCast, Operation],
-      sale: [Sale, SaleNature, SaleItem, OutgoingDelivery, OutgoingParcelItem, Transport, IncomingPayment, IncomingPaymentMode, Deposit],
+      sale: [Sale, SaleNature, SaleItem, OutgoingParcel, OutgoingParcelItem, Transport, IncomingPayment, IncomingPaymentMode, Deposit],
       purchase: [Purchase, PurchaseNature, PurchaseItem, IncomingDelivery, IncomingDeliveryItem, OutgoingPayment, OutgoingPaymentMode]
     }.each do |name, models|
       graph = Diagrams.relational(*models, name: "#{name}-relational")

@@ -42,7 +42,7 @@
 class OutgoingParcelItem < Ekylibre::Record::Base
   attr_readonly :sale_item_id, :product_id
   belongs_to :container, class_name: 'Product'
-  belongs_to :delivery, class_name: 'OutgoingDelivery', inverse_of: :items
+  belongs_to :delivery, class_name: 'OutgoingParcel', inverse_of: :items
   belongs_to :product
   belongs_to :parted_product, class_name: 'Product'
   belongs_to :sale_item

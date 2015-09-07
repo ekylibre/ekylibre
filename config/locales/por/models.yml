@@ -198,7 +198,7 @@ por:
       # net_service: "Net service"
       # observation: "Observation"
       # operation: "Operation"
-      # outgoing_delivery: "Outgoing delivery"
+      # outgoing_parcel: "Outgoing delivery"
       # outgoing_parcel_item: "Outgoing parcel item"
       # outgoing_payment: "Disbursement"
       # outgoing_payment_mode: "Disbursement mode"
@@ -720,6 +720,7 @@ por:
     # originator_type: "Originator type"
     # outgoing_deliveries: "Outgoing deliveries"
     # outgoing_parcel_items: "Outgoing parcel items"
+    # outgoing_parcels: "Outgoing parcels"
     # outgoing_payment_modes: "Disbursement modes"
     # outgoing_payments: "Disbursements"
     # owner: "Owner"
@@ -1111,7 +1112,7 @@ por:
       # bookkeep: "[%{resource} %{name}] Fund reception"
     loan_repayment:
       # bookkeep: "[%{resource} %{name}] Repayment #%{position}"
-    outgoing_delivery:
+    outgoing_parcel:
       # label: "%{client} at %{address}"
       # sale: "Sale %{number}"
     outgoing_parcel_item:

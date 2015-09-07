@@ -527,18 +527,18 @@
         <page to="backend/incoming_delivery_items#new"/>
       </item>
       <item name="outgoing_deliveries">
-        <page to="backend/outgoing_deliveries#index"/>
-        <page to="backend/outgoing_deliveries#create"/>
-        <page to="backend/outgoing_deliveries#destroy"/>
-        <page to="backend/outgoing_deliveries#edit"/>
-        <page to="backend/outgoing_deliveries#invoice"/>
-        <page to="backend/outgoing_deliveries#list"/>
-        <page to="backend/outgoing_deliveries#list_items"/>
-        <page to="backend/outgoing_deliveries#new"/>
-        <page to="backend/outgoing_deliveries#ship"/>
-        <page to="backend/outgoing_deliveries#show"/>
-        <page to="backend/outgoing_deliveries#unroll"/>
-        <page to="backend/outgoing_deliveries#update"/>
+        <page to="backend/outgoing_parcels#index"/>
+        <page to="backend/outgoing_parcels#create"/>
+        <page to="backend/outgoing_parcels#destroy"/>
+        <page to="backend/outgoing_parcels#edit"/>
+        <page to="backend/outgoing_parcels#invoice"/>
+        <page to="backend/outgoing_parcels#list"/>
+        <page to="backend/outgoing_parcels#list_items"/>
+        <page to="backend/outgoing_parcels#new"/>
+        <page to="backend/outgoing_parcels#ship"/>
+        <page to="backend/outgoing_parcels#show"/>
+        <page to="backend/outgoing_parcels#unroll"/>
+        <page to="backend/outgoing_parcels#update"/>
       </item>
       <item name="transports">
         <page to="backend/transports#index"/>

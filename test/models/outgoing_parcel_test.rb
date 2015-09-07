@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: outgoing_deliveries
+# == Table: outgoing_parcels
 #
 #  address_id       :integer          not null
 #  created_at       :datetime         not null
@@ -43,20 +43,20 @@
 
 require 'test_helper'
 
-class OutgoingDeliveryTest < ActiveSupport::TestCase
+class OutgoingParcelTest < ActiveSupport::TestCase
   test 'ship giving a transporter' do
-    OutgoingDelivery.ship(OutgoingDelivery.all, transporter_id: entities(:entities_001).id)
+    OutgoingParcel.ship(OutgoingParcel.all, transporter_id: entities(:entities_001).id)
   end
 
   test 'ship without transporter' do
     assert_raise StandardError do
-      OutgoingDelivery.ship(OutgoingDelivery.all)
+      OutgoingParcel.ship(OutgoingParcel.all)
     end
   end
 
   test 'prevent empty items' do
     item = outgoing_parcel_items(:outgoing_parcel_items_001).attributes.slice('product_id', 'population', 'shape')
-    delivery = OutgoingDelivery.new items_attributes: { '123456789' => { 'product_id' => '', '_destroy' => 'false' }, '852' => item }
+    delivery = OutgoingParcel.new items_attributes: { '123456789' => { 'product_id' => '', '_destroy' => 'false' }, '852' => item }
     delivery.items.map(&:net_mass)
   end
 end

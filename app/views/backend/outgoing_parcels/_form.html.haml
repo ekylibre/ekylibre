@@ -8,18 +8,18 @@
   -#= f.referenced_association :sale
   = f.custom_fields
 
-= field_set OutgoingDelivery.human_attribute_name(:items) do
+= field_set OutgoingParcel.human_attribute_name(:items) do
   %table.list
     %thead
       %tr
         %th.act
-        %th= OutgoingDeliveryItem.human_attribute_name(:product)
-        %th= OutgoingDeliveryItem.human_attribute_name(:parted)
-        %th= OutgoingDeliveryItem.human_attribute_name(:population)
-        %th= OutgoingDeliveryItem.human_attribute_name(:shape)
+        %th= OutgoingParcelItem.human_attribute_name(:product)
+        %th= OutgoingParcelItem.human_attribute_name(:parted)
+        %th= OutgoingParcelItem.human_attribute_name(:population)
+        %th= OutgoingParcelItem.human_attribute_name(:shape)
 
     %tbody#items
-      = f.simple_fields_for :items, @outgoing_delivery.items do |item|
+      = f.simple_fields_for :items, resource.items do |item|
         = render 'item_fields', f: item
     %tfoot
       %tr.total

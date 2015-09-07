@@ -16,5 +16,5 @@
       - if resource.custom_fields.any?
         - l.custom_fields
 
-  - c.cobble :items, title: OutgoingDelivery.human_attribute_name(:items) do
+  - c.cobble :items, title: OutgoingParcel.human_attribute_name(:items) do
     = cobble_list :items
