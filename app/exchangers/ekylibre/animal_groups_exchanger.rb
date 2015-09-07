@@ -1,18 +1,28 @@
 class Ekylibre::AnimalGroupsExchanger < ActiveExchanger::Base
-  # Create or updates animal groups
-  def import
+  
+  def check
+    valid = true
+
+    # Check building division presence
+    unless building_division = BuildingDivision.first
+      w.error 'Need almost one BuildingDivision'
+      valid = false
+    end
+
     rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
     w.count = rows.size
-
-    rows.each do |row|
+    rows.each_with_index do |row, index|
+      line_number = index + 2
+      prompt = "L#{line_number.to_s.yellow}"
+      next if row[0].blank?
       r = OpenStruct.new(name: row[0],
-                         nature: row[1].to_sym,
-                         member_nature: (row[2].blank? ? nil : row[2].to_sym),
+                         nature: row[1].to_s,
+                         member_nature: (row[2].blank? ? nil : row[2].to_s),
                          code: row[3],
                          minimum_age: (row[4].blank? ? nil : row[4].to_i),
                          maximum_age: (row[5].blank? ? nil : row[5].to_i),
                          sex: (row[6].blank? ? nil : row[6].to_sym),
-                         place: (row[7].blank? ? nil : row[7].to_sym),
+                         place: (row[7].blank? ? nil : row[7].to_s),
                          indicators_at: (row[8].blank? ? (Date.today) : row[8]).to_datetime,
                          indicators: row[9].blank? ? {} : row[9].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.inject({}) do |h, i|
                            h[i.first.strip.downcase.to_sym] = i.second
@@ -22,12 +32,76 @@ class Ekylibre::AnimalGroupsExchanger < ActiveExchanger::Base
                          production_name: row[11].to_s,
                          campaign_year: row[12].to_i
                         )
+      
+      unless variant = ProductNatureVariant.find_by_number(r.nature)
+        unless variant = ProductNatureVariant.import_from_nomenclature(r.nature.to_sym)
+          w.error "#{prompt} #{r.nature} does not exist in NOMENCLATURE or in DB"
+          valid = false
+        end
+      end
+      unless animal_variant = ProductNatureVariant.find_by_number(r.member_nature) || ProductNatureVariant.find_by_reference_name(r.member_nature)
+        unless animal_variant = ProductNatureVariant.import_from_nomenclature(r.member_nature.to_sym)
+           w.error "#{prompt} #{r.member_nature} does not exist in NOMENCLATURE or in DB"
+           valid = false
+        end
+      end
+      
+      unless animal_container = Product.find_by_work_number(r.place)
+        w.error "#{prompt} #{r.place} does not exist in DB"
+         valid = false
+      end
+      
+      
+      
+      if r.variant_reference_name
+        unless variant = ProductNatureVariant.find_by(number: r.variant_reference_name)
+          unless nomen = Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
+            w.error "No variant exist in NOMENCLATURE for #{r.variant_reference_name.inspect}"
+            valid = false
+          end
+        end
+      end
+    end
+  end
+  
+  
+  # Create or updates animal groups
+  def import
+    rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
+    w.count = rows.size
 
+    rows.each do |row|
+      r = OpenStruct.new(name: row[0],
+                         nature: row[1].to_s,
+                         member_nature: (row[2].blank? ? nil : row[2].to_s),
+                         code: row[3],
+                         minimum_age: (row[4].blank? ? nil : row[4].to_i),
+                         maximum_age: (row[5].blank? ? nil : row[5].to_i),
+                         sex: (row[6].blank? ? nil : row[6].to_sym),
+                         place: (row[7].blank? ? nil : row[7].to_s),
+                         indicators_at: (row[8].blank? ? (Date.today) : row[8]).to_datetime,
+                         indicators: row[9].blank? ? {} : row[9].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.inject({}) do |h, i|
+                           h[i.first.strip.downcase.to_sym] = i.second
+                           h
+                         end,
+                         activity_name: row[10].to_s,
+                         production_name: row[11].to_s,
+                         campaign_year: row[12].to_i
+                        )
+      
+      unless variant = ProductNatureVariant.find_by_number(r.nature)
+        variant = ProductNatureVariant.import_from_nomenclature(r.nature.to_sym)
+      end
+      unless animal_variant = ProductNatureVariant.find_by_number(r.member_nature) || ProductNatureVariant.find_by_reference_name(r.member_nature)
+        animal_variant = ProductNatureVariant.import_from_nomenclature(r.member_nature.to_sym)
+      end
+      animal_container = Product.find_by_work_number(r.place)
+      
       unless animal_group = AnimalGroup.find_by(work_number: r.code)
         animal_group = AnimalGroup.create!(name: r.name,
                                        work_number: r.code,
                                        initial_born_at: r.indicators_at,
-                                       variant: ProductNatureVariant.import_from_nomenclature(r.nature),
+                                       variant: variant,
                                        default_storage: BuildingDivision.find_by(work_number: r.place)
                                       )
         # create indicators linked to equipment
@@ -60,8 +134,8 @@ class Ekylibre::AnimalGroupsExchanger < ActiveExchanger::Base
           ps = p.supports.create!(storage_id: animal_group.id) if p
         end
         # if animals and production_support, add animals to the group
-        if animals.count > 0 && ps.present?
-          animal_group.add_animals(animals, started_at: Time.now - 1.hours, stopped_at: Time.now, production_support_id: ps.id)
+        if animals.count > 0 && ps.present? && animal_variant && animal_container
+          animal_group.add_animals(animals, started_at: Time.now - 1.hours, stopped_at: Time.now, production_support_id: ps.id, container_id: animal_container.id, variant_id: animal_variant.id, worker_id: Worker.first.id)
         end
       end
 

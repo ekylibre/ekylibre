@@ -126,7 +126,7 @@ class AnimalGroup < ProductGroup
     procedure_natures << :animal_moving if options[:container_id].present?
     procedure_natures << :animal_evolution if options[:variant_id].present?
 
-    Intervention.write(*procedure_natures, started_at: options[:started_at], stopped_at: options[:stopped_at], production_support: ProductionSupport.find_by(id: options[:production_support_id])) do |i|
+    Intervention.write(*procedure_natures, short_name: :animal_changing, started_at: options[:started_at], stopped_at: options[:stopped_at], production_support: ProductionSupport.find_by(id: options[:production_support_id])) do |i|
       i.cast :caregiver, Product.find_by(id: options[:worker_id]), role: 'animal_moving-doer', position: 1 if options[:worker_id]
       ah = nil
       ag = nil
