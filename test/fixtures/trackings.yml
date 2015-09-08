@@ -34,6 +34,8 @@
 #  serial       :string
 #  updated_at   :datetime         not null
 #  updater_id   :integer
+#  used_by_on   :date
+#  used_by_type :string
 #
 #
 # == Fixture: trackings

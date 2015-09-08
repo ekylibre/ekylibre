@@ -1604,8 +1604,12 @@ arb:
     paid_at: "سددت يوم"
     # paid_taxes: "Paid taxes"
     # parameters: "Parameters"
+    # parcel: "Parcel"
+    # parcels: "Parcels"
     parent: "النسب"
     parent_id: "نسب" #?
+    # parted: "Parted"
+    # parted_product: "Parted product"
     # participant: "Participant"
     # participants: "Participants"
     # participations: "Participations"
@@ -1684,6 +1688,7 @@ arb:
     product_category: "الفئة" #?
     product_category_id: "فئة" #?
     product_components: "مكونات المنتج" #?
+    # product_division: "Product division"
     # product_enjoyments: "Product enjoyments"
     product_id: "المنتج" #?
     # product_junctions: "Product junctions"
@@ -1734,8 +1739,10 @@ arb:
     purchases_account: "رسوم المحاسبة" #?
     purchases_account_id: "رسوم المحاسبة" #?
     quantity: "الكمية"
+    # quantity_indicator: "Quantity indicator"
     quantity_max: "الكمية كحد اقصى" #?
     quantity_min: "الكمية كحد ادنى" #?
+    # quantity_unit: "Quantity unit"
     query: "التساؤل"
     range: "فترة فاصلة" #?
     rate: "معدل سعر الصرف" #?
@@ -1818,6 +1825,7 @@ arb:
     sale_items: "طرق طلب البيع"
     # sale_nature: "Sale nature"
     sale_natures: "انواع البيع" #?
+    # sale_opportunities: "Sale opportunities"
     # sale_opportunity: "Sale opportunity"
     # sale_taxations: "Sale taxations"
     # sale_taxes: "Sale taxes"
@@ -1943,7 +1951,7 @@ arb:
     # third_producer: "Third producer"
     # third_role: "Third role"
     # thread: "Thread"
-    title: "اللقب" #?
+    title: "اللقب"
     to: "ل"
     to_archive: "وثائق للارشفة" #?
     to_bank_at: "يسدد يوم"
@@ -1989,6 +1997,8 @@ arb:
     usage_duration: "(مدة الاستخدام (ساعات" #?
     # usages: "Usages"
     use_range: "استخدام الكمية الفاصلة" #?
+    # used_by_on: "Used by on"
+    # used_by_type: "Used by type"
     # used_for_affairs: "Used for affairs"
     # used_for_gaps: "Used for gaps"
     # useful_items: "Useful items"

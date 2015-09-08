@@ -5447,6 +5447,10 @@ trackings:
   updater_id:
     type: integer
     references: user
+  used_by_on:
+    type: date
+  used_by_type:
+    type: string
 users:
   administrator:
     type: boolean

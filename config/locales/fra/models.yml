@@ -944,7 +944,11 @@ fra:
     paid_at: "Réglé le"
     paid_taxes: "Taxes payées"
     parameters: "Paramètres"
+    # parcel: "Parcel"
+    # parcels: "Parcels"
     parent: "Parent"
+    # parted: "Parted"
+    # parted_product: "Parted product"
     participant: "Participant"
     participants: "Participants"
     participations: "Participations"
@@ -1009,6 +1013,7 @@ fra:
     product_consumptions: "Consommations de produit" #?
     product_creations: "Créations de produit" #?
     product_deaths: "Morts de produit" #?
+    # product_division: "Product division"
     product_divisions: "Divisions de produit" #?
     product_enjoyments: "Jouissances de produit"
     # product_junctions: "Product junctions"
@@ -1057,6 +1062,8 @@ fra:
     purchased_on: "Acheté le"
     purchases: "Achats"
     quantity: "Quantité"
+    # quantity_indicator: "Quantity indicator"
+    # quantity_unit: "Quantity unit"
     query: "Requête"
     read_at: "Mesuré à"
     reading: "Relevé" #?
@@ -1126,6 +1133,7 @@ fra:
     sale_item: "Ligne de vente"
     sale_items: "Lignes de vente"
     sale_nature: "Type de vente"
+    # sale_opportunities: "Sale opportunities"
     sale_opportunity: "Opportunité"
     sale_taxations: "Taxations de vente"
     sale_taxes: "Taxes de vente"
@@ -1208,7 +1216,7 @@ fra:
     third_role: "Rôle tiers"
     thread: "Fil"
     ticket: "Ticket" #?
-    title: "Titre" #?
+    title: "Titre"
     to: "Pour"
     to_bank_at: "À décaisser le"
     tool: "Outil"
@@ -1239,6 +1247,8 @@ fra:
     usable_incoming_payments: "Encaissements utilisables"
     usage: "Utilisation"
     usages: "Usages"
+    used_by_on: "Date limite de consommation"
+    used_by_type: "Type de date limite de consommation"
     used_for_affairs: "Utilisé pour les affaires"
     used_for_gaps: "Utilisé pour les écarts"
     useful_items: "Lignes utiles"
