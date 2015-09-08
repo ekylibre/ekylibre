@@ -25,6 +25,7 @@
 #  address_id       :integer          not null
 #  created_at       :datetime         not null
 #  creator_id       :integer
+#  delivery_id      :integer
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
 #  mode             :string           not null
@@ -34,7 +35,6 @@
 #  reference_number :string
 #  sale_id          :integer
 #  sent_at          :datetime
-#  transport_id     :integer
 #  transporter_id   :integer
 #  updated_at       :datetime         not null
 #  updater_id       :integer
@@ -57,6 +57,7 @@ outgoing_parcels_001:
   address_id: 12
   created_at: 2014-11-05 14:15:20.016507000 Z
   creator_id: 1
+  delivery_id: 3
   id: 3
   lock_version: 1
   mode: delivered_duty_paid
@@ -64,7 +65,6 @@ outgoing_parcels_001:
   number: BL2014000002
   recipient_id: 13
   sent_at: 2014-11-05 15:14:00.754740000 Z
-  transport_id: 3
   transporter_id: 4
   updated_at: 2014-11-05 15:14:00.950218000 Z
   updater_id: 1
@@ -73,6 +73,7 @@ outgoing_parcels_002:
   address_id: 7
   created_at: 2014-11-05 14:16:19.773131000 Z
   creator_id: 1
+  delivery_id: 3
   id: 4
   lock_version: 1
   mode: delivered_duty_paid
@@ -80,7 +81,6 @@ outgoing_parcels_002:
   number: BL2014000003
   recipient_id: 11
   sent_at: 2014-11-05 15:14:00.754740000 Z
-  transport_id: 3
   transporter_id: 4
   updated_at: 2014-11-05 15:14:00.962449000 Z
   updater_id: 1

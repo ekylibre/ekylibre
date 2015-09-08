@@ -63,6 +63,7 @@ arb:
         operation_item: "الواردات/الصادرات"
         operation_nature: "نوع العمل"
         operation_use: "الاداة المستخدمة"
+        outgoing_delivery: "وسيلة النقل"
         outgoing_payment: "الدفعة"
         outgoing_payment_mode: "نوع الدفعة"
         outgoing_payment_use: "تأثير الدفعة"
@@ -104,7 +105,6 @@ arb:
         tool: "الاداة"
         tracking: "حصة ممكن عزوها"
         transfer: "التحويل"
-        transport: "وسيلة النقل"
         unit: "الوحدة"
         user: "المستخدم"
     product_nature_category:

@@ -303,6 +303,11 @@ arb:
         company_id: "الشركة" #?
         created_at: "انشأ في" #?
         updated_at: "تم تحديثها في" #?
+      outgoing_delivery:  #?
+        company_id: "الشركة" #?
+        created_at: "انشأ في" #?
+        responsible_id: "مسؤول" #?
+        transporter: "الناقل" #?
       outgoing_payment:
         amount: "القيمة" #?
         created_at: "انشأ في" #?
@@ -594,11 +599,6 @@ arb:
         started_at: "ايتدأ يوم" #?
         updated_at: "تم تحديثه" #?
         updater_id: "تحديث" #?
-      transport:  #?
-        company_id: "الشركة" #?
-        created_at: "انشأ في" #?
-        responsible_id: "مسؤول" #?
-        transporter: "الناقل" #?
       unit:  #?
         name: "Name" #?
         start: "القيمة الاصلية" #?
@@ -838,7 +838,8 @@ arb:
       operation_item: "الواردات/الصادرات" #?
       operation_nature: "نوع العمل" #?
       operation_use: "الاداة المستخدمة" #?
-      # outgoing_parcel: "Outgoing delivery"
+      outgoing_delivery: "وسيلة النقل"
+      # outgoing_parcel: "Outgoing parcel"
       # outgoing_parcel_item: "Outgoing parcel item"
       outgoing_payment: "الدفعة"
       outgoing_payment_mode: "نوع الدفعة"
@@ -909,7 +910,6 @@ arb:
       tool: "الاداة" #?
       tracking: "حصة ممكن عزوها"
       transfer: "التحويل" #?
-      transport: "وسيلة النقل"
       unit: "الوحدة" #?
       user: "المستخدم"
       # version: "Version"
@@ -1957,7 +1957,7 @@ arb:
     trackings: "الحصص"
     # transfered_at: "Transfered at"
     transfers: "التحويلات" #?
-    transport: "وسيلة النقل"
+    transport: "وسيلة النقل" #?
     transport_id: "وسيلة النقل" #?
     transporter: "الناقلة"
     transporter_id: "ناقل" #?
@@ -2616,7 +2616,8 @@ arb:
         # incoming_payments: "IP[year|4][number|6]"
         # interventions: "[number]"
         # opportunities: "OP[year|4][number|6]"
-        # outgoing_deliveries: "OD[year|4][number|6]"
+        # outgoing_deliveries: "TR[number|8]"
+        # outgoing_parcels: "OD[year|4][number|6]"
         # outgoing_payments: "D[year|4][number|4]"
         # plants: "PLANT[year|4][number|4]"
         # products: "PR[number|11]"
@@ -2624,7 +2625,6 @@ arb:
         # sales: "SA[year|4][month|2][number|6]"
         # sales_invoices: "SI[year|4][number|6]"
         # subscriptions: "SUB[number|8]"
-        # transports: "TR[number|8]"
       periods:  #?
         cweek: "اسبوع" #?
         month: "شهر" #?

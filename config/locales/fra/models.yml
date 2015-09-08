@@ -308,6 +308,7 @@ fra:
       observation: "Observation"
       operation: "Opération"
       organization: "Organisation" #?
+      outgoing_delivery: "Transport"
       outgoing_parcel: "Livraison"
       outgoing_parcel_item: "Ligne de livraison"
       outgoing_payment: "Décaissement"
@@ -370,7 +371,6 @@ fra:
       tax: "Taxe"
       team: "Service"
       tracking: "Lot traçable"
-      transport: "Transport"
       user: "Utilisateur"
       version: "Version"
       worker: "Travailleur"
@@ -1217,7 +1217,7 @@ fra:
     trackings: "Lots traçables"
     transfered_at: "Transféré à"
     transfers: "Transferts" #?
-    transport: "Transport"
+    transport: "Transport" #?
     transporter: "Transporteur"
     transporter_purchase: "Achat du transporteur"
     transporter_sales: "Ventes de transporteurs"
@@ -1515,7 +1515,8 @@ fra:
         incoming_payments: "R[year|4][number|6]"
         interventions: "[number]"
         opportunities: "OP[year|4][number|6]"
-        outgoing_deliveries: "BL[year|4][number|6]"
+        outgoing_deliveries: "BL[number|8]"
+        outgoing_parcels: "BP[year|4][number|6]"
         outgoing_payments: "D[year|4][number|4]"
         plants: "PLANT[year|4][number|4]"
         products: "P[number|11]"
@@ -1523,7 +1524,6 @@ fra:
         sales: "V[year|4][month|2][number|6]"
         sales_invoices: "F[year|4][number|6]"
         subscriptions: "ABO[number|8]"
-        transports: "TR[number|8]"
     task:
       state_machine:
         states:

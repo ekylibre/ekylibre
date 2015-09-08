@@ -360,6 +360,10 @@ spa:
     backend/operations:
       # index: "Operations"
       # show: "Operation Details %{name}"
+    backend/outgoing_deliveries:
+      # edit: "Edit transport %{number}"
+      # index: "Transports"
+      # show: "Transport: %{number}"
     backend/outgoing_delivery_modes:  #?
       edit: "Modificacion del modo de entrega\_: %{name}" #?
       index: "Modos de entrega" #?
@@ -517,10 +521,6 @@ spa:
       # index: "Trackings"
       # new: "New tracking"
       # show: "Tracking: %{name}"
-    backend/transports:
-      # edit: "Edit transport %{number}"
-      # index: "Transports"
-      # show: "Transport: %{number}"
     backend/trial_balances:
       show: "Balance general"
     backend/users:
@@ -1069,6 +1069,9 @@ spa:
     # new_call: "New call"
     # new_contact: "New contact"
     # new_container: "New container"
+    new_delivery_of_x_parcels_for_y:
+      # one: "New transport for %{transporter} (%{count} delivery)"
+      # other: "New transport for %{transporter} (%{count} deliveries)"
     new_deposit:
       # one: "Make a deposit %{mode}: 1 available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"
@@ -1081,9 +1084,6 @@ spa:
     new_transport_of_x_deliveries:
       # one: "New transport (%{count} delivery)"
       # other: "New transport (%{count} deliveries)"
-    new_transport_of_x_deliveries_for_y:
-      # one: "New transport for %{transporter} (%{count} delivery)"
-      # other: "New transport for %{transporter} (%{count} deliveries)"
     # new_writing: "New writing"
     # next: "Next"
     # nitrogen_concentration: "Nitrogen concentration"

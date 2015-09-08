@@ -10,5 +10,4 @@ Ekylibre::FirstRun.add_loader :analyses do |first_run|
   first_run.import_file(:bovins_croissance_cattle_performance_controls, 'bovins_croissance/perf.csv')
 
   first_run.import_file(:milklic_individual_production, 'milklic/lait_individuel.csv')
-
 end

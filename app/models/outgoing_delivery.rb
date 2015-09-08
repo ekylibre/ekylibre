@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: transports
+# == Table: outgoing_deliveries
 #
 #  annotation              :text
 #  created_at              :datetime         not null
@@ -38,12 +38,12 @@
 #  updater_id              :integer
 #
 
-class Transport < Ekylibre::Record::Base
+class OutgoingDelivery < Ekylibre::Record::Base
   acts_as_numbered
   belongs_to :responsible, -> { contacts }, class_name: 'Entity'
   belongs_to :transporter, class_name: 'Entity'
   belongs_to :transporter_purchase, class_name: 'Purchase'
-  has_many :deliveries, class_name: 'OutgoingParcel', dependent: :nullify
+  has_many :parcels, class_name: 'OutgoingParcel', dependent: :nullify, foreign_key: :delivery_id
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :departed_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
@@ -52,7 +52,7 @@ class Transport < Ekylibre::Record::Base
   # ]VALIDATORS]
 
   protect(on: :destroy) do
-    deliveries.any?
+    parcels.any?
   end
 
   def refresh

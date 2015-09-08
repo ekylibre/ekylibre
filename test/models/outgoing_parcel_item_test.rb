@@ -25,10 +25,10 @@
 #  container_id      :integer
 #  created_at        :datetime         not null
 #  creator_id        :integer
-#  delivery_id       :integer          not null
 #  id                :integer          not null, primary key
 #  lock_version      :integer          default(0), not null
 #  net_mass          :decimal(19, 4)
+#  parcel_id         :integer          not null
 #  parted            :boolean          default(FALSE), not null
 #  parted_product_id :integer
 #  population        :decimal(19, 4)

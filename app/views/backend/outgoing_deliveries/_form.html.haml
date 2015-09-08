@@ -6,5 +6,5 @@
   = f.input :annotation
   = f.custom_fields
 
-= field_set :deliveries, label: Transport.human_attribute_name(:deliveries) do
-  = list :deliveries
+= field_set :parcels, label: resource_model.human_attribute_name(:parcels) do
+  = list :parcels

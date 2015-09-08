@@ -198,7 +198,8 @@ por:
       # net_service: "Net service"
       # observation: "Observation"
       # operation: "Operation"
-      # outgoing_parcel: "Outgoing delivery"
+      # outgoing_delivery: "Outgoing delivery"
+      # outgoing_parcel: "Outgoing parcel"
       # outgoing_parcel_item: "Outgoing parcel item"
       # outgoing_payment: "Disbursement"
       # outgoing_payment_mode: "Disbursement mode"
@@ -246,7 +247,6 @@ por:
       # tax: "Tax"
       # team: "Team"
       # tracking: "Tracking"
-      # transport: "Transport"
       # user: "User"
       # version: "Version"
       # worker: "Worker"
@@ -959,7 +959,6 @@ por:
     # tracking: "Tracking"
     # trackings: "Trackings"
     # transfered_at: "Transfered at"
-    # transport: "Transport"
     # transporter: "Transporter"
     # transporter_purchase: "Transporter purchase"
     # transporter_sales: "Transporter sales"
@@ -1245,7 +1244,8 @@ por:
         # incoming_payments: "IP[year|4][number|6]"
         # interventions: "[number]"
         # opportunities: "OP[year|4][number|6]"
-        # outgoing_deliveries: "OD[year|4][number|6]"
+        # outgoing_deliveries: "TR[number|8]"
+        # outgoing_parcels: "OD[year|4][number|6]"
         # outgoing_payments: "D[year|4][number|4]"
         # plants: "PLANT[year|4][number|4]"
         # products: "PR[number|11]"
@@ -1253,7 +1253,6 @@ por:
         # sales: "SA[year|4][month|2][number|6]"
         # sales_invoices: "SI[year|4][number|6]"
         # subscriptions: "SUB[number|8]"
-        # transports: "TR[number|8]"
     task:
       state_machine:
         states:

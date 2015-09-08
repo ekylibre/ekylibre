@@ -12,8 +12,6 @@
       - l.attribute :net_mass
       - l.attribute :responsible, url: true
       - l.attribute :annotation
-      - if resource.custom_fields.any?
-        - l.custom_fields
 
-  - c.cobble :deliveries do
-    = cobble_list :deliveries
+  - c.cobble :parcels do
+    = cobble_list :parcels

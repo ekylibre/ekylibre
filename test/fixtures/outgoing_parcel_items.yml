@@ -25,10 +25,10 @@
 #  container_id      :integer
 #  created_at        :datetime         not null
 #  creator_id        :integer
-#  delivery_id       :integer          not null
 #  id                :integer          not null, primary key
 #  lock_version      :integer          default(0), not null
 #  net_mass          :decimal(19, 4)
+#  parcel_id         :integer          not null
 #  parted            :boolean          default(FALSE), not null
 #  parted_product_id :integer
 #  population        :decimal(19, 4)
@@ -43,7 +43,7 @@
 #
 # outgoing_parcel_items_001:
 #   creator: users_001
-#   delivery: deliveries_001
+#   parcel: parcels_001
 #   parted: true
 #   product: products_001
 #   updater: users_001
@@ -52,9 +52,9 @@
 outgoing_parcel_items_001:
   created_at: 2014-11-05 14:15:20.018501000 Z
   creator_id: 1
-  delivery_id: 3
   id: 3
   lock_version: 0
+  parcel_id: 3
   parted: false
   population: 20.0
   product_id: 55
@@ -63,9 +63,9 @@ outgoing_parcel_items_001:
 outgoing_parcel_items_002:
   created_at: 2014-11-05 14:15:20.026550000 Z
   creator_id: 1
-  delivery_id: 3
   id: 4
   lock_version: 0
+  parcel_id: 3
   parted: false
   population: 5.095
   product_id: 53
@@ -74,9 +74,9 @@ outgoing_parcel_items_002:
 outgoing_parcel_items_003:
   created_at: 2014-11-05 14:16:19.775348000 Z
   creator_id: 1
-  delivery_id: 4
   id: 5
   lock_version: 0
+  parcel_id: 4
   parted: false
   population: 0.0
   product_id: 11
@@ -85,9 +85,9 @@ outgoing_parcel_items_003:
 outgoing_parcel_items_004:
   created_at: 2014-11-05 14:16:48.644715000 Z
   creator_id: 1
-  delivery_id: 5
   id: 6
   lock_version: 0
+  parcel_id: 5
   parted: false
   population: 0.0
   product_id: 56
@@ -96,9 +96,9 @@ outgoing_parcel_items_004:
 outgoing_parcel_items_005:
   created_at: 2014-11-07 14:13:05.516637000 Z
   creator_id: 1
-  delivery_id: 6
   id: 7
   lock_version: 0
+  parcel_id: 6
   parted: false
   population: 0.0
   product_id: 76

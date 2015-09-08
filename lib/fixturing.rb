@@ -68,7 +68,7 @@ module Fixturing
       Dir[directory.join('*.yml').to_s].each do |f|
         FileUtils.rm_rf(f)
       end
-      
+
       version = extract(path: directory)
 
       # Updates fixtures name with models

@@ -25,10 +25,10 @@
 #  container_id      :integer
 #  created_at        :datetime         not null
 #  creator_id        :integer
-#  delivery_id       :integer          not null
 #  id                :integer          not null, primary key
 #  lock_version      :integer          default(0), not null
 #  net_mass          :decimal(19, 4)
+#  parcel_id         :integer          not null
 #  parted            :boolean          default(FALSE), not null
 #  parted_product_id :integer
 #  population        :decimal(19, 4)
@@ -42,25 +42,25 @@
 class OutgoingParcelItem < Ekylibre::Record::Base
   attr_readonly :sale_item_id, :product_id
   belongs_to :container, class_name: 'Product'
-  belongs_to :delivery, class_name: 'OutgoingParcel', inverse_of: :items
+  belongs_to :parcel, class_name: 'OutgoingParcel', inverse_of: :items
   belongs_to :product
   belongs_to :parted_product, class_name: 'Product'
   belongs_to :sale_item
   has_one :category, through: :variant
   has_one :product_ownership, as: :originator, dependent: :destroy
   has_one :product_division, as: :originator, dependent: :destroy, class_name: 'ProductJunction'
-  has_one :recipient, through: :delivery
+  has_one :recipient, through: :parcel
   has_one :variant, through: :product
   has_many :interventions, class_name: 'Intervention', as: :resource
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :net_mass, :population, allow_nil: true
   validates_inclusion_of :parted, in: [true, false]
-  validates_presence_of :delivery, :product
+  validates_presence_of :parcel, :product
   # ]VALIDATORS]
 
-  delegate :sent_at, to: :delivery
+  delegate :sent_at, to: :parcel
 
-  sums :delivery, :items, :net_mass, from: :measure
+  sums :parcel, :items, :net_mass, from: :measure
 
   before_validation do
     if product
@@ -72,7 +72,7 @@ class OutgoingParcelItem < Ekylibre::Record::Base
 
   # Create product ownership and division linked to product
   before_save do
-    if delivery.done?
+    if parcel.done?
       attributes = {
         product_id: product_id,
         started_at: sent_at,
@@ -125,6 +125,6 @@ class OutgoingParcelItem < Ekylibre::Record::Base
 
   def net_mass
     object = (parted ? parted_product : product)
-    return (object ? object.net_mass : 0.in_kilogram)
+    (object ? object.net_mass : 0.in_kilogram)
   end
 end

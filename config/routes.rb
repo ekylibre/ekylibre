@@ -728,9 +728,9 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :transports, concerns: [:list, :unroll], except: [:new, :create] do
+    resources :outgoing_deliveries, concerns: [:list, :unroll], except: [:new, :create] do
       member do
-        get :list_deliveries
+        get :list_parcels
       end
     end
 

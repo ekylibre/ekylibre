@@ -12,9 +12,7 @@
       - l.attribute :sale, url: true
       - l.attribute :address
       - l.attribute :transporter, url: true
-      - l.attribute :transport, url: true
-      - if resource.custom_fields.any?
-        - l.custom_fields
+      - l.attribute :delivery, url: true
 
-  - c.cobble :items, title: OutgoingParcel.human_attribute_name(:items) do
+  - c.cobble :items, title: resource_model.human_attribute_name(:items) do
     = cobble_list :items

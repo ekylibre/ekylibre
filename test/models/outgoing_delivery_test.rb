@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: transports
+# == Table: outgoing_deliveries
 #
 #  annotation              :text
 #  created_at              :datetime         not null
@@ -40,6 +40,6 @@
 
 require 'test_helper'
 
-class TransportTest < ActiveSupport::TestCase
+class OutgoingDeliveryTest < ActiveSupport::TestCase
   # Add tests here...
 end
