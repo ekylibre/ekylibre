@@ -288,7 +288,7 @@ arb:
       # index: "Incoming deliveries"
       # new: "New incoming delivery"
       # show: "Incoming delivery: %{number} (%{reference_number})"
-    backend/incoming_delivery_items:
+    backend/incoming_parcel_items:
       # new: "New incoming delivery item"
     backend/incoming_payment_modes:
       edit: "تعديل طريقة الدفعة: %{name}"

@@ -49,7 +49,7 @@
 - identifier
 - import
 - incoming_delivery
-- incoming_delivery_item
+- incoming_parcel_item
 - incoming_payment
 - incoming_payment_mode
 - intervention

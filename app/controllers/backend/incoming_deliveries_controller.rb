@@ -40,7 +40,7 @@ class Backend::IncomingDeliveriesController < Backend::BaseController
   end
 
   # Liste des items d'une appro
-  list(:items, model: :incoming_delivery_items, conditions: { delivery_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
+  list(:items, model: :incoming_parcel_items, conditions: { delivery_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
     t.column :product, url: true
     t.column :population
     t.column :unit, through: :variant, label_method: :unit_name

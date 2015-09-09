@@ -910,7 +910,7 @@ incoming_deliveries:
     - "backend/incoming_deliveries#list_items"
     - "backend/incoming_deliveries#show"
     - "backend/incoming_deliveries#unroll"
-    - "backend/incoming_delivery_items#new"
+    - "backend/incoming_parcel_items#new"
   write:
     dependencies:
     - read-incoming_deliveries

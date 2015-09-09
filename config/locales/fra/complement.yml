@@ -149,7 +149,7 @@ fra:
         immatter: "Immatériel"
         import: "Import"
         incoming_delivery: "Approvisionnement"
-        incoming_delivery_item: "Élément d’approvisionnement"
+        incoming_parcel_item: "Élément d’approvisionnement"
         incoming_payment: "Encaissement"
         incoming_payment_mode: "Mode d’encaissement"
         intervention: "Intervention"

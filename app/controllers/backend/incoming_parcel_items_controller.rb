@@ -1,6 +1,6 @@
 # == License
 # Ekylibre - Simple agricultural ERP
-# Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
+# Copyright (C) 2013 Brice Texier
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -16,7 +16,18 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'test_helper'
-class Backend::IncomingDeliveryItemsControllerTest < ActionController::TestCase
-  test_restfully_all_actions new: { mode: :index_xhr, params: { variant_id: identify(:product_nature_variants_001), incoming_delivery_id: identify(:incoming_deliveries_001) } }
+class Backend::IncomingParcelItemsController < Backend::BaseController
+  def new
+    if request.xhr? && params[:variant_id]
+      unless @incoming_delivery = IncomingDelivery.find_by(id: params[:incoming_delivery_id])
+        @incoming_delivery = IncomingDelivery.new
+      end
+      return unless variant = find_and_check(:product_nature_variant, params[:variant_id])
+      params[:external] ||= false
+      @incoming_delivery.items.build(product_nature_variant_id: variant.id) # (id: rand(1_000_000_000))
+      render partial: 'nested_form'
+    else
+      redirect_to backend_root_url
+    end
+  end
 end

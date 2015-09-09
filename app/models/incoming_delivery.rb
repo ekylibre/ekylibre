@@ -43,7 +43,7 @@ class IncomingDelivery < Ekylibre::Record::Base
   # belongs_to :mode, class_name: "IncomingDeliveryMode"
   belongs_to :purchase
   belongs_to :sender, class_name: 'Entity'
-  has_many :items, class_name: 'IncomingDeliveryItem', inverse_of: :delivery, foreign_key: :delivery_id, dependent: :destroy
+  has_many :items, class_name: 'IncomingParcelItem', inverse_of: :delivery, foreign_key: :delivery_id, dependent: :destroy
   has_many :products, through: :items
   has_many :issues, as: :target
 

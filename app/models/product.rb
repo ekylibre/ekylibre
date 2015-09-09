@@ -94,7 +94,7 @@ class Product < Ekylibre::Record::Base
   has_many :interventions, through: :intervention_casts
   # has_many :groups, :through => :memberships
   has_many :reading_tasks, class_name: 'ProductReadingTask', dependent: :destroy
-  # has_many :incoming_delivery_items
+  # has_many :incoming_parcel_items
   has_many :junction_ways, class_name: 'ProductJunctionWay', foreign_key: :product_id, dependent: :destroy
   has_many :junctions, class_name: 'ProductJunction', through: :junction_ways
   has_many :linkages, class_name: 'ProductLinkage', foreign_key: :carrier_id, dependent: :destroy
@@ -117,7 +117,7 @@ class Product < Ekylibre::Record::Base
   has_many :current_memberships, -> { current }, class_name: 'ProductMembership', foreign_key: :member_id
   has_one :container, through: :current_localization
   has_many :groups, through: :current_memberships
-  has_one :incoming_delivery_item, class_name: 'IncomingDeliveryItem', foreign_key: :product_id, inverse_of: :product
+  has_one :incoming_parcel_item, class_name: 'IncomingParcelItem', foreign_key: :product_id, inverse_of: :product
 
   has_picture
 
@@ -437,7 +437,7 @@ class Product < Ekylibre::Record::Base
     filter = {
       variant_id: variant_id
     }
-    incoming_item = incoming_delivery_item
+    incoming_item = incoming_parcel_item
     incoming_purchase_item = incoming_item.purchase_item if incoming_item
     outgoing_item = outgoing_parcel_items.first
     outgoing_sale_item = outgoing_item.sale_item if outgoing_item
@@ -603,7 +603,7 @@ class Product < Ekylibre::Record::Base
   end
 
   def initializeable?
-    self.new_record? || !(incoming_delivery_item.present? || outgoing_parcel_items.any? || intervention_casts.any? || fixed_asset.present?)
+    self.new_record? || !(incoming_parcel_item.present? || outgoing_parcel_items.any? || intervention_casts.any? || fixed_asset.present?)
   end
 
   # TODO: Doc

@@ -142,7 +142,7 @@ eng:
         identifier: "Identifier"
         import: "Import"
         incoming_delivery: "Incoming delivery"
-        incoming_delivery_item: "Incoming delivery item"
+        incoming_parcel_item: "Incoming delivery item"
         incoming_payment: "Incoming payment"
         incoming_payment_mode: "Incoming payment mode"
         intervention: "Intervention"

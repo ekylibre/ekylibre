@@ -261,12 +261,12 @@ fra:
       index: "Approvisionnements"
       new: "Enregistrer un nouvel approvisionnement"
       show: "Approvisionnement %{number} (%{reference_number})"
-    backend/incoming_delivery_items:
-      new: "Nouvel item"
     backend/incoming_delivery_modes:  #?
       edit: "Modifier le mode d’approvisionnement: %{name}" #?
       index: "Modes d’approvisionnement" #?
       new: "Créer un mode d’approvisionnement" #?
+    backend/incoming_parcel_items:
+      new: "Nouvel item"
     backend/incoming_payment_modes:
       edit: "Modifier le mode d’encaissement\_: %{name}"
       index: "Modes d’encaissement"

@@ -419,7 +419,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :incoming_delivery_items, only: [:new]
+    resources :incoming_parcel_items, only: [:new]
 
     resources :incoming_payments, concerns: [:list, :unroll]
 

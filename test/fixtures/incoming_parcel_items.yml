@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: incoming_delivery_items
+# == Table: incoming_parcel_items
 #
 #  container_id     :integer
 #  created_at       :datetime         not null
@@ -37,16 +37,16 @@
 #  updater_id       :integer
 #
 #
-# == Fixture: incoming_delivery_items
+# == Fixture: incoming_parcel_items
 #
-# incoming_delivery_items_001:
+# incoming_parcel_items_001:
 #   creator: users_001
 #   delivery: deliveries_001
 #   product: products_001
 #   updater: users_001
 #
 ---
-incoming_delivery_items_001:
+incoming_parcel_items_001:
   container_id: 20
   created_at: 2014-10-31 20:23:37.079652000 Z
   creator_id: 1
@@ -57,7 +57,7 @@ incoming_delivery_items_001:
   product_id: 53
   updated_at: 2014-10-31 20:23:37.079652000 Z
   updater_id: 1
-incoming_delivery_items_002:
+incoming_parcel_items_002:
   container_id: 20
   created_at: 2014-11-01 16:00:08.291496000 Z
   creator_id: 1
@@ -68,7 +68,7 @@ incoming_delivery_items_002:
   product_id: 54
   updated_at: 2014-11-01 16:00:08.291496000 Z
   updater_id: 1
-incoming_delivery_items_003:
+incoming_parcel_items_003:
   container_id: 20
   created_at: 2014-11-01 16:00:08.381565000 Z
   creator_id: 1
@@ -79,7 +79,7 @@ incoming_delivery_items_003:
   product_id: 55
   updated_at: 2014-11-01 16:00:08.381565000 Z
   updater_id: 1
-incoming_delivery_items_004:
+incoming_parcel_items_004:
   container_id: 21
   created_at: 2014-11-01 16:01:24.225780000 Z
   creator_id: 1
@@ -90,7 +90,7 @@ incoming_delivery_items_004:
   product_id: 56
   updated_at: 2014-11-01 16:01:24.225780000 Z
   updater_id: 1
-incoming_delivery_items_005:
+incoming_parcel_items_005:
   container_id: 21
   created_at: 2014-11-01 19:29:58.321983000 Z
   creator_id: 1
@@ -101,7 +101,7 @@ incoming_delivery_items_005:
   product_id: 5
   updated_at: 2014-11-01 19:29:58.321983000 Z
   updater_id: 1
-incoming_delivery_items_006:
+incoming_parcel_items_006:
   container_id: 21
   created_at: 2014-11-01 19:35:50.426074000 Z
   creator_id: 1
@@ -112,7 +112,7 @@ incoming_delivery_items_006:
   product_id: 6
   updated_at: 2014-11-01 19:35:50.426074000 Z
   updater_id: 1
-incoming_delivery_items_007:
+incoming_parcel_items_007:
   container_id: 21
   created_at: 2014-11-01 20:19:35.464060000 Z
   creator_id: 1
@@ -123,7 +123,7 @@ incoming_delivery_items_007:
   product_id: 57
   updated_at: 2014-11-01 20:19:35.464060000 Z
   updater_id: 1
-incoming_delivery_items_008:
+incoming_parcel_items_008:
   container_id: 21
   created_at: 2014-11-01 20:23:55.229924000 Z
   creator_id: 1
@@ -134,7 +134,7 @@ incoming_delivery_items_008:
   product_id: 58
   updated_at: 2014-11-01 20:23:55.229924000 Z
   updater_id: 1
-incoming_delivery_items_009:
+incoming_parcel_items_009:
   container_id: 21
   created_at: 2014-11-01 20:23:55.300646000 Z
   creator_id: 1
@@ -145,7 +145,7 @@ incoming_delivery_items_009:
   product_id: 59
   updated_at: 2014-11-01 20:23:55.300646000 Z
   updater_id: 1
-incoming_delivery_items_010:
+incoming_parcel_items_010:
   container_id: 21
   created_at: 2014-11-07 15:25:51.274872000 Z
   creator_id: 1
@@ -156,7 +156,7 @@ incoming_delivery_items_010:
   product_id: 98
   updated_at: 2014-11-07 15:25:51.274872000 Z
   updater_id: 1
-incoming_delivery_items_011:
+incoming_parcel_items_011:
   container_id: 21
   created_at: 2014-11-07 15:44:20.571953000 Z
   creator_id: 1
@@ -167,7 +167,7 @@ incoming_delivery_items_011:
   product_id: 100
   updated_at: 2014-11-07 15:44:20.571953000 Z
   updater_id: 1
-incoming_delivery_items_012:
+incoming_parcel_items_012:
   container_id: 21
   created_at: 2014-11-07 15:44:20.650859000 Z
   creator_id: 1
@@ -178,7 +178,7 @@ incoming_delivery_items_012:
   product_id: 101
   updated_at: 2014-11-07 15:44:20.650859000 Z
   updater_id: 1
-incoming_delivery_items_013:
+incoming_parcel_items_013:
   container_id: 21
   created_at: 2014-11-07 16:47:34.946178000 Z
   creator_id: 1
@@ -189,7 +189,7 @@ incoming_delivery_items_013:
   product_id: 107
   updated_at: 2014-11-07 16:52:05.873379000 Z
   updater_id: 1
-incoming_delivery_items_014:
+incoming_parcel_items_014:
   container_id: 21
   created_at: 2014-11-07 19:05:46.951450000 Z
   creator_id: 1
@@ -200,7 +200,7 @@ incoming_delivery_items_014:
   product_id: 126
   updated_at: 2014-11-07 19:05:46.951450000 Z
   updater_id: 1
-incoming_delivery_items_015:
+incoming_parcel_items_015:
   container_id: 21
   created_at: 2014-11-07 19:05:47.023821000 Z
   creator_id: 1
@@ -211,7 +211,7 @@ incoming_delivery_items_015:
   product_id: 127
   updated_at: 2014-11-07 19:05:47.023821000 Z
   updater_id: 1
-incoming_delivery_items_016:
+incoming_parcel_items_016:
   container_id: 21
   created_at: 2014-11-07 19:05:47.096608000 Z
   creator_id: 1
@@ -222,7 +222,7 @@ incoming_delivery_items_016:
   product_id: 128
   updated_at: 2014-11-07 19:05:47.096608000 Z
   updater_id: 1
-incoming_delivery_items_017:
+incoming_parcel_items_017:
   container_id: 21
   created_at: 2014-11-07 19:12:05.114337000 Z
   creator_id: 1
@@ -233,7 +233,7 @@ incoming_delivery_items_017:
   product_id: 131
   updated_at: 2014-11-07 19:12:05.114337000 Z
   updater_id: 1
-incoming_delivery_items_018:
+incoming_parcel_items_018:
   container_id: 21
   created_at: 2014-11-07 19:22:38.384189000 Z
   creator_id: 1
@@ -244,7 +244,7 @@ incoming_delivery_items_018:
   product_id: 133
   updated_at: 2014-11-07 19:22:38.384189000 Z
   updater_id: 1
-incoming_delivery_items_019:
+incoming_parcel_items_019:
   container_id: 21
   created_at: 2014-11-07 19:34:09.524844000 Z
   creator_id: 1
@@ -255,7 +255,7 @@ incoming_delivery_items_019:
   product_id: 135
   updated_at: 2014-11-07 19:34:09.524844000 Z
   updater_id: 1
-incoming_delivery_items_020:
+incoming_parcel_items_020:
   container_id: 21
   created_at: 2014-11-07 19:34:09.592706000 Z
   creator_id: 1

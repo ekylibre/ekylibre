@@ -1979,7 +1979,7 @@ incoming_deliveries:
   updater_id:
     type: integer
     references: user
-incoming_delivery_items:
+incoming_parcel_items:
   container_id:
     type: integer
     references: product

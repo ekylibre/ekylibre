@@ -91,7 +91,7 @@ eng:
           attributes:
             started_on:
               invalid_date: "The depreciation must start on %{start} or on a beginning of month"
-        incoming_delivery_item:
+        incoming_parcel_item:
           greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
         journal:
           attributes:
@@ -173,7 +173,7 @@ eng:
       identifier: "Identifier"
       import: "Import"
       incoming_delivery: "Incoming delivery"
-      incoming_delivery_item: "Incoming delivery item"
+      incoming_parcel_item: "Incoming delivery item"
       incoming_payment: "Incoming payment"
       incoming_payment_mode: "Incoming payment mode"
       intervention: "Intervention"
@@ -573,7 +573,7 @@ eng:
     importer: "Importer"
     included: "Included" #?
     incoming_deliveries: "Incoming deliveries"
-    incoming_delivery_item: "Incoming delivery item"
+    incoming_parcel_item: "Incoming delivery item"
     incoming_payment_modes: "Incoming payment modes"
     incoming_payments: "Incoming payments"
     indicator: "Indicator"
