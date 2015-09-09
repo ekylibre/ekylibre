@@ -382,13 +382,6 @@ fra:
       index: "Organisations" #?
       new: "Nouvelle organisation" #?
       show: "Organisation\_: %{full_name}" #?
-    backend/outgoing_deliveries:
-      deliveries: "Livraisons du transport" #?
-      delivery_delete: "Retirer la livraison du transport" #?
-      edit: "Modifier le transport %{number}"
-      index: "Transports"
-      new: "Nouveau transport" #?
-      show: "Transport %{number}"
     backend/outgoing_parcels:
       edit: "Modifier la livraison sortante\_: %{number}"
       index: "Livraisons sortantes"
@@ -567,6 +560,13 @@ fra:
       show: "Numéro de suivi\_: %{name} - %{serial}"
     backend/transformed_products:  #?
       index: "Produits transformés" #?
+    backend/transports:
+      deliveries: "Livraisons du transport" #?
+      delivery_delete: "Retirer la livraison du transport" #?
+      edit: "Modifier le transport %{number}"
+      index: "Transports"
+      new: "Nouveau transport" #?
+      show: "Transport %{number}"
     backend/trial_balances:
       show: "Balance"
     backend/users:
@@ -1217,9 +1217,6 @@ fra:
     new_call: "Nouvel appel"
     new_contact: "Nouveau contact"
     new_container: "Nouvel emplacement"
-    new_delivery_of_x_parcels_for_y:
-      one: "Nouveau transport pour %{transporter} (%{count} livraison)"
-      other: "Nouveau transport pour %{transporter} (%{count} livraisons)"
     new_deposit:
       one: "Effectuer une remise\_: %{mode} (%{count} encaissement disponible)"
       other: "Effectuer une remise\_: %{mode} (%{count} encaissements disponibles)"
@@ -1242,6 +1239,9 @@ fra:
     new_transport_of_x_deliveries:
       one: "Nouveau transport (%{count} livraison)"
       other: "Nouveau transport (%{count} livraisons)"
+    new_transport_of_x_deliveries_for_y:
+      one: "Nouveau transport pour %{transporter} (%{count} livraison)"
+      other: "Nouveau transport pour %{transporter} (%{count} livraisons)"
     new_value: "Nouvelle valeur" #?
     new_writing: "Nouvel écrit "
     next: "Suivant"

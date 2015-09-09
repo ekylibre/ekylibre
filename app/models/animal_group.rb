@@ -120,6 +120,7 @@ class AnimalGroup < ProductGroup
   end
 
   def add_animals(animals, options = {})
+
     procedure_natures = []
     procedure_natures << :animal_group_changing
     procedure_natures << :animal_moving if options[:container_id].present?

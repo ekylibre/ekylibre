@@ -1636,32 +1636,8 @@ ActiveRecord::Schema.define(version: 20150908214101) do
   add_index "operations", ["updated_at"], name: "index_operations_on_updated_at", using: :btree
   add_index "operations", ["updater_id"], name: "index_operations_on_updater_id", using: :btree
 
-  create_table "outgoing_deliveries", force: :cascade do |t|
-    t.integer  "transporter_id",                                               null: false
-    t.integer  "responsible_id"
-    t.decimal  "net_mass",                precision: 19, scale: 4
-    t.datetime "departed_at"
-    t.text     "annotation"
-    t.string   "number"
-    t.string   "reference_number"
-    t.integer  "transporter_purchase_id"
-    t.datetime "created_at",                                                   null: false
-    t.datetime "updated_at",                                                   null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                     default: 0, null: false
-  end
-
-  add_index "outgoing_deliveries", ["created_at"], name: "index_outgoing_deliveries_on_created_at", using: :btree
-  add_index "outgoing_deliveries", ["creator_id"], name: "index_outgoing_deliveries_on_creator_id", using: :btree
-  add_index "outgoing_deliveries", ["responsible_id"], name: "index_outgoing_deliveries_on_responsible_id", using: :btree
-  add_index "outgoing_deliveries", ["transporter_id"], name: "index_outgoing_deliveries_on_transporter_id", using: :btree
-  add_index "outgoing_deliveries", ["transporter_purchase_id"], name: "index_outgoing_deliveries_on_transporter_purchase_id", using: :btree
-  add_index "outgoing_deliveries", ["updated_at"], name: "index_outgoing_deliveries_on_updated_at", using: :btree
-  add_index "outgoing_deliveries", ["updater_id"], name: "index_outgoing_deliveries_on_updater_id", using: :btree
-
   create_table "outgoing_parcel_items", force: :cascade do |t|
-    t.integer  "parcel_id",                                                                                           null: false
+    t.integer  "delivery_id",                                                                                         null: false
     t.integer  "sale_item_id"
     t.decimal  "population",                                                 precision: 19, scale: 4
     t.integer  "product_id",                                                                                          null: false
@@ -1680,7 +1656,7 @@ ActiveRecord::Schema.define(version: 20150908214101) do
   add_index "outgoing_parcel_items", ["container_id"], name: "index_outgoing_parcel_items_on_container_id", using: :btree
   add_index "outgoing_parcel_items", ["created_at"], name: "index_outgoing_parcel_items_on_created_at", using: :btree
   add_index "outgoing_parcel_items", ["creator_id"], name: "index_outgoing_parcel_items_on_creator_id", using: :btree
-  add_index "outgoing_parcel_items", ["parcel_id"], name: "index_outgoing_parcel_items_on_parcel_id", using: :btree
+  add_index "outgoing_parcel_items", ["delivery_id"], name: "index_outgoing_parcel_items_on_delivery_id", using: :btree
   add_index "outgoing_parcel_items", ["product_id"], name: "index_outgoing_parcel_items_on_product_id", using: :btree
   add_index "outgoing_parcel_items", ["sale_item_id"], name: "index_outgoing_parcel_items_on_sale_item_id", using: :btree
   add_index "outgoing_parcel_items", ["updated_at"], name: "index_outgoing_parcel_items_on_updated_at", using: :btree
@@ -1694,7 +1670,7 @@ ActiveRecord::Schema.define(version: 20150908214101) do
     t.integer  "address_id",                                                null: false
     t.datetime "sent_at"
     t.decimal  "net_mass",         precision: 19, scale: 4
-    t.integer  "delivery_id"
+    t.integer  "transport_id"
     t.integer  "transporter_id"
     t.datetime "created_at",                                                null: false
     t.datetime "updated_at",                                                null: false
@@ -1708,10 +1684,10 @@ ActiveRecord::Schema.define(version: 20150908214101) do
   add_index "outgoing_parcels", ["address_id"], name: "index_outgoing_parcels_on_address_id", using: :btree
   add_index "outgoing_parcels", ["created_at"], name: "index_outgoing_parcels_on_created_at", using: :btree
   add_index "outgoing_parcels", ["creator_id"], name: "index_outgoing_parcels_on_creator_id", using: :btree
-  add_index "outgoing_parcels", ["delivery_id"], name: "index_outgoing_parcels_on_delivery_id", using: :btree
   add_index "outgoing_parcels", ["number"], name: "index_outgoing_parcels_on_number", using: :btree
   add_index "outgoing_parcels", ["recipient_id"], name: "index_outgoing_parcels_on_recipient_id", using: :btree
   add_index "outgoing_parcels", ["sale_id"], name: "index_outgoing_parcels_on_sale_id", using: :btree
+  add_index "outgoing_parcels", ["transport_id"], name: "index_outgoing_parcels_on_transport_id", using: :btree
   add_index "outgoing_parcels", ["transporter_id"], name: "index_outgoing_parcels_on_transporter_id", using: :btree
   add_index "outgoing_parcels", ["updated_at"], name: "index_outgoing_parcels_on_updated_at", using: :btree
   add_index "outgoing_parcels", ["updater_id"], name: "index_outgoing_parcels_on_updater_id", using: :btree
@@ -2864,6 +2840,30 @@ ActiveRecord::Schema.define(version: 20150908214101) do
   add_index "trackings", ["product_id"], name: "index_trackings_on_product_id", using: :btree
   add_index "trackings", ["updated_at"], name: "index_trackings_on_updated_at", using: :btree
   add_index "trackings", ["updater_id"], name: "index_trackings_on_updater_id", using: :btree
+
+  create_table "transports", force: :cascade do |t|
+    t.integer  "transporter_id",                                               null: false
+    t.integer  "responsible_id"
+    t.decimal  "net_mass",                precision: 19, scale: 4
+    t.datetime "departed_at"
+    t.text     "annotation"
+    t.string   "number"
+    t.string   "reference_number"
+    t.integer  "transporter_purchase_id"
+    t.datetime "created_at",                                                   null: false
+    t.datetime "updated_at",                                                   null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                     default: 0, null: false
+  end
+
+  add_index "transports", ["created_at"], name: "index_transports_on_created_at", using: :btree
+  add_index "transports", ["creator_id"], name: "index_transports_on_creator_id", using: :btree
+  add_index "transports", ["responsible_id"], name: "index_transports_on_responsible_id", using: :btree
+  add_index "transports", ["transporter_id"], name: "index_transports_on_transporter_id", using: :btree
+  add_index "transports", ["transporter_purchase_id"], name: "index_transports_on_transporter_purchase_id", using: :btree
+  add_index "transports", ["updated_at"], name: "index_transports_on_updated_at", using: :btree
+  add_index "transports", ["updater_id"], name: "index_transports_on_updater_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name",                                                                      null: false

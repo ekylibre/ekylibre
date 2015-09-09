@@ -25,7 +25,6 @@
 #  address_id       :integer          not null
 #  created_at       :datetime         not null
 #  creator_id       :integer
-#  delivery_id      :integer
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
 #  mode             :string           not null
@@ -35,6 +34,7 @@
 #  reference_number :string
 #  sale_id          :integer
 #  sent_at          :datetime
+#  transport_id     :integer
 #  transporter_id   :integer
 #  updated_at       :datetime         not null
 #  updater_id       :integer
@@ -46,13 +46,14 @@ class OutgoingParcel < Ekylibre::Record::Base
   belongs_to :address, class_name: 'EntityAddress'
   belongs_to :recipient, class_name: 'Entity'
   belongs_to :sale, inverse_of: :deliveries
-  belongs_to :delivery, class_name: 'OutgoingDelivery'
+  belongs_to :transport
   belongs_to :transporter, class_name: 'Entity'
-  has_many :items, class_name: 'OutgoingParcelItem', foreign_key: :parcel_id, dependent: :destroy, inverse_of: :parcel
+  has_many :items, class_name: 'OutgoingParcelItem', foreign_key: :delivery_id, dependent: :destroy, inverse_of: :delivery
   has_many :interventions, class_name: 'Intervention', as: :resource
   has_many :issues, as: :target
 
   refers_to :mode, class_name: 'DeliveryMode'
+  # has_many :product_moves, :as => :origin, dependent: :destroy
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :sent_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :net_mass, allow_nil: true
@@ -64,22 +65,22 @@ class OutgoingParcel < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
 
-  # autosave :delivery
+  # autosave :transport
   acts_as_numbered
-  sums :delivery, :parcels, :net_mass
+  sums :transport, :deliveries, :net_mass
 
   scope :without_transporter, -> { where(with_transport: true, transporter_id: nil) }
 
   before_validation do
-    # if self.delivery
-    #   self.transporter ||= self.delivery.transporter
+    # if self.transport
+    #   self.transporter ||= self.transport.transporter
     # end
-    self.sent_at = delivery.departed_at if with_transport && delivery
+    self.sent_at = transport.departed_at if with_transport && transport
   end
 
   validate do
-    if delivery && transporter
-      if delivery.transporter != transporter
+    if transport && transporter
+      if transport.transporter != transporter
         errors.add :transporter_id, :invalid
       end
     end
@@ -152,50 +153,50 @@ class OutgoingParcel < Ekylibre::Record::Base
     end
   end
 
-  # Ships outgoing parcels. Returns a delivery
+  # Ships outgoing deliveries. Returns a transport
   # options:
   #   - transporter_id: the transporter ID
   #   - responsible_id: the responsible (Entity) ID for the transport
   # raises:
-  #   - "Need an obvious transporter to ship parcels" if there is no unique transporter for the parcels
-  def self.ship(parcels, options = {})
-    delivery = nil
+  #   - "Need an obvious transporter to ship deliveries" if there is no unique transporter for the deliveries
+  def self.ship(deliveries, options = {})
+    transport = nil
     transaction do
       unless options[:transporter_id] && Entity.find_by(id: options[:transporter_id])
-        transporter_ids = transporters_of(parcels).uniq
+        transporter_ids = transporters_of(deliveries).uniq
         if transporter_ids.size == 1
           options[:transporter_id] = transporter_ids.first
         else
-          fail StandardError, 'Need an obvious transporter to ship parcels'
+          fail StandardError, 'Need an obvious transporter to ship deliveries'
         end
       end
-      delivery = OutgoingDelivery.create!(departed_at: Time.now, transporter_id: options[:transporter_id], responsible_id: options[:responsible_id])
-      parcels.each do |parcel|
-        parcel.with_transport = true
-        parcel.transporter_id = options[:transporter_id]
-        parcel.delivery = delivery
-        parcel.save!
+      transport = Transport.create!(departed_at: Time.now, transporter_id: options[:transporter_id], responsible_id: options[:responsible_id])
+      deliveries.each do |delivery|
+        delivery.with_transport = true
+        delivery.transporter_id = options[:transporter_id]
+        delivery.transport = transport
+        delivery.save!
       end
 
-      delivery.save!
+      transport.save!
     end
-    delivery
+    transport
   end
 
-  # Returns an array of all the transporter ids for the given parcels
-  def self.transporters_of(parcels)
-    parcels.map(&:transporter_id).compact
+  # Returns an array of all the transporter ids for the given deliveries
+  def self.transporters_of(deliveries)
+    deliveries.map(&:transporter_id).compact
   end
 
-  def self.invoice(parcels)
+  def self.invoice(deliveries)
     sale = nil
     transaction do
-      parcels = parcels.flatten.collect do |d|
+      deliveries = deliveries.flatten.collect do |d|
         (d.is_a?(self) ? d : find(d))
       end.sort { |a, b| a.sent_at <=> b.sent_at }
-      recipients = parcels.map(&:recipient_id).uniq
+      recipients = deliveries.map(&:recipient_id).uniq
       fail "Need unique recipient (#{recipients.inspect})" if recipients.count > 1
-      planned_at = parcels.map(&:sent_at).last || Time.now
+      planned_at = deliveries.map(&:sent_at).last || Time.now
       unless nature = SaleNature.actives.first
         unless journal = Journal.sales.opened_at(planned_at).first
           fail 'No sale journal'
@@ -205,11 +206,11 @@ class OutgoingParcel < Ekylibre::Record::Base
       sale = Sale.create!(client: Entity.find(recipients.first),
                           nature: nature,
                           # created_at: planned_at,
-                          delivery_address: parcels.last.address)
+                          delivery_address: deliveries.last.address)
 
       # Adds items
-      parcels.each do |parcel|
-        parcel.items.each do |item|
+      for delivery in deliveries
+        for item in delivery.items
           # raise "#{item.variant.name} cannot be sold" unless item.variant.saleable?
           unless item.variant.saleable?
             item.category.product_account = Account.find_or_import_from_nomenclature(:revenues)
@@ -228,9 +229,9 @@ class OutgoingParcel < Ekylibre::Record::Base
                                               quantity: item.population)
           item.save!
         end
-        parcel.reload
-        parcel.sale_id = sale.id
-        parcel.save!
+        delivery.reload
+        delivery.sale_id = sale.id
+        delivery.save!
       end
 
       # Refreshes affair

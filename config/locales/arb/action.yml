@@ -411,12 +411,6 @@ arb:
       new: "انشاء عمل جديد" #?
       show: "تفاصيل العمل %{name}"
       unvalidateds: "تحقيق الاعمال" #?
-    backend/outgoing_deliveries:
-      deliveries: "تسليم وسيلة النقل" #?
-      edit: "تعديل وسيلة النقل"
-      index: "وسائل النقل"
-      new: "اضافة وسيلة نقل جديدة" #?
-      show: "نقلت من %{created_at}"
     backend/outgoing_delivery_modes:  #?
       edit: "تعديل وسيلة التسليم : %{name}" #?
       index: "وسائل التسليم" #?
@@ -650,6 +644,12 @@ arb:
       # index: "Trackings"
       # new: "New tracking"
       show: "الحصة %{name}"
+    backend/transports:
+      deliveries: "تسليم وسيلة النقل" #?
+      edit: "تعديل وسيلة النقل"
+      index: "وسائل النقل"
+      new: "اضافة وسيلة نقل جديدة" #?
+      show: "نقلت من %{created_at}"
     backend/trial_balances:
       show: "رصيد الحساب"
     backend/units:  #?
@@ -710,7 +710,6 @@ arb:
     backend/mandates: "تفويضات" #?
     backend/operation_natures: "اواع العمل" #?
     backend/operations: "اعمال" #?
-    backend/outgoing_deliveries: "وسائل النقل" #?
     backend/outgoing_delivery_modes: "وسائل التسليم" #?
     backend/outgoing_payment_modes: "طرق تسديد الدفعات" #?
     backend/outgoing_payments: "دفعات" #?
@@ -736,6 +735,7 @@ arb:
     backend/tax_declarations: "تصريح عن قيمة الضريبة الاضافية" #?
     backend/taxes: "الضرائب" #?
     backend/tools: "مادة" #?
+    backend/transports: "وسائل النقل" #?
     backend/units: "وحدات القياس" #?
     backend/users: "المستخدمين" #?
   errors:
@@ -1373,9 +1373,6 @@ arb:
     # new_call: "New call"
     # new_contact: "New contact"
     # new_container: "New container"
-    new_delivery_of_x_parcels_for_y:
-      # one: "New transport for %{transporter} (%{count} delivery)"
-      # other: "New transport for %{transporter} (%{count} deliveries)"
     new_deposit:
       # one: "Make a deposit %{mode}: 1 available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"
@@ -1392,6 +1389,9 @@ arb:
     new_transport_of_x_deliveries:
       # one: "New transport (%{count} delivery)"
       # other: "New transport (%{count} deliveries)"
+    new_transport_of_x_deliveries_for_y:
+      # one: "New transport for %{transporter} (%{count} delivery)"
+      # other: "New transport for %{transporter} (%{count} deliveries)"
     new_value: "قيمة جديدة" #?
     # new_writing: "New writing"
     next: "التالي"

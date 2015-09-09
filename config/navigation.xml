@@ -541,14 +541,14 @@
         <page to="backend/outgoing_parcels#update"/>
       </item>
       <item name="transports">
-        <page to="backend/outgoing_deliveries#index"/>
-        <page to="backend/outgoing_deliveries#destroy"/>
-        <page to="backend/outgoing_deliveries#edit"/>
-        <page to="backend/outgoing_deliveries#list"/>
-        <page to="backend/outgoing_deliveries#list_parcels"/>
-        <page to="backend/outgoing_deliveries#show"/>
-        <page to="backend/outgoing_deliveries#unroll"/>
-        <page to="backend/outgoing_deliveries#update"/>
+        <page to="backend/transports#index"/>
+        <page to="backend/transports#destroy"/>
+        <page to="backend/transports#edit"/>
+        <page to="backend/transports#list"/>
+        <page to="backend/transports#list_deliveries"/>
+        <page to="backend/transports#show"/>
+        <page to="backend/transports#unroll"/>
+        <page to="backend/transports#update"/>
       </item>
     </group>
   </part>

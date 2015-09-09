@@ -30,7 +30,7 @@ class Backend::OutgoingParcelsController < Backend::BaseController
     t.column :number, url: true
     t.column :recipient, url: true
     t.column :with_transport
-    t.column :delivery, url: true
+    t.column :transport, url: true
     t.column :transporter, url: true, hidden: true
     t.column :reference_number, hidden: true
     t.column :sent_at
@@ -39,7 +39,7 @@ class Backend::OutgoingParcelsController < Backend::BaseController
     t.column :sale, url: true
   end
 
-  list(:items, model: :outgoing_parcel_items, conditions: { parcel_id: 'params[:id]'.c }) do |t|
+  list(:items, model: :outgoing_parcel_items, conditions: { delivery_id: 'params[:id]'.c }) do |t|
     t.column :product, url: true
     t.column :product_work_number, through: :product, label_method: :work_number
     t.column :population
@@ -57,20 +57,20 @@ class Backend::OutgoingParcelsController < Backend::BaseController
   end
 
   def ship
-    parcels = []
-    params[:id].split(',').each do |id|
-      return unless parcel = find_and_check(id: id)
-      parcels << parcel
+    deliveries = []
+    for id in params[:id].split(',')
+      return unless delivery = find_and_check(id: id)
+      deliveries << delivery
     end
     if params[:transporter_id].to_i > 0
-      outgoing_delivery = OutgoingParcel.ship(parcels, params.slice(:transporter_id, :responsible_id))
-      redirect_to backend_outgoing_delivery_url(outgoing_delivery)
-    elsif OutgoingParcel.transporters_of(parcels).uniq.count == 1
-      outgoing_delivery = OutgoingParcel.ship(parcels, params.slice(:responsible_id))
-      redirect_to backend_outgoing_delivery_url(outgoing_delivery)
+      transport = OutgoingParcel.ship(deliveries, params.slice(:transporter_id, :responsible_id))
+      redirect_to backend_transport_url(transport)
+    elsif OutgoingParcel.transporters_of(deliveries).uniq.count == 1
+      transport = OutgoingParcel.ship(deliveries, params.slice(:responsible_id))
+      redirect_to backend_transport_url(transport)
     else
       # default case: render the transporter selector
-      transporters = OutgoingParcel.transporters_of(parcels)
+      transporters = OutgoingParcel.transporters_of(deliveries)
       if transporters.any?
         params[:transporter_id] = transporters.group_by { |transporter_id| transporter_id }.max_by { |_k, v| v.count }.first
       end

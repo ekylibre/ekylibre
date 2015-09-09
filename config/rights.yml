@@ -1879,20 +1879,20 @@ trackings:
 transports:
   read:
     actions:
-    - "backend/outgoing_deliveries#index"
-    - "backend/outgoing_deliveries#list"
-    - "backend/outgoing_deliveries#list_parcels"
-    - "backend/outgoing_deliveries#show"
-    - "backend/outgoing_deliveries#unroll"
+    - "backend/transports#index"
+    - "backend/transports#list"
+    - "backend/transports#list_deliveries"
+    - "backend/transports#show"
+    - "backend/transports#unroll"
   write:
     dependencies:
     - read-outgoing_deliveries
     - read-transports
     actions:
-    - "backend/outgoing_deliveries#destroy"
-    - "backend/outgoing_deliveries#edit"
-    - "backend/outgoing_deliveries#update"
     - "backend/outgoing_parcels#ship"
+    - "backend/transports#destroy"
+    - "backend/transports#edit"
+    - "backend/transports#update"
 
 users:
   read:

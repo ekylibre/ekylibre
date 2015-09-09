@@ -7,9 +7,9 @@
   - unless (count = OutgoingParcel.without_transporter.count).zero?
     - t.new :label => :new_transport_of_x_deliveries.tl(count: count)
   -# if waiting_transporters.count > 0
-    - t.new :variants => waiting_transporters.inject({}) {|h,t| h[:new_delivery_of_x_parcels_for_y.tl(count: t.waiting_deliveries.count, :transporter => t.last_name)] = {:transporter_id => transporter.id}; h }
+    - t.new :variants => waiting_transporters.inject({}) {|h,t| h[:new_transport_of_x_deliveries_for_y.tl(count: t.waiting_deliveries.count, :transporter => t.last_name)] = {:transporter_id => transporter.id}; h }
   -#for transporter in waiting_transporters
-    - t.new :transporter_id => transporter.id, :new_delivery_of_x_parcels_for_y.tl(count: transporter.waiting_deliveries.count, :transporter => transporter.last_name)
+    - t.new :transporter_id => transporter.id, :new_transport_of_x_deliveries_for_y.tl(count: transporter.waiting_deliveries.count, :transporter => transporter.last_name)
 
 = main_list
 
