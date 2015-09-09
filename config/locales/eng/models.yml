@@ -172,7 +172,7 @@ eng:
       guide_analysis_point: "Guide analysis point"
       identifier: "Identifier"
       import: "Import"
-      incoming_delivery: "Incoming delivery"
+      incoming_parcel: "Incoming delivery"
       incoming_parcel_item: "Incoming delivery item"
       incoming_payment: "Incoming payment"
       incoming_payment_mode: "Incoming payment mode"
@@ -572,8 +572,8 @@ eng:
     imported_at: "Imported at"
     importer: "Importer"
     included: "Included" #?
-    incoming_deliveries: "Incoming deliveries"
     incoming_parcel_item: "Incoming delivery item"
+    incoming_parcels: "Incoming deliveries"
     incoming_payment_modes: "Incoming payment modes"
     incoming_payments: "Incoming payments"
     indicator: "Indicator"
@@ -742,7 +742,7 @@ eng:
     paid_at: "Paid at"
     paid_taxes: "Paid taxes"
     parameters: "Parameters"
-    parcel: "Parcel" #?
+    parcel: "Parcel"
     parcels: "Parcels" #?
     parent: "Parent"
     parted: "Parted"
@@ -1273,7 +1273,7 @@ eng:
         entities: "[number|8]"
         fixed_assets: "FA[number|7]"
         gaps: "G[number|12]"
-        incoming_deliveries: "ID[year|4][number|4]"
+        incoming_parcels: "ID[year|4][number|4]"
         incoming_payments: "IP[year|4][number|6]"
         interventions: "[number]"
         opportunities: "OP[year|4][number|6]"

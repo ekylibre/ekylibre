@@ -1517,7 +1517,7 @@ fra:
         bordeaux_sciences_agro_istea_general_ledger: "Grand livre ‒ ISTEA ‒ Bordeaux Sciences Agro"
         bordeaux_sciences_agro_istea_journals: "Journaux ‒ ISTEA ‒ Bordeaux Sciences Agro"
         bovins_croissance_cattle_performance_controls: "Contrôles de performance ‒ Bovins Croissance"
-        charentes_alliance_incoming_deliveries: "Approvisionnements ‒ Charentes Alliance"
+        charentes_alliance_incoming_parcels: "Approvisionnements ‒ Charentes Alliance" #?
         charentes_alliance_outgoing_deliveries: "Charentes alliance outgoing deliveries"
         ebp_edi: "EDI ‒ EBP"
         ekylibre_activities: "Activités ‒ Ekylibre"

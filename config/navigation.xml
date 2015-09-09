@@ -512,18 +512,18 @@
     </group>
     <group name="movements" icon="truck">
       <item name="incoming_deliveries">
-        <page to="backend/incoming_deliveries#index"/>
-        <page to="backend/incoming_deliveries#confirm"/>
-        <page to="backend/incoming_deliveries#create"/>
-        <page to="backend/incoming_deliveries#destroy"/>
-        <page to="backend/incoming_deliveries#edit"/>
-        <page to="backend/incoming_deliveries#invoice"/>
-        <page to="backend/incoming_deliveries#list"/>
-        <page to="backend/incoming_deliveries#list_items"/>
-        <page to="backend/incoming_deliveries#new"/>
-        <page to="backend/incoming_deliveries#show"/>
-        <page to="backend/incoming_deliveries#unroll"/>
-        <page to="backend/incoming_deliveries#update"/>
+        <page to="backend/incoming_parcels#index"/>
+        <page to="backend/incoming_parcels#confirm"/>
+        <page to="backend/incoming_parcels#create"/>
+        <page to="backend/incoming_parcels#destroy"/>
+        <page to="backend/incoming_parcels#edit"/>
+        <page to="backend/incoming_parcels#invoice"/>
+        <page to="backend/incoming_parcels#list"/>
+        <page to="backend/incoming_parcels#list_items"/>
+        <page to="backend/incoming_parcels#new"/>
+        <page to="backend/incoming_parcels#show"/>
+        <page to="backend/incoming_parcels#unroll"/>
+        <page to="backend/incoming_parcels#update"/>
         <page to="backend/incoming_parcel_items#new"/>
       </item>
       <item name="outgoing_deliveries">

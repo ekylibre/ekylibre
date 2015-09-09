@@ -6,7 +6,7 @@
   interventions = Intervention.of_campaign(@campaigns).order(:started_at)
   equipments = Equipment.availables
   workers = Worker.availables
-  incoming_deliveries = IncomingDelivery.all
+  incoming_parcels = IncomingParcel.all
 
 - if campaign
   .info
@@ -71,12 +71,12 @@
     %span.title= :workers.tl
     %span.value= link_to(:create_or_import_workers.tl, controller: "/backend/workers", action: :new)
 
-- if incoming_deliveries.count > 0
+- if incoming_parcels.count > 0
   .info
-    %span.title= :incoming_deliveries.tl
-    %span.value= link_to(incoming_deliveries.count.to_s, controller: "/backend/incoming_deliveries", action: :index)
+    %span.title= :incoming_parcels.tl
+    %span.value= link_to(incoming_parcels.count.to_s, controller: "/backend/incoming_parcels", action: :index)
 - else
   .info
-    %span.title= :incoming_deliveries.tl
-    %span.value= link_to(:create_or_import_incoming_deliveries.tl, controller: "/backend/incoming_deliveries", action: :new)
+    %span.title= :incoming_parcels.tl
+    %span.value= link_to(:create_or_import_incoming_parcels.tl, controller: "/backend/incoming_parcels", action: :new)
 

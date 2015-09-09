@@ -119,7 +119,7 @@ sequences_004:
   period: year
   updated_at: 2014-11-07 19:34:09.452014000 Z
   updater_id: 1
-  usage: incoming_deliveries
+  usage: incoming_parcels
 sequences_005:
   created_at: 2014-11-01 16:03:04.383294000 Z
   creator_id: 1

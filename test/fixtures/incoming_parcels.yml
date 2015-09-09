@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: incoming_deliveries
+# == Table: incoming_parcels
 #
 #  address_id       :integer
 #  created_at       :datetime         not null
@@ -38,16 +38,16 @@
 #  updater_id       :integer
 #
 #
-# == Fixture: incoming_deliveries
+# == Fixture: incoming_parcels
 #
-# incoming_deliveries_001:
+# incoming_parcels_001:
 #   creator: users_001
 #   number: "Lorem ipsum"
 #   sender: senders_001
 #   updater: users_001
 #
 ---
-incoming_deliveries_001:
+incoming_parcels_001:
   address_id: 3
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
@@ -59,7 +59,7 @@ incoming_deliveries_001:
   sender_id: 6
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-incoming_deliveries_002:
+incoming_parcels_002:
   address_id: 3
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
@@ -72,7 +72,7 @@ incoming_deliveries_002:
   sender_id: 4
   updated_at: 2014-11-01 16:01:24.150621000 Z
   updater_id: 1
-incoming_deliveries_003:
+incoming_parcels_003:
   address_id: 3
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
@@ -84,7 +84,7 @@ incoming_deliveries_003:
   sender_id: 6
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-incoming_deliveries_004:
+incoming_parcels_004:
   address_id: 3
   created_at: 2014-10-31 20:23:37.027824000 Z
   creator_id: 1
@@ -97,7 +97,7 @@ incoming_deliveries_004:
   sender_id: 4
   updated_at: 2014-10-31 20:23:37.027824000 Z
   updater_id: 1
-incoming_deliveries_005:
+incoming_parcels_005:
   address_id: 3
   created_at: 2014-11-01 16:00:08.015634000 Z
   creator_id: 1
@@ -110,7 +110,7 @@ incoming_deliveries_005:
   sender_id: 4
   updated_at: 2014-11-01 16:00:08.015634000 Z
   updater_id: 1
-incoming_deliveries_006:
+incoming_parcels_006:
   address_id: 3
   created_at: 2014-11-01 19:29:58.086427000 Z
   creator_id: 1
@@ -123,7 +123,7 @@ incoming_deliveries_006:
   sender_id: 4
   updated_at: 2014-11-01 19:29:58.086427000 Z
   updater_id: 1
-incoming_deliveries_007:
+incoming_parcels_007:
   address_id: 3
   created_at: 2014-11-01 19:35:50.370591000 Z
   creator_id: 1
@@ -136,7 +136,7 @@ incoming_deliveries_007:
   sender_id: 5
   updated_at: 2014-11-01 19:35:50.370591000 Z
   updater_id: 1
-incoming_deliveries_008:
+incoming_parcels_008:
   address_id: 3
   created_at: 2014-11-01 20:19:35.352913000 Z
   creator_id: 1
@@ -149,7 +149,7 @@ incoming_deliveries_008:
   sender_id: 8
   updated_at: 2014-11-01 20:23:54.910311000 Z
   updater_id: 1
-incoming_deliveries_009:
+incoming_parcels_009:
   address_id: 9
   created_at: 2014-11-07 15:25:51.188992000 Z
   creator_id: 1
@@ -162,7 +162,7 @@ incoming_deliveries_009:
   sender_id: 13
   updated_at: 2014-11-07 15:25:51.188992000 Z
   updater_id: 1
-incoming_deliveries_010:
+incoming_parcels_010:
   address_id: 9
   created_at: 2014-11-07 15:44:20.453162000 Z
   creator_id: 1
@@ -175,7 +175,7 @@ incoming_deliveries_010:
   sender_id: 13
   updated_at: 2014-11-07 15:44:20.453162000 Z
   updater_id: 1
-incoming_deliveries_011:
+incoming_parcels_011:
   address_id: 9
   created_at: 2014-11-07 16:47:34.635509000 Z
   creator_id: 1
@@ -189,7 +189,7 @@ incoming_deliveries_011:
   sender_id: 13
   updated_at: 2014-11-07 16:52:05.914027000 Z
   updater_id: 1
-incoming_deliveries_012:
+incoming_parcels_012:
   address_id: 9
   created_at: 2014-11-07 19:05:46.884082000 Z
   creator_id: 1
@@ -202,7 +202,7 @@ incoming_deliveries_012:
   sender_id: 13
   updated_at: 2014-11-07 19:05:46.884082000 Z
   updater_id: 1
-incoming_deliveries_013:
+incoming_parcels_013:
   address_id: 9
   created_at: 2014-11-07 19:12:04.935666000 Z
   creator_id: 1
@@ -215,7 +215,7 @@ incoming_deliveries_013:
   sender_id: 13
   updated_at: 2014-11-07 19:12:04.935666000 Z
   updater_id: 1
-incoming_deliveries_014:
+incoming_parcels_014:
   address_id: 9
   created_at: 2014-11-07 19:22:38.074904000 Z
   creator_id: 1
@@ -228,7 +228,7 @@ incoming_deliveries_014:
   sender_id: 13
   updated_at: 2014-11-07 19:22:38.074904000 Z
   updater_id: 1
-incoming_deliveries_015:
+incoming_parcels_015:
   address_id: 9
   created_at: 2014-11-07 19:34:09.453724000 Z
   creator_id: 1

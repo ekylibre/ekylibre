@@ -51,7 +51,7 @@ fra:
       guides: "Guides"
       identifiers: "Identifiants"
       imports: "Imports"
-      incoming_deliveries: "Approvisionnement"
+      incoming_parcels: "Approvisionnement" #?
       incoming_payment_modes: "Modes d’encaissement"
       incoming_payments: "Encaissements"
       interventions: "Interventions"

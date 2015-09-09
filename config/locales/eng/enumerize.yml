@@ -128,7 +128,7 @@ eng:
         entities: "Numeration of people"
         fixed_assets: "Numeration of fixed assets"
         gaps: "Numeration of gaps"
-        incoming_deliveries: "Numeration of incoming deliveries"
+        incoming_parcels: "Numeration of incoming deliveries"
         incoming_payments: "Numeration of payments"
         interventions: "Numeration of interventions"
         outgoing_deliveries: "Numeration of outgoing deliveries"

@@ -51,7 +51,7 @@ class EntityAddress < Ekylibre::Record::Base
   attr_readonly :entity_id
   belongs_to :mail_postal_zone, class_name: 'PostalZone'
   belongs_to :entity, inverse_of: :addresses
-  has_many :incoming_deliveries
+  has_many :incoming_parcels
   has_many :outgoing_parcels
   has_many :purchases
   has_many :sales

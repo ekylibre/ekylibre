@@ -327,15 +327,15 @@ eng:
       new: "New import"
       run: "Run import"
       show: "Import: %{nature}"
-    backend/incoming_deliveries:
+    backend/incoming_parcel_items:
+      new: "New incoming delivery item"
+    backend/incoming_parcels:
       confirm: "Confirm incoming delivery"
       edit: "Edit incoming delivery: %{number} (%{reference_number})"
       index: "Incoming deliveries"
-      # invoice: "Invoice incoming delivery: %{name}"
+      # invoice: "Invoice incoming parcel: %{name}"
       new: "New incoming delivery"
       show: "Incoming delivery: %{number} (%{reference_number})"
-    backend/incoming_parcel_items:
-      new: "New incoming delivery item"
     backend/incoming_payment_modes:
       edit: "Edit incoming payment mode: %{name}"
       index: "Incoming payment modes"
@@ -910,7 +910,7 @@ eng:
     create: "Create"
     create_journal: "— Create journal —"
     create_or_import_equipments: "Create or import equipments"
-    create_or_import_incoming_deliveries: "Create or import incoming deliveries"
+    create_or_import_incoming_parcels: "Create or import incoming deliveries"
     create_or_import_interventions: "Create or import interventions"
     create_or_import_workers: "Create or import workers"
     created_at: "Created on" #?
@@ -1050,7 +1050,7 @@ eng:
     inactive: "Inactive" #?
     include_blank: "Include blank" #?
     income_statement: "Income Statement" #?
-    incoming_deliveries: "Incoming deliveries"
+    incoming_parcels: "Incoming deliveries"
     incoming_payment: "Incoming payment" #?
     incoming_payments: "Incoming payments"
     incoming_payments_to_deposit: "Incoming payments to deposit"
@@ -1097,7 +1097,7 @@ eng:
     last_computed_balance: "Last computed balance" #?
     last_entities: "Last entities" #?
     last_events: "Last events" #?
-    last_incoming_deliveries: "Last incoming deliveries" #?
+    last_incoming_parcels: "Last incoming deliveries" #?!
     last_intervention: "Last intervention"
     last_issue: "Last issue"
     last_issues: "Last issues" #?
@@ -1566,7 +1566,7 @@ eng:
     x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}" #?!
     x_unit_per_second: "Flow: %{quantity}%{unit}/s" #?!
     x_units_of_product_y: "%{quantity}%{unit} of %{product}" #?!
-    x_waiting_incoming_deliveries: #?!
+    x_waiting_incoming_parcels: #?!
       one: "%{count} waiting incoming delivery" #?!
       other: "%{count} waiting incoming deliveries" #?!
     x_waiting_outgoing_deliveries: #?!

@@ -1,6 +1,6 @@
 - main_toolbar do |t|
   -# t.export do |e|
-    - e.incoming_delivery_sheet resource.number, resource
+    - e.incoming_parcel_sheet resource.number, resource
   -# t.new(params: {controller: :issues, :target_id => @animal.id, :target_type => @animal.class.name})
   - t.edit resource
   - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if resource.destroyable?

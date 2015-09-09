@@ -905,22 +905,22 @@ imports:
 incoming_deliveries:
   read:
     actions:
-    - "backend/incoming_deliveries#index"
-    - "backend/incoming_deliveries#list"
-    - "backend/incoming_deliveries#list_items"
-    - "backend/incoming_deliveries#show"
-    - "backend/incoming_deliveries#unroll"
     - "backend/incoming_parcel_items#new"
+    - "backend/incoming_parcels#index"
+    - "backend/incoming_parcels#list"
+    - "backend/incoming_parcels#list_items"
+    - "backend/incoming_parcels#show"
+    - "backend/incoming_parcels#unroll"
   write:
     dependencies:
     - read-incoming_deliveries
     actions:
-    - "backend/incoming_deliveries#confirm"
-    - "backend/incoming_deliveries#create"
-    - "backend/incoming_deliveries#destroy"
-    - "backend/incoming_deliveries#edit"
-    - "backend/incoming_deliveries#new"
-    - "backend/incoming_deliveries#update"
+    - "backend/incoming_parcels#confirm"
+    - "backend/incoming_parcels#create"
+    - "backend/incoming_parcels#destroy"
+    - "backend/incoming_parcels#edit"
+    - "backend/incoming_parcels#new"
+    - "backend/incoming_parcels#update"
 
 incoming_payment_modes:
   read:
@@ -1601,7 +1601,7 @@ purchases:
     dependencies:
     - read-purchases
     actions:
-    - "backend/incoming_deliveries#invoice"
+    - "backend/incoming_parcels#invoice"
     - "backend/purchases#abort"
     - "backend/purchases#confirm"
     - "backend/purchases#correct"

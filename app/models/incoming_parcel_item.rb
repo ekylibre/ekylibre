@@ -25,10 +25,10 @@
 #  container_id     :integer
 #  created_at       :datetime         not null
 #  creator_id       :integer
-#  delivery_id      :integer          not null
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
 #  net_mass         :decimal(19, 4)
+#  parcel_id        :integer          not null
 #  population       :decimal(19, 4)
 #  product_id       :integer          not null
 #  purchase_item_id :integer
@@ -40,7 +40,7 @@
 class IncomingParcelItem < Ekylibre::Record::Base
   attr_readonly :product_id
   attr_accessor :product_nature_variant_id
-  belongs_to :delivery, class_name: 'IncomingDelivery', inverse_of: :items
+  belongs_to :parcel, class_name: 'IncomingParcel', inverse_of: :items
   belongs_to :container, class_name: 'Product'
   belongs_to :product
   belongs_to :purchase_item, class_name: 'PurchaseItem'
@@ -48,7 +48,7 @@ class IncomingParcelItem < Ekylibre::Record::Base
   has_one :product_localization, as: :originator
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :net_mass, :population, allow_nil: true
-  validates_presence_of :delivery, :product
+  validates_presence_of :parcel, :product
   # ]VALIDATORS]
   validates_presence_of :product, :container
 
@@ -60,9 +60,9 @@ class IncomingParcelItem < Ekylibre::Record::Base
   end
 
   after_create do
-    # all indicators have the datetime of the receive delivery
-    product.readings.update_all(read_at: delivery.received_at)
-    self.create_product_localization!(product: product, container: container, nature: :interior, started_at: delivery.received_at)
+    # all indicators have the datetime of the receive parcel
+    product.readings.update_all(read_at: parcel.received_at)
+    self.create_product_localization!(product: product, container: container, nature: :interior, started_at: parcel.received_at)
   end
 
   after_save do

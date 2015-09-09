@@ -18,7 +18,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::IncomingDeliveriesController < Backend::BaseController
+class Backend::IncomingParcelsController < Backend::BaseController
   manage_restfully
 
   unroll
@@ -39,8 +39,7 @@ class Backend::IncomingDeliveriesController < Backend::BaseController
     t.column :purchase, url: true
   end
 
-  # Liste des items d'une appro
-  list(:items, model: :incoming_parcel_items, conditions: { delivery_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
+  list(:items, model: :incoming_parcel_items, conditions: { parcel_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
     t.column :product, url: true
     t.column :population
     t.column :unit, through: :variant, label_method: :unit_name
@@ -51,16 +50,17 @@ class Backend::IncomingDeliveriesController < Backend::BaseController
   end
 
   def confirm
-    return unless incoming_delivery = find_and_check
-    incoming_delivery.execute if request.post?
+    return unless incoming_parcel = find_and_check
+    incoming_parcel.execute if request.post?
     redirect_to action: :index, mode: :unconfirmed
   end
 
   def invoice
-    for id in ids = params[:id].split(',')
+    ids = params[:id].split(',')
+    ids.each do |id|
       return unless find_and_check(id: id)
     end
-    purchase = IncomingDelivery.invoice(ids)
+    purchase = IncomingParcel.invoice(ids)
     redirect_to backend_purchase_url(purchase)
   end
 end

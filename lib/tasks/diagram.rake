@@ -267,7 +267,7 @@ namespace :diagrams do
       product_nature: [Product, ProductNature, ProductNatureVariant, ProductNatureCategory, ProductNatureVariantReading, ProductNatureCategoryTaxation],
       production: [Activity, ActivityDistribution, Campaign, Production, ProductionBudget, ProductionDistribution, ProductionSupport, Intervention, InterventionCast, Operation],
       sale: [Sale, SaleNature, SaleItem, OutgoingParcel, OutgoingParcelItem, Transport, IncomingPayment, IncomingPaymentMode, Deposit],
-      purchase: [Purchase, PurchaseNature, PurchaseItem, IncomingDelivery, IncomingDeliveryItem, OutgoingPayment, OutgoingPaymentMode]
+      purchase: [Purchase, PurchaseNature, PurchaseItem, IncomingParcel, IncomingParcelItem, OutgoingPayment, OutgoingPaymentMode]
     }.each do |name, models|
       graph = Diagrams.relational(*models, name: "#{name}-relational")
       graph.write

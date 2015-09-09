@@ -45,7 +45,7 @@ por:
       guides: "Guias"
       identifiers: "Identificadores"
       imports: "Importação"
-      incoming_deliveries: "Entregas a receber"
+      incoming_parcels: "Entregas a receber" #?
       incoming_payment_modes: "Modos de pagamento a receber"
       incoming_payments: "Pagamentos a receber"
       interventions: "Intervenções"

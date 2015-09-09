@@ -141,7 +141,7 @@ eng:
         guide_analysis_point: "Guide analysis point"
         identifier: "Identifier"
         import: "Import"
-        incoming_delivery: "Incoming delivery"
+        incoming_parcel: "Incoming delivery"
         incoming_parcel_item: "Incoming delivery item"
         incoming_payment: "Incoming payment"
         incoming_payment_mode: "Incoming payment mode"

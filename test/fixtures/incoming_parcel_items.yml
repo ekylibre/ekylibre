@@ -25,10 +25,10 @@
 #  container_id     :integer
 #  created_at       :datetime         not null
 #  creator_id       :integer
-#  delivery_id      :integer          not null
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
 #  net_mass         :decimal(19, 4)
+#  parcel_id        :integer          not null
 #  population       :decimal(19, 4)
 #  product_id       :integer          not null
 #  purchase_item_id :integer
@@ -41,7 +41,7 @@
 #
 # incoming_parcel_items_001:
 #   creator: users_001
-#   delivery: deliveries_001
+#   parcel: parcels_001
 #   product: products_001
 #   updater: users_001
 #
@@ -50,9 +50,9 @@ incoming_parcel_items_001:
   container_id: 20
   created_at: 2014-10-31 20:23:37.079652000 Z
   creator_id: 1
-  delivery_id: 4
   id: 4
   lock_version: 0
+  parcel_id: 4
   population: 7.0
   product_id: 53
   updated_at: 2014-10-31 20:23:37.079652000 Z
@@ -61,9 +61,9 @@ incoming_parcel_items_002:
   container_id: 20
   created_at: 2014-11-01 16:00:08.291496000 Z
   creator_id: 1
-  delivery_id: 5
   id: 5
   lock_version: 0
+  parcel_id: 5
   population: 20.0
   product_id: 54
   updated_at: 2014-11-01 16:00:08.291496000 Z
@@ -72,9 +72,9 @@ incoming_parcel_items_003:
   container_id: 20
   created_at: 2014-11-01 16:00:08.381565000 Z
   creator_id: 1
-  delivery_id: 5
   id: 6
   lock_version: 0
+  parcel_id: 5
   population: 20.0
   product_id: 55
   updated_at: 2014-11-01 16:00:08.381565000 Z
@@ -83,9 +83,9 @@ incoming_parcel_items_004:
   container_id: 21
   created_at: 2014-11-01 16:01:24.225780000 Z
   creator_id: 1
-  delivery_id: 2
   id: 7
   lock_version: 0
+  parcel_id: 2
   population: 0.0
   product_id: 56
   updated_at: 2014-11-01 16:01:24.225780000 Z
@@ -94,9 +94,9 @@ incoming_parcel_items_005:
   container_id: 21
   created_at: 2014-11-01 19:29:58.321983000 Z
   creator_id: 1
-  delivery_id: 6
   id: 8
   lock_version: 0
+  parcel_id: 6
   population: 1.0
   product_id: 5
   updated_at: 2014-11-01 19:29:58.321983000 Z
@@ -105,9 +105,9 @@ incoming_parcel_items_006:
   container_id: 21
   created_at: 2014-11-01 19:35:50.426074000 Z
   creator_id: 1
-  delivery_id: 7
   id: 9
   lock_version: 0
+  parcel_id: 7
   population: 1.0
   product_id: 6
   updated_at: 2014-11-01 19:35:50.426074000 Z
@@ -116,9 +116,9 @@ incoming_parcel_items_007:
   container_id: 21
   created_at: 2014-11-01 20:19:35.464060000 Z
   creator_id: 1
-  delivery_id: 8
   id: 10
   lock_version: 0
+  parcel_id: 8
   population: 10.0
   product_id: 57
   updated_at: 2014-11-01 20:19:35.464060000 Z
@@ -127,9 +127,9 @@ incoming_parcel_items_008:
   container_id: 21
   created_at: 2014-11-01 20:23:55.229924000 Z
   creator_id: 1
-  delivery_id: 8
   id: 11
   lock_version: 0
+  parcel_id: 8
   population: 10.0
   product_id: 58
   updated_at: 2014-11-01 20:23:55.229924000 Z
@@ -138,9 +138,9 @@ incoming_parcel_items_009:
   container_id: 21
   created_at: 2014-11-01 20:23:55.300646000 Z
   creator_id: 1
-  delivery_id: 8
   id: 12
   lock_version: 0
+  parcel_id: 8
   population: 10.0
   product_id: 59
   updated_at: 2014-11-01 20:23:55.300646000 Z
@@ -149,9 +149,9 @@ incoming_parcel_items_010:
   container_id: 21
   created_at: 2014-11-07 15:25:51.274872000 Z
   creator_id: 1
-  delivery_id: 9
   id: 13
   lock_version: 0
+  parcel_id: 9
   population: 10.0
   product_id: 98
   updated_at: 2014-11-07 15:25:51.274872000 Z
@@ -160,9 +160,9 @@ incoming_parcel_items_011:
   container_id: 21
   created_at: 2014-11-07 15:44:20.571953000 Z
   creator_id: 1
-  delivery_id: 10
   id: 14
   lock_version: 0
+  parcel_id: 10
   population: 20.0
   product_id: 100
   updated_at: 2014-11-07 15:44:20.571953000 Z
@@ -171,9 +171,9 @@ incoming_parcel_items_012:
   container_id: 21
   created_at: 2014-11-07 15:44:20.650859000 Z
   creator_id: 1
-  delivery_id: 10
   id: 15
   lock_version: 0
+  parcel_id: 10
   population: 200.0
   product_id: 101
   updated_at: 2014-11-07 15:44:20.650859000 Z
@@ -182,9 +182,9 @@ incoming_parcel_items_013:
   container_id: 21
   created_at: 2014-11-07 16:47:34.946178000 Z
   creator_id: 1
-  delivery_id: 11
   id: 16
   lock_version: 1
+  parcel_id: 11
   population: 0.0
   product_id: 107
   updated_at: 2014-11-07 16:52:05.873379000 Z
@@ -193,9 +193,9 @@ incoming_parcel_items_014:
   container_id: 21
   created_at: 2014-11-07 19:05:46.951450000 Z
   creator_id: 1
-  delivery_id: 12
   id: 17
   lock_version: 0
+  parcel_id: 12
   population: 2.0
   product_id: 126
   updated_at: 2014-11-07 19:05:46.951450000 Z
@@ -204,9 +204,9 @@ incoming_parcel_items_015:
   container_id: 21
   created_at: 2014-11-07 19:05:47.023821000 Z
   creator_id: 1
-  delivery_id: 12
   id: 18
   lock_version: 0
+  parcel_id: 12
   population: 4.0
   product_id: 127
   updated_at: 2014-11-07 19:05:47.023821000 Z
@@ -215,9 +215,9 @@ incoming_parcel_items_016:
   container_id: 21
   created_at: 2014-11-07 19:05:47.096608000 Z
   creator_id: 1
-  delivery_id: 12
   id: 19
   lock_version: 0
+  parcel_id: 12
   population: 30.0
   product_id: 128
   updated_at: 2014-11-07 19:05:47.096608000 Z
@@ -226,9 +226,9 @@ incoming_parcel_items_017:
   container_id: 21
   created_at: 2014-11-07 19:12:05.114337000 Z
   creator_id: 1
-  delivery_id: 13
   id: 20
   lock_version: 0
+  parcel_id: 13
   population: 10.0
   product_id: 131
   updated_at: 2014-11-07 19:12:05.114337000 Z
@@ -237,9 +237,9 @@ incoming_parcel_items_018:
   container_id: 21
   created_at: 2014-11-07 19:22:38.384189000 Z
   creator_id: 1
-  delivery_id: 14
   id: 21
   lock_version: 0
+  parcel_id: 14
   population: 10.0
   product_id: 133
   updated_at: 2014-11-07 19:22:38.384189000 Z
@@ -248,9 +248,9 @@ incoming_parcel_items_019:
   container_id: 21
   created_at: 2014-11-07 19:34:09.524844000 Z
   creator_id: 1
-  delivery_id: 15
   id: 22
   lock_version: 0
+  parcel_id: 15
   population: 10000.0
   product_id: 135
   updated_at: 2014-11-07 19:34:09.524844000 Z
@@ -259,9 +259,9 @@ incoming_parcel_items_020:
   container_id: 21
   created_at: 2014-11-07 19:34:09.592706000 Z
   creator_id: 1
-  delivery_id: 15
   id: 23
   lock_version: 0
+  parcel_id: 15
   population: 10000.0
   product_id: 136
   updated_at: 2014-11-07 19:34:09.592706000 Z

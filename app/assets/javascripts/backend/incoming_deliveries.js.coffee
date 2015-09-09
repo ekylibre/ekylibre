@@ -7,7 +7,7 @@
     select = $(this)
     form = select.closest("form")
     entity_id = select.selector('value')
-    purchase = form.find('#incoming_delivery_purchase_id').first()
+    purchase = form.find('#incoming_parcel_purchase_id').first()
     url = "/backend/purchases/unroll?working=true"
     purchase_id = purchase.selector('value')
     if purchase_id

@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: incoming_deliveries
+# == Table: incoming_parcels
 #
 #  address_id       :integer
 #  created_at       :datetime         not null
@@ -38,16 +38,15 @@
 #  updater_id       :integer
 #
 
-class IncomingDelivery < Ekylibre::Record::Base
+class IncomingParcel < Ekylibre::Record::Base
   belongs_to :address, class_name: 'EntityAddress'
-  # belongs_to :mode, class_name: "IncomingDeliveryMode"
   belongs_to :purchase
   belongs_to :sender, class_name: 'Entity'
-  has_many :items, class_name: 'IncomingParcelItem', inverse_of: :delivery, foreign_key: :delivery_id, dependent: :destroy
+  has_many :items, class_name: 'IncomingParcelItem', inverse_of: :parcel, foreign_key: :parcel_id, dependent: :destroy
   has_many :products, through: :items
   has_many :issues, as: :target
-
   refers_to :mode, class_name: 'DeliveryMode'
+
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :received_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
@@ -69,7 +68,6 @@ class IncomingDelivery < Ekylibre::Record::Base
   after_initialize do
     if self.new_record?
       self.address ||= Entity.of_company.default_mail_address
-      # self.mode    ||= IncomingDeliveryMode.by_default
       self.received_at ||= Time.now
     end
   end
@@ -100,17 +98,17 @@ class IncomingDelivery < Ekylibre::Record::Base
     end
   end
 
-  def self.invoice(*deliveries)
+  def self.invoice(*parcels)
     purchase = nil
     transaction do
-      deliveries = deliveries.flatten.collect do |d|
+      parcels = parcels.flatten.collect do |d|
         find(d) # (d.is_a?(self) ? d : self.find(d))
       end.compact.sort do |a, b|
         a.received_at <=> b.received_at || a.id <=> b.id
       end
-      senders = deliveries.map(&:sender_id).uniq
+      senders = parcels.map(&:sender_id).uniq
       fail "Need unique sender (#{senders.inspect})" if senders.count > 1
-      planned_at = deliveries.map(&:received_at).last
+      planned_at = parcels.map(&:received_at).last
       unless nature = PurchaseNature.actives.first
         unless journal = Journal.purchases.opened_at(planned_at).first
           fail 'No purchase journal'
@@ -120,11 +118,11 @@ class IncomingDelivery < Ekylibre::Record::Base
       purchase = Purchase.create!(supplier: Entity.find(senders.first),
                                   nature: nature,
                                   planned_at: planned_at,
-                                  delivery_address: deliveries.last.address)
+                                  delivery_address: parcels.last.address)
 
       # Adds items
-      for delivery in deliveries
-        for item in delivery.items
+      parcels.each do |parcel|
+        parcel.items.each do |item|
           next unless item.population > 0
           item.purchase_item = purchase.items.create!(variant: item.variant,
                                                       unit_pretax_amount: (item.variant.catalog_items.any? ? item.variant.catalog_items.order(id: :desc).first.amount : 0.0),
@@ -132,9 +130,9 @@ class IncomingDelivery < Ekylibre::Record::Base
                                                       quantity: item.population)
           item.save!
         end
-        delivery.reload
-        delivery.purchase = purchase
-        delivery.save!
+        parcel.reload
+        parcel.purchase = purchase
+        parcel.save!
       end
 
       # Refreshes affair

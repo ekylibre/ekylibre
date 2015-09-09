@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150909120000) do
+ActiveRecord::Schema.define(version: 20150909121646) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1021,32 +1021,8 @@ ActiveRecord::Schema.define(version: 20150909120000) do
   add_index "imports", ["updated_at"], name: "index_imports_on_updated_at", using: :btree
   add_index "imports", ["updater_id"], name: "index_imports_on_updater_id", using: :btree
 
-  create_table "incoming_deliveries", force: :cascade do |t|
-    t.string   "number",                                                null: false
-    t.integer  "sender_id",                                             null: false
-    t.string   "reference_number"
-    t.integer  "purchase_id"
-    t.integer  "address_id"
-    t.datetime "received_at"
-    t.datetime "created_at",                                            null: false
-    t.datetime "updated_at",                                            null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                              default: 0, null: false
-    t.decimal  "net_mass",         precision: 19, scale: 4
-    t.string   "mode"
-  end
-
-  add_index "incoming_deliveries", ["address_id"], name: "index_incoming_deliveries_on_address_id", using: :btree
-  add_index "incoming_deliveries", ["created_at"], name: "index_incoming_deliveries_on_created_at", using: :btree
-  add_index "incoming_deliveries", ["creator_id"], name: "index_incoming_deliveries_on_creator_id", using: :btree
-  add_index "incoming_deliveries", ["purchase_id"], name: "index_incoming_deliveries_on_purchase_id", using: :btree
-  add_index "incoming_deliveries", ["sender_id"], name: "index_incoming_deliveries_on_sender_id", using: :btree
-  add_index "incoming_deliveries", ["updated_at"], name: "index_incoming_deliveries_on_updated_at", using: :btree
-  add_index "incoming_deliveries", ["updater_id"], name: "index_incoming_deliveries_on_updater_id", using: :btree
-
   create_table "incoming_parcel_items", force: :cascade do |t|
-    t.integer  "delivery_id",                                                                                    null: false
+    t.integer  "parcel_id",                                                                                      null: false
     t.integer  "purchase_item_id"
     t.integer  "product_id",                                                                                     null: false
     t.decimal  "population",                                                precision: 19, scale: 4
@@ -1063,11 +1039,35 @@ ActiveRecord::Schema.define(version: 20150909120000) do
   add_index "incoming_parcel_items", ["container_id"], name: "index_incoming_parcel_items_on_container_id", using: :btree
   add_index "incoming_parcel_items", ["created_at"], name: "index_incoming_parcel_items_on_created_at", using: :btree
   add_index "incoming_parcel_items", ["creator_id"], name: "index_incoming_parcel_items_on_creator_id", using: :btree
-  add_index "incoming_parcel_items", ["delivery_id"], name: "index_incoming_parcel_items_on_delivery_id", using: :btree
+  add_index "incoming_parcel_items", ["parcel_id"], name: "index_incoming_parcel_items_on_parcel_id", using: :btree
   add_index "incoming_parcel_items", ["product_id"], name: "index_incoming_parcel_items_on_product_id", using: :btree
   add_index "incoming_parcel_items", ["purchase_item_id"], name: "index_incoming_parcel_items_on_purchase_item_id", using: :btree
   add_index "incoming_parcel_items", ["updated_at"], name: "index_incoming_parcel_items_on_updated_at", using: :btree
   add_index "incoming_parcel_items", ["updater_id"], name: "index_incoming_parcel_items_on_updater_id", using: :btree
+
+  create_table "incoming_parcels", force: :cascade do |t|
+    t.string   "number",                                                null: false
+    t.integer  "sender_id",                                             null: false
+    t.string   "reference_number"
+    t.integer  "purchase_id"
+    t.integer  "address_id"
+    t.datetime "received_at"
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                              default: 0, null: false
+    t.decimal  "net_mass",         precision: 19, scale: 4
+    t.string   "mode"
+  end
+
+  add_index "incoming_parcels", ["address_id"], name: "index_incoming_parcels_on_address_id", using: :btree
+  add_index "incoming_parcels", ["created_at"], name: "index_incoming_parcels_on_created_at", using: :btree
+  add_index "incoming_parcels", ["creator_id"], name: "index_incoming_parcels_on_creator_id", using: :btree
+  add_index "incoming_parcels", ["purchase_id"], name: "index_incoming_parcels_on_purchase_id", using: :btree
+  add_index "incoming_parcels", ["sender_id"], name: "index_incoming_parcels_on_sender_id", using: :btree
+  add_index "incoming_parcels", ["updated_at"], name: "index_incoming_parcels_on_updated_at", using: :btree
+  add_index "incoming_parcels", ["updater_id"], name: "index_incoming_parcels_on_updater_id", using: :btree
 
   create_table "incoming_payment_modes", force: :cascade do |t|
     t.string   "name",                                                             null: false

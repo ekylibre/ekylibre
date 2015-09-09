@@ -128,7 +128,7 @@ por:
         entities: "Numeration of people"
         fixed_assets: "Numeration of fixed assets"
         gaps: "Numeração de lacunas"
-        incoming_deliveries: "Numeração de entradas"
+        incoming_parcels: "Numeração de entradas"
         incoming_payments: "Numeração de pagamentos"
         interventions: "Numeração de intervenções"
         outgoing_deliveries: "Numeração de entregas"

@@ -255,18 +255,18 @@ fra:
       new: "Nouvel import"
       run: "Exécuter l’import\_: %{name}"
       show: "Import\_: %{name}"
-    backend/incoming_deliveries:
-      confirm: "Confirmer l’arrivée de l’approvisionnement"
-      edit: "Modifier l’approvisionnement: %{number}"
-      index: "Approvisionnements"
-      new: "Enregistrer un nouvel approvisionnement"
-      show: "Approvisionnement %{number} (%{reference_number})"
     backend/incoming_delivery_modes:  #?
       edit: "Modifier le mode d’approvisionnement: %{name}" #?
       index: "Modes d’approvisionnement" #?
       new: "Créer un mode d’approvisionnement" #?
     backend/incoming_parcel_items:
       new: "Nouvel item"
+    backend/incoming_parcels:
+      confirm: "Confirmer l’arrivée de l’approvisionnement"
+      edit: "Modifier l’approvisionnement: %{number}"
+      index: "Approvisionnements"
+      new: "Enregistrer un nouvel approvisionnement"
+      show: "Approvisionnement %{number} (%{reference_number})"
     backend/incoming_payment_modes:
       edit: "Modifier le mode d’encaissement\_: %{name}"
       index: "Modes d’encaissement"
@@ -837,7 +837,7 @@ fra:
     create: "Créer"
     create_journal: "— Créer le journal —"
     create_or_import_equipments: "Créer ou importer des équipments"
-    create_or_import_incoming_deliveries: "Créer ou importer des approvisionnements"
+    create_or_import_incoming_parcels: "Créer ou importer des approvisionnements"
     create_or_import_interventions: "Créer ou importer des interventions"
     create_or_import_workers: "Créer ou importer des travailleurs"
     created_at: "Créée le"
@@ -1045,7 +1045,7 @@ fra:
     incident: "Incident" #?
     include_blank: "— Aucune organisation —"
     income_statement: "Compte de résultat"
-    incoming_deliveries: "Approvisionnements"
+    incoming_parcels: "Approvisionnements"
     incoming_payment: "Encaissement"
     incoming_payment_conditions: "Conditions d’encaissement" #?
     incoming_payments: "Encaissements"
@@ -1117,7 +1117,7 @@ fra:
     last_documents: "Derniers archivages" #?
     last_entities: "Derniers tiers"
     last_events: "Derniers évènements"
-    last_incoming_deliveries: "Derniers approvisionnements"
+    last_incoming_parcels: "Derniers approvisionnements"
     last_intervention: "Dernières interventions"
     last_issue: "Dernier incident"
     last_issues: "Derniers incidents"
@@ -1833,7 +1833,7 @@ fra:
     x_unit_of_product_per_second: "%{quantity}%{unit}/s de %{product}"
     x_unit_per_second: "Débit: %{quantity}%{unit}/s"
     x_units_of_product_y: "%{quantity}%{unit} de %{product}"
-    x_waiting_incoming_deliveries:
+    x_waiting_incoming_parcels:
       one: "%{count} livraison entrante en attente"
       other: "%{count} livraisons entrantes en attente"
     x_waiting_outgoing_deliveries:

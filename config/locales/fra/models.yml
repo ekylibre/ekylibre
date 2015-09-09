@@ -281,7 +281,7 @@ fra:
       identifier: "Identifiant"
       immatter: "Immatériel" #?
       import: "Import"
-      incoming_delivery: "Approvisionnement"
+      incoming_parcel: "Approvisionnement"
       incoming_parcel_item: "Élément d’approvisionnement"
       incoming_payment: "Encaissement"
       incoming_payment_mode: "Mode d’encaissement"
@@ -752,9 +752,9 @@ fra:
     importer: "Importateur"
     in_cash: "En espèce" #?
     included: "Incluse"
-    incoming_deliveries: "Approvisionnements"
     incoming_parcel_item: "Élément d’approvisionnement"
     incoming_parcel_items: "Éléments d’approvisionnement" #?
+    incoming_parcels: "Approvisionnements"
     incoming_payment_modes: "Modes d’encaissement"
     incoming_payments: "Encaissements"
     indicator: "Indicateur"
@@ -1521,7 +1521,7 @@ fra:
         entities: "[number|8]"
         fixed_assets: "IM[number|7]"
         gaps: "E[number|12]"
-        incoming_deliveries: "BR[year|4][number|4]"
+        incoming_parcels: "BR[year|4][number|4]"
         incoming_payments: "R[year|4][number|6]"
         interventions: "[number]"
         opportunities: "OP[year|4][number|6]"

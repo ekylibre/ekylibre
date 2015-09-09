@@ -4,5 +4,5 @@ You can access the summary for all the veterinary products.
 
 >>> You can consult the website of l'ANSES (http://www.ircp.anmv.anses.fr) in order to learn the informations about the regulations regarding this products
 
-!!! The addition of a veterinary product is done necessarily via the [[>backend/incoming_deliveries|provisions]]
+!!! The addition of a veterinary product is done necessarily via the [[>backend/incoming_parcels|provisions]]
 

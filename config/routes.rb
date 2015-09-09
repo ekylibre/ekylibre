@@ -411,7 +411,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :incoming_deliveries, concerns: [:list, :unroll] do
+    resources :incoming_parcels, concerns: [:list, :unroll] do
       member do
         match 'confirm', via: [:get, :post]
         post :invoice
