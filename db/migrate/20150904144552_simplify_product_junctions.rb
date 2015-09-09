@@ -60,7 +60,7 @@ class SimplifyProductJunctions < ActiveRecord::Migration
           execute "UPDATE product_junction_ways SET role = '#{nn}' FROM product_junctions AS pj WHERE pj.id = junction_id AND pj.nature = '#{jn}' AND product_junction_ways.role = '#{on}'"
         end
         POLYMORPHIC_REFERENCES.each do |table, reference|
-          execute "UPDATE #{table} SET #{reference}_type = 'ProductJunction' WHERE #{reference}_type IN (" + NATURES.keys.map{ |n| "'#{n}'" }.join(', ') + ")"
+          execute "UPDATE #{table} SET #{reference}_type = 'ProductJunction' WHERE #{reference}_type IN (" + NATURES.keys.map { |n| "'#{n}'" }.join(', ') + ')'
         end
       end
       dir.down do

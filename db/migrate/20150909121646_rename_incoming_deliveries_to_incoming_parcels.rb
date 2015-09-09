@@ -1,5 +1,4 @@
 class RenameIncomingDeliveriesToIncomingParcels < ActiveRecord::Migration
-
   def change
     rename_table :incoming_deliveries, :incoming_parcels
     # Polymorphic columns
@@ -74,7 +73,5 @@ class RenameIncomingDeliveriesToIncomingParcels < ActiveRecord::Migration
     end
 
     rename_column :incoming_parcel_items, :delivery_id, :parcel_id
-
   end
-
 end

@@ -1,5 +1,4 @@
 class RenameIncomingDeliveryItemsToIncomingParcelItems < ActiveRecord::Migration
-
   def change
     rename_table :incoming_delivery_items, :incoming_parcel_items
     # Polymorphic columns
@@ -72,7 +71,5 @@ class RenameIncomingDeliveryItemsToIncomingParcelItems < ActiveRecord::Migration
         execute "UPDATE #{quote_table_name(:sequences)} SET #{quote_column_name(:usage)}='incoming_delivery_items' WHERE #{quote_column_name(:usage)}='incoming_parcel_items'"
       end
     end
-
   end
-
 end

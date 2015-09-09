@@ -46,7 +46,7 @@ class OutgoingParcel < Ekylibre::Record::Base
   belongs_to :address, class_name: 'EntityAddress'
   belongs_to :recipient, class_name: 'Entity'
   belongs_to :sale, inverse_of: :parcels
-  belongs_to :delivery, class_name: "Delivery"
+  belongs_to :delivery, class_name: 'Delivery'
   belongs_to :transporter, class_name: 'Entity'
   has_many :items, class_name: 'OutgoingParcelItem', foreign_key: :parcel_id, dependent: :destroy, inverse_of: :parcel
   has_many :interventions, class_name: 'Intervention', as: :resource

@@ -266,8 +266,9 @@ namespace :diagrams do
       journal: [Journal, JournalEntry, JournalEntryItem, Account, FinancialYear, AccountBalance, Loan, LoanRepayment, BankStatement, Cash, FixedAsset, FixedAssetDepreciation], # , CashTransfer, CashSession]
       product_nature: [Product, ProductNature, ProductNatureVariant, ProductNatureCategory, ProductNatureVariantReading, ProductNatureCategoryTaxation],
       production: [Activity, ActivityDistribution, Campaign, Production, ProductionBudget, ProductionDistribution, ProductionSupport, Intervention, InterventionCast, Operation],
-      sale: [Sale, SaleNature, SaleItem, OutgoingParcel, OutgoingParcelItem, Transport, IncomingPayment, IncomingPaymentMode, Deposit],
-      purchase: [Purchase, PurchaseNature, PurchaseItem, IncomingParcel, IncomingParcelItem, OutgoingPayment, OutgoingPaymentMode]
+      sale: [Sale, SaleNature, SaleItem, OutgoingParcel, OutgoingParcelItem, Delivery, IncomingPayment, IncomingPaymentMode, Deposit],
+      purchase: [Purchase, PurchaseNature, PurchaseItem, IncomingParcel, IncomingParcelItem, OutgoingPayment, OutgoingPaymentMode],
+      delivery: [Delivery, OutgoingParcel, OutgoingParcelItem, IncomingParcel, IncomingParcelItem] # , Analysis, AnalysisItem
     }.each do |name, models|
       graph = Diagrams.relational(*models, name: "#{name}-relational")
       graph.write
@@ -275,7 +276,7 @@ namespace :diagrams do
   end
 
   task inheritance: :environment do
-    [Product, ProductJunction, Affair].each do |model|
+    [Product, Affair].each do |model|
       graph = Diagrams.inheritance(model)
       graph.write
     end

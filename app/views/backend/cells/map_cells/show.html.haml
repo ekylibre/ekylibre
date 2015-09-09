@@ -2,7 +2,7 @@
   :ruby
     data = []
     ProductionSupport.of_campaign(@campaigns).includes(
-         interventions: [casts: [actor: [:incoming_delivery_item, :outgoing_parcel_items]]],
+         interventions: [casts: [actor: [:incoming_parcel_item, :outgoing_parcel_items]]],
          production: [:activity, :campaign, :variant],
          storage: [:readings]).find_each do |support|
       if support.shape

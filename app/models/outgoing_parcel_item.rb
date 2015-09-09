@@ -125,6 +125,6 @@ class OutgoingParcelItem < Ekylibre::Record::Base
 
   def net_mass
     object = (parted ? parted_product : product)
-    return (object ? object.net_mass : 0.in_kilogram)
+    (object ? object.net_mass : 0.in_kilogram)
   end
 end

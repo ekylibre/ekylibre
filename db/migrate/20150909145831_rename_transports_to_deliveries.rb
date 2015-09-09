@@ -1,5 +1,4 @@
 class RenameTransportsToDeliveries < ActiveRecord::Migration
-
   def change
     rename_table :transports, :deliveries
     # Polymorphic columns
@@ -76,5 +75,4 @@ class RenameTransportsToDeliveries < ActiveRecord::Migration
     rename_column :outgoing_parcel_items, :delivery_id, :parcel_id
     rename_column :outgoing_parcels, :transport_id, :delivery_id
   end
-
 end

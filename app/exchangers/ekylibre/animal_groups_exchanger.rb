@@ -1,5 +1,4 @@
 class Ekylibre::AnimalGroupsExchanger < ActiveExchanger::Base
-
   def check
     valid = true
 
@@ -41,17 +40,15 @@ class Ekylibre::AnimalGroupsExchanger < ActiveExchanger::Base
       end
       unless animal_variant = ProductNatureVariant.find_by_number(r.member_nature) || ProductNatureVariant.find_by_reference_name(r.member_nature)
         unless animal_variant = ProductNatureVariant.import_from_nomenclature(r.member_nature.to_sym)
-           w.error "#{prompt} #{r.member_nature} does not exist in NOMENCLATURE or in DB"
-           valid = false
+          w.error "#{prompt} #{r.member_nature} does not exist in NOMENCLATURE or in DB"
+          valid = false
         end
       end
 
       unless animal_container = Product.find_by_work_number(r.place)
         w.error "#{prompt} #{r.place} does not exist in DB"
-         valid = false
+        valid = false
       end
-
-
 
       if r.variant_reference_name
         unless variant = ProductNatureVariant.find_by(number: r.variant_reference_name)
@@ -63,7 +60,6 @@ class Ekylibre::AnimalGroupsExchanger < ActiveExchanger::Base
       end
     end
   end
-
 
   # Create or updates animal groups
   def import
@@ -99,11 +95,11 @@ class Ekylibre::AnimalGroupsExchanger < ActiveExchanger::Base
 
       unless animal_group = AnimalGroup.find_by(work_number: r.code)
         animal_group = AnimalGroup.create!(name: r.name,
-                                       work_number: r.code,
-                                       initial_born_at: r.indicators_at,
-                                       variant: variant,
-                                       default_storage: BuildingDivision.find_by(work_number: r.place)
-                                      )
+                                           work_number: r.code,
+                                           initial_born_at: r.indicators_at,
+                                           variant: variant,
+                                           default_storage: BuildingDivision.find_by(work_number: r.place)
+                                          )
         # create indicators linked to equipment
         for indicator, value in r.indicators
           animal_group.read!(indicator, value, at: r.indicators_at, force: true)
@@ -121,7 +117,7 @@ class Ekylibre::AnimalGroupsExchanger < ActiveExchanger::Base
         unless ps = ProductionSupport.where(storage_id: animal_group.id).first
           campaign = Campaign.find_or_create_by!(harvest_year: r.campaign_year)
           unless activity = Activity.find_by(name: r.activity_name)
-            family = Activity.find_best_family( animal_group.derivative_of, animal_group.variety)
+            family = Activity.find_best_family(animal_group.derivative_of, animal_group.variety)
             unless family
               w.error 'Cannot determine activity'
               fail ActiveExchanger::Error, "Cannot determine activity with support #{support_variant ? support_variant.variety.inspect : '?'} and cultivation #{cultivation_variant ? cultivation_variant.variety.inspect : '?'} in production #{sheet_name}"
@@ -144,13 +140,12 @@ class Ekylibre::AnimalGroupsExchanger < ActiveExchanger::Base
   end
 
   # puts animals in a group by default
-  def update_animal_evolution()
-   #TODO change default variant of animal if needed
+  def update_animal_evolution
+    # TODO: change default variant of animal if needed
   end
 
   # puts animals in a place by default
-  def update_animal_place()
-    #TODO change default place of animal if needed
+  def update_animal_place
+    # TODO: change default place of animal if needed
   end
-
 end
