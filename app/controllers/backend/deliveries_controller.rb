@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -17,7 +16,27 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'test_helper'
-class Backend::TransportsControllerTest < ActionController::TestCase
-  test_restfully_all_actions except: [:delivery_delete, :deliveries]
+class Backend::DeliveriesController < Backend::BaseController
+  manage_restfully except: [:new, :create]
+
+  unroll
+
+  list(conditions: search_conditions(deliveries: [:number, :annotation], entities: [:number, :full_name])) do |t|
+    t.action :edit
+    t.action :destroy
+    t.column :number, url: true
+    t.column :annotation
+    t.column :departed_at
+    t.column :transporter, label_method: :full_name, url: true
+    t.column :net_mass
+  end
+
+  list(:outgoing_parcels, conditions: { delivery_id: 'params[:id]'.c }) do |t|
+    t.column :number, url: true
+    t.column :reference_number
+    t.column :address, label_method: :coordinate
+    t.column :sale, url: true
+    t.column :sent_at
+    t.column :net_mass
+  end
 end

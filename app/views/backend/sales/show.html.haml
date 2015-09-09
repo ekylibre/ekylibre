@@ -62,9 +62,9 @@
   - c.cobble(:affair, title: Sale.human_attribute_name(:affair)) do
     = affair_of(resource)
 
-  - if resource.deliveries.any?
-    - c.cobble :deliveries, title: Sale.human_attribute_name(:deliveries) do
-      = cobble_list :deliveries
+  - if resource.parcels.any?
+    - c.cobble :parcels, title: Sale.human_attribute_name(:parcels) do
+      = cobble_list :parcels
 
   - if resource.credits.any?
     - c.cobble :credits do

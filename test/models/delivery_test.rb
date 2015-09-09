@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: transports
+# == Table: deliveries
 #
 #  annotation              :text
 #  created_at              :datetime         not null
@@ -37,42 +37,9 @@
 #  updated_at              :datetime         not null
 #  updater_id              :integer
 #
-#
-# == Fixture: transports
-#
-# transports_001:
-#   creator: users_001
-#   transporter: transporters_001
-#   updater: users_001
-#
----
-transports_001:
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 1
-  lock_version: 0
-  number: TR0001
-  transporter_id: 6
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-transports_002:
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 2
-  lock_version: 0
-  number: TR0002
-  transporter_id: 6
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-transports_003:
-  created_at: 2014-11-05 15:14:00.931117000 Z
-  creator_id: 1
-  departed_at: 2014-11-05 15:14:00.754740000 Z
-  id: 3
-  lock_version: 0
-  net_mass: 3127.375
-  number: TR00000001
-  responsible_id: 9
-  transporter_id: 4
-  updated_at: 2014-11-05 15:14:00.931117000 Z
-  updater_id: 1
+
+require 'test_helper'
+
+class DeliveryTest < ActiveSupport::TestCase
+  # Add tests here...
+end

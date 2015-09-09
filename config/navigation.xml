@@ -242,7 +242,7 @@
         <page to="backend/sales#invoice"/>
         <page to="backend/sales#list"/>
         <page to="backend/sales#list_credits"/>
-        <page to="backend/sales#list_deliveries"/>
+        <page to="backend/sales#list_parcels"/>
         <page to="backend/sales#list_items"/>
         <page to="backend/sales#list_subscriptions"/>
         <page to="backend/sales#list_undelivered_items"/>
@@ -291,7 +291,7 @@
         <page to="backend/purchases#edit"/>
         <page to="backend/purchases#invoice"/>
         <page to="backend/purchases#list"/>
-        <page to="backend/purchases#list_deliveries"/>
+        <page to="backend/purchases#list_parcels"/>
         <page to="backend/purchases#list_items"/>
         <page to="backend/purchases#propose"/>
         <page to="backend/purchases#propose_and_invoice"/>
@@ -541,14 +541,14 @@
         <page to="backend/outgoing_parcels#update"/>
       </item>
       <item name="transports">
-        <page to="backend/transports#index"/>
-        <page to="backend/transports#destroy"/>
-        <page to="backend/transports#edit"/>
-        <page to="backend/transports#list"/>
-        <page to="backend/transports#list_deliveries"/>
-        <page to="backend/transports#show"/>
-        <page to="backend/transports#unroll"/>
-        <page to="backend/transports#update"/>
+        <page to="backend/deliveries#index"/>
+        <page to="backend/deliveries#destroy"/>
+        <page to="backend/deliveries#edit"/>
+        <page to="backend/deliveries#list"/>
+        <page to="backend/deliveries#list_outgoing_parcels"/>
+        <page to="backend/deliveries#show"/>
+        <page to="backend/deliveries#unroll"/>
+        <page to="backend/deliveries#update"/>
       </item>
     </group>
   </part>

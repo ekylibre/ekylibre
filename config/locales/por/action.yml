@@ -122,6 +122,10 @@ por:
       stocks: "Dashboard de estoque"
       tools: "Dashboard ferramentas"
       trade: "Dashboard de comercializações"
+    backend/deliveries:
+      # edit: "Edit transport %{number}"
+      # index: "Transports"
+      # show: "Transport: %{number}"
     backend/deposits:
       edit: "Editar deposito: %{number}"
       index: "Depositos"
@@ -480,10 +484,6 @@ por:
       # index: "Trackings"
       # new: "New tracking"
       # show: "Tracking: %{name}"
-    backend/transports:
-      # edit: "Edit transport %{number}"
-      # index: "Transports"
-      # show: "Transport: %{number}"
     backend/trial_balances:
       # show: "Trial balance"
     backend/users:
@@ -957,6 +957,7 @@ por:
     # paid_amount: "Paid amount"
     # paid_at: "Paid at"
     # parameters: "Parameters"
+    # parcels: "Parcels"
     # participants: "Participants"
     # participations: "Participations"
     # parts: "Modules"

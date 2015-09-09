@@ -57,7 +57,7 @@ class Purchase < Ekylibre::Record::Base
   belongs_to :payee, class_name: 'Entity', foreign_key: :supplier_id
   belongs_to :supplier, class_name: 'Entity'
   belongs_to :responsible, class_name: 'User'
-  has_many :deliveries, class_name: 'IncomingParcel'
+  has_many :parcels, class_name: 'IncomingParcel'
   has_many :documents, as: :owner
   has_many :items, class_name: 'PurchaseItem', dependent: :destroy, inverse_of: :purchase
   has_many :journal_entries, as: :resource
@@ -197,7 +197,7 @@ class Purchase < Ekylibre::Record::Base
   # - +column+ can be +:amount+ or +:pretax_amount+
   def undelivered(column)
     sum  = send(column)
-    sum -= deliveries.sum(column)
+    sum -= parcels.sum(column)
     sum.round(2)
   end
 

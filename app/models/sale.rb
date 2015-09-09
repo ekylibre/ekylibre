@@ -79,7 +79,7 @@ class Sale < Ekylibre::Record::Base
   belongs_to :responsible, -> { contacts }, class_name: 'Entity'
   belongs_to :transporter, class_name: 'Entity'
   has_many :credits, class_name: 'Sale', foreign_key: :credited_sale_id
-  has_many :deliveries, class_name: 'OutgoingParcel', dependent: :destroy, inverse_of: :sale
+  has_many :parcels, class_name: 'OutgoingParcel', dependent: :destroy, inverse_of: :sale
   has_many :documents, as: :owner
   has_many :items, -> { order('position, id') }, class_name: 'SaleItem', dependent: :destroy, inverse_of: :sale
   has_many :journal_entries, as: :resource
@@ -266,14 +266,14 @@ class Sale < Ekylibre::Record::Base
     (self.order? || self.invoice?)
   end
 
-  # Remove all bad dependencies and return at draft state with no deliveries
+  # Remove all bad dependencies and return at draft state with no parcels
   def correct
     return false unless self.can_correct?
-    deliveries.clear
+    parcels.clear
     super
   end
 
-  # Confirm the sale order. This permits to define deliveries and assert validity of sale
+  # Confirm the sale order. This permits to define parcels and assert validity of sale
   def confirm(confirmed_at = Time.now)
     return false unless self.can_confirm?
     update_column(:confirmed_at, confirmed_at || Time.now)

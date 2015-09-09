@@ -25,6 +25,7 @@
 #  address_id       :integer          not null
 #  created_at       :datetime         not null
 #  creator_id       :integer
+#  delivery_id      :integer
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
 #  mode             :string           not null
@@ -34,7 +35,6 @@
 #  reference_number :string
 #  sale_id          :integer
 #  sent_at          :datetime
-#  transport_id     :integer
 #  transporter_id   :integer
 #  updated_at       :datetime         not null
 #  updater_id       :integer

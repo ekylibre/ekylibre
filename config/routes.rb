@@ -270,10 +270,17 @@ Rails.application.routes.draw do
         post :sort
       end
     end
+
     resources :custom_field_choices, except: [:index, :show], concerns: [:unroll], path: 'custom-field-choices' do
       member do
         post :up
         post :down
+      end
+    end
+
+    resources :deliveries, concerns: [:list, :unroll], except: [:new, :create] do
+      member do
+        get :list_outgoing_parcels
       end
     end
 
@@ -623,7 +630,7 @@ Rails.application.routes.draw do
     resources :purchases, concerns: [:list, :unroll] do
       member do
         get :list_items
-        get :list_deliveries
+        get :list_parcels
         post :abort
         post :confirm
         post :correct
@@ -668,7 +675,7 @@ Rails.application.routes.draw do
         get :list_items
         get :list_undelivered_items
         get :list_subscriptions
-        get :list_deliveries
+        get :list_parcels
         get :list_credits
         post :abort
         post :confirm
@@ -725,12 +732,6 @@ Rails.application.routes.draw do
     resources :trackings, concerns: [:list, :unroll] do
       member do
         get :list_products
-      end
-    end
-
-    resources :transports, concerns: [:list, :unroll], except: [:new, :create] do
-      member do
-        get :list_deliveries
       end
     end
 

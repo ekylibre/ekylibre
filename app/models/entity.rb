@@ -141,7 +141,7 @@ class Entity < Ekylibre::Record::Base
 
   alias_attribute :name, :full_name
 
-  scope :necessary_transporters, -> { where("id IN (SELECT transporter_id FROM #{OutgoingParcel.table_name} WHERE sent_at IS NULL OR transport_id IS NULL)").order(:last_name, :first_name) }
+  scope :necessary_transporters, -> { where("id IN (SELECT transporter_id FROM #{OutgoingParcel.table_name} WHERE sent_at IS NULL OR delivery_id IS NULL)").order(:last_name, :first_name) }
   scope :suppliers,    -> { where(supplier: true) }
   scope :transporters, -> { where(transporter: true) }
   scope :clients,      -> { where(client: true) }

@@ -207,6 +207,10 @@ eng:
       stocks: "Stocks dashboard"
       tools: "Tools dashboard"
       trade: "Trade dashboard"
+    backend/deliveries:
+      edit: "Edit transport %{number}"
+      index: "Transports"
+      show: "Transport: %{number}"
     backend/deposits:
       edit: "Edit deposit: %{number}"
       index: "Deposits"
@@ -647,10 +651,6 @@ eng:
       index: "Trackings"
       new: "New tracking"
       show: "Tracking: %{name}"
-    backend/transports:
-      edit: "Edit transport %{number}"
-      index: "Transports"
-      show: "Transport: %{number}"
     backend/trial_balances:
       show: "Trial balance"
     backend/users:
@@ -1208,6 +1208,7 @@ eng:
     paid_amount: "Paid amount" #?
     paid_at: "Paid at" #?
     parameters: "Parameters"
+    parcels: "Parcels"
     participants: "Participants"
     participations: "Participations"
     parts: "Modules" #?

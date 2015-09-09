@@ -147,6 +147,12 @@ arb:
       index: "مهلة" #?
       new: "اضافة مهلة جديدة" #?
       show: "المهلة : %{name}" #?
+    backend/deliveries:
+      deliveries: "تسليم وسيلة النقل" #?
+      edit: "تعديل وسيلة النقل"
+      index: "وسائل النقل"
+      new: "اضافة وسيلة نقل جديدة" #?
+      show: "نقلت من %{created_at}"
     backend/deposits:
       edit: "تعديل اقتطاعات البنك من %{created_at}"
       index: "اقتطاعات البنك"
@@ -644,12 +650,6 @@ arb:
       # index: "Trackings"
       # new: "New tracking"
       show: "الحصة %{name}"
-    backend/transports:
-      deliveries: "تسليم وسيلة النقل" #?
-      edit: "تعديل وسيلة النقل"
-      index: "وسائل النقل"
-      new: "اضافة وسيلة نقل جديدة" #?
-      show: "نقلت من %{created_at}"
     backend/trial_balances:
       show: "رصيد الحساب"
     backend/units:  #?
@@ -685,6 +685,7 @@ arb:
     backend/company: "شركة" #?
     backend/custom_fields: "الحقول المخصصة" #?
     backend/delays: "مهلة" #?
+    backend/deliveries: "وسائل النقل" #?
     backend/departments: "الوظائف/المهام" #?
     backend/deposits: "اقتطاعات البنك" #?
     backend/districts: "المناطق الادارية" #?
@@ -735,7 +736,6 @@ arb:
     backend/tax_declarations: "تصريح عن قيمة الضريبة الاضافية" #?
     backend/taxes: "الضرائب" #?
     backend/tools: "مادة" #?
-    backend/transports: "وسائل النقل" #?
     backend/units: "وحدات القياس" #?
     backend/users: "المستخدمين" #?
   errors:
@@ -1467,6 +1467,7 @@ arb:
     paid_amount: "القيمة المسدودة"
     paid_at: "تم التسديد في"
     parameters: "عامل متغير"
+    # parcels: "Parcels"
     # participants: "Participants"
     # participations: "Participations"
     parts: "وحدات"

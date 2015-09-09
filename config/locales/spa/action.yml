@@ -142,6 +142,10 @@ spa:
       index: "plazos" #?
       new: "Añadir un plazo" #?
       show: "plazo\_: %{name}" #?
+    backend/deliveries:
+      # edit: "Edit transport %{number}"
+      # index: "Transports"
+      # show: "Transport: %{number}"
     backend/deposits:
       edit: "Modificacion del aposto en banco del %{created_at}"
       index: "Aposto en banco"
@@ -517,10 +521,6 @@ spa:
       # index: "Trackings"
       # new: "New tracking"
       # show: "Tracking: %{name}"
-    backend/transports:
-      # edit: "Edit transport %{number}"
-      # index: "Transports"
-      # show: "Transport: %{number}"
     backend/trial_balances:
       show: "Balance general"
     backend/users:
@@ -1130,6 +1130,7 @@ spa:
     # paid_amount: "Paid amount"
     # paid_at: "Paid at"
     parameters: "Parametros"
+    # parcels: "Parcels"
     # participants: "Participants"
     # participations: "Participations"
     parts: "Modulos"

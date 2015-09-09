@@ -91,19 +91,10 @@ arb:
         sale_natures: "نوع البيع" #?
         sales_invoices: "فواتير" #?
       delivery:  #?
-        contact: "عنوان العميل" #?
-        contact_id: "عنوان العميل" #?
-        created_at: "أنشا في" #?
-        currency: "العملة" #?
-        label: "Label" #?
-        lines: "خطوط التسليم" #?
-        mode: "النوع" #?
-        mode_id: "نوع" #?
-        moved_at: "استمر" #?
-        order_id: "طلب البيع" #?
-        planned_at: "مقرر ليوم" #?
-        sales_invoice: "فاتورة" #?
-        transporter_id: "الناقلة" #?
+        company_id: "الشركة" #?
+        created_at: "انشأ في" #?
+        responsible_id: "مسؤول" #?
+        transporter: "الناقل" #?
       delivery_item:  #?
         amount: "القيمة من غير الضرائب" #?
         building_id: "موقع للتخزين" #?
@@ -594,11 +585,6 @@ arb:
         started_at: "ايتدأ يوم" #?
         updated_at: "تم تحديثه" #?
         updater_id: "تحديث" #?
-      transport:  #?
-        company_id: "الشركة" #?
-        created_at: "انشأ في" #?
-        responsible_id: "مسؤول" #?
-        transporter: "الناقل" #?
       unit:  #?
         name: "Name" #?
         start: "القيمة الاصلية" #?
@@ -770,7 +756,7 @@ arb:
       custom_field_datum: "بيانات الملف التكميلية" #?
       # dashboard: "Dashboard"
       delay: "التأجيل" #?
-      delivery: "التسليم" #?
+      delivery: "وسيلة النقل"
       delivery_item: "خط التسليم" #?
       delivery_mode: "نمط التسليم" #?
       department: "الخجمة" #?
@@ -909,7 +895,6 @@ arb:
       tool: "الاداة" #?
       tracking: "حصة ممكن عزوها"
       transfer: "التحويل" #?
-      transport: "وسيلة النقل"
       unit: "الوحدة" #?
       user: "المستخدم"
       # version: "Version"
@@ -1178,7 +1163,7 @@ arb:
     # delivery_address: "Delivery address"
     delivery_contact: "عنوان للتسليم" #?
     delivery_contact_id: "عنوان للتسليم" #?
-    delivery_id: "تسليم" #?
+    delivery_id: "وسيلة النقل" #?
     delivery_items: "طرق التسليم"
     delivery_modes: "اسلوب التسليم" #?
     density_label: "الكثافة" #?
@@ -1966,7 +1951,6 @@ arb:
     # transfered_at: "Transfered at"
     transfers: "التحويلات" #?
     transport: "وسيلة النقل"
-    transport_id: "وسيلة النقل" #?
     transporter: "الناقلة"
     transporter_id: "ناقل" #?
     # transporter_purchase: "Transporter purchase"

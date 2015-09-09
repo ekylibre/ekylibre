@@ -23,7 +23,7 @@ arb:
         custom_field_choice: "اختيار الحقل التكميلي"
         custom_field_datum: "بيانات الملف التكميلية"
         delay: "التأجيل"
-        delivery: "التسليم"
+        delivery: "وسيلة النقل"
         delivery_item: "خط التسليم"
         delivery_mode: "نمط التسليم"
         department: "الخجمة"
@@ -104,7 +104,6 @@ arb:
         tool: "الاداة"
         tracking: "حصة ممكن عزوها"
         transfer: "التحويل"
-        transport: "وسيلة النقل"
         unit: "الوحدة"
         user: "المستخدم"
     product_nature_category:

@@ -955,6 +955,47 @@ dashboards:
   updater_id:
     type: integer
     references: user
+deliveries:
+  annotation:
+    type: text
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  departed_at:
+    type: datetime
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  net_mass:
+    type: decimal
+    precision: 19
+    scale: 4
+  number:
+    type: string
+  reference_number:
+    type: string
+  responsible_id:
+    type: integer
+    references: entity
+  transporter_id:
+    type: integer
+    references: entity
+    required: true
+  transporter_purchase_id:
+    type: integer
+    references: purchase
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 deposits:
   accounted_at:
     type: datetime
@@ -3197,10 +3238,6 @@ outgoing_parcel_items:
   creator_id:
     type: integer
     references: user
-  delivery_id:
-    type: integer
-    references: outgoing_parcel
-    required: true
   id:
     type: integer
     required: true
@@ -3211,6 +3248,10 @@ outgoing_parcel_items:
     type: decimal
     precision: 19
     scale: 4
+  parcel_id:
+    type: integer
+    references: outgoing_parcel
+    required: true
   parted:
     type: boolean
     required: true
@@ -3251,6 +3292,9 @@ outgoing_parcels:
   creator_id:
     type: integer
     references: user
+  delivery_id:
+    type: integer
+    references: delivery
   id:
     type: integer
     required: true
@@ -3278,9 +3322,6 @@ outgoing_parcels:
     references: sale
   sent_at:
     type: datetime
-  transport_id:
-    type: integer
-    references: transport
   transporter_id:
     type: integer
     references: entity
@@ -5410,47 +5451,6 @@ trackings:
     type: string
   usage_limit_on:
     type: date
-transports:
-  annotation:
-    type: text
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  departed_at:
-    type: datetime
-  id:
-    type: integer
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  net_mass:
-    type: decimal
-    precision: 19
-    scale: 4
-  number:
-    type: string
-  reference_number:
-    type: string
-  responsible_id:
-    type: integer
-    references: entity
-  transporter_id:
-    type: integer
-    references: entity
-    required: true
-  transporter_purchase_id:
-    type: integer
-    references: purchase
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
 users:
   administrator:
     type: boolean

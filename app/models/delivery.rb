@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: transports
+# == Table: deliveries
 #
 #  annotation              :text
 #  created_at              :datetime         not null
@@ -38,7 +38,7 @@
 #  updater_id              :integer
 #
 
-class Transport < Ekylibre::Record::Base
+class Delivery < Ekylibre::Record::Base
   acts_as_numbered
   belongs_to :responsible, -> { contacts }, class_name: 'Entity'
   belongs_to :transporter, class_name: 'Entity'

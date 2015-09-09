@@ -139,6 +139,13 @@ fra:
       stocks: "Tableau de bord des stocks"
       tools: "Tableau de bord des outils"
       trade: "Tableau de bord des achats et ventes"
+    backend/deliveries:
+      deliveries: "Livraisons du transport" #?
+      delivery_delete: "Retirer la livraison du transport" #?
+      edit: "Modifier le transport %{number}"
+      index: "Transports"
+      new: "Nouveau transport" #?
+      show: "Transport %{number}"
     backend/deposits:
       edit: "Modifier la remise en banque n°%{number} du %{created_at}"
       index: "Remises en banque"
@@ -560,13 +567,6 @@ fra:
       show: "Numéro de suivi\_: %{name} - %{serial}"
     backend/transformed_products:  #?
       index: "Produits transformés" #?
-    backend/transports:
-      deliveries: "Livraisons du transport" #?
-      delivery_delete: "Retirer la livraison du transport" #?
-      edit: "Modifier le transport %{number}"
-      index: "Transports"
-      new: "Nouveau transport" #?
-      show: "Transport %{number}"
     backend/trial_balances:
       show: "Balance"
     backend/users:
@@ -1306,6 +1306,7 @@ fra:
     paid_amount: "Montant réglé"
     paid_at: "Réglé le"
     parameters: "Paramètres"
+    # parcels: "Parcels"
     participants: "Participants"
     participations: "Participations"
     parts: "Modules"

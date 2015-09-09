@@ -149,6 +149,7 @@ eng:
       custom_field: "Custom field"
       custom_field_choice: "Custom field choice"
       dashboard: "Dashboard"
+      delivery: "Transport"
       deposit: "Deposit"
       district: "District"
       document: "Document"
@@ -246,7 +247,6 @@ eng:
       tax: "Tax"
       team: "Team"
       tracking: "Tracking"
-      transport: "Transport"
       user: "User"
       version: "Version"
       worker: "Worker"
@@ -743,7 +743,7 @@ eng:
     paid_taxes: "Paid taxes"
     parameters: "Parameters"
     parcel: "Parcel"
-    parcels: "Parcels" #?
+    parcels: "Parcels"
     parent: "Parent"
     parted: "Parted"
     parted_product: "Parted product"
@@ -986,7 +986,7 @@ eng:
     tracking: "Tracking"
     trackings: "Trackings"
     transfered_at: "Transfered at"
-    transport: "Transport"
+    transport: "Transport" #?
     transporter: "Transporter"
     transporter_purchase: "Transporter purchase"
     transporter_sales: "Transporter sales"

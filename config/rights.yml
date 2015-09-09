@@ -1593,8 +1593,8 @@ purchases:
     actions:
     - "backend/purchases#index"
     - "backend/purchases#list"
-    - "backend/purchases#list_deliveries"
     - "backend/purchases#list_items"
+    - "backend/purchases#list_parcels"
     - "backend/purchases#show"
     - "backend/purchases#unroll"
   write:
@@ -1662,8 +1662,8 @@ sales:
     - "backend/sales#index"
     - "backend/sales#list"
     - "backend/sales#list_credits"
-    - "backend/sales#list_deliveries"
     - "backend/sales#list_items"
+    - "backend/sales#list_parcels"
     - "backend/sales#list_subscriptions"
     - "backend/sales#list_undelivered_items"
     - "backend/sales#show"
@@ -1879,20 +1879,20 @@ trackings:
 transports:
   read:
     actions:
-    - "backend/transports#index"
-    - "backend/transports#list"
-    - "backend/transports#list_deliveries"
-    - "backend/transports#show"
-    - "backend/transports#unroll"
+    - "backend/deliveries#index"
+    - "backend/deliveries#list"
+    - "backend/deliveries#list_outgoing_parcels"
+    - "backend/deliveries#show"
+    - "backend/deliveries#unroll"
   write:
     dependencies:
     - read-outgoing_deliveries
     - read-transports
     actions:
+    - "backend/deliveries#destroy"
+    - "backend/deliveries#edit"
+    - "backend/deliveries#update"
     - "backend/outgoing_parcels#ship"
-    - "backend/transports#destroy"
-    - "backend/transports#edit"
-    - "backend/transports#update"
 
 users:
   read:

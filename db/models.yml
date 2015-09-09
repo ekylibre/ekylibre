@@ -25,6 +25,7 @@
 - custom_field
 - custom_field_choice
 - dashboard
+- delivery
 - deposit
 - district
 - document
@@ -122,7 +123,6 @@
 - tax
 - team
 - tracking
-- transport
 - user
 - version
 - worker
