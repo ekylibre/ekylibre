@@ -167,9 +167,10 @@ fra:
         amount: "Montant"
         percentage: "Pourcentage"
     tracking:
-      used_by_type:
-        best_before_date: "Date Limite d'Utilisation Optimale (DLUO)"
-        used_by_date: "Date Limite de Consommation (DLC)"
+      usage_limit_nature:
+        best_before: "Date Limite d'Utilisation Optimale (DLUO)"
+        no_limit: "Aucune limite"
+        used_by: "Date Limite de Consommation (DLC)"
   simple_form:
     hints:
       purchase:

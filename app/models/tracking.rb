@@ -22,30 +22,31 @@
 #
 # == Table: trackings
 #
-#  active       :boolean          default(TRUE), not null
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  description  :text
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  name         :string           not null
-#  producer_id  :integer
-#  product_id   :integer
-#  serial       :string
-#  updated_at   :datetime         not null
-#  updater_id   :integer
-#  used_by_on   :date
-#  used_by_type :string
+#  active             :boolean          default(TRUE), not null
+#  created_at         :datetime         not null
+#  creator_id         :integer
+#  description        :text
+#  id                 :integer          not null, primary key
+#  lock_version       :integer          default(0), not null
+#  name               :string           not null
+#  producer_id        :integer
+#  product_id         :integer
+#  serial             :string
+#  updated_at         :datetime         not null
+#  updater_id         :integer
+#  usage_limit_nature :string
+#  usage_limit_on     :date
 #
 class Tracking < Ekylibre::Record::Base
-  enumerize :used_by_type, in: [:used_by_date, :best_before_date], default: :used_by_date, predicates: true
+  enumerize :usage_limit_nature, in: [:no_limit, :used_by, :best_before], default: :no_limit, predicates: true
   belongs_to :producer, class_name: 'Entity'
   belongs_to :product
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_date :used_by_on, allow_blank: true, on_or_after: Date.civil(1, 1, 1)
+  validates_date :usage_limit_on, allow_blank: true, on_or_after: Date.civil(1, 1, 1)
   validates_inclusion_of :active, in: [true, false]
   validates_presence_of :name
   # ]VALIDATORS]
+  validates_presence_of :usage_limit_on, unless: :no_limit?
 
   alias_attribute :serial_number, :serial
 end

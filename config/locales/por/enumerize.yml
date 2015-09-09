@@ -166,9 +166,10 @@ por:
         amount: "Total"
         percentage: "Percentagem"
     tracking:
-      used_by_type:
-        # best_before_date: "Best before date"
-        # used_by_date: "Used by date"
+      usage_limit_nature:
+        # best_before: "Best before date"
+        # no_limit: "No limit"
+        # used_by: "Used by date"
   simple_form:
     hints:
       purchase:

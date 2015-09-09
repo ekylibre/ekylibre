@@ -28,8 +28,8 @@ class Backend::TrackingsController < Backend::BaseController
     t.column :name
     t.column :product
     t.column :producer
-    t.column :used_by_type, hidden: true
-    t.column :used_by_on, hidden: true
+    t.column :usage_limit_nature, hidden: true
+    t.column :usage_limit_on, hidden: true
   end
 
   list(:products, model: :products, conditions: { tracking_id: 'params[:id]'.c }, order: { born_at: :asc }) do |t|

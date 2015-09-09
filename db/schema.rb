@@ -2819,19 +2819,19 @@ ActiveRecord::Schema.define(version: 20150908214101) do
   add_index "teams", ["updater_id"], name: "index_teams_on_updater_id", using: :btree
 
   create_table "trackings", force: :cascade do |t|
-    t.string   "name",                        null: false
+    t.string   "name",                              null: false
     t.string   "serial"
-    t.boolean  "active",       default: true, null: false
+    t.boolean  "active",             default: true, null: false
     t.text     "description"
     t.integer  "product_id"
     t.integer  "producer_id"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version", default: 0,    null: false
-    t.date     "used_by_on"
-    t.string   "used_by_type"
+    t.integer  "lock_version",       default: 0,    null: false
+    t.date     "usage_limit_on"
+    t.string   "usage_limit_nature"
   end
 
   add_index "trackings", ["created_at"], name: "index_trackings_on_created_at", using: :btree

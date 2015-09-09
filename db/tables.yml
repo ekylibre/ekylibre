@@ -5406,10 +5406,10 @@ trackings:
   updater_id:
     type: integer
     references: user
-  used_by_on:
-    type: date
-  used_by_type:
+  usage_limit_nature:
     type: string
+  usage_limit_on:
+    type: date
 transports:
   annotation:
     type: text
