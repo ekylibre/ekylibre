@@ -140,6 +140,27 @@ class Activity < Ekylibre::Record::Base
   def family_label
     item = Nomen::ActivityFamily[family].human_name
   end
+  
+  #return a color for each activity
+  def color
+    rgb_value = '#'
+    activity_family = Nomen::ActivityFamily[self.family]
+    color_cycle = {gold: 'FFD700', yellow: 'FFFF00', orange: 'FF8000', red: 'FF0000', green: '80FF00', dark_turquoise: '00FFFF', blue: '0000FF', purple: 'BF00FF', gray: 'A4A4A4'}
+    if activity_family
+      if activity_family <= :cereal_crops
+        if activity_family <= :maize_crops
+          rgb_value << color_cycle[:orange]
+        else
+          rgb_value << color_cycle[:gold]
+        end
+      elsif activity_family <= :protein_crops
+        rgb_value << color_cycle[:green]
+      else
+        rgb_value << color_cycle[:gray]
+      end
+    end
+    return rgb_value
+  end
 
   class << self
     def find_best_family(cultivation_variety, support_variety)

@@ -9,7 +9,7 @@
   :ruby
     # In theory, @activity and @productions should be produced here from @campaign only
     activities_serie = activities.collect do |activity|
-      {name: activity.name, y: activity.net_surface_area(@campaigns).to_d(:hectare).to_s.to_f, id: activity.id, url: backend_activity_path(activity), color: cycle(*theme_colors) }
+      {name: activity.name, y: activity.net_surface_area(@campaigns).to_d(:hectare).to_s.to_f, id: activity.id, url: backend_activity_path(activity), color: activity.color } #cycle(*theme_colors)
     end
 
     productions_serie = Production.of_campaign(*@campaigns).of_activities(activities).order("activity_id, id").collect do |production|

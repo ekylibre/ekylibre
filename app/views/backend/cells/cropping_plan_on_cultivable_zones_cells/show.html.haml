@@ -6,7 +6,7 @@
     for activity in activities
       y = activity.net_surface_area(@campaigns).to_d(:hectare).to_s.to_f
       next if y.zero?
-      color = cycle(*theme_colors)
+      color = activity.color
       activities_serie << { name: activity.name, y: y, color: color }
       for production in activity.productions.of_campaign(@campaigns).order(:id)
         y = production.net_surface_area.to_d(:hectare).to_s.to_f
