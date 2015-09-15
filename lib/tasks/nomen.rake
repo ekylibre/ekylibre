@@ -105,9 +105,15 @@ namespace :nomen do
     end
 
     task translation: :environment do
+      Nomen.missing_migrations.each do |migration|
+        Nomen::Migrator::Translation.run(migration)
+      end
     end
 
     task reference: :environment do
+      Nomen.missing_migrations.each do |migration|
+        Nomen::Migrator::Reference.run(migration)
+      end
     end
   end
 

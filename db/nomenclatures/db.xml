@@ -3769,8 +3769,8 @@
       <item name="cannabis_codimono" parent="cannabis"/>
       <item name="cannabis_cs" parent="cannabis"/>
       <item name="cannabis_dacia_seculeni" parent="cannabis"/>
-      <item name="cannabis_delta-405" parent="cannabis"/>
-      <item name="cannabis_delta-ilosa" parent="cannabis"/>
+      <item name="cannabis_delta_405" parent="cannabis"/>
+      <item name="cannabis_delta_ilosa" parent="cannabis"/>
       <item name="cannabis_denise" parent="cannabis"/>
       <item name="cannabis_diana" parent="cannabis"/>
       <item name="cannabis_dioica_88" parent="cannabis"/>
@@ -3804,7 +3804,7 @@
       <item name="cannabis_tisza" parent="cannabis"/>
       <item name="cannabis_tygra" parent="cannabis"/>
       <item name="cannabis_uniko_b" parent="cannabis"/>
-      <item name="cannabis_uso-31" parent="cannabis"/>
+      <item name="cannabis_uso_31" parent="cannabis"/>
       <item name="cannabis_wielkopolskie" parent="cannabis"/>
       <item name="cannabis_wojko" parent="cannabis"/>
       <item name="cannabis_zenit" parent="cannabis"/>
@@ -4980,7 +4980,7 @@
       <item name="trifolium_repens_triffid" parent="trifolium_repens" itis_tsn="12345"/>
       <item name="trifolium_repens_triple" parent="trifolium_repens" itis_tsn="12345"/>
       <item name="trigonella" parent="fabaceae" itis_tsn="270008"/>
-      <item name="trigonella_foenum-graecum" parent="trigonella" itis_tsn="505590"/>
+      <item name="trigonella_foenum_graecum" parent="trigonella" itis_tsn="505590"/>
       <item name="triticosecale" parent="poaceae" itis_tsn="41455"/>
       <item name="triticum" parent="poaceae" itis_tsn="42236"/>
       <item name="triticum_aestivum" parent="triticum" itis_tsn="42237"/>

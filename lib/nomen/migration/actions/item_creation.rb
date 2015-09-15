@@ -9,6 +9,8 @@ module Nomen
           @name = name.second
           @options = element.attributes.delete_if do |k, _v|
             k =~ /name(:[a-z]{3})?/ || %w(item parent nomenclature).include?(k)
+          end.each_with_object({}) do |(k, v), h|
+            h[k.to_sym] = v.to_s
           end
           @options[:parent] = element['parent'].to_sym if element.key?('parent')
         end

@@ -1,6 +1,7 @@
 module Nomen
   module Migration
     module Actions
+      autoload :Base,                 'nomen/migration/actions/base'
       autoload :ItemChange,           'nomen/migration/actions/item_change'
       autoload :ItemCreation,         'nomen/migration/actions/item_creation'
       autoload :ItemMerging,          'nomen/migration/actions/item_merging'

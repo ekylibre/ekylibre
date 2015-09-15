@@ -148,11 +148,13 @@ module Nomen
 
     def add_item(nomenclature_name, item_name, options = {})
       nomenclature = find!(nomenclature_name)
+      options = nomenclature.cast_options(options)
       nomenclature.add_item(item_name, options)
     end
 
     def change_item(nomenclature_name, item_name, updates = {})
       nomenclature = find!(nomenclature_name)
+      updates = nomenclature.cast_options(updates)
       nomenclature.change_item(item_name, updates)
     end
 

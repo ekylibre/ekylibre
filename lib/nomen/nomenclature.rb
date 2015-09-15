@@ -455,6 +455,17 @@ module Nomen
       @properties[method_name] || super
     end
 
+    def cast_options(options)
+      return {} if options.nil?
+      hash = options.each_with_object({}) do |(k, v), h|
+        if properties[k]
+          h[k.to_sym] = cast_property(k, v.to_s)
+        else
+          h[k.to_sym] = v
+        end
+      end
+    end
+
     def cast_property(name, value)
       value = value.to_s
       if property = properties[name]
