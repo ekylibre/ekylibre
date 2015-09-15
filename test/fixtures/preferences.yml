@@ -3109,3 +3109,111 @@ preferences_265:
   updated_at: 2015-07-14 13:21:33.166110000 Z
   updater_id: 1
   user_id: 1
+preferences_266:
+  boolean_value: true
+  created_at: 2015-09-15 19:20:20.426917000 Z
+  creator_id: 1
+  id: 267
+  lock_version: 0
+  name: interface.kujakus.backend-deliveries-index-1.collapsed
+  nature: boolean
+  updated_at: 2015-09-15 19:20:20.426917000 Z
+  updater_id: 1
+  user_id: 1
+preferences_267:
+  created_at: 2015-09-15 19:20:20.449574000 Z
+  creator_id: 1
+  id: 268
+  lock_version: 0
+  name: kujaku.feathers.backend-deliveries-index-1:0.default
+  nature: string
+  updated_at: 2015-09-15 19:20:20.449574000 Z
+  updater_id: 1
+  user_id: 1
+preferences_268:
+  created_at: 2015-09-15 19:20:20.459305000 Z
+  creator_id: 1
+  id: 269
+  lock_version: 0
+  name: list._deliveries_list_deliveries_tag
+  nature: string
+  string_value: {}
+  updated_at: 2015-09-15 19:20:20.459305000 Z
+  updater_id: 1
+  user_id: 1
+preferences_269:
+  created_at: 2015-09-15 19:20:25.950748000 Z
+  creator_id: 1
+  id: 270
+  lock_version: 0
+  name: cobbler.deliveries-show
+  nature: string
+  string_value: {}
+  updated_at: 2015-09-15 19:20:25.950748000 Z
+  updater_id: 1
+  user_id: 1
+preferences_270:
+  created_at: 2015-09-15 19:20:25.956692000 Z
+  creator_id: 1
+  id: 271
+  lock_version: 0
+  name: list._deliveries_list_parcels_tag
+  nature: string
+  string_value: {}
+  updated_at: 2015-09-15 19:20:25.956692000 Z
+  updater_id: 1
+  user_id: 1
+preferences_271:
+  boolean_value: true
+  created_at: 2015-09-15 19:21:19.928442000 Z
+  creator_id: 1
+  id: 272
+  lock_version: 0
+  name: interface.kujakus.backend-parcels-index-1.collapsed
+  nature: boolean
+  updated_at: 2015-09-15 19:21:19.928442000 Z
+  updater_id: 1
+  user_id: 1
+preferences_272:
+  created_at: 2015-09-15 19:21:19.934456000 Z
+  creator_id: 1
+  id: 273
+  lock_version: 0
+  name: kujaku.feathers.backend-parcels-index-1:0.default
+  nature: string
+  updated_at: 2015-09-15 19:21:19.934456000 Z
+  updater_id: 1
+  user_id: 1
+preferences_273:
+  created_at: 2015-09-15 19:21:19.941837000 Z
+  creator_id: 1
+  id: 274
+  lock_version: 0
+  name: list._parcels_list_parcels_tag
+  nature: string
+  string_value: {}
+  updated_at: 2015-09-15 19:21:19.941837000 Z
+  updater_id: 1
+  user_id: 1
+preferences_274:
+  created_at: 2015-09-15 19:34:26.761928000 Z
+  creator_id: 1
+  id: 275
+  lock_version: 0
+  name: cobbler.parcels-show
+  nature: string
+  string_value: {}
+  updated_at: 2015-09-15 19:34:26.761928000 Z
+  updater_id: 1
+  user_id: 1
+preferences_275:
+  created_at: 2015-09-15 19:34:26.768203000 Z
+  creator_id: 1
+  id: 276
+  lock_version: 0
+  name: list._parcels_list_items_tag
+  nature: string
+  string_value: {}
+  updated_at: 2015-09-15 19:34:26.768203000 Z
+  updater_id: 1
+  user_id: 1

@@ -132,14 +132,14 @@ eng:
       # show: "Last entities cell: %{name}"
     backend/cells/last_events_cells:
       # show: "Last events cell: %{name}"
-    backend/cells/last_incoming_deliveries_cells:
-      # show: "Last incoming deliveries cell: %{name}"
+    backend/cells/last_incoming_parcels_cells:
+      # show: "Last incoming parcels cell: %{name}"
     backend/cells/last_intervention_cells:
       # show: "Last intervention cell: %{name}"
     backend/cells/last_issues_cells:
       # show: "Last issues cell: %{name}"
-    backend/cells/last_outgoing_deliveries_cells:
-      # show: "Last outgoing deliveries cell: %{name}"
+    backend/cells/last_outgoing_parcels_cells:
+      # show: "Last outgoing parcels cell: %{name}"
     backend/cells/last_products_cells:
       # show: "Last products cell: %{name}"
     backend/cells/last_purchases_cells:
@@ -208,9 +208,16 @@ eng:
       tools: "Tools dashboard"
       trade: "Trade dashboard"
     backend/deliveries:
-      edit: "Edit transport %{number}"
-      index: "Transports"
-      show: "Transport: %{number}"
+      # cancel: "Cancel delivery: %{name}"
+      # check: "Check delivery: %{name}"
+      edit: "Edit delivery %{number}"
+      # finish: "Finish delivery: %{name}"
+      index: "Deliveries"
+      new: "New delivery"
+      # order: "Order delivery: %{name}"
+      # prepare: "Prepare delivery: %{name}"
+      show: "Delivery: %{number}"
+      # start: "Start delivery: %{name}"
     backend/deposits:
       edit: "Edit deposit: %{number}"
       index: "Deposits"
@@ -331,15 +338,6 @@ eng:
       new: "New import"
       run: "Run import"
       show: "Import: %{nature}"
-    backend/incoming_parcel_items:
-      new: "New incoming delivery item"
-    backend/incoming_parcels:
-      confirm: "Confirm incoming delivery"
-      edit: "Edit incoming delivery: %{number} (%{reference_number})"
-      index: "Incoming deliveries"
-      # invoice: "Invoice incoming parcel: %{name}"
-      new: "New incoming delivery"
-      show: "Incoming delivery: %{number} (%{reference_number})"
     backend/incoming_payment_modes:
       edit: "Edit incoming payment mode: %{name}"
       index: "Incoming payment modes"
@@ -454,13 +452,6 @@ eng:
     backend/operations:
       index: "Operations"
       show: "Operation Details %{name}"
-    backend/outgoing_parcels:
-      edit: "Edit outgoing delivery: %{number}"
-      index: "Outgoing deliveries"
-      # invoice: "Invoice outgoing parcel: %{name}"
-      new: "New outgoing delivery"
-      ship: "Ship:"
-      show: "Outgoing delivery: %{number}"
     backend/outgoing_payment_modes:
       edit: "Edit disbursement mode"
       index: "Disbursement modes"
@@ -471,6 +462,20 @@ eng:
       index: "Disbursements"
       new: "New disbursement"
       show: "Disbursement %{number} for %{payee}"
+    backend/parcel_items:
+      # new: "New parcel item"
+    backend/parcels:
+      # cancel: "Cancel parcel: %{name}"
+      # check: "Check parcel: %{name}"
+      edit: "Edit %{nature} parcel: %{number}"
+      # give: "Give parcel: %{name}"
+      index: "Parcels"
+      # invoice: "Invoice parcel: %{name}"
+      new: "New parcel"
+      # order: "Order parcel: %{name}"
+      # prepare: "Prepare parcel: %{name}"
+      ship: "Ship parcels"
+      show: "%{nature} parcel: %{number}"
     backend/plants:
       edit: "Edit plant: %{name}"
       index: "Plants"
@@ -807,6 +812,7 @@ eng:
     add_sale_taxation: "Add sale taxation"
     add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "Add support"
+    add_tool: "Add tool"
     add_website: "Add website"
     add_x: "Add “%{x}”"
     affair: "Affair"
@@ -832,7 +838,6 @@ eng:
       reopen_issue: "Are you sure you want to reopen this issue?"
     are_you_sure_you_want_to_confirm: "Are you sure you want to order"
     are_you_sure_you_want_to_delete: "Are you sure you want to delete this record?"
-    are_you_sure_you_want_to_delete_delivery: "Are you sure you want to remove the delivery of transport?"
     are_you_sure_you_want_to_invoice: "Are you sure you want to invoice?"
     are_you_sure_you_want_to_send_mails: "Are you sure you want to send emails?"
     # area: "Area"
@@ -910,7 +915,7 @@ eng:
     create: "Create"
     create_journal: "— Create journal —"
     create_or_import_equipments: "Create or import equipments"
-    create_or_import_incoming_parcels: "Create or import incoming deliveries"
+    create_or_import_incoming_parcels: "Create or import incoming parcels"
     create_or_import_interventions: "Create or import interventions"
     create_or_import_workers: "Create or import workers"
     created_at: "Created on" #?
@@ -944,7 +949,7 @@ eng:
     definition: "Definition"
     delete: "Delete"
     deliver: "Delivered on" #?
-    deliveries: "Deliveries"
+    deliveries: "Deliveries" #?
     delivery: "Delivery" #?
     deposit: "Deposit"
     depositable_options: "Deposit options"
@@ -1050,7 +1055,7 @@ eng:
     inactive: "Inactive" #?
     include_blank: "Include blank" #?
     income_statement: "Income Statement" #?
-    incoming_parcels: "Incoming deliveries"
+    incoming_parcels: "Incoming parcels"
     incoming_payment: "Incoming payment" #?
     incoming_payments: "Incoming payments"
     incoming_payments_to_deposit: "Incoming payments to deposit"
@@ -1097,11 +1102,11 @@ eng:
     last_computed_balance: "Last computed balance" #?
     last_entities: "Last entities" #?
     last_events: "Last events" #?
-    last_incoming_parcels: "Last incoming deliveries" #?!
+    last_incoming_parcels: "Last incoming parcels" #?
     last_intervention: "Last intervention"
     last_issue: "Last issue"
     last_issues: "Last issues" #?
-    last_outgoing_deliveries: "Last outgoing deliveries" #?
+    last_outgoing_parcels: "Last outgoing parcels" #?
     last_products: "Last products" #?
     last_purchases: "Last purchases"
     last_sales: "Last sales" #?
@@ -1155,6 +1160,12 @@ eng:
     new_call: "New call"
     new_contact: "New contact"
     new_container: "New container"
+    new_delivery_of_x_parcels:
+      one: "New transport (%{count} delivery)"
+      other: "New transport (%{count} deliveries)"
+    new_delivery_of_x_parcels_for_y:
+      one: "New transport for %{transporter} (%{count} delivery)"
+      other: "New transport for %{transporter} (%{count} deliveries)"
     new_deposit:
       one: "Make a deposit %{mode}: 1 available payment"
       other: "Make a deposit %{mode}: %{count} available payments"
@@ -1164,12 +1175,6 @@ eng:
     new_organization: "New organization"
     new_production_of_activity: "New production of %{activity}"
     new_quote: "New quote"
-    new_transport_of_x_deliveries:
-      one: "New transport (%{count} delivery)"
-      other: "New transport (%{count} deliveries)"
-    new_transport_of_x_deliveries_for_y:
-      one: "New transport for %{transporter} (%{count} delivery)"
-      other: "New transport for %{transporter} (%{count} deliveries)"
     new_writing: "New writing"
     next: "Next"
     nitrogen_concentration: "Nitrogen concentration" #?
@@ -1568,11 +1573,11 @@ eng:
     x_unit_per_second: "Flow: %{quantity}%{unit}/s" #?!
     x_units_of_product_y: "%{quantity}%{unit} of %{product}" #?!
     x_waiting_incoming_parcels: #?!
-      one: "%{count} waiting incoming delivery" #?!
-      other: "%{count} waiting incoming deliveries" #?!
+      one: "%{count} waiting incoming parcel" #?!
+      other: "%{count} waiting incoming parcels" #?!
     x_waiting_outgoing_deliveries: #?!
-      one: "%{count} waiting outgoing delivery" #?!
-      other: "%{count} waiting outgoing deliveries" #?!
+      one: "%{count} waiting outgoing parcel" #?!
+      other: "%{count} waiting outgoing parcels" #?!
     x_years:
       one: "1 year"
       other: "%{count} years"
@@ -1587,6 +1592,7 @@ eng:
       a_campaign_must_be_opened: "A campaign must be opened"
       a_production_must_be_opened: "A production must be opened"
       access_denied: "Access denied. %{reason} (%{url})"
+      # all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "All parcels must be invoiceable and of same nature and third"
       an_activity_must_be_defined: "An activity must be defined"
       bookkeeping_is_finished: "The commercial data transfer is finished."
       bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
@@ -1638,6 +1644,7 @@ eng:
       no_authenticated: "You could not be identified. The user name or password must be incorrect." #?
       no_closable_journal: "No closable journal"
       no_depositable_payments: "There are no payment to deposit"
+      # no_parcels_given: "No parcels given"
       no_payment_to_deposit: "There are no payment to deposit"
       no_reopenable_journal: "You can not re-open this journal."
       record_already_imported: "Record already imported"
@@ -1647,6 +1654,7 @@ eng:
       record_not_found: "Record not found" #?
       sale_is_not_duplicatable: "Sale is not duplicatable"
       select_entry_items_to_mark_together: "Select entry items to mark together"
+      # some_parcels_are_not_shippable: "Some parcels are not shippable"
       the_sales_invoice_is_not_cancellable: "The sales invoice is not cancellable"
       unavailable_resource: "Nonexistent %{type} #%{id}"
       unexpected_resource_type: "Unexpected resource type: %{type}"
@@ -1686,6 +1694,7 @@ eng:
       category: "Category"
       # change: "Change"
       # change_minutes: "Change minutes"
+      # check: "Check"
       children: "Children"
       close: "Close"
       compute: "Compute"
@@ -1708,6 +1717,7 @@ eng:
       family: "Family"
       finish: "Finish"
       generate_last_journal_entry: "Generate last journal entry"
+      # give: "Give"
       import: "Import"
       # import_shapes: "Import shapes"
       incorporate: "Incorporate"
@@ -1731,10 +1741,12 @@ eng:
       negociate: "Negociate"
       new: "New"
       open: "Open"
+      # order: "Order"
       # payment_method: "Payment method"
       pick: "Pick"
       picture: "Picture"
       point: "Point"
+      # prepare: "Prepare"
       # product: "Product"
       propose: "Propose"
       propose_and_invoice: "Propose and invoice"
@@ -1787,6 +1799,7 @@ eng:
     backend/observations: "%{content}"
     backend/operations: "%{nature} (%{created_at})"
     backend/outgoing_payments: "%{number}. %{mode_name} to %{payee_full_name} of %{amount} %{currency}"
+    backend/parcels: "%{number} ‒ %{reference_number}"
     backend/plants: "%{name} ‒ %{work_number}"
     backend/prescriptions: "%{reference_number}"
     backend/product_memberships: "%{started_at}"

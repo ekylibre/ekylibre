@@ -94,14 +94,14 @@ class Product < Ekylibre::Record::Base
   has_many :interventions, through: :intervention_casts
   # has_many :groups, :through => :memberships
   has_many :reading_tasks, class_name: 'ProductReadingTask', dependent: :destroy
-  # has_many :incoming_parcel_items
+  has_many :parcel_items, dependent: :restrict_with_exception
   has_many :junction_ways, class_name: 'ProductJunctionWay', foreign_key: :product_id, dependent: :destroy
   has_many :junctions, class_name: 'ProductJunction', through: :junction_ways
   has_many :linkages, class_name: 'ProductLinkage', foreign_key: :carrier_id, dependent: :destroy
   has_many :links, class_name: 'ProductLink', foreign_key: :product_id, dependent: :destroy
   has_many :localizations, class_name: 'ProductLocalization', foreign_key: :product_id, dependent: :destroy
   has_many :memberships, class_name: 'ProductMembership', foreign_key: :member_id, dependent: :destroy
-  has_many :outgoing_parcel_items, dependent: :restrict_with_exception
+  # has_many :parcel_items, dependent: :restrict_with_exception
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :product_id, dependent: :destroy
   has_many :phases, class_name: 'ProductPhase', dependent: :destroy
   has_many :supports, class_name: 'ProductionSupport', foreign_key: :storage_id, inverse_of: :storage
@@ -117,7 +117,7 @@ class Product < Ekylibre::Record::Base
   has_many :current_memberships, -> { current }, class_name: 'ProductMembership', foreign_key: :member_id
   has_one :container, through: :current_localization
   has_many :groups, through: :current_memberships
-  has_one :incoming_parcel_item, class_name: 'IncomingParcelItem', foreign_key: :product_id, inverse_of: :product
+  has_one :incoming_parcel_item, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
 
   has_picture
 
@@ -170,10 +170,18 @@ class Product < Ekylibre::Record::Base
   }
   scope :at, ->(at) { where(arel_table[:born_at].lteq(at).and(arel_table[:dead_at].eq(nil).or(arel_table[:dead_at].gt(at)))) }
   scope :of_owner, lambda { |owner|
-    joins(:current_ownership).where('product_ownerships.owner_id' => owner.id)
+    if owner.is_a?(Symbol)
+      joins(:current_ownership).where(product_ownerships: { nature: owner })
+    else
+      joins(:current_ownership).where(product_ownerships: { owner_id: owner.id })
+    end
   }
-  scope :of_enjoyer, lambda { |owner|
-    joins(:current_enjoyment).where('product_enjoyments.enjoyer_id' => owner.id)
+  scope :of_enjoyer, lambda { |enjoyer|
+    if enjoyer.is_a?(Symbol)
+      joins(:current_enjoyment).where(product_enjoyments: { nature: enjoyer })
+    else
+      joins(:current_enjoyment).where(product_enjoyments: { enjoyer_id: enjoyer.id })
+    end
   }
 
   scope :of_productions, lambda { |*productions|
@@ -195,6 +203,7 @@ class Product < Ekylibre::Record::Base
   scope :supportables, -> { of_variety([:cultivable_zone, :animal_group, :equipment]) }
   scope :supporters, -> { where(id: ProductionSupport.pluck(:storage_id)) }
   scope :availables, -> { where(dead_at: nil).not_indicate(population: 0) }
+  scope :tools, -> { of_variety(:equipment) }
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :born_at, :dead_at, :initial_born_at, :initial_dead_at, :picture_updated_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
@@ -603,7 +612,7 @@ class Product < Ekylibre::Record::Base
   end
 
   def initializeable?
-    self.new_record? || !(incoming_parcel_item.present? || outgoing_parcel_items.any? || intervention_casts.any? || fixed_asset.present?)
+    self.new_record? || !(parcel_items.any? || intervention_casts.any? || fixed_asset.present?)
   end
 
   # TODO: Doc

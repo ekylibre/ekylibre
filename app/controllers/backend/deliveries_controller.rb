@@ -17,7 +17,7 @@
 #
 
 class Backend::DeliveriesController < Backend::BaseController
-  manage_restfully except: [:new, :create]
+  manage_restfully parcel_ids: '(params[:parcel_ids] || [])'.c
 
   unroll
 
@@ -26,17 +26,30 @@ class Backend::DeliveriesController < Backend::BaseController
     t.action :destroy
     t.column :number, url: true
     t.column :annotation
-    t.column :departed_at
+    t.status
+    t.column :state
+    t.column :started_at
     t.column :transporter, label_method: :full_name, url: true
     t.column :net_mass
   end
 
-  list(:outgoing_parcels, conditions: { delivery_id: 'params[:id]'.c }) do |t|
+  list(:parcels, conditions: { delivery_id: 'params[:id]'.c }, order: :position) do |t|
+    t.action :edit
+    t.action :destroy
     t.column :number, url: true
-    t.column :reference_number
-    t.column :address, label_method: :coordinate
-    t.column :sale, url: true
-    t.column :sent_at
+    t.column :nature
+    t.column :state
+    t.status
+    t.column :sender, url: true
+    t.column :recipient, url: true
+    t.column :sale, url: true, hidden: true
+    t.column :purchase, url: true, hidden: true
     t.column :net_mass
+  end
+
+  Delivery.state_machine.events.each do |event|
+    define_method event.name do
+      fire_event(event.name)
+    end
   end
 end

@@ -494,7 +494,7 @@ module ApplicationHelper
   end
 
   def main_informations(&block)
-    content_tag(:div, class: 'panel') do
+    content_tag(:div, class: 'panel', id: 'main-informations') do
       content_tag(:div, class: 'panel-body', &block)
     end
   end
@@ -857,9 +857,10 @@ module ApplicationHelper
     buttons << link_to('', '#', :class => 'toggle', 'data-toggle' => 'fields')
     class_names = 'fieldset ' + name.to_s + (options[:class] ? ' ' + options[:class].to_s : '')
     class_names << (options[:collapsed] ? ' collapsed' : ' not-collapsed')
+    name_sym = name.to_s.tr('-', '_').to_sym
     wrap(content_tag(:div,
                      content_tag(:div,
-                                 link_to(content_tag(:i) + h(name.is_a?(Symbol) ? name.to_s.tr('-', '_').tl(default: ["form.legends.#{name.to_s.tr('-', '_')}".to_sym, name.to_s.humanize]) : name.to_s), '#', :class => 'title', 'data-toggle' => 'fields') +
+                                 link_to(content_tag(:i) + h(name.is_a?(Symbol) ? name_sym.tl(default: ["form.legends.#{name_sym}".to_sym, "attributes.#{name_sym}".to_sym, name_sym.to_s.humanize]) : name.to_s), '#', :class => 'title', 'data-toggle' => 'fields') +
                                  content_tag(:span, buttons.join.html_safe, class: :buttons),
                                  class: 'fieldset-legend') +
                      content_tag(:div, capture(&block), class: options[:fields_class]), class: class_names, id: name), options[:in])

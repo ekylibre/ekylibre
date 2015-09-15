@@ -46,9 +46,10 @@ class ProductEnjoyment < Ekylibre::Record::Base
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_presence_of :nature, :product
   # ]VALIDATORS]
+  validates_presence_of :enjoyer, if: :other?
 
   before_validation do
-    self.nature = (enjoyer.blank? ? :unknown : (enjoyer == Entity.of_company) ? :own : :other)
+    self.nature ||= (enjoyer.blank? ? :unknown : (enjoyer == Entity.of_company) ? :own : :other)
   end
 
   private

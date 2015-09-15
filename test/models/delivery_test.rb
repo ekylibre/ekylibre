@@ -25,14 +25,18 @@
 #  annotation              :text
 #  created_at              :datetime         not null
 #  creator_id              :integer
-#  departed_at             :datetime
+#  driver_id               :integer
 #  id                      :integer          not null, primary key
 #  lock_version            :integer          default(0), not null
+#  mode                    :string
 #  net_mass                :decimal(19, 4)
 #  number                  :string
 #  reference_number        :string
 #  responsible_id          :integer
-#  transporter_id          :integer          not null
+#  started_at              :datetime
+#  state                   :string           not null
+#  stopped_at              :datetime
+#  transporter_id          :integer
 #  transporter_purchase_id :integer
 #  updated_at              :datetime         not null
 #  updater_id              :integer

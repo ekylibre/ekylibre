@@ -140,12 +140,10 @@ fra:
       tools: "Tableau de bord des outils"
       trade: "Tableau de bord des achats et ventes"
     backend/deliveries:
-      deliveries: "Livraisons du transport" #?
-      delivery_delete: "Retirer la livraison du transport" #?
-      edit: "Modifier le transport %{number}"
-      index: "Transports"
-      new: "Nouveau transport" #?
-      show: "Transport %{number}"
+      edit: "Modifier la livraison %{number}"
+      index: "Livraisons"
+      new: "Nouvelle livraison"
+      show: "Livraison\_: %{number}"
     backend/deposits:
       edit: "Modifier la remise en banque n°%{number} du %{created_at}"
       index: "Remises en banque"
@@ -262,18 +260,14 @@ fra:
       new: "Nouvel import"
       run: "Exécuter l’import\_: %{name}"
       show: "Import\_: %{name}"
-    backend/incoming_delivery_modes:  #?
-      edit: "Modifier le mode d’approvisionnement: %{name}" #?
-      index: "Modes d’approvisionnement" #?
-      new: "Créer un mode d’approvisionnement" #?
-    backend/incoming_parcel_items:
-      new: "Nouvel item"
-    backend/incoming_parcels:
-      confirm: "Confirmer l’arrivée de l’approvisionnement"
-      edit: "Modifier l’approvisionnement: %{number}"
-      index: "Approvisionnements"
-      new: "Enregistrer un nouvel approvisionnement"
-      show: "Approvisionnement %{number} (%{reference_number})"
+    backend/incoming_parcel_items:  #?
+      new: "Nouvel élément" #?
+    backend/incoming_parcels:  #?
+      confirm: "Confirmer la réception d’un colis" #?
+      edit: "Modifier le colis à recevoir\_: %{number}" #?
+      index: "Colis à recevoir" #?
+      new: "Enregistrer un nouveau colis à recevoir" #?
+      show: "Colis à recevoir %{number} (%{reference_number})" #?
     backend/incoming_payment_modes:
       edit: "Modifier le mode d’encaissement\_: %{name}"
       index: "Modes d’encaissement"
@@ -389,12 +383,12 @@ fra:
       index: "Organisations" #?
       new: "Nouvelle organisation" #?
       show: "Organisation\_: %{full_name}" #?
-    backend/outgoing_parcels:
-      edit: "Modifier la livraison sortante\_: %{number}"
-      index: "Livraisons sortantes"
-      new: "Nouvelle livraison sortante"
-      ship: "Expédier des livraisons"
-      show: "Livraison sortante\_: %{number}"
+    backend/outgoing_parcels:  #?
+      edit: "Modifier le colis à expédier\_: %{number}" #?
+      index: "Colis à expédier" #?
+      new: "Nouveau colis à expédier" #?
+      ship: "Expédier les colis" #?
+      show: "Colis à expédier\_: %{number}" #?
     backend/outgoing_payment_modes:
       edit: "Modifier un mode de décaissement"
       index: "Modes de décaissement"
@@ -404,6 +398,12 @@ fra:
       index: "Décaissements"
       new: "Nouveau décaissement"
       show: "Décaissement n°%{number} pour %{payee}"
+    backend/parcels:
+      edit: "Modifier le colis %{nature}\_: %{number}"
+      index: "Colis"
+      new: "Nouveau colis"
+      ship: "Expédier les colis"
+      show: "Colis %{nature}\_: %{number}"
     backend/plants:
       edit: "Modifier la culture\_: %{name}"
       index: "Cultures"
@@ -671,6 +671,7 @@ fra:
     add_sale_taxation: "Ajouter une taxe de vente"
     add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
     add_support: "Ajouter un support de production"
+    add_tool: "Ajouter un outil"
     add_treatment: "Ajouter un traitement" #?
     add_variant: "Ajouter une variante" #?
     add_watching: "Ajouter un produit de référence" #?
@@ -715,7 +716,6 @@ fra:
       reopen_issue: "Êtes-vous sûr(e) de vouloir ré-ouvrir cet incident\_?"
     are_you_sure_you_want_to_confirm: "Êtes-vous sûr(e) de vouloir passer en commande\_?"
     are_you_sure_you_want_to_delete: "Êtes-vous sûr(e) de vouloir supprimer cet enregistrement\_?"
-    are_you_sure_you_want_to_delete_delivery: "Êtes-vous sûr(e) de vouloir enlever cette livraison du transport\_?"
     are_you_sure_you_want_to_invoice: "Êtes-vous sûr(e) de vouloir facturer\_?"
     are_you_sure_you_want_to_send_mails: "Êtes-vous sûr(e) de vouloir envoyer les mails\_?"
     area_measure: "Superficie" #?
@@ -836,8 +836,8 @@ fra:
     counts_by_nature: "Nombre de pièces à comptabiliser par type"
     create: "Créer"
     create_journal: "— Créer le journal —"
-    create_or_import_equipments: "Créer ou importer des équipments"
-    create_or_import_incoming_parcels: "Créer ou importer des approvisionnements"
+    create_or_import_equipments: "Créer ou importer des équipements"
+    create_or_import_incoming_parcels: "Créer ou importer des colis à réceptionner"
     create_or_import_interventions: "Créer ou importer des interventions"
     create_or_import_workers: "Créer ou importer des travailleurs"
     created_at: "Créée le"
@@ -888,14 +888,7 @@ fra:
     deliver: "Valider l’envoi des livraisons"
     deliveries: "Livraisons"
     delivery: "Livraison"
-    delivery_natural_gas_and_electricity_assessable: "Livraisons de gaz naturel ou d’électricité imposables en France" #?
-    delivery_natural_gas_and_electricity_not_assessable: "Livraisons de gaz naturel ou d’électricité non imposables en France" #?
-    demo_bar: "Histogramme" #?
-    demo_map: "Répartition géographique des ventes" #?
-    demo_pie: "Ventes par type de produit" #?
-    departments: "Services" #?
     deposit: "Remise en banque"
-    depositable: "Complément d’information" #?
     depositable_options: "Options de remise en banque"
     deposits: "Dépôts"
     depreciation: "Ammortissement"
@@ -1045,7 +1038,7 @@ fra:
     incident: "Incident" #?
     include_blank: "— Aucune organisation —"
     income_statement: "Compte de résultat"
-    incoming_parcels: "Approvisionnements"
+    incoming_parcels: "Colis à réceptionner"
     incoming_payment: "Encaissement"
     incoming_payment_conditions: "Conditions d’encaissement" #?
     incoming_payments: "Encaissements"
@@ -1117,11 +1110,11 @@ fra:
     last_documents: "Derniers archivages" #?
     last_entities: "Derniers tiers"
     last_events: "Derniers évènements"
-    last_incoming_parcels: "Derniers approvisionnements"
+    last_incoming_parcels: "Derniers colis à réceptionner"
     last_intervention: "Dernières interventions"
     last_issue: "Dernier incident"
     last_issues: "Derniers incidents"
-    last_outgoing_deliveries: "Dernières livraisons"
+    last_outgoing_parcels: "Derniers colis à expédier"
     last_payment_amount: "Montant du dernier encaissement" #?
     last_payment_date: "Date du dernier encaissement" #?
     last_procedures: "Dernières procédures" #?
@@ -1217,6 +1210,12 @@ fra:
     new_call: "Nouvel appel"
     new_contact: "Nouveau contact"
     new_container: "Nouvel emplacement"
+    new_delivery_of_x_parcels:
+      one: "Nouvelle livraison (%{count} colis)"
+      other: "Nouvelle livraison (%{count} colis)"
+    new_delivery_of_x_parcels_for_y:
+      one: "Nouvelle livraison pour %{transporter} (%{count} colis)"
+      other: "Nouvelle livraison pour %{transporter} (%{count} colis)"
     new_deposit:
       one: "Effectuer une remise\_: %{mode} (%{count} encaissement disponible)"
       other: "Effectuer une remise\_: %{mode} (%{count} encaissements disponibles)"
@@ -1236,14 +1235,8 @@ fra:
     new_sale: "Nouvelle vente" #?
     new_sales_price: "Ajouter un prix de vente" #?
     new_title: "Nouveau titre" #?
-    new_transport_of_x_deliveries:
-      one: "Nouveau transport (%{count} livraison)"
-      other: "Nouveau transport (%{count} livraisons)"
-    new_transport_of_x_deliveries_for_y:
-      one: "Nouveau transport pour %{transporter} (%{count} livraison)"
-      other: "Nouveau transport pour %{transporter} (%{count} livraisons)"
     new_value: "Nouvelle valeur" #?
-    new_writing: "Nouvel écrit "
+    new_writing: "Nouvel écrit"
     next: "Suivant"
     nitrogen_concentration: "Teneur en azote (N)"
     nitrogen_concentration_per_hectare: "Teneur en azote par hectare"
@@ -1306,7 +1299,7 @@ fra:
     paid_amount: "Montant réglé"
     paid_at: "Réglé le"
     parameters: "Paramètres"
-    # parcels: "Parcels"
+    parcels: "Colis"
     participants: "Participants"
     participations: "Participations"
     parts: "Modules"
@@ -1647,7 +1640,6 @@ fra:
     transformations: "Transformations"
     transformed_products: "Produits transformés" #?
     transport: "Transport"
-    transport_deliveries: "Livraisons du transport" #?
     transport_states:  #?
       all: "Tous" #?
       making: "En cours" #?
@@ -1835,11 +1827,11 @@ fra:
     x_unit_per_second: "Débit: %{quantity}%{unit}/s"
     x_units_of_product_y: "%{quantity}%{unit} de %{product}"
     x_waiting_incoming_parcels:
-      one: "%{count} livraison entrante en attente"
-      other: "%{count} livraisons entrantes en attente"
+      one: "%{count} colis à réceptionner en attente"
+      other: "%{count} colis à réceptionner en attente"
     x_waiting_outgoing_deliveries:
-      one: "%{count} livraison sortante en attente"
-      other: "%{count} livraisons sortantes en attente"
+      one: "%{count} colis à expédier en attente"
+      other: "%{count} colis à expédier en attente"
     x_years:
       one: "%{count} an"
       other: "%{count} ans"
@@ -2083,6 +2075,7 @@ fra:
     backend/observations: "%{content}"
     backend/operations: "%{reference_name} (%{started_at})"
     backend/outgoing_payments: "%{number}. %{mode_name} pour %{payee_full_name} de %{amount} %{currency}"
+    backend/parcels: "%{number} ‒ %{reference_number}"
     backend/plants: "%{name} ‒ %{work_number}"
     backend/prescriptions: "%{reference_number}"
     backend/product_memberships: "%{started_at}"

@@ -8,7 +8,7 @@ module Indicateable
       read_at = options[:at] || Time.now
       ids = []
       # TODO: Build conditions to filter on indicator_values
-      for name, value in indicator_values
+      indicator_values.each do |name, value|
         data = ProductReading.of_products(self, name, read_at).where("#{Nomen::Indicator[name].datatype}_value" => value)
         ids += data.pluck(:product_id) if data.any?
       end
@@ -19,7 +19,7 @@ module Indicateable
       read_at = options[:at] || Time.now
       ids = []
       # TODO: Build conditions to filter on indicator_values
-      for name, value in indicator_values
+      indicator_values.each do |name, value|
         data = ProductReading.of_products(self, name, read_at).where("#{Nomen::Indicator[name].datatype}_value" => value)
         ids += data.pluck(:product_id) if data.any?
       end
@@ -46,6 +46,12 @@ module Indicateable
   # Permits to always return a population
   def population(*args)
     get(:population, *args) || 0.0
+  end
+
+  # Register a value at the current value
+  def mark!(indicator, options = {})
+    marked_at = options[:marked_at] ||= Time.zone.now
+    self.read!(indicator, self.get!(indicator, at: marked_at), at: marked_at)
   end
 
   # Measure a product for a given indicator
@@ -151,12 +157,6 @@ module Indicateable
     value
   end
 
-  # # Returns indicators for a set of product
-  # def self.readings(name, options = {})
-  #   read_at = options[:at] || Time.now
-  #   ProductReading.where("id IN (SELECT p1.id FROM #{self.indicator_table_name(name)} AS p1 LEFT OUTER JOIN #{self.indicator_table_name(name)} AS p2 ON (p1.product_id = p2.product_id AND p1.indicator = p2.indicator AND (p1.read_at < p2.read_at OR (p1.read_at = p2.read_at AND p1.id < p2.id)) AND p2.read_at <= ?) WHERE p1.read_at <= ? AND p1.product_id IN (?) AND p1.indicator = ? AND p2 IS NULL)", read_at, read_at, self.pluck(:id), name)
-  # end
-
   def density(numerator, denominator, options = {})
     # Check indicator
     unless numerator.is_a?(Nomen::Item) || numerator = Nomen::Indicator[numerator]
@@ -193,7 +193,7 @@ module Indicateable
   def copy_readings_of!(other, options = {})
     options[:at] ||= Time.now
     options[:taken_at] ||= options[:at] - 0.000001
-    for indicator_name in other.individual_indicators_list - frozen_indicators_list
+    (other.individual_indicators_list - frozen_indicators_list).each do |indicator_name|
       if reading = other.reading(indicator_name, at: options[:taken_at])
         self.read!(indicator_name, reading.value, at: options[:at], originator: options[:originator])
       end
@@ -238,36 +238,6 @@ module Indicateable
       reading.value = value
       reading.save!
     end
-  end
-
-  # # Substract a value to a list of indicator data
-  # def substract_to_readings_from(source, options = {})
-  #   self.whole_indicators_list.each do |indicator_name|
-  #     self.read!(indicator_name, self.get(indicator_name, at: options[:at]), at: options[:at])
-  #     product_reading_value = source.send(indicator_name)
-  #     if product_reading_value
-  #       self.substract_to_readings(indicator_name, product_reading_value, after: options[:at])
-  #     else
-  #       fail StandardError, "No given #{indicator_name} for division."
-  #     end
-  #   end
-  # end
-
-  def operate_on_readings(indicator, value, options = {})
-    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
-      fail ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
-    end
-    data = readings.where(indicator_name: indicator.name)
-    operation = options.delete(:operation)
-    read_at = options[:at] || Time.now
-    if operation == :add
-      expr = (indicator.datatype == :shape ? 'ST_Union(VALUE, ?)' : 'VALUE + ?')
-    elsif operation == :substract
-      expr = (indicator.datatype == :shape ? 'ST_Difference(VALUE, ?)' : 'VALUE - ?')
-    else
-      fail StandardError, "Unknown operation: #{operation.inspect}"
-    end
-    data.update_all(["VALUE = #{expr}".gsub('VALUE', "#{indicator.datatype}_value"), value])
   end
 
   # Substract a value to a list of indicator data

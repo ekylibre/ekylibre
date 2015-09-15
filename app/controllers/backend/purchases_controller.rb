@@ -83,13 +83,13 @@ class Backend::PurchasesController < Backend::BaseController
     t.column :amount, currency: true
   end
 
-  list(:parcels, model: :incoming_parcels, children: :items, conditions: { purchase_id: 'params[:id]'.c }) do |t|
+  list(:parcels, model: :parcels, children: :items, conditions: { purchase_id: 'params[:id]'.c }) do |t|
     t.action :edit, if: :order?
     t.action :destroy, if: :order?
     t.column :number, url: true
     t.column :reference_number, url: true
     t.column :address, children: :product_name
-    t.column :received_at, children: false
+    t.column :given_at, children: false
     # t.column :population, :datatype => :decimal
     # t.column :pretax_amount, currency: true
     # t.column :amount, currency: true

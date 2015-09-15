@@ -759,6 +759,7 @@ arb:
       delivery: "وسيلة النقل"
       delivery_item: "خط التسليم" #?
       delivery_mode: "نمط التسليم" #?
+      # delivery_tool: "Delivery tool"
       department: "الخجمة" #?
       deposit: "الاقتطاع المصرفي"
       district: "مقاطعة"
@@ -790,8 +791,6 @@ arb:
       # guide_analysis_point: "Guide analysis point"
       # identifier: "Identifier"
       # import: "Import"
-      # incoming_parcel: "Incoming delivery"
-      # incoming_parcel_item: "Incoming delivery item"
       incoming_payment: "الدفعة"
       incoming_payment_mode: "نوع الدفعة"
       incoming_payment_use: "تأثير الدفعة" #?
@@ -824,12 +823,14 @@ arb:
       operation_item: "الواردات/الصادرات" #?
       operation_nature: "نوع العمل" #?
       operation_use: "الاداة المستخدمة" #?
-      # outgoing_parcel: "Outgoing delivery"
-      # outgoing_parcel_item: "Outgoing parcel item"
+      # outgoing_parcel: ""
+      # outgoing_parcel_item: ""
       outgoing_payment: "الدفعة"
       outgoing_payment_mode: "نوع الدفعة"
       outgoing_payment_use: "تأثير الدفعة" #?
       parameter: "الاعدادات" #?
+      # parcel: "Parcel"
+      # parcel_item: "Parcel item"
       # plant: "Plant"
       postal_zone: "المنطقة البريدية"
       # preference: "Preference"
@@ -1165,6 +1166,7 @@ arb:
     delivery_contact_id: "عنوان للتسليم" #?
     delivery_id: "وسيلة النقل" #?
     delivery_items: "طرق التسليم"
+    # delivery_mode: "Delivery mode"
     delivery_modes: "اسلوب التسليم" #?
     density_label: "الكثافة" #?
     departed_at: "نقل يوم"
@@ -1329,6 +1331,7 @@ arb:
     generated: "ولدت" #?
     # geolocation: "Geolocation"
     # geometry_value: "Geometry value"
+    # given_at: "Given at"
     global_balance: "الرصيد العالمي"
     global_count: "مجموع السكان"
     global_credit: "الائتمان العالمي"
@@ -1353,6 +1356,7 @@ arb:
     # imported_at: "Imported at"
     # importer: "Importer"
     in_name: "الاختصارات تشمل اسم الملف" #?
+    # in_preparation_at: "In preparation at"
     included: "تضمنت"
     # incoming_parcel_item: "Incoming delivery item"
     # incoming_parcels: "Incoming deliveries"
@@ -1564,6 +1568,7 @@ arb:
     order_id: "طلب شراء" #?
     order_item: "طريقة البيع" #?
     order_item_id: "طريقة البيع" #?
+    # ordered_at: "Ordered at"
     # organic_fertilizer_mineral_fraction: "Organic fertilizer mineral fraction"
     organization: "المنظمة" #?
     origin: "المنشأ"
@@ -1572,7 +1577,6 @@ arb:
     original_name: "الاسم الاصلي" #?
     # originator: "Originator"
     # originator_type: "Originator type"
-    # outgoing_deliveries: "Outgoing deliveries"
     # outgoing_parcel_items: "Outgoing parcel items"
     # outgoing_parcels: "Outgoing parcels"
     outgoing_payment_modes: "اساليب المصروفات"
@@ -1590,6 +1594,7 @@ arb:
     # paid_taxes: "Paid taxes"
     # parameters: "Parameters"
     # parcel: "Parcel"
+    # parcel_items: "Parcel items"
     # parcels: "Parcels"
     parent: "النسب"
     parent_id: "نسب" #?
@@ -1653,6 +1658,7 @@ arb:
     postal_zones: "الرموز البريدية"
     postcode: "الرمز البريدي" #?
     preferences: "الاعدادات"
+    # prepared_at: "Prepared at"
     # prescription: "Prescription"
     # prescriptor: "Prescriptor"
     # pretax_amount: "Pre-tax amount"
@@ -1942,7 +1948,7 @@ arb:
     to_bank_at: "يسدد يوم"
     tool: "الاداة"
     tool_id: "اداة" #?
-    tools: "الادوات" #?
+    tools: "الادوات"
     tools_list: "معدات" #?
     tracking: "الحصة"
     tracking_id: "الحصة" #?
@@ -2602,15 +2608,16 @@ arb:
         # animals: "ANI[year|4][number|4]"
         # campaigns: "CAMP[number|4]"
         # cash_transfers: "CT[year|4][number|4]"
+        # deliveries: "DL[year|4][number|8]"
         # deposits: "D[year|4][number|4]"
         # entities: "[number|8]"
         # fixed_assets: "FA[number|7]"
         # gaps: "G[number|12]"
-        # incoming_parcels: "ID[year|4][number|4]"
+        # incoming_parcels: "REC[year|4][number|4]"
         # incoming_payments: "IP[year|4][number|6]"
         # interventions: "[number]"
         # opportunities: "OP[year|4][number|6]"
-        # outgoing_deliveries: "OD[year|4][number|6]"
+        # outgoing_parcels: "EXP[year|4][number|6]"
         # outgoing_payments: "D[year|4][number|4]"
         # plants: "PLANT[year|4][number|4]"
         # products: "PR[number|11]"

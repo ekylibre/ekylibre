@@ -34,13 +34,13 @@
 #     - "backend/cells/last_entities_cells#show"
 #     - "backend/cells/last_events_cells#list"
 #     - "backend/cells/last_events_cells#show"
-#     - "backend/cells/last_incoming_deliveries_cells#list"
-#     - "backend/cells/last_incoming_deliveries_cells#show"
+#     - "backend/cells/last_incoming_parcels_cells#list"
+#     - "backend/cells/last_incoming_parcels_cells#show"
 #     - "backend/cells/last_intervention_cells#show"
 #     - "backend/cells/last_issues_cells#list"
 #     - "backend/cells/last_issues_cells#show"
-#     - "backend/cells/last_outgoing_deliveries_cells#list"
-#     - "backend/cells/last_outgoing_deliveries_cells#show"
+#     - "backend/cells/last_outgoing_parcels_cells#list"
+#     - "backend/cells/last_outgoing_parcels_cells#show"
 #     - "backend/cells/last_products_cells#list"
 #     - "backend/cells/last_products_cells#show"
 #     - "backend/cells/last_purchases_cells#list"
@@ -81,6 +81,14 @@
 #     - "backend/dashboards#tools"
 #     - "backend/dashboards#trade"
 #     - "backend/dashboards#update"
+#     - "backend/deliveries#cancel"
+#     - "backend/deliveries#check"
+#     - "backend/deliveries#create"
+#     - "backend/deliveries#finish"
+#     - "backend/deliveries#new"
+#     - "backend/deliveries#order"
+#     - "backend/deliveries#prepare"
+#     - "backend/deliveries#start"
 #     - "backend/equipments#take"
 #     - "backend/fungi#take"
 #     - "backend/golumns#reset"
@@ -97,6 +105,11 @@
 #     - "backend/map_editor#import_shapes"
 #     - "backend/map_editor#upload"
 #     - "backend/matters#take"
+#     - "backend/parcels#cancel"
+#     - "backend/parcels#check"
+#     - "backend/parcels#give"
+#     - "backend/parcels#order"
+#     - "backend/parcels#prepare"
 #     - "backend/plants#take"
 #     - "backend/product_groups#take"
 #     - "backend/product_nature_variants#detail"
@@ -905,22 +918,22 @@ imports:
 incoming_deliveries:
   read:
     actions:
-    - "backend/incoming_parcel_items#new"
-    - "backend/incoming_parcels#index"
-    - "backend/incoming_parcels#list"
-    - "backend/incoming_parcels#list_items"
-    - "backend/incoming_parcels#show"
-    - "backend/incoming_parcels#unroll"
+    - "backend/parcel_items#new"
+    - "backend/parcels#index"
+    - "backend/parcels#list"
+    - "backend/parcels#list_items"
+    - "backend/parcels#show"
+    - "backend/parcels#unroll"
   write:
     dependencies:
     - read-incoming_deliveries
     actions:
-    - "backend/incoming_parcels#confirm"
-    - "backend/incoming_parcels#create"
-    - "backend/incoming_parcels#destroy"
-    - "backend/incoming_parcels#edit"
-    - "backend/incoming_parcels#new"
-    - "backend/incoming_parcels#update"
+    - "backend/parcels#confirm" #?
+    - "backend/parcels#create"
+    - "backend/parcels#destroy"
+    - "backend/parcels#edit"
+    - "backend/parcels#new"
+    - "backend/parcels#update"
 
 incoming_payment_modes:
   read:
@@ -1313,20 +1326,20 @@ observations:
 outgoing_deliveries:
   read:
     actions:
-    - "backend/outgoing_parcels#index"
-    - "backend/outgoing_parcels#list"
-    - "backend/outgoing_parcels#list_items"
-    - "backend/outgoing_parcels#show"
-    - "backend/outgoing_parcels#unroll"
+    - "backend/parcels#index"
+    - "backend/parcels#list"
+    - "backend/parcels#list_items"
+    - "backend/parcels#show"
+    - "backend/parcels#unroll"
   write:
     dependencies:
     - read-outgoing_deliveries
     actions:
-    - "backend/outgoing_parcels#create"
-    - "backend/outgoing_parcels#destroy"
-    - "backend/outgoing_parcels#edit"
-    - "backend/outgoing_parcels#new"
-    - "backend/outgoing_parcels#update"
+    - "backend/parcels#create"
+    - "backend/parcels#destroy"
+    - "backend/parcels#edit"
+    - "backend/parcels#new"
+    - "backend/parcels#update"
 
 outgoing_payment_modes:
   read:
@@ -1601,7 +1614,7 @@ purchases:
     dependencies:
     - read-purchases
     actions:
-    - "backend/incoming_parcels#invoice"
+    - "backend/parcels#invoice"
     - "backend/purchases#abort"
     - "backend/purchases#confirm"
     - "backend/purchases#correct"
@@ -1672,7 +1685,7 @@ sales:
     dependencies:
     - read-sales
     actions:
-    - "backend/outgoing_parcels#invoice"
+    - "backend/parcels#invoice"
     - "backend/sale_opportunities#attach"
     - "backend/sale_opportunities#create"
     - "backend/sale_opportunities#destroy"
@@ -1881,7 +1894,7 @@ transports:
     actions:
     - "backend/deliveries#index"
     - "backend/deliveries#list"
-    - "backend/deliveries#list_outgoing_parcels"
+    - "backend/deliveries#list_parcels"
     - "backend/deliveries#show"
     - "backend/deliveries#unroll"
   write:
@@ -1892,7 +1905,7 @@ transports:
     - "backend/deliveries#destroy"
     - "backend/deliveries#edit"
     - "backend/deliveries#update"
-    - "backend/outgoing_parcels#ship"
+    - "backend/parcels#ship"
 
 users:
   read:

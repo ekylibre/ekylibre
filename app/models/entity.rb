@@ -100,13 +100,13 @@ class Entity < Ekylibre::Record::Base
   has_many :godchildren, class_name: 'Entity', foreign_key: 'proposer_id'
   has_many :incoming_payments, foreign_key: :payer_id, inverse_of: :payer
   has_many :indirect_links, class_name: 'EntityLink', foreign_key: :linked_id
+  has_many :outgoing_payments, foreign_key: :payee_id
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :owner_id
   has_many :participations, class_name: 'EventParticipation', foreign_key: :participant_id
   has_many :purchase_invoices, -> { where(state: 'invoice').order(created_at: :desc) }, class_name: 'Purchase', foreign_key: :supplier_id
   has_many :purchases, foreign_key: :supplier_id
   has_many :purchase_items, through: :purchases, source: :items
-  has_many :outgoing_parcels, foreign_key: :transporter_id
-  has_many :outgoing_payments, foreign_key: :payee_id
+  has_many :parcels, foreign_key: :transporter_id
   has_many :sales_invoices, -> { where(state: 'invoice').order(created_at: :desc) }, class_name: 'Sale', foreign_key: :client_id
   has_many :sales, -> { order(created_at: :desc) }, foreign_key: :client_id
   has_many :sale_opportunities, -> { order(created_at: :desc) }, foreign_key: :third_id
@@ -118,7 +118,7 @@ class Entity < Ekylibre::Record::Base
   has_many :transports, foreign_key: :transporter_id
   has_many :transporter_sales, -> { order(created_at: :desc) }, foreign_key: :transporter_id, class_name: 'Sale'
   has_many :usable_incoming_payments, -> { where('used_amount < amount') }, class_name: 'IncomingPayment', foreign_key: :payer_id
-  has_many :waiting_deliveries, -> { where('sent_at IS NULL') }, class_name: 'OutgoingParcel', foreign_key: :transporter_id
+  has_many :waiting_deliveries, -> { where(state: 'ready_to_send') }, class_name: 'Parcel', foreign_key: :transporter_id
 
   has_one :default_mail_address, -> { where(by_default: true, canal: 'mail') }, class_name: 'EntityAddress'
   has_one :cash, class_name: 'Cash', foreign_key: :owner_id
@@ -141,7 +141,7 @@ class Entity < Ekylibre::Record::Base
 
   alias_attribute :name, :full_name
 
-  scope :necessary_transporters, -> { where("id IN (SELECT transporter_id FROM #{OutgoingParcel.table_name} WHERE sent_at IS NULL OR delivery_id IS NULL)").order(:last_name, :first_name) }
+  scope :necessary_transporters, -> { where("id IN (SELECT transporter_id FROM #{Parcel.table_name} WHERE state != 'sent' OR delivery_id IS NULL)").order(:last_name, :first_name) }
   scope :suppliers,    -> { where(supplier: true) }
   scope :transporters, -> { where(transporter: true) }
   scope :clients,      -> { where(client: true) }
@@ -195,7 +195,7 @@ class Entity < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    (self.of_company? || sales_invoices.any? || participations.any? and sales.any? and transports.any?)
+    self.of_company? || sales_invoices.any? || participations.any? || sales.any? || deliveries.any?
   end
 
   class << self

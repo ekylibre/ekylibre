@@ -964,14 +964,17 @@ deliveries:
   creator_id:
     type: integer
     references: user
-  departed_at:
-    type: datetime
+  driver_id:
+    type: integer
+    references: entity
   id:
     type: integer
     required: true
   lock_version:
     type: integer
     required: true
+  mode:
+    type: string
   net_mass:
     type: decimal
     precision: 19
@@ -983,13 +986,44 @@ deliveries:
   responsible_id:
     type: integer
     references: entity
+  started_at:
+    type: datetime
+  state:
+    type: string
+    required: true
+  stopped_at:
+    type: datetime
   transporter_id:
     type: integer
     references: entity
-    required: true
   transporter_purchase_id:
     type: integer
     references: purchase
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+delivery_tools:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  delivery_id:
+    type: integer
+    references: delivery
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  tool_id:
+    type: integer
+    references: product
   updated_at:
     type: datetime
     required: true
@@ -1971,94 +2005,6 @@ imports:
     scale: 4
   state:
     type: string
-    required: true
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
-incoming_parcel_items:
-  container_id:
-    type: integer
-    references: product
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  id:
-    type: integer
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  net_mass:
-    type: decimal
-    precision: 19
-    scale: 4
-  parcel_id:
-    type: integer
-    references: incoming_parcel
-    required: true
-  population:
-    type: decimal
-    precision: 19
-    scale: 4
-  product_id:
-    type: integer
-    references: product
-    required: true
-  purchase_item_id:
-    type: integer
-    references: purchase_item
-  shape:
-    type: geometry
-    limit:
-      srid: 4326
-      type: geometry
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
-incoming_parcels:
-  address_id:
-    type: integer
-    references: entity_address
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  id:
-    type: integer
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  mode:
-    type: string
-  net_mass:
-    type: decimal
-    precision: 19
-    scale: 4
-  number:
-    type: string
-    required: true
-  purchase_id:
-    type: integer
-    references: purchase
-  received_at:
-    type: datetime
-  reference_number:
-    type: string
-  sender_id:
-    type: integer
-    references: entity
     required: true
   updated_at:
     type: datetime
@@ -3228,113 +3174,6 @@ operations:
   updater_id:
     type: integer
     references: user
-outgoing_parcel_items:
-  container_id:
-    type: integer
-    references: product
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  id:
-    type: integer
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  net_mass:
-    type: decimal
-    precision: 19
-    scale: 4
-  parcel_id:
-    type: integer
-    references: outgoing_parcel
-    required: true
-  parted:
-    type: boolean
-    required: true
-    default: false
-  parted_product_id:
-    type: integer
-    references: product
-  population:
-    type: decimal
-    precision: 19
-    scale: 4
-  product_id:
-    type: integer
-    references: product
-    required: true
-  sale_item_id:
-    type: integer
-    references: sale_item
-  shape:
-    type: geometry
-    limit:
-      srid: 4326
-      type: geometry
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
-outgoing_parcels:
-  address_id:
-    type: integer
-    references: entity_address
-    required: true
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  delivery_id:
-    type: integer
-    references: delivery
-  id:
-    type: integer
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  mode:
-    type: string
-    required: true
-  net_mass:
-    type: decimal
-    precision: 19
-    scale: 4
-  number:
-    type: string
-    required: true
-  recipient_id:
-    type: integer
-    references: entity
-    required: true
-  reference_number:
-    type: string
-  sale_id:
-    type: integer
-    references: sale
-  sent_at:
-    type: datetime
-  transporter_id:
-    type: integer
-    references: entity
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
-  with_transport:
-    type: boolean
-    required: true
-    default: false
 outgoing_payment_modes:
   active:
     type: boolean
@@ -3432,6 +3271,161 @@ outgoing_payments:
   to_bank_at:
     type: datetime
     required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+parcel_items:
+  analysis_id:
+    type: integer
+    references: analysis
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  net_mass:
+    type: decimal
+    precision: 19
+    scale: 4
+  parcel_id:
+    type: integer
+    references: parcel
+    required: true
+  parted:
+    type: boolean
+    required: true
+    default: false
+  population:
+    type: decimal
+    precision: 19
+    scale: 4
+  product_enjoyment_id:
+    type: integer
+    references: product_enjoyment
+  product_id:
+    type: integer
+    references: product
+  product_localization_id:
+    type: integer
+    references: product_localization
+  product_ownership_id:
+    type: integer
+    references: product_ownership
+  product_population_reading_id:
+    type: integer
+    references: product_reading
+  product_shape_reading_id:
+    type: integer
+    references: product_reading
+  purchase_item_id:
+    type: integer
+    references: purchase_item
+  sale_item_id:
+    type: integer
+    references: sale_item
+  shape:
+    type: geometry
+    limit:
+      srid: 4326
+      type: geometry
+  source_product_division_id:
+    type: integer
+    references: product_junction
+  source_product_id:
+    type: integer
+    references: product
+  source_product_population_reading_id:
+    type: integer
+    references: product_reading
+  source_product_shape_reading_id:
+    type: integer
+    references: product_reading
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+parcels:
+  address_id:
+    type: integer
+    references: entity_address
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  delivery_id:
+    type: integer
+    references: delivery
+  delivery_mode:
+    type: string
+  given_at:
+    type: datetime
+  id:
+    type: integer
+    required: true
+  in_preparation_at:
+    type: datetime
+  lock_version:
+    type: integer
+    required: true
+  nature:
+    type: string
+    required: true
+  net_mass:
+    type: decimal
+    precision: 19
+    scale: 4
+  number:
+    type: string
+    required: true
+  ordered_at:
+    type: datetime
+  planned_at:
+    type: datetime
+  position:
+    type: integer
+  prepared_at:
+    type: datetime
+  purchase_id:
+    type: integer
+    references: purchase
+  recipient_id:
+    type: integer
+    references: entity
+  reference_number:
+    type: string
+  remain_owner:
+    type: boolean
+    required: true
+    default: false
+  sale_id:
+    type: integer
+    references: sale
+  sender_id:
+    type: integer
+    references: entity
+  state:
+    type: string
+    required: true
+  storage_id:
+    type: integer
+    references: product
+  transporter_id:
+    type: integer
+    references: entity
   updated_at:
     type: datetime
     required: true

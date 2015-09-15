@@ -206,6 +206,12 @@ class Backend::BaseController < BaseController
     redirect_to_back(options.merge(direct: true))
   end
 
+  def fire_event(event)
+    return unless record = find_and_check
+    record.send(event)
+    redirect_to params[:redirect] || { action: :show, id: record.id }
+  end
+
   class << self
     # Autocomplete helper
     def autocomplete_for(column, options = {})

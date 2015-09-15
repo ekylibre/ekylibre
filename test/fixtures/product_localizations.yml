@@ -54,8 +54,8 @@ product_localizations_001:
   id: 7
   lock_version: 0
   nature: interior
-  originator_id: 4
-  originator_type: IncomingParcelItem
+  originator_id: 6
+  originator_type: ParcelItem
   product_id: 53
   started_at: 2014-10-31 20:09:00.000000000 Z
   updated_at: 2014-10-31 20:23:37.090697000 Z
@@ -67,8 +67,8 @@ product_localizations_002:
   id: 8
   lock_version: 0
   nature: interior
-  originator_id: 5
-  originator_type: IncomingParcelItem
+  originator_id: 7
+  originator_type: ParcelItem
   product_id: 54
   started_at: 2014-10-31 20:31:00.000000000 Z
   updated_at: 2014-11-01 16:00:08.317473000 Z
@@ -80,8 +80,8 @@ product_localizations_003:
   id: 9
   lock_version: 0
   nature: interior
-  originator_id: 6
-  originator_type: IncomingParcelItem
+  originator_id: 8
+  originator_type: ParcelItem
   product_id: 55
   started_at: 2014-10-31 20:31:00.000000000 Z
   updated_at: 2014-11-01 16:00:08.386096000 Z
@@ -93,8 +93,8 @@ product_localizations_004:
   id: 10
   lock_version: 0
   nature: interior
-  originator_id: 7
-  originator_type: IncomingParcelItem
+  originator_id: 9
+  originator_type: ParcelItem
   product_id: 56
   started_at: 2014-11-06 08:45:00.000000000 Z
   updated_at: 2014-11-01 16:01:24.231272000 Z
@@ -106,8 +106,8 @@ product_localizations_005:
   id: 11
   lock_version: 0
   nature: interior
-  originator_id: 8
-  originator_type: IncomingParcelItem
+  originator_id: 10
+  originator_type: ParcelItem
   product_id: 5
   started_at: 2014-11-01 19:26:00.000000000 Z
   updated_at: 2014-11-01 19:29:58.583615000 Z
@@ -119,8 +119,8 @@ product_localizations_006:
   id: 12
   lock_version: 0
   nature: interior
-  originator_id: 9
-  originator_type: IncomingParcelItem
+  originator_id: 11
+  originator_type: ParcelItem
   product_id: 6
   started_at: 2014-11-01 19:33:00.000000000 Z
   updated_at: 2014-11-01 19:35:50.431527000 Z
@@ -132,8 +132,8 @@ product_localizations_007:
   id: 13
   lock_version: 0
   nature: interior
-  originator_id: 10
-  originator_type: IncomingParcelItem
+  originator_id: 12
+  originator_type: ParcelItem
   product_id: 57
   started_at: 2013-08-01 00:50:00.000000000 Z
   updated_at: 2014-11-01 20:19:35.475802000 Z
@@ -145,8 +145,8 @@ product_localizations_008:
   id: 14
   lock_version: 0
   nature: interior
-  originator_id: 11
-  originator_type: IncomingParcelItem
+  originator_id: 13
+  originator_type: ParcelItem
   product_id: 58
   started_at: 2013-08-01 00:50:00.000000000 Z
   updated_at: 2014-11-01 20:23:55.240912000 Z
@@ -158,8 +158,8 @@ product_localizations_009:
   id: 15
   lock_version: 0
   nature: interior
-  originator_id: 12
-  originator_type: IncomingParcelItem
+  originator_id: 14
+  originator_type: ParcelItem
   product_id: 59
   started_at: 2013-08-01 00:50:00.000000000 Z
   updated_at: 2014-11-01 20:23:55.306166000 Z
@@ -613,8 +613,8 @@ product_localizations_047:
   id: 60
   lock_version: 0
   nature: interior
-  originator_id: 13
-  originator_type: IncomingParcelItem
+  originator_id: 15
+  originator_type: ParcelItem
   product_id: 98
   started_at: 2012-11-03 15:24:00.000000000 Z
   updated_at: 2014-11-07 15:25:51.283184000 Z
@@ -687,8 +687,8 @@ product_localizations_053:
   id: 66
   lock_version: 0
   nature: interior
-  originator_id: 14
-  originator_type: IncomingParcelItem
+  originator_id: 16
+  originator_type: ParcelItem
   product_id: 100
   started_at: 2014-11-07 15:41:00.000000000 Z
   updated_at: 2014-11-07 15:44:20.580455000 Z
@@ -700,8 +700,8 @@ product_localizations_054:
   id: 67
   lock_version: 0
   nature: interior
-  originator_id: 15
-  originator_type: IncomingParcelItem
+  originator_id: 17
+  originator_type: ParcelItem
   product_id: 101
   started_at: 2014-11-07 15:41:00.000000000 Z
   updated_at: 2014-11-07 15:44:20.657549000 Z
@@ -846,8 +846,8 @@ product_localizations_066:
   id: 83
   lock_version: 0
   nature: interior
-  originator_id: 16
-  originator_type: IncomingParcelItem
+  originator_id: 18
+  originator_type: ParcelItem
   product_id: 107
   started_at: 2008-03-05 09:00:00.000000000 Z
   updated_at: 2014-11-07 16:47:34.957281000 Z
@@ -1340,8 +1340,8 @@ product_localizations_107:
   id: 141
   lock_version: 0
   nature: interior
-  originator_id: 17
-  originator_type: IncomingParcelItem
+  originator_id: 19
+  originator_type: ParcelItem
   product_id: 126
   started_at: 2014-11-07 19:04:00.000000000 Z
   updated_at: 2014-11-07 19:05:46.959681000 Z
@@ -1353,8 +1353,8 @@ product_localizations_108:
   id: 142
   lock_version: 0
   nature: interior
-  originator_id: 18
-  originator_type: IncomingParcelItem
+  originator_id: 20
+  originator_type: ParcelItem
   product_id: 127
   started_at: 2014-11-07 19:04:00.000000000 Z
   updated_at: 2014-11-07 19:05:47.030768000 Z
@@ -1366,8 +1366,8 @@ product_localizations_109:
   id: 143
   lock_version: 0
   nature: interior
-  originator_id: 19
-  originator_type: IncomingParcelItem
+  originator_id: 21
+  originator_type: ParcelItem
   product_id: 128
   started_at: 2014-11-07 19:04:00.000000000 Z
   updated_at: 2014-11-07 19:05:47.102964000 Z
@@ -1489,8 +1489,8 @@ product_localizations_119:
   id: 153
   lock_version: 0
   nature: interior
-  originator_id: 20
-  originator_type: IncomingParcelItem
+  originator_id: 22
+  originator_type: ParcelItem
   product_id: 131
   started_at: 2013-10-01 18:10:00.000000000 Z
   updated_at: 2014-11-07 19:12:05.122855000 Z
@@ -1588,8 +1588,8 @@ product_localizations_127:
   id: 161
   lock_version: 0
   nature: interior
-  originator_id: 21
-  originator_type: IncomingParcelItem
+  originator_id: 23
+  originator_type: ParcelItem
   product_id: 133
   started_at: 2013-10-03 18:18:00.000000000 Z
   updated_at: 2014-11-07 19:22:38.396216000 Z
@@ -1687,8 +1687,8 @@ product_localizations_135:
   id: 169
   lock_version: 0
   nature: interior
-  originator_id: 22
-  originator_type: IncomingParcelItem
+  originator_id: 24
+  originator_type: ParcelItem
   product_id: 135
   started_at: 2013-10-15 10:30:00.000000000 Z
   updated_at: 2014-11-07 19:34:09.532242000 Z
@@ -1700,8 +1700,8 @@ product_localizations_136:
   id: 170
   lock_version: 0
   nature: interior
-  originator_id: 23
-  originator_type: IncomingParcelItem
+  originator_id: 25
+  originator_type: ParcelItem
   product_id: 136
   started_at: 2013-10-15 10:30:00.000000000 Z
   updated_at: 2014-11-07 19:34:09.598500000 Z
@@ -1836,4 +1836,15 @@ product_localizations_147:
   product_id: 2
   started_at: 2015-01-01 18:31:37.330701000 Z
   updated_at: 2015-01-02 18:31:37.330701000 Z
+  updater_id: 1
+product_localizations_148:
+  container_id: 21
+  created_at: 2015-09-15 19:37:36.783613000 Z
+  creator_id: 1
+  id: 182
+  lock_version: 0
+  nature: interior
+  product_id: 144
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2015-09-15 19:37:36.783613000 Z
   updater_id: 1

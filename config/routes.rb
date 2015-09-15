@@ -119,10 +119,10 @@ Rails.application.routes.draw do
       resource :last_documents_cell, only: :show, concerns: :list
       resource :last_entities_cell, only: :show, concerns: :list
       resource :last_events_cell, only: :show, concerns: :list
-      resource :last_incoming_deliveries_cell, only: :show, concerns: :list
+      resource :last_incoming_parcels_cell, only: :show, concerns: :list
       resource :last_issues_cell, only: :show, concerns: :list
       resource :last_intervention_cell, only: :show
-      resource :last_outgoing_deliveries_cell, only: :show, concerns: :list
+      resource :last_outgoing_parcels_cell, only: :show, concerns: :list
       resource :last_products_cell, only: :show, concerns: :list
       resource :last_purchases_cell, only: :show, concerns: :list
       resource :last_sales_cell, only: :show, concerns: :list
@@ -278,9 +278,15 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :deliveries, concerns: [:list, :unroll], except: [:new, :create] do
+    resources :deliveries, concerns: [:list, :unroll] do
       member do
-        get :list_outgoing_parcels
+        get :list_parcels
+        post :order
+        post :prepare
+        post :check
+        post :start
+        post :finish
+        post :cancel
       end
     end
 
@@ -418,16 +424,6 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :incoming_parcels, concerns: [:list, :unroll] do
-      member do
-        match 'confirm', via: [:get, :post]
-        post :invoice
-        get :list_items
-      end
-    end
-
-    resources :incoming_parcel_items, only: [:new]
-
     resources :incoming_payments, concerns: [:list, :unroll]
 
     resources :incoming_payment_modes, concerns: [:list, :unroll] do
@@ -548,16 +544,6 @@ Rails.application.routes.draw do
 
     resources :operations, only: [:index, :show]
 
-    # resources :organizations, concerns: :entities
-
-    resources :outgoing_parcels, concerns: [:list, :unroll] do
-      member do
-        post :invoice
-        get :list_items
-        post :ship
-      end
-    end
-
     resources :outgoing_payments, concerns: [:list, :unroll]
 
     resources :outgoing_payment_modes, concerns: [:list, :unroll] do
@@ -568,6 +554,22 @@ Rails.application.routes.draw do
     end
 
     # resources :contacts, concerns: :entities
+
+    resources :parcels, concerns: [:list, :unroll] do
+      member do
+        post :invoice
+        get :list_items
+        post :ship
+
+        post :order
+        post :prepare
+        post :check
+        post :give
+        post :cancel
+      end
+    end
+
+    resources :parcel_items, only: [:new], path: 'parcel-items'
 
     resources :plants, concerns: :products
 

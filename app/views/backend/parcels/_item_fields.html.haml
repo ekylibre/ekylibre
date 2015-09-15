@@ -1,0 +1,29 @@
+- item ||= f.object
+%tr.nested-fields.delivery-item
+  %td.act= link_to_remove_association(content_tag(:i) + h(:destroy.tl), f, 'data-no-turbolink' => true, class: 'destroy remove remove-item')
+  %td= f.referenced_association(:source_product, wrapper: :nested, source: {controller: 'backend/matters', scope: :deliverables}, input_html: {data: {product_of_delivery_item: {url: backend_product_path("RECORD_ID", format: :json)}}})
+  %td= f.input :parted, wrapper: :nested, input_html: {class: "item-parted"}
+  - quantifier_classes = []
+  - quantifier_classes << 'hidden' unless f.object.parted
+  %td
+    .item-quantifier{class: quantifier_classes}
+      - classes = nil
+      - if f.object.source_product && f.object.source_product.has_indicator?(:population)
+        - f.object.population ||= f.object.source_product.population
+      - else
+        - classes = 'hidden'
+      .item-quantifier-population{class: classes}
+        = f.input :population, wrapper: :nested_append do
+          = f.input_field :population, class: "item-population"
+          %span.add-on.item-population-unit-name= f.object.source_product ? f.object.source_product.unit_name : '#'
+    -# .errors= f.object.errors.inspect
+  -# %td
+    .item-quantifier{class: quantifier_classes}
+      - classes = nil
+      - if f.object.source_product && f.object.source_product.has_indicator?(:shape)
+        - f.object.population ||= f.object.source_product.population
+      - else
+        - classes = 'hidden'
+      .item-quantifier-shape{class: classes}
+        = f.shape :shape, wrapper: :nested, input_html: {class: "item-shape"}
+  %td= f.referenced_association(:analysis, wrapper: :nested)

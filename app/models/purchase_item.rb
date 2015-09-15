@@ -52,8 +52,8 @@ class PurchaseItem < Ekylibre::Record::Base
   belongs_to :purchase, inverse_of: :items
   belongs_to :variant, class_name: 'ProductNatureVariant', inverse_of: :purchase_items
   belongs_to :tax
-  has_many :delivery_items, class_name: 'IncomingParcelItem', foreign_key: :purchase_item_id
-  has_many :products, through: :delivery_items
+  has_many :parcel_items
+  has_many :products, through: :parcel_items
   has_one :fixed_asset, foreign_key: :purchase_item_id, inverse_of: :purchase_item
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, allow_nil: true
@@ -129,7 +129,7 @@ class PurchaseItem < Ekylibre::Record::Base
             expenses_account: variant.fixed_asset_expenses_account # 68
           }
           if products.any?
-            asset_attributes[:name] = delivery_items.collect(&:name).to_sentence
+            asset_attributes[:name] = parcel_items.collect(&:name).to_sentence
           end
           asset_attributes[:name] = name if asset_attributes[:name].blank?
           while FixedAsset.find_by(name: asset_attributes[:name])
@@ -164,7 +164,7 @@ class PurchaseItem < Ekylibre::Record::Base
   end
 
   def undelivered_quantity
-    self.quantity - delivery_items.sum(:quantity)
+    self.quantity - parcel_items.sum(:quantity)
   end
 
   # know how many percentage of invoiced VAT to declare

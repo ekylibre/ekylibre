@@ -45,8 +45,8 @@ class CharentesAlliance::IncomingDeliveriesExchanger < ActiveExchanger::Base
                         )
       # create an incoming deliveries if not exist and status = 2
       if r.order_status == :order
-        order   = IncomingParcel.find_by_reference_number(r.order_number)
-        order ||= IncomingParcel.create!(reference_number: r.order_number, received_at: r.ordered_on, sender: cooperative, address: Entity.of_company.default_mail_address, mode: :ex_works)
+        order   = Parcel.find_by_reference_number(r.order_number)
+        order ||= Parcel.create!(nature: :incoming, reference_number: r.order_number, planned_at: r.ordered_on, given_at: r.ordered_on, state: :given, sender: cooperative, address: Entity.of_company.default_mail_address, delivery_mode: :third, storage: building_division)
         # find a product_nature_variant by mapping current name of matter in coop file in coop reference_name
         unless product_nature_variant = ProductNatureVariant.find_by_number(r.coop_reference_name)
           if Nomen::ProductNatureVariant.find(r.coop_variant_reference_name)
@@ -74,7 +74,7 @@ class CharentesAlliance::IncomingDeliveriesExchanger < ActiveExchanger::Base
         end
 
         if incoming_item.present?
-          order.items.create!(product: incoming_item, container: building_division)
+          order.items.create!(source_product: incoming_item)
         end
       end
 

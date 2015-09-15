@@ -151,7 +151,7 @@ arb:
       deliveries: "تسليم وسيلة النقل" #?
       edit: "تعديل وسيلة النقل"
       index: "وسائل النقل"
-      new: "اضافة وسيلة نقل جديدة" #?
+      new: "اضافة وسيلة نقل جديدة"
       show: "نقلت من %{created_at}"
     backend/deposits:
       edit: "تعديل اقتطاعات البنك من %{created_at}"
@@ -288,14 +288,6 @@ arb:
       # new: "New import"
       # run: "Run import"
       # show: "Import: %{nature}"
-    backend/incoming_parcel_items:
-      # new: "New incoming delivery item"
-    backend/incoming_parcels:
-      # confirm: "Confirm incoming delivery"
-      # edit: "Edit incoming delivery: %{number} (%{reference_number})"
-      # index: "Incoming deliveries"
-      # new: "New incoming delivery"
-      # show: "Incoming delivery: %{number} (%{reference_number})"
     backend/incoming_payment_modes:
       edit: "تعديل طريقة الدفعة: %{name}"
       index: "طرق تسديد الدفعات"
@@ -421,12 +413,9 @@ arb:
       edit: "تعديل وسيلة التسليم : %{name}" #?
       index: "وسائل التسليم" #?
       new: "اضافة وسيلة جديدة للتسليم" #?
-    backend/outgoing_parcels:
-      edit: "تعديل التسليم"
-      # index: "Outgoing deliveries"
-      new: "اضافة تسليم"
-      # ship: "Ship:"
-      # show: "Outgoing delivery: %{number}"
+    backend/outgoing_parcels:  #?
+      edit: "تعديل التسليم" #?
+      new: "اضافة تسليم" #?
     backend/outgoing_payment_modes:
       edit: "تعديل طريقة تسديد الفعة"
       index: "طرق تسديد الدفعات"
@@ -438,6 +427,12 @@ arb:
       index: "دفعات"
       new: "اضافة دفعة"
       show: "رقم الدفعة%{number} من اجل %{payee}"
+    backend/parcels:
+      # edit: "Edit %{nature} parcel: %{number}"
+      # index: "Parcels"
+      # new: "New parcel"
+      # ship: "Ship parcels"
+      # show: "%{nature} parcel: %{number}"
     backend/plants:
       # edit: "Edit plant: %{name}"
       # index: "Plants"
@@ -821,6 +816,7 @@ arb:
     # add_sale_taxation: "Add sale taxation"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     # add_support: "Add support"
+    # add_tool: "Add tool"
     # add_website: "Add website"
     # add_x: "Add “%{x}”"
     address: "العنوان" #?
@@ -853,7 +849,7 @@ arb:
       # reopen_issue: "Are you sure you want to reopen this issue?"
     are_you_sure_you_want_to_confirm: "هل انت متأكد من رغبتك بالمضي بطلب الشراء؟"
     are_you_sure_you_want_to_delete: "هل انت متاكد من رغبتك بالقيام به؟"
-    are_you_sure_you_want_to_delete_delivery: "هل انت متأكد من رغبتك بازالة التسليم من وسائل النقل؟"
+    are_you_sure_you_want_to_delete_delivery: "هل انت متأكد من رغبتك بازالة التسليم من وسائل النقل؟" #?
     are_you_sure_you_want_to_invoice: "هل انت متأكد من رغبتك باعداد فاتورة البيع؟"
     are_you_sure_you_want_to_send_mails: "هل انت متأكد من رغبتك بارسال الرسالة"
     area_create: "اضافة عنوان بريدي" #?
@@ -974,7 +970,7 @@ arb:
     create: "انشاء"
     create_journal: "-- انشاء دفتر يومي --"
     # create_or_import_equipments: "Create or import equipments"
-    # create_or_import_incoming_parcels: "Create or import incoming deliveries"
+    # create_or_import_incoming_parcels: "Create or import incoming parcels"
     # create_or_import_interventions: "Create or import interventions"
     # create_or_import_workers: "Create or import workers"
     created_at: "انشأ في"
@@ -1185,7 +1181,7 @@ arb:
     # inactive: "Inactive"
     include_blank: "--- ولا اية منظمة ---"
     income_statement: "حسابات الناتج"
-    # incoming_parcels: "Incoming deliveries"
+    # incoming_parcels: "Incoming parcels"
     # incoming_payment: "Incoming payment"
     incoming_payment_create: "اضافة دفعة جديدة" #?
     incoming_payment_update: "تعديل الدفعة" #?
@@ -1253,11 +1249,11 @@ arb:
     # last_computed_balance: "Last computed balance"
     # last_entities: "Last entities"
     # last_events: "Last events"
-    # last_incoming_parcels: "Last incoming deliveries"
+    # last_incoming_parcels: "Last incoming parcels"
     # last_intervention: "Last intervention"
     # last_issue: "Last issue"
     # last_issues: "Last issues"
-    # last_outgoing_deliveries: "Last outgoing deliveries"
+    # last_outgoing_parcels: "Last outgoing parcels"
     # last_products: "Last products"
     # last_purchases: "Last purchases"
     # last_sales: "Last sales"
@@ -1373,6 +1369,12 @@ arb:
     # new_call: "New call"
     # new_contact: "New contact"
     # new_container: "New container"
+    new_delivery_of_x_parcels:
+      # one: "New transport (%{count} delivery)"
+      # other: "New transport (%{count} deliveries)"
+    new_delivery_of_x_parcels_for_y:
+      # one: "New transport for %{transporter} (%{count} delivery)"
+      # other: "New transport for %{transporter} (%{count} deliveries)"
     new_deposit:
       # one: "Make a deposit %{mode}: 1 available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"
@@ -1386,12 +1388,6 @@ arb:
     # new_quote: "New quote"
     new_sale: "بيعة جديدة" #?
     new_title: "عنوان جديد" #?
-    new_transport_of_x_deliveries:
-      # one: "New transport (%{count} delivery)"
-      # other: "New transport (%{count} deliveries)"
-    new_transport_of_x_deliveries_for_y:
-      # one: "New transport for %{transporter} (%{count} delivery)"
-      # other: "New transport for %{transporter} (%{count} deliveries)"
     new_value: "قيمة جديدة" #?
     # new_writing: "New writing"
     next: "التالي"
@@ -1980,11 +1976,11 @@ arb:
     # x_unit_per_second: "Flow: %{quantity}%{unit}/s"
     # x_units_of_product_y: "%{quantity}%{unit} of %{product}"
     x_waiting_incoming_parcels:
-      # one: "%{count} waiting incoming delivery"
-      # other: "%{count} waiting incoming deliveries"
+      # one: "%{count} waiting incoming parcel"
+      # other: "%{count} waiting incoming parcels"
     x_waiting_outgoing_deliveries:
-      # one: "%{count} waiting outgoing delivery"
-      # other: "%{count} waiting outgoing deliveries"
+      # one: "%{count} waiting outgoing parcel"
+      # other: "%{count} waiting outgoing parcels"
     x_years:
       # one: "1 year"
       # other: "%{count} years"
@@ -2272,6 +2268,7 @@ arb:
     # backend/observations: "%{content}"
     # backend/operations: "%{nature} (%{created_at})"
     # backend/outgoing_payments: "%{number}. %{mode_name} to %{payee_full_name} of %{amount} %{currency}"
+    # backend/parcels: "%{number} ‒ %{reference_number}"
     # backend/plants: "%{name} ‒ %{work_number}"
     # backend/prescriptions: "%{reference_number}"
     # backend/product_memberships: "%{started_at}"

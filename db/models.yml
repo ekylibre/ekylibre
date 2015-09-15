@@ -26,6 +26,7 @@
 - custom_field_choice
 - dashboard
 - delivery
+- delivery_tool
 - deposit
 - district
 - document
@@ -49,8 +50,6 @@
 - guide_analysis_point
 - identifier
 - import
-- incoming_parcel
-- incoming_parcel_item
 - incoming_payment
 - incoming_payment_mode
 - intervention
@@ -75,10 +74,10 @@
 - net_service
 - observation
 - operation
-- outgoing_parcel
-- outgoing_parcel_item
 - outgoing_payment
 - outgoing_payment_mode
+- parcel
+- parcel_item
 - plant
 - postal_zone
 - preference

@@ -95,6 +95,21 @@ spa:
         # important: "Important"
         # normal: "Normal"
         # notice: "Notice"
+    parcel:
+      delivery_mode:
+        # third: "Transported by recipient"
+        # transporter: "Transported by transporter"
+        # us: "Transported by us"
+      nature:
+        # incoming: "Incoming"
+        # internal: "Internal"
+        # outgoing: "Outgoing"
+      state:
+        # draft: "Draft"
+        # in_preparation: "In preparation"
+        # ready_to_prepare: "Ready to prepare"
+        # ready_to_send: "Ready to send"
+        # sent: "Sent"
     production_budget:
       computation_method:
         # per_production: "Per production"

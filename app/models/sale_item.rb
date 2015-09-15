@@ -56,7 +56,7 @@ class SaleItem < Ekylibre::Record::Base
   belongs_to :variant, class_name: 'ProductNatureVariant'
   belongs_to :tax
   # belongs_to :tracking
-  has_many :delivery_items, class_name: 'OutgoingParcelItem', foreign_key: :sale_item_id
+  has_many :parcel_items
   has_many :credits, class_name: 'SaleItem', foreign_key: :credited_item_id
   has_many :subscriptions, dependent: :destroy
   has_one :sale_nature, through: :sale, source: :nature

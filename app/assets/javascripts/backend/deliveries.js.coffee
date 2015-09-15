@@ -1,6 +1,31 @@
 ((E, $) ->
   'use strict'
 
+  $(document).behave "load click", "form label input[name='parcel[delivery_mode]']", ->
+    input = $(this)
+    if input.is(':checked')
+      form = input.closest('form')
+      form.find("input[name='parcel[delivery_mode]']").each ->
+        $("#delivery-mode-#{$(this).val()}").hide()
+      $("#delivery-mode-#{input.val()}").show()
+
+  $(document).behave "load click", "form label input[name='parcel[nature]']", ->
+    input = $(this)
+    if input.is(':checked')
+      form = input.closest('form')
+      form.find("input[name='parcel[nature]']").each ->
+        $("#nature-#{$(this).val()}").hide()
+      $("#nature-#{input.val()}").show()
+
+
+  $(document).behave "load click", "form label input[name='delivery[mode]']", ->
+    input = $(this)
+    if input.is(':checked')
+      form = input.closest('form')
+      form.find("input[name='delivery[mode]']").each ->
+        $("##{$(this).val()}").hide()
+      $("##{input.val()}").show()
+
 
   # Manage fields filling in sales/purchases
   $(document).on "selector:change", "*[data-product-of-delivery-item]", ->

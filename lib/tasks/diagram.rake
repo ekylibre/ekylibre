@@ -266,9 +266,9 @@ namespace :diagrams do
       journal: [Journal, JournalEntry, JournalEntryItem, Account, FinancialYear, AccountBalance, Loan, LoanRepayment, BankStatement, Cash, FixedAsset, FixedAssetDepreciation], # , CashTransfer, CashSession]
       product_nature: [Product, ProductNature, ProductNatureVariant, ProductNatureCategory, ProductNatureVariantReading, ProductNatureCategoryTaxation],
       production: [Activity, ActivityDistribution, Campaign, Production, ProductionBudget, ProductionDistribution, ProductionSupport, Intervention, InterventionCast, Operation],
-      sale: [Sale, SaleNature, SaleItem, OutgoingParcel, OutgoingParcelItem, Delivery, IncomingPayment, IncomingPaymentMode, Deposit],
-      purchase: [Purchase, PurchaseNature, PurchaseItem, IncomingParcel, IncomingParcelItem, OutgoingPayment, OutgoingPaymentMode],
-      delivery: [Delivery, OutgoingParcel, OutgoingParcelItem, IncomingParcel, IncomingParcelItem] # , Analysis, AnalysisItem
+      sale: [Sale, SaleNature, SaleItem, Parcel, ParcelItem, Delivery, IncomingPayment, IncomingPaymentMode, Deposit],
+      purchase: [Purchase, PurchaseNature, PurchaseItem, Parcel, ParcelItem, OutgoingPayment, OutgoingPaymentMode],
+      delivery: [Delivery, Parcel, ParcelItem, Analysis] #
     }.each do |name, models|
       graph = Diagrams.relational(*models, name: "#{name}-relational")
       graph.write

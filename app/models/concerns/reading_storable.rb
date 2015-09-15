@@ -71,11 +71,6 @@ module ReadingStorable
     send("#{datatype}_value=", object)
   end
 
-  # # Retrieve datatype from nomenclature NOT from database
-  # def theoric_datatype
-  #   self.indicator.datatype.to_sym
-  # end
-
   def indicator
     Nomen::Indicator[indicator_name]
   end

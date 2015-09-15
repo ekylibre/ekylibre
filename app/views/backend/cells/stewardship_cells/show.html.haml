@@ -6,7 +6,7 @@
   interventions = Intervention.of_campaign(@campaigns).order(:started_at)
   equipments = Equipment.availables
   workers = Worker.availables
-  incoming_parcels = IncomingParcel.all
+  incoming_parcels = Parcel.with_nature(:incoming)
 
 - if campaign
   .info
@@ -71,12 +71,12 @@
     %span.title= :workers.tl
     %span.value= link_to(:create_or_import_workers.tl, controller: "/backend/workers", action: :new)
 
-- if incoming_parcels.count > 0
+- if incoming_parcels.any?
   .info
     %span.title= :incoming_parcels.tl
-    %span.value= link_to(incoming_parcels.count.to_s, controller: "/backend/incoming_parcels", action: :index)
+    %span.value= link_to(incoming_parcels.count.to_s, controller: "/backend/parcels", action: :index)
 - else
   .info
     %span.title= :incoming_parcels.tl
-    %span.value= link_to(:create_or_import_incoming_parcels.tl, controller: "/backend/incoming_parcels", action: :new)
+    %span.value= link_to(:create_or_import_incoming_parcels.tl, controller: "/backend/parcels", nature: :incoming, action: :new)
 

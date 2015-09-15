@@ -844,13 +844,13 @@ form.search {
 
 .attributes-list {
   @include column-count(1);
-  .cobble & {
+  .cobble &, #main-informations & {
     @include columns(2em 3);
     @include respond-to(medium) {
       @include columns(1.5em 2);
     }
   }
-  &, .cobble & {
+  &, .cobble &, #main-informations & {
     @include respond-to(small) {
       @include column-count(1);
     }
@@ -2329,7 +2329,7 @@ a[data-annotate] {
     &.state-lost, &.state-refused, &.state-aborted, &.state-todo {
       background: $invalid-color;
     }
-    &.state-won, &.state-invoice, &.state-order, &.state-done {
+    &.state-won, &.state-invoice, &.state-order, &.state-done, &.state-given, &.state-finished {
       background: $success-color;
     }
     @include text-align(center);

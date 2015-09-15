@@ -25,14 +25,18 @@
 #  annotation              :text
 #  created_at              :datetime         not null
 #  creator_id              :integer
-#  departed_at             :datetime
+#  driver_id               :integer
 #  id                      :integer          not null, primary key
 #  lock_version            :integer          default(0), not null
+#  mode                    :string
 #  net_mass                :decimal(19, 4)
 #  number                  :string
 #  reference_number        :string
 #  responsible_id          :integer
-#  transporter_id          :integer          not null
+#  started_at              :datetime
+#  state                   :string           not null
+#  stopped_at              :datetime
+#  transporter_id          :integer
 #  transporter_purchase_id :integer
 #  updated_at              :datetime         not null
 #  updater_id              :integer
@@ -42,7 +46,7 @@
 #
 # deliveries_001:
 #   creator: users_001
-#   transporter: transporters_001
+#   state: "Lorem ipsum"
 #   updater: users_001
 #
 ---
@@ -51,7 +55,9 @@ deliveries_001:
   creator_id: 1
   id: 1
   lock_version: 0
+  mode: transporter
   number: TR0001
+  state: in_preparation
   transporter_id: 6
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
@@ -60,19 +66,36 @@ deliveries_002:
   creator_id: 1
   id: 2
   lock_version: 0
+  mode: transporter
   number: TR0002
+  state: in_preparation
   transporter_id: 6
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 deliveries_003:
   created_at: 2014-11-05 15:14:00.931117000 Z
   creator_id: 1
-  departed_at: 2014-11-05 15:14:00.754740000 Z
   id: 3
   lock_version: 0
+  mode: transporter
   net_mass: 3127.375
   number: TR00000001
   responsible_id: 9
+  started_at: 2014-11-05 15:14:00.754740000 Z
+  state: finished
   transporter_id: 4
   updated_at: 2014-11-05 15:14:00.931117000 Z
+  updater_id: 1
+deliveries_004:
+  annotation: ''
+  created_at: 2015-09-15 19:40:02.730399000 Z
+  creator_id: 1
+  driver_id: 14
+  id: 4
+  lock_version: 2
+  mode: us
+  number: TR00000002
+  reference_number: ''
+  state: in_preparation
+  updated_at: 2015-09-15 19:40:21.285215000 Z
   updater_id: 1

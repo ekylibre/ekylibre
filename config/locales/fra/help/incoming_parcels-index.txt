@@ -1,9 +1,0 @@
-====== Approvisionnements ======
-
-===== Comment créer un approvisionnement ? =====
-
-Pour chaque produit, définissez la quantité de produit à livrer pour l'approvisionnement dans le champ //Quantité//.
-
-Un approvisionnement permet de **définir quand, où** (sélection de l'adresse de livraison parmi les contacts de toutes vos fiches) et **en quelles proportions** seront livrés vos produits. Un approvisionnement peut donc être associée à un destinatiare différent du client de la vente.
-
-

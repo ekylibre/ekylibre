@@ -67,7 +67,7 @@ fra:
         born_at: "Fabriqué le" #?
         dead_at: "Détruit/consommé le" #?
       outgoing_parcel:  #?
-        items: "Lignes de livraison" #?
+        items: "Lignes de colis à expédier" #?
       outgoing_payment:
         delivered: "Remis au bénéficiaire"
       outgoing_payment_mode:  #?
@@ -256,7 +256,8 @@ fra:
       custom_field: "Champ complémentaire"
       custom_field_choice: "Choix de champ complémentaire"
       dashboard: "Tableau de bord"
-      delivery: "Transport"
+      delivery: "Livraison"
+      delivery_tool: "Outil de livraison"
       deposit: "Remise en banque"
       district: "Zone administrative"
       document: "Document"
@@ -282,8 +283,8 @@ fra:
       identifier: "Identifiant"
       immatter: "Immatériel" #?
       import: "Import"
-      incoming_parcel: "Approvisionnement"
-      incoming_parcel_item: "Élément d’approvisionnement"
+      incoming_parcel: "Colis à réceptionner" #?
+      incoming_parcel_item: "Élément de colis à réceptionner" #?
       incoming_payment: "Encaissement"
       incoming_payment_mode: "Mode d’encaissement"
       intervention: "Intervention"
@@ -309,10 +310,12 @@ fra:
       observation: "Observation"
       operation: "Opération"
       organization: "Organisation" #?
-      outgoing_parcel: "Livraison"
-      outgoing_parcel_item: "Ligne de livraison"
+      outgoing_parcel: "Colis à expédier"
+      outgoing_parcel_item: "Élément de colis à expédier"
       outgoing_payment: "Décaissement"
       outgoing_payment_mode: "Mode de décaissement"
+      parcel: "Colis"
+      parcel_item: "Élément de colis"
       plant: "Plante"
       postal_zone: "Zone postale"
       preference: "Préférence"
@@ -423,7 +426,7 @@ fra:
     analysed_at: "Analysé le"
     analyser: "Analyseur"
     analyses: "Analyses"
-    analysis: "Analyses"
+    analysis: "Analyse"
     annotation: "Annotation"
     archive: "Archive"
     archived_at: "Archivé le" #?
@@ -603,6 +606,7 @@ fra:
     delivery: "Livraison"
     delivery_address: "Adresse pour la livraison"
     delivery_items: "Lignes de livraison"
+    delivery_mode: "Mode de livraison"
     departed_at: "Transport le"
     departure_cause: "Cause de sortie" #?
     deposit: "Remise en banque"
@@ -730,6 +734,7 @@ fra:
     gaps: "Écarts"
     geolocation: "Géolocalisation"
     geometry_value: "Valeur géométrique"
+    given_at: "Donné à"
     global_amount: "Montant global" #?
     global_balance: "Solde global"
     global_count: "Population globale"
@@ -751,10 +756,11 @@ fra:
     imported_at: "Importé le"
     importer: "Importateur"
     in_cash: "En espèce" #?
+    # in_preparation_at: "In preparation at"
     included: "Incluse"
-    incoming_parcel_item: "Élément d’approvisionnement"
-    incoming_parcel_items: "Éléments d’approvisionnement" #?
-    incoming_parcels: "Approvisionnements"
+    incoming_parcel_item: "Élement de colis à réceptionner"
+    incoming_parcel_items: "Élements de colis à réceptionner" #?
+    incoming_parcels: "Colis à réceptionner"
     incoming_payment_modes: "Modes d’encaissement"
     incoming_payments: "Encaissements"
     indicator: "Indicateur"
@@ -928,15 +934,15 @@ fra:
     opened_at: "Ouvert le"
     operation: "Travail"
     operations: "Travaux"
+    ordered_at: "Commandé à"
     organic_fertilizer_mineral_fraction: "Azote de la fraction minérale d’un engrais organique (Xa)"
     organization: "Organisation" #?
     origin: "Origine"
     originator: "Initiateur"
     originator_type: "Type de l’initiateur"
-    outgoing_deliveries: "Livraisons sortantes"
-    outgoing_delivery_modes: "Modes de livraisons sortantes" #?
-    outgoing_parcel_items: "Lignes de livraisons sortantes"
-    # outgoing_parcels: "Outgoing parcels"
+    outgoing_deliveries: "Livraisons sortantes" #?
+    outgoing_parcel_items: "Éléments de colis à expédier"
+    outgoing_parcels: "Colis à expédier"
     outgoing_payment_modes: "Modes de décaissement"
     outgoing_payments: "Décaissements"
     owner: "Propriétaire"
@@ -944,11 +950,12 @@ fra:
     paid_at: "Réglé le"
     paid_taxes: "Taxes payées"
     parameters: "Paramètres"
-    # parcel: "Parcel"
-    # parcels: "Parcels"
+    parcel: "Colis"
+    parcel_items: "Éléments de colis"
+    parcels: "Colis"
     parent: "Parent"
-    # parted: "Parted"
-    # parted_product: "Parted product"
+    parted: "En partie"
+    parted_product: "Produit retiré"
     participant: "Participant"
     participants: "Participants"
     participations: "Participations"
@@ -989,6 +996,7 @@ fra:
     postal_zone: "Zone postale" #?
     postal_zones: "Zones postales"
     preferences: "Préférences"
+    prepared_at: "Préparé le"
     prereduction_amount: "Montant TTC avant réduction" #?
     prereduction_pretax_amount: "Montant HT avant réduction" #?
     prescription: "Prescription"
@@ -1220,6 +1228,7 @@ fra:
     to: "Pour"
     to_bank_at: "À décaisser le"
     tool: "Outil"
+    tools: "Outils"
     tracking: "Lot"
     tracking_serial: "Numéro de lot" #?
     trackings: "Lots traçables"
@@ -1517,6 +1526,7 @@ fra:
         animals: "ANI[year|4][number|4]"
         campaigns: "CAMP[number|4]"
         cash_transfers: "VI[year|4][number|4]"
+        deliveries: "BL[year|4][number|6]"
         deposits: "B[year|4][number|4]"
         entities: "[number|8]"
         fixed_assets: "IM[number|7]"
@@ -1525,7 +1535,7 @@ fra:
         incoming_payments: "R[year|4][number|6]"
         interventions: "[number]"
         opportunities: "OP[year|4][number|6]"
-        outgoing_deliveries: "BL[year|4][number|6]"
+        outgoing_parcels: "EXP[year|4][number|6]"
         outgoing_payments: "D[year|4][number|4]"
         plants: "PLANT[year|4][number|4]"
         products: "P[number|11]"

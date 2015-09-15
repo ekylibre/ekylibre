@@ -1,0 +1,34 @@
+= field_set :general_informations do
+  = f.input :nature, as: :radio_buttons
+  #nature-incoming
+    = f.referenced_association :sender
+  #nature-outgoing
+    = f.referenced_association :recipient
+  = f.referenced_association :address, source: :mails
+  = f.referenced_association :storage
+  = f.input :delivery_mode, as: :radio_buttons
+  #delivery-mode-transporter
+    = f.referenced_association :transporter
+  -#= f.referenced_association :sale
+  = f.input :planned_at
+  = f.input :remain_owner
+  = f.custom_fields
+-# = f.object.errors.inspect
+
+= field_set resource_model.human_attribute_name(:items) do
+  %table.list
+    %thead
+      %tr
+        %th.act
+        %th= ParcelItem.human_attribute_name(:product)
+        %th= ParcelItem.human_attribute_name(:parted)
+        %th= ParcelItem.human_attribute_name(:population)
+        -# %th= ParcelItem.human_attribute_name(:shape)
+        %th= ParcelItem.human_attribute_name(:analysis)
+
+    %tbody#items
+      = f.simple_fields_for :items, resource.items do |item|
+        = render 'item_fields', f: item
+    %tfoot
+      %tr.total
+        %th{colspan: 5}= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', 'data-association-insertion-node' => '#items', 'data-association-insertion-method' => :append, class: "btn primary"

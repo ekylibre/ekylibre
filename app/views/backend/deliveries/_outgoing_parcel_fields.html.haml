@@ -1,0 +1,3 @@
+.nested-fields
+  = link_to_remove_nested_association(:outgoing_parcel, f)
+  = f.referenced_association(:outgoing_parcel, source: {scope: :outgoing_parcels})

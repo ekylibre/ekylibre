@@ -2025,6 +2025,26 @@ matters_050:
   updater_id: 1
   variant_id: 65
   variety: wine
+matters_051:
+  born_at: 2015-09-15 19:37:36.643591000 Z
+  category_id: 23
+  created_at: 2015-09-15 19:37:36.717446000 Z
+  creator_id: 1
+  default_storage_id: 21
+  extjuncted: true
+  id: 144
+  initial_born_at: 2015-09-15 19:37:36.643591000 Z
+  initial_container_id: 21
+  initial_population: 200.0
+  lock_version: 0
+  name: Bouteille Bordelaise 75cl (Hangar principal)
+  nature_id: 54
+  number: PR00000000088
+  type: Matter
+  updated_at: 2015-09-15 19:37:36.717446000 Z
+  updater_id: 1
+  variant_id: 63
+  variety: cork_bottle
 plants_001:
   born_at: 2013-11-10 12:01:30.000000000 Z
   category_id: 8

@@ -1,10 +1,15 @@
 = field_set do
-  = f.referenced_association :transporter, source: :necessary_transporters, new: {transporter: 1}
   = f.referenced_association :responsible, source: :employees
-  = f.input :reference_number
-  = f.input :departed_at
+  = f.input :started_at
+  = f.input :stopped_at
   = f.input :annotation
+  = f.input :mode, as: :radio_buttons
+  #transporter
+    = f.referenced_association :transporter, source: :necessary_transporters, new: {transporter: 1}
+    = f.input :reference_number
+  #us
+    = f.referenced_association :driver
+    = f.nested_association(:tools)
   = f.custom_fields
+  = f.association(:parcels, as: :check_boxes, label_method: :number)
 
-= field_set :deliveries, label: Transport.human_attribute_name(:deliveries) do
-  = list :deliveries

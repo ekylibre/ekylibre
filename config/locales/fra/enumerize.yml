@@ -95,6 +95,21 @@ fra:
         important: "Importante"
         normal: "Normale"
         notice: "Faible"
+    parcel:
+      delivery_mode:
+        third: "Par le tiers"
+        transporter: "Par tranporteur"
+        us: "Par nos soins"
+      nature:
+        incoming: "Entrant"
+        internal: "Interne"
+        outgoing: "Sortant"
+      state:
+        draft: "Brouillon"
+        in_preparation: "En préparation"
+        ready_to_prepare: "En attente de préparation"
+        ready_to_send: "Prêt pour l'expédition"
+        sent: "Expédié"
     production_budget:
       computation_method:
         per_production: "Par production"

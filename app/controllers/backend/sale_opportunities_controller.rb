@@ -65,12 +65,4 @@ class Backend::SaleOpportunitiesController < Backend::AffairsController
       fire_event(event.name)
     end
   end
-
-  protected
-
-  def fire_event(event)
-    return unless @sale_opportunity = find_and_check
-    @sale_opportunity.send(event)
-    redirect_to params[:redirect] || { action: :show, id: @sale_opportunity.id }
-  end
 end

@@ -1,4 +1,6 @@
 module Clean
+  # Annotations tool permits to set model description in code
+  # of models, fixtures and model tests
   module Annotations
     MODELS_DIR      = Rails.root.join('app', 'models')
     FIXTURES_DIR    = Rails.root.join('test', 'fixtures')

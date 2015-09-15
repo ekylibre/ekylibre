@@ -5,6 +5,10 @@ module Ekylibre::Record
   class Base < ActiveRecord::Base
     self.abstract_class = true
 
+    cattr_accessor :scopes do
+      []
+    end
+
     # Replaces old module: ActiveRecord::Acts::Tree
     # include ActsAsTree
 
@@ -136,10 +140,6 @@ module Ekylibre::Record
         Ekylibre::Schema.tables[table_name] || {}.with_indifferent_access
       end
 
-      def scopes
-        @scopes ||= []
-      end
-
       def simple_scopes
         scopes.select { |x| x.arity.zero? }
       end
@@ -161,13 +161,12 @@ module Ekylibre::Record
                                           "`self.red`.)\n" + caller.join("\n")
                                          )
         end
-        @scopes ||= []
         arity = begin
                   body.arity
                 rescue
                   0
                 end
-        @scopes << Scope.new(name.to_sym, arity)
+        scopes << Scope.new(name.to_sym, arity)
         scope_without_registration(name, body, &block)
       end
       alias_method_chain :scope, :registration

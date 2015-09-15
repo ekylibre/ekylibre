@@ -25,14 +25,18 @@
 #  annotation              :text
 #  created_at              :datetime         not null
 #  creator_id              :integer
-#  departed_at             :datetime
+#  driver_id               :integer
 #  id                      :integer          not null, primary key
 #  lock_version            :integer          default(0), not null
+#  mode                    :string
 #  net_mass                :decimal(19, 4)
 #  number                  :string
 #  reference_number        :string
 #  responsible_id          :integer
-#  transporter_id          :integer          not null
+#  started_at              :datetime
+#  state                   :string           not null
+#  stopped_at              :datetime
+#  transporter_id          :integer
 #  transporter_purchase_id :integer
 #  updated_at              :datetime         not null
 #  updater_id              :integer
@@ -40,22 +44,80 @@
 
 class Delivery < Ekylibre::Record::Base
   acts_as_numbered
+  enumerize :mode, in: [:transporter, :us, :third], predicates: true, default: :us
+  belongs_to :driver, -> { contacts }, class_name: 'Entity'
   belongs_to :responsible, -> { contacts }, class_name: 'Entity'
+  # belongs_to :storage, class_name: 'Product'
   belongs_to :transporter, class_name: 'Entity'
   belongs_to :transporter_purchase, class_name: 'Purchase'
-  has_many :deliveries, class_name: 'OutgoingParcel', dependent: :nullify
+  has_many :parcels, dependent: :nullify
+  has_many :tools, class_name: 'DeliveryTool', dependent: :destroy
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :departed_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :net_mass, allow_nil: true
-  validates_presence_of :transporter
+  validates_presence_of :state
   # ]VALIDATORS]
 
-  protect(on: :destroy) do
-    deliveries.any?
+  accepts_nested_attributes_for :tools, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :parcels, reject_if: :all_blank, allow_destroy: true
+
+  state_machine :state, initial: :draft do
+    state :draft
+    state :ordered
+    state :in_preparation
+    state :prepared
+    state :started
+    state :finished
+
+    event :order do
+      transition draft: :ordered
+    end
+    event :prepare do
+      transition ordered: :in_preparation
+    end
+    event :check do
+      transition in_preparation: :prepared, if: ->(delivery) { delivery.parcels.all?(&:prepared?) }
+    end
+    event :start do
+      transition prepared: :started
+    end
+    event :finish do
+      transition started: :finished
+    end
+    event :cancel do
+      transition ordered: :draft
+      transition in_preparation: :ordered
+      transition prepared: :in_preparation
+      transition started: :prepared
+      # transition finished: :started
+    end
   end
 
-  def refresh
-    save
+  before_validation do
+    self.state ||= :draft
   end
+
+  def status
+    draft? ? :stop : finished? ? :go : :caution
+  end
+
+  def check
+    return false unless can_check?
+    parcels.find_each do |parcel|
+      parcel.prepare if parcel.can_prepare?
+      parcel.check if parcel.can_check?
+    end
+    super
+  end
+
+  def finish
+    return false unless can_finish?
+    parcels.each(&:give!)
+    super
+  end
+
+  # def refresh
+  #   save
+  # end
 end

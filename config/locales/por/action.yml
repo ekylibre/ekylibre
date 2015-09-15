@@ -123,9 +123,10 @@ por:
       tools: "Dashboard ferramentas"
       trade: "Dashboard de comercializações"
     backend/deliveries:
-      # edit: "Edit transport %{number}"
-      # index: "Transports"
-      # show: "Transport: %{number}"
+      # edit: "Edit delivery %{number}"
+      # index: "Deliveries"
+      # new: "New delivery"
+      # show: "Delivery: %{number}"
     backend/deposits:
       edit: "Editar deposito: %{number}"
       index: "Depositos"
@@ -229,14 +230,6 @@ por:
       # new: "New import"
       # run: "Run import"
       # show: "Import: %{nature}"
-    backend/incoming_parcel_items:
-      # new: "New incoming delivery item"
-    backend/incoming_parcels:
-      # confirm: "Confirm incoming delivery"
-      # edit: "Edit incoming delivery: %{number} (%{reference_number})"
-      # index: "Incoming deliveries"
-      # new: "New incoming delivery"
-      # show: "Incoming delivery: %{number} (%{reference_number})"
     backend/incoming_payment_modes:
       # edit: "Edit incoming payment mode: %{name}"
       # index: "Incoming payment modes"
@@ -335,12 +328,6 @@ por:
     backend/operations:
       # index: "Operations"
       # show: "Operation Details %{name}"
-    backend/outgoing_parcels:
-      # edit: "Edit outgoing delivery: %{number}"
-      # index: "Outgoing deliveries"
-      # new: "New outgoing delivery"
-      # ship: "Ship:"
-      # show: "Outgoing delivery: %{number}"
     backend/outgoing_payment_modes:
       # edit: "Edit disbursement mode"
       # index: "Disbursement modes"
@@ -350,6 +337,12 @@ por:
       # index: "Disbursements"
       # new: "New disbursement"
       # show: "Disbursement %{number} for %{payee}"
+    backend/parcels:
+      # edit: "Edit %{nature} parcel: %{number}"
+      # index: "Parcels"
+      # new: "New parcel"
+      # ship: "Ship parcels"
+      # show: "%{nature} parcel: %{number}"
     backend/plants:
       # edit: "Edit plant: %{name}"
       # index: "Plants"
@@ -558,6 +551,7 @@ por:
     # add_sale_taxation: "Add sale taxation"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     # add_support: "Add support"
+    # add_tool: "Add tool"
     # add_website: "Add website"
     # add_x: "Add “%{x}”"
     # affair: "Affair"
@@ -583,7 +577,6 @@ por:
       # reopen_issue: "Are you sure you want to reopen this issue?"
     # are_you_sure_you_want_to_confirm: "Are you sure you want to order"
     # are_you_sure_you_want_to_delete: "Are you sure you want to delete this record?"
-    # are_you_sure_you_want_to_delete_delivery: "Are you sure you want to remove the delivery of transport?"
     # are_you_sure_you_want_to_invoice: "Are you sure you want to invoice?"
     # are_you_sure_you_want_to_send_mails: "Are you sure you want to send emails?"
     # attach_deal: "Add a deal"
@@ -660,7 +653,7 @@ por:
     # create: "Create"
     # create_journal: "— Create journal —"
     # create_or_import_equipments: "Create or import equipments"
-    # create_or_import_incoming_parcels: "Create or import incoming deliveries"
+    # create_or_import_incoming_parcels: "Create or import incoming parcels"
     # create_or_import_interventions: "Create or import interventions"
     # create_or_import_workers: "Create or import workers"
     # created_at: "Created on"
@@ -800,7 +793,7 @@ por:
     # inactive: "Inactive"
     # include_blank: "Include blank"
     # income_statement: "Income Statement"
-    # incoming_parcels: "Incoming deliveries"
+    # incoming_parcels: "Incoming parcels"
     # incoming_payment: "Incoming payment"
     # incoming_payments: "Incoming payments"
     # incoming_payments_to_deposit: "Incoming payments to deposit"
@@ -847,11 +840,11 @@ por:
     # last_computed_balance: "Last computed balance"
     # last_entities: "Last entities"
     # last_events: "Last events"
-    # last_incoming_parcels: "Last incoming deliveries"
+    # last_incoming_parcels: "Last incoming parcels"
     # last_intervention: "Last intervention"
     # last_issue: "Last issue"
     # last_issues: "Last issues"
-    # last_outgoing_deliveries: "Last outgoing deliveries"
+    # last_outgoing_parcels: "Last outgoing parcels"
     # last_products: "Last products"
     # last_purchases: "Last purchases"
     # last_sales: "Last sales"
@@ -904,6 +897,12 @@ por:
     # new_call: "New call"
     # new_contact: "New contact"
     # new_container: "New container"
+    new_delivery_of_x_parcels:
+      # one: "New transport (%{count} delivery)"
+      # other: "New transport (%{count} deliveries)"
+    new_delivery_of_x_parcels_for_y:
+      # one: "New transport for %{transporter} (%{count} delivery)"
+      # other: "New transport for %{transporter} (%{count} deliveries)"
     new_deposit:
       # one: "Make a deposit %{mode}: 1 available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"
@@ -913,12 +912,6 @@ por:
     # new_organization: "New organization"
     # new_production_of_activity: "New production of %{activity}"
     # new_quote: "New quote"
-    new_transport_of_x_deliveries:
-      # one: "New transport (%{count} delivery)"
-      # other: "New transport (%{count} deliveries)"
-    new_transport_of_x_deliveries_for_y:
-      # one: "New transport for %{transporter} (%{count} delivery)"
-      # other: "New transport for %{transporter} (%{count} deliveries)"
     # new_writing: "New writing"
     # next: "Next"
     # nitrogen_concentration: "Nitrogen concentration"
@@ -1313,11 +1306,11 @@ por:
     # x_unit_per_second: "Flow: %{quantity}%{unit}/s"
     # x_units_of_product_y: "%{quantity}%{unit} of %{product}"
     x_waiting_incoming_parcels:
-      # one: "%{count} waiting incoming delivery"
-      # other: "%{count} waiting incoming deliveries"
+      # one: "%{count} waiting incoming parcel"
+      # other: "%{count} waiting incoming parcels"
     x_waiting_outgoing_deliveries:
-      # one: "%{count} waiting outgoing delivery"
-      # other: "%{count} waiting outgoing deliveries"
+      # one: "%{count} waiting outgoing parcel"
+      # other: "%{count} waiting outgoing parcels"
     x_years:
       # one: "1 year"
       # other: "%{count} years"
@@ -1509,6 +1502,7 @@ por:
     # backend/observations: "%{content}"
     # backend/operations: "%{nature} (%{created_at})"
     # backend/outgoing_payments: "%{number}. %{mode_name} to %{payee_full_name} of %{amount} %{currency}"
+    # backend/parcels: "%{number} ‒ %{reference_number}"
     # backend/plants: "%{name} ‒ %{work_number}"
     # backend/prescriptions: "%{reference_number}"
     # backend/product_memberships: "%{started_at}"

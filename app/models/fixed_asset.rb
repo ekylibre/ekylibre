@@ -62,8 +62,8 @@ class FixedAsset < Ekylibre::Record::Base
   belongs_to :purchase_item, inverse_of: :fixed_asset
   belongs_to :purchase
   has_many :depreciations, -> { order(:position) }, class_name: 'FixedAssetDepreciation'
-  has_many :delivery_items, through: :purchase_item
-  has_many :delivery_products, through: :delivery_items, source: :product
+  has_many :parcel_items, through: :purchase_item
+  has_many :delivery_products, through: :parcel_items, source: :product
   has_many :products
   has_many :planned_depreciations, -> { order(:position).where('NOT locked OR accounted_at IS NULL') }, class_name: 'FixedAssetDepreciation', dependent: :destroy
   has_one :tool, class_name: 'Equipment'

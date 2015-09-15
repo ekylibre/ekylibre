@@ -4136,3 +4136,81 @@ product_readings_280:
   read_at: 2013-10-30 13:52:00.000000000 Z
   updated_at: 2014-11-07 19:36:59.613911000 Z
   updater_id: 1
+product_readings_281:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 0.75
+  boolean_value: false
+  created_at: 2015-09-15 19:37:36.858304000 Z
+  creator_id: 1
+  id: 304
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: centiliter
+  measure_value_value: 75.0
+  product_id: 144
+  read_at: 2015-09-15 19:37:36.643591000 Z
+  updated_at: 2015-09-15 19:37:36.858304000 Z
+  updater_id: 1
+product_readings_282:
+  absolute_measure_value_unit: meter
+  absolute_measure_value_value: 0.32
+  boolean_value: false
+  created_at: 2015-09-15 19:37:36.869303000 Z
+  creator_id: 1
+  id: 305
+  indicator_datatype: measure
+  indicator_name: length
+  lock_version: 0
+  measure_value_unit: centimeter
+  measure_value_value: 32.0
+  originator_id: 116
+  originator_type: ProductJunction
+  product_id: 144
+  read_at: 2015-09-15 19:37:36.643591000 Z
+  updated_at: 2015-09-15 19:37:36.869303000 Z
+  updater_id: 1
+product_readings_283:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 0.42
+  boolean_value: false
+  created_at: 2015-09-15 19:37:36.876093000 Z
+  creator_id: 1
+  id: 306
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: gram
+  measure_value_value: 420.0
+  originator_id: 116
+  originator_type: ProductJunction
+  product_id: 144
+  read_at: 2015-09-15 19:37:36.643591000 Z
+  updated_at: 2015-09-15 19:37:36.876093000 Z
+  updater_id: 1
+product_readings_284:
+  boolean_value: false
+  created_at: 2015-09-15 19:37:36.882439000 Z
+  creator_id: 1
+  decimal_value: 1804.0
+  id: 307
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 140
+  read_at: 2015-09-15 19:37:36.643591000 Z
+  updated_at: 2015-09-15 19:37:36.882439000 Z
+  updater_id: 1
+product_readings_285:
+  boolean_value: false
+  created_at: 2015-09-15 19:37:36.888935000 Z
+  creator_id: 1
+  decimal_value: 200.0
+  id: 308
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 144
+  read_at: 2015-09-15 19:37:36.643591000 Z
+  updated_at: 2015-09-15 19:37:36.888935000 Z
+  updater_id: 1

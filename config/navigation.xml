@@ -511,44 +511,32 @@
       </item>
     </group>
     <group name="movements" icon="truck">
-      <item name="incoming_deliveries">
-        <page to="backend/incoming_parcels#index"/>
-        <page to="backend/incoming_parcels#confirm"/>
-        <page to="backend/incoming_parcels#create"/>
-        <page to="backend/incoming_parcels#destroy"/>
-        <page to="backend/incoming_parcels#edit"/>
-        <page to="backend/incoming_parcels#invoice"/>
-        <page to="backend/incoming_parcels#list"/>
-        <page to="backend/incoming_parcels#list_items"/>
-        <page to="backend/incoming_parcels#new"/>
-        <page to="backend/incoming_parcels#show"/>
-        <page to="backend/incoming_parcels#unroll"/>
-        <page to="backend/incoming_parcels#update"/>
-        <page to="backend/incoming_parcel_items#new"/>
-      </item>
-      <item name="outgoing_deliveries">
-        <page to="backend/outgoing_parcels#index"/>
-        <page to="backend/outgoing_parcels#create"/>
-        <page to="backend/outgoing_parcels#destroy"/>
-        <page to="backend/outgoing_parcels#edit"/>
-        <page to="backend/outgoing_parcels#invoice"/>
-        <page to="backend/outgoing_parcels#list"/>
-        <page to="backend/outgoing_parcels#list_items"/>
-        <page to="backend/outgoing_parcels#new"/>
-        <page to="backend/outgoing_parcels#ship"/>
-        <page to="backend/outgoing_parcels#show"/>
-        <page to="backend/outgoing_parcels#unroll"/>
-        <page to="backend/outgoing_parcels#update"/>
-      </item>
-      <item name="transports">
+      <item name="deliveries">
         <page to="backend/deliveries#index"/>
+        <page to="backend/deliveries#create"/>
         <page to="backend/deliveries#destroy"/>
         <page to="backend/deliveries#edit"/>
         <page to="backend/deliveries#list"/>
-        <page to="backend/deliveries#list_outgoing_parcels"/>
+        <page to="backend/deliveries#list_parcels"/>
+        <page to="backend/deliveries#new"/>
         <page to="backend/deliveries#show"/>
         <page to="backend/deliveries#unroll"/>
         <page to="backend/deliveries#update"/>
+      </item>
+      <item name="parcels">
+        <page to="backend/parcels#index"/>
+        <page to="backend/parcels#create"/>
+        <page to="backend/parcels#destroy"/>
+        <page to="backend/parcels#edit"/>
+        <page to="backend/parcels#invoice"/>
+        <page to="backend/parcels#list"/>
+        <page to="backend/parcels#list_items"/>
+        <page to="backend/parcels#new"/>
+        <page to="backend/parcels#ship"/>
+        <page to="backend/parcels#show"/>
+        <page to="backend/parcels#unroll"/>
+        <page to="backend/parcels#update"/>
+        <page to="backend/parcels#confirm" nonexistent="true"/>
       </item>
     </group>
   </part>
@@ -1572,9 +1560,9 @@
         <page to="backend/cells/last_issues_cells#list"/>
         <page to="backend/cells/last_issues_cells#show"/>
       </item>
-      <item name="last_incoming_deliveries_cells">
-        <page to="backend/cells/last_incoming_deliveries_cells#list"/>
-        <page to="backend/cells/last_incoming_deliveries_cells#show"/>
+      <item name="last_incoming_parcels_cells">
+        <page to="backend/cells/last_incoming_parcels_cells#list"/>
+        <page to="backend/cells/last_incoming_parcels_cells#show"/>
       </item>
       <item name="last_intervention_cells">
         <page to="backend/cells/last_intervention_cells#show"/>
@@ -1582,9 +1570,9 @@
       <item name="last_analyses_cells">
         <page to="backend/cells/last_analyses_cells#show"/>
       </item>
-      <item name="last_outgoing_deliveries_cells">
-        <page to="backend/cells/last_outgoing_deliveries_cells#list"/>
-        <page to="backend/cells/last_outgoing_deliveries_cells#show"/>
+      <item name="last_outgoing_parcels_cells">
+        <page to="backend/cells/last_outgoing_parcels_cells#list"/>
+        <page to="backend/cells/last_outgoing_parcels_cells#show"/>
       </item>
       <item name="last_products_cells">
         <page to="backend/cells/last_products_cells#list"/>
@@ -1763,6 +1751,25 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="deliveries">
+        <page to="backend/deliveries#cancel"/>
+        <page to="backend/deliveries#check"/>
+        <page to="backend/deliveries#finish"/>
+        <page to="backend/deliveries#order"/>
+        <page to="backend/deliveries#prepare"/>
+        <page to="backend/deliveries#start"/>
+      </item>
+      <item name="parcel_items">
+        <page to="backend/parcel_items#new"/>
+      </item>
+      <item name="parcels">
+        <page to="backend/parcels#cancel"/>
+        <page to="backend/parcels#check"/>
+        <page to="backend/parcels#give"/>
+        <page to="backend/parcels#order"/>
+        <page to="backend/parcels#prepare"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

@@ -77,11 +77,11 @@ class Backend::SalesController < Backend::BaseController
     t.column :amount, currency: true
   end
 
-  list(:parcels, model: :outgoing_parcels, children: :items, conditions: { sale_id: 'params[:id]'.c }) do |t|
+  list(:parcels, children: :items, conditions: { sale_id: 'params[:id]'.c }) do |t|
     t.column :number, children: :product_name, url: true
     t.column :transporter, children: false, url: true
     t.column :address, label_method: :coordinate, children: false
-    t.column :sent_at, children: false, hidden: true
+    # t.column :sent_at, children: false, hidden: true
     # t.column :planned_at, children: false
     # t.column :moved_at, children: false
     # t.column :population
