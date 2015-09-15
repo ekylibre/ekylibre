@@ -154,7 +154,11 @@ class Activity < Ekylibre::Record::Base
           rgb_value << color_cycle[:gold]
         end
       elsif activity_family <= :protein_crops
-        rgb_value << color_cycle[:green]
+        rgb_value << color_cycle[:dark_turquoise]
+      elsif activity_family <= :arboriculture
+        rgb_value << color_cycle[:blue]
+      elsif activity_family <= :fallow_land || activity_family <= :fodder_crops || activity_family <= :meadow
+        rgb_value << color_cycle[:green]  
       else
         rgb_value << color_cycle[:gray]
       end
