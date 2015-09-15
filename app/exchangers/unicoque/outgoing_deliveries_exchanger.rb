@@ -85,10 +85,10 @@ class Unicoque::OutgoingDeliveriesExchanger < ActiveExchanger::Base
 
       # create an outgoing_parcel from company to cooperative
       outgoing_parcel = Parcel.create!(nature: :outgoing,
-                                       delivery_mode: :delivered_by_us,
+                                       delivery_mode: :indifferent,
                                        address: cooperative.default_mail_address,
                                        recipient: cooperative,
-                                       sent_at: born_at
+                                       given_at: born_at
                                       )
       # link item to outgoing_parcel
       outgoing_parcel.items.create!(product: product)
