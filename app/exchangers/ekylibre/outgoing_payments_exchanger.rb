@@ -2,7 +2,7 @@ class Ekylibre::OutgoingPaymentsExchanger < ActiveExchanger::Base
   def check
     rows = CSV.read(file, headers: true).delete_if { |r| r[2].blank? }
     valid = true
-    now = Time.now
+    now = Time.zone.now
     w.count = rows.size
 
     # find a responsible
@@ -71,7 +71,7 @@ class Ekylibre::OutgoingPaymentsExchanger < ActiveExchanger::Base
   def import
     rows = CSV.read(file, headers: true).delete_if { |r| r[2].blank? }
     w.count = rows.size
-    now = Time.now
+    now = Time.zone.now
 
     # find a responsible
     responsible = User.employees.first

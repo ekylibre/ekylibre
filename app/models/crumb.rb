@@ -57,7 +57,7 @@ class Crumb < Ekylibre::Record::Base
 
   # returns all crumbs for a given day. Default: the current day
   # TODO: remove this and replace by something like #start_day_between or #at
-  scope :of_date, lambda{|start_date = Time.now.midnight|
+  scope :of_date, lambda{|start_date = Time.zone.now.midnight|
     where(read_at: start_date.midnight..start_date.end_of_day)
   }
 

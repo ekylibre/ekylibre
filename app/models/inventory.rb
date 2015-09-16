@@ -54,7 +54,7 @@ class Inventory < Ekylibre::Record::Base
   accepts_nested_attributes_for :items
 
   before_validation do
-    self.achieved_at ||= Time.now
+    self.achieved_at ||= Time.zone.now
   end
 
   bookkeep on: :nothing do |_b|
@@ -74,7 +74,7 @@ class Inventory < Ekylibre::Record::Base
       fail StandardError, 'Cannot reflect reflected inventory'
     end
     self.class.transaction do
-      self.reflected_at = Time.now
+      self.reflected_at = Time.zone.now
       self.reflected = true
       self.save!
       for item in items
@@ -95,7 +95,7 @@ class Inventory < Ekylibre::Record::Base
   end
 
   def build_missing_items
-    self.achieved_at ||= Time.now
+    self.achieved_at ||= Time.zone.now
     for product in Matter.at(achieved_at).of_owner(Entity.of_company)
       unless items.detect { |i| i.product_id == product.id }
         population = product.population(at: self.achieved_at)

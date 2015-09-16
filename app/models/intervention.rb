@@ -343,8 +343,8 @@ class Intervention < Ekylibre::Record::Base
 
       transaction do
         attrs = options.slice(:reference_name, :description, :issue_id, :prescription_id, :production, :production_support, :recommender_id, :started_at, :stopped_at)
-        attrs[:started_at] ||= Time.now
-        attrs[:stopped_at] ||= Time.now
+        attrs[:started_at] ||= Time.zone.now
+        attrs[:stopped_at] ||= Time.zone.now
         attrs[:natures] = natures.join(' ')
         recorder = Intervention::Recorder.new(attrs)
 
@@ -387,7 +387,7 @@ class Intervention < Ekylibre::Record::Base
       if options[:history]
         history.merge!(Intervention.joins(:casts)
                         .where("intervention_casts.actor_id IN (#{actors_id.join(', ')})")
-                        .where(started_at: (Time.now.midnight - 1.year)..(Time.now)) # history is considered relevant on 1 year
+                        .where(started_at: (Time.zone.now.midnight - 1.year)..(Time.zone.now)) # history is considered relevant on 1 year
                         .group('interventions.reference_name')
                         .count('interventions.reference_name'))
       end
@@ -396,7 +396,7 @@ class Intervention < Ekylibre::Record::Base
         provisional.concat(Intervention.distinct
                             .joins(:casts)
                             .where("intervention_casts.actor_id IN (#{actors_id.join(', ')})")
-                            .where(started_at: (Time.now.midnight - 1.day)..(Time.now + 3.days))
+                            .where(started_at: (Time.zone.now.midnight - 1.day)..(Time.zone.now + 3.days))
                             .pluck('interventions.reference_name')).uniq!
       end
 

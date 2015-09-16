@@ -1,6 +1,6 @@
 - main_toolbar do |t|
   - t.export do |e|
-    - e.animal_list Time.now.to_s, @animals
+    - e.animal_list Time.zone.now.to_s, @animals
   - t.new data: {target: '#new-animal', toggle: 'modal'}, href: "#"
 
 = janus do |j|

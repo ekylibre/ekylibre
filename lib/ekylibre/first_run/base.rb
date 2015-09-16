@@ -127,7 +127,7 @@ module Ekylibre
       def import!(nature, file, options = {})
         # puts "> import(:#{nature.to_s}, '#{file.to_s}', #{options.inspect})"
         last = ''
-        start = Time.now
+        start = Time.zone.now
         basename = nature.to_s.humanize + ' (' + Pathname.new(file).basename.to_s + ') '
         total = 0
         max = options[:max] || @max
@@ -136,7 +136,7 @@ module Ekylibre
             status = [basename]
             status << " #{progress.to_i}%"
             if progress > 0
-              remaining = (100 - progress) * (Time.now - start) / progress
+              remaining = (100 - progress) * (Time.zone.now - start) / progress
               status << " #{remaining.round.to_i}s"
             end
             l = @term_width - status.join.length
@@ -155,7 +155,7 @@ module Ekylibre
           max <= 0 || count < max
         end
         if @verbose
-          stop = Time.now
+          stop = Time.zone.now
           status = [basename]
           status << ' ' + total.to_s
           status << ' done in '

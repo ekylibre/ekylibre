@@ -19,7 +19,7 @@ class Ekylibre::MattersExchanger < ActiveExchanger::Base
         variant_reference_name: row[1].blank? ? nil : row[1].to_s,
         work_number: row[2].blank? ? nil : row[2].to_s.strip,
         place_code: row[3].blank? ? nil : row[3].to_s.strip,
-        born_at: (row[4].blank? ? (Date.today - 200) : row[4]).to_datetime,
+        born_at: (row[4].blank? ? (Time.zone.today - 200) : row[4]).to_datetime,
         variety: row[5].blank? ? nil : row[5].to_s.strip,
         derivative_of: row[6].blank? ? nil : row[6].to_s.strip,
         external: !row[7].blank?,
@@ -64,7 +64,7 @@ class Ekylibre::MattersExchanger < ActiveExchanger::Base
         variant_reference_name: row[1].blank? ? nil : row[1].to_s,
         work_number: row[2].blank? ? nil : row[2].to_s.strip,
         place_code: row[3].blank? ? nil : row[3].to_s.strip,
-        born_at: (row[4].blank? ? (Date.today - 200) : row[4]).to_datetime,
+        born_at: (row[4].blank? ? (Time.zone.today - 200) : row[4]).to_datetime,
         variety: row[5].blank? ? nil : row[5].to_s.strip,
         derivative_of: row[6].blank? ? nil : row[6].to_s.strip,
         external: !row[7].blank?,
@@ -96,7 +96,7 @@ class Ekylibre::MattersExchanger < ActiveExchanger::Base
         # create the owner if not exist
         if r.external == true
           owner = Entity.where(last_name: r.owner_name.to_s).first
-          owner ||= Entity.create!(born_at: Date.today, last_name: r.owner_name.to_s, currency: 'EUR', language: 'fra', nature: :organization)
+          owner ||= Entity.create!(born_at: Time.zone.today, last_name: r.owner_name.to_s, currency: 'EUR', language: 'fra', nature: :organization)
         else
           owner = Entity.of_company
         end

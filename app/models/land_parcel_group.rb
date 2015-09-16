@@ -88,6 +88,6 @@ class LandParcelGroup < ProductGroup
 
   # Returns members of the group at a given time (or now by default)
   def members_at(viewed_at = nil)
-    LandParcel.members_of(self, viewed_at || Time.now)
+    LandParcel.members_of(self, viewed_at || Time.zone.now)
   end
 end

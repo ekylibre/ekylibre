@@ -171,7 +171,7 @@ module Backend::BaseHelper
   def variable_readings(resource)
     indicators = resource.variable_indicators.delete_if { |i| ![:measure, :decimal].include?(i.datatype) }
     series = []
-    now = (Time.now + 7.days)
+    now = (Time.zone.now + 7.days)
     window = 1.day
     min = (resource.born_at ? resource.born_at : now - window)
     min = now - window if (now - min) < window

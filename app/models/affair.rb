@@ -103,7 +103,7 @@ class Affair < Ekylibre::Record::Base
     end
     # Check state
     if self.credit == self.debit # and self.debit != 0
-      self.closed_at = Time.now unless closed
+      self.closed_at = Time.zone.now unless closed
       self.closed = true
     else
       self.closed = false
@@ -132,7 +132,7 @@ class Affair < Ekylibre::Record::Base
       end
       hash
     end.delete_if { |_k, v| v.zero? }
-    b.journal_entry(self.class.journal, printed_on: (all_deals.last ? all_deals.last.dealt_at : Time.now).to_date, if: (self.balanced? && thirds.size > 1)) do |entry|
+    b.journal_entry(self.class.journal, printed_on: (all_deals.last ? all_deals.last.dealt_at : Time.zone.now).to_date, if: (self.balanced? && thirds.size > 1)) do |entry|
       for account_id, amount in thirds
         entry.add_debit(label, account_id, amount)
       end

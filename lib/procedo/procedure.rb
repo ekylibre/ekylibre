@@ -429,7 +429,7 @@ module Procedo
         code << "    @#{variable.ljust(max)} = #{variable.camelcase}.new(self, casting[:#{variable}])\n"
       end
       code << "    @__support__ = ProductionSupport.find_by(id: global[:support])\n"
-      code << "    @__now__     = global[:at].blank? ? Time.now : global[:at].to_time\n"
+      code << "    @__now__     = global[:at].blank? ? Time.zone.now : global[:at].to_time\n"
       code << "    @__updater__ = updater.split(':').map(&:to_sym)\n"
       code << "  end\n\n"
 

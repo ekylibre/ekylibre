@@ -141,7 +141,7 @@ module Backend::TimelineHelper
       @sides.each do |side|
         list += side.steps if side.authorized?
       end
-      now = Time.now
+      now = Time.zone.now
       list << MarkerStep.new(now, :now) if list.detect { |s| s.at > now }
       count = 1
       ago = now - 1.year

@@ -57,16 +57,16 @@ class FinancialYear < Ekylibre::Record::Base
   # This order must be the natural order
   # It permit to find the first and the last financial year
   scope :currents,  -> { where(closed: false).reorder(:started_on) }
-  scope :closables, -> { where(closed: false).where('stopped_on < ?', Time.now).reorder(:started_on).limit(1) }
+  scope :closables, -> { where(closed: false).where('stopped_on < ?', Time.zone.now).reorder(:started_on).limit(1) }
 
   class << self
     # Find or create if possible the requested financial year for the searched date
-    def at(searched_at = Time.now)
+    def at(searched_at = Time.zone.now)
       searched_on = searched_at.to_date
       unless year = where('? BETWEEN started_on AND stopped_on', searched_on).order(started_on: :desc).limit(1).first
         # First
         unless first = first_of_all
-          started_on = Date.today
+          started_on = Time.zone.today
           first = self.create!(started_on: started_on, stopped_on: (started_on >> 11).end_of_month)
         end
         return nil if first.started_on > searched_on
@@ -139,7 +139,7 @@ class FinancialYear < Ekylibre::Record::Base
 
   # tests if the financial_year can be closed.
   def closable?(noticed_on = nil)
-    noticed_on ||= Date.today
+    noticed_on ||= Time.zone.today
     return false if closed
     if previous = self.previous
       return false if self.previous.closable?
@@ -149,7 +149,7 @@ class FinancialYear < Ekylibre::Record::Base
   end
 
   def closures(noticed_on = nil)
-    noticed_on ||= Date.today
+    noticed_on ||= Time.zone.today
     array = []
     first_year = self.class.order('started_on').first
     if (first_year.nil? || first_year == self) && self.class.count <= 1

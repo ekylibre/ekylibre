@@ -22,7 +22,7 @@ class Ekylibre::AnimalGroupsExchanger < ActiveExchanger::Base
                          maximum_age: (row[5].blank? ? nil : row[5].to_i),
                          sex: (row[6].blank? ? nil : row[6].to_sym),
                          place: (row[7].blank? ? nil : row[7].to_s),
-                         indicators_at: (row[8].blank? ? (Date.today) : row[8]).to_datetime,
+                         indicators_at: (row[8].blank? ? (Time.zone.today) : row[8]).to_datetime,
                          indicators: row[9].blank? ? {} : row[9].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.inject({}) do |h, i|
                            h[i.first.strip.downcase.to_sym] = i.second
                            h
@@ -75,7 +75,7 @@ class Ekylibre::AnimalGroupsExchanger < ActiveExchanger::Base
                          maximum_age: (row[5].blank? ? nil : row[5].to_i),
                          sex: (row[6].blank? ? nil : row[6].to_sym),
                          place: (row[7].blank? ? nil : row[7].to_s),
-                         indicators_at: (row[8].blank? ? (Date.today) : row[8]).to_datetime,
+                         indicators_at: (row[8].blank? ? (Time.zone.today) : row[8]).to_datetime,
                          indicators: row[9].blank? ? {} : row[9].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.inject({}) do |h, i|
                            h[i.first.strip.downcase.to_sym] = i.second
                            h
@@ -110,8 +110,8 @@ class Ekylibre::AnimalGroupsExchanger < ActiveExchanger::Base
 
       # Check if animals exist with given sex and age
       if r.minimum_age && r.maximum_age && r.sex
-        max_born_at = Time.now - r.minimum_age.days if r.minimum_age
-        min_born_at = Time.now - r.maximum_age.days if r.maximum_age
+        max_born_at = Time.zone.now - r.minimum_age.days if r.minimum_age
+        min_born_at = Time.zone.now - r.maximum_age.days if r.maximum_age
         animals = Animal.indicate(sex: r.sex.to_s).where(born_at: min_born_at..max_born_at).reorder(:name)
         # find support for intervention changing or create it
         unless ps = ProductionSupport.where(storage_id: animal_group.id).first
@@ -131,7 +131,7 @@ class Ekylibre::AnimalGroupsExchanger < ActiveExchanger::Base
         end
         # if animals and production_support, add animals to the group
         if animals.count > 0 && ps.present? && animal_variant && animal_container
-          animal_group.add_animals(animals, started_at: Time.now - 1.hours, stopped_at: Time.now, production_support_id: ps.id, container_id: animal_container.id, variant_id: animal_variant.id, worker_id: Worker.first.id)
+          animal_group.add_animals(animals, started_at: Time.zone.now - 1.hours, stopped_at: Time.zone.now, production_support_id: ps.id, container_id: animal_container.id, variant_id: animal_variant.id, worker_id: Worker.first.id)
         end
       end
 

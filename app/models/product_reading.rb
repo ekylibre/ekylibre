@@ -65,7 +65,7 @@ class ProductReading < Ekylibre::Record::Base
   }
   scope :measured_between, ->(started_at, stopped_at) { between(started_at, stopped_at) }
   scope :of_products, lambda { |products, indicator_name, at = nil|
-    at ||= Time.now
+    at ||= Time.zone.now
     where("id IN (SELECT p1.id FROM #{indicator_table_name(indicator_name)} AS p1 LEFT OUTER JOIN #{indicator_table_name(indicator_name)} AS p2 ON (p1.product_id = p2.product_id AND p1.indicator_name = p2.indicator_name AND (p1.read_at < p2.read_at OR (p1.read_at = p2.read_at AND p1.id < p2.id)) AND p2.read_at <= ?) WHERE p1.read_at <= ? AND p1.product_id IN (?) AND p1.indicator_name = ? AND p2 IS NULL)", at, at, products.pluck(:id), indicator_name)
   }
 

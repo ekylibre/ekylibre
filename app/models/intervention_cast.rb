@@ -85,7 +85,7 @@ class InterventionCast < Ekylibre::Record::Base
       self.position = reference.position
     else
       precision = 10**8
-      now = Time.now
+      now = Time.zone.now
       self.position ||= (precision * now.to_f).round - (precision * now.to_i)
     end
     if self.actor.is_a?(Product)

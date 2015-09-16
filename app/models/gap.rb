@@ -62,7 +62,7 @@ class Gap < Ekylibre::Record::Base
   alias_attribute :label, :number
 
   before_validation do
-    self.printed_at ||= Time.now
+    self.printed_at ||= Time.zone.now
   end
 
   bookkeep do |b|

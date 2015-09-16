@@ -17,7 +17,7 @@
 #
 
 class Backend::EventsController < Backend::BaseController
-  manage_restfully except: :index, nature: '(params[:nature] || Event.nature.default_value)'.c, started_at: 'Time.now'.c, affair_id: 'params[:affair_id]'.c, participations_attributes: '(params[:participations] || [])'.c
+  manage_restfully except: :index, nature: '(params[:nature] || Event.nature.default_value)'.c, started_at: 'Time.zone.now'.c, affair_id: 'params[:affair_id]'.c, participations_attributes: '(params[:participations] || [])'.c
 
   unroll
 
@@ -35,7 +35,7 @@ class Backend::EventsController < Backend::BaseController
   end
 
   def index
-    started_on = (params[:started_on] ? Time.new(*params[:started_on].split('-')) : Time.now)
+    started_on = (params[:started_on] ? Time.new(*params[:started_on].split('-')) : Time.zone.now)
     @events = Event.between(started_on.beginning_of_month, started_on.end_of_month).includes(participations: [:participant])
     render partial: 'month' if request.xhr? && params[:started_on]
   end

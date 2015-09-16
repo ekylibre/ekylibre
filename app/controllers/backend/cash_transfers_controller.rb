@@ -17,7 +17,7 @@
 #
 
 class Backend::CashTransfersController < Backend::BaseController
-  manage_restfully transfered_at: 'Date.today'.c
+  manage_restfully transfered_at: 'Time.zone.today'.c
 
   unroll
 

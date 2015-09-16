@@ -11,7 +11,7 @@ class Backend::Cells::LastAnalysesCellsController < Backend::Cells::BaseControll
       @stopped_at = begin
                       params[:stopped_at].to_date
                     rescue
-                      Date.today.end_of_month << 1
+                      Time.zone.today.end_of_month << 1
                     end
       @started_at = begin
                       params[:started_at].to_date

@@ -135,7 +135,7 @@ class Backend::JournalsController < Backend::BaseController
     params[:stopped_on] = begin
                             params[:stopped_on].to_date
                           rescue
-                            Date.today
+                            Time.zone.today
                           end
     params[:started_on] = begin
                             params[:started_on].to_date

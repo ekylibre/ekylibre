@@ -73,7 +73,7 @@
         #
         started_at = resource.born_at.to_date
         stopped_at = resource.dead_at.to_date if resource.dead_at
-        stopped_at ||= Date.today
+        stopped_at ||= Time.zone.today
 
         series = []
         categories = {}

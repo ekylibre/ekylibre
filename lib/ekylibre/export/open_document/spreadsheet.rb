@@ -37,7 +37,7 @@ module Ekylibre
         end
 
         def generate(output)
-          start = Time.now
+          start = Time.zone.now
           Zip::OutputStream.open(output + '.ods') do |_zile|
           end
         end

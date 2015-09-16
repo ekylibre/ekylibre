@@ -1,5 +1,5 @@
 - main_toolbar do |t|
-  - t.export :stocks #  Date.today.to_s, action: :index, controller: :products
+  - t.export :stocks #  Time.zone.today.to_s, action: :index, controller: :products
   - t.new if Product.any?
 
 = main_list

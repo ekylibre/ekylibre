@@ -262,7 +262,7 @@ class Entity < Ekylibre::Record::Base
         suffix = '1'
         suffix = suffix.upper_ascii[0..5].rjust(6, '0')
         account = 1
-        # x=Time.now
+        # x=Time.zone.now
         i = 0
         until account.nil?
           account = Account.find_by('number LIKE ?', prefix.to_s + suffix.to_s)
@@ -281,7 +281,7 @@ class Entity < Ekylibre::Record::Base
     # count += self.balance<0 ? 1 : 0
   end
 
-  def add_event(usage, operator, at = Time.now)
+  def add_event(usage, operator, at = Time.zone.now)
     if operator && item = Nomen::EventNature[usage]
       Event.create!(name: item.human_name, started_at: at, duration: item.default_duration.to_i, participations_attributes: { '0' => { participant_id: id, state: 'informative' }, '1' => { participant_id: operator.id, state: 'accepted' } })
     end
@@ -298,7 +298,7 @@ class Entity < Ekylibre::Record::Base
     end
   end
 
-  def maximal_reduction_percentage(computed_at = Date.today)
+  def maximal_reduction_percentage(computed_at = Time.zone.today)
     Subscription
       .joins("JOIN #{SubscriptionNature.table_name} AS sn ON (#{Subscription.table_name}.nature_id = sn.id) LEFT JOIN #{EntityLink.table_name} AS el ON (el.nature = sn.entity_link_nature AND #{Subscription.table_name}.subscriber_id IN (entity_id, linked_id))")
       .where("? IN (#{Subscription.table_name}.subscriber_id, entity_id, linked_id) AND ? BETWEEN #{Subscription.table_name}.started_at AND #{Subscription.table_name}.stopped_at AND COALESCE(#{Subscription.table_name}.sale_id, 0) NOT IN (SELECT id FROM #{Sale.table_name} WHERE state='estimate')", id, computed_at)

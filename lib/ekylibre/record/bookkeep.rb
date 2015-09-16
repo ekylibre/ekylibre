@@ -61,7 +61,7 @@ module Ekylibre::Record #:nodoc:
           end
 
           # Set accounted columns
-          @resource.class.where(id: @resource.id).update_all(:accounted_at => Time.now, column => (journal_entry ? journal_entry.id : nil))
+          @resource.class.where(id: @resource.id).update_all(:accounted_at => Time.zone.now, column => (journal_entry ? journal_entry.id : nil))
         end
       end
     end
@@ -90,7 +90,7 @@ module Ekylibre::Record #:nodoc:
         code << "def #{method_name}(action = :create, draft = nil)\n"
         code << "  draft = ::Preference[:bookkeep_in_draft] if draft.nil?\n"
         code << "  self.#{core_method_name}(Ekylibre::Record::Bookkeep::Base.new(self, action, draft))\n"
-        code << "  self.class.where(id: self.id).update_all(#{configuration[:column]}: Time.now)\n"
+        code << "  self.class.where(id: self.id).update_all(#{configuration[:column]}: Time.zone.now)\n"
         code << "end\n"
 
         configuration[:on] = [configuration[:on]].flatten

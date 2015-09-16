@@ -87,11 +87,11 @@ class AnimalGroup < ProductGroup
 
   # Returns members of the group at a given time (or now by default)
   def members_at(viewed_at = nil)
-    Animal.members_of(self, viewed_at || Time.now)
+    Animal.members_of(self, viewed_at || Time.zone.now)
   end
 
   def places(viewed_at = nil)
-    animals = members_at(viewed_at || Time.now)
+    animals = members_at(viewed_at || Time.zone.now)
     # containers = []
     # byebug
     # animals.each do |animal|
@@ -106,7 +106,7 @@ class AnimalGroup < ProductGroup
     places_and_animals = []
     all_places = places(viewed_at)
     all_places.each do |place|
-      places_and_animals.push(place: Product.select(:id, :name).find(place.id), animals: Animal.select(:id, :name, :identification_number, :nature_id, :dead_at).members_of(self, viewed_at || Time.now).members_of_place(place, viewed_at || Time.now).to_json(methods: [:picture_path, :sex_text, :status]))
+      places_and_animals.push(place: Product.select(:id, :name).find(place.id), animals: Animal.select(:id, :name, :identification_number, :nature_id, :dead_at).members_of(self, viewed_at || Time.zone.now).members_of_place(place, viewed_at || Time.zone.now).to_json(methods: [:picture_path, :sex_text, :status]))
     end
     places_and_animals
   end

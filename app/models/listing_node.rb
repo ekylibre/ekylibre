@@ -257,7 +257,7 @@ class ListingNode < Ekylibre::Record::Base
     elsif sql_type == 'string' || sql_type == 'text'
       return ''
     elsif sql_type == 'date' || sql_type == 'datetime'
-      return Date.today
+      return Time.zone.today
     else
       return ''
     end

@@ -1,7 +1,7 @@
 - cashes = Cash.all
 - if cashes.any?
   :ruby
-    stopped_on = Date.today
+    stopped_on = Time.zone.today
     started_on = (stopped_on - 2.year).beginning_of_month
     if year = FinancialYear.first_of_all and year.started_on > started_on
       started_on = year.started_on

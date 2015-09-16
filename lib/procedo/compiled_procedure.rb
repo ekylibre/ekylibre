@@ -15,7 +15,7 @@ module Procedo
     # # Register casting
     # def cast(casting)
     #   @casting = casting
-    #   @now = Time.now
+    #   @now = Time.zone.now
     # end
 
     # Returns the moment of the execution of the intervention

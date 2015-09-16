@@ -33,15 +33,14 @@ class Unicoque::PlantZonesExchanger < ActiveExchanger::Base
           measured_at: (record.attributes['AG_DATE'].blank? ? nil : (record.attributes['AG_DATE'].tr('/', '-')).to_datetime),
           born_at: (record.attributes['PREMIERE_F'].blank? ? nil : (record.attributes['PREMIERE_F'].to_s + '-01-01 00:00').to_datetime),
           variety: (record.attributes['CODE_VARIE'].blank? ? nil : varieties_transcode[record.attributes['CODE_VARIE'].to_s]),
-          reference_variant: (record.attributes['CODE_VARIE'].blank? ? nil : ( record.attributes['CODE_VARIE'].to_s[0..1] == '21' ? :hazel_crop : :walnut_crop ) )
+          reference_variant: (record.attributes['CODE_VARIE'].blank? ? nil : (record.attributes['CODE_VARIE'].to_s[0..1] == '21' ? :hazel_crop : :walnut_crop))
         }
-        
+
         if attributes[:surface_area] == 0.0 && record.geometry
           plant_shape = Charta::Geometry.new(record.geometry).transform(:WGS84)
           attributes[:surface_area] = plant_shape.area.to_d(:hectare)
         end
-        
-        
+
         # Find or import from variant reference_nameclature the correct ProductNatureVariant
         variant = ProductNatureVariant.find_or_import!(attributes[:variety]).first || ProductNatureVariant.import_from_nomenclature(attributes[:reference_variant])
         pmodel = variant.nature.matching_model
@@ -57,7 +56,7 @@ class Unicoque::PlantZonesExchanger < ActiveExchanger::Base
         # Build density
         w.info "Plants population : #{attributes[:plants_population].inspect.red}"
         w.info "Surface area : #{attributes[:surface_area].inspect.red}"
-        
+
         plant.read!(:plants_count, (attributes[:plants_population] / attributes[:surface_area]).to_i, at: attributes[:measured_at]) if attributes[:plants_population] && attributes[:surface_area]
 
         if record.geometry

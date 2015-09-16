@@ -12,7 +12,7 @@ module ActiveGuide
     end
 
     def run(guide, options = {})
-      started_at = Time.now
+      started_at = Time.zone.now
       env = Env.new
       env.verbose = !options[:verbose].is_a?(FalseClass)
       puts 'Running...'.yellow if env.verbose
@@ -26,7 +26,7 @@ module ActiveGuide
       end
       # Adds end time
       report[:started_at] = started_at
-      report[:stopped_at] = Time.now
+      report[:stopped_at] = Time.zone.now
       # Display report if wanted
       if env.verbose
         puts "#{report[:failed].to_s.red} tests failed, #{report[:passed].to_s.green} tests passed"

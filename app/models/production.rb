@@ -113,7 +113,7 @@ class Production < Ekylibre::Record::Base
   }
 
   scope :actives, lambda {
-    at = Time.now
+    at = Time.zone.now
     where(arel_table[:started_at].eq(nil).or(arel_table[:started_at].lteq(at)).and(arel_table[:stopped_at].eq(nil).or(arel_table[:stopped_at].gt(at))))
   }
 

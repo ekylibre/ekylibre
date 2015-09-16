@@ -287,7 +287,7 @@ class Parcel < Ekylibre::Record::Base
           (d.is_a?(self) ? d : find(d))
         end.sort { |a, b| a.given_at <=> b.given_at }
         third = detect_third(parcels)
-        planned_at = parcels.map(&:given_at).last || Time.now
+        planned_at = parcels.map(&:given_at).last || Time.zone.now
         unless nature = SaleNature.actives.first
           unless journal = Journal.sales.opened_at(planned_at).first
             fail 'No sale journal'

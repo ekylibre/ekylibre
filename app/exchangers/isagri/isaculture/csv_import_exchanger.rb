@@ -83,7 +83,7 @@ class Isagri::Isaculture::CsvImportExchanger < ActiveExchanger::Base
       buffer = []
       current_intervention = nil
 
-      information_import_context = "Import from isaculture on #{Time.now.l}"
+      information_import_context = "Import from isaculture on #{Time.zone.now.l}"
 
       source = File.read(path)
       detection = CharlockHolmes::EncodingDetector.detect(source)

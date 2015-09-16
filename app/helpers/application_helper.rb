@@ -949,7 +949,7 @@ module ApplicationHelper
   end
 
   def relative_distance_in_words(time)
-    now = Time.now
+    now = Time.zone.now
     if time > now
       'datetime.relative_distance_in_words.in_sometime'.t(distance: time_ago_in_words(time))
     else

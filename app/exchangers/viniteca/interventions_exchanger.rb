@@ -41,7 +41,7 @@ class Viniteca::InterventionsExchanger < ActiveExchanger::Base
 
       w.count = path.size
 
-      information_import_context = "Import from viniteca on #{Time.now.l}"
+      information_import_context = "Import from viniteca on #{Time.zone.now.l}"
 
       CSV.foreach(path, headers: true, col_sep: ';') do |row|
         r = OpenStruct.new(cultivable_zone_name: row[1].gsub('-h', '').downcase,

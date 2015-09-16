@@ -62,7 +62,7 @@ class CashTransfer < Ekylibre::Record::Base
   validates_presence_of :transfered_at
 
   before_validation do
-    self.transfered_at ||= Date.today
+    self.transfered_at ||= Time.zone.today
     self.emission_currency = emission_cash.currency if emission_cash
     self.reception_currency = reception_cash.currency if reception_cash
     if currency_rate.blank?

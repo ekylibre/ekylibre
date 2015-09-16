@@ -37,8 +37,8 @@ class Pasteque::V5::CashesController < Pasteque::V5::BaseController
   def update
     raw_attributes = JSON.parse(params[:cash]).with_indifferent_access
     attributes = { cash_id: raw_attributes[:cashRegisterId] }
-    attributes[:started_at] = Time.at(raw_attributes[:openDate])
-    attributes[:stopped_at] = Time.at(raw_attributes[:closeDate])
+    attributes[:started_at] = Time.zone.at(raw_attributes[:openDate])
+    attributes[:stopped_at] = Time.zone.at(raw_attributes[:closeDate])
     attributes[:noticed_start_amount] = raw_attributes[:openCash]
     attributes[:noticed_stop_amount]  = raw_attributes[:stopCash]
     attributes[:expected_stop_amount] = raw_attributes[:expectedCash]

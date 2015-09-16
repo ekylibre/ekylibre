@@ -14,7 +14,7 @@
 
   - c.cobble :balance do
     :ruby
-      stopped_at = Time.now
+      stopped_at = Time.zone.now
       started_at = (stopped_at - 1.year).beginning_of_month
 
       series = []

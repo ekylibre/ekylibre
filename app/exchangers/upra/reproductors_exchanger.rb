@@ -4,7 +4,7 @@ class UPRA::ReproductorsExchanger < ActiveExchanger::Base
     male_adult_cow = ProductNatureVariant.import_from_nomenclature(:male_adult_cow)
     # female_adult_cow = ProductNatureVariant.import_from_nomenclature(:female_adult_cow)
     owner = Entity.where(of_company: false).reorder(:id).first
-    now = Time.now - 2.months
+    now = Time.zone.now - 2.months
 
     rows = CSV.read(file, encoding: 'CP1252', col_sep: "\t", headers: true).delete_if { |r| r[4].blank? }
     w.count = rows.size

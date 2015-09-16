@@ -5,7 +5,7 @@ module Indicateable
     has_many :readings, class_name: 'ProductReading', dependent: :destroy, inverse_of: :product
 
     scope :indicate, lambda { |indicator_values, options = {}|
-      read_at = options[:at] || Time.now
+      read_at = options[:at] || Time.zone.now
       ids = []
       # TODO: Build conditions to filter on indicator_values
       indicator_values.each do |name, value|
@@ -16,7 +16,7 @@ module Indicateable
     }
 
     scope :not_indicate, lambda { |indicator_values, options = {}|
-      read_at = options[:at] || Time.now
+      read_at = options[:at] || Time.zone.now
       ids = []
       # TODO: Build conditions to filter on indicator_values
       indicator_values.each do |name, value|
@@ -29,7 +29,7 @@ module Indicateable
 
   # Deprecated method to call net_surface_area
   # Will be removed in Ekylibre 1.1
-  def area(unit = :hectare, at = Time.now)
+  def area(unit = :hectare, at = Time.zone.now)
     # raise "NO AREA"
     ActiveSupport::Deprecation.warn('Product#area is deprecated. Please use Product#net_surface_area instead.')
     net_surface_area(at).in(unit)
@@ -37,7 +37,7 @@ module Indicateable
 
   # Deprecated method to call net_mass
   # Will be removed in Ekylibre 1.1
-  def mass(unit = :kilogram, at = Time.now)
+  def mass(unit = :kilogram, at = Time.zone.now)
     # raise "NO MASS"
     ActiveSupport::Deprecation.warn('Product#mass is deprecated. Please use Product#net_mass instead.')
     net_mass(at).in(unit)
@@ -64,7 +64,7 @@ module Indicateable
       fail ArgumentError, "A frozen indicator (#{indicator.name}) cannot be read"
     end
     options[:at] = Time.new(1, 1, 1, 0, 0, 0, '+00:00') if options[:at] == :origin
-    options[:at] = Time.now unless options.key?(:at)
+    options[:at] = Time.zone.now unless options.key?(:at)
     unless reading = readings.find_by(indicator_name: indicator.name, read_at: options[:at])
       reading = readings.build(indicator_name: indicator.name, read_at: options[:at], originator: options[:originator])
     end
@@ -78,7 +78,7 @@ module Indicateable
     unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
       fail ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
     end
-    read_at = options[:at] || Time.now
+    read_at = options[:at] || Time.zone.now
     indicator_name = indicator.name
     results = readings.select { |r| r.indicator_name == indicator_name && r.read_at <= read_at }
     results.max { |a, b| a.read_at <=> b.read_at }
@@ -92,7 +92,7 @@ module Indicateable
       fail ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
     end
     options = args.extract_options!
-    cast_or_time = args.shift || options[:cast] || options[:at] || Time.now
+    cast_or_time = args.shift || options[:cast] || options[:at] || Time.zone.now
     value = nil
     if cast_or_time.is_a?(Time) || cast_or_time.is_a?(DateTime)
       # Find value
@@ -191,7 +191,7 @@ module Indicateable
 
   # Copy individual indicators of the other at given times
   def copy_readings_of!(other, options = {})
-    options[:at] ||= Time.now
+    options[:at] ||= Time.zone.now
     options[:taken_at] ||= options[:at] - 0.000001
     (other.individual_indicators_list - frozen_indicators_list).each do |indicator_name|
       if reading = other.reading(indicator_name, at: options[:taken_at])
@@ -210,7 +210,7 @@ module Indicateable
 
   # Substract a value to a list of indicator data
   def compute_and_read(operand, options = {})
-    read_at = options[:at] || Time.now
+    read_at = options[:at] || Time.zone.now
     taken_at = options[:taken_at] || read_at - 0.000001
     operation = options[:operation] || :add
     whole_indicators_list.each do |indicator_name|

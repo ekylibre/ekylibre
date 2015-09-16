@@ -9,7 +9,7 @@ module TimeLineable
     scope :at,      ->(at) { where(arel_table[:started_at].lteq(at).and(arel_table[:stopped_at].eq(nil).or(arel_table[:stopped_at].gt(at)))) }
     scope :after,   ->(at) { where(arel_table[:started_at].gt(at)) }
     scope :before,  ->(at) { where(arel_table[:started_at].lt(at)) }
-    scope :current, -> { at(Time.now) }
+    scope :current, -> { at(Time.zone.now) }
 
     before_validation do
       following = begin
@@ -86,7 +86,7 @@ module TimeLineable
   end
 
   def last_for_now?
-    siblings.after(self.started_at).before(Time.now).empty?
+    siblings.after(self.started_at).before(Time.zone.now).empty?
   end
 
   private

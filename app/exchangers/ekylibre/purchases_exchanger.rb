@@ -3,7 +3,7 @@ class Ekylibre::PurchasesExchanger < ActiveExchanger::Base
     rows = CSV.read(file, headers: true)
     w.count = rows.size
     purchase_ids = []
-    now = Time.now
+    now = Time.zone.now
     valid = true
 
     vinfos = 9 - 1
@@ -58,7 +58,7 @@ class Ekylibre::PurchasesExchanger < ActiveExchanger::Base
     rows = CSV.read(file, headers: true)
     w.count = rows.size
     purchase_ids = []
-    now = Time.now
+    now = Time.zone.now
 
     vinfos = 9 - 1
 

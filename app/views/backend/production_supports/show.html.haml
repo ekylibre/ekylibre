@@ -55,7 +55,7 @@
 
           # get the nitrogen input I from opened_at to now (in kg N/Ha )
           balance = nitrogen_input
-          for intervention in resource.interventions.real.where(state: 'done').of_nature(:soil_enrichment).between(opened_at, Time.now).reorder(:started_at)
+          for intervention in resource.interventions.real.where(state: 'done').of_nature(:soil_enrichment).between(opened_at, Time.zone.now).reorder(:started_at)
             i = 0
             for input in intervention.casts.of_role('soil_enrichment-input')
               m = (input.actor ? input.actor.net_mass(input).to_d(:kilogram) : 0.0)

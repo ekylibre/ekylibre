@@ -76,7 +76,7 @@ module ActiveExchanger
     end
 
     def tmp_dir(*subdirs)
-      number = (1000 * Time.now.to_f).to_i.to_s(36) + 3.times.collect { rand(1_679_616) }.sum.to_s(36)
+      number = (1000 * Time.zone.now.to_f).to_i.to_s(36) + 3.times.collect { rand(1_679_616) }.sum.to_s(36)
       dir = Rails.root.join('tmp', 'exchangers', number, *subdirs)
       FileUtils.mkdir_p(dir)
       dir

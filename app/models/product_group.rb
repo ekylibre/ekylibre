@@ -90,7 +90,7 @@ class ProductGroup < Product
       i.cast :member, member, as: 'group_inclusion-includer'
       i.group_inclusion :group, :member
     end
-    # self.memberships.create!(member: member, started_at: (options[:at] || Time.now), nature: :interior)
+    # self.memberships.create!(member: member, started_at: (options[:at] || Time.zone.now), nature: :interior)
   end
 
   # Remove a member from the group
@@ -103,11 +103,11 @@ class ProductGroup < Product
       i.cast :member, member, as: 'group_exclusion-includer'
       i.group_exclusion :group, :member
     end
-    # self.memberships.create!(member: member, started_at: (options[:at] || Time.now), nature: :exterior)
+    # self.memberships.create!(member: member, started_at: (options[:at] || Time.zone.now), nature: :exterior)
   end
 
   # Returns members of the group at a given time (or now by default)
   def members_at(viewed_at = nil)
-    Product.members_of(self, viewed_at || Time.now)
+    Product.members_of(self, viewed_at || Time.zone.now)
   end
 end

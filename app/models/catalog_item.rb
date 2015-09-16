@@ -104,7 +104,7 @@ class CatalogItem < Ekylibre::Record::Base
   #     :variant_id => product.variant_id
   #   }
   #   # request for an existing price between dates according to filter conditions
-  #   prices = self.actives_at(options[:at] || Time.now).where(filter)
+  #   prices = self.actives_at(options[:at] || Time.zone.now).where(filter)
   #   # request return no prices, we create a price
   #   if prices.count.zero?
   #     # prices = [self.create!({:tax_id => Tax.first.id, :pretax_amount => filter[:pretax_amount], :amount => filter[:amount]}.merge(filter))]
@@ -124,12 +124,12 @@ class CatalogItem < Ekylibre::Record::Base
   # private
 
   # def new_thread
-  #   self.usage + ":" + self.indicator_name.to_s + ":" + Time.now.to_i.to_s(36) + ":" + rand(36 ** 16).to_s(36)
+  #   self.usage + ":" + self.indicator_name.to_s + ":" + Time.zone.now.to_i.to_s(36) + ":" + rand(36 ** 16).to_s(36)
   # end
 
   # # Create a price with given parameters
   # def new_price(product, options = {})
-  #   computed_at = options[:at] || Time.now
+  #   computed_at = options[:at] || Time.zone.now
   #   price = nil
   #   tax = options[:tax] || Tax.first
   #   # Assigned price

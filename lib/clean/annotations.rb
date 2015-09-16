@@ -94,9 +94,9 @@ module Clean
             else
               info << "#   #{col.name}: "
               if col.name.match(/_at$/)
-                info << "#{Date.today.year - 1}-#{Date.today.year.modulo(12).to_s.rjust(2, '0')}-#{Date.today.year.modulo(28).to_s.rjust(2, '0')} #{(Date.today.year.modulo(12) + 8).to_s.rjust(2, '0')}:#{Date.today.year.modulo(60).to_s.rjust(2, '0')}:#{Date.today.year.modulo(30).to_s.rjust(2, '0')} +02:00"
+                info << "#{Time.zone.today.year - 1}-#{Time.zone.today.year.modulo(12).to_s.rjust(2, '0')}-#{Time.zone.today.year.modulo(28).to_s.rjust(2, '0')} #{(Time.zone.today.year.modulo(12) + 8).to_s.rjust(2, '0')}:#{Time.zone.today.year.modulo(60).to_s.rjust(2, '0')}:#{Time.zone.today.year.modulo(30).to_s.rjust(2, '0')} +02:00"
               elsif col.name.match(/_on$/)
-                info << "#{Date.today.year - 1}-#{Date.today.year.modulo(12).to_s.rjust(2, '0')}-#{Date.today.year.modulo(28).to_s.rjust(2, '0')}"
+                info << "#{Time.zone.today.year - 1}-#{Time.zone.today.year.modulo(12).to_s.rjust(2, '0')}-#{Time.zone.today.year.modulo(28).to_s.rjust(2, '0')}"
               elsif col.type == :boolean
                 info << 'true'
               elsif col.type == :decimal || col.type == :integer
@@ -187,7 +187,7 @@ module Clean
         header = PREFIX.dup
 
         header << "\n\n== License\n\n"
-        header << "Ekylibre - Simple agricultural ERP\nCopyright (C) 2008-2009 Brice Texier, Thibaud Merigon\nCopyright (C) 2010-2012 Brice Texier\nCopyright (C) 2012-#{Date.today.year} Brice Texier, David Joulin\n\nThis program is free software: you can redistribute it and/or modify\nit under the terms of the GNU Affero General Public License as published by\nthe Free Software Foundation, either version 3 of the License, or\nany later version.\n\nThis program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\nGNU Affero General Public License for more details.\n\nYou should have received a copy of the GNU Affero General Public License\nalong with this program.  If not, see http://www.gnu.org/licenses.\n\n"
+        header << "Ekylibre - Simple agricultural ERP\nCopyright (C) 2008-2009 Brice Texier, Thibaud Merigon\nCopyright (C) 2010-2012 Brice Texier\nCopyright (C) 2012-#{Time.zone.today.year} Brice Texier, David Joulin\n\nThis program is free software: you can redistribute it and/or modify\nit under the terms of the GNU Affero General Public License as published by\nthe Free Software Foundation, either version 3 of the License, or\nany later version.\n\nThis program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\nGNU Affero General Public License for more details.\n\nYou should have received a copy of the GNU Affero General Public License\nalong with this program.  If not, see http://www.gnu.org/licenses.\n\n"
 
         version = begin
                     ActiveRecord::Migrator.current_version

@@ -78,7 +78,7 @@ class ProductJunction < Ekylibre::Record::Base
   accepts_nested_attributes_for :ways
 
   before_validation do
-    self.started_at ||= Time.now
+    self.started_at ||= Time.zone.now
     self.stopped_at ||= self.started_at
   end
 

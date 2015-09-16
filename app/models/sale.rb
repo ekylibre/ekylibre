@@ -110,7 +110,7 @@ class Sale < Ekylibre::Record::Base
     where(accounted_at: started_at..stopped_at, state: :estimate)
   }
 
-  scope :unpaid, -> { where(state: %w(order invoice)).where('payment_at IS NULL OR payment_at <= ?', Time.now).where.not(affair: Affair.closeds) }
+  scope :unpaid, -> { where(state: %w(order invoice)).where('payment_at IS NULL OR payment_at <= ?', Time.zone.now).where.not(affair: Affair.closeds) }
 
   state_machine :state, initial: :draft do
     state :draft
@@ -147,7 +147,7 @@ class Sale < Ekylibre::Record::Base
   before_validation(on: :create) do
     self.state ||= :draft
     self.currency = nature.currency if nature
-    self.created_at = Time.now
+    self.created_at = Time.zone.now
   end
 
   before_validation do
@@ -157,7 +157,7 @@ class Sale < Ekylibre::Record::Base
     end
     self.delivery_address_id ||= address_id
     self.invoice_address_id ||= self.delivery_address_id
-    self.created_at ||= Time.now
+    self.created_at ||= Time.zone.now
     self.nature ||= SaleNature.by_default if nature.nil?
     if self.nature
       self.expiration_delay ||= self.nature.expiration_delay
@@ -172,7 +172,7 @@ class Sale < Ekylibre::Record::Base
 
   validate do
     if invoiced_at
-      errors.add(:invoiced_at, :before, restriction: Time.now.l) if invoiced_at > Time.now
+      errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
     end
     for mail_address in [:address, :delivery_address, :invoice_address]
       if send(mail_address)
@@ -274,15 +274,15 @@ class Sale < Ekylibre::Record::Base
   end
 
   # Confirm the sale order. This permits to define parcels and assert validity of sale
-  def confirm(confirmed_at = Time.now)
+  def confirm(confirmed_at = Time.zone.now)
     return false unless self.can_confirm?
-    update_column(:confirmed_at, confirmed_at || Time.now)
+    update_column(:confirmed_at, confirmed_at || Time.zone.now)
     super
   end
 
   # Invoices all the products creating the delivery if necessary.
   # Changes number with an invoice number saving exiting number in +initial_number+.
-  def invoice(invoiced_at = Time.now)
+  def invoice(invoiced_at = Time.zone.now)
     return false unless self.can_invoice?
     ActiveRecord::Base.transaction do
       # Set values for invoice
@@ -394,7 +394,7 @@ class Sale < Ekylibre::Record::Base
   end
 
   def unpaid_days
-    (Time.now - self.invoiced_at) if self.invoice?
+    (Time.zone.now - self.invoiced_at) if self.invoice?
   end
 
   def products
@@ -416,7 +416,7 @@ class Sale < Ekylibre::Record::Base
       hash[attribute] = send(attribute) unless send(attribute).nil?
       hash
     end
-    attrs[:invoiced_at] = Time.now
+    attrs[:invoiced_at] = Time.zone.now
     attrs[:credit] = true
     attrs[:credited_sale] = self
     sale_credit = Sale.new(attrs)

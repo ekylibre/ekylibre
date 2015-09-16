@@ -32,7 +32,7 @@ module Versionable
   end
 
   def last_version
-    versions.before(Time.now).first
+    versions.before(Time.zone.now).first
   end
 
   def version_object

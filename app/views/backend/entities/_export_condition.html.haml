@@ -13,7 +13,7 @@
     = hidden_field_tag("conditions[#{id}][type]", condition)
     .param
       = check_box_tag("conditions[#{id}][use_timestamp]")
-      =  :created_between.tl(:started_at => date_field_tag("conditions[#{id}][timestamp][started_at]", Date.today - 6), :stopped_at => date_field_tag("conditions[#{id}][timestamp][stopped_at]", Date.today)).html_safe
+      =  :created_between.tl(:started_at => date_field_tag("conditions[#{id}][timestamp][started_at]", Time.zone.today - 6), :stopped_at => date_field_tag("conditions[#{id}][timestamp][stopped_at]", Time.zone.today)).html_safe
     - if condition ==  "special-subscriber"
       .param
         - for nature in SubscriptionNature
@@ -23,7 +23,7 @@
         %div{id: "conditions_#{id}_nature_#{nature.id}_detail", :style => 'display:none'}
           .param
             = check_box_tag("conditions[#{id}][#{nature.id}][use_subscribed_at]", "1", true)
-            =  "subscriber_#{nature.nature}".tl(:subscribed_at => (nature.period? ? date_field_tag("conditions[#{id}][#{nature.id}][subscribed_at]", Date.today) : text_field_tag("conditions[#{id}][#{nature.id}][subscribed_at]", nature.actual_number, :size => 8))).html_safe
+            =  "subscriber_#{nature.nature}".tl(:subscribed_at => (nature.period? ? date_field_tag("conditions[#{id}][#{nature.id}][subscribed_at]", Time.zone.today) : text_field_tag("conditions[#{id}][#{nature.id}][subscribed_at]", nature.actual_number, :size => 8))).html_safe
           .param
             - for product in nature.products
               = check_box_tag("conditions[#{id}][#{nature.id}][products][#{product.id}]", "1", true, id: "conditions_#{id}_#{nature.id}_products_#{product.id}")
@@ -43,7 +43,7 @@
           = text_field_tag("conditions[#{id}][comparated]")
         - elsif column.type ==  :date
           = select_tag("conditions[#{id}][comparator]", options_for_select([["est supérieur(e) à", :gt], ["est supérieur(e) ou égal(e) à", :ge], ["est égal(e) à", :eq], ["est inférieur(e) ou égal(e) à", :le], ["est inférieur(e)", :lt]]))
-          = date_field_tag("conditions[#{id}][comparated]", Date.today)
+          = date_field_tag("conditions[#{id}][comparated]", Time.zone.today)
         - elsif column.type ==  :boolean
           = select_tag("conditions[#{id}][comparator]", options_for_select([["est vrai", :is_true], ["est faux", :is_false]]))
         - else

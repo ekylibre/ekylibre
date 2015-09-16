@@ -228,7 +228,7 @@ class Backend::AnimalsController < Backend::MattersController
         redirect_to params[:redirect] || backend_animal_group_url(group)
       end
     else
-      params[:started_at] ||= Time.now
+      params[:started_at] ||= Time.zone.now
     end
   end
 
@@ -242,7 +242,7 @@ class Backend::AnimalsController < Backend::MattersController
         redirect_to params[:redirect] || backend_product_nature_variant_url(variant)
       end
     else
-      params[:started_at] ||= Time.now
+      params[:started_at] ||= Time.zone.now
     end
   end
 
@@ -256,7 +256,7 @@ class Backend::AnimalsController < Backend::MattersController
         redirect_to params[:redirect] || backend_product_url(container)
       end
     else
-      params[:started_at] ||= Time.now
+      params[:started_at] ||= Time.zone.now
     end
   end
 end

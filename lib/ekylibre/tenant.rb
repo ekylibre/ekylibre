@@ -112,7 +112,7 @@ module Ekylibre
               tenant: name,
               format_version: '2.0',
               database_version: version,
-              creation_at: Time.now,
+              creation_at: Time.zone.now,
               created_with: "Ekylibre #{Ekylibre::VERSION}"
             )
             f.write infos.stringify_keys.to_yaml
@@ -133,7 +133,7 @@ module Ekylibre
 
       # Restore an archive
       def restore(archive_file, options = {})
-        code = options[:tenant] || Time.now.to_i.to_s(36) + rand(999_999_999).to_s(36)
+        code = options[:tenant] || Time.zone.now.to_i.to_s(36) + rand(999_999_999).to_s(36)
         verbose = !options[:verbose].is_a?(FalseClass)
 
         archive_path = Rails.root.join('tmp', 'archives', "#{code}-restore")

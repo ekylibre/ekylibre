@@ -128,7 +128,7 @@ class Journal < Ekylibre::Record::Base
 
   # Test if journal is closable
   def closable?(closed_on = nil)
-    closed_on ||= Date.today
+    closed_on ||= Time.zone.today
     self.class.where(id: id).update_all(closed_on: Date.civil(1900, 12, 31)) if self.closed_on.nil?
     reload
     return false unless (closed_on << 1).end_of_month > self.closed_on
@@ -136,7 +136,7 @@ class Journal < Ekylibre::Record::Base
   end
 
   def closures(noticed_on = nil)
-    noticed_on ||= Date.today
+    noticed_on ||= Time.zone.today
     array = []
     date = (self.closed_on + 1).end_of_month
     while date < noticed_on

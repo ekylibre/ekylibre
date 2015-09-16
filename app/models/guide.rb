@@ -65,7 +65,7 @@ class Guide < Ekylibre::Record::Base
     last_analysis ? last_analysis_status : :undefined
   end
 
-  def run!(started_at = Time.now)
+  def run!(started_at = Time.zone.now)
     statuses = [:passed, :passed_with_warnings, :failed]
     global_status = statuses.sample
     analysis = analyses.create!(acceptance_status: global_status, started_at: started_at, stopped_at: started_at + 10)

@@ -180,7 +180,7 @@ class ProductionSupport < Ekylibre::Record::Base
       o = selected_manure_management_plan_zone.nitrogen_input || 0.0
       # get the nitrogen input I from opened_at to now (in kg N / Ha )
       opened_at = selected_manure_management_plan_zone.opened_at
-      i = soil_enrichment_indicator_content_per_area(:nitrogen_concentration, opened_at, Time.now)
+      i = soil_enrichment_indicator_content_per_area(:nitrogen_concentration, opened_at, Time.zone.now)
       balance = o - i if i && o
     end
     balance

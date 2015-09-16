@@ -165,7 +165,7 @@ class Product < Ekylibre::Record::Base
   scope :of_nature, lambda { |nature|
     where(nature_id: nature.id)
   }
-  scope :of_variant, lambda { |variant, _at = Time.now|
+  scope :of_variant, lambda { |variant, _at = Time.zone.now|
     where(variant_id: (variant.is_a?(ProductNatureVariant) ? variant.id : variant))
   }
   scope :at, ->(at) { where(arel_table[:born_at].lteq(at).and(arel_table[:dead_at].eq(nil).or(arel_table[:dead_at].gt(at)))) }
@@ -291,7 +291,7 @@ class Product < Ekylibre::Record::Base
 
   # set initial owner and localization
   def set_initial_values
-    self.initial_born_at ||= Time.now
+    self.initial_born_at ||= Time.zone.now
 
     # Add first owner on a product
     unless ownership = ownerships.first_of_all
@@ -432,7 +432,7 @@ class Product < Ekylibre::Record::Base
   end
 
   # Returns age in seconds of the product
-  def age(at = Time.now)
+  def age(at = Time.zone.now)
     return 0 if born_at.nil? || born_at >= at
     ((dead_at || at) - born_at)
   end
@@ -476,7 +476,7 @@ class Product < Ekylibre::Record::Base
 
   # Returns groups of the product at a given time (or now by default)
   def groups_at(viewed_at = nil)
-    ProductGroup.groups_of(self, viewed_at || Time.now)
+    ProductGroup.groups_of(self, viewed_at || Time.zone.now)
   end
 
   # add products to current container
@@ -500,7 +500,7 @@ class Product < Ekylibre::Record::Base
   end
 
   # Returns the current contents of the product at a given time (or now by default)
-  def contains(varieties = :product, at = Time.now)
+  def contains(varieties = :product, at = Time.zone.now)
     localizations = content_localizations.at(at).of_product_varieties(varieties)
     if localizations.any?
       # object = []
@@ -513,7 +513,7 @@ class Product < Ekylibre::Record::Base
     end
   end
 
-  def containeds(at = Time.now)
+  def containeds(at = Time.zone.now)
     list = []
     for localization in ProductLocalization.where(container_id: id).at(at)
       list << localization.product
@@ -522,7 +522,7 @@ class Product < Ekylibre::Record::Base
     list
   end
 
-  def contents_name(_at = Time.now)
+  def contents_name(_at = Time.zone.now)
     containeds.map(&:name).compact.to_sentence
   end
 
@@ -558,7 +558,7 @@ class Product < Ekylibre::Record::Base
 
   # Returns all contained products of the given variant
   def localized_variants(variant, options = {})
-    options[:at] ||= Time.now
+    options[:at] ||= Time.zone.now
     containeds.select { |p| p.variant == variant }
   end
 

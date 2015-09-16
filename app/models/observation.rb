@@ -49,7 +49,7 @@ class Observation < Ekylibre::Record::Base
   before_validation do
     self.subject_type = subject.class.base_class.name if subject
     self.importance ||= self.class.importance.default_value
-    self.observed_at ||= Time.now
+    self.observed_at ||= Time.zone.now
     begin
       self.author_id ||= self.class.stamper_class.stamper
     rescue
@@ -58,7 +58,7 @@ class Observation < Ekylibre::Record::Base
   end
 
   validate do
-    if self.observed_at && self.observed_at > Time.now
+    if self.observed_at && self.observed_at > Time.zone.now
       errors.add(:observed_at, :invalid)
     end
   end

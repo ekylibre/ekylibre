@@ -123,7 +123,7 @@ class Purchase < Ekylibre::Record::Base
   end
 
   before_validation do
-    self.created_at ||= Time.now
+    self.created_at ||= Time.zone.now
     self.planned_at ||= self.created_at
     self.pretax_amount = items.sum(:pretax_amount)
     self.amount = items.sum(:amount)
@@ -131,7 +131,7 @@ class Purchase < Ekylibre::Record::Base
 
   validate do
     if invoiced_at
-      errors.add(:invoiced_at, :before, restriction: Time.now.l) if invoiced_at > Time.now
+      errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
     end
   end
 
@@ -157,7 +157,7 @@ class Purchase < Ekylibre::Record::Base
   end
 
   def dealt_at
-    (self.invoice? ? invoiced_at : self.created_at? ? self.created_at : Time.now)
+    (self.invoice? ? invoiced_at : self.created_at? ? self.created_at : Time.zone.now)
   end
 
   # Globalizes taxes into an array of hash
@@ -211,7 +211,7 @@ class Purchase < Ekylibre::Record::Base
   def confirm(confirmed_at = nil)
     return false unless self.can_confirm?
     reload
-    self.confirmed_at ||= confirmed_at || Time.now
+    self.confirmed_at ||= confirmed_at || Time.zone.now
     self.save!
     super
   end
@@ -220,7 +220,7 @@ class Purchase < Ekylibre::Record::Base
   def invoice(invoiced_at = nil)
     return false unless self.can_invoice?
     reload
-    self.invoiced_at ||= invoiced_at || Time.now
+    self.invoiced_at ||= invoiced_at || Time.zone.now
     self.save!
     super
   end

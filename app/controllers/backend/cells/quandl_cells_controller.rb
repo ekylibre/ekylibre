@@ -1,6 +1,6 @@
 class Backend::Cells::QuandlCellsController < Backend::Cells::BaseController
   def show
-    start = Date.today << 12
+    start = Time.zone.today << 12
     finish = start >> 12 - 1
     # params[:threshold] = 183.50
     dataset = params[:dataset] || 'CHRIS/LIFFE_EBM4'

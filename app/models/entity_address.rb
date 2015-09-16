@@ -120,7 +120,7 @@ class EntityAddress < Ekylibre::Record::Base
 
   def update # _without_.allbacks
     # raise StandardError.new "UPDAAAAAAAAAAAATE"
-    current_time = Time.now
+    current_time = Time.zone.now
     stamper = begin
                 self.class.stamper_class.stamper
               rescue
@@ -138,7 +138,7 @@ class EntityAddress < Ekylibre::Record::Base
   end
 
   def destroy # _without_.allbacks
-    self.class.where(id: id).update_all(deleted_at: Time.now) unless new_record?
+    self.class.where(id: id).update_all(deleted_at: Time.zone.now) unless new_record?
   end
 
   def self.exportable_columns

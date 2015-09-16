@@ -3,7 +3,7 @@
 %span{id: "#{listing_node.key}-comparator-form", :style => "display: none;"}
   = select_tag("comparator", options_for_select(listing_node.comparators, listing_node.condition_operator))
   - if listing_node.sql_type.to_s == "date"
-    - date = (listing_node.condition_value||listing_node.default_comparison_value).to_date rescue Date.today
+    - date = (listing_node.condition_value||listing_node.default_comparison_value).to_date rescue Time.zone.today
     = date_field_tag("comparison_value", date)
   - elsif listing_node.sql_type.to_s != "boolean"
     = text_field_tag("comparison_value", listing_node.condition_value||listing_node.default_comparison_value, :size => 15)

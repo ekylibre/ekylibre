@@ -62,7 +62,7 @@
             end
           end
 
-          {name: p.name, shape: p.shape, age: (Time.now - p.born_at) / (3600 * 24 * 30), plantation_density: (p.plants_count.to_d / p.net_surface_area.to_d), interventions_count: interventions.count, issues_count: issues.count, watering_concentration: water_concentration.compact.sum.to_s.to_f, variety: Nomen::Variety[p.variety].human_name, popup: {header: true, content: popup_content} }
+          {name: p.name, shape: p.shape, age: (Time.zone.now - p.born_at) / (3600 * 24 * 30), plantation_density: (p.plants_count.to_d / p.net_surface_area.to_d), interventions_count: interventions.count, issues_count: issues.count, watering_concentration: water_concentration.compact.sum.to_s.to_f, variety: Nomen::Variety[p.variety].human_name, popup: {header: true, content: popup_content} }
         end
 
 

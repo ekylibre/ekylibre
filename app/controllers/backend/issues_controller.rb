@@ -17,7 +17,7 @@
 #
 
 class Backend::IssuesController < Backend::BaseController
-  manage_restfully t3e: { name: :target_name }, observed_at: 'Time.now'.c
+  manage_restfully t3e: { name: :target_name }, observed_at: 'Time.zone.now'.c
   manage_restfully_picture
 
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv

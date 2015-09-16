@@ -22,7 +22,7 @@ class Backend::Cells::WeatherCellsController < Backend::Cells::BaseController
             @forecast[:list] = @forecast[:list].collect do |day|
               day.deep_symbolize_keys!
               {
-                at: Time.at(day[:dt]),
+                at: Time.zone.at(day[:dt]),
                 temperatures: [:day, :night, :min, :max, :eve, :morn].inject({}) do |hash, key|
                   hash[key] = (day[:temp][key] || 0).in_kelvin
                   hash

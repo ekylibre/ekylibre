@@ -54,7 +54,7 @@ class CashSession < Ekylibre::Record::Base
   scope :actives, -> { where(stopped_at: nil) }
 
   before_validation do
-    self.started_at ||= Time.now
+    self.started_at ||= Time.zone.now
     self.currency = cash.currency if cash
   end
 

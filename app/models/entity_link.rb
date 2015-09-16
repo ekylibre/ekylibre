@@ -61,14 +61,14 @@ class EntityLink < Ekylibre::Record::Base
   scope :at, lambda { |at|
     where(arel_table[:started_at].eq(nil).or(arel_table[:started_at].lt(at)).and(arel_table[:stopped_at].eq(nil).or(arel_table[:stopped_at].gt(at))))
   }
-  scope :actives, -> { at(Time.now) }
+  scope :actives, -> { at(Time.zone.now) }
 
   scope :of_nature, lambda { |*natures|
     where(nature: natures.collect { |v| Nomen::EntityLinkNature.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }
 
   before_validation do
-    self.started_at ||= Time.now
+    self.started_at ||= Time.zone.now
     if item = Nomen::EntityLinkNature[nature]
       self.entity_role = item.entity
       self.linked_role = item.linked

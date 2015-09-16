@@ -17,7 +17,7 @@
 #
 
 class Backend::PurchasesController < Backend::BaseController
-  manage_restfully planned_at: 'Date.today+2'.c, redirect_to: '{action: :show, id: "id".c}'.c, except: :new
+  manage_restfully planned_at: 'Time.zone.today+2'.c, redirect_to: '{action: :show, id: "id".c}'.c, except: :new
 
   respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
@@ -120,8 +120,8 @@ class Backend::PurchasesController < Backend::BaseController
     @purchase = Purchase.new(nature: nature)
     @purchase.currency = @purchase.nature.currency
     @purchase.responsible = current_user
-    @purchase.planned_at = Time.now
-    @purchase.invoiced_at = Time.now
+    @purchase.planned_at = Time.zone.now
+    @purchase.invoiced_at = Time.zone.now
     @purchase.supplier_id = params[:supplier_id] if params[:supplier_id]
     if address = Entity.of_company.default_mail_address
       @purchase.delivery_address = address

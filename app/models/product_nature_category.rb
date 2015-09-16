@@ -146,14 +146,14 @@ class ProductNatureCategory < Ekylibre::Record::Base
   end
 
   def default_start
-    # self.subscription_nature.nature == "period" ? Date.today.beginning_of_year : self.subscription_nature.actual_number
-    subscription_nature.nature == 'period' ? Date.today : subscription_nature.actual_number
+    # self.subscription_nature.nature == "period" ? Time.zone.today.beginning_of_year : self.subscription_nature.actual_number
+    subscription_nature.nature == 'period' ? Time.zone.today : subscription_nature.actual_number
   end
 
   def default_finish
     period = subscription_duration || '1 year'
-    # self.subscription_nature.nature == "period" ? Date.today.next_year.beginning_of_year.next_month.end_of_month : (self.subscription_nature.actual_number + ((self.subscription_quantity-1)||0))
-    subscription_nature.nature == 'period' ? Delay.compute(period + ', 1 day ago', Date.today) : (subscription_nature.actual_number + ((subscription_quantity - 1) || 0))
+    # self.subscription_nature.nature == "period" ? Time.zone.today.next_year.beginning_of_year.next_month.end_of_month : (self.subscription_nature.actual_number + ((self.subscription_quantity-1)||0))
+    subscription_nature.nature == 'period' ? Delay.compute(period + ', 1 day ago', Time.zone.today) : (subscription_nature.actual_number + ((subscription_quantity - 1) || 0))
   end
 
   def default_subscription_label_for(entity)
@@ -170,7 +170,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
                '???'
              end
     if subscription_nature.nature == 'period'
-      return tc('subscription_label.period', start: ::I18n.localize(Date.today), finish: ::I18n.localize(Delay.compute(subscription_duration.blank? ? '1 year, 1 day ago' : product.subscription_duration)), entity: entity, address: address, subscription_nature: subscription_nature.name)
+      return tc('subscription_label.period', start: ::I18n.localize(Time.zone.today), finish: ::I18n.localize(Delay.compute(subscription_duration.blank? ? '1 year, 1 day ago' : product.subscription_duration)), entity: entity, address: address, subscription_nature: subscription_nature.name)
     elsif subscription_nature.nature == 'quantity'
       return tc('subscription_label.quantity', start: subscription_nature.actual_number.to_i, finish: (subscription_nature.actual_number.to_i + ((subscription_quantity - 1) || 0)), entity: entity, address: address, subscription_nature: subscription_nature.name)
     end

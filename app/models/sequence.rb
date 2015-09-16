@@ -115,7 +115,7 @@ class Sequence < Ekylibre::Record::Base
 
   def compute(number = nil)
     number ||= last_number
-    today = Date.today
+    today = Time.zone.today
     self['number_format'].gsub(self.class.replace_regexp) do |_m|
       key = Regexp.last_match(1)
       size = Regexp.last_match(3)
@@ -128,7 +128,7 @@ class Sequence < Ekylibre::Record::Base
   # Produces the next value of the sequence and update last value in DB
   def next_value
     reload
-    today = Date.today
+    today = Time.zone.today
     period = self.period.to_s
     if last_number.nil?
       self.last_number = number_start

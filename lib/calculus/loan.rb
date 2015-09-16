@@ -9,7 +9,7 @@ module Calculus
       @precision = options[:precision] || 2
       @shift = options[:shift] || 0
       @shift_method = options[:shift_method] || :immediate_payment
-      @started_on = options[:started_on] || Date.today
+      @started_on = options[:started_on] || Time.zone.today
     end
 
     def compute_repayments(repayment_method)

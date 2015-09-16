@@ -138,7 +138,7 @@ class Backend::BaseController < BaseController
   # Set HTTP headers to block page caching
   def no_cache
     # Change headers to force zero cache
-    response.headers['Last-Modified'] = Time.now.httpdate
+    response.headers['Last-Modified'] = Time.zone.now.httpdate
     response.headers['Expires'] = '0'
     # HTTP 1.0
     response.headers['Pragma'] = 'no-cache'

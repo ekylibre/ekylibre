@@ -39,7 +39,7 @@ class Ekylibre::EquipmentsExchanger < ActiveExchanger::Base
           # create the owner if not exist
           if r.external == true
             owner = Entity.where(last_name: r.owner_name.to_s).first
-            owner ||= Entity.create!(born_at: Date.today, last_name: r.owner_name.to_s, currency: Preference[:currency], language: Preference[:language], nature: :organization)
+            owner ||= Entity.create!(born_at: Time.zone.today, last_name: r.owner_name.to_s, currency: Preference[:currency], language: Preference[:language], nature: :organization)
           else
             owner = Entity.of_company
           end

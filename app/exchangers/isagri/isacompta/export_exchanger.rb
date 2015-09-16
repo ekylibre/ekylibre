@@ -79,7 +79,7 @@ class Isagri::Isacompta::ExportExchanger < ActiveExchanger::Base
         total_count = entries_to_import.size
         unused_entries = fy.journal_entries.collect(&:id).uniq.sort
         status = ''
-        start = Time.now
+        start = Time.zone.now
         count = 0
         interval = 1.00
         next_start = start + interval
@@ -140,9 +140,9 @@ class Isagri::Isacompta::ExportExchanger < ActiveExchanger::Base
           end
 
           count += 1
-          if Time.now > next_start
+          if Time.zone.now > next_start
             status = print_jauge(count, total_count, replace: status, start: start)
-            next_start = Time.now + interval
+            next_start = Time.zone.now + interval
           end
         end
 

@@ -1,7 +1,7 @@
 module Backend::EntitiesHelper
   # Compute a column chart with main transactions of an entity
   def transactions_by_month_chart(entity, options = {})
-    stopped_on = options[:stopped_on] || Date.today
+    stopped_on = options[:stopped_on] || Time.zone.today
     started_on = options[:started_on] || stopped_on - 12.months
 
     series = []

@@ -38,7 +38,7 @@ module Nomen
         end
         code << "end\n"
         if up.any? && dn.any?
-          now = Time.now.strftime('%Y%m%d%H%M%S')
+          now = Time.zone.now.strftime('%Y%m%d%H%M%S')
           migration_name = "#{now}_#{name.underscore}"
           puts "Write migration db/migrate/#{migration_name}.rb".yellow
           File.write(Rails.root.join('db', 'migrate', "#{migration_name}.rb"), code)

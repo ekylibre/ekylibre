@@ -21,7 +21,7 @@ class Backend::MyselvesController < Backend::BaseController
     params[:stopped_at] = begin
                             params[:stopped_at].to_date
                           rescue
-                            Date.today
+                            Time.zone.today
                           end
     params[:started_at] = begin
                             params[:started_at].to_date

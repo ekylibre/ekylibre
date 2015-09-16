@@ -235,7 +235,7 @@ class Backend::EntitiesController < Backend::BaseController
                                                       x = begin
                                                             subn[:subscribed_at].to_date
                                                           rescue
-                                                            Date.today
+                                                            Time.zone.today
                                                           end
                                                       "'" + ActiveRecord::Base.connection.quoted_date(x) + "'"
                                                     else
@@ -247,12 +247,12 @@ class Backend::EntitiesController < Backend::BaseController
                          x = begin
                                condition[:timestamp][:started_at].to_date
                              rescue
-                               Date.today
+                               Time.zone.today
                              end
                          y = begin
                                condition[:timestamp][:stopped_at].to_date
                              rescue
-                               Date.today
+                               Time.zone.today
                              end
                          timestamp = " AND (created_at BETWEEN '#{ActiveRecord::Base.connection.quoted_date(x)}' AND '#{ActiveRecord::Base.connection.quoted_date(y)}')"
                        end

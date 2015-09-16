@@ -58,7 +58,7 @@ class Backend::JournalEntriesController < Backend::BaseController
     return unless @journal = find_and_check(:journal, params[:journal_id])
     session[:current_journal_id] = @journal.id
     @journal_entry = @journal.entries.build
-    @journal_entry.printed_on = params[:printed_on] || Date.today
+    @journal_entry.printed_on = params[:printed_on] || Time.zone.today
     @journal_entry.number = @journal.next_number
     @journal_entry.real_currency_rate = params[:exchange_rate].to_f
     @journal_entry_items = []

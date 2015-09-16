@@ -94,7 +94,7 @@ class Backend::FinancialYearsController < Backend::BaseController
     @financial_year = FinancialYear.new
     f = FinancialYear.last
     @financial_year.started_on = f.stopped_on + 1 unless f.nil?
-    @financial_year.started_on ||= Date.today
+    @financial_year.started_on ||= Time.zone.today
     @financial_year.stopped_on = ((@financial_year.started_on - 1) >> 12).end_of_month
     @financial_year.code = @financial_year.default_code
     @financial_year.currency = @financial_year.previous.currency if @financial_year.previous

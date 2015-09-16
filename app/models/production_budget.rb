@@ -83,7 +83,7 @@ class ProductionBudget < Ekylibre::Record::Base
   # Computes the coefficient to use for amount computation
   def coefficient(options = {})
     return 0 unless production
-    options[:at] ||= production ? production.started_at : Time.now
+    options[:at] ||= production ? production.started_at : Time.zone.now
     if self.per_production_support?
       return supports_count
     elsif self.per_working_unit?

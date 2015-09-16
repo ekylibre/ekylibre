@@ -79,11 +79,11 @@ class IncomingPayment < Ekylibre::Record::Base
   acts_as_numbered
   acts_as_affairable :payer, dealt_at: :to_bank_at, role: 'client'
 
-  scope :depositables, -> { where("deposit_id IS NULL AND to_bank_at <= ? AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE with_deposit = ?)", Time.now, true) }
+  scope :depositables, -> { where("deposit_id IS NULL AND to_bank_at <= ? AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE with_deposit = ?)", Time.zone.now, true) }
 
   scope :depositables_for, lambda { |deposit, mode = nil|
     deposit = Deposit.find(deposit) unless deposit.is_a?(Deposit)
-    where('to_bank_at <= ?', Time.now).where('deposit_id = ? OR (deposit_id IS NULL AND mode_id = ?)', deposit.id, (mode ? mode_id : deposit.mode_id))
+    where('to_bank_at <= ?', Time.zone.now).where('deposit_id = ? OR (deposit_id IS NULL AND mode_id = ?)', deposit.id, (mode ? mode_id : deposit.mode_id))
   }
   scope :last_updateds, -> { order(updated_at: :desc) }
 
@@ -94,8 +94,8 @@ class IncomingPayment < Ekylibre::Record::Base
   calculable period: :month, column: :amount, at: :paid_at, name: :sum
 
   before_validation(on: :create) do
-    self.to_bank_at ||= Time.now
-    self.scheduled = (self.to_bank_at > Time.now ? true : false)
+    self.to_bank_at ||= Time.zone.now
+    self.scheduled = (self.to_bank_at > Time.zone.now ? true : false)
     self.received = false if scheduled
     true
   end

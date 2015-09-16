@@ -45,7 +45,7 @@ module Backend::JournalsHelper
       list << [year.code, year.started_on.to_s << '_' << year.stopped_on.to_s]
       list2 = []
       date = year.started_on
-      while date < year.stopped_on && date < Date.today
+      while date < year.stopped_on && date < Time.zone.today
         date2 = date.end_of_month
         list2 << [:month_period.tl(year: date.year, month: 'date.month_names'.t[date.month], code: year.code), date.to_s << '_' << date2.to_s]
         date = date2 + 1
@@ -62,12 +62,12 @@ module Backend::JournalsHelper
       params[:started_at] = begin
                               params[:started_at].to_date
                             rescue
-                              (fy ? fy.started_on : Date.today)
+                              (fy ? fy.started_on : Time.zone.today)
                             end
       params[:stopped_at] = begin
                               params[:stopped_at].to_date
                             rescue
-                              (fy ? fy.stopped_on : Date.today)
+                              (fy ? fy.stopped_on : Time.zone.today)
                             end
       params[:stopped_at] = params[:started_at] if params[:started_at] > params[:stopped_at]
       list.insert(0, [configuration[:custom].tl, configuration[:custom]])

@@ -65,7 +65,7 @@ class SubscriptionNature < Ekylibre::Record::Base
   end
 
   def now
-    (self.period? ? Date.today : actual_number)
+    (self.period? ? Time.zone.today : actual_number)
   end
 
   def fields

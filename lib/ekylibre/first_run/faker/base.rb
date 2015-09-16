@@ -21,7 +21,7 @@ module Ekylibre::FirstRun::Faker
       f = Ekylibre::FirstRun::Counter.new(@max) do |_count, _increment|
         print '.'
       end
-      start = Time.now
+      start = Time.zone.now
       label_size = options[:label_size] || 21
       label = name.to_s.humanize.rjust(label_size)
       label = Ekylibre::FirstRun::Base.ellipse(label, label_size)
@@ -33,7 +33,7 @@ module Ekylibre::FirstRun::Faker
       rescue Ekylibre::FirstRun::Counter::CountExceeded => e
         print '! '
       end
-      puts "#{(Time.now - start).round(2).to_s.rjust(6)}s"
+      puts "#{(Time.zone.now - start).round(2).to_s.rjust(6)}s"
     end
   end
 end

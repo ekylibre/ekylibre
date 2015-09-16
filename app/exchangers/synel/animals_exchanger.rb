@@ -4,7 +4,7 @@ class Synel::AnimalsExchanger < ActiveExchanger::Base
     is_a_demo_instance = Preference.get!(:demo, false, :boolean).value
     variants = {}
     owner = Entity.of_company
-    now = Time.now
+    now = Time.zone.now
 
     rows = CSV.read(file, encoding: 'CP1252', col_sep: ';', headers: true).delete_if { |r| r[4].blank? }
     w.count = rows.size
@@ -18,7 +18,7 @@ class Synel::AnimalsExchanger < ActiveExchanger::Base
                          name: (row[3].blank? ? FFaker::Name.first_name + ' (MN)' : row[3].capitalize),
                          born_on: born_on,
                          born_at: (born_on ? born_on.to_datetime + 10.hours : nil),
-                         age: (born_on ? (Date.today - born_on) : 0).to_f,
+                         age: (born_on ? (Time.zone.today - born_on) : 0).to_f,
                          corabo: row[5],
                          sex: (row[6] == 'F' ? :female : :male),
                          # :arrival_cause => (arrival_causes[row[7]] || row[7]),
@@ -69,9 +69,9 @@ class Synel::AnimalsExchanger < ActiveExchanger::Base
       # load demo data weight and state
       if is_a_demo_instance
         weighted_at = r.born_at
-        if weighted_at && weighted_at < Time.now
+        if weighted_at && weighted_at < Time.zone.now
           variation = 0.02
-          while (r.dead_at.nil? || weighted_at < r.dead_at) && weighted_at < Time.now
+          while (r.dead_at.nil? || weighted_at < r.dead_at) && weighted_at < Time.zone.now
             age = (weighted_at - r.born_at).to_f
             weight = (age < 990 ? 700 * Math.sin(age / (100 * 2 * Math::PI)) + 50.0 : 750)
             weight += rand(weight * variation * 2) - (weight * variation)

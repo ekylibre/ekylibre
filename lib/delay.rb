@@ -66,7 +66,7 @@ class Delay
     end
   end
 
-  def compute(started_at = Time.now)
+  def compute(started_at = Time.zone.now)
     return nil if started_at.nil?
     stopped_at = started_at.dup
     @expression.each do |step|

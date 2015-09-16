@@ -77,7 +77,7 @@ class Task < Ekylibre::Record::Base
   end
 
   validate do
-    errors.add(:state, :invalid) if due_at && due_at > Time.now && self.done?
+    errors.add(:state, :invalid) if due_at && due_at > Time.zone.now && self.done?
   end
 
   def call?

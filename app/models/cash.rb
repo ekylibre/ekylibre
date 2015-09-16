@@ -191,7 +191,7 @@ class Cash < Ekylibre::Record::Base
   end
 
   # Returns cash balance in the global currency
-  def balance(at = Time.now)
+  def balance(at = Time.zone.now)
     closure = FinancialYear.last_closure || Date.civil(-1, 12, 31)
     closure += 1
     journal_entry_items.where(printed_on: closure..at.to_date).sum('debit - credit') || 0.0

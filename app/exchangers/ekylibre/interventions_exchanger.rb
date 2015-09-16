@@ -119,7 +119,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     rows = CSV.read(file, headers: true, col_sep: ';').delete_if { |r| r[0].blank? }.sort { |a, b| [a[2].split(/\D/).reverse.join, a[0]] <=> [b[2].split(/\D/).reverse.join, b[0]] }
     w.count = rows.size
 
-    information_import_context = "Import Ekylibre interventions on #{Time.now.l}"
+    information_import_context = "Import Ekylibre interventions on #{Time.zone.now.l}"
     rows.each_with_index do |row, _index|
       line_number = _index + 2
       r = parse_row(row)
