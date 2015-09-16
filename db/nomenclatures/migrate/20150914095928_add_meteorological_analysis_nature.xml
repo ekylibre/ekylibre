@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add meteorological analysis nature">
+
+  <!-- dimension -->
+  <item-creation item="dimensions#heat_flux_density" symbol="W/m&#xB2;"></item-creation>
+
+  <!--unit-->
+  <item-creation item="units#watt_per_square_meter" dimension="heat_flux_density" symbol="W/m&#xB2;"></item-creation>
+
+  <property-creation property='indicators.sampling_temporal_mode' type='choice' choices='instant, period' default="instant" required="true"></property-creation>
+  <!-- periodic indicators -->
+  <item-creation item="indicators#average_temperature" datatype="measure" unit="celsius" sampling_temporal_mode="period"></item-creation>
+  <item-creation item="indicators#minimal_temperature" datatype="measure" unit="celsius" sampling_temporal_mode="period"></item-creation>
+  <item-creation item="indicators#maximal_temperature" datatype="measure" unit="celsius" sampling_temporal_mode="period"></item-creation>
+  <item-creation item="indicators#cumulated_rainfall" datatype="measure" unit="millimeter" sampling_temporal_mode="period"></item-creation>
+  <item-creation item="indicators#maximal_rainfall" datatype="measure" unit="millimeter" sampling_temporal_mode="period"></item-creation>
+  <item-creation item="indicators#average_atmospheric_pressure" datatype="measure" unit="hectopascal" sampling_temporal_mode="period"></item-creation>
+  <item-creation item="indicators#minimal_atmospheric_pressure" datatype="measure" unit="hectopascal" sampling_temporal_mode="period"></item-creation>
+  <item-creation item="indicators#maximal_atmospheric_pressure" datatype="measure" unit="hectopascal" sampling_temporal_mode="period"></item-creation>
+  <item-creation item="indicators#average_hygrometry" datatype="measure" unit="percent" sampling_temporal_mode="period"></item-creation>
+  <item-creation item="indicators#minimal_hygrometry" datatype="measure" unit="percent" sampling_temporal_mode="period"></item-creation>
+  <item-creation item="indicators#maximal_hygrometry" datatype="measure" unit="percent" sampling_temporal_mode="period"></item-creation>
+  <item-creation item="indicators#maximal_wind_speed" datatype="measure" unit="meter_per_second" sampling_temporal_mode="period"></item-creation>
+  <item-creation item="indicators#average_wind_speed" datatype="measure" unit="meter_per_second" sampling_temporal_mode="period"></item-creation>
+  <item-creation item="indicators#average_wind_direction" datatype="measure" unit="degree" sampling_temporal_mode="period"></item-creation>
+  <item-creation item="indicators#pyranometry" datatype="measure" unit="watt_per_square_meter" sampling_temporal_mode="period"></item-creation>
+  <!--instant indicators -->
+  <item-creation item="indicators#hygrometry" datatype="measure" unit="percent" sampling_temporal_mode="instant"></item-creation>
+  <item-creation item="indicators#atmospheric_pressure" datatype="measure" unit="hectopascal" sampling_temporal_mode="instant"></item-creation>
+  <item-creation item="indicators#rainfall" datatype="measure" unit="millimeter" sampling_temporal_mode="instant"></item-creation>
+  <item-creation item="indicators#wind_gust_count" datatype="integer" sampling_temporal_mode="instant"></item-creation>
+  <item-creation item="indicators#wind_speed" datatype="measure" unit="meter_per_second" sampling_temporal_mode="instant"></item-creation>
+  <item-creation item="indicators#wind_direction" datatype="measure" unit="degree" sampling_temporal_mode="instant"></item-creation>
+
+  <!--add analysis nature -->
+  <item-creation item="analysis_natures#meteorological_analysis" items="temperature, hygrometry, atmospheric_pressure, wind_gust_count, rainfall, wind_speed, wind_direction, average_temperature, minimal_temperature, maximal_temperature, maximal_rainfall, average_atmospheric_pressure, minimal_atmospheric_pressure, maximal_atmospheric_pressure, average_hygrometry, minimal_hygrometry, maximal_hygrometry, average_wind_speed, average_wind_direction, pyranometry"/>
+
+</migration>

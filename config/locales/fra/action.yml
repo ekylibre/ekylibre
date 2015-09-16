@@ -514,6 +514,11 @@ fra:
       refuse: "Devis refusé par le client" #?
       show: "%{label} pour %{client}"
       statistics: "Statistiques  de ventes" #?
+    backend/sensors:
+      edit: "Editer le capteur\_: %{name}"
+      index: "Capteurs"
+      new: "Nouveau capteur"
+      show: "Capteur: %{name}"
     backend/sequences:
       edit: "Modifier la séquence\_: %{name}"
       index: "Séquences"
@@ -606,6 +611,7 @@ fra:
   labels:
     abilities: "Compétences" #?
     access: "Accès"
+    access_parameters: "Paramètres de connexion"
     account_accruals: "Comptes de régularisation" #?
     account_attorney_to_create: "— Créer automatiquement un compte mandataire —" #?
     account_claims_assets: "Créances" #?
@@ -727,6 +733,7 @@ fra:
     attachment: "Pièce jointe"
     attachments: "Pièces jointes"
     attorney: "Informations mandataire" #?
+    automatic: "Auto"
     available_columns: "Champs disponibles\_: %{columns}"
     back: "Revenir à la page précédente"
     backup: "Sauvegarder" #?
@@ -1159,6 +1166,7 @@ fra:
     mandates_fields: "Vous devez saisir au moins une valeur dans l’un des champs" #?
     mandates_filters: "Vous devez saisir au moins une valeur de recherche pour un des champs" #?
     mandates_new_fields: "Vous devez saisir au moins une valeur dans l’un des champs de modification" #?
+    manual: "Manuel"
     manual_period: "du %{start} au %{finish}"
     manure_management_plan_chart: "Visualisation des apports azotés"
     map: "Carte"
@@ -1184,6 +1192,7 @@ fra:
     mistake_on_quantities_sum: "La somme des quantités n’est pas égale à la quantité totale produite" #?
     mobile: "Portable"
     mode: "Mode"
+    model: "Model"
     modes: "Modes"
     month_period: "%{code} — %{month} %{year}"
     monthly: "Mensuelle"
@@ -1524,6 +1533,10 @@ fra:
     selection: "Sélection"
     send_mail: "Envoyer le mail"
     send_test_mail: "Envoyer un mail de test"
+    sensor_indicators: "Indicateurs de capteur"
+    sensor_informations: "Informations du capteur"
+    sensor_model: "Modèle du capteur"
+    sensors: "Capteurs"
     sequences_load: "Charger les séquences manquantes" #?
     # sessions: "Sessions"
     set_reconcilable_new_but_existing_third_accounts: "Rendre lettrables les nouveaux comptes tiers déjà existants"
@@ -2041,6 +2054,7 @@ fra:
       refuse: "Refuser"
       reopen: "Réouvrir"
       reset: "Ré-initialiser"
+      retrieve: "Récupération manuelle"
       run: "Éxécuter"
       search: "Rechercher"
       select: "Selectionner"

@@ -22,22 +22,28 @@
 #
 # == Table: analyses
 #
-#  analysed_at      :datetime
-#  analyser_id      :integer
-#  created_at       :datetime         not null
-#  creator_id       :integer
-#  description      :text
-#  geolocation      :geometry({:srid=>4326, :type=>"point"})
-#  id               :integer          not null, primary key
-#  lock_version     :integer          default(0), not null
-#  nature           :string           not null
-#  number           :string           not null
-#  product_id       :integer
-#  reference_number :string
-#  sampled_at       :datetime         not null
-#  sampler_id       :integer
-#  updated_at       :datetime         not null
-#  updater_id       :integer
+#  analysed_at            :datetime
+#  analyser_id            :integer
+#  created_at             :datetime         not null
+#  creator_id             :integer
+#  description            :text
+#  error_explanation      :string
+#  geolocation            :geometry({:srid=>4326, :type=>"point"})
+#  host_id                :integer
+#  id                     :integer          not null, primary key
+#  lock_version           :integer          default(0), not null
+#  nature                 :string           not null
+#  number                 :string           not null
+#  product_id             :integer
+#  reference_number       :string
+#  sampled_at             :datetime         not null
+#  sampler_id             :integer
+#  sampling_temporal_mode :string           default("instant"), not null
+#  sensor_id              :integer
+#  state                  :string           default("ok"), not null
+#  stopped_at             :datetime
+#  updated_at             :datetime         not null
+#  updater_id             :integer
 #
 
 class Analysis < Ekylibre::Record::Base
@@ -45,10 +51,13 @@ class Analysis < Ekylibre::Record::Base
   belongs_to :analyser, class_name: 'Entity'
   belongs_to :sampler, class_name: 'Entity'
   belongs_to :product
+  belongs_to :sensor
+  belongs_to :host, class_name: 'Product', foreign_key: :host_id
+
   has_many :items, class_name: 'AnalysisItem', foreign_key: :analysis_id, inverse_of: :analysis, dependent: :destroy
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :analysed_at, :sampled_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
-  validates_presence_of :nature, :number, :sampled_at
+  validates_datetime :analysed_at, :sampled_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_presence_of :nature, :number, :sampled_at, :sampling_temporal_mode, :state
   # ]VALIDATORS]
 
   acts_as_numbered

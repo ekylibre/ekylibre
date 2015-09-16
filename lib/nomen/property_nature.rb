@@ -5,7 +5,7 @@ module Nomen
     # New item
     def initialize(nomenclature, name, type, options = {})
       @nomenclature = nomenclature
-      @name = name
+      @name = name.to_sym
       @type = type
       fail "Invalid type: #{@type.inspect}" unless Nomen::PROPERTY_TYPES.include?(@type)
       @fallbacks = options[:fallbacks] if options[:fallbacks]
@@ -85,6 +85,11 @@ module Nomen
     def human_name
       "nomenclatures.#{nomenclature.name}.property_natures.#{name}".t(default: ["nomenclatures.#{nomenclature.name}.properties.#{name}".to_sym, "properties.#{name}".to_sym, "enumerize.#{nomenclature.name}.#{name}".to_sym, "labels.#{name}".to_sym, name.humanize])
     end
+
     alias_method :humanize, :human_name
+
+    def <=>(other)
+      name <=> other.name
+    end
   end
 end

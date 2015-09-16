@@ -275,11 +275,16 @@ analyses:
     references: user
   description:
     type: text
+  error_explanation:
+    type: string
   geolocation:
     type: geometry
     limit:
       srid: 4326
       type: point
+  host_id:
+    type: integer
+    references: product
   id:
     type: integer
     required: true
@@ -303,6 +308,19 @@ analyses:
   sampler_id:
     type: integer
     references: entity
+  sampling_temporal_mode:
+    type: string
+    required: true
+    default: instant
+  sensor_id:
+    type: integer
+    references: sensor
+  state:
+    type: string
+    required: true
+    default: ok
+  stopped_at:
+    type: datetime
   updated_at:
     type: datetime
     required: true
@@ -5152,6 +5170,53 @@ sales:
   updater_id:
     type: integer
     references: user
+sensors:
+  access_parameters:
+    type: json
+  active:
+    type: boolean
+    required: true
+    default: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  embedded:
+    type: boolean
+    required: true
+    default: false
+  host_id:
+    type: integer
+    references: product
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  model_euid:
+    type: string
+    required: true
+  name:
+    type: string
+    required: true
+  product_id:
+    type: integer
+    references: product
+  retrieval_mode:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  vendor_euid:
+    type: string
+    required: true
 sequences:
   created_at:
     type: datetime

@@ -1,0 +1,9 @@
+vendor1:
+  model1:
+    label: "model1 label"
+    description: "model1 description"
+    indicators:
+      - temperature
+      - hygrometry
+      - atmospheric_pressure
+    controller: "Weather::Vendor1::GenericController"

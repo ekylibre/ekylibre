@@ -690,6 +690,19 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :sensors, concerns: [:list, :unroll] do
+      collection do
+        get :get_models
+        get :get_informations
+      end
+
+      member do
+        get :list_analyses
+        get :retrieve
+      end
+
+    end
+
     resources :sequences, concerns: [:list, :unroll] do
       collection do
         post :load

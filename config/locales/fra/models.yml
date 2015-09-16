@@ -364,6 +364,7 @@ fra:
       sale_nature: "Type de vente"
       sale_opportunity: "Opportunité de vente"
       sale_ticket: "Ticket de caisse"
+      sensor: "Capteur"
       sequence: "Séquence"
       service: "Service" #?
       settlement: "Installation"
@@ -392,6 +393,7 @@ fra:
     absorber: "Absorbeur"
     absorber_way: "Voie de l’absorbeur" #?
     acceptance_status: "Statut d’acceptation"
+    access_parameters: "Paramètres de connexion"
     account: "Compte comptable"
     account_balances: "Balances de compte"
     account_name: "Compte comptable"
@@ -650,6 +652,7 @@ fra:
     duration: "Durée"
     email: "Courriel (e-mail)"
     emails: "Courriels (e-mails)"
+    embedded: "Embarqué"
     emission_amount: "Montant émis"
     emission_cash: "Trésorerie émettrice"
     emission_currency: "Devise émise"
@@ -747,6 +750,7 @@ fra:
     guide: "Référentiel"
     harvest_year: "Année de récolte"
     has_downpayment: "A un acompte"
+    host: "Hôte"
     humus_mineralization: "Minéralisation de l’humus (Mh)"
     iban: "IBAN"
     id: "ID"
@@ -900,6 +904,7 @@ fra:
     minimal_value: "Valeur minimale"
     mobiles: "Portables"
     mode: "Mode"
+    model_euid: "Modèle"
     mother: "Mère"
     moved_at: "Fait le" #?
     multi_polygon_value: "Valeur multi-polygonale" #?
@@ -1127,6 +1132,7 @@ fra:
     resource_type: "Type de ressource"
     responsible: "Responsable"
     restricted: "Réservé"
+    retrieval_mode: "Mode de récupération"
     revenues: "Produits"
     rgt: "Limite droite"
     rights: "Droits"
@@ -1151,6 +1157,7 @@ fra:
     sales_invoices: "Factures"
     sampled_at: "Prélevé le"
     sampler: "Préleveur"
+    sampling_temporal_mode: "Type d'échantillonnage"
     scheduled: "Encaissement programmé"
     second_producer: "Second producteur"
     second_producer_way: "Voie du second producteur" #?
@@ -1158,6 +1165,8 @@ fra:
     selected_manure_management_plan: "Plan de fumure sélectionné"
     selected_manure_management_plan_zone: "Zone de plan de fumure sélectionné"
     sender: "Expéditeur"
+    sensor: "Capteur"
+    sensors: "Capteurs"
     sent_at: "Expédié le"
     serial: "N°Lot"
     serial_number: "Serial number"
@@ -1273,6 +1282,7 @@ fra:
     variety: "Variété"
     vat_number: "Numéro de TVA intra-communautaire"
     vat_subjected: "Assujetti à la TVA"
+    vendor_euid: "Constructeur"
     versions: "Versions"
     waiting_deliveries: "Livraisons en attente"
     ways: "Voies"

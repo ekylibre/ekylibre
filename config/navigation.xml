@@ -771,6 +771,21 @@
         <page to="backend/workers#unroll"/>
       </item>
     </group>
+    <group name="sensors">
+      <item name="sensors">
+        <page to="backend/sensors#index"/>
+        <page to="backend/sensors#create"/>
+        <page to="backend/sensors#destroy"/>
+        <page to="backend/sensors#edit"/>
+        <page to="backend/sensors#get_informations"/>
+        <page to="backend/sensors#get_models"/>
+        <page to="backend/sensors#list"/>
+        <page to="backend/sensors#new"/>
+        <page to="backend/sensors#show"/>
+        <page to="backend/sensors#unroll"/>
+        <page to="backend/sensors#update"/>
+      </item>
+    </group>
   </part>
   <part name="tools" icon="magic">
     <page to="backend/dashboards#tools"/>
@@ -1769,6 +1784,10 @@
         <page to="backend/parcels#give"/>
         <page to="backend/parcels#order"/>
         <page to="backend/parcels#prepare"/>
+      </item>
+      <item name="sensors">
+        <page to="backend/sensors#list_analyses"/>
+        <page to="backend/sensors#retrieve"/>
       </item>
     </group>
   </untreated-actions>

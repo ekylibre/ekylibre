@@ -83,7 +83,7 @@ module Nomen
           @nomenclatures.values.sort.each do |nomenclature|
             xml.nomenclature(nomenclature.to_xml_attrs) do
               xml.properties do
-                nomenclature.properties.values.sort { |a, b| a.name <=> b.name }.each do |property|
+                nomenclature.properties.values.sort.each do |property|
                   xml.property(property.to_xml_attrs)
                 end
               end if nomenclature.properties.any?

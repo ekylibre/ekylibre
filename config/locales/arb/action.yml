@@ -574,6 +574,11 @@ arb:
       invoice: "فوترة طلب البيع" #?
       new: "بيع جديد"
       show: "تفاصيل البيع %{number} للعميل %{client}"
+    backend/sensors:
+      # edit: "Edit sensor: %{name}"
+      # index: "Sensors"
+      # new: "New sensor"
+      # show: "Sensor: %{name}"
     backend/sequences:
       edit: "تعديل التسلسل : %{name}"
       index: "التسلسلات"
@@ -751,6 +756,7 @@ arb:
         # other: "%{count} errors prohibited this %{model} from being saved"
   labels:
     # access: "Access"
+    # access_parameters: "Access parameters"
     account_accruals: "حسابات الاستحقاق" #?
     account_attorney_to_create: "-- انشاء حساب للوكيل بشكل اوتوماتيكي --" #?
     account_claims_assets: "الدين" #?
@@ -860,6 +866,7 @@ arb:
     attachment: "المرفق"
     # attachments: "Attachments"
     attorney: "معلومات الوكيل" #?
+    # automatic: "Auto"
     available_columns: "الحقول المتاحة : %{columns}"
     back: "التأكد من صحة واسترداد قائمة وسائل النقل"
     backup: "نسخ احتياطية" #?
@@ -1294,6 +1301,7 @@ arb:
     management: "ادارة الاعمال" #?
     management_index: "دليل ادارة الاعمال" #?
     mandate_create: "انشاء تفويض" #?
+    # manual: "Manual"
     manual_period: "من %{start} الى %{finish}"
     # manure_management_plan_chart: "Manure management plan chart"
     # map: "Map"
@@ -1331,6 +1339,7 @@ arb:
     missing_help: "صفحات مفقودة"
     # mobile: "Mobile"
     # mode: "Mode"
+    # model: "Model"
     # modes: "Modes"
     moment: "" #?
     # month_period: "%{code} - %{month} %{year}"
@@ -1677,6 +1686,10 @@ arb:
     # send_mail: "Send mail"
     send_test: "ارسال رسالة تجريبية" #?
     # send_test_mail: "Send test mail"
+    # sensor_indicators: "Sensor indicators"
+    # sensor_informations: "Sensor informations"
+    # sensor_model: "Sensor model"
+    # sensors: "Sensors"
     sequence_create: "اضافة تسلسل" #?
     sequences: "التسلسل" #?
     sequences_load: "تحميل التسلسلات المفقودة" #?
@@ -2234,6 +2247,7 @@ arb:
       # refuse: "Refuse"
       # reopen: "Reopen"
       # reset: "Reset"
+      # retrieve: "Retrieve"
       # run: "Run"
       # search: "Search"
       # select: "Select"

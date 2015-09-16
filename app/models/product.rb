@@ -118,6 +118,7 @@ class Product < Ekylibre::Record::Base
   has_one :container, through: :current_localization
   has_many :groups, through: :current_memberships
   has_one :incoming_parcel_item, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
+  has_many :sensors
 
   has_picture
 

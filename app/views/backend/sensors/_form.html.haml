@@ -1,0 +1,12 @@
+= field_set :sensor_model do
+  = f.input :vendor_euid, collection: ActiveSensor::Equipment.vendors, selected: @vendor_euid, include_blank: true, input_html: {data: {sensor_vendor: true, sensor_url: get_models_backend_sensors_url, sensor_target: '*[data-sensor-model]'}}
+  = f.input :model_euid, as: :select, collection: @models, datatype: :choice, selected: @model_euid, include_blank: true, input_html: {data: {sensor_model: true, sensor_url: get_informations_backend_sensors_url, sensor_parent: '*[data-sensor-vendor]', sensor_id: @sensor.id}, disabled: true}
+
+= field_set :sensor_informations do
+  = f.input :active
+  = f.input :name
+  = f.input :retrieval_mode, collection: [[:manual.tl, :manual], [:automatic.tl, :automatic]]
+  = f.referenced_association :product
+  = f.input :embedded
+  = f.referenced_association :host
+#sensor

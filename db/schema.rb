@@ -145,31 +145,39 @@ ActiveRecord::Schema.define(version: 20150909161528) do
   add_index "affairs", ["updater_id"], name: "index_affairs_on_updater_id", using: :btree
 
   create_table "analyses", force: :cascade do |t|
-    t.string   "number",                                                             null: false
-    t.string   "nature",                                                             null: false
+    t.string   "number",                                                                           null: false
+    t.string   "nature",                                                                           null: false
     t.string   "reference_number"
     t.integer  "product_id"
     t.integer  "sampler_id"
     t.integer  "analyser_id"
     t.text     "description"
-    t.geometry "geolocation",      limit: {:srid=>4326, :type=>"point"}
-    t.datetime "sampled_at",                                                         null: false
+    t.geometry "geolocation",            limit: {:srid=>4326, :type=>"point"}
+    t.datetime "sampled_at",                                                                       null: false
     t.datetime "analysed_at"
-    t.datetime "created_at",                                                         null: false
-    t.datetime "updated_at",                                                         null: false
+    t.datetime "created_at",                                                                       null: false
+    t.datetime "updated_at",                                                                       null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                           default: 0, null: false
+    t.integer  "lock_version",                                                 default: 0,         null: false
+    t.integer  "host_id"
+    t.integer  "sensor_id"
+    t.string   "sampling_temporal_mode",                                       default: "instant", null: false
+    t.datetime "stopped_at"
+    t.string   "state",                                                        default: "ok",      null: false
+    t.string   "error_explanation"
   end
 
   add_index "analyses", ["analyser_id"], name: "index_analyses_on_analyser_id", using: :btree
   add_index "analyses", ["created_at"], name: "index_analyses_on_created_at", using: :btree
   add_index "analyses", ["creator_id"], name: "index_analyses_on_creator_id", using: :btree
+  add_index "analyses", ["host_id"], name: "index_analyses_on_host_id", using: :btree
   add_index "analyses", ["nature"], name: "index_analyses_on_nature", using: :btree
   add_index "analyses", ["number"], name: "index_analyses_on_number", using: :btree
   add_index "analyses", ["product_id"], name: "index_analyses_on_product_id", using: :btree
   add_index "analyses", ["reference_number"], name: "index_analyses_on_reference_number", using: :btree
   add_index "analyses", ["sampler_id"], name: "index_analyses_on_sampler_id", using: :btree
+  add_index "analyses", ["sensor_id"], name: "index_analyses_on_sensor_id", using: :btree
   add_index "analyses", ["updated_at"], name: "index_analyses_on_updated_at", using: :btree
   add_index "analyses", ["updater_id"], name: "index_analyses_on_updater_id", using: :btree
 
@@ -2708,6 +2716,33 @@ ActiveRecord::Schema.define(version: 20150909161528) do
   add_index "sales", ["transporter_id"], name: "index_sales_on_transporter_id", using: :btree
   add_index "sales", ["updated_at"], name: "index_sales_on_updated_at", using: :btree
   add_index "sales", ["updater_id"], name: "index_sales_on_updater_id", using: :btree
+
+  create_table "sensors", force: :cascade do |t|
+    t.string   "vendor_euid",                       null: false
+    t.string   "model_euid",                        null: false
+    t.string   "name",                              null: false
+    t.string   "retrieval_mode",                    null: false
+    t.json     "access_parameters"
+    t.integer  "product_id"
+    t.boolean  "embedded",          default: false, null: false
+    t.integer  "host_id"
+    t.boolean  "active",            default: true,  null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",      default: 0,     null: false
+  end
+
+  add_index "sensors", ["created_at"], name: "index_sensors_on_created_at", using: :btree
+  add_index "sensors", ["creator_id"], name: "index_sensors_on_creator_id", using: :btree
+  add_index "sensors", ["host_id"], name: "index_sensors_on_host_id", using: :btree
+  add_index "sensors", ["model_euid"], name: "index_sensors_on_model_euid", using: :btree
+  add_index "sensors", ["name"], name: "index_sensors_on_name", using: :btree
+  add_index "sensors", ["product_id"], name: "index_sensors_on_product_id", using: :btree
+  add_index "sensors", ["updated_at"], name: "index_sensors_on_updated_at", using: :btree
+  add_index "sensors", ["updater_id"], name: "index_sensors_on_updater_id", using: :btree
+  add_index "sensors", ["vendor_euid"], name: "index_sensors_on_vendor_euid", using: :btree
 
   create_table "sequences", force: :cascade do |t|
     t.string   "name",                                null: false

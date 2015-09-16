@@ -469,6 +469,11 @@ spa:
       # index: "Sales"
       # new: "New sale"
       # show: "%{label} for %{client}"
+    backend/sensors:
+      # edit: "Edit sensor: %{name}"
+      # index: "Sensors"
+      # new: "New sensor"
+      # show: "Sensor: %{name}"
     backend/sequences:
       edit: "Modificacion de la sequencia\_: %{name}"
       index: "Sequencias"
@@ -553,6 +558,7 @@ spa:
         # other: "%{count} errors prohibited this %{model} from being saved"
   labels:
     # access: "Access"
+    # access_parameters: "Access parameters"
     account_accruals: "Cuentos de regularisación" #?
     account_claims_assets: "Creditos" #?
     account_create: "Registrar un nuevo cuento" #?
@@ -654,6 +660,7 @@ spa:
     # attach_deal: "Add a deal"
     attachment: "Pieza juntada"
     # attachments: "Attachments"
+    # automatic: "Auto"
     available_columns: "Campos disponibles\_: %{columns}"
     # back: "Back to the previous page"
     backup: "Salvaguardiar" #?
@@ -1020,6 +1027,7 @@ spa:
     # main_settings: "Main settings"
     # make_your_production_support: "Make your production support"
     management: "Administración comercial" #?
+    # manual: "Manual"
     manual_period: "del %{start} al %{finish}"
     # manure_management_plan_chart: "Manure management plan chart"
     # map: "Map"
@@ -1033,6 +1041,7 @@ spa:
     missing_help: "La página no existe"
     # mobile: "Mobile"
     # mode: "Mode"
+    # model: "Model"
     # modes: "Modes"
     # month_period: "%{code} - %{month} %{year}"
     monthly: "Mensual"
@@ -1295,6 +1304,10 @@ spa:
     # send_mail: "Send mail"
     send_test: "Enviar un correo electronico de prueba" #?
     # send_test_mail: "Send test mail"
+    # sensor_indicators: "Sensor indicators"
+    # sensor_informations: "Sensor informations"
+    # sensor_model: "Sensor model"
+    # sensors: "Sensors"
     sequence_create: "Añadir une sequencia" #?
     sequences: "Séquencias" #?
     sequences_load: "Cargar las secuencias faltantes" #?
@@ -1768,6 +1781,7 @@ spa:
       # refuse: "Refuse"
       # reopen: "Reopen"
       # reset: "Reset"
+      # retrieve: "Retrieve"
       # run: "Run"
       # search: "Search"
       # select: "Select"

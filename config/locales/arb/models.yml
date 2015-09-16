@@ -881,6 +881,7 @@ arb:
       # sale_ticket: "Sale ticket"
       sales_invoice: "الفاتورة" #?
       sales_invoice_item: "طريقة تسديد الفاتورة" #?
+      # sensor: "Sensor"
       sequence: "التسلسل"
       # settlement: "Settlement"
       stock: "سهم الانتاج" #?
@@ -912,6 +913,7 @@ arb:
     # absorbed_nitrogen_at_opening: "Absorbed nitrogen at opening"
     # absorber: "Absorber"
     # acceptance_status: "Acceptance status"
+    # access_parameters: "Access parameters"
     account: "الحساب"
     account_balances: "ارصدة الحسابات"
     account_id: "حساب" #?
@@ -1225,6 +1227,7 @@ arb:
     ean13: "Ean13" #?
     email: "عنوان البريد الالكتروني"
     # emails: "Emails"
+    # embedded: "Embedded"
     # emission_amount: "Emission amount"
     # emission_cash: "Emission cash"
     # emission_currency: "Emission currency"
@@ -1344,6 +1347,7 @@ arb:
     # harvest_year: "Harvest year"
     has_downpayment: "لديه عربون واحد"
     hashed_password: "تشفير كلمة المرور" #?
+    # host: "Host"
     hour_duration: "(ساعة (ساعات" #?
     # humus_mineralization: "Humus mineralization"
     iban: "IBAN"
@@ -1525,6 +1529,7 @@ arb:
     # mobiles: "Mobile phones"
     mode: "نمط الدفعة"
     mode_id: "طريقة تسديد دفعة" #?
+    # model_euid: "Model"
     # mother: "Mother"
     moved_at: "انجز يوم" #?
     name: "الاسم"
@@ -1798,6 +1803,7 @@ arb:
     responsible: "المسؤول"
     responsible_id: "المسؤول" #?
     # restricted: "Restricted"
+    # retrieval_mode: "Retrieval mode"
     # revenues: "Revenues"
     # rgt: "Right"
     rights: "الحقوق"
@@ -1834,6 +1840,7 @@ arb:
     salt: "الملح" #?
     # sampled_at: "Sampled at"
     # sampler: "Sampler"
+    # sampling_temporal_mode: "Sampling temporal mode"
     scheduled: "الدفعة المبرمجة"
     second_building: "موقع تخزين الوصول" #?
     second_building_id: "موقع تخزين الوصول" #?
@@ -1846,6 +1853,8 @@ arb:
     self_cashes: "الصناديق النقدية الخاصة" #?
     self_contacts: "الاتصالات الخاصة" #?
     # sender: "Sender"
+    # sensor: "Sensor"
+    # sensors: "Sensors"
     # sent_at: "Sent at"
     sequences: "التسلسلات" #?
     serial: "عدد الحصص"
@@ -2007,6 +2016,7 @@ arb:
     vat_number: "عدد القيمة الضريبية المضافة داخل المجتمع المحلي"
     # vat_subjected: "VAT subjected"
     vat_submissive: "القيمة الضريبية المضافة التابعة" #?
+    # vendor_euid: "Vendor"
     # versions: "Versions"
     virtual: "عملي" #?
     virtual_quantity: "الاسهم العملية" #?

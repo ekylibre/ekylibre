@@ -208,6 +208,7 @@ eng:
         sale_nature: "Sale type"
         sale_opportunity: "Sale opportunity"
         sale_ticket: "Sale ticket"
+        sensor: "Sensor"
         sequence: "Sequence"
         settlement: "Settlement"
         sub_zone: "Sub-zone"

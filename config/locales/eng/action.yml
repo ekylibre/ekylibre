@@ -603,6 +603,14 @@ eng:
       # propose_and_invoice: "Propose and invoice sale: %{name}"
       # refuse: "Refuse sale: %{name}"
       show: "%{label} for %{client}"
+    backend/sensors:
+      edit: "Edit sensor: %{name}"
+      # get_informations: "Get informations sensor: %{name}"
+      # get_models: "Get models sensor: %{name}"
+      index: "Sensors"
+      new: "New sensor"
+      # retrieve: "Retrieve sensor: %{name}"
+      show: "Sensor: %{name}"
     backend/sequences:
       edit: "Edit sequence: %{name}"
       index: "Sequences"
@@ -774,6 +782,7 @@ eng:
         other: "%{count} errors prohibited this %{model} from being saved"
   labels:
     access: "Access"
+    access_parameters: "Access parameters"
     accountancy: "Accountancy"
     accounts: "Accounts"
     accounts_only_used_at: "Accounts only used at"
@@ -844,6 +853,7 @@ eng:
     attach_deal: "Add a deal"
     attachment: "Attachment"
     attachments: "Attachments"
+    automatic: "Auto"
     available_columns: "Available columns: %{columns}"
     back: "Back to the previous page"
     balance: "Balance"
@@ -956,7 +966,7 @@ eng:
     deposits: "Deposits"
     depreciation: "Depreciation"
     depreciations: "Depreciations"
-    description: "Description" #?
+    description: "Description"
     destroy: "Destroy"
     destroyed_at_by: "Destroyed at %{at} by %{author}"
     destroyed_by_ago: "Destroyed by %{author} %{when}"
@@ -1127,6 +1137,7 @@ eng:
       zero: "No emails"
     main_settings: "Main settings" #?
     make_your_production_support: "Make your production support"
+    manual: "Manual"
     manual_period: "from %{start} to %{finish}"
     manure_management_plan_chart: "Manure management plan chart"
     map: "Map"
@@ -1140,6 +1151,7 @@ eng:
     missing_help: "Missing page"
     mobile: "Mobile" #?
     mode: "Mode" #?
+    model: "Model"
     modes: "Modes" #?
     month_period: "%{code} - %{month} %{year}"
     monthly: "Monthly" #?
@@ -1339,6 +1351,10 @@ eng:
     selection: "Selection" #?
     send_mail: "Send mail"
     send_test_mail: "Send test mail"
+    sensor_indicators: "Sensor indicators" #??
+    sensor_informations: "Sensor informations"
+    sensor_model: "Sensor model"
+    sensors: "Sensors"
     sessions: "Sessions"
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?
     settings: "Settings"
@@ -1717,6 +1733,8 @@ eng:
       family: "Family"
       finish: "Finish"
       generate_last_journal_entry: "Generate last journal entry"
+      # get_informations: "Get informations"
+      # get_models: "Get models"
       # give: "Give"
       import: "Import"
       # import_shapes: "Import shapes"
@@ -1761,6 +1779,7 @@ eng:
       reopen: "Reopen"
       reset: "Reset"
       # resource: "Resource"
+      retrieve: "Retrieve"
       run: "Run"
       # save: "Save"
       search: "Search"

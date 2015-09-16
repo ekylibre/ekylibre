@@ -231,6 +231,7 @@ fra:
         sale_nature: "Type de vente"
         sale_opportunity: "Opportunité de vente"
         sale_ticket: "Ticket de caisse"
+        sensor: "Capteur"
         sequence: "Séquence"
         service: "Service"
         settlement: "Installation"
