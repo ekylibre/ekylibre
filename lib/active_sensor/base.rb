@@ -5,8 +5,7 @@ module ActiveSensor
     end
 
     class << self
-
-      def register(vendor, model, options={})
+      def register(_vendor, _model, _options = {})
         fail :not_implemented
       end
 
@@ -27,24 +26,23 @@ module ActiveSensor
 
           unless image = sensors[options[:vendor]][model].try(:[], :image).nil?
             image = Pathname(path.dirname).join(image)
-            if image.exist?
-              options[:image_path] = image
-            end
+            options[:image_path] = image if image.exist?
           end
 
           if sensors[options[:vendor]][model].try(:[], :controller)
-            options[:controller] = sensors[options[:vendor]][model].fetch(:controller).to_s.constantize rescue nil
+            options[:controller] = begin
+                                     sensors[options[:vendor]][model].fetch(:controller).to_s.constantize
+                                   rescue
+                                     nil
+                                   end
           else
             fail "No controller set for #{options[:vendor]}:#{options[:model]}"
           end
 
           fail "Equipment #{options[:vendor]}:#{options[:model]} already exists" unless ActiveSensor::Equipment.find(options[:vendor], options[:model]).blank?
           list << ActiveSensor::Equipment.new(options)
-
         end
-
       end
-
     end
   end
 end

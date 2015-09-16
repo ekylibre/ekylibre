@@ -1,5 +1,4 @@
 module Diagram
-
   # Tool class to write dot file
   class Graph
     OPTIONS = {
@@ -205,5 +204,4 @@ module Diagram
       end.join('; ') + ']'
     end
   end
-
 end

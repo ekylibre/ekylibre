@@ -115,19 +115,6 @@
 #     - "backend/product_nature_variants#detail"
 #     - "backend/product_nature_variants#quantifiers"
 #     - "backend/products#take"
-#     - "backend/sensors#create"
-#     - "backend/sensors#destroy"
-#     - "backend/sensors#edit"
-#     - "backend/sensors#get_informations"
-#     - "backend/sensors#get_models"
-#     - "backend/sensors#index"
-#     - "backend/sensors#list"
-#     - "backend/sensors#list_analyses"
-#     - "backend/sensors#new"
-#     - "backend/sensors#retrieve"
-#     - "backend/sensors#show"
-#     - "backend/sensors#unroll"
-#     - "backend/sensors#update"
 #     - "backend/sales#generate_parcel"
 #     - "backend/settlements#take"
 #     - "backend/snippets#toggle"
@@ -942,7 +929,6 @@ incoming_deliveries:
     dependencies:
     - read-incoming_deliveries
     actions:
-    - "backend/parcels#confirm" #?
     - "backend/parcels#create"
     - "backend/parcels#destroy"
     - "backend/parcels#edit"
@@ -1738,6 +1724,27 @@ sales:
     - "backend/sale_credits#create"
     - "backend/sale_credits#new"
     - "backend/sales#cancel"
+
+sensors:
+  read:
+    actions:
+    - "backend/sensors#get_informations"
+    - "backend/sensors#get_models"
+    - "backend/sensors#index"
+    - "backend/sensors#list"
+    - "backend/sensors#list_analyses"
+    - "backend/sensors#show"
+    - "backend/sensors#unroll"
+  write:
+    dependencies:
+    - read-sensors
+    actions:
+    - "backend/sensors#create"
+    - "backend/sensors#destroy"
+    - "backend/sensors#edit"
+    - "backend/sensors#new"
+    - "backend/sensors#retrieve"
+    - "backend/sensors#update"
 
 sequences:
   read:

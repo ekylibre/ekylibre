@@ -12,13 +12,12 @@ module ActiveSensor
     end
 
     def retrieve(options = {})
-
       # check method exist
       if @controller.respond_to? :retrieve
         res = @controller.retrieve options
 
         # Check response is valid.
-        if res.is_a? Hash and res.present?
+        if res.is_a?(Hash) && res.present?
 
           fail 'Timestamp missing' if res.slice(:time).empty?
 
@@ -28,7 +27,7 @@ module ActiveSensor
             # [lat, lon] array
             res[:geolocation] = Charta::Geometry.new("POINT( #{res[:geolocation]} )", 4326)
 
-          elsif res[:geolocation].is_a? Hash and lat = res[:geolocation].try(:[], :lat) and lon = res[:geolocation].try(:[], :lon)
+          elsif res[:geolocation].is_a?(Hash) && lat = res[:geolocation].try(:[], :lat) and lon = res[:geolocation].try(:[], :lon)
             # {lat:, lon:} hash
             res[:geolocation] = Charta::Geometry.new("POINT(#{lat} #{lon})", 4326)
 

@@ -70,7 +70,6 @@ class CharentesAlliance::OutgoingDeliveriesExchanger < ActiveExchanger::Base
 
       # create a grain_analysis if not exist
 
-
       # TODO: waiting for workflow engine v2
       # create a grain_harvest intervention if not exist
 

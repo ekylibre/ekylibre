@@ -1,16 +1,12 @@
 module Diagram
   module Nomenclature
-
     class << self
-
       def inheritance(nomenclature, options = {})
         options[:name] ||= "#{nomenclature.name.to_s.underscore}-inheritance"
         graph = Diagram::Graph.new(options.delete(:name), :digraph, rank_dir: 'RL', edge: { color: '#999999' })
         nomenclature.list.each do |item|
           graph.node item.name, font_color: '#002255', color: '#002255'
-          if item.parent?
-            graph.arrow(item.name, item.parent.name, head: :empty)
-          end
+          graph.arrow(item.name, item.parent.name, head: :empty) if item.parent?
         end
         graph
       end
@@ -32,8 +28,6 @@ module Diagram
           end
         end
       end
-
     end
-
   end
 end

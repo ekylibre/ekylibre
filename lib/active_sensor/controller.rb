@@ -1,5 +1,4 @@
 module ActiveSensor
-
   ### DSL ###
   class Controller
     cattr_accessor(:parameters) { {} }
@@ -20,13 +19,11 @@ module ActiveSensor
     end
 
     class << self
-
       def has_parameter(attribute, options = {})
         default = options.delete(:default)
 
         ActiveSensor::Parameter.new attribute.to_sym, default
       end
-
     end
   end
 end

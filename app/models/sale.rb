@@ -268,13 +268,13 @@ class Sale < Ekylibre::Record::Base
 
   # Generate parcel for preparation
   def generate_parcel
-    items_attributes = self.items.map do |item|
-      {sale_item: item, population: item.quantity, variant: item.variant}
+    items_attributes = items.map do |item|
+      { sale_item: item, population: item.quantity, variant: item.variant }
     end
     attributes = {
       sale: self,
-      recipient: self.client,
-      address: self.delivery_address,
+      recipient: client,
+      address: delivery_address,
       nature: :outgoing,
       delivery_mode: :us,
       state: :ordered,
@@ -282,8 +282,6 @@ class Sale < Ekylibre::Record::Base
     }
     Parcel.create!(attributes)
   end
-
-
 
   # Remove all bad dependencies and return at draft state with no parcels
   def correct

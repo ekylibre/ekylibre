@@ -13,6 +13,7 @@ eng:
     resources:
       accounts: "Accounts"
       activities: "Activities"
+      sensors: "Sensors"
       affairs: "Affairs"
       analyses: "Analyses"
       animal_groups: "Animal groups"
@@ -43,7 +44,7 @@ eng:
       guides: "Guides"
       identifiers: "Identifiers"
       imports: "Imports"
-      # incoming_deliveries: "Incoming deliveries"
+      incoming_deliveries: "Incoming deliveries"
       incoming_payment_modes: "Incoming payment modes"
       incoming_payments: "Incoming payments"
       interventions: "Interventions"

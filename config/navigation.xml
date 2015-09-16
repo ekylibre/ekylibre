@@ -796,6 +796,8 @@
         <page to="backend/sensors#show"/>
         <page to="backend/sensors#unroll"/>
         <page to="backend/sensors#update"/>
+        <page to="backend/sensors#list_analyses"/>
+        <page to="backend/sensors#retrieve"/>
       </item>
     </group>
   </part>
@@ -1778,11 +1780,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="sensors">
-        <page to="backend/sensors#list_analyses"/>
-        <page to="backend/sensors#retrieve"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </navigation>

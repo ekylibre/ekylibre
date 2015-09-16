@@ -1,7 +1,7 @@
 class CreateSensors < ActiveRecord::Migration
   def change
     create_table :sensors do |t|
-      t.string :vendor_euid,  null: false
+      t.string :vendor_euid, null: false
       t.string :model_euid, null: false
       t.string :name, null: false
       t.string :retrieval_mode, null: false

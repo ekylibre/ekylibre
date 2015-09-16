@@ -97,10 +97,10 @@ class NormalizeDeliveries < ActiveRecord::Migration
         execute 'INSERT INTO parcel_items (parcel_id, sale_item_id, source_product_id, parted, product_id, population, shape, outgoing_parcel_item_id, created_at, creator_id, updated_at, updater_id, lock_version) SELECT i.parcel_id, i.sale_item_id, i.product_id, i.parted, CASE WHEN i.parted THEN i.parted_product_id ELSE i.product_id END, i.population, i.shape, i.id, i.created_at, i.creator_id, i.updated_at, i.updater_id, i.lock_version FROM outgoing_parcel_items AS i JOIN parcels AS p ON (parcel_id = outgoing_parcel_id)'
         execute 'INSERT INTO parcel_items (parcel_id, purchase_item_id, source_product_id, product_id, population, shape, incoming_parcel_item_id, created_at, creator_id, updated_at, updater_id, lock_version) SELECT i.parcel_id, i.purchase_item_id, i.product_id, i.product_id, i.population, i.shape, i.id, i.created_at, i.creator_id, i.updated_at, i.updater_id, i.lock_version FROM incoming_parcel_items AS i JOIN parcels AS p ON (parcel_id = incoming_parcel_id)'
 
-        execute "UPDATE parcel_items SET variant_id = p.variant_id FROM products AS p WHERE p.id = parcel_items.product_id AND parcel_items.product_id IS NOT NULL"
-        execute "UPDATE parcel_items SET variant_id = p.variant_id FROM products AS p WHERE p.id = parcel_items.source_product_id AND parcel_items.source_product_id IS NOT NULL"
-        execute "UPDATE parcel_items SET variant_id = i.variant_id FROM sale_items AS i WHERE i.id = parcel_items.sale_item_id AND parcel_items.sale_item_id IS NOT NULL"
-        execute "UPDATE parcel_items SET variant_id = i.variant_id FROM purchase_items AS i WHERE i.id = parcel_items.purchase_item_id AND parcel_items.purchase_item_id IS NOT NULL"
+        execute 'UPDATE parcel_items SET variant_id = p.variant_id FROM products AS p WHERE p.id = parcel_items.product_id AND parcel_items.product_id IS NOT NULL'
+        execute 'UPDATE parcel_items SET variant_id = p.variant_id FROM products AS p WHERE p.id = parcel_items.source_product_id AND parcel_items.source_product_id IS NOT NULL'
+        execute 'UPDATE parcel_items SET variant_id = i.variant_id FROM sale_items AS i WHERE i.id = parcel_items.sale_item_id AND parcel_items.sale_item_id IS NOT NULL'
+        execute 'UPDATE parcel_items SET variant_id = i.variant_id FROM purchase_items AS i WHERE i.id = parcel_items.purchase_item_id AND parcel_items.purchase_item_id IS NOT NULL'
 
         # Set storage on parcel and no more on each item
         execute "UPDATE parcels SET storage_id = container_id FROM outgoing_parcel_items AS i WHERE nature = 'outgoing' AND parcel_id = outgoing_parcel_id"
@@ -113,8 +113,6 @@ class NormalizeDeliveries < ActiveRecord::Migration
         end
 
         execute "UPDATE parcels SET state = 'draft' WHERE id NOT IN (SELECT parcel_id FROM parcel_items)"
-
-
 
         execute "INSERT INTO deliveries (mode, state, number, created_at, updated_at) SELECT 'third', 'finished', 'AUTO' || LPAD(id::VARCHAR, 8, '0'), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP FROM parcels WHERE state = 'given' AND delivery_id IS NULL"
         execute "UPDATE parcels SET delivery_id = deliveries.id FROM deliveries WHERE deliveries.number = 'AUTO' || LPAD(parcels.id::VARCHAR, 8, '0')"

@@ -48,15 +48,13 @@ class Sensor < Ekylibre::Record::Base
   belongs_to :host, class_name: 'Product', foreign_key: :host_id
   has_many :analyses, class_name: 'Analysis'
 
-
   def equipment
     ActiveSensor::Equipment.find(vendor_euid, model_euid)
   end
 
   class << self
-    #Get all sensors and retrieve data
+    # Get all sensors and retrieve data
     def retrieve_all(options = {})
-
       default_interval = 1.hour
 
       options[:started_at] ||= Time.now - default_interval
@@ -71,7 +69,6 @@ class Sensor < Ekylibre::Record::Base
       attributes[:id] = options[:id] unless options[:id].nil?
 
       where(attributes).find_each do |sensor|
-
         begin
           connection = ActiveSensor::Equipment.get(sensor.vendor_euid, sensor.model_euid, sensor.access_parameters)
 
@@ -87,7 +84,7 @@ class Sensor < Ekylibre::Record::Base
 
           attributes[:sampling_temporal_mode] = results.delete(:sampling_temporal_mode)
 
-          #Indicators
+          # Indicators
           results.each do |k, v|
             n = Nomen::Indicator.find(k)
             attributes[:items_attributes] << { indicator_name: n.name, indicator_datatype: n.datatype, value: v } unless v.nil?
@@ -112,5 +109,4 @@ class Sensor < Ekylibre::Record::Base
       end
     end
   end
-
 end

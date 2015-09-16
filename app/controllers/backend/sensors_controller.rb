@@ -34,7 +34,7 @@ class Backend::SensorsController < Backend::BaseController
     end
   end
 
-  def get_models(options = {})
+  def get_models(_options = {})
     vendor_euid = params[:vendor_euid]
     models = ActiveSensor::Equipment.equipments_of(vendor_euid).collect do |equipment|
       [equipment.label, equipment.model]
@@ -45,7 +45,7 @@ class Backend::SensorsController < Backend::BaseController
     end
   end
 
-  def get_informations(options = {})
+  def get_informations(_options = {})
     @vendor_euid = params[:vendor_euid]
     @model_euid = params[:model_euid]
 
@@ -57,7 +57,7 @@ class Backend::SensorsController < Backend::BaseController
     @parameters = connection.controller.parameters
 
     # Load existing resource for edit
-    if params[:id] and params[:id].present?
+    if params[:id] && params[:id].present?
       @sensor = Sensor.find(params[:id])
       @sensor.access_parameters.symbolize_keys!
     end
@@ -75,7 +75,5 @@ class Backend::SensorsController < Backend::BaseController
     end
 
     redirect_to action: :show, id: params[:id]
-
   end
-
 end

@@ -2,7 +2,6 @@ require 'test_helper'
 
 class ActiveSensorTest < ActiveSupport::TestCase
   test 'should register many equipments' do
-
     path = Rails.root.join('test', 'fixture-files', 'sensors.yml')
     assert path.exist?, "Sensor fixture file doesn't exist"
     ActiveSensor::Base.register_many(path)

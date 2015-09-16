@@ -48,7 +48,7 @@ module ActiveSensor
 
       def find(vendor, model)
         list.detect do |equipment|
-          equipment.vendor == vendor.to_sym and equipment.model == model.to_sym
+          equipment.vendor == vendor.to_sym && equipment.model == model.to_sym
         end
       end
 

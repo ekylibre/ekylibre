@@ -66,7 +66,7 @@ class ParcelItem < Ekylibre::Record::Base
   belongs_to :source_product_shape_reading, class_name:      'ProductReading', dependent: :destroy
   belongs_to :variant, class_name: 'ProductNatureVariant'
   has_one :category, through: :variant
-  has_one :nature,  through: :variant
+  has_one :nature, through: :variant
   has_one :delivery, through: :parcel
   has_one :storage, through: :parcel
 
@@ -78,7 +78,7 @@ class ParcelItem < Ekylibre::Record::Base
   validates_presence_of :source_product, if: :prepared?
   validates_presence_of :product, if: :prepared?
 
-  scope :with_nature, lambda { |nature| joins(:parcel).merge(Parcel.with_nature(nature)) }
+  scope :with_nature, ->(nature) { joins(:parcel).merge(Parcel.with_nature(nature)) }
 
   accepts_nested_attributes_for :product
   delegate :name, to: :product, prefix: true
@@ -98,14 +98,14 @@ class ParcelItem < Ekylibre::Record::Base
         end
       end
     end
-    if self.product
-      self.variant = self.product.variant
-    elsif self.source_product
-      self.variant = self.source_product.variant
-    elsif self.sale_item
-      self.variant = self.sale_item.variant
-    elsif self.purchase_item
-      self.variant = self.purchase_item.variant
+    if product
+      self.variant = product.variant
+    elsif source_product
+      self.variant = source_product.variant
+    elsif sale_item
+      self.variant = sale_item.variant
+    elsif purchase_item
+      self.variant = purchase_item.variant
     end
     true
   end

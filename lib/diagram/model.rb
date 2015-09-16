@@ -1,8 +1,6 @@
 module Diagram
   module Model
-
     class << self
-
       # Build an inheritance graph with given root model
       def inheritance(model, options = {})
         YAML.load_file(Rails.root.join('db', 'models.yml')).map(&:classify).map(&:constantize)
@@ -43,9 +41,5 @@ module Diagram
         graph
       end
     end
-
   end
-
 end
-
-

@@ -701,7 +701,6 @@ Rails.application.routes.draw do
         get :list_analyses
         get :retrieve
       end
-
     end
 
     resources :sequences, concerns: [:list, :unroll] do
