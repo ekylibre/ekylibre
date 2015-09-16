@@ -195,7 +195,7 @@ class Entity < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    self.of_company? || sales_invoices.any? || participations.any? || sales.any? || deliveries.any?
+    self.of_company? || sales_invoices.any? || participations.any? || sales.any? || parcels.any?
   end
 
   class << self
