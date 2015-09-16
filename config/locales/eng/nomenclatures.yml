@@ -655,6 +655,8 @@ eng:
         target_variety: "Target variety"
       items:
         cow_milk_analysis: "Cow milk analysis"
+        # grain_analysis: "Grain analysis"
+        # silage_analysis: "Silage analysis"
         soil_analysis: "Soil analysis"
         unitary_cow_milk_analysis: "Unitary cow milk analysis"
         water_analysis: "Water analysis"

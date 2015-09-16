@@ -68,6 +68,9 @@ class CharentesAlliance::OutgoingDeliveriesExchanger < ActiveExchanger::Base
       # puts cultivable_zone.name.inspect.yellow if cultivable_zone
       # puts silo.name.yellow if silo
 
+      # create a grain_analysis if not exist
+
+
       # TODO: waiting for workflow engine v2
       # create a grain_harvest intervention if not exist
 

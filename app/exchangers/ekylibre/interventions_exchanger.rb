@@ -857,7 +857,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     end
     intervention
   end
-  
+
   def record_plants_harvest(r, support, duration)
     plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
 
