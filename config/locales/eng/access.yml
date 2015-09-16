@@ -13,7 +13,6 @@ eng:
     resources:
       accounts: "Accounts"
       activities: "Activities"
-      sensors: "Sensors"
       affairs: "Affairs"
       analyses: "Analyses"
       animal_groups: "Animal groups"
@@ -80,6 +79,7 @@ eng:
       roles: "Roles"
       sale_natures: "Sale natures"
       sales: "Sales"
+      sensors: "Sensors"
       sequences: "Sequences"
       settings: "Settings"
       settlements: "Settlements"

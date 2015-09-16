@@ -69,6 +69,8 @@ analyses_001:
   number: ANL0001
   reference_number: LCALEDSLAB8458964548458
   sampled_at: 2013-10-26 14:34:00.000000000 Z
+  sampling_temporal_mode: instant
+  state: ok
   updated_at: 2015-06-02 19:42:16.762967000 Z
   updater_id: 1
 analyses_002:
@@ -82,6 +84,8 @@ analyses_002:
   number: ANL0002
   reference_number: ''
   sampled_at: 2013-10-26 14:34:00.000000000 Z
+  sampling_temporal_mode: instant
+  state: ok
   updated_at: 2015-06-02 19:42:27.817926000 Z
   updater_id: 1
 analyses_003:
@@ -97,5 +101,7 @@ analyses_003:
   reference_number: TSOL845682
   sampled_at: 2015-03-03 07:40:00.000000000 Z
   sampler_id: 12
+  sampling_temporal_mode: instant
+  state: ok
   updated_at: 2015-06-02 19:44:16.060518000 Z
   updater_id: 1

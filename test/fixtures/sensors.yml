@@ -51,15 +51,17 @@
 #   updater: users_001
 #   vendor_euid: "Lorem ipsum"
 #
+---
 sensors_001:
-  active: TRUE
+  active: true
   created_at: 2015-09-16 16:00:00.000000000 Z
   creator_id: 1
-  embedded: FALSE
+  embedded: false
+  id: 822886427
   lock_version: 0
-  model_euid: 'model1'
-  name: 'Sensor_01'
-  retrieval_mode: 'automatic'
+  model_euid: model1
+  name: Sensor_01
+  retrieval_mode: automatic
   updated_at: 2015-09-16 16:00:00.000000000 Z
   updater_id: 1
-  vendor_euid: 2015-09-16 16:00:00.000000000 Z
+  vendor_euid: '2015-09-16 16:00:00.000000'

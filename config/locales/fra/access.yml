@@ -51,6 +51,7 @@ fra:
       guides: "Guides"
       identifiers: "Identifiants"
       imports: "Imports"
+      # incoming_deliveries: "Incoming deliveries"
       incoming_parcels: "Approvisionnement" #?
       incoming_payment_modes: "Modes d’encaissement"
       incoming_payments: "Encaissements"
@@ -89,6 +90,7 @@ fra:
       roles: "Rôles"
       sale_natures: "Types de ventes"
       sales: "Ventes"
+      # sensors: "Sensors"
       sequences: "Séquences"
       settings: "Paramétrage"
       settlements: "Installations"
