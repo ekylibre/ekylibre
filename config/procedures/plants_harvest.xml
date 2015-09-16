@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="plants_harvest" natures="grains_harvest" version="0">
+    <variables>
+      <variable name="cropper_driver" abilities="drive(reaper)" roles="grains_harvest-doer"/>
+      <variable name="cropper" variety="reaper" abilities="harvest(plant)" roles="grains_harvest-tool"/>
+      <variable name="cultivation" variety="plant" abilities="produce(grain), produce(straw)" roles="grains_harvest-target" default-shape=":cultivation" default-actor="variant_localized_in_storage">
+        <handler indicator="shape">
+          <converter to="shape" forward="intersection(value, cultivation.shape)" backward="value"/>
+          <converter to="population" forward="area(value) / cultivation..net_surface_area(square_meter)"/>
+        </handler>
+      </variable>
+      <variable name="plants" variety="variety: cultivation" new="produced-by: cultivation" roles="grains_harvest-output" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
+        <handler indicator="population"/>
+        <handler indicator="grains_area_density" unit="unity_per_square_meter" to="population" backward="(value * self.population) / cultivation.net_surface_area(square_meter)" forward="(value * cultivation.net_surface_area(square_meter)) / self.population"/>
+      </variable>
+    </variables>
+    <operations>
+      <operation id="1">
+        <task do="[cultivation] produces [plants]"/>
+        <task do="[plants] is at [cultivation]"/>
+      </operation>
+    </operations>
+  </procedure>
+</procedures>
