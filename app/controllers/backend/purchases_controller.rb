@@ -84,8 +84,8 @@ class Backend::PurchasesController < Backend::BaseController
   end
 
   list(:parcels, model: :parcels, children: :items, conditions: { purchase_id: 'params[:id]'.c }) do |t|
-    t.action :edit, if: :order?
-    t.action :destroy, if: :order?
+    t.action :edit, if: :draft?
+    t.action :destroy, if: :draft?
     t.column :number, url: true
     t.column :reference_number, url: true
     t.column :address, children: :product_name
