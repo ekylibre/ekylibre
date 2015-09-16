@@ -133,6 +133,10 @@ class InterventionCast < Ekylibre::Record::Base
     end
     nil
   end
+  
+  def duration
+   return ((stopped_at - started_at).in(:seconds))
+  end
 
   def earn
     if actor && price = evaluated_price

@@ -118,6 +118,7 @@ class Product < Ekylibre::Record::Base
   has_one :container, through: :current_localization
   has_many :groups, through: :current_memberships
   has_one :incoming_parcel_item, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
+  has_one :outgoing_parcel_item, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
   has_many :sensors
 
   has_picture
@@ -449,7 +450,6 @@ class Product < Ekylibre::Record::Base
     }
     incoming_item = incoming_parcel_item
     incoming_purchase_item = incoming_item.purchase_item if incoming_item
-    # FIXME
     outgoing_item = parcel_items.with_nature(:outgoing).first
     outgoing_sale_item = outgoing_item.sale_item if outgoing_item
 
