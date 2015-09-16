@@ -983,9 +983,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   end
 
   # Record administrative task
-  def record_administrative_task(r, _production, duration)
+  def record_administrative_task(r, production, duration)
     return nil unless r.workers.present?
-    intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), description: r.procedure_description) do |i|
+    intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), production: production, description: r.procedure_description) do |i|
       i.add_cast(reference_name: 'worker', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
     end
     intervention
