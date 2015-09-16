@@ -11,6 +11,7 @@ gem 'activerecord-postgis-adapter', '>= 3.0.0'
 
 # Multi-tenancy
 gem 'apartment', '>= 1.0.0', '< 2.0'
+gem 'apartment-sidekiq'
 
 # Code manipulation
 gem 'code_string'
@@ -56,6 +57,7 @@ gem 'foreman'
 
 # Background jobs
 gem 'sidekiq'
+gem 'sidekiq-cron', '~> 0.3.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
