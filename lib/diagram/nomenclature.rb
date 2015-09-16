@@ -12,7 +12,7 @@ module Diagram
             graph.arrow(item.name, item.parent.name, head: :empty)
           end
         end
-        graph        
+        graph
       end
 
       def inheritance_all(nomenclature, options = {})
@@ -32,7 +32,7 @@ module Diagram
           end
         end
       end
-      
+
     end
 
   end

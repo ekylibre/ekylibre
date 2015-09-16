@@ -1484,11 +1484,11 @@ eng:
       items:
         agro_systemes_soil_analyses: "AGRO Systèmes soil analyses"
         agro_systemes_water_analyses: "AGRO Systèmes water analyses"
-        bordeaux_sciences_agro_istea_general_ledger: "Bordeaux sciences agro istea general ledger"
-        bordeaux_sciences_agro_istea_journals: "Bordeaux sciences agro istea journals"
+        bordeaux_sciences_agro_istea_general_ledger: "Bordeaux Sciences Agro ISTEA general ledger"
+        bordeaux_sciences_agro_istea_journals: "Bordeaux Sciences Agro ISTEA journals"
         bovins_croissance_cattle_performance_controls: "Bovins Croissance cattle performance controls"
-        # charentes_alliance_incoming_deliveries: "Charentes alliance incoming deliveries"
-        charentes_alliance_outgoing_deliveries: "Charentes alliance outgoing deliveries"
+        charentes_alliance_incoming_deliveries: "Charentes Alliance incoming deliveries"
+        charentes_alliance_outgoing_deliveries: "Charentes Alliance outgoing deliveries"
         ebp_edi: "EBP EDI"
         ekylibre_activities: "Ekylibre activities"
         ekylibre_animal_groups: "Ekylibre animal groups"
@@ -3620,8 +3620,8 @@ eng:
         beta_vulgaris_cicla: "Chard"                       #< beta_vulgaris
         beta_vulgaris_crassa: "Mangelwurzel"               #< beta_vulgaris
         beta_vulgaris_vulgaris: "Beetroot"                 #< beta_vulgaris
-        # betula: "Betula"                                 #< betulaceae
-        # betula_pendula: "Betula pendula"                 #< betula
+        betula: "Birch"                                    #< betulaceae
+        betula_pendula: "Silver birch"                     #< betula
         betulaceae: "Betulaceae"                           #< plant
         bioproduct: "Bioproduct"                           #< matter
         bison: "Bison"                                     #< bovidae
@@ -3632,7 +3632,7 @@ eng:
         bombus: "Bombus"                                   #< apidae
         bombus_terrestris: "Bombus terrestris"             #< bombus
         boraginaceae: "Boraginaceae"                       #< plant
-        # borago: "Borago"                                 #< boraginaceae
+        borago: "Borage"                                   #< boraginaceae
         bos: "Bos"                                         #< bovidae
         bos_taurus: "Cow"                                  #< bos
         bos_taurus_abondance: "Cow abondance"              #< bos_taurus
@@ -3731,65 +3731,65 @@ eng:
         brassica_rapa: "Brassica rapa"                     #< brassica
         brassicaceae: "Brassicaceae"                       #< plant
         bromeliaceae: "Bromeliaceae"                       #< plant
-        # bromus: "Bromus"                                 #< poaceae
+        bromus: "Bromes"                                   #< poaceae
         building: "Building"                               #< product_group
         building_division: "Building division"             #< sub_zone
         cairina: "Cairina"                                 #< anatidae
         cairina_moschata: "Muscovy duck"                   #< cairina
-        # camelina: "Camelina"                             #< brassicaceae
-        # camelina_sativa: "Camelina sativa"               #< camelina
+        camelina: "Camelina"                               #< brassicaceae
+        camelina_sativa: "Camelina sativa"                 #< camelina
         canidae: "Canidae"                                 #< mammalia
         cannabaceae: "Cannabaceae"                         #< plant
         cannabis: "Cannabis"                               #< cannabaceae
-        # cannabis_armanca: "Cannabis armanca"             #< cannabis
-        # cannabis_benico: "Cannabis benico"               #< cannabis
-        # cannabis_bialobrzeskie: "Cannabis bialobrzeskie" #< cannabis
-        # cannabis_cannakomp: "Cannabis cannakomp"         #< cannabis
-        # cannabis_carma: "Cannabis carma"                 #< cannabis
-        # cannabis_carmagnola: "Cannabis carmagnola"       #< cannabis
-        # cannabis_chamaeleon: "Cannabis chamaeleon"       #< cannabis
-        # cannabis_codimono: "Cannabis codimono"           #< cannabis
-        # cannabis_cs: "Cannabis cs"                       #< cannabis
-        # cannabis_dacia_seculeni: "Cannabis dacia seculeni" #< cannabis
-        # cannabis_delta-405: "Cannabis delta-405"         #< cannabis
-        # cannabis_delta-ilosa: "Cannabis delta-ilosa"     #< cannabis
-        # cannabis_denise: "Cannabis denise"               #< cannabis
-        # cannabis_diana: "Cannabis diana"                 #< cannabis
-        # cannabis_dioica_88: "Cannabis dioica 88"         #< cannabis
-        # cannabis_epsilon_68: "Cannabis epsilon 68"       #< cannabis
-        # cannabis_fedora_17: "Cannabis fedora 17"         #< cannabis
-        # cannabis_felina_32: "Cannabis felina 32"         #< cannabis
-        # cannabis_ferimon: "Cannabis ferimon"             #< cannabis
-        # cannabis_fibranova: "Cannabis fibranova"         #< cannabis
-        # cannabis_fibrol: "Cannabis fibrol"               #< cannabis
-        # cannabis_finola: "Cannabis finola"               #< cannabis
-        # cannabis_futura_75: "Cannabis futura 75"         #< cannabis
-        # cannabis_ivory: "Cannabis ivory"                 #< cannabis
-        # cannabis_kc_dora: "Cannabis kc dora"             #< cannabis
-        # cannabis_kc_virtus: "Cannabis kc virtus"         #< cannabis
-        # cannabis_kc_zuzana: "Cannabis kc zuzana"         #< cannabis
-        # cannabis_kompolti: "Cannabis kompolti"           #< cannabis
-        # cannabis_kompolti_hibrid_tc: "Cannabis kompolti hibrid tc" #< cannabis
-        # cannabis_lipko: "Cannabis lipko"                 #< cannabis
-        # cannabis_lovrin_110: "Cannabis lovrin 110"       #< cannabis
-        # cannabis_marcello: "Cannabis marcello"           #< cannabis
-        # cannabis_monoica: "Cannabis monoica"             #< cannabis
-        # cannabis_rajan: "Cannabis rajan"                 #< cannabis
-        # cannabis_santhica_23: "Cannabis santhica 23"     #< cannabis
-        # cannabis_santhica_27: "Cannabis santhica 27"     #< cannabis
-        # cannabis_santhica_70: "Cannabis santhica 70"     #< cannabis
         cannabis_sativa: "Hemp"                            #< cannabis
-        # cannabis_secuieni_jubileu: "Cannabis secuieni jubileu" #< cannabis
-        # cannabis_silvana: "Cannabis silvana"             #< cannabis
-        # cannabis_szarvasi: "Cannabis szarvasi"           #< cannabis
-        # cannabis_tiborszallasi: "Cannabis tiborszallasi" #< cannabis
-        # cannabis_tisza: "Cannabis tisza"                 #< cannabis
-        # cannabis_tygra: "Cannabis tygra"                 #< cannabis
-        # cannabis_uniko_b: "Cannabis uniko b"             #< cannabis
-        # cannabis_uso-31: "Cannabis uso-31"               #< cannabis
-        # cannabis_wielkopolskie: "Cannabis wielkopolskie" #< cannabis
-        # cannabis_wojko: "Cannabis wojko"                 #< cannabis
-        # cannabis_zenit: "Cannabis zenit"                 #< cannabis
+        cannabis_sativa_armanca: "Hemp Armanca"            #< cannabis_sativa
+        cannabis_sativa_benico: "Hemp Benico"              #< cannabis_sativa
+        cannabis_sativa_bialobrzeskie: "Hemp Bialobrzeskie" #< cannabis_sativa
+        cannabis_sativa_cannakomp: "Hemp Cannakomp"        #< cannabis_sativa
+        cannabis_sativa_carma: "Hemp Carma"                #< cannabis_sativa
+        cannabis_sativa_carmagnola: "Hemp Carmagnola"      #< cannabis_sativa
+        cannabis_sativa_chamaeleon: "Hemp Chamaeleon"      #< cannabis_sativa
+        cannabis_sativa_codimono: "Hemp Codimono"          #< cannabis_sativa
+        cannabis_sativa_cs: "Hemp CS"                      #< cannabis_sativa
+        cannabis_sativa_dacia_seculeni: "Hemp Dacia seculeni" #< cannabis_sativa
+        cannabis_sativa_delta_405: "Hemp Delta 405"        #< cannabis_sativa
+        cannabis_sativa_delta_ilosa: "Hemp Delta ilosa"    #< cannabis_sativa
+        cannabis_sativa_denise: "Hemp Denise"              #< cannabis_sativa
+        cannabis_sativa_diana: "Hemp Diana"                #< cannabis_sativa
+        cannabis_sativa_dioica_88: "Hemp Dioica 88"        #< cannabis_sativa
+        cannabis_sativa_epsilon_68: "Hemp Epsilon 68"      #< cannabis_sativa
+        cannabis_sativa_fedora_17: "Hemp Fedora 17"        #< cannabis_sativa
+        cannabis_sativa_felina_32: "Hemp Felina 32"        #< cannabis_sativa
+        cannabis_sativa_ferimon: "Hemp Ferimon"            #< cannabis_sativa
+        cannabis_sativa_fibranova: "Hemp Fibranova"        #< cannabis_sativa
+        cannabis_sativa_fibrol: "Hemp Fibrol"              #< cannabis_sativa
+        cannabis_sativa_finola: "Hemp Finola"              #< cannabis_sativa
+        cannabis_sativa_futura_75: "Hemp Futura 75"        #< cannabis_sativa
+        cannabis_sativa_ivory: "Hemp Ivory"                #< cannabis_sativa
+        cannabis_sativa_kc_dora: "Hemp KC Dora"            #< cannabis_sativa
+        cannabis_sativa_kc_virtus: "Hemp KC Virtus"        #< cannabis_sativa
+        cannabis_sativa_kc_zuzana: "Hemp KC Zuzana"        #< cannabis_sativa
+        cannabis_sativa_kompolti: "Hemp Kompolti"          #< cannabis_sativa
+        cannabis_sativa_kompolti_hibrid_tc: "Hemp Kompolti hibrid tc" #< cannabis_sativa
+        cannabis_sativa_lipko: "Hemp Lipko"                #< cannabis_sativa
+        cannabis_sativa_lovrin_110: "Hemp Lovrin 110"      #< cannabis_sativa
+        cannabis_sativa_marcello: "Hemp Marcello"          #< cannabis_sativa
+        cannabis_sativa_monoica: "Hemp Monoica"            #< cannabis_sativa
+        cannabis_sativa_rajan: "Hemp Rajan"                #< cannabis_sativa
+        cannabis_sativa_santhica_23: "Hemp Santhica 23"    #< cannabis_sativa
+        cannabis_sativa_santhica_27: "Hemp Santhica 27"    #< cannabis_sativa
+        cannabis_sativa_santhica_70: "Hemp Santhica 70"    #< cannabis_sativa
+        cannabis_sativa_secuieni_jubileu: "Hemp Secuieni jubileu" #< cannabis_sativa
+        cannabis_sativa_silvana: "Hemp Silvana"            #< cannabis_sativa
+        cannabis_sativa_szarvasi: "Hemp Szarvasi"          #< cannabis_sativa
+        cannabis_sativa_tiborszallasi: "Hemp Tiborszallasi" #< cannabis_sativa
+        cannabis_sativa_tisza: "Hemp Tisza"                #< cannabis_sativa
+        cannabis_sativa_tygra: "Hemp Tygra"                #< cannabis_sativa
+        cannabis_sativa_uniko_b: "Hemp Uniko B"            #< cannabis_sativa
+        cannabis_sativa_uso_31: "Hemp USO 31"              #< cannabis_sativa
+        cannabis_sativa_wielkopolskie: "Hemp Wielkopolskie" #< cannabis_sativa
+        cannabis_sativa_wojko: "Hemp Wojko"                #< cannabis_sativa
+        cannabis_sativa_zenit: "Hemp Zenit"                #< cannabis_sativa
         canvas_cover: "Canvas cover"                       #< packaged_matter
         cap: "Cap"                                         #< packaged_matter
         capra: "Capra"                                     #< bovidae
@@ -4962,7 +4962,7 @@ eng:
         trifolium_repens_triffid: "Trifolium repens triffid" #< trifolium_repens
         trifolium_repens_triple: "Trifolium repens triple" #< trifolium_repens
         # trigonella: "Trigonella"                         #< fabaceae
-        # trigonella_foenum-graecum: "Trigonella foenum-graecum" #< trigonella
+        # trigonella_foenum_graecum: "Trigonella foenum graecum" #< trigonella
         triticosecale: "Triticale"                         #< poaceae
         triticum: "Wheat"                                  #< poaceae
         triticum_aestivum: "Common wheat"                  #< triticum

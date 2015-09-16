@@ -440,7 +440,7 @@ eng:
     deliveries_conditions: "Deliveries conditions"
     delivery: "Delivery"
     delivery_address: "Delivery address"
-    delivery_items: "Delivery items"
+    delivery_items: "Delivery items" #?
     delivery_mode: "Delivery mode"
     # delivery_products: "Delivery products"
     departed_at: "Transport on" #?
