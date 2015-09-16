@@ -32,7 +32,6 @@
 #  in_preparation_at :datetime
 #  lock_version      :integer          default(0), not null
 #  nature            :string           not null
-#  net_mass          :decimal(19, 4)
 #  number            :string           not null
 #  ordered_at        :datetime
 #  planned_at        :datetime
@@ -70,16 +69,14 @@ parcels_001:
   delivery_mode: transporter
   given_at: 2014-11-05 15:14:00.754740000 Z
   id: 1
-  lock_version: 2
+  lock_version: 1
   nature: outgoing
-  net_mass: 3127.375
   number: BL2014000002
-  planned_at: 2015-09-14 22:00:00.000000000 Z
   recipient_id: 13
   remain_owner: false
   state: draft
   transporter_id: 4
-  updated_at: 2015-09-15 19:21:26.162543000 Z
+  updated_at: 2014-11-05 15:14:00.950218000 Z
   updater_id: 1
 parcels_002:
   address_id: 7
@@ -89,57 +86,51 @@ parcels_002:
   delivery_mode: transporter
   given_at: 2014-11-05 15:14:00.754740000 Z
   id: 2
-  lock_version: 2
+  lock_version: 1
   nature: outgoing
-  net_mass: 0.0
   number: BL2014000003
-  planned_at: 2015-09-14 22:00:00.000000000 Z
   recipient_id: 11
   remain_owner: false
   state: given
   transporter_id: 4
-  updated_at: 2015-09-15 19:33:54.767450000 Z
+  updated_at: 2014-11-05 15:14:00.962449000 Z
   updater_id: 1
 parcels_003:
   address_id: 12
   created_at: 2014-11-05 14:16:48.643201000 Z
   creator_id: 1
+  delivery_id: 15
   delivery_mode: us
   given_at: 2014-11-03 03:20:00.000000000 Z
   id: 3
-  lock_version: 1
+  lock_version: 0
   nature: outgoing
-  net_mass: 0.0
   number: BL2014000004
-  planned_at: 2015-09-14 22:00:00.000000000 Z
   recipient_id: 13
   remain_owner: false
   state: given
-  updated_at: 2015-09-15 19:34:08.044010000 Z
+  updated_at: 2014-11-05 14:16:48.643201000 Z
   updater_id: 1
 parcels_004:
   address_id: 8
   created_at: 2014-11-07 14:13:05.515052000 Z
   creator_id: 1
-  delivery_id: 4
   delivery_mode: transporter
   id: 4
-  lock_version: 2
+  lock_version: 0
   nature: outgoing
-  net_mass: 0.0
   number: BL2014000005
-  planned_at: 2015-09-14 22:00:00.000000000 Z
-  position: 3
   recipient_id: 8
   remain_owner: false
   state: in_preparation
   transporter_id: 9
-  updated_at: 2015-09-15 19:40:02.770333000 Z
+  updated_at: 2014-11-07 14:13:05.515052000 Z
   updater_id: 1
 parcels_005:
   address_id: 3
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
+  delivery_id: 4
   delivery_mode: third
   given_at: 2014-10-24 17:19:32.000000000 Z
   id: 5
@@ -156,26 +147,25 @@ parcels_006:
   address_id: 3
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  delivery_id: 4
+  delivery_id: 6
   delivery_mode: third
   given_at: 2014-11-06 08:45:00.000000000 Z
   id: 6
-  lock_version: 2
+  lock_version: 1
   nature: incoming
   number: INDEL000002
-  planned_at: 2015-09-14 22:00:00.000000000 Z
-  position: 2
   reference_number: ''
   remain_owner: false
   sender_id: 4
   state: given
   storage_id: 21
-  updated_at: 2015-09-15 19:40:02.740395000 Z
+  updated_at: 2014-11-01 16:01:24.150621000 Z
   updater_id: 1
 parcels_007:
   address_id: 3
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
+  delivery_id: 5
   delivery_mode: third
   given_at: 2014-10-14 17:19:32.000000000 Z
   id: 7
@@ -192,6 +182,7 @@ parcels_008:
   address_id: 3
   created_at: 2014-10-31 20:23:37.027824000 Z
   creator_id: 1
+  delivery_id: 7
   delivery_mode: third
   given_at: 2014-10-31 20:09:00.000000000 Z
   id: 8
@@ -209,6 +200,7 @@ parcels_009:
   address_id: 3
   created_at: 2014-11-01 16:00:08.015634000 Z
   creator_id: 1
+  delivery_id: 8
   delivery_mode: third
   given_at: 2014-10-31 20:31:00.000000000 Z
   id: 9
@@ -226,6 +218,7 @@ parcels_010:
   address_id: 3
   created_at: 2014-11-01 19:29:58.086427000 Z
   creator_id: 1
+  delivery_id: 9
   delivery_mode: third
   given_at: 2014-11-01 19:26:00.000000000 Z
   id: 10
@@ -243,6 +236,7 @@ parcels_011:
   address_id: 3
   created_at: 2014-11-01 19:35:50.370591000 Z
   creator_id: 1
+  delivery_id: 10
   delivery_mode: third
   given_at: 2014-11-01 19:33:00.000000000 Z
   id: 11
@@ -260,6 +254,7 @@ parcels_012:
   address_id: 3
   created_at: 2014-11-01 20:19:35.352913000 Z
   creator_id: 1
+  delivery_id: 11
   delivery_mode: third
   given_at: 2013-08-01 00:50:00.000000000 Z
   id: 12
@@ -277,6 +272,7 @@ parcels_013:
   address_id: 9
   created_at: 2014-11-07 15:25:51.188992000 Z
   creator_id: 1
+  delivery_id: 12
   delivery_mode: third
   given_at: 2012-11-03 15:24:00.000000000 Z
   id: 13
@@ -294,26 +290,25 @@ parcels_014:
   address_id: 9
   created_at: 2014-11-07 15:44:20.453162000 Z
   creator_id: 1
-  delivery_id: 4
+  delivery_id: 13
   delivery_mode: third
   given_at: 2014-11-07 15:41:00.000000000 Z
   id: 14
-  lock_version: 1
+  lock_version: 0
   nature: incoming
   number: ID20140010
-  planned_at: 2015-09-14 22:00:00.000000000 Z
-  position: 1
   reference_number: '2007090001213'
   remain_owner: false
   sender_id: 13
   state: given
   storage_id: 21
-  updated_at: 2015-09-15 19:40:02.732363000 Z
+  updated_at: 2014-11-07 15:44:20.453162000 Z
   updater_id: 1
 parcels_015:
   address_id: 9
   created_at: 2014-11-07 16:47:34.635509000 Z
   creator_id: 1
+  delivery_id: 14
   delivery_mode: third
   given_at: 2008-03-05 09:00:00.000000000 Z
   id: 15
@@ -349,23 +344,18 @@ parcels_017:
   address_id: 9
   created_at: 2014-11-07 19:12:04.935666000 Z
   creator_id: 1
-  delivery_mode: us
+  delivery_mode: third
   given_at: 2013-10-01 18:10:00.000000000 Z
   id: 17
-  in_preparation_at: 2015-09-15 19:37:28.113210000 Z
-  lock_version: 5
-  nature: internal
-  net_mass: 0.0
+  lock_version: 0
+  nature: incoming
   number: ID20140014
-  ordered_at: 2015-09-15 19:37:25.512033000 Z
-  planned_at: 2015-09-14 22:00:00.000000000 Z
-  prepared_at: 2015-09-15 19:37:36.643591000 Z
   reference_number: '2013100000546'
   remain_owner: false
   sender_id: 13
-  state: prepared
+  state: draft
   storage_id: 21
-  updated_at: 2015-09-15 19:37:36.902959000 Z
+  updated_at: 2014-11-07 19:12:04.935666000 Z
   updater_id: 1
 parcels_018:
   address_id: 9
@@ -391,16 +381,30 @@ parcels_019:
   delivery_mode: third
   given_at: 2013-10-15 10:30:00.000000000 Z
   id: 19
-  lock_version: 3
+  lock_version: 0
   nature: incoming
-  net_mass: 0.0
   number: ID20140017
-  ordered_at: 2015-09-15 19:36:45.641764000 Z
-  planned_at: 2015-09-14 22:00:00.000000000 Z
   reference_number: '2013100000750'
   remain_owner: false
   sender_id: 13
-  state: ordered
+  state: draft
   storage_id: 21
-  updated_at: 2015-09-15 19:36:45.653136000 Z
+  updated_at: 2014-11-07 19:34:09.453724000 Z
+  updater_id: 1
+parcels_020:
+  address_id: 14
+  created_at: 2015-09-16 18:17:45.644248000 Z
+  creator_id: 1
+  delivery_mode: us
+  id: 20
+  lock_version: 0
+  nature: outgoing
+  number: P000000000001
+  planned_at: 2015-09-15 22:00:00.000000000 Z
+  position: 1
+  recipient_id: 14
+  remain_owner: false
+  sale_id: 12
+  state: ordered
+  updated_at: 2015-09-16 18:17:45.644248000 Z
   updater_id: 1

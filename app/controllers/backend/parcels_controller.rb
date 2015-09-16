@@ -21,7 +21,7 @@ class Backend::ParcelsController < Backend::BaseController
 
   unroll
 
-  list(conditions: search_conditions(parcels: [:number, :reference_number, :net_mass], entities: [:full_name, :number])) do |t|
+  list(conditions: search_conditions(parcels: [:number, :reference_number], entities: [:full_name, :number])) do |t|
     t.action :new,     on: :none
     t.action :invoice, on: :both, method: :post, if: :invoiceable?
     t.action :ship,    on: :both, method: :post, if: :shippable?
@@ -37,17 +37,18 @@ class Backend::ParcelsController < Backend::BaseController
     t.column :transporter, url: true, hidden: true
     # t.column :sent_at
     t.column :delivery_mode
-    t.column :net_mass, hidden: true
+    # t.column :net_mass, hidden: true
     t.column :sale, url: true
     t.column :purchase, url: true
   end
 
   list(:items, model: :parcel_items, conditions: { parcel_id: 'params[:id]'.c }) do |t|
     t.column :product, url: true
-    t.column :product_work_number, through: :product, label_method: :work_number
+    # t.column :product_work_number, through: :product, label_method: :work_number
     t.column :population
     t.column :unit_name, through: :variant
-    t.column :net_mass
+    t.column :variant, url: true
+    # t.column :net_mass
     t.column :analysis, url: true
     t.column :source_product, url: true, hidden: true
   end
@@ -98,11 +99,13 @@ class Backend::ParcelsController < Backend::BaseController
 
   def find_parcels
     parcels = params[:id].split(',').map do |id|
-      find_and_check(id: id)
+      parcel = find_and_check(id: id)
+      break unless parcel
+      parcel
     end
-    unless parcels.any?
+    if parcels.nil? || parcels.any?
       notify_error :no_parcels_given
-      redirect_to(params[:redirect] || { action: :index })
+      # redirect_to(params[:redirect] || { action: :index })
       return nil
     end
     parcels

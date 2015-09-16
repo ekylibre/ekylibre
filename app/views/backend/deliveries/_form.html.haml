@@ -1,5 +1,5 @@
 = field_set do
-  = f.referenced_association :responsible, source: :employees
+  = f.referenced_association :responsible, source: :contacts
   = f.input :started_at
   = f.input :stopped_at
   = f.input :annotation
@@ -11,5 +11,7 @@
     = f.referenced_association :driver
     = f.nested_association(:tools)
   = f.custom_fields
-  = f.association(:parcels, as: :check_boxes, label_method: :number)
+  - parcels = Parcel.where("id IN (?) OR state != ?", f.object.parcel_ids, :given)
+  - if parcels.any?
+    = f.association(:parcels, as: :check_boxes, label_method: :number, collection: parcels)
 

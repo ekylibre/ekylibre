@@ -449,7 +449,8 @@ class Product < Ekylibre::Record::Base
     }
     incoming_item = incoming_parcel_item
     incoming_purchase_item = incoming_item.purchase_item if incoming_item
-    outgoing_item = outgoing_parcel_items.first
+    # FIXME
+    outgoing_item = self.parcel_items.with_nature(:outgoing).first
     outgoing_sale_item = outgoing_item.sale_item if outgoing_item
 
     if incoming_purchase_item

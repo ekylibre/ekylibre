@@ -27,7 +27,6 @@
 #  creator_id                           :integer
 #  id                                   :integer          not null, primary key
 #  lock_version                         :integer          default(0), not null
-#  net_mass                             :decimal(19, 4)
 #  parcel_id                            :integer          not null
 #  parted                               :boolean          default(FALSE), not null
 #  population                           :decimal(19, 4)
@@ -46,10 +45,11 @@
 #  source_product_shape_reading_id      :integer
 #  updated_at                           :datetime         not null
 #  updater_id                           :integer
+#  variant_id                           :integer
 #
 class ParcelItem < Ekylibre::Record::Base
   attr_readonly :parcel_id
-  # attr_accessor :product_nature_variant_id
+  attr_accessor :product_nature_variant_id
   belongs_to :analysis
   belongs_to :parcel, inverse_of: :items
   belongs_to :product
@@ -64,26 +64,28 @@ class ParcelItem < Ekylibre::Record::Base
   belongs_to :source_product_division, class_name: 'ProductJunction', dependent: :destroy
   belongs_to :source_product_population_reading, class_name: 'ProductReading', dependent: :destroy
   belongs_to :source_product_shape_reading, class_name:      'ProductReading', dependent: :destroy
+  belongs_to :variant, class_name: 'ProductNatureVariant'
   has_one :category, through: :variant
   has_one :nature,  through: :variant
-  has_one :variant, through: :product
   has_one :delivery, through: :parcel
   has_one :storage, through: :parcel
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :net_mass, :population, allow_nil: true
+  validates_numericality_of :population, allow_nil: true
   validates_inclusion_of :parted, in: [true, false]
   validates_presence_of :parcel
   # ]VALIDATORS]
   validates_presence_of :source_product, if: :prepared?
   validates_presence_of :product, if: :prepared?
 
+  scope :with_nature, lambda { |nature| joins(:parcel).merge(Parcel.with_nature(nature)) }
+
   accepts_nested_attributes_for :product
   delegate :name, to: :product, prefix: true
   # delegate :net_mass, to: :product
   delegate :planned_at, :draft?, :ordered_at, :in_preparation?, :in_preparation_at, :prepared?, :prepared_at, :given?, :given_at, :outgoing?, :incoming?, :internal?, to: :parcel
 
-  sums :parcel, :items, :net_mass, from: :measure
+  # sums :parcel, :items, :net_mass, from: :measure
 
   before_validation do
     if source_product
@@ -95,6 +97,15 @@ class ParcelItem < Ekylibre::Record::Base
           self.shape ||= product.shape(at: prepared_at) if product.has_indicator?(:shape)
         end
       end
+    end
+    if self.product
+      self.variant = self.product.variant
+    elsif self.source_product
+      self.variant = self.source_product.variant
+    elsif self.sale_item
+      self.variant = self.sale_item.variant
+    elsif self.purchase_item
+      self.variant = self.purchase_item.variant
     end
     true
   end

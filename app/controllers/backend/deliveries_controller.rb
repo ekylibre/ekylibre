@@ -30,7 +30,7 @@ class Backend::DeliveriesController < Backend::BaseController
     t.column :state
     t.column :started_at
     t.column :transporter, label_method: :full_name, url: true
-    t.column :net_mass
+    # t.column :net_mass
   end
 
   list(:parcels, conditions: { delivery_id: 'params[:id]'.c }, order: :position) do |t|
@@ -44,7 +44,7 @@ class Backend::DeliveriesController < Backend::BaseController
     t.column :recipient, url: true
     t.column :sale, url: true, hidden: true
     t.column :purchase, url: true, hidden: true
-    t.column :net_mass
+    # t.column :net_mass
   end
 
   Delivery.state_machine.events.each do |event|

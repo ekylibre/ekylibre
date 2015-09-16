@@ -2024,6 +2024,7 @@ fra:
       finish: "Finir"
       general_ledger: "Grand livre" #?
       generate_last_journal_entry: "Générer la dernière écriture"
+      generate_parcel: "Générer bon de préparation"
       import: "Importer"
       incorporate: "Incorporer"
       increment: "Incrémenter"

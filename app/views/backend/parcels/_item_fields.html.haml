@@ -1,7 +1,9 @@
 - item ||= f.object
 %tr.nested-fields.delivery-item
   %td.act= link_to_remove_association(content_tag(:i) + h(:destroy.tl), f, 'data-no-turbolink' => true, class: 'destroy remove remove-item')
-  %td= f.referenced_association(:source_product, wrapper: :nested, source: {controller: 'backend/matters', scope: :deliverables}, input_html: {data: {product_of_delivery_item: {url: backend_product_path("RECORD_ID", format: :json)}}})
+  - scopes = {deliverables: true}
+  - scopes[:of_variant] = item.variant if item.variant && item.source_product.blank?
+  %td= f.referenced_association(:source_product, wrapper: :nested, source: {controller: 'backend/matters', scope: scopes}, input_html: {data: {product_of_delivery_item: {url: backend_product_path("RECORD_ID", format: :json)}}})
   %td= f.input :parted, wrapper: :nested, input_html: {class: "item-parted"}
   - quantifier_classes = []
   - quantifier_classes << 'hidden' unless f.object.parted

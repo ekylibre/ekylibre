@@ -32,7 +32,6 @@
 #  in_preparation_at :datetime
 #  lock_version      :integer          default(0), not null
 #  nature            :string           not null
-#  net_mass          :decimal(19, 4)
 #  number            :string           not null
 #  ordered_at        :datetime
 #  planned_at        :datetime
@@ -68,7 +67,6 @@ class Parcel < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :given_at, :in_preparation_at, :ordered_at, :planned_at, :prepared_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
-  validates_numericality_of :net_mass, allow_nil: true
   validates_inclusion_of :remain_owner, in: [true, false]
   validates_presence_of :nature, :number, :state
   # ]VALIDATORS]

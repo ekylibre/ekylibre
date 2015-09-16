@@ -79,14 +79,12 @@ class Backend::SalesController < Backend::BaseController
 
   list(:parcels, children: :items, conditions: { sale_id: 'params[:id]'.c }) do |t|
     t.column :number, children: :product_name, url: true
-    t.column :transporter, children: false, url: true
+    t.column :delivery_mode
+    t.column :delivery
     t.column :address, label_method: :coordinate, children: false
-    # t.column :sent_at, children: false, hidden: true
-    # t.column :planned_at, children: false
-    # t.column :moved_at, children: false
-    # t.column :population
-    # t.column :pretax_amount, currency: true
-    # t.column :amount, currency: true
+    t.status
+    t.column :state
+    t.column :transporter, children: false, url: true
     t.action :edit, if: :updateable?
     t.action :destroy, if: :destroyable?
   end
@@ -181,6 +179,12 @@ class Backend::SalesController < Backend::BaseController
     end
     copy = @sale.duplicate(responsible: current_user.person)
     redirect_to params[:redirect] || { action: :show, id: copy.id }
+  end
+
+  def generate_parcel
+    return unless @sale = find_and_check
+    parcel = @sale.generate_parcel
+    redirect_to params[:redirect] || { controller: :parcels, action: :show, id: parcel.id }
   end
 
   def cancel

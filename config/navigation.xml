@@ -238,6 +238,7 @@
         <page to="backend/sales#create"/>
         <page to="backend/sales#destroy"/>
         <page to="backend/sales#duplicate"/>
+        <page to="backend/sales#generate_parcel"/>
         <page to="backend/sales#edit"/>
         <page to="backend/sales#invoice"/>
         <page to="backend/sales#list"/>
@@ -522,6 +523,12 @@
         <page to="backend/deliveries#show"/>
         <page to="backend/deliveries#unroll"/>
         <page to="backend/deliveries#update"/>
+        <page to="backend/deliveries#cancel"/>
+        <page to="backend/deliveries#check"/>
+        <page to="backend/deliveries#finish"/>
+        <page to="backend/deliveries#order"/>
+        <page to="backend/deliveries#prepare"/>
+        <page to="backend/deliveries#start"/>
       </item>
       <item name="parcels">
         <page to="backend/parcels#index"/>
@@ -536,7 +543,12 @@
         <page to="backend/parcels#show"/>
         <page to="backend/parcels#unroll"/>
         <page to="backend/parcels#update"/>
-        <page to="backend/parcels#confirm" nonexistent="true"/>
+        <page to="backend/parcels#cancel"/>
+        <page to="backend/parcels#check"/>
+        <page to="backend/parcels#give"/>
+        <page to="backend/parcels#order"/>
+        <page to="backend/parcels#prepare"/>
+        <page to="backend/parcel_items#new"/>
       </item>
     </group>
   </part>
@@ -1767,24 +1779,6 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
-      <item name="deliveries">
-        <page to="backend/deliveries#cancel"/>
-        <page to="backend/deliveries#check"/>
-        <page to="backend/deliveries#finish"/>
-        <page to="backend/deliveries#order"/>
-        <page to="backend/deliveries#prepare"/>
-        <page to="backend/deliveries#start"/>
-      </item>
-      <item name="parcel_items">
-        <page to="backend/parcel_items#new"/>
-      </item>
-      <item name="parcels">
-        <page to="backend/parcels#cancel"/>
-        <page to="backend/parcels#check"/>
-        <page to="backend/parcels#give"/>
-        <page to="backend/parcels#order"/>
-        <page to="backend/parcels#prepare"/>
-      </item>
       <item name="sensors">
         <page to="backend/sensors#list_analyses"/>
         <page to="backend/sensors#retrieve"/>

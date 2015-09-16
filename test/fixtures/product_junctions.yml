@@ -1114,13 +1114,3 @@ product_junctions_106:
   stopped_at: 2013-10-30 13:52:00.000000000 Z
   updated_at: 2014-11-07 19:36:59.597083000 Z
   updater_id: 1
-product_junctions_107:
-  created_at: 2015-09-15 19:37:36.836777000 Z
-  creator_id: 1
-  id: 116
-  lock_version: 0
-  nature: division
-  started_at: 2015-09-15 19:37:36.643591000 Z
-  stopped_at: 2015-09-15 19:37:36.643591000 Z
-  updated_at: 2015-09-15 19:37:36.836777000 Z
-  updater_id: 1

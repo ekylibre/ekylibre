@@ -7,6 +7,7 @@
     - elsif resource.estimate? or resource.draft?  or resource.refused?
       - e.sales_estimate resource.number, resource
   - t.duplicate resource, method: :post, params: {redirect: nil}
+  - t.generate_parcel(resource, method: :post) if resource.items.any?
   - if resource.invoice?
     - t.cancel(resource) if resource.cancellable?
   - t.edit resource if resource.draft?

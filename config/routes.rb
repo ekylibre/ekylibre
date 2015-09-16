@@ -679,6 +679,7 @@ Rails.application.routes.draw do
         get :list_subscriptions
         get :list_parcels
         get :list_credits
+        post :generate_parcel
         post :abort
         post :confirm
         post :correct

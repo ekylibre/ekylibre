@@ -27,7 +27,6 @@
 #  creator_id                           :integer
 #  id                                   :integer          not null, primary key
 #  lock_version                         :integer          default(0), not null
-#  net_mass                             :decimal(19, 4)
 #  parcel_id                            :integer          not null
 #  parted                               :boolean          default(FALSE), not null
 #  population                           :decimal(19, 4)
@@ -46,6 +45,7 @@
 #  source_product_shape_reading_id      :integer
 #  updated_at                           :datetime         not null
 #  updater_id                           :integer
+#  variant_id                           :integer
 #
 #
 # == Fixture: parcel_items
@@ -85,13 +85,13 @@ parcel_items_003:
   created_at: 2014-11-05 14:16:19.775348000 Z
   creator_id: 1
   id: 3
-  lock_version: 1
+  lock_version: 0
   parcel_id: 4
   parted: false
-  population: 6.4745
-  product_id: 111
-  source_product_id: 111
-  updated_at: 2015-09-15 19:34:22.526624000 Z
+  population: 0.0
+  product_id: 11
+  source_product_id: 11
+  updated_at: 2014-11-05 14:16:19.775348000 Z
   updater_id: 1
 parcel_items_004:
   created_at: 2014-11-05 14:16:48.644715000 Z
@@ -157,13 +157,13 @@ parcel_items_009:
   created_at: 2014-11-01 16:01:24.225780000 Z
   creator_id: 1
   id: 9
-  lock_version: 1
+  lock_version: 0
   parcel_id: 2
-  parted: true
-  population: 10.0
+  parted: false
+  population: 0.0
   product_id: 56
   source_product_id: 56
-  updated_at: 2015-09-15 19:33:54.770301000 Z
+  updated_at: 2014-11-01 16:01:24.225780000 Z
   updater_id: 1
 parcel_items_010:
   created_at: 2014-11-01 19:29:58.321983000 Z
@@ -358,29 +358,14 @@ parcel_items_025:
   updated_at: 2014-11-07 19:34:09.592706000 Z
   updater_id: 1
 parcel_items_026:
-  created_at: 2015-09-15 19:36:37.147918000 Z
+  created_at: 2015-09-16 18:17:45.646273000 Z
   creator_id: 1
   id: 26
   lock_version: 0
-  parcel_id: 19
+  parcel_id: 20
   parted: false
-  population: 5000.0
-  product_id: 109
-  source_product_id: 109
-  updated_at: 2015-09-15 19:36:37.147918000 Z
+  population: 3.0
+  sale_item_id: 14
+  updated_at: 2015-09-16 18:17:45.646273000 Z
   updater_id: 1
-parcel_items_027:
-  created_at: 2015-09-15 19:37:13.814841000 Z
-  creator_id: 1
-  id: 27
-  lock_version: 1
-  parcel_id: 17
-  parted: true
-  population: 200.0
-  product_id: 144
-  product_population_reading_id: 308
-  source_product_division_id: 116
-  source_product_id: 140
-  source_product_population_reading_id: 307
-  updated_at: 2015-09-15 19:37:36.905767000 Z
-  updater_id: 1
+  variant_id: 8

@@ -25,7 +25,7 @@ class NormalizeDeliveries < ActiveRecord::Migration
     add_column :deliveries, :state, :string
     add_reference :deliveries, :driver, index: true
     add_column :deliveries, :mode, :string
-    # add_reference :deliveries, :storage, index: true
+    revert { add_column :deliveries, :net_mass, :decimal, precision: 19, scale: 4 }
 
     create_table :delivery_tools do |t|
       t.references :delivery, index: true
@@ -53,7 +53,6 @@ class NormalizeDeliveries < ActiveRecord::Migration
       t.datetime :in_preparation_at
       t.datetime :prepared_at
       t.datetime :given_at
-      t.decimal :net_mass, precision: 19, scale: 4
       t.integer :position
       t.stamps
       t.index :state
@@ -71,7 +70,7 @@ class NormalizeDeliveries < ActiveRecord::Migration
       t.references :source_product, index: true
       t.references :product,        index: true
       t.references :analysis,       index: true
-      t.decimal :net_mass, precision: 19, scale: 4
+      t.references :variant,        index: true
       t.boolean :parted, null: false, default: false
       t.decimal :population, precision: 19, scale: 4
       t.geometry :shape, srid: 4326
@@ -92,11 +91,16 @@ class NormalizeDeliveries < ActiveRecord::Migration
     reversible do |dir|
       dir.up do
         execute "UPDATE deliveries SET state = CASE WHEN started_at IS NOT NULL THEN 'finished' ELSE 'in_preparation' END, mode = 'transporter'"
-        execute "INSERT INTO parcels (number, nature, reference_number, given_at, recipient_id, address_id, delivery_id, sale_id, transporter_id, delivery_mode, state, net_mass, outgoing_parcel_id, created_at, creator_id, updated_at, updater_id, lock_version) SELECT number, 'outgoing', reference_number, sent_at, recipient_id, address_id, delivery_id, sale_id, transporter_id, CASE WHEN with_transport THEN 'transporter' WHEN mode = 'ex_work' THEN 'third' ELSE 'us' END, CASE WHEN sent_at IS NOT NULL THEN 'given' WHEN transporter_id IS NOT NULL THEN 'in_preparation' ELSE 'ordered' END, net_mass, id, created_at, creator_id, updated_at, updater_id, lock_version FROM outgoing_parcels"
-        execute "INSERT INTO parcels (number, nature, reference_number, given_at, sender_id, address_id, purchase_id, delivery_mode, state, net_mass, incoming_parcel_id, created_at, creator_id, updated_at, updater_id, lock_version) SELECT number, 'incoming', reference_number, received_at, sender_id, address_id, purchase_id, CASE WHEN mode = 'ex_work' THEN 'us' ELSE 'third' END, CASE WHEN received_at IS NOT NULL THEN 'given' ELSE 'in_preparation' END, net_mass, id, created_at, creator_id, updated_at, updater_id, lock_version FROM incoming_parcels"
+        execute "INSERT INTO parcels (number, nature, reference_number, given_at, recipient_id, address_id, delivery_id, sale_id, transporter_id, delivery_mode, state, outgoing_parcel_id, created_at, creator_id, updated_at, updater_id, lock_version) SELECT number, 'outgoing', reference_number, sent_at, recipient_id, address_id, delivery_id, sale_id, transporter_id, CASE WHEN with_transport THEN 'transporter' WHEN mode = 'ex_work' THEN 'third' ELSE 'us' END, CASE WHEN sent_at IS NOT NULL THEN 'given' WHEN transporter_id IS NOT NULL THEN 'in_preparation' ELSE 'ordered' END, id, created_at, creator_id, updated_at, updater_id, lock_version FROM outgoing_parcels"
+        execute "INSERT INTO parcels (number, nature, reference_number, given_at, sender_id, address_id, purchase_id, delivery_mode, state, incoming_parcel_id, created_at, creator_id, updated_at, updater_id, lock_version) SELECT number, 'incoming', reference_number, received_at, sender_id, address_id, purchase_id, CASE WHEN mode = 'ex_work' THEN 'us' ELSE 'third' END, CASE WHEN received_at IS NOT NULL THEN 'given' ELSE 'in_preparation' END, id, created_at, creator_id, updated_at, updater_id, lock_version FROM incoming_parcels"
 
-        execute 'INSERT INTO parcel_items (parcel_id, sale_item_id, source_product_id, net_mass, parted, product_id, population, shape, outgoing_parcel_item_id, created_at, creator_id, updated_at, updater_id, lock_version) SELECT i.parcel_id, i.sale_item_id, i.product_id, i.net_mass, i.parted, CASE WHEN i.parted THEN i.parted_product_id ELSE i.product_id END, i.population, i.shape, i.id, i.created_at, i.creator_id, i.updated_at, i.updater_id, i.lock_version FROM outgoing_parcel_items AS i JOIN parcels AS p ON (parcel_id = outgoing_parcel_id)'
-        execute 'INSERT INTO parcel_items (parcel_id, purchase_item_id, source_product_id, product_id, net_mass, population, shape, incoming_parcel_item_id, created_at, creator_id, updated_at, updater_id, lock_version) SELECT i.parcel_id, i.purchase_item_id, i.product_id, i.product_id, i.net_mass, i.population, i.shape, i.id, i.created_at, i.creator_id, i.updated_at, i.updater_id, i.lock_version FROM incoming_parcel_items AS i JOIN parcels AS p ON (parcel_id = incoming_parcel_id)'
+        execute 'INSERT INTO parcel_items (parcel_id, sale_item_id, source_product_id, parted, product_id, population, shape, outgoing_parcel_item_id, created_at, creator_id, updated_at, updater_id, lock_version) SELECT i.parcel_id, i.sale_item_id, i.product_id, i.parted, CASE WHEN i.parted THEN i.parted_product_id ELSE i.product_id END, i.population, i.shape, i.id, i.created_at, i.creator_id, i.updated_at, i.updater_id, i.lock_version FROM outgoing_parcel_items AS i JOIN parcels AS p ON (parcel_id = outgoing_parcel_id)'
+        execute 'INSERT INTO parcel_items (parcel_id, purchase_item_id, source_product_id, product_id, population, shape, incoming_parcel_item_id, created_at, creator_id, updated_at, updater_id, lock_version) SELECT i.parcel_id, i.purchase_item_id, i.product_id, i.product_id, i.population, i.shape, i.id, i.created_at, i.creator_id, i.updated_at, i.updater_id, i.lock_version FROM incoming_parcel_items AS i JOIN parcels AS p ON (parcel_id = incoming_parcel_id)'
+
+        execute "UPDATE parcel_items SET variant_id = p.variant_id FROM products AS p WHERE p.id = parcel_items.product_id AND parcel_items.product_id IS NOT NULL"
+        execute "UPDATE parcel_items SET variant_id = p.variant_id FROM products AS p WHERE p.id = parcel_items.source_product_id AND parcel_items.source_product_id IS NOT NULL"
+        execute "UPDATE parcel_items SET variant_id = i.variant_id FROM sale_items AS i WHERE i.id = parcel_items.sale_item_id AND parcel_items.sale_item_id IS NOT NULL"
+        execute "UPDATE parcel_items SET variant_id = i.variant_id FROM purchase_items AS i WHERE i.id = parcel_items.purchase_item_id AND parcel_items.purchase_item_id IS NOT NULL"
 
         # Set storage on parcel and no more on each item
         execute "UPDATE parcels SET storage_id = container_id FROM outgoing_parcel_items AS i WHERE nature = 'outgoing' AND parcel_id = outgoing_parcel_id"
@@ -110,13 +114,10 @@ class NormalizeDeliveries < ActiveRecord::Migration
 
         execute "UPDATE parcels SET state = 'draft' WHERE id NOT IN (SELECT parcel_id FROM parcel_items)"
 
-        # execute "UPDATE outgoing_deliveries SET state = 'ready'"
-        # execute "UPDATE outgoing_deliveries SET delivery_mode = CASE WHEN with_transport THEN 'transporter' WHEN delivery_mode = 'ex_work' THEN 'third' ELSE 'us' END"
 
-        # execute "UPDATE incoming_deliveries SET delivery_mode = CASE WHEN delivery_mode = 'ex_work' THEN 'us' ELSE 'third' END"
 
-        # TODO: Create missing deliveries for each deliveries
-        # execute "INSERT INTO deliveries (created_at, creator_id, updated_at, updater_id) FROM incoming_deliveries WHERE sent_at IS NOT NULL"
+        execute "INSERT INTO deliveries (mode, state, number, created_at, updated_at) SELECT 'third', 'finished', 'AUTO' || LPAD(id::VARCHAR, 8, '0'), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP FROM parcels WHERE state = 'given' AND delivery_id IS NULL"
+        execute "UPDATE parcels SET delivery_id = deliveries.id FROM deliveries WHERE deliveries.number = 'AUTO' || LPAD(parcels.id::VARCHAR, 8, '0')"
 
         POLYMORPHIC_REFERENCES.each do |table, reflection|
           execute "UPDATE #{table} SET #{reflection}_type = 'Parcel', #{reflection}_id = parcels.id FROM parcels WHERE (#{reflection}_type = 'IncomingParcel' AND incoming_parcel_id = #{reflection}_id) OR (#{reflection}_type = 'OutgoingParcel' AND outgoing_parcel_id = #{reflection}_id)"

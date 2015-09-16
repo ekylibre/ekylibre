@@ -1458,6 +1458,7 @@ jpn:
       # family: "Family"
       # finish: "Finish"
       # generate_last_journal_entry: "Generate last journal entry"
+      # generate_parcel: "Generate parcel"
       # import: "Import"
       # incorporate: "Incorporate"
       # increment: "Increment"

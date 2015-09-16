@@ -32,7 +32,6 @@
 #  in_preparation_at :datetime
 #  lock_version      :integer          default(0), not null
 #  nature            :string           not null
-#  net_mass          :decimal(19, 4)
 #  number            :string           not null
 #  ordered_at        :datetime
 #  planned_at        :datetime
@@ -67,7 +66,7 @@ class ParcelTest < ActiveSupport::TestCase
   test 'prevent empty items' do
     item = parcel_items(:parcel_items_001).attributes.slice('product_id', 'population', 'shape')
     parcel = Parcel.new items_attributes: { '123456789' => { 'product_id' => '', '_destroy' => 'false' }, '852' => item }
-    parcel.items.map(&:net_mass)
+    # parcel.items.map(&:net_mass)
   end
 
   test 'incoming items' do
