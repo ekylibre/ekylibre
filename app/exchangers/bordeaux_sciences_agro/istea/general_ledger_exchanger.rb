@@ -1,14 +1,13 @@
 class BordeauxSciencesAgro::ISTEA::GeneralLedgerExchanger < ActiveExchanger::Base
-  EMPTY = ''
-
   def import
+    empty = ''.freeze
     rows = CSV.read(file, encoding: 'CP1252', col_sep: ';')
     rows.collect! do |row|
       row << FinancialYear.at(Date.parse(row[3])).code
     end
     w.count = rows.size
     w_count = (rows.size > 100 ? rows.size / 100 : 100)
-    rows.sort! { |a, b| a[13] + a[3] << (a[4] || EMPTY) <=> b[13] + b[3] << (b[4] || EMPTY) }
+    rows.sort! { |a, b| a[13] + a[3] << (a[4] || empty) <=> b[13] + b[3] << (b[4] || empty) }
 
     count = 0
     entry = nil

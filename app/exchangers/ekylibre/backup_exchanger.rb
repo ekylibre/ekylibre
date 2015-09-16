@@ -1,17 +1,25 @@
 class Ekylibre::BackupExchanger < ActiveExchanger::Base
   class Backup < Hash
-    MODELS = [:account, :account_balance, :area, :asset, :asset_depreciation, :bank_statement, :cash, :cash_transfer, :contact, :cultivation, :custom_field, :custom_field_choice, :custom_field_datum, :delay, :department, :deposit, :deposit_line, :district, :document, :document_template, :entity, :entity_category, :entity_link, :entity_link_nature, :entity_nature, :establishment, :event, :event_nature, :financial_year, :incoming_delivery, :incoming_delivery_line, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :incoming_payment_use, :inventory, :inventory_line, :journal, :journal_entry, :journal_entry_line, :land_parcel, :land_parcel_group, :land_parcel_kinship, :listing, :listing_node, :listing_node_item, :mandate, :observation, :operation, :operation_line, :operation_nature, :operation_use, :outgoing_delivery, :outgoing_delivery_line, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :outgoing_payment_use, :preference, :price, :product, :product_category, :product_component, :production_chain, :production_chain_conveyor, :production_chain_work_center, :production_chain_work_center_use, :profession, :purchase, :purchase_line, :purchase_nature, :role, :sale, :sale_line, :sale_nature, :sequence, :stock, :stock_move, :stock_transfer, :subscription, :subscription_nature, :tax, :tax_declaration, :tool, :tracking, :tracking_state, :transfer, :transport, :unit, :user, :warehouse]
 
-    SCHEMA = YAML.load_file(Pathname.new(__FILE__).dirname.join('backup', 'schema-0.4.yml')).deep_symbolize_keys.freeze
+    class << self
+
+      def models
+        [:account, :account_balance, :area, :asset, :asset_depreciation, :bank_statement, :cash, :cash_transfer, :contact, :cultivation, :custom_field, :custom_field_choice, :custom_field_datum, :delay, :department, :deposit, :deposit_line, :district, :document, :document_template, :entity, :entity_category, :entity_link, :entity_link_nature, :entity_nature, :establishment, :event, :event_nature, :financial_year, :incoming_delivery, :incoming_delivery_line, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :incoming_payment_use, :inventory, :inventory_line, :journal, :journal_entry, :journal_entry_line, :land_parcel, :land_parcel_group, :land_parcel_kinship, :listing, :listing_node, :listing_node_item, :mandate, :observation, :operation, :operation_line, :operation_nature, :operation_use, :outgoing_delivery, :outgoing_delivery_line, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :outgoing_payment_use, :preference, :price, :product, :product_category, :product_component, :production_chain, :production_chain_conveyor, :production_chain_work_center, :production_chain_work_center_use, :profession, :purchase, :purchase_line, :purchase_nature, :role, :sale, :sale_line, :sale_nature, :sequence, :stock, :stock_move, :stock_transfer, :subscription, :subscription_nature, :tax, :tax_declaration, :tool, :tracking, :tracking_state, :transfer, :transport, :unit, :user, :warehouse]
+      end
+
+      def schema
+        YAML.load_file(Pathname.new(__FILE__).dirname.join('backup', 'schema-0.4.yml')).deep_symbolize_keys.freeze
+      end
+    end
 
     attr_reader :matchings
 
     def self.load(company)
-      # x = SCHEMA.select do |table, columns|
+      # x = schema.select do |table, columns|
       #   y = columns.keys.delete_if{|c| [:creator_id, :updater_id, :company_id].include?(c)}.detect{|c| c.to_s =~ /\_id$/}
       #   y
       # end.keys
-      # # Root models: (MODELS.map{|m| m.to_s.pluralize.to_sym} - x)
+      # # Root models: (models.map{|m| m.to_s.pluralize.to_sym} - x)
       backup = new
       company.children.each do |rows|
         model = rows.attr(:model).to_sym
@@ -21,7 +29,7 @@ class Ekylibre::BackupExchanger < ActiveExchanger::Base
           backup[model] << row.attributes.inject({}) do |hash, pair|
             attribute = pair.first.to_sym
             value = pair.second.to_s
-            if SCHEMA[table] and SCHEMA[table][attribute] and type = SCHEMA[table][attribute][:type].to_sym
+            if schema[table] and schema[table][attribute] and type = schema[table][attribute][:type].to_sym
               if type == :boolean
                 value = (value == 'true' ? true : false)
               elsif type == :integer
@@ -120,7 +128,7 @@ class Ekylibre::BackupExchanger < ActiveExchanger::Base
       options = args.extract_options!
       keys = args
       keys << :name if keys.empty?
-      columns = SCHEMA[backup_model.to_s.pluralize.to_sym].delete_if do |c|
+      columns = self.class.schema[backup_model.to_s.pluralize.to_sym].delete_if do |c|
         [:company_id, :creator_id, :updater_id, :id, :lock_version].include? c
       end
       keys.each do |key|

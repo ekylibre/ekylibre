@@ -1,11 +1,4 @@
 class Ekylibre::EntitiesExchanger < ActiveExchanger::Base
-  NATURES = {
-    management: :hierarchy,
-    cooperation: :membership,
-    work: :membership,
-    association: :membership
-  }
-
   # Create or updates entities
   def import
     rows = CSV.read(file, headers: true)
@@ -104,9 +97,15 @@ class Ekylibre::EntitiesExchanger < ActiveExchanger::Base
       person.emails.create!(coordinate: r.email) unless r.email.blank?
 
       # Update account name
+      natures = {
+        management: :hierarchy,
+        cooperation: :membership,
+        work: :membership,
+        association: :membership
+      }
       if r.link_nature && r.link_entity_full_name
         entity_linked = Entity.where('full_name ILIKE ?', r.link_entity_full_name)
-        nature = NATURES[r.link_nature] || r.link_nature
+        nature = natures[r.link_nature] || r.link_nature
         person.link_to!(entity_linked.first, as: nature) if entity_linked.first && nature
       end
 

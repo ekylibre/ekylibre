@@ -129,7 +129,7 @@ class SaleItem < Ekylibre::Record::Base
   end
 
   def undelivered_quantity
-    quantity - delivery_items.sum(:quantity)
+    quantity - parcel_items.sum(:quantity)
   end
 
   def designation
