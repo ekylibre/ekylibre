@@ -289,7 +289,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       end
       # case population
     end
-    if working_area && working_area.to_d(:square_meter) > 0.0
+    if working_area && working_area.to_d(:square_meter) > 0.0 && unit_target_dose
       w.info " Working area : #{working_area.inspect.green}"
       w.info " Variant indicator : #{variant_indicator.inspect.green}"
       w.info " Population value : #{population_value.inspect.red}"
@@ -854,6 +854,24 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       i.add_cast(reference_name: 'cultivation',    actor: plant)
       i.add_cast(reference_name: 'grains',         population: first_product_input_population, variant: r.first.variant)
       i.add_cast(reference_name: 'straws',         population: second_product_input_population, variant: r.second.variant)
+    end
+    intervention
+  end
+  
+  def record_plants_harvest(r, support, duration)
+    plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
+
+    return nil unless plant && r.first.variant
+
+    working_measure = plant.shape_area
+
+    first_product_input_population = actor_population_conversion(r.first, working_measure)
+
+    intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
+      i.add_cast(reference_name: 'cropper',        actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'harvest(poaceae)') : i.find(Equipment, can: 'harvest(poaceae)')))
+      i.add_cast(reference_name: 'cropper_driver', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+      i.add_cast(reference_name: 'cultivation',    actor: plant)
+      i.add_cast(reference_name: 'plants',         population: first_product_input_population, variant: r.first.variant)
     end
     intervention
   end
