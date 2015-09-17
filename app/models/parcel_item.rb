@@ -75,31 +75,32 @@ class ParcelItem < Ekylibre::Record::Base
   validates_inclusion_of :parted, in: [true, false]
   validates_presence_of :parcel
   # ]VALIDATORS]
-  validates_presence_of :source_product, if: :prepared?
-  validates_presence_of :product, if: :prepared?
+  validates_presence_of :source_product, if: :parcel_prepared?
+  validates_presence_of :product, if: :parcel_prepared?
 
   scope :with_nature, ->(nature) { joins(:parcel).merge(Parcel.with_nature(nature)) }
 
   accepts_nested_attributes_for :product
   delegate :name, to: :product, prefix: true
   # delegate :net_mass, to: :product
-  delegate :planned_at, :draft?, :ordered_at, :in_preparation?, :in_preparation_at, :prepared?, :prepared_at, :given?, :given_at, :outgoing?, :incoming?, :internal?, to: :parcel
+  delegate :remain_owner, :planned_at, :draft?, :ordered_at, :in_preparation?, :in_preparation_at, :prepared?, :prepared_at, :given?, :given_at, :outgoing?, :incoming?, :internal?, to: :parcel, prefix: true
 
   # sums :parcel, :items, :net_mass, from: :measure
 
   before_validation do
-    if source_product
+    read_at = parcel ? parcel_prepared_at : Time.zone.now
+    if product
+      self.population ||= product.population(at: read_at)
+      self.shape ||= product.shape(at: read_at) if product.has_indicator?(:shape)
+    elsif source_product
       if source_product.population_counting_unitary?
         self.parted = false
         self.population = 1
+      else
+        self.population ||= source_product.population(at: read_at)
       end
-      unless self.parted?
-        self.product = source_product
-        read_at = prepared_at || Time.zone.now
-        if parcel
-          self.population ||= product.population(at: read_at)
-          self.shape ||= product.shape(at: read_at) if product.has_indicator?(:shape)
-        end
+      if source_product.has_indicator?(:shape)
+        self.shape ||= source_product.shape(at: read_at)
       end
     end
     if product
@@ -125,7 +126,7 @@ class ParcelItem < Ekylibre::Record::Base
   # Set started_at/stopped_at in tasks concerned by preparation of item
   # It takes product in stock
   def check
-    checked_at = prepared_at
+    checked_at = parcel_prepared_at
     if source_product
       if self.population != source_product.population(at: checked_at)
         update_attribute(:parted, true)
@@ -143,23 +144,23 @@ class ParcelItem < Ekylibre::Record::Base
   # Mark items as given, and so change enjoyer and ownership if needed at
   # this moment.
   def give
-    if outgoing?
-      self.create_product_enjoyment!(product: product, nature: :other, started_at: given_at, enjoyer: parcel.recipient)
-      unless parcel.remain_owner
-        self.create_product_ownership!(product: product, nature: :other, started_at: given_at, owner: parcel.recipient)
+    if parcel_outgoing?
+      self.create_product_enjoyment!(product: product, nature: :other, started_at: parcel_given_at, enjoyer: parcel.recipient)
+      unless parcel_remain_owner
+        self.create_product_ownership!(product: product, nature: :other, started_at: parcel_given_at, owner: parcel.recipient)
       end
       if storage
-        self.create_product_localization!(product: product, nature: :exterior, container: storage, started_at: given_at)
+        self.create_product_localization!(product: product, nature: :exterior, container: storage, started_at: parcel_given_at)
       else
-        self.create_product_localization!(product: product, nature: :exterior, started_at: given_at)
+        self.create_product_localization!(product: product, nature: :exterior, started_at: parcel_given_at)
       end
     else
       if storage
-        self.create_product_localization!(product: product, nature: :interior, container: storage, started_at: given_at)
+        self.create_product_localization!(product: product, nature: :interior, container: storage, started_at: parcel_given_at)
       end
-      self.create_product_enjoyment!(product: product, nature: :own, started_at: given_at)
-      unless parcel.remain_owner
-        self.create_product_ownership!(product: product, nature: :own, started_at: given_at)
+      self.create_product_enjoyment!(product: product, nature: :own, started_at: parcel_given_at)
+      unless parcel_remain_owner
+        self.create_product_ownership!(product: product, nature: :own, started_at: parcel_given_at)
       end
     end
   end

@@ -102,7 +102,7 @@ entities_001:
   id: 1
   language: fra
   last_name: C. Ferstivall LTD
-  lock_version: 12
+  lock_version: 13
   locked: false
   meeting_origin: ''
   nature: organization
@@ -111,13 +111,13 @@ entities_001:
   picture_content_type: image/png
   picture_file_name: logo.png
   picture_file_size: 9354
-  picture_updated_at: 2014-11-03 16:19:14.889629000 Z
+  picture_updated_at: 2015-09-17 16:25:23.013765000 Z
   prospect: false
   reminder_submissive: false
   siren: ''
   supplier: false
   transporter: false
-  updated_at: 2015-06-13 09:45:03.481910000 Z
+  updated_at: 2015-09-17 16:25:23.059217000 Z
   updater_id: 1
   vat_number: FR00123456789
   vat_subjected: true

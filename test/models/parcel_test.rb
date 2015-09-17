@@ -120,12 +120,16 @@ class ParcelTest < ActiveSupport::TestCase
 
     source_product = products(:matters_007)
     old_ownership_nature = source_product.current_ownership.nature.to_sym
-    parcel.items.create!(source_product: source_product, parted: true, population: 15)
+    taken_quantity = 153.23
+
+    item = parcel.items.create!(source_product: source_product, population: taken_quantity)
     parcel.order!
     parcel.prepare!
     parcel.check!
-    item = parcel.items.first
-    assert_equal 15, item.product.population
+    item.reload
+    assert item.product
+    assert_not_equal item.product, item.source_product
+    assert_equal taken_quantity, item.product.population
     assert_raise StateMachine::InvalidTransition do
       parcel.give!
     end
