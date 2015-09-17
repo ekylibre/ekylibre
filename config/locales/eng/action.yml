@@ -789,7 +789,7 @@ eng:
     accounts_only_used_at: "Accounts only used at"
     accounts_to_load: "Accounts to load"
     active: "Active" #?
-    activities: "Activities"
+    activities: "Activities" #?
     activity: "Activity"
     add: "Add"
     add_annotation: "Add annotation"

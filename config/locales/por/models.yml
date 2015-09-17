@@ -728,6 +728,7 @@ por:
     # origin: "Origin"
     # originator: "Originator"
     # originator_type: "Originator type"
+    # outgoing_parcel_item: "Outgoing parcel item"
     # outgoing_parcel_items: "Outgoing parcel items"
     # outgoing_parcels: "Outgoing parcels"
     # outgoing_payment_modes: "Disbursement modes"
@@ -793,7 +794,6 @@ por:
     # producer: "Producer"
     # product: "Product"
     # product_account: "Product account"
-    # product_division: "Product division"
     # product_enjoyments: "Product enjoyments"
     # product_junctions: "Product junctions"
     # product_linkages: "Product linkages"
@@ -1053,6 +1053,15 @@ por:
         # name: "Sales prices catalog"
     catalog_item:
       # name: "%{variant} %{amount}/%{unit}"
+    delivery:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # finished: "Finished"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
+          # started: "Started"
     deposit:
       bookkeep:
         # one: "[%{resource} %{number}] %{count} payment %{mode} %{description}"
@@ -1140,11 +1149,6 @@ por:
       # bookkeep: "[%{resource} %{name}] Fund reception"
     loan_repayment:
       # bookkeep: "[%{resource} %{name}] Repayment #%{position}"
-    outgoing_parcel:
-      # label: "%{client} at %{address}"
-      # sale: "Sale %{number}"
-    outgoing_parcel_item:
-      # sale: "Sale %{number}"
     outgoing_payment:
       # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
       # label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
@@ -1156,6 +1160,14 @@ por:
           # name: "Check"
         transfer:
           # name: "Transfer"
+    parcel:
+      state_machine:
+        states:
+          # draft: "Draft"
+          # given: "Given"
+          # in_preparation: "In preparation"
+          # ordered: "Ordered"
+          # prepared: "Prepared"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"

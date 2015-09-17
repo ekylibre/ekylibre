@@ -86,7 +86,7 @@ class Delivery < Ekylibre::Record::Base
     event :cancel do
       transition ordered: :draft
       transition in_preparation: :ordered
-      transition prepared: :in_preparation
+      # transition prepared: :in_preparation
       transition started: :prepared
       # transition finished: :started
     end
@@ -114,8 +114,4 @@ class Delivery < Ekylibre::Record::Base
     parcels.each(&:give!)
     super
   end
-
-  # def refresh
-  #   save
-  # end
 end

@@ -109,7 +109,7 @@ class Parcel < Ekylibre::Record::Base
     event :cancel do
       transition ordered: :draft
       transition in_preparation: :ordered
-      transition prepared: :in_preparation
+      # transition prepared: :in_preparation
       # transition given: :prepared
     end
   end

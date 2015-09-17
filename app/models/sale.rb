@@ -266,6 +266,11 @@ class Sale < Ekylibre::Record::Base
     (self.order? || self.invoice?)
   end
 
+  # Check if sale can generate parcel from all the items of the sale
+  def can_generate_parcel?
+    items.any? && delivery_address
+  end
+
   # Generate parcel for preparation
   def generate_parcel
     items_attributes = items.map do |item|

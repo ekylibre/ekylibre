@@ -1214,7 +1214,7 @@ fra:
     net_volume: "Volume net" #?
     new: "Nouveau"
     new_animal: "Nouvel animal"
-    # new_attachment: "New attachment"
+    new_attachment: "Nouvel attachement"
     new_box: "Nouvelle boîte"
     new_call: "Nouvel appel"
     new_contact: "Nouveau contact"
@@ -1538,7 +1538,7 @@ fra:
     sensor_model: "Modèle du capteur"
     sensors: "Capteurs"
     sequences_load: "Charger les séquences manquantes" #?
-    # sessions: "Sessions"
+    sessions: "Sessions"
     set_reconcilable_new_but_existing_third_accounts: "Rendre lettrables les nouveaux comptes tiers déjà existants"
     settings: "Configuration"
     settings_statistics: "Statistiques des paramètres"

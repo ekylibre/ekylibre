@@ -760,7 +760,7 @@ fra:
     imported_at: "Importé le"
     importer: "Importateur"
     in_cash: "En espèce" #?
-    # in_preparation_at: "In preparation at"
+    in_preparation_at: "En préparation le"
     included: "Incluse"
     incoming_parcel_item: "Élement de colis à réceptionner"
     incoming_parcel_items: "Élements de colis à réceptionner" #?
@@ -945,7 +945,7 @@ fra:
     origin: "Origine"
     originator: "Initiateur"
     originator_type: "Type de l’initiateur"
-    outgoing_deliveries: "Livraisons sortantes" #?
+    outgoing_parcel_item: "Colis à expédier"
     outgoing_parcel_items: "Éléments de colis à expédier"
     outgoing_parcels: "Colis à expédier"
     outgoing_payment_modes: "Modes de décaissement"
@@ -1026,7 +1026,6 @@ fra:
     product_consumptions: "Consommations de produit" #?
     product_creations: "Créations de produit" #?
     product_deaths: "Morts de produit" #?
-    # product_division: "Product division"
     product_divisions: "Divisions de produit" #?
     product_enjoyments: "Jouissances de produit"
     # product_junctions: "Product junctions"
@@ -1147,7 +1146,7 @@ fra:
     sale_item: "Ligne de vente"
     sale_items: "Lignes de vente"
     sale_nature: "Type de vente"
-    # sale_opportunities: "Sale opportunities"
+    sale_opportunities: "Opportunités de vente"
     sale_opportunity: "Opportunité"
     sale_taxations: "Taxations de vente"
     sale_taxes: "Taxes de vente"
@@ -1316,6 +1315,15 @@ fra:
         name: "Catalogue de vente"
     catalog_item:
       name: "%{variant} %{amount}/%{unit}"
+    delivery:
+      state_machine:
+        states:
+          draft: "Brouillon"
+          finished: "Terminée"
+          in_preparation: "En préparation"
+          ordered: "Commandée"
+          prepared: "Prête"
+          started: "Commencée"
     deposit:
       bookkeep:
         one: "[%{resource} %{number}] %{count} encaissement %{mode} %{description}"
@@ -1408,11 +1416,11 @@ fra:
       bookkeep: "[%{resource} %{name}] Réception des fonds"
     loan_repayment:
       bookkeep: "[%{resource} %{name}] Remboursement n°%{position}"
-    outgoing_parcel:
-      label: "%{client} à %{address}"
-      sale: "Vente %{number}"
-    outgoing_parcel_item:
-      sale: "Vente %{number}"
+    outgoing_parcel:  #?
+      label: "%{client} à %{address}" #?
+      sale: "Vente %{number}" #?
+    outgoing_parcel_item:  #?
+      sale: "Vente %{number}" #?
     outgoing_payment:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} pour %{payee}"
       label: "%{number}. %{amount} du %{date} en %{mode} pour %{payee}"
@@ -1424,6 +1432,14 @@ fra:
           name: "Chèque"
         transfer:
           name: "Virement"
+    parcel:
+      state_machine:
+        states:
+          draft: "Brouillon"
+          given: "Donné"
+          in_preparation: "En préparation"
+          ordered: "Commandé"
+          prepared: "Prêt"
     product:
       informations:
         with_components: "%{product} (%{unit}) (produit transformé)"
@@ -1507,9 +1523,6 @@ fra:
         invoice: "Facture"
         order: "Commande"
         refused: "Devis refusé"
-    sale_credit:  #?
-      label: #?
-        invoice: "Avoir N°%{number}" #?
     sale_item:
       building_can_not_transfer_product: "Le produit %{product} ne peut être sorti du réservoir %{building}, celui-ci contient %{contained_product} "
       can_not_use_this_tracking: "Vous ne  pouvez pas utiliser le lot %{name}, la quantité commandée est supérieure à la quantité disponible "

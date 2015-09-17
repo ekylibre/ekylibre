@@ -104,6 +104,7 @@ class Product < Ekylibre::Record::Base
   # has_many :parcel_items, dependent: :restrict_with_exception
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :product_id, dependent: :destroy
   has_many :phases, class_name: 'ProductPhase', dependent: :destroy
+  has_many :sensors
   has_many :supports, class_name: 'ProductionSupport', foreign_key: :storage_id, inverse_of: :storage
   has_many :variants, class_name: 'ProductNatureVariant', through: :phases
   has_one :start_way,  -> { where(nature: 'start') },  class_name: 'ProductJunctionWay', inverse_of: :product, foreign_key: :product_id
@@ -117,9 +118,9 @@ class Product < Ekylibre::Record::Base
   has_many :current_memberships, -> { current }, class_name: 'ProductMembership', foreign_key: :member_id
   has_one :container, through: :current_localization
   has_many :groups, through: :current_memberships
+  # FIXME: These reflections are meaningless. Will be removed soon or later.
   has_one :incoming_parcel_item, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
   has_one :outgoing_parcel_item, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
-  has_many :sensors
 
   has_picture
 

@@ -4,10 +4,10 @@
       - e.sales_invoice resource.number, resource
     - elsif resource.order?
       - e.sales_order resource.number, resource
-    - elsif resource.estimate? or resource.draft?  or resource.refused?
+    - elsif resource.estimate? || resource.draft? || resource.refused?
       - e.sales_estimate resource.number, resource
   - t.duplicate resource, method: :post, params: {redirect: nil}
-  - t.generate_parcel(resource, method: :post) if resource.items.any?
+  - t.generate_parcel(resource, method: :post) if resource.can_generate_parcel?
   - if resource.invoice?
     - t.cancel(resource) if resource.cancellable?
   - t.edit resource if resource.draft?
