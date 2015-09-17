@@ -98,14 +98,11 @@ class Backend::ParcelsController < Backend::BaseController
   protected
 
   def find_parcels
-    parcels = params[:id].split(',').map do |id|
-      parcel = find_and_check(id: id)
-      break unless parcel
-      parcel
-    end
-    if parcels.nil? || parcels.any?
+    parcel_ids = params[:id].split(',')
+    parcels = parcel_ids.map { |id| Parcel.find_by(id: id) }.compact
+    unless parcels.any?
       notify_error :no_parcels_given
-      # redirect_to(params[:redirect] || { action: :index })
+      redirect_to(params[:redirect] || { action: :index })
       return nil
     end
     parcels
