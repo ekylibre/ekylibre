@@ -207,6 +207,7 @@ class Product < Ekylibre::Record::Base
   scope :supporters, -> { where(id: ProductionSupport.pluck(:storage_id)) }
   scope :availables, -> { where(dead_at: nil).not_indicate(population: 0) }
   scope :tools, -> { of_variety(:equipment) }
+  scope :storage, -> { joins(:nature).merge(ProductNature.storage) }
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :born_at, :dead_at, :initial_born_at, :initial_dead_at, :picture_updated_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
@@ -353,15 +354,7 @@ class Product < Ekylibre::Record::Base
     if born_at
       %w(population shape).each do |indicator_name|
         initial_value = send("initial_#{indicator_name}")
-        if initial_value
-          reading = readings.find_or_initialize_by(
-            indicator_name: indicator_name,
-            read_at: born_at,
-            originator: self
-          )
-          reading.value = initial_value
-          reading.save!
-        end
+        read!(indicator_name, initial_value, at: born_at) if initial_value
       end
     end
 

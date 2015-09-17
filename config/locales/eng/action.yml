@@ -1585,7 +1585,7 @@ eng:
       one: "%{count} task"
       other: "%{count} tasks"
     x_thing: "%{x} %{thing}"
-    x_unit: "%{quantity}%{unit}" #??
+    x_unit: "%{quantity}%{unit}"
     x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}" #?!
     x_unit_per_second: "Flow: %{quantity}%{unit}/s" #?!
     x_units_of_product_y: "%{quantity}%{unit} of %{product}" #?!

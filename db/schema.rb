@@ -1755,7 +1755,7 @@ ActiveRecord::Schema.define(version: 20150909161528) do
     t.boolean  "remain_owner",      default: false, null: false
     t.string   "delivery_mode"
     t.string   "state",                             null: false
-    t.datetime "planned_at"
+    t.datetime "planned_at",                        null: false
     t.datetime "ordered_at"
     t.datetime "in_preparation_at"
     t.datetime "prepared_at"

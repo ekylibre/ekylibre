@@ -5,7 +5,7 @@
   #nature-outgoing
     = f.referenced_association :recipient
   = f.referenced_association :address, source: :mails
-  = f.referenced_association :storage
+  = f.referenced_association :storage, source: {scope: :storage}
   = f.input :delivery_mode, as: :radio_buttons
   #delivery-mode-transporter
     = f.referenced_association :transporter
@@ -21,7 +21,7 @@
       %tr
         %th.act
         %th= ParcelItem.human_attribute_name(:product)
-        %th= ParcelItem.human_attribute_name(:parted)
+        -# %th= ParcelItem.human_attribute_name(:parted)
         %th= ParcelItem.human_attribute_name(:population)
         -# %th= ParcelItem.human_attribute_name(:shape)
         %th= ParcelItem.human_attribute_name(:analysis)
@@ -31,4 +31,4 @@
         = render 'item_fields', f: item
     %tfoot
       %tr.total
-        %th{colspan: 5}= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', 'data-association-insertion-node' => '#items', 'data-association-insertion-method' => :append, class: "btn primary"
+        %th{colspan: 4}= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', 'data-association-insertion-node' => '#items', 'data-association-insertion-method' => :append, class: "btn primary"

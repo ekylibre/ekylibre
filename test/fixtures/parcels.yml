@@ -34,7 +34,7 @@
 #  nature            :string           not null
 #  number            :string           not null
 #  ordered_at        :datetime
-#  planned_at        :datetime
+#  planned_at        :datetime         not null
 #  position          :integer
 #  prepared_at       :datetime
 #  purchase_id       :integer
@@ -56,6 +56,7 @@
 #   creator: users_001
 #   nature: "Lorem ipsum"
 #   number: "Lorem ipsum"
+#   planned_at: 2014-11-27 19:35:05 +02:00
 #   remain_owner: true
 #   state: "Lorem ipsum"
 #   updater: users_001
@@ -72,6 +73,7 @@ parcels_001:
   lock_version: 1
   nature: outgoing
   number: BL2014000002
+  planned_at: 2014-11-05 14:15:20.016507000 Z
   recipient_id: 13
   remain_owner: false
   state: draft
@@ -89,6 +91,7 @@ parcels_002:
   lock_version: 1
   nature: outgoing
   number: BL2014000003
+  planned_at: 2014-11-05 14:16:19.773131000 Z
   recipient_id: 11
   remain_owner: false
   state: given
@@ -106,6 +109,7 @@ parcels_003:
   lock_version: 0
   nature: outgoing
   number: BL2014000004
+  planned_at: 2014-11-05 14:16:48.643201000 Z
   recipient_id: 13
   remain_owner: false
   state: given
@@ -120,6 +124,7 @@ parcels_004:
   lock_version: 0
   nature: outgoing
   number: BL2014000005
+  planned_at: 2014-11-07 14:13:05.515052000 Z
   recipient_id: 8
   remain_owner: false
   state: in_preparation
@@ -137,6 +142,7 @@ parcels_005:
   lock_version: 0
   nature: incoming
   number: INDEL000001
+  planned_at: 2014-10-31 17:19:32.000000000 Z
   remain_owner: false
   sender_id: 6
   state: given
@@ -154,6 +160,7 @@ parcels_006:
   lock_version: 1
   nature: incoming
   number: INDEL000002
+  planned_at: 2014-10-31 17:19:32.000000000 Z
   reference_number: ''
   remain_owner: false
   sender_id: 4
@@ -172,6 +179,7 @@ parcels_007:
   lock_version: 0
   nature: incoming
   number: INDEL000003
+  planned_at: 2014-10-31 17:19:32.000000000 Z
   remain_owner: false
   sender_id: 6
   state: given
@@ -189,6 +197,7 @@ parcels_008:
   lock_version: 0
   nature: incoming
   number: INDEL000004
+  planned_at: 2014-10-31 20:23:37.027824000 Z
   reference_number: '1282'
   remain_owner: false
   sender_id: 4
@@ -207,6 +216,7 @@ parcels_009:
   lock_version: 0
   nature: incoming
   number: BR20140001
+  planned_at: 2014-11-01 16:00:08.015634000 Z
   reference_number: DFS1282
   remain_owner: false
   sender_id: 4
@@ -225,6 +235,7 @@ parcels_010:
   lock_version: 0
   nature: incoming
   number: RRCBR20140004
+  planned_at: 2014-11-01 19:29:58.086427000 Z
   reference_number: VD
   remain_owner: false
   sender_id: 4
@@ -243,6 +254,7 @@ parcels_011:
   lock_version: 0
   nature: incoming
   number: INWRRCBR20140007
+  planned_at: 2014-11-01 19:35:50.370591000 Z
   reference_number: EDSDFSF
   remain_owner: false
   sender_id: 5
@@ -261,6 +273,7 @@ parcels_012:
   lock_version: 1
   nature: incoming
   number: YINWRRCBR20140008
+  planned_at: 2014-11-01 20:19:35.352913000 Z
   reference_number: ''
   remain_owner: false
   sender_id: 8
@@ -279,6 +292,7 @@ parcels_013:
   lock_version: 0
   nature: incoming
   number: ID20140009
+  planned_at: 2014-11-07 15:25:51.188992000 Z
   reference_number: '2012110001458'
   remain_owner: false
   sender_id: 13
@@ -297,6 +311,7 @@ parcels_014:
   lock_version: 0
   nature: incoming
   number: ID20140010
+  planned_at: 2014-11-07 15:44:20.453162000 Z
   reference_number: '2007090001213'
   remain_owner: false
   sender_id: 13
@@ -315,6 +330,7 @@ parcels_015:
   lock_version: 1
   nature: incoming
   number: ID20140012
+  planned_at: 2014-11-07 16:47:34.635509000 Z
   purchase_id: 11
   reference_number: '2008030001215'
   remain_owner: false
@@ -333,6 +349,7 @@ parcels_016:
   lock_version: 0
   nature: incoming
   number: ID20140013
+  planned_at: 2014-11-07 19:05:46.884082000 Z
   reference_number: '201210'
   remain_owner: false
   sender_id: 13
@@ -350,6 +367,7 @@ parcels_017:
   lock_version: 0
   nature: incoming
   number: ID20140014
+  planned_at: 2014-11-07 19:12:04.935666000 Z
   reference_number: '2013100000546'
   remain_owner: false
   sender_id: 13
@@ -367,6 +385,7 @@ parcels_018:
   lock_version: 0
   nature: incoming
   number: ID20140015
+  planned_at: 2014-11-07 19:22:38.074904000 Z
   reference_number: '2013100000598'
   remain_owner: false
   sender_id: 13
@@ -384,6 +403,7 @@ parcels_019:
   lock_version: 0
   nature: incoming
   number: ID20140017
+  planned_at: 2014-11-07 19:34:09.453724000 Z
   reference_number: '2013100000750'
   remain_owner: false
   sender_id: 13
@@ -392,19 +412,40 @@ parcels_019:
   updated_at: 2014-11-07 19:34:09.453724000 Z
   updater_id: 1
 parcels_020:
-  address_id: 14
-  created_at: 2015-09-16 18:17:45.644248000 Z
+  address_id: 9
+  created_at: 2015-09-17 13:24:45.020171000 Z
   creator_id: 1
-  delivery_mode: us
+  delivery_mode: indifferent
   id: 20
   lock_version: 0
   nature: outgoing
   number: P000000000001
-  planned_at: 2015-09-15 22:00:00.000000000 Z
+  planned_at: 2015-09-17 13:24:00.000000000 Z
   position: 1
-  recipient_id: 14
+  recipient_id: 11
   remain_owner: false
-  sale_id: 12
-  state: ordered
-  updated_at: 2015-09-16 18:17:45.644248000 Z
+  state: draft
+  storage_id: 118
+  updated_at: 2015-09-17 13:24:45.020171000 Z
+  updater_id: 1
+parcels_021:
+  address_id: 12
+  created_at: 2015-09-17 13:25:55.971246000 Z
+  creator_id: 1
+  delivery_id: 16
+  delivery_mode: us
+  given_at: 2015-09-17 13:40:58.044216000 Z
+  id: 21
+  in_preparation_at: 2015-09-17 13:32:22.193743000 Z
+  lock_version: 4
+  nature: outgoing
+  number: P000000000002
+  planned_at: 2015-09-16 22:00:00.000000000 Z
+  position: 1
+  prepared_at: 2015-09-17 13:38:07.151525000 Z
+  recipient_id: 15
+  remain_owner: false
+  sale_id: 16
+  state: given
+  updated_at: 2015-09-17 13:40:58.255575000 Z
   updater_id: 1

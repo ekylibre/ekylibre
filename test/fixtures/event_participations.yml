@@ -500,3 +500,23 @@ event_participations_046:
   state: accepted
   updated_at: 2015-06-15 11:39:31.633474000 Z
   updater_id: 1
+event_participations_047:
+  created_at: 2015-09-17 13:25:40.498459000 Z
+  creator_id: 1
+  event_id: 44
+  id: 53
+  lock_version: 0
+  participant_id: 15
+  state: informative
+  updated_at: 2015-09-17 13:25:40.498459000 Z
+  updater_id: 1
+event_participations_048:
+  created_at: 2015-09-17 13:25:40.499742000 Z
+  creator_id: 1
+  event_id: 44
+  id: 54
+  lock_version: 0
+  participant_id: 9
+  state: accepted
+  updated_at: 2015-09-17 13:25:40.499742000 Z
+  updater_id: 1

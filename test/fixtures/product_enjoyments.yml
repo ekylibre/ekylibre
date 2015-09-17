@@ -859,3 +859,25 @@ product_enjoyments_081:
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-07 19:36:59.253750000 Z
   updater_id: 1
+product_enjoyments_082:
+  created_at: 2015-09-17 13:35:36.251712000 Z
+  creator_id: 1
+  id: 89
+  lock_version: 0
+  nature: unknown
+  product_id: 144
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2015-09-17 13:40:58.044216000 Z
+  updated_at: 2015-09-17 13:35:36.251712000 Z
+  updater_id: 1
+product_enjoyments_083:
+  created_at: 2015-09-17 13:40:58.077672000 Z
+  creator_id: 1
+  enjoyer_id: 15
+  id: 90
+  lock_version: 0
+  nature: other
+  product_id: 144
+  started_at: 2015-09-17 13:40:58.044216000 Z
+  updated_at: 2015-09-17 13:40:58.077672000 Z
+  updater_id: 1

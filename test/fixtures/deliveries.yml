@@ -85,112 +85,114 @@ deliveries_003:
   updated_at: 2014-11-05 15:14:00.931117000 Z
   updater_id: 1
 deliveries_004:
-  created_at: 2015-09-16 17:16:41.200853000 Z
+  created_at: 2015-09-17 13:21:47.142356000 Z
   id: 4
   lock_version: 0
   mode: third
   number: AUTO00000005
   state: finished
-  updated_at: 2015-09-16 17:16:41.200853000 Z
+  updated_at: 2015-09-17 13:21:47.142356000 Z
 deliveries_005:
-  created_at: 2015-09-16 17:16:41.200853000 Z
+  created_at: 2015-09-17 13:21:47.142356000 Z
   id: 5
   lock_version: 0
   mode: third
   number: AUTO00000007
   state: finished
-  updated_at: 2015-09-16 17:16:41.200853000 Z
+  updated_at: 2015-09-17 13:21:47.142356000 Z
 deliveries_006:
-  created_at: 2015-09-16 17:16:41.200853000 Z
+  created_at: 2015-09-17 13:21:47.142356000 Z
   id: 6
   lock_version: 0
   mode: third
   number: AUTO00000006
   state: finished
-  updated_at: 2015-09-16 17:16:41.200853000 Z
+  updated_at: 2015-09-17 13:21:47.142356000 Z
 deliveries_007:
-  created_at: 2015-09-16 17:16:41.200853000 Z
+  created_at: 2015-09-17 13:21:47.142356000 Z
   id: 7
   lock_version: 0
   mode: third
   number: AUTO00000008
   state: finished
-  updated_at: 2015-09-16 17:16:41.200853000 Z
+  updated_at: 2015-09-17 13:21:47.142356000 Z
 deliveries_008:
-  created_at: 2015-09-16 17:16:41.200853000 Z
+  created_at: 2015-09-17 13:21:47.142356000 Z
   id: 8
   lock_version: 0
   mode: third
   number: AUTO00000009
   state: finished
-  updated_at: 2015-09-16 17:16:41.200853000 Z
+  updated_at: 2015-09-17 13:21:47.142356000 Z
 deliveries_009:
-  created_at: 2015-09-16 17:16:41.200853000 Z
+  created_at: 2015-09-17 13:21:47.142356000 Z
   id: 9
   lock_version: 0
   mode: third
   number: AUTO00000010
   state: finished
-  updated_at: 2015-09-16 17:16:41.200853000 Z
+  updated_at: 2015-09-17 13:21:47.142356000 Z
 deliveries_010:
-  created_at: 2015-09-16 17:16:41.200853000 Z
+  created_at: 2015-09-17 13:21:47.142356000 Z
   id: 10
   lock_version: 0
   mode: third
   number: AUTO00000011
   state: finished
-  updated_at: 2015-09-16 17:16:41.200853000 Z
+  updated_at: 2015-09-17 13:21:47.142356000 Z
 deliveries_011:
-  created_at: 2015-09-16 17:16:41.200853000 Z
+  created_at: 2015-09-17 13:21:47.142356000 Z
   id: 11
   lock_version: 0
   mode: third
   number: AUTO00000012
   state: finished
-  updated_at: 2015-09-16 17:16:41.200853000 Z
+  updated_at: 2015-09-17 13:21:47.142356000 Z
 deliveries_012:
-  created_at: 2015-09-16 17:16:41.200853000 Z
+  created_at: 2015-09-17 13:21:47.142356000 Z
   id: 12
   lock_version: 0
   mode: third
   number: AUTO00000013
   state: finished
-  updated_at: 2015-09-16 17:16:41.200853000 Z
+  updated_at: 2015-09-17 13:21:47.142356000 Z
 deliveries_013:
-  created_at: 2015-09-16 17:16:41.200853000 Z
+  created_at: 2015-09-17 13:21:47.142356000 Z
   id: 13
   lock_version: 0
   mode: third
   number: AUTO00000014
   state: finished
-  updated_at: 2015-09-16 17:16:41.200853000 Z
+  updated_at: 2015-09-17 13:21:47.142356000 Z
 deliveries_014:
-  created_at: 2015-09-16 17:16:41.200853000 Z
+  created_at: 2015-09-17 13:21:47.142356000 Z
   id: 14
   lock_version: 0
   mode: third
   number: AUTO00000015
   state: finished
-  updated_at: 2015-09-16 17:16:41.200853000 Z
+  updated_at: 2015-09-17 13:21:47.142356000 Z
 deliveries_015:
-  created_at: 2015-09-16 17:16:41.200853000 Z
+  created_at: 2015-09-17 13:21:47.142356000 Z
   id: 15
   lock_version: 0
   mode: third
   number: AUTO00000003
   state: finished
-  updated_at: 2015-09-16 17:16:41.200853000 Z
+  updated_at: 2015-09-17 13:21:47.142356000 Z
 deliveries_016:
   annotation: ''
-  created_at: 2015-09-16 18:38:57.583192000 Z
+  created_at: 2015-09-17 13:31:53.237055000 Z
   creator_id: 1
-  driver_id: 10
+  driver_id: 14
   id: 16
-  lock_version: 0
+  lock_version: 5
   mode: us
   number: TR00000002
   reference_number: ''
-  responsible_id: 10
-  state: draft
-  updated_at: 2015-09-16 18:38:57.583192000 Z
+  responsible_id: 14
+  started_at: 2015-09-10 08:50:00.000000000 Z
+  state: finished
+  stopped_at: 2015-09-10 08:55:00.000000000 Z
+  updated_at: 2015-09-17 13:43:12.650930000 Z
   updater_id: 1

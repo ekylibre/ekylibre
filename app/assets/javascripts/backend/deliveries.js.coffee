@@ -39,44 +39,37 @@
         url: options.url.replace(reg, product_id)
         dataType: "json"
         success: (data, status, request) ->
-          unit = item.find(options.unit_field or ".item-population-unit-name")
+          unit = item.find(".item-population-unit-name")
           if data.unit_name
-            unit.show()
             unit.html(data.unit_name)
           else
-            unit.hide()
-          parted = item.find(options.parted_field or ".item-parted")
-          pop_wrapper = item.find(options.population_wrapper or ".item-quantifier-population")
+            unit.html('#')
+          item.find(".item-variant-name").html(data.variant.name)
+          pop = item.find(".item-population")
+          total = item.find(".item-population-total")
           if data.population
-            pop_wrapper.removeClass('hidden')
+            total.html(data.population)
+            pop.attr('placeholder', data.population)
           else
-            pop_wrapper.addClass('hidden')
-          pop = item.find(options.population_field or ".item-population")
+            total.html('&ndash;')
+            pop.removeAttr('placeholder')
           pop.attr('min', 0)
           pop.attr('max', data.population)
           if data.population_counting is 'unitary'
             pop.attr('disabled', 'disabled')
-            parted.attr('disabled', 'disabled')
-            parted.prop('checked', false)
-            parted.addClass('hidden')
           else
             pop.removeAttr('disabled')
-            parted.removeAttr('disabled')
-            parted.removeClass('hidden')
 
           if data.population_counting is 'integer'
             pop.attr('step', 1)
           else if data.population_counting is 'decimal'
             pop.removeAttr('step')
-          pop.val(data.population)
 
-          shape = item.find(options.population_field or ".item-shape")
-          if data.shape
-            shape.show()
-          else
-            shape.hide()
-
-
+          # shape = item.find(options.population_field or ".item-shape")
+          # if data.shape
+          #   shape.show()
+          # else
+          #   shape.hide()
 
         error: (request, status, error) ->
           console.log("Error while retrieving price and tax fields content: #{error}")

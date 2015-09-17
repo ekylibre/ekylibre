@@ -2,7 +2,10 @@ json.extract! resource, :id, :name, :number, :work_number, :identification_numbe
 variant = resource.variant
 nature = variant.nature
 json.unit_name variant.unit_name
-json.variant_id resource.variant_id
+json.variant do
+  json.id resource.variant_id
+  json.name resource.variant_name
+end
 json.nature_id resource.nature_id
 json.category_id resource.category_id
 json.population_counting nature.population_counting

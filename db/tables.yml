@@ -3404,6 +3404,7 @@ parcels:
     type: datetime
   planned_at:
     type: datetime
+    required: true
   position:
     type: integer
   prepared_at:

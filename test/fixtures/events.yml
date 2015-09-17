@@ -501,3 +501,16 @@ events_035:
   stopped_at: 2025-06-15 11:39:00.000000000 Z
   updated_at: 2015-06-15 11:39:31.630262000 Z
   updater_id: 1
+events_036:
+  created_at: 2015-09-17 13:25:40.496874000 Z
+  creator_id: 1
+  duration: 10
+  id: 44
+  lock_version: 0
+  name: Enregistrement d’une vente
+  nature: meeting
+  restricted: false
+  started_at: 2015-09-17 13:25:40.442296000 Z
+  stopped_at: 2015-09-17 13:25:50.442296000 Z
+  updated_at: 2015-09-17 13:25:40.496874000 Z
+  updater_id: 1

@@ -111,7 +111,9 @@ class Delivery < Ekylibre::Record::Base
 
   def finish
     return false unless can_finish?
-    parcels.each(&:give!)
+    parcels.each do |parcel|
+      parcel.give! if parcel.prepared?
+    end
     super
   end
 end

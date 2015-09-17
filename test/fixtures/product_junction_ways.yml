@@ -1475,3 +1475,36 @@ product_junction_ways_130:
   role: mixed
   updated_at: 2014-11-07 19:36:59.674018000 Z
   updater_id: 1
+product_junction_ways_131:
+  created_at: 2015-09-17 13:35:36.286992000 Z
+  creator_id: 1
+  id: 155
+  junction_id: 116
+  lock_version: 0
+  nature: start
+  product_id: 144
+  role: born
+  updated_at: 2015-09-17 13:35:36.286992000 Z
+  updater_id: 1
+product_junction_ways_132:
+  created_at: 2015-09-17 13:38:07.314356000 Z
+  creator_id: 1
+  id: 156
+  junction_id: 117
+  lock_version: 0
+  nature: start
+  product_id: 144
+  role: separated
+  updated_at: 2015-09-17 13:38:07.314356000 Z
+  updater_id: 1
+product_junction_ways_133:
+  created_at: 2015-09-17 13:38:07.336564000 Z
+  creator_id: 1
+  id: 157
+  junction_id: 117
+  lock_version: 0
+  nature: continuity
+  product_id: 144
+  role: reduced
+  updated_at: 2015-09-17 13:38:07.336564000 Z
+  updater_id: 1

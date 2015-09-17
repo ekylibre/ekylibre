@@ -356,14 +356,14 @@ preferences_028:
   updater_id: 1
   user_id: 1
 preferences_029:
-  boolean_value: true
+  boolean_value: false
   created_at: 2014-10-31 18:36:06.216183000 Z
   creator_id: 1
   id: 29
-  lock_version: 2
+  lock_version: 1
   name: interface.kujakus.backend-sales-index-1.collapsed
   nature: boolean
-  updated_at: 2015-09-16 18:17:18.822603000 Z
+  updated_at: 2015-03-19 17:23:50.222897000 Z
   updater_id: 1
   user_id: 1
 preferences_030:
@@ -3110,132 +3110,167 @@ preferences_265:
   updater_id: 1
   user_id: 1
 preferences_266:
-  created_at: 2015-09-16 18:17:43.210304000 Z
+  boolean_value: true
+  created_at: 2015-09-17 13:23:01.035374000 Z
   creator_id: 1
   id: 267
   lock_version: 0
-  name: cobbler.sales-show
-  nature: string
-  string_value: {}
-  updated_at: 2015-09-16 18:17:43.210304000 Z
+  name: interface.kujakus.backend-parcels-index-1.collapsed
+  nature: boolean
+  updated_at: 2015-09-17 13:23:01.035374000 Z
   updater_id: 1
   user_id: 1
 preferences_267:
-  created_at: 2015-09-16 18:17:45.732178000 Z
+  created_at: 2015-09-17 13:23:01.055641000 Z
   creator_id: 1
   id: 268
   lock_version: 0
-  name: list._sales_list_parcels_tag
+  name: kujaku.feathers.backend-parcels-index-1:0.default
   nature: string
-  string_value: {}
-  updated_at: 2015-09-16 18:17:45.732178000 Z
+  updated_at: 2015-09-17 13:23:01.055641000 Z
   updater_id: 1
   user_id: 1
 preferences_268:
-  created_at: 2015-09-16 18:17:52.421768000 Z
+  created_at: 2015-09-17 13:23:01.063340000 Z
   creator_id: 1
   id: 269
+  lock_version: 4
+  name: list._parcels_list_parcels_tag
+  nature: string
+  string_value:
+    content_for: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      actions: main_toolbar
+      pagination: meta_toolbar
+      settings: meta_toolbar
+    page: 1
+    only: content
+    redirect: "/backend/parcels"
+    controller: backend/parcels
+    action: list
+    hidden_columns:
+    - :transporter
+    dir: desc
+    per_page: 20
+    sort: planned_at
+  updated_at: 2015-09-17 13:31:13.719335000 Z
+  updater_id: 1
+  user_id: 1
+preferences_269:
+  created_at: 2015-09-17 13:23:46.521694000 Z
+  creator_id: 1
+  id: 270
   lock_version: 0
   name: cobbler.parcels-show
   nature: string
   string_value: {}
-  updated_at: 2015-09-16 18:17:52.421768000 Z
+  updated_at: 2015-09-17 13:23:46.521694000 Z
   updater_id: 1
   user_id: 1
-preferences_269:
-  created_at: 2015-09-16 18:17:52.427704000 Z
+preferences_270:
+  created_at: 2015-09-17 13:23:46.527185000 Z
   creator_id: 1
-  id: 270
+  id: 271
   lock_version: 0
   name: list._parcels_list_items_tag
   nature: string
   string_value: {}
-  updated_at: 2015-09-16 18:17:52.427704000 Z
-  updater_id: 1
-  user_id: 1
-preferences_270:
-  boolean_value: true
-  created_at: 2015-09-16 18:38:28.589267000 Z
-  creator_id: 1
-  id: 271
-  lock_version: 0
-  name: interface.kujakus.backend-deliveries-index-1.collapsed
-  nature: boolean
-  updated_at: 2015-09-16 18:38:28.589267000 Z
+  updated_at: 2015-09-17 13:23:46.527185000 Z
   updater_id: 1
   user_id: 1
 preferences_271:
-  created_at: 2015-09-16 18:38:28.598158000 Z
+  created_at: 2015-09-17 13:25:44.844426000 Z
   creator_id: 1
   id: 272
   lock_version: 0
-  name: kujaku.feathers.backend-deliveries-index-1:0.default
+  name: cobbler.sales-show
   nature: string
-  updated_at: 2015-09-16 18:38:28.598158000 Z
+  string_value: {}
+  updated_at: 2015-09-17 13:25:44.844426000 Z
   updater_id: 1
   user_id: 1
 preferences_272:
-  created_at: 2015-09-16 18:38:28.606460000 Z
+  created_at: 2015-09-17 13:25:56.059272000 Z
   creator_id: 1
   id: 273
   lock_version: 0
-  name: list._deliveries_list_deliveries_tag
+  name: list._sales_list_parcels_tag
   nature: string
   string_value: {}
-  updated_at: 2015-09-16 18:38:28.606460000 Z
+  updated_at: 2015-09-17 13:25:56.059272000 Z
   updater_id: 1
   user_id: 1
 preferences_273:
-  boolean_value: true
-  created_at: 2015-09-16 18:39:01.380771000 Z
+  created_at: 2015-09-17 13:31:53.297983000 Z
   creator_id: 1
   id: 274
-  lock_version: 0
-  name: interface.kujakus.backend-parcels-index-1.collapsed
-  nature: boolean
-  updated_at: 2015-09-16 18:39:01.380771000 Z
-  updater_id: 1
-  user_id: 1
-preferences_274:
-  created_at: 2015-09-16 18:39:01.389647000 Z
-  creator_id: 1
-  id: 275
-  lock_version: 0
-  name: kujaku.feathers.backend-parcels-index-1:0.default
-  nature: string
-  updated_at: 2015-09-16 18:39:01.389647000 Z
-  updater_id: 1
-  user_id: 1
-preferences_275:
-  created_at: 2015-09-16 18:39:01.397031000 Z
-  creator_id: 1
-  id: 276
-  lock_version: 0
-  name: list._parcels_list_parcels_tag
-  nature: string
-  string_value: {}
-  updated_at: 2015-09-16 18:39:01.397031000 Z
-  updater_id: 1
-  user_id: 1
-preferences_276:
-  created_at: 2015-09-16 18:40:03.344163000 Z
-  creator_id: 1
-  id: 277
   lock_version: 0
   name: cobbler.deliveries-show
   nature: string
   string_value: {}
-  updated_at: 2015-09-16 18:40:03.344163000 Z
+  updated_at: 2015-09-17 13:31:53.297983000 Z
   updater_id: 1
   user_id: 1
-preferences_277:
-  created_at: 2015-09-16 18:40:03.350739000 Z
+preferences_274:
+  created_at: 2015-09-17 13:31:53.302892000 Z
   creator_id: 1
-  id: 278
+  id: 275
   lock_version: 0
   name: list._deliveries_list_parcels_tag
   nature: string
   string_value: {}
-  updated_at: 2015-09-16 18:40:03.350739000 Z
+  updated_at: 2015-09-17 13:31:53.302892000 Z
+  updater_id: 1
+  user_id: 1
+preferences_275:
+  created_at: 2015-09-17 13:35:01.071432000 Z
+  creator_id: 1
+  id: 276
+  lock_version: 0
+  name: kujaku.feathers.backend-matters-index-1:0.default
+  nature: string
+  updated_at: 2015-09-17 13:35:01.071432000 Z
+  updater_id: 1
+  user_id: 1
+preferences_276:
+  created_at: 2015-09-17 13:35:36.404569000 Z
+  creator_id: 1
+  id: 277
+  lock_version: 0
+  name: cobbler.matters-show
+  nature: string
+  string_value: {}
+  updated_at: 2015-09-17 13:35:36.404569000 Z
+  updater_id: 1
+  user_id: 1
+preferences_277:
+  boolean_value: true
+  created_at: 2015-09-17 13:38:10.621646000 Z
+  creator_id: 1
+  id: 278
+  lock_version: 0
+  name: interface.kujakus.backend-deliveries-index-1.collapsed
+  nature: boolean
+  updated_at: 2015-09-17 13:38:10.621646000 Z
+  updater_id: 1
+  user_id: 1
+preferences_278:
+  created_at: 2015-09-17 13:38:10.632016000 Z
+  creator_id: 1
+  id: 279
+  lock_version: 0
+  name: kujaku.feathers.backend-deliveries-index-1:0.default
+  nature: string
+  updated_at: 2015-09-17 13:38:10.632016000 Z
+  updater_id: 1
+  user_id: 1
+preferences_279:
+  created_at: 2015-09-17 13:38:10.646054000 Z
+  creator_id: 1
+  id: 280
+  lock_version: 0
+  name: list._deliveries_list_deliveries_tag
+  nature: string
+  string_value: {}
+  updated_at: 2015-09-17 13:38:10.646054000 Z
   updater_id: 1
   user_id: 1

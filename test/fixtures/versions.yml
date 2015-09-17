@@ -11069,3 +11069,99 @@ versions_217:
     creator_id: 1
     title: Mme
   item_type: Entity
+versions_218:
+  created_at: 2015-09-17 13:35:36.172385000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 255
+  item_id: 144
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 144
+    type: Matter
+    name: Graine de blé
+    number: PR00000000088
+    variant_id: 19
+    nature_id: 18
+    category_id: 11
+    extjuncted: false
+    initial_born_at: 2015-07-15 11:45:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.95E3
+    initial_shape:
+    initial_father_id:
+    initial_mother_id:
+    variety: grain
+    derivative_of: triticum_aestivum
+    tracking_id:
+    fixed_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2015-09-17 13:35:36.161282000 Z
+    creator_id: 1
+    person_id:
+    initial_geolocation:
+  item_type: Product
+versions_219:
+  created_at: 2015-09-17 13:38:07.267230000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 256
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    initial_born_at: 2015-07-15 11:45:00.000000000 Z
+    initial_population: !ruby/object:BigDecimal 18:0.95E3
+    born_at:
+  item_id: 144
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 144
+    type: Matter
+    name: Graine de blé
+    number: PR00000000088
+    variant_id: 19
+    nature_id: 18
+    category_id: 11
+    extjuncted: false
+    initial_born_at: 2015-09-17 13:38:07.151525000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.25E3
+    initial_shape:
+    initial_father_id:
+    initial_mother_id:
+    variety: grain
+    derivative_of: triticum_aestivum
+    tracking_id:
+    fixed_asset_id:
+    born_at: 2015-07-15 11:45:00.000000000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2015-09-17 13:35:36.161282000 Z
+    creator_id: 1
+    person_id:
+    initial_geolocation:
+  item_type: Product

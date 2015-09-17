@@ -192,7 +192,12 @@ $controls-margin-left: round($label-width * 1.1);
       margin-bottom: $spacing;
       @include margin-left(0);
     }
-    .help-block {
+  }
+  //  &.selector .controls .input {
+    //    @include toolbar;
+    //   }
+  .help-block {
+    &, * {
       margin-top: round(0.3 * $spacing);
       font-size: $fs-small;
       font-style: italic;
@@ -202,9 +207,6 @@ $controls-margin-left: round($label-width * 1.1);
       }
     }
   }
-  //  &.selector .controls .input {
-    //    @include toolbar;
-    //   }
   &.hidden {
     display: none;
   }

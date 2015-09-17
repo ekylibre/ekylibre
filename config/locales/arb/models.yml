@@ -1783,6 +1783,7 @@ arb:
     # reflected_at: "Reflected at"
     # reflection_nodes: "Reflection nodes"
     # reflections: "Reflections"
+    # remain_owner: "Remain owner"
     # remaining_amount: "Remaining amount"
     remaining_duration: "(مدة الاستخدام المتبقي (ساعات " #?
     # remember_created_at: "Remember created at"

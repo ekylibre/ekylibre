@@ -4136,3 +4136,61 @@ product_readings_280:
   read_at: 2013-10-30 13:52:00.000000000 Z
   updated_at: 2014-11-07 19:36:59.613911000 Z
   updater_id: 1
+product_readings_281:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 1000.0
+  boolean_value: false
+  created_at: 2015-09-17 13:35:36.308965000 Z
+  creator_id: 1
+  id: 304
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: ton
+  measure_value_value: 1.0
+  product_id: 144
+  read_at: 2015-07-15 11:45:00.000000000 Z
+  updated_at: 2015-09-17 13:35:36.308965000 Z
+  updater_id: 1
+product_readings_282:
+  boolean_value: false
+  created_at: 2015-09-17 13:35:36.318860000 Z
+  creator_id: 1
+  decimal_value: 950.0
+  id: 305
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 144
+  read_at: 2015-07-15 11:45:00.000000000 Z
+  updated_at: 2015-09-17 13:35:36.318860000 Z
+  updater_id: 1
+product_readings_283:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 1000.0
+  boolean_value: false
+  created_at: 2015-09-17 13:38:07.334695000 Z
+  creator_id: 1
+  id: 306
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: ton
+  measure_value_value: 1.0
+  product_id: 144
+  read_at: 2015-09-17 13:38:07.151525000 Z
+  updated_at: 2015-09-17 13:38:07.334695000 Z
+  updater_id: 1
+product_readings_284:
+  boolean_value: false
+  created_at: 2015-09-17 13:38:07.345779000 Z
+  creator_id: 1
+  decimal_value: 250.0
+  id: 307
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 1
+  product_id: 144
+  read_at: 2015-09-17 13:38:07.151525000 Z
+  updated_at: 2015-09-17 13:38:07.358484000 Z
+  updater_id: 1

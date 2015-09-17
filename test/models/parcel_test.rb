@@ -34,7 +34,7 @@
 #  nature            :string           not null
 #  number            :string           not null
 #  ordered_at        :datetime
-#  planned_at        :datetime
+#  planned_at        :datetime         not null
 #  position          :integer
 #  prepared_at       :datetime
 #  purchase_id       :integer

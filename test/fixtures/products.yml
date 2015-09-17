@@ -2025,6 +2025,26 @@ matters_050:
   updater_id: 1
   variant_id: 65
   variety: wine
+matters_051:
+  born_at: 2015-09-17 13:38:07.151525000 Z
+  category_id: 11
+  created_at: 2015-09-17 13:35:36.161282000 Z
+  creator_id: 1
+  derivative_of: triticum_aestivum
+  description: ''
+  extjuncted: false
+  id: 144
+  initial_born_at: 2015-09-17 13:38:07.151525000 Z
+  initial_population: 250.0
+  lock_version: 1
+  name: Graine de blé
+  nature_id: 18
+  number: PR00000000088
+  type: Matter
+  updated_at: 2015-09-17 13:38:07.255834000 Z
+  updater_id: 1
+  variant_id: 19
+  variety: grain
 plants_001:
   born_at: 2013-11-10 12:01:30.000000000 Z
   category_id: 8

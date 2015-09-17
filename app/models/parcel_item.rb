@@ -89,12 +89,16 @@ class ParcelItem < Ekylibre::Record::Base
 
   before_validation do
     if source_product
-      self.parted = false if source_product.population_counting_unitary?
+      if source_product.population_counting_unitary?
+        self.parted = false
+        self.population = 1
+      end
       unless self.parted?
         self.product = source_product
+        read_at = prepared_at || Time.zone.now
         if parcel
-          self.population ||= product.population(at: prepared_at)
-          self.shape ||= product.shape(at: prepared_at) if product.has_indicator?(:shape)
+          self.population ||= product.population(at: read_at)
+          self.shape ||= product.shape(at: read_at) if product.has_indicator?(:shape)
         end
       end
     end
@@ -110,21 +114,44 @@ class ParcelItem < Ekylibre::Record::Base
     true
   end
 
+  def prepared?
+    source_product.present?
+  end
+
+  def status
+    self.prepared? ? :go : variant.present? ? :caution : :stop
+  end
+
   # Set started_at/stopped_at in tasks concerned by preparation of item
   # It takes product in stock
   def check
     checked_at = prepared_at
-    divide_source_product(checked_at) if parted
+    if source_product
+      if self.population != source_product.population(at: checked_at)
+        update_attribute(:parted, true)
+      end
+    end
+    if parted
+      divide_source_product(checked_at)
+    else
+      self.product = source_product
+      self.population = product.population(at: checked_at)
+      self.shape = product.shape(at: checked_at)
+    end
   end
 
   # Mark items as given, and so change enjoyer and ownership if needed at
   # this moment.
   def give
     if outgoing?
-      self.create_product_localization!(product: product, nature: :exterior, started_at: given_at)
       self.create_product_enjoyment!(product: product, nature: :other, started_at: given_at, enjoyer: parcel.recipient)
       unless parcel.remain_owner
         self.create_product_ownership!(product: product, nature: :other, started_at: given_at, owner: parcel.recipient)
+      end
+      if storage
+        self.create_product_localization!(product: product, nature: :exterior, container: storage, started_at: given_at)
+      else
+        self.create_product_localization!(product: product, nature: :exterior, started_at: given_at)
       end
     else
       if storage
@@ -141,12 +168,12 @@ class ParcelItem < Ekylibre::Record::Base
 
   def divide_source_product(divided_at)
     if product
-      product.initial_population = population(at: divided_at)
-      product.initial_shape = shape(at: divided_at)
+      product.initial_population = population # (at: divided_at)
+      product.initial_shape = shape # (at: divided_at)
       product.initial_born_at = divided_at
       product.save!
     else
-      self.product = source_product.part_with!(self.population, shape: self.shape, born_at: divided_at)
+      self.product = source_product.part_with!(population, shape: shape, born_at: divided_at)
     end
     update_division_task(divided_at)
     update_division_readings(divided_at)
@@ -175,12 +202,12 @@ class ParcelItem < Ekylibre::Record::Base
   def update_division_readings(divided_at)
     product.copy_readings_of!(source_product, at: divided_at, originator: source_product_division)
     source_population = source_product.get!(:population, at: divided_at)
-    self.source_product_population_reading = source_product.read!(:population, source_population - self.population, at: divided_at)
-    self.product_population_reading = product.read!(:population, self.population, at: divided_at)
-    if source_product.has_indicator?(:shape) && self.shape
+    self.source_product_population_reading = source_product.read!(:population, source_population - population, at: divided_at)
+    self.product_population_reading = product.read!(:population, population, at: divided_at)
+    if source_product.has_indicator?(:shape) && shape
       source_shape = Charta::Geometry.new(source_product.get!(:shape, at: divided_at))
-      self.source_product_shape_reading = source_product.read!(:shape, source_shape - self.shape, at: divided_at)
-      self.product_shape_reading = product.read!(:shape, self.shape, at: divided_at)
+      self.source_product_shape_reading = source_product.read!(:shape, source_shape - shape, at: divided_at)
+      self.product_shape_reading = product.read!(:shape, shape, at: divided_at)
     end
   end
 end

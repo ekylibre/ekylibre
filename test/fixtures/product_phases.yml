@@ -1022,3 +1022,15 @@ product_phases_081:
   updated_at: 2014-11-07 19:36:59.267930000 Z
   updater_id: 1
   variant_id: 65
+product_phases_082:
+  category_id: 11
+  created_at: 2015-09-17 13:35:36.344811000 Z
+  creator_id: 1
+  id: 90
+  lock_version: 0
+  nature_id: 18
+  product_id: 144
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2015-09-17 13:35:36.344811000 Z
+  updater_id: 1
+  variant_id: 19

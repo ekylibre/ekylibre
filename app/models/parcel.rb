@@ -34,7 +34,7 @@
 #  nature            :string           not null
 #  number            :string           not null
 #  ordered_at        :datetime
-#  planned_at        :datetime
+#  planned_at        :datetime         not null
 #  position          :integer
 #  prepared_at       :datetime
 #  purchase_id       :integer
@@ -68,7 +68,7 @@ class Parcel < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :given_at, :in_preparation_at, :ordered_at, :planned_at, :prepared_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_inclusion_of :remain_owner, in: [true, false]
-  validates_presence_of :nature, :number, :state
+  validates_presence_of :nature, :number, :planned_at, :state
   # ]VALIDATORS]
   validates_presence_of :delivery_mode, :address
   validates_presence_of :recipient, if: :outgoing?
@@ -101,10 +101,10 @@ class Parcel < Ekylibre::Record::Base
       transition ordered: :in_preparation
     end
     event :check do
-      transition in_preparation: :prepared
+      transition in_preparation: :prepared, if: :all_item_prepared?
     end
     event :give do
-      transition prepared: :given, if: :delivery?
+      transition prepared: :given, if: :delivery_started?
     end
     event :cancel do
       transition ordered: :draft
@@ -163,6 +163,10 @@ class Parcel < Ekylibre::Record::Base
     delivery.present?
   end
 
+  def delivery_started?
+    delivery? && delivery.started?
+  end
+
   def shippable?
     !delivery.present?
   end
@@ -178,6 +182,10 @@ class Parcel < Ekylibre::Record::Base
   # Number of products delivered
   def items_quantity
     items.sum(:quantity)
+  end
+
+  def all_item_prepared?
+    items.all?(&:prepared?)
   end
 
   def items?

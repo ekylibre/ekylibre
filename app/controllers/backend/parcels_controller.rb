@@ -21,7 +21,7 @@ class Backend::ParcelsController < Backend::BaseController
 
   unroll
 
-  list(conditions: search_conditions(parcels: [:number, :reference_number], entities: [:full_name, :number])) do |t|
+  list(conditions: search_conditions(parcels: [:number, :reference_number], entities: [:full_name, :number]), order: { planned_at: :desc }) do |t|
     t.action :new,     on: :none
     t.action :invoice, on: :both, method: :post, if: :invoiceable?
     t.action :ship,    on: :both, method: :post, if: :shippable?
@@ -29,6 +29,7 @@ class Backend::ParcelsController < Backend::BaseController
     t.action :destroy
     t.column :number, url: true
     t.column :nature
+    t.column :planned_at
     t.column :recipient, url: true
     t.column :sender, url: true
     t.status
@@ -48,6 +49,7 @@ class Backend::ParcelsController < Backend::BaseController
     t.column :population
     t.column :unit_name, through: :variant
     t.column :variant, url: true
+    t.status
     # t.column :net_mass
     t.column :analysis, url: true
     t.column :source_product, url: true, hidden: true
