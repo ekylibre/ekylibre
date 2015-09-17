@@ -1,5 +1,4 @@
 # coding: utf-8
-
 # FIXME: What is a Zone? Need doc
 class Ekylibre::ZonesExchanger < ActiveExchanger::Base
   # Create or updates zones

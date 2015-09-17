@@ -52,11 +52,12 @@
           %span.value
             %i.picto{class: "picto-clock-o"}
             = human_age(resource.age, display: 2)
+      - if duration
         .med-info
           %span.title= Equipment.human_attribute_name(:duration)
           %span.value
             %i.picto{class: "picto-timelapse"}
-            = duration / 3600 if duration
+            = :x_hours.tl(count: duration/3600)
   - c.cobble :attachments, title: ProductNatureVariant.human_attribute_name(:attachments) do
     = attachments_of(resource)
 

@@ -55,11 +55,12 @@
       .med-info.important
         %span.title= Equipment.human_attribute_name(:state)
         %span.value= lights(resource.status)
-      .med-info
-        %span.title= Equipment.human_attribute_name(:duration)
-        %span.value
-          %i.picto{class: "picto-timelapse"}
-          = duration / 3600 if duration
+      - if duration
+        .med-info
+          %span.title= Equipment.human_attribute_name(:duration)
+          %span.value
+            %i.picto{class: "picto-timelapse"}
+            = :x_hours.tl(count: duration/3600)
       - if resource.description
         %span.title= Plant.human_attribute_name(:description)
         %span.value= resource.description

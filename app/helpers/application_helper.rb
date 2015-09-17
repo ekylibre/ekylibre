@@ -102,6 +102,10 @@ module ApplicationHelper
       vals << :x_days.tl(count: (seconds / 1.day).floor)
       seconds -= 1.day * (seconds / 1.day).floor
     end
+    if (seconds.to_f / 1.hour).floor > 0.0 && (!options[:display] || vals.size < options[:display])
+      vals << :x_hours.tl(count: (seconds / 1.hour).floor)
+      seconds -= 1.hour * (seconds / 1.hour).floor
+    end
     vals.to_sentence
   end
 
