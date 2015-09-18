@@ -3,36 +3,47 @@
 
     popup_content = []
 
-    popup_content << {label: :campaign.tl, value: link_to(support.production.campaign.name, backend_campaign_path(support.production.campaign))}
-    popup_content << {label: :activity.tl, value: link_to(support.production.activity.name, backend_activity_path(support.production.activity))}
-    popup_content << {label: :production_support.tl, value: link_to(support.name, backend_production_support_path(support))}
-    popup_content << {label: :grain_yield.tl, value: support.grains_yield.to_s.to_f.round(2)} if support.grains_yield.to_s.to_f.round(2) > 0.0
+    #popup_content << {label: :campaign.tl, value: link_to(support.production.campaign.name, backend_campaign_path(support.production.campaign))}
+    #popup_content << {label: :activity.tl, value: link_to(support.production.activity.name, backend_activity_path(support.production.activity))}
+    #popup_content << {label: :production_support.tl, value: link_to(support.name, backend_production_support_path(support))}
+    popup_content << {label: ProductionSupport.model_name.human, value: link_to(support.work_name, backend_production_support_path(support))}
+    
+    # TODO refactor
+    mass_unit = :quintal
+    surface_unit = :hectare
+    grain_yield = support.grains_yield(mass_unit, surface_unit)
+    measure_unit = "#{mass_unit.to_s}_per_#{surface_unit.to_s}"
+    yield_symbol = Nomen::Unit[measure_unit.to_sym]
+    
+    popup_content << {label: :grain_yield.tl, value: "#{grain_yield.to_d.round(2)} #{yield_symbol.symbol}"} if grain_yield
 
     for item in [:nitrogen_concentration, :phosphorus_concentration, :potassium_concentration]
       if value = support.soil_enrichment_indicator_content_per_area(item)
-        popup_content << {label: item.tl, value: value.to_s.to_f.round(2)}
+        popup_content << {label: item.tl, value: value.in(:unity_per_hectare).round(2).l}
       end
     end
 
-
-
     interventions = support.interventions
-    if interventions.any?
-      last_intervention = interventions.max{|a,b| a.started_at <=> b.started_at }
-      popup_content << {label: :last_intervention.tl, value: link_to( "N°" + last_intervention.number, backend_intervention_path(last_intervention)) }
+        if interventions.any?
+          time_spend = interventions.map(&:duration).compact.sum
+          popup_content << {label: :interventions_count.tl, value: "#{interventions.count} #{:during.tl.downcase!} #{:x_hours.tl(count: (time_spend/3600).round(2))}"}
+
+          last_intervention = interventions.max{|a,b| a.started_at <=> b.started_at }
+          popup_content << {label: :last_intervention.tl, value: link_to( last_intervention.name, backend_intervention_path(last_intervention)) }
     end
 
     popup_content << render('popup', support: support)
 
-    { name:       support.name,
+    { name:       "#{support.work_number} - #{support.campaign_name} - #{support.production_name} - #{support.net_surface_area.in_hectare.round(2).l}",
       shape:      support.shape,
+      shape_color:      support.activity.color,
       campaign:   support.campaign_name,
       activity:   support.activity_name,
       production: support.production_name,
       tool_cost:  support.tool_cost.to_s.to_f.round(2),
       input_cost: support.input_cost.to_s.to_f.round(2),
       time_cost:  support.time_cost.to_s.to_f.round(2),
-      nitrogen_concentration:   support.soil_enrichment_indicator_content_per_area(:nitrogen_concentration).to_s.to_f.round(2),
+      nitrogen_concentration:   support.nitrogen_balance.to_f.round(2),
       phosphorus_concentration: support.soil_enrichment_indicator_content_per_area(:phosphorus_concentration).to_s.to_f.round(2),
       potassium_concentration:  support.soil_enrichment_indicator_content_per_area(:potassium_concentration).to_s.to_f.round(2),
       interventions_count: support.interventions.count,
@@ -139,7 +150,7 @@
               - if total_cost > 0.0
                 - gross_profit = ((total_earn - total_cost) || 0.0).round.to_i
                 .big-info.cost.important
-                  %span.title= :gross_profit.tl
+                  %span.title= :evaluated_direct_margin.tl
                   %span.value
                     - if resource.with_supports and supports_quantity > 0 and unit
                       = :amount_per_unit.tl(amount: (gross_profit/supports_quantity).round(precision).to_i.l(currency: currency.name), unit: unit.symbol)

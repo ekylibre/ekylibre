@@ -965,6 +965,7 @@ fra:
     estimate_to_order: "Passer le devis en commande" #?
     estimate_yield: "Rendement estimé"
     europe_out_export: "Exportations hors CE" #?
+    evaluated_direct_margin: "Marge directe évaluée"
     evaluated_doer_cost: "Coût main d’œuvre"
     evaluated_input_cost: "Coût intrants"
     evaluated_other_cost: "Coût autres"

@@ -874,6 +874,7 @@ spa:
     establishments: "Establecimiento" #?
     # estimate_yield: "Estimate yield"
     europe_out_export: "Exportaciones fuera de CC.EE" #?
+    # evaluated_direct_margin: "Evaluated direct margin"
     # evaluated_doer_cost: "Evaluated labor cost"
     # evaluated_input_cost: "Evaluated input cost"
     # evaluated_other_cost: "Evaluated other cost"

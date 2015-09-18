@@ -444,7 +444,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     area = nil
     if options[:variety] && options[:at]
       members = options[:support].storage.contains(options[:variety], options[:at])
-      area = members.map(&:shape_area).compact.sum if members
+      products = members.map(&:product) if members
+      w.info products.inspect.red
+      area = products.map(&:shape_area).compact.sum if products
     elsif options[:variant] && options[:at]
       members = options[:support].storage.localized_variants(options[:variant], at: options[:at])
       area = members.map(&:shape_area).compact.sum if members

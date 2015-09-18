@@ -14,28 +14,30 @@
     popup_content = []
 
     # for support
-    popup_content << {label: Campaign.model_name.human, value: support.campaign_name}
-    popup_content << {label: Activity.model_name.human, value: support.activity_name}
-    popup_content << {label: Production.model_name.human, value: link_to(support.production_name, backend_production_path(support.production))}
+    #popup_content << {label: Campaign.model_name.human, value: support.campaign_name}
+    #popup_content << {label: Activity.model_name.human, value: support.activity_name}
+    #popup_content << {label: Production.model_name.human, value: link_to(support.production_name, backend_production_path(support.production))}
     popup_content << {label: ProductionSupport.model_name.human, value: link_to(support.work_name, backend_production_support_path(support))}
 
     if support.storage
       popup_content << {label: :area.tl, value: support.storage_net_surface_area.in_hectare.round(2).l}
-      popup_content << {label: :net_surface_area.tl, value: support.net_surface_area.in_hectare.round(2).l}
+      #popup_content << {label: :net_surface_area.tl, value: support.net_surface_area.in_hectare.round(2).l}
     end
+    
+    interventions = support.interventions.reorder(:started_at)
+    if interventions.any?
+      time_spend = interventions.map(&:duration).compact.sum
+      popup_content << {label: :interventions_count.tl, value: "#{interventions.count} #{:during.tl.downcase!} #{:x_hours.tl(count: (time_spend/3600).round(2))}"}
 
-    if interventions = Intervention.where(production_support: support).reorder(:started_at)
-      popup_content << {label: :interventions_count.tl, value: interventions.count }
+      last_intervention = interventions.max{|a,b| a.started_at <=> b.started_at }
+      popup_content << {label: :last_intervention.tl, value: link_to( last_intervention.name, backend_intervention_path(last_intervention)) }
     end
-
-    if interventions.any? and last_intervention = interventions.last
-      popup_content << {label: :last_intervention.tl, value: link_to( "N°" + last_intervention.number, backend_intervention_path(last_intervention)) }
-    end
-
+    
+    
     popup_content << render('popup', support: support)
 
     item = {
-      name:       support.name,
+      name:       "#{support.work_number} - #{support.campaign_name} - #{support.production_name} - #{support.net_surface_area.in_hectare.round(2).l}",
       shape:      support.shape,
       shape_color:      support.activity.color,
       campaign:   support.campaign_name,

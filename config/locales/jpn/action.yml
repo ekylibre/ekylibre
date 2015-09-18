@@ -753,6 +753,7 @@ jpn:
     error_no_file: "ページ(%{article})はありません。"
     # errors_explanation: "There are errors in the file. If you do not correct them, the incorrect lines will be ignored during the import."
     # estimate_yield: "Estimate yield"
+    # evaluated_direct_margin: "Evaluated direct margin"
     # evaluated_doer_cost: "Evaluated labor cost"
     # evaluated_input_cost: "Evaluated input cost"
     # evaluated_other_cost: "Evaluated other cost"
