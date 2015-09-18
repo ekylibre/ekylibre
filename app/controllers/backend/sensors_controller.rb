@@ -71,11 +71,10 @@ class Backend::SensorsController < Backend::BaseController
   end
 
   def retrieve
-    @sensor = Sensor.find(params[:id])
-    unless @sensor.nil?
-      # SensorReadingJob.perform_later(id: @sensor.id, started_at: Time.now, stopped_at: Time.now)
-      @sensor.retrieve
-    end
+    @sensor = find_and_check
+    return unless @sensor
+    # SensorReadingJob.perform_later(id: @sensor.id, started_at: Time.now, stopped_at: Time.now)
+    @sensor.retrieve
     redirect_to params[:redirect] || { action: :show, id: params[:id] }
   end
 end

@@ -2,17 +2,19 @@
   - t.edit resource
   - t.retrieve resource, method: :post
 
+= main_informations do
+  = attributes_list do |l|
+    - l.attribute :active
+    - l.attribute :vendor_euid
+    - l.attribute :model_euid
+    - l.attribute :name
+    - l.attribute :retrieval_mode
+    - l.attribute :product, url: true
+    - l.attribute :embedded
+    - l.attribute :host, url: true
+
+
 = cobbles do |c|
-  - c.cobble :sensor_informations do
-    = attributes_list do |l|
-      - l.attribute :active
-      - l.attribute :vendor_euid
-      - l.attribute :model_euid
-      - l.attribute :name
-      - l.attribute :retrieval_mode
-      - l.attribute :product, url: true
-      - l.attribute :embedded
-      - l.attribute :host, url: true
 
   - c.cobble :analyses do
     = cobble_list :analyses

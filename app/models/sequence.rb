@@ -44,7 +44,6 @@ class Sequence < Ekylibre::Record::Base
   enumerize :period, in: [:cweek, :month, :number, :year]
   enumerize :usage, in: [:affairs, :analyses, :animals, :campaigns, :cash_transfers, :deliveries, :deposits, :documents, :entities, :fixed_assets, :gaps, :incoming_payments, :interventions, :opportunities, :outgoing_payments, :parcels, :plants, :products, :product_natures, :product_nature_categories, :product_nature_variants, :purchases, :sales, :sales_invoices, :subscriptions]
 
-  has_many :preferences, as: :record_value
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :last_cweek, :last_month, :last_number, :last_year, :number_increment, :number_start, allow_nil: true, only_integer: true
   validates_presence_of :name, :number_format, :number_increment, :number_start, :period
@@ -58,10 +57,6 @@ class Sequence < Ekylibre::Record::Base
 
   before_validation do
     self.period ||= 'number'
-  end
-
-  protect(on: :destroy) do
-    preferences.any?
   end
 
   class << self
@@ -128,6 +123,8 @@ class Sequence < Ekylibre::Record::Base
   # Produces the next value of the sequence and update last value in DB
   def next_value
     reload
+    # FIXME: Bad method to prevent concurrency access to the method
+    sleep(rand(50) / 1000)
     today = Time.zone.today
     period = self.period.to_s
     if last_number.nil?

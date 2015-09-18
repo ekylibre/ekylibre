@@ -2076,7 +2076,7 @@ fra:
       refuse: "Refuser"
       reopen: "Réouvrir"
       reset: "Ré-initialiser"
-      retrieve: "Récupération manuelle"
+      retrieve: "Relever"
       run: "Éxécuter"
       search: "Rechercher"
       select: "Selectionner"

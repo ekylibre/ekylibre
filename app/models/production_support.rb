@@ -163,7 +163,7 @@ class ProductionSupport < Ekylibre::Record::Base
       end
     end
     # if net_surface_area, make the division
-    if surface_area = self.net_surface_area
+    if surface_area = net_surface_area
       indicator_unity_per_hectare = (balance.compact.sum / surface_area.to_d(area_unit))
     end
     indicator_unity_per_hectare
@@ -201,22 +201,22 @@ class ProductionSupport < Ekylibre::Record::Base
   end
 
   def tool_cost(surface_unit = :hectare)
-    if self.net_surface_area.to_s.to_f > 0.0
-      return cost(:tool) / (self.net_surface_area.to_d(surface_unit).to_s.to_f)
+    if net_surface_area.to_s.to_f > 0.0
+      return cost(:tool) / (net_surface_area.to_d(surface_unit).to_s.to_f)
     end
     0.0
   end
 
   def input_cost(surface_unit = :hectare)
-    if self.net_surface_area.to_s.to_f > 0.0
-      return cost(:input) / (self.net_surface_area.to_d(surface_unit).to_s.to_f)
+    if net_surface_area.to_s.to_f > 0.0
+      return cost(:input) / (net_surface_area.to_d(surface_unit).to_s.to_f)
     end
     0.0
   end
 
   def time_cost(surface_unit = :hectare)
-    if self.net_surface_area.to_s.to_f > 0.0
-      return cost(:doer) / (self.net_surface_area.to_d(surface_unit).to_s.to_f)
+    if net_surface_area.to_s.to_f > 0.0
+      return cost(:doer) / (net_surface_area.to_d(surface_unit).to_s.to_f)
     end
     0.0
   end
@@ -256,8 +256,8 @@ class ProductionSupport < Ekylibre::Record::Base
           total_yield << q
         end
       end
-      if self.net_surface_area
-        grain_yield = ((total_yield.compact.sum).to_f / (self.net_surface_area.to_d(surface_unit)).to_f)
+      if net_surface_area
+        grain_yield = ((total_yield.compact.sum).to_f / (net_surface_area.to_d(surface_unit)).to_f)
         measure_unit = "#{mass_unit}_per_#{surface_unit}"
         if Nomen::Unit[measure_unit.to_sym]
           return Measure.new(grain_yield, measure_unit)

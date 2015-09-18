@@ -10,8 +10,16 @@ module OpenWeatherMap
       http = Net::HTTP.new('api.openweathermap.org')
       http.open_timeout = 3
       http.read_timeout = 3
-      response = http.get("/data/2.5/weather?lat=#{latitude}&lon=#{longitude}&units=metric")
+      path = '/data/2.5/weather?units=metric'
+      path += "&lat=#{latitude}&lon=#{longitude}" if latitude && longitude
+      api_key = parameters[:api_key]
+      path += "&APPID=#{api_key}" unless api_key.blank?
+      response = http.get(path)
       json = JSON.load(response.body).deep_symbolize_keys
+
+      unless json[:cod] == 200
+        return { status: :error, message: json[:message] }
+      end
 
       values = {}
       values[:temperature] = json[:main][:temp].to_f.in_celsius

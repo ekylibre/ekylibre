@@ -81,14 +81,6 @@
 #     - "backend/dashboards#tools"
 #     - "backend/dashboards#trade"
 #     - "backend/dashboards#update"
-#     - "backend/deliveries#cancel"
-#     - "backend/deliveries#check"
-#     - "backend/deliveries#create"
-#     - "backend/deliveries#finish"
-#     - "backend/deliveries#new"
-#     - "backend/deliveries#order"
-#     - "backend/deliveries#prepare"
-#     - "backend/deliveries#start"
 #     - "backend/equipments#take"
 #     - "backend/fungi#take"
 #     - "backend/golumns#reset"
@@ -105,19 +97,11 @@
 #     - "backend/map_editor#import_shapes"
 #     - "backend/map_editor#upload"
 #     - "backend/matters#take"
-#     - "backend/parcels#cancel"
-#     - "backend/parcels#check"
-#     - "backend/parcels#give"
-#     - "backend/parcels#order"
-#     - "backend/parcels#prepare"
 #     - "backend/plants#take"
 #     - "backend/product_groups#take"
 #     - "backend/product_nature_variants#detail"
 #     - "backend/product_nature_variants#quantifiers"
 #     - "backend/products#take"
-#     - "backend/sales#generate_parcel"
-#     - "backend/sensors#detail"
-#     - "backend/sensors#models"
 #     - "backend/settlements#take"
 #     - "backend/snippets#toggle"
 #     - "backend/visuals#picture"
@@ -931,10 +915,15 @@ incoming_deliveries:
     dependencies:
     - read-incoming_deliveries
     actions:
+    - "backend/parcels#cancel"
+    - "backend/parcels#check"
     - "backend/parcels#create"
     - "backend/parcels#destroy"
     - "backend/parcels#edit"
+    - "backend/parcels#give"
     - "backend/parcels#new"
+    - "backend/parcels#order"
+    - "backend/parcels#prepare"
     - "backend/parcels#update"
 
 incoming_payment_modes:
@@ -1337,10 +1326,15 @@ outgoing_deliveries:
     dependencies:
     - read-outgoing_deliveries
     actions:
+    - "backend/parcels#cancel"
+    - "backend/parcels#check"
     - "backend/parcels#create"
     - "backend/parcels#destroy"
     - "backend/parcels#edit"
+    - "backend/parcels#give"
     - "backend/parcels#new"
+    - "backend/parcels#order"
+    - "backend/parcels#prepare"
     - "backend/parcels#update"
 
 outgoing_payment_modes:
@@ -1713,6 +1707,7 @@ sales:
     - "backend/sales#destroy"
     - "backend/sales#duplicate"
     - "backend/sales#edit"
+    - "backend/sales#generate_parcel"
     - "backend/sales#invoice"
     - "backend/sales#new"
     - "backend/sales#propose"
@@ -1730,11 +1725,11 @@ sales:
 sensors:
   read:
     actions:
-    - "backend/sensors#get_informations" #?
-    - "backend/sensors#get_models" #?
+    - "backend/sensors#detail"
     - "backend/sensors#index"
     - "backend/sensors#list"
     - "backend/sensors#list_analyses"
+    - "backend/sensors#models"
     - "backend/sensors#show"
     - "backend/sensors#unroll"
   write:
@@ -1925,8 +1920,16 @@ transports:
     - read-outgoing_deliveries
     - read-transports
     actions:
+    - "backend/deliveries#cancel"
+    - "backend/deliveries#check"
+    - "backend/deliveries#create"
     - "backend/deliveries#destroy"
     - "backend/deliveries#edit"
+    - "backend/deliveries#finish"
+    - "backend/deliveries#new"
+    - "backend/deliveries#order"
+    - "backend/deliveries#prepare"
+    - "backend/deliveries#start"
     - "backend/deliveries#update"
     - "backend/parcels#ship"
 

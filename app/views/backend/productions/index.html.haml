@@ -23,7 +23,7 @@
       popup_content << {label: :area.tl, value: support.storage_net_surface_area.in_hectare.round(2).l}
       #popup_content << {label: :net_surface_area.tl, value: support.net_surface_area.in_hectare.round(2).l}
     end
-    
+
     interventions = support.interventions.reorder(:started_at)
     if interventions.any?
       time_spend = interventions.map(&:duration).compact.sum
@@ -32,8 +32,8 @@
       last_intervention = interventions.max{|a,b| a.started_at <=> b.started_at }
       popup_content << {label: :last_intervention.tl, value: link_to( last_intervention.name, backend_intervention_path(last_intervention)) }
     end
-    
-    
+
+
     popup_content << render('popup', support: support)
 
     item = {

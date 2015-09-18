@@ -91,6 +91,8 @@ class Sensor < Ekylibre::Record::Base
   class << self
     # Get all sensors and retrieve data
     def retrieve_all(options = {})
+      attributes = { active: true }
+      attributes[:retrieval_mode] = options[:mode] || :automatic
       default_interval = 1.hour
       options[:stopped_at] ||= Time.zone.now
       options[:started_at] ||= options[:stopped_at] - default_interval

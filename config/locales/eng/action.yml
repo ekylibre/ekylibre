@@ -1358,7 +1358,7 @@ eng:
     send_mail: "Send mail"
     send_test_mail: "Send test mail"
     sensor_indicators: "Sensor indicators" #?!
-    sensor_informations: "Sensor informations"
+    sensor_informations: "Sensor informations" #?!
     sensor_model: "Sensor model"
     sensors: "Sensors"
     sessions: "Sessions"

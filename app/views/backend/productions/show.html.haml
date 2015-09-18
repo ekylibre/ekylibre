@@ -7,14 +7,14 @@
     #popup_content << {label: :activity.tl, value: link_to(support.production.activity.name, backend_activity_path(support.production.activity))}
     #popup_content << {label: :production_support.tl, value: link_to(support.name, backend_production_support_path(support))}
     popup_content << {label: ProductionSupport.model_name.human, value: link_to(support.work_name, backend_production_support_path(support))}
-    
+
     # TODO refactor
     mass_unit = :quintal
     surface_unit = :hectare
     grain_yield = support.grains_yield(mass_unit, surface_unit)
     measure_unit = "#{mass_unit.to_s}_per_#{surface_unit.to_s}"
     yield_symbol = Nomen::Unit[measure_unit.to_sym]
-    
+
     popup_content << {label: :grain_yield.tl, value: "#{grain_yield.to_d.round(2)} #{yield_symbol.symbol}"} if grain_yield
 
     for item in [:nitrogen_concentration, :phosphorus_concentration, :potassium_concentration]
