@@ -275,8 +275,6 @@ analyses:
     references: user
   description:
     type: text
-  error_explanation:
-    type: string
   geolocation:
     type: geometry
     limit:
@@ -302,6 +300,12 @@ analyses:
     references: product
   reference_number:
     type: string
+  retrieval_message:
+    type: string
+  retrieval_status:
+    type: string
+    required: true
+    default: ok
   sampled_at:
     type: datetime
     required: true
@@ -315,10 +319,6 @@ analyses:
   sensor_id:
     type: integer
     references: sensor
-  state:
-    type: string
-    required: true
-    default: ok
   stopped_at:
     type: datetime
   updated_at:

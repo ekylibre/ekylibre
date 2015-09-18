@@ -9,8 +9,10 @@ ActiveRecord::Base.send(:extend, Delay::Validation::ClassMethods)
 require 'safe_string'
 autoload :SymbolArray, 'symbol_array'
 
-# ActiveExchanger
+# ActiveThing
 autoload :ActiveExchanger, 'active_exchanger'
+autoload :ActiveGuide,     'active_guide'
+autoload :ActiveSensor,    'active_sensor'
 
 # App-specific libs
 require 'ekylibre'
@@ -44,6 +46,8 @@ end
 require 'reporting'
 require 'enumerize/xml'
 require 'state_machine/i18n'
+
+require 'open_weather_map'
 
 # require 'active_list'
 # ::ActionController::Base.send(:include, ActiveList::ActionPack::ActionController)

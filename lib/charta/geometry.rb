@@ -38,6 +38,10 @@ module Charta
       end
     end
 
+    def self.point(lat, lon, srid = 4326)
+      new("POINT(#{lon} #{lat})", srid)
+    end
+
     def inspect
       "<Geometry(#{@ewkt})>"
     end

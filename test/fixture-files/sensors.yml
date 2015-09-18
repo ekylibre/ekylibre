@@ -6,4 +6,4 @@ vendor1:
       - temperature
       - hygrometry
       - atmospheric_pressure
-    controller: "Weather::Vendor1::GenericController"
+    # controller: "Vendor1::GenericController"

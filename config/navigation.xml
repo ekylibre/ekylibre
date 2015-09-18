@@ -789,8 +789,8 @@
         <page to="backend/sensors#create"/>
         <page to="backend/sensors#destroy"/>
         <page to="backend/sensors#edit"/>
-        <page to="backend/sensors#get_informations"/>
-        <page to="backend/sensors#get_models"/>
+        <page to="backend/sensors#get_informations" nonexistent="true"/>
+        <page to="backend/sensors#get_models" nonexistent="true"/>
         <page to="backend/sensors#list"/>
         <page to="backend/sensors#new"/>
         <page to="backend/sensors#show"/>
@@ -1780,6 +1780,11 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="sensors">
+        <page to="backend/sensors#detail"/>
+        <page to="backend/sensors#models"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

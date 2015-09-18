@@ -1133,6 +1133,7 @@ fra:
     responsible: "Responsable"
     restricted: "Réservé"
     retrieval_mode: "Mode de récupération"
+    # retrieval_status: "Retrieval status"
     revenues: "Produits"
     rgt: "Limite droite"
     rights: "Droits"

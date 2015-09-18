@@ -1,9 +1,0 @@
-= field_set :sensor_informations do
-  = image_tag @equipment.image_path, size: '200' unless @equipment.image_path.nil?
-  = content_tag :p, "#{:model.tl}: #{@equipment.label}"
-  = content_tag :p, "#{:description.tl}: #{@equipment.description}"
-
-= field_set :access_parameters do
-  - @parameters.each do |k, v|
-    - value =(not @sensor.nil?) ? @sensor.access_parameters[k] : v
-    = field k, {datatype: :string, value: value, name: "sensor[access_parameters[#{k}]]"}

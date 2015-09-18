@@ -43,25 +43,28 @@ module Backend::FormHelper
     name = args.shift || options[:name]
     datatype = args.shift || options[:datatype]
     value = args.shift || options[:value]
+    html_options = options[:html_options] || {}
+    html_options[:required] = true if options[:required]
+    html_options[:placeholder] = options[:placeholder] if options[:placeholder]
     if datatype == :boolean
-      hidden_field_tag(name, '0') + check_box_tag(name, '1', value)
+      hidden_field_tag(name, '0') + check_box_tag(name, '1', value, html_options)
     elsif datatype == :measure
       unless unit = options[:unit] || (value ? value.unit : nil)
         fail StandardError, 'Need unit'
       end
       content_tag(:div, class: 'input-append') do
         text_field_tag("#{name}[value]", (value ? value.to_d : nil)) +
-          select_tag("#{name}[unit]", options_for_select(Measure.siblings(unit).collect { |u| [Nomen::Unit[u].human_name, u] }, (value ? value.unit : unit)))
+          select_tag("#{name}[unit]", options_for_select(Measure.siblings(unit).collect { |u| [Nomen::Unit[u].human_name, u] }, (value ? value.unit : unit)), html_options)
       end
     elsif [:string, :integer, :decimal].include? datatype
-      text_field_tag(name, value)
+      text_field_tag(name, value, html_options)
     elsif datatype == :choice
       choices = options[:choices] || []
-      select_tag(name, options_for_select(choices, value))
+      select_tag(name, options_for_select(choices, value), html_options)
     elsif datatype == :accounting_system
-      select_tag(name, options_for_select(Nomen::AccountingSystem.selection, value))
+      select_tag(name, options_for_select(Nomen::AccountingSystem.selection, value), html_options)
     elsif nomenclature = Nomen[datatype.to_s.pluralize]
-      select_tag(name, options_for_select(nomenclature.selection, value))
+      select_tag(name, options_for_select(nomenclature.selection, value), html_options)
     else
       return "[EmptyField #{name.inspect}]"
     end

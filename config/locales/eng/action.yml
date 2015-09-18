@@ -605,10 +605,10 @@ eng:
       # refuse: "Refuse sale: %{name}"
       show: "%{label} for %{client}"
     backend/sensors:
+      # detail: "Detail sensor: %{name}"
       edit: "Edit sensor: %{name}"
-      # get_informations: "Get informations sensor: %{name}"
-      # get_models: "Get models sensor: %{name}"
       index: "Sensors"
+      # models: "Models sensor: %{name}"
       new: "New sensor"
       # retrieve: "Retrieve sensor: %{name}"
       show: "Sensor: %{name}"
@@ -854,7 +854,7 @@ eng:
     attach_deal: "Add a deal"
     attachment: "Attachment"
     attachments: "Attachments"
-    automatic: "Auto"
+    automatic: "Auto" #?
     available_columns: "Available columns: %{columns}"
     back: "Back to the previous page"
     balance: "Balance"
@@ -968,7 +968,7 @@ eng:
     deposits: "Deposits"
     depreciation: "Depreciation"
     depreciations: "Depreciations"
-    description: "Description"
+    description: "Description" #?
     destroy: "Destroy"
     destroyed_at_by: "Destroyed at %{at} by %{author}"
     destroyed_by_ago: "Destroyed by %{author} %{when}"
@@ -1142,7 +1142,7 @@ eng:
       zero: "No emails"
     main_settings: "Main settings" #?
     make_your_production_support: "Make your production support"
-    manual: "Manual"
+    manual: "Manual" #?
     manual_period: "from %{start} to %{finish}"
     manure_management_plan_chart: "Manure management plan chart"
     map: "Map"
@@ -1156,7 +1156,7 @@ eng:
     missing_help: "Missing page"
     mobile: "Mobile" #?
     mode: "Mode" #?
-    model: "Model"
+    model: "Model" #?
     modes: "Modes" #?
     month_period: "%{code} - %{month} %{year}"
     monthly: "Monthly" #?
@@ -1356,7 +1356,7 @@ eng:
     selection: "Selection" #?
     send_mail: "Send mail"
     send_test_mail: "Send test mail"
-    sensor_indicators: "Sensor indicators" #??
+    sensor_indicators: "Sensor indicators" #?!
     sensor_informations: "Sensor informations"
     sensor_model: "Sensor model"
     sensors: "Sensors"
@@ -1743,8 +1743,6 @@ eng:
       finish: "Finish"
       generate_last_journal_entry: "Generate last journal entry"
       generate_parcel: "Generate parcel"
-      # get_informations: "Get informations"
-      # get_models: "Get models"
       # give: "Give"
       import: "Import"
       import_shapes: "Import shapes"
@@ -1765,6 +1763,7 @@ eng:
       # main: "Main"
       mark: "Mark"
       merge: "Merge"
+      # models: "Models"
       move: "Move"
       negociate: "Negociate"
       new: "New"

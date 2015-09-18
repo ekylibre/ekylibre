@@ -1805,6 +1805,7 @@ arb:
     responsible_id: "المسؤول" #?
     # restricted: "Restricted"
     # retrieval_mode: "Retrieval mode"
+    # retrieval_status: "Retrieval status"
     # revenues: "Revenues"
     # rgt: "Right"
     rights: "الحقوق"

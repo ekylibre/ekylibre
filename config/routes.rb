@@ -693,13 +693,12 @@ Rails.application.routes.draw do
 
     resources :sensors, concerns: [:list, :unroll] do
       collection do
-        get :get_models
-        get :get_informations
+        get :models
+        get :detail
       end
-
       member do
         get :list_analyses
-        get :retrieve
+        post :retrieve
       end
     end
 

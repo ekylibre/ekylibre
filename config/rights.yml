@@ -116,6 +116,8 @@
 #     - "backend/product_nature_variants#quantifiers"
 #     - "backend/products#take"
 #     - "backend/sales#generate_parcel"
+#     - "backend/sensors#detail"
+#     - "backend/sensors#models"
 #     - "backend/settlements#take"
 #     - "backend/snippets#toggle"
 #     - "backend/visuals#picture"
@@ -1728,8 +1730,8 @@ sales:
 sensors:
   read:
     actions:
-    - "backend/sensors#get_informations"
-    - "backend/sensors#get_models"
+    - "backend/sensors#get_informations" #?
+    - "backend/sensors#get_models" #?
     - "backend/sensors#index"
     - "backend/sensors#list"
     - "backend/sensors#list_analyses"

@@ -27,7 +27,6 @@
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  description            :text
-#  error_explanation      :string
 #  geolocation            :geometry({:srid=>4326, :type=>"point"})
 #  host_id                :integer
 #  id                     :integer          not null, primary key
@@ -36,11 +35,12 @@
 #  number                 :string           not null
 #  product_id             :integer
 #  reference_number       :string
+#  retrieval_message      :string
+#  retrieval_status       :string           default("ok"), not null
 #  sampled_at             :datetime         not null
 #  sampler_id             :integer
 #  sampling_temporal_mode :string           default("instant"), not null
 #  sensor_id              :integer
-#  state                  :string           default("ok"), not null
 #  stopped_at             :datetime
 #  updated_at             :datetime         not null
 #  updater_id             :integer
@@ -52,9 +52,9 @@
 #   creator: users_001
 #   nature: "Lorem ipsum"
 #   number: "Lorem ipsum"
+#   retrieval_status: "Lorem ipsum"
 #   sampled_at: 2014-11-27 19:35:05 +02:00
 #   sampling_temporal_mode: "Lorem ipsum"
-#   state: "Lorem ipsum"
 #   updater: users_001
 #
 ---
@@ -68,9 +68,9 @@ analyses_001:
   nature: cow_milk_analysis
   number: ANL0001
   reference_number: LCALEDSLAB8458964548458
+  retrieval_status: ok
   sampled_at: 2013-10-26 14:34:00.000000000 Z
   sampling_temporal_mode: instant
-  state: ok
   updated_at: 2015-06-02 19:42:16.762967000 Z
   updater_id: 1
 analyses_002:
@@ -83,9 +83,9 @@ analyses_002:
   nature: cow_milk_analysis
   number: ANL0002
   reference_number: ''
+  retrieval_status: ok
   sampled_at: 2013-10-26 14:34:00.000000000 Z
   sampling_temporal_mode: instant
-  state: ok
   updated_at: 2015-06-02 19:42:27.817926000 Z
   updater_id: 1
 analyses_003:
@@ -99,9 +99,205 @@ analyses_003:
   nature: soil_analysis
   number: A00000001
   reference_number: TSOL845682
+  retrieval_status: ok
   sampled_at: 2015-03-03 07:40:00.000000000 Z
   sampler_id: 12
   sampling_temporal_mode: instant
-  state: ok
   updated_at: 2015-06-02 19:44:16.060518000 Z
+  updater_id: 1
+analyses_004:
+  created_at: 2015-09-18 11:50:39.916477000 Z
+  creator_id: 1
+  id: 4
+  lock_version: 0
+  nature: meteorological_analysis
+  number: A00000002
+  retrieval_message: 'undefined local variable or method `sensor'' for #<Sensor:0x007fe4759c6920>'
+  retrieval_status: error
+  sampled_at: 2015-09-18 11:50:39.880562000 Z
+  sampling_temporal_mode: instant
+  sensor_id: 1
+  updated_at: 2015-09-18 11:50:39.916477000 Z
+  updater_id: 1
+analyses_005:
+  created_at: 2015-09-18 13:57:27.942333000 Z
+  creator_id: 1
+  id: 5
+  lock_version: 0
+  nature: meteorological_analysis
+  number: A00000003
+  retrieval_message: bad argument (expected URI object or URI string)
+  retrieval_status: controller_error
+  sampled_at: 2015-09-18 13:57:27.923638000 Z
+  sampling_temporal_mode: instant
+  sensor_id: 1
+  updated_at: 2015-09-18 13:57:27.942333000 Z
+  updater_id: 1
+analyses_006:
+  created_at: 2015-09-18 13:58:37.213064000 Z
+  creator_id: 1
+  id: 6
+  lock_version: 0
+  nature: meteorological_analysis
+  number: A00000004
+  retrieval_message: bad argument (expected URI object or URI string)
+  retrieval_status: controller_error
+  sampled_at: 2015-09-18 13:58:37.186253000 Z
+  sampling_temporal_mode: instant
+  sensor_id: 1
+  updated_at: 2015-09-18 13:58:37.213064000 Z
+  updater_id: 1
+analyses_007:
+  created_at: 2015-09-18 14:00:23.575998000 Z
+  creator_id: 1
+  id: 7
+  lock_version: 0
+  nature: meteorological_analysis
+  number: A00000005
+  retrieval_message: bad argument (expected URI object or URI string)
+  retrieval_status: controller_error
+  sampled_at: 2015-09-18 14:00:23.557128000 Z
+  sampling_temporal_mode: instant
+  sensor_id: 1
+  updated_at: 2015-09-18 14:00:23.575998000 Z
+  updater_id: 1
+analyses_008:
+  created_at: 2015-09-18 14:00:36.860569000 Z
+  creator_id: 1
+  id: 8
+  lock_version: 0
+  nature: meteorological_analysis
+  number: A00000006
+  retrieval_message: bad argument (expected URI object or URI string)
+  retrieval_status: controller_error
+  sampled_at: 2015-09-18 14:00:36.832562000 Z
+  sampling_temporal_mode: instant
+  sensor_id: 1
+  updated_at: 2015-09-18 14:00:36.860569000 Z
+  updater_id: 1
+analyses_009:
+  created_at: 2015-09-18 14:00:39.664588000 Z
+  creator_id: 1
+  id: 9
+  lock_version: 0
+  nature: meteorological_analysis
+  number: A00000007
+  retrieval_message: bad argument (expected URI object or URI string)
+  retrieval_status: controller_error
+  sampled_at: 2015-09-18 14:00:39.656387000 Z
+  sampling_temporal_mode: instant
+  sensor_id: 1
+  updated_at: 2015-09-18 14:00:39.664588000 Z
+  updater_id: 1
+analyses_010:
+  created_at: 2015-09-18 14:01:16.152215000 Z
+  creator_id: 1
+  id: 10
+  lock_version: 0
+  nature: meteorological_analysis
+  number: A00000008
+  retrieval_message: bad argument (expected URI object or URI string)
+  retrieval_status: controller_error
+  sampled_at: 2015-09-18 14:01:16.124595000 Z
+  sampling_temporal_mode: instant
+  sensor_id: 1
+  updated_at: 2015-09-18 14:01:16.152215000 Z
+  updater_id: 1
+analyses_011:
+  created_at: 2015-09-18 14:03:36.054826000 Z
+  creator_id: 1
+  id: 11
+  lock_version: 0
+  nature: meteorological_analysis
+  number: A00000009
+  retrieval_message: '"2015-09-18 14:00:00"'
+  retrieval_status: controller_error
+  sampled_at: 2015-09-18 14:03:36.027428000 Z
+  sampling_temporal_mode: instant
+  sensor_id: 1
+  updated_at: 2015-09-18 14:03:36.054826000 Z
+  updater_id: 1
+analyses_012:
+  created_at: 2015-09-18 14:12:08.620496000 Z
+  creator_id: 1
+  geolocation: SRID=4326;POINT(44.29 -0.89)
+  id: 12
+  lock_version: 0
+  nature: meteorological_analysis
+  number: A00000010
+  retrieval_status: ok
+  sampled_at: 2015-09-18 14:12:08.589964000 Z
+  sampling_temporal_mode: instant
+  sensor_id: 1
+  updated_at: 2015-09-18 14:12:08.620496000 Z
+  updater_id: 1
+analyses_013:
+  created_at: 2015-09-18 14:16:46.553081000 Z
+  creator_id: 1
+  geolocation: SRID=4326;POINT(-0.89 44.29)
+  id: 13
+  lock_version: 0
+  nature: meteorological_analysis
+  number: A00000011
+  retrieval_status: ok
+  sampled_at: 2015-09-18 14:16:46.529531000 Z
+  sampling_temporal_mode: instant
+  sensor_id: 1
+  updated_at: 2015-09-18 14:16:46.553081000 Z
+  updater_id: 1
+analyses_014:
+  created_at: 2015-09-18 15:09:41.233768000 Z
+  creator_id: 1
+  geolocation: SRID=4326;POINT(-0.851 44.7583)
+  id: 14
+  lock_version: 0
+  nature: meteorological_analysis
+  number: A00000012
+  retrieval_status: ok
+  sampled_at: 2015-09-18 15:09:41.204365000 Z
+  sampling_temporal_mode: instant
+  sensor_id: 2
+  updated_at: 2015-09-18 15:09:41.233768000 Z
+  updater_id: 1
+analyses_015:
+  created_at: 2015-09-18 15:11:10.135363000 Z
+  creator_id: 1
+  geolocation: SRID=4326;POINT(-0.851 44.7583)
+  id: 15
+  lock_version: 0
+  nature: meteorological_analysis
+  number: A00000013
+  retrieval_status: ok
+  sampled_at: 2015-09-18 15:11:10.123781000 Z
+  sampling_temporal_mode: instant
+  sensor_id: 2
+  updated_at: 2015-09-18 15:11:10.135363000 Z
+  updater_id: 1
+analyses_016:
+  created_at: 2015-09-18 15:21:09.898704000 Z
+  creator_id: 1
+  geolocation: SRID=4326;POINT(-0.8894 44.4481)
+  id: 16
+  lock_version: 0
+  nature: meteorological_analysis
+  number: A00000014
+  retrieval_status: ok
+  sampled_at: 2015-09-18 15:21:09.868229000 Z
+  sampling_temporal_mode: instant
+  sensor_id: 3
+  updated_at: 2015-09-18 15:21:09.898704000 Z
+  updater_id: 1
+analyses_017:
+  created_at: 2015-09-18 15:28:34.805788000 Z
+  creator_id: 1
+  geolocation: SRID=4326;POINT(-0.8894 44.4481)
+  id: 17
+  lock_version: 0
+  nature: meteorological_analysis
+  number: A00000015
+  retrieval_status: ok
+  sampled_at: 2015-09-18 15:28:34.784089000 Z
+  sampling_temporal_mode: instant
+  sensor_id: 3
+  updated_at: 2015-09-18 15:28:34.805788000 Z
   updater_id: 1

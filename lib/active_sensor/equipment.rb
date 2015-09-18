@@ -1,36 +1,39 @@
 module ActiveSensor
-  class Equipment < ActiveSensor::Base
-    attr_accessor :vendor
-    attr_accessor :model
-    attr_accessor :label
-    attr_accessor :description
-    attr_accessor :indicators
-    attr_accessor :image_path
-    attr_accessor :controller
-
-    def initialize(options = {})
-      assign_attributes(options)
-    end
-
-    def assign_attributes(values)
-      values.each do |k, v|
-        send("#{k}=", v)
-      end
-    end
-
-    def get(access_parameters = {})
-      ActiveSensor::Connection.new(self, access_parameters)
-    end
-
-    def label
-      if @label.is_a? Hash
-        @label[I18n.locale]
-      else
-        @label
-      end
+  class Equipment
+    mattr_accessor :list do
+      []
     end
 
     class << self
+      # Register an equipment in global base
+      def register(vendor, model, options = {})
+        # puts "Register #{vendor.to_s.yellow} #{model.to_s.green}"
+        if ActiveSensor::Equipment.find(vendor, model)
+          Rails.logger.warn "Equipment #{vendor}:#{model} already exists. Will be overriden"
+          erase(vendor, model)
+        end
+        list << ActiveSensor::Equipment.new(vendor, model, options)
+        true
+      end
+
+      # Register a YAML file of many equipment
+      #   <vendor>:
+      #     <model>:
+      #       label: ...
+      #       description: ...
+      #       controller: ...
+      #       indicators: ...
+      def register_many(path, _options = {})
+        fail "Cannot find #{path}" unless Pathname(path).exist?
+        sensors = YAML.load_file(path).deep_symbolize_keys
+        sensors.each do |vendor, models|
+          models.each do |model, options|
+            register(vendor, model, options)
+          end
+        end
+      end
+
+      # List all vendors
       def vendors
         list.collect(&:vendor).uniq
       end
@@ -52,15 +55,96 @@ module ActiveSensor
         end
       end
 
-      def get(vendor, model, access_parameters = {})
+      def find!(vendor, model)
         equipment = find(vendor, model)
+        unless equipment
+          fail EquipmentNotFound, "Cannot find vendor=#{vendor}, model=#{model}"
+        end
+        equipment
+      end
 
-        if equipment
-          ActiveSensor::Connection.new(equipment, access_parameters)
-        else
-          fail 'No matching equipment'
+      def connect(vendor, model, access_parameters = {})
+        equipment = find!(vendor, model)
+        equipment.connect(access_parameters)
+      end
+    end
+
+    attr_reader :vendor
+    attr_reader :model
+    attr_reader :indicators
+    attr_reader :image_path
+    attr_reader :controller
+
+    delegate :parameters, to: :controller
+
+    # Initialize an equipment with given parameters
+    def initialize(vendor, model, options = {})
+      # options.symbolize_keys!
+      @vendor = vendor.to_sym
+      fail 'Need vendor' unless @vendor
+      @model = model.to_sym
+      fail 'Need model' unless @model
+      if options[:indicators]
+        @indicators = options[:indicators].collect do |i|
+          fail "Invalid indicator: #{i.inspect}" unless Nomen::Indicator.find(i)
+          i.to_sym
         end
       end
+      store_translation(:label, options[:label])
+      store_translation(:description, options[:description])
+      if options[:image_path]
+        path = Pathname.new(options[:image_path])
+        fail "Cannot find image #{options[:image_path]}" unless path.exist?
+        @image_path = path
+      end
+      @controller = options[:controller].constantize if options[:controller]
+    end
+
+    # Returns ActiveSensor::Connection  with permit to retrieve
+    # data from sensor
+    def connect(access_parameters = {})
+      ActiveSensor::Connection.new(self, access_parameters)
+    end
+
+    def unique_name
+      "#{@vendor}##{@model}"
+    end
+
+    # Returns i18nized label
+    def label(options = {})
+      translate(:label, options) || @name.to_s.humanize
+    end
+
+    # Returns i18nized description
+    def description(options = {})
+      translate(:description, options)
+    end
+
+    protected
+
+    def store_translation(_scope, value)
+      if value.is_a?(String)
+        value = { I18n.default_locale => value }
+      elsif !value.is_a?(Hash)
+        return false
+        # fail "Cannot handle #{value.inspect} as translation for #{scope}"
+      end
+      @translations ||= {}.with_indifferent_access
+      @translations.deep_merge!(value)
+    end
+
+    def translate(scope, options = {})
+      locale = options[:locale] || I18n.locale
+      @translations ||= {}.with_indifferent_access
+      text = @translations.try(:[], scope).try(:[], locale)
+      unless text
+        if Rails.env.development?
+          return "Missing translation for sensor #{@vendor}##{@model}: #{scope}"
+        else
+          text = @translations.try(:fetch, scope).try(:fetch, I18n.default_locale)
+        end
+      end
+      text
     end
   end
 end

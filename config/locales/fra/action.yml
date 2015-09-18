@@ -517,10 +517,10 @@ fra:
       show: "%{label} pour %{client}"
       statistics: "Statistiques  de ventes" #?
     backend/sensors:
-      edit: "Editer le capteur\_: %{name}"
+      edit: "Modifier le capteur\_: %{name}"
       index: "Capteurs"
       new: "Nouveau capteur"
-      show: "Capteur: %{name}"
+      show: "Capteur\_: %{name}"
     backend/sequences:
       edit: "Modifier la séquence\_: %{name}"
       index: "Séquences"

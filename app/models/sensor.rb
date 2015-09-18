@@ -40,72 +40,62 @@
 #
 
 class Sensor < Ekylibre::Record::Base
+  enumerize :retrieval_mode, in: [:manual, :automatic], default: :automatic
+  belongs_to :product
+  belongs_to :host, class_name: 'Product'
+  has_many :analyses, class_name: 'Analysis'
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_inclusion_of :active, :embedded, in: [true, false]
   validates_presence_of :model_euid, :name, :retrieval_mode, :vendor_euid
   # ]VALIDATORS]
-  belongs_to :product
-  belongs_to :host, class_name: 'Product', foreign_key: :host_id
-  has_many :analyses, class_name: 'Analysis'
+
+  # TODO: Check parameters presence
 
   def equipment
     ActiveSensor::Equipment.find(vendor_euid, model_euid)
+  end
+
+  # Read sensor indicator and write an analysis
+  def retrieve(options = {})
+    connection = equipment.connect(access_parameters)
+
+    results = connection.retrieve(options)
+    attributes = {
+      nature: 'meteorological_analysis',
+      retrieval_status: results[:status]
+    }
+    if results[:status].to_s == 'ok'
+      # Indicators
+      values = []
+      results[:values].each do |k, v|
+        values << { indicator_name: k, value: v } unless v.blank?
+      end
+      attributes.update(
+        sampled_at: options[:started_at],
+        analysed_at: options[:started_at],
+        stopped_at: options[:stopped_at],
+        geolocation: results[:geolocation],
+        sampling_temporal_mode: results[:sampling_temporal_mode],
+        items_attributes: values
+      )
+    else
+      attributes[:retrieval_message] = results[:message]
+    end
+    analyses.create!(attributes)
+    # rescue => e
+    #   # save failure
+    #   self.analyses.create!(error_explanation: e.message, state: 'error', nature: 'meteorological_analysis', sampled_at: Time.now)
   end
 
   class << self
     # Get all sensors and retrieve data
     def retrieve_all(options = {})
       default_interval = 1.hour
-
-      options[:started_at] ||= Time.now - default_interval
-      options[:stopped_at] ||= Time.now
-      options[:mode] ||= :automatic
-      options[:active] ||= true
-
-      # attributes
-      attributes = {}
-      attributes[:retrieval_mode] = options[:mode] # manual / automatic
-      attributes[:active] = options[:active]
-      attributes[:id] = options[:id] unless options[:id].nil?
-
+      options[:stopped_at] ||= Time.zone.now
+      options[:started_at] ||= options[:stopped_at] - default_interval
       where(attributes).find_each do |sensor|
-        begin
-          connection = ActiveSensor::Equipment.get(sensor.vendor_euid, sensor.model_euid, sensor.access_parameters)
-
-          results = connection.retrieve(options)
-
-          time = results.delete(:time)
-
-          # Charta Geometry
-          geolocation = results.delete(:geolocation)
-
-          attributes = {}
-          attributes[:items_attributes] = []
-
-          attributes[:sampling_temporal_mode] = results.delete(:sampling_temporal_mode)
-
-          # Indicators
-          results.each do |k, v|
-            n = Nomen::Indicator.find(k)
-            attributes[:items_attributes] << { indicator_name: n.name, indicator_datatype: n.datatype, value: v } unless v.nil?
-          end
-
-          attributes[:state] = 'ok'
-          attributes[:nature] = 'meteorological_analysis'
-          attributes[:sampled_at] = options[:started_at]
-          attributes[:analysed_at] = options[:started_at]
-          attributes[:stopped_at] = options[:stopped_at]
-
-          # save
-          analysis = sensor.analyses.new(attributes.except(:items_attributes))
-          analysis.attributes = attributes
-          analysis.geolocation = geolocation
-          analysis.save!
-
-        rescue => e
-          # save failure
-          sensor.analyses.create!(error_explanation: e.message, state: 'error', nature: 'meteorological_analysis', sampled_at: Time.now)
-        end
+        sensor.retrieve(options)
       end
     end
   end

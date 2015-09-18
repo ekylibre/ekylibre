@@ -27,7 +27,6 @@
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  description            :text
-#  error_explanation      :string
 #  geolocation            :geometry({:srid=>4326, :type=>"point"})
 #  host_id                :integer
 #  id                     :integer          not null, primary key
@@ -36,11 +35,12 @@
 #  number                 :string           not null
 #  product_id             :integer
 #  reference_number       :string
+#  retrieval_message      :string
+#  retrieval_status       :string           default("ok"), not null
 #  sampled_at             :datetime         not null
 #  sampler_id             :integer
 #  sampling_temporal_mode :string           default("instant"), not null
 #  sensor_id              :integer
-#  state                  :string           default("ok"), not null
 #  stopped_at             :datetime
 #  updated_at             :datetime         not null
 #  updater_id             :integer

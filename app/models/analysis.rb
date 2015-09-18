@@ -27,7 +27,6 @@
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  description            :text
-#  error_explanation      :string
 #  geolocation            :geometry({:srid=>4326, :type=>"point"})
 #  host_id                :integer
 #  id                     :integer          not null, primary key
@@ -36,17 +35,19 @@
 #  number                 :string           not null
 #  product_id             :integer
 #  reference_number       :string
+#  retrieval_message      :string
+#  retrieval_status       :string           default("ok"), not null
 #  sampled_at             :datetime         not null
 #  sampler_id             :integer
 #  sampling_temporal_mode :string           default("instant"), not null
 #  sensor_id              :integer
-#  state                  :string           default("ok"), not null
 #  stopped_at             :datetime
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #
 
 class Analysis < Ekylibre::Record::Base
+  enumerize :retrieval_status, in: [:ok, :controller_error, :error], predicates: true
   refers_to :nature, class_name: 'AnalysisNature'
   belongs_to :analyser, class_name: 'Entity'
   belongs_to :sampler, class_name: 'Entity'
@@ -57,7 +58,7 @@ class Analysis < Ekylibre::Record::Base
   has_many :items, class_name: 'AnalysisItem', foreign_key: :analysis_id, inverse_of: :analysis, dependent: :destroy
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :analysed_at, :sampled_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
-  validates_presence_of :nature, :number, :sampled_at, :sampling_temporal_mode, :state
+  validates_presence_of :nature, :number, :retrieval_status, :sampled_at, :sampling_temporal_mode
   # ]VALIDATORS]
 
   acts_as_numbered
@@ -67,6 +68,10 @@ class Analysis < Ekylibre::Record::Base
   scope :between, lambda { |started_at, stopped_at|
     where(sampled_at: started_at..stopped_at)
   }
+
+  before_validation do
+    self.sampled_at ||= Time.zone.now
+  end
 
   after_save do
     reload.items.each(&:save!)

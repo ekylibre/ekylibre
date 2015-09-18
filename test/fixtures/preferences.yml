@@ -53,10 +53,10 @@ preferences_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   id: 1
-  lock_version: 26
+  lock_version: 28
   name: interface.helps.collapsed
   nature: boolean
-  updated_at: 2014-11-03 09:48:47.281558000 Z
+  updated_at: 2015-09-18 10:20:02.960808000 Z
   updater_id: 1
   user_id: 1
 preferences_002:
@@ -3272,5 +3272,60 @@ preferences_279:
   nature: string
   string_value: {}
   updated_at: 2015-09-17 13:38:10.646054000 Z
+  updater_id: 1
+  user_id: 1
+preferences_280:
+  created_at: 2015-09-18 09:44:47.110776000 Z
+  creator_id: 1
+  id: 281
+  lock_version: 0
+  name: list._sensors_list_sensors_tag
+  nature: string
+  string_value: {}
+  updated_at: 2015-09-18 09:44:47.110776000 Z
+  updater_id: 1
+  user_id: 1
+preferences_281:
+  boolean_value: false
+  created_at: 2015-09-18 09:44:47.941395000 Z
+  creator_id: 1
+  id: 282
+  lock_version: 2
+  name: interface.snippets.sensors.collapsed
+  nature: boolean
+  updated_at: 2015-09-18 15:29:26.517467000 Z
+  updater_id: 1
+  user_id: 1
+preferences_282:
+  created_at: 2015-09-18 10:20:22.873269000 Z
+  creator_id: 1
+  id: 283
+  lock_version: 0
+  name: cobbler.sensors-show
+  nature: string
+  string_value: {}
+  updated_at: 2015-09-18 10:20:22.873269000 Z
+  updater_id: 1
+  user_id: 1
+preferences_283:
+  created_at: 2015-09-18 10:20:22.888736000 Z
+  creator_id: 1
+  id: 284
+  lock_version: 0
+  name: list._sensors_list_analyses_tag
+  nature: string
+  string_value: {}
+  updated_at: 2015-09-18 10:20:22.888736000 Z
+  updater_id: 1
+  user_id: 1
+preferences_284:
+  created_at: 2015-09-18 14:12:14.117478000 Z
+  creator_id: 1
+  id: 285
+  lock_version: 0
+  name: cobbler.analyses-show
+  nature: string
+  string_value: {}
+  updated_at: 2015-09-18 14:12:14.117478000 Z
   updater_id: 1
   user_id: 1

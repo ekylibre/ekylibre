@@ -1,0 +1,6 @@
+- if @equipment && @equipment.controller
+  - parameters = @equipment.parameters
+  = field_set :access_parameters do
+    - parameters.each do |k, v|
+      - value =  !@sensor.nil? ? @sensor.access_parameters[k] : v.default
+      = field v.human_name, {datatype: :string, value: value, name: "sensor[access_parameters][#{k}]", required: v.required?, placeholder: v.default}

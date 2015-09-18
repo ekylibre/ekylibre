@@ -84,6 +84,10 @@ class ActiveSupport::TestCase
     end
     attrs['id'].to_i
   end
+
+  def fixture_file(*levels)
+    Rails.root.join('test', 'fixture-files').join(*levels)
+  end
 end
 
 class HashCollector

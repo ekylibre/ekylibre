@@ -124,17 +124,17 @@ sequences_005:
   created_at: 2014-11-01 16:03:04.383294000 Z
   creator_id: 1
   id: 5
-  last_cweek: 23
-  last_month: 6
-  last_number: 1
+  last_cweek: 38
+  last_month: 9
+  last_number: 15
   last_year: 2015
-  lock_version: 4
+  lock_version: 18
   name: Analyse
   number_format: A[number|8]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2015-06-02 19:44:16.058731000 Z
+  updated_at: 2015-09-18 15:28:34.803752000 Z
   updater_id: 1
   usage: analyses
 sequences_006:

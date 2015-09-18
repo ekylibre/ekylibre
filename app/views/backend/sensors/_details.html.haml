@@ -1,0 +1,5 @@
+- if @equipment
+  .details
+    = image_tag @equipment.image_path, size: '200' unless @equipment.image_path.nil?
+    - unless @equipment.description.blank?
+      = content_tag :p, @equipment.description

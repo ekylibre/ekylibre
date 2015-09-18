@@ -272,3 +272,507 @@ analysis_items_015:
   measure_value_unit: parts_per_million
   updated_at: 2015-06-02 19:44:16.087431000 Z
   updater_id: 1
+analysis_items_016:
+  absolute_measure_value_unit: celsius
+  absolute_measure_value_value: 19.9
+  analysis_id: 12
+  boolean_value: false
+  created_at: 2015-09-18 14:12:08.621737000 Z
+  creator_id: 1
+  id: 17
+  indicator_datatype: measure
+  indicator_name: temperature
+  lock_version: 0
+  measure_value_unit: celsius
+  measure_value_value: 19.9
+  updated_at: 2015-09-18 14:12:08.621737000 Z
+  updater_id: 1
+analysis_items_017:
+  absolute_measure_value_unit: percent
+  absolute_measure_value_value: 81.0
+  analysis_id: 12
+  boolean_value: false
+  created_at: 2015-09-18 14:12:08.631822000 Z
+  creator_id: 1
+  id: 18
+  indicator_datatype: measure
+  indicator_name: hygrometry
+  lock_version: 0
+  measure_value_unit: percent
+  measure_value_value: 81.0
+  updated_at: 2015-09-18 14:12:08.631822000 Z
+  updater_id: 1
+analysis_items_018:
+  absolute_measure_value_unit: hectopascal
+  absolute_measure_value_value: 1013.0
+  analysis_id: 12
+  boolean_value: false
+  created_at: 2015-09-18 14:12:08.633624000 Z
+  creator_id: 1
+  id: 19
+  indicator_datatype: measure
+  indicator_name: atmospheric_pressure
+  lock_version: 0
+  measure_value_unit: hectopascal
+  measure_value_value: 1013.0
+  updated_at: 2015-09-18 14:12:08.633624000 Z
+  updater_id: 1
+analysis_items_019:
+  analysis_id: 12
+  boolean_value: false
+  created_at: 2015-09-18 14:12:08.635286000 Z
+  creator_id: 1
+  id: 20
+  indicator_datatype: integer
+  indicator_name: wind_gust_count
+  integer_value: 0
+  lock_version: 0
+  updated_at: 2015-09-18 14:12:08.635286000 Z
+  updater_id: 1
+analysis_items_020:
+  absolute_measure_value_unit: millimeter
+  absolute_measure_value_value: 0.0
+  analysis_id: 12
+  boolean_value: false
+  created_at: 2015-09-18 14:12:08.636941000 Z
+  creator_id: 1
+  id: 21
+  indicator_datatype: measure
+  indicator_name: rainfall
+  lock_version: 0
+  measure_value_unit: millimeter
+  measure_value_value: 0.0
+  updated_at: 2015-09-18 14:12:08.636941000 Z
+  updater_id: 1
+analysis_items_021:
+  absolute_measure_value_unit: meter_per_second
+  absolute_measure_value_value: 0.0
+  analysis_id: 12
+  boolean_value: false
+  created_at: 2015-09-18 14:12:08.638546000 Z
+  creator_id: 1
+  id: 22
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: meter_per_second
+  measure_value_value: 0.0
+  updated_at: 2015-09-18 14:12:08.638546000 Z
+  updater_id: 1
+analysis_items_022:
+  absolute_measure_value_unit: degree
+  absolute_measure_value_value: 49.0
+  analysis_id: 12
+  boolean_value: false
+  created_at: 2015-09-18 14:12:08.640330000 Z
+  creator_id: 1
+  id: 23
+  indicator_datatype: measure
+  indicator_name: wind_direction
+  lock_version: 0
+  measure_value_unit: degree
+  measure_value_value: 49.0
+  updated_at: 2015-09-18 14:12:08.640330000 Z
+  updater_id: 1
+analysis_items_023:
+  absolute_measure_value_unit: celsius
+  absolute_measure_value_value: 20.4
+  analysis_id: 13
+  boolean_value: false
+  created_at: 2015-09-18 14:16:46.554540000 Z
+  creator_id: 1
+  id: 24
+  indicator_datatype: measure
+  indicator_name: temperature
+  lock_version: 0
+  measure_value_unit: celsius
+  measure_value_value: 20.4
+  updated_at: 2015-09-18 14:16:46.554540000 Z
+  updater_id: 1
+analysis_items_024:
+  absolute_measure_value_unit: percent
+  absolute_measure_value_value: 72.0
+  analysis_id: 13
+  boolean_value: false
+  created_at: 2015-09-18 14:16:46.562783000 Z
+  creator_id: 1
+  id: 25
+  indicator_datatype: measure
+  indicator_name: hygrometry
+  lock_version: 0
+  measure_value_unit: percent
+  measure_value_value: 72.0
+  updated_at: 2015-09-18 14:16:46.562783000 Z
+  updater_id: 1
+analysis_items_025:
+  absolute_measure_value_unit: hectopascal
+  absolute_measure_value_value: 1013.0
+  analysis_id: 13
+  boolean_value: false
+  created_at: 2015-09-18 14:16:46.564722000 Z
+  creator_id: 1
+  id: 26
+  indicator_datatype: measure
+  indicator_name: atmospheric_pressure
+  lock_version: 0
+  measure_value_unit: hectopascal
+  measure_value_value: 1013.0
+  updated_at: 2015-09-18 14:16:46.564722000 Z
+  updater_id: 1
+analysis_items_026:
+  analysis_id: 13
+  boolean_value: false
+  created_at: 2015-09-18 14:16:46.566508000 Z
+  creator_id: 1
+  id: 27
+  indicator_datatype: integer
+  indicator_name: wind_gust_count
+  integer_value: 0
+  lock_version: 0
+  updated_at: 2015-09-18 14:16:46.566508000 Z
+  updater_id: 1
+analysis_items_027:
+  absolute_measure_value_unit: millimeter
+  absolute_measure_value_value: 0.0
+  analysis_id: 13
+  boolean_value: false
+  created_at: 2015-09-18 14:16:46.568409000 Z
+  creator_id: 1
+  id: 28
+  indicator_datatype: measure
+  indicator_name: rainfall
+  lock_version: 0
+  measure_value_unit: millimeter
+  measure_value_value: 0.0
+  updated_at: 2015-09-18 14:16:46.568409000 Z
+  updater_id: 1
+analysis_items_028:
+  absolute_measure_value_unit: meter_per_second
+  absolute_measure_value_value: 0.0
+  analysis_id: 13
+  boolean_value: false
+  created_at: 2015-09-18 14:16:46.570198000 Z
+  creator_id: 1
+  id: 29
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: meter_per_second
+  measure_value_value: 0.0
+  updated_at: 2015-09-18 14:16:46.570198000 Z
+  updater_id: 1
+analysis_items_029:
+  absolute_measure_value_unit: degree
+  absolute_measure_value_value: 49.0
+  analysis_id: 13
+  boolean_value: false
+  created_at: 2015-09-18 14:16:46.571843000 Z
+  creator_id: 1
+  id: 30
+  indicator_datatype: measure
+  indicator_name: wind_direction
+  lock_version: 0
+  measure_value_unit: degree
+  measure_value_value: 49.0
+  updated_at: 2015-09-18 14:16:46.571843000 Z
+  updater_id: 1
+analysis_items_030:
+  absolute_measure_value_unit: celsius
+  absolute_measure_value_value: 19.0
+  analysis_id: 14
+  boolean_value: false
+  created_at: 2015-09-18 15:09:41.235222000 Z
+  creator_id: 1
+  id: 31
+  indicator_datatype: measure
+  indicator_name: temperature
+  lock_version: 0
+  measure_value_unit: celsius
+  measure_value_value: 19.0
+  updated_at: 2015-09-18 15:09:41.235222000 Z
+  updater_id: 1
+analysis_items_031:
+  absolute_measure_value_unit: hectopascal
+  absolute_measure_value_value: 1021.0
+  analysis_id: 14
+  boolean_value: false
+  created_at: 2015-09-18 15:09:41.243587000 Z
+  creator_id: 1
+  id: 32
+  indicator_datatype: measure
+  indicator_name: atmospheric_pressure
+  lock_version: 0
+  measure_value_unit: hectopascal
+  measure_value_value: 1021.0
+  updated_at: 2015-09-18 15:09:41.243587000 Z
+  updater_id: 1
+analysis_items_032:
+  absolute_measure_value_unit: percent
+  absolute_measure_value_value: 63.0
+  analysis_id: 14
+  boolean_value: false
+  created_at: 2015-09-18 15:09:41.245494000 Z
+  creator_id: 1
+  id: 33
+  indicator_datatype: measure
+  indicator_name: hygrometry
+  lock_version: 0
+  measure_value_unit: percent
+  measure_value_value: 63.0
+  updated_at: 2015-09-18 15:09:41.245494000 Z
+  updater_id: 1
+analysis_items_033:
+  absolute_measure_value_unit: meter_per_second
+  absolute_measure_value_value: 6.7
+  analysis_id: 14
+  boolean_value: false
+  created_at: 2015-09-18 15:09:41.247249000 Z
+  creator_id: 1
+  id: 34
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: meter_per_second
+  measure_value_value: 6.7
+  updated_at: 2015-09-18 15:09:41.247249000 Z
+  updater_id: 1
+analysis_items_034:
+  absolute_measure_value_unit: degree
+  absolute_measure_value_value: 270.0
+  analysis_id: 14
+  boolean_value: false
+  created_at: 2015-09-18 15:09:41.248971000 Z
+  creator_id: 1
+  id: 35
+  indicator_datatype: measure
+  indicator_name: wind_direction
+  lock_version: 0
+  measure_value_unit: degree
+  measure_value_value: 270.0
+  updated_at: 2015-09-18 15:09:41.248971000 Z
+  updater_id: 1
+analysis_items_035:
+  absolute_measure_value_unit: celsius
+  absolute_measure_value_value: 19.0
+  analysis_id: 15
+  boolean_value: false
+  created_at: 2015-09-18 15:11:10.136577000 Z
+  creator_id: 1
+  id: 36
+  indicator_datatype: measure
+  indicator_name: temperature
+  lock_version: 0
+  measure_value_unit: celsius
+  measure_value_value: 19.0
+  updated_at: 2015-09-18 15:11:10.136577000 Z
+  updater_id: 1
+analysis_items_036:
+  absolute_measure_value_unit: hectopascal
+  absolute_measure_value_value: 1021.0
+  analysis_id: 15
+  boolean_value: false
+  created_at: 2015-09-18 15:11:10.138641000 Z
+  creator_id: 1
+  id: 37
+  indicator_datatype: measure
+  indicator_name: atmospheric_pressure
+  lock_version: 0
+  measure_value_unit: hectopascal
+  measure_value_value: 1021.0
+  updated_at: 2015-09-18 15:11:10.138641000 Z
+  updater_id: 1
+analysis_items_037:
+  absolute_measure_value_unit: percent
+  absolute_measure_value_value: 63.0
+  analysis_id: 15
+  boolean_value: false
+  created_at: 2015-09-18 15:11:10.140415000 Z
+  creator_id: 1
+  id: 38
+  indicator_datatype: measure
+  indicator_name: hygrometry
+  lock_version: 0
+  measure_value_unit: percent
+  measure_value_value: 63.0
+  updated_at: 2015-09-18 15:11:10.140415000 Z
+  updater_id: 1
+analysis_items_038:
+  absolute_measure_value_unit: meter_per_second
+  absolute_measure_value_value: 6.7
+  analysis_id: 15
+  boolean_value: false
+  created_at: 2015-09-18 15:11:10.142108000 Z
+  creator_id: 1
+  id: 39
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: meter_per_second
+  measure_value_value: 6.7
+  updated_at: 2015-09-18 15:11:10.142108000 Z
+  updater_id: 1
+analysis_items_039:
+  absolute_measure_value_unit: degree
+  absolute_measure_value_value: 270.0
+  analysis_id: 15
+  boolean_value: false
+  created_at: 2015-09-18 15:11:10.143710000 Z
+  creator_id: 1
+  id: 40
+  indicator_datatype: measure
+  indicator_name: wind_direction
+  lock_version: 0
+  measure_value_unit: degree
+  measure_value_value: 270.0
+  updated_at: 2015-09-18 15:11:10.143710000 Z
+  updater_id: 1
+analysis_items_040:
+  absolute_measure_value_unit: celsius
+  absolute_measure_value_value: 19.0
+  analysis_id: 16
+  boolean_value: false
+  created_at: 2015-09-18 15:21:09.900391000 Z
+  creator_id: 1
+  id: 41
+  indicator_datatype: measure
+  indicator_name: temperature
+  lock_version: 0
+  measure_value_unit: celsius
+  measure_value_value: 19.0
+  updated_at: 2015-09-18 15:21:09.900391000 Z
+  updater_id: 1
+analysis_items_041:
+  absolute_measure_value_unit: hectopascal
+  absolute_measure_value_value: 1021.0
+  analysis_id: 16
+  boolean_value: false
+  created_at: 2015-09-18 15:21:09.909573000 Z
+  creator_id: 1
+  id: 42
+  indicator_datatype: measure
+  indicator_name: atmospheric_pressure
+  lock_version: 0
+  measure_value_unit: hectopascal
+  measure_value_value: 1021.0
+  updated_at: 2015-09-18 15:21:09.909573000 Z
+  updater_id: 1
+analysis_items_042:
+  absolute_measure_value_unit: percent
+  absolute_measure_value_value: 63.0
+  analysis_id: 16
+  boolean_value: false
+  created_at: 2015-09-18 15:21:09.911635000 Z
+  creator_id: 1
+  id: 43
+  indicator_datatype: measure
+  indicator_name: hygrometry
+  lock_version: 0
+  measure_value_unit: percent
+  measure_value_value: 63.0
+  updated_at: 2015-09-18 15:21:09.911635000 Z
+  updater_id: 1
+analysis_items_043:
+  absolute_measure_value_unit: meter_per_second
+  absolute_measure_value_value: 6.7
+  analysis_id: 16
+  boolean_value: false
+  created_at: 2015-09-18 15:21:09.913488000 Z
+  creator_id: 1
+  id: 44
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: meter_per_second
+  measure_value_value: 6.7
+  updated_at: 2015-09-18 15:21:09.913488000 Z
+  updater_id: 1
+analysis_items_044:
+  absolute_measure_value_unit: degree
+  absolute_measure_value_value: 270.0
+  analysis_id: 16
+  boolean_value: false
+  created_at: 2015-09-18 15:21:09.915305000 Z
+  creator_id: 1
+  id: 45
+  indicator_datatype: measure
+  indicator_name: wind_direction
+  lock_version: 0
+  measure_value_unit: degree
+  measure_value_value: 270.0
+  updated_at: 2015-09-18 15:21:09.915305000 Z
+  updater_id: 1
+analysis_items_045:
+  absolute_measure_value_unit: celsius
+  absolute_measure_value_value: 19.0
+  analysis_id: 17
+  boolean_value: false
+  created_at: 2015-09-18 15:28:34.807250000 Z
+  creator_id: 1
+  id: 46
+  indicator_datatype: measure
+  indicator_name: temperature
+  lock_version: 0
+  measure_value_unit: celsius
+  measure_value_value: 19.0
+  updated_at: 2015-09-18 15:28:34.807250000 Z
+  updater_id: 1
+analysis_items_046:
+  absolute_measure_value_unit: hectopascal
+  absolute_measure_value_value: 1021.0
+  analysis_id: 17
+  boolean_value: false
+  created_at: 2015-09-18 15:28:34.815076000 Z
+  creator_id: 1
+  id: 47
+  indicator_datatype: measure
+  indicator_name: atmospheric_pressure
+  lock_version: 0
+  measure_value_unit: hectopascal
+  measure_value_value: 1021.0
+  updated_at: 2015-09-18 15:28:34.815076000 Z
+  updater_id: 1
+analysis_items_047:
+  absolute_measure_value_unit: percent
+  absolute_measure_value_value: 63.0
+  analysis_id: 17
+  boolean_value: false
+  created_at: 2015-09-18 15:28:34.816959000 Z
+  creator_id: 1
+  id: 48
+  indicator_datatype: measure
+  indicator_name: hygrometry
+  lock_version: 0
+  measure_value_unit: percent
+  measure_value_value: 63.0
+  updated_at: 2015-09-18 15:28:34.816959000 Z
+  updater_id: 1
+analysis_items_048:
+  absolute_measure_value_unit: meter_per_second
+  absolute_measure_value_value: 6.7
+  analysis_id: 17
+  boolean_value: false
+  created_at: 2015-09-18 15:28:34.818726000 Z
+  creator_id: 1
+  id: 49
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: meter_per_second
+  measure_value_value: 6.7
+  updated_at: 2015-09-18 15:28:34.818726000 Z
+  updater_id: 1
+analysis_items_049:
+  absolute_measure_value_unit: degree
+  absolute_measure_value_value: 270.0
+  analysis_id: 17
+  boolean_value: false
+  created_at: 2015-09-18 15:28:34.820490000 Z
+  creator_id: 1
+  id: 50
+  indicator_datatype: measure
+  indicator_name: wind_direction
+  lock_version: 0
+  measure_value_unit: degree
+  measure_value_value: 270.0
+  updated_at: 2015-09-18 15:28:34.820490000 Z
+  updater_id: 1

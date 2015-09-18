@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150909161528) do
+ActiveRecord::Schema.define(version: 20150918151337) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -164,8 +164,8 @@ ActiveRecord::Schema.define(version: 20150909161528) do
     t.integer  "sensor_id"
     t.string   "sampling_temporal_mode",                                       default: "instant", null: false
     t.datetime "stopped_at"
-    t.string   "state",                                                        default: "ok",      null: false
-    t.string   "error_explanation"
+    t.string   "retrieval_status",                                             default: "ok",      null: false
+    t.string   "retrieval_message"
   end
 
   add_index "analyses", ["analyser_id"], name: "index_analyses_on_analyser_id", using: :btree

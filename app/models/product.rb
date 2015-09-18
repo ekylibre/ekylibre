@@ -354,7 +354,7 @@ class Product < Ekylibre::Record::Base
     if born_at
       %w(population shape).each do |indicator_name|
         initial_value = send("initial_#{indicator_name}")
-        if initial_value and variable_indicators_list.include?(indicator_name.to_sym)
+        if initial_value && variable_indicators_list.include?(indicator_name.to_sym)
           read!(indicator_name, initial_value, at: born_at)
         end
       end
