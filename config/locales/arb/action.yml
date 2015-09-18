@@ -39,6 +39,8 @@ arb:
       # index: "Analyses"
       # new: "New analysis"
       # show: "Analysis #%{number}"
+    backend/analysis_items:
+      # new: "New analysis item"
     backend/animal_groups:
       # edit: "Edit animal group: %{name}"
       # index: "Animal groups"
@@ -858,6 +860,7 @@ arb:
     are_you_sure_you_want_to_delete_delivery: "هل انت متأكد من رغبتك بازالة التسليم من وسائل النقل؟" #?
     are_you_sure_you_want_to_invoice: "هل انت متأكد من رغبتك باعداد فاتورة البيع؟"
     are_you_sure_you_want_to_send_mails: "هل انت متأكد من رغبتك بارسال الرسالة"
+    # area: "Area"
     area_create: "اضافة عنوان بريدي" #?
     area_x: "%{name} (%{postcode})" #?
     assessable_operations: "الاجراءات الضريبية (H.T)" #?
@@ -972,6 +975,7 @@ arb:
     cost_sum: "مجموع تكاليف الاستثمار" #?
     # costs: "Costs"
     # costs_map: "Costs map"
+    # costs_per_hectare: "Costs per hectare"
     # counts: "Counts"
     counts_by_nature: "عدد ونوع السجلات"
     create: "انشاء"
@@ -1073,6 +1077,7 @@ arb:
     duplicate: "تكرار"
     duration: "%{hours}ساعة %{minutes}دقيقة"
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
+    # during: "During"
     # earns: "Earns"
     edit: "تعديل"
     ekylibre: "www.ekylibre.org"
@@ -1205,6 +1210,7 @@ arb:
     infos: "معرفة خصائص النظام"
     # input_cost: "Input cost"
     # input_cost_per_hectare: "Input cost per hectare"
+    # inputs: "Inputs"
     insert_actual_password: "أدخل كلمة المرور الحالية" #?
     insert_password: "أدخل كلمة المرور الجديدة" #?
     international_normal_vat_collected: "معدل ضريبة القيمة المضافة الدولية العادية %8.5" #?
@@ -1227,6 +1233,7 @@ arb:
     # issue: "Issue"
     # issues: "Issues"
     # issues_count: "Issues count"
+    # item_concentration_per_hectare: "Item concentration per hectare"
     items: "تصميم خطوط البيع"
     journal: "دفتراليومية"
     journal_detail: "اغلق في %{closed_at}" #?
@@ -1280,6 +1287,7 @@ arb:
     # line_number: "Line #%{number}"
     line_stock: "مكان التخزين: %{building}, الكمية المتوفرة: %{virtual_q}" #?
     # linear_options: "Linear options"
+    # link: "Link"
     # list: "List"
     listing_create: "انشاء استخراج جديد" #?
     listing_extract: "قائمة الاستخراج" #?
@@ -1634,8 +1642,9 @@ arb:
     sale_create: "اضافة بيعة جديدة" #?
     sale_deliveries: "تسليم الطلبات" #?
     sale_item_create: "(اضافة منتج للاسعار (صيغة كاملة" #?
-    sale_items: "تعديل تصميم طلب البيع" #?
+    sale_items: "تعديل تصميم طلب البيع"
     sale_nature_create: "انشاء نوع بيع جديد" #?
+    # sale_opportunities: "Sale opportunities"
     sale_price_create: "اضافة سعر البيع" #?
     sale_print: "طباعة طلب البيع" #?
     sale_steps:  #?
@@ -1769,6 +1778,7 @@ arb:
     # timeline_payment: "%{type} %{name} of %{amount} by %{mode} added by %{author} %{when}"
     # timeline_sale: "%{type} %{name} of %{amount} added by %{author} %{when}"
     # timeline_task: "%{author} added task %{name} %{when}"
+    # times: "Times"
     to: "الى"
     to_date: "الى تاريخ" #?
     to_deliver: "للتسليم" #?
@@ -2014,6 +2024,7 @@ arb:
       # a_campaign_must_be_opened: "A campaign must be opened"
       # a_production_must_be_opened: "A production must be opened"
       access_denied: " ليس لديك الصلاحية لبلوغ هذه الصفحة %{reason} (%{url})"
+      # all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "All parcels must be invoiceable and of same nature and third"
       # an_activity_must_be_defined: "An activity must be defined"
       bad_file: "لا يبدو ان الملفات متطابقة" #?
       bookkeeping_is_finished: "نهاية نطاق المحاسبة"
@@ -2087,6 +2098,7 @@ arb:
       no_existing_mandates: "ليس هنالك من تفويض مسجل في الوقت الحاضر" #?
       no_financial_year: "لم يتم تسجيل اي سنة مالية" #?
       no_items_found: "لم يتم اضافة اي منتج الى الطلب" #?
+      # no_parcels_given: "No parcels given"
       no_payment_to_deposit: "ليس هنالك من دفعات للحصر"
       no_reopenable_journal: "ليس بامكانك اعادة فتح الدفاتر اليومية"
       no_stocks: "ليس لديك اية سهم، اذا رغبت بادارة سهم المنتج، الرجاء ضع علامة على خيار «ادارة الاسهم» في خصائص منتجاتك" #?
@@ -2109,6 +2121,7 @@ arb:
       # sale_is_not_duplicatable: "Sale is not duplicatable"
       select_entries_to_letter_together: "اختر الادخالات للكتابة معا " #?
       # select_entry_items_to_mark_together: "Select entry items to mark together"
+      # some_parcels_are_not_shippable: "Some parcels are not shippable"
       specify_filter: "اختر تطبيق تصفية واحدة كحد ادنى للبحث" #?
       specify_updates: "يجب عليك تحديد حقل واحد كحد ادنى للتعديل" #?
       # the_sales_invoice_is_not_cancellable: "The sales invoice is not cancellable"
@@ -2193,7 +2206,10 @@ arb:
     actions:
       # abort: "Abort"
       # about: "About"
+      # add_group: "Add group"
+      # add_to_container: "Add to container"
       # add_to_group: "Add to group"
+      # add_to_variant: "Add to variant"
       # attach: "Attach"
       # bookkeep: "Bookkeep"
       # cancel: "Cancel"
@@ -2222,6 +2238,7 @@ arb:
       # generate_last_journal_entry: "Generate last journal entry"
       # generate_parcel: "Generate parcel"
       # import: "Import"
+      # import_shapes: "Import shapes"
       # incorporate: "Incorporate"
       # increment: "Increment"
       # index: "Index"

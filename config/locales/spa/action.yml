@@ -39,6 +39,8 @@ spa:
       # index: "Analyses"
       # new: "New analysis"
       # show: "Analysis #%{number}"
+    backend/analysis_items:
+      # new: "New analysis item"
     backend/animal_groups:
       # edit: "Edit animal group: %{name}"
       # index: "Animal groups"
@@ -655,6 +657,7 @@ spa:
     # are_you_sure_you_want_to_delete: "Are you sure you want to delete this record?"
     # are_you_sure_you_want_to_invoice: "Are you sure you want to invoice?"
     are_you_sure_you_want_to_send_mails: "Esta seguro querer enviar este correo electronico?'"
+    # area: "Area"
     assessable_operations: "Operaciones imponibles (H.T)" #?
     assimilated_tax: "Tarifas asimiladas calculadas sobre anexo n°3310A" #?
     # attach_deal: "Add a deal"
@@ -754,6 +757,7 @@ spa:
     cost_sum: "Total cargas de explotación" #?
     # costs: "Costs"
     # costs_map: "Costs map"
+    # costs_per_hectare: "Costs per hectare"
     # counts: "Counts"
     counts_by_nature: "Nombre de piezas a contabilizar por tipo"
     # create: "Create"
@@ -845,6 +849,7 @@ spa:
     # duplicate: "Duplicate"
     # duration: "Duration"
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
+    # during: "During"
     # earns: "Earns"
     # edit: "Edit"
     ekylibre: "www.ekylibre.org"
@@ -943,6 +948,7 @@ spa:
     infos: "Informar las caracteristicas de la entrega"
     # input_cost: "Input cost"
     # input_cost_per_hectare: "Input cost per hectare"
+    # inputs: "Inputs"
     insert_actual_password: "Coja su contraseña actual" #?
     insert_password: "Coja su nueva contraseña" #?
     international_normal_vat_collected: "Tasa normal a 8,5%" #?
@@ -965,6 +971,7 @@ spa:
     # issue: "Issue"
     # issues: "Issues"
     # issues_count: "Issues count"
+    # item_concentration_per_hectare: "Item concentration per hectare"
     # items: "Items"
     journal: "Periodico"
     journal_entries: "Escrituras"
@@ -1008,6 +1015,7 @@ spa:
       title: "Catégorias de tercios" #?
     # line_number: "Line #%{number}"
     # linear_options: "Linear options"
+    # link: "Link"
     # list: "List"
     listing_create: "Craer una nueva extracción" #?
     listing_extract: "Ejecutar la extracción" #?
@@ -1270,6 +1278,8 @@ spa:
     running_finished: "Productos de explotación" #?
     sale: "Encargos"
     sale_cancel: "Hacer un activo sobre une factura" #?
+    # sale_items: "Sale items"
+    # sale_opportunities: "Sale opportunities"
     sale_steps:  #?
       deliveries: "Planificación de las entregas" #?
       estimate: "Creación del presupuesto" #?
@@ -1380,6 +1390,7 @@ spa:
     # timeline_payment: "%{type} %{name} of %{amount} by %{mode} added by %{author} %{when}"
     # timeline_sale: "%{type} %{name} of %{amount} added by %{author} %{when}"
     # timeline_task: "%{author} added task %{name} %{when}"
+    # times: "Times"
     to: "Al"
     # to_deposit: "To deposit"
     # to_deposit_later: "To deposit later"
@@ -1587,6 +1598,7 @@ spa:
       # a_campaign_must_be_opened: "A campaign must be opened"
       # a_production_must_be_opened: "A production must be opened"
       access_denied: "No tiene drecho de acceso para esta pagina. %{reason} (%{url})"
+      # all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "All parcels must be invoiceable and of same nature and third"
       # an_activity_must_be_defined: "An activity must be defined"
       bad_file: "El fichero no parece corresponder" #?
       bookkeeping_is_finished: "La basula en contabilidad esta terminada."
@@ -1666,6 +1678,7 @@ spa:
       no_existing_mandates: "No hay responsabilidades registradas por el momento" #?
       no_financial_year: "Ningun ejercicio registrado" #?
       no_lines_found: "Ningun producto ha sido añadido al encargo" #?
+      # no_parcels_given: "No parcels given"
       no_payment_to_deposit: "Ninguna forma de pago a cobrar"
       no_reopenable_journal: "nos se puede cerrar este periodico."
       no_stocks: "No hay ningun deposito. Si se quiere adùinistrar los depositos para une producto, por favor escroge la opción «administrar los depositos» dentro de las caracteristicas de vuestro producto." #?
@@ -1688,6 +1701,7 @@ spa:
       # sale_is_not_duplicatable: "Sale is not duplicatable"
       select_entries_to_letter_together: "Escroge escroturas para latrarlas juntas" #?
       # select_entry_items_to_mark_together: "Select entry items to mark together"
+      # some_parcels_are_not_shippable: "Some parcels are not shippable"
       specify_filter: "Se debe escoger aplicar a lo menos un filtro de busqueda" #?
       specify_updates: "Se debe especifiar a la menos un campo a modifiar" #?
       # the_sales_invoice_is_not_cancellable: "The sales invoice is not cancellable"
@@ -1727,7 +1741,10 @@ spa:
     actions:
       # abort: "Abort"
       # about: "About"
+      # add_group: "Add group"
+      # add_to_container: "Add to container"
       # add_to_group: "Add to group"
+      # add_to_variant: "Add to variant"
       # attach: "Attach"
       # bookkeep: "Bookkeep"
       # cancel: "Cancel"
@@ -1756,6 +1773,7 @@ spa:
       # generate_last_journal_entry: "Generate last journal entry"
       # generate_parcel: "Generate parcel"
       # import: "Import"
+      # import_shapes: "Import shapes"
       # incorporate: "Incorporate"
       # increment: "Increment"
       # index: "Index"

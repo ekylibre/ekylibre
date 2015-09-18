@@ -163,7 +163,7 @@ class ProductionSupport < Ekylibre::Record::Base
       end
     end
     # if net_surface_area, make the division
-    if surface_area = storage_net_surface_area(self.started_at)
+    if surface_area = self.net_surface_area
       indicator_unity_per_hectare = (balance.compact.sum / surface_area.to_d(area_unit))
     end
     indicator_unity_per_hectare
@@ -182,6 +182,8 @@ class ProductionSupport < Ekylibre::Record::Base
       opened_at = selected_manure_management_plan_zone.opened_at
       i = soil_enrichment_indicator_content_per_area(:nitrogen_concentration, opened_at, Time.zone.now)
       balance = o - i if i && o
+    else
+      balance = soil_enrichment_indicator_content_per_area(:nitrogen_concentration)
     end
     balance
   end
@@ -199,22 +201,22 @@ class ProductionSupport < Ekylibre::Record::Base
   end
 
   def tool_cost(surface_unit = :hectare)
-    if storage_net_surface_area(self.started_at).to_s.to_f > 0.0
-      return cost(:tool) / (storage_net_surface_area(self.started_at).to_d(surface_unit).to_s.to_f)
+    if self.net_surface_area.to_s.to_f > 0.0
+      return cost(:tool) / (self.net_surface_area.to_d(surface_unit).to_s.to_f)
     end
     0.0
   end
 
   def input_cost(surface_unit = :hectare)
-    if storage_net_surface_area(self.started_at).to_s.to_f > 0.0
-      return cost(:input) / (storage_net_surface_area(self.started_at).to_d(surface_unit).to_s.to_f)
+    if self.net_surface_area.to_s.to_f > 0.0
+      return cost(:input) / (self.net_surface_area.to_d(surface_unit).to_s.to_f)
     end
     0.0
   end
 
   def time_cost(surface_unit = :hectare)
-    if storage_net_surface_area(self.started_at).to_s.to_f > 0.0
-      return cost(:doer) / (storage_net_surface_area(self.started_at).to_d(surface_unit).to_s.to_f)
+    if self.net_surface_area.to_s.to_f > 0.0
+      return cost(:doer) / (self.net_surface_area.to_d(surface_unit).to_s.to_f)
     end
     0.0
   end
@@ -254,9 +256,14 @@ class ProductionSupport < Ekylibre::Record::Base
           total_yield << q
         end
       end
-      if storage.net_surface_area
-        grain_yield = ((total_yield.compact.sum).to_f / (storage.net_surface_area.to_d(surface_unit)).to_f)
-        return grain_yield
+      if self.net_surface_area
+        grain_yield = ((total_yield.compact.sum).to_f / (self.net_surface_area.to_d(surface_unit)).to_f)
+        measure_unit = "#{mass_unit}_per_#{surface_unit}"
+        if Nomen::Unit[measure_unit.to_sym]
+          return Measure.new(grain_yield, measure_unit)
+        else
+          return grain_yield
+        end
       end
     end
     nil

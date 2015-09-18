@@ -34,6 +34,8 @@ fra:
       index: "Analyses"
       new: "Nouvelle analyse"
       show: "Analyse N°%{number}"
+    backend/analysis_items:
+      new: "Nouvel élèment d'analyse"
     backend/animal_foods:  #?
       index: "Alimentation animale" #?
     backend/animal_groups:
@@ -724,6 +726,7 @@ fra:
     are_you_sure_you_want_to_delete: "Êtes-vous sûr(e) de vouloir supprimer cet enregistrement\_?"
     are_you_sure_you_want_to_invoice: "Êtes-vous sûr(e) de vouloir facturer\_?"
     are_you_sure_you_want_to_send_mails: "Êtes-vous sûr(e) de vouloir envoyer les mails\_?"
+    area: "Zone"
     area_measure: "Superficie" #?
     assessable_operations: "Opérations imposables (H.T)" #?
     assimilated_tax: "Taxes assimilées calculées sur annexe n°3310A" #?
@@ -838,6 +841,7 @@ fra:
     cost_sum: "Total charges d’exploitation" #?
     costs: "Coûts"
     costs_map: "Carte des coûts"
+    costs_per_hectare: "Couts par hectare"
     country: "Pays" #?
     counts: "Totaux"
     counts_by_nature: "Nombre de pièces à comptabiliser par type"
@@ -932,6 +936,7 @@ fra:
     duplicate: "Dupliquer"
     duration: "Durée"
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
+    during: "Pendant"
     earns: "Gains"
     edit: "Modifier"
     ekylibre: "www.ekylibre.org"
@@ -1067,6 +1072,7 @@ fra:
     infos: "Information générales"
     input_cost: "Coût d’intrant"
     input_cost_per_hectare: "Coût des intrants par hectare"
+    inputs: "Intrants"
     insert_actual_password: "Saisissez votre mot de passe actuel" #?
     insert_password: "Saisissez votre nouveau mot de passe" #?
     interval: "Intervalle personnalisé"
@@ -1092,6 +1098,7 @@ fra:
     issues: "Incidents"
     issues_count: "Nombre d’incidents"
     isu_index: "Index génétique ISU" #?
+    item_concentration_per_hectare: "Concentration en élèment par hectare"
     items: "Éléments"
     journal: "Journal"
     journal_detail: "Cloturé au %{closed_on}" #?
@@ -1140,6 +1147,7 @@ fra:
       title: "Catégories de tiers" #?
     line_number: "Ligne n°%{index}\_:"
     linear_options: "Options du linéaire"
+    link: "Lien"
     lipolysis: "Lipolyse" #?
     list: "Liste"
     listing_extract: "Éxécuter l’extraction" #?
@@ -1476,7 +1484,8 @@ fra:
     sale: "Vente"
     sale_cancel: "Faire un avoir sur la facture" #?
     sale_deliveries: "Livraisons" #?
-    sale_items: "Lignes de la vente" #?
+    sale_items: "Lignes de la vente"
+    sale_opportunities: "Opportunités de vente"
     sale_steps:  #?
       deliveries: "Planification des livraisons" #?
       estimate: "Création du devis" #?
@@ -1618,6 +1627,7 @@ fra:
     timeline_payment: "%{type} %{name} de %{amount} par %{mode} ajouté par %{author} %{when}"
     timeline_sale: "%{type} %{name} de %{amount} ajouté par %{author} %{when}"
     timeline_task: "%{author} a ajouté une tâche %{name} %{when}"
+    times: "Temps"
     to: "Au"
     to_bank_at: "À encaisser le" #?
     to_date: "Au" #?
@@ -1867,6 +1877,7 @@ fra:
       a_campaign_must_be_opened: "Une campagne doit être ouverte"
       a_production_must_be_opened: "Une production doit être ouverte"
       access_denied: "Vous n’avez pas le droit d’accéder à cette page. %{reason} (%{url})"
+      all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Tous les colis doivent être facturables de la même nature et au même tiers"
       an_activity_must_be_defined: "Une activité doit être définie"
       bad_file: "Le fichier ne semble pas correspondre." #?
       bookkeeping_is_finished: "La bascule en comptabilité est finie."
@@ -1939,7 +1950,8 @@ fra:
       no_depositable_payments: "Il n’y a pas de réglements à remettre en banque"
       no_existing_mandates: "Il n’y a pas de responsabilités enregistrées pour l’instant" #?
       no_financial_year: "Aucun exercice enregistré" #?
-      no_items_found: "Aucun pruduit n’a été ajouté à la commande " #?
+      no_items_found: "Aucun produit n’a été ajouté à la commande " #?
+      no_parcels_given: "Aucun colis fournis"
       no_payment_to_deposit: "Aucun règlement à encaisser"
       no_reopenable_journal: "Vous ne pouvez pas déclôturer ce journal."
       no_stocks: "Vous n’avez aucun stock. Si vous désirez gérer le stock d’un produit, veuillez cocher l’option «\_Gérer les stocks\_» dans les caractéristiques de votre produit." #?
@@ -1963,6 +1975,7 @@ fra:
       sale_cant_be_deleted: "La vente ne peut plus être supprimée" #?
       sale_is_not_duplicatable: "La vente n'est pas duplicable"
       select_entry_items_to_mark_together: "Sélectionnez des lignes d’écritures à lettrer ensemble"
+      some_parcels_are_not_shippable: "Certains colis ne sont pas transportables"
       specify_filter: "Vous choisir appliquer au moins un filtre de recherche" #?
       specify_updates: "Vous devez spécifier au moins un champ à modifier" #?
       the_sales_invoice_is_not_cancellable: "La facture ne peut pas être passée en avoir"
@@ -1997,7 +2010,10 @@ fra:
     actions:
       abort: "Annuler"
       about: "À propos"
+      # add_group: "Add group"
+      # add_to_container: "Add to container"
       add_to_group: "Ajouter au groupe"
+      # add_to_variant: "Add to variant"
       attach: "Attacher"
       balance: "Balance" #?
       bookkeep: "Comptabiliser"
@@ -2029,6 +2045,7 @@ fra:
       generate_last_journal_entry: "Générer la dernière écriture"
       generate_parcel: "Générer bon de préparation"
       import: "Importer"
+      # import_shapes: "Import shapes"
       incorporate: "Incorporer"
       increment: "Incrémenter"
       index: "Index"

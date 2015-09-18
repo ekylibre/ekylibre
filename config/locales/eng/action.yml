@@ -36,7 +36,7 @@ eng:
       new: "New analysis"
       show: "Analysis #%{number}"
     backend/analysis_items:
-      # new: "New analysis item"
+      new: "New analysis item"
     backend/animal_groups:
       edit: "Edit animal group: %{name}"
       index: "Animal groups"
@@ -850,7 +850,7 @@ eng:
     are_you_sure_you_want_to_delete: "Are you sure you want to delete this record?"
     are_you_sure_you_want_to_invoice: "Are you sure you want to invoice?"
     are_you_sure_you_want_to_send_mails: "Are you sure you want to send emails?"
-    # area: "Area"
+    area: "Area"
     attach_deal: "Add a deal"
     attachment: "Attachment"
     attachments: "Attachments"
@@ -921,6 +921,7 @@ eng:
     cost_per_net_surface_area: "Cost per net surface area"
     costs: "Costs"
     costs_map: "Costs map" #?
+    costs_per_hectare: "Costs per hectare"
     counts: "Counts" #?
     counts_by_nature: "Number of documents to account per type"
     create: "Create"
@@ -993,6 +994,7 @@ eng:
     duplicate: "Duplicate" #?
     duration: "Duration"
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
+    during: "During"
     earns: "Earns"
     edit: "Edit"
     ekylibre: "www.ekylibre.org" #?
@@ -1078,7 +1080,8 @@ eng:
     info: "General parameters" #?
     infos: "Product and quantity" #?
     input_cost: "Input cost"
-    input_cost_per_hectare: "Input cost per hectare"
+    input_cost_per_hectare: "Input cost per hectare" #?!
+    inputs: "Inputs"
     interval: "Personalized Interval"
     intervention: "Intervention"
     intervention_at: "%{intervention} at %{at}"
@@ -1094,6 +1097,7 @@ eng:
     issue: "Issue"
     issues: "Issues"
     issues_count: "Issues count"
+    item_concentration_per_hectare: "Item concentration per hectare"
     items: "Items"
     journal: "Journal"
     journal_entries: "Journal's entries" #?
@@ -1124,7 +1128,7 @@ eng:
     letter: "Letter" #?
     line_number: "Line #%{number}"
     linear_options: "Linear options"
-    # link: "Link"
+    link: "Link"
     list: "List" #?
     load: "Load"
     locale: "Language"
@@ -1191,7 +1195,7 @@ eng:
     new_writing: "New writing"
     next: "Next"
     nitrogen_concentration: "Nitrogen concentration" #?
-    nitrogen_concentration_per_hectare: "Nitrogen concentration per hectare"
+    nitrogen_concentration_per_hectare: "Nitrogen concentration per hectare" #??
     no_crumbs_to_check: "No crumbs to check"
     no_data: "No data"
     no_deposits: "No deposits"
@@ -1246,7 +1250,7 @@ eng:
     personalized_mail: "Send a personalized mail"
     pertinence: "%{value}%"
     phosphorus_concentration: "Phosphorus concentration" #?
-    phosphorus_concentration_per_hectare: "Phosphorus concentration per hectare"
+    phosphorus_concentration_per_hectare: "Phosphorus concentration per hectare" #??
     picture: "Picture" #?
     placeholder: "Placeholder" #?
     places: "Places"
@@ -1259,7 +1263,7 @@ eng:
     points: "Points"
     population: "Population"
     potassium_concentration: "Potassium concentration" #?
-    potassium_concentration_per_hectare: "Potassium concentration per hectare"
+    potassium_concentration_per_hectare: "Potassium concentration per hectare" #??
     potential_hydrogen: "Potential hydrogen" #?
     precipitation: "Precipitation"
     preferences: "Preferences"
@@ -1330,8 +1334,8 @@ eng:
     rss: "RSS" #?
     run: "Run"
     sale: "Sale" #?
-    # sale_items: "Sale items"
-    # sale_opportunities: "Sale opportunities"
+    sale_items: "Sale items"
+    sale_opportunities: "Sale opportunities"
     sales: "Sales"
     sales_conditions: "Conditions of sales" #?
     sales_invoice: "Invoicing" #?
@@ -1404,7 +1408,7 @@ eng:
     threshold_commercialization_by_production: "Threshold commercialization by production"
     thumb: "Thumb" #?
     time_cost: "Time cost" #?
-    time_cost_per_hectare: "Time cost per hectare"
+    time_cost_per_hectare: "Time cost per hectare" #?!
     time_spend_by_activities: "Time spend by activities"
     time_zone: "Time zone"
     timeline: "Timeline"
@@ -1419,13 +1423,14 @@ eng:
     timeline_payment: "%{type} %{name} of %{amount} by %{mode} added by %{author} %{when}"
     timeline_sale: "%{type} %{name} of %{amount} added by %{author} %{when}"
     timeline_task: "%{author} added task %{name} %{when}"
+    times: "Times"
     to: "to"
     to_deposit: "To deposit"
     to_deposit_later: "To deposit later" #?
     to_deposit_now: "To deposit now" #?
     today: "Today" #?
     tool_cost: "Tool cost"
-    tool_cost_per_hectare: "Tool cost per hectare"
+    tool_cost_per_hectare: "Tool cost per hectare" #?!
     tools: "Tools"
     total: "Total"
     total_amount: "Total amount" #?
@@ -1612,7 +1617,7 @@ eng:
       a_campaign_must_be_opened: "A campaign must be opened"
       a_production_must_be_opened: "A production must be opened"
       access_denied: "Access denied. %{reason} (%{url})"
-      # all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "All parcels must be invoiceable and of same nature and third"
+      all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "All parcels must be invoiceable and of same nature and third"
       an_activity_must_be_defined: "An activity must be defined"
       bookkeeping_is_finished: "The commercial data transfer is finished."
       bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
@@ -1664,7 +1669,7 @@ eng:
       no_authenticated: "You could not be identified. The user name or password must be incorrect." #?
       no_closable_journal: "No closable journal"
       no_depositable_payments: "There are no payment to deposit"
-      # no_parcels_given: "No parcels given"
+      no_parcels_given: "No parcels given"
       no_payment_to_deposit: "There are no payment to deposit"
       no_reopenable_journal: "You can not re-open this journal."
       record_already_imported: "Record already imported"
@@ -1674,7 +1679,7 @@ eng:
       record_not_found: "Record not found" #?
       sale_is_not_duplicatable: "Sale is not duplicatable"
       select_entry_items_to_mark_together: "Select entry items to mark together"
-      # some_parcels_are_not_shippable: "Some parcels are not shippable"
+      some_parcels_are_not_shippable: "Some parcels are not shippable"
       the_sales_invoice_is_not_cancellable: "The sales invoice is not cancellable"
       unavailable_resource: "Nonexistent %{type} #%{id}"
       unexpected_resource_type: "Unexpected resource type: %{type}"
@@ -1701,10 +1706,10 @@ eng:
     actions:
       abort: "Abort"
       about: "About"
-      # add_group: "Add group"
-      # add_to_container: "Add to container"
+      add_group: "Add group"
+      add_to_container: "Add to container"
       add_to_group: "Add to group"
-      # add_to_variant: "Add to variant"
+      add_to_variant: "Add to variant"
       attach: "Attach"
       # autocomplete_for_name: "Autocomplete for name"
       # autocomplete_for_origin: "Autocomplete for origin"
@@ -1742,7 +1747,7 @@ eng:
       # get_models: "Get models"
       # give: "Give"
       import: "Import"
-      # import_shapes: "Import shapes"
+      import_shapes: "Import shapes"
       incorporate: "Incorporate"
       increment: "Increment"
       index: "Index"
