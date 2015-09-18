@@ -128,109 +128,57 @@ class NormalizeDeliveries < ActiveRecord::Migration
     end
 
     revert do
-      create_table 'incoming_parcel_items', force: :cascade do |t|
-        t.integer 'parcel_id', null: false
-        t.integer 'purchase_item_id'
-        t.integer 'product_id', null: false
-        t.decimal 'population', precision: 19, scale: 4
-        t.integer 'container_id'
-        t.datetime 'created_at',                                                                                     null: false
-        t.datetime 'updated_at',                                                                                     null: false
-        t.integer 'creator_id'
-        t.integer 'updater_id'
-        t.integer 'lock_version', default: 0, null: false
-        t.geometry 'shape', limit: { srid: 4326, type: 'geometry' }
-        t.decimal 'net_mass', precision: 19, scale: 4
+      create_table :incoming_parcel_items do |t|
+        t.references :parcel, null: false, index: true
+        t.references :purchase_item, index: true
+        t.references :product, null: false, index: true
+        t.decimal :population, precision: 19, scale: 4
+        t.references :container, index: true
+        t.stamps
+        t.geometry :shape, srid: 4326
+        t.decimal :net_mass, precision: 19, scale: 4
       end
 
-      add_index 'incoming_parcel_items', ['container_id'], name: 'index_incoming_parcel_items_on_container_id', using: :btree
-      add_index 'incoming_parcel_items', ['created_at'], name: 'index_incoming_parcel_items_on_created_at', using: :btree
-      add_index 'incoming_parcel_items', ['creator_id'], name: 'index_incoming_parcel_items_on_creator_id', using: :btree
-      add_index 'incoming_parcel_items', ['parcel_id'], name: 'index_incoming_parcel_items_on_parcel_id', using: :btree
-      add_index 'incoming_parcel_items', ['product_id'], name: 'index_incoming_parcel_items_on_product_id', using: :btree
-      add_index 'incoming_parcel_items', ['purchase_item_id'], name: 'index_incoming_parcel_items_on_purchase_item_id', using: :btree
-      add_index 'incoming_parcel_items', ['updated_at'], name: 'index_incoming_parcel_items_on_updated_at', using: :btree
-      add_index 'incoming_parcel_items', ['updater_id'], name: 'index_incoming_parcel_items_on_updater_id', using: :btree
-
-      create_table 'incoming_parcels', force: :cascade do |t|
-        t.string 'number', null: false
-        t.integer 'sender_id', null: false
-        t.string 'reference_number'
-        t.integer 'purchase_id'
-        t.integer 'address_id'
-        t.datetime 'received_at'
-        t.datetime 'created_at',                                            null: false
-        t.datetime 'updated_at',                                            null: false
-        t.integer 'creator_id'
-        t.integer 'updater_id'
-        t.integer 'lock_version', default: 0, null: false
-        t.decimal 'net_mass', precision: 19, scale: 4
-        t.string 'mode'
+      create_table :incoming_parcels do |t|
+        t.string :number, null: false
+        t.references :sender, null: false, index: true, index: true
+        t.string :reference_number
+        t.references :purchase, index: true
+        t.references :address, index: true
+        t.datetime :received_at
+        t.stamps
+        t.decimal :net_mass, precision: 19, scale: 4
+        t.string :mode
       end
 
-      add_index 'incoming_parcels', ['address_id'], name: 'index_incoming_parcels_on_address_id', using: :btree
-      add_index 'incoming_parcels', ['created_at'], name: 'index_incoming_parcels_on_created_at', using: :btree
-      add_index 'incoming_parcels', ['creator_id'], name: 'index_incoming_parcels_on_creator_id', using: :btree
-      add_index 'incoming_parcels', ['purchase_id'], name: 'index_incoming_parcels_on_purchase_id', using: :btree
-      add_index 'incoming_parcels', ['sender_id'], name: 'index_incoming_parcels_on_sender_id', using: :btree
-      add_index 'incoming_parcels', ['updated_at'], name: 'index_incoming_parcels_on_updated_at', using: :btree
-      add_index 'incoming_parcels', ['updater_id'], name: 'index_incoming_parcels_on_updater_id', using: :btree
-
-      create_table 'outgoing_parcel_items', force: :cascade do |t|
-        t.integer 'parcel_id', null: false
-        t.integer 'sale_item_id'
-        t.decimal 'population', precision: 19, scale: 4
-        t.integer 'product_id', null: false
-        t.datetime 'created_at',                                                                                          null: false
-        t.datetime 'updated_at',                                                                                          null: false
-        t.integer 'creator_id'
-        t.integer 'updater_id'
-        t.integer 'lock_version', default: 0, null: false
-        t.geometry 'shape', limit: { srid: 4326, type: 'geometry' }
-        t.decimal 'net_mass', precision: 19, scale: 4
-        t.integer 'container_id'
-        t.boolean 'parted', default: false, null: false
-        t.integer 'parted_product_id'
+      create_table :outgoing_parcel_items do |t|
+        t.references :parcel, null: false, index: true
+        t.references :sale_item, index: true
+        t.decimal :population, precision: 19, scale: 4
+        t.references :product, null: false, index: true
+        t.stamps
+        t.geometry :shape, srid: 4326
+        t.decimal :net_mass, precision: 19, scale: 4
+        t.references :container, index: true
+        t.boolean :parted, default: false, null: false
+        t.references :parted_product, index: true
       end
 
-      add_index 'outgoing_parcel_items', ['container_id'], name: 'index_outgoing_parcel_items_on_container_id', using: :btree
-      add_index 'outgoing_parcel_items', ['created_at'], name: 'index_outgoing_parcel_items_on_created_at', using: :btree
-      add_index 'outgoing_parcel_items', ['creator_id'], name: 'index_outgoing_parcel_items_on_creator_id', using: :btree
-      add_index 'outgoing_parcel_items', ['parcel_id'], name: 'index_outgoing_parcel_items_on_parcel_id', using: :btree
-      add_index 'outgoing_parcel_items', ['product_id'], name: 'index_outgoing_parcel_items_on_product_id', using: :btree
-      add_index 'outgoing_parcel_items', ['sale_item_id'], name: 'index_outgoing_parcel_items_on_sale_item_id', using: :btree
-      add_index 'outgoing_parcel_items', ['updated_at'], name: 'index_outgoing_parcel_items_on_updated_at', using: :btree
-      add_index 'outgoing_parcel_items', ['updater_id'], name: 'index_outgoing_parcel_items_on_updater_id', using: :btree
-
-      create_table 'outgoing_parcels', force: :cascade do |t|
-        t.string 'number', null: false
-        t.integer 'recipient_id', null: false
-        t.string 'reference_number'
-        t.integer 'sale_id'
-        t.integer 'address_id', null: false
-        t.datetime 'sent_at'
-        t.decimal 'net_mass', precision: 19, scale: 4
-        t.integer 'delivery_id'
-        t.integer 'transporter_id'
-        t.datetime 'created_at',                                                null: false
-        t.datetime 'updated_at',                                                null: false
-        t.integer 'creator_id'
-        t.integer 'updater_id'
-        t.integer 'lock_version',                              default: 0,     null: false
-        t.boolean 'with_transport',                            default: false, null: false
-        t.string 'mode', null: false
+      create_table :outgoing_parcels do |t|
+        t.string :number, null: false
+        t.references :recipient, null: false, index: true
+        t.string :reference_number
+        t.references :sale, index: true
+        t.references :address, null: false, index: true
+        t.datetime :sent_at
+        t.decimal :net_mass, precision: 19, scale: 4
+        t.references :delivery, index: true
+        t.references :transporter, index: true
+        t.stamps
+        t.boolean :with_transport, default: false, null: false
+        t.string :mode, null: false
+        t.index :number
       end
-
-      add_index 'outgoing_parcels', ['address_id'], name: 'index_outgoing_parcels_on_address_id', using: :btree
-      add_index 'outgoing_parcels', ['created_at'], name: 'index_outgoing_parcels_on_created_at', using: :btree
-      add_index 'outgoing_parcels', ['creator_id'], name: 'index_outgoing_parcels_on_creator_id', using: :btree
-      add_index 'outgoing_parcels', ['delivery_id'], name: 'index_outgoing_parcels_on_delivery_id', using: :btree
-      add_index 'outgoing_parcels', ['number'], name: 'index_outgoing_parcels_on_number', using: :btree
-      add_index 'outgoing_parcels', ['recipient_id'], name: 'index_outgoing_parcels_on_recipient_id', using: :btree
-      add_index 'outgoing_parcels', ['sale_id'], name: 'index_outgoing_parcels_on_sale_id', using: :btree
-      add_index 'outgoing_parcels', ['transporter_id'], name: 'index_outgoing_parcels_on_transporter_id', using: :btree
-      add_index 'outgoing_parcels', ['updated_at'], name: 'index_outgoing_parcels_on_updated_at', using: :btree
-      add_index 'outgoing_parcels', ['updater_id'], name: 'index_outgoing_parcels_on_updater_id', using: :btree
     end
 
     revert do
