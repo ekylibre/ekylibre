@@ -56,3 +56,9 @@
 var visualization = {};
 var ekylibre = {};
 var calcul = {};
+
+// FIX Browser interoperability
+// href function seems to be ineffective
+$.rails.href = function (element) {
+  return $(element).attr('href');
+}
