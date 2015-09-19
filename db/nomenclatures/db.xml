@@ -662,8 +662,9 @@
     <items>
       <item name="cow_milk_analysis" target_variety="milk" target_derivative_of="bos" items="total_bacteria_concentration, inhibitors_presence, fat_matters_concentration, protein_matters_concentration, somatic_cell_concentration, clostridial_spores_concentration, freezing_point_temperature, lipolysis, immunoglobulins_concentration, urea_concentration"/>
       <item name="grain_analysis" target_variety="grain" target_derivative_of="plant" items="hagberg_falling_number, impurity_concentration, specific_weight, water_content_rate, protein_concentration"/>
+      <item name="meteorological_analysis" items="temperature, relative_humidity, atmospheric_pressure, rainfall, wind_speed, wind_direction, average_temperature, minimal_temperature, maximal_temperature, maximal_rainfall, average_atmospheric_pressure, minimal_atmospheric_pressure, maximal_atmospheric_pressure, average_relative_humidity, minimal_relative_humidity, maximal_relative_humidity, average_wind_speed, average_wind_direction, solar_irradiance"/>
+      <item name="sensor_analysis"/>
       <item name="silage_analysis" target_variety="silage" target_derivative_of="plant" items="dry_matter_rate, protein_concentration"/>
-      <item name="meteorological_analysis" items="temperature, hygrometry, atmospheric_pressure, wind_gust_count, rainfall, wind_speed, wind_direction, average_temperature, minimal_temperature, maximal_temperature, maximal_rainfall, average_atmospheric_pressure, minimal_atmospheric_pressure, maximal_atmospheric_pressure, average_hygrometry, minimal_hygrometry, maximal_hygrometry, average_wind_speed, average_wind_direction, pyranometry"/>
       <item name="soil_analysis" target_variety="land_parcel" items="soil_nature, organic_matter_concentration, nitrogen_concentration, potential_hydrogen, cation_exchange_capacity, phosphate_concentration, potash_concentration, magnesium_concentration, boron_concentration, zinc_concentration, manganese_concentration, copper_concentration, iron_concentration"/>
       <item name="unitary_cow_milk_analysis" target_variety="milk" target_derivative_of="bos" items="fat_matters_concentration, protein_matters_concentration, somatic_cell_concentration, milk_daily_production"/>
       <item name="water_analysis" target_variety="water" items="nitrogen_concentration, phosphate_concentration, potash_concentration, magnesium_concentration, boron_concentration, zinc_concentration, manganese_concentration, copper_concentration, iron_concentration"/>
@@ -1620,10 +1621,12 @@
       <item name="atmospheric_pressure" datatype="measure" unit="hectopascal" sampling_temporal_mode="instant"/>
       <item name="available_water_capacity_per_area" datatype="measure" unit="liter_per_square_meter"/>
       <item name="average_atmospheric_pressure" datatype="measure" unit="hectopascal" sampling_temporal_mode="period"/>
-      <item name="average_hygrometry" datatype="measure" unit="percent" sampling_temporal_mode="period"/>
+      <item name="average_rainfall" datatype="measure" unit="millimeter_per_hour" sampling_temporal_mode="period"/>
+      <item name="average_relative_humidity" datatype="measure" unit="percent" sampling_temporal_mode="period"/>
+      <item name="average_solar_irradiance" datatype="measure" unit="watt_per_square_meter" sampling_temporal_mode="period"/>
       <item name="average_temperature" datatype="measure" unit="celsius" sampling_temporal_mode="period"/>
       <item name="average_wind_direction" datatype="measure" unit="degree" sampling_temporal_mode="period"/>
-      <item name="average_wind_speed" datatype="measure" unit="meter_per_second" sampling_temporal_mode="period"/>
+      <item name="average_wind_speed" datatype="measure" unit="kilometer_per_hour" sampling_temporal_mode="period"/>
       <item name="best_before_period" datatype="measure" unit="day"/>
       <item name="boron_concentration" datatype="measure" unit="parts_per_million"/>
       <item name="calcium_concentration" datatype="measure" unit="mass_percent"/>
@@ -1656,7 +1659,6 @@
       <item name="healthy" datatype="boolean"/>
       <item name="height" datatype="measure" unit="meter"/>
       <item name="horizontal_rotation" datatype="measure" unit="degree"/>
-      <item name="hygrometry" datatype="measure" unit="percent" sampling_temporal_mode="instant"/>
       <item name="immunoglobulins_concentration" datatype="measure" unit="unity_per_liter"/>
       <item name="impurity_concentration" datatype="measure" unit="mass_percent"/>
       <item name="inhibitors_presence" datatype="boolean"/>
@@ -1678,13 +1680,14 @@
       <item name="mass_area_yield" datatype="measure" unit="quintal_per_hectare"/>
       <item name="mass_volume_density" datatype="measure" unit="kilogram_per_liter"/>
       <item name="maximal_atmospheric_pressure" datatype="measure" unit="hectopascal" sampling_temporal_mode="period"/>
-      <item name="maximal_hygrometry" datatype="measure" unit="percent" sampling_temporal_mode="period"/>
-      <item name="maximal_rainfall" datatype="measure" unit="millimeter" sampling_temporal_mode="period"/>
+      <item name="maximal_rainfall" datatype="measure" unit="millimeter_per_hour" sampling_temporal_mode="period"/>
+      <item name="maximal_relative_humidity" datatype="measure" unit="percent" sampling_temporal_mode="period"/>
+      <item name="maximal_solar_irradiance" datatype="measure" unit="watt_per_square_meter" sampling_temporal_mode="period"/>
       <item name="maximal_storable_easement_area" datatype="measure" unit="square_meter"/>
       <item name="maximal_storable_net_mass" datatype="measure" unit="kilogram"/>
       <item name="maximal_storable_net_volume" datatype="measure" unit="liter"/>
       <item name="maximal_temperature" datatype="measure" unit="celsius" sampling_temporal_mode="period"/>
-      <item name="maximal_wind_speed" datatype="measure" unit="meter_per_second" sampling_temporal_mode="period"/>
+      <item name="maximal_wind_speed" datatype="measure" unit="kilometer_per_hour" sampling_temporal_mode="period"/>
       <item name="meat_withdrawal_period" datatype="measure" unit="day"/>
       <item name="members_count" datatype="integer" probe="true"/>
       <item name="members_livestock_unit" datatype="decimal" probe="true"/>
@@ -1692,8 +1695,10 @@
       <item name="milk_daily_production" datatype="measure" unit="kilogram_per_day"/>
       <item name="milk_withdrawal_period" datatype="measure" unit="day"/>
       <item name="minimal_atmospheric_pressure" datatype="measure" unit="hectopascal" sampling_temporal_mode="period"/>
-      <item name="minimal_hygrometry" datatype="measure" unit="percent" sampling_temporal_mode="period"/>
+      <item name="minimal_relative_humidity" datatype="measure" unit="percent" sampling_temporal_mode="period"/>
+      <item name="minimal_solar_irradiance" datatype="measure" unit="watt_per_square_meter" sampling_temporal_mode="period"/>
       <item name="minimal_temperature" datatype="measure" unit="celsius" sampling_temporal_mode="period"/>
+      <item name="minimal_wind_speed" datatype="measure" unit="kilometer_per_hour" sampling_temporal_mode="period"/>
       <item name="molybdenum_concentration" datatype="measure" unit="parts_per_million"/>
       <item name="motor_power" datatype="measure" unit="french_horsepower"/>
       <item name="net_length" datatype="measure" unit="meter" gathering="proportional_to_population"/>
@@ -1722,9 +1727,9 @@
       <item name="protein_concentration" datatype="measure" unit="mass_percent"/>
       <item name="protein_concentration_index" datatype="measure" unit="unity"/>
       <item name="protein_matters_concentration" datatype="measure" unit="gram_per_liter"/>
-      <item name="pyranometry" datatype="measure" unit="watt_per_square_meter" sampling_temporal_mode="period"/>
-      <item name="rainfall" datatype="measure" unit="millimeter" sampling_temporal_mode="instant"/>
+      <item name="rainfall" datatype="measure" unit="millimeter_per_hour" sampling_temporal_mode="instant"/>
       <item name="reference_year" datatype="integer"/>
+      <item name="relative_humidity" datatype="measure" unit="percent" sampling_temporal_mode="instant"/>
       <item name="reproductor" datatype="boolean"/>
       <item name="residue_elimination_method" datatype="choice" choices="residue_elimination_methods"/>
       <item name="rows_interval" datatype="measure" unit="meter"/>
@@ -1734,6 +1739,7 @@
       <item name="soil_cultural_state" datatype="choice" choices="soil_cultural_states"/>
       <item name="soil_depth" datatype="measure" unit="centimeter"/>
       <item name="soil_nature" datatype="choice" choices="soil_natures"/>
+      <item name="solar_irradiance" datatype="measure" unit="watt_per_square_meter" sampling_temporal_mode="instant"/>
       <item name="somatic_cell_concentration" datatype="measure" unit="thousand_per_milliliter"/>
       <item name="specific_weight" datatype="measure" unit="kilogram_per_hectoliter"/>
       <item name="stakes_count" datatype="integer" gathering="proportional_to_population"/>
@@ -1758,8 +1764,7 @@
       <item name="water_content_rate" datatype="measure" unit="mass_percent"/>
       <item name="width" datatype="measure" unit="meter"/>
       <item name="wind_direction" datatype="measure" unit="degree" sampling_temporal_mode="instant"/>
-      <item name="wind_gust_count" datatype="integer" sampling_temporal_mode="instant"/>
-      <item name="wind_speed" datatype="measure" unit="meter_per_second" sampling_temporal_mode="instant"/>
+      <item name="wind_speed" datatype="measure" unit="kilometer_per_hour" sampling_temporal_mode="instant"/>
       <item name="woodstock_variety" datatype="choice" choices="varieties"/>
       <item name="zinc_concentration" datatype="measure" unit="parts_per_million"/>
     </items>
@@ -3521,6 +3526,7 @@
       <item name="milliliter" dimension="volume" symbol="ml" a="1.0e-06"/>
       <item name="milliliter_per_liter" dimension="volume_concentration" symbol="ml/l" a="1.0e-06" d="0.001"/>
       <item name="millimeter" dimension="distance" symbol="mm" a="0.001"/>
+      <item name="millimeter_per_hour" dimension="distance_speed" symbol="mm/h" a="0.001" d="3600.0"/>
       <item name="million" dimension="none" symbol="M." a="1000000.0"/>
       <item name="million_per_liter" dimension="concentration" symbol="M./l" a="1000000.0" d="0.001"/>
       <item name="millionth" dimension="none" symbol="&#xB5;." a="1.0e-06"/>

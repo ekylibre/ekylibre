@@ -74,7 +74,7 @@ class Backend::SensorsController < Backend::BaseController
     @sensor = find_and_check
     return unless @sensor
     # SensorReadingJob.perform_later(id: @sensor.id, started_at: Time.now, stopped_at: Time.now)
-    @sensor.retrieve
+    @sensor.retrieve(started_at: Time.zone.now - 1.hour, stopped_at: Time.zone.now)
     redirect_to params[:redirect] || { action: :show, id: params[:id] }
   end
 end

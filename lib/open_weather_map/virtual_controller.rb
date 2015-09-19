@@ -24,11 +24,12 @@ module OpenWeatherMap
       values = {}
       values[:temperature] = json[:main][:temp].to_f.in_celsius
       values[:atmospheric_pressure] = json[:main][:pressure].to_f.in_hectopascal
-      values[:hygrometry] = json[:main][:humidity].to_f.in_percent
+      values[:relative_humidity] = json[:main][:humidity].to_f.in_percent
       values[:wind_speed] = json[:wind][:speed].to_f.in_meter_per_second
       values[:wind_direction] = json[:wind][:deg].to_f.in_degree
 
       report = {
+        nature: :meteorological_analysis,
         sampled_at: Time.at(json[:dt]),
         sampling_temporal_mode: 'instant',
         geolocation: Charta::Geometry.point(latitude, longitude),

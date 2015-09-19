@@ -43,7 +43,7 @@ class Sensor < Ekylibre::Record::Base
   enumerize :retrieval_mode, in: [:manual, :automatic], default: :automatic
   belongs_to :product
   belongs_to :host, class_name: 'Product'
-  has_many :analyses, class_name: 'Analysis'
+  has_many :analyses, class_name: 'Analysis', dependent: :nullify
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_inclusion_of :active, :embedded, in: [true, false]
@@ -58,13 +58,15 @@ class Sensor < Ekylibre::Record::Base
 
   # Read sensor indicator and write an analysis
   def retrieve(options = {})
+    fail "Unknown equipment: vendor=#{vendor_euid}, model=#{model_euid}" unless equipment
+
     connection = equipment.connect(access_parameters)
 
     results = connection.retrieve(options)
     attributes = {
-      nature: 'meteorological_analysis',
       retrieval_status: results[:status]
     }
+    attributes[:nature] = results[:nature] || :sensor_analysis
     if results[:status].to_s == 'ok'
       # Indicators
       values = []
@@ -73,7 +75,7 @@ class Sensor < Ekylibre::Record::Base
       end
       attributes.update(
         sampled_at: options[:started_at],
-        analysed_at: options[:started_at],
+        analysed_at: options[:stopped_at],
         stopped_at: options[:stopped_at],
         geolocation: results[:geolocation],
         sampling_temporal_mode: results[:sampling_temporal_mode],
@@ -83,9 +85,9 @@ class Sensor < Ekylibre::Record::Base
       attributes[:retrieval_message] = results[:message]
     end
     analyses.create!(attributes)
-    # rescue => e
-    #   # save failure
-    #   self.analyses.create!(error_explanation: e.message, state: 'error', nature: 'meteorological_analysis', sampled_at: Time.now)
+  rescue => e
+    # save failure
+    analyses.create!(retrieval_status: :internal_error, retrieval_message: e.message, nature: 'meteorological_analysis', sampled_at: Time.now)
   end
 
   class << self

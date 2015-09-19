@@ -29,6 +29,9 @@ module ReadingStorable
   end
 
   def set_datatype
+    unless indicator
+      fail "Unknown indicator name in #{self.class.name}##{id}: #{indicator_name.inspect}"
+    end
     self.indicator_datatype = indicator.datatype
   end
 

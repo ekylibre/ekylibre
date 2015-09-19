@@ -4,6 +4,6 @@ vendor1:
     description: "model1 description"
     indicators:
       - temperature
-      - hygrometry
+      - relative_humidity
       - atmospheric_pressure
     # controller: "Vendor1::GenericController"

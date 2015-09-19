@@ -47,14 +47,13 @@
 #
 
 class Analysis < Ekylibre::Record::Base
-  enumerize :retrieval_status, in: [:ok, :controller_error, :error], predicates: true
+  enumerize :retrieval_status, in: [:ok, :controller_error, :internal_error, :sensor_error, :error], predicates: true
   refers_to :nature, class_name: 'AnalysisNature'
   belongs_to :analyser, class_name: 'Entity'
   belongs_to :sampler, class_name: 'Entity'
   belongs_to :product
   belongs_to :sensor
   belongs_to :host, class_name: 'Product', foreign_key: :host_id
-
   has_many :items, class_name: 'AnalysisItem', foreign_key: :analysis_id, inverse_of: :analysis, dependent: :destroy
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :analysed_at, :sampled_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
