@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <migration name="Add eis plant">
-  <!-- Add your changes here -->
-<item-creation item="varieties#bromus" parent="poaceae" itis_tsn="40478"/>
-<item-creation item="varieties#borago" parent="boraginaceae" itis_tsn="31726"/>
-<item-creation item="varieties#camelina" parent="brassicaceae" itis_tsn="22598"/>
-<item-creation item="varieties#camelina_sativa" parent="camelina" itis_tsn="22600"/>
-<item-creation item="varieties#lepidium" parent="brassicaceae" itis_tsn="22953"/>
-<item-creation item="varieties#lepidium_sativum" parent="lepidium" itis_tsn="22978"/>
-<item-creation item="varieties#phleum" parent="poaceae" itis_tsn="41061"/>
-<item-creation item="varieties#festuca" parent="poaceae" itis_tsn="40792"/>
-<item-creation item="varieties#medicago_sativa" parent="medicago" itis_tsn="183623"/>
-<item-creation item="varieties#setaria_italica" parent="setaria" itis_tsn="41248"/>
-<item-creation item="varieties#panicum" parent="poaceae" itis_tsn="40901"/>
-<item-creation item="varieties#panicum_miliaceum" parent="panicum" itis_tsn="40946"/>
-<item-creation item="varieties#medicago_lupulina" parent="medicago" itis_tsn="503721"/>
-<item-creation item="varieties#melilotus" parent="fabaceae" itis_tsn="26148"/>
-<item-creation item="varieties#guizotia" parent="asteraceae" itis_tsn="37476"/>
-<item-creation item="varieties#guizotia_abyssinica" parent="guizotia" itis_tsn="37477"/>
-<item-creation item="varieties#poa_trivialis" parent="poa" itis_tsn="41163"/>
-<item-creation item="varieties#raphanus" parent="brassicaceae" itis_tsn="23288"/>
-<item-creation item="varieties#raphanus_sativus" parent="raphanus" itis_tsn="23290"/>
-<item-creation item="varieties#eruca" parent="brassicaceae" itis_tsn="23123"/>
-<item-creation item="varieties#eruca_vesicaria" parent="eruca" itis_tsn="502429"/>
-<item-creation item="varieties#plumbaginaceae" parent="plant" itis_tsn="21324"/>
-<item-creation item="varieties#limonium" parent="plumbaginaceae" itis_tsn="21329"/>
-<item-creation item="varieties#limonium_vulgare" parent="limonium" itis_tsn="503466"/>
-<item-creation item="varieties#onobrychis" parent="fabaceae" itis_tsn="26809"/>
-<item-creation item="varieties#x_schedolium" parent="poaceae" itis_tsn="781314"/>
+  <item-creation item="varieties#bromus"               parent="poaceae"         itis_tsn="40478"/>
+  <item-creation item="varieties#phleum"               parent="poaceae"         itis_tsn="41061"/>
+  <item-creation item="varieties#festuca"              parent="poaceae"         itis_tsn="40792"/>
+  <item-creation item="varieties#panicum"              parent="poaceae"         itis_tsn="40901"/>
+  <item-creation item="varieties#panicum_miliaceum"    parent="panicum"         itis_tsn="40946"/>
+  <item-creation item="varieties#borago"               parent="boraginaceae"    itis_tsn="31726"/>
+  <item-creation item="varieties#borago_officinalis"   parent="borago"          itis_tsn="31727"/>
+  <item-creation item="varieties#camelina"             parent="brassicaceae"    itis_tsn="22598"/>
+  <item-creation item="varieties#camelina_sativa"      parent="camelina"        itis_tsn="22600"/>
+  <item-creation item="varieties#lepidium"             parent="brassicaceae"    itis_tsn="22953"/>
+  <item-creation item="varieties#lepidium_sativum"     parent="lepidium"        itis_tsn="22978"/>
+  <item-creation item="varieties#medicago_sativa"      parent="medicago"        itis_tsn="183623"/>
+  <item-creation item="varieties#setaria_italica"      parent="setaria"         itis_tsn="41248"/>
+  <item-creation item="varieties#medicago_lupulina"    parent="medicago"        itis_tsn="503721"/>
+  <item-creation item="varieties#melilotus"            parent="fabaceae"        itis_tsn="26148"/>
+  <item-creation item="varieties#guizotia"             parent="asteraceae"      itis_tsn="37476"/>
+  <item-creation item="varieties#guizotia_abyssinica"  parent="guizotia"        itis_tsn="37477"/>
+  <item-creation item="varieties#poa_trivialis"        parent="poa"             itis_tsn="41163"/>
+  <item-creation item="varieties#raphanus"             parent="brassicaceae"    itis_tsn="23288"/>
+  <item-creation item="varieties#raphanus_sativus"     parent="raphanus"        itis_tsn="23290"/>
+  <item-creation item="varieties#eruca"                parent="brassicaceae"    itis_tsn="23123"/>
+  <item-creation item="varieties#eruca_vesicaria"      parent="eruca"           itis_tsn="502429"/>
+  <item-creation item="varieties#plumbaginaceae"       parent="plant"           itis_tsn="21324"/>
+  <item-creation item="varieties#limonium"             parent="plumbaginaceae"  itis_tsn="21329"/>
+  <item-creation item="varieties#limonium_vulgare"     parent="limonium"        itis_tsn="503466"/>
+  <item-creation item="varieties#onobrychis"           parent="fabaceae"        itis_tsn="26809"/>
+  <item-creation item="varieties#onobrychis_viciifolia" parent="onobrychis"      itis_tsn="26810"/>
+  <item-creation item="varieties#x_schedolium"         parent="poaceae"         itis_tsn="781314"/>
 </migration>

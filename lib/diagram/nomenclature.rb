@@ -24,7 +24,8 @@ module Diagram
             if item.parent?
               graph.arrow(item.name, item.parent.name, head: :empty)
             end
-            graph.write
+            path = Rails.root.join('doc', 'diagrams', nomenclature.name.to_s).join(*item.self_and_parents.reverse.map(&:name).join('-'))
+            graph.write(path: path.to_s)
           end
         end
       end

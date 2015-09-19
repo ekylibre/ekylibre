@@ -8,5 +8,4 @@
   <item-creation item="varieties#lathyrus_sativus" parent="lathyrus" itis_tsn="25877"/>
   <item-creation item="varieties#lotus" parent="fabaceae" itis_tsn="26361"/>
   <item-creation item="varieties#lotus_corniculatus" parent="lotus" itis_tsn="26362"/>
-  <item-creation item="varieties#medicago_luoulina" parent="medicago" itis_tsn="503721"/>
 </migration>

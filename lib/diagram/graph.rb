@@ -184,13 +184,13 @@ module Diagram
     end
 
     def write(options = {})
-      root = options[:dir] || Rails.root.join('doc', 'diagrams')
-      dot_file = root.join("#{@name}.gv")
-      FileUtils.mkdir_p(dot_file.dirname)
+      path = options[:path] || Rails.root.join('doc', 'diagrams', @name.to_s).to_s
+      dot_file = "#{path}.gv"
+      FileUtils.mkdir_p(File.dirname(dot_file))
       File.write(dot_file, to_dot)
       formats = options[:formats] || %w(png)
       formats.each do |format|
-        `#{@processor} -T#{format} #{dot_file} > #{root.join(@name.to_s + '.' + format.to_s)}`
+        `#{@processor} -T#{format} #{dot_file} > #{path + '.' + format.to_s}`
       end
       FileUtils.rm_rf dot_file
     end

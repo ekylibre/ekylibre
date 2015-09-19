@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Fix plant varieties">
+  <item-creation item="varieties#vitaceae" parent="plant" itis_tsn="28600"/>
+  <item-change item="varieties#vitis" parent="vitaceae"/>
+  <item-creation item="varieties#anethum" parent="apiaceae" itis_tsn="29583"/>
+  <item-change item="varieties#anethum_graveolens" parent="anethum"/>
+  <item-creation item="varieties#coriandrum" parent="apiaceae" itis_tsn="29621"/>
+  <item-change item="varieties#coriandrum_sativum" parent="coriandrum"/>
+  <item-creation item="varieties#pastinaca" parent="apiaceae" itis_tsn="29621"/>
+  <item-change item="varieties#pastinaca_sativa" parent="pastinaca"/>
+  <item-creation item="varieties#avena_sativa" parent="avena" itis_tsn="41459"/>
+  <item-change item="varieties#avena_evora" name="avena_sativa_evora" parent="avena_sativa"/>
+  <item-change item="varieties#avena_une_de_mai"  name="avena_sativa_une_de_mai" parent="avena_sativa"/>
+
+  <item-change item="varieties#dactylis" parent="poaceae"/>
+  <item-change item="varieties#lolium" parent="poaceae"/>
+
+  <item-change item="varieties#citrullus_lanatus_gigérine" name="citrullus_lanatus_gigerine"/>
+
+  <item-change item="varieties#cucumis_sativus_cucumber" parent="cucumis_sativus"/>
+  <item-change item="varieties#cucumis_sativus_gherkin" parent="cucumis_sativus"/>
+
+  <item-change item="varieties#medicago_comete" name="medicago_sativa_comete" parent="medicago_sativa"/>
+
+  <item-change  item="varieties#pisum_sativum" parent="pisum"/>
+  <item-merging item="varieties#pisum_vernum" into="pisum_sativum"/>
+  <item-merging item="varieties#pisum_hibernum" into="pisum_sativum"/>
+  <item-change  item="varieties#pisum_vernum_astronaute" name="pisum_sativum_astronaute"/>
+  <item-change  item="varieties#pisum_vernum_audit"      name="pisum_sativum_audit"/>
+  <item-change  item="varieties#pisum_vernum_kayanne"    name="pisum_sativum_kayanne"/>
+  <item-change  item="varieties#pisum_vernum_mowgli"     name="pisum_sativum_mowgli"/>
+  <item-change  item="varieties#pisum_vernum_mythic"     name="pisum_sativum_mythic"/>
+  <item-change  item="varieties#pisum_vernum_navarro"    name="pisum_sativum_navarro"/>
+  <item-change  item="varieties#pisum_vernum_onyx"       name="pisum_sativum_onyx"/>
+  <item-change  item="varieties#pisum_vernum_rocket"     name="pisum_sativum_rocket"/>
+</migration>

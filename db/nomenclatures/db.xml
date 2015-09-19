@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20150916151652">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20150919123840">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -2425,9 +2425,9 @@
       <item name="coop:atlantis_wg_3_kg" nature="herbicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="coop:atlantis_wg_600_gr" nature="herbicide" frozen_indicators_values="net_volume: 0.600liter, net_mass: 0.600kilogram" unit_name="box"/>
       <item name="coop:aviator_xpro_5l" nature="fungicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
-      <item name="coop:avoine_d_hiver_n_evora_cel_net_s25kg" nature="seed" derivative_of="avena_evora" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 35gram" unit_name="25kg_bag"/>
-      <item name="coop:avoine_d_hiver_n_une_de_mai_en_s20kg" nature="seed" derivative_of="avena_une_de_mai" frozen_indicators_values="net_mass: 20.00kilogram, thousand_grains_mass: 35gram" unit_name="20kg_bag"/>
-      <item name="coop:avoine_d_hiver_une_de_mai_red_25kg" nature="seed" derivative_of="avena_une_de_mai" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 35gram" unit_name="25kg_bag"/>
+      <item name="coop:avoine_d_hiver_n_evora_cel_net_s25kg" nature="seed" derivative_of="avena_sativa_evora" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 35gram" unit_name="25kg_bag"/>
+      <item name="coop:avoine_d_hiver_n_une_de_mai_en_s20kg" nature="seed" derivative_of="avena_sativa_une_de_mai" frozen_indicators_values="net_mass: 20.00kilogram, thousand_grains_mass: 35gram" unit_name="20kg_bag"/>
+      <item name="coop:avoine_d_hiver_une_de_mai_red_25kg" nature="seed" derivative_of="avena_sativa_une_de_mai" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 35gram" unit_name="25kg_bag"/>
       <item name="coop:axial_pratic_5_l" nature="herbicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
       <item name="coop:balmora_5_l" nature="fungicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
       <item name="coop:bd_s_miradoux_r1_cel_gold_net_25kg" nature="seed" derivative_of="triticum_durum_miradoux" frozen_indicators_values="net_mass: 100.00kilogram, thousand_grains_mass: 50gram" unit_name="25kg_bag"/>
@@ -2472,7 +2472,7 @@
       <item name="coop:fongistop_fl_5_l" nature="fungicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
       <item name="coop:humistart_bb" nature="chemical_fertilizer" frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 4percent" unit_name="ton"/>
       <item name="coop:kalao_d_5_l" nature="herbicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
-      <item name="coop:luzerne_comete_s10k" nature="seed" derivative_of="medicago_comete" frozen_indicators_values="net_mass: 10.00kilogram, thousand_grains_mass: 2gram" unit_name="10kg_bag"/>
+      <item name="coop:luzerne_comete_s10k" nature="seed" derivative_of="medicago_sativa_comete" frozen_indicators_values="net_mass: 10.00kilogram, thousand_grains_mass: 2gram" unit_name="10kg_bag"/>
       <item name="coop:ma_aallexia_50mg" nature="seed" derivative_of="zea_mays_aallexia" frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram" unit_name="50tg_bag"/>
       <item name="coop:ma_bergxxon_50mg" nature="seed" derivative_of="zea_mays_bergxxon" frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram" unit_name="50tg_bag"/>
       <item name="coop:ma_bergxxon_duo_50mg" nature="seed" derivative_of="zea_mays_bergxxon" frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram" unit_name="50tg_bag"/>
@@ -2500,7 +2500,7 @@
       <item name="coop:nikeyl_5_l" nature="herbicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
       <item name="coop:oleic_sunflower_grain" nature="grain" derivative_of="helianthus_annuus" frozen_indicators_values="net_mass: 1.00ton"/>
       <item name="coop:op_s_traveler_r1_cel_orge_net_s25kg" nature="seed" derivative_of="hordeum_distichum_traveler" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 40gram" unit_name="25kg_bag"/>
-      <item name="coop:pois_s_kayanne_print_wakil_xl_r1_s25kg" nature="seed" derivative_of="pisum_vernum_kayanne" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 245gram" unit_name="25kg_bag"/>
+      <item name="coop:pois_s_kayanne_print_wakil_xl_r1_s25kg" nature="seed" derivative_of="pisum_sativum_kayanne" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 245gram" unit_name="25kg_bag"/>
       <item name="coop:presite_sx_300_gr" nature="herbicide" frozen_indicators_values="net_volume: 0.300liter, net_mass: 0.300kilogram" unit_name="box"/>
       <item name="coop:prosaro_5_l" nature="fungicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
       <item name="coop:ray_g_hyb_bahial_10kg" nature="seed" derivative_of="lolium_hybridum_bahial" frozen_indicators_values="net_mass: 10.00kilogram, thousand_grains_mass: 2gram" unit_name="10kg_bag"/>
@@ -3625,7 +3625,8 @@
       <item name="anas_laysanensis" parent="anas" itis_tsn="175119"/>
       <item name="anas_platyrhynchos" parent="anas" itis_tsn="175063"/>
       <item name="anatidae" parent="aves" itis_tsn="174983"/>
-      <item name="anethum_graveolens" parent="apiaceae" itis_tsn="29584"/>
+      <item name="anethum" parent="apiaceae" itis_tsn="29583"/>
+      <item name="anethum_graveolens" parent="anethum" itis_tsn="29584"/>
       <item name="animal" parent="bioproduct"/>
       <item name="animal_group" parent="product_group" derivative_of="animal"/>
       <item name="anser" parent="anatidae" itis_tsn="175019"/>
@@ -3656,8 +3657,9 @@
       <item name="asparagus_officianalis" parent="asparagus" itis_tsn="42784"/>
       <item name="asteraceae" parent="plant" itis_tsn="35420"/>
       <item name="avena" parent="poaceae" itis_tsn="41455"/>
-      <item name="avena_evora" parent="avena" itis_tsn="12345"/>
-      <item name="avena_une_de_mai" parent="avena" itis_tsn="12345"/>
+      <item name="avena_sativa" parent="avena" itis_tsn="41459"/>
+      <item name="avena_sativa_evora" parent="avena_sativa" itis_tsn="12345"/>
+      <item name="avena_sativa_une_de_mai" parent="avena_sativa" itis_tsn="12345"/>
       <item name="aves" parent="animal" itis_tsn="174371"/>
       <item name="bacteria" parent="bioproduct"/>
       <item name="baler" parent="equipment"/>
@@ -3684,6 +3686,7 @@
       <item name="bombus_terrestris" parent="bombus" itis_tsn="714842"/>
       <item name="boraginaceae" parent="plant" itis_tsn="31633"/>
       <item name="borago" parent="boraginaceae" itis_tsn="31726"/>
+      <item name="borago_officinalis" parent="borago" itis_tsn="31727"/>
       <item name="bos" parent="bovidae" itis_tsn="183837"/>
       <item name="bos_taurus" parent="bos" itis_tsn="183838"/>
       <item name="bos_taurus_abondance" parent="bos_taurus" french_race_code="12"/>
@@ -3893,7 +3896,7 @@
       <item name="citrullus" parent="cucurbitaceae" itis_tsn="22355"/>
       <item name="citrullus_colocynthis" parent="citrullus" itis_tsn="501571"/>
       <item name="citrullus_lanatus" parent="citrullus" itis_tsn="22356"/>
-      <item name="citrullus_lanatus_gig&#xE9;rine" parent="citrullus_lanatus" itis_tsn="22356"/>
+      <item name="citrullus_lanatus_gigerine" parent="citrullus_lanatus" itis_tsn="22356"/>
       <item name="citrullus_lanatus_moon_and_stars" parent="citrullus_lanatus" itis_tsn="22356"/>
       <item name="citrullus_lanatus_orangeglo" parent="citrullus_lanatus" itis_tsn="22356"/>
       <item name="citrullus_lanatus_small_yellow" parent="citrullus_lanatus" itis_tsn="22356"/>
@@ -3906,7 +3909,8 @@
       <item name="coccoidea" parent="insecta"/>
       <item name="compost" parent="excrement"/>
       <item name="concentrated_rectified_must" parent="preparation" derivative_of="fruit"/>
-      <item name="coriandrum_sativum" parent="apiaceae" itis_tsn="29622"/>
+      <item name="coriandrum" parent="apiaceae" itis_tsn="29621"/>
+      <item name="coriandrum_sativum" parent="coriandrum" itis_tsn="29622"/>
       <item name="cork" parent="packaged_matter"/>
       <item name="cork_bottle" parent="bottle" derivative_of="matter"/>
       <item name="corker" parent="equipment"/>
@@ -3944,8 +3948,8 @@
       <item name="cucumis_melo" parent="cucumis" itis_tsn="22362"/>
       <item name="cucumis_metuliferus" parent="cucumis" itis_tsn="501835"/>
       <item name="cucumis_sativus" parent="cucumis" itis_tsn="22364"/>
-      <item name="cucumis_sativus_cucumber" parent="cucumis" itis_tsn="22364"/>
-      <item name="cucumis_sativus_gherkin" parent="cucumis" itis_tsn="22364"/>
+      <item name="cucumis_sativus_cucumber" parent="cucumis_sativus" itis_tsn="22364"/>
+      <item name="cucumis_sativus_gherkin" parent="cucumis_sativus" itis_tsn="22364"/>
       <item name="cucurbita" parent="cucurbitaceae" itis_tsn="22365"/>
       <item name="cucurbita_argyrosperma" parent="cucurbita" itis_tsn="847531"/>
       <item name="cucurbita_ficifolia" parent="cucurbita" itis_tsn="505907"/>
@@ -3993,7 +3997,7 @@
       <item name="cydonia" parent="rosaceae" itis_tsn="25158"/>
       <item name="cydonia_oblonga" parent="cydonia" itis_tsn="25159"/>
       <item name="cynara" parent="asteraceae" itis_tsn="37220"/>
-      <item name="dactylis" parent="poa" itis_tsn="193445"/>
+      <item name="dactylis" parent="poaceae" itis_tsn="193445"/>
       <item name="dactylis_lazuly" parent="dactylis" itis_tsn="12345"/>
       <item name="damaliscus" parent="bovidae" itis_tsn="624964"/>
       <item name="damaliscus_korrigum" parent="damaliscus" itis_tsn="898219"/>
@@ -4043,7 +4047,7 @@
       <item name="eruca" parent="brassicaceae" itis_tsn="23123"/>
       <item name="eruca_vesicaria" parent="eruca" itis_tsn="502429"/>
       <item name="erysiphaceae" parent="fungus" itis_tsn="194121"/>
-      <item name="eucalyptus" parent="betula" itis_tsn="27187"/>
+      <item name="eucalyptus" parent="myrtaceae" itis_tsn="27187"/>
       <item name="euphorbiaceae" parent="plant" itis_tsn="28031"/>
       <item name="excrement" parent="raw_matter" derivative_of="animal"/>
       <item name="fabaceae" parent="plant" itis_tsn="500059"/>
@@ -4324,7 +4328,7 @@
       <item name="laburnum_anagyroides" parent="laburnum" itis_tsn="26761"/>
       <item name="lactuca" parent="asteraceae" itis_tsn="36594"/>
       <item name="lactuca_sativa" parent="lactuca" itis_tsn="36607"/>
-      <item name="lactuca_sativa_butterhead" parent="lactuca_sativa" itis_tsn="0"/>
+      <item name="lactuca_sativa_butterhead" parent="lactuca_sativa" itis_tsn="36607"/>
       <item name="lamiaceae" parent="plant" itis_tsn="32251"/>
       <item name="land_parcel" parent="easement"/>
       <item name="land_parcel_cluster" parent="land_parcel_group"/>
@@ -4347,7 +4351,7 @@
       <item name="linaceae" parent="plant" itis_tsn="29200"/>
       <item name="linum" parent="linaceae" itis_tsn="29201"/>
       <item name="liquid_slurry" parent="excrement" derivative_of="mammalia"/>
-      <item name="lolium" parent="poa" itis_tsn="40891"/>
+      <item name="lolium" parent="poaceae" itis_tsn="40891"/>
       <item name="lolium_hybridum" parent="lolium" itis_tsn="783684"/>
       <item name="lolium_hybridum_bahial" parent="lolium_hybridum" itis_tsn="12345"/>
       <item name="lolium_multiflorum" parent="lolium" itis_tsn="40892"/>
@@ -4364,10 +4368,9 @@
       <item name="matter" parent="product"/>
       <item name="meat" parent="raw_matter" derivative_of="animal"/>
       <item name="medicago" parent="fabaceae" itis_tsn="183622"/>
-      <item name="medicago_comete" parent="medicago" itis_tsn="12345"/>
-      <item name="medicago_luoulina" parent="medicago" itis_tsn="503721"/>
       <item name="medicago_lupulina" parent="medicago" itis_tsn="503721"/>
       <item name="medicago_sativa" parent="medicago" itis_tsn="183623"/>
+      <item name="medicago_sativa_comete" parent="medicago_sativa" itis_tsn="12345"/>
       <item name="meleagris" parent="phasianidae" itis_tsn="176135"/>
       <item name="meleagris_gallopavo" parent="meleagris" itis_tsn="176136"/>
       <item name="meleagris_ocellata" parent="meleagris" itis_tsn="553897"/>
@@ -4403,6 +4406,7 @@
       <item name="olea_europaea" parent="olea" itis_tsn="32990"/>
       <item name="oleaceae" parent="plant" itis_tsn="32927"/>
       <item name="onobrychis" parent="fabaceae" itis_tsn="26809"/>
+      <item name="onobrychis_viciifolia" parent="onobrychis" itis_tsn="26810"/>
       <item name="operophtera_brumata" parent="insecta"/>
       <item name="oryctolagus" parent="leporidae" itis_tsn="180128"/>
       <item name="oryctolagus_cuniculus" parent="oryctolagus" itis_tsn="180129"/>
@@ -4417,7 +4421,8 @@
       <item name="packaged_matter" parent="preparation"/>
       <item name="panicum" parent="poaceae" itis_tsn="40901"/>
       <item name="panicum_miliaceum" parent="panicum" itis_tsn="40946"/>
-      <item name="pastinaca_sativa" parent="apiaceae" itis_tsn="29795"/>
+      <item name="pastinaca" parent="apiaceae" itis_tsn="29621"/>
+      <item name="pastinaca_sativa" parent="pastinaca" itis_tsn="29795"/>
       <item name="pavo" parent="phasianidae" itis_tsn="176112"/>
       <item name="pavo_cristatus" parent="pavo" itis_tsn="176113"/>
       <item name="peach" parent="fruit" derivative_of="prunus_persica"/>
@@ -4446,17 +4451,15 @@
       <item name="pistacia" parent="anacardiaceae" itis_tsn="28806"/>
       <item name="pistacia_vera" parent="pistacia" itis_tsn="506470"/>
       <item name="pisum" parent="fabaceae" itis_tsn="26866"/>
-      <item name="pisum_hibernum" parent="pisum_sativum" itis_tsn="0"/>
       <item name="pisum_sativum" parent="pisum" itis_tsn="26867"/>
-      <item name="pisum_vernum" parent="pisum_sativum" itis_tsn="0"/>
-      <item name="pisum_vernum_astronaute" parent="pisum_vernum" itis_tsn="0"/>
-      <item name="pisum_vernum_audit" parent="pisum_vernum" itis_tsn="0"/>
-      <item name="pisum_vernum_kayanne" parent="pisum_vernum" itis_tsn="0"/>
-      <item name="pisum_vernum_mowgli" parent="pisum_vernum" itis_tsn="0"/>
-      <item name="pisum_vernum_mythic" parent="pisum_vernum" itis_tsn="0"/>
-      <item name="pisum_vernum_navarro" parent="pisum_vernum" itis_tsn="0"/>
-      <item name="pisum_vernum_onyx" parent="pisum_vernum" itis_tsn="0"/>
-      <item name="pisum_vernum_rocket" parent="pisum_vernum" itis_tsn="0"/>
+      <item name="pisum_sativum_astronaute" parent="pisum_sativum" itis_tsn="0"/>
+      <item name="pisum_sativum_audit" parent="pisum_sativum" itis_tsn="0"/>
+      <item name="pisum_sativum_kayanne" parent="pisum_sativum" itis_tsn="0"/>
+      <item name="pisum_sativum_mowgli" parent="pisum_sativum" itis_tsn="0"/>
+      <item name="pisum_sativum_mythic" parent="pisum_sativum" itis_tsn="0"/>
+      <item name="pisum_sativum_navarro" parent="pisum_sativum" itis_tsn="0"/>
+      <item name="pisum_sativum_onyx" parent="pisum_sativum" itis_tsn="0"/>
+      <item name="pisum_sativum_rocket" parent="pisum_sativum" itis_tsn="0"/>
       <item name="plant" parent="bioproduct"/>
       <item name="plasmopara" parent="peronosporaceae" itis_tsn="194154"/>
       <item name="plasmopara_viticola" parent="plasmopara" itis_tsn="194154"/>
@@ -5079,9 +5082,10 @@
       <item name="vigna" parent="fabaceae" itis_tsn="27015"/>
       <item name="vigna_unguiculata" parent="vigna" itis_tsn="27018"/>
       <item name="virus" parent="matter"/>
+      <item name="vitaceae" parent="plant" itis_tsn="28600"/>
       <item name="vitex" parent="lamiaceae" itis_tsn="32220"/>
       <item name="vitex_agnus_castus" parent="vitex" itis_tsn="32221"/>
-      <item name="vitis" parent="plant" itis_tsn="28606"/>
+      <item name="vitis" parent="vitaceae" itis_tsn="28606"/>
       <item name="vitis_cinerea" parent="vitis" itis_tsn="28629" aliases="vitis_berlandieri,vitis_helleri"/>
       <item name="vitis_cinerea_x_vitis_riparia" parent="vitis" itis_tsn="0" aliases="vitis_riparia_x_vitis_cinerea"/>
       <item name="vitis_cinerea_x_vitis_riparia_125aa" parent="vitis_cinerea_x_vitis_riparia" itis_tsn="0"/>
