@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Change_walnut_nature">
+  <item-change  item="product_natures#walnut_crop" population_counting="decimal"/>
+  <item-change  item="product_natures#fruit_crop" population_counting="decimal"/>
+  <item-change  item="product_natures#wine_crop" population_counting="decimal"/>
+</migration>

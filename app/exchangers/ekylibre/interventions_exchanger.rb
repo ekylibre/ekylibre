@@ -587,9 +587,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     end
     intervention
   end
-  
+
   def record_cutting(r, support, duration)
-    
+
     plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
 
     return nil unless plant
@@ -879,7 +879,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     end
     intervention
   end
-  
+
   def record_hazelnuts_harvest(r, support, duration)
     plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
 
