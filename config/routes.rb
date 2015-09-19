@@ -98,7 +98,6 @@ Rails.application.routes.draw do
     end
 
     namespace :calculators do
-      resource :grains_commercialization_threshold_simulator, only: :show
     end
 
     # resources :calculators, only: :index
@@ -135,7 +134,6 @@ Rails.application.routes.draw do
       resource :settings_statistics_cell, only: :show
       resource :stewardship_cell, only: :show
       resource :stock_container_map_cell, only: :show
-      resource :threshold_commercialization_by_production_cell, only: :show
       resource :trade_counts_cell, only: :show
       resource :weather_cell, only: :show
       resource :working_sets_stocks_cell, only: :show

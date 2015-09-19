@@ -74,8 +74,6 @@ fra:
       index: "Bâtiments"
       new: "Nouveau bâtiment"
       show: "Détail du bâtiment\_: %{name}"
-    backend/calculators/grains_commercialization_threshold_simulators:
-      show: "Simulateur de seuil de commercialisation de grains"
     backend/campaigns:
       edit: "Campagne\_: %{name}"
       index: "Campagnes"
@@ -911,7 +909,6 @@ fra:
     destroyed_by_ago: "Supprimé par %{author} %{when}"
     detail: "Détail"
     details: "Informations complémentaires"
-    direct_expenses: "Charges directes"
     direct_margin: "Marge directe"
     discount: "Réduc. (%)"
     display: "Afficher"
@@ -1559,7 +1556,6 @@ fra:
     sign_out: "Se déconnecter"
     simplified: "Régime du réel simplifié"
     simplified_linear_options: "Options linéaire simplifié"
-    simulator: "Simulateur"
     soil_varieties: "Nature des sols" #?
     source: "Source de données"
     sowable: "Semable" #?
@@ -1610,7 +1606,6 @@ fra:
     temperature: "Température" #?
     theoric_quantity: "Quantité théorique" #?
     third_informations: "Informations tierces" #?
-    threshold_commercialization_by_production: "Seuil de commercialisation par production"
     thumb: "Miniature"
     time_cost: "Coût de main d’œuvre"
     time_cost_per_hectare: "Coût de main d’œuvre par hectare"

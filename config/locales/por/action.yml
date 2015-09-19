@@ -64,8 +64,8 @@ por:
       index: "Prédios"
       new: "Novo prédio"
       show: "Prédio: %{name}"
-    backend/calculators/grains_commercialization_threshold_simulators:
-      show: "Simulador de comercialização de grãos"
+    backend/calculators/grains_commercialization_threshold_simulators:  #?
+      show: "Simulador de comercialização de grãos" #?
     backend/campaigns:
       edit: "Editar campanhas: %{name}"
       index: "Campanhas"
@@ -711,7 +711,6 @@ por:
     # destroyed_by_ago: "Destroyed by %{author} %{when}"
     # detail: "Detail"
     # details: "Details"
-    # direct_expenses: "Direct charges"
     # direct_margin: "Direct margin"
     # discount: "Discount (%)"
     # display: "Display"
@@ -1107,7 +1106,6 @@ por:
     # sign_out: "Sign out"
     # simplified: "Simplified Accounting"
     # simplified_linear_options: "Simplified linear options"
-    # simulator: "Simulator"
     # source: "Source"
     # spraying_map: "Spraying map"
     # start: "From"
@@ -1141,7 +1139,6 @@ por:
     # tasks: "Tasks"
     # taxations: "Taxations"
     # taxes: "Taxes"
-    # threshold_commercialization_by_production: "Threshold commercialization by production"
     # thumb: "Thumb"
     # time_cost: "Time cost"
     # time_cost_per_hectare: "Time cost per hectare"
