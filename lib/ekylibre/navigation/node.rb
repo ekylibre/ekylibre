@@ -72,7 +72,7 @@ module Ekylibre
       def human_name
         default = ["navigation.#{@name}".to_sym]
         default << "labels.#{@name}".to_sym if @children.any?
-        default << default_page.human_name
+        default << default_page.human_name if default_page
         "navigation.#{@name}_#{@type}".t(default: default)
       end
 
