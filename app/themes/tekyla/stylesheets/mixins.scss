@@ -586,6 +586,119 @@
   }
 }
 
+// General mixin for buttons
+@mixin button ($background-color: $neutral-background, $color: false, $focus-background-color: $base-color, $focus-color: false, $input: false) {
+  @if $color == false {
+    $color: visible-color($background-color);
+  }
+  @else {
+    $color: $color;
+  }
+  @if $focus-background-color == false {
+    $focus-background-color: $background-color;
+  }
+  @if $focus-color == false {
+    $focus-color: visible-color($focus-background-color);
+  }
+  $shadow-color: shadow-color-of($color);
+  $focus-shadow-color: shadow-color-of($color);
+  white-space: nowrap;
+  margin: 0;
+  @include box-sizing(content-box);
+  padding: round($fs-normal*0.20) round($fs-normal*0.70);
+  height: $lh-normal;
+  font-weight: normal;
+  line-height: $lh-normal;
+  cursor: pointer;
+  text-decoration: none;
+  border: $menu-border-width solid darken($background-color, 10%);
+  border-width: $menu-border-width;
+  border-style: solid;
+  border-color: rgba(#000, 0.1) rgba(#000, 0.1) rgba(#000, 0.25);
+  background: $background-color;
+  @include gradient-vertical(lighten($background-color, $default-lightness-variation), darken($background-color, $default-lightness-variation));
+  @include box-shadow(0 1px 0 rgba(#FFF, 0.2) inset);
+  @include box-shadow(0 1px 0 rgba(#FFF, 0.2) inset, 0 1px 2px rgba(#000, 0.05));
+  @include border-radius($default-border-radius);
+  @include inline-block;
+  @include transition-duration(0.15s);
+  & {
+    vertical-align: top !important;
+  }
+  &, &:link, &:focus, &:active, &:hover, & > i {
+    color: $color !important;
+    @include text-shadow(1px 1px 0 $shadow-color);
+    @include transition-duration(0.15s);
+  }
+  & > i {
+    vertical-align: top !important;
+    @include is-icon($fs-normal + 1px);
+    line-height: $lh-normal;
+    @include use-icon(cog);
+    @include inline-block;
+  }
+  &:focus, &.focus {
+    outline: none;
+    border: $menu-border-width solid $focus-background-color;
+    @include box-shadow(0 0 round($fs-normal/2) rgba($focus-background-color, 0.5));
+    z-index: 2;
+  }
+  &:active, &.active {
+    outline: none;
+    @include gradient-vertical($background-color, darken($background-color, 8%));
+    border-color: rgba(#000, 0.25) rgba(#000, 0.1) rgba(#000, 0.1);
+    border: $menu-border-width solid $focus-background-color;
+    @include box-shadow(0 2px 3px rgba(#000, 0.3) inset, 0 -2px 2px rgba(#000, 0.05), 0 0 round($fs-normal/2) rgba($focus-background-color, 0.5));
+    &, & > i {
+      // color: $focus-color;
+      @include text-shadow(-1px -1px 1px $shadow-color);
+      text-decoration: none;
+    }
+  }
+  &[disabled], &.disabled {
+    background: #CCC;
+    cursor: default;
+    pointer-events: none;
+    &, &:hover, &:focus {
+      &, & > i {
+        @include opacity(0.6);
+      }
+    }
+  }
+}
+
+@mixin button-group() {
+  @include inline-block;
+  font-size: 0;
+  position: relative;
+  vertical-align: middle;
+  white-space: nowrap;
+  // height: $button-height;
+  & + & {
+    @include margin-left($default-gap);
+  }
+  > button, > a, > a.button, > a.btn, > input, > select, & > .add-on {
+    @include border-radius(0);
+    @include margin-left(-1 * $menu-border-width);
+    z-index: 1;
+    &:first-child {
+      @include margin-left(0);
+    }
+    html[dir="ltr"] &:first-child, html[dir="rtl"] &:last-child {
+      @include border-left-radius($buttons-radius);
+    }
+    html[dir="ltr"] &:last-child, html[dir="rtl"] &:first-child {
+      @include border-right-radius($buttons-radius);
+    }
+    &:focus, &:hover, &:active {
+      position: relative;
+      z-index: 2;
+    }
+  }
+}
+
+
+
 @mixin base-indicator($size: 6 * $lh-normal) {
   opacity: 0.8;
   $font-size: $size / $lh-ratio;
