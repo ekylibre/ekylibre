@@ -84,10 +84,22 @@ class Sensor < Ekylibre::Record::Base
     else
       attributes[:retrieval_message] = results[:message]
     end
-    analyses.create!(attributes)
+    analysis = analyses.create!(attributes)
+    if analysis.status_changed? && options[:background]
+      if analysis.ok? && analysis.previous
+        notify(:sensor_has_been_fixed, { name: name }, level: :success)
+      else
+        notify(:sensor_is_out_of_service, { name: name, message: attributes[:retrieval_message] }, level: :error)
+      end
+    end
+    analysis
   rescue => e
     # save failure
-    analyses.create!(retrieval_status: :internal_error, retrieval_message: e.message, nature: 'meteorological_analysis', sampled_at: Time.now)
+    analysis = analyses.create!(retrieval_status: :internal_error, retrieval_message: e.message, nature: :sensor_analysis, sampled_at: Time.now)
+    if options[:background] && analysis.status_changed?
+      notify_error(:sensor_reading_failed, { name: name, message: e.message }, level: :error)
+    end
+    analysis
   end
 
   class << self
@@ -102,5 +114,11 @@ class Sensor < Ekylibre::Record::Base
         sensor.retrieve(options)
       end
     end
+  end
+
+  # Notify concerned people about issues on sensors
+  # For now, administrators are notified.
+  def notify(message, interpolations = {}, options = {})
+    User.notify_administrators(message, interpolations, options.merge(target: self))
   end
 end

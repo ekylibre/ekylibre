@@ -110,6 +110,17 @@ class Analysis < Ekylibre::Record::Base
     nil
   end
 
+  # Returns if status changed since previous call
+  def status_changed?
+    return true unless previous
+    previous.retrieval_status != retrieval_status
+  end
+
+  # Returns previous analysis. Works with sensors only.
+  def previous
+    sensor.analyses.where('sampled_at < ?', self.sampled_at).order(sampled_at: :desc).first
+  end
+
   # Returns value of an indicator if its name correspond to
   def method_missing(method_name, *args)
     if Nomen::Indicator.all.include?(method_name.to_s)

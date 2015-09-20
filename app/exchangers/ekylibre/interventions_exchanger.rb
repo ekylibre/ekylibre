@@ -589,7 +589,6 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   end
 
   def record_cutting(r, support, duration)
-
     plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
 
     return nil unless plant
@@ -600,7 +599,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     w.info " Working measure : #{working_measure.inspect.green}"
 
     intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
-      i.add_cast(reference_name: 'cutter',  actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'cut') : i.find(Equipment, can: 'cut')))
+      i.add_cast(reference_name: 'cutter', actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'cut') : i.find(Equipment, can: 'cut')))
       i.add_cast(reference_name: 'driver',   actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
       i.add_cast(reference_name: 'tractor',  actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'catch(equipment)') : i.find(Equipment, can: 'catch(sprayer)')))
       i.add_cast(reference_name: 'cultivation', actor: plant)
@@ -890,10 +889,10 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     first_product_input_population = actor_population_conversion(r.first, working_measure)
 
     intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
-      i.add_cast(reference_name: 'nuts_harvester',        actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'harvest(hazelnut)') : i.find(Equipment, can: 'harvest(hazelnut)')))
+      i.add_cast(reference_name: 'nuts_harvester', actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'harvest(hazelnut)') : i.find(Equipment, can: 'harvest(hazelnut)')))
       i.add_cast(reference_name: 'driver', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
-      i.add_cast(reference_name: 'cultivation',    actor: plant)
-      i.add_cast(reference_name: 'hazelnuts',         population: first_product_input_population, variant: r.first.variant)
+      i.add_cast(reference_name: 'cultivation', actor: plant)
+      i.add_cast(reference_name: 'hazelnuts', population: first_product_input_population, variant: r.first.variant)
     end
     intervention
   end
