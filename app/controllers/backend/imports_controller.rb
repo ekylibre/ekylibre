@@ -24,7 +24,7 @@ class Backend::ImportsController < Backend::BaseController
     t.action :run, method: :post, if: :runnable?
     t.action :edit
     t.action :destroy
-    t.column :nature
+    t.column :nature, url: true
     t.column :state
     t.column :created_at
     t.column :imported_at
@@ -32,16 +32,22 @@ class Backend::ImportsController < Backend::BaseController
   end
 
   def run
-    return unless import = find_and_check
-    begin
-      Import.find(import.id).run
-    rescue ActiveExchanger::Error => e
-      notify_error :cannot_import_file, message: e.message
-    rescue Exception => e
-      notify_error :exception_raised, message: e.message
-    end
-    # TODO: Activate background tasks
-    # ImportJob.enqueue(import.id)
-    redirect_to action: :index
+    import = find_and_check
+    return unless import
+    import.run_later
+    redirect_to params[:redirect] || { action: :index }
+  end
+
+  def progress
+    @import = find_and_check
+    return unless @import
+    render partial: 'progress', locals: { import: @import }
+  end
+
+  def abort
+    @import = find_and_check
+    return unless @import
+    @import.abort
+    redirect_to params[:redirect] || { action: :index }
   end
 end

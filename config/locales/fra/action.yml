@@ -1891,7 +1891,7 @@ fra:
       cannot_find_deal_to_detach: "Impossible de trouver la transaction à détacher"
       cannot_find_document_template: "Impossible de trouver le modèle de document" #?
       cannot_finish_affair: "Impossible de terminer l’affaire"
-      cannot_import_file: "Impossible d’importer le fichier (%{message})"
+      cannot_import_file: "Impossible d’importer le fichier (%{message})" #?
       cannot_mark_entry_items: "Impossible de lettrer ces lignes d’écritures ensemble"
       cannot_merge_an_entity_with_itself: "Il n’est pas possible de fusionner une fiche avec elle-même"
       cannot_merge_entities: "Une erreur est survenue. Il n’est pas possible de fusionner ces fiches."
@@ -1909,6 +1909,8 @@ fra:
       expired_session: "Session expirée. Veuillez vous reconnecter." #?
       fails_to_extract_listing: "L’extraction n’a pas pu s’effectuer\_: %{message}"
       implemented_with_dummy_data: "Charger des données de test"
+      import_failed: "L'import %{name} a échoué\_: %{message}"
+      import_finished_successfully: "L'import %{name} s'est fini correctement"
       import_succeeded: "Vos données ont été correctement importées" #?
       importation_cancelled: "Vos données n’ont été pas été importées. L’importation a été annulée" #?
       importation_finished: "L’importation est terminée."

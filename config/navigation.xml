@@ -899,6 +899,8 @@
         <page to="backend/imports#new"/>
         <page to="backend/imports#show"/>
         <page to="backend/imports#update"/>
+        <page to="backend/imports#abort"/>
+        <page to="backend/imports#progress"/>
       </item>
       <item name="synchronizations">
         <page to="backend/synchronizations#index"/>

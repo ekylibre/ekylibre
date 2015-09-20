@@ -1,0 +1,3 @@
+.imports
+  - Import.where(state: [:undone, :in_progress]).each do |import|
+    = render 'progress', import: import

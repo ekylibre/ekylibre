@@ -329,9 +329,11 @@ eng:
       new: "New identifier"
       show: "Identifier: %{name}"
     backend/imports:
+      # abort: "Abort import: %{name}"
       edit: "Edit import: %{nature}"
       index: "Imports"
       new: "New import"
+      # progress: "Progress import: %{name}"
       run: "Run import"
       show: "Import: %{nature}"
     backend/incoming_payment_modes:
@@ -1620,7 +1622,6 @@ eng:
       cannot_find_deal_to_attach: "Cannot find deal to attach"
       cannot_find_deal_to_detach: "Cannot find deal to detach"
       cannot_finish_affair: "Cannot finish affair"
-      cannot_import_file: "Cannot import file (%{message})"
       cannot_mark_entry_items: "Cannot mark these entry lines"
       cannot_merge_an_entity_with_itself: "It's impossible to merge a person with itself"
       cannot_merge_entities: "It's impossible to merge these people."
@@ -1637,6 +1638,8 @@ eng:
       exception_raised: "An error occurred during the processing: %{message}"
       fails_to_extract_listing: "The listing can't be made: %{message}"
       implemented_with_dummy_data: "Implemented with dummy data"
+      import_failed: "Import %{name} failed: %{message}"
+      import_finished_successfully: "Import %{name} finished successfully"
       importation_finished: "The import is complete."
       impossible_to_add_items: "You cannot add more products to your sale, the estimate is passed in order" #?
       impossible_to_add_items_to_purchase: "You can not add products to your purchase" #?
@@ -1774,6 +1777,7 @@ eng:
       point: "Point"
       # prepare: "Prepare"
       # product: "Product"
+      # progress: "Progress"
       propose: "Propose"
       propose_and_invoice: "Propose and invoice"
       prospect: "Prospect"

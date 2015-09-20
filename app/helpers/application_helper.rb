@@ -310,7 +310,7 @@ module ApplicationHelper
 
   def attributes_list(*args, &block)
     options = args.extract_options!
-    record = args.shift || instance_variable_get("@#{controller_name.singularize}")
+    record = args.shift || resource
     columns = options[:columns] || 3
     attribute_list = AttributesList.new(record)
     unless block.arity == 1
@@ -363,7 +363,7 @@ module ApplicationHelper
     end
 
     def custom_fields(*_args)
-      for custom_field in @object.custom_fields
+      @object.custom_fields.each do |custom_field|
         value = @object.custom_value(custom_field)
         custom(custom_field.name, value) unless value.blank?
       end

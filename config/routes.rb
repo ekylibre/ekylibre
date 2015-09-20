@@ -418,7 +418,9 @@ Rails.application.routes.draw do
 
     resources :imports, concerns: [:list] do
       member do
+        post :abort
         post :run
+        get :progress
       end
     end
 

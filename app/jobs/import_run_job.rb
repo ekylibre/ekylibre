@@ -19,10 +19,17 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 
-class ImportRunJob < Ekylibre::Job::Base
+class ImportRunJob < ActiveJob::Base
   queue_as :default
 
   def perform(import_id)
-    Import.find(import_id).run
+    import = Import.find(import_id)
+    begin
+      import.run
+      import.notify(:import_finished_successfully)
+    rescue => e
+      import.update_columns(state: e.is_a?(Import::InterruptRequest) ? :aborted : :errored)
+      import.notify(:import_failed, { message: e.message }, level: :error)
+    end
   end
 end

@@ -2540,3 +2540,20 @@ a[data-annotate] {
     line-height: $lh-large;
   }
 }
+
+@import "bootstrap/progress-bars";
+
+.imports {
+  margin: $fs-normal;
+}
+.import {
+  // padding: $default-gap;
+  .abort {
+    @include float(right);
+    @include margin-left($fs-normal);
+  }
+  .progress {
+    margin-bottom: 0;
+  }
+}
+

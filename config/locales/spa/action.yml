@@ -1604,7 +1604,6 @@ spa:
       # cannot_find_deal_to_attach: "Cannot find deal to attach"
       # cannot_find_deal_to_detach: "Cannot find deal to detach"
       # cannot_finish_affair: "Cannot finish affair"
-      # cannot_import_file: "Cannot import file (%{message})"
       # cannot_mark_entry_items: "Cannot mark these entry lines"
       cannot_merge_an_entity_with_itself: "No es posible fusionar una papeleta con si misma"
       cannot_merge_entities: "Un error sobrevino. No es posible fusionar estas papeletas."
@@ -1626,6 +1625,8 @@ spa:
       expired_session: "sesion espirada. por favor reconectese." #?
       fails_to_extract_listing: "La extracción no ha podido hacerse\_: %{message}"
       # implemented_with_dummy_data: "Implemented with dummy data"
+      # import_failed: "Import %{name} failed: %{message}"
+      # import_finished_successfully: "Import %{name} finished successfully"
       import_succeeded: "Sus datos han sido correctamente importados" #?
       importation_cancelled: "Sus datos no han sido importados. La importación ha sido anulada" #?
       importation_finished: "La importación esta terminada."

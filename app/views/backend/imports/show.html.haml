@@ -1,8 +1,10 @@
 = main_toolbar do |t|
   - t.edit resource
+  - t.run resource, method: :post
 
-= cobbles do |c|
-  - c.cobble :general_informations do
-    = attributes_list do |l|
-      - l.attribute :importer, url: true
-      - l.attribute :imported_at
+= main_informations do
+  = attributes_list do |l|
+    - l.attribute :importer, url: true
+    - l.attribute :state
+    - l.attribute :imported_at
+  = render 'progress', import: resource

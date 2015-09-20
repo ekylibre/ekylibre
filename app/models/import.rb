@@ -53,6 +53,9 @@ class Import < Ekylibre::Record::Base
   validates_inclusion_of :progression_percentage, in: 0..100, allow_blank: true
   do_not_validate_attachment_file_type :archive
 
+  class InterruptRequest < StandardError
+  end
+
   class << self
     # Create an import and run it in background
     def launch(nature, file)
@@ -75,23 +78,51 @@ class Import < Ekylibre::Record::Base
     nature ? nature.text : :unknown.tl
   end
 
+  def run_later
+    ImportRunJob.perform_later(id)
+  end
+
   # Run an import.
   # The optional code block permit have access to progression on each check point
-  def run(&_block)
+  def run
+    FileUtils.mkdir_p(progress_file.dirname)
     update_columns(state: :in_progress, progression_percentage: 0)
+    File.write(progress_file, 0.to_s)
     Ekylibre::Record::Base.transaction do
       ActiveExchanger::Base.import(nature.to_sym, archive.path) do |progression, count|
         update_columns(progression_percentage: progression)
+        fail InterruptRequest unless File.exist? progress_file
+        File.write(progress_file, progression.to_i.to_s)
         break unless yield(progression, count) if block_given?
       end
     end
+    fail InterruptRequest unless File.exist? progress_file
     update_columns(state: :finished, progression_percentage: 100, imported_at: Time.zone.now, importer_id: (User.stamper.is_a?(User) ? User.stamper.id : User.stamper.is_a?(Fixnum) ? User.stamper : nil))
-  rescue ActiveExchanger::Error => e
-    update_columns(state: :errored, progression_percentage: 0)
-    raise ActiveExchanger::Error, e.message
+  end
+
+  def progress_file
+    Ekylibre::Tenant.private_directory.join('tmp', 'imports', "#{id}.progress")
+  end
+
+  def progress
+    File.read(progress_file).to_i
+  rescue
+    0
   end
 
   def runnable?
-    !self.finished?
+    self.undone? && archive.file?
+  end
+
+  # Removing progress is the signal to interrupt the process
+  def abort
+    FileUtils.rm_rf(progress_file)
+    update_column(:state, :aborted)
+  end
+
+  def notify(message, interpolations = {}, options = {})
+    if creator
+      creator.notify(message, interpolations.merge(name: name), options.merge(target: self))
+    end
   end
 end

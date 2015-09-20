@@ -888,6 +888,7 @@ imports:
     actions:
     - "backend/imports#index"
     - "backend/imports#list"
+    - "backend/imports#progress"
     - "backend/imports#show"
   write:
     dependencies:
@@ -902,6 +903,7 @@ imports:
     dependencies:
     - read-imports
     actions:
+    - "backend/imports#abort"
     - "backend/imports#run"
 
 incoming_deliveries:

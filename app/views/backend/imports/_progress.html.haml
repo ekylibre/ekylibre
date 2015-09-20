@@ -1,0 +1,11 @@
+.import{data: {refresh_after: 5, url: progress_backend_import_path(import)}}
+  - if import.in_progress?
+    .name
+      - if import.archive_file_name
+        = import.archive_file_name
+        = " &ndash; ".html_safe
+      = import.name
+    = link_to(:abort.ta, abort_backend_import_path(import, redirect: params[:redirect]), method: :post, class: "abort")
+    .progress
+      .progress-bar.progress-bar-striped.active{style: "width: #{import.progress || rand(100)}%"}
+        %span.sr-only
