@@ -2100,6 +2100,7 @@ eng:
         filtration: "Filtration"                           #< transformation
         food_mixing: "Food mixing"                         #< animal_nutrition
         food_supply: "Food supply"                         #< animal_nutrition
+        fruits_harvest: "Fruits harvest"                   #< harvest
         garden_human_working: "Garden human working"       #< manual_working
         gardening_harvest: "Gardening harvest"             #< harvest
         grain_transport: "Grain transport"                 #< transport

@@ -2130,6 +2130,7 @@ fra:
         filtration: "Filtration"
         food_mixing: "Mélange d’aliment"
         food_supply: "Alimentation"
+        fruits_harvest: "Récolte de fruit"
         garden_human_working: "Travail manuel en maraîchage"
         gardening_harvest: "Récolte de maraîchage"
         grain_transport: "Transport de grains"

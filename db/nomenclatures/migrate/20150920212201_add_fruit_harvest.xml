@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add fruit harvest">
+  <item-creation item="procedure_natures#fruits_harvest" parent="harvest" roles="target, output, doer, tool" activity_families="arboriculture" />
+</migration>
