@@ -196,11 +196,25 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
             w.info ' support : ' + support.work_name.inspect.yellow if support
             w.info ' workers_name : ' + r.workers.map(&:name).inspect.yellow if r.workers
             w.info ' equipments_name : ' + r.equipments.map(&:name).inspect.yellow if r.equipments
-
-            intervention = send("record_#{r.procedure_name}", r, support, duration)
-
-            # for the same intervention session
-            r.intervention_started_at += duration.seconds if storage.shape
+            
+            plants = find_plants(support: support, variety: r.target_variety, at: r.intervention_started_at)
+            w.info ' #{plants.count} plants : ' + plants.pluck(&:name).inspect.yellow if plants
+            # if just one plant on support
+            if plants.count <= 1
+              intervention = send("record_#{r.procedure_name}", r, support, duration)
+              # for the same intervention session
+              r.intervention_started_at += duration.seconds if storage.shape
+            elsif plants.count > 1
+              # elsif two or more plants on support
+              # create intervention for each plant
+              duration_for_plant = (r.intervention_duration_in_hour.hours * (area / r.production_supports_area.to_d).to_d).round(2)
+              for plant in plants
+                coeff_by_plant_area = (plant.shape_area.to_d(:square_meter) / plants.map(&:shape_area).compact.sum.to_d).round(2)
+                duration_for_plant = duration * coeff_by_plant_area
+                intervention = send("record_#{r.procedure_name}", r, support, duration_for_plant, plant)
+                r.intervention_started_at += duration_for_plant.seconds
+              end
+            end
 
           elsif storage.is_a?(BuildingDivision) || storage.is_a?(Equipment)
             duration = (r.intervention_duration_in_hour.hours / r.supports.count)
@@ -425,18 +439,38 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     if options[:support] && options[:support].storage && options[:support].storage.shape
       # try to find the current plant on cultivable zone if exist
       cultivable_zone_shape = Charta::Geometry.new(options[:support].storage.shape)
-      if cultivable_zone_shape && product_around = cultivable_zone_shape.actors_matching(nature: Plant).first
-        plant = product_around
+      if cultivable_zone_shape && product_around = cultivable_zone_shape.actors_matching(nature: Plant)
+        plant = Plant.where(id: product_around.map(&:id)).availables.first
       end
     end
     if options[:variety] && options[:at]
       members = options[:support].storage.contains(options[:variety], options[:at])
-      plant = members.first.product if members
+      plant = Plant.where(id: members.map(&:product_id)).availables.first if members
     elsif options[:variant] && options[:at]
       members = options[:support].storage.localized_variants(options[:variant], at: options[:at])
-      plant = members.first.product if members
+      plant = Plant.where(id: members.map(&:product_id)).availables.first if members
     end
     plant
+  end
+  
+  # find all plants for the current support and cultivable zone by variety or variant
+  def find_plants(options = {})
+    plants = nil
+    if options[:support] && options[:support].storage && options[:support].storage.shape
+      # try to find the current plants on cultivable zone if exists
+      cultivable_zone_shape = Charta::Geometry.new(options[:support].storage.shape)
+      if cultivable_zone_shape && product_around = cultivable_zone_shape.actors_matching(nature: Plant)
+        plants = Plant.where(id: product_around.map(&:id)).availables
+      end
+    end
+    if options[:variety] && options[:at]
+      members = options[:support].storage.contains(options[:variety], options[:at])
+      plants = Plant.where(id: members.map(&:product_id)).availables if members
+    elsif options[:variant] && options[:at]
+      members = options[:support].storage.localized_variants(options[:variant], at: options[:at])
+      plants = Plant.where(id: members.map(&:product_id)).availables if members
+    end
+    plants
   end
 
   # find the working area by finding plant area for the current support and cultivable zone by variety or variant
@@ -444,12 +478,12 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     area = nil
     if options[:variety] && options[:at]
       members = options[:support].storage.contains(options[:variety], options[:at])
-      products = members.map(&:product) if members
-      w.info products.inspect.red
-      area = products.map(&:shape_area).compact.sum if products
+      plant = Plant.where(id: members.map(&:product_id)).availables if members
+      area = plant.map(&:shape_area).compact.sum if plant
     elsif options[:variant] && options[:at]
       members = options[:support].storage.localized_variants(options[:variant], at: options[:at])
-      area = members.map(&:shape_area).compact.sum if members
+      plant = Plant.where(id: members.map(&:product_id)).availables if members
+      area = plant.map(&:shape_area).compact.sum if plant
     end
     area
   end
@@ -517,13 +551,17 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     intervention
   end
 
-  def record_spraying_on_cultivation(r, support, duration)
-    plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
+  def record_spraying_on_cultivation(r, support, duration, plant = nil)
+    
+    unless plant
+      plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
+    end
 
     return nil unless plant && r.first.product
-
-    working_measure = find_plant_working_area(support: support, variety: r.target_variety, at: r.intervention_started_at, variant: r.target_variant)
-    working_measure ||= support.net_surface_area
+    
+    unless working_measure = plant.net_surface_area
+      working_measure = find_plant_working_area(support: support, variety: r.target_variety, at: r.intervention_started_at, variant: r.target_variant)
+    end
     first_product_input_population = actor_population_conversion(r.first, working_measure)
 
     intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
@@ -537,14 +575,17 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     intervention
   end
 
-  def record_double_spraying_on_cultivation(r, support, duration)
-    plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
+  def record_double_spraying_on_cultivation(r, support, duration, plant = nil)
+    unless plant
+      plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
+    end
 
     return nil unless plant && r.first.product && r.second.product
-    w.info " Plant : #{plant.inspect.green}"
-    working_measure = find_plant_working_area(support: support, variety: r.target_variety, at: r.intervention_started_at, variant: r.target_variant)
-    w.info " Working measure : #{working_measure.inspect.red}"
-    working_measure ||= plant.shape_area
+    
+    unless working_measure = plant.net_surface_area
+      working_measure = find_plant_working_area(support: support, variety: r.target_variety, at: r.intervention_started_at, variant: r.target_variant)
+    end
+    
     w.info " Working measure : #{working_measure.inspect.green}"
     first_product_input_population = actor_population_conversion(r.first, working_measure)
     second_product_input_population = actor_population_conversion(r.second, working_measure)
@@ -562,13 +603,16 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     intervention
   end
 
-  def record_triple_spraying_on_cultivation(r, support, duration)
-    plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
+  def record_triple_spraying_on_cultivation(r, support, duration, plant = nil)
+    unless plant
+      plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
+    end
 
     return nil unless plant && r.first.product && r.second.product && r.third.product
 
-    working_measure = find_plant_working_area(support: support, variety: r.target_variety, at: r.intervention_started_at, variant: r.target_variant)
-    working_measure ||= plant.shape_area
+    unless working_measure = plant.net_surface_area
+      working_measure = find_plant_working_area(support: support, variety: r.target_variety, at: r.intervention_started_at, variant: r.target_variant)
+    end
     first_product_input_population = actor_population_conversion(r.first, working_measure)
     second_product_input_population = actor_population_conversion(r.second, working_measure)
     third_product_input_population = actor_population_conversion(r.third, working_measure)
@@ -588,15 +632,18 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     intervention
   end
 
-  def record_cutting(r, support, duration)
-    plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
+
+  def record_cutting(r, support, duration, plant = nil)
+
+    unless plant
+      plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
+    end
 
     return nil unless plant
-    w.info " Plant : #{plant.inspect.green}"
-    working_measure = find_plant_working_area(support: support, variety: r.target_variety, at: r.intervention_started_at, variant: r.target_variant)
-    w.info " Working measure : #{working_measure.inspect.red}"
-    working_measure ||= plant.shape_area
-    w.info " Working measure : #{working_measure.inspect.green}"
+    
+    unless working_measure = plant.net_surface_area
+      working_measure = find_plant_working_area(support: support, variety: r.target_variety, at: r.intervention_started_at, variant: r.target_variant)
+    end
 
     intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
       i.add_cast(reference_name: 'cutter', actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'cut') : i.find(Equipment, can: 'cut')))
@@ -836,13 +883,19 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   ####  WATERING     ####
   #######################
 
-  def record_watering(r, support, duration)
+  def record_watering(r, support, duration, plant = nil)
+    
     cultivable_zone = support.storage
-    plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
+     
+    unless plant
+      plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
+    end
+    
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && plant && r.first.product
 
-    working_measure = find_plant_working_area(support: support, variety: r.target_variety, at: r.intervention_started_at, variant: r.target_variant)
-    working_measure ||= cultivable_zone.shape_area
+    unless working_measure = plant.net_surface_area
+      working_measure = find_plant_working_area(support: support, variety: r.target_variety, at: r.intervention_started_at, variant: r.target_variant)
+    end
     first_product_input_population = actor_population_conversion(r.first, working_measure)
 
     intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
@@ -859,12 +912,17 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   ####  HARVESTING AND OTHER   ####
   #################################
 
-  def record_grains_harvest(r, support, duration)
-    plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
+  def record_grains_harvest(r, support, duration, plant = nil)
+    
+    unless plant
+      plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
+    end
 
     return nil unless plant && r.first.variant && r.second.variant
 
-    working_measure = plant.shape_area
+    unless working_measure = plant.net_surface_area
+      working_measure = find_plant_working_area(support: support, variety: r.target_variety, at: r.intervention_started_at, variant: r.target_variant)
+    end
 
     first_product_input_population = actor_population_conversion(r.first, working_measure)
     second_product_input_population = actor_population_conversion(r.second, working_measure)
@@ -879,12 +937,17 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     intervention
   end
 
-  def record_hazelnuts_harvest(r, support, duration)
-    plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
+  def record_hazelnuts_harvest(r, support, duration, plant = nil)
+    
+    unless plant
+      plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
+    end
 
     return nil unless plant && r.first.variant
 
-    working_measure = plant.shape_area
+    unless working_measure = plant.net_surface_area
+      working_measure = find_plant_working_area(support: support, variety: r.target_variety, at: r.intervention_started_at, variant: r.target_variant)
+    end
 
     first_product_input_population = actor_population_conversion(r.first, working_measure)
 
@@ -897,12 +960,17 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     intervention
   end
 
-  def record_plants_harvest(r, support, duration)
-    plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
+  def record_plants_harvest(r, support, duration, plant = nil)
+    
+    unless plant
+      plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
+    end
 
     return nil unless plant && r.first.variant
 
-    working_measure = plant.shape_area
+    unless working_measure = plant.net_surface_area
+      working_measure = find_plant_working_area(support: support, variety: r.target_variety, at: r.intervention_started_at, variant: r.target_variant)
+    end
 
     first_product_input_population = actor_population_conversion(r.first, working_measure)
 
@@ -915,12 +983,18 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     intervention
   end
 
-  def record_direct_silage(r, support, duration)
-    plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
+  def record_direct_silage(r, support, duration, plant = nil)
+    
+    unless plant
+      plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
+    end
 
     return nil unless plant && r.first.variant
 
-    working_measure = plant.shape_area
+    unless working_measure = plant.net_surface_area
+      working_measure = find_plant_working_area(support: support, variety: r.target_variety, at: r.intervention_started_at, variant: r.target_variant)
+    end
+
     first_product_input_population = actor_population_conversion(r.first, working_measure)
 
     intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
@@ -932,8 +1006,12 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     intervention
   end
 
-  def record_plantation_unfixing(r, support, duration)
-    plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
+  def record_plantation_unfixing(r, support, duration, plant = nil)
+    
+    unless plant
+      plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
+    end
+    
     return nil unless plant
 
     intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
@@ -945,8 +1023,10 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     intervention
   end
 
-  def record_harvest_helping(r, support, duration)
-    plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
+  def record_harvest_helping(r, support, duration, plant = nil)
+    unless plant
+      plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
+    end
     cultivable_zone = support.storage
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone)
 
@@ -957,8 +1037,11 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     intervention
   end
 
-  def record_detasseling(r, support, duration)
-    plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
+  def record_detasseling(r, support, duration, plant = nil)
+    
+    unless plant
+      plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
+    end
 
     return nil unless plant
 
