@@ -115,7 +115,6 @@ module Clean
       # Add a schema block to a file. If the file already contains
       # a schema info block (a comment starting
       # with "Schema as of ..."), remove it first.
-
       def annotate_one_file(file_name, info_block)
         if File.exist?(file_name)
           content = File.read(file_name)
@@ -132,7 +131,6 @@ module Clean
       # info block (basically a comment containing information
       # on the columns and their types) and put it at the front
       # of the model and fixture source files.
-
       def annotate(klass, header, types = [])
         info = get_schema_info(klass, header)
 
@@ -157,7 +155,7 @@ module Clean
       # the underscore or CamelCase versions of model names.
       # Otherwise we take all the model files in the
       # app/models directory.
-      def get_model_names
+      def model_names
         models = []
         if models.empty?
           Dir.chdir(MODELS_DIR) do
@@ -172,7 +170,6 @@ module Clean
       # ActiveRecord models. If we can find the class, and
       # if its a subclass of ActiveRecord::Base,
       # then pas it to the associated block
-
       def run(options = {})
         if verbose = !options[:verbose].is_a?(FalseClass)
           print ' - Annotations: '
@@ -196,7 +193,8 @@ module Clean
                   end
 
         errors = []
-        get_model_names.each do |m|
+
+        model_names.each do |m|
           class_name = m.sub(/\.rb$/, '').camelize
           begin
             klass = class_name.split('::').inject(Object) { |klass, part| klass.const_get(part) }
@@ -207,6 +205,7 @@ module Clean
             errors << "Unable to annotate #{class_name}: #{e.message}\n" + e.backtrace.join("\n")
           end
         end
+
         if verbose
           print "#{errors.size.to_s.rjust(3)} errors\n"
           for error in errors

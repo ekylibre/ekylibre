@@ -33,10 +33,14 @@ class ApplicationController < ActionController::Base
 
   attr_accessor :current_theme
 
-  # # Permits to redirect
-  # def after_sign_in_path_for(resource)
-  #   backend_root_url(:locale => params[:locale])
-  # end
+  # Permits to redirect
+  hide_action :after_sign_in_path_for
+  def after_sign_in_path_for(resource)
+    if Ekylibre::Plugin.redirect_after_login?
+      path = Ekylibre::Plugin.after_login_path(resource)
+    end
+    path || backend_root_url(locale: (params[:locale] || resource.language || I18n.default_locale))
+  end
 
   def self.human_action_name(action, options = {})
     options = {} unless options.is_a?(Hash)

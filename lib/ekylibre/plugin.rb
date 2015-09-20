@@ -119,6 +119,16 @@ module Ekylibre
           end
         end
       end
+
+      def after_login_plugin
+        registered_plugins.values.detect(&:redirect_after_login?)
+      end
+      alias_method :redirect_after_login?, :after_login_plugin
+
+      # Call after_login_path on 'after login' plugin
+      def after_login_path(resource)
+        after_login_plugin.name.to_s.camelize.constantize.after_login_path(resource)
+      end
     end
 
     attr_reader :root, :themes_assets, :routes, :javascripts, :initializers
@@ -207,6 +217,13 @@ module Ekylibre
       end
     end
 
+    # Accessors
+    def redirect_after_login?
+      @redirect_after_login
+    end
+
+    # TODO: externalize all following methods in a DSL module
+
     def app_version
       Ekylibre.version
     end
@@ -271,6 +288,13 @@ module Ekylibre
 
     def register_manure_management_method(name, class_name)
       Calculus::ManureManagementPlan.register_method(name, class_name)
+    end
+
+    # Will call method MyPlugin.after_login_path to get url to redirect to
+    # CAUTION: Only one plugin can use it. Only first plugin will be called
+    # if many are using this directive.
+    def redirect_after_login
+      @redirect_after_login = true
     end
 
     # TODO: Add other callback for plugin integration

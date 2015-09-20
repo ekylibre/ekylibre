@@ -84,11 +84,14 @@ $button-height: round($fs-normal*0.20) * 2 + round($lh-normal) + $menu-border-wi
 
 input[type="submit"], input[type="button"], input[type="reset"] {
   @include button($input: true);
-  &.primary {
+  &.primary, &.btn-primary {
     @include button($background-color: $base-color, $input: true);
   }
-  &.important, &.caution {
+  &.important, &.caution, &.btn-warning {
     @include button($background-color: $caution-color, $input: true);
+  }
+  &.btn-danger {
+    @include button($background-color: $invalid-color, $input: true);
   }
 }
 
@@ -97,11 +100,14 @@ input[type="submit"], input[type="button"], input[type="reset"] {
 
 a.btn, button.btn {
   @include button();
-  &.primary {
+  &.primary, &.btn-primary {
     @include button($background-color: $base-color);
   }
-  &.important, &.caution {
+  &.important, &.caution, &.btn-warning {
     @include button($background-color: $caution-color);
+  }
+  &.btn-danger {
+    @include button($background-color: $invalid-color);
   }
 
   &.btn-dropdown, &.dropdown-toggle, &.btn-previous, &.btn-next {

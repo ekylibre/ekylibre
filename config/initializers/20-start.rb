@@ -47,9 +47,7 @@ require 'reporting'
 require 'enumerize/xml'
 require 'state_machine/i18n'
 
-if Nomen[:indicators]
-  require 'open_weather_map'
-end
+require 'open_weather_map' if Nomen[:indicators]
 
 # require 'active_list'
 # ::ActionController::Base.send(:include, ActiveList::ActionPack::ActionController)
