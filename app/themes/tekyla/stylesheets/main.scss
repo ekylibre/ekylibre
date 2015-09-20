@@ -1,6 +1,5 @@
-
 i.icon {
-  @include is-icon(14px);
+  @include is-icon;
 }
 
 #top {
@@ -64,7 +63,7 @@ ul.dropdown-menu {
     @include float(left);
     font-size: 0;
     i {
-      @include is-icon(21px);
+      @include is-icon($topbar-icon-size);
       @include use-icon(home);
       line-height: $topbar-height;
     }
@@ -120,7 +119,7 @@ ul.dropdown-menu {
       a {
         font-size: 0;
         i {
-          @include is-icon(21px);
+          @include is-icon($topbar-icon-size);
           @include use-icon(wrench);
           line-height: $topbar-height;
         }
@@ -171,7 +170,7 @@ ul.dropdown-menu {
 
 a[data-toggle='side'] {
   i {
-    @include is-icon($lh-normal);
+    @include is-icon($topbar-icon-size);
     @include use-icon(reorder);
   }
 }
@@ -181,11 +180,31 @@ a[data-toggle='help'] {
   nav#top & {
     font-size: 0;
     i {
-      @include is-icon($lh-normal);
+      @include is-icon($topbar-icon-size);
     }
   }
   i {
     @include use-icon(support);
+  }
+}
+
+a[data-toggle='notifications'] {
+  position: relative;
+  nav#top & {
+    font-size: 0;
+    i {
+      @include is-icon($topbar-icon-size);
+    }
+  }
+  i {
+    @include use-icon(bell-o);
+    opacity: 0.5;
+  }
+  &.with-notifications {
+    i {
+      @include use-icon(bell);
+      opacity: 1;
+    }
   }
 }
 
@@ -2509,5 +2528,15 @@ a[data-annotate] {
   }
   &.active {
     visibility: visible;
+  }
+}
+
+
+.no-notifications {
+  padding: 20vh 20vw;
+  text-align: center;
+  &, * {
+    font-size: $fs-large;
+    line-height: $lh-large;
   }
 }

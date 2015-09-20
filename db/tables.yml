@@ -3115,6 +3115,46 @@ net_services:
   updater_id:
     type: integer
     references: user
+notifications:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  interpolations:
+    type: json
+  level:
+    type: string
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  message:
+    type: string
+    required: true
+  read_at:
+    type: datetime
+  recipient_id:
+    type: integer
+    references: user
+    required: true
+  target_id:
+    type: integer
+    references: "~target_type"
+  target_type:
+    type: string
+  target_url:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 observations:
   author_id:
     type: integer

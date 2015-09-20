@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150919135830) do
+ActiveRecord::Schema.define(version: 20150920094748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1597,6 +1597,31 @@ ActiveRecord::Schema.define(version: 20150919135830) do
   add_index "net_services", ["reference_name"], name: "index_net_services_on_reference_name", using: :btree
   add_index "net_services", ["updated_at"], name: "index_net_services_on_updated_at", using: :btree
   add_index "net_services", ["updater_id"], name: "index_net_services_on_updater_id", using: :btree
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "recipient_id",               null: false
+    t.string   "message",                    null: false
+    t.string   "level",                      null: false
+    t.datetime "read_at"
+    t.integer  "target_id"
+    t.string   "target_type"
+    t.string   "target_url"
+    t.json     "interpolations"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",   default: 0, null: false
+  end
+
+  add_index "notifications", ["created_at"], name: "index_notifications_on_created_at", using: :btree
+  add_index "notifications", ["creator_id"], name: "index_notifications_on_creator_id", using: :btree
+  add_index "notifications", ["level"], name: "index_notifications_on_level", using: :btree
+  add_index "notifications", ["read_at"], name: "index_notifications_on_read_at", using: :btree
+  add_index "notifications", ["recipient_id"], name: "index_notifications_on_recipient_id", using: :btree
+  add_index "notifications", ["target_type", "target_id"], name: "index_notifications_on_target_type_and_target_id", using: :btree
+  add_index "notifications", ["updated_at"], name: "index_notifications_on_updated_at", using: :btree
+  add_index "notifications", ["updater_id"], name: "index_notifications_on_updater_id", using: :btree
 
   create_table "observations", force: :cascade do |t|
     t.integer  "subject_id",               null: false

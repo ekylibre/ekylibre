@@ -369,6 +369,8 @@ fra:
       index: "Services en ligne"
       new: "Nouveau service en ligne"
       show: "Service en ligne\_: %{name}"
+    backend/notifications:
+      index: "Notifications"
     backend/observations:
       edit: "Modifier une observation"
       new: "Nouvelle observation"
@@ -1177,6 +1179,8 @@ fra:
     manure_management_plan_chart: "Visualisation des apports azotés"
     map: "Carte"
     margins: "Marges" #?
+    mark_all_as_read: "Tout marquer comme lu"
+    mark_as_read: "Marquer comme lu"
     markers: "Objectifs" #?
     mass: "Masse" #?
     maximal_temperature: "Température maximale"
@@ -1262,6 +1266,7 @@ fra:
     no_deposits: "Aucune remise en banque à valider"
     no_filters: "— Pas de filtre —" #?
     no_javascript: "Votre navigateur ne supporte pas le javascript. Vous devez l’activer pour pouvoir utiliser le logiciel. Merci de votre compréhension." #?
+    no_notifications: "Aucune notification"
     no_origin: "— Sans origine —" #?
     no_particular_periods: "Aucune période en particulier"
     no_products: "Sans produit"
@@ -1792,12 +1797,15 @@ fra:
     x_journal_entries:
       one: "%{count} écriture"
       other: "%{count} écritures"
-    x_mandates:
-      one: "%{count} responsabilité"
-      other: "%{count} responsabilités"
+    x_mandates:  #?
+      one: "%{count} responsabilité" #?
+      other: "%{count} responsabilités" #?
     x_months:
       one: "%{count} mois"
       other: "%{count} mois"
+    x_notifications:
+      one: "%{count} notification"
+      other: "%{count} notifications"
     x_observations:
       one: "%{count} observation"
       other: "%{count} observations"
@@ -1808,10 +1816,10 @@ fra:
     x_outgoing_payments:
       one: "%{count} décaissement"
       other: "%{count} décaissements"
-    x_performed_operations:
-      one: "%{count} travail à réaliser"
-      other: "%{count} travaux à réaliser"
-      zero: "Aucun travail à réaliser"
+    x_performed_operations:  #?
+      one: "%{count} travail à réaliser" #?
+      other: "%{count} travaux à réaliser" #?
+      zero: "Aucun travail à réaliser" #?
     x_prices:
       one: "%{count} prix"
       other: "%{count} prix"
@@ -1971,6 +1979,9 @@ fra:
       sale_cant_be_deleted: "La vente ne peut plus être supprimée" #?
       sale_is_not_duplicatable: "La vente n'est pas duplicable"
       select_entry_items_to_mark_together: "Sélectionnez des lignes d’écritures à lettrer ensemble"
+      sensor_has_been_fixed: "Le capteur %{name} a été réparé"
+      sensor_is_out_of_service: "Le capteur %{name} est hors-service\_: %{message}"
+      sensor_reading_failed: "Le relevé du capteur %{name} a échoué\_: %{message}"
       some_parcels_are_not_shippable: "Certains colis ne sont pas transportables"
       specify_filter: "Vous choisir appliquer au moins un filtre de recherche" #?
       specify_updates: "Vous devez spécifier au moins un champ à modifier" #?

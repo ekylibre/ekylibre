@@ -291,3 +291,53 @@ analyses_017:
   sensor_id: 3
   updated_at: 2015-09-18 15:28:34.805788000 Z
   updater_id: 1
+analyses_018:
+  analysed_at: 2015-09-20 14:55:01.444746000 Z
+  created_at: 2015-09-20 14:55:01.681928000 Z
+  geolocation: SRID=4326;POINT(-0.851 44.7583)
+  id: 18
+  lock_version: 0
+  nature: meteorological_analysis
+  number: A00000016
+  retrieval_status: ok
+  sampled_at: 2015-09-20 13:55:01.444746000 Z
+  sampling_temporal_mode: instant
+  sensor_id: 2
+  stopped_at: 2015-09-20 14:55:01.444746000 Z
+  updated_at: 2015-09-20 14:55:01.681928000 Z
+analyses_019:
+  created_at: 2015-09-20 14:55:02.531866000 Z
+  id: 19
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000017
+  retrieval_message: 'Error: Not found city'
+  retrieval_status: error
+  sampled_at: 2015-09-20 14:55:02.524661000 Z
+  sampling_temporal_mode: instant
+  sensor_id: 3
+  updated_at: 2015-09-20 14:55:02.531866000 Z
+analyses_020:
+  created_at: 2015-09-20 15:00:01.633166000 Z
+  id: 20
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000018
+  retrieval_message: 'Error: Not found city'
+  retrieval_status: error
+  sampled_at: 2015-09-20 15:00:01.621673000 Z
+  sampling_temporal_mode: instant
+  sensor_id: 2
+  updated_at: 2015-09-20 15:00:01.633166000 Z
+analyses_021:
+  created_at: 2015-09-20 15:00:01.821270000 Z
+  id: 21
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000019
+  retrieval_message: 'Error: Not found city'
+  retrieval_status: error
+  sampled_at: 2015-09-20 15:00:01.811052000 Z
+  sampling_temporal_mode: instant
+  sensor_id: 3
+  updated_at: 2015-09-20 15:00:01.821270000 Z

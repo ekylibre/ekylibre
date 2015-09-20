@@ -538,6 +538,13 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :notifications, only: [:show, :index, :destroy] do
+      collection do
+        delete :destroy
+        get :unread
+      end
+    end
+
     resources :observations, except: [:index, :show]
 
     resources :operations, only: [:index, :show]

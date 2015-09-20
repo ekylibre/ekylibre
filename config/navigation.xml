@@ -1664,6 +1664,12 @@
         <page to="backend/helps#show"/>
         <page to="backend/helps#toggle"/>
       </item>
+      <item name="notifications">
+        <page to="backend/notifications#index"/>
+        <page to="backend/notifications#destroy"/>
+        <page to="backend/notifications#show"/>
+        <page to="backend/notifications#unread"/>
+      </item>
     </group>
     <group>
       <item name="visuals">

@@ -1,0 +1,29 @@
+- if @notifications.any?
+  - main_toolbar do |t|
+    - t.destroy label: :mark_all_as_read.tl, method: :delete, params: {redirect: params[:redirect] }
+
+  .active-list
+    %table.list
+      %thead
+        %tr
+          %td
+            = link_to(backend_notifications_path(redirect: params[:redirect]), method: :delete, title: :mark_all_as_read.tl) do
+              %i.icon.icon-check
+          %th= Notification.human_attribute_name(:message)
+          %th= Notification.human_attribute_name(:age)
+      %tbody
+        - @notifications.each do |notification|
+          %tr{class: notification.level}
+            %td.act
+              = link_to(backend_notification_path(notification), method: :delete, title: :mark_as_read.tl) do
+                %i.icon.icon-check
+            %td
+              - if notification.target_url.present? || notification.target.present?
+                = link_to( notification.human_message, backend_notification_path(notification))
+              - else
+                = notification.human_message
+            %td{title: notification.created_at.l}
+              = distance_of_time_in_words_to_now(notification.created_at)
+- else
+  .no-notifications
+    %p= :no_notifications.tl

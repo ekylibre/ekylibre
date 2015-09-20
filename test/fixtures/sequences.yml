@@ -126,15 +126,15 @@ sequences_005:
   id: 5
   last_cweek: 38
   last_month: 9
-  last_number: 15
+  last_number: 19
   last_year: 2015
-  lock_version: 18
+  lock_version: 22
   name: Analyse
   number_format: A[number|8]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2015-09-18 15:28:34.803752000 Z
+  updated_at: 2015-09-20 15:00:01.818763000 Z
   updater_id: 1
   usage: analyses
 sequences_006:

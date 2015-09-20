@@ -351,6 +351,8 @@ spa:
       # index: "Net services"
       # new: "New net service"
       # show: "Net service: %{name}"
+    backend/notifications:
+      # index: "Notifications"
     backend/observations:
       # edit: "Edit observation"
       # new: "New observation"
@@ -1037,6 +1039,8 @@ spa:
     manual_period: "del %{start} al %{finish}"
     # manure_management_plan_chart: "Manure management plan chart"
     # map: "Map"
+    # mark_all_as_read: "Mark all as read"
+    # mark_as_read: "Mark as read"
     # maximal_temperature: "Maximal temperature"
     # members: "Members"
     # menus: "Menus"
@@ -1103,6 +1107,7 @@ spa:
     # no_data: "No data"
     # no_deposits: "No deposits"
     no_javascript: "Su navegante no soporta el javascript. se debe activarlo para utilizar el software. Gracias para su comprension." #?
+    # no_notifications: "No notifications"
     # no_particular_periods: "No particular period"
     # no_products: "No products"
     # no_results: "No results"
@@ -1516,12 +1521,12 @@ spa:
       one: "La escritura"
       other: "%{count} escrituras"
       zero: "Ninguna escrituras" #?
-    x_mandates:
-      # one: "%{count} mandate"
-      # other: "%{count} mandates"
     x_months:
       # one: "%{count} month"
       # other: "%{count} months"
+    x_notifications:
+      # one: "%{count} notification"
+      # other: "%{count} notifications"
     x_observations:
       # one: "%{count} observation"
       # other: "%{count} observations"
@@ -1532,10 +1537,6 @@ spa:
     x_outgoing_payments:
       # one: "%{count} disbursement"
       # other: "%{count} disbursements"
-    x_performed_operations:
-      # one: "1 operation performed"
-      # other: "%{count} operation performed"
-      # zero: "No operation performed"
     x_prices:
       # one: "1 price"
       # other: "%{count} prices"
@@ -1697,6 +1698,9 @@ spa:
       # sale_is_not_duplicatable: "Sale is not duplicatable"
       select_entries_to_letter_together: "Escroge escroturas para latrarlas juntas" #?
       # select_entry_items_to_mark_together: "Select entry items to mark together"
+      # sensor_has_been_fixed: "Sensor %{name} has been fixed"
+      # sensor_is_out_of_service: "Sensor %{name} is out of service: %{message}"
+      # sensor_reading_failed: "Sensor %{name} reading failed: %{message}"
       # some_parcels_are_not_shippable: "Some parcels are not shippable"
       specify_filter: "Se debe escoger aplicar a lo menos un filtro de busqueda" #?
       specify_updates: "Se debe especifiar a la menos un campo a modifiar" #?

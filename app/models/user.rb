@@ -71,6 +71,8 @@ class User < Ekylibre::Record::Base
   belongs_to :role
   has_many :crumbs
   has_many :dashboards, foreign_key: :owner_id
+  has_many :notifications, foreign_key: :recipient_id, dependent: :delete_all
+  has_many :unread_notifications, -> { where(read_at: nil) }, class_name: 'Notification', foreign_key: :recipient_id
   has_many :preferences, dependent: :destroy, foreign_key: :user_id
   has_many :sales_invoices, -> { where(state: 'invoice') }, through: :person, source: :managed_sales, class_name: 'Sale'
   has_many :sales, through: :person, source: :managed_sales
@@ -175,6 +177,19 @@ class User < Ekylibre::Record::Base
     p.value = value
     p.save!
     p
+  end
+
+  # Create a notification with message for given user
+  def notify(message, interpolations = {}, options = {})
+    attributes = options.slice(:target, :target_url, :level)
+    notifications.create!(attributes.merge(message: message, interpolations: interpolations))
+  end
+
+  # Notify all administrators
+  def self.notify_administrators(*args)
+    User.administrators.each do |user|
+      user.notify(*args)
+    end
   end
 
   def authorization(controller_name, action_name, rights_list = nil)

@@ -1452,6 +1452,7 @@ arb:
     length_max: "عدد الاحرف كحد اقصى" #?
     letter: "خطاب"
     letter_format: "مقتبس على شكل خطاب"
+    # level: "Level"
     # lft: "Left"
     line_2: "خدمة - المستلم" #?
     line_3: "Bأ¢t. - Rأ©s. - ZI..." #?

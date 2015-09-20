@@ -722,3 +722,68 @@ analysis_items_045:
   measure_value_value: 270.0
   updated_at: 2015-09-18 15:28:34.820490000 Z
   updater_id: 1
+analysis_items_046:
+  absolute_measure_value_unit: celsius
+  absolute_measure_value_value: 23.0
+  analysis_id: 18
+  boolean_value: false
+  created_at: 2015-09-20 14:55:01.683935000 Z
+  id: 51
+  indicator_datatype: measure
+  indicator_name: temperature
+  lock_version: 0
+  measure_value_unit: celsius
+  measure_value_value: 23.0
+  updated_at: 2015-09-20 14:55:01.683935000 Z
+analysis_items_047:
+  absolute_measure_value_unit: hectopascal
+  absolute_measure_value_value: 1023.0
+  analysis_id: 18
+  boolean_value: false
+  created_at: 2015-09-20 14:55:01.692953000 Z
+  id: 52
+  indicator_datatype: measure
+  indicator_name: atmospheric_pressure
+  lock_version: 0
+  measure_value_unit: hectopascal
+  measure_value_value: 1023.0
+  updated_at: 2015-09-20 14:55:01.692953000 Z
+analysis_items_048:
+  absolute_measure_value_unit: percent
+  absolute_measure_value_value: 40.0
+  analysis_id: 18
+  boolean_value: false
+  created_at: 2015-09-20 14:55:01.694955000 Z
+  id: 53
+  indicator_datatype: measure
+  indicator_name: relative_humidity
+  lock_version: 0
+  measure_value_unit: percent
+  measure_value_value: 40.0
+  updated_at: 2015-09-20 14:55:01.694955000 Z
+analysis_items_049:
+  absolute_measure_value_unit: kilometer_per_hour
+  absolute_measure_value_value: 7.56
+  analysis_id: 18
+  boolean_value: false
+  created_at: 2015-09-20 14:55:01.696756000 Z
+  id: 54
+  indicator_datatype: measure
+  indicator_name: wind_speed
+  lock_version: 0
+  measure_value_unit: meter_per_second
+  measure_value_value: 2.1
+  updated_at: 2015-09-20 14:55:01.696756000 Z
+analysis_items_050:
+  absolute_measure_value_unit: degree
+  absolute_measure_value_value: 0.0
+  analysis_id: 18
+  boolean_value: false
+  created_at: 2015-09-20 14:55:01.698542000 Z
+  id: 55
+  indicator_datatype: measure
+  indicator_name: wind_direction
+  lock_version: 0
+  measure_value_unit: degree
+  measure_value_value: 0.0
+  updated_at: 2015-09-20 14:55:01.698542000 Z

@@ -842,6 +842,7 @@ fra:
     lender: "Prêteur"
     letter: "Lettre"
     letter_format: "Devis au format lettre"
+    # level: "Level"
     lft: "Limite gauche"
     linkage_points_list: "Points d’attache"
     linkages: "Attaches"

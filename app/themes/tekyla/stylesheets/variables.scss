@@ -6,7 +6,7 @@ $default-ratio: $golden-ratio;
 
 // Font sizes
 $fs-ratio:   1.3 !default;
-$fs-normal: 13px !default;
+$fs-normal: 14px !default;
 $fs-small:      ceil($fs-normal / $fs-ratio);
 $fs-large:     round($fs-normal * $fs-ratio);
 $fs-huge:      round($fs-large  * $fs-ratio);
@@ -124,6 +124,7 @@ $body-font-size: $fs-normal;
 $em-base: $fs-normal;
 $primary-color: $base-color;
 $topbar-height: $fingertip-height !default;
+$topbar-icon-size: round($fs-normal * 1.2);
 $global-radius: $default-border-radius;
 $include-html-classes: false;
 
