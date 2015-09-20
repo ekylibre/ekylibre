@@ -75,7 +75,7 @@ class ProductJunctionWay < Ekylibre::Record::Base
 
   after_save do
     unless self.continuity?
-      if product && stopped_at != product.send(touch_column)
+      if stopped_at != product.send(touch_column)
         product.update_column(touch_column, stopped_at)
       end
       if self.start?
@@ -91,6 +91,7 @@ class ProductJunctionWay < Ekylibre::Record::Base
     old_record.product.update_column(touch_column, nil) unless self.continuity?
   end
 
+  # Returns the column to impact on
   def touch_column
     (self.start? ? :born_at : self.finish? ? :dead_at : nil)
   end
