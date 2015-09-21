@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add unit liter per hour">
+  <item-creation item="units#liter_per_hour" dimension="volume_flow" symbol="l/h" a="0.001" d="3600" />
+</migration>

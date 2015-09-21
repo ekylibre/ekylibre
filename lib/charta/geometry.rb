@@ -54,6 +54,10 @@ module Charta
       select_value("SELECT ST_SRID(#{geom})").to_i
     end
 
+    def srid=(srid)
+      @ewkt = select_value("SELECT ST_AsEWKT(ST_SetSRID(#{geom}, #{srid}))")
+    end
+
     def to_rgeo
       @ewkt
     end

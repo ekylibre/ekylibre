@@ -1692,6 +1692,7 @@ fra:
         figure: "Forme"
         freezing_point_temperature: "Point de solidification"
         fresh_mass: "Poids frais"
+        fuel_consumption: "Consommation de carburant"
         geolocation: "Géolocalisation"
         grains_area_density: "Grains par surface"
         grains_count: "Grains"

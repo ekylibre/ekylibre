@@ -1671,6 +1671,7 @@ jpn:
         # figure: "Figure"
         # freezing_point_temperature: "Freezing point temperature"
         # fresh_mass: "Fresh mass"
+        # fuel_consumption: "Fuel consumption"
         # geolocation: "Geolocation"
         # grains_area_density: "Grains area density"
         # grains_count: "Grains count"

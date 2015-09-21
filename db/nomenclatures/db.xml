@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20150920212201">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20150921175601">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -1503,6 +1503,7 @@
       <item name="ekylibre_backup"/>
       <item name="ekylibre_bank_statements"/>
       <item name="ekylibre_budgets"/>
+      <item name="ekylibre_crumbs"/>
       <item name="ekylibre_cultivable_zones"/>
       <item name="ekylibre_entities"/>
       <item name="ekylibre_equipments"/>
@@ -1652,6 +1653,7 @@
       <item name="figure" datatype="choice" choices="figures"/>
       <item name="freezing_point_temperature" datatype="measure" unit="celsius"/>
       <item name="fresh_mass" datatype="measure" unit="kilogram" gathering="proportional_to_population"/>
+      <item name="fuel_consumption" datatype="measure" unit="liter_per_hour" sampling_temporal_mode="instant"/>
       <item name="geolocation" datatype="point"/>
       <item name="grains_area_density" datatype="measure" unit="unity_per_square_meter"/>
       <item name="grains_count" datatype="measure" unit="thousand"/>
@@ -2962,7 +2964,7 @@
       <item name="building_division" category="building_division" variety="building_division" population_counting="unitary" abilities="store(product)" variable_indicators="net_surface_area, shape, nominal_storable_net_volume, nominal_storable_easement_area" frozen_indicators="population"/>
       <item name="bumblebee_band" category="biological_auxiliary" variety="bombus" population_counting="integer" abilities="move, pollinate(plant)" variable_indicators="population"/>
       <item name="calf" category="calf" variety="bos" population_counting="unitary" abilities="consume(water), consume(poaceae), produce(excrement), consume(milk), move, consume(mix), consume(silage)" variable_indicators="net_mass, sex, animal_life_state, healthy, mammalia_birth_condition" frozen_indicators="population, reproductor, livestock_unit" derivatives="meat"/>
-      <item name="car" category="equipment" variety="tractor" population_counting="unitary" abilities="move, tow(matter), consume(oil), consume(fuel)" variable_indicators="net_surface_area, motor_power, geolocation" frozen_indicators="population" linkage_points="rear"/>
+      <item name="car" category="equipment" variety="tractor" population_counting="unitary" abilities="move, tow(matter), consume(oil), consume(fuel)" variable_indicators="net_surface_area, motor_power, geolocation, fuel_consumption" frozen_indicators="population" linkage_points="rear"/>
       <item name="carriage" category="carriage" variety="service" population_counting="integer" variable_indicators="population"/>
       <item name="catalog_and_print" category="catalog_and_print" variety="service" population_counting="integer" variable_indicators="population"/>
       <item name="cattle_herd" category="cattle_herd" variety="animal_group" derivative_of="bos" population_counting="integer" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix), consume(silage)" frozen_indicators="population, sex"/>
@@ -3162,11 +3164,11 @@
       <item name="superficial_plow" category="equipment" variety="plower" population_counting="unitary" abilities="plow_superficially" variable_indicators="application_width, geolocation" frozen_indicators="population"/>
       <item name="taxe" category="taxe" variety="service" population_counting="decimal" variable_indicators="population"/>
       <item name="technician" category="worker" variety="worker" population_counting="unitary" abilities="drive(equipment), move, milk(mammalia), repair(equipment), administer_care(animal)" variable_indicators="geolocation" frozen_indicators="population"/>
-      <item name="tractor" category="equipment" variety="tractor" population_counting="unitary" abilities="catch(matter), move, tow(matter), consume(oil), consume(fuel)" variable_indicators="net_surface_area, motor_power, geolocation" frozen_indicators="population" linkage_points="rear, front"/>
+      <item name="tractor" category="equipment" variety="tractor" population_counting="unitary" abilities="catch(matter), move, tow(matter), consume(oil), consume(fuel)" variable_indicators="net_surface_area, motor_power, geolocation, fuel_consumption" frozen_indicators="population" linkage_points="rear, front"/>
       <item name="trade_show" category="trade_show" variety="service" population_counting="integer" variable_indicators="population"/>
       <item name="trailer" category="equipment" variety="trailer" population_counting="unitary" abilities="store_fluid, store(grain), store(grass), store(raw_matter), store(silage), move" variable_indicators="nominal_storable_net_volume, nominal_storable_easement_area, nominal_storable_net_mass, geolocation" frozen_indicators="population"/>
       <item name="training_course" category="service" variety="service" population_counting="decimal" variable_indicators="population" frozen_indicators="usage_duration"/>
-      <item name="truck" category="equipment" variety="tractor" population_counting="unitary" abilities="move, tow(matter), consume(oil), consume(fuel)" variable_indicators="net_surface_area, motor_power, geolocation" frozen_indicators="population" linkage_points="rear"/>
+      <item name="truck" category="equipment" variety="tractor" population_counting="unitary" abilities="move, tow(matter), consume(oil), consume(fuel)" variable_indicators="net_surface_area, motor_power, geolocation, fuel_consumption" frozen_indicators="population" linkage_points="rear"/>
       <item name="user_support" category="service" variety="service" population_counting="decimal" variable_indicators="population" frozen_indicators="usage_duration"/>
       <item name="usual_vine_seedling" category="plant" variety="seedling" derivative_of="vitis" population_counting="integer" abilities="grow" variable_indicators="population" frozen_indicators="woodstock_variety"/>
       <item name="various_loan_interest" category="various_loan_interest" variety="service" population_counting="decimal" variable_indicators="population"/>
@@ -3511,6 +3513,7 @@
       <item name="kilowatt_hour" dimension="energy" symbol="kWh" a="3600000.0"/>
       <item name="liter" dimension="volume" symbol="l" a="0.001"/>
       <item name="liter_per_hectare" dimension="volume_area_density" symbol="l/ha" a="0.001" d="10000.0"/>
+      <item name="liter_per_hour" dimension="volume_flow" symbol="l/h" a="0.001" d="3600.0"/>
       <item name="liter_per_square_meter" dimension="volume_area_density" symbol="l/m&#xB2;" a="0.001"/>
       <item name="mass_percent" dimension="none" symbol="%kg" d="100.0"/>
       <item name="megawatt" dimension="power" symbol="MW" a="1000000.0"/>

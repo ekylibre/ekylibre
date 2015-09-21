@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add fuel consumption indicator">
+  <item-creation item="indicators#fuel_consumption" datatype="measure" unit="liter_per_hour" sampling_temporal_mode="instant"/>
+  <item-change  item="product_natures#car" variable_indicators="net_surface_area, motor_power, geolocation, fuel_consumption"/>
+  <item-change  item="product_natures#tractor" variable_indicators="net_surface_area, motor_power, geolocation, fuel_consumption"/>
+  <item-change  item="product_natures#truck" variable_indicators="net_surface_area, motor_power, geolocation, fuel_consumption"/>
+</migration>
