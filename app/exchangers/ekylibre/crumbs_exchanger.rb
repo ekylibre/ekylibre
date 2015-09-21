@@ -81,7 +81,7 @@ class Ekylibre::CrumbsExchanger < ActiveExchanger::Base
       r = {
         id: row[0].to_i,
         time: row[1].to_i,
-        value: row[2].to_d,
+        value: row[2].tr(',', '.').to_d,
       }.to_struct
 
       tractor.read!(:fuel_consumption, r.value.in(:liter_per_hour), at: start + r.time)

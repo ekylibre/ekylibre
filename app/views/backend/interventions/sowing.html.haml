@@ -85,27 +85,12 @@
       %span.title= Intervention.human_attribute_name(:production)
       %span.value= link_to(resource.production.name, {controller: :productions, action: :show, id: resource.production})
 
-    - if resource.production_support
-      .info
-        %span.title= :production_support.tl
-        %span.value= link_to(resource.production_support.name, {controller: :production_supports, action: :show, id: resource.production_support})
-
-      - if resource.storage
-        .info
-          %span.title= ProductionSupport.human_attribute_name(:storage)
-          %span.value= link_to(resource.storage.name, {controller: :products, action: :show, id: resource.storage})
-
-    - if resource.prescription
-      .info
-        %span.title= Intervention.human_attribute_name(:prescription)
-        %span.value= link_to(resource.prescription.name, {controller: :prescriptions, action: :show, id: resource.prescription})
-
-    - if resource.issue
-      .info
-        %span.title= Intervention.human_attribute_name(:issue)
-        %span.value= link_to(resource.issue.name, {controller: :issues, action: :show, id: resource.issue})
-
-    - if resource.description?
-      .info
-        %span.title= Intervention.human_attribute_name(:description)
-        %span.value= resource.description
+  - if tractor_cast = resource.casts.find_by(reference_name: 'tractor') && tractor = tractor_cast.actor
+      :ruby
+        start = resource.started_at
+        stop = resource.stopped_at
+        categories = {:fuel_consumption}
+        readings = ProductReading.where(indicator_name: :fuel_consumption, product: tractor)
+        series << {name: :fuel_consumption.tl, data: readings.collect{|r| r.value.to_d(:liter_per_hour).round(2)}, tooltip: {value_suffix: ' l/h' }, y_axis: 1 }
+      
+      = spline_highcharts(series, x_axis: {categories: categories}, y_axis: [{title: {text: Nomen::Indicator[:fuel_consumption].human_name}, labels: { format: '{value} l/h' }}, {title: { text: :precipitation.tl }, labels: { format: '{value} mm' }, opposite: true}, {title: { text: :wind_speed.tl }, labels: { format: '{value} km/h' }, opposite: true}], legend: true)
