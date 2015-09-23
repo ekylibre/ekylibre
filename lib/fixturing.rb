@@ -354,8 +354,10 @@ module Fixturing
                 value.to_time(:utc)
               elsif type == :boolean
                 (%w(1 t T true yes TRUE).include?(value) ? true : false)
+              elsif type == :json
+                JSON.parse(value)
               else
-                puts type.inspect.red unless type == :string || type == :text
+                puts "Unknown type to parse in fixtures: #{type.inspect}".red unless [:text, :string].include?(type)
                 value =~ /\A\-\-\-(\s+|\z)/ ? YAML.load(value) : value
               end
       value

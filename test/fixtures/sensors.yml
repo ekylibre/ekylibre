@@ -53,7 +53,10 @@
 #
 ---
 sensors_001:
-  access_parameters: '{"latitude":"44.7583","longitude":"-0.851","api_key":""}'
+  access_parameters:
+    latitude: '44.7583'
+    longitude: "-0.851"
+    api_key: ''
   active: true
   created_at: 2015-09-18 15:06:19.243962000 Z
   creator_id: 1
@@ -67,7 +70,10 @@ sensors_001:
   updater_id: 1
   vendor_euid: openweathermap
 sensors_002:
-  access_parameters: '{"latitude":"44.4481","longitude":" -0.8894","api_key":""}'
+  access_parameters:
+    latitude: '44.4481'
+    longitude: " -0.8894"
+    api_key: ''
   active: true
   created_at: 2015-09-18 15:18:15.361852000 Z
   creator_id: 1

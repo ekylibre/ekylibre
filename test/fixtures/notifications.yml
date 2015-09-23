@@ -51,7 +51,9 @@
 notifications_001:
   created_at: 2015-09-20 14:55:02.575255000 Z
   id: 1
-  interpolations: '{"name":"OWM2","message":"Error: Not found city"}'
+  interpolations:
+    name: OWM2
+    message: 'Error: Not found city'
   level: error
   lock_version: 0
   message: sensor_is_out_of_service
@@ -62,7 +64,9 @@ notifications_001:
 notifications_002:
   created_at: 2015-09-20 14:55:02.583831000 Z
   id: 2
-  interpolations: '{"name":"OWM2","message":"Error: Not found city"}'
+  interpolations:
+    name: OWM2
+    message: 'Error: Not found city'
   level: error
   lock_version: 1
   message: sensor_is_out_of_service
@@ -75,7 +79,9 @@ notifications_002:
 notifications_003:
   created_at: 2015-09-20 15:00:01.656980000 Z
   id: 3
-  interpolations: '{"name":"OWM","message":"Error: Not found city"}'
+  interpolations:
+    name: OWM
+    message: 'Error: Not found city'
   level: error
   lock_version: 0
   message: sensor_is_out_of_service
@@ -86,7 +92,9 @@ notifications_003:
 notifications_004:
   created_at: 2015-09-20 15:00:01.666144000 Z
   id: 4
-  interpolations: '{"name":"OWM","message":"Error: Not found city"}'
+  interpolations:
+    name: OWM
+    message: 'Error: Not found city'
   level: error
   lock_version: 0
   message: sensor_is_out_of_service
