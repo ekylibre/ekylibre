@@ -73,13 +73,21 @@ module Ekylibre
         (@loaders ? @loaders.keys : [])
       end
 
+      def executed_preference
+        Preference.get!("first_run.executed", false, :boolean)
+      end
+
+
       # Execute all loaders for a given base
       def call_loaders(base)
         @loaders ||= []
         secure_transaction(!base.hard?) do
+          preference = executed_preference
           loaders.each do |loader|
             call_loader(loader, base)
           end
+          preference.value = true
+          preference.save!
         end
       end
 
@@ -90,9 +98,11 @@ module Ekylibre
         end
         ::I18n.locale = Preference[:language]
         ActiveRecord::Base.transaction do
-          if base.force || !Preference.get!("first_run.#{loader}.executed", false, :boolean).value
+          preference = Preference.get!("first_run.executed_loaders.#{loader}", false, :boolean)
+          if base.force || !preference.value
             @loaders[loader].call(base)
-            Preference.set!("first_run.#{loader}.executed", true, :boolean)
+            preference.value = true
+            preference.save!
           else
             puts 'Skip'.yellow + " #{loader} loader"
           end
