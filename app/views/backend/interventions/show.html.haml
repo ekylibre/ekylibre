@@ -40,10 +40,10 @@
         if tractor = tractor_cast.actor
           start = resource.started_at
           stop = resource.stopped_at
-          
+
           data = {}.with_indifferent_access
           series = []
-          
+
           categories = [:fuel_consumption]
           for symbol_item in categories
           item = Nomen::Indicator[symbol_item]
@@ -59,7 +59,7 @@
             end
           end
         end
-          
+
       = spline_highcharts(series, y_axis: {title: {text: :indicator_value.tl} , opposite: true}, tooltip: { shared: true }, x_axis: {type: 'datetime', crosshair: true}, legend: true)
     - else
       = no_data

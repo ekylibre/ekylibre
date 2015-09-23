@@ -7,13 +7,11 @@ module Ekylibre
       end
 
       before_enqueue do |job|
-        puts Ekylibre::Tenant.current.inspect.red
         job.arguments << Ekylibre::Tenant.current
       end
 
       around_perform do |job, block|
         tenant = job.arguments.delete_at(-1)
-        puts tenant.inspect.blue
         Ekylibre::Tenant.switch(tenant) do
           block.call
         end
