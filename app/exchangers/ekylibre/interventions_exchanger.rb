@@ -552,7 +552,6 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   end
 
   def record_spraying_on_cultivation(r, support, duration, plant = nil)
-
     unless plant
       plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
     end
@@ -632,9 +631,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     intervention
   end
 
-
   def record_cutting(r, support, duration, plant = nil)
-
     unless plant
       plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
     end
@@ -884,7 +881,6 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   #######################
 
   def record_watering(r, support, duration, plant = nil)
-
     cultivable_zone = support.storage
 
     unless plant
@@ -913,7 +909,6 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   #################################
 
   def record_grains_harvest(r, support, duration, plant = nil)
-
     unless plant
       plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
     end
@@ -938,7 +933,6 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   end
 
   def record_hazelnuts_harvest(r, support, duration, plant = nil)
-
     unless plant
       plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
     end
@@ -961,7 +955,6 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   end
 
   def record_plums_harvest(r, support, duration, plant = nil)
-
     unless plant
       plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
     end
@@ -976,7 +969,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
     intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|
       i.add_cast(reference_name: 'fruit_harvester', actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'harvest(plum)') : i.find(Equipment, can: 'harvest(plum)')))
-      i.add_cast(reference_name: 'tractor',  actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'tow(equipment)') : i.find(Equipment, can: 'tow(equipment)')))
+      i.add_cast(reference_name: 'tractor', actor: (r.equipments.present? ? i.find(Equipment, work_number: r.equipment_codes, can: 'tow(equipment)') : i.find(Equipment, can: 'tow(equipment)')))
       i.add_cast(reference_name: 'driver', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
       i.add_cast(reference_name: 'cultivation', actor: plant)
       i.add_cast(reference_name: 'fruits', population: first_product_input_population, variant: r.first.variant)
@@ -985,7 +978,6 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   end
 
   def record_plants_harvest(r, support, duration, plant = nil)
-
     unless plant
       plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
     end
@@ -1008,7 +1000,6 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   end
 
   def record_direct_silage(r, support, duration, plant = nil)
-
     unless plant
       plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
     end
@@ -1031,7 +1022,6 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   end
 
   def record_plantation_unfixing(r, support, duration, plant = nil)
-
     unless plant
       plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
     end
@@ -1062,7 +1052,6 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   end
 
   def record_detasseling(r, support, duration, plant = nil)
-
     unless plant
       plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
     end

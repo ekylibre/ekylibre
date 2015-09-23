@@ -10,5 +10,4 @@ Ekylibre::FirstRun.add_loader :interventions do |first_run|
 
   # For crumbs in Fermes Larreres
   first_run.import_archive(:ekylibre_crumbs, 'trips.zip', 'trip_simulation.shp', 'trip_simulation.dbf', 'trip_simulation.shx', 'trip_simulation.prj', 'data_consumption.csv', in: 'alamano/trips')
-
 end

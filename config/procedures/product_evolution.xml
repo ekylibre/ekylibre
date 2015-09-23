@@ -3,7 +3,7 @@
   <procedure name="product_evolution" natures="product_evolution" version="0">
     <variables>
       <variable name="product" roles="product_evolution-target"/>
-      <variable name="variant" roles="product_evolution-variant"/>
+      <variable name="variant" type="variant" roles="product_evolution-variant"/>
     </variables>
     <operations>
       <operation id="1">

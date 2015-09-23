@@ -1,6 +1,6 @@
 - if procedure = f.object.reference
   = hidden_field_tag nil, compute_backend_interventions_path(format: :json), data: {procedure_computing: procedure.name}
-  - if !f.object.production and params[:production_support_id] and support = ProductionSupport.find_by(id: params[:production_support_id])
+  - if !f.object.production && params[:production_support_id] && support = ProductionSupport.find_by(id: params[:production_support_id])
     - f.object.production = support.production
   = field_set do
     = f.input :reference_name, as: :hidden
@@ -21,21 +21,21 @@
     = f.referenced_association :recommender
 
   = field_set :casting do
-    - if f.object.new_record? and f.object.casts.empty?
-      - for name, variable in procedure.variables
+    - if f.object.new_record? && f.object.casts.empty?
+      - procedure.variables.each do |name, variable|
         - f.object.casts.new(reference_name: name)
     = f.backend_fields_for :casts do |v|
       - reference = v.object.reference
       = v.input :reference_name, as: :hidden
-      - if reference and reference.type_product?
+      - if reference && reference.type_product?
         - if reference.handlers.any?
           = v.input("actor", wrapper_html: {class: "inline special"}, label: reference.human_name) do
-            - for need in reference.needs
+            - reference.needs.each do |need|
               - v.object.send("#{need}=", v.object.send(need))
               = v.input_field(need, as: :hidden, data: {procedure: procedure.name, variable: reference.name, variable_destination: need})
             .handlers
               -# Handlers
-              - for handler in reference.handlers
+              - reference.handlers.each do |handler|
                 .handler{class: handler.widget}
                   .title= handler.human_name
                   .value
@@ -71,7 +71,7 @@
   - proposed = []
   - default_params = {action: :new}
   .activity-families{data: {collapse: "accordion"}}
-    - for family in Activity.of_campaign(current_campaign).pluck(:family).collect{|f| Nomen::ActivityFamily[f]}.compact.uniq.sort{|a,b| a.human_name <=> b.human_name }
+    - Activity.of_campaign(current_campaign).pluck(:family).collect{|f| Nomen::ActivityFamily[f]}.compact.uniq.sort{|a,b| a.human_name <=> b.human_name }.each do |family|
       - procedures = Procedo.procedures_of_activity_family(family.name.to_sym)
       - if procedures.any?
         - proposed += procedures
@@ -79,7 +79,7 @@
           %i
           = family.human_name
         .proposal-list
-          - for procedure in procedures.sort{|a,b| a.human_name <=> b.human_name }
+          - procedures.sort{|a,b| a.human_name <=> b.human_name }.each do |procedure|
             = link_to(procedure.human_name, default_params.merge(reference_name: procedure.name).merge(params), class: "btn")
     - remainings = Procedo.list.values - proposed
     - if remainings.any?
@@ -87,7 +87,7 @@
         %i
         = :others.tl
       .proposal-list
-        - for procedure in remainings.sort{|a,b| a.human_name <=> b.human_name }
+        - remainings.sort{|a,b| a.human_name <=> b.human_name }.each do |procedure|
           = link_to(procedure.human_name, default_params.merge(reference_name: procedure.name).merge(params), class: "btn")
 
   - f.clear_actions!
