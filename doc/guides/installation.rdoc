@@ -6,7 +6,7 @@ This a short explanation on installation steps for developers.
 
 * Before all, install all distribution dependencies:
 
-    sudo apt-get install postgresql-9.3 postgresql-server-dev-9.3 libpq-dev libqtwebkit-dev libmagic-dev libxml2-dev libxslt1-dev libgdal1-dev libjson0-dev zlib1g-dev build-essential wget openjdk-7-jdk graphicsmagick tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data ghostscript libicu52 libcurl4-openssl-dev libicu-dev
+    sudo apt-get install postgresql-9.3 postgresql-server-dev-9.3 libpq-dev libqtwebkit-dev libmagic-dev libxml2-dev libxslt1-dev libgdal1-dev libjson0-dev zlib1g-dev build-essential wget openjdk-7-jdk graphicsmagick tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data ghostscript libicu52 libcurl4-openssl-dev libicu-dev redis-server
 
 * Install PostGIS (≥ 2.1) from source:
   * Download and install Geos (≥ 3.4) from http://trac.osgeo.org/geos:

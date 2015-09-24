@@ -99,7 +99,7 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-webkit (1.7.0)
+    capybara-webkit (1.7.1)
       capybara (>= 2.3.0, < 2.6.0)
       json
     celluloid (0.17.1.2)
@@ -262,7 +262,7 @@ GEM
     mime-types (2.6.2)
     mimemagic (0.3.0)
     mini_portile (0.6.2)
-    minitest (5.8.0)
+    minitest (5.8.1)
     multi_json (1.11.2)
     multipart-post (2.0.0)
     nenv (0.2.0)

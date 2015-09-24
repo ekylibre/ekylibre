@@ -34,6 +34,7 @@ targets:
       - ghostscript
       - openjdk-7-jdk
       - libicu52
+      - redis-server
       # Specific to Debian
       - postgresql-9.4-postgis-2.1
   ubuntu-14.04:
@@ -53,10 +54,12 @@ targets:
       - ghostscript
       - openjdk-7-jdk
       - libicu52
+      - redis-server
       # Specific to Ubuntu 14.04
       - postgresql-9.3-postgis-2.1
 services:
   - postgres
+  - redis
 before_precompile: "packaging/setup"
 after_precompile: "packaging/clean"
 after_install: "packaging/postinst"
