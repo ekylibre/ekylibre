@@ -506,7 +506,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   #### SPRAYING / CUTTING       ####
   ##################################
 
-  def record_spraying_on_land_parcel(r, support, duration)
+  def record_spraying_on_land_parcel(r, support, duration, plant = nil)
     cultivable_zone = support.storage
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && r.first.product
 
@@ -526,7 +526,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     intervention
   end
 
-  def record_double_spraying_on_land_parcel(r, support, duration)
+  def record_double_spraying_on_land_parcel(r, support, duration, plant = nil)
     w.debug r.first.product.inspect.red
     w.debug r.second.product.inspect.red
 
@@ -655,7 +655,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   ####  IMPLANTING  ####
   #######################
 
-  def record_sowing(r, support, duration)
+  def record_sowing(r, support, duration, plant = nil)
     cultivable_zone = support.storage
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && r.target_variant && r.first.product
 
@@ -680,7 +680,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     intervention
   end
 
-  def record_sowing_with_insecticide_and_molluscicide(r, support, duration)
+  def record_sowing_with_insecticide_and_molluscicide(r, support, duration, plant = nil)
     cultivable_zone = support.storage
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && r.target_variant && r.first.product && r.second.product && r.third.product
 
@@ -711,7 +711,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     intervention
   end
 
-  def record_implanting(r, support, duration)
+  def record_implanting(r, support, duration, plant = nil)
     cultivable_zone = support.storage
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && r.target_variant && r.first.product
 
@@ -748,7 +748,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     intervention
   end
 
-  def record_plastic_mulching(r, support, duration)
+  def record_plastic_mulching(r, support, duration, plant = nil)
     cultivable_zone = support.storage
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && r.first.product
 
@@ -766,7 +766,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     intervention
   end
 
-  def record_implant_helping(r, support, duration)
+  def record_implant_helping(r, support, duration, plant = nil)
     plant = find_best_plant(support: support, variety: r.target_variety, at: r.intervention_started_at)
     cultivable_zone = support.storage
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone)
@@ -782,7 +782,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   ####  FERTILIZING  ####
   #######################
 
-  def record_organic_fertilizing(r, support, duration)
+  def record_organic_fertilizing(r, support, duration, plant = nil)
     cultivable_zone = support.storage
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && r.first.product
 
@@ -800,7 +800,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     intervention
   end
 
-  def record_mineral_fertilizing(r, support, duration)
+  def record_mineral_fertilizing(r, support, duration, plant = nil)
     cultivable_zone = support.storage
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone) && r.first.product
 
@@ -824,7 +824,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   ####  SOIL W       ####
   #######################
 
-  def record_plowing(r, support, duration)
+  def record_plowing(r, support, duration, plant = nil)
     cultivable_zone = support.storage
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone)
 
@@ -837,7 +837,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     intervention
   end
 
-  def record_raking(r, support, duration)
+  def record_raking(r, support, duration, plant = nil)
     cultivable_zone = support.storage
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone)
 
@@ -850,7 +850,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     intervention
   end
 
-  def record_hoeing(r, support, duration)
+  def record_hoeing(r, support, duration, plant = nil)
     cultivable_zone = support.storage
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone)
 
@@ -863,7 +863,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     intervention
   end
 
-  def record_land_parcel_grinding(r, support, duration)
+  def record_land_parcel_grinding(r, support, duration, plant = nil)
     cultivable_zone = support.storage
     return nil unless cultivable_zone && cultivable_zone.is_a?(CultivableZone)
 
@@ -1069,7 +1069,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   #### Technical & Maintenance ####
   #################################
 
-  def record_fuel_up(r, support, duration)
+  def record_fuel_up(r, support, duration, plant = nil)
     equipment = support.storage
 
     return nil unless equipment && equipment.is_a?(Equipment) && r.first
@@ -1087,7 +1087,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     intervention
   end
 
-  def record_technical_task(r, support, duration)
+  def record_technical_task(r, support, duration, plant = nil)
     zone = support.storage
     cultivable_zone = support.storage
     return nil unless (zone && (zone.is_a?(BuildingDivision) || zone.is_a?(Equipment))) || (cultivable_zone && cultivable_zone.is_a?(CultivableZone))
@@ -1099,7 +1099,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     intervention
   end
 
-  def record_maintenance_task(r, support, duration)
+  def record_maintenance_task(r, support, duration, plant = nil)
     if support.is_a?(ProductionSupport)
       zone = support.storage
       return nil unless zone && (zone.is_a?(BuildingDivision) || zone.is_a?(Equipment))
@@ -1118,7 +1118,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   end
 
   # Record administrative task
-  def record_administrative_task(r, _production, duration)
+  def record_administrative_task(r, _production, duration, plant = nil)
     return nil unless r.workers.present?
     intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), description: r.procedure_description) do |i|
       i.add_cast(reference_name: 'worker', actor: (r.workers.present? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))

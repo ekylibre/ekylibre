@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="sorting" natures="product_evolution, product_moving" version="0">
+    <variables>
+      <variable name="product" variety="product"/>
+      <variable name="product_to_sort" variety=":product" derivative-of=":product" new="parted-from: product" roles="product_moving-target, product_evolution-target">
+        <handler indicator="population"/>
+      </variable>
+      <variable name="container" roles="product_moving-container" default-actor="default_storage_of_support"/>
+      <variable name="doer" variety="worker" abilities="move" roles="product_moving-doer"/>
+      <variable name="variant" type="variant" roles="product_evolution-variant"/>
+    </variables>
+    <operations>
+      <operation id="1">
+        <!-- Operation 700 -->
+        <task do="[doer] acts on [product]"/>
+        <task do="[product] parts with [product_to_sort]"/>
+        <task do="[product_to_sort] moves in [container]"/>
+        <task do="[product_to_sort] variant cast into [variant]"/>
+      </operation>
+    </operations>
+  </procedure>
+</procedures>
