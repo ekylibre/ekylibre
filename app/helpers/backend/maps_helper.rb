@@ -72,7 +72,7 @@ module Backend::MapsHelper
     geometry = Charta::Geometry.new(value)
     box ||= {}
     options[:box] ||= {}
-
+    options[:data][:map_editor] ||= {}
     if options[:data][:map_editor].key? :customClass
       box[:width] = options[:box][:width]
       box[:height] = options[:box][:height]
@@ -80,7 +80,7 @@ module Backend::MapsHelper
       box[:width] = options[:box][:width] || 360
       box[:height] = options[:box][:height] || 240
     end
-
+    options[:data][:map_editor][:controls] ||= {}
     if options[:data][:map_editor][:controls].key? :importers
       options.deep_merge!(data: { map_editor: { controls: { importers: { content: importer_form(options[:data][:map_editor][:controls][:importers][:formats]) } } } })
     end
