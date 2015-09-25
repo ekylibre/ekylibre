@@ -47,6 +47,7 @@ eng:
       # add_to_container: "Add to container animal: %{name}"
       add_to_group: "Add to group"
       # add_to_variant: "Add to variant animal: %{name}"
+      # attachments: "Attachments animal: %{name}"
       # change: "Change animal: %{name}"
       edit: "Edit animal: %{name}"
       index: "Animals"
@@ -59,6 +60,7 @@ eng:
       show: "%{nature}: %{name}"
       # take: "Take animal: %{name}"
     backend/bank_statements:
+      # attachments: "Attachments bank statement: %{name}"
       edit: "Edit bank statement %{number}"
       index: "Bank statements"
       new: "New bank statement"
@@ -67,12 +69,14 @@ eng:
     backend/beehives:
       reset: "Reset beehive: %{name}"
     backend/building_divisions:
+      # attachments: "Attachments building division: %{name}"
       edit: "Edit building division: %{name}"
       index: "Building divisions"
       new: "New building division"
       show: "Building division: %{name}"
       # take: "Take building division: %{name}"
     backend/buildings:
+      # attachments: "Attachments building: %{name}"
       edit: "Edit building: %{name}"
       index: "Buildings"
       new: "New building"
@@ -89,6 +93,7 @@ eng:
       new: "New cash transfer"
       show: "Cash transfer: %{number}"
     backend/cashes:
+      # attachments: "Attachments cash: %{name}"
       edit: "Edit cash: %{name}"
       index: "Cashes"
       new: "New cash"
@@ -174,6 +179,7 @@ eng:
       # convert: "Convert crumb: %{name}"
       index: "Crumbs"
     backend/cultivable_zones:
+      # attachments: "Attachments cultivable zone: %{name}"
       edit: "Edit cultivable zone: %{name}"
       index: "Cultivable zones"
       new: "New cultivable zone"
@@ -204,6 +210,7 @@ eng:
       tools: "Tools dashboard"
       trade: "Trade dashboard"
     backend/deliveries:
+      # attachments: "Attachments delivery: %{name}"
       # cancel: "Cancel delivery: %{name}"
       # check: "Check delivery: %{name}"
       edit: "Edit delivery %{number}"
@@ -260,6 +267,7 @@ eng:
       new: "New link"
       # show: "Entity link: %{name}"
     backend/equipments:
+      # attachments: "Attachments equipment: %{name}"
       edit: "Edit equipment: %{name}"
       index: "Equipments"
       new: "New equipment"
@@ -281,6 +289,7 @@ eng:
       index: "Exports"
       show: "Export: %{name}"
     backend/financial_years:
+      # attachments: "Attachments financial year: %{name}"
       close: "Close financial year: %{code}"
       compute_balances: "Compute financial year balance"
       edit: "Edit new financial year"
@@ -294,6 +303,7 @@ eng:
       new: "New fixed asset"
       show: "Fixed asset: %{name}"
     backend/fungi:
+      # attachments: "Attachments fungus: %{name}"
       edit: "Edit fungus: %{name}"
       index: "Fungi"
       new: "New fungus"
@@ -343,6 +353,7 @@ eng:
       new: "New incoming payment mode"
       show: "Incoming payment mode: %{name}"
     backend/incoming_payments:
+      # attachments: "Attachments incoming payment: %{name}"
       edit: "Edit incoming payment %{number}"
       index: "Incoming payments"
       new: "New incoming payment"
@@ -356,6 +367,7 @@ eng:
       set: "Set intervention: %{procedure_name} #%{number}"
       show: "%{procedure_name}"
     backend/inventories:
+      # attachments: "Attachments inventory: %{name}"
       edit: "Edit inventory"
       index: "Inventories"
       new: "New inventory"
@@ -363,6 +375,7 @@ eng:
       show: "Inventory: %{name}"
     backend/issues:
       abort: "Abort issue: %{name}"
+      # attachments: "Attachments issue: %{name}"
       close: "Close issue: %{name}"
       edit: "Edit issue: %{name}"
       index: "Issues"
@@ -372,6 +385,7 @@ eng:
     backend/januses:
       # toggle: "Toggle januse: %{name}"
     backend/journal_entries:
+      # attachments: "Attachments journal entry: %{name}"
       edit: "Edit journal entry: %{number}"
       index: "Journal entries"
       new: "New entry"
@@ -390,18 +404,21 @@ eng:
     backend/kujakus:
       # toggle: "Toggle kujaku: %{name}"
     backend/land_parcel_clusters:
+      # attachments: "Attachments land parcel cluster: %{name}"
       edit: "Edit land parcel cluster: %{name}"
       index: "Land parcel clusters"
       new: "New land parcel cluster"
       show: "Land parcel cluster %{name}"
       # take: "Take land parcel cluster: %{name}"
     backend/land_parcel_groups:
+      # attachments: "Attachments land parcel group: %{name}"
       edit: "Edit land parcel group: %{name}"
       index: "Land parcel groups"
       new: "New land parcel group"
       show: "Land parcel group %{name}"
       # take: "Take land parcel group: %{name}"
     backend/land_parcels:
+      # attachments: "Attachments land parcel: %{name}"
       edit: "Edit land parcel: %{name}"
       index: "Land parcels"
       new: "New land parcel"
@@ -420,6 +437,7 @@ eng:
       # index: "Loan repayments"
       # show: "Loan repayment: %{name}"
     backend/loans:
+      # attachments: "Attachments loan: %{name}"
       edit: "Edit loan: %{name}"
       index: "Loans"
       new: "New loan"
@@ -433,6 +451,7 @@ eng:
       # import_shapes: "Import shapes map editor: %{name}"
       # upload: "Upload map editor: %{name}"
     backend/matters:
+      # attachments: "Attachments matter: %{name}"
       edit: "Edit matter: %{name}"
       index: "Matters"
       new: "New matter"
@@ -461,6 +480,7 @@ eng:
       new: "New disbursement mode"
       # show: "Outgoing payment mode: %{name}"
     backend/outgoing_payments:
+      # attachments: "Attachments outgoing payment: %{name}"
       edit: "Edit disbursement: %{number}"
       index: "Disbursements"
       new: "New disbursement"
@@ -468,6 +488,7 @@ eng:
     backend/parcel_items:
       # new: "New parcel item"
     backend/parcels:
+      # attachments: "Attachments parcel: %{name}"
       # cancel: "Cancel parcel: %{name}"
       # check: "Check parcel: %{name}"
       edit: "Edit %{nature} parcel: %{number}"
@@ -480,6 +501,7 @@ eng:
       ship: "Ship parcels"
       show: "%{nature} parcel: %{number}"
     backend/plants:
+      # attachments: "Attachments plant: %{name}"
       edit: "Edit plant: %{name}"
       index: "Plants"
       new: "New plant"
@@ -497,6 +519,7 @@ eng:
       new: "New prescription"
       show: "Prescription: %{reference_number}"
     backend/product_groups:
+      # attachments: "Attachments product group: %{name}"
       edit: "Edit group: %{name}"
       index: "Product groups"
       new: "New group"
@@ -533,6 +556,7 @@ eng:
       new: "New production"
       show: "Production: %{name}"
     backend/products:
+      # attachments: "Attachments product: %{name}"
       edit: "Edit product: %{name}"
       index: "Products"
       new: "New product"
@@ -545,6 +569,7 @@ eng:
       show: "Purchase type: %{name}"
     backend/purchases:
       abort: "Abort"
+      # attachments: "Attachments purchase: %{name}"
       confirm: "Confirm order and wait for deliveries"
       correct: "Correct order"
       edit: "Edit purchase: %{number}"
@@ -571,6 +596,7 @@ eng:
       show: "Sale type: %{name}"
     backend/sale_opportunities:
       # attach: "Attach sale opportunity: %{name}"
+      # attachments: "Attachments sale opportunity: %{name}"
       # detach: "Detach sale opportunity: %{name}"
       edit: "Edit opportunity: %{name}"
       # evaluate: "Evaluate sale opportunity: %{name}"
@@ -594,6 +620,7 @@ eng:
       # show: "Sale ticket: %{name}"
     backend/sales:
       # abort: "Abort sale: %{name}"
+      # attachments: "Attachments sale: %{name}"
       # cancel: "Cancel sale: %{name}"
       # confirm: "Confirm sale: %{name}"
       # contacts: "Contacts sale: %{name}"
@@ -608,6 +635,7 @@ eng:
       # refuse: "Refuse sale: %{name}"
       show: "%{label} for %{client}"
     backend/sensors:
+      # attachments: "Attachments sensor: %{name}"
       # detail: "Detail sensor: %{name}"
       edit: "Edit sensor: %{name}"
       index: "Sensors"
@@ -625,6 +653,7 @@ eng:
       about: "About Ekylibre"
       edit: "Configuration"
     backend/settlements:
+      # attachments: "Attachments settlement: %{name}"
       edit: "Edit settlement: %{name}"
       index: "Settlements"
       new: "New settlement"
@@ -646,6 +675,7 @@ eng:
       index: "Synchronizations"
       run: "Run synchronization: %{name}"
     backend/tasks:
+      # attachments: "Attachments task: %{name}"
       edit: "Edit task: %{name}"
       # finish: "Finish task: %{name}"
       index: "Tasks"
@@ -680,6 +710,7 @@ eng:
     backend/wine_tanks:
       index: "Wine tanks"
     backend/workers:
+      # attachments: "Attachments worker: %{name}"
       edit: "Edit worker: %{name}"
       index: "Workers"
       new: "New worker"
@@ -1031,7 +1062,7 @@ eng:
     expenses: "Expenses"
     export: "Export documents"
     file_nature: "File type"
-    file_preview: "Preview"
+    file_preview: "Preview" #?
     file_to_upload: "File to upload"
     filter: "Filter" #?
     financials_assets: "Financials assets"
@@ -1040,7 +1071,6 @@ eng:
     fixed_asset_depreciations: "Fixed asset depreciations"
     fixed_assets: "Fixed assets"
     from: "From"
-    # fuel_consumption: "Fuel consumption"
     fullscreen: "Fullscreen"
     function: "Function"
     fungi: "Fungi"
