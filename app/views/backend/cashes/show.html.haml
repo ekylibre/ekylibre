@@ -1,12 +1,11 @@
 - main_toolbar do |t|
   - t.edit resource
 
-= cobbles do |c|
-  - c.cobble :general_informations do
-    .pull-right
-      .med-info.important
-        %span.title= resource.human_attribute_name(:balance)
-        %span.value= resource.balance.l(currency: resource.currency)
+= main_informations attachment: true do
+  .pull-right
+    .med-info.important
+      %span.title= resource.human_attribute_name(:balance)
+      %span.value= resource.balance.l(currency: resource.currency)
     = attributes_list do |l|
       - l.attribute :name
       - l.attribute :nature
@@ -24,6 +23,8 @@
           - l.attribute :bank_account_key
       - if resource.custom_fields.any?
         - l.custom_fields
+
+= cobbles do |c|
   - if resource.incoming_payment_modes.depositers.any?
     - c.cobble(:deposits, title: Cash.human_attribute_name(:deposits)) do
       = cobble_toolbar do |t|

@@ -40,11 +40,13 @@ class Attachment < Ekylibre::Record::Base
   refers_to :nature, class_name: 'DocumentNature'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :expired_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
-  validates_presence_of :document, :nature, :resource, :resource_type
+  validates_presence_of :document, :resource, :resource_type
   # ]VALIDATORS]
 
   before_validation do
     self.resource_type = resource.class.base_class.name if resource
     self.nature = document.nature if document
   end
+
+  accepts_nested_attributes_for :document
 end

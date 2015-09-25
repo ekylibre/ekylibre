@@ -55,6 +55,7 @@
 #  - real_*     in financial year currency
 #  - absolute_* in global currency (the same as current financial year's theoretically)
 class JournalEntry < Ekylibre::Record::Base
+  include Attachable
   attr_readonly :journal_id
   refers_to :currency
   refers_to :real_currency, class_name: 'Currency'

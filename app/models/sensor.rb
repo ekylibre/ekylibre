@@ -40,6 +40,7 @@
 #
 
 class Sensor < Ekylibre::Record::Base
+  include Attachable
   enumerize :retrieval_mode, in: [:manual, :automatic], default: :automatic
   belongs_to :product
   belongs_to :host, class_name: 'Product'

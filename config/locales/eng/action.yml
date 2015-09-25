@@ -240,6 +240,7 @@ eng:
       # confirm: "Confirm draft journal: %{name}"
       show: "Draft"
     backend/entities:
+      # attachments: "Attachments entity: %{name}"
       # autocomplete_for_origin: "Autocomplete for origin entity: %{name}"
       edit: "Edit person: %{full_name}"
       export: "Export people"
@@ -1030,6 +1031,7 @@ eng:
     expenses: "Expenses"
     export: "Export documents"
     file_nature: "File type"
+    file_preview: "Preview"
     file_to_upload: "File to upload"
     filter: "Filter" #?
     financials_assets: "Financials assets"
@@ -1038,6 +1040,7 @@ eng:
     fixed_asset_depreciations: "Fixed asset depreciations"
     fixed_assets: "Fixed assets"
     from: "From"
+    # fuel_consumption: "Fuel consumption"
     fullscreen: "Fullscreen"
     function: "Function"
     fungi: "Fungi"
@@ -1200,6 +1203,7 @@ eng:
     next: "Next"
     nitrogen_concentration: "Nitrogen concentration" #?
     nitrogen_concentration_per_hectare: "Nitrogen concentration per hectare" #??
+    no_attachments: "No attachments"
     no_crumbs_to_check: "No crumbs to check"
     no_data: "No data"
     no_deposits: "No deposits"
@@ -1713,6 +1717,7 @@ eng:
       add_to_group: "Add to group"
       add_to_variant: "Add to variant"
       attach: "Attach"
+      # attachments: "Attachments"
       # autocomplete_for_name: "Autocomplete for name"
       # autocomplete_for_origin: "Autocomplete for origin"
       # autocomplete_for_place: "Autocomplete for place"

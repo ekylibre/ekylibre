@@ -38,6 +38,7 @@
 #
 
 class FinancialYear < Ekylibre::Record::Base
+  include Attachable
   attr_readonly :currency
   refers_to :currency
   belongs_to :last_journal_entry, class_name: 'JournalEntry'

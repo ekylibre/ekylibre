@@ -19,6 +19,8 @@
 class Backend::JournalEntriesController < Backend::BaseController
   manage_restfully only: [:index, :show, :destroy]
 
+  manage_restfully_attachments
+
   unroll
 
   list(children: :items, order: { created_at: :desc }, per_page: 10) do |t|

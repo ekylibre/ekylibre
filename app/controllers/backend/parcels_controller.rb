@@ -18,6 +18,7 @@
 
 class Backend::ParcelsController < Backend::BaseController
   manage_restfully t3e: { nature: 'RECORD.nature.text'.c }, planned_at: 'Time.zone.now'.c
+  manage_restfully_attachments
 
   unroll
 

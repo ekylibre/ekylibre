@@ -497,10 +497,56 @@ module ApplicationHelper
     tag(:meta, name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0')
   end
 
-  def main_informations(&block)
-    content_tag(:div, class: 'panel', id: 'main-informations') do
-      content_tag(:div, class: 'panel-body', &block)
+  def main_informations(options = {}, &block)
+    html = content_tag(:div, class: 'panel', id: 'main-informations') do
+      partial = content_tag(:div, class: 'panel-body', &block)
+      if options.include? :attachment
+        partial += main_attachments
+      end
+      partial
     end
+    html
+  end
+
+  def main_attachments
+    html = content_tag(:div, class: 'attachments-panel', id: 'main-attachments') do
+      content_tag(:div, class: 'attachments-body') do
+        content_tag(:button, class: 'attachment-logo file-upload-btn') do
+          content_tag(:i) + file_field_tag(:attachments, name: "attachments[document_attributes][file]", multiple: true, data: { url: url_for( [:attachments, :backend, resource] ), attachment: true })
+        end +
+      content_tag(:div, class: 'attachment-files') do
+              html = content_tag(:div, :no_attachments.tl, class: 'attachment-files-placeholder')
+
+              resource.attachments.each do |attachment|
+                html += content_tag(:div, class: 'file') do
+                  content_tag(:div, class: 'file-body', data: { href: url_for([:attachment, :backend, resource, attachment_id: attachment.id]), 'attachment-thumblink': true }) do
+                    content_tag(:div, class: 'thumbnail', style: "background-image: url(#{backend_document_url(attachment.document, format: :jpg) })" ) do
+                    end +
+                    content_tag(:span, class: 'name') do
+                      link_to( nil, attachment.document.name, data: { href: url_for([:attachment, :backend, resource, attachment_id: attachment.id]), 'attachment-thumblink': true } )
+                    end
+                  end +
+                  content_tag(:div, class: 'actions') do
+                    link_to(nil, '', class: 'btn removebutton', data: { href: url_for([:attachment, :backend, resource, attachment_id: attachment.id]), 'attachment-file-destroy-button': true } )
+                  end
+                end
+              end
+
+              html += content_tag(:div, nil, class: 'attachment-files-bitrate')
+              html
+            end + content_tag(:div, class: 'attachment-btns') do
+          content_tag(:button, content_tag(:i), class: 'expand-btn', data: {'attachment-expand': true})
+        end
+
+      end
+    end
+
+    # Modal to display file
+    modal(:file_preview, data: {'attachment-thumblink-target': true}) do
+      content_tag :div, nil, class: 'modal-body'
+    end
+
+    html.html_safe
   end
 
   def main_title(value = nil)

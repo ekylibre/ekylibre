@@ -32,9 +32,10 @@
 #  in_preparation_at :datetime
 #  lock_version      :integer          default(0), not null
 #  nature            :string           not null
+#  net_mass          :decimal(19, 4)
 #  number            :string           not null
 #  ordered_at        :datetime
-#  planned_at        :datetime         not null
+#  planned_at        :datetime
 #  position          :integer
 #  prepared_at       :datetime
 #  purchase_id       :integer

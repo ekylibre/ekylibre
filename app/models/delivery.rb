@@ -29,6 +29,7 @@
 #  id                      :integer          not null, primary key
 #  lock_version            :integer          default(0), not null
 #  mode                    :string
+#  net_mass                :decimal(19, 4)
 #  number                  :string
 #  reference_number        :string
 #  responsible_id          :integer
@@ -42,6 +43,7 @@
 #
 
 class Delivery < Ekylibre::Record::Base
+  include Attachable
   acts_as_numbered
   enumerize :mode, in: [:transporter, :us, :third], predicates: true, default: :us
   belongs_to :driver, -> { contacts }, class_name: 'Entity'
@@ -54,6 +56,7 @@ class Delivery < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_numericality_of :net_mass, allow_nil: true
   validates_presence_of :state
   # ]VALIDATORS]
 

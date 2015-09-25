@@ -46,6 +46,7 @@
 #
 
 class OutgoingPayment < Ekylibre::Record::Base
+  include Attachable
   include PeriodicCalculable
   refers_to :currency
   belongs_to :cash

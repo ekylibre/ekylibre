@@ -306,5 +306,97 @@ module RestfullyManageable
       code << "end\n"
       class_eval(code)
     end
+
+    def manage_restfully_attachments
+      name = controller_name
+      record_name = name.to_s.singularize
+      code = ''
+      def attachments
+        return unless @entity = find_and_check(:entity)
+
+        if request.xhr? and request.post?
+
+          attachment = @entity.attachments.create!(params['attachments'].deep_symbolize_keys)
+
+          respond_to do |format|
+            if @entity.save(params)
+              format.json { render json: { attachment: attachment.document, attachment_path: attachment_backend_entity_path(@entity, attachment), thumb: backend_document_url(attachment.document, format: :jpg)}, status: :created }
+            else
+              format.json { render json: @entity.errors.full_messages, status: :unprocessable_entity }
+            end
+            format.html
+          end
+        elsif request.xhr? and request.get?
+
+          if params[:attachment_id]
+            attachment = @entity.attachments.find(params[:attachment_id])
+            if attachment.document.file?
+              render json: { attachment: backend_document_url(attachment.document, format: :pdf) }
+            end
+          end
+
+        elsif request.xhr? and request.delete?
+
+          if params[:attachment_id]
+            attachment = @entity.attachments.find(params[:attachment_id])
+
+            # Or use dependencies
+            doc = Document.find(attachment.document.id)
+            attachment.destroy
+            doc.destroy
+
+            if doc.destroyed? and attachment.destroyed?
+              render json: { attachment: 'deleted', status: :ok}
+            else
+              render json: 'error', status: :unprocessable_entity
+            end
+          end
+        end
+      rescue
+        render json: 'error', status: :internal_server_error
+      end
+      code << "def attachments\n"
+      code << "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
+      code << "\n"
+      code << "  if request.xhr? and request.post?\n"
+      code << "    attachment = @#{record_name}.attachments.create!(params['attachments'].deep_symbolize_keys)\n"
+      code << "\n"
+      code << "    respond_to do |format|\n"
+      code << "      if @#{record_name}.save(params)\n"
+      code << "        format.json { render json: { attachment: attachment.document, attachment_path: url_for([:attachment, :backend, @#{record_name}, attachment_id: attachment.id]), thumb: backend_document_url(attachment.document, format: :jpg)}, status: :created }\n"
+      code << "      else\n"
+      code << "        format.json { render json: @#{record_name}.errors.full_messages, status: :unprocessable_entity }\n"
+      code << "      end\n"
+      code << "      format.html\n"
+      code << "    end\n"
+      code << "  elsif request.xhr? and request.get?\n"
+      code << "    if params[:attachment_id]\n"
+      code << "      attachment = @#{record_name}.attachments.find(params[:attachment_id])\n"
+      code << "      if attachment.document.file?\n"
+      code << "        render json: { attachment: backend_document_url(attachment.document, format: :pdf) }\n"
+      code << "      end\n"
+      code << "    end\n"
+      code << "\n"
+      code << "  elsif request.xhr? and request.delete?\n"
+      code << "    if params[:attachment_id]\n"
+      code << "      attachment = @#{record_name}.attachments.find(params[:attachment_id])\n"
+      code << "\n"
+      code << "      # Or use dependencies\n"
+      code << "      doc = Document.find(attachment.document.id)\n"
+      code << "      attachment.destroy\n"
+      code << "      doc.destroy\n"
+      code << "\n"
+      code << "      if doc.destroyed? and attachment.destroyed?\n"
+      code << "        render json: { attachment: 'deleted', status: :ok}\n"
+      code << "      else\n"
+      code << "        render json: 'error', status: :unprocessable_entity\n"
+      code << "      end\n"
+      code << "    end\n"
+      code << "  end\n"
+      code << "rescue\n"
+      code << "  render json: 'error', status: :internal_server_error\n"
+      code << "end\n"
+      class_eval(code)
+    end
   end
 end

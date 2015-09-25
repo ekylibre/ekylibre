@@ -65,6 +65,7 @@
 #
 
 class Sale < Ekylibre::Record::Base
+  include Attachable
   attr_readonly :currency
   refers_to :currency
   belongs_to :affair

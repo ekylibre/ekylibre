@@ -217,7 +217,7 @@ ActiveRecord::Schema.define(version: 20150923120603) do
     t.integer  "resource_id",               null: false
     t.string   "resource_type",             null: false
     t.integer  "document_id",               null: false
-    t.string   "nature",                    null: false
+    t.string   "nature"
     t.datetime "expired_at"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
@@ -515,18 +515,19 @@ ActiveRecord::Schema.define(version: 20150923120603) do
   create_table "deliveries", force: :cascade do |t|
     t.integer  "transporter_id"
     t.integer  "responsible_id"
+    t.decimal  "net_mass",                precision: 19, scale: 4
     t.datetime "started_at"
     t.text     "annotation"
     t.string   "number"
     t.string   "reference_number"
     t.integer  "transporter_purchase_id"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                                                   null: false
+    t.datetime "updated_at",                                                   null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",            default: 0, null: false
+    t.integer  "lock_version",                                     default: 0, null: false
     t.datetime "stopped_at"
-    t.string   "state",                               null: false
+    t.string   "state",                                                        null: false
     t.integer  "driver_id"
     t.string   "mode"
   end
@@ -623,7 +624,7 @@ ActiveRecord::Schema.define(version: 20150923120603) do
   create_table "documents", force: :cascade do |t|
     t.string   "number",                            null: false
     t.string   "name",                              null: false
-    t.string   "nature",                            null: false
+    t.string   "nature"
     t.string   "key",                               null: false
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
@@ -1726,7 +1727,7 @@ ActiveRecord::Schema.define(version: 20150923120603) do
     t.integer  "source_product_id"
     t.integer  "product_id"
     t.integer  "analysis_id"
-    t.integer  "variant_id"
+    t.decimal  "net_mass",                                                                      precision: 19, scale: 4
     t.boolean  "parted",                                                                                                 default: false, null: false
     t.decimal  "population",                                                                    precision: 19, scale: 4
     t.geometry "shape",                                limit: {:srid=>4326, :type=>"geometry"}
@@ -1763,11 +1764,10 @@ ActiveRecord::Schema.define(version: 20150923120603) do
   add_index "parcel_items", ["source_product_shape_reading_id"], name: "index_parcel_items_on_source_product_shape_reading_id", using: :btree
   add_index "parcel_items", ["updated_at"], name: "index_parcel_items_on_updated_at", using: :btree
   add_index "parcel_items", ["updater_id"], name: "index_parcel_items_on_updater_id", using: :btree
-  add_index "parcel_items", ["variant_id"], name: "index_parcel_items_on_variant_id", using: :btree
 
   create_table "parcels", force: :cascade do |t|
-    t.string   "number",                            null: false
-    t.string   "nature",                            null: false
+    t.string   "number",                                                     null: false
+    t.string   "nature",                                                     null: false
     t.string   "reference_number"
     t.integer  "recipient_id"
     t.integer  "sender_id"
@@ -1777,20 +1777,21 @@ ActiveRecord::Schema.define(version: 20150923120603) do
     t.integer  "sale_id"
     t.integer  "purchase_id"
     t.integer  "transporter_id"
-    t.boolean  "remain_owner",      default: false, null: false
+    t.boolean  "remain_owner",                               default: false, null: false
     t.string   "delivery_mode"
-    t.string   "state",                             null: false
-    t.datetime "planned_at",                        null: false
+    t.string   "state",                                                      null: false
+    t.datetime "planned_at"
     t.datetime "ordered_at"
     t.datetime "in_preparation_at"
     t.datetime "prepared_at"
     t.datetime "given_at"
+    t.decimal  "net_mass",          precision: 19, scale: 4
     t.integer  "position"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at",                                                 null: false
+    t.datetime "updated_at",                                                 null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",      default: 0,     null: false
+    t.integer  "lock_version",                               default: 0,     null: false
   end
 
   add_index "parcels", ["address_id"], name: "index_parcels_on_address_id", using: :btree

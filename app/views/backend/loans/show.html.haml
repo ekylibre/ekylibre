@@ -1,12 +1,13 @@
 = main_toolbar do |t|
   - t.edit resource
 
+= main_informations attachment: true do
+  = attributes_list do |l|
+    - l.attribute :name
+    - l.attribute :amount, currency: true
+    - l.attribute :journal_entry, url: true
+
 = cobbles do |c|
-  - c.cobble :general_informations do
-    = attributes_list do |l|
-      - l.attribute :name
-      - l.attribute :amount, currency: true
-      - l.attribute :journal_entry, url: true
   - c.cobble :expenses do
     :ruby
       series = []

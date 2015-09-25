@@ -38,6 +38,7 @@
 #
 
 class BankStatement < Ekylibre::Record::Base
+  include Attachable
   belongs_to :cash
   has_many :items, class_name: 'JournalEntryItem', dependent: :nullify
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

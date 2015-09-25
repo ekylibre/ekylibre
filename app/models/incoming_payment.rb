@@ -52,7 +52,7 @@
 #
 
 class IncomingPayment < Ekylibre::Record::Base
-  include PeriodicCalculable
+  include PeriodicCalculable, Attachable
   attr_readonly :payer_id
   attr_readonly :amount, :account_number, :bank, :bank_check_number, :mode_id, if: proc { deposit && deposit.locked? }
   refers_to :currency

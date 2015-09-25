@@ -989,6 +989,7 @@ fra:
     fax: "Fax" #?
     file_nature: "Type de fichier"
     file_pages_count: "Nombre de pages" #?
+    file_preview: "Visualisation de votre fichier"
     file_to_download: "Fichier à importer" #?
     file_to_import: "Fichier à importer" #?
     file_to_upload: "Fichier à importer"
@@ -1259,6 +1260,7 @@ fra:
     next: "Suivant"
     nitrogen_concentration: "Teneur en azote (N)"
     nitrogen_concentration_per_hectare: "Teneur en azote par hectare"
+    no_attachments: "Aucune pièce jointe"
     no_crumbs_to_check: "Pas de miettes à qualifier"
     no_data: "Aucune donnée"
     no_deliveries: "Aucune livraison en attente" #?

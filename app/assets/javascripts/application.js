@@ -49,6 +49,8 @@
 //= require leaflet/easy-button
 //= require leaflet/modal
 //= require leaflet/label
+//= require jquery.fileupload.js
+//= require jquery.iframe-transport.js
 //= require autosize
 //= require plugins
 //= require_tree .

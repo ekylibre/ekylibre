@@ -2,10 +2,9 @@
   - t.edit resource
   - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if resource.destroyable?
 
-= cobbles do |c|
-  - c.cobble :general_informations do
-    - if resource.picture.exists?
-      .picture= image_tag(resource.picture.url(:identity))
+= main_informations attachment: true do
+  - if resource.picture.exists?
+    .picture= image_tag(resource.picture.url(:identity))
     .big-info.important
       - icon = resource.category.pictogram
       %span.title= Matter.human_attribute_name(:variant)
@@ -18,6 +17,8 @@
         %span.value
           %i.picto{class: "picto-clock-o"}
           = human_age(resource.age, display: 2)
+
+= cobbles do |c|
   - if resource.is_a?(ProductGroup)
     - c.cobble(:members) do
       = cobble_list(:members)

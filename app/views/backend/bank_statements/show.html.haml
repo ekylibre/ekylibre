@@ -2,16 +2,17 @@
   - t.edit resource
   - t.point resource
 
+= main_informations attachment: true do
+  = attributes_list do |l|
+    - l.attribute(:number)
+    - l.attribute(:cash, url: true)
+    - l.attribute(:credit)
+    - l.attribute(:debit)
+    - l.attribute(:started_at)
+    - l.attribute(:stopped_at)
+    - l.custom_fields
+
 = cobbles do |c|
-  - c.cobble :general_informations do
-    = attributes_list do |l|
-      - l.attribute(:number)
-      - l.attribute(:cash, url: true)
-      - l.attribute(:credit)
-      - l.attribute(:debit)
-      - l.attribute(:started_at)
-      - l.attribute(:stopped_at)
-      - l.custom_fields
 
   - c.cobble :items, label: BankStatement.human_attribute_name("items") do
     = cobble_list(:items)

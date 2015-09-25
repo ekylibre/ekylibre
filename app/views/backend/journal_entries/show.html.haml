@@ -3,25 +3,25 @@
   - t.edit resource if resource.updateable?
   - t.destroy resource, method: :delete, "data-confirm" => :are_you_sure.tl if resource.destroyable?
 
-= cobbles do |c|
+= main_informations attachment: true do
+  = attributes_list do |l|
+    - l.attribute :number
+    - l.attribute :printed_on
+    - l.attribute :created_at
+    - if resource.resource
+      - l.attribute :resource, url: true
+    - l.attribute :journal, url: true
+    - l.attribute :debit,  currency: true
+    - l.attribute :credit, currency: true
+    - l.attribute :balance, currency: true
+    - l.attribute :real_debit,  currency: :real_currency
+    - l.attribute :real_credit, currency: :real_currency
+    - l.attribute :absolute_debit,  currency: :absolute_currency
+    - l.attribute :absolute_credit, currency: :absolute_currency
+    - if resource.custom_fields.any?
+      - l.custom_fields
 
-  - c.cobble :general_informations do
-    = attributes_list do |l|
-      - l.attribute :number
-      - l.attribute :printed_on
-      - l.attribute :created_at
-      - if resource.resource
-        - l.attribute :resource, url: true
-      - l.attribute :journal, url: true
-      - l.attribute :debit,  currency: true
-      - l.attribute :credit, currency: true
-      - l.attribute :balance, currency: true
-      - l.attribute :real_debit,  currency: :real_currency
-      - l.attribute :real_credit, currency: :real_currency
-      - l.attribute :absolute_debit,  currency: :absolute_currency
-      - l.attribute :absolute_credit, currency: :absolute_currency
-      - if resource.custom_fields.any?
-        - l.custom_fields
+= cobbles do |c|
 
   - c.cobble :items, title: JournalEntry.human_attribute_name(:items) do
     = cobble_list(:items)

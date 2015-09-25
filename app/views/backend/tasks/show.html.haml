@@ -3,7 +3,7 @@
 
 = main_state_bar(resource)
 
-= main_informations do
+= main_informations attachment: true do
   = attributes_list(stamps: false) do |l|
     - l.attribute :due_at
     - l.attribute :entity, url: true

@@ -1,20 +1,20 @@
 - main_toolbar do |t|
   - t.edit resource
 
-= cobbles do |c|
-  - c.cobble :general_informations do
-    = attributes_list do |l|
-      - l.attribute :number
-      - l.attribute :amount
-      - l.attribute :payee, label: :full_name, url: true
-      - l.attribute :responsible, label: :label
-      - l.attribute :mode
-      - l.attribute :paid_at
-      - l.attribute :to_bank_at
-      - l.attribute :bank_check_number
-      - l.attribute :journal_entry, url: true
-      - if resource.custom_fields.any?
-        - l.custom_fields
+= main_informations attachment: true do
+  = attributes_list do |l|
+    - l.attribute :number
+    - l.attribute :amount
+    - l.attribute :payee, label: :full_name, url: true
+    - l.attribute :responsible, label: :label
+    - l.attribute :mode
+    - l.attribute :paid_at
+    - l.attribute :to_bank_at
+    - l.attribute :bank_check_number
+    - l.attribute :journal_entry, url: true
+    - if resource.custom_fields.any?
+      - l.custom_fields
 
+= cobbles do |c|
   - c.cobble :affair do
     = affair_of(resource)

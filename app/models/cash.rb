@@ -50,6 +50,7 @@
 #
 
 class Cash < Ekylibre::Record::Base
+  include Attachable
   BBAN_TRANSLATIONS = {
     fr: %w(abcdefghijklmonpqrstuvwxyz 12345678912345678923456789)
   }

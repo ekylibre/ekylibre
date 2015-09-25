@@ -1,25 +1,26 @@
 - main_toolbar do |t|
   - t.edit resource
 
+= main_informations attachment: true do
+  = attributes_list do |l|
+    - l.attribute :number
+    - l.attribute :amount, currency: true
+    - l.attribute :payer, label: :full_name, url: true
+    - l.attribute :responsible, :label => :label
+    - l.attribute :deposit, url: true
+    - l.attribute :mode
+    - l.attribute :commission_amount
+    - l.attribute :commission_account, url: true
+    - l.attribute :paid_at
+    - l.attribute :to_bank_at
+    - l.attribute :received
+    - l.attribute :scheduled
+    - l.attribute :bank_name
+    - l.attribute :bank_account_number
+    - l.attribute :bank_check_number
+    - l.attribute :journal_entry, url: true
+
 = cobbles do |c|
-  - c.cobble :general_informations do
-    = attributes_list do |l|
-      - l.attribute :number
-      - l.attribute :amount, currency: true
-      - l.attribute :payer, label: :full_name, url: true
-      - l.attribute :responsible, :label => :label
-      - l.attribute :deposit, url: true
-      - l.attribute :mode
-      - l.attribute :commission_amount
-      - l.attribute :commission_account, url: true
-      - l.attribute :paid_at
-      - l.attribute :to_bank_at
-      - l.attribute :received
-      - l.attribute :scheduled
-      - l.attribute :bank_name
-      - l.attribute :bank_account_number
-      - l.attribute :bank_check_number
-      - l.attribute :journal_entry, url: true
 
   - c.cobble :affair do
     = affair_of(resource)

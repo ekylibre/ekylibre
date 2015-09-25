@@ -2,6 +2,11 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
+  concern :attachments do
+    match 'attachments', via: :post, action: :attachments, as: :attachments, on: :member
+    match 'attachments(/:attachment_id)', via: [:get, :delete], action: :attachments, as: :attachment, on: :member
+  end
+
   concern :unroll do
     # get "unroll/:scope", action: :unroll, on: :collection
     get :unroll, on: :collection
@@ -199,7 +204,7 @@ Rails.application.routes.draw do
 
     resources :affairs, concerns: [:list, :affairs]
 
-    resources :bank_statements, concerns: [:list, :unroll], path: 'bank-statements' do
+    resources :bank_statements, concerns: [:list, :unroll, :attachments], path: 'bank-statements' do
       collection do
         get :list_items
       end
@@ -228,7 +233,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :cashes, concerns: [:list, :unroll] do
+    resources :cashes, concerns: [:list, :unroll, :attachments] do
       member do
         get :list_deposits
         get :list_bank_statements
@@ -276,7 +281,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :deliveries, concerns: [:list, :unroll] do
+    resources :deliveries, concerns: [:list, :unroll, :attachments] do
       member do
         get :list_parcels
         post :order
@@ -316,7 +321,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :entities, concerns: [:list, :unroll] do
+    resources :entities, concerns: [:list, :unroll, :attachments] do
       collection do
         get :autocomplete_for_origin
         match 'import', via: [:get, :post]
@@ -369,7 +374,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :financial_years, concerns: [:list, :unroll], path: 'financial-years' do
+    resources :financial_years, concerns: [:list, :unroll, :attachments], path: 'financial-years' do
       member do
         match 'close', via: [:get, :post]
         match :generate_last_journal_entry, via: [:get, :post]
@@ -424,7 +429,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :incoming_payments, concerns: [:list, :unroll]
+    resources :incoming_payments, concerns: [:list, :unroll, :attachments]
 
     resources :incoming_payment_modes, concerns: [:list, :unroll] do
       member do
@@ -446,7 +451,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :inventories, concerns: [:list, :unroll] do
+    resources :inventories, concerns: [:list, :unroll, :attachments] do
       member do
         post :reflect
         post :refresh
@@ -454,7 +459,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :issues, concerns: [:list, :picture, :unroll] do
+    resources :issues, concerns: [:list, :picture, :unroll, :attachments] do
       member do
         post :abort
         post :close
@@ -482,7 +487,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :journal_entries, concerns: [:list, :unroll] do
+    resources :journal_entries, concerns: [:list, :unroll, :attachments] do
       member do
         get :list_items
       end
@@ -512,7 +517,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :loans, concerns: [:list, :unroll] do
+    resources :loans, concerns: [:list, :unroll, :attachments] do
       member do
         get :list_repayments
       end
@@ -551,7 +556,7 @@ Rails.application.routes.draw do
 
     resources :operations, only: [:index, :show]
 
-    resources :outgoing_payments, concerns: [:list, :unroll]
+    resources :outgoing_payments, concerns: [:list, :unroll, :attachments]
 
     resources :outgoing_payment_modes, concerns: [:list, :unroll] do
       member do
@@ -562,7 +567,7 @@ Rails.application.routes.draw do
 
     # resources :contacts, concerns: :entities
 
-    resources :parcels, concerns: [:list, :unroll] do
+    resources :parcels, concerns: [:list, :unroll, :attachments] do
       member do
         post :invoice
         get :list_items
@@ -592,7 +597,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :products, concerns: :products
+    resources :products, concerns: [:products, :attachments]
 
     resources :product_groups, concerns: :products
 
@@ -636,7 +641,7 @@ Rails.application.routes.draw do
 
     resources :purchase_natures, concerns: [:list, :unroll]
 
-    resources :purchases, concerns: [:list, :unroll] do
+    resources :purchases, concerns: [:list, :unroll, :attachments] do
       member do
         get :list_items
         get :list_parcels
@@ -660,7 +665,7 @@ Rails.application.routes.draw do
 
     resources :sale_natures, concerns: [:list, :unroll], path: 'sale-natures'
 
-    resources :sale_opportunities, concerns: [:list, :affairs], path: 'sale-opportunities' do
+    resources :sale_opportunities, concerns: [:list, :affairs, :attachments], path: 'sale-opportunities' do
       member do
         get :list_tasks
         post :prospect
@@ -675,7 +680,7 @@ Rails.application.routes.draw do
 
     resources :sale_tickets, concerns: [:list, :affairs], path: 'sale-tickets'
 
-    resources :sales, concerns: [:list, :unroll] do
+    resources :sales, concerns: [:list, :unroll, :attachments] do
       collection do
         get :contacts
       end
@@ -698,7 +703,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :sensors, concerns: [:list, :unroll] do
+    resources :sensors, concerns: [:list, :unroll, :attachments] do
       collection do
         get :models
         get :detail
@@ -738,7 +743,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :tasks, concerns: [:list, :unroll] do
+    resources :tasks, concerns: [:list, :unroll, :attachments] do
       member do
         post :reset
         post :start

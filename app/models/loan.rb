@@ -45,6 +45,7 @@
 #  updater_id           :integer
 #
 class Loan < Ekylibre::Record::Base
+  include Attachable
   enumerize :repayment_method, in: [:constant_rate, :constant_amount], default: :constant_amount
   enumerize :shift_method, in: [:immediate_payment, :anatocism], default: :immediate_payment
   enumerize :repayment_period, in: [:month, :year], default: :month, predicates: { prefix: true }

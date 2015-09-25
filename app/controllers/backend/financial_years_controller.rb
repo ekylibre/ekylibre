@@ -18,6 +18,7 @@
 
 class Backend::FinancialYearsController < Backend::BaseController
   manage_restfully except: [:new, :show]
+  manage_restfully_attachments
 
   unroll
 

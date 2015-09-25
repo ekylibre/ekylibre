@@ -18,6 +18,7 @@
 
 class Backend::DeliveriesController < Backend::BaseController
   manage_restfully parcel_ids: '(params[:parcel_ids] || [])'.c
+  manage_restfully_attachments
 
   unroll
 

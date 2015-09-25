@@ -6,24 +6,24 @@
 
 = main_state_bar(resource)
 
-= cobbles do |c|
+= main_informations attachment: true do
+  = attributes_list do |l|
+    - l.attribute :supplier, :label => :label, url: true
+    - l.attribute :number
+    - l.attribute :reference_number unless resource.reference_number.blank?
+    - l.attribute :state
+    - l.attribute :responsible, :label => :full_name
+    - l.attribute :created_at
+    - l.attribute :confirmed_at
+    - l.attribute :invoiced_at
+    - l.attribute :planned_at
+    - l.attribute :currency unless resource.currency == Preference[:currency]
+    - l.attribute :description unless resource.description.blank?
+    - l.attribute :delivery_address, :label => :coordinate
+    - l.attribute :journal_entry, url: true if resource.journal_entry
+    - l.custom_fields
 
-  - c.cobble :details do
-    = attributes_list do |l|
-      - l.attribute :supplier, :label => :label, url: true
-      - l.attribute :number
-      - l.attribute :reference_number unless resource.reference_number.blank?
-      - l.attribute :state
-      - l.attribute :responsible, :label => :full_name
-      - l.attribute :created_at
-      - l.attribute :confirmed_at
-      - l.attribute :invoiced_at
-      - l.attribute :planned_at
-      - l.attribute :currency unless resource.currency == Preference[:currency]
-      - l.attribute :description unless resource.description.blank?
-      - l.attribute :delivery_address, :label => :coordinate
-      - l.attribute :journal_entry, url: true if resource.journal_entry
-      - l.custom_fields
+= cobbles do |c|
 
   - c.cobble :items, title: Purchase.human_attribute_name(:items) do
     = cobble_list :items do

@@ -46,7 +46,7 @@
 #
 
 class Issue < Ekylibre::Record::Base
-  include Versionable, Commentable
+  include Versionable, Commentable, Attachable
   refers_to :nature, class_name: 'IssueNature'
   has_many :interventions
   belongs_to :target, polymorphic: true

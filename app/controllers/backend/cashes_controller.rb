@@ -19,6 +19,8 @@
 class Backend::CashesController < Backend::BaseController
   manage_restfully mode: 'Cash.mode.default_value'.c, currency: 'Preference[:currency]'.c, nature: 'Cash.nature.default_value'.c, t3e: { nature: 'RECORD.nature.l'.c }
 
+  manage_restfully_attachments
+
   unroll
 
   # Displays the main page with the list of bank statements

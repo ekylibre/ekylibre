@@ -11,7 +11,7 @@
       - t.send(event, resource, method: :post, "data-confirm" => are_you_sure_you_want_to("#{event}_issue"))
   - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if resource.destroyable?
 
-= main_informations do
+= main_informations attachment: true do
   - if resource.picture.exists?
     .picture= image_tag(resource.picture.url(:identity))
   .big-infos
