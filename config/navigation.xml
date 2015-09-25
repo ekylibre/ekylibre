@@ -1782,6 +1782,103 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="animals">
+        <page to="backend/animals#attachments"/>
+      </item>
+      <item name="bank_statements">
+        <page to="backend/bank_statements#attachments"/>
+      </item>
+      <item name="building_divisions">
+        <page to="backend/building_divisions#attachments"/>
+      </item>
+      <item name="buildings">
+        <page to="backend/buildings#attachments"/>
+      </item>
+      <item name="cashes">
+        <page to="backend/cashes#attachments"/>
+      </item>
+      <item name="cultivable_zones">
+        <page to="backend/cultivable_zones#attachments"/>
+      </item>
+      <item name="deliveries">
+        <page to="backend/deliveries#attachments"/>
+      </item>
+      <item name="entities">
+        <page to="backend/entities#attachments"/>
+      </item>
+      <item name="equipments">
+        <page to="backend/equipments#attachments"/>
+      </item>
+      <item name="financial_years">
+        <page to="backend/financial_years#attachments"/>
+      </item>
+      <item name="fungi">
+        <page to="backend/fungi#attachments"/>
+      </item>
+      <item name="incoming_payments">
+        <page to="backend/incoming_payments#attachments"/>
+      </item>
+      <item name="inventories">
+        <page to="backend/inventories#attachments"/>
+      </item>
+      <item name="issues">
+        <page to="backend/issues#attachments"/>
+      </item>
+      <item name="journal_entries">
+        <page to="backend/journal_entries#attachments"/>
+      </item>
+      <item name="land_parcel_clusters">
+        <page to="backend/land_parcel_clusters#attachments"/>
+      </item>
+      <item name="land_parcel_groups">
+        <page to="backend/land_parcel_groups#attachments"/>
+      </item>
+      <item name="land_parcels">
+        <page to="backend/land_parcels#attachments"/>
+      </item>
+      <item name="loans">
+        <page to="backend/loans#attachments"/>
+      </item>
+      <item name="matters">
+        <page to="backend/matters#attachments"/>
+      </item>
+      <item name="outgoing_payments">
+        <page to="backend/outgoing_payments#attachments"/>
+      </item>
+      <item name="parcels">
+        <page to="backend/parcels#attachments"/>
+      </item>
+      <item name="plants">
+        <page to="backend/plants#attachments"/>
+      </item>
+      <item name="product_groups">
+        <page to="backend/product_groups#attachments"/>
+      </item>
+      <item name="products">
+        <page to="backend/products#attachments"/>
+      </item>
+      <item name="purchases">
+        <page to="backend/purchases#attachments"/>
+      </item>
+      <item name="sale_opportunities">
+        <page to="backend/sale_opportunities#attachments"/>
+      </item>
+      <item name="sales">
+        <page to="backend/sales#attachments"/>
+      </item>
+      <item name="sensors">
+        <page to="backend/sensors#attachments"/>
+      </item>
+      <item name="settlements">
+        <page to="backend/settlements#attachments"/>
+      </item>
+      <item name="tasks">
+        <page to="backend/tasks#attachments"/>
+      </item>
+      <item name="workers">
+        <page to="backend/workers#attachments"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

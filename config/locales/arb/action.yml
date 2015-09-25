@@ -1134,6 +1134,7 @@ arb:
     export: "اصدار الوثائق"
     extract: "يستخرج" #?
     file_nature: "نوع الملف"
+    # file_preview: "Preview"
     file_to_download: "ملف الاستيراد" #?
     file_to_import: "ملف للاستيراد" #?
     # file_to_upload: "File to upload"
@@ -1412,6 +1413,7 @@ arb:
     next: "التالي"
     # nitrogen_concentration: "Nitrogen concentration"
     # nitrogen_concentration_per_hectare: "Nitrogen concentration per hectare"
+    # no_attachments: "No attachments"
     no_commercial: "-- دون تداول --" #?
     # no_crumbs_to_check: "No crumbs to check"
     # no_data: "No data"

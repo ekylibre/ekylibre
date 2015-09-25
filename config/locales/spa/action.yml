@@ -888,6 +888,7 @@ spa:
     # expenses: "Expenses"
     export: "Exportación de un fichero de salvaguardia"
     file_nature: "Tipo de fichero"
+    # file_preview: "Preview"
     file_to_import: "Fichero a importar" #?
     # file_to_upload: "File to upload"
     # filter: "Filter"
@@ -1103,6 +1104,7 @@ spa:
     # next: "Next"
     # nitrogen_concentration: "Nitrogen concentration"
     # nitrogen_concentration_per_hectare: "Nitrogen concentration per hectare"
+    # no_attachments: "No attachments"
     # no_crumbs_to_check: "No crumbs to check"
     # no_data: "No data"
     # no_deposits: "No deposits"

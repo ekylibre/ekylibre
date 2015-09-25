@@ -418,7 +418,6 @@ attachments:
     required: true
   nature:
     type: string
-    required: true
   resource_id:
     type: integer
     references: "~resource_type"
@@ -1204,7 +1203,6 @@ documents:
     required: true
   nature:
     type: string
-    required: true
   number:
     type: string
     required: true

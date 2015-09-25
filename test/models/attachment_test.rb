@@ -28,7 +28,7 @@
 #  expired_at    :datetime
 #  id            :integer          not null, primary key
 #  lock_version  :integer          default(0), not null
-#  nature        :string           not null
+#  nature        :string
 #  resource_id   :integer          not null
 #  resource_type :string           not null
 #  updated_at    :datetime         not null

@@ -35,7 +35,7 @@
 #  key               :string           not null
 #  lock_version      :integer          default(0), not null
 #  name              :string           not null
-#  nature            :string           not null
+#  nature            :string
 #  number            :string           not null
 #  template_id       :integer
 #  updated_at        :datetime         not null
