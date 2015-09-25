@@ -2,9 +2,10 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="sorting" natures="product_evolution, product_moving" version="0">
     <variables>
-      <variable name="product" variety="product"/>
-      <variable name="product_to_sort" variety=":product" derivative-of=":product" new="parted-from: product" roles="product_moving-target, product_evolution-target">
+      <variable name="sortable" variety="product"/>
+      <variable name="sortable_to_sort" variety=":sortable" derivative-of=":sortable" new="parted-from: sortable" roles="product_moving-target, product_evolution-target" default-population=":sortable">
         <handler indicator="population"/>
+        <handler indicator="net_mass" unit="kilogram" to="population" backward="value * self..net_mass(kilogram)" forward="value / self..net_mass(kilogram)"/>
       </variable>
       <variable name="container" roles="product_moving-container" default-actor="default_storage_of_support"/>
       <variable name="doer" variety="worker" abilities="move" roles="product_moving-doer"/>
@@ -13,10 +14,10 @@
     <operations>
       <operation id="1">
         <!-- Operation 700 -->
-        <task do="[doer] acts on [product]"/>
-        <task do="[product] parts with [product_to_sort]"/>
-        <task do="[product_to_sort] moves in [container]"/>
-        <task do="[product_to_sort] variant cast into [variant]"/>
+        <task do="[doer] acts on [sortable]"/>
+        <task do="[sortable] parts with [sortable_to_sort]"/>
+        <task do="[sortable_to_sort] variant cast into [variant]"/>
+        <task do="[sortable_to_sort] moves in [container]"/>
       </operation>
     </operations>
   </procedure>
