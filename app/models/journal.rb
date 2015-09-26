@@ -124,6 +124,21 @@ class Journal < Ekylibre::Record::Base
     def used_for_affairs
       find_by(used_for_affairs: true)
     end
+
+
+    def load_defaults
+      nature.values.each do |nature|
+        financial_year = FinancialYear.first
+        closed_on = financial_year ? (financial_year.started_on - 1) : Date.new(1899, 12, 31).end_of_month
+        create!(
+          name: "enumerize.journal.nature.#{nature}".t,
+          nature: nature,
+          currency: Preference[:currency],
+          closed_on: closed_on
+        )
+      end
+
+    end
   end
 
   # Test if journal is closable

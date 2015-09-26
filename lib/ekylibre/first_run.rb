@@ -6,6 +6,7 @@ module Ekylibre
     autoload :Booker,  'ekylibre/first_run/booker'
     autoload :Base,    'ekylibre/first_run/base'
     autoload :Faker,   'ekylibre/first_run/faker'
+    autoload :Folder,  'ekylibre/first_run/folder'
 
     class << self
       # Launch a first-run with tenant creation

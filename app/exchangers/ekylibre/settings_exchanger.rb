@@ -40,13 +40,6 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
     w.check_point
 
     # Company entity
-    # f = nil
-    # for format in %w(jpg jpeg png)
-    #   if company_picture = first_run.path("alamano", "logo.#{format}") and company_picture.exist?
-    #     f = File.open(company_picture)
-    #     break
-    #   end
-    # end
     attributes = { language: language, currency: currency, nature: :organization, last_name: 'Ekylibre' }.merge(@manifest[:company].select { |k, _v| ![:addresses].include?(k) }).merge(of_company: true)
     company = Entity.create!(attributes)
     # f.close if f
@@ -143,7 +136,7 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
     w.check_point
 
     # Load taxes from nomenclatures
-    Tax.import_all_from_nomenclature(country.to_sym) if can_load?(:taxes)
+    Tax.load_defaults if can_load?(:taxes)
     w.check_point
 
     # Load all the document templates

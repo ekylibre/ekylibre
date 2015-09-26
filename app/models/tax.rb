@@ -104,11 +104,16 @@ class Tax < Ekylibre::Record::Base
       tax
     end
 
-    # Load.all tax from tax nomenclature by country
-    def import_all_from_nomenclature(country = Preference[:country])
-      for tax in Nomen::Tax.items.values.select { |i| i.country == country }
+    # Load all tax from tax nomenclature by country
+    def import_all_from_nomenclature(country)
+      Nomen::Tax.where(country: country).each do |tax|
         import_from_nomenclature(tax.name)
       end
+    end
+
+    # Load default taxes of instance country
+    def load_defaults
+      import_all_from_nomenclature(Preference[:country])
     end
 
     # find tax reference name with no stopped_at AKA currents reference taxes
