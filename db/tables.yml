@@ -5636,7 +5636,6 @@ users:
   role_id:
     type: integer
     references: role
-    required: true
   sign_in_count:
     type: integer
   team_id:

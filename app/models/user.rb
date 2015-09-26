@@ -54,7 +54,7 @@
 #  reset_password_sent_at                 :datetime
 #  reset_password_token                   :string
 #  rights                                 :text
-#  role_id                                :integer          not null
+#  role_id                                :integer
 #  sign_in_count                          :integer          default(0)
 #  team_id                                :integer
 #  unconfirmed_email                      :string
@@ -88,13 +88,14 @@ class User < Ekylibre::Record::Base
   validates_numericality_of :failed_attempts, allow_nil: true, only_integer: true
   validates_numericality_of :maximal_grantable_reduction_percentage, allow_nil: true
   validates_inclusion_of :administrator, :commercial, :employed, :locked, in: [true, false]
-  validates_presence_of :email, :encrypted_password, :first_name, :language, :last_name, :maximal_grantable_reduction_percentage, :role
+  validates_presence_of :email, :encrypted_password, :first_name, :language, :last_name, :maximal_grantable_reduction_percentage
   # ]VALIDATORS]
   validates_length_of :language, allow_nil: true, maximum: 3
   # validates_presence_of :password, :password_confirmation, if: Proc.new{|e| e.encrypted_password.blank? and e.loggable?}
   validates_confirmation_of :password
   validates_numericality_of :maximal_grantable_reduction_percentage, greater_than_or_equal_to: 0, less_than_or_equal_to: 100
   validates_uniqueness_of :email, :person_id
+  validates_presence_of :role, unless: :administrator?
   # validates_presence_of :person
   # validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, if: lambda{|r| !r.email.blank?}
 
@@ -109,7 +110,6 @@ class User < Ekylibre::Record::Base
   before_validation do
     self.language = Preference[:language] if language.blank?
     self.maximal_grantable_reduction_percentage ||= 0
-    self.role ||= Role.first if self.administrator?
     self.rights ||= self.role.rights if self.role
     self.rights = self.rights.to_hash if self.rights
   end

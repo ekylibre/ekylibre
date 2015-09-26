@@ -53,7 +53,7 @@
 #  reset_password_sent_at                 :datetime
 #  reset_password_token                   :string
 #  rights                                 :text
-#  role_id                                :integer          not null
+#  role_id                                :integer
 #  sign_in_count                          :integer          default(0)
 #  team_id                                :integer
 #  unconfirmed_email                      :string
@@ -76,7 +76,6 @@
 #   last_name: "Lorem ipsum"
 #   locked: true
 #   maximal_grantable_reduction_percentage: 0
-#   role: roles_001
 #   updater: users_001
 #
 ---
