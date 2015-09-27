@@ -18,11 +18,29 @@ class AddAttachmentToEntity < CapybaraIntegrationTest
     entity = entities(:entities_001)
 
     visit(backend_entity_path(entity))
-    wait_for_ajax
 
     assert find('#title').text().include? entity.full_name
 
+    assert Rails.root.join('test','fixture-files', 'sample_image.png').exist?, 'No image to attach'
+
+    assert_not find('.attachment-files').has_selector?('.file')
+
+    # Input file is hidden to user
+    script = "$('#attachments').css({position: 'relative', opacity: 1});"
+    page.execute_script(script)
+
+    shoot_screen 'attachments/attach_file'
+
+    attach_file('attachments', 'test/fixture-files/sample_image.png')
+    shoot_screen 'attachments/upload_file'
+
+    wait_for_ajax
+
+    assert find('.attachment-files').find('.file')
+
+    assert find('.attachment-files').find('.file').find('.name').text().include? 'sample_image.png'
+
+    shoot_screen 'attachments/uploaded_file'
+
   end
-
-
 end
