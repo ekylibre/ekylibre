@@ -1260,7 +1260,7 @@ fra:
     next: "Suivant"
     nitrogen_concentration: "Teneur en azote (N)"
     nitrogen_concentration_per_hectare: "Teneur en azote par hectare"
-    no_attachments: "Aucune pièce jointe"
+    no_attachments: "Déposez vos fichiers ici ou cliquez sur le bouton d'ajout"
     no_crumbs_to_check: "Pas de miettes à qualifier"
     no_data: "Aucune donnée"
     no_deliveries: "Aucune livraison en attente" #?

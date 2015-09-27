@@ -44,6 +44,8 @@
 
           data.context = $el.appendTo(@$root.find('.attachment-files'))
 
+          @refreshPlaceholder()
+
           # send request
           data.submit()
           true
@@ -90,6 +92,7 @@
           data: {"_method": "delete"}
           success: (data) =>
             $(e.currentTarget).closest('.file').remove()
+            widget.refreshPlaceholder()
 
           error: (data) =>
             $(e.currentTarget).closest('.file').find('*[data-attachment-thumblink]').addClass 'failed'
@@ -143,6 +146,15 @@
           return
         ), 100)
         return
+
+      @refreshPlaceholder()
+
+    refreshPlaceholder: ->
+      if @$root.find('.attachment-files').find('.file').length
+        $('.attachment-files-placeholder').hide()
+      else
+        $('.attachment-files-placeholder').show()
+
 
     toggleWidget: ->
       @options.fullWidget = !@options.fullWidget
