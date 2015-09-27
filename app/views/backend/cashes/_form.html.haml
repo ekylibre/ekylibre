@@ -25,3 +25,5 @@
 = field_set(:accountancy) do
   = f.referenced_association :account, source: :banks_or_cashes_or_associates
   = f.referenced_association :journal, source: {nature: :banks_or_cashes}
+
+= f.attachments

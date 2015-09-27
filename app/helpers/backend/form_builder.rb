@@ -127,6 +127,36 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     nil
   end
 
+  def attachments
+    attachments = @object.attachments
+    return @template.content_tag(:div, id: 'attachments-field') do
+      html = ''.html_safe
+
+      html << @template.field_set(:attachments) do
+        @template.content_tag(:div, class: 'nested-fields') do
+          nested = ''.html_safe
+
+          for attachment in attachments
+            if attachment.document.file?
+              nested << @template.content_tag(:div) do
+                @template.content_tag(:span, attachment.document.name)
+              end
+            end
+          end
+
+          nested += simple_fields_for :attachments do |form|
+            form.input :files, as: :file, label: :attachments.tl, input_html: {multiple: true, required: false}
+          end
+
+          nested
+        end
+      end
+
+      html
+    end
+
+  end
+
   def indicator(_indicator_attribute_name, _unit_attribute_name, *_args, &_block)
     nil
   end
@@ -421,6 +451,9 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
 
         # Add custom fields
         fs << custom_fields
+
+        fs << attachments
+
         fs
       end
 

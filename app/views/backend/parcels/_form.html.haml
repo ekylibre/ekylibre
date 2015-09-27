@@ -32,3 +32,5 @@
     %tfoot
       %tr.total
         %th{colspan: 4}= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', 'data-association-insertion-node' => '#items', 'data-association-insertion-method' => :append, class: "btn primary"
+
+= f.attachments
