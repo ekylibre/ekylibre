@@ -29,7 +29,6 @@
 #  id                      :integer          not null, primary key
 #  lock_version            :integer          default(0), not null
 #  mode                    :string
-#  net_mass                :decimal(19, 4)
 #  number                  :string
 #  reference_number        :string
 #  responsible_id          :integer

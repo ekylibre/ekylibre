@@ -1,7 +1,6 @@
 module Ekylibre
   module FirstRun
     class Folder
-
       VERSION = 2
 
       attr_reader :path, :version, :imports, :preferences, :defaults
@@ -11,7 +10,7 @@ module Ekylibre
         manifest = YAML.load_file(path.join('manifest.yml')).deep_symbolize_keys
         @version = manifest[:version]
         unless @version == VERSION
-          fail "Incompatible first-run folder: #{@version.inspect}." +
+          fail "Incompatible first-run folder: #{@version.inspect}." \
                "Need v#{VERSION} first-run API."
         end
         @imports = manifest[:imports] || {}
@@ -35,7 +34,7 @@ module Ekylibre
           if Preference.references[key]
             Preference.set!(key, value)
           else
-            self.warn
+            warn
           end
         end
       end
@@ -51,7 +50,6 @@ module Ekylibre
 
       # Load all of given imports
       def load_imports
-
       end
 
       protected
@@ -59,9 +57,6 @@ module Ekylibre
       def warn(message)
         Rails.logger.warn(message)
       end
-
-
-
     end
   end
 end

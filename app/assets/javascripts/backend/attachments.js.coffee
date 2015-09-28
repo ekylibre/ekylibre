@@ -5,42 +5,30 @@
   $.widget "ui.attachmentController",
     options:
       fullWidget: false
-      fullWidgetClass: 'full-widget'
+      fullWidgetClass: 'expanded'
 
     _create: ->
       $.extend(true, @options, @element.data("attachment-controller"))
 
       widget = @
       @$el = $(@.element)
-      @$root = @.element.closest('.attachments-panel')
+      @$root = @.element.closest('.attachments')
 
       @$el.fileupload
         dataType: 'json',
         dropZone: '.attachment-files'
         add: (e, data) =>
+          console.log data.files
           $el = $('<div class="file">\
             <div class="file-body">\
             <div class="thumbnail"/>\
-            <span class="name">'+data.files[0].name+'</span>\
+            <span class="file-name">'+data.files[0].name+'</span>\
             </div>\
             <div class="actions">\
-            <a href="" class="btn removebutton" data-attachment-file-destroy-button=true disabled>\
+            <a href="" data-attachment-destroy="true" disabled>\
             </a>\
             </div>\
             </div>')
-
-          if widget.options.fullWidget
-            $el.addClass widget.options.fullWidgetClass
-            $el.find('.file-body').addClass @options.fullWidgetClass
-            $el.find('.actions').addClass @options.fullWidgetClass
-            $el.find('.name').addClass @options.fullWidgetClass
-            $el.find('.thumbnail').show()
-          else
-            $el.removeClass widget.options.fullWidgetClass
-            $el.find('.file-body').removeClass @options.fullWidgetClass
-            $el.find('.actions').removeClass @options.fullWidgetClass
-            $el.find('.name').removeClass @options.fullWidgetClass
-            $el.find('.thumbnail').hide()
 
           data.context = $el.appendTo(@$root.find('.attachment-files'))
 
@@ -56,34 +44,34 @@
             'attachments[document_attributes][key]': "#{new Date().getTime()}-#{data.files[0].name}"
             'attachments[document_attributes][uploaded]': true
 
-          data.context.find('.removebutton').addClass 'loading'
+          data.context.find('*[data-attachment-destroy]').addClass 'loading'
           true
 
         progressall: (e, data) ->
           $('.attachment-files-bitrate').text((data.bitrate / 1024).toFixed(2) + 'Kb/s')
 
         done: (e, data) ->
-          $(data.context).find('.name').html("<a href='' data-href='#{data.result.attachment_path}' data-attachment-thumblink=true>#{data.result.attachment.name}</a>")
+          $(data.context).find('.file-name').html("<a href='' data-href='#{data.result.attachment_path}' data-attachment-thumblink=true>#{data.result.attachment.name}</a>")
           $(data.context).find('.file-body').data('href', data.result.attachment_path)
           $(data.context).find('.file-body').data('attachment-thumblink', true)
 
-          $(data.context).find('*[data-attachment-file-destroy-button]').data('href', data.result.attachment_path)
+          $(data.context).find('*[data-attachment-destroy]').data('href', data.result.attachment_path)
 
           $(data.context).find('.thumbnail').css("background-image", "url('#{data.result.thumb}')")
 
-          data.context.find('.removebutton').removeClass 'loading'
-          data.context.find('.removebutton').removeAttr 'disabled'
+          data.context.find('*[data-attachment-destroy]').removeClass 'loading'
+          data.context.find('*[data-attachment-destroy]').removeAttr 'disabled'
 
         fail: (e, data) ->
-          $(data.context).find('.name').css 'color', 'red'
-          data.context.find('.removebutton').removeClass 'loading'
-          data.context.find('.removebutton').addClass 'failed'
+          $(data.context).find('.file-name').css 'color', 'red'
+          data.context.find('*[data-attachment-destroy]').removeClass 'loading'
+          data.context.find('*[data-attachment-destroy]').addClass 'failed'
 
 
         always: () ->
           $('.attachment-files-bitrate').text('')
 
-      $(document).on 'click', '*[data-attachment-file-destroy-button]', (e) ->
+      $(document).on 'click', '*[data-attachment-destroy]', (e) ->
         e.preventDefault()
 
         $.ajax
@@ -106,17 +94,17 @@
           url: $(@).data('href')
           method: 'GET'
           success: (data) ->
-            $el = $("<iframe src='#{data.attachment}'/>")
+            $el = $("<iframe src='#{data.url}'/>")
             $modal = $('*[data-attachment-thumblink-target]')
-
+            $modal.find('.modal-title').html(data.name)
             $modal.find('.modal-body').html($el)
             $modal.modal('show')
           error: (data) ->
-            console.log 'unable to load file'
+            console.log 'Unable to load file'
 
         false
 
-      $(document).on 'click','*[data-attachment-expand]', (e) ->
+      $(document).on 'click','*[data-attachments-expand]', (e) ->
         e.preventDefault()
         widget.toggleWidget()
 
@@ -150,7 +138,7 @@
       @refreshPlaceholder()
 
     refreshPlaceholder: ->
-      if @$root.find('.attachment-files').find('.file').length
+      if @$root.find('.attachment-files').find('.file').length > 0
         $('.attachment-files-placeholder').hide()
       else
         $('.attachment-files-placeholder').show()
@@ -158,15 +146,10 @@
 
     toggleWidget: ->
       @options.fullWidget = !@options.fullWidget
-
-      $('.attachments-panel').toggleClass @options.fullWidgetClass
-      $('.attachments-files').toggleClass @options.fullWidgetClass
-      $('.file').toggleClass @options.fullWidgetClass
-      $('.file-body').toggleClass @options.fullWidgetClass
-      $('.actions').toggleClass @options.fullWidgetClass
-      $('.name').toggleClass @options.fullWidgetClass
-      $('.thumbnail').toggle()
-
+      if @options.fullWidget
+        $('.attachments').addClass @options.fullWidgetClass
+      else
+        $('.attachments').removeClass @options.fullWidgetClass
 
   $(document).ready ->
     $("*[data-attachment]").each ->

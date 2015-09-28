@@ -75,9 +75,8 @@ module Ekylibre
       end
 
       def executed_preference
-        Preference.get!("first_run.executed", false, :boolean)
+        Preference.get!('first_run.executed', false, :boolean)
       end
-
 
       # Execute all loaders for a given base
       def call_loaders(base)

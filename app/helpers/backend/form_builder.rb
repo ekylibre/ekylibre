@@ -129,7 +129,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
 
   def attachments
     attachments = @object.attachments
-    return @template.content_tag(:div, id: 'attachments-field') do
+    @template.content_tag(:div, id: 'attachments-field') do
       html = ''.html_safe
 
       html << @template.field_set(:attachments) do
@@ -145,7 +145,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
           end
 
           nested += simple_fields_for :attachments do |form|
-            form.input :files, as: :file, label: :attachments.tl, input_html: {multiple: true, required: false}
+            form.input :files, as: :file, label: :attachments.tl, input_html: { multiple: true, required: false }
           end
 
           nested
@@ -154,7 +154,6 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
 
       html
     end
-
   end
 
   def indicator(_indicator_attribute_name, _unit_attribute_name, *_args, &_block)

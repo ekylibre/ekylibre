@@ -27,7 +27,6 @@
 #  creator_id                           :integer
 #  id                                   :integer          not null, primary key
 #  lock_version                         :integer          default(0), not null
-#  net_mass                             :decimal(19, 4)
 #  parcel_id                            :integer          not null
 #  parted                               :boolean          default(FALSE), not null
 #  population                           :decimal(19, 4)
@@ -46,6 +45,7 @@
 #  source_product_shape_reading_id      :integer
 #  updated_at                           :datetime         not null
 #  updater_id                           :integer
+#  variant_id                           :integer
 #
 #
 # == Fixture: parcel_items

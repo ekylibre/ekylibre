@@ -43,6 +43,8 @@ class Attachment < Ekylibre::Record::Base
   validates_presence_of :document, :resource, :resource_type
   # ]VALIDATORS]
 
+  delegate :name, to: :document
+
   before_validation do
     self.resource_type = resource.class.base_class.name if resource
     self.nature = document.nature if document

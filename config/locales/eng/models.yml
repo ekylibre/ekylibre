@@ -721,7 +721,7 @@ eng:
     nature: "Type"
     nature_name: "Type name"
     natures: "Types"
-    net_mass: "Net mass"
+    net_mass: "Net mass" #?
     net_service: "Net service"
     nitrate_fixing: "Nitrate fixing"
     nitrogen_at_closing: "Nitrogen at closing"

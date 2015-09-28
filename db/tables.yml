@@ -992,10 +992,6 @@ deliveries:
     required: true
   mode:
     type: string
-  net_mass:
-    type: decimal
-    precision: 19
-    scale: 4
   number:
     type: string
   reference_number:
@@ -3349,10 +3345,6 @@ parcel_items:
   lock_version:
     type: integer
     required: true
-  net_mass:
-    type: decimal
-    precision: 19
-    scale: 4
   parcel_id:
     type: integer
     references: parcel
@@ -3412,6 +3404,9 @@ parcel_items:
   updater_id:
     type: integer
     references: user
+  variant_id:
+    type: integer
+    references: product_nature_variant
 parcels:
   address_id:
     type: integer
@@ -3440,10 +3435,6 @@ parcels:
   nature:
     type: string
     required: true
-  net_mass:
-    type: decimal
-    precision: 19
-    scale: 4
   number:
     type: string
     required: true
@@ -3451,6 +3442,7 @@ parcels:
     type: datetime
   planned_at:
     type: datetime
+    required: true
   position:
     type: integer
   prepared_at:

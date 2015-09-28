@@ -20,7 +20,6 @@ class Backend::SalesController < Backend::BaseController
   manage_restfully except: [:index, :show, :new], redirect_to: '{action: :show, id: "id".c}'.c
   manage_restfully_attachments
 
-
   respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
   unroll :number, :amount, :currency, :created_at, client: :full_name

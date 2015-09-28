@@ -106,7 +106,7 @@ class Tax < Ekylibre::Record::Base
 
     # Load all tax from tax nomenclature by country
     def import_all_from_nomenclature(country)
-      Nomen::Tax.where(country: country).each do |tax|
+      Nomen::Tax.where(country: country).find_each do |tax|
         import_from_nomenclature(tax.name)
       end
     end

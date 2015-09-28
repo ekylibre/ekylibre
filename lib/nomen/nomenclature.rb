@@ -397,7 +397,7 @@ module Nomen
 
     # Returns list of items as an Array
     def list
-      @items.values
+      Nomen::Relation.new(@items.values)
     end
 
     # Iterates on items
@@ -407,13 +407,13 @@ module Nomen
 
     # List items with properties filtering
     def where(properties)
-      @items.values.select do |item|
+      list.select do |item|
         valid = true
-        for name, value in properties
+        properties.each do |name, value|
           item_value = item.property(name)
           if value.is_a?(Array)
             one_found = false
-            for val in value
+            value.each do |val|
               if val.is_a?(Nomen::Item)
                 one_found = true if item_value == val.name.to_sym
               else

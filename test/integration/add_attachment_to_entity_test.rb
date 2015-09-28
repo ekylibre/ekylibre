@@ -14,14 +14,13 @@ class AddAttachmentToEntity < CapybaraIntegrationTest
   end
 
   test 'should add an attachment to an entity' do
-
     entity = entities(:entities_001)
 
     visit(backend_entity_path(entity))
 
-    assert find('#title').text().include? entity.full_name
+    assert find('#title').text.include? entity.full_name
 
-    assert Rails.root.join('test','fixture-files', 'sample_image.png').exist?, 'No image to attach'
+    assert Rails.root.join('test', 'fixture-files', 'sample_image.png').exist?, 'No image to attach'
 
     assert_not find('.attachment-files').has_selector?('.file')
 
@@ -38,9 +37,8 @@ class AddAttachmentToEntity < CapybaraIntegrationTest
 
     assert find('.attachment-files').find('.file')
 
-    assert find('.attachment-files').find('.file').find('.name').text().include? 'sample_image.png'
+    assert find('.attachment-files').find('.file').find('.name').text.include? 'sample_image.png'
 
     shoot_screen 'attachments/uploaded_file'
-
   end
 end

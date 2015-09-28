@@ -22,6 +22,7 @@ module Nomen
   autoload :NomenclatureSet,     'nomen/nomenclature_set'
   autoload :PropertyNature,      'nomen/property_nature'
   autoload :Reference,           'nomen/reference'
+  autoload :Relation,            'nomen/relation'
   autoload :Reflection,          'nomen/reflection'
 
   class << self

@@ -110,7 +110,7 @@ class User < Ekylibre::Record::Base
   before_validation do
     self.language = Preference[:language] if language.blank?
     self.maximal_grantable_reduction_percentage ||= 0
-    self.rights ||= self.role.rights if self.role
+    self.rights ||= role.rights if role
     self.rights = self.rights.to_hash if self.rights
   end
 

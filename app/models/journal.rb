@@ -125,7 +125,6 @@ class Journal < Ekylibre::Record::Base
       find_by(used_for_affairs: true)
     end
 
-
     def load_defaults
       nature.values.each do |nature|
         financial_year = FinancialYear.first
@@ -137,7 +136,6 @@ class Journal < Ekylibre::Record::Base
           closed_on: closed_on
         )
       end
-
     end
   end
 
