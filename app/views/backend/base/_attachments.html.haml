@@ -1,21 +1,17 @@
 #main-attachments.attachments
   .attachments-body
-    = button_tag(class: 'attachments-upload') do
+    %span.attachments-upload
       %i
       = file_field_tag(:attachments, name: 'attachments[document_attributes][file]', multiple: true, data: { url: url_for([:attachments, :backend, resource]), attachment: true })
     .attachment-files
       .attachment-files-placeholder= :no_attachments.tl
       - resource.attachments.each do |attachment|
-        .file
-          .file-body{data: { href: url_for([:attachment, :backend, resource, attachment_id: attachment.id]), 'attachment-thumblink': true }}
-            .actions
-              = link_to('#', data: { href: url_for([:attachment, :backend, resource, attachment_id: attachment.id]), attachment_destroy: true }) do
+        .file{data: { attachment_thumblink: url_for([:attachment, :backend, resource, attachment_id: attachment.id])}}
+          .file-body{style: "background-image: url(#{backend_document_url(attachment.document, format: :jpg)})"}
+            .file-actions
+              = link_to(url_for([:attachment, :backend, resource, attachment_id: attachment.id]), data: {attachment_destroy: true }) do
                 %i
-            .thumbnail{style: "background-image: url(#{backend_document_url(attachment.document, format: :jpg)})"}
-            = link_to(url_for([:attachment, :backend, resource, attachment_id: attachment.id]), data: { href: url_for([:attachment, :backend, resource, attachment_id: attachment.id]), 'attachment-thumblink': true }, class: 'file-name') do
-
-              = content_tag(:span, attachment.document.name)
-
+            .file-name= attachment.document.name
       .attachment-files-bitrate
     .attachment-btns
       = button_tag(data: { attachments_expand: true }) do

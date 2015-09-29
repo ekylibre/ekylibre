@@ -18,15 +18,12 @@
         dataType: 'json',
         dropZone: '.attachment-files'
         add: (e, data) =>
-          console.log data.files
           $el = $('<div class="file">\
             <div class="file-body">\
-            <div class="thumbnail"/>\
-            <span class="file-name">'+data.files[0].name+'</span>\
+            <div class="file-actions">\
+            <a href="" data-attachment-destroy="true" disabled><i></i></a>\
             </div>\
-            <div class="actions">\
-            <a href="" data-attachment-destroy="true" disabled>\
-            </a>\
+            <div class="file-name">'+data.files[0].name+'<div>\
             </div>\
             </div>')
 
@@ -44,54 +41,60 @@
             'attachments[document_attributes][key]': "#{new Date().getTime()}-#{data.files[0].name}"
             'attachments[document_attributes][uploaded]': true
 
-          data.context.find('*[data-attachment-destroy]').addClass 'loading'
+          file = data.context.closest('.file')
+          file.addClass 'loading'
           true
 
         progressall: (e, data) ->
           $('.attachment-files-bitrate').text((data.bitrate / 1024).toFixed(2) + 'Kb/s')
 
         done: (e, data) ->
-          $(data.context).find('.file-name').html("<a href='' data-href='#{data.result.attachment_path}' data-attachment-thumblink=true>#{data.result.attachment.name}</a>")
-          $(data.context).find('.file-body').data('href', data.result.attachment_path)
-          $(data.context).find('.file-body').data('attachment-thumblink', true)
+          file = $(data.context).closest('.file')
+          result = data.result
+          file.attr('data-attachment-thumblink', result.attachment_path)
+          file.find('.file-name').html(result.attachment.name)
+          file.removeClass('loading').removeClass('failed')
 
-          $(data.context).find('*[data-attachment-destroy]').data('href', data.result.attachment_path)
+          file.find('.file-body').css("background-image", "url('#{result.thumb}')")
 
-          $(data.context).find('.thumbnail').css("background-image", "url('#{data.result.thumb}')")
-
-          data.context.find('*[data-attachment-destroy]').removeClass 'loading'
-          data.context.find('*[data-attachment-destroy]').removeAttr 'disabled'
+          indicator = file.find('*[data-attachment-destroy]')
+          indicator.data('href', result.attachment_path)
+          indicator.removeAttr 'disabled'
 
         fail: (e, data) ->
-          $(data.context).find('.file-name').css 'color', 'red'
-          data.context.find('*[data-attachment-destroy]').removeClass 'loading'
-          data.context.find('*[data-attachment-destroy]').addClass 'failed'
-
+          file = $(data.context).closest('.file')
+          file.removeClass('loading').addClass('failed')
+          indicator = file.find('*[data-attachment-destroy]')
+          indicator.attr('title', data.errorThrown)
 
         always: () ->
           $('.attachment-files-bitrate').text('')
 
       $(document).on 'click', '*[data-attachment-destroy]', (e) ->
         e.preventDefault()
+        url = $(this).attr('href')
+        if url
+          $.ajax
+            url: url
+            method: 'post'
+            data: {"_method": "delete"}
+            success: (data) =>
+              $(e.currentTarget).closest('.file').remove()
+              widget.refreshPlaceholder()
+            error: (data) =>
+              $(e.currentTarget).closest('.file').addClass 'failed'
+              console.log 'Unable to delete file'
+        else
+          $(e.currentTarget).closest('.file').remove()
+          widget.refreshPlaceholder()
 
-        $.ajax
-          url: $(@).data('href')
-          method: 'post'
-          data: {"_method": "delete"}
-          success: (data) =>
-            $(e.currentTarget).closest('.file').remove()
-            widget.refreshPlaceholder()
-
-          error: (data) =>
-            $(e.currentTarget).closest('.file').find('*[data-attachment-thumblink]').addClass 'failed'
-            console.log 'Unable to delete file'
         false
 
-      $(document).on 'click','*[data-attachment-thumblink]', (e) ->
+      $(document).on 'click', '*[data-attachment-thumblink] .file-name, *[data-attachment-thumblink] .file-body', (e) ->
         e.preventDefault()
-
+        url = $(this).closest('*[data-attachment-thumblink]').data('attachment-thumblink')
         $.ajax
-          url: $(@).data('href')
+          url: url
           method: 'GET'
           success: (data) ->
             $el = $("<iframe src='#{data.url}'/>")

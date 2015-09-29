@@ -6,23 +6,28 @@ $preview-modal-h_padding: 1vw;
 
 $attachment-panel-height: 35px;
 
-$attachment-files-padding: 5px;
+$attachment-files-padding: $default-gap;
 
 
-$attachment-full-panel-height: 200px;
+$attachment-file-width: 200px;
+$attachment-full-panel-height: round($attachment-file-width * 2 / 3);
 $attachment-full-file-height: $attachment-full-panel-height - $attachment-files-padding * 2;
 $attachment-full-file-width: $attachment-full-file-height;
 
-$attachment-file-width: $attachment-full-file-width;
 
-$attachment-files-height: $attachment-panel-height - $attachment-files-padding * 2;
+$attachment-files-height: $lh-normal + $default-gap;
 
 $attachment-body-file-padding: 3px;
+$attachments-overlay: rgba(white, 0.7);
 
-$border: 1px solid #DDD;
 
-.failed {
-  color: red;
+@include keyframes(spin) {
+  0% {
+    @include transform(rotate(0deg));
+  }
+  100% {
+    @include transform(rotate(359deg));
+  }
 }
 
 .attachments {
@@ -93,25 +98,14 @@ $border: 1px solid #DDD;
     .attachment-files {
       display: inline-block;
       min-height: $attachment-files-height;
-      width: 96%;
-      padding: $attachment-files-padding;
       position: relative;
-      // box-shadow: inset 0 1px 3px #CCC;
 
       z-index: 0;
 
-      &.hover {
-        // box-shadow: 0 0 8px rgba(104, 142, 216, 0.8);
-      }
       .attachment-files-placeholder {
-        color: #CCC;
-        left: 5px;
-        position: absolute;
-        top: 0;
-
+        color: mix($neutral-color, white);
         height: $attachment-panel-height;
         line-height: $attachment-panel-height;
-        z-index: -1;
       }
 
       .attachment-files-bitrate {
@@ -129,71 +123,81 @@ $border: 1px solid #DDD;
         display: inline-block;
         // height: $attachment-files-height;
         background: white;
-        border: 1px solid #CCC;
-        margin-right: $attachment-files-padding;
+        // border: 1px solid #CCC;
+        @include box-shadow(0 0 round($default-gap * 0.5) rgba(black, 0.15));
+        margin: ($attachment-files-padding * 0.75) ($attachment-files-padding * 0.5);
         width: $attachment-file-width;
-        box-sizing: border-box;
+        @include box-sizing(border-box);
+        @include transition(height 0.4s);
         .file-body {
-          .thumbnail {
-            display: block;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: 0 0;
-            cursor: pointer;
-            width: 100%;
-            height: 100%;
+          display: block;
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: 0 0;
+          cursor: pointer;
+          .file-actions {
+            @include float(right);
+            background: $attachments-overlay;
+            height: $attachment-files-height;
+            @include box-sizing(border-box);
+            *[data-attachment-destroy] {
+              display: inline-block;
+              box-sizing: border-box;
+              border: none;
+              text-align: center;
+              background: transparent;
+              padding: (0.25 * $default-gap) ($default-gap * 0.6) ;
+              text-shadow: 0 0 2px #FFF;
+              i {
+                @include is-icon;
+                @include use-icon(clear);
+                color: $active-color;
+                @include box-shadow(none);
+              }
+            }
           }
           .file-name {
             display: block;
-            // min-width: 10ex;
-            // width: $attachment-file-width - $attachment-body-file-padding * 2 - $attachment-files-height - 2px;
-            // float: left;
-            // height: $attachment-files-height;
-            line-height: $attachment-files-height - $attachment-body-file-padding * 2;
+            background: $attachments-overlay;
+            height: $attachment-files-height;
+            line-height: $attachment-files-height - $default-gap;
             vertical-align: middle;
             padding: (0.5*$default-gap) $default-gap;
             box-sizing: border-box;
             @include ellipsis();
-            span {
-              line-height: $attachment-files-height - $attachment-body-file-padding * 2;
-              display: block;
-              text-overflow: inherit;
-              overflow: inherit;
-            }
+            text-shadow: 0 0 2px #FFF;
+            cursor: pointer;
           }
         }
 
-        .actions {
-          @include float(right);
-          *[data-attachment-destroy] {
-            display: inline-block;
-            box-sizing: border-box;
-            border: none;
-            text-align: center;
-            background: transparent;
-            padding: (0.25 * $default-gap) ($default-gap * 0.6) ;
-            text-shadow: 0 0 2px #FFF;
-            i {
-              @include is-icon;
-              @include use-icon(clear);
-              color: $active-color !important;
-              @include box-shadow(none);
-            }
-            &.loading {
+        &.loading {
+          .file-actions {
+            *[data-attachment-destroy] {
               i {
                 @include use-icon(spinner);
                 @include animation(spin 1s infinite steps(8));
               }
             }
-            &.failed {
+          }
+        }
+
+        &.failed {
+          .file-name {
+            &, * {
+              color: $invalid-color;
+              font-variant: italic;
+            }
+          }
+          .file-actions {
+            *[data-attachment-destroy] {
               i {
                 @include use-icon(warning);
-                @include animation(spin 1s infinite steps(8));
                 color: $invalid-color;
               }
             }
           }
         }
+
       }
     }
   }
@@ -216,23 +220,18 @@ $border: 1px solid #DDD;
           .file-body {
             width: 100%;
             height: 100%;
-            .thumbnail {
-              display: block;
+            .file-actions {
+              position: absolute;
+              top: 0;
+              right: 0;
             }
             .file-name {
               position: absolute;
               bottom: 0;
               left: 0;
               right: 0;
-              background: rgba(255, 255, 255, 0.7);
-              padding: 5px;
               width: 100%;
             }
-          }
-          .actions {
-            position: absolute;
-            top: 0;
-            right: 0;
           }
         }
       }
@@ -259,11 +258,3 @@ $border: 1px solid #DDD;
 }
 
 
-@include keyframes(spin) {
-  0% {
-    @include transform(rotate(0deg));
-  }
-  100% {
-    @include transform(rotate(359deg));
-  }
-}
