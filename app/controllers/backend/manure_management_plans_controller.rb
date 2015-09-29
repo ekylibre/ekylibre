@@ -18,6 +18,7 @@
 
 class Backend::ManureManagementPlansController < Backend::BaseController
   manage_restfully redirect_to: "{action: :edit, id: 'id'.c}".c
+  manage_restfully_attachments
 
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 

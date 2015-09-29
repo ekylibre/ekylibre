@@ -63,6 +63,7 @@
 # ProfitGap       |         |    X    |
 #
 class Affair < Ekylibre::Record::Base
+  include Attachable
   enumerize :third_role, in: [:client, :supplier], predicates: true
   refers_to :currency
   belongs_to :cash_session

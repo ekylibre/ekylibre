@@ -12,7 +12,7 @@
 
       widget = @
       @$el = $(@.element)
-      @$root = @.element.closest('.attachments')
+      @root = @.element.closest('.attachments')
 
       @$el.fileupload
         dataType: 'json',
@@ -27,7 +27,7 @@
             </div>\
             </div>')
 
-          data.context = $el.appendTo(@$root.find('.attachment-files'))
+          data.context = $el.appendTo(@root.find('.attachment-files'))
 
           @refreshPlaceholder()
 
@@ -141,10 +141,13 @@
       @refreshPlaceholder()
 
     refreshPlaceholder: ->
-      if @$root.find('.attachment-files').find('.file').length > 0
-        $('.attachment-files-placeholder').hide()
+
+      if @root.find('.attachment-files').find('.file').length > 0
+        @root.find('.attachment-files-placeholder').hide()
+        @root.find('*[data-attachments-expand]').show()
       else
-        $('.attachment-files-placeholder').show()
+        @root.find('.attachment-files-placeholder').show()
+        @root.find('*[data-attachments-expand]').hide()
 
 
     toggleWidget: ->

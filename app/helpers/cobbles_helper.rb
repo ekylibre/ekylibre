@@ -9,7 +9,7 @@ module CobblesHelper
       @cobbler = cobbler
       @name = name
       @id = options[:id] || name.to_s.parameterize.dasherize
-      @title = options[:title] || @name.t(default: ["attributes.#{@name}".to_sym, @name.to_s.humanize])
+      @title = options[:title] || @name.tl(default: ["attributes.#{@name}".to_sym, @name.to_s.humanize])
       @@current = self
       @content = @cobbler.template.capture(&block)
       @position = options[:position] || 1000

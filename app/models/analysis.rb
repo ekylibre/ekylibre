@@ -47,6 +47,7 @@
 #
 
 class Analysis < Ekylibre::Record::Base
+  include Attachable
   enumerize :retrieval_status, in: [:ok, :controller_error, :internal_error, :sensor_error, :error], predicates: true
   refers_to :nature, class_name: 'AnalysisNature'
   belongs_to :analyser, class_name: 'Entity'

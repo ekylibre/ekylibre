@@ -3,12 +3,13 @@
   - t.export do |e|
     - e.manure_management_plan_sheet resource.id.to_s, resource
 
+= main_informations attachment: true do
+  = attributes_list do |l|
+    - l.attribute :name
+    - if resource.custom_fields.any?
+      - l.custom_fields
+
 = cobbles do |c|
-  - c.cobble :general_informations do
-    = attributes_list do |l|
-      - l.attribute :name
-      - if resource.custom_fields.any?
-        - l.custom_fields
 
   - c.cobble :zones do
     = cobble_list :zones

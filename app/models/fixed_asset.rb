@@ -53,6 +53,7 @@
 #
 
 class FixedAsset < Ekylibre::Record::Base
+  include Attachable
   acts_as_numbered
   enumerize :depreciation_method, in: [:simplified_linear, :linear], predicates: { prefix: true } # graduated
   refers_to :currency

@@ -6,23 +6,23 @@
     .med-info.important
       %span.title= resource.human_attribute_name(:balance)
       %span.value= resource.balance.l(currency: resource.currency)
-    = attributes_list do |l|
-      - l.attribute :name
-      - l.attribute :nature
-      - l.attribute :journal, url: true
-      - l.attribute :account, url: true
-      - if resource.bank_account?
-        - l.attribute :bank_name
-        - l.attribute :bank_agency_address
-        - l.attribute :spaced_iban
-        - l.attribute :bank_identifier_code
-        - if resource.mode_bban?
-          - l.attribute :bank_code
-          - l.attribute :bank_agency_code
-          - l.attribute :bank_account_number
-          - l.attribute :bank_account_key
-      - if resource.custom_fields.any?
-        - l.custom_fields
+  = attributes_list do |l|
+    - l.attribute :name
+    - l.attribute :nature
+    - l.attribute :journal, url: true
+    - l.attribute :account, url: true
+    - if resource.bank_account?
+      - l.attribute :bank_name
+      - l.attribute :bank_agency_address
+      - l.attribute :spaced_iban
+      - l.attribute :bank_identifier_code
+      - if resource.mode_bban?
+        - l.attribute :bank_code
+        - l.attribute :bank_agency_code
+        - l.attribute :bank_account_number
+        - l.attribute :bank_account_key
+    - if resource.custom_fields.any?
+      - l.custom_fields
 
 = cobbles do |c|
   - if resource.incoming_payment_modes.depositers.any?

@@ -43,6 +43,7 @@
 #  updater_id                :integer
 #
 class Production < Ekylibre::Record::Base
+  include Attachable
   # refers_to :support_variant_unit, class_name: 'Unit'
   # refers_to :support_variant_indicator, -> { where(datatype: :measure) }, class_name: 'Indicator' # [:population, :working_duration]
   belongs_to :activity

@@ -1,17 +1,15 @@
 - main_toolbar do |t|
   - t.edit resource
 
-= cobbles do |c|
-  - c.cobble :general_informations do
-    = attributes_list do |l|
-      - l.attribute :reference_number
-      - l.attribute :delivered_at
-      - l.attribute :prescriptor, url: true
-      - l.attribute :description
-      - l.custom_fields
+= main_informations attachment: true do
+  = attributes_list do |l|
+    - l.attribute :reference_number
+    - l.attribute :delivered_at
+    - l.attribute :prescriptor, url: true
+    - l.attribute :description
+    - l.custom_fields
 
-  - c.cobble :attachments, title: resource_model.human_attribute_name(:attachments) do
-    = attachments_of(resource)
+= cobbles do |c|
 
   - c.cobble(:interventions) do
     = cobble_list(:interventions)

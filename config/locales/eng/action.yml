@@ -25,12 +25,14 @@ eng:
       show: "Activity: %{name}"
     backend/affairs:
       attach: "Attach to affair %{number}"
+      # attachments: "Attachments affair: %{name}"
       detach: "Detach from affair %{number}"
       finish: "Finish affair %{number}"
       index: "Affairs"
       select: "Select for affair %{number}"
       show: "Affair: %{number}"
     backend/analyses:
+      # attachments: "Attachments analysis: %{name}"
       edit: "Edit analysis #%{number}"
       index: "Analyses"
       new: "New analysis"
@@ -298,6 +300,7 @@ eng:
       new: "Open a new financial year"
       show: "Financial year %{code}"
     backend/fixed_assets:
+      # attachments: "Attachments fixed asset: %{name}"
       edit: "Edit fixed asset: %{name}"
       index: "Fixed assets"
       new: "New fixed asset"
@@ -443,6 +446,7 @@ eng:
       new: "New loan"
       show: "Loan: %{name}"
     backend/manure_management_plans:
+      # attachments: "Attachments manure management plan: %{name}"
       edit: "Edit manure management plan: %{name}"
       index: "Manure management plans"
       new: "New manure management plan"
@@ -514,6 +518,7 @@ eng:
       new: "New postal zone"
       # show: "Postal zone: %{name}"
     backend/prescriptions:
+      # attachments: "Attachments prescription: %{name}"
       edit: "Edit prescription: %{reference_number}"
       index: "Prescriptions"
       new: "New prescription"
@@ -533,6 +538,7 @@ eng:
       pick: "Pick product category"
       show: "Product category: %{name}"
     backend/product_nature_variants:
+      # attachments: "Attachments product nature variant: %{name}"
       # detail: "Detail product nature variant: %{name}"
       edit: "Edit product variant: %{name}"
       # incorporate: "Incorporate product nature variant: %{name}"
@@ -551,6 +557,7 @@ eng:
     backend/production_supports:
       show: "Production support: %{name}"
     backend/productions:
+      # attachments: "Attachments production: %{name}"
       edit: "Edit production: %{name}"
       index: "Productions"
       new: "New production"
@@ -613,6 +620,7 @@ eng:
       # win: "Win sale opportunity: %{name}"
     backend/sale_tickets:
       # attach: "Attach sale ticket: %{name}"
+      # attachments: "Attachments sale ticket: %{name}"
       # detach: "Detach sale ticket: %{name}"
       # finish: "Finish sale ticket: %{name}"
       # index: "Sale tickets"

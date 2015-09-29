@@ -18,6 +18,7 @@
 
 class Backend::FixedAssetsController < Backend::BaseController
   manage_restfully currency: 'Preference[:currency]'.c, depreciation_method: 'linear'
+  manage_restfully_attachments
 
   unroll
 

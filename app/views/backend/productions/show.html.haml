@@ -89,6 +89,7 @@
           - l.attribute :state
           - l.attribute :campaign, url: true
           - l.attribute :activity, url: true
+        = main_attachments
 
       -# For budgets
       - if resource.budgets.sum(:amount) > 0

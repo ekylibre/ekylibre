@@ -2,28 +2,28 @@
   - t.edit resource
   - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl)
 
-= cobbles do |c|
+= main_informations attachment: true do
+  - if resource.picture.exists?
+    .picture= image_tag(resource.picture.url(:identity))
+  - else
+    = mini_map(resource)
+  .med-info.important
+    %span.title= Plant.human_attribute_name(:name)
+    %span.value= resource.name
+  .med-info.important
+    %span.title= Plant.human_attribute_name(:net_surface_area)
+    %span.value= resource.net_surface_area.in_hectare.round(2).l
+  .med-info.important
+    %span.title= Plant.human_attribute_name(:variety)
+    %span.value= Nomen::Variety[resource.variety].human_name
+  - if resource.container
+    .med-info
+      %span.title= :container.tl
+      %span.value
+        %i.picto{class: "zone"}
+        = link_to(resource.container.work_name, {controller: resource.container.type.tableize, action: :show, id: resource.container.id})
 
-  - c.cobble :general_informations do
-    - if resource.picture.exists?
-      .picture= image_tag(resource.picture.url(:identity))
-    - else
-      = mini_map(resource)
-    .med-info.important
-      %span.title= Plant.human_attribute_name(:name)
-      %span.value= resource.name
-    .med-info.important
-      %span.title= Plant.human_attribute_name(:net_surface_area)
-      %span.value= resource.net_surface_area.in_hectare.round(2).l
-    .med-info.important
-      %span.title= Plant.human_attribute_name(:variety)
-      %span.value= Nomen::Variety[resource.variety].human_name
-    - if resource.container
-      .med-info
-        %span.title= :container.tl
-        %span.value
-          %i.picto{class: "zone"}
-          = link_to(resource.container.work_name, {controller: resource.container.type.tableize, action: :show, id: resource.container.id})
+= cobbles do |c|
 
   - c.cobble :detail do
     .med-info.important

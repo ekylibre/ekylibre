@@ -18,7 +18,6 @@
 
 class Backend::SaleOpportunitiesController < Backend::AffairsController
   manage_restfully currency: 'Preference[:currency]'.c, responsible: 'current_user.person'.c, probability_percentage: 50
-  manage_restfully_attachments
 
   respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 

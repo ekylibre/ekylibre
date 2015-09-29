@@ -164,6 +164,7 @@
     <group name="fixed_assets" icon="home">
       <item name="fixed_assets">
         <page to="backend/fixed_assets#index"/>
+        <page to="backend/fixed_assets#attachments"/>
         <page to="backend/fixed_assets#create"/>
         <page to="backend/fixed_assets#destroy"/>
         <page to="backend/fixed_assets#edit"/>
@@ -357,6 +358,7 @@
     <group name="affairs" icon="folder">
       <item name="affairs">
         <page to="backend/affairs#index"/>
+        <page to="backend/affairs#attachments"/>
         <page to="backend/affairs#attach"/>
         <page to="backend/affairs#detach"/>
         <page to="backend/affairs#finish"/>
@@ -370,6 +372,7 @@
         <page to="backend/gaps#list_items"/>
         <page to="backend/gaps#show"/>
         <page to="backend/sale_tickets#index"/>
+        <page to="backend/sale_tickets#attachments"/>
         <page to="backend/sale_tickets#attach"/>
         <page to="backend/sale_tickets#detach"/>
         <page to="backend/sale_tickets#finish"/>
@@ -597,6 +600,7 @@
       </item>
       <item name="prescriptions">
         <page to="backend/prescriptions#index"/>
+        <page to="backend/prescriptions#attachments"/>
         <page to="backend/prescriptions#create"/>
         <page to="backend/prescriptions#destroy"/>
         <page to="backend/prescriptions#edit"/>
@@ -609,6 +613,7 @@
       </item>
       <item name="analyses" icon="beaker">
         <page to="backend/analyses#index"/>
+        <page to="backend/analyses#attachments"/>
         <page to="backend/analyses#create"/>
         <page to="backend/analyses#destroy"/>
         <page to="backend/analyses#edit"/>
@@ -622,6 +627,7 @@
       </item>
       <item name="productions">
         <page to="backend/productions#index"/>
+        <page to="backend/productions#attachments"/>
         <page to="backend/productions#create"/>
         <page to="backend/productions#destroy"/>
         <page to="backend/productions#edit"/>
@@ -756,6 +762,7 @@
       </item>
       <item name="manure_management_plans">
         <page to="backend/manure_management_plans#index"/>
+        <page to="backend/manure_management_plans#attachments"/>
         <page to="backend/manure_management_plans#create"/>
         <page to="backend/manure_management_plans#destroy"/>
         <page to="backend/manure_management_plans#edit"/>
@@ -1226,6 +1233,7 @@
       </item>
       <item name="product_nature_variants">
         <page to="backend/product_nature_variants#index"/>
+        <page to="backend/product_nature_variants#attachments"/>
         <page to="backend/product_nature_variants#create"/>
         <page to="backend/product_nature_variants#destroy"/>
         <page to="backend/product_nature_variants#detail"/>

@@ -35,38 +35,36 @@
 
 - main_campaign_selector
 
-= cobbles do |c|
-  - c.cobble :general_informations do
-    - if resource.picture.exists?
-      .picture= image_tag(resource.picture.url(:identity))
-    .big-infos
-      .med-info.important
-        - icon = resource.category.pictogram
-        %span.title= Matter.human_attribute_name(:variant)
+= main_informations attachment: true do
+  - if resource.picture.exists?
+    .picture= image_tag(resource.picture.url(:identity))
+  .big-infos
+    .med-info.important
+      - icon = resource.category.pictogram
+      %span.title= Matter.human_attribute_name(:variant)
+      %span.value
+        %i.picto{class: "picto-#{icon}"}
+        = link_to(resource.variant_name, controller: :product_nature_variants, action: :show, id: resource.variant_id)
+    - if resource.born_at and resource.age >= 1.day
+      .med-info
+        %span.title= Equipment.human_attribute_name(:age)
         %span.value
-          %i.picto{class: "picto-#{icon}"}
-          = link_to(resource.variant_name, controller: :product_nature_variants, action: :show, id: resource.variant_id)
-      - if resource.born_at and resource.age >= 1.day
-        .med-info
-          %span.title= Equipment.human_attribute_name(:age)
-          %span.value
-            %i.picto{class: "picto-clock-o"}
-            = human_age(resource.age, display: 2)
-      .med-info.important
-        %span.title= Equipment.human_attribute_name(:state)
-        %span.value= lights(resource.status)
-      - if duration
-        .med-info
-          %span.title= Equipment.human_attribute_name(:duration)
-          %span.value
-            %i.picto{class: "picto-timelapse"}
-            = :x_hours.tl(count: duration/3600)
-      - if resource.description
-        %span.title= Plant.human_attribute_name(:description)
-        %span.value= resource.description
-  - if resource.attachments.count > 1
-    - c.cobble :attachments, title: ProductNatureVariant.human_attribute_name(:attachments) do
-      = attachments_of(resource)
+          %i.picto{class: "picto-clock-o"}
+          = human_age(resource.age, display: 2)
+    .med-info.important
+      %span.title= Equipment.human_attribute_name(:state)
+      %span.value= lights(resource.status)
+    - if duration
+      .med-info
+        %span.title= Equipment.human_attribute_name(:duration)
+        %span.value
+          %i.picto{class: "picto-timelapse"}
+          = :x_hours.tl(count: duration/3600)
+    - if resource.description
+      %span.title= Plant.human_attribute_name(:description)
+      %span.value= resource.description
+
+= cobbles do |c|
 
   - count = 0
   - map = visualization do |v|

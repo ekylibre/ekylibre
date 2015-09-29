@@ -1,40 +1,37 @@
 - main_toolbar do |t|
   - t.edit resource
 
-= cobbles do |c|
-  - c.cobble :general_informations do
+= main_informations attachment: true do
+  .info
+    %span.title= ProductNatureVariant.human_attribute_name(:nature)
+    %span.value= link_to(resource.nature.name, controller: :product_natures, action: :show, id: resource.nature_id)
+  - resource.readings.each do |reading|
     .info
-      %span.title= ProductNatureVariant.human_attribute_name(:nature)
-      %span.value= link_to(resource.nature.name, controller: :product_natures, action: :show, id: resource.nature_id)
-    - for reading in resource.readings
-      .info
-        %span.title= reading.indicator.human_name
-        %span.value= reading.value.l
+      %span.title= reading.indicator.human_name
+      %span.value= reading.value.l
 
-    -# .info
-      %span.title= ProductNatureVariant.human_attribute_name(:net_mass)
-      %span.value= resource.products.map(&:net_mass).compact.sum
-    -# .info
-      %span.title= ProductNatureVariant.human_attribute_name(:net_volume)
-      %span.value= resource.products.map(&:net_volume).compact.sum
+  -# .info
+    %span.title= ProductNatureVariant.human_attribute_name(:net_mass)
+    %span.value= resource.products.map(&:net_mass).compact.sum
+  -# .info
+    %span.title= ProductNatureVariant.human_attribute_name(:net_volume)
+    %span.value= resource.products.map(&:net_volume).compact.sum
+  -# if resource.picture.exists?
+    = image_tag(resource.picture.url(:thumb))
 
-    = attributes_list(resource) do |l|
-      - l.attribute :name
-      - l.attribute :unit_name
-      - l.attribute :variety
-      - l.attribute :derivative_of
-      - if resource.picture.exists?
-        = image_tag(resource.picture.url(:thumb))
-      - l.custom_fields
+  = attributes_list(resource) do |l|
+    - l.attribute :name
+    - l.attribute :unit_name
+    - l.attribute :variety
+    - l.attribute :derivative_of
+    - l.custom_fields
 
+= cobbles do |c|
   - c.cobble(:products) do
     = cobble_list(:products)
 
   - c.cobble(:sale_items) do
     = cobble_list(:sale_items)
-
-  - c.cobble :attachments, title: ProductNatureVariant.human_attribute_name(:attachments) do
-    = attachments_of(resource)
 
   - if resource.products.any?
     - c.cobble(:stocks) do

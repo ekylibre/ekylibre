@@ -3,7 +3,7 @@
   - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if resource.destroyable?
   - t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name}, tool: 'new-issue')
 
-= main_informations do
+= main_informations attachment: true do
   .picture
     - if resource.picture.exists?
       = image_tag(resource.picture.url(:identity))

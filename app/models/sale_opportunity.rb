@@ -53,7 +53,7 @@
 #
 
 class SaleOpportunity < Affair
-  include Versionable, Commentable, Attachable
+  include Versionable, Commentable
   attr_readonly :currency
   refers_to :origin, class_name: 'OpportunityOrigin'
   belongs_to :client, class_name: 'Entity', foreign_key: :third_id
