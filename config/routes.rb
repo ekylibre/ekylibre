@@ -108,6 +108,7 @@ Rails.application.routes.draw do
     # resources :calculators, only: :index
 
     namespace :cells do
+      resource :accountancy_balance_cell, only: :show
       resource :cashes_balance_cell, only: :show
       resource :cashes_balance_evolution_cell, only: :show
       resource :calendar_cell, only: :show

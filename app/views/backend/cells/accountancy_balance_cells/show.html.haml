@@ -1,0 +1,34 @@
+- if @financial_year
+  -# operating_margin_on_turnover = ( operating_margin / turnover_value) * 100
+  - product_value = @financial_year.balance('70 71 72 73 74')
+  - charge_value = @financial_year.balance('60 61 62 63 64')
+  - turnover_value = @financial_year.balance('70 !707 !7086 !7087 !7088 !7097')
+  - operating_margin = ( product_value - charge_value )
+  - operating_margin_on_turnover = ( operating_margin / turnover_value) * 100
+  -# debts_on_assets = (debts / assets) * 100
+  - financial_debt = @financial_year.balance('1641 1642 1643 4553 4554 519 C512 C514 C517 5186 161 163 165 166 1675 168 17 426 C451 C456 C458')
+  - other_debt = @financial_year.balance('401 4031 4081 4088 402 4032 4082 C445 421 422 424 427 4282 4284 4286 431 437 4382 4386 442 C443 C444 446 447 4482 4486 457 C4551 C4552 269 279 404 405 4084 4196 4197 4198 4419 C452 C453 C454 C461 464 C467 4686 C478 509')
+  - advanced_product = @financial_year.balance('487')
+  - debts = financial_debt + other_debt + advanced_product
+  - asset = @financial_year.balance('109 2 !28 !29')
+  - stock = @financial_year.balance('3 !39')
+  - client = @financial_year.balance('4091 41 D445 D4551 D4552 4096 4097 4098 425 4287 4387 441 !4419 D443 D444 4487 D451 D452 D453 D454 D456 D458 D461 D462 465 D467 4687 D487 !49')
+  - portfolio_value = @financial_year.balance('502 503 504 505 506 507 508 !59')
+  - bank = @financial_year.balance('511 D512 D514 515 516 D517 5187 53 54')
+  - advance_charge = @financial_year.balance('486 481 476')
+  - assets = asset + stock + client + portfolio_value + bank + advance_charge
+  - debts_on_assets = (debts / assets) * 100
+  -# liquid_assets_on_turnover = (liquid_assets / turnover_value) * 100
+  - liquid_assets_on_turnover = (bank / turnover_value) * 100
+  .big-infos
+    .big-info{class: (operating_margin_on_turnover > 0 ? :positive : operating_margin_on_turnover < 0 ? :negative : :caution)}
+      %span.title= :operating_margin_on_turnover.tl
+      %span.value= operating_margin_on_turnover
+    .big-info{class: (debts_on_assets > 0 ? :positive : debts_on_assets < 0 ? :negative : :caution)}
+      %span.title= :debts_on_assets.tl
+      %span.value= debts_on_assets
+    .big-info{class: (liquid_assets_on_turnover > 0 ? :positive : liquid_assets_on_turnover < 0 ? :negative : :caution)}
+      %span.title= :liquid_assets_on_turnover.tl
+      %span.value= liquid_assets_on_turnover
+- else
+  = no_data
