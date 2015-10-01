@@ -16,6 +16,7 @@
 #     - "backend/beehives#update"
 #     - "backend/building_divisions#take"
 #     - "backend/buildings#take"
+#     - "backend/cells/accountancy_balance_cells#show"
 #     - "backend/cells/calendar_cells#show"
 #     - "backend/cells/cashes_balance_cells#show"
 #     - "backend/cells/cashes_balance_evolution_cells#show"

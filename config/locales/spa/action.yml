@@ -792,6 +792,7 @@ spa:
     dates: "Marcar las fechas de empezo y termino por los periodos"
     # deals: "Deals"
     debit: "Flujo"
+    # debts_on_assets: "Debts on assets"
     # decimal_options: "Decimal options"
     # decision_making: "Decision-making"
     # default_letter_conclusion: "Please accept, Dear Madam, Dear Sir, the assurances of my highest consideration."
@@ -1017,6 +1018,7 @@ spa:
     # line_number: "Line #%{number}"
     # linear_options: "Linear options"
     # link: "Link"
+    # liquid_assets_on_turnover: "Liquid assets on turnover"
     # list: "List"
     listing_create: "Craer una nueva extracción" #?
     listing_extract: "Ejecutar la extracción" #?
@@ -1130,6 +1132,7 @@ spa:
     # open_a_campaign: "Open a campaign"
     # open_a_production: "Open a production"
     # open_an_activity: "Open an activity"
+    # operating_margin_on_turnover: "Operating margin on turnover"
     # operations: "Operations"
     # options: "Options"
     # organic_matter_concentration: "Organic matter concentration"

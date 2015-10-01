@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add missing variant">
+  <item-creation item="accounts#exploitation_risk_insurance_expenses" fr_pcga="6166" />
+  <item-creation item="product_nature_categories#harvest_insurance" charge_account="exploitation_risk_insurance_expenses" purchasable="true" pictogram="umbrella" />
+  <item-creation item="product_natures#harvest_insurance" category="harvest_insurance" variety="service" population_counting="decimal" variable_indicators="population" />
+  <item-creation item="product_nature_variants#cereals_harvest_insurance" nature="harvest_insurance" />
+  <item-creation item="product_nature_variants#orchards_harvest_insurance" nature="harvest_insurance" />
+  <item-creation item="product_nature_variants#vines_harvest_insurance" nature="harvest_insurance" />
+</migration>

@@ -1015,6 +1015,7 @@ arb:
     dates: "ادخل تواريخ بداية ونهاية المدة"
     # deals: "Deals"
     debit: "الدين"
+    # debts_on_assets: "Debts on assets"
     decimal_case: "خيارات للكسر العشري" #?
     # decimal_options: "Decimal options"
     # decision_making: "Decision-making"
@@ -1289,6 +1290,7 @@ arb:
     line_stock: "مكان التخزين: %{building}, الكمية المتوفرة: %{virtual_q}" #?
     # linear_options: "Linear options"
     # link: "Link"
+    # liquid_assets_on_turnover: "Liquid assets on turnover"
     # list: "List"
     listing_create: "انشاء استخراج جديد" #?
     listing_extract: "قائمة الاستخراج" #?
@@ -1454,6 +1456,7 @@ arb:
     # open_a_campaign: "Open a campaign"
     # open_a_production: "Open a production"
     # open_an_activity: "Open an activity"
+    # operating_margin_on_turnover: "Operating margin on turnover"
     operation: "" #?
     operation_create: "اضافة عمل" #?
     operation_nature_create: "انشاء نوع عمل جديد" #?

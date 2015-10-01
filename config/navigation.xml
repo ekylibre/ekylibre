@@ -1823,6 +1823,10 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="accountancy_balance_cells">
+        <page to="backend/cells/accountancy_balance_cells#show"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

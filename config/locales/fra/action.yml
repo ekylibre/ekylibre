@@ -887,6 +887,7 @@ fra:
     dates: "Saisissez les dates de début et de fin de la période"
     deals: "Transactions"
     debit: "Débit"
+    debts_on_assets: "Taux d'endettement (Dettes / Actifs)"
     decimal_case: "Options pour un décimal" #?
     decimal_options: "Indicateur de type décimal"
     decision_making: "Décision"
@@ -1150,6 +1151,7 @@ fra:
     linear_options: "Options du linéaire"
     link: "Lien"
     lipolysis: "Lipolyse" #?
+    liquid_assets_on_turnover: "Taux de liquidités / CA (Disponibilités / Chiffre d'affaire HT)"
     list: "Liste"
     listing_extract: "Éxécuter l’extraction" #?
     listing_mail: "Envoyer un courriel" #?
@@ -1299,6 +1301,7 @@ fra:
     open_a_campaign: "Ouvrir une campagne de production"
     open_a_production: "Créer une production"
     open_an_activity: "Créer une activité"
+    operating_margin_on_turnover: "EBE / CA (Excédent Brut d'Exploitation / Chiffre d'affaire HT)"
     operation_items: "Intrants et sortants" #?
     operations: "Travaux"
     options: "Options"

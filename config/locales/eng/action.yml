@@ -109,6 +109,8 @@ eng:
       index: "Catalogs"
       new: "New catalog"
       show: "Catalog: %{name}"
+    backend/cells/accountancy_balance_cells:
+      # show: "Accountancy balance cell: %{name}"
     backend/cells/calendar_cells:
       # show: "Calendar cell: %{name}"
     backend/cells/cashes_balance_cells:
@@ -994,6 +996,7 @@ eng:
     dates: "Select period start date and Period end date" #?
     deals: "Deals"
     debit: "Debit" #?
+    debts_on_assets: "Debts on assets"
     decimal_options: "Decimal options"
     decision_making: "Decision-making"
     default_letter_conclusion: "Please accept, Dear Madam, Dear Sir, the assurances of my highest consideration."
@@ -1172,6 +1175,7 @@ eng:
     line_number: "Line #%{number}"
     linear_options: "Linear options"
     link: "Link"
+    liquid_assets_on_turnover: "Liquid assets on turnover"
     list: "List" #?
     load: "Load"
     locale: "Language"
@@ -1265,6 +1269,7 @@ eng:
     open_a_campaign: "Open a campaign"
     open_a_production: "Open a production"
     open_an_activity: "Open an activity"
+    operating_margin_on_turnover: "Operating margin on turnover"
     operations: "Operations" #?
     options: "Options"
     organic_matter_concentration: "Organic matter concentration" #?

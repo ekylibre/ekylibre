@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20150921175601">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151001154701">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -155,6 +155,7 @@
       <item name="exceptional_revenues" fr_pcga="77"/>
       <item name="expenses" fr_pcg82="6"/>
       <item name="exploitation_expenses_transfers" fr_pcga="791"/>
+      <item name="exploitation_risk_insurance_expenses" fr_pcga="6166"/>
       <item name="exploitation_subsidies" fr_pcga="7452"/>
       <item name="exploitation_subsidies_and_compensations" fr_pcga="74"/>
       <item name="external_expenses" fr_pcga="62"/>
@@ -2231,6 +2232,7 @@
       <item name="gas" charge_account="gas_expenses" purchasable="true" pictogram="bolt"/>
       <item name="grain" product_account="plant_derivatives_revenues" stock_account="plant_derivative_stock" charge_account="raw_material_expenses" purchasable="true" saleable="true" storable="true" pictogram="wheat"/>
       <item name="grass" product_account="plant_derivatives_revenues" stock_account="plant_derivative_stock" saleable="true" storable="true" pictogram="leaf"/>
+      <item name="harvest_insurance" charge_account="exploitation_risk_insurance_expenses" purchasable="true" pictogram="umbrella"/>
       <item name="honey" charge_account="raw_material_expenses" product_account="animal_derivatives_revenues" stock_account="animal_derivative_stock" purchasable="true" saleable="true" storable="true" pictogram="drop"/>
       <item name="infirmity_and_death_insurance" charge_account="infirmity_and_death_insurance_expenses" purchasable="true" pictogram="umbrella"/>
       <item name="installation" fixed_asset_account="general_installation_assets" fixed_asset_allocation_account="general_installation_asset_depreciations" fixed_asset_expenses_account="equipments_depreciations_inputations_expenses" depreciation_percentage="10.0" charge_account="equipment_expenses" product_account="sales_assets_revenues" purchasable="true" saleable="true" depreciable="true" pictogram="road"/>
@@ -2401,6 +2403,7 @@
       <item name="cattle_manure" nature="organic_fertilizer" variety="manure" derivative_of="bos" frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.54percent, potassium_concentration: 0.30percent, phosphorus_concentration: 0.11percent" unit_name="ton"/>
       <item name="cattle_slurry" nature="organic_fertilizer" variety="slurry" derivative_of="bos" frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.40percent" unit_name="cubic_meter"/>
       <item name="cereals_feed_bag_25" nature="animal_food" variety="mix" derivative_of="poaceae" frozen_indicators_values="net_mass: 25.00kilogram" unit_name="25kg_bag"/>
+      <item name="cereals_harvest_insurance" nature="harvest_insurance"/>
       <item name="chainsaw" nature="chainsaw" frozen_indicators_values="population: 1" unit_name="equipment"/>
       <item name="chandler_walnut" nature="walnut" derivative_of="juglans_regia_chandler" frozen_indicators_values="net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="chemical_fertilizer_division" nature="preparation_division" frozen_indicators_values="population: 1" unit_name="room"/>
@@ -2755,6 +2758,7 @@
       <item name="office_building" nature="building" frozen_indicators_values="population: 1" unit_name="building"/>
       <item name="office_building_division" nature="administrative_division" frozen_indicators_values="population: 1" unit_name="room"/>
       <item name="oilrape_grain" nature="grain" derivative_of="brassica_napus" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
+      <item name="orchards_harvest_insurance" nature="harvest_insurance"/>
       <item name="other_herbicide" nature="herbicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
       <item name="ovis_compost" nature="organic_fertilizer" variety="compost" derivative_of="ovis" frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 1.15percent" unit_name="ton"/>
       <item name="ovis_manure" nature="organic_fertilizer" variety="manure" derivative_of="ovis" frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.67percent" unit_name="ton"/>
@@ -2901,6 +2905,7 @@
       <item name="vine_grape_juice" nature="grape_juice" derivative_of="grape" frozen_indicators_values="net_mass: 100.00 kilogram, net_volume: 100.00liter" unit_name="hectoliter"/>
       <item name="vine_grape_must" nature="fermented_grape_juice" derivative_of="grape" frozen_indicators_values="net_mass: 100.00 kilogram, net_volume: 100.00liter" unit_name="hectoliter"/>
       <item name="vine_residu" nature="fruit_residu" variety="pomace" frozen_indicators_values="net_mass: 1.00kilogram, net_volume: 1.00liter" unit_name="kilogram"/>
+      <item name="vines_harvest_insurance" nature="harvest_insurance"/>
       <item name="walnut" nature="walnut" derivative_of="juglans_regia" frozen_indicators_values="net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="walnut_crop" nature="walnut_crop" variety="juglans" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="water_spreader" nature="water_spreader" frozen_indicators_values="population: 1" unit_name="equipment"/>
@@ -3041,6 +3046,7 @@
       <item name="grass" category="grass" variety="grass" derivative_of="plant" population_counting="decimal" abilities="feed(animal)" variable_indicators="population, dry_matter_rate" frozen_indicators="net_mass, net_volume"/>
       <item name="grinder" category="equipment" variety="plower" population_counting="unitary" abilities="grind(plant), grind(cultivable_zone)" variable_indicators="application_width, geolocation" frozen_indicators="population"/>
       <item name="hand_drawn" category="equipment" variety="equipment" population_counting="unitary" abilities="fill(bottle)" variable_indicators="nominal_storable_net_volume" frozen_indicators="population"/>
+      <item name="harvest_insurance" category="harvest_insurance" variety="service" population_counting="decimal" variable_indicators="population"/>
       <item name="hay_rake" category="equipment" variety="harvester" population_counting="unitary" abilities="rake(straw), rake(hay)" variable_indicators="application_width, geolocation" frozen_indicators="population"/>
       <item name="hazel_seedling" category="plant" variety="seedling" derivative_of="corylus" population_counting="integer" abilities="grow" variable_indicators="population"/>
       <item name="hazelnut" category="fruit" variety="hazelnut" derivative_of="corylus" population_counting="decimal" variable_indicators="population, water_content_rate, impurity_concentration" frozen_indicators="net_mass"/>
