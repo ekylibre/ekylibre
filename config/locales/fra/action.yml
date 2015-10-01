@@ -632,6 +632,7 @@ fra:
     account_value_current: "Brut" #?
     account_value_previous: "Brut N-1" #?
     accountancy: "Comptabilité"
+    accountancy_balance: "Soldes comptables" #?
     accounting_balance: "Balance comptable" #?
     accounts: "Comptes comptables"
     accounts_only_used_at: "Comptes utilisés seulement sur"
@@ -1301,6 +1302,7 @@ fra:
     open_a_campaign: "Ouvrir une campagne de production"
     open_a_production: "Créer une production"
     open_an_activity: "Créer une activité"
+    operating_margin: "EBE (Excédent Brut d'Exploitation)"
     operating_margin_on_turnover: "EBE / CA (Excédent Brut d'Exploitation / Chiffre d'affaire HT)"
     operation_items: "Intrants et sortants" #?
     operations: "Travaux"

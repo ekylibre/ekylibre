@@ -4,36 +4,40 @@
     product_value = @financial_year.sum_entry_items('70 71 72 73 74')
     charge_value = @financial_year.sum_entry_items('60 61 62 63 64')
     turnover_value = @financial_year.sum_entry_items('70 !707 !7086 !7087 !7088 !7097')
-    operating_margin = - ( product_value - charge_value ) if product_value && charge_value
-    operating_margin_on_turnover = ( operating_margin / turnover_value) * 100 if operating_margin && turnover_value && turnover_value != 0.0
+    operating_margin =  ( - product_value - charge_value ) if product_value && charge_value
+    operating_margin_on_turnover = ( operating_margin / - turnover_value) * 100 if operating_margin && turnover_value && turnover_value != 0.0
     # debts_on_assets = (debts / assets) * 100
-    financial_debt = @financial_year.sum_entry_items('1641 1642 1643 4553 4554 519 C512 C514 C517 5186 161 163 165 166 1675 168 17 426 C451 C456 C458')
-    other_debt = @financial_year.sum_entry_items('401 4031 4081 4088 402 4032 4082 C445 421 422 424 427 4282 4284 4286 431 437 4382 4386 442 C443 C444 446 447 4482 4486 457 C4551 C4552 269 279 404 405 4084 4196 4197 4198 4419 C452 C453 C454 C461 464 C467 4686 C478 509')
+    financial_debt = @financial_year.sum_entry_items('1641 1642 1643 4553 4554 519 512 C 514 C 517 C 5186 161 163 165 166 1675 168 17 426 451 C 456 C 458 C')
+    other_debt = @financial_year.sum_entry_items('401 4031 4081 4088 402 4032 4082 445 C 421 422 424 427 4282 4284 4286 431 437 4382 4386 442 443 C 444 C 446 447 4482 4486 457 4551 C 4552 C 269 279 404 405 4084 4196 4197 4198 4419 452 C 453 C 454 C 461 C 464 467 C 4686 478 C 509')
     advanced_product = @financial_year.sum_entry_items('487')
     debts = financial_debt + other_debt + advanced_product if financial_debt && other_debt && advanced_product
     asset = @financial_year.sum_entry_items('109 2 !28 !29')
     stock = @financial_year.sum_entry_items('3 !39')
-    client = @financial_year.sum_entry_items('4091 41 D445 D4551 D4552 4096 4097 4098 425 4287 4387 441 !4419 D443 D444 4487 D451 D452 D453 D454 D456 D458 D461 D462 465 D467 4687 D487 !49')
+    client = @financial_year.sum_entry_items('4091 41 445 D 4551 D 4552 D 4096 4097 4098 425 4287 4387 441 !4419 443 D 444 D 4487 451 D 452 D 453 D 454 D 456 D 458 D 461 D 462 D 465 467 D 4687 487 D !49')
     portfolio_value = @financial_year.sum_entry_items('502 503 504 505 506 507 508 !59')
-    bank = @financial_year.sum_entry_items('511 D512 D514 515 516 D517 5187 53 54')
+    bank = @financial_year.sum_entry_items('511 512 D 514 D 515 516 517 D 5187 53 54')
     advance_charge = @financial_year.sum_entry_items('486 481 476')
     assets = asset + stock + client + portfolio_value + bank + advance_charge if asset && stock && client && portfolio_value && bank && advance_charge
-    debts_on_assets = (debts / assets) * 100 if debts && assets && assets != 0.0
+    debts_on_assets = (- debts / assets) * 100 if debts && assets && assets != 0.0
     # liquid_assets_on_turnover = (liquid_assets / turnover_value) * 100
-    liquid_assets_on_turnover = (bank / turnover_value) * 100 if bank && turnover_value && turnover_value != 0.0
-    
+    liquid_assets_on_turnover = (-bank / turnover_value) * 100 if bank && turnover_value && turnover_value != 0.0
+
   .big-infos
     - if operating_margin
-      .big-info{class: (operating_margin > 0 ? :positive : operating_margin < 0 ? :negative : :caution)}
+      .big-info
         %span.title= :operating_margin.tl
-        %span.value= turnover_value
-    - if debts_on_assets
+        %span.value= operating_margin.l(currency: Preference[:currency])
+    - if operating_margin_on_turnover
+      .big-info{class: (operating_margin_on_turnover > 30 ? :positive : operating_margin_on_turnover < 10 ? :negative : :caution)}
+        %span.title= :operating_margin_on_turnover.tl
+        %span.value= operating_margin_on_turnover.round(2)
+    - if bank
       .big-info{class: (debts_on_assets > 0 ? :positive : debts_on_assets < 0 ? :negative : :caution)}
         %span.title= :debts_on_assets.tl
-        %span.value= debts_on_assets
+        %span.value= debts_on_assets.round(2)
     - if liquid_assets_on_turnover
       .big-info{class: (liquid_assets_on_turnover > 0 ? :positive : liquid_assets_on_turnover < 0 ? :negative : :caution)}
         %span.title= :liquid_assets_on_turnover.tl
-        %span.value= liquid_assets_on_turnover
+        %span.value= liquid_assets_on_turnover.round(2)
 - else
   = no_data
