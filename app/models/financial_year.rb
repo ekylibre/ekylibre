@@ -233,21 +233,28 @@ class FinancialYear < Ekylibre::Record::Base
     year
   end
 
+  # See Journal.sum_entry_items
+  def sum_entry_items(expression, options = {})
+    options[:started_on] = started_on
+    options[:stopped_on] = stopped_on
+    Journal.sum_entry_items(expression, options)
+  end
+
   # Computes the value of list of accounts in a String
-  # 123 will take.all accounts 123*
-  # ^456 will remove.all accounts 456*
+  # 123 will take all accounts 123*
+  # ^456 will remove all accounts 456*
   # 789X will compute the balance although result is negative
   def balance(accounts, credit = false)
     normals = ['(XD)']
     excepts = []
     negatives = []
     forceds = []
-    for prefix in accounts.strip.split(/\s*[\,\s]+\s*/)
+    accounts.strip.split(/\s*[\,\s]+\s*/).each do |prefix|
       code = prefix.gsub(/(^(\-|\^)|[CDX]+$)/, '')
-      excepts << code if prefix.match(/^\^\d+$/)
-      negatives << code if prefix.match(/^\-\d+/)
-      forceds << code if prefix.match(/^\-?\d+[CDX]$/)
-      normals << code if prefix.match(/^\-?\d+[CDX]?$/)
+      excepts << code if prefix =~ /^\^\d+$/
+      negatives << code if prefix =~ /^\-\d+/
+      forceds << code if prefix =~ /^\-?\d+[CDX]$/
+      normals << code if prefix =~ /^\-?\d+[CDX]?$/
     end
 
     balance = FinancialYear.balance_expr(credit)

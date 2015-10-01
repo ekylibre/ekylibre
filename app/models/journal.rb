@@ -237,6 +237,67 @@ class Journal < Ekylibre::Record::Base
     entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where(printed_on: started_on..stopped_on).calculate(operation, column)
   end
 
+  # Computes the value of list of accounts in a String
+  # Examples:
+  #   132 !13245 !1325 D, - 52 56, 975 C
+  #
+  # '!' exclude computation
+  # '+' does nothing. Permits to explicit direction
+  # '-' negates values
+  # Computation:
+  #   B: Balance (= Debit - Credit). Default computation.
+  #   C: Credit balance if positive
+  #   D: Debit balance if positive
+  def self.sum_entry_items(expression, options = {})
+    conn = ActiveRecord::Base.connection
+    journal_entry_items = 'jei'
+    journal_entries = 'je'
+    accounts = 'a'
+
+    journal_entries_states = ''
+    if options[:states]
+      journal_entries_states = ' AND ' + JournalEntry.state_condition(options[:states], journal_entries)
+    end
+
+    from_where = " FROM #{JournalEntryItem.table_name} AS #{journal_entry_items} JOIN #{Account.table_name} AS #{accounts} ON (account_id=#{accounts}.id) JOIN #{JournalEntry.table_name} AS #{journal_entries} ON (entry_id=#{journal_entries}.id)"
+    from_where << ' WHERE true'
+    if options[:started_on] || options[:stopped_on]
+      from_where << JournalEntry.period_condition(:interval, options[:started_on], options[:stopped_on], journal_entries)
+    end
+
+    values = expression.split(/\,/).collect do |expr|
+      words = expr.strip.split(/\s+/)
+      direction = 1
+      direction = -1 if words.shift == '-' if words.first =~ /^(\+|\-)$/
+      mode = words.last =~ /^[BCD]$/ ? words.delete_at(-1) : 'B'
+      accounts_range = {}
+      words.map do |word|
+        position = (word =~ /\!/ ? :exclude : :include)
+        strict = (word =~ /\@/)
+        word.gsub!(/^[\!\@]+/, '')
+        condition = "#{accounts}.number " + (strict ? "= '#{word}'" : "LIKE '#{word}%'")
+        accounts_range[position] ||= []
+        accounts_range[position] << condition
+      end.join
+      query = "SELECT SUM(#{journal_entry_items}.absolute_debit) AS debit, SUM(#{journal_entry_items}.absolute_credit) AS credit"
+      query << from_where
+      query << journal_entries_states
+      query << " AND (#{accounts_range[:include].join(' OR ')})" if accounts_range[:include]
+      query << " AND NOT (#{accounts_range[:exclude].join(' OR ')})" if accounts_range[:exclude]
+      row = conn.select_rows(query).first
+      debit =  row[0].blank? ? 0.0 : row[0].to_d
+      credit = row[1].blank? ? 0.0 : row[1].to_d
+      if mode == 'C'
+        direction * (credit > debit ? credit - debit : 0)
+      elsif mode == 'D'
+        direction * (debit > credit ? debit - credit : 0)
+      else
+        direction * (debit - credit)
+      end
+    end
+    values.sum
+  end
+
   # Compute a trial balance with many options
   # * :started_on Use journal entries printed on after started_on
   # * :stopped_on Use journal entries printed on before stopped_on
@@ -247,7 +308,7 @@ class Journal < Ekylibre::Record::Base
   # * :centralize Select account's prefixe which permits to centralize
   def self.trial_balance(options = {})
     conn = ActiveRecord::Base.connection
-    journal_entry_items = 'jel'
+    journal_entry_items = 'jei'
     journal_entries = 'je'
     accounts = 'a'
 

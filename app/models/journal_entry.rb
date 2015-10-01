@@ -124,29 +124,21 @@ class JournalEntry < Ekylibre::Record::Base
   end
 
   # Build a condition for filter journal entries on period
-  def self.period_condition(period, started_at, stopped_at, table_name = nil)
+  def self.period_condition(period, started_on, stopped_on, table_name = nil)
     table = table_name || self.table_name
     if period.to_s == 'all'
       return connection.quoted_true
     else
       conditions = []
-      started_at, stopped_at = period.to_s.split('_')[0..1] unless period == 'interval'
-      if (started_at = begin
-                         started_at.to_date
-                       rescue
-                         nil
-                       end)
-        conditions << "#{table}.printed_on >= #{connection.quote(started_at)}"
+      started_on, stopped_on = period.to_s.split('_')[0..1] unless period == 'interval'
+      if started_on.present? && (started_on.is_a?(Date) || started_on =~ /^\d\d\d\d\-\d\d\-\d\d$/)
+        conditions << "#{table}.printed_on >= #{connection.quote(started_on.to_date)}"
       end
-      if (stopped_at = begin
-                         stopped_at.to_date
-                       rescue
-                         nil
-                       end)
-        conditions << "#{table}.printed_on <= #{connection.quote(stopped_at)}"
+      if stopped_on.present? && (stopped_on.is_a?(Date) || stopped_on =~ /^\d\d\d\d\-\d\d\-\d\d$/)
+        conditions << "#{table}.printed_on <= #{connection.quote(stopped_on.to_date)}"
       end
       return connection.quoted_false if conditions.empty?
-      return '(' << conditions.join(' AND ') << ')'
+      return '(' + conditions.join(' AND ') + ')'
     end
   end
 
