@@ -262,7 +262,7 @@ class Journal < Ekylibre::Record::Base
     from_where = " FROM #{JournalEntryItem.table_name} AS #{journal_entry_items} JOIN #{Account.table_name} AS #{accounts} ON (account_id=#{accounts}.id) JOIN #{JournalEntry.table_name} AS #{journal_entries} ON (entry_id=#{journal_entries}.id)"
     from_where << ' WHERE true'
     if options[:started_on] || options[:stopped_on]
-      from_where << JournalEntry.period_condition(:interval, options[:started_on], options[:stopped_on], journal_entries)
+      from_where << ' AND ' + JournalEntry.period_condition(:interval, options[:started_on], options[:stopped_on], journal_entries)
     end
 
     values = expression.split(/\,/).collect do |expr|

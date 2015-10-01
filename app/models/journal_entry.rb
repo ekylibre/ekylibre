@@ -130,7 +130,7 @@ class JournalEntry < Ekylibre::Record::Base
       return connection.quoted_true
     else
       conditions = []
-      started_on, stopped_on = period.to_s.split('_')[0..1] unless period == 'interval'
+      started_on, stopped_on = period.to_s.split('_')[0..1] unless period.to_s == 'interval'
       if started_on.present? && (started_on.is_a?(Date) || started_on =~ /^\d\d\d\d\-\d\d\-\d\d$/)
         conditions << "#{table}.printed_on >= #{connection.quote(started_on.to_date)}"
       end
