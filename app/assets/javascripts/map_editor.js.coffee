@@ -102,7 +102,7 @@
       this.map = L.map(this.mapElement[0],
         maxZoom: 25
         zoomControl: false
-        attributionControl: false
+        attributionControl: true
       )
 
       widget = this

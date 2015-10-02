@@ -30,7 +30,7 @@
       @map = L.map(@mapElement[0],
         maxZoom: 25
         zoomControl: false
-        attributionControl: false
+        attributionControl: true
       )
 
       this._resize()

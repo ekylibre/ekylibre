@@ -18,7 +18,7 @@
           maxZoom: 25
           scrollWheelZoom: false
           zoomControl: false
-          attributionControl: false
+          attributionControl: true
         )
         mapElement.prop("map", map)
 

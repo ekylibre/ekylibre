@@ -136,7 +136,7 @@
         maxZoom: 25
         minZoom:2
         zoomControl: false
-        attributionControl: false
+        attributionControl: true
       view:
         center:[]
         zoom : 13
