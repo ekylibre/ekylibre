@@ -372,6 +372,8 @@ class ActionController::TestCase
           test_code << "assert_response :redirect, #{context}\n"
           test_code << "xhr :get, :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
           test_code << "assert_not_nil assigns(:#{record})\n"
+        elsif mode == :resource
+          # TODO Adds test for resource
         elsif mode == :unroll
           test_code << "xhr :get, :#{action}, #{sanitized_params[]}\n"
           test_code << "assert_response :success, #{context}\n"
@@ -453,6 +455,7 @@ class ActionController::TestCase
       /\#update\z/        => :update,
       /\#evolve\z/        => :evolve,
       /\#destroy\z/       => :destroy,
+      /\#attachments\z/   => :resource,
       /\#(decrement|duplicate|down|lock|toggle|unlock|up|increment|propose|confirm|refuse|invoice|abort|correct|finish|propose_and_invoice|sort|run|qualify|evaluate|quote|negociate|win|lose|reset|start|prospect)\z/ => :touch,
       /\#take\z/          => :take,
       /\#unroll\z/        => :unroll

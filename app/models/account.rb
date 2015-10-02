@@ -215,6 +215,10 @@ class Account < Ekylibre::Record::Base
       Preference[:accounting_system]
     end
 
+    def french_accounting_system?
+      %w(fr_pcg82 fr_pcga).include?(accounting_system)
+    end
+
     # Returns the name of the used accounting system
     # It takes the information in preferences
     def accounting_system=(name)
