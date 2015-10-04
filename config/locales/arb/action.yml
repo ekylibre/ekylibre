@@ -783,6 +783,7 @@ arb:
     account_value_current: "القيمة الحالية" #?
     account_value_previous: "القيمة السابقة" #?
     accountancy: "المحاسبة"
+    # accountancy_balance: "Accountancy balance"
     accounts: "حسابات المحاسب المستخدمة"
     # accounts_only_used_at: "Accounts only used at"
     # accounts_to_load: "Accounts to load"

@@ -524,6 +524,7 @@ por:
     # access: "Access"
     # access_parameters: "Access parameters"
     accountancy: "Contabilidade"
+    # accountancy_balance: "Accountancy balance"
     # accounts: "Accounts"
     # accounts_only_used_at: "Accounts only used at"
     # accounts_to_load: "Accounts to load"
