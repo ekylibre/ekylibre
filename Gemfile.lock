@@ -147,7 +147,7 @@ GEM
       thor (~> 0.19.1)
     daemons (1.2.3)
     database_cleaner (1.5.0)
-    dbf (2.0.11)
+    dbf (2.0.12)
       fastercsv (~> 1.5)
     debug_inspector (0.0.2)
     devise (3.5.2)
