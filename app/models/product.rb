@@ -198,6 +198,9 @@ class Product < Ekylibre::Record::Base
   scope :supports_of_campaign, lambda { |campaign|
     joins(:supports).merge(ProductionSupport.of_campaign(campaign))
   }
+  scope :intersect_with, lambda { |shape|
+    where(id: ProductReading.where("ST_Overlaps(geometry_value, ST_GeomFromEWKT(?))", shape.to_ewkt).pluck(:product_id))
+  }
 
   # scope :saleables, -> { joins(:nature).where(:active => true, :product_natures => {:saleable => true}) }
   scope :saleables, -> { joins(:nature).merge(ProductNature.saleables) }
@@ -205,7 +208,7 @@ class Product < Ekylibre::Record::Base
   scope :production_supports, -> { where(variety: ['cultivable_zone']) }
   scope :supportables, -> { of_variety([:cultivable_zone, :animal_group, :equipment]) }
   scope :supporters, -> { where(id: ProductionSupport.pluck(:storage_id)) }
-  scope :availables, -> { where(dead_at: nil).not_indicate(population: 0) }
+  scope :availables, -> { not_indicate(population: 0).where(dead_at: nil) }
   scope :tools, -> { of_variety(:equipment) }
   scope :storage, -> { joins(:nature).merge(ProductNature.storage) }
 
