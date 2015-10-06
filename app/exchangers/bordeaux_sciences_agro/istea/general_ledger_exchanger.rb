@@ -1,4 +1,47 @@
 class BordeauxSciencesAgro::ISTEA::GeneralLedgerExchanger < ActiveExchanger::Base
+  
+  def check
+    rows = CSV.read(file, encoding: 'CP1252', col_sep: ';')
+    valid = true
+    w.count = rows.size
+    rows.sort! { |a, b| a[13] + a[3] << (a[4] || empty) <=> b[13] + b[3] << (b[4] || empty) }
+    count = 0
+    entry = nil
+    old = nil
+    used_numbers = {}
+    accounts = {}
+    journals = {}
+    entities = {}
+    rows.each_with_index do |row, index|
+      line_number = index + 2
+      prompt = "L#{line_number.to_s.yellow}"
+      entry_number = row[4].to_s
+      entry_number.gsub!(/[^0-9a-z]/i, '')
+      if row[1].to_s
+        unless j = Journal.find_by(code: row[1].to_s)
+          w.info "Journal #{row[1].to_s} will be created in EUR"
+        end
+      end
+      r = {
+        account: accounts[row[0]],
+        journal: journals[row[1]],
+        page_number: row[2], # What's that ?
+        printed_on: Date.parse(row[3]),
+        entry_number: entry_number,
+        entity_name: row[5],
+        entry_name: row[6],
+        debit: row[7].to_d,
+        credit: row[8].to_d,
+        vat: row[9],
+        comment: row[10],
+        letter: row[11],
+        what_on: row[12],
+        financial_year_code: row[13]
+      }.to_struct
+    end
+    valid
+  end
+  
   def import
     empty = ''.freeze
     rows = CSV.read(file, encoding: 'CP1252', col_sep: ';')
@@ -20,7 +63,7 @@ class BordeauxSciencesAgro::ISTEA::GeneralLedgerExchanger < ActiveExchanger::Bas
       entry_number = row[4].to_s
       entry_number.gsub!(/[^0-9a-z]/i, '')
       accounts[row[0]] ||= Account.get(row[0])
-      journals[row[1]] ||= Journal.find_by(code: row[1]) || Journal.create!(name: "Journal #{row[1]}", code: row[1], currency: 'EUR')
+      journals[row[1].to_s] ||= Journal.create_with(name: "Journal #{row[1].to_s}", currency: 'EUR').find_or_create_by!(code: row[1].to_s )
       r = {
         account: accounts[row[0]],
         journal: journals[row[1]],
