@@ -21,7 +21,7 @@ module ActiveGuide
       unless env.results.empty?
         report[:results] = []
         env.results.each do |result|
-          report[:results] << { item: result, value: env.variables.send(result.name) }
+          report[:results] << { item: result.name, value: env.variables.send(result.name) }
         end
       end
       # Adds end time
@@ -74,7 +74,7 @@ module ActiveGuide
           else
             report[:failed] += 1
           end
-          report[:points] << { item: test, success: r }
+          report[:points] << { item: test.name, success: r }
           log_result(env, test.name, r, depth)
         else
           failed = 0
@@ -83,14 +83,14 @@ module ActiveGuide
             r = analyze_test(subtest, env, depth + 1)
             rr = r[:failed]
             failed += 1 if rr > 0
-            subtests << { item: test, success: rr }
+            subtests << { item: test.name, success: rr }
           end
           if r = failed.zero?
             report[:passed] += 1
           else
             report[:failed] += 1
           end
-          report[:points] << { item: test, success: r, subtests: subtests }
+          report[:points] << { item: test.name, success: r, subtests: subtests }
           log_result(env, test.name, r, depth)
         end
       end
@@ -100,12 +100,12 @@ module ActiveGuide
     def analyze_question(question, env, depth)
       report = { failed: 0, passed: 0, points: [] }
       call_callbacks(question, env) do
-        if r = rand > 0.5
+        if (r = rand > 0.5)
           report[:passed] += 1
         else
           report[:failed] += 1
         end
-        report[:points] << { item: question, success: r }
+        report[:points] << { item: question.name, success: r }
         log_result(env, "#{question.name.to_s.humanize} ?", r, depth)
       end
       report
