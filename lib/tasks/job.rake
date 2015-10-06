@@ -1,7 +1,6 @@
 require 'sidekiq/api'
 
 namespace :job do
-
   task :clear do
     Sidekiq::Queue.all.each do |queue|
       puts "Clear #{queue.name}"
