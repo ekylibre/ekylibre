@@ -135,7 +135,7 @@ class InterventionCast < Ekylibre::Record::Base
   end
 
   def duration
-    ((stopped_at - started_at).in(:seconds))
+    ((stopped_at - started_at).in(:second))
   end
 
   def earn
