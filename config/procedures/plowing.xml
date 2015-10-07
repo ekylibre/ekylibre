@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="plowing" natures="plowing" version="0">
+  <procedure name="plowing" natures="plowing" version="0" duration="land_parcel.net_surface_area(hectare) * 1.02">
     <variables>
       <variable name="driver" abilities="drive(tractor)" roles="plowing-doer"/>
       <variable name="tractor" abilities="tow(equipment)" roles="plowing-tool"/>

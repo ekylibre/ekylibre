@@ -1,5 +1,4 @@
 class BordeauxSciencesAgro::ISTEA::GeneralLedgerExchanger < ActiveExchanger::Base
-  
   def check
     blank_string = ''.freeze
     rows = CSV.read(file, encoding: 'CP1252', col_sep: ';')
@@ -20,7 +19,7 @@ class BordeauxSciencesAgro::ISTEA::GeneralLedgerExchanger < ActiveExchanger::Bas
       entry_number.gsub!(/[^0-9a-z]/i, '')
       if row[1].to_s
         unless j = Journal.find_by(code: row[1].to_s)
-          w.info "Journal #{row[1].to_s} will be created in EUR"
+          w.info "Journal #{row[1]} will be created in EUR"
         end
       end
       r = {
@@ -43,7 +42,7 @@ class BordeauxSciencesAgro::ISTEA::GeneralLedgerExchanger < ActiveExchanger::Bas
     end
     valid
   end
-  
+
   def import
     blank_string = ''.freeze
     rows = CSV.read(file, encoding: 'CP1252', col_sep: ';')
@@ -65,7 +64,7 @@ class BordeauxSciencesAgro::ISTEA::GeneralLedgerExchanger < ActiveExchanger::Bas
       entry_number = row[4].to_s
       entry_number.gsub!(/[^0-9a-z]/i, '')
       accounts[row[0]] ||= Account.get(row[0])
-      journals[row[1].to_s] ||= Journal.create_with(name: "Journal #{row[1].to_s}", currency: 'EUR').find_or_create_by!(code: row[1].to_s )
+      journals[row[1].to_s] ||= Journal.create_with(name: "Journal #{row[1]}", currency: 'EUR').find_or_create_by!(code: row[1].to_s)
       r = {
         account: accounts[row[0]],
         journal: journals[row[1]],

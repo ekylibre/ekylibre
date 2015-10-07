@@ -1,5 +1,4 @@
 class Ekylibre::IncomingPaymentsExchanger < ActiveExchanger::Base
-  
   def check
     rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
     valid = true
@@ -68,14 +67,12 @@ class Ekylibre::IncomingPaymentsExchanger < ActiveExchanger::Base
     end
     valid
   end
-  
-  
-  
+
   def import
     rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
     w.count = rows.size
     now = Time.zone.now
-      
+
     # find an responsible
     responsible = User.employees.first
 
@@ -99,7 +96,7 @@ class Ekylibre::IncomingPaymentsExchanger < ActiveExchanger::Base
       elsif r.invoiced_at
         paid_at = r.invoiced_at
       end
-      
+
       # find an incoming payment mode
       unless payment_mode = IncomingPaymentMode.where(name: r.incoming_payment_mode_name).first
         fail ActiveExchanger::InvalidDataError, "Cannot find incoming payment mode #{r.incoming_payment_mode_name} at line #{line_index}"

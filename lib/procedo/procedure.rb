@@ -5,7 +5,7 @@ module Procedo
 
   # This class represents a procedure
   class Procedure
-    attr_reader :id, :short_name, :namespace, :operations, :natures, :parent, :position, :variables, :variable_names, :version
+    attr_reader :id, :short_name, :namespace, :operations, :natures, :parent, :position, :variables, :variable_names, :version, :duration_tree
 
     def initialize(element, options = {})
       short_name = element.attr('name').to_s.split(NAMESPACE_SEPARATOR)
@@ -32,9 +32,19 @@ module Procedo
       # Collect procedure natures
       @natures = element.attr('natures').to_s.strip.split(/[\s\,]+/).compact.map(&:to_sym)
 
+      # Collect procedure natures
+      if element.has_attribute?('duration')
+        duration = element.attr('duration').to_s
+        begin
+          @duration_tree = HandlerMethod.parse(duration.to_s, root: 'expression')
+        rescue SyntaxError => e
+          raise SyntaxError, "A procedure (#{@duration.inspect}) #{@name} has a syntax error on duration: #{e.message}"
+        end
+      end
+
       # Check roles with procedure natures
       roles = []
-      for nature in @natures
+      @natures.each do |nature|
         unless item = Nomen::ProcedureNature[nature]
           fail Procedo::Errors::UnknownProcedureNature, "Procedure nature #{nature} is unknown for #{name}."
         end
@@ -45,7 +55,7 @@ module Procedo
 
       # Load variable_names
       @variable_names = []
-      for item in element.xpath('xmlns:variables/xmlns:variable')
+      element.xpath('xmlns:variables/xmlns:variable').each do |item|
         @variable_names << item.attr('name').to_sym
       end
 
@@ -55,7 +65,7 @@ module Procedo
       @variables = element.xpath('xmlns:variables/xmlns:variable').inject(HashWithIndifferentAccess.new) do |hash, variable|
         v = Variable.new(self, variable, position)
         position += 1
-        for role in v.roles
+        v.roles.each do |role|
           if roles.include?(role)
             given_roles << role
           else
@@ -73,7 +83,7 @@ module Procedo
       end
 
       # Check producers
-      for variable in new_variables
+      new_variables.each do |variable|
         unless variable.producer.is_a?(Variable)
           fail Procedo::Errors::UnknownAspect, "Unknown variable producer for #{variable.name}"
         end
@@ -106,6 +116,10 @@ module Procedo
 
     def of_activity_family?(*families)
       (activity_families & families).any?
+    end
+
+    def can_compute_duration?
+      @duration_tree.present?
     end
 
     # Returns activity families of the procedure
@@ -200,7 +214,24 @@ module Procedo
       full_name = ['::Procedo', 'CompiledProcedures', namespace.to_s.camelcase, short_name.to_s.camelcase, "V#{version}"]
       code = "class #{full_name.last} < ::Procedo::CompiledProcedure\n\n"
 
-      for variable in @variables.values
+      # Convenience method to use procedure method like in compiled variable
+      # Should be properly removed one day...
+      code << "  def procedure\n"
+      code << "    self\n"
+      code << "  end\n\n"
+
+      # Adds impact_stopped_at! method to permit to compute duration
+      if self.can_compute_duration?
+        rubyist.compile(duration_tree)
+        code << "  def impact_stopped_at!\n"
+        code << "    duration = 3600 * (#{rubyist.compiled})\n"
+        code << "    if @__started_at__ && duration\n"
+        code << "      @__stopped_at__ = @__started_at__ + duration\n"
+        code << "    end\n"
+        code << "  end\n\n"
+      end
+
+      @variables.values.each do |variable|
         code << "  class #{variable.name.to_s.camelcase} < ::Procedo::CompiledVariable\n\n"
 
         code << "    def initialize(procedure, attributes = {})\n"
@@ -210,10 +241,10 @@ module Procedo
         else
           code << "      @actor = (attributes[:actor].blank? ? nil : Product.find(attributes[:actor]))\n"
         end
-        for destination in variable.destinations
+        variable.destinations.each do |destination|
           code << "      @destinations[:#{destination}] = " + cast_expr("attributes[:destinations][:#{destination}]", Nomen::Indicator[destination].datatype) + "\n"
         end
-        for handler in variable.handlers
+        variable.handlers.each do |handler|
           code << "      if attributes[:handlers][:#{handler.name}].is_a? Hash\n"
           code << "        @handlers[:#{handler.name}] = " + cast_expr("attributes[:handlers][:#{handler.name}][:value]", handler.indicator.datatype) + "\n"
           code << "      end\n"
@@ -263,10 +294,10 @@ module Procedo
         rubyist.self_value = 'self'
 
         # Destinations
-        for destination in variable.destinations
+        variable.destinations.each do |destination|
           code << "    def impact_destination_#{destination}!\n"
           # Updates handlers through backward formula
-          for converter in variable.backward_converters_from(destination)
+          variable.backward_converters_from(destination).each do |converter|
             rubyist.value = "@destinations[:#{destination}]"
             rubyist.compile(converter.backward_tree)
             code << "      begin\n"
@@ -280,8 +311,8 @@ module Procedo
             code << "      end\n"
           end
           # Impacts on handlers of other variables that uses "our" destination
-          for other in variable.others
-            for handler in other.handlers
+          variable.others.each do |other|
+            other.handlers.each do |handler|
               if handler.forward_depend_on?(variable.name)
                 code << "      # Updates #{handler.name} of #{other.name} if possible\n"
                 code << "      procedure.#{other.name}.impact_handler_#{handler.name}!\n"
@@ -289,11 +320,16 @@ module Procedo
             end
           end
 
+          if self.can_compute_duration?
+            code << "      # Update stopped_at if possible\n"
+            code << "      procedure.impact_stopped_at!\n"
+          end
+
           code << "    end\n\n"
         end
 
         # Handlers
-        for h in variable.handlers
+        variable.handlers.each do |h|
           rubyist.value = "@handlers[:#{h.name}]"
           # Method to check is handler is usable
           code << "    def can_use_#{h.name}?\n"
@@ -312,7 +348,7 @@ module Procedo
           if h.check_usability?
             code << "      return unless can_use_#{h.name}?\n"
           end
-          for converter in h.forward_converters
+          h.forward_converters.each do |converter|
             rubyist.compile(converter.forward_tree)
             code << "      begin\n"
             code << "        value = #{rubyist.compiled}\n"
@@ -335,7 +371,7 @@ module Procedo
           code << "      if #{variant_test}\n"
 
           # Set variants of "parted-from variables"
-          for other in variable.others
+          variable.others.each do |other|
             if other.parted? && other.producer == variable
               code << "        # Updates variant of #{other.name} if possible\n"
               code << "        if procedure.#{other.name}.variant != #{variant}\n"
@@ -348,9 +384,9 @@ module Procedo
         end
 
         # Sets default destinations
-        for other in variable.others
+        variable.others.each do |other|
           ref = other.name
-          for destination in other.destinations
+          other.destinations.each do |destination|
             if other.default(destination) =~ /\A\:\s*#{variable.name}\s*\z/
               code << "      # Updates default #{destination} of #{ref} if possible\n"
               dest = "procedure.#{ref}.destinations[:#{destination}]"
@@ -375,7 +411,7 @@ module Procedo
         end
 
         unless variable.new?
-          for destination in variable.destinations
+          variable.destinations.each do |destination|
             dest = "@destinations[:#{destination}]"
             code << "        begin\n"
             code << "          #{dest} = self.get(:#{destination}, at: now)\n"
@@ -390,25 +426,25 @@ module Procedo
         end
 
         # Refresh depending handlers
-        for handler in variable.handlers
+        variable.handlers.each do |handler|
           if handler.forward_depend_on?(:self)
             code << "      # Updates #{handler.name} of self if possible\n"
             code << "      impact_handler_#{handler.name}!\n"
           elsif handler.backward_depend_on?(:self)
-            for converter in handler.converters.select { |c| c.backward_depend_on?(:self) }
+            handler.converters.select { |c| c.backward_depend_on?(:self) }.each do |converter|
               code << "      # Updates #{converter.destination} of self if possible\n"
               code << "      impact_destination_#{converter.destination}!\n"
             end
           end
         end
 
-        for other in variable.others
-          for handler in other.handlers
+        variable.others.each do |other|
+          other.handlers.each do |handler|
             if handler.forward_depend_on?(variable.name)
               code << "      # Updates #{handler.name} of #{other.name} if possible\n"
               code << "      procedure.#{other.name}.impact_handler_#{handler.name}!\n"
             elsif handler.backward_depend_on?(variable.name)
-              for converter in handler.converters.select { |c| c.backward_depend_on?(variable.name) }
+              handler.converters.select { |c| c.backward_depend_on?(variable.name) }.each do |converter|
                 code << "      # Updates #{converter.destination} of self if possible\n"
                 code << "      impact_destination_#{converter.destination}!\n"
               end
@@ -425,18 +461,18 @@ module Procedo
 
       code << "  def initialize(casting, global, updater)\n"
       max = @variables.keys.map(&:size).max
-      for variable in @variables.keys
+      @variables.keys.each do |variable|
         code << "    @#{variable.ljust(max)} = #{variable.camelcase}.new(self, casting[:#{variable}])\n"
       end
       code << "    @__support__ = ProductionSupport.find_by(id: global[:support])\n"
-      code << "    @__now__     = global[:at].blank? ? Time.zone.now : global[:at].to_time\n"
+      code << "    @__started_at__ = global[:at].blank? ? Time.zone.now : global[:at].to_time\n"
       code << "    @__updater__ = updater.split(':').map(&:to_sym)\n"
       code << "  end\n\n"
 
       code << "  def impact!\n"
       code << "    if @__updater__.first == :global\n"
       code << "      if @__updater__.second == :support\n"
-      for variable in variables.values
+      variables.values.each do |variable|
         if variable.new?
           if variable.default_variant == :production
             code << "        #{variable.name}.variant = @__support__.production_variant\n"
@@ -472,8 +508,8 @@ module Procedo
       # TODO: replace this in a cleaner way with a global updater like "global:start"
       code << "      elsif @__updater__.second == :at\n"
       # What to do ? Check existence and destinations of products at this moment ?
-      for variable in variables.values
-        for destination in variable.destinations
+      variables.values.each do |variable|
+        variable.destinations.each do |destination|
           code << "        #{variable.name}.impact_destination_#{destination}!\n"
         end
       end
@@ -502,9 +538,9 @@ module Procedo
       code << "      end\n"
       code << "    elsif @__updater__.first == :initial\n"
       # Refresh all handlers from all destinations
-      for variable in variables.values
+      variables.values.each do |variable|
         if variable.handlers.any?
-          for destination in variable.destinations
+          variable.destinations.each do |destination|
             code << "      #{variable.name}.impact_destination_#{destination}!\n"
           end
         end
@@ -515,7 +551,11 @@ module Procedo
       code << "  end\n\n"
 
       code << "  def casting\n"
-      code << '    { ' + @variables.values.collect do |variable|
+      code << "    {\n"
+      code << "      started_at: @__started_at__,\n"
+      code << "      stopped_at: @__stopped_at__,\n"
+      code << "      casting: {\n"
+      code << @variables.values.collect do |variable|
         vcode = "#{variable.name}: "
         if variable.new?
           vcode << "{variant: @#{variable.name}.variant_id"
@@ -553,13 +593,14 @@ module Procedo
         end
         vcode << '}'
         vcode
-      end.join(",\n").dig(3).strip + "\n"
+      end.join(",\n").strip.dig(4)
+      code << "      }\n"
       code << "    }\n"
       code << "  end\n\n"
 
       code << "end\n"
 
-      for mod in full_name[0..-2].reverse
+      full_name[0..-2].reverse_each do |mod|
         code = "module #{mod}\n" + code.dig + 'end'
       end
 

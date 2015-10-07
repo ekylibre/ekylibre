@@ -24,7 +24,7 @@ class Ekylibre::SalesExchanger < ActiveExchanger::Base
       if r.client_full_name
         entity = Entity.where('full_name ILIKE ?', r.client_full_name).first
       end
-      
+
       # find or import a variant
       if r.variant_code
         variant = ProductNatureVariant.where(name: r.variant_code).first || ProductNatureVariant.where(number: r.variant_code).first
@@ -45,7 +45,7 @@ class Ekylibre::SalesExchanger < ActiveExchanger::Base
                               nature: SaleNature.actives.first,
                               description: r.description
                              )
-        sale_ids << sale.id
+          sale_ids << sale.id
         end
       end
 

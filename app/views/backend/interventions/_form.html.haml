@@ -11,8 +11,15 @@
     = f.input :recommended, show: :prescriptions
     = f.input :provisional
     -#= f.referenced_association :production
-    = f.input :started_at, input_html: {data: {procedure: procedure.name, procedure_global: "at", intervention_updater: "global:at"}}
-    = f.input :stopped_at
+    - started_at_as = nil
+    - if Intervention.force_started_at? && procedure.can_compute_duration?
+      - f.object.started_at ||= Time.zone.now
+      - started_at_as = :hidden
+    = f.input :started_at, input_html: {data: {procedure: procedure.name, procedure_global: "at", intervention_updater: "global:at"}}, as: started_at_as
+    - stopped_at_as = nil
+    - if Intervention.force_stopped_at? && procedure.can_compute_duration?
+      - stopped_at_as = :hidden
+    = f.input :stopped_at, input_html: {data: {procedure: procedure.name, procedure_global: "stopped_at", intervention_updater: "global:stopped_at"}}, as: stopped_at_as
     = f.input :description
     = f.custom_fields
 

@@ -49,7 +49,17 @@
 
       casting
 
-    unserialize: (procedure, casting, updater) ->
+    unserialize: (procedure, data, updater) ->
+      casting = data.casting
+      if data.stopped_at
+        $("*[data-procedure='#{procedure}'][data-procedure-global='stopped_at']").each (index) ->
+          element = $(this)
+          element.val(data.stopped_at)
+      if data.started_at
+        $("*[data-procedure='#{procedure}'][data-procedure-global='at']").each (index) ->
+          element = $(this)
+          element.val(data.started_at)
+
       # console.log("Unserialize data")
       for variable, attributes of casting
         if attributes.actor?

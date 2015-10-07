@@ -86,6 +86,8 @@ class Preference < Ekylibre::Record::Base
   prefer :currency, :currency, Nomen::Currency.default
   # prefer :map_measure_srid, :integer, 0
   prefer :map_measure_srs, :spatial_reference_system, Nomen::SpatialReferenceSystem.default
+  prefer :force_intervention_started_at, :boolean, false
+  prefer :force_intervention_stopped_at, :boolean, false
 
   before_validation do
     self.record_value_type = record_value.class.base_class.name if self.record?

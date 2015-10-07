@@ -53,7 +53,7 @@ class Campaign < Ekylibre::Record::Base
 
   acts_as_numbered :number, readonly: false
   scope :currents, -> { where(closed: false).reorder(:harvest_year) }
-  
+
   scope :at, lambda { |searched_at = Time.zone.now|
     where(harvest_year: searched_at.year)
   }
@@ -70,7 +70,7 @@ class Campaign < Ekylibre::Record::Base
   def shape_area
     productions.map(&:shape_area).sum
   end
-  
+
   def previous
     self.class.where('harvest_year < ?', harvest_year)
   end
@@ -88,5 +88,4 @@ class Campaign < Ekylibre::Record::Base
   def opened?
     !closed
   end
-  
 end

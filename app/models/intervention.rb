@@ -323,6 +323,14 @@ class Intervention < Ekylibre::Record::Base
   end
 
   class << self
+    def force_started_at?
+      Preference[:force_intervention_started_at]
+    end
+
+    def force_stopped_at?
+      Preference[:force_intervention_stopped_at]
+    end
+
     def run!(attributes, period, &_block)
       intervention = create!(attributes)
       yield intervention
