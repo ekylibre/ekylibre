@@ -1,10 +1,11 @@
 class BordeauxSciencesAgro::ISTEA::GeneralLedgerExchanger < ActiveExchanger::Base
   
   def check
+    blank_string = ''.freeze
     rows = CSV.read(file, encoding: 'CP1252', col_sep: ';')
     valid = true
     w.count = rows.size
-    rows.sort! { |a, b| a[13] + a[3] << (a[4] || empty) <=> b[13] + b[3] << (b[4] || empty) }
+    rows.sort! { |a, b| a[13].to_s + a[3].to_s + (a[4] || blank_string) <=> b[13].to_s + b[3].to_s + (b[4] || blank_string) }
     count = 0
     entry = nil
     old = nil
@@ -38,19 +39,20 @@ class BordeauxSciencesAgro::ISTEA::GeneralLedgerExchanger < ActiveExchanger::Bas
         what_on: row[12],
         financial_year_code: row[13]
       }.to_struct
+      # w.check_point
     end
     valid
   end
   
   def import
-    empty = ''.freeze
+    blank_string = ''.freeze
     rows = CSV.read(file, encoding: 'CP1252', col_sep: ';')
     rows.collect! do |row|
       row << FinancialYear.at(Date.parse(row[3])).code
     end
     w.count = rows.size
     w_count = (rows.size > 100 ? rows.size / 100 : 100)
-    rows.sort! { |a, b| a[13] + a[3] << (a[4] || empty) <=> b[13] + b[3] << (b[4] || empty) }
+    rows.sort! { |a, b| a[13].to_s + a[3].to_s + (a[4] || blank_string) <=> b[13].to_s + b[3].to_s + (b[4] || blank_string) }
 
     count = 0
     entry = nil
