@@ -76,7 +76,8 @@ class ProductionSupport < Ekylibre::Record::Base
     joins(:production).merge(Production.of_cultivation_varieties(*varieties))
   }
 
-  scope :of_currents_campaigns, -> { joins(:production).merge(Production.of_currents_campaigns) }
+  scope :of_current_campaigns, -> { joins(:production).merge(Production.of_currents_campaigns) }
+  scope :of_currents_campaigns, -> { of_current_campaigns }
 
   scope :of_activities, lambda { |*activities|
     activities.flatten!
