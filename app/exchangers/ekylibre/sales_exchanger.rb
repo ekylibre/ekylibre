@@ -2,53 +2,50 @@ class Ekylibre::SalesExchanger < ActiveExchanger::Base
   def import
     rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
     w.count = rows.size
+    sale_ids = []
 
     rows.each do |row|
       r = {
-        document_reference_number: (row[0].blank? ? nil : row[0].to_s),
-        variant_nomen: (row[1].blank? ? nil : row[1].to_sym),
-        quantity: (row[2].blank? ? nil : row[2].tr(',', '.').to_d),
-        unit_pretax_amount: (row[3].blank? ? nil : row[3].tr(',', '.').to_d),
-        vat_rate: (row[4].blank? ? nil : row[4].tr(',', '.').to_d),
-        description: (row[5].blank? ? '' : row[5].to_s)
+        invoiced_at:        (row[0].blank? ? nil : Date.parse(row[0].to_s)),
+        client_full_name: (row[1].blank? ? nil : row[1]),
+        reference_number:   (row[2].blank? ? nil : row[2].upcase),
+        variant_code: (row[3].blank? ? nil : row[3]),
+        quantity: (row[4].blank? ? nil : row[4].tr(',', '.').to_d),
+        unit_pretax_amount: (row[5].blank? ? nil : row[5].tr(',', '.').to_d),
+        vat_rate: (row[6].blank? ? nil : row[6].tr(',', '.').to_d),
+        description: (row[7].blank? ? '' : row[7].to_s),
+        # Extra infos
+        document_reference_number: "#{Date.parse(row[0].to_s)}_#{row[1]}_#{row[2]}".tr(' ', '-')
       }.to_struct
-
-      # get information from document_reference_number
-      # first part = sale_invoiced_at
-      # second part = entity_full_name (replace - by space)
-      # third part = sale_reference_number
-      if r.document_reference_number
-        arr = r.document_reference_number.strip.downcase.split('_')
-        sale_invoiced_at = arr[0].to_datetime
-        entity_full_name = arr[1].to_s.tr('-', ' ')
-        sale_reference_number = arr[2].to_s.upcase
-      end
 
       country = Preference[:country]
 
       # find an entity
-      if entity_full_name
-        entity = Entity.where('full_name ILIKE ?', entity_full_name).first
+      if r.client_full_name
+        entity = Entity.where('full_name ILIKE ?', r.client_full_name).first
       end
-
+      
       # find or import a variant
-      if r.variant_nomen
-        variant = ProductNatureVariant.where(name: r.variant_nomen.to_s).first || ProductNatureVariant.where(number: r.variant_nomen.to_s).first
+      if r.variant_code
+        variant = ProductNatureVariant.where(name: r.variant_code).first || ProductNatureVariant.where(number: r.variant_code).first
         unless variant
-          variant = ProductNatureVariant.import_from_nomenclature(r.variant_nomen)
+          if Nomen::ProductNatureVariant.find(r.variant_code.to_sym)
+            variant = ProductNatureVariant.import_from_nomenclature(r.variant_code.to_sym)
+          end
         end
       end
 
       # find or create a purchase
-      if entity && sale_invoiced_at && sale_reference_number
+      if entity && r.invoiced_at && r.reference_number
         # see if purchase exist anyway
-        unless sale = Sale.where(reference_number: sale_reference_number).first
-          sale = Sale.create!(invoiced_at: sale_invoiced_at,
-                              reference_number: sale_reference_number,
+        unless sale = Sale.where(reference_number: r.reference_number).first
+          sale = Sale.create!(invoiced_at: r.invoiced_at,
+                              reference_number: r.reference_number,
                               client_id: entity.id,
                               nature: SaleNature.actives.first,
                               description: r.description
                              )
+        sale_ids << sale.id
         end
       end
 
@@ -71,6 +68,17 @@ class Ekylibre::SalesExchanger < ActiveExchanger::Base
         end
       end
 
+      w.check_point
+    end
+    # Restart counting
+    added_sales = Sale.where(id: sale_ids)
+    w.reset! added_sales.count, :yellow
+
+    # change status of all new added purchases
+    added_sales.each do |sale|
+      sale.propose if sale.draft?
+      sale.confirm
+      sale.invoice(sale.invoiced_at)
       w.check_point
     end
   end

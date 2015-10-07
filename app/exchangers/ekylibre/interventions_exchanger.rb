@@ -137,6 +137,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
       # Get supports and existing production_supports or activity by activity family input
       r.production_supports = []
+      activity = nil
       production = nil
       if r.supports.any?
         ps_ids = []
@@ -144,6 +145,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         # a same cultivable zone could be a support of many productions
         # ex : corn_crop, zea_mays_lg452, ZC42 have to return all supports with corn_crop of variety zea_mays_lg452 in ZC42
         for product in r.supports
+          ps = nil
           if r.target_variety && r.target_variant
             ps = ProductionSupport.of_campaign(r.campaign).of_cultivation_varieties(r.target_variety).of_cultivation_variants(r.target_variant).where(storage: product)
           elsif r.target_variety
