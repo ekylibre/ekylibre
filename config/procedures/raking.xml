@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="raking" natures="raking" version="0">
+  <procedure name="raking" natures="raking" version="0" duration="land_parcel.net_surface_area(hectare) * 0.38">
     <variables>
       <variable name="driver" abilities="drive(tractor)" roles="raking-doer"/>
       <variable name="tractor" variety="equipment" abilities="catch(equipment)" roles="raking-tool"/>

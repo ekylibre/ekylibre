@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="sowing_with_insecticide_and_molluscicide" natures="sowing, plant_illness_treatment" version="0">
+  <procedure name="sowing_with_insecticide_and_molluscicide" natures="sowing, plant_illness_treatment" version="0" duration="land_parcel.net_surface_area(hectare) * 0.42">
     <variables>
       <variable name="seeds" variety="seed" derivative-of="plant" abilities="grow" roles="sowing-input_origin"/>
       <variable name="seeds_to_sow" variety=":seeds" derivative-of=":seeds" new="parted-from: seeds" roles="sowing-input" default-population=":seeds">

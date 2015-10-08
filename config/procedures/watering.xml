@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="watering" natures="plant_irrigation, automatic_soil_enrichment" version="0">
+  <procedure name="watering" natures="plant_irrigation, automatic_soil_enrichment" version="0" duration="cultivation.net_surface_area(hectare) * 4">
     <variables>
       <variable name="water" variety="water" roles="automatic_soil_enrichment-input_origin"/>
       <variable name="water_to_spread" variety=":water" derivative-of=":water" new="parted-from: water" roles="automatic_soil_enrichment-input, plant_irrigation-input">

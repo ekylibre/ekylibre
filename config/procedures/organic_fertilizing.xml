@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="organic_fertilizing" natures="manual_soil_enrichment" version="0">
+  <procedure name="organic_fertilizing" natures="manual_soil_enrichment" version="0" duration="land_parcel.net_surface_area(hectare) * 0.28">
     <variables>
       <variable name="manure" variety="excrement" abilities="fertilize" roles="manual_soil_enrichment-input_origin"/>
       <variable name="manure_to_spread" variety=":manure" derivative-of=":manure" new="parted-from: manure" roles="manual_soil_enrichment-input" default-population=":manure">

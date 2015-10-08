@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="hoeing" natures="raking, physical_weed_killing" version="0">
+  <procedure name="hoeing" natures="raking, physical_weed_killing" version="0" duration="land_parcel.net_surface_area(hectare) * 0.54">
     <variables>
       <variable name="land_parcel" variety="cultivable_zone" roles="raking-target, physical_weed_killing-target" default-shape=":land_parcel" default-actor="storage">
         <handler indicator="shape">

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="plants_harvest" natures="grains_harvest" version="0">
+  <procedure name="plants_harvest" natures="grains_harvest" version="0" duration="cultivation.net_surface_area(hectare) * 2.23">
     <variables>
       <variable name="cropper_driver" abilities="drive(reaper)" roles="grains_harvest-doer"/>
       <variable name="cropper" variety="reaper" abilities="harvest(plant)" roles="grains_harvest-tool"/>

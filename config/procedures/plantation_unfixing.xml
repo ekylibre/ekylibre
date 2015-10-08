@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="plantation_unfixing" natures="gardening_harvest" version="0">
+  <procedure name="plantation_unfixing" natures="gardening_harvest" version="0" duration="land_parcel.net_surface_area(hectare) * 2.45">
     <variables>
       <variable name="driver" abilities="move" roles="gardening_harvest-doer"/>
       <variable name="cultivation" roles="gardening_harvest-target" default-shape=":cultivation" default-actor="variant_localized_in_storage">

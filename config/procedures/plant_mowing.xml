@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="plant_mowing" natures="harvest" version="0">
+  <procedure name="plant_mowing" natures="harvest" version="0" duration="land_parcel.net_surface_area(hectare) * 0.28">
     <variables>
       <variable name="tractor" variety="equipment" abilities="tow(mower)"/>
       <variable name="mower_driver" abilities="drive(tractor)" roles="harvest-doer"/>

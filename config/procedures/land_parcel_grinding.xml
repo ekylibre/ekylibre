@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="land_parcel_grinding" natures="grinding" version="0">
+  <procedure name="land_parcel_grinding" natures="grinding" version="0" duration="land_parcel.net_surface_area(hectare) * 0.54">
     <variables>
       <variable name="land_parcel" variety="cultivable_zone" roles="grinding-target"/>
       <variable name="tractor" abilities="tow(equipment)"/>

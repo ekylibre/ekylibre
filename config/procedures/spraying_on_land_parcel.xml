@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="spraying_on_land_parcel" natures="plant_illness_treatment" version="0">
+  <procedure name="spraying_on_land_parcel" natures="plant_illness_treatment" version="0" duration="land_parcel.net_surface_area(hectare) * 0.28">
     <variables>
       <variable name="plant_medicine" variety="preparation" abilities="care(plant)" roles="plant_illness_treatment-input_origin"/>
       <variable name="plant_medicine_to_spray" variety=":plant_medicine" derivative-of=":plant_medicine" new="parted-from: plant_medicine" roles="plant_illness_treatment-input" default-name="{{variant}} - [{{birth_day}}/{{birth_month}}/{{birth_year}}]" default-population=":plant_medicine">

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="implanting" natures="implanting" version="0">
+  <procedure name="implanting" natures="implanting" version="0" duration="land_parcel.net_surface_area(hectare) * 6">
     <variables>
       <variable name="plants" variety="seedling" derivative-of="plant" abilities="grow" roles="implanting-input_origin"/>
       <variable name="plants_to_fix" variety=":plants" derivative-of=":plants" new="parted-from: plants" roles="implanting-input" default-name="{{variant}} - [{{derivative_of}}]" default-population=":plants">

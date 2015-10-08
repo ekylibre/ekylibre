@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="uncompacting" natures="plowing" version="0">
+  <procedure name="uncompacting" natures="plowing" version="0" duration="land_parcel.net_surface_area(hectare) * 1.02">
     <variables>
       <variable name="driver" abilities="drive(tractor)" roles="plowing-doer"/>
       <variable name="tractor" variety="equipment" abilities="tow(equipment), catch(equipment)" roles="plowing-tool"/>

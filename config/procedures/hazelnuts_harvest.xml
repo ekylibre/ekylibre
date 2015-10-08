@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="hazelnuts_harvest" natures="nuts_harvest" version="0">
+  <procedure name="hazelnuts_harvest" natures="nuts_harvest" version="0" duration="cultivation.net_surface_area(hectare) * 4.5">
     <variables>
       <variable name="driver" abilities="drive(reaper)" roles="nuts_harvest-doer"/>
       <variable name="nuts_harvester" variety="reaper" abilities="harvest(hazelnut)" roles="nuts_harvest-tool"/>

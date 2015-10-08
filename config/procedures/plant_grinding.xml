@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="plant_grinding" natures="grinding, manual_soil_enrichment" version="0">
+  <procedure name="plant_grinding" natures="grinding, manual_soil_enrichment" version="0" duration="land_parcel.net_surface_area(hectare) * 0.38">
     <variables>
       <variable name="cultivation" variety="plant" roles="manual_soil_enrichment-input_origin" default-actor="variant_localized_in_storage"/>
       <variable name="tractor" abilities="tow(equipment)"/>
