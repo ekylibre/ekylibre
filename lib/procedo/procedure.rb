@@ -1,3 +1,5 @@
+require 'procedo/converter'
+
 module Procedo
   FORMULA_TRUC = {
     shape: ['whole#net_surface_area']
