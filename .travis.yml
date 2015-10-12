@@ -11,3 +11,5 @@ script: xvfb-run bundle exec rake test:run_all DRIVER=webkit LOCALE=$TEST_LOCALE
 # script: bundle exec rake test:core
 services:
   - redis-server
+addons:
+  postgresql: "9.4"
