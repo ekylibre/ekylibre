@@ -17,8 +17,9 @@
 
     popup_content << {label: :grain_yield.tl, value: "#{grain_yield.to_d.round(2)} #{yield_symbol.symbol}"} if grain_yield
 
-    for item in [:nitrogen_concentration, :phosphorus_concentration, :potassium_concentration]
-      if value = support.soil_enrichment_indicator_content_per_area(item)
+    [:nitrogen_concentration, :phosphorus_concentration, :potassium_concentration].each do |item|
+      value = support.soil_enrichment_indicator_content_per_area(item)
+      if value
         popup_content << {label: item.tl, value: value.in(:unity_per_hectare).round(2).l}
       end
     end

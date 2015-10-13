@@ -35,6 +35,7 @@
 #  updated_at         :datetime         not null
 #  updater_id         :integer
 #
+
 class ProductionSupport < Ekylibre::Record::Base
   refers_to :production_usage
 
@@ -134,29 +135,29 @@ class ProductionSupport < Ekylibre::Record::Base
   end
 
   def cost(role = :input)
-    cost = []
-    for intervention in interventions
-      cost << intervention.cost(role)
+    costs = interventions.collect do |intervention|
+      intervention.cost(role)
     end
-    cost.compact.sum
+    costs.compact.sum
   end
 
-  # return the spreaded quantity of one chemicals components (N, P, K) per area unit
+  # Returns the spreaded quantity of one chemicals components (N, P, K) per area unit
+  # Get all intervention of nature 'soil_enrichment' and sum all indicator unity spreaded
+  #  - indicator could be (:potassium_concentration, :nitrogen_concentration, :phosphorus_concentration)
+  #  - area_unit could be (:hectare, :square_meter)
+  #  - from and to used to select intervention
   def soil_enrichment_indicator_content_per_area(indicator, from = nil, to = nil, area_unit = :hectare)
     balance = []
-    # indicator could be (:potassium_concentration, :nitrogen_concentration, :phosphorus_concentration)
-    # area_unit could be (:hectare, :square_meter)
-    # from and to used to select intervention
-    # get all intervention of nature 'soil_enrichment' and sum all indicator unity spreaded
-    # m = net_mass of the input at intervention time
-    # n = indicator (in %) of the input at intervention time
+    procedure_nature = :soil_enrichment
     if from && to
-      interventions = self.interventions.real.of_nature(:soil_enrichment).between(from, to)
+      interventions = self.interventions.real.of_nature(procedure_nature).between(from, to)
     else
-      interventions = self.interventions.real.of_nature(:soil_enrichment)
+      interventions = self.interventions.real.of_nature(procedure_nature)
     end
-    for intervention in interventions
-      for input in intervention.casts.of_role('soil_enrichment-input')
+    interventions.each do |intervention|
+      intervention.casts.of_role("#{procedure_nature}-input").each do |input|
+        # m = net_mass of the input at intervention time
+        # n = indicator (in %) of the input at intervention time
         m = (input.actor ? input.actor.net_mass(input).to_d(:kilogram) : 0.0)
         # TODO: for method phosphorus_concentration(input)
         n = (input.actor ? input.actor.send(indicator).to_d(:unity) : 0.0)
@@ -164,13 +165,13 @@ class ProductionSupport < Ekylibre::Record::Base
       end
     end
     # if net_surface_area, make the division
-    if surface_area = net_surface_area
-      indicator_unity_per_hectare = (balance.compact.sum / surface_area.to_d(area_unit))
+    if net_surface_area
+      indicator_unity_per_hectare = balance.compact.sum / net_surface_area.to_d(area_unit)
     end
     indicator_unity_per_hectare
   end
 
-  # @TODO for nitrogen balance but will be refactorize for any chemical components
+  # TODO: for nitrogen balance but will be refactorize for any chemical components
   def nitrogen_balance
     # B = O - I
     balance = 0.0
