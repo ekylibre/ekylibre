@@ -121,14 +121,14 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
 
   # To have human_name in report
   def soil_nature_name
-    unless item = Nomen::SoilNature[soil_nature].human_name
+    unless soil_nature && item = Nomen::SoilNature[soil_nature].human_name
       return nil
     end
     item
   end
 
   def cultivation_variety_name
-    unless item = Nomen::Variety[cultivation_variety].human_name
+    unless cultivation_variety && item = Nomen::Variety[cultivation_variety].human_name
       return nil
     end
     item
