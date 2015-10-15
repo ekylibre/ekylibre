@@ -50,6 +50,7 @@ module ActiveSensor
       end
 
       def find(vendor, model)
+        return nil unless vendor && model
         list.detect do |equipment|
           equipment.vendor == vendor.to_sym && equipment.model == model.to_sym
         end
@@ -58,7 +59,7 @@ module ActiveSensor
       def find!(vendor, model)
         equipment = find(vendor, model)
         unless equipment
-          fail EquipmentNotFound, "Cannot find vendor=#{vendor}, model=#{model}"
+          fail EquipmentNotFound, "Cannot find vendor=#{vendor.inspect}, model=#{model.inspect}"
         end
         equipment
       end
@@ -138,11 +139,7 @@ module ActiveSensor
       @translations ||= {}.with_indifferent_access
       text = @translations.try(:[], scope).try(:[], locale)
       unless text
-        if Rails.env.development?
-          return "Missing translation for sensor #{@vendor}##{@model}: #{scope}"
-        else
-          text = @translations.try(:fetch, scope).try(:fetch, I18n.default_locale)
-        end
+        Rails.logger.warn "Missing translation for sensor #{@vendor}##{@model}: #{scope}"
       end
       text
     end

@@ -50,10 +50,12 @@ class Backend::SensorsController < Backend::BaseController
 
   def models
     vendor_euid = params[:vendor_euid]
-    models = ActiveSensor::Equipment.equipments_of(vendor_euid).collect do |equipment|
-      [equipment.label, equipment.model]
+    models = []
+    if vendor_euid
+      models = ActiveSensor::Equipment.equipments_of(vendor_euid).collect do |equipment|
+        [equipment.label, equipment.model]
+      end
     end
-
     respond_to do |format|
       format.json { render json: models }
     end

@@ -465,7 +465,7 @@ class ActionController::TestCase
       /\#evolve\z/        => :evolve,
       /\#destroy\z/       => :destroy,
       /\#attachments\z/   => :resource,
-      /\#(decrement|duplicate|down|lock|toggle|unlock|up|increment|propose|confirm|refuse|invoice|abort|correct|finish|propose_and_invoice|sort|run|qualify|evaluate|quote|negociate|win|lose|reset|start|prospect)\z/ => :touch,
+      /\#(decrement|duplicate|down|lock|toggle|unlock|up|increment|propose|confirm|refuse|invoice|abort|correct|finish|propose_and_invoice|sort|run|qualify|evaluate|quote|negociate|win|lose|reset|start|prospect|retrieve)\z/ => :touch,
       /\#take\z/          => :take,
       /\#unroll\z/        => :unroll
     }
