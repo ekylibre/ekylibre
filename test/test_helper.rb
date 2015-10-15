@@ -107,6 +107,15 @@ end
 class ActionController::TestCase
   include Devise::TestHelpers
 
+  def fixture_files
+    #     Rails.root.join('test', 'fixture-files')
+    Pathname.new('../fixture-files')
+  end
+
+  def file_upload(path, mime_type = nil, binary = false)
+    fixture_file_upload(fixture_files.join('map.geojson'), mime_type, binary)
+  end
+
   class << self
     def test_restfully_pasteque_actions(_options = {})
       # test_restfully_all_actions({strictness: :api, params: {format: :json, user: "admin@ekylibre.org", password: "12345678"}, sign_in: false}.deep_merge(options))

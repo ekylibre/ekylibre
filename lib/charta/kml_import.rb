@@ -1,12 +1,9 @@
 require 'nokogiri'
 
-class GmlImport
-  attr_reader :shapes
-  attr_writer :xml
-
-  def initialize(params = {})
-    @params = params.symbolize_keys
+class KmlImport
+  def initialize(data)
     @shapes = nil
+    @xml = data
   end
 
   def valid?
@@ -29,7 +26,7 @@ class GmlImport
       config.options = Nokogiri::XML::ParseOptions::NOBLANKS
     end
 
-    @shapes = doc.root
+    @shapes = doc.css('Polygon')
 
     if options[:to].equal? :xml
       @shapes = @shapes.to_xml
@@ -67,13 +64,14 @@ class GmlImport
   private
 
   def featurize(node)
-    if node.element? && node.xpath('.//gml:Polygon')
+    if node.element? && node.name.to_sym == :Polygon
+
       geojson_feature = {}
 
-      geometry = node.xpath('.//gml:Polygon')
-      geometry.first['srsName'] = 'EPSG:2154'
+      geometry = node
+      geometry['srsName'] = 'EPSG:2154'
 
-      if ::Charta::GML.valid?(geometry)
+      if ::Charta::KML.valid?(geometry)
 
         # properties
         id = (Time.zone.now.to_i.to_s + Time.zone.now.usec.to_s)
@@ -83,7 +81,7 @@ class GmlImport
           properties: {
             internal_id: id
           }.reject { |_, v| v.nil? },
-          geometry: ::Charta::Geometry.new(geometry.to_xml, nil, 'gml').transform(:WGS84).to_geojson
+          geometry: ::Charta::Geometry.new(geometry.to_xml, nil, 'kml').transform(:WGS84).to_geojson
         }.reject { |_, v| v.nil? }
 
         return geojson_feature

@@ -2061,7 +2061,6 @@ fra:
       generate_last_journal_entry: "Générer la dernière écriture"
       generate_parcel: "Générer bon de préparation"
       import: "Importer"
-      # import_shapes: "Import shapes"
       incorporate: "Incorporer"
       increment: "Incrémenter"
       index: "Index"

@@ -353,7 +353,7 @@ Rails.application.routes.draw do
 
     resources :event_participations
 
-    resources :events, concerns: [:list, :unroll] do
+    resources :events, concerns: [:attachments, :list, :unroll] do
       collection do
         get :autocomplete_for_place
         get :change_minutes
@@ -532,7 +532,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :map_editor do
+    resources :map_editors, only: [] do
       collection do
         post :upload
       end

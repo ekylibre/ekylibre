@@ -283,6 +283,7 @@ eng:
       # new: "New event participation"
       # show: "Event participation: %{name}"
     backend/events:
+      # attachments: "Attachments event: %{name}"
       # autocomplete_for_place: "Autocomplete for place event: %{name}"
       # change_minutes: "Change minutes event: %{name}"
       edit: "Edit event"
@@ -453,8 +454,7 @@ eng:
       index: "Manure management plans"
       new: "New manure management plan"
       show: "Manure management plan: %{name}"
-    backend/map_editor:
-      # import_shapes: "Import shapes map editor: %{name}"
+    backend/map_editors:
       # upload: "Upload map editor: %{name}"
     backend/matters:
       # attachments: "Attachments matter: %{name}"
@@ -1799,7 +1799,6 @@ eng:
       generate_parcel: "Generate parcel"
       # give: "Give"
       import: "Import"
-      import_shapes: "Import shapes"
       incorporate: "Incorporate"
       increment: "Increment"
       index: "Index"

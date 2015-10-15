@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2013 Brice Texier
@@ -53,10 +52,9 @@ module Backend::MapsHelper
     map(resources, options, html_options, &block)
   end
 
-  def importer_form(options = {})
-    imports = options
+  def importer_form(imports = [])
     html = ''
-    html += form_tag({ controller: '/backend/map_editor', action: :upload }, method: :post, multipart: true, remote: true, authenticity_token: true, data: { 'importer-form': true }) do
+    html += form_tag({ controller: '/backend/map_editors', action: :upload }, method: :post, multipart: true, remote: true, authenticity_token: true, data: { 'importer-form': true }) do
       content_tag(:div, class: 'row') do
         imports.collect do |k|
           radio_button_tag(:importer_format, k) + label_tag("importer_format_#{k}".to_sym, k)
@@ -80,6 +78,7 @@ module Backend::MapsHelper
       box[:width] = options[:box][:width] || 360
       box[:height] = options[:box][:height] || 240
     end
+    # FIXME: map_editors options cannot be in data/map_editors because it's pleonastic
     options[:data][:map_editor][:controls] ||= {}
     if options[:data][:map_editor][:controls].key? :importers
       options.deep_merge!(data: { map_editor: { controls: { importers: { content: importer_form(options[:data][:map_editor][:controls][:importers][:formats]) } } } })

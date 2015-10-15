@@ -71,7 +71,7 @@
     <group name="events" icon="calendar">
       <item name="events">
         <page to="backend/events#index"/>
-        <page to="backend/events#attachments" nonexistent="true"/>
+        <page to="backend/events#attachments"/>
         <page to="backend/events#create"/>
         <page to="backend/events#destroy"/>
         <page to="backend/events#edit"/>
@@ -1542,9 +1542,8 @@
       <item name="snippets">
         <page to="backend/snippets#toggle"/>
       </item>
-      <item name="map_editor">
-        <page to="backend/map_editor#import_shapes"/>
-        <page to="backend/map_editor#upload"/>
+      <item name="map_editors">
+        <page to="backend/map_editors#upload"/>
       </item>
       <item name="passwords">
         <page to="authentication/passwords#create"/>
@@ -1588,6 +1587,9 @@
       </item>
       <item name="public">
         <page to="public#index"/>
+      </item>
+      <item name="accountancy_balance_cells">
+        <page to="backend/cells/accountancy_balance_cells#show"/>
       </item>
       <item name="cashes_balance_evolution_cells">
         <page to="backend/cells/cashes_balance_evolution_cells#show"/>
@@ -1824,9 +1826,6 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
-      <item name="accountancy_balance_cells">
-        <page to="backend/cells/accountancy_balance_cells#show"/>
-      </item>
     </group>
   </untreated-actions>
 </navigation>

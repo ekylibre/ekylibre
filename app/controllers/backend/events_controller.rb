@@ -18,6 +18,7 @@
 
 class Backend::EventsController < Backend::BaseController
   manage_restfully except: :index, nature: '(params[:nature] || Event.nature.default_value)'.c, started_at: 'Time.zone.now'.c, affair_id: 'params[:affair_id]'.c, participations_attributes: '(params[:participations] || [])'.c
+  manage_restfully_attachments
 
   unroll
 

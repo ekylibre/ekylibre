@@ -2,14 +2,15 @@
   - t.edit resource
   - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if resource.destroyable?
 
+= main_informations attachment: true do
+  = attributes_list(resource) do |l|
+    - l.attribute :name
+    - l.attribute :started_at
+    - l.attribute :nature, url: true
+    - l.attribute(:intervention, url: true) if resource.intervention
+    - l.attribute(:affair, url: true) if resource.affair
+    - l.custom_fields
+
 = cobbles do |c|
-  - c.cobble :details do
-    = attributes_list(resource) do |l|
-      - l.attribute :name
-      - l.attribute :started_at
-      - l.attribute :nature, url: true
-      - l.attribute(:intervention, url: true) if resource.intervention
-      - l.attribute(:affair, url: true) if resource.affair
-      - l.custom_fields
   - c.cobble :participations do
     - list :participations

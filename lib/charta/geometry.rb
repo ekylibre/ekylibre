@@ -222,6 +222,25 @@ module Charta
         new('MULTIPOLYGON EMPTY', srid)
       end
 
+      def from(format, coordinates)
+        unless respond_to?("from_#{format}")
+          fail "Unknown format: #{format.inspect}"
+        end
+        send("from_#{format}", coordinates)
+      end
+
+      def from_gml(coordinates)
+        new(::Charta::GML.new(coordinates, srid).to_ewkt)
+      end
+
+      def from_kml(coordinates)
+        new(::Charta::KML.new(coordinates, srid).to_ewkt)
+      end
+
+      def from_geojson(coordinates)
+        new(::Charta::GeoJSON.new(coordinates, srid).to_ewkt)
+      end
+
       # # Converts coordinates of a Geometry into the reference of the given SRID
       # def transform(geometry, srid)
       #   geometry = new(geometry)

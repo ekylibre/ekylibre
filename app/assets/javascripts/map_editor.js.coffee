@@ -69,8 +69,8 @@
           secondaryLengthUnit: 'kilometers'
           primaryAreaUnit: 'hectares',
           secondaryAreaUnit: undefined
-          activeCcolor: '#ABE67E'
-          completedCcolor: '#C8F2BE'
+          activeColor: '#ABE67E'
+          completedColor: '#C8F2BE'
         importers:
           gml: false
           geojson: false

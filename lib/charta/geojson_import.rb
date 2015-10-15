@@ -1,13 +1,10 @@
 require 'nokogiri'
 
 class GeojsonImport
-  attr_reader :shapes
-  attr_writer :xml
-
   # TODO: handle a File object instead of calling IO read/write directly
-  def initialize(params = {})
-    @params = params.symbolize_keys
+  def initialize(data)
     @shapes = nil
+    @xml = data
   end
 
   def valid?
@@ -16,7 +13,7 @@ class GeojsonImport
   end
 
   def shapes(options = {})
-    options[:to] ||= ''
+    options[:to] ||= :json
 
     @shapes = JSON.parse(@xml)
 

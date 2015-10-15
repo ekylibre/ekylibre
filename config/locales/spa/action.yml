@@ -1781,7 +1781,6 @@ spa:
       # generate_last_journal_entry: "Generate last journal entry"
       # generate_parcel: "Generate parcel"
       # import: "Import"
-      # import_shapes: "Import shapes"
       # incorporate: "Incorporate"
       # increment: "Increment"
       # index: "Index"
