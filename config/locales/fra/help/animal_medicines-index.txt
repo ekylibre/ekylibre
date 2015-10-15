@@ -1,7 +1,0 @@
-====== Produits vétérinaires ======
-
-Vous avez accès au récapitulatif de tous vos produits vétérinaires.
-
->>> Vous pouvez consulter le site de l'ANSES (http://www.ircp.anmv.anses.fr) pour connaître les éléments de réglementation concernant ces produits.
-
-!!! L'ajout d'un produit vétérinaire se fait obligatoirement via les [[>backend/incoming_parcels|approvisionnements]].

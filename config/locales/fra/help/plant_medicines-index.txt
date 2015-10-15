@@ -1,8 +1,0 @@
-====== Produits phytosanitaires ======
-
-Vous avez accès au récapitulatif de toutes vos produits phytosanitaires.
-
->>> Vous pouvez consulter le site d'e-phy (http://e-phy.agriculture.gouv.fr/) pour connaître les élèments de réglementation concernant ces produits.
-
-!!! L'ajout d'un produit phytosanitaire se fait obligatoirement via les [[>backend/incoming_parcels|approvisionnements]].
-
