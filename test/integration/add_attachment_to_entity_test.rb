@@ -37,7 +37,7 @@ class AddAttachmentToEntity < CapybaraIntegrationTest
 
     assert find('.attachment-files').find('.file')
 
-    assert find('.attachment-files').find('.file').find('.name').text.include? 'sample_image.png'
+    assert find('.attachment-files').find('.file').find('.file-name').text.include? 'sample_image.png'
 
     shoot_screen 'attachments/uploaded_file'
   end
