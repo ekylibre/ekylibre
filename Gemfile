@@ -92,7 +92,7 @@ gem 'paperclip'
 gem 'paperclip-document', '> 0.0.8'
 
 # Forms
-gem 'simple_form', '~> 3.1.0'
+gem 'simple_form', '~> 3.2.0'
 gem 'cocoon'
 gem 'remotipart', '~> 1.2'
 
