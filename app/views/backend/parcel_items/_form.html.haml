@@ -4,7 +4,7 @@
   -# if f.object.errors.any?
     = f.object.errors.inspect
 
-  = f.referenced_association(:container, source: {scope: {can: "store(#{variant.variety})"}})
+  -#= f.referenced_association(:container, source: {scope: {can: "store(#{variant.variety})"}})
 
   - if model = variant.matching_model
     - iv = "@#{model.name.underscore}".to_sym

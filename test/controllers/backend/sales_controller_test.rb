@@ -20,7 +20,7 @@
 require 'test_helper'
 
 class Backend::SalesControllerTest < ActionController::TestCase
-  test_restfully_all_actions cancel: :redirected_get, contacts: :index_xhr
+  test_restfully_all_actions cancel: :redirected_get, contacts: :index_xhr, except: :generate_parcel
 
   test 'should print an invoice' do
     sale = sales(:sales_001)

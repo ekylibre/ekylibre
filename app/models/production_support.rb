@@ -165,9 +165,8 @@ class ProductionSupport < Ekylibre::Record::Base
       end
     end
     # if net_surface_area, make the division
-    if net_surface_area
-      indicator_unity_per_hectare = balance.compact.sum / net_surface_area.to_d(area_unit)
-    end
+    area = net_surface_area.to_d(area_unit)
+    indicator_unity_per_hectare = balance.compact.sum / area if area != 0
     indicator_unity_per_hectare
   end
 

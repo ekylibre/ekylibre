@@ -113,7 +113,7 @@ class ActionController::TestCase
   end
 
   def file_upload(path, mime_type = nil, binary = false)
-    fixture_file_upload(fixture_files.join('map.geojson'), mime_type, binary)
+    fixture_file_upload(fixture_files.join(path), mime_type, binary)
   end
 
   class << self
