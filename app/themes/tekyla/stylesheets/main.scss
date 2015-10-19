@@ -2192,9 +2192,12 @@ svg.map {
       &.matrix {
         padding: 0;
       }
+      &.label {
+        color: $text-color;
+      }
     }
     th {
-      @include gradient-vertical(lighten($menu-background, $default-lightness-variation), $menu-background, darken($menu-background, $default-lightness-variation));
+      @include gradient-vertical-three-colors(lighten($menu-background, $default-lightness-variation), $menu-background, 50%, darken($menu-background, $default-lightness-variation));
     }
     table.matrix {
       width: 100%;
