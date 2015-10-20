@@ -95,7 +95,7 @@ namespace :nomen do
       xml << "  <!-- Add your changes here -->\n"
       xml << "</migration>\n"
       File.write(file, xml)
-      puts "Create #{file.to_s.yellow}"
+      puts "Create #{file.relative_path_from(Rails.root).to_s.yellow}"
     end
 
     task model: :environment do

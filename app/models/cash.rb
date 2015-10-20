@@ -184,6 +184,24 @@ class Cash < Ekylibre::Record::Base
     country_code + (98 - (iban.to_i.modulo 97)).to_s + bban
   end
 
+  # Load default cashes (1 bank account and 1 cash box)
+  def self.load_defaults
+    [
+      [:bank_account, :bank, :banks],
+      [:cash_box, :cash, :cashes]
+    ].each do |nature, journal_nature, account_usage|
+      journal = Journal.find_by(nature: journal_nature)
+      account = Account.find_or_import_from_nomenclature(account_usage)
+      next unless journal && account
+      create!(
+        name: "enumerize.cash.nature.#{nature}".t,
+        nature: nature.to_s,
+        account: account,
+        journal: journal
+      )
+    end
+  end
+
   def monthly_sums(started_at, stopped_at, expr = 'debit - credit')
     account.journal_entry_items.between(started_at, stopped_at).group('EXTRACT(YEAR FROM printed_on)*100 + EXTRACT(MONTH FROM printed_on)').sum(expr).sort.inject({}) do |hash, pair|
       hash[pair[0].to_i.to_s] = pair[1].to_d

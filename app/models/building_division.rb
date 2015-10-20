@@ -71,8 +71,10 @@ class BuildingDivision < SubZone
 
   scope :of_production, lambda { |*productions|
     productions.flatten!
-    for production in productions
-      fail ArgumentError.new("Expected Production, got #{production.class.name}:#{production.inspect}") unless production.is_a?(Production)
+    productions.each do |production|
+      unless production.is_a?(Production)
+        fail ArgumentError, "Expected Production, got #{production.class.name}:#{production.inspect}"
+      end
     end
     joins(:productions).where(production_id: productions.map(&:id))
   }

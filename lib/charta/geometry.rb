@@ -230,15 +230,15 @@ module Charta
       end
 
       def from_gml(coordinates)
-        new(::Charta::GML.new(coordinates, srid).to_ewkt)
+        new(::Charta::GML.new(coordinates).to_ewkt)
       end
 
       def from_kml(coordinates)
-        new(::Charta::KML.new(coordinates, srid).to_ewkt)
+        new(::Charta::KML.new(coordinates).to_ewkt)
       end
 
       def from_geojson(coordinates)
-        new(::Charta::GeoJSON.new(coordinates, srid).to_ewkt)
+        new(::Charta::GeoJSON.new(coordinates).to_ewkt)
       end
 
       # # Converts coordinates of a Geometry into the reference of the given SRID

@@ -87,4 +87,32 @@ class SaleNature < Ekylibre::Record::Base
       end
     end
   end
+
+  class << self
+    # Load default sale natures
+    def load_defaults
+      nature = :sales
+      usage = :sale
+      journal = Journal.find_by(nature: nature, currency: Preference[:currency])
+      journal ||= Journal.create!(name: "enumerize.journal.nature.#{nature}".t,
+                                  nature: nature.to_s, currency: currency,
+                                  closed_on: Date.new(1899, 12, 31).end_of_month)
+      catalog = Catalog.of_usage(:sale).first
+      catalog ||= Catalog.create!(name: "enumerize.catalog.usage.#{usage}".t,
+                                  usage: usage, currency: currency)
+      create!(
+        name: tc('default.name'),
+        active: true,
+        expiration_delay: '30 day',
+        payment_delay: '30 day',
+        downpayment: false,
+        downpayment_minimum: 300,
+        downpayment_percentage: 30,
+        currency: Preference[:currency],
+        with_accounting: true,
+        journal: journal,
+        catalog: catalog
+      )
+    end
+  end
 end

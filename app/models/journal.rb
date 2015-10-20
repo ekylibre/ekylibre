@@ -125,8 +125,10 @@ class Journal < Ekylibre::Record::Base
       find_by(used_for_affairs: true)
     end
 
+    # Load default journal if not exist
     def load_defaults
       nature.values.each do |nature|
+        next if find_by(nature: nature)
         financial_year = FinancialYear.first
         closed_on = financial_year ? (financial_year.started_on - 1) : Date.new(1899, 12, 31).end_of_month
         create!(

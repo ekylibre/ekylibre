@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151001154701">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151019090110">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -1504,10 +1504,15 @@
       <item name="ekylibre_backup"/>
       <item name="ekylibre_bank_statements"/>
       <item name="ekylibre_budgets"/>
+      <item name="ekylibre_buildings_json"/>
+      <item name="ekylibre_cap_land_parcel_clusters_json"/>
+      <item name="ekylibre_cap_land_parcels_json"/>
       <item name="ekylibre_crumbs"/>
       <item name="ekylibre_cultivable_zones"/>
+      <item name="ekylibre_cultivable_zones_json"/>
       <item name="ekylibre_entities"/>
       <item name="ekylibre_equipments"/>
+      <item name="ekylibre_equipments_json"/>
       <item name="ekylibre_georeadings"/>
       <item name="ekylibre_incoming_payments"/>
       <item name="ekylibre_interventions"/>
@@ -1520,6 +1525,7 @@
       <item name="ekylibre_purchases"/>
       <item name="ekylibre_sales"/>
       <item name="ekylibre_settings"/>
+      <item name="ekylibre_storages_json"/>
       <item name="ekylibre_variants"/>
       <item name="ekylibre_visuals"/>
       <item name="ekylibre_workers"/>

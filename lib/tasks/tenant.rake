@@ -30,6 +30,32 @@ namespace :tenant do
     Ekylibre::Tenant.create(name) unless Ekylibre::Tenant.exist?(name)
   end
 
+  desc 'Create a tenant with alone admin user (with TENANT, EMAIL, PASSWORD variable)'
+  task init: :environment do
+    tenant = ENV['TENANT']
+    fail 'Need TENANT variable' unless tenant
+    Ekylibre::Tenant.create(tenant) unless Ekylibre::Tenant.exist?(tenant)
+    Ekylibre::Tenant.switch(tenant) do
+      email = ENV['EMAIL'] || 'admin@ekylibre.org'
+      user = User.find_by(email: email)
+      if user
+        puts 'No user created. Already initialized.'
+      else
+        attributes = {
+          email: email,
+          administrator: true,
+          password: ENV['PASSWORD'] || '12345678',
+          first_name: ENV['FIRST_NAME'] || 'Admin',
+          last_name: ENV['LAST_NAME'] || tenant
+        }
+        attributes[:password_confirmation] = attributes[:password]
+        User.create!(attributes)
+        puts "Initialized with account #{email}."
+        puts "Password is: #{attributes[:password]}" unless ENV['PASSWORD']
+      end
+    end
+  end
+
   desc 'Rename a tenant (with OLD/NEW variables)'
   task rename: :environment do
     old = ENV['OLD'] || ENV['name']

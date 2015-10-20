@@ -7,7 +7,9 @@ module ActiveExchanger
     class << self
       def inherited(subclass)
         name = subclass.exchanger_name
-        fail "Unknown exchange: #{name}" unless Nomen::ExchangeNature.find(name)
+        unless Nomen::ExchangeNature.find(name)
+          Rails.logger.warn "Unknown exchange: #{name}"
+        end
         ActiveExchanger::Base.register_exchanger(subclass)
       end
 
@@ -84,7 +86,7 @@ module ActiveExchanger
     attr_reader :file, :supervisor
 
     def initialize(file, supervisor)
-      @file = file
+      @file = Pathname.new(file)
       @supervisor = supervisor
     end
 

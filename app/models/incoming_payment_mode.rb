@@ -100,4 +100,26 @@ class IncomingPaymentMode < Ekylibre::Record::Base
       payment.update_attributes(commission_account_id: nil, commission_amount: nil)
     end
   end
+
+  def self.load_defaults
+    %w(cash check transfer).each do |nature|
+      cash_nature = (nature == 'cash') ? :cash_box : :bank_account
+      cash = Cash.find_by(nature: cash_nature)
+      next unless cash
+      attributes = {
+        name: IncomingPaymentMode.tc("default.#{nature}.name"),
+        with_accounting: true,
+        cash: cash,
+        with_deposit: (nature == 'check' ? true : false)
+      }
+      journal = Journal.find_by(nature: 'bank')
+      if attributes[:with_deposit] && journal
+        attributes[:depositables_journal] = journal
+        attributes[:depositables_account] = Account.find_or_import_from_nomenclature(:pending_deposit_payments)
+      else
+        attributes[:with_deposit] = false
+      end
+      create!(attributes)
+    end
+  end
 end

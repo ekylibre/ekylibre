@@ -49,6 +49,7 @@ class Ekylibre::MattersExchanger < ActiveExchanger::Base
         end
       end
     end
+    valid
   end
 
   def import
@@ -125,5 +126,5 @@ class Ekylibre::MattersExchanger < ActiveExchanger::Base
         w.warn "Need a Variant for #{r.name}"
       end
     end
-    end
+  end
 end

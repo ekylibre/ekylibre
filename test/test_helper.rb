@@ -86,7 +86,15 @@ class ActiveSupport::TestCase
   end
 
   def fixture_file(*levels)
-    Rails.root.join('test', 'fixture-files').join(*levels)
+    fixture_files_path.join(*levels)
+  end
+
+  def fixture_files_path
+    self.class.fixture_files_path
+  end
+
+  def self.fixture_files_path
+    Rails.root.join('test', 'fixture-files')
   end
 end
 

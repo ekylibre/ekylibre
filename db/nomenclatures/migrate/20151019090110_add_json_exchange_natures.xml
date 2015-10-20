@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add JSON exchange natures">
+  <item-creation item="exchange_natures#ekylibre_cap_land_parcel_clusters_json"/>
+  <item-creation item="exchange_natures#ekylibre_cap_land_parcels_json"/>
+  <item-creation item="exchange_natures#ekylibre_cultivable_zones_json"/>
+  <item-creation item="exchange_natures#ekylibre_buildings_json"/>
+  <item-creation item="exchange_natures#ekylibre_storages_json"/>
+  <item-creation item="exchange_natures#ekylibre_equipments_json"/>
+</migration>
+
+
