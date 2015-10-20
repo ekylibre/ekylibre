@@ -53,12 +53,18 @@ module ActiveExchanger
         exchanger = find(nature).new(file, supervisor)
         valid = false
         ActiveRecord::Base.transaction do
-          exchanger.check
+          if exchanger.respond_to? :check
+            exchanger.check
+          else
+            exchanger.import
+          end
           valid = true
           fail ActiveRecord::Rollback
         end
         GC.start
         valid
+      rescue
+        false
       end
 
       def build(nature, file, _options = {}, &block)
@@ -67,7 +73,7 @@ module ActiveExchanger
       end
 
       def find(nature)
-        klass = @@exchangers[nature]
+        klass = @@exchangers[nature.to_sym]
         unless klass
           fail "Unable to find exchanger #{nature.inspect}. (#{@@exchangers.inspect})"
         end
@@ -103,5 +109,6 @@ module ActiveExchanger
     # def check
     #   raise NotImplementedError
     # end
+
   end
 end
