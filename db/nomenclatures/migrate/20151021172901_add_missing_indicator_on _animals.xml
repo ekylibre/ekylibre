@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add missing heatly indicator on animal">
+  <item-change item="product_natures#male_adult_cow" variable_indicators="net_mass, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, healthy"/>
+  <item-change item="product_natures#male_adult_goat" variable_indicators="net_mass, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, healthy"/>
+  <item-change item="product_natures#male_adult_horse" variable_indicators="net_mass, healthy"/>
+  <item-change item="product_natures#male_young_sheep" variable_indicators="net_mass, healthy"/>
+  <item-change item="product_natures#female_young_sheep" variable_indicators="net_mass, animal_life_state, healthy"/>
+  <item-change item="product_natures#duck_band" variable_indicators="population, healthy"/>
+  <item-change item="product_natures#pig_band" variable_indicators="population, healthy"/>
+  <item-change item="product_natures#piglet_band" variable_indicators="population, healthy"/>
+  <item-change item="product_natures#bee_band" variable_indicators="population, healthy"/>
+</migration>
