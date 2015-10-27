@@ -5,6 +5,8 @@ class CharentesAlliance::IncomingDeliveriesExchanger < ActiveExchanger::Base
 
     catalog = Catalog.find_by_code('ACHAT') || Catalog.first
     supplier_account = Account.find_or_import_from_nomenclature(:suppliers)
+    # TODO take care of no taxes present before
+    Tax.load_defaults unless Tax.any?
     appro_price_template_tax = Tax.first
     building_division = BuildingDivision.first
     suppliers = Entity.where(of_company: false, supplier: true).reorder(:supplier_account_id, :last_name)
