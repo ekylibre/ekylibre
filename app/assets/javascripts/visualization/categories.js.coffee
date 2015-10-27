@@ -14,7 +14,7 @@ class visualization.Categories
       @colors = options.colors ? []
       if @items.length > @colors.length
         for x in [@colors.length..@items.length]
-          @colors.push(visualization.colors[x] ? "#000000")
+          @colors.push(options.parent.options.colors[x] ? "#000000")
       for item, index in @items
         item.fillColor = @colors[index]
 
