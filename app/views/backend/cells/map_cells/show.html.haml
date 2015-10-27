@@ -76,7 +76,7 @@
         item = {
           name:       "#{support.work_number} - #{support.campaign_name} - #{support.activity_name} - #{support.net_surface_area.in_hectare.round(2).l}",
           shape:      support.shape,
-          shape_color:      support.activity.color,
+          shape_color:      support.production.color,
           campaign:   support.campaign_name,
           activity:   support.activity_name,
           production: support.production_name,
@@ -106,15 +106,16 @@
       - v.choropleth :nitrogen_concentration, :main, stop_color: "#777777"
       - v.choropleth :phosphorus_concentration, :main, stop_color: "#11BB99"
       - v.choropleth :potassium_concentration, :main, stop_color: "#AA00AA"
-    - elsif params[:visualization] == "grain_yield"
       - v.categories :activity, :main
+    - elsif params[:visualization] == "grain_yield"
       - v.choropleth :grain_yield, :main, stop_color: "#00AA00"
       - v.choropleth :nitrogen_concentration, :main, stop_color: "#777777"
-    - else
       - v.categories :activity, :main
+    - else
       - v.choropleth :tool_cost, :main, stop_color: "#00AA00"
       - v.choropleth :input_cost, :main, stop_color: "#1122DD"
       - v.choropleth :time_cost, :main, stop_color: "#E77000"
+      - v.categories :activity, :main
     - v.control :zoom
     - v.control :scale
     - v.control :fullscreen

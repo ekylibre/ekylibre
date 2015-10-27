@@ -23,7 +23,7 @@
           hash[period.expr.to_i.to_s] = period.sum.to_i.in_second.in(unit).round(2).to_f
           hash
         end
-        series << { name: activity.name, data: normalize_serie(sums, categories.keys), tooltip: {value_suffix: unit.symbol }}
+        series << { name: activity.name, data: normalize_serie(sums, categories.keys), tooltip: {value_suffix: unit.symbol }, color: activity.color}
       end
     end
 

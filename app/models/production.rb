@@ -206,6 +206,11 @@ class Production < Ekylibre::Record::Base
     end
     item
   end
+  
+  # return a color for each production
+  def color
+    self.activity.color
+  end
 
   def has_active_product?
     cultivation_variant.nature.active?
