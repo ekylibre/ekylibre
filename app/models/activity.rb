@@ -184,7 +184,9 @@ class Activity < Ekylibre::Record::Base
           elsif activity_family.parent <= :potato_crops
            rgb_value << color_cycle[:dark_turquoise]  
           elsif activity_family.parent <= :tobacco_crops || activity_family.parent <= :hemp_crops
-           rgb_value << color_cycle[:dark_turquoise] 
+           rgb_value << color_cycle[:dark_turquoise]
+          else
+           rgb_value << color_cycle[:gray]  
           end         
         elsif activity_family.parent <= :aromatic_and_medicinal_plants
           rgb_value << color_cycle[:blue]
@@ -197,7 +199,11 @@ class Activity < Ekylibre::Record::Base
         else
           rgb_value << color_cycle[:gray]
         end
+      else
+        rgb_value << color_cycle[:gray]  
       end
+    else
+      rgb_value << color_cycle[:gray]  
     end
     rgb_value
   end

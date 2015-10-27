@@ -44,6 +44,7 @@
 #
 class Production < Ekylibre::Record::Base
   include Attachable
+  include ChartsHelper
   # refers_to :support_variant_unit, class_name: 'Unit'
   # refers_to :support_variant_indicator, -> { where(datatype: :measure) }, class_name: 'Indicator' # [:population, :working_duration]
   belongs_to :activity
@@ -209,7 +210,8 @@ class Production < Ekylibre::Record::Base
   
   # return a color for each production
   def color
-    self.activity.color
+    color = ligthen(self.activity.color, 0.3)
+    return color
   end
 
   def has_active_product?
