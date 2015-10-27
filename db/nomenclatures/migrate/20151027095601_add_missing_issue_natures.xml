@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add missing issue natures">
+  <item-creation item="issue_natures#flooding" parent="climate_issue" cause="water" target="plant"/>
+  <item-creation item="issue_natures#drought"  parent="climate_issue" target="plant"/>
+  <item-creation item="issue_natures#wild_animal_ravage"  parent="issue" cause="animal" target="plant"/>
+</migration>

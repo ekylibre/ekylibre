@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151019090110">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151027095601">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -1799,6 +1799,7 @@
       <item name="defoliant_caterpillar" parent="insecta_disease" cause="operophtera_brumata" target="corylus"/>
       <item name="diarrhea" parent="disease" target="animal"/>
       <item name="disease" parent="issue"/>
+      <item name="drought" parent="climate_issue" target="plant"/>
       <item name="edema" parent="disease" target="animal"/>
       <item name="empoasca_vitis_leafhopper" parent="insecta_disease" cause="empoasca_vitis" target="vitis"/>
       <item name="empty_fuel_tank" parent="mechanical_issue" target="equipment"/>
@@ -1806,6 +1807,7 @@
       <item name="escape" parent="issue"/>
       <item name="fecondity_problem" parent="disease" target="bioproduct"/>
       <item name="fever" parent="disease" target="animal"/>
+      <item name="flooding" parent="climate_issue" cause="water" target="plant"/>
       <item name="fomitiporia" parent="fungus_disease" cause="fomitiporia" target="corylus"/>
       <item name="fungus_disease" parent="disease" target="bioproduct"/>
       <item name="grapevine_yellows" parent="bacteria_disease" target="vitis"/>
@@ -1830,6 +1832,7 @@
       <item name="support_issue" parent="issue"/>
       <item name="vine_mildew" parent="fungus_disease" cause="plasmopara_viticola" target="vitis"/>
       <item name="vine_powdery_mildew" parent="fungus_disease" cause="uncinula_necator" target="vitis"/>
+      <item name="wild_animal_ravage" parent="issue" cause="animal" target="plant"/>
       <item name="wood_leopard_moth" parent="insecta_disease" cause="zeuzera_pyrina" target="corylus"/>
       <item name="yellow_acarine" parent="insecta_disease" cause="eotetranychus_coryli" target="corylus"/>
     </items>
@@ -2967,7 +2970,7 @@
       <item name="associate_social_contribution" category="associate_social_contribution" variety="service" population_counting="decimal" variable_indicators="population"/>
       <item name="baler" category="equipment" variety="harvester" population_counting="unitary" abilities="bunch" variable_indicators="application_width, geolocation" frozen_indicators="population"/>
       <item name="bank_service" category="bank_service" variety="service" population_counting="decimal" variable_indicators="population"/>
-      <item name="bee_band" category="bee_band" variety="apis" population_counting="integer" abilities="move, pollinate(plant), produce(honey)" variable_indicators="population"/>
+      <item name="bee_band" category="bee_band" variety="apis" population_counting="integer" abilities="move, pollinate(plant), produce(honey)" variable_indicators="population, healthy"/>
       <item name="beef_meat" category="meat" variety="meat" derivative_of="bos" population_counting="decimal" variable_indicators="population, temperature, total_bacteria_concentration" frozen_indicators="net_volume, net_mass"/>
       <item name="bonus_staff_expense" category="bonus_staff_expense" variety="service" population_counting="decimal" variable_indicators="population"/>
       <item name="bottle" category="wine_package_consumable" variety="bottle" population_counting="integer" abilities="store(wine), store(juice)" variable_indicators="population, net_mass, length" frozen_indicators="net_volume"/>
@@ -2999,7 +3002,7 @@
       <item name="crop_residue" category="straw" variety="straw" derivative_of="plant" population_counting="decimal" variable_indicators="population" frozen_indicators="net_mass, net_volume"/>
       <item name="cultivable_zone" category="cultivable_zone" variety="cultivable_zone" population_counting="decimal" abilities="consume(water), consume(seed), produce(plant), store(plant), store(animal), store(fungus)" variable_indicators="population, shape, soil_cultural_state, fence_perimeter" frozen_indicators="net_surface_area"/>
       <item name="discount_and_reduction" category="discount_and_reduction" variety="service" population_counting="decimal" variable_indicators="population"/>
-      <item name="duck_band" category="aves_band" variety="aves" population_counting="integer" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix)" variable_indicators="population" derivatives="meat"/>
+      <item name="duck_band" category="aves_band" variety="aves" population_counting="integer" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix)" variable_indicators="population, healthy" derivatives="meat"/>
       <item name="duck_herd" category="aves_herd" variety="animal_group" derivative_of="aves" population_counting="integer" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix)" frozen_indicators="population"/>
       <item name="egg" category="egg" variety="egg" derivative_of="aves" population_counting="integer" variable_indicators="population" frozen_indicators="net_volume, net_mass"/>
       <item name="electricity" category="electricity" variety="electricity" population_counting="decimal" variable_indicators="population" frozen_indicators="energy"/>
@@ -3020,7 +3023,7 @@
       <item name="female_rabbit" category="short_time_animal" variety="oryctolagus" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), produce(excrement), move, produce(oryctolagus)" variable_indicators="net_mass, animal_life_state, mammalia_birth_count, mammalia_reproduction_state, last_birth_children_count, healthy" frozen_indicators="population, sex, reproductor, livestock_unit" derivatives="meat"/>
       <item name="female_young_cow" category="female_adult_cow" variety="bos" population_counting="unitary" abilities="consume(water), consume(poaceae), produce(excrement), move, consume(mix), consume(silage)" variable_indicators="net_mass, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_state, mammalia_reproduction_method_embryo_transplant, last_birth_children_count, mammalia_birth_count, healthy" frozen_indicators="population, sex, reproductor, livestock_unit" derivatives="meat, milk"/>
       <item name="female_young_goat" category="calf" variety="capra" population_counting="unitary" abilities="consume(water), consume(poaceae), produce(excrement), consume(milk), move, consume(mix), consume(silage)" variable_indicators="net_mass, sex, animal_life_state, healthy, mammalia_birth_condition" frozen_indicators="population, reproductor, livestock_unit" derivatives="meat"/>
-      <item name="female_young_sheep" category="female_adult_cow" variety="ovis" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), move" variable_indicators="net_mass, animal_life_state" frozen_indicators="population, sex, reproductor, livestock_unit" derivatives="meat"/>
+      <item name="female_young_sheep" category="female_adult_cow" variety="ovis" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), move" variable_indicators="net_mass, animal_life_state, healthy" frozen_indicators="population, sex, reproductor, livestock_unit" derivatives="meat"/>
       <item name="fence" category="small_equipment" variety="wire" population_counting="integer" abilities="enclose" variable_indicators="population" frozen_indicators="diameter, length, height"/>
       <item name="fermented_grape_juice" category="fruit" variety="fermented_juice" derivative_of="grape" population_counting="decimal" abilities="produce(wine)" variable_indicators="population" frozen_indicators="net_mass, net_volume"/>
       <item name="fermented_milk" category="processed_milk" variety="fermented_milk" derivative_of="milk" population_counting="decimal" variable_indicators="population, temperature, total_bacteria_concentration" frozen_indicators="net_volume, net_mass"/>
@@ -3083,16 +3086,16 @@
       <item name="loan_interest" category="loan_interest" variety="service" population_counting="decimal" variable_indicators="population"/>
       <item name="mail_subscription" category="telecommunication" variety="service" population_counting="decimal" variable_indicators="population"/>
       <item name="maintenance" category="maintenance" variety="service" population_counting="decimal" variable_indicators="population"/>
-      <item name="male_adult_cow" category="male_adult_cow" variety="bos" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), move" variable_indicators="net_mass, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index" frozen_indicators="population, sex, reproductor, livestock_unit" derivatives="meat"/>
-      <item name="male_adult_goat" category="male_adult_cow" variety="capra" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), move" variable_indicators="net_mass, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index" frozen_indicators="population, sex, reproductor, livestock_unit" derivatives="meat"/>
+      <item name="male_adult_cow" category="male_adult_cow" variety="bos" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), move" variable_indicators="net_mass, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, healthy" frozen_indicators="population, sex, reproductor, livestock_unit" derivatives="meat"/>
+      <item name="male_adult_goat" category="male_adult_cow" variety="capra" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), move" variable_indicators="net_mass, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, healthy" frozen_indicators="population, sex, reproductor, livestock_unit" derivatives="meat"/>
       <item name="male_adult_goat_herd" category="cattle_herd" variety="animal_group" derivative_of="capra" population_counting="integer" abilities="move, consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement)" frozen_indicators="sex, reproductor, population"/>
-      <item name="male_adult_horse" category="long_time_animal" variety="equus" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), produce(excrement), move" variable_indicators="net_mass" frozen_indicators="population, sex, reproductor, livestock_unit"/>
+      <item name="male_adult_horse" category="long_time_animal" variety="equus" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), produce(excrement), move" variable_indicators="net_mass, healthy" frozen_indicators="population, sex, reproductor, livestock_unit"/>
       <item name="male_adult_pig" category="male_adult_pig" variety="sus" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), move" variable_indicators="net_mass, animal_life_state, healthy" frozen_indicators="population, sex, reproductor, livestock_unit" derivatives="meat"/>
       <item name="male_adult_sheep" category="male_adult_cow" variety="ovis" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), move" variable_indicators="net_mass, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index" frozen_indicators="population, sex, reproductor, livestock_unit" derivatives="meat"/>
       <item name="male_rabbit" category="short_time_animal" variety="oryctolagus" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), produce(excrement), move" variable_indicators="net_mass, animal_life_state, healthy" frozen_indicators="population, sex, reproductor, livestock_unit" derivatives="meat"/>
       <item name="male_young_cow" category="male_young_cow" variety="bos" population_counting="unitary" abilities="consume(water), consume(poaceae), produce(excrement), move, consume(mix), consume(silage)" variable_indicators="net_mass, animal_life_state, healthy" frozen_indicators="population, sex, reproductor, livestock_unit" derivatives="meat"/>
       <item name="male_young_goat" category="calf" variety="capra" population_counting="unitary" abilities="consume(water), consume(poaceae), produce(excrement), consume(milk), move, consume(mix), consume(silage)" variable_indicators="net_mass, sex, animal_life_state, healthy, mammalia_birth_condition" frozen_indicators="population, reproductor, livestock_unit" derivatives="meat"/>
-      <item name="male_young_sheep" category="male_adult_cow" variety="ovis" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), move" variable_indicators="net_mass" frozen_indicators="population, sex, reproductor, livestock_unit" derivatives="meat"/>
+      <item name="male_young_sheep" category="male_adult_cow" variety="ovis" population_counting="unitary" abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), move" variable_indicators="net_mass, healthy" frozen_indicators="population, sex, reproductor, livestock_unit" derivatives="meat"/>
       <item name="manager" category="worker" variety="worker" population_counting="unitary" abilities="drive(equipment), manage(worker), milk(mammalia), move, administer_care(animal)" variable_indicators="geolocation" frozen_indicators="population"/>
       <item name="manure_division" category="building_division" variety="building_division" population_counting="unitary" abilities="store(excrement)" variable_indicators="net_surface_area, shape, nominal_storable_net_volume, nominal_storable_easement_area" frozen_indicators="population"/>
       <item name="meal_travel" category="travel" variety="service" population_counting="integer" variable_indicators="population"/>
@@ -3119,9 +3122,9 @@
       <item name="oyster_band" category="oyster_band" variety="ostreidae" population_counting="integer" abilities="move, consume(water)" variable_indicators="population"/>
       <item name="packaged_process_food" category="fruit" variety="mix" derivative_of="fruit" population_counting="integer" variable_indicators="population, best_before_period" frozen_indicators="net_mass, net_volume"/>
       <item name="peanut" category="fruit" variety="peanut" derivative_of="arachis" population_counting="decimal" variable_indicators="population, water_content_rate, impurity_concentration" frozen_indicators="net_mass"/>
-      <item name="pig_band" category="pig_band" variety="sus" population_counting="integer" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix)" variable_indicators="population" frozen_indicators="sex, reproductor" derivatives="meat"/>
+      <item name="pig_band" category="pig_band" variety="sus" population_counting="integer" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix)" variable_indicators="population, healthy" frozen_indicators="sex, reproductor" derivatives="meat"/>
       <item name="pig_herd" category="cattle_herd" variety="animal_group" derivative_of="sus" population_counting="integer" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix), consume(silage)" frozen_indicators="population"/>
-      <item name="piglet_band" category="pig_band" variety="sus" population_counting="integer" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix)" variable_indicators="population" frozen_indicators="reproductor" derivatives="meat"/>
+      <item name="piglet_band" category="pig_band" variety="sus" population_counting="integer" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix)" variable_indicators="population, healthy" frozen_indicators="reproductor" derivatives="meat"/>
       <item name="plant_medicine_tank" category="equipment" variety="tank" population_counting="unitary" abilities="store(preparation)" variable_indicators="nominal_storable_net_volume" frozen_indicators="population"/>
       <item name="plastic_cover" category="small_equipment" variety="canvas_cover" population_counting="decimal" abilities="wrap(cultivable_zone),wrap(equipment),wrap(silage)" variable_indicators="population" frozen_indicators="net_length, width"/>
       <item name="plow" category="equipment" variety="plower" population_counting="unitary" abilities="plow" variable_indicators="application_width, geolocation" frozen_indicators="population"/>

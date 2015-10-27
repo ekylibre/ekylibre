@@ -514,7 +514,7 @@ end
 Capybara.default_driver    = (ENV['DRIVER'] || 'webkit').to_sym
 Capybara.current_driver    = Capybara.default_driver
 Capybara.javascript_driver = Capybara.default_driver
-# Capybara.default_wait_time = 5
+# Capybara.default_max_wait_time = 5
 # Capybara.server_port = 3333
 
 Capybara::Webkit.configure do |config|
@@ -532,7 +532,7 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
   Warden.test_mode!
 
   def wait_for_ajax
-    sleep(Capybara.default_wait_time * 0.5)
+    sleep(Capybara.default_max_wait_time * 0.5)
     # Timeout.timeout(Capybara.default_wait_time) do
     #   loop if active_ajax_requests?
     # end

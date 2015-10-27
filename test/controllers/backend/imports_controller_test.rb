@@ -1,5 +1,5 @@
 require 'test_helper'
 
 class Backend::ImportsControllerTest < ActionController::TestCase
-  test_restfully_all_actions except: :run, progress: :touch
+  test_restfully_all_actions except: :run, progress: :show
 end

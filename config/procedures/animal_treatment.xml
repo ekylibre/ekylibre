@@ -15,9 +15,7 @@
       <operation id="1">
         <task do="[caregiver] measures [animal|healthy]" id="readhealth"/>
         <task do="[animal_medicine] parts with [animal_medicine_to_give]"/>
-        <task do="[animal_medicine_to_give] moves in [caregiver]"/>
         <!-- Operation 300 -->
-        <task do="[caregiver] moves at [animal]"/>
         <task do="[animal] consumes [animal_medicine_to_give]"/>
       </operation>
     </operations>
