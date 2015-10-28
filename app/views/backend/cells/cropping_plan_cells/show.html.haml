@@ -15,7 +15,7 @@
     productions_serie = Production.of_campaign(*@campaigns).of_activities(activities).order("activity_id, id").collect do |production|
       campaigns[production.campaign.name] ||= 0.0
       campaigns[production.campaign.name] += production.net_surface_area.to_s.to_f
-      {name: production.name, y: production.net_surface_area.to_s.to_f, url: backend_production_path(production), color: ligthen(activities_serie.detect{|a| a[:id] == production.activity_id}[:color], 0.3) }
+      {name: production.name, y: production.net_surface_area.to_s.to_f, url: backend_production_path(production), color: production.color } #ligthen(activities_serie.detect{|a| a[:id] == production.activity_id}[:color], 0.3)
     end
 
     series = []

@@ -1,3 +1,12 @@
 - main_toolbar do |t|
   - t.new variants: Nomen::AnalysisNature.list.inject({}){|h,n| h[n.human_name] = {nature: n.name}; h}
+= kujaku do |k|
+  - k.text
+  - samplers = Entity.all
+  - analysers = Entity.all
+  - if samplers.any?
+    - k.helper do
+      %label= Entity.human_attribute_name(:name)
+      = select_tag(:sampler_id, options_for_select([[]] + samplers.order(:name).collect{|u| [u.name, u.id]}, params[:sampler_id]))
+  - k.choice [:all.tl, :all], *resource_model.nature.values.map{ |s| [s.l, s] }, name: :nature, label: Analysis.human_attribute_name(:nature)
 = main_list

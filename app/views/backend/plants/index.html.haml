@@ -41,7 +41,7 @@
             popup_content << {label: :last_intervention.tl, value: link_to( "N°" + last_intervention.number, backend_intervention_path(last_intervention)) }
           end
 
-          if issues = Issue.where(target_id: p.id, target_type: p.class.name ).reorder(:observed_at)
+          if issues = Issue.where(target_id: p.id, target_type: 'Product' ).reorder(:observed_at)
             popup_content << {label: :issues_count.tl, value: issues.count }
           end
 

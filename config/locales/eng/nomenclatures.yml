@@ -1817,6 +1817,7 @@ eng:
         defoliant_caterpillar: "Defoliant caterpillar"     #< insecta_disease
         diarrhea: "Diarrhea"                               #< disease
         disease: "Disease"                                 #< issue
+        drought: "Drought"                                 #< climate_issue
         edema: "Edema"                                     #< disease
         empoasca_vitis_leafhopper: "Empoasca vitis leafhopper" #< insecta_disease
         empty_fuel_tank: "Empty fuel tank"                 #< mechanical_issue
@@ -1824,6 +1825,7 @@ eng:
         escape: "Escape"                                   #< issue
         fecondity_problem: "Fecondity problem"             #< disease
         fever: "Fever"                                     #< disease
+        flooding: "Flooding"                               #< climate_issue
         fomitiporia: "Fomitiporia"                         #< fungus_disease
         fungus_disease: "Fungus disease"                   #< disease
         grapevine_yellows: "Grapevine yellows"             #< bacteria_disease
@@ -1848,6 +1850,7 @@ eng:
         support_issue: "Support issue"                     #< issue
         vine_mildew: "Vine mildew"                         #< fungus_disease
         vine_powdery_mildew: "Vine powdery mildew"         #< fungus_disease
+        wild_animal_ravage: "Wild animal ravage"           #< issue
         wood_leopard_moth: "Wood leopard moth"             #< insecta_disease
         yellow_acarine: "Yellow acarine"                   #< insecta_disease
     lands:

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151021172901">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151027095601">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -1799,6 +1799,7 @@
       <item name="defoliant_caterpillar" parent="insecta_disease" cause="operophtera_brumata" target="corylus"/>
       <item name="diarrhea" parent="disease" target="animal"/>
       <item name="disease" parent="issue"/>
+      <item name="drought" parent="climate_issue" target="plant"/>
       <item name="edema" parent="disease" target="animal"/>
       <item name="empoasca_vitis_leafhopper" parent="insecta_disease" cause="empoasca_vitis" target="vitis"/>
       <item name="empty_fuel_tank" parent="mechanical_issue" target="equipment"/>
@@ -1806,6 +1807,7 @@
       <item name="escape" parent="issue"/>
       <item name="fecondity_problem" parent="disease" target="bioproduct"/>
       <item name="fever" parent="disease" target="animal"/>
+      <item name="flooding" parent="climate_issue" cause="water" target="plant"/>
       <item name="fomitiporia" parent="fungus_disease" cause="fomitiporia" target="corylus"/>
       <item name="fungus_disease" parent="disease" target="bioproduct"/>
       <item name="grapevine_yellows" parent="bacteria_disease" target="vitis"/>
@@ -1830,6 +1832,7 @@
       <item name="support_issue" parent="issue"/>
       <item name="vine_mildew" parent="fungus_disease" cause="plasmopara_viticola" target="vitis"/>
       <item name="vine_powdery_mildew" parent="fungus_disease" cause="uncinula_necator" target="vitis"/>
+      <item name="wild_animal_ravage" parent="issue" cause="animal" target="plant"/>
       <item name="wood_leopard_moth" parent="insecta_disease" cause="zeuzera_pyrina" target="corylus"/>
       <item name="yellow_acarine" parent="insecta_disease" cause="eotetranychus_coryli" target="corylus"/>
     </items>

@@ -249,7 +249,7 @@
         options = {} if options is true
 
         data = this._getSerieData(layer.serie)
-        options = $.extend true, {}, @options.layerDefaults[layer.type], layer
+        options = $.extend true, {}, @options.layerDefaults[layer.type], layer, parent: this
         renderedLayer = V.layer(layer, data, options)
         if renderedLayer and renderedLayer.valid()
           # Build layer group
