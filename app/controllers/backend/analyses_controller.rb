@@ -21,7 +21,7 @@ class Backend::AnalysesController < Backend::BaseController
   manage_restfully_attachments
 
   unroll
-  
+
   # params:
   #   :q Text search
   #   :s State search

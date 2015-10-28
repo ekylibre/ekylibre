@@ -1834,12 +1834,13 @@
         <page to="pasteque/v5/version#index"/>
       </item>
     </group>
-  </inaccessible-actions>
-  <untreated-actions>
     <group>
       <item name="analyses">
         <page to="iot/analyses#create"/>
       </item>
     </group>
+  </inaccessible-actions>
+  <untreated-actions>
+    <group/>
   </untreated-actions>
 </navigation>
