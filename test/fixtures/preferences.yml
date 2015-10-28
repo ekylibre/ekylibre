@@ -3329,3 +3329,25 @@ preferences_284:
   updated_at: 2015-09-18 14:12:14.117478000 Z
   updater_id: 1
   user_id: 1
+preferences_285:
+  boolean_value: false
+  created_at: 2015-10-28 21:59:32.165651000 Z
+  creator_id: 1
+  id: 286
+  lock_version: 0
+  name: interface.snippets.supervision.collapsed
+  nature: boolean
+  updated_at: 2015-10-28 21:59:32.165651000 Z
+  updater_id: 1
+  user_id: 1
+preferences_286:
+  created_at: 2015-10-28 22:00:07.916736000 Z
+  creator_id: 1
+  id: 287
+  lock_version: 0
+  name: list._supervisions_list_supervisions_tag
+  nature: string
+  string_value: {}
+  updated_at: 2015-10-28 22:00:07.916736000 Z
+  updater_id: 1
+  user_id: 1
