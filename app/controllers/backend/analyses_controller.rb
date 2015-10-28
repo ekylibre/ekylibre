@@ -21,8 +21,30 @@ class Backend::AnalysesController < Backend::BaseController
   manage_restfully_attachments
 
   unroll
+  
+  # params:
+  #   :q Text search
+  #   :s State search
+  #   :period Two Dates with _ separator
+  #   :variant_id
+  def self.analyses_conditions
+    code = ''
+    code = search_conditions(entities: [:full_name], analyses: [:reference_number, :number]) + " ||= []\n"
+    code << "  if params[:sampler_id].to_i > 0\n"
+    code << "    c[0] << \" AND \#{Entity.table_name}.id = ?\"\n"
+    code << "    c << params[:sampler_id].to_i\n"
+    code << "  end\n"
+    code << "  unless params[:nature].blank?\n"
+    code << "    if Analysis.nature.values.include?(params[:nature].to_sym)\n"
+    code << "      c[0] << ' AND #{Analysis.table_name}.nature = ?'\n"
+    code << "      c << params[:nature]\n"
+    code << "    end\n"
+    code << "  end\n"
+    code << "c\n"
+    code.c
+  end
 
-  list do |t|
+  list(conditions: analyses_conditions) do |t|
     t.action :edit
     t.action :destroy
     t.column :number, url: true
