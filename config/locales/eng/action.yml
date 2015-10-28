@@ -681,6 +681,11 @@ eng:
       index: "Subscriptions"
       new: "New subscription"
       # show: "Subscription: %{name}"
+    backend/supervisions:
+      edit: "Edit supervision: %{name}"
+      index: "Supervisions"
+      new: "New supervision"
+      show: "Supervision: %{name}"
     backend/synchronizations:
       index: "Synchronizations"
       run: "Run synchronization: %{name}"
@@ -1412,7 +1417,7 @@ eng:
     sensor_indicators: "Sensor indicators" #?!
     sensor_informations: "Sensor informations" #?!
     sensor_model: "Sensor model"
-    sensors: "Sensors"
+    sensors: "Sensors" #?
     sessions: "Sessions"
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?
     settings: "Settings"
@@ -1446,6 +1451,7 @@ eng:
     subscriptions: "Subscriptions"
     subtotal: "Sub-total %{name}"
     subtotals_at_level: "Sub-total at level"
+    # supervision: "Supervision"
     supplier: "Purchase prices of the supplier" #?
     supplier_informations: "Supplier informations"
     supply: "Supply" #?

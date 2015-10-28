@@ -30,28 +30,40 @@
 #  host_id           :integer
 #  id                :integer          not null, primary key
 #  lock_version      :integer          default(0), not null
-#  model_euid        :string           not null
+#  model_euid        :string
 #  name              :string           not null
 #  product_id        :integer
 #  retrieval_mode    :string           not null
+#  token             :string
 #  updated_at        :datetime         not null
 #  updater_id        :integer
-#  vendor_euid       :string           not null
+#  vendor_euid       :string
 #
 
 class Sensor < Ekylibre::Record::Base
   include Attachable
-  enumerize :retrieval_mode, in: [:manual, :automatic], default: :automatic
+  enumerize :retrieval_mode, in: [:requesting, :listening], default: :requesting, predicates: true
   belongs_to :product
   belongs_to :host, class_name: 'Product'
   has_many :analyses, class_name: 'Analysis', dependent: :nullify
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_inclusion_of :active, :embedded, in: [true, false]
-  validates_presence_of :model_euid, :name, :retrieval_mode, :vendor_euid
+  validates_presence_of :name, :retrieval_mode
   # ]VALIDATORS]
+  validates_uniqueness_of :name
+  validates_presence_of :token, if: :listening?
 
   # TODO: Check parameters presence
+
+  before_validation do
+    if token.blank?
+      self.token = User.give_password(16, :normal)
+      while self.class.where(token: token).where.not(id: id).any?
+        self.token = User.give_password(16, :normal)
+      end
+    end
+  end
 
   def equipment
     ActiveSensor::Equipment.find(vendor_euid, model_euid)

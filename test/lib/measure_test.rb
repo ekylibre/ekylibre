@@ -61,7 +61,7 @@ class MeasureTest < ActiveSupport::TestCase
       -8569.23.in('kilogram')
     end
   end
-  
+
   test 'conversions' do
     m = 1452.218534748545.in_ton
     assert_equal m.to_f, 1452.218534748545

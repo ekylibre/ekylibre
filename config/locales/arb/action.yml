@@ -619,6 +619,11 @@ arb:
       edit: "تعديل الاشتراك:  %{number} من %{start} الى %{finish}"
       # index: "Subscriptions"
       new: "انشاء اشتراك جديد"
+    backend/supervisions:
+      # edit: "Edit supervision: %{name}"
+      # index: "Supervisions"
+      # new: "New supervision"
+      # show: "Supervision: %{name}"
     backend/synchronizations:
       # index: "Synchronizations"
       # run: "Run synchronization: %{name}"

@@ -115,17 +115,21 @@ por:
         per_production: "Por produção"
         per_production_support: "Por suporte de produção"
         per_working_unit: "Por unidade de trabalho"
-    purchase:
-      computation_method:
-        adaptative: "Adaptativo"
-        manual: "Manual"
-        quantity_tax: "Quantidade-Imposto"
-        tax_quantity: "Imposto-Quantidade"
-    sale:
-      computation_method:
-        adaptative: "Adaptativo"
-        quantity_tax: "Quantidade-Imposto"
-        tax_quantity: "Imposto-Quantidade"
+    purchase:  #?
+      computation_method: #?
+        adaptative: "Adaptativo" #?
+        manual: "Manual" #?
+        quantity_tax: "Quantidade-Imposto" #?
+        tax_quantity: "Imposto-Quantidade" #?
+    sale:  #?
+      computation_method: #?
+        adaptative: "Adaptativo" #?
+        quantity_tax: "Quantidade-Imposto" #?
+        tax_quantity: "Imposto-Quantidade" #?
+    sensor:
+      retrieval_mode:
+        # listening: "Listening"
+        # requesting: "Requesting"
     sequence:
       period:
         cweek: "Semana comercial"

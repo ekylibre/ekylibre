@@ -32,9 +32,9 @@ class Backend::SensorsController < Backend::BaseController
     t.action :destroy
     t.column :active
     t.column :name, url: true
+    t.column :retrieval_mode
     t.column :vendor_euid
     t.column :model_euid
-    t.column :retrieval_mode
     t.column :product, url: true
     t.column :embedded
     t.column :host, url: true

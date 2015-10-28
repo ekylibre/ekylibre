@@ -109,6 +109,5 @@ module ActiveExchanger
     # def check
     #   raise NotImplementedError
     # end
-
   end
 end

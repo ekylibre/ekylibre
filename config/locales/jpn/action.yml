@@ -460,6 +460,11 @@ jpn:
       # edit: "Edit subscription: %{number} from %{start} to %{finish}"
       # index: "Subscriptions"
       # new: "New subscription"
+    backend/supervisions:
+      # edit: "Edit supervision: %{name}"
+      # index: "Supervisions"
+      # new: "New supervision"
+      # show: "Supervision: %{name}"
     backend/synchronizations:
       # index: "Synchronizations"
       # run: "Run synchronization: %{name}"

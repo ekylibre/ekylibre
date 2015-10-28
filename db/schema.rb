@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150926110217) do
+ActiveRecord::Schema.define(version: 20151027085923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2742,8 +2742,8 @@ ActiveRecord::Schema.define(version: 20150926110217) do
   add_index "sales", ["updater_id"], name: "index_sales_on_updater_id", using: :btree
 
   create_table "sensors", force: :cascade do |t|
-    t.string   "vendor_euid",                       null: false
-    t.string   "model_euid",                        null: false
+    t.string   "vendor_euid"
+    t.string   "model_euid"
     t.string   "name",                              null: false
     t.string   "retrieval_mode",                    null: false
     t.json     "access_parameters"
@@ -2756,6 +2756,7 @@ ActiveRecord::Schema.define(version: 20150926110217) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",      default: 0,     null: false
+    t.string   "token"
   end
 
   add_index "sensors", ["created_at"], name: "index_sensors_on_created_at", using: :btree
@@ -2843,6 +2844,41 @@ ActiveRecord::Schema.define(version: 20150926110217) do
   add_index "subscriptions", ["subscriber_id"], name: "index_subscriptions_on_subscriber_id", using: :btree
   add_index "subscriptions", ["updated_at"], name: "index_subscriptions_on_updated_at", using: :btree
   add_index "subscriptions", ["updater_id"], name: "index_subscriptions_on_updater_id", using: :btree
+
+  create_table "supervision_items", force: :cascade do |t|
+    t.integer  "supervision_id",             null: false
+    t.integer  "sensor_id",                  null: false
+    t.string   "color"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",   default: 0, null: false
+  end
+
+  add_index "supervision_items", ["created_at"], name: "index_supervision_items_on_created_at", using: :btree
+  add_index "supervision_items", ["creator_id"], name: "index_supervision_items_on_creator_id", using: :btree
+  add_index "supervision_items", ["sensor_id"], name: "index_supervision_items_on_sensor_id", using: :btree
+  add_index "supervision_items", ["supervision_id"], name: "index_supervision_items_on_supervision_id", using: :btree
+  add_index "supervision_items", ["updated_at"], name: "index_supervision_items_on_updated_at", using: :btree
+  add_index "supervision_items", ["updater_id"], name: "index_supervision_items_on_updater_id", using: :btree
+
+  create_table "supervisions", force: :cascade do |t|
+    t.string   "name",                        null: false
+    t.integer  "time_window"
+    t.json     "view_parameters"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",    default: 0, null: false
+  end
+
+  add_index "supervisions", ["created_at"], name: "index_supervisions_on_created_at", using: :btree
+  add_index "supervisions", ["creator_id"], name: "index_supervisions_on_creator_id", using: :btree
+  add_index "supervisions", ["name"], name: "index_supervisions_on_name", using: :btree
+  add_index "supervisions", ["updated_at"], name: "index_supervisions_on_updated_at", using: :btree
+  add_index "supervisions", ["updater_id"], name: "index_supervisions_on_updater_id", using: :btree
 
   create_table "tasks", force: :cascade do |t|
     t.string   "name",                            null: false

@@ -30,13 +30,14 @@
 #  host_id           :integer
 #  id                :integer          not null, primary key
 #  lock_version      :integer          default(0), not null
-#  model_euid        :string           not null
+#  model_euid        :string
 #  name              :string           not null
 #  product_id        :integer
 #  retrieval_mode    :string           not null
+#  token             :string
 #  updated_at        :datetime         not null
 #  updater_id        :integer
-#  vendor_euid       :string           not null
+#  vendor_euid       :string
 #
 #
 # == Fixture: sensors
@@ -45,11 +46,9 @@
 #   active: true
 #   creator: users_001
 #   embedded: true
-#   model_euid: "Lorem ipsum"
 #   name: "Lorem ipsum"
 #   retrieval_mode: "Lorem ipsum"
 #   updater: users_001
-#   vendor_euid: "Lorem ipsum"
 #
 ---
 sensors_001:

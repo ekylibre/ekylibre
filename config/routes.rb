@@ -74,6 +74,10 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :iot, path: 'iot/v1' do
+    resources :analyses, only: [:create], path: 'a'
+  end
+
   # Plugins can override backend routes but only complete API ones
   plugins
 
@@ -737,6 +741,8 @@ Rails.application.routes.draw do
     end
 
     resources :subscriptions, concerns: [:list, :unroll]
+
+    resources :supervisions, concerns: [:list, :unroll]
 
     resources :synchronizations, only: [:index] do
       member do

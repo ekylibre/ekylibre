@@ -120,6 +120,8 @@
 - sub_zone
 - subscription
 - subscription_nature
+- supervision
+- supervision_item
 - task
 - tax
 - team

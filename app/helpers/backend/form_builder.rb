@@ -145,7 +145,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
           end
 
           nested += simple_fields_for :attachments do |form|
-            form.input :files, as: :file, label: :attachments.tl , required: false, input_html: { multiple: true }
+            form.input :files, as: :file, label: :attachments.tl, required: false, input_html: { multiple: true }
           end
 
           nested

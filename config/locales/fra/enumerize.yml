@@ -115,17 +115,10 @@ fra:
         per_production: "Par production"
         per_production_support: "Par support de production"
         per_working_unit: "Par unité d'œuvre"
-    purchase:
-      computation_method:
-        adaptative: "Adaptatif"
-        manual: "Manuel"
-        quantity_tax: "Quantité-TVA"
-        tax_quantity: "TVA-Quantité"
-    sale:
-      computation_method:
-        adaptative: "Adaptatif"
-        quantity_tax: "Quantité-TVA"
-        tax_quantity: "TVA-Quantité"
+    sensor:
+      retrieval_mode:
+        listening: "Serveur"
+        requesting: "Client"
     sequence:
       period:
         cweek: "Semaine"
@@ -156,7 +149,6 @@ fra:
         purchases: "Numérotation des achats"
         sales: "Numérotation des ventes"
         sales_invoices: "Numérotation des factures"
-        stock_transfers: "Numérotation des transferts de stock" #?
         subscriptions: "Numérotation des abonnements"
         transports: "Numérotation des transports"
     subscription_nature:

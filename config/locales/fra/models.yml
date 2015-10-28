@@ -307,11 +307,12 @@ fra:
       manure_management_plan_zone: "Zone de plan de fumure"
       matter: "Matière"
       net_service: "Service en ligne"
+      # notification: "Notification"
       observation: "Observation"
       operation: "Opération"
       organization: "Organisation" #?
-      outgoing_parcel: "Colis à expédier"
-      outgoing_parcel_item: "Élément de colis à expédier"
+      outgoing_parcel: "Colis à expédier" #?
+      outgoing_parcel_item: "Élément de colis à expédier" #?
       outgoing_payment: "Décaissement"
       outgoing_payment_mode: "Mode de décaissement"
       parcel: "Colis"
@@ -371,6 +372,8 @@ fra:
       sub_zone: "Sous-zone"
       subscription: "Abonnement"
       subscription_nature: "Type d’abonnement"
+      # supervision: "Supervision"
+      # supervision_item: "Supervision item"
       task: "Tâche"
       tax: "Taxe"
       team: "Service"
@@ -1235,9 +1238,11 @@ fra:
     third_role: "Rôle tiers"
     thread: "Fil"
     ticket: "Ticket" #?
+    time_window: "Fenêtre de temps (en secondes)"
     title: "Titre"
     to: "Pour"
     to_bank_at: "À décaisser le"
+    # token: "Token"
     tool: "Outil"
     tools: "Outils"
     tracking: "Lot"

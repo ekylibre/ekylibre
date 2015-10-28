@@ -800,7 +800,18 @@
         <page to="backend/equipments#picture"/>
       </item>
     </group>
-    <group name="sensors">
+    <group name="supervision">
+      <item name="supervisions">
+        <page to="backend/supervisions#index"/>
+        <page to="backend/supervisions#create"/>
+        <page to="backend/supervisions#destroy"/>
+        <page to="backend/supervisions#edit"/>
+        <page to="backend/supervisions#list"/>
+        <page to="backend/supervisions#new"/>
+        <page to="backend/supervisions#show"/>
+        <page to="backend/supervisions#unroll"/>
+        <page to="backend/supervisions#update"/>
+      </item>
       <item name="sensors">
         <page to="backend/sensors#index"/>
         <page to="backend/sensors#attachments"/>
@@ -1825,6 +1836,10 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="analyses">
+        <page to="iot/analyses#create"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>
