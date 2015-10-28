@@ -32,6 +32,36 @@ class MeasureTest < ActiveSupport::TestCase
     end
   end
 
+  test 'negative instanciation' do
+    assert_nothing_raised do
+      Measure.new(-8569.23, 'kilogram')
+    end
+    assert_nothing_raised do
+      Measure.new(-8569.23, :kilogram)
+    end
+    assert_nothing_raised do
+      Measure.new('-8569.23 kilogram')
+    end
+    assert_nothing_raised do
+      Measure.new('-8569.23kilogram')
+    end
+    assert_nothing_raised do
+      Measure.new('-8569.23 kg')
+    end
+    assert_nothing_raised do
+      Measure.new('-8569.23kg')
+    end
+    assert_nothing_raised do
+      -8569.23.in_kilogram
+    end
+    assert_nothing_raised do
+      -8569.23.in(:kilogram)
+    end
+    assert_nothing_raised do
+      -8569.23.in('kilogram')
+    end
+  end
+  
   test 'conversions' do
     m = 1452.218534748545.in_ton
     assert_equal m.to_f, 1452.218534748545
