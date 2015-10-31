@@ -47,11 +47,16 @@ class Backend::PurchasesController < Backend::BaseController
     code << "    c << params[:state].flatten\n"
     code << "  end\n "
     code << "end\n "
+    code << "unless (params[:nature].blank? or params[:nature].is_a? Symbol)\n"
+    code << "  if params[:nature].flatten.first == 'unpaid'\n"
+    code << "    c[0] << \" AND #{Affair.table_name}.closed = FALSE\"\n"
+    code << "  end\n "
+    code << "end\n "
     code << "c\n "
     code.c
   end
 
-  list(conditions: purchases_conditions, joins: :supplier, line_class: :status, order: { created_at: :desc, number: :desc }) do |t|
+  list(conditions: purchases_conditions, joins: [:supplier, :affair], line_class: :status, order: { created_at: :desc, number: :desc }) do |t|
     t.action :edit
     t.action :destroy, if: :destroyable?
     t.column :number, url: true
@@ -60,14 +65,14 @@ class Backend::PurchasesController < Backend::BaseController
     t.column :planned_at, hidden: true
     t.column :invoiced_at
     t.column :supplier, url: true
-    t.column :supplier_address
+    t.column :supplier_address, hidden: true
     t.column :description
     # t.column :shipped
     t.status
     t.column :state_label
     # t.column :paid_amount, currency: true
     t.column :pretax_amount, currency: true
-    t.column :amount, currency: true, hidden: true
+    t.column :amount, currency: true
   end
 
   list(:items, model: :purchase_items, conditions: { purchase_id: 'params[:id]'.c }) do |t|
