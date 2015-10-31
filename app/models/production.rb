@@ -207,7 +207,7 @@ class Production < Ekylibre::Record::Base
     end
     item
   end
-  
+
   # return a color for each production
   def color
     color = ligthen(self.activity.color, 0.3)

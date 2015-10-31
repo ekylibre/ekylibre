@@ -171,28 +171,28 @@ class Activity < Ekylibre::Record::Base
               rgb_value << color_cycle[:gold]
             end
           # level 3 - category - BEETS / POTATO = VIOLET
-          elsif activity_family.parent <= :beet_crops 
+          elsif activity_family.parent <= :beet_crops
             rgb_value << color_cycle[:violet]
           # level 3 - category - FODDER = SPRING GREEN
           elsif activity_family.parent <= :fallow_land || activity_family.parent <= :fodder_crops || activity_family <= :fodder_crops || activity_family <= :fallow_land
             rgb_value << color_cycle[:dark_green]
           elsif activity_family.parent <= :meadow || activity_family <= :meadow
             rgb_value << color_cycle[:dark_green]
-          # level 3 - category - PROTEINS = TEAL    
+          # level 3 - category - PROTEINS = TEAL
           elsif activity_family.parent <= :protein_crops
-           rgb_value << color_cycle[:teal] 
-          # level 3 - category - OILSEED = GOLDEN ROD 
+           rgb_value << color_cycle[:teal]
+          # level 3 - category - OILSEED = GOLDEN ROD
           elsif activity_family.parent <= :oilseed_crops
            rgb_value << color_cycle[:golden_rod]
           # level 3 - category - BEETS / POTATO = VIOLET
           elsif activity_family.parent <= :potato_crops
            rgb_value << color_cycle[:violet]
-          # level 3 - category - AROMATIC, TOBACCO, HEMP = TURQUOISE   
+          # level 3 - category - AROMATIC, TOBACCO, HEMP = TURQUOISE
           elsif activity_family.parent <= :tobacco_crops || activity_family.parent <= :hemp_crops || activity_family <= :tobacco_crops || activity_family <= :hemp_crops
            rgb_value << color_cycle[:dark_turquoise]
           else
-           rgb_value << color_cycle[:gray]  
-          end         
+           rgb_value << color_cycle[:gray]
+          end
         elsif activity_family.parent <= :aromatic_and_medicinal_plants || activity_family <= :aromatic_and_medicinal_plants
           rgb_value << color_cycle[:dark_turquoise]
         # level 3 - category - FLOWER = FUCHSIA
@@ -201,17 +201,17 @@ class Activity < Ekylibre::Record::Base
         # level 3 - category - ARBO, FRUIT = BLUE
         elsif activity_family.parent <= :fruits_crops
           rgb_value << color_cycle[:blue]
-        # level 3 - category - MARKET = RED  
+        # level 3 - category - MARKET = RED
         elsif activity_family.parent <= :market_garden_crops
-          rgb_value << color_cycle[:red]     
+          rgb_value << color_cycle[:red]
         else
           rgb_value << color_cycle[:gray]
         end
       else
-        rgb_value << color_cycle[:gray]  
+        rgb_value << color_cycle[:gray]
       end
     else
-      rgb_value << color_cycle[:gray]  
+      rgb_value << color_cycle[:gray]
     end
     rgb_value
   end

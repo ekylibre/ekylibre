@@ -39,6 +39,32 @@ class Backend::ProductsController < Backend::BaseController
     code << "  puts item.expression.red\n"
     code << "  c[0] << \" AND products.nature_id IN (SELECT id FROM product_natures WHERE \#{WorkingSet.to_sql(item.expression)})\"\n"
     code << "end\n"
+    code << "    unless params[:s].blank?\n"
+    code << "      if params[:s] != 'all'\n"
+    code << "        if params[:s] == 'available'\n"
+    code << "          c[0] << \" AND #{Product.table_name}.dead_at IS NULL\"\n"
+    code << "        end\n"
+    code << "      end\n"
+    code << "    end\n"
+    code << "unless (params[:period].blank? or params[:period].is_a? Symbol)\n"
+    code << "  if params[:period] != 'all'\n"
+    code << "    interval = params[:period].split('_')\n"
+    code << "    first_date = interval.first\n"
+    code << "    last_date = interval.last\n"
+    code << "    c[0] << \" AND #{Product.table_name}.born_at BETWEEN ? AND ?\"\n"
+    code << "    c << first_date\n"
+    code << "    c << last_date\n"
+    code << "    unless params[:s].blank?\n"
+    code << "      if params[:s] != 'all'\n"
+    code << "        if params[:s] == 'consume'\n"
+    code << "          c[0] << \" AND #{Product.table_name}.dead_at BETWEEN ? AND ?\"\n"
+    code << "          c << first_date\n"
+    code << "          c << last_date\n"
+    code << "        end\n"
+    code << "      end\n"
+    code << "    end\n"
+    code << "  end\n "
+    code << "end\n "
     code << "c\n"
     code.c
   end
@@ -47,9 +73,12 @@ class Backend::ProductsController < Backend::BaseController
     t.action :edit
     t.action :destroy, if: :destroyable?
     t.column :number, url: true
+    t.column :work_number
     t.column :name, url: true
     t.column :variant, url: true
     t.column :variety
+    t.column :population
+    t.column :unit_name
     t.column :container, url: true
     t.column :description
   end

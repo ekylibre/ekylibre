@@ -871,6 +871,7 @@ arb:
     # attachments: "Attachments"
     attorney: "معلومات الوكيل" #?
     # automatic: "Auto"
+    # available: "Available"
     available_columns: "الحقول المتاحة : %{columns}"
     back: "التأكد من صحة واسترداد قائمة وسائل النقل"
     backup: "نسخ احتياطية" #?
@@ -962,6 +963,7 @@ arb:
     confirmed_at: "تم تأكيده في" #?
     connect: "الدخول" #?
     consult: "استشارة" #?
+    # consume: "Consume"
     contact: "العنوان" #?
     contact_create: "اضافة مشترك جديد" #?
     # contained_products: "Contained products"
