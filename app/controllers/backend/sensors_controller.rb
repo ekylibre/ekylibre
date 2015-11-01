@@ -43,6 +43,7 @@ class Backend::SensorsController < Backend::BaseController
   list :analyses, model: :analysis, conditions: { sensor_id: 'params[:id]'.c } do |t|
     t.column :number, url: true
     t.column :nature
+    t.column :analysed_at
     t.column :retrieval_status
     t.column :retrieval_message
     t.column :sampling_temporal_mode
