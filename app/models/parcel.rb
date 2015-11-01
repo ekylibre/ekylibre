@@ -182,7 +182,7 @@ class Parcel < Ekylibre::Record::Base
 
   # Number of products delivered
   def items_quantity
-    items.sum(:quantity)
+    items.sum(:population)
   end
 
   def all_item_prepared?

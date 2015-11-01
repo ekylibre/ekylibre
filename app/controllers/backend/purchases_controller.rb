@@ -107,6 +107,7 @@ class Backend::PurchasesController < Backend::BaseController
     respond_with(@purchase, methods: [:taxes_amount, :affair_closed],
                             include: { delivery_address: { methods: [:mail_coordinate] },
                                        supplier: { methods: [:picture_path], include: { default_mail_address: { methods: [:mail_coordinate] } } },
+                                       parcels: {include: :items},
                                        affair: { methods: [:balance], include: [outgoing_payments: { include: :mode }] },
                                        items: { methods: [:taxes_amount, :tax_name, :tax_short_label], include: [:variant] }
                              }
