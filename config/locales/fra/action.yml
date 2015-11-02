@@ -739,6 +739,7 @@ fra:
     attachments: "Pièces jointes"
     attorney: "Informations mandataire" #?
     automatic: "Auto"
+    available: "Disponible"
     available_columns: "Champs disponibles\_: %{columns}"
     back: "Revenir à la page précédente"
     backup: "Sauvegarder" #?
@@ -827,6 +828,7 @@ fra:
     confirmed_at: "Confirmée le" #?
     connect: "Entrer" #?
     consult: "Consulter" #?
+    consume: "Consommé"
     contact: "à l’adresse" #?
     contained_products: "Produits contenus"
     container: "Emplacement"

@@ -3,6 +3,7 @@
   - sm = Purchase.state_machine.states
   - k.multi_choice :state, [:draft, :estimate, :aborted, :refused, :order, :invoice].map{|s| [sm[s].human_name, s] }, label: Purchase.human_attribute_name(:state)
   - k.helper :journal_period_crit
+  - k.multi_choice :nature, [:unpaid].map{ |s| [s.tl, s] }
 - main_toolbar do |t|
   - t.new variants: PurchaseNature.reorder(:by_default).to_a.inject({}){|h,n| h[n.name] = {nature_id: n.id}; h}
 = main_list

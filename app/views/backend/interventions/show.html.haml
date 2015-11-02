@@ -34,17 +34,18 @@
     - c.cobble :resource_map, title: :map do
       = map
 
-  - c.cobble(:chart) do
-    - if tractor_cast = resource.casts.find_by(reference_name: 'tractor')
+  - tractor_cast = resource.casts.find_by(reference_name: 'tractor')
+  - tractor = tractor_cast.actor
+  - start = resource.started_at
+  - stop = resource.stopped_at
+  - categories = [:fuel_consumption]
+  - readings = ProductReading.where(indicator_name: categories, product: tractor).between(start, stop).count
+  - if tractor_cast && tractor && readings > 0
+    - c.cobble(:chart) do
       :ruby
-        if tractor = tractor_cast.actor
-          start = resource.started_at
-          stop = resource.stopped_at
-
+        if tractor
           data = {}.with_indifferent_access
           series = []
-
-          categories = [:fuel_consumption]
           for symbol_item in categories
           item = Nomen::Indicator[symbol_item]
           unit = Nomen::Unit[item.unit]
@@ -61,8 +62,8 @@
         end
 
       = spline_highcharts(series, y_axis: {title: {text: :indicator_value.tl} , opposite: true}, tooltip: { shared: true }, x_axis: {type: 'datetime', crosshair: true}, legend: true)
-    - else
-      = no_data
+  - else
+    = no_data
 
   - c.cobble(:costs) do
     .big-infos.costs

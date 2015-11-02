@@ -6,7 +6,8 @@ class visualization.Categories
     for zone in @data
       unless this.itemFor(zone[property])
         @items.push
-          name: zone[property]
+          name: zone[property],
+          color: zone['shapeColor']
 
     if this.valid()
       @items = @items.sort (a, b) ->
@@ -16,7 +17,10 @@ class visualization.Categories
         for x in [@colors.length..@items.length]
           @colors.push(options.parent.options.colors[x] ? "#000000")
       for item, index in @items
-        item.fillColor = @colors[index]
+        if item.color?
+          item.fillColor = item.color
+        else
+          item.fillColor = @colors[index]
 
       console.log "Categories computed"
     else

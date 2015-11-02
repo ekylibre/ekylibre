@@ -20,9 +20,61 @@ class Backend::ParcelsController < Backend::BaseController
   manage_restfully t3e: { nature: 'RECORD.nature.text'.c }, planned_at: 'Time.zone.now'.c
   manage_restfully_attachments
 
+  respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
+
   unroll
 
-  list(conditions: search_conditions(parcels: [:number, :reference_number], entities: [:full_name, :number]), order: { planned_at: :desc }) do |t|
+  # params:
+  #   :q Text search
+  #   :s State search
+  #   :period Two Dates with _ separator
+  #   :recipient_id
+  #   :sender_id
+  #   :transporter_id
+  #   :delivery_mode Choice
+  #   :nature Choice
+  def self.parcels_conditions
+    code = ''
+    code = search_conditions(parcels: [:number, :reference_number], entities: [:full_name, :number]) + " ||= []\n"
+    code << "unless (params[:period].blank? or params[:period].is_a? Symbol)\n"
+    code << "  if params[:period] != 'all'\n"
+    code << "    interval = params[:period].split('_')\n"
+    code << "    first_date = interval.first\n"
+    code << "    last_date = interval.last\n"
+    code << "    c[0] << \" AND #{Parcel.table_name}.planned_at BETWEEN ? AND ?\"\n"
+    code << "    c << first_date\n"
+    code << "    c << last_date\n"
+    code << "  end\n "
+    code << "end\n "
+    code << "  if params[:recipient_id].to_i > 0\n"
+    code << "    c[0] << \" AND \#{Parcel.table_name}.recipient_id = ?\"\n"
+    code << "    c << params[:recipient_id].to_i\n"
+    code << "  end\n"
+    code << "  if params[:sender_id].to_i > 0\n"
+    code << "    c[0] << \" AND \#{Parcel.table_name}.sender_id = ?\"\n"
+    code << "    c << params[:sender_id].to_i\n"
+    code << "  end\n"
+    code << "  if params[:transporter_id].to_i > 0\n"
+    code << "    c[0] << \" AND \#{Parcel.table_name}.transporter_id = ?\"\n"
+    code << "    c << params[:transporter_id].to_i\n"
+    code << "  end\n"
+    code << "  unless params[:delivery_mode].blank? and params[:delivery_mode] == 'all'\n"
+    code << "    if Parcel.delivery_mode.values.include?(params[:delivery_mode].to_sym)\n"
+    code << "      c[0] << ' AND #{Parcel.table_name}.delivery_mode = ?'\n"
+    code << "      c << params[:delivery_mode]\n"
+    code << "    end\n"
+    code << "  end\n"
+    code << "  unless params[:nature].blank? and params[:nature] == 'all'\n"
+    code << "    if Parcel.nature.values.include?(params[:nature].to_sym)\n"
+    code << "      c[0] << ' AND #{Parcel.table_name}.nature = ?'\n"
+    code << "      c << params[:nature]\n"
+    code << "    end\n"
+    code << "  end\n"
+    code << "c\n"
+    code.c
+  end
+
+  list(conditions: parcels_conditions, order: { planned_at: :desc }) do |t|
     t.action :new,     on: :none
     t.action :invoice, on: :both, method: :post, if: :invoiceable?
     t.action :ship,    on: :both, method: :post, if: :shippable?
@@ -54,6 +106,34 @@ class Backend::ParcelsController < Backend::BaseController
     # t.column :net_mass
     t.column :analysis, url: true
     t.column :source_product, url: true, hidden: true
+  end
+
+  # Displays the main page with the list of parcels
+  def index
+    respond_to do |format|
+      format.html
+      format.xml { render xml: @parcels }
+      format.pdf { render pdf: @parcels, with: params[:template] }
+    end
+  end
+
+  # Displays details of one parcel selected with +params[:id]+
+  def show
+    return unless @parcel = find_and_check
+    respond_with(@parcel, methods: [:all_item_prepared, :status, :items_quantity],
+                        include: { address: { methods: [:mail_coordinate] },
+                                   sale: {},
+                                   purchase: {},
+                                   recipient: {},
+                                   sender: {},
+                                   transporter: {},
+                                   items: { methods: [:status, :prepared], include: [:product, :variant] }
+                          }
+                ) do |format|
+      format.html do
+        t3e @parcel.attributes
+      end
+    end
   end
 
   # Converts parcel to trade

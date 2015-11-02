@@ -142,26 +142,76 @@ class Activity < Ekylibre::Record::Base
   end
 
   # return a color for each activity
+  # short-way solution must be in nomenclature in mid-way solution
   def color
     rgb_value = '#'
     activity_family = Nomen::ActivityFamily[family]
-    color_cycle = { gold: 'FFD700', yellow: 'FFFF00', orange: 'FF8000', red: 'FF0000', green: '80FF00', dark_turquoise: '00FFFF', blue: '0000FF', purple: 'BF00FF', gray: 'A4A4A4' }
+    cultivation_variety = Nomen::Variety[activity_family.cultivation_variety]
+    color_cycle = { gold: 'FFD700', golden_rod: 'DAA520', yellow: 'FFFF00', orange: 'FF8000',
+                    red: 'FF0000', green: '80FF00', spring_green: '00FF7F', dark_green: '006400', dark_turquoise: '00FFFF',
+                    blue: '0000FF', purple: 'BF00FF', gray: 'A4A4A4', dark_magenta: '8B008B', violet: 'EE82EE', teal: '008080', fuchsia: 'FF00FF'}
     if activity_family
-      if activity_family <= :cereal_crops
-        if activity_family <= :maize_crops
-          rgb_value << color_cycle[:orange]
+      # level 1
+      if cultivation_variety <= :plant
+        # level 2 - family
+        # ARBO, FRUIT = BLUE
+        if activity_family.parent <= :arboriculture || activity_family <= :arboriculture
+          rgb_value << color_cycle[:blue]
+        elsif activity_family.parent <= :field_crops
+          # level 3 - category - CEREALS = GOLD/YELLOW/ORANGE
+          if activity_family.parent <= :cereal_crops
+            # level 4 - variety
+            if cultivation_variety <= :zea || cultivation_variety <= :sorghum
+              rgb_value << color_cycle[:orange]
+            elsif cultivation_variety <= :hordeum
+              rgb_value << color_cycle[:yellow]
+            elsif cultivation_variety <= :triticum_durum
+              rgb_value << color_cycle[:gold]
+            else
+              rgb_value << color_cycle[:gold]
+            end
+          # level 3 - category - BEETS / POTATO = VIOLET
+          elsif activity_family.parent <= :beet_crops
+            rgb_value << color_cycle[:violet]
+          # level 3 - category - FODDER = SPRING GREEN
+          elsif activity_family.parent <= :fallow_land || activity_family.parent <= :fodder_crops || activity_family <= :fodder_crops || activity_family <= :fallow_land
+            rgb_value << color_cycle[:dark_green]
+          elsif activity_family.parent <= :meadow || activity_family <= :meadow
+            rgb_value << color_cycle[:dark_green]
+          # level 3 - category - PROTEINS = TEAL
+          elsif activity_family.parent <= :protein_crops
+           rgb_value << color_cycle[:teal]
+          # level 3 - category - OILSEED = GOLDEN ROD
+          elsif activity_family.parent <= :oilseed_crops
+           rgb_value << color_cycle[:golden_rod]
+          # level 3 - category - BEETS / POTATO = VIOLET
+          elsif activity_family.parent <= :potato_crops
+           rgb_value << color_cycle[:violet]
+          # level 3 - category - AROMATIC, TOBACCO, HEMP = TURQUOISE
+          elsif activity_family.parent <= :tobacco_crops || activity_family.parent <= :hemp_crops || activity_family <= :tobacco_crops || activity_family <= :hemp_crops
+           rgb_value << color_cycle[:dark_turquoise]
+          else
+           rgb_value << color_cycle[:gray]
+          end
+        elsif activity_family.parent <= :aromatic_and_medicinal_plants || activity_family <= :aromatic_and_medicinal_plants
+          rgb_value << color_cycle[:dark_turquoise]
+        # level 3 - category - FLOWER = FUCHSIA
+        elsif activity_family.parent <= :flower_crops
+          rgb_value << color_cycle[:fuchsia ]
+        # level 3 - category - ARBO, FRUIT = BLUE
+        elsif activity_family.parent <= :fruits_crops
+          rgb_value << color_cycle[:blue]
+        # level 3 - category - MARKET = RED
+        elsif activity_family.parent <= :market_garden_crops
+          rgb_value << color_cycle[:red]
         else
-          rgb_value << color_cycle[:gold]
+          rgb_value << color_cycle[:gray]
         end
-      elsif activity_family <= :protein_crops
-        rgb_value << color_cycle[:dark_turquoise]
-      elsif activity_family <= :arboriculture
-        rgb_value << color_cycle[:blue]
-      elsif activity_family <= :fallow_land || activity_family <= :fodder_crops || activity_family <= :meadow
-        rgb_value << color_cycle[:green]
       else
         rgb_value << color_cycle[:gray]
       end
+    else
+      rgb_value << color_cycle[:gray]
     end
     rgb_value
   end

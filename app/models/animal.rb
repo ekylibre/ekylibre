@@ -85,32 +85,13 @@ class Animal < Bioproduct
     end
   end
 
-  def daily_nitrogen_production
-    # set variables with default values
+  # Compute daily nitrogen production based on indicator of product
+  # The indicator is the reference for now.
+  def daily_nitrogen_production(at = nil)
+    at ||= Time.zone.now
     quantity = 0.in_kilogram_per_day
-    animal_milk_production = 0
-    animal_age = 24
-
-    # get data
-    # age (if born_at not present then animal has 24 month)
-    animal_age = (age / (3600 * 24 * 30)).to_d if age
-    # production (if a cow, get annual milk production)
-    if Nomen::Variety[variety] <= :bos
-      if milk_daily_production
-        animal_milk_production = (milk_daily_production * 365).to_d
-      end
-    end
-    # TODO: call this abacus if exist in plugins issue #450
-    plugin_presence = nil
-    items = nil
-    if plugin_presence
-      items = Nomen::NmpFranceAnimalNitrogenProductions.list.select do |item|
-        item.minimum_age <= animal_age.to_i && animal_age.to_i < item.maximum_age && item.minimum_milk_production <= animal_milk_production.to_i && animal_milk_production.to_i < item.maximum_milk_production && item.variant.to_s == variant.reference_name.to_s
-      end
-    end
-    if items && items.any?
-      quantity_per_year = items.first.quantity
-      quantity = (quantity_per_year / 365).in_kilogram_per_day
+    if has_indicator?(:daily_nitrogen_production)
+      quantity = self.daily_nitrogen_production(at: at)
     end
     quantity
   end

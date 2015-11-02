@@ -594,6 +594,7 @@ jpn:
     # attachment: "Attachment"
     # attachments: "Attachments"
     # automatic: "Auto"
+    # available: "Available"
     # available_columns: "Available columns: %{columns}"
     # back: "Back to the previous page"
     # balance: "Balance"
@@ -652,6 +653,7 @@ jpn:
       # special-subscriber: "Special-subscriber"
     # configure: "Configure"
     connect: "ログイン" #?
+    # consume: "Consume"
     # contained_products: "Contained products"
     # container: "Container"
     # convert_balance_into_loss: "Convert balance into loss"

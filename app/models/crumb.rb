@@ -64,7 +64,7 @@ class Crumb < Ekylibre::Record::Base
   before_validation do
     if self.start?
       if previous && original = previous.siblings.find_by(nature: :start)
-        self.metadata ||= original.metadata
+        self.metadata ||= original.metadata || {}
         self.metadata['procedure_nature'] ||= original.metadata['procedure_nature']
       else
         self.metadata ||= {}

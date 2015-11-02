@@ -1,5 +1,7 @@
 = kujaku do |k|
   - k.text
+  - k.helper :journal_period_crit
+  - k.choice :all, :consume, :available
   - k.needle_choice :working_set, [[]] + Nomen::WorkingSet.selection
 
 - main_toolbar do |t|
