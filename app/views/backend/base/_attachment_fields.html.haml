@@ -1,0 +1,9 @@
+.nested-fields
+  = link_to_remove_nested_association(:attachment, f)
+  - f.object.document = Document.new if f.object.new_record?
+  = f.backend_fields_for(:document) do |i|
+    - if i.object.file?
+      = image_tag(backend_document_path(i.object, format: :jpg), width: 100, height: 'auto')
+      = i.object.name
+    - else
+      = i.input(:file, as: :file, label: :add_attachment.tl , input_html: { multiple: false, required: false })

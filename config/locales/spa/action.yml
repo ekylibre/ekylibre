@@ -597,6 +597,7 @@ spa:
     # activity: "Activity"
     # add: "Add"
     # add_annotation: "Add annotation"
+    # add_attachment: "Add attachment"
     # add_bank_statement: "Add bank statement"
     # add_choice: "Add choice"
     # add_condition: "Add condition"
@@ -740,6 +741,7 @@ spa:
     # column: "Column"
     # columns: "Columns to import"
     # commission: "Commission"
+    # company: "Company"
     conditions:
       # filter_on_attribute_of_class: "Filter on attribute of class"
       # special-subscriber: "Special-subscriber"
@@ -1051,6 +1053,7 @@ spa:
     # merge: "Merge"
     # method: "Method"
     # minimal_temperature: "Minimal temperature"
+    # missing: "Missing"
     # missing_attributes: "Some attributes are missing"
     missing_help: "La página no existe"
     # mobile: "Mobile"
@@ -1128,6 +1131,7 @@ spa:
     # number: "Number"
     # number_options: "Options Numbers"
     # numbers: "Numbers"
+    # ok: "OK"
     on_account: "Volver a poner sobre la cuenta"
     # one_condition: "One condition"
     # open_a_campaign: "Open a campaign"
@@ -1147,6 +1151,7 @@ spa:
     # outgoing_payment: "Outgoing payment"
     # outgoing_payments: "Outgoing payments"
     overflow: "CREDITO O ECCEDENTE" #?
+    # pacage_number: "PACAGE number"
     page_title: "%{company_code} - %{menu} - %{action}"
     page_title_by_default: "Ekylibre - %{action}"
     page_title_special: "%{company_code} - %{action}"
@@ -1258,6 +1263,7 @@ spa:
     reservoir_informations: "Informaciones sobre el deposito" #?
     reservoirs_create: "Añadir un deposito" #?
     # reset: "Reset"
+    # reset_all_data: "Reset all data"
     resource: "Consultar la pieza de origen\_: %{resource} %{number}"
     resources: "Administración de los recursos humanos"
     # rest: "Rest"
@@ -1452,6 +1458,7 @@ spa:
     # updated_at_by: "Updated at %{at} by %{author}"
     # updated_by_ago: "Updated by %{author} %{when}"
     upload: "Séleccionar el fichero de salvaguardia a cargar"
+    # uploaded_file: "Uploaded file"
     # usage: "Usage"
     use_forward: "Seleccionar un periodico para los aplazamientos de nuevo" #?
     used_accounts: "Cuentos utilozados unico" #?
@@ -1591,6 +1598,7 @@ spa:
       # other: "%{count} years"
     yearly: "Anual" #?
     years_count_in_historic: "Nombre de años en el historico" #?
+    # you_will_start_to_add_your_first_data: "You will start to add your first data"
     # zones: "Zones"
   notifications:
     levels:
@@ -1602,6 +1610,7 @@ spa:
       # a_campaign_must_be_opened: "A campaign must be opened"
       # a_production_must_be_opened: "A production must be opened"
       access_denied: "No tiene drecho de acceso para esta pagina. %{reason} (%{url})"
+      # all_data_import_finished: "All data have been imported"
       # all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "All parcels must be invoiceable and of same nature and third"
       # an_activity_must_be_defined: "An activity must be defined"
       bad_file: "El fichero no parece corresponder" #?

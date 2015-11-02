@@ -71,4 +71,10 @@ class Document < Ekylibre::Record::Base
   def self.of(nature, key)
     where(nature: nature.to_s, key: key.to_s)
   end
+
+  before_validation do
+    self.name = self.file.original_filename
+    self.key = "#{Time.now.to_i}-#{self.file.original_filename}"
+  end
+
 end

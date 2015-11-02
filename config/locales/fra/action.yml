@@ -646,6 +646,7 @@ fra:
     activity: "Activités"
     add: "Ajouter"
     add_annotation: "Ajouter une annotation"
+    add_attachment: "Ajouter une pièce jointe"
     add_bank_statement: "Ajouter un relevé de compte"
     add_choice: "Ajouter un choix"
     add_condition: "Ajouter la condition"
@@ -813,6 +814,7 @@ fra:
     column_title: "Titre" #?
     columns: "Colonnes à importer"
     commission: "Commission"
+    # company: "Company"
     complement_sort: "Trier les choix par nom" #?
     complements: "Champs personnalisés" #?
     components: "Composants" #?
@@ -1201,6 +1203,7 @@ fra:
     method: "Méthode"
     milk_withdrawal_period: "Période d’attente avant remise en vente de lait" #?
     minimal_temperature: "Température minimale"
+    # missing: "Missing"
     missing_attributes: "Des champs sont manquants"
     missing_help: "Page inexistante"
     mistake_on_quantities_sum: "La somme des quantités n’est pas égale à la quantité totale produite" #?
@@ -1297,6 +1300,7 @@ fra:
     number: "Numéro"
     number_options: "Options de numérotations"
     numbers: "Numéros"
+    # ok: "OK"
     on_account: "À remettre sur le compte"
     one_condition: "au moins une condition"
     open_a_campaign: "Ouvrir une campagne de production"
@@ -1320,6 +1324,7 @@ fra:
       undelivered: "Non délivrés" #?
       unparted: "Non affectés" #?
       waiting: "À décaisser plus tard" #?
+    # pacage_number: "PACAGE number"
     page_title: "%{company_code} · %{menu} · %{action}"
     page_title_by_default: "Ekylibre · %{action}"
     page_title_special: "%{company_code} · %{action}"
@@ -1462,6 +1467,7 @@ fra:
     reservoir: "Réservoir" #?
     reservoir_informations: "Informations sur le réservoir" #?
     reset: "Réinitialiser"
+    # reset_all_data: "Reset all data"
     resource: "Consulter la pièce d’origine\_: %{resource} %{number}"
     resources: "Gestion des ressources humaines"
     rest: "Reste"
@@ -1712,6 +1718,7 @@ fra:
     updated_at_by: "Mis à jour le %{at} par %{author}"
     updated_by_ago: "Mis à jour par %{author} %{when}"
     upload: "Téléversement"
+    # uploaded_file: "Uploaded file"
     uploading_unicoque_traceability: "Télétransmission - Traçabilité Unicoque" #?
     urea_concentration: "Teneur moyenne en urée" #?
     usage: "Utilisation"
@@ -1877,6 +1884,7 @@ fra:
     yearly: "Annuelle" #?
     years_count_in_historic: "Nombre d’années dans l’historique" #?
     yield: "Rendement" #?
+    # you_will_start_to_add_your_first_data: "You will start to add your first data"
     zones: "Zones"
   notifications:
     levels:
@@ -1888,6 +1896,7 @@ fra:
       a_campaign_must_be_opened: "Une campagne doit être ouverte"
       a_production_must_be_opened: "Une production doit être ouverte"
       access_denied: "Vous n’avez pas le droit d’accéder à cette page. %{reason} (%{url})"
+      # all_data_import_finished: "All data have been imported"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Tous les colis doivent être facturables de la même nature et au même tiers"
       an_activity_must_be_defined: "Une activité doit être définie"
       bad_file: "Le fichier ne semble pas correspondre." #?

@@ -169,6 +169,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :affairs, concerns: [:list, :affairs]
+
     resources :analyses, concerns: [:attachments, :list, :unroll] do
       member do
         get :list_items
@@ -202,8 +204,6 @@ Rails.application.routes.draw do
         get :list_children
       end
     end
-
-    resources :affairs, concerns: [:list, :affairs]
 
     resources :bank_statements, concerns: [:attachments, :list, :unroll], path: 'bank-statements' do
       collection do

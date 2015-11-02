@@ -36,7 +36,7 @@
 #
 class Attachment < Ekylibre::Record::Base
   belongs_to :document
-  belongs_to :resource, polymorphic: true
+  belongs_to :resource, polymorphic: true, inverse_of: :resource
   refers_to :nature, class_name: 'DocumentNature'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :expired_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
