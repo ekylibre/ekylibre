@@ -36,7 +36,7 @@ class Backend::ParcelsController < Backend::BaseController
   def self.parcels_conditions
     code = ''
     code = search_conditions(parcels: [:number, :reference_number], entities: [:full_name, :number]) + " ||= []\n"
-    code << "unless (params[:period].blank? || params[:period].is_a? Symbol)\n"
+    code << "unless params[:period].blank? || params[:period].is_a?(Symbol)\n"
     code << "  if params[:period] != 'all'\n"
     code << "    interval = params[:period].split('_')\n"
     code << "    first_date = interval.first\n"
