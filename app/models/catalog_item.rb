@@ -51,6 +51,7 @@ class CatalogItem < Ekylibre::Record::Base
   validates_presence_of :amount, :catalog, :currency, :name, :variant
   # ]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
+  validates_uniqueness_of :variant_id, scope: :catalog_id
 
   # delegate :product_nature_id, :product_nature, to: :template
   delegate :name, to: :variant, prefix: true
