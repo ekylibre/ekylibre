@@ -61,8 +61,6 @@ eng:
       new: "New animal"
       show: "%{nature}: %{name}"
       # take: "Take animal: %{name}"
-    backend/attachments:
-      # new: "New attachment"
     backend/bank_statements:
       # attachments: "Attachments bank statement: %{name}"
       edit: "Edit bank statement %{number}"

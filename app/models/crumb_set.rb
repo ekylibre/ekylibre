@@ -35,7 +35,7 @@ class CrumbSet
         Rails.logger.warn "Unknown procedure nature: #{@start.metadata['procedure_nature'].inspect}"
       end
     else
-      Rails.logger.warn "Unknown procedure nature: No points, so no start point..."
+      Rails.logger.warn 'Unknown procedure nature: No points, so no start point...'
     end
     @started_at = @start.read_at
     @stopped_at = @crumbs.last.read_at

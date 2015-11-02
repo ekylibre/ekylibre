@@ -121,13 +121,13 @@ class Backend::ParcelsController < Backend::BaseController
   def show
     return unless @parcel = find_and_check
     respond_with(@parcel, methods: [:all_item_prepared, :status, :items_quantity],
-                        include: { address: { methods: [:mail_coordinate] },
-                                   sale: {},
-                                   purchase: {},
-                                   recipient: {},
-                                   sender: {},
-                                   transporter: {},
-                                   items: { methods: [:status, :prepared], include: [:product, :variant] }
+                          include: { address: { methods: [:mail_coordinate] },
+                                     sale: {},
+                                     purchase: {},
+                                     recipient: {},
+                                     sender: {},
+                                     transporter: {},
+                                     items: { methods: [:status, :prepared], include: [:product, :variant] }
                           }
                 ) do |format|
       format.html do

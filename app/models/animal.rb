@@ -91,7 +91,7 @@ class Animal < Bioproduct
     at ||= Time.zone.now
     quantity = 0.in_kilogram_per_day
     if has_indicator?(:daily_nitrogen_production)
-      quantity = self.daily_nitrogen_production(at: at)
+      quantity = daily_nitrogen_production(at: at)
     end
     quantity
   end

@@ -5,7 +5,7 @@ class CharentesAlliance::IncomingDeliveriesExchanger < ActiveExchanger::Base
 
     catalog = Catalog.find_by_code('ACHAT') || Catalog.first
     supplier_account = Account.find_or_import_from_nomenclature(:suppliers)
-    # TODO take care of no taxes present before
+    # TODO: take care of no taxes present before
     Tax.load_defaults unless Tax.any?
     appro_price_template_tax = Tax.first
     building_division = BuildingDivision.first

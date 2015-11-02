@@ -210,8 +210,8 @@ class Production < Ekylibre::Record::Base
 
   # return a color for each production
   def color
-    color = ligthen(self.activity.color, 0.3)
-    return color
+    color = ligthen(activity.color, 0.3)
+    color
   end
 
   def has_active_product?
