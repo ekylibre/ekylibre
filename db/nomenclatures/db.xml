@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151027095601">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151102110723">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -1648,6 +1648,7 @@
       <item name="consumption_period" datatype="measure" unit="day"/>
       <item name="copper_concentration" datatype="measure" unit="parts_per_million"/>
       <item name="cumulated_rainfall" datatype="measure" unit="millimeter" sampling_temporal_mode="period"/>
+      <item name="daily_nitrogen_production" datatype="measure" unit="kilogram"/>
       <item name="diameter" datatype="measure" unit="meter"/>
       <item name="dry_matter_rate" datatype="measure" unit="mass_percent"/>
       <item name="easement_area" datatype="measure" unit="square_meter" gathering="proportional_to_population"/>

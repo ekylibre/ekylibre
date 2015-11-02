@@ -19,17 +19,17 @@
 class Backend::ParcelsController < Backend::BaseController
   manage_restfully t3e: { nature: 'RECORD.nature.text'.c }, planned_at: 'Time.zone.now'.c
   manage_restfully_attachments
-  
+
   respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
-  
+
   unroll
-  
+
   # params:
   #   :q Text search
   #   :s State search
   #   :period Two Dates with _ separator
   #   :recipient_id
-  #   :sender_id 
+  #   :sender_id
   #   :transporter_id
   #   :delivery_mode Choice
   #   :nature Choice
@@ -107,7 +107,7 @@ class Backend::ParcelsController < Backend::BaseController
     t.column :analysis, url: true
     t.column :source_product, url: true, hidden: true
   end
-  
+
   # Displays the main page with the list of parcels
   def index
     respond_to do |format|
@@ -116,7 +116,7 @@ class Backend::ParcelsController < Backend::BaseController
       format.pdf { render pdf: @parcels, with: params[:template] }
     end
   end
-  
+
   # Displays details of one parcel selected with +params[:id]+
   def show
     return unless @parcel = find_and_check

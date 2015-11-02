@@ -1,8 +1,8 @@
 = kujaku do |k|
   - k.text
-  - k.helper do 
+  - k.helper do
     %label= Parcel.human_attribute_name(:planned_at)
-    = journal_period_crit 
+    = journal_period_crit
   - recipients = Entity.all
   - senders = Entity.all
   - transporters = Entity.all

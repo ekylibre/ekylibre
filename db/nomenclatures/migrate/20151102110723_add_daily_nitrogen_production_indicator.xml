@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add daily nitrogen production indicator">
+  <item-creation item="indicators#daily_nitrogen_production" datatype="measure" unit="kilogram"/>
+</migration>
