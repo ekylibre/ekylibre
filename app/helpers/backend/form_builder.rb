@@ -456,7 +456,9 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
           for reading in @object.readings
             indicator = reading.indicator
             # error message for indicators
-            fs << reading.errors.inspect if reading.errors.any?
+            if Rails.env.development?
+              fs << reading.errors.inspect if reading.errors.any?
+            end
             fs << backend_fields_for(:readings, reading) do |indfi|
               fsi = ''.html_safe
               fsi << indfi.input(:indicator_name, as: :hidden)
