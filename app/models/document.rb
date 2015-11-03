@@ -62,7 +62,7 @@ class Document < Ekylibre::Record::Base
   validates_length_of :nature, allow_nil: true, maximum: 120
   # validates_inclusion_of :nature, in: nature.values
   # validates_attachment_presence :file
-  validates_attachment_content_type :file, content_type: /(application|image)/
+  validates_attachment_content_type :file, content_type: /(application|image|text)/
 
   delegate :name, to: :template, prefix: true
   acts_as_numbered

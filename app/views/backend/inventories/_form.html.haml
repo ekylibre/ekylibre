@@ -16,4 +16,4 @@
   = render 'items_form', f: f, items: f.object.items.select{|i| i.container.nil? }.sort{|a,b| a.name <=> b.name}
 
 
-= f.attachments
+= f.attachments_field_set

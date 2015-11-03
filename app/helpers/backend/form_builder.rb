@@ -127,10 +127,14 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     nil
   end
 
-  def attachments
+  def attachments_field_set
     @template.field_set(:attachments) do
-      nested_association :attachments
+      attachments
     end
+  end
+
+  def attachments
+    nested_association :attachments
   end
 
   def indicator(_indicator_attribute_name, _unit_attribute_name, *_args, &_block)
