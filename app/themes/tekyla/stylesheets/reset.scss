@@ -30,7 +30,7 @@ small, sup, sub {
 a:link,
 a:visited,
 a:focus {
-  &, h1, h2, h3, h4, h5, h6 {
+  &, * {
     color: $active-link-color;
     text-decoration: none;
   }

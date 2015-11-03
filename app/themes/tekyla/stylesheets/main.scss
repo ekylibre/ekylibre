@@ -1759,22 +1759,23 @@ a[data-remove-closest], a[data-remove] {
 /* } */
 
 .rss-feed {
-  .rss-title {
+  > .rss-title {
     font-size: $fs-large;
     margin-bottom: $default-gap;
   }
-  .rss-entries {
+  > .rss-entries {
     // max-height: 400px;
     // overflow-y: scroll;
-    a.rss-entry {
+    > .rss-entry {
+      @include clearfix;
       display: block;
       padding: $default-gap;
       border-top: 2px solid $active-color;
       &:first-child {
         border-top: none;
       }
-      @include gradient-vertical(rgba(#FFF, 0), rgba(#000, 0.1));
-      .rss-entry-title {
+      @include gradient-vertical(rgba(#FFF, 0), rgba(#000, 0.05));
+      > .rss-entry-title {
         color: $base-color;
         i {
           color: $base-color;
@@ -1782,8 +1783,20 @@ a[data-remove-closest], a[data-remove] {
           @include use-icon(external-link);
         }
       }
-      .rss-entry-summary { color: #777; margin-bottom: 0}
-      .rss-entry-published { font-size: $fs-small; color: #777;}
+      > .rss-entry-summary {
+        &, * {
+          line-height: 1.4em;
+          vertical-align: baseline;
+        }
+        h2, h3 {
+          font-weight: bold;
+        }
+        hr {
+          display: none;
+        }
+        margin-bottom: 0
+      }
+      > .rss-entry-published { font-size: $fs-small; color: $neutral-color;}
     }
   }
 }
