@@ -64,14 +64,21 @@
 
   E.trade =
 
+    round: (value, digits) ->
+      magnitude = Math.pow(10, digits)
+      console.log value, magnitude, value * magnitude, Math.round(value * magnitude), (Math.round(value * magnitude) / magnitude), (Math.round(value * magnitude) / magnitude).toFixed(digits)
+      return (Math.round(value * magnitude) / magnitude).toFixed(digits)
+
     # Compute other amounts from unit pretax amount
     updateUnitPretaxAmount: (item) ->
       values = E.trade.itemValues(item)
       updates = {}
       # Compute pretax_amount
-      updates.pretax_amount = (values.unit_pretax_amount * values.quantity * (100.0 - values.reduction_percentage) / 100.0).toFixed(2)
+      updates.pretax_amount = values.unit_pretax_amount * values.quantity * (100.0 - values.reduction_percentage) / 100.0
       # Compute amount
-      updates.amount = (updates.pretax_amount * values.tax).toFixed(2)
+      updates.amount = E.trade.round(updates.pretax_amount * values.tax, 2)
+      # Round pretax amount
+      updates.pretax_amount = E.trade.round(updates.pretax_amount, 2)
       E.trade.itemValues(item, updates)
 
     # Compute other amounts from pretax amount
@@ -79,9 +86,9 @@
       values = E.trade.itemValues(item)
       updates = {}
       # Compute unit_pretax_amount
-      updates.unit_pretax_amount = (values.pretax_amount / (values.quantity * (100.0 - values.reduction_percentage) / 100.0)).toFixed(4)
+      updates.unit_pretax_amount = E.trade.round(values.pretax_amount / (values.quantity * (100.0 - values.reduction_percentage) / 100.0), 4)
       # Compute amount
-      updates.amount = (values.pretax_amount * values.tax).toFixed(2)
+      updates.amount = E.trade.round(values.pretax_amount * values.tax, 2)
       E.trade.itemValues(item, updates)
 
     # Compute other amounts from amount
@@ -89,9 +96,11 @@
       values = E.trade.itemValues(item)
       updates = {}
       # Compute pretax_amount
-      updates.pretax_amount = (values.amount / values.tax).toFixed(2)
+      updates.pretax_amount = values.amount / values.tax
       # Compute unit_pretax_amount
-      updates.unit_pretax_amount = (updates.pretax_amount / (values.quantity * (100.0 - values.reduction_percentage) / 100.0)).toFixed(4)
+      updates.unit_pretax_amount = E.trade.round(updates.pretax_amount / (values.quantity * (100.0 - values.reduction_percentage) / 100.0), 4)
+      # Round pretax amount
+      updates.pretax_amount = E.trade.round(updates.pretax_amount, 2)
       E.trade.itemValues(item, updates)
 
     # Compute other amounts from amount
@@ -99,9 +108,11 @@
       values = E.trade.itemValues(item)
       updates = {}
       # Compute pretax_amount
-      updates.pretax_amount = (-1 * values.unit_pretax_amount * values.credited_quantity * (100.0 - values.reduction_percentage) / 100.0).toFixed(2)
+      updates.pretax_amount = -1 * values.unit_pretax_amount * values.credited_quantity * (100.0 - values.reduction_percentage) / 100.0
       # Compute unit_pretax_amount
-      updates.amount = (updates.pretax_amount * values.tax).toFixed(2)
+      updates.amount = E.trade.round(updates.pretax_amount * values.tax, 2)
+      # Round pretax amount
+      updates.pretax_amount = E.trade.round(updates.pretax_amount, 2)
       E.trade.itemValues(item, updates)
 
     find: (item, name) ->
