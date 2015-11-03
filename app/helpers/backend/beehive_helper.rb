@@ -146,6 +146,8 @@ module Backend::BeehiveHelper
       hash || to_hash
     end
 
+    # Returns ID
+    # Must be set manually in app/views/layout/cell like above
     def id
       "beehive-#{@name}"
     end

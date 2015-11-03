@@ -13,12 +13,13 @@
             $(this).data("beehive-cell")
           ).get()
         ).get()
-      console.log boxes
       $.ajax
         url: beehive.data("beehive-save-url")
         type: 'patch'
         data:
           boxes: boxes
+        error: (request, status, error) ->
+          console.error("Cannot save beehive: #{status} #{error}", request)
 
     reset: (beehive) ->
       $.ajax
@@ -53,7 +54,7 @@
     addCell: (beehive) ->
       select = beehive.find("select[name='cell']")
       name = select.val()
-      console.log "Adding #{name} cell..."
+      # console.log "Adding #{name} cell..."
       $.beehive.addCellProposers(beehive)
       box = beehive.find("*[data-beehive-box]").first()
       $.ajax
@@ -64,16 +65,15 @@
           layout: true
         dataType: "html"
         success: (data, status, request) ->
-          console.log "Success..."
+          # console.log "Success..."
           cell = $(data)
           cell.appendTo(box)
           cell.trigger('cell:load')
           $(window).trigger('resize')
           $.beehive.save(beehive)
         error: (request, status, error) ->
-          console.log("Error while retrieving full cell #{name}: #{error}")
-          element.html(request.responseXML)
-          element.trigger('cell:error')
+          console.error("Error while retrieving full cell #{name}: #{error}", request)
+          beehive.trigger('cell:error')
 
     addCellProposers: (beehive) ->
       if beehive.find("*[data-beehive-box]").length <= 0
@@ -111,19 +111,19 @@
     return false
 
   $(document).on "click", "a[href][data-beehive-task='new-box']", ->
-    console.log "New box..."
+    # console.log "New box..."
     element = $(this)
     $.beehive.addBox $(element.attr("href"))
     return false
 
   $(document).on "click", "a[href][data-beehive-task='new-cell']", ->
-    console.log "New cell..."
+    # console.log "New cell..."
     element = $(this)
     $.beehive.addCell $(element.attr("href"))
     return false
 
   $(document).on "click", "a[href][data-beehive-task='reset']", ->
-    console.log "Reset config..."
+    # console.log "Reset config..."
     element = $(this)
     $.beehive.reset $(element.attr("href"))
     return false
@@ -150,7 +150,10 @@
   $(document).on 'page:load', '.beehive .cell', $.fn.raiseContentErrorToCellTitle
 
   $(document).ready ->
+    # Adds error style on title if necessary
     $(".beehive .cell").raiseContentErrorToCellTitle()
+    
+    # Initialize cells loading asynchronously their contents
     $("*[data-cell]").each (index) ->
       element = $(this)
       cell = element.closest("*[data-beehive-cell]")
@@ -158,8 +161,9 @@
         cell = element
       cell.addClass("loading")
       element.html("<i class='cell-indicator'></i>")
-      $.ajax(element.data("cell"), {
-        dataType: "html",
+      $.ajax
+        url: element.data("cell")
+        dataType: "html"
         success: (data, status, request) ->
           cell.removeClass("loading")
           if $.isBlank(data)
@@ -169,13 +173,11 @@
             element.html(data)
             element.trigger('cell:load')
         error: (request, status, error) ->
-          # alert("#{status} on cell (#{element.data('cell')}): #{error}")
-          console.log("Error while retrieving #{element.data('cell')} cell content: #{error}")
+          console.error("Error while retrieving #{element.data('cell')} cell content: #{status} #{error}")
           cell.removeClass("loading")
           cell.addClass("errored")
           element.html(request.responseXML)
           element.trigger('cell:error')
-      })
 
   true
 ) jQuery
