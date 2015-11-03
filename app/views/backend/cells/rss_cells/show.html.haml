@@ -15,5 +15,8 @@
                 = entry.content.html_safe
 
           %p.rss-entry-published= entry.published.l
+
+- elsif @error
+  %p= @error
 - else
   = no_data

@@ -1898,7 +1898,6 @@ fra:
       a_campaign_must_be_opened: "Une campagne doit être ouverte"
       a_production_must_be_opened: "Une production doit être ouverte"
       access_denied: "Vous n’avez pas le droit d’accéder à cette page. %{reason} (%{url})"
-      # all_data_import_finished: "All data have been imported"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Tous les colis doivent être facturables de la même nature et au même tiers"
       an_activity_must_be_defined: "Une activité doit être définie"
       bad_file: "Le fichier ne semble pas correspondre." #?
@@ -1935,6 +1934,7 @@ fra:
       impossible_to_add_items: "Vous ne pouvez plus ajouter de produits à votre vente, le devis est passé en commande"
       impossible_to_add_items_to_purchase: "Vous ne pouvez plus ajouter de produits à votre achat"
       incompatible_browser: "Votre navigateur ne semble pas compatible. Le navigateur Firefox est recommandé pour utiliser Ekylibre."
+      informations_feed_is_unreachable: "Le flux d'informations (%{url}) est inaccessible. Message d'erreur\_: %{message}"
       invalid_file_nature: "Type de fichier invalide" #?
       invalid_reference_name: "Référence invalide"
       journal_closed_on: "Le %{journal} a été clôturé au %{closed_on} correctement."
