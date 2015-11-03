@@ -6,8 +6,8 @@
   = attributes_list do |l|
     - l.attribute(:number)
     - l.attribute(:cash, url: true)
-    - l.attribute(:credit)
-    - l.attribute(:debit)
+    - l.attribute(:credit, currency: true)
+    - l.attribute(:debit, currency: true)
     - l.attribute(:started_at)
     - l.attribute(:stopped_at)
     - l.custom_fields
