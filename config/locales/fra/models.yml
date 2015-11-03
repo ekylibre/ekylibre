@@ -573,6 +573,7 @@ fra:
     current_mother_link: "Lien actuel vers la mère"
     current_ownership: "Propriété actuelle"
     current_phase: "Phase actuelle"
+    current_quantity: "Quantité actuelle"
     current_sign_in_at: "Connecté actuellement le"
     current_sign_in_ip: "Connecté actuellement depuis l’adresse IP"
     custom_field: "Champ complémentaire"
