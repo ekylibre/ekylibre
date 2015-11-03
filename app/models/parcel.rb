@@ -321,7 +321,7 @@ class Parcel < Ekylibre::Record::Base
               item.category.product_account = Account.find_or_import_from_nomenclature(:revenues)
               item.category.saleable = true
             end
-            next unless item.population > 0
+            next unless item.population && item.population > 0
             unless catalog_item = item.variant.catalog_items.first
               unless catalog = Catalog.of_usage(:sale).first
                 catalog = Catalog.create!(name: Catalog.enumerized_attributes[:usage].human_value_name(:sales), usage: :sales)
@@ -359,7 +359,14 @@ class Parcel < Ekylibre::Record::Base
           unless journal = Journal.purchases.opened_at(planned_at).first
             fail 'No purchase journal'
           end
-          nature = PurchaseNature.create!(active: true, currency: Preference[:currency], with_accounting: true, journal: journal, by_default: true, name: PurchaseNature.tc('default.name', default: PurchaseNature.model_name.human))
+          nature = PurchaseNature.create!(
+            active: true,
+            currency: Preference[:currency],
+            with_accounting: true,
+            journal: journal,
+            by_default: true,
+            name: PurchaseNature.tc('default.name', default: PurchaseNature.model_name.human)
+          )
         end
         purchase = Purchase.create!(supplier: third,
                                     nature: nature,
@@ -369,7 +376,7 @@ class Parcel < Ekylibre::Record::Base
         # Adds items
         parcels.each do |parcel|
           parcel.items.each do |item|
-            next unless item.population > 0
+            next unless item.population && item.population > 0
             item.purchase_item = purchase.items.create!(variant: item.variant,
                                                         unit_pretax_amount: (item.variant.catalog_items.any? ? item.variant.catalog_items.order(id: :desc).first.amount : 0.0),
                                                         tax: item.variant.category.purchase_taxes.first || Tax.first,
