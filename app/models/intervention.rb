@@ -393,9 +393,10 @@ class Intervention < Ekylibre::Record::Base
 
       # Select interventions from all actors history
       if options[:history]
+        # history is considered relevant on 1 year
         history.merge!(Intervention.joins(:casts)
                         .where("intervention_casts.actor_id IN (#{actors_id.join(', ')})")
-                        .where(started_at: (Time.zone.now.midnight - 1.year)..(Time.zone.now)) # history is considered relevant on 1 year
+                        .where(started_at: (Time.zone.now.midnight - 1.year)..(Time.zone.now))
                         .group('interventions.reference_name')
                         .count('interventions.reference_name'))
       end

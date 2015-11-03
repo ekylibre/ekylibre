@@ -266,17 +266,20 @@ module Procedo
       [procedure.variables[variety.split(/\:\s*/)], procedure.variables[derivative_of.split(/\:\s*/)]].compact
     end
 
-    # check if a given actor might fulfill the procedure's variable
-    # @params: actor, a _Product object or any object responding to #variety, #derivative_of and #abilities
-    # @returns: true if all information provided by the variable (variety, derivative_of and/or abilities) match
-    # with actor's ones, false if at least one does not fit or is missing
+    # Checks if a given actor might fulfill the procedure's variable. Returns
+    # true if all information provided by the variable (variety, derivative_of
+    # and/or abilities) match with actor's ones, false if at least one does not
+    # fit or is missing
+    # @params [Product] actor a Product object or any object responding to
+    #   #variety, #derivative_of and #abilities
+    # @return [Boolean]
     def fulfilled_by?(actor)
       # do not test created variables
       return false if new?
       expr = []
-      expr << "is #{@variety}" if @variety.present?
+      expr << "is #{computed_variety}" if @variety.present?
       if @derivative_of.present? && actor.derivative_of.present?
-        expr << "derives from #{@derivative_of}"
+        expr << "derives from #{computed_derivative_of}"
       end
       if @abilities.present?
         expr << @abilities.map { |a| "can #{a}" }.join(' and ')
@@ -285,9 +288,9 @@ module Procedo
       actor.of_expression(expr.join(' and '))
     end
 
-    # match actors to variable. Returns an array of actors fulfilling variable
-    # ==== Parameters:
-    #       - actors, a list of actors to check
+    # Matches actors to variable. Returns an array of actors fulfilling variable
+    # @param [Array<Product>] actors, a list of actors to check
+    # @return [Array<Product>]
     def possible_matching_for(*actors)
       actors.flatten!
       result = []
@@ -299,12 +302,14 @@ module Procedo
 
     private
 
-    # compare two Nomen::Variety items
-    # returns true if actor's item is the same as variable's one or if
-    # actor's item is a child of variable's variety, false otherwise
-    # ==== Parameters:
-    #           - variable_item, current variable own variety or derivative_of
-    #           - actor_item, the actor's variety or derivative_of to compare
+    # Compares two Nomen::Variety items. Returns true if actor's item is the
+    # same as variable's one or if actor's item is a child of variable's
+    # variety, false otherwise.
+    # @param [Nomen::Variety] variable_item current variable own variety or
+    #   derivative_of
+    # @param [Nomen::Variety] actor_item the actor's variety or derivative_of
+    #   to compare
+    # @return [Boolean]
     def same_items?(variable_item, actor_item)
       # if possible it is better to squeeze nomenclature items comparison since it's quite slow
       return true if actor_item == variable_item
