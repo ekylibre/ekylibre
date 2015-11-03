@@ -89,21 +89,20 @@ class Product < Ekylibre::Record::Base
   has_many :content_localizations, class_name: 'ProductLocalization', foreign_key: :container_id
   has_many :contents, class_name: 'Product', through: :content_localizations, source: :product
   has_many :enjoyments, class_name: 'ProductEnjoyment', foreign_key: :product_id, dependent: :destroy
+  # has_many :groups, :through => :memberships
   has_many :issues, as: :target, dependent: :destroy
   has_many :intervention_casts, foreign_key: :actor_id, inverse_of: :actor, dependent: :restrict_with_exception
   has_many :interventions, through: :intervention_casts
-  # has_many :groups, :through => :memberships
-  has_many :reading_tasks, class_name: 'ProductReadingTask', dependent: :destroy
-  has_many :parcel_items, dependent: :restrict_with_exception
   has_many :junction_ways, class_name: 'ProductJunctionWay', foreign_key: :product_id, dependent: :destroy
   has_many :junctions, class_name: 'ProductJunction', through: :junction_ways
   has_many :linkages, class_name: 'ProductLinkage', foreign_key: :carrier_id, dependent: :destroy
   has_many :links, class_name: 'ProductLink', foreign_key: :product_id, dependent: :destroy
   has_many :localizations, class_name: 'ProductLocalization', foreign_key: :product_id, dependent: :destroy
   has_many :memberships, class_name: 'ProductMembership', foreign_key: :member_id, dependent: :destroy
-  # has_many :parcel_items, dependent: :restrict_with_exception
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :product_id, dependent: :destroy
+  has_many :parcel_items, dependent: :restrict_with_exception
   has_many :phases, class_name: 'ProductPhase', dependent: :destroy
+  has_many :reading_tasks, class_name: 'ProductReadingTask', dependent: :destroy
   has_many :sensors
   has_many :supports, class_name: 'ProductionSupport', foreign_key: :storage_id, inverse_of: :storage
   has_many :variants, class_name: 'ProductNatureVariant', through: :phases
@@ -130,7 +129,6 @@ class Product < Ekylibre::Record::Base
   }
 
   scope :members_of, lambda { |group, viewed_at|
-    # where("id IN (SELECT member_id FROM #{ProductMembership.table_name} WHERE group_id = ? AND nature = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", group.id, "interior", viewed_at, viewed_at, viewed_at)
     where(id: ProductMembership.select(:member_id).where(group_id: group.id, nature: 'interior').at(viewed_at))
   }
 
@@ -145,11 +143,9 @@ class Product < Ekylibre::Record::Base
     where(derivative_of: varieties.flatten.collect { |v| Nomen::Variety.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }
   scope :can, lambda { |*abilities|
-    # where(nature_id: ProductNature.can(*abilities))
     of_expression(abilities.map { |a| "can #{a}" }.join(' or '))
   }
   scope :can_each, lambda { |*abilities|
-    # where(nature_id: ProductNature.can_each(*abilities))
     of_expression(abilities.map { |a| "can #{a}" }.join(' and '))
   }
 
@@ -230,10 +226,17 @@ class Product < Ekylibre::Record::Base
   acts_as_numbered force: true
   delegate :serial_number, :producer, to: :tracking
   delegate :name, to: :nature, prefix: true
-  delegate :variety, :derivative_of, :name, :nature, :reference_name, to: :variant, prefix: true
+  delegate :variety, :derivative_of, :name, :nature, :reference_name,
+           to: :variant, prefix: true
   delegate :unit_name, to: :variant
-  delegate :able_to_each?, :able_to?, :of_expression, :subscribing?, :deliverable?, :asset_account, :product_account, :charge_account, :stock_account, :population_counting_unitary?, to: :nature
-  delegate :has_indicator?, :individual_indicators_list, :whole_indicators_list, :abilities, :abilities_list, :indicators, :indicators_list, :frozen_indicators, :frozen_indicators_list, :variable_indicators, :variable_indicators_list, :linkage_points, :linkage_points_list, to: :nature
+  delegate :able_to_each?, :able_to?, :of_expression, :subscribing?,
+           :deliverable?, :asset_account, :product_account, :charge_account,
+           :stock_account, :population_counting_unitary?, to: :nature
+  delegate :has_indicator?, :individual_indicators_list, :whole_indicators_list,
+           :abilities, :abilities_list, :indicators, :indicators_list,
+           :frozen_indicators, :frozen_indicators_list, :variable_indicators,
+           :variable_indicators_list, :linkage_points, :linkage_points_list,
+           to: :nature
 
   after_initialize :choose_default_name
   after_save :set_initial_values, if: :initializeable?
@@ -251,12 +254,12 @@ class Product < Ekylibre::Record::Base
     end
     if self.variant
       if variety
-        unless Nomen::Variety.find(variant_variety).include? variety
+        unless Nomen::Variety.find(variant_variety) >= variety
           errors.add(:variety, :invalid)
         end
       end
       if derivative_of
-        unless Nomen::Variety.find(variant_derivative_of).include? derivative_of
+        unless Nomen::Variety.find(variant_derivative_of) >= derivative_of
           errors.add(:derivative_of, :invalid)
         end
       end
@@ -264,7 +267,7 @@ class Product < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    intervention_casts.any? || supports.any? || issues.any?
+    analyses.any? || intervention_casts.any? || issues.any? || parcel_items.any? || supports.any?
   end
 
   class << self
