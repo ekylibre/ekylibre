@@ -152,7 +152,7 @@
   $(document).ready ->
     # Adds error style on title if necessary
     $(".beehive .cell").raiseContentErrorToCellTitle()
-    
+
     # Initialize cells loading asynchronously their contents
     $("*[data-cell]").each (index) ->
       element = $(this)
