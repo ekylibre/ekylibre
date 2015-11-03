@@ -1,4 +1,3 @@
-# encoding: UTF-8
 require 'test_helper'
 
 class Charta::GeometryTest < ActiveSupport::TestCase
@@ -51,7 +50,7 @@ class Charta::GeometryTest < ActiveSupport::TestCase
       { "type": "Feature",
         "geometry": {"type": "Point", "coordinates": [102.0, 0.5]},
         "properties": {"prop0": "value0"}
-        },
+      },
       { "type": "Feature",
         "geometry": {
           "type": "LineString",
@@ -63,7 +62,7 @@ class Charta::GeometryTest < ActiveSupport::TestCase
           "prop0": "value0",
           "prop1": 0.0
           }
-        },
+      },
       { "type": "Feature",
          "geometry": {
            "type": "Polygon",
@@ -76,7 +75,7 @@ class Charta::GeometryTest < ActiveSupport::TestCase
            "prop0": "value0",
            "prop1": {"this": "that"}
            }
-         }
+      }
        ]
      }'
 
@@ -129,4 +128,38 @@ class Charta::GeometryTest < ActiveSupport::TestCase
       assert_equal 4326, geom.srid
     end
   end
+
+
+  test 'comparison and methods between 2 geometries' do
+    samples = ['POINT(6 10)',
+               'LINESTRING(3 4,10 50,20 25)',
+               'POLYGON((1 1,5 1,5 5,1 5,1 1))',
+               'MULTIPOINT((3.5 5.6), (4.8 10.5))',
+               'MULTILINESTRING((3 4,10 50,20 25),(-5 -8,-10 -8,-15 -4))',
+               'MULTIPOLYGON(((7.40679681301117 48.1167274678089,7.40882456302643 48.1158768860692,7.40882456302643 48.1158679325024,7.40678608417511 48.1167220957579,7.40679681301117 48.1167274678089)))',
+               'GEOMETRYCOLLECTION(POLYGON((7.40882456302643 48.1158768860692,7.40679681301117 48.1167274678089,7.40678608417511 48.1167220957579,7.40882456302643 48.1158679325024,7.40882456302643 48.1158768860692)),POINT(4 6),LINESTRING(4 6,7 10))',
+               'POINT EMPTY',
+               'MULTIPOLYGON EMPTY'
+              ].collect do |ewkt|
+      Charta::Geometry.new("SRID=4326;#{ewkt}")
+    end
+    last = samples.count - 1
+    samples.each_with_index do |geom1, i|
+      (i..last).each do |j|
+        geom2 = samples[j]
+        # puts "##{i} #{geom1.to_ewkt.yellow} ~ ##{j} #{geom2.to_ewkt.blue}"
+        unless geom1.collection? && geom2.collection?
+          if j == i || (geom1.empty? && geom2.empty?)
+            assert_equal geom1, geom2, "#{geom1.to_ewkt} and #{geom2.to_ewkt} should be equal"
+          else
+            assert geom1 != geom2, "#{geom1.to_ewkt} and #{geom2.to_ewkt} should be different"
+          end
+        end
+        geom1.merge(geom2)
+        geom1.intersection(geom2)
+        geom1.difference(geom2)
+      end
+    end
+  end
+
 end

@@ -36,6 +36,8 @@ module Charta
       if @ewkt.blank?
         fail ArgumentError, "Invalid data: coordinates=#{coordinates.inspect}, srid=#{srid.inspect}"
       end
+      # Homogenize geometry
+      homogenize!
     end
 
     def self.point(lat, lon, srid = 4326)
@@ -48,6 +50,17 @@ module Charta
 
     def geom
       "ST_MakeValid(ST_GeomFromEWKT('#{@ewkt}'))"
+    end
+
+    # Homogenize data if it's a GeometryCollection
+    def homogenize!
+      if collection?
+        @ewkt = select_value("SELECT ST_AsEWKT(ST_CollectionHomogenize(#{geom}))")
+      end
+    end
+
+    def collection?
+      select_value("SELECT ST_GeometryType(#{geom})") =~ /\AST_GeometryCollection\z/
     end
 
     def srid
@@ -104,12 +117,14 @@ module Charta
     # Test if the other measure is equal to self
     def ==(other_geometry)
       other = self.class.new(other_geometry).transform(srid)
+      fail "Cannot compare geometry collection" if self.collection? && other.collection?
       select_value("SELECT ST_Equals(#{geom}, #{other.geom})") =~ /\At(rue)?\z/
     end
 
     # Test if the other measure is equal to self
     def !=(other_geometry)
       other = self.class.new(other_geometry).transform(srid)
+      fail "Cannot compare geometry collection" if self.collection? && other.collection?
       select_value("SELECT NOT ST_Equals(#{geom}, #{other.geom})") =~ /\At(rue)?\z/
     end
 
