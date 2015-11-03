@@ -16,7 +16,7 @@
 .cell{data: {beehive_cell: { name: name, type: params[:type]}.to_json }}
   .cell-inner
     .cell-title
-      = link_to("##{params[:beehive]}", data: {beehive_remove: "cell"}) do
+      = link_to("#beehive-#{params[:beehive]}", data: {beehive_remove: "cell"}) do
         %i
       = params[:type].tl
     .cell-content= yield

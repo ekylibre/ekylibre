@@ -246,45 +246,60 @@ class ProductionSupport < Ekylibre::Record::Base
     nil
   end
 
-  # FIXME: Not generic
-  def grains_yield(mass_unit = :quintal, surface_unit = :hectare)
-    if interventions.real.of_nature(:grains_harvest).count > 0
-      total_yield = []
-      for harvest in interventions.real.of_nature(:grains_harvest)
-        for input in harvest.casts.of_role('harvest-output')
-          q = 0.0
-          q = input.actor.net_mass(input).to_d(mass_unit) if input.actor && input.actor.variety == 'grain'
-          total_yield << q
+  # Generic method to get harvest yield
+  def harvest_yield(harvest_variety, options = {})
+    quantity_indicator = options[:quantity_indicator] || :net_mass
+    ind = Nomen::Indicator.find(quantity_indicator)
+    fail "Invalid indicator: #{quantity_indicator}" unless ind
+    quantity_unit = options[:quantity_unit] || ind.unit
+    unless Nomen::Unit.find(quantity_unit)
+      fail "Invalid indicator unit: #{quantity_unit.inspect}"
+    end
+    surface_unit = options[:surface_unit] || :hectare
+    procedure_nature = options[:procedure_nature] || :harvest
+    harvest_interventions = interventions.real.of_nature(procedure_nature)
+    if harvest_interventions.any?
+      quantities = []
+      role = "#{procedure_nature}-output"
+      harvest_interventions.find_each do |harvest|
+        harvest.casts.of_role(role).each do |cast|
+          actor = cast.actor
+          if actor && actor.variety
+            variety = Nomen::Variety.find(actor.variety)
+            if variety && variety <= harvest_variety
+              quantities << actor.get(quantity_indicator, cast).to_d(quantity_unit)
+            end
+          end
         end
       end
       if net_surface_area
-        grain_yield = ((total_yield.compact.sum).to_f / (net_surface_area.to_d(surface_unit)).to_f)
-        measure_unit = "#{mass_unit}_per_#{surface_unit}"
-        if Nomen::Unit[measure_unit.to_sym]
-          return Measure.new(grain_yield, measure_unit)
+        harvest_yield = quantities.compact.sum.to_f / net_surface_area.to_d(surface_unit).to_f
+        harvest_yield_unit = "#{quantity_unit}_per_#{surface_unit}".to_sym
+        if Nomen::Unit.find(harvest_yield_unit)
+          return Measure.new(harvest_yield, harvest_yield_unit)
         else
-          return grain_yield
+          Rails.logger.warn "Cannot find unit: #{harvest_yield_unit}"
+          return harvest_yield
         end
       end
     end
     nil
   end
 
-  # FIXME: Not generic
+  # Returns the yield of grain in mass per surface unit
+  def grains_yield(mass_unit = :quintal, surface_unit = :hectare)
+    harvest_yield(:grain, procedure_nature: :grains_harvest,
+                          quantity_indicator: :net_mass,
+                          quantity_unit: mass_unit,
+                          surface_unit: surface_unit)
+  end
+
+  # Returns the yield of grape in volume per surface unit
   def vine_yield(volume_unit = :hectoliter, surface_unit = :hectare)
-    if interventions.real.of_nature(:harvest).count > 0
-      total_yield = []
-      for harvest in interventions.real.of_nature(:harvest)
-        for input in harvest.casts.of_role('harvest-output')
-          q = (input.actor ? input.actor.net_volume(input).to_d(volume_unit) : 0.0) if input.actor.variety == 'grape'
-          total_yield << q
-        end
-      end
-      if storage.net_surface_area
-        return ((total_yield.compact.sum) / (storage.net_surface_area.to_d(surface_unit)))
-      end
-    end
-    nil
+    harvest_yield(:grape, procedure_nature: :vine_harvest,
+                          quantity_indicator: :net_volume,
+                          quantity_unit: volume_unit,
+                          surface_unit: surface_unit)
   end
 
   # call method in production for instance
