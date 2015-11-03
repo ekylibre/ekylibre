@@ -257,9 +257,17 @@ class ProductionSupport < Ekylibre::Record::Base
     end
     surface_unit = options[:surface_unit] || :hectare
     procedure_nature = options[:procedure_nature] || :harvest
+    unless net_surface_area && net_surface_area.to_d > 0
+      Rails.logger.warn "No surface area. Cannot compute harvest yield"
+      return nil
+    end
+    harvest_yield_unit = "#{quantity_unit}_per_#{surface_unit}".to_sym
+    unless Nomen::Unit.find(harvest_yield_unit)
+      fail "Harvest yield unit doesn't exist: #{harvest_yield_unit.inspect}"
+    end
+    total_quantity = 0.0.in(quantity_unit)
     harvest_interventions = interventions.real.of_nature(procedure_nature)
     if harvest_interventions.any?
-      quantities = []
       role = "#{procedure_nature}-output"
       harvest_interventions.find_each do |harvest|
         harvest.casts.of_role(role).each do |cast|
@@ -267,23 +275,14 @@ class ProductionSupport < Ekylibre::Record::Base
           if actor && actor.variety
             variety = Nomen::Variety.find(actor.variety)
             if variety && variety <= harvest_variety
-              quantities << actor.get(quantity_indicator, cast).to_d(quantity_unit)
+              total_quantity += actor.get(quantity_indicator, cast)
             end
           end
         end
       end
-      if net_surface_area
-        harvest_yield = quantities.compact.sum.to_f / net_surface_area.to_d(surface_unit).to_f
-        harvest_yield_unit = "#{quantity_unit}_per_#{surface_unit}".to_sym
-        if Nomen::Unit.find(harvest_yield_unit)
-          return Measure.new(harvest_yield, harvest_yield_unit)
-        else
-          Rails.logger.warn "Cannot find unit: #{harvest_yield_unit}"
-          return harvest_yield
-        end
-      end
     end
-    nil
+    harvest_yield = total_quantity.to_f / net_surface_area.to_d(surface_unit).to_f
+    return Measure.new(harvest_yield, harvest_yield_unit)
   end
 
   # Returns the yield of grain in mass per surface unit
