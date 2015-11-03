@@ -86,8 +86,6 @@ class Parcel < Ekylibre::Record::Base
   accepts_nested_attributes_for :items
   delegate :draft?, :ordered?, :in_preparation?, :prepared?, :started?, :finished?, to: :delivery, prefix: true
 
-  scope :undelivereds, -> { where(given_at: nil) }
-
   state_machine :state, initial: :draft do
     state :draft
     state :ordered
@@ -99,12 +97,12 @@ class Parcel < Ekylibre::Record::Base
       transition draft: :ordered, if: :items?
     end
     event :prepare do
-      transition ordered: :in_preparation
+      transition ordered: :in_preparation, if: :items?
     end
     event :check do
-      transition in_preparation: :prepared, if: :all_item_prepared?
-      transition ordered: :prepared, if: :items?
-      transition draft: :prepared, if: :items?
+      transition in_preparation: :prepared, if: :all_items_prepared?
+      transition ordered: :prepared, if: :all_items_prepared?
+      transition draft: :prepared, if: :all_items_prepared?
     end
     event :give do
       transition prepared: :given, if: :delivery_started?
@@ -187,7 +185,7 @@ class Parcel < Ekylibre::Record::Base
     items.sum(:population)
   end
 
-  def all_item_prepared?
+  def all_items_prepared?
     items.all?(&:prepared?)
   end
 
@@ -223,13 +221,20 @@ class Parcel < Ekylibre::Record::Base
 
   def prepare
     return false unless can_prepare?
-    update_column(:in_preparation_at, Time.zone.now)
+    now = Time.zone.now
+    values = { in_preparation_at: now }
+    values[:ordered_at] = now unless ordered_at
+    update_columns(values)
     super
   end
 
   def check
     return false unless can_check?
-    update_column(:prepared_at, Time.zone.now)
+    now = Time.zone.now
+    values = { prepared_at: now }
+    values[:ordered_at] = now unless ordered_at
+    values[:in_preparation_at] = now unless in_preparation_at
+    update_columns(values)
     items.each(&:check)
     super
   end
