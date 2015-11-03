@@ -29,7 +29,7 @@
 
     %span.title= LandParcel.human_attribute_name(:net_surface_area)
     %span.value= total_net_surface_area.in_hectare.round(2).l
-    = visualization do |v|
+    = visualization(box: {height: "97%"}) do |v|
       - v.serie :main, main_serie
       - v.background "Esri.WorldImagery"
       - v.background "OpenStreetMap.HOT"
