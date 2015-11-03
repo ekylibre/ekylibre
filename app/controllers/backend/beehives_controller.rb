@@ -31,7 +31,6 @@ class Backend::BeehivesController < Backend::BaseController
         end.compact
         cells.any? ? { cells: cells } : nil
       end.compact
-      puts({ version: Backend::BeehiveHelper::FORMAT_VERSION, boxes: boxes }.deep_stringify_keys.to_yaml.yellow)
       begin
         current_user.prefer!("beehive.#{params[:id]}", { version: Backend::BeehiveHelper::FORMAT_VERSION, boxes: boxes }.deep_stringify_keys.to_yaml)
         head :ok
