@@ -1,10 +1,13 @@
-.rss-feed
-  - #.rss-title= @feed.title
-  .rss-entries
-    - for entry in @feed.entries.sort{|a,b| b.published <=> a.published }
-      = link_to(entry.url, :class => "rss-entry", :target => "_blank") do
-        %h4.rss-entry-title
-          = entry.title
-          %i
-        %p.rss-entry-summary= entry.summary
-        %p.rss-entry-published= entry.published.l
+- if @feed
+  .rss-feed
+    - #.rss-title= @feed.title
+    .rss-entries
+      - for entry in @feed.entries.sort{|a,b| b.published <=> a.published }
+        = link_to(entry.url, :class => "rss-entry", :target => "_blank") do
+          %h4.rss-entry-title
+            = entry.title
+            %i
+          %p.rss-entry-summary= entry.summary
+          %p.rss-entry-published= entry.published.l
+- else
+  = no_data
