@@ -225,7 +225,7 @@ class Account < Ekylibre::Record::Base
       unless item = Nomen::AccountingSystem[name]
         fail ArgumentError, "The accounting system #{name.inspect} is unknown."
       end
-      Preference.get(:accounting_system).set!(item.name)
+      Preference.set!(:accounting_system, item.name)
     end
 
     # Returns the human name of the accounting system

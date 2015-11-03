@@ -69,6 +69,10 @@ module Ekylibre::Record
       self[field.column_name]
     end
 
+    def already_updated?
+      self.class.where(id: id, lock_version: lock_version).empty?
+    end
+
     validate :validate_custom_fields
 
     def validate_custom_fields

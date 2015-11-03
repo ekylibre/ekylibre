@@ -64,5 +64,11 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  # Add tests here...
+  test 'preferences' do
+    user = User.first
+    user.prefer!('something', 'foo')
+    assert_equal 1, user.preferences.where(name: 'something').count
+    user.prefer!('something', 'bar')
+    assert_equal 1, user.preferences.where(name: 'something').count
+  end
 end

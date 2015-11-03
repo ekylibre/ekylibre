@@ -25,7 +25,8 @@ class Backend::SettingsController < Backend::BaseController
     saved = true
     ActiveRecord::Base.transaction do
       for key, data in params[:preferences]
-        if preference = Preference.get(key)
+        preference = Preference.get!(key)
+        if preference
           preference.value = data[:value]
           preference.save
         else

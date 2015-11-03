@@ -33,9 +33,9 @@ class Backend::BeehivesController < Backend::BaseController
     end.compact
     begin
       current_user.prefer!("beehive.#{params[:id]}", {
-                             version: Backend::BeehiveHelper::FORMAT_VERSION,
-                             boxes: boxes
-                           }.deep_stringify_keys.to_yaml)
+        version: Backend::BeehiveHelper::FORMAT_VERSION,
+        boxes: boxes
+      }.deep_stringify_keys.to_yaml)
       head :ok
     rescue ActiveRecord::StaleObjectError
       head :locked

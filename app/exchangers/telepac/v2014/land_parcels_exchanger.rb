@@ -80,7 +80,7 @@ class Telepac::V2014::LandParcelsExchanger < ActiveExchanger::Base
         end
 
         # Create activities if option true
-        if Preference.get!(:create_activities_from_telepac, true, :boolean).value
+        if Preference.value(:create_activities_from_telepac, true)
           cultivable_zone = nil
           if geom && geom.area.to_d(:square_meter) > 10.0
             # Create a cultivable zone

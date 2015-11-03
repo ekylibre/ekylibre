@@ -42,5 +42,49 @@
 require 'test_helper'
 
 class PreferenceTest < ActiveSupport::TestCase
-  # Add tests here...
+  test 'creating boolean preference' do
+    p = Preference.set!('my.boolean.preference', true)
+    assert p
+    assert p.boolean?, "Expect to find boolean. Got: #{p.nature.inspect}"
+    assert p.value
+  end
+
+  test 'creating record preference' do
+    account = Account.first
+    assert account
+    p = Preference.set!('my.record.preference', account)
+    assert p
+    assert p.record?, "Expect to find record. Got: #{p.nature.inspect}"
+    assert p.value
+  end
+
+  test 'creating STI record preference' do
+    animal = Animal.first
+    assert animal
+    p = Preference.set!('my.animal.preference', animal)
+    assert p
+    assert p.record?, "Expect to find record. Got: #{p.nature.inspect}"
+    assert p.value
+    assert_equal 'Product', p.record_value_type
+  end
+
+  test 'getting values' do
+    assert_equal 0, Preference.where(name: 'mybooboolean').count
+    assert Preference.value('mybooboolean', true)
+    assert_equal 1, Preference.where(name: 'mybooboolean').count
+    assert Preference.value('mybooboolean', false)
+    assert_equal 1, Preference.where(name: 'mybooboolean').count
+    assert_not Preference.value('myfalsebooboolean', false)
+  end
+
+  test 'concurrency' do
+    preference_1 = Preference.get('myfavoritepref', 'foo')
+    preference_2 = Preference.find(preference_1.id)
+
+    preference_1.set! 'bar'
+
+    preference_2.set! 'baz'
+
+    assert_equal 'baz', Preference.value('myfavoritepref', 'qux')
+  end
 end

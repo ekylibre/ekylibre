@@ -160,20 +160,16 @@ class User < Ekylibre::Record::Base
   end
 
   # Find or create preference for given name
-  def preference(name, default_value = nil, nature = :string)
-    prefs = preferences.select { |p| p.name == name }
-    return prefs.first if prefs.any?
-    p = preferences.build(name: name, nature: nature.to_s)
-    p.value = default_value
-    p.save!
+  def preference(name, default_value = nil, nature = nil)
+    p = preferences.find_by(name: name)
+    p ||= prefer!(name, default_value, nature)
     p
   end
   alias_method :pref, :preference
 
-  def prefer!(name, value, nature = :string)
-    unless p = preferences.find_by(name: name)
-      p = preferences.build(name: name, nature: nature.to_s)
-    end
+  def prefer!(name, value, nature = nil)
+    p = preferences.find_or_initialize_by(name: name)
+    p.nature ||= nature if nature
     p.value = value
     p.save!
     p

@@ -1,7 +1,7 @@
 class Synel::AnimalsExchanger < ActiveExchanger::Base
   # Create or updates animals
   def import
-    is_a_demo_instance = Preference.get!(:demo, false, :boolean).value
+    demo_mode = Preference.value(:demo, false)
     variants = {}
     owner = Entity.of_company
     now = Time.zone.now
@@ -67,7 +67,7 @@ class Synel::AnimalsExchanger < ActiveExchanger::Base
       animal.read!(:healthy, true,  at: r.born_at)
 
       # load demo data weight and state
-      if is_a_demo_instance
+      if demo_mode
         weighted_at = r.born_at
         if weighted_at && weighted_at < Time.zone.now
           variation = 0.02

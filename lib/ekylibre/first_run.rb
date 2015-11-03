@@ -75,7 +75,7 @@ module Ekylibre
       end
 
       def executed_preference
-        Preference.get!('first_run.executed', false, :boolean)
+        Preference.get('first_run.executed', false)
       end
 
       # Execute all loaders for a given base
@@ -98,7 +98,7 @@ module Ekylibre
         end
         ::I18n.locale = Preference[:language]
         ActiveRecord::Base.transaction do
-          preference = Preference.get!("first_run.executed_loaders.#{loader}", false, :boolean)
+          preference = Preference.get("first_run.executed_loaders.#{loader}", false)
           if base.force || !preference.value
             @loaders[loader].call(base)
             preference.value = true
