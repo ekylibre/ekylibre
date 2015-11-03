@@ -78,6 +78,11 @@
       name = undefined
       hidden = undefined
       if element.attr("autocomplete") isnt "off"
+        #TODO: change this
+        date = new Date(element.val())
+        dateString = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate() + " " +date.getHours() + ":" + date.getMinutes()
+        element.val(dateString)
+
         locale = element.attr("lang")
         element.datetimepicker # options);
           format: "yyyy-mm-dd hh:ii"
