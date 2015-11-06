@@ -190,6 +190,7 @@ class Cash < Ekylibre::Record::Base
       [:bank_account, :bank, :banks],
       [:cash_box, :cash, :cashes]
     ].each do |nature, journal_nature, account_usage|
+      next if find_by(nature: nature)
       journal = Journal.find_by(nature: journal_nature)
       account = Account.find_or_import_from_nomenclature(account_usage)
       next unless journal && account
