@@ -35,23 +35,17 @@ class ActiveExchanger::BaseTest < ActiveSupport::TestCase
     ActiveExchanger::Base.import(:legrain_epicea_journals, FIRST_RUN_V1.join('epicea', 'ExportationDesEcritures.Txt'))
   end
 
-  test 'import of a ekylibre_cap_land_parcel_clusters_json file' do
-    ActiveExchanger::Base.import(:ekylibre_cap_land_parcel_clusters_json, fixture_files_path.join('ekylibre_cap_land_parcel_clusters.json'))
+  Nomen::ExchangeNature.list.each do |item|
+    path = fixture_files_path.join('imports', "#{item.name}.*")
+    list = Dir.glob(path)
+    if list.any?
+      list.each do |file|
+        test "#{item.name} import with #{File.basename(file)}" do
+          ActiveExchanger::Base.import(item.name, file)
+        end
+      end
+    else
+      puts "Cannot test exchanger #{item.name.to_s.yellow} import. No file given."
+    end
   end
-
-  test 'import of a ekylibre_cap_land_parcels_json file' do
-    ActiveExchanger::Base.import(:ekylibre_cap_land_parcels_json, fixture_files_path.join('ekylibre_cap_land_parcels.json'))
-  end
-
-  test 'import of a ekylibre_cultivable_zones_json file' do
-    ActiveExchanger::Base.import(:ekylibre_cultivable_zones_json, fixture_files_path.join('ekylibre_cultivable_zones.json'))
-  end
-
-  test 'import of a ekylibre_buildings_json file' do
-    ActiveExchanger::Base.import(:ekylibre_buildings_json, fixture_files_path.join('ekylibre_buildings.json'))
-  end
-
-  # test 'import of a ekylibre_storages_json file' do
-  #   ActiveExchanger::Base.import(:ekylibre_storages_json, fixture_files_path.join('ekylibre_storages.json'))
-  # end
 end

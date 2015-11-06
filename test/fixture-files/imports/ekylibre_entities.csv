@@ -1,0 +1,10 @@
+Prénom,Nom,Type,Client CC,Fournisseur CC,Adresse,code postal,Ville,Telephone,Fax,Portable,Lien,Nom entité,pays,email,Actif,Prospect,Transporteur,SIREN,TVA,APE
+Christian,DUPONT,person,411,401,10 rue des Vergers,17250,SAINT-PORCHAIRE,05 46 95 53 90,,,management,GAEC DUPONT,fr,christian.dupont@laposte.net,1,,,,,
+Laurent,DUPONT,person,411,401,8 rue Bouil Bleu,17250,SAINT-PORCHAIRE,05 46 95 65 56,,,management,GAEC DUPONT,fr,,1,,,,,
+Dominique,DUPONT,person,411,401,le petit palet,17250,LES ESSARDS,05 46 95 64 48,,,management,GAEC DUPONT,fr,,1,,,,,
+,MSI 17,legal_entity,431,431,Fief Montlouis,17100,SAINTES,05 46 95 00 00,,,,,fr,,1,,,,,
+,CHERANTAS ELLIENCA,legal_entity,411,401,Zone d'Activités Monplaisir Sud - 51 Rue Pierre Loti,16100,COGNAC,05 16 45 60 00,,,,,fr,,1,,,,,
+,COOP DE BURLAY,legal_entity,411,401,Zone d'Activités Monplaisir Sud - 51 Rue Pierre Loti,17250,BEURLAY,05 16 45 60 00,,,,,fr,,1,,,,,
+Emmanuel,SANE,person,,,Zone d'Activités Monplaisir Sud - 51 Rue Pierre Loti,16100,COGNAC,05 16 45 60 25,,,work,CHERANTAS ELLIENCA,fr,,1,,,,,
+,CETA DE GUYANE,legal_entity,,401,Lamouthe,47290,CANCON,05 53 01 09 50,,,,,fr,ceta.guyane@wanadoo.fr,1,,,,,
+Rémi,JOUTANT,person,,,Lamouthe,47290,CANCON,05 53 01 09 50,,,management,CETA DE GUYANE,fr,,1,,,,,

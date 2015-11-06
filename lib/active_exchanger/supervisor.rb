@@ -15,7 +15,7 @@ module ActiveExchanger
     end
 
     def count=(value)
-      fail 'Need a positive value' unless value > 0
+      fail 'Need a positive value' unless value >= 0
       @count = value
       @count = @max if @max > 0 && @count > @max
     end

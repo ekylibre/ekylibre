@@ -129,7 +129,6 @@ class Charta::GeometryTest < ActiveSupport::TestCase
     end
   end
 
-
   test 'comparison and methods between 2 geometries' do
     samples = ['POINT(6 10)',
                'LINESTRING(3 4,10 50,20 25)',
@@ -161,5 +160,4 @@ class Charta::GeometryTest < ActiveSupport::TestCase
       end
     end
   end
-
 end

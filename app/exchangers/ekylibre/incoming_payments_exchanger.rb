@@ -40,8 +40,9 @@ class Ekylibre::IncomingPaymentsExchanger < ActiveExchanger::Base
       end
 
       # Check outgoing payment mode
-      unless payment_mode = IncomingPaymentMode.where(name: r.incoming_payment_mode_name).first
-        w.error ActiveExchanger::InvalidDataError, "Cannot find incoming payment mode #{r.incoming_payment_mode_name} at line #{line_index.to_s.yellow}"
+      payment_mode = IncomingPaymentMode.find_or_create_by(name: r.incoming_payment_mode_name)
+      unless payment_mode
+        w.error "Cannot find incoming payment mode #{r.incoming_payment_mode_name} at line #{line_number.to_s.yellow}"
         valid = false
       end
 
@@ -99,7 +100,7 @@ class Ekylibre::IncomingPaymentsExchanger < ActiveExchanger::Base
 
       # find an incoming payment mode
       unless payment_mode = IncomingPaymentMode.where(name: r.incoming_payment_mode_name).first
-        fail ActiveExchanger::InvalidDataError, "Cannot find incoming payment mode #{r.incoming_payment_mode_name} at line #{line_index}"
+        fail ActiveExchanger::InvalidDataError, "Cannot find incoming payment mode #{r.incoming_payment_mode_name} at line #{line_number}"
       end
 
       # find an entity

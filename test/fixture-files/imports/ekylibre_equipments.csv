@@ -1,0 +1,72 @@
+nom,variant nomen,code,code place,date naissance,marque,modèle,nom du propriétaire,indicateurs,notes,prix unitaire,indicateur de prix
+,CUVE / SILO / RESERVE,,,,,,,,,,
+Cuve n°1,concrete_tank,TANK_1_S05_D06,S05_D06,1995-01-01,,,,Population : 1 ;  nominal_storable_net_volume : 120hectoliter,,0.8,usage_duration
+Cuve n°2,fiberglass_tank,TANK_2_S05_D06,S05_D06,1995-01-01,,,,Population : 1 ;  nominal_storable_net_volume : 740hectoliter,,0.8,usage_duration
+Cuve n°3,stainless_steel_tank,TANK_3_S05_D06,S05_D06,1995-01-01,,,,Population : 1 ;  nominal_storable_net_volume : 60hectoliter,,0.8,usage_duration
+Cuve n°4,stainless_steel_tank,TANK_4_S05_D06,S05_D06,1995-01-01,,,,Population : 1 ;  nominal_storable_net_volume : 60hectoliter,,0.8,usage_duration
+Cuve n°5,polyester_tank,TANK_5_S05_D06,S05_D06,1995-01-01,,,,Population : 1 ;  nominal_storable_net_volume : 110hectoliter,,0.8,usage_duration
+Cuve n°6,polyester_tank,TANK_6_S05_D06,S05_D06,1995-01-01,,,,Population : 1 ;  nominal_storable_net_volume : 110hectoliter,,0.8,usage_duration
+Tank Lait 3000,milk_tank,TANK_1_S05_D09,S05_D09,1995-01-01,,,,Population : 1 ;  nominal_storable_net_volume : 3000liter,,0.5,usage_duration
+Tank Lait 1500,milk_tank,TANK_2_S05_D09,S05_D09,1995-01-01,,,,Population : 1 ;  nominal_storable_net_volume : 1500liter,,0.5,usage_duration
+Silo Aliment Gauche,food_tank,TANK_1G_S05,S05,1995-01-01,,,,Population : 1 ;  nominal_storable_net_volume : 10cubic_meter ;  nominal_storable_net_mass : 7ton,,0.8,usage_duration
+Silo Aliment Droite,food_tank,TANK_1D_S05,S05,1995-01-01,,,,Population : 1 ;  nominal_storable_net_volume : 10cubic_meter ;  nominal_storable_net_mass : 7ton,,0.8,usage_duration
+Caisson Farine,food_tank,TANK_1_S05_D07,S05_D07,1995-01-01,,,,Population : 1 ;  nominal_storable_net_volume : 8.22cubic_meter ;  nominal_storable_net_mass : 5.5ton,,0.8,usage_duration
+Armoire produits phytosanitaires,plant_medicine_tank,RESERVE_1_S05_D07,S05_D07,1995-01-01,,,,Population : 1 ;  nominal_storable_net_volume : 3000liter,,0.8,usage_duration
+Pharmacie,animal_medicine_tank,RESERVE_1_S05_D09,S05_D09,1995-01-01,,,,Population : 1 ;  nominal_storable_net_volume : 3000liter,,0.8,usage_duration
+Réfrigérateur,freezer_tank,COLD_TANK_01,S05_D09,2002-01-05,,,,Population : 1 ;  nominal_storable_net_volume : 300liter,,0.8,usage_duration
+Cuve Fioul,fuel_tank,TANK_FUEL_S05_D06,S05_D06,1995-01-01,,,,Population : 1 ;  nominal_storable_net_volume : 1500liter,,0.8,usage_duration
+Silo SAINT-PORCHAIRE COOP,grain_tank,SILO_EXT_01,,,,,CHARENTES ALLIANCE,Population : 1,,,
+Silo PLASSAY COOP,grain_tank,SILO_EXT_02,,,,,COOP DE BEURLAY,Population : 1,,,
+Silo SAINT GEORGES COOP,grain_tank,SILO_EXT_03,,,,,CHARENTES ALLIANCE,Population : 1,,,
+Cellule à grains,grain_tank,TANK_1E_S05,S05,1995-01-01,,,,Population : 1 ;  nominal_storable_net_volume : 40cubic_meter,,,
+,TRACTEUR,,,,,,,,,,
+Tracteur CASE-IH 533,tractor,TRAC_533,S06_D02,1983-01-01,CASE-IH,533,,Population : 1 ;  Motor_power : 45ch,,8,usage_duration
+Tracteur CASE-IH 745,tractor,TRAC_745,S03_D13,1987-01-01,CASE-IH,745,,Population : 1 ;  Motor_power : 75ch,,10,usage_duration
+Tracteur CASE-IH 745 Desilleuse fourche,tractor,TRAC_745D,S06_D02,1990-01-01,CASE-IH,745,,Population : 1 ;  Motor_power : 75ch,,18,usage_duration
+Tracteur CASE-IH 4240,tractor,TRAC_4240,S06_D02,1994-07-15,CASE-IH,4240,,Population : 1 ;  Motor_power : 92 ch,,12,usage_duration
+Tracteur RENAULT 110.54,tractor,TRAC_R110,S06_D02,2005-08-15,RENAULT,110.54,,Population : 1 ;  Motor_power : 110 ch,,16,usage_duration
+,MATERIEL DE PLANTATION,,,,,,,,,,
+Plantoir,manual_implanter,PLANT_MAN,S06_D02,1999-10-01,,,,Population : 1,,0.27,usage_duration
+Machine à planter WAGNER Champion GPS,implanter,PLANT_01,,1999-10-01,,,ETA,Population : 1,,98.56,usage_duration
+Semoir grains,sower,SEM_01,S06_D02,2006-05-15,,,,Population : 1 ;  application_width : 3m ;  nominal_storable_net_mass : 60 kg,,13,usage_duration
+Semoir maïs,sower,SEM_02,S06_D02,1988-10-01,,,,"Population : 1 ; application_width : 2,2m ; nominal_storable_net_mass : 40 kg",Co-propriété (BOUCHERIE),14,usage_duration
+Semoir maïs dispersseurs,all_inclusive_corn_sower,SEM_03,S06_D02,2005-10-01,,,,"Population : 1 ; application_width : 2,5m",Co-propriété (PH),22,usage_duration
+,MATERIEL DE CUVERIE,,,,,,,,,,
+Pressoir Bucher RPZ 150,wine_press,,S05_D06,1995-01-01,Bucher,RPZ 150,,Population : 1 ;  nominal_storable_net_volume : 150hectoliter,,5.56,usage_duration
+,MATERIEL D EMBOUTEILLAGE,,,,,,,,,,
+Tireuse PERRIER,hand_drawn,,S05_D06,2002-01-05,,,CAMION,Population : 1,,115,usage_duration
+Boucheuse BERTOLASO,corker,,S05_D06,2002-01-05,,,CAMION,Population : 1,,90,usage_duration
+,TRAVAIL DU SOL,,,,,,,,,,
+Charrue 4 socs,plow,PLOW_01,S03_D13,,,,,Population : 1 ;  application_width : 1m,,18,usage_duration
+Charrue réversible 5 socs,plow,PLOW_02,S06_D02,,,,,"Population : 1 ; application_width : 1,25m",,19.69,usage_duration
+Vibroculteur,superficial_plow,PLOW_03,S06_D02,,,,,Population : 1 ;  application_width : 4m,,14,usage_duration
+Covercrop,superficial_plow,PLOW_04,,,,,CUMA,"Population : 1 ; application_width : 2,5m",,16,usage_duration
+Herse,superficial_plow,PLOW_05,,,,,CUMA,"Population : 1 ; application_width : 2,5m",,17,usage_duration
+Cultipacker,superficial_plow,PLOW_06,,,,,CUMA,"Population : 1 ; application_width : 2,5m",,4,usage_duration
+Bineuse,hoe,PLOW_07,S06_D02,,,,,"Population : 1 ; application_width : 3,2m",,35,usage_duration
+,EPANDAGE / PULVERISATION,,,,,,,,,,
+Semoir engrais centrifuge,spreader,EPAN_01,S06_D02,1999-10-01,,,,Population : 1 ;  nominal_storable_net_volume : 700l ;  application_width : 12m,,5.27,usage_duration
+Pulvérisateur,sprayer,PULVE_01,S06_D02,,BERTHOULD,,,Population : 1 ;  application_width : 12m ;  nominal_storable_net_volume : 2500l,,20,usage_duration
+Epandeur chaux,spreader,EPAN_02,,,,,COOP,Population : 1,,18,usage_duration
+Enrouleur Perrot,water_spreader,,,,,,,Population : 1 ;  application_width : 30m,,4,usage_duration
+,RECOLTE,,,,,,,,,,
+Presse balle carré moyenne densité,baler,,,,CASE-IH,,,Population : 1,,50,usage_duration
+Faucheuse,mower,,,,,,CUMA,"Population : 1 ; application_width : 3,2m",,49,usage_duration
+Andaineur,hay_rake,,,,,,CUMA,Population : 1 ;  application_width : 5m,,18,usage_duration
+Presse balle ronde,baler,,,,,,CUMA,Population : 1,,54,usage_duration
+CLAAS JAGUAR 870,forager,CLAAS_JAGUAR_870,,,,,ETA,"Population : 1 ; application_width : 4,5m",,220,usage_duration
+CLAAS 98 SL,reaper,CLAAS_98_SL,,,,,ETA,"Population : 1 ; application_width : 4,5m",,103,usage_duration
+NH 250,grape_reaper,,,,,,ETA,"Population : 1 ; application_width : 2,5m",,88,usage_duration
+Presse balle carré,baler,,,,,,ETA,Population : 1,,93,usage_duration
+,TRANSPORT,,,,,,,,,,
+Remorque 11T,trailer,,S06_D02,,,,,Population : 1 ;  nominal_storable_net_mass : 11000 kg,,0.68,usage_duration
+Remorque épandeur ,spreader_trailer,SPREADER_TRAILER,S06_D02,,,,,Population : 1 ;  nominal_storable_net_mass : 8000 kg,,8,usage_duration
+Remorque monocoque,trailer,,S06_D02,,,,,Population : 1 ;  nominal_storable_net_mass : 8000 kg,,0.5,usage_duration
+Benne vendange 60,grape_trailer,,S06_D02,,,,,Population : 1 ;  nominal_storable_net_mass : 6000 kg,,0.5,usage_duration
+Gimbre pro 60,grape_trailer,,S06_D02,,,,,Population : 1 ;  nominal_storable_net_mass : 6000 kg,,0.5,usage_duration
+,ENTRETIEN,,,,,,,,,,
+Girobroyeur,mower,MOWER,S06_D02,,,,,"Population : 1 ; application_width : 1,8m",,9,usage_duration
+,ELEVAGE,,,,,,,,,,
+Désileuse,silage_distributor,,S06_D02,,,,,Population : 1 ;  nominal_storable_net_volume : 1000l ;  nominal_storable_net_mass : 500kg,,,
+Pailleuse,silage_distributor,,S06_D02,,,,,Population : 1 ;  nominal_storable_net_volume : 3000l ;  nominal_storable_net_mass : 1500kg,,,
+Rabot 250,animal_housing_cleaner,,S06_D02,,,,,"Population : 1 ; application_width : 2,5m",,,

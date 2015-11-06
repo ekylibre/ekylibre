@@ -122,20 +122,26 @@ class Account < Ekylibre::Record::Base
   end
 
   class << self
-    # Create an account with its number (and name)
     # Account#get(number[, name][, options])
+    # @deprecated
     def get(*args)
-      ActiveSupport::Deprecation.warn('Account::get is deprecated. Please use Account::find_or_import_from_nomenclature instead.')
-      options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
+      ActiveSupport::Deprecation.warn('Account::get is deprecated. Please use Account::find_or_create_by_number instead.')
+      find_or_create_by_number(*args)
+    end
+
+    # Create an account with its number (and name)
+    def find_or_create_by_number(*args)
+      options = args.extract_options!
       number = args.shift.to_s.strip
       options[:name] ||= args.shift
-      numbers = Nomen::Account.items.values.collect { |i| i.send(accounting_system) } # map(&accounting_system.to_sym)
+      numbers = Nomen::Account.items.values.collect { |i| i.send(accounting_system) }
       while number =~ /0$/
         break if numbers.include?(number)
         number.gsub!(/0$/, '')
       end unless numbers.include?(number)
       item = Nomen::Account.items.values.detect { |i| i.send(accounting_system) == number }
-      if account = find_by_number(number)
+      account = find_by_number(number)
+      if account
         if item && !account.usages_array.include?(item)
           account.usages ||= ''
           account.usages << ' ' + item.name.to_s

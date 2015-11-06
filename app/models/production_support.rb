@@ -258,7 +258,7 @@ class ProductionSupport < Ekylibre::Record::Base
     surface_unit = options[:surface_unit] || :hectare
     procedure_nature = options[:procedure_nature] || :harvest
     unless net_surface_area && net_surface_area.to_d > 0
-      Rails.logger.warn "No surface area. Cannot compute harvest yield"
+      Rails.logger.warn 'No surface area. Cannot compute harvest yield'
       return nil
     end
     harvest_yield_unit = "#{quantity_unit}_per_#{surface_unit}".to_sym
@@ -282,7 +282,7 @@ class ProductionSupport < Ekylibre::Record::Base
       end
     end
     harvest_yield = total_quantity.to_f / net_surface_area.to_d(surface_unit).to_f
-    return Measure.new(harvest_yield, harvest_yield_unit)
+    Measure.new(harvest_yield, harvest_yield_unit)
   end
 
   # Returns the yield of grain in mass per surface unit

@@ -40,8 +40,9 @@ class Ekylibre::OutgoingPaymentsExchanger < ActiveExchanger::Base
       end
 
       # Check outgoing payment mode
-      unless payment_mode = OutgoingPaymentMode.where(name: r.outgoing_payment_mode_name).first
-        w.error ActiveExchanger::InvalidDataError, "Cannot find outgoing payment mode #{r.outgoing_payment_mode_name} at line #{line_index.to_s.yellow}"
+      payment_mode = OutgoingPaymentMode.find_or_create_by(name: r.outgoing_payment_mode_name)
+      unless payment_mode
+        w.error "Cannot find outgoing payment mode #{r.outgoing_payment_mode_name} at line #{line_number.to_s.yellow}"
         valid = false
       end
 
@@ -77,7 +78,7 @@ class Ekylibre::OutgoingPaymentsExchanger < ActiveExchanger::Base
     responsible = User.employees.first
 
     rows.each_with_index do |row, index|
-      line_index = index + 2
+      line_number = index + 2
       r = {
         invoiced_at:        (row[0].blank? ? nil : Date.parse(row[0].to_s)),
         payee_full_name:    (row[1].blank? ? nil : row[1]),
@@ -100,12 +101,12 @@ class Ekylibre::OutgoingPaymentsExchanger < ActiveExchanger::Base
 
       # find an outgoing payment mode
       unless payment_mode = OutgoingPaymentMode.where(name: r.outgoing_payment_mode_name).first
-        fail ActiveExchanger::InvalidDataError, "Cannot find outgoing payment mode #{r.outgoing_payment_mode_name} at line #{line_index}"
+        fail ActiveExchanger::InvalidDataError, "Cannot find outgoing payment mode #{r.outgoing_payment_mode_name} at line #{line_number}"
       end
 
       # find an entity
       unless entity = Entity.where('full_name ILIKE ?', r.payee_full_name).first || Entity.where('last_name ILIKE ?', r.payee_full_name).first
-        # raise ActiveExchanger::InvalidDataError, "Cannot find supplier #{r.payee_full_name} at line #{line_index}"
+        # raise ActiveExchanger::InvalidDataError, "Cannot find supplier #{r.payee_full_name} at line #{line_number}"
         entity = Entity.create!(last_name: r.payee_full_name)
       end
 
