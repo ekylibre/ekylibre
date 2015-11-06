@@ -208,7 +208,7 @@ module Ekylibre
             plugin_type_dir = type_dir.join('plugins', @name.to_s) # mirrored_assets_directory(type)
             FileUtils.rm_rf plugin_type_dir
             FileUtils.mkdir_p(plugin_type_dir.dirname) unless plugin_type_dir.dirname.exist?
-            FileUtils.ln_sf(assets_directory.join(type).relative_path_from(plugin_type_dir.dirname), plugin_type_dir)
+            FileUtils.ln_sf(assets_directory.join(type), plugin_type_dir)
             unless Rails.application.config.assets.paths.include?(type_dir.to_s)
               Rails.application.config.assets.paths << type_dir.to_s
             end
