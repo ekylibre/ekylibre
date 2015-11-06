@@ -20,8 +20,9 @@ class AddAttachmentToEntity < CapybaraIntegrationTest
 
     assert find('#title').text.include? entity.full_name
 
-    assert Rails.root.join('test', 'fixture-files', 'sample_image.png').exist?, 'No image to attach'
+    assert fixture_file('sample_image.png').exist?, 'No image to attach'
 
+    assert find('.attachment-files')
     assert_not find('.attachment-files').has_selector?('.file')
 
     # Input file is hidden to user
