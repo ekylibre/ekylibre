@@ -34,6 +34,9 @@ a:focus {
     color: $active-link-color;
     text-decoration: none;
   }
+  .label {
+    color: $base-font-reversed-color;
+  }
 }
 
 /*
