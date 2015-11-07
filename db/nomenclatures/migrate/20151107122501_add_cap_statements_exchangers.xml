@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add cap statements_exchangers">
+  <item-creation item="exchange_natures#telepac_v2015_cap_statements"/>
+</migration>

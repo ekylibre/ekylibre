@@ -43,7 +43,7 @@ class Georeading < Ekylibre::Record::Base
   validates_uniqueness_of :number
 
   def to_geom
-    return geom = Charta::Geometry.new(content).transform(:WGS84) if content
+    return geom = ::Charta::Geometry.new(content).transform(:WGS84) if content
   end
 
   def label_area(unit = :hectare)
@@ -56,9 +56,9 @@ class Georeading < Ekylibre::Record::Base
 
   def content=(value)
     if value.is_a?(String) && value =~ /\A\{.*\}\z/
-      value = Charta::Geometry.new(JSON.parse(value).to_json, :WGS84).to_rgeo
+      value = ::Charta::Geometry.new(JSON.parse(value).to_json, :WGS84).to_rgeo
     elsif !value.blank?
-      value = Charta::Geometry.new(value).to_rgeo
+      value = ::Charta::Geometry.new(value).to_rgeo
     end
     self['content'] = value
   end

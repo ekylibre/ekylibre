@@ -511,6 +511,124 @@ campaigns:
   updater_id:
     type: integer
     references: user
+cap_islets:
+  cap_statement_id:
+    type: integer
+    references: cap_statement
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  islet_number:
+    type: string
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  shape:
+    type: geometry
+    limit:
+      srid: 4326
+      type: geometry
+    required: true
+  town_number:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+cap_land_parcels:
+  cap_islet_id:
+    type: integer
+    references: cap_islet
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  land_parcel_number:
+    type: string
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  main_crop_code:
+    type: string
+    required: true
+  main_crop_commercialisation:
+    type: boolean
+    required: true
+    default: false
+  main_crop_precision:
+    type: string
+  main_crop_seed_production:
+    type: boolean
+    required: true
+    default: false
+  shape:
+    type: geometry
+    limit:
+      srid: 4326
+      type: geometry
+    required: true
+  support_id:
+    type: integer
+    references: production_support
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+cap_statements:
+  campaign_id:
+    type: integer
+    references: campaign
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  entity_id:
+    type: integer
+    references: entity
+  exploitation_name:
+    type: string
+    required: true
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  pacage_number:
+    type: string
+    required: true
+  siret_number:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 cash_sessions:
   cash_id:
     type: integer

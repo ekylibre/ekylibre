@@ -48,6 +48,7 @@ class ProductionSupport < Ekylibre::Record::Base
   has_one :selected_manure_management_plan_zone, -> { selecteds }, class_name: 'ManureManagementPlanZone', foreign_key: :support_id, inverse_of: :support
   has_one :cultivation_variant, through: :production
   has_one :variant, through: :production
+  has_one :cap_land_parcel, foreign_key: :support_id, inverse_of: :support
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :quantity, allow_nil: true

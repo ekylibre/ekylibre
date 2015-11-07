@@ -89,6 +89,21 @@ eng:
       index: "Campaigns"
       new: "New campaign"
       show: "Campaign %{name}"
+    backend/cap_islets:
+      # edit: "Edit cap islet: %{name}"
+      # index: "Cap islets"
+      # new: "New cap islet"
+      # show: "Cap islet: %{name}"
+    backend/cap_land_parcels:
+      # edit: "Edit cap land parcel: %{name}"
+      # index: "Cap land parcels"
+      # new: "New cap land parcel"
+      # show: "Cap land parcel: %{name}"
+    backend/cap_statements:
+      edit: "Edit cap statement: %{id}"
+      index: "Cap statements"
+      new: "New cap statement"
+      show: "Cap statement: %{id}"
     backend/cash_transfers:
       edit: "Edit cash transfer: %{number}"
       index: "Cash transfers"
@@ -923,6 +938,8 @@ eng:
     canals: "Canals" #?
     cancel: "Cancel"
     cancelation: "Cancelation"
+    # cap_islets: "Cap islets"
+    # cap_land_parcels: "Cap land parcels"
     cartography: "Cartography"
     cash: "Cash"
     cash_balance: "Cash balance"
@@ -1284,7 +1301,7 @@ eng:
     others: "Others"
     outgoing_payment: "Outgoing payment" #?
     outgoing_payments: "Outgoing payments"
-    pacage_number: "PACAGE number" #?!
+    pacage_number: "PACAGE number" #?
     page_title: "%{company_code} · %{menu} · %{action}"
     page_title_by_default: "Ekylibre · %{action}"
     page_title_special: "%{company_code} · %{action}"

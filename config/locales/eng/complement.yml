@@ -167,6 +167,7 @@ eng:
         manure_management_plan_zone: "Manure management plan zone"
         matter: "Matter"
         net_service: "Net service"
+        notification: "Notification"
         observation: "Observation"
         operation: "Operation"
         outgoing_parcel: ""

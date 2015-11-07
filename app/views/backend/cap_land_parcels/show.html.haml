@@ -1,0 +1,12 @@
+= main_toolbar do |t|
+  - t.edit resource
+
+= cobbles do |c|
+  - c.cobble :general_informations do
+    .big-infos
+      .big-info
+        %span.title= CapIslet.human_attribute_name(:land_parcel_number)
+        %span.value= resource.land_parcel_number
+      .big-info
+        %span.title= Campaign.human_attribute_name(:name)
+        %span.value= resource.cap_islet.cap_statement.campaign.name

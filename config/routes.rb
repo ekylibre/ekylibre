@@ -234,6 +234,20 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :cap_islets, concerns: :list do
+      member do
+        get :list_cap_land_parcels
+      end
+    end
+
+    resources :cap_land_parcels, concerns: :list
+
+    resources :cap_statements, concerns: :list do
+      member do
+        get :list_cap_islets
+      end
+    end
+
     resources :cashes, concerns: [:attachments, :list, :unroll] do
       member do
         get :list_deposits

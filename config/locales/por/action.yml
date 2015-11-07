@@ -71,6 +71,11 @@ por:
       index: "Campanhas"
       new: "Nova campanha"
       show: "Campanha %{name}"
+    backend/cap_statements:
+      # edit: "Edit cap statement: %{id}"
+      # index: "Cap statements"
+      # new: "New cap statement"
+      # show: "Cap statement: %{id}"
     backend/cash_transfers:
       edit: "Editar transferência de dinheiro: %{number}"
       index: "Transferências de dinheiro"

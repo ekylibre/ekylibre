@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150926110217) do
+ActiveRecord::Schema.define(version: 20151107080001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -272,6 +272,67 @@ ActiveRecord::Schema.define(version: 20150926110217) do
   add_index "campaigns", ["creator_id"], name: "index_campaigns_on_creator_id", using: :btree
   add_index "campaigns", ["updated_at"], name: "index_campaigns_on_updated_at", using: :btree
   add_index "campaigns", ["updater_id"], name: "index_campaigns_on_updater_id", using: :btree
+
+  create_table "cap_islets", force: :cascade do |t|
+    t.integer  "cap_statement_id",                                                      null: false
+    t.string   "islet_number",                                                          null: false
+    t.string   "town_number",                                                           null: false
+    t.geometry "shape",            limit: {:srid=>4326, :type=>"geometry"},             null: false
+    t.datetime "created_at",                                                            null: false
+    t.datetime "updated_at",                                                            null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                              default: 0, null: false
+  end
+
+  add_index "cap_islets", ["cap_statement_id"], name: "index_cap_islets_on_cap_statement_id", using: :btree
+  add_index "cap_islets", ["created_at"], name: "index_cap_islets_on_created_at", using: :btree
+  add_index "cap_islets", ["creator_id"], name: "index_cap_islets_on_creator_id", using: :btree
+  add_index "cap_islets", ["updated_at"], name: "index_cap_islets_on_updated_at", using: :btree
+  add_index "cap_islets", ["updater_id"], name: "index_cap_islets_on_updater_id", using: :btree
+
+  create_table "cap_land_parcels", force: :cascade do |t|
+    t.integer  "cap_islet_id",                                                                         null: false
+    t.integer  "support_id"
+    t.string   "land_parcel_number",                                                                   null: false
+    t.string   "main_crop_code",                                                                       null: false
+    t.string   "main_crop_precision"
+    t.boolean  "main_crop_seed_production",                                            default: false, null: false
+    t.boolean  "main_crop_commercialisation",                                          default: false, null: false
+    t.geometry "shape",                       limit: {:srid=>4326, :type=>"geometry"},                 null: false
+    t.datetime "created_at",                                                                           null: false
+    t.datetime "updated_at",                                                                           null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                                         default: 0,     null: false
+  end
+
+  add_index "cap_land_parcels", ["cap_islet_id"], name: "index_cap_land_parcels_on_cap_islet_id", using: :btree
+  add_index "cap_land_parcels", ["created_at"], name: "index_cap_land_parcels_on_created_at", using: :btree
+  add_index "cap_land_parcels", ["creator_id"], name: "index_cap_land_parcels_on_creator_id", using: :btree
+  add_index "cap_land_parcels", ["support_id"], name: "index_cap_land_parcels_on_support_id", using: :btree
+  add_index "cap_land_parcels", ["updated_at"], name: "index_cap_land_parcels_on_updated_at", using: :btree
+  add_index "cap_land_parcels", ["updater_id"], name: "index_cap_land_parcels_on_updater_id", using: :btree
+
+  create_table "cap_statements", force: :cascade do |t|
+    t.integer  "campaign_id",                   null: false
+    t.integer  "entity_id"
+    t.string   "pacage_number",                 null: false
+    t.string   "siret_number",                  null: false
+    t.string   "exploitation_name",             null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",      default: 0, null: false
+  end
+
+  add_index "cap_statements", ["campaign_id"], name: "index_cap_statements_on_campaign_id", using: :btree
+  add_index "cap_statements", ["created_at"], name: "index_cap_statements_on_created_at", using: :btree
+  add_index "cap_statements", ["creator_id"], name: "index_cap_statements_on_creator_id", using: :btree
+  add_index "cap_statements", ["entity_id"], name: "index_cap_statements_on_entity_id", using: :btree
+  add_index "cap_statements", ["updated_at"], name: "index_cap_statements_on_updated_at", using: :btree
+  add_index "cap_statements", ["updater_id"], name: "index_cap_statements_on_updater_id", using: :btree
 
   create_table "cash_sessions", force: :cascade do |t|
     t.integer  "cash_id",                                                     null: false

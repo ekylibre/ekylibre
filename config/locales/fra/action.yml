@@ -79,6 +79,11 @@ fra:
       index: "Campagnes"
       new: "Nouvelle campagne"
       show: "Campagne %{name}"
+    backend/cap_statements:
+      edit: "Modifier la déclaration PAC: %{id}"
+      index: "Déclaration PAC"
+      new: "Nouvelle déclaration PAC"
+      show: "Déclaration PAC: %{id}"
     backend/cash_transfers:
       edit: "Modifier le virement interne\_: %{number}"
       index: "Virements internes"
@@ -1326,7 +1331,7 @@ fra:
       undelivered: "Non délivrés" #?
       unparted: "Non affectés" #?
       waiting: "À décaisser plus tard" #?
-    # pacage_number: "PACAGE number"
+    pacage_number: "Numéro de PACAGE"
     page_title: "%{company_code} · %{menu} · %{action}"
     page_title_by_default: "Ekylibre · %{action}"
     page_title_special: "%{company_code} · %{action}"

@@ -1,0 +1,52 @@
+= kujaku do |k|
+  - k.text
+
+= main_toolbar do |t|
+  - t.new
+
+- main_campaign_selector
+
+= janus do |v|
+  - if current_campaign and cap_land_parcels = CapLandParcel.of_campaign(current_campaign).any?
+    = v.face :map do
+      :ruby
+        cap_lp = CapLandParcel.of_campaign(current_campaign).collect do |p|
+          next unless p.shape
+
+          popup_content = []
+          popup_content << {label: Plant.human_attribute_name(:net_surface_area), value: p.label_area}
+          popup_content << render('popup', plant: p)
+
+         {name: "#{p.land_parcel_number} - #{p.cap_islet.islet_number}", shape: p.shape, popup: {header: true, content: popup_content} }
+        end
+
+        cap_islet = CapIslet.of_campaign(current_campaign).collect do |p|
+          next unless p.shape
+
+          popup_content = []
+          popup_content << {label: Plant.human_attribute_name(:net_surface_area), value: p.label_area}
+          popup_content << render('popup', plant: p)
+
+         {name: p.islet_number, shape: p.shape, popup: {header: true, content: popup_content} }
+        end
+
+
+
+      = visualization(box: {height: "100%"}) do |v|
+        - v.serie :main, cap_lp
+        - v.serie :second, cap_islet
+        - v.background "OpenStreetMap.HOT"
+        - v.background "OpenStreetMap.Mapnik"
+        - v.background "Thunderforest.Landscape"
+        - v.background "Esri.WorldImagery"
+        - v.simple :cap_land_parcels, :main
+        - v.simple :cap_islets, :second
+        - v.control :zoom
+        - v.control :scale
+        - v.control :fullscreen
+        - v.control :layer_selector
+  - else
+    = no_data
+
+  = v.face :list do
+    = main_list

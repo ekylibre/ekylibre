@@ -884,6 +884,17 @@
         <page to="backend/georeadings#unroll"/>
         <page to="backend/georeadings#update"/>
       </item>
+      <item name="cap_statements">
+        <page to="backend/cap_statements#index"/>
+        <page to="backend/cap_statements#create"/>
+        <page to="backend/cap_statements#destroy"/>
+        <page to="backend/cap_statements#edit"/>
+        <page to="backend/cap_statements#list"/>
+        <page to="backend/cap_statements#list_cap_islets"/>
+        <page to="backend/cap_statements#new"/>
+        <page to="backend/cap_statements#show"/>
+        <page to="backend/cap_statements#update"/>
+      </item>
     </group>
     <group name="exchange">
       <item name="listings">
@@ -1825,6 +1836,28 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="cap_islets">
+        <page to="backend/cap_islets#index"/>
+        <page to="backend/cap_islets#create"/>
+        <page to="backend/cap_islets#destroy"/>
+        <page to="backend/cap_islets#edit"/>
+        <page to="backend/cap_islets#list"/>
+        <page to="backend/cap_islets#list_cap_land_parcels"/>
+        <page to="backend/cap_islets#new"/>
+        <page to="backend/cap_islets#show"/>
+        <page to="backend/cap_islets#update"/>
+      </item>
+      <item name="cap_land_parcels">
+        <page to="backend/cap_land_parcels#index"/>
+        <page to="backend/cap_land_parcels#create"/>
+        <page to="backend/cap_land_parcels#destroy"/>
+        <page to="backend/cap_land_parcels#edit"/>
+        <page to="backend/cap_land_parcels#list"/>
+        <page to="backend/cap_land_parcels#new"/>
+        <page to="backend/cap_land_parcels#show"/>
+        <page to="backend/cap_land_parcels#update"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

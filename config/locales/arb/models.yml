@@ -818,6 +818,7 @@ arb:
       meeting: "الحدث" #?
       meeting_nature: "نوع الحدث" #?
       # net_service: "Net service"
+      # notification: "Notification"
       observation: "ملاحظة"
       operation: "العمل"
       operation_item: "الواردات/الصادرات" #?
@@ -1004,6 +1005,12 @@ arb:
     cache: "مخبأ" #?
     # campaign: "Campaign"
     # canal: "Canal"
+    # cap_islet: "Cap islet"
+    # cap_islets: "Cap islets"
+    # cap_land_parcel: "Cap land parcel"
+    # cap_land_parcels: "Cap land parcels"
+    # cap_statement: "Cap statement"
+    # cap_statements: "Cap statements"
     # carried: "Carried"
     # carrier: "Carrier"
     # carrier_linkages: "Carrier linkages"
@@ -1281,6 +1288,7 @@ arb:
     # expiration_delay: "Expiration delay"
     expiration_id: "تأخير مهلة" #?
     expired_at: "انتهى يوم"
+    # exploitation_name: "Exploitation name"
     exportable: "قبل للتصدير"
     # exportable_columns: "Exportable columns"
     expression: "اسلوب للتعبير" #?
@@ -1407,6 +1415,7 @@ arb:
     # irrigated: "Irrigated"
     # irrigation_water_nitrogen: "Irrigation water nitrogen"
     is_debit: "مدين" #?
+    # islet_number: "Islet number"
     # issue: "Issue"
     # issues: "Issues"
     # issues_count: "Issues count"
@@ -1434,6 +1443,7 @@ arb:
     # junctions: "Junctions"
     key: "المفتاح"
     label: "الملصق"
+    # land_parcel_number: "Land parcel number"
     land_parcels: "الكتل"
     language: "اللغة"
     # last_analysis: "Last analysis"
@@ -1500,6 +1510,10 @@ arb:
     # mails: "Mails"
     # main: "Main"
     # main_activity: "Main activity"
+    # main_crop_code: "Main crop code"
+    # main_crop_commercialisation: "Main crop commercialisation"
+    # main_crop_precision: "Main crop precision"
+    # main_crop_seed_production: "Main crop seed production"
     # main_production: "Main production"
     major_accounts: "الحسابات الئيسية" #?
     # managed: "Managed"
@@ -1555,6 +1569,7 @@ arb:
     nodes: "عقد الاستخراج"
     # noticed_start_amount: "Noticed start amount"
     # noticed_stop_amount: "Noticed stop amount"
+    # notifications: "Notifications"
     number: "الرقم"
     number_format: "التصميم"
     number_increment: "الاضافة"
@@ -1594,6 +1609,7 @@ arb:
     owner_id: "مالك" #?
     owner_type: "طبيعة المالك" #?
     # ownerships: "Ownerships"
+    # pacage_number: "Pacage number"
     paid: "سددت" #?
     paid_account: "سددت القيمة الضريبية الاضافية" #?
     paid_account_id: "سددت القيمة الضريبية الاضافية" #?
@@ -1874,6 +1890,7 @@ arb:
     # sign_in_count: "Sign in count"
     siren: "رقم صفارة الانذار"
     siret: "SIRET رقم" #?
+    # siret_number: "Siret number"
     # soil_nature: "Soil type"
     # soil_production: "Soil production"
     soundex: "خوارزمية مستخدمة لتشفير كلمات بطرقة تمكن مطابقة الكلمات مع الاصوات" #?
@@ -1963,6 +1980,7 @@ arb:
     tool_id: "اداة" #?
     tools: "الادوات"
     tools_list: "معدات" #?
+    # town_number: "Town number"
     tracking: "الحصة"
     tracking_id: "الحصة" #?
     tracking_serial: "رقم الحصة" #?
