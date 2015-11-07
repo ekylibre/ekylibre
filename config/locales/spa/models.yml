@@ -949,6 +949,7 @@ spa:
     # shift_method: "Shift method"
     # sign_in_count: "Sign in count"
     # siren: "SIREN"
+    # siret: "SIRET"
     # siret_number: "Siret number"
     # soil_nature: "Soil type"
     # soil_production: "Soil production"

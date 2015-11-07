@@ -1195,6 +1195,7 @@ fra:
     shift_method: "Méthode de différé"
     sign_in_count: "Nombre de connexions"
     siren: "N° SIREN"
+    # siret: "SIRET"
     siret_number: "N° SIRET"
     soil_nature: "Nature du sol"
     soil_production: "Contribution en azote du sol (Po)"

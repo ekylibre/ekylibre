@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151107080001) do
+ActiveRecord::Schema.define(version: 20151108001401) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -741,7 +741,7 @@ ActiveRecord::Schema.define(version: 20151107080001) do
     t.datetime "first_met_at"
     t.string   "activity_code"
     t.string   "vat_number"
-    t.string   "siren"
+    t.string   "siret"
     t.boolean  "locked",                    default: false, null: false
     t.boolean  "of_company",                default: false, null: false
     t.string   "picture_file_name"
@@ -2452,17 +2452,18 @@ ActiveRecord::Schema.define(version: 20151107080001) do
   add_index "production_distributions", ["updater_id"], name: "index_production_distributions_on_updater_id", using: :btree
 
   create_table "production_supports", force: :cascade do |t|
-    t.integer  "production_id",                                           null: false
-    t.integer  "storage_id",                                              null: false
-    t.datetime "created_at",                                              null: false
-    t.datetime "updated_at",                                              null: false
+    t.integer  "production_id",                                                                                    null: false
+    t.integer  "storage_id",                                                                                       null: false
+    t.datetime "created_at",                                                                                       null: false
+    t.datetime "updated_at",                                                                                       null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                default: 0, null: false
-    t.string   "production_usage",                                        null: false
-    t.decimal  "quantity",           precision: 19, scale: 4,             null: false
-    t.string   "quantity_indicator",                                      null: false
+    t.integer  "lock_version",                                                                         default: 0, null: false
+    t.string   "production_usage",                                                                                 null: false
+    t.decimal  "quantity",                                                    precision: 19, scale: 4,             null: false
+    t.string   "quantity_indicator",                                                                               null: false
     t.string   "quantity_unit"
+    t.geometry "shape",              limit: {:srid=>4326, :type=>"geometry"}
   end
 
   add_index "production_supports", ["created_at"], name: "index_production_supports_on_created_at", using: :btree

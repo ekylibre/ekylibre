@@ -3,7 +3,7 @@ class AgroSystemes::WaterAnalysesExchanger < ActiveExchanger::Base
     here = Pathname.new(__FILE__).dirname
     analyser_attributes = YAML.load_file(here.join('entity.yml'))
 
-    unless analyser = Entity.find_by(siren: analyser_attributes[:siren])
+    unless analyser = Entity.find_by(siret: analyser_attributes[:siret])
       analyser = Entity.create!(analyser_attributes)
     end
 

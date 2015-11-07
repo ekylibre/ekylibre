@@ -2,7 +2,7 @@ class Lilco::MilkAnalysesExchanger < ActiveExchanger::Base
   def import
     analyser_attributes = YAML.load_file(File.join(File.dirname(__FILE__), 'entity.yml'))
 
-    unless analyser = Entity.find_by(siren: analyser_attributes[:siren])
+    unless analyser = Entity.find_by(siret: analyser_attributes[:siret])
       analyser = Entity.create!(analyser_attributes)
     end
 

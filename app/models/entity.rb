@@ -56,7 +56,7 @@
 #  prospect                  :boolean          default(FALSE), not null
 #  reminder_submissive       :boolean          default(FALSE), not null
 #  responsible_id            :integer
-#  siren                     :string
+#  siret                     :string
 #  supplier                  :boolean          default(FALSE), not null
 #  supplier_account_id       :integer
 #  title                     :string
@@ -133,7 +133,7 @@ class Entity < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates_length_of :country, allow_nil: true, maximum: 2
   validates_length_of :language, allow_nil: true, maximum: 3
-  validates_length_of :siren, allow_nil: true, maximum: 9
+  validates_length_of :siret, allow_nil: true, maximum: 14
   validates_length_of :vat_number, allow_nil: true, maximum: 20
   validates_length_of :activity_code, allow_nil: true, maximum: 30
   validates_length_of :deliveries_conditions, :number, allow_nil: true, maximum: 60
@@ -221,6 +221,10 @@ class Entity < Ekylibre::Record::Base
 
   def label
     number.to_s + '. ' + full_name.to_s
+  end
+
+  def siren
+    siret.at(0..9)
   end
 
   def last_incoming_payment
@@ -350,7 +354,7 @@ class Entity < Ekylibre::Record::Base
       end
 
       # Update attributes
-      [:currency, :country, :last_name, :first_name, :activity_code, :description, :born_at, :dead_at, :deliveries_conditions, :first_met_at, :meeting_origin, :proposer, :siren, :supplier_account, :client_account, :vat_number, :language, :authorized_payments_count].each do |attr|
+      [:currency, :country, :last_name, :first_name, :activity_code, :description, :born_at, :dead_at, :deliveries_conditions, :first_met_at, :meeting_origin, :proposer, :siret, :supplier_account, :client_account, :vat_number, :language, :authorized_payments_count].each do |attr|
         send("#{attr}=", entity.send(attr)) if send(attr).blank?
       end
       if entity.picture.file? && !picture.file?

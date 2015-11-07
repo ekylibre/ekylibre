@@ -31,6 +31,7 @@
 #  quantity           :decimal(19, 4)   not null
 #  quantity_indicator :string           not null
 #  quantity_unit      :string
+#  shape              :geometry({:srid=>4326, :type=>"geometry"})
 #  storage_id         :integer          not null
 #  updated_at         :datetime         not null
 #  updater_id         :integer

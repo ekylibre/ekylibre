@@ -1424,7 +1424,7 @@ entities:
   responsible_id:
     type: integer
     references: user
-  siren:
+  siret:
     type: string
   supplier:
     type: boolean
@@ -4655,6 +4655,11 @@ production_supports:
     required: true
   quantity_unit:
     type: string
+  shape:
+    type: geometry
+    limit:
+      srid: 4326
+      type: geometry
   storage_id:
     type: integer
     references: product
