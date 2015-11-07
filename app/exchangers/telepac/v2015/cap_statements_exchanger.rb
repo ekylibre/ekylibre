@@ -25,8 +25,6 @@ class Telepac::V2015::CapStatementsExchanger < ActiveExchanger::Base
 
     w.count = doc.css("parcelle").count
 
-    puts doc.css("parcelle").count.inspect.red
-
     #
     country_preference = Preference[:country]
     declaration_year = 2015
@@ -42,7 +40,6 @@ class Telepac::V2015::CapStatementsExchanger < ActiveExchanger::Base
     end
 
     # get the exploitation siret
-    # TODO migrate SIREN TO SIRET in Entity
     siret_number = doc.at_css('demandeur siret').text
 
     # get the exploitation name
@@ -58,7 +55,7 @@ class Telepac::V2015::CapStatementsExchanger < ActiveExchanger::Base
 
     ## find or create Entity
     unless entity = Entity.where('full_name ILIKE ?', exploitation_name).first
-      entity = Entity.create!(full_name: exploitation_name, active: true, nature: :organization, country: country_preference)
+      entity = Entity.create!(full_name: exploitation_name, active: true, nature: :organization, country: country_preference, siret: siret_number)
     end
 
     cap_statement_attributes = {
@@ -72,7 +69,6 @@ class Telepac::V2015::CapStatementsExchanger < ActiveExchanger::Base
     ## find or create cap statement
     unless cap_statement = CapStatement.find_by(cap_statement_attributes.slice(:pacage_number, :siret_number, :entity, :campaign))
       cap_statement = CapStatement.create!(cap_statement_attributes)
-      puts cap_statement.inspect.red
     end
 
     # get the islets

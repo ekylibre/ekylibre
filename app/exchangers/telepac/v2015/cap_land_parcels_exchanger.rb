@@ -12,34 +12,37 @@ class Telepac::V2015::CapLandParcelsExchanger < ActiveExchanger::Base
       # Set number of shapes
       w.count = file.size
 
-      # Find good variant
-      land_parcel_cluster_variant = ProductNatureVariant.import_from_nomenclature(:land_parcel_cluster)
-      # Import or update
-      file.each do |record|
-        attributes = {
-          initial_born_at: Time.utc(1, 1, 1, 0, 0, 0),
-          work_number: record.attributes['PACAGE'].to_s + '-' + record.attributes['NUMERO'].to_s,
-          variant_id: land_parcel_cluster_variant.id,
-          name: LandParcelCluster.model_name.human + ' ' + record.attributes['NUMERO'].to_s,
-          variety: 'land_parcel_cluster',
-          initial_owner: Entity.of_company,
-          identification_number: record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s
+      # check cap_statement presence for the consider year
+      harvest_year = file.first.attributes['CAMPAGNE'].to_s
+      campaign = Campaign.find_or_create_by!(harvest_year: harvest_year)
+
+      pacage_number = file.first.attributes['PACAGE'].to_s
+
+      cap_statement_attributes = {
+        campaign: campaign,
+        entity: Entity.of_compagny,
+        exploitation_name: Entity.of_compagny.full_name,
+        pacage_number: pacage_number,
+        siret_number: Entity.of_compagny.siret
         }
 
-        if record.geometry
-          # Find or create land_parcel_cluster
-          # TODO: Use a find_by_shape_similarity to determine existence of the land parcel
-          unless land_parcel_cluster = LandParcelCluster.find_by(attributes.slice(:work_number, :variety, :identification_number))
-            land_parcel_cluster = LandParcelCluster.create!(attributes)
-          end
-          land_parcel_cluster.read!(:shape, record.geometry, at: land_parcel_cluster.initial_born_at)
-          a = (land_parcel_cluster.shape_area.to_d / land_parcel_cluster_variant.net_surface_area.to_d(:square_meter))
-          land_parcel_cluster.read!(:population, a, at: land_parcel_cluster.initial_born_at)
-        # if record.geometry
-        #   shapes[record.attributes['NUMERO'].to_s] = Charta::Geometry.new(record.geometry).transform(:WGS84).to_rgeo
-        # end
-        else
-          w.warn "No geometry given for CAP land parcel (#{attributes.inspect})"
+      ## find or create cap statement
+      unless cap_statement = CapStatement.find_by(campaign: campaign, pacage_number: pacage_number)
+        cap_statement = CapStatement.create!(cap_statement_attributes)
+      end
+
+      # Import 2015 islet
+      file.each do |record|
+        islet_attributes = {
+          cap_statement: cap_statement,
+          islet_number: record.attributes['NUMERO'].to_s,
+          town_number: record.attributes['COMMUNE'].to_s,
+          shape: record.geometry
+        }
+
+        # find or create islet according to cap statement
+        unless cap_islet = CapIslet.find_by(islet_attributes.slice(:islet_number, :cap_statement))
+          cap_islet = CapIslet.create!(islet_attributes)
         end
         w.check_point
       end
