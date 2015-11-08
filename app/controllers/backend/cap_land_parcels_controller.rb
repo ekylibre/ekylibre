@@ -20,10 +20,27 @@ class Backend::CapLandParcelsController < Backend::BaseController
 
   manage_restfully
 
-  list(order: { land_parcel_number: :desc }) do |t|
+  # params:
+  #   :q Text search
+  #   :state State search
+  #   :current_campaign
+  def self.cap_land_parcels_conditions
+    code = ''
+    code = search_conditions(cap_land_parcels: [:land_parcel_number]) + " ||= []\n"
+    code << "if current_campaign\n"
+    code << "  c[0] << \" AND #{CapStatement.table_name}.campaign_id IN (?)\"\n"
+    code << "  c << current_campaign.id\n"
+    code << "end\n"
+    code.c
+  end
+
+  list(conditions: cap_land_parcels_conditions, joins: [:cap_statement], order: { land_parcel_number: :asc }) do |t|
     t.action :edit
     t.action :destroy, if: :destroyable?
     t.column :land_parcel_number, url: true
+    t.column :islet_number, through: :cap_islet, url: true
+    t.column :main_crop_code
+    t.column :main_crop_precision
     t.column :net_surface_area
   end
 

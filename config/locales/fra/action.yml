@@ -79,6 +79,16 @@ fra:
       index: "Campagnes"
       new: "Nouvelle campagne"
       show: "Campagne %{name}"
+    backend/cap_islets:
+      edit: "Modifier l'ilôt PAC: %{islet_number}"
+      index: "Ilots PAC"
+      new: "Nouvel ilot PAC"
+      show: "Ilot PAC: %{islet_number}"
+    backend/cap_land_parcels:
+      edit: "Modifier la parcelle PAC: %{land_parcel_number}"
+      index: "Parcelles PAC"
+      new: "Nouvelle parcelle PAC"
+      show: "Parcelle PAC: %{land_parcel_number}"
     backend/cap_statements:
       edit: "Modifier la déclaration PAC: %{id}"
       index: "Déclaration PAC"

@@ -90,15 +90,15 @@ eng:
       new: "New campaign"
       show: "Campaign %{name}"
     backend/cap_islets:
-      # edit: "Edit cap islet: %{name}"
-      # index: "Cap islets"
-      # new: "New cap islet"
-      # show: "Cap islet: %{name}"
+      edit: "Edit cap islet: %{islet_number}"
+      index: "Cap islets"
+      new: "New cap islet"
+      show: "Cap islet: %{islet_number}"
     backend/cap_land_parcels:
-      # edit: "Edit cap land parcel: %{name}"
-      # index: "Cap land parcels"
-      # new: "New cap land parcel"
-      # show: "Cap land parcel: %{name}"
+      edit: "Edit cap land parcel: %{land_parcel_number}"
+      index: "Cap land parcels"
+      new: "New cap land parcel"
+      show: "Cap land parcel: %{land_parcel_number}"
     backend/cap_statements:
       edit: "Edit cap statement: %{id}"
       index: "Cap statements"
@@ -1007,7 +1007,7 @@ eng:
     cropping_plan_on_cultivable_zones: "Cropping plan on cultivable zones"
     crumbs: "Crumbs" #?
     cultivable_zone: "Cultivable zone"
-    cultivable_zone_abbreviation: "CZ"
+    cultivable_zone_abbreviation: "CZ" #?!
     cultivable_zones: "Cultivable zones"
     cumul: "Accumulation of tattle and previous balance N°%{number}"
     current: "Current" #?
@@ -1179,7 +1179,7 @@ eng:
     journals: "Journals"
     label: "Label" #?
     label_value: "%{label}: %{value}"
-    land_parcel_abbreviation: "LP"
+    land_parcel_abbreviation: "LP" #?!
     land_parcels: "Land parcels"
     last_analyses: "Last milk analysis"
     last_computed_balance: "Last computed balance" #?

@@ -20,7 +20,21 @@ class Backend::CapIsletsController < Backend::BaseController
 
   manage_restfully
 
-  list(order: { islet_number: :desc }) do |t|
+  # params:
+  #   :q Text search
+  #   :state State search
+  #   :current_campaign
+  def self.cap_islets_conditions
+    code = ''
+    code = search_conditions(cap_islets: [:islet_number]) + " ||= []\n"
+    code << "if current_campaign\n"
+    code << "  c[0] << \" AND #{CapStatement.table_name}.campaign_id IN (?)\"\n"
+    code << "  c << current_campaign.id\n"
+    code << "end\n"
+    code.c
+  end
+
+  list(conditions: cap_islets_conditions, joins: [:cap_statement], order: { islet_number: :asc }) do |t|
     t.action :edit
     t.action :destroy, if: :destroyable?
     t.column :islet_number, url: true

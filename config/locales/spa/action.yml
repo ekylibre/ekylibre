@@ -75,6 +75,16 @@ spa:
       # index: "Campaigns"
       # new: "New campaign"
       # show: "Campaign %{name}"
+    backend/cap_islets:
+      # edit: "Edit cap islet: %{islet_number}"
+      # index: "Cap islets"
+      # new: "New cap islet"
+      # show: "Cap islet: %{islet_number}"
+    backend/cap_land_parcels:
+      # edit: "Edit cap land parcel: %{land_parcel_number}"
+      # index: "Cap land parcels"
+      # new: "New cap land parcel"
+      # show: "Cap land parcel: %{land_parcel_number}"
     backend/cap_statements:
       # edit: "Edit cap statement: %{id}"
       # index: "Cap statements"
