@@ -1,4 +1,4 @@
-class UpdatesFirstRunBearings < ActiveRecord::Migration
+class UpdateFirstRunBearings < ActiveRecord::Migration
   def up
     execute "UPDATE preferences SET name = 'first_run.executed_loaders.' || split_part(name, '.', 2) WHERE name LIKE 'first_run.%.executed'"
     if select_value("SELECT count(*) FROM preferences WHERE name = 'first_run.executed'").to_i.zero?
