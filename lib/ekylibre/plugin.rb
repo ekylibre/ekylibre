@@ -181,7 +181,7 @@ module Ekylibre
       end
 
       # Adds the app/{controllers,helpers,models} directories of the plugin to the autoload path
-      Dir.glob File.expand_path(@root.join('app', '{controllers,helpers,models,jobs,mailers,inputs,guides}')) do |dir|
+      Dir.glob File.expand_path(@root.join('app', '{controllers,exchangers,helpers,models,jobs,mailers,inputs,guides}')) do |dir|
         ActiveSupport::Dependencies.autoload_paths += [dir]
       end
       # Adds the app/{controllers,helpers,models} concerns directories of the plugin to the autoload path
