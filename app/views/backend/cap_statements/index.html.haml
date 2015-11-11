@@ -17,7 +17,7 @@
           popup_content << {label: Plant.human_attribute_name(:net_surface_area), value: p.label_area}
           popup_content << render('popup', plant: p)
 
-         {name: "#{p.land_parcel_number} - #{p.cap_islet.islet_number}", shape: p.shape, popup: {header: true, content: popup_content} }
+         {name: "#{p.land_parcel_number} - #{p.cap_islet.islet_number}", shape: p.shape, main_crop_code: p.main_crop_code, popup: {header: true, content: popup_content} }
         end
 
         cap_islet = CapIslet.of_campaign(current_campaign).collect do |p|
@@ -39,8 +39,8 @@
         - v.background "OpenStreetMap.Mapnik"
         - v.background "Thunderforest.Landscape"
         - v.background "Esri.WorldImagery"
-        - v.simple :cap_land_parcels, :main
         - v.simple :cap_islets, :second
+        - v.categories :main_crop_code, :main
         - v.control :zoom
         - v.control :scale
         - v.control :fullscreen
