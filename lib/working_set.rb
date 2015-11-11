@@ -24,7 +24,9 @@ module WorkingSet
     class NegativeTest < Test; end
     class AbilityTest < Test; end
     class EssenceTest < Test; end
+    class NonEssenceTest < Test; end
     class DerivativeTest < Test; end
+    class NonDerivativeTest < Test; end
     class IndicatorTest < Test; end
     class AbilityName < Base; end
     class AbilityArgument < Base; end

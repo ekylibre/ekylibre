@@ -232,57 +232,69 @@ module WorkingSet
           r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
           r0 = r2
         else
-          r3 = _nt_derivative
+          r3 = _nt_non_essence
           if r3
             r3 = SyntaxNode.new(input, (index-1)...index) if r3 == true
             r0 = r3
           else
-            r4 = _nt_indicative
+            r4 = _nt_derivative
             if r4
               r4 = SyntaxNode.new(input, (index-1)...index) if r4 == true
               r0 = r4
             else
-              r5 = _nt_negative
+              r5 = _nt_non_derivative
               if r5
                 r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
                 r0 = r5
               else
-                i6, s6 = index, []
-                if (match_len = has_terminal?("(", false, index))
-                  r7 = true
-                  @index += match_len
-                else
-                  terminal_parse_failure('"("')
-                  r7 = nil
-                end
-                s6 << r7
-                if r7
-                  r8 = _nt_boolean_expression
-                  s6 << r8
-                  if r8
-                    if (match_len = has_terminal?(")", false, index))
-                      r9 = true
-                      @index += match_len
-                    else
-                      terminal_parse_failure('")"')
-                      r9 = nil
-                    end
-                    s6 << r9
-                  end
-                end
-                if s6.last
-                  r6 = instantiate_node(BooleanExpression,input, i6...index, s6)
-                  r6.extend(Test0)
-                else
-                  @index = i6
-                  r6 = nil
-                end
+                r6 = _nt_indicative
                 if r6
                   r6 = SyntaxNode.new(input, (index-1)...index) if r6 == true
                   r0 = r6
                 else
-                  @index = i0
-                  r0 = nil
+                  r7 = _nt_negative
+                  if r7
+                    r7 = SyntaxNode.new(input, (index-1)...index) if r7 == true
+                    r0 = r7
+                  else
+                    i8, s8 = index, []
+                    if (match_len = has_terminal?("(", false, index))
+                      r9 = true
+                      @index += match_len
+                    else
+                      terminal_parse_failure('"("')
+                      r9 = nil
+                    end
+                    s8 << r9
+                    if r9
+                      r10 = _nt_boolean_expression
+                      s8 << r10
+                      if r10
+                        if (match_len = has_terminal?(")", false, index))
+                          r11 = true
+                          @index += match_len
+                        else
+                          terminal_parse_failure('")"')
+                          r11 = nil
+                        end
+                        s8 << r11
+                      end
+                    end
+                    if s8.last
+                      r8 = instantiate_node(BooleanExpression,input, i8...index, s8)
+                      r8.extend(Test0)
+                    else
+                      @index = i8
+                      r8 = nil
+                    end
+                    if r8
+                      r8 = SyntaxNode.new(input, (index-1)...index) if r8 == true
+                      r0 = r8
+                    else
+                      @index = i0
+                      r0 = nil
+                    end
+                  end
                 end
               end
             end
@@ -342,6 +354,57 @@ module WorkingSet
       end
 
       node_cache[:essence][start_index] = r0
+
+      r0
+    end
+
+    module NonEssence0
+      def spacer
+        elements[1]
+      end
+
+      def variety_name
+        elements[2]
+      end
+    end
+
+    def _nt_non_essence
+      start_index = index
+      if node_cache[:non_essence].has_key?(index)
+        cached = node_cache[:non_essence][index]
+        if cached
+          node_cache[:non_essence][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          @index = cached.interval.end
+        end
+        return cached
+      end
+
+      i0, s0 = index, []
+      if (match_len = has_terminal?("isnt", false, index))
+        r1 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+        @index += match_len
+      else
+        terminal_parse_failure('"isnt"')
+        r1 = nil
+      end
+      s0 << r1
+      if r1
+        r2 = _nt_spacer
+        s0 << r2
+        if r2
+          r3 = _nt_variety_name
+          s0 << r3
+        end
+      end
+      if s0.last
+        r0 = instantiate_node(NonEssenceTest,input, i0...index, s0)
+        r0.extend(NonEssence0)
+      else
+        @index = i0
+        r0 = nil
+      end
+
+      node_cache[:non_essence][start_index] = r0
 
       r0
     end
@@ -411,6 +474,93 @@ module WorkingSet
       end
 
       node_cache[:derivative][start_index] = r0
+
+      r0
+    end
+
+    module NonDerivative0
+      def spacer1
+        elements[1]
+      end
+
+      def spacer2
+        elements[3]
+      end
+
+      def spacer3
+        elements[5]
+      end
+
+      def variety_name
+        elements[6]
+      end
+    end
+
+    def _nt_non_derivative
+      start_index = index
+      if node_cache[:non_derivative].has_key?(index)
+        cached = node_cache[:non_derivative][index]
+        if cached
+          node_cache[:non_derivative][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          @index = cached.interval.end
+        end
+        return cached
+      end
+
+      i0, s0 = index, []
+      if (match_len = has_terminal?("dont", false, index))
+        r1 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+        @index += match_len
+      else
+        terminal_parse_failure('"dont"')
+        r1 = nil
+      end
+      s0 << r1
+      if r1
+        r2 = _nt_spacer
+        s0 << r2
+        if r2
+          if (match_len = has_terminal?("derive", false, index))
+            r3 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+            @index += match_len
+          else
+            terminal_parse_failure('"derive"')
+            r3 = nil
+          end
+          s0 << r3
+          if r3
+            r4 = _nt_spacer
+            s0 << r4
+            if r4
+              if (match_len = has_terminal?("from", false, index))
+                r5 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                @index += match_len
+              else
+                terminal_parse_failure('"from"')
+                r5 = nil
+              end
+              s0 << r5
+              if r5
+                r6 = _nt_spacer
+                s0 << r6
+                if r6
+                  r7 = _nt_variety_name
+                  s0 << r7
+                end
+              end
+            end
+          end
+        end
+      end
+      if s0.last
+        r0 = instantiate_node(DerivativeTest,input, i0...index, s0)
+        r0.extend(NonDerivative0)
+      else
+        @index = i0
+        r0 = nil
+      end
+
+      node_cache[:non_derivative][start_index] = r0
 
       r0
     end

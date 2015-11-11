@@ -6,8 +6,12 @@ class WorkingSetsTest < ActiveSupport::TestCase
     [
       'is aix',
       'is   sus',
+      'isnt sus_scrofa',
       'derives from mammalia',
       'derives   from   immatter',
+      'dont derive   from   immatter',
+      'dont   derive   from   immatter',
+      'dont derive from equidae',
       'has indicator net_mass',
       'has frozen indicator net_volume',
       'has variable indicator population',
