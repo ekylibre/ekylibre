@@ -267,38 +267,67 @@ class ProductNature < Ekylibre::Record::Base
     picture.path(style)
   end
 
-  # Load a product nature from product nature nomenclature
-  def self.import_from_nomenclature(reference_name, force = false)
-    unless item = Nomen::ProductNature.find(reference_name)
-      fail ArgumentError, "The product_nature #{reference_name.inspect} is unknown"
-    end
-    unless category_item = Nomen::ProductNatureCategory.find(item.category)
-      fail ArgumentError, "The category of the product_nature #{item.category.inspect} is unknown"
-    end
-    if !force && nature = ProductNature.find_by_reference_name(reference_name)
-      return nature
-    end
-    attributes = {
-      variety: item.variety,
-      derivative_of: item.derivative_of.to_s,
-      name: item.human_name,
-      population_counting: item.population_counting,
-      category: ProductNatureCategory.import_from_nomenclature(item.category),
-      reference_name: item.name,
-      abilities_list: WorkingSet::AbilityArray.load(item.abilities),
-      derivatives_list: (item.derivatives ? item.derivatives.sort : nil),
-      frozen_indicators_list: (item.frozen_indicators ? item.frozen_indicators.sort : nil),
-      variable_indicators_list: (item.variable_indicators ? item.variable_indicators.sort : nil),
-      active: true
-    }
-    attributes[:linkage_points_list] = item.linkage_points if item.linkage_points
-    self.create!(attributes)
-  end
+  class << self
 
-  # Load.all product nature from product nature nomenclature
-  def self.import_all_from_nomenclature
-    for product_nature in Nomen::ProductNature.all
-      import_from_nomenclature(product_nature)
+    Item = Struct.new(:name, :variety, :derivative_of, :abilities_list, :indicators, :frozen_indicators, :variable_indicators)
+
+    # Returns core attributes of nomenclature merge with nature if necessary
+    # name, variety, derivative_of, abilities
+    def flattened_nomenclature
+      @flattened_nomenclature ||= Nomen::ProductNature.list.collect do |item|
+        f = (item.frozen_indicators || []).map(&:to_sym)
+        v = (item.variable_indicators || []).map(&:to_sym)
+        Item.new(
+          item.name,
+          Nomen::Variety.find(item.variety),
+          Nomen::Variety.find(item.derivative_of),
+          WorkingSet::AbilityArray.load(item.abilities),
+          f + v, f, v)
+      end
     end
+
+    # Lists ProductNature::Item which match given expression
+    # Fully compatible with WSQL
+    def items_of_expression(expression)
+      flattened_nomenclature.select do |item|
+        WorkingSet.check_record(expression, item)
+      end
+    end
+
+    # Load a product nature from product nature nomenclature
+    def import_from_nomenclature(reference_name, force = false)
+      unless item = Nomen::ProductNature.find(reference_name)
+        fail ArgumentError, "The product_nature #{reference_name.inspect} is unknown"
+      end
+      unless category_item = Nomen::ProductNatureCategory.find(item.category)
+        fail ArgumentError, "The category of the product_nature #{item.category.inspect} is unknown"
+      end
+      if !force && nature = ProductNature.find_by_reference_name(reference_name)
+        return nature
+      end
+      attributes = {
+        variety: item.variety,
+        derivative_of: item.derivative_of.to_s,
+        name: item.human_name,
+        population_counting: item.population_counting,
+        category: ProductNatureCategory.import_from_nomenclature(item.category),
+        reference_name: item.name,
+        abilities_list: WorkingSet::AbilityArray.load(item.abilities),
+        derivatives_list: (item.derivatives ? item.derivatives.sort : nil),
+        frozen_indicators_list: (item.frozen_indicators ? item.frozen_indicators.sort : nil),
+        variable_indicators_list: (item.variable_indicators ? item.variable_indicators.sort : nil),
+        active: true
+      }
+      attributes[:linkage_points_list] = item.linkage_points if item.linkage_points
+      self.create!(attributes)
+    end
+
+    # Load.all product nature from product nature nomenclature
+    def import_all_from_nomenclature
+      for product_nature in Nomen::ProductNature.all
+        import_from_nomenclature(product_nature)
+      end
+    end
+
   end
 end
