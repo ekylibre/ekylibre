@@ -324,25 +324,42 @@ class ProductNatureVariant < Ekylibre::Record::Base
         variants = variants.derivative_of(derivative_of)
       end
       if variants.empty?
-        # Flatten variants for search
-        nomenclature = Nomen::ProductNatureVariant.list.collect do |item|
-          nature = Nomen::ProductNature[item.nature]
-          h = { reference_name: item.name, variety: Nomen::Variety[item.variety || nature.variety] } # , nature: nature
-          if d = Nomen::Variety[item.derivative_of || nature.derivative_of]
-            h[:derivative_of] = d
-          end
-          h
-        end
         # Filter and imports
-        filtereds = nomenclature.select do |item|
-          item[:variety].include?(variety) &&
-          ((derivative_of && item[:derivative_of] && item[:derivative_of].include?(derivative_of)) || (derivative_of.blank? && item[:derivative_of].blank?))
+        filtereds = flattened_nomenclature.select do |item|
+          item.variety >= variety &&
+          ((derivative_of && item.derivative_of && item.derivative_of >= derivative_of) || (derivative_of.blank? && item.derivative_of.blank?))
         end
         filtereds.each do |item|
-          import_from_nomenclature(item[:reference_name])
+          import_from_nomenclature(item.name)
         end
       end
       variants.reload
+    end
+
+    Item = Struct.new(:name, :variety, :derivative_of, :abilities_list, :indicators, :frozen_indicators, :variable_indicators)
+
+    # Returns core attributes of nomenclature merge with nature if necessary
+    # name, variety, derivative_od, abilities
+    def flattened_nomenclature
+      @flattened_nomenclature ||= Nomen::ProductNatureVariant.list.collect do |item|
+        nature = Nomen::ProductNature[item.nature]
+        f = (nature.frozen_indicators || []).map(&:to_sym)
+        v = (nature.variable_indicators || []).map(&:to_sym)
+        Item.new(
+          item.name,
+          Nomen::Variety.find(item.variety || nature.variety),
+          Nomen::Variety.find(item.derivative_of || nature.derivative_of),
+          WorkingSet::AbilityArray.load(nature.abilities),
+          f + v, f, v)
+      end
+    end
+
+    # Lists ProductNatureVariant::Item which match given expression
+    # Fully compatible with WSQL
+    def items_of_expression(expression)
+      flattened_nomenclature.select do |item|
+        WorkingSet.check_record(expression, item)
+      end
     end
 
     # Load a product nature variant from product nature variant nomenclature
