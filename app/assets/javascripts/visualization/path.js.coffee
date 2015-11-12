@@ -31,25 +31,11 @@
 #  }
 class visualization.Path
 
-  constructor: (@layer, @data, options = {}) ->
-    @items = []
-    property = @layer.reference
-    for crumb in @data
-      unless this.itemFor(crumb[property])
-        @items.push
-          name: crumb[property]
-
+  constructor: (@layer, @data, @options = {}) ->
     if this.valid()
-      @items = @items.sort (a, b) ->
-        a.name > b.name
-      @colors = options.colors ? []
-      if @items.length > @colors.length
-        for x in [@colors.length..@items.length]
-          @colors.push(visualization.colors[x] ? "#000000")
-      for item, index in @items
-        item.fillColor = @colors[index]
-
-      console.log "Paths computed"
+      @options.color ?= visualization.colors[0]
+      @options.fillColor ?= @options.color
+      console.log "Paths computed", @options
     else
       console.warn "Invalid paths"
 
@@ -57,17 +43,7 @@ class visualization.Path
   buildLayerGroup: (widget, globalStyle = {}) ->
     group = []
     for crumb in @data
-      radius = 1.0
-      if crumb.nature != 'point'
-        radius = 2.5
-      crumbStyle =
-        fillColor: this.itemFor(crumb[@layer.reference]).fillColor
-        color: this.itemFor(crumb[@layer.reference]).fillColor
-        opacity: 1
-        radius: 5
-        weight: 4
-      # crumbLayer = new L.circle(new L.geoJson(crumb.shape).getBounds().getCenter(), radius, $.extend(true, {}, globalStyle, crumbStyle))
-      crumbLayer = new L.circleMarker(new L.geoJson(crumb.shape).getBounds().getCenter(), $.extend(true, {}, globalStyle, crumbStyle))
+      crumbLayer = new L.circleMarker(new L.geoJson(crumb.shape).getBounds().getCenter(), $.extend(true, {}, globalStyle, @options, {className: "crumb crumb-#{crumb.name}"}))
       widget._bindPopup(crumbLayer, crumb)
       group.push(crumbLayer)
       previous_crumb = @data[@data.indexOf(crumb) - 1]
@@ -75,13 +51,9 @@ class visualization.Path
         points = []
         points.push(new L.geoJson(previous_crumb.shape).getBounds().getCenter())
         points.push(new L.geoJson(crumb.shape).getBounds().getCenter())
-        crumbLayer = new L.polyline(points, $.extend(true, {}, globalStyle, crumbStyle))
-        if crumb.nature == 'hard_start'
-          opacity = 1
-        if crumb.nature == 'hard_stop'
-          opacity = 0.2
+        crumbLayer = new L.polyline(points, $.extend(true, {}, globalStyle, @options))
         group.push(crumbLayer)
-    group
+    return group
 
   # Build HTML legend for given paths computed layer
   buildLegend: () ->
@@ -89,7 +61,7 @@ class visualization.Path
     html += "<div class='leaflet-legend-body leaflet-categories-scale'>"
     html += "<span class='leaflet-categories-items'>"
     html += "<span class='leaflet-categories-item'>"
-    html += "<i class='leaflet-categories-sample' style='background-color: #{@items[0].fillColor};'></i>"
+    html += "<i class='leaflet-categories-sample' style='background-color: #{@options.color};'></i>"
     html += " #{@layer.label}"
     html += "</span>"
     html += "</span>"
@@ -97,15 +69,8 @@ class visualization.Path
     html += "</div>"
     return html
 
-  # Returns the item matching the given name
-  itemFor: (name) ->
-    back = null
-    @items.forEach (item, index, array) ->
-      back = item if item.name == name
-    return back
-
   # Check if paths are valid
   valid: () ->
-    @items.length > 0
+    true
 
 visualization.registerLayerType "path", visualization.Path

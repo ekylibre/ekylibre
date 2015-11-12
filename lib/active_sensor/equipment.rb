@@ -113,7 +113,7 @@ module ActiveSensor
 
     # Returns i18nized label
     def label(options = {})
-      translate(:label, options) || @name.to_s.humanize
+      translate(:label, options) || @model.to_s.humanize
     end
 
     # Returns i18nized description
@@ -123,7 +123,7 @@ module ActiveSensor
 
     protected
 
-    def store_translation(_scope, value)
+    def store_translation(scope, value)
       if value.is_a?(String)
         value = { I18n.default_locale => value }
       elsif !value.is_a?(Hash)
@@ -131,7 +131,7 @@ module ActiveSensor
         # fail "Cannot handle #{value.inspect} as translation for #{scope}"
       end
       @translations ||= {}.with_indifferent_access
-      @translations.deep_merge!(value)
+      @translations.deep_merge!(scope => value)
     end
 
     def translate(scope, options = {})

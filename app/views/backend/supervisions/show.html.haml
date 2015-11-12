@@ -1,0 +1,34 @@
+= main_toolbar do |t|
+  - t.edit resource
+
+:ruby
+  indicator_names = @supervision.indicator_names
+
+
+#graphs
+  = cobbles do |c|
+    - c.cobble :map do
+      #map
+        = visualization do |v|
+          - v.background "OpenStreetMap.HOT"
+          - @supervision.items.each do |item|
+            - next unless item.geolocalized?
+            - serie_id = "sensor_#{item.id}".to_sym
+            - data = item.geolocation_path.map do |analysis|
+              - next if analysis.geolocation.nil?
+              - dot = analysis.items.each_with_object({}) do |iv, hash|
+                - hash[iv.indicator_name.to_sym] = iv.value.to_f
+              - dot.merge(name: "t#{analysis.sampled_at.to_usec}", shape: analysis.geolocation)
+            - v.serie serie_id, data
+            - v.path item.name, serie_id, label: item.name, color: item.color
+            - v.control :layer_selector
+
+    - indicator_names.each do |indicator_name|
+      - series = []
+      - indicator = Nomen::Indicator.find(indicator_name)
+      - @supervision.items.each do |item|
+        - data = item.historic_of(indicator_name)
+        - series << { name: item.sensor.name, data: data, type: "spline", color: item.color }
+      - dataset = { name: indicator.human_name, valueDecimals: 1, series: series, unit: Nomen::Unit.find(indicator.unit).symbol }
+      - c.cobble indicator_name, label: Nomen::Indicator.find(indicator_name).human_name do
+        .graph{id: "graph-#{indicator_name}", data: {sync_chart: dataset.jsonize_keys.to_json}}

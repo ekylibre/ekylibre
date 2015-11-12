@@ -1,0 +1,74 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2015 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: supervision_items
+#
+#  color          :string
+#  created_at     :datetime         not null
+#  creator_id     :integer
+#  id             :integer          not null, primary key
+#  lock_version   :integer          default(0), not null
+#  sensor_id      :integer          not null
+#  supervision_id :integer          not null
+#  updated_at     :datetime         not null
+#  updater_id     :integer
+#
+#
+# == Fixture: supervision_items
+#
+# supervision_items_001:
+#   creator: users_001
+#   sensor: sensors_001
+#   supervision: supervisions_001
+#   updater: users_001
+#
+---
+supervision_items_001:
+  color: "#bd4545"
+  created_at: 2015-10-28 22:00:32.639555000 Z
+  creator_id: 1
+  id: 1
+  lock_version: 0
+  sensor_id: 4
+  supervision_id: 1
+  updated_at: 2015-10-28 22:00:32.639555000 Z
+  updater_id: 1
+supervision_items_002:
+  color: "#e1d521"
+  created_at: 2015-10-28 22:00:57.815460000 Z
+  creator_id: 1
+  id: 2
+  lock_version: 0
+  sensor_id: 2
+  supervision_id: 2
+  updated_at: 2015-10-28 22:00:57.815460000 Z
+  updater_id: 1
+supervision_items_003:
+  color: "#5a8cde"
+  created_at: 2015-10-28 22:00:57.816827000 Z
+  creator_id: 1
+  id: 3
+  lock_version: 0
+  sensor_id: 5
+  supervision_id: 2
+  updated_at: 2015-10-28 22:00:57.816827000 Z
+  updater_id: 1

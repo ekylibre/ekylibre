@@ -5351,7 +5351,6 @@ sensors:
     required: true
   model_euid:
     type: string
-    required: true
   name:
     type: string
     required: true
@@ -5361,6 +5360,8 @@ sensors:
   retrieval_mode:
     type: string
     required: true
+  token:
+    type: string
   updated_at:
     type: datetime
     required: true
@@ -5369,7 +5370,6 @@ sensors:
     references: user
   vendor_euid:
     type: string
-    required: true
 sequences:
   created_at:
     type: datetime
@@ -5509,6 +5509,61 @@ subscriptions:
   updater_id:
     type: integer
     references: user
+supervision_items:
+  color:
+    type: string
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  sensor_id:
+    type: integer
+    references: sensor
+    required: true
+  supervision_id:
+    type: integer
+    references: supervision
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+supervisions:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  time_window:
+    type: integer
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  view_parameters:
+    type: json
 tasks:
   created_at:
     type: datetime

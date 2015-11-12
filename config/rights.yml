@@ -153,6 +153,7 @@
 #     - "devise/unlocks#create"
 #     - "devise/unlocks#new"
 #     - "devise/unlocks#show"
+#     - "iot/analyses#create"
 #     - "pasteque/v5/attributes#index"
 #     - "pasteque/v5/cash_mvts#move"
 #     - "pasteque/v5/cash_registers#index"
@@ -1904,6 +1905,23 @@ subscriptions:
     - "backend/subscriptions#edit"
     - "backend/subscriptions#new"
     - "backend/subscriptions#update"
+
+supervisions:
+  read:
+    actions:
+    - "backend/supervisions#index"
+    - "backend/supervisions#list"
+    - "backend/supervisions#show"
+    - "backend/supervisions#unroll"
+  write:
+    dependencies:
+    - read-supervisions
+    actions:
+    - "backend/supervisions#create"
+    - "backend/supervisions#destroy"
+    - "backend/supervisions#edit"
+    - "backend/supervisions#new"
+    - "backend/supervisions#update"
 
 tasks:
   read:

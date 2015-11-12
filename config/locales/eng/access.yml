@@ -85,6 +85,7 @@ eng:
       settlements: "Settlements"
       subscription_natures: "Subscription natures"
       subscriptions: "Subscriptions"
+      # supervisions: "Supervisions"
       tasks: "Tasks"
       taxes: "Taxes"
       teams: "Teams"

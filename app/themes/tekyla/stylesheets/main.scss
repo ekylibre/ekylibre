@@ -2030,6 +2030,11 @@ svg.map {
   }
 }
 
+.crumb.hover {
+  stroke-width: 15px;
+  stroke-opacity: 0.5;
+  fill-color: white;
+}
 
 
 #demo-pie, #demo-map, #product-bar-chart, #bank-chart, #expense-chart {

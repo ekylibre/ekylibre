@@ -563,6 +563,11 @@ fra:
       edit: "Modifier l’abonnement\_: N°%{number} du %{start} au %{finish}"
       index: "Abonnements"
       new: "Nouvel abonnement"
+    backend/supervisions:
+      edit: "Modifier la supervision\_: %{name}"
+      index: "Supervisions"
+      new: "Nouvelle supervision"
+      show: "Supervision\_: %{name}"
     backend/synchronizations:
       index: "Synchronisations"
       run: "Lancer une synchronization: %{name}"

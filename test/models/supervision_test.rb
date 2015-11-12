@@ -20,27 +20,20 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: sensors
+# == Table: supervisions
 #
-#  access_parameters :json
-#  active            :boolean          default(TRUE), not null
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  embedded          :boolean          default(FALSE), not null
-#  host_id           :integer
-#  id                :integer          not null, primary key
-#  lock_version      :integer          default(0), not null
-#  model_euid        :string
-#  name              :string           not null
-#  product_id        :integer
-#  retrieval_mode    :string           not null
-#  token             :string
-#  updated_at        :datetime         not null
-#  updater_id        :integer
-#  vendor_euid       :string
+#  created_at      :datetime         not null
+#  creator_id      :integer
+#  id              :integer          not null, primary key
+#  lock_version    :integer          default(0), not null
+#  name            :string           not null
+#  time_window     :integer
+#  updated_at      :datetime         not null
+#  updater_id      :integer
+#  view_parameters :json
 #
 require 'test_helper'
 
-class SensorTest < ActiveSupport::TestCase
+class SupervisionTest < ActiveSupport::TestCase
   # Add tests here...
 end
