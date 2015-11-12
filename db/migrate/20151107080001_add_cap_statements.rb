@@ -1,7 +1,6 @@
 class AddCapStatements < ActiveRecord::Migration
   def change
-
-    #cap_statements
+    # cap_statements
     create_table :cap_statements do |t|
       t.references :campaign, null: false, index: true
       t.references :entity, index: true
@@ -11,7 +10,7 @@ class AddCapStatements < ActiveRecord::Migration
       t.stamps
     end
 
-    #cap_islets
+    # cap_islets
     create_table :cap_islets do |t|
       t.references :cap_statement, null: false, index: true
       t.string :islet_number,       null: false
@@ -20,7 +19,7 @@ class AddCapStatements < ActiveRecord::Migration
       t.stamps
     end
 
-    #cap_land_parcels
+    # cap_land_parcels
     create_table :cap_land_parcels do |t|
       t.references :cap_islet, null: false, index: true
       t.references :support, index: true
@@ -32,6 +31,5 @@ class AddCapStatements < ActiveRecord::Migration
       t.geometry :shape, null: false, srid: 4326
       t.stamps
     end
-
   end
 end

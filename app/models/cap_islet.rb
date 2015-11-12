@@ -54,11 +54,10 @@ class CapIslet < Ekylibre::Record::Base
   def label_area(unit = :hectare)
     value = to_geom.area.to_d(unit).round(3).l
     unit = Nomen::Unit[unit].human_name
-    return "#{value} #{unit}"
+    "#{value} #{unit}"
   end
 
   def net_surface_area(unit = :hectare)
     value = to_geom.area.to_d(unit).round(3)
   end
-
 end

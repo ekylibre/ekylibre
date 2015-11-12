@@ -268,7 +268,6 @@ class ProductNature < Ekylibre::Record::Base
   end
 
   class << self
-
     Item = Struct.new(:name, :variety, :derivative_of, :abilities_list, :indicators, :frozen_indicators, :variable_indicators)
 
     # Returns core attributes of nomenclature merge with nature if necessary
@@ -328,6 +327,5 @@ class ProductNature < Ekylibre::Record::Base
         import_from_nomenclature(product_nature)
       end
     end
-
   end
 end

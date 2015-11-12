@@ -17,7 +17,6 @@
 #
 
 class Backend::CapStatementsController < Backend::BaseController
-
   manage_restfully
 
   # params:
@@ -50,5 +49,4 @@ class Backend::CapStatementsController < Backend::BaseController
     t.column :town_number
     t.column :net_surface_area
   end
-
 end

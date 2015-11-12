@@ -17,7 +17,6 @@
 #
 
 class Backend::CapLandParcelsController < Backend::BaseController
-
   manage_restfully
 
   # params:
@@ -43,5 +42,4 @@ class Backend::CapLandParcelsController < Backend::BaseController
     t.column :main_crop_precision
     t.column :net_surface_area
   end
-
 end

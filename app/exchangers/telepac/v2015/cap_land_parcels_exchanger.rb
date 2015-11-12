@@ -14,27 +14,26 @@ class Telepac::V2015::CapLandParcelsExchanger < ActiveExchanger::Base
 
       # Import 2015 islet
       file.each do |record|
+        # if record.index == 0
+        # check cap_statement presence for the consider year
+        harvest_year = record.attributes['CAMPAGNE'].to_s
+        campaign = Campaign.find_or_create_by!(harvest_year: harvest_year.to_i)
 
-        #if record.index == 0
-          # check cap_statement presence for the consider year
-          harvest_year = record.attributes['CAMPAGNE'].to_s
-          campaign = Campaign.find_or_create_by!(harvest_year: harvest_year.to_i)
+        pacage_number = record.attributes['PACAGE'].to_s
 
-          pacage_number = record.attributes['PACAGE'].to_s
+        cap_statement_attributes = {
+          campaign: campaign,
+          entity: Entity.of_company,
+          exploitation_name: Entity.of_company.full_name,
+          pacage_number: pacage_number,
+          siret_number: Entity.of_company.siret
+        }
 
-          cap_statement_attributes = {
-            campaign: campaign,
-            entity: Entity.of_company,
-            exploitation_name: Entity.of_company.full_name,
-            pacage_number: pacage_number,
-            siret_number: Entity.of_company.siret
-            }
-
-          ## find or create cap statement
-          unless cap_statement = CapStatement.find_by(campaign: campaign, pacage_number: pacage_number)
-            cap_statement = CapStatement.create!(cap_statement_attributes)
-          end
-        #end
+        ## find or create cap statement
+        unless cap_statement = CapStatement.find_by(campaign: campaign, pacage_number: pacage_number)
+          cap_statement = CapStatement.create!(cap_statement_attributes)
+        end
+        # end
 
         islet_attributes = {
           cap_statement: cap_statement,

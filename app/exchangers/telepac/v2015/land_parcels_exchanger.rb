@@ -27,7 +27,7 @@ class Telepac::V2015::LandParcelsExchanger < ActiveExchanger::Base
           exploitation_name: Entity.of_company.full_name,
           pacage_number: pacage_number,
           siret_number: Entity.of_company.siret
-          }
+        }
 
         ## find or create cap statement
         unless cap_statement = CapStatement.find_by(campaign: campaign, pacage_number: pacage_number)
@@ -41,13 +41,10 @@ class Telepac::V2015::LandParcelsExchanger < ActiveExchanger::Base
           valid = false
         end
       end
-
     end
 
     valid
   end
-
-
 
   def import
     # Unzip file
@@ -94,42 +91,41 @@ class Telepac::V2015::LandParcelsExchanger < ActiveExchanger::Base
       w.count = file.num_records
 
       file.each do |record|
+        # if record.index == 0
+        # check cap_statement presence for the consider year
+        harvest_year = record.attributes['CAMPAGNE'].to_s
+        campaign = Campaign.find_or_create_by!(harvest_year: harvest_year.to_i)
 
-        #if record.index == 0
-          # check cap_statement presence for the consider year
-          harvest_year = record.attributes['CAMPAGNE'].to_s
-          campaign = Campaign.find_or_create_by!(harvest_year: harvest_year.to_i)
+        pacage_number = record.attributes['PACAGE'].to_s
 
-          pacage_number = record.attributes['PACAGE'].to_s
+        cap_statement_attributes = {
+          campaign: campaign,
+          entity: Entity.of_company,
+          exploitation_name: Entity.of_company.full_name,
+          pacage_number: pacage_number,
+          siret_number: Entity.of_company.siret
+        }
 
-          cap_statement_attributes = {
-            campaign: campaign,
-            entity: Entity.of_company,
-            exploitation_name: Entity.of_company.full_name,
-            pacage_number: pacage_number,
-            siret_number: Entity.of_company.siret
-            }
-
-          ## find or create cap statement
-          unless cap_statement = CapStatement.find_by(campaign: campaign, pacage_number: pacage_number)
-            cap_statement = CapStatement.create!(cap_statement_attributes)
-          end
-        #end
+        ## find or create cap statement
+        unless cap_statement = CapStatement.find_by(campaign: campaign, pacage_number: pacage_number)
+          cap_statement = CapStatement.create!(cap_statement_attributes)
+        end
+        # end
 
         islet_number = record.attributes['NUMERO'].to_s
 
         # Find an existing islet or stop importing
         unless cap_islet = CapIslet.find_by(cap_statement: cap_statement, islet_number: islet_number)
-          w.error "Import Islets first"
+          w.error 'Import Islets first'
         end
 
         cap_land_parcel_attributes = {
           cap_islet: cap_islet,
           land_parcel_number: record.attributes['NUMERO_SI'].to_s,
           main_crop_code: record.attributes['TYPE'].to_s,
-          main_crop_commercialisation: (record.attributes['COMMERC'].to_s == "1" ?  true : false),
+          main_crop_commercialisation: (record.attributes['COMMERC'].to_s == '1' ? true : false),
           main_crop_precision: record.attributes['CODE_VAR'].to_s,
-          main_crop_seed_production: (record.attributes['PROD_SEM'].to_s == "1" ?  true : false),
+          main_crop_seed_production: (record.attributes['PROD_SEM'].to_s == '1' ? true : false),
           shape: ::Charta::Geometry.new(record.geometry).transform(:WGS84).to_rgeo
         }
 
@@ -139,11 +135,11 @@ class Telepac::V2015::LandParcelsExchanger < ActiveExchanger::Base
         end
 
         # Create activities if option true
-        #if Preference.value(:create_activities_from_telepac, true)
+        # if Preference.value(:create_activities_from_telepac, true)
 
-        #TODO
+        # TODO
 
-        #end
+        # end
 
         w.check_point
       end

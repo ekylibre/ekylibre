@@ -55,7 +55,7 @@ class CapStatement < Ekylibre::Record::Base
     where(campaign_id: campaigns.map(&:id))
   }
 
-  def net_surface_area(unit = :hectare)
-    total_net_surface_area = self.cap_islets.map(&:net_surface_area).flatten.sum
+  def net_surface_area(_unit = :hectare)
+    total_net_surface_area = cap_islets.map(&:net_surface_area).flatten.sum
   end
 end

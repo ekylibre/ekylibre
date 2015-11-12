@@ -14,7 +14,6 @@ class Telepac::V2014::LandParcelsExchanger < ActiveExchanger::Base
       w.count = file.num_records
 
       file.each do |record|
-
         if record.index == 0
           # check cap_statement presence for the consider year
           harvest_year = record.attributes['CAMPAGNE'].to_s
@@ -29,7 +28,7 @@ class Telepac::V2014::LandParcelsExchanger < ActiveExchanger::Base
             exploitation_name: Entity.of_company.full_name,
             pacage_number: pacage_number,
             siret_number: Entity.of_company.siret
-            }
+          }
 
           ## find or create cap statement
           unless cap_statement = CapStatement.find_by(campaign: campaign, pacage_number: pacage_number)
@@ -44,7 +43,6 @@ class Telepac::V2014::LandParcelsExchanger < ActiveExchanger::Base
           valid = false
         end
       end
-
     end
 
     valid
@@ -81,7 +79,6 @@ class Telepac::V2014::LandParcelsExchanger < ActiveExchanger::Base
       w.count = file.num_records
 
       file.each do |record|
-
         if record.index == 0
 
           # check cap_statement presence for the consider year
@@ -96,7 +93,7 @@ class Telepac::V2014::LandParcelsExchanger < ActiveExchanger::Base
             exploitation_name: Entity.of_company.full_name,
             pacage_number: pacage_number,
             siret_number: Entity.of_company.siret
-            }
+          }
 
           ## find or create cap statement
           unless cap_statement = CapStatement.find_by(campaign: campaign, pacage_number: pacage_number)
@@ -108,7 +105,7 @@ class Telepac::V2014::LandParcelsExchanger < ActiveExchanger::Base
 
         # Find an existing islet or stop importing
         unless cap_islet = CapIslet.find_by(cap_statement: cap_statement, islet_number: islet_number)
-          w.error "Import Islets first"
+          w.error 'Import Islets first'
         end
 
         cap_land_parcel_attributes = {
@@ -127,11 +124,11 @@ class Telepac::V2014::LandParcelsExchanger < ActiveExchanger::Base
         end
 
         # Create activities if option true
-        #if Preference.value(:create_activities_from_telepac, true)
+        # if Preference.value(:create_activities_from_telepac, true)
 
-        #TODO
+        # TODO
 
-        #end
+        # end
 
         w.check_point
       end

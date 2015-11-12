@@ -17,7 +17,6 @@
 #
 
 class Backend::CapIsletsController < Backend::BaseController
-
   manage_restfully
 
   # params:
@@ -46,5 +45,4 @@ class Backend::CapIsletsController < Backend::BaseController
     t.column :land_parcel_number, url: true
     t.column :net_surface_area
   end
-
 end

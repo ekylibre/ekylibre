@@ -55,7 +55,7 @@ class ProductNatureVariantTest < ActiveSupport::TestCase
     assert ProductNatureVariant.flattened_nomenclature
     assert ProductNatureVariant.flattened_nomenclature.respond_to?(:any?)
     assert ProductNatureVariant.flattened_nomenclature.any?
-    assert ProductNatureVariant.items_of_expression("is triticum").any?
-    assert ProductNatureVariant.items_of_expression("is triticum or is bos_taurus").any?
+    assert ProductNatureVariant.items_of_expression('is triticum').any?
+    assert ProductNatureVariant.items_of_expression('is triticum or is bos_taurus').any?
   end
 end
