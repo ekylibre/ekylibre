@@ -109,7 +109,7 @@ module Aggeratio
       for section in element.xpath('//*[self::xmlns:section or self::xmlns:sections]')
         of = section.attr('of')
         of_type = section.attr('of-type')
-        section['if'] = of unless of.blank? if section.name == 'section'
+        section['if'] = of if section.name == 'section' && !of.blank?
         for child in section.children
           unless of.blank?
             if child.has_attribute?('of')

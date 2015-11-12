@@ -231,14 +231,13 @@ class Affair < Ekylibre::Record::Base
           attributes[:items] << GapItem.new(item)
         end
         # Ensures no needed cents are forgotten or added
-        if attributes[:items].any?
-          sum = attributes[:items].map(&:pretax_amount).sum
-          pretax_amount = pretax_amount.round(currency_precision)
-          unless sum != pretax_amount
-            attributes[:items].last.pretax_amount += (pretax_amount - sum)
-          end
-          Gap.create!(attributes)
+        next unless attributes[:items].any?
+        sum = attributes[:items].map(&:pretax_amount).sum
+        pretax_amount = pretax_amount.round(currency_precision)
+        unless sum != pretax_amount
+          attributes[:items].last.pretax_amount += (pretax_amount - sum)
         end
+        Gap.create!(attributes)
       end
       self.refresh!
     end

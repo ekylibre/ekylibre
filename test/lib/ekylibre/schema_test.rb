@@ -6,13 +6,11 @@ class Ekylibre::SchemaTest < ActiveSupport::TestCase
   test 'ekylibre tables' do
     for k, v in Ekylibre::Schema.tables
       for n, column in v
-        unless column.references.nil?
-          assert(column.references.present?, "#{k}.#{n} foreign key is not determined.")
-          unless column.polymorphic?
-            assert_nothing_raised do
-              column.references.to_s.pluralize.classify.constantize
-            end
-          end
+        next if column.references.nil?
+        assert(column.references.present?, "#{k}.#{n} foreign key is not determined.")
+        next if column.polymorphic?
+        assert_nothing_raised do
+          column.references.to_s.pluralize.classify.constantize
         end
       end
     end

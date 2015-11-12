@@ -79,17 +79,16 @@ class Inventory < Ekylibre::Record::Base
       self.reflected = true
       self.save!
       for item in items
-        if item.actual_population != item.expected_population && product = item.product
-          delta = item.actual_population - item.expected_population
+        next unless item.actual_population != item.expected_population && product = item.product
+        delta = item.actual_population - item.expected_population
 
-          # Adds reading now if not found before
-          product.read!(:population, item.actual_population, at: self.achieved_at, originator: item)
+        # Adds reading now if not found before
+        product.read!(:population, item.actual_population, at: self.achieved_at, originator: item)
 
-          # Updates
-          for reading in product.readings.where(indicator_name: 'population').where('read_at > ?', self.achieved_at)
-            reading.value += delta
-            reading.save!
-          end
+        # Updates
+        for reading in product.readings.where(indicator_name: 'population').where('read_at > ?', self.achieved_at)
+          reading.value += delta
+          reading.save!
         end
       end
     end
@@ -98,11 +97,10 @@ class Inventory < Ekylibre::Record::Base
   def build_missing_items
     self.achieved_at ||= Time.zone.now
     for product in Matter.at(achieved_at).of_owner(Entity.of_company)
-      unless items.detect { |i| i.product_id == product.id }
-        population = product.population(at: self.achieved_at)
-        # shape = product.shape(at: self.achieved_at)
-        items.build(product_id: product.id, actual_population: population, expected_population: population)
-      end
+      next if items.detect { |i| i.product_id == product.id }
+      population = product.population(at: self.achieved_at)
+      # shape = product.shape(at: self.achieved_at)
+      items.build(product_id: product.id, actual_population: population, expected_population: population)
     end
   end
 

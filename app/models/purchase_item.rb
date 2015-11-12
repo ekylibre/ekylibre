@@ -144,7 +144,7 @@ class PurchaseItem < Ekylibre::Record::Base
   end
 
   validate do
-    errors.add(:currency, :invalid) if currency != purchase_currency if purchase
+    errors.add(:currency, :invalid) if purchase && currency != purchase_currency
     errors.add(:quantity, :invalid) if self.quantity.zero?
   end
 

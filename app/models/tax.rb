@@ -88,16 +88,14 @@ class Tax < Ekylibre::Record::Base
           reference_name: item.name
         }
         for account in [:deduction, :collect]
-          if name = nature.send("#{account}_account")
-            # find the relative account tax  by name
-            tax_radical = Account.find_or_import_from_nomenclature(name)
-            # find if already account tax  by number was created
-            tax_account = Account.find_or_create_by!(number: "#{tax_radical.number}#{nature.suffix}") do |a|
-              a.name = "#{tax_radical.name} - #{item.human_name}"
-              a.usages = tax_radical.usages
-            end
-            attributes["#{account}_account_id"] = tax_account.id
+          next unless name = nature.send("#{account}_account")
+          tax_radical = Account.find_or_import_from_nomenclature(name)
+          # find if already account tax  by number was created
+          tax_account = Account.find_or_create_by!(number: "#{tax_radical.number}#{nature.suffix}") do |a|
+            a.name = "#{tax_radical.name} - #{item.human_name}"
+            a.usages = tax_radical.usages
           end
+          attributes["#{account}_account_id"] = tax_account.id
         end
         tax = self.create!(attributes)
       end

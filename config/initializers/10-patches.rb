@@ -42,11 +42,10 @@ class ::Symbol
 
   def th(*args)
     args.each_with_index do |arg, _index|
-      if arg.is_a?(Hash)
-        for k, v in arg
-          unless [:locale, :scope, :default].include?(k)
-            arg[k] = (v.html_safe? ? v : ('<em>' + CGI.escapeHTML(v) + '</em>').html_safe)
-          end
+      next unless arg.is_a?(Hash)
+      for k, v in arg
+        unless [:locale, :scope, :default].include?(k)
+          arg[k] = (v.html_safe? ? v : ('<em>' + CGI.escapeHTML(v) + '</em>').html_safe)
         end
       end
     end

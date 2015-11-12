@@ -112,7 +112,7 @@ module Backend::BaseHelper
       if icon = options.delete(:icon)
         item[:title] = content_tag(:i, '', class: 'icon-' + icon.to_s) + ' '.html_safe + h(item[:title])
       end
-      url[:action] ||= name if url.is_a?(Hash) if name != :back
+      url[:action] ||= name if name != :back && url.is_a?(Hash)
       html << content_tag(:li, link_to(options[:title], url, options), li_options) if authorized?(url)
     end
 

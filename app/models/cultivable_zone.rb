@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
 # = Informations
 #
 # == License
@@ -151,10 +151,9 @@ class CultivableZone < Zone
     varieties = []
     if land_parcels.any?
       for land_parcel in land_parcels
-        if land_parcel.soil_nature
-          if item = Nomen::SoilNature[land_parcel.soil_nature]
-            varieties << item.human_name
-          end
+        next unless land_parcel.soil_nature
+        if item = Nomen::SoilNature[land_parcel.soil_nature]
+          varieties << item.human_name
         end
       end
       return varieties.to_sentence

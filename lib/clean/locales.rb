@@ -4,21 +4,19 @@ module Clean
       ENUMERIZES = Dir.glob(Rails.root.join('app', 'models', '*.rb')).sort.inject({}) do |hash, file|
         enumerizes = {}
         File.open(file, 'rb:UTF-8').each_line do |line|
-          if line =~ /\A\s*enumerize/
-            line = line.strip.split(/[\(\,\s\)]+/)
-            name = line[1][1..-1].to_sym
-            source = line[3].to_s
-            if source =~ /\ANomen\:\:/
-              elements = source.gsub('Nomen::', '').split('.')
-              enumerizes[name] = [:nomen, elements.shift.underscore.to_sym]
-              method_name = elements.shift
-              if method_name =~ /\Aall(\W|\z)/
-                enumerizes[name] << :items
-              else
-                enumerizes[name] << :choices
-                enumerizes[name] << method_name.to_sym
-              end
-            end
+          next unless line =~ /\A\s*enumerize/
+          line = line.strip.split(/[\(\,\s\)]+/)
+          name = line[1][1..-1].to_sym
+          source = line[3].to_s
+          next unless source =~ /\ANomen\:\:/
+          elements = source.gsub('Nomen::', '').split('.')
+          enumerizes[name] = [:nomen, elements.shift.underscore.to_sym]
+          method_name = elements.shift
+          if method_name =~ /\Aall(\W|\z)/
+            enumerizes[name] << :items
+          else
+            enumerizes[name] << :choices
+            enumerizes[name] << method_name.to_sym
           end
         end
         hash[file.split(/\W/)[-2].to_sym] = enumerizes unless enumerizes.empty?

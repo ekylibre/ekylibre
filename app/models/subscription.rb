@@ -99,7 +99,7 @@ class Subscription < Ekylibre::Record::Base
     if address && subscriber
       errors.add(:subscriber_id, :entity_must_be_the_same_as_the_contact_entity) if address.entity_id != subscriber_id
     end
-    errors.add(:address_id, :invalid) unless address.mail? if address
+    errors.add(:address_id, :invalid) if address && !address.mail?
   end
 
   def subscriber_name

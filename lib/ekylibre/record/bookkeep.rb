@@ -95,13 +95,12 @@ module Ekylibre::Record #:nodoc:
 
         configuration[:on] = [configuration[:on]].flatten
         for action in Ekylibre::Record::Bookkeep.actions
-          if configuration[:on].include? action
-            code << "after_#{action} do \n"
-            code << "  if ::Preference[:bookkeep_automatically]\n"
-            code << "    self.#{method_name}(:#{action}, ::Preference[:bookkeep_in_draft])\n"
-            code << "  end\n"
-            code << "end\n"
-          end
+          next unless configuration[:on].include? action
+          code << "after_#{action} do \n"
+          code << "  if ::Preference[:bookkeep_automatically]\n"
+          code << "    self.#{method_name}(:#{action}, ::Preference[:bookkeep_in_draft])\n"
+          code << "  end\n"
+          code << "end\n"
         end
 
         class_eval code

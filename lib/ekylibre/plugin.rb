@@ -33,20 +33,19 @@ module Ekylibre
       # Load all plugins
       def load
         Dir.glob(File.join(directory, '*')).sort.each do |directory|
-          if File.directory?(directory)
-            lib = File.join(directory, 'lib')
-            if File.directory?(lib)
-              $LOAD_PATH.unshift lib
-              ActiveSupport::Dependencies.autoload_paths += [lib]
-            end
-            initializer = File.join(directory, 'Plugfile')
-            if File.file?(initializer)
-              plugin = new(initializer)
-              registered_plugins[plugin.name] = plugin
-              Rails.logger.info "Load #{plugin.name} plugin"
-            else
-              Rails.logger.warn "No Plugfile found in #{directory}"
-            end
+          next unless File.directory?(directory)
+          lib = File.join(directory, 'lib')
+          if File.directory?(lib)
+            $LOAD_PATH.unshift lib
+            ActiveSupport::Dependencies.autoload_paths += [lib]
+          end
+          initializer = File.join(directory, 'Plugfile')
+          if File.file?(initializer)
+            plugin = new(initializer)
+            registered_plugins[plugin.name] = plugin
+            Rails.logger.info "Load #{plugin.name} plugin"
+          else
+            Rails.logger.warn "No Plugfile found in #{directory}"
           end
         end
       end

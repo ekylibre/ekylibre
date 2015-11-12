@@ -95,13 +95,13 @@ class Backend::ListingsController < Backend::BaseController
 
   def destroy
     return unless @listing = find_and_check
-    Listing.destroy(@listing.id) if @listing if request.post? || request.delete?
+    Listing.destroy(@listing.id) if @listing
     redirect_to action: :index
   end
 
   def duplicate
     return unless @listing = find_and_check
-    @listing.duplicate if request.post?
+    @listing.duplicate
     redirect_to action: :index
   end
 

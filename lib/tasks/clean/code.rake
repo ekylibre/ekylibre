@@ -42,11 +42,10 @@ namespace :clean do
       end
       # source.gsub!(/\n+\n$/, "\n")
 
-      if source != original
-        log.write " - #{file}\n"
-        File.write(file, source)
-        count += 1
-      end
+      next unless source != original
+      log.write " - #{file}\n"
+      File.write(file, source)
+      count += 1
     end
     log.close
     puts "#{count.to_s.rjust(3)} files updated"

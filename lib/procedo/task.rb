@@ -71,13 +71,12 @@ module Procedo
       @action = nil
 
       for action in ACTIONS
-        if action.match(@expression)
-          if @action
-            fail Procedo::Errors::AmbiguousExpression, "Given expression #{@expression.inspect} match with many actions: #{@action.name} and #{action.name}"
-          else
-            @action = action
-          end
-        end
+        next unless action.match(@expression)
+        if @action
+          fail Procedo::Errors::AmbiguousExpression, "Given expression #{@expression.inspect} match with many actions: #{@action.name} and #{action.name}"
+        else
+          @action = action
+                  end
       end
       unless @action
         fail Procedo::Errors::InvalidExpression, "Expression #{@expression.inspect} is invalid"

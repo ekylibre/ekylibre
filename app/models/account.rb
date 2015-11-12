@@ -475,24 +475,23 @@ class Account < Ekylibre::Record::Base
 
       journal_entry_items = account.journal_entry_items.where('r.created_at' => from..to).joins("INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").order('r.number ASC')
 
-      if journal_entry_items.size > 0
-        entries = []
-        compute << account.number.to_i
-        compute << account.name.to_s
-        journal_entry_items.each do |e|
-          entry = HashWithIndifferentAccess.new
-          entry[:date] = e.entry.created_at
-          entry[:name] = e.name.to_s
-          entry[:number_entry] = e.entry.number
-          entry[:journal] = e.entry.journal.name.to_s
-          entry[:credit] = e.credit
-          entry[:debit] = e.debit
-          entries << entry
-          # compute[:journal_entry_items] << entry
-        end
-        compute << entries
-        ledger << compute
+      next unless journal_entry_items.size > 0
+      entries = []
+      compute << account.number.to_i
+      compute << account.name.to_s
+      journal_entry_items.each do |e|
+        entry = HashWithIndifferentAccess.new
+        entry[:date] = e.entry.created_at
+        entry[:name] = e.name.to_s
+        entry[:number_entry] = e.entry.number
+        entry[:journal] = e.entry.journal.name.to_s
+        entry[:credit] = e.credit
+        entry[:debit] = e.debit
+        entries << entry
+        # compute[:journal_entry_items] << entry
       end
+      compute << entries
+      ledger << compute
     end
 
     ledger.compact

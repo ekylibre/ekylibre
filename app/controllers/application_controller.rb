@@ -47,9 +47,9 @@ class ApplicationController < ActionController::Base
     root = 'actions.' + controller_path + '.'
     action = action.to_s
     options[:default] ||= []
-    if action == 'create' and !options[:default].include? (root + 'new').to_sym
+    if action == 'create' && !options[:default].include?((root + 'new').to_sym)
       options[:default] << (root + 'new').to_sym
-    elsif action == 'update' and !options[:default].include? (root + 'edit').to_sym
+    elsif action == 'update' && !options[:default].include?((root + 'edit').to_sym)
       options[:default] << (root + 'edit').to_sym
     end
     klass = superclass

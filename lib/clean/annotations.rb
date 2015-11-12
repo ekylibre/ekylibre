@@ -85,28 +85,27 @@ module Clean
           next if [:created_at, :updated_at, :id, :lock_version].include? col.name.to_sym
           next if col.name =~ /\A\_/ # Custom fields
           next if col.name =~ /\_type$/ && klass.columns_hash[col.name.gsub(/\_type$/, '_id')]
-          if !col.null || [:creator_id, :updater_id].include?(col.name.to_sym)
-            if col.name.match(/_id$/)
-              name = col.name.gsub(/_id$/, '')
-              model = { 'creator' => 'user', 'updater' => 'user' }[name] || name
-              info << "#   #{name}: #{model.pluralize}_001"
-              info << ' (Model)' if klass.columns_hash["#{name}_type"]
+          next unless !col.null || [:creator_id, :updater_id].include?(col.name.to_sym)
+          if col.name.match(/_id$/)
+            name = col.name.gsub(/_id$/, '')
+            model = { 'creator' => 'user', 'updater' => 'user' }[name] || name
+            info << "#   #{name}: #{model.pluralize}_001"
+            info << ' (Model)' if klass.columns_hash["#{name}_type"]
+          else
+            info << "#   #{col.name}: "
+            if col.name.match(/_at$/)
+              info << "#{Time.zone.today.year - 1}-#{Time.zone.today.year.modulo(12).to_s.rjust(2, '0')}-#{Time.zone.today.year.modulo(28).to_s.rjust(2, '0')} #{(Time.zone.today.year.modulo(12) + 8).to_s.rjust(2, '0')}:#{Time.zone.today.year.modulo(60).to_s.rjust(2, '0')}:#{Time.zone.today.year.modulo(30).to_s.rjust(2, '0')} +02:00"
+            elsif col.name.match(/_on$/)
+              info << "#{Time.zone.today.year - 1}-#{Time.zone.today.year.modulo(12).to_s.rjust(2, '0')}-#{Time.zone.today.year.modulo(28).to_s.rjust(2, '0')}"
+            elsif col.type == :boolean
+              info << 'true'
+            elsif col.type == :decimal || col.type == :integer
+              info << '0'
             else
-              info << "#   #{col.name}: "
-              if col.name.match(/_at$/)
-                info << "#{Time.zone.today.year - 1}-#{Time.zone.today.year.modulo(12).to_s.rjust(2, '0')}-#{Time.zone.today.year.modulo(28).to_s.rjust(2, '0')} #{(Time.zone.today.year.modulo(12) + 8).to_s.rjust(2, '0')}:#{Time.zone.today.year.modulo(60).to_s.rjust(2, '0')}:#{Time.zone.today.year.modulo(30).to_s.rjust(2, '0')} +02:00"
-              elsif col.name.match(/_on$/)
-                info << "#{Time.zone.today.year - 1}-#{Time.zone.today.year.modulo(12).to_s.rjust(2, '0')}-#{Time.zone.today.year.modulo(28).to_s.rjust(2, '0')}"
-              elsif col.type == :boolean
-                info << 'true'
-              elsif col.type == :decimal || col.type == :integer
-                info << '0'
-              else
-                info << '"Lorem ipsum"'
-              end
+              info << '"Lorem ipsum"'
             end
-            info << "\n"
-          end
+                      end
+          info << "\n"
         end
         info << "#\n"
         info

@@ -57,13 +57,11 @@ class Ekylibre::IncomingPaymentsExchanger < ActiveExchanger::Base
       end
 
       # Check affair presence
-      if r.reference_number && entity
-        # see if purchase exist anyway
-        if sale = Sale.where(client_id: entity.id, invoiced_at: r.invoiced_at, reference_number: r.reference_number).first
-          w.info "Sale found with ID : #{sale.id}"
-        else
-          w.warn 'No sale found. Incoming payment will be in stand-by'
-        end
+      next unless r.reference_number && entity
+      if sale = Sale.where(client_id: entity.id, invoiced_at: r.invoiced_at, reference_number: r.reference_number).first
+        w.info "Sale found with ID : #{sale.id}"
+      else
+        w.warn 'No sale found. Incoming payment will be in stand-by'
       end
     end
     valid

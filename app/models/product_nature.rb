@@ -154,13 +154,12 @@ class ProductNature < Ekylibre::Record::Base
   def self.matching_model(variety)
     if item = Nomen::Variety.find(variety)
       for ancestor in item.self_and_parents
-        if model = begin
-                     ancestor.name.camelcase.constantize
-                   rescue
-                     nil
-                   end
-          return model if model <= Product
-        end
+        next unless model = begin
+                              ancestor.name.camelcase.constantize
+                            rescue
+                              nil
+                            end
+        return model if model <= Product
       end
     end
     nil

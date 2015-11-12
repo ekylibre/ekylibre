@@ -261,7 +261,7 @@ class JournalEntry < Ekylibre::Record::Base
       items.clear
       entry_items.each_index do |index|
         entry_items[index] = items.build(entry_items[index])
-        saved = false unless entry_items[index].save if saved
+        saved = false if saved && !entry_items[index].save
       end
       if saved
         reload

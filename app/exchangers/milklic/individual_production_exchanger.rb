@@ -23,11 +23,10 @@ class Milklic::IndividualProductionExchanger < ActiveExchanger::Base
       # if an animal exist
       if animal = Animal.find_by_work_number(r.animal_work_number)
         for i in 4..15
-          if row[i] and row.headers[i]
-            milk_daily_production_measure = (row[i].tr(',', '.').to_d).in_kilogram_per_day
-            milk_daily_production_at = Date.strptime(row.headers[i], '%d/%m/%y').to_time
-            animal.read!(:milk_daily_production, milk_daily_production_measure, at: milk_daily_production_at, force: true) if milk_daily_production_measure && milk_daily_production_at
-          end
+          next unless row[i] and row.headers[i]
+          milk_daily_production_measure = (row[i].tr(',', '.').to_d).in_kilogram_per_day
+          milk_daily_production_at = Date.strptime(row.headers[i], '%d/%m/%y').to_time
+          animal.read!(:milk_daily_production, milk_daily_production_measure, at: milk_daily_production_at, force: true) if milk_daily_production_measure && milk_daily_production_at
         end
       end
       w.check_point

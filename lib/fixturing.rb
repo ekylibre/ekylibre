@@ -150,11 +150,10 @@ module Fixturing
         records = YAML.load_file(directory.join("#{table}.yml"))
         ids = records.values.collect { |a| a['id'] }.compact.map(&:to_i)
         records.each do |record, attributes|
-          unless attributes['id']
-            id = record.split('_').last.to_i
-            attributes['id'] = ids.include?(id) ? (1..(ids.max + 10)).to_a.detect { |x| !ids.include?(x) } : id
-            ids << attributes['id']
-          end
+          next if attributes['id']
+          id = record.split('_').last.to_i
+          attributes['id'] = ids.include?(id) ? (1..(ids.max + 10)).to_a.detect { |x| !ids.include?(x) } : id
+          ids << attributes['id']
         end
         data[table.to_s] = records
       end

@@ -50,14 +50,12 @@ class Ekylibre::AnimalGroupsExchanger < ActiveExchanger::Base
         valid = false
       end
 
-      if r.variant_reference_name
-        unless variant = ProductNatureVariant.find_by(number: r.variant_reference_name)
-          unless nomen = Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
-            w.error "No variant exist in NOMENCLATURE for #{r.variant_reference_name.inspect}"
-            valid = false
-          end
-        end
-      end
+      next unless r.variant_reference_name
+      next if variant = ProductNatureVariant.find_by(number: r.variant_reference_name)
+      unless nomen = Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
+        w.error "No variant exist in NOMENCLATURE for #{r.variant_reference_name.inspect}"
+        valid = false
+              end
     end
   end
 
@@ -131,7 +129,7 @@ class Ekylibre::AnimalGroupsExchanger < ActiveExchanger::Base
         end
         # if animals and production_support, add animals to the group
         if animals.count > 0 && ps.present? && animal_variant && animal_container
-          animal_group.add_animals(animals, started_at: Time.zone.now - 1.hours, stopped_at: Time.zone.now, production_support_id: ps.id, container_id: animal_container.id, variant_id: animal_variant.id, worker_id: Worker.first.id)
+          animal_group.add_animals(animals, started_at: Time.zone.now - 1.hour, stopped_at: Time.zone.now, production_support_id: ps.id, container_id: animal_container.id, variant_id: animal_variant.id, worker_id: Worker.first.id)
         end
       end
 

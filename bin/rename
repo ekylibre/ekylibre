@@ -143,11 +143,10 @@ class Renamer
             up_code << "        execute \"UPDATE \#{quote_table_name(:#{table})} SET \#{quote_column_name(:#{col})}='#{new_model}' WHERE \#{quote_column_name(:#{col})}='#{old_model}'\"\n"
             down_code << "        execute \"UPDATE \#{quote_table_name(:#{table})} SET \#{quote_column_name(:#{col})}='#{old_model}' WHERE \#{quote_column_name(:#{col})}='#{new_model}'\"\n"
           end
-          if attributes[:references] =~ /^\~/
-            col = attributes[:references].gsub(/^\~/, '')
-            up_code << "        execute \"UPDATE \#{quote_table_name(:#{table})} SET \#{quote_column_name(:#{col})}='#{new_model}' WHERE \#{quote_column_name(:#{col})}='#{old_model}'\"\n"
-            down_code << "        execute \"UPDATE \#{quote_table_name(:#{table})} SET \#{quote_column_name(:#{col})}='#{old_model}' WHERE \#{quote_column_name(:#{col})}='#{new_model}'\"\n"
-          end
+          next unless attributes[:references] =~ /^\~/
+          col = attributes[:references].gsub(/^\~/, '')
+          up_code << "        execute \"UPDATE \#{quote_table_name(:#{table})} SET \#{quote_column_name(:#{col})}='#{new_model}' WHERE \#{quote_column_name(:#{col})}='#{old_model}'\"\n"
+          down_code << "        execute \"UPDATE \#{quote_table_name(:#{table})} SET \#{quote_column_name(:#{col})}='#{old_model}' WHERE \#{quote_column_name(:#{col})}='#{new_model}'\"\n"
         end
       end
       code << "    # Polymorphic columns\n"

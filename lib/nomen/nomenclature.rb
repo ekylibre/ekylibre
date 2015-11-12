@@ -189,23 +189,22 @@ module Nomen
     # name and new_name are Symbol
     def cascade_item_renaming(name, new_name)
       @set.references.each do |reference|
-        if reference.foreign_nomenclature == self
-          p = reference.property
-          if p.list?
-            reference.nomenclature.find_each do |item|
-              v = item.property(p.name)
-              if v && v.include?(name)
-                l = v.map do |n|
-                  n == name ? new_name : n
-                end
-                item.set(p.name, l)
+        next unless reference.foreign_nomenclature == self
+        p = reference.property
+        if p.list?
+          reference.nomenclature.find_each do |item|
+            v = item.property(p.name)
+            if v && v.include?(name)
+              l = v.map do |n|
+                n == name ? new_name : n
               end
+              item.set(p.name, l)
             end
-          else
-            reference.nomenclature.find_each do |item|
-              v = item.property(p.name)
-              item.set(p.name, new_name) if v == name
-            end
+          end
+        else
+          reference.nomenclature.find_each do |item|
+            v = item.property(p.name)
+            item.set(p.name, new_name) if v == name
           end
         end
       end
@@ -242,11 +241,10 @@ module Nomen
         if property.choices_nomenclature && !property.inline_choices? && !Nomen[property.choices_nomenclature.to_s]
           fail InvalidPropertyNature, "[#{name}] #{property.name} nomenclature property must refer to an existing nomenclature. Got #{property.choices_nomenclature.inspect}. Expecting: #{Nomen.names.inspect}"
         end
-        if property.type == :choice && property.default
-          unless property.choices.include?(property.default)
-            fail InvalidPropertyNature, "The default choice #{property.default.inspect} is invalid (in #{name}##{property.name}). Pick one from #{property.choices.sort.inspect}."
-          end
-        end
+        next unless property.type == :choice && property.default
+        unless property.choices.include?(property.default)
+          fail InvalidPropertyNature, "The default choice #{property.default.inspect} is invalid (in #{name}##{property.name}). Pick one from #{property.choices.sort.inspect}."
+                  end
       end
 
       # Check items

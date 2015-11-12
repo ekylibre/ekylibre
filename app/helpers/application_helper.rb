@@ -592,11 +592,10 @@ module ApplicationHelper
     for item in array
       item << content_tag(:td, capture(item, &block))
       size += 1
-      if size >= coln
-        html << content_tag(:tr, item).html_safe
-        item = ''
-        size = 0
-      end
+      next unless size >= coln
+      html << content_tag(:tr, item).html_safe
+      item = ''
+      size = 0
     end
     html << content_tag(:tr, item).html_safe unless item.blank?
     content_tag(:table, html, html_options).html_safe

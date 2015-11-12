@@ -172,20 +172,19 @@ class FixedAsset < Ekylibre::Record::Base
     remaining_amount = depreciable_amount.to_d
     position = 1
     starts.each_with_index do |start, index|
-      unless starts[index + 1].nil? # Last
-        unless depreciation = depreciations.find_by(started_on: start)
-          depreciation = depreciations.new(started_on: start, stopped_on: starts[index + 1] - 1)
-          duration = depreciation.duration.round(2)
-          depreciation.amount = [remaining_amount, currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
-          remaining_amount -= depreciation.amount
-        end
-        depreciation.financial_year = FinancialYear.at(depreciation.started_on)
+      next if starts[index + 1].nil?
+      unless depreciation = depreciations.find_by(started_on: start)
+        depreciation = depreciations.new(started_on: start, stopped_on: starts[index + 1] - 1)
+        duration = depreciation.duration.round(2)
+        depreciation.amount = [remaining_amount, currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
+        remaining_amount -= depreciation.amount
+              end
+      depreciation.financial_year = FinancialYear.at(depreciation.started_on)
 
-        depreciation.position = position
-        position += 1
-        unless depreciation.save
-          fail 'AAAAAAAAAAAAAAAAAAAARrrrrrrrrrrrrrrrrr' + depreciation.errors.inspect
-        end
+      depreciation.position = position
+      position += 1
+      unless depreciation.save
+        fail 'AAAAAAAAAAAAAAAAAAAARrrrrrrrrrrrrrrrrr' + depreciation.errors.inspect
       end
     end
   end
@@ -204,19 +203,18 @@ class FixedAsset < Ekylibre::Record::Base
     remaining_amount = depreciable_amount.to_d
     position = 1
     starts.each_with_index do |start, index|
-      unless starts[index + 1].nil? # Last
-        unless depreciation = depreciations.find_by(started_on: start)
-          depreciation = depreciations.new(started_on: start, stopped_on: starts[index + 1] - 1)
-          duration = depreciation.duration
-          depreciation.amount = [remaining_amount, currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
-          remaining_amount -= depreciation.amount
-        end
-        depreciation.financial_year = FinancialYear.at(depreciation.started_on)
+      next if starts[index + 1].nil?
+      unless depreciation = depreciations.find_by(started_on: start)
+        depreciation = depreciations.new(started_on: start, stopped_on: starts[index + 1] - 1)
+        duration = depreciation.duration
+        depreciation.amount = [remaining_amount, currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
+        remaining_amount -= depreciation.amount
+              end
+      depreciation.financial_year = FinancialYear.at(depreciation.started_on)
 
-        depreciation.position = position
-        position += 1
-        depreciation.save!
-      end
+      depreciation.position = position
+      position += 1
+      depreciation.save!
     end
   end
 

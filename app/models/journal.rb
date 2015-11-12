@@ -270,7 +270,7 @@ class Journal < Ekylibre::Record::Base
     values = expression.split(/\,/).collect do |expr|
       words = expr.strip.split(/\s+/)
       direction = 1
-      direction = -1 if words.shift == '-' if words.first =~ /^(\+|\-)$/
+      direction = -1 if words.first =~ /^(\+|\-)$/ && words.shift == '-'
       mode = words.last =~ /^[BCD]$/ ? words.delete_at(-1) : 'B'
       accounts_range = {}
       words.map do |word|

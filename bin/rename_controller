@@ -92,10 +92,9 @@ for file in Dir[config.join('locales', '*', 'action.yml')].sort
   code = tr.to_yaml
 
   puts "Update #{lf}"
-  unless @simulate
-    File.open(lf, 'wb') do |f|
-      f.write code
-    end
+  next if @simulate
+  File.open(lf, 'wb') do |f|
+    f.write code
   end
 end
 

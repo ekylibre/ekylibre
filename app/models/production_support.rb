@@ -274,11 +274,10 @@ class ProductionSupport < Ekylibre::Record::Base
       harvest_interventions.find_each do |harvest|
         harvest.casts.of_role(role).each do |cast|
           actor = cast.actor
-          if actor && actor.variety
-            variety = Nomen::Variety.find(actor.variety)
-            if variety && variety <= harvest_variety
-              total_quantity += actor.get(quantity_indicator, cast)
-            end
+          next unless actor && actor.variety
+          variety = Nomen::Variety.find(actor.variety)
+          if variety && variety <= harvest_variety
+            total_quantity += actor.get(quantity_indicator, cast)
           end
         end
       end

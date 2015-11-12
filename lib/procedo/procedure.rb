@@ -374,13 +374,12 @@ module Procedo
 
           # Set variants of "parted-from variables"
           variable.others.each do |other|
-            if other.parted? && other.producer == variable
-              code << "        # Updates variant of #{other.name} if possible\n"
-              code << "        if procedure.#{other.name}.variant != #{variant}\n"
-              code << "          procedure.#{other.name}.variant = #{variant}\n"
-              code << "          procedure.#{other.name}.impact_#{other.new? ? :variant : :actor}!\n"
-              code << "        end\n"
-            end
+            next unless other.parted? && other.producer == variable
+            code << "        # Updates variant of #{other.name} if possible\n"
+            code << "        if procedure.#{other.name}.variant != #{variant}\n"
+            code << "          procedure.#{other.name}.variant = #{variant}\n"
+            code << "          procedure.#{other.name}.impact_#{other.new? ? :variant : :actor}!\n"
+            code << "        end\n"
           end
           code << "      end\n"
         end
@@ -389,26 +388,25 @@ module Procedo
         variable.others.each do |other|
           ref = other.name
           other.destinations.each do |destination|
-            if other.default(destination) =~ /\A\:\s*#{variable.name}\s*\z/
-              code << "      # Updates default #{destination} of #{ref} if possible\n"
-              dest = "procedure.#{ref}.destinations[:#{destination}]"
-              code << "      if #{dest}.blank? or procedure.updater?(:casting, :#{variable.name})"
-              code << ' or procedure.updater?(:global, :support)' if [:storage, :variant_localized_in_storage].include?(variable.default_actor)
-              code << "\n"
+            next unless other.default(destination) =~ /\A\:\s*#{variable.name}\s*\z/
+            code << "      # Updates default #{destination} of #{ref} if possible\n"
+            dest = "procedure.#{ref}.destinations[:#{destination}]"
+            code << "      if #{dest}.blank? or procedure.updater?(:casting, :#{variable.name})"
+            code << ' or procedure.updater?(:global, :support)' if [:storage, :variant_localized_in_storage].include?(variable.default_actor)
+            code << "\n"
 
-              code << "        begin\n"
-              code << "          #{dest} = "
-              code << "@destinations[:#{destination}] || " if variable.destinations.include?(destination)
-              code << "self.get(:#{destination}, at: now)\n"
-              if [:geometry, :point].include?(Nomen::Indicator[destination].datatype)
-                code << "          #{dest} = (#{dest}.blank? ? Charta::Geometry.empty : Charta::Geometry.new(#{dest}))\n"
-              end
-              code << "          procedure.#{ref}.impact_destination_#{destination}!\n"
-              code << "        rescue Procedo::Errors::UncomputableFormula => e\n"
-              code << "          Rails.logger.error e.message\n"
-              code << "        end\n"
-              code << "      end\n"
+            code << "        begin\n"
+            code << "          #{dest} = "
+            code << "@destinations[:#{destination}] || " if variable.destinations.include?(destination)
+            code << "self.get(:#{destination}, at: now)\n"
+            if [:geometry, :point].include?(Nomen::Indicator[destination].datatype)
+              code << "          #{dest} = (#{dest}.blank? ? Charta::Geometry.empty : Charta::Geometry.new(#{dest}))\n"
             end
+            code << "          procedure.#{ref}.impact_destination_#{destination}!\n"
+            code << "        rescue Procedo::Errors::UncomputableFormula => e\n"
+            code << "          Rails.logger.error e.message\n"
+            code << "        end\n"
+            code << "      end\n"
           end
         end
 
@@ -541,10 +539,9 @@ module Procedo
       code << "    elsif @__updater__.first == :initial\n"
       # Refresh all handlers from all destinations
       variables.values.each do |variable|
-        if variable.handlers.any?
-          variable.destinations.each do |destination|
-            code << "      #{variable.name}.impact_destination_#{destination}!\n"
-          end
+        next unless variable.handlers.any?
+        variable.destinations.each do |destination|
+          code << "      #{variable.name}.impact_destination_#{destination}!\n"
         end
       end
       code << "    else\n"
@@ -700,10 +697,9 @@ module Procedo
         end
 
         # finally, manage the case when there's no more actor to match with variables
-        if variables_for_each_actor.empty?
-          actors_for_each_variable.keys.each do |variable_key|
-            result[variable_key] = nil
-          end
+        next unless variables_for_each_actor.empty?
+        actors_for_each_variable.keys.each do |variable_key|
+          result[variable_key] = nil
         end
 
       end

@@ -41,16 +41,15 @@ class Ekylibre::CultivableZonesExchanger < ActiveExchanger::Base
         zone_shape = Charta::Geometry.new(zone.shape).transform(:WGS84)
         if products_around = zone_shape.actors_matching(nature: LandParcel)
           for land_parcel in products_around
-            if land_parcel.shape
-              attributes = {
-                group_id: zone.id,
-                member_id: land_parcel.id,
-                shape: land_parcel.shape,
-                population: (land_parcel.shape_area.to_d / land_parcel.variant.net_surface_area.to_d(:square_meter))
-              }
-              unless CultivableZoneMembership.find_by(attributes.slice(:group_id, :member_id))
-                CultivableZoneMembership.create!(attributes)
-              end
+            next unless land_parcel.shape
+            attributes = {
+              group_id: zone.id,
+              member_id: land_parcel.id,
+              shape: land_parcel.shape,
+              population: (land_parcel.shape_area.to_d / land_parcel.variant.net_surface_area.to_d(:square_meter))
+            }
+            unless CultivableZoneMembership.find_by(attributes.slice(:group_id, :member_id))
+              CultivableZoneMembership.create!(attributes)
             end
           end
         end

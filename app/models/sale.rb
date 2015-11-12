@@ -176,10 +176,9 @@ class Sale < Ekylibre::Record::Base
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
     end
     for mail_address in [:address, :delivery_address, :invoice_address]
-      if send(mail_address)
-        unless send(mail_address).mail?
-          errors.add(mail_address, :must_be_a_mail_address)
-        end
+      next unless send(mail_address)
+      unless send(mail_address).mail?
+        errors.add(mail_address, :must_be_a_mail_address)
       end
     end
   end

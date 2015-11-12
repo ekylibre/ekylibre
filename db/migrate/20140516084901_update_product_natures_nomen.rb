@@ -147,16 +147,15 @@ class UpdateProductNaturesNomen < ActiveRecord::Migration
     end
 
     for item in PRODUCT_NATURE_VARIANT_READING_ITEMS
-      if variant_id = connection.select_value("SELECT min(id) FROM product_nature_variants WHERE reference_name = '#{item[:reference_name]}'").to_i
-        if item[:old_frozen_indicator_name] && item[:new_frozen_indicator_name]
-          fail NotImplemented
-        elsif item[:new_frozen_indicator_name]
-          if item[:new_frozen_indicator_datatype] == 'measure'
-            execute("INSERT INTO #{item[:table]} (variant_id, indicator_name, indicator_datatype, measure_value_value, measure_value_unit, absolute_measure_value_value, absolute_measure_value_unit, created_at, updated_at) VALUES ('#{variant_id}', '#{item[:new_frozen_indicator_name]}', '#{item[:new_frozen_indicator_datatype]}', '#{item[:new_value]}', '#{item[:new_unit]}', '#{item[:new_absolute_value]}', '#{item[:new_absolute_unit]}', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)")
-          end
-        elsif item[:new_value] && item[:old_value]
-          execute("UPDATE #{item[:table]} SET #{item[:column]} = '#{item[:new_value]}' WHERE #{item[:column]} = '#{item[:old_value]}'")
+      next unless variant_id = connection.select_value("SELECT min(id) FROM product_nature_variants WHERE reference_name = '#{item[:reference_name]}'").to_i
+      if item[:old_frozen_indicator_name] && item[:new_frozen_indicator_name]
+        fail NotImplemented
+      elsif item[:new_frozen_indicator_name]
+        if item[:new_frozen_indicator_datatype] == 'measure'
+          execute("INSERT INTO #{item[:table]} (variant_id, indicator_name, indicator_datatype, measure_value_value, measure_value_unit, absolute_measure_value_value, absolute_measure_value_unit, created_at, updated_at) VALUES ('#{variant_id}', '#{item[:new_frozen_indicator_name]}', '#{item[:new_frozen_indicator_datatype]}', '#{item[:new_value]}', '#{item[:new_unit]}', '#{item[:new_absolute_value]}', '#{item[:new_absolute_unit]}', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)")
         end
+      elsif item[:new_value] && item[:old_value]
+        execute("UPDATE #{item[:table]} SET #{item[:column]} = '#{item[:new_value]}' WHERE #{item[:column]} = '#{item[:old_value]}'")
       end
     end
 
@@ -182,14 +181,13 @@ class UpdateProductNaturesNomen < ActiveRecord::Migration
     end
 
     for item in PRODUCT_NATURE_VARIANT_READING_ITEMS
-      if variant_id = connection.select_value("SELECT min(id) FROM product_nature_variants WHERE reference_name = '#{item[:reference_name]}'").to_i
-        if item[:old_frozen_indicator_name] && item[:new_frozen_indicator_name]
-          fail NotImplemented
-        elsif item[:new_frozen_indicator_name]
-          execute("DELETE FROM #{item[:table]} WHERE variant_id = '#{variant_id}' AND indicator_name = '#{item[:new_frozen_indicator_name]}'")
-        elsif item[:new_value] && item[:old_value]
-          execute("UPDATE #{item[:table]} SET #{item[:column]} = '#{item[:old_value]}' WHERE #{item[:column]} = '#{item[:new_value]}'")
-        end
+      next unless variant_id = connection.select_value("SELECT min(id) FROM product_nature_variants WHERE reference_name = '#{item[:reference_name]}'").to_i
+      if item[:old_frozen_indicator_name] && item[:new_frozen_indicator_name]
+        fail NotImplemented
+      elsif item[:new_frozen_indicator_name]
+        execute("DELETE FROM #{item[:table]} WHERE variant_id = '#{variant_id}' AND indicator_name = '#{item[:new_frozen_indicator_name]}'")
+      elsif item[:new_value] && item[:old_value]
+        execute("UPDATE #{item[:table]} SET #{item[:column]} = '#{item[:old_value]}' WHERE #{item[:column]} = '#{item[:new_value]}'")
       end
     end
 
