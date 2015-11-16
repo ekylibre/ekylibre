@@ -6,7 +6,32 @@
 
   # Updates indicator/units list
   # TODO Optimize this binding only valid selectors
-  $(document).on 'selector:change', "input[data-selector]", ->
+  $(document).on 'selector:change', "input#production_activity_id[data-selector]", ->
+    selector = $(this)
+    root = selector.data("use-closest")
+    root = "form" unless root?
+    form = selector.closest(root)
+    $.ajax
+      url: "/backend/productions/variants"
+      data:
+        activity_id: selector.selector('value')
+      success: (data, status, request) ->
+        form.find('#production_cultivation_variant_id[data-selector]').each ->
+          cv = $(this)
+          cv.attr('data-selector', "/backend/product_nature_variants/unroll?scope[of_variety]=#{data.cultivation_variety}")
+          cv.selector('check', true)
+
+        form.find('#production_support_variant_id[data-selector]').each ->
+          sv = $(this)
+          sv.attr('data-selector', "/backend/product_nature_variants/unroll?scope[of_variety]=#{data.support_variety}")
+          sv.selector('check', true)
+      error: () ->
+        console.error "Cannot retrieve variants"
+    true
+
+  # Updates indicator/units list
+  # TODO Optimize this binding only valid selectors
+  $(document).on 'selector:change', "input#production_support_variant_id[data-selector]", ->
     selector = $(this)
     root = selector.data("use-closest")
     root = "form" unless root?
@@ -32,7 +57,11 @@
           select.trigger("change")
         error: () ->
           console.error "Cannot retrieve quantifiers of variant ID=#{selector.val()}"
+    form.find("#supports .support .production_supports_storage input[data-selector]").each ->
+      $(this).selector('check')
     true
+
+
 
   # Set values in hidden fields indicator/unit
   $(document).on 'change keyup', "select[data-variant-quantifier]", ->
@@ -222,8 +251,9 @@
         exclusions.push(value) if value?
     for exclusion in exclusions
       url += "&exclude[]=#{exclusion}"
-    support.attr("data-selector", url)
-    support.data("selector", url)
+    support.selector()
+    support.selector('url', url)
+    support.selector('check')
     true
 
   # Show working unit dependent stuff

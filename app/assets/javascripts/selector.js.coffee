@@ -90,8 +90,56 @@
           alert "Cannot get details of item on #{url} (#{request.status}/#{request.readyState}/#{request.statusCode()}) (#{status}): #{error}"
       this
 
-    sourceURL: () ->
-      @element.data("selector")
+    url: (newURL) ->
+      if newURL is null or newURL is undefined or newURL is ""
+        @element.attr("data-selector")
+      else
+        @element.attr("data-selector", newURL)
+
+    sourceURL: (newURL) ->
+      if newURL is null or newURL is undefined or newURL is ""
+        @element.attr("data-selector")
+      else
+        @element.attr("data-selector", newURL)
+
+    clear: ->
+      @element.val('')
+      @valueField.val('')
+
+    # Check that current selection is valid
+    # If autoselect, autoselect first record if empty
+    check: (autoselect = false) ->
+      id = @valueField.val()
+      if id is null or id is undefined or id is ""
+        @autoselect()
+      else
+        $.ajax
+          url: @sourceURL()
+          dataType: "json"
+          data:
+            ids: [id]
+          success: (data, status, request) =>
+            if data.length <= 0
+              @autoselect()
+          error: (request, status, error) ->
+            console.error "Cannot get details of item on #{url} (#{request.status}/#{request.readyState}/#{request.statusCode()}) (#{status}): #{error}"
+      this
+
+
+    # Select first record if exist
+    autoselect: ->
+      $.ajax
+        url: @sourceURL()
+        dataType: "json"
+        data:
+          limit: 1
+        success: (data, status, request) =>
+          if data? and data[0]?
+            @_set(data[0].id, true)
+          else
+            @clear()
+        error: (request, status, error) ->
+          console.error "Cannot get details of item on #{url} (#{request.status}/#{request.readyState}/#{request.statusCode()}) (#{status}): #{error}"
 
     _select: (id, label, triggerEvents = false) ->
       # console.log "select"
@@ -101,7 +149,7 @@
       @element.val label
       @valueField.prop "itemLabel", label
       @valueField.val id
-      this.id = parseInt id
+      @id = parseInt id
       if @dropDownMenu.is(":visible")
         @dropDownMenu.hide()
       if triggerEvents is true
