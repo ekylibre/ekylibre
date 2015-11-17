@@ -46,7 +46,7 @@ class visualization.Categories
     for name, item of @items
       html += "<span class='leaflet-categories-item'>"
       html += "<i class='leaflet-categories-sample' style='background-color: #{item.fillColor};'></i>"
-      html += " #{item.name}"
+      html += " <span class='leaflet-categories-item_label'>#{item.name}</span>"
       html += "</span>"
     html += "</span>"
     html += "</div>"

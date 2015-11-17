@@ -835,6 +835,7 @@
     border-top: $menu-border;
     display: block;
     min-width: 15 * $lh-normal;
+    max-width: 18 * $lh-normal;
     &.first, &:first-child {
                border-top: none;
              }
@@ -876,11 +877,7 @@
     .leaflet-categories-items {
       .leaflet-categories-item {
         display: block;
-        color: $neutral-color;
-        font-size: $fs-small;
-        line-height: $lh-small;
-        font-weight: bold;
-        text-transform: uppercase;
+
         margin-top: round($default-gap * 0.3);
         &:first-child {
           margin-top: 0;
@@ -891,6 +888,17 @@
           width: $cell-height;
           @include border-radius(50%);
           border: 1px solid #333;
+          position: absolute;
+          margin-top: 3px;
+        }
+        .leaflet-categories-item_label {
+          display: inherit;
+          margin-left: 20px;
+          color: $neutral-color;
+          font-size: $fs-small;
+          line-height: $lh-small;
+          font-weight: bold;
+          text-transform: uppercase;
         }
       }
     }
