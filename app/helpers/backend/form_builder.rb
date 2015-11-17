@@ -496,11 +496,28 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
       if variants.any?
         html << @template.subheading(:choose_a_type_of_product)
         html << @template.content_tag(:div, class: 'variant-list proposal-list') do
+=begin
           buttons = ''.html_safe
           for variant in ProductNatureVariant.of_variety(@object.class.name.underscore)
             buttons << @template.link_to(variant.name, { action: :new, variant_id: variant.id }, class: 'btn')
           end
           buttons
+=end
+          choices = {}
+          choices[:action] ||= :unroll
+          choices[:controller] ||= :product_nature_variants
+
+          new_url = {}
+          new_url[:controller] ||= @object.class.name.underscore.pluralize.downcase
+          new_url[:action] ||= :new
+
+          choices[:scope] = { of_variety: @object.class.name.underscore.to_sym} unless @object.class.name.blank?
+
+          input_id = :variant_id
+
+          html_options = {}
+          html_options[:data] ||= {}
+          input_field(:variant, html_options.deep_merge(as: :string, id: input_id, data: { selector: @template.url_for(choices), redirect_on_change_url: @template.url_for(new_url) }))
         end
       end
 
