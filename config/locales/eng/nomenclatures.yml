@@ -392,13 +392,16 @@ eng:
         accountancy: "Accountancy"                         #< exploitation
         administrative: "Administrative"                   #< exploitation
         agricultural_works: "Agricultural works"           #< works
+        alfalfa_crops: "Alfalfa crops"                     #< protein_crops
         almond_orchards: "Almond orchards"                 #< arboriculture
         animal_farming: "Animal farming"
         animal_housing: "Animal housing"                   #< service
         apple_orchards: "Apple orchards"                   #< arboriculture
         arboriculture: "Arboriculture"                     #< vegetal_crops
         aromatic_and_medicinal_plants: "Aromatic and medicinal plants" #< vegetal_crops
+        artichoke_crops: "Artichoke crops"                 #< market_garden_crops
         asparagus_crops: "Asparagus crops"                 #< market_garden_crops
+        avocado_crops: "Avocado crops"                     #< market_garden_crops
         barley_crops: "Barley crops"                       #< cereal_crops
         bean_crops: "Bean crops"                           #< market_garden_crops
         beekeeping: "Beekeeping"                           #< animal_farming
@@ -418,12 +421,14 @@ eng:
         cereal_crops: "Cereal crops"                       #< field_crops
         chestnut_orchards: "Chestnut orchards"             #< arboriculture
         chickpea_crops: "Chickpea crops"                   #< protein_crops
+        chicory_crops: "Chicory crops"                     #< market_garden_crops
         cichorium_crops: "Cichorium crops"                 #< market_garden_crops
         citrus_orchards: "Citrus orchards"                 #< arboriculture
         cocoa_crops: "Cocoa crops"                         #< arboriculture
         common_wheat_crops: "Common wheat crops"           #< cereal_crops
         cotton_crops: "Cotton crops"                       #< oilseed_crops
         durum_wheat_crops: "Durum wheat crops"             #< cereal_crops
+        eggplant_crops: "Eggplant crops"                   #< market_garden_crops
         exploitation: "Exploitation"
         fallow_land: "Fallow land"                         #< field_crops
         field_crops: "Field crops"                         #< vegetal_crops
@@ -453,6 +458,7 @@ eng:
         mussel_farming: "Mussel farming"                   #< animal_farming
         oat_crops: "Oat crops"                             #< cereal_crops
         oilseed_crops: "Oilseed crops"                     #< field_crops
+        olive_groves: "Olive groves"                       #< arboriculture
         olive_orchards: "Olive orchards"                   #< arboriculture
         onion_crops: "Onion crops"                         #< market_garden_crops
         ostrich_farming: "Ostrich farming"                 #< animal_farming
@@ -474,6 +480,7 @@ eng:
         protein_crops: "Protein crops"                     #< field_crops
         purchases: "Purchases"                             #< exploitation
         rabbit_farming: "Rabbit farming"                   #< animal_farming
+        radish_crops: "Radish crops"                       #< field_crops
         rapeseed_crops: "Rapeseed crops"                   #< oilseed_crops
         raspberry_crops: "Raspberry crops"                 #< arboriculture
         redcurrant_crops: "Redcurrant crops"               #< arboriculture
@@ -1523,7 +1530,7 @@ eng:
         ekylibre_purchases: "Ekylibre purchases"
         ekylibre_sales: "Ekylibre sales"
         ekylibre_settings: "Ekylibre Settings"
-        # ekylibre_storages_json: "Ekylibre storages json"
+        ekylibre_storages_json: "Ekylibre storages json"
         ekylibre_variants: "Ekylibre variants"
         ekylibre_visuals: "Ekylibre Visuals"
         ekylibre_workers: "Ekylibre workers"
@@ -3323,7 +3330,9 @@ eng:
         crop_sets: "Crop sets"
       items:
         fallow_land: "Fallow land"
+        fiber: "Fiber"
         fodder: "Fodder"
+        fruit: "Fruit"
         grain: "Grain"
         meadow: "Meadow"
         meat: "Meat"
@@ -4427,6 +4436,9 @@ eng:
         packaged_matter: "Packaged matter"                 #< preparation
         panicum: "Panicum"                                 #< poaceae
         panicum_miliaceum: "Common millet"                 #< panicum
+        papaver: "Papaver"                                 #< papaveraceae
+        papaver_somniferum: "Papaver somniferum"           #< papaver
+        papaveraceae: "Papaveraceae"                       #< plant
         pastinaca: "Pastinaca"                             #< apiaceae
         pastinaca_sativa: "Parsnip"                        #< pastinaca
         pavo: "Peafowl"                                    #< phasianidae

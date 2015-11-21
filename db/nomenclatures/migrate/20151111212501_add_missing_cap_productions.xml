@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add missing cap productions">
+  <item-creation item="varieties#papaveraceae"            parent="plant" itis_tsn="18880"/>
+  <item-creation item="varieties#papaver"                 parent="papaveraceae" itis_tsn="18881"/>
+  <item-creation item="varieties#papaver_somniferum"      parent="papaver" itis_tsn="18894"/>
+  <item-creation item="activity_families#alfalfa_crops"   parent="protein_crops" support_variety="cultivable_zone" cultivation_variety="medicago"/>
+  <item-creation item="activity_families#radish_crops"    parent="field_crops"   support_variety="cultivable_zone" cultivation_variety="raphanus_sativus"/>
+  <item-creation item="activity_families#eggplant_crops"  parent="market_garden_crops"   support_variety="cultivable_zone" cultivation_variety="solanum_melongena"/>
+  <item-creation item="activity_families#artichoke_crops" parent="market_garden_crops"   support_variety="cultivable_zone" cultivation_variety="cynara_scolymus"/>
+  <item-creation item="activity_families#avocado_crops"   parent="market_garden_crops"   support_variety="cultivable_zone" cultivation_variety="persea_americana"/>
+  <item-creation item="activity_families#chicory_crops"   parent="market_garden_crops"   support_variety="cultivable_zone" cultivation_variety="cichorium"/>
+  <item-creation item="activity_families#olive_groves"    parent="arboriculture"         support_variety="cultivable_zone" cultivation_variety="olea_europaea"/>
+  <item-creation item="production_usages#fiber"/>
+  <item-creation item="production_usages#fruit"/>
+</migration>

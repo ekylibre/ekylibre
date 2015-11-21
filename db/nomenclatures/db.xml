@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151107122501">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151111212501">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -392,13 +392,16 @@
       <item name="accountancy" parent="exploitation" nature="auxiliary"/>
       <item name="administrative" parent="exploitation" nature="auxiliary"/>
       <item name="agricultural_works" parent="works"/>
+      <item name="alfalfa_crops" parent="protein_crops" support_variety="cultivable_zone" cultivation_variety="medicago"/>
       <item name="almond_orchards" parent="arboriculture" support_variety="cultivable_zone" cultivation_variety="prunus_dulcis"/>
       <item name="animal_farming" support_variety="animal_group" cultivation_variety="animal"/>
       <item name="animal_housing" parent="service"/>
       <item name="apple_orchards" parent="arboriculture" support_variety="cultivable_zone" cultivation_variety="malus"/>
       <item name="arboriculture" parent="vegetal_crops" support_variety="cultivable_zone" cultivation_variety="plant"/>
       <item name="aromatic_and_medicinal_plants" parent="vegetal_crops" support_variety="cultivable_zone" cultivation_variety="plant"/>
+      <item name="artichoke_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="cynara_scolymus"/>
       <item name="asparagus_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="asparagus"/>
+      <item name="avocado_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="persea_americana"/>
       <item name="barley_crops" parent="cereal_crops" support_variety="cultivable_zone" cultivation_variety="hordeum"/>
       <item name="bean_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="phaseolus"/>
       <item name="beekeeping" parent="animal_farming" support_variety="animal_group" cultivation_variety="apidae"/>
@@ -418,12 +421,14 @@
       <item name="cereal_crops" parent="field_crops" support_variety="cultivable_zone" cultivation_variety="poaceae"/>
       <item name="chestnut_orchards" parent="arboriculture" support_variety="cultivable_zone" cultivation_variety="castanea"/>
       <item name="chickpea_crops" parent="protein_crops" support_variety="cultivable_zone" cultivation_variety="cicer"/>
+      <item name="chicory_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="cichorium"/>
       <item name="cichorium_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="cichorium"/>
       <item name="citrus_orchards" parent="arboriculture" support_variety="cultivable_zone" cultivation_variety="citrus"/>
       <item name="cocoa_crops" parent="arboriculture" support_variety="cultivable_zone" cultivation_variety="theobroma_cacao"/>
       <item name="common_wheat_crops" parent="cereal_crops" support_variety="cultivable_zone" cultivation_variety="triticum_aestivum"/>
       <item name="cotton_crops" parent="oilseed_crops" support_variety="cultivable_zone" cultivation_variety="gossypium"/>
       <item name="durum_wheat_crops" parent="cereal_crops" support_variety="cultivable_zone" cultivation_variety="triticum_durum"/>
+      <item name="eggplant_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="solanum_melongena"/>
       <item name="exploitation" nature="auxiliary"/>
       <item name="fallow_land" parent="field_crops" support_variety="cultivable_zone" cultivation_variety="plant"/>
       <item name="field_crops" parent="vegetal_crops" support_variety="cultivable_zone" cultivation_variety="plant"/>
@@ -453,6 +458,7 @@
       <item name="mussel_farming" parent="animal_farming" support_variety="animal_group" cultivation_variety="mytilidae"/>
       <item name="oat_crops" parent="cereal_crops" support_variety="cultivable_zone" cultivation_variety="avena"/>
       <item name="oilseed_crops" parent="field_crops" support_variety="cultivable_zone" cultivation_variety="plant"/>
+      <item name="olive_groves" parent="arboriculture" support_variety="cultivable_zone" cultivation_variety="olea_europaea"/>
       <item name="olive_orchards" parent="arboriculture" support_variety="cultivable_zone" cultivation_variety="olea"/>
       <item name="onion_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="allium_cepa"/>
       <item name="ostrich_farming" parent="animal_farming" support_variety="animal_group" cultivation_variety="struthionidae"/>
@@ -474,6 +480,7 @@
       <item name="protein_crops" parent="field_crops" support_variety="cultivable_zone" cultivation_variety="plant"/>
       <item name="purchases" parent="exploitation" nature="auxiliary"/>
       <item name="rabbit_farming" parent="animal_farming" support_variety="animal_group" cultivation_variety="leporidae"/>
+      <item name="radish_crops" parent="field_crops" support_variety="cultivable_zone" cultivation_variety="raphanus_sativus"/>
       <item name="rapeseed_crops" parent="oilseed_crops" support_variety="cultivable_zone" cultivation_variety="brassica_napus"/>
       <item name="raspberry_crops" parent="arboriculture" support_variety="cultivable_zone" cultivation_variety="rubus_idaeus"/>
       <item name="redcurrant_crops" parent="arboriculture" support_variety="cultivable_zone" cultivation_variety="ribes_rubrum"/>
@@ -3319,7 +3326,9 @@
     </properties>
     <items>
       <item name="fallow_land"/>
+      <item name="fiber"/>
       <item name="fodder" crop_sets="corn_sorghum, grass_leguminous, secale_phacelia"/>
+      <item name="fruit"/>
       <item name="grain" crop_sets="wheat, corn, straw_cereal, sunflower"/>
       <item name="meadow"/>
       <item name="meat"/>
@@ -4442,6 +4451,9 @@
       <item name="packaged_matter" parent="preparation"/>
       <item name="panicum" parent="poaceae" itis_tsn="40901"/>
       <item name="panicum_miliaceum" parent="panicum" itis_tsn="40946"/>
+      <item name="papaver" parent="papaveraceae" itis_tsn="18881"/>
+      <item name="papaver_somniferum" parent="papaver" itis_tsn="18894"/>
+      <item name="papaveraceae" parent="plant" itis_tsn="18880"/>
       <item name="pastinaca" parent="apiaceae" itis_tsn="29621"/>
       <item name="pastinaca_sativa" parent="pastinaca" itis_tsn="29795"/>
       <item name="pavo" parent="phasianidae" itis_tsn="176112"/>
