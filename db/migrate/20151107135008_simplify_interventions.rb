@@ -30,7 +30,7 @@ class SimplifyInterventions < ActiveRecord::Migration
   ]
 
   ALL_TYPE_COLUMNS = TYPE_COLUMNS +
-    POLYMORPHIC_REFERENCES.map{ |a| [a.first, "#{a.second}_type".to_sym] }
+                     POLYMORPHIC_REFERENCES.map { |a| [a.first, "#{a.second}_type".to_sym] }
 
   # Rename table and depending stuff
   def rename_table_and_co(old_table, new_table)
@@ -94,7 +94,7 @@ class SimplifyInterventions < ActiveRecord::Migration
     add_column :activities, :suspended, :boolean, null: false, default: false
     reversible do |d|
       d.up do
-        execute "UPDATE activities SET size_indicator = support_variant_indicator, size_unit = support_variant_unit FROM productions WHERE activity_id = activities.id"
+        execute 'UPDATE activities SET size_indicator = support_variant_indicator, size_unit = support_variant_unit FROM productions WHERE activity_id = activities.id'
       end
     end
 
@@ -131,8 +131,8 @@ class SimplifyInterventions < ActiveRecord::Migration
     rename_column :activity_productions, :quantity_unit, :size_unit
     reversible do |d|
       d.up do
-        execute "UPDATE activity_productions SET activity_id = p.activity_id, state = p.state, irrigated = p.irrigated, nitrate_fixing = p.nitrate_fixing, started_at = p.started_at, stopped_at = p.stopped_at FROM productions AS p LEFT JOIN campaigns AS c ON (p.campaign_id = c.id) WHERE p.id = activity_productions.production_id"
-        execute "UPDATE activity_productions SET rank_number = rank FROM (SELECT id, row_number() OVER (PARTITION BY activity_id ORDER BY id) AS rank FROM activity_productions) AS x WHERE x.id = activity_productions.id"
+        execute 'UPDATE activity_productions SET activity_id = p.activity_id, state = p.state, irrigated = p.irrigated, nitrate_fixing = p.nitrate_fixing, started_at = p.started_at, stopped_at = p.stopped_at FROM productions AS p LEFT JOIN campaigns AS c ON (p.campaign_id = c.id) WHERE p.id = activity_productions.production_id'
+        execute 'UPDATE activity_productions SET rank_number = rank FROM (SELECT id, row_number() OVER (PARTITION BY activity_id ORDER BY id) AS rank FROM activity_productions) AS x WHERE x.id = activity_productions.id'
       end
     end
     change_column_null :activity_productions, :activity_id, false
@@ -141,7 +141,6 @@ class SimplifyInterventions < ActiveRecord::Migration
 
     # ManureManagementPlan
     rename_column :manure_management_plan_zones, :support_id, :activity_production_id
-
 
     # # Merge activities into productions
     # add_column :productions, :family, :string
@@ -250,7 +249,6 @@ class SimplifyInterventions < ActiveRecord::Migration
     # # ManureManagementPlan
     # rename_column :manure_management_plan_zones, :support_id, :production_id
 
-
     # # # Merge productions and production_supports
     # # add_reference :production_supports, :activity, index: true
     # # add_reference :production_supports, :cultivation_variant, index: true
@@ -276,7 +274,6 @@ class SimplifyInterventions < ActiveRecord::Migration
     # # end
 
     # # rename_table_and_co :production_budgets, :activity_budgets
-
 
     # # # rename_table_and_co :productions, :activity_budgets
     # # rename_table_and_co :production_supports, :activity_productions
@@ -345,31 +342,31 @@ class SimplifyInterventions < ActiveRecord::Migration
     add_reference :intervention_cast_readings, :intervention_cast, index: true
     reversible do |d|
       d.up do
-        puts select_value("SELECT count(*) FROM intervention_cast_readings WHERE intervention_cast_id IS NULL").inspect.green
+        puts select_value('SELECT count(*) FROM intervention_cast_readings WHERE intervention_cast_id IS NULL').inspect.green
         # Try to find cast with cast as originator
         execute "UPDATE intervention_cast_readings SET intervention_cast_id = originator_id WHERE intervention_cast_id IS NULL AND intervention_id IS NULL AND originator_type = 'InterventionCast'"
-        puts select_value("SELECT count(*) FROM intervention_cast_readings WHERE intervention_cast_id IS NULL").inspect.green
+        puts select_value('SELECT count(*) FROM intervention_cast_readings WHERE intervention_cast_id IS NULL').inspect.green
 
         # Try to find cast within casts of same intervention
-        execute "UPDATE intervention_cast_readings SET intervention_cast_id = c.id FROM intervention_casts AS c WHERE intervention_cast_id IS NULL AND c.intervention_id = intervention_cast_readings.intervention_id AND c.actor_id = intervention_cast_readings.product_id"
-        puts select_value("SELECT count(*) FROM intervention_cast_readings WHERE intervention_cast_id IS NULL").inspect.green
+        execute 'UPDATE intervention_cast_readings SET intervention_cast_id = c.id FROM intervention_casts AS c WHERE intervention_cast_id IS NULL AND c.intervention_id = intervention_cast_readings.intervention_id AND c.actor_id = intervention_cast_readings.product_id'
+        puts select_value('SELECT count(*) FROM intervention_cast_readings WHERE intervention_cast_id IS NULL').inspect.green
 
         # Try to find cast with intervention as originator
         execute "UPDATE intervention_cast_readings SET intervention_cast_id = c.id FROM intervention_casts AS c WHERE intervention_cast_id IS NULL AND c.intervention_id = intervention_cast_readings.originator_id AND intervention_cast_readings.originator_type = 'Intervention' AND c.actor_id = intervention_cast_readings.product_id"
-        puts select_value("SELECT count(*) FROM intervention_cast_readings WHERE intervention_cast_id IS NULL").inspect.green
+        puts select_value('SELECT count(*) FROM intervention_cast_readings WHERE intervention_cast_id IS NULL').inspect.green
 
         # Try to find first cast within casts of intervention
-        execute "UPDATE intervention_cast_readings SET intervention_cast_id = c.id FROM intervention_casts AS c WHERE intervention_cast_id IS NULL AND c.intervention_id = intervention_cast_readings.intervention_id"
+        execute 'UPDATE intervention_cast_readings SET intervention_cast_id = c.id FROM intervention_casts AS c WHERE intervention_cast_id IS NULL AND c.intervention_id = intervention_cast_readings.intervention_id'
 
-        removed_ids = select_rows("SELECT id FROM intervention_cast_readings WHERE intervention_cast_id IS NULL")
+        removed_ids = select_rows('SELECT id FROM intervention_cast_readings WHERE intervention_cast_id IS NULL')
         if removed_ids.any?
           say "Following reading task will be removed: #{removed_ids.join(', ')}"
-          execute("DELETE FROM intervention_cast_readings WHERE intervention_cast_id IS NULL")
+          execute('DELETE FROM intervention_cast_readings WHERE intervention_cast_id IS NULL')
         end
       end
     end
     change_column_null :intervention_cast_readings, :intervention_cast_id, false
-    revert {
+    revert do
       add_column :intervention_cast_readings, :started_at, :datetime
       add_column :intervention_cast_readings, :stopped_at, :datetime
       add_reference :intervention_cast_readings, :originator, polymorphic: true, index: true
@@ -377,7 +374,7 @@ class SimplifyInterventions < ActiveRecord::Migration
       add_reference :intervention_cast_readings, :tool, index: true
       add_reference :intervention_cast_readings, :intervention
       add_reference :intervention_cast_readings, :product
-    }
+    end
 
     # Quantity
     add_column :intervention_casts, :quantity_handler, :string
@@ -400,10 +397,6 @@ class SimplifyInterventions < ActiveRecord::Migration
     #     execute 'UPDATE interventions SET production_id = d.production_id, production_support_id = d.production_support_id FROM intervention_distributions AS d WHERE intervention_id = interventions.id'
     #   end
     # end
-
-
-
-
 
     # Remove interventions administrative_task
     execute "DELETE FROM intervention_casts WHERE intervention_id IN (SELECT id FROM interventions WHERE reference_name = 'base-administrative_task-0')"
@@ -537,7 +530,6 @@ class SimplifyInterventions < ActiveRecord::Migration
     # output
     execute "UPDATE intervention_casts SET type = 'InterventionOutput' FROM interventions AS i WHERE i.id = intervention_id AND (intervention_casts.reference_name IN ('excrement', 'child', 'food_mix', 'eggs', 'fermented_juice', 'grains', 'straws', 'juice', 'residue', 'milk', 'grass', 'straw', 'straw_bales', 'wine_blended', 'wine_bottles') OR (intervention_casts.reference_name = 'cultivation' AND i.reference_name IN ('base-all_in_one_sowing-0', 'base-implanting-0', 'base-sowing-0', 'base-sowing_with_insecticide_and_molluscicide-0')) OR (intervention_casts.reference_name = 'silage' AND i.reference_name IN ('base-direct_silage-0', 'base-indirect_silage-0')))"
 
-
     # Simplifies procedure name. No namespace. No version.
     execute "UPDATE interventions SET reference_name = REPLACE(REPLACE(reference_name, 'base-', ''), '-0', '')"
 
@@ -588,7 +580,6 @@ class SimplifyInterventions < ActiveRecord::Migration
     end
 
     revert do
-
       # add_reference :intervention_casts, :event_participation, index: true
       add_column :intervention_casts, :roles, :string
       # TODO: restore roles values
@@ -602,8 +593,6 @@ class SimplifyInterventions < ActiveRecord::Migration
       add_reference :interventions, :provisional_intervention
       add_column :interventions, :recommended, :boolean, null: false, default: false
       add_reference :interventions, :recommender
-
-
 
       # create_table "intervention_casts", force: :cascade do |t|
       #   t.reference :intervention,                   null: false, index: true
@@ -630,34 +619,32 @@ class SimplifyInterventions < ActiveRecord::Migration
         t.index :reference_name
       end
 
-      create_table "productions" do |t|
+      create_table 'productions' do |t|
         t.references :activity,                               null: false, index: true
         t.references :campaign,                               null: false, index: true
         t.references :cultivation_variant, index: true
-        t.string   "name",                                      null: false
-        t.string   "state",                                     null: false
-        t.datetime "started_at"
-        t.datetime "stopped_at"
+        t.string 'name',                                      null: false
+        t.string 'state',                                     null: false
+        t.datetime 'started_at'
+        t.datetime 'stopped_at'
         t.integer :position
         t.stamps
-        t.string   "support_variant_indicator"
-        t.string   "support_variant_unit"
+        t.string 'support_variant_indicator'
+        t.string 'support_variant_unit'
         t.references :support_variant, index: true
-        t.boolean  "irrigated",                 default: false, null: false
-        t.boolean  "nitrate_fixing",            default: false, null: false
+        t.boolean 'irrigated',                 default: false, null: false
+        t.boolean 'nitrate_fixing',            default: false, null: false
         t.index :name
         t.index :started_at
         t.index :stopped_at
       end
 
-      create_table "production_distributions", force: :cascade do |t|
-        t.references  :production,                                               null: false
-        t.decimal  :affectation_percentage, precision: 19, scale: 4,             null: false
-        t.references  :main_production,                                          null: false
+      create_table 'production_distributions', force: :cascade do |t|
+        t.references :production,                                               null: false
+        t.decimal :affectation_percentage, precision: 19, scale: 4,             null: false
+        t.references :main_production,                                          null: false
         t.stamps
       end
-
     end
-
   end
 end

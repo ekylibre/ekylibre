@@ -67,7 +67,6 @@ class Intervention < Ekylibre::Record::Base
   # validates_presence_of :started_at, :stopped_at
   validates_associated :doers, :inputs, :outputs, :targets, :tools, :working_periods
 
-
   serialize :parameters, HashWithIndifferentAccess
 
   alias_attribute :duration, :working_duration
@@ -194,12 +193,12 @@ class Intervention < Ekylibre::Record::Base
 
   # Update temporality informations in intervention
   def update_temporality
-    started_at = self.working_periods.minimum(:started_at)
-    stopped_at = self.working_periods.maximum(:stopped_at)
+    started_at = working_periods.minimum(:started_at)
+    stopped_at = working_periods.maximum(:stopped_at)
     update_columns(
       started_at: started_at,
       stopped_at: stopped_at,
-      working_duration: self.working_periods.sum(:duration),
+      working_duration: working_periods.sum(:duration),
       whole_duration: (stopped_at - started_at).to_i
     )
   end
@@ -269,7 +268,7 @@ class Intervention < Ekylibre::Record::Base
       self.save!
 
       started_at = period[:started_at] ||= self.started_at
-      duration   = period[:duration] ||= (self.stopped_at - self.started_at)
+      duration   = period[:duration] ||= (stopped_at - self.started_at)
       stopped_at = started_at + duration
 
       reference = self.reference

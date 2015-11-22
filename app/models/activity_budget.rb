@@ -82,7 +82,7 @@ class ActivityBudget < Ekylibre::Record::Base
   end
 
   # Computes the coefficient to use for amount computation
-  def coefficient(options = {})
+  def coefficient(_options = {})
     return 0 unless activity
     if self.per_production_support?
       return supports_count

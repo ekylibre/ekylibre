@@ -166,7 +166,7 @@ module Procedo
 
     TYPES.each do |the_type|
       send(:define_method, "#{the_type}?".to_sym) do
-        self.type == the_type
+        type == the_type
       end
     end
 

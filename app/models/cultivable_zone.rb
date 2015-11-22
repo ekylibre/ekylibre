@@ -75,7 +75,7 @@ class CultivableZone < Zone
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   # ]VALIDATORS]
 
-  scope :of_campaign, lambda { |campaign| activity_productions.of_campaign(campaign) }
+  scope :of_campaign, ->(campaign) { activity_productions.of_campaign(campaign) }
 
   after_create do
     # Compute population
@@ -149,7 +149,7 @@ class CultivableZone < Zone
   # cultivable land parcel is a support
   # @TODO replace created_at by started_at when an input field will exist
   def last_production_before(activity_production)
-    fail "Cannot do that now. Use ActivityProduction instead"
+    fail 'Cannot do that now. Use ActivityProduction instead'
     if activity_production.is_a?(Activity_Production) && activity_production.started_at
       last_support = supports.where('created_at <= ?', activity_production.started_at)
                      .reorder(created_at: :desc).limit(2).last

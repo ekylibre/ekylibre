@@ -23,7 +23,6 @@ module Procedo
   @@list = HashWithIndifferentAccess.new
 
   class << self
-
     def procedures
       @@list.values
     end
@@ -41,11 +40,11 @@ module Procedo
     def find(name)
       @@list[name]
     end
-    alias :[] :find
+    alias_method :[], :find
 
     # Returns direct procedures of nature
     def procedures_of_nature(*natures)
-      fail "No more usable"
+      fail 'No more usable'
       procedures.select do |p|
         p.of_nature?(*natures)
       end

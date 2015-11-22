@@ -49,7 +49,7 @@ class ActivityProduction < Ekylibre::Record::Base
   belongs_to :activity, inverse_of: :productions
   belongs_to :support, class_name: 'Product' # , inverse_of: :supports
   has_many :manure_management_plan_zones, class_name: 'ManureManagementPlanZone',
-           inverse_of: :activity_production
+                                          inverse_of: :activity_production
   has_one :selected_manure_management_plan_zone, -> { selecteds },
           class_name: 'ManureManagementPlanZone', inverse_of: :activity_production
   composed_of :size, class_name: 'Measure', mapping: [%w(size_value to_d), %w(size_unit unit)]
@@ -75,7 +75,7 @@ class ActivityProduction < Ekylibre::Record::Base
   }
   scope :of_current_campaigns, -> { joins(:activity).merge(Activity.of_current_campaigns) }
 
-  scope :of_activity, lambda { |activity| where(activity: activity) }
+  scope :of_activity, ->(activity) { where(activity: activity) }
   scope :of_activity_families, lambda { |*families|
     joins(:activity).merge(Activity.of_families(*families))
   }
@@ -124,9 +124,8 @@ class ActivityProduction < Ekylibre::Record::Base
     end
   end
 
-
   validate do
-    # TODO Time overlap on same support ?
+    # TODO: Time overlap on same support ?
     if self.activity
       if with_cultivation
         errors.add(:cultivation_variant_id, :blank) unless cultivation_variant
@@ -156,7 +155,6 @@ class ActivityProduction < Ekylibre::Record::Base
       end
     end
   end
-
 
   def active?
     if activity.family.to_s == 'fallow_land'
@@ -264,7 +262,7 @@ class ActivityProduction < Ekylibre::Record::Base
   def implanted_at
     intervention = interventions.real.of_category(:planting).first
     return intervention.started_at if intervention
-    return nil
+    nil
   end
 
   # Returns the started_at attribute of the intervention of nature harvesting
@@ -272,7 +270,7 @@ class ActivityProduction < Ekylibre::Record::Base
   def harvested_at
     intervention = interventions.real.of_category(:harvesting).first
     return intervention.started_at if intervention
-    return nil
+    nil
   end
 
   # Generic method to get harvest yield
@@ -330,7 +328,7 @@ class ActivityProduction < Ekylibre::Record::Base
 
   # call method in production for instance
   def estimate_yield(options = {})
-    fail "Not possible anymore"
+    fail 'Not possible anymore'
     production.estimate_yield(options)
   end
 
@@ -367,13 +365,13 @@ class ActivityProduction < Ekylibre::Record::Base
   # Returns unique i18nized name for given production
   def name
     list = [activity.name]
-    v = Nomen::Variety.find(self.cultivation_variety)
+    v = Nomen::Variety.find(cultivation_variety)
     list << v.human_name if v && v.human_name != activity.name
     list << support.name if support
     list << started_at.to_date.l(format: :month) if started_at
     list << :rank.t(number: rank_number)
     list = list.reverse! if 'i18n.dir'.t == 'rtl'
-    return list.join(' ')
+    list.join(' ')
   end
 
   def get(*args)

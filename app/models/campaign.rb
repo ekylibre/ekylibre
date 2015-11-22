@@ -62,7 +62,7 @@ class Campaign < Ekylibre::Record::Base
   scope :of_activity_production, lambda { |activity_production|
     where('(started_on, stopped_on) OVERLAPS (?, ?)', activity_production.started_at, activity_production.stopped_at)
   }
-  scope :of_production, lambda { |production| of_activity_production(production) }
+  scope :of_production, ->(production) { of_activity_production(production) }
 
   protect(on: :destroy) do
     interventions.any?

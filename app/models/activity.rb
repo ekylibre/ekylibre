@@ -71,7 +71,7 @@ class Activity < Ekylibre::Record::Base
   validates_associated :expenses, :revenues
   validates_associated :productions
 
-  scope :actives, lambda { availables.where(id: ActivityProduction.opened) }
+  scope :actives, -> { availables.where(id: ActivityProduction.opened) }
   scope :availables, -> { where.not('suspended') }
   scope :main, -> { where(nature: 'main') }
   scope :of_intervention, lambda { |intervention|
@@ -83,7 +83,7 @@ class Activity < Ekylibre::Record::Base
   scope :of_cultivation_variety, lambda { |variety|
     where(cultivation_variety: Nomen::Variety.find(variety).all)
   }
-  scope :main_of_campaign, lambda { |campaign| main.of_campaign(campaign) }
+  scope :main_of_campaign, ->(campaign) { main.of_campaign(campaign) }
   scope :of_current_campaigns, -> { joins(:campaign).merge(Campaign.currents) }
   scope :of_currents_campaigns, -> { of_current_campaigns }
   scope :of_families, proc { |*families|
@@ -173,14 +173,14 @@ class Activity < Ekylibre::Record::Base
   def support_variety_name
     item = Nomen::Variety.find(support_variety)
     return nil unless item
-    return item.human_name
+    item.human_name
   end
 
   # Returns human_name of support variety
   def cultivation_variety_name
     item = Nomen::Variety.find(cultivation_variety)
     return nil unless item
-    return item.human_name
+    item.human_name
   end
 
   # Returns human name of activity family

@@ -507,13 +507,11 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
       if variants.any?
         html << @template.subheading(:choose_a_type_of_product)
         html << @template.content_tag(:div, class: 'variant-list proposal-list') do
-=begin
-          buttons = ''.html_safe
-          for variant in ProductNatureVariant.of_variety(@object.class.name.underscore)
-            buttons << @template.link_to(variant.name, { action: :new, variant_id: variant.id }, class: 'btn')
-          end
-          buttons
-=end
+          #           buttons = ''.html_safe
+          #           for variant in ProductNatureVariant.of_variety(@object.class.name.underscore)
+          #             buttons << @template.link_to(variant.name, { action: :new, variant_id: variant.id }, class: 'btn')
+          #           end
+          #           buttons
           choices = {}
           choices[:action] ||= :unroll
           choices[:controller] ||= :product_nature_variants
@@ -522,7 +520,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
           new_url[:controller] ||= @object.class.name.underscore.pluralize.downcase
           new_url[:action] ||= :new
 
-          choices[:scope] = { of_variety: @object.class.name.underscore.to_sym} unless @object.class.name.blank?
+          choices[:scope] = { of_variety: @object.class.name.underscore.to_sym } unless @object.class.name.blank?
 
           input_id = :variant_id
 

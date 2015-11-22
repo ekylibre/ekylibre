@@ -642,6 +642,6 @@ class Product < Ekylibre::Record::Base
     role = options[:as] || :tool
     periods = InterventionWorkingPeriod.with_generic_cast(role, self)
     periods = periods.of_campaign(options[:campaign]) if options[:campaign]
-    return periods.sum(:duration)
+    periods.sum(:duration)
   end
 end

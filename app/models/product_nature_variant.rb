@@ -399,7 +399,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
       variant
     end
 
-    def load_defaults(options = {})
+    def load_defaults(_options = {})
       Nomen::ProductNatureVariant.all.flatten.collect do |p|
         import_from_nomenclature(p.to_s)
       end

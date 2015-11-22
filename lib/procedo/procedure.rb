@@ -107,12 +107,12 @@ module Procedo
     end
 
     def not_so_short_name
-      ActiveSupport::Deprecation.warn "Procedo::Procedure#not_so_short_name is deprecated. Please use Procedo::Procedure#name instead."
+      ActiveSupport::Deprecation.warn 'Procedo::Procedure#not_so_short_name is deprecated. Please use Procedo::Procedure#name instead.'
       name
     end
 
     def short_name
-      ActiveSupport::Deprecation.warn "Procedo::Procedure#short_name is deprecated. Please use Procedo::Procedure#name instead."
+      ActiveSupport::Deprecation.warn 'Procedo::Procedure#short_name is deprecated. Please use Procedo::Procedure#name instead.'
       name
     end
     alias_method :uid, :name
@@ -130,7 +130,6 @@ module Procedo
       default << name.to_s.humanize
       "procedures.#{name}".t(options.merge(default: default))
     end
-
 
     # Browse each variable of the procedure in the order
     def each_variable

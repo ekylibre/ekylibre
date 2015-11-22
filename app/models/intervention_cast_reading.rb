@@ -68,10 +68,10 @@ class InterventionCastReading < Ekylibre::Record::Base
   end
 
   after_commit do
-    unless self.product_reading
-      self.product_reading.build(indicator: self.indicator, value: value)
+    unless product_reading
+      product_reading.build(indicator: indicator, value: value)
     end
-    self.product_reading.value = self.value
-    self.product_reading.save!
+    product_reading.value = value
+    product_reading.save!
   end
 end

@@ -52,15 +52,13 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
   delegate :update_temporality, to: :intervention
 
   before_validation do
-    if self.started_at && self.stopped_at
-      self.duration = (self.stopped_at - self.started_at).to_i
-    end
+    self.duration = (stopped_at - started_at).to_i if started_at && stopped_at
   end
 
   validate do
-    if self.started_at && self.stopped_at
-      if self.stopped_at <= self.started_at
-        errors.add(:stopped_at, :posterior, to: self.started_at.l)
+    if started_at && stopped_at
+      if stopped_at <= started_at
+        errors.add(:stopped_at, :posterior, to: started_at.l)
       end
     end
   end

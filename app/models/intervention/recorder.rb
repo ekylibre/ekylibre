@@ -11,9 +11,7 @@ class Intervention
 
     def write!
       operation = @intervention.operations.create!(started_at: @intervention.started_at, stopped_at: @intervention.stopped_at, reference_name: '100')
-      @steps.each do |step|
-        step.save!
-      end
+      @steps.each(&:save!)
       @intervention.state = :done
       @intervention.save!
     end

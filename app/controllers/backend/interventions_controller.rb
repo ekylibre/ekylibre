@@ -88,7 +88,6 @@ class Backend::InterventionsController < Backend::BaseController
     t.column :casting, hidden: true
   end
 
-
   # SHOW
 
   list(:casts, model: :intervention_casts, conditions: { intervention_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
