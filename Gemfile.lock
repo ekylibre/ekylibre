@@ -138,6 +138,7 @@ GEM
       execjs
     coffee-script-source (1.10.0)
     colored (1.2)
+    concurrent-ruby (1.0.0)
     connection_pool (2.2.0)
     coveralls (0.8.9)
       json (~> 1.8)
@@ -222,6 +223,7 @@ GEM
     libv8 (3.16.14.13)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
+    luhn (1.0.2)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     mechanize (2.7.3)
@@ -489,6 +491,7 @@ DEPENDENCIES
   jquery-scrollto-rails
   jquery-turbolinks
   jquery-ui-rails
+  luhn
   mechanize
   nokogiri (~> 1.6.0)
   paperclip

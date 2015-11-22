@@ -143,6 +143,8 @@ gem 'mechanize'
 gem 'savon'
 gem 'rest-client', require: false
 
+gem 'luhn'
+
 group :development do
   gem 'quiet_assets'
   # gem 'rack-mini-profiler'
