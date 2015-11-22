@@ -364,6 +364,17 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     end
   end
 
+  def datetime_range(start_attribute_name = :started_at, stop_attribute_name = :stopped_at, *args)
+    options = args.extract_options!
+    attribute_name = args.shift || options[:name] || :period
+    input(attribute_name, options.merge(wrapper: :append)) do
+      @template.content_tag(:span, :from.tl, class: 'add-on') +
+        input_field(start_attribute_name) +
+        @template.content_tag(:span, :to.tl, class: 'add-on') +
+        input_field(stop_attribute_name)
+    end
+  end
+
   # Load a partial
   def subset(name, options = {}, &block)
     options[:id] ||= name

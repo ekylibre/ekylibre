@@ -61,7 +61,7 @@ class CharentesAlliance::OutgoingDeliveriesExchanger < ActiveExchanger::Base
       campaign = Campaign.find_by_harvest_year(r.delivery_on.year)
       silo = Equipment.find_by_work_number(r.building_division_work_number)
       cultivable_zone = CultivableZone.find_by_work_number(r.cultivable_zone_work_number) if r.cultivable_zone_work_number
-      ps = ProductionSupport.where(storage: cultivable_zone).of_campaign(campaign) if cultivable_zone
+      ps = ActivityProduction.where(storage: cultivable_zone).of_campaign(campaign) if cultivable_zone
 
       # verify variables
       # puts campaign.name.inspect.yellow if campaign

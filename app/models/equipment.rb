@@ -68,16 +68,7 @@ class Equipment < Matter
   include Attachable
   has_shape
   refers_to :variety, scope: :equipment
-  has_many :supports, class_name: 'ProductionSupport', foreign_key: :storage_id
-  has_many :productions, class_name: 'Production', through: :supports
-
-  scope :of_production, lambda { |*productions|
-    productions.flatten!
-    for production in productions
-      fail ArgumentError.new("Expected Production, got #{production.class.name}:#{production.inspect}") unless production.is_a?(Production)
-    end
-    joins(:productions).where('production_id IN (?)', productions.map(&:id))
-  }
+  has_many :activity_productions, foreign_key: :support_id
 
   def status
     if self.dead_at?

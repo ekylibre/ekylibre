@@ -54,7 +54,7 @@ module Ekylibre::FirstRun::Faker
         end
       end
 
-      support = ProductionSupport.where(storage: cultivable_zone).of_campaign(campaign).first if cultivable_zone && campaign
+      support = ActivityProduction.where(storage: cultivable_zone).of_campaign(campaign).first if cultivable_zone && campaign
       intrant = Product.where(name: product_name).first
       sprayer = Equipment.where(work_number: sprayer_work_number).first
       worker = Worker.where(work_number: worker_work_number).first

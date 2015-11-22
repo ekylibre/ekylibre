@@ -1,16 +1,11 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="cutting" natures="cutting" version="0">
+  <procedure name="cutting" categories="crop_maintenance" actions="cutting">
     <variables>
-      <variable name="tractor" abilities="catch(equipment)" roles="cutting-tool"/>
-      <variable name="cutter" abilities="cut" roles="cutting-tool"/>
-      <variable name="cultivation" variety="plant" roles="cutting-target"/>
-      <variable name="driver" abilities="drive(tractor)" roles="cutting-doer"/>
+      <variable name="tractor" type="tool" abilities="catch(equipment)"/>
+      <variable name="cutter" type="tool" abilities="cut"/>
+      <variable name="cultivation" type="target" variety="plant"/>
+      <variable name="driver" type="doer" abilities="drive(tractor)"/>
     </variables>
-    <operations>
-      <operation id="1">
-        <task do="[tractor] acts on [cultivation]"/>
-      </operation>
-    </operations>
   </procedure>
 </procedures>

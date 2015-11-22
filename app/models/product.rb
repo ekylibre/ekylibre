@@ -91,7 +91,7 @@ class Product < Ekylibre::Record::Base
   has_many :enjoyments, class_name: 'ProductEnjoyment', foreign_key: :product_id, dependent: :destroy
   # has_many :groups, :through => :memberships
   has_many :issues, as: :target, dependent: :destroy
-  has_many :intervention_casts, foreign_key: :actor_id, inverse_of: :actor, dependent: :restrict_with_exception
+  has_many :intervention_casts, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception
   has_many :interventions, through: :intervention_casts
   has_many :junction_ways, class_name: 'ProductJunctionWay', foreign_key: :product_id, dependent: :destroy
   has_many :junctions, class_name: 'ProductJunction', through: :junction_ways
@@ -102,9 +102,8 @@ class Product < Ekylibre::Record::Base
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :product_id, dependent: :destroy
   has_many :parcel_items, dependent: :restrict_with_exception
   has_many :phases, class_name: 'ProductPhase', dependent: :destroy
-  has_many :reading_tasks, class_name: 'ProductReadingTask', dependent: :destroy
   has_many :sensors
-  has_many :supports, class_name: 'ProductionSupport', foreign_key: :storage_id, inverse_of: :storage
+  has_many :supports, class_name: 'ActivityProduction', foreign_key: :support_id, inverse_of: :support
   has_many :variants, class_name: 'ProductNatureVariant', through: :phases
   has_one :start_way,  -> { where(nature: 'start') },  class_name: 'ProductJunctionWay', inverse_of: :product, foreign_key: :product_id
   has_one :finish_way, -> { where(nature: 'finish') }, class_name: 'ProductJunctionWay', inverse_of: :product, foreign_key: :product_id
@@ -183,16 +182,15 @@ class Product < Ekylibre::Record::Base
     end
   }
 
+  scope :of_production, lambda { |production|
+    where(id: TargetDistribution.select(:target_id).where(activity_production: production))
+  }
   scope :of_productions, lambda { |*productions|
-    productions.flatten!
-    for production in productions
-      fail ArgumentError.new("Expected Production, got #{production.class.name}:#{production.inspect}") unless production.is_a?(Production)
-    end
-    joins(:supports).merge(ProductionSupport.of_productions(productions))
+    of_productions(productions.flatten)
   }
 
   scope :supports_of_campaign, lambda { |campaign|
-    joins(:supports).merge(ProductionSupport.of_campaign(campaign))
+    joins(:supports).merge(ActivityProduction.of_campaign(campaign))
   }
   scope :intersect_with, lambda { |shape|
     where(id: ProductReading.where('ST_Overlaps(geometry_value, ST_GeomFromEWKT(?))', shape.to_ewkt).pluck(:product_id))
@@ -203,10 +201,10 @@ class Product < Ekylibre::Record::Base
   scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
   scope :production_supports, -> { where(variety: ['cultivable_zone']) }
   scope :supportables, -> { of_variety([:cultivable_zone, :animal_group, :equipment]) }
-  scope :supporters, -> { where(id: ProductionSupport.pluck(:storage_id)) }
+  scope :supporters, -> { where(id: ActivityProduction.pluck(:support_id)) }
   scope :availables, -> { not_indicate(population: 0).where(dead_at: nil) }
   scope :tools, -> { of_variety(:equipment) }
-  scope :storage, -> { joins(:nature).merge(ProductNature.storage) }
+  scope :support, -> { joins(:nature).merge(ProductNature.support) }
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :born_at, :dead_at, :initial_born_at, :initial_dead_at, :picture_updated_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
@@ -637,5 +635,13 @@ class Product < Ekylibre::Record::Base
       list << variable
     end
     list
+  end
+
+  # Returns working duration of a product
+  def working_duration(options = {})
+    role = options[:as] || :tool
+    periods = InterventionWorkingPeriod.with_generic_cast(role, self)
+    periods = periods.of_campaign(options[:campaign]) if options[:campaign]
+    return periods.sum(:duration)
   end
 end

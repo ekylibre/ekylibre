@@ -1,20 +1,13 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="fuel_up" natures="consummables_addition" version="0">
+  <procedure name="fuel_up" categories="energy_supplying" actions="fuel_up">
     <variables>
-      <variable name="equipment" variety="equipment" abilities="consume(fuel)" roles="consummables_addition-target"/>
-      <variable name="fuel" variety="fuel"/>
-      <variable name="fuel_to_input" variety=":fuel" derivative-of=":fuel" new="parted-from: fuel" roles="consummables_addition-input">
+      <variable name="equipment" type="target" variety="equipment" abilities="consume(fuel)"/>
+      <variable name="fuel" type="input" variety="fuel"/>
+      <variable name="fuel" type="input" variety="fuel">
         <handler indicator="population"/>
       </variable>
-      <variable name="mechanic" abilities="drive(equipment)" roles="consummables_addition-doer"/>
+      <variable name="mechanic" type="doer" abilities="drive(equipment)"/>
     </variables>
-    <operations>
-      <operation id="1">
-        <!-- Operation 500 (10 minutes) -->
-        <task do="[fuel] parts with [fuel_to_input]"/>
-        <task do="[equipment] consumes [fuel_to_input]"/>
-      </operation>
-    </operations>
   </procedure>
 </procedures>

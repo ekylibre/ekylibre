@@ -1,8 +1,8 @@
 class Backend::Cells::LastInterventionCellsController < Backend::Cells::BaseController
   def show
     scope = Intervention
-    if params[:production] && production = Production.find_by(id: params[:production])
-      scope = scope.where(production: production)
+    if params[:production] && production = ActivityProduction.find_by(id: params[:production])
+      scope = scope.of_production(production)
     elsif params[:campaign_id] && campaign = Campaign.find(params[:campaign_id])
       scope = scope.of_campaign(campaign)
     elsif current_campaign

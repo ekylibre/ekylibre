@@ -32,9 +32,11 @@ class Backend::CultivableZonesController < Backend::LandParcelGroupsController
   end
 
   # content production on current cultivable land parcel
-  list(:productions, model: :production_supports, conditions: { storage_id: 'params[:id]'.c }, order: 'started_at DESC') do |t|
-    t.column :production, url: true
-    t.column :production_usage
+  list(:productions, model: :activity_productions, conditions: { support_id: 'params[:id]'.c }, order: 'started_at DESC') do |t|
+    t.column :name
+    t.column :activity, url: true
+    t.column :support, url: true
+    t.column :usage
     t.column :started_at
     t.column :stopped_at
   end

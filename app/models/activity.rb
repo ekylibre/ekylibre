@@ -1,4 +1,3 @@
-# coding: utf-8
 # = Informations
 #
 # == License
@@ -32,22 +31,36 @@
 #  lock_version        :integer          default(0), not null
 #  name                :string           not null
 #  nature              :string           not null
+#  size_indicator      :string
+#  size_unit           :string
 #  support_variety     :string
+#  suspended           :boolean          default(FALSE), not null
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #  with_cultivation    :boolean          not null
 #  with_supports       :boolean          not null
 #
+
+# Activity represents a type of work in the farm like common wheats, pigs,
+# fish etc.. Activities are expected to last in years. Activity productions are
+# production done inside the given activity with same work method.
 class Activity < Ekylibre::Record::Base
+  include Attachable
   refers_to :family, class_name: 'ActivityFamily'
   refers_to :cultivation_variety, class_name: 'Variety'
   refers_to :support_variety, class_name: 'Variety'
+  # refers_to :size_unit, class_name: 'Unit'
+  # refers_to :size_indicator, -> { where(datatype: :measure) }, class_name: 'Indicator' # [:population, :working_duration]
   enumerize :nature, in: [:main, :auxiliary, :standalone], default: :main, predicates: true
-  has_many :distributions, -> { order(:main_activity_id) }, class_name: 'ActivityDistribution', dependent: :destroy, inverse_of: :activity
-  has_many :productions
+  has_many :budgets, class_name: 'ActivityBudget'
+  has_many :expenses, -> { where(direction: :expense).includes(:variant) }, class_name: 'ActivityBudget', inverse_of: :activity
+  has_many :revenues, -> { where(direction: :revenue).includes(:variant) }, class_name: 'ActivityBudget', inverse_of: :activity
+  has_many :distributions, class_name: 'ActivityDistribution', dependent: :destroy, inverse_of: :activity
+  has_many :productions, class_name: 'ActivityProduction', dependent: :destroy, inverse_of: :activity
   has_many :supports, through: :productions
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_inclusion_of :with_cultivation, :with_supports, in: [true, false]
+  validates_inclusion_of :suspended, :with_cultivation, :with_supports, in: [true, false]
   validates_presence_of :family, :name, :nature
   # ]VALIDATORS]
   validates_inclusion_of :family, in: family.values, allow_nil: true
@@ -55,40 +68,54 @@ class Activity < Ekylibre::Record::Base
   validates_presence_of :cultivation_variety, if: :with_cultivation
   validates_presence_of :support_variety, if: :with_supports
   validates_uniqueness_of :name
+  validates_associated :expenses, :revenues
   validates_associated :productions
 
+  scope :actives, lambda { availables.where(id: ActivityProduction.opened) }
+  scope :availables, -> { where.not('suspended') }
   scope :main, -> { where(nature: 'main') }
-  scope :actives, -> { where(id: Production.actives.pluck(:activity_id)) }
-  scope :availables, -> { order(:name) }
-  # scope :main_activity, -> { where(nature: "main") }
-  scope :of_campaign, lambda { |*campaigns|
-    campaigns.flatten!
-    if campaigns.detect { |campaign| !campaign.is_a?(Campaign) }
-      fail ArgumentError, "Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}"
-    end
-    where(id: Production.of_campaign(campaigns).pluck(:activity_id))
+  scope :of_intervention, lambda { |intervention|
+    where(id: TargetDistribution.select(:activity_id).where(target_id: InterventionTarget.select(:product_id).where(intervention_id: intervention)))
   }
-
+  scope :of_campaign, lambda { |campaign|
+    where(id: ActivityProduction.select(:activity_id).of_campaign(campaign.is_a?(Campaign) ? campaign : campaign.find(campaign.to_i)))
+  }
+  scope :of_cultivation_variety, lambda { |variety|
+    where(cultivation_variety: Nomen::Variety.find(variety).all)
+  }
+  scope :main_of_campaign, lambda { |campaign| main.of_campaign(campaign) }
+  scope :of_current_campaigns, -> { joins(:campaign).merge(Campaign.currents) }
+  scope :of_currents_campaigns, -> { of_current_campaigns }
   scope :of_families, proc { |*families|
     where(family: families.flatten.collect { |f| Nomen::ActivityFamily.all(f.to_sym) }.flatten.uniq.map(&:to_s))
   }
 
+  accepts_nested_attributes_for :expenses, :revenues, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :distributions, reject_if: :all_blank, allow_destroy: true
 
+  protect(on: :update) do
+    productions.any?
+  end
+
+  protect(on: :destroy) do
+    productions.any? || interventions.any?
+  end
+
   before_validation do
-    if family = Nomen::ActivityFamily[self.family]
+    family = Nomen::ActivityFamily.find(self.family)
+    if family
       if with_supports.nil?
-        if variety = family.support_variety
+        if family.support_variety
           self.with_supports = true
-          self.support_variety = variety
+          self.support_variety = family.support_variety
         else
           self.with_supports = false
         end
       end
       if with_cultivation.nil?
-        if variety = family.cultivation_variety
+        if family.cultivation_variety
           self.with_cultivation = true
-          self.cultivation_variety = variety
+          self.cultivation_variety = family.cultivation_variety
         else
           self.with_cultivation = false
         end
@@ -134,10 +161,29 @@ class Activity < Ekylibre::Record::Base
     end
   end
 
-  protect(on: :destroy) do
-    productions.any?
+  def interventions
+    Intervention.of_activity(self)
   end
 
+  def casts
+    InterventionCast.of_activity(self)
+  end
+
+  # Returns human_name of support variety
+  def support_variety_name
+    item = Nomen::Variety.find(support_variety)
+    return nil unless item
+    return item.human_name
+  end
+
+  # Returns human_name of support variety
+  def cultivation_variety_name
+    item = Nomen::Variety.find(cultivation_variety)
+    return nil unless item
+    return item.human_name
+  end
+
+  # Returns human name of activity family
   def family_label
     Nomen::ActivityFamily.find(family).human_name
   end

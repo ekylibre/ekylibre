@@ -56,9 +56,9 @@ cap_land_parcels_001:
   created_at: 2014-11-05 14:15:20.016507000 Z
   creator_id: 1
   id: 1
+  land_parcel_number: '1'
   lock_version: 1
-  land_parcel_number: 1
-  main_crop_code: 'BTH'
+  main_crop_code: BTH
   main_crop_commercialisation: false
   main_crop_precision: '001'
   main_crop_seed_production: false
@@ -72,9 +72,9 @@ cap_land_parcels_002:
   created_at: 2014-11-05 14:15:20.016507000 Z
   creator_id: 1
   id: 2
+  land_parcel_number: '1'
   lock_version: 1
-  land_parcel_number: 1
-  main_crop_code: 'BTH'
+  main_crop_code: BTH
   main_crop_commercialisation: false
   main_crop_precision: '001'
   main_crop_seed_production: false

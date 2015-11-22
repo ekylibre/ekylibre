@@ -1,4 +1,5 @@
-- if @campaigns and activities = Activity.of_campaign(@campaigns).of_families(:vegetal_crops).order(:id) and activities.any?
+- activities = Activity.of_campaign(@campaigns || []).of_families(:vegetal_crops).order(:id)
+- if @campaigns && activities && activities.any?
   :ruby
     activities_serie = []
     productions_serie = []
@@ -8,20 +9,16 @@
       next if y.zero?
       color = activity.color
       activities_serie << { name: activity.name, y: y, color: color }
-      for production in activity.productions.of_campaign(@campaigns).order(:id)
+      activity.productions.of_campaign(@campaigns).order(:id).each do |production|
         y = production.net_surface_area.to_d(:hectare).to_s.to_f
         next if y.zero?
         productions_serie << { name: production.name, y: y, color: ligthen(color, 0.3) }
-        for support in production.supports.order(:id)
-          supports_serie << { name: support.storage.work_name, y: support.net_surface_area.to_d(:hectare).to_s.to_f, color: ligthen(color, 0.6) }
-        end
       end
     end
 
     series = []
     series << {name: Activity.model_name.human, data: activities_serie, size: "50%", data_labels: {color: 'white', distance: -30} }
-    series << {name: Production.model_name.human, data: productions_serie, size: "75%", inner_size: "50%", data_labels: {enabled: false}}
-    series << {name: CultivableZone.model_name.human, data: supports_serie, size: "80%", inner_size: "75%"}
+    series << {name: ActivityProduction.model_name.human, data: productions_serie, size: "75%", inner_size: "50%", data_labels: {enabled: false}}
 
   = pie_highcharts(series, tooltip: {point_format: '{point.y: 1.1f} Ha'}, title: @campaigns.name)
 - else

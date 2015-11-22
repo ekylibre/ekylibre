@@ -31,7 +31,10 @@
 #  lock_version        :integer          default(0), not null
 #  name                :string           not null
 #  nature              :string           not null
+#  size_indicator      :string
+#  size_unit           :string
 #  support_variety     :string
+#  suspended           :boolean          default(FALSE), not null
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #  with_cultivation    :boolean          not null
@@ -45,6 +48,7 @@
 #   family: "Lorem ipsum"
 #   name: "Lorem ipsum"
 #   nature: "Lorem ipsum"
+#   suspended: true
 #   updater: users_001
 #   with_cultivation: true
 #   with_supports: true
@@ -54,13 +58,15 @@ activities_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   cultivation_variety: triticum_aestivum
-  description: ''
   family: common_wheat_crops
   id: 1
   lock_version: 2
   name: Blé tendre
   nature: main
+  size_indicator: net_surface_area
+  size_unit: hectare
   support_variety: cultivable_zone
+  suspended: false
   updated_at: 2015-03-08 16:28:24.934621000 Z
   updater_id: 1
   with_cultivation: true
@@ -69,13 +75,14 @@ activities_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   cultivation_variety: bos
-  description: ''
   family: cattle_farming
   id: 3
   lock_version: 4
   name: Bovins
   nature: main
+  size_indicator: members_population
   support_variety: animal_group
+  suspended: false
   updated_at: 2015-03-08 16:28:50.905947000 Z
   updater_id: 1
   with_cultivation: true
@@ -88,6 +95,7 @@ activities_003:
   lock_version: 0
   name: Maintenance
   nature: auxiliary
+  suspended: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   with_cultivation: false
@@ -96,13 +104,15 @@ activities_004:
   created_at: 2014-11-04 18:16:53.454319000 Z
   creator_id: 1
   cultivation_variety: zea
-  description: ''
   family: maize_crops
   id: 5
   lock_version: 1
   name: Maïs
   nature: main
+  size_indicator: net_surface_area
+  size_unit: hectare
   support_variety: cultivable_zone
+  suspended: false
   updated_at: 2015-03-08 16:30:59.380202000 Z
   updater_id: 1
   with_cultivation: true
@@ -111,13 +121,15 @@ activities_005:
   created_at: 2014-11-07 16:28:28.828977000 Z
   creator_id: 1
   cultivation_variety: vitis
-  description: ''
   family: vines
   id: 6
   lock_version: 2
   name: Vignes
   nature: main
+  size_indicator: net_surface_area
+  size_unit: hectare
   support_variety: cultivable_zone
+  suspended: false
   updated_at: 2015-03-08 16:33:20.709599000 Z
   updater_id: 1
   with_cultivation: true
@@ -125,12 +137,12 @@ activities_005:
 activities_006:
   created_at: 2014-11-07 16:28:45.261588000 Z
   creator_id: 1
-  description: ''
   family: wine
   id: 7
   lock_version: 1
   name: Vin
   nature: main
+  suspended: false
   updated_at: 2015-03-08 16:33:39.397458000 Z
   updater_id: 1
   with_cultivation: false

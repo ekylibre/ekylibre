@@ -12,7 +12,7 @@
       {name: activity.name, y: activity.net_surface_area(@campaigns).to_d(:hectare).to_s.to_f, id: activity.id, url: backend_activity_path(activity), color: activity.color } #cycle(*theme_colors)
     end
 
-    productions_serie = Production.of_campaign(*@campaigns).of_activities(activities).order("activity_id, id").collect do |production|
+    productions_serie = ActivityProduction.of_campaign(@campaigns).of_activities(activities).order("activity_id, id").collect do |production|
       campaigns[production.campaign.name] ||= 0.0
       campaigns[production.campaign.name] += production.net_surface_area.to_s.to_f
       {name: production.name, y: production.net_surface_area.to_s.to_f, url: backend_production_path(production), color: production.color } #ligthen(activities_serie.detect{|a| a[:id] == production.activity_id}[:color], 0.3)
@@ -20,7 +20,7 @@
 
     series = []
     series << {name: Activity.model_name.human, data: activities_serie, size: "60%", data_labels: {color: 'white', distance: -30}}
-    series << {name: Production.model_name.human, data: productions_serie, size: "80%", inner_size: "60%", data_labels: {enabled: true}}
+    series << {name: ActivityProduction.model_name.human, data: productions_serie, size: "80%", inner_size: "60%", data_labels: {enabled: true}}
 
   = pie_highcharts(series, tooltip: {point_format: "{point.y: 1.2f} #{surface_unit.symbol}"}, title: campaigns.map {|k,v| "#{k} (#{v.round(2)} #{surface_unit.symbol})"}.to_sentence, plot_options: { pie: { allow_point_select: true, cursor: 'pointer'}})
 - else

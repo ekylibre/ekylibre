@@ -1,28 +1,18 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="silage_unload" natures="food_supply" version="0">
+  <procedure name="silage_unload" categories="animal_feeding" actions="animal_feeding">
     <variables>
-      <variable name="herd" variety="animal_group" derivative-of="bos" roles="food_supply-target" default-actor="storage"/>
-      <variable name="silage" variety="preparation" abilities="feed(bos)" roles="food_supply-input_origin"/>
-      <variable name="silage_to_give" variety=":silage" derivative-of=":silage" new="parted-from: silage" roles="food_supply-input" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
+      <variable name="herd" type="target" variety="animal_group" derivative-of="bos" default-actor="storage"/>
+      <variable name="silage" type="input" variety="preparation" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})" abilities="feed(bos)">
         <handler indicator="population"/>
         <handler indicator="net_mass" unit="ton" if="silage.net_mass?" to="population" backward="value * self..net_mass(ton)" forward="value / self..net_mass(ton)"/>
         <handler name="food_mass_per_animal" indicator="net_mass" unit="kilogram" if="members_count(herd) &gt; 0 &amp; silage.net_mass?" to="population" backward="value * (self..net_mass(kilogram) / members_count(herd))" forward="value * (members_count(herd) / self..net_mass(kilogram))"/>
         <handler indicator="net_volume" unit="cubic_meter" if="silage.net_volume?" to="population" backward="value * self..net_volume(cubic_meter)" forward="value / self..net_volume(cubic_meter)"/>
         <handler name="dry_matter_mass" indicator="dry_matter_rate" unit="ton" if="silage.net_mass? &amp; silage.dry_matter_rate?" to="population" backward="value * ( self..net_mass(ton) * self.dry_matter_rate(mass_percent) / 100)" forward="value / ( self..net_mass(ton) * self.dry_matter_rate(mass_percent) / 100)"/>
       </variable>
-      <variable name="driver" abilities="drive(tractor), move" roles="food_supply-doer"/>
-      <variable name="tractor" abilities="tow(equipment), move" roles="food_supply-tool"/>
-      <variable name="silage_unloader" abilities="deliver(silage)" roles="food_supply-tool"/>
+      <variable name="driver" type="doer" abilities="drive(tractor), move"/>
+      <variable name="tractor" type="tool" abilities="tow(equipment), move"/>
+      <variable name="silage_unloader" type="tool" abilities="deliver(silage)"/>
     </variables>
-    <operations>
-      <operation id="1">
-        <task do="[silage] parts with [silage_to_give]"/>
-        <task do="[silage_to_give] moves in [silage_unloader]"/>
-        <task do="[tractor] moves at [herd]"/>
-        <task do="[silage_to_give] moves at [herd]"/>
-        <task do="[herd] consumes [silage_to_give]"/>
-      </operation>
-    </operations>
   </procedure>
 </procedures>

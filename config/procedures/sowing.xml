@@ -1,38 +1,25 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="sowing" natures="sowing" version="0" duration="land_parcel.net_surface_area(hectare) * 0.42">
+  <procedure name="sowing" categories="planting" actions="sowing">
     <variables>
-      <variable name="seeds" variety="seed" derivative-of="plant" abilities="grow" roles="sowing-input_origin"/>
-      <variable name="seeds_to_sow" variety=":seeds" derivative-of=":seeds" new="parted-from: seeds" roles="sowing-input" default-name="{{variant}} - [{{birth_day}}/{{birth_month}}/{{birth_year}}] - [{{derivative_of}}] " default-population=":seeds">
+      <variable name="seeds" type="input" variety="seed" derivative-of="plant" default-name="{{variant}} - [{{birth_day}}/{{birth_month}}/{{birth_year}}] - [{{derivative_of}}]" abilities="grow">
         <handler indicator="population"/>
-        <handler indicator="net_mass" unit="kilogram" to="population" if="self.net_mass? &amp; self.net_mass(kilogram) &gt; 0" backward="value * self..net_mass(kilogram)" forward="value / self..net_mass(kilogram)"/>
-        <handler indicator="mass_area_density" unit="kilogram_per_hectare" to="population" if="self.net_mass? &amp; self.net_mass(kilogram) &gt; 0 &amp; cultivation.net_surface_area? &amp; cultivation.net_surface_area(hectare) &gt; 0" backward="(value * self..net_mass(kilogram)) / cultivation.net_surface_area(hectare)" forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(kilogram)"/>
-        <handler indicator="grains_area_density" unit="unity_per_square_meter" to="population" if="self.net_mass? &amp; self.net_mass(kilogram) &gt; 0 &amp; cultivation.net_surface_area? &amp; cultivation.net_surface_area(hectare) &gt; 0 &amp; self.thousand_grains_mass?" backward="(((value * self..net_mass(gram)) / cultivation.net_surface_area(square_meter)) * 1000) / self.thousand_grains_mass(gram)" forward="(((value * self.thousand_grains_mass(gram)) / 1000) * cultivation.net_surface_area(square_meter)) / self..net_mass(gram)"/>
-        <handler name="grains_area_density_in_thousand_per_hectare" indicator="grains_area_density" unit="thousand_per_hectare" to="population" if="self.net_mass? &amp; self.net_mass(kilogram) &gt; 0 &amp; cultivation.net_surface_area? &amp; cultivation.net_surface_area(hectare) &gt; 0 &amp; self.thousand_grains_mass?" backward="(value * self..net_mass(gram)) / (cultivation.net_surface_area(hectare) * self.thousand_grains_mass(gram))" forward="(value * self.thousand_grains_mass(gram) * cultivation.net_surface_area(hectare)) / self..net_mass(gram)"/>
-        <handler indicator="grains_count" unit="thousand" to="population" if="self.net_mass? &amp; self.net_mass(kilogram) &gt; 0 &amp; self.thousand_grains_mass?" backward="(value * self..net_mass(gram)) / self.thousand_grains_mass(gram)" forward="(value * self.thousand_grains_mass(gram)) / self..net_mass(gram)"/>
+        <handler indicator="net_mass" unit="kilogram" if="self.net_mass? &amp; self.net_mass(kilogram) &gt; 0" to="population" backward="value * self..net_mass(kilogram)" forward="value / self..net_mass(kilogram)"/>
+        <handler indicator="mass_area_density" unit="kilogram_per_hectare" if="self.net_mass? &amp; self.net_mass(kilogram) &gt; 0 &amp; cultivation.net_surface_area? &amp; cultivation.net_surface_area(hectare) &gt; 0" to="population" backward="(value * self..net_mass(kilogram)) / cultivation.net_surface_area(hectare)" forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(kilogram)"/>
+        <handler indicator="grains_area_density" unit="unity_per_square_meter" if="self.net_mass? &amp; self.net_mass(kilogram) &gt; 0 &amp; cultivation.net_surface_area? &amp; cultivation.net_surface_area(hectare) &gt; 0 &amp; self.thousand_grains_mass?" to="population" backward="(((value * self..net_mass(gram)) / cultivation.net_surface_area(square_meter)) * 1000) / self.thousand_grains_mass(gram)" forward="(((value * self.thousand_grains_mass(gram)) / 1000) * cultivation.net_surface_area(square_meter)) / self..net_mass(gram)"/>
+        <handler name="grains_area_density_in_thousand_per_hectare" indicator="grains_area_density" unit="thousand_per_hectare" if="self.net_mass? &amp; self.net_mass(kilogram) &gt; 0 &amp; cultivation.net_surface_area? &amp; cultivation.net_surface_area(hectare) &gt; 0 &amp; self.thousand_grains_mass?" to="population" backward="(value * self..net_mass(gram)) / (cultivation.net_surface_area(hectare) * self.thousand_grains_mass(gram))" forward="(value * self.thousand_grains_mass(gram) * cultivation.net_surface_area(hectare)) / self..net_mass(gram)"/>
+        <handler indicator="grains_count" unit="thousand" if="self.net_mass? &amp; self.net_mass(kilogram) &gt; 0 &amp; self.thousand_grains_mass?" to="population" backward="(value * self..net_mass(gram)) / self.thousand_grains_mass(gram)" forward="(value * self.thousand_grains_mass(gram)) / self..net_mass(gram)"/>
       </variable>
-      <variable name="sower" abilities="sow" roles="sowing-tool"/>
-      <variable name="driver" abilities="drive(equipment), move" roles="sowing-doer"/>
-      <variable name="tractor" abilities="tow(equipment), move" roles="sowing-tool"/>
-      <variable name="land_parcel" abilities="store(plant)" roles="sowing-target" default-actor="storage"/>
-      <variable name="cultivation" variety="derivative-of: seeds" new="produced-by: land_parcel" roles="sowing-output" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" default-shape=":land_parcel" default-variant="production">
+      <variable name="sower" type="tool" abilities="sow"/>
+      <variable name="driver" type="doer" abilities="drive(equipment), move"/>
+      <variable name="tractor" type="tool" abilities="tow(equipment), move"/>
+      <variable name="land_parcel" type="target" abilities="store(plant)" default-actor="storage"/>
+      <variable name="cultivation" type="output" variety="derivative-of: seeds" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" default-shape=":land_parcel" default-variant="production">
         <handler indicator="shape">
           <converter to="shape" forward="intersection(value, land_parcel.shape)" backward="value"/>
           <converter to="population" forward="area(value) / cultivation..net_surface_area(square_meter)"/>
         </handler>
       </variable>
     </variables>
-    <operations>
-      <operation id="1">
-        <task do="[seeds] parts with [seeds_to_sow]"/>
-        <task do="[seeds_to_sow] moves in [land_parcel]"/>
-        <task do="[land_parcel] consumes [seeds_to_sow]"/>
-        <task do="[land_parcel] produces [cultivation]"/>
-        <task do="cultivation is in land_parcel"/>
-        <task do="cultivation|population|superficial_count:cultivation is measured" id="readpop"/>
-        <task do="land_parcel|soil_cultural_state|covered is measured" id="readstate"/>
-        <task do="cultivation|plants_count is measured" id="readcount"/>
-      </operation>
-    </operations>
   </procedure>
 </procedures>

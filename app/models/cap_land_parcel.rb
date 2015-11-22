@@ -40,7 +40,7 @@
 
 class CapLandParcel < Ekylibre::Record::Base
   belongs_to :cap_islet, class_name: 'CapIslet'
-  belongs_to :support, class_name: 'ProductionSupport'
+  belongs_to :support, class_name: 'ActivityProduction'
   has_one :cap_statement, through: :cap_islet
   has_one :campaign, through: :cap_statement
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

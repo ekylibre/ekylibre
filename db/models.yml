@@ -2,7 +2,9 @@
 - account
 - account_balance
 - activity
+- activity_budget
 - activity_distribution
+- activity_production
 - affair
 - analysis
 - analysis_item
@@ -57,6 +59,13 @@
 - incoming_payment_mode
 - intervention
 - intervention_cast
+- intervention_cast_reading
+- intervention_doer
+- intervention_input
+- intervention_output
+- intervention_target
+- intervention_tool
+- intervention_working_period
 - inventory
 - inventory_item
 - issue
@@ -77,7 +86,6 @@
 - net_service
 - notification
 - observation
-- operation
 - outgoing_payment
 - outgoing_payment_mode
 - parcel
@@ -103,11 +111,6 @@
 - product_ownership
 - product_phase
 - product_reading
-- product_reading_task
-- production
-- production_budget
-- production_distribution
-- production_support
 - purchase
 - purchase_item
 - purchase_nature
@@ -125,6 +128,7 @@
 - subscription_nature
 - supervision
 - supervision_item
+- target_distribution
 - task
 - tax
 - team

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="crop_residues_grinding" categories="crop_maintenance" actions="residue_destruction, organic_matter_burying" optional-actions="organic_fertilization">
+    <variables>
+      <variable name="tractor" type="tool" abilities="catch(equipment)"/>
+      <variable name="grinder" type="tool" abilities="grind(plant)"/>
+      <variable name="land_parcel" type="target" variety="cultivable_zone"/>
+      <variable name="driver" type="doer" abilities="drive(tractor)"/>
+    </variables>
+  </procedure>
+</procedures>

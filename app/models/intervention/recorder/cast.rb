@@ -3,9 +3,10 @@ class Intervention
     class Cast
       attr_reader :object
 
-      def initialize(recorder, name, object = nil, options = {})
+      def initialize(recorder, type, name, object = nil, options = {})
         @recorder = recorder
         @name = name
+        @type = type
         @object = object
         @variant = options.delete(:variant).is_a?(TrueClass)
         @options = {}

@@ -1,26 +1,19 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="animal_housing_mulching" natures="animal_housing_treatment" version="0">
+  <procedure name="animal_housing_mulching" categories="habitat_maintenance" actions="animal_housing_mulching">
     <variables>
-      <variable name="animal_housing" variety="building_division" abilities="store(animal)" roles="animal_housing_treatment-target" default-shape=":animal_housing" default-actor="default_storage_of_support">
+      <variable name="animal_housing" type="target" variety="building_division" abilities="store(animal)" default-shape=":animal_housing" default-actor="default_storage_of_support">
         <handler indicator="shape">
           <converter to="shape" forward="intersection(value, animal_housing.shape)" backward="value"/>
           <converter to="population" forward="area(value) / animal_housing..net_surface_area(square_meter)"/>
         </handler>
       </variable>
-      <variable name="straw" variety="straw"/>
-      <variable name="straw_to_mulch" variety=":straw" derivative-of=":straw" new="parted-from: straw" roles="animal_housing_treatment-input">
+      <variable name="straw" type="input" variety="straw">
         <handler indicator="population"/>
       </variable>
-      <variable name="cleaner" abilities="clean(building_division)" roles="animal_housing_treatment-tool"/>
-      <variable name="driver" abilities="drive(equipment), move" roles="animal_housing_treatment-doer"/>
-      <variable name="tractor" abilities="tow(equipment), move" roles="animal_housing_treatment-tool"/>
+      <variable name="cleaner" type="tool" abilities="clean(building_division)"/>
+      <variable name="driver" type="doer" abilities="drive(equipment), move"/>
+      <variable name="tractor" type="tool" abilities="tow(equipment), move"/>
     </variables>
-    <operations>
-      <operation id="1">
-        <task do="[mammal_herd_to_milk] produces [milk]"/>
-        <task do="[milk] is in [container]"/>
-      </operation>
-    </operations>
   </procedure>
 </procedures>

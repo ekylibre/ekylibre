@@ -25,9 +25,9 @@
 #  created_at      :datetime         not null
 #  creator_id      :integer
 #  id              :integer          not null, primary key
+#  intervention_id :integer
 #  lock_version    :integer          default(0), not null
 #  nature          :string           not null
-#  operation_id    :integer
 #  originator_id   :integer
 #  originator_type :string
 #  started_at      :datetime
@@ -460,9 +460,9 @@ product_junctions_045:
   created_at: 2014-11-05 15:40:16.107040000 Z
   creator_id: 1
   id: 48
+  intervention_id: 11
   lock_version: 0
   nature: division
-  operation_id: 12
   started_at: 2013-11-10 09:18:00.000000000 Z
   stopped_at: 2013-11-10 12:01:30.000000000 Z
   updated_at: 2014-11-05 15:40:16.107040000 Z
@@ -471,9 +471,9 @@ product_junctions_046:
   created_at: 2014-11-05 15:40:16.208337000 Z
   creator_id: 1
   id: 49
+  intervention_id: 11
   lock_version: 0
   nature: consumption
-  operation_id: 12
   started_at: 2013-11-10 09:18:00.000000000 Z
   stopped_at: 2013-11-10 12:01:30.000000000 Z
   updated_at: 2014-11-05 15:40:16.208337000 Z
@@ -482,9 +482,9 @@ product_junctions_047:
   created_at: 2014-11-05 15:40:16.271346000 Z
   creator_id: 1
   id: 50
+  intervention_id: 11
   lock_version: 0
   nature: production
-  operation_id: 12
   started_at: 2013-11-10 09:18:00.000000000 Z
   stopped_at: 2013-11-10 12:01:30.000000000 Z
   updated_at: 2014-11-05 15:40:16.271346000 Z
@@ -493,9 +493,9 @@ product_junctions_048:
   created_at: 2014-11-06 17:50:07.102469000 Z
   creator_id: 1
   id: 51
+  intervention_id: 13
   lock_version: 0
   nature: division
-  operation_id: 17
   started_at: 2012-10-17 06:18:00.000000000 Z
   stopped_at: 2012-10-17 10:09:00.000000000 Z
   updated_at: 2014-11-06 17:50:07.102469000 Z
@@ -504,9 +504,9 @@ product_junctions_049:
   created_at: 2014-11-06 17:50:07.219497000 Z
   creator_id: 1
   id: 52
+  intervention_id: 13
   lock_version: 0
   nature: consumption
-  operation_id: 17
   started_at: 2012-10-17 06:18:00.000000000 Z
   stopped_at: 2012-10-17 10:09:00.000000000 Z
   updated_at: 2014-11-06 17:50:07.219497000 Z
@@ -515,9 +515,9 @@ product_junctions_050:
   created_at: 2014-11-06 17:50:07.276150000 Z
   creator_id: 1
   id: 53
+  intervention_id: 13
   lock_version: 0
   nature: production
-  operation_id: 17
   started_at: 2012-10-17 06:18:00.000000000 Z
   stopped_at: 2012-10-17 10:09:00.000000000 Z
   updated_at: 2014-11-06 17:50:07.276150000 Z
@@ -536,9 +536,9 @@ product_junctions_052:
   created_at: 2014-11-07 14:44:18.969955000 Z
   creator_id: 1
   id: 55
+  intervention_id: 14
   lock_version: 0
   nature: division
-  operation_id: 19
   started_at: 2014-11-05 06:20:00.000000000 Z
   stopped_at: 2014-11-05 06:30:00.000000000 Z
   updated_at: 2014-11-07 14:44:18.969955000 Z
@@ -547,9 +547,9 @@ product_junctions_053:
   created_at: 2014-11-07 14:44:19.088507000 Z
   creator_id: 1
   id: 56
+  intervention_id: 14
   lock_version: 0
   nature: consumption
-  operation_id: 19
   started_at: 2014-11-05 06:30:00.000000000 Z
   stopped_at: 2014-11-05 08:25:00.000000000 Z
   updated_at: 2014-11-07 14:44:19.088507000 Z
@@ -568,9 +568,9 @@ product_junctions_055:
   created_at: 2014-11-07 15:02:58.873075000 Z
   creator_id: 1
   id: 58
+  intervention_id: 15
   lock_version: 0
   nature: division
-  operation_id: 22
   started_at: 2013-02-08 10:08:00.000000000 Z
   stopped_at: 2013-02-08 11:50:00.000000000 Z
   updated_at: 2014-11-07 15:02:58.873075000 Z
@@ -579,9 +579,9 @@ product_junctions_056:
   created_at: 2014-11-07 15:02:59.186843000 Z
   creator_id: 1
   id: 59
+  intervention_id: 15
   lock_version: 0
   nature: consumption
-  operation_id: 22
   started_at: 2013-02-08 10:08:00.000000000 Z
   stopped_at: 2013-02-08 11:50:00.000000000 Z
   updated_at: 2014-11-07 15:02:59.186843000 Z
@@ -610,9 +610,9 @@ product_junctions_059:
   created_at: 2014-11-07 15:26:50.609183000 Z
   creator_id: 1
   id: 62
+  intervention_id: 16
   lock_version: 0
   nature: division
-  operation_id: 25
   started_at: 2012-12-12 09:38:00.000000000 Z
   stopped_at: 2012-12-12 11:12:00.000000000 Z
   updated_at: 2014-11-07 15:26:50.609183000 Z
@@ -621,9 +621,9 @@ product_junctions_060:
   created_at: 2014-11-07 15:26:50.696393000 Z
   creator_id: 1
   id: 63
+  intervention_id: 16
   lock_version: 0
   nature: consumption
-  operation_id: 25
   started_at: 2012-12-12 09:38:00.000000000 Z
   stopped_at: 2012-12-12 11:12:00.000000000 Z
   updated_at: 2014-11-07 15:26:50.696393000 Z
@@ -652,9 +652,9 @@ product_junctions_063:
   created_at: 2014-11-07 15:45:45.869618000 Z
   creator_id: 1
   id: 66
+  intervention_id: 17
   lock_version: 0
   nature: division
-  operation_id: 27
   started_at: 2007-09-29 08:18:00.000000000 Z
   stopped_at: 2007-09-29 10:59:00.000000000 Z
   updated_at: 2014-11-07 15:45:45.869618000 Z
@@ -663,9 +663,9 @@ product_junctions_064:
   created_at: 2014-11-07 15:45:45.941279000 Z
   creator_id: 1
   id: 67
+  intervention_id: 17
   lock_version: 0
   nature: consumption
-  operation_id: 27
   started_at: 2007-09-29 08:18:00.000000000 Z
   stopped_at: 2007-09-29 10:59:00.000000000 Z
   updated_at: 2014-11-07 15:45:45.941279000 Z
@@ -674,9 +674,9 @@ product_junctions_065:
   created_at: 2014-11-07 15:45:46.002659000 Z
   creator_id: 1
   id: 68
+  intervention_id: 17
   lock_version: 0
   nature: production
-  operation_id: 27
   started_at: 2007-09-29 08:18:00.000000000 Z
   stopped_at: 2007-09-29 10:59:00.000000000 Z
   updated_at: 2014-11-07 15:45:46.002659000 Z
@@ -685,9 +685,9 @@ product_junctions_066:
   created_at: 2014-11-07 15:50:04.502536000 Z
   creator_id: 1
   id: 71
+  intervention_id: 18
   lock_version: 0
   nature: production
-  operation_id: 33
   started_at: 2014-08-01 00:00:00.000000000 Z
   stopped_at: 2014-08-01 00:10:00.000000000 Z
   updated_at: 2014-11-07 15:50:04.502536000 Z
@@ -696,9 +696,9 @@ product_junctions_067:
   created_at: 2014-11-07 15:50:04.559663000 Z
   creator_id: 1
   id: 72
+  intervention_id: 18
   lock_version: 0
   nature: consumption
-  operation_id: 33
   started_at: 2014-08-01 00:10:00.000000000 Z
   stopped_at: 2014-08-01 00:20:00.000000000 Z
   updated_at: 2014-11-07 15:50:04.559663000 Z
@@ -737,9 +737,9 @@ product_junctions_071:
   created_at: 2014-11-07 16:50:07.267882000 Z
   creator_id: 1
   id: 76
+  intervention_id: 21
   lock_version: 0
   nature: division
-  operation_id: 38
   started_at: 2008-03-15 09:18:00.000000000 Z
   stopped_at: 2008-03-15 15:39:00.000000000 Z
   updated_at: 2014-11-07 16:50:07.267882000 Z
@@ -748,9 +748,9 @@ product_junctions_072:
   created_at: 2014-11-07 16:50:07.339303000 Z
   creator_id: 1
   id: 77
+  intervention_id: 21
   lock_version: 0
   nature: consumption
-  operation_id: 38
   started_at: 2008-03-15 09:18:00.000000000 Z
   stopped_at: 2008-03-15 15:39:00.000000000 Z
   updated_at: 2014-11-07 16:50:07.339303000 Z
@@ -759,9 +759,9 @@ product_junctions_073:
   created_at: 2014-11-07 16:50:07.392234000 Z
   creator_id: 1
   id: 78
+  intervention_id: 21
   lock_version: 0
   nature: production
-  operation_id: 38
   started_at: 2008-03-15 09:18:00.000000000 Z
   stopped_at: 2008-03-15 15:39:00.000000000 Z
   updated_at: 2014-11-07 16:50:07.392234000 Z
@@ -770,9 +770,9 @@ product_junctions_074:
   created_at: 2014-11-07 16:59:09.889166000 Z
   creator_id: 1
   id: 79
+  intervention_id: 22
   lock_version: 0
   nature: division
-  operation_id: 40
   started_at: 2013-04-17 08:18:00.000000000 Z
   stopped_at: 2013-04-17 12:00:00.000000000 Z
   updated_at: 2014-11-07 16:59:09.889166000 Z
@@ -781,9 +781,9 @@ product_junctions_075:
   created_at: 2014-11-07 16:59:10.138847000 Z
   creator_id: 1
   id: 80
+  intervention_id: 22
   lock_version: 0
   nature: consumption
-  operation_id: 40
   started_at: 2013-04-17 08:18:00.000000000 Z
   stopped_at: 2013-04-17 12:00:00.000000000 Z
   updated_at: 2014-11-07 16:59:10.138847000 Z
@@ -802,9 +802,9 @@ product_junctions_077:
   created_at: 2014-11-07 17:08:50.508461000 Z
   creator_id: 1
   id: 83
+  intervention_id: 23
   lock_version: 0
   nature: production
-  operation_id: 47
   started_at: 2013-09-16 05:22:00.000000000 Z
   stopped_at: 2013-09-16 16:38:00.000000000 Z
   updated_at: 2014-11-07 17:08:50.508461000 Z
@@ -863,9 +863,9 @@ product_junctions_083:
   created_at: 2014-11-07 19:02:56.392563000 Z
   creator_id: 1
   id: 92
+  intervention_id: 25
   lock_version: 0
   nature: division
-  operation_id: 55
   started_at: 2013-10-02 07:05:00.000000000 Z
   stopped_at: 2013-10-02 07:30:00.000000000 Z
   updated_at: 2014-11-07 19:02:56.392563000 Z
@@ -874,9 +874,9 @@ product_junctions_084:
   created_at: 2014-11-07 19:02:56.450365000 Z
   creator_id: 1
   id: 93
+  intervention_id: 25
   lock_version: 0
   nature: production
-  operation_id: 55
   started_at: 2013-10-02 07:05:00.000000000 Z
   stopped_at: 2013-10-02 07:30:00.000000000 Z
   updated_at: 2014-11-07 19:02:56.450365000 Z
@@ -885,9 +885,9 @@ product_junctions_085:
   created_at: 2014-11-07 19:02:56.520609000 Z
   creator_id: 1
   id: 94
+  intervention_id: 25
   lock_version: 0
   nature: production
-  operation_id: 55
   started_at: 2013-10-02 07:05:00.000000000 Z
   stopped_at: 2013-10-02 07:30:00.000000000 Z
   updated_at: 2014-11-07 19:02:56.520609000 Z
@@ -926,9 +926,9 @@ product_junctions_089:
   created_at: 2014-11-07 19:08:55.367297000 Z
   creator_id: 1
   id: 98
+  intervention_id: 26
   lock_version: 0
   nature: division
-  operation_id: 58
   started_at: 2013-10-05 13:04:00.000000000 Z
   stopped_at: 2013-10-05 13:08:00.000000000 Z
   updated_at: 2014-11-07 19:08:55.367297000 Z
@@ -937,9 +937,9 @@ product_junctions_090:
   created_at: 2014-11-07 19:08:55.462411000 Z
   creator_id: 1
   id: 99
+  intervention_id: 26
   lock_version: 0
   nature: consumption
-  operation_id: 58
   started_at: 2013-10-05 13:08:00.000000000 Z
   stopped_at: 2013-10-05 13:22:00.000000000 Z
   updated_at: 2014-11-07 19:08:55.462411000 Z
@@ -948,9 +948,9 @@ product_junctions_091:
   created_at: 2014-11-07 19:08:55.509328000 Z
   creator_id: 1
   id: 100
+  intervention_id: 26
   lock_version: 0
   nature: consumption
-  operation_id: 58
   started_at: 2013-10-05 13:22:00.000000000 Z
   stopped_at: 2013-10-05 13:36:00.000000000 Z
   updated_at: 2014-11-07 19:08:55.509328000 Z
@@ -959,9 +959,9 @@ product_junctions_092:
   created_at: 2014-11-07 19:08:55.591780000 Z
   creator_id: 1
   id: 101
+  intervention_id: 26
   lock_version: 0
   nature: production
-  operation_id: 58
   started_at: 2013-10-05 13:22:00.000000000 Z
   stopped_at: 2013-10-05 13:36:00.000000000 Z
   updated_at: 2014-11-07 19:08:55.591780000 Z
@@ -980,9 +980,9 @@ product_junctions_094:
   created_at: 2014-11-07 19:12:42.922040000 Z
   creator_id: 1
   id: 103
+  intervention_id: 27
   lock_version: 0
   nature: division
-  operation_id: 63
   started_at: 2013-10-07 09:34:00.000000000 Z
   stopped_at: 2013-10-07 09:38:00.000000000 Z
   updated_at: 2014-11-07 19:12:42.922040000 Z
@@ -991,9 +991,9 @@ product_junctions_095:
   created_at: 2014-11-07 19:12:42.989780000 Z
   creator_id: 1
   id: 104
+  intervention_id: 27
   lock_version: 0
   nature: consumption
-  operation_id: 63
   started_at: 2013-10-07 09:38:00.000000000 Z
   stopped_at: 2013-10-07 09:41:00.000000000 Z
   updated_at: 2014-11-07 19:12:42.989780000 Z
@@ -1012,9 +1012,9 @@ product_junctions_097:
   created_at: 2014-11-07 19:24:10.313555000 Z
   creator_id: 1
   id: 106
+  intervention_id: 28
   lock_version: 0
   nature: division
-  operation_id: 67
   started_at: 2013-10-15 08:32:00.000000000 Z
   stopped_at: 2013-10-15 08:36:00.000000000 Z
   updated_at: 2014-11-07 19:24:10.313555000 Z
@@ -1023,9 +1023,9 @@ product_junctions_098:
   created_at: 2014-11-07 19:24:10.403967000 Z
   creator_id: 1
   id: 107
+  intervention_id: 28
   lock_version: 0
   nature: consumption
-  operation_id: 67
   started_at: 2013-10-15 08:36:00.000000000 Z
   stopped_at: 2013-10-15 08:44:00.000000000 Z
   updated_at: 2014-11-07 19:24:10.403967000 Z
@@ -1074,9 +1074,9 @@ product_junctions_103:
   created_at: 2014-11-07 19:36:59.310065000 Z
   creator_id: 1
   id: 112
+  intervention_id: 29
   lock_version: 0
   nature: division
-  operation_id: 71
   started_at: 2013-10-30 07:04:00.000000000 Z
   stopped_at: 2013-10-30 07:08:00.000000000 Z
   updated_at: 2014-11-07 19:36:59.310065000 Z
@@ -1085,9 +1085,9 @@ product_junctions_104:
   created_at: 2014-11-07 19:36:59.366770000 Z
   creator_id: 1
   id: 113
+  intervention_id: 29
   lock_version: 0
   nature: division
-  operation_id: 71
   started_at: 2013-10-30 07:04:00.000000000 Z
   stopped_at: 2013-10-30 07:08:00.000000000 Z
   updated_at: 2014-11-07 19:36:59.366770000 Z
@@ -1096,9 +1096,9 @@ product_junctions_105:
   created_at: 2014-11-07 19:36:59.519567000 Z
   creator_id: 1
   id: 114
+  intervention_id: 29
   lock_version: 0
   nature: division
-  operation_id: 71
   started_at: 2013-10-30 07:04:00.000000000 Z
   stopped_at: 2013-10-30 07:08:00.000000000 Z
   updated_at: 2014-11-07 19:36:59.519567000 Z
@@ -1107,9 +1107,9 @@ product_junctions_106:
   created_at: 2014-11-07 19:36:59.597083000 Z
   creator_id: 1
   id: 115
+  intervention_id: 29
   lock_version: 0
   nature: mixing
-  operation_id: 71
   started_at: 2013-10-30 07:08:00.000000000 Z
   stopped_at: 2013-10-30 13:52:00.000000000 Z
   updated_at: 2014-11-07 19:36:59.597083000 Z

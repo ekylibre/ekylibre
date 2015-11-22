@@ -23,6 +23,7 @@
 # == Table: manure_management_plan_zones
 #
 #  absorbed_nitrogen_at_opening                    :decimal(19, 4)
+#  activity_production_id                          :integer          not null
 #  administrative_area                             :string
 #  computation_method                              :string           not null
 #  created_at                                      :datetime         not null
@@ -45,7 +46,6 @@
 #  previous_cultivation_residue_mineralization     :decimal(19, 4)
 #  soil_nature                                     :string
 #  soil_production                                 :decimal(19, 4)
-#  support_id                                      :integer          not null
 #  updated_at                                      :datetime         not null
 #  updater_id                                      :integer
 #
@@ -53,15 +53,16 @@
 # == Fixture: manure_management_plan_zones
 #
 # manure_management_plan_zones_001:
+#   activity_production: activity_productions_001
 #   computation_method: "Lorem ipsum"
 #   creator: users_001
 #   plan: plans_001
-#   support: supports_001
 #   updater: users_001
 #
 ---
 manure_management_plan_zones_001:
   absorbed_nitrogen_at_opening: 10.0
+  activity_production_id: 8
   administrative_area: france_department_charente
   computation_method: poitou_charentes_2013
   created_at: 2014-11-05 13:50:52.979383000 Z
@@ -84,11 +85,11 @@ manure_management_plan_zones_001:
   previous_cultivation_residue_mineralization: -20.0
   soil_nature: clay_limestone_soil
   soil_production: 50.0
-  support_id: 8
   updated_at: 2014-11-05 13:52:45.048864000 Z
   updater_id: 1
 manure_management_plan_zones_002:
   absorbed_nitrogen_at_opening: 10.0
+  activity_production_id: 9
   administrative_area: france_department_charente
   computation_method: poitou_charentes_2013
   created_at: 2014-11-05 13:50:52.981037000 Z
@@ -111,11 +112,11 @@ manure_management_plan_zones_002:
   previous_cultivation_residue_mineralization: -20.0
   soil_nature: silt_schist_soil
   soil_production: 50.0
-  support_id: 9
   updated_at: 2014-11-05 13:52:45.047941000 Z
   updater_id: 1
 manure_management_plan_zones_003:
   absorbed_nitrogen_at_opening: 10.0
+  activity_production_id: 10
   administrative_area: france_department_charente
   computation_method: poitou_charentes_2013
   created_at: 2014-11-05 13:50:52.982211000 Z
@@ -138,11 +139,11 @@ manure_management_plan_zones_003:
   previous_cultivation_residue_mineralization: 0.0
   soil_nature: silt_soil
   soil_production: 50.0
-  support_id: 10
   updated_at: 2014-11-05 13:52:45.047000000 Z
   updater_id: 1
 manure_management_plan_zones_004:
   absorbed_nitrogen_at_opening: 0.0
+  activity_production_id: 11
   administrative_area: france_department_gironde
   computation_method: poitou_charentes_2013
   created_at: 2014-11-05 13:50:52.983265000 Z
@@ -165,11 +166,11 @@ manure_management_plan_zones_004:
   previous_cultivation_residue_mineralization: -10.0
   soil_nature: silty_clay_loam_soil
   soil_production: 60.0
-  support_id: 11
   updated_at: 2014-11-05 13:52:45.045980000 Z
   updater_id: 1
 manure_management_plan_zones_005:
   absorbed_nitrogen_at_opening: 10.0
+  activity_production_id: 6
   administrative_area: france_department_charente
   computation_method: poitou_charentes_2013
   created_at: 2014-11-05 13:53:36.128014000 Z
@@ -192,11 +193,11 @@ manure_management_plan_zones_005:
   previous_cultivation_residue_mineralization: 0.0
   soil_nature: granite_arena_soil
   soil_production: 50.0
-  support_id: 6
   updated_at: 2014-11-05 13:53:36.128014000 Z
   updater_id: 1
 manure_management_plan_zones_006:
   absorbed_nitrogen_at_opening: 10.0
+  activity_production_id: 7
   administrative_area: france_department_charente
   computation_method: poitou_charentes_2013
   created_at: 2014-11-05 13:53:36.129142000 Z
@@ -219,11 +220,11 @@ manure_management_plan_zones_006:
   previous_cultivation_residue_mineralization: 0.0
   soil_nature: silt_schist_soil
   soil_production: 50.0
-  support_id: 7
   updated_at: 2014-11-05 13:53:36.129142000 Z
   updater_id: 1
 manure_management_plan_zones_007:
   absorbed_nitrogen_at_opening: 0.0
+  activity_production_id: 12
   administrative_area: france_department_charente
   computation_method: poitou_charentes_2013
   created_at: 2014-11-05 13:53:36.130077000 Z
@@ -246,10 +247,10 @@ manure_management_plan_zones_007:
   previous_cultivation_residue_mineralization: 0.0
   soil_nature: silty_clay_loam_soil
   soil_production: 60.0
-  support_id: 12
   updated_at: 2014-11-05 13:53:36.130077000 Z
   updater_id: 1
 manure_management_plan_zones_008:
+  activity_production_id: 6
   administrative_area: france_department_gironde
   computation_method: external
   created_at: 2014-11-14 20:07:53.707701000 Z
@@ -259,10 +260,10 @@ manure_management_plan_zones_008:
   id: 28
   lock_version: 1
   plan_id: 4
-  support_id: 6
   updated_at: 2014-11-14 20:07:53.707701000 Z
   updater_id: 1
 manure_management_plan_zones_009:
+  activity_production_id: 7
   administrative_area: france_department_gironde
   computation_method: external
   created_at: 2014-11-14 20:07:53.709185000 Z
@@ -272,10 +273,10 @@ manure_management_plan_zones_009:
   id: 29
   lock_version: 1
   plan_id: 4
-  support_id: 7
   updated_at: 2014-11-14 20:07:53.709185000 Z
   updater_id: 1
 manure_management_plan_zones_010:
+  activity_production_id: 14
   administrative_area: france_department_gironde
   computation_method: external
   created_at: 2014-11-14 20:07:53.710012000 Z
@@ -284,10 +285,10 @@ manure_management_plan_zones_010:
   id: 30
   lock_version: 1
   plan_id: 4
-  support_id: 14
   updated_at: 2014-11-14 20:07:53.710012000 Z
   updater_id: 1
 manure_management_plan_zones_011:
+  activity_production_id: 12
   administrative_area: france_department_gironde
   computation_method: external
   created_at: 2014-11-14 20:07:53.710930000 Z
@@ -297,10 +298,10 @@ manure_management_plan_zones_011:
   id: 31
   lock_version: 1
   plan_id: 4
-  support_id: 12
   updated_at: 2014-11-14 20:07:53.710930000 Z
   updater_id: 1
 manure_management_plan_zones_012:
+  activity_production_id: 16
   administrative_area: france_department_gironde
   computation_method: external
   created_at: 2014-11-14 20:07:53.711711000 Z
@@ -310,6 +311,5 @@ manure_management_plan_zones_012:
   id: 32
   lock_version: 1
   plan_id: 4
-  support_id: 16
   updated_at: 2014-11-14 20:07:53.711711000 Z
   updater_id: 1

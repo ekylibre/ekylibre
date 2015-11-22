@@ -133,8 +133,16 @@ activities:
   nature:
     type: string
     required: true
+  size_indicator:
+    type: string
+  size_unit:
+    type: string
   support_variety:
     type: string
+  suspended:
+    type: boolean
+    required: true
+    default: false
   updated_at:
     type: datetime
     required: true
@@ -147,6 +155,68 @@ activities:
   with_supports:
     type: boolean
     required: true
+activity_budgets:
+  activity_id:
+    type: integer
+    references: activity
+    required: true
+  amount:
+    type: decimal
+    precision: 19
+    scale: 4
+  campaign_id:
+    type: integer
+    references: campaign
+    required: true
+  computation_method:
+    type: string
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    required: true
+  direction:
+    type: string
+    required: true
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  quantity:
+    type: decimal
+    precision: 19
+    scale: 4
+  unit_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+  unit_currency:
+    type: string
+    required: true
+  unit_population:
+    type: decimal
+    precision: 19
+    scale: 4
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  variant_id:
+    type: integer
+    references: product_nature_variant
+  variant_indicator:
+    type: string
+  variant_unit:
+    type: string
 activity_distributions:
   activity_id:
     type: integer
@@ -179,6 +249,71 @@ activity_distributions:
   updater_id:
     type: integer
     references: user
+activity_productions:
+  activity_id:
+    type: integer
+    references: activity
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  cultivable_zone_id:
+    type: integer
+    references: cultivable_zone
+  id:
+    type: integer
+    required: true
+  irrigated:
+    type: boolean
+    required: true
+    default: false
+  lock_version:
+    type: integer
+    required: true
+  nitrate_fixing:
+    type: boolean
+    required: true
+    default: false
+  rank_number:
+    type: integer
+    required: true
+  size_indicator:
+    type: string
+    required: true
+  size_unit:
+    type: string
+  size_value:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  started_at:
+    type: datetime
+  state:
+    type: string
+  stopped_at:
+    type: datetime
+  support_id:
+    type: integer
+    references: product
+    required: true
+  support_shape:
+    type: geometry
+    limit:
+      srid: 4326
+      type: geometry
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  usage:
+    type: string
+    required: true
 affairs:
   accounted_at:
     type: datetime
@@ -505,6 +640,10 @@ campaigns:
   number:
     type: string
     required: true
+  started_on:
+    type: date
+  stopped_on:
+    type: date
   updated_at:
     type: datetime
     required: true
@@ -587,7 +726,7 @@ cap_land_parcels:
     required: true
   support_id:
     type: integer
-    references: production_support
+    references: activity_production
   updated_at:
     type: datetime
     required: true
@@ -2290,10 +2429,72 @@ incoming_payments:
   updater_id:
     type: integer
     references: user
-intervention_casts:
-  actor_id:
+intervention_cast_readings:
+  absolute_measure_value_unit:
+    type: string
+  absolute_measure_value_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  boolean_value:
+    type: boolean
+    required: true
+    default: false
+  choice_value:
+    type: string
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
     type: integer
-    references: product
+    references: user
+  decimal_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  geometry_value:
+    type: geometry
+    limit:
+      srid: 4326
+      type: geometry
+  id:
+    type: integer
+    required: true
+  indicator_datatype:
+    type: string
+    required: true
+  indicator_name:
+    type: string
+    required: true
+  integer_value:
+    type: integer
+  intervention_cast_id:
+    type: integer
+    references: intervention_cast
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  measure_value_unit:
+    type: string
+  measure_value_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  point_value:
+    type: geometry
+    limit:
+      srid: 4326
+      type: point
+  string_value:
+    type: text
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+intervention_casts:
   created_at:
     type: datetime
     required: true
@@ -2313,26 +2514,43 @@ intervention_casts:
   lock_version:
     type: integer
     required: true
-  nature:
-    type: string
-    required: true
-  population:
-    type: decimal
-    precision: 19
-    scale: 4
+  new_container_id:
+    type: integer
+    references: product
+  new_group_id:
+    type: integer
+    references: product_group
+  new_variant_id:
+    type: integer
+    references: product_nature_variant
   position:
     type: integer
     required: true
+  product_id:
+    type: integer
+    references: product
+  quantity_handler:
+    type: string
+  quantity_indicator:
+    type: string
+  quantity_population:
+    type: decimal
+    precision: 19
+    scale: 4
+  quantity_unit:
+    type: string
+  quantity_value:
+    type: decimal
+    precision: 19
+    scale: 4
   reference_name:
     type: string
     required: true
-  roles:
+  source_product_id:
+    type: integer
+    references: product
+  type:
     type: string
-  shape:
-    type: geometry
-    limit:
-      srid: 4326
-      type: geometry
   updated_at:
     type: datetime
     required: true
@@ -2342,6 +2560,43 @@ intervention_casts:
   variant_id:
     type: integer
     references: product_nature_variant
+  working_zone:
+    type: geometry
+    limit:
+      srid: 4326
+      type: geometry
+intervention_working_periods:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  duration:
+    type: integer
+    required: true
+  id:
+    type: integer
+    required: true
+  intervention_id:
+    type: integer
+    references: intervention
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  started_at:
+    type: datetime
+    required: true
+  stopped_at:
+    type: datetime
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 interventions:
   created_at:
     type: datetime
@@ -2363,37 +2618,11 @@ interventions:
   lock_version:
     type: integer
     required: true
-  natures:
-    type: string
-    required: true
   number:
     type: string
-  parameters:
-    type: text
   prescription_id:
     type: integer
     references: prescription
-  production_id:
-    type: integer
-    references: production
-    required: true
-  production_support_id:
-    type: integer
-    references: production_support
-  provisional:
-    type: boolean
-    required: true
-    default: false
-  provisional_intervention_id:
-    type: integer
-    references: intervention
-  recommended:
-    type: boolean
-    required: true
-    default: false
-  recommender_id:
-    type: integer
-    references: entity
   reference_name:
     type: string
     required: true
@@ -2410,6 +2639,10 @@ interventions:
   updater_id:
     type: integer
     references: user
+  whole_duration:
+    type: integer
+  working_duration:
+    type: integer
 inventories:
   accounted_at:
     type: datetime
@@ -3076,6 +3309,10 @@ manure_management_plan_zones:
     type: decimal
     precision: 19
     scale: 4
+  activity_production_id:
+    type: integer
+    references: activity_production
+    required: true
   administrative_area:
     type: string
   computation_method:
@@ -3153,10 +3390,6 @@ manure_management_plan_zones:
     type: decimal
     precision: 19
     scale: 4
-  support_id:
-    type: integer
-    references: production_support
-    required: true
   updated_at:
     type: datetime
     required: true
@@ -3303,40 +3536,6 @@ observations:
     required: true
   subject_type:
     type: string
-    required: true
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
-operations:
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  duration:
-    type: integer
-  id:
-    type: integer
-    required: true
-  intervention_id:
-    type: integer
-    references: intervention
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  reference_name:
-    type: string
-    required: true
-  started_at:
-    type: datetime
-    required: true
-  stopped_at:
-    type: datetime
     required: true
   updated_at:
     type: datetime
@@ -3720,15 +3919,15 @@ product_enjoyments:
   id:
     type: integer
     required: true
+  intervention_id:
+    type: integer
+    references: intervention
   lock_version:
     type: integer
     required: true
   nature:
     type: string
     required: true
-  operation_id:
-    type: integer
-    references: operation
   originator_id:
     type: integer
     references: "~originator_type"
@@ -3791,15 +3990,15 @@ product_junctions:
   id:
     type: integer
     required: true
+  intervention_id:
+    type: integer
+    references: intervention
   lock_version:
     type: integer
     required: true
   nature:
     type: string
     required: true
-  operation_id:
-    type: integer
-    references: operation
   originator_id:
     type: integer
     references: "~originator_type"
@@ -3835,15 +4034,15 @@ product_linkages:
   id:
     type: integer
     required: true
+  intervention_id:
+    type: integer
+    references: intervention
   lock_version:
     type: integer
     required: true
   nature:
     type: string
     required: true
-  operation_id:
-    type: integer
-    references: operation
   originator_id:
     type: integer
     references: "~originator_type"
@@ -3872,6 +4071,9 @@ product_links:
   id:
     type: integer
     required: true
+  intervention_id:
+    type: integer
+    references: intervention
   linked_id:
     type: integer
     references: product
@@ -3881,9 +4083,6 @@ product_links:
   nature:
     type: string
     required: true
-  operation_id:
-    type: integer
-    references: operation
   originator_id:
     type: integer
     references: "~originator_type"
@@ -3916,15 +4115,15 @@ product_localizations:
   id:
     type: integer
     required: true
+  intervention_id:
+    type: integer
+    references: intervention
   lock_version:
     type: integer
     required: true
   nature:
     type: string
     required: true
-  operation_id:
-    type: integer
-    references: operation
   originator_id:
     type: integer
     references: "~originator_type"
@@ -3958,6 +4157,9 @@ product_memberships:
   id:
     type: integer
     required: true
+  intervention_id:
+    type: integer
+    references: intervention
   lock_version:
     type: integer
     required: true
@@ -3968,9 +4170,6 @@ product_memberships:
   nature:
     type: string
     required: true
-  operation_id:
-    type: integer
-    references: operation
   originator_id:
     type: integer
     references: "~originator_type"
@@ -4300,15 +4499,15 @@ product_ownerships:
   id:
     type: integer
     required: true
+  intervention_id:
+    type: integer
+    references: intervention
   lock_version:
     type: integer
     required: true
   nature:
     type: string
     required: true
-  operation_id:
-    type: integer
-    references: operation
   originator_id:
     type: integer
     references: "~originator_type"
@@ -4345,6 +4544,9 @@ product_phases:
   id:
     type: integer
     required: true
+  intervention_id:
+    type: integer
+    references: intervention
   lock_version:
     type: integer
     required: true
@@ -4352,9 +4554,6 @@ product_phases:
     type: integer
     references: product_nature
     required: true
-  operation_id:
-    type: integer
-    references: operation
   originator_id:
     type: integer
     references: "~originator_type"
@@ -4378,90 +4577,6 @@ product_phases:
     type: integer
     references: product_nature_variant
     required: true
-product_reading_tasks:
-  absolute_measure_value_unit:
-    type: string
-  absolute_measure_value_value:
-    type: decimal
-    precision: 19
-    scale: 4
-  boolean_value:
-    type: boolean
-    required: true
-    default: false
-  choice_value:
-    type: string
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  decimal_value:
-    type: decimal
-    precision: 19
-    scale: 4
-  geometry_value:
-    type: geometry
-    limit:
-      srid: 4326
-      type: geometry
-  id:
-    type: integer
-    required: true
-  indicator_datatype:
-    type: string
-    required: true
-  indicator_name:
-    type: string
-    required: true
-  integer_value:
-    type: integer
-  lock_version:
-    type: integer
-    required: true
-  measure_value_unit:
-    type: string
-  measure_value_value:
-    type: decimal
-    precision: 19
-    scale: 4
-  operation_id:
-    type: integer
-    references: operation
-  originator_id:
-    type: integer
-    references: "~originator_type"
-  originator_type:
-    type: string
-  point_value:
-    type: geometry
-    limit:
-      srid: 4326
-      type: point
-  product_id:
-    type: integer
-    references: product
-    required: true
-  reporter_id:
-    type: integer
-    references: worker
-  started_at:
-    type: datetime
-    required: true
-  stopped_at:
-    type: datetime
-  string_value:
-    type: text
-  tool_id:
-    type: integer
-    references: product
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
 product_readings:
   absolute_measure_value_unit:
     type: string
@@ -4529,198 +4644,6 @@ product_readings:
     required: true
   string_value:
     type: text
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
-production_budgets:
-  amount:
-    type: decimal
-    precision: 19
-    scale: 4
-  computation_method:
-    type: string
-    required: true
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  currency:
-    type: string
-    required: true
-  direction:
-    type: string
-    required: true
-  id:
-    type: integer
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  production_id:
-    type: integer
-    references: production
-    required: true
-  quantity:
-    type: decimal
-    precision: 19
-    scale: 4
-  unit_amount:
-    type: decimal
-    precision: 19
-    scale: 4
-  unit_currency:
-    type: string
-    required: true
-  unit_population:
-    type: decimal
-    precision: 19
-    scale: 4
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
-  variant_id:
-    type: integer
-    references: product_nature_variant
-  variant_indicator:
-    type: string
-  variant_unit:
-    type: string
-production_distributions:
-  affectation_percentage:
-    type: decimal
-    precision: 19
-    scale: 4
-    required: true
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  id:
-    type: integer
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  main_production_id:
-    type: integer
-    references: production
-    required: true
-  production_id:
-    type: integer
-    references: production
-    required: true
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
-production_supports:
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  id:
-    type: integer
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  production_id:
-    type: integer
-    references: production
-    required: true
-  production_usage:
-    type: string
-    required: true
-  quantity:
-    type: decimal
-    precision: 19
-    scale: 4
-    required: true
-  quantity_indicator:
-    type: string
-    required: true
-  quantity_unit:
-    type: string
-  shape:
-    type: geometry
-    limit:
-      srid: 4326
-      type: geometry
-  storage_id:
-    type: integer
-    references: product
-    required: true
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
-productions:
-  activity_id:
-    type: integer
-    references: activity
-    required: true
-  campaign_id:
-    type: integer
-    references: campaign
-    required: true
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  cultivation_variant_id:
-    type: integer
-    references: product_nature_variant
-  id:
-    type: integer
-    required: true
-  irrigated:
-    type: boolean
-    required: true
-    default: false
-  lock_version:
-    type: integer
-    required: true
-  name:
-    type: string
-    required: true
-  nitrate_fixing:
-    type: boolean
-    required: true
-    default: false
-  position:
-    type: integer
-  started_at:
-    type: datetime
-  state:
-    type: string
-    required: true
-  stopped_at:
-    type: datetime
-  support_variant_id:
-    type: integer
-    references: product_nature_variant
-  support_variant_indicator:
-    type: string
-  support_variant_unit:
-    type: string
   updated_at:
     type: datetime
     required: true
@@ -5564,6 +5487,41 @@ supervisions:
     references: user
   view_parameters:
     type: json
+target_distributions:
+  activity_id:
+    type: integer
+    references: activity
+    required: true
+  activity_production_id:
+    type: integer
+    references: activity_production
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  started_at:
+    type: datetime
+  stopped_at:
+    type: datetime
+  target_id:
+    type: integer
+    references: product
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 tasks:
   created_at:
     type: datetime

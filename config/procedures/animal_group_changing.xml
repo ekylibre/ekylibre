@@ -1,15 +1,9 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="animal_group_changing" natures="animal_group_changing" version="0">
+  <procedure name="animal_group_changing" categories="animal_treating" actions="animal_group_changing">
     <variables>
-      <variable name="animal" variety="animal" abilities="move" roles="animal_group_changing-input"/>
-      <variable name="herd" variety="animal_group" derivative-of="animal" roles="animal_group_changing-target" default-actor="storage"/>
+      <variable name="animal" type="input" variety="animal" abilities="move"/>
+      <variable name="herd" type="target" variety="animal_group" derivative-of="animal" default-actor="storage"/>
     </variables>
-    <operations>
-      <operation id="1">
-        <!-- Operation 100 -->
-        <task do="[animal] goes into [herd]"/>
-      </operation>
-    </operations>
   </procedure>
 </procedures>

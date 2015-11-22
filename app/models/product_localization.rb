@@ -26,9 +26,9 @@
 #  created_at      :datetime         not null
 #  creator_id      :integer
 #  id              :integer          not null, primary key
+#  intervention_id :integer
 #  lock_version    :integer          default(0), not null
 #  nature          :string           not null
-#  operation_id    :integer
 #  originator_id   :integer
 #  originator_type :string
 #  product_id      :integer          not null

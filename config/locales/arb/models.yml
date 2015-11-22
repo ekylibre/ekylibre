@@ -727,7 +727,9 @@ arb:
       account: "الحساب"
       account_balance: "رصيد الحساب"
       # activity: "Activity"
+      # activity_budget: "Budget"
       # activity_distribution: "Activity distribution"
+      # activity_production: "Production support"
       # affair: "Affair"
       # analysis: "Analysis"
       # analysis_item: "Analysis item"
@@ -796,6 +798,7 @@ arb:
       incoming_payment_use: "تأثير الدفعة" #?
       # intervention: "Intervention"
       # intervention_cast: "Intervention cast"
+      # intervention_cast_reading: "Product reading task"
       inventory: "عملية الجرد"
       inventory_item: "طريقة عملية الجرد"
       # issue: "Issue"
@@ -859,14 +862,11 @@ arb:
       product_price_listing: "فئة الفرد" #?
       product_price_template: "الاسعار" #?
       # product_reading: "Product reading"
-      # product_reading_task: "Product reading task"
       product_stock: "سهم الانتاج" #?
       product_stock_move: "حركة السهم" #?
       product_transfer: "تحول او ضياع السهم" #?
       # production: "Production"
-      # production_budget: "Budget"
       # production_distribution: "Production distribution"
-      # production_support: "Production support"
       products_nature: "الانتاج" #?
       profession: "المهنة" #?
       purchase: "الشراء"
@@ -927,9 +927,12 @@ arb:
     # achieved_at: "Achieved at"
     acquisition_amount: "قيمة الاقتناء" #?
     active: "فعال"
+    # activities: "Activities"
     # activity: "Activity"
     activity_code: "APE/NAF رمز"
     # activity_distributions: "Activity distributions"
+    # activity_production: "Activity production"
+    # activity_productions: "Activity productions"
     # actor: "Actor"
     actual_number: "الرقم الحالي"
     # actual_population: "Actual population"
@@ -1559,6 +1562,9 @@ arb:
     # natures: "Types"
     # net_mass: "Net mass"
     # net_service: "Net service"
+    # new_container: "New container"
+    # new_group: "New group"
+    # new_variant: "New variant"
     nic: "واجهة بطاقة الشبكة" #?
     # nitrate_fixing: "Nitrate fixing"
     # nitrogen_at_closing: "Nitrogen at closing"
@@ -1753,10 +1759,13 @@ arb:
     purchases_account: "رسوم المحاسبة" #?
     purchases_account_id: "رسوم المحاسبة" #?
     quantity: "الكمية"
+    # quantity_handler: "Quantity handler"
     # quantity_indicator: "Quantity indicator"
     quantity_max: "الكمية كحد اقصى" #?
     quantity_min: "الكمية كحد ادنى" #?
+    # quantity_population: "Quantity population"
     # quantity_unit: "Quantity unit"
+    # quantity_value: "Quantity value"
     query: "التساؤل"
     range: "فترة فاصلة" #?
     rate: "معدل سعر الصرف" #?
@@ -1891,10 +1900,13 @@ arb:
     siren: "رقم صفارة الانذار"
     siret: "SIRET رقم"
     # siret_number: "Siret number"
+    # size_indicator: "Size indicator"
+    # size_unit: "Size unit"
     # soil_nature: "Soil type"
     # soil_production: "Soil production"
     soundex: "خوارزمية مستخدمة لتشفير كلمات بطرقة تمكن مطابقة الكلمات مع الاصوات" #?
     source: "المصدر"
+    # source_product: "Source product"
     # spaced_iban: "Spaced IBAN"
     sql_type: "SQL نوع"
     start: "البداية"
@@ -2058,6 +2070,9 @@ arb:
     # with_transport: "With transport"
     # work_number: "Work number"
     # worker: "Worker"
+    # working_duration: "Working duration"
+    # working_shape: "Working shape"
+    # working_zone: "Working zone"
     # zone_memberships: "Zone memberships"
     # zones: "Zones"
   models:

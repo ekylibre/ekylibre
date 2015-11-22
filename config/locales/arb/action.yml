@@ -27,6 +27,8 @@ arb:
       # index: "Activities"
       # new: "New activity"
       # show: "Activity: %{name}"
+    backend/activity_productions:
+      # show: "Production support: %{name}"
     backend/affairs:
       # attach: "Attach to affair %{number}"
       # detach: "Detach from affair %{number}"
@@ -420,11 +422,11 @@ arb:
       edit: "تعديل نوع العمل : %{name}" #?
       index: "اواع العمل" #?
       new: "انشاء نوع جديد من العمل" #?
-    backend/operations:
+    backend/operations:  #?
       edit: "تعدل العمل %{name}" #?
-      index: "اعمال"
+      index: "اعمال" #?
       new: "انشاء عمل جديد" #?
-      show: "تفاصيل العمل %{name}"
+      show: "تفاصيل العمل %{name}" #?
       unvalidateds: "تحقيق الاعمال" #?
     backend/outgoing_delivery_modes:  #?
       edit: "تعديل وسيلة التسليم : %{name}" #?
@@ -523,13 +525,6 @@ arb:
     backend/production:  #?
       index: "ادارة الانتاج" #?
       unvalidated_operations: "تحقيق الاعمال" #?
-    backend/production_supports:
-      # show: "Production support: %{name}"
-    backend/productions:
-      # edit: "Edit production: %{name}"
-      # index: "Productions"
-      # new: "New production"
-      # show: "Production: %{name}"
     backend/products:
       edit: "تعديل المنتج : %{name}"
       index: "المنتجات"
@@ -2336,6 +2331,7 @@ arb:
   unrolls:
     # backend/accounts: "%{number}. %{name}"
     # backend/activities: "%{name}"
+    # backend/activity_productions: "%{storage_name} (%{production_name} %{campaign_name})"
     # backend/animals: "%{name} #%{work_number}"
     # backend/campaigns: "%{name}"
     # backend/catalog_items: "%{name}"
@@ -2354,7 +2350,6 @@ arb:
     # backend/product_memberships: "%{started_at}"
     # backend/product_nature_variants: "%{name} (%{unit_name})"
     # backend/product_natures: "%{name}"
-    # backend/production_supports: "%{storage_name} (%{production_name} %{campaign_name})"
     # backend/productions: "%{name} (%{campaign_name})"
     # backend/products: "%{work_number} %{name} (%{number})"
     # backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"

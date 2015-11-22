@@ -1,21 +1,14 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="straw_bunching" natures="straw_processing" version="0" >
+  <procedure name="straw_bunching" categories="harvesting" actions="straw_bunching">
     <variables>
-      <variable name="tractor" variety="equipment" roles="straw_processing-tool"/>
-      <variable name="baler_driver" abilities="move, drive(tractor), drive(baler)" roles="straw_processing-doer"/>
-      <variable name="baler" variety="equipment" abilities="bunch" roles="straw_processing-tool"/>
-      <variable name="straw_to_bunch" variety="straw" roles="straw_processing-input"/>
-      <variable name="straw_bales" new="produced-by: straw_to_bunch" roles="straw_processing-output" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
+      <variable name="tractor" type="tool" variety="equipment"/>
+      <variable name="baler_driver" type="doer" abilities="move, drive(tractor), drive(baler)"/>
+      <variable name="baler" type="tool" variety="equipment" abilities="bunch"/>
+      <variable name="straw_to_bunch" type="input" variety="straw"/>
+      <variable name="straw_bales" type="output" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
         <handler indicator="population"/>
       </variable>
     </variables>
-    <operations>
-      <operation id="1">
-        <task do="[baler] consumes [straw_to_bunch]"/>
-        <task do="[baler] produces [straw_bales]"/>
-        <task do="[straw_bales] is at [baler]"/>
-      </operation>
-    </operations>
   </procedure>
 </procedures>

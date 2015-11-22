@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="milking" categories="animal_production" actions="milking">
+    <variables>
+      <variable name="mammal_to_milk" type="target" variety="mammalia" abilities="produce(milk)"/>
+      <variable name="milk" type="output" variety="milk" derivative-of="variety: mammal_to_milk" default-name="{{variant}} {{birth_year}}-{{birth_month}}-{{birth_day}}">
+        <handler indicator="population"/>
+      </variable>
+      <variable name="caregiver" type="doer" abilities="milk(mammalia)"/>
+    </variables>
+  </procedure>
+</procedures>

@@ -163,13 +163,21 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :activities, concerns: [:list, :unroll] do
+    resources :activities, concerns: [:attachments, :list, :unroll] do
       collection do
         get :family
       end
       member do
-        get :list_productions
+        get :list_budgets
         get :list_distributions
+        get :list_interventions
+        get :list_productions
+      end
+    end
+
+    resources :activity_productions, concerns: [:unroll] do
+      member do
+        get :list_interventions
       end
     end
 
@@ -234,7 +242,7 @@ Rails.application.routes.draw do
 
     resources :campaigns, concerns: [:list, :unroll] do
       member do
-        get :list_productions
+        get :list_activity_productions
       end
     end
 
@@ -641,20 +649,6 @@ Rails.application.routes.draw do
         get :list_products
         get :list_sale_items
         get :quantifiers
-      end
-    end
-
-    resources :productions, concerns: [:attachments, :list, :unroll] do
-      member do
-        get :list_budgets
-        get :list_interventions
-        get :list_supports
-      end
-    end
-
-    resources :production_supports, only: [:show], concerns: [:unroll] do
-      member do
-        get :list_interventions
       end
     end
 

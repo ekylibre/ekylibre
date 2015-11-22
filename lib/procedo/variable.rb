@@ -2,6 +2,8 @@ module Procedo
   class Variable
     attr_reader :abilities, :birth_nature, :derivative_of, :default_name, :destinations, :default_actor, :default_variant, :handlers, :name, :position, :procedure, :producer_name, :roles, :type, :value, :variety, :new_value
 
+    TYPES = [:target, :tool, :doer, :input, :output]
+
     def initialize(procedure, element, position)
       @procedure = procedure
       @position = position
@@ -17,7 +19,8 @@ module Procedo
         @producer_name = new_array.shift.to_sym
       end
       @type = element.has_attribute?('type') ? element.attr('type').underscore.to_sym : :product
-      unless [:product, :variant].include?(@type)
+      unless TYPES.include?(@type)
+        # Rails.logger.warn "Unknown variable type: #{@type.inspect}"
         fail StandardError, "Unknown variable type: #{@type.inspect}"
       end
       @default_name = element.attr('default-name').to_s
@@ -88,6 +91,11 @@ module Procedo
       @procedure.name
     end
 
+    # Returns reflection name
+    def reflection_name
+      @type.to_s.pluralize.to_sym
+    end
+
     # Translate the name of the variable
     def human_name(options = {})
       "procedure_variables.#{name}".t(options.merge(default: ["labels.#{name}".to_sym, "attributes.#{name}".to_sym, name.to_s.humanize]))
@@ -154,6 +162,12 @@ module Procedo
 
     def type_variant?
       @type == :variant
+    end
+
+    TYPES.each do |the_type|
+      send(:define_method, "#{the_type}?".to_sym) do
+        self.type == the_type
+      end
     end
 
     def producer

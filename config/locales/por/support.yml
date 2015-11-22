@@ -17,6 +17,7 @@ por:
       default: "%d/%m/%Y"
       legal: "%d %B %Y"
       long: "%d de %B de %Y"
+      # month: "%B %Y"
       month_letter: "%d %B %Y"
       short: "%d %b"
     month_names: ["", "janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"]
@@ -93,6 +94,7 @@ por:
     precision:
       format:
         delimiter: "."
+  # rank: "#%{number}"
   support:
     array:
       last_word_connector: " e "

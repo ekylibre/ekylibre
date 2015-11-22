@@ -4,25 +4,18 @@
   - k.helper do
     %label= Intervention.human_attribute_name(:reference_name)
     = select_tag(:reference_name, options_for_select([[]] + Procedo.procedures{|u| [Procedo[u.name.to_s].human_name, u.name]}, params[:reference_name]))
-  -# k.helper do
-    %label= Production.human_attribute_name(:campaign)
-    = select_tag(:campaign_id, options_for_select([[]] + Campaign.all.collect{|u| [u.name, u.id]}, params[:campaign_id]))
-  - if current_campaign and supports = ProductionSupport.of_campaign(current_campaign) and supports.any?
-    - k.helper do
-      %label= ProductionSupport.human_attribute_name(:storage)
-      = select_tag(:production_support_id, options_for_select([[]] + supports.joins(:storage).reorder('products.work_number').collect{|u| [u.work_name, u.id]}, params[:production_support_id]))
-  - k.multi_choice :nature, [:recommended, :provisional].map{ |n| [Intervention.human_attribute_name(n), n] }
-  -# k.choice :all, :previous, :current, :next, name: :mode
-  -# k.helper do
-    %label= Product.human_attribute_name(:variant)
-    = select_tag(:variant_id, options_for_select([[]] + ProductNatureVariant.all.collect{|u| [u.name, u.id]}, params[:variant_id]))
+  - if current_campaign
+    - productions = ActivityProduction.of_campaign(current_campaign)
+    - if productions && productions.any?
+      - k.helper do
+        %label= ActivityProduction.human_attribute_name(:support)
+        = select_tag(:activity_production_id, options_for_select([[]] + productions.joins(:support).reorder('products.work_number').collect{|u| [u.work_name, u.id]}, params[:activity_production_id]))
 
 - main_toolbar do |t|
   - t.new
   - if current_user.crumbs.unconverted.any?
     - count = current_user.crumbs.unconverted.where(nature: "start").count
     - t.index(params: {controller: :crumbs}, label: :validate_crumbs_for_x_interventions.tl(count: count), tool: "my-location")
-
 
 - main_campaign_selector
 

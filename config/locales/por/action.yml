@@ -21,6 +21,8 @@ por:
       index: "Atividades"
       new: "Nova atividade"
       show: "Atividade: %{name}"
+    backend/activity_productions:
+      # show: "Production support: %{name}"
     backend/affairs:
       attach: "Anexar a negociações %{number}"
       detach: "Desanexar de negociações %{number}"
@@ -344,9 +346,6 @@ por:
     backend/observations:
       # edit: "Edit observation"
       # new: "New observation"
-    backend/operations:
-      # index: "Operations"
-      # show: "Operation Details %{name}"
     backend/outgoing_payment_modes:
       # edit: "Edit disbursement mode"
       # index: "Disbursement modes"
@@ -399,13 +398,6 @@ por:
       # new: "New product type"
       # pick: "Pick product type"
       # show: "Product type: %{name}"
-    backend/production_supports:
-      # show: "Production support: %{name}"
-    backend/productions:
-      # edit: "Edit production: %{name}"
-      # index: "Productions"
-      # new: "New production"
-      # show: "Production: %{name}"
     backend/products:
       # edit: "Edit product: %{name}"
       # index: "Products"
@@ -1566,6 +1558,7 @@ por:
   unrolls:
     # backend/accounts: "%{number}. %{name}"
     # backend/activities: "%{name}"
+    # backend/activity_productions: "%{storage_name} (%{production_name} %{campaign_name})"
     # backend/animals: "%{name} #%{work_number}"
     # backend/campaigns: "%{name}"
     # backend/catalog_items: "%{name}"
@@ -1584,7 +1577,6 @@ por:
     # backend/product_memberships: "%{started_at}"
     # backend/product_nature_variants: "%{name} (%{unit_name})"
     # backend/product_natures: "%{name}"
-    # backend/production_supports: "%{storage_name} (%{production_name} %{campaign_name})"
     # backend/productions: "%{name} (%{campaign_name})"
     # backend/products: "%{work_number} %{name} (%{number})"
     # backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"

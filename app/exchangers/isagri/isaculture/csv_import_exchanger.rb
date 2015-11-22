@@ -206,7 +206,7 @@ class Isagri::Isaculture::CsvImportExchanger < ActiveExchanger::Base
           plant = nil
           if cultivable_zone && campaign
             # find support
-            support = ProductionSupport.where(storage: cultivable_zone).of_campaign(campaign).first
+            support = ActivityProduction.where(storage: cultivable_zone).of_campaign(campaign).first
             # find variant link to production
             plant_variant = support.production.variant if support
             # try to find the current plant on cultivable zone if exist

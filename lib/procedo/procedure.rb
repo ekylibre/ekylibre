@@ -7,29 +7,13 @@ module Procedo
 
   # This class represents a procedure
   class Procedure
-    attr_reader :id, :short_name, :namespace, :operations, :natures, :parent, :position, :variables, :variable_names, :version, :duration_tree
+    attr_reader :id, :name, :natures, :parent, :position, :variables, :variable_names, :duration_tree
 
     def initialize(element, options = {})
-      short_name = element.attr('name').to_s.split(NAMESPACE_SEPARATOR)
-      if short_name.size == 2
-        @namespace = short_name.shift.to_sym
-      elsif short_name.size != 1
-        fail ArgumentError, "Bad name of procedure: #{element.attr('name').to_s.inspect}"
-      end
-      @namespace = DEFAULT_NAMESPACE if @namespace.blank?
-      @short_name = short_name.shift.to_s.to_sym
+      @name = element.attr('name').to_sym
       @required = (element.attr('required').to_s == 'true' ? true : false)
       @parent = options[:parent] if options[:parent]
       @position = options[:position] || 0
-
-      @system = !!(element.attr('system') == 'true')
-
-      # Check version
-      @version = element.attr('version').to_s
-      unless @version =~ /\A\d+\z/
-        fail Procedo::Errors::MissingAttribute, "Valid attribute 'version' must be given for the procedure #{not_so_short_name}"
-      end
-      @version = @version.to_i
 
       # Collect procedure natures
       @natures = element.attr('natures').to_s.strip.split(/[\s\,]+/).compact.map(&:to_sym)
@@ -91,18 +75,6 @@ module Procedo
         end
       end
 
-      # Load operations
-      @operations = element.xpath('xmlns:operations/xmlns:operation').inject({}) do |hash, operation|
-        hash[operation.attr('id').to_s] = Operation.new(self, operation)
-        hash
-      end
-      unless @operations.keys.size == element.xpath('xmlns:operations/xmlns:operation').size
-        fail Procedo::Errors::NotUniqueIdentifier.new("Each operation must have a unique identifier (#{name})")
-      end
-      unless @operations.keys.size == 1
-        fail Procedo::Errors::NotUniqueIdentifier.new('Only one operation accepted by procedure')
-      end
-
       # Compile it
       self.compile!
     end
@@ -135,26 +107,15 @@ module Procedo
     end
 
     def not_so_short_name
-      namespace.to_s + NAMESPACE_SEPARATOR + short_name.to_s
+      ActiveSupport::Deprecation.warn "Procedo::Procedure#not_so_short_name is deprecated. Please use Procedo::Procedure#name instead."
+      name
     end
 
-    def name
-      not_so_short_name + VERSION_SEPARATOR + version.to_s
+    def short_name
+      ActiveSupport::Deprecation.warn "Procedo::Procedure#short_name is deprecated. Please use Procedo::Procedure#name instead."
+      name
     end
     alias_method :uid, :name
-
-    def flat_version
-      'v' + version.to_s.gsub(/\W/, '_')
-    end
-
-    def need_parameters?
-      operations.values.detect(&:need_parameters?)
-    end
-
-    # Returns if the procedure is system
-    def system?
-      @system
-    end
 
     # Returns if the procedure is required
     def required?
@@ -164,23 +125,18 @@ module Procedo
     # Returns human_name of the procedure
     def human_name(options = {})
       default = []
-      default << "procedures.#{short_name}".to_sym
-      default << "labels.procedures.#{not_so_short_name}".to_sym
-      default << "labels.procedures.#{short_name}".to_sym
-      default << "labels.#{short_name}".to_sym
-      default << short_name.to_s.humanize
-      "procedures.#{not_so_short_name}".t(options.merge(default: default))
+      default << "labels.procedures.#{name}".to_sym
+      default << "labels.#{name}".to_sym
+      default << name.to_s.humanize
+      "procedures.#{name}".t(options.merge(default: default))
     end
 
-    # Returns the fixed time for a procedure
-    def minimal_duration
-      operations.values.map(&:duration).compact.sum
-    end
-    alias_method :fixed_duration, :minimal_duration
 
-    # Returns the spread duration for operation with unknown duration
-    def spread_time(duration)
-      (duration - fixed_duration).to_d / operations.values.count(&:no_duration?)
+    # Browse each variable of the procedure in the order
+    def each_variable
+      @variables.each do |_, variable|
+        yield variable
+      end
     end
 
     # Returns only variables which must be built during runnning process
@@ -213,7 +169,7 @@ module Procedo
     # Compile a procedure to manage interventions
     def compile!
       rubyist = Procedo::Compilers::Rubyist.new
-      full_name = ['::Procedo', 'CompiledProcedures', namespace.to_s.camelcase, short_name.to_s.camelcase, "V#{version}"]
+      full_name = ['::Procedo', 'CompiledProcedures', name.to_s.camelcase]
       code = "class #{full_name.last} < ::Procedo::CompiledProcedure\n\n"
 
       # Convenience method to use procedure method like in compiled variable
@@ -233,7 +189,7 @@ module Procedo
         code << "  end\n\n"
       end
 
-      @variables.values.each do |variable|
+      each_variable do |variable|
         code << "  class #{variable.name.to_s.camelcase} < ::Procedo::CompiledVariable\n\n"
 
         code << "    def initialize(procedure, attributes = {})\n"
@@ -464,7 +420,7 @@ module Procedo
       @variables.keys.each do |variable|
         code << "    @#{variable.ljust(max)} = #{variable.camelcase}.new(self, casting[:#{variable}])\n"
       end
-      code << "    @__support__ = ProductionSupport.find_by(id: global[:support])\n"
+      code << "    @__support__ = ActivityProduction.find_by(id: global[:support])\n"
       code << "    @__started_at__ = global[:at].blank? ? Time.zone.now : global[:at].to_time\n"
       code << "    @__updater__ = updater.split(':').map(&:to_sym)\n"
       code << "  end\n\n"
@@ -472,7 +428,7 @@ module Procedo
       code << "  def impact!\n"
       code << "    if @__updater__.first == :global\n"
       code << "      if @__updater__.second == :support\n"
-      variables.values.each do |variable|
+      each_variable do |variable|
         if variable.new?
           if variable.default_variant == :production
             code << "        #{variable.name}.variant = @__support__.production_variant\n"
@@ -508,7 +464,7 @@ module Procedo
       # TODO: replace this in a cleaner way with a global updater like "global:start"
       code << "      elsif @__updater__.second == :at\n"
       # What to do ? Check existence and destinations of products at this moment ?
-      variables.values.each do |variable|
+      each_variable do |variable|
         variable.destinations.each do |destination|
           code << "        #{variable.name}.impact_destination_#{destination}!\n"
         end
@@ -538,7 +494,7 @@ module Procedo
       code << "      end\n"
       code << "    elsif @__updater__.first == :initial\n"
       # Refresh all handlers from all destinations
-      variables.values.each do |variable|
+      each_variable do |variable|
         next unless variable.handlers.any?
         variable.destinations.each do |destination|
           code << "      #{variable.name}.impact_destination_#{destination}!\n"
@@ -634,7 +590,7 @@ module Procedo
       # generating arrays of actors matching each variable
       # and variables matching each actor
       actors_for_each_variable = {}
-      @variables.values.each do |variable|
+      each_variable do |variable|
         actors_for_each_variable[variable] = variable.possible_matching_for(actors)
       end
 

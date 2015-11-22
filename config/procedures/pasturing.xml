@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="pasturing" natures="harvest, pasturing" version="0">
+  <procedure name="pasturing" categories="animal_feeding" actions="animal_feeding">
     <variables>
-      <variable name="herd" variety="animal_group" derivative-of="animal" roles="harvest-tool, harvest-doer, pasturing-doer" default-actor="storage"/>
-      <variable name="cultivation" variety="plant" roles="harvest-target, pasturing-target" default-shape=":cultivation">
+      <variable name="herd" type="tool" variety="animal_group" derivative-of="animal" default-actor="storage"/>
+      <variable name="cultivation" type="target" variety="plant" default-shape=":cultivation">
         <handler indicator="shape">
           <converter to="shape" forward="intersection(value, cultivation.shape)" backward="value"/>
           <converter to="population" forward="area(value) / cultivation..net_surface_area(square_meter)"/>
         </handler>
       </variable>
-      <variable name="grass" variety="grass" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="harvest-output, pasturing-input" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
+      <variable name="grass" type="output" variety="grass" derivative-of="variety: cultivation" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
         <handler indicator="population"/>
         <handler indicator="net_mass" unit="ton" to="population" backward="value * self..net_mass(ton)" forward="value / self..net_mass(ton)"/>
         <handler name="food_mass_per_animal" indicator="net_mass" unit="kilogram" if="members_count(herd) &gt; 0" to="population" backward="value * (self..net_mass(kilogram) / members_count(herd))" forward="value * (members_count(herd) / self..net_mass(kilogram))"/>
@@ -17,11 +17,5 @@
         <handler name="dry_matter_mass_area_density" indicator="mass_area_density" unit="ton_per_hectare" to="population" backward="(value * self..net_mass(ton)) / cultivation.net_surface_area(hectare)" forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(ton)"/>
       </variable>
     </variables>
-    <operations>
-      <operation id="1">
-        <task do="[cultivation] produces [grass]"/>
-        <task do="[herd] consumes [grass]"/>
-      </operation>
-    </operations>
   </procedure>
 </procedures>

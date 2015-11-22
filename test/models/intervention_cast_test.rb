@@ -22,22 +22,29 @@
 #
 # == Table: intervention_casts
 #
-#  actor_id               :integer
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  event_participation_id :integer
 #  id                     :integer          not null, primary key
 #  intervention_id        :integer          not null
 #  lock_version           :integer          default(0), not null
-#  nature                 :string           not null
-#  population             :decimal(19, 4)
+#  new_container_id       :integer
+#  new_group_id           :integer
+#  new_variant_id         :integer
 #  position               :integer          not null
+#  product_id             :integer
+#  quantity_handler       :string
+#  quantity_indicator     :string
+#  quantity_population    :decimal(19, 4)
+#  quantity_unit          :string
+#  quantity_value         :decimal(19, 4)
 #  reference_name         :string           not null
-#  roles                  :string
-#  shape                  :geometry({:srid=>4326, :type=>"geometry"})
+#  source_product_id      :integer
+#  type                   :string
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #  variant_id             :integer
+#  working_zone           :geometry({:srid=>4326, :type=>"geometry"})
 #
 require 'test_helper'
 

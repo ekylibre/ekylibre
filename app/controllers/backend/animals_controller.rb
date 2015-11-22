@@ -22,7 +22,7 @@ class Backend::AnimalsController < Backend::MattersController
   #   :s State search
   #   :period Two Dates with _ separator
   #   :variant_id
-  def self.animals_conditions
+  def self.list_conditions
     code = ''
     code = search_conditions(product_nature_variants: [:name]) + " ||= []\n"
     code << "unless (params[:period].blank? or params[:period].is_a? Symbol)\n"
@@ -53,7 +53,7 @@ class Backend::AnimalsController < Backend::MattersController
     code.c
   end
 
-  list(conditions: animals_conditions, joins: :variants) do |t|
+  list(conditions: list_conditions, joins: :variants) do |t|
     t.action :add_to_group, on: :both
     # t.action :add_to_variant, on: :both
     # t.action :add_to_container, on: :both
@@ -122,7 +122,7 @@ class Backend::AnimalsController < Backend::MattersController
   def load_production_supports
     prod = {}
     arr = []
-    ProductionSupport.where(storage: params[:group_id]).each do |p|
+    ActivityProduction.where(storage: params[:group_id]).each do |p|
       prod[:id] = p.id
       prod[:name] = p.production.name + " (#{p.production.campaign.name})"
       arr << prod
@@ -147,7 +147,7 @@ class Backend::AnimalsController < Backend::MattersController
     procedure_natures << :animal_group_changing if params[:group_id].present?
     procedure_natures << :animal_evolution if params[:variant_id].present?
 
-    Intervention.write(*procedure_natures, short_name: :animal_changing, started_at: params[:started_at], stopped_at: params[:stopped_at], production_support: ProductionSupport.find_by(id: params[:production_support_id])) do |i|
+    Intervention.write(*procedure_natures, short_name: :animal_changing, started_at: params[:started_at], stopped_at: params[:stopped_at], production_support: ActivityProduction.find_by(id: params[:production_support_id])) do |i|
       i.cast :caregiver, Product.find_by(id: params[:worker_id]), role: 'animal_moving-doer', position: 1
       ah = nil
       ag = nil
@@ -219,44 +219,48 @@ class Backend::AnimalsController < Backend::MattersController
   end
 
   def add_to_group
-    for id in ids = params[:id].split(',')
-      return unless find_and_check(id: id)
-    end
+    return unless find_all
     if request.post?
-      if group = AnimalGroup.find(params[:group_id]) and production = Production.find_by(id: params[:production_id]) and production_support = ProductionSupport.find_by(id: params[:production_support_id]) and params[:started_at]
-        group.add_animals(ids, at: params[:started_at], production: production, production_support: production_support)
-        redirect_to params[:redirect] || backend_animal_group_url(group)
-      end
+      group = AnimalGroup.find(params[:group_id])
+      activity_production = ActivityProduction.find(params[:activity_production_id])
+      group.add_animals(@ids, at: params[:started_at], activity_production: activity_production)
+      redirect_to params[:redirect] || backend_animal_group_url(group)
     else
       params[:started_at] ||= Time.zone.now
     end
   end
 
   def add_to_variant
-    for id in ids = params[:id].split(',')
-      return unless find_and_check(id: id)
-    end
+    return unless find_all
     if request.post?
-      if variant = ProductNatureVariant.find(params[:variant_id]) and production = Production.find_by(id: params[:production_id]) and production_support = ProductionSupport.find_by(id: params[:production_support_id]) and params[:started_at]
-        variant.add_products(ids, at: params[:started_at], production: production, production_support: production_support)
-        redirect_to params[:redirect] || backend_product_nature_variant_url(variant)
-      end
+      variant = ProductNatureVariant.find(params[:variant_id])
+      activity_production = ActivityProduction.find(params[:activity_production_id])
+      variant.add_products(@ids, at: params[:started_at], activity_production: activity_production)
+      redirect_to params[:redirect] || backend_product_nature_variant_url(variant)
     else
       params[:started_at] ||= Time.zone.now
     end
   end
 
   def add_to_container
-    for id in ids = params[:id].split(',')
-      return unless find_and_check(id: id)
-    end
+    return unless find_all
     if request.post?
-      if container = Product.find(params[:container_id]) and production = Production.find_by(id: params[:production_id]) and production_support = ProductionSupport.find_by(id: params[:production_support_id]) and params[:started_at]
-        container.add_content_products(ids, at: params[:started_at], production: production, production_support: production_support)
-        redirect_to params[:redirect] || backend_product_url(container)
-      end
+      container = Product.find(params[:container_id])
+      activity_production = ActivityProduction.find(params[:activity_production_id])
+      container.add_content_products(@ids, at: params[:started_at], activity_production: activity_production)
+      redirect_to params[:redirect] || backend_product_url(container)
     else
       params[:started_at] ||= Time.zone.now
+    end
+  end
+
+  protected
+
+  def find_all
+    @ids = []
+    params[:id].split(',').each do |id|
+      return false unless find_and_check(id: id)
+      @ids << id
     end
   end
 end

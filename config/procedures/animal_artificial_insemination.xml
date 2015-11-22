@@ -1,22 +1,12 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="animal_artificial_insemination" natures="animal_fecondation" version="0">
+  <procedure name="animal_artificial_insemination" categories="animal_breeding" actions="animal_artificial_insemination">
     <variables>
-      <variable name="animal" variety="animal" abilities="produce(animal)" roles="animal_fecondation-target"/>
-      <variable name="vial" variety="vial" derivative-of="variety: animal" abilities="inseminate(animal)" roles="animal_fecondation-input_origin"/>
-      <variable name="vial_to_give" variety=":vial" derivative-of=":vial" new="parted-from: vial" roles="animal_fecondation-input" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
+      <variable name="animal" type="target" variety="animal" abilities="produce(animal)"/>
+      <variable name="vial" type="input" variety="vial" derivative-of="variety: animal" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})" abilities="inseminate(animal)">
         <handler indicator="population"/>
       </variable>
-      <variable name="inseminator" abilities="administer_inseminate(animal)" roles="animal_fecondation-doer"/>
+      <variable name="inseminator" type="doer" abilities="administer_inseminate(animal)"/>
     </variables>
-    <operations>
-      <operation id="1">
-        <task do="[vial] parts with [vial_to_give]"/>
-        <task do="[animal] consumes [vial_to_give]"/>
-        <task do="animal|mammalia_reproduction_state is measured" id="readstate"/>
-        <task do="animal|healthy is measured" id="readhealth"/>
-        <task do="animal|mammalia_reproduction_method_embryo_transplant is measured" id="readembryo"/>
-      </operation>
-    </operations>
   </procedure>
 </procedures>

@@ -1,4 +1,3 @@
-# coding: utf-8
 # = Informations
 #
 # == License
@@ -67,8 +66,8 @@
 
 class CultivableZone < Zone
   refers_to :variety, scope: :cultivable_zone
-  has_many :supports, class_name: 'ProductionSupport', foreign_key: :storage_id
-  has_many :productions, class_name: 'Production', through: :supports
+  has_many :activity_productions, foreign_key: :support_id
+  has_many :activities, through: :activity_productions
   has_many :memberships, class_name: 'CultivableZoneMembership', foreign_key: :group_id
   has_many :members, class_name: 'Product', through: :memberships
   has_many :land_parcels, class_name: 'LandParcel', through: :memberships, source: :member
@@ -76,23 +75,7 @@ class CultivableZone < Zone
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   # ]VALIDATORS]
 
-  scope :of_campaign, lambda { |*campaigns|
-    campaigns.flatten!
-    for campaign in campaigns
-      unless campaign.is_a?(Campaign)
-        fail ArgumentError, "Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}"
-      end
-    end
-    joins(:productions).where('campaign_id IN (?)', campaigns.map(&:id))
-  }
-
-  scope :of_production, lambda { |*productions|
-    productions.flatten!
-    for production in productions
-      fail ArgumentError.new("Expected Production, got #{production.class.name}:#{production.inspect}") unless production.is_a?(Production)
-    end
-    joins(:productions).where('production_id IN (?)', productions.map(&:id))
-  }
+  scope :of_campaign, lambda { |campaign| activity_productions.of_campaign(campaign) }
 
   after_create do
     # Compute population
@@ -162,13 +145,16 @@ class CultivableZone < Zone
     end
   end
 
-  # return the last_production before the production in parameter where the cultivable land parcel is a support
-  #  @TODO replace created_at by started_at when an input field will exist
-  def last_production_before(production)
-    if production.is_a?(Production) && production.started_at
-      last_support = supports.where('created_at <= ? ', production.started_at).reorder('created_at DESC').limit(2).last
+  # return the last_production before the production in parameter where the
+  # cultivable land parcel is a support
+  # @TODO replace created_at by started_at when an input field will exist
+  def last_production_before(activity_production)
+    fail "Cannot do that now. Use ActivityProduction instead"
+    if activity_production.is_a?(Activity_Production) && activity_production.started_at
+      last_support = supports.where('created_at <= ?', activity_production.started_at)
+                     .reorder(created_at: :desc).limit(2).last
       if last_support
-        return last_support.production.name
+        return last_support.activity_production.name
       else
         return nil
       end

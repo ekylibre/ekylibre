@@ -1,28 +1,17 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="fermentation" natures="fermentation" version="0">
+  <procedure name="fermentation" categories="viticulture_transformation" actions="fermentation">
     <variables>
-      <variable name="tank" variety="tank" abilities="store_liquid" roles="fermentation-tool" default-actor="storage"/>
-      <variable name="juice_to_ferment" variety="juice" derivative-of="fruit" roles="fermentation-target" default-actor="first_localized_in: tank"/>
-      <variable name="oenological_intrant" variety="matter" abilities="fermentize(wine)" roles="fermentation-input_origin"/>
-      <variable name="oenological_intrant_to_put" variety=":oenological_intrant" derivative-of=":oenological_intrant" new="parted-from: oenological_intrant" roles="fermentation-input">
+      <variable name="tank" type="tool" variety="tank" abilities="store_liquid" default-actor="storage"/>
+      <variable name="juice_to_ferment" type="target" variety="juice" derivative-of="fruit" default-actor="first_localized_in: tank"/>
+      <variable name="oenological_intrant" type="input" variety="matter" abilities="fermentize(wine)">
         <handler indicator="population"/>
         <handler indicator="mass_volume_density" unit="gram_per_hectoliter" if="tank? &amp; juice_to_ferment?" to="population" backward="(value * self..net_mass(gram)) / juice_to_ferment.net_volume(hectoliter)" forward="(value * juice_to_ferment.net_volume(hectoliter)) / self..net_mass(gram)"/>
       </variable>
-      <variable name="wine_man" variety="worker" abilities="move" roles="fermentation-doer"/>
-      <variable name="fermented_juice" derivative-of="derivative-of: juice_to_ferment" new="produced-by: juice_to_ferment" roles="fermentation-output" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" default-variant="production">
+      <variable name="wine_man" type="doer" variety="worker" abilities="move"/>
+      <variable name="fermented_juice" type="output" derivative-of="derivative-of: juice_to_ferment" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" default-variant="production">
         <handler indicator="population"/>
       </variable>
     </variables>
-    <operations>
-      <operation id="1">
-        <task do="[oenological_intrant] parts with [oenological_intrant_to_put]"/>
-        <task do="[oenological_intrant_to_put] moves at [juice_to_ferment]"/>
-        <task do="[juice_to_ferment] consumes [oenological_intrant_to_put]"/>
-        <task do="[tank] consumes [juice_to_ferment]"/>
-        <task do="[tank] produces [fermented_juice]"/>
-        <task do="[fermented_juice] is in [tank]"/>
-      </operation>
-    </operations>
   </procedure>
 </procedures>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="field_plant_sorting" categories="crop_maintenance" actions="field_plant_sorting">
+    <variables>
+      <variable name="sortable" type="target" variety="seedling" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
+        <handler indicator="population"/>
+      </variable>
+      <variable name="container" type="tool" abilities="store(product)" default-actor="default_storage_of_support"/>
+      <variable name="doer" type="doer" variety="worker" abilities="move"/>
+      <variable name="variant" type="tool" variety=":sortable" derivative-of=":sortable"/>
+    </variables>
+  </procedure>
+</procedures>

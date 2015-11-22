@@ -26,10 +26,10 @@
 #  creator_id      :integer
 #  group_id        :integer          not null
 #  id              :integer          not null, primary key
+#  intervention_id :integer
 #  lock_version    :integer          default(0), not null
 #  member_id       :integer          not null
 #  nature          :string           not null
-#  operation_id    :integer
 #  originator_id   :integer
 #  originator_type :string
 #  started_at      :datetime         not null

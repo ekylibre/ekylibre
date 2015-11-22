@@ -31,9 +31,9 @@ module Ekylibre::FirstRun::Faker
           fertilizer: Product.where(variety: :preparation).can('fertilize').all,
           plant_medicine: Product.where(variety: :preparation).can('care(plant)').all
         }
-        Production.joins(:variant, :activity, :campaign).find_each do |production|
+        ActivityProduction.joins(:activity).find_each do |production|
           next unless production.active?
-          variety = Nomen::Variety[production.variant.variety]
+          variety = Nomen::Variety[production.cultivation_variety]
           if autumn_sowables.detect { |v| variety <= v }
             year = production.campaign.name.to_i
             Ekylibre::FirstRun::Booker.production = production

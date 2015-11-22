@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="parturition" categories="animal_breeding" actions="parturition">
+    <variables>
+      <variable name="mother" type="target" variety="bos" abilities="produce(bos)"/>
+      <variable name="child" type="output" variety="bos"/>
+      <variable name="caregiver" type="doer" abilities="administer_care(bos)"/>
+    </variables>
+  </procedure>
+</procedures>

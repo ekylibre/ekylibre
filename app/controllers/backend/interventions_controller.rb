@@ -27,10 +27,11 @@ class Backend::InterventionsController < Backend::BaseController
   #   :state State search
   #   :campaign_id
   #   :product_nature_id
-  #   :storage_id
-  def self.interventions_conditions
+  #   :support_id
+  def self.list_conditions
     code = ''
-    code = search_conditions(interventions: [:state, :number], activities: [:name], campaigns: [:name], productions: [:name], products: [:name]) + " ||= []\n"
+    # , productions: [:name]
+    code = search_conditions(interventions: [:state, :number], activities: [:name], campaigns: [:name], products: [:name]) + " ||= []\n"
     code << "unless params[:state].blank?\n"
     code << "  c[0] << ' AND #{Intervention.table_name}.state IN (?)'\n"
     code << "  c << params[:state].flatten\n"
@@ -40,33 +41,44 @@ class Backend::InterventionsController < Backend::BaseController
     code << "  c << params[:reference_name]\n"
     code << "end\n"
     code << "c[0] << ' AND ' + params[:nature].join(' AND ') unless params[:nature].blank?\n"
-    # code << "if params[:campaign_id].to_i > 0\n"
-    # code << "  c[0] << ' AND #{Intervention.table_name}.production_id IN (SELECT id FROM #{Production.table_name} WHERE campaign_id IN (?))'\n"
-    # code << "  c << params[:campaign_id].to_i\n"
-    # code << "end\n"
+
+    # Current campaign
     code << "if current_campaign\n"
-    code << "  c[0] << \" AND #{Intervention.table_name}.production_id IN (SELECT id FROM #{Production.table_name} WHERE campaign_id IN (?))\"\n"
-    code << "  c << current_campaign.id\n"
+    code << "  c[0] << \" AND (#{Intervention.table_name}.started_at, #{Intervention.table_name}.stopped_at) OVERLAPS (COALESCE(?, #{Intervention.table_name}.started_at), COALESCE(?, #{Intervention.table_name}.stopped_at))\"\n"
+    code << "  c << current_campaign.started_on\n"
+    code << "  c << current_campaign.stopped_on\n"
     code << "end\n"
-    code << "if params[:storage_id].to_i > 0\n"
-    code << "  c[0] << ' AND production_support_id IN (SELECT id FROM #{ProductionSupport.table_name} WHERE storage_id IN (?))'\n"
-    code << "  c << params[:storage_id].to_i\n"
+
+    # Support
+    code << "if params[:support_id].to_i > 0\n"
+    code << "  c[0] << ' AND production_support_id IN (SELECT id FROM #{ActivityProduction.table_name} WHERE storage_id IN (?))'\n"
+    code << "  c << params[:support_id].to_i\n"
+    code << "end\n"
+
+    # ActivityProduction || Activity
+    code << "if params[:production_id].to_i > 0\n"
+    code << "  c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_casts WHERE type = \\'InterventionTarget\\' AND product_id IN (SELECT target_id FROM target_distributions WHERE activity_production_id = ?))'\n"
+    code << "  c << params[:production_id].to_i\n"
+    code << "elsif params[:activity_id].to_i > 0\n"
+    code << "  c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_casts WHERE type = \\'InterventionTarget\\' AND product_id IN (SELECT target_id FROM target_distributions WHERE activity_id = ?))'\n"
+    code << "  c << params[:activity_id].to_i\n"
     code << "end\n"
     code << "c\n "
     code.c
   end
 
   # INDEX
-  # @TODO conditions: interventions_conditions, joins: [:production, :activity, :campaign, :storage]
+  # @TODO conditions: list_conditions, joins: [:production, :activity, :campaign, :support]
 
-  list(conditions: interventions_conditions, joins: [:production, :activity, :campaign, :storage], order: { started_at: :desc }, line_class: :status) do |t|
+  # conditions: list_conditions,
+  list(order: { started_at: :desc }, line_class: :status) do |t|
     t.action :run,  if: :runnable?, method: :post, confirm: true
     t.action :edit, if: :updateable?
     t.action :destroy, if: :destroyable?
     t.column :name, sort: :reference_name, url: true
-    t.column :production, url: true, hidden: true
-    t.column :campaign, url: true
-    t.column :activity, url: true, hidden: true
+    # t.column :production, url: true, hidden: true
+    # t.column :campaign, url: true
+    # t.column :activity, url: true, hidden: true
     t.column :state, hidden: true
     t.column :started_at
     t.column :duration
@@ -76,18 +88,12 @@ class Backend::InterventionsController < Backend::BaseController
     t.column :casting, hidden: true
   end
 
-  before_action only: [:index] do
-    unless Production.any?
-      notify :a_production_must_be_opened
-      redirect_to controller: :productions, action: :index
-    end
-  end
 
   # SHOW
 
   list(:casts, model: :intervention_casts, conditions: { intervention_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
     t.column :name, sort: :reference_name
-    t.column :actor, url: true
+    t.column :product, url: true
     t.column :human_roles, sort: :roles, label: :roles
     t.column :population
     t.column :unit_name, through: :variant
@@ -95,14 +101,14 @@ class Backend::InterventionsController < Backend::BaseController
     t.column :variant, url: true
   end
 
-  list(:operations, conditions: { intervention_id: 'params[:id]'.c }, order: :started_at) do |t|
-    t.column :reference_name
-    t.column :description
-    # t.column :name, url: true
-    t.column :started_at
-    t.column :stopped_at
-    t.column :duration
-  end
+  # list(:operations, conditions: { intervention_id: 'params[:id]'.c }, order: :started_at) do |t|
+  #   t.column :reference_name
+  #   t.column :description
+  #   # t.column :name, url: true
+  #   t.column :started_at
+  #   t.column :stopped_at
+  #   t.column :duration
+  # end
 
   # Show one intervention with params_id
   def show
@@ -113,7 +119,7 @@ class Backend::InterventionsController < Backend::BaseController
       return
     end
     respond_with(@intervention, methods: [:cost, :earn, :status, :name, :duration],
-                                include: [{ casts: { methods: [:variable_name, :default_name], include: { actor: { methods: [:picture_path, :nature_name, :unit_name] } } } }, { storage: {} }, :recommender, :prescription],
+                                include: [{ casts: { methods: [:variable_name, :default_name], include: { product: { methods: [:picture_path, :nature_name, :unit_name] } } } }, { storage: {} }, :recommender, :prescription],
                                 procs: proc { |options| options[:builder].tag!(:url, backend_intervention_url(@intervention)) }
                 )
   end

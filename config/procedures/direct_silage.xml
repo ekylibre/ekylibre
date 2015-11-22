@@ -1,28 +1,21 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="direct_silage" natures="silage" version="0">
+  <procedure name="direct_silage" categories="harvesting" actions="harvest">
     <variables>
-      <variable name="forager" abilities="harvest(plant)" roles="silage-tool"/>
-      <variable name="forager_driver" abilities="move, drive(forager)" roles="silage-doer"/>
-      <variable name="cultivation" variety="plant" roles="silage-target" default-actor="variant_localized_in_storage">
+      <variable name="forager" type="tool" abilities="harvest(plant)"/>
+      <variable name="forager_driver" type="doer" abilities="move, drive(forager)"/>
+      <variable name="cultivation" type="target" variety="plant" default-actor="variant_localized_in_storage">
         <handler indicator="shape">
           <converter to="shape" forward="intersection(value, cultivation.shape)" backward="value"/>
           <converter to="population" forward="area(value) / cultivation..net_surface_area(square_meter)"/>
         </handler>
       </variable>
-      <variable name="silage" variety="silage" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="silage-output" default-name="{{variant}} {{birth_year}} ({{container}})">
+      <variable name="silage" type="output" variety="silage" derivative-of="variety: cultivation" default-name="{{variant}} {{birth_year}} ({{container}})">
         <handler indicator="population"/>
         <handler indicator="net_mass" unit="ton" to="population" backward="value * self..net_mass(ton)" forward="value / self..net_mass(ton)"/>
         <handler indicator="net_volume" unit="cubic_meter" to="population" backward="value * self..net_volume(cubic_meter)" forward="value / self..net_volume(cubic_meter)"/>
         <handler name="dry_matter_mass_area_density" indicator="mass_area_density" unit="ton_per_hectare" to="population" backward="(value * self..net_mass(ton)) / cultivation.net_surface_area(hectare)" forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(ton)"/>
       </variable>
     </variables>
-    <operations>
-      <operation id="1">
-        <task do="[forager] consumes [cultivation]"/>
-        <task do="[forager] produces [silage]"/>
-        <task do="[silage] is at [cultivation]"/>
-      </operation>
-    </operations>
   </procedure>
 </procedures>

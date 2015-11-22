@@ -5,6 +5,11 @@ por:
         auxiliary: "Auxiliar"
         main: "Principal"
         standalone: "Standalone"
+    activity_budget:
+      computation_method:
+        per_production: "Por produção"
+        per_production_support: "Por suporte de produção"
+        per_working_unit: "Por unidade de trabalho"
     cash:
       mode:
         bban: "Número básico contas bancárias (BBAN)"
@@ -110,11 +115,6 @@ por:
         # ready_to_prepare: "Ready to prepare"
         # ready_to_send: "Ready to send"
         # sent: "Sent"
-    production_budget:
-      computation_method:
-        per_production: "Por produção"
-        per_production_support: "Por suporte de produção"
-        per_working_unit: "Por unidade de trabalho"
     purchase:  #?
       computation_method: #?
         adaptative: "Adaptativo" #?

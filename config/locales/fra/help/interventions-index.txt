@@ -4,7 +4,7 @@ Les interventions permettent de saisir des opérations, évènements et indicate
 
 Elles utilisent diverses procédures et nomenclatures métiers et enregistrent les éléments de traçabilité précis lié aux produits (changement de localisation, production, consommation...)
 
-!!! Une intervention s'effectue dans le cadre d'une [[>backend/productions|production]].
+!!! Une intervention s'effectue dans le cadre d'une [[>backend/activities|activité]].
 
 >>> Ex 1 : Semis de blé sur la parcelle culturale "Les grands pièces" dans le cadre de la production "Blé tendre 2013"
 

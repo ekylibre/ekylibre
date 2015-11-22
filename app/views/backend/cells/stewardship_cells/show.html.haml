@@ -1,8 +1,8 @@
 :ruby
   campaign = @campaigns.first
   activities = Activity.of_campaign(@campaigns).order(:name)
-  productions = Production.of_campaign(@campaigns).order(:name)
-  cultivable_zones_ready_for_production = CultivableZone.of_production(productions).order(:name) if productions
+  activity_productions = ActivityProduction.of_campaign(@campaigns).order(:name)
+  cultivable_zones_ready_for_production = CultivableZone.of_activity_production(activity_productions).order(:name) if activity_productions
   interventions = Intervention.of_campaign(@campaigns).order(:started_at)
   equipments = Equipment.availables
   workers = Worker.availables
@@ -17,7 +17,7 @@
     %span.title= :campaign.tl
     %span.value= link_to(:open_a_campaign.tl, controller: "/backend/campaigns", action: :new)
 
-- if activities.count > 0
+- if activities.any?
   .info
     %span.title= :activity.tl
     %span.value= link_to(activities.count.to_s, controller: "/backend/activities", action: :index)
@@ -26,25 +26,25 @@
     %span.title= :activity.tl
     %span.value= link_to(:open_an_activity.tl, controller: "/backend/activities", action: :new)
 
-- if productions.count > 0
+- if activity_productions.any?
   .info
-    %span.title= :production.tl
-    %span.value= link_to(productions.count.to_s, controller: "/backend/productions", action: :index)
+    %span.title= :activity_production.tl
+    %span.value= link_to(activity_productions.count.to_s, controller: "/backend/activity_productions", action: :index)
 - else
   .info
-    %span.title= :production.tl
-    %span.value= link_to(:open_a_production.tl, controller: "/backend/productions", action: :new)
+    %span.title= :activity_production.tl
+    %span.value= link_to(:open_a_activity_production.tl, controller: "/backend/activity_productions", action: :new)
 
-- if cultivable_zones_ready_for_production.count > 0
+- if cultivable_zones_ready_for_production.any?
   .info
     %span.title= :cultivable_zone.tl
     %span.value= link_to(cultivable_zones_ready_for_production.count.to_s, controller: "/backend/cultivable_zones", action: :index)
 - else
   .info
     %span.title= :cultivable_zone.tl
-    %span.value= link_to(:make_your_production_support.tl, controller: "/backend/productions", action: :new)
+    %span.value= link_to(:make_your_production_support.tl, controller: "/backend/activity_productions", action: :new)
 
-- if interventions.count > 0
+- if interventions.any?
   .info
     %span.title= :interventions.tl
     %span.value= link_to(interventions.count.to_s, controller: "/backend/interventions", action: :index)
@@ -53,7 +53,7 @@
     %span.title= :interventions.tl
     %span.value= link_to(:create_or_import_interventions.tl, controller: "/backend/interventions", action: :new)
 
-- if equipments.count > 0
+- if equipments.any?
   .info
     %span.title= :equipments.tl
     %span.value= link_to(equipments.count.to_s, controller: "/backend/equipments", action: :index)
@@ -62,7 +62,7 @@
     %span.title= :equipments.tl
     %span.value= link_to(:create_or_import_equipments.tl, controller: "/backend/equipments", action: :new)
 
-- if workers.count > 0
+- if workers.any?
   .info
     %span.title= :workers.tl
     %span.value= link_to(workers.count.to_s, controller: "/backend/workers", action: :index)

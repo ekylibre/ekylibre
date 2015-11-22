@@ -16,6 +16,7 @@ fra:
       default: "%d/%m/%Y"
       legal: "%d %B %Y"
       long: "%A %d %B %Y"
+      month: "%B %Y"
       month_letter: "%d %B %Y"
       short: "%d %b"
     month_names: ["", "janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"]
@@ -93,6 +94,7 @@ fra:
     precision:
       format:
         delimiter: ""
+  rank: "n°%{number}"
   support:
     array:
       last_word_connector: " et "

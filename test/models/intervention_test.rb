@@ -22,36 +22,30 @@
 #
 # == Table: interventions
 #
-#  created_at                  :datetime         not null
-#  creator_id                  :integer
-#  description                 :text
-#  event_id                    :integer
-#  id                          :integer          not null, primary key
-#  issue_id                    :integer
-#  lock_version                :integer          default(0), not null
-#  natures                     :string           not null
-#  number                      :string
-#  parameters                  :text
-#  prescription_id             :integer
-#  production_id               :integer          not null
-#  production_support_id       :integer
-#  provisional                 :boolean          default(FALSE), not null
-#  provisional_intervention_id :integer
-#  recommended                 :boolean          default(FALSE), not null
-#  recommender_id              :integer
-#  reference_name              :string           not null
-#  started_at                  :datetime
-#  state                       :string           not null
-#  stopped_at                  :datetime
-#  updated_at                  :datetime         not null
-#  updater_id                  :integer
+#  created_at       :datetime         not null
+#  creator_id       :integer
+#  description      :text
+#  event_id         :integer
+#  id               :integer          not null, primary key
+#  issue_id         :integer
+#  lock_version     :integer          default(0), not null
+#  number           :string
+#  prescription_id  :integer
+#  reference_name   :string           not null
+#  started_at       :datetime
+#  state            :string           not null
+#  stopped_at       :datetime
+#  updated_at       :datetime         not null
+#  updater_id       :integer
+#  whole_duration   :integer
+#  working_duration :integer
 #
 require 'test_helper'
 
 class InterventionTest < ActiveSupport::TestCase
   test 'scopes' do
     cast = intervention_casts(:intervention_casts_001)
-    actor = cast.actor
+    actor = cast.product
     assert_nothing_raised do
       Intervention.with_generic_cast(:tool, actor)
     end

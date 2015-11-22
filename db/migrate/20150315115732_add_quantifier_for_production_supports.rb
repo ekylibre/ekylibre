@@ -140,55 +140,56 @@ class AddQuantifierForProductionSupports < ActiveRecord::Migration
     add_column :production_supports, :quantity_unit, :string
 
     # FIXME: Model code is prohibited in migrations
-    Production.find_each do |p|
-      # Select best activity
-      if !p.with_supports && p.supports.any?
-        p.update_column(:support_variant_id, p.supports.first.storage.variant_id)
-        execute "UPDATE interventions SET production_support_id = NULL WHERE production_id = #{p.id}"
-        p.supports.destroy_all
-      end
-      # Update supports
-      if p.with_supports
-        unless p.support_variant && Nomen::Variety.find(p.support_variant.variety) <= p.support_variety
-          support_variety = Nomen::Variety.find(p.support_variety)
-          item = Nomen::ProductNatureVariant.list.detect do |i|
-            variety = i.variety || Nomen::ProductNature.find(i.nature).variety
-            support_variety >= variety
+    if defined? Production
+      Production.find_each do |p|
+        # Select best activity
+        if !p.with_supports && p.supports.any?
+          p.update_column(:support_variant_id, p.supports.first.storage.variant_id)
+          execute "UPDATE interventions SET production_support_id = NULL WHERE production_id = #{p.id}"
+          p.supports.destroy_all
+        end
+        # Update supports
+        if p.with_supports
+          unless p.support_variant && Nomen::Variety.find(p.support_variant.variety) <= p.support_variety
+            support_variety = Nomen::Variety.find(p.support_variety)
+            item = Nomen::ProductNatureVariant.list.detect do |i|
+              variety = i.variety || Nomen::ProductNature.find(i.nature).variety
+              support_variety >= variety
+            end
+            if item
+              p.update_column(:support_variant_id, ProductNatureVariant.import_from_nomenclature(item.name).id)
+            else
+              fail "What #{support_variety}"
+            end
           end
-          if item
-            p.update_column(:support_variant_id, ProductNatureVariant.import_from_nomenclature(item.name).id)
-          else
-            fail "What #{support_variety}"
+          quantifiers = p.support_variant.quantifiers
+          if p.support_variant_indicator.blank? || !quantifiers.include?("#{p.support_variant_indicator}/#{p.support_variant_unit}")
+            quantifier = quantifiers.last.split('/')
+            p.update_columns(support_variant_indicator: quantifier.first, support_variant_unit: quantifier.second)
+          end
+          p.supports.each do |support|
+            value = support.storage.get(p.support_variant_indicator, at: p.started_at)
+            value = value.convert(p.support_variant_unit) if p.support_variant_unit
+            execute("UPDATE production_supports SET quantity_indicator = '#{p.support_variant_indicator}', quantity_unit = '#{p.support_variant_unit}', quantity = #{value.to_f} WHERE id = #{support.id}")
           end
         end
-        quantifiers = p.support_variant.quantifiers
-        if p.support_variant_indicator.blank? || !quantifiers.include?("#{p.support_variant_indicator}/#{p.support_variant_unit}")
-          quantifier = quantifiers.last.split('/')
-          p.update_columns(support_variant_indicator: quantifier.first, support_variant_unit: quantifier.second)
-        end
-        p.supports.each do |support|
-          value = support.storage.get(p.support_variant_indicator, at: p.started_at)
-          value = value.convert(p.support_variant_unit) if p.support_variant_unit
-          execute("UPDATE production_supports SET quantity_indicator = '#{p.support_variant_indicator}', quantity_unit = '#{p.support_variant_unit}', quantity = #{value.to_f} WHERE id = #{support.id}")
-        end
-      end
-      # Set cultivation
-      if p.with_cultivation
-        unless p.cultivation_variant && Nomen::Variety.find(p.cultivation_variant.variety) <= p.cultivation_variety
-          cultivation_variety = Nomen::Variety.find(p.cultivation_variety)
-          item = Nomen::ProductNatureVariant.list.detect do |i|
-            variety = i.variety || Nomen::ProductNature.find(i.nature).variety
-            cultivation_variety >= variety
-          end
-          if item
-            p.update_column(:cultivation_variant_id, ProductNatureVariant.import_from_nomenclature(item.name).id)
-          else
-            fail "What #{cultivation_variety}"
+        # Set cultivation
+        if p.with_cultivation
+          unless p.cultivation_variant && Nomen::Variety.find(p.cultivation_variant.variety) <= p.cultivation_variety
+            cultivation_variety = Nomen::Variety.find(p.cultivation_variety)
+            item = Nomen::ProductNatureVariant.list.detect do |i|
+              variety = i.variety || Nomen::ProductNature.find(i.nature).variety
+              cultivation_variety >= variety
+            end
+            if item
+              p.update_column(:cultivation_variant_id, ProductNatureVariant.import_from_nomenclature(item.name).id)
+            else
+              fail "What #{cultivation_variety}"
+            end
           end
         end
       end
     end
-
     change_column_null :production_supports, :quantity, false
     change_column_null :production_supports, :quantity_indicator, false
   end

@@ -5,6 +5,11 @@ fra:
         auxiliary: "Auxiliaire"
         main: "Principale"
         standalone: "Indépendante"
+    activity_budget:
+      computation_method:
+        per_production: "Par production"
+        per_production_support: "Par support de production"
+        per_working_unit: "Par unité d'œuvre"
     cash:
       mode:
         bban: "Relevé d’identité bancaire (RIB)"
@@ -110,11 +115,6 @@ fra:
         ready_to_prepare: "En attente de préparation"
         ready_to_send: "Prêt pour l'expédition"
         sent: "Expédié"
-    production_budget:
-      computation_method:
-        per_production: "Par production"
-        per_production_support: "Par support de production"
-        per_working_unit: "Par unité d'œuvre"
     sensor:
       retrieval_mode:
         listening: "Serveur"

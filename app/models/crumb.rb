@@ -118,12 +118,12 @@ class Crumb < Ekylibre::Record::Base
     #     - crumbs: an array of crumbs
     # ==== Options
     #     - campaigns: one or several campaigns for which production supports are looked for. Default: current campaigns.
-    #       Accepts the same parameters as ProductionSupport.of_campaign since it actually calls this method.
-    # TODO: when refactoring, move this method to ProductionSupport model, as ProductionSupport#of_crumbs(crumbs = [], options = {})
+    #       Accepts the same parameters as ActivityProduction.of_campaign since it actually calls this method.
+    # TODO: when refactoring, move this method to ActivityProduction model, as ActivityProduction#of_crumbs(crumbs = [], options = {})
     def production_supports(*crumbs)
       options = crumbs.extract_options!
       options[:campaigns] ||= Campaign.currents
-      ProductionSupport.of_campaign(options[:campaigns]).distinct
+      ActivityProduction.of_campaign(options[:campaigns]).distinct
         .joins(:storage)
         .where('products.id IN (?)', Crumb.products(*crumbs, no_contents: true).map(&:id))
     end
@@ -194,7 +194,7 @@ class Crumb < Ekylibre::Record::Base
       unless options[:support_id] ||= Crumb.production_supports(intervention_path.where(nature: :hard_start)).pluck(:id).first
         fail StandardError, :need_a_production_support.tn
       end
-      support = ProductionSupport.find(options[:support_id])
+      support = ActivityProduction.find(options[:support_id])
       options[:procedure_name] ||= Intervention.match(actors, options).first[0].name
       procedure = Procedo[options[:procedure_name]]
 

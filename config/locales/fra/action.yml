@@ -22,6 +22,11 @@ fra:
       index: "Activités"
       new: "Nouvelle activité"
       show: "%{name}"
+    backend/activity_productions:
+      edit: "Modifier un support de production" #?
+      index: "Supports de production" #?
+      new: "Nouveau support de production" #?
+      show: "Support de production\_: %{name}"
     backend/affairs:
       attach: "Associer une affaire"
       detach: "Dissocier une affaire"
@@ -389,11 +394,11 @@ fra:
     backend/observations:
       edit: "Modifier une observation"
       new: "Nouvelle observation"
-    backend/operations:
+    backend/operations:  #?
       edit: "Modifier le travail" #?
-      index: "Travaux"
+      index: "Travaux" #?
       new: "Nouveau travail" #?
-      show: "Détails du travail"
+      show: "Détails du travail" #?
       unvalidateds: "Travaux non validés" #?
     backend/organizations:  #?
       edit: "Modifier l’organisation\_: %{full_name}" #?
@@ -458,16 +463,11 @@ fra:
       new: "Nouveau type de produit"
       pick: "Importer un type de produit"
       show: "Type de produit\_: %{name}"
-    backend/production_supports:
-      edit: "Modifier un support de production" #?
-      index: "Supports de production" #?
-      new: "Nouveau support de production" #?
-      show: "Support de production\_: %{name}"
-    backend/productions:
-      edit: "Modifier la production\_: %{name}"
-      index: "Productions"
-      new: "Nouvelle production"
-      show: "Production\_: %{name}"
+    backend/productions:  #?
+      edit: "Modifier la production\_: %{name}" #?
+      index: "Productions" #?
+      new: "Nouvelle production" #?
+      show: "Production\_: %{name}" #?
     backend/products:
       edit: "Modifier un produit"
       index: "Produits"
@@ -2144,6 +2144,7 @@ fra:
   unrolls:
     backend/accounts: "%{number}. %{name}"
     backend/activities: "%{name}"
+    backend/activity_productions: "%{storage_name} (%{production_name} %{campaign_name})"
     backend/animals: "%{name} ‒ %{work_number}"
     backend/campaigns: "%{name}"
     backend/catalog_items: "%{name}"
@@ -2162,7 +2163,6 @@ fra:
     backend/product_memberships: "%{started_at}"
     backend/product_nature_variants: "%{name} (%{unit_name})"
     backend/product_natures: "%{name}"
-    backend/production_supports: "%{storage_name} (%{production_name} %{campaign_name})"
     backend/productions: "%{name} (%{campaign_name})"
     backend/products: "%{work_number} %{name} (%{number})"
     backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"

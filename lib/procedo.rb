@@ -11,10 +11,6 @@ module Procedo
   autoload :Handler,             'procedo/handler'
   autoload :Converter,           'procedo/converter'
   autoload :HandlerMethodParser, 'procedo/handler_method'
-  autoload :Operation,           'procedo/operation'
-  autoload :Task,                'procedo/task'
-  autoload :Indicator,           'procedo/indicator'
-  autoload :Action,              'procedo/action'
   autoload :Compilers,           'procedo/compilers'
   autoload :CompiledProcedure,   'procedo/compiled_procedure'
   autoload :CompiledVariable,    'procedo/compiled_variable'
@@ -27,62 +23,55 @@ module Procedo
   @@list = HashWithIndifferentAccess.new
 
   class << self
-    def list(options = {})
-      l = @@list
-      l = l.select { |_k, v| !v.system? } unless options[:with_system]
-      l
+
+    def procedures
+      @@list.values
     end
+
+    # def list
+    #   @@list
+    # end
 
     # Returns the names of the procedures
-    def procedures(options = {})
-      list(options).keys
+    def procedure_names
+      @@list.keys
     end
-    alias_method :names, :procedures
 
     # Give access to named procedures
-    def [](name)
+    def find(name)
       @@list[name]
     end
-
-    # Returns a tree of procedures: namespace -> short_name -> version
-    def procedures_tree
-      tree = {}
-      for namespace in @@list.values.map(&:namespace).uniq
-        tree[namespace] ||= {}
-        procedures = @@list.values.select { |p| p.namespace == namespace }
-        for short_name in procedures.map(&:short_name).uniq
-          tree[namespace][short_name] ||= {}
-          for procedure in procedures.select { |p| p.short_name == short_name }
-            tree[namespace][short_name][procedure.version] = procedure
-          end
-        end
-      end
-      tree
-    end
+    alias :[] :find
 
     # Returns direct procedures of nature
     def procedures_of_nature(*natures)
-      options = natures.extract_options!
-      list(options).values.select do |p|
+      fail "No more usable"
+      procedures.select do |p|
         p.of_nature?(*natures)
       end
     end
 
     # Returns direct procedures of nature
     def procedures_of_activity_family(*families)
-      list.values.select do |p|
+      procedures.select do |p|
         p.of_activity_family?(*families)
       end.uniq
     end
 
     # Returns procedures of nature and sub natures
-    def procedures_of_nature_and_its_children(nature, _options = {})
-      procedures_of_nature(*Nomen::ProcedureNature.all(nature).map(&:to_sym), options = {})
+    def procedures_of_nature_and_its_children(nature, options = {})
+      procedures_of_nature(*Nomen::ProcedureNature.all(nature).map(&:to_sym), options)
     end
 
-    def each_variable(&_block)
-      for procedure in list.values
-        for variable in procedure.variables.values
+    def each_procedure
+      @@list.each do |_, procedure|
+        yield procedure
+      end
+    end
+
+    def each_variable
+      each_procedure do |procedure|
+        procedure.variables.each do |_, variable|
           yield variable
         end
       end
@@ -91,7 +80,7 @@ module Procedo
     # Load all files
     def load
       # Inventory procedures
-      for path in Dir.glob(root.join('*.xml')).sort
+      Dir.glob(root.join('*.xml')).sort.each do |path|
         f = File.open(path, 'rb')
         document = Nokogiri::XML(f) do |config|
           config.strict.nonet.noblanks.noent
@@ -112,10 +101,10 @@ module Procedo
 
     # Returns the root of the procedures
     def root
-      Rails.root.join('config', 'procedures')
+      Rails.root.join('config', 'procedures-2')
     end
   end
 end
 
 Procedo.load
-Rails.logger.info 'Loaded procedures: ' + Procedo.names.to_sentence
+Rails.logger.info 'Loaded procedures: ' + Procedo.procedure_names.to_sentence

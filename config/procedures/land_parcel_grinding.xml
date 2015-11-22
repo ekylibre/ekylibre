@@ -1,17 +1,11 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="land_parcel_grinding" natures="grinding" version="0" duration="land_parcel.net_surface_area(hectare) * 0.54">
+  <procedure name="land_parcel_grinding" categories="soil_working" actions="land_parcel_grinding">
     <variables>
-      <variable name="land_parcel" variety="cultivable_zone" roles="grinding-target"/>
-      <variable name="tractor" abilities="tow(equipment)"/>
-      <variable name="grinder" abilities="grind(cultivable_zone)" roles="grinding-tool"/>
-      <variable name="driver" abilities="drive(tractor)" roles="grinding-doer"/>
+      <variable name="land_parcel" type="target" variety="cultivable_zone"/>
+      <variable name="tractor" type="tool" abilities="tow(equipment)"/>
+      <variable name="grinder" type="tool" abilities="grind(cultivable_zone)"/>
+      <variable name="driver" type="doer" abilities="drive(tractor)"/>
     </variables>
-    <operations>
-      <operation id="1">
-        <!-- Operation 500 -->
-        <task do="[tractor] acts on [land_parcel]"/>
-      </operation>
-    </operations>
   </procedure>
 </procedures>

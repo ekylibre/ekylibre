@@ -12,8 +12,8 @@
 
   - c.cobble(:productions) do
     = cobble_toolbar do |t|
-      - t.new variants: Activity.availables.reorder(:name).to_a.inject({}){|h,n| h[:new_production_of_activity.tl(activity: n.name)] = {activity_id: n.id, controller: :productions, campaign_id: resource.id}; h}
-    = cobble_list(:productions)
+      - t.new variants: Activity.availables.reorder(:name).to_a.inject({}){|h,n| h[:new_production_of_activity.tl(activity: n.name)] = {activity_id: n.id, controller: :activity_productions, campaign_id: resource.id}; h}
+    = cobble_list(:activity_productions)
 
   - c.cobble :map do
     = cell :map, params: {campaign_ids: resource.id}

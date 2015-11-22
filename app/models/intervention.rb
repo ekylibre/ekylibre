@@ -22,29 +22,23 @@
 #
 # == Table: interventions
 #
-#  created_at                  :datetime         not null
-#  creator_id                  :integer
-#  description                 :text
-#  event_id                    :integer
-#  id                          :integer          not null, primary key
-#  issue_id                    :integer
-#  lock_version                :integer          default(0), not null
-#  natures                     :string           not null
-#  number                      :string
-#  parameters                  :text
-#  prescription_id             :integer
-#  production_id               :integer          not null
-#  production_support_id       :integer
-#  provisional                 :boolean          default(FALSE), not null
-#  provisional_intervention_id :integer
-#  recommended                 :boolean          default(FALSE), not null
-#  recommender_id              :integer
-#  reference_name              :string           not null
-#  started_at                  :datetime
-#  state                       :string           not null
-#  stopped_at                  :datetime
-#  updated_at                  :datetime         not null
-#  updater_id                  :integer
+#  created_at       :datetime         not null
+#  creator_id       :integer
+#  description      :text
+#  event_id         :integer
+#  id               :integer          not null, primary key
+#  issue_id         :integer
+#  lock_version     :integer          default(0), not null
+#  number           :string
+#  prescription_id  :integer
+#  reference_name   :string           not null
+#  started_at       :datetime
+#  state            :string           not null
+#  stopped_at       :datetime
+#  updated_at       :datetime         not null
+#  updater_id       :integer
+#  whole_duration   :integer
+#  working_duration :integer
 #
 
 class MissingVariable < StandardError
@@ -53,34 +47,35 @@ end
 class Intervention < Ekylibre::Record::Base
   attr_readonly :reference_name, :production_id
   belongs_to :event, dependent: :destroy, inverse_of: :intervention
-  belongs_to :production, inverse_of: :interventions
-  belongs_to :production_support
   belongs_to :issue
   belongs_to :prescription
-  belongs_to :provisional_intervention, class_name: 'Intervention'
-  belongs_to :recommender, class_name: 'Entity'
   has_many :casts, -> { order(:position) }, class_name: 'InterventionCast', inverse_of: :intervention, dependent: :destroy
-  has_many :operations, inverse_of: :intervention, dependent: :destroy
-  has_one :activity, through: :production
-  has_one :campaign, through: :production
-  has_one :storage, through: :production_support
-  enumerize :reference_name, in: (Procedo.names + ['base-animal_changing-0']).sort
+  has_many :doers, class_name: 'InterventionDoer', dependent: :destroy, inverse_of: :intervention
+  has_many :inputs, class_name: 'InterventionInput', dependent: :destroy, inverse_of: :intervention
+  has_many :outputs, class_name: 'InterventionOutput', dependent: :destroy, inverse_of: :intervention
+  has_many :targets, class_name: 'InterventionTarget', dependent: :destroy, inverse_of: :intervention
+  has_many :tools, class_name: 'InterventionTool', dependent: :destroy, inverse_of: :intervention
+  has_many :working_periods, class_name: 'InterventionWorkingPeriod', dependent: :destroy, inverse_of: :intervention
+  enumerize :reference_name, in: Procedo.procedure_names #  + ['animal_changing']
   enumerize :state, in: [:undone, :squeezed, :in_progress, :done], default: :undone, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
-  validates_inclusion_of :provisional, :recommended, in: [true, false]
-  validates_presence_of :natures, :production, :reference_name, :state
+  validates_numericality_of :whole_duration, :working_duration, allow_nil: true, only_integer: true
+  validates_presence_of :reference_name, :state
   # ]VALIDATORS]
   # validates_inclusion_of :reference_name, in: self.reference_name.values
-  validates_presence_of :started_at, :stopped_at
-  validates_presence_of :recommender, if: :recommended?
+  # validates_presence_of :started_at, :stopped_at
+  validates_associated :doers, :inputs, :outputs, :targets, :tools, :working_periods
+
 
   serialize :parameters, HashWithIndifferentAccess
+
+  alias_attribute :duration, :working_duration
 
   delegate :storage, to: :production_support
 
   acts_as_numbered
-  accepts_nested_attributes_for :casts, :operations
+  accepts_nested_attributes_for :doers, :inputs, :outputs, :targets, :tools, :working_periods
 
   # @TODO in progress - need to call parent reference_name to have the name of the procedure_nature
 
@@ -88,58 +83,61 @@ class Intervention < Ekylibre::Record::Base
     where(started_at: started_at..stopped_at)
   }
 
-  scope :of_currents_campaigns, -> { joins(:production).merge(Production.of_currents_campaigns) }
+  scope :of_currents_campaigns, -> { of_campaigns(Campaign.current) }
 
   scope :of_nature, lambda { |*natures|
     where('natures ~ E?', '\\\\m(' + natures.collect { |n| Nomen::ProcedureNature.all(n) }.flatten.sort.join('|') + ')\\\\M')
   }
+  scope :of_category, lambda { |category|
+    # TODO
+  }
 
-  scope :of_campaign, lambda { |*campaigns|
-    campaigns.flatten!
-    for campaign in campaigns
-      fail ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}") unless campaign.is_a?(Campaign)
-    end
-    joins(:production).merge(Production.of_campaign(campaigns))
+  scope :of_campaign, lambda { |campaign|
+    where('(started_at, stopped_at) OVERLAPS (?, ?)', campaign.started_on, campaign.stopped_on)
+  }
+
+  scope :of_activity_production, lambda { |production|
+    where(id: InterventionTarget.select(:intervention_id).where(product_id: TargetDistribution.select(:target_id).where(activity_production_id: production)))
+  }
+
+  scope :of_activity, lambda { |activity|
+    where(id: InterventionTarget.select(:intervention_id).where(product_id: TargetDistribution.select(:target_id).where(activity_id: activity)))
   }
 
   scope :of_activities, lambda { |*activities|
-    activities.flatten!
-    for activity in activities
-      fail ArgumentError.new("Expected Activity, got #{activity.class.name}:#{activity.inspect}") unless activity.is_a?(Activity)
-    end
-    joins(:production).merge(Production.of_activities(activities))
+    of_activity(activities.flatten)
   }
 
-  scope :provisional, -> { where(provisional: true) }
-  scope :real, -> { where(provisional: false) }
+  scope :provisional, -> { where('stopped_at > ?', Time.zone.now) }
+  scope :real, -> { where('stopped_at <= ?', Time.zone.now) }
 
   scope :with_cast, lambda { |role, object|
-    where(id: InterventionCast.of_role(role).of_actor(object).pluck(:intervention_id))
+    where(id: InterventionCast.of_role(role).of_actor(object).select(:intervention_id))
   }
 
   scope :with_generic_cast, lambda { |role, object|
-    where(id: InterventionCast.of_generic_role(role).of_actor(object).pluck(:intervention_id))
+    where(id: InterventionCast.of_generic_role(role).of_actor(object).select(:intervention_id))
   }
 
   before_validation do
     self.state ||= self.class.state.default
-    if p = reference
-      self.natures = p.natures.sort.join(' ')
-    end
+    # if p = reference
+    #   self.natures = p.natures.sort.join(' ')
+    # end
     # set production_id
-    if production_support
-      self.production_id ||= production_support.production_id
-    end
+    # if production_support
+    #   self.production_id ||= production_support.production_id
+    # end
   end
 
   validate do
-    if production
-      if production_support
-        errors.add(:production_id, :invalid) if production_support.production != production
-      else
-        errors.add(:production_support_id, :blank) if production.with_supports
-      end
-    end
+    # if production
+    #   if production_support
+    #     errors.add(:production_id, :invalid) if production_support.production != production
+    #   else
+    #     errors.add(:production_support_id, :blank) if production.with_supports
+    #   end
+    # end
     if self.started_at && self.stopped_at
       if self.stopped_at <= self.started_at
         errors.add(:stopped_at, :posterior, to: self.started_at.l)
@@ -148,12 +146,12 @@ class Intervention < Ekylibre::Record::Base
   end
 
   before_save do
-    self.natures = self.natures.to_s.strip.split(/[\s\,]+/).sort.join(' ')
-    if reference
-      if duration < reference.fixed_duration
-        self.stopped_at += reference.fixed_duration
-      end
-    end
+    # self.natures = self.natures.to_s.strip.split(/[\s\,]+/).sort.join(' ')
+    # if reference
+    #   if duration < reference.fixed_duration
+    #     self.stopped_at += reference.fixed_duration
+    #   end
+    # end
     columns = { name: name, started_at: self.started_at, stopped_at: self.stopped_at, nature: :production_intervention }
     if event
       # self.event.update_columns(columns)
@@ -170,14 +168,19 @@ class Intervention < Ekylibre::Record::Base
     self.done?
   end
 
+  # Returns activities
+  def activities
+    Activity.of_intervention(self)
+  end
+
   # Main reference
   def reference
-    Procedo[reference_name]
+    Procedo.find(reference_name)
   end
 
   # Returns variable names
   def casting
-    casts.map(&:actor).compact.map(&:name).sort.to_sentence
+    casts.map(&:product).compact.map(&:name).sort.to_sentence
   end
 
   def name
@@ -189,14 +192,21 @@ class Intervention < Ekylibre::Record::Base
     started_at
   end
 
-  # Returns total duration of an intervention
-  def duration
-    (self.stopped_at - started_at)
+  # Update temporality informations in intervention
+  def update_temporality
+    started_at = self.working_periods.minimum(:started_at)
+    stopped_at = self.working_periods.maximum(:stopped_at)
+    update_columns(
+      started_at: started_at,
+      stopped_at: stopped_at,
+      working_duration: self.working_periods.sum(:duration),
+      whole_duration: (stopped_at - started_at).to_i
+    )
   end
 
   # Sums all intervention_cast total_cost of a particular role (see ProcedureNature nomenclature for more details)
   def cost(role = :input)
-    selected_casts = casts.select { |c| c.roles =~ /.*-#{role}$/ && c.actor_id }
+    selected_casts = casts.of_generic_role(role).with_actor
     if selected_casts.any?
       selected_casts = selected_casts.map(&:cost)
       selected_casts.compact!

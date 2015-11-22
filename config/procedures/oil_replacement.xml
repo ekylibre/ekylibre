@@ -1,20 +1,13 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="oil_replacement" natures="consummables_addition" version="0">
+  <procedure name="oil_replacement" categories="equipment_maintenance" actions="oil_replacement">
     <variables>
-      <variable name="equipment" variety="equipment" abilities="consume(oil)" roles="consummables_addition-target"/>
-      <variable name="oil" variety="oil" abilities="lubricate(equipment)"/>
-      <variable name="oil_to_input" variety=":oil" derivative-of=":oil" new="parted-from: oil" roles="consummables_addition-input">
+      <variable name="equipment" type="target" variety="equipment" abilities="consume(oil)"/>
+      <variable name="oil" type="input" variety="oil" abilities="lubricate(equipment)"/>
+      <variable name="oil" type="input" variety="oil" abilities="lubricate(equipment)">
         <handler indicator="population"/>
       </variable>
-      <variable name="mechanic" abilities="repair(equipment)" roles="consummables_addition-doer"/>
+      <variable name="mechanic" type="doer" abilities="repair(equipment)"/>
     </variables>
-    <operations>
-      <operation id="1">
-        <task do="[mechanic] measures [equipment|healthy]"/>
-        <task do="[oil] parts with [oil_to_input]"/>
-        <task do="[equipment] consumes [oil_to_input]"/>
-      </operation>
-    </operations>
   </procedure>
 </procedures>

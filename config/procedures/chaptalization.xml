@@ -1,25 +1,17 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="chaptalization" natures="addition" version="0">
+  <procedure name="chaptalization" categories="viticulture_transformation" actions="chaptalization">
     <variables>
-      <variable name="tank" variety="equipment" abilities="store(wine)" default-actor="storage"/>
-      <variable name="wine_to_treat" variety="wine" roles="addition-target" default-actor="first_localized_in: tank"/>
-      <variable name="oenological_intrant" variety="matter" abilities="chaptelise(wine)" roles="addition-input_origin"/>
-      <variable name="oenological_intrant_to_put" variety=":oenological_intrant" derivative-of=":oenological_intrant" new="parted-from: oenological_intrant" roles="addition-input" default-name="{{variant}} ({{container}})">
+      <variable name="tank" type="tool" variety="equipment" abilities="store(wine)" default-actor="storage"/>
+      <variable name="wine_to_treat" type="target" variety="wine" default-actor="first_localized_in: tank"/>
+      <variable name="oenological_intrant" type="input" variety="matter" default-name="{{variant}} ({{container}})" abilities="chaptelise(wine)">
         <handler indicator="population"/>
         <handler indicator="net_volume" unit="liter" if="oenological_intrant_to_put? &amp; oenological_intrant_to_put.net_volume(liter) &gt; 0" to="population" backward="value * self..net_volume(liter)" forward="value / self..net_volume(liter)"/>
         <handler indicator="volume_density" unit="centiliter_per_hectoliter" if="oenological_intrant_to_put? &amp; oenological_intrant_to_put.net_volume(liter) &gt; 0" to="population" backward="(value * self..net_volume(centiliter)) / wine_to_treat.net_volume(hectoliter)" forward="(value / self..net_volume(centiliter)) * wine_to_treat.net_volume(hectoliter)"/>
         <handler indicator="net_mass" unit="gram" if="oenological_intrant_to_put? &amp; oenological_intrant_to_put.net_mass(gram) &gt; 0" to="population" backward="value * self..net_mass(gram)" forward="value / self..net_mass(gram)"/>
         <handler indicator="mass_volume_density" unit="gram_per_hectoliter" if="oenological_intrant_to_put? &amp; oenological_intrant_to_put.net_mass(gram) &gt; 0" to="population" backward="(value * self..net_mass(gram)) / wine_to_treat.net_volume(hectoliter)" forward="(value / self..net_mass(gram)) * wine_to_treat.net_volume(hectoliter)"/>
       </variable>
-      <variable name="wine_man" variety="worker" abilities="move" roles="addition-doer"/>
+      <variable name="wine_man" type="doer" variety="worker" abilities="move"/>
     </variables>
-    <operations>
-      <operation id="1">
-        <task do="[oenological_intrant] parts with [oenological_intrant_to_put]"/>
-        <task do="[oenological_intrant_to_put] moves at [wine_to_treat]"/>
-        <task do="[wine_to_treat] consumes [oenological_intrant_to_put]"/>
-      </operation>
-    </operations>
   </procedure>
 </procedures>

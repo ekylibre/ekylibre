@@ -112,7 +112,7 @@ class Ekylibre::AnimalGroupsExchanger < ActiveExchanger::Base
         min_born_at = Time.zone.now - r.maximum_age.days if r.maximum_age
         animals = Animal.indicate(sex: r.sex.to_s).where(born_at: min_born_at..max_born_at).reorder(:name)
         # find support for intervention changing or create it
-        unless ps = ProductionSupport.where(storage_id: animal_group.id).first
+        unless ps = ActivityProduction.where(storage_id: animal_group.id).first
           campaign = Campaign.find_or_create_by!(harvest_year: r.campaign_year)
           unless activity = Activity.find_by(name: r.activity_name)
             family = Activity.find_best_family(animal_group.derivative_of, animal_group.variety)

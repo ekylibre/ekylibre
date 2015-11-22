@@ -6,6 +6,9 @@ fra:
         net_margin: "Marge nette" #?
         parent: "Activité parente"
         work_unit: "Unité d’œuvre" #?
+      activity_production:  #?
+        production_usage: "Usage futur" #?
+        storage: "Support" #?
       animal:  #?
         born_at: "Né(e) le" #?
         variety: "Race" #?
@@ -97,9 +100,6 @@ fra:
       production:  #?
         product_nature: "Produit de référence" #?
         static_support: "Support de production" #?
-      production_support:  #?
-        production_usage: "Usage futur" #?
-        storage: "Support" #?
       purchase:  #?
         amount: "Montant TTC" #?
         items: "Lignes d’achat" #?
@@ -232,7 +232,9 @@ fra:
       account: "Compte comptable"
       account_balance: "Balance de compte"
       activity: "Activité"
+      activity_budget: "Budget"
       activity_distribution: "Distribution entre activité"
+      activity_production: "Support de production"
       affair: "Affaire"
       analysis: "Analyse"
       analysis_item: "Élément d’analyse"
@@ -289,6 +291,7 @@ fra:
       incoming_payment_mode: "Mode d’encaissement"
       intervention: "Intervention"
       intervention_cast: "Variable de procédure"
+      intervention_cast_reading: "Relevé d’indicateur"
       inventory: "Inventaire"
       inventory_item: "Ligne d’inventaire"
       issue: "Incident"
@@ -347,12 +350,9 @@ fra:
       product_quadruple_mixing: "Quadruple mélange de produits" #?
       product_quintuple_mixing: "Quintuple mélange de produits" #?
       product_reading: "Valeur d’indicateur"
-      product_reading_task: "Relevé d’indicateur"
       product_triple_mixing: "Triple mélange de produits" #?
       production: "Production"
-      production_budget: "Budget"
       production_distribution: "Répartition entre production"
-      production_support: "Support de production"
       property_title: "Titre de propriété" #?
       purchase: "Achat"
       purchase_item: "Ligne d’achat"
@@ -407,9 +407,12 @@ fra:
     achieved_at: "Achevé le"
     active: "Actif"
     active_prices: "Prix actifs" #?
+    # activities: "Activities"
     activity: "Activité"
     activity_code: "Code APE/NAF"
     activity_distributions: "Répartitions entre activités"
+    # activity_production: "Activity production"
+    # activity_productions: "Activity productions"
     actor: "Acteur"
     actual_number: "Numéro en cours"
     actual_population: "Population réelle"
@@ -936,6 +939,9 @@ fra:
     net_service: "Service web"
     net_surface_area: "Surface" #?
     net_volume: "Volume net" #?
+    # new_container: "New container"
+    # new_group: "New group"
+    # new_variant: "New variant"
     nic: "NIC (Numéro Interne de Classement)" #?
     nitrate_fixing: "Piège à nitrates"
     nitrogen_at_closing: "Azote présent dans le sol à la fermeture du bilan (Rf)"
@@ -996,7 +1002,7 @@ fra:
     payments_count: "Nombre d’encaissements"
     payments_to_deposit: "Encaissements à encaisser" #?
     payments_to_deposit_accounts: "Comptes des encaissements à encaisser" #?
-    period: "Périodicité"
+    period: "Période"
     person: "Personne"
     phases: "Phases"
     phones: "Téléphones"
@@ -1094,8 +1100,11 @@ fra:
     purchased_on: "Acheté le"
     purchases: "Achats"
     quantity: "Quantité"
+    # quantity_handler: "Quantity handler"
     # quantity_indicator: "Quantity indicator"
+    # quantity_population: "Quantity population"
     # quantity_unit: "Quantity unit"
+    # quantity_value: "Quantity value"
     query: "Requête"
     read_at: "Mesuré à"
     reading: "Relevé" #?
@@ -1199,9 +1208,12 @@ fra:
     siren: "N° SIREN"
     # siret: "SIRET"
     siret_number: "N° SIRET"
+    # size_indicator: "Size indicator"
+    # size_unit: "Size unit"
     soil_nature: "Nature du sol"
     soil_production: "Contribution en azote du sol (Po)"
     source: "Source"
+    # source_product: "Source product"
     spaced_iban: "IBAN"
     sql_type: "Type SQL"
     start: "Début"
@@ -1321,7 +1333,10 @@ fra:
     with_transport: "Avec transport"
     work_number: "Numéro de travail"
     worker: "Travailleur"
+    # working_duration: "Working duration"
+    # working_shape: "Working shape"
     working_unit: "Unité d’œuvre" #?
+    # working_zone: "Working zone"
     zone_memberships: "Appartenances de zone"
     zones: "Zones"
   models:

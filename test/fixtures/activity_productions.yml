@@ -1,0 +1,271 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2015 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: activity_productions
+#
+#  activity_id        :integer          not null
+#  created_at         :datetime         not null
+#  creator_id         :integer
+#  cultivable_zone_id :integer
+#  id                 :integer          not null, primary key
+#  irrigated          :boolean          default(FALSE), not null
+#  lock_version       :integer          default(0), not null
+#  nitrate_fixing     :boolean          default(FALSE), not null
+#  rank_number        :integer          not null
+#  size_indicator     :string           not null
+#  size_unit          :string
+#  size_value         :decimal(19, 4)   not null
+#  started_at         :datetime
+#  state              :string
+#  stopped_at         :datetime
+#  support_id         :integer          not null
+#  support_shape      :geometry({:srid=>4326, :type=>"geometry"})
+#  updated_at         :datetime         not null
+#  updater_id         :integer
+#  usage              :string           not null
+#
+#
+# == Fixture: activity_productions
+#
+# activity_productions_001:
+#   activity: activities_001
+#   creator: users_001
+#   irrigated: true
+#   nitrate_fixing: true
+#   rank_number: 0
+#   size_indicator: "Lorem ipsum"
+#   size_value: 0
+#   support: supports_001
+#   updater: users_001
+#   usage: "Lorem ipsum"
+#
+---
+activity_productions_001:
+  activity_id: 1
+  created_at: 2014-11-04 17:23:15.017043000 Z
+  creator_id: 1
+  id: 6
+  irrigated: false
+  lock_version: 0
+  nitrate_fixing: false
+  rank_number: 1
+  size_indicator: net_surface_area
+  size_unit: hectare
+  size_value: 5.3806
+  state: opened
+  support_id: 83
+  updated_at: 2014-11-04 17:23:15.017043000 Z
+  updater_id: 1
+  usage: fodder
+activity_productions_002:
+  activity_id: 1
+  created_at: 2014-11-04 17:23:15.019045000 Z
+  creator_id: 1
+  id: 7
+  irrigated: false
+  lock_version: 0
+  nitrate_fixing: false
+  rank_number: 2
+  size_indicator: net_surface_area
+  size_unit: hectare
+  size_value: 8.349
+  state: opened
+  support_id: 84
+  updated_at: 2014-11-04 17:23:15.019045000 Z
+  updater_id: 1
+  usage: fodder
+activity_productions_003:
+  activity_id: 1
+  created_at: 2014-11-04 17:23:48.520900000 Z
+  creator_id: 1
+  id: 8
+  irrigated: false
+  lock_version: 0
+  nitrate_fixing: false
+  rank_number: 3
+  size_indicator: net_surface_area
+  size_unit: hectare
+  size_value: 5.3806
+  started_at: 2012-12-31 23:00:00.000000000 Z
+  state: opened
+  stopped_at: 2014-07-30 22:00:00.000000000 Z
+  support_id: 83
+  updated_at: 2014-11-04 17:23:48.520900000 Z
+  updater_id: 1
+  usage: fodder
+activity_productions_004:
+  activity_id: 1
+  created_at: 2014-11-04 17:23:48.523744000 Z
+  creator_id: 1
+  id: 9
+  irrigated: false
+  lock_version: 0
+  nitrate_fixing: false
+  rank_number: 4
+  size_indicator: net_surface_area
+  size_unit: hectare
+  size_value: 8.349
+  started_at: 2012-12-31 23:00:00.000000000 Z
+  state: opened
+  stopped_at: 2014-07-30 22:00:00.000000000 Z
+  support_id: 84
+  updated_at: 2014-11-04 17:23:48.523744000 Z
+  updater_id: 1
+  usage: fodder
+activity_productions_005:
+  activity_id: 1
+  created_at: 2014-11-04 17:23:48.526283000 Z
+  creator_id: 1
+  id: 10
+  irrigated: false
+  lock_version: 0
+  nitrate_fixing: false
+  rank_number: 5
+  size_indicator: net_surface_area
+  size_unit: hectare
+  size_value: 4.7133
+  started_at: 2012-12-31 23:00:00.000000000 Z
+  state: opened
+  stopped_at: 2014-07-30 22:00:00.000000000 Z
+  support_id: 82
+  updated_at: 2014-11-04 17:23:48.526283000 Z
+  updater_id: 1
+  usage: fodder
+activity_productions_006:
+  activity_id: 5
+  created_at: 2014-11-04 18:17:39.475733000 Z
+  creator_id: 1
+  id: 11
+  irrigated: false
+  lock_version: 0
+  nitrate_fixing: false
+  rank_number: 1
+  size_indicator: net_surface_area
+  size_unit: hectare
+  size_value: 3.9989
+  state: opened
+  support_id: 81
+  updated_at: 2014-11-04 18:17:39.475733000 Z
+  updater_id: 1
+  usage: fodder
+activity_productions_007:
+  activity_id: 5
+  created_at: 2014-11-04 18:21:43.150392000 Z
+  creator_id: 1
+  id: 12
+  irrigated: false
+  lock_version: 0
+  nitrate_fixing: false
+  rank_number: 2
+  size_indicator: net_surface_area
+  size_unit: hectare
+  size_value: 3.9989
+  state: opened
+  support_id: 81
+  updated_at: 2014-11-04 18:21:43.150392000 Z
+  updater_id: 1
+  usage: fodder
+activity_productions_008:
+  activity_id: 3
+  created_at: 2014-11-07 14:43:13.634171000 Z
+  creator_id: 1
+  id: 13
+  irrigated: false
+  lock_version: 0
+  nitrate_fixing: false
+  rank_number: 1
+  size_indicator: members_population
+  size_unit: ''
+  size_value: 0.0
+  state: opened
+  support_id: 85
+  updated_at: 2014-11-07 14:43:13.634171000 Z
+  updater_id: 1
+  usage: fodder
+activity_productions_009:
+  activity_id: 3
+  created_at: 2014-11-07 15:53:12.705675000 Z
+  creator_id: 1
+  id: 14
+  irrigated: false
+  lock_version: 0
+  nitrate_fixing: false
+  rank_number: 2
+  size_indicator: members_population
+  size_unit: ''
+  size_value: 0.0
+  state: opened
+  support_id: 80
+  updated_at: 2014-11-07 15:53:12.705675000 Z
+  updater_id: 1
+  usage: fodder
+activity_productions_010:
+  activity_id: 3
+  created_at: 2014-11-07 15:54:19.288354000 Z
+  creator_id: 1
+  id: 15
+  irrigated: false
+  lock_version: 1
+  nitrate_fixing: false
+  rank_number: 3
+  size_indicator: members_population
+  size_unit: ''
+  size_value: 0.0
+  state: opened
+  support_id: 86
+  updated_at: 2015-03-08 16:49:28.765669000 Z
+  updater_id: 1
+  usage: fodder
+activity_productions_011:
+  activity_id: 6
+  created_at: 2014-11-07 16:34:30.852303000 Z
+  creator_id: 1
+  id: 16
+  irrigated: false
+  lock_version: 0
+  nitrate_fixing: false
+  rank_number: 1
+  size_indicator: net_surface_area
+  size_unit: hectare
+  size_value: 5.3954
+  state: opened
+  support_id: 106
+  updated_at: 2014-11-07 16:34:30.852303000 Z
+  updater_id: 1
+  usage: fodder
+activity_productions_012:
+  activity_id: 6
+  created_at: 2014-11-07 16:35:00.784356000 Z
+  creator_id: 1
+  id: 17
+  irrigated: false
+  lock_version: 0
+  nitrate_fixing: false
+  rank_number: 2
+  size_indicator: net_surface_area
+  size_unit: hectare
+  size_value: 5.3954
+  state: opened
+  support_id: 106
+  updated_at: 2014-11-07 16:35:00.784356000 Z
+  updater_id: 1
+  usage: fodder

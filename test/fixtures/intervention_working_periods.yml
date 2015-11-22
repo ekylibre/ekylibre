@@ -1,0 +1,267 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2015 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: intervention_working_periods
+#
+#  created_at      :datetime         not null
+#  creator_id      :integer
+#  duration        :integer          not null
+#  id              :integer          not null, primary key
+#  intervention_id :integer          not null
+#  lock_version    :integer          default(0), not null
+#  started_at      :datetime         not null
+#  stopped_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  updater_id      :integer
+#
+#
+# == Fixture: intervention_working_periods
+#
+# intervention_working_periods_001:
+#   creator: users_001
+#   duration: 0
+#   intervention: interventions_001
+#   started_at: 2014-11-27 19:35:05 +02:00
+#   stopped_at: 2014-11-27 19:35:05 +02:00
+#   updater: users_001
+#
+---
+intervention_working_periods_001:
+  created_at: 2014-11-04 18:31:09.285923000 Z
+  creator_id: 1
+  duration: 14400
+  id: 1
+  intervention_id: 9
+  lock_version: 2
+  started_at: 2012-10-03 08:30:00.000000000 Z
+  stopped_at: 2012-10-03 12:30:00.000000000 Z
+  updated_at: 2014-11-04 18:31:37.378414000 Z
+  updater_id: 1
+intervention_working_periods_002:
+  created_at: 2014-11-04 18:41:39.737616000 Z
+  creator_id: 1
+  duration: 37500
+  id: 2
+  intervention_id: 10
+  lock_version: 0
+  started_at: 2012-10-04 07:25:00.000000000 Z
+  stopped_at: 2012-10-04 17:50:00.000000000 Z
+  updated_at: 2014-11-04 18:41:39.737616000 Z
+  updater_id: 1
+intervention_working_periods_003:
+  created_at: 2014-11-05 15:39:35.599908000 Z
+  creator_id: 1
+  duration: 20700
+  id: 3
+  intervention_id: 11
+  lock_version: 4
+  started_at: 2013-11-10 09:00:00.000000000 Z
+  stopped_at: 2013-11-10 14:45:00.000000000 Z
+  updated_at: 2015-03-23 09:36:39.556387000 Z
+  updater_id: 1
+intervention_working_periods_004:
+  created_at: 2014-11-06 17:47:16.003032000 Z
+  creator_id: 1
+  duration: 20400
+  id: 4
+  intervention_id: 12
+  lock_version: 3
+  started_at: 2012-10-07 07:50:00.000000000 Z
+  stopped_at: 2012-10-07 13:30:00.000000000 Z
+  updated_at: 2014-11-06 17:49:51.154667000 Z
+  updater_id: 1
+intervention_working_periods_005:
+  created_at: 2014-11-06 17:49:34.368349000 Z
+  creator_id: 1
+  duration: 28800
+  id: 5
+  intervention_id: 13
+  lock_version: 2
+  started_at: 2012-10-17 06:00:00.000000000 Z
+  stopped_at: 2012-10-17 14:00:00.000000000 Z
+  updated_at: 2014-11-06 17:50:07.381890000 Z
+  updater_id: 1
+intervention_working_periods_006:
+  created_at: 2014-11-07 14:44:11.007227000 Z
+  creator_id: 1
+  duration: 14400
+  id: 6
+  intervention_id: 14
+  lock_version: 4
+  started_at: 2014-11-05 04:25:00.000000000 Z
+  stopped_at: 2014-11-05 08:25:00.000000000 Z
+  updated_at: 2014-11-07 14:56:53.830642000 Z
+  updater_id: 1
+intervention_working_periods_007:
+  created_at: 2014-11-07 15:02:12.145127000 Z
+  creator_id: 1
+  duration: 7200
+  id: 7
+  intervention_id: 15
+  lock_version: 2
+  started_at: 2013-02-08 09:50:00.000000000 Z
+  stopped_at: 2013-02-08 11:50:00.000000000 Z
+  updated_at: 2014-11-07 15:02:59.236199000 Z
+  updater_id: 1
+intervention_working_periods_008:
+  created_at: 2014-11-07 15:26:35.538449000 Z
+  creator_id: 1
+  duration: 6720
+  id: 8
+  intervention_id: 16
+  lock_version: 2
+  started_at: 2012-12-12 09:20:00.000000000 Z
+  stopped_at: 2012-12-12 11:12:00.000000000 Z
+  updated_at: 2014-11-07 15:26:50.748268000 Z
+  updater_id: 1
+intervention_working_periods_009:
+  created_at: 2014-11-07 15:45:30.882661000 Z
+  creator_id: 1
+  duration: 20400
+  id: 9
+  intervention_id: 17
+  lock_version: 2
+  started_at: 2007-09-29 08:00:00.000000000 Z
+  stopped_at: 2007-09-29 13:40:00.000000000 Z
+  updated_at: 2014-11-07 15:45:46.130915000 Z
+  updater_id: 1
+intervention_working_periods_010:
+  created_at: 2014-11-07 15:47:46.996499000 Z
+  creator_id: 1
+  duration: 5267400
+  id: 10
+  intervention_id: 18
+  lock_version: 4
+  started_at: 2014-07-01 12:35:00.000000000 Z
+  stopped_at: 2014-08-31 11:45:00.000000000 Z
+  updated_at: 2014-11-07 15:55:52.246355000 Z
+  updater_id: 1
+intervention_working_periods_011:
+  created_at: 2014-11-07 16:16:21.819333000 Z
+  creator_id: 1
+  duration: 5163600
+  id: 11
+  intervention_id: 19
+  lock_version: 0
+  started_at: 2014-09-01 15:15:00.000000000 Z
+  stopped_at: 2014-10-31 09:35:00.000000000 Z
+  updated_at: 2014-11-07 16:16:21.819333000 Z
+  updater_id: 1
+intervention_working_periods_012:
+  created_at: 2014-11-07 16:20:51.420516000 Z
+  creator_id: 1
+  duration: 9900
+  id: 12
+  intervention_id: 20
+  lock_version: 0
+  started_at: 2014-02-01 09:45:00.000000000 Z
+  stopped_at: 2014-02-01 12:30:00.000000000 Z
+  updated_at: 2014-11-07 16:20:51.420516000 Z
+  updater_id: 1
+intervention_working_periods_013:
+  created_at: 2014-11-07 16:49:41.924502000 Z
+  creator_id: 1
+  duration: 46800
+  id: 13
+  intervention_id: 21
+  lock_version: 2
+  started_at: 2008-03-15 09:00:00.000000000 Z
+  stopped_at: 2008-03-15 22:00:00.000000000 Z
+  updated_at: 2014-11-07 16:50:07.634178000 Z
+  updater_id: 1
+intervention_working_periods_014:
+  created_at: 2014-11-07 16:58:54.121180000 Z
+  creator_id: 1
+  duration: 14400
+  id: 14
+  intervention_id: 22
+  lock_version: 2
+  started_at: 2013-04-17 08:00:00.000000000 Z
+  stopped_at: 2013-04-17 12:00:00.000000000 Z
+  updated_at: 2014-11-07 16:59:10.188297000 Z
+  updater_id: 1
+intervention_working_periods_015:
+  created_at: 2014-11-07 17:07:15.601972000 Z
+  creator_id: 1
+  duration: 43200
+  id: 15
+  intervention_id: 23
+  lock_version: 2
+  started_at: 2013-09-16 05:00:00.000000000 Z
+  stopped_at: 2013-09-16 17:00:00.000000000 Z
+  updated_at: 2014-11-07 17:08:50.944424000 Z
+  updater_id: 1
+intervention_working_periods_016:
+  created_at: 2014-11-07 19:02:48.874701000 Z
+  creator_id: 1
+  duration: 2100
+  id: 16
+  intervention_id: 25
+  lock_version: 2
+  started_at: 2013-10-02 07:00:00.000000000 Z
+  stopped_at: 2013-10-02 07:35:00.000000000 Z
+  updated_at: 2014-11-07 19:02:56.633410000 Z
+  updater_id: 1
+intervention_working_periods_017:
+  created_at: 2014-11-07 19:08:38.774375000 Z
+  creator_id: 1
+  duration: 2400
+  id: 17
+  intervention_id: 26
+  lock_version: 2
+  started_at: 2013-10-05 13:00:00.000000000 Z
+  stopped_at: 2013-10-05 13:40:00.000000000 Z
+  updated_at: 2014-11-07 19:08:55.663395000 Z
+  updater_id: 1
+intervention_working_periods_018:
+  created_at: 2014-11-07 19:12:37.525620000 Z
+  creator_id: 1
+  duration: 900
+  id: 18
+  intervention_id: 27
+  lock_version: 2
+  started_at: 2013-10-07 09:30:00.000000000 Z
+  stopped_at: 2013-10-07 09:45:00.000000000 Z
+  updated_at: 2014-11-07 19:12:43.051707000 Z
+  updater_id: 1
+intervention_working_periods_019:
+  created_at: 2014-11-07 19:23:41.906006000 Z
+  creator_id: 1
+  duration: 1200
+  id: 19
+  intervention_id: 28
+  lock_version: 4
+  started_at: 2013-10-15 08:28:00.000000000 Z
+  stopped_at: 2013-10-15 08:48:00.000000000 Z
+  updated_at: 2014-11-07 19:27:25.683759000 Z
+  updater_id: 1
+intervention_working_periods_020:
+  created_at: 2014-11-07 19:36:53.121209000 Z
+  creator_id: 1
+  duration: 25200
+  id: 20
+  intervention_id: 29
+  lock_version: 2
+  started_at: 2013-10-30 07:00:00.000000000 Z
+  stopped_at: 2013-10-30 14:00:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.723027000 Z
+  updater_id: 1

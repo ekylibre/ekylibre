@@ -1,21 +1,15 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="ground_destratification" natures="ground_arrangement" version="0">
+  <procedure name="ground_destratification" categories="planting" actions="loosening">
     <variables>
-      <variable name="land_parcel" variety="cultivable_zone" roles="ground_arrangement-target" default-shape=":land_parcel" default-actor="storage">
+      <variable name="land_parcel" type="target" variety="cultivable_zone" default-shape=":land_parcel" default-actor="storage">
         <handler indicator="shape">
           <converter to="shape" forward="intersection(value, land_parcel.shape)" backward="value"/>
           <converter to="population" forward="area(value) / land_parcel..net_surface_area(square_meter)"/>
         </handler>
       </variable>
-      <variable name="driver" abilities="move, drive(tractor)" roles="ground_arrangement-doer"/>
-      <variable name="tractor" variety="equipment" abilities="catch(equipment)" roles="ground_arrangement-tool"/>
+      <variable name="driver" type="doer" abilities="move, drive(tractor)"/>
+      <variable name="tractor" type="tool" variety="equipment" abilities="catch(equipment)"/>
     </variables>
-    <operations>
-      <operation id="1">
-        <task do="[tractor] acts on [land_parcel]"/>
-        <task do="[driver] measures [land_parcel|soil_cultural_state]"/>
-      </operation>
-    </operations>
   </procedure>
 </procedures>

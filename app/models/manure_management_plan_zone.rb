@@ -23,6 +23,7 @@
 # == Table: manure_management_plan_zones
 #
 #  absorbed_nitrogen_at_opening                    :decimal(19, 4)
+#  activity_production_id                          :integer          not null
 #  administrative_area                             :string
 #  computation_method                              :string           not null
 #  created_at                                      :datetime         not null
@@ -45,23 +46,22 @@
 #  previous_cultivation_residue_mineralization     :decimal(19, 4)
 #  soil_nature                                     :string
 #  soil_production                                 :decimal(19, 4)
-#  support_id                                      :integer          not null
 #  updated_at                                      :datetime         not null
 #  updater_id                                      :integer
 #
 class ManureManagementPlanZone < Ekylibre::Record::Base
   belongs_to :plan, class_name: 'ManureManagementPlan', inverse_of: :zones
-  belongs_to :support, class_name: 'ProductionSupport'
-  has_one :activity, through: :production
+  belongs_to :activity_production
+  has_one :activity, through: :activity_production
   has_one :campaign, through: :plan
-  has_one :cultivable_zone, through: :support, source: :storage
-  has_one :production, through: :support
+  has_one :support, through: :activity_production
+  has_one :cultivable_zone, through: :activity_production, source: :support
   refers_to :soil_nature
   refers_to :cultivation_variety, class_name: 'Variety'
   refers_to :administrative_area
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :absorbed_nitrogen_at_opening, :expected_yield, :humus_mineralization, :intermediate_cultivation_residue_mineralization, :irrigation_water_nitrogen, :maximum_nitrogen_input, :meadow_humus_mineralization, :mineral_nitrogen_at_opening, :nitrogen_at_closing, :nitrogen_input, :nitrogen_need, :organic_fertilizer_mineral_fraction, :previous_cultivation_residue_mineralization, :soil_production, allow_nil: true
-  validates_presence_of :computation_method, :plan, :support
+  validates_presence_of :activity_production, :computation_method, :plan
   # ]VALIDATORS]
 
   delegate :locked?, :opened_at, to: :plan
@@ -92,10 +92,10 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
     hash = {
       available_water_capacity: available_water_capacity,
       opened_at: opened_at,
-      support: support
+      support: activity_production
     }
-    if support.production_usage
-      hash[:production_usage] = Nomen::ProductionUsage[support.production_usage]
+    if activity_production.usage
+      hash[:production_usage] = Nomen::ProductionUsage[activity_production.usage]
     end
     if computation_method && Calculus::ManureManagementPlan.method_exist?(computation_method.to_sym)
       hash[:method] = computation_method.to_sym

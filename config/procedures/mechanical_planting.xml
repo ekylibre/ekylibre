@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="mechanical_planting" categories="planting" actions="planting">
+    <variables>
+      <variable name="plants" type="input" variety="seedling" derivative-of="plant" default-name="{{variant}} - [{{derivative_of}}]" abilities="grow">
+        <handler indicator="population"/>
+        <handler indicator="plants_count" unit="unity_per_hectare" to="population" backward="value / cultivation.net_surface_area(hectare)" forward="cultivation.net_surface_area(hectare) * value"/>
+      </variable>
+      <variable name="implanter_tool" type="tool" abilities="implant"/>
+      <variable name="driver" type="doer" abilities="drive(tractor), move"/>
+      <variable name="implanter_man" type="doer" abilities="drive(equipment), move"/>
+      <variable name="tractor" type="tool" abilities="tow(equipment), move"/>
+      <variable name="land_parcel" type="target" abilities="store(plant)" default-actor="storage"/>
+      <variable name="cultivation" type="output" variety="derivative-of: plants" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" default-shape=":land_parcel" default-variant="production">
+        <handler indicator="shape">
+          <converter to="shape" forward="intersection(value, land_parcel.shape)" backward="value"/>
+          <converter to="population" forward="area(value) / cultivation..net_surface_area(square_meter)"/>
+        </handler>
+      </variable>
+    </variables>
+  </procedure>
+</procedures>

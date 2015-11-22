@@ -22,49 +22,65 @@
 #
 # == Table: intervention_casts
 #
-#  actor_id               :integer
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  event_participation_id :integer
 #  id                     :integer          not null, primary key
 #  intervention_id        :integer          not null
 #  lock_version           :integer          default(0), not null
-#  nature                 :string           not null
-#  population             :decimal(19, 4)
+#  new_container_id       :integer
+#  new_group_id           :integer
+#  new_variant_id         :integer
 #  position               :integer          not null
+#  product_id             :integer
+#  quantity_handler       :string
+#  quantity_indicator     :string
+#  quantity_population    :decimal(19, 4)
+#  quantity_unit          :string
+#  quantity_value         :decimal(19, 4)
 #  reference_name         :string           not null
-#  roles                  :string
-#  shape                  :geometry({:srid=>4326, :type=>"geometry"})
+#  source_product_id      :integer
+#  type                   :string
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #  variant_id             :integer
+#  working_zone           :geometry({:srid=>4326, :type=>"geometry"})
 #
 
 class InterventionCast < Ekylibre::Record::Base
-  enumerize :nature, in: [:product, :variant], default: :product, predicates: { prefix: true }
-  belongs_to :actor, class_name: 'Product', inverse_of: :intervention_casts
   belongs_to :event_participation, dependent: :destroy
   belongs_to :intervention, inverse_of: :casts
+  belongs_to :new_container, class_name: 'Product'
+  belongs_to :new_group, class_name: 'ProductGroup'
+  belongs_to :new_variant, class_name: 'ProductNatureVariant'
+  belongs_to :product, inverse_of: :intervention_casts
+  belongs_to :source_product, class_name: 'Product'
   belongs_to :variant, class_name: 'ProductNatureVariant'
   has_many :crumbs, dependent: :destroy
+  has_many :readings, class_name: 'InterventionCastReading', dependent: :destroy, inverse_of: :intervention_cast
   has_one :product_nature, through: :variant, source: :nature
   has_one :activity, through: :intervention
   has_one :campaign, through: :intervention
   has_one :event,    through: :intervention
-  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :population, allow_nil: true
-  validates_presence_of :intervention, :nature, :reference_name
-  # ]VALIDATORS]
-  validates_length_of :roles, allow_nil: true, maximum: 320
 
-  delegate :name, to: :actor, prefix: true
+  composed_of :quantity, class_name: 'Measure', mapping: [%w(quantity_value to_d), %w(quantity_unit unit)]
+
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :quantity_population, :quantity_value, allow_nil: true
+  validates_presence_of :intervention, :reference_name
+  # ]VALIDATORS]
+
+  delegate :name, to: :product, prefix: true
   delegate :name, to: :product_nature, prefix: true
-  delegate :evaluated_price, to: :actor
-  delegate :tracking, to: :actor
-  delegate :started_at, :stopped_at, to: :intervention
+  delegate :evaluated_price, to: :product
+  delegate :tracking, to: :product
+  delegate :started_at, :stopped_at, :duration, to: :intervention
   delegate :matching_model, to: :variant
 
+  accepts_nested_attributes_for :readings, allow_destroy: true
+
   scope :of_role, lambda { |role|
+    fail 'No more usable'
     unless role.to_s =~ /\-/
       fail ArgumentError, 'Need a valid role: <procedure_nature>-<role>'
     end
@@ -73,28 +89,34 @@ class InterventionCast < Ekylibre::Record::Base
   }
 
   scope :of_generic_role, lambda { |role|
-    where('roles ~ E?', (role =~ /\-/ ? "\\\\m#{role}\\\\M" : "-#{role}\\\\M"))
+    role = role.to_s
+    unless %w(doer input output target tool).include?(role)
+      fail "Invalid role: #{role}"
+    end
+    where(type: "Intervention#{role.camelize}")
   }
 
-  scope :of_actor, ->(actor) { where(actor_id: actor.id) }
-  scope :with_actor, -> { where.not(actor_id: nil) }
+  scope :of_activity, lambda { |activity|
+    where(intervention_id: InterventionTarget.select(:intervention_id).where(product_id: TargetDistribution.select(:target_id).where(activity_id: activity)))
+  }
+  scope :of_actor, ->(actor) { where(product_id: actor.id) }
+  scope :with_actor, -> { where.not(product_id: nil) }
 
   before_validation do
     if reference
-      self.roles = reference.roles.join(', ')
       self.position = reference.position
     else
       precision = 10**8
       now = Time.zone.now
       self.position ||= (precision * now.to_f).round - (precision * now.to_i)
     end
-    if self.actor.is_a?(Product)
-      self.variant ||= self.actor.variant
-      for indicator_name in self.actor.whole_indicators_list
-        if send(indicator_name).blank? # and !reference.worked?
-          send("#{indicator_name}=", self.actor.send(indicator_name, started_at))
-        end
-      end
+    if product.is_a?(Product)
+      self.variant ||= product.variant
+      # for indicator_name in product.whole_indicators_list
+      #   if send(indicator_name).blank? # and !reference.worked?
+      #     send("#{indicator_name}=", product.send(indicator_name, started_at))
+      #   end
+      # end
     end
   end
 
@@ -105,10 +127,10 @@ class InterventionCast < Ekylibre::Record::Base
   end
 
   before_save do
-    self.actor = nil if self.nature_variant?
+    # self.product = nil if self.nature_variant?
 
-    if self.actor && self.actor.respond_to?(:person) && self.actor.person
-      columns = { event_id: event.id, participant_id: self.actor.person_id, state: :accepted }
+    if product && product.respond_to?(:person) && product.person
+      columns = { event_id: event.id, participant_id: product.person_id, state: :accepted }
       if event_participation
         # self.event_participation.update_columns(columns)
         event_participation.attributes = columns
@@ -122,11 +144,11 @@ class InterventionCast < Ekylibre::Record::Base
     end
   end
 
-  # multiply evaluated_price of an actor(product) and used population in this cast
+  # multiply evaluated_price of an product(product) and used quantity in this cast
   def cost
-    if actor && price = evaluated_price
+    if product && price = evaluated_price
       if self.input?
-        return price * (population || 0.0)
+        return price * (quantity || 0.0)
       elsif self.tool? || self.doer?
         return price * ((stopped_at - started_at).to_d / 3600)
       end
@@ -134,23 +156,21 @@ class InterventionCast < Ekylibre::Record::Base
     nil
   end
 
-  def duration
-    ((stopped_at - started_at).in(:second))
-  end
-
   def earn
-    if actor && price = evaluated_price
-      return price * (population || 0.0) if self.output?
+    if product && price = evaluated_price
+      return price * (quantity || 0.0) if self.output?
     end
     nil
   end
 
   def reference
-    if intervention && reference = intervention.reference
-      @reference ||= reference.variables[reference_name]
-    else
-      @reference = nil
+    unless @reference
+      if intervention
+        reference = intervention.reference
+        @reference = reference.variables[reference_name]
+      end
     end
+    @reference
   end
 
   def variable_name
@@ -180,33 +200,29 @@ class InterventionCast < Ekylibre::Record::Base
     geom.to_svg
   end
 
-  for role in [:input, :output, :target, :tool, :doer]
-    code = "def #{role}?(procedure_nature = nil)\n"
-    code << "  if procedure_nature\n"
-    code << "    self.roles_array.detect{|r| r.first == procedure_nature and r.second == :#{role}}\n"
-    code << "  else\n"
-    code << "    self.roles_array.detect{|r| r.second == :#{role}}\n"
-    code << "  end\n"
+  [:doer, :input, :output, :target, :tool].each do |role|
+    code = "def #{role}?\n"
+    code << "  self.type.to_s == 'Intervention#{role.to_s.camelize}'\n"
     code << "end\n"
     class_eval(code)
   end
 
-  def roles_array
-    roles.to_s.split(/[\,[[:space:]]]+/).collect { |role| role.split(/\-/)[0..1].map(&:to_sym) }
-  end
+  # def roles_array
+  #   roles.to_s.split(/[\,[[:space:]]]+/).collect { |role| role.split(/\-/)[0..1].map(&:to_sym) }
+  # end
 
-  def human_roles
-    roles_array.collect do |role|
-      :x_of_y.tl(x: Nomen::ProcedureRole[role.second].human_name, y: Nomen::ProcedureNature[role.first].human_name.mb_chars.downcase)
-    end.to_sentence
-  end
+  # def human_roles
+  #   roles_array.collect do |role|
+  #     :x_of_y.tl(x: Nomen::ProcedureRole[role.second].human_name, y: Nomen::ProcedureNature[role.first].human_name.mb_chars.downcase)
+  #   end.to_sentence
+  # end
 
   # Change name with default name like described in procedure
   # if default-name attribute is given too.
   # It uses interpolation to compose the wanted name. Not very i18nized
   # for now, but permits to do the job.
   def set_default_name!
-    if reference.default_name? && produced = actor
+    if reference.default_name? && produced = product
       produced.update_column(:name, default_name)
     end
   end
@@ -219,7 +235,7 @@ class InterventionCast < Ekylibre::Record::Base
         campaign: campaign.name,
         activity: activity.name
       }.with_indifferent_access
-      if produced = actor
+      if produced = product
         words[:variant]     = produced.variant_name
         words[:variety]     = Nomen::Variety[produced.variety].human_name
         words[:derivative_of] = (produced.derivative_of ? Nomen::Variety[produced.variety].human_name : nil)
@@ -231,9 +247,9 @@ class InterventionCast < Ekylibre::Record::Base
         words[:birth_month] = produced.born_at.month.to_s.rjust(2, '0')
         words[:birth_day]   = produced.born_at.day.to_s.rjust(2, '0')
         words[:birth_month_name] = 'date.month_names'.t[produced.born_at.month]
-        words[:birth_day_name]   = 'date.day_names'[produced.born_at.wday]
+        words[:birth_day_name]   = 'date.day_names'.t[produced.born_at.wday]
         words[:birth_month_abbr] = 'date.abbr_month_names'.t[produced.born_at.month]
-        words[:birth_day_abbr]   = 'date.abbr_day_names'[produced.born_at.wday]
+        words[:birth_day_abbr]   = 'date.abbr_day_names'.t[produced.born_at.wday]
       end
       text = reference.default_name.dup.gsub(/\{\{\w+\}\}/) do |key|
         words[key[2..-3]]
@@ -246,34 +262,34 @@ class InterventionCast < Ekylibre::Record::Base
   def runnable?
     if reference.parted?
       if reference.known_variant?
-        return population.present?
+        return quantity.present?
       else
-        return (self.variant && population.present?)
+        return (self.variant && quantity.present?)
       end
     elsif reference.produced?
       return self.variant
     elsif reference.type_variant?
       return self.variant
     else
-      return actor
+      return product
     end
     false
   end
 
   # FIXME: Seems that Rails does not define population method when aggregators are used...
   def population
-    self['population']
+    self['quantity']
   end
 
-  # FIXME: Seems that Rails does not define population method when aggregators are used...
+  # FIXME: Seems that Rails does not define shape method when aggregators are used...
   def shape
     self['shape']
   end
 
   # Returns value of an indicator if its name correspond to
   def method_missing(method_name, *args)
-    if Nomen::Indicator.all.include?(method_name.to_s) && actor && actor.respond_to?(:get)
-      return actor.get(method_name, self)
+    if Nomen::Indicator.all.include?(method_name.to_s) && product && product.respond_to?(:get)
+      return product.get(method_name, self)
     end
     super
   end

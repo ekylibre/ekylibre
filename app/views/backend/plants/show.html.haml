@@ -7,40 +7,42 @@
     .picture= image_tag(resource.picture.url(:identity))
   - else
     = mini_map(resource)
-  .med-info.important
-    %span.title= Plant.human_attribute_name(:name)
-    %span.value= resource.name
-  .med-info.important
-    %span.title= Plant.human_attribute_name(:net_surface_area)
-    %span.value= resource.net_surface_area.in_hectare.round(2).l
-  .med-info.important
-    %span.title= Plant.human_attribute_name(:variety)
-    %span.value= Nomen::Variety[resource.variety].human_name
-  - if resource.container
-    .med-info
-      %span.title= :container.tl
-      %span.value
-        %i.picto{class: "zone"}
-        = link_to(resource.container.work_name, {controller: resource.container.type.tableize, action: :show, id: resource.container.id})
+  .big-infos
+    .med-info.important
+      %span.title= Plant.human_attribute_name(:name)
+      %span.value= resource.name
+    .med-info.important
+      %span.title= Plant.human_attribute_name(:net_surface_area)
+      %span.value= resource.net_surface_area.in_hectare.round(2).l
+    .med-info.important
+      %span.title= Plant.human_attribute_name(:variety)
+      %span.value= Nomen::Variety[resource.variety].human_name
+    - if resource.container
+      .med-info
+        %span.title= :container.tl
+        %span.value
+          %i.picto{class: "zone"}
+          = link_to(resource.container.work_name, {controller: resource.container.type.tableize, action: :show, id: resource.container.id})
 
 = cobbles do |c|
 
   - c.cobble :detail do
-    .med-info.important
-      %span.title= Plant.human_attribute_name(:born_at)
-      %span.value= resource.born_at.l
-    - if resource.born_at and resource.age >= 1.day
-      .med-info
-        %span.title= Plant.human_attribute_name(:age)
-        %span.value
-          %i.picto{class: "picto-clock-o"}
-          = human_age(resource.age, display: 2)
-    .big-info.important
-      %span.title= Plant.human_attribute_name(:state)
-      %span.value= lights(resource.status)
-    - if resource.description
-      %span.title= Plant.human_attribute_name(:description)
-      %span.value= resource.description
+    .big-infos
+      .med-info.important
+        %span.title= Plant.human_attribute_name(:born_at)
+        %span.value= resource.born_at.l
+      - if resource.born_at and resource.age >= 1.day
+        .med-info
+          %span.title= Plant.human_attribute_name(:age)
+          %span.value
+            %i.picto{class: "picto-clock-o"}
+            = human_age(resource.age, display: 2)
+      .med-info.important
+        %span.title= Plant.human_attribute_name(:state)
+        %span.value= lights(resource.status)
+      - if resource.description
+        %span.title= Plant.human_attribute_name(:description)
+        %span.value= resource.description
     - if resource.custom_fields.any?
       = attributes_list do |l|
         - l.custom_fields
@@ -55,9 +57,4 @@
 
   - c.cobble(:readings, title: :x_readings.tl(count: resource.readings.count)) do
     = cobble_list(:readings)
-
-  -# c.cobble(:reading_tasks) do
-    = cobble_list(:reading_tasks)
-  -# c.cobble(:places) do
-    = cobble_list(:places)
 

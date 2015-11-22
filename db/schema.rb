@@ -65,19 +65,22 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "accounts", ["updater_id"], name: "index_accounts_on_updater_id", using: :btree
 
   create_table "activities", force: :cascade do |t|
-    t.string   "name",                            null: false
+    t.string   "name",                                null: false
     t.text     "description"
-    t.string   "family",                          null: false
-    t.string   "nature",                          null: false
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.string   "family",                              null: false
+    t.string   "nature",                              null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",        default: 0, null: false
-    t.boolean  "with_supports",                   null: false
-    t.boolean  "with_cultivation",                null: false
+    t.integer  "lock_version",        default: 0,     null: false
+    t.boolean  "with_supports",                       null: false
+    t.boolean  "with_cultivation",                    null: false
     t.string   "support_variety"
     t.string   "cultivation_variety"
+    t.string   "size_indicator"
+    t.string   "size_unit"
+    t.boolean  "suspended",           default: false, null: false
   end
 
   add_index "activities", ["created_at"], name: "index_activities_on_created_at", using: :btree
@@ -85,6 +88,35 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "activities", ["name"], name: "index_activities_on_name", using: :btree
   add_index "activities", ["updated_at"], name: "index_activities_on_updated_at", using: :btree
   add_index "activities", ["updater_id"], name: "index_activities_on_updater_id", using: :btree
+
+  create_table "activity_budgets", force: :cascade do |t|
+    t.integer  "variant_id"
+    t.string   "direction",                                                 null: false
+    t.decimal  "amount",             precision: 19, scale: 4, default: 0.0
+    t.decimal  "unit_amount",        precision: 19, scale: 4, default: 0.0
+    t.decimal  "quantity",           precision: 19, scale: 4, default: 0.0
+    t.string   "variant_indicator"
+    t.string   "variant_unit"
+    t.string   "computation_method",                                        null: false
+    t.string   "currency",                                                  null: false
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                default: 0,   null: false
+    t.decimal  "unit_population",    precision: 19, scale: 4
+    t.string   "unit_currency",                                             null: false
+    t.integer  "activity_id",                                               null: false
+    t.integer  "campaign_id",                                               null: false
+  end
+
+  add_index "activity_budgets", ["activity_id"], name: "index_activity_budgets_on_activity_id", using: :btree
+  add_index "activity_budgets", ["campaign_id"], name: "index_activity_budgets_on_campaign_id", using: :btree
+  add_index "activity_budgets", ["created_at"], name: "index_activity_budgets_on_created_at", using: :btree
+  add_index "activity_budgets", ["creator_id"], name: "index_activity_budgets_on_creator_id", using: :btree
+  add_index "activity_budgets", ["updated_at"], name: "index_activity_budgets_on_updated_at", using: :btree
+  add_index "activity_budgets", ["updater_id"], name: "index_activity_budgets_on_updater_id", using: :btree
+  add_index "activity_budgets", ["variant_id"], name: "index_activity_budgets_on_variant_id", using: :btree
 
   create_table "activity_distributions", force: :cascade do |t|
     t.integer  "activity_id",                                                 null: false
@@ -103,6 +135,36 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "activity_distributions", ["main_activity_id"], name: "index_activity_distributions_on_main_activity_id", using: :btree
   add_index "activity_distributions", ["updated_at"], name: "index_activity_distributions_on_updated_at", using: :btree
   add_index "activity_distributions", ["updater_id"], name: "index_activity_distributions_on_updater_id", using: :btree
+
+  create_table "activity_productions", force: :cascade do |t|
+    t.integer  "support_id",                                                                                           null: false
+    t.datetime "created_at",                                                                                           null: false
+    t.datetime "updated_at",                                                                                           null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                                                         default: 0,     null: false
+    t.string   "usage",                                                                                                null: false
+    t.decimal  "size_value",                                                  precision: 19, scale: 4,                 null: false
+    t.string   "size_indicator",                                                                                       null: false
+    t.string   "size_unit"
+    t.integer  "activity_id",                                                                                          null: false
+    t.integer  "cultivable_zone_id"
+    t.boolean  "irrigated",                                                                            default: false, null: false
+    t.boolean  "nitrate_fixing",                                                                       default: false, null: false
+    t.geometry "support_shape",      limit: {:srid=>4326, :type=>"geometry"}
+    t.datetime "started_at"
+    t.datetime "stopped_at"
+    t.string   "state"
+    t.integer  "rank_number",                                                                                          null: false
+  end
+
+  add_index "activity_productions", ["activity_id"], name: "index_activity_productions_on_activity_id", using: :btree
+  add_index "activity_productions", ["created_at"], name: "index_activity_productions_on_created_at", using: :btree
+  add_index "activity_productions", ["creator_id"], name: "index_activity_productions_on_creator_id", using: :btree
+  add_index "activity_productions", ["cultivable_zone_id"], name: "index_activity_productions_on_cultivable_zone_id", using: :btree
+  add_index "activity_productions", ["support_id"], name: "index_activity_productions_on_support_id", using: :btree
+  add_index "activity_productions", ["updated_at"], name: "index_activity_productions_on_updated_at", using: :btree
+  add_index "activity_productions", ["updater_id"], name: "index_activity_productions_on_updater_id", using: :btree
 
   create_table "affairs", force: :cascade do |t|
     t.string   "number",                                                          null: false
@@ -266,6 +328,8 @@ ActiveRecord::Schema.define(version: 20151108001401) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version", default: 0,     null: false
+    t.date     "started_on"
+    t.date     "stopped_on"
   end
 
   add_index "campaigns", ["created_at"], name: "index_campaigns_on_created_at", using: :btree
@@ -1207,13 +1271,41 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "incoming_payments", ["updated_at"], name: "index_incoming_payments_on_updated_at", using: :btree
   add_index "incoming_payments", ["updater_id"], name: "index_incoming_payments_on_updater_id", using: :btree
 
+  create_table "intervention_cast_readings", force: :cascade do |t|
+    t.string   "indicator_name",                                                                                                 null: false
+    t.string   "indicator_datatype",                                                                                             null: false
+    t.decimal  "absolute_measure_value_value",                                          precision: 19, scale: 4
+    t.string   "absolute_measure_value_unit"
+    t.boolean  "boolean_value",                                                                                  default: false, null: false
+    t.string   "choice_value"
+    t.decimal  "decimal_value",                                                         precision: 19, scale: 4
+    t.geometry "geometry_value",               limit: {:srid=>4326, :type=>"geometry"}
+    t.integer  "integer_value"
+    t.decimal  "measure_value_value",                                                   precision: 19, scale: 4
+    t.string   "measure_value_unit"
+    t.geometry "point_value",                  limit: {:srid=>4326, :type=>"point"}
+    t.text     "string_value"
+    t.datetime "created_at",                                                                                                     null: false
+    t.datetime "updated_at",                                                                                                     null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                                                                   default: 0,     null: false
+    t.integer  "intervention_cast_id",                                                                                           null: false
+  end
+
+  add_index "intervention_cast_readings", ["created_at"], name: "index_intervention_cast_readings_on_created_at", using: :btree
+  add_index "intervention_cast_readings", ["creator_id"], name: "index_intervention_cast_readings_on_creator_id", using: :btree
+  add_index "intervention_cast_readings", ["indicator_name"], name: "index_intervention_cast_readings_on_indicator_name", using: :btree
+  add_index "intervention_cast_readings", ["intervention_cast_id"], name: "index_intervention_cast_readings_on_intervention_cast_id", using: :btree
+  add_index "intervention_cast_readings", ["updated_at"], name: "index_intervention_cast_readings_on_updated_at", using: :btree
+  add_index "intervention_cast_readings", ["updater_id"], name: "index_intervention_cast_readings_on_updater_id", using: :btree
+
   create_table "intervention_casts", force: :cascade do |t|
     t.integer  "intervention_id",                                                                                      null: false
-    t.integer  "actor_id"
+    t.integer  "product_id"
     t.integer  "variant_id"
-    t.decimal  "population",                                                      precision: 19, scale: 4
-    t.geometry "shape",                  limit: {:srid=>4326, :type=>"geometry"}
-    t.string   "roles"
+    t.decimal  "quantity_population",                                             precision: 19, scale: 4
+    t.geometry "working_zone",           limit: {:srid=>4326, :type=>"geometry"}
     t.string   "reference_name",                                                                                       null: false
     t.integer  "position",                                                                                             null: false
     t.datetime "created_at",                                                                                           null: false
@@ -1222,42 +1314,67 @@ ActiveRecord::Schema.define(version: 20151108001401) do
     t.integer  "updater_id"
     t.integer  "lock_version",                                                                             default: 0, null: false
     t.integer  "event_participation_id"
-    t.string   "nature",                                                                                               null: false
+    t.integer  "source_product_id"
+    t.string   "type"
+    t.integer  "new_container_id"
+    t.integer  "new_group_id"
+    t.integer  "new_variant_id"
+    t.string   "quantity_handler"
+    t.decimal  "quantity_value",                                                  precision: 19, scale: 4
+    t.string   "quantity_unit"
+    t.string   "quantity_indicator"
   end
 
-  add_index "intervention_casts", ["actor_id"], name: "index_intervention_casts_on_actor_id", using: :btree
   add_index "intervention_casts", ["created_at"], name: "index_intervention_casts_on_created_at", using: :btree
   add_index "intervention_casts", ["creator_id"], name: "index_intervention_casts_on_creator_id", using: :btree
   add_index "intervention_casts", ["event_participation_id"], name: "index_intervention_casts_on_event_participation_id", using: :btree
   add_index "intervention_casts", ["intervention_id"], name: "index_intervention_casts_on_intervention_id", using: :btree
+  add_index "intervention_casts", ["new_container_id"], name: "index_intervention_casts_on_new_container_id", using: :btree
+  add_index "intervention_casts", ["new_group_id"], name: "index_intervention_casts_on_new_group_id", using: :btree
+  add_index "intervention_casts", ["new_variant_id"], name: "index_intervention_casts_on_new_variant_id", using: :btree
+  add_index "intervention_casts", ["product_id"], name: "index_intervention_casts_on_product_id", using: :btree
   add_index "intervention_casts", ["reference_name"], name: "index_intervention_casts_on_reference_name", using: :btree
+  add_index "intervention_casts", ["source_product_id"], name: "index_intervention_casts_on_source_product_id", using: :btree
+  add_index "intervention_casts", ["type"], name: "index_intervention_casts_on_type", using: :btree
   add_index "intervention_casts", ["updated_at"], name: "index_intervention_casts_on_updated_at", using: :btree
   add_index "intervention_casts", ["updater_id"], name: "index_intervention_casts_on_updater_id", using: :btree
   add_index "intervention_casts", ["variant_id"], name: "index_intervention_casts_on_variant_id", using: :btree
 
-  create_table "interventions", force: :cascade do |t|
-    t.integer  "provisional_intervention_id"
-    t.integer  "production_support_id"
-    t.boolean  "provisional",                 default: false, null: false
-    t.boolean  "recommended",                 default: false, null: false
-    t.integer  "recommender_id"
-    t.integer  "issue_id"
-    t.integer  "prescription_id"
-    t.integer  "production_id",                               null: false
-    t.string   "reference_name",                              null: false
-    t.string   "natures",                                     null: false
-    t.string   "state",                                       null: false
-    t.datetime "started_at"
-    t.datetime "stopped_at"
-    t.datetime "created_at",                                  null: false
-    t.datetime "updated_at",                                  null: false
+  create_table "intervention_working_periods", force: :cascade do |t|
+    t.integer  "intervention_id",             null: false
+    t.datetime "started_at",                  null: false
+    t.datetime "stopped_at",                  null: false
+    t.integer  "duration",                    null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                default: 0,     null: false
+    t.integer  "lock_version",    default: 0, null: false
+  end
+
+  add_index "intervention_working_periods", ["created_at"], name: "index_intervention_working_periods_on_created_at", using: :btree
+  add_index "intervention_working_periods", ["creator_id"], name: "index_intervention_working_periods_on_creator_id", using: :btree
+  add_index "intervention_working_periods", ["intervention_id"], name: "index_intervention_working_periods_on_intervention_id", using: :btree
+  add_index "intervention_working_periods", ["updated_at"], name: "index_intervention_working_periods_on_updated_at", using: :btree
+  add_index "intervention_working_periods", ["updater_id"], name: "index_intervention_working_periods_on_updater_id", using: :btree
+
+  create_table "interventions", force: :cascade do |t|
+    t.integer  "issue_id"
+    t.integer  "prescription_id"
+    t.string   "reference_name",               null: false
+    t.string   "state",                        null: false
+    t.datetime "started_at"
+    t.datetime "stopped_at"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",     default: 0, null: false
     t.integer  "event_id"
     t.string   "number"
-    t.text     "parameters"
     t.text     "description"
+    t.integer  "working_duration"
+    t.integer  "whole_duration"
   end
 
   add_index "interventions", ["created_at"], name: "index_interventions_on_created_at", using: :btree
@@ -1265,10 +1382,6 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "interventions", ["event_id"], name: "index_interventions_on_event_id", using: :btree
   add_index "interventions", ["issue_id"], name: "index_interventions_on_issue_id", using: :btree
   add_index "interventions", ["prescription_id"], name: "index_interventions_on_prescription_id", using: :btree
-  add_index "interventions", ["production_id"], name: "index_interventions_on_production_id", using: :btree
-  add_index "interventions", ["production_support_id"], name: "index_interventions_on_production_support_id", using: :btree
-  add_index "interventions", ["provisional_intervention_id"], name: "index_interventions_on_provisional_intervention_id", using: :btree
-  add_index "interventions", ["recommender_id"], name: "index_interventions_on_recommender_id", using: :btree
   add_index "interventions", ["reference_name"], name: "index_interventions_on_reference_name", using: :btree
   add_index "interventions", ["started_at"], name: "index_interventions_on_started_at", using: :btree
   add_index "interventions", ["stopped_at"], name: "index_interventions_on_stopped_at", using: :btree
@@ -1588,7 +1701,7 @@ ActiveRecord::Schema.define(version: 20151108001401) do
 
   create_table "manure_management_plan_zones", force: :cascade do |t|
     t.integer  "plan_id",                                                                              null: false
-    t.integer  "support_id",                                                                           null: false
+    t.integer  "activity_production_id",                                                               null: false
     t.string   "computation_method",                                                                   null: false
     t.string   "administrative_area"
     t.string   "cultivation_variety"
@@ -1614,10 +1727,10 @@ ActiveRecord::Schema.define(version: 20151108001401) do
     t.decimal  "maximum_nitrogen_input",                          precision: 19, scale: 4
   end
 
+  add_index "manure_management_plan_zones", ["activity_production_id"], name: "index_manure_management_plan_zones_on_activity_production_id", using: :btree
   add_index "manure_management_plan_zones", ["created_at"], name: "index_manure_management_plan_zones_on_created_at", using: :btree
   add_index "manure_management_plan_zones", ["creator_id"], name: "index_manure_management_plan_zones_on_creator_id", using: :btree
   add_index "manure_management_plan_zones", ["plan_id"], name: "index_manure_management_plan_zones_on_plan_id", using: :btree
-  add_index "manure_management_plan_zones", ["support_id"], name: "index_manure_management_plan_zones_on_support_id", using: :btree
   add_index "manure_management_plan_zones", ["updated_at"], name: "index_manure_management_plan_zones_on_updated_at", using: :btree
   add_index "manure_management_plan_zones", ["updater_id"], name: "index_manure_management_plan_zones_on_updater_id", using: :btree
 
@@ -1704,28 +1817,6 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "observations", ["subject_type", "subject_id"], name: "index_observations_on_subject_type_and_subject_id", using: :btree
   add_index "observations", ["updated_at"], name: "index_observations_on_updated_at", using: :btree
   add_index "observations", ["updater_id"], name: "index_observations_on_updater_id", using: :btree
-
-  create_table "operations", force: :cascade do |t|
-    t.integer  "intervention_id",             null: false
-    t.datetime "started_at",                  null: false
-    t.datetime "stopped_at",                  null: false
-    t.integer  "duration"
-    t.string   "reference_name",              null: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",    default: 0, null: false
-  end
-
-  add_index "operations", ["created_at"], name: "index_operations_on_created_at", using: :btree
-  add_index "operations", ["creator_id"], name: "index_operations_on_creator_id", using: :btree
-  add_index "operations", ["intervention_id"], name: "index_operations_on_intervention_id", using: :btree
-  add_index "operations", ["reference_name"], name: "index_operations_on_reference_name", using: :btree
-  add_index "operations", ["started_at"], name: "index_operations_on_started_at", using: :btree
-  add_index "operations", ["stopped_at"], name: "index_operations_on_stopped_at", using: :btree
-  add_index "operations", ["updated_at"], name: "index_operations_on_updated_at", using: :btree
-  add_index "operations", ["updater_id"], name: "index_operations_on_updater_id", using: :btree
 
   create_table "outgoing_payment_modes", force: :cascade do |t|
     t.string   "name",                            null: false
@@ -1937,7 +2028,6 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "prescriptions", ["updater_id"], name: "index_prescriptions_on_updater_id", using: :btree
 
   create_table "product_enjoyments", force: :cascade do |t|
-    t.integer  "operation_id"
     t.integer  "originator_id"
     t.string   "originator_type"
     t.integer  "product_id",                  null: false
@@ -1950,12 +2040,13 @@ ActiveRecord::Schema.define(version: 20151108001401) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",    default: 0, null: false
+    t.integer  "intervention_id"
   end
 
   add_index "product_enjoyments", ["created_at"], name: "index_product_enjoyments_on_created_at", using: :btree
   add_index "product_enjoyments", ["creator_id"], name: "index_product_enjoyments_on_creator_id", using: :btree
   add_index "product_enjoyments", ["enjoyer_id"], name: "index_product_enjoyments_on_enjoyer_id", using: :btree
-  add_index "product_enjoyments", ["operation_id"], name: "index_product_enjoyments_on_operation_id", using: :btree
+  add_index "product_enjoyments", ["intervention_id"], name: "index_product_enjoyments_on_intervention_id", using: :btree
   add_index "product_enjoyments", ["originator_type", "originator_id"], name: "index_product_enjoyments_on_originator_type_and_originator_id", using: :btree
   add_index "product_enjoyments", ["product_id"], name: "index_product_enjoyments_on_product_id", using: :btree
   add_index "product_enjoyments", ["started_at"], name: "index_product_enjoyments_on_started_at", using: :btree
@@ -1985,7 +2076,6 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "product_junction_ways", ["updater_id"], name: "index_product_junction_ways_on_updater_id", using: :btree
 
   create_table "product_junctions", force: :cascade do |t|
-    t.integer  "operation_id"
     t.integer  "originator_id"
     t.string   "originator_type"
     t.string   "nature",                      null: false
@@ -1997,11 +2087,12 @@ ActiveRecord::Schema.define(version: 20151108001401) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",    default: 0, null: false
+    t.integer  "intervention_id"
   end
 
   add_index "product_junctions", ["created_at"], name: "index_product_junctions_on_created_at", using: :btree
   add_index "product_junctions", ["creator_id"], name: "index_product_junctions_on_creator_id", using: :btree
-  add_index "product_junctions", ["operation_id"], name: "index_product_junctions_on_operation_id", using: :btree
+  add_index "product_junctions", ["intervention_id"], name: "index_product_junctions_on_intervention_id", using: :btree
   add_index "product_junctions", ["originator_type", "originator_id"], name: "index_product_junctions_on_originator_type_and_originator_id", using: :btree
   add_index "product_junctions", ["started_at"], name: "index_product_junctions_on_started_at", using: :btree
   add_index "product_junctions", ["stopped_at"], name: "index_product_junctions_on_stopped_at", using: :btree
@@ -2010,7 +2101,6 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "product_junctions", ["updater_id"], name: "index_product_junctions_on_updater_id", using: :btree
 
   create_table "product_linkages", force: :cascade do |t|
-    t.integer  "operation_id"
     t.integer  "originator_id"
     t.string   "originator_type"
     t.integer  "carrier_id",                  null: false
@@ -2024,13 +2114,14 @@ ActiveRecord::Schema.define(version: 20151108001401) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",    default: 0, null: false
+    t.integer  "intervention_id"
   end
 
   add_index "product_linkages", ["carried_id"], name: "index_product_linkages_on_carried_id", using: :btree
   add_index "product_linkages", ["carrier_id"], name: "index_product_linkages_on_carrier_id", using: :btree
   add_index "product_linkages", ["created_at"], name: "index_product_linkages_on_created_at", using: :btree
   add_index "product_linkages", ["creator_id"], name: "index_product_linkages_on_creator_id", using: :btree
-  add_index "product_linkages", ["operation_id"], name: "index_product_linkages_on_operation_id", using: :btree
+  add_index "product_linkages", ["intervention_id"], name: "index_product_linkages_on_intervention_id", using: :btree
   add_index "product_linkages", ["originator_type", "originator_id"], name: "index_product_linkages_on_originator_type_and_originator_id", using: :btree
   add_index "product_linkages", ["started_at"], name: "index_product_linkages_on_started_at", using: :btree
   add_index "product_linkages", ["stopped_at"], name: "index_product_linkages_on_stopped_at", using: :btree
@@ -2038,7 +2129,6 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "product_linkages", ["updater_id"], name: "index_product_linkages_on_updater_id", using: :btree
 
   create_table "product_links", force: :cascade do |t|
-    t.integer  "operation_id"
     t.integer  "originator_id"
     t.string   "originator_type"
     t.integer  "product_id",                  null: false
@@ -2051,12 +2141,13 @@ ActiveRecord::Schema.define(version: 20151108001401) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",    default: 0, null: false
+    t.integer  "intervention_id"
   end
 
   add_index "product_links", ["created_at"], name: "index_product_links_on_created_at", using: :btree
   add_index "product_links", ["creator_id"], name: "index_product_links_on_creator_id", using: :btree
+  add_index "product_links", ["intervention_id"], name: "index_product_links_on_intervention_id", using: :btree
   add_index "product_links", ["linked_id"], name: "index_product_links_on_linked_id", using: :btree
-  add_index "product_links", ["operation_id"], name: "index_product_links_on_operation_id", using: :btree
   add_index "product_links", ["originator_type", "originator_id"], name: "index_product_links_on_originator_type_and_originator_id", using: :btree
   add_index "product_links", ["product_id"], name: "index_product_links_on_product_id", using: :btree
   add_index "product_links", ["started_at"], name: "index_product_links_on_started_at", using: :btree
@@ -2065,7 +2156,6 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "product_links", ["updater_id"], name: "index_product_links_on_updater_id", using: :btree
 
   create_table "product_localizations", force: :cascade do |t|
-    t.integer  "operation_id"
     t.integer  "originator_id"
     t.string   "originator_type"
     t.integer  "product_id",                  null: false
@@ -2078,12 +2168,13 @@ ActiveRecord::Schema.define(version: 20151108001401) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",    default: 0, null: false
+    t.integer  "intervention_id"
   end
 
   add_index "product_localizations", ["container_id"], name: "index_product_localizations_on_container_id", using: :btree
   add_index "product_localizations", ["created_at"], name: "index_product_localizations_on_created_at", using: :btree
   add_index "product_localizations", ["creator_id"], name: "index_product_localizations_on_creator_id", using: :btree
-  add_index "product_localizations", ["operation_id"], name: "index_product_localizations_on_operation_id", using: :btree
+  add_index "product_localizations", ["intervention_id"], name: "index_product_localizations_on_intervention_id", using: :btree
   add_index "product_localizations", ["originator_id", "originator_type"], name: "index_product_localizations_on_originator", using: :btree
   add_index "product_localizations", ["product_id"], name: "index_product_localizations_on_product_id", using: :btree
   add_index "product_localizations", ["started_at"], name: "index_product_localizations_on_started_at", using: :btree
@@ -2092,7 +2183,6 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "product_localizations", ["updater_id"], name: "index_product_localizations_on_updater_id", using: :btree
 
   create_table "product_memberships", force: :cascade do |t|
-    t.integer  "operation_id"
     t.integer  "originator_id"
     t.string   "originator_type"
     t.integer  "member_id",                   null: false
@@ -2105,13 +2195,14 @@ ActiveRecord::Schema.define(version: 20151108001401) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",    default: 0, null: false
+    t.integer  "intervention_id"
   end
 
   add_index "product_memberships", ["created_at"], name: "index_product_memberships_on_created_at", using: :btree
   add_index "product_memberships", ["creator_id"], name: "index_product_memberships_on_creator_id", using: :btree
   add_index "product_memberships", ["group_id"], name: "index_product_memberships_on_group_id", using: :btree
+  add_index "product_memberships", ["intervention_id"], name: "index_product_memberships_on_intervention_id", using: :btree
   add_index "product_memberships", ["member_id"], name: "index_product_memberships_on_member_id", using: :btree
-  add_index "product_memberships", ["operation_id"], name: "index_product_memberships_on_operation_id", using: :btree
   add_index "product_memberships", ["originator_type", "originator_id"], name: "index_product_memberships_on_originator_type_and_originator_id", using: :btree
   add_index "product_memberships", ["started_at"], name: "index_product_memberships_on_started_at", using: :btree
   add_index "product_memberships", ["stopped_at"], name: "index_product_memberships_on_stopped_at", using: :btree
@@ -2274,7 +2365,6 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "product_natures", ["updater_id"], name: "index_product_natures_on_updater_id", using: :btree
 
   create_table "product_ownerships", force: :cascade do |t|
-    t.integer  "operation_id"
     t.integer  "originator_id"
     t.string   "originator_type"
     t.integer  "product_id",                  null: false
@@ -2287,11 +2377,12 @@ ActiveRecord::Schema.define(version: 20151108001401) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",    default: 0, null: false
+    t.integer  "intervention_id"
   end
 
   add_index "product_ownerships", ["created_at"], name: "index_product_ownerships_on_created_at", using: :btree
   add_index "product_ownerships", ["creator_id"], name: "index_product_ownerships_on_creator_id", using: :btree
-  add_index "product_ownerships", ["operation_id"], name: "index_product_ownerships_on_operation_id", using: :btree
+  add_index "product_ownerships", ["intervention_id"], name: "index_product_ownerships_on_intervention_id", using: :btree
   add_index "product_ownerships", ["originator_type", "originator_id"], name: "index_product_ownerships_on_originator_type_and_originator_id", using: :btree
   add_index "product_ownerships", ["owner_id"], name: "index_product_ownerships_on_owner_id", using: :btree
   add_index "product_ownerships", ["product_id"], name: "index_product_ownerships_on_product_id", using: :btree
@@ -2301,7 +2392,6 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "product_ownerships", ["updater_id"], name: "index_product_ownerships_on_updater_id", using: :btree
 
   create_table "product_phases", force: :cascade do |t|
-    t.integer  "operation_id"
     t.integer  "originator_id"
     t.string   "originator_type"
     t.integer  "product_id",                  null: false
@@ -2315,13 +2405,14 @@ ActiveRecord::Schema.define(version: 20151108001401) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",    default: 0, null: false
+    t.integer  "intervention_id"
   end
 
   add_index "product_phases", ["category_id"], name: "index_product_phases_on_category_id", using: :btree
   add_index "product_phases", ["created_at"], name: "index_product_phases_on_created_at", using: :btree
   add_index "product_phases", ["creator_id"], name: "index_product_phases_on_creator_id", using: :btree
+  add_index "product_phases", ["intervention_id"], name: "index_product_phases_on_intervention_id", using: :btree
   add_index "product_phases", ["nature_id"], name: "index_product_phases_on_nature_id", using: :btree
-  add_index "product_phases", ["operation_id"], name: "index_product_phases_on_operation_id", using: :btree
   add_index "product_phases", ["originator_type", "originator_id"], name: "index_product_phases_on_originator_type_and_originator_id", using: :btree
   add_index "product_phases", ["product_id"], name: "index_product_phases_on_product_id", using: :btree
   add_index "product_phases", ["started_at"], name: "index_product_phases_on_started_at", using: :btree
@@ -2329,48 +2420,6 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "product_phases", ["updated_at"], name: "index_product_phases_on_updated_at", using: :btree
   add_index "product_phases", ["updater_id"], name: "index_product_phases_on_updater_id", using: :btree
   add_index "product_phases", ["variant_id"], name: "index_product_phases_on_variant_id", using: :btree
-
-  create_table "product_reading_tasks", force: :cascade do |t|
-    t.integer  "operation_id"
-    t.integer  "originator_id"
-    t.string   "originator_type"
-    t.integer  "product_id",                                                                                                     null: false
-    t.string   "indicator_name",                                                                                                 null: false
-    t.string   "indicator_datatype",                                                                                             null: false
-    t.decimal  "absolute_measure_value_value",                                          precision: 19, scale: 4
-    t.string   "absolute_measure_value_unit"
-    t.boolean  "boolean_value",                                                                                  default: false, null: false
-    t.string   "choice_value"
-    t.decimal  "decimal_value",                                                         precision: 19, scale: 4
-    t.geometry "geometry_value",               limit: {:srid=>4326, :type=>"geometry"}
-    t.integer  "integer_value"
-    t.decimal  "measure_value_value",                                                   precision: 19, scale: 4
-    t.string   "measure_value_unit"
-    t.geometry "point_value",                  limit: {:srid=>4326, :type=>"point"}
-    t.text     "string_value"
-    t.integer  "reporter_id"
-    t.integer  "tool_id"
-    t.datetime "started_at",                                                                                                     null: false
-    t.datetime "stopped_at"
-    t.datetime "created_at",                                                                                                     null: false
-    t.datetime "updated_at",                                                                                                     null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                                                                   default: 0,     null: false
-  end
-
-  add_index "product_reading_tasks", ["created_at"], name: "index_product_reading_tasks_on_created_at", using: :btree
-  add_index "product_reading_tasks", ["creator_id"], name: "index_product_reading_tasks_on_creator_id", using: :btree
-  add_index "product_reading_tasks", ["indicator_name"], name: "index_product_reading_tasks_on_indicator_name", using: :btree
-  add_index "product_reading_tasks", ["operation_id"], name: "index_product_reading_tasks_on_operation_id", using: :btree
-  add_index "product_reading_tasks", ["originator_id", "originator_type"], name: "index_product_reading_tasks_on_originator", using: :btree
-  add_index "product_reading_tasks", ["product_id"], name: "index_product_reading_tasks_on_product_id", using: :btree
-  add_index "product_reading_tasks", ["reporter_id"], name: "index_product_reading_tasks_on_reporter_id", using: :btree
-  add_index "product_reading_tasks", ["started_at"], name: "index_product_reading_tasks_on_started_at", using: :btree
-  add_index "product_reading_tasks", ["stopped_at"], name: "index_product_reading_tasks_on_stopped_at", using: :btree
-  add_index "product_reading_tasks", ["tool_id"], name: "index_product_reading_tasks_on_tool_id", using: :btree
-  add_index "product_reading_tasks", ["updated_at"], name: "index_product_reading_tasks_on_updated_at", using: :btree
-  add_index "product_reading_tasks", ["updater_id"], name: "index_product_reading_tasks_on_updater_id", using: :btree
 
   create_table "product_readings", force: :cascade do |t|
     t.integer  "originator_id"
@@ -2405,106 +2454,6 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "product_readings", ["read_at"], name: "index_product_readings_on_read_at", using: :btree
   add_index "product_readings", ["updated_at"], name: "index_product_readings_on_updated_at", using: :btree
   add_index "product_readings", ["updater_id"], name: "index_product_readings_on_updater_id", using: :btree
-
-  create_table "production_budgets", force: :cascade do |t|
-    t.integer  "variant_id"
-    t.integer  "production_id",                                             null: false
-    t.string   "direction",                                                 null: false
-    t.decimal  "amount",             precision: 19, scale: 4, default: 0.0
-    t.decimal  "unit_amount",        precision: 19, scale: 4, default: 0.0
-    t.decimal  "quantity",           precision: 19, scale: 4, default: 0.0
-    t.string   "variant_indicator"
-    t.string   "variant_unit"
-    t.string   "computation_method",                                        null: false
-    t.string   "currency",                                                  null: false
-    t.datetime "created_at",                                                null: false
-    t.datetime "updated_at",                                                null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                default: 0,   null: false
-    t.decimal  "unit_population",    precision: 19, scale: 4
-    t.string   "unit_currency",                                             null: false
-  end
-
-  add_index "production_budgets", ["created_at"], name: "index_production_budgets_on_created_at", using: :btree
-  add_index "production_budgets", ["creator_id"], name: "index_production_budgets_on_creator_id", using: :btree
-  add_index "production_budgets", ["production_id"], name: "index_production_budgets_on_production_id", using: :btree
-  add_index "production_budgets", ["updated_at"], name: "index_production_budgets_on_updated_at", using: :btree
-  add_index "production_budgets", ["updater_id"], name: "index_production_budgets_on_updater_id", using: :btree
-  add_index "production_budgets", ["variant_id"], name: "index_production_budgets_on_variant_id", using: :btree
-
-  create_table "production_distributions", force: :cascade do |t|
-    t.integer  "production_id",                                               null: false
-    t.decimal  "affectation_percentage", precision: 19, scale: 4,             null: false
-    t.integer  "main_production_id",                                          null: false
-    t.datetime "created_at",                                                  null: false
-    t.datetime "updated_at",                                                  null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                    default: 0, null: false
-  end
-
-  add_index "production_distributions", ["created_at"], name: "index_production_distributions_on_created_at", using: :btree
-  add_index "production_distributions", ["creator_id"], name: "index_production_distributions_on_creator_id", using: :btree
-  add_index "production_distributions", ["main_production_id"], name: "index_production_distributions_on_main_production_id", using: :btree
-  add_index "production_distributions", ["production_id"], name: "index_production_distributions_on_production_id", using: :btree
-  add_index "production_distributions", ["updated_at"], name: "index_production_distributions_on_updated_at", using: :btree
-  add_index "production_distributions", ["updater_id"], name: "index_production_distributions_on_updater_id", using: :btree
-
-  create_table "production_supports", force: :cascade do |t|
-    t.integer  "production_id",                                                                                    null: false
-    t.integer  "storage_id",                                                                                       null: false
-    t.datetime "created_at",                                                                                       null: false
-    t.datetime "updated_at",                                                                                       null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                                                         default: 0, null: false
-    t.string   "production_usage",                                                                                 null: false
-    t.decimal  "quantity",                                                    precision: 19, scale: 4,             null: false
-    t.string   "quantity_indicator",                                                                               null: false
-    t.string   "quantity_unit"
-    t.geometry "shape",              limit: {:srid=>4326, :type=>"geometry"}
-  end
-
-  add_index "production_supports", ["created_at"], name: "index_production_supports_on_created_at", using: :btree
-  add_index "production_supports", ["creator_id"], name: "index_production_supports_on_creator_id", using: :btree
-  add_index "production_supports", ["production_id"], name: "index_production_supports_on_production_id", using: :btree
-  add_index "production_supports", ["storage_id"], name: "index_production_supports_on_storage_id", using: :btree
-  add_index "production_supports", ["updated_at"], name: "index_production_supports_on_updated_at", using: :btree
-  add_index "production_supports", ["updater_id"], name: "index_production_supports_on_updater_id", using: :btree
-
-  create_table "productions", force: :cascade do |t|
-    t.integer  "activity_id",                               null: false
-    t.integer  "campaign_id",                               null: false
-    t.integer  "cultivation_variant_id"
-    t.string   "name",                                      null: false
-    t.string   "state",                                     null: false
-    t.datetime "started_at"
-    t.datetime "stopped_at"
-    t.integer  "position"
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",              default: 0,     null: false
-    t.string   "support_variant_indicator"
-    t.string   "support_variant_unit"
-    t.integer  "support_variant_id"
-    t.boolean  "irrigated",                 default: false, null: false
-    t.boolean  "nitrate_fixing",            default: false, null: false
-  end
-
-  add_index "productions", ["activity_id"], name: "index_productions_on_activity_id", using: :btree
-  add_index "productions", ["campaign_id"], name: "index_productions_on_campaign_id", using: :btree
-  add_index "productions", ["created_at"], name: "index_productions_on_created_at", using: :btree
-  add_index "productions", ["creator_id"], name: "index_productions_on_creator_id", using: :btree
-  add_index "productions", ["cultivation_variant_id"], name: "index_productions_on_cultivation_variant_id", using: :btree
-  add_index "productions", ["name"], name: "index_productions_on_name", using: :btree
-  add_index "productions", ["started_at"], name: "index_productions_on_started_at", using: :btree
-  add_index "productions", ["stopped_at"], name: "index_productions_on_stopped_at", using: :btree
-  add_index "productions", ["support_variant_id"], name: "index_productions_on_support_variant_id", using: :btree
-  add_index "productions", ["updated_at"], name: "index_productions_on_updated_at", using: :btree
-  add_index "productions", ["updater_id"], name: "index_productions_on_updater_id", using: :btree
 
   create_table "products", force: :cascade do |t|
     t.string   "type"
@@ -2941,6 +2890,27 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "supervisions", ["name"], name: "index_supervisions_on_name", using: :btree
   add_index "supervisions", ["updated_at"], name: "index_supervisions_on_updated_at", using: :btree
   add_index "supervisions", ["updater_id"], name: "index_supervisions_on_updater_id", using: :btree
+
+  create_table "target_distributions", force: :cascade do |t|
+    t.integer  "target_id",                          null: false
+    t.integer  "activity_production_id",             null: false
+    t.integer  "activity_id",                        null: false
+    t.datetime "started_at"
+    t.datetime "stopped_at"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",           default: 0, null: false
+  end
+
+  add_index "target_distributions", ["activity_id"], name: "index_target_distributions_on_activity_id", using: :btree
+  add_index "target_distributions", ["activity_production_id"], name: "index_target_distributions_on_activity_production_id", using: :btree
+  add_index "target_distributions", ["created_at"], name: "index_target_distributions_on_created_at", using: :btree
+  add_index "target_distributions", ["creator_id"], name: "index_target_distributions_on_creator_id", using: :btree
+  add_index "target_distributions", ["target_id"], name: "index_target_distributions_on_target_id", using: :btree
+  add_index "target_distributions", ["updated_at"], name: "index_target_distributions_on_updated_at", using: :btree
+  add_index "target_distributions", ["updater_id"], name: "index_target_distributions_on_updater_id", using: :btree
 
   create_table "tasks", force: :cascade do |t|
     t.string   "name",                            null: false

@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<migration name="Change procedure nomenclatures">
+  <item-creation item="activity_families#equipment_management" nature="auxiliary"/>
+  <nomenclature-creation name="procedure_categories"/>
+  <property-creation property="procedure_categories.activity_family" type="item_list" choices="activity_families"/>
+  <item-creation item="procedure_categories#animal_breeding" activity_family="animal_farming"/>
+  <item-creation item="procedure_categories#animal_feeding" activity_family="animal_farming"/>
+  <item-creation item="procedure_categories#animal_production" activity_family="animal_farming"/>
+  <item-creation item="procedure_categories#animal_treating" activity_family="animal_farming"/>
+  <item-creation item="procedure_categories#building_maintenance" activity_family="equipment_management"/>
+  <item-creation item="procedure_categories#cook_transformation" activity_family="processing"/>
+  <item-creation item="procedure_categories#crop_maintenance" activity_family="vegetal_crops"/>
+  <item-creation item="procedure_categories#crop_protection" activity_family="vegetal_crops"/>
+  <item-creation item="procedure_categories#dairy_transformation" activity_family="processing"/>
+  <item-creation item="procedure_categories#energy_supplying" activity_family="equipment_management"/>
+  <item-creation item="procedure_categories#equipment_maintenance" activity_family="equipment_management"/>
+  <item-creation item="procedure_categories#fertilizing" activity_family="vegetal_crops"/>
+  <item-creation item="procedure_categories#fish_transformation" activity_family="processing"/>
+  <item-creation item="procedure_categories#habitat_maintenance" activity_family="animal_farming"/>
+  <item-creation item="procedure_categories#harvesting" activity_family="vegetal_crops"/>
+  <item-creation item="procedure_categories#installations_modification" activity_family="animal_farming, equipment_management, vegetal_crops"/>
+  <item-creation item="procedure_categories#irrigating" activity_family="vegetal_crops"/>
+  <item-creation item="procedure_categories#land_maintenance" activity_family="animal_farming, equipment_management, vegetal_crops"/>
+  <item-creation item="procedure_categories#meat_transformation" activity_family="processing"/>
+  <item-creation item="procedure_categories#planting" activity_family="vegetal_crops"/>
+  <item-creation item="procedure_categories#plants_transformation" activity_family="processing"/>
+  <item-creation item="procedure_categories#soil_working" activity_family="vegetal_crops"/>
+  <item-creation item="procedure_categories#textile_transformation" activity_family="processing"/>
+  <item-creation item="procedure_categories#troubleshooting" activity_family="equipment_management"/>
+  <item-creation item="procedure_categories#viticulture_transformation" activity_family="processing"/>
+  <item-creation item="procedure_categories#washing_packaging_transformation" activity_family="processing"/>
+  <nomenclature-creation name="procedure_actions"/>
+  <item-creation item="procedure_actions#acaricide"/>
+  <item-creation item="procedure_actions#animal_artificial_insemination"/>
+  <item-creation item="procedure_actions#animal_feeding"/>
+  <item-creation item="procedure_actions#animal_group_changing"/>
+  <item-creation item="procedure_actions#animal_housing_mulching"/>
+  <item-creation item="procedure_actions#animal_penning"/>
+  <item-creation item="procedure_actions#animal_sorting"/>
+  <item-creation item="procedure_actions#animal_training"/>
+  <item-creation item="procedure_actions#bactericide"/>
+  <item-creation item="procedure_actions#biostimulation"/>
+  <item-creation item="procedure_actions#bird_repellent"/>
+  <item-creation item="procedure_actions#bridge_construction"/>
+  <item-creation item="procedure_actions#building_construction"/>
+  <item-creation item="procedure_actions#building_extension_construction"/>
+  <item-creation item="procedure_actions#building_interior_design"/>
+  <item-creation item="procedure_actions#building_renovation"/>
+  <item-creation item="procedure_actions#building_repairing"/>
+  <item-creation item="procedure_actions#chaptalization"/>
+  <item-creation item="procedure_actions#complete_wine_transfer"/>
+  <item-creation item="procedure_actions#concrete_slab_pouring"/>
+  <item-creation item="procedure_actions#corvicide"/>
+  <item-creation item="procedure_actions#cutting"/>
+  <item-creation item="procedure_actions#dehorning"/>
+  <item-creation item="procedure_actions#detasseling"/>
+  <item-creation item="procedure_actions#disease_protection"/>
+  <item-creation item="procedure_actions#disease_treatment"/>
+  <item-creation item="procedure_actions#drainage_improvement"/>
+  <item-creation item="procedure_actions#drainage_system_installation"/>
+  <item-creation item="procedure_actions#draining"/>
+  <item-creation item="procedure_actions#drinking_trough_cleaning"/>
+  <item-creation item="procedure_actions#drinking_trough_filling"/>
+  <item-creation item="procedure_actions#egg_collecting"/>
+  <item-creation item="procedure_actions#electric_charging"/>
+  <item-creation item="procedure_actions#enzyme_addition"/>
+  <item-creation item="procedure_actions#equipment_troubleshooting"/>
+  <item-creation item="procedure_actions#fermentation"/>
+  <item-creation item="procedure_actions#fertilization"/>
+  <item-creation item="procedure_actions#field_plant_sorting"/>
+  <item-creation item="procedure_actions#food_preparation"/>
+  <item-creation item="procedure_actions#forest_grinding"/>
+  <item-creation item="procedure_actions#frost_protection"/>
+  <item-creation item="procedure_actions#fuel_up"/>
+  <item-creation item="procedure_actions#fungicide"/>
+  <item-creation item="procedure_actions#game_protection"/>
+  <item-creation item="procedure_actions#game_repellent"/>
+  <item-creation item="procedure_actions#gas_refilling"/>
+  <item-creation item="procedure_actions#grape_pressing"/>
+  <item-creation item="procedure_actions#greasing"/>
+  <item-creation item="procedure_actions#greenhouse_assembling"/>
+  <item-creation item="procedure_actions#growth_regulator"/>
+  <item-creation item="procedure_actions#hardpan_destruction"/>
+  <item-creation item="procedure_actions#harvest"/>
+  <item-creation item="procedure_actions#herbicide"/>
+  <item-creation item="procedure_actions#hilling"/>
+  <item-creation item="procedure_actions#hilling_for_sifting"/>
+  <item-creation item="procedure_actions#hoof_trimming"/>
+  <item-creation item="procedure_actions#hormone_treatment_placement"/>
+  <item-creation item="procedure_actions#humidity_stabilisation"/>
+  <item-creation item="procedure_actions#hygiene"/>
+  <item-creation item="procedure_actions#indirect_silage"/>
+  <item-creation item="procedure_actions#insect_repellent"/>
+  <item-creation item="procedure_actions#insecticide"/>
+  <item-creation item="procedure_actions#irrigation"/>
+  <item-creation item="procedure_actions#irrigation_pump_lifting"/>
+  <item-creation item="procedure_actions#irrigation_system_improvement"/>
+  <item-creation item="procedure_actions#irrigation_system_unblocking"/>
+  <item-creation item="procedure_actions#land_parcel_clearing"/>
+  <item-creation item="procedure_actions#land_parcel_grinding"/>
+  <item-creation item="procedure_actions#levelling"/>
+  <item-creation item="procedure_actions#lifting"/>
+  <item-creation item="procedure_actions#liming"/>
+  <item-creation item="procedure_actions#loosening"/>
+  <item-creation item="procedure_actions#micronutrient_fertilization"/>
+  <item-creation item="procedure_actions#milking"/>
+  <item-creation item="procedure_actions#mineral_fertilization"/>
+  <item-creation item="procedure_actions#molluscicide"/>
+  <item-creation item="procedure_actions#natural_mating"/>
+  <item-creation item="procedure_actions#nematicide"/>
+  <item-creation item="procedure_actions#net_removing"/>
+  <item-creation item="procedure_actions#oil_replacement"/>
+  <item-creation item="procedure_actions#organic_fertilization"/>
+  <item-creation item="procedure_actions#organic_matter_burying"/>
+  <item-creation item="procedure_actions#partial_wine_transfer"/>
+  <item-creation item="procedure_actions#parturition"/>
+  <item-creation item="procedure_actions#pivot_troubleshooting"/>
+  <item-creation item="procedure_actions#plant_uncovering"/>
+  <item-creation item="procedure_actions#plantation_unfixing"/>
+  <item-creation item="procedure_actions#planting"/>
+  <item-creation item="procedure_actions#plowing"/>
+  <item-creation item="procedure_actions#product_identification"/>
+  <item-creation item="procedure_actions#pumping_system_troubleshooting"/>
+  <item-creation item="procedure_actions#rain_protection"/>
+  <item-creation item="procedure_actions#residue_destruction"/>
+  <item-creation item="procedure_actions#ridging"/>
+  <item-creation item="procedure_actions#rodenticide"/>
+  <item-creation item="procedure_actions#seedbed_preparing"/>
+  <item-creation item="procedure_actions#semen_collecting"/>
+  <item-creation item="procedure_actions#semen_freezing"/>
+  <item-creation item="procedure_actions#shearing"/>
+  <item-creation item="procedure_actions#shoeing"/>
+  <item-creation item="procedure_actions#shoulder_grinding"/>
+  <item-creation item="procedure_actions#sifting"/>
+  <item-creation item="procedure_actions#soil_structure_stabilisation"/>
+  <item-creation item="procedure_actions#sowing"/>
+  <item-creation item="procedure_actions#sowing_burying"/>
+  <item-creation item="procedure_actions#sterilization"/>
+  <item-creation item="procedure_actions#straw_bunching"/>
+  <item-creation item="procedure_actions#sulfur_addition"/>
+  <item-creation item="procedure_actions#sun_protection"/>
+  <item-creation item="procedure_actions#swathing"/>
+  <item-creation item="procedure_actions#talpicide"/>
+  <item-creation item="procedure_actions#temperature_improvement"/>
+  <item-creation item="procedure_actions#topkilling"/>
+  <item-creation item="procedure_actions#tractor_troubleshooting"/>
+  <item-creation item="procedure_actions#troubleshooting"/>
+  <item-creation item="procedure_actions#tunnel_removing"/>
+  <item-creation item="procedure_actions#viricide"/>
+  <item-creation item="procedure_actions#water_flow_improvement"/>
+  <item-creation item="procedure_actions#weeding"/>
+  <item-creation item="procedure_actions#wheel_balancing"/>
+  <item-creation item="procedure_actions#wine_blending"/>
+  <item-creation item="procedure_actions#wine_bottling"/>
+  <item-creation item="procedure_actions#wood_collecting"/>
+  <item-creation item="procedure_actions#wood_refilling"/>
+</migration>

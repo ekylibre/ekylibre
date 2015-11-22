@@ -23,6 +23,11 @@ eng:
       index: "Activities"
       new: "New activity"
       show: "Activity: %{name}"
+    backend/activity_productions:
+      # edit: "Edit activity production: %{name}"
+      # index: "Activity productions"
+      # new: "New activity production"
+      show: "Production support: %{name}"
     backend/affairs:
       attach: "Attach to affair %{number}"
       # attachments: "Attachments affair: %{name}"
@@ -492,9 +497,6 @@ eng:
     backend/observations:
       edit: "Edit observation"
       new: "New observation"
-    backend/operations:
-      index: "Operations"
-      show: "Operation Details %{name}"
     backend/outgoing_payment_modes:
       edit: "Edit disbursement mode"
       index: "Disbursement modes"
@@ -571,14 +573,6 @@ eng:
       new: "New product type"
       pick: "Pick product type"
       show: "Product type: %{name}"
-    backend/production_supports:
-      show: "Production support: %{name}"
-    backend/productions:
-      # attachments: "Attachments production: %{name}"
-      edit: "Edit production: %{name}"
-      index: "Productions"
-      new: "New production"
-      show: "Production: %{name}"
     backend/products:
       # attachments: "Attachments product: %{name}"
       edit: "Edit product: %{name}"
@@ -856,6 +850,7 @@ eng:
     active: "Active" #?
     activities: "Activities" #?
     activity: "Activity"
+    # activity_production: "Activity production"
     add: "Add"
     add_annotation: "Add annotation"
     add_attachment: "Add attachment"
@@ -900,7 +895,7 @@ eng:
     all_conditions: "All conditions"
     all_periods: "All financial years"
     amount: "Amount" #?
-    amount_per_unit: "%{amount}/%{unit}"
+    amount_per_unit: "%{amount}/%{unit}" #??
     amounts_in_currency: "Amounts (%{currency})"
     analyses: "Analyses"
     animal_details: "Animal details" #?
@@ -916,7 +911,7 @@ eng:
     are_you_sure_you_want_to_delete: "Are you sure you want to delete this record?"
     are_you_sure_you_want_to_invoice: "Are you sure you want to invoice?"
     are_you_sure_you_want_to_send_mails: "Are you sure you want to send emails?"
-    area: "Area"
+    area: "Area" #?
     attach_deal: "Add a deal"
     attachment: "Attachment"
     attachments: "Attachments"
@@ -932,7 +927,7 @@ eng:
     body: "Body of the message"
     bookkeep: "Bookkeep" #?
     bookkeep_with_payment: "Bookkeep with payment" #?
-    budget: "Budget"
+    budget: "Budget" #?
     budget_per_working_indicator: "Budget per working indicator"
     budgets: "Budgets" #?
     by_year: "By year"
@@ -991,7 +986,7 @@ eng:
     copy_of: "Copy of %{source}"
     cost_per_net_surface_area: "Cost per net surface area"
     costs: "Costs"
-    costs_map: "Costs map" #?
+    costs_map: "Costs map" #?!
     costs_per_hectare: "Costs per hectare"
     counts: "Counts" #?
     counts_by_nature: "Number of documents to account per type"
@@ -1008,7 +1003,7 @@ eng:
     credit: "Credit" #?
     credited_quantity: "Quantity to credit" #?
     credits: "Credits"
-    cropping_plan: "Cropping plan"
+    cropping_plan: "Cropping plan" #?
     cropping_plan_on_cultivable_zones: "Cropping plan on cultivable zones"
     crumbs: "Crumbs" #?
     cultivable_zone: "Cultivable zone"
@@ -1046,7 +1041,7 @@ eng:
     destroyed_by_ago: "Destroyed by %{author} %{when}"
     detail: "Detail"
     details: "Details"
-    direct_margin: "Direct margin"
+    direct_margin: "Direct margin" #?!
     discount: "Discount (%)" #?
     display: "Display" #?
     distributions: "Distributions"
@@ -1066,7 +1061,7 @@ eng:
     duration: "Duration"
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     during: "During"
-    earns: "Earns"
+    earns: "Earns" #?!
     edit: "Edit"
     ekylibre: "www.ekylibre.org" #?
     elapsed_interventions_times_by_activities: "Elapsed interventions times by activities" #?
@@ -1085,7 +1080,7 @@ eng:
     error_no_file: "No help is available for this part of the application (%{article}). Help has not yet been written. You can visit online website for more information."
     errors_explanation: "There are errors in the file. If you do not correct them, the incorrect lines will be ignored during the import."
     estimate_yield: "Estimate yield"
-    evaluated_direct_margin: "Evaluated direct margin"
+    evaluated_direct_margin: "Evaluated direct margin" #?!
     evaluated_doer_cost: "Evaluated labor cost"
     evaluated_input_cost: "Evaluated input cost"
     evaluated_other_cost: "Evaluated other cost"
@@ -1121,7 +1116,7 @@ eng:
     geolocation: "Geolocation" #?
     go: "Go" #?
     grain_yield: "Grain yield"
-    gross_profit: "Gross profit"
+    gross_profit: "Gross profit" #?!
     group: "Group" #?
     groups: "Groups"
     guide_evolution: "Guide evolution"
@@ -1149,7 +1144,7 @@ eng:
     indicator_value: "Indicator value"
     indicators: "Indicators"
     indicators_evolutions: "Indicators evolutions"
-    indirect_expenses: "Indirect charges"
+    indirect_expenses: "Indirect charges" #?!
     info: "General parameters" #?
     infos: "Product and quantity" #?
     input_cost: "Input cost"
@@ -1244,7 +1239,7 @@ eng:
     nature: "Type"
     nature_changed: "Le type des animaux a changé"
     natures: "Types"
-    net_margin: "Net margin"
+    net_margin: "Net margin" #?!
     net_mass: "Net mass"
     net_surface_area: "Net surface area"
     new: "New" #?
@@ -1295,8 +1290,9 @@ eng:
     ok: "OK" #?
     on_account: "On account" #?
     one_condition: "One condition"
+    # open_a_activity_production: "Open a activity production"
     open_a_campaign: "Open a campaign"
-    open_a_production: "Open a production"
+    open_a_production: "Open a production" #??
     open_an_activity: "Open an activity"
     operating_margin: "Operating margin"
     operating_margin_on_turnover: "Operating margin on turnover"
@@ -1351,7 +1347,7 @@ eng:
     precipitation: "Precipitation"
     preferences: "Preferences"
     prescription: "Prescription" #?
-    prescriptions: "Prescriptions"
+    prescriptions: "Prescriptions" #?
     pretax_amount: "Pre-tax amount"
     previous: "Previous"
     previous_bank_statement: "Previous account statement N°%{number}"
@@ -1370,15 +1366,15 @@ eng:
     production_support: "Production support"
     productions: "Productions"
     products: "Products"
-    provisionnal_budget: "Provisionnal budget"
+    provisionnal_budget: "Provisionnal budget" #?!
     purchase: "Purchase" #?
     purchase_items: "Purchase items" #?
     purchases: "Purchases"
     quantity: "Quantity" #?
     quantity_rest: "Remaining quantity" #?!
     query: "Query:" #?
-    raw_margin: "Raw margin"
-    reading_tasks: "Reading tasks"
+    raw_margin: "Raw margin" #?!
+    reading_tasks: "Reading tasks" #?
     readings: "Readings"
     received: "Received" #?
     recent_events: "Recent events"
@@ -1481,8 +1477,8 @@ eng:
     supplier_informations: "Supplier informations"
     supply: "Supply" #?
     support: "Support"
-    supports: "Supports"
-    supports_chart: "Supports chart"
+    supports: "Supports" #?
+    supports_chart: "Supports chart" #?!
     synthesis: "Synthesis"
     target: "Target" #?
     tasks: "Tasks"
@@ -1517,7 +1513,7 @@ eng:
     total: "Total"
     total_amount: "Total amount" #?
     total_cost: "Total cost"
-    total_earn: "Total earn"
+    total_earn: "Total earn" #?!
     total_in_currency: "Total (%{currency})"
     total_paid_amount: "Total paid amount"
     total_pretax_expenses: "Total pre-tax expenses"
@@ -1634,9 +1630,9 @@ eng:
       one: "%{count} observation" #?
       other: "%{count} observations" #?
     x_of_y: "%{x} of %{y}"
-    x_operations: #?
-      one: "1 operation" #?
-      other: "%{count} operations" #?
+    x_operations: #??
+      one: "1 operation" #??
+      other: "%{count} operations" #??
     x_outgoing_payments:
       one: "%{count} disbursement"
       other: "%{count} disbursements"
@@ -1694,11 +1690,11 @@ eng:
       success: "Success!"
       warning: "Warning!"
     messages:
-      a_campaign_must_be_opened: "A campaign must be opened"
-      a_production_must_be_opened: "A production must be opened"
+      a_campaign_must_be_opened: "A campaign must be opened" #?
+      a_production_must_be_opened: "A production must be opened" #?
       access_denied: "Access denied. %{reason} (%{url})"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "All parcels must be invoiceable and of same nature and third"
-      an_activity_must_be_defined: "An activity must be defined"
+      an_activity_must_be_defined: "An activity must be defined" #?
       bookkeeping_is_finished: "The commercial data transfer is finished."
       bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
       cannot_find_deal_to_attach: "Cannot find deal to attach"
@@ -1904,6 +1900,7 @@ eng:
   unrolls:
     backend/accounts: "%{number}. %{name}"
     backend/activities: "%{name}"
+    backend/activity_productions: "%{storage_name} (%{production_name} %{campaign_name})"
     backend/animals: "%{name} #%{work_number}"
     backend/campaigns: "%{name}"
     backend/catalog_items: "%{name}"
@@ -1914,7 +1911,7 @@ eng:
     backend/journal_entry_items: "%{entry_number} %{name} %{account_number} D%{real_debit} C%{real_credit} %{currency}"
     backend/matters: "%{name} ‒ %{work_number}"
     backend/observations: "%{content}"
-    backend/operations: "%{nature} (%{created_at})"
+    backend/operations: "%{nature} (%{created_at})" #?
     backend/outgoing_payments: "%{number}. %{mode_name} to %{payee_full_name} of %{amount} %{currency}"
     backend/parcels: "%{number} ‒ %{reference_number}"
     backend/plants: "%{name} ‒ %{work_number}"
@@ -1922,8 +1919,7 @@ eng:
     backend/product_memberships: "%{started_at}"
     backend/product_nature_variants: "%{name} (%{unit_name})"
     backend/product_natures: "%{name}"
-    backend/production_supports: "%{storage_name} (%{production_name} %{campaign_name})"
-    backend/productions: "%{name} (%{campaign_name})"
+    backend/productions: "%{name} (%{campaign_name})" #?
     backend/products: "%{work_number} %{name} (%{number})"
     backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"
     backend/users: "%{first_name} %{last_name}"

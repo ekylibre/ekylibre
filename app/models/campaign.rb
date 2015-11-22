@@ -32,16 +32,16 @@
 #  lock_version :integer          default(0), not null
 #  name         :string           not null
 #  number       :string           not null
+#  started_on   :date
+#  stopped_on   :date
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
 class Campaign < Ekylibre::Record::Base
-  has_many :productions
-  has_many :production_supports, through: :productions, source: :supports
-  has_many :interventions, through: :productions
   has_many :cap_statements
   has_one :selected_manure_management_plan, -> { selecteds }, class_name: 'ManureManagementPlan', foreign_key: :campaign_id, inverse_of: :campaign
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_date :started_on, :stopped_on, allow_blank: true, on_or_after: Date.civil(1, 1, 1)
   validates_datetime :closed_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :harvest_year, allow_nil: true, only_integer: true
   validates_inclusion_of :closed, in: [true, false]
@@ -59,8 +59,25 @@ class Campaign < Ekylibre::Record::Base
     where(harvest_year: searched_at.year)
   }
 
+  scope :of_activity_production, lambda { |activity_production|
+    where('(started_on, stopped_on) OVERLAPS (?, ?)', activity_production.started_at, activity_production.stopped_at)
+  }
+  scope :of_production, lambda { |production| of_activity_production(production) }
+
   protect(on: :destroy) do
-    productions.any? || interventions.any?
+    interventions.any?
+  end
+
+  def activity_productions
+    ActivityProduction.of_campaign(self)
+  end
+
+  def activities
+    Activity.of_campaign(self)
+  end
+
+  def interventions
+    Intervention.of_campaign(self)
   end
 
   # Sets name

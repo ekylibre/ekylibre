@@ -31,7 +31,10 @@
 #  lock_version        :integer          default(0), not null
 #  name                :string           not null
 #  nature              :string           not null
+#  size_indicator      :string
+#  size_unit           :string
 #  support_variety     :string
+#  suspended           :boolean          default(FALSE), not null
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #  with_cultivation    :boolean          not null

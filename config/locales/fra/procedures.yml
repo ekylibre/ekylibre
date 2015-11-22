@@ -1,44 +1,44 @@
 fra:
-  procedo:
-    actions:
-      assisted_reading_task: "%{reporter} mesure %{indicator} avec %{tool}"
-      attachment: "On attache %{carrier} et %{carried}"
-      birth: "Naissance de %{product}"
-      browsing: "%{browser} parcourt %{browsed}"
-      consumption: "%{absorber} consomme %{product}"
-      creation: "%{producer} produit %{product}"
-      death: "%{product} meurt"
-      detachment: "On détache %{carrier} et %{carried}"
-      direct_entering: "%{product} entre directement dans %{localizable}"
-      direct_movement: "%{product} va directement à l’emplacement de %{localizable}"
-      division: "%{product} est séparé de %{producer}"
-      enjoyer_change: "Changement d'usufruitier de %{product} pour %{enjoyer}"
-      enjoyment_loss: "Perte d'usufruit de %{product}"
-      entering: "%{product} entre dans %{localizable}"
-      evolution: "Evolution de %{product} en %{variant}"
-      given_home_coming: "%{product} va l’emplacement par défaut de  %{localizable}"
-      group_exclusion: "%{member} sort du groupe %{group}"
-      group_inclusion: "%{member} entre dans le groupe %{group}"
-      home_coming: "%{product} va à son emplacement par défaut"
-      identified_incoming_delivery: "%{product} est réceptionné du %{supplier}"
-      identified_outgoing_delivery: "%{product} est expédié à %{client}"
-      incoming_delivery: "%{product} est réceptionné"
-      merging: "%{absorber} fusionne avec %{product}"
-      mixing: "Mélange de %{first_producer} et %{second_producer} dans %{product}"
-      movement: "%{product} va à l’emplacement de %{localizable}"
-      nature_cast: "Transformation de %{product} en %{nature}"
-      out_going: "Sortie de %{product}"
-      outgoing_delivery: "%{product} est expédié"
-      owner_change: "%{product} change de propriétaire pour %{owner}"
-      ownership_loss: "%{product} perd son propriétaire"
-      quadruple_mixing: "Mélange de %{first_producer}, %{second_producer}, %{third_producer} et %{fourth_producer} dans %{product}"
-      quintuple_mixing: "Mélange de %{first_producer}, %{second_producer}, %{third_producer}, %{fourth_producer} et %{fifth_producer} dans %{product}"
-      reading_task: "%{reporter} mesure %{indicator}"
-      simple_attachment: "On attèle %{carrier} et %{carried}"
-      simple_detachment: "Détachement de %{carrier} du %{point}"
-      simple_reading_task: "%{indicator} est mesuré"
-      triple_mixing: "Mélange de %{first_producer}, %{second_producer} et %{third_producer} dans %{product}"
-      variant_cast: "Transformation de %{product} en %{variant}"
+  procedo:  #?
+    actions: #?
+      assisted_reading_task: "%{reporter} mesure %{indicator} avec %{tool}" #?
+      attachment: "On attache %{carrier} et %{carried}" #?
+      birth: "Naissance de %{product}" #?
+      browsing: "%{browser} parcourt %{browsed}" #?
+      consumption: "%{absorber} consomme %{product}" #?
+      creation: "%{producer} produit %{product}" #?
+      death: "%{product} meurt" #?
+      detachment: "On détache %{carrier} et %{carried}" #?
+      direct_entering: "%{product} entre directement dans %{localizable}" #?
+      direct_movement: "%{product} va directement à l’emplacement de %{localizable}" #?
+      division: "%{product} est séparé de %{producer}" #?
+      enjoyer_change: "Changement d'usufruitier de %{product} pour %{enjoyer}" #?
+      enjoyment_loss: "Perte d'usufruit de %{product}" #?
+      entering: "%{product} entre dans %{localizable}" #?
+      evolution: "Evolution de %{product} en %{variant}" #?
+      given_home_coming: "%{product} va l’emplacement par défaut de  %{localizable}" #?
+      group_exclusion: "%{member} sort du groupe %{group}" #?
+      group_inclusion: "%{member} entre dans le groupe %{group}" #?
+      home_coming: "%{product} va à son emplacement par défaut" #?
+      identified_incoming_delivery: "%{product} est réceptionné du %{supplier}" #?
+      identified_outgoing_delivery: "%{product} est expédié à %{client}" #?
+      incoming_delivery: "%{product} est réceptionné" #?
+      merging: "%{absorber} fusionne avec %{product}" #?
+      mixing: "Mélange de %{first_producer} et %{second_producer} dans %{product}" #?
+      movement: "%{product} va à l’emplacement de %{localizable}" #?
+      nature_cast: "Transformation de %{product} en %{nature}" #?
+      out_going: "Sortie de %{product}" #?
+      outgoing_delivery: "%{product} est expédié" #?
+      owner_change: "%{product} change de propriétaire pour %{owner}" #?
+      ownership_loss: "%{product} perd son propriétaire" #?
+      quadruple_mixing: "Mélange de %{first_producer}, %{second_producer}, %{third_producer} et %{fourth_producer} dans %{product}" #?
+      quintuple_mixing: "Mélange de %{first_producer}, %{second_producer}, %{third_producer}, %{fourth_producer} et %{fifth_producer} dans %{product}" #?
+      reading_task: "%{reporter} mesure %{indicator}" #?
+      simple_attachment: "On attèle %{carrier} et %{carried}" #?
+      simple_detachment: "Détachement de %{carrier} du %{point}" #?
+      simple_reading_task: "%{indicator} est mesuré" #?
+      triple_mixing: "Mélange de %{first_producer}, %{second_producer} et %{third_producer} dans %{product}" #?
+      variant_cast: "Transformation de %{product} en %{variant}" #?
   procedure_handlers:
     dry_matter_mass: "Masse de matière sèche"
     dry_matter_mass_area_density: "Masse de matière sèche par surface"
@@ -49,10 +49,10 @@ fra:
     length: "Longueur"
     mass_area_density: "Mass area density"
     mass_area_density_in_gram_per_square_meter: "Densité surfacique en grammes par mètre carré"
-    mass_area_density_in_hectoliter_per_hectare: "Densité surfacique en hectolitres par hectare"
+    mass_area_density_in_hectoliter_per_hectare: "Densité surfacique en hectolitres par hectare" #?
     mass_area_density_in_ton_per_hectare: "Densité surfacique en tonnes par hectare"
     mass_volume_density: "Masse volumique"
-    milk_mass_per_animal: "Masse de lait par animal"
+    milk_mass_per_animal: "Masse de lait par animal" #?
     net_length: "Longueur nette"
     net_mass: "Masse"
     net_mass_in_kilogram: "Masse nette en kilogrammes"
@@ -73,26 +73,26 @@ fra:
     volume_density: "Densité volumique"
   procedure_variables:
     adding_wine: "Vin (mineur)"
-    adding_wine_to_blend: "Vin à assembler (mineur)"
+    adding_wine_to_blend: "Vin à assembler (mineur)" #?
     animal: "Animal"
     animal_housing: "Zone d'hébergement de l'animal"
     animal_medicine: "Produit vétérinaire"
-    animal_medicine_to_give: "Produit vétérinaire à donner"
+    animal_medicine_to_give: "Produit vétérinaire à donner" #?
     baler: "Botteleuse"
     baler_driver: "Conducteur (tracteur-botteleuse)"
     bird_band: "Bande d'oiseaux"
     bottles: "Bouteilles"
-    bottles_to_use: "Bouteilles à utiliser"
+    bottles_to_use: "Bouteilles à utiliser" #?
     caregiver: "Soigneur"
-    chemical_mix: "Mélange de produits de protection des végétaux"
-    chemical_storage: "Stockage de produits de protection des végétaux"
+    chemical_mix: "Mélange de produits de protection des végétaux" #?
+    chemical_storage: "Stockage de produits de protection des végétaux" #?
     child: "Nouveau né"
     cleaner: "Outil de nettoyage"
     compressor: "Compresseur"
     container: "Conteneur"
     corker: "Boucheuse"
     corks: "Bouchons"
-    corks_to_use: "Bouchons à utiliser"
+    corks_to_use: "Bouchons à utiliser" #?
     cropper: "Moissonneuse batteuse"
     cropper_driver: "Conducteur de moissonneuse batteuse"
     cultivation: "Culture"
@@ -104,248 +104,248 @@ fra:
     eggs: "Oeufs"
     equipment: "Équipement"
     excrement: "Excrément"
-    excrement_zone: "Fumière"
+    excrement_zone: "Fumière" #?
     fermented_juice: "Jus fermenté"
     fertilizer: "Engrais"
-    fertilizer_to_spread: "Engrais à épandre"
-    first_chemical_input: "Premier intrant de protection des végétaux"
-    first_chemical_input_to_use: "Premier intrant de protection des végétaux à utiliser"
-    first_child: "Premier nouveau né"
+    fertilizer_to_spread: "Engrais à épandre" #?
+    first_chemical_input: "Premier intrant de protection des végétaux" #?
+    first_chemical_input_to_use: "Premier intrant de protection des végétaux à utiliser" #?
+    first_child: "Premier nouveau né" #?
     first_food_input: "Premier ingrédient"
-    first_food_input_to_use: "Premier ingrédient utilisé"
-    first_plant_medicine: "Premier produit utilisé"
-    first_plant_medicine_to_spray: "Premier produit à pulvériser"
-    first_seed_input: "Première semence"
-    first_seed_input_to_use: "Première semence utilisée"
+    first_food_input_to_use: "Premier ingrédient utilisé" #?
+    first_plant_medicine: "Premier produit utilisé" #?
+    first_plant_medicine_to_spray: "Premier produit à pulvériser" #?
+    first_seed_input: "Première semence" #?
+    first_seed_input_to_use: "Première semence utilisée" #?
     food_mix: "Mélange"
-    food_storage: "Stockage du mélange"
+    food_storage: "Stockage du mélange" #?
     forager: "Ensileuse"
     forager_driver: "Conducteur d’ensileuse"
-    fruit_harvester: "Récolteuse de fruit"
-    fruits: "Fruits"
+    fruit_harvester: "Récolteuse de fruit" #?
+    fruits: "Fruits" #?
     fuel: "Carburant"
-    fuel_to_input: "Carburant mis"
-    grain: "Grain"
-    grain_to_deliver: "Grain à livrer"
+    fuel_to_input: "Carburant mis" #?
+    grain: "Grain" #?
+    grain_to_deliver: "Grain à livrer" #?
     grains: "Grains"
     grape: "Raisin"
     grape_picker: "Vendangeur" #?
-    grape_reaper: "Machine à vendanger"
-    grape_reaper_driver: "Conducteur de machine à vendanger"
-    grape_to_deliver: "Raisin à livrer"
-    grape_to_press: "Raisin à presser"
+    grape_reaper: "Machine à vendanger" #?
+    grape_reaper_driver: "Conducteur de machine à vendanger" #?
+    grape_to_deliver: "Raisin à livrer" #?
+    grape_to_press: "Raisin à presser" #?
     grass: "Herbe"
-    grinded: "Résidu de culture"
+    grinded: "Résidu de culture" #?
     grinder: "Broyeur"
-    group: "Groupe"
+    group: "Groupe" #?
     hand_drawn: "Tireuse"
     harrow: "Herse"
-    harvester_man: "Récolteur"
-    hazelnuts: "Noisettes"
+    harvester_man: "Récolteur" #?
+    hazelnuts: "Noisettes" #?
     herd: "Troupeau"
     implanter: "Planteuse"
     implanter_man: "Planteur"
     implanter_tool: "Équipement de plantation"
     insecticide: "Insecticide"
-    insecticide_to_input: "Insecticide à distribuer"
+    insecticide_to_input: "Insecticide à distribuer" #?
     inseminator: "Inséminateur"
     item: "Pièce"
-    item_to_change: "Pièce changée"
-    items: "Éléments"
-    items_to_fill: "Éléments à remplir"
+    item_to_change: "Pièce changée" #?
+    items: "Éléments" #?
+    items_to_fill: "Éléments à remplir" #?
     juice: "Jus"
     juice_to_ferment: "Jus à fermenter"
     land_parcel: "Parcelle"
-    maintained: "Maintenu"
+    maintained: "Maintenu" #?
     mammal: "Animal" #?
     mammal_herd: "Troupeau à traire" #?
-    mammal_herd_to_milk: "Troupeau à traire"
+    mammal_herd_to_milk: "Troupeau à traire" #?
     mammal_to_milk: "Animal à traire"
-    manure: "Fumier"
-    manure_to_spread: "Fumier à épandre"
+    manure: "Fumier" #?
+    manure_to_spread: "Fumier à épandre" #?
     mechanic: "Mécanicien"
     medicine: "Traitement" #?
     medicine_to_give: "Traitement à donner" #?
     medicine_to_spray: "Traitement à pulvériser" #?
-    member: "Membre"
+    member: "Membre" #?
     milk: "Lait"
     molluscicide: "Molluscicide"
-    molluscicide_to_input: "Molluscicide à distribuer"
+    molluscicide_to_input: "Molluscicide à distribuer" #?
     mother: "Mère"
     mother_animal: "Mère" #?
     mower: "Faucheuse"
     mower_driver: "Conducteur de faucheuse"
     new_animal_variant: "Nouveau variant de l'animal" #?
-    nuts: "Fruits à coques"
-    nuts_harvester: "Récolteuse de fruits à coques"
-    nuts_to_deliver: "Fruits à coques à livrer"
+    nuts: "Fruits à coques" #?
+    nuts_harvester: "Récolteuse de fruits à coques" #?
+    nuts_to_deliver: "Fruits à coques à livrer" #?
     oenological_intrant: "Produit œnologique"
-    oenological_intrant_to_put: "Produit œnologique à mettre"
+    oenological_intrant_to_put: "Produit œnologique à mettre" #?
     oil: "Huile"
-    oil_to_input: "Huile mise"
+    oil_to_input: "Huile mise" #?
     plant: "Culture végétale" #?
-    plant_medicine: "Produit phytosanitaire"
-    plant_medicine_to_spray: "Produit phytosanitaire à pulvériser"
+    plant_medicine: "Produit phytosanitaire" #?
+    plant_medicine_to_spray: "Produit phytosanitaire à pulvériser" #?
     plants: "Plants"
-    plants_to_fix: "Plants à implanter"
+    plants_to_fix: "Plants à implanter" #?
     plastic: "Plastique"
-    plastic_to_mulch: "Plastique à poser"
+    plastic_to_mulch: "Plastique à poser" #?
     plow: "Charrue"
     press: "Presse"
-    product: "Produit"
+    product: "Produit" #?
     pruner: "Sécateur" #?
     residue: "Residue"
-    second_chemical_input: "Second intrant de protection des végétaux"
-    second_chemical_input_to_use: "Second intrant de protection des végétaux à utiliser"
-    second_child: "Second nouveau né"
+    second_chemical_input: "Second intrant de protection des végétaux" #?
+    second_chemical_input_to_use: "Second intrant de protection des végétaux à utiliser" #?
+    second_child: "Second nouveau né" #?
     second_food_input: "Second ingrédient"
-    second_food_input_to_use: "Second ingrédient utilisé"
-    second_plant_medicine: "Second produit utilisé"
-    second_plant_medicine_to_spray: "Second produit à pulvériser"
-    second_seed_input: "Seconde semence"
-    second_seed_input_to_use: "Seconde semence utilisée"
-    seed_mix: "Mélange de graine"
-    seed_storage: "Seed storage"
+    second_food_input_to_use: "Second ingrédient utilisé" #?
+    second_plant_medicine: "Second produit utilisé" #?
+    second_plant_medicine_to_spray: "Second produit à pulvériser" #?
+    second_seed_input: "Seconde semence" #?
+    second_seed_input_to_use: "Seconde semence utilisée" #?
+    seed_mix: "Mélange de graine" #?
+    seed_storage: "Seed storage" #?
     seeder: "Semoir" #?
     seeds: "Semences"
-    seeds_to_sow: "Semence à semer"
+    seeds_to_sow: "Semence à semer" #?
     silage: "Ensilage"
-    silage_to_deliver: "Ensilage à livrer"
-    silage_to_give: "Ensilage à donner"
+    silage_to_deliver: "Ensilage à livrer" #?
+    silage_to_give: "Ensilage à donner" #?
     silage_unloader: "Désileuse"
-    silo: "Silo"
+    silo: "Silo" #?
     sower: "Semoir"
-    sprayer: "Pulvérisateur"
+    sprayer: "Pulvérisateur" #?
     spreader: "Épandeur"
     stakes: "Piquets"
-    stakes_to_plant: "Piquets à planter"
+    stakes_to_plant: "Piquets à planter" #?
     straw: "Fourrage"
     straw_bales: "Bottes de fourrage"
     straw_to_bunch: "Fourrage entrant"
-    straw_to_deliver: "Fourrage à livrer"
-    straw_to_mulch: "Paille à pailler"
+    straw_to_deliver: "Fourrage à livrer" #?
+    straw_to_mulch: "Paille à pailler" #?
     straws: "Paille"
     tank: "Cuve"
     tank_for_residue: "Cuve pour les résidus"
     tank_for_wine: "Cuve pour le vin"
-    target: "Cible"
-    third_food_input: "Troisième ingrédient"
-    third_food_input_to_use: "Troisième ingrédient utilisé"
-    third_plant_medicine: "Troisième produit utilisé"
-    third_plant_medicine_to_spray: "Troisième produit à pulvériser"
-    third_seed_input: "Troisième semence"
-    third_seed_input_to_use: "Troisième semence utilisée"
-    tool: "Outil"
+    target: "Cible" #?
+    third_food_input: "Troisième ingrédient" #?
+    third_food_input_to_use: "Troisième ingrédient utilisé" #?
+    third_plant_medicine: "Troisième produit utilisé" #?
+    third_plant_medicine_to_spray: "Troisième produit à pulvériser" #?
+    third_seed_input: "Troisième semence" #?
+    third_seed_input_to_use: "Troisième semence utilisée" #?
+    tool: "Outil" #?
     tractor: "Tracteur"
-    trailer: "Remorque"
+    trailer: "Remorque" #?
     variant: "Variant"
     vial: "Paillette"
-    vial_to_give: "Paillette à utiliser"
-    walnuts: "Noix"
+    vial_to_give: "Paillette à utiliser" #?
+    walnuts: "Noix" #?
     water: "Eau"
-    water_to_spread: "Eau à apporter"
-    weedkiller: "Désherbant"
-    weedkiller_to_spray: "Désherbant à pulvériser"
+    water_to_spread: "Eau à apporter" #?
+    weedkiller: "Désherbant" #?
+    weedkiller_to_spray: "Désherbant à pulvériser" #?
     wine: "Vin"
     wine_blended: "Vin assemblé"
     wine_bottles: "Bouteilles de vin"
     wine_man: "Opérateur de chai"
-    wine_storage: "Stockage de vin"
-    wine_to_blend: "Vin à assembler"
-    wine_to_move: "Vin à transférer"
-    wine_to_pack: "Vin à embouteiller"
+    wine_storage: "Stockage de vin" #?
+    wine_to_blend: "Vin à assembler" #?
+    wine_to_move: "Vin à transférer" #?
+    wine_to_pack: "Vin à embouteiller" #?
     wine_to_treat: "Vin à traiter"
     wire_fence: "Fils de clôture"
-    wire_fence_to_put: "Fils de clôture à positionner"
+    wire_fence_to_put: "Fils de clôture à positionner" #?
     worker: "Travailleur"
-    zone: "Zone"
+    zone: "Zone" #?
   procedures:
-    base-administrative_task: "Tâche administrative générale"
-    base-all_in_one_sowing: "Semis «\_tout-en-un\_»"
-    base-animal_artificial_insemination: "Insémination articielle animale"
-    base-animal_birth: "Naissance d’un animal" #?
-    base-animal_group_changing: "Déplacement d'un animal"
-    base-animal_housing_cleaning: "Nettoyage de stabulation"
-    base-animal_housing_mulching: "Paillage de stabulation"
-    base-animal_treatment: "Traitement animal"
-    base-attach: "Attellage"
-    base-calving_one: "Vêlage unique"
-    base-calving_twin: "Vêlage jumeaux"
-    base-chaptalization: "Chaptalisation"
-    base-chemical_weed_killing: "Désherbage chimique"
-    base-complete_wine_transfer: "Transfert de vin (Complet)"
-    base-cutting: "Taille"
-    base-detach: "Détellage"
-    base-detasseling: "Castration"
-    base-direct_silage: "Ensilage direct"
-    base-double_chemical_mixing: "Mélange d'intrants de protection des végétaux avec deux produits"
-    base-double_food_mixing: "Mélange alimentaire avec deux ingrédients"
-    base-double_seed_mixing: "Mélange de semences avec deux semences"
-    base-double_spraying_on_cultivation: "Pulvérisation sur culture (deux spécialités)"
-    base-double_spraying_on_land_parcel: "Pulvérisation sur parcelle (deux spécialités)"
-    base-egg_production: "Production d'oeufs"
-    base-enzyme_addition: "Ajout d'enzymes"
-    base-fermentation: "Fermentation"
-    base-filling: "Remplissage"
-    base-fuel_up: "Plein de carburant"
-    base-grain_transport: "Transport de grain"
-    base-grains_harvest: "Moisson"
-    base-grape_pressing: "Pressage de raisin"
-    base-grape_transport: "Transport de raisin"
-    base-grinding: "Broyage"
-    base-ground_destratification: "Trou de déstratification"
-    base-group_exclusion: "Exclusion de groupe"
-    base-group_inclusion: "Inclusion de groupe"
-    base-harvest_helping: "Aide à la récolte"
-    base-hazelnuts_harvest: "Récolte de noisettes"
-    base-hazelnuts_transport: "Transport de noisettes"
-    base-hoeing: "Binage"
-    base-implant_helping: "Aide à l'implantation"
-    base-implanting: "Plantation"
-    base-indirect_silage: "Ensilage indirect"
-    base-item_replacement: "Remplacement de pièce"
-    base-land_parcel_grinding: "Broyage du sol"
-    base-maintenance_task: "Tâche de maintenance générale"
-    base-mammal_herd_milking: "Traite d’un troupeau"
-    base-mammal_milking: "Traite d’un animal"
-    base-manual_feeding: "Alimentation manuelle"
-    base-manual_vine_harvest: "Vendange manuelle" #?
-    base-mecanical_vine_harvest: "Vendange mécanique" #?
-    base-mineral_fertilizing: "Fertilisation minérale"
-    base-moving: "Déplacement" #?
-    base-oil_replacement: "Vidange d’huile"
-    base-organic_fertilizing: "Fertilisation organique"
-    base-partial_wine_transfer: "Transfert de vin (Partiel)"
-    base-pasturing: "Pâturage"
-    base-plant_grinding: "Broyage de végétaux"
-    base-plant_mowing: "Fauchage"
-    base-plantation_unfixing: "Déchaussage"
-    base-plants_harvest: "Récolte de plante"
-    base-plastic_mulching: "Paillage plastique"
-    base-plowing: "Labour"
-    base-plums_harvest: "Récolte de prunes"
-    base-product_evolution: "Evolution d'un produit"
-    base-product_moving: "Mouvement d'un produit"
-    base-raking: "Hersage"
-    base-silage_transport: "Transport d'ensilage"
-    base-silage_unload: "Alimentation d’un troupeau via désileuse"
-    base-sowing: "Semis"
-    base-sowing_with_insecticide_and_molluscicide: "Semis (avec insecticide et molluscicide)"
-    base-spraying_on_cultivation: "Pulvérisation sur culture"
-    base-spraying_on_land_parcel: "Pulvérisation sur parcelle"
-    base-standard_enclosing: "Pose de clôture standard"
-    base-straw_bunching: "Pressage de fourrages"
-    base-straw_transport: "Transport de fourrages"
-    base-sulfur_addition: "Sulfitage"
-    base-superficial_plowing: "Déchaumage"
-    base-technical_task: "Tâche technique générale"
-    base-triple_food_mixing: "Mélange alimentaire avec trois ingrédients"
-    base-triple_seed_mixing: "Mélange de semences avec trois semences"
-    base-triple_spraying_on_cultivation: "Pulvérisation sur culture (trois spécialités)"
-    base-uncompacting: "Décompactage"
-    base-vine_harvest: "Vendange"
-    base-walnuts_harvest: "Récolte de noix"
-    base-walnuts_transport: "Transport de noix"
-    base-watering: "Irrigation"
-    base-wine_blending: "Assemblage de vin"
-    base-wine_bottling: "Embouteillage de vin"
+    administrative_task: "Tâche administrative générale" #?
+    all_in_one_sowing: "Semis «\_tout-en-un\_»"
+    animal_artificial_insemination: "Insémination articielle animale"
+    animal_birth: "Naissance d’un animal" #?
+    animal_group_changing: "Déplacement d'un animal"
+    animal_housing_cleaning: "Nettoyage de stabulation"
+    animal_housing_mulching: "Paillage de stabulation"
+    animal_treatment: "Traitement animal" #?
+    attach: "Attellage" #?
+    calving_one: "Vêlage unique" #?
+    calving_twin: "Vêlage jumeaux" #?
+    chaptalization: "Chaptalisation"
+    chemical_weed_killing: "Désherbage chimique" #?
+    complete_wine_transfer: "Transfert de vin (Complet)"
+    cutting: "Taille"
+    detach: "Détellage" #?
+    detasseling: "Castration"
+    direct_silage: "Ensilage direct"
+    double_chemical_mixing: "Mélange d'intrants de protection des végétaux avec deux produits" #?
+    double_food_mixing: "Mélange alimentaire avec deux ingrédients" #?
+    double_seed_mixing: "Mélange de semences avec deux semences" #?
+    double_spraying_on_cultivation: "Pulvérisation sur culture (deux spécialités)" #?
+    double_spraying_on_land_parcel: "Pulvérisation sur parcelle (deux spécialités)" #?
+    egg_production: "Production d'oeufs" #?
+    enzyme_addition: "Ajout d'enzymes"
+    fermentation: "Fermentation"
+    filling: "Remplissage" #?
+    fuel_up: "Plein de carburant"
+    grain_transport: "Transport de grain" #?
+    grains_harvest: "Moisson" #?
+    grape_pressing: "Pressage de raisin"
+    grape_transport: "Transport de raisin" #?
+    grinding: "Broyage" #?
+    ground_destratification: "Trou de déstratification"
+    group_exclusion: "Exclusion de groupe" #?
+    group_inclusion: "Inclusion de groupe" #?
+    harvest_helping: "Aide à la récolte" #?
+    hazelnuts_harvest: "Récolte de noisettes" #?
+    hazelnuts_transport: "Transport de noisettes" #?
+    hoeing: "Binage"
+    implant_helping: "Aide à l'implantation" #?
+    implanting: "Plantation" #?
+    indirect_silage: "Ensilage indirect"
+    item_replacement: "Remplacement de pièce" #?
+    land_parcel_grinding: "Broyage du sol"
+    maintenance_task: "Tâche de maintenance générale" #?
+    mammal_herd_milking: "Traite d’un troupeau" #?
+    mammal_milking: "Traite d’un animal" #?
+    manual_feeding: "Alimentation manuelle"
+    manual_vine_harvest: "Vendange manuelle" #?
+    mecanical_vine_harvest: "Vendange mécanique" #?
+    mineral_fertilizing: "Fertilisation minérale" #?
+    moving: "Déplacement" #?
+    oil_replacement: "Vidange d’huile"
+    organic_fertilizing: "Fertilisation organique" #?
+    partial_wine_transfer: "Transfert de vin (Partiel)"
+    pasturing: "Pâturage"
+    plant_grinding: "Broyage de végétaux" #?
+    plant_mowing: "Fauchage"
+    plantation_unfixing: "Déchaussage"
+    plants_harvest: "Récolte de plante" #?
+    plastic_mulching: "Paillage plastique" #?
+    plowing: "Labour"
+    plums_harvest: "Récolte de prunes" #?
+    product_evolution: "Evolution d'un produit" #?
+    product_moving: "Mouvement d'un produit" #?
+    raking: "Hersage"
+    silage_transport: "Transport d'ensilage" #?
+    silage_unload: "Alimentation d’un troupeau via désileuse"
+    sowing: "Semis"
+    sowing_with_insecticide_and_molluscicide: "Semis (avec insecticide et molluscicide)" #?
+    spraying_on_cultivation: "Pulvérisation sur culture" #?
+    spraying_on_land_parcel: "Pulvérisation sur parcelle" #?
+    standard_enclosing: "Pose de clôture standard"
+    straw_bunching: "Pressage de fourrages"
+    straw_transport: "Transport de fourrages" #?
+    sulfur_addition: "Sulfitage"
+    superficial_plowing: "Déchaumage"
+    technical_task: "Tâche technique générale" #?
+    triple_food_mixing: "Mélange alimentaire avec trois ingrédients" #?
+    triple_seed_mixing: "Mélange de semences avec trois semences" #?
+    triple_spraying_on_cultivation: "Pulvérisation sur culture (trois spécialités)" #?
+    uncompacting: "Décompactage"
+    vine_harvest: "Vendange" #?
+    walnuts_harvest: "Récolte de noix" #?
+    walnuts_transport: "Transport de noix" #?
+    watering: "Irrigation" #?
+    wine_blending: "Assemblage de vin"
+    wine_bottling: "Embouteillage de vin"

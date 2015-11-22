@@ -1,33 +1,22 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="standard_enclosing" natures="enclosing" version="0">
+  <procedure name="standard_enclosing" categories="installations_modification" optional-actions="animal_penning, game_protection">
     <variables>
-      <variable name="land_parcel" variety="cultivable_zone" roles="enclosing-target" default-shape=":land_parcel" default-actor="storage">
+      <variable name="land_parcel" type="target" variety="cultivable_zone" default-shape=":land_parcel" default-actor="storage">
         <handler indicator="shape">
           <converter to="shape" forward="intersection(value, land_parcel.shape)" backward="value"/>
           <converter to="population" forward="area(value) / land_parcel..net_surface_area(square_meter)"/>
         </handler>
       </variable>
-      <variable name="doer" variety="worker" abilities="move" roles="enclosing-doer"/>
-      <variable name="stakes" variety="stake" abilities="enclose" roles="enclosing-input_origin"/>
-      <variable name="stakes_to_plant" variety=":stakes" derivative-of=":stakes" new="parted-from: stakes" roles="enclosing-input" default-population=":stakes">
+      <variable name="doer" type="doer" variety="worker" abilities="move"/>
+      <variable name="stakes" type="input" variety="stake" abilities="enclose">
         <handler indicator="population"/>
         <handler indicator="stakes_count" unit="unity_per_hectare" if="land_parcel? &amp; land_parcel.net_surface_area(hectare) &gt;= 0.1" to="population" backward="(value / land_parcel.net_surface_area(hectare))" forward="(value * land_parcel.net_surface_area(hectare))"/>
       </variable>
-      <variable name="wire_fence" variety="wire" abilities="enclose" roles="enclosing-input_origin"/>
-      <variable name="wire_fence_to_put" variety=":wire_fence" derivative-of=":wire_fence" new="parted-from: wire_fence" roles="enclosing-input" default-population=":wire_fence">
+      <variable name="wire_fence" type="input" variety="wire" abilities="enclose">
         <handler indicator="population"/>
         <handler indicator="length" unit="meter" if="wire_fence? &amp; wire_fence.length(meter) &gt;= 0.1" to="population" backward="(value * wire_fence.length(meter))" forward="(value / wire_fence.length(meter))"/>
       </variable>
     </variables>
-    <operations>
-      <operation id="1">
-        <task do="[stakes] parts with [stakes_to_plant]"/>
-        <task do="[wire_fence] parts with [wire_fence_to_put]"/>
-        <task do="[land_parcel] consumes [stakes_to_plant]"/>
-        <task do="[land_parcel] consumes [wire_fence_to_put]"/>
-        <task do="[doer] measures [land_parcel|fence_perimeter]"/>
-      </operation>
-    </operations>
   </procedure>
 </procedures>

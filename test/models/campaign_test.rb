@@ -32,6 +32,8 @@
 #  lock_version :integer          default(0), not null
 #  name         :string           not null
 #  number       :string           not null
+#  started_on   :date
+#  stopped_on   :date
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #

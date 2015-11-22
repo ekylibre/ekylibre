@@ -78,7 +78,7 @@ class Viniteca::InterventionsExchanger < ActiveExchanger::Base
 
         if plant && campaign
           cultivable_zone = plant.container
-          if support = ProductionSupport.where(storage: cultivable_zone).of_campaign(campaign).first
+          if support = ActivityProduction.where(storage: cultivable_zone).of_campaign(campaign).first
             Ekylibre::FirstRun::Booker.production = support.production
             coeff = (r.working_area / 10_000.0) / 6.0
 

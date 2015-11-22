@@ -1,29 +1,22 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="animal_housing_cleaning" natures="animal_housing_cleaning" version="0">
+  <procedure name="animal_housing_cleaning" categories="habitat_maintenance" actions="hygiene">
     <variables>
-      <variable name="animal_housing" variety="building_division" abilities="store(animal)" roles="animal_housing_cleaning-target" default-shape=":animal_housing" default-actor="default_storage_of_support">
+      <variable name="animal_housing" type="target" variety="building_division" abilities="store(animal)" default-shape=":animal_housing" default-actor="default_storage_of_support">
         <handler indicator="shape">
           <converter to="shape" forward="intersection(value, animal_housing.shape)" backward="value"/>
           <converter to="population" forward="area(value) / animal_housing..net_surface_area(square_meter)"/>
         </handler>
       </variable>
-      <variable name="excrement" variety="excrement" derivative-of="animal" new="produced-by: animal_housing" roles="animal_housing_cleaning-output" default-name="{{variant}} {{birth_year}}-{{birth_month}}-{{birth_day}}">
+      <variable name="excrement" type="output" variety="excrement" derivative-of="animal" default-name="{{variant}} {{birth_year}}-{{birth_month}}-{{birth_day}}">
         <handler indicator="population"/>
         <handler indicator="net_mass" unit="ton" to="population" backward="value * self..net_mass(ton)" forward="value / self..net_mass(ton)"/>
         <handler indicator="net_volume" unit="cubic_meter" to="population" backward="value * self..net_volume(cubic_meter)" forward="value / self..net_volume(cubic_meter)"/>
         <handler name="dry_matter_mass_area_density" indicator="mass_area_density" unit="kilogram_per_square_meter" to="population" backward="(value * self..net_mass(kilogram)) / animal_housing.net_surface_area(square_meter)" forward="(value * animal_housing.net_surface_area(square_meter)) / self..net_mass(kilogram)"/>
       </variable>
-      <variable name="cleaner" abilities="clean(building_division)" roles="animal_housing_cleaning-tool"/>
-      <variable name="driver" abilities="drive(equipment), move" roles="animal_housing_cleaning-doer"/>
-      <variable name="tractor" abilities="tow(equipment), move" roles="animal_housing_cleaning-tool"/>
-      <variable name="excrement_zone" abilities="store(excrement)"/>
+      <variable name="cleaner" type="tool" abilities="clean(building_division)"/>
+      <variable name="driver" type="doer" abilities="drive(equipment), move"/>
+      <variable name="tractor" type="tool" abilities="tow(equipment), move"/>
     </variables>
-    <operations>
-      <operation id="1">
-        <task do="[animal_housing] produces [excrement]"/>
-        <task do="[excrement] is in [excrement_zone]"/>
-      </operation>
-    </operations>
   </procedure>
 </procedures>

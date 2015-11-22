@@ -1,22 +1,15 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="indirect_silage" natures="straw_processing" version="0">
+  <procedure name="indirect_silage" categories="plants_transformation" actions="indirect_silage">
     <variables>
-      <variable name="forager" variety="forager" abilities="harvest(plant)" roles="straw_processing-tool"/>
-      <variable name="forager_driver" abilities="drive(forager)" roles="straw_processing-doer"/>
-      <variable name="straw_to_bunch" variety="straw" derivative-of="poaceae" roles="straw_processing-input"/>
-      <variable name="silage" new="produced-by: straw_to_bunch" roles="straw_processing-output" default-name="{{variant}} {{birth_year}} ({{container}})">
+      <variable name="forager" type="tool" variety="forager" abilities="harvest(plant)"/>
+      <variable name="forager_driver" type="doer" abilities="drive(forager)"/>
+      <variable name="straw_to_bunch" type="input" variety="straw" derivative-of="poaceae"/>
+      <variable name="silage" type="output" default-name="{{variant}} {{birth_year}} ({{container}})">
         <handler indicator="population"/>
         <handler indicator="net_mass" unit="ton" to="population" backward="value * self..net_mass(ton)" forward="value / self..net_mass(ton)"/>
         <handler indicator="net_volume" unit="cubic_meter" to="population" backward="value * self..net_volume(cubic_meter)" forward="value / self..net_volume(cubic_meter)"/>
       </variable>
     </variables>
-    <operations>
-      <operation id="1">
-        <task do="[forager] consumes [straw_to_bunch]"/>
-        <task do="[forager] produces [silage]"/>
-        <task do="[silage] is at [cultivation]"/>
-      </operation>
-    </operations>
   </procedure>
 </procedures>

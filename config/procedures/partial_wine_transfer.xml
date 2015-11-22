@@ -1,20 +1,13 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="partial_wine_transfer" natures="transfer" version="0">
+  <procedure name="partial_wine_transfer" categories="viticulture_transformation" actions="partial_wine_transfer">
     <variables>
-      <variable name="tank" variety="equipment" abilities="store(wine), store_liquid" default-actor="storage"/>
-      <variable name="wine" variety="wine" default-actor="first_localized_in: tank"/>
-      <variable name="wine_to_move" variety=":wine" derivative-of=":wine" new="parted-from: wine" roles="transfer-target" default-name="{{variant}} {{birth_year}} ({{container}})" default-population=":wine">
+      <variable name="tank" type="tool" variety="equipment" abilities="store(wine), store_liquid" default-actor="storage"/>
+      <variable name="wine" type="target" variety="wine" default-name="{{variant}} {{birth_year}} ({{container}})">
         <handler indicator="population"/>
       </variable>
-      <variable name="destination_tank" variety="equipment" abilities="store(wine), store_liquid" roles="transfer-container"/>
-      <variable name="wine_man" variety="worker" abilities="move" roles="transfer-doer"/>
+      <variable name="destination_tank" type="tool" variety="equipment" abilities="store(wine), store_liquid"/>
+      <variable name="wine_man" type="doer" variety="worker" abilities="move"/>
     </variables>
-    <operations>
-      <operation id="1">
-        <task do="[wine] parts with [wine_to_move]"/>
-        <task do="[wine_to_move] moves in [destination_tank]"/>
-      </operation>
-    </operations>
   </procedure>
 </procedures>

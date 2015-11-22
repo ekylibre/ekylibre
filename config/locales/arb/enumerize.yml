@@ -5,6 +5,11 @@ arb:
         # auxiliary: "Auxiliary"
         # main: "Main"
         # standalone: "Standalone"
+    activity_budget:
+      computation_method:
+        # per_production: "Per production"
+        # per_production_support: "Per production support"
+        # per_working_unit: "Per working unit"
     cash:
       mode:
         # bban: "Basic Bank Account Number (BBAN)"
@@ -110,11 +115,6 @@ arb:
         # ready_to_prepare: "Ready to prepare"
         # ready_to_send: "Ready to send"
         # sent: "Sent"
-    production_budget:
-      computation_method:
-        # per_production: "Per production"
-        # per_production_support: "Per production support"
-        # per_working_unit: "Per working unit"
     sensor:
       retrieval_mode:
         # listening: "Listening"

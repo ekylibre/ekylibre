@@ -16,7 +16,7 @@
 
   - c.cobble(:productions) do
     = cobble_toolbar do |t|
-      - t.new(params: {controller: :productions, activity_id: resource.id})
+      - t.new(params: {controller: :activity_productions, activity_id: resource.id})
     = cobble_list(:productions)
 
   - if resource.auxiliary?

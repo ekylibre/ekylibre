@@ -137,14 +137,6 @@ class Backend::ProductsController < Backend::BaseController
     t.column :stopped_at
   end
 
-  # Lists reading tasks of the current product
-  list(:reading_tasks, model: :product_reading_tasks, conditions: { product_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
-    t.column :indicator_name
-    t.column :value
-    t.column :reporter
-    t.column :tool
-  end
-
   # Lists readings of the current product
   list(:readings, model: :product_readings, conditions: { product_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
     t.column :indicator_name
@@ -161,9 +153,9 @@ class Backend::ProductsController < Backend::BaseController
   end
 
   # Lists intervention casts of the current product
-  list(:intervention_casts, conditions: { actor_id: 'params[:id]'.c }, order: 'interventions.started_at DESC') do |t|
+  list(:intervention_casts, conditions: { product_id: 'params[:id]'.c }, order: 'interventions.started_at DESC') do |t|
     t.column :intervention, url: true
-    t.column :roles, hidden: true
+    # t.column :roles, hidden: true
     t.column :name, sort: :reference_name
     t.column :started_at, through: :intervention, datatype: :datetime
     t.column :stopped_at, through: :intervention, datatype: :datetime, hidden: true

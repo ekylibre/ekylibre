@@ -1,21 +1,13 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="enzyme_addition" natures="addition" version="0">
+  <procedure name="enzyme_addition" categories="viticulture_transformation" actions="enzyme_addition">
     <variables>
-      <variable name="tank" variety="tank" abilities="store_liquid" default-actor="storage"/>
-      <variable name="wine_to_treat" variety="wine" roles="addition-target" default-actor="first_localized_in: tank"/>
-      <variable name="oenological_intrant" variety="matter" abilities="catalyze(wine)" roles="addition-input_origin"/>
-      <variable name="oenological_intrant_to_put" variety=":oenological_intrant" derivative-of=":oenological_intrant" new="parted-from: oenological_intrant" roles="addition-input">
+      <variable name="tank" type="tool" variety="tank" abilities="store_liquid" default-actor="storage"/>
+      <variable name="wine_to_treat" type="target" variety="wine" default-actor="first_localized_in: tank"/>
+      <variable name="oenological_intrant" type="input" variety="matter" abilities="catalyze(wine)">
         <handler indicator="population"/>
       </variable>
-      <variable name="wine_man" variety="worker" abilities="move" roles="addition-doer"/>
+      <variable name="wine_man" type="doer" variety="worker" abilities="move"/>
     </variables>
-    <operations>
-      <operation id="1">
-        <task do="[oenological_intrant] parts with [oenological_intrant_to_put]"/>
-        <task do="[oenological_intrant_to_put] moves at [wine_to_treat]"/>
-        <task do="[wine_to_treat] consumes [oenological_intrant_to_put]"/>
-      </operation>
-    </operations>
   </procedure>
 </procedures>

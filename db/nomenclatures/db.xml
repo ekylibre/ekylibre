@@ -429,6 +429,7 @@
       <item name="cotton_crops" parent="oilseed_crops" support_variety="cultivable_zone" cultivation_variety="gossypium"/>
       <item name="durum_wheat_crops" parent="cereal_crops" support_variety="cultivable_zone" cultivation_variety="triticum_durum"/>
       <item name="eggplant_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="solanum_melongena"/>
+      <item name="equipment_management" nature="auxiliary"/>
       <item name="exploitation" nature="auxiliary"/>
       <item name="fallow_land" parent="field_crops" support_variety="cultivable_zone" cultivation_variety="plant"/>
       <item name="field_crops" parent="vegetal_crops" support_variety="cultivable_zone" cultivation_variety="plant"/>
@@ -2075,6 +2076,161 @@
     <items>
       <item name="high"/>
       <item name="low"/>
+    </items>
+  </nomenclature>
+  <nomenclature name="procedure_actions" translateable="true">
+    <items>
+      <item name="acaricide"/>
+      <item name="animal_artificial_insemination"/>
+      <item name="animal_feeding"/>
+      <item name="animal_group_changing"/>
+      <item name="animal_housing_mulching"/>
+      <item name="animal_penning"/>
+      <item name="animal_sorting"/>
+      <item name="animal_training"/>
+      <item name="bactericide"/>
+      <item name="biostimulation"/>
+      <item name="bird_repellent"/>
+      <item name="bridge_construction"/>
+      <item name="building_construction"/>
+      <item name="building_extension_construction"/>
+      <item name="building_interior_design"/>
+      <item name="building_renovation"/>
+      <item name="building_repairing"/>
+      <item name="chaptalization"/>
+      <item name="complete_wine_transfer"/>
+      <item name="concrete_slab_pouring"/>
+      <item name="corvicide"/>
+      <item name="cutting"/>
+      <item name="dehorning"/>
+      <item name="detasseling"/>
+      <item name="disease_protection"/>
+      <item name="disease_treatment"/>
+      <item name="drainage_improvement"/>
+      <item name="drainage_system_installation"/>
+      <item name="draining"/>
+      <item name="drinking_trough_cleaning"/>
+      <item name="drinking_trough_filling"/>
+      <item name="egg_collecting"/>
+      <item name="electric_charging"/>
+      <item name="enzyme_addition"/>
+      <item name="equipment_troubleshooting"/>
+      <item name="fermentation"/>
+      <item name="fertilization"/>
+      <item name="field_plant_sorting"/>
+      <item name="food_preparation"/>
+      <item name="forest_grinding"/>
+      <item name="frost_protection"/>
+      <item name="fuel_up"/>
+      <item name="fungicide"/>
+      <item name="game_protection"/>
+      <item name="game_repellent"/>
+      <item name="gas_refilling"/>
+      <item name="grape_pressing"/>
+      <item name="greasing"/>
+      <item name="greenhouse_assembling"/>
+      <item name="growth_regulator"/>
+      <item name="hardpan_destruction"/>
+      <item name="harvest"/>
+      <item name="herbicide"/>
+      <item name="hilling"/>
+      <item name="hilling_for_sifting"/>
+      <item name="hoof_trimming"/>
+      <item name="hormone_treatment_placement"/>
+      <item name="humidity_stabilisation"/>
+      <item name="hygiene"/>
+      <item name="indirect_silage"/>
+      <item name="insect_repellent"/>
+      <item name="insecticide"/>
+      <item name="irrigation"/>
+      <item name="irrigation_pump_lifting"/>
+      <item name="irrigation_system_improvement"/>
+      <item name="irrigation_system_unblocking"/>
+      <item name="land_parcel_clearing"/>
+      <item name="land_parcel_grinding"/>
+      <item name="levelling"/>
+      <item name="lifting"/>
+      <item name="loosening"/>
+      <item name="milking"/>
+      <item name="molluscicide"/>
+      <item name="natural_mating"/>
+      <item name="nematicide"/>
+      <item name="oil_replacement"/>
+      <item name="organic_matter_burying"/>
+      <item name="partial_wine_transfer"/>
+      <item name="parturition"/>
+      <item name="pivot_troubleshooting"/>
+      <item name="plant_uncovering"/>
+      <item name="plantation_unfixing"/>
+      <item name="planting"/>
+      <item name="plowing"/>
+      <item name="product_identification"/>
+      <item name="pumping_system_troubleshooting"/>
+      <item name="rain_protection"/>
+      <item name="residue_destruction"/>
+      <item name="ridging"/>
+      <item name="rodenticide"/>
+      <item name="semen_collecting"/>
+      <item name="semen_freezing"/>
+      <item name="shearing"/>
+      <item name="shoeing"/>
+      <item name="shoulder_grinding"/>
+      <item name="sifting"/>
+      <item name="soil_structure_stabilisation"/>
+      <item name="sowing"/>
+      <item name="sowing_burying"/>
+      <item name="sterilization"/>
+      <item name="straw_bunching"/>
+      <item name="sulfur_addition"/>
+      <item name="sun_protection"/>
+      <item name="swathing"/>
+      <item name="talpicide"/>
+      <item name="temperature_improvement"/>
+      <item name="temperature_stabilisation"/>
+      <item name="topkilling"/>
+      <item name="tractor_troubleshooting"/>
+      <item name="troubleshooting"/>
+      <item name="viricide"/>
+      <item name="water_flow_improvement"/>
+      <item name="weeding"/>
+      <item name="wheel_balancing"/>
+      <item name="wine_blending"/>
+      <item name="wine_bottling"/>
+      <item name="wood_collecting"/>
+      <item name="wood_refilling"/>
+    </items>
+  </nomenclature>
+  <nomenclature name="procedure_categories" translateable="true">
+    <properties>
+      <property name="activity_family" type="item_list" choices="activity_families"/>
+    </properties>
+    <items>
+      <item name="animal_breeding" activity_family="animal_farming"/>
+      <item name="animal_feeding" activity_family="animal_farming"/>
+      <item name="animal_production" activity_family="animal_farming"/>
+      <item name="animal_treating" activity_family="animal_farming"/>
+      <item name="building_maintenance" activity_family="equipment_management"/>
+      <item name="cook_transformation" activity_family="processing"/>
+      <item name="crop_maintenance" activity_family="vegetal_crops"/>
+      <item name="crop_protection" activity_family="vegetal_crops"/>
+      <item name="dairy_transformation" activity_family="processing"/>
+      <item name="energy_supplying" activity_family="equipment_management"/>
+      <item name="equipment_maintenance" activity_family="equipment_management"/>
+      <item name="fertilizing" activity_family="vegetal_crops"/>
+      <item name="fish_transformation" activity_family="processing"/>
+      <item name="habitat_maintenance" activity_family="animal_farming"/>
+      <item name="harvesting" activity_family="vegetal_crops"/>
+      <item name="installations_modification" activity_family="animal_farming, equipment_management, vegetal_crops"/>
+      <item name="irrigating" activity_family="vegetal_crops"/>
+      <item name="land_maintenance" activity_family="animal_farming, equipment_management, vegetal_crops"/>
+      <item name="meat_transformation" activity_family="processing"/>
+      <item name="planting" activity_family="vegetal_crops"/>
+      <item name="plants_transformation" activity_family="processing"/>
+      <item name="soil_working" activity_family="vegetal_crops"/>
+      <item name="textile_transformation" activity_family="processing"/>
+      <item name="troubleshooting" activity_family="equipment_management"/>
+      <item name="viticulture_transformation" activity_family="processing"/>
+      <item name="washing_packaging_transformation" activity_family="processing"/>
     </items>
   </nomenclature>
   <nomenclature name="procedure_natures" translateable="true">

@@ -147,19 +147,19 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         for product in r.supports
           ps = nil
           if r.target_variety && r.target_variant
-            ps = ProductionSupport.of_campaign(r.campaign).of_cultivation_varieties(r.target_variety).of_cultivation_variants(r.target_variant).where(storage: product)
+            ps = ActivityProduction.of_campaign(r.campaign).of_cultivation_varieties(r.target_variety).of_cultivation_variants(r.target_variant).where(storage: product)
           elsif r.target_variety
-            ps = ProductionSupport.of_campaign(r.campaign).of_cultivation_varieties(r.target_variety).where(storage: product)
+            ps = ActivityProduction.of_campaign(r.campaign).of_cultivation_varieties(r.target_variety).where(storage: product)
           elsif r.target_variant
-            ps = ProductionSupport.of_campaign(r.campaign).of_cultivation_variants(r.target_variant).where(storage: product)
+            ps = ActivityProduction.of_campaign(r.campaign).of_cultivation_variants(r.target_variant).where(storage: product)
           else
-            ps = ProductionSupport.of_campaign(r.campaign).where(storage: product)
+            ps = ActivityProduction.of_campaign(r.campaign).where(storage: product)
           end
           for p in ps
             ps_ids << p.id
           end
         end
-        r.production_supports = ProductionSupport.of_campaign(r.campaign).find(ps_ids)
+        r.production_supports = ActivityProduction.of_campaign(r.campaign).find(ps_ids)
         # Get global supports area (square_meter)
         r.production_supports_area = r.production_supports.map(&:storage_shape_area).compact.sum
       elsif r.support_codes.present?
@@ -1102,7 +1102,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   end
 
   def record_maintenance_task(r, support, duration, _plant = nil)
-    if support.is_a?(ProductionSupport)
+    if support.is_a?(ActivityProduction)
       zone = support.storage
       return nil unless zone && (zone.is_a?(BuildingDivision) || zone.is_a?(Equipment))
       intervention = Ekylibre::FirstRun::Booker.force(r.procedure_name.to_sym, r.intervention_started_at, (duration / 3600), support: support, description: r.procedure_description) do |i|

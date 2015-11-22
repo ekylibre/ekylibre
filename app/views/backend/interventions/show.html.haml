@@ -14,30 +14,30 @@
     - v.background "OpenStreetMap.Mapnik"
     - v.background "Thunderforest.Landscape"
     - v.background "Esri.WorldImagery"
-    - for cast in resource.casts
+    - resource.casts.each do |cast|
       - shape = cast.shape
-      - shape ||= cast.actor.shape(at: resource.started_at) if cast.actor
+      - shape ||= cast.product.shape(at: resource.started_at) if cast.product
       - if shape
         - v.serie cast.id, [{name: cast.name, shape: shape}]
-        - v.simple (cast.actor ? cast.actor.name : cast.variant ? cast.variant.name : cast.name), cast.id, fill_color: cycle(theme_colors)
+        - v.simple (cast.product ? cast.product.name : cast.variant ? cast.variant.name : cast.name), cast.id, fill_color: cycle(theme_colors)
         - count += 1
-    - for cast in resource.casts
+    - resource.casts.each do |cast|
       - if cast.crumbs.any?
         - v.serie "path_#{cast.id}", cast.crumbs.reorder(:read_at).collect{|c| {name: cast.name, shape: c.geolocation}}
-        - v.path (cast.actor ? cast.actor.name : cast.variant ? cast.variant.name : cast.name), "path_#{cast.id}"
+        - v.path (cast.product ? cast.product.name : cast.variant ? cast.variant.name : cast.name), "path_#{cast.id}"
         - count += 1
     - v.control :zoom
     - v.control :scale
     - v.control :fullscreen
     - v.control :layer_selector
   - if count > 0
-    - c.cobble :resource_map, title: :map do
+    - c.cobble :resource_map, title: :map.tl do
       = map
 
   - tractor_cast = resource.casts.find_by(reference_name: 'tractor')
-  - if tractor_cast && tractor_cast.actor
+  - if tractor_cast && tractor_cast.product
     :ruby
-      tractor = tractor_cast.actor
+      tractor = tractor_cast.product
       series = []
       [:fuel_consumption].each do |indicator_name|
         indicator = Nomen::Indicator[indicator_name]
@@ -79,25 +79,30 @@
 
   - c.cobble(:general_informations) do
     .big-infos
-      .big-info.important
+      .med-info.important
         %span.title= Intervention.human_attribute_name(:state)
         %span.value= lights(resource.status)
-      .big-info
-        %span.title= Intervention.human_attribute_name(:duration)
+      .med-info
+        %span.title= Intervention.human_attribute_name(:working_duration)
         %span.value
           %i.picto.picto-clock-o
-          = human_duration(resource.duration)
+          = human_duration(resource.working_duration)
+      .med-info
+        %span.title= Intervention.human_attribute_name(:whole_duration)
+        %span.value
+          %i.picto.picto-clock-o
+          = human_duration(resource.whole_duration)
     .info
       %span.title= Intervention.human_attribute_name(:started_at)
       %span.value= resource.started_at.l
     .info
       %span.title= Intervention.human_attribute_name(:stopped_at)
       %span.value= resource.stopped_at.l
-    .info
+    -#.info
       %span.title= Intervention.human_attribute_name(:production)
       %span.value= link_to(resource.production.name, {controller: :productions, action: :show, id: resource.production})
 
-    - if resource.production_support
+    -# if resource.production_support
       .info
         %span.title= :production_support.tl
         %span.value= link_to(resource.production_support.name, {controller: :production_supports, action: :show, id: resource.production_support})

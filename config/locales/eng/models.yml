@@ -126,7 +126,9 @@ eng:
       account: "Account"
       account_balance: "Account balance"
       activity: "Activity"
+      activity_budget: "Budget"
       activity_distribution: "Activity distribution"
+      activity_production: "Production support"
       affair: "Affair"
       analysis: "Analysis"
       analysis_item: "Analysis item"
@@ -181,6 +183,13 @@ eng:
       incoming_payment_mode: "Incoming payment mode"
       intervention: "Intervention"
       intervention_cast: "Intervention cast"
+      intervention_cast_reading: "Product reading task"
+      # intervention_doer: "Intervention doer"
+      # intervention_input: "Intervention input"
+      # intervention_output: "Intervention output"
+      # intervention_target: "Intervention target"
+      # intervention_tool: "Intervention tool"
+      # intervention_working_period: "Intervention working period"
       inventory: "Inventory"
       inventory_item: "Inventory item"
       issue: "Issue"
@@ -201,7 +210,7 @@ eng:
       net_service: "Net service"
       notification: "Notification"
       observation: "Observation"
-      operation: "Operation"
+      operation: "Operation" #?
       outgoing_payment: "Disbursement"
       outgoing_payment_mode: "Disbursement mode"
       parcel: "Parcel"
@@ -227,11 +236,8 @@ eng:
       product_ownership: "Product ownership"
       product_phase: "Product phase"
       product_reading: "Product reading"
-      product_reading_task: "Product reading task"
-      production: "Production"
-      production_budget: "Budget"
-      production_distribution: "Production distribution"
-      production_support: "Production support"
+      production: "Production" #?
+      production_distribution: "Production distribution" #?
       purchase: "Purchase"
       purchase_item: "Purchase item"
       purchase_nature: "Purchase type"
@@ -249,6 +255,7 @@ eng:
       subscription_nature: "Subscription type"
       supervision: "Supervision"
       supervision_item: "Supervision item"
+      # target_distribution: "Target distribution"
       task: "Task"
       tax: "Tax"
       team: "Team"
@@ -279,10 +286,13 @@ eng:
     achieved_at: "Achieved at"
     active: "Active"
     # active_sessions: "Active sessions"
+    activities: "Activities"
     activity: "Activity"
     activity_code: "Activity code"
-    activity_distributions: "Activity distributions"
-    actor: "Actor"
+    activity_distributions: "Activity distributions" #?
+    activity_production: "Activity production"
+    activity_productions: "Activity productions"
+    actor: "Actor" #?
     actual_number: "Actual number"
     actual_population: "Actual population"
     actual_shape: "Actual shape"
@@ -340,7 +350,7 @@ eng:
     canal: "Canal"
     cap_islet: "Cap islet"
     cap_islets: "Cap islets"
-    cap_land_parcel: "Cap land parcel"
+    cap_land_parcel: "Cap land parcel" #?
     cap_land_parcels: "Cap land parcels"
     cap_statement: "Cap statement"
     cap_statements: "Cap statements"
@@ -414,7 +424,7 @@ eng:
     crumbs: "Crumbs"
     cultivable_zone: "Cultivable zone"
     cultivable_zones: "Cultivable zones"
-    cultivation_variant: "Cultivation variant"
+    cultivation_variant: "Cultivation variant" #?
     cultivation_variety: "Cultivation variety"
     cumulated_absolute_credit: "Cumulated absolute credit"
     cumulated_absolute_debit: "Cumulated absolute debit"
@@ -483,6 +493,7 @@ eng:
     district: "District"
     document: "Document"
     documents: "Documents"
+    # doers: "Doers"
     downpayment: "Downpayment"
     downpayment_amount: "Downpayment amount"
     downpayment_minimum: "Downpayment minimum"
@@ -615,6 +626,7 @@ eng:
     initial_owner: "Initial owner"
     initial_population: "Initial population"
     initial_shape: "Initial shape"
+    # inputs: "Inputs"
     insurance_amount: "Insurance amount"
     insurance_percentage: "Insurance percentage"
     integer_value: "Integer value"
@@ -709,7 +721,7 @@ eng:
     main_crop_commercialisation: "Main crop commercialisation"
     main_crop_precision: "Main crop precision"
     main_crop_seed_production: "Main crop seed production"
-    main_production: "Main production"
+    main_production: "Main production" #?
     managed: "Managed"
     managed_sales: "Managed sales"
     manure_management_plan_zones: "Manure management plan zones"
@@ -742,6 +754,9 @@ eng:
     natures: "Types"
     net_mass: "Net mass" #?
     net_service: "Net service"
+    new_container: "New container"
+    new_group: "New group"
+    new_variant: "New variant"
     nitrate_fixing: "Nitrate fixing"
     nitrogen_at_closing: "Nitrogen at closing"
     nitrogen_input: "Nitrogen input"
@@ -760,8 +775,8 @@ eng:
     of_company: "Of the company"
     old_password: "Old password"
     opened_at: "Opened at"
-    operation: "Operation"
-    operations: "Operations"
+    operation: "Operation" #?
+    operations: "Operations" #?
     ordered_at: "Ordered at"
     organic_fertilizer_mineral_fraction: "Organic fertilizer mineral fraction"
     origin: "Origin"
@@ -772,6 +787,7 @@ eng:
     outgoing_parcels: "Outgoing parcels" #?
     outgoing_payment_modes: "Disbursement modes"
     outgoing_payments: "Disbursements"
+    # outputs: "Outputs"
     owner: "Owner"
     ownerships: "Ownerships"
     pacage_number: "Pacage number"
@@ -850,21 +866,21 @@ eng:
     product_phases: "Product phases"
     # product_population_reading: "Product population reading"
     product_reading: "Product reading"
-    product_reading_tasks: "Product reading tasks"
+    product_reading_tasks: "Product reading tasks" #?
     product_readings: "Product readings"
     # product_shape_reading: "Product shape reading"
-    production: "Production"
-    production_support: "Production support"
-    production_supports: "Production supports"
-    production_usage: "Production usage"
+    production: "Production" #?
+    production_support: "Production support" #?
+    production_supports: "Production supports" #?
+    production_usage: "Production usage" #?
     productions: "Productions"
     products: "Products"
     products_categories: "Products categories"
     progression_percentage: "Progression (%)"
     proposer: "Proposer"
     prospect: "Prospect"
-    provisional: "Provisional"
-    provisional_intervention: "Provisional intervention"
+    provisional: "Provisional" #?
+    provisional_intervention: "Provisional intervention" #?
     purchasable: "Purchasable"
     purchase: "Purchase"
     purchase_amount: "Purchase amount"
@@ -876,11 +892,15 @@ eng:
     purchased_on: "Purchased on"
     purchases: "Purchase orders"
     quantity: "Quantity"
+    quantity_handler: "Quantity handler"
     quantity_indicator: "Quantity indicator"
+    quantity_population: "Quantity population"
     quantity_unit: "Quantity unit"
+    quantity_value: "Quantity value"
     query: "Query"
+    # rank_number: "Rank number"
     read_at: "Read at"
-    reading_tasks: "Reading tasks"
+    reading_tasks: "Reading tasks" #?
     readings: "Readings"
     real_balance: "Real balance"
     real_credit: "Original credit"
@@ -895,7 +915,7 @@ eng:
     reception_currency: "Reception currency"
     reception_journal_entry: "Reception journal entry"
     recipient: "Recipient"
-    recommended: "Recommended"
+    recommended: "Recommended" #?
     recommender: "Recommender"
     reconcilable: "Reconcilable"
     record_value: "Record value"
@@ -923,7 +943,7 @@ eng:
     repayment_method: "Repayment method"
     repayment_period: "Repayment period"
     repayments: "Repayments"
-    reporter: "Reporter"
+    reporter: "Reporter" #?
     required: "Required"
     reset_password_sent_at: "Reset password sent at"
     reset_password_token: "Reset password token"
@@ -938,7 +958,7 @@ eng:
     rgt: "Right"
     rights: "Rights"
     role: "Role"
-    roles: "Roles"
+    roles: "Roles" #?
     root_model: "Root model"
     root_model_name: "Root model name"
     root_node: "Root node"
@@ -977,10 +997,13 @@ eng:
     siren: "SIREN"
     siret: "SIRET"
     siret_number: "Siret number"
+    size_indicator: "Size indicator"
+    size_unit: "Size unit"
+    # size_value: "Size value"
     soil_nature: "Soil type"
     soil_production: "Soil production"
     source: "Source"
-    # source_product: "Source product"
+    source_product: "Source product"
     # source_product_division: "Source product division"
     # source_product_population_reading: "Source product population reading"
     # source_product_shape_reading: "Source product shape reading"
@@ -1000,7 +1023,7 @@ eng:
     stopped_on: "Stopped on"
     storable: "Storable"
     storage: "Storage"
-    storages: "Storages"
+    storages: "Storages" #?
     story: "Story"
     string_value: "Storable"
     subject: "Subject"
@@ -1016,15 +1039,17 @@ eng:
     supplier_address: "Supplier address"
     suppliers: "Suppliers"
     support: "Support"
-    support_variant: "Support variant"
-    support_variant_indicator: "Working indicator"
-    support_variant_unit: "Support variant unit"
+    # support_shape: "Support shape"
+    support_variant: "Support variant" #?
+    support_variant_indicator: "Working indicator" #?
+    support_variant_unit: "Support variant unit" #?
     support_variety: "Support variety"
     supports: "Supports"
     suspended: "Suspended"
     target: "Target"
     target_type: "Target type"
     # target_url: "Target url"
+    # targets: "Targets"
     tasks: "Tasks"
     tax: "Tax"
     taxations: "Taxations"
@@ -1091,6 +1116,7 @@ eng:
     waiting_deliveries: "Waiting deliveries"
     ways: "Ways"
     websites: "Websites"
+    # whole_duration: "Whole duration"
     with_accounting: "With accounting"
     with_commission: "With commission"
     with_cultivation: "With cultivation"
@@ -1099,6 +1125,10 @@ eng:
     with_transport: "With transport" #?
     work_number: "Work number"
     worker: "Worker"
+    working_duration: "Working duration"
+    # working_periods: "Working periods"
+    working_shape: "Working shape" #?
+    working_zone: "Working zone"
     zone_memberships: "Zone memberships"
     zones: "Zones"
   models:
@@ -1262,13 +1292,13 @@ eng:
         purchases: "Purchases"
         rent: "Location"
         sales: "Sales"
-    production:
-      bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
-      name: "%{variant}/%{activity} %{campaign} (%{state})"
-      name_without_variant: "%{activity} %{campaign} (%{state})"
-      states:
-        aborted: "Aborted"
-        closed: "Closed"
+    production: #?
+      bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})" #?
+      name: "%{variant}/%{activity} %{campaign} (%{state})" #?
+      name_without_variant: "%{activity} %{campaign} (%{state})" #?
+      states: #?
+        aborted: "Aborted" #?
+        closed: "Closed" #?
         opened: "Opened"
     purchase:
       bookkeep: "[%{resource} %{number}] %{products} of %{supplier}"

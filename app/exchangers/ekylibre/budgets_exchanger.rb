@@ -51,7 +51,7 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
         activity = Activity.create!(name: activity_name[0].strip, family: family.name, nature: family.nature)
       end
 
-      w.debug "Production: #{sheet_name} (#{cultivation_variant})"
+      w.debug "Sheet: #{sheet_name} (#{cultivation_variant})"
       attributes = {
         campaign: campaign,
         activity: activity,

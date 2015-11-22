@@ -26,9 +26,9 @@
 #  created_at      :datetime         not null
 #  creator_id      :integer
 #  id              :integer          not null, primary key
+#  intervention_id :integer
 #  lock_version    :integer          default(0), not null
 #  nature          :string           not null
-#  operation_id    :integer
 #  originator_id   :integer
 #  originator_type :string
 #  product_id      :integer          not null
@@ -191,9 +191,9 @@ product_localizations_012:
   created_at: 2014-11-04 18:31:37.318710000 Z
   creator_id: 1
   id: 25
+  intervention_id: 9
   lock_version: 0
   nature: transfer
-  operation_id: 10
   product_id: 29
   started_at: 2012-10-03 08:30:00.000000000 Z
   stopped_at: 2012-10-03 10:30:00.000000000 Z
@@ -204,9 +204,9 @@ product_localizations_013:
   created_at: 2014-11-04 18:31:37.330701000 Z
   creator_id: 1
   id: 26
+  intervention_id: 9
   lock_version: 0
   nature: interior
-  operation_id: 10
   product_id: 29
   started_at: 2012-10-03 10:30:00.000000000 Z
   stopped_at: 2012-10-07 07:50:00.000000000 Z
@@ -250,9 +250,9 @@ product_localizations_017:
   created_at: 2014-11-05 15:40:16.044284000 Z
   creator_id: 1
   id: 30
+  intervention_id: 11
   lock_version: 0
   nature: transfer
-  operation_id: 12
   product_id: 29
   started_at: 2013-11-10 09:00:00.000000000 Z
   stopped_at: 2013-11-10 09:18:00.000000000 Z
@@ -263,9 +263,9 @@ product_localizations_018:
   created_at: 2014-11-05 15:40:16.054751000 Z
   creator_id: 1
   id: 31
+  intervention_id: 11
   lock_version: 0
   nature: interior
-  operation_id: 12
   product_id: 29
   started_at: 2013-11-10 09:18:00.000000000 Z
   updated_at: 2014-11-05 15:40:16.054751000 Z
@@ -274,9 +274,9 @@ product_localizations_019:
   created_at: 2014-11-05 15:40:16.176294000 Z
   creator_id: 1
   id: 32
+  intervention_id: 11
   lock_version: 0
   nature: transfer
-  operation_id: 12
   product_id: 89
   started_at: 2013-11-10 09:18:00.000000000 Z
   stopped_at: 2013-11-10 12:01:30.000000000 Z
@@ -287,9 +287,9 @@ product_localizations_020:
   created_at: 2014-11-05 15:40:16.186016000 Z
   creator_id: 1
   id: 33
+  intervention_id: 11
   lock_version: 0
   nature: interior
-  operation_id: 12
   product_id: 89
   started_at: 2013-11-10 12:01:30.000000000 Z
   updated_at: 2014-11-05 15:40:16.186016000 Z
@@ -299,9 +299,9 @@ product_localizations_021:
   created_at: 2014-11-05 15:40:16.321222000 Z
   creator_id: 1
   id: 34
+  intervention_id: 11
   lock_version: 0
   nature: interior
-  operation_id: 12
   product_id: 90
   started_at: 2013-11-10 09:18:00.000000000 Z
   updated_at: 2014-11-05 15:40:16.321222000 Z
@@ -310,9 +310,9 @@ product_localizations_022:
   created_at: 2014-11-06 17:49:51.108452000 Z
   creator_id: 1
   id: 35
+  intervention_id: 12
   lock_version: 0
   nature: transfer
-  operation_id: 15
   product_id: 29
   started_at: 2012-10-07 07:50:00.000000000 Z
   stopped_at: 2012-10-07 10:40:00.000000000 Z
@@ -323,9 +323,9 @@ product_localizations_023:
   created_at: 2014-11-06 17:49:51.118834000 Z
   creator_id: 1
   id: 36
+  intervention_id: 12
   lock_version: 0
   nature: interior
-  operation_id: 15
   product_id: 29
   started_at: 2012-10-07 10:40:00.000000000 Z
   stopped_at: 2012-10-17 06:00:00.000000000 Z
@@ -347,9 +347,9 @@ product_localizations_025:
   created_at: 2014-11-06 17:50:07.060514000 Z
   creator_id: 1
   id: 38
+  intervention_id: 13
   lock_version: 0
   nature: transfer
-  operation_id: 17
   product_id: 29
   started_at: 2012-10-17 06:00:00.000000000 Z
   stopped_at: 2012-10-17 06:18:00.000000000 Z
@@ -360,9 +360,9 @@ product_localizations_026:
   created_at: 2014-11-06 17:50:07.069378000 Z
   creator_id: 1
   id: 39
+  intervention_id: 13
   lock_version: 0
   nature: interior
-  operation_id: 17
   product_id: 29
   started_at: 2012-10-17 06:18:00.000000000 Z
   stopped_at: 2012-12-12 09:20:00.000000000 Z
@@ -372,9 +372,9 @@ product_localizations_027:
   created_at: 2014-11-06 17:50:07.191259000 Z
   creator_id: 1
   id: 40
+  intervention_id: 13
   lock_version: 0
   nature: transfer
-  operation_id: 17
   product_id: 91
   started_at: 2012-10-17 06:18:00.000000000 Z
   stopped_at: 2012-10-17 10:09:00.000000000 Z
@@ -385,9 +385,9 @@ product_localizations_028:
   created_at: 2014-11-06 17:50:07.199756000 Z
   creator_id: 1
   id: 41
+  intervention_id: 13
   lock_version: 0
   nature: interior
-  operation_id: 17
   product_id: 91
   started_at: 2012-10-17 10:09:00.000000000 Z
   updated_at: 2014-11-06 17:50:07.199756000 Z
@@ -397,9 +397,9 @@ product_localizations_029:
   created_at: 2014-11-06 17:50:07.322237000 Z
   creator_id: 1
   id: 42
+  intervention_id: 13
   lock_version: 0
   nature: interior
-  operation_id: 17
   product_id: 92
   started_at: 2012-10-17 06:18:00.000000000 Z
   updated_at: 2014-11-06 17:50:07.322237000 Z
@@ -431,9 +431,9 @@ product_localizations_032:
   created_at: 2014-11-07 14:44:18.883278000 Z
   creator_id: 1
   id: 45
+  intervention_id: 14
   lock_version: 0
   nature: transfer
-  operation_id: 19
   product_id: 79
   started_at: 2014-11-05 04:25:00.000000000 Z
   stopped_at: 2014-11-05 06:20:00.000000000 Z
@@ -444,9 +444,9 @@ product_localizations_033:
   created_at: 2014-11-07 14:44:18.894730000 Z
   creator_id: 1
   id: 46
+  intervention_id: 14
   lock_version: 0
   nature: interior
-  operation_id: 19
   product_id: 79
   started_at: 2014-11-05 06:20:00.000000000 Z
   updated_at: 2014-11-07 14:44:18.894730000 Z
@@ -455,9 +455,9 @@ product_localizations_034:
   created_at: 2014-11-07 14:44:18.940258000 Z
   creator_id: 1
   id: 47
+  intervention_id: 14
   lock_version: 0
   nature: transfer
-  operation_id: 19
   product_id: 79
   started_at: 2014-11-05 06:20:00.000000000 Z
   stopped_at: 2014-11-05 06:30:00.000000000 Z
@@ -468,9 +468,9 @@ product_localizations_035:
   created_at: 2014-11-07 14:44:18.951066000 Z
   creator_id: 1
   id: 48
+  intervention_id: 14
   lock_version: 0
   nature: interior
-  operation_id: 19
   product_id: 79
   started_at: 2014-11-05 06:30:00.000000000 Z
   updated_at: 2014-11-07 14:44:18.951066000 Z
@@ -479,9 +479,9 @@ product_localizations_036:
   created_at: 2014-11-07 14:44:19.038096000 Z
   creator_id: 1
   id: 49
+  intervention_id: 14
   lock_version: 0
   nature: transfer
-  operation_id: 19
   product_id: 94
   started_at: 2014-11-05 06:20:00.000000000 Z
   stopped_at: 2014-11-05 06:30:00.000000000 Z
@@ -492,9 +492,9 @@ product_localizations_037:
   created_at: 2014-11-07 14:44:19.045828000 Z
   creator_id: 1
   id: 50
+  intervention_id: 14
   lock_version: 0
   nature: interior
-  operation_id: 19
   product_id: 94
   started_at: 2014-11-05 06:30:00.000000000 Z
   updated_at: 2014-11-07 14:44:19.045828000 Z
@@ -503,9 +503,9 @@ product_localizations_038:
   created_at: 2014-11-07 14:44:19.057433000 Z
   creator_id: 1
   id: 51
+  intervention_id: 14
   lock_version: 0
   nature: transfer
-  operation_id: 19
   product_id: 79
   started_at: 2014-11-05 06:30:00.000000000 Z
   stopped_at: 2014-11-05 08:25:00.000000000 Z
@@ -516,9 +516,9 @@ product_localizations_039:
   created_at: 2014-11-07 14:44:19.068655000 Z
   creator_id: 1
   id: 52
+  intervention_id: 14
   lock_version: 0
   nature: interior
-  operation_id: 19
   product_id: 79
   started_at: 2014-11-05 08:25:00.000000000 Z
   updated_at: 2014-11-07 14:44:19.068655000 Z
@@ -550,9 +550,9 @@ product_localizations_042:
   created_at: 2014-11-07 15:02:58.808345000 Z
   creator_id: 1
   id: 55
+  intervention_id: 15
   lock_version: 0
   nature: transfer
-  operation_id: 22
   product_id: 29
   started_at: 2013-02-08 09:50:00.000000000 Z
   stopped_at: 2013-02-08 10:08:00.000000000 Z
@@ -563,9 +563,9 @@ product_localizations_043:
   created_at: 2014-11-07 15:02:58.817552000 Z
   creator_id: 1
   id: 56
+  intervention_id: 15
   lock_version: 0
   nature: interior
-  operation_id: 22
   product_id: 29
   started_at: 2013-02-08 10:08:00.000000000 Z
   stopped_at: 2013-04-17 08:00:00.000000000 Z
@@ -575,9 +575,9 @@ product_localizations_044:
   created_at: 2014-11-07 15:02:59.155660000 Z
   creator_id: 1
   id: 57
+  intervention_id: 15
   lock_version: 0
   nature: transfer
-  operation_id: 22
   product_id: 96
   started_at: 2013-02-08 10:08:00.000000000 Z
   stopped_at: 2013-02-08 11:50:00.000000000 Z
@@ -588,9 +588,9 @@ product_localizations_045:
   created_at: 2014-11-07 15:02:59.164360000 Z
   creator_id: 1
   id: 58
+  intervention_id: 15
   lock_version: 0
   nature: interior
-  operation_id: 22
   product_id: 96
   started_at: 2013-02-08 11:50:00.000000000 Z
   updated_at: 2014-11-07 15:02:59.164360000 Z
@@ -635,9 +635,9 @@ product_localizations_049:
   created_at: 2014-11-07 15:26:50.578284000 Z
   creator_id: 1
   id: 62
+  intervention_id: 16
   lock_version: 0
   nature: transfer
-  operation_id: 25
   product_id: 29
   started_at: 2012-12-12 09:20:00.000000000 Z
   stopped_at: 2012-12-12 09:38:00.000000000 Z
@@ -648,9 +648,9 @@ product_localizations_050:
   created_at: 2014-11-07 15:26:50.587671000 Z
   creator_id: 1
   id: 63
+  intervention_id: 16
   lock_version: 0
   nature: interior
-  operation_id: 25
   product_id: 29
   started_at: 2012-12-12 09:38:00.000000000 Z
   stopped_at: 2013-02-08 09:50:00.000000000 Z
@@ -660,9 +660,9 @@ product_localizations_051:
   created_at: 2014-11-07 15:26:50.666719000 Z
   creator_id: 1
   id: 64
+  intervention_id: 16
   lock_version: 0
   nature: transfer
-  operation_id: 25
   product_id: 99
   started_at: 2012-12-12 09:38:00.000000000 Z
   stopped_at: 2012-12-12 11:12:00.000000000 Z
@@ -673,9 +673,9 @@ product_localizations_052:
   created_at: 2014-11-07 15:26:50.675714000 Z
   creator_id: 1
   id: 65
+  intervention_id: 16
   lock_version: 0
   nature: interior
-  operation_id: 25
   product_id: 99
   started_at: 2012-12-12 11:12:00.000000000 Z
   updated_at: 2014-11-07 15:26:50.675714000 Z
@@ -722,9 +722,9 @@ product_localizations_056:
   created_at: 2014-11-07 15:45:45.843385000 Z
   creator_id: 1
   id: 69
+  intervention_id: 17
   lock_version: 0
   nature: transfer
-  operation_id: 27
   product_id: 29
   started_at: 2007-09-29 08:00:00.000000000 Z
   stopped_at: 2007-09-29 08:18:00.000000000 Z
@@ -735,9 +735,9 @@ product_localizations_057:
   created_at: 2014-11-07 15:45:45.853094000 Z
   creator_id: 1
   id: 70
+  intervention_id: 17
   lock_version: 0
   nature: interior
-  operation_id: 27
   product_id: 29
   started_at: 2007-09-29 08:18:00.000000000 Z
   stopped_at: 2008-03-15 09:00:00.000000000 Z
@@ -747,9 +747,9 @@ product_localizations_058:
   created_at: 2014-11-07 15:45:45.920199000 Z
   creator_id: 1
   id: 71
+  intervention_id: 17
   lock_version: 0
   nature: transfer
-  operation_id: 27
   product_id: 102
   started_at: 2007-09-29 08:18:00.000000000 Z
   stopped_at: 2007-09-29 10:59:00.000000000 Z
@@ -760,9 +760,9 @@ product_localizations_059:
   created_at: 2014-11-07 15:45:45.929423000 Z
   creator_id: 1
   id: 72
+  intervention_id: 17
   lock_version: 0
   nature: interior
-  operation_id: 27
   product_id: 102
   started_at: 2007-09-29 10:59:00.000000000 Z
   updated_at: 2014-11-07 15:45:45.929423000 Z
@@ -772,9 +772,9 @@ product_localizations_060:
   created_at: 2014-11-07 15:45:46.053912000 Z
   creator_id: 1
   id: 73
+  intervention_id: 17
   lock_version: 0
   nature: interior
-  operation_id: 27
   product_id: 103
   started_at: 2007-09-29 08:18:00.000000000 Z
   updated_at: 2014-11-07 15:45:46.053912000 Z
@@ -794,9 +794,9 @@ product_localizations_062:
   created_at: 2014-11-07 15:50:04.473732000 Z
   creator_id: 1
   id: 79
+  intervention_id: 18
   lock_version: 0
   nature: transfer
-  operation_id: 33
   product_id: 85
   started_at: 2014-07-01 12:35:00.000000000 Z
   stopped_at: 2014-08-01 00:00:00.000000000 Z
@@ -807,9 +807,9 @@ product_localizations_063:
   created_at: 2014-11-07 15:50:04.484722000 Z
   creator_id: 1
   id: 80
+  intervention_id: 18
   lock_version: 0
   nature: interior
-  operation_id: 33
   product_id: 85
   started_at: 2014-08-01 00:00:00.000000000 Z
   stopped_at: 2014-08-01 00:20:00.000000000 Z
@@ -819,9 +819,9 @@ product_localizations_064:
   created_at: 2014-11-07 15:50:04.615321000 Z
   creator_id: 1
   id: 81
+  intervention_id: 18
   lock_version: 0
   nature: transfer
-  operation_id: 33
   product_id: 85
   started_at: 2014-08-01 00:20:00.000000000 Z
   stopped_at: 2014-08-31 11:45:00.000000000 Z
@@ -832,9 +832,9 @@ product_localizations_065:
   created_at: 2014-11-07 15:50:04.624295000 Z
   creator_id: 1
   id: 82
+  intervention_id: 18
   lock_version: 0
   nature: interior
-  operation_id: 33
   product_id: 85
   started_at: 2014-08-31 11:45:00.000000000 Z
   updated_at: 2014-11-07 15:50:04.624295000 Z
@@ -879,9 +879,9 @@ product_localizations_069:
   created_at: 2014-11-07 16:50:07.239025000 Z
   creator_id: 1
   id: 86
+  intervention_id: 21
   lock_version: 0
   nature: transfer
-  operation_id: 38
   product_id: 29
   started_at: 2008-03-15 09:00:00.000000000 Z
   stopped_at: 2008-03-15 09:18:00.000000000 Z
@@ -892,9 +892,9 @@ product_localizations_070:
   created_at: 2014-11-07 16:50:07.247558000 Z
   creator_id: 1
   id: 87
+  intervention_id: 21
   lock_version: 0
   nature: interior
-  operation_id: 38
   product_id: 29
   started_at: 2008-03-15 09:18:00.000000000 Z
   stopped_at: 2012-10-03 08:30:00.000000000 Z
@@ -904,9 +904,9 @@ product_localizations_071:
   created_at: 2014-11-07 16:50:07.311154000 Z
   creator_id: 1
   id: 88
+  intervention_id: 21
   lock_version: 0
   nature: transfer
-  operation_id: 38
   product_id: 109
   started_at: 2008-03-15 09:18:00.000000000 Z
   stopped_at: 2008-03-15 15:39:00.000000000 Z
@@ -917,9 +917,9 @@ product_localizations_072:
   created_at: 2014-11-07 16:50:07.318740000 Z
   creator_id: 1
   id: 89
+  intervention_id: 21
   lock_version: 0
   nature: interior
-  operation_id: 38
   product_id: 109
   started_at: 2008-03-15 15:39:00.000000000 Z
   updated_at: 2014-11-07 16:50:07.318740000 Z
@@ -929,9 +929,9 @@ product_localizations_073:
   created_at: 2014-11-07 16:50:07.435571000 Z
   creator_id: 1
   id: 90
+  intervention_id: 21
   lock_version: 0
   nature: interior
-  operation_id: 38
   product_id: 110
   started_at: 2008-03-15 09:18:00.000000000 Z
   updated_at: 2014-11-07 16:50:07.435571000 Z
@@ -952,9 +952,9 @@ product_localizations_075:
   created_at: 2014-11-07 16:59:09.828297000 Z
   creator_id: 1
   id: 92
+  intervention_id: 22
   lock_version: 0
   nature: transfer
-  operation_id: 40
   product_id: 29
   started_at: 2013-04-17 08:00:00.000000000 Z
   stopped_at: 2013-04-17 08:18:00.000000000 Z
@@ -965,9 +965,9 @@ product_localizations_076:
   created_at: 2014-11-07 16:59:09.836909000 Z
   creator_id: 1
   id: 93
+  intervention_id: 22
   lock_version: 0
   nature: interior
-  operation_id: 40
   product_id: 29
   started_at: 2013-04-17 08:18:00.000000000 Z
   stopped_at: 2013-11-10 09:00:00.000000000 Z
@@ -977,9 +977,9 @@ product_localizations_077:
   created_at: 2014-11-07 16:59:10.107744000 Z
   creator_id: 1
   id: 94
+  intervention_id: 22
   lock_version: 0
   nature: transfer
-  operation_id: 40
   product_id: 111
   started_at: 2013-04-17 08:18:00.000000000 Z
   stopped_at: 2013-04-17 12:00:00.000000000 Z
@@ -990,9 +990,9 @@ product_localizations_078:
   created_at: 2014-11-07 16:59:10.116273000 Z
   creator_id: 1
   id: 95
+  intervention_id: 22
   lock_version: 0
   nature: interior
-  operation_id: 40
   product_id: 111
   started_at: 2013-04-17 12:00:00.000000000 Z
   updated_at: 2014-11-07 16:59:10.116273000 Z
@@ -1025,9 +1025,9 @@ product_localizations_081:
   created_at: 2014-11-07 17:08:50.468067000 Z
   creator_id: 1
   id: 107
+  intervention_id: 23
   lock_version: 0
   nature: transfer
-  operation_id: 47
   product_id: 79
   started_at: 2013-09-16 05:00:00.000000000 Z
   stopped_at: 2013-09-16 05:04:00.000000000 Z
@@ -1038,9 +1038,9 @@ product_localizations_082:
   created_at: 2014-11-07 17:08:50.475300000 Z
   creator_id: 1
   id: 108
+  intervention_id: 23
   lock_version: 0
   nature: interior
-  operation_id: 47
   product_id: 79
   started_at: 2013-09-16 05:04:00.000000000 Z
   stopped_at: 2013-09-16 16:56:00.000000000 Z
@@ -1050,9 +1050,9 @@ product_localizations_083:
   created_at: 2014-11-07 17:08:50.485589000 Z
   creator_id: 1
   id: 109
+  intervention_id: 23
   lock_version: 0
   nature: transfer
-  operation_id: 47
   product_id: 112
   started_at: 2013-09-16 05:04:00.000000000 Z
   stopped_at: 2013-09-16 05:22:00.000000000 Z
@@ -1063,9 +1063,9 @@ product_localizations_084:
   created_at: 2014-11-07 17:08:50.494284000 Z
   creator_id: 1
   id: 110
+  intervention_id: 23
   lock_version: 0
   nature: interior
-  operation_id: 47
   product_id: 112
   started_at: 2013-09-16 05:22:00.000000000 Z
   stopped_at: 2013-09-16 16:38:00.000000000 Z
@@ -1076,9 +1076,9 @@ product_localizations_085:
   created_at: 2014-11-07 17:08:50.550074000 Z
   creator_id: 1
   id: 111
+  intervention_id: 23
   lock_version: 0
   nature: interior
-  operation_id: 47
   product_id: 114
   started_at: 2013-09-16 05:22:00.000000000 Z
   updated_at: 2014-11-07 17:08:50.550074000 Z
@@ -1087,9 +1087,9 @@ product_localizations_086:
   created_at: 2014-11-07 17:08:50.560903000 Z
   creator_id: 1
   id: 112
+  intervention_id: 23
   lock_version: 0
   nature: transfer
-  operation_id: 47
   product_id: 112
   started_at: 2013-09-16 16:38:00.000000000 Z
   stopped_at: 2013-09-16 16:56:00.000000000 Z
@@ -1100,9 +1100,9 @@ product_localizations_087:
   created_at: 2014-11-07 17:08:50.567899000 Z
   creator_id: 1
   id: 113
+  intervention_id: 23
   lock_version: 0
   nature: interior
-  operation_id: 47
   product_id: 112
   started_at: 2013-09-16 16:56:00.000000000 Z
   updated_at: 2014-11-07 17:08:50.567899000 Z
@@ -1111,9 +1111,9 @@ product_localizations_088:
   created_at: 2014-11-07 17:08:50.926357000 Z
   creator_id: 1
   id: 114
+  intervention_id: 23
   lock_version: 0
   nature: transfer
-  operation_id: 47
   product_id: 79
   started_at: 2013-09-16 16:56:00.000000000 Z
   stopped_at: 2013-09-16 17:00:00.000000000 Z
@@ -1124,9 +1124,9 @@ product_localizations_089:
   created_at: 2014-11-07 17:08:50.934455000 Z
   creator_id: 1
   id: 115
+  intervention_id: 23
   lock_version: 0
   nature: interior
-  operation_id: 47
   product_id: 79
   started_at: 2013-09-16 17:00:00.000000000 Z
   stopped_at: 2013-10-02 07:00:00.000000000 Z
@@ -1239,9 +1239,9 @@ product_localizations_099:
   created_at: 2014-11-07 19:02:56.322071000 Z
   creator_id: 1
   id: 133
+  intervention_id: 25
   lock_version: 0
   nature: transfer
-  operation_id: 55
   product_id: 79
   started_at: 2013-10-02 07:00:00.000000000 Z
   stopped_at: 2013-10-02 07:05:00.000000000 Z
@@ -1252,9 +1252,9 @@ product_localizations_100:
   created_at: 2014-11-07 19:02:56.340941000 Z
   creator_id: 1
   id: 134
+  intervention_id: 25
   lock_version: 0
   nature: interior
-  operation_id: 55
   product_id: 79
   started_at: 2013-10-02 07:05:00.000000000 Z
   stopped_at: 2013-10-02 07:30:00.000000000 Z
@@ -1264,9 +1264,9 @@ product_localizations_101:
   created_at: 2014-11-07 19:02:56.560348000 Z
   creator_id: 1
   id: 135
+  intervention_id: 25
   lock_version: 0
   nature: transfer
-  operation_id: 55
   product_id: 124
   started_at: 2013-10-02 07:05:00.000000000 Z
   stopped_at: 2013-10-02 07:30:00.000000000 Z
@@ -1277,9 +1277,9 @@ product_localizations_102:
   created_at: 2014-11-07 19:02:56.569405000 Z
   creator_id: 1
   id: 136
+  intervention_id: 25
   lock_version: 0
   nature: interior
-  operation_id: 55
   product_id: 124
   started_at: 2013-10-02 07:30:00.000000000 Z
   updated_at: 2014-11-07 19:02:56.569405000 Z
@@ -1288,9 +1288,9 @@ product_localizations_103:
   created_at: 2014-11-07 19:02:56.577953000 Z
   creator_id: 1
   id: 137
+  intervention_id: 25
   lock_version: 0
   nature: transfer
-  operation_id: 55
   product_id: 125
   started_at: 2013-10-02 07:05:00.000000000 Z
   stopped_at: 2013-10-02 07:30:00.000000000 Z
@@ -1301,9 +1301,9 @@ product_localizations_104:
   created_at: 2014-11-07 19:02:56.585050000 Z
   creator_id: 1
   id: 138
+  intervention_id: 25
   lock_version: 0
   nature: interior
-  operation_id: 55
   product_id: 125
   started_at: 2013-10-02 07:30:00.000000000 Z
   updated_at: 2014-11-07 19:02:56.585050000 Z
@@ -1312,9 +1312,9 @@ product_localizations_105:
   created_at: 2014-11-07 19:02:56.596108000 Z
   creator_id: 1
   id: 139
+  intervention_id: 25
   lock_version: 0
   nature: transfer
-  operation_id: 55
   product_id: 79
   started_at: 2013-10-02 07:30:00.000000000 Z
   stopped_at: 2013-10-02 07:35:00.000000000 Z
@@ -1325,9 +1325,9 @@ product_localizations_106:
   created_at: 2014-11-07 19:02:56.623403000 Z
   creator_id: 1
   id: 140
+  intervention_id: 25
   lock_version: 0
   nature: interior
-  operation_id: 55
   product_id: 79
   started_at: 2013-10-02 07:35:00.000000000 Z
   stopped_at: 2013-10-05 13:00:00.000000000 Z
@@ -1400,9 +1400,9 @@ product_localizations_112:
   created_at: 2014-11-07 19:08:55.291219000 Z
   creator_id: 1
   id: 146
+  intervention_id: 26
   lock_version: 0
   nature: transfer
-  operation_id: 58
   product_id: 79
   started_at: 2013-10-05 13:00:00.000000000 Z
   stopped_at: 2013-10-05 13:04:00.000000000 Z
@@ -1413,9 +1413,9 @@ product_localizations_113:
   created_at: 2014-11-07 19:08:55.312380000 Z
   creator_id: 1
   id: 147
+  intervention_id: 26
   lock_version: 0
   nature: interior
-  operation_id: 58
   product_id: 79
   started_at: 2013-10-05 13:04:00.000000000 Z
   stopped_at: 2013-10-05 13:36:00.000000000 Z
@@ -1425,9 +1425,9 @@ product_localizations_114:
   created_at: 2014-11-07 19:08:55.430005000 Z
   creator_id: 1
   id: 148
+  intervention_id: 26
   lock_version: 0
   nature: transfer
-  operation_id: 58
   product_id: 129
   started_at: 2013-10-05 13:08:00.000000000 Z
   stopped_at: 2013-10-05 13:22:00.000000000 Z
@@ -1438,9 +1438,9 @@ product_localizations_115:
   created_at: 2014-11-07 19:08:55.440899000 Z
   creator_id: 1
   id: 149
+  intervention_id: 26
   lock_version: 0
   nature: interior
-  operation_id: 58
   product_id: 129
   started_at: 2013-10-05 13:22:00.000000000 Z
   updated_at: 2014-11-07 19:08:55.440899000 Z
@@ -1450,9 +1450,9 @@ product_localizations_116:
   created_at: 2014-11-07 19:08:55.634696000 Z
   creator_id: 1
   id: 150
+  intervention_id: 26
   lock_version: 0
   nature: interior
-  operation_id: 58
   product_id: 130
   started_at: 2013-10-05 13:22:00.000000000 Z
   updated_at: 2014-11-07 19:08:55.634696000 Z
@@ -1461,9 +1461,9 @@ product_localizations_117:
   created_at: 2014-11-07 19:08:55.646249000 Z
   creator_id: 1
   id: 151
+  intervention_id: 26
   lock_version: 0
   nature: transfer
-  operation_id: 58
   product_id: 79
   started_at: 2013-10-05 13:36:00.000000000 Z
   stopped_at: 2013-10-05 13:40:00.000000000 Z
@@ -1474,9 +1474,9 @@ product_localizations_118:
   created_at: 2014-11-07 19:08:55.654028000 Z
   creator_id: 1
   id: 152
+  intervention_id: 26
   lock_version: 0
   nature: interior
-  operation_id: 58
   product_id: 79
   started_at: 2013-10-05 13:40:00.000000000 Z
   stopped_at: 2013-10-07 09:30:00.000000000 Z
@@ -1511,9 +1511,9 @@ product_localizations_121:
   created_at: 2014-11-07 19:12:42.896714000 Z
   creator_id: 1
   id: 155
+  intervention_id: 27
   lock_version: 0
   nature: transfer
-  operation_id: 63
   product_id: 79
   started_at: 2013-10-07 09:30:00.000000000 Z
   stopped_at: 2013-10-07 09:34:00.000000000 Z
@@ -1524,9 +1524,9 @@ product_localizations_122:
   created_at: 2014-11-07 19:12:42.907082000 Z
   creator_id: 1
   id: 156
+  intervention_id: 27
   lock_version: 0
   nature: interior
-  operation_id: 63
   product_id: 79
   started_at: 2013-10-07 09:34:00.000000000 Z
   stopped_at: 2013-10-07 09:41:00.000000000 Z
@@ -1536,9 +1536,9 @@ product_localizations_123:
   created_at: 2014-11-07 19:12:42.969733000 Z
   creator_id: 1
   id: 157
+  intervention_id: 27
   lock_version: 0
   nature: transfer
-  operation_id: 63
   product_id: 132
   started_at: 2013-10-07 09:38:00.000000000 Z
   stopped_at: 2013-10-07 09:41:00.000000000 Z
@@ -1549,9 +1549,9 @@ product_localizations_124:
   created_at: 2014-11-07 19:12:42.978942000 Z
   creator_id: 1
   id: 158
+  intervention_id: 27
   lock_version: 0
   nature: interior
-  operation_id: 63
   product_id: 132
   started_at: 2013-10-07 09:41:00.000000000 Z
   updated_at: 2014-11-07 19:12:42.978942000 Z
@@ -1560,9 +1560,9 @@ product_localizations_125:
   created_at: 2014-11-07 19:12:43.035636000 Z
   creator_id: 1
   id: 159
+  intervention_id: 27
   lock_version: 0
   nature: transfer
-  operation_id: 63
   product_id: 79
   started_at: 2013-10-07 09:41:00.000000000 Z
   stopped_at: 2013-10-07 09:45:00.000000000 Z
@@ -1573,9 +1573,9 @@ product_localizations_126:
   created_at: 2014-11-07 19:12:43.042849000 Z
   creator_id: 1
   id: 160
+  intervention_id: 27
   lock_version: 0
   nature: interior
-  operation_id: 63
   product_id: 79
   started_at: 2013-10-07 09:45:00.000000000 Z
   stopped_at: 2013-10-15 08:28:00.000000000 Z
@@ -1610,9 +1610,9 @@ product_localizations_129:
   created_at: 2014-11-07 19:24:10.268274000 Z
   creator_id: 1
   id: 163
+  intervention_id: 28
   lock_version: 0
   nature: transfer
-  operation_id: 67
   product_id: 79
   started_at: 2013-10-15 08:28:00.000000000 Z
   stopped_at: 2013-10-15 08:32:00.000000000 Z
@@ -1623,9 +1623,9 @@ product_localizations_130:
   created_at: 2014-11-07 19:24:10.291614000 Z
   creator_id: 1
   id: 164
+  intervention_id: 28
   lock_version: 0
   nature: interior
-  operation_id: 67
   product_id: 79
   started_at: 2013-10-15 08:32:00.000000000 Z
   stopped_at: 2013-10-15 08:44:00.000000000 Z
@@ -1635,9 +1635,9 @@ product_localizations_131:
   created_at: 2014-11-07 19:24:10.374064000 Z
   creator_id: 1
   id: 165
+  intervention_id: 28
   lock_version: 0
   nature: transfer
-  operation_id: 67
   product_id: 134
   started_at: 2013-10-15 08:36:00.000000000 Z
   stopped_at: 2013-10-15 08:44:00.000000000 Z
@@ -1648,9 +1648,9 @@ product_localizations_132:
   created_at: 2014-11-07 19:24:10.384446000 Z
   creator_id: 1
   id: 166
+  intervention_id: 28
   lock_version: 0
   nature: interior
-  operation_id: 67
   product_id: 134
   started_at: 2013-10-15 08:44:00.000000000 Z
   updated_at: 2014-11-07 19:24:10.384446000 Z
@@ -1659,9 +1659,9 @@ product_localizations_133:
   created_at: 2014-11-07 19:24:10.451965000 Z
   creator_id: 1
   id: 167
+  intervention_id: 28
   lock_version: 0
   nature: transfer
-  operation_id: 67
   product_id: 79
   started_at: 2013-10-15 08:44:00.000000000 Z
   stopped_at: 2013-10-15 08:48:00.000000000 Z
@@ -1672,9 +1672,9 @@ product_localizations_134:
   created_at: 2014-11-07 19:24:10.459627000 Z
   creator_id: 1
   id: 168
+  intervention_id: 28
   lock_version: 0
   nature: interior
-  operation_id: 67
   product_id: 79
   started_at: 2013-10-15 08:48:00.000000000 Z
   stopped_at: 2013-10-30 07:00:00.000000000 Z
@@ -1755,9 +1755,9 @@ product_localizations_141:
   created_at: 2014-11-07 19:36:59.283630000 Z
   creator_id: 1
   id: 175
+  intervention_id: 29
   lock_version: 0
   nature: transfer
-  operation_id: 71
   product_id: 79
   started_at: 2013-10-30 07:00:00.000000000 Z
   stopped_at: 2013-10-30 07:04:00.000000000 Z
@@ -1768,9 +1768,9 @@ product_localizations_142:
   created_at: 2014-11-07 19:36:59.295468000 Z
   creator_id: 1
   id: 176
+  intervention_id: 29
   lock_version: 0
   nature: interior
-  operation_id: 71
   product_id: 79
   started_at: 2013-10-30 07:04:00.000000000 Z
   stopped_at: 2013-10-30 13:56:00.000000000 Z
@@ -1780,9 +1780,9 @@ product_localizations_143:
   created_at: 2014-11-07 19:36:59.685158000 Z
   creator_id: 1
   id: 177
+  intervention_id: 29
   lock_version: 0
   nature: transfer
-  operation_id: 71
   product_id: 142
   started_at: 2013-10-30 13:52:00.000000000 Z
   stopped_at: 2013-10-30 13:56:00.000000000 Z
@@ -1793,9 +1793,9 @@ product_localizations_144:
   created_at: 2014-11-07 19:36:59.693465000 Z
   creator_id: 1
   id: 178
+  intervention_id: 29
   lock_version: 0
   nature: interior
-  operation_id: 71
   product_id: 142
   started_at: 2013-10-30 13:56:00.000000000 Z
   updated_at: 2014-11-07 19:36:59.693465000 Z
@@ -1804,9 +1804,9 @@ product_localizations_145:
   created_at: 2014-11-07 19:36:59.704882000 Z
   creator_id: 1
   id: 179
+  intervention_id: 29
   lock_version: 0
   nature: transfer
-  operation_id: 71
   product_id: 79
   started_at: 2013-10-30 13:56:00.000000000 Z
   stopped_at: 2013-10-30 14:00:00.000000000 Z
@@ -1817,9 +1817,9 @@ product_localizations_146:
   created_at: 2014-11-07 19:36:59.713294000 Z
   creator_id: 1
   id: 180
+  intervention_id: 29
   lock_version: 0
   nature: interior
-  operation_id: 71
   product_id: 79
   started_at: 2013-10-30 14:00:00.000000000 Z
   stopped_at: 2014-11-05 04:25:00.000000000 Z
@@ -1830,9 +1830,9 @@ product_localizations_147:
   created_at: 2015-01-01 18:31:37.330701000 Z
   creator_id: 1
   id: 181
+  intervention_id: 29
   lock_version: 0
   nature: interior
-  operation_id: 71
   product_id: 2
   started_at: 2015-01-01 18:31:37.330701000 Z
   updated_at: 2015-01-02 18:31:37.330701000 Z

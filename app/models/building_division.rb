@@ -66,16 +66,9 @@
 
 class BuildingDivision < SubZone
   refers_to :variety, scope: :building_division
-  has_many :supports, class_name: 'ProductionSupport', foreign_key: :storage_id
-  has_many :productions, class_name: 'Production', through: :supports
+  has_many :productions, class_name: 'ActivityProduction', foreign_key: :support_id
 
-  scope :of_production, lambda { |*productions|
-    productions.flatten!
-    productions.each do |production|
-      unless production.is_a?(Production)
-        fail ArgumentError, "Expected Production, got #{production.class.name}:#{production.inspect}"
-      end
-    end
-    joins(:productions).where(production_id: productions.map(&:id))
+  scope :of_production, lambda { |production|
+    where(id: TargetDistribution.select(:target_id).where(production_id: production))
   }
 end

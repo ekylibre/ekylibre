@@ -23,5 +23,4 @@ Elle peut être active ou inactive (clôturée).
 
 Elles interviennent :
 
-  * Lors de la [[>backend/productions#new|création d'une production]]
   * Dans les tableaux de bord

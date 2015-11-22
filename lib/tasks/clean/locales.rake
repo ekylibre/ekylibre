@@ -528,18 +528,18 @@ namespace :clean do
 
     translation  = "#{locale}:\n"
     translation << "  procedo:\n"
-    translation << "    actions:\n"
-    ref[:procedo] ||= {}
-    ref[:procedo][:actions] ||= {}
-    for type, parameters in Procedo::Action::TYPES.sort { |a, b| a.first <=> b.first }
-      to_translate += 1
-      if name = ref[:procedo][:actions][type]
-        translation << "      #{type}: " + Clean::Support.yaml_value(name) + "\n"
-      else
-        translation << "      #{missing_prompt}#{type}: " + Clean::Support.yaml_value("#{type.to_s.humanize} of " + parameters.keys.collect { |p| "%{#{p}}" }.to_sentence(locale: locale)) + "\n"
-        untranslated += 1
-      end
-    end
+    # translation << "    actions:\n"
+    # ref[:procedo] ||= {}
+    # ref[:procedo][:actions] ||= {}
+    # for type, parameters in Procedo::Action::TYPES.sort { |a, b| a.first <=> b.first }
+    #   to_translate += 1
+    #   if name = ref[:procedo][:actions][type]
+    #     translation << "      #{type}: " + Clean::Support.yaml_value(name) + "\n"
+    #   else
+    #     translation << "      #{missing_prompt}#{type}: " + Clean::Support.yaml_value("#{type.to_s.humanize} of " + parameters.keys.collect { |p| "%{#{p}}" }.to_sentence(locale: locale)) + "\n"
+    #     untranslated += 1
+    #   end
+    # end
 
     translation << "  procedure_handlers:\n"
     handlers = []
@@ -568,7 +568,7 @@ namespace :clean do
     end
     variables.uniq!
     ref[:procedure_variables] ||= {}
-    for variable in variables.sort
+    variables.sort.each do |variable|
       to_translate += 1
       if name = ref[:procedure_variables][variable]
         translation << "    #{variable}: " + Clean::Support.yaml_value(name) + "\n"
@@ -579,14 +579,14 @@ namespace :clean do
     end
 
     translation << "  procedures:\n"
-    procedures = Procedo.list.values.map(&:not_so_short_name).uniq.map(&:to_sym)
+    procedures = Procedo.procedure_names.uniq.map(&:to_sym)
     ref[:procedures] ||= {}
-    for procedure in procedures.sort
+    procedures.sort.each do |procedure|
       to_translate += 1
       if name = ref[:procedures][procedure]
         translation << "    #{procedure}: " + Clean::Support.yaml_value(name) + "\n"
       else
-        translation << "    #{missing_prompt}#{procedure}: " + Clean::Support.yaml_value(procedure.to_s.split('-').second.humanize) + "\n"
+        translation << "    #{missing_prompt}#{procedure}: " + Clean::Support.yaml_value(procedure.to_s.humanize) + "\n"
         untranslated += 1
       end
     end
