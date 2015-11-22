@@ -1,4 +1,4 @@
-class AddSiretAndShapeSupports < ActiveRecord::Migration
+class AddEntitySiret < ActiveRecord::Migration
   def change
     rename_column :entities, :siren, :siret
     reversible do |d|
