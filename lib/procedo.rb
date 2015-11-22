@@ -100,7 +100,7 @@ module Procedo
 
     # Returns the root of the procedures
     def root
-      Rails.root.join('config', 'procedures-2')
+      Rails.root.join('config', 'procedures')
     end
   end
 end
