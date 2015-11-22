@@ -3644,6 +3644,7 @@ eng:
         anethum_graveolens: "Dill"                         #< anethum
         animal: "Animal"                                   #< bioproduct
         animal_group: "Animal group"                       #< product_group
+        annonaceae: "Annonaceae"                           #< plant
         anser: "Anser"                                     #< anatidae
         anser_anser: "Anser anser"                         #< anser
         anser_cygnoides: "Anser cygnoides"                 #< anser
@@ -3807,6 +3808,8 @@ eng:
         cairina_moschata: "Muscovy duck"                   #< cairina
         camelina: "Camelina"                               #< brassicaceae
         camelina_sativa: "Camelina sativa"                 #< camelina
+        cananga: "Cananga"                                 #< annonaceae
+        cananga_odorata: "Cananga odorata"                 #< cananga
         canidae: "Canidae"                                 #< mammalia
         cannabaceae: "Cannabaceae"                         #< plant
         cannabis: "Cannabis"                               #< cannabaceae
@@ -3901,6 +3904,8 @@ eng:
         chenopodium: "Chenopodium"                         #< amaranthaceae
         chenopodium_album: "Chenopodium album"             #< chenopodium
         chenopodium_quinoa: "Chenopodium quinoa"           #< chenopodium
+        chrysopogon: "Chrysopogon"                         #< poaceae
+        chrysopogon_zizanioides: "Chrysopogon zizanioides" #< chrysopogon
         cicer: "Cicer"                                     #< fabaceae
         cicer_arietinum: "Chickpea"                        #< cicer
         cichorium: "Cichorium"                             #< asteraceae
@@ -3922,6 +3927,13 @@ eng:
         citrus_sinensis: "Orange"                          #< citrus
         cleaner: "Cleaner"                                 #< equipment
         coccoidea: "Coccoidea"                             #< insecta
+        coffea: "Coffea"                                   #< rubiaceae
+        coffea_arabica: "Coffea arabica"                   #< coffea
+        coffea_benghalensis: "Coffea benghalensis"         #< coffea
+        coffea_canephora: "Coffea canephora"               #< coffea
+        coffea_congensis: "Coffea congensis"               #< coffea
+        coffea_liberica: "Coffea liberica"                 #< coffea
+        coffea_stenophylla: "Coffea stenophylla"           #< coffea
         compost: "Compost"                                 #< excrement
         concentrated_rectified_must: "Concentrated rectified must" #< preparation
         coriandrum: "Coriandrum"                           #< apiaceae
@@ -4008,6 +4020,8 @@ eng:
         cucurbitaceae: "Cucurbitaceae"                     #< plant
         cultivable_zone: "Cultivable zone"                 #< zone
         curculio_nucum: "Curculio nucum"                   #< insecta
+        curcuma: "Curcuma"                                 #< zingiberaceae
+        curcuma_aromatica: "Curcuma aromatica"             #< curcuma
         cydia_pomonella: "Cydia pomonella"                 #< insecta
         cydonia: "Cydonia"                                 #< rosaceae
         cydonia_oblonga: "Quince"                          #< cydonia
@@ -4352,6 +4366,7 @@ eng:
         lathyrus_sativus: "Lathyrus sativus"               #< lathyrus
         lavandula: "Lavandula"                             #< lamiaceae
         lens: "Lens"                                       #< fabaceae
+        lens_culinaris: "Lens culinaris"                   #< lens
         lepidium: "Lepidium"                               #< brassicaceae
         lepidium_sativum: "Garden cress"                   #< lepidium
         leporidae: "Leporidae"                             #< mammalia
@@ -4392,6 +4407,7 @@ eng:
         melilotus: "Melilotus"                             #< fabaceae
         melon: "Melon"                                     #< fruit
         milk: "Milk"                                       #< raw_matter
+        miscanthus: "Miscanthus"                           #< poaceae
         mix: "Mix"                                         #< preparation
         moraceae: "Moraceae"                               #< plant
         morus: "Morus"                                     #< moraceae
@@ -4400,6 +4416,12 @@ eng:
         morus_nigra: "Morus nigra"                         #< morus
         morus_rubra: "Morus rubra"                         #< morus
         mower: "Mower"                                     #< equipment
+        musa: "Musa"                                       #< musaceae
+        musa_acuminata: "Musa acuminata"                   #< musa
+        musa_balbisiana: "Musa balbisiana"                 #< musa
+        musa_textilis: "Musa textilis"                     #< musa
+        musa_velutina: "Musa velutina"                     #< musa
+        musaceae: "Musaceae"                               #< plant
         myocastoridae: "Myocastoridae"                     #< mammalia
         myrtaceae: "Myrtaceae"                             #< plant
         mytilidae: "Mytilidae"                             #< bivalvia
@@ -4423,6 +4445,7 @@ eng:
         onobrychis: "Onobrychis"                           #< fabaceae
         onobrychis_viciifolia: "Common sainfoin"           #< onobrychis
         operophtera_brumata: "Operophtera brumata"         #< insecta
+        orchidaceae: "Orchidaceae"                         #< plant
         oryctolagus: "Oryctolagus"                         #< leporidae
         oryctolagus_cuniculus: "Common rabbit"             #< oryctolagus
         oryctolagus_cuniculus_blanc_de_vienne: "Common rabbit blanc de vienne" #< oryctolagus_cuniculus
@@ -4547,6 +4570,7 @@ eng:
         rosa_gallica: "Rosa gallica"                       #< rosa
         rosa_recht: "Rosa recht"                           #< rosa
         rosaceae: "Rosaceae"                               #< plant
+        rubiaceae: "Rubiaceae"                             #< plant
         rubus: "Rubus"                                     #< rosaceae
         rubus_idaeus: "Red raspberry"                      #< rubus
         rubus_idaeus_frida: "Red raspberry Frida"          #< rubus_idaeus
@@ -4560,6 +4584,8 @@ eng:
         saccharomyces_cerevisiae_jb3: "Saccharomyces cerevisiae - jb3" #< saccharomyces_cerevisiae
         saccharomycetaceae: "Saccharomycetaceae"           #< fungus
         saccharose: "Saccharose"                           #< sugar
+        saccharum: "Saccharum"                             #< poaceae
+        saccharum_officinarum: "Saccharum officinarum"     #< saccharum
         salicaceae: "Salicaceae"                           #< plant
         salix: "Salix"                                     #< salicaceae
         salix_purpurea: "Salix purpurea"                   #< salix
@@ -5085,6 +5111,9 @@ eng:
         valerianaceae: "Valerianaceae"                     #< plant
         valerianella: "Valerianella"                       #< valerianaceae
         valerianella_locusta: "Corn salad"                 #< valerianella
+        vanilla: "Vanilla"                                 #< orchidaceae
+        vanilla_planifolia: "Vanilla planifolia"           #< vanilla
+        vanilla_pompona: "Vanilla pompona"                 #< vanilla
         vegetable: "Vegetable"                             #< raw_matter
         vial: "Vial"                                       #< raw_matter
         viburnum: "Viburnum"                               #< adoxaceae
@@ -5178,6 +5207,7 @@ eng:
         zea_mays_saccharata: "Sweet corn"                  #< zea_mays
         zea_mays_shannon: "Corn Shannon"                   #< zea_mays
         zeuzera_pyrina: "Zeuzera pyrina"                   #< insecta
+        zingiberaceae: "Zingiberaceae"                     #< plant
         zone: "Zone"                                       #< product
         zone_property_title: "Zone property title"         #< property_title
     working_sets:

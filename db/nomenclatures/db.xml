@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151111212501">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151122101101">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -3659,6 +3659,7 @@
       <item name="anethum_graveolens" parent="anethum" itis_tsn="29584"/>
       <item name="animal" parent="bioproduct"/>
       <item name="animal_group" parent="product_group" derivative_of="animal"/>
+      <item name="annonaceae" parent="plant" itis_tsn="18092"/>
       <item name="anser" parent="anatidae" itis_tsn="175019"/>
       <item name="anser_anser" parent="anser" itis_tsn="175028"/>
       <item name="anser_cygnoides" parent="anser" itis_tsn="175032"/>
@@ -3822,6 +3823,8 @@
       <item name="cairina_moschata" parent="cairina" itis_tsn="175246"/>
       <item name="camelina" parent="brassicaceae" itis_tsn="22598"/>
       <item name="camelina_sativa" parent="camelina" itis_tsn="22600"/>
+      <item name="cananga" parent="annonaceae" itis_tsn="181838"/>
+      <item name="cananga_odorata" parent="cananga" itis_tsn="181839"/>
       <item name="canidae" parent="mammalia" itis_tsn="180594"/>
       <item name="cannabaceae" parent="plant" itis_tsn="19118"/>
       <item name="cannabis" parent="cannabaceae" itis_tsn="19108"/>
@@ -3916,6 +3919,8 @@
       <item name="chenopodium" parent="amaranthaceae" itis_tsn="20589"/>
       <item name="chenopodium_album" parent="chenopodium" itis_tsn="20592"/>
       <item name="chenopodium_quinoa" parent="chenopodium" itis_tsn="506567"/>
+      <item name="chrysopogon" parent="poaceae" itis_tsn="41576"/>
+      <item name="chrysopogon_zizanioides" parent="chrysopogon" itis_tsn="782799"/>
       <item name="cicer" parent="fabaceae" itis_tsn="26536"/>
       <item name="cicer_arietinum" parent="cicer" itis_tsn="26537"/>
       <item name="cichorium" parent="asteraceae" itis_tsn="36762"/>
@@ -3937,6 +3942,13 @@
       <item name="citrus_sinensis" parent="citrus" itis_tsn="825213"/>
       <item name="cleaner" parent="equipment"/>
       <item name="coccoidea" parent="insecta"/>
+      <item name="coffea" parent="rubiaceae" itis_tsn="35189"/>
+      <item name="coffea_arabica" parent="coffea" itis_tsn="35190"/>
+      <item name="coffea_benghalensis" parent="coffea" itis_tsn="506059"/>
+      <item name="coffea_canephora" parent="coffea" itis_tsn="506060"/>
+      <item name="coffea_congensis" parent="coffea" itis_tsn="506061"/>
+      <item name="coffea_liberica" parent="coffea" itis_tsn="501606"/>
+      <item name="coffea_stenophylla" parent="coffea" itis_tsn="506062"/>
       <item name="compost" parent="excrement"/>
       <item name="concentrated_rectified_must" parent="preparation" derivative_of="fruit"/>
       <item name="coriandrum" parent="apiaceae" itis_tsn="29621"/>
@@ -4023,6 +4035,8 @@
       <item name="cucurbitaceae" parent="plant" itis_tsn="22337"/>
       <item name="cultivable_zone" parent="zone"/>
       <item name="curculio_nucum" parent="insecta"/>
+      <item name="curcuma" parent="zingiberaceae" itis_tsn="42393"/>
+      <item name="curcuma_aromatica" parent="curcuma" itis_tsn="506512"/>
       <item name="cydia_pomonella" parent="insecta"/>
       <item name="cydonia" parent="rosaceae" itis_tsn="25158"/>
       <item name="cydonia_oblonga" parent="cydonia" itis_tsn="25159"/>
@@ -4367,6 +4381,7 @@
       <item name="lathyrus_sativus" parent="lathyrus" itis_tsn="25877"/>
       <item name="lavandula" parent="lamiaceae" itis_tsn="500370"/>
       <item name="lens" parent="fabaceae" itis_tsn="26762"/>
+      <item name="lens_culinaris" parent="lens" itis_tsn="503364"/>
       <item name="lepidium" parent="brassicaceae" itis_tsn="22953"/>
       <item name="lepidium_sativum" parent="lepidium" itis_tsn="22978"/>
       <item name="leporidae" parent="mammalia" itis_tsn="180110"/>
@@ -4407,6 +4422,7 @@
       <item name="melilotus" parent="fabaceae" itis_tsn="26148"/>
       <item name="melon" parent="fruit" derivative_of="cucumis"/>
       <item name="milk" parent="raw_matter" derivative_of="mammalia"/>
+      <item name="miscanthus" parent="poaceae" itis_tsn="41870"/>
       <item name="mix" parent="preparation"/>
       <item name="moraceae" parent="plant" itis_tsn="19063"/>
       <item name="morus" parent="moraceae" itis_tsn="19064"/>
@@ -4415,6 +4431,12 @@
       <item name="morus_nigra" parent="morus" itis_tsn="19069"/>
       <item name="morus_rubra" parent="morus" itis_tsn="19070"/>
       <item name="mower" parent="equipment"/>
+      <item name="musa" parent="musaceae" itis_tsn="42388"/>
+      <item name="musa_acuminata" parent="musa" itis_tsn="42390"/>
+      <item name="musa_balbisiana" parent="musa" itis_tsn="506499"/>
+      <item name="musa_textilis" parent="musa" itis_tsn="506500"/>
+      <item name="musa_velutina" parent="musa" itis_tsn="503890"/>
+      <item name="musaceae" parent="plant" itis_tsn="42385"/>
       <item name="myocastoridae" parent="mammalia" itis_tsn="180400"/>
       <item name="myrtaceae" parent="plant" itis_tsn="27172"/>
       <item name="mytilidae" parent="bivalvia" itis_tsn="79451"/>
@@ -4438,6 +4460,7 @@
       <item name="onobrychis" parent="fabaceae" itis_tsn="26809"/>
       <item name="onobrychis_viciifolia" parent="onobrychis" itis_tsn="26810"/>
       <item name="operophtera_brumata" parent="insecta"/>
+      <item name="orchidaceae" parent="plant" itis_tsn="43397"/>
       <item name="oryctolagus" parent="leporidae" itis_tsn="180128"/>
       <item name="oryctolagus_cuniculus" parent="oryctolagus" itis_tsn="180129"/>
       <item name="oryctolagus_cuniculus_blanc_de_vienne" parent="oryctolagus_cuniculus" itis_tsn="0"/>
@@ -4562,6 +4585,7 @@
       <item name="rosa_gallica" parent="rosa" itis_tsn="24827"/>
       <item name="rosa_recht" parent="rosa" itis_tsn="0"/>
       <item name="rosaceae" parent="plant" itis_tsn="24538"/>
+      <item name="rubiaceae" parent="plant" itis_tsn="34784"/>
       <item name="rubus" parent="rosaceae" itis_tsn="24848"/>
       <item name="rubus_idaeus" parent="rubus" itis_tsn="24947"/>
       <item name="rubus_idaeus_frida" parent="rubus_idaeus" itis_tsn="0"/>
@@ -4575,6 +4599,8 @@
       <item name="saccharomyces_cerevisiae_jb3" parent="saccharomyces_cerevisiae" itis_tsn="0"/>
       <item name="saccharomycetaceae" parent="fungus" itis_tsn="194121"/>
       <item name="saccharose" parent="sugar" derivative_of="plant"/>
+      <item name="saccharum" parent="poaceae" itis_tsn="42054"/>
+      <item name="saccharum_officinarum" parent="saccharum" itis_tsn="42058"/>
       <item name="salicaceae" parent="plant" itis_tsn="22443"/>
       <item name="salix" parent="salicaceae" itis_tsn="22476"/>
       <item name="salix_purpurea" parent="salix" itis_tsn="22574"/>
@@ -5100,6 +5126,9 @@
       <item name="valerianaceae" parent="plant" itis_tsn="35349"/>
       <item name="valerianella" parent="valerianaceae" itis_tsn="35386"/>
       <item name="valerianella_locusta" parent="valerianella" itis_tsn="35392"/>
+      <item name="vanilla" parent="orchidaceae" itis_tsn="43714"/>
+      <item name="vanilla_planifolia" parent="vanilla" itis_tsn="43719"/>
+      <item name="vanilla_pompona" parent="vanilla" itis_tsn="505646"/>
       <item name="vegetable" parent="raw_matter" derivative_of="plant"/>
       <item name="vial" parent="raw_matter" derivative_of="animal"/>
       <item name="viburnum" parent="adoxaceae" itis_tsn="35249"/>
@@ -5193,6 +5222,7 @@
       <item name="zea_mays_saccharata" parent="zea_mays" itis_tsn="0"/>
       <item name="zea_mays_shannon" parent="zea_mays" itis_tsn="0"/>
       <item name="zeuzera_pyrina" parent="insecta"/>
+      <item name="zingiberaceae" parent="plant" itis_tsn="42392"/>
       <item name="zone" parent="product"/>
       <item name="zone_property_title" parent="property_title"/>
     </items>

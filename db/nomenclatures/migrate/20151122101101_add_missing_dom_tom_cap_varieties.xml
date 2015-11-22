@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add missing dom tom cap varieties">
+  <item-creation item="varieties#lens_culinaris"  parent="lens" itis_tsn="503364"/>
+  <item-creation item="varieties#miscanthus"      parent="poaceae" itis_tsn="41870"/>
+  <item-creation item="varieties#musaceae"            parent="plant" itis_tsn="42385"/>
+  <item-creation item="varieties#musa"                 parent="musaceae" itis_tsn="42388"/>
+  <item-creation item="varieties#musa_acuminata"      parent="musa" itis_tsn="42390"/>
+  <item-creation item="varieties#musa_balbisiana"      parent="musa" itis_tsn="506499"/>
+  <item-creation item="varieties#musa_textilis"      parent="musa" itis_tsn="506500"/>
+  <item-creation item="varieties#musa_velutina"      parent="musa" itis_tsn="503890"/>
+  <item-creation item="varieties#rubiaceae"           parent="plant" itis_tsn="34784"/>
+  <item-creation item="varieties#coffea"              parent="rubiaceae" itis_tsn="35189"/>
+  <item-creation item="varieties#coffea_arabica"      parent="coffea" itis_tsn="35190"/>
+  <item-creation item="varieties#coffea_benghalensis"      parent="coffea" itis_tsn="506059"/>
+  <item-creation item="varieties#coffea_canephora"      parent="coffea" itis_tsn="506060"/>
+  <item-creation item="varieties#coffea_congensis"      parent="coffea" itis_tsn="506061"/>
+  <item-creation item="varieties#coffea_liberica"      parent="coffea" itis_tsn="501606"/>
+  <item-creation item="varieties#coffea_stenophylla"      parent="coffea" itis_tsn="506062"/>
+  <item-creation item="varieties#saccharum"      parent="poaceae" itis_tsn="42054"/>
+  <item-creation item="varieties#saccharum_officinarum"      parent="saccharum" itis_tsn="42058"/>
+  <item-creation item="varieties#zingiberaceae"           parent="plant" itis_tsn="42392"/>
+  <item-creation item="varieties#curcuma"              parent="zingiberaceae" itis_tsn="42393"/>
+  <item-creation item="varieties#curcuma_aromatica"      parent="curcuma" itis_tsn="506512"/>
+  <item-creation item="varieties#orchidaceae"           parent="plant" itis_tsn="43397"/>
+  <item-creation item="varieties#vanilla"              parent="orchidaceae" itis_tsn="43714"/>
+  <item-creation item="varieties#vanilla_planifolia"   parent="vanilla" itis_tsn="43719"/>
+  <item-creation item="varieties#vanilla_pompona"      parent="vanilla" itis_tsn="505646"/>
+  <item-creation item="varieties#chrysopogon"          parent="poaceae" itis_tsn="41576"/>
+  <item-creation item="varieties#chrysopogon_zizanioides" parent="chrysopogon" itis_tsn="782799"/>
+  <item-creation item="varieties#annonaceae"           parent="plant" itis_tsn="18092"/>
+  <item-creation item="varieties#cananga"              parent="annonaceae" itis_tsn="181838"/>
+  <item-creation item="varieties#cananga_odorata"      parent="cananga" itis_tsn="181839"/>
+</migration>
