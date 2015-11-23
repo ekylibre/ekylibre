@@ -1914,6 +1914,16 @@ ul.tree {
       }
     }
   }
+
+  .selector-wrapper {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+
+    input[data-selector] {
+      @include calc-width("#{100%} - #{2 * round($fs-normal*0.70)} - #{2 * $menu-border-width} - #{2 * round($fs-normal * 0.2)} - #{11px}"); //11px = font
+    }
+  }
 }
 
 

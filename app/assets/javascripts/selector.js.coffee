@@ -13,6 +13,9 @@
     id: null
 
     _create: ->
+      @$wrapper = $ "<div>", class: "selector-wrapper"
+      @element.wrap @$wrapper
+
       @element.attr "autocomplete", "off"
 
       # Create drop down button
