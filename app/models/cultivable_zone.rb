@@ -94,10 +94,10 @@ class CultivableZone < Zone
     joins(:productions).where('production_id IN (?)', productions.map(&:id))
   }
 
-  after_create do
+  after_validation do
     # Compute population
     if initial_shape
-      self.initial_shape = Charta::Geometry.new(initial_shape).multi_polygon
+      #self.initial_shape = ::Charta::Geometry.new(initial_shape).multi_polygon
       if variable_indicators_list.include?(:net_surface_area)
         self.read!(:net_surface_area, ::Charta::Geometry.new(initial_shape).area, at: initial_born_at)
       end
