@@ -178,14 +178,16 @@ class Entity < Ekylibre::Record::Base
     self.country  = Preference[:country]  if country.blank?
   end
 
-  # validate do
-  #   if self.nature
-  #     if self.nature.in_name and not self.last_name.match(/( |^)#{self.nature.title}( |$)/i)
-  #       errors.add(:last_name, :missing_title, :title => self.nature.title)
-  #     end
-  #   end
-  #   return true
-  # end
+  validate do
+    unless self.siret.blank?
+      errors.add(:siret, :invalid) unless Luhn.valid?(self.siret.strip)
+    end
+    # if self.nature
+    #   if self.nature.in_name and not self.last_name.match(/( |^)#{self.nature.title}( |$)/i)
+    #     errors.add(:last_name, :missing_title, :title => self.nature.title)
+    #   end
+    # end
+  end
 
   after_save do
     auto_updateable_addresses.find_each do |a|

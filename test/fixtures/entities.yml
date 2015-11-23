@@ -298,7 +298,7 @@ entities_008:
   of_company: false
   prospect: false
   reminder_submissive: false
-  siret: '123698745'
+  siret: '12369874500017'
   supplier: true
   supplier_account_id: 207
   transporter: false
@@ -444,7 +444,7 @@ entities_013:
   of_company: false
   prospect: false
   reminder_submissive: false
-  siret: '123456789'
+  siret: '12345678900017'
   supplier: true
   supplier_account_id: 211
   transporter: false
