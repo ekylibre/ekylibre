@@ -400,7 +400,7 @@ ActiveRecord::Schema.define(version: 20151108001401) do
 
   create_table "cash_sessions", force: :cascade do |t|
     t.integer  "cash_id",                                                     null: false
-    t.integer  "number"
+    t.string   "number"
     t.datetime "started_at",                                                  null: false
     t.datetime "stopped_at"
     t.string   "currency"

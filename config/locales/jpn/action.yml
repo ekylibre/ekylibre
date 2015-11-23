@@ -22,7 +22,9 @@ jpn:
       # new: "New activity"
       # show: "Activity: %{name}"
     backend/activity_productions:
-      # show: "Production support: %{name}"
+      # edit: "Edit activity production: %{name}"
+      # new: "New activity production"
+      # show: "Activity production: %{name}"
     backend/affairs:
       # attach: "Attach to affair %{number}"
       # detach: "Detach from affair %{number}"

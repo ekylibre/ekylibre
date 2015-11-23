@@ -38,7 +38,6 @@ Rails.application.routes.draw do
       get :list_issues
       get :list_readings
       get :list_intervention_casts
-      get :list_reading_tasks
       get :list_members
       get :list_places
       get :take
@@ -474,7 +473,6 @@ Rails.application.routes.draw do
         get :set
         post :run
         get :list_casts
-        get :list_operations
       end
     end
 
@@ -580,8 +578,6 @@ Rails.application.routes.draw do
     end
 
     resources :observations, except: [:index, :show]
-
-    resources :operations, only: [:index, :show]
 
     resources :outgoing_payments, concerns: [:attachments, :list, :unroll]
 

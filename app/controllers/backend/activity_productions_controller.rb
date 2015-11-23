@@ -17,7 +17,7 @@
 #
 
 class Backend::ActivityProductionsController < Backend::BaseController
-  manage_restfully(t3e: { name: :name })
+  manage_restfully(t3e: { name: :name }, except: :index)
 
   unroll activity: :name, support: :name
 

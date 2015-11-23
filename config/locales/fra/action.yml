@@ -23,9 +23,9 @@ fra:
       new: "Nouvelle activité"
       show: "%{name}"
     backend/activity_productions:
-      edit: "Modifier un support de production" #?
+      edit: "Modifier un support de production"
       index: "Supports de production" #?
-      new: "Nouveau support de production" #?
+      new: "Nouveau support de production"
       show: "Support de production\_: %{name}"
     backend/affairs:
       attach: "Associer une affaire"

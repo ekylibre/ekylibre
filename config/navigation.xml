@@ -402,7 +402,6 @@
         <page to="backend/matters#list_issues"/>
         <page to="backend/matters#list_members"/>
         <page to="backend/matters#list_places"/>
-        <page to="backend/matters#list_reading_tasks" nonexistent="true"/>
         <page to="backend/matters#new"/>
         <page to="backend/matters#picture"/>
         <page to="backend/matters#show"/>
@@ -429,7 +428,6 @@
         <page to="backend/products#list_places"/>
         <page to="backend/products#list_carried_linkages"/>
         <page to="backend/products#list_carrier_linkages"/>
-        <page to="backend/products#list_reading_tasks" nonexistent="true"/>
         <page to="backend/products#picture"/>
         <page to="backend/product_groups#index"/>
         <page to="backend/product_groups#attachments"/>
@@ -446,7 +444,6 @@
         <page to="backend/product_groups#list_issues"/>
         <page to="backend/product_groups#list_members"/>
         <page to="backend/product_groups#list_places"/>
-        <page to="backend/product_groups#list_reading_tasks" nonexistent="true"/>
         <page to="backend/product_groups#new"/>
         <page to="backend/product_groups#picture"/>
         <page to="backend/product_groups#show"/>
@@ -586,10 +583,7 @@
         <page to="backend/interventions#new"/>
         <page to="backend/interventions#show"/>
         <page to="backend/interventions#update"/>
-        <page to="backend/operations#index" nonexistent="true"/>
-        <page to="backend/operations#show" nonexistent="true"/>
         <page to="backend/interventions#list_casts"/>
-        <page to="backend/interventions#list_operations" nonexistent="true"/>
         <page to="backend/interventions#run"/>
         <page to="backend/interventions#set"/>
         <page to="backend/interventions#unroll"/>
@@ -641,6 +635,11 @@
         <page to="backend/activity_productions#list_interventions"/>
         <page to="backend/activity_productions#show"/>
         <page to="backend/activity_productions#unroll"/>
+        <page to="backend/activity_productions#create"/>
+        <page to="backend/activity_productions#destroy"/>
+        <page to="backend/activity_productions#edit"/>
+        <page to="backend/activity_productions#new"/>
+        <page to="backend/activity_productions#update"/>
       </item>
     </group>
     <group name="animal_productions" icon="cow">
@@ -670,7 +669,6 @@
         <page to="backend/animals#list_places"/>
         <page to="backend/animals#list_carried_linkages"/>
         <page to="backend/animals#list_carrier_linkages"/>
-        <page to="backend/animals#list_reading_tasks" nonexistent="true"/>
         <page to="backend/animals#take"/>
         <page to="backend/animals#unroll"/>
       </item>
@@ -692,7 +690,6 @@
         <page to="backend/plants#list_issues"/>
         <page to="backend/plants#list_members"/>
         <page to="backend/plants#list_places"/>
-        <page to="backend/plants#list_reading_tasks" nonexistent="true"/>
         <page to="backend/plants#picture"/>
         <page to="backend/plants#new"/>
         <page to="backend/plants#show"/>
@@ -723,7 +720,6 @@
         <page to="backend/fungi#list_issues"/>
         <page to="backend/fungi#list_members"/>
         <page to="backend/fungi#list_places"/>
-        <page to="backend/fungi#list_reading_tasks" nonexistent="true"/>
         <page to="backend/fungi#list_readings"/>
         <page to="backend/fungi#new"/>
         <page to="backend/fungi#picture"/>
@@ -756,7 +752,6 @@
         <page to="backend/cultivable_zones#list_places"/>
         <page to="backend/cultivable_zones#list_carried_linkages"/>
         <page to="backend/cultivable_zones#list_carrier_linkages"/>
-        <page to="backend/cultivable_zones#list_reading_tasks" nonexistent="true"/>
         <page to="backend/cultivable_zones#picture"/>
       </item>
       <item name="manure_management_plans">
@@ -795,7 +790,6 @@
         <page to="backend/equipments#list_places"/>
         <page to="backend/equipments#list_carried_linkages"/>
         <page to="backend/equipments#list_carrier_linkages"/>
-        <page to="backend/equipments#list_reading_tasks" nonexistent="true"/>
         <page to="backend/equipments#picture"/>
       </item>
     </group>
@@ -1323,7 +1317,7 @@
         <page to="backend/campaigns#new"/>
         <page to="backend/campaigns#show"/>
         <page to="backend/campaigns#update"/>
-        <page to="backend/campaigns#list_productions" nonexistent="true"/>
+        <page to="backend/campaigns#list_activity_productions"/>
         <page to="backend/campaigns#unroll"/>
       </item>
       <item name="workers">
@@ -1345,7 +1339,6 @@
         <page to="backend/workers#list_issues"/>
         <page to="backend/workers#list_members"/>
         <page to="backend/workers#list_places"/>
-        <page to="backend/workers#list_reading_tasks" nonexistent="true"/>
         <page to="backend/workers#picture"/>
         <page to="backend/workers#take"/>
         <page to="backend/workers#unroll"/>
@@ -1373,7 +1366,6 @@
         <page to="backend/buildings#picture"/>
         <page to="backend/buildings#list_carried_linkages"/>
         <page to="backend/buildings#list_carrier_linkages"/>
-        <page to="backend/buildings#list_reading_tasks" nonexistent="true"/>
       </item>
       <item name="building_divisions">
         <page to="backend/building_divisions#index"/>
@@ -1396,7 +1388,6 @@
         <page to="backend/building_divisions#list_places"/>
         <page to="backend/building_divisions#list_carried_linkages"/>
         <page to="backend/building_divisions#list_carrier_linkages"/>
-        <page to="backend/building_divisions#list_reading_tasks" nonexistent="true"/>
         <page to="backend/building_divisions#picture"/>
       </item>
       <!--      <item name="land_parcel_groups">
@@ -1439,7 +1430,6 @@
         <page to="backend/land_parcel_clusters#list_issues"/>
         <page to="backend/land_parcel_clusters#list_members"/>
         <page to="backend/land_parcel_clusters#list_places"/>
-        <page to="backend/land_parcel_clusters#list_reading_tasks" nonexistent="true"/>
         <page to="backend/land_parcel_clusters#new"/>
         <page to="backend/land_parcel_clusters#picture"/>
         <page to="backend/land_parcel_clusters#show"/>
@@ -1461,7 +1451,6 @@
         <page to="backend/land_parcel_groups#list_issues"/>
         <page to="backend/land_parcel_groups#list_members"/>
         <page to="backend/land_parcel_groups#list_places"/>
-        <page to="backend/land_parcel_groups#list_reading_tasks" nonexistent="true"/>
         <page to="backend/land_parcel_groups#new"/>
         <page to="backend/land_parcel_groups#picture"/>
         <page to="backend/land_parcel_groups#show"/>
@@ -1485,7 +1474,6 @@
         <page to="backend/land_parcels#list_issues"/>
         <page to="backend/land_parcels#list_members"/>
         <page to="backend/land_parcels#list_places"/>
-        <page to="backend/land_parcels#list_reading_tasks" nonexistent="true"/>
         <page to="backend/land_parcels#picture"/>
         <page to="backend/land_parcels#new"/>
         <page to="backend/land_parcels#show"/>
@@ -1509,7 +1497,6 @@
         <page to="backend/settlements#list_issues"/>
         <page to="backend/settlements#list_members"/>
         <page to="backend/settlements#list_places"/>
-        <page to="backend/settlements#list_reading_tasks" nonexistent="true"/>
         <page to="backend/settlements#picture"/>
         <page to="backend/settlements#new"/>
         <page to="backend/settlements#show"/>
@@ -1858,18 +1845,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="activity_productions">
-        <page to="backend/activity_productions#index"/>
-        <page to="backend/activity_productions#create"/>
-        <page to="backend/activity_productions#destroy"/>
-        <page to="backend/activity_productions#edit"/>
-        <page to="backend/activity_productions#new"/>
-        <page to="backend/activity_productions#update"/>
-      </item>
-      <item name="campaigns">
-        <page to="backend/campaigns#list_activity_productions"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </navigation>
