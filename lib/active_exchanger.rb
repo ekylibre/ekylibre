@@ -13,10 +13,10 @@ module ActiveExchanger
 
   class InvalidDataError < Error
   end
-
-  autoload :Base,       'active_exchanger/base'
-  autoload :Supervisor, 'active_exchanger/supervisor'
 end
+
+require 'active_exchanger/base'
+require 'active_exchanger/supervisor'
 
 Dir.glob(Rails.root.join('app', 'exchangers', '**', '*.rb')).each do |path|
   require path

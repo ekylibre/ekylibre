@@ -156,6 +156,7 @@ module Ekylibre
         $LOAD_PATH.unshift(@lib_dir.to_s)
         require @name.to_s unless @required.is_a?(FalseClass)
       end
+
       # Adds rights
       @right_file = root.join('config', 'rights.yml')
       Ekylibre::Access.load_file(@right_file) if @right_file.exist?
@@ -182,7 +183,14 @@ module Ekylibre
       # Adds the app/{controllers,helpers,models} directories of the plugin to the autoload path
       Dir.glob File.expand_path(@root.join('app', '{controllers,exchangers,helpers,models,jobs,mailers,inputs,guides}')) do |dir|
         ActiveSupport::Dependencies.autoload_paths += [dir]
+        $LOAD_PATH.unshift(dir) if Dir.exist?(dir)
       end
+
+      # Load all exchanger
+      Dir.glob(@root.join('app', 'exchangers', '**', '*.rb')).each do |path|
+        require path
+      end
+
       # Adds the app/{controllers,helpers,models} concerns directories of the plugin to the autoload path
       Dir.glob File.expand_path(@root.join('app', '{controllers,models}/concerns')) do |dir|
         ActiveSupport::Dependencies.autoload_paths += [dir]

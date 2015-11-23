@@ -104,11 +104,11 @@ class ActivityProduction < Ekylibre::Record::Base
   before_validation do
     self.usage = Nomen::ProductionUsage.first unless usage
     if self.activity
-      self.size_indicator = self.activity_size_indicator
-      self.size_unit      = self.activity_size_unit
-      self.rank_number  ||= self.activity.productions.maximum(:rank_number) + 1
+      self.size_indicator = activity_size_indicator
+      self.size_unit      = activity_size_unit
+      self.rank_number ||= self.activity.productions.maximum(:rank_number) + 1
     end
-    self.support ||= self.cultivable_zone
+    self.support ||= cultivable_zone
     self.size = current_size if self.support && size_indicator
   end
 
@@ -118,7 +118,7 @@ class ActivityProduction < Ekylibre::Record::Base
 
   after_commit do
     if self.activity.productions.where(rank_number: rank_number).count > 1
-      self.update_column(:rank_number, self.activity.productions.maximum(:rank_number) + 1)
+      update_column(:rank_number, self.activity.productions.maximum(:rank_number) + 1)
     end
   end
 
@@ -315,12 +315,12 @@ class ActivityProduction < Ekylibre::Record::Base
   def current_size(options = {})
     value = get(size_indicator, options)
     value = value.in(size_unit) unless size_unit.blank?
-    return value
+    value
   end
 
   def net_surface_area
     area = 0.0.in_square_meter
-    area = self.size if size_indicator == 'net_surface_area'
+    area = size if size_indicator == 'net_surface_area'
     area
   end
 
