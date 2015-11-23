@@ -47,6 +47,7 @@
 class ActivityProduction < Ekylibre::Record::Base
   refers_to :usage, class_name: 'ProductionUsage'
   belongs_to :activity, inverse_of: :productions
+  belongs_to :cultivable_zone
   belongs_to :support, class_name: 'Product' # , inverse_of: :supports
   has_many :manure_management_plan_zones, class_name: 'ManureManagementPlanZone',
                                           inverse_of: :activity_production
@@ -61,11 +62,12 @@ class ActivityProduction < Ekylibre::Record::Base
   validates_inclusion_of :irrigated, :nitrate_fixing, in: [true, false]
   validates_presence_of :activity, :rank_number, :size_indicator, :size_value, :support, :usage
   # ]VALIDATORS]
+  validates_uniqueness_of :rank_number, scope: :activity_id
 
   delegate :name, :net_surface_area, :shape_area, to: :support, prefix: true
   delegate :name, :work_number, :shape, :shape_to_ewkt, :shape_svg, to: :support
-  delegate :name, to: :activity, prefix: true
-  delegate :cultivation_variety, :support_variety, :color, to: :activity
+  delegate :name, :size_indicator, :size_unit, to: :activity, prefix: true
+  delegate :with_cultivation, :cultivation_variety, :with_supports, :support_variety, :color, to: :activity
 
   scope :of_campaign, lambda { |campaign|
     where('(started_at, stopped_at) OVERLAPS (?, ?)', campaign.started_on, campaign.stopped_on)
@@ -102,57 +104,21 @@ class ActivityProduction < Ekylibre::Record::Base
   before_validation do
     self.usage = Nomen::ProductionUsage.first unless usage
     if self.activity
-      self.size_indicator = self.activity.size_indicator
-      self.size_unit      = self.activity.ize_unit
+      self.size_indicator = self.activity_size_indicator
+      self.size_unit      = self.activity_size_unit
+      self.rank_number  ||= self.activity.productions.maximum(:rank_number) + 1
     end
-    self.size ||= current_quantity if support && size_indicator
+    self.support ||= self.cultivable_zone
+    self.size = current_size if self.support && size_indicator
   end
 
   before_validation(on: :create) do
     self.state ||= :opened
-    if self.activity
-      self.name ||= activity_name
-      if support_variant
-        unless support_variant_indicator
-          if quantifier = support_variant.quantifiers.last
-            pair = quantifier.split('/')
-            self.support_variant_indicator = pair.first
-            self.support_variant_unit = pair.second
-          end
-        end
-      end
-    end
   end
 
-  validate do
-    # TODO: Time overlap on same support ?
-    if self.activity
-      if with_cultivation
-        errors.add(:cultivation_variant_id, :blank) unless cultivation_variant
-      end
-      if with_supports
-        if support_variant
-          if indicator = Nomen::Indicator[support_variant_indicator]
-            if indicator.datatype == :measure
-              if unit = Nomen::Unit[support_variant_unit]
-                if unit.dimension.to_s != Nomen::Unit[indicator.unit].dimension.to_s
-                  errors.add(:support_variant_unit, :invalid)
-                end
-              else
-                errors.add(:support_variant_unit, :blank)
-              end
-            end
-          else
-            errors.add(:support_variant_indicator, :blank)
-          end
-        else
-          errors.add(:support_variant_id, :blank)
-        end
-      end
-      errors.add(:size_indicator, :invalid) unless size_indicator == support_variant_indicator
-      if support_variant_unit
-        errors.add(:size_unit, :invalid) unless size_unit == support_variant_unit
-      end
+  after_commit do
+    if self.activity.productions.where(rank_number: rank_number).count > 1
+      self.update_column(:rank_number, self.activity.productions.maximum(:rank_number) + 1)
     end
   end
 
@@ -346,10 +312,10 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   # Compute quantity of a support as defined in production
-  def current_quantity(options = {})
+  def current_size(options = {})
     value = get(size_indicator, options)
     value = value.in(size_unit) unless size_unit.blank?
-    value.to_d
+    return value
   end
 
   def net_surface_area

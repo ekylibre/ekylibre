@@ -1,0 +1,13 @@
+- activity = f.object.activity
+= field_set do
+  = f.referenced_association :activity
+  -# Vegetal crops
+  = f.referenced_association :cultivable_zone
+  = f.shape :support_shape
+  -# Other families
+  = f.referenced_association :support
+  = f.datetime_range
+  = f.input :irrigated
+  = f.input :nitrate_fixing
+  = f.input :usage
+  = f.custom_fields
