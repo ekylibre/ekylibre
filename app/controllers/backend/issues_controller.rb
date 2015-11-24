@@ -16,51 +16,53 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::IssuesController < Backend::BaseController
-  manage_restfully t3e: { name: :target_name }, observed_at: 'Time.zone.now'.c
-  manage_restfully_picture
-  manage_restfully_attachments
+module Backend
+  class IssuesController < Backend::BaseController
+    manage_restfully t3e: { name: :target_name }, observed_at: 'Time.zone.now'.c
+    manage_restfully_picture
+    manage_restfully_attachments
 
-  respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
+    respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
-  unroll
+    unroll
 
-  list do |t|
-    t.action :edit
-    t.action :new, url: { controller: :interventions, issue_id: 'RECORD.id'.c, id: nil }
-    t.action :destroy, if: :destroyable?
-    t.column :name, url: true
-    t.column :nature
-    t.column :observed_at
-    t.status
-    t.column :gravity,  hidden: true
-    t.column :priority, hidden: true
-  end
+    list do |t|
+      t.action :edit
+      t.action :new, url: { controller: :interventions, issue_id: 'RECORD.id'.c, id: nil }
+      t.action :destroy, if: :destroyable?
+      t.column :name, url: true
+      t.column :nature
+      t.column :observed_at
+      t.status
+      t.column :gravity,  hidden: true
+      t.column :priority, hidden: true
+    end
 
-  list(:interventions, conditions: { issue_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
-    t.column :reference_name, label_method: :name, url: true
-    t.column :casting, hidden: true
-    t.column :started_at
-    t.column :stopped_at, hidden: true
-    t.column :production, url: true, hidden: true
-    t.status
-  end
+    list(:interventions, conditions: { issue_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
+      t.column :reference_name, label_method: :name, url: true
+      t.column :casting, hidden: true
+      t.column :started_at
+      t.column :stopped_at, hidden: true
+      t.column :production, url: true, hidden: true
+      t.status
+    end
 
-  def close
-    return unless @issue = find_and_check
-    @issue.close if @issue.can_close?
-    redirect_to_back
-  end
+    def close
+      return unless @issue = find_and_check
+      @issue.close if @issue.can_close?
+      redirect_to_back
+    end
 
-  def abort
-    return unless @issue = find_and_check
-    @issue.abort if @issue.can_abort?
-    redirect_to_back
-  end
+    def abort
+      return unless @issue = find_and_check
+      @issue.abort if @issue.can_abort?
+      redirect_to_back
+    end
 
-  def reopen
-    return unless @issue = find_and_check
-    @issue.reopen if @issue.can_reopen?
-    redirect_to_back
+    def reopen
+      return unless @issue = find_and_check
+      @issue.reopen if @issue.can_reopen?
+      redirect_to_back
+    end
   end
 end

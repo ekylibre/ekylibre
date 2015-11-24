@@ -16,13 +16,17 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::Cells::BaseController < Backend::BaseController
-  layout :wrap_cell
+module Backend
+  module Cells
+    class BaseController < Backend::BaseController
+      layout :wrap_cell
 
-  protected
+      protected
 
-  # Use a cell layout if asked
-  def wrap_cell
-    (params[:layout].to_i > 0 || params[:layout] == 'true') ? 'cell' : false
+      # Use a cell layout if asked
+      def wrap_cell
+        (params[:layout].to_i > 0 || params[:layout] == 'true') ? 'cell' : false
+      end
+    end
   end
 end

@@ -17,17 +17,19 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::KujakusController < Backend::BaseController
-  # Saves the state of the kujakus クジャク（孔雀）
-  def toggle
-    collapsed = !params[:collapsed].to_i.zero?
-    kujaku = params[:id].to_s.strip
-    if kujaku.blank?
-      head :not_found
-    else
-      p = current_user.preference("interface.kujakus.#{kujaku}.collapsed", false, :boolean)
-      p.set!(collapsed)
-      head :ok
+module Backend
+  class KujakusController < Backend::BaseController
+    # Saves the state of the kujakus クジャク（孔雀）
+    def toggle
+      collapsed = !params[:collapsed].to_i.zero?
+      kujaku = params[:id].to_s.strip
+      if kujaku.blank?
+        head :not_found
+      else
+        p = current_user.preference("interface.kujakus.#{kujaku}.collapsed", false, :boolean)
+        p.set!(collapsed)
+        head :ok
+      end
     end
   end
 end

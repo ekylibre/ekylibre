@@ -16,19 +16,21 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::OutgoingPaymentModesController < Backend::BaseController
-  manage_restfully with_accounting: true
-  manage_restfully_list :name
+module Backend
+  class OutgoingPaymentModesController < Backend::BaseController
+    manage_restfully with_accounting: true
+    manage_restfully_list :name
 
-  unroll
+    unroll
 
-  list(order: :position) do |t|
-    t.action :edit
-    t.action :destroy, if: :destroyable?
-    t.action :up,   method: :post, unless: :first?
-    t.action :down, method: :post, unless: :last?
-    t.column :name
-    t.column :cash, url: true
-    t.column :with_accounting
+    list(order: :position) do |t|
+      t.action :edit
+      t.action :destroy, if: :destroyable?
+      t.action :up,   method: :post, unless: :first?
+      t.action :down, method: :post, unless: :last?
+      t.column :name
+      t.column :cash, url: true
+      t.column :with_accounting
+    end
   end
 end

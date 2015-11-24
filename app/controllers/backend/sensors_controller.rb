@@ -21,64 +21,66 @@
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 
-class Backend::SensorsController < Backend::BaseController
-  manage_restfully
-  manage_restfully_attachments
+module Backend
+  class SensorsController < Backend::BaseController
+    manage_restfully
+    manage_restfully_attachments
 
-  unroll
+    unroll
 
-  list do |t|
-    t.action :edit
-    t.action :destroy
-    t.column :active
-    t.column :name, url: true
-    t.column :retrieval_mode
-    t.column :vendor_euid
-    t.column :model_euid
-    t.column :product, url: true
-    t.column :embedded
-    t.column :host, url: true
-  end
+    list do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :active
+      t.column :name, url: true
+      t.column :retrieval_mode
+      t.column :vendor_euid
+      t.column :model_euid
+      t.column :product, url: true
+      t.column :embedded
+      t.column :host, url: true
+    end
 
-  list :analyses, model: :analysis, conditions: { sensor_id: 'params[:id]'.c } do |t|
-    t.column :number, url: true
-    t.column :nature
-    t.column :analysed_at
-    t.column :retrieval_status
-    t.column :retrieval_message
-    t.column :sampling_temporal_mode
-  end
+    list :analyses, model: :analysis, conditions: { sensor_id: 'params[:id]'.c } do |t|
+      t.column :number, url: true
+      t.column :nature
+      t.column :analysed_at
+      t.column :retrieval_status
+      t.column :retrieval_message
+      t.column :sampling_temporal_mode
+    end
 
-  def models
-    vendor_euid = params[:vendor_euid]
-    models = []
-    if vendor_euid
-      models = ActiveSensor::Equipment.equipments_of(vendor_euid).collect do |equipment|
-        [equipment.label, equipment.model]
+    def models
+      vendor_euid = params[:vendor_euid]
+      models = []
+      if vendor_euid
+        models = ActiveSensor::Equipment.equipments_of(vendor_euid).collect do |equipment|
+          [equipment.label, equipment.model]
+        end
+      end
+      respond_to do |format|
+        format.json { render json: models }
       end
     end
-    respond_to do |format|
-      format.json { render json: models }
+
+    # Updates details and settings in form
+    def detail
+      @equipment = ActiveSensor::Equipment.find!(params[:vendor_euid], params[:model_euid])
+
+      # Load existing resource for edit
+      @sensor = Sensor.find(params[:id]) if params[:id].present?
+
+      respond_to do |format|
+        format.js
+      end
     end
-  end
 
-  # Updates details and settings in form
-  def detail
-    @equipment = ActiveSensor::Equipment.find!(params[:vendor_euid], params[:model_euid])
-
-    # Load existing resource for edit
-    @sensor = Sensor.find(params[:id]) if params[:id].present?
-
-    respond_to do |format|
-      format.js
+    def retrieve
+      @sensor = find_and_check
+      return unless @sensor
+      # SensorReadingJob.perform_later(id: @sensor.id, started_at: Time.now, stopped_at: Time.now)
+      @sensor.retrieve(started_at: Time.zone.now - 1.hour, stopped_at: Time.zone.now)
+      redirect_to params[:redirect] || { action: :show, id: params[:id] }
     end
-  end
-
-  def retrieve
-    @sensor = find_and_check
-    return unless @sensor
-    # SensorReadingJob.perform_later(id: @sensor.id, started_at: Time.now, stopped_at: Time.now)
-    @sensor.retrieve(started_at: Time.zone.now - 1.hour, stopped_at: Time.zone.now)
-    redirect_to params[:redirect] || { action: :show, id: params[:id] }
   end
 end

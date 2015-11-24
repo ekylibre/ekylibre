@@ -16,20 +16,22 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::CashTransfersController < Backend::BaseController
-  manage_restfully transfered_at: 'Time.zone.today'.c
+module Backend
+  class CashTransfersController < Backend::BaseController
+    manage_restfully transfered_at: 'Time.zone.today'.c
 
-  unroll
+    unroll
 
-  list do |t|
-    t.action :edit
-    t.action :destroy
-    t.column :number, url: true
-    t.column :emission_amount, currency: :emission_currency
-    t.column :emission_cash, url: true
-    t.column :reception_amount, currency: :reception_currency
-    t.column :reception_cash, url: true
-    t.column :transfered_at
-    t.column :description, hidden: true
+    list do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :number, url: true
+      t.column :emission_amount, currency: :emission_currency
+      t.column :emission_cash, url: true
+      t.column :reception_amount, currency: :reception_currency
+      t.column :reception_cash, url: true
+      t.column :transfered_at
+      t.column :description, hidden: true
+    end
   end
 end

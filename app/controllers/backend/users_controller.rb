@@ -16,36 +16,38 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::UsersController < Backend::BaseController
-  manage_restfully language: 'params[:language] || Preference[:language]'.c
+module Backend
+  class UsersController < Backend::BaseController
+    manage_restfully language: 'params[:language] || Preference[:language]'.c
 
-  unroll :first_name, :last_name
+    unroll :first_name, :last_name
 
-  list(order: 'users.locked, users.last_name', line_class: "(RECORD.locked ? 'critic' : '')".c) do |t|
-    t.action :lock, method: :post, if: '!RECORD.locked and RECORD.id != current_user.id'.c
-    t.action :unlock, method: :post, if: 'RECORD.locked and RECORD.id != current_user.id'.c
-    t.action :edit
-    t.action :destroy, if: 'RECORD.id != current_user.id'.c
-    t.column :full_name, url: true
-    t.column :first_name, url: true, hidden: true
-    t.column :last_name, url: true, hidden: true
-    t.column :email
-    t.column :person, url: true, label_method: :full_name
-    t.column :role, url: true
-    t.column :team, url: true, hidden: true
-    t.column :administrator
-    t.column :employed, hidden: true
-  end
+    list(order: 'users.locked, users.last_name', line_class: "(RECORD.locked ? 'critic' : '')".c) do |t|
+      t.action :lock, method: :post, if: '!RECORD.locked and RECORD.id != current_user.id'.c
+      t.action :unlock, method: :post, if: 'RECORD.locked and RECORD.id != current_user.id'.c
+      t.action :edit
+      t.action :destroy, if: 'RECORD.id != current_user.id'.c
+      t.column :full_name, url: true
+      t.column :first_name, url: true, hidden: true
+      t.column :last_name, url: true, hidden: true
+      t.column :email
+      t.column :person, url: true, label_method: :full_name
+      t.column :role, url: true
+      t.column :team, url: true, hidden: true
+      t.column :administrator
+      t.column :employed, hidden: true
+    end
 
-  def lock
-    return unless @user = find_and_check
-    @user.lock
-    redirect_to_back
-  end
+    def lock
+      return unless @user = find_and_check
+      @user.lock
+      redirect_to_back
+    end
 
-  def unlock
-    return unless @user = find_and_check
-    @user.unlock
-    redirect_to_back
+    def unlock
+      return unless @user = find_and_check
+      @user.unlock
+      redirect_to_back
+    end
   end
 end

@@ -16,6 +16,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::ObservationsController < Backend::BaseController
-  manage_restfully importance: 'Observation.importance.default_value'.c, except: [:index, :show], observed_at: 'Time.zone.now'.c, destroy_to: '{controller: RECORD.subject_type.tableize.to_sym, action: :show, id: RECORD.subject_id}'.c
+module Backend
+  class ObservationsController < Backend::BaseController
+    manage_restfully importance: 'Observation.importance.default_value'.c, except: [:index, :show], observed_at: 'Time.zone.now'.c, destroy_to: '{controller: RECORD.subject_type.tableize.to_sym, action: :show, id: RECORD.subject_id}'.c
+  end
 end

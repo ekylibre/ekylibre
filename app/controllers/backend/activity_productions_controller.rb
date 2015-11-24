@@ -16,18 +16,20 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::ActivityProductionsController < Backend::BaseController
-  manage_restfully(t3e: { name: :name }, except: :index)
+module Backend
+  class ActivityProductionsController < Backend::BaseController
+    manage_restfully(t3e: { name: :name }, except: :index)
 
-  unroll activity: :name, support: :name
+    unroll activity: :name, support: :name
 
-  # List interventions for one production support
-  list(:interventions, conditions: "['interventions.id IN (SELECT intervention_id FROM intervention_casts WHERE type = \\'InterventionTarget\\' AND product_id IN (SELECT target_id FROM target_distributions WHERE activity_production_id = ?))', params[:id]]".c, order: { created_at: :desc }, line_class: :status) do |t|
-    t.column :name, url: true
-    t.status
-    t.column :issue, url: true
-    t.column :started_at
-    t.column :stopped_at, hidden: true
-    # t.column :provisional
+    # List interventions for one production support
+    list(:interventions, conditions: "['interventions.id IN (SELECT intervention_id FROM intervention_casts WHERE type = \\'InterventionTarget\\' AND product_id IN (SELECT target_id FROM target_distributions WHERE activity_production_id = ?))', params[:id]]".c, order: { created_at: :desc }, line_class: :status) do |t|
+      t.column :name, url: true
+      t.status
+      t.column :issue, url: true
+      t.column :started_at
+      t.column :stopped_at, hidden: true
+      # t.column :provisional
+    end
   end
 end

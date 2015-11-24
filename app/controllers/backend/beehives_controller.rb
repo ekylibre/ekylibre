@@ -16,36 +16,38 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::BeehivesController < Backend::BaseController
-  # Save beehive config in preferences
-  def update
-    params['boxes'] ||= []
-    boxes = params['boxes'].sort do |a, b|
-      a[0] <=> b[0]
-    end.map do |box|
-      next unless box.second['cells']
-      cells = box.second['cells'].symbolize_keys.sort do |a, b|
+module Backend
+  class BeehivesController < Backend::BaseController
+    # Save beehive config in preferences
+    def update
+      params['boxes'] ||= []
+      boxes = params['boxes'].sort do |a, b|
         a[0] <=> b[0]
-      end.map do |cell|
-        cell.second.symbolize_keys
+      end.map do |box|
+        next unless box.second['cells']
+        cells = box.second['cells'].symbolize_keys.sort do |a, b|
+          a[0] <=> b[0]
+        end.map do |cell|
+          cell.second.symbolize_keys
+        end.compact
+        cells.any? ? { cells: cells } : nil
       end.compact
-      cells.any? ? { cells: cells } : nil
-    end.compact
-    begin
-      current_user.prefer!("beehive.#{params[:id]}", {
-        version: Backend::BeehiveHelper::FORMAT_VERSION,
-        boxes: boxes
-      }.deep_stringify_keys.to_yaml)
-      head :ok
-    rescue ActiveRecord::StaleObjectError
-      head :locked
+      begin
+        current_user.prefer!("beehive.#{params[:id]}", {
+          version: Backend::BeehiveHelper::FORMAT_VERSION,
+          boxes: boxes
+        }.deep_stringify_keys.to_yaml)
+        head :ok
+      rescue ActiveRecord::StaleObjectError
+        head :locked
+      end
     end
-  end
 
-  def reset
-    if preference = current_user.preferences.find_by(name: "beehive.#{params[:id]}")
-      preference.destroy!
+    def reset
+      if preference = current_user.preferences.find_by(name: "beehive.#{params[:id]}")
+        preference.destroy!
+      end
+      head :ok
     end
-    head :ok
   end
 end

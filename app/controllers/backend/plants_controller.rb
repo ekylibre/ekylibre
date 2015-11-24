@@ -16,15 +16,17 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::PlantsController < Backend::MattersController
-  list do |t|
-    t.action :edit
-    t.action :destroy, if: :destroyable?
-    t.column :name, url: true
-    t.column :work_number
-    t.column :variety
-    t.column :work_name, through: :container, url: true
-    t.column :net_surface_area, datatype: :measure
-    t.column :born_at
+module Backend
+  class PlantsController < Backend::MattersController
+    list do |t|
+      t.action :edit
+      t.action :destroy, if: :destroyable?
+      t.column :name, url: true
+      t.column :work_number
+      t.column :variety
+      t.column :work_name, through: :container, url: true
+      t.column :net_surface_area, datatype: :measure
+      t.column :born_at
+    end
   end
 end

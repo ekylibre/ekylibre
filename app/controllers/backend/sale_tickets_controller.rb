@@ -16,5 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::SaleTicketsController < Backend::AffairsController
+module Backend
+  class SaleTicketsController < Backend::AffairsController
+  end
 end

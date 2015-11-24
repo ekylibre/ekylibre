@@ -1,4 +1,8 @@
-class Backend::Cells::CashesBalanceEvolutionCellsController < Backend::Cells::BaseController
-  def show
+module Backend
+  module Cells
+    class CashesBalanceEvolutionCellsController < Backend::Cells::BaseController
+      def show
+      end
+    end
   end
 end

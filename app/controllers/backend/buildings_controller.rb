@@ -16,25 +16,27 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::BuildingsController < Backend::ProductGroupsController
-  list do |t|
-    t.action :edit
-    t.action :destroy
-    t.column :name, url: true
-    t.column :description
-    # t.column :name, through: :parent, url: true
-  end
+module Backend
+  class BuildingsController < Backend::ProductGroupsController
+    list do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :name, url: true
+      t.column :description
+      # t.column :name, through: :parent, url: true
+    end
 
-  # Displays the main page with the list of buildings
-  def index
-    notify_now(:need_building_to_record_stock_moves) unless Building.any?
-    super
-  end
+    # Displays the main page with the list of buildings
+    def index
+      notify_now(:need_building_to_record_stock_moves) unless Building.any?
+      super
+    end
 
-  # List divisions of a building
-  list(:divisions, model: :product_memberships, conditions: { group_id: 'params[:id]'.c }, order: :started_at) do |t|
-    t.column :name, through: :member, url: true
-    t.column :started_at
-    t.column :stopped_at
+    # List divisions of a building
+    list(:divisions, model: :product_memberships, conditions: { group_id: 'params[:id]'.c }, order: :started_at) do |t|
+      t.column :name, through: :member, url: true
+      t.column :started_at
+      t.column :stopped_at
+    end
   end
 end

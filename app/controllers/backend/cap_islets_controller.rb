@@ -16,33 +16,35 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::CapIsletsController < Backend::BaseController
-  manage_restfully
+module Backend
+  class CapIsletsController < Backend::BaseController
+    manage_restfully
 
-  # params:
-  #   :q Text search
-  #   :state State search
-  #   :current_campaign
-  def self.cap_islets_conditions
-    code = ''
-    code = search_conditions(cap_islets: [:islet_number]) + " ||= []\n"
-    code << "if current_campaign\n"
-    code << "  c[0] << \" AND #{CapStatement.table_name}.campaign_id IN (?)\"\n"
-    code << "  c << current_campaign.id\n"
-    code << "end\n"
-    code.c
-  end
+    # params:
+    #   :q Text search
+    #   :state State search
+    #   :current_campaign
+    def self.cap_islets_conditions
+      code = ''
+      code = search_conditions(cap_islets: [:islet_number]) + " ||= []\n"
+      code << "if current_campaign\n"
+      code << "  c[0] << \" AND #{CapStatement.table_name}.campaign_id IN (?)\"\n"
+      code << "  c << current_campaign.id\n"
+      code << "end\n"
+      code.c
+    end
 
-  list(conditions: cap_islets_conditions, joins: [:cap_statement], order: { islet_number: :asc }) do |t|
-    t.action :edit
-    t.action :destroy, if: :destroyable?
-    t.column :islet_number, url: true
-    t.column :town_number
-    t.column :net_surface_area
-  end
+    list(conditions: cap_islets_conditions, joins: [:cap_statement], order: { islet_number: :asc }) do |t|
+      t.action :edit
+      t.action :destroy, if: :destroyable?
+      t.column :islet_number, url: true
+      t.column :town_number
+      t.column :net_surface_area
+    end
 
-  list(:cap_land_parcels, conditions: { cap_islet_id: 'params[:id]'.c }, order: { land_parcel_number: :asc }) do |t|
-    t.column :land_parcel_number, url: true
-    t.column :net_surface_area
+    list(:cap_land_parcels, conditions: { cap_islet_id: 'params[:id]'.c }, order: { land_parcel_number: :asc }) do |t|
+      t.column :land_parcel_number, url: true
+      t.column :net_surface_area
+    end
   end
 end

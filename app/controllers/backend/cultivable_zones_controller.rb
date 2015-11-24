@@ -16,28 +16,30 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::CultivableZonesController < Backend::LandParcelGroupsController
-  manage_restfully(t3e: { name: :name })
+module Backend
+  class CultivableZonesController < Backend::LandParcelGroupsController
+    manage_restfully(t3e: { name: :name })
 
-  unroll
+    unroll
 
-  list do |t|
-    t.action :edit
-    t.action :destroy
-    t.column :name, url: true
-    t.column :work_number
-    t.column :clusters_work_number
-    t.column :net_surface_area, datatype: :measure
-    # t.column :unit
-  end
+    list do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :name, url: true
+      t.column :work_number
+      t.column :clusters_work_number
+      t.column :net_surface_area, datatype: :measure
+      # t.column :unit
+    end
 
-  # content production on current cultivable land parcel
-  list(:productions, model: :activity_productions, conditions: { support_id: 'params[:id]'.c }, order: 'started_at DESC') do |t|
-    t.column :name
-    t.column :activity, url: true
-    t.column :support, url: true
-    t.column :usage
-    t.column :started_at
-    t.column :stopped_at
+    # content production on current cultivable land parcel
+    list(:productions, model: :activity_productions, conditions: { support_id: 'params[:id]'.c }, order: 'started_at DESC') do |t|
+      t.column :name
+      t.column :activity, url: true
+      t.column :support, url: true
+      t.column :usage
+      t.column :started_at
+      t.column :stopped_at
+    end
   end
 end

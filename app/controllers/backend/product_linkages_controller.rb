@@ -16,5 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::ProductLinkagesController < Backend::BaseController
+module Backend
+  class ProductLinkagesController < Backend::BaseController
+  end
 end

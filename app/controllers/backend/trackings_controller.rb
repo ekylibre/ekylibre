@@ -15,27 +15,29 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-class Backend::TrackingsController < Backend::BaseController
-  manage_restfully
+module Backend
+  class TrackingsController < Backend::BaseController
+    manage_restfully
 
-  unroll :serial, :name, producer: :full_name
+    unroll :serial, :name, producer: :full_name
 
-  list(order: :name) do |t|
-    t.action :edit
-    t.action :destroy
-    t.column :active
-    t.column :serial, url: true
-    t.column :name
-    t.column :product
-    t.column :producer
-    t.column :usage_limit_nature, hidden: true
-    t.column :usage_limit_on, hidden: true
-  end
+    list(order: :name) do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :active
+      t.column :serial, url: true
+      t.column :name
+      t.column :product
+      t.column :producer
+      t.column :usage_limit_nature, hidden: true
+      t.column :usage_limit_on, hidden: true
+    end
 
-  list(:products, model: :products, conditions: { tracking_id: 'params[:id]'.c }, order: { born_at: :asc }) do |t|
-    t.column :number, url: true
-    t.column :name
-    t.column :born_at
-    t.column :container
+    list(:products, model: :products, conditions: { tracking_id: 'params[:id]'.c }, order: { born_at: :asc }) do |t|
+      t.column :number, url: true
+      t.column :name
+      t.column :born_at
+      t.column :container
+    end
   end
 end

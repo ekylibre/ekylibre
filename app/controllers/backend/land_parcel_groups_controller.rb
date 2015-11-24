@@ -16,11 +16,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::LandParcelGroupsController < Backend::ProductGroupsController
-  list do |t|
-    t.column :name, url: true
-    t.column :work_number
-    t.column :identification_number
-    t.column :net_surface_area
+module Backend
+  class LandParcelGroupsController < Backend::ProductGroupsController
+    list do |t|
+      t.column :name, url: true
+      t.column :work_number
+      t.column :identification_number
+      t.column :net_surface_area
+    end
   end
 end

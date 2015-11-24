@@ -16,30 +16,32 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::CatalogsController < Backend::BaseController
-  unroll
+module Backend
+  class CatalogsController < Backend::BaseController
+    unroll
 
-  manage_restfully
+    manage_restfully
 
-  list do |t|
-    t.action :edit
-    t.action :destroy
-    t.column :code, url: true
-    t.column :name, url: true
-    t.column :usage
-    t.column :currency, url: true
-    t.column :all_taxes_included, url: true
-    t.column :description, hidden: true
-    t.column :by_default
-  end
+    list do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :code, url: true
+      t.column :name, url: true
+      t.column :usage
+      t.column :currency, url: true
+      t.column :all_taxes_included, url: true
+      t.column :description, hidden: true
+      t.column :by_default
+    end
 
-  list(:items, model: :catalog_items, conditions: { catalog_id: 'params[:id]'.c }) do |t|
-    t.action :edit
-    t.action :destroy
-    t.column :name, url: true
-    t.column :variant, url: true
-    t.column :amount, currency: true
-    t.column :all_taxes_included
-    t.column :reference_tax, url: true
+    list(:items, model: :catalog_items, conditions: { catalog_id: 'params[:id]'.c }) do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :name, url: true
+      t.column :variant, url: true
+      t.column :amount, currency: true
+      t.column :all_taxes_included
+      t.column :reference_tax, url: true
+    end
   end
 end

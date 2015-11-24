@@ -16,34 +16,36 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::GuidesController < Backend::BaseController
-  manage_restfully
+module Backend
+  class GuidesController < Backend::BaseController
+    manage_restfully
 
-  unroll
+    unroll
 
-  list(order: :name) do |t|
-    t.action :run, method: :post
-    t.action :edit
-    t.action :destroy
-    t.column :name, url: true
-    t.column :active
-    t.status
-    t.column :stopped_at, through: :last_analysis, label: :checked_at, datatype: :datetime
-    t.column :nature
-    t.column :external
-  end
+    list(order: :name) do |t|
+      t.action :run, method: :post
+      t.action :edit
+      t.action :destroy
+      t.column :name, url: true
+      t.column :active
+      t.status
+      t.column :stopped_at, through: :last_analysis, label: :checked_at, datatype: :datetime
+      t.column :nature
+      t.column :external
+    end
 
-  list(:analyses, model: :guide_analyses, conditions: { guide_id: 'params[:id]'.c }, order: { execution_number: :desc }) do |t|
-    t.column :execution_number, url: true
-    t.status
-    t.column :started_at, hidden: true
-    t.column :stopped_at
-  end
+    list(:analyses, model: :guide_analyses, conditions: { guide_id: 'params[:id]'.c }, order: { execution_number: :desc }) do |t|
+      t.column :execution_number, url: true
+      t.status
+      t.column :started_at, hidden: true
+      t.column :stopped_at
+    end
 
-  def run
-    return unless @guide = find_and_check
-    notify_warning(:implemented_with_dummy_data)
-    @guide.run!
-    redirect_to action: :show
+    def run
+      return unless @guide = find_and_check
+      notify_warning(:implemented_with_dummy_data)
+      @guide.run!
+      redirect_to action: :show
+    end
   end
 end

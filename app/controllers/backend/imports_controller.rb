@@ -16,38 +16,40 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::ImportsController < Backend::BaseController
-  manage_restfully t3e: { name: :name }
+module Backend
+  class ImportsController < Backend::BaseController
+    manage_restfully t3e: { name: :name }
 
-  list line_class: "RECORD.errored? ? 'error' : ''".c do |t|
-    t.action :new, on: :none
-    t.action :run, method: :post, if: :runnable?
-    t.action :edit
-    t.action :destroy
-    t.column :nature, url: true
-    t.column :state
-    t.column :created_at
-    t.column :imported_at
-    t.column :importer
-  end
+    list line_class: "RECORD.errored? ? 'error' : ''".c do |t|
+      t.action :new, on: :none
+      t.action :run, method: :post, if: :runnable?
+      t.action :edit
+      t.action :destroy
+      t.column :nature, url: true
+      t.column :state
+      t.column :created_at
+      t.column :imported_at
+      t.column :importer
+    end
 
-  def run
-    import = find_and_check
-    return unless import
-    import.run_later
-    redirect_to params[:redirect] || { action: :index }
-  end
+    def run
+      import = find_and_check
+      return unless import
+      import.run_later
+      redirect_to params[:redirect] || { action: :index }
+    end
 
-  def progress
-    @import = find_and_check
-    return unless @import
-    render partial: 'progress', locals: { import: @import }
-  end
+    def progress
+      @import = find_and_check
+      return unless @import
+      render partial: 'progress', locals: { import: @import }
+    end
 
-  def abort
-    @import = find_and_check
-    return unless @import
-    @import.abort
-    redirect_to params[:redirect] || { action: :index }
+    def abort
+      @import = find_and_check
+      return unless @import
+      @import.abort
+      redirect_to params[:redirect] || { action: :index }
+    end
   end
 end

@@ -16,20 +16,22 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::AnalysisItemsController < Backend::BaseController
-  def new
-    if request.xhr? && params[:indicator_name]
-      unless @analysis = Analysis.find_by(id: params[:analysis_id])
-        @analysis = Analysis.new
+module Backend
+  class AnalysisItemsController < Backend::BaseController
+    def new
+      if request.xhr? && params[:indicator_name]
+        unless @analysis = Analysis.find_by(id: params[:analysis_id])
+          @analysis = Analysis.new
+        end
+        unless indicator = Nomen::Indicator.find(params[:indicator_name])
+          head :not_found
+          return
+        end
+        @analysis.items.build(indicator_name: indicator.name)
+        render partial: 'nested_form'
+      else
+        redirect_to backend_root_url
       end
-      unless indicator = Nomen::Indicator.find(params[:indicator_name])
-        head :not_found
-        return
-      end
-      @analysis.items.build(indicator_name: indicator.name)
-      render partial: 'nested_form'
-    else
-      redirect_to backend_root_url
     end
   end
 end

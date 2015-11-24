@@ -16,37 +16,39 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::CustomFieldsController < Backend::BaseController
-  manage_restfully
-  manage_restfully_list
-  unroll
+module Backend
+  class CustomFieldsController < Backend::BaseController
+    manage_restfully
+    manage_restfully_list
+    unroll
 
-  list(order: 'customized_type, position') do |t|
-    t.action :up, method: :post, unless: :first?
-    t.action :down, method: :post, unless: :last?
-    t.action :edit
-    t.action :destroy, if: :destroyable?
-    t.column :name, url: true
-    t.column :customized_type
-    t.column :nature
-    t.column :required
-    t.column :active
-    t.column :choices_count, datatype: :integer
-  end
+    list(order: 'customized_type, position') do |t|
+      t.action :up, method: :post, unless: :first?
+      t.action :down, method: :post, unless: :last?
+      t.action :edit
+      t.action :destroy, if: :destroyable?
+      t.column :name, url: true
+      t.column :customized_type
+      t.column :nature
+      t.column :required
+      t.column :active
+      t.column :choices_count, datatype: :integer
+    end
 
-  list(:choices, model: :custom_field_choices, conditions: { custom_field_id: 'params[:id]'.c }, order: 'position') do |t|
-    t.action :up, unless: :first?, method: :post
-    t.action :down, unless: :last?, method: :post
-    t.action :edit
-    t.action :destroy, if: :destroyable?
-    t.column :name
-    t.column :value
-  end
+    list(:choices, model: :custom_field_choices, conditions: { custom_field_id: 'params[:id]'.c }, order: 'position') do |t|
+      t.action :up, unless: :first?, method: :post
+      t.action :down, unless: :last?, method: :post
+      t.action :edit
+      t.action :destroy, if: :destroyable?
+      t.column :name
+      t.column :value
+    end
 
-  # Sort.all choices by name
-  def sort
-    return unless @custom_field = find_and_check
-    @custom_field.sort_choices!
-    redirect_to_back
+    # Sort.all choices by name
+    def sort
+      return unless @custom_field = find_and_check
+      @custom_field.sort_choices!
+      redirect_to_back
+    end
   end
 end

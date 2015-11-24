@@ -16,37 +16,39 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::TasksController < Backend::BaseController
-  manage_restfully nature: 'params[:nature]'.c, due_at: '(params[:due_at] || Time.zone.now)'.c
+module Backend
+  class TasksController < Backend::BaseController
+    manage_restfully nature: 'params[:nature]'.c, due_at: '(params[:due_at] || Time.zone.now)'.c
 
-  manage_restfully_attachments
+    manage_restfully_attachments
 
-  # unroll
+    # unroll
 
-  list(line_class: 'RECORD.state'.c) do |t|
-    t.action :edit
-    t.action :destroy
-    t.column :name, url: true
-    t.column :nature
-    t.column :entity, url: true
-    t.column :executor, url: true
-    t.column :due_at
-    t.column :sale_opportunity, url: true
-    t.status
-    t.column :state
-  end
-
-  Task.state_machine.events.each do |event|
-    define_method event.name do
-      fire_event(event.name)
+    list(line_class: 'RECORD.state'.c) do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :name, url: true
+      t.column :nature
+      t.column :entity, url: true
+      t.column :executor, url: true
+      t.column :due_at
+      t.column :sale_opportunity, url: true
+      t.status
+      t.column :state
     end
-  end
 
-  protected
+    Task.state_machine.events.each do |event|
+      define_method event.name do
+        fire_event(event.name)
+      end
+    end
 
-  def fire_event(event)
-    return unless @task = find_and_check
-    @task.send(event)
-    redirect_to params[:redirect] || { action: :show, id: @task.id }
+    protected
+
+    def fire_event(event)
+      return unless @task = find_and_check
+      @task.send(event)
+      redirect_to params[:redirect] || { action: :show, id: @task.id }
+    end
   end
 end

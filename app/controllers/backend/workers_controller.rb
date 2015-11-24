@@ -16,5 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::WorkersController < Backend::ProductsController
+module Backend
+  class WorkersController < Backend::ProductsController
+  end
 end

@@ -16,15 +16,17 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::TeamsController < Backend::BaseController
-  manage_restfully
+module Backend
+  class TeamsController < Backend::BaseController
+    manage_restfully
 
-  unroll
+    unroll
 
-  list(order: :name) do |t|
-    t.action :edit
-    t.action :destroy
-    t.column :name
-    t.column :description
+    list(order: :name) do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :name
+      t.column :description
+    end
   end
 end

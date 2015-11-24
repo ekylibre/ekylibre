@@ -1,4 +1,8 @@
-class Backend::Cells::MainSettingsCellsController < Backend::Cells::BaseController
-  def show
+module Backend
+  module Cells
+    class MainSettingsCellsController < Backend::Cells::BaseController
+      def show
+      end
+    end
   end
 end

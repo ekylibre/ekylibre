@@ -16,24 +16,26 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::SequencesController < Backend::BaseController
-  manage_restfully number_format: '[number|8]', last_number: 0
+module Backend
+  class SequencesController < Backend::BaseController
+    manage_restfully number_format: '[number|8]', last_number: 0
 
-  unroll
+    unroll
 
-  list do |t|
-    t.action :edit
-    t.action :destroy, if: :destroyable?
-    t.column :name
-    t.column :compute
-    t.column :number_format, class: :code
-    t.column :usage
-    t.column :period
-  end
+    list do |t|
+      t.action :edit
+      t.action :destroy, if: :destroyable?
+      t.column :name
+      t.column :compute
+      t.column :number_format, class: :code
+      t.column :usage
+      t.column :period
+    end
 
-  # Load missing sequences for current company
-  def load
-    Sequence.load_defaults
-    redirect_to_back
+    # Load missing sequences for current company
+    def load
+      Sequence.load_defaults
+      redirect_to_back
+    end
   end
 end

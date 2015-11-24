@@ -16,16 +16,18 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::EntityLinksController < Backend::BaseController
-  manage_restfully entity_id: '(params[:entity_id] || params[:entity_id])'.c, nature: '(params[:nature] || :membership)'.c, except: [:index, :show]
+module Backend
+  class EntityLinksController < Backend::BaseController
+    manage_restfully entity_id: '(params[:entity_id] || params[:entity_id])'.c, nature: '(params[:nature] || :membership)'.c, except: [:index, :show]
 
-  def show
-    if @entity_link = EntityLink.find_by(id: params[:id])
-      redirect_to backend_entity_url(@entity_link.entity_id)
-    else
-      redirect_to backend_entities_url
+    def show
+      if @entity_link = EntityLink.find_by(id: params[:id])
+        redirect_to backend_entity_url(@entity_link.entity_id)
+      else
+        redirect_to backend_entities_url
+      end
     end
-  end
 
-  alias_method :index, :show
+    alias_method :index, :show
+  end
 end

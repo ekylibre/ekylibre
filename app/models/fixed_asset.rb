@@ -178,7 +178,7 @@ class FixedAsset < Ekylibre::Record::Base
         duration = depreciation.duration.round(2)
         depreciation.amount = [remaining_amount, currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
         remaining_amount -= depreciation.amount
-              end
+      end
       depreciation.financial_year = FinancialYear.at(depreciation.started_on)
 
       depreciation.position = position
@@ -209,7 +209,7 @@ class FixedAsset < Ekylibre::Record::Base
         duration = depreciation.duration
         depreciation.amount = [remaining_amount, currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
         remaining_amount -= depreciation.amount
-              end
+      end
       depreciation.financial_year = FinancialYear.at(depreciation.started_on)
 
       depreciation.position = position
@@ -243,25 +243,25 @@ class FixedAsset < Ekylibre::Record::Base
         days += so
       end
 
-      # cursor = started_on.to_date
-      # if started_on == started_on.end_of_month or started_on.day >= 30
-      #   days += 1
-      #   cursor = started_on.end_of_month + 1
-      # elsif started_on.month == stopped_on.month and started_on.year == stopped_on.year
-      #   days += so - sa + 1
-      #   cursor = stopped_on
-      # elsif started_on != started_on.beginning_of_month
-      #   days += 30 - sa + 1
-      #   cursor = started_on.end_of_month + 1
-      # end
+    # cursor = started_on.to_date
+    # if started_on == started_on.end_of_month or started_on.day >= 30
+    #   days += 1
+    #   cursor = started_on.end_of_month + 1
+    # elsif started_on.month == stopped_on.month and started_on.year == stopped_on.year
+    #   days += so - sa + 1
+    #   cursor = stopped_on
+    # elsif started_on != started_on.beginning_of_month
+    #   days += 30 - sa + 1
+    #   cursor = started_on.end_of_month + 1
+    # end
 
-      # while (cursor >> 1).beginning_of_month < stopped_on.beginning_of_month
-      #   cursor = cursor >> 1
-      #   days += 30
-      # end
-      # if cursor < stopped_on
-      #   days += [30, (so - cursor.day + 1)].min
-      # end
+    # while (cursor >> 1).beginning_of_month < stopped_on.beginning_of_month
+    #   cursor = cursor >> 1
+    #   days += 30
+    # end
+    # if cursor < stopped_on
+    #   days += [30, (so - cursor.day + 1)].min
+    # end
     elsif options[:mode] == :linear
       days = (stopped_on - started_on) + 1
     else

@@ -16,21 +16,23 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::PostalZonesController < Backend::BaseController
-  manage_restfully country: 'Preference[:country]'.c
+module Backend
+  class PostalZonesController < Backend::BaseController
+    manage_restfully country: 'Preference[:country]'.c
 
-  unroll
+    unroll
 
-  autocomplete_for :name
+    autocomplete_for :name
 
-  list(conditions: search_conditions(postal_zones: [:postal_code, :name]), order: :name) do |t|
-    t.action :edit
-    t.action :destroy
-    t.column :name
-    t.column :postal_code
-    t.column :city
-    t.column :code
-    t.column :district, url: true
-    t.column :country
+    list(conditions: search_conditions(postal_zones: [:postal_code, :name]), order: :name) do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :name
+      t.column :postal_code
+      t.column :city
+      t.column :code
+      t.column :district, url: true
+      t.column :country
+    end
   end
 end

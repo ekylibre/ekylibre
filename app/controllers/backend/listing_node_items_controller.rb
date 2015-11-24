@@ -16,5 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::ListingNodeItemsController < Backend::BaseController
+module Backend
+  class ListingNodeItemsController < Backend::BaseController
+  end
 end

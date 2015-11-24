@@ -16,18 +16,20 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::TaxesController < Backend::BaseController
-  manage_restfully
+module Backend
+  class TaxesController < Backend::BaseController
+    manage_restfully
 
-  unroll
+    unroll
 
-  list do |t|
-    t.action :edit
-    t.action :destroy
-    t.column :name, url: true
-    t.column :amount, precision: 3
-    t.column :reference_name
-    t.column :deduction_account, url: true
-    t.column :collect_account, url: true
+    list do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :name, url: true
+      t.column :amount, precision: 3
+      t.column :reference_name
+      t.column :deduction_account, url: true
+      t.column :collect_account, url: true
+    end
   end
 end

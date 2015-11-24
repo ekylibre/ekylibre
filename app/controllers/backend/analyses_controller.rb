@@ -16,50 +16,52 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::AnalysesController < Backend::BaseController
-  manage_restfully
-  manage_restfully_attachments
+module Backend
+  class AnalysesController < Backend::BaseController
+    manage_restfully
+    manage_restfully_attachments
 
-  unroll
+    unroll
 
-  # params:
-  #   :q Text search
-  #   :s State search
-  #   :period Two Dates with _ separator
-  #   :variant_id
-  def self.analyses_conditions
-    code = ''
-    code = search_conditions(entities: [:full_name], analyses: [:reference_number, :number]) + " ||= []\n"
-    code << "  if params[:sampler_id].to_i > 0\n"
-    code << "    c[0] << \" AND \#{Entity.table_name}.id = ?\"\n"
-    code << "    c << params[:sampler_id].to_i\n"
-    code << "  end\n"
-    code << "  unless params[:nature].blank?\n"
-    code << "    if Analysis.nature.values.include?(params[:nature].to_sym)\n"
-    code << "      c[0] << ' AND #{Analysis.table_name}.nature = ?'\n"
-    code << "      c << params[:nature]\n"
-    code << "    end\n"
-    code << "  end\n"
-    code << "c\n"
-    code.c
-  end
+    # params:
+    #   :q Text search
+    #   :s State search
+    #   :period Two Dates with _ separator
+    #   :variant_id
+    def self.analyses_conditions
+      code = ''
+      code = search_conditions(entities: [:full_name], analyses: [:reference_number, :number]) + " ||= []\n"
+      code << "  if params[:sampler_id].to_i > 0\n"
+      code << "    c[0] << \" AND \#{Entity.table_name}.id = ?\"\n"
+      code << "    c << params[:sampler_id].to_i\n"
+      code << "  end\n"
+      code << "  unless params[:nature].blank?\n"
+      code << "    if Analysis.nature.values.include?(params[:nature].to_sym)\n"
+      code << "      c[0] << ' AND #{Analysis.table_name}.nature = ?'\n"
+      code << "      c << params[:nature]\n"
+      code << "    end\n"
+      code << "  end\n"
+      code << "c\n"
+      code.c
+    end
 
-  list(conditions: analyses_conditions) do |t|
-    t.action :edit
-    t.action :destroy
-    t.column :number, url: true
-    t.column :reference_number, url: true
-    t.column :nature
-    t.column :product, url: true
-    t.column :analyser, url: true
-    t.column :analysed_at
-    t.column :sampled_at, hidden: true
-    t.column :sampler, url: true, hidden: true
-  end
+    list(conditions: analyses_conditions) do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :number, url: true
+      t.column :reference_number, url: true
+      t.column :nature
+      t.column :product, url: true
+      t.column :analyser, url: true
+      t.column :analysed_at
+      t.column :sampled_at, hidden: true
+      t.column :sampler, url: true, hidden: true
+    end
 
-  list :items, model: :analysis_items, conditions: { analysis_id: 'params[:id]'.c } do |t|
-    t.column :indicator, datatype: :item
-    t.column :value, datatype: :measure
-    t.column :annotation
+    list :items, model: :analysis_items, conditions: { analysis_id: 'params[:id]'.c } do |t|
+      t.column :indicator, datatype: :item
+      t.column :value, datatype: :measure
+      t.column :annotation
+    end
   end
 end

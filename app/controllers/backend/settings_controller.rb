@@ -16,31 +16,33 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::SettingsController < Backend::BaseController
-  def edit
-    Preference.check!
-  end
+module Backend
+  class SettingsController < Backend::BaseController
+    def edit
+      Preference.check!
+    end
 
-  def update
-    saved = true
-    ActiveRecord::Base.transaction do
-      for key, data in params[:preferences]
-        preference = Preference.get!(key)
-        if preference
-          preference.value = data[:value]
-          preference.save
-        else
-          saved = false
+    def update
+      saved = true
+      ActiveRecord::Base.transaction do
+        for key, data in params[:preferences]
+          preference = Preference.get!(key)
+          if preference
+            preference.value = data[:value]
+            preference.save
+          else
+            saved = false
+          end
         end
       end
+      redirect_to_back && return if saved
+      render :edit
     end
-    redirect_to_back && return if saved
-    render :edit
-  end
 
-  def about
-    @properties = []
-    @properties.insert(0, ['Ekylibre version', Ekylibre.version])
-    @properties << ['Database version', ActiveRecord::Migrator.current_version]
+    def about
+      @properties = []
+      @properties.insert(0, ['Ekylibre version', Ekylibre.version])
+      @properties << ['Database version', ActiveRecord::Migrator.current_version]
+    end
   end
 end

@@ -16,17 +16,19 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::EntityAddressesController < Backend::BaseController
-  manage_restfully mail_country: 'Entity.find(params[:entity_id]).country rescue Preference[:country]'.c, t3e: { entity: '@entity_address.entity.full_name'.c }, except: [:index, :show]
-  unroll :coordinate
+module Backend
+  class EntityAddressesController < Backend::BaseController
+    manage_restfully mail_country: 'Entity.find(params[:entity_id]).country rescue Preference[:country]'.c, t3e: { entity: '@entity_address.entity.full_name'.c }, except: [:index, :show]
+    unroll :coordinate
 
-  def show
-    if @entity_address = EntityAddress.find_by(id: params[:id])
-      redirect_to backend_entity_url(@entity_address.entity_id)
-    else
-      redirect_to backend_entities_url
+    def show
+      if @entity_address = EntityAddress.find_by(id: params[:id])
+        redirect_to backend_entity_url(@entity_address.entity_id)
+      else
+        redirect_to backend_entities_url
+      end
     end
-  end
 
-  alias_method :index, :show
+    alias_method :index, :show
+  end
 end

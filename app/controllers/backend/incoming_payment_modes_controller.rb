@@ -16,31 +16,33 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::IncomingPaymentModesController < Backend::BaseController
-  manage_restfully with_accounting: true
-  manage_restfully_list :name
+module Backend
+  class IncomingPaymentModesController < Backend::BaseController
+    manage_restfully with_accounting: true
+    manage_restfully_list :name
 
-  unroll
+    unroll
 
-  list(order: :position) do |t|
-    t.action :up,   method: :post, unless: :first?
-    t.action :down, method: :post, unless: :last?
-    t.action :reflect, method: :post, confirm: true
-    t.action :edit
-    t.action :destroy, if: :destroyable?
-    t.column :name
-    t.column :cash, url: true
-    t.column :with_accounting
-    t.column :with_deposit
-    t.column :detail_payments, hidden: true
-    t.column :depositables_account, url: true, hidden: true
-    t.column :depositables_journal, url: true, hidden: true
-    t.column :with_commission
-  end
+    list(order: :position) do |t|
+      t.action :up,   method: :post, unless: :first?
+      t.action :down, method: :post, unless: :last?
+      t.action :reflect, method: :post, confirm: true
+      t.action :edit
+      t.action :destroy, if: :destroyable?
+      t.column :name
+      t.column :cash, url: true
+      t.column :with_accounting
+      t.column :with_deposit
+      t.column :detail_payments, hidden: true
+      t.column :depositables_account, url: true, hidden: true
+      t.column :depositables_journal, url: true, hidden: true
+      t.column :with_commission
+    end
 
-  def reflect
-    return unless @incoming_payment_mode = find_and_check
-    @incoming_payment_mode.reflect
-    redirect_to action: :index
+    def reflect
+      return unless @incoming_payment_mode = find_and_check
+      @incoming_payment_mode.reflect
+      redirect_to action: :index
+    end
   end
 end

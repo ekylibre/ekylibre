@@ -16,26 +16,28 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::RolesController < Backend::BaseController
-  manage_restfully
+module Backend
+  class RolesController < Backend::BaseController
+    manage_restfully
 
-  manage_restfully_incorporation
+    manage_restfully_incorporation
 
-  unroll
+    unroll
 
-  list(order: :name) do |t|
-    t.action :edit
-    t.action :destroy, if: :destroyable?
-    t.column :name, url: true
-  end
+    list(order: :name) do |t|
+      t.action :edit
+      t.action :destroy, if: :destroyable?
+      t.column :name, url: true
+    end
 
-  list(:users, conditions: { role_id: 'params[:id]'.c }, line_class: "(RECORD.locked ? 'critic' : '')".c, order: :last_name) do |t|
-    t.action :locked, actions: { true => { controller: :users, action: :unlock }, false => { controller: :users, action: :lock } }, method: :post, if: 'RECORD.id != current_user.id'.c
-    t.action :edit
-    t.action :destroy, if: :destroyable?
-    t.column :first_name, url: true
-    t.column :last_name, url: true
-    t.column :administrator
-    t.column :team, url: true
+    list(:users, conditions: { role_id: 'params[:id]'.c }, line_class: "(RECORD.locked ? 'critic' : '')".c, order: :last_name) do |t|
+      t.action :locked, actions: { true => { controller: :users, action: :unlock }, false => { controller: :users, action: :lock } }, method: :post, if: 'RECORD.id != current_user.id'.c
+      t.action :edit
+      t.action :destroy, if: :destroyable?
+      t.column :first_name, url: true
+      t.column :last_name, url: true
+      t.column :administrator
+      t.column :team, url: true
+    end
   end
 end

@@ -16,31 +16,33 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::AnimalGroupsController < Backend::BaseController
-  manage_restfully
+module Backend
+  class AnimalGroupsController < Backend::BaseController
+    manage_restfully
 
-  respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
+    respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
-  unroll
+    unroll
 
-  list do |t|
-    # t.action :show, url: {format: :pdf}, image: :print
-    t.action :edit
-    t.action :destroy
-    t.column :name, url: true
-    t.column :description
-  end
+    list do |t|
+      # t.action :show, url: {format: :pdf}, image: :print
+      t.action :edit
+      t.action :destroy
+      t.column :name, url: true
+      t.column :description
+    end
 
-  list(:animals, model: :product_memberships, conditions: { group_id: 'params[:id]'.c }, order: :started_at) do |t|
-    t.column :member, url: true
-    t.column :started_at
-    t.column :stopped_at
-  end
+    list(:animals, model: :product_memberships, conditions: { group_id: 'params[:id]'.c }, order: :started_at) do |t|
+      t.column :member, url: true
+      t.column :started_at
+      t.column :stopped_at
+    end
 
-  list(:places, model: :product_localizations, conditions: { product_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
-    t.column :container, url: true
-    t.column :nature
-    t.column :started_at
-    t.column :stopped_at
+    list(:places, model: :product_localizations, conditions: { product_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
+      t.column :container, url: true
+      t.column :nature
+      t.column :started_at
+      t.column :stopped_at
+    end
   end
 end

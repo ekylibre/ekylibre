@@ -16,17 +16,19 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::SnippetsController < Backend::BaseController
-  # Saves the state of the side snippets
-  def toggle
-    collapsed = !params[:collapsed].to_i.zero?
-    snippet = params[:id].to_s.strip
-    if snippet.blank?
-      head :not_found
-    else
-      p = current_user.preference("interface.snippets.#{snippet}.collapsed", false, :boolean)
-      p.set!(collapsed)
-      head :ok
+module Backend
+  class SnippetsController < Backend::BaseController
+    # Saves the state of the side snippets
+    def toggle
+      collapsed = !params[:collapsed].to_i.zero?
+      snippet = params[:id].to_s.strip
+      if snippet.blank?
+        head :not_found
+      else
+        p = current_user.preference("interface.snippets.#{snippet}.collapsed", false, :boolean)
+        p.set!(collapsed)
+        head :ok
+      end
     end
   end
 end

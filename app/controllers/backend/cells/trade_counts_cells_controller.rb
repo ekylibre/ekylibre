@@ -1,4 +1,8 @@
-class Backend::Cells::TradeCountsCellsController < Backend::Cells::BaseController
-  def show
+module Backend
+  module Cells
+    class TradeCountsCellsController < Backend::Cells::BaseController
+      def show
+      end
+    end
   end
 end

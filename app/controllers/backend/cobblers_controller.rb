@@ -16,18 +16,20 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::CobblersController < Backend::BaseController
-  def update
-    unless params['order']
-      head :unprocessable_entity
-      return
-    end
-    order = params['order'].to_a
-    begin
-      current_user.prefer!("cobbler.#{params[:id]}", { order: order }.deep_stringify_keys.to_yaml)
-      head :ok
-    rescue ActiveRecord::StaleObjectError
-      head :locked
+module Backend
+  class CobblersController < Backend::BaseController
+    def update
+      unless params['order']
+        head :unprocessable_entity
+        return
+      end
+      order = params['order'].to_a
+      begin
+        current_user.prefer!("cobbler.#{params[:id]}", { order: order }.deep_stringify_keys.to_yaml)
+        head :ok
+      rescue ActiveRecord::StaleObjectError
+        head :locked
+      end
     end
   end
 end

@@ -16,30 +16,32 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::EquipmentsController < Backend::MattersController
-  # params:
-  #   :q Text search
-  #   :s State search
-  #   :period Two Dates with _ separator
-  #   :variant_id
-  def self.equipments_conditions
-    code = ''
-    code = search_conditions(product_nature_variants: [:name]) + " ||= []\n"
-    code << "  if params[:variant_id].to_i > 0\n"
-    code << "    c[0] << \" AND \#{ProductNatureVariant.table_name}.id = ?\"\n"
-    code << "    c << params[:variant_id].to_i\n"
-    code << "  end\n"
-    code << "c\n"
-    code.c
-  end
+module Backend
+  class EquipmentsController < Backend::MattersController
+    # params:
+    #   :q Text search
+    #   :s State search
+    #   :period Two Dates with _ separator
+    #   :variant_id
+    def self.equipments_conditions
+      code = ''
+      code = search_conditions(product_nature_variants: [:name]) + " ||= []\n"
+      code << "  if params[:variant_id].to_i > 0\n"
+      code << "    c[0] << \" AND \#{ProductNatureVariant.table_name}.id = ?\"\n"
+      code << "    c << params[:variant_id].to_i\n"
+      code << "  end\n"
+      code << "c\n"
+      code.c
+    end
 
-  list(conditions: equipments_conditions, joins: :variants) do |t|
-    t.action :edit
-    t.action :destroy
-    t.column :work_number, url: true
-    t.column :name, url: true
-    t.column :born_at
-    t.status
-    t.column :container, url: true
+    list(conditions: equipments_conditions, joins: :variants) do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :work_number, url: true
+      t.column :name, url: true
+      t.column :born_at
+      t.status
+      t.column :container, url: true
+    end
   end
 end

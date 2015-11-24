@@ -16,17 +16,19 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::WineTanksController < Backend::BaseController
-  list model: :products, scope: [:availables, "can('store(wine)')".c, "can('store_liquid')".c] do |t|
-    t.action :edit
-    t.action :destroy, if: :destroyable?
-    t.column :work_number, url: true
-    t.column :name, url: true
-    t.column :contents_name, datatype: :text
-    t.column :nominal_storable_net_volume, datatype: :measure
-    t.column :container, url: true
-  end
+module Backend
+  class WineTanksController < Backend::BaseController
+    list model: :products, scope: [:availables, "can('store(wine)')".c, "can('store_liquid')".c] do |t|
+      t.action :edit
+      t.action :destroy, if: :destroyable?
+      t.column :work_number, url: true
+      t.column :name, url: true
+      t.column :contents_name, datatype: :text
+      t.column :nominal_storable_net_volume, datatype: :measure
+      t.column :container, url: true
+    end
 
-  def index
+    def index
+    end
   end
 end

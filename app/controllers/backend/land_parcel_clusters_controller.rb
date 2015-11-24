@@ -16,5 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::LandParcelClustersController < Backend::LandParcelGroupsController
+module Backend
+  class LandParcelClustersController < Backend::LandParcelGroupsController
+  end
 end

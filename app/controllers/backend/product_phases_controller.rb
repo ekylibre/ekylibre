@@ -16,5 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::ProductPhasesController < Backend::BaseController
+module Backend
+  class ProductPhasesController < Backend::BaseController
+  end
 end

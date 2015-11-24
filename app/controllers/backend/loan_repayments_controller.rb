@@ -16,16 +16,18 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::LoanRepaymentsController < Backend::BaseController
-  def index
-    redirect_to backend_loans_url
-  end
+module Backend
+  class LoanRepaymentsController < Backend::BaseController
+    def index
+      redirect_to backend_loans_url
+    end
 
-  def show
-    if @loan_repayment = LoanRepayment.find_by(id: params[:id])
-      redirect_to backend_loan_url(@loan_repayment.loan_id)
-    else
-      redirect_to backend_root_url
+    def show
+      if @loan_repayment = LoanRepayment.find_by(id: params[:id])
+        redirect_to backend_loan_url(@loan_repayment.loan_id)
+      else
+        redirect_to backend_root_url
+      end
     end
   end
 end

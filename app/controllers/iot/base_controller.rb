@@ -16,16 +16,18 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Iot::BaseController < ActionController::Base
-  include ActionController::Flash
-  before_action :authenticate_thing!
+module Iot
+  class BaseController < ActionController::Base
+    include ActionController::Flash
+    before_action :authenticate_thing!
 
-  hide_action :authenticate_thing!
-  def authenticate_thing!
-    @sensor = Sensor.find_by(token: params.delete(:token))
-    unless @sensor
-      render status: :unauthorized, json: { message: 'Unauthorized.' }
-      false
+    hide_action :authenticate_thing!
+    def authenticate_thing!
+      @sensor = Sensor.find_by(token: params.delete(:token))
+      unless @sensor
+        render status: :unauthorized, json: { message: 'Unauthorized.' }
+        false
+      end
     end
   end
 end

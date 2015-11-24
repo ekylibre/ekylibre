@@ -16,13 +16,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::ProductGroupsController < Backend::ProductsController
-  list do |t|
-    # t.action :show, url: {format: :pdf}, image: :print
-    t.action :edit
-    t.action :destroy, if: :destroyable?
-    t.column :name, url: true
-    t.column :variety
-    t.column :description
+module Backend
+  class ProductGroupsController < Backend::ProductsController
+    list do |t|
+      # t.action :show, url: {format: :pdf}, image: :print
+      t.action :edit
+      t.action :destroy, if: :destroyable?
+      t.column :name, url: true
+      t.column :variety
+      t.column :description
+    end
   end
 end

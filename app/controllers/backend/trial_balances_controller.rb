@@ -18,8 +18,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::TrialBalancesController < Backend::BaseController
-  def show
-    @balance = Journal.trial_balance(params) if params[:period]
+module Backend
+  class TrialBalancesController < Backend::BaseController
+    def show
+      @balance = Journal.trial_balance(params) if params[:period]
+    end
   end
 end

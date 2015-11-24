@@ -66,7 +66,7 @@ class ProductJunctionWay < Ekylibre::Record::Base
     if junction
       reflection = junction.reflect_on(role)
       if reflection
-        # TODO: check cardinality
+      # TODO: check cardinality
       else
         errors.add(:role, :invalid)
       end

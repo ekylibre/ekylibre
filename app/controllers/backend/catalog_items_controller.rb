@@ -16,19 +16,21 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::CatalogItemsController < Backend::BaseController
-  manage_restfully except: [:index], destroy_to: '{controller: :catalogs, action: :show, id: RECORD.catalog_id}'.c
+module Backend
+  class CatalogItemsController < Backend::BaseController
+    manage_restfully except: [:index], destroy_to: '{controller: :catalogs, action: :show, id: RECORD.catalog_id}'.c
 
-  unroll
+    unroll
 
-  list do |t|
-    t.action :edit
-    t.action :destroy
-    t.column :name, url: true
-    t.column :variant, url: true
-    t.column :amount, currency: true
-    t.column :reference_tax, url: true
-    t.column :all_taxes_included
-    t.column :catalog, url: true
+    list do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :name, url: true
+      t.column :variant, url: true
+      t.column :amount, currency: true
+      t.column :reference_tax, url: true
+      t.column :all_taxes_included
+      t.column :catalog, url: true
+    end
   end
 end

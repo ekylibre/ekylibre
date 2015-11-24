@@ -16,32 +16,34 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::CrumbsController < Backend::BaseController
-  manage_restfully only: [:update, :destroy]
+module Backend
+  class CrumbsController < Backend::BaseController
+    manage_restfully only: [:update, :destroy]
 
-  def index
-    unless params[:worked_on].blank?
-      @worked_on = params[:worked_on].to_date
-    else
-      @worked_on = current_user.unconverted_crumb_days.first
-    end
-  end
-
-  # Creates an intervention from crumb and redirects to an edit form for
-  # the newly created intervention.
-  def convert
-    return unless crumb = find_and_check
-    begin
-      if intervention = crumb.convert!(params.slice(:procedure_name, :support_id, :actors_ids, :relevance, :limit, :history, :provisional, :max_arity))
-        redirect_to edit_backend_intervention_path(intervention)
-      elsif current_user.unconverted_crumb_days.any?
-        redirect_to backend_crumbs_path(worked_on: params[:worked_on])
+    def index
+      unless params[:worked_on].blank?
+        @worked_on = params[:worked_on].to_date
       else
-        redirect_to backend_interventions_path
+        @worked_on = current_user.unconverted_crumb_days.first
       end
-    rescue StandardError => e
-      notify_error(e.message)
-      redirect_to backend_crumbs_path
+    end
+
+    # Creates an intervention from crumb and redirects to an edit form for
+    # the newly created intervention.
+    def convert
+      return unless crumb = find_and_check
+      begin
+        if intervention = crumb.convert!(params.slice(:procedure_name, :support_id, :actors_ids, :relevance, :limit, :history, :provisional, :max_arity))
+          redirect_to edit_backend_intervention_path(intervention)
+        elsif current_user.unconverted_crumb_days.any?
+          redirect_to backend_crumbs_path(worked_on: params[:worked_on])
+        else
+          redirect_to backend_interventions_path
+        end
+      rescue StandardError => e
+        notify_error(e.message)
+        redirect_to backend_crumbs_path
+      end
     end
   end
 end

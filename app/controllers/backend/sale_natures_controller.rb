@@ -16,25 +16,27 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::SaleNaturesController < Backend::BaseController
-  manage_restfully # t3e: {percent: :downpayment_percentage, amount: :downpayment}
-  manage_restfully currency: 'Preference[:currency]'.c
+module Backend
+  class SaleNaturesController < Backend::BaseController
+    manage_restfully # t3e: {percent: :downpayment_percentage, amount: :downpayment}
+    manage_restfully currency: 'Preference[:currency]'.c
 
-  unroll
+    unroll
 
-  list do |t|
-    t.action :edit
-    t.action :destroy
-    t.column :name, url: true
-    t.column :active
-    t.column :currency
-    # t.column :name, :through => :expiration, url: true
-    # t.column :name, :through => :payment_delay, url: true
-    t.column :downpayment
-    # t.column :downpayment_minimum
-    # t.column :downpayment_percentage
-    t.column :with_accounting
-    t.column :journal, url: true
-    # t.column :description
+    list do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :name, url: true
+      t.column :active
+      t.column :currency
+      # t.column :name, :through => :expiration, url: true
+      # t.column :name, :through => :payment_delay, url: true
+      t.column :downpayment
+      # t.column :downpayment_minimum
+      # t.column :downpayment_percentage
+      t.column :with_accounting
+      t.column :journal, url: true
+      # t.column :description
+    end
   end
 end

@@ -16,48 +16,50 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::ProductNaturesController < Backend::BaseController
-  manage_restfully population_counting: :decimal, active: true
+module Backend
+  class ProductNaturesController < Backend::BaseController
+    manage_restfully population_counting: :decimal, active: true
 
-  manage_restfully_incorporation
+    manage_restfully_incorporation
 
-  unroll
+    unroll
 
-  # management -> product_conditions
-  def self.product_natures_conditions(_options = {})
-    code = ''
-    code = search_conditions(product_natures: [:number, :name, :description]) + "\n"
-    code << "if params[:s] == 'active'\n"
-    code << "  c[0] += ' AND active = ?'\n"
-    code << "  c << true\n"
-    code << "elsif params[:s] == 'inactive'\n"
-    code << "  c[0] += ' AND active = ?'\n"
-    code << "  c << false\n"
-    code << "end\n"
-    code << "c\n"
-    code.c
-  end
+    # management -> product_conditions
+    def self.product_natures_conditions(_options = {})
+      code = ''
+      code = search_conditions(product_natures: [:number, :name, :description]) + "\n"
+      code << "if params[:s] == 'active'\n"
+      code << "  c[0] += ' AND active = ?'\n"
+      code << "  c << true\n"
+      code << "elsif params[:s] == 'inactive'\n"
+      code << "  c[0] += ' AND active = ?'\n"
+      code << "  c << false\n"
+      code << "end\n"
+      code << "c\n"
+      code.c
+    end
 
-  list do |t|
-    t.action :edit
-    t.action :destroy, if: :destroyable?
-    t.column :name, url: true
-    t.column :category, url: true
-    t.column :reference_name
-    t.column :active
-    t.column :variety
-    t.column :derivative_of
-  end
+    list do |t|
+      t.action :edit
+      t.action :destroy, if: :destroyable?
+      t.column :name, url: true
+      t.column :category, url: true
+      t.column :reference_name
+      t.column :active
+      t.column :variety
+      t.column :derivative_of
+    end
 
-  list(:variants, model: :product_nature_variants, conditions: { nature_id: 'params[:id]'.c }, order: :name) do |t|
-    t.action :new, on: :none, url: { nature_id: 'params[:id]'.c, redirect: 'request.fullpath'.c }
-    t.action :edit
-    t.action :destroy
-    t.column :active
-    t.column :number, url: true
-    t.column :name, url: true
-    t.column :variety
-    t.column :derivative_of
-    t.column :unit_name
+    list(:variants, model: :product_nature_variants, conditions: { nature_id: 'params[:id]'.c }, order: :name) do |t|
+      t.action :new, on: :none, url: { nature_id: 'params[:id]'.c, redirect: 'request.fullpath'.c }
+      t.action :edit
+      t.action :destroy
+      t.column :active
+      t.column :number, url: true
+      t.column :name, url: true
+      t.column :variety
+      t.column :derivative_of
+      t.column :unit_name
+    end
   end
 end

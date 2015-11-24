@@ -16,25 +16,27 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::CampaignsController < Backend::BaseController
-  manage_restfully
+module Backend
+  class CampaignsController < Backend::BaseController
+    manage_restfully
 
-  unroll
+    unroll
 
-  list do |t|
-    t.action :edit
-    t.action :destroy, if: :destroyable?
-    t.column :name, url: true
-    t.column :harvest_year
-    t.column :closed
-  end
+    list do |t|
+      t.action :edit
+      t.action :destroy, if: :destroyable?
+      t.column :name, url: true
+      t.column :harvest_year
+      t.column :closed
+    end
 
-  # List of productions for one campaign
-  list(:activity_productions, conditions: "campaign = Campaign.find(params[:id])\n['(started_at, stopped_at) OVERLAPS (?, ?)', campaign.started_on, campaign.stopped_on]".c, order: { started_at: :desc }) do |t|
-    t.column :name, url: true
-    # t.column :product_nature, url: true
-    t.column :state
-    t.column :started_at
-    t.column :stopped_at
+    # List of productions for one campaign
+    list(:activity_productions, conditions: "campaign = Campaign.find(params[:id])\n['(started_at, stopped_at) OVERLAPS (?, ?)', campaign.started_on, campaign.stopped_on]".c, order: { started_at: :desc }) do |t|
+      t.column :name, url: true
+      # t.column :product_nature, url: true
+      t.column :state
+      t.column :started_at
+      t.column :stopped_at
+    end
   end
 end

@@ -16,16 +16,18 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::DistrictsController < Backend::BaseController
-  manage_restfully
+module Backend
+  class DistrictsController < Backend::BaseController
+    manage_restfully
 
-  unroll
+    unroll
 
-  list(children: :postal_zones, conditions: search_conditions(districts: [:code, :name]), order: :name) do |t|
-    t.action :new, url: { controller: :postal_zones, district_id: 'RECORD.id'.c, id: 'nil'.c }
-    t.action :edit
-    t.action :destroy
-    t.column :name
-    t.column :code
+    list(children: :postal_zones, conditions: search_conditions(districts: [:code, :name]), order: :name) do |t|
+      t.action :new, url: { controller: :postal_zones, district_id: 'RECORD.id'.c, id: 'nil'.c }
+      t.action :edit
+      t.action :destroy
+      t.column :name
+      t.column :code
+    end
   end
 end

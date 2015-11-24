@@ -16,15 +16,17 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::VisualsController < Backend::BaseController
-  skip_before_action :authenticate_user!
-  skip_before_action :authorize_user!
+module Backend
+  class VisualsController < Backend::BaseController
+    skip_before_action :authenticate_user!
+    skip_before_action :authorize_user!
 
-  def picture
-    if Ekylibre::CorporateIdentity::Visual.file?
-      send_file(Ekylibre::CorporateIdentity::Visual.path)
-    else
-      head :not_found
+    def picture
+      if Ekylibre::CorporateIdentity::Visual.file?
+        send_file(Ekylibre::CorporateIdentity::Visual.path)
+      else
+        head :not_found
+      end
     end
   end
 end

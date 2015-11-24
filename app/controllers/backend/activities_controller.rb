@@ -16,58 +16,60 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::ActivitiesController < Backend::BaseController
-  manage_restfully
+module Backend
+  class ActivitiesController < Backend::BaseController
+    manage_restfully
 
-  unroll
+    unroll
 
-  list do |t|
-    # t.action :show, url: {format: :pdf}, image: :print
-    t.action :edit
-    t.action :destroy, if: :destroyable?
-    t.column :name, url: true
-    t.column :nature
-    t.column :family
-    t.column :with_cultivation
-    t.column :cultivation_variety, hidden: true
-    t.column :with_supports
-    t.column :support_variety, hidden: true
-  end
-
-  # Returns wanted varieties proposition for given family_name
-  def family
-    unless family = Nomen::ActivityFamily[params[:name]]
-      head :not_found
-      return
+    list do |t|
+      # t.action :show, url: {format: :pdf}, image: :print
+      t.action :edit
+      t.action :destroy, if: :destroyable?
+      t.column :name, url: true
+      t.column :nature
+      t.column :family
+      t.column :with_cultivation
+      t.column :cultivation_variety, hidden: true
+      t.column :with_supports
+      t.column :support_variety, hidden: true
     end
-    data = {
-      label: family.human_name,
-      name: family.name
-    }
-    if family.cultivation_variety
-      data[:cultivation_varieties] = Nomen::Variety.selection_hash(family.cultivation_variety)
-    end
-    if family.support_variety
-      data[:support_varieties] = Nomen::Variety.selection_hash(family.support_variety)
-    end
-    render json: data
-  end
 
-  # List of productions for one activity
-  list(:productions, model: :activity_production, conditions: { activity_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
-    t.action :edit
-    t.action :destroy
-    t.column :name, url: true
-    # t.column :campaign, url: true
-    # t.column :product_nature, url: true
-    t.column :state
-    t.column :started_at
-    t.column :stopped_at
-  end
+    # Returns wanted varieties proposition for given family_name
+    def family
+      unless family = Nomen::ActivityFamily[params[:name]]
+        head :not_found
+        return
+      end
+      data = {
+        label: family.human_name,
+        name: family.name
+      }
+      if family.cultivation_variety
+        data[:cultivation_varieties] = Nomen::Variety.selection_hash(family.cultivation_variety)
+      end
+      if family.support_variety
+        data[:support_varieties] = Nomen::Variety.selection_hash(family.support_variety)
+      end
+      render json: data
+    end
 
-  # List of distribution for one activity
-  list(:distributions, model: :activity_distributions, conditions: { activity_id: 'params[:id]'.c }) do |t|
-    t.column :affectation_percentage, percentage: true
-    t.column :main_activity, url: true
+    # List of productions for one activity
+    list(:productions, model: :activity_production, conditions: { activity_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :name, url: true
+      # t.column :campaign, url: true
+      # t.column :product_nature, url: true
+      t.column :state
+      t.column :started_at
+      t.column :stopped_at
+    end
+
+    # List of distribution for one activity
+    list(:distributions, model: :activity_distributions, conditions: { activity_id: 'params[:id]'.c }) do |t|
+      t.column :affectation_percentage, percentage: true
+      t.column :main_activity, url: true
+    end
   end
 end

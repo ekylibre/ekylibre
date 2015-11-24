@@ -16,22 +16,24 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::GapsController < Backend::BaseController
-  manage_restfully only: [:index, :show, :destroy]
+module Backend
+  class GapsController < Backend::BaseController
+    manage_restfully only: [:index, :show, :destroy]
 
-  list do |t|
-    t.action :destroy
-    t.column :number, url: true
-    t.column :entity, url: true
-    t.column :direction
-    t.column :pretax_amount, currency: true
-    t.column :amount, currency: true
-    t.column :printed_at
-  end
+    list do |t|
+      t.action :destroy
+      t.column :number, url: true
+      t.column :entity, url: true
+      t.column :direction
+      t.column :pretax_amount, currency: true
+      t.column :amount, currency: true
+      t.column :printed_at
+    end
 
-  list(:items, model: :gap_items, conditions: { gap_id: 'params[:id]'.c }) do |t|
-    t.column :tax, url: true
-    t.column :pretax_amount, currency: true
-    t.column :amount, currency: true
+    list(:items, model: :gap_items, conditions: { gap_id: 'params[:id]'.c }) do |t|
+      t.column :tax, url: true
+      t.column :pretax_amount, currency: true
+      t.column :amount, currency: true
+    end
   end
 end

@@ -16,5 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::SettlementsController < Backend::MattersController
+module Backend
+  class SettlementsController < Backend::MattersController
+  end
 end

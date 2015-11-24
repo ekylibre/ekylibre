@@ -16,43 +16,45 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::ProductNatureCategoriesController < Backend::BaseController
-  manage_restfully active: true, pictogram: :undefined
+module Backend
+  class ProductNatureCategoriesController < Backend::BaseController
+    manage_restfully active: true, pictogram: :undefined
 
-  manage_restfully_incorporation
+    manage_restfully_incorporation
 
-  unroll
+    unroll
 
-  list do |t|
-    t.action :new,  on: :none
-    t.action :pick, on: :none
-    t.action :edit
-    t.action :destroy, if: :destroyable?
-    t.column :name, url: true
-    t.column :saleable
-    t.column :purchasable
-    t.column :storable
-    t.column :depreciable
-  end
+    list do |t|
+      t.action :new,  on: :none
+      t.action :pick, on: :none
+      t.action :edit
+      t.action :destroy, if: :destroyable?
+      t.column :name, url: true
+      t.column :saleable
+      t.column :purchasable
+      t.column :storable
+      t.column :depreciable
+    end
 
-  list(:products, conditions: { category_id: 'params[:id]'.c }, order: { born_at: :desc }) do |t|
-    t.column :name, url: true
-    t.column :identification_number
-    t.column :born_at
-    t.column :net_mass
-    t.column :net_volume
-    t.column :population
-  end
+    list(:products, conditions: { category_id: 'params[:id]'.c }, order: { born_at: :desc }) do |t|
+      t.column :name, url: true
+      t.column :identification_number
+      t.column :born_at
+      t.column :net_mass
+      t.column :net_volume
+      t.column :population
+    end
 
-  list(:product_natures, conditions: { category_id: 'params[:id]'.c }, order: :name) do |t|
-    t.action :edit
-    t.action :destroy, if: :destroyable?
-    t.column :name, url: true
-    t.column :variety
-  end
+    list(:product_natures, conditions: { category_id: 'params[:id]'.c }, order: :name) do |t|
+      t.action :edit
+      t.action :destroy, if: :destroyable?
+      t.column :name, url: true
+      t.column :variety
+    end
 
-  list(:taxations, model: :product_nature_category_taxations, conditions: { product_nature_category_id: 'params[:id]'.c }, order: :id) do |t|
-    t.column :tax, url: true
-    t.column :usage
+    list(:taxations, model: :product_nature_category_taxations, conditions: { product_nature_category_id: 'params[:id]'.c }, order: :id) do |t|
+      t.column :tax, url: true
+      t.column :usage
+    end
   end
 end

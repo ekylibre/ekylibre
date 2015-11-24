@@ -253,7 +253,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
                       { name: '', symbol: unit.symbol, human_name: unit.human_name }
                     else
                       { name: '', symbol: unit_name, human_name: unit_name }
-                     end
+                    end
       hash
     end
 

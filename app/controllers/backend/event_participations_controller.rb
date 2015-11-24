@@ -16,18 +16,20 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::EventParticipationsController < Backend::BaseController
-  def index
-    redirect_to backend_events_url
-  end
-
-  def show
-    if @event_participation = EventParticipation.find_by(id: params[:id])
-      redirect_to backend_event_url(@event_participation.event_id)
-    else
-      redirect_to backend_root_url
+module Backend
+  class EventParticipationsController < Backend::BaseController
+    def index
+      redirect_to backend_events_url
     end
-  end
 
-  manage_restfully except: [:index, :show], t3e: { participant_name: :participant_name }, redirect_to: { controller: :events, action: :show, id: 'RECORD.event_id'.c }, destroy_to: { controller: :events, action: :show, id: 'RECORD.event_id'.c }
+    def show
+      if @event_participation = EventParticipation.find_by(id: params[:id])
+        redirect_to backend_event_url(@event_participation.event_id)
+      else
+        redirect_to backend_root_url
+      end
+    end
+
+    manage_restfully except: [:index, :show], t3e: { participant_name: :participant_name }, redirect_to: { controller: :events, action: :show, id: 'RECORD.event_id'.c }, destroy_to: { controller: :events, action: :show, id: 'RECORD.event_id'.c }
+  end
 end

@@ -17,25 +17,29 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Api::V1::CrumbsController < Api::V1::BaseController
-  def index
-    render json: current_user.crumbs, status: :ok
-  end
+module Api
+  module V1
+    class CrumbsController < Api::V1::BaseController
+      def index
+        render json: current_user.crumbs, status: :ok
+      end
 
-  def create
-    crumb = Crumb.new(permitted_params)
-    crumb.user = current_user
-    if crumb.save
-      render json: { id: crumb.id }, status: :created
-    else
-      render json: crumb.errors, status: :unprocessable_entity
+      def create
+        crumb = Crumb.new(permitted_params)
+        crumb.user = current_user
+        if crumb.save
+          render json: { id: crumb.id }, status: :created
+        else
+          render json: crumb.errors, status: :unprocessable_entity
+        end
+      end
+
+      protected
+
+      def permitted_params
+        params.permit(:nature, :geolocation, :read_at, :accuracy, :device_uid, metadata: [:procedure_nature, :name, :scanned_code, :quantity, :unit])
+        # params.permit!
+      end
     end
-  end
-
-  protected
-
-  def permitted_params
-    params.permit(:nature, :geolocation, :read_at, :accuracy, :device_uid, metadata: [:procedure_nature, :name, :scanned_code, :quantity, :unit])
-    # params.permit!
   end
 end

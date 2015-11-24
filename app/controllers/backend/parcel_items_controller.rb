@@ -16,18 +16,20 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::ParcelItemsController < Backend::BaseController
-  def new
-    if request.xhr? && params[:variant_id]
-      unless @parcel = Parcel.find_by(id: params[:parcel_id])
-        @parcel = Parcel.new
+module Backend
+  class ParcelItemsController < Backend::BaseController
+    def new
+      if request.xhr? && params[:variant_id]
+        unless @parcel = Parcel.find_by(id: params[:parcel_id])
+          @parcel = Parcel.new
+        end
+        return unless variant = find_and_check(:product_nature_variant, params[:variant_id])
+        params[:external] ||= false
+        @parcel.items.build(product_nature_variant_id: variant.id) # (id: rand(1_000_000_000))
+        render partial: 'nested_form'
+      else
+        redirect_to backend_root_url
       end
-      return unless variant = find_and_check(:product_nature_variant, params[:variant_id])
-      params[:external] ||= false
-      @parcel.items.build(product_nature_variant_id: variant.id) # (id: rand(1_000_000_000))
-      render partial: 'nested_form'
-    else
-      redirect_to backend_root_url
     end
   end
 end

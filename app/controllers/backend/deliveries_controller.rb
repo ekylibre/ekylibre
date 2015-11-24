@@ -16,41 +16,43 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::DeliveriesController < Backend::BaseController
-  manage_restfully parcel_ids: '(params[:parcel_ids] || [])'.c
-  manage_restfully_attachments
+module Backend
+  class DeliveriesController < Backend::BaseController
+    manage_restfully parcel_ids: '(params[:parcel_ids] || [])'.c
+    manage_restfully_attachments
 
-  unroll
+    unroll
 
-  list(conditions: search_conditions(deliveries: [:number, :annotation], entities: [:number, :full_name])) do |t|
-    t.action :edit
-    t.action :destroy
-    t.column :number, url: true
-    t.column :annotation
-    t.status
-    t.column :state
-    t.column :started_at
-    t.column :transporter, label_method: :full_name, url: true
-    # t.column :net_mass
-  end
+    list(conditions: search_conditions(deliveries: [:number, :annotation], entities: [:number, :full_name])) do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :number, url: true
+      t.column :annotation
+      t.status
+      t.column :state
+      t.column :started_at
+      t.column :transporter, label_method: :full_name, url: true
+      # t.column :net_mass
+    end
 
-  list(:parcels, conditions: { delivery_id: 'params[:id]'.c }, order: :position) do |t|
-    t.action :edit
-    t.action :destroy
-    t.column :number, url: true
-    t.column :nature
-    t.column :state
-    t.status
-    t.column :sender, url: true
-    t.column :recipient, url: true
-    t.column :sale, url: true, hidden: true
-    t.column :purchase, url: true, hidden: true
-    # t.column :net_mass
-  end
+    list(:parcels, conditions: { delivery_id: 'params[:id]'.c }, order: :position) do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :number, url: true
+      t.column :nature
+      t.column :state
+      t.status
+      t.column :sender, url: true
+      t.column :recipient, url: true
+      t.column :sale, url: true, hidden: true
+      t.column :purchase, url: true, hidden: true
+      # t.column :net_mass
+    end
 
-  Delivery.state_machine.events.each do |event|
-    define_method event.name do
-      fire_event(event.name)
+    Delivery.state_machine.events.each do |event|
+      define_method event.name do
+        fire_event(event.name)
+      end
     end
   end
 end

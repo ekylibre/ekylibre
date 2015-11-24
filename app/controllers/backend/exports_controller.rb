@@ -16,28 +16,30 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::ExportsController < Backend::BaseController
-  respond_to :pdf, :odt, :ods, :docx, :xlsx, :xml, :json, :html, :csv
+module Backend
+  class ExportsController < Backend::BaseController
+    respond_to :pdf, :odt, :ods, :docx, :xlsx, :xml, :json, :html, :csv
 
-  def index
-  end
-
-  def show
-    unless klass = Aggeratio[params[:id]]
-      head :not_found
-      return
+    def index
     end
 
-    klass.parameters.each do |parameter|
-      next if parameter.record_list?
-      value_preference = "exports.#{klass.name}.parameters.#{parameter.name}.value"
-      value = current_user.preference(value_preference, parameter.default).value
-      params[parameter.name] ||= value
-      current_user.prefer!(value_preference, params[parameter.name])
-    end
+    def show
+      unless klass = Aggeratio[params[:id]]
+        head :not_found
+        return
+      end
 
-    @aggregator = klass.new(params)
-    t3e name: klass.human_name
-    respond_with @aggregator
+      klass.parameters.each do |parameter|
+        next if parameter.record_list?
+        value_preference = "exports.#{klass.name}.parameters.#{parameter.name}.value"
+        value = current_user.preference(value_preference, parameter.default).value
+        params[parameter.name] ||= value
+        current_user.prefer!(value_preference, params[parameter.name])
+      end
+
+      @aggregator = klass.new(params)
+      t3e name: klass.human_name
+      respond_with @aggregator
+    end
   end
 end

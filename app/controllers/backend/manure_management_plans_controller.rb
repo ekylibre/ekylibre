@@ -16,48 +16,50 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::ManureManagementPlansController < Backend::BaseController
-  manage_restfully redirect_to: "{action: :edit, id: 'id'.c}".c
-  manage_restfully_attachments
+module Backend
+  class ManureManagementPlansController < Backend::BaseController
+    manage_restfully redirect_to: "{action: :edit, id: 'id'.c}".c
+    manage_restfully_attachments
 
-  respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
+    respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
-  unroll
+    unroll
 
-  list do |t|
-    t.action :edit
-    t.action :destroy
-    t.column :name, url: true
-    t.column :campaign, url: true
-    t.column :recommender, url: true
-    t.column :opened_at, hidden: true
-    t.column :default_computation_method, hidden: true
-    t.column :selected, hidden: true
-    t.column :annotation
-  end
+    list do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :name, url: true
+      t.column :campaign, url: true
+      t.column :recommender, url: true
+      t.column :opened_at, hidden: true
+      t.column :default_computation_method, hidden: true
+      t.column :selected, hidden: true
+      t.column :annotation
+    end
 
-  list :zones, model: :manure_management_plan_zones, conditions: { plan_id: 'params[:id]'.c } do |t|
-    t.column :activity, url: true
-    t.column :cultivable_zone, url: true
-    t.column :nitrogen_need
-    t.column :absorbed_nitrogen_at_opening, hidden: true
-    t.column :mineral_nitrogen_at_opening, hidden: true
-    t.column :humus_mineralization, hidden: true
-    t.column :meadow_humus_mineralization, hidden: true
-    t.column :previous_cultivation_residue_mineralization, hidden: true
-    t.column :intermediate_cultivation_residue_mineralization, hidden: true
-    t.column :irrigation_water_nitrogen, hidden: true
-    t.column :organic_fertilizer_mineral_fraction, hidden: true
-    t.column :nitrogen_at_closing, hidden: true
-    t.column :soil_production, hidden: true
-    t.column :maximum_nitrogen_input
-    t.column :nitrogen_input
-  end
+    list :zones, model: :manure_management_plan_zones, conditions: { plan_id: 'params[:id]'.c } do |t|
+      t.column :activity, url: true
+      t.column :cultivable_zone, url: true
+      t.column :nitrogen_need
+      t.column :absorbed_nitrogen_at_opening, hidden: true
+      t.column :mineral_nitrogen_at_opening, hidden: true
+      t.column :humus_mineralization, hidden: true
+      t.column :meadow_humus_mineralization, hidden: true
+      t.column :previous_cultivation_residue_mineralization, hidden: true
+      t.column :intermediate_cultivation_residue_mineralization, hidden: true
+      t.column :irrigation_water_nitrogen, hidden: true
+      t.column :organic_fertilizer_mineral_fraction, hidden: true
+      t.column :nitrogen_at_closing, hidden: true
+      t.column :soil_production, hidden: true
+      t.column :maximum_nitrogen_input
+      t.column :nitrogen_input
+    end
 
-  # Show one animal with params_id
-  def show
-    return unless @manure_management_plan = find_and_check
-    t3e @manure_management_plan
-    respond_with(@manure_management_plan, include: [:campaign, :recommender, { zones: { methods: [:soil_nature_name, :cultivation_variety_name], include: [{ support: { include: :storage } }, :activity, :production] } }])
+    # Show one animal with params_id
+    def show
+      return unless @manure_management_plan = find_and_check
+      t3e @manure_management_plan
+      respond_with(@manure_management_plan, include: [:campaign, :recommender, { zones: { methods: [:soil_nature_name, :cultivation_variety_name], include: [{ support: { include: :storage } }, :activity, :production] } }])
+    end
   end
 end

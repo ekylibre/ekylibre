@@ -16,28 +16,30 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::PrescriptionsController < Backend::BaseController
-  manage_restfully
-  manage_restfully_attachments
+module Backend
+  class PrescriptionsController < Backend::BaseController
+    manage_restfully
+    manage_restfully_attachments
 
-  unroll
+    unroll
 
-  list do |t|
-    t.action :edit
-    t.action :destroy, if: :destroyable?
-    t.column :reference_number, url: true
-    t.column :delivered_at
-    t.column :prescriptor, url: true
-    # t.column :document, url: true
-  end
+    list do |t|
+      t.action :edit
+      t.action :destroy, if: :destroyable?
+      t.column :reference_number, url: true
+      t.column :delivered_at
+      t.column :prescriptor, url: true
+      # t.column :document, url: true
+    end
 
-  # List of interventions with precription_id
-  list(:interventions, conditions: { prescription_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
-    t.column :reference_name, label_method: :name, url: true
-    t.column :casting
-    t.column :started_at
-    t.column :stopped_at, hidden: true
-    t.column :natures
-    t.column :state
+    # List of interventions with precription_id
+    list(:interventions, conditions: { prescription_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
+      t.column :reference_name, label_method: :name, url: true
+      t.column :casting
+      t.column :started_at
+      t.column :stopped_at, hidden: true
+      t.column :natures
+      t.column :state
+    end
   end
 end

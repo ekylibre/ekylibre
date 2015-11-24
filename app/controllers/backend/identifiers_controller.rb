@@ -16,14 +16,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::IdentifiersController < Backend::BaseController
-  manage_restfully t3e: { name: :nature }
+module Backend
+  class IdentifiersController < Backend::BaseController
+    manage_restfully t3e: { name: :nature }
 
-  list conditions: { net_service_id: nil } do |t|
-    t.action :new, on: :none
-    t.action :edit
-    t.action :destroy
-    t.column :nature
-    t.column :value
+    list conditions: { net_service_id: nil } do |t|
+      t.action :new, on: :none
+      t.action :edit
+      t.action :destroy
+      t.column :nature
+      t.column :value
+    end
   end
 end

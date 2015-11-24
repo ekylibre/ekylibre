@@ -16,26 +16,28 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::DocumentTemplatesController < Backend::BaseController
-  manage_restfully language: 'Preference[:language]'.c
+module Backend
+  class DocumentTemplatesController < Backend::BaseController
+    manage_restfully language: 'Preference[:language]'.c
 
-  unroll
+    unroll
 
-  list(order: :name) do |t|
-    t.action :edit
-    t.action :destroy, if: :destroyable?
-    t.column :active
-    t.column :name
-    t.column :nature
-    t.column :by_default
-    t.column :archiving
-    t.column :language
-  end
+    list(order: :name) do |t|
+      t.action :edit
+      t.action :destroy, if: :destroyable?
+      t.column :active
+      t.column :name
+      t.column :nature
+      t.column :by_default
+      t.column :archiving
+      t.column :language
+    end
 
-  # Loads ou reloads.all managed document templates
-  def load
-    DocumentTemplate.load_defaults
-    notify_success(:update_is_done)
-    redirect_to action: :index
+    # Loads ou reloads.all managed document templates
+    def load
+      DocumentTemplate.load_defaults
+      notify_success(:update_is_done)
+      redirect_to action: :index
+    end
   end
 end

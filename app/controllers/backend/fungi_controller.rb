@@ -16,5 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::FungiController < Backend::MattersController
+module Backend
+  class FungiController < Backend::MattersController
+  end
 end

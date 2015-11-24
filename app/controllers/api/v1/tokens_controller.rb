@@ -17,43 +17,47 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Api::V1::TokensController < Api::V1::BaseController
-  skip_before_action :authenticate_api_user!
+module Api
+  module V1
+    class TokensController < Api::V1::BaseController
+      skip_before_action :authenticate_api_user!
 
-  def create
-    email = params[:email]
-    password = params[:password]
+      def create
+        email = params[:email]
+        password = params[:password]
 
-    if email.blank? || password.blank?
-      render status: :bad_request, json: { message: 'The request must contain the user email and password.' }
-      return
-    end
+        if email.blank? || password.blank?
+          render status: :bad_request, json: { message: 'The request must contain the user email and password.' }
+          return
+        end
 
-    unless @user = User.find_by(email: email.downcase)
-      logger.info("User #{email} failed signin, user cannot be found.")
-      render status: :unauthorized, json: { message: 'Invalid email or password.' }
-      return
-    end
+        unless @user = User.find_by(email: email.downcase)
+          logger.info("User #{email} failed signin, user cannot be found.")
+          render status: :unauthorized, json: { message: 'Invalid email or password.' }
+          return
+        end
 
-    if @user.valid_password?(password)
-      # This following line forbids simultaneous connections:
-      # @user.authentication_token = User.generate_authentication_token
-      @user.save!
-      render json: { token: @user.authentication_token }
-    else
-      logger.info("User #{email} failed signin, password is invalid")
-      render status: :unauthorized, json: { message: 'Invalid email or password.' }
-    end
-  end
+        if @user.valid_password?(password)
+          # This following line forbids simultaneous connections:
+          # @user.authentication_token = User.generate_authentication_token
+          @user.save!
+          render json: { token: @user.authentication_token }
+        else
+          logger.info("User #{email} failed signin, password is invalid")
+          render status: :unauthorized, json: { message: 'Invalid email or password.' }
+        end
+      end
 
-  def destroy
-    if @user = User.find_by(authentication_token: params[:id])
-      @user.authentication_token = nil
-      @user.save!
-      render status: :success, json: { token: params[:id] }
-    else
-      logger.info('Token not found.')
-      render status: :not_found, json: { message: 'Invalid token.' }
+      def destroy
+        if @user = User.find_by(authentication_token: params[:id])
+          @user.authentication_token = nil
+          @user.save!
+          render status: :success, json: { token: params[:id] }
+        else
+          logger.info('Token not found.')
+          render status: :not_found, json: { message: 'Invalid token.' }
+        end
+      end
     end
   end
 end

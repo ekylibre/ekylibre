@@ -16,17 +16,19 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::MyselvesController < Backend::BaseController
-  def show
-    params[:stopped_at] = begin
-                            params[:stopped_at].to_date
-                          rescue
-                            Time.zone.today
-                          end
-    params[:started_at] = begin
-                            params[:started_at].to_date
-                          rescue
-                            params[:stopped_at] << 12
-                          end
+module Backend
+  class MyselvesController < Backend::BaseController
+    def show
+      params[:stopped_at] = begin
+                              params[:stopped_at].to_date
+                            rescue
+                              Time.zone.today
+                            end
+      params[:started_at] = begin
+                              params[:started_at].to_date
+                            rescue
+                              params[:stopped_at] << 12
+                            end
+    end
   end
 end
