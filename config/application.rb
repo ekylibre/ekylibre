@@ -45,6 +45,8 @@ module Ekylibre
     #   end
     # end
 
+    config.middleware.insert_after ActionDispatch::ParamsParser, ActionDispatch::XmlParamsParser
+
     # Configure layouts for devise
     config.to_prepare do
       Devise::SessionsController.layout 'authentication'
