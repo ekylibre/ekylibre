@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # = Informations
 #
 # == License
@@ -96,7 +95,7 @@ class CultivableZone < Zone
 
   after_validation do
     # Compute population
-    if initial_shape
+    if initial_shape && nature
       #self.initial_shape = ::Charta::Geometry.new(initial_shape).multi_polygon
       if variable_indicators_list.include?(:net_surface_area)
         self.read!(:net_surface_area, ::Charta::Geometry.new(initial_shape).area, at: initial_born_at)
@@ -164,7 +163,7 @@ class CultivableZone < Zone
   end
 
   # return the last_production before the production in parameter where the cultivable land parcel is a support
-  #  @TODO replace created_at by started_at when an input field will exist
+  # @TODO replace created_at by started_at when an input field will exist
   def last_production_before(production)
     if production.is_a?(Production) && production.started_at
       last_support = supports.where('created_at <= ? ', production.started_at).reorder('created_at DESC').limit(2).last
