@@ -37,7 +37,7 @@ eng:
     # catalog_name: "Catalog name"
     # charge_account_label: "Charge account label"
     #~ clusters_work_number: "Clusters work number"
-    #~ company: "Company"
+    # company: "Company"
     container_name: "Container name"
     #~ created_at: "Created at"
     #~ creator_name: "Creator name"

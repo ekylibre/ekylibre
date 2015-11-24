@@ -858,7 +858,7 @@ fra:
     lender: "Prêteur"
     letter: "Lettre"
     letter_format: "Devis au format lettre"
-    # level: "Level"
+    level: "Niveau"
     lft: "Limite gauche"
     linkage_points_list: "Points d’attache"
     linkages: "Attaches"
@@ -1053,8 +1053,8 @@ fra:
     product_creations: "Créations de produit" #?
     product_deaths: "Morts de produit" #?
     product_divisions: "Divisions de produit" #?
-    product_enjoyments: "Jouissances de produit"
-    # product_junctions: "Product junctions"
+    product_enjoyments: "Usufruit de produit"
+    product_junctions: "Product junctions"
     product_linkages: "Attelages de produit"
     product_localization: "Localisation de produit"
     product_localizations: "Localisations de produit"
@@ -1144,7 +1144,7 @@ fra:
     reflected_at: "Reflété le"
     reflection_nodes: "Nœuds de réflection"
     reflections: "Réflexions"
-    # remain_owner: "Remain owner"
+    remain_owner: "Converser le propriétaire"
     remaining_amount: "Montant restant"
     remember_created_at: "Se souvenir de moi à"
     remember_me: "Se souvenir de moi"
@@ -1162,7 +1162,7 @@ fra:
     responsible: "Responsable"
     restricted: "Réservé"
     retrieval_mode: "Mode de récupération"
-    # retrieval_status: "Retrieval status"
+    retrieval_status: "Statut de la récupération"
     revenues: "Produits"
     rgt: "Limite droite"
     rights: "Droits"

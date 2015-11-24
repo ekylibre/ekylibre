@@ -972,7 +972,6 @@ arb:
     column_title: "العنوان" #?
     columns: "اعمدة الاستيراد"
     commission: "عمولة"
-    # company: "Company"
     components: "العناصر" #?
     conditions:
       filter_on_attribute_of_class: "التصفية وفق %{attribute} (%{class})"
@@ -1370,7 +1369,6 @@ arb:
     merge: "دمج"
     # method: "Method"
     # minimal_temperature: "Minimal temperature"
-    # missing: "Missing"
     # missing_attributes: "Some attributes are missing"
     missing_help: "صفحات مفقودة"
     # mobile: "Mobile"
@@ -1474,7 +1472,6 @@ arb:
     # number_options: "Options Numbers"
     # numbers: "Numbers"
     observation_create: "اضافة ملاحظة" #?
-    # ok: "OK"
     on_account: "أ€ يضع على الحساب"
     one_condition: "ما لا يقل عن شرط واحد"
     # open_a_campaign: "Open a campaign"
@@ -1507,7 +1504,6 @@ arb:
     outgoing_payment_use_create: "تسديد سعر الشراء" #?
     # outgoing_payments: "Outgoing payments"
     overflow: "فائض رصيد الدائن" #?
-    # pacage_number: "PACAGE number"
     page_title: "%{company_code} - %{menu} - %{action}"
     page_title_by_default: "Ekylibre - %{action}"
     page_title_special: "%{company_code} - %{action}"
@@ -1642,7 +1638,6 @@ arb:
     reservoir_informations: "معلومات عن خزان الاحتياطي" #?
     reservoirs_create: "اضافة خزان احتياطي" #?
     # reset: "Reset"
-    # reset_all_data: "Reset all data"
     resource: "مراجعة السجلات الاصلية : %{resource} %{number}"
     resources: "ادارة الموارد البشرية"
     # rest: "Rest"
@@ -1730,8 +1725,6 @@ arb:
     # send_mail: "Send mail"
     send_test: "ارسال رسالة تجريبية" #?
     # send_test_mail: "Send test mail"
-    # sensor_indicators: "Sensor indicators"
-    # sensor_informations: "Sensor informations"
     # sensor_model: "Sensor model"
     # sensors: "Sensors"
     sequence_create: "اضافة تسلسل" #?
@@ -1749,7 +1742,6 @@ arb:
     simplified: "نظام واقعي مبسط"
     # simplified_linear_options: "Simplified linear options"
     source: "مصدر البيانات"
-    # spraying_map: "Spraying map"
     start: "ابتداء من"
     # start_new_intervention_here: "Start new intervention here"
     state: "الحالة"
@@ -1796,7 +1788,6 @@ arb:
     theoric_quantity: "الكمية النظرية" #?
     # thumb: "Thumb"
     # time_cost: "Time cost"
-    # time_cost_per_hectare: "Time cost per hectare"
     # time_spend_by_activities: "Time spend by activities"
     # time_zone: "Time zone"
     # timeline: "Timeline"
@@ -1820,7 +1811,6 @@ arb:
     # to_deposit_now: "To deposit now"
     # today: "Today"
     # tool_cost: "Tool cost"
-    # tool_cost_per_hectare: "Tool cost per hectare"
     tool_create: "اضافة مادة" #?
     tool_update: "تعديل المادة" #?
     tools: "مادة مستخدمة"
@@ -2050,7 +2040,6 @@ arb:
     y: "نعم" #?
     yearly: "Annuelle" #?
     years_count_in_historic: "عدد السنوات عامة" #?
-    # you_will_start_to_add_your_first_data: "You will start to add your first data"
     # zones: "Zones"
   notifications:
     levels:
