@@ -54,11 +54,13 @@
       if data.stopped_at
         $("*[data-procedure='#{procedure}'][data-procedure-global='stopped_at']").each (index) ->
           element = $(this)
-          element.val(data.stopped_at)
+          datetime = data.stopped_at[0..9] + " " + data.stopped_at[11..15]
+          element.val(datetime)
       if data.started_at
         $("*[data-procedure='#{procedure}'][data-procedure-global='at']").each (index) ->
           element = $(this)
-          element.val(data.started_at)
+          datetime = data.started_at[0..9] + " " + data.started_at[11..15]
+          element.val(datetime)
 
       # console.log("Unserialize data")
       for variable, attributes of casting
