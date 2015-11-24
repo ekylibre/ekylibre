@@ -815,7 +815,6 @@ fra:
     column_title: "Titre" #?
     columns: "Colonnes à importer"
     commission: "Commission"
-    # company: "Company"
     complement_sort: "Trier les choix par nom" #?
     complements: "Champs personnalisés" #?
     components: "Composants" #?
@@ -1205,7 +1204,6 @@ fra:
     method: "Méthode"
     milk_withdrawal_period: "Période d’attente avant remise en vente de lait" #?
     minimal_temperature: "Température minimale"
-    # missing: "Missing"
     missing_attributes: "Des champs sont manquants"
     missing_help: "Page inexistante"
     mistake_on_quantities_sum: "La somme des quantités n’est pas égale à la quantité totale produite" #?
@@ -1302,7 +1300,6 @@ fra:
     number: "Numéro"
     number_options: "Options de numérotations"
     numbers: "Numéros"
-    # ok: "OK"
     on_account: "À remettre sur le compte"
     one_condition: "au moins une condition"
     open_a_campaign: "Ouvrir une campagne de production"
@@ -1326,7 +1323,6 @@ fra:
       undelivered: "Non délivrés" #?
       unparted: "Non affectés" #?
       waiting: "À décaisser plus tard" #?
-    # pacage_number: "PACAGE number"
     page_title: "%{company_code} · %{menu} · %{action}"
     page_title_by_default: "Ekylibre · %{action}"
     page_title_special: "%{company_code} · %{action}"
@@ -1469,7 +1465,6 @@ fra:
     reservoir: "Réservoir" #?
     reservoir_informations: "Informations sur le réservoir" #?
     reset: "Réinitialiser"
-    # reset_all_data: "Reset all data"
     resource: "Consulter la pièce d’origine\_: %{resource} %{number}"
     resources: "Gestion des ressources humaines"
     rest: "Reste"
@@ -1560,8 +1555,8 @@ fra:
     selection: "Sélection"
     send_mail: "Envoyer le mail"
     send_test_mail: "Envoyer un mail de test"
-    sensor_indicators: "Indicateurs de capteur"
-    sensor_informations: "Informations du capteur"
+    sensor_indicators: "Indicateurs de capteur" #?
+    sensor_informations: "Informations du capteur" #?
     sensor_model: "Modèle du capteur"
     sensors: "Capteurs"
     sequences_load: "Charger les séquences manquantes" #?
@@ -1580,7 +1575,7 @@ fra:
     source: "Source de données"
     sowable: "Semable" #?
     sowed_at: "Semé le" #?
-    spraying_map: "Carte de pulvérisation"
+    spraying_map: "Carte de pulvérisation" #?
     start: "Du"
     start_new_intervention_here: "Commencer une nouvelle intervention ici"
     state: "État"
@@ -1628,7 +1623,7 @@ fra:
     third_informations: "Informations tierces" #?
     thumb: "Miniature"
     time_cost: "Coût de main d’œuvre"
-    time_cost_per_hectare: "Coût de main d’œuvre par hectare"
+    time_cost_per_hectare: "Coût de main d’œuvre par hectare" #?
     time_spend_by_activities: "Temps passé par activités"
     time_zone: "Fuseau horaire"
     timeline: "Chronologie"
@@ -1653,7 +1648,7 @@ fra:
     to_deposit_now: "À encaisser maintenant"
     today: "Aujourd’hui"
     tool_cost: "Coût de matériel"
-    tool_cost_per_hectare: "Coût de matériel par hectare"
+    tool_cost_per_hectare: "Coût de matériel par hectare" #?
     tools: "Outils"
     tools_list: "Liste d’outils" #?
     total: "Total"
@@ -1886,7 +1881,6 @@ fra:
     yearly: "Annuelle" #?
     years_count_in_historic: "Nombre d’années dans l’historique" #?
     yield: "Rendement" #?
-    # you_will_start_to_add_your_first_data: "You will start to add your first data"
     zones: "Zones"
   notifications:
     levels:

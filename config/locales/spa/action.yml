@@ -742,7 +742,6 @@ spa:
     # column: "Column"
     # columns: "Columns to import"
     # commission: "Commission"
-    # company: "Company"
     conditions:
       # filter_on_attribute_of_class: "Filter on attribute of class"
       # special-subscriber: "Special-subscriber"
@@ -1055,7 +1054,6 @@ spa:
     # merge: "Merge"
     # method: "Method"
     # minimal_temperature: "Minimal temperature"
-    # missing: "Missing"
     # missing_attributes: "Some attributes are missing"
     missing_help: "La página no existe"
     # mobile: "Mobile"
@@ -1133,7 +1131,6 @@ spa:
     # number: "Number"
     # number_options: "Options Numbers"
     # numbers: "Numbers"
-    # ok: "OK"
     on_account: "Volver a poner sobre la cuenta"
     # one_condition: "One condition"
     # open_a_campaign: "Open a campaign"
@@ -1153,7 +1150,6 @@ spa:
     # outgoing_payment: "Outgoing payment"
     # outgoing_payments: "Outgoing payments"
     overflow: "CREDITO O ECCEDENTE" #?
-    # pacage_number: "PACAGE number"
     page_title: "%{company_code} - %{menu} - %{action}"
     page_title_by_default: "Ekylibre - %{action}"
     page_title_special: "%{company_code} - %{action}"
@@ -1265,7 +1261,6 @@ spa:
     reservoir_informations: "Informaciones sobre el deposito" #?
     reservoirs_create: "Añadir un deposito" #?
     # reset: "Reset"
-    # reset_all_data: "Reset all data"
     resource: "Consultar la pieza de origen\_: %{resource} %{number}"
     resources: "Administración de los recursos humanos"
     # rest: "Rest"
@@ -1332,8 +1327,6 @@ spa:
     # send_mail: "Send mail"
     send_test: "Enviar un correo electronico de prueba" #?
     # send_test_mail: "Send test mail"
-    # sensor_indicators: "Sensor indicators"
-    # sensor_informations: "Sensor informations"
     # sensor_model: "Sensor model"
     # sensors: "Sensors"
     sequence_create: "Añadir une sequencia" #?
@@ -1352,7 +1345,6 @@ spa:
     simplified: "Regimen del real simplificado"
     # simplified_linear_options: "Simplified linear options"
     source: "Fuente de datos"
-    # spraying_map: "Spraying map"
     start: "Del"
     # start_new_intervention_here: "Start new intervention here"
     # state: "State"
@@ -1391,7 +1383,6 @@ spa:
     theoric_quantity: "cantidad teorica" #?
     # thumb: "Thumb"
     # time_cost: "Time cost"
-    # time_cost_per_hectare: "Time cost per hectare"
     # time_spend_by_activities: "Time spend by activities"
     # time_zone: "Time zone"
     # timeline: "Timeline"
@@ -1413,7 +1404,6 @@ spa:
     # to_deposit_now: "To deposit now"
     # today: "Today"
     # tool_cost: "Tool cost"
-    # tool_cost_per_hectare: "Tool cost per hectare"
     # tools: "Tools"
     total: "Total"
     total_amount: "Total importe HT"
@@ -1600,7 +1590,6 @@ spa:
       # other: "%{count} years"
     yearly: "Anual" #?
     years_count_in_historic: "Nombre de años en el historico" #?
-    # you_will_start_to_add_your_first_data: "You will start to add your first data"
     # zones: "Zones"
   notifications:
     levels:

@@ -818,13 +818,12 @@ arb:
       meeting: "الحدث" #?
       meeting_nature: "نوع الحدث" #?
       # net_service: "Net service"
+      # notification: "Notification"
       observation: "ملاحظة"
       operation: "العمل"
       operation_item: "الواردات/الصادرات" #?
       operation_nature: "نوع العمل" #?
       operation_use: "الاداة المستخدمة" #?
-      # outgoing_parcel: ""
-      # outgoing_parcel_item: ""
       outgoing_payment: "الدفعة"
       outgoing_payment_mode: "نوع الدفعة"
       outgoing_payment_use: "تأثير الدفعة" #?
@@ -1737,10 +1736,8 @@ arb:
     purchases_account: "رسوم المحاسبة" #?
     purchases_account_id: "رسوم المحاسبة" #?
     quantity: "الكمية"
-    # quantity_indicator: "Quantity indicator"
     quantity_max: "الكمية كحد اقصى" #?
     quantity_min: "الكمية كحد ادنى" #?
-    # quantity_unit: "Quantity unit"
     query: "التساؤل"
     range: "فترة فاصلة" #?
     rate: "معدل سعر الصرف" #?

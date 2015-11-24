@@ -954,7 +954,6 @@ eng:
     column: "Column"
     columns: "Columns to import"
     commission: "Commission"
-    company: "Company" #?
     conditions:
       filter_on_attribute_of_class: "Filter on attribute of class"
       special-subscriber: "Special-subscriber"
@@ -1206,7 +1205,6 @@ eng:
     merge: "Merge"
     method: "Method" #?
     minimal_temperature: "Minimal temperature"
-    missing: "Missing" #?
     missing_attributes: "Some attributes are missing"
     missing_help: "Missing page"
     mobile: "Mobile" #?
@@ -1270,7 +1268,6 @@ eng:
     number: "Number" #?
     number_options: "Options Numbers"
     numbers: "Numbers" #?
-    ok: "OK" #?
     on_account: "On account" #?
     one_condition: "One condition"
     open_a_campaign: "Open a campaign"
@@ -1284,7 +1281,6 @@ eng:
     others: "Others"
     outgoing_payment: "Outgoing payment" #?
     outgoing_payments: "Outgoing payments"
-    pacage_number: "PACAGE number" #?!
     page_title: "%{company_code} · %{menu} · %{action}"
     page_title_by_default: "Ekylibre · %{action}"
     page_title_special: "%{company_code} · %{action}"
@@ -1375,7 +1371,6 @@ eng:
     repayments_graph: "Repayments graph"
     report: "Report" #?
     reset: "Reset"
-    reset_all_data: "Reset all data" #?!
     resource: "View original document: %{resource} %{number}" #?
     # resource_map: "Resource map"
     resources: "Resources management" #?
@@ -1417,8 +1412,6 @@ eng:
     selection: "Selection" #?
     send_mail: "Send mail"
     send_test_mail: "Send test mail"
-    sensor_indicators: "Sensor indicators" #?!
-    sensor_informations: "Sensor informations" #?!
     sensor_model: "Sensor model"
     sensors: "Sensors"
     sessions: "Sessions"
@@ -1433,7 +1426,6 @@ eng:
     simplified: "Simplified Accounting" #?
     simplified_linear_options: "Simplified linear options"
     source: "Source" #?
-    spraying_map: "Spraying map" #?!
     start: "From" #?
     start_new_intervention_here: "Start new intervention here"
     state: "State"
@@ -1467,7 +1459,6 @@ eng:
     taxes: "Taxes" #?
     thumb: "Thumb" #?
     time_cost: "Time cost" #?
-    time_cost_per_hectare: "Time cost per hectare" #?!
     time_spend_by_activities: "Time spend by activities"
     time_zone: "Time zone"
     timeline: "Timeline"
@@ -1489,7 +1480,6 @@ eng:
     to_deposit_now: "To deposit now" #?
     today: "Today" #?
     tool_cost: "Tool cost"
-    tool_cost_per_hectare: "Tool cost per hectare" #?!
     tools: "Tools"
     total: "Total"
     total_amount: "Total amount" #?
@@ -1662,7 +1652,6 @@ eng:
     x_years:
       one: "1 year"
       other: "%{count} years"
-    you_will_start_to_add_your_first_data: "You will start to add your first data" #?!
     zones: "Zones"
   notifications:
     levels:
