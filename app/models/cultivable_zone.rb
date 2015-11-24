@@ -79,7 +79,7 @@ class CultivableZone < Zone
 
   after_validation do
     # Compute population
-    if initial_shape
+    if initial_shape && nature
       # self.initial_shape = ::Charta::Geometry.new(initial_shape).multi_polygon
       if variable_indicators_list.include?(:net_surface_area)
         self.read!(:net_surface_area, ::Charta::Geometry.new(initial_shape).area, at: initial_born_at)
@@ -150,8 +150,8 @@ class CultivableZone < Zone
   # @TODO replace created_at by started_at when an input field will exist
   def last_production_before(activity_production)
     fail 'Cannot do that now. Use ActivityProduction instead'
-    if activity_production.is_a?(Activity_Production) && activity_production.started_at
-      last_support = supports.where('created_at <= ?', activity_production.started_at)
+    if activity_production.is_a?(ActivityProduction) && activity_production.started_at
+      last_support = supports.where('created_at <= ? ', activity_production.started_at)
                      .reorder(created_at: :desc).limit(2).last
       if last_support
         return last_support.activity_production.name
