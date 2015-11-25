@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add missing varieties">
+  <item-creation item="varieties#cynara_scolymus" parent="cynara" itis_tsn="37222"/>
+  <item-creation item="varieties#lauraceae" parent="plant" itis_tsn="18145"/>
+  <item-creation item="varieties#persea" parent="lauraceae" itis_tsn="18148"/>
+  <item-creation item="varieties#persea_americana" parent="persea" itis_tsn="18154"/>
+</migration>

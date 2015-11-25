@@ -106,10 +106,10 @@ class ActivityProduction < Ekylibre::Record::Base
     if self.activity
       self.size_indicator = activity_size_indicator
       self.size_unit      = activity_size_unit
-      self.rank_number ||= (self.activity.productions.maximum(:rank_number) ? self.activity.productions.maximum(:rank_number) : 0) + 1 
+      self.rank_number ||= (self.activity.productions.maximum(:rank_number) ? self.activity.productions.maximum(:rank_number) : 0) + 1
     end
     self.support ||= cultivable_zone
-    self.size = current_size if self.support && size_indicator
+    self.size = current_size if self.support && size_indicator && size_unit
   end
 
   before_validation(on: :create) do

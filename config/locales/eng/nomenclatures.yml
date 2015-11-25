@@ -4179,6 +4179,7 @@ eng:
         cydonia: "Cydonia"                                 #< rosaceae
         cydonia_oblonga: "Quince"                          #< cydonia
         cynara: "Artichoke"                                #< asteraceae
+        cynara_scolymus: "Globe artichoke"                 #< cynara
         dactylis: "Dactylis"                               #< poaceae
         dactylis_lazuly: "Dactylis Lazuly"                 #< dactylis
         damaliscus: "Damaliscus"                           #< bovidae
@@ -4517,6 +4518,7 @@ eng:
         land_parcel_group: "Land parcel group"             #< product_group
         lathyrus: "Lathyrus"                               #< fabaceae
         lathyrus_sativus: "Lathyrus sativus"               #< lathyrus
+        lauraceae: "Lauraceae"                             #< plant
         lavandula: "Lavandula"                             #< lamiaceae
         lens: "Lens"                                       #< fabaceae
         lens_culinaris: "Lens culinaris"                   #< lens
@@ -4626,6 +4628,8 @@ eng:
         pecten_maximus: "Great scallop"                    #< pecten
         pectinidae: "Pectinidae"                           #< bivalvia
         peronosporaceae: "Peronosporaceae"                 #< fungus
+        persea: "Persea"                                   #< lauraceae
+        persea_americana: "Avocado"                        #< persea
         petroselinum: "Parsley"                            #< apiaceae
         petroselinum_crispum: "Common Parsley"             #< petroselinum
         petroselinum_crispum_crispum: "Curly Parsley"      #< petroselinum_crispum

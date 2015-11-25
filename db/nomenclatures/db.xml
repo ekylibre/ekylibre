@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151122101101">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151125163801">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -4197,6 +4197,7 @@
       <item name="cydonia" parent="rosaceae" itis_tsn="25158"/>
       <item name="cydonia_oblonga" parent="cydonia" itis_tsn="25159"/>
       <item name="cynara" parent="asteraceae" itis_tsn="37220"/>
+      <item name="cynara_scolymus" parent="cynara" itis_tsn="37222"/>
       <item name="dactylis" parent="poaceae" itis_tsn="193445"/>
       <item name="dactylis_lazuly" parent="dactylis" itis_tsn="12345"/>
       <item name="damaliscus" parent="bovidae" itis_tsn="624964"/>
@@ -4535,6 +4536,7 @@
       <item name="land_parcel_group" parent="product_group" derivative_of="land_parcel"/>
       <item name="lathyrus" parent="fabaceae" itis_tsn="25834"/>
       <item name="lathyrus_sativus" parent="lathyrus" itis_tsn="25877"/>
+      <item name="lauraceae" parent="plant" itis_tsn="18145"/>
       <item name="lavandula" parent="lamiaceae" itis_tsn="500370"/>
       <item name="lens" parent="fabaceae" itis_tsn="26762"/>
       <item name="lens_culinaris" parent="lens" itis_tsn="503364"/>
@@ -4644,6 +4646,8 @@
       <item name="pecten_maximus" parent="pecten" itis_tsn="79683"/>
       <item name="pectinidae" parent="bivalvia" itis_tsn="79611"/>
       <item name="peronosporaceae" parent="fungus" itis_tsn="194121"/>
+      <item name="persea" parent="lauraceae" itis_tsn="18148"/>
+      <item name="persea_americana" parent="persea" itis_tsn="18154"/>
       <item name="petroselinum" parent="apiaceae" itis_tsn="29816"/>
       <item name="petroselinum_crispum" parent="petroselinum" itis_tsn="822347"/>
       <item name="petroselinum_crispum_crispum" parent="petroselinum_crispum" itis_tsn="822347"/>
