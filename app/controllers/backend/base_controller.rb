@@ -17,7 +17,7 @@
 #
 
 module Backend
-  class BaseController < BaseController
+  class BaseController < ::BaseController
     include Unrollable, RestfullyManageable
     protect_from_forgery
 
