@@ -192,11 +192,17 @@ class Product < Ekylibre::Record::Base
   scope :supports_of_campaign, lambda { |campaign|
     joins(:supports).merge(ActivityProduction.of_campaign(campaign))
   }
-  scope :intersect_with, lambda { |shape|
-    where(id: ProductReading.where('ST_Overlaps(geometry_value, ST_GeomFromEWKT(?))', shape.to_ewkt).select(:product_id))
+  scope :intersects_shape, lambda { |shape|
+    where(id: ProductReading.where('ST_Intersects(geometry_value, ST_GeomFromEWKT(?))', shape.to_ewkt).select(:product_id))
   }
-  scope :in_shape, -> (shape) {
-    where(id: ProductReading.where('ST_Contains(geometry_value, ST_GeomFromEWKT(?))', shape.to_ewkt).select(:product_id))
+  scope :within_shape, ->(shape) {
+    where(id: ProductReading.where('ST_Within(geometry_value, ST_GeomFromEWKT(?))', shape.to_ewkt).select(:product_id))
+  }
+  scope :covers_shape, ->(shape) {
+    where(id: ProductReading.where('ST_Covers(geometry_value, ST_GeomFromEWKT(?))', shape.to_ewkt).select(:product_id))
+  }
+  scope :overlaps_shape, lambda { |shape|
+    where(id: ProductReading.where('ST_Overlaps(geometry_value, ST_GeomFromEWKT(?))', shape.to_ewkt).select(:product_id))
   }
 
   # scope :saleables, -> { joins(:nature).where(:active => true, :product_natures => {:saleable => true}) }
