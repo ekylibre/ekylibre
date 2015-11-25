@@ -27,8 +27,8 @@ class Ekylibre::AnimalGroupsExchanger < ActiveExchanger::Base
                            h[i.first.strip.downcase.to_sym] = i.second
                            h
                          end,
-                         activity_name: row[10].to_s,
-                         production_name: row[11].to_s,
+                         activity_family_name: row[10].to_s,
+                         activity_name: row[11].to_s,
                          campaign_year: row[12].to_i
                         )
 
@@ -55,7 +55,7 @@ class Ekylibre::AnimalGroupsExchanger < ActiveExchanger::Base
       unless nomen = Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
         w.error "No variant exist in NOMENCLATURE for #{r.variant_reference_name.inspect}"
         valid = false
-              end
+      end
     end
   end
 
@@ -78,8 +78,8 @@ class Ekylibre::AnimalGroupsExchanger < ActiveExchanger::Base
                            h[i.first.strip.downcase.to_sym] = i.second
                            h
                          end,
-                         activity_name: row[10].to_s,
-                         production_name: row[11].to_s,
+                         activity_family_name: row[10].to_s,
+                         activity_name: row[11].to_s,
                          campaign_year: row[12].to_i
                         )
 
@@ -112,24 +112,36 @@ class Ekylibre::AnimalGroupsExchanger < ActiveExchanger::Base
         min_born_at = Time.zone.now - r.maximum_age.days if r.maximum_age
         animals = Animal.indicate(sex: r.sex.to_s).where(born_at: min_born_at..max_born_at).reorder(:name)
         # find support for intervention changing or create it
-        unless ps = ActivityProduction.where(storage_id: animal_group.id).first
-          campaign = Campaign.find_or_create_by!(harvest_year: r.campaign_year)
+        unless ap = ActivityProduction.where(support_id: animal_group.id).first
+          # campaign = Campaign.find_or_create_by!(harvest_year: r.campaign_year)
           unless activity = Activity.find_by(name: r.activity_name)
-            family = Activity.find_best_family(animal_group.derivative_of, animal_group.variety)
+            # family = Activity.find_best_family(animal_group.derivative_of, animal_group.variety)
+            family = Nomen::ActivityFamily.find(:animal_farming)
             unless family
               w.error 'Cannot determine activity'
               fail ActiveExchanger::Error, "Cannot determine activity with support #{support_variant ? support_variant.variety.inspect : '?'} and cultivation #{cultivation_variant ? cultivation_variant.variety.inspect : '?'} in production #{sheet_name}"
             end
-            activity = Activity.create!(name: r.activity_name, family: family.name, nature: family.nature)
+            activity = Activity.create!(name: r.activity_name,
+                                        family: family.name,
+                                        size_indicator: "members_count",
+                                        support_variety: :animal_group,
+                                        nature: family.nature,
+                                        with_cultivation: false,
+                                        with_supports: true)
           end
-          unless p = Production.of_campaign(campaign).of_activities(activity).where(name: r.production_name, support_variant_id: animal_group.variant_id).first
-            p = Production.create!(activity: activity, campaign: campaign, name: r.production_name, support_variant_id: animal_group.variant_id, cultivation_variant_id: animals.first.variant_id) if animals.count > 0
-          end
-          ps = p.supports.create!(storage_id: animal_group.id) if p
+           ap = ActivityProduction.create!(activity: activity,
+                                          support_id: animal_group.id,
+                                          size_value: animals.count,
+                                          usage: :meat
+                                          ) if animals.count > 0
         end
-        # if animals and production_support, add animals to the group
-        if animals.count > 0 && ps.present? && animal_variant && animal_container
-          animal_group.add_animals(animals, started_at: Time.zone.now - 1.hour, stopped_at: Time.zone.now, production_support_id: ps.id, container_id: animal_container.id, variant_id: animal_variant.id, worker_id: Worker.first.id)
+        # if animals and production_support, add animals to the target distribution
+        if animals.count > 0 && ap.present?
+          for animal in animals
+            td = TargetDistribution.find_or_create_by!(activity: activity, activity_production: ap, target: animal)
+          end
+          #TODO how to add animals to a group
+          # animal_group.add_animals(animals, started_at: Time.zone.now - 1.hour, stopped_at: Time.zone.now, production_support_id: ps.id, container_id: animal_container.id, variant_id: animal_variant.id, worker_id: Worker.first.id)
         end
       end
 
