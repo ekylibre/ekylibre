@@ -11,7 +11,7 @@
       %span.value= resource.work_number
     .med-info
       %span.title= CultivableZone.human_attribute_name(:net_surface_area)
-      %span.value= resource.net_surface_area.in_hectare.round(2).l
+      %span.value= resource.net_surface_area.in(:hectare).l
     .med-info
       %span.title= LandParcelGroup.human_attribute_name(:identification_number)
       %span.value= resource.clusters_work_number
