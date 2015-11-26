@@ -431,6 +431,7 @@ eng:
     currency: "Currency"
     currency_precision: "Currency precision"
     currency_rate: "Currency rate"
+    # current_activity_productions: "Current activity productions"
     current_amount: "Current amount"
     current_enjoyment: "Current enjoyment"
     current_father_link: "Current father link"
@@ -442,6 +443,7 @@ eng:
     current_quantity: "Current quantity" #?
     current_sign_in_at: "Current sign in at"
     current_sign_in_ip: "Current sign in ip"
+    # current_supports: "Current supports"
     custom_field: "Custom field"
     custom_fields: "Custom fields"
     customized_type: "Customized type"
@@ -998,8 +1000,7 @@ eng:
     shift_method: "Shift method"
     sign_in_count: "Sign in count"
     siren: "SIREN"
-    siret: "SIRET" #?
-    siret_number: "Siret number"
+    siret_number: "SIRET number"
     size_indicator: "Size indicator"
     size_unit: "Size unit"
     # size_value: "Size value"

@@ -1898,8 +1898,7 @@ arb:
     shipped_at: "شحنها يوم" #?
     # sign_in_count: "Sign in count"
     siren: "رقم صفارة الانذار"
-    siret: "SIRET رقم"
-    # siret_number: "Siret number"
+    siret_number: "SIRET رقم"
     # size_indicator: "Size indicator"
     # size_unit: "Size unit"
     # soil_nature: "Soil type"

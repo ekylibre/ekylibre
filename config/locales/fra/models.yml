@@ -1206,7 +1206,6 @@ fra:
     shift_method: "Méthode de différé"
     sign_in_count: "Nombre de connexions"
     siren: "N° SIREN"
-    # siret: "SIRET"
     siret_number: "N° SIRET"
     # size_indicator: "Size indicator"
     # size_unit: "Size unit"

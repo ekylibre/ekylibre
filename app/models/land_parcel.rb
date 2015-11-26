@@ -67,8 +67,8 @@
 
 class LandParcel < Easement
   refers_to :variety, scope: :land_parcel
-  has_many :activity_productions, foreign_key: :support_id  
-  
+  has_many :activity_productions, foreign_key: :support_id
+
   after_validation do
     # Compute population
     if initial_shape && nature

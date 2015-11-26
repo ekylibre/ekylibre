@@ -57,7 +57,7 @@ class ActivityBudget < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :quantity, :unit_amount, :unit_population, allow_nil: true
-  validates_presence_of :activity, :computation_method, :currency, :direction, :unit_currency
+  validates_presence_of :activity, :campaign, :computation_method, :currency, :direction, :unit_currency
   # ]VALIDATORS]
   validates_presence_of :variant, :activity
 
@@ -82,7 +82,7 @@ class ActivityBudget < Ekylibre::Record::Base
   after_validation do
     self.amount = unit_amount * quantity * coefficient
   end
-  
+
   # Computes the coefficient to use for amount computation
   def coefficient(_options = {})
     return 0 unless activity

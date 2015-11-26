@@ -29,7 +29,7 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
 
       if cultivation_variant_reference_name
         if cultivation_variety = Nomen::Variety.find(cultivation_variant_reference_name.to_sym)
-          w.info "cultivation_variant_reference_name is a variety"   
+          w.info "cultivation_variant_reference_name is a variety"
         elsif cultivation_variant = ProductNatureVariant.find_by(number: cultivation_variant_reference_name) || ProductNatureVariant.find_by(reference_name: cultivation_variant_reference_name)
           w.info "cultivation_variant_reference_name is an existing variant in DB"
         elsif cultivation_variant = ProductNatureVariant.import_from_nomenclature(cultivation_variant_reference_name)
@@ -38,7 +38,7 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
           w.error "cultivation_variant_reference_name #{cultivation_variant_reference_name}.inspect is not a variant neither a variety"
         end
       end
-      
+
       cultivation_variety ||= cultivation_variant.variety if cultivation_variant
 
       if support_variant_reference_name
@@ -46,7 +46,7 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
           support_variant = ProductNatureVariant.import_from_nomenclature(support_variant_reference_name)
         end
       end
-      
+
       # find or create activity
       unless activity = Activity.find_by(name: activity_name[0].strip)
         if activity_name[1]
@@ -65,8 +65,8 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
                                     nature: family.nature,
                                     with_supports: (production_support_numbers.any? ? true : false)
                                    )
-        if support_variant && support_variant.variety                       
-          activity.support_variety = (Nomen::Variety.find(support_variant.variety) == :cultivable_zone ? :cultivable_zone : (Nomen::Variety.find(support_variant.variety) <= :building_division ? :building_division : :product))                      
+        if support_variant && support_variant.variety
+          activity.support_variety = (Nomen::Variety.find(support_variant.variety) == :cultivable_zone ? :cultivable_zone : (Nomen::Variety.find(support_variant.variety) <= :building_division ? :building_division : :product))
           activity.with_cultivation = (Nomen::Variety.find(support_variant.variety) == :cultivable_zone ? true : false)
         end
         activity.cultivation_variety = cultivation_variety if cultivation_variant
@@ -74,23 +74,23 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
       end
 
       w.info "Sheet: #{sheet_name} (#{cultivation_variant})"
-      
+
       # find or create activity production
-      
+
       production_support_numbers.each do |number|
         # get quantity and number given
         arr = nil
         arr = number.to_s.strip.delete(' ').split(':')
-        
+
         production_support_number = arr[0]
         production_support_quantity = arr[1]
-        
+
         if product = Product.find_by(number: production_support_number) || Product.find_by(identification_number: production_support_number) || Product.find_by(work_number: production_support_number)
          w.info "Product exist"
         else
           w.error "Cannot find support with number: #{number.inspect}"
         end
-        
+
         attributes = {
           activity: activity,
           support: product,
@@ -98,7 +98,7 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
           stopped_at: Date.new(campaign.harvest_year, 8, 1),
           state: :opened
         }
-      
+
         if activity.with_supports && product.shape && Nomen::Variety.find(:cultivable_zone) == support_variant.variety
           attributes[:cultivable_zone] = product
           attributes[:size] = ::Charta::Geometry.new(product.shape).area.in(:hectare)
@@ -110,7 +110,7 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
         unless ap = ActivityProduction.find_by(activity: activity, support: product)
           ap = ActivityProduction.create!(attributes)
         end
-      end                                    
+      end
 
       # file format
       # A "Nom de l'intervention ou de intrant"

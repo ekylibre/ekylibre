@@ -207,7 +207,6 @@ eng:
       index: "Cultivable zones"
       new: "New cultivable zone"
       show: "Cultivable zone: %{name}"
-      # take: "Take cultivable zone: %{name}"
     backend/custom_field_choices:
       edit: "Edit option: %{name}"
       new: "New option for a choices list"
