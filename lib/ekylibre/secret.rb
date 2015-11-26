@@ -12,7 +12,7 @@ module Ekylibre
     def self.env
       @@env ||= Rails.env.to_sym
     end
-    
+
     def self.find!(name)
       if store[name].is_a?(String)
         return store[name]
@@ -23,6 +23,6 @@ module Ekylibre
       end
       return nil
     end
-    
+
   end
 end

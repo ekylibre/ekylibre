@@ -60,7 +60,7 @@ class Campaign < Ekylibre::Record::Base
   }
 
   scope :of_activity_production, lambda { |activity_production|
-    where('(started_on, stopped_on) OVERLAPS (?, ?)', activity_production.started_at, activity_production.stopped_at)
+    where('(started_on, stopped_on) OVERLAPS (COALESCE(?, started_on), COALESCE(?, stopped_on))', activity_production.started_at, activity_production.stopped_at)
   }
   scope :of_production, ->(production) { of_activity_production(production) }
 

@@ -75,6 +75,7 @@ class CultivableZone < Zone
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   # ]VALIDATORS]
 
+  scope :of_current_activity_productions, -> { where(id: ActivityProduction.select(:support_id).current) }
   scope :of_campaign, ->(campaign) { activity_productions.of_campaign(campaign) }
 
   after_validation do

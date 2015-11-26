@@ -81,6 +81,7 @@ class ActivityProduction < Ekylibre::Record::Base
   scope :of_activity_families, lambda { |*families|
     joins(:activity).merge(Activity.of_families(*families))
   }
+  scope :current, -> { where(':now BETWEEN COALESCE(started_at, :now) AND COALESCE(stopped_at, :now)', now: Time.zone.now) }
 
   state_machine :state, initial: :opened do
     state :opened
@@ -133,6 +134,10 @@ class ActivityProduction < Ekylibre::Record::Base
   # Returns interventions of current production
   def interventions
     Intervention.of_activity_production(self)
+  end
+
+  def campaigns
+    Campaign.of_activity_production(self)
   end
 
   def cost(role = :input)
