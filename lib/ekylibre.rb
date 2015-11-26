@@ -8,6 +8,7 @@ module Ekylibre
   autoload :Reporting,         'ekylibre/reporting'
   autoload :Plugin,            'ekylibre/plugin'
   autoload :Schema,            'ekylibre/schema'
+  autoload :Secret,            'ekylibre/secret'
   autoload :Snippet,           'ekylibre/snippet'
   autoload :Support,           'ekylibre/support'
   autoload :Tenant,            'ekylibre/tenant'
