@@ -740,19 +740,8 @@
         <page to="backend/cultivable_zones#new"/>
         <page to="backend/cultivable_zones#show"/>
         <page to="backend/cultivable_zones#update"/>
-        <page to="backend/cultivable_zones#list_contained_products"/>
-        <page to="backend/cultivable_zones#list_intervention_casts"/>
         <page to="backend/cultivable_zones#list_productions"/>
-        <page to="backend/cultivable_zones#take"/>
         <page to="backend/cultivable_zones#unroll"/>
-        <page to="backend/cultivable_zones#list_groups"/>
-        <page to="backend/cultivable_zones#list_issues"/>
-        <page to="backend/cultivable_zones#list_readings"/>
-        <page to="backend/cultivable_zones#list_members"/>
-        <page to="backend/cultivable_zones#list_places"/>
-        <page to="backend/cultivable_zones#list_carried_linkages"/>
-        <page to="backend/cultivable_zones#list_carrier_linkages"/>
-        <page to="backend/cultivable_zones#picture"/>
       </item>
       <item name="manure_management_plans">
         <page to="backend/manure_management_plans#index"/>
