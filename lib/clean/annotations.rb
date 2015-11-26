@@ -104,7 +104,7 @@ module Clean
             else
               info << '"Lorem ipsum"'
             end
-                      end
+          end
           info << "\n"
         end
         info << "#\n"

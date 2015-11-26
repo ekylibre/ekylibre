@@ -93,8 +93,8 @@ module Aggeratio
         of_type = element.attr('of-type').to_sym
         if of_type == :record && of.present?
           code = "if #{of}.class < Ekylibre::Record::Base\n" \
-            "  xml.a(:href => \"/backend/\#{#{of}.class.table_name}/\#{#{of}.to_param}\") do\n" + code.dig(2) + "  end\n" \
-            "else\n" + code.dig + "end\n"
+                 "  xml.a(:href => \"/backend/\#{#{of}.class.table_name}/\#{#{of}.to_param}\") do\n" + code.dig(2) + "  end\n" \
+                                                                                                                     "else\n" + code.dig + "end\n"
         end
       end
       unless tag.nil?

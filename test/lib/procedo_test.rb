@@ -19,8 +19,8 @@ class ProcedoTest < ActiveSupport::TestCase
       variable = invalid[:variable]
       exception = invalid[:exception]
       "#{variable.name.to_s.yellow} in #{variable.procedure.name.to_s.red}:\n" \
-        "  expression: #{variable.abilities.inspect}\n" \
-        "  exception: #{exception.message}"
+      "  expression: #{variable.abilities.inspect}\n" \
+      "  exception: #{exception.message}"
     end.join("\n")
 
     assert invalids.empty?, "#{invalids.count} procedure variables have invalid abilities:\n" + details.dig

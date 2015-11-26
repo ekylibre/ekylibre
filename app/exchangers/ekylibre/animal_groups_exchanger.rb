@@ -123,24 +123,24 @@ class Ekylibre::AnimalGroupsExchanger < ActiveExchanger::Base
             end
             activity = Activity.create!(name: r.activity_name,
                                         family: family.name,
-                                        size_indicator: "members_count",
+                                        size_indicator: 'members_count',
                                         support_variety: :animal_group,
                                         nature: family.nature,
                                         with_cultivation: false,
                                         with_supports: true)
           end
-           ap = ActivityProduction.create!(activity: activity,
+          ap = ActivityProduction.create!(activity: activity,
                                           support_id: animal_group.id,
                                           size_value: animals.count,
                                           usage: :meat
-                                          ) if animals.count > 0
+                                         ) if animals.count > 0
         end
         # if animals and production_support, add animals to the target distribution
         if animals.count > 0 && ap.present?
           for animal in animals
             td = TargetDistribution.find_or_create_by!(activity: activity, activity_production: ap, target: animal)
           end
-          #TODO how to add animals to a group
+          # TODO: how to add animals to a group
           # animal_group.add_animals(animals, started_at: Time.zone.now - 1.hour, stopped_at: Time.zone.now, production_support_id: ps.id, container_id: animal_container.id, variant_id: animal_variant.id, worker_id: Worker.first.id)
         end
       end

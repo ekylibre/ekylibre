@@ -390,7 +390,7 @@ class ActionController::TestCase
           test_code << "xhr :get, :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
           test_code << "assert_not_nil assigns(:#{record})\n"
         elsif mode == :resource
-          # TODO: Adds test for resource
+        # TODO: Adds test for resource
         elsif mode == :unroll
           test_code << "xhr :get, :#{action}, #{sanitized_params[]}\n"
           test_code << "assert_response :success, #{context}\n"

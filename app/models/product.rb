@@ -195,10 +195,10 @@ class Product < Ekylibre::Record::Base
   scope :intersects_shape, lambda { |shape|
     where(id: ProductReading.where('ST_Intersects(geometry_value, ST_GeomFromEWKT(?))', shape.to_ewkt).select(:product_id))
   }
-  scope :within_shape, ->(shape) {
+  scope :within_shape, lambda { |shape|
     where(id: ProductReading.where('ST_Within(geometry_value, ST_GeomFromEWKT(?))', shape.to_ewkt).select(:product_id))
   }
-  scope :covers_shape, ->(shape) {
+  scope :covers_shape, lambda { |shape|
     where(id: ProductReading.where('ST_Covers(geometry_value, ST_GeomFromEWKT(?))', shape.to_ewkt).select(:product_id))
   }
   scope :overlaps_shape, lambda { |shape|

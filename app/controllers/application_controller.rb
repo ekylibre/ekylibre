@@ -85,10 +85,10 @@ class ApplicationController < ActionController::Base
     end
     if current_user
       return current_user.can_access?(url_options)
-      # if url_options[:controller].blank? or url_options[:action].blank?
-      #   raise ArgumentError, "Uncheckable URL: " + url_options.inspect
-      # end
-      # return current_user.authorization(url_options[:controller], url_options[:action], session[:rights]).nil?
+    # if url_options[:controller].blank? or url_options[:action].blank?
+    #   raise ArgumentError, "Uncheckable URL: " + url_options.inspect
+    # end
+    # return current_user.authorization(url_options[:controller], url_options[:action], session[:rights]).nil?
     else
       true
     end

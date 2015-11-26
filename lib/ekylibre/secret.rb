@@ -1,6 +1,5 @@
 module Ekylibre
   module Secret
-
     mattr_accessor :secret_file
 
     @@secret_file = Rails.root.join('config', 'api.yml')
@@ -21,8 +20,7 @@ module Ekylibre
       elsif store[env].is_a?(Hash)
         return store[env][name.to_s]
       end
-      return nil
+      nil
     end
-
   end
 end

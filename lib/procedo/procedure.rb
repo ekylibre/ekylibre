@@ -293,8 +293,8 @@ module Procedo
           if h.check_usability?
             rubyist.compile(h.usability_tree)
             code << "      #{rubyist.compiled}\n"
-            # code << "    rescue\n"
-            # code << "      return false\n"
+          # code << "    rescue\n"
+          # code << "      return false\n"
           else
             code << "      return true\n"
           end

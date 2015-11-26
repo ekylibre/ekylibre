@@ -163,7 +163,7 @@ module Nomen
     def >(other)
       other = item_for_comparison(other)
       (@left < other.left && other.right < @right)
-   end
+    end
 
     def <=(other)
       other = item_for_comparison(other)

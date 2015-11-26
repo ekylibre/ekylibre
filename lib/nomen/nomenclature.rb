@@ -244,7 +244,7 @@ module Nomen
         next unless property.type == :choice && property.default
         unless property.choices.include?(property.default)
           fail InvalidPropertyNature, "The default choice #{property.default.inspect} is invalid (in #{name}##{property.name}). Pick one from #{property.choices.sort.inspect}."
-                  end
+        end
       end
 
       # Check items

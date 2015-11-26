@@ -30,8 +30,8 @@ module Aggeratio
 
     for type in TYPES
       class_eval "def #{type}?\n" \
-        "  !!(self.type == :#{type})\n" \
-        'end'
+                 "  !!(self.type == :#{type})\n" \
+                 'end'
     end
   end
 end

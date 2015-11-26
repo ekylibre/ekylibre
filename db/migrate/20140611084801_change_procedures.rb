@@ -110,7 +110,7 @@ class ChangeProcedures < ActiveRecord::Migration
 
     for item in CHANGING_INTERVENTION_CAST_ROLES
       execute("UPDATE intervention_casts SET #{item[:column]} = '#{item[:old]}' WHERE #{item[:column]} = '#{item[:new]}' AND reference_name = '#{item[:reference_name]}' AND intervention_id IN (SELECT i.id FROM interventions i WHERE i.reference_name = '#{item[:procedure_reference_name]}')")
-   end
+    end
 
     # change roles name in medicine casts
     for item in CHANGING_INTERVENTION_CAST_REFERENCE_NAMES
