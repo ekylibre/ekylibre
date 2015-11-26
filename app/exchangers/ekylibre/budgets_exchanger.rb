@@ -25,80 +25,92 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
       # get budget concerning production (activty / given campaign)
       campaign = Campaign.find_or_create_by!(harvest_year: campaign_harvest_year)
       cultivation_variant = nil
+      cultivation_variety = nil
 
       if cultivation_variant_reference_name
-        unless cultivation_variant = ProductNatureVariant.find_by(number: cultivation_variant_reference_name) || ProductNatureVariant.find_by(reference_name: cultivation_variant_reference_name)
-          cultivation_variant = ProductNatureVariant.import_from_nomenclature(cultivation_variant_reference_name)
+        if cultivation_variety = Nomen::Variety.find(cultivation_variant_reference_name.to_sym)
+          w.info "cultivation_variant_reference_name is a variety"   
+        elsif cultivation_variant = ProductNatureVariant.find_by(number: cultivation_variant_reference_name) || ProductNatureVariant.find_by(reference_name: cultivation_variant_reference_name)
+          w.info "cultivation_variant_reference_name is an existing variant in DB"
+        elsif cultivation_variant = ProductNatureVariant.import_from_nomenclature(cultivation_variant_reference_name)
+          w.info "cultivation_variant_reference_name is an existing variant in NOMENCLATURE and will be imported"
+        elsif cultivation_variant == nil
+          w.error "cultivation_variant_reference_name #{cultivation_variant_reference_name}.inspect is not a variant neither a variety"
         end
       end
+      
+      cultivation_variety ||= cultivation_variant.variety if cultivation_variant
 
       if support_variant_reference_name
         unless support_variant = ProductNatureVariant.find_by(number: support_variant_reference_name) || ProductNatureVariant.find_by(reference_name: support_variant_reference_name)
           support_variant = ProductNatureVariant.import_from_nomenclature(support_variant_reference_name)
         end
       end
-
+      
+      # find or create activity
       unless activity = Activity.find_by(name: activity_name[0].strip)
         if activity_name[1]
           family = Nomen::ActivityFamily[activity_name[1].strip]
         else
-          family = Activity.find_best_family((cultivation_variant ? cultivation_variant.variety : nil), (support_variant ? support_variant.variety : nil))
+          family = Activity.find_best_family((cultivation_variety ? cultivation_variety : nil), (support_variant ? support_variant.variety : nil))
         end
         unless family
           w.error 'Cannot determine activity'
           fail ActiveExchanger::Error, "Cannot determine activity with support #{support_variant ? support_variant.variety.inspect : '?'} and cultivation #{cultivation_variant ? cultivation_variant.variety.inspect : '?'} in production #{sheet_name}"
         end
-        activity = Activity.create!(name: activity_name[0].strip, family: family.name, nature: family.nature)
+        activity = Activity.new(name: activity_name[0].strip,
+                                    family: family.name,
+                                    size_indicator: (production_indicator[0] ? production_indicator[0].strip.to_sym : nil),
+                                    size_unit: (production_indicator[1] ? production_indicator[1].strip.to_sym : nil),
+                                    nature: family.nature,
+                                    with_supports: (production_support_numbers.any? ? true : false)
+                                   )
+        if support_variant && support_variant.variety                       
+          activity.support_variety = (Nomen::Variety.find(support_variant.variety) == :cultivable_zone ? :cultivable_zone : (Nomen::Variety.find(support_variant.variety) <= :building_division ? :building_division : :product))                      
+          activity.with_cultivation = (Nomen::Variety.find(support_variant.variety) == :cultivable_zone ? true : false)
+        end
+        activity.cultivation_variety = cultivation_variety if cultivation_variant
+        activity.save!
       end
 
-      w.debug "Sheet: #{sheet_name} (#{cultivation_variant})"
-      attributes = {
-        campaign: campaign,
-        activity: activity,
-        name: production_name,
-        cultivation_variant: cultivation_variant,
-        support_variant: support_variant,
-        started_at: Date.new(campaign.harvest_year - 1, 10, 1),
-        stopped_at: Date.new(campaign.harvest_year, 8, 1),
-        state: :opened
-      }
-      if activity.with_supports && support_variant && Nomen::Variety.find(:cultivable_zone) <= support_variant.variety
-        attributes[:support_variant_indicator] = :net_surface_area
-        attributes[:support_variant_unit] = :hectare
-      end
-
-      unless production = Production.find_by(attributes.slice(:name, :campaign)) # || Production.find_by(attributes.slice(:campaign, :activity, :cultivation_variant))
-        production = Production.create! attributes
-      end
-
-      if production.support_variant.blank? && support_variant
-        production.support_variant = support_variant
-      end
-      if production_indicator[0] && (production.support_variant_indicator.blank? || production.support_variant_indicator != production_indicator[0].strip.to_sym)
-        production.support_variant_indicator = production_indicator[0].strip.to_sym
-      end
-      if production_indicator[1] && (production.support_variant_unit.blank? || production.support_variant_unit != production_indicator[1].strip.to_sym)
-        production.support_variant_unit = production_indicator[1].strip.to_sym
-      end
-      production.save!
-
-      # Create support if doesn't exist ?
+      w.info "Sheet: #{sheet_name} (#{cultivation_variant})"
+      
+      # find or create activity production
+      
       production_support_numbers.each do |number|
         # get quantity and number given
         arr = nil
         arr = number.to_s.strip.delete(' ').split(':')
+        
         production_support_number = arr[0]
         production_support_quantity = arr[1]
+        
         if product = Product.find_by(number: production_support_number) || Product.find_by(identification_number: production_support_number) || Product.find_by(work_number: production_support_number)
-          ps = production.supports.find_or_create_by!(storage_id: product.id)
+         w.info "Product exist"
         else
-          w.warn "Cannot find support with number: #{number.inspect}"
+          w.error "Cannot find support with number: #{number.inspect}"
         end
-        if production_support_quantity
-          ps.quantity = production_support_quantity
-          ps.save!
+        
+        attributes = {
+          activity: activity,
+          support: product,
+          started_at: Date.new(campaign.harvest_year - 1, 10, 1),
+          stopped_at: Date.new(campaign.harvest_year, 8, 1),
+          state: :opened
+        }
+      
+        if activity.with_supports && product.shape && Nomen::Variety.find(:cultivable_zone) == support_variant.variety
+          attributes[:cultivable_zone] = product
+          attributes[:size] = ::Charta::Geometry.new(product.shape).area.in(:hectare)
+          attributes[:usage] = :grain
+        elsif activity.with_supports && Nomen::Variety.find(:animal_group) == support_variant.variety
+          attributes[:size] = 1
+          attributes[:usage] = :meat
         end
-      end
+        unless ap = ActivityProduction.find_by(activity: activity, support: product)
+          ap = ActivityProduction.create!(attributes)
+        end
+      end                                    
 
       # file format
       # A "Nom de l'intervention ou de intrant"
@@ -172,15 +184,14 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
             indicator = indics.first
           end
         end
-
-        # Set budget
-        budget = production.budgets.find_or_initialize_by(variant: item_variant, direction: r.item_direction, computation_method: r.computation_method)
-        budget.variant_unit      = unit
-        budget.variant_indicator = indicator
-        budget.unit_currency     = :EUR
-        budget.unit_amount       = r.item_unit_price_amount
-        budget.quantity          = r.item_quantity
-        budget.save!
+        activity_budget = ActivityBudget.find_or_initialize_by(activity: activity, campaign: campaign, variant: item_variant, unit_amount: r.item_unit_price_amount )
+        activity_budget.variant_unit = unit
+        activity_budget.variant_indicator = indicator
+        activity_budget.direction = r.item_direction
+        activity_budget.computation_method = r.computation_method
+        activity_budget.quantity = r.item_quantity if r.item_quantity
+        # activity_budget.unit_population = r.item_quantity_unity if r.item_quantity_unity
+        activity_budget.save!
       end
       w.check_point
     end

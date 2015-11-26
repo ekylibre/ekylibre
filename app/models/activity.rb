@@ -126,7 +126,7 @@ class Activity < Ekylibre::Record::Base
 
   validate do
     if family = Nomen::ActivityFamily[self.family]
-      if with_supports && variety = Nomen::Variety[support_variety]
+      if with_supports && variety = Nomen::Variety[support_variety] && family.support_variety
         errors.add(:support_variety, :invalid) unless variety <= family.support_variety
       end
       if with_cultivation && variety = Nomen::Variety[cultivation_variety]
@@ -168,7 +168,17 @@ class Activity < Ekylibre::Record::Base
   def casts
     InterventionCast.of_activity(self)
   end
-
+  
+  def count_during(campaign)
+    productions.of_campaign(campaign).count
+  end
+  
+  def size_during(campaign)
+    total = productions.of_campaign(campaign).pluck(:size_value).sum
+    # total = total.in(size_unit) if size_unit
+    total
+  end
+  
   # Returns human_name of support variety
   def support_variety_name
     item = Nomen::Variety.find(support_variety)

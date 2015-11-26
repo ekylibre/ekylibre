@@ -51,6 +51,7 @@ class ActivityBudget < Ekylibre::Record::Base
   # refers_to :variant_unit, class_name: 'Unit'
 
   belongs_to :activity, inverse_of: :budgets
+  belongs_to :campaign
   belongs_to :variant, class_name: 'ProductNatureVariant'
   has_many :productions, through: :activity
 
@@ -60,7 +61,8 @@ class ActivityBudget < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates_presence_of :variant, :activity
 
-  delegate :supports_quantity, :supports_count, :support_indicator, :support_unit, to: :activity
+  # delegate :supports_quantity, :supports_count, :support_indicator, :support_unit, to: :activity
+  delegate :size_indicator, :size_unit, to: :activity
   delegate :name, to: :variant, prefix: true
 
   scope :revenues, -> { where(direction: :revenue) }
@@ -80,14 +82,14 @@ class ActivityBudget < Ekylibre::Record::Base
   after_validation do
     self.amount = unit_amount * quantity * coefficient
   end
-
+  
   # Computes the coefficient to use for amount computation
   def coefficient(_options = {})
     return 0 unless activity
     if self.per_production_support?
-      return supports_count
+      return activity.count_during(campaign)
     elsif self.per_working_unit?
-      return supports_quantity
+      return activity.size_during(campaign)
     end
     1
   end
