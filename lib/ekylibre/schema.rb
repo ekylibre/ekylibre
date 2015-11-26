@@ -6,6 +6,7 @@ module Ekylibre
       def setup_extensions
         ActiveRecord::Base.connection.execute 'CREATE SCHEMA IF NOT EXISTS postgis;'
         ActiveRecord::Base.connection.execute 'CREATE EXTENSION IF NOT EXISTS postgis SCHEMA postgis;'
+        ActiveRecord::Base.connection.execute 'CREATE EXTENSION IF NOT EXISTS pgcrypto SCHEMA postgis;'
       end
 
       def root

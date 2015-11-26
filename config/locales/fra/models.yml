@@ -1310,6 +1310,7 @@ fra:
     useful_items: "Lignes utiles"
     user: "Utilisateur"
     users: "Utilisateurs"
+    # uuid: "UUID"
     value: "Valeur"
     variable_indicators: "Indicateurs variables" #?
     variable_indicators_list: "Liste des indicateurs variables"

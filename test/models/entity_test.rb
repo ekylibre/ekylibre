@@ -55,7 +55,7 @@
 #  prospect                  :boolean          default(FALSE), not null
 #  reminder_submissive       :boolean          default(FALSE), not null
 #  responsible_id            :integer
-#  siret                     :string
+#  siret_number              :string
 #  supplier                  :boolean          default(FALSE), not null
 #  supplier_account_id       :integer
 #  title                     :string

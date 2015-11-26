@@ -59,6 +59,7 @@
 #  type                  :string
 #  updated_at            :datetime         not null
 #  updater_id            :integer
+#  uuid                  :uuid
 #  variant_id            :integer          not null
 #  variety               :string           not null
 #  work_number           :string
@@ -131,10 +132,10 @@ class Product < Ekylibre::Record::Base
     where(id: ProductMembership.select(:member_id).where(group_id: group.id, nature: 'interior').at(viewed_at))
   }
 
-  scope :members_of_place, lambda { |place, viewed_at|
-    where(id: ProductLocalization.select(:product_id).where(container_id: place.id).at(viewed_at))
+  scope :members_of_place, lambda { |place, viewed_at| contained_by(place, viewed_at) }
+  scope :contained_by, lambda { |container, viewed_at = Time.zone.now|
+    where(id: ProductLocalization.select(:product_id).where(container: container).at(viewed_at))
   }
-
   scope :of_variety, lambda { |*varieties|
     where(variety: varieties.flatten.collect { |v| Nomen::Variety.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }

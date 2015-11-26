@@ -22,27 +22,32 @@
 #
 # == Table: cap_statements
 #
-#  campaign_id       :integer          not null
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  entity_id         :integer
-#  exploitation_name :string           not null
-#  id                :integer          not null, primary key
-#  lock_version      :integer          default(0), not null
-#  pacage_number     :string           not null
-#  siret_number      :string           not null
-#  updated_at        :datetime         not null
-#  updater_id        :integer
+#  campaign_id   :integer          not null
+#  created_at    :datetime         not null
+#  creator_id    :integer
+#  declarant_id  :integer
+#  farm_name     :string
+#  id            :integer          not null, primary key
+#  lock_version  :integer          default(0), not null
+#  pacage_number :string
+#  siret_number  :string
+#  updated_at    :datetime         not null
+#  updater_id    :integer
 #
 
 class CapStatement < Ekylibre::Record::Base
   belongs_to :campaign
-  belongs_to :entity
-  has_many :cap_islets, class_name: 'CapIslet', dependent: :destroy
+  belongs_to :declarant, class_name: 'Entity'
+  has_many :islets, class_name: 'CapIslet', dependent: :destroy
+  has_many :cap_islets, dependent: :destroy
   has_many :cap_land_parcels, through: :cap_islets
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :campaign, :exploitation_name, :pacage_number, :siret_number
+  validates_presence_of :campaign
   # ]VALIDATORS]
+  validates_presence_of :farm_name, :pacage_number, :siret_number
+
+  alias_attribute :entity, :declarant
+
   delegate :harvest_year, to: :campaign, prefix: false
 
   scope :of_campaign, lambda { |*campaigns|
@@ -55,7 +60,7 @@ class CapStatement < Ekylibre::Record::Base
     where(campaign_id: campaigns.map(&:id))
   }
 
-  def net_surface_area(_unit = :hectare)
-    total_net_surface_area = cap_islets.map(&:net_surface_area).flatten.sum
+  def net_surface_area(unit = :hectare)
+    cap_islets.map(&:net_surface_area).sum.in(unit)
   end
 end

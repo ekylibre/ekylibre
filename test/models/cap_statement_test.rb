@@ -22,17 +22,17 @@
 #
 # == Table: cap_statements
 #
-#  campaign_id       :integer          not null
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  entity_id         :integer
-#  exploitation_name :string           not null
-#  id                :integer          not null, primary key
-#  lock_version      :integer          default(0), not null
-#  pacage_number     :string           not null
-#  siret_number      :string           not null
-#  updated_at        :datetime         not null
-#  updater_id        :integer
+#  campaign_id   :integer          not null
+#  created_at    :datetime         not null
+#  creator_id    :integer
+#  declarant_id  :integer
+#  farm_name     :string
+#  id            :integer          not null, primary key
+#  lock_version  :integer          default(0), not null
+#  pacage_number :string
+#  siret_number  :string
+#  updated_at    :datetime         not null
+#  updater_id    :integer
 #
 require 'test_helper'
 

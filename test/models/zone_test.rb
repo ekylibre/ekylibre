@@ -59,6 +59,7 @@
 #  type                  :string
 #  updated_at            :datetime         not null
 #  updater_id            :integer
+#  uuid                  :uuid
 #  variant_id            :integer          not null
 #  variety               :string           not null
 #  work_number           :string

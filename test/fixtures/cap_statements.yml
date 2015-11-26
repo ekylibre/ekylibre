@@ -22,17 +22,17 @@
 #
 # == Table: cap_statements
 #
-#  campaign_id       :integer          not null
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  entity_id         :integer
-#  exploitation_name :string           not null
-#  id                :integer          not null, primary key
-#  lock_version      :integer          default(0), not null
-#  pacage_number     :string           not null
-#  siret_number      :string           not null
-#  updated_at        :datetime         not null
-#  updater_id        :integer
+#  campaign_id   :integer          not null
+#  created_at    :datetime         not null
+#  creator_id    :integer
+#  declarant_id  :integer
+#  farm_name     :string
+#  id            :integer          not null, primary key
+#  lock_version  :integer          default(0), not null
+#  pacage_number :string
+#  siret_number  :string
+#  updated_at    :datetime         not null
+#  updater_id    :integer
 #
 #
 # == Fixture: cap_statements
@@ -40,21 +40,17 @@
 # cap_statements_001:
 #   campaign: campaigns_001
 #   creator: users_001
-#   exploitation_name: "Lorem ipsum"
-#   pacage_number: "Lorem ipsum"
-#   siret_number: "Lorem ipsum"
 #   updater: users_001
 #
 ---
 cap_statements_001:
-  campaign_id: 1
-  created_at: 2014-11-05 14:15:20.016507000 Z
+  campaign_id: 4
+  created_at: 2014-11-04 15:26:29.112273000 Z
   creator_id: 1
-  entity_id: 1
-  exploitation_name: C. Ferstivall LTD
+  declarant_id: 1
+  farm_name: C. Ferstivall LTD
   id: 1
-  lock_version: 1
-  pacage_number: 017005299
-  siret_number: '32627372900018'
-  updated_at: 2014-11-05 15:14:00.950218000 Z
+  lock_version: 0
+  siret_number: ''
+  updated_at: 2014-11-04 15:26:29.112273000 Z
   updater_id: 1

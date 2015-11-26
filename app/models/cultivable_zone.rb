@@ -20,175 +20,44 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: products
+# == Table: cultivable_zones
 #
-#  address_id            :integer
-#  born_at               :datetime
-#  category_id           :integer          not null
-#  created_at            :datetime         not null
-#  creator_id            :integer
-#  dead_at               :datetime
-#  default_storage_id    :integer
-#  derivative_of         :string
-#  description           :text
-#  extjuncted            :boolean          default(FALSE), not null
-#  fixed_asset_id        :integer
-#  id                    :integer          not null, primary key
-#  identification_number :string
-#  initial_born_at       :datetime
-#  initial_container_id  :integer
-#  initial_dead_at       :datetime
-#  initial_enjoyer_id    :integer
-#  initial_father_id     :integer
-#  initial_geolocation   :geometry({:srid=>4326, :type=>"point"})
-#  initial_mother_id     :integer
-#  initial_owner_id      :integer
-#  initial_population    :decimal(19, 4)   default(0.0)
-#  initial_shape         :geometry({:srid=>4326, :type=>"geometry"})
-#  lock_version          :integer          default(0), not null
-#  name                  :string           not null
-#  nature_id             :integer          not null
-#  number                :string           not null
-#  parent_id             :integer
-#  person_id             :integer
-#  picture_content_type  :string
-#  picture_file_name     :string
-#  picture_file_size     :integer
-#  picture_updated_at    :datetime
-#  tracking_id           :integer
-#  type                  :string
-#  updated_at            :datetime         not null
-#  updater_id            :integer
-#  variant_id            :integer          not null
-#  variety               :string           not null
-#  work_number           :string
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  description  :text
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  name         :string           not null
+#  shape        :geometry({:srid=>4326, :type=>"geometry"}) not null
+#  updated_at   :datetime         not null
+#  updater_id   :integer
+#  uuid         :uuid
+#  work_number  :string           not null
 #
 
-class CultivableZone < Zone
-  refers_to :variety, scope: :cultivable_zone
-  has_many :activity_productions, foreign_key: :support_id
+class CultivableZone < Ekylibre::Record::Base
+  include Attachable
+  has_many :activity_productions, foreign_key: :cultivable_zone_id
   has_many :activities, through: :activity_productions
-  has_many :memberships, class_name: 'CultivableZoneMembership', foreign_key: :group_id
-  has_many :members, class_name: 'Product', through: :memberships
-  has_many :land_parcels, class_name: 'LandParcel', through: :memberships, source: :member
+  has_many :current_activity_productions, -> { current }, foreign_key: :cultivable_zone_id, class_name: 'ActivityProduction'
+  has_many :current_supports, through: :current_activity_productions, source: :support
+  has_many :supports, through: :activity_productions
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_presence_of :name, :shape, :work_number
   # ]VALIDATORS]
 
-  scope :of_current_activity_productions, -> { where(id: ActivityProduction.select(:support_id).current) }
+  scope :of_current_activity_productions, -> { where(id: ActivityProduction.select(:cultivable_zone_id).current) }
   scope :of_campaign, ->(campaign) { activity_productions.of_campaign(campaign) }
 
-  after_validation do
-    # Compute population
-    if initial_shape && nature
-      # self.initial_shape = ::Charta::Geometry.new(initial_shape).multi_polygon
-      if variable_indicators_list.include?(:net_surface_area)
-        self.read!(:net_surface_area, ::Charta::Geometry.new(initial_shape).area, at: initial_born_at)
-      end
-      if variable_indicators_list.include?(:population)
-        self.initial_population = ::Charta::Geometry.new(initial_shape).area / variant.net_surface_area
-      end
-    end
+  # Computes net surface area of shape
+  def net_surface_area(unit = :hectare)
+    ::Charta::Geometry.new(self.shape).area.in(unit).round(3)
   end
 
-  protect(on: :destroy) do
-    supports.any?
+  # get the first object with variety 'plant', availables
+  def current_cultivations
+    Plant.contained_by(current_supports)
   end
 
-  # Returns members of the group at a given time (or now by default)
-  def members_at(_viewed_at = nil)
-    LandParcel.zone_members_of(self)
-  end
-
-  # return the work_number of LandParcelClusters if exist for a CultivableLAndParcel
-  def clusters_work_number(viewed_at = nil)
-    land_parcels = members_at(viewed_at)
-    numbers = []
-    if land_parcels.any?
-      for land_parcel in land_parcels
-        groups = land_parcel.groups
-        for group in groups
-          numbers << group.work_number if group.is_a?(LandParcelCluster)
-        end
-      end
-      return numbers.to_sentence
-    end
-    nil
-  end
-
-  # return the variety of all land_parcel members of the cultivable land parcel
-  def soil_varieties(viewed_at = nil)
-    land_parcels = members_at(viewed_at)
-    varieties = []
-    if land_parcels.any?
-      for land_parcel in land_parcels
-        varieties << land_parcel.soil_nature if land_parcel.soil_nature
-      end
-      return varieties.to_sentence
-    else
-      return nil
-    end
-  end
-
-  def soil_varieties_label(viewed_at = nil)
-    land_parcels = members_at(viewed_at)
-    varieties = []
-    if land_parcels.any?
-      for land_parcel in land_parcels
-        next unless land_parcel.soil_nature
-        if item = Nomen::SoilNature[land_parcel.soil_nature]
-          varieties << item.human_name
-        end
-      end
-      return varieties.to_sentence
-    else
-      return nil
-    end
-  end
-
-  # return the last_production before the production in parameter where the
-  # cultivable land parcel is a support
-  # @TODO replace created_at by started_at when an input field will exist
-  def last_production_before(activity_production)
-    fail 'Cannot do that now. Use ActivityProduction instead'
-    if activity_production.is_a?(ActivityProduction) && activity_production.started_at
-      last_support = supports.where('created_at <= ? ', activity_production.started_at)
-                     .reorder(created_at: :desc).limit(2).last
-      if last_support
-        return last_support.activity_production.name
-      else
-        return nil
-      end
-    else
-      return nil
-    end
-  end
-
-  def current_cultivation
-    # get the first object with variety 'plant', availables
-    if cultivation = contents.where(type: Plant).of_variety(:plant).availables.reorder(:born_at).first
-      return cultivation
-    else
-      return nil
-    end
-  end
-
-  def administrative_area
-    address = Entity.of_company.default_mail_address
-    # raise address.mail_country.inspect
-    if address.mail_country == 'fr'
-      return Nomen::AdministrativeArea.find_by(code: "FR-#{address.mail_postal_code.to_s[0..1]}").name
-    else
-      return nil
-    end
-  end
-
-  def estimated_soil_nature
-    for land_parcel in land_parcels
-      if nature = land_parcel.soil_nature
-        return nature
-      end
-    end
-    nil
-  end
 end

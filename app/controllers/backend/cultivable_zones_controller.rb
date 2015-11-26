@@ -17,8 +17,9 @@
 #
 
 module Backend
-  class CultivableZonesController < Backend::LandParcelGroupsController
+  class CultivableZonesController < Backend::BaseController
     manage_restfully(t3e: { name: :name })
+    manage_restfully_attachments
 
     unroll
 
@@ -27,7 +28,6 @@ module Backend
       t.action :destroy
       t.column :name, url: true
       t.column :work_number
-      t.column :clusters_work_number
       t.column :net_surface_area, datatype: :measure
       # t.column :unit
     end

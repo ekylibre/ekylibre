@@ -61,8 +61,8 @@ fra:
       journal_draft: "Journal draft"
       journal_entries: "Écritures comptables"
       journals: "Journaux"
-      land_parcel_clusters: "Îlots"
-      land_parcel_groups: "Groupes de parcelles"
+      land_parcel_clusters: "Îlots" #?
+      land_parcel_groups: "Groupes de parcelles" #?
       land_parcels: "Parcelles"
       listings: "Extractions"
       loans: "Emprunts"

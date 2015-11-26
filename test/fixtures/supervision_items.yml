@@ -41,34 +41,4 @@
 #   supervision: supervisions_001
 #   updater: users_001
 #
----
-supervision_items_001:
-  color: "#bd4545"
-  created_at: 2015-10-28 22:00:32.639555000 Z
-  creator_id: 1
-  id: 1
-  lock_version: 0
-  sensor_id: 4
-  supervision_id: 1
-  updated_at: 2015-10-28 22:00:32.639555000 Z
-  updater_id: 1
-supervision_items_002:
-  color: "#e1d521"
-  created_at: 2015-10-28 22:00:57.815460000 Z
-  creator_id: 1
-  id: 2
-  lock_version: 0
-  sensor_id: 2
-  supervision_id: 2
-  updated_at: 2015-10-28 22:00:57.815460000 Z
-  updater_id: 1
-supervision_items_003:
-  color: "#5a8cde"
-  created_at: 2015-10-28 22:00:57.816827000 Z
-  creator_id: 1
-  id: 3
-  lock_version: 0
-  sensor_id: 5
-  supervision_id: 2
-  updated_at: 2015-10-28 22:00:57.816827000 Z
-  updater_id: 1
+--- {}

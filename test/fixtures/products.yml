@@ -59,6 +59,7 @@
 #  type                  :string
 #  updated_at            :datetime         not null
 #  updater_id            :integer
+#  uuid                  :uuid
 #  variant_id            :integer          not null
 #  variety               :string           not null
 #  work_number           :string
@@ -95,6 +96,7 @@ animals_001:
   type: Animal
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
+  uuid: e7c57a54-d8e6-439d-a6f1-b7cb03033a11
   variant_id: 1
   variety: bos
 animals_002:
@@ -112,6 +114,7 @@ animals_002:
   type: Animal
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
+  uuid: 624677a6-f935-46bd-839d-fd3e10c5d8c6
   variant_id: 1
   variety: gallus
 animals_003:
@@ -132,6 +135,7 @@ animals_003:
   type: Animal
   updated_at: 2014-11-01 19:29:58.088036000 Z
   updater_id: 1
+  uuid: 3d5bfce9-217c-454a-aa06-ee9a9d9def9c
   variant_id: 17
   variety: bos_taurus_limousine
   work_number: '8746'
@@ -153,6 +157,7 @@ animals_004:
   type: Animal
   updated_at: 2014-11-01 19:35:50.372083000 Z
   updater_id: 1
+  uuid: fcbbddc4-3aeb-40f3-a059-cb341ddb3990
   variant_id: 17
   variety: bos
   work_number: '1526'
@@ -175,6 +180,7 @@ animal_groups_001:
   type: AnimalGroup
   updated_at: 2014-11-07 15:49:47.929754000 Z
   updater_id: 1
+  uuid: e4ab24b1-c427-49d6-b86b-6f7e668ee8b1
   variant_id: 31
   variety: animal_group
   work_number: TGA
@@ -195,6 +201,7 @@ animal_groups_002:
   type: AnimalGroup
   updated_at: 2014-11-04 17:32:45.765155000 Z
   updater_id: 1
+  uuid: 5f7b45eb-94c0-42d4-9cb0-a0f936bbfbee
   variant_id: 31
   variety: animal_group
   work_number: TGB
@@ -212,6 +219,7 @@ buildings_001:
   type: Building
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
+  uuid: 540f816f-b431-46d3-bda6-a866cea8d300
   variant_id: 3
   variety: building
 buildings_002:
@@ -228,6 +236,7 @@ buildings_002:
   type: Building
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
+  uuid: 1c34cc14-074e-468c-89e5-cf0950c26674
   variant_id: 3
   variety: building
 buildings_003:
@@ -245,6 +254,7 @@ buildings_003:
   type: Building
   updated_at: 2014-10-31 20:12:30.889733000 Z
   updater_id: 1
+  uuid: a42539b8-f890-492b-8b2d-6a263bffda80
   variant_id: 3
   variety: building
 buildings_004:
@@ -268,6 +278,7 @@ buildings_004:
   type: Building
   updated_at: 2014-11-07 14:30:00.476778000 Z
   updater_id: 1
+  uuid: 4f22ad4c-5376-42ec-8864-cf102e153788
   variant_id: 12
   variety: building
   work_number: '123123'
@@ -293,6 +304,7 @@ buildings_005:
   type: Building
   updated_at: 2014-11-07 17:18:25.687359000 Z
   updater_id: 1
+  uuid: d44b2ebb-ec6d-47af-a58e-7f8a99078369
   variant_id: 51
   variety: building
   work_number: CHAI
@@ -318,6 +330,7 @@ building_divisions_001:
   type: BuildingDivision
   updated_at: 2014-11-07 14:41:44.726701000 Z
   updater_id: 1
+  uuid: 0ed01b43-4c0e-4479-a8e2-2b83ac7bafe9
   variant_id: 13
   variety: building_division
   work_number: ''
@@ -341,6 +354,7 @@ building_divisions_002:
   type: BuildingDivision
   updated_at: 2014-10-31 20:23:26.762717000 Z
   updater_id: 1
+  uuid: 37d194a8-30f2-4929-ba1a-c405233b68ea
   variant_id: 14
   variety: building_division
 building_divisions_003:
@@ -361,6 +375,7 @@ building_divisions_003:
   type: BuildingDivision
   updated_at: 2014-10-31 20:49:34.036786000 Z
   updater_id: 1
+  uuid: e38eb56d-d9b9-40f1-988c-1802c5b58c4a
   variant_id: 15
   variety: building_division
 building_divisions_004:
@@ -383,10 +398,387 @@ building_divisions_004:
   type: BuildingDivision
   updated_at: 2014-11-07 14:39:41.440984000 Z
   updater_id: 1
+  uuid: 62449d74-bb11-4c68-90e1-c17c5ff4bb55
   variant_id: 35
   variety: building_division
   work_number: C1
-cultivable_zones_001:
+equipments_001:
+  born_at: 2002-12-14 23:00:00.000000000 Z
+  category_id: 14
+  created_at: 2014-11-02 18:22:30.483623000 Z
+  creator_id: 1
+  description: ''
+  extjuncted: false
+  id: 29
+  initial_born_at: 2002-12-14 23:00:00.000000000 Z
+  initial_population: 0.0
+  lock_version: 1
+  name: Tracteur BH-845
+  nature_id: 21
+  number: PR00000000016
+  type: Equipment
+  updated_at: 2014-11-02 18:22:39.392745000 Z
+  updater_id: 1
+  uuid: 0d9b9b14-6de7-4897-81ef-40f64746cf95
+  variant_id: 26
+  variety: tractor
+equipments_002:
+  born_at: 2007-08-22 22:00:00.000000000 Z
+  category_id: 14
+  created_at: 2014-11-02 18:23:23.650907000 Z
+  creator_id: 1
+  description: ''
+  extjuncted: false
+  id: 30
+  initial_born_at: 2007-08-22 22:00:00.000000000 Z
+  initial_population: 1.0
+  lock_version: 1
+  name: Broyeur ZK8000
+  nature_id: 22
+  number: PR00000000017
+  type: Equipment
+  updated_at: 2014-11-02 18:23:36.524019000 Z
+  updater_id: 1
+  uuid: 71c46e7f-ded7-417d-a15e-5e2688fa05ea
+  variant_id: 25
+  variety: plower
+equipments_003:
+  born_at: 2005-09-14 22:00:00.000000000 Z
+  category_id: 14
+  created_at: 2014-11-02 18:29:41.469233000 Z
+  creator_id: 1
+  description: ''
+  extjuncted: false
+  id: 31
+  initial_born_at: 2005-09-14 22:00:00.000000000 Z
+  initial_population: 1.0
+  lock_version: 0
+  name: Charrue T1000
+  nature_id: 23
+  number: PR00000000019
+  type: Equipment
+  updated_at: 2014-11-02 18:29:41.469233000 Z
+  updater_id: 1
+  uuid: ed6eb02e-4891-4bdd-91b3-b748c8d260a4
+  variant_id: 27
+  variety: plower
+equipments_004:
+  born_at: 1997-01-22 23:00:00.000000000 Z
+  category_id: 14
+  created_at: 2014-11-02 18:37:22.384578000 Z
+  creator_id: 1
+  default_storage_id: 19
+  description: ''
+  extjuncted: false
+  id: 32
+  initial_born_at: 1997-01-22 23:00:00.000000000 Z
+  initial_container_id: 19
+  initial_population: 0.0
+  lock_version: 0
+  name: Semoir TG74
+  nature_id: 25
+  number: PR00000000021
+  type: Equipment
+  updated_at: 2014-11-02 18:37:22.384578000 Z
+  updater_id: 1
+  uuid: 67e056e2-cc97-48b4-b17a-3ff244e58350
+  variant_id: 29
+  variety: sower
+equipments_005:
+  born_at: 1992-01-17 23:00:00.000000000 Z
+  category_id: 14
+  created_at: 2014-11-04 18:39:58.300986000 Z
+  creator_id: 1
+  default_storage_id: 21
+  description: ''
+  extjuncted: false
+  id: 87
+  initial_born_at: 1992-01-17 23:00:00.000000000 Z
+  initial_container_id: 21
+  initial_population: 0.0
+  lock_version: 0
+  name: Cultipacker CP360
+  nature_id: 28
+  number: PR00000000031
+  type: Equipment
+  updated_at: 2014-11-04 18:39:58.300986000 Z
+  updater_id: 1
+  uuid: 57f20e06-870b-480a-be19-14bddc2578d1
+  variant_id: 33
+  variety: plower
+equipments_006:
+  born_at: 1997-09-22 12:30:00.000000000 Z
+  category_id: 14
+  created_at: 2014-11-04 18:41:16.415301000 Z
+  creator_id: 1
+  default_storage_id: 19
+  description: ''
+  extjuncted: false
+  id: 88
+  initial_born_at: 1997-09-22 12:30:00.000000000 Z
+  initial_container_id: 19
+  initial_population: 0.0
+  lock_version: 1
+  name: Bineuse BIN3+
+  nature_id: 29
+  number: PR00000000032
+  type: Equipment
+  updated_at: 2014-11-04 18:41:24.697151000 Z
+  updater_id: 1
+  uuid: dad22ab3-11a9-4652-892b-b23ca21bffa1
+  variant_id: 34
+  variety: plower
+equipments_007:
+  born_at: 2009-01-11 23:00:00.000000000 Z
+  category_id: 14
+  created_at: 2014-11-07 15:01:32.169817000 Z
+  creator_id: 1
+  default_storage_id: 19
+  description: ''
+  extjuncted: false
+  id: 95
+  initial_born_at: 2009-01-11 23:00:00.000000000 Z
+  initial_container_id: 19
+  initial_population: 0.0
+  lock_version: 0
+  name: Pulveo 8000
+  nature_id: 30
+  number: PR00000000039
+  type: Equipment
+  updated_at: 2014-11-07 15:01:32.169817000 Z
+  updater_id: 1
+  uuid: 8ce2dc04-3e38-42a9-92c1-e7197f75819b
+  variant_id: 36
+  variety: sprayer
+equipments_008:
+  born_at: 2010-11-01 23:00:00.000000000 Z
+  category_id: 14
+  created_at: 2014-11-07 15:23:45.087173000 Z
+  creator_id: 1
+  default_storage_id: 21
+  description: ''
+  extjuncted: false
+  id: 97
+  initial_born_at: 2010-11-01 23:00:00.000000000 Z
+  initial_container_id: 21
+  initial_population: 0.0
+  lock_version: 0
+  name: "Épandeur ENGRAMAX 75"
+  nature_id: 31
+  number: PR00000000041
+  type: Equipment
+  updated_at: 2014-11-07 15:23:45.087173000 Z
+  updater_id: 1
+  uuid: 09307b21-9fcd-45c6-b6bf-dc9de4e46dc9
+  variant_id: 37
+  variety: spreader
+equipments_009:
+  born_at: 2001-01-22 23:00:00.000000000 Z
+  category_id: 14
+  created_at: 2014-11-07 16:49:26.139872000 Z
+  creator_id: 1
+  default_storage_id: 21
+  description: ''
+  extjuncted: false
+  id: 108
+  initial_born_at: 2001-01-22 23:00:00.000000000 Z
+  initial_container_id: 21
+  initial_population: 0.0
+  lock_version: 0
+  name: PLANTOVIGNE X20
+  nature_id: 38
+  number: PR00000000052
+  type: Equipment
+  updated_at: 2014-11-07 16:49:26.139872000 Z
+  updater_id: 1
+  uuid: 8b000e08-818b-450e-886a-bb1aa84cad18
+  variant_id: 46
+  variety: implanter
+equipments_010:
+  born_at: 2012-09-02 07:00:00.000000000 Z
+  category_id: 14
+  created_at: 2014-11-07 17:05:10.430947000 Z
+  creator_id: 1
+  default_storage_id: 21
+  description: ''
+  extjuncted: false
+  id: 112
+  initial_born_at: 2012-09-02 07:00:00.000000000 Z
+  initial_container_id: 21
+  initial_population: 0.0
+  lock_version: 0
+  name: VENDOPLUS 960
+  nature_id: 39
+  number: PR00000000056
+  type: Equipment
+  updated_at: 2014-11-07 17:05:10.430947000 Z
+  updater_id: 1
+  uuid: 018975bf-4af9-4217-b102-23b93c91326e
+  variant_id: 47
+  variety: reaper
+equipments_011:
+  born_at: 2010-06-30 22:00:00.000000000 Z
+  category_id: 14
+  created_at: 2014-11-07 17:19:35.222129000 Z
+  creator_id: 1
+  default_storage_id: 115
+  description: ''
+  extjuncted: false
+  id: 116
+  initial_born_at: 2010-06-30 22:00:00.000000000 Z
+  initial_container_id: 115
+  initial_population: 0.0
+  lock_version: 0
+  name: Cuve Jupiter
+  nature_id: 42
+  number: PR00000000059
+  type: Equipment
+  updated_at: 2014-11-07 17:19:35.222129000 Z
+  updater_id: 1
+  uuid: 9a92aa50-7a2d-495e-b7e8-6c5646596048
+  variant_id: 50
+  variety: tank
+equipments_012:
+  born_at: 2010-04-30 22:00:00.000000000 Z
+  category_id: 14
+  created_at: 2014-11-07 17:20:23.962743000 Z
+  creator_id: 1
+  default_storage_id: 115
+  description: ''
+  extjuncted: false
+  id: 117
+  initial_born_at: 2010-04-30 22:00:00.000000000 Z
+  initial_container_id: 115
+  initial_population: 0.0
+  lock_version: 0
+  name: Cuve Saturne
+  nature_id: 42
+  number: PR00000000060
+  type: Equipment
+  updated_at: 2014-11-07 17:20:23.962743000 Z
+  updater_id: 1
+  uuid: 0e105cb1-3a53-4085-90bd-285c7bf52c32
+  variant_id: 50
+  variety: tank
+equipments_013:
+  born_at: 2010-04-30 22:00:00.000000000 Z
+  category_id: 14
+  created_at: 2014-11-07 17:22:41.836712000 Z
+  creator_id: 1
+  default_storage_id: 115
+  description: ''
+  extjuncted: false
+  id: 118
+  initial_born_at: 2010-04-30 22:00:00.000000000 Z
+  initial_container_id: 115
+  initial_population: 0.0
+  lock_version: 0
+  name: Cuve Soleil
+  nature_id: 42
+  number: PR00000000061
+  type: Equipment
+  updated_at: 2014-11-07 17:22:41.836712000 Z
+  updater_id: 1
+  uuid: b2a1e955-d5c0-449c-aba2-11417ca93f26
+  variant_id: 50
+  variety: tank
+equipments_014:
+  born_at: 2014-11-07 17:23:41.409332000 Z
+  category_id: 14
+  created_at: 2014-11-07 17:23:41.373971000 Z
+  creator_id: 1
+  description: ''
+  extjuncted: false
+  id: 119
+  initial_owner_id: 13
+  initial_population: 0.0
+  lock_version: 0
+  name: Pressoir XT96
+  nature_id: 43
+  number: PR00000000062
+  type: Equipment
+  updated_at: 2014-11-07 17:23:41.373971000 Z
+  updater_id: 1
+  uuid: 95b7a783-96eb-4740-8aa8-bbfffe821995
+  variant_id: 52
+  variety: press
+equipments_015:
+  born_at: 1954-05-11 23:00:00.000000000 Z
+  category_id: 14
+  created_at: 2014-11-07 19:36:09.027415000 Z
+  creator_id: 1
+  description: ''
+  extjuncted: false
+  id: 137
+  initial_born_at: 1954-05-11 23:00:00.000000000 Z
+  initial_population: 0.0
+  lock_version: 0
+  name: Boucheuse manuelle
+  nature_id: 57
+  number: PR00000000082
+  type: Equipment
+  updated_at: 2014-11-07 19:36:09.027415000 Z
+  updater_id: 1
+  uuid: 2c78ad9f-852d-422d-bb46-71910a1db76e
+  variant_id: 67
+  variety: baler
+equipments_016:
+  born_at: 2014-11-07 19:36:30.009048000 Z
+  category_id: 14
+  created_at: 2014-11-07 19:36:29.977043000 Z
+  creator_id: 1
+  description: ''
+  extjuncted: false
+  id: 138
+  initial_owner_id: 13
+  initial_population: 0.0
+  lock_version: 0
+  name: Tireuse Coop
+  nature_id: 56
+  number: PR00000000083
+  type: Equipment
+  updated_at: 2014-11-07 19:36:29.977043000 Z
+  updater_id: 1
+  uuid: 9d6fd4f4-42b5-433c-9dd2-632b68abeb91
+  variant_id: 66
+  variety: baler
+fungi_001:
+  category_id: 1
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  extjuncted: false
+  id: 33
+  initial_population: 0.0
+  lock_version: 0
+  name: 'Fungus #1'
+  nature_id: 1
+  number: '16101'
+  parent_id: 65
+  type: Fungus
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+  uuid: 2f7aeddb-0040-4b53-9959-867ebc6b992e
+  variant_id: 1
+  variety: fungus
+fungi_002:
+  category_id: 1
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  extjuncted: false
+  id: 34
+  initial_population: 0.0
+  lock_version: 0
+  name: 'Fungus #2'
+  nature_id: 1
+  number: '16102'
+  parent_id: 65
+  type: Fungus
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+  uuid: d4c2529d-69c2-4b1f-8f3b-a175f30627d5
+  variant_id: 1
+  variety: fungus
+land_parcels_001:
   born_at: 1974-05-11 23:00:00.000000000 Z
   category_id: 15
   created_at: 2014-11-04 17:12:23.238580000 Z
@@ -404,13 +796,14 @@ cultivable_zones_001:
   name: La Michardière
   nature_id: 24
   number: PR00000000024
-  type: CultivableZone
+  type: LandParcel
   updated_at: 2014-11-04 17:12:23.238580000 Z
   updater_id: 1
+  uuid: 090fc89e-a5ec-4953-97d1-76ab2e1f7045
   variant_id: 28
   variety: cultivable_zone
   work_number: ZC1
-cultivable_zones_002:
+land_parcels_002:
   born_at: 1965-01-22 23:00:00.000000000 Z
   category_id: 15
   created_at: 2014-11-04 17:15:04.591592000 Z
@@ -428,13 +821,14 @@ cultivable_zones_002:
   name: Le Margoulin
   nature_id: 24
   number: PR00000000025
-  type: CultivableZone
+  type: LandParcel
   updated_at: 2014-11-04 17:15:04.591592000 Z
   updater_id: 1
+  uuid: 3c406948-f7e7-46ba-8e67-4407c956fa0a
   variant_id: 28
   variety: cultivable_zone
   work_number: ZC0
-cultivable_zones_003:
+land_parcels_003:
   born_at: 1975-06-01 23:00:00.000000000 Z
   category_id: 15
   created_at: 2014-11-04 17:17:04.657670000 Z
@@ -451,13 +845,14 @@ cultivable_zones_003:
   name: Le Baltomire
   nature_id: 24
   number: PR00000000026
-  type: CultivableZone
+  type: LandParcel
   updated_at: 2014-11-04 17:17:04.657670000 Z
   updater_id: 1
+  uuid: 157ed238-a869-403f-9319-61b537748a98
   variant_id: 28
   variety: cultivable_zone
   work_number: ZC2
-cultivable_zones_004:
+land_parcels_004:
   born_at: 1983-12-11 23:00:00.000000000 Z
   category_id: 15
   created_at: 2014-11-04 17:19:31.120097000 Z
@@ -476,13 +871,14 @@ cultivable_zones_004:
   name: La Crédanpouille
   nature_id: 24
   number: PR00000000027
-  type: CultivableZone
+  type: LandParcel
   updated_at: 2014-11-04 17:19:31.120097000 Z
   updater_id: 1
+  uuid: a57a5209-be4a-47fe-9d7a-3b7314350fc7
   variant_id: 28
   variety: cultivable_zone
   work_number: ZC3
-cultivable_zones_005:
+land_parcels_005:
   born_at: 1985-11-03 23:00:00.000000000 Z
   category_id: 15
   created_at: 2014-11-04 17:22:31.656517000 Z
@@ -502,13 +898,14 @@ cultivable_zones_005:
   name: La Queue du Loup
   nature_id: 24
   number: PR00000000028
-  type: CultivableZone
+  type: LandParcel
   updated_at: 2014-11-04 17:22:31.656517000 Z
   updater_id: 1
+  uuid: a48f7d43-b54b-418c-b412-67eb8896751f
   variant_id: 28
   variety: cultivable_zone
   work_number: ZC4
-cultivable_zones_006:
+land_parcels_006:
   born_at: 1971-06-17 23:00:00.000000000 Z
   category_id: 15
   created_at: 2014-11-07 16:26:53.115665000 Z
@@ -532,517 +929,13 @@ cultivable_zones_006:
   name: La Boutanche
   nature_id: 24
   number: PR00000000049
-  type: CultivableZone
+  type: LandParcel
   updated_at: 2014-11-07 16:26:53.115665000 Z
   updater_id: 1
+  uuid: c79295dc-88d3-4983-92ec-f1b08be66cdc
   variant_id: 28
   variety: cultivable_zone
   work_number: ZC5
-equipments_001:
-  born_at: 2002-12-14 23:00:00.000000000 Z
-  category_id: 14
-  created_at: 2014-11-02 18:22:30.483623000 Z
-  creator_id: 1
-  description: ''
-  extjuncted: false
-  id: 29
-  initial_born_at: 2002-12-14 23:00:00.000000000 Z
-  initial_population: 0.0
-  lock_version: 1
-  name: Tracteur BH-845
-  nature_id: 21
-  number: PR00000000016
-  type: Equipment
-  updated_at: 2014-11-02 18:22:39.392745000 Z
-  updater_id: 1
-  variant_id: 26
-  variety: tractor
-equipments_002:
-  born_at: 2007-08-22 22:00:00.000000000 Z
-  category_id: 14
-  created_at: 2014-11-02 18:23:23.650907000 Z
-  creator_id: 1
-  description: ''
-  extjuncted: false
-  id: 30
-  initial_born_at: 2007-08-22 22:00:00.000000000 Z
-  initial_population: 1.0
-  lock_version: 1
-  name: Broyeur ZK8000
-  nature_id: 22
-  number: PR00000000017
-  type: Equipment
-  updated_at: 2014-11-02 18:23:36.524019000 Z
-  updater_id: 1
-  variant_id: 25
-  variety: plower
-equipments_003:
-  born_at: 2005-09-14 22:00:00.000000000 Z
-  category_id: 14
-  created_at: 2014-11-02 18:29:41.469233000 Z
-  creator_id: 1
-  description: ''
-  extjuncted: false
-  id: 31
-  initial_born_at: 2005-09-14 22:00:00.000000000 Z
-  initial_population: 1.0
-  lock_version: 0
-  name: Charrue T1000
-  nature_id: 23
-  number: PR00000000019
-  type: Equipment
-  updated_at: 2014-11-02 18:29:41.469233000 Z
-  updater_id: 1
-  variant_id: 27
-  variety: plower
-equipments_004:
-  born_at: 1997-01-22 23:00:00.000000000 Z
-  category_id: 14
-  created_at: 2014-11-02 18:37:22.384578000 Z
-  creator_id: 1
-  default_storage_id: 19
-  description: ''
-  extjuncted: false
-  id: 32
-  initial_born_at: 1997-01-22 23:00:00.000000000 Z
-  initial_container_id: 19
-  initial_population: 0.0
-  lock_version: 0
-  name: Semoir TG74
-  nature_id: 25
-  number: PR00000000021
-  type: Equipment
-  updated_at: 2014-11-02 18:37:22.384578000 Z
-  updater_id: 1
-  variant_id: 29
-  variety: sower
-equipments_005:
-  born_at: 1992-01-17 23:00:00.000000000 Z
-  category_id: 14
-  created_at: 2014-11-04 18:39:58.300986000 Z
-  creator_id: 1
-  default_storage_id: 21
-  description: ''
-  extjuncted: false
-  id: 87
-  initial_born_at: 1992-01-17 23:00:00.000000000 Z
-  initial_container_id: 21
-  initial_population: 0.0
-  lock_version: 0
-  name: Cultipacker CP360
-  nature_id: 28
-  number: PR00000000031
-  type: Equipment
-  updated_at: 2014-11-04 18:39:58.300986000 Z
-  updater_id: 1
-  variant_id: 33
-  variety: plower
-equipments_006:
-  born_at: 1997-09-22 12:30:00.000000000 Z
-  category_id: 14
-  created_at: 2014-11-04 18:41:16.415301000 Z
-  creator_id: 1
-  default_storage_id: 19
-  description: ''
-  extjuncted: false
-  id: 88
-  initial_born_at: 1997-09-22 12:30:00.000000000 Z
-  initial_container_id: 19
-  initial_population: 0.0
-  lock_version: 1
-  name: Bineuse BIN3+
-  nature_id: 29
-  number: PR00000000032
-  type: Equipment
-  updated_at: 2014-11-04 18:41:24.697151000 Z
-  updater_id: 1
-  variant_id: 34
-  variety: plower
-equipments_007:
-  born_at: 2009-01-11 23:00:00.000000000 Z
-  category_id: 14
-  created_at: 2014-11-07 15:01:32.169817000 Z
-  creator_id: 1
-  default_storage_id: 19
-  description: ''
-  extjuncted: false
-  id: 95
-  initial_born_at: 2009-01-11 23:00:00.000000000 Z
-  initial_container_id: 19
-  initial_population: 0.0
-  lock_version: 0
-  name: Pulveo 8000
-  nature_id: 30
-  number: PR00000000039
-  type: Equipment
-  updated_at: 2014-11-07 15:01:32.169817000 Z
-  updater_id: 1
-  variant_id: 36
-  variety: sprayer
-equipments_008:
-  born_at: 2010-11-01 23:00:00.000000000 Z
-  category_id: 14
-  created_at: 2014-11-07 15:23:45.087173000 Z
-  creator_id: 1
-  default_storage_id: 21
-  description: ''
-  extjuncted: false
-  id: 97
-  initial_born_at: 2010-11-01 23:00:00.000000000 Z
-  initial_container_id: 21
-  initial_population: 0.0
-  lock_version: 0
-  name: "Épandeur ENGRAMAX 75"
-  nature_id: 31
-  number: PR00000000041
-  type: Equipment
-  updated_at: 2014-11-07 15:23:45.087173000 Z
-  updater_id: 1
-  variant_id: 37
-  variety: spreader
-equipments_009:
-  born_at: 2001-01-22 23:00:00.000000000 Z
-  category_id: 14
-  created_at: 2014-11-07 16:49:26.139872000 Z
-  creator_id: 1
-  default_storage_id: 21
-  description: ''
-  extjuncted: false
-  id: 108
-  initial_born_at: 2001-01-22 23:00:00.000000000 Z
-  initial_container_id: 21
-  initial_population: 0.0
-  lock_version: 0
-  name: PLANTOVIGNE X20
-  nature_id: 38
-  number: PR00000000052
-  type: Equipment
-  updated_at: 2014-11-07 16:49:26.139872000 Z
-  updater_id: 1
-  variant_id: 46
-  variety: implanter
-equipments_010:
-  born_at: 2012-09-02 07:00:00.000000000 Z
-  category_id: 14
-  created_at: 2014-11-07 17:05:10.430947000 Z
-  creator_id: 1
-  default_storage_id: 21
-  description: ''
-  extjuncted: false
-  id: 112
-  initial_born_at: 2012-09-02 07:00:00.000000000 Z
-  initial_container_id: 21
-  initial_population: 0.0
-  lock_version: 0
-  name: VENDOPLUS 960
-  nature_id: 39
-  number: PR00000000056
-  type: Equipment
-  updated_at: 2014-11-07 17:05:10.430947000 Z
-  updater_id: 1
-  variant_id: 47
-  variety: reaper
-equipments_011:
-  born_at: 2010-06-30 22:00:00.000000000 Z
-  category_id: 14
-  created_at: 2014-11-07 17:19:35.222129000 Z
-  creator_id: 1
-  default_storage_id: 115
-  description: ''
-  extjuncted: false
-  id: 116
-  initial_born_at: 2010-06-30 22:00:00.000000000 Z
-  initial_container_id: 115
-  initial_population: 0.0
-  lock_version: 0
-  name: Cuve Jupiter
-  nature_id: 42
-  number: PR00000000059
-  type: Equipment
-  updated_at: 2014-11-07 17:19:35.222129000 Z
-  updater_id: 1
-  variant_id: 50
-  variety: tank
-equipments_012:
-  born_at: 2010-04-30 22:00:00.000000000 Z
-  category_id: 14
-  created_at: 2014-11-07 17:20:23.962743000 Z
-  creator_id: 1
-  default_storage_id: 115
-  description: ''
-  extjuncted: false
-  id: 117
-  initial_born_at: 2010-04-30 22:00:00.000000000 Z
-  initial_container_id: 115
-  initial_population: 0.0
-  lock_version: 0
-  name: Cuve Saturne
-  nature_id: 42
-  number: PR00000000060
-  type: Equipment
-  updated_at: 2014-11-07 17:20:23.962743000 Z
-  updater_id: 1
-  variant_id: 50
-  variety: tank
-equipments_013:
-  born_at: 2010-04-30 22:00:00.000000000 Z
-  category_id: 14
-  created_at: 2014-11-07 17:22:41.836712000 Z
-  creator_id: 1
-  default_storage_id: 115
-  description: ''
-  extjuncted: false
-  id: 118
-  initial_born_at: 2010-04-30 22:00:00.000000000 Z
-  initial_container_id: 115
-  initial_population: 0.0
-  lock_version: 0
-  name: Cuve Soleil
-  nature_id: 42
-  number: PR00000000061
-  type: Equipment
-  updated_at: 2014-11-07 17:22:41.836712000 Z
-  updater_id: 1
-  variant_id: 50
-  variety: tank
-equipments_014:
-  born_at: 2014-11-07 17:23:41.409332000 Z
-  category_id: 14
-  created_at: 2014-11-07 17:23:41.373971000 Z
-  creator_id: 1
-  description: ''
-  extjuncted: false
-  id: 119
-  initial_owner_id: 13
-  initial_population: 0.0
-  lock_version: 0
-  name: Pressoir XT96
-  nature_id: 43
-  number: PR00000000062
-  type: Equipment
-  updated_at: 2014-11-07 17:23:41.373971000 Z
-  updater_id: 1
-  variant_id: 52
-  variety: press
-equipments_015:
-  born_at: 1954-05-11 23:00:00.000000000 Z
-  category_id: 14
-  created_at: 2014-11-07 19:36:09.027415000 Z
-  creator_id: 1
-  description: ''
-  extjuncted: false
-  id: 137
-  initial_born_at: 1954-05-11 23:00:00.000000000 Z
-  initial_population: 0.0
-  lock_version: 0
-  name: Boucheuse manuelle
-  nature_id: 57
-  number: PR00000000082
-  type: Equipment
-  updated_at: 2014-11-07 19:36:09.027415000 Z
-  updater_id: 1
-  variant_id: 67
-  variety: baler
-equipments_016:
-  born_at: 2014-11-07 19:36:30.009048000 Z
-  category_id: 14
-  created_at: 2014-11-07 19:36:29.977043000 Z
-  creator_id: 1
-  description: ''
-  extjuncted: false
-  id: 138
-  initial_owner_id: 13
-  initial_population: 0.0
-  lock_version: 0
-  name: Tireuse Coop
-  nature_id: 56
-  number: PR00000000083
-  type: Equipment
-  updated_at: 2014-11-07 19:36:29.977043000 Z
-  updater_id: 1
-  variant_id: 66
-  variety: baler
-fungi_001:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
-  id: 33
-  initial_population: 0.0
-  lock_version: 0
-  name: 'Fungus #1'
-  nature_id: 1
-  number: '16101'
-  parent_id: 65
-  type: Fungus
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-  variety: fungus
-fungi_002:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
-  id: 34
-  initial_population: 0.0
-  lock_version: 0
-  name: 'Fungus #2'
-  nature_id: 1
-  number: '16102'
-  parent_id: 65
-  type: Fungus
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-  variety: fungus
-land_parcels_001:
-  born_at: 1959-03-02 08:00:00.000000000 Z
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
-  id: 38
-  initial_population: 0.0
-  lock_version: 0
-  name: LandParcel Ⅰ
-  nature_id: 1
-  number: '40001'
-  type: LandParcel
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-  variety: land_parcel
-land_parcels_002:
-  born_at: 1959-07-02 08:00:00.000000000 Z
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
-  id: 39
-  initial_population: 0.0
-  lock_version: 0
-  name: LandParcel Ⅱ
-  nature_id: 1
-  number: '40002'
-  type: LandParcel
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-  variety: land_parcel
-land_parcels_003:
-  born_at: 1959-03-02 08:00:00.000000000 Z
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
-  id: 40
-  initial_population: 0.0
-  lock_version: 0
-  name: LandParcel Ⅲ
-  nature_id: 1
-  number: '40003'
-  type: LandParcel
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-  variety: land_parcel
-land_parcel_clusters_001:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
-  id: 41
-  initial_population: 0.0
-  lock_version: 0
-  name: 'LandParcelCluster #1'
-  nature_id: 1
-  number: '31001'
-  type: LandParcelCluster
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-  variety: land_parcel_cluster
-land_parcel_clusters_002:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
-  id: 42
-  initial_population: 0.0
-  lock_version: 0
-  name: 'LandParcelCluster #2'
-  nature_id: 1
-  number: '31002'
-  type: LandParcelCluster
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-  variety: land_parcel_cluster
-land_parcel_clusters_003:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
-  id: 43
-  initial_population: 0.0
-  lock_version: 0
-  name: 'LandParcelCluster #3'
-  nature_id: 1
-  number: '31003'
-  type: LandParcelCluster
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-  variety: land_parcel_cluster
-land_parcel_groups_001:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
-  id: 44
-  initial_population: 0.0
-  lock_version: 0
-  name: 'LandParcelGroup #1'
-  nature_id: 1
-  number: '30001'
-  type: LandParcelGroup
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-  variety: land_parcel_group
-land_parcel_groups_002:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
-  id: 45
-  initial_population: 0.0
-  lock_version: 0
-  name: 'LandParcelGroup #2'
-  nature_id: 1
-  number: '30002'
-  type: LandParcelGroup
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-  variety: land_parcel_group
-land_parcel_groups_003:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
-  id: 46
-  initial_population: 0.0
-  lock_version: 0
-  name: 'LandParcelGroup #3'
-  nature_id: 1
-  number: '30003'
-  type: LandParcelGroup
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-  variety: land_parcel_group
 matters_001:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -1057,6 +950,7 @@ matters_001:
   type: Matter
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
+  uuid: 2efa0292-8ce6-4b82-910b-84566ff7e5fc
   variant_id: 1
   variety: matter
 matters_002:
@@ -1073,6 +967,7 @@ matters_002:
   type: Matter
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
+  uuid: f8c40936-5385-4c64-a6d3-d284eac11d3f
   variant_id: 1
   variety: matter
 matters_003:
@@ -1089,6 +984,7 @@ matters_003:
   type: Matter
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
+  uuid: 8b0f4627-8bdb-4276-988b-79ac56a94d80
   variant_id: 1
   variety: matter
 matters_004:
@@ -1105,6 +1001,7 @@ matters_004:
   type: Matter
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
+  uuid: 4bb8c442-322c-4a32-b6eb-1adc18bceae2
   variant_id: 1
   variety: matter
 matters_005:
@@ -1121,6 +1018,7 @@ matters_005:
   type: Matter
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
+  uuid: 12f426e8-4ebe-412f-8ff6-f61cfd890335
   variant_id: 1
   variety: matter
 matters_006:
@@ -1137,6 +1035,7 @@ matters_006:
   type: Matter
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
+  uuid: 1a98f30a-6398-4704-9de8-9267c7080429
   variant_id: 1
   variety: matter
 matters_007:
@@ -1155,6 +1054,7 @@ matters_007:
   type: Matter
   updated_at: 2014-10-31 20:23:37.029761000 Z
   updater_id: 1
+  uuid: a6a41c2d-a850-4d95-b36a-b4074aa736de
   variant_id: 10
   variety: seed
 matters_008:
@@ -1174,6 +1074,7 @@ matters_008:
   type: Matter
   updated_at: 2014-11-01 16:00:08.017208000 Z
   updater_id: 1
+  uuid: 575ed965-08a1-488b-808f-5e38e82506db
   variant_id: 11
   variety: seed
 matters_009:
@@ -1193,6 +1094,7 @@ matters_009:
   type: Matter
   updated_at: 2014-11-01 16:00:08.339341000 Z
   updater_id: 1
+  uuid: 337c8a58-2bf0-4f1e-a30d-3f9135c22ef2
   variant_id: 9
   variety: straw
 matters_010:
@@ -1212,6 +1114,7 @@ matters_010:
   type: Matter
   updated_at: 2014-11-01 16:01:24.156172000 Z
   updater_id: 1
+  uuid: 19d47721-0c00-4d30-8e9f-fd018dad5ac8
   variant_id: 11
   variety: seed
 matters_011:
@@ -1230,6 +1133,7 @@ matters_011:
   type: Matter
   updated_at: 2014-11-01 20:19:35.354902000 Z
   updater_id: 1
+  uuid: 2c2b608f-60c3-4de7-80e5-42c6fc2af994
   variant_id: 20
   variety: packaged_matter
 matters_012:
@@ -1248,6 +1152,7 @@ matters_012:
   type: Matter
   updated_at: 2014-11-01 20:23:54.912213000 Z
   updater_id: 1
+  uuid: 9eadaf6d-fd6a-4ef3-8e34-4950dd5c61d3
   variant_id: 22
   variety: packaged_matter
 matters_013:
@@ -1266,6 +1171,7 @@ matters_013:
   type: Matter
   updated_at: 2014-11-01 20:23:55.247530000 Z
   updater_id: 1
+  uuid: 403a2752-2537-43b6-bd04-049d921c3be9
   variant_id: 21
   variety: packaged_matter
 matters_014:
@@ -1286,6 +1192,7 @@ matters_014:
   type: Matter
   updated_at: 2014-11-02 18:38:47.081597000 Z
   updater_id: 1
+  uuid: c8ec4e1c-ef99-4f21-9aac-11101b166d62
   variant_id: 10
   variety: seed
 matters_015:
@@ -1308,6 +1215,7 @@ matters_015:
   type: Matter
   updated_at: 2014-11-05 15:40:15.688874000 Z
   updater_id: 1
+  uuid: 0374d57c-71e5-48a4-898a-10c0e6250f48
   variant_id: 10
   variety: seed
 matters_016:
@@ -1330,6 +1238,7 @@ matters_016:
   type: Matter
   updated_at: 2014-11-06 17:50:06.929964000 Z
   updater_id: 1
+  uuid: d0a6db2a-68b5-4d70-a44a-3b618a4a4152
   variant_id: 10
   variety: seed
 matters_017:
@@ -1351,6 +1260,7 @@ matters_017:
   type: Matter
   updated_at: 2014-11-07 14:44:18.818382000 Z
   updater_id: 1
+  uuid: 8554e8d2-d7f4-41a5-b9ef-097f4ae14a81
   variant_id: 21
   variety: preparation
 matters_018:
@@ -1372,6 +1282,7 @@ matters_018:
   type: Matter
   updated_at: 2014-11-07 15:02:58.655370000 Z
   updater_id: 1
+  uuid: 42373b9b-3ead-49d6-a3ad-177321d0eb76
   variant_id: 20
   variety: preparation
 matters_019:
@@ -1390,6 +1301,7 @@ matters_019:
   type: Matter
   updated_at: 2014-11-07 15:25:51.192693000 Z
   updater_id: 1
+  uuid: 2bf53b28-674e-40e8-a490-fd3fb1f2c7a9
   variant_id: 39
   variety: preparation
 matters_020:
@@ -1411,6 +1323,7 @@ matters_020:
   type: Matter
   updated_at: 2014-11-07 15:26:50.522451000 Z
   updater_id: 1
+  uuid: 22ddd68f-5123-4e8e-b7c2-e3c0f71cc2ed
   variant_id: 39
   variety: preparation
 matters_021:
@@ -1430,6 +1343,7 @@ matters_021:
   type: Matter
   updated_at: 2014-11-07 15:44:20.455537000 Z
   updater_id: 1
+  uuid: b8fdd01c-33bc-435a-9cba-5f5dd4d9534b
   variant_id: 41
   variety: seed
 matters_022:
@@ -1449,6 +1363,7 @@ matters_022:
   type: Matter
   updated_at: 2014-11-07 15:44:20.589234000 Z
   updater_id: 1
+  uuid: 4d2007b3-8836-400a-9953-ccaa20c3172c
   variant_id: 42
   variety: seed
 matters_023:
@@ -1471,6 +1386,7 @@ matters_023:
   type: Matter
   updated_at: 2014-11-07 15:45:45.728092000 Z
   updater_id: 1
+  uuid: 22585133-f061-4a36-98c8-69965d560e44
   variant_id: 42
   variety: seed
 matters_024:
@@ -1493,6 +1409,7 @@ matters_024:
   type: Matter
   updated_at: 2014-11-07 15:50:04.415002000 Z
   updater_id: 1
+  uuid: 7d5a8593-bb20-41a4-b15b-da798a99296a
   variant_id: 43
   variety: grass
 matters_025:
@@ -1513,6 +1430,7 @@ matters_025:
   type: Matter
   updated_at: 2014-11-07 16:47:34.638130000 Z
   updater_id: 1
+  uuid: 5d1c36a2-c896-474d-b6dc-763773eefb10
   variant_id: 45
   variety: seedling
 matters_026:
@@ -1536,6 +1454,7 @@ matters_026:
   type: Matter
   updated_at: 2014-11-07 16:50:07.026840000 Z
   updater_id: 1
+  uuid: e373ca55-4251-4fa2-b5b9-9cabb775a61b
   variant_id: 45
   variety: seedling
 matters_027:
@@ -1557,6 +1476,7 @@ matters_027:
   type: Matter
   updated_at: 2014-11-07 16:59:09.705128000 Z
   updater_id: 1
+  uuid: dc945b5a-3e57-45bc-9e1c-70fe41536be5
   variant_id: 20
   variety: preparation
 matters_028:
@@ -1578,6 +1498,7 @@ matters_028:
   type: Matter
   updated_at: 2014-11-07 17:08:50.419969000 Z
   updater_id: 1
+  uuid: 774e85f3-a53b-4be0-9af5-b2573c9ac49c
   variant_id: 48
   variety: grape
 matters_029:
@@ -1598,6 +1519,7 @@ matters_029:
   type: Matter
   updated_at: 2014-11-07 18:53:57.726666000 Z
   updater_id: 1
+  uuid: 4cd02359-feac-4eae-892e-36c537babb03
   variant_id: 48
   variety: grape
 matters_030:
@@ -1618,6 +1540,7 @@ matters_030:
   type: Matter
   updated_at: 2014-11-07 18:53:57.938037000 Z
   updater_id: 1
+  uuid: f1c11e68-7e7d-4405-b829-a7e01e0fb44a
   variant_id: 48
   variety: grape
 matters_031:
@@ -1638,6 +1561,7 @@ matters_031:
   type: Matter
   updated_at: 2014-11-07 18:53:57.995416000 Z
   updater_id: 1
+  uuid: 3b4b49a2-9ab7-4069-b83a-f8bc2ebba89e
   variant_id: 55
   variety: pomace
 matters_032:
@@ -1659,6 +1583,7 @@ matters_032:
   type: Matter
   updated_at: 2014-11-07 19:02:56.067968000 Z
   updater_id: 1
+  uuid: 0067a739-a188-47d4-b100-eca34d22d106
   variant_id: 48
   variety: grape
 matters_033:
@@ -1681,6 +1606,7 @@ matters_033:
   type: Matter
   updated_at: 2014-11-07 19:02:56.215117000 Z
   updater_id: 1
+  uuid: bee74b52-c5f0-49ff-b427-325a3cb0e19d
   variant_id: 56
   variety: juice
 matters_034:
@@ -1702,6 +1628,7 @@ matters_034:
   type: Matter
   updated_at: 2014-11-07 19:02:56.271910000 Z
   updater_id: 1
+  uuid: 23c8e9d8-1062-42fb-8b5b-7226da760ead
   variant_id: 55
   variety: pomace
 matters_035:
@@ -1720,6 +1647,7 @@ matters_035:
   type: Matter
   updated_at: 2014-11-07 19:05:46.886304000 Z
   updater_id: 1
+  uuid: c27aecb4-ae2e-43b7-bacf-41b073553654
   variant_id: 57
   variety: preparation
 matters_036:
@@ -1738,6 +1666,7 @@ matters_036:
   type: Matter
   updated_at: 2014-11-07 19:05:46.968107000 Z
   updater_id: 1
+  uuid: 7689b846-f50d-4eb6-8624-5fb905c94bf1
   variant_id: 58
   variety: preparation
 matters_037:
@@ -1757,6 +1686,7 @@ matters_037:
   type: Matter
   updated_at: 2014-11-07 19:05:47.037645000 Z
   updater_id: 1
+  uuid: 2414161f-1380-4148-bec1-88312b4d9bdc
   variant_id: 59
   variety: yeast
 matters_038:
@@ -1779,6 +1709,7 @@ matters_038:
   type: Matter
   updated_at: 2014-11-07 19:08:55.092680000 Z
   updater_id: 1
+  uuid: 0d009b82-7fb6-40ac-83fb-9388806594b6
   variant_id: 59
   variety: yeast
 matters_039:
@@ -1800,6 +1731,7 @@ matters_039:
   type: Matter
   updated_at: 2014-11-07 19:08:55.237093000 Z
   updater_id: 1
+  uuid: 248998b8-2af4-4835-a222-c4a1f0c86184
   variant_id: 49
   variety: wine
 matters_040:
@@ -1818,6 +1750,7 @@ matters_040:
   type: Matter
   updated_at: 2014-11-07 19:12:04.938158000 Z
   updater_id: 1
+  uuid: 06cb8724-8923-4c5c-92dd-3c6262e29769
   variant_id: 60
   variety: saccharose
 matters_041:
@@ -1839,6 +1772,7 @@ matters_041:
   type: Matter
   updated_at: 2014-11-07 19:12:42.843046000 Z
   updater_id: 1
+  uuid: 0bfe49f5-ee1c-4008-80cc-1f1060cf6e6f
   variant_id: 60
   variety: saccharose
 matters_042:
@@ -1857,6 +1791,7 @@ matters_042:
   type: Matter
   updated_at: 2014-11-07 19:22:38.077250000 Z
   updater_id: 1
+  uuid: 160b1b68-141d-45e4-a7f0-182a8a88d928
   variant_id: 62
   variety: preparation
 matters_043:
@@ -1878,6 +1813,7 @@ matters_043:
   type: Matter
   updated_at: 2014-11-07 19:24:10.209263000 Z
   updater_id: 1
+  uuid: 76c15c8e-2847-43a6-aed8-ef66bf6cc4c9
   variant_id: 62
   variety: preparation
 matters_044:
@@ -1897,6 +1833,7 @@ matters_044:
   type: Matter
   updated_at: 2014-11-07 19:34:09.456173000 Z
   updater_id: 1
+  uuid: 247ef825-12bc-4c6a-9abf-235a7e974a58
   variant_id: 63
   variety: cork_bottle
 matters_045:
@@ -1916,6 +1853,7 @@ matters_045:
   type: Matter
   updated_at: 2014-11-07 19:34:09.539919000 Z
   updater_id: 1
+  uuid: d1ea1c6c-7b16-4729-a37b-71a374ab1a1b
   variant_id: 64
   variety: cork
 matters_046:
@@ -1938,6 +1876,7 @@ matters_046:
   type: Matter
   updated_at: 2014-11-07 19:36:59.034307000 Z
   updater_id: 1
+  uuid: 7a80815d-1de6-4c65-8156-204aa6668613
   variant_id: 49
   variety: wine
 matters_047:
@@ -1959,6 +1898,7 @@ matters_047:
   type: Matter
   updated_at: 2014-11-07 19:36:59.103331000 Z
   updater_id: 1
+  uuid: 5af17174-94af-400a-ada4-6964c713c681
   variant_id: 63
   variety: cork_bottle
 matters_048:
@@ -1980,6 +1920,7 @@ matters_048:
   type: Matter
   updated_at: 2014-11-07 19:36:59.170065000 Z
   updater_id: 1
+  uuid: b3130f1a-c711-4bec-89d5-65bb11a1242e
   variant_id: 64
   variety: cork
 matters_049:
@@ -2001,6 +1942,7 @@ matters_049:
   type: Matter
   updated_at: 2014-11-07 19:36:59.233966000 Z
   updater_id: 1
+  uuid: 2643fb14-365a-42b6-abcc-c629b84420b2
   variant_id: 65
   variety: wine
 matters_050:
@@ -2022,6 +1964,7 @@ matters_050:
   type: Matter
   updated_at: 2014-11-07 19:36:59.233966000 Z
   updater_id: 1
+  uuid: caaef102-4dd2-4c62-a871-b148f613e43d
   variant_id: 65
   variety: wine
 matters_051:
@@ -2042,6 +1985,7 @@ matters_051:
   type: Matter
   updated_at: 2015-09-17 13:38:07.255834000 Z
   updater_id: 1
+  uuid: a75652ec-1317-4f4c-9f56-76c65e5a6dba
   variant_id: 19
   variety: grain
 plants_001:
@@ -2065,6 +2009,7 @@ plants_001:
   type: Plant
   updated_at: 2014-11-05 15:40:15.833985000 Z
   updater_id: 1
+  uuid: f2585c54-9fd2-4472-bb3e-8a17149fb370
   variant_id: 16
   variety: triticum_aestivum
 plants_002:
@@ -2089,6 +2034,7 @@ plants_002:
   type: Plant
   updated_at: 2014-11-06 17:50:07.013572000 Z
   updater_id: 1
+  uuid: 223b8daf-cf31-4931-9b01-1c60736fdc8a
   variant_id: 16
   variety: triticum_aestivum
 plants_003:
@@ -2111,6 +2057,7 @@ plants_003:
   type: Plant
   updated_at: 2014-11-07 15:45:45.794867000 Z
   updater_id: 1
+  uuid: d322e72a-d036-48d4-84a3-1b5df0c2dc26
   variant_id: 40
   variety: poa
 plants_004:
@@ -2139,6 +2086,7 @@ plants_004:
   type: Plant
   updated_at: 2014-11-07 16:50:07.190626000 Z
   updater_id: 1
+  uuid: 2adc4316-d80e-43e2-80d2-f37eed319f87
   variant_id: 44
   variety: vitis_vinifera
 products_001:
@@ -2156,6 +2104,7 @@ products_001:
   type: Product
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
+  uuid: b8fa5578-ee3b-4acd-a46d-537606ec9e8c
   variant_id: 1
   variety: product
 products_002:
@@ -2173,6 +2122,7 @@ products_002:
   type: Product
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
+  uuid: f8765357-fd50-42fe-b526-d8300a324457
   variant_id: 1
   variety: product
 product_groups_001:
@@ -2189,6 +2139,7 @@ product_groups_001:
   type: ProductGroup
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
+  uuid: cf1c0b34-863c-4841-b639-7479253b1455
   variant_id: 1
   variety: product_group
 product_groups_002:
@@ -2205,6 +2156,7 @@ product_groups_002:
   type: ProductGroup
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
+  uuid: 8a62c239-dfd3-40cd-a0eb-54daca1fca67
   variant_id: 1
   variety: product_group
 product_groups_003:
@@ -2221,6 +2173,7 @@ product_groups_003:
   type: ProductGroup
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
+  uuid: af383321-4c13-454c-9872-a55024d2481c
   variant_id: 1
   variety: product_group
 settlements_001:
@@ -2238,6 +2191,7 @@ settlements_001:
   type: Settlement
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
+  uuid: 24eb1548-d158-4ceb-9106-400a476f6eb2
   variant_id: 1
   variety: settlement
 settlements_002:
@@ -2255,6 +2209,7 @@ settlements_002:
   type: Settlement
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
+  uuid: 5e515cf3-bb4d-487e-b1c6-eaada9b8b364
   variant_id: 1
   variety: settlement
 settlements_003:
@@ -2272,6 +2227,7 @@ settlements_003:
   type: Settlement
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
+  uuid: 43787238-6bbd-454e-9b8d-1c6b7ee4ee21
   variant_id: 1
   variety: settlement
 workers_001:
@@ -2290,6 +2246,7 @@ workers_001:
   type: Worker
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
+  uuid: d2f0e794-5784-446b-ab06-9d485d686d9c
   variant_id: 1
   variety: worker
 workers_002:
@@ -2308,6 +2265,7 @@ workers_002:
   type: Worker
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
+  uuid: 29bcd647-d387-4607-84ee-b880cbccec73
   variant_id: 1
   variety: worker
 workers_003:
@@ -2326,6 +2284,7 @@ workers_003:
   type: Worker
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
+  uuid: 327f5cdf-d8f4-496c-8d03-ca16b9c92db0
   variant_id: 1
   variety: worker
 workers_004:
@@ -2346,5 +2305,6 @@ workers_004:
   type: Worker
   updated_at: 2014-11-07 17:08:37.125582000 Z
   updater_id: 1
+  uuid: 08914714-88ca-4e69-b0c0-e6e0ecfb25fe
   variant_id: 23
   variety: worker

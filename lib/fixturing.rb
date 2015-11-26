@@ -356,7 +356,7 @@ module Fixturing
               elsif type == :json
                 JSON.parse(value)
               else
-                puts "Unknown type to parse in fixtures: #{type.inspect}".red unless [:text, :string].include?(type)
+                puts "Unknown type to parse in fixtures: #{type.inspect}".red unless [:text, :string, :uuid].include?(type)
                 value =~ /\A\-\-\-(\s+|\z)/ ? YAML.load(value) : value
               end
       value

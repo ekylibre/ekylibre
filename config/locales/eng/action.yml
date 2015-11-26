@@ -428,20 +428,6 @@ eng:
       show: "Journal: %{name} (%{code})"
     backend/kujakus:
       # toggle: "Toggle kujaku: %{name}"
-    backend/land_parcel_clusters:
-      # attachments: "Attachments land parcel cluster: %{name}"
-      edit: "Edit land parcel cluster: %{name}"
-      index: "Land parcel clusters"
-      new: "New land parcel cluster"
-      show: "Land parcel cluster %{name}"
-      # take: "Take land parcel cluster: %{name}"
-    backend/land_parcel_groups:
-      # attachments: "Attachments land parcel group: %{name}"
-      edit: "Edit land parcel group: %{name}"
-      index: "Land parcel groups"
-      new: "New land parcel group"
-      show: "Land parcel group %{name}"
-      # take: "Take land parcel group: %{name}"
     backend/land_parcels:
       # attachments: "Attachments land parcel: %{name}"
       edit: "Edit land parcel: %{name}"
@@ -1006,7 +992,7 @@ eng:
     crumbs: "Crumbs" #?
     cultivable_zone: "Cultivable zone"
     cultivable_zone_abbreviation: "CZ" #?!
-    cultivable_zones: "Cultivable zones"
+    cultivable_zones: "Cultivable zones" #?
     cumul: "Accumulation of tattle and previous balance N°%{number}"
     current: "Current" #?
     current_cultivation: "Current cultivation"

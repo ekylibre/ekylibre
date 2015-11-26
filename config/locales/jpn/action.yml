@@ -294,16 +294,6 @@ jpn:
       # new: "New journal"
       # reopen: "Reopen journal: %{name}"
       # show: "Journal: %{name} (%{code})"
-    backend/land_parcel_clusters:
-      # edit: "Edit land parcel cluster: %{name}"
-      # index: "Land parcel clusters"
-      # new: "New land parcel cluster"
-      # show: "Land parcel cluster %{name}"
-    backend/land_parcel_groups:
-      # edit: "Edit land parcel group: %{name}"
-      # index: "Land parcel groups"
-      # new: "New land parcel group"
-      # show: "Land parcel group %{name}"
     backend/land_parcels:
       # edit: "Edit land parcel: %{name}"
       # index: "Land parcels"

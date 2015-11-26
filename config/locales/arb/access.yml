@@ -52,8 +52,6 @@ arb:
       # journal_draft: "Journal draft"
       # journal_entries: "Journal entries"
       # journals: "Journals"
-      # land_parcel_clusters: "Land parcel clusters"
-      # land_parcel_groups: "Land parcel groups"
       # land_parcels: "Land parcels"
       # listings: "Listings"
       # loans: "Loans"

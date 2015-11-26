@@ -2,7 +2,7 @@ class Milklic::IndividualProductionExchanger < ActiveExchanger::Base
   def import
     analyser_attributes = YAML.load_file(File.join(File.dirname(__FILE__), 'entity.yml'))
 
-    unless analyser = Entity.find_by(siret: analyser_attributes[:siret])
+    unless analyser = Entity.find_by(siret_number: analyser_attributes[:siret_number])
       analyser = Entity.create!(analyser_attributes)
     end
 

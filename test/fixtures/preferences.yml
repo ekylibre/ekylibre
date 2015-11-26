@@ -3330,24 +3330,57 @@ preferences_284:
   updater_id: 1
   user_id: 1
 preferences_285:
-  boolean_value: false
-  created_at: 2015-10-28 21:59:32.165651000 Z
+  created_at: 2015-11-03 13:00:29.194560000 Z
   creator_id: 1
   id: 286
   lock_version: 0
-  name: interface.snippets.supervision.collapsed
-  nature: boolean
-  updated_at: 2015-10-28 21:59:32.165651000 Z
+  name: cobbler.cashes-show
+  nature: string
+  string_value: {}
+  updated_at: 2015-11-03 13:00:29.194560000 Z
   updater_id: 1
   user_id: 1
 preferences_286:
-  created_at: 2015-10-28 22:00:07.916736000 Z
+  created_at: 2015-11-03 13:00:29.203672000 Z
   creator_id: 1
   id: 287
   lock_version: 0
-  name: list._supervisions_list_supervisions_tag
+  name: list._cashes_list_sessions_tag
   nature: string
   string_value: {}
-  updated_at: 2015-10-28 22:00:07.916736000 Z
+  updated_at: 2015-11-03 13:00:29.203672000 Z
+  updater_id: 1
+  user_id: 1
+preferences_287:
+  boolean_value: false
+  created_at: 2015-11-03 13:00:29.710624000 Z
+  creator_id: 1
+  id: 288
+  lock_version: 0
+  name: interface.snippets.fixed_assets.collapsed
+  nature: boolean
+  updated_at: 2015-11-03 13:00:29.710624000 Z
+  updater_id: 1
+  user_id: 1
+preferences_288:
+  created_at: 2015-11-03 13:01:06.369359000 Z
+  creator_id: 1
+  id: 289
+  lock_version: 0
+  name: cobbler.bank_statements-show
+  nature: string
+  string_value: {}
+  updated_at: 2015-11-03 13:01:06.369359000 Z
+  updater_id: 1
+  user_id: 1
+preferences_289:
+  created_at: 2015-11-03 13:01:06.375940000 Z
+  creator_id: 1
+  id: 290
+  lock_version: 0
+  name: list._bank_statements_list_items_tag
+  nature: string
+  string_value: {}
+  updated_at: 2015-11-03 13:01:06.375940000 Z
   updater_id: 1
   user_id: 1

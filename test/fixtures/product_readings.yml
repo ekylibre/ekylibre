@@ -75,51 +75,6 @@ product_readings_001:
   updater_id: 1
 product_readings_002:
   boolean_value: false
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  geometry_value: SRID=4326;MULTIPOLYGON(((-0.66741943359371 45.619800720955,-0.78002929687592
-    45.6927513729087,-0.87341308593753 45.6332461398123,-0.74157714843754 45.5602179571505,-0.66467285156255
-    45.5698323584928,-0.66741943359371 45.619800720955)))
-  id: 5
-  indicator_datatype: geometry
-  indicator_name: shape
-  lock_version: 0
-  product_id: 44
-  read_at: 1995-01-19 16:13:59.000000000 Z
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-product_readings_003:
-  boolean_value: false
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  geometry_value: SRID=4326;MULTIPOLYGON(((-0.66741943359371 45.619800720955,-0.78002929687592
-    45.6927513729087,-0.87341308593753 45.6332461398123,-0.74157714843754 45.5602179571505,-0.66467285156255
-    45.5698323584928,-0.66741943359371 45.619800720955)))
-  id: 6
-  indicator_datatype: geometry
-  indicator_name: shape
-  lock_version: 0
-  product_id: 45
-  read_at: 1995-01-19 16:13:59.000000000 Z
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-product_readings_004:
-  boolean_value: false
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  geometry_value: SRID=4326;MULTIPOLYGON(((-0.66741943359371 45.619800720955,-0.78002929687592
-    45.6927513729087,-0.87341308593753 45.6332461398123,-0.74157714843754 45.5602179571505,-0.66467285156255
-    45.5698323584928,-0.66741943359371 45.619800720955)))
-  id: 7
-  indicator_datatype: geometry
-  indicator_name: shape
-  lock_version: 0
-  product_id: 46
-  read_at: 1995-01-19 16:13:59.000000000 Z
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-product_readings_005:
-  boolean_value: false
   created_at: 2014-10-31 20:15:14.814746000 Z
   creator_id: 1
   decimal_value: 1.0
@@ -131,7 +86,7 @@ product_readings_005:
   read_at: 1971-03-05 09:50:00.000000000 Z
   updated_at: 2014-10-31 20:15:14.814746000 Z
   updater_id: 1
-product_readings_006:
+product_readings_003:
   boolean_value: false
   created_at: 2014-10-31 20:15:14.819292000 Z
   creator_id: 1
@@ -146,7 +101,7 @@ product_readings_006:
   read_at: 1971-03-05 09:50:00.000000000 Z
   updated_at: 2014-11-07 14:30:00.704955000 Z
   updater_id: 1
-product_readings_007:
+product_readings_004:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 56.0
   boolean_value: false
@@ -162,7 +117,7 @@ product_readings_007:
   read_at: 1979-03-02 05:30:00.000000000 Z
   updated_at: 2014-10-31 20:18:12.227102000 Z
   updater_id: 1
-product_readings_008:
+product_readings_005:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 50.0
   boolean_value: false
@@ -178,7 +133,7 @@ product_readings_008:
   read_at: 1979-03-02 05:30:00.000000000 Z
   updated_at: 2014-10-31 20:18:12.228331000 Z
   updater_id: 1
-product_readings_009:
+product_readings_006:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 150000.0
   boolean_value: false
@@ -194,7 +149,7 @@ product_readings_009:
   read_at: 1979-03-02 05:30:00.000000000 Z
   updated_at: 2014-10-31 20:18:12.229240000 Z
   updater_id: 1
-product_readings_010:
+product_readings_007:
   boolean_value: false
   created_at: 2014-10-31 20:18:12.251882000 Z
   creator_id: 1
@@ -207,7 +162,7 @@ product_readings_010:
   read_at: 1979-03-02 05:30:00.000000000 Z
   updated_at: 2014-10-31 20:18:12.251882000 Z
   updater_id: 1
-product_readings_011:
+product_readings_008:
   boolean_value: false
   created_at: 2014-10-31 20:18:12.255848000 Z
   creator_id: 1
@@ -223,7 +178,7 @@ product_readings_011:
   read_at: 1979-03-02 05:30:00.000000000 Z
   updated_at: 2014-11-07 14:41:44.769615000 Z
   updater_id: 1
-product_readings_012:
+product_readings_009:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 120.0
   boolean_value: false
@@ -239,7 +194,7 @@ product_readings_012:
   read_at: 1980-01-31 04:45:00.000000000 Z
   updated_at: 2014-10-31 20:23:26.771015000 Z
   updater_id: 1
-product_readings_013:
+product_readings_010:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 110.0
   boolean_value: false
@@ -255,7 +210,7 @@ product_readings_013:
   read_at: 1980-01-31 04:45:00.000000000 Z
   updated_at: 2014-10-31 20:23:26.772068000 Z
   updater_id: 1
-product_readings_014:
+product_readings_011:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 400000.0
   boolean_value: false
@@ -271,7 +226,7 @@ product_readings_014:
   read_at: 1980-01-31 04:45:00.000000000 Z
   updated_at: 2014-10-31 20:23:26.773031000 Z
   updater_id: 1
-product_readings_015:
+product_readings_012:
   boolean_value: false
   created_at: 2014-10-31 20:23:26.795426000 Z
   creator_id: 1
@@ -284,7 +239,7 @@ product_readings_015:
   read_at: 1980-01-31 04:45:00.000000000 Z
   updated_at: 2014-10-31 20:23:26.795426000 Z
   updater_id: 1
-product_readings_016:
+product_readings_013:
   boolean_value: false
   created_at: 2014-10-31 20:23:26.799863000 Z
   creator_id: 1
@@ -300,7 +255,7 @@ product_readings_016:
   read_at: 1980-01-31 04:45:00.000000000 Z
   updated_at: 2014-10-31 20:23:26.799863000 Z
   updater_id: 1
-product_readings_017:
+product_readings_014:
   absolute_measure_value_unit: gram
   absolute_measure_value_value: 42.0
   boolean_value: false
@@ -316,7 +271,7 @@ product_readings_017:
   read_at: 2014-10-31 20:09:00.000000000 Z
   updated_at: 2014-10-31 20:23:37.059847000 Z
   updater_id: 1
-product_readings_018:
+product_readings_015:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 25.0
   boolean_value: false
@@ -332,7 +287,7 @@ product_readings_018:
   read_at: 2014-10-31 20:09:00.000000000 Z
   updated_at: 2014-10-31 20:23:37.064202000 Z
   updater_id: 1
-product_readings_019:
+product_readings_016:
   boolean_value: false
   created_at: 2014-10-31 20:23:37.067577000 Z
   creator_id: 1
@@ -345,7 +300,7 @@ product_readings_019:
   read_at: 2014-10-31 20:09:00.000000000 Z
   updated_at: 2014-10-31 20:23:37.067577000 Z
   updater_id: 1
-product_readings_020:
+product_readings_017:
   boolean_value: false
   created_at: 2014-10-31 20:25:41.482881000 Z
   creator_id: 1
@@ -358,7 +313,7 @@ product_readings_020:
   read_at: 2014-10-31 20:25:41.475254000 Z
   updated_at: 2014-10-31 20:25:41.482881000 Z
   updater_id: 1
-product_readings_021:
+product_readings_018:
   boolean_value: false
   created_at: 2014-10-31 20:25:41.486554000 Z
   creator_id: 1
@@ -373,7 +328,7 @@ product_readings_021:
   read_at: 2014-10-31 20:25:41.475254000 Z
   updated_at: 2014-10-31 20:26:47.211272000 Z
   updater_id: 1
-product_readings_022:
+product_readings_019:
   absolute_measure_value_unit: gram
   absolute_measure_value_value: 35.0
   boolean_value: false
@@ -389,7 +344,7 @@ product_readings_022:
   read_at: 2014-10-31 20:31:00.000000000 Z
   updated_at: 2014-11-01 16:00:08.252054000 Z
   updater_id: 1
-product_readings_023:
+product_readings_020:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 25.0
   boolean_value: false
@@ -405,7 +360,7 @@ product_readings_023:
   read_at: 2014-10-31 20:31:00.000000000 Z
   updated_at: 2014-11-01 16:00:08.255966000 Z
   updater_id: 1
-product_readings_024:
+product_readings_021:
   boolean_value: false
   created_at: 2014-11-01 16:00:08.259139000 Z
   creator_id: 1
@@ -418,7 +373,7 @@ product_readings_024:
   read_at: 2014-10-31 20:31:00.000000000 Z
   updated_at: 2014-11-01 16:00:08.259139000 Z
   updater_id: 1
-product_readings_025:
+product_readings_022:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 1870.0
   boolean_value: false
@@ -434,7 +389,7 @@ product_readings_025:
   read_at: 2014-10-31 20:31:00.000000000 Z
   updated_at: 2014-11-01 16:00:08.365742000 Z
   updater_id: 1
-product_readings_026:
+product_readings_023:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 150.0
   boolean_value: false
@@ -450,7 +405,7 @@ product_readings_026:
   read_at: 2014-10-31 20:31:00.000000000 Z
   updated_at: 2014-11-01 16:00:08.368519000 Z
   updater_id: 1
-product_readings_027:
+product_readings_024:
   boolean_value: false
   created_at: 2014-11-01 16:00:08.371608000 Z
   creator_id: 1
@@ -463,7 +418,7 @@ product_readings_027:
   read_at: 2014-10-31 20:31:00.000000000 Z
   updated_at: 2014-11-01 16:00:08.371608000 Z
   updater_id: 1
-product_readings_028:
+product_readings_025:
   absolute_measure_value_unit: gram
   absolute_measure_value_value: 35.0
   boolean_value: false
@@ -479,7 +434,7 @@ product_readings_028:
   read_at: 2014-11-06 08:45:00.000000000 Z
   updated_at: 2014-11-01 16:01:24.203670000 Z
   updater_id: 1
-product_readings_029:
+product_readings_026:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 25.0
   boolean_value: false
@@ -495,7 +450,7 @@ product_readings_029:
   read_at: 2014-11-06 08:45:00.000000000 Z
   updated_at: 2014-11-01 16:01:24.209802000 Z
   updater_id: 1
-product_readings_030:
+product_readings_027:
   boolean_value: false
   created_at: 2014-11-01 16:01:24.213908000 Z
   creator_id: 1
@@ -508,7 +463,7 @@ product_readings_030:
   read_at: 2014-11-06 08:45:00.000000000 Z
   updated_at: 2014-11-01 16:01:24.213908000 Z
   updater_id: 1
-product_readings_031:
+product_readings_028:
   boolean_value: false
   choice_value: first_growth
   created_at: 2014-11-01 19:29:58.119264000 Z
@@ -521,7 +476,7 @@ product_readings_031:
   read_at: 2014-11-01 19:26:00.000000000 Z
   updated_at: 2014-11-01 19:29:58.119264000 Z
   updater_id: 1
-product_readings_032:
+product_readings_029:
   absolute_measure_value_unit: unity
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -537,7 +492,7 @@ product_readings_032:
   read_at: 2014-11-01 19:26:00.000000000 Z
   updated_at: 2014-11-01 19:29:58.120390000 Z
   updater_id: 1
-product_readings_033:
+product_readings_030:
   absolute_measure_value_unit: unity
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -553,7 +508,7 @@ product_readings_033:
   read_at: 2014-11-01 19:26:00.000000000 Z
   updated_at: 2014-11-01 19:29:58.121399000 Z
   updater_id: 1
-product_readings_034:
+product_readings_031:
   boolean_value: true
   created_at: 2014-11-01 19:29:58.122266000 Z
   creator_id: 1
@@ -565,7 +520,7 @@ product_readings_034:
   read_at: 2014-11-01 19:26:00.000000000 Z
   updated_at: 2014-11-01 19:29:58.122266000 Z
   updater_id: 1
-product_readings_035:
+product_readings_032:
   boolean_value: false
   created_at: 2014-11-01 19:29:58.123173000 Z
   creator_id: 1
@@ -577,7 +532,7 @@ product_readings_035:
   read_at: 2014-11-01 19:26:00.000000000 Z
   updated_at: 2014-11-01 19:29:58.123173000 Z
   updater_id: 1
-product_readings_036:
+product_readings_033:
   boolean_value: false
   created_at: 2014-11-01 19:29:58.124075000 Z
   creator_id: 1
@@ -590,7 +545,7 @@ product_readings_036:
   read_at: 2014-11-01 19:26:00.000000000 Z
   updated_at: 2014-11-01 19:29:58.124075000 Z
   updater_id: 1
-product_readings_037:
+product_readings_034:
   boolean_value: false
   created_at: 2014-11-01 19:29:58.124928000 Z
   creator_id: 1
@@ -602,7 +557,7 @@ product_readings_037:
   read_at: 2014-11-01 19:26:00.000000000 Z
   updated_at: 2014-11-01 19:29:58.124928000 Z
   updater_id: 1
-product_readings_038:
+product_readings_035:
   boolean_value: false
   created_at: 2014-11-01 19:29:58.125666000 Z
   creator_id: 1
@@ -614,7 +569,7 @@ product_readings_038:
   read_at: 2014-11-01 19:26:00.000000000 Z
   updated_at: 2014-11-01 19:29:58.125666000 Z
   updater_id: 1
-product_readings_039:
+product_readings_036:
   boolean_value: false
   choice_value: back_heat
   created_at: 2014-11-01 19:29:58.126445000 Z
@@ -627,7 +582,7 @@ product_readings_039:
   read_at: 2014-11-01 19:26:00.000000000 Z
   updated_at: 2014-11-01 19:29:58.126445000 Z
   updater_id: 1
-product_readings_040:
+product_readings_037:
   absolute_measure_value_unit: kilogram_per_day
   absolute_measure_value_value: 2.0
   boolean_value: false
@@ -643,7 +598,7 @@ product_readings_040:
   read_at: 2014-11-01 19:26:00.000000000 Z
   updated_at: 2014-11-01 19:29:58.127240000 Z
   updater_id: 1
-product_readings_041:
+product_readings_038:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 485.0
   boolean_value: false
@@ -659,7 +614,7 @@ product_readings_041:
   read_at: 2014-11-01 19:26:00.000000000 Z
   updated_at: 2014-11-01 19:29:58.128057000 Z
   updater_id: 1
-product_readings_042:
+product_readings_039:
   boolean_value: false
   created_at: 2014-11-01 19:29:58.281826000 Z
   creator_id: 1
@@ -672,7 +627,7 @@ product_readings_042:
   read_at: 2014-11-01 19:26:00.000000000 Z
   updated_at: 2014-11-01 19:29:58.281826000 Z
   updater_id: 1
-product_readings_043:
+product_readings_040:
   boolean_value: true
   created_at: 2014-11-01 19:29:58.284692000 Z
   creator_id: 1
@@ -684,7 +639,7 @@ product_readings_043:
   read_at: 2014-11-01 19:26:00.000000000 Z
   updated_at: 2014-11-01 19:29:58.284692000 Z
   updater_id: 1
-product_readings_044:
+product_readings_041:
   boolean_value: false
   choice_value: female
   created_at: 2014-11-01 19:29:58.288180000 Z
@@ -697,7 +652,7 @@ product_readings_044:
   read_at: 2014-11-01 19:26:00.000000000 Z
   updated_at: 2014-11-01 19:29:58.288180000 Z
   updater_id: 1
-product_readings_045:
+product_readings_042:
   boolean_value: false
   created_at: 2014-11-01 19:29:58.291054000 Z
   creator_id: 1
@@ -710,7 +665,7 @@ product_readings_045:
   read_at: 2014-11-01 19:26:00.000000000 Z
   updated_at: 2014-11-01 19:29:58.291054000 Z
   updater_id: 1
-product_readings_046:
+product_readings_043:
   boolean_value: false
   choice_value: senescence
   created_at: 2014-11-01 19:35:50.380500000 Z
@@ -723,7 +678,7 @@ product_readings_046:
   read_at: 2014-11-01 19:33:00.000000000 Z
   updated_at: 2014-11-01 19:35:50.380500000 Z
   updater_id: 1
-product_readings_047:
+product_readings_044:
   boolean_value: true
   created_at: 2014-11-01 19:35:50.381445000 Z
   creator_id: 1
@@ -735,7 +690,7 @@ product_readings_047:
   read_at: 2014-11-01 19:33:00.000000000 Z
   updated_at: 2014-11-01 19:35:50.381445000 Z
   updater_id: 1
-product_readings_048:
+product_readings_045:
   boolean_value: false
   created_at: 2014-11-01 19:35:50.382216000 Z
   creator_id: 1
@@ -747,7 +702,7 @@ product_readings_048:
   read_at: 2014-11-01 19:33:00.000000000 Z
   updated_at: 2014-11-01 19:35:50.382216000 Z
   updater_id: 1
-product_readings_049:
+product_readings_046:
   boolean_value: false
   created_at: 2014-11-01 19:35:50.382961000 Z
   creator_id: 1
@@ -759,7 +714,7 @@ product_readings_049:
   read_at: 2014-11-01 19:33:00.000000000 Z
   updated_at: 2014-11-01 19:35:50.382961000 Z
   updater_id: 1
-product_readings_050:
+product_readings_047:
   boolean_value: false
   created_at: 2014-11-01 19:35:50.383737000 Z
   creator_id: 1
@@ -771,7 +726,7 @@ product_readings_050:
   read_at: 2014-11-01 19:33:00.000000000 Z
   updated_at: 2014-11-01 19:35:50.383737000 Z
   updater_id: 1
-product_readings_051:
+product_readings_048:
   boolean_value: false
   created_at: 2014-11-01 19:35:50.406349000 Z
   creator_id: 1
@@ -784,7 +739,7 @@ product_readings_051:
   read_at: 2014-11-01 19:33:00.000000000 Z
   updated_at: 2014-11-01 19:35:50.406349000 Z
   updater_id: 1
-product_readings_052:
+product_readings_049:
   boolean_value: true
   created_at: 2014-11-01 19:35:50.409242000 Z
   creator_id: 1
@@ -796,7 +751,7 @@ product_readings_052:
   read_at: 2014-11-01 19:33:00.000000000 Z
   updated_at: 2014-11-01 19:35:50.409242000 Z
   updater_id: 1
-product_readings_053:
+product_readings_050:
   boolean_value: false
   choice_value: female
   created_at: 2014-11-01 19:35:50.411928000 Z
@@ -809,7 +764,7 @@ product_readings_053:
   read_at: 2014-11-01 19:33:00.000000000 Z
   updated_at: 2014-11-01 19:35:50.411928000 Z
   updater_id: 1
-product_readings_054:
+product_readings_051:
   boolean_value: false
   created_at: 2014-11-01 19:35:50.414586000 Z
   creator_id: 1
@@ -822,7 +777,7 @@ product_readings_054:
   read_at: 2014-11-01 19:33:00.000000000 Z
   updated_at: 2014-11-01 19:35:50.414586000 Z
   updater_id: 1
-product_readings_055:
+product_readings_052:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -838,7 +793,7 @@ product_readings_055:
   read_at: 2013-08-01 00:50:00.000000000 Z
   updated_at: 2014-11-01 20:19:35.433284000 Z
   updater_id: 1
-product_readings_056:
+product_readings_053:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -854,7 +809,7 @@ product_readings_056:
   read_at: 2013-08-01 00:50:00.000000000 Z
   updated_at: 2014-11-01 20:19:35.436647000 Z
   updater_id: 1
-product_readings_057:
+product_readings_054:
   boolean_value: false
   created_at: 2014-11-01 20:19:35.440204000 Z
   creator_id: 1
@@ -867,7 +822,7 @@ product_readings_057:
   read_at: 2013-08-01 00:50:00.000000000 Z
   updated_at: 2014-11-01 20:19:35.440204000 Z
   updater_id: 1
-product_readings_058:
+product_readings_055:
   absolute_measure_value_unit: day
   absolute_measure_value_value: 6.0
   boolean_value: false
@@ -883,7 +838,7 @@ product_readings_058:
   read_at: 2013-08-01 00:50:00.000000000 Z
   updated_at: 2014-11-01 20:23:55.197094000 Z
   updater_id: 1
-product_readings_059:
+product_readings_056:
   absolute_measure_value_unit: day
   absolute_measure_value_value: 5.0
   boolean_value: false
@@ -899,7 +854,7 @@ product_readings_059:
   read_at: 2013-08-01 00:50:00.000000000 Z
   updated_at: 2014-11-01 20:23:55.201049000 Z
   updater_id: 1
-product_readings_060:
+product_readings_057:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 0.01
   boolean_value: false
@@ -915,7 +870,7 @@ product_readings_060:
   read_at: 2013-08-01 00:50:00.000000000 Z
   updated_at: 2014-11-01 20:23:55.206318000 Z
   updater_id: 1
-product_readings_061:
+product_readings_058:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 0.01
   boolean_value: false
@@ -931,7 +886,7 @@ product_readings_061:
   read_at: 2013-08-01 00:50:00.000000000 Z
   updated_at: 2014-11-01 20:23:55.210376000 Z
   updater_id: 1
-product_readings_062:
+product_readings_059:
   boolean_value: false
   created_at: 2014-11-01 20:23:55.214279000 Z
   creator_id: 1
@@ -944,7 +899,7 @@ product_readings_062:
   read_at: 2013-08-01 00:50:00.000000000 Z
   updated_at: 2014-11-01 20:23:55.214279000 Z
   updater_id: 1
-product_readings_063:
+product_readings_060:
   absolute_measure_value_unit: day
   absolute_measure_value_value: 0.0
   boolean_value: false
@@ -960,7 +915,7 @@ product_readings_063:
   read_at: 2013-08-01 00:50:00.000000000 Z
   updated_at: 2014-11-01 20:23:55.273935000 Z
   updater_id: 1
-product_readings_064:
+product_readings_061:
   absolute_measure_value_unit: day
   absolute_measure_value_value: 0.0
   boolean_value: false
@@ -976,7 +931,7 @@ product_readings_064:
   read_at: 2013-08-01 00:50:00.000000000 Z
   updated_at: 2014-11-01 20:23:55.277802000 Z
   updater_id: 1
-product_readings_065:
+product_readings_062:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -992,7 +947,7 @@ product_readings_065:
   read_at: 2013-08-01 00:50:00.000000000 Z
   updated_at: 2014-11-01 20:23:55.281288000 Z
   updater_id: 1
-product_readings_066:
+product_readings_063:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -1008,7 +963,7 @@ product_readings_066:
   read_at: 2013-08-01 00:50:00.000000000 Z
   updated_at: 2014-11-01 20:23:55.285126000 Z
   updater_id: 1
-product_readings_067:
+product_readings_064:
   boolean_value: false
   created_at: 2014-11-01 20:23:55.289137000 Z
   creator_id: 1
@@ -1021,7 +976,7 @@ product_readings_067:
   read_at: 2013-08-01 00:50:00.000000000 Z
   updated_at: 2014-11-01 20:23:55.289137000 Z
   updater_id: 1
-product_readings_068:
+product_readings_065:
   boolean_value: false
   created_at: 2014-11-01 20:30:35.636810000 Z
   creator_id: 1
@@ -1034,7 +989,7 @@ product_readings_068:
   read_at: 2014-11-01 20:30:35.605648000 Z
   updated_at: 2014-11-01 20:30:35.636810000 Z
   updater_id: 1
-product_readings_069:
+product_readings_066:
   boolean_value: false
   created_at: 2014-11-02 18:22:30.612248000 Z
   creator_id: 1
@@ -1047,7 +1002,7 @@ product_readings_069:
   read_at: 2002-12-14 23:00:00.000000000 Z
   updated_at: 2014-11-02 18:22:30.612248000 Z
   updater_id: 1
-product_readings_070:
+product_readings_067:
   absolute_measure_value_unit: meter
   absolute_measure_value_value: 4.0
   boolean_value: false
@@ -1063,7 +1018,7 @@ product_readings_070:
   read_at: 2007-08-22 22:00:00.000000000 Z
   updated_at: 2014-11-02 18:23:23.662351000 Z
   updater_id: 1
-product_readings_071:
+product_readings_068:
   boolean_value: false
   created_at: 2014-11-02 18:23:23.687049000 Z
   creator_id: 1
@@ -1076,7 +1031,7 @@ product_readings_071:
   read_at: 2007-08-22 22:00:00.000000000 Z
   updated_at: 2014-11-02 18:23:23.687049000 Z
   updater_id: 1
-product_readings_072:
+product_readings_069:
   absolute_measure_value_unit: meter
   absolute_measure_value_value: 6.0
   boolean_value: false
@@ -1092,7 +1047,7 @@ product_readings_072:
   read_at: 2005-09-14 22:00:00.000000000 Z
   updated_at: 2014-11-02 18:29:41.480172000 Z
   updater_id: 1
-product_readings_073:
+product_readings_070:
   boolean_value: false
   created_at: 2014-11-02 18:29:41.504224000 Z
   creator_id: 1
@@ -1105,7 +1060,7 @@ product_readings_073:
   read_at: 2005-09-14 22:00:00.000000000 Z
   updated_at: 2014-11-02 18:29:41.504224000 Z
   updater_id: 1
-product_readings_074:
+product_readings_071:
   absolute_measure_value_unit: meter
   absolute_measure_value_value: 4.0
   boolean_value: false
@@ -1121,7 +1076,7 @@ product_readings_074:
   read_at: 1997-01-22 23:00:00.000000000 Z
   updated_at: 2014-11-02 18:37:22.395471000 Z
   updater_id: 1
-product_readings_075:
+product_readings_072:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 5000.0
   boolean_value: false
@@ -1137,7 +1092,7 @@ product_readings_075:
   read_at: 1997-01-22 23:00:00.000000000 Z
   updated_at: 2014-11-02 18:37:22.396870000 Z
   updater_id: 1
-product_readings_076:
+product_readings_073:
   boolean_value: false
   created_at: 2014-11-02 18:37:22.431517000 Z
   creator_id: 1
@@ -1150,7 +1105,7 @@ product_readings_076:
   read_at: 1997-01-22 23:00:00.000000000 Z
   updated_at: 2014-11-02 18:37:22.431517000 Z
   updater_id: 1
-product_readings_077:
+product_readings_074:
   absolute_measure_value_unit: gram
   absolute_measure_value_value: 42.0
   boolean_value: false
@@ -1166,7 +1121,7 @@ product_readings_077:
   read_at: 2014-11-02 11:06:30.000000000 Z
   updated_at: 2014-11-02 18:38:47.229707000 Z
   updater_id: 1
-product_readings_078:
+product_readings_075:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 25.0
   boolean_value: false
@@ -1182,7 +1137,7 @@ product_readings_078:
   read_at: 2014-11-02 11:06:30.000000000 Z
   updated_at: 2014-11-02 18:38:47.234786000 Z
   updater_id: 1
-product_readings_079:
+product_readings_076:
   boolean_value: false
   created_at: 2014-11-02 18:38:47.239700000 Z
   creator_id: 1
@@ -1195,7 +1150,7 @@ product_readings_079:
   read_at: 2014-11-02 11:06:30.000000000 Z
   updated_at: 2014-11-02 18:38:47.239700000 Z
   updater_id: 1
-product_readings_080:
+product_readings_077:
   boolean_value: false
   created_at: 2014-11-02 18:38:47.262528000 Z
   creator_id: 1
@@ -1208,7 +1163,7 @@ product_readings_080:
   read_at: 2014-11-02 11:06:30.000000000 Z
   updated_at: 2014-11-02 18:38:47.262528000 Z
   updater_id: 1
-product_readings_081:
+product_readings_078:
   boolean_value: false
   choice_value: nude
   created_at: 2014-11-04 17:12:23.255145000 Z
@@ -1221,7 +1176,7 @@ product_readings_081:
   read_at: 1974-05-11 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:12:23.255145000 Z
   updater_id: 1
-product_readings_082:
+product_readings_079:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
@@ -1237,7 +1192,7 @@ product_readings_082:
   read_at: 1974-05-11 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:12:23.414207000 Z
   updater_id: 1
-product_readings_083:
+product_readings_080:
   boolean_value: false
   created_at: 2014-11-04 17:12:23.417819000 Z
   creator_id: 1
@@ -1250,7 +1205,7 @@ product_readings_083:
   read_at: 1974-05-11 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:12:23.417819000 Z
   updater_id: 1
-product_readings_084:
+product_readings_081:
   boolean_value: false
   created_at: 2014-11-04 17:12:23.422452000 Z
   creator_id: 1
@@ -1266,7 +1221,7 @@ product_readings_084:
   read_at: 1974-05-11 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:12:23.422452000 Z
   updater_id: 1
-product_readings_085:
+product_readings_082:
   boolean_value: false
   choice_value: covered
   created_at: 2014-11-04 17:15:04.604337000 Z
@@ -1279,7 +1234,7 @@ product_readings_085:
   read_at: 1965-01-22 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:15:04.604337000 Z
   updater_id: 1
-product_readings_086:
+product_readings_083:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
@@ -1295,7 +1250,7 @@ product_readings_086:
   read_at: 1965-01-22 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:15:04.636477000 Z
   updater_id: 1
-product_readings_087:
+product_readings_084:
   boolean_value: false
   created_at: 2014-11-04 17:15:04.640240000 Z
   creator_id: 1
@@ -1308,7 +1263,7 @@ product_readings_087:
   read_at: 1965-01-22 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:15:04.640240000 Z
   updater_id: 1
-product_readings_088:
+product_readings_085:
   boolean_value: false
   created_at: 2014-11-04 17:15:04.644741000 Z
   creator_id: 1
@@ -1324,7 +1279,7 @@ product_readings_088:
   read_at: 1965-01-22 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:15:04.644741000 Z
   updater_id: 1
-product_readings_089:
+product_readings_086:
   boolean_value: false
   choice_value: nude
   created_at: 2014-11-04 17:17:04.669059000 Z
@@ -1337,7 +1292,7 @@ product_readings_089:
   read_at: 1975-06-01 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:17:04.669059000 Z
   updater_id: 1
-product_readings_090:
+product_readings_087:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
@@ -1353,7 +1308,7 @@ product_readings_090:
   read_at: 1975-06-01 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:17:04.701939000 Z
   updater_id: 1
-product_readings_091:
+product_readings_088:
   boolean_value: false
   created_at: 2014-11-04 17:17:04.706112000 Z
   creator_id: 1
@@ -1366,7 +1321,7 @@ product_readings_091:
   read_at: 1975-06-01 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:17:04.706112000 Z
   updater_id: 1
-product_readings_092:
+product_readings_089:
   boolean_value: false
   created_at: 2014-11-04 17:17:04.710877000 Z
   creator_id: 1
@@ -1381,7 +1336,7 @@ product_readings_092:
   read_at: 1975-06-01 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:17:04.710877000 Z
   updater_id: 1
-product_readings_093:
+product_readings_090:
   boolean_value: false
   choice_value: nude
   created_at: 2014-11-04 17:19:31.130666000 Z
@@ -1394,7 +1349,7 @@ product_readings_093:
   read_at: 1983-12-11 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:19:31.130666000 Z
   updater_id: 1
-product_readings_094:
+product_readings_091:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
@@ -1410,7 +1365,7 @@ product_readings_094:
   read_at: 1983-12-11 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:19:31.266286000 Z
   updater_id: 1
-product_readings_095:
+product_readings_092:
   boolean_value: false
   created_at: 2014-11-04 17:19:31.270840000 Z
   creator_id: 1
@@ -1423,7 +1378,7 @@ product_readings_095:
   read_at: 1983-12-11 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:19:31.270840000 Z
   updater_id: 1
-product_readings_096:
+product_readings_093:
   boolean_value: false
   created_at: 2014-11-04 17:19:31.276006000 Z
   creator_id: 1
@@ -1440,7 +1395,7 @@ product_readings_096:
   read_at: 1983-12-11 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:19:31.276006000 Z
   updater_id: 1
-product_readings_097:
+product_readings_094:
   boolean_value: false
   choice_value: nude
   created_at: 2014-11-04 17:22:31.669214000 Z
@@ -1453,7 +1408,7 @@ product_readings_097:
   read_at: 1985-11-03 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:22:31.669214000 Z
   updater_id: 1
-product_readings_098:
+product_readings_095:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
@@ -1469,7 +1424,7 @@ product_readings_098:
   read_at: 1985-11-03 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:22:31.704135000 Z
   updater_id: 1
-product_readings_099:
+product_readings_096:
   boolean_value: false
   created_at: 2014-11-04 17:22:31.708666000 Z
   creator_id: 1
@@ -1482,7 +1437,7 @@ product_readings_099:
   read_at: 1985-11-03 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:22:31.708666000 Z
   updater_id: 1
-product_readings_100:
+product_readings_097:
   boolean_value: false
   created_at: 2014-11-04 17:22:31.714466000 Z
   creator_id: 1
@@ -1500,7 +1455,7 @@ product_readings_100:
   read_at: 1985-11-03 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:22:31.714466000 Z
   updater_id: 1
-product_readings_101:
+product_readings_098:
   boolean_value: false
   choice_value: undefined
   created_at: 2014-11-04 17:28:40.097845000 Z
@@ -1513,7 +1468,7 @@ product_readings_101:
   read_at: 2014-11-04 17:28:40.089209000 Z
   updated_at: 2014-11-04 17:28:40.097845000 Z
   updater_id: 1
-product_readings_102:
+product_readings_099:
   boolean_value: false
   choice_value: undefined
   created_at: 2014-11-04 17:32:46.037461000 Z
@@ -1526,7 +1481,7 @@ product_readings_102:
   read_at: 2014-11-04 17:32:45.997952000 Z
   updated_at: 2014-11-04 17:32:46.037461000 Z
   updater_id: 1
-product_readings_103:
+product_readings_100:
   boolean_value: false
   choice_value: nude
   created_at: 2014-11-04 18:31:37.367320000 Z
@@ -1539,7 +1494,7 @@ product_readings_103:
   read_at: 2012-10-03 12:30:00.000000000 Z
   updated_at: 2014-11-04 18:31:37.367320000 Z
   updater_id: 1
-product_readings_104:
+product_readings_101:
   absolute_measure_value_unit: meter
   absolute_measure_value_value: 4.5
   boolean_value: false
@@ -1555,7 +1510,7 @@ product_readings_104:
   read_at: 1992-01-17 23:00:00.000000000 Z
   updated_at: 2014-11-04 18:39:58.312219000 Z
   updater_id: 1
-product_readings_105:
+product_readings_102:
   boolean_value: false
   created_at: 2014-11-04 18:39:58.401204000 Z
   creator_id: 1
@@ -1568,7 +1523,7 @@ product_readings_105:
   read_at: 1992-01-17 23:00:00.000000000 Z
   updated_at: 2014-11-04 18:39:58.401204000 Z
   updater_id: 1
-product_readings_106:
+product_readings_103:
   absolute_measure_value_unit: meter
   absolute_measure_value_value: 3.0
   boolean_value: false
@@ -1584,7 +1539,7 @@ product_readings_106:
   read_at: 1997-09-22 12:30:00.000000000 Z
   updated_at: 2014-11-04 18:41:16.426028000 Z
   updater_id: 1
-product_readings_107:
+product_readings_104:
   boolean_value: false
   created_at: 2014-11-04 18:41:16.454088000 Z
   creator_id: 1
@@ -1597,7 +1552,7 @@ product_readings_107:
   read_at: 1997-09-22 12:30:00.000000000 Z
   updated_at: 2014-11-04 18:41:16.454088000 Z
   updater_id: 1
-product_readings_108:
+product_readings_105:
   absolute_measure_value_unit: gram
   absolute_measure_value_value: 42.0
   boolean_value: false
@@ -1613,7 +1568,7 @@ product_readings_108:
   read_at: 2013-11-10 12:01:30.000000000 Z
   updated_at: 2014-11-05 15:40:16.120063000 Z
   updater_id: 1
-product_readings_109:
+product_readings_106:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 25.0
   boolean_value: false
@@ -1629,7 +1584,7 @@ product_readings_109:
   read_at: 2013-11-10 12:01:30.000000000 Z
   updated_at: 2014-11-05 15:40:16.126925000 Z
   updater_id: 1
-product_readings_110:
+product_readings_107:
   boolean_value: false
   created_at: 2014-11-05 15:40:16.134257000 Z
   creator_id: 1
@@ -1642,7 +1597,7 @@ product_readings_110:
   read_at: 2013-11-10 12:01:30.000000000 Z
   updated_at: 2014-11-05 15:40:16.134257000 Z
   updater_id: 1
-product_readings_111:
+product_readings_108:
   boolean_value: false
   created_at: 2014-11-05 15:40:16.166810000 Z
   creator_id: 1
@@ -1655,7 +1610,7 @@ product_readings_111:
   read_at: 2013-11-10 12:01:30.000000000 Z
   updated_at: 2014-11-05 15:40:16.166810000 Z
   updater_id: 1
-product_readings_112:
+product_readings_109:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
@@ -1671,7 +1626,7 @@ product_readings_112:
   read_at: 2013-11-10 12:01:30.000000000 Z
   updated_at: 2014-11-05 15:40:16.280688000 Z
   updater_id: 1
-product_readings_113:
+product_readings_110:
   boolean_value: false
   created_at: 2014-11-05 15:40:16.285431000 Z
   creator_id: 1
@@ -1684,7 +1639,7 @@ product_readings_113:
   read_at: 2013-11-10 12:01:30.000000000 Z
   updated_at: 2014-11-05 15:40:16.285431000 Z
   updater_id: 1
-product_readings_114:
+product_readings_111:
   boolean_value: false
   created_at: 2014-11-05 15:40:16.291363000 Z
   creator_id: 1
@@ -1701,7 +1656,7 @@ product_readings_114:
   read_at: 2013-11-10 12:01:30.000000000 Z
   updated_at: 2014-11-05 15:40:16.291363000 Z
   updater_id: 1
-product_readings_115:
+product_readings_112:
   boolean_value: false
   created_at: 2014-11-05 15:40:16.362850000 Z
   creator_id: 1
@@ -1714,7 +1669,7 @@ product_readings_115:
   read_at: 2013-11-10 14:45:00.000000000 Z
   updated_at: 2014-11-05 15:40:16.362850000 Z
   updater_id: 1
-product_readings_116:
+product_readings_113:
   boolean_value: false
   choice_value: covered
   created_at: 2014-11-05 15:40:16.378114000 Z
@@ -1727,7 +1682,7 @@ product_readings_116:
   read_at: 2013-11-10 14:45:00.000000000 Z
   updated_at: 2014-11-05 15:40:16.378114000 Z
   updater_id: 1
-product_readings_117:
+product_readings_114:
   boolean_value: false
   created_at: 2014-11-05 15:40:16.392430000 Z
   creator_id: 1
@@ -1740,7 +1695,7 @@ product_readings_117:
   read_at: 2013-11-10 14:45:00.000000000 Z
   updated_at: 2014-11-05 15:40:16.392430000 Z
   updater_id: 1
-product_readings_118:
+product_readings_115:
   boolean_value: false
   choice_value: nude
   created_at: 2014-11-06 17:49:51.144914000 Z
@@ -1753,7 +1708,7 @@ product_readings_118:
   read_at: 2012-10-07 13:30:00.000000000 Z
   updated_at: 2014-11-06 17:49:51.144914000 Z
   updater_id: 1
-product_readings_119:
+product_readings_116:
   absolute_measure_value_unit: gram
   absolute_measure_value_value: 42.0
   boolean_value: false
@@ -1769,7 +1724,7 @@ product_readings_119:
   read_at: 2012-10-17 10:09:00.000000000 Z
   updated_at: 2014-11-06 17:50:07.115012000 Z
   updater_id: 1
-product_readings_120:
+product_readings_117:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 25.0
   boolean_value: false
@@ -1785,7 +1740,7 @@ product_readings_120:
   read_at: 2012-10-17 10:09:00.000000000 Z
   updated_at: 2014-11-06 17:50:07.119355000 Z
   updater_id: 1
-product_readings_121:
+product_readings_118:
   boolean_value: false
   created_at: 2014-11-06 17:50:07.124315000 Z
   creator_id: 1
@@ -1798,7 +1753,7 @@ product_readings_121:
   read_at: 2012-10-17 10:09:00.000000000 Z
   updated_at: 2014-11-06 17:50:07.124315000 Z
   updater_id: 1
-product_readings_122:
+product_readings_119:
   boolean_value: false
   created_at: 2014-11-06 17:50:07.183612000 Z
   creator_id: 1
@@ -1811,7 +1766,7 @@ product_readings_122:
   read_at: 2012-10-17 10:09:00.000000000 Z
   updated_at: 2014-11-06 17:50:07.183612000 Z
   updater_id: 1
-product_readings_123:
+product_readings_120:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
@@ -1827,7 +1782,7 @@ product_readings_123:
   read_at: 2012-10-17 10:09:00.000000000 Z
   updated_at: 2014-11-06 17:50:07.284471000 Z
   updater_id: 1
-product_readings_124:
+product_readings_121:
   boolean_value: false
   created_at: 2014-11-06 17:50:07.289222000 Z
   creator_id: 1
@@ -1840,7 +1795,7 @@ product_readings_124:
   read_at: 2012-10-17 10:09:00.000000000 Z
   updated_at: 2014-11-06 17:50:07.289222000 Z
   updater_id: 1
-product_readings_125:
+product_readings_122:
   boolean_value: false
   created_at: 2014-11-06 17:50:07.294840000 Z
   creator_id: 1
@@ -1858,7 +1813,7 @@ product_readings_125:
   read_at: 2012-10-17 10:09:00.000000000 Z
   updated_at: 2014-11-06 17:50:07.294840000 Z
   updater_id: 1
-product_readings_126:
+product_readings_123:
   boolean_value: false
   created_at: 2014-11-06 17:50:07.346750000 Z
   creator_id: 1
@@ -1871,7 +1826,7 @@ product_readings_126:
   read_at: 2012-10-17 14:00:00.000000000 Z
   updated_at: 2014-11-06 17:50:07.346750000 Z
   updater_id: 1
-product_readings_127:
+product_readings_124:
   boolean_value: false
   choice_value: covered
   created_at: 2014-11-06 17:50:07.360016000 Z
@@ -1884,7 +1839,7 @@ product_readings_127:
   read_at: 2012-10-17 14:00:00.000000000 Z
   updated_at: 2014-11-06 17:50:07.360016000 Z
   updater_id: 1
-product_readings_128:
+product_readings_125:
   boolean_value: false
   created_at: 2014-11-06 17:50:07.373557000 Z
   creator_id: 1
@@ -1897,7 +1852,7 @@ product_readings_128:
   read_at: 2012-10-17 14:00:00.000000000 Z
   updated_at: 2014-11-06 17:50:07.373557000 Z
   updater_id: 1
-product_readings_129:
+product_readings_126:
   boolean_value: true
   created_at: 2014-11-07 14:44:18.926358000 Z
   creator_id: 1
@@ -1909,7 +1864,7 @@ product_readings_129:
   read_at: 2014-11-05 06:20:00.000000000 Z
   updated_at: 2014-11-07 14:44:18.926358000 Z
   updater_id: 1
-product_readings_130:
+product_readings_127:
   absolute_measure_value_unit: day
   absolute_measure_value_value: 0.0
   boolean_value: false
@@ -1925,7 +1880,7 @@ product_readings_130:
   read_at: 2014-11-05 06:30:00.000000000 Z
   updated_at: 2014-11-07 14:44:18.979273000 Z
   updater_id: 1
-product_readings_131:
+product_readings_128:
   absolute_measure_value_unit: day
   absolute_measure_value_value: 0.0
   boolean_value: false
@@ -1941,7 +1896,7 @@ product_readings_131:
   read_at: 2014-11-05 06:30:00.000000000 Z
   updated_at: 2014-11-07 14:44:18.983635000 Z
   updater_id: 1
-product_readings_132:
+product_readings_129:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -1957,7 +1912,7 @@ product_readings_132:
   read_at: 2014-11-05 06:30:00.000000000 Z
   updated_at: 2014-11-07 14:44:18.987764000 Z
   updater_id: 1
-product_readings_133:
+product_readings_130:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -1973,7 +1928,7 @@ product_readings_133:
   read_at: 2014-11-05 06:30:00.000000000 Z
   updated_at: 2014-11-07 14:44:18.991665000 Z
   updater_id: 1
-product_readings_134:
+product_readings_131:
   boolean_value: false
   created_at: 2014-11-07 14:44:18.997446000 Z
   creator_id: 1
@@ -1986,7 +1941,7 @@ product_readings_134:
   read_at: 2014-11-05 06:30:00.000000000 Z
   updated_at: 2014-11-07 14:44:18.997446000 Z
   updater_id: 1
-product_readings_135:
+product_readings_132:
   boolean_value: false
   created_at: 2014-11-07 14:44:19.029919000 Z
   creator_id: 1
@@ -1999,7 +1954,7 @@ product_readings_135:
   read_at: 2014-11-05 06:30:00.000000000 Z
   updated_at: 2014-11-07 14:44:19.029919000 Z
   updater_id: 1
-product_readings_136:
+product_readings_133:
   absolute_measure_value_unit: meter
   absolute_measure_value_value: 8.0
   boolean_value: false
@@ -2015,7 +1970,7 @@ product_readings_136:
   read_at: 2009-01-11 23:00:00.000000000 Z
   updated_at: 2014-11-07 15:01:32.295858000 Z
   updater_id: 1
-product_readings_137:
+product_readings_134:
   boolean_value: false
   created_at: 2014-11-07 15:01:32.340925000 Z
   creator_id: 1
@@ -2028,7 +1983,7 @@ product_readings_137:
   read_at: 2009-01-11 23:00:00.000000000 Z
   updated_at: 2014-11-07 15:01:32.340925000 Z
   updater_id: 1
-product_readings_138:
+product_readings_135:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -2044,7 +1999,7 @@ product_readings_138:
   read_at: 2013-02-08 11:50:00.000000000 Z
   updated_at: 2014-11-07 15:02:58.930577000 Z
   updater_id: 1
-product_readings_139:
+product_readings_136:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -2060,7 +2015,7 @@ product_readings_139:
   read_at: 2013-02-08 11:50:00.000000000 Z
   updated_at: 2014-11-07 15:02:58.935802000 Z
   updater_id: 1
-product_readings_140:
+product_readings_137:
   boolean_value: false
   created_at: 2014-11-07 15:02:59.113211000 Z
   creator_id: 1
@@ -2073,7 +2028,7 @@ product_readings_140:
   read_at: 2013-02-08 11:50:00.000000000 Z
   updated_at: 2014-11-07 15:02:59.113211000 Z
   updater_id: 1
-product_readings_141:
+product_readings_138:
   boolean_value: false
   created_at: 2014-11-07 15:02:59.147786000 Z
   creator_id: 1
@@ -2086,7 +2041,7 @@ product_readings_141:
   read_at: 2013-02-08 11:50:00.000000000 Z
   updated_at: 2014-11-07 15:02:59.147786000 Z
   updater_id: 1
-product_readings_142:
+product_readings_139:
   absolute_measure_value_unit: meter
   absolute_measure_value_value: 4.0
   boolean_value: false
@@ -2102,7 +2057,7 @@ product_readings_142:
   read_at: 2010-11-01 23:00:00.000000000 Z
   updated_at: 2014-11-07 15:23:45.101470000 Z
   updater_id: 1
-product_readings_143:
+product_readings_140:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 8000.0
   boolean_value: false
@@ -2118,7 +2073,7 @@ product_readings_143:
   read_at: 2010-11-01 23:00:00.000000000 Z
   updated_at: 2014-11-07 15:23:45.103340000 Z
   updater_id: 1
-product_readings_144:
+product_readings_141:
   boolean_value: false
   created_at: 2014-11-07 15:23:45.208597000 Z
   creator_id: 1
@@ -2131,7 +2086,7 @@ product_readings_144:
   read_at: 2010-11-01 23:00:00.000000000 Z
   updated_at: 2014-11-07 15:23:45.208597000 Z
   updater_id: 1
-product_readings_145:
+product_readings_142:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 1000.0
   boolean_value: false
@@ -2147,7 +2102,7 @@ product_readings_145:
   read_at: 2012-11-03 15:24:00.000000000 Z
   updated_at: 2014-11-07 15:25:51.244925000 Z
   updater_id: 1
-product_readings_146:
+product_readings_143:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1000.0
   boolean_value: false
@@ -2163,7 +2118,7 @@ product_readings_146:
   read_at: 2012-11-03 15:24:00.000000000 Z
   updated_at: 2014-11-07 15:25:51.249493000 Z
   updater_id: 1
-product_readings_147:
+product_readings_144:
   absolute_measure_value_unit: mass_percent
   absolute_measure_value_value: 33.5
   boolean_value: false
@@ -2179,7 +2134,7 @@ product_readings_147:
   read_at: 2012-11-03 15:24:00.000000000 Z
   updated_at: 2014-11-07 15:25:51.253571000 Z
   updater_id: 1
-product_readings_148:
+product_readings_145:
   boolean_value: false
   created_at: 2014-11-07 15:25:51.259524000 Z
   creator_id: 1
@@ -2192,7 +2147,7 @@ product_readings_148:
   read_at: 2012-11-03 15:24:00.000000000 Z
   updated_at: 2014-11-07 15:25:51.259524000 Z
   updater_id: 1
-product_readings_149:
+product_readings_146:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 1000.0
   boolean_value: false
@@ -2208,7 +2163,7 @@ product_readings_149:
   read_at: 2012-12-12 11:12:00.000000000 Z
   updated_at: 2014-11-07 15:26:50.618150000 Z
   updater_id: 1
-product_readings_150:
+product_readings_147:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1000.0
   boolean_value: false
@@ -2224,7 +2179,7 @@ product_readings_150:
   read_at: 2012-12-12 11:12:00.000000000 Z
   updated_at: 2014-11-07 15:26:50.622316000 Z
   updater_id: 1
-product_readings_151:
+product_readings_148:
   absolute_measure_value_unit: mass_percent
   absolute_measure_value_value: 33.5
   boolean_value: false
@@ -2240,7 +2195,7 @@ product_readings_151:
   read_at: 2012-12-12 11:12:00.000000000 Z
   updated_at: 2014-11-07 15:26:50.626210000 Z
   updater_id: 1
-product_readings_152:
+product_readings_149:
   boolean_value: false
   created_at: 2014-11-07 15:26:50.630973000 Z
   creator_id: 1
@@ -2253,7 +2208,7 @@ product_readings_152:
   read_at: 2012-12-12 11:12:00.000000000 Z
   updated_at: 2014-11-07 15:26:50.630973000 Z
   updater_id: 1
-product_readings_153:
+product_readings_150:
   boolean_value: false
   created_at: 2014-11-07 15:26:50.658889000 Z
   creator_id: 1
@@ -2266,7 +2221,7 @@ product_readings_153:
   read_at: 2012-12-12 11:12:00.000000000 Z
   updated_at: 2014-11-07 15:26:50.658889000 Z
   updater_id: 1
-product_readings_154:
+product_readings_151:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 10.0
   boolean_value: false
@@ -2282,7 +2237,7 @@ product_readings_154:
   read_at: 2014-11-07 15:41:00.000000000 Z
   updated_at: 2014-11-07 15:44:20.506534000 Z
   updater_id: 1
-product_readings_155:
+product_readings_152:
   absolute_measure_value_unit: gram
   absolute_measure_value_value: 2.0
   boolean_value: false
@@ -2298,7 +2253,7 @@ product_readings_155:
   read_at: 2014-11-07 15:41:00.000000000 Z
   updated_at: 2014-11-07 15:44:20.547706000 Z
   updater_id: 1
-product_readings_156:
+product_readings_153:
   boolean_value: false
   created_at: 2014-11-07 15:44:20.552861000 Z
   creator_id: 1
@@ -2311,7 +2266,7 @@ product_readings_156:
   read_at: 2014-11-07 15:41:00.000000000 Z
   updated_at: 2014-11-07 15:44:20.552861000 Z
   updater_id: 1
-product_readings_157:
+product_readings_154:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -2327,7 +2282,7 @@ product_readings_157:
   read_at: 2014-11-07 15:41:00.000000000 Z
   updated_at: 2014-11-07 15:44:20.628230000 Z
   updater_id: 1
-product_readings_158:
+product_readings_155:
   absolute_measure_value_unit: gram
   absolute_measure_value_value: 50.0
   boolean_value: false
@@ -2343,7 +2298,7 @@ product_readings_158:
   read_at: 2014-11-07 15:41:00.000000000 Z
   updated_at: 2014-11-07 15:44:20.632372000 Z
   updater_id: 1
-product_readings_159:
+product_readings_156:
   boolean_value: false
   created_at: 2014-11-07 15:44:20.637233000 Z
   creator_id: 1
@@ -2356,7 +2311,7 @@ product_readings_159:
   read_at: 2014-11-07 15:41:00.000000000 Z
   updated_at: 2014-11-07 15:44:20.637233000 Z
   updater_id: 1
-product_readings_160:
+product_readings_157:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -2372,7 +2327,7 @@ product_readings_160:
   read_at: 2007-09-29 10:59:00.000000000 Z
   updated_at: 2014-11-07 15:45:45.877909000 Z
   updater_id: 1
-product_readings_161:
+product_readings_158:
   absolute_measure_value_unit: gram
   absolute_measure_value_value: 50.0
   boolean_value: false
@@ -2388,7 +2343,7 @@ product_readings_161:
   read_at: 2007-09-29 10:59:00.000000000 Z
   updated_at: 2014-11-07 15:45:45.881915000 Z
   updater_id: 1
-product_readings_162:
+product_readings_159:
   boolean_value: false
   created_at: 2014-11-07 15:45:45.886665000 Z
   creator_id: 1
@@ -2401,7 +2356,7 @@ product_readings_162:
   read_at: 2007-09-29 10:59:00.000000000 Z
   updated_at: 2014-11-07 15:45:45.886665000 Z
   updater_id: 1
-product_readings_163:
+product_readings_160:
   boolean_value: false
   created_at: 2014-11-07 15:45:45.912621000 Z
   creator_id: 1
@@ -2414,7 +2369,7 @@ product_readings_163:
   read_at: 2007-09-29 10:59:00.000000000 Z
   updated_at: 2014-11-07 15:45:45.912621000 Z
   updater_id: 1
-product_readings_164:
+product_readings_161:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
@@ -2430,7 +2385,7 @@ product_readings_164:
   read_at: 2007-09-29 10:59:00.000000000 Z
   updated_at: 2014-11-07 15:45:46.011743000 Z
   updater_id: 1
-product_readings_165:
+product_readings_162:
   boolean_value: false
   created_at: 2014-11-07 15:45:46.016316000 Z
   creator_id: 1
@@ -2443,7 +2398,7 @@ product_readings_165:
   read_at: 2007-09-29 10:59:00.000000000 Z
   updated_at: 2014-11-07 15:45:46.016316000 Z
   updater_id: 1
-product_readings_166:
+product_readings_163:
   boolean_value: false
   created_at: 2014-11-07 15:45:46.022749000 Z
   creator_id: 1
@@ -2459,7 +2414,7 @@ product_readings_166:
   read_at: 2007-09-29 10:59:00.000000000 Z
   updated_at: 2014-11-07 15:45:46.022749000 Z
   updater_id: 1
-product_readings_167:
+product_readings_164:
   boolean_value: false
   created_at: 2014-11-07 15:45:46.092533000 Z
   creator_id: 1
@@ -2472,7 +2427,7 @@ product_readings_167:
   read_at: 2007-09-29 13:40:00.000000000 Z
   updated_at: 2014-11-07 15:45:46.092533000 Z
   updater_id: 1
-product_readings_168:
+product_readings_165:
   boolean_value: false
   choice_value: covered
   created_at: 2014-11-07 15:45:46.107843000 Z
@@ -2485,7 +2440,7 @@ product_readings_168:
   read_at: 2007-09-29 13:40:00.000000000 Z
   updated_at: 2014-11-07 15:45:46.107843000 Z
   updater_id: 1
-product_readings_169:
+product_readings_166:
   boolean_value: false
   created_at: 2014-11-07 15:45:46.122125000 Z
   creator_id: 1
@@ -2498,7 +2453,7 @@ product_readings_169:
   read_at: 2007-09-29 13:40:00.000000000 Z
   updated_at: 2014-11-07 15:45:46.122125000 Z
   updater_id: 1
-product_readings_170:
+product_readings_167:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1000.0
   boolean_value: false
@@ -2514,7 +2469,7 @@ product_readings_170:
   read_at: 2014-08-01 00:10:00.000000000 Z
   updated_at: 2014-11-07 15:50:04.512335000 Z
   updater_id: 1
-product_readings_171:
+product_readings_168:
   boolean_value: false
   created_at: 2014-11-07 15:50:04.516967000 Z
   creator_id: 1
@@ -2527,7 +2482,7 @@ product_readings_171:
   read_at: 2014-08-01 00:10:00.000000000 Z
   updated_at: 2014-11-07 15:50:04.516967000 Z
   updater_id: 1
-product_readings_172:
+product_readings_169:
   boolean_value: false
   choice_value: raw
   created_at: 2014-11-07 16:26:53.133333000 Z
@@ -2540,7 +2495,7 @@ product_readings_172:
   read_at: 1971-06-17 23:00:00.000000000 Z
   updated_at: 2014-11-07 16:26:53.133333000 Z
   updater_id: 1
-product_readings_173:
+product_readings_170:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
@@ -2556,7 +2511,7 @@ product_readings_173:
   read_at: 1971-06-17 23:00:00.000000000 Z
   updated_at: 2014-11-07 16:26:53.223075000 Z
   updater_id: 1
-product_readings_174:
+product_readings_171:
   boolean_value: false
   created_at: 2014-11-07 16:26:53.227583000 Z
   creator_id: 1
@@ -2569,7 +2524,7 @@ product_readings_174:
   read_at: 1971-06-17 23:00:00.000000000 Z
   updated_at: 2014-11-07 16:26:53.227583000 Z
   updater_id: 1
-product_readings_175:
+product_readings_172:
   boolean_value: false
   created_at: 2014-11-07 16:26:53.233581000 Z
   creator_id: 1
@@ -2591,7 +2546,7 @@ product_readings_175:
   read_at: 1971-06-17 23:00:00.000000000 Z
   updated_at: 2014-11-07 16:26:53.233581000 Z
   updater_id: 1
-product_readings_176:
+product_readings_173:
   boolean_value: false
   choice_value: vitis_cinerea_x_vitis_riparia_SO4
   created_at: 2014-11-07 16:47:34.907912000 Z
@@ -2604,7 +2559,7 @@ product_readings_176:
   read_at: 2008-03-05 09:00:00.000000000 Z
   updated_at: 2014-11-07 16:47:34.907912000 Z
   updater_id: 1
-product_readings_177:
+product_readings_174:
   boolean_value: false
   created_at: 2014-11-07 16:47:34.911990000 Z
   creator_id: 1
@@ -2617,7 +2572,7 @@ product_readings_177:
   read_at: 2008-03-05 09:00:00.000000000 Z
   updated_at: 2014-11-07 16:47:34.911990000 Z
   updater_id: 1
-product_readings_178:
+product_readings_175:
   boolean_value: false
   created_at: 2014-11-07 16:49:26.186768000 Z
   creator_id: 1
@@ -2630,7 +2585,7 @@ product_readings_178:
   read_at: 2001-01-22 23:00:00.000000000 Z
   updated_at: 2014-11-07 16:49:26.186768000 Z
   updater_id: 1
-product_readings_179:
+product_readings_176:
   boolean_value: false
   choice_value: vitis_cinerea_x_vitis_riparia_SO4
   created_at: 2014-11-07 16:50:07.275975000 Z
@@ -2643,7 +2598,7 @@ product_readings_179:
   read_at: 2008-03-15 15:39:00.000000000 Z
   updated_at: 2014-11-07 16:50:07.275975000 Z
   updater_id: 1
-product_readings_180:
+product_readings_177:
   boolean_value: false
   created_at: 2014-11-07 16:50:07.280293000 Z
   creator_id: 1
@@ -2656,7 +2611,7 @@ product_readings_180:
   read_at: 2008-03-15 15:39:00.000000000 Z
   updated_at: 2014-11-07 16:50:07.280293000 Z
   updater_id: 1
-product_readings_181:
+product_readings_178:
   boolean_value: false
   created_at: 2014-11-07 16:50:07.304300000 Z
   creator_id: 1
@@ -2669,7 +2624,7 @@ product_readings_181:
   read_at: 2008-03-15 15:39:00.000000000 Z
   updated_at: 2014-11-07 16:50:07.304300000 Z
   updater_id: 1
-product_readings_182:
+product_readings_179:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
@@ -2685,7 +2640,7 @@ product_readings_182:
   read_at: 2008-03-15 15:39:00.000000000 Z
   updated_at: 2014-11-07 16:50:07.400735000 Z
   updater_id: 1
-product_readings_183:
+product_readings_180:
   boolean_value: false
   created_at: 2014-11-07 16:50:07.405092000 Z
   creator_id: 1
@@ -2698,7 +2653,7 @@ product_readings_183:
   read_at: 2008-03-15 15:39:00.000000000 Z
   updated_at: 2014-11-07 16:50:07.405092000 Z
   updater_id: 1
-product_readings_184:
+product_readings_181:
   boolean_value: false
   created_at: 2014-11-07 16:50:07.410204000 Z
   creator_id: 1
@@ -2720,7 +2675,7 @@ product_readings_184:
   read_at: 2008-03-15 15:39:00.000000000 Z
   updated_at: 2014-11-07 16:50:07.410204000 Z
   updater_id: 1
-product_readings_185:
+product_readings_182:
   boolean_value: false
   created_at: 2014-11-07 16:50:07.571405000 Z
   creator_id: 1
@@ -2733,7 +2688,7 @@ product_readings_185:
   read_at: 2008-03-15 22:00:00.000000000 Z
   updated_at: 2014-11-07 16:50:07.571405000 Z
   updater_id: 1
-product_readings_186:
+product_readings_183:
   boolean_value: false
   choice_value: covered
   created_at: 2014-11-07 16:50:07.585299000 Z
@@ -2746,7 +2701,7 @@ product_readings_186:
   read_at: 2008-03-15 22:00:00.000000000 Z
   updated_at: 2014-11-07 16:50:07.585299000 Z
   updater_id: 1
-product_readings_187:
+product_readings_184:
   absolute_measure_value_unit: meter
   absolute_measure_value_value: 2.0
   boolean_value: false
@@ -2762,7 +2717,7 @@ product_readings_187:
   read_at: 2008-03-15 22:00:00.000000000 Z
   updated_at: 2014-11-07 16:50:07.598816000 Z
   updater_id: 1
-product_readings_188:
+product_readings_185:
   absolute_measure_value_unit: meter
   absolute_measure_value_value: 0.8
   boolean_value: false
@@ -2778,7 +2733,7 @@ product_readings_188:
   read_at: 2008-03-15 22:00:00.000000000 Z
   updated_at: 2014-11-07 16:50:07.611969000 Z
   updater_id: 1
-product_readings_189:
+product_readings_186:
   boolean_value: false
   created_at: 2014-11-07 16:50:07.625403000 Z
   creator_id: 1
@@ -2791,7 +2746,7 @@ product_readings_189:
   read_at: 2008-03-15 22:00:00.000000000 Z
   updated_at: 2014-11-07 16:50:07.625403000 Z
   updater_id: 1
-product_readings_190:
+product_readings_187:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -2807,7 +2762,7 @@ product_readings_190:
   read_at: 2013-04-17 12:00:00.000000000 Z
   updated_at: 2014-11-07 16:59:09.898907000 Z
   updater_id: 1
-product_readings_191:
+product_readings_188:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -2823,7 +2778,7 @@ product_readings_191:
   read_at: 2013-04-17 12:00:00.000000000 Z
   updated_at: 2014-11-07 16:59:09.902667000 Z
   updater_id: 1
-product_readings_192:
+product_readings_189:
   boolean_value: false
   created_at: 2014-11-07 16:59:09.907829000 Z
   creator_id: 1
@@ -2836,7 +2791,7 @@ product_readings_192:
   read_at: 2013-04-17 12:00:00.000000000 Z
   updated_at: 2014-11-07 16:59:09.907829000 Z
   updater_id: 1
-product_readings_193:
+product_readings_190:
   boolean_value: false
   created_at: 2014-11-07 16:59:10.099802000 Z
   creator_id: 1
@@ -2849,7 +2804,7 @@ product_readings_193:
   read_at: 2013-04-17 12:00:00.000000000 Z
   updated_at: 2014-11-07 16:59:10.099802000 Z
   updater_id: 1
-product_readings_194:
+product_readings_191:
   absolute_measure_value_unit: meter
   absolute_measure_value_value: 3.0
   boolean_value: false
@@ -2865,7 +2820,7 @@ product_readings_194:
   read_at: 2012-09-02 07:00:00.000000000 Z
   updated_at: 2014-11-07 17:05:10.444726000 Z
   updater_id: 1
-product_readings_195:
+product_readings_192:
   boolean_value: false
   created_at: 2014-11-07 17:05:10.488248000 Z
   creator_id: 1
@@ -2878,7 +2833,7 @@ product_readings_195:
   read_at: 2012-09-02 07:00:00.000000000 Z
   updated_at: 2014-11-07 17:05:10.488248000 Z
   updater_id: 1
-product_readings_196:
+product_readings_193:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -2894,7 +2849,7 @@ product_readings_196:
   read_at: 2013-09-16 16:38:00.000000000 Z
   updated_at: 2014-11-07 17:08:50.515543000 Z
   updater_id: 1
-product_readings_197:
+product_readings_194:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -2910,7 +2865,7 @@ product_readings_197:
   read_at: 2013-09-16 16:38:00.000000000 Z
   updated_at: 2014-11-07 17:08:50.518848000 Z
   updater_id: 1
-product_readings_198:
+product_readings_195:
   boolean_value: false
   created_at: 2014-11-07 17:08:50.522869000 Z
   creator_id: 1
@@ -2923,7 +2878,7 @@ product_readings_198:
   read_at: 2013-09-16 16:38:00.000000000 Z
   updated_at: 2014-11-07 17:08:50.522869000 Z
   updater_id: 1
-product_readings_199:
+product_readings_196:
   boolean_value: false
   created_at: 2014-11-07 17:18:26.069636000 Z
   creator_id: 1
@@ -2936,7 +2891,7 @@ product_readings_199:
   read_at: 2011-05-24 22:00:00.000000000 Z
   updated_at: 2014-11-07 17:18:26.069636000 Z
   updater_id: 1
-product_readings_200:
+product_readings_197:
   boolean_value: false
   created_at: 2014-11-07 17:18:26.074996000 Z
   creator_id: 1
@@ -2952,7 +2907,7 @@ product_readings_200:
   read_at: 2011-05-24 22:00:00.000000000 Z
   updated_at: 2014-11-07 17:18:26.074996000 Z
   updater_id: 1
-product_readings_201:
+product_readings_198:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 3000.0
   boolean_value: false
@@ -2968,7 +2923,7 @@ product_readings_201:
   read_at: 2010-06-30 22:00:00.000000000 Z
   updated_at: 2014-11-07 17:19:35.231167000 Z
   updater_id: 1
-product_readings_202:
+product_readings_199:
   boolean_value: false
   created_at: 2014-11-07 17:19:35.267972000 Z
   creator_id: 1
@@ -2981,7 +2936,7 @@ product_readings_202:
   read_at: 2010-06-30 22:00:00.000000000 Z
   updated_at: 2014-11-07 17:19:35.267972000 Z
   updater_id: 1
-product_readings_203:
+product_readings_200:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 2500.0
   boolean_value: false
@@ -2997,7 +2952,7 @@ product_readings_203:
   read_at: 2010-04-30 22:00:00.000000000 Z
   updated_at: 2014-11-07 17:20:23.971178000 Z
   updater_id: 1
-product_readings_204:
+product_readings_201:
   boolean_value: false
   created_at: 2014-11-07 17:20:24.006360000 Z
   creator_id: 1
@@ -3010,7 +2965,7 @@ product_readings_204:
   read_at: 2010-04-30 22:00:00.000000000 Z
   updated_at: 2014-11-07 17:20:24.006360000 Z
   updater_id: 1
-product_readings_205:
+product_readings_202:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 35000.0
   boolean_value: false
@@ -3026,7 +2981,7 @@ product_readings_205:
   read_at: 2010-04-30 22:00:00.000000000 Z
   updated_at: 2014-11-07 17:22:41.846414000 Z
   updater_id: 1
-product_readings_206:
+product_readings_203:
   boolean_value: false
   created_at: 2014-11-07 17:22:41.886187000 Z
   creator_id: 1
@@ -3039,7 +2994,7 @@ product_readings_206:
   read_at: 2010-04-30 22:00:00.000000000 Z
   updated_at: 2014-11-07 17:22:41.886187000 Z
   updater_id: 1
-product_readings_207:
+product_readings_204:
   boolean_value: false
   created_at: 2014-11-07 17:23:41.418572000 Z
   creator_id: 1
@@ -3052,7 +3007,7 @@ product_readings_207:
   read_at: 2014-11-07 17:23:41.409332000 Z
   updated_at: 2014-11-07 17:23:41.418572000 Z
   updater_id: 1
-product_readings_208:
+product_readings_205:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -3068,7 +3023,7 @@ product_readings_208:
   read_at: 2013-10-01 07:30:00.000000000 Z
   updated_at: 2014-11-07 18:53:58.125032000 Z
   updater_id: 1
-product_readings_209:
+product_readings_206:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -3084,7 +3039,7 @@ product_readings_209:
   read_at: 2013-10-01 07:30:00.000000000 Z
   updated_at: 2014-11-07 18:53:58.128656000 Z
   updater_id: 1
-product_readings_210:
+product_readings_207:
   boolean_value: false
   created_at: 2014-11-07 18:53:58.132696000 Z
   creator_id: 1
@@ -3097,7 +3052,7 @@ product_readings_210:
   read_at: 2013-10-01 07:30:00.000000000 Z
   updated_at: 2014-11-07 18:53:58.132696000 Z
   updater_id: 1
-product_readings_211:
+product_readings_208:
   boolean_value: false
   created_at: 2014-11-07 18:53:58.158333000 Z
   creator_id: 1
@@ -3110,7 +3065,7 @@ product_readings_211:
   read_at: 2013-10-01 07:30:00.000000000 Z
   updated_at: 2014-11-07 18:53:58.158333000 Z
   updater_id: 1
-product_readings_212:
+product_readings_209:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -3126,7 +3081,7 @@ product_readings_212:
   read_at: 2013-10-01 07:30:00.000000000 Z
   updated_at: 2014-11-07 18:53:58.179989000 Z
   updater_id: 1
-product_readings_213:
+product_readings_210:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -3142,7 +3097,7 @@ product_readings_213:
   read_at: 2013-10-01 07:30:00.000000000 Z
   updated_at: 2014-11-07 18:53:58.183136000 Z
   updater_id: 1
-product_readings_214:
+product_readings_211:
   boolean_value: false
   created_at: 2014-11-07 18:53:58.186866000 Z
   creator_id: 1
@@ -3155,7 +3110,7 @@ product_readings_214:
   read_at: 2013-10-01 07:30:00.000000000 Z
   updated_at: 2014-11-07 18:53:58.186866000 Z
   updater_id: 1
-product_readings_215:
+product_readings_212:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -3171,7 +3126,7 @@ product_readings_215:
   read_at: 2013-10-01 07:30:00.000000000 Z
   updated_at: 2014-11-07 18:53:58.218350000 Z
   updater_id: 1
-product_readings_216:
+product_readings_213:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -3187,7 +3142,7 @@ product_readings_216:
   read_at: 2013-10-01 07:30:00.000000000 Z
   updated_at: 2014-11-07 18:53:58.221482000 Z
   updater_id: 1
-product_readings_217:
+product_readings_214:
   boolean_value: false
   created_at: 2014-11-07 18:53:58.225318000 Z
   creator_id: 1
@@ -3200,7 +3155,7 @@ product_readings_217:
   read_at: 2013-10-01 07:30:00.000000000 Z
   updated_at: 2014-11-07 18:53:58.225318000 Z
   updater_id: 1
-product_readings_218:
+product_readings_215:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -3216,7 +3171,7 @@ product_readings_218:
   read_at: 2013-10-02 07:30:00.000000000 Z
   updated_at: 2014-11-07 19:02:56.400947000 Z
   updater_id: 1
-product_readings_219:
+product_readings_216:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -3232,7 +3187,7 @@ product_readings_219:
   read_at: 2013-10-02 07:30:00.000000000 Z
   updated_at: 2014-11-07 19:02:56.404704000 Z
   updater_id: 1
-product_readings_220:
+product_readings_217:
   boolean_value: false
   created_at: 2014-11-07 19:02:56.409335000 Z
   creator_id: 1
@@ -3245,7 +3200,7 @@ product_readings_220:
   read_at: 2013-10-02 07:30:00.000000000 Z
   updated_at: 2014-11-07 19:02:56.409335000 Z
   updater_id: 1
-product_readings_221:
+product_readings_218:
   boolean_value: false
   created_at: 2014-11-07 19:02:56.435541000 Z
   creator_id: 1
@@ -3258,7 +3213,7 @@ product_readings_221:
   read_at: 2013-10-02 07:30:00.000000000 Z
   updated_at: 2014-11-07 19:02:56.435541000 Z
   updater_id: 1
-product_readings_222:
+product_readings_219:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 100.0
   boolean_value: false
@@ -3274,7 +3229,7 @@ product_readings_222:
   read_at: 2013-10-02 07:30:00.000000000 Z
   updated_at: 2014-11-07 19:02:56.457325000 Z
   updater_id: 1
-product_readings_223:
+product_readings_220:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 100.0
   boolean_value: false
@@ -3290,7 +3245,7 @@ product_readings_223:
   read_at: 2013-10-02 07:30:00.000000000 Z
   updated_at: 2014-11-07 19:02:56.487212000 Z
   updater_id: 1
-product_readings_224:
+product_readings_221:
   boolean_value: false
   created_at: 2014-11-07 19:02:56.492047000 Z
   creator_id: 1
@@ -3303,7 +3258,7 @@ product_readings_224:
   read_at: 2013-10-02 07:30:00.000000000 Z
   updated_at: 2014-11-07 19:02:56.492047000 Z
   updater_id: 1
-product_readings_225:
+product_readings_222:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -3319,7 +3274,7 @@ product_readings_225:
   read_at: 2013-10-02 07:30:00.000000000 Z
   updated_at: 2014-11-07 19:02:56.527707000 Z
   updater_id: 1
-product_readings_226:
+product_readings_223:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -3335,7 +3290,7 @@ product_readings_226:
   read_at: 2013-10-02 07:30:00.000000000 Z
   updated_at: 2014-11-07 19:02:56.531217000 Z
   updater_id: 1
-product_readings_227:
+product_readings_224:
   boolean_value: false
   created_at: 2014-11-07 19:02:56.535808000 Z
   creator_id: 1
@@ -3348,7 +3303,7 @@ product_readings_227:
   read_at: 2013-10-02 07:30:00.000000000 Z
   updated_at: 2014-11-07 19:02:56.535808000 Z
   updater_id: 1
-product_readings_228:
+product_readings_225:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 25.0
   boolean_value: false
@@ -3364,7 +3319,7 @@ product_readings_228:
   read_at: 2014-11-07 19:04:00.000000000 Z
   updated_at: 2014-11-07 19:05:46.929744000 Z
   updater_id: 1
-product_readings_229:
+product_readings_226:
   boolean_value: false
   created_at: 2014-11-07 19:05:46.934217000 Z
   creator_id: 1
@@ -3377,7 +3332,7 @@ product_readings_229:
   read_at: 2014-11-07 19:04:00.000000000 Z
   updated_at: 2014-11-07 19:05:46.934217000 Z
   updater_id: 1
-product_readings_230:
+product_readings_227:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 25.0
   boolean_value: false
@@ -3393,7 +3348,7 @@ product_readings_230:
   read_at: 2014-11-07 19:04:00.000000000 Z
   updated_at: 2014-11-07 19:05:47.005554000 Z
   updater_id: 1
-product_readings_231:
+product_readings_228:
   boolean_value: false
   created_at: 2014-11-07 19:05:47.009600000 Z
   creator_id: 1
@@ -3406,7 +3361,7 @@ product_readings_231:
   read_at: 2014-11-07 19:04:00.000000000 Z
   updated_at: 2014-11-07 19:05:47.009600000 Z
   updater_id: 1
-product_readings_232:
+product_readings_229:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 0.5
   boolean_value: false
@@ -3422,7 +3377,7 @@ product_readings_232:
   read_at: 2014-11-07 19:04:00.000000000 Z
   updated_at: 2014-11-07 19:05:47.074351000 Z
   updater_id: 1
-product_readings_233:
+product_readings_230:
   absolute_measure_value_unit: billion_per_gram
   absolute_measure_value_value: 10.0
   boolean_value: false
@@ -3438,7 +3393,7 @@ product_readings_233:
   read_at: 2014-11-07 19:04:00.000000000 Z
   updated_at: 2014-11-07 19:05:47.078329000 Z
   updater_id: 1
-product_readings_234:
+product_readings_231:
   boolean_value: false
   created_at: 2014-11-07 19:05:47.082097000 Z
   creator_id: 1
@@ -3451,7 +3406,7 @@ product_readings_234:
   read_at: 2014-11-07 19:04:00.000000000 Z
   updated_at: 2014-11-07 19:05:47.082097000 Z
   updater_id: 1
-product_readings_235:
+product_readings_232:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 0.5
   boolean_value: false
@@ -3467,7 +3422,7 @@ product_readings_235:
   read_at: 2013-10-05 13:08:00.000000000 Z
   updated_at: 2014-11-07 19:08:55.377465000 Z
   updater_id: 1
-product_readings_236:
+product_readings_233:
   absolute_measure_value_unit: billion_per_gram
   absolute_measure_value_value: 10.0
   boolean_value: false
@@ -3483,7 +3438,7 @@ product_readings_236:
   read_at: 2013-10-05 13:08:00.000000000 Z
   updated_at: 2014-11-07 19:08:55.381644000 Z
   updater_id: 1
-product_readings_237:
+product_readings_234:
   boolean_value: false
   created_at: 2014-11-07 19:08:55.386695000 Z
   creator_id: 1
@@ -3496,7 +3451,7 @@ product_readings_237:
   read_at: 2013-10-05 13:08:00.000000000 Z
   updated_at: 2014-11-07 19:08:55.386695000 Z
   updater_id: 1
-product_readings_238:
+product_readings_235:
   boolean_value: false
   created_at: 2014-11-07 19:08:55.417369000 Z
   creator_id: 1
@@ -3509,7 +3464,7 @@ product_readings_238:
   read_at: 2013-10-05 13:08:00.000000000 Z
   updated_at: 2014-11-07 19:08:55.417369000 Z
   updater_id: 1
-product_readings_239:
+product_readings_236:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 100.0
   boolean_value: false
@@ -3525,7 +3480,7 @@ product_readings_239:
   read_at: 2013-10-05 13:36:00.000000000 Z
   updated_at: 2014-11-07 19:08:55.599414000 Z
   updater_id: 1
-product_readings_240:
+product_readings_237:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 100.0
   boolean_value: false
@@ -3541,7 +3496,7 @@ product_readings_240:
   read_at: 2013-10-05 13:36:00.000000000 Z
   updated_at: 2014-11-07 19:08:55.603531000 Z
   updater_id: 1
-product_readings_241:
+product_readings_238:
   boolean_value: false
   created_at: 2014-11-07 19:08:55.607971000 Z
   creator_id: 1
@@ -3554,7 +3509,7 @@ product_readings_241:
   read_at: 2013-10-05 13:36:00.000000000 Z
   updated_at: 2014-11-07 19:08:55.607971000 Z
   updater_id: 1
-product_readings_242:
+product_readings_239:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 25.0
   boolean_value: false
@@ -3570,7 +3525,7 @@ product_readings_242:
   read_at: 2013-10-01 18:10:00.000000000 Z
   updated_at: 2014-11-07 19:12:04.981385000 Z
   updater_id: 1
-product_readings_243:
+product_readings_240:
   boolean_value: false
   created_at: 2014-11-07 19:12:04.985504000 Z
   creator_id: 1
@@ -3583,7 +3538,7 @@ product_readings_243:
   read_at: 2013-10-01 18:10:00.000000000 Z
   updated_at: 2014-11-07 19:12:04.985504000 Z
   updater_id: 1
-product_readings_244:
+product_readings_241:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 25.0
   boolean_value: false
@@ -3599,7 +3554,7 @@ product_readings_244:
   read_at: 2013-10-07 09:38:00.000000000 Z
   updated_at: 2014-11-07 19:12:42.930309000 Z
   updater_id: 1
-product_readings_245:
+product_readings_242:
   boolean_value: false
   created_at: 2014-11-07 19:12:42.935517000 Z
   creator_id: 1
@@ -3612,7 +3567,7 @@ product_readings_245:
   read_at: 2013-10-07 09:38:00.000000000 Z
   updated_at: 2014-11-07 19:12:42.935517000 Z
   updater_id: 1
-product_readings_246:
+product_readings_243:
   boolean_value: false
   created_at: 2014-11-07 19:12:42.959187000 Z
   creator_id: 1
@@ -3625,7 +3580,7 @@ product_readings_246:
   read_at: 2013-10-07 09:38:00.000000000 Z
   updated_at: 2014-11-07 19:12:42.959187000 Z
   updater_id: 1
-product_readings_247:
+product_readings_244:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -3641,7 +3596,7 @@ product_readings_247:
   read_at: 2013-10-03 18:18:00.000000000 Z
   updated_at: 2014-11-07 19:22:38.333841000 Z
   updater_id: 1
-product_readings_248:
+product_readings_245:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -3657,7 +3612,7 @@ product_readings_248:
   read_at: 2013-10-03 18:18:00.000000000 Z
   updated_at: 2014-11-07 19:22:38.338563000 Z
   updater_id: 1
-product_readings_249:
+product_readings_246:
   absolute_measure_value_unit: mass_percent
   absolute_measure_value_value: 10.0
   boolean_value: false
@@ -3673,7 +3628,7 @@ product_readings_249:
   read_at: 2013-10-03 18:18:00.000000000 Z
   updated_at: 2014-11-07 19:22:38.342528000 Z
   updater_id: 1
-product_readings_250:
+product_readings_247:
   boolean_value: false
   created_at: 2014-11-07 19:22:38.346491000 Z
   creator_id: 1
@@ -3686,7 +3641,7 @@ product_readings_250:
   read_at: 2013-10-03 18:18:00.000000000 Z
   updated_at: 2014-11-07 19:22:38.346491000 Z
   updater_id: 1
-product_readings_251:
+product_readings_248:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -3702,7 +3657,7 @@ product_readings_251:
   read_at: 2013-10-15 08:36:00.000000000 Z
   updated_at: 2014-11-07 19:24:10.322100000 Z
   updater_id: 1
-product_readings_252:
+product_readings_249:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1.0
   boolean_value: false
@@ -3718,7 +3673,7 @@ product_readings_252:
   read_at: 2013-10-15 08:36:00.000000000 Z
   updated_at: 2014-11-07 19:24:10.326375000 Z
   updater_id: 1
-product_readings_253:
+product_readings_250:
   absolute_measure_value_unit: mass_percent
   absolute_measure_value_value: 10.0
   boolean_value: false
@@ -3734,7 +3689,7 @@ product_readings_253:
   read_at: 2013-10-15 08:36:00.000000000 Z
   updated_at: 2014-11-07 19:24:10.330797000 Z
   updater_id: 1
-product_readings_254:
+product_readings_251:
   boolean_value: false
   created_at: 2014-11-07 19:24:10.335538000 Z
   creator_id: 1
@@ -3747,7 +3702,7 @@ product_readings_254:
   read_at: 2013-10-15 08:36:00.000000000 Z
   updated_at: 2014-11-07 19:24:10.335538000 Z
   updater_id: 1
-product_readings_255:
+product_readings_252:
   boolean_value: false
   created_at: 2014-11-07 19:24:10.362960000 Z
   creator_id: 1
@@ -3760,7 +3715,7 @@ product_readings_255:
   read_at: 2013-10-15 08:36:00.000000000 Z
   updated_at: 2014-11-07 19:24:10.362960000 Z
   updater_id: 1
-product_readings_256:
+product_readings_253:
   absolute_measure_value_unit: meter
   absolute_measure_value_value: 0.32
   boolean_value: false
@@ -3776,7 +3731,7 @@ product_readings_256:
   read_at: 2013-10-15 10:30:00.000000000 Z
   updated_at: 2014-11-07 19:34:09.467329000 Z
   updater_id: 1
-product_readings_257:
+product_readings_254:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 0.42
   boolean_value: false
@@ -3792,7 +3747,7 @@ product_readings_257:
   read_at: 2013-10-15 10:30:00.000000000 Z
   updated_at: 2014-11-07 19:34:09.469314000 Z
   updater_id: 1
-product_readings_258:
+product_readings_255:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 0.75
   boolean_value: false
@@ -3808,7 +3763,7 @@ product_readings_258:
   read_at: 2013-10-15 10:30:00.000000000 Z
   updated_at: 2014-11-07 19:34:09.504407000 Z
   updater_id: 1
-product_readings_259:
+product_readings_256:
   boolean_value: false
   created_at: 2014-11-07 19:34:09.508436000 Z
   creator_id: 1
@@ -3821,7 +3776,7 @@ product_readings_259:
   read_at: 2013-10-15 10:30:00.000000000 Z
   updated_at: 2014-11-07 19:34:09.508436000 Z
   updater_id: 1
-product_readings_260:
+product_readings_257:
   absolute_measure_value_unit: meter
   absolute_measure_value_value: 0.05
   boolean_value: false
@@ -3837,7 +3792,7 @@ product_readings_260:
   read_at: 2013-10-15 10:30:00.000000000 Z
   updated_at: 2014-11-07 19:34:09.549020000 Z
   updater_id: 1
-product_readings_261:
+product_readings_258:
   absolute_measure_value_unit: meter
   absolute_measure_value_value: 0.024
   boolean_value: false
@@ -3853,7 +3808,7 @@ product_readings_261:
   read_at: 2013-10-15 10:30:00.000000000 Z
   updated_at: 2014-11-07 19:34:09.550436000 Z
   updater_id: 1
-product_readings_262:
+product_readings_259:
   boolean_value: false
   created_at: 2014-11-07 19:34:09.579514000 Z
   creator_id: 1
@@ -3866,7 +3821,7 @@ product_readings_262:
   read_at: 2013-10-15 10:30:00.000000000 Z
   updated_at: 2014-11-07 19:34:09.579514000 Z
   updater_id: 1
-product_readings_263:
+product_readings_260:
   boolean_value: false
   created_at: 2014-11-07 19:36:09.167986000 Z
   creator_id: 1
@@ -3879,7 +3834,7 @@ product_readings_263:
   read_at: 1954-05-11 23:00:00.000000000 Z
   updated_at: 2014-11-07 19:36:09.167986000 Z
   updater_id: 1
-product_readings_264:
+product_readings_261:
   boolean_value: false
   created_at: 2014-11-07 19:36:30.018990000 Z
   creator_id: 1
@@ -3892,7 +3847,7 @@ product_readings_264:
   read_at: 2014-11-07 19:36:30.009048000 Z
   updated_at: 2014-11-07 19:36:30.018990000 Z
   updater_id: 1
-product_readings_265:
+product_readings_262:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 100.0
   boolean_value: false
@@ -3908,7 +3863,7 @@ product_readings_265:
   read_at: 2013-10-30 07:08:00.000000000 Z
   updated_at: 2014-11-07 19:36:59.317453000 Z
   updater_id: 1
-product_readings_266:
+product_readings_263:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 100.0
   boolean_value: false
@@ -3924,7 +3879,7 @@ product_readings_266:
   read_at: 2013-10-30 07:08:00.000000000 Z
   updated_at: 2014-11-07 19:36:59.321534000 Z
   updater_id: 1
-product_readings_267:
+product_readings_264:
   boolean_value: false
   created_at: 2014-11-07 19:36:59.326276000 Z
   creator_id: 1
@@ -3937,7 +3892,7 @@ product_readings_267:
   read_at: 2013-10-30 07:08:00.000000000 Z
   updated_at: 2014-11-07 19:36:59.326276000 Z
   updater_id: 1
-product_readings_268:
+product_readings_265:
   boolean_value: false
   created_at: 2014-11-07 19:36:59.356594000 Z
   creator_id: 1
@@ -3950,7 +3905,7 @@ product_readings_268:
   read_at: 2013-10-30 07:08:00.000000000 Z
   updated_at: 2014-11-07 19:36:59.356594000 Z
   updater_id: 1
-product_readings_269:
+product_readings_266:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 0.75
   boolean_value: false
@@ -3966,7 +3921,7 @@ product_readings_269:
   read_at: 2013-10-30 07:08:00.000000000 Z
   updated_at: 2014-11-07 19:36:59.374026000 Z
   updater_id: 1
-product_readings_270:
+product_readings_267:
   boolean_value: false
   created_at: 2014-11-07 19:36:59.378424000 Z
   creator_id: 1
@@ -3979,7 +3934,7 @@ product_readings_270:
   read_at: 2013-10-30 07:08:00.000000000 Z
   updated_at: 2014-11-07 19:36:59.378424000 Z
   updater_id: 1
-product_readings_271:
+product_readings_268:
   absolute_measure_value_unit: meter
   absolute_measure_value_value: 0.32
   boolean_value: false
@@ -3997,7 +3952,7 @@ product_readings_271:
   read_at: 2013-10-30 07:08:00.000000000 Z
   updated_at: 2014-11-07 19:36:59.406075000 Z
   updater_id: 1
-product_readings_272:
+product_readings_269:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 0.42
   boolean_value: false
@@ -4015,7 +3970,7 @@ product_readings_272:
   read_at: 2013-10-30 07:08:00.000000000 Z
   updated_at: 2014-11-07 19:36:59.412387000 Z
   updater_id: 1
-product_readings_273:
+product_readings_270:
   boolean_value: false
   created_at: 2014-11-07 19:36:59.416985000 Z
   creator_id: 1
@@ -4028,7 +3983,7 @@ product_readings_273:
   read_at: 2013-10-30 07:08:00.000000000 Z
   updated_at: 2014-11-07 19:36:59.416985000 Z
   updater_id: 1
-product_readings_274:
+product_readings_271:
   boolean_value: false
   created_at: 2014-11-07 19:36:59.528609000 Z
   creator_id: 1
@@ -4041,7 +3996,7 @@ product_readings_274:
   read_at: 2013-10-30 07:08:00.000000000 Z
   updated_at: 2014-11-07 19:36:59.528609000 Z
   updater_id: 1
-product_readings_275:
+product_readings_272:
   absolute_measure_value_unit: meter
   absolute_measure_value_value: 0.05
   boolean_value: false
@@ -4059,7 +4014,7 @@ product_readings_275:
   read_at: 2013-10-30 07:08:00.000000000 Z
   updated_at: 2014-11-07 19:36:59.554484000 Z
   updater_id: 1
-product_readings_276:
+product_readings_273:
   absolute_measure_value_unit: meter
   absolute_measure_value_value: 0.024
   boolean_value: false
@@ -4077,7 +4032,7 @@ product_readings_276:
   read_at: 2013-10-30 07:08:00.000000000 Z
   updated_at: 2014-11-07 19:36:59.560946000 Z
   updater_id: 1
-product_readings_277:
+product_readings_274:
   boolean_value: false
   created_at: 2014-11-07 19:36:59.565862000 Z
   creator_id: 1
@@ -4090,7 +4045,7 @@ product_readings_277:
   read_at: 2013-10-30 07:08:00.000000000 Z
   updated_at: 2014-11-07 19:36:59.565862000 Z
   updater_id: 1
-product_readings_278:
+product_readings_275:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 0.76
   boolean_value: false
@@ -4106,7 +4061,7 @@ product_readings_278:
   read_at: 2013-10-30 13:52:00.000000000 Z
   updated_at: 2014-11-07 19:36:59.605540000 Z
   updater_id: 1
-product_readings_279:
+product_readings_276:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 0.75
   boolean_value: false
@@ -4122,7 +4077,7 @@ product_readings_279:
   read_at: 2013-10-30 13:52:00.000000000 Z
   updated_at: 2014-11-07 19:36:59.609559000 Z
   updater_id: 1
-product_readings_280:
+product_readings_277:
   boolean_value: false
   created_at: 2014-11-07 19:36:59.613911000 Z
   creator_id: 1
@@ -4135,7 +4090,7 @@ product_readings_280:
   read_at: 2013-10-30 13:52:00.000000000 Z
   updated_at: 2014-11-07 19:36:59.613911000 Z
   updater_id: 1
-product_readings_281:
+product_readings_278:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1000.0
   boolean_value: false
@@ -4151,7 +4106,7 @@ product_readings_281:
   read_at: 2015-07-15 11:45:00.000000000 Z
   updated_at: 2015-09-17 13:35:36.308965000 Z
   updater_id: 1
-product_readings_282:
+product_readings_279:
   boolean_value: false
   created_at: 2015-09-17 13:35:36.318860000 Z
   creator_id: 1
@@ -4164,7 +4119,7 @@ product_readings_282:
   read_at: 2015-07-15 11:45:00.000000000 Z
   updated_at: 2015-09-17 13:35:36.318860000 Z
   updater_id: 1
-product_readings_283:
+product_readings_280:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 1000.0
   boolean_value: false
@@ -4180,7 +4135,7 @@ product_readings_283:
   read_at: 2015-09-17 13:38:07.151525000 Z
   updated_at: 2015-09-17 13:38:07.334695000 Z
   updater_id: 1
-product_readings_284:
+product_readings_281:
   boolean_value: false
   created_at: 2015-09-17 13:38:07.345779000 Z
   creator_id: 1

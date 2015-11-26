@@ -16,32 +16,6 @@
 #     - "backend/beehives#update"
 #     - "backend/building_divisions#take"
 #     - "backend/buildings#take"
-#     - "backend/cap_islets#create"
-#     - "backend/cap_islets#destroy"
-#     - "backend/cap_islets#edit"
-#     - "backend/cap_islets#index"
-#     - "backend/cap_islets#list"
-#     - "backend/cap_islets#list_cap_land_parcels"
-#     - "backend/cap_islets#new"
-#     - "backend/cap_islets#show"
-#     - "backend/cap_islets#update"
-#     - "backend/cap_land_parcels#create"
-#     - "backend/cap_land_parcels#destroy"
-#     - "backend/cap_land_parcels#edit"
-#     - "backend/cap_land_parcels#index"
-#     - "backend/cap_land_parcels#list"
-#     - "backend/cap_land_parcels#new"
-#     - "backend/cap_land_parcels#show"
-#     - "backend/cap_land_parcels#update"
-#     - "backend/cap_statements#create"
-#     - "backend/cap_statements#destroy"
-#     - "backend/cap_statements#edit"
-#     - "backend/cap_statements#index"
-#     - "backend/cap_statements#list"
-#     - "backend/cap_statements#list_cap_islets"
-#     - "backend/cap_statements#new"
-#     - "backend/cap_statements#show"
-#     - "backend/cap_statements#update"
 #     - "backend/cells/accountancy_balance_cells#show"
 #     - "backend/cells/calendar_cells#show"
 #     - "backend/cells/cashes_balance_cells#show"
@@ -116,8 +90,6 @@
 #     - "backend/helps#toggle"
 #     - "backend/januses#toggle"
 #     - "backend/kujakus#toggle"
-#     - "backend/land_parcel_clusters#take"
-#     - "backend/land_parcel_groups#take"
 #     - "backend/land_parcels#take"
 #     - "backend/map_editors#upload"
 #     - "backend/matters#take"
@@ -445,6 +417,40 @@ campaigns:
     - "backend/campaigns#edit"
     - "backend/campaigns#new"
     - "backend/campaigns#update"
+
+cap_statements:
+  read:
+    actions:
+    - "backend/cap_islets#index"
+    - "backend/cap_islets#list"
+    - "backend/cap_islets#list_cap_land_parcels"
+    - "backend/cap_islets#show"
+    - "backend/cap_land_parcels#index"
+    - "backend/cap_land_parcels#list"
+    - "backend/cap_land_parcels#show"
+    - "backend/cap_statements#index"
+    - "backend/cap_statements#list"
+    - "backend/cap_statements#list_cap_islets"
+    - "backend/cap_statements#show"
+  write:
+    dependencies:
+    - read-cap_statements
+    actions:
+    - "backend/cap_islets#create"
+    - "backend/cap_islets#destroy"
+    - "backend/cap_islets#edit"
+    - "backend/cap_islets#new"
+    - "backend/cap_islets#update"
+    - "backend/cap_land_parcels#create"
+    - "backend/cap_land_parcels#destroy"
+    - "backend/cap_land_parcels#edit"
+    - "backend/cap_land_parcels#new"
+    - "backend/cap_land_parcels#update"
+    - "backend/cap_statements#create"
+    - "backend/cap_statements#destroy"
+    - "backend/cap_statements#edit"
+    - "backend/cap_statements#new"
+    - "backend/cap_statements#update"
 
 cash_transfers:
   read:
@@ -1144,62 +1150,6 @@ journals:
     - read-journals
     actions:
     - "backend/journals#reopen"
-
-land_parcel_clusters:
-  read:
-    actions:
-    - "backend/land_parcel_clusters#index"
-    - "backend/land_parcel_clusters#list"
-    - "backend/land_parcel_clusters#list_carried_linkages"
-    - "backend/land_parcel_clusters#list_carrier_linkages"
-    - "backend/land_parcel_clusters#list_contained_products"
-    - "backend/land_parcel_clusters#list_groups"
-    - "backend/land_parcel_clusters#list_intervention_casts"
-    - "backend/land_parcel_clusters#list_issues"
-    - "backend/land_parcel_clusters#list_members"
-    - "backend/land_parcel_clusters#list_places"
-    - "backend/land_parcel_clusters#list_readings"
-    - "backend/land_parcel_clusters#picture"
-    - "backend/land_parcel_clusters#show"
-    - "backend/land_parcel_clusters#unroll"
-  write:
-    dependencies:
-    - read-land_parcel_clusters
-    actions:
-    - "backend/land_parcel_clusters#attachments"
-    - "backend/land_parcel_clusters#create"
-    - "backend/land_parcel_clusters#destroy"
-    - "backend/land_parcel_clusters#edit"
-    - "backend/land_parcel_clusters#new"
-    - "backend/land_parcel_clusters#update"
-
-land_parcel_groups:
-  read:
-    actions:
-    - "backend/land_parcel_groups#index"
-    - "backend/land_parcel_groups#list"
-    - "backend/land_parcel_groups#list_carried_linkages"
-    - "backend/land_parcel_groups#list_carrier_linkages"
-    - "backend/land_parcel_groups#list_contained_products"
-    - "backend/land_parcel_groups#list_groups"
-    - "backend/land_parcel_groups#list_intervention_casts"
-    - "backend/land_parcel_groups#list_issues"
-    - "backend/land_parcel_groups#list_members"
-    - "backend/land_parcel_groups#list_places"
-    - "backend/land_parcel_groups#list_readings"
-    - "backend/land_parcel_groups#picture"
-    - "backend/land_parcel_groups#show"
-    - "backend/land_parcel_groups#unroll"
-  write:
-    dependencies:
-    - read-land_parcel_groups
-    actions:
-    - "backend/land_parcel_groups#attachments"
-    - "backend/land_parcel_groups#create"
-    - "backend/land_parcel_groups#destroy"
-    - "backend/land_parcel_groups#edit"
-    - "backend/land_parcel_groups#new"
-    - "backend/land_parcel_groups#update"
 
 land_parcels:
   read:

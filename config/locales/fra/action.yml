@@ -336,18 +336,18 @@ fra:
       reopen: "Déclôturer le journal\_: %{name}"
       reports: "Impression, exportation" #?
       show: "Journal\_: %{name} (%{code})"
-    backend/land_parcel_clusters:
-      edit: "Modifier l’îlot\_: %{name}"
-      index: "Îlots"
-      new: "Nouvel îlot"
-      show: "Îlot %{name}"
-    backend/land_parcel_groups:
+    backend/land_parcel_clusters:  #?
+      edit: "Modifier l’îlot\_: %{name}" #?
+      index: "Îlots" #?
+      new: "Nouvel îlot" #?
+      show: "Îlot %{name}" #?
+    backend/land_parcel_groups:  #?
       divide: "Diviser le groupe de parcelle\_: %{name}" #?
-      edit: "Modifier le groupe de parcelle\_: %{name}"
-      index: "Groupes de parcelles"
+      edit: "Modifier le groupe de parcelle\_: %{name}" #?
+      index: "Groupes de parcelles" #?
       merge: "Fusionner des groupes de parcelles" #?
-      new: "Nouveau groupe de parcelles"
-      show: "Groupe de parcelles %{name}"
+      new: "Nouveau groupe de parcelles" #?
+      show: "Groupe de parcelles %{name}" #?
     backend/land_parcels:
       divide: "Diviser la parcelle\_: %{name}" #?
       edit: "Modifier la parcelle\_: %{name}"

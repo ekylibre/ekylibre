@@ -898,8 +898,6 @@
         <page to="backend/cap_statements#new"/>
         <page to="backend/cap_statements#show"/>
         <page to="backend/cap_statements#update"/>
-      </item>
-      <item name="cap_islets">
         <page to="backend/cap_islets#index"/>
         <page to="backend/cap_islets#create"/>
         <page to="backend/cap_islets#destroy"/>
@@ -909,8 +907,6 @@
         <page to="backend/cap_islets#new"/>
         <page to="backend/cap_islets#show"/>
         <page to="backend/cap_islets#update"/>
-      </item>
-      <item name="cap_land_parcels">
         <page to="backend/cap_land_parcels#index"/>
         <page to="backend/cap_land_parcels#create"/>
         <page to="backend/cap_land_parcels#destroy"/>
@@ -1413,50 +1409,6 @@
         <page to="backend/animal_groups#list_animals"/>
         <page to="backend/animal_groups#list_places"/>
         <page to="backend/animal_groups#unroll"/>
-      </item>
-      <item name="land_parcel_clusters">
-        <page to="backend/land_parcel_clusters#index"/>
-        <page to="backend/land_parcel_clusters#attachments"/>
-        <page to="backend/land_parcel_clusters#create"/>
-        <page to="backend/land_parcel_clusters#destroy"/>
-        <page to="backend/land_parcel_clusters#edit"/>
-        <page to="backend/land_parcel_clusters#list"/>
-        <page to="backend/land_parcel_clusters#list_carried_linkages"/>
-        <page to="backend/land_parcel_clusters#list_carrier_linkages"/>
-        <page to="backend/land_parcel_clusters#list_contained_products"/>
-        <page to="backend/land_parcel_clusters#list_groups"/>
-        <page to="backend/land_parcel_clusters#list_readings"/>
-        <page to="backend/land_parcel_clusters#list_intervention_casts"/>
-        <page to="backend/land_parcel_clusters#list_issues"/>
-        <page to="backend/land_parcel_clusters#list_members"/>
-        <page to="backend/land_parcel_clusters#list_places"/>
-        <page to="backend/land_parcel_clusters#new"/>
-        <page to="backend/land_parcel_clusters#picture"/>
-        <page to="backend/land_parcel_clusters#show"/>
-        <page to="backend/land_parcel_clusters#update"/>
-        <page to="backend/land_parcel_clusters#take"/>
-        <page to="backend/land_parcel_clusters#unroll"/>
-        <page to="backend/land_parcel_groups#index"/>
-        <page to="backend/land_parcel_groups#attachments"/>
-        <page to="backend/land_parcel_groups#create"/>
-        <page to="backend/land_parcel_groups#destroy"/>
-        <page to="backend/land_parcel_groups#edit"/>
-        <page to="backend/land_parcel_groups#list"/>
-        <page to="backend/land_parcel_groups#list_carried_linkages"/>
-        <page to="backend/land_parcel_groups#list_carrier_linkages"/>
-        <page to="backend/land_parcel_groups#list_contained_products"/>
-        <page to="backend/land_parcel_groups#list_groups"/>
-        <page to="backend/land_parcel_groups#list_readings"/>
-        <page to="backend/land_parcel_groups#list_intervention_casts"/>
-        <page to="backend/land_parcel_groups#list_issues"/>
-        <page to="backend/land_parcel_groups#list_members"/>
-        <page to="backend/land_parcel_groups#list_places"/>
-        <page to="backend/land_parcel_groups#new"/>
-        <page to="backend/land_parcel_groups#picture"/>
-        <page to="backend/land_parcel_groups#show"/>
-        <page to="backend/land_parcel_groups#take"/>
-        <page to="backend/land_parcel_groups#unroll"/>
-        <page to="backend/land_parcel_groups#update"/>
       </item>
       <item name="land_parcels">
         <page to="backend/land_parcels#index"/>

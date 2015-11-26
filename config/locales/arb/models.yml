@@ -2041,6 +2041,7 @@ arb:
     user_id: "المستخدم" #?
     users: "المستخدمين"
     uses: "المعدات المستخدمة" #?
+    # uuid: "UUID"
     value: "القيمة"
     value_format: "التصميم" #?
     # variable_indicators_list: "Variable indicators list"

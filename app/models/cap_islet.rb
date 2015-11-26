@@ -29,19 +29,23 @@
 #  islet_number     :string           not null
 #  lock_version     :integer          default(0), not null
 #  shape            :geometry({:srid=>4326, :type=>"geometry"}) not null
-#  town_number      :string           not null
+#  town_number      :string
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #
 
 class CapIslet < Ekylibre::Record::Base
   belongs_to :cap_statement
-  has_many :cap_land_parcels, class_name: 'CapLandParcel', dependent: :destroy
+  has_many :land_parcels, class_name: 'CapLandParcel', dependent: :destroy
+  has_many :cap_land_parcels, dependent: :destroy
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :cap_statement, :islet_number, :shape, :town_number
+  validates_presence_of :cap_statement, :islet_number, :shape
   # ]VALIDATORS]
+  validates_presence_of :town_number
   delegate :harvest_year, to: :cap_statement, prefix: false
   delegate :pacage_number, to: :cap_statement, prefix: false
+
+  alias_attribute :exploitation_name, :farm_name
 
   scope :of_campaign, lambda { |*campaigns|
     joins(:cap_statement).merge(CapStatement.of_campaign(*campaigns))

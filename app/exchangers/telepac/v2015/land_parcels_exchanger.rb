@@ -26,7 +26,7 @@ class Telepac::V2015::LandParcelsExchanger < ActiveExchanger::Base
           entity: Entity.of_company,
           exploitation_name: Entity.of_company.full_name,
           pacage_number: pacage_number,
-          siret_number: Entity.of_company.siret
+          siret_number: Entity.of_company.siret_number
         }
 
         ## find or create cap statement
@@ -103,7 +103,7 @@ class Telepac::V2015::LandParcelsExchanger < ActiveExchanger::Base
           entity: Entity.of_company,
           exploitation_name: Entity.of_company.full_name,
           pacage_number: pacage_number,
-          siret_number: Entity.of_company.siret
+          siret_number: Entity.of_company.siret_number
         }
 
         ## find or create cap statement

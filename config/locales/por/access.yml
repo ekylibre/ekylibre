@@ -55,8 +55,8 @@ por:
       journal_draft: "Diário provisório"
       journal_entries: "Lançamentos no diário"
       journals: "Diários"
-      land_parcel_clusters: "Agrupamentos de pedaços de terra"
-      land_parcel_groups: "Grupos de pedaços de terra"
+      land_parcel_clusters: "Agrupamentos de pedaços de terra" #?
+      land_parcel_groups: "Grupos de pedaços de terra" #?
       land_parcels: "Pedaços de terra"
       listings: "Listagens"
       loans: "Empréstimos"

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # = Informations
 #
 # == License
@@ -60,6 +59,7 @@
 #  type                  :string
 #  updated_at            :datetime         not null
 #  updater_id            :integer
+#  uuid                  :uuid
 #  variant_id            :integer          not null
 #  variety               :string           not null
 #  work_number           :string
@@ -67,33 +67,23 @@
 
 class LandParcel < Easement
   refers_to :variety, scope: :land_parcel
-  # has_many :members, class_name: "CultivableZoneMembership"
-  has_many :zone_memberships, class_name: 'CultivableZoneMembership'
-  has_many :memberships, class_name: 'CultivableZoneMembership', foreign_key: :member_id
-  has_many :cultivable_zones, class_name: 'CultivableZone', through: :memberships, source: :group
-  has_many :product_memberships, class_name: 'ProductMembership', foreign_key: :member_id
-  has_many :groups, class_name: 'Product', through: :product_memberships, source: :group
-
-  scope :members_of_zone, lambda { |group|
-    where("id IN (SELECT member_id FROM #{CultivableZoneMembership.table_name} WHERE group_id = ?)", group.id)
-  }
-  scope :zone_members_of, ->(group) { members_of_zone(group) }
+  has_many :activity_productions, foreign_key: :support_id  
+  
+  after_validation do
+    # Compute population
+    if initial_shape && nature
+      # self.initial_shape = ::Charta::Geometry.new(initial_shape).multi_polygon
+      if variable_indicators_list.include?(:net_surface_area)
+        self.read!(:net_surface_area, ::Charta::Geometry.new(initial_shape).area, at: initial_born_at)
+      end
+      if variable_indicators_list.include?(:population)
+        self.initial_population = ::Charta::Geometry.new(initial_shape).area / variant.net_surface_area
+      end
+    end
+  end
 
   protect(on: :destroy) do
-    cultivable_zones.any?
+    activity_productions.any?
   end
 
-  # return the work_number of LandParcelClusters if exist for a CultivableLAndParcel
-  def clusters_work_number(_viewed_at = nil)
-    numbers = []
-    groups = self.groups
-    for group in groups
-      numbers << group.work_number if group.is_a?(LandParcelCluster)
-    end
-    if numbers.count > 0
-      numbers.to_sentence
-    else
-      return nil
-    end
-  end
 end

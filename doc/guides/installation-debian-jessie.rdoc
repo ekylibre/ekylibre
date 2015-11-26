@@ -16,7 +16,7 @@ Logout and login and you can sudo.
 
 Before all, install all distribution dependencies:
 
-    sudo apt-get install imagemagick graphicsmagick tesseract-ocr tesseract-ocr-ara tesseract-ocr-jpn tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data ghostscript openjdk-7-jdk libicu52 redis-server postgresql-9.4-postgis-2.1 libcurl4-openssl-dev openjdk-7-jdk libgeos-dev libgeos++-dev libproj-dev libpq-dev libxml2-dev libxslt1-dev zlib1g-dev libicu-dev libqtwebkit-dev
+    sudo apt-get install imagemagick graphicsmagick tesseract-ocr tesseract-ocr-ara tesseract-ocr-jpn tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data ghostscript openjdk-7-jdk libicu52 redis-server postgresql-9.4-postgis-2.1 postgresql-contrib libcurl4-openssl-dev openjdk-7-jdk libgeos-dev libgeos++-dev libproj-dev libpq-dev libxml2-dev libxslt1-dev zlib1g-dev libicu-dev libqtwebkit-dev
 
 == 2. Ruby
 

@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
+  enable_extension "pgcrypto"
 
   create_table "account_balances", force: :cascade do |t|
     t.integer  "account_id",                                               null: false
@@ -340,7 +341,7 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   create_table "cap_islets", force: :cascade do |t|
     t.integer  "cap_statement_id",                                                      null: false
     t.string   "islet_number",                                                          null: false
-    t.string   "town_number",                                                           null: false
+    t.string   "town_number"
     t.geometry "shape",            limit: {:srid=>4326, :type=>"geometry"},             null: false
     t.datetime "created_at",                                                            null: false
     t.datetime "updated_at",                                                            null: false
@@ -379,22 +380,22 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "cap_land_parcels", ["updater_id"], name: "index_cap_land_parcels_on_updater_id", using: :btree
 
   create_table "cap_statements", force: :cascade do |t|
-    t.integer  "campaign_id",                   null: false
-    t.integer  "entity_id"
-    t.string   "pacage_number",                 null: false
-    t.string   "siret_number",                  null: false
-    t.string   "exploitation_name",             null: false
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.integer  "campaign_id",               null: false
+    t.integer  "declarant_id"
+    t.string   "pacage_number"
+    t.string   "siret_number"
+    t.string   "farm_name"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",      default: 0, null: false
+    t.integer  "lock_version",  default: 0, null: false
   end
 
   add_index "cap_statements", ["campaign_id"], name: "index_cap_statements_on_campaign_id", using: :btree
   add_index "cap_statements", ["created_at"], name: "index_cap_statements_on_created_at", using: :btree
   add_index "cap_statements", ["creator_id"], name: "index_cap_statements_on_creator_id", using: :btree
-  add_index "cap_statements", ["entity_id"], name: "index_cap_statements_on_entity_id", using: :btree
+  add_index "cap_statements", ["declarant_id"], name: "index_cap_statements_on_declarant_id", using: :btree
   add_index "cap_statements", ["updated_at"], name: "index_cap_statements_on_updated_at", using: :btree
   add_index "cap_statements", ["updater_id"], name: "index_cap_statements_on_updater_id", using: :btree
 
@@ -559,24 +560,23 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "crumbs", ["updater_id"], name: "index_crumbs_on_updater_id", using: :btree
   add_index "crumbs", ["user_id"], name: "index_crumbs_on_user_id", using: :btree
 
-  create_table "cultivable_zone_memberships", force: :cascade do |t|
-    t.integer  "group_id",                                                                                   null: false
-    t.integer  "member_id",                                                                                  null: false
-    t.decimal  "population",                                            precision: 19, scale: 4
-    t.geometry "shape",        limit: {:srid=>4326, :type=>"geometry"}
-    t.datetime "created_at",                                                                                 null: false
-    t.datetime "updated_at",                                                                                 null: false
+  create_table "cultivable_zones", force: :cascade do |t|
+    t.string   "name",                                                              null: false
+    t.string   "work_number",                                                       null: false
+    t.geometry "shape",        limit: {:srid=>4326, :type=>"geometry"},             null: false
+    t.text     "description"
+    t.uuid     "uuid"
+    t.datetime "created_at",                                                        null: false
+    t.datetime "updated_at",                                                        null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                   default: 0, null: false
+    t.integer  "lock_version",                                          default: 0, null: false
   end
 
-  add_index "cultivable_zone_memberships", ["created_at"], name: "index_cultivable_zone_memberships_on_created_at", using: :btree
-  add_index "cultivable_zone_memberships", ["creator_id"], name: "index_cultivable_zone_memberships_on_creator_id", using: :btree
-  add_index "cultivable_zone_memberships", ["group_id"], name: "index_cultivable_zone_memberships_on_group_id", using: :btree
-  add_index "cultivable_zone_memberships", ["member_id"], name: "index_cultivable_zone_memberships_on_member_id", using: :btree
-  add_index "cultivable_zone_memberships", ["updated_at"], name: "index_cultivable_zone_memberships_on_updated_at", using: :btree
-  add_index "cultivable_zone_memberships", ["updater_id"], name: "index_cultivable_zone_memberships_on_updater_id", using: :btree
+  add_index "cultivable_zones", ["created_at"], name: "index_cultivable_zones_on_created_at", using: :btree
+  add_index "cultivable_zones", ["creator_id"], name: "index_cultivable_zones_on_creator_id", using: :btree
+  add_index "cultivable_zones", ["updated_at"], name: "index_cultivable_zones_on_updated_at", using: :btree
+  add_index "cultivable_zones", ["updater_id"], name: "index_cultivable_zones_on_updater_id", using: :btree
 
   create_table "custom_field_choices", force: :cascade do |t|
     t.integer  "custom_field_id",             null: false
@@ -805,7 +805,7 @@ ActiveRecord::Schema.define(version: 20151108001401) do
     t.datetime "first_met_at"
     t.string   "activity_code"
     t.string   "vat_number"
-    t.string   "siret"
+    t.string   "siret_number"
     t.boolean  "locked",                    default: false, null: false
     t.boolean  "of_company",                default: false, null: false
     t.string   "picture_file_name"
@@ -2495,6 +2495,7 @@ ActiveRecord::Schema.define(version: 20151108001401) do
     t.integer  "lock_version",                                                                            default: 0,     null: false
     t.integer  "person_id"
     t.geometry "initial_geolocation",   limit: {:srid=>4326, :type=>"point"}
+    t.uuid     "uuid"
   end
 
   add_index "products", ["address_id"], name: "index_products_on_address_id", using: :btree
@@ -2516,6 +2517,7 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "products", ["type"], name: "index_products_on_type", using: :btree
   add_index "products", ["updated_at"], name: "index_products_on_updated_at", using: :btree
   add_index "products", ["updater_id"], name: "index_products_on_updater_id", using: :btree
+  add_index "products", ["uuid"], name: "index_products_on_uuid", using: :btree
   add_index "products", ["variant_id"], name: "index_products_on_variant_id", using: :btree
   add_index "products", ["variety"], name: "index_products_on_variety", using: :btree
 

@@ -26,7 +26,6 @@
 - catalog_item
 - crumb
 - cultivable_zone
-- cultivable_zone_membership
 - custom_field
 - custom_field_choice
 - dashboard
@@ -73,8 +72,6 @@
 - journal_entry
 - journal_entry_item
 - land_parcel
-- land_parcel_cluster
-- land_parcel_group
 - listing
 - listing_node
 - listing_node_item

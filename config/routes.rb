@@ -526,10 +526,6 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :land_parcel_clusters, concerns: :products
-
-    resources :land_parcel_groups, concerns: :products
-
     resources :land_parcels, concerns: :products
 
     resources :listing_nodes

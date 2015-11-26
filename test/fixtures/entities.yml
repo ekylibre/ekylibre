@@ -55,7 +55,7 @@
 #  prospect                  :boolean          default(FALSE), not null
 #  reminder_submissive       :boolean          default(FALSE), not null
 #  responsible_id            :integer
-#  siret                     :string
+#  siret_number              :string
 #  supplier                  :boolean          default(FALSE), not null
 #  supplier_account_id       :integer
 #  title                     :string
@@ -114,7 +114,7 @@ entities_001:
   picture_updated_at: 2015-09-17 16:25:23.013765000 Z
   prospect: false
   reminder_submissive: false
-  siret: ''
+  siret_number: ''
   supplier: false
   transporter: false
   updated_at: 2015-09-17 16:25:23.059217000 Z
@@ -190,7 +190,7 @@ entities_004:
   of_company: false
   prospect: false
   reminder_submissive: false
-  siret: ''
+  siret_number: ''
   supplier: true
   supplier_account_id: 204
   transporter: true
@@ -219,7 +219,7 @@ entities_005:
   of_company: false
   prospect: false
   reminder_submissive: false
-  siret: ''
+  siret_number: ''
   supplier: true
   supplier_account_id: 203
   transporter: true
@@ -298,7 +298,7 @@ entities_008:
   of_company: false
   prospect: false
   reminder_submissive: false
-  siret: '12369874500017'
+  siret_number: '12369874500017'
   supplier: true
   supplier_account_id: 207
   transporter: false
@@ -353,7 +353,7 @@ entities_010:
   of_company: false
   prospect: false
   reminder_submissive: false
-  siret: ''
+  siret_number: ''
   supplier: false
   title: M.
   transporter: false
@@ -385,7 +385,7 @@ entities_011:
   of_company: false
   prospect: false
   reminder_submissive: false
-  siret: ''
+  siret_number: ''
   supplier: false
   title: Mme
   transporter: false
@@ -444,7 +444,7 @@ entities_013:
   of_company: false
   prospect: false
   reminder_submissive: false
-  siret: '12345678900017'
+  siret_number: '12345678900017'
   supplier: true
   supplier_account_id: 211
   transporter: false
@@ -475,7 +475,7 @@ entities_014:
   of_company: false
   prospect: false
   reminder_submissive: false
-  siret: ''
+  siret_number: ''
   supplier: false
   title: M.
   transporter: false
@@ -506,7 +506,7 @@ entities_015:
   of_company: false
   prospect: false
   reminder_submissive: false
-  siret: ''
+  siret_number: ''
   supplier: false
   transporter: false
   updated_at: 2015-05-30 19:59:37.524913000 Z
@@ -534,7 +534,7 @@ entities_016:
   of_company: false
   prospect: false
   reminder_submissive: false
-  siret: ''
+  siret_number: ''
   supplier: false
   transporter: false
   updated_at: 2015-06-13 16:50:36.717344000 Z

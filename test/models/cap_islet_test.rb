@@ -29,7 +29,7 @@
 #  islet_number     :string           not null
 #  lock_version     :integer          default(0), not null
 #  shape            :geometry({:srid=>4326, :type=>"geometry"}) not null
-#  town_number      :string           not null
+#  town_number      :string
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #

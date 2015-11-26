@@ -126,7 +126,7 @@ users_002:
   first_name: Kōzō
   id: 2
   language: fra
-  last_name: " FUYUTSUKI"
+  last_name: FUYUTSUKI
   lock_version: 3
   locked: false
   maximal_grantable_reduction_percentage: 5.0

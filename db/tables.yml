@@ -678,7 +678,6 @@ cap_islets:
     required: true
   town_number:
     type: string
-    required: true
   updated_at:
     type: datetime
     required: true
@@ -744,12 +743,11 @@ cap_statements:
   creator_id:
     type: integer
     references: user
-  entity_id:
+  declarant_id:
     type: integer
     references: entity
-  exploitation_name:
+  farm_name:
     type: string
-    required: true
   id:
     type: integer
     required: true
@@ -758,10 +756,8 @@ cap_statements:
     required: true
   pacage_number:
     type: string
-    required: true
   siret_number:
     type: string
-    required: true
   updated_at:
     type: datetime
     required: true
@@ -1082,42 +1078,41 @@ crumbs:
   user_id:
     type: integer
     references: user
-cultivable_zone_memberships:
+cultivable_zones:
   created_at:
     type: datetime
     required: true
   creator_id:
     type: integer
     references: user
-  group_id:
-    type: integer
-    references: cultivable_zone
-    required: true
+  description:
+    type: text
   id:
     type: integer
     required: true
   lock_version:
     type: integer
     required: true
-  member_id:
-    type: integer
-    references: land_parcel
+  name:
+    type: string
     required: true
-  population:
-    type: decimal
-    precision: 19
-    scale: 4
   shape:
     type: geometry
     limit:
       srid: 4326
       type: geometry
+    required: true
   updated_at:
     type: datetime
     required: true
   updater_id:
     type: integer
     references: user
+  uuid:
+    type: uuid
+  work_number:
+    type: string
+    required: true
 custom_field_choices:
   created_at:
     type: datetime
@@ -1563,7 +1558,7 @@ entities:
   responsible_id:
     type: integer
     references: user
-  siret:
+  siret_number:
     type: string
   supplier:
     type: boolean
@@ -4758,6 +4753,8 @@ products:
   updater_id:
     type: integer
     references: user
+  uuid:
+    type: uuid
   variant_id:
     type: integer
     references: product_nature_variant

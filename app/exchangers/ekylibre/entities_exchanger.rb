@@ -56,7 +56,7 @@ class Ekylibre::EntitiesExchanger < ActiveExchanger::Base
 
       # Add SIREN, VAT or APE numbers if given
       if r.siret_number
-        person.siret = r.siret_number
+        person.siret_number = r.siret_number
         person.save!
       end
 

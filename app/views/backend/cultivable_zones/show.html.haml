@@ -11,16 +11,14 @@
       %span.value= resource.work_number
     .med-info
       %span.title= CultivableZone.human_attribute_name(:net_surface_area)
-      %span.value= resource.net_surface_area.in(:hectare).l
-    .med-info
-      %span.title= LandParcelGroup.human_attribute_name(:identification_number)
-      %span.value= resource.clusters_work_number
-    - if resource.current_cultivation
+      %span.value= resource.net_surface_area.l
+    - if resource.current_cultivations.any?
       .med-info
         %span.title= :current_cultivation.tl
         %span.value
           %i.picto{class: "plant"}
-          = link_to(resource.current_cultivation.name, {controller: resource.current_cultivation.type.tableize, action: :show, id: resource.current_cultivation.id})
+          - list = resource.current_cultivations.collect { |c| link_to(c.name, {controller: c.type.tableize, action: :show, id: c.id}) }
+          = list.to_sentence.html_safe
 
 
 = cobbles do |c|
@@ -28,9 +26,9 @@
   - c.cobble :weather do
     = cell :weather, params: {id: resource.id}
 
-  - c.cobble(:productions) do
+  -# c.cobble(:productions) do
     = cobble_list(:productions)
-  - c.cobble(:contained_products) do
+  -# c.cobble(:contained_products) do
     = cobble_list(:contained_products)
-  - c.cobble(:intervention_casts) do
+  -# c.cobble(:intervention_casts) do
     = cobble_list(:intervention_casts)

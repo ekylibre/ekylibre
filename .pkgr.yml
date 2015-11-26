@@ -35,6 +35,7 @@ targets:
       - openjdk-7-jdk
       - libicu52
       - redis-server
+      - postgresql-contrib
       # Specific to Debian
       - postgresql-9.4-postgis-2.1
   ubuntu-14.04:
@@ -55,6 +56,7 @@ targets:
       - openjdk-7-jdk
       - libicu52
       - redis-server
+      - postgresql-contrib
       # Specific to Ubuntu 14.04
       - postgresql-9.3-postgis-2.1
 services:

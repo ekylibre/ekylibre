@@ -33,9 +33,9 @@ class SimplifyInterventions < ActiveRecord::Migration
                      POLYMORPHIC_REFERENCES.map { |a| [a.first, "#{a.second}_type".to_sym] }
 
   # Rename table and depending stuff
-  def rename_table_and_co(old_table, new_table)
-    old_model = old_table.to_s.classify
-    new_model = new_table.to_s.classify
+  def rename_model_and_co(old_model, new_model)
+    old_table = old_model.to_s.tableize
+    new_table = new_model.to_s.tableize
     old_record = old_table.to_s.singularize
     new_record = new_table.to_s.singularize
     # Type columns
@@ -55,10 +55,25 @@ class SimplifyInterventions < ActiveRecord::Migration
         execute "UPDATE #{quote_table_name(:sequences)} SET #{quote_column_name(:usage)}='#{old_table}' WHERE #{quote_column_name(:usage)}='#{new_table}'"
       end
     end
+  end
+
+
+  # Rename table and depending stuff
+  def rename_table_and_co(old_table, new_table)
+    old_model = old_table.to_s.classify
+    new_model = new_table.to_s.classify
+    rename_model_and_co(old_model, new_model)
     rename_table old_table, new_table
   end
 
   def change
+
+    # Adds UUID on products to facilitate exchange
+    add_column :products, :uuid, :uuid
+    add_index :products, :uuid
+    execute "UPDATE products SET uuid = gen_random_uuid()"
+
+    # Merge operation into interventions
     TASK_TABLES.each do |table|
       add_reference table, :intervention, index: true
       reversible do |dir|
@@ -78,6 +93,24 @@ class SimplifyInterventions < ActiveRecord::Migration
         end
       end
     end
+
+    rename_model_and_co 'CultivableZone', 'LandParcel'
+
+    create_table :cultivable_zones do |t|
+      t.string :name, null: false
+      t.string :work_number, null: false
+      t.geometry :shape, srid: 4326
+      t.text :description
+      t.uuid :uuid
+      t.references :product
+      t.stamps
+    end
+
+    execute "INSERT INTO cultivable_zones (name, work_number, shape, uuid, product_id, created_at, creator_id, updated_at, updater_id, lock_version) SELECT name, work_number, initial_shape, gen_random_uuid(), id, created_at, creator_id, updated_at, updater_id, lock_version FROM products WHERE type = 'LandParcel'"
+    execute "UPDATE cultivable_zones SET shape = geometry_value FROM product_readings AS pr WHERE pr.product_id = cultivable_zones.product_id AND geometry_value IS NOT NULL"
+    execute "DELETE FROM cultivable_zones WHERE shape IS NULL"
+    change_column_null :cultivable_zones, :shape, false
+
 
     # Add campaign period
     add_column :campaigns, :started_on, :date
@@ -131,7 +164,15 @@ class SimplifyInterventions < ActiveRecord::Migration
     rename_column :activity_productions, :quantity_unit, :size_unit
     reversible do |d|
       d.up do
+        # Sets cultivable_zone column when possible
+        execute 'UPDATE activity_productions SET cultivable_zone_id = support_id WHERE support_id IN (SELECT id FROM products WHERE type = \'CultivableZone\')'
+        execute 'UPDATE activity_productions SET cultivable_zone_id = cultivable_zones.id FROM cultivable_zones WHERE support_id = product_id'
+
+        # Updates attributes coming from old Production
         execute 'UPDATE activity_productions SET activity_id = p.activity_id, state = p.state, irrigated = p.irrigated, nitrate_fixing = p.nitrate_fixing, started_at = p.started_at, stopped_at = p.stopped_at FROM productions AS p LEFT JOIN campaigns AS c ON (p.campaign_id = c.id) WHERE p.id = activity_productions.production_id'
+        # Updates support_shape
+        execute 'UPDATE activity_productions SET support_shape = cz.shape FROM cultivable_zones AS cz WHERE activity_productions.cultivable_zone_id = cz.id'
+        # Updates attributes coming from old Production
         execute 'UPDATE activity_productions SET rank_number = rank FROM (SELECT id, row_number() OVER (PARTITION BY activity_id ORDER BY id) AS rank FROM activity_productions) AS x WHERE x.id = activity_productions.id'
       end
     end
@@ -142,162 +183,7 @@ class SimplifyInterventions < ActiveRecord::Migration
     # ManureManagementPlan
     rename_column :manure_management_plan_zones, :support_id, :activity_production_id
 
-    # # Merge activities into productions
-    # add_column :productions, :family, :string
-    # add_column :productions, :nature, :string
-    # add_column :productions, :with_supports, :boolean, null: false, default: false
-    # add_column :productions, :with_cultivation, :boolean, null: false, default: false
-    # add_column :productions, :support_variety, :string
-    # add_column :productions, :cultivation_variety, :string
-    # add_column :productions, :suspended, :boolean, null: false, default: false
-    # reversible do |d|
-    #   d.up do
-    #     execute "UPDATE productions SET family = a.family, nature = a.nature, support_variety = a.support_variety, cultivation_variety = a.cultivation_variety, with_supports = a.with_supports, with_cultivation = a.with_cultivation FROM activities AS a WHERE activity_id = a.id"
-    #     POLYMORPHIC_REFERENCES.each do |table, reference|
-    #       execute "UPDATE #{table} SET #{reference}_type = 'Production', #{reference}_id = p.id FROM productions AS p WHERE #{reference}_id = p.activity_id AND #{reference}_type = 'Activity'"
-    #     end
-    #   end
-    # end
-
-    # change_column_null :productions, :family, false
-    # change_column_null :productions, :nature, false
-
-    # revert do
-    #   create_table :activity_distributions do |t|
-    #     t.references :activity,                                       null: false, index: true
-    #     t.decimal  "affectation_percentage", precision: 19, scale: 4, null: false
-    #     t.references :main_activity,                                  null: false, index: true
-    #     t.stamps
-    #   end
-    # end
-
-    # revert do
-    #   create_table :activities do |t|
-    #     t.string   "name",                            null: false
-    #     t.text     "description"
-    #     t.string   "family",                          null: false
-    #     t.string   "nature",                          null: false
-    #     t.stamps
-    #     t.boolean  "with_supports",                   null: false
-    #     t.boolean  "with_cultivation",                null: false
-    #     t.string   "support_variety"
-    #     t.string   "cultivation_variety"
-    #     t.index :name
-    #   end
-    # end
-
-    # rename_table_and_co :productions, :activities
-
-    # # ActivityDistribution
-    # rename_table_and_co :production_distributions, :activity_distributions
-    # rename_column :activity_distributions, :production_id, :activity_id
-    # rename_column :activity_distributions, :main_production_id, :main_activity_id
-
-    # # ActivityBudget
-    # rename_table_and_co :production_budgets, :activity_budgets
-    # rename_column :activity_budgets, :production_id, :activity_id
-    # add_reference :activity_budgets, :campaign, index: true
-    # reversible do |d|
-    #   d.up do
-    #     execute "UPDATE activity_budgets SET campaign_id = a.campaign_id FROM activities AS a WHERE a.id = activity_budgets.activity_id"
-    #   end
-    # end
-    # change_column_null :activity_budgets, :campaign_id, false
-
-    # # ActivityProduction
-    # rename_table_and_co :production_supports, :activity_productions
-    # rename_column :activity_productions, :production_id, :activity_id
-    # rename_column :activity_productions, :storage_id, :support_id
-    # rename_column :activity_productions, :production_usage, :usage
-    # rename_column :activity_productions, :quantity, :support_quantity
-    # rename_column :activity_productions, :quantity_indicator, :support_indicator
-    # rename_column :activity_productions, :quantity_unit, :support_unit
-    # add_reference :activity_productions, :cultivable_zone, index: true
-    # add_column :activity_productions, :irrigated, :boolean, null: false, default: false
-    # add_column :activity_productions, :nitrate_fixing, :boolean, null: false, default: false
-    # add_column :activity_productions, :support_shape, :geometry, srid: 4326
-    # add_column :activity_productions, :started_at, :datetime
-    # add_column :activity_productions, :stopped_at, :datetime
-    # add_column :activity_productions, :state, :string
-    # add_column :activity_productions, :rank_number, :integer
-
-    # reversible do |d|
-    #   d.up do
-    #     # execute "UPDATE activity_productions SET irrigated = a.irrigated, nitrate_fixing = a.nitrate_fixing, started_at = COALESCE(a.started_at, (COALESCE(c.harvest_year, 1500)::VARCHAR || '-01-01')::DATE), stopped_at = COALESCE(a.stopped_at, (COALESCE(c.harvest_year, 1500)::VARCHAR || '-12-31')::DATE) FROM activities AS a LEFT JOIN campaigns AS c ON (a.campaign_id = c.id) WHERE a.id = activity_productions.activity_id"
-    #     execute "UPDATE activity_productions SET state = a.state, irrigated = a.irrigated, nitrate_fixing = a.nitrate_fixing, started_at = c.started_on::TIMESTAMP, stopped_at = c.stopped_on::TIMESTAMP FROM activities AS a LEFT JOIN campaigns AS c ON (a.campaign_id = c.id) WHERE a.id = activity_productions.activity_id"
-    #     execute "UPDATE activity_productions SET rank_number = rank FROM (SELECT id, row_number() OVER (PARTITION BY activity_id ORDER BY id) AS rank FROM activity_productions) AS x WHERE x.id = activity_productions.id"
-    #   end
-    # end
-    # change_column_null :activity_productions, :rank_number, false
-
-    # rename_column :activities, :support_variant_indicator, :support_indicator
-    # rename_column :activities, :support_variant_unit, :support_unit
-
-    # revert do
-    #   add_reference :activities, :activity, index: true
-    #   add_reference :activities, :campaign, index: true
-    #   add_reference :activities, :cultivation_variant, index: true
-    #   add_reference :activities, :support_variant, index: true
-    #   add_column :activities, :irrigated, :boolean, null: false, default: false
-    #   add_column :activities, :nitrate_fixing, :boolean, null: false, default: false
-    #   add_column :activities, :position, :integer
-    #   add_column :activities, :started_at, :datetime
-    #   add_column :activities, :stopped_at, :datetime
-    #   add_column :activities, :state, :string
-    # end
-
-    # # ManureManagementPlan
-    # rename_column :manure_management_plan_zones, :support_id, :production_id
-
-    # # # Merge productions and production_supports
-    # # add_reference :production_supports, :activity, index: true
-    # # add_reference :production_supports, :cultivation_variant, index: true
-    # # add_reference :production_supports, :support_variant, index: true
-    # # add_reference :production_supports, :cultivable_zone, index: true
-    # # add_column :production_supports, :state, :string
-    # # add_column :production_supports, :irrigated, :boolean, null: false, default: false
-    # # add_column :production_supports, :nitrate_fixing, :boolean, null: false, default: false
-    # # add_column :production_supports, :shape, :geometry, srid: 4326
-    # # add_column :production_supports, :started_at, :datetime
-    # # add_column :production_supports, :stopped_at, :datetime
-
-    # # # rename_column :activities, :support_variety, :storage_variety
-    # # # revert { add_column :activities, :with_supports, :boolean, null: false, default: false }
-    # # add_column :activities, :support_indicator, :string
-    # # add_column :activities, :support_unit, :string
-
-    # # reversible do |d|
-    # #   d.up do
-    # #     execute "UPDATE production_supports SET activity_id = p.activity_id, cultivation_variant_id = p.cultivation_variant_id, support_variant_id = p.support_variant_id, state = p.state, irrigated = p.irrigated, nitrate_fixing = p.nitrate_fixing, started_at = COALESCE(p.started_at, (COALESCE(c.harvest_year, 1500)::VARCHAR || '-01-01')::DATE), stopped_at = COALESCE(p.stopped_at, (COALESCE(c.harvest_year, 1500)::VARCHAR || '-12-31')::DATE) FROM productions AS p LEFT JOIN campaigns AS c ON (p.campaign_id = c.id) WHERE p.id = production_supports.production_id"
-    # #     execute "UPDATE activities SET support_indicator = p.support_variant_indicator, support_unit = p.support_variant_unit FROM productions AS p WHERE p.activity_id = activities.id"
-    # #   end
-    # # end
-
-    # # rename_table_and_co :production_budgets, :activity_budgets
-
-    # # # rename_table_and_co :productions, :activity_budgets
-    # # rename_table_and_co :production_supports, :activity_productions
-    # # rename_column :activity_budget_items, :production_id, :activity_budget_id
-    # # rename_column :manure_management_plan_zones, :support_id, :production_id
-    # # rename_column :activity_productions, :storage_id, :support_id
-    # # rename_column :activity_productions, :production_usage, :usage
-
-    # # revert do
-    # #   add_reference :activity_productions, :production, index: true
-    # #   add_reference :activity_productions, :support_variant, index: true
-    # #   add_reference :activity_budgets, :cultivation_variant, index: true
-    # #   add_reference :activity_budgets, :support_variant, index: true
-    # #   add_column :activity_budgets, :irrigated, :boolean, null: false, default: false
-    # #   add_column :activity_budgets, :nitrate_fixing, :boolean, null: false, default: false
-    # #   add_column :activity_budgets, :position, :integer
-    # #   add_column :activity_budgets, :name, :string
-    # #   add_column :activity_budgets, :support_variant_indicator, :string
-    # #   add_column :activity_budgets, :support_variant_unit, :string
-    # #   add_column :activity_budgets, :started_at, :datetime
-    # #   add_column :activity_budgets, :stopped_at, :datetime
-    # #   add_column :activity_budgets, :state, :string
-    # # end
-
+    # InterventionWorkingPeriod
     create_table :intervention_working_periods do |t|
       t.references :intervention, null: false, index: true
       t.datetime :started_at, null: false
@@ -315,6 +201,7 @@ class SimplifyInterventions < ActiveRecord::Migration
       end
     end
 
+    # TargetDistribution
     create_table :target_distributions do |t|
       t.references :target, null: false, index: true
       t.references :activity_production, null: false, index: true
@@ -324,20 +211,21 @@ class SimplifyInterventions < ActiveRecord::Migration
       t.stamps
     end
 
+    # Intervention(Cast|Doer|Input|Output|Target|Tool)
     add_reference :intervention_casts, :source_product, index: true
     add_column :intervention_casts, :type, :string
     add_index :intervention_casts, :type
 
-    # Localization
+    # - Localization
     add_reference :intervention_casts, :new_container, index: true
 
-    # Group
+    # - Group
     add_reference :intervention_casts, :new_group, index: true
 
-    # Phase
+    # - Phase
     add_reference :intervention_casts, :new_variant, index: true
 
-    # Readings
+    # - Readings: InterventionCastReading
     rename_table_and_co :product_reading_tasks, :intervention_cast_readings
     add_reference :intervention_cast_readings, :intervention_cast, index: true
     reversible do |d|
@@ -376,27 +264,18 @@ class SimplifyInterventions < ActiveRecord::Migration
       add_reference :intervention_cast_readings, :product
     end
 
-    # Quantity
+    # - Quantity
     add_column :intervention_casts, :quantity_handler, :string
     add_column :intervention_casts, :quantity_value, :decimal, precision: 19, scale: 4
     add_column :intervention_casts, :quantity_unit, :string
     add_column :intervention_casts, :quantity_indicator, :string
     rename_column :intervention_casts, :population, :quantity_population
 
-    # Working zone
+    # - Working zone
     rename_column :intervention_casts, :shape, :working_zone
 
-    # Product
+    # - Product
     rename_column :intervention_casts, :actor_id, :product_id
-
-    # reversible do |dir|
-    #   dir.up do
-    #     execute 'INSERT INTO intervention_distributions (intervention_id, production_id, production_support_id, creator_id, created_at, updater_id, updated_at, lock_version) SELECT id, production_id, production_support_id, creator_id, created_at, updater_id, updated_at, lock_version FROM interventions'
-    #   end
-    #   dir.down do
-    #     execute 'UPDATE interventions SET production_id = d.production_id, production_support_id = d.production_support_id FROM intervention_distributions AS d WHERE intervention_id = interventions.id'
-    #   end
-    # end
 
     # Remove interventions administrative_task
     execute "DELETE FROM intervention_casts WHERE intervention_id IN (SELECT id FROM interventions WHERE reference_name = 'base-administrative_task-0')"
@@ -533,39 +412,10 @@ class SimplifyInterventions < ActiveRecord::Migration
     # Simplifies procedure name. No namespace. No version.
     execute "UPDATE interventions SET reference_name = REPLACE(REPLACE(reference_name, 'base-', ''), '-0', '')"
 
-    # create_table :intervention_subjects do |t|
-    #   t.references :intervention, null: false, index: true
-    #   t.references :target, null: false, index: true
-    #   t.geometry :working_shape
-    #   t.stamps
-    # end
-
-    # create_table :intervention_handlings do |t|
-    #   t.references :intervention, null: false, index: true
-    #   t.references :tool, null: false, index: true
-    #   t.stamps
-    # end
-
-    # create_table :intervention_inputs do |t|
-    #   t.references :intervention, null: false, index: true
-    #   t.references :source_product, null: false, index: true
-    #   t.references :product, null: false, index: true
-    #   t.decimal :quantity, precision: 19, scale: 4
-    #   t.stamps
-    # end
-
-    # create_table :intervention_outputs do |t|
-    #   t.references :intervention, null: false, index: true
-    #   t.references :product, index: true
-    #   t.references :variant, null: false, index: true
-    #   t.decimal :quantity, precision: 19, scale: 4
-    #   t.string :name
-    #   t.json :readings
-    #   t.stamps
-    # end
-
     # TODO: Update intervention_casts#type column with existings procedure
-    # TODO Removes 'variant' intervention_casts records
+    # TODO: Removes 'variant' intervention_casts records
+
+    remove_reference :cultivable_zones, :product
 
     reversible do |d|
       d.up do
@@ -593,21 +443,6 @@ class SimplifyInterventions < ActiveRecord::Migration
       add_reference :interventions, :provisional_intervention
       add_column :interventions, :recommended, :boolean, null: false, default: false
       add_reference :interventions, :recommender
-
-      # create_table "intervention_casts", force: :cascade do |t|
-      #   t.reference :intervention,                   null: false, index: true
-      #   t.reference :actor, index: true
-      #   t.reference :variant, index: true
-      #   t.decimal  "population",             precision: 19, scale: 4
-      #   t.geometry "shape",                  limit: {:srid=>4326, :type=>"geometry"}
-      #   t.string   "roles"
-      #   t.string   "reference_name",                    null: false
-      #   t.integer  "position",                          null: false
-      #   t.stamps
-      #   t.reference :event_participation, index: true
-      #   t.string   "nature",                            null: false
-      #   t.index :reference_name
-      # end
 
       create_table 'operations' do |t|
         t.reference :intervention, null: false, index: true

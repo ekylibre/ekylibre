@@ -40,22 +40,4 @@
 #   name: "Lorem ipsum"
 #   updater: users_001
 #
----
-supervisions_001:
-  created_at: 2015-10-28 22:00:32.637852000 Z
-  creator_id: 1
-  id: 1
-  lock_version: 0
-  name: SNS01
-  time_window: 240
-  updated_at: 2015-10-28 22:00:32.637852000 Z
-  updater_id: 1
-supervisions_002:
-  created_at: 2015-10-28 22:00:57.814085000 Z
-  creator_id: 1
-  id: 2
-  lock_version: 0
-  name: Mixte
-  time_window: 200
-  updated_at: 2015-10-28 22:00:57.814085000 Z
-  updater_id: 1
+--- {}
