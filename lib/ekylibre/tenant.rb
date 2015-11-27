@@ -86,10 +86,11 @@ module Ekylibre
 
       # Dump database and files data to a zip archive with specific places
       # This archive is database independent
-      def dump(name, infos = {})
+      def dump(name, options = {})
+        destination_path = options.delete(:path) || Rails.root.join('tmp', 'archives')
         switch(name) do
-          archive_file = Rails.root.join('tmp', 'archives', "#{name}.zip")
-          archive_path = Rails.root.join('tmp', 'archives', "#{name}-dump")
+          archive_file = destination_path.join("#{name}.zip")
+          archive_path = destination_path.join("#{name}-dump")
           tables_path = archive_path.join('tables')
           files_path = archive_path.join('files')
 
@@ -108,14 +109,14 @@ module Ekylibre
           end
 
           File.open(archive_path.join('manifest.yml'), 'wb') do |f|
-            infos.update(
+            options.update(
               tenant: name,
               format_version: '2.0',
               database_version: version,
               creation_at: Time.zone.now,
               created_with: "Ekylibre #{Ekylibre::VERSION}"
             )
-            f.write infos.stringify_keys.to_yaml
+            f.write options.stringify_keys.to_yaml
           end
 
           FileUtils.rm_rf(archive_file)
