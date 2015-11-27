@@ -106,7 +106,7 @@ class ActivityProduction < Ekylibre::Record::Base
   before_validation do
     self.usage = Nomen::ProductionUsage.first unless usage
     if self.activity
-      self.size_indicator = activity_size_indicator
+      self.size_indicator ||= activity_size_indicator if activity_size_indicator
       self.size_unit      = activity_size_unit
       self.rank_number ||= (self.activity.productions.maximum(:rank_number) ? self.activity.productions.maximum(:rank_number) : 0) + 1
     end

@@ -49,6 +49,9 @@ class CultivableZone < Ekylibre::Record::Base
 
   scope :of_current_activity_productions, -> { where(id: ActivityProduction.select(:cultivable_zone_id).current) }
   scope :of_campaign, ->(campaign) { activity_productions.of_campaign(campaign) }
+  scope :covers_shape, lambda { |shape|
+    where('ST_Covers(shape, ST_GeomFromEWKT(?))', shape.to_ewkt)
+  }
 
   # Computes net surface area of shape
   def net_surface_area(unit = :hectare)

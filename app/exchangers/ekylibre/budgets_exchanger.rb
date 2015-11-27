@@ -86,9 +86,27 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
         production_support_quantity = arr[1]
 
         if product = Product.find_by(number: production_support_number) || Product.find_by(identification_number: production_support_number) || Product.find_by(work_number: production_support_number)
-          w.info 'Product exist'
+          # puts 'Product exist'.inspect.yellow
+          if product.shape
+            c = ::Charta::Geometry.new(product.shape)
+            cz = CultivableZone.covers_shape(c).first
+          end
+        elsif cz = CultivableZone.find_by(work_number: production_support_number)
+          c = ::Charta::Geometry.new(cz.shape)
+          product = LandParcel.covers_shape(c).first
+          unless product
+            lp_variant = ProductNatureVariant.import_from_nomenclature(:land_parcel)
+            product = LandParcel.create!(variant: lp_variant, work_number: cz.work_number,
+                              name: cz.work_number, initial_born_at: Time.now, initial_owner: Entity.of_company, initial_shape: cz.shape)
+          end
+          # puts product.inspect.red
+          # puts 'Cultivable zone exist'.inspect.yellow
         else
-          w.error "Cannot find support with number: #{number.inspect}"
+          puts "Cannot find support with number: #{number.inspect}".inspect.yellow
+        end
+        
+        unless product
+          w.info 'No Product given for '
         end
 
         attributes = {
@@ -99,18 +117,20 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
           state: :opened
         }
 
-        if activity.with_supports && product.shape && Nomen::Variety.find(:cultivable_zone) == support_variant.variety
-          attributes[:cultivable_zone] = product
+        if activity.with_supports && cz && product && product.shape && Nomen::Variety.find(:cultivable_zone) == support_variant.variety.to_sym
+          attributes[:cultivable_zone] = cz
           attributes[:size] = ::Charta::Geometry.new(product.shape).area.in(:hectare)
           attributes[:usage] = :grain
-        elsif activity.with_supports && Nomen::Variety.find(:animal_group) == support_variant.variety
-          attributes[:size] = 1
+        elsif activity.with_supports && Nomen::Variety.find(:animal_group) == support_variant.variety.to_sym
+          attributes[:size_value] = 1.0
           attributes[:usage] = :meat
         else
-          attributes[:size] = 1
+          attributes[:size_indicator] = "population"
+          attributes[:size_value] = 1.0
           attributes[:usage] = :grain
         end
         unless ap = ActivityProduction.find_by(activity: activity, support: product)
+          puts attributes.inspect.green
           ap = ActivityProduction.create!(attributes)
         end
       end

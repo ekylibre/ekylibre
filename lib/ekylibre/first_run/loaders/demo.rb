@@ -6,10 +6,10 @@ Ekylibre::FirstRun.add_loader :demo do |first_run|
 
     # replace by interventions.csv more real.
     # Ekylibre::FirstRun::Faker::Interventions.run(max: first_run.max)
-
-    Ekylibre::FirstRun::Faker::Prescriptions.run(max: first_run.max)
-
-    Ekylibre::FirstRun::Faker::Crumbs.run(max: first_run.max)
+    
+    # TODO adapt for interventions v2
+    # Ekylibre::FirstRun::Faker::Prescriptions.run(max: first_run.max)
+    # Ekylibre::FirstRun::Faker::Crumbs.run(max: first_run.max)
 
   end
 end
