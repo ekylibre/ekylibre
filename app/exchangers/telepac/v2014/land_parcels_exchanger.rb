@@ -24,8 +24,8 @@ class Telepac::V2014::LandParcelsExchanger < ActiveExchanger::Base
 
           cap_statement_attributes = {
             campaign: campaign,
-            entity: Entity.of_company,
-            exploitation_name: Entity.of_company.full_name,
+            declarant: Entity.of_company,
+            farm_name: Entity.of_company.full_name,
             pacage_number: pacage_number,
             siret_number: Entity.of_company.siret_number
           }

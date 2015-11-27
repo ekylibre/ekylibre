@@ -133,7 +133,7 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   def vegetal_crops?
-    of_activity_families(:vegetal_crops)
+    Nomen::ActivityFamily.find(activity.family) <= :vegetal_crops
   end
 
   # Returns interventions of current production

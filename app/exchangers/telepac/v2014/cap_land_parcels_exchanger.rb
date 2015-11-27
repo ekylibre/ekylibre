@@ -23,12 +23,11 @@ class Telepac::V2014::CapLandParcelsExchanger < ActiveExchanger::Base
 
         cap_statement_attributes = {
           campaign: campaign,
-          entity: Entity.of_company,
-          exploitation_name: Entity.of_company.full_name,
+          declarant: Entity.of_company,
+          farm_name: Entity.of_company.full_name,
           pacage_number: pacage_number,
           siret_number: Entity.of_company.siret_number
         }
-
         ## find or create cap statement
         unless cap_statement = CapStatement.find_by(campaign: campaign, pacage_number: pacage_number)
           cap_statement = CapStatement.create!(cap_statement_attributes)

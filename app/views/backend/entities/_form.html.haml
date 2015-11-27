@@ -20,7 +20,7 @@
   = f.input :language, :collection => languages, :field => :select, :selected => Preference[:language]
   = f.input :country, :collection => countries, :selected => Preference[:country]
   - if nature == :organization
-    = f.input :siret
+    = f.input :siret_number
     = f.input :activity_code
     = f.input :vat_number
   = f.input :born_at

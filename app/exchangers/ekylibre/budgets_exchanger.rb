@@ -106,6 +106,9 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
         elsif activity.with_supports && Nomen::Variety.find(:animal_group) == support_variant.variety
           attributes[:size] = 1
           attributes[:usage] = :meat
+        else
+          attributes[:size] = 1
+          attributes[:usage] = :grain
         end
         unless ap = ActivityProduction.find_by(activity: activity, support: product)
           ap = ActivityProduction.create!(attributes)

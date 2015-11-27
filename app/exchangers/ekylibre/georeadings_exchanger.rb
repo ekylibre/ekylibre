@@ -14,7 +14,7 @@ class Ekylibre::GeoreadingsExchanger < ActiveExchanger::Base
     RGeo::Shapefile::Reader.open(dir.join('georeading.shp').to_s, srid: 4326) do |file|
       # Set number of shapes
       w.count = file.size
-
+      
       file.each do |record|
         # puts record.attributes['number'].inspect.red
         if record.geometry
