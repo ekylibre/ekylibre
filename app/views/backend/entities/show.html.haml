@@ -53,7 +53,7 @@
           - l.attribute :number
           - l.attribute :active
           - l.custom Entity.human_attribute_name(:country), image_tag("countries/#{resource.country}.png") + " " + resource.country.l unless resource.country.blank?
-          - l.attribute :siret unless resource.siret.blank?
+          - l.attribute :siret_number if resource.siret_number?
           - l.attribute :activity_code unless resource.activity_code.blank?
           - l.attribute :vat_number unless resource.vat_number.blank?
           - l.attribute :born_at unless resource.born_at.blank?

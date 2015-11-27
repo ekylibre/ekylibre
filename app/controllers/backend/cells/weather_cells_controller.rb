@@ -4,9 +4,8 @@ module Backend
       def show
         @forecast = nil
         zone = (params[:id] ? CultivableZone.find_by(id: params[:id]) : CultivableZone.first)
-        reading = zone.reading(:shape) if zone
-        if reading
-          coordinates = Charta::Geometry.new(reading.geometry_value).centroid
+        if zone
+          coordinates = Charta::Geometry.new(zone.shape).centroid
           http = Net::HTTP.new('api.openweathermap.org')
           http.open_timeout = 3
           http.read_timeout = 3

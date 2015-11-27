@@ -63,7 +63,7 @@ class ActivityProduction < Ekylibre::Record::Base
   validates_presence_of :activity, :rank_number, :size_indicator, :size_value, :support, :usage
   # ]VALIDATORS]
   validates_uniqueness_of :rank_number, scope: :activity_id
-  validates_presence_of :cultivable_zone, if: :vegetal_crops
+  validates_presence_of :cultivable_zone, if: :vegetal_crops?
 
   delegate :name, :net_surface_area, :shape_area, to: :support, prefix: true
   delegate :name, :work_number, :shape, :shape_to_ewkt, :shape_svg, to: :support

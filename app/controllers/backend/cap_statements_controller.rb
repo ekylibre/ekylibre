@@ -26,7 +26,7 @@ module Backend
     #   :campaign_id
     #   :product_nature_id
     #   :storage_id
-    def self.cap_statements_conditions
+    def self.list_conditions
       code = ''
       code = search_conditions(campaigns: [:name], entities: [:full_name]) + " ||= []\n"
       code << "if current_campaign\n"
@@ -36,12 +36,12 @@ module Backend
       code.c
     end
 
-    list(conditions: cap_statements_conditions, joins: [:campaign, :entity]) do |t|
+    list(conditions: list_conditions, joins: [:campaign, :declarant]) do |t|
       t.action :edit
       t.action :destroy, if: :destroyable?
       t.column :pacage_number, url: true
       t.column :campaign, url: true
-      t.column :entity, url: true
+      t.column :declarant, url: true
       t.column :net_surface_area
     end
 

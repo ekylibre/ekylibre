@@ -27,7 +27,7 @@ Its intervene :
 
 ===== How do some products link to activities and how do the loads divide up ? =====
 
-Each activity can be linked to one or several [[>backend/productions#index|productions]]
+Each activity can be linked to one or several [[>backend/activity_productions#index|productions]]
 
 >>> Ex: The activity BREAD WHEAT is linked to the production Grain of BREAD WHEAT Campaign 2013 on the plot "Les Palets"
 >>> A production costs and a factory price will be able to be calculated for each Grain unit of BREAD WHEAT produced on a period given.
