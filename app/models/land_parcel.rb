@@ -85,5 +85,4 @@ class LandParcel < Easement
   protect(on: :destroy) do
     activity_productions.any?
   end
-
 end

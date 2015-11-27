@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
-  enable_extension "pgcrypto"
+  enable_extension "uuid-ossp"
 
   create_table "account_balances", force: :cascade do |t|
     t.integer  "account_id",                                               null: false

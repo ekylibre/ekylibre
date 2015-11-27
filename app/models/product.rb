@@ -132,7 +132,7 @@ class Product < Ekylibre::Record::Base
     where(id: ProductMembership.select(:member_id).where(group_id: group.id, nature: 'interior').at(viewed_at))
   }
 
-  scope :members_of_place, lambda { |place, viewed_at| contained_by(place, viewed_at) }
+  scope :members_of_place, ->(place, viewed_at) { contained_by(place, viewed_at) }
   scope :contained_by, lambda { |container, viewed_at = Time.zone.now|
     where(id: ProductLocalization.select(:product_id).where(container: container).at(viewed_at))
   }

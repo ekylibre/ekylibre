@@ -29,12 +29,12 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
 
       if cultivation_variant_reference_name
         if cultivation_variety = Nomen::Variety.find(cultivation_variant_reference_name.to_sym)
-          w.info "cultivation_variant_reference_name is a variety"
+          w.info 'cultivation_variant_reference_name is a variety'
         elsif cultivation_variant = ProductNatureVariant.find_by(number: cultivation_variant_reference_name) || ProductNatureVariant.find_by(reference_name: cultivation_variant_reference_name)
-          w.info "cultivation_variant_reference_name is an existing variant in DB"
+          w.info 'cultivation_variant_reference_name is an existing variant in DB'
         elsif cultivation_variant = ProductNatureVariant.import_from_nomenclature(cultivation_variant_reference_name)
-          w.info "cultivation_variant_reference_name is an existing variant in NOMENCLATURE and will be imported"
-        elsif cultivation_variant == nil
+          w.info 'cultivation_variant_reference_name is an existing variant in NOMENCLATURE and will be imported'
+        elsif cultivation_variant.nil?
           w.error "cultivation_variant_reference_name #{cultivation_variant_reference_name}.inspect is not a variant neither a variety"
         end
       end
@@ -59,12 +59,12 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
           fail ActiveExchanger::Error, "Cannot determine activity with support #{support_variant ? support_variant.variety.inspect : '?'} and cultivation #{cultivation_variant ? cultivation_variant.variety.inspect : '?'} in production #{sheet_name}"
         end
         activity = Activity.new(name: activity_name[0].strip,
-                                    family: family.name,
-                                    size_indicator: (production_indicator[0] ? production_indicator[0].strip.to_sym : nil),
-                                    size_unit: (production_indicator[1] ? production_indicator[1].strip.to_sym : nil),
-                                    nature: family.nature,
-                                    with_supports: (production_support_numbers.any? ? true : false)
-                                   )
+                                family: family.name,
+                                size_indicator: (production_indicator[0] ? production_indicator[0].strip.to_sym : nil),
+                                size_unit: (production_indicator[1] ? production_indicator[1].strip.to_sym : nil),
+                                nature: family.nature,
+                                with_supports: (production_support_numbers.any? ? true : false)
+                               )
         if support_variant && support_variant.variety
           activity.support_variety = (Nomen::Variety.find(support_variant.variety) == :cultivable_zone ? :cultivable_zone : (Nomen::Variety.find(support_variant.variety) <= :building_division ? :building_division : :product))
           activity.with_cultivation = (Nomen::Variety.find(support_variant.variety) == :cultivable_zone ? true : false)
@@ -86,7 +86,7 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
         production_support_quantity = arr[1]
 
         if product = Product.find_by(number: production_support_number) || Product.find_by(identification_number: production_support_number) || Product.find_by(work_number: production_support_number)
-         w.info "Product exist"
+          w.info 'Product exist'
         else
           w.error "Cannot find support with number: #{number.inspect}"
         end
@@ -184,7 +184,7 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
             indicator = indics.first
           end
         end
-        activity_budget = ActivityBudget.find_or_initialize_by(activity: activity, campaign: campaign, variant: item_variant, unit_amount: r.item_unit_price_amount )
+        activity_budget = ActivityBudget.find_or_initialize_by(activity: activity, campaign: campaign, variant: item_variant, unit_amount: r.item_unit_price_amount)
         activity_budget.variant_unit = unit
         activity_budget.variant_indicator = indicator
         activity_budget.direction = r.item_direction

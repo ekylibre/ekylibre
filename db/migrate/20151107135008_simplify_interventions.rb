@@ -57,7 +57,6 @@ class SimplifyInterventions < ActiveRecord::Migration
     end
   end
 
-
   # Rename table and depending stuff
   def rename_table_and_co(old_table, new_table)
     old_model = old_table.to_s.classify
@@ -67,11 +66,10 @@ class SimplifyInterventions < ActiveRecord::Migration
   end
 
   def change
-
     # Adds UUID on products to facilitate exchange
     add_column :products, :uuid, :uuid
     add_index :products, :uuid
-    execute "UPDATE products SET uuid = gen_random_uuid()"
+    execute 'UPDATE products SET uuid = uuid_generate_v4()'
 
     # Merge operation into interventions
     TASK_TABLES.each do |table|
@@ -106,11 +104,10 @@ class SimplifyInterventions < ActiveRecord::Migration
       t.stamps
     end
 
-    execute "INSERT INTO cultivable_zones (name, work_number, shape, uuid, product_id, created_at, creator_id, updated_at, updater_id, lock_version) SELECT name, work_number, initial_shape, gen_random_uuid(), id, created_at, creator_id, updated_at, updater_id, lock_version FROM products WHERE type = 'LandParcel'"
-    execute "UPDATE cultivable_zones SET shape = geometry_value FROM product_readings AS pr WHERE pr.product_id = cultivable_zones.product_id AND geometry_value IS NOT NULL"
-    execute "DELETE FROM cultivable_zones WHERE shape IS NULL"
+    execute "INSERT INTO cultivable_zones (name, work_number, shape, uuid, product_id, created_at, creator_id, updated_at, updater_id, lock_version) SELECT name, work_number, initial_shape, uuid_generate_v4(), id, created_at, creator_id, updated_at, updater_id, lock_version FROM products WHERE type = 'LandParcel'"
+    execute 'UPDATE cultivable_zones SET shape = geometry_value FROM product_readings AS pr WHERE pr.product_id = cultivable_zones.product_id AND geometry_value IS NOT NULL'
+    execute 'DELETE FROM cultivable_zones WHERE shape IS NULL'
     change_column_null :cultivable_zones, :shape, false
-
 
     # Add campaign period
     add_column :campaigns, :started_on, :date

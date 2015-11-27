@@ -13,7 +13,7 @@ class AddCapStatements < ActiveRecord::Migration
     # cap_islets
     create_table :cap_islets do |t|
       t.references :cap_statement, null: false, index: true
-      t.string :islet_number,       null: false
+      t.string :islet_number, null: false
       t.string :town_number
       t.geometry :shape, null: false, srid: 4326
       t.stamps
@@ -52,7 +52,7 @@ class AddCapStatements < ActiveRecord::Migration
       execute "DELETE FROM #{table} WHERE product_id IN (SELECT id FROM products WHERE type in ('LandParcelGroup', 'LandParcelCluster', 'LandParcel'))"
     end
 
-    execute "DELETE FROM product_junctions WHERE id NOT IN (SELECT junction_id FROM product_junction_ways)"
+    execute 'DELETE FROM product_junctions WHERE id NOT IN (SELECT junction_id FROM product_junction_ways)'
 
     execute "DELETE FROM product_memberships WHERE group_id IN (SELECT id FROM products WHERE type in ('LandParcelGroup', 'LandParcelCluster', 'LandParcel')) OR member_id IN (SELECT id FROM products WHERE type in ('LandParcelGroup', 'LandParcelCluster', 'LandParcel'))"
 
@@ -65,6 +65,5 @@ class AddCapStatements < ActiveRecord::Migration
     end
 
     execute "DELETE FROM products WHERE type in ('LandParcelGroup', 'LandParcelCluster', 'LandParcel')"
-
   end
 end

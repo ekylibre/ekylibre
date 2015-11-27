@@ -52,12 +52,11 @@ class CultivableZone < Ekylibre::Record::Base
 
   # Computes net surface area of shape
   def net_surface_area(unit = :hectare)
-    ::Charta::Geometry.new(self.shape).area.in(unit).round(3)
+    ::Charta::Geometry.new(shape).area.in(unit).round(3)
   end
 
   # get the first object with variety 'plant', availables
   def current_cultivations
     Plant.contained_by(current_supports)
   end
-
 end
