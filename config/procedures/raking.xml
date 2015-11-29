@@ -4,7 +4,7 @@
     <variables>
       <variable name="driver" type="doer" abilities="drive(tractor)"/>
       <variable name="tractor" type="tool" variety="equipment" abilities="catch(equipment)"/>
-      <variable name="land_parcel" type="target" variety="cultivable_zone" default-shape=":land_parcel" default-actor="storage">
+      <variable name="land_parcel" type="target" variety="land_parcel" default-shape=":land_parcel" default-actor="storage">
         <handler indicator="shape">
           <converter to="shape" forward="intersection(value, land_parcel.shape)" backward="value"/>
           <converter to="population" forward="area(value) / land_parcel..net_surface_area(square_meter)"/>

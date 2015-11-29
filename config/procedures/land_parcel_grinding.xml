@@ -2,9 +2,9 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="land_parcel_grinding" categories="soil_working" actions="land_parcel_grinding">
     <variables>
-      <variable name="land_parcel" type="target" variety="cultivable_zone"/>
+      <variable name="land_parcel" type="target" variety="land_parcel"/>
       <variable name="tractor" type="tool" abilities="tow(equipment)"/>
-      <variable name="grinder" type="tool" abilities="grind(cultivable_zone)"/>
+      <variable name="grinder" type="tool" abilities="grind(land_parcel)"/>
       <variable name="driver" type="doer" abilities="drive(tractor)"/>
     </variables>
   </procedure>
