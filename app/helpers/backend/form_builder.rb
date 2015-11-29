@@ -304,7 +304,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
       if sibling = @object.class.where("#{attribute_name} IS NOT NULL").first
         editor[:view] = { center: Charta::Geometry.new(sibling.send(attribute_name)).centroid }
       elsif zone = CultivableZone.first
-        editor[:view] = { center: zone.shape_centroid }
+        editor[:view] = { center: zone.to_geom.centroid }
       end
     end
     show = options.delete(:show) || @object.class.where("#{attribute_name} IS NOT NULL AND id != ?", @object.id || 0)
@@ -347,7 +347,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
       if sibling = @object.class.where("#{attribute_name} IS NOT NULL").first
         marker[:view] = { center: Charta::Geometry.new(sibling.send(attribute_name)).centroid }
       elsif zone = CultivableZone.first
-        marker[:view] = { center: zone.shape_centroid }
+        marker[:view] = { center: zone.to_geom.centroid }
       end
       marker[:marker] = marker[:view][:center] if marker[:view]
     end

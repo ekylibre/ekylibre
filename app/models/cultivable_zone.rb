@@ -52,10 +52,14 @@ class CultivableZone < Ekylibre::Record::Base
   scope :covers_shape, lambda { |shape|
     where('ST_Covers(shape, ST_GeomFromEWKT(?))', shape.to_ewkt)
   }
-
+  
+  def to_geom
+    return geom = ::Charta::Geometry.new(shape).transform(:WGS84)
+  end
+  
   # Computes net surface area of shape
   def net_surface_area(unit = :hectare)
-    ::Charta::Geometry.new(shape).area.in(unit).round(3)
+    to_geom.area.in(unit).round(3)
   end
 
   # get the first object with variety 'plant', availables
