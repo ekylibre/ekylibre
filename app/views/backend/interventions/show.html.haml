@@ -15,7 +15,7 @@
     - v.background "Thunderforest.Landscape"
     - v.background "Esri.WorldImagery"
     - resource.casts.each do |cast|
-      - shape = cast.shape
+      - shape = cast.working_zone
       - shape ||= cast.product.shape(at: resource.started_at) if cast.product
       - if shape
         - v.serie cast.id, [{name: cast.name, shape: shape}]

@@ -78,7 +78,7 @@ class Activity < Ekylibre::Record::Base
     where(id: TargetDistribution.select(:activity_id).where(target_id: InterventionTarget.select(:product_id).where(intervention_id: intervention)))
   }
   scope :of_campaign, lambda { |campaign|
-    where(id: ActivityProduction.select(:activity_id).of_campaign(campaign.is_a?(Campaign) ? campaign : campaign.find(campaign.to_i)))
+    where(id: ActivityProduction.select(:activity_id).of_campaign(campaign.is_a?(Campaign) ? campaign : campaign.find(campaign.map(&:id))))
   }
   scope :of_cultivation_variety, lambda { |variety|
     where(cultivation_variety: Nomen::Variety.find(variety).all)
@@ -209,8 +209,9 @@ class Activity < Ekylibre::Record::Base
                gray: '#A4A4A4', dark_magenta: '#8B008B', violet: '#EE82EE',
                teal: '#008080', fuchsia: '#FF00FF', brown: '#6A2B1A' }
     activity_family = Nomen::ActivityFamily.find(family)
+    variety = Nomen::Variety.find(cultivation_variety)
     return colors[:gray] unless activity_family
-    if activity_family <= :vegetal_crops
+    if activity_family <= :vegetal_crops && variety
       # ARBO, FRUIT = BLUE
       if activity_family <= :arboriculture
         colors[:blue]
@@ -218,9 +219,9 @@ class Activity < Ekylibre::Record::Base
         # level 3 - category - CEREALS = GOLD/YELLOW/ORANGE
         if activity_family <= :cereal_crops
           # level 4 - variety
-          if activity_family <= :maize_crops || activity_family <= :sorghum_crops
+          if variety <= :zea || variety <= :sorghum
             colors[:orange]
-          elsif activity_family <= :barley_crops
+          elsif variety <= :hordeum
             colors[:yellow]
           else
             colors[:gold]
@@ -244,8 +245,8 @@ class Activity < Ekylibre::Record::Base
         elsif activity_family <= :potato_crops
           colors[:violet]
         # level 3 - category - AROMATIC, TOBACCO, HEMP = TURQUOISE
-        elsif activity_family <= :tobacco_crops ||
-              activity_family <= :hemp_crops
+        elsif variety <= :nicotiana ||
+              variety <= :cannabis
           colors[:dark_turquoise]
         else
           colors[:gray]
@@ -306,7 +307,11 @@ class Activity < Ekylibre::Record::Base
   end
 
   def net_surface_area(*campaigns)
-    productions.of_campaign(campaigns).map(&:net_surface_area).compact.sum
+    surface = []
+    for campaign in campaigns
+      surface << productions.of_campaign(campaign).map(&:net_surface_area).compact.sum
+    end
+    return surface.compact.sum
   end
 
   def area(*campaigns)

@@ -49,6 +49,7 @@ class ActivityProduction < Ekylibre::Record::Base
   belongs_to :activity, inverse_of: :productions
   belongs_to :cultivable_zone
   belongs_to :support, class_name: 'Product' # , inverse_of: :supports
+  has_many :budgets, through: :activity
   has_many :manure_management_plan_zones, class_name: 'ManureManagementPlanZone',
                                           inverse_of: :activity_production
   has_one :selected_manure_management_plan_zone, -> { selecteds },
@@ -73,12 +74,17 @@ class ActivityProduction < Ekylibre::Record::Base
   scope :of_campaign, lambda { |campaign|
     where('(started_at, stopped_at) OVERLAPS (?, ?)', campaign.started_on, campaign.stopped_on)
   }
+
   scope :of_cultivation_variety, lambda { |variety|
     joins(:activity).merge(Activity.of_cultivation_variety(variety))
   }
   scope :of_current_campaigns, -> { joins(:activity).merge(Activity.of_current_campaigns) }
 
   scope :of_activity, ->(activity) { where(activity: activity) }
+  scope :of_activities, lambda { |*activities|
+    ids = activities.flatten.map(&:id)
+    joins(:activity).where(activity_id: ids)
+  }
   scope :of_activity_families, lambda { |*families|
     joins(:activity).merge(Activity.of_families(*families))
   }

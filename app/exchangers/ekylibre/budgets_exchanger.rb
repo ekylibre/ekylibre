@@ -119,6 +119,7 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
 
         if activity.with_supports && cz && product && product.shape && Nomen::Variety.find(:cultivable_zone) == support_variant.variety.to_sym
           attributes[:cultivable_zone] = cz
+          attributes[:support_shape] = product.shape
           attributes[:size] = ::Charta::Geometry.new(product.shape).area.in(:hectare)
           attributes[:usage] = :grain
         elsif activity.with_supports && Nomen::Variety.find(:animal_group) == support_variant.variety.to_sym
@@ -130,8 +131,8 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
           attributes[:usage] = :grain
         end
         unless ap = ActivityProduction.find_by(activity: activity, support: product)
-          puts attributes.inspect.green
           ap = ActivityProduction.create!(attributes)
+          td = TargetDistribution.find_or_create_by!(activity: activity, activity_production: ap, target: product) if Nomen::ActivityFamily[activity.family] <= :vegetal_crops
         end
       end
 

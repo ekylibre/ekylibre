@@ -42,4 +42,10 @@ class TargetDistribution < Ekylibre::Record::Base
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_presence_of :activity, :activity_production, :target
   # ]VALIDATORS]
+  
+  before_validation do
+    self.started_at ||= self.activity_production.started_at
+    self.stopped_at ||= self.activity_production.stopped_at
+  end
+  
 end

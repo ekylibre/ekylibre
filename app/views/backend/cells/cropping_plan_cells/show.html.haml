@@ -1,27 +1,25 @@
 :ruby
   surface_unit = Nomen::Unit[:hectare]
   if @campaigns
-    campaigns = {}
-    activities = Activity.of_campaign(@campaigns).of_families(:vegetal_crops).order(:id)
+    campaign = @campaigns
+    activities = Activity.of_campaign(campaign).of_families(:vegetal_crops).order(:id)
   end
 
-- if @campaigns and activities.any?
+- if campaign and activities.any?
   :ruby
     # In theory, @activity and @productions should be produced here from @campaign only
     activities_serie = activities.collect do |activity|
-      {name: activity.name, y: activity.net_surface_area(@campaigns).to_d(:hectare).to_s.to_f, id: activity.id, url: backend_activity_path(activity), color: activity.color } #cycle(*theme_colors)
+      {name: activity.name, y: activity.net_surface_area(campaign).to_s.to_f, id: activity.id, url: backend_activity_path(activity), color: activity.color }
     end
 
-    productions_serie = ActivityProduction.of_campaign(@campaigns).of_activities(activities).order("activity_id, id").collect do |production|
-      campaigns[production.campaign.name] ||= 0.0
-      campaigns[production.campaign.name] += production.net_surface_area.to_s.to_f
-      {name: production.name, y: production.net_surface_area.to_s.to_f, url: backend_production_path(production), color: production.color } #ligthen(activities_serie.detect{|a| a[:id] == production.activity_id}[:color], 0.3)
+    productions_serie = ActivityProduction.of_campaign(campaign).of_activities(activities).order("activity_id, id").collect do |production|
+      {name: production.name, y: production.net_surface_area.to_s.to_f, url: backend_activity_production_path(production), color: production.color } #ligthen(activities_serie.detect{|a| a[:id] == production.activity_id}[:color], 0.3)
     end
 
     series = []
     series << {name: Activity.model_name.human, data: activities_serie, size: "60%", data_labels: {color: 'white', distance: -30}}
     series << {name: ActivityProduction.model_name.human, data: productions_serie, size: "80%", inner_size: "60%", data_labels: {enabled: true}}
 
-  = pie_highcharts(series, tooltip: {point_format: "{point.y: 1.2f} #{surface_unit.symbol}"}, title: campaigns.map {|k,v| "#{k} (#{v.round(2)} #{surface_unit.symbol})"}.to_sentence, plot_options: { pie: { allow_point_select: true, cursor: 'pointer'}})
+  = pie_highcharts(series, tooltip: {point_format: "{point.y: 1.2f} #{surface_unit.symbol}"}, title: campaign.name, plot_options: { pie: { allow_point_select: true, cursor: 'pointer'}})
 - else
   = no_data

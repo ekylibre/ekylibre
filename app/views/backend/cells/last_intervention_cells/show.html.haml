@@ -1,8 +1,25 @@
 - if @intervention
+  - count = 0
+  - map = visualization do |v|
+    - v.background "OpenStreetMap.HOT"
+    - v.background "OpenStreetMap.Mapnik"
+    - v.background "Thunderforest.Landscape"
+    - v.background "Esri.WorldImagery"
+    - @intervention.casts.each do |cast|
+      - shape = cast.working_zone
+      - shape ||= cast.product.shape(at: @intervention.started_at) if cast.product
+      - if shape
+        - v.serie cast.id, [{name: cast.name, shape: shape}]
+        - v.simple (cast.product ? cast.product.name : cast.variant ? cast.variant.name : cast.name), cast.id, fill_color: cycle(theme_colors)
+        - count += 1
+    - v.control :zoom
+    - v.control :scale
+    - v.control :fullscreen
+    - v.control :layer_selector
+  - if count > 0
+    = map
   - targets = @intervention.casts.of_generic_role(:target)
   - targets = @intervention.casts.of_generic_role(:input) unless targets.any?
-  - if target = targets.first and actor = target.actor
-    = map(actor, box: {height: 240})
   .info
     %span.title= Intervention.human_attribute_name(:name)
     %span.value= link_to(@intervention.name, controller: "/backend/interventions", action: :show, id: @intervention.to_param)
@@ -14,8 +31,8 @@
       %span.title= Intervention.human_attribute_name(:started_at)
       %span.value= @intervention.started_at.l
     .info
-      %span.title= Intervention.human_attribute_name(:duration)
-      %span.value= human_duration(@intervention.duration)
+      %span.title= Intervention.human_attribute_name(:working_duration)
+      %span.value= human_duration(@intervention.working_duration)
     .info
       %span.title= Intervention.human_attribute_name(:state)
       %span.value= @intervention.state.l

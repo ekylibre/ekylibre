@@ -18,7 +18,7 @@
       %h3= link_to(actor.name, {controller: actor.class.table_name, action: :show, id: actor.id})
       %p= cast.name
       %p= cast.model_name.human
-      - if actor.is_a?(Product) && !actor.population_counting_unitary? && variant && cast.quantity
+      - if actor.is_a?(Product) && !actor.population_counting_unitary? && variant && cast.quantity_unit && cast.quantity
         %p= :x_thing.tl(x: cast.quantity.round(2).l, thing: variant.unit_name.mb_chars.downcase)
   - elsif variant
     .picture
