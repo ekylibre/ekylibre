@@ -46,23 +46,21 @@ class InterventionTest < ActiveSupport::TestCase
   test 'scopes' do
     cast = intervention_casts(:intervention_casts_001)
     actor = cast.product
+    assert actor, 'Actor can not be nil for following assertions'
     assert_nothing_raised do
       Intervention.with_generic_cast(:tool, actor)
     end
     assert_nothing_raised do
       Intervention.with_generic_cast('tool', actor)
     end
-    assert_nothing_raised do
-      Intervention.with_cast(:'grinding-tool', actor)
-    end
-    assert_nothing_raised do
-      Intervention.with_cast('grinding-tool', actor)
+    assert_raise ArgumentError do
+      Intervention.with_generic_cast(:unknown_role, actor)
     end
     assert_raise ArgumentError do
-      Intervention.with_cast('tool', actor)
+      Intervention.with_generic_cast('grinding-tool', actor)
     end
     assert_raise ArgumentError do
-      Intervention.with_cast(:tool, actor)
+      Intervention.with_generic_cast(:'grinding-tool', actor)
     end
   end
 

@@ -43,6 +43,10 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
     attributes = { language: language, currency: currency, nature: :organization, last_name: 'Ekylibre' }.merge(@manifest[:company].select { |k, _v| ![:addresses].include?(k) }).merge(of_company: true)
     # resolte siret to siret_number transcode
     attributes[:siret_number] = attributes.delete(:siret)
+    if attributes.has_key?(:siren)
+      attributes[:siret_number] = attributes.delete(:siren).to_s + '0001'
+      attributes[:siret_number] << Luhn.control_digit(attributes[:siret_number])
+    end
     company = Entity.create!(attributes)
     # f.close if f
     if @manifest[:company][:addresses].is_a?(Hash)
