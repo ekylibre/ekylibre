@@ -33,6 +33,7 @@
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #
+
 class InterventionWorkingPeriod < Ekylibre::Record::Base
   belongs_to :intervention
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

@@ -202,7 +202,7 @@ class Intervention < Ekylibre::Record::Base
       started_at: started_at,
       stopped_at: stopped_at,
       working_duration: working_periods.sum(:duration),
-      whole_duration: (stopped_at - started_at).to_i
+      whole_duration: ((stopped_at? && started_at) ? (stopped_at - started_at).to_i : 0)
     )
   end
 

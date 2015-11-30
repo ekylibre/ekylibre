@@ -48,7 +48,7 @@ class CultivableZone < Ekylibre::Record::Base
   # ]VALIDATORS]
 
   scope :of_current_activity_productions, -> { where(id: ActivityProduction.select(:cultivable_zone_id).current) }
-  scope :of_campaign, ->(campaign) { activity_productions.of_campaign(campaign) }
+  scope :of_campaign, ->(campaign) { where(id: ActivityProduction.select(:cultivable_zone_id).of_campaign(campaign)) }
   scope :covers_shape, lambda { |shape|
     where('ST_Covers(shape, ST_GeomFromEWKT(?))', ::Charta::Geometry.new(shape).to_ewkt)
   }
