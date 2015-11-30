@@ -73,34 +73,34 @@ sequences_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   id: 2
-  last_cweek: 24
-  last_month: 6
-  last_number: 6
+  last_cweek: 49
+  last_month: 11
+  last_number: 7
   last_year: 2015
-  lock_version: 9
+  lock_version: 10
   name: Personnes
   number_format: P[number|8]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2015-06-13 16:50:36.713030000 Z
+  updated_at: 2015-11-30 10:25:05.643648000 Z
   updater_id: 1
   usage: entities
 sequences_003:
   created_at: 2014-11-01 16:00:07.976913000 Z
   creator_id: 1
   id: 3
-  last_cweek: 38
-  last_month: 9
-  last_number: 88
+  last_cweek: 49
+  last_month: 11
+  last_number: 113
   last_year: 2015
-  lock_version: 90
+  lock_version: 115
   name: products
   number_format: PR[number|11]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2015-09-17 13:35:36.157387000 Z
+  updated_at: 2015-11-30 10:25:09.205225000 Z
   updater_id: 1
   usage: products
 sequences_004:
@@ -141,17 +141,17 @@ sequences_006:
   created_at: 2014-11-01 16:03:04.391388000 Z
   creator_id: 1
   id: 6
-  last_cweek: 45
+  last_cweek: 49
   last_month: 11
-  last_number: 1
-  last_year: 2014
-  lock_version: 1
+  last_number: 2
+  last_year: 2015
+  lock_version: 2
   name: Campagne
   number_format: CAMP[number|4]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2014-11-04 15:26:29.110544000 Z
+  updated_at: 2015-11-30 10:25:05.613018000 Z
   updater_id: 1
   usage: campaigns
 sequences_007:

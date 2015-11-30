@@ -40,7 +40,7 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
     w.check_point
 
     # Company entity
-    attributes = { language: language, currency: currency, nature: :organization, last_name: 'Ekylibre' }.merge(@manifest[:company].select{ |k, _v| ![:addresses].include?(k) }).merge(of_company: true)
+    attributes = { language: language, currency: currency, nature: :organization, last_name: 'Ekylibre' }.merge(@manifest[:company].select { |k, _v| ![:addresses].include?(k) }).merge(of_company: true)
     # resolte siret to siret_number transcode
     attributes[:siret_number] = attributes.delete(:siret)
     company = Entity.create!(attributes)

@@ -76,19 +76,21 @@ class ActivityProduction < Ekylibre::Record::Base
   }
 
   scope :of_cultivation_variety, lambda { |variety|
-    joins(:activity).merge(Activity.of_cultivation_variety(variety))
+    where(activity: Activity.of_cultivation_variety(variety))
   }
-  scope :of_current_campaigns, -> { joins(:activity).merge(Activity.of_current_campaigns) }
+  scope :of_current_campaigns, -> { where(activity: Activity.of_current_campaigns) }
 
   scope :of_activity, ->(activity) { where(activity: activity) }
   scope :of_activities, lambda { |*activities|
-    ids = activities.flatten.map(&:id)
-    joins(:activity).where(activity_id: ids)
+    where(activity_id: activities.flatten.map(&:id))
   }
   scope :of_activity_families, lambda { |*families|
-    joins(:activity).merge(Activity.of_families(*families))
+    where(activity: Activity.of_families(*families))
   }
   scope :current, -> { where(':now BETWEEN COALESCE(started_at, :now) AND COALESCE(stopped_at, :now)', now: Time.zone.now) }
+  scope :overlaps_shape, lambda { |shape|
+    where('ST_Overlaps(support_shape, ST_GeomFromEWKT(?))', ::Charta::Geometry.new(shape).to_ewkt)
+  }
 
   state_machine :state, initial: :opened do
     state :opened
@@ -116,8 +118,17 @@ class ActivityProduction < Ekylibre::Record::Base
       self.size_unit      = activity_size_unit
       self.rank_number ||= (self.activity.productions.maximum(:rank_number) ? self.activity.productions.maximum(:rank_number) : 0) + 1
     end
-    self.support ||= cultivable_zone
-    self.size = current_size if self.support && size_indicator && size_unit
+    if !support && cultivable_zone && support_shape && self.vegetal_crops?
+      land_parcels = LandParcel.overlaps_shape(::Charta::Geometry.new(support_shape)).order(:id)
+      if land_parcels.any?
+        land_parcel = land_parcels.first
+      else
+        land_parcel = LandParcel.new(name: name, initial_shape: support_shape, initial_born_at: started_at, variant: ProductNatureVariant.import_from_nomenclature(:land_parcel))
+        land_parcel.save!
+      end
+      self.support = land_parcel
+    end
+    self.size = current_size if support && size_indicator && size_unit
   end
 
   before_validation(on: :create) do
@@ -149,6 +160,15 @@ class ActivityProduction < Ekylibre::Record::Base
 
   def campaigns
     Campaign.of_activity_production(self)
+  end
+
+  def support_shape=(value)
+    if value.is_a?(String) && value =~ /\A\{.*\}\z/
+      value = Charta::Geometry.new(JSON.parse(value).to_json, :WGS84).to_rgeo
+    elsif !value.blank?
+      value = Charta::Geometry.new(value).to_rgeo
+    end
+    self['support_shape'] = value
   end
 
   def cost(role = :input)

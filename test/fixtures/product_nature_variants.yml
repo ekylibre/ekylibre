@@ -1072,3 +1072,15 @@ product_nature_variants_067:
   updated_at: 2015-03-08 16:48:51.065006000 Z
   updater_id: 1
   variety: bos_taurus_blonde_aquitaine
+product_nature_variants_068:
+  active: true
+  category_id: 25
+  created_at: 2015-11-30 10:25:05.844446000 Z
+  id: 69
+  lock_version: 0
+  name: Parcelle
+  nature_id: 59
+  reference_name: land_parcel
+  unit_name: Hectare
+  updated_at: 2015-11-30 10:25:05.844446000 Z
+  variety: land_parcel

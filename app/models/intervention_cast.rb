@@ -79,14 +79,14 @@ class InterventionCast < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :readings, allow_destroy: true
 
-  scope :of_role, lambda { |role|
-    fail 'No more usable'
-    unless role.to_s =~ /\-/
-      fail ArgumentError, 'Need a valid role: <procedure_nature>-<role>'
-    end
-    nature, role = role.to_s.split('-')[0..1]
-    where('roles ~ E?', "\\\\m(#{Nomen::ProcedureNature.all(nature).sort.join('|')})-#{role}\\\\M")
-  }
+  # scope :of_role, lambda { |role|
+  #   fail 'No more usable'
+  #   unless role.to_s =~ /\-/
+  #     fail ArgumentError, 'Need a valid role: <procedure_nature>-<role>'
+  #   end
+  #   nature, role = role.to_s.split('-')[0..1]
+  #   where('roles ~ E?', "\\\\m(#{Nomen::ProcedureNature.all(nature).sort.join('|')})-#{role}\\\\M")
+  # }
 
   scope :of_generic_role, lambda { |role|
     role = role.to_s

@@ -54,6 +54,8 @@ namespace :clean do
               val = reference_name
             elsif model && reflection = model.reflect_on_association(reference_name)
               val = reflection.class_name.underscore.to_sym
+            elsif model && reflection = model.reflections.values.detect { |r| r.macro == :belongs_to && r.foreign_key == column.name.to_sym }
+              val = reflection.class_name.underscore.to_sym
             end
           end
           errors += 1 if val.nil?

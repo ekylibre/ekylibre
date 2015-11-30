@@ -67,11 +67,11 @@ class Campaign < Ekylibre::Record::Base
   protect(on: :destroy) do
     interventions.any?
   end
-  
+
   before_validation(on: :create) do
-    if self.harvest_year
-      self.started_on ||= Date.new(self.harvest_year,1,1)
-      self.stopped_on ||= Date.new(self.harvest_year,12,31)
+    if harvest_year
+      self.started_on ||= Date.new(harvest_year, 1, 1)
+      self.stopped_on ||= Date.new(harvest_year, 12, 31)
     end
   end
 

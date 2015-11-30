@@ -77,9 +77,7 @@ namespace :tenant do
     tenant = ENV['TENANT'] || ENV['name']
     fail 'Need TENANT env variable to dump' unless tenant
     options = {}
-    if archive
-      options[:path] = Pathname.new(archive)
-    end
+    options[:path] = Pathname.new(archive) if archive
     Ekylibre::Tenant.dump(tenant, options)
   end
 

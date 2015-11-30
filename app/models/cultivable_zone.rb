@@ -50,13 +50,13 @@ class CultivableZone < Ekylibre::Record::Base
   scope :of_current_activity_productions, -> { where(id: ActivityProduction.select(:cultivable_zone_id).current) }
   scope :of_campaign, ->(campaign) { activity_productions.of_campaign(campaign) }
   scope :covers_shape, lambda { |shape|
-    where('ST_Covers(shape, ST_GeomFromEWKT(?))', shape.to_ewkt)
+    where('ST_Covers(shape, ST_GeomFromEWKT(?))', ::Charta::Geometry.new(shape).to_ewkt)
   }
-  
+
   def to_geom
-    return geom = ::Charta::Geometry.new(shape).transform(:WGS84)
+    ::Charta::Geometry.new(shape)
   end
-  
+
   # Computes net surface area of shape
   def net_surface_area(unit = :hectare)
     to_geom.area.in(unit).round(3)
@@ -65,5 +65,14 @@ class CultivableZone < Ekylibre::Record::Base
   # get the first object with variety 'plant', availables
   def current_cultivations
     Plant.contained_by(current_supports)
+  end
+
+  def shape=(value)
+    if value.is_a?(String) && value =~ /\A\{.*\}\z/
+      value = Charta::Geometry.new(JSON.parse(value).to_json, :WGS84).to_rgeo
+    elsif !value.blank?
+      value = Charta::Geometry.new(value).to_rgeo
+    end
+    self['shape'] = value
   end
 end

@@ -1508,3 +1508,228 @@ product_junction_ways_133:
   role: reduced
   updated_at: 2015-09-17 13:38:07.336564000 Z
   updater_id: 1
+product_junction_ways_134:
+  created_at: 2015-11-30 10:25:06.023618000 Z
+  id: 158
+  junction_id: 118
+  lock_version: 0
+  nature: start
+  product_id: 145
+  role: born
+  updated_at: 2015-11-30 10:25:06.023618000 Z
+product_junction_ways_135:
+  created_at: 2015-11-30 10:25:06.221976000 Z
+  id: 159
+  junction_id: 119
+  lock_version: 0
+  nature: start
+  product_id: 146
+  role: born
+  updated_at: 2015-11-30 10:25:06.221976000 Z
+product_junction_ways_136:
+  created_at: 2015-11-30 10:25:06.357458000 Z
+  id: 160
+  junction_id: 120
+  lock_version: 0
+  nature: start
+  product_id: 147
+  role: born
+  updated_at: 2015-11-30 10:25:06.357458000 Z
+product_junction_ways_137:
+  created_at: 2015-11-30 10:25:06.477838000 Z
+  id: 161
+  junction_id: 121
+  lock_version: 0
+  nature: start
+  product_id: 148
+  role: born
+  updated_at: 2015-11-30 10:25:06.477838000 Z
+product_junction_ways_138:
+  created_at: 2015-11-30 10:25:06.588620000 Z
+  id: 162
+  junction_id: 122
+  lock_version: 0
+  nature: start
+  product_id: 149
+  role: born
+  updated_at: 2015-11-30 10:25:06.588620000 Z
+product_junction_ways_139:
+  created_at: 2015-11-30 10:25:06.772706000 Z
+  id: 163
+  junction_id: 123
+  lock_version: 0
+  nature: start
+  product_id: 150
+  role: born
+  updated_at: 2015-11-30 10:25:06.772706000 Z
+product_junction_ways_140:
+  created_at: 2015-11-30 10:25:06.913031000 Z
+  id: 164
+  junction_id: 124
+  lock_version: 0
+  nature: start
+  product_id: 151
+  role: born
+  updated_at: 2015-11-30 10:25:06.913031000 Z
+product_junction_ways_141:
+  created_at: 2015-11-30 10:25:07.158138000 Z
+  id: 165
+  junction_id: 125
+  lock_version: 0
+  nature: start
+  product_id: 152
+  role: born
+  updated_at: 2015-11-30 10:25:07.158138000 Z
+product_junction_ways_142:
+  created_at: 2015-11-30 10:25:07.275612000 Z
+  id: 166
+  junction_id: 126
+  lock_version: 0
+  nature: start
+  product_id: 153
+  role: born
+  updated_at: 2015-11-30 10:25:07.275612000 Z
+product_junction_ways_143:
+  created_at: 2015-11-30 10:25:07.391214000 Z
+  id: 167
+  junction_id: 127
+  lock_version: 0
+  nature: start
+  product_id: 154
+  role: born
+  updated_at: 2015-11-30 10:25:07.391214000 Z
+product_junction_ways_144:
+  created_at: 2015-11-30 10:25:07.503783000 Z
+  id: 168
+  junction_id: 128
+  lock_version: 0
+  nature: start
+  product_id: 155
+  role: born
+  updated_at: 2015-11-30 10:25:07.503783000 Z
+product_junction_ways_145:
+  created_at: 2015-11-30 10:25:07.606454000 Z
+  id: 169
+  junction_id: 129
+  lock_version: 0
+  nature: start
+  product_id: 156
+  role: born
+  updated_at: 2015-11-30 10:25:07.606454000 Z
+product_junction_ways_146:
+  created_at: 2015-11-30 10:25:07.736817000 Z
+  id: 170
+  junction_id: 130
+  lock_version: 0
+  nature: start
+  product_id: 157
+  role: born
+  updated_at: 2015-11-30 10:25:07.736817000 Z
+product_junction_ways_147:
+  created_at: 2015-11-30 10:25:07.865778000 Z
+  id: 171
+  junction_id: 131
+  lock_version: 0
+  nature: start
+  product_id: 158
+  role: born
+  updated_at: 2015-11-30 10:25:07.865778000 Z
+product_junction_ways_148:
+  created_at: 2015-11-30 10:25:07.993100000 Z
+  id: 172
+  junction_id: 132
+  lock_version: 0
+  nature: start
+  product_id: 159
+  role: born
+  updated_at: 2015-11-30 10:25:07.993100000 Z
+product_junction_ways_149:
+  created_at: 2015-11-30 10:25:08.161507000 Z
+  id: 173
+  junction_id: 133
+  lock_version: 0
+  nature: start
+  product_id: 160
+  role: born
+  updated_at: 2015-11-30 10:25:08.161507000 Z
+product_junction_ways_150:
+  created_at: 2015-11-30 10:25:08.306903000 Z
+  id: 174
+  junction_id: 134
+  lock_version: 0
+  nature: start
+  product_id: 161
+  role: born
+  updated_at: 2015-11-30 10:25:08.306903000 Z
+product_junction_ways_151:
+  created_at: 2015-11-30 10:25:08.473193000 Z
+  id: 175
+  junction_id: 135
+  lock_version: 0
+  nature: start
+  product_id: 162
+  role: born
+  updated_at: 2015-11-30 10:25:08.473193000 Z
+product_junction_ways_152:
+  created_at: 2015-11-30 10:25:08.576934000 Z
+  id: 176
+  junction_id: 136
+  lock_version: 0
+  nature: start
+  product_id: 163
+  role: born
+  updated_at: 2015-11-30 10:25:08.576934000 Z
+product_junction_ways_153:
+  created_at: 2015-11-30 10:25:08.681994000 Z
+  id: 177
+  junction_id: 137
+  lock_version: 0
+  nature: start
+  product_id: 164
+  role: born
+  updated_at: 2015-11-30 10:25:08.681994000 Z
+product_junction_ways_154:
+  created_at: 2015-11-30 10:25:08.790506000 Z
+  id: 178
+  junction_id: 138
+  lock_version: 0
+  nature: start
+  product_id: 165
+  role: born
+  updated_at: 2015-11-30 10:25:08.790506000 Z
+product_junction_ways_155:
+  created_at: 2015-11-30 10:25:08.904154000 Z
+  id: 179
+  junction_id: 139
+  lock_version: 0
+  nature: start
+  product_id: 166
+  role: born
+  updated_at: 2015-11-30 10:25:08.904154000 Z
+product_junction_ways_156:
+  created_at: 2015-11-30 10:25:09.021911000 Z
+  id: 180
+  junction_id: 140
+  lock_version: 0
+  nature: start
+  product_id: 167
+  role: born
+  updated_at: 2015-11-30 10:25:09.021911000 Z
+product_junction_ways_157:
+  created_at: 2015-11-30 10:25:09.131182000 Z
+  id: 181
+  junction_id: 141
+  lock_version: 0
+  nature: start
+  product_id: 168
+  role: born
+  updated_at: 2015-11-30 10:25:09.131182000 Z
+product_junction_ways_158:
+  created_at: 2015-11-30 10:25:09.237727000 Z
+  id: 182
+  junction_id: 142
+  lock_version: 0
+  nature: start
+  product_id: 169
+  role: born
+  updated_at: 2015-11-30 10:25:09.237727000 Z

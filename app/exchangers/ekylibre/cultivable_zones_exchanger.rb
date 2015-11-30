@@ -14,11 +14,11 @@ class Ekylibre::CultivableZonesExchanger < ActiveExchanger::Base
         georeading_number: (row[3].blank? ? nil : row[3].to_s)
         # members: row[4].blank? ? [] : row[4].to_s.strip.split(/[[:space:]]*\,[[:space:]]*/)
       }.to_struct
-      
+
       georeading = Georeading.find_by(number: r.georeading_number)
       fail "Cannot find georeading: #{r.georeading_number}" unless georeading
       zone = CultivableZone.find_or_initialize_by(work_number: r.code)
-      zone.name = r.name,
+      zone.name = r.name
       zone.shape = georeading.content
       zone.save!
       w.check_point

@@ -97,17 +97,15 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
           unless product
             lp_variant = ProductNatureVariant.import_from_nomenclature(:land_parcel)
             product = LandParcel.create!(variant: lp_variant, work_number: cz.work_number,
-                              name: cz.work_number, initial_born_at: Time.now, initial_owner: Entity.of_company, initial_shape: cz.shape)
+                                         name: cz.work_number, initial_born_at: Time.now, initial_owner: Entity.of_company, initial_shape: cz.shape)
           end
           # puts product.inspect.red
           # puts 'Cultivable zone exist'.inspect.yellow
         else
           puts "Cannot find support with number: #{number.inspect}".inspect.yellow
         end
-        
-        unless product
-          w.info 'No Product given for '
-        end
+
+        w.info 'No Product given for ' unless product
 
         attributes = {
           activity: activity,
@@ -126,7 +124,7 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
           attributes[:size_value] = 1.0
           attributes[:usage] = :meat
         else
-          attributes[:size_indicator] = "population"
+          attributes[:size_indicator] = 'population'
           attributes[:size_value] = 1.0
           attributes[:usage] = :grain
         end

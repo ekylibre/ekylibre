@@ -66,3 +66,18 @@ imports_002:
   state: undone
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
+imports_003:
+  archive_content_type: text/xml
+  archive_file_name: Dossier-PAC-2015_dossier_017005218_20150630095852.xml
+  archive_file_size: 63870
+  archive_updated_at: 2015-11-30 10:24:40.750039000 Z
+  created_at: 2015-11-30 10:24:40.752924000 Z
+  creator_id: 1
+  id: 3
+  imported_at: 2015-11-30 10:25:09.287807000 Z
+  lock_version: 0
+  nature: telepac_v2015_cap_statements
+  progression_percentage: 100.0
+  state: finished
+  updated_at: 2015-11-30 10:24:40.752924000 Z
+  updater_id: 1

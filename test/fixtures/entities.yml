@@ -541,3 +541,26 @@ entities_016:
   updater_id: 1
   vat_number: ''
   vat_subjected: false
+entities_017:
+  active: true
+  client: false
+  country: fr
+  created_at: 2015-11-30 10:25:05.647806000 Z
+  currency: EUR
+  first_name: ''
+  full_name: GAEC DUPONT
+  id: 17
+  language: fra
+  last_name: GAEC DUPONT
+  lock_version: 0
+  locked: false
+  nature: organization
+  number: P00000007
+  of_company: false
+  prospect: false
+  reminder_submissive: false
+  siret_number: '32450072900011'
+  supplier: false
+  transporter: false
+  updated_at: 2015-11-30 10:25:05.647806000 Z
+  vat_subjected: true

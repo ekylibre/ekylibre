@@ -311,7 +311,7 @@ class Activity < Ekylibre::Record::Base
     for campaign in campaigns
       surface << productions.of_campaign(campaign).map(&:net_surface_area).compact.sum
     end
-    return surface.compact.sum
+    surface.compact.sum
   end
 
   def area(*campaigns)

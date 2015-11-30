@@ -39,30 +39,32 @@
 #
 
 class CapLandParcel < Ekylibre::Record::Base
-  belongs_to :cap_islet, class_name: 'CapIslet'
-  belongs_to :support, class_name: 'ActivityProduction'
+  belongs_to :activity_production, foreign_key: :support_id
+  belongs_to :cap_islet
+  belongs_to :islet, class_name: 'CapIslet', foreign_key: :cap_islet_id
   has_one :cap_statement, through: :cap_islet
   has_one :campaign, through: :cap_statement
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_inclusion_of :main_crop_commercialisation, :main_crop_seed_production, in: [true, false]
-  validates_presence_of :cap_islet, :land_parcel_number, :main_crop_code, :shape
+  validates_presence_of :cap_islet, :islet, :land_parcel_number, :main_crop_code, :shape
   # ]VALIDATORS]
 
+  delegate :pacage_number, to: :cap_statement
+  delegate :islet_number, to: :cap_islet
+
   scope :of_campaign, lambda { |*campaigns|
-    joins(:cap_islet).merge(CapIslet.of_campaign(*campaigns))
+    where(cap_islet_id: CapIslet.of_campaign(*campaigns))
   }
 
   def to_geom
-    return geom = ::Charta::Geometry.new(shape).transform(:WGS84) if shape
+    ::Charta::Geometry.new(shape)
   end
 
   def label_area(unit = :hectare)
-    value = to_geom.area.to_d(unit).round(3).l
-    unit = Nomen::Unit[unit].human_name
-    "#{value} #{unit}"
+    net_surface_area(unit).l
   end
 
   def net_surface_area(unit = :hectare)
-    value = to_geom.area.to_d(unit).round(3)
+    to_geom.area.to_d(unit).round(3)
   end
 end

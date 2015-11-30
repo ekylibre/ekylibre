@@ -2910,11 +2910,11 @@ preferences_247:
   created_at: 2015-06-02 20:35:20.100688000 Z
   creator_id: 1
   id: 248
-  integer_value: 1
-  lock_version: 40
+  integer_value: 5
+  lock_version: 46
   name: current_campaign.id
   nature: integer
-  updated_at: 2015-06-02 20:57:58.761489000 Z
+  updated_at: 2015-11-30 10:26:55.049707000 Z
   updater_id: 1
   user_id: 1
 preferences_248:
@@ -3382,5 +3382,130 @@ preferences_289:
   nature: string
   string_value: {}
   updated_at: 2015-11-03 13:01:06.375940000 Z
+  updater_id: 1
+  user_id: 1
+preferences_290:
+  boolean_value: true
+  created_at: 2015-11-30 08:09:30.311196000 Z
+  creator_id: 1
+  id: 291
+  lock_version: 1
+  name: first_run.assistant.proposed
+  nature: boolean
+  updated_at: 2015-11-30 08:09:30.399209000 Z
+  updater_id: 1
+preferences_291:
+  boolean_value: false
+  created_at: 2015-11-30 08:09:30.319574000 Z
+  creator_id: 1
+  id: 292
+  lock_version: 0
+  name: first_run.executed
+  nature: boolean
+  updated_at: 2015-11-30 08:09:30.319574000 Z
+  updater_id: 1
+preferences_292:
+  created_at: 2015-11-30 08:09:30.357934000 Z
+  creator_id: 1
+  id: 293
+  lock_version: 1
+  name: first_run.assistant.current_step
+  nature: string
+  string_value: welcomes
+  updated_at: 2015-11-30 08:09:30.394903000 Z
+  updater_id: 1
+preferences_293:
+  boolean_value: false
+  created_at: 2015-11-30 08:09:57.063976000 Z
+  creator_id: 1
+  id: 294
+  lock_version: 0
+  name: interface.snippets.supervision.collapsed
+  nature: boolean
+  updated_at: 2015-11-30 08:09:57.063976000 Z
+  updater_id: 1
+  user_id: 1
+preferences_294:
+  created_at: 2015-11-30 08:10:00.918542000 Z
+  creator_id: 1
+  id: 295
+  lock_version: 0
+  name: list._supervisions_list_supervisions_tag
+  nature: string
+  string_value: {}
+  updated_at: 2015-11-30 08:10:00.918542000 Z
+  updater_id: 1
+  user_id: 1
+preferences_295:
+  boolean_value: false
+  created_at: 2015-11-30 10:25:05.729738000 Z
+  id: 296
+  lock_version: 0
+  name: create_activities_from_telepac
+  nature: boolean
+  updated_at: 2015-11-30 10:25:05.729738000 Z
+preferences_296:
+  boolean_value: true
+  created_at: 2015-11-30 10:25:12.595439000 Z
+  creator_id: 1
+  id: 297
+  lock_version: 0
+  name: interface.kujakus.backend-cap_statements-index-1.collapsed
+  nature: boolean
+  updated_at: 2015-11-30 10:25:12.595439000 Z
+  updater_id: 1
+  user_id: 1
+preferences_297:
+  created_at: 2015-11-30 10:25:12.606606000 Z
+  creator_id: 1
+  id: 298
+  lock_version: 0
+  name: kujaku.feathers.backend-cap_statements-index-1:0.default
+  nature: string
+  updated_at: 2015-11-30 10:25:12.606606000 Z
+  updater_id: 1
+  user_id: 1
+preferences_298:
+  created_at: 2015-11-30 10:25:12.636129000 Z
+  creator_id: 1
+  id: 299
+  lock_version: 0
+  name: list._cap_statements_list_cap_statements_tag
+  nature: string
+  string_value: {}
+  updated_at: 2015-11-30 10:25:12.636129000 Z
+  updater_id: 1
+  user_id: 1
+preferences_299:
+  created_at: 2015-11-30 10:26:58.436150000 Z
+  creator_id: 1
+  id: 300
+  lock_version: 1
+  name: interface.janus.backend-cap_statements-index-9.current_face
+  nature: string
+  string_value: list
+  updated_at: 2015-11-30 10:26:58.443351000 Z
+  updater_id: 1
+  user_id: 1
+preferences_300:
+  created_at: 2015-11-30 10:26:59.917541000 Z
+  creator_id: 1
+  id: 301
+  lock_version: 0
+  name: cobbler.cap_statements-show
+  nature: string
+  string_value: {}
+  updated_at: 2015-11-30 10:26:59.917541000 Z
+  updater_id: 1
+  user_id: 1
+preferences_301:
+  created_at: 2015-11-30 10:26:59.925822000 Z
+  creator_id: 1
+  id: 302
+  lock_version: 0
+  name: list._cap_statements_list_cap_islets_tag
+  nature: string
+  string_value: {}
+  updated_at: 2015-11-30 10:26:59.925822000 Z
   updater_id: 1
   user_id: 1

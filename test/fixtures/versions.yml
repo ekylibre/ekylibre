@@ -11214,3 +11214,2175 @@ versions_220:
     creator_id: 1
     title:
   item_type: Entity
+versions_221:
+  created_at: 2015-11-30 10:25:05.664529000 Z
+  event: create
+  id: 258
+  item_id: 17
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 17
+    nature: organization
+    last_name: GAEC DUPONT
+    first_name: ''
+    number: P00000007
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions:
+    description:
+    language: fra
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin:
+    first_met_at:
+    activity_code:
+    vat_number:
+    siret_number: '32627372900011'
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2015-11-30 10:25:05.647806000 Z
+    creator_id:
+    title:
+  item_type: Entity
+versions_222:
+  created_at: 2015-11-30 10:25:05.943377000 Z
+  event: create
+  id: 259
+  item_id: 145
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 145
+    type: LandParcel
+    name: Luzerne implantée pour la récolte 2015 Luzerne n°1
+    number: PR00000000089
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.25534E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: POLYGON ((-0.7698279637092580 45.8026959095465998, -0.7704421435488560
+        45.8029051014761990, -0.7706941968404230 45.8025429042227969, -0.7714541922126420
+        45.8028347398023996, -0.7715123401367160 45.8027665243076996, -0.7714672406044970
+        45.8028510006011018, -0.7716029933554370 45.8027103851174999, -0.7716874387598590
+        45.8025553846220035, -0.7717514885258880 45.8024742359130030, -0.7718022498318440
+        45.8024296480948010, -0.7718734673615640 45.8024009290787006, -0.7719484771802970
+        45.8023961636823032, -0.7720158212849010 45.8024210007877031, -0.7720458997919240
+        45.8024674014279967, -0.7720719333535280 45.8025018993324977, -0.7720953034683520
+        45.8025131576889990, -0.7721450008962690 45.8025160107459968, -0.7722241534810340
+        45.8025088492436012, -0.7722854537661979 45.8024925013630977, -0.7723094741905900
+        45.8024503112172994, -0.7723057791763780 45.8023962561946973, -0.7722477280356450
+        45.8022383057749991, -0.7721172447360950 45.8019497293733977, -0.7719599525802970
+        45.8016471931392033, -0.7712907397015010 45.8017470914977025, -0.7709141220568370
+        45.8017848174824991, -0.7706780652662070 45.8021792680092972, -0.7706276692395940
+        45.8022483968328018, -0.7705535723142261 45.8022640121636968, -0.7701028421043390
+        45.8021919797483008, -0.7701889652336740 45.8020431494017970, -0.7705108587794980
+        45.8015816862601000, -0.7701851952110080 45.8015092163118993, -0.7701001368640340
+        45.8014826262458001, -0.7705199377820400 45.8008162799231968, -0.7706134194633210
+        45.8006719136287970, -0.7705479104046900 45.8005963392252013, -0.7704020511468130
+        45.8004506816739010, -0.7702943909397210 45.8003463836397984, -0.7702057682313330
+        45.8005083534728996, -0.7699009798872239 45.8010112711622028, -0.7694623284177690
+        45.8017324917683979, -0.7691405964506770 45.8022549437543987, -0.7693564332710340
+        45.8022973616436033, -0.7699055848789240 45.8024195446090019, -0.7699516324630580
+        45.8024401822255030, -0.7699536477026540 45.8024696819527009, -0.7698279637092580
+        45.8026959095465998))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2015-11-30 10:25:05.937294000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid:
+  item_type: Product
+versions_223:
+  created_at: 2015-11-30 10:25:06.189274000 Z
+  event: create
+  id: 260
+  item_id: 146
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 146
+    type: LandParcel
+    name: Luzerne implantée pour la récolte 2015 Luzerne n°2
+    number: PR00000000090
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.49989E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: POLYGON ((-0.7703106431715080 45.8046423309193997, -0.7704401231107501
+        45.8047522511945004, -0.7705269131808610 45.8048175981617973, -0.7706590712989920
+        45.8048929402298981, -0.7708495334775900 45.8049697393185014, -0.7709569775499731
+        45.8050024611506998, -0.7711202220889840 45.8050333176606017, -0.7713553313721651
+        45.8050657860589965, -0.7715218381376580 45.8050749803449975, -0.7716677797198370
+        45.8050701013549997, -0.7717396399091720 45.8050624268378002, -0.7717762406932510
+        45.8050243004134998, -0.7718119040589140 45.8049503573268026, -0.7718029936188791
+        45.8048420582881022, -0.7718191157948170 45.8046467073922017, -0.7718685065984729
+        45.8045698387674989, -0.7719355083170260 45.8045258123262968, -0.7720188239399290
+        45.8045206385583015, -0.7723479916935060 45.8046138803308978, -0.7727858578497540
+        45.8047291659265028, -0.7728485572691850 45.8047137915458009, -0.7729689897608970
+        45.8046500166302977, -0.7731383439069790 45.8044459661362993, -0.7732723419437910
+        45.8042266992529008, -0.7733665830454290 45.8039521312019033, -0.7733995829248640
+        45.8037479439312989, -0.7734203698741881 45.8036195619294020, -0.7733985308505690
+        45.8034967328424969, -0.7733502824074699 45.8033471969911972, -0.7732901435594550
+        45.8032274105014992, -0.7731889048714971 45.8031478550278024, -0.7731149299158270
+        45.8031050675213010, -0.7730600030895820 45.8030406690538001, -0.7730058940525780
+        45.8029420215411989, -0.7728970150306770 45.8027329765255971, -0.7728195340609390
+        45.8026718132450981, -0.7727307599232510 45.8026285314870023, -0.7726007101442480
+        45.8026091283022012, -0.7722371977781320 45.8025890286828030, -0.7720372114376250
+        45.8025927370941019, -0.7718560545239010 45.8026226258541982, -0.7717598542937580
+        45.8026903864831993, -0.7716145682874640 45.8028918551567017, -0.7715421213001400
+        45.8030373518147016, -0.7714210489824130 45.8031500720612001, -0.7712147982561270
+        45.8033091180344982, -0.7710488564854350 45.8035625132446000, -0.7706299987578850
+        45.8035030399800007, -0.7701114920584040 45.8033484316325001, -0.7700502740087480
+        45.8033509678868000, -0.7698976770004849 45.8035134948494971, -0.7698429481029840
+        45.8036134025132995, -0.7698165852298759 45.8036661694058012, -0.7698096554481860
+        45.8037203387684002, -0.7698153341371670 45.8038366566320008, -0.7698230167534110
+        45.8039577036068977, -0.7698313236892920 45.8040229429106986, -0.7698644816252370
+        45.8041640222545965, -0.7698912317887020 45.8042123205705991, -0.7700043288252090
+        45.8043328947526973, -0.7701827343294810 45.8045105520966018, -0.7703106431715080
+        45.8046423309193997))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2015-11-30 10:25:06.185778000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid:
+  item_type: Product
+versions_224:
+  created_at: 2015-11-30 10:25:06.324468000 Z
+  event: create
+  id: 261
+  item_id: 147
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 147
+    type: LandParcel
+    name: Maïs (zea_mays) Maïs commun n°1
+    number: PR00000000091
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.12768E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: POLYGON ((-0.7922820493511800 45.8217001703347009, -0.7919635952298770
+        45.8220305017838001, -0.7916749761825860 45.8223458623827966, -0.7913325022925430
+        45.8226766553597002, -0.7910065759331700 45.8229976938840977, -0.7906670295902820
+        45.8233191888313982, -0.7904431501519700 45.8235366152962982, -0.7905741770320170
+        45.8236782306297030, -0.7906664858578650 45.8237427799774011, -0.7908862269175631
+        45.8238578076706986, -0.7911029578724250 45.8236539757133983, -0.7914767721078310
+        45.8232871297450970, -0.7918521394335060 45.8229176058385974, -0.7922807336441580
+        45.8224860308865019, -0.7926779523928980 45.8220886145692035, -0.7927181627629331
+        45.8220467646111018, -0.7926601257609580 45.8218903865010034, -0.7924547271089620
+        45.8215321667495985, -0.7922820493511800 45.8217001703347009))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2015-11-30 10:25:06.321134000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid:
+  item_type: Product
+versions_225:
+  created_at: 2015-11-30 10:25:06.449844000 Z
+  event: create
+  id: 262
+  item_id: 148
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 148
+    type: LandParcel
+    name: Maïs (zea_mays) Maïs commun n°2
+    number: PR00000000092
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.6467E0
+    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: POLYGON ((-0.7913973163240690 45.8204004370198987, -0.7912345601026730
+        45.8205521810449028, -0.7910857176442770 45.8206885316517969, -0.7909896819605740
+        45.8207701134522978, -0.7907255138864590 45.8210365175824990, -0.7908212237899700
+        45.8210600103415970, -0.7910864645606650 45.8211142702287972, -0.7914964998534860
+        45.8211977579552965, -0.7917454501088690 45.8212186030257982, -0.7920451734694040
+        45.8212258637823027, -0.7921646855901890 45.8212195696032012, -0.7921737522067360
+        45.8212025676846011, -0.7918031269973770 45.8205256692195988, -0.7915872005226990
+        45.8202132941207978, -0.7913973163240690 45.8204004370198987))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2015-11-30 10:25:06.446739000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid:
+  item_type: Product
+versions_226:
+  created_at: 2015-11-30 10:25:06.562500000 Z
+  event: create
+  id: 263
+  item_id: 149
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 149
+    type: LandParcel
+    name: Blé tendre d’hiver Blé tendre n°1
+    number: PR00000000093
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1206E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: POLYGON ((-0.7921303380238840 45.8189190618764997, -0.7918981947510050
+        45.8190229136414970, -0.7918184604960850 45.8190797685644995, -0.7917915264041600
+        45.8191172405675999, -0.7917887468028340 45.8191548385217970, -0.7918129347460020
+        45.8192248418531989, -0.7920267635204280 45.8195563705056017, -0.7922681513178060
+        45.8198917418038008, -0.7924758543972750 45.8202005749704995, -0.7926727822789100
+        45.8205174050422031, -0.7927386292467230 45.8205819809808972, -0.7928038218711270
+        45.8206370370778018, -0.7929173208509080 45.8207000104311035, -0.7929727608322790
+        45.8207124588306982, -0.7931390822128220 45.8207498038229986, -0.7932865419884600
+        45.8207436553587968, -0.7933727937148189 45.8207431478078036, -0.7934531893574019
+        45.8207370951957031, -0.7935340631931900 45.8207181021004004, -0.7935915411466450
+        45.8206975009780990, -0.7935420287094350 45.8206264794745977, -0.7932723106724490
+        45.8202032503075998, -0.7930408289032410 45.8198545208148005, -0.7926538575392500
+        45.8192736809097028, -0.7923406600269480 45.8188418159747002, -0.7921303380238840
+        45.8189190618764997))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2015-11-30 10:25:06.558970000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid:
+  item_type: Product
+versions_227:
+  created_at: 2015-11-30 10:25:06.748444000 Z
+  event: create
+  id: 264
+  item_id: 150
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 150
+    type: LandParcel
+    name: Mélange de légumineuses fourragères prépondérantes au semis implantées pour
+      la récolte 2015 et de céréales Plante n°1
+    number: PR00000000094
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.33423E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: POLYGON ((-0.7878971792852880 45.8285981330582999, -0.7878668555821760
+        45.8285229716276987, -0.7855960407951950 45.8298405801390984, -0.7860863854270930
+        45.8302257144576970, -0.7866948045244430 45.8307202851437978, -0.7867045711821540
+        45.8307012606932034, -0.7867153008030170 45.8307758347969028, -0.7868266943859240
+        45.8307744910702013, -0.7868787651033480 45.8308706553726992, -0.7870542331718460
+        45.8309910667269023, -0.7877630677025300 45.8305577656197016, -0.7883310706756070
+        45.8302171470622994, -0.7888273242817690 45.8299115945836988, -0.7886707380136480
+        45.8297662875105019, -0.7885272920137850 45.8296232473680973, -0.7882700959867610
+        45.8293564055978990, -0.7882154806647290 45.8292876490369991, -0.7881553767494860
+        45.8291904224910027, -0.7881114685790011 45.8291129250103992, -0.7880193215602900
+        45.8289158766202007, -0.7878971792852880 45.8285981330582999))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2015-11-30 10:25:06.745424000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid:
+  item_type: Product
+versions_228:
+  created_at: 2015-11-30 10:25:06.888257000 Z
+  event: create
+  id: 265
+  item_id: 151
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 151
+    type: LandParcel
+    name: Autre prairie temporaire de 5 ans ou moins Plante n°1
+    number: PR00000000095
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.40579E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: POLYGON ((-0.7878668555821760 45.8285229716276987, -0.7876988174442791
+        45.8281064570058021, -0.7873148096161270 45.8271995363868996, -0.7871024237225090
+        45.8273234607060971, -0.7864368372438200 45.8277127404941993, -0.7859424208838300
+        45.8279996937529006, -0.7856951791007299 45.8278046711182014, -0.7853418588451520
+        45.8275134320912017, -0.7848179944860900 45.8270760240363018, -0.7845669868118820
+        45.8271889111212971, -0.7844160776125710 45.8272732246176986, -0.7843949848563130
+        45.8273065175556980, -0.7844056957492290 45.8273401991377014, -0.7845101104575880
+        45.8274423360803027, -0.7846967355748500 45.8275921899051966, -0.7847439585963470
+        45.8276276491519994, -0.7848167117754110 45.8276624244269968, -0.7850823905102680
+        45.8277372502335965, -0.7852519818199850 45.8278223651838985, -0.7853137367601650
+        45.8278786354024987, -0.7853364755669500 45.8279352729760987, -0.7853381773588660
+        45.8280189641377973, -0.7853172839727380 45.8280676549603001, -0.7852202103519300
+        45.8282502712285975, -0.7850952222452880 45.8285025180931029, -0.7849719180032350
+        45.8288039776481995, -0.7848615151173119 45.8290292896755034, -0.7848317065108120
+        45.8291114411033007, -0.7848259671611740 45.8291346982234984, -0.7848413223445390
+        45.8291577591243993, -0.7851444362323160 45.8293862525423989, -0.7852636909296210
+        45.8295795369011003, -0.7855960407951950 45.8298405801390984, -0.7878668555821760
+        45.8285229716276987))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2015-11-30 10:25:06.885537000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid:
+  item_type: Product
+versions_229:
+  created_at: 2015-11-30 10:25:07.129179000 Z
+  event: create
+  id: 266
+  item_id: 152
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 152
+    type: LandParcel
+    name: Dactyle de 5 ans ou moins Dactyle n°1
+    number: PR00000000096
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.23814E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: POLYGON ((-0.7723039181351110 45.8235309306909997, -0.7716313827747380
+        45.8240212578346018, -0.7720532988188180 45.8245129487045020, -0.7723952682313620
+        45.8249237117745025, -0.7727737720067970 45.8246405590439991, -0.7733338831221300
+        45.8242476519099000, -0.7732216266070620 45.8241517790604007, -0.7739883239667270
+        45.8236225496966014, -0.7737855996014250 45.8235362685050021, -0.7742217073711110
+        45.8231299178665026, -0.7750375640766700 45.8223712212431025, -0.7746758304224920
+        45.8222065364608966, -0.7745827798596410 45.8221842105755002, -0.7739365292968230
+        45.8228124526558034, -0.7733804064866040 45.8233490910195016, -0.7731234833757550
+        45.8232405214466993, -0.7728514167783630 45.8231241077148965, -0.7725763686344810
+        45.8233220222454989, -0.7723039181351110 45.8235309306909997))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2015-11-30 10:25:07.125941000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid:
+  item_type: Product
+versions_230:
+  created_at: 2015-11-30 10:25:07.245398000 Z
+  event: create
+  id: 267
+  item_id: 153
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 153
+    type: LandParcel
+    name: Sorgho n°1
+    number: PR00000000097
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.23421E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: POLYGON ((-0.7701370453462160 45.8266597555803017, -0.7701484185630640
+        45.8266565430847024, -0.7708238849204790 45.8264620437665968, -0.7713050108623410
+        45.8263226371464967, -0.7721569845953490 45.8260713874030969, -0.7725613779097010
+        45.8259485061993033, -0.7729453881919980 45.8258078543975031, -0.7730045598080970
+        45.8257762604059025, -0.7730132941367220 45.8257572645707967, -0.7730118553335840
+        45.8257199022944022, -0.7729900752962150 45.8256893548925035, -0.7728279636507530
+        45.8255042155596968, -0.7724429747056361 45.8250647835128007, -0.7718409967044150
+        45.8252423317814035, -0.7709449942608290 45.8255108010909993, -0.7700956627348700
+        45.8257633923519023, -0.7694479640620610 45.8259710778618015, -0.7696636533683699
+        45.8261500075167021, -0.7696562794368650 45.8261538869333975, -0.7697060891460350
+        45.8262534592118982, -0.7698319104051130 45.8263971433844972, -0.7701370453462160
+        45.8266597555803017), (-0.7701247393718450 45.8266375286314016, -0.7701206686811110
+        45.8266394766651004, -0.7696585118115080 45.8261551357982029, -0.7696617202559620
+        45.8261538548555976, -0.7701247393718450 45.8266375286314016))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2015-11-30 10:25:07.242276000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid:
+  item_type: Product
+versions_231:
+  created_at: 2015-11-30 10:25:07.364318000 Z
+  event: create
+  id: 268
+  item_id: 154
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 154
+    type: LandParcel
+    name: Orge d'hiver Orge commune n°1
+    number: PR00000000098
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1944E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: POLYGON ((-0.7648049317390910 45.8312730746025991, -0.7650885202480340
+        45.8314242192930976, -0.7653794653438470 45.8315797688304016, -0.7655392362603330
+        45.8316778066076012, -0.7652548637109940 45.8319232750166989, -0.7647027333077570
+        45.8323261613813031, -0.7651440409871550 45.8324927217938978, -0.7655775670614640
+        45.8326452277038996, -0.7656936445580500 45.8326461259987994, -0.7657682172693580
+        45.8326388672478018, -0.7658427913091910 45.8326316093042010, -0.7659330778738090
+        45.8325908910758031, -0.7660305057554680 45.8325589271263993, -0.7662099429566360
+        45.8324535171868988, -0.7666394298877220 45.8322383332393031, -0.7665868037526820
+        45.8321740749357005, -0.7662866583335070 45.8319001866872995, -0.7665468949103250
+        45.8316713587953970, -0.7667470679641400 45.8314722049546006, -0.7662659238818680
+        45.8312639778500994, -0.7659689994997240 45.8310817450508026, -0.7658095046982210
+        45.8312444947400977, -0.7651917238469840 45.8309168923312029, -0.7647247619137800
+        45.8306750254714999, -0.7644811701170100 45.8308648487904975, -0.7643052842105640
+        45.8310130812906991, -0.7648049317390910 45.8312730746025991))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2015-11-30 10:25:07.360843000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid:
+  item_type: Product
+versions_232:
+  created_at: 2015-11-30 10:25:07.476393000 Z
+  event: create
+  id: 269
+  item_id: 155
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 155
+    type: LandParcel
+    name: Blé tendre d’hiver Blé tendre n°4
+    number: PR00000000099
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.60725E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: POLYGON ((-0.7439992671617150 45.8430010210575034, -0.7446725698566370
+        45.8435312603901011, -0.7445238317176920 45.8436425713898998, -0.7448974154710259
+        45.8438697999659013, -0.7450138776323230 45.8437802937526016, -0.7452960603223180
+        45.8439467264220966, -0.7454608866403510 45.8440945142446026, -0.7451050432546810
+        45.8444579061345010, -0.7449615030828241 45.8445496718819996, -0.7445543423534130
+        45.8449924783068994, -0.7449326105742350 45.8450118232536994, -0.7456653998751320
+        45.8451216047629018, -0.7459128703068140 45.8447484988843001, -0.7460559783631781
+        45.8445372155626032, -0.7463022192216360 45.8443499336262974, -0.7465863700058120
+        45.8441265949013967, -0.7467565908454690 45.8439506693761984, -0.7469579894093900
+        45.8436211919532965, -0.7471589729485020 45.8433093703512995, -0.7474899816337270
+        45.8430031578802968, -0.7479879207545370 45.8427485400340018, -0.7480105118905440
+        45.8427013624241013, -0.7479815018295340 45.8426540949108983, -0.7477158649553340
+        45.8424555669043983, -0.7474343167647540 45.8422485514382032, -0.7471050373432720
+        45.8421131666719006, -0.7465254907622020 45.8418866866865997, -0.7457105781969871
+        45.8415933777785014, -0.7456477364212810 45.8415749905238030, -0.7439992671617150
+        45.8430010210575034))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2015-11-30 10:25:07.473189000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid:
+  item_type: Product
+versions_233:
+  created_at: 2015-11-30 10:25:07.579265000 Z
+  event: create
+  id: 270
+  item_id: 156
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 156
+    type: LandParcel
+    name: Orge d'hiver Orge commune n°2
+    number: PR00000000100
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.35386E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: POLYGON ((-0.7439978417107420 45.8429998981770979, -0.7439992671617150
+        45.8430010210575034, -0.7456477364212810 45.8415749905238030, -0.7453175151447180
+        45.8414783688654026, -0.7445481538470550 45.8411942037647009, -0.7435772011237090
+        45.8421315898683019, -0.7437484072819081 45.8422401241290984, -0.7435537887850990
+        45.8424133561567970, -0.7432826571900490 45.8422195080212020, -0.7430335792251600
+        45.8420654957930012, -0.7427396645615290 45.8422961087548018, -0.7425488063900449
+        45.8421446728558024, -0.7411873377605470 45.8429417605782987, -0.7421142051244310
+        45.8436285305704985, -0.7429110784222011 45.8431513622658997, -0.7432780711206940
+        45.8433871082194031, -0.7434741606856750 45.8432938185174024, -0.7438358949424370
+        45.8430711146635019, -0.7439978417107420 45.8429998981770979))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2015-11-30 10:25:07.575886000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid:
+  item_type: Product
+versions_234:
+  created_at: 2015-11-30 10:25:07.703766000 Z
+  event: create
+  id: 271
+  item_id: 157
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 157
+    type: LandParcel
+    name: Maïs ensilage Maïs commun n°1
+    number: PR00000000101
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.55413E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: POLYGON ((-0.7437887098737750 45.8406404380083998, -0.7440886856395190
+        45.8408518089424035, -0.7445372813139201 45.8411211566506012, -0.7452858616995520
+        45.8413894758014990, -0.7471750289492690 45.8396809591962011, -0.7470401722910670
+        45.8395939055523982, -0.7480251671634860 45.8387967867838029, -0.7478373546231220
+        45.8386694487644988, -0.7472648330561150 45.8383294770027021, -0.7466383926863240
+        45.8380747743094972, -0.7463730677739741 45.8379617226132012, -0.7437887098737750
+        45.8406404380083998))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2015-11-30 10:25:07.699924000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid:
+  item_type: Product
+versions_235:
+  created_at: 2015-11-30 10:25:07.829315000 Z
+  event: create
+  id: 272
+  item_id: 158
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 158
+    type: LandParcel
+    name: Maïs ensilage Maïs commun n°2
+    number: PR00000000102
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.2039E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: POLYGON ((-0.7475297433136110 45.8384256282279026, -0.7481243261717440
+        45.8388377638956968, -0.7485425004816740 45.8391421287290015, -0.7504436889835560
+        45.8378663361423975, -0.7500670252875800 45.8377572632834998, -0.7497514525079890
+        45.8376685804361017, -0.7492807650399790 45.8374981794902965, -0.7490182587217440
+        45.8374167517266997, -0.7475297433136110 45.8384256282279026))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2015-11-30 10:25:07.825333000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid:
+  item_type: Product
+versions_236:
+  created_at: 2015-11-30 10:25:07.959558000 Z
+  event: create
+  id: 273
+  item_id: 159
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 159
+    type: LandParcel
+    name: Sorgho n°2
+    number: PR00000000103
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.57285E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: POLYGON ((-0.7391385907544880 45.8388026667393973, -0.7394109184456740
+        45.8388454825304024, -0.7397903148710490 45.8389503935953968, -0.7404563595888310
+        45.8391518081957017, -0.7424752490032160 45.8376395921292001, -0.7417621698696090
+        45.8369194903519031, -0.7410997338425770 45.8365610661161966, -0.7408618248177720
+        45.8364805491621965, -0.7402311590225660 45.8368800783916015, -0.7400812638595570
+        45.8367915716790009, -0.7379414684291740 45.8381731306520024, -0.7379306810706000
+        45.8381901845546977, -0.7379425975423910 45.8381897899704995, -0.7383062593271320
+        45.8384448931727988, -0.7381939241093211 45.8383734784273997, -0.7385076608564740
+        45.8385968408693998, -0.7380927586583230 45.8388192880510985, -0.7387227799086930
+        45.8387916474872981, -0.7391385907544880 45.8388026667393973))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2015-11-30 10:25:07.955861000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid:
+  item_type: Product
+versions_237:
+  created_at: 2015-11-30 10:25:08.092511000 Z
+  event: create
+  id: 274
+  item_id: 160
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 160
+    type: LandParcel
+    name: Orge d'hiver Orge commune n°3
+    number: PR00000000104
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.2087E0
+    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: POLYGON ((-0.7637095295519020 45.8309476400114022, -0.7640194540254110
+        45.8311671436133992, -0.7642117675579440 45.8309994364246975, -0.7645443419260070
+        45.8307366270234979, -0.7642253211132970 45.8305287305405997, -0.7637095295519020
+        45.8309476400114022))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2015-11-30 10:25:08.088529000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid:
+  item_type: Product
+versions_238:
+  created_at: 2015-11-30 10:25:08.276718000 Z
+  event: create
+  id: 275
+  item_id: 161
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 161
+    type: LandParcel
+    name: Orge d'hiver Orge commune n°4
+    number: PR00000000105
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.5827E0
+    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: POLYGON ((-0.7433171838255620 45.8413979942424987, -0.7429011217866039
+        45.8419005479562003, -0.7433881733060740 45.8420370543876032, -0.7443126304776760
+        45.8410761547768004, -0.7439018083344680 45.8408157080643974, -0.7433171838255620
+        45.8413979942424987))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2015-11-30 10:25:08.273307000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid:
+  item_type: Product
+versions_239:
+  created_at: 2015-11-30 10:25:08.447571000 Z
+  event: create
+  id: 276
+  item_id: 162
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 162
+    type: LandParcel
+    name: Blé tendre d’hiver Blé tendre n°5
+    number: PR00000000106
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1063E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: POLYGON ((-0.8010806470883020 45.8203521595581975, -0.8005509331829470
+        45.8204481153680021, -0.8000727130230980 45.8205320255669974, -0.7995165694033221
+        45.8206303737771989, -0.7990216938123220 45.8207174492381029, -0.7986315930208630
+        45.8207854306597966, -0.7982292133875770 45.8208629970888026, -0.7977712700393700
+        45.8209470135858012, -0.7977850359386950 45.8209530097968027, -0.7980924148471850
+        45.8210226344982985, -0.7984113886229380 45.8210837894688012, -0.7985637082468020
+        45.8210903642821989, -0.7987834008420160 45.8210854771092002, -0.7989387060611450
+        45.8210710695822030, -0.7990917367904510 45.8210517204714023, -0.7993606773933070
+        45.8210048070974025, -0.8000056423303280 45.8208933969371017, -0.8003932562449571
+        45.8208285182367021, -0.8007238986472220 45.8207877699220987, -0.8012421226311190
+        45.8207481893878992, -0.8015837854484250 45.8207283345211991, -0.8016074449263230
+        45.8207093264643035, -0.8016103055241300 45.8205314310564020, -0.8016016511202950
+        45.8204463895625977, -0.8015649821682220 45.8202799185224023, -0.8010806470883020
+        45.8203521595581975))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2015-11-30 10:25:08.444246000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid:
+  item_type: Product
+versions_240:
+  created_at: 2015-11-30 10:25:08.550537000 Z
+  event: create
+  id: 277
+  item_id: 163
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 163
+    type: LandParcel
+    name: Blé tendre d’hiver Blé tendre n°6
+    number: PR00000000107
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.14511E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: POLYGON ((-0.8228690301743280 45.8225429997700004, -0.8225266752232430
+        45.8227044392805993, -0.8218813085262020 45.8229473334348967, -0.8216464289969240
+        45.8230303388178015, -0.8215880396437339 45.8231001115337975, -0.8216097251864890
+        45.8234058408364007, -0.8216760740162020 45.8237539179116027, -0.8218296769018150
+        45.8243137714412967, -0.8236452553071170 45.8225479748750999, -0.8232886999138120
+        45.8222747569620026, -0.8228690301743280 45.8225429997700004))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2015-11-30 10:25:08.547767000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid:
+  item_type: Product
+versions_241:
+  created_at: 2015-11-30 10:25:08.654399000 Z
+  event: create
+  id: 278
+  item_id: 164
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 164
+    type: LandParcel
+    name: Blé tendre d’hiver Blé tendre n°7
+    number: PR00000000108
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.3009E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: POLYGON ((-0.8257013166254160 45.8119806264415033, -0.8234137169617340
+        45.8142384623997998, -0.8242568739824651 45.8147416456763992, -0.8252168888532589
+        45.8137903000539026, -0.8268795703500790 45.8121238231832990, -0.8260962905550900
+        45.8116504308379007, -0.8257013166254160 45.8119806264415033))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2015-11-30 10:25:08.651583000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid:
+  item_type: Product
+versions_242:
+  created_at: 2015-11-30 10:25:08.762532000 Z
+  event: create
+  id: 279
+  item_id: 165
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 165
+    type: LandParcel
+    name: Maïs (zea_mays) Maïs commun n°3
+    number: PR00000000109
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.37979E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: POLYGON ((-0.8317648598732190 45.8104393898024966, -0.8307116421126240
+        45.8111230018021018, -0.8338578289477711 45.8118658812335013, -0.8341099355192521
+        45.8119445261963989, -0.8353971620230510 45.8109659677896985, -0.8344523082546650
+        45.8106562420055994, -0.8333264743314720 45.8103982024319976, -0.8320769220145660
+        45.8101939142688011, -0.8317648598732190 45.8104393898024966))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2015-11-30 10:25:08.759435000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid:
+  item_type: Product
+versions_243:
+  created_at: 2015-11-30 10:25:08.878631000 Z
+  event: create
+  id: 280
+  item_id: 166
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 166
+    type: LandParcel
+    name: Mélange de légumineuses fourragères prépondérantes au semis implantées pour
+      la récolte 2015 et d’herbacées ou de graminées fourragères Plante n°1
+    number: PR00000000110
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.81114E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: POLYGON ((-0.8342149651707270 45.8145906222857988, -0.8357146543222080
+        45.8135837078938977, -0.8374246874683980 45.8118796001628965, -0.8367007019797290
+        45.8114613445529031, -0.8354534600329619 45.8110132752248020, -0.8341439422910210
+        45.8120549071388012, -0.8328801579234340 45.8130074261033968, -0.8320695168592610
+        45.8136047211367980, -0.8323131170511530 45.8139488895738012, -0.8325921181839030
+        45.8141536823031998, -0.8328612256158320 45.8143411328541035, -0.8331673759030240
+        45.8144405265189008, -0.8335456970820661 45.8144979198636975, -0.8339189612644540
+        45.8144775923050034, -0.8342149651707270 45.8145906222857988))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2015-11-30 10:25:08.875425000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid:
+  item_type: Product
+versions_244:
+  created_at: 2015-11-30 10:25:08.991813000 Z
+  event: create
+  id: 281
+  item_id: 167
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 167
+    type: LandParcel
+    name: Maïs (zea_mays) Maïs commun n°4
+    number: PR00000000111
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.120715E2
+    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: POLYGON ((-0.8302503974811670 45.8175561557014035, -0.8303902882604171
+        45.8176953569389980, -0.8304897089269060 45.8177941999257996, -0.8305937838171400
+        45.8179278875766016, -0.8306445765519060 45.8180326870239014, -0.8306680785029500
+        45.8180948111768984, -0.8306926353097620 45.8181878173256010, -0.8307115615698980
+        45.8183094207034998, -0.8307285002554540 45.8185282409497034, -0.8307396054757620
+        45.8185515423015985, -0.8307676571155220 45.8185846866847015, -0.8308018793168710
+        45.8186090974107003, -0.8313080264307739 45.8187893920011007, -0.8315938309841230
+        45.8184824920344980, -0.8320742120068310 45.8179666446022011, -0.8325956978525940
+        45.8174066434813980, -0.8337845764383640 45.8180710821272967, -0.8338033185317070
+        45.8180718959578002, -0.8341171282692320 45.8177990304142000, -0.8345956328540480
+        45.8173563636498997, -0.8348800834909220 45.8171274137029982, -0.8350121907467700
+        45.8170217163491031, -0.8351735980848510 45.8169131477361020, -0.8356352196635590
+        45.8166582503833979, -0.8362759221757510 45.8163339410944985, -0.8367002030251990
+        45.8161105620566005, -0.8371494726617690 45.8158727036263969, -0.8371667160993990
+        45.8158457133938981, -0.8361358416735840 45.8151914610200990, -0.8358243556308820
+        45.8150073255458992, -0.8357906761900530 45.8150037968238024, -0.8357573209181710
+        45.8150049307290033, -0.8356932652386680 45.8150133398029027, -0.8346118507148710
+        45.8154745224712983, -0.8344670378579200 45.8155379076683005, -0.8344281908741760
+        45.8155645091569994, -0.8343900266013740 45.8156985327751016, -0.8343748949138829
+        45.8157085277168008, -0.8336449730243530 45.8159087185435965, -0.8335957890106930
+        45.8159167103644975, -0.8335642107842040 45.8159177832268014, -0.8335235010167850
+        45.8159175858952992, -0.8334709654785450 45.8159098900068003, -0.8331492404024690
+        45.8157520761217967, -0.8331009761762700 45.8157434650413009, -0.8330574358838790
+        45.8157500694503028, -0.8322258123554500 45.8164008197469030, -0.8321186525962670
+        45.8163444680102003, -0.8319976483746619 45.8162762188516979, -0.8317087642144581
+        45.8161350687440034, -0.8314993581225610 45.8159627896624002, -0.8313370558130940
+        45.8158481202586998, -0.8310497489232400 45.8156866797177003, -0.8309425789528651
+        45.8156380896601974, -0.8308524801313740 45.8155961729128975, -0.8303807144449450
+        45.8154090755211030, -0.8303510171975660 45.8153999285661016, -0.8302762586829791
+        45.8153995642305034, -0.8302371113158450 45.8154037952033022, -0.8301924532999260
+        45.8154183682937983, -0.8296792603324490 45.8159203575335994, -0.8295607721515850
+        45.8160302814469986, -0.8289273721465600 45.8166903394386011, -0.8286051494931780
+        45.8170223474822009, -0.8291012228929120 45.8170754335182977, -0.8293020136836210
+        45.8171068300726034, -0.8295052454306840 45.8171534391485977, -0.8296780753978900
+        45.8172029918801016, -0.8297846502509270 45.8172522507178002, -0.8299413295918689
+        45.8173287405222993, -0.8300624498879000 45.8174163108851005, -0.8302503974811670
+        45.8175561557014035))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2015-11-30 10:25:08.988761000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid:
+  item_type: Product
+versions_245:
+  created_at: 2015-11-30 10:25:09.105345000 Z
+  event: create
+  id: 282
+  item_id: 168
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 168
+    type: LandParcel
+    name: Blé tendre d’hiver Blé tendre n°8
+    number: PR00000000112
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.46746E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: POLYGON ((-0.7361934344204130 45.8372481805018026, -0.7376286271431099
+        45.8383254548893007, -0.7397349750257920 45.8369877767526006, -0.7394293652482560
+        45.8367578940282030, -0.7397901427875720 45.8365197732207008, -0.7397219513646350
+        45.8364647509241010, -0.7397973125466890 45.8362925987102017, -0.7398496444106050
+        45.8361039041728020, -0.7376852906979720 45.8357423915902018, -0.7373086916501410
+        45.8361269562198999, -0.7369408323277910 45.8365398527486008, -0.7361934344204130
+        45.8372481805018026))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2015-11-30 10:25:09.102512000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid:
+  item_type: Product
+versions_246:
+  created_at: 2015-11-30 10:25:09.212312000 Z
+  event: create
+  id: 283
+  item_id: 169
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 169
+    type: LandParcel
+    name: Pois de printemps semé avant le 31/05 Pois commun n°1
+    number: PR00000000113
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.23275E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: POLYGON ((-0.7678272300354930 45.8021806182845026, -0.7672411605783300
+        45.8039116194605000, -0.7675207639668630 45.8039857671891966, -0.7677975245214870
+        45.8040182662780992, -0.7681349349282039 45.8038901188954028, -0.7684836850371340
+        45.8037532427109966, -0.7689651808532700 45.8038122936934968, -0.7692219151190900
+        45.8030273116119986, -0.7694293378320149 45.8023942476306019, -0.7686330989997820
+        45.8022705778991011, -0.7678402772049020 45.8021968795017997, -0.7678397085376290
+        45.8021885504528967, -0.7678272300354930 45.8021806182845026))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2015-11-30 10:25:09.209255000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid:
+  item_type: Product

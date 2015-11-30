@@ -648,6 +648,7 @@ eng:
     invoiced_at: "Invoiced on"
     irrigated: "Irrigated"
     irrigation_water_nitrogen: "Irrigation water nitrogen"
+    # islet: "Islet"
     islet_number: "Islet number"
     # islets: "Islets"
     issue: "Issue"

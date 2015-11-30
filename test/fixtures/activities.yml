@@ -152,3 +152,216 @@ activities_006:
   updater_id: 1
   with_cultivation: false
   with_supports: false
+activities_007:
+  created_at: 2015-11-30 10:25:05.756155000 Z
+  cultivation_variety: medicago
+  family: vegetal_crops
+  id: 8
+  lock_version: 0
+  name: Luzerne implantée pour la récolte 2015
+  nature: main
+  size_indicator: net_surface_area
+  size_unit: hectare
+  support_variety: cultivable_zone
+  suspended: false
+  updated_at: 2015-11-30 10:25:05.756155000 Z
+  with_cultivation: true
+  with_supports: true
+activities_008:
+  created_at: 2015-11-30 10:25:06.288450000 Z
+  cultivation_variety: zea_mays
+  family: vegetal_crops
+  id: 9
+  lock_version: 0
+  name: Maïs (zea_mays)
+  nature: main
+  size_indicator: net_surface_area
+  size_unit: hectare
+  support_variety: cultivable_zone
+  suspended: false
+  updated_at: 2015-11-30 10:25:06.288450000 Z
+  with_cultivation: true
+  with_supports: true
+activities_009:
+  created_at: 2015-11-30 10:25:06.526886000 Z
+  cultivation_variety: triticum_aestivum
+  family: vegetal_crops
+  id: 10
+  lock_version: 0
+  name: Blé tendre d’hiver
+  nature: main
+  size_indicator: net_surface_area
+  size_unit: hectare
+  support_variety: cultivable_zone
+  suspended: false
+  updated_at: 2015-11-30 10:25:06.526886000 Z
+  with_cultivation: true
+  with_supports: true
+activities_010:
+  created_at: 2015-11-30 10:25:06.719680000 Z
+  cultivation_variety: plant
+  family: vegetal_crops
+  id: 11
+  lock_version: 0
+  name: Mélange de légumineuses fourragères prépondérantes au semis implantées pour
+    la récolte 2015 et de céréales
+  nature: main
+  size_indicator: net_surface_area
+  size_unit: hectare
+  support_variety: cultivable_zone
+  suspended: false
+  updated_at: 2015-11-30 10:25:06.719680000 Z
+  with_cultivation: true
+  with_supports: true
+activities_011:
+  created_at: 2015-11-30 10:25:06.822499000 Z
+  cultivation_variety: lolium
+  family: vegetal_crops
+  id: 12
+  lock_version: 0
+  name: Ray-grass de 5 ans ou moins
+  nature: main
+  size_indicator: net_surface_area
+  size_unit: hectare
+  support_variety: cultivable_zone
+  suspended: false
+  updated_at: 2015-11-30 10:25:06.822499000 Z
+  with_cultivation: true
+  with_supports: true
+activities_012:
+  created_at: 2015-11-30 10:25:06.858072000 Z
+  cultivation_variety: plant
+  family: vegetal_crops
+  id: 13
+  lock_version: 0
+  name: Autre prairie temporaire de 5 ans ou moins
+  nature: main
+  size_indicator: net_surface_area
+  size_unit: hectare
+  support_variety: cultivable_zone
+  suspended: false
+  updated_at: 2015-11-30 10:25:06.858072000 Z
+  with_cultivation: true
+  with_supports: true
+activities_013:
+  created_at: 2015-11-30 10:25:06.962786000 Z
+  cultivation_variety: triticum_durum
+  family: vegetal_crops
+  id: 14
+  lock_version: 0
+  name: Blé dur d’hiver
+  nature: main
+  size_indicator: net_surface_area
+  size_unit: hectare
+  support_variety: cultivable_zone
+  suspended: false
+  updated_at: 2015-11-30 10:25:06.962786000 Z
+  with_cultivation: true
+  with_supports: true
+activities_014:
+  created_at: 2015-11-30 10:25:06.998720000 Z
+  cultivation_variety: plant
+  family: vegetal_crops
+  id: 15
+  lock_version: 0
+  name: Mélange de légumineuses prépondérantes au semis et de graminées fourragères
+    de 5 ans ou moins
+  nature: main
+  size_indicator: net_surface_area
+  size_unit: hectare
+  support_variety: cultivable_zone
+  suspended: false
+  updated_at: 2015-11-30 10:25:06.998720000 Z
+  with_cultivation: true
+  with_supports: true
+activities_015:
+  created_at: 2015-11-30 10:25:07.073196000 Z
+  cultivation_variety: dactylis
+  family: vegetal_crops
+  id: 16
+  lock_version: 0
+  name: Dactyle de 5 ans ou moins
+  nature: main
+  size_indicator: net_surface_area
+  size_unit: hectare
+  support_variety: cultivable_zone
+  suspended: false
+  updated_at: 2015-11-30 10:25:07.073196000 Z
+  with_cultivation: true
+  with_supports: true
+activities_016:
+  created_at: 2015-11-30 10:25:07.212913000 Z
+  cultivation_variety: sorghum
+  family: vegetal_crops
+  id: 17
+  lock_version: 0
+  name: Sorgho
+  nature: main
+  size_indicator: net_surface_area
+  size_unit: hectare
+  support_variety: cultivable_zone
+  suspended: false
+  updated_at: 2015-11-30 10:25:07.212913000 Z
+  with_cultivation: true
+  with_supports: true
+activities_017:
+  created_at: 2015-11-30 10:25:07.332199000 Z
+  cultivation_variety: hordeum_vulgare
+  family: vegetal_crops
+  id: 18
+  lock_version: 0
+  name: Orge d'hiver
+  nature: main
+  size_indicator: net_surface_area
+  size_unit: hectare
+  support_variety: cultivable_zone
+  suspended: false
+  updated_at: 2015-11-30 10:25:07.332199000 Z
+  with_cultivation: true
+  with_supports: true
+activities_018:
+  created_at: 2015-11-30 10:25:07.667205000 Z
+  cultivation_variety: zea_mays
+  family: vegetal_crops
+  id: 19
+  lock_version: 0
+  name: Maïs ensilage
+  nature: main
+  size_indicator: net_surface_area
+  size_unit: hectare
+  support_variety: cultivable_zone
+  suspended: false
+  updated_at: 2015-11-30 10:25:07.667205000 Z
+  with_cultivation: true
+  with_supports: true
+activities_019:
+  created_at: 2015-11-30 10:25:08.847906000 Z
+  cultivation_variety: plant
+  family: vegetal_crops
+  id: 20
+  lock_version: 0
+  name: Mélange de légumineuses fourragères prépondérantes au semis implantées pour
+    la récolte 2015 et d’herbacées ou de graminées fourragères
+  nature: main
+  size_indicator: net_surface_area
+  size_unit: hectare
+  support_variety: cultivable_zone
+  suspended: false
+  updated_at: 2015-11-30 10:25:08.847906000 Z
+  with_cultivation: true
+  with_supports: true
+activities_020:
+  created_at: 2015-11-30 10:25:09.181857000 Z
+  cultivation_variety: pisum_sativum
+  family: vegetal_crops
+  id: 21
+  lock_version: 0
+  name: Pois de printemps semé avant le 31/05
+  nature: main
+  size_indicator: net_surface_area
+  size_unit: hectare
+  support_variety: cultivable_zone
+  suspended: false
+  updated_at: 2015-11-30 10:25:09.181857000 Z
+  with_cultivation: true
+  with_supports: true

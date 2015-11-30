@@ -22,7 +22,7 @@
         sums = interventions.sums_of_periods.sort.inject({}) do |hash, period|
           hash[period.expr.to_i.to_s] = period.sum.to_i.in_second.in(unit).round(2).to_f
           hash
-        end  
+        end
         #sums = interventions.sums_of_periods.sort.inject({}) do |hash, period|
         #  hash[period.expr.to_i.to_s] = period.sum.to_i.in_second.in(unit).round(2).to_f
         #  hash

@@ -73,9 +73,9 @@ class Intervention < Ekylibre::Record::Base
   alias_attribute :duration, :working_duration
 
   delegate :storage, to: :production_support
-  
+
   calculable period: :month, column: :working_duration, at: :started_at, name: :sum
-  
+
   acts_as_numbered
   accepts_nested_attributes_for :doers, :inputs, :outputs, :targets, :tools, :working_periods
 

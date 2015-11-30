@@ -41,7 +41,7 @@
 
 class Import < Ekylibre::Record::Base
   belongs_to :importer, class_name: 'User'
-  refers_to :nature, class_name: 'ExchangeNature'
+  # refers_to :nature, class_name: 'ExchangeNature'
   enumerize :state, in: [:undone, :in_progress, :errored, :aborted, :finished], predicates: true, default: :undone
   has_attached_file :archive, path: ':tenant/:class/:id/:style.:extension'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -75,7 +75,7 @@ class Import < Ekylibre::Record::Base
   end
 
   def name
-    nature ? nature.text : :unknown.tl
+    nature.respond_to?(:text) ? nature.text : nature.to_s.humanize
   end
 
   def run_later
