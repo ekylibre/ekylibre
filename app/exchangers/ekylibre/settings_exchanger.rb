@@ -42,18 +42,20 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
     # Company entity
     attributes = { language: language, currency: currency, nature: :organization, last_name: 'Ekylibre' }.merge(@manifest[:company].select { |k, _v| ![:addresses].include?(k) }).merge(of_company: true)
     # resolte siret to siret_number transcode
-    attributes[:siret_number] = attributes.delete(:siret)
-    if attributes.has_key?(:siren)
-      attributes[:siret_number] = attributes.delete(:siren).to_s + '0001'
-      attributes[:siret_number] << Luhn.control_digit(attributes[:siret_number])
+    siren_number = attributes.delete(:siren_number)
+    siren_number ||= attributes.delete(:siren)
+    attributes[:siret_number] ||= attributes.delete(:siret)
+    if attributes[:siret_number].blank? && siren_number.present?
+      attributes[:siret_number] = siren_number.to_s + '0001'
+      attributes[:siret_number] << Luhn.control_digit(attributes[:siret_number]).to_s
     end
     company = Entity.create!(attributes)
     # f.close if f
     if @manifest[:company][:addresses].is_a?(Hash)
-      for address, value in @manifest[:company][:addresses]
+      @manifest[:company][:addresses].each do |address, value|
         if value.is_a?(Hash)
           value[:canal] ||= address
-          for index in (1..6).to_a
+          (1..6).to_a.each do |index|
             value["mail_line_#{index}"] = value.delete("line_#{index}".to_sym)
           end
           company.addresses.create!(value)

@@ -5,7 +5,7 @@ class AddEntitySiret < ActiveRecord::Migration
       d.up do
         # TODO: Use a PL/PgSQL function to speed up migration
         select_values('SELECT DISTINCT siret_number FROM entities WHERE LENGTH(TRIM(siret_number)) = 9').each do |siren|
-          cb = Luhn.control_digit(siren)
+          cb = Luhn.control_digit(siren.to_s + '0001').to_s
           execute "UPDATE entities SET siret_number = '#{siren}0001#{cb}' WHERE siret_number = '#{siren}'"
         end
       end

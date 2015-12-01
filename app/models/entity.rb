@@ -225,8 +225,13 @@ class Entity < Ekylibre::Record::Base
     number.to_s + '. ' + full_name.to_s
   end
 
+  def siren_number
+    siret_number[0..8]
+  end
+
   def siren
-    siret_number.at(0..9)
+    ActiveSupport::Deprecation.warn('Entity#siren is deprecated. Please use Entity#siren_number instead. This method will be removed in Ekylibre 3.')
+    siren_number
   end
 
   def last_incoming_payment

@@ -6,6 +6,7 @@ create_activities_from_telepac: true
 demo: true
 company:
   last_name: Sekindovall Inc.
+  siren: 963852741
   addresses:
     email: contact@sekindovall.com
     mail:
