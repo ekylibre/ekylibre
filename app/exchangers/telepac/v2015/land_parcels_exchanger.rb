@@ -37,7 +37,7 @@ class Telepac::V2015::LandParcelsExchanger < ActiveExchanger::Base
         islet_number = record.attributes['NUMERO'].to_s
         # Find an existing islet or stop importing
         unless cap_islet = CapIslet.find_by(cap_statement: cap_statement, islet_number: islet_number)
-          w.error "No way to find islet number #{islet_number}. You have to import islets first"
+          w.error "No way to find pacage #{pacage_number} - islet number #{islet_number}. You have to import islets first"
           valid = false
         end
       end
@@ -118,7 +118,9 @@ class Telepac::V2015::LandParcelsExchanger < ActiveExchanger::Base
         unless cap_islet = CapIslet.find_by(cap_statement: cap_statement, islet_number: islet_number)
           w.error 'Import Islets first'
         end
-
+        
+        
+        
         cap_land_parcel_attributes = {
           cap_islet: cap_islet,
           land_parcel_number: record.attributes['NUMERO_SI'].to_s,
