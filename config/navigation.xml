@@ -585,7 +585,6 @@
         <page to="backend/interventions#update"/>
         <page to="backend/interventions#list_casts"/>
         <page to="backend/interventions#run"/>
-        <page to="backend/interventions#set"/>
         <page to="backend/interventions#unroll"/>
         <page to="backend/crumbs#index"/>
         <page to="backend/crumbs#update"/>

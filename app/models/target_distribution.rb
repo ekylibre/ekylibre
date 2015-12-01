@@ -44,7 +44,7 @@ class TargetDistribution < Ekylibre::Record::Base
   # ]VALIDATORS]
 
   before_validation do
-    if self.activity_production
+    if activity_production
       self.activity = activity_production.activity
       self.started_at ||= activity_production.started_at
       self.stopped_at ||= activity_production.stopped_at

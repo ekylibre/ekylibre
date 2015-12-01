@@ -303,7 +303,7 @@ fra:
       index: "Interventions"
       new: "Nouvelle intervention"
       run: "Exécuter l’intervention"
-      set: "Saisie des valeurs de l’intervention"
+      set: "Saisie des valeurs de l’intervention" #?
       show: "%{procedure_name}"
     backend/inventories:
       edit: "Modifier l’inventaire"
@@ -902,7 +902,7 @@ fra:
     currency_with_code: "%{code} - %{name}" #?
     current: "En cours"
     current_cultivation: "Culture actuelle"
-    current_letter: "Lettre en cours\_: %{letter}"
+    current_letter: "Lettre en cours\_: %{letter}" #?
     current_stocks_by_variety: "État des stocks"
     custom_fields: "Champs personnalisés"
     daily_nitrogen_production: "Excretion d’azote journalière" #?
@@ -1285,7 +1285,7 @@ fra:
     new_writing: "Nouvel écrit"
     next: "Suivant"
     nitrogen_concentration: "Teneur en azote (N)"
-    nitrogen_concentration_per_hectare: "Teneur en azote par hectare"
+    nitrogen_concentration_per_hectare: "Teneur en azote par hectare" #?
     no_attachments: "Déposez vos fichiers ici ou cliquez sur le bouton d'ajout"
     no_crumbs_to_check: "Pas de miettes à qualifier"
     no_data: "Aucune donnée"
@@ -1372,7 +1372,7 @@ fra:
     pertinence: "%{value}%"
     phone: "Tél." #?
     phosphorus_concentration: "Teneur en phosphore (P)"
-    phosphorus_concentration_per_hectare: "Teneur en phosphore par hectare"
+    phosphorus_concentration_per_hectare: "Teneur en phosphore par hectare" #?
     picture: "Photo"
     placeholder: "Espace réservé"
     places: "Lieux"
@@ -1387,7 +1387,7 @@ fra:
     population: "Population"
     postal_zone_x: "%{name} (%{postal_code})" #?
     potassium_concentration: "Teneur en potassium (K)"
-    potassium_concentration_per_hectare: "Teneur en potassium par hectare"
+    potassium_concentration_per_hectare: "Teneur en potassium par hectare" #?
     potential_hydrogen: "Potentiel hydrogène (pH)"
     precipitation: "Précipitations"
     preferences: "Préférences"
@@ -1841,9 +1841,9 @@ fra:
       one: "%{count} observation"
       other: "%{count} observations"
     x_of_y: "%{x} de %{y}"
-    x_operations:
-      one: "%{count} travail"
-      other: "%{count} travaux"
+    x_operations:  #?
+      one: "%{count} travail" #?
+      other: "%{count} travaux" #?
     x_outgoing_payments:
       one: "%{count} décaissement"
       other: "%{count} décaissements"
@@ -1851,9 +1851,9 @@ fra:
       one: "%{count} travail à réaliser" #?
       other: "%{count} travaux à réaliser" #?
       zero: "Aucun travail à réaliser" #?
-    x_prices:
-      one: "%{count} prix"
-      other: "%{count} prix"
+    x_prices:  #?
+      one: "%{count} prix" #?
+      other: "%{count} prix" #?
     x_purchases:
       one: "%{count} achat"
       other: "%{count} achats"
@@ -1873,9 +1873,9 @@ fra:
     x_sales_invoices:
       one: "%{count} facture"
       other: "%{count} factures"
-    x_stock_transfers_to_confirm:
-      one: "%{count} transfert à effectuer"
-      other: "%{count} transferts à effectuer"
+    x_stock_transfers_to_confirm:  #?
+      one: "%{count} transfert à effectuer" #?
+      other: "%{count} transferts à effectuer" #?
     x_subscriptions:
       one: "%{count} abonnement"
       other: "%{count} abonnements"
@@ -2119,7 +2119,7 @@ fra:
       run: "Éxécuter"
       search: "Rechercher"
       select: "Selectionner"
-      set: "Définir"
+      set: "Définir" #?
       ship: "Expédier"
       show: "Afficher"
       sort: "Trier"
@@ -2149,7 +2149,7 @@ fra:
     backend/journal_entry_items: "[%{entry_number}] %{name} (%{account_number}) D%{real_debit}/C%{real_credit} %{currency}"
     backend/matters: "%{name} ‒ %{work_number}"
     backend/observations: "%{content}"
-    backend/operations: "%{reference_name} (%{started_at})"
+    backend/operations: "%{reference_name} (%{started_at})" #?
     backend/outgoing_payments: "%{number}. %{mode_name} pour %{payee_full_name} de %{amount} %{currency}"
     backend/parcels: "%{number} ‒ %{reference_number}"
     backend/plants: "%{name} ‒ %{work_number}"
@@ -2157,7 +2157,7 @@ fra:
     backend/product_memberships: "%{started_at}"
     backend/product_nature_variants: "%{name} (%{unit_name})"
     backend/product_natures: "%{name}"
-    backend/productions: "%{name} (%{campaign_name})"
+    backend/productions: "%{name} (%{campaign_name})" #?
     backend/products: "%{work_number} %{name} (%{number})"
     backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"
     backend/users: "%{first_name} %{last_name}"

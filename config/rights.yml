@@ -1027,7 +1027,6 @@ interventions:
     - read-interventions
     actions:
     - "backend/interventions#run"
-    - "backend/interventions#set"
 
 inventories:
   read:

@@ -289,7 +289,6 @@ spa:
       # index: "Interventions"
       # new: "New intervention"
       # run: "Run intervention: %{procedure_name} #%{number}"
-      # set: "Set intervention: %{procedure_name} #%{number}"
       # show: "%{procedure_name}"
     backend/inventories:
       edit: "Modificacion del inventario"
@@ -792,7 +791,7 @@ spa:
     cumul: "Cumul del total y del saldo precedente N°%{number}"
     # current: "Current"
     # current_cultivation: "Current cultivation"
-    current_letter: "Carta en curso\_: %{letter}"
+    current_letter: "Carta en curso\_: %{letter}" #?
     # current_stocks_by_variety: "Current stocks by variety"
     # custom_fields: "Custom fields"
     data_to_export: "Datos a exportar" #?
@@ -1113,7 +1112,6 @@ spa:
     # new_writing: "New writing"
     # next: "Next"
     # nitrogen_concentration: "Nitrogen concentration"
-    # nitrogen_concentration_per_hectare: "Nitrogen concentration per hectare"
     # no_attachments: "Drop your files here or click on the button"
     # no_crumbs_to_check: "No crumbs to check"
     # no_data: "No data"
@@ -1186,7 +1184,6 @@ spa:
     personalized_mail: "Enviar un correo electronico personalizado"
     pertinence: "%{value}%"
     # phosphorus_concentration: "Phosphorus concentration"
-    # phosphorus_concentration_per_hectare: "Phosphorus concentration per hectare"
     # picture: "Picture"
     # placeholder: "Placeholder"
     # places: "Places"
@@ -1199,7 +1196,6 @@ spa:
     # points: "Points"
     # population: "Population"
     # potassium_concentration: "Potassium concentration"
-    # potassium_concentration_per_hectare: "Potassium concentration per hectare"
     # potential_hydrogen: "Potential hydrogen"
     # precipitation: "Precipitation"
     # preferences: "Preferences"
@@ -1541,15 +1537,9 @@ spa:
       # one: "%{count} observation"
       # other: "%{count} observations"
     # x_of_y: "%{x} of %{y}"
-    x_operations:
-      # one: "1 operation"
-      # other: "%{count} operations"
     x_outgoing_payments:
       # one: "%{count} disbursement"
       # other: "%{count} disbursements"
-    x_prices:
-      # one: "1 price"
-      # other: "%{count} prices"
     x_purchases:
       # one: "1 purchase"
       # other: "%{count} purchases"
@@ -1569,9 +1559,6 @@ spa:
     x_sales_invoices:
       # one: "%{count} sales invoice"
       # other: "%{count} sales invoices"
-    x_stock_transfers_to_confirm:
-      # one: "%{count} stock transfer to confirm"
-      # other: "%{count} stock transfers to confirm"
     x_subscriptions:
       # one: "%{count} subscription"
       # other: "%{count} subscriptions"
@@ -1818,7 +1805,6 @@ spa:
       # run: "Run"
       # search: "Search"
       # select: "Select"
-      # set: "Set"
       # ship: "Ship"
       # show: "Show"
       # sort: "Sort"
@@ -1848,7 +1834,6 @@ spa:
     # backend/journal_entry_items: "%{entry_number} %{name} %{account_number} D%{real_debit} C%{real_credit} %{currency}"
     # backend/matters: "%{name} ‒ %{work_number}"
     # backend/observations: "%{content}"
-    # backend/operations: "%{nature} (%{created_at})"
     # backend/outgoing_payments: "%{number}. %{mode_name} to %{payee_full_name} of %{amount} %{currency}"
     # backend/parcels: "%{number} ‒ %{reference_number}"
     # backend/plants: "%{name} ‒ %{work_number}"
@@ -1856,7 +1841,6 @@ spa:
     # backend/product_memberships: "%{started_at}"
     # backend/product_nature_variants: "%{name} (%{unit_name})"
     # backend/product_natures: "%{name}"
-    # backend/productions: "%{name} (%{campaign_name})"
     # backend/products: "%{work_number} %{name} (%{number})"
     # backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"
     # backend/users: "%{first_name} %{last_name}"
