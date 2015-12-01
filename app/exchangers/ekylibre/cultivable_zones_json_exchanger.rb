@@ -15,8 +15,7 @@ class Ekylibre::CultivableZonesJsonExchanger < ActiveExchanger::Base
       clusters['features'].each do |feature|
         properties = feature['properties']
         shape = ::Charta::Geometry.from_geojson(feature)
-        variant = ProductNatureVariant.import_from_nomenclature(:cultivable_zone)
-        CultivableZone.create!(properties.slice('name').merge(initial_shape: shape, variant: variant))
+        CultivableZone.create!(properties.slice('name', 'work_number').merge(shape: shape))
       end
     else
       fail ActiveExchanger::NotWellFormedFileError, 'File seems to be JSON but not GeoJSON.'

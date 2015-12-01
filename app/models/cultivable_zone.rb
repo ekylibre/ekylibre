@@ -46,12 +46,18 @@ class CultivableZone < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_presence_of :name, :shape, :work_number
   # ]VALIDATORS]
+  validates_presence_of :uuid
 
   scope :of_current_activity_productions, -> { where(id: ActivityProduction.select(:cultivable_zone_id).current) }
   scope :of_campaign, ->(campaign) { where(id: ActivityProduction.select(:cultivable_zone_id).of_campaign(campaign)) }
   scope :covers_shape, lambda { |shape|
     where('ST_Covers(shape, ST_GeomFromEWKT(?))', ::Charta::Geometry.new(shape).to_ewkt)
   }
+
+  before_validation do
+    self.uuid ||= UUIDTools::UUID.random_create.to_s
+    self.work_number ||= UUIDTools::UUID.parse(self.uuid).to_i.to_s(36)
+  end
 
   def to_geom
     ::Charta::Geometry.new(shape)

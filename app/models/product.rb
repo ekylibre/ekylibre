@@ -224,7 +224,7 @@ class Product < Ekylibre::Record::Base
   validates_presence_of :category, :name, :nature, :number, :variant, :variety
   # ]VALIDATORS]
   validates_length_of :derivative_of, :variety, allow_nil: true, maximum: 120
-  validates_presence_of :nature, :variant, :name
+  validates_presence_of :nature, :variant, :name, :uuid
   validates_attachment_content_type :picture, content_type: /image/
 
   accepts_nested_attributes_for :readings, allow_destroy: true, reject_if: lambda { |reading|
@@ -250,6 +250,10 @@ class Product < Ekylibre::Record::Base
   after_save :set_initial_values, if: :initializeable?
   before_validation :set_default_values, on: :create
   before_validation :update_default_values, on: :update
+
+  before_validation do
+    self.uuid ||= UUIDTools::UUID.random_create.to_s
+  end
 
   after_validation do
     self.default_storage ||= initial_container

@@ -79,6 +79,7 @@ gem 'simple_calendar', '~> 1.0'
 gem 'active_list', '>= 6.5.0' # , path: "../active_list"
 
 # Models helpers
+gem 'uuidtools'
 gem 'acts_as_list'
 gem 'state_machine'
 gem 'awesome_nested_set', '~> 3.0.0'
