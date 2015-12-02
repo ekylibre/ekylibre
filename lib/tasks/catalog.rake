@@ -15,7 +15,7 @@ namespace :catalog do
         end
         xml.procedures do
           Procedo.list.values.each do |procedure|
-            xml.procedure('short-name' => procedure.short_name, name: procedure.name, namespace: procedure.namespace, version: procedure.version, title: procedure.human_name) do
+            xml.procedure('short-name' => procedure.short_name, name: procedure.name, namespace: procedure.namespace, version: procedure.version, title: procedure.human_name, nature: procedure.natures.join(',')) do
               procedure.variables.values.each_with_index do |variable, index|
                 xml.variable(name: variable.name, position: index + 1, title: variable.human_name)
               end
