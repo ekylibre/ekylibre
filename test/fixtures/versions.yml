@@ -11215,12 +11215,12 @@ versions_220:
     title:
   item_type: Entity
 versions_221:
-  created_at: 2015-11-30 10:25:05.664529000 Z
+  created_at: 2015-12-03 10:39:01.262811000 Z
   event: create
-  id: 258
-  item_id: 17
+  id: 260
+  item_id: 18
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 17
+    id: 18
     nature: organization
     last_name: GAEC DUPONT
     first_name: ''
@@ -11255,23 +11255,23 @@ versions_221:
     picture_content_type:
     picture_file_size:
     picture_updated_at:
-    created_at: 2015-11-30 10:25:05.647806000 Z
+    created_at: 2015-12-03 10:39:01.241230000 Z
     creator_id:
     title:
   item_type: Entity
 versions_222:
-  created_at: 2015-11-30 10:25:05.943377000 Z
+  created_at: 2015-12-03 10:39:01.634701000 Z
   event: create
-  id: 259
-  item_id: 145
+  id: 261
+  item_id: 146
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 145
+    id: 146
     type: LandParcel
     name: Luzerne implantée pour la récolte 2015 Luzerne n°1
     number: PR00000000089
-    variant_id: 69
-    nature_id: 59
-    category_id: 25
+    variant_id: 70
+    nature_id: 60
+    category_id: 26
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -11351,25 +11351,25 @@ versions_222:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-11-30 10:25:05.937294000 Z
+    created_at: 2015-12-03 10:39:01.627416000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid:
+    uuid: 023a49c1-3e89-4294-a020-acaaed8ed9cb
   item_type: Product
 versions_223:
-  created_at: 2015-11-30 10:25:06.189274000 Z
+  created_at: 2015-12-03 10:39:02.045413000 Z
   event: create
-  id: 260
-  item_id: 146
+  id: 262
+  item_id: 147
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 146
+    id: 147
     type: LandParcel
     name: Luzerne implantée pour la récolte 2015 Luzerne n°2
     number: PR00000000090
-    variant_id: 69
-    nature_id: 59
-    category_id: 25
+    variant_id: 70
+    nature_id: 60
+    category_id: 26
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -11456,25 +11456,25 @@ versions_223:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-11-30 10:25:06.185778000 Z
+    created_at: 2015-12-03 10:39:02.040355000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid:
+    uuid: e70ad90e-3962-49f6-8be0-6ec18648ce0a
   item_type: Product
 versions_224:
-  created_at: 2015-11-30 10:25:06.324468000 Z
+  created_at: 2015-12-03 10:39:02.215311000 Z
   event: create
-  id: 261
-  item_id: 147
+  id: 263
+  item_id: 148
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 147
+    id: 148
     type: LandParcel
     name: Maïs (zea_mays) Maïs commun n°1
     number: PR00000000091
-    variant_id: 69
-    nature_id: 59
-    category_id: 25
+    variant_id: 70
+    nature_id: 60
+    category_id: 26
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -11539,25 +11539,25 @@ versions_224:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-11-30 10:25:06.321134000 Z
+    created_at: 2015-12-03 10:39:02.210949000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid:
+    uuid: c5a47875-9de7-42a5-a1e3-3391064112b6
   item_type: Product
 versions_225:
-  created_at: 2015-11-30 10:25:06.449844000 Z
+  created_at: 2015-12-03 10:39:02.370375000 Z
   event: create
-  id: 262
-  item_id: 148
+  id: 264
+  item_id: 149
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 148
+    id: 149
     type: LandParcel
     name: Maïs (zea_mays) Maïs commun n°2
     number: PR00000000092
-    variant_id: 69
-    nature_id: 59
-    category_id: 25
+    variant_id: 70
+    nature_id: 60
+    category_id: 26
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -11620,25 +11620,25 @@ versions_225:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-11-30 10:25:06.446739000 Z
+    created_at: 2015-12-03 10:39:02.366828000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid:
+    uuid: c24fd4d4-e63a-42bc-b308-d797102a9847
   item_type: Product
 versions_226:
-  created_at: 2015-11-30 10:25:06.562500000 Z
+  created_at: 2015-12-03 10:39:02.494540000 Z
   event: create
-  id: 263
-  item_id: 149
+  id: 265
+  item_id: 150
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 149
+    id: 150
     type: LandParcel
     name: Blé tendre d’hiver Blé tendre n°1
     number: PR00000000093
-    variant_id: 69
-    nature_id: 59
-    category_id: 25
+    variant_id: 70
+    nature_id: 60
+    category_id: 26
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -11707,26 +11707,26 @@ versions_226:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-11-30 10:25:06.558970000 Z
+    created_at: 2015-12-03 10:39:02.491086000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid:
+    uuid: 1f055571-ea41-48dc-abff-f4b04cce5266
   item_type: Product
 versions_227:
-  created_at: 2015-11-30 10:25:06.748444000 Z
+  created_at: 2015-12-03 10:39:02.710650000 Z
   event: create
-  id: 264
-  item_id: 150
+  id: 266
+  item_id: 151
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 150
+    id: 151
     type: LandParcel
     name: Mélange de légumineuses fourragères prépondérantes au semis implantées pour
       la récolte 2015 et de céréales Plante n°1
     number: PR00000000094
-    variant_id: 69
-    nature_id: 59
-    category_id: 25
+    variant_id: 70
+    nature_id: 60
+    category_id: 26
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -11792,25 +11792,25 @@ versions_227:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-11-30 10:25:06.745424000 Z
+    created_at: 2015-12-03 10:39:02.707411000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid:
+    uuid: 7457ef41-0449-4639-b453-5ef439209d7f
   item_type: Product
 versions_228:
-  created_at: 2015-11-30 10:25:06.888257000 Z
+  created_at: 2015-12-03 10:39:02.876746000 Z
   event: create
-  id: 265
-  item_id: 151
+  id: 267
+  item_id: 152
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 151
+    id: 152
     type: LandParcel
     name: Autre prairie temporaire de 5 ans ou moins Plante n°1
     number: PR00000000095
-    variant_id: 69
-    nature_id: 59
-    category_id: 25
+    variant_id: 70
+    nature_id: 60
+    category_id: 26
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -11883,25 +11883,25 @@ versions_228:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-11-30 10:25:06.885537000 Z
+    created_at: 2015-12-03 10:39:02.873569000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid:
+    uuid: a6751053-ebd1-44bc-949d-a0d68cf739b1
   item_type: Product
 versions_229:
-  created_at: 2015-11-30 10:25:07.129179000 Z
+  created_at: 2015-12-03 10:39:03.138155000 Z
   event: create
-  id: 266
-  item_id: 152
+  id: 268
+  item_id: 153
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 152
+    id: 153
     type: LandParcel
     name: Dactyle de 5 ans ou moins Dactyle n°1
     number: PR00000000096
-    variant_id: 69
-    nature_id: 59
-    category_id: 25
+    variant_id: 70
+    nature_id: 60
+    category_id: 26
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -11966,25 +11966,25 @@ versions_229:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-11-30 10:25:07.125941000 Z
+    created_at: 2015-12-03 10:39:03.133669000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid:
+    uuid: 033e1992-650e-4674-bcce-f44e9909398a
   item_type: Product
 versions_230:
-  created_at: 2015-11-30 10:25:07.245398000 Z
+  created_at: 2015-12-03 10:39:03.292611000 Z
   event: create
-  id: 267
-  item_id: 153
+  id: 269
+  item_id: 154
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 153
+    id: 154
     type: LandParcel
     name: Sorgho n°1
     number: PR00000000097
-    variant_id: 69
-    nature_id: 59
-    category_id: 25
+    variant_id: 70
+    nature_id: 60
+    category_id: 26
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -12053,25 +12053,25 @@ versions_230:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-11-30 10:25:07.242276000 Z
+    created_at: 2015-12-03 10:39:03.289597000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid:
+    uuid: 72ba86f4-c329-4795-8bd1-9a51715a8876
   item_type: Product
 versions_231:
-  created_at: 2015-11-30 10:25:07.364318000 Z
+  created_at: 2015-12-03 10:39:03.412284000 Z
   event: create
-  id: 268
-  item_id: 154
+  id: 270
+  item_id: 155
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 154
+    id: 155
     type: LandParcel
     name: Orge d'hiver Orge commune n°1
     number: PR00000000098
-    variant_id: 69
-    nature_id: 59
-    category_id: 25
+    variant_id: 70
+    nature_id: 60
+    category_id: 26
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -12140,25 +12140,25 @@ versions_231:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-11-30 10:25:07.360843000 Z
+    created_at: 2015-12-03 10:39:03.408923000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid:
+    uuid: 9e431180-9ad5-4cb4-8e38-f23d9e2042ef
   item_type: Product
 versions_232:
-  created_at: 2015-11-30 10:25:07.476393000 Z
+  created_at: 2015-12-03 10:39:03.530001000 Z
   event: create
-  id: 269
-  item_id: 155
+  id: 271
+  item_id: 156
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 155
+    id: 156
     type: LandParcel
     name: Blé tendre d’hiver Blé tendre n°4
     number: PR00000000099
-    variant_id: 69
-    nature_id: 59
-    category_id: 25
+    variant_id: 70
+    nature_id: 60
+    category_id: 26
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -12229,25 +12229,25 @@ versions_232:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-11-30 10:25:07.473189000 Z
+    created_at: 2015-12-03 10:39:03.526567000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid:
+    uuid: db4c78af-89eb-43e3-af7f-7bb575d1ec26
   item_type: Product
 versions_233:
-  created_at: 2015-11-30 10:25:07.579265000 Z
+  created_at: 2015-12-03 10:39:03.637973000 Z
   event: create
-  id: 270
-  item_id: 156
+  id: 272
+  item_id: 157
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 156
+    id: 157
     type: LandParcel
     name: Orge d'hiver Orge commune n°2
     number: PR00000000100
-    variant_id: 69
-    nature_id: 59
-    category_id: 25
+    variant_id: 70
+    nature_id: 60
+    category_id: 26
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -12312,25 +12312,25 @@ versions_233:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-11-30 10:25:07.575886000 Z
+    created_at: 2015-12-03 10:39:03.635004000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid:
+    uuid: 55f9b793-7c25-4abc-9d04-25d0f77142b5
   item_type: Product
 versions_234:
-  created_at: 2015-11-30 10:25:07.703766000 Z
+  created_at: 2015-12-03 10:39:03.750856000 Z
   event: create
-  id: 271
-  item_id: 157
+  id: 273
+  item_id: 158
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 157
+    id: 158
     type: LandParcel
     name: Maïs ensilage Maïs commun n°1
     number: PR00000000101
-    variant_id: 69
-    nature_id: 59
-    category_id: 25
+    variant_id: 70
+    nature_id: 60
+    category_id: 26
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -12392,25 +12392,25 @@ versions_234:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-11-30 10:25:07.699924000 Z
+    created_at: 2015-12-03 10:39:03.747663000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid:
+    uuid: 65947c1f-c627-4931-9fd0-eacdd1998f3e
   item_type: Product
 versions_235:
-  created_at: 2015-11-30 10:25:07.829315000 Z
+  created_at: 2015-12-03 10:39:03.864731000 Z
   event: create
-  id: 272
-  item_id: 158
+  id: 274
+  item_id: 159
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 158
+    id: 159
     type: LandParcel
     name: Maïs ensilage Maïs commun n°2
     number: PR00000000102
-    variant_id: 69
-    nature_id: 59
-    category_id: 25
+    variant_id: 70
+    nature_id: 60
+    category_id: 26
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -12470,25 +12470,25 @@ versions_235:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-11-30 10:25:07.825333000 Z
+    created_at: 2015-12-03 10:39:03.861652000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid:
+    uuid: 857dc5dc-bd9d-4011-9030-6d4edc7bb56a
   item_type: Product
 versions_236:
-  created_at: 2015-11-30 10:25:07.959558000 Z
+  created_at: 2015-12-03 10:39:03.983667000 Z
   event: create
-  id: 273
-  item_id: 159
+  id: 275
+  item_id: 160
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 159
+    id: 160
     type: LandParcel
     name: Sorgho n°2
     number: PR00000000103
-    variant_id: 69
-    nature_id: 59
-    category_id: 25
+    variant_id: 70
+    nature_id: 60
+    category_id: 26
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -12553,25 +12553,25 @@ versions_236:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-11-30 10:25:07.955861000 Z
+    created_at: 2015-12-03 10:39:03.980614000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid:
+    uuid: 4a93bbad-947c-4b3b-8d00-a4dd55de4425
   item_type: Product
 versions_237:
-  created_at: 2015-11-30 10:25:08.092511000 Z
+  created_at: 2015-12-03 10:39:04.095932000 Z
   event: create
-  id: 274
-  item_id: 160
+  id: 276
+  item_id: 161
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 160
+    id: 161
     type: LandParcel
     name: Orge d'hiver Orge commune n°3
     number: PR00000000104
-    variant_id: 69
-    nature_id: 59
-    category_id: 25
+    variant_id: 70
+    nature_id: 60
+    category_id: 26
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -12630,25 +12630,25 @@ versions_237:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-11-30 10:25:08.088529000 Z
+    created_at: 2015-12-03 10:39:04.092908000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid:
+    uuid: 4ae60df8-6bd9-4ca1-acd6-1f57149a09cb
   item_type: Product
 versions_238:
-  created_at: 2015-11-30 10:25:08.276718000 Z
+  created_at: 2015-12-03 10:39:04.238778000 Z
   event: create
-  id: 275
-  item_id: 161
+  id: 277
+  item_id: 162
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 161
+    id: 162
     type: LandParcel
     name: Orge d'hiver Orge commune n°4
     number: PR00000000105
-    variant_id: 69
-    nature_id: 59
-    category_id: 25
+    variant_id: 70
+    nature_id: 60
+    category_id: 26
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -12707,25 +12707,25 @@ versions_238:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-11-30 10:25:08.273307000 Z
+    created_at: 2015-12-03 10:39:04.235108000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid:
+    uuid: a4c13db9-938b-4b76-8006-eb2379def2d3
   item_type: Product
 versions_239:
-  created_at: 2015-11-30 10:25:08.447571000 Z
+  created_at: 2015-12-03 10:39:04.356622000 Z
   event: create
-  id: 276
-  item_id: 162
+  id: 278
+  item_id: 163
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 162
+    id: 163
     type: LandParcel
     name: Blé tendre d’hiver Blé tendre n°5
     number: PR00000000106
-    variant_id: 69
-    nature_id: 59
-    category_id: 25
+    variant_id: 70
+    nature_id: 60
+    category_id: 26
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -12794,25 +12794,25 @@ versions_239:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-11-30 10:25:08.444246000 Z
+    created_at: 2015-12-03 10:39:04.353526000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid:
+    uuid: 701f8680-f164-41e8-bdc9-4e94695fcb58
   item_type: Product
 versions_240:
-  created_at: 2015-11-30 10:25:08.550537000 Z
+  created_at: 2015-12-03 10:39:04.472037000 Z
   event: create
-  id: 277
-  item_id: 163
+  id: 279
+  item_id: 164
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 163
+    id: 164
     type: LandParcel
     name: Blé tendre d’hiver Blé tendre n°6
     number: PR00000000107
-    variant_id: 69
-    nature_id: 59
-    category_id: 25
+    variant_id: 70
+    nature_id: 60
+    category_id: 26
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -12873,25 +12873,25 @@ versions_240:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-11-30 10:25:08.547767000 Z
+    created_at: 2015-12-03 10:39:04.469109000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid:
+    uuid: a35f3f7f-70b0-4864-90a6-69510dcd4354
   item_type: Product
 versions_241:
-  created_at: 2015-11-30 10:25:08.654399000 Z
+  created_at: 2015-12-03 10:39:04.581182000 Z
   event: create
-  id: 278
-  item_id: 164
+  id: 280
+  item_id: 165
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 164
+    id: 165
     type: LandParcel
     name: Blé tendre d’hiver Blé tendre n°7
     number: PR00000000108
-    variant_id: 69
-    nature_id: 59
-    category_id: 25
+    variant_id: 70
+    nature_id: 60
+    category_id: 26
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -12950,25 +12950,25 @@ versions_241:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-11-30 10:25:08.651583000 Z
+    created_at: 2015-12-03 10:39:04.578073000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid:
+    uuid: 9fec0094-9a6d-4648-b181-57100b5eab3d
   item_type: Product
 versions_242:
-  created_at: 2015-11-30 10:25:08.762532000 Z
+  created_at: 2015-12-03 10:39:04.691062000 Z
   event: create
-  id: 279
-  item_id: 165
+  id: 281
+  item_id: 166
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 165
+    id: 166
     type: LandParcel
     name: Maïs (zea_mays) Maïs commun n°3
     number: PR00000000109
-    variant_id: 69
-    nature_id: 59
-    category_id: 25
+    variant_id: 70
+    nature_id: 60
+    category_id: 26
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -13028,26 +13028,26 @@ versions_242:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-11-30 10:25:08.759435000 Z
+    created_at: 2015-12-03 10:39:04.688105000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid:
+    uuid: 18281dc5-d7e0-406a-9fbe-12b80930ac0e
   item_type: Product
 versions_243:
-  created_at: 2015-11-30 10:25:08.878631000 Z
+  created_at: 2015-12-03 10:39:04.811892000 Z
   event: create
-  id: 280
-  item_id: 166
+  id: 282
+  item_id: 167
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 166
+    id: 167
     type: LandParcel
     name: Mélange de légumineuses fourragères prépondérantes au semis implantées pour
       la récolte 2015 et d’herbacées ou de graminées fourragères Plante n°1
     number: PR00000000110
-    variant_id: 69
-    nature_id: 59
-    category_id: 25
+    variant_id: 70
+    nature_id: 60
+    category_id: 26
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -13110,25 +13110,25 @@ versions_243:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-11-30 10:25:08.875425000 Z
+    created_at: 2015-12-03 10:39:04.808903000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid:
+    uuid: 1acd469b-465a-47df-804f-f67820d22956
   item_type: Product
 versions_244:
-  created_at: 2015-11-30 10:25:08.991813000 Z
+  created_at: 2015-12-03 10:39:04.930098000 Z
   event: create
-  id: 281
-  item_id: 167
+  id: 283
+  item_id: 168
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 167
+    id: 168
     type: LandParcel
     name: Maïs (zea_mays) Maïs commun n°4
     number: PR00000000111
-    variant_id: 69
-    nature_id: 59
-    category_id: 25
+    variant_id: 70
+    nature_id: 60
+    category_id: 26
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -13220,25 +13220,25 @@ versions_244:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-11-30 10:25:08.988761000 Z
+    created_at: 2015-12-03 10:39:04.926996000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid:
+    uuid: b1db5069-f80f-4f75-ba28-2fdd241c2b17
   item_type: Product
 versions_245:
-  created_at: 2015-11-30 10:25:09.105345000 Z
+  created_at: 2015-12-03 10:39:05.046566000 Z
   event: create
-  id: 282
-  item_id: 168
+  id: 284
+  item_id: 169
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 168
+    id: 169
     type: LandParcel
     name: Blé tendre d’hiver Blé tendre n°8
     number: PR00000000112
-    variant_id: 69
-    nature_id: 59
-    category_id: 25
+    variant_id: 70
+    nature_id: 60
+    category_id: 26
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -13300,25 +13300,25 @@ versions_245:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-11-30 10:25:09.102512000 Z
+    created_at: 2015-12-03 10:39:05.043485000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid:
+    uuid: b151e215-5153-4c6c-accf-7039c3ba2880
   item_type: Product
 versions_246:
-  created_at: 2015-11-30 10:25:09.212312000 Z
+  created_at: 2015-12-03 10:39:05.205167000 Z
   event: create
-  id: 283
-  item_id: 169
+  id: 285
+  item_id: 170
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 169
+    id: 170
     type: LandParcel
     name: Pois de printemps semé avant le 31/05 Pois commun n°1
     number: PR00000000113
-    variant_id: 69
-    nature_id: 59
-    category_id: 25
+    variant_id: 70
+    nature_id: 60
+    category_id: 26
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -13380,9 +13380,9 @@ versions_246:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-11-30 10:25:09.209255000 Z
+    created_at: 2015-12-03 10:39:05.202159000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid:
+    uuid: 69801ab5-79f7-4d6a-bd0e-c2333e28ae78
   item_type: Product

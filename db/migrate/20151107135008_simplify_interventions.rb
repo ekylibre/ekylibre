@@ -93,6 +93,10 @@ class SimplifyInterventions < ActiveRecord::Migration
     end
 
     rename_model_and_co 'CultivableZone', 'LandParcel'
+    [:products, :product_natures, :product_nature_variants].each do |table|
+      execute "UPDATE #{table} SET variety = 'land_parcel' WHERE variety = 'cultivable_zone'"
+      execute "UPDATE #{table} SET derivative_of = 'land_parcel' WHERE derivative_of = 'cultivable_zone'"
+    end
 
     create_table :cultivable_zones do |t|
       t.string :name, null: false

@@ -12,3 +12,6 @@ AllCops:
 
 Metrics/LineLength:
   Enabled: false
+
+Metrics/MethodLength:
+  Max: 60

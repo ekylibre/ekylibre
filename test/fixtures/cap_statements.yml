@@ -50,18 +50,17 @@ cap_statements_001:
   declarant_id: 1
   farm_name: C. Ferstivall LTD
   id: 1
-  lock_version: 1
-  pacage_number: '123456'
-  siret_number: '1238545'
-  updated_at: 2015-11-30 10:26:50.382340000 Z
+  lock_version: 0
+  siret_number: ''
+  updated_at: 2014-11-04 15:26:29.112273000 Z
   updater_id: 1
 cap_statements_002:
   campaign_id: 5
-  created_at: 2015-11-30 10:25:05.694251000 Z
-  declarant_id: 17
+  created_at: 2015-12-03 10:39:01.290644000 Z
+  declarant_id: 18
   farm_name: GAEC DUPONT
-  id: 2
+  id: 3
   lock_version: 0
-  pacage_number: 077005008
-  siret_number: '32450072900011'
-  updated_at: 2015-11-30 10:25:05.694251000 Z
+  pacage_number: 017005218
+  siret_number: '32627372900011'
+  updated_at: 2015-12-03 10:39:01.290644000 Z

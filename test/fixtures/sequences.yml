@@ -74,7 +74,7 @@ sequences_002:
   creator_id: 1
   id: 2
   last_cweek: 49
-  last_month: 11
+  last_month: 12
   last_number: 7
   last_year: 2015
   lock_version: 10
@@ -83,7 +83,7 @@ sequences_002:
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2015-11-30 10:25:05.643648000 Z
+  updated_at: 2015-12-03 10:39:01.236308000 Z
   updater_id: 1
   usage: entities
 sequences_003:
@@ -91,7 +91,7 @@ sequences_003:
   creator_id: 1
   id: 3
   last_cweek: 49
-  last_month: 11
+  last_month: 12
   last_number: 113
   last_year: 2015
   lock_version: 115
@@ -100,7 +100,7 @@ sequences_003:
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2015-11-30 10:25:09.205225000 Z
+  updated_at: 2015-12-03 10:39:05.197780000 Z
   updater_id: 1
   usage: products
 sequences_004:
@@ -142,7 +142,7 @@ sequences_006:
   creator_id: 1
   id: 6
   last_cweek: 49
-  last_month: 11
+  last_month: 12
   last_number: 2
   last_year: 2015
   lock_version: 2
@@ -151,7 +151,7 @@ sequences_006:
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2015-11-30 10:25:05.613018000 Z
+  updated_at: 2015-12-03 08:44:04.820888000 Z
   updater_id: 1
   usage: campaigns
 sequences_007:

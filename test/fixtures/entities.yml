@@ -545,11 +545,11 @@ entities_017:
   active: true
   client: false
   country: fr
-  created_at: 2015-11-30 10:25:05.647806000 Z
+  created_at: 2015-12-03 10:39:01.241230000 Z
   currency: EUR
   first_name: ''
   full_name: GAEC DUPONT
-  id: 17
+  id: 18
   language: fra
   last_name: GAEC DUPONT
   lock_version: 0
@@ -559,8 +559,8 @@ entities_017:
   of_company: false
   prospect: false
   reminder_submissive: false
-  siret_number: '32450072900011'
+  siret_number: '32627372900011'
   supplier: false
   transporter: false
-  updated_at: 2015-11-30 10:25:05.647806000 Z
+  updated_at: 2015-12-03 10:39:01.241230000 Z
   vat_subjected: true
