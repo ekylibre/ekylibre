@@ -285,7 +285,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :cultivable_zones, concerns: :products, path: 'cultivable-zones' do
+    resources :cultivable_zones, concerns: [:list, :unroll], path: 'cultivable-zones' do
       member do
         get :list_productions
       end
@@ -470,7 +470,6 @@ Rails.application.routes.draw do
         get :compute
       end
       member do
-        get :set
         post :run
         get :list_casts
       end
