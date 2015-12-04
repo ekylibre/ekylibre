@@ -1061,6 +1061,7 @@ arb:
     collected_account_id: "جمع قيمة الضريبة الاضافية" #?
     collected_amount: "قيمة الضريبة الاضافية الاجمالية" #?
     # collected_taxes: "Collected taxes"
+    # color: "Color"
     # column_name: "Column name"
     # columns: "Columns"
     comment: "التعليق" #?

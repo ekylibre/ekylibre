@@ -22,6 +22,7 @@
 #
 # == Table: activities
 #
+#  color               :string
 #  created_at          :datetime         not null
 #  creator_id          :integer
 #  cultivation_variety :string
@@ -136,6 +137,10 @@ class Activity < Ekylibre::Record::Base
     true
   end
 
+  before_create do
+    self.color ||= self.find_color
+  end
+
   before_save do
     self.support_variety = nil unless with_supports
     self.cultivation_variety = nil unless with_cultivation
@@ -201,7 +206,7 @@ class Activity < Ekylibre::Record::Base
   # Returns a color for each activity depending on families
   # FIXME: Only refers to activity family to prevent
   # short-way solution must be externalized in mid-way solution
-  def color
+  def find_color
     colors = { gold: '#FFD700', golden_rod: '#DAA520', yellow: '#FFFF00',
                orange: '#FF8000', red: '#FF0000', green: '#80FF00',
                spring_green: '#00FF7F', dark_green: '#006400',

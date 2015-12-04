@@ -118,7 +118,7 @@ class Telepac::V2014::LandParcelsExchanger < ActiveExchanger::Base
         unless cap_land_parcel = CapLandParcel.find_by(cap_land_parcel_attributes.slice(:land_parcel_number, :cap_islet))
           cap_land_parcel = CapLandParcel.create!(cap_land_parcel_attributes)
         end
-        
+
         # import into georeadings
         georeadings_attributes = {
           name: 'P' + '-' + cap_land_parcel.islet.cap_statement.pacage_number.to_s + '-' + cap_land_parcel.islet_number.to_s + '-' + cap_land_parcel.land_parcel_number.to_s,
@@ -129,7 +129,7 @@ class Telepac::V2014::LandParcelsExchanger < ActiveExchanger::Base
         unless georeading = Georeading.find_by(georeadings_attributes.slice(:number))
           georeading = Georeading.create!(georeadings_attributes)
         end
-        
+
         # Create activities if option true
         # if Preference.value(:create_activities_from_telepac, true)
 

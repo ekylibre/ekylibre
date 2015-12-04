@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151108001401) do
+ActiveRecord::Schema.define(version: 20151204171201) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(version: 20151108001401) do
     t.string   "size_indicator"
     t.string   "size_unit"
     t.boolean  "suspended",           default: false, null: false
+    t.string   "color"
   end
 
   add_index "activities", ["created_at"], name: "index_activities_on_created_at", using: :btree

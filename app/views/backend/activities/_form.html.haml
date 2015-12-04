@@ -8,6 +8,7 @@
   = f.input :with_supports, as: :hidden
   = f.input :support_variety, collection: ((family and family.support_variety) ? Nomen::Variety.selection(family.support_variety) : []), wrapper_html: {style: "display: #{(family and family.support_variety) ? 'block' : 'none'}"}
   = f.input :description
+  = f.input :color, as: :color
   = f.custom_fields
 
 .auxiliary_options

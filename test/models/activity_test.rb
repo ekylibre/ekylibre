@@ -22,6 +22,7 @@
 #
 # == Table: activities
 #
+#  color               :string
 #  created_at          :datetime         not null
 #  creator_id          :integer
 #  cultivation_variety :string

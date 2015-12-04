@@ -521,7 +521,7 @@ fra:
     collect_taxes: "TVA collectées" #?
     collected_amount: "TVA brute" #?
     collected_taxes: "TVA collectées"
-    color: "Couleur" #?
+    color: "Couleur"
     column_name: "Nom de colonne"
     columns: "Colonnes"
     comment: "Commentaire" #?
