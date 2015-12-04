@@ -117,9 +117,7 @@ class Telepac::V2015::LandParcelsExchanger < ActiveExchanger::Base
         # Find an existing islet or stop importing
         unless cap_islet = CapIslet.find_by(cap_statement: cap_statement, islet_number: islet_number)
           w.error 'Import Islets first'
-        end
-        
-        
+        end  
         
         cap_land_parcel_attributes = {
           cap_islet: cap_islet,
@@ -134,6 +132,17 @@ class Telepac::V2015::LandParcelsExchanger < ActiveExchanger::Base
         # Find or create a cap land parcel
         unless cap_land_parcel = CapLandParcel.find_by(cap_land_parcel_attributes.slice(:land_parcel_number, :cap_islet))
           cap_land_parcel = CapLandParcel.create!(cap_land_parcel_attributes)
+        end
+        
+        # import into georeadings
+        georeadings_attributes = {
+          name: 'P' + '-' + cap_land_parcel.islet.cap_statement.pacage_number.to_s + '-' + cap_land_parcel.islet_number.to_s + '-' + cap_land_parcel.land_parcel_number.to_s,
+          number: 'P' + '-' + cap_land_parcel.islet.cap_statement.pacage_number.to_s + '-' + cap_land_parcel.islet_number.to_s + '-' + cap_land_parcel.land_parcel_number.to_s,
+          nature: :polygon,
+          content: cap_land_parcel.shape
+        }
+        unless georeading = Georeading.find_by(georeadings_attributes.slice(:number))
+          georeading = Georeading.create!(georeadings_attributes)
         end
 
         # Create activities if option true

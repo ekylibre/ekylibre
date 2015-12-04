@@ -11,35 +11,33 @@ class Telepac::V2014::LandParcelsExchanger < ActiveExchanger::Base
     valid = true
     RGeo::Shapefile::Reader.open(dir.join('parcelle.shp').to_s, srid: 2154) do |file|
       # Set number of shapes
-      w.count = file.num_records
+      w.count = file.size
 
       file.each do |record|
-        if record.index == 0
-          # check cap_statement presence for the consider year
-          harvest_year = record.attributes['CAMPAGNE'].to_s
-          campaign = Campaign.find_by!(harvest_year: harvest_year)
-          w.info 'Campaign exist' if campaign
+        # check cap_statement presence for the consider year
+        harvest_year = record.attributes['CAMPAGNE'].to_s
+        campaign = Campaign.find_by!(harvest_year: harvest_year.to_i)
+        w.info 'Campaign exist' if campaign
 
-          pacage_number = record.attributes['PACAGE'].to_s
+        pacage_number = record.attributes['PACAGE'].to_s
 
-          cap_statement_attributes = {
-            campaign: campaign,
-            declarant: Entity.of_company,
-            farm_name: Entity.of_company.full_name,
-            pacage_number: pacage_number,
-            siret_number: Entity.of_company.siret_number
-          }
+        cap_statement_attributes = {
+          campaign: campaign,
+          declarant: Entity.of_company,
+          farm_name: Entity.of_company.full_name,
+          pacage_number: pacage_number,
+          siret_number: Entity.of_company.siret_number
+        }
 
-          ## find or create cap statement
-          unless cap_statement = CapStatement.find_by(campaign: campaign, pacage_number: pacage_number)
-            w.info 'Cap statement will be created'
-          end
+        ## find or create cap statement
+        unless cap_statement = CapStatement.find_by(campaign: campaign, pacage_number: pacage_number)
+          w.info 'Cap statement will be created'
         end
 
         islet_number = record.attributes['NUMERO'].to_s
         # Find an existing islet or stop importing
         unless cap_islet = CapIslet.find_by(cap_statement: cap_statement, islet_number: islet_number)
-          w.error "No way to find islet number #{islet_number}. You have to import islets first"
+          w.error "No way to find pacage #{pacage_number} - islet number #{islet_number}. You have to import islets first"
           valid = false
         end
       end
@@ -79,13 +77,12 @@ class Telepac::V2014::LandParcelsExchanger < ActiveExchanger::Base
       w.count = file.num_records
 
       file.each do |record|
-        if record.index == 0
 
           # check cap_statement presence for the consider year
-          harvest_year = file.first.attributes['CAMPAGNE'].to_s
-          campaign = Campaign.find_or_create_by!(harvest_year: harvest_year)
+          harvest_year = record.attributes['CAMPAGNE'].to_s
+          campaign = Campaign.find_or_create_by!(harvest_year: harvest_year.to_i)
 
-          pacage_number = file.first.attributes['PACAGE'].to_s
+          pacage_number = record.attributes['PACAGE'].to_s
 
           cap_statement_attributes = {
             campaign: campaign,
@@ -99,7 +96,6 @@ class Telepac::V2014::LandParcelsExchanger < ActiveExchanger::Base
           unless cap_statement = CapStatement.find_by(campaign: campaign, pacage_number: pacage_number)
             cap_statement = CapStatement.create!(cap_statement_attributes)
           end
-        end
 
         islet_number = record.attributes['NUMERO'].to_s
 
@@ -122,7 +118,18 @@ class Telepac::V2014::LandParcelsExchanger < ActiveExchanger::Base
         unless cap_land_parcel = CapLandParcel.find_by(cap_land_parcel_attributes.slice(:land_parcel_number, :cap_islet))
           cap_land_parcel = CapLandParcel.create!(cap_land_parcel_attributes)
         end
-
+        
+        # import into georeadings
+        georeadings_attributes = {
+          name: 'P' + '-' + cap_land_parcel.islet.cap_statement.pacage_number.to_s + '-' + cap_land_parcel.islet_number.to_s + '-' + cap_land_parcel.land_parcel_number.to_s,
+          number: 'P' + '-' + cap_land_parcel.islet.cap_statement.pacage_number.to_s + '-' + cap_land_parcel.islet_number.to_s + '-' + cap_land_parcel.land_parcel_number.to_s,
+          nature: :polygon,
+          content: cap_land_parcel.shape
+        }
+        unless georeading = Georeading.find_by(georeadings_attributes.slice(:number))
+          georeading = Georeading.create!(georeadings_attributes)
+        end
+        
         # Create activities if option true
         # if Preference.value(:create_activities_from_telepac, true)
 
