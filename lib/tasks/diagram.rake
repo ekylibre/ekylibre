@@ -16,9 +16,10 @@ namespace :diagrams do
       entity: [Entity, EntityLink, EntityAddress, Task, Event, EventParticipation, Observation, PostalZone, District],
       journal: [Journal, JournalEntry, JournalEntryItem, Account, FinancialYear, AccountBalance, Loan, LoanRepayment, BankStatement, Cash, FixedAsset, FixedAssetDepreciation], # , CashTransfer, CashSession]
       product_nature: [Product, ProductNature, ProductNatureVariant, ProductNatureCategory, ProductNatureVariantReading, ProductNatureCategoryTaxation],
-      production: [Activity, ActivityDistribution, Campaign, ActivityProduction, ActivityBudget, TargetDistribution, Intervention, InterventionCast, InterventionWorkingSet],
-      sale: [Sale, SaleNature, SaleItem, Parcel, ParcelItem, Delivery, IncomingPayment, IncomingPaymentMode, Deposit],
-      purchase: [Purchase, PurchaseNature, PurchaseItem, Parcel, ParcelItem, OutgoingPayment, OutgoingPaymentMode],
+      production: [Activity, ActivityDistribution, Campaign, ActivityProduction, ActivityBudget, TargetDistribution, Intervention, InterventionCast, InterventionWorkingPeriod, CultivableZone, Product],
+      sale: [Sale, SaleNature, SaleItem, Parcel, ParcelItem, Delivery, IncomingPayment, IncomingPaymentMode, Deposit, Affair],
+      purchase: [Purchase, PurchaseNature, PurchaseItem, Parcel, ParcelItem, OutgoingPayment, OutgoingPaymentMode, Affair],
+      cap_statement: [CapStatement, CapIslet, CapLandParcel, Entity, Campaign],
       delivery: [Delivery, Parcel, ParcelItem, Analysis] #
     }.each do |name, models|
       graph = Diagram::Model.relational(*models, name: "#{name}-relational")
@@ -27,7 +28,7 @@ namespace :diagrams do
   end
 
   task inheritance: :environment do
-    [Product, Affair].each do |model|
+    [Product, Affair, InterventionCast].each do |model|
       graph = Diagram::Model.inheritance(model)
       graph.write
     end
