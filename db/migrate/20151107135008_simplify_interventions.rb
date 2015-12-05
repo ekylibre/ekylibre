@@ -29,7 +29,6 @@ class SimplifyInterventions < ActiveRecord::Migration
     [:custom_fields, :customized_type]
   ]
 
-
   MULTI_POLYGON_COLUMNS = {
     # Generic
     activity_productions: [:support_shape],
@@ -46,9 +45,8 @@ class SimplifyInterventions < ActiveRecord::Migration
     product_readings: [:geometry_value],
     # Polygons ?
     cap_islets: [:shape],
-    cap_land_parcels: [:shape],
+    cap_land_parcels: [:shape]
   }
-
 
   ALL_TYPE_COLUMNS = TYPE_COLUMNS +
                      POLYMORPHIC_REFERENCES.map { |a| [a.first, "#{a.second}_type".to_sym] }
@@ -147,7 +145,7 @@ class SimplifyInterventions < ActiveRecord::Migration
         execute 'DELETE FROM cultivable_zones WHERE shape IS NULL'
       end
       dir.down do
-        # TODO Adds revert of CultivableZone transfert
+        # TODO: Adds revert of CultivableZone transfert
       end
     end
     change_column_null :cultivable_zones, :shape, false
@@ -544,6 +542,5 @@ class SimplifyInterventions < ActiveRecord::Migration
       rename_column table, :geometry_value, :multi_polygon_value
       add_column table, :geometry_value, :geometry, srid: 4326
     end
-
   end
 end

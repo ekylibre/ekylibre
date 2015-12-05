@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Charta.est < ActiveSupport::TestCase
+class Charta::GeometryTest < ActiveSupport::TestCase
   test 'different E/WKT format input' do
     samples = ['POINT(6 10)',
                'LINESTRING(3 4,10 50,20 25)',
@@ -174,5 +174,5 @@ class Charta.est < ActiveSupport::TestCase
       assert_equal 'Charta::' + class_name, Charta.new_geometry(ewkt).class.name
     end
   end
-  
+
 end

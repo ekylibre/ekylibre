@@ -128,6 +128,4 @@ class Issue < Ekylibre::Record::Base
   def picture_path(style = :original)
     picture.path(style)
   end
-
-
 end

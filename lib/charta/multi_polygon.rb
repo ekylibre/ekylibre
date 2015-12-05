@@ -1,8 +1,6 @@
 module Charta
-
   # Represent a Geometry with contains only polygons
   class MultiPolygon < GeometryCollection
-
     def each_polygon(&block)
       if block.arity == 1
         polygons.each(&block)
@@ -11,7 +9,7 @@ module Charta
           yield polygon, index + 1
         end
       else
-        fail "Cannot browse each polygon without parameter"
+        fail 'Cannot browse each polygon without parameter'
       end
     end
 
@@ -21,6 +19,5 @@ module Charta
         Polygon.new(polygon)
       end || []
     end
-    
   end
 end

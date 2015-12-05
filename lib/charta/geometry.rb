@@ -5,9 +5,7 @@ module Charta
 
     def initialize(ewkt)
       @ewkt = ewkt
-      if @ewkt.blank?
-        fail ArgumentError, "Need EWKT to instantiate Geometry"
-      end
+      fail ArgumentError, 'Need EWKT to instantiate Geometry' if @ewkt.blank?
     end
 
     def inspect
@@ -21,7 +19,7 @@ module Charta
     def type
       select_value("SELECT GeometryType(#{geom})").to_s.strip
     end
-    
+
     def collection?
       select_value("SELECT ST_GeometryType(#{geom})") =~ /\AST_GeometryCollection\z/
     end
@@ -123,14 +121,14 @@ module Charta
 
     def convert_to(type)
       if type == :multi_polygon
-        self.multi_polygon
+        multi_polygon
       else
         self
       end
     end
 
     def circle(radius)
-      ActiveSupport::Deprecation.warn "Charta.circle is deprecated. Please use Charta.buffer instead."
+      ActiveSupport::Deprecation.warn 'Charta.circle is deprecated. Please use Charta.buffer instead.'
       buffer(radius)
     end
 
@@ -138,7 +136,7 @@ module Charta
     def buffer(radius)
       self.class.new(select_value("SELECT ST_AsEWKT(ST_Buffer(#{geom}, #{radius}))"))
     end
-    
+
     # def merge!(other_geometry)
     #   @ewkt = self.merge(other_geometry).ewkt
     # end
@@ -196,6 +194,5 @@ module Charta
     def find_srid(name_or_srid)
       Charta.find_srid(name_or_srid)
     end
-
   end
 end

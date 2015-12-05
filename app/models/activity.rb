@@ -138,7 +138,7 @@ class Activity < Ekylibre::Record::Base
   end
 
   before_create do
-    self.color ||= self.find_color
+    self.color ||= find_color
   end
 
   before_save do

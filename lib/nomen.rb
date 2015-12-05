@@ -91,7 +91,7 @@ module Nomen
       elsif args.size == 1
         return @@set[name].find(args.shift) if @@set[name]
       end
-      return nil
+      nil
     end
 
     def find_or_initialize(name)

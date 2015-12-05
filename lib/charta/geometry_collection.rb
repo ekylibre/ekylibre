@@ -1,8 +1,6 @@
 module Charta
-
   # Represent a Geometry with contains other geometries
   class GeometryCollection < Geometry
-
     def initialize(ewkt)
       super(ewkt)
       homogenize!
@@ -17,7 +15,5 @@ module Charta
       srid = Charta.find_srid(srid)
       new("SRID=#{srid};GEOMETRYCOLLECTION EMPTY")
     end
-    
   end
-
 end

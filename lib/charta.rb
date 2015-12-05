@@ -10,9 +10,7 @@ require 'charta/bounding_box'
 require 'charta/geo_json'
 
 module Charta
-
   class << self
-
     def new_geometry(coordinates, srs = nil, format = nil)
       geom_ewkt = nil
       if coordinates.nil?
@@ -77,11 +75,11 @@ module Charta
     def select_value(query)
       ActiveRecord::Base.connection.select_value(query)
     end
-    
+
     def select_values(query)
       ActiveRecord::Base.connection.select_values(query)
     end
-    
+
     # Execute a query
     def select_row(query)
       ActiveRecord::Base.connection.select_rows(query).first
@@ -102,7 +100,6 @@ module Charta
       (item ? item.srid : nil)
     end
 
-
     def clean_for_active_record(value, options = {})
       return nil if value.blank?
       if value.is_a?(String) && value =~ /\A\{.*\}\z/
@@ -112,26 +109,24 @@ module Charta
       end
       value.convert_to(options[:type]).to_rgeo
     end
-    
+
     def from(format, data)
       unless respond_to?("from_#{format}")
         fail "Unknown format: #{format.inspect}"
       end
       send("from_#{format}", data)
     end
-    
+
     def from_gml(data)
       new_geometry(::Charta::GML.new(data).to_ewkt)
     end
-    
+
     def from_kml(data)
       new_geometry(::Charta::KML.new(data).to_ewkt)
     end
-    
+
     def from_geojson(data)
       new_geometry(::Charta::GeoJSON.new(data).to_ewkt)
     end
-    
   end
-
 end
