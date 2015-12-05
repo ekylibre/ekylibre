@@ -3,45 +3,11 @@ module Charta
   class Geometry
     attr_reader :ewkt
 
-    def initialize(coordinates, srs = nil, format = nil)
-      if coordinates.nil?
-        @ewkt = self.class.empty(srs).to_ewkt
-      elsif coordinates.is_a?(self.class)
-        @ewkt = coordinates.ewkt
-      elsif coordinates.is_a?(Hash) || (coordinates.is_a?(String) && ::Charta::GeoJSON.valid?(coordinates)) # GeoJSON
-        srid = srs ? find_srid(srs) : :WGS84
-        @ewkt = select_value("SELECT ST_AsEWKT(ST_GeomFromEWKT('#{::Charta::GeoJSON.new(coordinates, srid).to_ewkt}'))")
-      elsif coordinates.is_a?(String)
-        if coordinates =~ /\A[A-F0-9]+\z/ # WKB
-          if srs && srid = find_srid(srs)
-            @ewkt = select_value("SELECT ST_AsEWKT(ST_GeomFromText(E'\\\\x#{coordinates}', #{srid}))")
-          else
-            @ewkt = select_value("SELECT ST_AsEWKT(ST_GeomFromEWKB(E'\\\\x#{coordinates}'))")
-          end
-        elsif format == 'gml' && ::Charta::GML.valid?(coordinates)
-          # required format 'cause kml geometries return empty instead of failing
-          @ewkt = ::Charta::GML.new(coordinates, srid).to_ewkt
-        elsif format == 'kml' && ::Charta::KML.valid?(coordinates)
-          @ewkt = ::Charta::KML.new(coordinates, srid).to_ewkt
-        else # WKT expected
-          if srs && srid = find_srid(srs)
-            @ewkt = select_value("SELECT ST_AsEWKT(ST_GeomFromText('#{coordinates}', #{srid}))")
-          else
-            @ewkt = select_value("SELECT ST_AsEWKT(ST_GeomFromEWKT('#{coordinates}'))")
-          end
-        end
-      else
-        @ewkt = select_value("SELECT ST_AsEWKT(ST_GeomFromText('#{coordinates.as_text}', #{coordinates.srid}))")
-      end
+    def initialize(ewkt)
+      @ewkt = ewkt
       if @ewkt.blank?
-        fail ArgumentError, "Invalid data: coordinates=#{coordinates.inspect}, srid=#{srid.inspect}"
+        fail ArgumentError, "Need EWKT to instantiate Geometry"
       end
-      # Homogenize geometry
-      homogenize!
-    end
-
-    def self.point(lat, lon, srid = 4326)
-      new("POINT(#{lon} #{lat})", srid)
     end
 
     def inspect
@@ -52,13 +18,10 @@ module Charta
       "ST_MakeValid(ST_GeomFromEWKT('#{@ewkt}'))"
     end
 
-    # Homogenize data if it's a GeometryCollection
-    def homogenize!
-      if collection?
-        @ewkt = select_value("SELECT ST_AsEWKT(ST_CollectionHomogenize(#{geom}))")
-      end
+    def type
+      select_value("SELECT GeometryType(#{geom})").to_s.strip
     end
-
+    
     def collection?
       select_value("SELECT ST_GeometryType(#{geom})") =~ /\AST_GeometryCollection\z/
     end
@@ -72,7 +35,7 @@ module Charta
     end
 
     def to_rgeo
-      @ewkt
+      to_ewkt
     end
 
     def to_text
@@ -116,14 +79,14 @@ module Charta
 
     # Test if the other measure is equal to self
     def ==(other_geometry)
-      other = self.class.new(other_geometry).transform(srid)
+      other = Charta.new_geometry(other_geometry).transform(srid)
       fail 'Cannot compare geometry collection' if self.collection? && other.collection?
       select_value("SELECT ST_Equals(#{geom}, #{other.geom})") =~ /\At(rue)?\z/
     end
 
     # Test if the other measure is equal to self
     def !=(other_geometry)
-      other = self.class.new(other_geometry).transform(srid)
+      other = Charta.new_geometry(other_geometry).transform(srid)
       fail 'Cannot compare geometry collection' if self.collection? && other.collection?
       select_value("SELECT NOT ST_Equals(#{geom}, #{other.geom})") =~ /\At(rue)?\z/
     end
@@ -155,41 +118,44 @@ module Charta
     end
 
     def multi_polygon
-      self.class.new(select_value("SELECT ST_AsEWKT(ST_Multi(ST_CollectionExtract(ST_CollectionHomogenize(ST_Multi(#{geom})), 3)))"))
+      Charta.new_geometry select_value("SELECT ST_AsEWKT(ST_Multi(ST_CollectionExtract(ST_CollectionHomogenize(ST_Multi(#{geom})), 3)))")
+    end
+
+    def convert_to(type)
+      if type == :multi_polygon
+        self.multi_polygon
+      else
+        self
+      end
     end
 
     def circle(radius)
-      self.class.new(select_value("SELECT ST_Buffer(#{geom}, #{radius})"))
+      ActiveSupport::Deprecation.warn "Charta.circle is deprecated. Please use Charta.buffer instead."
+      buffer(radius)
     end
 
+    # Produces buffer
+    def buffer(radius)
+      self.class.new(select_value("SELECT ST_AsEWKT(ST_Buffer(#{geom}, #{radius}))"))
+    end
+    
     # def merge!(other_geometry)
     #   @ewkt = self.merge(other_geometry).ewkt
     # end
 
-    def actors_matching(options = {})
-      operator = '~'
-      operator = '&&' if options[:intersection]
-      options[:nature] ||= Product
-      actors_id = ProductReading
-                  .where("geometry_value #{operator} #{geom}").pluck(:product_id)
-      Product.find(actors_id)
-        .delete_if { |actor| !actor.is_a?(options[:nature]) || actor == self }
-        .flatten
-    end
-
     def merge(other_geometry)
-      other = self.class.new(other_geometry).transform(srid)
+      other = Charta.new_geometry(other_geometry).transform(srid)
       self.class.new(select_value("SELECT ST_AsEWKT(ST_Union(#{geom}, #{other.geom}))"))
     end
     alias_method :+, :merge
 
     def intersection(other_geometry)
-      other = self.class.new(other_geometry).transform(srid)
+      other = Charta.new_geometry(other_geometry).transform(srid)
       self.class.new(select_value("SELECT ST_AsEWKT(ST_Multi(ST_CollectionExtract(ST_CollectionHomogenize(ST_Multi(ST_Intersection(#{geom}, #{other.geom}))), 3)))"))
     end
 
     def difference(other_geometry)
-      other = self.class.new(other_geometry).transform(srid)
+      other = Charta.new_geometry(other_geometry).transform(srid)
       self.class.new(select_value("SELECT ST_AsEWKT(ST_Multi(ST_CollectionExtract(ST_CollectionHomogenize(ST_Multi(ST_Difference(#{geom}, #{other.geom}))), 3)))"))
     end
     alias_method :-, :difference
@@ -216,71 +182,20 @@ module Charta
     delegate :y_max, to: :bounding_box
 
     def select_value(query)
-      self.class.select_value(query)
+      Charta.select_value(query)
+    end
+
+    def select_values(query)
+      Charta.select_values(query)
     end
 
     def select_row(query)
-      self.class.select_row(query)
+      Charta.select_row(query)
     end
 
     def find_srid(name_or_srid)
-      self.class.find_srid(name_or_srid)
+      Charta.find_srid(name_or_srid)
     end
 
-    class << self
-      # Link to the nomenclature
-      def systems
-        Nomen::SpatialReferenceSystem
-      end
-
-      def empty(srid = :WGS84)
-        new('MULTIPOLYGON EMPTY', srid)
-      end
-
-      def from(format, coordinates)
-        unless respond_to?("from_#{format}")
-          fail "Unknown format: #{format.inspect}"
-        end
-        send("from_#{format}", coordinates)
-      end
-
-      def from_gml(coordinates)
-        new(::Charta::GML.new(coordinates).to_ewkt)
-      end
-
-      def from_kml(coordinates)
-        new(::Charta::KML.new(coordinates).to_ewkt)
-      end
-
-      def from_geojson(coordinates)
-        new(::Charta::GeoJSON.new(coordinates).to_ewkt)
-      end
-
-      # # Converts coordinates of a Geometry into the reference of the given SRID
-      # def transform(geometry, srid)
-      #   geometry = new(geometry)
-      #   return new(select_value("SELECT ST_Transform(#{geometry.geom}, #{find_srid(srid)})"))
-      # end
-
-      # Execute a query
-      def select_value(query)
-        ActiveRecord::Base.connection.select_value(query)
-      end
-
-      # Execute a query
-      def select_row(query)
-        ActiveRecord::Base.connection.select_rows(query).first
-      end
-
-      # Check and returns the SRID matching with srname or SRID.
-      def find_srid(srname_or_srid)
-        if srname_or_srid.is_a?(Symbol) || srname_or_srid.is_a?(String)
-          item = systems.items[srname_or_srid]
-        else
-          item = systems.find_by(srid: srname_or_srid)
-        end
-        (item ? item.srid : nil)
-      end
-    end
   end
 end

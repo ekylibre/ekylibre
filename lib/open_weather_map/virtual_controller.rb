@@ -32,7 +32,7 @@ module OpenWeatherMap
         nature: :meteorological_analysis,
         sampled_at: Time.at(json[:dt]),
         sampling_temporal_mode: 'instant',
-        geolocation: Charta::Geometry.point(latitude, longitude),
+        geolocation: Charta.new_point(latitude, longitude),
         values: values,
         status: :ok
       }

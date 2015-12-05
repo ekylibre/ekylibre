@@ -88,11 +88,11 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
         if product = Product.find_by(number: production_support_number) || Product.find_by(identification_number: production_support_number) || Product.find_by(work_number: production_support_number)
           # puts 'Product exist'.inspect.yellow
           if product.shape
-            c = ::Charta::Geometry.new(product.shape)
+            c = ::Charta.new_geometry(product.shape)
             cz = CultivableZone.covers_shape(c).first
           end
         elsif cz = CultivableZone.find_by(work_number: production_support_number)
-          c = ::Charta::Geometry.new(cz.shape)
+          c = ::Charta.new_geometry(cz.shape)
           product = LandParcel.covers_shape(c).first
           unless product
             lp_variant = ProductNatureVariant.import_from_nomenclature(:land_parcel)
@@ -118,7 +118,7 @@ class Ekylibre::BudgetsExchanger < ActiveExchanger::Base
         if activity.with_supports && cz && product && product.shape && Nomen::Variety.find(:cultivable_zone) == support_variant.variety.to_sym
           attributes[:cultivable_zone] = cz
           attributes[:support_shape] = product.shape
-          attributes[:size] = ::Charta::Geometry.new(product.shape).area.in(:hectare)
+          attributes[:size] = ::Charta.new_geometry(product.shape).area.in(:hectare)
           attributes[:usage] = :grain
         elsif activity.with_supports && Nomen::Variety.find(:animal_group) == support_variant.variety.to_sym
           attributes[:size_value] = 1.0

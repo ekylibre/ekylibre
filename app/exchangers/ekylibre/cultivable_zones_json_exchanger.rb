@@ -14,7 +14,7 @@ class Ekylibre::CultivableZonesJsonExchanger < ActiveExchanger::Base
     if clusters['type'] == 'FeatureCollection'
       clusters['features'].each do |feature|
         properties = feature['properties']
-        shape = ::Charta::Geometry.from_geojson(feature)
+        shape = ::Charta.from_geojson(feature)
         CultivableZone.create!(properties.slice('name', 'work_number').merge(shape: shape))
       end
     else

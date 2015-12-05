@@ -139,25 +139,25 @@ ActiveRecord::Schema.define(version: 20151204171201) do
   add_index "activity_distributions", ["updater_id"], name: "index_activity_distributions_on_updater_id", using: :btree
 
   create_table "activity_productions", force: :cascade do |t|
-    t.integer  "support_id",                                                                                           null: false
-    t.datetime "created_at",                                                                                           null: false
-    t.datetime "updated_at",                                                                                           null: false
+    t.integer  "support_id",                                                                                                null: false
+    t.datetime "created_at",                                                                                                null: false
+    t.datetime "updated_at",                                                                                                null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                         default: 0,     null: false
-    t.string   "usage",                                                                                                null: false
-    t.decimal  "size_value",                                                  precision: 19, scale: 4,                 null: false
-    t.string   "size_indicator",                                                                                       null: false
+    t.integer  "lock_version",                                                                              default: 0,     null: false
+    t.string   "usage",                                                                                                     null: false
+    t.decimal  "size_value",                                                       precision: 19, scale: 4,                 null: false
+    t.string   "size_indicator",                                                                                            null: false
     t.string   "size_unit"
-    t.integer  "activity_id",                                                                                          null: false
+    t.integer  "activity_id",                                                                                               null: false
     t.integer  "cultivable_zone_id"
-    t.boolean  "irrigated",                                                                            default: false, null: false
-    t.boolean  "nitrate_fixing",                                                                       default: false, null: false
-    t.geometry "support_shape",      limit: {:srid=>4326, :type=>"geometry"}
+    t.boolean  "irrigated",                                                                                 default: false, null: false
+    t.boolean  "nitrate_fixing",                                                                            default: false, null: false
+    t.geometry "support_shape",      limit: {:srid=>4326, :type=>"multi_polygon"}
     t.datetime "started_at"
     t.datetime "stopped_at"
     t.string   "state"
-    t.integer  "rank_number",                                                                                          null: false
+    t.integer  "rank_number",                                                                                               null: false
   end
 
   add_index "activity_productions", ["activity_id"], name: "index_activity_productions_on_activity_id", using: :btree
@@ -246,27 +246,28 @@ ActiveRecord::Schema.define(version: 20151204171201) do
   add_index "analyses", ["updater_id"], name: "index_analyses_on_updater_id", using: :btree
 
   create_table "analysis_items", force: :cascade do |t|
-    t.integer  "analysis_id",                                                                                                    null: false
-    t.string   "indicator_name",                                                                                                 null: false
-    t.string   "indicator_datatype",                                                                                             null: false
-    t.decimal  "absolute_measure_value_value",                                          precision: 19, scale: 4
+    t.integer  "analysis_id",                                                                                                         null: false
+    t.string   "indicator_name",                                                                                                      null: false
+    t.string   "indicator_datatype",                                                                                                  null: false
+    t.decimal  "absolute_measure_value_value",                                               precision: 19, scale: 4
     t.string   "absolute_measure_value_unit"
-    t.boolean  "boolean_value",                                                                                  default: false, null: false
+    t.boolean  "boolean_value",                                                                                       default: false, null: false
     t.string   "choice_value"
-    t.decimal  "decimal_value",                                                         precision: 19, scale: 4
-    t.geometry "geometry_value",               limit: {:srid=>4326, :type=>"geometry"}
+    t.decimal  "decimal_value",                                                              precision: 19, scale: 4
+    t.geometry "multi_polygon_value",          limit: {:srid=>4326, :type=>"multi_polygon"}
     t.integer  "integer_value"
-    t.decimal  "measure_value_value",                                                   precision: 19, scale: 4
+    t.decimal  "measure_value_value",                                                        precision: 19, scale: 4
     t.string   "measure_value_unit"
     t.geometry "point_value",                  limit: {:srid=>4326, :type=>"point"}
     t.text     "string_value"
     t.text     "annotation"
-    t.datetime "created_at",                                                                                                     null: false
-    t.datetime "updated_at",                                                                                                     null: false
+    t.datetime "created_at",                                                                                                          null: false
+    t.datetime "updated_at",                                                                                                          null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                                   default: 0,     null: false
+    t.integer  "lock_version",                                                                                        default: 0,     null: false
     t.integer  "product_reading_id"
+    t.geometry "geometry_value",               limit: {:srid=>4326, :type=>"geometry"}
   end
 
   add_index "analysis_items", ["analysis_id"], name: "index_analysis_items_on_analysis_id", using: :btree
@@ -340,15 +341,15 @@ ActiveRecord::Schema.define(version: 20151204171201) do
   add_index "campaigns", ["updater_id"], name: "index_campaigns_on_updater_id", using: :btree
 
   create_table "cap_islets", force: :cascade do |t|
-    t.integer  "cap_statement_id",                                                      null: false
-    t.string   "islet_number",                                                          null: false
+    t.integer  "cap_statement_id",                                                           null: false
+    t.string   "islet_number",                                                               null: false
     t.string   "town_number"
-    t.geometry "shape",            limit: {:srid=>4326, :type=>"geometry"},             null: false
-    t.datetime "created_at",                                                            null: false
-    t.datetime "updated_at",                                                            null: false
+    t.geometry "shape",            limit: {:srid=>4326, :type=>"multi_polygon"},             null: false
+    t.datetime "created_at",                                                                 null: false
+    t.datetime "updated_at",                                                                 null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                              default: 0, null: false
+    t.integer  "lock_version",                                                   default: 0, null: false
   end
 
   add_index "cap_islets", ["cap_statement_id"], name: "index_cap_islets_on_cap_statement_id", using: :btree
@@ -358,19 +359,19 @@ ActiveRecord::Schema.define(version: 20151204171201) do
   add_index "cap_islets", ["updater_id"], name: "index_cap_islets_on_updater_id", using: :btree
 
   create_table "cap_land_parcels", force: :cascade do |t|
-    t.integer  "cap_islet_id",                                                                         null: false
+    t.integer  "cap_islet_id",                                                                              null: false
     t.integer  "support_id"
-    t.string   "land_parcel_number",                                                                   null: false
-    t.string   "main_crop_code",                                                                       null: false
+    t.string   "land_parcel_number",                                                                        null: false
+    t.string   "main_crop_code",                                                                            null: false
     t.string   "main_crop_precision"
-    t.boolean  "main_crop_seed_production",                                            default: false, null: false
-    t.boolean  "main_crop_commercialisation",                                          default: false, null: false
-    t.geometry "shape",                       limit: {:srid=>4326, :type=>"geometry"},                 null: false
-    t.datetime "created_at",                                                                           null: false
-    t.datetime "updated_at",                                                                           null: false
+    t.boolean  "main_crop_seed_production",                                                 default: false, null: false
+    t.boolean  "main_crop_commercialisation",                                               default: false, null: false
+    t.geometry "shape",                       limit: {:srid=>4326, :type=>"multi_polygon"},                 null: false
+    t.datetime "created_at",                                                                                null: false
+    t.datetime "updated_at",                                                                                null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                         default: 0,     null: false
+    t.integer  "lock_version",                                                              default: 0,     null: false
   end
 
   add_index "cap_land_parcels", ["cap_islet_id"], name: "index_cap_land_parcels_on_cap_islet_id", using: :btree
@@ -562,16 +563,16 @@ ActiveRecord::Schema.define(version: 20151204171201) do
   add_index "crumbs", ["user_id"], name: "index_crumbs_on_user_id", using: :btree
 
   create_table "cultivable_zones", force: :cascade do |t|
-    t.string   "name",                                                              null: false
-    t.string   "work_number",                                                       null: false
-    t.geometry "shape",        limit: {:srid=>4326, :type=>"geometry"},             null: false
+    t.string   "name",                                                                   null: false
+    t.string   "work_number",                                                            null: false
+    t.geometry "shape",        limit: {:srid=>4326, :type=>"multi_polygon"},             null: false
     t.text     "description"
     t.uuid     "uuid"
-    t.datetime "created_at",                                                        null: false
-    t.datetime "updated_at",                                                        null: false
+    t.datetime "created_at",                                                             null: false
+    t.datetime "updated_at",                                                             null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                          default: 0, null: false
+    t.integer  "lock_version",                                               default: 0, null: false
   end
 
   add_index "cultivable_zones", ["created_at"], name: "index_cultivable_zones_on_created_at", using: :btree
@@ -1273,25 +1274,26 @@ ActiveRecord::Schema.define(version: 20151204171201) do
   add_index "incoming_payments", ["updater_id"], name: "index_incoming_payments_on_updater_id", using: :btree
 
   create_table "intervention_cast_readings", force: :cascade do |t|
-    t.string   "indicator_name",                                                                                                 null: false
-    t.string   "indicator_datatype",                                                                                             null: false
-    t.decimal  "absolute_measure_value_value",                                          precision: 19, scale: 4
+    t.string   "indicator_name",                                                                                                      null: false
+    t.string   "indicator_datatype",                                                                                                  null: false
+    t.decimal  "absolute_measure_value_value",                                               precision: 19, scale: 4
     t.string   "absolute_measure_value_unit"
-    t.boolean  "boolean_value",                                                                                  default: false, null: false
+    t.boolean  "boolean_value",                                                                                       default: false, null: false
     t.string   "choice_value"
-    t.decimal  "decimal_value",                                                         precision: 19, scale: 4
-    t.geometry "geometry_value",               limit: {:srid=>4326, :type=>"geometry"}
+    t.decimal  "decimal_value",                                                              precision: 19, scale: 4
+    t.geometry "multi_polygon_value",          limit: {:srid=>4326, :type=>"multi_polygon"}
     t.integer  "integer_value"
-    t.decimal  "measure_value_value",                                                   precision: 19, scale: 4
+    t.decimal  "measure_value_value",                                                        precision: 19, scale: 4
     t.string   "measure_value_unit"
     t.geometry "point_value",                  limit: {:srid=>4326, :type=>"point"}
     t.text     "string_value"
-    t.datetime "created_at",                                                                                                     null: false
-    t.datetime "updated_at",                                                                                                     null: false
+    t.datetime "created_at",                                                                                                          null: false
+    t.datetime "updated_at",                                                                                                          null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                                   default: 0,     null: false
-    t.integer  "intervention_cast_id",                                                                                           null: false
+    t.integer  "lock_version",                                                                                        default: 0,     null: false
+    t.integer  "intervention_cast_id",                                                                                                null: false
+    t.geometry "geometry_value",               limit: {:srid=>4326, :type=>"geometry"}
   end
 
   add_index "intervention_cast_readings", ["created_at"], name: "index_intervention_cast_readings_on_created_at", using: :btree
@@ -1302,18 +1304,18 @@ ActiveRecord::Schema.define(version: 20151204171201) do
   add_index "intervention_cast_readings", ["updater_id"], name: "index_intervention_cast_readings_on_updater_id", using: :btree
 
   create_table "intervention_casts", force: :cascade do |t|
-    t.integer  "intervention_id",                                                                                      null: false
+    t.integer  "intervention_id",                                                                                           null: false
     t.integer  "product_id"
     t.integer  "variant_id"
-    t.decimal  "quantity_population",                                             precision: 19, scale: 4
-    t.geometry "working_zone",           limit: {:srid=>4326, :type=>"geometry"}
-    t.string   "reference_name",                                                                                       null: false
-    t.integer  "position",                                                                                             null: false
-    t.datetime "created_at",                                                                                           null: false
-    t.datetime "updated_at",                                                                                           null: false
+    t.decimal  "quantity_population",                                                  precision: 19, scale: 4
+    t.geometry "working_zone",           limit: {:srid=>4326, :type=>"multi_polygon"}
+    t.string   "reference_name",                                                                                            null: false
+    t.integer  "position",                                                                                                  null: false
+    t.datetime "created_at",                                                                                                null: false
+    t.datetime "updated_at",                                                                                                null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                             default: 0, null: false
+    t.integer  "lock_version",                                                                                  default: 0, null: false
     t.integer  "event_participation_id"
     t.integer  "source_product_id"
     t.string   "type"
@@ -1321,7 +1323,7 @@ ActiveRecord::Schema.define(version: 20151204171201) do
     t.integer  "new_group_id"
     t.integer  "new_variant_id"
     t.string   "quantity_handler"
-    t.decimal  "quantity_value",                                                  precision: 19, scale: 4
+    t.decimal  "quantity_value",                                                       precision: 19, scale: 4
     t.string   "quantity_unit"
     t.string   "quantity_indicator"
   end
@@ -1413,17 +1415,17 @@ ActiveRecord::Schema.define(version: 20151204171201) do
   add_index "inventories", ["updater_id"], name: "index_inventories_on_updater_id", using: :btree
 
   create_table "inventory_items", force: :cascade do |t|
-    t.integer  "inventory_id",                                                                                      null: false
-    t.integer  "product_id",                                                                                        null: false
-    t.decimal  "expected_population",                                          precision: 19, scale: 4,             null: false
-    t.decimal  "actual_population",                                            precision: 19, scale: 4,             null: false
-    t.datetime "created_at",                                                                                        null: false
-    t.datetime "updated_at",                                                                                        null: false
+    t.integer  "inventory_id",                                                                                           null: false
+    t.integer  "product_id",                                                                                             null: false
+    t.decimal  "expected_population",                                               precision: 19, scale: 4,             null: false
+    t.decimal  "actual_population",                                                 precision: 19, scale: 4,             null: false
+    t.datetime "created_at",                                                                                             null: false
+    t.datetime "updated_at",                                                                                             null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                          default: 0, null: false
-    t.geometry "actual_shape",        limit: {:srid=>4326, :type=>"geometry"}
-    t.geometry "expected_shape",      limit: {:srid=>4326, :type=>"geometry"}
+    t.integer  "lock_version",                                                                               default: 0, null: false
+    t.geometry "actual_shape",        limit: {:srid=>4326, :type=>"multi_polygon"}
+    t.geometry "expected_shape",      limit: {:srid=>4326, :type=>"multi_polygon"}
   end
 
   add_index "inventory_items", ["created_at"], name: "index_inventory_items_on_created_at", using: :btree
@@ -1873,16 +1875,16 @@ ActiveRecord::Schema.define(version: 20151204171201) do
   add_index "outgoing_payments", ["updater_id"], name: "index_outgoing_payments_on_updater_id", using: :btree
 
   create_table "parcel_items", force: :cascade do |t|
-    t.integer  "parcel_id",                                                                                                              null: false
+    t.integer  "parcel_id",                                                                                                                   null: false
     t.integer  "sale_item_id"
     t.integer  "purchase_item_id"
     t.integer  "source_product_id"
     t.integer  "product_id"
     t.integer  "analysis_id"
     t.integer  "variant_id"
-    t.boolean  "parted",                                                                                                 default: false, null: false
-    t.decimal  "population",                                                                    precision: 19, scale: 4
-    t.geometry "shape",                                limit: {:srid=>4326, :type=>"geometry"}
+    t.boolean  "parted",                                                                                                      default: false, null: false
+    t.decimal  "population",                                                                         precision: 19, scale: 4
+    t.geometry "shape",                                limit: {:srid=>4326, :type=>"multi_polygon"}
     t.integer  "source_product_division_id"
     t.integer  "source_product_population_reading_id"
     t.integer  "source_product_shape_reading_id"
@@ -1891,11 +1893,11 @@ ActiveRecord::Schema.define(version: 20151204171201) do
     t.integer  "product_enjoyment_id"
     t.integer  "product_ownership_id"
     t.integer  "product_localization_id"
-    t.datetime "created_at",                                                                                                             null: false
-    t.datetime "updated_at",                                                                                                             null: false
+    t.datetime "created_at",                                                                                                                  null: false
+    t.datetime "updated_at",                                                                                                                  null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                                           default: 0,     null: false
+    t.integer  "lock_version",                                                                                                default: 0,     null: false
   end
 
   add_index "parcel_items", ["analysis_id"], name: "index_parcel_items_on_analysis_id", using: :btree
@@ -2274,25 +2276,26 @@ ActiveRecord::Schema.define(version: 20151204171201) do
   add_index "product_nature_category_taxations", ["usage"], name: "index_product_nature_category_taxations_on_usage", using: :btree
 
   create_table "product_nature_variant_readings", force: :cascade do |t|
-    t.integer  "variant_id",                                                                                                     null: false
-    t.string   "indicator_name",                                                                                                 null: false
-    t.string   "indicator_datatype",                                                                                             null: false
-    t.decimal  "absolute_measure_value_value",                                          precision: 19, scale: 4
+    t.integer  "variant_id",                                                                                                          null: false
+    t.string   "indicator_name",                                                                                                      null: false
+    t.string   "indicator_datatype",                                                                                                  null: false
+    t.decimal  "absolute_measure_value_value",                                               precision: 19, scale: 4
     t.string   "absolute_measure_value_unit"
-    t.boolean  "boolean_value",                                                                                  default: false, null: false
+    t.boolean  "boolean_value",                                                                                       default: false, null: false
     t.string   "choice_value"
-    t.decimal  "decimal_value",                                                         precision: 19, scale: 4
-    t.geometry "geometry_value",               limit: {:srid=>4326, :type=>"geometry"}
+    t.decimal  "decimal_value",                                                              precision: 19, scale: 4
+    t.geometry "multi_polygon_value",          limit: {:srid=>4326, :type=>"multi_polygon"}
     t.integer  "integer_value"
-    t.decimal  "measure_value_value",                                                   precision: 19, scale: 4
+    t.decimal  "measure_value_value",                                                        precision: 19, scale: 4
     t.string   "measure_value_unit"
     t.geometry "point_value",                  limit: {:srid=>4326, :type=>"point"}
     t.text     "string_value"
-    t.datetime "created_at",                                                                                                     null: false
-    t.datetime "updated_at",                                                                                                     null: false
+    t.datetime "created_at",                                                                                                          null: false
+    t.datetime "updated_at",                                                                                                          null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                                   default: 0,     null: false
+    t.integer  "lock_version",                                                                                        default: 0,     null: false
+    t.geometry "geometry_value",               limit: {:srid=>4326, :type=>"geometry"}
   end
 
   add_index "product_nature_variant_readings", ["created_at"], name: "index_product_nature_variant_readings_on_created_at", using: :btree
@@ -2425,26 +2428,27 @@ ActiveRecord::Schema.define(version: 20151204171201) do
   create_table "product_readings", force: :cascade do |t|
     t.integer  "originator_id"
     t.string   "originator_type"
-    t.integer  "product_id",                                                                                                     null: false
-    t.datetime "read_at",                                                                                                        null: false
-    t.string   "indicator_name",                                                                                                 null: false
-    t.string   "indicator_datatype",                                                                                             null: false
-    t.decimal  "absolute_measure_value_value",                                          precision: 19, scale: 4
+    t.integer  "product_id",                                                                                                          null: false
+    t.datetime "read_at",                                                                                                             null: false
+    t.string   "indicator_name",                                                                                                      null: false
+    t.string   "indicator_datatype",                                                                                                  null: false
+    t.decimal  "absolute_measure_value_value",                                               precision: 19, scale: 4
     t.string   "absolute_measure_value_unit"
-    t.boolean  "boolean_value",                                                                                  default: false, null: false
+    t.boolean  "boolean_value",                                                                                       default: false, null: false
     t.string   "choice_value"
-    t.decimal  "decimal_value",                                                         precision: 19, scale: 4
-    t.geometry "geometry_value",               limit: {:srid=>4326, :type=>"geometry"}
+    t.decimal  "decimal_value",                                                              precision: 19, scale: 4
+    t.geometry "multi_polygon_value",          limit: {:srid=>4326, :type=>"multi_polygon"}
     t.integer  "integer_value"
-    t.decimal  "measure_value_value",                                                   precision: 19, scale: 4
+    t.decimal  "measure_value_value",                                                        precision: 19, scale: 4
     t.string   "measure_value_unit"
     t.geometry "point_value",                  limit: {:srid=>4326, :type=>"point"}
     t.text     "string_value"
-    t.datetime "created_at",                                                                                                     null: false
-    t.datetime "updated_at",                                                                                                     null: false
+    t.datetime "created_at",                                                                                                          null: false
+    t.datetime "updated_at",                                                                                                          null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                                   default: 0,     null: false
+    t.integer  "lock_version",                                                                                        default: 0,     null: false
+    t.geometry "geometry_value",               limit: {:srid=>4326, :type=>"geometry"}
   end
 
   add_index "product_readings", ["created_at"], name: "index_product_readings_on_created_at", using: :btree
@@ -2458,22 +2462,22 @@ ActiveRecord::Schema.define(version: 20151204171201) do
 
   create_table "products", force: :cascade do |t|
     t.string   "type"
-    t.string   "name",                                                                                                    null: false
-    t.string   "number",                                                                                                  null: false
-    t.integer  "variant_id",                                                                                              null: false
-    t.integer  "nature_id",                                                                                               null: false
-    t.integer  "category_id",                                                                                             null: false
-    t.boolean  "extjuncted",                                                                              default: false, null: false
+    t.string   "name",                                                                                                         null: false
+    t.string   "number",                                                                                                       null: false
+    t.integer  "variant_id",                                                                                                   null: false
+    t.integer  "nature_id",                                                                                                    null: false
+    t.integer  "category_id",                                                                                                  null: false
+    t.boolean  "extjuncted",                                                                                   default: false, null: false
     t.datetime "initial_born_at"
     t.datetime "initial_dead_at"
     t.integer  "initial_container_id"
     t.integer  "initial_owner_id"
     t.integer  "initial_enjoyer_id"
-    t.decimal  "initial_population",                                             precision: 19, scale: 4, default: 0.0
-    t.geometry "initial_shape",         limit: {:srid=>4326, :type=>"geometry"}
+    t.decimal  "initial_population",                                                  precision: 19, scale: 4, default: 0.0
+    t.geometry "initial_shape",         limit: {:srid=>4326, :type=>"multi_polygon"}
     t.integer  "initial_father_id"
     t.integer  "initial_mother_id"
-    t.string   "variety",                                                                                                 null: false
+    t.string   "variety",                                                                                                      null: false
     t.string   "derivative_of"
     t.integer  "tracking_id"
     t.integer  "fixed_asset_id"
@@ -2489,11 +2493,11 @@ ActiveRecord::Schema.define(version: 20151204171201) do
     t.integer  "address_id"
     t.integer  "parent_id"
     t.integer  "default_storage_id"
-    t.datetime "created_at",                                                                                              null: false
-    t.datetime "updated_at",                                                                                              null: false
+    t.datetime "created_at",                                                                                                   null: false
+    t.datetime "updated_at",                                                                                                   null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                            default: 0,     null: false
+    t.integer  "lock_version",                                                                                 default: 0,     null: false
     t.integer  "person_id"
     t.geometry "initial_geolocation",   limit: {:srid=>4326, :type=>"point"}
     t.uuid     "uuid"

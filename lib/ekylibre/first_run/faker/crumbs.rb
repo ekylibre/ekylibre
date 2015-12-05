@@ -48,8 +48,8 @@ module Ekylibre::FirstRun::Faker
       members = cultivable_zone.contains(:plant, issue_observed_at) if cultivable_zone
       plant = members.first.product if members
       if plant.nil?
-        cultivable_zone_shape = Charta::Geometry.new(cultivable_zone.shape) if cultivable_zone.shape
-        if cultivable_zone_shape && product_around = cultivable_zone_shape.actors_matching(nature: Plant).first
+        cultivable_zone_shape = Charta.new_geometry(cultivable_zone.shape) if cultivable_zone.shape
+        if cultivable_zone_shape && product_around = Plant.within_shape(cultivable_zone_shape).first
           plant = product_around
         end
       end

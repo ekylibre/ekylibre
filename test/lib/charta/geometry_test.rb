@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Charta::GeometryTest < ActiveSupport::TestCase
+class Charta.est < ActiveSupport::TestCase
   test 'different E/WKT format input' do
     samples = ['POINT(6 10)',
                'LINESTRING(3 4,10 50,20 25)',
@@ -17,8 +17,8 @@ class Charta::GeometryTest < ActiveSupport::TestCase
               ]
 
     samples.each_with_index do |sample, index|
-      geom1 = Charta::Geometry.new(sample, :WGS84)
-      geom2 = Charta::Geometry.new("SRID=4326;#{sample}")
+      geom1 = Charta.new_geometry(sample, :WGS84)
+      geom2 = Charta.new_geometry("SRID=4326;#{sample}")
 
       assert_equal geom1.to_ewkt, geom2.to_ewkt
 
@@ -28,7 +28,7 @@ class Charta::GeometryTest < ActiveSupport::TestCase
       assert geom1.area
     end
 
-    assert Charta::Geometry.empty.empty?
+    assert Charta.empty_geometry.empty?
   end
 
   test 'different GeoJSON format input' do
@@ -80,7 +80,7 @@ class Charta::GeometryTest < ActiveSupport::TestCase
      }'
 
     samples.each_with_index do |sample, _index|
-      geom = Charta::Geometry.new(sample)
+      geom = Charta.new_geometry(sample)
       assert_equal 4326, geom.srid
     end
   end
@@ -100,9 +100,9 @@ class Charta::GeometryTest < ActiveSupport::TestCase
   </gml:surfaceMember>
 </gml:MultiSurface>'
 
-    samples.each_with_index do |sample, _index|
-      assert ::Charta::GML.valid?(sample), 'Invalid gml'
-      geom = Charta::Geometry.new(sample, nil, 'gml').transform(:WGS84)
+    samples.each_with_index do |sample, index|
+      assert ::Charta::GML.valid?(sample), "GML ##{index} should be valid"
+      geom = Charta.new_geometry(sample, nil, 'gml').transform(:WGS84)
 
       assert_equal 4326, geom.srid
     end
@@ -122,9 +122,9 @@ class Charta::GeometryTest < ActiveSupport::TestCase
     </Polygon>
 </MultiGeometry>'
 
-    samples.each_with_index do |sample, _index|
-      assert ::Charta::GML.valid?(sample), 'Invalid kml'
-      geom = Charta::Geometry.new(sample, nil, 'kml').transform(:WGS84)
+    samples.each_with_index do |sample, index|
+      assert ::Charta::KML.valid?(sample), "KML ##{index} should be valid"
+      geom = Charta.new_geometry(sample, nil, 'kml').transform(:WGS84)
       assert_equal 4326, geom.srid
     end
   end
@@ -140,7 +140,7 @@ class Charta::GeometryTest < ActiveSupport::TestCase
                'POINT EMPTY',
                'MULTIPOLYGON EMPTY'
               ].collect do |ewkt|
-      Charta::Geometry.new("SRID=4326;#{ewkt}")
+      Charta.new_geometry("SRID=4326;#{ewkt}")
     end
     last = samples.count - 1
     samples.each_with_index do |geom1, i|
@@ -160,4 +160,19 @@ class Charta::GeometryTest < ActiveSupport::TestCase
       end
     end
   end
+
+
+  test 'class cast' do
+    samples =  {
+      'Point' => 'POINT(6 10)',
+      'LineString' => 'LINESTRING(3 4,10 50,20 25)',
+      'Polygon' => 'POLYGON((1 1,5 1,5 5,1 5,1 1))',
+      'MultiPolygon' => 'MULTIPOLYGON(((1 1,5 1,5 5,1 5,1 1),(2 2,2 3,3 3,3 2,2 2)),((6 3,9 2,9 4,6 3)))',
+      'GeometryCollection' => 'GEOMETRYCOLLECTION(POINT(4 6),LINESTRING(4 6,7 10))'
+    }
+    samples.each do |class_name, ewkt|
+      assert_equal 'Charta::' + class_name, Charta.new_geometry(ewkt).class.name
+    end
+  end
+  
 end

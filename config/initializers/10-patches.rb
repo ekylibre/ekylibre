@@ -13,7 +13,7 @@ end
 #     elsif column and [:point].include?(column.type) and value =~ /\A\(.+\)\z/
 #       "'#{value}'::#{column.type}"
 #     elsif column and [:point, :linestring, :geometry].include?(column.type)
-#       "ST_GeomFromEWKT('#{Charta::Geometry.new(value).to_ewkt}')::#{column.type}"
+#       "ST_GeomFromEWKT('#{Charta.new_geometry(value).to_ewkt}')::#{column.type}"
 #     else
 #       super
 #     end

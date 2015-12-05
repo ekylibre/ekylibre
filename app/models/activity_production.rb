@@ -38,7 +38,7 @@
 #  state              :string
 #  stopped_at         :datetime
 #  support_id         :integer          not null
-#  support_shape      :geometry({:srid=>4326, :type=>"geometry"})
+#  support_shape      :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  updated_at         :datetime         not null
 #  updater_id         :integer
 #  usage              :string           not null
@@ -54,6 +54,8 @@ class ActivityProduction < Ekylibre::Record::Base
                                           inverse_of: :activity_production
   has_one :selected_manure_management_plan_zone, -> { selecteds },
           class_name: 'ManureManagementPlanZone', inverse_of: :activity_production
+
+  has_geometry :support_shape
   composed_of :size, class_name: 'Measure', mapping: [%w(size_value to_d), %w(size_unit unit)]
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -89,7 +91,7 @@ class ActivityProduction < Ekylibre::Record::Base
   }
   scope :current, -> { where(':now BETWEEN COALESCE(started_at, :now) AND COALESCE(stopped_at, :now)', now: Time.zone.now) }
   scope :overlaps_shape, lambda { |shape|
-    where('ST_Overlaps(support_shape, ST_GeomFromEWKT(?))', ::Charta::Geometry.new(shape).to_ewkt)
+    where('ST_Overlaps(support_shape, ST_GeomFromEWKT(?))', ::Charta.new_geometry(shape).to_ewkt)
   }
 
   state_machine :state, initial: :opened do
@@ -119,11 +121,13 @@ class ActivityProduction < Ekylibre::Record::Base
       self.rank_number ||= (self.activity.productions.maximum(:rank_number) ? self.activity.productions.maximum(:rank_number) : 0) + 1
     end
     if !support && cultivable_zone && support_shape && self.vegetal_crops?
-      land_parcels = LandParcel.overlaps_shape(::Charta::Geometry.new(support_shape)).order(:id)
+      land_parcels = LandParcel.overlaps_shape(::Charta.new_geometry(support_shape)).order(:id)
       if land_parcels.any?
         land_parcel = land_parcels.first
       else
-        land_parcel = LandParcel.new(name: name, initial_shape: support_shape, initial_born_at: started_at, variant: ProductNatureVariant.import_from_nomenclature(:land_parcel))
+        list = [cultivable_zone.name, :rank.t(number: rank_number)]
+        list = list.reverse! if 'i18n.dir'.t == 'rtl'
+        land_parcel = LandParcel.new(name: list.join(' '), initial_shape: support_shape, initial_born_at: started_at, variant: ProductNatureVariant.import_from_nomenclature(:land_parcel))
         land_parcel.save!
       end
       self.support = land_parcel
@@ -160,15 +164,6 @@ class ActivityProduction < Ekylibre::Record::Base
 
   def campaigns
     Campaign.of_activity_production(self)
-  end
-
-  def support_shape=(value)
-    if value.is_a?(String) && value =~ /\A\{.*\}\z/
-      value = Charta::Geometry.new(JSON.parse(value).to_json, :WGS84).to_rgeo
-    elsif !value.blank?
-      value = Charta::Geometry.new(value).to_rgeo
-    end
-    self['support_shape'] = value
   end
 
   def cost(role = :input)
@@ -365,11 +360,12 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   # Returns unique i18nized name for given production
-  def name
-    list = [activity.name]
+  def name(options = {})
+    list = []
+    list << activity.name unless options[:activity].is_a?(FalseClass)
     v = Nomen::Variety.find(cultivation_variety)
     list << v.human_name if v && v.human_name != activity.name
-    list << support.name if support
+    # list << support.name if !options[:support].is_a?(FalseClass) && support
     list << started_at.to_date.l(format: :month) if started_at
     list << :rank.t(number: rank_number)
     list = list.reverse! if 'i18n.dir'.t == 'rtl'

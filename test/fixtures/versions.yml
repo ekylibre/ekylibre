@@ -11215,12 +11215,12 @@ versions_220:
     title:
   item_type: Entity
 versions_221:
-  created_at: 2015-12-03 10:39:01.262811000 Z
+  created_at: 2015-12-05 21:55:42.258871000 Z
   event: create
-  id: 260
-  item_id: 18
+  id: 258
+  item_id: 17
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 18
+    id: 17
     nature: organization
     last_name: GAEC DUPONT
     first_name: ''
@@ -11255,23 +11255,23 @@ versions_221:
     picture_content_type:
     picture_file_size:
     picture_updated_at:
-    created_at: 2015-12-03 10:39:01.241230000 Z
+    created_at: 2015-12-05 21:55:42.235588000 Z
     creator_id:
     title:
   item_type: Entity
 versions_222:
-  created_at: 2015-12-03 10:39:01.634701000 Z
+  created_at: 2015-12-05 21:55:42.644803000 Z
   event: create
-  id: 261
-  item_id: 146
+  id: 259
+  item_id: 145
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 146
+    id: 145
     type: LandParcel
-    name: Luzerne implantée pour la récolte 2015 Luzerne n°1
+    name: ZC-017005218-1-1 n°1
     number: PR00000000089
-    variant_id: 70
-    nature_id: 60
-    category_id: 26
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -11279,7 +11279,7 @@ versions_222:
     initial_owner_id:
     initial_enjoyer_id:
     initial_population: !ruby/object:BigDecimal 18:0.25534E1
-    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
         has_m_coordinate: false
@@ -11308,7 +11308,7 @@ versions_222:
           ignore_extra_bytes: false
           default_srid:
         auto_prepare: simple
-      wkt: POLYGON ((-0.7698279637092580 45.8026959095465998, -0.7704421435488560
+      wkt: MULTIPOLYGON (((-0.7698279637092580 45.8026959095465998, -0.7704421435488560
         45.8029051014761990, -0.7706941968404230 45.8025429042227969, -0.7714541922126420
         45.8028347398023996, -0.7715123401367160 45.8027665243076996, -0.7714672406044970
         45.8028510006011018, -0.7716029933554370 45.8027103851174999, -0.7716874387598590
@@ -11332,7 +11332,7 @@ versions_222:
         45.8017324917683979, -0.7691405964506770 45.8022549437543987, -0.7693564332710340
         45.8022973616436033, -0.7699055848789240 45.8024195446090019, -0.7699516324630580
         45.8024401822255030, -0.7699536477026540 45.8024696819527009, -0.7698279637092580
-        45.8026959095465998))
+        45.8026959095465998)))
     initial_father_id:
     initial_mother_id:
     variety: land_parcel
@@ -11351,25 +11351,25 @@ versions_222:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-03 10:39:01.627416000 Z
+    created_at: 2015-12-05 21:55:42.635494000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 023a49c1-3e89-4294-a020-acaaed8ed9cb
+    uuid: 0779be54-0eab-488f-b620-ed7a5d98e829
   item_type: Product
 versions_223:
-  created_at: 2015-12-03 10:39:02.045413000 Z
+  created_at: 2015-12-05 21:55:43.064757000 Z
   event: create
-  id: 262
-  item_id: 147
+  id: 260
+  item_id: 146
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 147
+    id: 146
     type: LandParcel
-    name: Luzerne implantée pour la récolte 2015 Luzerne n°2
+    name: ZC-017005218-2-1 n°2
     number: PR00000000090
-    variant_id: 70
-    nature_id: 60
-    category_id: 26
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -11377,7 +11377,7 @@ versions_223:
     initial_owner_id:
     initial_enjoyer_id:
     initial_population: !ruby/object:BigDecimal 18:0.49989E1
-    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
         has_m_coordinate: false
@@ -11406,7 +11406,7 @@ versions_223:
           ignore_extra_bytes: false
           default_srid:
         auto_prepare: simple
-      wkt: POLYGON ((-0.7703106431715080 45.8046423309193997, -0.7704401231107501
+      wkt: MULTIPOLYGON (((-0.7703106431715080 45.8046423309193997, -0.7704401231107501
         45.8047522511945004, -0.7705269131808610 45.8048175981617973, -0.7706590712989920
         45.8048929402298981, -0.7708495334775900 45.8049697393185014, -0.7709569775499731
         45.8050024611506998, -0.7711202220889840 45.8050333176606017, -0.7713553313721651
@@ -11437,7 +11437,7 @@ versions_223:
         45.8039577036068977, -0.7698313236892920 45.8040229429106986, -0.7698644816252370
         45.8041640222545965, -0.7698912317887020 45.8042123205705991, -0.7700043288252090
         45.8043328947526973, -0.7701827343294810 45.8045105520966018, -0.7703106431715080
-        45.8046423309193997))
+        45.8046423309193997)))
     initial_father_id:
     initial_mother_id:
     variety: land_parcel
@@ -11456,25 +11456,25 @@ versions_223:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-03 10:39:02.040355000 Z
+    created_at: 2015-12-05 21:55:43.059672000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: e70ad90e-3962-49f6-8be0-6ec18648ce0a
+    uuid: f6536933-f0aa-403e-bf8a-2b2c81600a70
   item_type: Product
 versions_224:
-  created_at: 2015-12-03 10:39:02.215311000 Z
+  created_at: 2015-12-05 21:55:43.248194000 Z
   event: create
-  id: 263
-  item_id: 148
+  id: 261
+  item_id: 147
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 148
+    id: 147
     type: LandParcel
-    name: Maïs (zea_mays) Maïs commun n°1
+    name: ZC-017005218-3-1 n°1
     number: PR00000000091
-    variant_id: 70
-    nature_id: 60
-    category_id: 26
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -11482,7 +11482,7 @@ versions_224:
     initial_owner_id:
     initial_enjoyer_id:
     initial_population: !ruby/object:BigDecimal 18:0.12768E1
-    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
         has_m_coordinate: false
@@ -11511,7 +11511,7 @@ versions_224:
           ignore_extra_bytes: false
           default_srid:
         auto_prepare: simple
-      wkt: POLYGON ((-0.7922820493511800 45.8217001703347009, -0.7919635952298770
+      wkt: MULTIPOLYGON (((-0.7922820493511800 45.8217001703347009, -0.7919635952298770
         45.8220305017838001, -0.7916749761825860 45.8223458623827966, -0.7913325022925430
         45.8226766553597002, -0.7910065759331700 45.8229976938840977, -0.7906670295902820
         45.8233191888313982, -0.7904431501519700 45.8235366152962982, -0.7905741770320170
@@ -11520,7 +11520,7 @@ versions_224:
         45.8232871297450970, -0.7918521394335060 45.8229176058385974, -0.7922807336441580
         45.8224860308865019, -0.7926779523928980 45.8220886145692035, -0.7927181627629331
         45.8220467646111018, -0.7926601257609580 45.8218903865010034, -0.7924547271089620
-        45.8215321667495985, -0.7922820493511800 45.8217001703347009))
+        45.8215321667495985, -0.7922820493511800 45.8217001703347009)))
     initial_father_id:
     initial_mother_id:
     variety: land_parcel
@@ -11539,25 +11539,25 @@ versions_224:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-03 10:39:02.210949000 Z
+    created_at: 2015-12-05 21:55:43.244445000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: c5a47875-9de7-42a5-a1e3-3391064112b6
+    uuid: c8ae49cd-d51d-429e-a418-922153c7dbf9
   item_type: Product
 versions_225:
-  created_at: 2015-12-03 10:39:02.370375000 Z
+  created_at: 2015-12-05 21:55:43.412290000 Z
   event: create
-  id: 264
-  item_id: 149
+  id: 262
+  item_id: 148
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 149
+    id: 148
     type: LandParcel
-    name: Maïs (zea_mays) Maïs commun n°2
+    name: ZC-017005218-4-1 n°2
     number: PR00000000092
-    variant_id: 70
-    nature_id: 60
-    category_id: 26
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -11565,7 +11565,7 @@ versions_225:
     initial_owner_id:
     initial_enjoyer_id:
     initial_population: !ruby/object:BigDecimal 18:0.6467E0
-    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
         has_m_coordinate: false
@@ -11594,14 +11594,14 @@ versions_225:
           ignore_extra_bytes: false
           default_srid:
         auto_prepare: simple
-      wkt: POLYGON ((-0.7913973163240690 45.8204004370198987, -0.7912345601026730
+      wkt: MULTIPOLYGON (((-0.7913973163240690 45.8204004370198987, -0.7912345601026730
         45.8205521810449028, -0.7910857176442770 45.8206885316517969, -0.7909896819605740
         45.8207701134522978, -0.7907255138864590 45.8210365175824990, -0.7908212237899700
         45.8210600103415970, -0.7910864645606650 45.8211142702287972, -0.7914964998534860
         45.8211977579552965, -0.7917454501088690 45.8212186030257982, -0.7920451734694040
         45.8212258637823027, -0.7921646855901890 45.8212195696032012, -0.7921737522067360
         45.8212025676846011, -0.7918031269973770 45.8205256692195988, -0.7915872005226990
-        45.8202132941207978, -0.7913973163240690 45.8204004370198987))
+        45.8202132941207978, -0.7913973163240690 45.8204004370198987)))
     initial_father_id:
     initial_mother_id:
     variety: land_parcel
@@ -11620,25 +11620,25 @@ versions_225:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-03 10:39:02.366828000 Z
+    created_at: 2015-12-05 21:55:43.409390000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: c24fd4d4-e63a-42bc-b308-d797102a9847
+    uuid: f1ff519e-d1aa-4a7f-b07e-65bc35225e3e
   item_type: Product
 versions_226:
-  created_at: 2015-12-03 10:39:02.494540000 Z
+  created_at: 2015-12-05 21:55:43.540502000 Z
   event: create
-  id: 265
-  item_id: 150
+  id: 263
+  item_id: 149
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 150
+    id: 149
     type: LandParcel
-    name: Blé tendre d’hiver Blé tendre n°1
+    name: ZC-017005218-5-1 n°1
     number: PR00000000093
-    variant_id: 70
-    nature_id: 60
-    category_id: 26
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -11646,7 +11646,7 @@ versions_226:
     initial_owner_id:
     initial_enjoyer_id:
     initial_population: !ruby/object:BigDecimal 18:0.1206E1
-    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
         has_m_coordinate: false
@@ -11675,7 +11675,7 @@ versions_226:
           ignore_extra_bytes: false
           default_srid:
         auto_prepare: simple
-      wkt: POLYGON ((-0.7921303380238840 45.8189190618764997, -0.7918981947510050
+      wkt: MULTIPOLYGON (((-0.7921303380238840 45.8189190618764997, -0.7918981947510050
         45.8190229136414970, -0.7918184604960850 45.8190797685644995, -0.7917915264041600
         45.8191172405675999, -0.7917887468028340 45.8191548385217970, -0.7918129347460020
         45.8192248418531989, -0.7920267635204280 45.8195563705056017, -0.7922681513178060
@@ -11688,7 +11688,7 @@ versions_226:
         45.8206975009780990, -0.7935420287094350 45.8206264794745977, -0.7932723106724490
         45.8202032503075998, -0.7930408289032410 45.8198545208148005, -0.7926538575392500
         45.8192736809097028, -0.7923406600269480 45.8188418159747002, -0.7921303380238840
-        45.8189190618764997))
+        45.8189190618764997)))
     initial_father_id:
     initial_mother_id:
     variety: land_parcel
@@ -11707,26 +11707,25 @@ versions_226:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-03 10:39:02.491086000 Z
+    created_at: 2015-12-05 21:55:43.537724000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 1f055571-ea41-48dc-abff-f4b04cce5266
+    uuid: 6032229f-c43e-4020-95be-09ce4143f4a9
   item_type: Product
 versions_227:
-  created_at: 2015-12-03 10:39:02.710650000 Z
+  created_at: 2015-12-05 21:55:43.784655000 Z
   event: create
-  id: 266
-  item_id: 151
+  id: 264
+  item_id: 150
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 151
+    id: 150
     type: LandParcel
-    name: Mélange de légumineuses fourragères prépondérantes au semis implantées pour
-      la récolte 2015 et de céréales Plante n°1
+    name: ZC-017005218-8-3 n°1
     number: PR00000000094
-    variant_id: 70
-    nature_id: 60
-    category_id: 26
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -11734,7 +11733,7 @@ versions_227:
     initial_owner_id:
     initial_enjoyer_id:
     initial_population: !ruby/object:BigDecimal 18:0.33423E1
-    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
         has_m_coordinate: false
@@ -11763,7 +11762,7 @@ versions_227:
           ignore_extra_bytes: false
           default_srid:
         auto_prepare: simple
-      wkt: POLYGON ((-0.7878971792852880 45.8285981330582999, -0.7878668555821760
+      wkt: MULTIPOLYGON (((-0.7878971792852880 45.8285981330582999, -0.7878668555821760
         45.8285229716276987, -0.7855960407951950 45.8298405801390984, -0.7860863854270930
         45.8302257144576970, -0.7866948045244430 45.8307202851437978, -0.7867045711821540
         45.8307012606932034, -0.7867153008030170 45.8307758347969028, -0.7868266943859240
@@ -11773,7 +11772,7 @@ versions_227:
         45.8297662875105019, -0.7885272920137850 45.8296232473680973, -0.7882700959867610
         45.8293564055978990, -0.7882154806647290 45.8292876490369991, -0.7881553767494860
         45.8291904224910027, -0.7881114685790011 45.8291129250103992, -0.7880193215602900
-        45.8289158766202007, -0.7878971792852880 45.8285981330582999))
+        45.8289158766202007, -0.7878971792852880 45.8285981330582999)))
     initial_father_id:
     initial_mother_id:
     variety: land_parcel
@@ -11792,25 +11791,25 @@ versions_227:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-03 10:39:02.707411000 Z
+    created_at: 2015-12-05 21:55:43.781706000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 7457ef41-0449-4639-b453-5ef439209d7f
+    uuid: 8dd84292-d062-4dfb-aa99-70e0bb08b457
   item_type: Product
 versions_228:
-  created_at: 2015-12-03 10:39:02.876746000 Z
+  created_at: 2015-12-05 21:55:43.972985000 Z
   event: create
-  id: 267
-  item_id: 152
+  id: 265
+  item_id: 151
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 152
+    id: 151
     type: LandParcel
-    name: Autre prairie temporaire de 5 ans ou moins Plante n°1
+    name: ZC-017005218-8-2 n°1
     number: PR00000000095
-    variant_id: 70
-    nature_id: 60
-    category_id: 26
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -11818,7 +11817,7 @@ versions_228:
     initial_owner_id:
     initial_enjoyer_id:
     initial_population: !ruby/object:BigDecimal 18:0.40579E1
-    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
         has_m_coordinate: false
@@ -11847,7 +11846,7 @@ versions_228:
           ignore_extra_bytes: false
           default_srid:
         auto_prepare: simple
-      wkt: POLYGON ((-0.7878668555821760 45.8285229716276987, -0.7876988174442791
+      wkt: MULTIPOLYGON (((-0.7878668555821760 45.8285229716276987, -0.7876988174442791
         45.8281064570058021, -0.7873148096161270 45.8271995363868996, -0.7871024237225090
         45.8273234607060971, -0.7864368372438200 45.8277127404941993, -0.7859424208838300
         45.8279996937529006, -0.7856951791007299 45.8278046711182014, -0.7853418588451520
@@ -11864,7 +11863,7 @@ versions_228:
         45.8291114411033007, -0.7848259671611740 45.8291346982234984, -0.7848413223445390
         45.8291577591243993, -0.7851444362323160 45.8293862525423989, -0.7852636909296210
         45.8295795369011003, -0.7855960407951950 45.8298405801390984, -0.7878668555821760
-        45.8285229716276987))
+        45.8285229716276987)))
     initial_father_id:
     initial_mother_id:
     variety: land_parcel
@@ -11883,25 +11882,25 @@ versions_228:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-03 10:39:02.873569000 Z
+    created_at: 2015-12-05 21:55:43.969812000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: a6751053-ebd1-44bc-949d-a0d68cf739b1
+    uuid: fe71fb32-4158-4774-9017-ed19eb445863
   item_type: Product
 versions_229:
-  created_at: 2015-12-03 10:39:03.138155000 Z
+  created_at: 2015-12-05 21:55:44.315182000 Z
   event: create
-  id: 268
-  item_id: 153
+  id: 266
+  item_id: 152
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 153
+    id: 152
     type: LandParcel
-    name: Dactyle de 5 ans ou moins Dactyle n°1
+    name: ZC-017005218-10-1 n°1
     number: PR00000000096
-    variant_id: 70
-    nature_id: 60
-    category_id: 26
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -11909,7 +11908,7 @@ versions_229:
     initial_owner_id:
     initial_enjoyer_id:
     initial_population: !ruby/object:BigDecimal 18:0.23814E1
-    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
         has_m_coordinate: false
@@ -11938,7 +11937,7 @@ versions_229:
           ignore_extra_bytes: false
           default_srid:
         auto_prepare: simple
-      wkt: POLYGON ((-0.7723039181351110 45.8235309306909997, -0.7716313827747380
+      wkt: MULTIPOLYGON (((-0.7723039181351110 45.8235309306909997, -0.7716313827747380
         45.8240212578346018, -0.7720532988188180 45.8245129487045020, -0.7723952682313620
         45.8249237117745025, -0.7727737720067970 45.8246405590439991, -0.7733338831221300
         45.8242476519099000, -0.7732216266070620 45.8241517790604007, -0.7739883239667270
@@ -11947,7 +11946,7 @@ versions_229:
         45.8222065364608966, -0.7745827798596410 45.8221842105755002, -0.7739365292968230
         45.8228124526558034, -0.7733804064866040 45.8233490910195016, -0.7731234833757550
         45.8232405214466993, -0.7728514167783630 45.8231241077148965, -0.7725763686344810
-        45.8233220222454989, -0.7723039181351110 45.8235309306909997))
+        45.8233220222454989, -0.7723039181351110 45.8235309306909997)))
     initial_father_id:
     initial_mother_id:
     variety: land_parcel
@@ -11966,25 +11965,25 @@ versions_229:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-03 10:39:03.133669000 Z
+    created_at: 2015-12-05 21:55:44.312322000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 033e1992-650e-4674-bcce-f44e9909398a
+    uuid: c940d0a4-d2e5-47a4-98fe-106a2e0cdc57
   item_type: Product
 versions_230:
-  created_at: 2015-12-03 10:39:03.292611000 Z
+  created_at: 2015-12-05 21:55:44.453120000 Z
   event: create
-  id: 269
-  item_id: 154
+  id: 267
+  item_id: 153
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 154
+    id: 153
     type: LandParcel
-    name: Sorgho n°1
+    name: ZC-017005218-11-1 n°1
     number: PR00000000097
-    variant_id: 70
-    nature_id: 60
-    category_id: 26
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -11992,7 +11991,7 @@ versions_230:
     initial_owner_id:
     initial_enjoyer_id:
     initial_population: !ruby/object:BigDecimal 18:0.23421E1
-    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
         has_m_coordinate: false
@@ -12021,7 +12020,7 @@ versions_230:
           ignore_extra_bytes: false
           default_srid:
         auto_prepare: simple
-      wkt: POLYGON ((-0.7701370453462160 45.8266597555803017, -0.7701484185630640
+      wkt: MULTIPOLYGON (((-0.7701370453462160 45.8266597555803017, -0.7701484185630640
         45.8266565430847024, -0.7708238849204790 45.8264620437665968, -0.7713050108623410
         45.8263226371464967, -0.7721569845953490 45.8260713874030969, -0.7725613779097010
         45.8259485061993033, -0.7729453881919980 45.8258078543975031, -0.7730045598080970
@@ -12034,7 +12033,7 @@ versions_230:
         45.8262534592118982, -0.7698319104051130 45.8263971433844972, -0.7701370453462160
         45.8266597555803017), (-0.7701247393718450 45.8266375286314016, -0.7701206686811110
         45.8266394766651004, -0.7696585118115080 45.8261551357982029, -0.7696617202559620
-        45.8261538548555976, -0.7701247393718450 45.8266375286314016))
+        45.8261538548555976, -0.7701247393718450 45.8266375286314016)))
     initial_father_id:
     initial_mother_id:
     variety: land_parcel
@@ -12053,25 +12052,25 @@ versions_230:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-03 10:39:03.289597000 Z
+    created_at: 2015-12-05 21:55:44.450061000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 72ba86f4-c329-4795-8bd1-9a51715a8876
+    uuid: d3ee5399-6456-49ef-bebd-0ec98cdb2050
   item_type: Product
 versions_231:
-  created_at: 2015-12-03 10:39:03.412284000 Z
+  created_at: 2015-12-05 21:55:44.598708000 Z
   event: create
-  id: 270
-  item_id: 155
+  id: 268
+  item_id: 154
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 155
+    id: 154
     type: LandParcel
-    name: Orge d'hiver Orge commune n°1
+    name: ZC-017005218-13-1 n°1
     number: PR00000000098
-    variant_id: 70
-    nature_id: 60
-    category_id: 26
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -12079,7 +12078,7 @@ versions_231:
     initial_owner_id:
     initial_enjoyer_id:
     initial_population: !ruby/object:BigDecimal 18:0.1944E1
-    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
         has_m_coordinate: false
@@ -12108,7 +12107,7 @@ versions_231:
           ignore_extra_bytes: false
           default_srid:
         auto_prepare: simple
-      wkt: POLYGON ((-0.7648049317390910 45.8312730746025991, -0.7650885202480340
+      wkt: MULTIPOLYGON (((-0.7648049317390910 45.8312730746025991, -0.7650885202480340
         45.8314242192930976, -0.7653794653438470 45.8315797688304016, -0.7655392362603330
         45.8316778066076012, -0.7652548637109940 45.8319232750166989, -0.7647027333077570
         45.8323261613813031, -0.7651440409871550 45.8324927217938978, -0.7655775670614640
@@ -12121,7 +12120,7 @@ versions_231:
         45.8312639778500994, -0.7659689994997240 45.8310817450508026, -0.7658095046982210
         45.8312444947400977, -0.7651917238469840 45.8309168923312029, -0.7647247619137800
         45.8306750254714999, -0.7644811701170100 45.8308648487904975, -0.7643052842105640
-        45.8310130812906991, -0.7648049317390910 45.8312730746025991))
+        45.8310130812906991, -0.7648049317390910 45.8312730746025991)))
     initial_father_id:
     initial_mother_id:
     variety: land_parcel
@@ -12140,25 +12139,25 @@ versions_231:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-03 10:39:03.408923000 Z
+    created_at: 2015-12-05 21:55:44.595761000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 9e431180-9ad5-4cb4-8e38-f23d9e2042ef
+    uuid: dc9f579c-5ba5-4be9-8bc5-c370af5101f3
   item_type: Product
 versions_232:
-  created_at: 2015-12-03 10:39:03.530001000 Z
+  created_at: 2015-12-05 21:55:44.733412000 Z
   event: create
-  id: 271
-  item_id: 156
+  id: 269
+  item_id: 155
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 156
+    id: 155
     type: LandParcel
-    name: Blé tendre d’hiver Blé tendre n°4
+    name: ZC-017005218-14-1 n°4
     number: PR00000000099
-    variant_id: 70
-    nature_id: 60
-    category_id: 26
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -12166,7 +12165,7 @@ versions_232:
     initial_owner_id:
     initial_enjoyer_id:
     initial_population: !ruby/object:BigDecimal 18:0.60725E1
-    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
         has_m_coordinate: false
@@ -12195,7 +12194,7 @@ versions_232:
           ignore_extra_bytes: false
           default_srid:
         auto_prepare: simple
-      wkt: POLYGON ((-0.7439992671617150 45.8430010210575034, -0.7446725698566370
+      wkt: MULTIPOLYGON (((-0.7439992671617150 45.8430010210575034, -0.7446725698566370
         45.8435312603901011, -0.7445238317176920 45.8436425713898998, -0.7448974154710259
         45.8438697999659013, -0.7450138776323230 45.8437802937526016, -0.7452960603223180
         45.8439467264220966, -0.7454608866403510 45.8440945142446026, -0.7451050432546810
@@ -12210,7 +12209,7 @@ versions_232:
         45.8424555669043983, -0.7474343167647540 45.8422485514382032, -0.7471050373432720
         45.8421131666719006, -0.7465254907622020 45.8418866866865997, -0.7457105781969871
         45.8415933777785014, -0.7456477364212810 45.8415749905238030, -0.7439992671617150
-        45.8430010210575034))
+        45.8430010210575034)))
     initial_father_id:
     initial_mother_id:
     variety: land_parcel
@@ -12229,25 +12228,25 @@ versions_232:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-03 10:39:03.526567000 Z
+    created_at: 2015-12-05 21:55:44.730402000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: db4c78af-89eb-43e3-af7f-7bb575d1ec26
+    uuid: c9af288b-7eb9-4581-9327-3b2f912e8c38
   item_type: Product
 versions_233:
-  created_at: 2015-12-03 10:39:03.637973000 Z
+  created_at: 2015-12-05 21:55:44.855248000 Z
   event: create
-  id: 272
-  item_id: 157
+  id: 270
+  item_id: 156
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 157
+    id: 156
     type: LandParcel
-    name: Orge d'hiver Orge commune n°2
+    name: ZC-017005218-14-2 n°2
     number: PR00000000100
-    variant_id: 70
-    nature_id: 60
-    category_id: 26
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -12255,7 +12254,7 @@ versions_233:
     initial_owner_id:
     initial_enjoyer_id:
     initial_population: !ruby/object:BigDecimal 18:0.35386E1
-    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
         has_m_coordinate: false
@@ -12284,7 +12283,7 @@ versions_233:
           ignore_extra_bytes: false
           default_srid:
         auto_prepare: simple
-      wkt: POLYGON ((-0.7439978417107420 45.8429998981770979, -0.7439992671617150
+      wkt: MULTIPOLYGON (((-0.7439978417107420 45.8429998981770979, -0.7439992671617150
         45.8430010210575034, -0.7456477364212810 45.8415749905238030, -0.7453175151447180
         45.8414783688654026, -0.7445481538470550 45.8411942037647009, -0.7435772011237090
         45.8421315898683019, -0.7437484072819081 45.8422401241290984, -0.7435537887850990
@@ -12293,7 +12292,7 @@ versions_233:
         45.8421446728558024, -0.7411873377605470 45.8429417605782987, -0.7421142051244310
         45.8436285305704985, -0.7429110784222011 45.8431513622658997, -0.7432780711206940
         45.8433871082194031, -0.7434741606856750 45.8432938185174024, -0.7438358949424370
-        45.8430711146635019, -0.7439978417107420 45.8429998981770979))
+        45.8430711146635019, -0.7439978417107420 45.8429998981770979)))
     initial_father_id:
     initial_mother_id:
     variety: land_parcel
@@ -12312,25 +12311,25 @@ versions_233:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-03 10:39:03.635004000 Z
+    created_at: 2015-12-05 21:55:44.852438000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 55f9b793-7c25-4abc-9d04-25d0f77142b5
+    uuid: 2fe4ea5a-7f4a-4f33-a2d0-5a43bf04e6de
   item_type: Product
 versions_234:
-  created_at: 2015-12-03 10:39:03.750856000 Z
+  created_at: 2015-12-05 21:55:44.993134000 Z
   event: create
-  id: 273
-  item_id: 158
+  id: 271
+  item_id: 157
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 158
+    id: 157
     type: LandParcel
-    name: Maïs ensilage Maïs commun n°1
+    name: ZC-017005218-15-1 n°1
     number: PR00000000101
-    variant_id: 70
-    nature_id: 60
-    category_id: 26
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -12338,7 +12337,7 @@ versions_234:
     initial_owner_id:
     initial_enjoyer_id:
     initial_population: !ruby/object:BigDecimal 18:0.55413E1
-    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
         has_m_coordinate: false
@@ -12367,13 +12366,13 @@ versions_234:
           ignore_extra_bytes: false
           default_srid:
         auto_prepare: simple
-      wkt: POLYGON ((-0.7437887098737750 45.8406404380083998, -0.7440886856395190
+      wkt: MULTIPOLYGON (((-0.7437887098737750 45.8406404380083998, -0.7440886856395190
         45.8408518089424035, -0.7445372813139201 45.8411211566506012, -0.7452858616995520
         45.8413894758014990, -0.7471750289492690 45.8396809591962011, -0.7470401722910670
         45.8395939055523982, -0.7480251671634860 45.8387967867838029, -0.7478373546231220
         45.8386694487644988, -0.7472648330561150 45.8383294770027021, -0.7466383926863240
         45.8380747743094972, -0.7463730677739741 45.8379617226132012, -0.7437887098737750
-        45.8406404380083998))
+        45.8406404380083998)))
     initial_father_id:
     initial_mother_id:
     variety: land_parcel
@@ -12392,25 +12391,25 @@ versions_234:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-03 10:39:03.747663000 Z
+    created_at: 2015-12-05 21:55:44.989756000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 65947c1f-c627-4931-9fd0-eacdd1998f3e
+    uuid: 630445d7-154f-4574-a72e-bf1abf2b63d5
   item_type: Product
 versions_235:
-  created_at: 2015-12-03 10:39:03.864731000 Z
+  created_at: 2015-12-05 21:55:45.124349000 Z
   event: create
-  id: 274
-  item_id: 159
+  id: 272
+  item_id: 158
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 159
+    id: 158
     type: LandParcel
-    name: Maïs ensilage Maïs commun n°2
+    name: ZC-017005218-16-1 n°2
     number: PR00000000102
-    variant_id: 70
-    nature_id: 60
-    category_id: 26
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -12418,7 +12417,7 @@ versions_235:
     initial_owner_id:
     initial_enjoyer_id:
     initial_population: !ruby/object:BigDecimal 18:0.2039E1
-    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
         has_m_coordinate: false
@@ -12447,11 +12446,11 @@ versions_235:
           ignore_extra_bytes: false
           default_srid:
         auto_prepare: simple
-      wkt: POLYGON ((-0.7475297433136110 45.8384256282279026, -0.7481243261717440
+      wkt: MULTIPOLYGON (((-0.7475297433136110 45.8384256282279026, -0.7481243261717440
         45.8388377638956968, -0.7485425004816740 45.8391421287290015, -0.7504436889835560
         45.8378663361423975, -0.7500670252875800 45.8377572632834998, -0.7497514525079890
         45.8376685804361017, -0.7492807650399790 45.8374981794902965, -0.7490182587217440
-        45.8374167517266997, -0.7475297433136110 45.8384256282279026))
+        45.8374167517266997, -0.7475297433136110 45.8384256282279026)))
     initial_father_id:
     initial_mother_id:
     variety: land_parcel
@@ -12470,25 +12469,25 @@ versions_235:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-03 10:39:03.861652000 Z
+    created_at: 2015-12-05 21:55:45.121301000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 857dc5dc-bd9d-4011-9030-6d4edc7bb56a
+    uuid: a6ca3034-9eae-4b8f-a9c1-057a2f06c59b
   item_type: Product
 versions_236:
-  created_at: 2015-12-03 10:39:03.983667000 Z
+  created_at: 2015-12-05 21:55:45.280694000 Z
   event: create
-  id: 275
-  item_id: 160
+  id: 273
+  item_id: 159
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 160
+    id: 159
     type: LandParcel
-    name: Sorgho n°2
+    name: ZC-017005218-17-1 n°2
     number: PR00000000103
-    variant_id: 70
-    nature_id: 60
-    category_id: 26
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -12496,7 +12495,7 @@ versions_236:
     initial_owner_id:
     initial_enjoyer_id:
     initial_population: !ruby/object:BigDecimal 18:0.57285E1
-    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
         has_m_coordinate: false
@@ -12525,7 +12524,7 @@ versions_236:
           ignore_extra_bytes: false
           default_srid:
         auto_prepare: simple
-      wkt: POLYGON ((-0.7391385907544880 45.8388026667393973, -0.7394109184456740
+      wkt: MULTIPOLYGON (((-0.7391385907544880 45.8388026667393973, -0.7394109184456740
         45.8388454825304024, -0.7397903148710490 45.8389503935953968, -0.7404563595888310
         45.8391518081957017, -0.7424752490032160 45.8376395921292001, -0.7417621698696090
         45.8369194903519031, -0.7410997338425770 45.8365610661161966, -0.7408618248177720
@@ -12534,7 +12533,7 @@ versions_236:
         45.8381901845546977, -0.7379425975423910 45.8381897899704995, -0.7383062593271320
         45.8384448931727988, -0.7381939241093211 45.8383734784273997, -0.7385076608564740
         45.8385968408693998, -0.7380927586583230 45.8388192880510985, -0.7387227799086930
-        45.8387916474872981, -0.7391385907544880 45.8388026667393973))
+        45.8387916474872981, -0.7391385907544880 45.8388026667393973)))
     initial_father_id:
     initial_mother_id:
     variety: land_parcel
@@ -12553,25 +12552,25 @@ versions_236:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-03 10:39:03.980614000 Z
+    created_at: 2015-12-05 21:55:45.277609000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 4a93bbad-947c-4b3b-8d00-a4dd55de4425
+    uuid: aaad86ef-d504-4325-bf28-e4c5c0519ebf
   item_type: Product
 versions_237:
-  created_at: 2015-12-03 10:39:04.095932000 Z
+  created_at: 2015-12-05 21:55:45.405196000 Z
   event: create
-  id: 276
-  item_id: 161
+  id: 274
+  item_id: 160
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 161
+    id: 160
     type: LandParcel
-    name: Orge d'hiver Orge commune n°3
+    name: ZC-017005218-19-1 n°3
     number: PR00000000104
-    variant_id: 70
-    nature_id: 60
-    category_id: 26
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -12579,7 +12578,7 @@ versions_237:
     initial_owner_id:
     initial_enjoyer_id:
     initial_population: !ruby/object:BigDecimal 18:0.2087E0
-    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
         has_m_coordinate: false
@@ -12608,10 +12607,10 @@ versions_237:
           ignore_extra_bytes: false
           default_srid:
         auto_prepare: simple
-      wkt: POLYGON ((-0.7637095295519020 45.8309476400114022, -0.7640194540254110
+      wkt: MULTIPOLYGON (((-0.7637095295519020 45.8309476400114022, -0.7640194540254110
         45.8311671436133992, -0.7642117675579440 45.8309994364246975, -0.7645443419260070
         45.8307366270234979, -0.7642253211132970 45.8305287305405997, -0.7637095295519020
-        45.8309476400114022))
+        45.8309476400114022)))
     initial_father_id:
     initial_mother_id:
     variety: land_parcel
@@ -12630,25 +12629,25 @@ versions_237:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-03 10:39:04.092908000 Z
+    created_at: 2015-12-05 21:55:45.401934000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 4ae60df8-6bd9-4ca1-acd6-1f57149a09cb
+    uuid: d8d684b9-3f96-457a-b085-ba201e5a8ec0
   item_type: Product
 versions_238:
-  created_at: 2015-12-03 10:39:04.238778000 Z
+  created_at: 2015-12-05 21:55:45.536991000 Z
   event: create
-  id: 277
-  item_id: 162
+  id: 275
+  item_id: 161
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 162
+    id: 161
     type: LandParcel
-    name: Orge d'hiver Orge commune n°4
+    name: ZC-017005218-20-1 n°4
     number: PR00000000105
-    variant_id: 70
-    nature_id: 60
-    category_id: 26
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -12656,7 +12655,7 @@ versions_238:
     initial_owner_id:
     initial_enjoyer_id:
     initial_population: !ruby/object:BigDecimal 18:0.5827E0
-    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
         has_m_coordinate: false
@@ -12685,10 +12684,10 @@ versions_238:
           ignore_extra_bytes: false
           default_srid:
         auto_prepare: simple
-      wkt: POLYGON ((-0.7433171838255620 45.8413979942424987, -0.7429011217866039
+      wkt: MULTIPOLYGON (((-0.7433171838255620 45.8413979942424987, -0.7429011217866039
         45.8419005479562003, -0.7433881733060740 45.8420370543876032, -0.7443126304776760
         45.8410761547768004, -0.7439018083344680 45.8408157080643974, -0.7433171838255620
-        45.8413979942424987))
+        45.8413979942424987)))
     initial_father_id:
     initial_mother_id:
     variety: land_parcel
@@ -12707,25 +12706,25 @@ versions_238:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-03 10:39:04.235108000 Z
+    created_at: 2015-12-05 21:55:45.534025000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: a4c13db9-938b-4b76-8006-eb2379def2d3
+    uuid: 2860ab52-a912-4347-b332-cb414eefa256
   item_type: Product
 versions_239:
-  created_at: 2015-12-03 10:39:04.356622000 Z
+  created_at: 2015-12-05 21:55:45.680999000 Z
   event: create
-  id: 278
-  item_id: 163
+  id: 276
+  item_id: 162
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 163
+    id: 162
     type: LandParcel
-    name: Blé tendre d’hiver Blé tendre n°5
+    name: ZC-017005218-21-1 n°5
     number: PR00000000106
-    variant_id: 70
-    nature_id: 60
-    category_id: 26
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -12733,7 +12732,7 @@ versions_239:
     initial_owner_id:
     initial_enjoyer_id:
     initial_population: !ruby/object:BigDecimal 18:0.1063E1
-    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
         has_m_coordinate: false
@@ -12762,7 +12761,7 @@ versions_239:
           ignore_extra_bytes: false
           default_srid:
         auto_prepare: simple
-      wkt: POLYGON ((-0.8010806470883020 45.8203521595581975, -0.8005509331829470
+      wkt: MULTIPOLYGON (((-0.8010806470883020 45.8203521595581975, -0.8005509331829470
         45.8204481153680021, -0.8000727130230980 45.8205320255669974, -0.7995165694033221
         45.8206303737771989, -0.7990216938123220 45.8207174492381029, -0.7986315930208630
         45.8207854306597966, -0.7982292133875770 45.8208629970888026, -0.7977712700393700
@@ -12775,7 +12774,7 @@ versions_239:
         45.8207481893878992, -0.8015837854484250 45.8207283345211991, -0.8016074449263230
         45.8207093264643035, -0.8016103055241300 45.8205314310564020, -0.8016016511202950
         45.8204463895625977, -0.8015649821682220 45.8202799185224023, -0.8010806470883020
-        45.8203521595581975))
+        45.8203521595581975)))
     initial_father_id:
     initial_mother_id:
     variety: land_parcel
@@ -12794,25 +12793,25 @@ versions_239:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-03 10:39:04.353526000 Z
+    created_at: 2015-12-05 21:55:45.677383000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 701f8680-f164-41e8-bdc9-4e94695fcb58
+    uuid: a7acfff9-a961-467f-92b4-17f720a14c1f
   item_type: Product
 versions_240:
-  created_at: 2015-12-03 10:39:04.472037000 Z
+  created_at: 2015-12-05 21:55:45.819100000 Z
   event: create
-  id: 279
-  item_id: 164
+  id: 277
+  item_id: 163
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 164
+    id: 163
     type: LandParcel
-    name: Blé tendre d’hiver Blé tendre n°6
+    name: ZC-017005218-22-1 n°6
     number: PR00000000107
-    variant_id: 70
-    nature_id: 60
-    category_id: 26
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -12820,7 +12819,7 @@ versions_240:
     initial_owner_id:
     initial_enjoyer_id:
     initial_population: !ruby/object:BigDecimal 18:0.14511E1
-    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
         has_m_coordinate: false
@@ -12849,12 +12848,12 @@ versions_240:
           ignore_extra_bytes: false
           default_srid:
         auto_prepare: simple
-      wkt: POLYGON ((-0.8228690301743280 45.8225429997700004, -0.8225266752232430
+      wkt: MULTIPOLYGON (((-0.8228690301743280 45.8225429997700004, -0.8225266752232430
         45.8227044392805993, -0.8218813085262020 45.8229473334348967, -0.8216464289969240
         45.8230303388178015, -0.8215880396437339 45.8231001115337975, -0.8216097251864890
         45.8234058408364007, -0.8216760740162020 45.8237539179116027, -0.8218296769018150
         45.8243137714412967, -0.8236452553071170 45.8225479748750999, -0.8232886999138120
-        45.8222747569620026, -0.8228690301743280 45.8225429997700004))
+        45.8222747569620026, -0.8228690301743280 45.8225429997700004)))
     initial_father_id:
     initial_mother_id:
     variety: land_parcel
@@ -12873,25 +12872,25 @@ versions_240:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-03 10:39:04.469109000 Z
+    created_at: 2015-12-05 21:55:45.815700000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: a35f3f7f-70b0-4864-90a6-69510dcd4354
+    uuid: aef0464d-1e77-467d-84fa-f5c9b0e2782f
   item_type: Product
 versions_241:
-  created_at: 2015-12-03 10:39:04.581182000 Z
+  created_at: 2015-12-05 21:55:45.960291000 Z
   event: create
-  id: 280
-  item_id: 165
+  id: 278
+  item_id: 164
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 165
+    id: 164
     type: LandParcel
-    name: Blé tendre d’hiver Blé tendre n°7
+    name: ZC-017005218-23-1 n°7
     number: PR00000000108
-    variant_id: 70
-    nature_id: 60
-    category_id: 26
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -12899,7 +12898,7 @@ versions_241:
     initial_owner_id:
     initial_enjoyer_id:
     initial_population: !ruby/object:BigDecimal 18:0.3009E1
-    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
         has_m_coordinate: false
@@ -12928,10 +12927,10 @@ versions_241:
           ignore_extra_bytes: false
           default_srid:
         auto_prepare: simple
-      wkt: POLYGON ((-0.8257013166254160 45.8119806264415033, -0.8234137169617340
+      wkt: MULTIPOLYGON (((-0.8257013166254160 45.8119806264415033, -0.8234137169617340
         45.8142384623997998, -0.8242568739824651 45.8147416456763992, -0.8252168888532589
         45.8137903000539026, -0.8268795703500790 45.8121238231832990, -0.8260962905550900
-        45.8116504308379007, -0.8257013166254160 45.8119806264415033))
+        45.8116504308379007, -0.8257013166254160 45.8119806264415033)))
     initial_father_id:
     initial_mother_id:
     variety: land_parcel
@@ -12950,25 +12949,25 @@ versions_241:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-03 10:39:04.578073000 Z
+    created_at: 2015-12-05 21:55:45.957385000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 9fec0094-9a6d-4648-b181-57100b5eab3d
+    uuid: 8142f1a7-ca24-4073-939a-ca1bdaaee184
   item_type: Product
 versions_242:
-  created_at: 2015-12-03 10:39:04.691062000 Z
+  created_at: 2015-12-05 21:55:46.086792000 Z
   event: create
-  id: 281
-  item_id: 166
+  id: 279
+  item_id: 165
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 166
+    id: 165
     type: LandParcel
-    name: Maïs (zea_mays) Maïs commun n°3
+    name: ZC-017005218-24-1 n°3
     number: PR00000000109
-    variant_id: 70
-    nature_id: 60
-    category_id: 26
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -12976,7 +12975,7 @@ versions_242:
     initial_owner_id:
     initial_enjoyer_id:
     initial_population: !ruby/object:BigDecimal 18:0.37979E1
-    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
         has_m_coordinate: false
@@ -13005,11 +13004,11 @@ versions_242:
           ignore_extra_bytes: false
           default_srid:
         auto_prepare: simple
-      wkt: POLYGON ((-0.8317648598732190 45.8104393898024966, -0.8307116421126240
+      wkt: MULTIPOLYGON (((-0.8317648598732190 45.8104393898024966, -0.8307116421126240
         45.8111230018021018, -0.8338578289477711 45.8118658812335013, -0.8341099355192521
         45.8119445261963989, -0.8353971620230510 45.8109659677896985, -0.8344523082546650
         45.8106562420055994, -0.8333264743314720 45.8103982024319976, -0.8320769220145660
-        45.8101939142688011, -0.8317648598732190 45.8104393898024966))
+        45.8101939142688011, -0.8317648598732190 45.8104393898024966)))
     initial_father_id:
     initial_mother_id:
     variety: land_parcel
@@ -13028,26 +13027,25 @@ versions_242:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-03 10:39:04.688105000 Z
+    created_at: 2015-12-05 21:55:46.083952000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 18281dc5-d7e0-406a-9fbe-12b80930ac0e
+    uuid: da35cf05-6803-440c-95d7-976803c0f0b7
   item_type: Product
 versions_243:
-  created_at: 2015-12-03 10:39:04.811892000 Z
+  created_at: 2015-12-05 21:55:46.252397000 Z
   event: create
-  id: 282
-  item_id: 167
+  id: 280
+  item_id: 166
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 167
+    id: 166
     type: LandParcel
-    name: Mélange de légumineuses fourragères prépondérantes au semis implantées pour
-      la récolte 2015 et d’herbacées ou de graminées fourragères Plante n°1
+    name: ZC-017005218-25-1 n°1
     number: PR00000000110
-    variant_id: 70
-    nature_id: 60
-    category_id: 26
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -13055,7 +13053,7 @@ versions_243:
     initial_owner_id:
     initial_enjoyer_id:
     initial_population: !ruby/object:BigDecimal 18:0.81114E1
-    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
         has_m_coordinate: false
@@ -13084,14 +13082,14 @@ versions_243:
           ignore_extra_bytes: false
           default_srid:
         auto_prepare: simple
-      wkt: POLYGON ((-0.8342149651707270 45.8145906222857988, -0.8357146543222080
+      wkt: MULTIPOLYGON (((-0.8342149651707270 45.8145906222857988, -0.8357146543222080
         45.8135837078938977, -0.8374246874683980 45.8118796001628965, -0.8367007019797290
         45.8114613445529031, -0.8354534600329619 45.8110132752248020, -0.8341439422910210
         45.8120549071388012, -0.8328801579234340 45.8130074261033968, -0.8320695168592610
         45.8136047211367980, -0.8323131170511530 45.8139488895738012, -0.8325921181839030
         45.8141536823031998, -0.8328612256158320 45.8143411328541035, -0.8331673759030240
         45.8144405265189008, -0.8335456970820661 45.8144979198636975, -0.8339189612644540
-        45.8144775923050034, -0.8342149651707270 45.8145906222857988))
+        45.8144775923050034, -0.8342149651707270 45.8145906222857988)))
     initial_father_id:
     initial_mother_id:
     variety: land_parcel
@@ -13110,25 +13108,25 @@ versions_243:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-03 10:39:04.808903000 Z
+    created_at: 2015-12-05 21:55:46.249288000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 1acd469b-465a-47df-804f-f67820d22956
+    uuid: 25841c50-a162-4594-b958-27063e6f81b9
   item_type: Product
 versions_244:
-  created_at: 2015-12-03 10:39:04.930098000 Z
+  created_at: 2015-12-05 21:55:46.396803000 Z
   event: create
-  id: 283
-  item_id: 168
+  id: 281
+  item_id: 167
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 168
+    id: 167
     type: LandParcel
-    name: Maïs (zea_mays) Maïs commun n°4
+    name: ZC-017005218-26-1 n°4
     number: PR00000000111
-    variant_id: 70
-    nature_id: 60
-    category_id: 26
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -13136,7 +13134,7 @@ versions_244:
     initial_owner_id:
     initial_enjoyer_id:
     initial_population: !ruby/object:BigDecimal 18:0.120715E2
-    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
         has_m_coordinate: false
@@ -13165,7 +13163,7 @@ versions_244:
           ignore_extra_bytes: false
           default_srid:
         auto_prepare: simple
-      wkt: POLYGON ((-0.8302503974811670 45.8175561557014035, -0.8303902882604171
+      wkt: MULTIPOLYGON (((-0.8302503974811670 45.8175561557014035, -0.8303902882604171
         45.8176953569389980, -0.8304897089269060 45.8177941999257996, -0.8305937838171400
         45.8179278875766016, -0.8306445765519060 45.8180326870239014, -0.8306680785029500
         45.8180948111768984, -0.8306926353097620 45.8181878173256010, -0.8307115615698980
@@ -13201,7 +13199,7 @@ versions_244:
         45.8171068300726034, -0.8295052454306840 45.8171534391485977, -0.8296780753978900
         45.8172029918801016, -0.8297846502509270 45.8172522507178002, -0.8299413295918689
         45.8173287405222993, -0.8300624498879000 45.8174163108851005, -0.8302503974811670
-        45.8175561557014035))
+        45.8175561557014035)))
     initial_father_id:
     initial_mother_id:
     variety: land_parcel
@@ -13220,25 +13218,25 @@ versions_244:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-03 10:39:04.926996000 Z
+    created_at: 2015-12-05 21:55:46.393585000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: b1db5069-f80f-4f75-ba28-2fdd241c2b17
+    uuid: 3ffdfca4-a182-430c-964f-63bb20b65d99
   item_type: Product
 versions_245:
-  created_at: 2015-12-03 10:39:05.046566000 Z
+  created_at: 2015-12-05 21:55:46.527405000 Z
   event: create
-  id: 284
-  item_id: 169
+  id: 282
+  item_id: 168
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 169
+    id: 168
     type: LandParcel
-    name: Blé tendre d’hiver Blé tendre n°8
+    name: ZC-017005218-27-1 n°8
     number: PR00000000112
-    variant_id: 70
-    nature_id: 60
-    category_id: 26
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -13246,7 +13244,7 @@ versions_245:
     initial_owner_id:
     initial_enjoyer_id:
     initial_population: !ruby/object:BigDecimal 18:0.46746E1
-    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
         has_m_coordinate: false
@@ -13275,13 +13273,13 @@ versions_245:
           ignore_extra_bytes: false
           default_srid:
         auto_prepare: simple
-      wkt: POLYGON ((-0.7361934344204130 45.8372481805018026, -0.7376286271431099
+      wkt: MULTIPOLYGON (((-0.7361934344204130 45.8372481805018026, -0.7376286271431099
         45.8383254548893007, -0.7397349750257920 45.8369877767526006, -0.7394293652482560
         45.8367578940282030, -0.7397901427875720 45.8365197732207008, -0.7397219513646350
         45.8364647509241010, -0.7397973125466890 45.8362925987102017, -0.7398496444106050
         45.8361039041728020, -0.7376852906979720 45.8357423915902018, -0.7373086916501410
         45.8361269562198999, -0.7369408323277910 45.8365398527486008, -0.7361934344204130
-        45.8372481805018026))
+        45.8372481805018026)))
     initial_father_id:
     initial_mother_id:
     variety: land_parcel
@@ -13300,25 +13298,25 @@ versions_245:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-03 10:39:05.043485000 Z
+    created_at: 2015-12-05 21:55:46.524334000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: b151e215-5153-4c6c-accf-7039c3ba2880
+    uuid: 3eff31ba-8408-418f-8836-f4377c1a4442
   item_type: Product
 versions_246:
-  created_at: 2015-12-03 10:39:05.205167000 Z
+  created_at: 2015-12-05 21:55:46.654678000 Z
   event: create
-  id: 285
-  item_id: 170
+  id: 283
+  item_id: 169
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 170
+    id: 169
     type: LandParcel
-    name: Pois de printemps semé avant le 31/05 Pois commun n°1
+    name: ZC-017005218-28-1 n°1
     number: PR00000000113
-    variant_id: 70
-    nature_id: 60
-    category_id: 26
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
     extjuncted: false
     initial_born_at:
     initial_dead_at:
@@ -13326,7 +13324,7 @@ versions_246:
     initial_owner_id:
     initial_enjoyer_id:
     initial_population: !ruby/object:BigDecimal 18:0.23275E1
-    initial_shape: !ruby/object:RGeo::Geos::CAPIPolygonImpl
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
         has_m_coordinate: false
@@ -13355,13 +13353,13 @@ versions_246:
           ignore_extra_bytes: false
           default_srid:
         auto_prepare: simple
-      wkt: POLYGON ((-0.7678272300354930 45.8021806182845026, -0.7672411605783300
+      wkt: MULTIPOLYGON (((-0.7678272300354930 45.8021806182845026, -0.7672411605783300
         45.8039116194605000, -0.7675207639668630 45.8039857671891966, -0.7677975245214870
         45.8040182662780992, -0.7681349349282039 45.8038901188954028, -0.7684836850371340
         45.8037532427109966, -0.7689651808532700 45.8038122936934968, -0.7692219151190900
         45.8030273116119986, -0.7694293378320149 45.8023942476306019, -0.7686330989997820
         45.8022705778991011, -0.7678402772049020 45.8021968795017997, -0.7678397085376290
-        45.8021885504528967, -0.7678272300354930 45.8021806182845026))
+        45.8021885504528967, -0.7678272300354930 45.8021806182845026)))
     initial_father_id:
     initial_mother_id:
     variety: land_parcel
@@ -13380,9 +13378,9 @@ versions_246:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-03 10:39:05.202159000 Z
+    created_at: 2015-12-05 21:55:46.651834000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 69801ab5-79f7-4d6a-bd0e-c2333e28ae78
+    uuid: 8a38047b-484f-47bb-a86a-f4bbdda5d28c
   item_type: Product

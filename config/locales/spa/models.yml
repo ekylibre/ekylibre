@@ -722,6 +722,7 @@ spa:
     # mode: "Mode"
     # model_euid: "Model"
     # mother: "Mother"
+    # multi_polygon_value: "Multi polygon value"
     name: "Nombre"
     # nature: "Type"
     # nature_name: "Type name"

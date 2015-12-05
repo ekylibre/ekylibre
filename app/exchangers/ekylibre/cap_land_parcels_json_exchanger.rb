@@ -14,7 +14,7 @@ class Ekylibre::CapLandParcelsJsonExchanger < ActiveExchanger::Base
     if clusters['type'] == 'FeatureCollection'
       clusters['features'].each do |feature|
         properties = feature['properties']
-        shape = ::Charta::Geometry.from_geojson(feature)
+        shape = ::Charta.from_geojson(feature)
         variant = ProductNatureVariant.import_from_nomenclature(:land_parcel)
         LandParcel.create!(properties.slice(:name).merge(initial_shape: shape, variant: variant))
       end

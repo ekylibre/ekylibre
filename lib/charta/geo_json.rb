@@ -5,7 +5,7 @@ module Charta
 
     def initialize(data, srid = :WGS84)
       @json = (data.is_a?(Hash) ? data : JSON.parse(data))
-      @srid = Geometry.find_srid(srid)
+      @srid = Charta.find_srid(srid)
     end
 
     def to_ewkt

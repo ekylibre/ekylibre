@@ -44,7 +44,7 @@
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #  variant_id             :integer
-#  working_zone           :geometry({:srid=>4326, :type=>"geometry"})
+#  working_zone           :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
 class InterventionTool < InterventionCast
   belongs_to :intervention, inverse_of: :tools

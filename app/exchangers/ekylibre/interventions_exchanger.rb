@@ -440,8 +440,8 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     plant = nil
     if options[:support] && options[:support].storage && options[:support].storage.shape
       # try to find the current plant on cultivable zone if exist
-      cultivable_zone_shape = Charta::Geometry.new(options[:support].storage.shape)
-      if cultivable_zone_shape && product_around = cultivable_zone_shape.actors_matching(nature: Plant)
+      cultivable_zone_shape = Charta.new_geometry(options[:support].storage.shape)
+      if cultivable_zone_shape && product_around = Plant.within_shape(cultivable_zone_shape)
         plant = Plant.where(id: product_around.map(&:id)).availables.first
       end
     end
@@ -460,8 +460,8 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     plants = nil
     if options[:support] && options[:support].storage && options[:support].storage.shape
       # try to find the current plants on cultivable zone if exists
-      cultivable_zone_shape = Charta::Geometry.new(options[:support].storage.shape)
-      if cultivable_zone_shape && product_around = cultivable_zone_shape.actors_matching(nature: Plant)
+      cultivable_zone_shape = Charta.new_geometry(options[:support].storage.shape)
+      if cultivable_zone_shape && product_around = Plant.within_shape(cultivable_zone_shape)
         plants = Plant.where(id: product_around.map(&:id)).availables
       end
     end

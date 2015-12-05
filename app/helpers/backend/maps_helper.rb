@@ -25,8 +25,8 @@ module Backend::MapsHelper
       hash = (block_given? ? yield(resource) : { name: resource.name, shape: resource.shape })
       hash[:url] ||= url_for(controller: "/backend/#{resource.class.name.tableize}", action: :show, id: resource.id)
       if hash[:shape]
-        global = (global ? global.merge(hash[:shape]) : Charta::Geometry.new(hash[:shape]))
-        hash[:shape] = Charta::Geometry.new(hash[:shape]).transform(:WGS84).to_geojson
+        global = (global ? global.merge(hash[:shape]) : Charta.new_geometry(hash[:shape]))
+        hash[:shape] = Charta.new_geometry(hash[:shape]).transform(:WGS84).to_geojson
       end
       hash
     end
@@ -67,7 +67,7 @@ module Backend::MapsHelper
   end
 
   def shape_field_tag(name, value = nil, options = {})
-    geometry = Charta::Geometry.new(value)
+    geometry = Charta.new_geometry(value)
     box ||= {}
     options[:box] ||= {}
     options[:data][:map_editor] ||= {}

@@ -38,7 +38,7 @@
 #  product_shape_reading_id             :integer
 #  purchase_item_id                     :integer
 #  sale_item_id                         :integer
-#  shape                                :geometry({:srid=>4326, :type=>"geometry"})
+#  shape                                :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  source_product_division_id           :integer
 #  source_product_id                    :integer
 #  source_product_population_reading_id :integer

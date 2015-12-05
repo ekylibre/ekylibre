@@ -1634,6 +1634,7 @@ eng:
           geometry: "Geometry"
           integer: "Integer"
           measure: "Measure"
+          # multi_polygon: "Multi polygon"
           point: "Point"
           string: "String"
         gathering:

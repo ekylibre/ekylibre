@@ -299,26 +299,26 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     editor[:controls][:draw] ||= {}
     editor[:controls][:draw][:draw] = options[:draw] || {}
     if geom = @object.send(attribute_name)
-      editor[:edit] = Charta::Geometry.new(geom).to_geojson
+      editor[:edit] = Charta.new_geometry(geom).to_geojson
     else
       if sibling = @object.class.where("#{attribute_name} IS NOT NULL").first
-        editor[:view] = { center: Charta::Geometry.new(sibling.send(attribute_name)).centroid }
+        editor[:view] = { center: Charta.new_geometry(sibling.send(attribute_name)).centroid }
       elsif zone = CultivableZone.first
         editor[:view] = { center: zone.to_geom.centroid }
       end
     end
     show = options.delete(:show) || @object.class.where("#{attribute_name} IS NOT NULL AND id != ?", @object.id || 0)
-    union = Charta::Geometry.empty
+    union = Charta.empty_geometry
     if show.any?
       show.collect do |obj|
         if shape = obj.send(attribute_name)
-          union = union.merge(Charta::Geometry.new(shape))
+          union = union.merge(Charta.new_geometry(shape))
         end
       end.compact
     else
       begin
         for obj in @object.class.where.not(id: @object.id || 0)
-          union = union.merge Charta::Geometry.new(obj.send(:shape))
+          union = union.merge Charta.new_geometry(obj.send(:shape))
         end
       rescue
       end
@@ -329,7 +329,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
 
   def shape_field(attribute_name = :shape, options = {})
     fail @object.send(attribute_name)
-    geometry = Charta::Geometry.new(@object.send(attribute_name) || Charta::Geometry.empty)
+    geometry = Charta.new_geometry(@object.send(attribute_name) || Charta.empty_geometry)
     # return self.input(attribute_name, options.merge(input_html: {data: {spatial: geometry.to_geojson}}))
     input_field(attribute_name, options.merge(input_html: { data: { map_editor: { edit: geometry.to_geojson } } }))
   end
@@ -341,11 +341,11 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
   def point(attribute_name, options = {})
     marker = {}
     if geom = @object.send(attribute_name)
-      marker[:marker] = Charta::Geometry.new(geom).to_geojson['coordinates'].reverse
+      marker[:marker] = Charta.new_geometry(geom).to_geojson['coordinates'].reverse
       marker[:view] = { center: marker[:marker] }
     else
       if sibling = @object.class.where("#{attribute_name} IS NOT NULL").first
-        marker[:view] = { center: Charta::Geometry.new(sibling.send(attribute_name)).centroid }
+        marker[:view] = { center: Charta.new_geometry(sibling.send(attribute_name)).centroid }
       elsif zone = CultivableZone.first
         marker[:view] = { center: zone.to_geom.centroid }
       end

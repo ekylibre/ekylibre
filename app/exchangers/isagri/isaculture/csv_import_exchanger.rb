@@ -210,8 +210,8 @@ class Isagri::Isaculture::CsvImportExchanger < ActiveExchanger::Base
             # find variant link to production
             plant_variant = support.production.variant if support
             # try to find the current plant on cultivable zone if exist
-            cultivable_zone_shape = Charta::Geometry.new(cultivable_zone.shape)
-            if product_around = cultivable_zone_shape.actors_matching(nature: Plant).first
+            cultivable_zone_shape = Charta.new_geometry(cultivable_zone.shape)
+            if product_around = Plant.within_shape(cultivable_zone_shape).first
               plant = product_around
             end
           end

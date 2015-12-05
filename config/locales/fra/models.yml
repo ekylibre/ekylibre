@@ -928,7 +928,7 @@ fra:
     model_euid: "Modèle"
     mother: "Mère"
     moved_at: "Fait le" #?
-    multi_polygon_value: "Valeur multi-polygonale" #?
+    multi_polygon_value: "Valeur multi-polygonale"
     name: "Nom"
     name_1_to_2: "Nom «\_Personne 1 vers Personne 2\_»" #?
     name_2_to_1: "Nom «\_Personne 2 vers Personne 1\_»" #?

@@ -51,6 +51,7 @@ class Issue < Ekylibre::Record::Base
   has_many :interventions
   belongs_to :target, polymorphic: true
 
+  has_geometry :geolocation, type: :point
   has_picture
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -62,6 +63,7 @@ class Issue < Ekylibre::Record::Base
   validates_attachment_content_type :picture, content_type: /image/
 
   delegate :name, to: :target, prefix: true
+  delegate :count, to: :interventions, prefix: true
 
   state_machine :state, initial: :opened do
     ## define states
@@ -127,14 +129,5 @@ class Issue < Ekylibre::Record::Base
     picture.path(style)
   end
 
-  delegate :count, to: :interventions, prefix: true
 
-  def geolocation=(value)
-    if value.is_a?(String) && value =~ /\A\{.*\}\z/
-      value = Charta::Geometry.new(JSON.parse(value).to_json, :WGS84).to_rgeo
-    elsif !value.blank?
-      value = Charta::Geometry.new(value).to_rgeo
-    end
-    self['geolocation'] = value
-  end
 end

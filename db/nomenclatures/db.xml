@@ -1621,7 +1621,7 @@
     <properties>
       <property name="choices" type="nomenclature"/>
       <property name="curve" type="choice" choices="line, spline, step, bar" default="spline"/>
-      <property name="datatype" type="choice" choices="string, integer, decimal, boolean, choice, measure, point, geometry" required="true"/>
+      <property name="datatype" type="choice" choices="string, integer, decimal, boolean, choice, measure, point, geometry, multi_polygon" required="true"/>
       <property name="gathering" type="choice" choices="proportional_to_population"/>
       <property name="individual_identifier" type="boolean"/>
       <property name="interpolation" type="choice" choices="none, previous, nearest, linear, sine" default="previous"/>
@@ -1754,7 +1754,7 @@
       <item name="rows_interval" datatype="measure" unit="meter"/>
       <item name="rows_orientation" datatype="measure" unit="degree"/>
       <item name="sex" datatype="choice" choices="sexes"/>
-      <item name="shape" datatype="geometry" related_to="whole" individual_identifier="true"/>
+      <item name="shape" datatype="multi_polygon" related_to="whole" individual_identifier="true"/>
       <item name="soil_cultural_state" datatype="choice" choices="soil_cultural_states"/>
       <item name="soil_depth" datatype="measure" unit="centimeter"/>
       <item name="soil_nature" datatype="choice" choices="soil_natures"/>

@@ -111,7 +111,7 @@ class Telepac::V2014::LandParcelsExchanger < ActiveExchanger::Base
           main_crop_commercialisation:  false,
           main_crop_precision: record.attributes['CODE_VAR'].to_s,
           main_crop_seed_production: false,
-          shape: ::Charta::Geometry.new(record.geometry).transform(:WGS84).to_rgeo
+          shape: ::Charta.new_geometry(record.geometry).transform(:WGS84).to_rgeo
         }
 
         # Find or create a cap land parcel

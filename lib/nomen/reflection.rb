@@ -26,5 +26,9 @@ module Nomen
         !other_aggregation.options.nil? &&
         active_record == other_aggregation.active_record
     end
+
+    def all(*args)
+      @klass ? @klass.all(*args) : []
+    end
   end
 end

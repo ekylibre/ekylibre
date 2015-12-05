@@ -91,9 +91,7 @@ campaigns_003:
   updater_id: 1
 campaigns_004:
   closed: false
-  created_at: 2015-12-03 08:44:04.822796000 Z
-  creator_id: 1
-  description: ''
+  created_at: 2015-12-05 21:55:42.197136000 Z
   harvest_year: 2015
   id: 5
   lock_version: 0
@@ -101,5 +99,4 @@ campaigns_004:
   number: CAMP0002
   started_on: 2015-01-01
   stopped_on: 2015-12-31
-  updated_at: 2015-12-03 08:44:04.822796000 Z
-  updater_id: 1
+  updated_at: 2015-12-05 21:55:42.197136000 Z

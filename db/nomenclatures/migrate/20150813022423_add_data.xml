@@ -2978,7 +2978,7 @@
   <nomenclature-creation name="indicators"/>
   <property-creation property="indicators.choices" type="nomenclature"/>
   <property-creation property="indicators.curve" type="choice" default="spline" choices="line, spline, step, bar"/>
-  <property-creation property="indicators.datatype" type="choice" required="true" choices="string, integer, decimal, boolean, choice, measure, point, geometry"/>
+  <property-creation property="indicators.datatype" type="choice" required="true" choices="string, integer, decimal, boolean, choice, measure, point, geometry, multi_polygon"/>
   <property-creation property="indicators.gathering" type="choice" choices="proportional_to_population"/>
   <property-creation property="indicators.individual_identifier" type="boolean"/>
   <property-creation property="indicators.interpolation" type="choice" default="previous" choices="none, previous, nearest, linear, sine"/>
@@ -3084,7 +3084,7 @@
   <item-creation item="indicators#rows_interval" datatype="measure" unit="meter"/>
   <item-creation item="indicators#rows_orientation" datatype="measure" unit="degree"/>
   <item-creation item="indicators#sex" datatype="choice" choices="sexes"/>
-  <item-creation item="indicators#shape" datatype="geometry" related_to="whole" individual_identifier="true"/>
+  <item-creation item="indicators#shape" datatype="multi_polygon" related_to="whole" individual_identifier="true"/>
   <item-creation item="indicators#soil_cultural_state" datatype="choice" choices="soil_cultural_states"/>
   <item-creation item="indicators#soil_depth" datatype="measure" unit="centimeter"/>
   <item-creation item="indicators#soil_nature" datatype="choice" choices="soil_natures"/>

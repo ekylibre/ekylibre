@@ -38,7 +38,7 @@
 #  product_shape_reading_id             :integer
 #  purchase_item_id                     :integer
 #  sale_item_id                         :integer
-#  shape                                :geometry({:srid=>4326, :type=>"geometry"})
+#  shape                                :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  source_product_division_id           :integer
 #  source_product_id                    :integer
 #  source_product_population_reading_id :integer
@@ -206,7 +206,7 @@ class ParcelItem < Ekylibre::Record::Base
     self.source_product_population_reading = source_product.read!(:population, source_population - population, at: divided_at)
     self.product_population_reading = product.read!(:population, population, at: divided_at)
     if source_product.has_indicator?(:shape) && shape
-      source_shape = Charta::Geometry.new(source_product.get!(:shape, at: divided_at))
+      source_shape = Charta.new_geometry(source_product.get!(:shape, at: divided_at))
       self.source_product_shape_reading = source_product.read!(:shape, source_shape - shape, at: divided_at)
       self.product_shape_reading = product.read!(:shape, shape, at: divided_at)
     end

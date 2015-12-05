@@ -44,7 +44,7 @@
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #  variant_id             :integer
-#  working_zone           :geometry({:srid=>4326, :type=>"geometry"})
+#  working_zone           :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
 
 class InterventionCast < Ekylibre::Record::Base
@@ -63,6 +63,7 @@ class InterventionCast < Ekylibre::Record::Base
   has_one :campaign, through: :intervention
   has_one :event,    through: :intervention
 
+  has_geometry :working_zone, type: :multi_polygon
   composed_of :quantity, class_name: 'Measure', mapping: [%w(quantity_value to_d), %w(quantity_unit unit)]
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -181,21 +182,8 @@ class InterventionCast < Ekylibre::Record::Base
     reference ? reference.human_name : reference_name.humanize
   end
 
-  def shape=(value)
-    if value.is_a?(String) && value =~ /\A\{.*\}\z/
-      value = Charta::Geometry.new(JSON.parse(value).to_json, :WGS84).to_rgeo
-    elsif !value.blank?
-      value = Charta::Geometry.new(value).to_rgeo
-    end
-    self['shape'] = value
-  end
-
-  # def shape
-  #   Charta::Geometry.new(self["shape"])
-  # end
-
   def shape_svg(options = {})
-    geom = Charta::Geometry.new(self['shape'])
+    geom = Charta.new_geometry(self['shape'])
     geom = geom.transform(options[:srid]) if options[:srid]
     geom.to_svg
   end

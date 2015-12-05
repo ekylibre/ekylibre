@@ -3,8 +3,12 @@ module ReadingStorable
 
   included do
     refers_to :indicator_name, class_name: 'Indicator'
-    enumerize :indicator_datatype, in: [:string, :integer, :decimal, :boolean, :choice, :measure, :point, :geometry], predicates: { prefix: true }
+    enumerize :indicator_datatype, in: [:string, :integer, :decimal, :boolean, :choice, :measure, :point, :geometry, :multi_polygon], predicates: { prefix: true }
     refers_to :measure_value_unit, class_name: 'Unit'
+
+    has_geometry :geometry_value
+    has_geometry :point_value, type: :point
+    has_geometry :multi_polygon_value, type: :multi_polygon
 
     composed_of :measure_value, class_name: 'Measure', mapping: [%w(measure_value_value to_d), %w(measure_value_unit unit)]
     composed_of :absolute_measure_value, class_name: 'Measure', mapping: [%w(absolute_measure_value_value to_d), %w(absolute_measure_value_unit unit)]
@@ -18,7 +22,7 @@ module ReadingStorable
     validates_presence_of :geometry_value, if: :indicator_datatype_geometry?
     validates_presence_of :integer_value,  if: :indicator_datatype_integer?
     validates_presence_of :measure_value, :absolute_measure_value, if: :indicator_datatype_measure?
-    # validates_presence_of :multi_polygon_value, if: :indicator_datatype_multi_polygon?
+    validates_presence_of :multi_polygon_value, if: :indicator_datatype_multi_polygon?
     validates_presence_of :point_value,    if: :indicator_datatype_point?
     validates_presence_of :string_value,   if: :indicator_datatype_string?
 
@@ -68,8 +72,8 @@ module ReadingStorable
         object = object.to_i
       end
     end
-    if datatype == :geometry
-      object = Charta::Geometry.new(object).transform(:WGS84).to_rgeo
+    if datatype == :geometry || datatype == :multi_polygon
+      object = Charta.new_geometry(object).transform(:WGS84).to_rgeo
     end
     send("#{datatype}_value=", object)
   end

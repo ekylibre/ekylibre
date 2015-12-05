@@ -45,7 +45,7 @@ class Indicatus
           if source_actor.indicators_list.include?(:shape)
             if actor.indicators_list.include?(:net_surface_area)
               if source_cast.shape
-                whole = Charta::Geometry.new(source_cast.shape).area
+                whole = Charta.new_geometry(source_cast.shape).area
               elsif whole = source_actor.shape_area(at: @operation.started_at)
               #
               else

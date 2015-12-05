@@ -10,6 +10,15 @@ module Ekylibre::Record
         rgf93: 2154
       }
 
+      def has_geometry(*columns)
+        options = columns.extract_options!
+        columns.each do |column|
+          define_method "#{column}=" do |value|
+            self[column] = Charta.clean_for_active_record(value, options)
+          end
+        end
+      end
+
       # Returns the corresponding SRID from its name or number
       def srid(srname)
         return srname if srname.is_a?(Integer)
@@ -57,7 +66,7 @@ module Ekylibre::Record
           code << "def #{indicator}_svg(options = {})\n"
           code << "  options[:srid] ||= 2154\n"
           code << "  return nil unless reading = self.reading(:#{indicator}, at: options[:at])\n"
-          code << "  geom = Charta::Geometry.new(self.#{indicator})\n"
+          code << "  geom = Charta.new_geometry(self.#{indicator})\n"
           code << "  geom = geom.transform(options[:srid]) if options[:srid]\n"
           code << "  return geom.to_svg(options)\n"
           # code << "  options[:srid] ||= 2154\n"
@@ -77,7 +86,7 @@ module Ekylibre::Record
           for attr in [:x_min, :x_max, :y_min, :y_max, :area, :to_svg, :to_svg_path, :to_gml, :to_kml, :to_geojson, :to_text, :to_binary, :to_ewkt, :centroid, :point_on_surface]
             code << "def #{indicator}_#{attr.to_s.downcase}(options = {})\n"
             code << "  return nil unless reading = self.reading(:#{indicator}, at: options[:at])\n"
-            code << "  geometry = Charta::Geometry.new(reading.#{column})\n"
+            code << "  geometry = Charta.new_geometry(reading.#{column})\n"
             code << "  geometry = geometry.transform(options[:srid]) if options[:srid]\n"
             code << "  return geometry.#{attr}\n"
             # code << "  expr = (options[:srid] ? \"ST_Transform(#{column}, \#{self.class.srid(options[:srid])})\" : '#{column}')\n"

@@ -719,6 +719,7 @@ jpn:
     # mode: "Mode"
     # model_euid: "Model"
     # mother: "Mother"
+    # multi_polygon_value: "Multi polygon value"
     name: "名前"
     # nature: "Type"
     # nature_name: "Type name"

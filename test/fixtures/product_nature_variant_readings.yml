@@ -37,6 +37,7 @@
 #  lock_version                 :integer          default(0), not null
 #  measure_value_unit           :string
 #  measure_value_value          :decimal(19, 4)
+#  multi_polygon_value          :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  point_value                  :geometry({:srid=>4326, :type=>"point"})
 #  string_value                 :text
 #  updated_at                   :datetime         not null
@@ -1337,12 +1338,12 @@ product_nature_variant_readings_093:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
-  created_at: 2015-12-03 10:39:01.491332000 Z
-  id: 94
+  created_at: 2015-12-05 21:55:42.497199000 Z
+  id: 93
   indicator_datatype: measure
   indicator_name: net_surface_area
   lock_version: 0
   measure_value_unit: hectare
   measure_value_value: 1.0
-  updated_at: 2015-12-03 10:39:01.491332000 Z
-  variant_id: 70
+  updated_at: 2015-12-05 21:55:42.497199000 Z
+  variant_id: 69

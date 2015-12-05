@@ -32,7 +32,7 @@
 #  main_crop_commercialisation :boolean          default(FALSE), not null
 #  main_crop_precision         :string
 #  main_crop_seed_production   :boolean          default(FALSE), not null
-#  shape                       :geometry({:srid=>4326, :type=>"geometry"}) not null
+#  shape                       :geometry({:srid=>4326, :type=>"multi_polygon"}) not null
 #  support_id                  :integer
 #  updated_at                  :datetime         not null
 #  updater_id                  :integer
@@ -44,6 +44,7 @@ class CapLandParcel < Ekylibre::Record::Base
   belongs_to :islet, class_name: 'CapIslet', foreign_key: :cap_islet_id
   has_one :cap_statement, through: :cap_islet
   has_one :campaign, through: :cap_statement
+  has_geometry :shape, type: :multi_polygon
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_inclusion_of :main_crop_commercialisation, :main_crop_seed_production, in: [true, false]
   validates_presence_of :cap_islet, :islet, :land_parcel_number, :main_crop_code, :shape
@@ -57,7 +58,7 @@ class CapLandParcel < Ekylibre::Record::Base
   }
 
   def to_geom
-    ::Charta::Geometry.new(shape)
+    ::Charta.new_geometry(shape)
   end
 
   def label_area(unit = :hectare)

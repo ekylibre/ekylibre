@@ -184,7 +184,7 @@ module Ekylibre::Record
         reflection = Nomen::Reflection.new(self, name, options)
         @nomenclature_reflections ||= {}.with_indifferent_access
         @nomenclature_reflections[reflection.name] = reflection
-        enumerize reflection.name, in: reflection.klass.all(reflection.scope), i18n_scope: ["nomenclatures.#{reflection.nomenclature}.items"]
+        enumerize reflection.name, in: reflection.all(reflection.scope), i18n_scope: ["nomenclatures.#{reflection.nomenclature}.items"]
       end
 
       # Permits to consider something and something_id like the same

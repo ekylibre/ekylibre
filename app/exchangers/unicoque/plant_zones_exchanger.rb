@@ -37,7 +37,7 @@ class Unicoque::PlantZonesExchanger < ActiveExchanger::Base
         }
 
         if attributes[:surface_area] == 0.0 && record.geometry
-          plant_shape = Charta::Geometry.new(record.geometry).transform(:WGS84)
+          plant_shape = Charta.new_geometry(record.geometry).transform(:WGS84)
           attributes[:surface_area] = plant_shape.area.to_d(:hectare)
         end
 
@@ -60,9 +60,9 @@ class Unicoque::PlantZonesExchanger < ActiveExchanger::Base
         plant.read!(:plants_count, (attributes[:plants_population] / attributes[:surface_area]).to_i, at: attributes[:measured_at]) if attributes[:plants_population] && attributes[:surface_area]
 
         if record.geometry
-          plant_shape = Charta::Geometry.new(record.geometry).transform(:WGS84)
+          plant_shape = Charta.new_geometry(record.geometry).transform(:WGS84)
           plant.read!(:shape, plant_shape, at: attributes[:born_at], force: true)
-          if product_around = plant_shape.actors_matching(nature: CultivableZone).first
+          if product_around = CultivableZone.covers_shape(plant_shape).first
             plant.initial_container = product_around
             plant.save!
           end

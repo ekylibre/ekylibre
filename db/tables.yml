@@ -306,7 +306,7 @@ activity_productions:
     type: geometry
     limit:
       srid: 4326
-      type: geometry
+      type: multi_polygon
   updated_at:
     type: datetime
     required: true
@@ -518,6 +518,11 @@ analysis_items:
     type: decimal
     precision: 19
     scale: 4
+  multi_polygon_value:
+    type: geometry
+    limit:
+      srid: 4326
+      type: multi_polygon
   point_value:
     type: geometry
     limit:
@@ -676,7 +681,7 @@ cap_islets:
     type: geometry
     limit:
       srid: 4326
-      type: geometry
+      type: multi_polygon
     required: true
   town_number:
     type: string
@@ -723,7 +728,7 @@ cap_land_parcels:
     type: geometry
     limit:
       srid: 4326
-      type: geometry
+      type: multi_polygon
     required: true
   support_id:
     type: integer
@@ -1102,7 +1107,7 @@ cultivable_zones:
     type: geometry
     limit:
       srid: 4326
-      type: geometry
+      type: multi_polygon
     required: true
   updated_at:
     type: datetime
@@ -2478,6 +2483,11 @@ intervention_cast_readings:
     type: decimal
     precision: 19
     scale: 4
+  multi_polygon_value:
+    type: geometry
+    limit:
+      srid: 4326
+      type: multi_polygon
   point_value:
     type: geometry
     limit:
@@ -2561,7 +2571,7 @@ intervention_casts:
     type: geometry
     limit:
       srid: 4326
-      type: geometry
+      type: multi_polygon
 intervention_working_periods:
   created_at:
     type: datetime
@@ -2690,7 +2700,7 @@ inventory_items:
     type: geometry
     limit:
       srid: 4326
-      type: geometry
+      type: multi_polygon
   created_at:
     type: datetime
     required: true
@@ -2706,7 +2716,7 @@ inventory_items:
     type: geometry
     limit:
       srid: 4326
-      type: geometry
+      type: multi_polygon
   id:
     type: integer
     required: true
@@ -3699,7 +3709,7 @@ parcel_items:
     type: geometry
     limit:
       srid: 4326
-      type: geometry
+      type: multi_polygon
   source_product_division_id:
     type: integer
     references: product_junction
@@ -4349,6 +4359,11 @@ product_nature_variant_readings:
     type: decimal
     precision: 19
     scale: 4
+  multi_polygon_value:
+    type: geometry
+    limit:
+      srid: 4326
+      type: multi_polygon
   point_value:
     type: geometry
     limit:
@@ -4622,6 +4637,11 @@ product_readings:
     type: decimal
     precision: 19
     scale: 4
+  multi_polygon_value:
+    type: geometry
+    limit:
+      srid: 4326
+      type: multi_polygon
   originator_id:
     type: integer
     references: "~originator_type"
@@ -4716,7 +4736,7 @@ products:
     type: geometry
     limit:
       srid: 4326
-      type: geometry
+      type: multi_polygon
   lock_version:
     type: integer
     required: true

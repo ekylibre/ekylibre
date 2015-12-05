@@ -83,7 +83,18 @@ module Nomen
     end
 
     # Give access to named nomenclatures
-    def find(name)
+    def find(*args)
+      options = args.extract_options!
+      name = args.shift
+      if args.size == 0
+        return @@set[name]
+      elsif args.size == 1
+        return @@set[name].find(args.shift) if @@set[name]
+      end
+      return nil
+    end
+
+    def find_or_initialize(name)
       @@set[name] || Nomenclature.new(name, set: @@set)
     end
 

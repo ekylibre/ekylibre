@@ -102,3 +102,15 @@ notifications_004:
   target_id: 2
   target_type: Sensor
   updated_at: 2015-09-20 15:00:01.666144000 Z
+notifications_005:
+  created_at: 2015-12-05 21:55:46.777444000 Z
+  id: 5
+  interpolations:
+    name: Telepac v2015 cap statements
+  level: information
+  lock_version: 0
+  message: import_finished_successfully
+  recipient_id: 1
+  target_id: 3
+  target_type: Import
+  updated_at: 2015-12-05 21:55:46.777444000 Z

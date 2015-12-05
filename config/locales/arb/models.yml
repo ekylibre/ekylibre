@@ -1552,6 +1552,7 @@ arb:
     # model_euid: "Model"
     # mother: "Mother"
     moved_at: "انجز يوم" #?
+    # multi_polygon_value: "Multi polygon value"
     name: "الاسم"
     name_1_to_2: "الملف الاول الى الثاني" #?
     name_2_to_1: "الملف الثاني الى الاول" #?

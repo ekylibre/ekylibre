@@ -7,7 +7,7 @@ module ActiveExchanger
     class << self
       def inherited(subclass)
         name = subclass.exchanger_name
-        unless Nomen::ExchangeNature.find(name)
+        unless Nomen.find(:exchange_natures, name)
           Rails.logger.warn "Unknown exchange: #{name}"
         end
         ActiveExchanger::Base.register_exchanger(subclass)

@@ -13,7 +13,7 @@
       - if resource.polygon?
         .med-info
           %span.title= Georeading.human_attribute_name(:net_surface_area)
-          %span.value= ::Charta::Geometry.new(resource.content).area.round(3).l
+          %span.value= ::Charta.new_geometry(resource.content).area.round(3).l
   - c.cobble :resource_map, title: :map.tl do
     = visualization do |v|
       - v.background "OpenStreetMap.HOT"

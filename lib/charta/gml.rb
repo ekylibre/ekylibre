@@ -11,11 +11,11 @@ module Charta
       else
         @gml = data
       end
-      @srid = Geometry.find_srid(srid)
+      @srid = Charta.find_srid(srid)
     end
 
     def to_ewkt
-      ::Charta::Geometry.select_value("SELECT ST_AsEWKT(ST_GeomFromGML('#{@gml}'))")
+      Charta.select_value("SELECT ST_AsEWKT(ST_GeomFromGML('#{@gml}'))")
     end
 
     def valid?

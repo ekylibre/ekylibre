@@ -38,7 +38,7 @@ class Telepac::V2014::CapLandParcelsExchanger < ActiveExchanger::Base
           cap_statement: cap_statement,
           islet_number: record.attributes['NUMERO'].to_s,
           town_number: record.attributes['COMMUNE'].to_s,
-          shape: ::Charta::Geometry.new(record.geometry).transform(:WGS84).to_rgeo
+          shape: ::Charta.new_geometry(record.geometry).transform(:WGS84).to_rgeo
         }
 
         # find or create islet according to cap statement

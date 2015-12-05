@@ -44,7 +44,7 @@
 #  initial_mother_id     :integer
 #  initial_owner_id      :integer
 #  initial_population    :decimal(19, 4)   default(0.0)
-#  initial_shape         :geometry({:srid=>4326, :type=>"geometry"})
+#  initial_shape         :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  lock_version          :integer          default(0), not null
 #  name                  :string           not null
 #  nature_id             :integer          not null
@@ -72,12 +72,12 @@ class LandParcel < Easement
   after_validation do
     # Compute population
     if initial_shape && nature
-      # self.initial_shape = ::Charta::Geometry.new(initial_shape).multi_polygon
+      # self.initial_shape = ::Charta.new_geometry(initial_shape).multi_polygon
       if variable_indicators_list.include?(:net_surface_area)
-        self.read!(:net_surface_area, ::Charta::Geometry.new(initial_shape).area, at: initial_born_at)
+        self.read!(:net_surface_area, ::Charta.new_geometry(initial_shape).area, at: initial_born_at)
       end
       if variable_indicators_list.include?(:population)
-        self.initial_population = ::Charta::Geometry.new(initial_shape).area / variant.net_surface_area
+        self.initial_population = ::Charta.new_geometry(initial_shape).area / variant.net_surface_area
       end
     end
   end

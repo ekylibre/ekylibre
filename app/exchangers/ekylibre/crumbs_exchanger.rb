@@ -24,7 +24,7 @@ class Ekylibre::CrumbsExchanger < ActiveExchanger::Base
     georeading = Georeading.find_by(number: 'P01')
     user = User.where(person_id: Worker.pluck(:person_id).compact).first
 
-    geom = Charta::Geometry.new(georeading.content)
+    geom = Charta.new_geometry(georeading.content)
     geom.srid = 2154
     geom = geom.transform(4326)
 

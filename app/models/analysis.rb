@@ -56,6 +56,9 @@ class Analysis < Ekylibre::Record::Base
   belongs_to :sensor
   belongs_to :host, class_name: 'Product', foreign_key: :host_id
   has_many :items, class_name: 'AnalysisItem', foreign_key: :analysis_id, inverse_of: :analysis, dependent: :destroy
+
+  has_geometry :geolocation, type: :point
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :analysed_at, :sampled_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_presence_of :nature, :number, :retrieval_status, :sampled_at, :sampling_temporal_mode
@@ -75,15 +78,6 @@ class Analysis < Ekylibre::Record::Base
 
   after_save do
     reload.items.each(&:save!)
-  end
-
-  def geolocation=(value)
-    if value.is_a?(String) && value =~ /\A\{.*\}\z/
-      value = Charta::Geometry.new(JSON.parse(value).to_json, :WGS84).to_rgeo
-    elsif !value.blank?
-      value = Charta::Geometry.new(value).to_rgeo
-    end
-    self['geolocation'] = value
   end
 
   # Measure a product for a given indicator

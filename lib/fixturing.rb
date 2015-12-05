@@ -341,8 +341,8 @@ module Fixturing
       value = value.to_s
       value = if type == :float
                 value.to_f
-              elsif type == :geometry || type == :point
-                Charta::Geometry.new(value).to_ewkt
+              elsif type == :geometry || type == :point || type == :multi_polygon
+                Charta.new_geometry(value).to_ewkt
               elsif type == :decimal
                 value.to_f
               elsif type == :integer

@@ -32,7 +32,7 @@
 #  main_crop_commercialisation :boolean          default(FALSE), not null
 #  main_crop_precision         :string
 #  main_crop_seed_production   :boolean          default(FALSE), not null
-#  shape                       :geometry({:srid=>4326, :type=>"geometry"}) not null
+#  shape                       :geometry({:srid=>4326, :type=>"multi_polygon"}) not null
 #  support_id                  :integer
 #  updated_at                  :datetime         not null
 #  updater_id                  :integer

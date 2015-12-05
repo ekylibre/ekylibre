@@ -159,7 +159,7 @@ module Procedo
       elsif datatype == :boolean
         "['t', 'true', '1'].include?(#{expr}.to_s)"
       elsif datatype == :point || datatype == :geometry
-        "(#{expr}.blank? ? Charta::Geometry.empty : Charta::Geometry.new(#{expr}, :WGS84))"
+        "(#{expr}.blank? ? Charta.empty_geometry : Charta.new_geometry(#{expr}, :WGS84))"
       else
         "#{expr}.to_s"
       end
@@ -355,7 +355,7 @@ module Procedo
             code << "@destinations[:#{destination}] || " if variable.destinations.include?(destination)
             code << "self.get(:#{destination}, at: now)\n"
             if [:geometry, :point].include?(Nomen::Indicator[destination].datatype)
-              code << "          #{dest} = (#{dest}.blank? ? Charta::Geometry.empty : Charta::Geometry.new(#{dest}))\n"
+              code << "          #{dest} = (#{dest}.blank? ? Charta.empty_geometry : Charta.new_geometry(#{dest}))\n"
             end
             code << "          procedure.#{ref}.impact_destination_#{destination}!\n"
             code << "        rescue Procedo::Errors::UncomputableFormula => e\n"
@@ -371,7 +371,7 @@ module Procedo
             code << "        begin\n"
             code << "          #{dest} = self.get(:#{destination}, at: now)\n"
             if [:geometry, :point].include?(Nomen::Indicator[destination].datatype)
-              code << "          #{dest} = (#{dest}.blank? ? Charta::Geometry.empty : Charta::Geometry.new(#{dest}))\n"
+              code << "          #{dest} = (#{dest}.blank? ? Charta.empty_geometry : Charta.new_geometry(#{dest}))\n"
             end
             code << "          impact_destination_#{destination}!\n"
             code << "        rescue Procedo::Errors::UncomputableFormula => e\n"

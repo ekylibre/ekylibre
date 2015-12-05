@@ -44,7 +44,7 @@
 #  initial_mother_id     :integer
 #  initial_owner_id      :integer
 #  initial_population    :decimal(19, 4)   default(0.0)
-#  initial_shape         :geometry({:srid=>4326, :type=>"geometry"})
+#  initial_shape         :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  lock_version          :integer          default(0), not null
 #  name                  :string           not null
 #  nature_id             :integer          not null

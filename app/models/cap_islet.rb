@@ -28,7 +28,7 @@
 #  id               :integer          not null, primary key
 #  islet_number     :string           not null
 #  lock_version     :integer          default(0), not null
-#  shape            :geometry({:srid=>4326, :type=>"geometry"}) not null
+#  shape            :geometry({:srid=>4326, :type=>"multi_polygon"}) not null
 #  town_number      :string
 #  updated_at       :datetime         not null
 #  updater_id       :integer
@@ -38,6 +38,7 @@ class CapIslet < Ekylibre::Record::Base
   belongs_to :cap_statement
   has_many :land_parcels, class_name: 'CapLandParcel', dependent: :destroy
   has_many :cap_land_parcels, dependent: :destroy
+  has_geometry :shape, type: :multi_polygon
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_presence_of :cap_statement, :islet_number, :shape
   # ]VALIDATORS]
@@ -52,7 +53,7 @@ class CapIslet < Ekylibre::Record::Base
   }
 
   def to_geom
-    return geom = ::Charta::Geometry.new(shape).transform(:WGS84) if shape
+    return geom = ::Charta.new_geometry(shape).transform(:WGS84) if shape
   end
 
   def label_area(unit = :hectare)

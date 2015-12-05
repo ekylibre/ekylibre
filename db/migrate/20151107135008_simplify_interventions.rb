@@ -29,6 +29,27 @@ class SimplifyInterventions < ActiveRecord::Migration
     [:custom_fields, :customized_type]
   ]
 
+
+  MULTI_POLYGON_COLUMNS = {
+    # Generic
+    activity_productions: [:support_shape],
+    cultivable_zones: [:shape],
+    # georeadings: [:content],
+    intervention_casts: [:working_zone],
+    inventory_items: [:actual_shape, :expected_shape],
+    parcel_items: [:shape],
+    products: [:initial_shape],
+    # Reading mode
+    analysis_items: [:geometry_value],
+    intervention_cast_readings: [:geometry_value],
+    product_nature_variant_readings: [:geometry_value],
+    product_readings: [:geometry_value],
+    # Polygons ?
+    cap_islets: [:shape],
+    cap_land_parcels: [:shape],
+  }
+
+
   ALL_TYPE_COLUMNS = TYPE_COLUMNS +
                      POLYMORPHIC_REFERENCES.map { |a| [a.first, "#{a.second}_type".to_sym] }
 
@@ -92,25 +113,43 @@ class SimplifyInterventions < ActiveRecord::Migration
       end
     end
 
-    rename_model_and_co 'CultivableZone', 'LandParcel'
-    [:products, :product_natures, :product_nature_variants].each do |table|
-      execute "UPDATE #{table} SET variety = 'land_parcel' WHERE variety = 'cultivable_zone'"
-      execute "UPDATE #{table} SET derivative_of = 'land_parcel' WHERE derivative_of = 'cultivable_zone'"
-    end
-
     create_table :cultivable_zones do |t|
       t.string :name, null: false
       t.string :work_number, null: false
-      t.geometry :shape, srid: 4326
+      t.multi_polygon :shape, srid: 4326
       t.text :description
       t.uuid :uuid
       t.references :product
       t.stamps
     end
 
-    execute "INSERT INTO cultivable_zones (name, work_number, shape, uuid, product_id, created_at, creator_id, updated_at, updater_id, lock_version) SELECT name, work_number, initial_shape, uuid_generate_v4(), id, created_at, creator_id, updated_at, updater_id, lock_version FROM products WHERE type = 'LandParcel'"
-    execute 'UPDATE cultivable_zones SET shape = geometry_value FROM product_readings AS pr WHERE pr.product_id = cultivable_zones.product_id AND geometry_value IS NOT NULL'
-    execute 'DELETE FROM cultivable_zones WHERE shape IS NULL'
+    rename_model_and_co 'CultivableZone', 'LandParcel'
+    [:products, :product_natures, :product_nature_variants].each do |table|
+      old_variety = 'cultivable_zone'
+      new_variety = 'land_parcel'
+      reversible do |dir|
+        dir.up do
+          execute "UPDATE #{table} SET variety = '#{new_variety}' WHERE variety = '#{old_variety}'"
+          execute "UPDATE #{table} SET derivative_of = '#{new_variety}' WHERE derivative_of = '#{old_variety}'"
+        end
+        dir.down do
+          execute "UPDATE #{table} SET derivative_of = '#{old_variety}' WHERE derivative_of = '#{new_variety}'"
+          execute "UPDATE #{table} SET variety = '#{old_variety}' WHERE variety = '#{new_variety}'"
+        end
+      end
+    end
+
+    reversible do |dir|
+      dir.up do
+        # SELECT id, test, ST_GeometryN(poli, generate_series(1, ST_NumGeometries(geom))) AS geom FROM multi
+        execute "INSERT INTO cultivable_zones (name, work_number, shape, uuid, product_id, created_at, creator_id, updated_at, updater_id, lock_version) SELECT name, work_number, ST_Multi(initial_shape), uuid_generate_v4(), id, created_at, creator_id, updated_at, updater_id, lock_version FROM products WHERE type = 'LandParcel'"
+        execute 'UPDATE cultivable_zones SET shape = ST_Multi(geometry_value) FROM product_readings AS pr WHERE pr.product_id = cultivable_zones.product_id AND geometry_value IS NOT NULL'
+        execute 'DELETE FROM cultivable_zones WHERE shape IS NULL'
+      end
+      dir.down do
+        # TODO Adds revert of CultivableZone transfert
+      end
+    end
     change_column_null :cultivable_zones, :shape, false
 
     # Add campaign period
@@ -482,5 +521,29 @@ class SimplifyInterventions < ActiveRecord::Migration
         t.stamps
       end
     end
+
+    # Radius of big corn plant
+    radius = 0.0000097
+    MULTI_POLYGON_COLUMNS.each do |table, columns|
+      columns.each do |column|
+        reversible do |dir|
+          dir.up do
+            # Transform Points and Linestrings to Polygons with ST_Buffer function
+            execute "UPDATE #{table} SET #{column} = ST_Multi(ST_Union(ARRAY[ST_Buffer(ST_CollectionExtract(#{column}, 1), #{radius}), ST_Buffer(ST_CollectionExtract(#{column}, 2), #{radius}), ST_CollectionExtract(#{column}, 3)]))"
+            change_column table, column, :geometry, limit: 'MULTIPOLYGON,4326'
+            execute "UPDATE #{table} SET #{column} = ST_Multi(#{column})"
+          end
+          dir.down do
+            change_column table, column, :geometry, limit: 'GEOMETRY,4326'
+          end
+        end
+      end
+    end
+
+    [:analysis_items, :intervention_cast_readings, :product_nature_variant_readings, :product_readings].each do |table|
+      rename_column table, :geometry_value, :multi_polygon_value
+      add_column table, :geometry_value, :geometry, srid: 4326
+    end
+
   end
 end

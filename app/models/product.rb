@@ -44,7 +44,7 @@
 #  initial_mother_id     :integer
 #  initial_owner_id      :integer
 #  initial_population    :decimal(19, 4)   default(0.0)
-#  initial_shape         :geometry({:srid=>4326, :type=>"geometry"})
+#  initial_shape         :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  lock_version          :integer          default(0), not null
 #  name                  :string           not null
 #  nature_id             :integer          not null
@@ -85,6 +85,7 @@ class Product < Ekylibre::Record::Base
   belongs_to :person, -> { contacts }, class_name: 'Entity'
   belongs_to :tracking
   belongs_to :variant, class_name: 'ProductNatureVariant'
+  has_many :activity_productions, foreign_key: :support_id
   has_many :analyses, class_name: 'Analysis', dependent: :restrict_with_exception
   has_many :carrier_linkages, class_name: 'ProductLinkage', foreign_key: :carried_id, dependent: :destroy
   has_many :content_localizations, class_name: 'ProductLocalization', foreign_key: :container_id
@@ -122,6 +123,8 @@ class Product < Ekylibre::Record::Base
   has_one :outgoing_parcel_item, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
 
   has_picture
+  has_geometry :initial_shape, type: :multi_polygon
+  has_geometry :initial_geolocation, type: :point
 
   # find Product by work_numbers (work_numbers must be an Array)
   scope :of_work_numbers, lambda { |work_numbers|
@@ -194,16 +197,16 @@ class Product < Ekylibre::Record::Base
     joins(:supports).merge(ActivityProduction.of_campaign(campaign))
   }
   scope :intersects_shape, lambda { |shape|
-    where(id: ProductReading.where('ST_Intersects(geometry_value, ST_GeomFromEWKT(?))', shape.to_ewkt).select(:product_id))
+    where(id: ProductReading.where('ST_Intersects(multi_polygon_value, ST_GeomFromEWKT(?))', shape.to_ewkt).select(:product_id))
   }
   scope :within_shape, lambda { |shape|
-    where(id: ProductReading.where('ST_Within(geometry_value, ST_GeomFromEWKT(?))', shape.to_ewkt).select(:product_id))
+    where(id: ProductReading.where('ST_Within(multi_polygon_value, ST_GeomFromEWKT(?))', shape.to_ewkt).select(:product_id))
   }
   scope :covers_shape, lambda { |shape|
-    where(id: ProductReading.where('ST_Covers(geometry_value, ST_GeomFromEWKT(?))', shape.to_ewkt).select(:product_id))
+    where(id: ProductReading.where('ST_Covers(multi_polygon_value, ST_GeomFromEWKT(?))', shape.to_ewkt).select(:product_id))
   }
   scope :overlaps_shape, lambda { |shape|
-    where(id: ProductReading.where('ST_Overlaps(geometry_value, ST_GeomFromEWKT(?))', shape.to_ewkt).select(:product_id))
+    where(id: ProductReading.where('ST_Overlaps(multi_polygon_value, ST_GeomFromEWKT(?))', shape.to_ewkt).select(:product_id))
   }
 
   # scope :saleables, -> { joins(:nature).where(:active => true, :product_natures => {:saleable => true}) }
@@ -552,24 +555,6 @@ class Product < Ekylibre::Record::Base
 
   def picture_path(style = :original)
     picture.path(style)
-  end
-
-  def initial_shape=(value)
-    if value.is_a?(String) && value =~ /\A\{.*\}\z/
-      value = Charta::Geometry.new(JSON.parse(value).to_json, :WGS84).to_rgeo
-    elsif !value.blank?
-      value = Charta::Geometry.new(value).to_rgeo
-    end
-    self['initial_shape'] = value
-  end
-
-  def initial_geolocation=(value)
-    if value.is_a?(String) && value =~ /\A\{.*\}\z/
-      value = Charta::Geometry.new(JSON.parse(value).to_json, :WGS84).to_rgeo
-    elsif !value.blank?
-      value = Charta::Geometry.new(value).to_rgeo
-    end
-    self['initial_geolocation'] = value
   end
 
   # Returns all contained products of the given variant

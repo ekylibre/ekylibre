@@ -28,7 +28,7 @@
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  name         :string           not null
-#  shape        :geometry({:srid=>4326, :type=>"geometry"}) not null
+#  shape        :geometry({:srid=>4326, :type=>"multi_polygon"}) not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #  uuid         :uuid
@@ -42,6 +42,7 @@ class CultivableZone < Ekylibre::Record::Base
   has_many :current_activity_productions, -> { current }, foreign_key: :cultivable_zone_id, class_name: 'ActivityProduction'
   has_many :current_supports, through: :current_activity_productions, source: :support
   has_many :supports, through: :activity_productions
+  has_geometry :shape, type: :multi_polygon
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_presence_of :name, :shape, :work_number
@@ -51,7 +52,7 @@ class CultivableZone < Ekylibre::Record::Base
   scope :of_current_activity_productions, -> { where(id: ActivityProduction.select(:cultivable_zone_id).current) }
   scope :of_campaign, ->(campaign) { where(id: ActivityProduction.select(:cultivable_zone_id).of_campaign(campaign)) }
   scope :covers_shape, lambda { |shape|
-    where('ST_Covers(shape, ST_GeomFromEWKT(?))', ::Charta::Geometry.new(shape).to_ewkt)
+    where('ST_Covers(shape, ST_GeomFromEWKT(?))', ::Charta.new_geometry(shape).to_ewkt)
   }
 
   before_validation do
@@ -60,7 +61,7 @@ class CultivableZone < Ekylibre::Record::Base
   end
 
   def to_geom
-    ::Charta::Geometry.new(shape)
+    ::Charta.new_geometry(shape)
   end
 
   # Computes net surface area of shape
@@ -71,14 +72,5 @@ class CultivableZone < Ekylibre::Record::Base
   # get the first object with variety 'plant', availables
   def current_cultivations
     Plant.contained_by(current_supports)
-  end
-
-  def shape=(value)
-    if value.is_a?(String) && value =~ /\A\{.*\}\z/
-      value = Charta::Geometry.new(JSON.parse(value).to_json, :WGS84).to_rgeo
-    elsif !value.blank?
-      value = Charta::Geometry.new(value).to_rgeo
-    end
-    self['shape'] = value
   end
 end

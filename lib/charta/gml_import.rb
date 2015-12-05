@@ -80,7 +80,7 @@ class GmlImport
           properties: {
             internal_id: id
           }.reject { |_, v| v.nil? },
-          geometry: ::Charta::Geometry.new(geometry.to_xml, nil, 'gml').transform(:WGS84).to_geojson
+          geometry: ::Charta.new_geometry(geometry.to_xml, nil, 'gml').transform(:WGS84).to_geojson
         }.reject { |_, v| v.nil? }
 
         return geojson_feature
