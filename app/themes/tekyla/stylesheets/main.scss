@@ -384,7 +384,7 @@ html.zen {
 
 html.authentication, html.exception {
   background: $desktop-background;
-  @include gradient-radial($desktop-background, $neutral-color);
+  background-image: image-url('background.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center center;
