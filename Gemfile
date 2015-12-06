@@ -58,8 +58,8 @@ gem 'timecop'
 gem 'foreman'
 
 # Background jobs
-gem 'sidekiq', '< 4.0'
-gem 'sidekiq-cron', '~> 0.3.0'
+gem 'sidekiq', '>= 4.0'
+gem 'sidekiq-cron', '>= 0.4.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
