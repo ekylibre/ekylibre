@@ -11,8 +11,8 @@ module Charta
       @ewkt = select_value("SELECT ST_AsEWKT(ST_Multi(ST_CollectionHomogenize(#{geom})))")
     end
 
-    def self.empty(srid = :WGS84)
-      srid = Charta.find_srid(srid)
+    def self.empty(srid = nil)
+      srid = Charta.find_srid(srid.blank? ? :WGS84 : srid)
       new("SRID=#{srid};GEOMETRYCOLLECTION EMPTY")
     end
   end

@@ -14,7 +14,7 @@ module Charta
     def new_geometry(coordinates, srs = nil, format = nil)
       geom_ewkt = nil
       if coordinates.nil?
-        geom_ewkt = self.class.empty(srs).to_ewkt
+        geom_ewkt = empty_geometry(srs).to_ewkt
       elsif coordinates.is_a?(self.class)
         geom_ewkt = coordinates.ewkt
       elsif coordinates.is_a?(Hash) || (coordinates.is_a?(String) && ::Charta::GeoJSON.valid?(coordinates)) # GeoJSON
