@@ -2,7 +2,7 @@ module Backend
   module Cells
     class AccountancyBalanceCellsController < Backend::Cells::BaseController
       def show
-        f = FinancialYear.current.last
+        f = FinancialYear.current
         if f
           f.compute_balances!
           @financial_year = f

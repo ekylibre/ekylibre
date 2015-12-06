@@ -7,7 +7,7 @@
     </parameters>
     <section name="financial_years">
       <variable name="company" value="Entity.of_company"/>
-      <variable name="financial_year" value="FinancialYear.current.last"/>
+      <variable name="financial_year" value="FinancialYear.current"/>
       <variable name="financial_year_compute" value="financial_year.compute_balances!"/>
       <property name="entity_name" value="company.full_name"/>
       <property name="address" value="company.default_mail_address.coordinate"/>

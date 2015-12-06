@@ -129,7 +129,7 @@ class Journal < Ekylibre::Record::Base
     def load_defaults
       nature.values.each do |nature|
         next if find_by(nature: nature)
-        financial_year = FinancialYear.first
+        financial_year = FinancialYear.first_of_all
         closed_on = financial_year ? (financial_year.started_on - 1) : Date.new(1899, 12, 31).end_of_month
         create!(
           name: "enumerize.journal.nature.#{nature}".t,
