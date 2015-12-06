@@ -1644,7 +1644,7 @@ fra:
     thumb: "Miniature"
     time_cost: "Coût de main d’œuvre"
     time_cost_per_hectare: "Coût de main d’œuvre par hectare" #?
-    time_spend_by_activities: "Temps passé par activités"
+    time_spent_by_activity: "Temps passé par activités"
     time_zone: "Fuseau horaire"
     timeline: "Chronologie"
     timeline_comment: "%{author} a commenté %{when}"

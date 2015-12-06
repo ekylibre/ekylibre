@@ -14,7 +14,7 @@
     = f.association(:tax, as: :hidden)
     = hidden_field_tag("tax_rate", (100 + f.object.tax.amount)/100, data: {value: 'rate', trade_component: "tax"})
     %span= f.object.tax.short_label if f.object.tax
-    -# = f.select(:tax_id, Tax.currents.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.amount)/100)}]}, {}, data: {value: 'rate', trade_component: "tax"})
+    -# = f.select(:tax_id, Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.amount)/100)}]}, {}, data: {value: 'rate', trade_component: "tax"})
   %td.decimal
     = f.input(:reduction_percentage, as: :hidden, input_html: {data: {trade_component: "reduction_percentage"}})
     = f.object.reduction_percentage.l

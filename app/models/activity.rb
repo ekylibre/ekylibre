@@ -85,8 +85,7 @@ class Activity < Ekylibre::Record::Base
     where(cultivation_variety: Nomen::Variety.find(variety).all)
   }
   scope :main_of_campaign, ->(campaign) { main.of_campaign(campaign) }
-  scope :of_current_campaigns, -> { joins(:campaign).merge(Campaign.currents) }
-  scope :of_currents_campaigns, -> { of_current_campaigns }
+  scope :of_current_campaigns, -> { joins(:campaign).merge(Campaign.current) }
   scope :of_families, proc { |*families|
     where(family: families.flatten.collect { |f| Nomen::ActivityFamily.all(f.to_sym) }.flatten.uniq.map(&:to_s))
   }

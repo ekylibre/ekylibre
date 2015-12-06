@@ -38,7 +38,6 @@ module Backend
       t.column :casting
       t.column :started_at
       t.column :stopped_at, hidden: true
-      t.column :natures
       t.column :state
     end
   end

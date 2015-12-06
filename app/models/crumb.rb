@@ -122,7 +122,7 @@ class Crumb < Ekylibre::Record::Base
     # TODO: when refactoring, move this method to ActivityProduction model, as ActivityProduction#of_crumbs(crumbs = [], options = {})
     def production_supports(*crumbs)
       options = crumbs.extract_options!
-      options[:campaigns] ||= Campaign.currents
+      options[:campaigns] ||= Campaign.current
       ActivityProduction.of_campaign(options[:campaigns]).distinct
         .joins(:storage)
         .where('products.id IN (?)', Crumb.products(*crumbs, no_contents: true).map(&:id))

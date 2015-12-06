@@ -1383,7 +1383,7 @@ spa:
     theoric_quantity: "cantidad teorica" #?
     # thumb: "Thumb"
     # time_cost: "Time cost"
-    # time_spend_by_activities: "Time spend by activities"
+    # time_spent_by_activity: "Time spent by activity"
     # time_zone: "Time zone"
     # timeline: "Timeline"
     # timeline_comment: "%{author} commented %{when}"

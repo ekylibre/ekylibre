@@ -57,7 +57,7 @@ class FinancialYear < Ekylibre::Record::Base
 
   # This order must be the natural order
   # It permit to find the first and the last financial year
-  scope :currents,  -> { where(closed: false).reorder(:started_on) }
+  scope :current, -> { where(closed: false).reorder(:started_on) }
   scope :closables, -> { where(closed: false).where('stopped_on < ?', Time.zone.now).reorder(:started_on).limit(1) }
 
   class << self
@@ -85,7 +85,7 @@ class FinancialYear < Ekylibre::Record::Base
     end
 
     def current
-      currents.first
+      current.first
     end
 
     def closable

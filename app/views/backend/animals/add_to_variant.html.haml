@@ -1,8 +1,8 @@
 = form_tag do
   = field_set do
-    = field ProductMembership.human_attribute_name(:variant), selector_tag(:variant_id, {controller: :product_nature_variants, action: :unroll, scope: {of_variety: :animal}}, value: params[:variant_id], new: backend_product_nature_variant_url)
-    = field ProductMembership.human_attribute_name(:started_at), datetime_field_tag(:started_at)
-    = field Intervention.human_attribute_name(:production), selector_tag(:production_id, {controller: :productions, action: :unroll, scope: {of_currents_campaigns: true} }, value: params[:production_id])
-    = field Intervention.human_attribute_name(:production_support), selector_tag(:production_support_id, {controller: :production_supports, action: :unroll, scope: {of_currents_campaigns: true} }, value: params[:production_support_id])
+    = field ProductPhase.human_attribute_name(:variant), selector_tag(:variant_id, {controller: :product_nature_variants, action: :unroll, scope: {of_variety: :animal}}, value: params[:variant_id], new: backend_product_nature_variant_url)
+    = field ProductPhase.human_attribute_name(:started_at), datetime_field_tag(:started_at)
+    = field Intervention.human_attribute_name(:production), selector_tag(:production_id, {controller: :productions, action: :unroll, scope: {of_current_campaigns: true} }, value: params[:production_id])
+    = field Intervention.human_attribute_name(:production_support), selector_tag(:production_support_id, {controller: :production_supports, action: :unroll, scope: {of_current_campaigns: true} }, value: params[:production_support_id])
   = form_actions do
     = submit_tag :add_to_variant.ta

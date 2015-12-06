@@ -12,7 +12,7 @@
     .annotate{attrs}= f.input(:annotation, wrapper: :nested, input_html: {class: "annotation"})
   %td= f.input(:unit_pretax_amount, wrapper: :nested, input_html: {data: {trade_component: "unit_pretax_amount"}})
   %td.decimal= f.input(:quantity, wrapper: :nested, input_html: {size: 7, data: {trade_component: "quantity"}})
-  %td.decimal= f.select(:tax_id, Tax.currents.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.amount)/100)}]}, {}, data: {value: 'rate', trade_component: "tax"})
+  %td.decimal= f.select(:tax_id, Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.amount)/100)}]}, {}, data: {value: 'rate', trade_component: "tax"})
   %td= f.input(:reduction_percentage, wrapper: :nested, input_html: {data: {trade_component: "reduction_percentage"}})
   %td.decimal{class: "pta", data: {trade_component: "pretax_amount"}}= f.object.pretax_amount.l
   %td.decimal{class: "wta", data: {trade_component: "amount"}}= f.object.amount.l

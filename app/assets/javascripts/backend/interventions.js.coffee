@@ -167,7 +167,7 @@
     production = $(this)
     id = production.selector('value')
     form = production.closest('form')
-    url = "/backend/production_supports/unroll?scope[of_currents_campaigns]=true"
+    url = "/backend/production_supports/unroll?scope[of_current_campaigns]=true"
     support = form.find("*[data-intervention-updater='global:support']").first()
     if /^\d+$/.test(id)
       url += "&scope[of_productions]=#{id}"

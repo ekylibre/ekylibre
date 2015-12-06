@@ -10,7 +10,7 @@
   .big-infos
     .med-info.important
       - icon = resource.category.pictogram
-      %span.title= Matter.human_attribute_name(:variant)
+      %span.title= Equipment.human_attribute_name(:variant)
       %span.value
         %i.picto{class: "picto-#{icon}"}
         = link_to(resource.variant_name, controller: :product_nature_variants, action: :show, id: resource.variant_id)
@@ -29,7 +29,7 @@
         %i.picto{class: "picto-timelapse"}
         = :x_hours.tl(count: resource.working_duration(as: :tool)/3600)
     - if resource.description
-      %span.title= Plant.human_attribute_name(:description)
+      %span.title= Equipment.human_attribute_name(:description)
       %span.value= resource.description
 
 = cobbles do |c|
@@ -65,37 +65,4 @@
   - c.cobble(:readings, title: :x_readings.tl(count: resource.readings.count)) do
     = cobble_list(:readings)
 
-  - working_periods = InterventionWorkingPeriod.of_campaign(current_campaign).with_generic_cast(:tool, resource)
-  - if current_campaign && working_periods.any?
-    :ruby
-      started_at = working_periods.reorder(started_at: :asc).first.started_at.to_date
-      stopped_at = working_periods.reorder(stopped_at: :desc).first.stopped_at.to_date
-      duration = working_periods.sum(:duration)
-
-      unit = Nomen::Unit[:hour]
-
-      series = []
-      categories = {}
-
-      date = started_at
-      stopped_at = started_at + 1 if started_at >= stopped_at
-      while date < stopped_at
-        categories[date.year.to_s + date.month.to_s.rjust(3, '0')] = date.l(format: "%b %Y")
-        date = date >> 1
-      end
-
-      # data for bar chart times by activities and by month
-      current_campaign.activities.find_each do |activity|
-        activity_periods = working_periods.of_activities(activity).order(:started_at)
-        if activity_periods.any?
-          sums = activity_periods.sums_of_periods.sort.inject({}) do |hash, period|
-            hash[period.expr.to_i.to_s] = period.sum.to_i.in_second.in(unit).round(2).to_f
-            hash
-          end
-          series << { name: activity.name, data: normalize_serie(sums, categories.keys), tooltip: {value_suffix: unit.symbol }}
-        end
-      end
-
-    - if series.any?
-      - c.cobble(:time_spend_by_activities) do
-        = column_highcharts(series, y_axis: {title: {text: :duration.tl}, stack_labels: {enabled: true, format: "{total} #{unit.symbol}"}, labels: { format: "{value} #{unit.symbol}" }}, x_axis: { categories: categories.values}, legend: true, plot_options: { column: {stacking: 'normal'}})
+  - time_spent_by_activity(resource, cobbler: c)

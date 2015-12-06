@@ -49,4 +49,6 @@
 class InterventionTarget < InterventionCast
   belongs_to :intervention, inverse_of: :targets
   validates :product, presence: true
+  scope :of_activity, ->(activity) { where(product_id: TargetDistribution.select(:target_id).where(activity_id: activity)) }
+  scope :of_activity_production, ->(activity_production) { where(product_id: TargetDistribution.select(:target_id).where(activity_production_id: activity_production)) }
 end

@@ -424,6 +424,7 @@ cap_statements:
     - "backend/cap_islets#list"
     - "backend/cap_islets#list_cap_land_parcels"
     - "backend/cap_islets#show"
+    - "backend/cap_islets#unroll"
     - "backend/cap_land_parcels#index"
     - "backend/cap_land_parcels#list"
     - "backend/cap_land_parcels#show"
@@ -431,6 +432,7 @@ cap_statements:
     - "backend/cap_statements#list"
     - "backend/cap_statements#list_cap_islets"
     - "backend/cap_statements#show"
+    - "backend/cap_statements#unroll"
   write:
     dependencies:
     - read-cap_statements

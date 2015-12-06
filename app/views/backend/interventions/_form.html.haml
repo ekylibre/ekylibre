@@ -6,9 +6,9 @@
     - f.object.production = support.production
   = field_set do
     = f.input :reference_name, as: :hidden
-    -#= f.referenced_association :production, new: false, source: :of_currents_campaigns, input_html: {data: {procedure: procedure.name, procedure_global: "production", intervention_updater: "global:production"}}
+    -#= f.referenced_association :production, new: false, source: :of_current_campaigns, input_html: {data: {procedure: procedure.name, procedure_global: "production", intervention_updater: "global:production"}}
     -#.with-supports
-      = f.referenced_association :production_support, new: false, source: :of_currents_campaigns, input_html: {data: {procedure: procedure.name, procedure_global: "support", intervention_updater: "global:support"}}
+      = f.referenced_association :production_support, new: false, source: :of_current_campaigns, input_html: {data: {procedure: procedure.name, procedure_global: "support", intervention_updater: "global:support"}}
     = f.referenced_association :issue
     -#= f.input :recommended, show: :prescriptions
     -#= f.input :provisional

@@ -20,6 +20,8 @@ module Backend
   class CapIsletsController < Backend::BaseController
     manage_restfully
 
+    unroll :islet_number
+
     # params:
     #   :q Text search
     #   :state State search

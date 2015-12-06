@@ -2,7 +2,7 @@
 <aggregators xmlns="http://www.ekylibre.org/XML/2013/aggregators">
   <aggregator name="products_sheet" version="0.0" category="management">
     <parameters>
-      <parameter name="campaigns" type="record-list" of="campaign" default="currents"/>
+      <parameter name="campaigns" type="record-list" of="campaign" default="current"/>
       <parameter name="started_on" type="date" default="2015-01-01"/>
       <parameter name="stopped_on" type="date" default="2015-12-31"/>
     </parameters>

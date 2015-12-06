@@ -73,8 +73,15 @@ class ActivityProduction < Ekylibre::Record::Base
   delegate :name, :size_indicator, :size_unit, to: :activity, prefix: true
   delegate :with_cultivation, :cultivation_variety, :with_supports, :support_variety, :color, to: :activity
 
-  scope :of_campaign, lambda { |campaign|
-    where('(started_at, stopped_at) OVERLAPS (?, ?)', campaign.started_on, campaign.stopped_on)
+  scope :of_campaign, lambda { |campaigns|
+    campaigns = [campaigns] unless campaigns.respond_to? :map
+    args = []
+    query = campaigns.map do |campaign|
+      args << campaign.started_on
+      args << campaign.stopped_on
+      '(started_at, stopped_at) OVERLAPS (?, ?)'
+    end
+    where(query.join(' OR '), *args)
   }
 
   scope :of_cultivation_variety, lambda { |variety|

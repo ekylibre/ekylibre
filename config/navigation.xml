@@ -885,6 +885,7 @@
         <page to="backend/cap_statements#list_cap_islets"/>
         <page to="backend/cap_statements#new"/>
         <page to="backend/cap_statements#show"/>
+        <page to="backend/cap_statements#unroll"/>
         <page to="backend/cap_statements#update"/>
         <page to="backend/cap_islets#index"/>
         <page to="backend/cap_islets#create"/>
@@ -894,6 +895,7 @@
         <page to="backend/cap_islets#list_cap_land_parcels"/>
         <page to="backend/cap_islets#new"/>
         <page to="backend/cap_islets#show"/>
+        <page to="backend/cap_islets#unroll"/>
         <page to="backend/cap_islets#update"/>
         <page to="backend/cap_land_parcels#index"/>
         <page to="backend/cap_land_parcels#create"/>

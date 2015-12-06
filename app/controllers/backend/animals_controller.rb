@@ -123,7 +123,7 @@ module Backend
     def load_production_supports
       prod = {}
       arr = []
-      ActivityProduction.where(storage: params[:group_id]).each do |p|
+      ActivityProduction.where(support: params[:group_id]).each do |p|
         prod[:id] = p.id
         prod[:name] = p.production.name + " (#{p.production.campaign.name})"
         arr << prod

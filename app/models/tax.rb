@@ -114,9 +114,9 @@ class Tax < Ekylibre::Record::Base
       import_all_from_nomenclature(Preference[:country])
     end
 
-    # find tax reference name with no stopped_at AKA currents reference taxes
+    # find tax reference name with no stopped_at AKA current reference taxes
     # FIXME: Invalid way to find current tax. Need to normalize tax use when no references
-    def currents
+    def current
       ids = []
       Tax.find_each do |tax|
         if item = Nomen::Tax.find(tax.reference_name)

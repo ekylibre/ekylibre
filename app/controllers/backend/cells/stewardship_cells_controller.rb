@@ -7,7 +7,7 @@ module Backend
         elsif params[:current_campaign_id]
           @campaigns = [Campaign.find(params[:current_campaign_id])]
         else
-          @campaigns = [Campaign.currents.last]
+          @campaigns = [Campaign.current.last]
         end
       end
     end

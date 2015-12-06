@@ -161,9 +161,8 @@ class Charta::GeometryTest < ActiveSupport::TestCase
     end
   end
 
-
   test 'class cast' do
-    samples =  {
+    samples = {
       'Point' => 'POINT(6 10)',
       'LineString' => 'LINESTRING(3 4,10 50,20 25)',
       'Polygon' => 'POLYGON((1 1,5 1,5 5,1 5,1 1))',
@@ -174,5 +173,4 @@ class Charta::GeometryTest < ActiveSupport::TestCase
       assert_equal 'Charta::' + class_name, Charta.new_geometry(ewkt).class.name
     end
   end
-
 end

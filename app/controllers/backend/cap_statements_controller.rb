@@ -20,6 +20,8 @@ module Backend
   class CapStatementsController < Backend::BaseController
     manage_restfully
 
+    unroll :farm_name, :pacage_number, :siret_number, campaign: [:name]
+
     # params:
     #   :q Text search
     #   :state State search

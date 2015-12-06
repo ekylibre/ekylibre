@@ -53,7 +53,7 @@ class Campaign < Ekylibre::Record::Base
   before_validation :set_default_values, on: :create
 
   acts_as_numbered :number, readonly: false
-  scope :currents, -> { where(closed: false).reorder(:harvest_year) }
+  scope :current, -> { where(closed: false).reorder(:harvest_year) }
 
   scope :at, lambda { |searched_at = Time.zone.now|
     where(harvest_year: searched_at.year)

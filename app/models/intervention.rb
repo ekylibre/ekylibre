@@ -85,11 +85,9 @@ class Intervention < Ekylibre::Record::Base
     where(started_at: started_at..stopped_at)
   }
 
-  scope :of_currents_campaigns, -> { of_campaigns(Campaign.current) }
-
-  scope :of_nature, lambda { |*natures|
-    where('natures ~ E?', '\\\\m(' + natures.collect { |n| Nomen::ProcedureNature.all(n) }.flatten.sort.join('|') + ')\\\\M')
-  }
+  # scope :of_nature, lambda { |*natures|
+  #   where('natures ~ E?', '\\\\m(' + natures.collect { |n| Nomen::ProcedureNature.all(n) }.flatten.sort.join('|') + ')\\\\M')
+  # }
   scope :of_category, lambda { |category|
     # TODO
   }
@@ -97,19 +95,14 @@ class Intervention < Ekylibre::Record::Base
   scope :of_campaign, lambda { |campaign|
     where('(started_at, stopped_at) OVERLAPS (?, ?)', campaign.started_on, campaign.stopped_on)
   }
-
+  scope :of_current_campaigns, -> { of_campaign(Campaign.current) }
   scope :of_activity_production, lambda { |production|
-    where(id: InterventionTarget.select(:intervention_id).where(product_id: TargetDistribution.select(:target_id).where(activity_production_id: production)))
+    where(id: InterventionTarget.of_activity_production(production).select(:intervention_id))
   }
-
   scope :of_activity, lambda { |activity|
-    where(id: InterventionTarget.select(:intervention_id).where(product_id: TargetDistribution.select(:target_id).where(activity_id: activity)))
+    where(id: InterventionTarget.of_activity(activity).select(:intervention_id))
   }
-
-  scope :of_activities, lambda { |*activities|
-    of_activity(activities.flatten)
-  }
-
+  scope :of_activities, ->(*activities) { of_activity(activities.flatten) }
   scope :provisional, -> { where('stopped_at > ?', Time.zone.now) }
   scope :real, -> { where('stopped_at <= ?', Time.zone.now) }
 

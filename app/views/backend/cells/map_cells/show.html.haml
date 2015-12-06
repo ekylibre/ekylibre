@@ -61,8 +61,8 @@
 
         interventions = support.interventions
         if interventions.any?
-          time_spend = interventions.map(&:duration).compact.sum
-          popup_content << {label: :interventions_count.tl, value: "#{interventions.count} #{:during.tl.downcase!} #{:x_hours.tl(count: (time_spend/3600).round(2))}"}
+          spent_time = interventions.map(&:duration).compact.sum
+          popup_content << {label: :interventions_count.tl, value: "#{interventions.count} #{:during.tl.downcase!} #{:x_hours.tl(count: (spent_time/3600).round(2))}"}
 
           last_intervention = interventions.max{|a,b| a.started_at <=> b.started_at }
           popup_content << {label: :last_intervention.tl, value: link_to( last_intervention.name, backend_intervention_path(last_intervention)) }
