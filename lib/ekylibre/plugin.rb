@@ -297,6 +297,10 @@ module Ekylibre
       Calculus::ManureManagementPlan.register_method(name, class_name)
     end
 
+    def subscribe(message, proc = nil, &block)
+      Ekylibre::Hook.subscribe(message, proc, &block)
+    end
+
     # Will call method MyPlugin.after_login_path to get url to redirect to
     # CAUTION: Only one plugin can use it. Only first plugin will be called
     # if many are using this directive.

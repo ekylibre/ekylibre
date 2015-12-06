@@ -50,15 +50,11 @@ class Campaign < Ekylibre::Record::Base
   validates_length_of :number, allow_nil: true, maximum: 60
   validates :harvest_year, length: { is: 4 }, allow_nil: true
   validates_uniqueness_of :name, :harvest_year
-  before_validation :set_default_values, on: :create
 
   acts_as_numbered :number, readonly: false
+
   scope :current, -> { where(closed: false).reorder(:harvest_year) }
-
-  scope :at, lambda { |searched_at = Time.zone.now|
-    where(harvest_year: searched_at.year)
-  }
-
+  scope :at, ->(searched_at = Time.zone.now) { where(harvest_year: searched_at.year) }
   scope :of_activity_production, lambda { |activity_production|
     where('(started_on, stopped_on) OVERLAPS (COALESCE(?, started_on), COALESCE(?, stopped_on))', activity_production.started_at, activity_production.stopped_at)
   }
@@ -70,6 +66,7 @@ class Campaign < Ekylibre::Record::Base
 
   before_validation(on: :create) do
     if harvest_year
+      self.name = harvest_year.to_s if name.blank?
       self.started_on ||= Date.new(harvest_year, 1, 1)
       self.stopped_on ||= Date.new(harvest_year, 12, 31)
     end
@@ -87,14 +84,10 @@ class Campaign < Ekylibre::Record::Base
     Intervention.of_campaign(self)
   end
 
-  # Sets name
-  def set_default_values
-    self.name = harvest_year.to_s if name.blank? && harvest_year
+  def net_surface_area
+    activity_productions.map(&:shape_area).sum
   end
-
-  def shape_area
-    productions.map(&:shape_area).sum
-  end
+  alias_method :shape_area, :net_surface_area
 
   def previous
     self.class.where('harvest_year < ?', harvest_year)
@@ -112,5 +105,15 @@ class Campaign < Ekylibre::Record::Base
 
   def opened?
     !closed
+  end
+
+  def close
+    update_column(closed: true)
+    Ekylibre::Hook.publish(:campaign_closing, campaign_id: id)
+  end
+
+  def reopen
+    update_column(closed: false)
+    Ekylibre::Hook.publish(:campaign_reopening, campaign_id: id)
   end
 end

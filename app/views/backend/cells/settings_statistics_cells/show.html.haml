@@ -1,5 +1,5 @@
 %ul.desc-list
-  - for model in [User, Team, Account, FinancialYear, ProductNatureCategory, ProductNature, ProductNatureVariant, Campaign, Worker, Building, LandParcel, LandParcelCluster]
+  - [User, Team, Account, FinancialYear, ProductNatureCategory, ProductNature, ProductNatureVariant, Campaign, Worker, Building, LandParcel, Settlement].each do |model|
     %li.link
       - collection = model.name.underscore.pluralize
       = link_to(controller: "/backend/#{collection}", action: :index) do

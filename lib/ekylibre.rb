@@ -3,6 +3,7 @@ module Ekylibre
   autoload :CorporateIdentity, 'ekylibre/corporate_identity'
   autoload :Export,            'ekylibre/export'
   autoload :FirstRun,          'ekylibre/first_run'
+  autoload :Hook,              'ekylibre/hook'
   autoload :Navigation,        'ekylibre/navigation'
   autoload :Record,            'ekylibre/record'
   autoload :Reporting,         'ekylibre/reporting'

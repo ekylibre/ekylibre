@@ -150,6 +150,7 @@ class ActivityProduction < Ekylibre::Record::Base
     if self.activity.productions.where(rank_number: rank_number).count > 1
       update_column(:rank_number, self.activity.productions.maximum(:rank_number) + 1)
     end
+    Ekylibre::Hook.publish(:activity_production_change, activity_production_id: id)
   end
 
   def active?
@@ -371,7 +372,7 @@ class ActivityProduction < Ekylibre::Record::Base
     list = []
     list << activity.name unless options[:activity].is_a?(FalseClass)
     v = Nomen::Variety.find(cultivation_variety)
-    list << v.human_name if v && v.human_name != activity.name
+    list << v.human_name if v && !(activity.name.start_with?(v.human_name) || activity.name.end_with?(v.human_name))
     # list << support.name if !options[:support].is_a?(FalseClass) && support
     list << started_at.to_date.l(format: :month) if started_at
     list << :rank.t(number: rank_number)

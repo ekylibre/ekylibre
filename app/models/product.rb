@@ -215,7 +215,8 @@ class Product < Ekylibre::Record::Base
   scope :production_supports, -> { where(variety: ['cultivable_zone']) }
   scope :supportables, -> { of_variety([:cultivable_zone, :animal_group, :equipment]) }
   scope :supporters, -> { where(id: ActivityProduction.pluck(:support_id)) }
-  scope :availables, -> { not_indicate(population: 0).where(dead_at: nil) }
+  scope :available, -> { not_indicate(population: 0).where(dead_at: nil) }
+  scope :availables, -> { available }
   scope :tools, -> { of_variety(:equipment) }
   scope :support, -> { joins(:nature).merge(ProductNature.support) }
 

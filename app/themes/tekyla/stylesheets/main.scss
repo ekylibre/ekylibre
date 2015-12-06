@@ -2165,7 +2165,7 @@ svg.map {
   vertical-align: baseline;
   line-height: $fs-normal;
   height: $fs-small;
-  color: white;
+  color: white !important;
   white-space: nowrap;
   a:not([disabled]) > & {
     background-color: $active-link-color;
