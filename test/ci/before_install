@@ -18,5 +18,5 @@ sudo apt-cache search postgis
 echo ""
 echo "--------------------------------------------------------------------------------"
 echo "Install packages:"
-sudo apt-get install -qq libgeos-dev libgeos++-dev libproj-dev postgresql-9.4-postgis-2.1 graphicsmagick tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data ghostscript
+sudo apt-get install -qq libgeos-dev libgeos++-dev libproj-dev postgresql-9.4-postgis-2.1 graphicsmagick tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data ghostscript postgresql-contrib
 # sudo apt-get install -qq libqt5webkit5-dev
