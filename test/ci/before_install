@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Qt5: https://gist.github.com/jreese/6207161
+
 echo ""
 echo "--------------------------------------------------------------------------------"
 echo "Configure PPA:"
@@ -7,7 +9,7 @@ sudo apt-get install python-software-properties
 sudo apt-add-repository --yes ppa:sharpie/for-science
 sudo apt-add-repository --yes ppa:sharpie/postgis-stable
 sudo apt-add-repository --yes ppa:ubuntugis/ubuntugis-unstable
-# sudo apt-add-repository --yes ppa:ubuntu-sdk-team/ppa
+sudo apt-add-repository --yes ppa:ubuntu-sdk-team/ppa
 sudo apt-get update -qq
 
 echo ""
@@ -19,4 +21,4 @@ echo ""
 echo "--------------------------------------------------------------------------------"
 echo "Install packages:"
 sudo apt-get install -qq libgeos-dev libgeos++-dev libproj-dev postgresql-9.4-postgis-2.1 graphicsmagick tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data ghostscript postgresql-contrib
-# sudo apt-get install -qq libqt5webkit5-dev
+sudo apt-get install -qq libqt5webkit5-dev
