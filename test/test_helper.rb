@@ -17,12 +17,12 @@ class FixtureRetriever
   @@truc = {}
 
   def initialize(model, options = {}, fixture_options = nil)
-    if model and model < Ekylibre::Record::Base
+    if model && model < Ekylibre::Record::Base
       fixture_options ||= {}
       @model  = fixture_options.delete(:model) || model
       @prefix = fixture_options.delete(:prefix) || @model.name.underscore.pluralize
       @table  = fixture_options.delete(:table) || @model.table_name
-      options = { first: normalize(options) } if options and !options.is_a?(Hash)
+      options = { first: normalize(options) } if options && !options.is_a?(Hash)
       @options = options || {}
     end
   end
@@ -143,7 +143,7 @@ class ActionController::TestCase
       other_record = "other_#{record}"
       attributes = nil
       file_columns = {}
-      if model and model < ActiveRecord::Base
+      if model && model < ActiveRecord::Base
         table_name = model.table_name
         if model.respond_to?(:attachment_definitions)
           unless model.attachment_definitions.nil?
@@ -282,7 +282,7 @@ class ActionController::TestCase
           test_code << "assert_redirected_to root_url\n"
           test_code << "#{model}.limit(5).find_each do |record|\n"
           test_code << "  get :#{action}, #{sanitized_params[id: 'record.id'.c, redirect: 'root_url'.c]}\n"
-          test_code << "  if record.type and record.type != '#{model.name}'\n"
+          test_code << "  if record.type && record.type != '#{model.name}'\n"
           test_code << "    assert_redirected_to({controller: record.class.name.tableize, action: :show, id: record.id})\n" # , #{context}
           test_code << "  else\n"
           test_code << "    assert_response :success, #{context}\n"
@@ -316,7 +316,7 @@ class ActionController::TestCase
           test_code << "assert_equal 1, #{model_name}.where(id: #{record}.id).count\n"
           test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
           test_code << "assert_response :success, #{context}\n"
-          for format in [:csv, :ods] # :xcsv,
+          [:csv, :ods].each do |format| # :xcsv,
             test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c, format: format]}\n"
             test_code << "assert_response :success, 'Action #{action} does not export in format #{format}'\n"
           end
@@ -334,7 +334,7 @@ class ActionController::TestCase
         elsif mode == :list
           test_code << "get :#{action}, #{sanitized_params[]}\n"
           test_code << "assert_response :success, \"The action #{action.inspect} does not seem to support GET method \#{redirect_to_url} / \#{flash.inspect}\"\n"
-          for format in [:csv, :ods] # , :xcsv
+          [:csv, :ods].each do |format| # , :xcsv
             test_code << "get :#{action}, #{sanitized_params[format: format]}\n"
             test_code << "assert_response :success, 'Action #{action} does not export in format #{format}'\n"
           end
@@ -412,7 +412,7 @@ class ActionController::TestCase
             test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
             test_code << "xhr :get, :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
             test_code << "assert_response :success, #{context}\n"
-            for scope in model.simple_scopes
+            model.simple_scopes.each do |scope|
               test_code << "xhr :get, :#{action}, #{sanitized_params[scopes: scope.name]}\n"
               test_code << "assert_response :success, #{context}\n"
               test_code << "xhr :get, :#{action}, #{sanitized_params[scopes: scope.name, format: :json]}\n"
@@ -487,16 +487,16 @@ class ActionController::TestCase
                 rescue
                   nil
                 end
-        return :new_product if model and model <= Product
+        return :new_product if model && model <= Product
       elsif action_name == :show
         model = begin
                   array.first.split(/\//).last.classify.constantize
                 rescue
                   nil
                 end
-        return :show_sti_record if model and (model <= Product or model <= Affair)
+        return :show_sti_record if model && (model <= Product || model <= Affair)
       end
-      for exp, mode in MODES
+      MODES.each do |exp, mode|
         return mode if action =~ exp
       end
       :get
