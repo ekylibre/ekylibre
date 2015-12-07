@@ -22,7 +22,6 @@
 #
 # == Table: activities
 #
-#  color               :string
 #  created_at          :datetime         not null
 #  creator_id          :integer
 #  cultivation_variety :string
@@ -154,7 +153,6 @@ activities_006:
   with_cultivation: false
   with_supports: false
 activities_007:
-  color: "#A4A4A4"
   created_at: 2015-12-07 20:47:47.588004000 Z
   cultivation_variety: medicago
   family: vegetal_crops
@@ -170,7 +168,6 @@ activities_007:
   with_cultivation: true
   with_supports: true
 activities_008:
-  color: "#A4A4A4"
   created_at: 2015-12-07 20:47:48.227542000 Z
   cultivation_variety: zea_mays
   family: vegetal_crops
@@ -186,7 +183,6 @@ activities_008:
   with_cultivation: true
   with_supports: true
 activities_009:
-  color: "#A4A4A4"
   created_at: 2015-12-07 20:47:48.495622000 Z
   cultivation_variety: triticum_aestivum
   family: vegetal_crops
@@ -202,7 +198,6 @@ activities_009:
   with_cultivation: true
   with_supports: true
 activities_010:
-  color: "#A4A4A4"
   created_at: 2015-12-07 20:47:48.728447000 Z
   cultivation_variety: plant
   family: vegetal_crops
@@ -219,7 +214,6 @@ activities_010:
   with_cultivation: true
   with_supports: true
 activities_011:
-  color: "#A4A4A4"
   created_at: 2015-12-07 20:47:48.852593000 Z
   cultivation_variety: lolium
   family: vegetal_crops
@@ -235,7 +229,6 @@ activities_011:
   with_cultivation: true
   with_supports: true
 activities_012:
-  color: "#A4A4A4"
   created_at: 2015-12-07 20:47:48.903701000 Z
   cultivation_variety: plant
   family: vegetal_crops
@@ -251,7 +244,6 @@ activities_012:
   with_cultivation: true
   with_supports: true
 activities_013:
-  color: "#A4A4A4"
   created_at: 2015-12-07 20:47:49.026054000 Z
   cultivation_variety: triticum_durum
   family: vegetal_crops
@@ -267,7 +259,6 @@ activities_013:
   with_cultivation: true
   with_supports: true
 activities_014:
-  color: "#A4A4A4"
   created_at: 2015-12-07 20:47:49.097799000 Z
   cultivation_variety: plant
   family: vegetal_crops
@@ -284,7 +275,6 @@ activities_014:
   with_cultivation: true
   with_supports: true
 activities_015:
-  color: "#A4A4A4"
   created_at: 2015-12-07 20:47:49.201692000 Z
   cultivation_variety: dactylis
   family: vegetal_crops
@@ -300,7 +290,6 @@ activities_015:
   with_cultivation: true
   with_supports: true
 activities_016:
-  color: "#A4A4A4"
   created_at: 2015-12-07 20:47:49.323282000 Z
   cultivation_variety: sorghum
   family: vegetal_crops
@@ -316,7 +305,6 @@ activities_016:
   with_cultivation: true
   with_supports: true
 activities_017:
-  color: "#A4A4A4"
   created_at: 2015-12-07 20:47:49.447449000 Z
   cultivation_variety: hordeum_vulgare
   family: vegetal_crops
@@ -332,7 +320,6 @@ activities_017:
   with_cultivation: true
   with_supports: true
 activities_018:
-  color: "#A4A4A4"
   created_at: 2015-12-07 20:47:49.805596000 Z
   cultivation_variety: zea_mays
   family: vegetal_crops
@@ -348,7 +335,6 @@ activities_018:
   with_cultivation: true
   with_supports: true
 activities_019:
-  color: "#A4A4A4"
   created_at: 2015-12-07 20:47:50.988934000 Z
   cultivation_variety: plant
   family: vegetal_crops
@@ -365,7 +351,6 @@ activities_019:
   with_cultivation: true
   with_supports: true
 activities_020:
-  color: "#A4A4A4"
   created_at: 2015-12-07 20:47:51.383954000 Z
   cultivation_variety: pisum_sativum
   family: vegetal_crops

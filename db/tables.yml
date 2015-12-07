@@ -108,8 +108,6 @@ accounts:
   usages:
     type: text
 activities:
-  color:
-    type: string
   created_at:
     type: datetime
     required: true

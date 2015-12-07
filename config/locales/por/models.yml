@@ -994,6 +994,7 @@ por:
     # supplier_address: "Supplier address"
     # suppliers: "Suppliers"
     # support: "Support"
+    # support_nature: "Support nature"
     # support_variant: "Support variant"
     # support_variant_indicator: "Working indicator"
     # support_variant_unit: "Support variant unit"
