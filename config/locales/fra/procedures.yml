@@ -111,7 +111,7 @@ fra:
     first_chemical_input: "Premier intrant de protection des végétaux" #?
     first_chemical_input_to_use: "Premier intrant de protection des végétaux à utiliser" #?
     first_child: "Premier nouveau né" #?
-    first_food_input: "Premier ingrédient"
+    first_food_input: "Premier ingrédient" #?
     first_food_input_to_use: "Premier ingrédient utilisé" #?
     first_plant_medicine: "Premier produit utilisé" #?
     first_plant_medicine_to_spray: "Premier produit à pulvériser" #?
@@ -198,7 +198,7 @@ fra:
     second_chemical_input: "Second intrant de protection des végétaux" #?
     second_chemical_input_to_use: "Second intrant de protection des végétaux à utiliser" #?
     second_child: "Second nouveau né" #?
-    second_food_input: "Second ingrédient"
+    second_food_input: "Second ingrédient" #?
     second_food_input_to_use: "Second ingrédient utilisé" #?
     second_plant_medicine: "Second produit utilisé" #?
     second_plant_medicine_to_spray: "Second produit à pulvériser" #?

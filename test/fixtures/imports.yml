@@ -70,14 +70,14 @@ imports_003:
   archive_content_type: text/xml
   archive_file_name: declaration_2015.xml
   archive_file_size: 63870
-  archive_updated_at: 2015-12-05 21:55:38.756363000 Z
-  created_at: 2015-12-05 21:55:38.758556000 Z
+  archive_updated_at: 2015-12-07 20:47:44.920165000 Z
+  created_at: 2015-12-07 20:47:44.923257000 Z
   creator_id: 1
   id: 3
-  imported_at: 2015-12-05 21:55:46.742413000 Z
+  imported_at: 2015-12-07 20:47:51.514109000 Z
   lock_version: 0
   nature: telepac_v2015_cap_statements
   progression_percentage: 100.0
   state: finished
-  updated_at: 2015-12-05 21:55:38.758556000 Z
+  updated_at: 2015-12-07 20:47:44.923257000 Z
   updater_id: 1

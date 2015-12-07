@@ -43,32 +43,32 @@
 #
 ---
 supervision_items_001:
-  color: "#e1dc19"
-  created_at: 2015-12-06 14:59:29.439825000 Z
+  color: "#b03535"
+  created_at: 2015-12-07 20:48:25.206578000 Z
   creator_id: 1
   id: 1
   lock_version: 0
   sensor_id: 2
   supervision_id: 1
-  updated_at: 2015-12-06 14:59:29.439825000 Z
+  updated_at: 2015-12-07 20:48:25.206578000 Z
   updater_id: 1
 supervision_items_002:
-  color: "#d95252"
-  created_at: 2015-12-06 14:59:29.442281000 Z
+  color: "#94fa46"
+  created_at: 2015-12-07 20:48:55.619377000 Z
   creator_id: 1
   id: 2
   lock_version: 0
-  sensor_id: 3
-  supervision_id: 1
-  updated_at: 2015-12-06 14:59:29.442281000 Z
+  sensor_id: 2
+  supervision_id: 2
+  updated_at: 2015-12-07 20:48:55.619377000 Z
   updater_id: 1
 supervision_items_003:
-  color: "#4f65d0"
-  created_at: 2015-12-06 14:59:53.043316000 Z
+  color: "#d96fad"
+  created_at: 2015-12-07 20:48:55.620606000 Z
   creator_id: 1
   id: 3
   lock_version: 0
-  sensor_id: 2
+  sensor_id: 3
   supervision_id: 2
-  updated_at: 2015-12-06 14:59:53.043316000 Z
+  updated_at: 2015-12-07 20:48:55.620606000 Z
   updater_id: 1

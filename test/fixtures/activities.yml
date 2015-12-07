@@ -154,7 +154,8 @@ activities_006:
   with_cultivation: false
   with_supports: false
 activities_007:
-  created_at: 2015-12-05 21:55:42.370947000 Z
+  color: "#A4A4A4"
+  created_at: 2015-12-07 20:47:47.588004000 Z
   cultivation_variety: medicago
   family: vegetal_crops
   id: 8
@@ -165,11 +166,12 @@ activities_007:
   size_unit: hectare
   support_variety: cultivable_zone
   suspended: false
-  updated_at: 2015-12-05 21:55:42.370947000 Z
+  updated_at: 2015-12-07 20:47:47.588004000 Z
   with_cultivation: true
   with_supports: true
 activities_008:
-  created_at: 2015-12-05 21:55:43.201095000 Z
+  color: "#A4A4A4"
+  created_at: 2015-12-07 20:47:48.227542000 Z
   cultivation_variety: zea_mays
   family: vegetal_crops
   id: 9
@@ -180,11 +182,12 @@ activities_008:
   size_unit: hectare
   support_variety: cultivable_zone
   suspended: false
-  updated_at: 2015-12-05 21:55:43.201095000 Z
+  updated_at: 2015-12-07 20:47:48.227542000 Z
   with_cultivation: true
   with_supports: true
 activities_009:
-  created_at: 2015-12-05 21:55:43.499917000 Z
+  color: "#A4A4A4"
+  created_at: 2015-12-07 20:47:48.495622000 Z
   cultivation_variety: triticum_aestivum
   family: vegetal_crops
   id: 10
@@ -195,11 +198,12 @@ activities_009:
   size_unit: hectare
   support_variety: cultivable_zone
   suspended: false
-  updated_at: 2015-12-05 21:55:43.499917000 Z
+  updated_at: 2015-12-07 20:47:48.495622000 Z
   with_cultivation: true
   with_supports: true
 activities_010:
-  created_at: 2015-12-05 21:55:43.745799000 Z
+  color: "#A4A4A4"
+  created_at: 2015-12-07 20:47:48.728447000 Z
   cultivation_variety: plant
   family: vegetal_crops
   id: 11
@@ -211,11 +215,12 @@ activities_010:
   size_unit: hectare
   support_variety: cultivable_zone
   suspended: false
-  updated_at: 2015-12-05 21:55:43.745799000 Z
+  updated_at: 2015-12-07 20:47:48.728447000 Z
   with_cultivation: true
   with_supports: true
 activities_011:
-  created_at: 2015-12-05 21:55:43.876008000 Z
+  color: "#A4A4A4"
+  created_at: 2015-12-07 20:47:48.852593000 Z
   cultivation_variety: lolium
   family: vegetal_crops
   id: 12
@@ -226,11 +231,12 @@ activities_011:
   size_unit: hectare
   support_variety: cultivable_zone
   suspended: false
-  updated_at: 2015-12-05 21:55:43.876008000 Z
+  updated_at: 2015-12-07 20:47:48.852593000 Z
   with_cultivation: true
   with_supports: true
 activities_012:
-  created_at: 2015-12-05 21:55:43.930285000 Z
+  color: "#A4A4A4"
+  created_at: 2015-12-07 20:47:48.903701000 Z
   cultivation_variety: plant
   family: vegetal_crops
   id: 13
@@ -241,11 +247,12 @@ activities_012:
   size_unit: hectare
   support_variety: cultivable_zone
   suspended: false
-  updated_at: 2015-12-05 21:55:43.930285000 Z
+  updated_at: 2015-12-07 20:47:48.903701000 Z
   with_cultivation: true
   with_supports: true
 activities_013:
-  created_at: 2015-12-05 21:55:44.084337000 Z
+  color: "#A4A4A4"
+  created_at: 2015-12-07 20:47:49.026054000 Z
   cultivation_variety: triticum_durum
   family: vegetal_crops
   id: 14
@@ -256,11 +263,12 @@ activities_013:
   size_unit: hectare
   support_variety: cultivable_zone
   suspended: false
-  updated_at: 2015-12-05 21:55:44.084337000 Z
+  updated_at: 2015-12-07 20:47:49.026054000 Z
   with_cultivation: true
   with_supports: true
 activities_014:
-  created_at: 2015-12-05 21:55:44.139777000 Z
+  color: "#A4A4A4"
+  created_at: 2015-12-07 20:47:49.097799000 Z
   cultivation_variety: plant
   family: vegetal_crops
   id: 15
@@ -272,11 +280,12 @@ activities_014:
   size_unit: hectare
   support_variety: cultivable_zone
   suspended: false
-  updated_at: 2015-12-05 21:55:44.139777000 Z
+  updated_at: 2015-12-07 20:47:49.097799000 Z
   with_cultivation: true
   with_supports: true
 activities_015:
-  created_at: 2015-12-05 21:55:44.276717000 Z
+  color: "#A4A4A4"
+  created_at: 2015-12-07 20:47:49.201692000 Z
   cultivation_variety: dactylis
   family: vegetal_crops
   id: 16
@@ -287,11 +296,12 @@ activities_015:
   size_unit: hectare
   support_variety: cultivable_zone
   suspended: false
-  updated_at: 2015-12-05 21:55:44.276717000 Z
+  updated_at: 2015-12-07 20:47:49.201692000 Z
   with_cultivation: true
   with_supports: true
 activities_016:
-  created_at: 2015-12-05 21:55:44.410626000 Z
+  color: "#A4A4A4"
+  created_at: 2015-12-07 20:47:49.323282000 Z
   cultivation_variety: sorghum
   family: vegetal_crops
   id: 17
@@ -302,11 +312,12 @@ activities_016:
   size_unit: hectare
   support_variety: cultivable_zone
   suspended: false
-  updated_at: 2015-12-05 21:55:44.410626000 Z
+  updated_at: 2015-12-07 20:47:49.323282000 Z
   with_cultivation: true
   with_supports: true
 activities_017:
-  created_at: 2015-12-05 21:55:44.555318000 Z
+  color: "#A4A4A4"
+  created_at: 2015-12-07 20:47:49.447449000 Z
   cultivation_variety: hordeum_vulgare
   family: vegetal_crops
   id: 18
@@ -317,11 +328,12 @@ activities_017:
   size_unit: hectare
   support_variety: cultivable_zone
   suspended: false
-  updated_at: 2015-12-05 21:55:44.555318000 Z
+  updated_at: 2015-12-07 20:47:49.447449000 Z
   with_cultivation: true
   with_supports: true
 activities_018:
-  created_at: 2015-12-05 21:55:44.952217000 Z
+  color: "#A4A4A4"
+  created_at: 2015-12-07 20:47:49.805596000 Z
   cultivation_variety: zea_mays
   family: vegetal_crops
   id: 19
@@ -332,11 +344,12 @@ activities_018:
   size_unit: hectare
   support_variety: cultivable_zone
   suspended: false
-  updated_at: 2015-12-05 21:55:44.952217000 Z
+  updated_at: 2015-12-07 20:47:49.805596000 Z
   with_cultivation: true
   with_supports: true
 activities_019:
-  created_at: 2015-12-05 21:55:46.182802000 Z
+  color: "#A4A4A4"
+  created_at: 2015-12-07 20:47:50.988934000 Z
   cultivation_variety: plant
   family: vegetal_crops
   id: 20
@@ -348,11 +361,12 @@ activities_019:
   size_unit: hectare
   support_variety: cultivable_zone
   suspended: false
-  updated_at: 2015-12-05 21:55:46.182802000 Z
+  updated_at: 2015-12-07 20:47:50.988934000 Z
   with_cultivation: true
   with_supports: true
 activities_020:
-  created_at: 2015-12-05 21:55:46.615206000 Z
+  color: "#A4A4A4"
+  created_at: 2015-12-07 20:47:51.383954000 Z
   cultivation_variety: pisum_sativum
   family: vegetal_crops
   id: 21
@@ -363,6 +377,6 @@ activities_020:
   size_unit: hectare
   support_variety: cultivable_zone
   suspended: false
-  updated_at: 2015-12-05 21:55:46.615206000 Z
+  updated_at: 2015-12-07 20:47:51.383954000 Z
   with_cultivation: true
   with_supports: true

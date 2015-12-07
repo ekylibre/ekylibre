@@ -154,6 +154,7 @@ ActiveRecord::Schema.define(version: 20151204171201) do
     t.boolean  "irrigated",                                                                                 default: false, null: false
     t.boolean  "nitrate_fixing",                                                                            default: false, null: false
     t.geometry "support_shape",      limit: {:srid=>4326, :type=>"multi_polygon"}
+    t.string   "support_nature"
     t.datetime "started_at"
     t.datetime "stopped_at"
     t.string   "state"

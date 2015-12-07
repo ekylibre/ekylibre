@@ -3386,64 +3386,31 @@ preferences_289:
   user_id: 1
 preferences_290:
   boolean_value: false
-  created_at: 2015-12-05 21:55:42.338387000 Z
+  created_at: 2015-12-07 20:47:47.554765000 Z
   id: 291
   lock_version: 0
   name: create_activities_from_telepac
   nature: boolean
-  updated_at: 2015-12-05 21:55:42.338387000 Z
+  updated_at: 2015-12-07 20:47:47.554765000 Z
 preferences_291:
   boolean_value: false
-  created_at: 2015-12-05 21:55:50.517040000 Z
+  created_at: 2015-12-07 20:48:06.688876000 Z
   creator_id: 1
   id: 292
   lock_version: 0
   name: interface.snippets.supervision.collapsed
   nature: boolean
-  updated_at: 2015-12-05 21:55:50.517040000 Z
+  updated_at: 2015-12-07 20:48:06.688876000 Z
   updater_id: 1
   user_id: 1
 preferences_292:
-  created_at: 2015-12-05 21:55:54.233326000 Z
+  created_at: 2015-12-07 20:48:09.272569000 Z
   creator_id: 1
   id: 293
-  lock_version: 0
-  name: cobbler.activities-show
-  nature: string
-  string_value: {}
-  updated_at: 2015-12-05 21:55:54.233326000 Z
-  updater_id: 1
-  user_id: 1
-preferences_293:
-  created_at: 2015-12-05 21:55:59.108694000 Z
-  creator_id: 1
-  id: 294
-  lock_version: 0
-  name: cobbler.activity_productions-show
-  nature: string
-  string_value: {}
-  updated_at: 2015-12-05 21:55:59.108694000 Z
-  updater_id: 1
-  user_id: 1
-preferences_294:
-  created_at: 2015-12-05 21:55:59.129483000 Z
-  creator_id: 1
-  id: 295
-  lock_version: 0
-  name: list._activity_productions_list_interventions_tag
-  nature: string
-  string_value: {}
-  updated_at: 2015-12-05 21:55:59.129483000 Z
-  updater_id: 1
-  user_id: 1
-preferences_295:
-  created_at: 2015-12-06 14:59:06.758704000 Z
-  creator_id: 1
-  id: 296
   lock_version: 0
   name: list._supervisions_list_supervisions_tag
   nature: string
   string_value: {}
-  updated_at: 2015-12-06 14:59:06.758704000 Z
+  updated_at: 2015-12-07 20:48:09.272569000 Z
   updater_id: 1
   user_id: 1

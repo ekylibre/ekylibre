@@ -4153,7 +4153,7 @@ product_readings_282:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
-  created_at: 2015-12-05 21:55:42.788778000 Z
+  created_at: 2015-12-07 20:47:47.919224000 Z
   id: 308
   indicator_datatype: measure
   indicator_name: net_surface_area
@@ -4161,22 +4161,22 @@ product_readings_282:
   measure_value_unit: hectare
   measure_value_value: 1.0
   product_id: 145
-  read_at: 2015-12-05 21:55:42.679470000 Z
-  updated_at: 2015-12-05 21:55:42.788778000 Z
+  read_at: 2015-12-07 20:47:47.843205000 Z
+  updated_at: 2015-12-07 20:47:47.919224000 Z
 product_readings_283:
   boolean_value: false
-  created_at: 2015-12-05 21:55:42.808997000 Z
+  created_at: 2015-12-07 20:47:47.930004000 Z
   decimal_value: 2.5534
   id: 309
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
   product_id: 145
-  read_at: 2015-12-05 21:55:42.679470000 Z
-  updated_at: 2015-12-05 21:55:42.808997000 Z
+  read_at: 2015-12-07 20:47:47.843205000 Z
+  updated_at: 2015-12-07 20:47:47.930004000 Z
 product_readings_284:
   boolean_value: false
-  created_at: 2015-12-05 21:55:42.820207000 Z
+  created_at: 2015-12-07 20:47:47.940387000 Z
   id: 310
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -4199,13 +4199,13 @@ product_readings_284:
     45.8022973616436,-0.769905584878924 45.802419544609,-0.769951632463058 45.8024401822255,-0.769953647702654
     45.8024696819527,-0.769827963709258 45.8026959095466)))
   product_id: 145
-  read_at: 2015-12-05 21:55:42.679470000 Z
-  updated_at: 2015-12-05 21:55:42.820207000 Z
+  read_at: 2015-12-07 20:47:47.843205000 Z
+  updated_at: 2015-12-07 20:47:47.940387000 Z
 product_readings_285:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
-  created_at: 2015-12-05 21:55:43.122635000 Z
+  created_at: 2015-12-07 20:47:48.158257000 Z
   id: 311
   indicator_datatype: measure
   indicator_name: net_surface_area
@@ -4213,22 +4213,22 @@ product_readings_285:
   measure_value_unit: hectare
   measure_value_value: 1.0
   product_id: 146
-  read_at: 2015-12-05 21:55:43.085683000 Z
-  updated_at: 2015-12-05 21:55:43.122635000 Z
+  read_at: 2015-12-07 20:47:48.134726000 Z
+  updated_at: 2015-12-07 20:47:48.158257000 Z
 product_readings_286:
   boolean_value: false
-  created_at: 2015-12-05 21:55:43.132783000 Z
+  created_at: 2015-12-07 20:47:48.166021000 Z
   decimal_value: 4.9989
   id: 312
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
   product_id: 146
-  read_at: 2015-12-05 21:55:43.085683000 Z
-  updated_at: 2015-12-05 21:55:43.132783000 Z
+  read_at: 2015-12-07 20:47:48.134726000 Z
+  updated_at: 2015-12-07 20:47:48.166021000 Z
 product_readings_287:
   boolean_value: false
-  created_at: 2015-12-05 21:55:43.144443000 Z
+  created_at: 2015-12-07 20:47:48.176023000 Z
   id: 313
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -4256,13 +4256,13 @@ product_readings_287:
     45.8042123205706,-0.770004328825209 45.8043328947527,-0.770182734329481 45.8045105520966,-0.770310643171508
     45.8046423309194)))
   product_id: 146
-  read_at: 2015-12-05 21:55:43.085683000 Z
-  updated_at: 2015-12-05 21:55:43.144443000 Z
+  read_at: 2015-12-07 20:47:48.134726000 Z
+  updated_at: 2015-12-07 20:47:48.176023000 Z
 product_readings_288:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
-  created_at: 2015-12-05 21:55:43.321173000 Z
+  created_at: 2015-12-07 20:47:48.308571000 Z
   id: 314
   indicator_datatype: measure
   indicator_name: net_surface_area
@@ -4270,22 +4270,22 @@ product_readings_288:
   measure_value_unit: hectare
   measure_value_value: 1.0
   product_id: 147
-  read_at: 2015-12-05 21:55:43.300878000 Z
-  updated_at: 2015-12-05 21:55:43.321173000 Z
+  read_at: 2015-12-07 20:47:48.286599000 Z
+  updated_at: 2015-12-07 20:47:48.308571000 Z
 product_readings_289:
   boolean_value: false
-  created_at: 2015-12-05 21:55:43.327665000 Z
+  created_at: 2015-12-07 20:47:48.316318000 Z
   decimal_value: 1.2768
   id: 315
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
   product_id: 147
-  read_at: 2015-12-05 21:55:43.300878000 Z
-  updated_at: 2015-12-05 21:55:43.327665000 Z
+  read_at: 2015-12-07 20:47:48.286599000 Z
+  updated_at: 2015-12-07 20:47:48.316318000 Z
 product_readings_290:
   boolean_value: false
-  created_at: 2015-12-05 21:55:43.335028000 Z
+  created_at: 2015-12-07 20:47:48.324549000 Z
   id: 316
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -4298,13 +4298,13 @@ product_readings_290:
     45.8224860308865,-0.792677952392898 45.8220886145692,-0.792718162762933 45.8220467646111,-0.792660125760958
     45.821890386501,-0.792454727108962 45.8215321667496,-0.79228204935118 45.8217001703347)))
   product_id: 147
-  read_at: 2015-12-05 21:55:43.300878000 Z
-  updated_at: 2015-12-05 21:55:43.335028000 Z
+  read_at: 2015-12-07 20:47:48.286599000 Z
+  updated_at: 2015-12-07 20:47:48.324549000 Z
 product_readings_291:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
-  created_at: 2015-12-05 21:55:43.443638000 Z
+  created_at: 2015-12-07 20:47:48.441294000 Z
   id: 317
   indicator_datatype: measure
   indicator_name: net_surface_area
@@ -4312,22 +4312,22 @@ product_readings_291:
   measure_value_unit: hectare
   measure_value_value: 1.0
   product_id: 148
-  read_at: 2015-12-05 21:55:43.424268000 Z
-  updated_at: 2015-12-05 21:55:43.443638000 Z
+  read_at: 2015-12-07 20:47:48.422769000 Z
+  updated_at: 2015-12-07 20:47:48.441294000 Z
 product_readings_292:
   boolean_value: false
-  created_at: 2015-12-05 21:55:43.449825000 Z
+  created_at: 2015-12-07 20:47:48.447438000 Z
   decimal_value: 0.6467
   id: 318
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
   product_id: 148
-  read_at: 2015-12-05 21:55:43.424268000 Z
-  updated_at: 2015-12-05 21:55:43.449825000 Z
+  read_at: 2015-12-07 20:47:48.422769000 Z
+  updated_at: 2015-12-07 20:47:48.447438000 Z
 product_readings_293:
   boolean_value: false
-  created_at: 2015-12-05 21:55:43.456942000 Z
+  created_at: 2015-12-07 20:47:48.454182000 Z
   id: 319
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -4339,13 +4339,13 @@ product_readings_293:
     45.8212195696032,-0.792173752206736 45.8212025676846,-0.791803126997377 45.8205256692196,-0.791587200522699
     45.8202132941208,-0.791397316324069 45.8204004370199)))
   product_id: 148
-  read_at: 2015-12-05 21:55:43.424268000 Z
-  updated_at: 2015-12-05 21:55:43.456942000 Z
+  read_at: 2015-12-07 20:47:48.422769000 Z
+  updated_at: 2015-12-07 20:47:48.454182000 Z
 product_readings_294:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
-  created_at: 2015-12-05 21:55:43.570763000 Z
+  created_at: 2015-12-07 20:47:48.564377000 Z
   id: 320
   indicator_datatype: measure
   indicator_name: net_surface_area
@@ -4353,22 +4353,22 @@ product_readings_294:
   measure_value_unit: hectare
   measure_value_value: 1.0
   product_id: 149
-  read_at: 2015-12-05 21:55:43.551540000 Z
-  updated_at: 2015-12-05 21:55:43.570763000 Z
+  read_at: 2015-12-07 20:47:48.545602000 Z
+  updated_at: 2015-12-07 20:47:48.564377000 Z
 product_readings_295:
   boolean_value: false
-  created_at: 2015-12-05 21:55:43.576850000 Z
+  created_at: 2015-12-07 20:47:48.570393000 Z
   decimal_value: 1.206
   id: 321
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
   product_id: 149
-  read_at: 2015-12-05 21:55:43.551540000 Z
-  updated_at: 2015-12-05 21:55:43.576850000 Z
+  read_at: 2015-12-07 20:47:48.545602000 Z
+  updated_at: 2015-12-07 20:47:48.570393000 Z
 product_readings_296:
   boolean_value: false
-  created_at: 2015-12-05 21:55:43.584073000 Z
+  created_at: 2015-12-07 20:47:48.577519000 Z
   id: 322
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -4384,13 +4384,13 @@ product_readings_296:
     45.8198545208148,-0.79265385753925 45.8192736809097,-0.792340660026948 45.8188418159747,-0.792130338023884
     45.8189190618765)))
   product_id: 149
-  read_at: 2015-12-05 21:55:43.551540000 Z
-  updated_at: 2015-12-05 21:55:43.584073000 Z
+  read_at: 2015-12-07 20:47:48.545602000 Z
+  updated_at: 2015-12-07 20:47:48.577519000 Z
 product_readings_297:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
-  created_at: 2015-12-05 21:55:43.816166000 Z
+  created_at: 2015-12-07 20:47:48.798108000 Z
   id: 323
   indicator_datatype: measure
   indicator_name: net_surface_area
@@ -4398,22 +4398,22 @@ product_readings_297:
   measure_value_unit: hectare
   measure_value_value: 1.0
   product_id: 150
-  read_at: 2015-12-05 21:55:43.796442000 Z
-  updated_at: 2015-12-05 21:55:43.816166000 Z
+  read_at: 2015-12-07 20:47:48.778662000 Z
+  updated_at: 2015-12-07 20:47:48.798108000 Z
 product_readings_298:
   boolean_value: false
-  created_at: 2015-12-05 21:55:43.822225000 Z
+  created_at: 2015-12-07 20:47:48.804084000 Z
   decimal_value: 3.3423
   id: 324
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
   product_id: 150
-  read_at: 2015-12-05 21:55:43.796442000 Z
-  updated_at: 2015-12-05 21:55:43.822225000 Z
+  read_at: 2015-12-07 20:47:48.778662000 Z
+  updated_at: 2015-12-07 20:47:48.804084000 Z
 product_readings_299:
   boolean_value: false
-  created_at: 2015-12-05 21:55:43.831578000 Z
+  created_at: 2015-12-07 20:47:48.811206000 Z
   id: 325
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -4427,13 +4427,13 @@ product_readings_299:
     45.829287649037,-0.788155376749486 45.829190422491,-0.788111468579001 45.8291129250104,-0.78801932156029
     45.8289158766202,-0.787897179285288 45.8285981330583)))
   product_id: 150
-  read_at: 2015-12-05 21:55:43.796442000 Z
-  updated_at: 2015-12-05 21:55:43.831578000 Z
+  read_at: 2015-12-07 20:47:48.778662000 Z
+  updated_at: 2015-12-07 20:47:48.811206000 Z
 product_readings_300:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
-  created_at: 2015-12-05 21:55:44.008031000 Z
+  created_at: 2015-12-07 20:47:48.970934000 Z
   id: 326
   indicator_datatype: measure
   indicator_name: net_surface_area
@@ -4441,22 +4441,22 @@ product_readings_300:
   measure_value_unit: hectare
   measure_value_value: 1.0
   product_id: 151
-  read_at: 2015-12-05 21:55:43.984294000 Z
-  updated_at: 2015-12-05 21:55:44.008031000 Z
+  read_at: 2015-12-07 20:47:48.953433000 Z
+  updated_at: 2015-12-07 20:47:48.970934000 Z
 product_readings_301:
   boolean_value: false
-  created_at: 2015-12-05 21:55:44.017112000 Z
+  created_at: 2015-12-07 20:47:48.976330000 Z
   decimal_value: 4.0579
   id: 327
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
   product_id: 151
-  read_at: 2015-12-05 21:55:43.984294000 Z
-  updated_at: 2015-12-05 21:55:44.017112000 Z
+  read_at: 2015-12-07 20:47:48.953433000 Z
+  updated_at: 2015-12-07 20:47:48.976330000 Z
 product_readings_302:
   boolean_value: false
-  created_at: 2015-12-05 21:55:44.028707000 Z
+  created_at: 2015-12-07 20:47:48.983077000 Z
   id: 328
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -4474,13 +4474,13 @@ product_readings_302:
     45.8291346982235,-0.784841322344539 45.8291577591244,-0.785144436232316 45.8293862525424,-0.785263690929621
     45.8295795369011,-0.785596040795195 45.8298405801391,-0.787866855582176 45.8285229716277)))
   product_id: 151
-  read_at: 2015-12-05 21:55:43.984294000 Z
-  updated_at: 2015-12-05 21:55:44.028707000 Z
+  read_at: 2015-12-07 20:47:48.953433000 Z
+  updated_at: 2015-12-07 20:47:48.983077000 Z
 product_readings_303:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
-  created_at: 2015-12-05 21:55:44.347590000 Z
+  created_at: 2015-12-07 20:47:49.269289000 Z
   id: 329
   indicator_datatype: measure
   indicator_name: net_surface_area
@@ -4488,22 +4488,22 @@ product_readings_303:
   measure_value_unit: hectare
   measure_value_value: 1.0
   product_id: 152
-  read_at: 2015-12-05 21:55:44.326872000 Z
-  updated_at: 2015-12-05 21:55:44.347590000 Z
+  read_at: 2015-12-07 20:47:49.250955000 Z
+  updated_at: 2015-12-07 20:47:49.269289000 Z
 product_readings_304:
   boolean_value: false
-  created_at: 2015-12-05 21:55:44.354823000 Z
+  created_at: 2015-12-07 20:47:49.275047000 Z
   decimal_value: 2.3814
   id: 330
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
   product_id: 152
-  read_at: 2015-12-05 21:55:44.326872000 Z
-  updated_at: 2015-12-05 21:55:44.354823000 Z
+  read_at: 2015-12-07 20:47:49.250955000 Z
+  updated_at: 2015-12-07 20:47:49.275047000 Z
 product_readings_305:
   boolean_value: false
-  created_at: 2015-12-05 21:55:44.363644000 Z
+  created_at: 2015-12-07 20:47:49.281877000 Z
   id: 331
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -4516,13 +4516,13 @@ product_readings_305:
     45.8228124526558,-0.773380406486604 45.8233490910195,-0.773123483375755 45.8232405214467,-0.772851416778363
     45.8231241077149,-0.772576368634481 45.8233220222455,-0.772303918135111 45.823530930691)))
   product_id: 152
-  read_at: 2015-12-05 21:55:44.326872000 Z
-  updated_at: 2015-12-05 21:55:44.363644000 Z
+  read_at: 2015-12-07 20:47:49.250955000 Z
+  updated_at: 2015-12-07 20:47:49.281877000 Z
 product_readings_306:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
-  created_at: 2015-12-05 21:55:44.489312000 Z
+  created_at: 2015-12-07 20:47:49.393037000 Z
   id: 332
   indicator_datatype: measure
   indicator_name: net_surface_area
@@ -4530,22 +4530,22 @@ product_readings_306:
   measure_value_unit: hectare
   measure_value_value: 1.0
   product_id: 153
-  read_at: 2015-12-05 21:55:44.466849000 Z
-  updated_at: 2015-12-05 21:55:44.489312000 Z
+  read_at: 2015-12-07 20:47:49.374750000 Z
+  updated_at: 2015-12-07 20:47:49.393037000 Z
 product_readings_307:
   boolean_value: false
-  created_at: 2015-12-05 21:55:44.497789000 Z
+  created_at: 2015-12-07 20:47:49.398843000 Z
   decimal_value: 2.3421
   id: 333
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
   product_id: 153
-  read_at: 2015-12-05 21:55:44.466849000 Z
-  updated_at: 2015-12-05 21:55:44.497789000 Z
+  read_at: 2015-12-07 20:47:49.374750000 Z
+  updated_at: 2015-12-07 20:47:49.398843000 Z
 product_readings_308:
   boolean_value: false
-  created_at: 2015-12-05 21:55:44.508091000 Z
+  created_at: 2015-12-07 20:47:49.406445000 Z
   id: 334
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -4561,13 +4561,13 @@ product_readings_308:
     45.8266375286314,-0.770120668681111 45.8266394766651,-0.769658511811508 45.8261551357982,-0.769661720255962
     45.8261538548556,-0.770124739371845 45.8266375286314)))
   product_id: 153
-  read_at: 2015-12-05 21:55:44.466849000 Z
-  updated_at: 2015-12-05 21:55:44.508091000 Z
+  read_at: 2015-12-07 20:47:49.374750000 Z
+  updated_at: 2015-12-07 20:47:49.406445000 Z
 product_readings_309:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
-  created_at: 2015-12-05 21:55:44.632404000 Z
+  created_at: 2015-12-07 20:47:49.515157000 Z
   id: 335
   indicator_datatype: measure
   indicator_name: net_surface_area
@@ -4575,22 +4575,22 @@ product_readings_309:
   measure_value_unit: hectare
   measure_value_value: 1.0
   product_id: 154
-  read_at: 2015-12-05 21:55:44.609751000 Z
-  updated_at: 2015-12-05 21:55:44.632404000 Z
+  read_at: 2015-12-07 20:47:49.496939000 Z
+  updated_at: 2015-12-07 20:47:49.515157000 Z
 product_readings_310:
   boolean_value: false
-  created_at: 2015-12-05 21:55:44.640217000 Z
+  created_at: 2015-12-07 20:47:49.520954000 Z
   decimal_value: 1.944
   id: 336
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
   product_id: 154
-  read_at: 2015-12-05 21:55:44.609751000 Z
-  updated_at: 2015-12-05 21:55:44.640217000 Z
+  read_at: 2015-12-07 20:47:49.496939000 Z
+  updated_at: 2015-12-07 20:47:49.520954000 Z
 product_readings_311:
   boolean_value: false
-  created_at: 2015-12-05 21:55:44.649295000 Z
+  created_at: 2015-12-07 20:47:49.528857000 Z
   id: 337
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -4606,13 +4606,13 @@ product_readings_311:
     45.8309168923312,-0.76472476191378 45.8306750254715,-0.76448117011701 45.8308648487905,-0.764305284210564
     45.8310130812907,-0.764804931739091 45.8312730746026)))
   product_id: 154
-  read_at: 2015-12-05 21:55:44.609751000 Z
-  updated_at: 2015-12-05 21:55:44.649295000 Z
+  read_at: 2015-12-07 20:47:49.496939000 Z
+  updated_at: 2015-12-07 20:47:49.528857000 Z
 product_readings_312:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
-  created_at: 2015-12-05 21:55:44.764897000 Z
+  created_at: 2015-12-07 20:47:49.640047000 Z
   id: 338
   indicator_datatype: measure
   indicator_name: net_surface_area
@@ -4620,22 +4620,22 @@ product_readings_312:
   measure_value_unit: hectare
   measure_value_value: 1.0
   product_id: 155
-  read_at: 2015-12-05 21:55:44.744512000 Z
-  updated_at: 2015-12-05 21:55:44.764897000 Z
+  read_at: 2015-12-07 20:47:49.621654000 Z
+  updated_at: 2015-12-07 20:47:49.640047000 Z
 product_readings_313:
   boolean_value: false
-  created_at: 2015-12-05 21:55:44.771905000 Z
+  created_at: 2015-12-07 20:47:49.645795000 Z
   decimal_value: 6.0725
   id: 339
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
   product_id: 155
-  read_at: 2015-12-05 21:55:44.744512000 Z
-  updated_at: 2015-12-05 21:55:44.771905000 Z
+  read_at: 2015-12-07 20:47:49.621654000 Z
+  updated_at: 2015-12-07 20:47:49.645795000 Z
 product_readings_314:
   boolean_value: false
-  created_at: 2015-12-05 21:55:44.780322000 Z
+  created_at: 2015-12-07 20:47:49.653150000 Z
   id: 340
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -4652,13 +4652,13 @@ product_readings_314:
     45.8421131666719,-0.746525490762202 45.8418866866866,-0.745710578196987 45.8415933777785,-0.745647736421281
     45.8415749905238,-0.743999267161715 45.8430010210575)))
   product_id: 155
-  read_at: 2015-12-05 21:55:44.744512000 Z
-  updated_at: 2015-12-05 21:55:44.780322000 Z
+  read_at: 2015-12-07 20:47:49.621654000 Z
+  updated_at: 2015-12-07 20:47:49.653150000 Z
 product_readings_315:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
-  created_at: 2015-12-05 21:55:44.886672000 Z
+  created_at: 2015-12-07 20:47:49.751565000 Z
   id: 341
   indicator_datatype: measure
   indicator_name: net_surface_area
@@ -4666,22 +4666,22 @@ product_readings_315:
   measure_value_unit: hectare
   measure_value_value: 1.0
   product_id: 156
-  read_at: 2015-12-05 21:55:44.867533000 Z
-  updated_at: 2015-12-05 21:55:44.886672000 Z
+  read_at: 2015-12-07 20:47:49.733113000 Z
+  updated_at: 2015-12-07 20:47:49.751565000 Z
 product_readings_316:
   boolean_value: false
-  created_at: 2015-12-05 21:55:44.894043000 Z
+  created_at: 2015-12-07 20:47:49.757854000 Z
   decimal_value: 3.5386
   id: 342
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
   product_id: 156
-  read_at: 2015-12-05 21:55:44.867533000 Z
-  updated_at: 2015-12-05 21:55:44.894043000 Z
+  read_at: 2015-12-07 20:47:49.733113000 Z
+  updated_at: 2015-12-07 20:47:49.757854000 Z
 product_readings_317:
   boolean_value: false
-  created_at: 2015-12-05 21:55:44.902425000 Z
+  created_at: 2015-12-07 20:47:49.765090000 Z
   id: 343
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -4694,13 +4694,13 @@ product_readings_317:
     45.8436285305705,-0.742911078422201 45.8431513622659,-0.743278071120694 45.8433871082194,-0.743474160685675
     45.8432938185174,-0.743835894942437 45.8430711146635,-0.743997841710742 45.8429998981771)))
   product_id: 156
-  read_at: 2015-12-05 21:55:44.867533000 Z
-  updated_at: 2015-12-05 21:55:44.902425000 Z
+  read_at: 2015-12-07 20:47:49.733113000 Z
+  updated_at: 2015-12-07 20:47:49.765090000 Z
 product_readings_318:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
-  created_at: 2015-12-05 21:55:45.025900000 Z
+  created_at: 2015-12-07 20:47:49.872921000 Z
   id: 344
   indicator_datatype: measure
   indicator_name: net_surface_area
@@ -4708,22 +4708,22 @@ product_readings_318:
   measure_value_unit: hectare
   measure_value_value: 1.0
   product_id: 157
-  read_at: 2015-12-05 21:55:45.004673000 Z
-  updated_at: 2015-12-05 21:55:45.025900000 Z
+  read_at: 2015-12-07 20:47:49.852236000 Z
+  updated_at: 2015-12-07 20:47:49.872921000 Z
 product_readings_319:
   boolean_value: false
-  created_at: 2015-12-05 21:55:45.032806000 Z
+  created_at: 2015-12-07 20:47:49.881969000 Z
   decimal_value: 5.5413
   id: 345
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
   product_id: 157
-  read_at: 2015-12-05 21:55:45.004673000 Z
-  updated_at: 2015-12-05 21:55:45.032806000 Z
+  read_at: 2015-12-07 20:47:49.852236000 Z
+  updated_at: 2015-12-07 20:47:49.881969000 Z
 product_readings_320:
   boolean_value: false
-  created_at: 2015-12-05 21:55:45.040883000 Z
+  created_at: 2015-12-07 20:47:49.891390000 Z
   id: 346
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -4734,13 +4734,13 @@ product_readings_320:
     45.8386694487645,-0.747264833056115 45.8383294770027,-0.746638392686324 45.8380747743095,-0.746373067773974
     45.8379617226132,-0.743788709873775 45.8406404380084)))
   product_id: 157
-  read_at: 2015-12-05 21:55:45.004673000 Z
-  updated_at: 2015-12-05 21:55:45.040883000 Z
+  read_at: 2015-12-07 20:47:49.852236000 Z
+  updated_at: 2015-12-07 20:47:49.891390000 Z
 product_readings_321:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
-  created_at: 2015-12-05 21:55:45.155856000 Z
+  created_at: 2015-12-07 20:47:50.038290000 Z
   id: 347
   indicator_datatype: measure
   indicator_name: net_surface_area
@@ -4748,22 +4748,22 @@ product_readings_321:
   measure_value_unit: hectare
   measure_value_value: 1.0
   product_id: 158
-  read_at: 2015-12-05 21:55:45.136755000 Z
-  updated_at: 2015-12-05 21:55:45.155856000 Z
+  read_at: 2015-12-07 20:47:49.994918000 Z
+  updated_at: 2015-12-07 20:47:50.038290000 Z
 product_readings_322:
   boolean_value: false
-  created_at: 2015-12-05 21:55:45.162947000 Z
+  created_at: 2015-12-07 20:47:50.044080000 Z
   decimal_value: 2.039
   id: 348
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
   product_id: 158
-  read_at: 2015-12-05 21:55:45.136755000 Z
-  updated_at: 2015-12-05 21:55:45.162947000 Z
+  read_at: 2015-12-07 20:47:49.994918000 Z
+  updated_at: 2015-12-07 20:47:50.044080000 Z
 product_readings_323:
   boolean_value: false
-  created_at: 2015-12-05 21:55:45.170021000 Z
+  created_at: 2015-12-07 20:47:50.050509000 Z
   id: 349
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -4773,13 +4773,13 @@ product_readings_323:
     45.8377572632835,-0.749751452507989 45.8376685804361,-0.749280765039979 45.8374981794903,-0.749018258721744
     45.8374167517267,-0.747529743313611 45.8384256282279)))
   product_id: 158
-  read_at: 2015-12-05 21:55:45.136755000 Z
-  updated_at: 2015-12-05 21:55:45.170021000 Z
+  read_at: 2015-12-07 20:47:49.994918000 Z
+  updated_at: 2015-12-07 20:47:50.050509000 Z
 product_readings_324:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
-  created_at: 2015-12-05 21:55:45.311654000 Z
+  created_at: 2015-12-07 20:47:50.165659000 Z
   id: 350
   indicator_datatype: measure
   indicator_name: net_surface_area
@@ -4787,22 +4787,22 @@ product_readings_324:
   measure_value_unit: hectare
   measure_value_value: 1.0
   product_id: 159
-  read_at: 2015-12-05 21:55:45.292571000 Z
-  updated_at: 2015-12-05 21:55:45.311654000 Z
+  read_at: 2015-12-07 20:47:50.146959000 Z
+  updated_at: 2015-12-07 20:47:50.165659000 Z
 product_readings_325:
   boolean_value: false
-  created_at: 2015-12-05 21:55:45.319242000 Z
+  created_at: 2015-12-07 20:47:50.171819000 Z
   decimal_value: 5.7285
   id: 351
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
   product_id: 159
-  read_at: 2015-12-05 21:55:45.292571000 Z
-  updated_at: 2015-12-05 21:55:45.319242000 Z
+  read_at: 2015-12-07 20:47:50.146959000 Z
+  updated_at: 2015-12-07 20:47:50.171819000 Z
 product_readings_326:
   boolean_value: false
-  created_at: 2015-12-05 21:55:45.328113000 Z
+  created_at: 2015-12-07 20:47:50.178868000 Z
   id: 352
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -4815,13 +4815,13 @@ product_readings_326:
     45.8384448931728,-0.738193924109321 45.8383734784274,-0.738507660856474 45.8385968408694,-0.738092758658323
     45.8388192880511,-0.738722779908693 45.8387916474873,-0.739138590754488 45.8388026667394)))
   product_id: 159
-  read_at: 2015-12-05 21:55:45.292571000 Z
-  updated_at: 2015-12-05 21:55:45.328113000 Z
+  read_at: 2015-12-07 20:47:50.146959000 Z
+  updated_at: 2015-12-07 20:47:50.178868000 Z
 product_readings_327:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
-  created_at: 2015-12-05 21:55:45.437076000 Z
+  created_at: 2015-12-07 20:47:50.286273000 Z
   id: 353
   indicator_datatype: measure
   indicator_name: net_surface_area
@@ -4829,22 +4829,22 @@ product_readings_327:
   measure_value_unit: hectare
   measure_value_value: 1.0
   product_id: 160
-  read_at: 2015-12-05 21:55:45.416001000 Z
-  updated_at: 2015-12-05 21:55:45.437076000 Z
+  read_at: 2015-12-07 20:47:50.266798000 Z
+  updated_at: 2015-12-07 20:47:50.286273000 Z
 product_readings_328:
   boolean_value: false
-  created_at: 2015-12-05 21:55:45.445059000 Z
+  created_at: 2015-12-07 20:47:50.292388000 Z
   decimal_value: 0.2087
   id: 354
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
   product_id: 160
-  read_at: 2015-12-05 21:55:45.416001000 Z
-  updated_at: 2015-12-05 21:55:45.445059000 Z
+  read_at: 2015-12-07 20:47:50.266798000 Z
+  updated_at: 2015-12-07 20:47:50.292388000 Z
 product_readings_329:
   boolean_value: false
-  created_at: 2015-12-05 21:55:45.453242000 Z
+  created_at: 2015-12-07 20:47:50.299479000 Z
   id: 355
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -4853,13 +4853,13 @@ product_readings_329:
     45.8311671436134,-0.764211767557944 45.8309994364247,-0.764544341926007 45.8307366270235,-0.764225321113297
     45.8305287305406,-0.763709529551902 45.8309476400114)))
   product_id: 160
-  read_at: 2015-12-05 21:55:45.416001000 Z
-  updated_at: 2015-12-05 21:55:45.453242000 Z
+  read_at: 2015-12-07 20:47:50.266798000 Z
+  updated_at: 2015-12-07 20:47:50.299479000 Z
 product_readings_330:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
-  created_at: 2015-12-05 21:55:45.567966000 Z
+  created_at: 2015-12-07 20:47:50.407580000 Z
   id: 356
   indicator_datatype: measure
   indicator_name: net_surface_area
@@ -4867,22 +4867,22 @@ product_readings_330:
   measure_value_unit: hectare
   measure_value_value: 1.0
   product_id: 161
-  read_at: 2015-12-05 21:55:45.548135000 Z
-  updated_at: 2015-12-05 21:55:45.567966000 Z
+  read_at: 2015-12-07 20:47:50.386443000 Z
+  updated_at: 2015-12-07 20:47:50.407580000 Z
 product_readings_331:
   boolean_value: false
-  created_at: 2015-12-05 21:55:45.574210000 Z
+  created_at: 2015-12-07 20:47:50.414309000 Z
   decimal_value: 0.5827
   id: 357
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
   product_id: 161
-  read_at: 2015-12-05 21:55:45.548135000 Z
-  updated_at: 2015-12-05 21:55:45.574210000 Z
+  read_at: 2015-12-07 20:47:50.386443000 Z
+  updated_at: 2015-12-07 20:47:50.414309000 Z
 product_readings_332:
   boolean_value: false
-  created_at: 2015-12-05 21:55:45.582533000 Z
+  created_at: 2015-12-07 20:47:50.420699000 Z
   id: 358
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -4891,13 +4891,13 @@ product_readings_332:
     45.8419005479562,-0.743388173306074 45.8420370543876,-0.744312630477676 45.8410761547768,-0.743901808334468
     45.8408157080644,-0.743317183825562 45.8413979942425)))
   product_id: 161
-  read_at: 2015-12-05 21:55:45.548135000 Z
-  updated_at: 2015-12-05 21:55:45.582533000 Z
+  read_at: 2015-12-07 20:47:50.386443000 Z
+  updated_at: 2015-12-07 20:47:50.420699000 Z
 product_readings_333:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
-  created_at: 2015-12-05 21:55:45.718356000 Z
+  created_at: 2015-12-07 20:47:50.530600000 Z
   id: 359
   indicator_datatype: measure
   indicator_name: net_surface_area
@@ -4905,22 +4905,22 @@ product_readings_333:
   measure_value_unit: hectare
   measure_value_value: 1.0
   product_id: 162
-  read_at: 2015-12-05 21:55:45.694989000 Z
-  updated_at: 2015-12-05 21:55:45.718356000 Z
+  read_at: 2015-12-07 20:47:50.509810000 Z
+  updated_at: 2015-12-07 20:47:50.530600000 Z
 product_readings_334:
   boolean_value: false
-  created_at: 2015-12-05 21:55:45.725550000 Z
+  created_at: 2015-12-07 20:47:50.537825000 Z
   decimal_value: 1.063
   id: 360
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
   product_id: 162
-  read_at: 2015-12-05 21:55:45.694989000 Z
-  updated_at: 2015-12-05 21:55:45.725550000 Z
+  read_at: 2015-12-07 20:47:50.509810000 Z
+  updated_at: 2015-12-07 20:47:50.537825000 Z
 product_readings_335:
   boolean_value: false
-  created_at: 2015-12-05 21:55:45.735386000 Z
+  created_at: 2015-12-07 20:47:50.547800000 Z
   id: 361
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -4936,13 +4936,13 @@ product_readings_335:
     45.8205314310564,-0.801601651120295 45.8204463895626,-0.801564982168222 45.8202799185224,-0.801080647088302
     45.8203521595582)))
   product_id: 162
-  read_at: 2015-12-05 21:55:45.694989000 Z
-  updated_at: 2015-12-05 21:55:45.735386000 Z
+  read_at: 2015-12-07 20:47:50.509810000 Z
+  updated_at: 2015-12-07 20:47:50.547800000 Z
 product_readings_336:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
-  created_at: 2015-12-05 21:55:45.856234000 Z
+  created_at: 2015-12-07 20:47:50.649717000 Z
   id: 362
   indicator_datatype: measure
   indicator_name: net_surface_area
@@ -4950,22 +4950,22 @@ product_readings_336:
   measure_value_unit: hectare
   measure_value_value: 1.0
   product_id: 163
-  read_at: 2015-12-05 21:55:45.833220000 Z
-  updated_at: 2015-12-05 21:55:45.856234000 Z
+  read_at: 2015-12-07 20:47:50.629511000 Z
+  updated_at: 2015-12-07 20:47:50.649717000 Z
 product_readings_337:
   boolean_value: false
-  created_at: 2015-12-05 21:55:45.869807000 Z
+  created_at: 2015-12-07 20:47:50.658708000 Z
   decimal_value: 1.4511
   id: 363
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
   product_id: 163
-  read_at: 2015-12-05 21:55:45.833220000 Z
-  updated_at: 2015-12-05 21:55:45.869807000 Z
+  read_at: 2015-12-07 20:47:50.629511000 Z
+  updated_at: 2015-12-07 20:47:50.658708000 Z
 product_readings_338:
   boolean_value: false
-  created_at: 2015-12-05 21:55:45.878259000 Z
+  created_at: 2015-12-07 20:47:50.668092000 Z
   id: 364
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -4976,13 +4976,13 @@ product_readings_338:
     45.8243137714413,-0.823645255307117 45.8225479748751,-0.823288699913812 45.822274756962,-0.822869030174328
     45.82254299977)))
   product_id: 163
-  read_at: 2015-12-05 21:55:45.833220000 Z
-  updated_at: 2015-12-05 21:55:45.878259000 Z
+  read_at: 2015-12-07 20:47:50.629511000 Z
+  updated_at: 2015-12-07 20:47:50.668092000 Z
 product_readings_339:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
-  created_at: 2015-12-05 21:55:45.991557000 Z
+  created_at: 2015-12-07 20:47:50.774388000 Z
   id: 365
   indicator_datatype: measure
   indicator_name: net_surface_area
@@ -4990,22 +4990,22 @@ product_readings_339:
   measure_value_unit: hectare
   measure_value_value: 1.0
   product_id: 164
-  read_at: 2015-12-05 21:55:45.972383000 Z
-  updated_at: 2015-12-05 21:55:45.991557000 Z
+  read_at: 2015-12-07 20:47:50.756935000 Z
+  updated_at: 2015-12-07 20:47:50.774388000 Z
 product_readings_340:
   boolean_value: false
-  created_at: 2015-12-05 21:55:45.999847000 Z
+  created_at: 2015-12-07 20:47:50.780411000 Z
   decimal_value: 3.009
   id: 366
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
   product_id: 164
-  read_at: 2015-12-05 21:55:45.972383000 Z
-  updated_at: 2015-12-05 21:55:45.999847000 Z
+  read_at: 2015-12-07 20:47:50.756935000 Z
+  updated_at: 2015-12-07 20:47:50.780411000 Z
 product_readings_341:
   boolean_value: false
-  created_at: 2015-12-05 21:55:46.007217000 Z
+  created_at: 2015-12-07 20:47:50.786548000 Z
   id: 367
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -5014,13 +5014,13 @@ product_readings_341:
     45.8142384623998,-0.824256873982465 45.8147416456764,-0.825216888853259 45.8137903000539,-0.826879570350079
     45.8121238231833,-0.82609629055509 45.8116504308379,-0.825701316625416 45.8119806264415)))
   product_id: 164
-  read_at: 2015-12-05 21:55:45.972383000 Z
-  updated_at: 2015-12-05 21:55:46.007217000 Z
+  read_at: 2015-12-07 20:47:50.756935000 Z
+  updated_at: 2015-12-07 20:47:50.786548000 Z
 product_readings_342:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
-  created_at: 2015-12-05 21:55:46.117660000 Z
+  created_at: 2015-12-07 20:47:50.893527000 Z
   id: 368
   indicator_datatype: measure
   indicator_name: net_surface_area
@@ -5028,22 +5028,22 @@ product_readings_342:
   measure_value_unit: hectare
   measure_value_value: 1.0
   product_id: 165
-  read_at: 2015-12-05 21:55:46.098833000 Z
-  updated_at: 2015-12-05 21:55:46.117660000 Z
+  read_at: 2015-12-07 20:47:50.873224000 Z
+  updated_at: 2015-12-07 20:47:50.893527000 Z
 product_readings_343:
   boolean_value: false
-  created_at: 2015-12-05 21:55:46.123892000 Z
+  created_at: 2015-12-07 20:47:50.899607000 Z
   decimal_value: 3.7979
   id: 369
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
   product_id: 165
-  read_at: 2015-12-05 21:55:46.098833000 Z
-  updated_at: 2015-12-05 21:55:46.123892000 Z
+  read_at: 2015-12-07 20:47:50.873224000 Z
+  updated_at: 2015-12-07 20:47:50.899607000 Z
 product_readings_344:
   boolean_value: false
-  created_at: 2015-12-05 21:55:46.131208000 Z
+  created_at: 2015-12-07 20:47:50.906320000 Z
   id: 370
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -5053,13 +5053,13 @@ product_readings_344:
     45.8109659677897,-0.834452308254665 45.8106562420056,-0.833326474331472 45.810398202432,-0.832076922014566
     45.8101939142688,-0.831764859873219 45.8104393898025)))
   product_id: 165
-  read_at: 2015-12-05 21:55:46.098833000 Z
-  updated_at: 2015-12-05 21:55:46.131208000 Z
+  read_at: 2015-12-07 20:47:50.873224000 Z
+  updated_at: 2015-12-07 20:47:50.906320000 Z
 product_readings_345:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
-  created_at: 2015-12-05 21:55:46.284379000 Z
+  created_at: 2015-12-07 20:47:51.060700000 Z
   id: 371
   indicator_datatype: measure
   indicator_name: net_surface_area
@@ -5067,22 +5067,22 @@ product_readings_345:
   measure_value_unit: hectare
   measure_value_value: 1.0
   product_id: 166
-  read_at: 2015-12-05 21:55:46.263788000 Z
-  updated_at: 2015-12-05 21:55:46.284379000 Z
+  read_at: 2015-12-07 20:47:51.039804000 Z
+  updated_at: 2015-12-07 20:47:51.060700000 Z
 product_readings_346:
   boolean_value: false
-  created_at: 2015-12-05 21:55:46.290928000 Z
+  created_at: 2015-12-07 20:47:51.066865000 Z
   decimal_value: 8.1114
   id: 372
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
   product_id: 166
-  read_at: 2015-12-05 21:55:46.263788000 Z
-  updated_at: 2015-12-05 21:55:46.290928000 Z
+  read_at: 2015-12-07 20:47:51.039804000 Z
+  updated_at: 2015-12-07 20:47:51.066865000 Z
 product_readings_347:
   boolean_value: false
-  created_at: 2015-12-05 21:55:46.299111000 Z
+  created_at: 2015-12-07 20:47:51.074508000 Z
   id: 373
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -5094,13 +5094,13 @@ product_readings_347:
     45.8143411328541,-0.833167375903024 45.8144405265189,-0.833545697082066 45.8144979198637,-0.833918961264454
     45.814477592305,-0.834214965170727 45.8145906222858)))
   product_id: 166
-  read_at: 2015-12-05 21:55:46.263788000 Z
-  updated_at: 2015-12-05 21:55:46.299111000 Z
+  read_at: 2015-12-07 20:47:51.039804000 Z
+  updated_at: 2015-12-07 20:47:51.074508000 Z
 product_readings_348:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
-  created_at: 2015-12-05 21:55:46.427953000 Z
+  created_at: 2015-12-07 20:47:51.201068000 Z
   id: 374
   indicator_datatype: measure
   indicator_name: net_surface_area
@@ -5108,22 +5108,22 @@ product_readings_348:
   measure_value_unit: hectare
   measure_value_value: 1.0
   product_id: 167
-  read_at: 2015-12-05 21:55:46.409365000 Z
-  updated_at: 2015-12-05 21:55:46.427953000 Z
+  read_at: 2015-12-07 20:47:51.181991000 Z
+  updated_at: 2015-12-07 20:47:51.201068000 Z
 product_readings_349:
   boolean_value: false
-  created_at: 2015-12-05 21:55:46.435523000 Z
+  created_at: 2015-12-07 20:47:51.206913000 Z
   decimal_value: 12.0715
   id: 375
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
   product_id: 167
-  read_at: 2015-12-05 21:55:46.409365000 Z
-  updated_at: 2015-12-05 21:55:46.435523000 Z
+  read_at: 2015-12-07 20:47:51.181991000 Z
+  updated_at: 2015-12-07 20:47:51.206913000 Z
 product_readings_350:
   boolean_value: false
-  created_at: 2015-12-05 21:55:46.444767000 Z
+  created_at: 2015-12-07 20:47:51.216254000 Z
   id: 376
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -5154,13 +5154,13 @@ product_readings_350:
     45.8172029918801,-0.829784650250927 45.8172522507178,-0.829941329591869 45.8173287405223,-0.8300624498879
     45.8174163108851,-0.830250397481167 45.8175561557014)))
   product_id: 167
-  read_at: 2015-12-05 21:55:46.409365000 Z
-  updated_at: 2015-12-05 21:55:46.444767000 Z
+  read_at: 2015-12-07 20:47:51.181991000 Z
+  updated_at: 2015-12-07 20:47:51.216254000 Z
 product_readings_351:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
-  created_at: 2015-12-05 21:55:46.556638000 Z
+  created_at: 2015-12-07 20:47:51.323936000 Z
   id: 377
   indicator_datatype: measure
   indicator_name: net_surface_area
@@ -5168,22 +5168,22 @@ product_readings_351:
   measure_value_unit: hectare
   measure_value_value: 1.0
   product_id: 168
-  read_at: 2015-12-05 21:55:46.538326000 Z
-  updated_at: 2015-12-05 21:55:46.556638000 Z
+  read_at: 2015-12-07 20:47:51.305864000 Z
+  updated_at: 2015-12-07 20:47:51.323936000 Z
 product_readings_352:
   boolean_value: false
-  created_at: 2015-12-05 21:55:46.562639000 Z
+  created_at: 2015-12-07 20:47:51.329913000 Z
   decimal_value: 4.6746
   id: 378
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
   product_id: 168
-  read_at: 2015-12-05 21:55:46.538326000 Z
-  updated_at: 2015-12-05 21:55:46.562639000 Z
+  read_at: 2015-12-07 20:47:51.305864000 Z
+  updated_at: 2015-12-07 20:47:51.329913000 Z
 product_readings_353:
   boolean_value: false
-  created_at: 2015-12-05 21:55:46.570411000 Z
+  created_at: 2015-12-07 20:47:51.336601000 Z
   id: 379
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -5194,13 +5194,13 @@ product_readings_353:
     45.8361039041728,-0.737685290697972 45.8357423915902,-0.737308691650141 45.8361269562199,-0.736940832327791
     45.8365398527486,-0.736193434420413 45.8372481805018)))
   product_id: 168
-  read_at: 2015-12-05 21:55:46.538326000 Z
-  updated_at: 2015-12-05 21:55:46.570411000 Z
+  read_at: 2015-12-07 20:47:51.305864000 Z
+  updated_at: 2015-12-07 20:47:51.336601000 Z
 product_readings_354:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
-  created_at: 2015-12-05 21:55:46.685426000 Z
+  created_at: 2015-12-07 20:47:51.450018000 Z
   id: 380
   indicator_datatype: measure
   indicator_name: net_surface_area
@@ -5208,22 +5208,22 @@ product_readings_354:
   measure_value_unit: hectare
   measure_value_value: 1.0
   product_id: 169
-  read_at: 2015-12-05 21:55:46.666200000 Z
-  updated_at: 2015-12-05 21:55:46.685426000 Z
+  read_at: 2015-12-07 20:47:51.431811000 Z
+  updated_at: 2015-12-07 20:47:51.450018000 Z
 product_readings_355:
   boolean_value: false
-  created_at: 2015-12-05 21:55:46.691874000 Z
+  created_at: 2015-12-07 20:47:51.455749000 Z
   decimal_value: 2.3275
   id: 381
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
   product_id: 169
-  read_at: 2015-12-05 21:55:46.666200000 Z
-  updated_at: 2015-12-05 21:55:46.691874000 Z
+  read_at: 2015-12-07 20:47:51.431811000 Z
+  updated_at: 2015-12-07 20:47:51.455749000 Z
 product_readings_356:
   boolean_value: false
-  created_at: 2015-12-05 21:55:46.701308000 Z
+  created_at: 2015-12-07 20:47:51.462339000 Z
   id: 382
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -5234,5 +5234,5 @@ product_readings_356:
     45.803027311612,-0.769429337832015 45.8023942476306,-0.768633098999782 45.8022705778991,-0.767840277204902
     45.8021968795018,-0.767839708537629 45.8021885504529,-0.767827230035493 45.8021806182845)))
   product_id: 169
-  read_at: 2015-12-05 21:55:46.666200000 Z
-  updated_at: 2015-12-05 21:55:46.701308000 Z
+  read_at: 2015-12-07 20:47:51.431811000 Z
+  updated_at: 2015-12-07 20:47:51.462339000 Z

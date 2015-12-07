@@ -38,6 +38,7 @@
 #  state              :string
 #  stopped_at         :datetime
 #  support_id         :integer          not null
+#  support_nature     :string
 #  support_shape      :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  updated_at         :datetime         not null
 #  updater_id         :integer

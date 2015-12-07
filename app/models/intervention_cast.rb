@@ -98,7 +98,10 @@ class InterventionCast < Ekylibre::Record::Base
   }
 
   scope :of_activity, lambda { |activity|
-    where(intervention_id: InterventionTarget.select(:intervention_id).where(product_id: TargetDistribution.select(:target_id).where(activity_id: activity)))
+    where(intervention_id: InterventionTarget.select(:intervention_id).of_activity(activity))
+  }
+  scope :of_activity_production, lambda { |production|
+    where(intervention_id: InterventionTarget.select(:intervention_id).of_activity_production(production))
   }
   scope :of_actor, ->(actor) { where(product_id: actor.id) }
   scope :with_actor, -> { where.not(product_id: nil) }

@@ -2,17 +2,10 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="food_preparation" categories="animal_feeding" actions="food_preparation">
     <variables>
-      <variable name="first_food_input" type="input" variety="mix" abilities="feed(animal)"/>
-      <variable name="first_food_input" type="input" variety="mix" default-name="{{variant}} ({{container}})" abilities="feed(animal)">
+      <variable name="food" type="input" variety="mix" abilities="feed(animal)">
         <handler indicator="population"/>
-        <handler indicator="net_mass" unit="kilogram" if="first_food_input.net_mass(kilogram) &gt; 0" to="population" backward="value * self..net_mass(kilogram)" forward="value / self..net_mass(kilogram)"/>
+        <handler indicator="net_mass" unit="kilogram" if="food.net_mass(kilogram) &gt; 0" to="population" backward="value * self..net_mass(kilogram)" forward="value / self..net_mass(kilogram)"/>
         <handler name="net_mass_in_ton" indicator="net_mass" unit="ton" if="first_food_input.net_mass(ton) &gt; 0" to="population" backward="value * self..net_mass(ton)" forward="value / self..net_mass(ton)"/>
-      </variable>
-      <variable name="second_food_input" type="input" variety="mix" abilities="feed(animal)"/>
-      <variable name="second_food_input" type="input" variety="mix" default-name="{{variant}} ({{container}})" abilities="feed(animal)">
-        <handler indicator="population"/>
-        <handler indicator="net_mass" unit="kilogram" if="second_food_input.net_mass(kilogram) &gt; 0" to="population" backward="value * self..net_mass(kilogram)" forward="value / self..net_mass(kilogram)"/>
-        <handler name="net_mass_in_ton" indicator="net_mass" unit="ton" if="second_food_input.net_mass(ton) &gt; 0" to="population" backward="value * self..net_mass(ton)" forward="value / self..net_mass(ton)"/>
       </variable>
       <variable name="worker" type="doer" variety="worker"/>
       <variable name="food_mix" type="output" variety="mix" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">

@@ -302,6 +302,8 @@ activity_productions:
     type: integer
     references: product
     required: true
+  support_nature:
+    type: string
   support_shape:
     type: geometry
     limit:
