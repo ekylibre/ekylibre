@@ -192,8 +192,8 @@ class SimplifyInterventions < ActiveRecord::Migration
     add_column :activity_productions, :nitrate_fixing, :boolean, null: false, default: false
     add_column :activity_productions, :support_shape, :geometry, srid: 4326
     add_column :activity_productions, :support_nature, :string
-    add_column :activity_productions, :started_at, :datetime
-    add_column :activity_productions, :stopped_at, :datetime
+    add_column :activity_productions, :started_on, :date
+    add_column :activity_productions, :stopped_on, :date
     add_column :activity_productions, :state, :string
     add_column :activity_productions, :rank_number, :integer
     rename_column :activity_productions, :storage_id, :support_id
@@ -208,7 +208,7 @@ class SimplifyInterventions < ActiveRecord::Migration
         execute 'UPDATE activity_productions SET cultivable_zone_id = cultivable_zones.id FROM cultivable_zones WHERE support_id = product_id'
 
         # Updates attributes coming from old Production
-        execute 'UPDATE activity_productions SET activity_id = p.activity_id, state = p.state, irrigated = p.irrigated, nitrate_fixing = p.nitrate_fixing, started_at = p.started_at, stopped_at = p.stopped_at FROM productions AS p LEFT JOIN campaigns AS c ON (p.campaign_id = c.id) WHERE p.id = activity_productions.production_id'
+        execute 'UPDATE activity_productions SET activity_id = p.activity_id, state = p.state, irrigated = p.irrigated, nitrate_fixing = p.nitrate_fixing, started_on = COALESCE(p.started_at, c.started_on), stopped_on = COALESCE(p.stopped_at, c.stopped_on) FROM productions AS p LEFT JOIN campaigns AS c ON (p.campaign_id = c.id) WHERE p.id = activity_productions.production_id'
         # Updates support_shape
         execute 'UPDATE activity_productions SET support_shape = cz.shape FROM cultivable_zones AS cz WHERE activity_productions.cultivable_zone_id = cz.id'
         # Updates attributes coming from old Production

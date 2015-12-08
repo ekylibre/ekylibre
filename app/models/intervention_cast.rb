@@ -70,6 +70,7 @@ class InterventionCast < Ekylibre::Record::Base
   validates_numericality_of :quantity_population, :quantity_value, allow_nil: true
   validates_presence_of :intervention, :reference_name
   # ]VALIDATORS]
+  validates_presence_of :quantity_indicator, :quantity_unit, if: :quantity_handler?
 
   delegate :name, to: :product, prefix: true
   delegate :name, to: :product_nature, prefix: true
@@ -109,6 +110,13 @@ class InterventionCast < Ekylibre::Record::Base
   before_validation do
     if reference
       self.position = reference.position
+      if reference.handled? && quantity_handler?
+        handler = reference[quantity_handler]
+        if handler
+          self.quantity_indicator = handler.indicator.name
+          self.quantity_unit = handler.unit
+        end
+      end
     else
       precision = 10**8
       now = Time.zone.now
@@ -126,7 +134,13 @@ class InterventionCast < Ekylibre::Record::Base
 
   validate do
     if intervention && intervention.reference
-      errors.add(:reference_name, :invalid) unless reference
+      if reference
+        if reference.handled? && quantity_handler?
+          errors.add(:quantity_handler, :invalid) unless reference[quantity_handler]
+        end
+      else
+        errors.add(:reference_name, :invalid)
+      end
     end
   end
 

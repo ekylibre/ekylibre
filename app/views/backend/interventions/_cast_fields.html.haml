@@ -1,13 +1,13 @@
 - reference = variable
 - f.object.reference_name = reference.name
-.nested-fields.working-period
-  = link_to_remove_nested_association('working-period', f)
+.nested-fields.cast
+  = link_to_remove_nested_association('cast', f)
   = f.input :reference_name, as: :hidden
   - if variable.input?
     = f.referenced_association :source_product, label: variable.human_name, source: {scope: reference.scope_hash.merge(availables: true)}
     = render 'quantifier_field', f: f, reference: variable
   - elsif variable.output?
     = f.referenced_association :variant, label: variable.human_name, source: {scope: reference.scope_hash.merge(availables: true)}
-    = f.input :quantity
+    -# = render 'quantifier_field', f: f, reference: variable
   - else
     = f.referenced_association :product, label: variable.human_name, source: {scope: reference.scope_hash.merge(availables: true)}

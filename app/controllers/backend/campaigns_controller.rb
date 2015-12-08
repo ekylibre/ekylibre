@@ -26,6 +26,8 @@ module Backend
       t.action :edit
       t.action :destroy, if: :destroyable?
       t.column :name, url: true
+      t.column :started_on
+      t.column :stopped_on
       t.column :harvest_year
       t.column :closed
     end

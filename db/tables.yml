@@ -290,12 +290,12 @@ activity_productions:
     precision: 19
     scale: 4
     required: true
-  started_at:
-    type: datetime
+  started_on:
+    type: date
   state:
     type: string
-  stopped_at:
-    type: datetime
+  stopped_on:
+    type: date
   support_id:
     type: integer
     references: product

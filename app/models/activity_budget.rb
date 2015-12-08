@@ -46,7 +46,7 @@
 class ActivityBudget < Ekylibre::Record::Base
   refers_to :currency
   enumerize :direction, in: [:revenue, :expense], predicates: true
-  enumerize :computation_method, in: [:per_production, :per_production_support, :per_working_unit], default: :per_working_unit, predicates: true
+  enumerize :computation_method, in: [:per_campaign, :per_production, :per_working_unit], default: :per_working_unit, predicates: true
   # refers_to :variant_indicator, class_name: 'Indicator' # in: Activity.support_variant_indicator.values
   # refers_to :variant_unit, class_name: 'Unit'
 
@@ -84,9 +84,9 @@ class ActivityBudget < Ekylibre::Record::Base
   end
 
   # Computes the coefficient to use for amount computation
-  def coefficient(_options = {})
+  def coefficient
     return 0 unless activity
-    if self.per_production_support?
+    if self.per_production?
       return activity.count_during(campaign)
     elsif self.per_working_unit?
       return activity.size_during(campaign)

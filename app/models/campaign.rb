@@ -56,7 +56,7 @@ class Campaign < Ekylibre::Record::Base
   scope :current, -> { where(closed: false).reorder(:harvest_year) }
   scope :at, ->(searched_at = Time.zone.now) { where(harvest_year: searched_at.year) }
   scope :of_activity_production, lambda { |activity_production|
-    where('(started_on, stopped_on) OVERLAPS (COALESCE(?, started_on), COALESCE(?, stopped_on))', activity_production.started_at, activity_production.stopped_at)
+    where('(started_on, stopped_on) OVERLAPS (COALESCE(?, started_on), COALESCE(?, stopped_on))', activity_production.started_on, activity_production.stopped_on)
   }
   scope :of_production, ->(production) { of_activity_production(production) }
 
@@ -70,6 +70,10 @@ class Campaign < Ekylibre::Record::Base
       self.started_on ||= Date.new(harvest_year, 1, 1)
       self.stopped_on ||= Date.new(harvest_year, 12, 31)
     end
+  end
+
+  def self.first_of_all
+    Campaign.reorder(:started_on, :harvest_year, :id).first
   end
 
   def activity_productions

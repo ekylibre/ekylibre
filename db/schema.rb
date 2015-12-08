@@ -154,8 +154,8 @@ ActiveRecord::Schema.define(version: 20151108001401) do
     t.boolean  "nitrate_fixing",                                                                            default: false, null: false
     t.geometry "support_shape",      limit: {:srid=>4326, :type=>"multi_polygon"}
     t.string   "support_nature"
-    t.datetime "started_at"
-    t.datetime "stopped_at"
+    t.date     "started_on"
+    t.date     "stopped_on"
     t.string   "state"
     t.integer  "rank_number",                                                                                               null: false
   end

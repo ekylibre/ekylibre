@@ -34,9 +34,9 @@
 #  size_indicator     :string           not null
 #  size_unit          :string
 #  size_value         :decimal(19, 4)   not null
-#  started_at         :datetime
+#  started_on         :date
 #  state              :string
-#  stopped_at         :datetime
+#  stopped_on         :date
 #  support_id         :integer          not null
 #  support_nature     :string
 #  support_shape      :geometry({:srid=>4326, :type=>"multi_polygon"})
@@ -46,7 +46,7 @@
 #
 
 class ActivityProduction < Ekylibre::Record::Base
-  enumerize :support_nature, in: [:cultivation, :fallow_land, :buffer, :border, :none]
+  enumerize :support_nature, in: [:cultivation, :fallow_land, :buffer, :border, :none], default: :cultivation
   refers_to :usage, class_name: 'ProductionUsage'
   belongs_to :activity, inverse_of: :productions
   belongs_to :cultivable_zone
@@ -61,13 +61,14 @@ class ActivityProduction < Ekylibre::Record::Base
   composed_of :size, class_name: 'Measure', mapping: [%w(size_value to_d), %w(size_unit unit)]
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_date :started_on, :stopped_on, allow_blank: true, on_or_after: Date.civil(1, 1, 1)
   validates_numericality_of :rank_number, allow_nil: true, only_integer: true
   validates_numericality_of :size_value, allow_nil: true
   validates_inclusion_of :irrigated, :nitrate_fixing, in: [true, false]
   validates_presence_of :activity, :rank_number, :size_indicator, :size_value, :support, :usage
   # ]VALIDATORS]
   validates_uniqueness_of :rank_number, scope: :activity_id
+  validates_presence_of :started_on
   validates_presence_of :cultivable_zone, :support_nature, if: :vegetal_crops?
 
   delegate :name, :net_surface_area, :shape_area, to: :support, prefix: true
@@ -75,13 +76,16 @@ class ActivityProduction < Ekylibre::Record::Base
   delegate :name, :size_indicator, :size_unit, to: :activity, prefix: true
   delegate :with_cultivation, :cultivation_variety, :with_supports, :support_variety, :color, to: :activity
 
+  # alias_attribute :started_at, :started_on
+  # alias_attribute :stopped_at, :stopped_on
+
   scope :of_campaign, lambda { |campaigns|
     campaigns = [campaigns] unless campaigns.respond_to? :map
     args = []
     query = campaigns.map do |campaign|
       args << campaign.started_on
       args << campaign.stopped_on
-      '(started_at, stopped_at) OVERLAPS (?, ?)'
+      '(started_on, stopped_on) OVERLAPS (?, ?)'
     end
     where(query.join(' OR '), *args)
   }
@@ -98,7 +102,7 @@ class ActivityProduction < Ekylibre::Record::Base
   scope :of_activity_families, lambda { |*families|
     where(activity: Activity.of_families(*families))
   }
-  scope :current, -> { where(':now BETWEEN COALESCE(started_at, :now) AND COALESCE(stopped_at, :now)', now: Time.zone.now) }
+  scope :current, -> { where(':now BETWEEN COALESCE(started_on, :now) AND COALESCE(stopped_on, :now)', now: Time.zone.now) }
   scope :overlaps_shape, lambda { |shape|
     where('ST_Overlaps(support_shape, ST_GeomFromEWKT(?))', ::Charta.new_geometry(shape).to_ewkt)
   }
@@ -136,7 +140,7 @@ class ActivityProduction < Ekylibre::Record::Base
       else
         list = [cultivable_zone.name, :rank.t(number: rank_number)]
         list = list.reverse! if 'i18n.dir'.t == 'rtl'
-        land_parcel = LandParcel.new(name: list.join(' '), initial_shape: support_shape, initial_born_at: started_at, variant: ProductNatureVariant.import_from_nomenclature(:land_parcel))
+        land_parcel = LandParcel.new(name: list.join(' '), initial_shape: support_shape, initial_born_at: started_on, variant: ProductNatureVariant.import_from_nomenclature(:land_parcel))
         land_parcel.save!
       end
       self.support = land_parcel
@@ -376,7 +380,7 @@ class ActivityProduction < Ekylibre::Record::Base
     v = Nomen::Variety.find(cultivation_variety)
     list << v.human_name if v && !(activity.name.start_with?(v.human_name) || activity.name.end_with?(v.human_name))
     # list << support.name if !options[:support].is_a?(FalseClass) && support
-    list << started_at.to_date.l(format: :month) if started_at
+    list << started_on.to_date.l(format: :month) if started_on
     list << :rank.t(number: rank_number)
     list = list.reverse! if 'i18n.dir'.t == 'rtl'
     list.join(' ')

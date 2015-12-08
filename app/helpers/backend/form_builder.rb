@@ -19,7 +19,7 @@
 
 class Backend::FormBuilder < SimpleForm::FormBuilder
   # Display a selector with "new" button
-  def referenced_association(association, options = {}, &_block)
+  def referenced_association(association, options = {})
     unless reflection = find_association_reflection(association)
       fail "Association #{association.inspect} not found"
     end
@@ -60,7 +60,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
   end
 
   # Display a selector with "new" button
-  def referenced_association_field(association, options = {}, &_block)
+  def referenced_association_field(association, options = {})
     reflection = find_association_reflection(association)
     fail "Association #{association.inspect} not found" unless reflection
     fail ArgumentError.new("Reflection #{reflection.name} must be a belongs_to") if reflection.macro != :belongs_to
@@ -89,7 +89,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
   end
 
   # Adds nested association support
-  def nested_association(association, *args, &_block)
+  def nested_association(association, *args)
     options = args.extract_options!
     reflection = find_association_reflection(association)
     fail "Association #{association.inspect} not found" unless reflection
@@ -109,7 +109,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
   end
 
   # Adds custom fields
-  def custom_fields(*_args, &_block)
+  def custom_fields
     custom_fields = @object.custom_fields
     if custom_fields.any?
       return @template.content_tag(:div, id: 'custom-fields-field') do
@@ -147,7 +147,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     end
   end
 
-  def variant_quantifier_of_field(association, *args, &_block)
+  def variant_quantifier_of_field(association, *args)
     options = args.extract_options!
     unless reflection = find_association_reflection(association)
       fail "Association #{association.inspect} not found"
@@ -190,7 +190,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     super(attribute_name, options, &block)
   end
 
-  def picture(attribute_name = :picture, options = {}, &_block)
+  def picture(attribute_name = :picture, options = {})
     format = options.delete(:format) || :thumb
     input(attribute_name, options) do
       html = file_field(attribute_name)
@@ -201,7 +201,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     end
   end
 
-  def items_list(attribute_name, options = {}, &_block)
+  def items_list(attribute_name, options = {})
     prefix = @lookup_model_names.first +
              @lookup_model_names[1..-1].collect { |x| "[#{x}]" }.join +
              "[#{attribute_name}][]"
@@ -227,7 +227,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     end
   end
 
-  def abilities_list(attribute_name = :abilities_list, options = {}, &_block)
+  def abilities_list(attribute_name = :abilities_list, options = {})
     prefix = @lookup_model_names.first +
              @lookup_model_names[1..-1].collect { |x| "[#{x}]" }.join +
              "[#{attribute_name}][]"
@@ -365,6 +365,17 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
   end
 
   def datetime_range(start_attribute_name = :started_at, stop_attribute_name = :stopped_at, *args)
+    options = args.extract_options!
+    attribute_name = args.shift || options[:name] || :period
+    input(attribute_name, options.merge(wrapper: :append)) do
+      @template.content_tag(:span, :from.tl, class: 'add-on') +
+        input_field(start_attribute_name) +
+        @template.content_tag(:span, :to.tl, class: 'add-on') +
+        input_field(stop_attribute_name)
+    end
+  end
+
+  def date_range(start_attribute_name = :started_on, stop_attribute_name = :stopped_on, *args)
     options = args.extract_options!
     attribute_name = args.shift || options[:name] || :period
     input(attribute_name, options.merge(wrapper: :append)) do

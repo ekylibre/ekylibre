@@ -199,11 +199,10 @@ class Activity < Ekylibre::Record::Base
 
   # Returns a specific color for the given activity
   def color
-    self.class.color(self.family, self.cultivation_variety)
+    self.class.color(family, cultivation_variety)
   end
 
   class << self
-
     # Returns a color for given family and variety
     # short-way solution, can be externalized in mid-way solution
     def color(family, variety = nil)
@@ -275,9 +274,7 @@ class Activity < Ekylibre::Record::Base
       else
         colors[:gray]
       end
-
     end
-
 
     def find_best_family(cultivation_variety, support_variety)
       rankings = Nomen::ActivityFamily.list.inject({}) do |hash, item|

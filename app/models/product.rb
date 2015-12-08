@@ -90,6 +90,7 @@ class Product < Ekylibre::Record::Base
   has_many :carrier_linkages, class_name: 'ProductLinkage', foreign_key: :carried_id, dependent: :destroy
   has_many :content_localizations, class_name: 'ProductLocalization', foreign_key: :container_id
   has_many :contents, class_name: 'Product', through: :content_localizations, source: :product
+  has_many :distributions, class_name: 'TargetDistribution', foreign_key: :target_id, inverse_of: :target, dependent: :destroy
   has_many :enjoyments, class_name: 'ProductEnjoyment', foreign_key: :product_id, dependent: :destroy
   # has_many :groups, :through => :memberships
   has_many :issues, as: :target, dependent: :destroy

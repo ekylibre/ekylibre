@@ -34,9 +34,9 @@
 #  size_indicator     :string           not null
 #  size_unit          :string
 #  size_value         :decimal(19, 4)   not null
-#  started_at         :datetime
+#  started_on         :date
 #  state              :string
-#  stopped_at         :datetime
+#  stopped_on         :date
 #  support_id         :integer          not null
 #  support_nature     :string
 #  support_shape      :geometry({:srid=>4326, :type=>"multi_polygon"})

@@ -35,9 +35,10 @@
 #  updater_id             :integer
 #
 class TargetDistribution < Ekylibre::Record::Base
+  include TimeLineable
   belongs_to :activity
   belongs_to :activity_production
-  belongs_to :target, class_name: 'Product'
+  belongs_to :target, class_name: 'Product', inverse_of: :distributions
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_presence_of :activity, :activity_production, :target
@@ -46,8 +47,12 @@ class TargetDistribution < Ekylibre::Record::Base
   before_validation do
     if activity_production
       self.activity = activity_production.activity
-      self.started_at ||= activity_production.started_at
-      self.stopped_at ||= activity_production.stopped_at
+      # self.started_at ||= activity_production.started_on
+      # self.stopped_at ||= activity_production.stopped_on
     end
+  end
+
+  def siblings
+    target.distributions
   end
 end
