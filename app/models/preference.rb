@@ -176,6 +176,7 @@ class Preference < Ekylibre::Record::Base
   prefer :map_measure_srs, :spatial_reference_system, Nomen::SpatialReferenceSystem.default
   prefer :force_intervention_started_at, :boolean, false
   prefer :force_intervention_stopped_at, :boolean, false
+  prefer :create_activities_from_telepac, :boolean, false
 
   # Returns the name of the column used to store preference data
   def value_attribute
