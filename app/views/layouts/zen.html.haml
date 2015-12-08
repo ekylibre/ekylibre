@@ -15,6 +15,7 @@
           = yield :before_title if content_for? :before_title
           = heading_toolbar_tag
           = heading_tag
+          = yield :help_zone if content_for? :help_zone
         #content
           = subheading_tag
           = notifications_tag
