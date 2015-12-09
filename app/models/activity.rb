@@ -213,7 +213,7 @@ class Activity < Ekylibre::Record::Base
                  gray: '#A4A4A4', slate_gray: '#708090', dark_magenta: '#8B008B', violet: '#EE82EE',
                  teal: '#008080', fuchsia: '#FF00FF', brown: '#6A2B1A' }
       activity_family = Nomen::ActivityFamily.find(family)
-      variety = Nomen::Variety.find(cultivation_variety)
+      variety = Nomen::Variety.find(variety)
       return colors[:gray] unless activity_family
       if activity_family <= :vegetal_crops && variety
         # MEADOW
