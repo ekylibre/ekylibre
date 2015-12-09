@@ -285,7 +285,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :cultivable_zones, concerns: [:list, :unroll], path: 'cultivable-zones' do
+    resources :cultivable_zones, concerns: [:attachments, :list, :unroll], path: 'cultivable-zones' do
       member do
         get :list_productions
       end
