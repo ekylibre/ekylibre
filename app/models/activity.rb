@@ -199,83 +199,90 @@ class Activity < Ekylibre::Record::Base
 
   # Returns a specific color for the given activity
   def color
-    self.class.color(family, cultivation_variety)
+    self.colors(family, cultivation_variety)
   end
 
-  class << self
-    # Returns a color for given family and variety
+  # Returns a color for given family and variety
     # short-way solution, can be externalized in mid-way solution
-    def color(family, variety = nil)
+    def colors(family, variety = nil)
       colors = { gold: '#FFD700', golden_rod: '#DAA520', yellow: '#FFFF00',
                  orange: '#FF8000', red: '#FF0000', green: '#80FF00',
-                 spring_green: '#00FF7F', dark_green: '#006400',
+                 green_yellow: '#ADFF2F',
+                 spring_green: '#00FF7F', dark_green: '#006400', lime: '#00FF00',
                  dark_turquoise: '#00FFFF', blue: '#0000FF', purple: '#BF00FF',
-                 gray: '#A4A4A4', dark_magenta: '#8B008B', violet: '#EE82EE',
+                 gray: '#A4A4A4', slate_gray: '#708090', dark_magenta: '#8B008B', violet: '#EE82EE',
                  teal: '#008080', fuchsia: '#FF00FF', brown: '#6A2B1A' }
       activity_family = Nomen::ActivityFamily.find(family)
       variety = Nomen::Variety.find(cultivation_variety)
       return colors[:gray] unless activity_family
       if activity_family <= :vegetal_crops && variety
-        # ARBO, FRUIT = BLUE
-        if activity_family <= :arboriculture
-          colors[:blue]
-        elsif activity_family <= :field_crops
-          # level 3 - category - CEREALS = GOLD/YELLOW/ORANGE
-          if activity_family <= :cereal_crops
-            # level 4 - variety
-            if variety <= :zea || variety <= :sorghum
-              colors[:orange]
-            elsif variety <= :hordeum
-              colors[:yellow]
-            else
-              colors[:gold]
-            end
-          # level 3 - category - BEETS / POTATO = VIOLET
-          elsif activity_family <= :beet_crops
-            colors[:violet]
-          # level 3 - category - FODDER = SPRING GREEN
-          elsif activity_family <= :fodder_crops ||
-                activity_family <= :fallow_land
-            colors[:dark_green]
-          elsif activity_family <= :meadow
-            colors[:dark_green]
-          # level 3 - category - PROTEINS = TEAL
-          elsif activity_family <= :protein_crops
-            colors[:teal]
-          # level 3 - category - OILSEED = GOLDEN ROD
-          elsif activity_family <= :oilseed_crops
-            colors[:golden_rod]
-          # level 3 - category - BEETS / POTATO = VIOLET
-          elsif activity_family <= :potato_crops
-            colors[:violet]
-          # level 3 - category - AROMATIC, TOBACCO, HEMP = TURQUOISE
-          elsif variety <= :nicotiana ||
-                variety <= :cannabis
-            colors[:dark_turquoise]
+        # MEADOW
+        if crop_sets.include?('meadow')
+          colors[:dark_green]
+        # CEREALS
+        elsif crop_sets.include?('cereals')
+          if variety <= :zea || variety <= :sorghum
+            colors[:orange]
+          elsif variety <= :hordeum || variety <= :avena || variety <= :secale
+            colors[:yellow]
+          elsif variety <= :triticum || variety <= :triticosecale
+            colors[:gold]
           else
-            colors[:gray]
+            colors[:golden_rod]
           end
-        elsif activity_family <= :aromatic_and_medicinal_plants
-          colors[:dark_turquoise]
-        # level 3 - category - FLOWER = FUCHSIA
-        elsif activity_family <= :flower_crops
-          colors[:fuchsia]
-        # level 3 - category - ARBO, FRUIT = BLUE
-        elsif activity_family <= :fruits_crops
-          colors[:blue]
-        # level 3 - category - MARKET = RED
-        elsif activity_family <= :market_garden_crops
+        # OILSEED
+        elsif crop_sets.include?('oleaginous')
+          colors[:green_yellow]
+        # PROTEINS
+        elsif crop_sets.include?('proteaginous')
+          colors[:teal]
+        # FIBER
+        elsif variety <= :linum ||
+                variety <= :cannabis
+          colors[:slate_gray]
+        # LEGUMINOUS
+        elsif crop_sets.include?('leguminous')
+          colors[:lime]
+        elsif crop_sets.include?('vegetables')
           colors[:red]
+        elsif crop_sets.include?('arboricultural')
+          colors[:blue]
+        # VINE
+        elsif variety <= :vitaceae
+          colors[:purple]
+        elsif crop_sets.include?('aromatics_and_medicinals')
+          colors[:dark_turquoise]
+        elsif crop_sets.include?('tropicals')
+          colors[:fuchsia]
+        elsif variety <= :nicotiana
+          colors[:dark_turquoise]
         else
           colors[:gray]
         end
       elsif activity_family <= :animal_farming
+        colors[:brown]
+      elsif activity_family <= :exploitation
+        colors[:brown]
+      elsif activity_family <= :maintenance
         colors[:brown]
       else
         colors[:gray]
       end
     end
 
+  # Returns matching crop set for the given cultivation_variety
+  def crop_sets
+    return [] unless variety = Nomen::Variety[cultivation_variety]
+    crop_sets ||= Nomen::CropSet.list.select do |i|
+      i.varieties.detect do |v|
+        variety <= v
+      end
+    end
+    sets = crop_sets.map(&:name).map(&:to_s)
+  end
+
+
+  class << self
     def find_best_family(cultivation_variety, support_variety)
       rankings = Nomen::ActivityFamily.list.inject({}) do |hash, item|
         valid = true

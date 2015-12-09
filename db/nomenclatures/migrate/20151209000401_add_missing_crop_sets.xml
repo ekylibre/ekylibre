@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add missing crop sets">
+  <item-creation item="crop_sets#cereals" varieties="avena, fagopyrum, hordeum, oryza, panicum, phalaris, poaceae, secale, setaria, sorghum, triticosecale, triticum, zea"/>
+  <item-creation item="crop_sets#oleaginous" varieties="brassica_napus, brassica_nigra, brassica_rapa, camelina_sativa, glycine_max, guizotia_abyssinica, helianthus, linum_usitatissimum, papaver_somniferum"/>
+  <item-creation item="crop_sets#proteaginous" varieties="fabaceae, lupinus, medicago, melilotus, onobrychis, ornithopus_sativus, pisum_sativum, trifolium, vicia_cracca, vicia_faba, vicia_sativa"/>
+  <item-change item="crop_sets#leguminous" varieties="arachis_hypogaea, cicer_arietinum, lathyrus_sativus, lens_culinaris, lotus_corniculatus, medicago_lupulina, trigonella_foenum_graecum, vigna_unguiculata"/>
+  <item-change item="crop_sets#meadow" varieties="borago, bromus, dactylis, festuca, phleum, phacelia, poa_trivialis, lepidium_sativum, lolium"/>
+  <item-creation item="crop_sets#vegetables" varieties="allium_sativum, allium_cepa, allium_porrum, apium_graveolens, beta_vulgaris, brassica_oleracea, brassica_rapa, capsicum, cichorium, citrullus_lanatus, cucumis_melo, cynara_scolymus, daucus_carota, persea_americana, pisum, phaseolus, raphanus_sativus, solanum_lycopersicum, solanum_melongena, solanum_tuberosum"/>
+  <item-creation item="crop_sets#arboricultural" varieties="citrus, ceratonia_siliqua, prunus_cerasus, castanea, corylus, juglans, olea_europaea, prunus_persica, pistacia_vera, pyrus, prunus_domestica"/>
+  <item-creation item="crop_sets#aromatics_and_medicinals" varieties="allium_schoenoprasum, ajuga_reptans, anthriscus_cerefolium, arctium, anethum_graveolens, angelica, artemisia_dracunculus, bellis_perennis, carum_carvi, chamaemelum, centaurea_cyanus, coriandrum_sativum, cuminum, foeniculum, galium, hypericum, lavandula, leucanthemum , malva, melissa, mentha, ocimum_basilicum, origanum_majorana, petroselinum_crispum, plantago_psyllium, pimpinella_anisum, primula, rosmarinus, rumex, satureja, salvia, silybum_marianum, thymus, valeriana, veronica, viola_arvensis"/>
+  <item-creation item="crop_sets#tropicals" varieties="ananas_comosus, musa, coffea, saccharum, curcuma, vanilla, chrysopogon, cananga_odorata"/>
+</migration>

@@ -2040,6 +2040,7 @@ fra:
     bookkeep_automatically: "Activer la bascule automatique des données comptables"
     bookkeep_in_draft: "Enregistrer les pièces dans le brouillard lors de la bascule automatique"
     country: "Pays"
+    create_activities_from_telepac: "Créer automatiquement les activités lors de l'import TelePAC"
     currency: "Monnaie"
     detail_payments_in_deposit_bookkeeping: "Détailler la liste des règlements lors de la comptabilisation d’une remise en banque"
     host: "Adresse hôte"

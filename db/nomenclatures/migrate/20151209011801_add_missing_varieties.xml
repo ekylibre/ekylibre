@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add missing varieties">
+  <item-creation item="varieties#prunus_cerasus" parent="prunus" itis_tsn="24773"/>
+  <item-creation item="varieties#allium_schoenoprasum" parent="allium" itis_tsn="42636"/>
+  <item-creation item="varieties#ajuga" parent="lamiaceae" itis_tsn="32451"/>
+  <item-creation item="varieties#ajuga_reptans" parent="ajuga" itis_tsn="32454"/>
+  <item-creation item="varieties#angelica" parent="apiaceae" itis_tsn="29431"/>
+  <item-creation item="varieties#pimpinella" parent="apiaceae" itis_tsn="29821"/>
+  <item-creation item="varieties#pimpinella_anisum" parent="pimpinella" itis_tsn="29822"/>
+  <item-creation item="varieties#ocimum" parent="lamiaceae" itis_tsn="32626"/>
+  <item-creation item="varieties#ocimum_basilicum" parent="ocimum" itis_tsn="32627"/>
+  <item-creation item="varieties#centaurea" parent="asteraceae" itis_tsn="36950"/>
+  <item-creation item="varieties#centaurea_cyanus" parent="centaurea" itis_tsn="36954"/>
+  <item-creation item="varieties#chamaemelum" parent="asteraceae" itis_tsn="37019"/>
+  <item-creation item="varieties#carum" parent="apiaceae" itis_tsn="29609"/>
+  <item-creation item="varieties#carum_carvi" parent="carum" itis_tsn="29610"/>
+  <item-creation item="varieties#silybum" parent="asteraceae" itis_tsn="38412"/>
+  <item-creation item="varieties#silybum_marianum" parent="silybum" itis_tsn="38413"/>
+  <item-creation item="varieties#cuminum" parent="apiaceae" itis_tsn="500226"/>
+  <item-creation item="varieties#artemisia" parent="asteraceae" itis_tsn="35431"/>
+  <item-creation item="varieties#artemisia_dracunculus" parent="artemisia" itis_tsn="35462"/>
+  <item-creation item="varieties#galium" parent="rubiaceae" itis_tsn="34796"/>
+  <item-creation item="varieties#origanum" parent="lamiaceae" itis_tsn="32630"/>
+  <item-creation item="varieties#origanum_majorana" parent="origanum" itis_tsn="32631"/>
+  <item-creation item="varieties#malva" parent="malvaceae" itis_tsn="21832"/>
+  <item-creation item="varieties#melissa" parent="lamiaceae" itis_tsn="32564"/>
+  <item-creation item="varieties#mentha" parent="lamiaceae" itis_tsn="32264"/>
+  <item-creation item="varieties#rumex" parent="polygonaceae" itis_tsn="20933"/>
+  <item-creation item="varieties#bellis" parent="asteraceae" itis_tsn="36825"/>
+  <item-creation item="varieties#bellis_perennis" parent="bellis" itis_tsn="36826"/>
+  <item-creation item="varieties#violaceae" parent="plant" itis_tsn="22023"/>
+  <item-creation item="varieties#viola" parent="violaceae" itis_tsn="22030"/>
+  <item-creation item="varieties#viola_arvensis" parent="viola" itis_tsn="22037"/>
+  <item-creation item="varieties#plantaginaceae" parent="plant" itis_tsn="32869"/>
+  <item-creation item="varieties#plantago" parent="plantaginaceae" itis_tsn="32870"/>
+  <item-creation item="varieties#plantago_psyllium" parent="plantago" itis_tsn="32908"/>
+  <item-creation item="varieties#primulaceae" parent="plant" itis_tsn="23929"/>
+  <item-creation item="varieties#primula" parent="primulaceae" itis_tsn="24014"/>
+  <item-creation item="varieties#rosmarinus" parent="lamiaceae" itis_tsn="32676"/>
+  <item-creation item="varieties#satureja" parent="lamiaceae" itis_tsn="32293"/>
+  <item-creation item="varieties#salvia" parent="lamiaceae" itis_tsn="32680"/>
+  <item-creation item="varieties#thymus" parent="lamiaceae" itis_tsn="32820"/>
+  <item-creation item="varieties#valeriana" parent="valerianaceae" itis_tsn="35350"/>
+  <item-creation item="varieties#veronica" parent="plantaginaceae" itis_tsn="33396"/>
+</migration>

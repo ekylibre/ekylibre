@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add proteaginous missing varieties">
+  <item-creation item="varieties#ornithopus" parent="fabaceae" itis_tsn="26817"/>
+  <item-creation item="varieties#ornithopus_sativus" parent="ornithopus" itis_tsn="26820"/>
+  <item-creation item="varieties#vicia_cracca" parent="vicia" itis_tsn="26335"/>
+</migration>

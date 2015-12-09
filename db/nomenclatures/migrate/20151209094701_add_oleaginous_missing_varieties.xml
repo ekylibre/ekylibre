@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add oleaginous missing varieties">
+  <item-creation item="varieties#leucanthemum" parent="asteraceae" itis_tsn="37900"/>
+  <item-creation item="varieties#linum_usitatissimum" parent="linum" itis_tsn="29226"/>
+  <item-creation item="varieties#linum_usitatissimum_napus" parent="linum_usitatissimum" itis_tsn="29226"/>
+  <item-creation item="varieties#linum_usitatissimum_annua" parent="linum_usitatissimum" itis_tsn="29226"/>
+  <item-creation item="varieties#brassica_napus_annua" parent="brassica_napus" itis_tsn="23060"/>
+  <item-creation item="varieties#brassica_napus_napus" parent="brassica_napus" itis_tsn="23060"/>
+  <item-creation item="varieties#brassica_rapa_annua" parent="brassica_rapa" itis_tsn="23063"/>
+  <item-creation item="varieties#brassica_rapa_biennis" parent="brassica_rapa" itis_tsn="23063"/>
+</migration>

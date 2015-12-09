@@ -2187,6 +2187,7 @@ arb:
     # bookkeep_automatically: "Activate the automatic bookkeeping"
     # bookkeep_in_draft: "Save the records in draft mode during bookkeeping"
     # country: "Country"
+    # create_activities_from_telepac: "Create activities during Telepac import"
     # currency: "Currency"
     # detail_payments_in_deposit_bookkeeping: "Detail all the payments in deposit bookkeeping"
     general:  #?
