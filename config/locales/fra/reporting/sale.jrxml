@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sale_estimate" language="groovy" pageWidth="595" pageHeight="842" columnWidth="545" leftMargin="25" rightMargin="25" topMargin="25" bottomMargin="25" isSummaryNewPage="true" isFloatColumnFooter="true" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
-	<property name="ireport.zoom" value="2.732053821460285"/>
-	<property name="ireport.x" value="534"/>
-	<property name="ireport.y" value="1368"/>
+	<property name="ireport.zoom" value="1.4019755979255708"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="556"/>
 	<template><![CDATA["../../../corporate_identity/reporting_style.xml"]]></template>
 	<style name="Title" fontName="Open Sans" fontSize="50" isBold="true" pdfFontName="Open Sans"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Open Sans" fontSize="18"/>
@@ -62,14 +62,6 @@
 		</field>
 		<field name="reduction-percentage" class="java.math.BigDecimal">
 			<fieldDescription><![CDATA[reduction-percentage]]></fieldDescription>
-		</field>
-	</subDataset>
-	<subDataset name="sale_conditions" uuid="cffed90f-e069-4d91-8bd6-b9c624ef529b">
-		<queryString language="xPath">
-			<![CDATA[/sale/sales-conditions/sales-condition]]>
-		</queryString>
-		<field name="sales-condition" class="java.lang.String">
-			<fieldDescription><![CDATA[child::text()]]></fieldDescription>
 		</field>
 	</subDataset>
 	<subDataset name="sale_parcels" uuid="07ef2449-e779-427e-b578-038e9378267f">
@@ -237,6 +229,9 @@
 	</field>
 	<field name="state" class="java.lang.String">
 		<fieldDescription><![CDATA[state]]></fieldDescription>
+	</field>
+	<field name="sales-conditions" class="java.lang.String">
+		<fieldDescription><![CDATA[//sales-condition]]></fieldDescription>
 	</field>
 	<title>
 		<band height="210" splitType="Stretch">
@@ -449,7 +444,7 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="104" splitType="Stretch">
+		<band height="101" splitType="Stretch">
 			<rectangle radius="0">
 				<reportElement style="title" mode="Transparent" x="265" y="10" width="280" height="40" forecolor="#000000" uuid="84b93687-691b-4769-9980-be1d6a9bdf9c"/>
 			</rectangle>
@@ -491,7 +486,7 @@
 				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="error" x="10" y="10" width="226" height="62" uuid="261156b8-12ff-4dd0-a589-73b721464300">
+				<reportElement style="error" x="1" y="0" width="226" height="62" uuid="261156b8-12ff-4dd0-a589-73b721464300">
 					<printWhenExpression><![CDATA[$F{state} == "refused"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -503,6 +498,11 @@
 				<reportElement style="label" x="495" y="10" width="48" height="40" uuid="0604b7bb-f256-4b24-8138-565cb197e783"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{currency}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="72" width="542" height="29" uuid="6e14f690-5c48-4a0e-8670-3dc334461959"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="html"/>
+				<textFieldExpression><![CDATA[$F{sales-conditions}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnFooter>
@@ -545,10 +545,9 @@
 		</band>
 	</pageFooter>
 	<lastPageFooter>
-		<band height="193" splitType="Stretch">
-			<printWhenExpression><![CDATA[$F{letter-format} == true && !$F{function-title}.isEmpty()]]></printWhenExpression>
+		<band height="168" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement style="base" positionType="FixRelativeToBottom" x="1" y="0" width="542" height="30" isRemoveLineWhenBlank="true" uuid="291e6748-2548-445c-b64c-8399200e9453">
+				<reportElement style="base" positionType="FixRelativeToBottom" stretchType="RelativeToTallestObject" x="1" y="1" width="542" height="14" isRemoveLineWhenBlank="true" uuid="291e6748-2548-445c-b64c-8399200e9453">
 					<printWhenExpression><![CDATA[$F{letter-format} == true && !$F{function-title}.isEmpty()]]></printWhenExpression>
 				</reportElement>
 				<textElement>
@@ -557,10 +556,10 @@
 				<textFieldExpression><![CDATA[$F{conclusion}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement style="title" x="-2" y="173" width="545" height="1" uuid="f5776528-13fb-4c0c-bf2d-f8c8add24286"/>
+				<reportElement style="title" x="-2" y="148" width="545" height="1" uuid="f5776528-13fb-4c0c-bf2d-f8c8add24286"/>
 			</line>
 			<textField>
-				<reportElement style="address" x="98" y="173" width="345" height="20" uuid="3eb6de32-9658-40c3-aa78-89271f77a5f6"/>
+				<reportElement style="address" x="98" y="148" width="345" height="20" uuid="3eb6de32-9658-40c3-aa78-89271f77a5f6"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Open Sans" size="6"/>
 				</textElement>
@@ -569,23 +568,14 @@
 ($F{supplier-activity-code} == null ? "" : " - Code APE : "+$F{supplier-activity-code})]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy HH:mm">
-				<reportElement style="base" mode="Transparent" x="-2" y="173" width="100" height="20" forecolor="#000000" uuid="44687450-4cb0-4ff4-99ef-a51032230e0f"/>
+				<reportElement style="base" mode="Transparent" x="-2" y="148" width="100" height="20" forecolor="#000000" uuid="44687450-4cb0-4ff4-99ef-a51032230e0f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Open Sans"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
-			<textField evaluationTime="Report">
-				<reportElement style="base" x="443" y="173" width="100" height="20" forecolor="#000000" uuid="bb3e788a-a700-47ed-bb21-adb4f63cf23b"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Open Sans"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+"/" + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
 			<frame>
-				<reportElement x="163" y="51" width="368" height="100" isRemoveLineWhenBlank="true" uuid="ea580315-84e7-4dcf-b781-8e5c815ecf78">
-					<printWhenExpression><![CDATA[$F{letter-format} == "true"]]></printWhenExpression>
-				</reportElement>
+				<reportElement x="163" y="26" width="368" height="100" isRemoveLineWhenBlank="true" uuid="ea580315-84e7-4dcf-b781-8e5c815ecf78"/>
 				<line direction="BottomUp">
 					<reportElement style="title" x="145" y="46" width="11" height="11" isRemoveLineWhenBlank="true" uuid="d6686b88-42d4-4593-a612-ca62f66c0d9b"/>
 				</line>
@@ -607,6 +597,21 @@
 				</staticText>
 				<elementGroup/>
 			</frame>
+			<textField evaluationTime="Report">
+				<reportElement style="base" x="527" y="148" width="17" height="20" forecolor="#000000" uuid="5e5e0743-18c2-4ce5-85ff-7812175ff8a2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="base" x="445" y="148" width="83" height="20" forecolor="#000000" uuid="143de1d6-61b0-44f4-b232-186fee16938c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Open Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+"/"]]></textFieldExpression>
+			</textField>
 		</band>
 	</lastPageFooter>
 	<summary>
