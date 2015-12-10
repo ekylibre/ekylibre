@@ -11,7 +11,7 @@ class Ekylibre::GeoreadingsExchanger < ActiveExchanger::Base
     mimetype = File.read(dir.join('mimetype')).to_s.strip
     nature = mimetype.split('.').last
 
-    RGeo::Shapefile::Reader.open(dir.join('georeading.shp').to_s, srid: 4326) do |file|
+    RGeo::Shapefile::Reader.open(dir.join('georeading.shp').to_s) do |file|
       # Set number of shapes
       w.count = file.size
 

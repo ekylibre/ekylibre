@@ -8,6 +8,4 @@ Ekylibre::FirstRun.add_loader :interventions do |first_run|
   # Import interventions from isaculture files
   first_run.import_archive(:isagri_isaculture_csv_import, 'isaculture.zip', 'procedures_transcode.csv', 'cultivable_zones_transcode.csv', 'variants_transcode.csv', 'units_transcode.csv', 'workers_transcode.csv', 'equipments_transcode.csv', 'interventions.csv', in: 'isaculture')
 
-  # For crumbs in Fermes Larreres
-  first_run.import_archive(:ekylibre_crumbs, 'trips.zip', 'trip_simulation.shp', 'trip_simulation.dbf', 'trip_simulation.shx', 'trip_simulation.prj', 'data_consumption.csv', in: 'alamano/trips')
 end
