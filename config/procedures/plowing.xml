@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="plowing" categories="soil_working, crop_protection" actions="plowing, loosening" optional-actions="herbicide, organic_matter_burying, water_flow_improvement">
-    <variables>
-      <variable name="driver" type="doer" abilities="drive(tractor)"/>
-      <variable name="tractor" type="tool" abilities="tow(equipment)"/>
-      <variable name="land_parcel" type="target" variety="land_parcel" default-shape=":land_parcel" default-actor="storage">
+    <parameters>
+      <parameter name="driver" type="doer" filter="can drive(tractor)"/>
+      <parameter name="tractor" type="tool" filter="can tow(equipment)"/>
+      <parameter name="land_parcel" type="target" filter="is cultivable_zone" default-shape=":land_parcel" default-actor="storage">
         <handler indicator="shape">
           <converter to="shape" forward="intersection(value, land_parcel.shape)" backward="value"/>
           <converter to="population" forward="area(value) / land_parcel..net_surface_area(square_meter)"/>
         </handler>
-      </variable>
-      <variable name="plow" type="tool" abilities="plow"/>
-    </variables>
+      </parameter>
+      <parameter name="plow" type="tool" filter="can plow"/>
+    </parameters>
   </procedure>
 </procedures>

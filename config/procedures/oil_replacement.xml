@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="oil_replacement" categories="equipment_maintenance" actions="oil_replacement">
-    <variables>
-      <variable name="equipment" type="target" variety="equipment" abilities="consume(oil)"/>
-      <variable name="oil" type="input" variety="oil" abilities="lubricate(equipment)"/>
-      <variable name="oil" type="input" variety="oil" abilities="lubricate(equipment)">
+    <parameters>
+      <parameter name="equipment" type="target" filter="is equipment and can consume(oil)"/>
+      <parameter name="oil" type="input" filter="is oil and can lubricate(equipment)"/>
+      <parameter name="oil" type="input" filter="is oil and can lubricate(equipment)">
         <handler indicator="population"/>
-      </variable>
-      <variable name="mechanic" type="doer" abilities="repair(equipment)"/>
-    </variables>
+      </parameter>
+      <parameter name="mechanic" type="doer" filter="can repair(equipment)"/>
+    </parameters>
   </procedure>
 </procedures>

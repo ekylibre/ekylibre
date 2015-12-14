@@ -31,7 +31,7 @@
 #  lock_version     :integer          default(0), not null
 #  number           :string
 #  prescription_id  :integer
-#  reference_name   :string           not null
+#  procedure_name   :string           not null
 #  started_at       :datetime
 #  state            :string           not null
 #  stopped_at       :datetime
@@ -44,7 +44,7 @@ require 'test_helper'
 
 class InterventionTest < ActiveSupport::TestCase
   test 'scopes' do
-    cast = intervention_casts(:intervention_casts_001)
+    cast = InterventionCast.first # intervention_casts(:intervention_casts_001)
     actor = cast.product
     assert actor, 'Actor can not be nil for following assertions'
     assert_nothing_raised do

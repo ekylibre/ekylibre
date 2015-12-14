@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="indirect_silage" categories="plants_transformation" actions="indirect_silage">
-    <variables>
-      <variable name="forager" type="tool" variety="forager" abilities="harvest(plant)"/>
-      <variable name="forager_driver" type="doer" abilities="drive(forager)"/>
-      <variable name="straw_to_bunch" type="input" variety="straw" derivative-of="poaceae"/>
-      <variable name="silage" type="output" default-name="{{variant}} {{birth_year}} ({{container}})">
+    <parameters>
+      <parameter name="forager" type="tool" filter="is forager and can harvest(plant)"/>
+      <parameter name="forager_driver" type="doer" filter="can drive(forager)"/>
+      <parameter name="straw_to_bunch" type="input" filter="is straw and derives from poaceae"/>
+      <parameter name="silage" type="output" filter="" default-name="{{variant}} {{birth_year}} ({{container}})">
         <handler indicator="population"/>
         <handler indicator="net_mass" unit="ton" to="population" backward="value * self..net_mass(ton)" forward="value / self..net_mass(ton)"/>
         <handler indicator="net_volume" unit="cubic_meter" to="population" backward="value * self..net_volume(cubic_meter)" forward="value / self..net_volume(cubic_meter)"/>
-      </variable>
-    </variables>
+      </parameter>
+    </parameters>
   </procedure>
 </procedures>

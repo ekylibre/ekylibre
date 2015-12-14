@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="complete_wine_transfer" categories="viticulture_transformation" actions="complete_wine_transfer">
-    <variables>
-      <variable name="tank" type="tool" variety="equipment" abilities="store(wine), store_liquid" default-actor="storage"/>
-      <variable name="wine" type="target" variety="wine" default-actor="first_localized_in: tank"/>
-      <variable name="destination_tank" type="tool" variety="equipment" abilities="store(wine), store_liquid"/>
-      <variable name="wine_man" type="doer" variety="worker" abilities="move"/>
-    </variables>
+    <parameters>
+      <parameter name="tank" type="tool" filter="is equipment and can store(wine) and can store_liquid" default-actor="storage"/>
+      <parameter name="wine" type="target" filter="is wine" default-actor="first_localized_in: tank"/>
+      <parameter name="destination_tank" type="tool" filter="is equipment and can store(wine) and can store_liquid"/>
+      <parameter name="wine_man" type="doer" filter="is worker and can move"/>
+    </parameters>
   </procedure>
 </procedures>

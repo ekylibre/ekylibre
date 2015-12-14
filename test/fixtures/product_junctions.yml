@@ -1003,202 +1003,202 @@ product_junctions_092:
   updated_at: 2015-09-17 13:38:07.312947000 Z
   updater_id: 1
 product_junctions_093:
-  created_at: 2015-12-08 17:13:35.830336000 Z
+  created_at: 2015-12-14 11:43:07.958443000 Z
   id: 118
   lock_version: 0
   nature: birth
   started_at: 2015-01-01 00:00:00.000000000 Z
   stopped_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-08 17:13:35.830336000 Z
+  updated_at: 2015-12-14 11:43:07.958443000 Z
 product_junctions_094:
-  created_at: 2015-12-08 17:13:36.080988000 Z
+  created_at: 2015-12-14 11:43:08.207837000 Z
   id: 119
   lock_version: 0
   nature: birth
   started_at: 2015-01-01 00:00:00.000000000 Z
   stopped_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-08 17:13:36.080988000 Z
+  updated_at: 2015-12-14 11:43:08.207837000 Z
 product_junctions_095:
-  created_at: 2015-12-08 17:13:36.250502000 Z
+  created_at: 2015-12-14 11:43:08.362847000 Z
   id: 120
   lock_version: 0
   nature: birth
   started_at: 2015-01-01 00:00:00.000000000 Z
   stopped_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-08 17:13:36.250502000 Z
+  updated_at: 2015-12-14 11:43:08.362847000 Z
 product_junctions_096:
-  created_at: 2015-12-08 17:13:36.402402000 Z
+  created_at: 2015-12-14 11:43:08.515499000 Z
   id: 121
   lock_version: 0
   nature: birth
   started_at: 2015-01-01 00:00:00.000000000 Z
   stopped_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-08 17:13:36.402402000 Z
+  updated_at: 2015-12-14 11:43:08.515499000 Z
 product_junctions_097:
-  created_at: 2015-12-08 17:13:36.555922000 Z
+  created_at: 2015-12-14 11:43:08.761173000 Z
   id: 122
   lock_version: 0
   nature: birth
   started_at: 2015-01-01 00:00:00.000000000 Z
   stopped_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-08 17:13:36.555922000 Z
+  updated_at: 2015-12-14 11:43:08.761173000 Z
 product_junctions_098:
-  created_at: 2015-12-08 17:13:36.834113000 Z
+  created_at: 2015-12-14 11:43:09.087469000 Z
   id: 123
   lock_version: 0
   nature: birth
   started_at: 2015-01-01 00:00:00.000000000 Z
   stopped_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-08 17:13:36.834113000 Z
+  updated_at: 2015-12-14 11:43:09.087469000 Z
 product_junctions_099:
-  created_at: 2015-12-08 17:13:37.040411000 Z
+  created_at: 2015-12-14 11:43:09.287432000 Z
   id: 124
   lock_version: 0
   nature: birth
   started_at: 2015-01-01 00:00:00.000000000 Z
   stopped_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-08 17:13:37.040411000 Z
+  updated_at: 2015-12-14 11:43:09.287432000 Z
 product_junctions_100:
-  created_at: 2015-12-08 17:13:37.393396000 Z
+  created_at: 2015-12-14 11:43:09.642102000 Z
   id: 125
   lock_version: 0
   nature: birth
   started_at: 2015-01-01 00:00:00.000000000 Z
   stopped_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-08 17:13:37.393396000 Z
+  updated_at: 2015-12-14 11:43:09.642102000 Z
 product_junctions_101:
-  created_at: 2015-12-08 17:13:37.528420000 Z
+  created_at: 2015-12-14 11:43:09.781668000 Z
   id: 126
   lock_version: 0
   nature: birth
   started_at: 2015-01-01 00:00:00.000000000 Z
   stopped_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-08 17:13:37.528420000 Z
+  updated_at: 2015-12-14 11:43:09.781668000 Z
 product_junctions_102:
-  created_at: 2015-12-08 17:13:37.661779000 Z
+  created_at: 2015-12-14 11:43:09.917706000 Z
   id: 127
   lock_version: 0
   nature: birth
   started_at: 2015-01-01 00:00:00.000000000 Z
   stopped_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-08 17:13:37.661779000 Z
+  updated_at: 2015-12-14 11:43:09.917706000 Z
 product_junctions_103:
-  created_at: 2015-12-08 17:13:37.793081000 Z
+  created_at: 2015-12-14 11:43:10.048679000 Z
   id: 128
   lock_version: 0
   nature: birth
   started_at: 2015-01-01 00:00:00.000000000 Z
   stopped_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-08 17:13:37.793081000 Z
+  updated_at: 2015-12-14 11:43:10.048679000 Z
 product_junctions_104:
-  created_at: 2015-12-08 17:13:37.917687000 Z
+  created_at: 2015-12-14 11:43:10.190460000 Z
   id: 129
   lock_version: 0
   nature: birth
   started_at: 2015-01-01 00:00:00.000000000 Z
   stopped_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-08 17:13:37.917687000 Z
+  updated_at: 2015-12-14 11:43:10.190460000 Z
 product_junctions_105:
-  created_at: 2015-12-08 17:13:38.090172000 Z
+  created_at: 2015-12-14 11:43:10.328328000 Z
   id: 130
   lock_version: 0
   nature: birth
   started_at: 2015-01-01 00:00:00.000000000 Z
   stopped_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-08 17:13:38.090172000 Z
+  updated_at: 2015-12-14 11:43:10.328328000 Z
 product_junctions_106:
-  created_at: 2015-12-08 17:13:38.222116000 Z
+  created_at: 2015-12-14 11:43:10.496072000 Z
   id: 131
   lock_version: 0
   nature: birth
   started_at: 2015-01-01 00:00:00.000000000 Z
   stopped_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-08 17:13:38.222116000 Z
+  updated_at: 2015-12-14 11:43:10.496072000 Z
 product_junctions_107:
-  created_at: 2015-12-08 17:13:38.358185000 Z
+  created_at: 2015-12-14 11:43:10.641227000 Z
   id: 132
   lock_version: 0
   nature: birth
   started_at: 2015-01-01 00:00:00.000000000 Z
   stopped_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-08 17:13:38.358185000 Z
+  updated_at: 2015-12-14 11:43:10.641227000 Z
 product_junctions_108:
-  created_at: 2015-12-08 17:13:38.503280000 Z
+  created_at: 2015-12-14 11:43:10.775875000 Z
   id: 133
   lock_version: 0
   nature: birth
   started_at: 2015-01-01 00:00:00.000000000 Z
   stopped_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-08 17:13:38.503280000 Z
+  updated_at: 2015-12-14 11:43:10.775875000 Z
 product_junctions_109:
-  created_at: 2015-12-08 17:13:38.635786000 Z
+  created_at: 2015-12-14 11:43:10.909500000 Z
   id: 134
   lock_version: 0
   nature: birth
   started_at: 2015-01-01 00:00:00.000000000 Z
   stopped_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-08 17:13:38.635786000 Z
+  updated_at: 2015-12-14 11:43:10.909500000 Z
 product_junctions_110:
-  created_at: 2015-12-08 17:13:38.783030000 Z
+  created_at: 2015-12-14 11:43:11.051457000 Z
   id: 135
   lock_version: 0
   nature: birth
   started_at: 2015-01-01 00:00:00.000000000 Z
   stopped_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-08 17:13:38.783030000 Z
+  updated_at: 2015-12-14 11:43:11.051457000 Z
 product_junctions_111:
-  created_at: 2015-12-08 17:13:38.917056000 Z
+  created_at: 2015-12-14 11:43:11.194374000 Z
   id: 136
   lock_version: 0
   nature: birth
   started_at: 2015-01-01 00:00:00.000000000 Z
   stopped_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-08 17:13:38.917056000 Z
+  updated_at: 2015-12-14 11:43:11.194374000 Z
 product_junctions_112:
-  created_at: 2015-12-08 17:13:39.046458000 Z
+  created_at: 2015-12-14 11:43:11.332159000 Z
   id: 137
   lock_version: 0
   nature: birth
   started_at: 2015-01-01 00:00:00.000000000 Z
   stopped_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-08 17:13:39.046458000 Z
+  updated_at: 2015-12-14 11:43:11.332159000 Z
 product_junctions_113:
-  created_at: 2015-12-08 17:13:39.212841000 Z
+  created_at: 2015-12-14 11:43:11.501055000 Z
   id: 138
   lock_version: 0
   nature: birth
   started_at: 2015-01-01 00:00:00.000000000 Z
   stopped_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-08 17:13:39.212841000 Z
+  updated_at: 2015-12-14 11:43:11.501055000 Z
 product_junctions_114:
-  created_at: 2015-12-08 17:13:39.358905000 Z
+  created_at: 2015-12-14 11:43:11.658989000 Z
   id: 139
   lock_version: 0
   nature: birth
   started_at: 2015-01-01 00:00:00.000000000 Z
   stopped_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-08 17:13:39.358905000 Z
+  updated_at: 2015-12-14 11:43:11.658989000 Z
 product_junctions_115:
-  created_at: 2015-12-08 17:13:39.511046000 Z
+  created_at: 2015-12-14 11:43:11.822471000 Z
   id: 140
   lock_version: 0
   nature: birth
   started_at: 2015-01-01 00:00:00.000000000 Z
   stopped_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-08 17:13:39.511046000 Z
+  updated_at: 2015-12-14 11:43:11.822471000 Z
 product_junctions_116:
-  created_at: 2015-12-08 17:13:39.648438000 Z
+  created_at: 2015-12-14 11:43:11.969491000 Z
   id: 141
   lock_version: 0
   nature: birth
   started_at: 2015-01-01 00:00:00.000000000 Z
   stopped_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-08 17:13:39.648438000 Z
+  updated_at: 2015-12-14 11:43:11.969491000 Z
 product_junctions_117:
-  created_at: 2015-12-08 17:13:39.785221000 Z
+  created_at: 2015-12-14 11:43:12.122200000 Z
   id: 142
   lock_version: 0
   nature: birth
   started_at: 2015-01-01 00:00:00.000000000 Z
   stopped_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-08 17:13:39.785221000 Z
+  updated_at: 2015-12-14 11:43:12.122200000 Z

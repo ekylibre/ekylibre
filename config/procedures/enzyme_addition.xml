@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="enzyme_addition" categories="viticulture_transformation" actions="enzyme_addition">
-    <variables>
-      <variable name="tank" type="tool" variety="tank" abilities="store_liquid" default-actor="storage"/>
-      <variable name="wine_to_treat" type="target" variety="wine" default-actor="first_localized_in: tank"/>
-      <variable name="oenological_intrant" type="input" variety="matter" abilities="catalyze(wine)">
+    <parameters>
+      <parameter name="tank" type="tool" filter="is tank and can store_liquid" default-actor="storage"/>
+      <parameter name="wine_to_treat" type="target" filter="is wine" default-actor="first_localized_in: tank"/>
+      <parameter name="oenological_intrant" type="input" filter="is matter and can catalyze(wine)">
         <handler indicator="population"/>
-      </variable>
-      <variable name="wine_man" type="doer" variety="worker" abilities="move"/>
-    </variables>
+      </parameter>
+      <parameter name="wine_man" type="doer" filter="is worker and can move"/>
+    </parameters>
   </procedure>
 </procedures>

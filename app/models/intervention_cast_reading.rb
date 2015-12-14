@@ -44,6 +44,7 @@
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
 #
+
 class InterventionCastReading < Ekylibre::Record::Base
   include ReadingStorable
   belongs_to :intervention_cast, inverse_of: :readings

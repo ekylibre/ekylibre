@@ -28,7 +28,8 @@ module Backend
       t.action :edit, unless: :closed?
       t.action :destroy, unless: :closed?
       t.column :code, url: true
-      t.column :closed
+      # FIXME: closed class method conflicts with active_list enumerize detector
+      # t.column :closed
       t.column :started_on, url: true
       t.column :stopped_on, url: true
       t.column :currency

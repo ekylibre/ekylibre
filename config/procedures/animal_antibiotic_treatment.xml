@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="animal_antibiotic_treatment" categories="animal_treating" actions="disease_treatment">
-    <variables>
-      <variable name="animal" type="target" variety="animal"/>
-      <variable name="animal_medicine" type="input" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})" abilities="care(animal)">
+    <parameters>
+      <parameter name="animal" type="target" filter="is animal"/>
+      <parameter name="animal_medicine" type="input" filter="can care(animal)" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
         <handler indicator="population"/>
         <handler indicator="net_mass" unit="gram" if="animal_medicine.net_mass(gram) &gt; 0" to="population" backward="(value * self..net_mass(gram))" forward="(value / self..net_mass(gram))"/>
         <handler indicator="net_volume" unit="milliliter" if="animal_medicine.net_volume(milliliter) &gt; 0" to="population" backward="(value * self..net_volume(milliliter))" forward="(value / self..net_volume(milliliter))"/>
-      </variable>
-      <variable name="caregiver" type="doer" abilities="administer_care(animal)"/>
-    </variables>
+      </parameter>
+      <parameter name="caregiver" type="doer" filter="can administer_care(animal)"/>
+    </parameters>
   </procedure>
 </procedures>

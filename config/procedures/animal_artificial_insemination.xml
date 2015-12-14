@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="animal_artificial_insemination" categories="animal_breeding" actions="animal_artificial_insemination">
-    <variables>
-      <variable name="animal" type="target" variety="animal" abilities="produce(animal)"/>
-      <variable name="vial" type="input" variety="vial" derivative-of="variety: animal" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})" abilities="inseminate(animal)">
+    <parameters>
+      <parameter name="animal" type="target" filter="is animal and can produce(animal)"/>
+      <parameter name="vial" type="input" filter="is vial and derives from variety: animal and can inseminate(animal)" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
         <handler indicator="population"/>
-      </variable>
-      <variable name="inseminator" type="doer" abilities="administer_inseminate(animal)"/>
-    </variables>
+      </parameter>
+      <parameter name="inseminator" type="doer" filter="can administer_inseminate(animal)"/>
+    </parameters>
   </procedure>
 </procedures>

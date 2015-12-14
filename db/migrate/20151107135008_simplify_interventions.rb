@@ -317,45 +317,19 @@ class SimplifyInterventions < ActiveRecord::Migration
     # - Product
     rename_column :intervention_casts, :actor_id, :product_id
 
-    # Remove interventions administrative_task
-    execute "DELETE FROM intervention_casts WHERE intervention_id IN (SELECT id FROM interventions WHERE reference_name = 'base-administrative_task-0')"
-    execute "DELETE FROM interventions WHERE reference_name = 'base-administrative_task-0'"
-    # Remove interventions attach
-    execute "DELETE FROM intervention_casts WHERE intervention_id IN (SELECT id FROM interventions WHERE reference_name = 'base-attach-0')"
-    execute "DELETE FROM interventions WHERE reference_name = 'base-attach-0'"
-    # Remove interventions detach
-    execute "DELETE FROM intervention_casts WHERE intervention_id IN (SELECT id FROM interventions WHERE reference_name = 'base-detach-0')"
-    execute "DELETE FROM interventions WHERE reference_name = 'base-detach-0'"
-    # Remove interventions double_chemical_mixing
-    execute "DELETE FROM intervention_casts WHERE intervention_id IN (SELECT id FROM interventions WHERE reference_name = 'base-double_chemical_mixing-0')"
-    execute "DELETE FROM interventions WHERE reference_name = 'base-double_chemical_mixing-0'"
-    # Remove interventions double_seed_mixing
-    execute "DELETE FROM intervention_casts WHERE intervention_id IN (SELECT id FROM interventions WHERE reference_name = 'base-double_seed_mixing-0')"
-    execute "DELETE FROM interventions WHERE reference_name = 'base-double_seed_mixing-0'"
-    # Remove interventions filling
-    execute "DELETE FROM intervention_casts WHERE intervention_id IN (SELECT id FROM interventions WHERE reference_name = 'base-filling-0')"
-    execute "DELETE FROM interventions WHERE reference_name = 'base-filling-0'"
-    # Remove interventions group_exclusion
-    execute "DELETE FROM intervention_casts WHERE intervention_id IN (SELECT id FROM interventions WHERE reference_name = 'base-group_exclusion-0')"
-    execute "DELETE FROM interventions WHERE reference_name = 'base-group_exclusion-0'"
-    # Remove interventions group_inclusion
-    execute "DELETE FROM intervention_casts WHERE intervention_id IN (SELECT id FROM interventions WHERE reference_name = 'base-group_inclusion-0')"
-    execute "DELETE FROM interventions WHERE reference_name = 'base-group_inclusion-0'"
-    # Remove interventions maintenance_task
-    execute "DELETE FROM intervention_casts WHERE intervention_id IN (SELECT id FROM interventions WHERE reference_name = 'base-maintenance_task-0')"
-    execute "DELETE FROM interventions WHERE reference_name = 'base-maintenance_task-0'"
-    # Remove interventions product_evolution
-    execute "DELETE FROM intervention_casts WHERE intervention_id IN (SELECT id FROM interventions WHERE reference_name = 'base-product_evolution-0')"
-    execute "DELETE FROM interventions WHERE reference_name = 'base-product_evolution-0'"
-    # Remove interventions product_moving
-    execute "DELETE FROM intervention_casts WHERE intervention_id IN (SELECT id FROM interventions WHERE reference_name = 'base-product_moving-0')"
-    execute "DELETE FROM interventions WHERE reference_name = 'base-product_moving-0'"
-    # Remove interventions technical_task
-    execute "DELETE FROM intervention_casts WHERE intervention_id IN (SELECT id FROM interventions WHERE reference_name = 'base-technical_task-0')"
-    execute "DELETE FROM interventions WHERE reference_name = 'base-technical_task-0'"
-    # Remove interventions triple_seed_mixing
-    execute "DELETE FROM intervention_casts WHERE intervention_id IN (SELECT id FROM interventions WHERE reference_name = 'base-triple_seed_mixing-0')"
-    execute "DELETE FROM interventions WHERE reference_name = 'base-triple_seed_mixing-0'"
+    create_table :intervention_cast_groups do |t|
+      t.references :intervention, null: false, index: true
+      t.references :group, index: true
+      t.string :parameter_group_name, null: false
+      t.stamps
+      t.index :parameter_group_name
+    end
+    add_reference :intervention_casts, :group, index: true
+
+
+    # Remove not wanted interventions
+    execute "DELETE FROM intervention_casts WHERE intervention_id IN (SELECT id FROM interventions WHERE reference_name IN ('base-administrative_task-0', 'base-attach-0', 'base-detach-0', 'base-double_chemical_mixing-0', 'base-double_seed_mixing-0', 'base-filling-0', 'base-group_exclusion-0', 'base-group_inclusion-0', 'base-maintenance_task-0', 'base-product_evolution-0', 'base-product_moving-0', 'base-technical_task-0', 'base-triple_seed_mixing-0'))"
+    execute "DELETE FROM interventions WHERE reference_name IN ('base-administrative_task-0', 'base-attach-0', 'base-detach-0', 'base-double_chemical_mixing-0', 'base-double_seed_mixing-0', 'base-filling-0', 'base-group_exclusion-0', 'base-group_inclusion-0', 'base-maintenance_task-0', 'base-product_evolution-0', 'base-product_moving-0', 'base-technical_task-0', 'base-triple_seed_mixing-0')"
     # Merge interventions calving_twin casts into parturition's
     execute "UPDATE intervention_casts SET reference_name = 'child' FROM interventions AS i WHERE i.id = intervention_id AND intervention_casts.reference_name = 'first_child' AND i.reference_name = 'base-calving_twin-0'"
     execute "UPDATE intervention_casts SET reference_name = 'child' FROM interventions AS i WHERE i.id = intervention_id AND intervention_casts.reference_name = 'second_child' AND i.reference_name = 'base-calving_twin-0'"
@@ -511,6 +485,10 @@ class SimplifyInterventions < ActiveRecord::Migration
     execute "UPDATE intervention_casts SET reference_name = 'sortable' FROM interventions AS i WHERE i.id = intervention_id AND intervention_casts.reference_name = 'sortable_to_sort' AND i.reference_name = 'base-field_plant_sorting-0'"
     # Rename interventions sowing_with_insecticide_and_molluscicide with sowing_with_spraying
     execute "UPDATE interventions SET reference_name = 'base-sowing_with_spraying-0' WHERE reference_name = 'base-sowing_with_insecticide_and_molluscicide-0'"
+    # Add group zone for sowing_with_spraying
+    execute "INSERT INTO intervention_cast_groups (intervention_id, parameter_group_name, created_at, creator_id, updated_at, updater_id, lock_version) SELECT id, 'zone', created_at, creator_id, updated_at, updater_id, lock_version FROM interventions WHERE reference_name = 'base-sowing_with_spraying-0'"
+    execute "UPDATE intervention_casts SET group_id = groups.id FROM (SELECT cg.id, cg.intervention_id FROM intervention_cast_groups AS cg JOIN interventions AS i ON (cg.intervention_id = i.id) WHERE cg.parameter_group_name = 'zone' AND i.reference_name = 'base-sowing_with_spraying-0') AS groups WHERE groups.intervention_id = intervention_casts.intervention_id"
+    execute "UPDATE intervention_casts SET group_id = groups.id FROM (SELECT cg.id, cg.intervention_id FROM intervention_cast_groups AS cg JOIN interventions AS i ON (cg.intervention_id = i.id) WHERE cg.parameter_group_name = 'zone' AND i.reference_name = 'base-sowing_with_spraying-0') AS groups WHERE groups.intervention_id = intervention_casts.intervention_id"
     # Merge seeds infos into seeds_to_sow and rename it
     execute "UPDATE intervention_casts SET source_product_id = origin.product_id FROM interventions AS i, intervention_casts AS origin JOIN interventions AS oi ON (oi.id = origin.intervention_id) WHERE origin.reference_name = 'seeds' AND intervention_casts.reference_name = 'seeds_to_sow' AND oi.reference_name = 'base-sowing_with_spraying-0' AND oi.reference_name = i.reference_name AND i.id = intervention_casts.intervention_id"
     execute "DELETE FROM intervention_casts WHERE id IN (SELECT c.id FROM intervention_casts AS c JOIN interventions AS i ON (i.id = c.intervention_id) WHERE c.reference_name = 'seeds' AND i.reference_name = 'base-sowing_with_spraying-0')"
@@ -535,6 +513,10 @@ class SimplifyInterventions < ActiveRecord::Migration
     execute "UPDATE intervention_casts SET source_product_id = origin.product_id FROM interventions AS i, intervention_casts AS origin JOIN interventions AS oi ON (oi.id = origin.intervention_id) WHERE origin.reference_name = 'water' AND intervention_casts.reference_name = 'water_to_spread' AND oi.reference_name = 'base-plant_watering-0' AND oi.reference_name = i.reference_name AND i.id = intervention_casts.intervention_id"
     execute "DELETE FROM intervention_casts WHERE id IN (SELECT c.id FROM intervention_casts AS c JOIN interventions AS i ON (i.id = c.intervention_id) WHERE c.reference_name = 'water' AND i.reference_name = 'base-plant_watering-0')"
     execute "UPDATE intervention_casts SET reference_name = 'water' FROM interventions AS i WHERE i.id = intervention_id AND intervention_casts.reference_name = 'water_to_spread' AND i.reference_name = 'base-plant_watering-0'"
+    # Add group zone for all_in_one_sowing
+    execute "INSERT INTO intervention_cast_groups (intervention_id, parameter_group_name, created_at, creator_id, updated_at, updater_id, lock_version) SELECT id, 'zone', created_at, creator_id, updated_at, updater_id, lock_version FROM interventions WHERE reference_name = 'base-all_in_one_sowing-0'"
+    execute "UPDATE intervention_casts SET group_id = groups.id FROM (SELECT cg.id, cg.intervention_id FROM intervention_cast_groups AS cg JOIN interventions AS i ON (cg.intervention_id = i.id) WHERE cg.parameter_group_name = 'zone' AND i.reference_name = 'base-all_in_one_sowing-0') AS groups WHERE groups.intervention_id = intervention_casts.intervention_id"
+    execute "UPDATE intervention_casts SET group_id = groups.id FROM (SELECT cg.id, cg.intervention_id FROM intervention_cast_groups AS cg JOIN interventions AS i ON (cg.intervention_id = i.id) WHERE cg.parameter_group_name = 'zone' AND i.reference_name = 'base-all_in_one_sowing-0') AS groups WHERE groups.intervention_id = intervention_casts.intervention_id"
     # Merge seeds infos into seeds_to_sow and rename it
     execute "UPDATE intervention_casts SET source_product_id = origin.product_id FROM interventions AS i, intervention_casts AS origin JOIN interventions AS oi ON (oi.id = origin.intervention_id) WHERE origin.reference_name = 'seeds' AND intervention_casts.reference_name = 'seeds_to_sow' AND oi.reference_name = 'base-all_in_one_sowing-0' AND oi.reference_name = i.reference_name AND i.id = intervention_casts.intervention_id"
     execute "DELETE FROM intervention_casts WHERE id IN (SELECT c.id FROM intervention_casts AS c JOIN interventions AS i ON (i.id = c.intervention_id) WHERE c.reference_name = 'seeds' AND i.reference_name = 'base-all_in_one_sowing-0')"
@@ -577,19 +559,10 @@ class SimplifyInterventions < ActiveRecord::Migration
     execute "UPDATE intervention_casts SET source_product_id = origin.product_id FROM interventions AS i, intervention_casts AS origin JOIN interventions AS oi ON (oi.id = origin.intervention_id) WHERE origin.reference_name = 'fuel' AND intervention_casts.reference_name = 'fuel_to_input' AND oi.reference_name = 'base-fuel_up-0' AND oi.reference_name = i.reference_name AND i.id = intervention_casts.intervention_id"
     execute "DELETE FROM intervention_casts WHERE id IN (SELECT c.id FROM intervention_casts AS c JOIN interventions AS i ON (i.id = c.intervention_id) WHERE c.reference_name = 'fuel' AND i.reference_name = 'base-fuel_up-0')"
     execute "UPDATE intervention_casts SET reference_name = 'fuel' FROM interventions AS i WHERE i.id = intervention_id AND intervention_casts.reference_name = 'fuel_to_input' AND i.reference_name = 'base-fuel_up-0'"
-    # Remove interventions grain_transport
-    execute "DELETE FROM intervention_casts WHERE intervention_id IN (SELECT id FROM interventions WHERE reference_name = 'base-grain_transport-0')"
-    execute "DELETE FROM interventions WHERE reference_name = 'base-grain_transport-0'"
     # Merge grape infos into grape_to_press and rename it
     execute "UPDATE intervention_casts SET source_product_id = origin.product_id FROM interventions AS i, intervention_casts AS origin JOIN interventions AS oi ON (oi.id = origin.intervention_id) WHERE origin.reference_name = 'grape' AND intervention_casts.reference_name = 'grape_to_press' AND oi.reference_name = 'base-grape_pressing-0' AND oi.reference_name = i.reference_name AND i.id = intervention_casts.intervention_id"
     execute "DELETE FROM intervention_casts WHERE id IN (SELECT c.id FROM intervention_casts AS c JOIN interventions AS i ON (i.id = c.intervention_id) WHERE c.reference_name = 'grape' AND i.reference_name = 'base-grape_pressing-0')"
     execute "UPDATE intervention_casts SET reference_name = 'grape' FROM interventions AS i WHERE i.id = intervention_id AND intervention_casts.reference_name = 'grape_to_press' AND i.reference_name = 'base-grape_pressing-0'"
-    # Remove interventions grape_transport
-    execute "DELETE FROM intervention_casts WHERE intervention_id IN (SELECT id FROM interventions WHERE reference_name = 'base-grape_transport-0')"
-    execute "DELETE FROM interventions WHERE reference_name = 'base-grape_transport-0'"
-    # Remove interventions hazelnuts_transport
-    execute "DELETE FROM intervention_casts WHERE intervention_id IN (SELECT id FROM interventions WHERE reference_name = 'base-hazelnuts_transport-0')"
-    execute "DELETE FROM interventions WHERE reference_name = 'base-hazelnuts_transport-0'"
     # Merge silage infos into silage_to_give and rename it
     execute "UPDATE intervention_casts SET source_product_id = origin.product_id FROM interventions AS i, intervention_casts AS origin JOIN interventions AS oi ON (oi.id = origin.intervention_id) WHERE origin.reference_name = 'silage' AND intervention_casts.reference_name = 'silage_to_give' AND oi.reference_name = 'base-manual_feeding-0' AND oi.reference_name = i.reference_name AND i.id = intervention_casts.intervention_id"
     execute "DELETE FROM intervention_casts WHERE id IN (SELECT c.id FROM intervention_casts AS c JOIN interventions AS i ON (i.id = c.intervention_id) WHERE c.reference_name = 'silage' AND i.reference_name = 'base-manual_feeding-0')"
@@ -602,13 +575,14 @@ class SimplifyInterventions < ActiveRecord::Migration
     execute "UPDATE intervention_casts SET source_product_id = origin.product_id FROM interventions AS i, intervention_casts AS origin JOIN interventions AS oi ON (oi.id = origin.intervention_id) WHERE origin.reference_name = 'wine' AND intervention_casts.reference_name = 'wine_to_move' AND oi.reference_name = 'base-partial_wine_transfer-0' AND oi.reference_name = i.reference_name AND i.id = intervention_casts.intervention_id"
     execute "DELETE FROM intervention_casts WHERE id IN (SELECT c.id FROM intervention_casts AS c JOIN interventions AS i ON (i.id = c.intervention_id) WHERE c.reference_name = 'wine' AND i.reference_name = 'base-partial_wine_transfer-0')"
     execute "UPDATE intervention_casts SET reference_name = 'wine' FROM interventions AS i WHERE i.id = intervention_id AND intervention_casts.reference_name = 'wine_to_move' AND i.reference_name = 'base-partial_wine_transfer-0'"
-    # Remove interventions silage_transport
-    execute "DELETE FROM intervention_casts WHERE intervention_id IN (SELECT id FROM interventions WHERE reference_name = 'base-silage_transport-0')"
-    execute "DELETE FROM interventions WHERE reference_name = 'base-silage_transport-0'"
     # Merge silage infos into silage_to_give and rename it
     execute "UPDATE intervention_casts SET source_product_id = origin.product_id FROM interventions AS i, intervention_casts AS origin JOIN interventions AS oi ON (oi.id = origin.intervention_id) WHERE origin.reference_name = 'silage' AND intervention_casts.reference_name = 'silage_to_give' AND oi.reference_name = 'base-silage_unload-0' AND oi.reference_name = i.reference_name AND i.id = intervention_casts.intervention_id"
     execute "DELETE FROM intervention_casts WHERE id IN (SELECT c.id FROM intervention_casts AS c JOIN interventions AS i ON (i.id = c.intervention_id) WHERE c.reference_name = 'silage' AND i.reference_name = 'base-silage_unload-0')"
     execute "UPDATE intervention_casts SET reference_name = 'silage' FROM interventions AS i WHERE i.id = intervention_id AND intervention_casts.reference_name = 'silage_to_give' AND i.reference_name = 'base-silage_unload-0'"
+    # Add group zone for sowing
+    execute "INSERT INTO intervention_cast_groups (intervention_id, parameter_group_name, created_at, creator_id, updated_at, updater_id, lock_version) SELECT id, 'zone', created_at, creator_id, updated_at, updater_id, lock_version FROM interventions WHERE reference_name = 'base-sowing-0'"
+    execute "UPDATE intervention_casts SET group_id = groups.id FROM (SELECT cg.id, cg.intervention_id FROM intervention_cast_groups AS cg JOIN interventions AS i ON (cg.intervention_id = i.id) WHERE cg.parameter_group_name = 'zone' AND i.reference_name = 'base-sowing-0') AS groups WHERE groups.intervention_id = intervention_casts.intervention_id"
+    execute "UPDATE intervention_casts SET group_id = groups.id FROM (SELECT cg.id, cg.intervention_id FROM intervention_cast_groups AS cg JOIN interventions AS i ON (cg.intervention_id = i.id) WHERE cg.parameter_group_name = 'zone' AND i.reference_name = 'base-sowing-0') AS groups WHERE groups.intervention_id = intervention_casts.intervention_id"
     # Merge seeds infos into seeds_to_sow and rename it
     execute "UPDATE intervention_casts SET source_product_id = origin.product_id FROM interventions AS i, intervention_casts AS origin JOIN interventions AS oi ON (oi.id = origin.intervention_id) WHERE origin.reference_name = 'seeds' AND intervention_casts.reference_name = 'seeds_to_sow' AND oi.reference_name = 'base-sowing-0' AND oi.reference_name = i.reference_name AND i.id = intervention_casts.intervention_id"
     execute "DELETE FROM intervention_casts WHERE id IN (SELECT c.id FROM intervention_casts AS c JOIN interventions AS i ON (i.id = c.intervention_id) WHERE c.reference_name = 'seeds' AND i.reference_name = 'base-sowing-0')"
@@ -621,16 +595,10 @@ class SimplifyInterventions < ActiveRecord::Migration
     execute "UPDATE intervention_casts SET source_product_id = origin.product_id FROM interventions AS i, intervention_casts AS origin JOIN interventions AS oi ON (oi.id = origin.intervention_id) WHERE origin.reference_name = 'wire_fence' AND intervention_casts.reference_name = 'wire_fence_to_put' AND oi.reference_name = 'base-standard_enclosing-0' AND oi.reference_name = i.reference_name AND i.id = intervention_casts.intervention_id"
     execute "DELETE FROM intervention_casts WHERE id IN (SELECT c.id FROM intervention_casts AS c JOIN interventions AS i ON (i.id = c.intervention_id) WHERE c.reference_name = 'wire_fence' AND i.reference_name = 'base-standard_enclosing-0')"
     execute "UPDATE intervention_casts SET reference_name = 'wire_fence' FROM interventions AS i WHERE i.id = intervention_id AND intervention_casts.reference_name = 'wire_fence_to_put' AND i.reference_name = 'base-standard_enclosing-0'"
-    # Remove interventions straw_transport
-    execute "DELETE FROM intervention_casts WHERE intervention_id IN (SELECT id FROM interventions WHERE reference_name = 'base-straw_transport-0')"
-    execute "DELETE FROM interventions WHERE reference_name = 'base-straw_transport-0'"
     # Merge oenological_intrant infos into oenological_intrant_to_put and rename it
     execute "UPDATE intervention_casts SET source_product_id = origin.product_id FROM interventions AS i, intervention_casts AS origin JOIN interventions AS oi ON (oi.id = origin.intervention_id) WHERE origin.reference_name = 'oenological_intrant' AND intervention_casts.reference_name = 'oenological_intrant_to_put' AND oi.reference_name = 'base-sulfur_addition-0' AND oi.reference_name = i.reference_name AND i.id = intervention_casts.intervention_id"
     execute "DELETE FROM intervention_casts WHERE id IN (SELECT c.id FROM intervention_casts AS c JOIN interventions AS i ON (i.id = c.intervention_id) WHERE c.reference_name = 'oenological_intrant' AND i.reference_name = 'base-sulfur_addition-0')"
     execute "UPDATE intervention_casts SET reference_name = 'oenological_intrant' FROM interventions AS i WHERE i.id = intervention_id AND intervention_casts.reference_name = 'oenological_intrant_to_put' AND i.reference_name = 'base-sulfur_addition-0'"
-    # Remove interventions walnuts_transport
-    execute "DELETE FROM intervention_casts WHERE intervention_id IN (SELECT id FROM interventions WHERE reference_name = 'base-walnuts_transport-0')"
-    execute "DELETE FROM interventions WHERE reference_name = 'base-walnuts_transport-0'"
     # Merge wine infos into wine_to_blend and rename it
     execute "UPDATE intervention_casts SET source_product_id = origin.product_id FROM interventions AS i, intervention_casts AS origin JOIN interventions AS oi ON (oi.id = origin.intervention_id) WHERE origin.reference_name = 'wine' AND intervention_casts.reference_name = 'wine_to_blend' AND oi.reference_name = 'base-wine_blending-0' AND oi.reference_name = i.reference_name AND i.id = intervention_casts.intervention_id"
     execute "DELETE FROM intervention_casts WHERE id IN (SELECT c.id FROM intervention_casts AS c JOIN interventions AS i ON (i.id = c.intervention_id) WHERE c.reference_name = 'wine' AND i.reference_name = 'base-wine_blending-0')"
@@ -683,6 +651,9 @@ class SimplifyInterventions < ActiveRecord::Migration
         change_column_null :intervention_casts, :nature, false
       end
     end
+
+    rename_column :interventions, :reference_name, :procedure_name
+    rename_column :intervention_casts, :reference_name, :parameter_name
 
     revert do
       # add_reference :intervention_casts, :event_participation, index: true

@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="plant_mulching" categories="crop_protection" optional-actions="organic_fertilization">
-    <variables>
-      <variable name="plastic" type="input" variety="preparation" abilities="wrap(cultivable_zone)">
+    <parameters>
+      <parameter name="plastic" type="input" filter="is preparation and can wrap(cultivable_zone)">
         <handler indicator="population"/>
         <handler indicator="net_length" unit="meter" if="plastic_to_mulch? &amp; plastic_to_mulch.net_length(meter) &gt;= 0.1" to="population" backward="(value / plastic_to_mulch.net_length(meter))" forward="(value * plastic_to_mulch.net_length(meter))"/>
         <handler indicator="surface_area_percentage" unit="percent" if="land_parcel? &amp; land_parcel.net_surface_area(hectare) &gt;= 0.1 &amp; plastic_to_mulch? &amp; plastic_to_mulch.net_length(meter) &gt;= 0.1 &amp; plastic_to_mulch.width(meter) &gt;= 0.1" to="population" backward="(value * plastic_to_mulch.net_length(meter) * plastic_to_mulch.width(meter)) / land_parcel.net_surface_area(hectare)" forward="(value * land_parcel.net_surface_area(hectare)) / (plastic_to_mulch.net_length(meter) * plastic_to_mulch.width(meter))"/>
-      </variable>
-      <variable name="implanter" type="tool" abilities="seat(canvas_cover)"/>
-      <variable name="driver" type="doer" abilities="drive(tractor)"/>
-      <variable name="tractor" type="tool" variety="equipment" abilities="catch(implanter)"/>
-      <variable name="land_parcel" type="target" variety="cultivable_zone" default-shape=":land_parcel" default-actor="storage">
+      </parameter>
+      <parameter name="implanter" type="tool" filter="can seat(canvas_cover)"/>
+      <parameter name="driver" type="doer" filter="can drive(tractor)"/>
+      <parameter name="tractor" type="tool" filter="is equipment and can catch(implanter)"/>
+      <parameter name="land_parcel" type="target" filter="is cultivable_zone" default-shape=":land_parcel" default-actor="storage">
         <handler indicator="shape">
           <converter to="shape" forward="intersection(value, land_parcel.shape)" backward="value"/>
           <converter to="population" forward="area(value) / land_parcel..net_surface_area(square_meter)"/>
         </handler>
-      </variable>
-    </variables>
+      </parameter>
+    </parameters>
   </procedure>
 </procedures>

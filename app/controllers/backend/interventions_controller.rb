@@ -17,7 +17,7 @@
 #
 module Backend
   class InterventionsController < Backend::BaseController
-    manage_restfully t3e: { procedure_name: 'RECORD.reference.human_name'.c }
+    manage_restfully t3e: { procedure_name: 'RECORD.procedure.human_name'.c }
 
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
@@ -37,9 +37,9 @@ module Backend
       code << "  c[0] << ' AND #{Intervention.table_name}.state IN (?)'\n"
       code << "  c << params[:state].flatten\n"
       code << "end\n"
-      code << "unless params[:reference_name].blank?\n"
-      code << "  c[0] << ' AND #{Intervention.table_name}.reference_name IN (?)'\n"
-      code << "  c << params[:reference_name]\n"
+      code << "unless params[:procedure_name].blank?\n"
+      code << "  c[0] << ' AND #{Intervention.table_name}.procedure_name IN (?)'\n"
+      code << "  c << params[:procedure_name]\n"
       code << "end\n"
       code << "c[0] << ' AND ' + params[:nature].join(' AND ') unless params[:nature].blank?\n"
 
@@ -76,7 +76,7 @@ module Backend
       t.action :run,  if: :runnable?, method: :post, confirm: true
       t.action :edit, if: :updateable?
       t.action :destroy, if: :destroyable?
-      t.column :name, sort: :reference_name, url: true
+      t.column :name, sort: :procedure_name, url: true
       # t.column :production, url: true, hidden: true
       # t.column :campaign, url: true
       # t.column :activity, url: true, hidden: true
@@ -92,7 +92,7 @@ module Backend
     # SHOW
 
     list(:casts, model: :intervention_casts, conditions: { intervention_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
-      t.column :name, sort: :reference_name
+      t.column :name, sort: :parameter_name
       t.column :product, url: true
       t.column :human_roles, sort: :roles, label: :roles
       t.column :population
@@ -101,14 +101,6 @@ module Backend
       t.column :variant, url: true
     end
 
-    # list(:operations, conditions: { intervention_id: 'params[:id]'.c }, order: :started_at) do |t|
-    #   t.column :reference_name
-    #   t.column :description
-    #   # t.column :name, url: true
-    #   t.column :started_at
-    #   t.column :stopped_at
-    #   t.column :duration
-    # end
 
     # Show one intervention with params_id
     def show

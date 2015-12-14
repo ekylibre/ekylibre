@@ -1,22 +1,22 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="standard_enclosing" categories="installations_modification" optional-actions="animal_penning, game_protection">
-    <variables>
-      <variable name="land_parcel" type="target" variety="cultivable_zone" default-shape=":land_parcel" default-actor="storage">
+    <parameters>
+      <parameter name="land_parcel" type="target" filter="is cultivable_zone" default-shape=":land_parcel" default-actor="storage">
         <handler indicator="shape">
           <converter to="shape" forward="intersection(value, land_parcel.shape)" backward="value"/>
           <converter to="population" forward="area(value) / land_parcel..net_surface_area(square_meter)"/>
         </handler>
-      </variable>
-      <variable name="doer" type="doer" variety="worker" abilities="move"/>
-      <variable name="stakes" type="input" variety="stake" abilities="enclose">
+      </parameter>
+      <parameter name="doer" type="doer" filter="is worker and can move"/>
+      <parameter name="stakes" type="input" filter="is stake and can enclose">
         <handler indicator="population"/>
         <handler indicator="stakes_count" unit="unity_per_hectare" if="land_parcel? &amp; land_parcel.net_surface_area(hectare) &gt;= 0.1" to="population" backward="(value / land_parcel.net_surface_area(hectare))" forward="(value * land_parcel.net_surface_area(hectare))"/>
-      </variable>
-      <variable name="wire_fence" type="input" variety="wire" abilities="enclose">
+      </parameter>
+      <parameter name="wire_fence" type="input" filter="is wire and can enclose">
         <handler indicator="population"/>
         <handler indicator="length" unit="meter" if="wire_fence? &amp; wire_fence.length(meter) &gt;= 0.1" to="population" backward="(value * wire_fence.length(meter))" forward="(value / wire_fence.length(meter))"/>
-      </variable>
-    </variables>
+      </parameter>
+    </parameters>
   </procedure>
 </procedures>

@@ -2431,6 +2431,35 @@ incoming_payments:
   updater_id:
     type: integer
     references: user
+intervention_cast_groups:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  group_id:
+    type: integer
+    references: intervention_cast_group
+  id:
+    type: integer
+    required: true
+  intervention_id:
+    type: integer
+    references: intervention
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  parameter_group_name:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 intervention_cast_readings:
   absolute_measure_value_unit:
     type: string
@@ -2511,6 +2540,9 @@ intervention_casts:
   event_participation_id:
     type: integer
     references: event_participation
+  group_id:
+    type: integer
+    references: intervention_cast_group
   id:
     type: integer
     required: true
@@ -2530,6 +2562,9 @@ intervention_casts:
   new_variant_id:
     type: integer
     references: product_nature_variant
+  parameter_name:
+    type: string
+    required: true
   position:
     type: integer
     required: true
@@ -2550,9 +2585,6 @@ intervention_casts:
     type: decimal
     precision: 19
     scale: 4
-  reference_name:
-    type: string
-    required: true
   source_product_id:
     type: integer
     references: product
@@ -2630,7 +2662,7 @@ interventions:
   prescription_id:
     type: integer
     references: prescription
-  reference_name:
+  procedure_name:
     type: string
     required: true
   started_at:

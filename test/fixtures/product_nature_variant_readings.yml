@@ -1338,12 +1338,12 @@ product_nature_variant_readings_093:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
-  created_at: 2015-12-08 17:13:35.605486000 Z
+  created_at: 2015-12-14 11:43:07.779551000 Z
   id: 93
   indicator_datatype: measure
   indicator_name: net_surface_area
   lock_version: 0
   measure_value_unit: hectare
   measure_value_value: 1.0
-  updated_at: 2015-12-08 17:13:35.605486000 Z
+  updated_at: 2015-12-14 11:43:07.779551000 Z
   variant_id: 69

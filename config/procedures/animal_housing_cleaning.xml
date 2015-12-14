@@ -1,22 +1,22 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="animal_housing_cleaning" categories="habitat_maintenance" actions="hygiene">
-    <variables>
-      <variable name="animal_housing" type="target" variety="building_division" abilities="store(animal)" default-shape=":animal_housing" default-actor="default_storage_of_support">
+    <parameters>
+      <parameter name="animal_housing" type="target" filter="is building_division and can store(animal)" default-shape=":animal_housing" default-actor="default_storage_of_support">
         <handler indicator="shape">
           <converter to="shape" forward="intersection(value, animal_housing.shape)" backward="value"/>
           <converter to="population" forward="area(value) / animal_housing..net_surface_area(square_meter)"/>
         </handler>
-      </variable>
-      <variable name="excrement" type="output" variety="excrement" derivative-of="animal" default-name="{{variant}} {{birth_year}}-{{birth_month}}-{{birth_day}}">
+      </parameter>
+      <parameter name="excrement" type="output" variety="excrement" derivative-of="animal" filter="is excrement and derives from animal" default-name="{{variant}} {{birth_year}}-{{birth_month}}-{{birth_day}}">
         <handler indicator="population"/>
         <handler indicator="net_mass" unit="ton" to="population" backward="value * self..net_mass(ton)" forward="value / self..net_mass(ton)"/>
         <handler indicator="net_volume" unit="cubic_meter" to="population" backward="value * self..net_volume(cubic_meter)" forward="value / self..net_volume(cubic_meter)"/>
         <handler name="dry_matter_mass_area_density" indicator="mass_area_density" unit="kilogram_per_square_meter" to="population" backward="(value * self..net_mass(kilogram)) / animal_housing.net_surface_area(square_meter)" forward="(value * animal_housing.net_surface_area(square_meter)) / self..net_mass(kilogram)"/>
-      </variable>
-      <variable name="cleaner" type="tool" abilities="clean(building_division)"/>
-      <variable name="driver" type="doer" abilities="drive(equipment), move"/>
-      <variable name="tractor" type="tool" abilities="tow(equipment), move"/>
-    </variables>
+      </parameter>
+      <parameter name="cleaner" type="tool" filter="can clean(building_division)"/>
+      <parameter name="driver" type="doer" filter="can drive(equipment) and can move"/>
+      <parameter name="tractor" type="tool" filter="can tow(equipment) and can move"/>
+    </parameters>
   </procedure>
 </procedures>

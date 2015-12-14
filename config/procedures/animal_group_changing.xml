@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="animal_group_changing" categories="animal_treating" actions="animal_group_changing">
-    <variables>
-      <variable name="animal" type="input" variety="animal" abilities="move"/>
-      <variable name="herd" type="target" variety="animal_group" derivative-of="animal" default-actor="storage"/>
-    </variables>
+    <parameters>
+      <parameter name="animal" type="input" filter="is animal and can move"/>
+      <parameter name="herd" type="target" filter="is animal_group and derives from animal" default-actor="storage"/>
+    </parameters>
   </procedure>
 </procedures>

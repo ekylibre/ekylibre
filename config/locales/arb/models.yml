@@ -751,7 +751,6 @@ arb:
       contact: "الاتصالات" #?
       # crumb: "Crumb"
       # cultivable_zone: "Cultivable zone"
-      # cultivable_zone_membership: "Cultivable zone membership"
       currency: "العملة" #?
       custom_field: "الحقول التكميلية"
       custom_field_choice: "اختيار الحقل التكميلي"
@@ -798,7 +797,14 @@ arb:
       incoming_payment_use: "تأثير الدفعة" #?
       # intervention: "Intervention"
       # intervention_cast: "Intervention cast"
+      # intervention_cast_group: "Intervention cast group"
       # intervention_cast_reading: "Product reading task"
+      # intervention_doer: "Intervention doer"
+      # intervention_input: "Intervention input"
+      # intervention_output: "Intervention output"
+      # intervention_target: "Intervention target"
+      # intervention_tool: "Intervention tool"
+      # intervention_working_period: "Intervention working period"
       inventory: "عملية الجرد"
       inventory_item: "طريقة عملية الجرد"
       # issue: "Issue"
@@ -807,8 +813,6 @@ arb:
       # journal_entry_item: "Journal entry item"
       journal_record: "سجل المحاسبة" #?
       land_parcel: "الكتلة"
-      # land_parcel_cluster: "Land parcel cluster"
-      # land_parcel_group: "Land parcel group"
       listing: "الاستخراج"
       listing_node: "عقدة الاستخراج"
       listing_node_item: "عنصر غقدة الاستخراج"
@@ -823,7 +827,7 @@ arb:
       # net_service: "Net service"
       # notification: "Notification"
       observation: "ملاحظة"
-      operation: "العمل"
+      operation: "العمل" #?
       operation_item: "الواردات/الصادرات" #?
       operation_nature: "نوع العمل" #?
       operation_use: "الاداة المستخدمة" #?
@@ -865,8 +869,7 @@ arb:
       product_stock: "سهم الانتاج" #?
       product_stock_move: "حركة السهم" #?
       product_transfer: "تحول او ضياع السهم" #?
-      # production: "Production"
-      # production_distribution: "Production distribution"
+      # production: ""
       products_nature: "الانتاج" #?
       profession: "المهنة" #?
       purchase: "الشراء"
@@ -891,6 +894,7 @@ arb:
       subscription_nature: "نوع الاشتراك"
       # supervision: "Supervision"
       # supervision_item: "Supervision item"
+      # target_distribution: "Target distribution"
       # task: "Task"
       tax: "الضريبة"
       tax_declaration: "تصريح الضرائب" #?
@@ -1624,6 +1628,7 @@ arb:
     paid_amount: "خصمة من قيمة الضريبة الاضافية" #?
     paid_at: "سددت يوم"
     # paid_taxes: "Paid taxes"
+    # parameter_name: "Parameter name"
     # parameters: "Parameters"
     # parcel: "Parcel"
     # parcel_items: "Parcel items"
@@ -1703,6 +1708,7 @@ arb:
     printed_on: "طبع يوم"
     # priority: "Priority"
     # probability_percentage: "Probability percentage"
+    # procedure_name: "Procedure name"
     producer: "المنتج"
     producer_id: "المنتج" #?
     product: "الانتاج"

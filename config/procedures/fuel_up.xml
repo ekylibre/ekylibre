@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="fuel_up" categories="energy_supplying" actions="fuel_up">
-    <variables>
-      <variable name="equipment" type="target" variety="equipment" abilities="consume(fuel)"/>
-      <variable name="fuel" type="input" variety="fuel"/>
-      <variable name="fuel" type="input" variety="fuel">
+    <parameters>
+      <parameter name="equipment" type="target" filter="is equipment and can consume(fuel)"/>
+      <parameter name="fuel" type="input" filter="is fuel"/>
+      <parameter name="fuel" type="input" filter="is fuel">
         <handler indicator="population"/>
-      </variable>
-      <variable name="mechanic" type="doer" abilities="drive(equipment)"/>
-    </variables>
+      </parameter>
+      <parameter name="mechanic" type="doer" filter="can drive(equipment)"/>
+    </parameters>
   </procedure>
 </procedures>

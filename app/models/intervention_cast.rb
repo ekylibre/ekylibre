@@ -25,12 +25,14 @@
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  event_participation_id :integer
+#  group_id               :integer
 #  id                     :integer          not null, primary key
 #  intervention_id        :integer          not null
 #  lock_version           :integer          default(0), not null
 #  new_container_id       :integer
 #  new_group_id           :integer
 #  new_variant_id         :integer
+#  parameter_name         :string           not null
 #  position               :integer          not null
 #  product_id             :integer
 #  quantity_handler       :string
@@ -38,7 +40,6 @@
 #  quantity_population    :decimal(19, 4)
 #  quantity_unit          :string
 #  quantity_value         :decimal(19, 4)
-#  reference_name         :string           not null
 #  source_product_id      :integer
 #  type                   :string
 #  updated_at             :datetime         not null
@@ -48,7 +49,9 @@
 #
 
 class InterventionCast < Ekylibre::Record::Base
+  attr_readonly :paraemter_name
   belongs_to :event_participation, dependent: :destroy
+  belongs_to :group, class_name: 'InterventionCastGroup'
   belongs_to :intervention, inverse_of: :casts
   belongs_to :new_container, class_name: 'Product'
   belongs_to :new_group, class_name: 'ProductGroup'
@@ -68,7 +71,7 @@ class InterventionCast < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :quantity_population, :quantity_value, allow_nil: true
-  validates_presence_of :intervention, :reference_name
+  validates_presence_of :intervention, :parameter_name
   # ]VALIDATORS]
   validates_presence_of :quantity_indicator, :quantity_unit, if: :quantity_handler?
 
@@ -97,7 +100,6 @@ class InterventionCast < Ekylibre::Record::Base
     end
     where(type: "Intervention#{role.camelize}")
   }
-
   scope :of_activity, lambda { |activity|
     where(intervention_id: InterventionTarget.select(:intervention_id).of_activity(activity))
   }
@@ -108,10 +110,10 @@ class InterventionCast < Ekylibre::Record::Base
   scope :with_actor, -> { where.not(product_id: nil) }
 
   before_validation do
-    if reference
-      self.position = reference.position
-      if reference.handled? && quantity_handler?
-        handler = reference[quantity_handler]
+    if parameter
+      self.position = parameter.position
+      if parameter.handled? && quantity_handler?
+        handler = parameter[quantity_handler]
         if handler
           self.quantity_indicator = handler.indicator.name
           self.quantity_unit = handler.unit
@@ -125,7 +127,7 @@ class InterventionCast < Ekylibre::Record::Base
     if product.is_a?(Product)
       self.variant ||= product.variant
       # for indicator_name in product.whole_indicators_list
-      #   if send(indicator_name).blank? # and !reference.worked?
+      #   if send(indicator_name).blank? # and !parameter.worked?
       #     send("#{indicator_name}=", product.send(indicator_name, started_at))
       #   end
       # end
@@ -133,13 +135,13 @@ class InterventionCast < Ekylibre::Record::Base
   end
 
   validate do
-    if intervention && intervention.reference
-      if reference
-        if reference.handled? && quantity_handler?
-          errors.add(:quantity_handler, :invalid) unless reference[quantity_handler]
+    if intervention && intervention.procedure
+      if parameter
+        if parameter.handled? && quantity_handler?
+          errors.add(:quantity_handler, :invalid) unless parameter[quantity_handler]
         end
       else
-        errors.add(:reference_name, :invalid)
+        errors.add(:parameter_name, :invalid)
       end
     end
   end
@@ -166,7 +168,7 @@ class InterventionCast < Ekylibre::Record::Base
   def cost
     if product && price = evaluated_price
       if self.input?
-        return price * (quantity || 0.0)
+        return price * (quantity_value || 0.0)
       elsif self.tool? || self.doer?
         return price * ((stopped_at - started_at).to_d / 3600)
       end
@@ -176,33 +178,37 @@ class InterventionCast < Ekylibre::Record::Base
 
   def earn
     if product && price = evaluated_price
-      return price * (quantity || 0.0) if self.output?
+      return price * (quantity_value || 0.0) if self.output?
     end
     nil
   end
 
-  def reference
-    unless @reference
+  def parameter
+    unless @parameter
       if intervention
-        reference = intervention.reference
-        @reference = reference.variables[reference_name]
+        procedure = intervention.procedure
+        @parameter = procedure.find(parameter_name, :parameter)
       end
     end
-    @reference
-  end
-
-  def variable_name
-    name
+    @parameter
   end
 
   def name
-    reference ? reference.human_name : reference_name.humanize
+    parameter ? parameter.human_name : parameter_name.humanize
   end
 
   def shape_svg(options = {})
     geom = Charta.new_geometry(self['shape'])
     geom = geom.transform(options[:srid]) if options[:srid]
     geom.to_svg
+  end
+
+  def self.role
+    @name ||= self.name.gsub(/^Intervention/, '').underscore.to_sym
+  end
+
+  def role
+    self.class.role
   end
 
   [:doer, :input, :output, :target, :tool].each do |role|
@@ -227,7 +233,7 @@ class InterventionCast < Ekylibre::Record::Base
   # It uses interpolation to compose the wanted name. Not very i18nized
   # for now, but permits to do the job.
   def set_default_name!
-    if reference.default_name? && produced = product
+    if parameter.default_name? && produced = product
       produced.update_column(:name, default_name)
     end
   end
@@ -235,7 +241,7 @@ class InterventionCast < Ekylibre::Record::Base
   # Compute a default with given environment
   def default_name
     text = nil
-    if reference.default_name?
+    if parameter.default_name?
       words = {
         campaign: campaign.name,
         activity: activity.name
@@ -256,7 +262,7 @@ class InterventionCast < Ekylibre::Record::Base
         words[:birth_month_abbr] = 'date.abbr_month_names'.t[produced.born_at.month]
         words[:birth_day_abbr]   = 'date.abbr_day_names'.t[produced.born_at.wday]
       end
-      text = reference.default_name.dup.gsub(/\{\{\w+\}\}/) do |key|
+      text = parameter.default_name.dup.gsub(/\{\{\w+\}\}/) do |key|
         words[key[2..-3]]
       end
     end
@@ -265,15 +271,16 @@ class InterventionCast < Ekylibre::Record::Base
 
   # Define if the cast is valid for run
   def runnable?
-    if reference.parted?
-      if reference.known_variant?
+    return true
+    if parameter.parted?
+      if parameter.known_variant?
         return quantity.present?
       else
         return (self.variant && quantity.present?)
       end
-    elsif reference.produced?
+    elsif parameter.produced?
       return self.variant
-    elsif reference.type_variant?
+    elsif parameter.type_variant?
       return self.variant
     else
       return product

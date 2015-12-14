@@ -5,24 +5,37 @@ class ProcedoTest < ActiveSupport::TestCase
     I18n.locale = ENV['LOCALE']
   end
 
-  test 'procedure variable abilities' do
+  test 'procedure methods' do
+    procedure = Procedo::Procedure.new(:say_hello)
+    procedure.add_parameter(:speaker, :doer, cardinality: 1)
+    group = procedure.add_parameter_group(:home)
+    group.add_parameter(:human, :tool)
+    group.add_parameter(:dog, :tool)
+    assert procedure.find(:speaker)
+    assert procedure.find(:dog)
+    assert procedure.find(:home)
+  end
+
+  test 'procedure parameter filters' do
     invalids = []
-    Procedo.each_variable do |variable|
+    Procedo.each_parameter do |parameter|
       begin
-        variable.abilities.check!
+        WorkingSet.parse(parameter.filter) unless parameter.filter.nil?
+      rescue WorkingSet::SyntaxError => e
+        invalids << { parameter: parameter, exception: e }
       rescue WorkingSet::InvalidExpression => e
-        invalids << { variable: variable, exception: e }
+        invalids << { parameter: parameter, exception: e }
       end
     end
 
     details = invalids.map do |invalid|
-      variable = invalid[:variable]
+      parameter = invalid[:parameter]
       exception = invalid[:exception]
-      "#{variable.name.to_s.yellow} in #{variable.procedure.name.to_s.red}:\n" \
-      "  expression: #{variable.abilities.inspect}\n" \
+      "#{parameter.name.to_s.yellow} in #{parameter.procedure.name.to_s.red}:\n" \
+      "  expression: #{parameter.abilities.inspect}\n" \
       "  exception: #{exception.message}"
     end.join("\n")
 
-    assert invalids.empty?, "#{invalids.count} procedure variables have invalid abilities:\n" + details.dig
+    assert invalids.empty?, "#{invalids.count} procedure parameters have invalid abilities:\n" + details.dig
   end
 end

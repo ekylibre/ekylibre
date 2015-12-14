@@ -1,20 +1,18 @@
-module Procedo
-  XML_NAMESPACE       = 'http://www.ekylibre.org/XML/2013/procedures'.freeze
-  DEFAULT_NAMESPACE   = :base
-  NAMESPACE_SEPARATOR = '-'
-  VERSION_SEPARATOR   = NAMESPACE_SEPARATOR
+require 'procedo/xml'
 
-  autoload :Error,               'procedo/errors'
-  autoload :Errors,              'procedo/errors'
-  autoload :Procedure,           'procedo/procedure'
-  autoload :Variable,            'procedo/variable'
-  autoload :Handler,             'procedo/handler'
-  autoload :Converter,           'procedo/converter'
-  autoload :HandlerMethodParser, 'procedo/handler_method'
-  autoload :Compilers,           'procedo/compilers'
-  autoload :CompiledProcedure,   'procedo/compiled_procedure'
-  autoload :CompiledVariable,    'procedo/compiled_variable'
-  autoload :FormulaFunctions,    'procedo/formula_functions'
+# Procedo module aims to manage procedure which permits to define way of work
+# simply.
+module Procedo
+  XML_NAMESPACE = 'http://www.ekylibre.org/XML/2013/procedures'.freeze
+
+  # autoload :Procedure,           'procedo/procedure'
+  # autoload :Handler,             'procedo/handler'
+  # autoload :Converter,           'procedo/converter'
+  # autoload :HandlerMethodParser, 'procedo/handler_method'
+  # autoload :Compilers,           'procedo/compilers'
+  # autoload :CompiledProcedure,   'procedo/compiled_procedure'
+  # autoload :CompiledVariable,    'procedo/compiled_variable'
+  # autoload :FormulaFunctions,    'procedo/formula_functions'
 
   # Namespace used to "store" compiled procedures
   module CompiledProcedures
@@ -26,10 +24,6 @@ module Procedo
     def procedures
       @@list.values
     end
-
-    # def list
-    #   @@list
-    # end
 
     # Returns the names of the procedures
     def procedure_names
@@ -43,56 +37,39 @@ module Procedo
     alias_method :[], :find
 
     # Returns direct procedures of nature
-    def procedures_of_nature(*natures)
-      fail 'No more usable'
-      procedures.select do |p|
-        p.of_nature?(*natures)
-      end
-    end
-
-    # Returns direct procedures of nature
     def procedures_of_activity_family(*families)
       procedures.select do |p|
         p.of_activity_family?(*families)
       end.uniq
     end
 
-    # Returns procedures of nature and sub natures
-    def procedures_of_nature_and_its_children(nature, options = {})
-      procedures_of_nature(*Nomen::ProcedureNature.all(nature).map(&:to_sym), options)
-    end
-
+    # Browse all available procedures
     def each_procedure
       @@list.each do |_, procedure|
         yield procedure
       end
     end
 
-    def each_variable
+    # Browse all parameters of all procedures
+    def each_parameter
       each_procedure do |procedure|
-        procedure.variables.each do |_, variable|
-          yield variable
+        procedure.parameters.each do |parameter|
+          yield parameter
         end
       end
+    end
+
+    def each_variable(&block)
+      ActiveSupport::Deprecation.warn 'Procedo::each_variable is deprecated. Please use Procedo::each_parameter instead.'
+      each_parameter(&block)
     end
 
     # Load all files
     def load
       # Inventory procedures
       Dir.glob(root.join('*.xml')).sort.each do |path|
-        f = File.open(path, 'rb')
-        document = Nokogiri::XML(f) do |config|
-          config.strict.nonet.noblanks.noent
-        end
-        f.close
-        # Add a better syntax check
-        if document.root.namespace.href.to_s == XML_NAMESPACE
-          document.root.xpath('xmlns:procedure').each do |element|
-            procedure = Procedure.new(element)
-            @@list[procedure.name] = procedure
-          end
-        else
-          Rails.logger.info("File #{path} is not a procedure as defined by #{XML_NAMESPACE}")
+        Procedo::XML.parse(path).each do |procedure|
+          @@list[procedure.name] = procedure
         end
       end
       true

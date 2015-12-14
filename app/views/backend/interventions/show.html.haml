@@ -34,7 +34,7 @@
     - c.cobble :resource_map, title: :map.tl do
       = map
 
-  - tractor_cast = resource.casts.find_by(reference_name: 'tractor')
+  - tractor_cast = resource.casts.find_by(parameter_name: 'tractor')
   - if tractor_cast && tractor_cast.product
     :ruby
       tractor = tractor_cast.product

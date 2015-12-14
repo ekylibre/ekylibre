@@ -25,12 +25,14 @@
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  event_participation_id :integer
+#  group_id               :integer
 #  id                     :integer          not null, primary key
 #  intervention_id        :integer          not null
 #  lock_version           :integer          default(0), not null
 #  new_container_id       :integer
 #  new_group_id           :integer
 #  new_variant_id         :integer
+#  parameter_name         :string           not null
 #  position               :integer          not null
 #  product_id             :integer
 #  quantity_handler       :string
@@ -38,7 +40,6 @@
 #  quantity_population    :decimal(19, 4)
 #  quantity_unit          :string
 #  quantity_value         :decimal(19, 4)
-#  reference_name         :string           not null
 #  source_product_id      :integer
 #  type                   :string
 #  updated_at             :datetime         not null
@@ -52,8 +53,8 @@
 # intervention_casts_001:
 #   creator: users_001
 #   intervention: interventions_001
+#   parameter_name: "Lorem ipsum"
 #   position: 0
-#   reference_name: "Lorem ipsum"
 #   updater: users_001
 #
 ---
@@ -64,10 +65,10 @@ intervention_doers_001:
   id: 30
   intervention_id: 9
   lock_version: 0
+  parameter_name: driver
   position: 1
   product_id: 79
   quantity_population: 0.0
-  reference_name: driver
   type: InterventionDoer
   updated_at: 2014-11-04 18:31:09.305211000 Z
   updater_id: 1
@@ -79,10 +80,10 @@ intervention_doers_002:
   id: 35
   intervention_id: 10
   lock_version: 0
+  parameter_name: driver
   position: 2
   product_id: 79
   quantity_population: 0.0
-  reference_name: driver
   type: InterventionDoer
   updated_at: 2014-11-04 18:41:39.752672000 Z
   updater_id: 1
@@ -91,13 +92,14 @@ intervention_doers_003:
   created_at: 2014-11-05 15:39:35.626436000 Z
   creator_id: 1
   event_participation_id: 23
+  group_id: 3
   id: 41
   intervention_id: 11
   lock_version: 0
+  parameter_name: driver
   position: 4
   product_id: 79
   quantity_population: 0.0
-  reference_name: driver
   type: InterventionDoer
   updated_at: 2014-11-05 15:39:35.626436000 Z
   updater_id: 1
@@ -109,10 +111,10 @@ intervention_doers_004:
   id: 45
   intervention_id: 12
   lock_version: 0
+  parameter_name: driver
   position: 1
   product_id: 79
   quantity_population: 0.0
-  reference_name: driver
   type: InterventionDoer
   updated_at: 2014-11-06 17:47:16.022902000 Z
   updater_id: 1
@@ -121,13 +123,14 @@ intervention_doers_005:
   created_at: 2014-11-06 17:49:34.382240000 Z
   creator_id: 1
   event_participation_id: 25
+  group_id: 2
   id: 52
   intervention_id: 13
   lock_version: 0
+  parameter_name: driver
   position: 4
   product_id: 79
   quantity_population: 0.0
-  reference_name: driver
   type: InterventionDoer
   updated_at: 2014-11-06 17:49:34.382240000 Z
   updater_id: 1
@@ -139,10 +142,10 @@ intervention_doers_006:
   id: 59
   intervention_id: 14
   lock_version: 0
+  parameter_name: caregiver
   position: 4
   product_id: 79
   quantity_population: 1.0
-  reference_name: caregiver
   type: InterventionDoer
   updated_at: 2014-11-07 14:44:11.029745000 Z
   updater_id: 1
@@ -154,10 +157,10 @@ intervention_doers_007:
   id: 64
   intervention_id: 15
   lock_version: 0
+  parameter_name: driver
   position: 5
   product_id: 79
   quantity_population: 0.0
-  reference_name: driver
   type: InterventionDoer
   updated_at: 2014-11-07 15:02:12.160940000 Z
   updater_id: 1
@@ -169,10 +172,10 @@ intervention_doers_008:
   id: 69
   intervention_id: 16
   lock_version: 0
+  parameter_name: driver
   position: 4
   product_id: 79
   quantity_population: 0.0
-  reference_name: driver
   type: InterventionDoer
   updated_at: 2014-11-07 15:26:35.559939000 Z
   updater_id: 1
@@ -181,13 +184,14 @@ intervention_doers_009:
   created_at: 2014-11-07 15:45:30.924281000 Z
   creator_id: 1
   event_participation_id: 29
+  group_id: 1
   id: 75
   intervention_id: 17
   lock_version: 0
+  parameter_name: driver
   position: 4
   product_id: 79
   quantity_population: 0.0
-  reference_name: driver
   type: InterventionDoer
   updated_at: 2014-11-07 15:45:30.924281000 Z
   updater_id: 1
@@ -199,10 +203,10 @@ intervention_doers_010:
   id: 88
   intervention_id: 20
   lock_version: 0
+  parameter_name: driver
   position: 4
   product_id: 79
   quantity_population: 0.0
-  reference_name: driver
   type: InterventionDoer
   updated_at: 2014-11-07 16:20:51.439031000 Z
   updater_id: 1
@@ -214,10 +218,10 @@ intervention_doers_011:
   id: 94
   intervention_id: 21
   lock_version: 0
+  parameter_name: driver
   position: 4
   product_id: 79
   quantity_population: 0.0
-  reference_name: driver
   type: InterventionDoer
   updated_at: 2014-11-07 16:49:41.942487000 Z
   updater_id: 1
@@ -229,10 +233,10 @@ intervention_doers_012:
   id: 95
   intervention_id: 21
   lock_version: 0
+  parameter_name: implanter_man
   position: 5
   product_id: 79
   quantity_population: 0.0
-  reference_name: implanter_man
   type: InterventionDoer
   updated_at: 2014-11-07 16:49:41.951173000 Z
   updater_id: 1
@@ -244,10 +248,10 @@ intervention_doers_013:
   id: 103
   intervention_id: 22
   lock_version: 0
+  parameter_name: driver
   position: 5
   product_id: 79
   quantity_population: 0.0
-  reference_name: driver
   type: InterventionDoer
   updated_at: 2014-11-07 16:58:54.144194000 Z
   updater_id: 1
@@ -259,10 +263,10 @@ intervention_doers_014:
   id: 105
   intervention_id: 23
   lock_version: 0
+  parameter_name: cropper_driver
   position: 1
   product_id: 79
   quantity_population: 0.0
-  reference_name: cropper_driver
   type: InterventionDoer
   updated_at: 2014-11-07 17:07:15.612283000 Z
   updater_id: 1
@@ -274,10 +278,10 @@ intervention_doers_015:
   id: 122
   intervention_id: 25
   lock_version: 0
+  parameter_name: wine_man
   position: 6
   product_id: 79
   quantity_population: 0.0
-  reference_name: wine_man
   type: InterventionDoer
   updated_at: 2014-11-07 19:02:48.901584000 Z
   updater_id: 1
@@ -289,10 +293,10 @@ intervention_doers_016:
   id: 129
   intervention_id: 26
   lock_version: 0
+  parameter_name: wine_man
   position: 5
   product_id: 79
   quantity_population: 0.0
-  reference_name: wine_man
   type: InterventionDoer
   updated_at: 2014-11-07 19:08:38.797904000 Z
   updater_id: 1
@@ -304,10 +308,10 @@ intervention_doers_017:
   id: 135
   intervention_id: 27
   lock_version: 0
+  parameter_name: wine_man
   position: 5
   product_id: 79
   quantity_population: 0.0
-  reference_name: wine_man
   type: InterventionDoer
   updated_at: 2014-11-07 19:12:37.538291000 Z
   updater_id: 1
@@ -319,10 +323,10 @@ intervention_doers_018:
   id: 140
   intervention_id: 28
   lock_version: 0
+  parameter_name: wine_man
   position: 5
   product_id: 79
   quantity_population: 0.0
-  reference_name: wine_man
   type: InterventionDoer
   updated_at: 2014-11-07 19:23:41.928210000 Z
   updater_id: 1
@@ -334,10 +338,10 @@ intervention_doers_019:
   id: 148
   intervention_id: 29
   lock_version: 0
+  parameter_name: wine_man
   position: 8
   product_id: 79
   quantity_population: 0.0
-  reference_name: wine_man
   type: InterventionDoer
   updated_at: 2014-11-07 19:36:53.137218000 Z
   updater_id: 1
@@ -345,13 +349,14 @@ intervention_doers_019:
 intervention_inputs_001:
   created_at: 2014-11-05 15:39:35.605810000 Z
   creator_id: 1
+  group_id: 3
   id: 39
   intervention_id: 11
   lock_version: 3
+  parameter_name: seeds
   position: 2
   product_id: 89
   quantity_population: 20.0001
-  reference_name: seeds
   source_product_id: 101
   type: InterventionInput
   updated_at: 2015-03-23 09:36:39.560725000 Z
@@ -360,13 +365,14 @@ intervention_inputs_001:
 intervention_inputs_002:
   created_at: 2014-11-06 17:49:34.371997000 Z
   creator_id: 1
+  group_id: 2
   id: 50
   intervention_id: 13
   lock_version: 1
+  parameter_name: seeds
   position: 2
   product_id: 91
   quantity_population: 29.4553
-  reference_name: seeds
   source_product_id: 101
   type: InterventionInput
   updated_at: 2014-11-06 17:50:06.991523000 Z
@@ -378,10 +384,10 @@ intervention_inputs_003:
   id: 58
   intervention_id: 14
   lock_version: 1
+  parameter_name: animal_medicine
   position: 3
   product_id: 94
   quantity_population: 0.02
-  reference_name: animal_medicine
   source_product_id: 59
   type: InterventionInput
   updated_at: 2014-11-07 14:44:18.866173000 Z
@@ -393,10 +399,10 @@ intervention_inputs_004:
   id: 61
   intervention_id: 15
   lock_version: 1
+  parameter_name: plant_medicine
   position: 2
   product_id: 96
   quantity_population: 4.1745
-  reference_name: plant_medicine
   source_product_id: 57
   type: InterventionInput
   updated_at: 2014-11-07 15:02:58.793077000 Z
@@ -408,10 +414,10 @@ intervention_inputs_005:
   id: 67
   intervention_id: 16
   lock_version: 1
+  parameter_name: fertilizer
   position: 2
   product_id: 99
   quantity_population: 0.6425
-  reference_name: fertilizer
   source_product_id: 98
   type: InterventionInput
   updated_at: 2014-11-07 15:26:50.566188000 Z
@@ -420,13 +426,14 @@ intervention_inputs_005:
 intervention_inputs_006:
   created_at: 2014-11-07 15:45:30.886707000 Z
   creator_id: 1
+  group_id: 1
   id: 73
   intervention_id: 17
   lock_version: 1
+  parameter_name: seeds
   position: 2
   product_id: 102
   quantity_population: 177.8641
-  reference_name: seeds
   source_product_id: 101
   type: InterventionInput
   updated_at: 2014-11-07 15:45:45.773268000 Z
@@ -438,9 +445,9 @@ intervention_inputs_007:
   id: 86
   intervention_id: 20
   lock_version: 0
+  parameter_name: fertilizer
   position: 2
   quantity_population: 0.7477
-  reference_name: fertilizer
   source_product_id: 98
   type: InterventionInput
   updated_at: 2014-11-07 16:20:51.424030000 Z
@@ -452,10 +459,10 @@ intervention_inputs_008:
   id: 92
   intervention_id: 21
   lock_version: 1
+  parameter_name: plants
   position: 2
   product_id: 109
   quantity_population: 5000.0
-  reference_name: plants
   source_product_id: 107
   type: InterventionInput
   updated_at: 2014-11-07 16:50:07.168748000 Z
@@ -467,10 +474,10 @@ intervention_inputs_009:
   id: 100
   intervention_id: 22
   lock_version: 1
+  parameter_name: plant_medicine
   position: 2
   product_id: 111
   quantity_population: 6.4745
-  reference_name: plant_medicine
   source_product_id: 57
   type: InterventionInput
   updated_at: 2014-11-07 16:59:09.814608000 Z
@@ -482,10 +489,10 @@ intervention_inputs_010:
   id: 118
   intervention_id: 25
   lock_version: 1
+  parameter_name: grape
   position: 2
   product_id: 123
   quantity_population: 3200.0
-  reference_name: grape
   source_product_id: 114
   type: InterventionInput
   updated_at: 2014-11-07 19:02:56.195971000 Z
@@ -497,10 +504,10 @@ intervention_inputs_011:
   id: 128
   intervention_id: 26
   lock_version: 1
+  parameter_name: oenological_intrant
   position: 4
   product_id: 129
   quantity_population: 6.0
-  reference_name: oenological_intrant
   source_product_id: 128
   type: InterventionInput
   updated_at: 2014-11-07 19:08:55.217270000 Z
@@ -512,10 +519,10 @@ intervention_inputs_012:
   id: 134
   intervention_id: 27
   lock_version: 1
+  parameter_name: oenological_intrant
   position: 4
   product_id: 132
   quantity_population: 0.118
-  reference_name: oenological_intrant
   source_product_id: 131
   type: InterventionInput
   updated_at: 2014-11-07 19:12:42.886870000 Z
@@ -527,10 +534,10 @@ intervention_inputs_013:
   id: 139
   intervention_id: 28
   lock_version: 1
+  parameter_name: oenological_intrant
   position: 4
   product_id: 134
   quantity_population: 1.18
-  reference_name: oenological_intrant
   source_product_id: 133
   type: InterventionInput
   updated_at: 2014-11-07 19:24:10.255802000 Z
@@ -542,10 +549,10 @@ intervention_inputs_014:
   id: 143
   intervention_id: 29
   lock_version: 1
+  parameter_name: wine
   position: 3
   product_id: 139
   quantity_population: 15.0
-  reference_name: wine
   source_product_id: 130
   type: InterventionInput
   updated_at: 2014-11-07 19:36:59.081425000 Z
@@ -557,10 +564,10 @@ intervention_inputs_015:
   id: 145
   intervention_id: 29
   lock_version: 1
+  parameter_name: bottles
   position: 5
   product_id: 140
   quantity_population: 2004.0
-  reference_name: bottles
   source_product_id: 135
   type: InterventionInput
   updated_at: 2014-11-07 19:36:59.149265000 Z
@@ -572,10 +579,10 @@ intervention_inputs_016:
   id: 147
   intervention_id: 29
   lock_version: 1
+  parameter_name: corks
   position: 7
   product_id: 141
   quantity_population: 1520.0
-  reference_name: corks
   source_product_id: 136
   type: InterventionInput
   updated_at: 2014-11-07 19:36:59.212241000 Z
@@ -584,13 +591,14 @@ intervention_inputs_016:
 intervention_outputs_001:
   created_at: 2014-11-05 15:39:35.633332000 Z
   creator_id: 1
+  group_id: 3
   id: 44
   intervention_id: 11
   lock_version: 3
+  parameter_name: cultivation
   position: 7
   product_id: 90
   quantity_population: 5.3806
-  reference_name: cultivation
   type: InterventionOutput
   updated_at: 2015-03-23 09:36:39.562573000 Z
   updater_id: 1
@@ -603,13 +611,14 @@ intervention_outputs_001:
 intervention_outputs_002:
   created_at: 2014-11-06 17:49:34.388295000 Z
   creator_id: 1
+  group_id: 2
   id: 55
   intervention_id: 13
   lock_version: 1
+  parameter_name: cultivation
   position: 7
   product_id: 92
   quantity_population: 0.0
-  reference_name: cultivation
   type: InterventionOutput
   updated_at: 2014-11-06 17:50:07.049999000 Z
   updater_id: 1
@@ -623,13 +632,14 @@ intervention_outputs_002:
 intervention_outputs_003:
   created_at: 2014-11-07 15:45:30.931117000 Z
   creator_id: 1
+  group_id: 1
   id: 78
   intervention_id: 17
   lock_version: 1
+  parameter_name: cultivation
   position: 7
   product_id: 103
   quantity_population: 10.1637
-  reference_name: cultivation
   type: InterventionOutput
   updated_at: 2014-11-07 15:45:45.831395000 Z
   updater_id: 1
@@ -644,10 +654,10 @@ intervention_outputs_004:
   id: 81
   intervention_id: 18
   lock_version: 2
+  parameter_name: grass
   position: 3
   product_id: 105
   quantity_population: 1.0
-  reference_name: grass
   type: InterventionOutput
   updated_at: 2014-11-07 15:50:04.462680000 Z
   updater_id: 1
@@ -658,9 +668,9 @@ intervention_outputs_005:
   id: 84
   intervention_id: 19
   lock_version: 0
+  parameter_name: grass
   position: 3
   quantity_population: 10.1637
-  reference_name: grass
   type: InterventionOutput
   updated_at: 2014-11-07 16:16:21.828011000 Z
   updater_id: 1
@@ -671,10 +681,10 @@ intervention_outputs_006:
   id: 98
   intervention_id: 21
   lock_version: 1
+  parameter_name: cultivation
   position: 8
   product_id: 110
   quantity_population: 0.0
-  reference_name: cultivation
   type: InterventionOutput
   updated_at: 2014-11-07 16:50:07.225134000 Z
   updater_id: 1
@@ -695,10 +705,10 @@ intervention_outputs_007:
   id: 108
   intervention_id: 23
   lock_version: 1
+  parameter_name: grains
   position: 4
   product_id: 114
   quantity_population: 32372.6138
-  reference_name: grains
   type: InterventionOutput
   updated_at: 2014-11-07 17:08:50.459455000 Z
   updater_id: 1
@@ -709,10 +719,10 @@ intervention_outputs_008:
   id: 123
   intervention_id: 25
   lock_version: 1
+  parameter_name: juice
   position: 7
   product_id: 124
   quantity_population: 30.0
-  reference_name: juice
   type: InterventionOutput
   updated_at: 2014-11-07 19:02:56.252536000 Z
   updater_id: 1
@@ -723,10 +733,10 @@ intervention_outputs_009:
   id: 124
   intervention_id: 25
   lock_version: 1
+  parameter_name: residue
   position: 8
   product_id: 125
   quantity_population: 200.0
-  reference_name: residue
   type: InterventionOutput
   updated_at: 2014-11-07 19:02:56.308252000 Z
   updater_id: 1
@@ -737,10 +747,10 @@ intervention_outputs_010:
   id: 130
   intervention_id: 26
   lock_version: 1
+  parameter_name: fermented_juice
   position: 6
   product_id: 130
   quantity_population: 29.5
-  reference_name: fermented_juice
   type: InterventionOutput
   updated_at: 2014-11-07 19:08:55.276817000 Z
   updater_id: 1
@@ -751,10 +761,10 @@ intervention_outputs_011:
   id: 151
   intervention_id: 29
   lock_version: 1
+  parameter_name: wine_bottles
   position: 11
   product_id: 142
   quantity_population: 1992.0
-  reference_name: wine_bottles
   type: InterventionOutput
   updated_at: 2014-11-07 19:36:59.273396000 Z
   updater_id: 1
@@ -765,10 +775,10 @@ intervention_targets_001:
   id: 32
   intervention_id: 9
   lock_version: 0
+  parameter_name: land_parcel
   position: 3
   product_id: 83
   quantity_population: 5.3806
-  reference_name: land_parcel
   type: InterventionTarget
   updated_at: 2014-11-04 18:31:09.310469000 Z
   updater_id: 1
@@ -784,10 +794,10 @@ intervention_targets_002:
   id: 34
   intervention_id: 10
   lock_version: 0
+  parameter_name: land_parcel
   position: 1
   product_id: 83
   quantity_population: 5.3806
-  reference_name: land_parcel
   type: InterventionTarget
   updated_at: 2014-11-04 18:41:39.740739000 Z
   updater_id: 1
@@ -800,13 +810,14 @@ intervention_targets_002:
 intervention_targets_003:
   created_at: 2014-11-05 15:39:35.631580000 Z
   creator_id: 1
+  group_id: 3
   id: 43
   intervention_id: 11
   lock_version: 0
+  parameter_name: land_parcel
   position: 6
   product_id: 83
   quantity_population: 5.3806
-  reference_name: land_parcel
   type: InterventionTarget
   updated_at: 2014-11-05 15:39:35.631580000 Z
   updater_id: 1
@@ -822,10 +833,10 @@ intervention_targets_004:
   id: 47
   intervention_id: 12
   lock_version: 1
+  parameter_name: land_parcel
   position: 3
   product_id: 84
   quantity_population: 8.349
-  reference_name: land_parcel
   type: InterventionTarget
   updated_at: 2014-11-06 17:47:42.946892000 Z
   updater_id: 1
@@ -839,13 +850,14 @@ intervention_targets_004:
 intervention_targets_005:
   created_at: 2014-11-06 17:49:34.386680000 Z
   creator_id: 1
+  group_id: 2
   id: 54
   intervention_id: 13
   lock_version: 0
+  parameter_name: land_parcel
   position: 6
   product_id: 84
   quantity_population: 8.349
-  reference_name: land_parcel
   type: InterventionTarget
   updated_at: 2014-11-06 17:49:34.386680000 Z
   updater_id: 1
@@ -862,10 +874,10 @@ intervention_targets_006:
   id: 56
   intervention_id: 14
   lock_version: 0
+  parameter_name: animal
   position: 1
   product_id: 5
   quantity_population: 1.0
-  reference_name: animal
   type: InterventionTarget
   updated_at: 2014-11-07 14:44:11.011153000 Z
   updater_id: 1
@@ -876,10 +888,10 @@ intervention_targets_007:
   id: 65
   intervention_id: 15
   lock_version: 0
+  parameter_name: cultivation
   position: 6
   product_id: 92
   quantity_population: 8.349
-  reference_name: cultivation
   type: InterventionTarget
   updated_at: 2014-11-07 15:02:12.164652000 Z
   updater_id: 1
@@ -896,10 +908,10 @@ intervention_targets_008:
   id: 71
   intervention_id: 16
   lock_version: 0
+  parameter_name: land_parcel
   position: 6
   product_id: 83
   quantity_population: 5.3806
-  reference_name: land_parcel
   type: InterventionTarget
   updated_at: 2014-11-07 15:26:35.564719000 Z
   updater_id: 1
@@ -912,13 +924,14 @@ intervention_targets_008:
 intervention_targets_009:
   created_at: 2014-11-07 15:45:30.929885000 Z
   creator_id: 1
+  group_id: 1
   id: 77
   intervention_id: 17
   lock_version: 0
+  parameter_name: land_parcel
   position: 6
   product_id: 80
   quantity_population: 10.1637
-  reference_name: land_parcel
   type: InterventionTarget
   updated_at: 2014-11-07 15:45:30.929885000 Z
   updater_id: 1
@@ -933,10 +946,10 @@ intervention_targets_010:
   id: 80
   intervention_id: 18
   lock_version: 2
+  parameter_name: cultivation
   position: 2
   product_id: 103
   quantity_population: 10.1637
-  reference_name: cultivation
   type: InterventionTarget
   updated_at: 2014-11-07 15:55:52.248115000 Z
   updater_id: 1
@@ -951,10 +964,10 @@ intervention_targets_011:
   id: 83
   intervention_id: 19
   lock_version: 0
+  parameter_name: cultivation
   position: 2
   product_id: 103
   quantity_population: 10.1637
-  reference_name: cultivation
   type: InterventionTarget
   updated_at: 2014-11-07 16:16:21.826306000 Z
   updater_id: 1
@@ -969,10 +982,10 @@ intervention_targets_012:
   id: 90
   intervention_id: 20
   lock_version: 0
+  parameter_name: land_parcel
   position: 6
   product_id: 84
   quantity_population: 8.349
-  reference_name: land_parcel
   type: InterventionTarget
   updated_at: 2014-11-07 16:20:51.443760000 Z
   updater_id: 1
@@ -989,10 +1002,10 @@ intervention_targets_013:
   id: 97
   intervention_id: 21
   lock_version: 0
+  parameter_name: land_parcel
   position: 7
   product_id: 106
   quantity_population: 5.3954
-  reference_name: land_parcel
   type: InterventionTarget
   updated_at: 2014-11-07 16:49:41.954984000 Z
   updater_id: 1
@@ -1013,10 +1026,10 @@ intervention_targets_014:
   id: 104
   intervention_id: 22
   lock_version: 0
+  parameter_name: cultivation
   position: 6
   product_id: 110
   quantity_population: 5.3954
-  reference_name: cultivation
   type: InterventionTarget
   updated_at: 2014-11-07 16:58:54.147211000 Z
   updater_id: 1
@@ -1037,10 +1050,10 @@ intervention_targets_015:
   id: 107
   intervention_id: 23
   lock_version: 0
+  parameter_name: cultivation
   position: 3
   product_id: 110
   quantity_population: 5.3954
-  reference_name: cultivation
   type: InterventionTarget
   updated_at: 2014-11-07 17:07:15.616923000 Z
   updater_id: 1
@@ -1061,10 +1074,10 @@ intervention_targets_016:
   id: 119
   intervention_id: 25
   lock_version: 0
+  parameter_name: tank_for_wine
   position: 3
   product_id: 116
   quantity_population: 1.0
-  reference_name: tank_for_wine
   type: InterventionTarget
   updated_at: 2014-11-07 19:02:48.883101000 Z
   updater_id: 1
@@ -1075,10 +1088,10 @@ intervention_targets_017:
   id: 126
   intervention_id: 26
   lock_version: 0
+  parameter_name: juice_to_ferment
   position: 2
   product_id: 124
   quantity_population: 30.0
-  reference_name: juice_to_ferment
   type: InterventionTarget
   updated_at: 2014-11-07 19:08:38.781584000 Z
   updater_id: 1
@@ -1089,10 +1102,10 @@ intervention_targets_018:
   id: 132
   intervention_id: 27
   lock_version: 0
+  parameter_name: wine_to_treat
   position: 2
   product_id: 130
   quantity_population: 29.5
-  reference_name: wine_to_treat
   type: InterventionTarget
   updated_at: 2014-11-07 19:12:37.529155000 Z
   updater_id: 1
@@ -1103,10 +1116,10 @@ intervention_targets_019:
   id: 137
   intervention_id: 28
   lock_version: 0
+  parameter_name: wine_to_treat
   position: 2
   product_id: 130
   quantity_population: 29.5
-  reference_name: wine_to_treat
   type: InterventionTarget
   updated_at: 2014-11-07 19:23:41.911235000 Z
   updater_id: 1
@@ -1117,10 +1130,10 @@ intervention_tools_001:
   id: 31
   intervention_id: 9
   lock_version: 0
+  parameter_name: tractor
   position: 2
   product_id: 29
   quantity_population: 1.0
-  reference_name: tractor
   type: InterventionTool
   updated_at: 2014-11-04 18:31:09.308816000 Z
   updater_id: 1
@@ -1131,10 +1144,10 @@ intervention_tools_002:
   id: 33
   intervention_id: 9
   lock_version: 0
+  parameter_name: plow
   position: 4
   product_id: 31
   quantity_population: 1.0
-  reference_name: plow
   type: InterventionTool
   updated_at: 2014-11-04 18:31:09.312157000 Z
   updater_id: 1
@@ -1145,10 +1158,10 @@ intervention_tools_003:
   id: 36
   intervention_id: 10
   lock_version: 0
+  parameter_name: tractor
   position: 3
   product_id: 29
   quantity_population: 1.0
-  reference_name: tractor
   type: InterventionTool
   updated_at: 2014-11-04 18:41:39.756098000 Z
   updater_id: 1
@@ -1159,10 +1172,10 @@ intervention_tools_004:
   id: 37
   intervention_id: 10
   lock_version: 0
+  parameter_name: cultivator
   position: 4
   product_id: 88
   quantity_population: 1.0
-  reference_name: cultivator
   type: InterventionTool
   updated_at: 2014-11-04 18:41:39.757856000 Z
   updater_id: 1
@@ -1170,13 +1183,14 @@ intervention_tools_004:
 intervention_tools_005:
   created_at: 2014-11-05 15:39:35.607997000 Z
   creator_id: 1
+  group_id: 3
   id: 40
   intervention_id: 11
   lock_version: 0
+  parameter_name: sower
   position: 3
   product_id: 32
   quantity_population: 1.0
-  reference_name: sower
   type: InterventionTool
   updated_at: 2014-11-05 15:39:35.607997000 Z
   updater_id: 1
@@ -1184,13 +1198,14 @@ intervention_tools_005:
 intervention_tools_006:
   created_at: 2014-11-05 15:39:35.630192000 Z
   creator_id: 1
+  group_id: 3
   id: 42
   intervention_id: 11
   lock_version: 0
+  parameter_name: tractor
   position: 5
   product_id: 29
   quantity_population: 1.0
-  reference_name: tractor
   type: InterventionTool
   updated_at: 2014-11-05 15:39:35.630192000 Z
   updater_id: 1
@@ -1201,10 +1216,10 @@ intervention_tools_007:
   id: 46
   intervention_id: 12
   lock_version: 0
+  parameter_name: tractor
   position: 2
   product_id: 29
   quantity_population: 1.0
-  reference_name: tractor
   type: InterventionTool
   updated_at: 2014-11-06 17:47:16.026916000 Z
   updater_id: 1
@@ -1215,10 +1230,10 @@ intervention_tools_008:
   id: 48
   intervention_id: 12
   lock_version: 0
+  parameter_name: plow
   position: 4
   product_id: 31
   quantity_population: 1.0
-  reference_name: plow
   type: InterventionTool
   updated_at: 2014-11-06 17:47:16.029670000 Z
   updater_id: 1
@@ -1226,13 +1241,14 @@ intervention_tools_008:
 intervention_tools_009:
   created_at: 2014-11-06 17:49:34.373467000 Z
   creator_id: 1
+  group_id: 2
   id: 51
   intervention_id: 13
   lock_version: 0
+  parameter_name: sower
   position: 3
   product_id: 32
   quantity_population: 1.0
-  reference_name: sower
   type: InterventionTool
   updated_at: 2014-11-06 17:49:34.373467000 Z
   updater_id: 1
@@ -1240,13 +1256,14 @@ intervention_tools_009:
 intervention_tools_010:
   created_at: 2014-11-06 17:49:34.385387000 Z
   creator_id: 1
+  group_id: 2
   id: 53
   intervention_id: 13
   lock_version: 0
+  parameter_name: tractor
   position: 5
   product_id: 29
   quantity_population: 1.0
-  reference_name: tractor
   type: InterventionTool
   updated_at: 2014-11-06 17:49:34.385387000 Z
   updater_id: 1
@@ -1257,10 +1274,10 @@ intervention_tools_011:
   id: 62
   intervention_id: 15
   lock_version: 0
+  parameter_name: tractor
   position: 3
   product_id: 29
   quantity_population: 1.0
-  reference_name: tractor
   type: InterventionTool
   updated_at: 2014-11-07 15:02:12.150087000 Z
   updater_id: 1
@@ -1271,10 +1288,10 @@ intervention_tools_012:
   id: 63
   intervention_id: 15
   lock_version: 0
+  parameter_name: sprayer
   position: 4
   product_id: 95
   quantity_population: 1.0
-  reference_name: sprayer
   type: InterventionTool
   updated_at: 2014-11-07 15:02:12.151232000 Z
   updater_id: 1
@@ -1285,10 +1302,10 @@ intervention_tools_013:
   id: 68
   intervention_id: 16
   lock_version: 0
+  parameter_name: spreader
   position: 3
   product_id: 97
   quantity_population: 1.0
-  reference_name: spreader
   type: InterventionTool
   updated_at: 2014-11-07 15:26:35.546491000 Z
   updater_id: 1
@@ -1299,10 +1316,10 @@ intervention_tools_014:
   id: 70
   intervention_id: 16
   lock_version: 0
+  parameter_name: tractor
   position: 5
   product_id: 29
   quantity_population: 1.0
-  reference_name: tractor
   type: InterventionTool
   updated_at: 2014-11-07 15:26:35.563438000 Z
   updater_id: 1
@@ -1310,13 +1327,14 @@ intervention_tools_014:
 intervention_tools_015:
   created_at: 2014-11-07 15:45:30.888448000 Z
   creator_id: 1
+  group_id: 1
   id: 74
   intervention_id: 17
   lock_version: 0
+  parameter_name: sower
   position: 3
   product_id: 32
   quantity_population: 1.0
-  reference_name: sower
   type: InterventionTool
   updated_at: 2014-11-07 15:45:30.888448000 Z
   updater_id: 1
@@ -1324,13 +1342,14 @@ intervention_tools_015:
 intervention_tools_016:
   created_at: 2014-11-07 15:45:30.928585000 Z
   creator_id: 1
+  group_id: 1
   id: 76
   intervention_id: 17
   lock_version: 0
+  parameter_name: tractor
   position: 5
   product_id: 29
   quantity_population: 1.0
-  reference_name: tractor
   type: InterventionTool
   updated_at: 2014-11-07 15:45:30.928585000 Z
   updater_id: 1
@@ -1341,10 +1360,10 @@ intervention_tools_017:
   id: 79
   intervention_id: 18
   lock_version: 0
+  parameter_name: herd
   position: 1
   product_id: 85
   quantity_population: 0.0
-  reference_name: herd
   type: InterventionTool
   updated_at: 2014-11-07 15:47:46.998727000 Z
   updater_id: 1
@@ -1355,10 +1374,10 @@ intervention_tools_018:
   id: 82
   intervention_id: 19
   lock_version: 0
+  parameter_name: herd
   position: 1
   product_id: 85
   quantity_population: 0.0
-  reference_name: herd
   type: InterventionTool
   updated_at: 2014-11-07 16:16:21.824119000 Z
   updater_id: 1
@@ -1369,10 +1388,10 @@ intervention_tools_019:
   id: 87
   intervention_id: 20
   lock_version: 0
+  parameter_name: spreader
   position: 3
   product_id: 97
   quantity_population: 1.0
-  reference_name: spreader
   type: InterventionTool
   updated_at: 2014-11-07 16:20:51.425202000 Z
   updater_id: 1
@@ -1383,10 +1402,10 @@ intervention_tools_020:
   id: 89
   intervention_id: 20
   lock_version: 0
+  parameter_name: tractor
   position: 5
   product_id: 29
   quantity_population: 1.0
-  reference_name: tractor
   type: InterventionTool
   updated_at: 2014-11-07 16:20:51.442456000 Z
   updater_id: 1
@@ -1397,10 +1416,10 @@ intervention_tools_021:
   id: 93
   intervention_id: 21
   lock_version: 0
+  parameter_name: implanter_tool
   position: 3
   product_id: 108
   quantity_population: 1.0
-  reference_name: implanter_tool
   type: InterventionTool
   updated_at: 2014-11-07 16:49:41.930712000 Z
   updater_id: 1
@@ -1411,10 +1430,10 @@ intervention_tools_022:
   id: 96
   intervention_id: 21
   lock_version: 0
+  parameter_name: tractor
   position: 6
   product_id: 29
   quantity_population: 1.0
-  reference_name: tractor
   type: InterventionTool
   updated_at: 2014-11-07 16:49:41.953808000 Z
   updater_id: 1
@@ -1425,10 +1444,10 @@ intervention_tools_023:
   id: 101
   intervention_id: 22
   lock_version: 0
+  parameter_name: tractor
   position: 3
   product_id: 29
   quantity_population: 1.0
-  reference_name: tractor
   type: InterventionTool
   updated_at: 2014-11-07 16:58:54.130462000 Z
   updater_id: 1
@@ -1439,10 +1458,10 @@ intervention_tools_024:
   id: 102
   intervention_id: 22
   lock_version: 0
+  parameter_name: sprayer
   position: 4
   product_id: 95
   quantity_population: 1.0
-  reference_name: sprayer
   type: InterventionTool
   updated_at: 2014-11-07 16:58:54.131571000 Z
   updater_id: 1
@@ -1453,10 +1472,10 @@ intervention_tools_025:
   id: 106
   intervention_id: 23
   lock_version: 0
+  parameter_name: cropper
   position: 2
   product_id: 112
   quantity_population: 1.0
-  reference_name: cropper
   type: InterventionTool
   updated_at: 2014-11-07 17:07:15.615508000 Z
   updater_id: 1
@@ -1467,10 +1486,10 @@ intervention_tools_026:
   id: 120
   intervention_id: 25
   lock_version: 0
+  parameter_name: tank_for_residue
   position: 4
   product_id: 117
   quantity_population: 1.0
-  reference_name: tank_for_residue
   type: InterventionTool
   updated_at: 2014-11-07 19:02:48.884235000 Z
   updater_id: 1
@@ -1481,10 +1500,10 @@ intervention_tools_027:
   id: 121
   intervention_id: 25
   lock_version: 0
+  parameter_name: press
   position: 5
   product_id: 119
   quantity_population: 0.0
-  reference_name: press
   type: InterventionTool
   updated_at: 2014-11-07 19:02:48.885290000 Z
   updater_id: 1
@@ -1495,10 +1514,10 @@ intervention_tools_028:
   id: 125
   intervention_id: 26
   lock_version: 0
+  parameter_name: tank
   position: 1
   product_id: 116
   quantity_population: 1.0
-  reference_name: tank
   type: InterventionTool
   updated_at: 2014-11-07 19:08:38.779989000 Z
   updater_id: 1
@@ -1509,10 +1528,10 @@ intervention_tools_029:
   id: 131
   intervention_id: 27
   lock_version: 0
+  parameter_name: tank
   position: 1
   product_id: 116
   quantity_population: 1.0
-  reference_name: tank
   type: InterventionTool
   updated_at: 2014-11-07 19:12:37.527848000 Z
   updater_id: 1
@@ -1523,10 +1542,10 @@ intervention_tools_030:
   id: 136
   intervention_id: 28
   lock_version: 0
+  parameter_name: tank
   position: 1
   product_id: 116
   quantity_population: 1.0
-  reference_name: tank
   type: InterventionTool
   updated_at: 2014-11-07 19:23:41.909497000 Z
   updater_id: 1
@@ -1537,10 +1556,10 @@ intervention_tools_031:
   id: 141
   intervention_id: 29
   lock_version: 0
+  parameter_name: tank
   position: 1
   product_id: 116
   quantity_population: 1.0
-  reference_name: tank
   type: InterventionTool
   updated_at: 2014-11-07 19:36:53.123476000 Z
   updater_id: 1
@@ -1551,10 +1570,10 @@ intervention_tools_032:
   id: 149
   intervention_id: 29
   lock_version: 0
+  parameter_name: hand_drawn
   position: 9
   product_id: 138
   quantity_population: 0.0
-  reference_name: hand_drawn
   type: InterventionTool
   updated_at: 2014-11-07 19:36:53.139991000 Z
   updater_id: 1
@@ -1565,10 +1584,10 @@ intervention_tools_033:
   id: 150
   intervention_id: 29
   lock_version: 0
+  parameter_name: corker
   position: 10
   product_id: 137
   quantity_population: 1.0
-  reference_name: corker
   type: InterventionTool
   updated_at: 2014-11-07 19:36:53.141079000 Z
   updater_id: 1

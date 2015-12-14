@@ -31,7 +31,7 @@
 #  lock_version     :integer          default(0), not null
 #  number           :string
 #  prescription_id  :integer
-#  reference_name   :string           not null
+#  procedure_name   :string           not null
 #  started_at       :datetime
 #  state            :string           not null
 #  stopped_at       :datetime
@@ -45,7 +45,7 @@
 #
 # interventions_001:
 #   creator: users_001
-#   reference_name: "Lorem ipsum"
+#   procedure_name: "Lorem ipsum"
 #   state: "Lorem ipsum"
 #   updater: users_001
 #
@@ -57,7 +57,7 @@ interventions_001:
   id: 9
   lock_version: 2
   number: '8'
-  reference_name: plowing
+  procedure_name: plowing
   started_at: 2012-10-03 08:30:00.000000000 Z
   state: done
   stopped_at: 2012-10-03 12:30:00.000000000 Z
@@ -72,7 +72,7 @@ interventions_002:
   id: 10
   lock_version: 0
   number: '9'
-  reference_name: hoeing
+  procedure_name: hoeing
   started_at: 2012-10-04 07:25:00.000000000 Z
   state: undone
   stopped_at: 2012-10-04 17:50:00.000000000 Z
@@ -87,7 +87,7 @@ interventions_003:
   id: 11
   lock_version: 4
   number: '10'
-  reference_name: sowing
+  procedure_name: sowing
   started_at: 2013-11-10 09:00:00.000000000 Z
   state: done
   stopped_at: 2013-11-10 14:45:00.000000000 Z
@@ -102,7 +102,7 @@ interventions_004:
   id: 12
   lock_version: 3
   number: '11'
-  reference_name: plowing
+  procedure_name: plowing
   started_at: 2012-10-07 07:50:00.000000000 Z
   state: done
   stopped_at: 2012-10-07 13:30:00.000000000 Z
@@ -117,7 +117,7 @@ interventions_005:
   id: 13
   lock_version: 2
   number: '12'
-  reference_name: sowing
+  procedure_name: sowing
   started_at: 2012-10-17 06:00:00.000000000 Z
   state: done
   stopped_at: 2012-10-17 14:00:00.000000000 Z
@@ -134,7 +134,7 @@ interventions_006:
   lock_version: 4
   number: '13'
   prescription_id: 1
-  reference_name: animal_antibiotic_treatment
+  procedure_name: animal_antibiotic_treatment
   started_at: 2014-11-05 04:25:00.000000000 Z
   state: done
   stopped_at: 2014-11-05 08:25:00.000000000 Z
@@ -150,7 +150,7 @@ interventions_007:
   issue_id: 6
   lock_version: 2
   number: '14'
-  reference_name: spraying
+  procedure_name: spraying
   started_at: 2013-02-08 09:50:00.000000000 Z
   state: done
   stopped_at: 2013-02-08 11:50:00.000000000 Z
@@ -165,7 +165,7 @@ interventions_008:
   id: 16
   lock_version: 2
   number: '15'
-  reference_name: mechanical_fertilizing
+  procedure_name: mechanical_fertilizing
   started_at: 2012-12-12 09:20:00.000000000 Z
   state: done
   stopped_at: 2012-12-12 11:12:00.000000000 Z
@@ -180,7 +180,7 @@ interventions_009:
   id: 17
   lock_version: 2
   number: '16'
-  reference_name: sowing
+  procedure_name: sowing
   started_at: 2007-09-29 08:00:00.000000000 Z
   state: done
   stopped_at: 2007-09-29 13:40:00.000000000 Z
@@ -195,7 +195,7 @@ interventions_010:
   id: 18
   lock_version: 4
   number: '17'
-  reference_name: pasturing
+  procedure_name: pasturing
   started_at: 2014-07-01 12:35:00.000000000 Z
   state: done
   stopped_at: 2014-08-31 11:45:00.000000000 Z
@@ -210,7 +210,7 @@ interventions_011:
   id: 19
   lock_version: 0
   number: '18'
-  reference_name: pasturing
+  procedure_name: pasturing
   started_at: 2014-09-01 15:15:00.000000000 Z
   state: undone
   stopped_at: 2014-10-31 09:35:00.000000000 Z
@@ -225,7 +225,7 @@ interventions_012:
   id: 20
   lock_version: 0
   number: '19'
-  reference_name: mechanical_fertilizing
+  procedure_name: mechanical_fertilizing
   started_at: 2014-02-01 09:45:00.000000000 Z
   state: undone
   stopped_at: 2014-02-01 12:30:00.000000000 Z
@@ -240,7 +240,7 @@ interventions_013:
   id: 21
   lock_version: 2
   number: '20'
-  reference_name: mechanical_planting
+  procedure_name: mechanical_planting
   started_at: 2008-03-15 09:00:00.000000000 Z
   state: done
   stopped_at: 2008-03-15 22:00:00.000000000 Z
@@ -256,7 +256,7 @@ interventions_014:
   issue_id: 7
   lock_version: 2
   number: '21'
-  reference_name: spraying
+  procedure_name: spraying
   started_at: 2013-04-17 08:00:00.000000000 Z
   state: done
   stopped_at: 2013-04-17 12:00:00.000000000 Z
@@ -271,7 +271,7 @@ interventions_015:
   id: 23
   lock_version: 2
   number: '22'
-  reference_name: mechanical_harvesting
+  procedure_name: mechanical_harvesting
   started_at: 2013-09-16 05:00:00.000000000 Z
   state: done
   stopped_at: 2013-09-16 17:00:00.000000000 Z
@@ -286,7 +286,7 @@ interventions_016:
   id: 25
   lock_version: 2
   number: '25'
-  reference_name: grape_pressing
+  procedure_name: grape_pressing
   started_at: 2013-10-02 07:00:00.000000000 Z
   state: done
   stopped_at: 2013-10-02 07:35:00.000000000 Z
@@ -301,7 +301,7 @@ interventions_017:
   id: 26
   lock_version: 2
   number: '26'
-  reference_name: fermentation
+  procedure_name: fermentation
   started_at: 2013-10-05 13:00:00.000000000 Z
   state: done
   stopped_at: 2013-10-05 13:40:00.000000000 Z
@@ -316,7 +316,7 @@ interventions_018:
   id: 27
   lock_version: 2
   number: '27'
-  reference_name: chaptalization
+  procedure_name: chaptalization
   started_at: 2013-10-07 09:30:00.000000000 Z
   state: done
   stopped_at: 2013-10-07 09:45:00.000000000 Z
@@ -332,7 +332,7 @@ interventions_019:
   issue_id: 8
   lock_version: 4
   number: '28'
-  reference_name: sulfur_addition
+  procedure_name: sulfur_addition
   started_at: 2013-10-15 08:28:00.000000000 Z
   state: done
   stopped_at: 2013-10-15 08:48:00.000000000 Z
@@ -347,7 +347,7 @@ interventions_020:
   id: 29
   lock_version: 2
   number: '29'
-  reference_name: wine_bottling
+  procedure_name: wine_bottling
   started_at: 2013-10-30 07:00:00.000000000 Z
   state: done
   stopped_at: 2013-10-30 14:00:00.000000000 Z

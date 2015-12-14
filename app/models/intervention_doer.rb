@@ -25,12 +25,14 @@
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  event_participation_id :integer
+#  group_id               :integer
 #  id                     :integer          not null, primary key
 #  intervention_id        :integer          not null
 #  lock_version           :integer          default(0), not null
 #  new_container_id       :integer
 #  new_group_id           :integer
 #  new_variant_id         :integer
+#  parameter_name         :string           not null
 #  position               :integer          not null
 #  product_id             :integer
 #  quantity_handler       :string
@@ -38,7 +40,6 @@
 #  quantity_population    :decimal(19, 4)
 #  quantity_unit          :string
 #  quantity_value         :decimal(19, 4)
-#  reference_name         :string           not null
 #  source_product_id      :integer
 #  type                   :string
 #  updated_at             :datetime         not null

@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="animal_housing_mulching" categories="habitat_maintenance" actions="animal_housing_mulching">
-    <variables>
-      <variable name="animal_housing" type="target" variety="building_division" abilities="store(animal)" default-shape=":animal_housing" default-actor="default_storage_of_support">
+    <parameters>
+      <parameter name="animal_housing" type="target" filter="is building_division and can store(animal)" default-shape=":animal_housing" default-actor="default_storage_of_support">
         <handler indicator="shape">
           <converter to="shape" forward="intersection(value, animal_housing.shape)" backward="value"/>
           <converter to="population" forward="area(value) / animal_housing..net_surface_area(square_meter)"/>
         </handler>
-      </variable>
-      <variable name="straw" type="input" variety="straw">
+      </parameter>
+      <parameter name="straw" type="input" filter="is straw">
         <handler indicator="population"/>
-      </variable>
-      <variable name="cleaner" type="tool" abilities="clean(building_division)"/>
-      <variable name="driver" type="doer" abilities="drive(equipment), move"/>
-      <variable name="tractor" type="tool" abilities="tow(equipment), move"/>
-    </variables>
+      </parameter>
+      <parameter name="cleaner" type="tool" filter="can clean(building_division)"/>
+      <parameter name="driver" type="doer" filter="can drive(equipment) and can move"/>
+      <parameter name="tractor" type="tool" filter="can tow(equipment) and can move"/>
+    </parameters>
   </procedure>
 </procedures>

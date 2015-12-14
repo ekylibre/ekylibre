@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="spraying" categories="crop_protection" optional-actions="herbicide, fungicide, insecticide, growth_regulator, molluscicide, nematicide, acaricide, bactericide, rodenticide, talpicide, corvicide, game_repellent">
-    <variables>
-      <variable name="plant_medicine" type="input" variety="preparation" default-name="{{variant}} - [{{birth_day}}/{{birth_month}}/{{birth_year}}]" abilities="care(plant)">
+    <parameters>
+      <parameter name="plant_medicine" type="input" filter="is preparation and can care(plant)" default-name="{{variant}} - [{{birth_day}}/{{birth_month}}/{{birth_year}}]">
         <handler indicator="population"/>
         <handler indicator="mass_area_density" unit="kilogram_per_hectare" if="plant_medicine_to_spray? &amp; plant_medicine_to_spray..net_mass(kilogram) &gt; 0" to="population" backward="(value * self..net_mass(kilogram)) / cultivation.net_surface_area(hectare)" forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(kilogram)"/>
         <handler indicator="volume_area_density" unit="liter_per_hectare" if="plant_medicine_to_spray? &amp; plant_medicine_to_spray..net_volume(liter) &gt; 0" to="population" backward="(value * self..net_volume(liter)) / cultivation.net_surface_area(hectare)" forward="(value * cultivation.net_surface_area(hectare)) / self..net_volume(liter)"/>
-      </variable>
-      <variable name="tractor" type="tool" variety="equipment" abilities="catch(sprayer)"/>
-      <variable name="sprayer" type="tool" abilities="spray"/>
-      <variable name="driver" type="doer" abilities="drive(tractor)"/>
-      <variable name="cultivation" type="target" variety="plant" default-shape=":cultivation" default-actor="variant_localized_in_storage">
+      </parameter>
+      <parameter name="tractor" type="tool" filter="is equipment and can catch(sprayer)"/>
+      <parameter name="sprayer" type="tool" filter="can spray"/>
+      <parameter name="driver" type="doer" filter="can drive(tractor)"/>
+      <parameter name="cultivation" type="target" filter="is plant" default-shape=":cultivation" default-actor="variant_localized_in_storage">
         <handler indicator="shape">
           <converter to="shape" forward="intersection(value, cultivation.shape)" backward="value"/>
           <converter to="population" forward="area(value) / cultivation..net_surface_area(square_meter)"/>
         </handler>
-      </variable>
-    </variables>
+      </parameter>
+    </parameters>
   </procedure>
 </procedures>

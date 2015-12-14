@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="detasseling" categories="crop_maintenance" actions="detasseling">
-    <variables>
-      <variable name="doer" type="doer" variety="worker" abilities="move"/>
-      <variable name="cultivation" type="target" variety="plant" default-shape=":cultivation" default-actor="variant_localized_in_storage">
+    <parameters>
+      <parameter name="doer" type="doer" filter="is worker and can move"/>
+      <parameter name="cultivation" type="target" filter="is plant" default-shape=":cultivation" default-actor="variant_localized_in_storage">
         <handler indicator="shape">
           <converter to="shape" forward="intersection(value, cultivation.shape)" backward="value"/>
           <converter to="population" forward="area(value) / cultivation..net_surface_area(square_meter)"/>
         </handler>
-      </variable>
-    </variables>
+      </parameter>
+    </parameters>
   </procedure>
 </procedures>

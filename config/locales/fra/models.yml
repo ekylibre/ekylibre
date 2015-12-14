@@ -254,7 +254,7 @@ fra:
       contact: "Contact" #?
       crumb: "Miette"
       cultivable_zone: "Parcelle culturale"
-      cultivable_zone_membership: "Membre d’une zone cultivable"
+      cultivable_zone_membership: "Membre d’une zone cultivable" #?
       custom_field: "Champ complémentaire"
       custom_field_choice: "Choix de champ complémentaire"
       dashboard: "Tableau de bord"
@@ -291,7 +291,14 @@ fra:
       incoming_payment_mode: "Mode d’encaissement"
       intervention: "Intervention"
       intervention_cast: "Variable de procédure"
+      # intervention_cast_group: "Intervention cast group"
       intervention_cast_reading: "Relevé d’indicateur"
+      # intervention_doer: "Intervention doer"
+      # intervention_input: "Intervention input"
+      # intervention_output: "Intervention output"
+      # intervention_target: "Intervention target"
+      # intervention_tool: "Intervention tool"
+      # intervention_working_period: "Intervention working period"
       inventory: "Inventaire"
       inventory_item: "Ligne d’inventaire"
       issue: "Incident"
@@ -299,8 +306,8 @@ fra:
       journal_entry: "Écriture"
       journal_entry_item: "Ligne d’écriture"
       land_parcel: "Parcelle"
-      land_parcel_cluster: "Îlot"
-      land_parcel_group: "Groupe de parcelles"
+      land_parcel_cluster: "Îlot" #?
+      land_parcel_group: "Groupe de parcelles" #?
       listing: "Extraction"
       listing_node: "Nœud d’extraction"
       listing_node_item: "Élément de nœud d’extraction"
@@ -312,7 +319,7 @@ fra:
       net_service: "Service en ligne"
       # notification: "Notification"
       observation: "Observation"
-      operation: "Opération"
+      operation: "Opération" #?
       organization: "Organisation" #?
       outgoing_parcel: "Colis à expédier" #?
       outgoing_parcel_item: "Élément de colis à expédier" #?
@@ -352,7 +359,7 @@ fra:
       product_reading: "Valeur d’indicateur"
       product_triple_mixing: "Triple mélange de produits" #?
       production: "Production"
-      production_distribution: "Répartition entre production"
+      production_distribution: "Répartition entre production" #?
       property_title: "Titre de propriété" #?
       purchase: "Achat"
       purchase_item: "Ligne d’achat"
@@ -374,6 +381,7 @@ fra:
       subscription_nature: "Type d’abonnement"
       # supervision: "Supervision"
       # supervision_item: "Supervision item"
+      # target_distribution: "Target distribution"
       task: "Tâche"
       tax: "Taxe"
       team: "Service"
@@ -980,6 +988,7 @@ fra:
     pacage_number: "Numéro de PACAGE"
     paid_at: "Réglé le"
     paid_taxes: "Taxes payées"
+    # parameter_name: "Parameter name"
     parameters: "Paramètres"
     parcel: "Colis"
     parcel_items: "Éléments de colis"
@@ -1041,6 +1050,7 @@ fra:
     printed_on: "Daté du"
     priority: "Priorité"
     probability_percentage: "Pourcentage de probabilité"
+    # procedure_name: "Procedure name"
     procedures: "Procédures" #?
     process: "Process" #?
     producer: "Producteur"

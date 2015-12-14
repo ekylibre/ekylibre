@@ -1,3 +1,5 @@
+require 'procedo/handler_method'
+
 module Procedo
   module HandlerMethod
     class Base < Treetop::Runtime::SyntaxNode; end
@@ -60,7 +62,7 @@ module Procedo
     @@whole_indicators = Nomen::Indicator.where(related_to: :whole).collect { |i| i.name.to_sym }
     cattr_reader :whole_indicators
 
-    attr_reader :destination, :backward_tree, :forward_tree, :handler, :attributes
+    attr_reader :destination, :backward_tree, :forward_tree, :handler
 
     class << self
       def count_variables(node, name)
@@ -76,36 +78,24 @@ module Procedo
       end
     end
 
-    def initialize(handler, element = nil)
+    def initialize(handler, destination, options = {})
       @handler = handler
-      # Extract attributes from XML element
-      if element.is_a?(Hash)
-        @attributes = element
-      else
-        @attributes = %w(to forward backward).inject({}) do |hash, attr|
-          hash[attr.to_sym] = element.attr(attr) if element.has_attribute?(attr)
-          hash
-        end
-      end
-
-      @destination = (@attributes[:to] || @handler.indicator.name).to_sym
+      @destination = destination.to_sym
       unless @@whole_indicators.include?(@destination)
         fail Procedo::Errors::InvalidHandler, "Handler must have a valid destination (#{@@whole_indicators.to_sentence} expected, got #{@destination})"
       end
-
-      if @attributes[:forward]
+      if options[:forward]
         begin
-          @forward_tree = HandlerMethod.parse(@attributes[:forward].to_s)
+          @forward_tree = HandlerMethod.parse(options[:forward].to_s)
         rescue SyntaxError => e
-          raise SyntaxError, "A procedure handler (#{@attributes.inspect}) #{handler.procedure.name} has a syntax error on forward formula: #{e.message}"
+          raise SyntaxError, "A procedure handler (#{options.inspect}) #{handler.procedure.name} has a syntax error on forward formula: #{e.message}"
         end
       end
-
-      if @attributes[:backward]
+      if options[:backward]
         begin
-          @backward_tree = HandlerMethod.parse(@attributes[:backward].to_s)
+          @backward_tree = HandlerMethod.parse(options[:backward].to_s)
         rescue SyntaxError => e
-          raise SyntaxError, "A procedure handler (#{@attributes.inspect}) #{handler.procedure.name} has a syntax error on backward formula: #{e.message}"
+          raise SyntaxError, "A procedure handler (#{options.inspect}) #{handler.procedure.name} has a syntax error on backward formula: #{e.message}"
         end
       end
     end
@@ -118,9 +108,9 @@ module Procedo
       @backward_tree.present?
     end
 
-    # Variable
-    def variable
-      @handler.variable
+    # Parameter
+    def parameter
+      @handler.parameter
     end
 
     # Procedure
@@ -129,13 +119,13 @@ module Procedo
     end
 
     # Returns keys
-    def depend_on?(variable_name, mode = nil)
+    def depend_on?(parameter_name, mode = nil)
       count = 0
       if forward? && (mode.nil? || mode == :forward)
-        count += self.class.count_variables(@forward_tree, variable_name)
+        count += self.class.count_variables(@forward_tree, parameter_name)
       end
       if backward? && (mode.nil? || mode == :backward)
-        count += self.class.count_variables(@backward_tree, variable_name)
+        count += self.class.count_variables(@backward_tree, parameter_name)
       end
       !count.zero?
     end

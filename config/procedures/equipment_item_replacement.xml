@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="equipment_item_replacement" categories="equipment_maintenance" actions="troubleshooting">
-    <variables>
-      <variable name="equipment" type="target" variety="equipment"/>
-      <variable name="item" type="input" variety="matter" derivative-of="variety:equipment"/>
-      <variable name="item" type="input" variety="matter" derivative-of="variety:equipment">
+    <parameters>
+      <parameter name="equipment" type="target" filter="is equipment"/>
+      <parameter name="item" type="input" filter="is matter and derives from variety:equipment"/>
+      <parameter name="item" type="input" filter="is matter and derives from variety:equipment">
         <handler indicator="population"/>
-      </variable>
-      <variable name="mechanic" type="doer" abilities="repair(equipment)"/>
-    </variables>
+      </parameter>
+      <parameter name="mechanic" type="doer" filter="can repair(equipment)"/>
+    </parameters>
   </procedure>
 </procedures>

@@ -31,7 +31,7 @@
 #  lock_version     :integer          default(0), not null
 #  number           :string
 #  prescription_id  :integer
-#  reference_name   :string           not null
+#  procedure_name   :string           not null
 #  started_at       :datetime
 #  state            :string           not null
 #  stopped_at       :datetime
@@ -41,12 +41,12 @@
 #  working_duration :integer
 #
 
-class MissingVariable < StandardError
+class MissingParameter < StandardError
 end
 
 class Intervention < Ekylibre::Record::Base
   include PeriodicCalculable
-  attr_readonly :reference_name, :production_id
+  attr_readonly :procedure_name, :production_id
   belongs_to :event, dependent: :destroy, inverse_of: :intervention
   belongs_to :issue
   belongs_to :prescription
@@ -57,14 +57,14 @@ class Intervention < Ekylibre::Record::Base
   has_many :targets, class_name: 'InterventionTarget', dependent: :destroy, inverse_of: :intervention
   has_many :tools, class_name: 'InterventionTool', dependent: :destroy, inverse_of: :intervention
   has_many :working_periods, class_name: 'InterventionWorkingPeriod', dependent: :destroy, inverse_of: :intervention
-  enumerize :reference_name, in: Procedo.procedure_names #  + ['animal_changing']
+  enumerize :procedure_name, in: Procedo.procedure_names #  + ['animal_changing']
   enumerize :state, in: [:undone, :squeezed, :in_progress, :done], default: :undone, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :whole_duration, :working_duration, allow_nil: true, only_integer: true
-  validates_presence_of :reference_name, :state
+  validates_presence_of :procedure_name, :state
   # ]VALIDATORS]
-  # validates_inclusion_of :reference_name, in: self.reference_name.values
+  # validates_inclusion_of :procedure_name, in: self.procedure_name.values
   # validates_presence_of :started_at, :stopped_at
   validates_associated :doers, :inputs, :outputs, :targets, :tools, :working_periods
 
@@ -79,7 +79,7 @@ class Intervention < Ekylibre::Record::Base
   acts_as_numbered
   accepts_nested_attributes_for :doers, :inputs, :outputs, :targets, :tools, :working_periods
 
-  # @TODO in progress - need to call parent reference_name to have the name of the procedure_nature
+  # @TODO in progress - need to call parent procedure_name to have the name of the procedure_nature
 
   scope :between, lambda { |started_at, stopped_at|
     where(started_at: started_at..stopped_at)
@@ -112,7 +112,7 @@ class Intervention < Ekylibre::Record::Base
 
   before_validation do
     self.state ||= self.class.state.default
-    # if p = reference
+    # if p = procedure
     #   self.natures = p.natures.sort.join(' ')
     # end
     # set production_id
@@ -138,9 +138,9 @@ class Intervention < Ekylibre::Record::Base
 
   before_save do
     # self.natures = self.natures.to_s.strip.split(/[\s\,]+/).sort.join(' ')
-    # if reference
-    #   if duration < reference.fixed_duration
-    #     self.stopped_at += reference.fixed_duration
+    # if procedure
+    #   if duration < procedure.fixed_duration
+    #     self.stopped_at += procedure.fixed_duration
     #   end
     # end
     columns = { name: name, started_at: self.started_at, stopped_at: self.stopped_at, nature: :production_intervention }
@@ -164,19 +164,24 @@ class Intervention < Ekylibre::Record::Base
     Activity.of_intervention(self)
   end
 
-  # Main reference
-  def reference
-    Procedo.find(reference_name)
+  # The Procedo::Procedure behind intervention
+  def procedure
+    Procedo.find(procedure_name)
   end
 
-  # Returns variable names
+  def reference
+    ActiveSupport::Deprecation.warn 'Intervention#reference is deprecated. Please use Intervention#procedure instead.'
+    procedure
+  end
+
+  # Returns parameter names
   def casting
     casts.map(&:product).compact.map(&:name).sort.to_sentence
   end
 
   def name
-    # raise self.inspect if self.reference_name.blank?
-    tc(:name, intervention: (reference ? reference.human_name : "procedures.#{reference_name}".t(default: reference_name.humanize)), number: number)
+    # raise self.inspect if self.procedure_name.blank?
+    tc(:name, intervention: (procedure ? procedure.human_name : "procedures.#{procedure_name}".t(default: procedure_name.humanize)), number: number)
   end
 
   def start_time
@@ -235,14 +240,14 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def need_parameters?
-    reference && reference.need_parameters?
+    procedure && procedure.need_parameters?
   end
 
   def runnable?
-    return false unless self.undone? && reference
+    return false unless self.undone? && procedure
     valid = true
-    for variable in reference.variables.values
-      unless cast = casts.find_by(reference_name: variable.name) and cast.runnable?
+    for parameter in procedure.parameters
+      unless cast = casts.find_by(parameter_name: parameter.name) and cast.runnable?
         valid = false
       end
     end
@@ -253,7 +258,7 @@ class Intervention < Ekylibre::Record::Base
   def run!(period = {}, parameters = {})
     # TODO: raise something unless runnable?
     # raise StandardError unless self.runnable?
-    fail 'Cannot run intervention without reference procedure' unless reference
+    fail 'Cannot run intervention without procedure' unless procedure
     self.class.transaction do
       self.state = :in_progress
       self.parameters = parameters.with_indifferent_access if parameters
@@ -263,21 +268,21 @@ class Intervention < Ekylibre::Record::Base
       duration   = period[:duration] ||= (stopped_at - self.started_at)
       stopped_at = started_at + duration
 
-      reference = self.reference
-      # Check variables presence
-      for variable in reference.variables.values
-        unless casts.find_by(reference_name: variable.name)
-          fail MissingVariable, "Variable #{variable.name} is missing"
+      procedure = self.procedure
+      # Check parameters presence
+      for parameter in procedure.parameters
+        unless casts.find_by(parameter_name: parameter.name)
+          fail MissingParameter, "Parameter #{parameter.name} is missing"
         end
       end
       # Build new products
-      for variable in reference.new_variables
-        produced = casts.find_by!(reference_name: variable.name)
-        producer = casts.find_by!(reference_name: variable.producer_name)
-        if variable.parted?
+      for parameter in procedure.new_parameters
+        produced = casts.find_by!(parameter_name: parameter.name)
+        producer = casts.find_by!(parameter_name: parameter.producer_name)
+        if parameter.parted?
           # Parted from
           unless variant = producer.variant
-            puts "No variant given for #{variable.producer_name} in #{reference_name} (##{id})".red
+            puts "No variant given for #{parameter.producer_name} in #{procedure_name} (##{id})".red
           end
           produced.actor = producer.actor.part_with(produced.population, born_at: stopped_at, shape: produced.shape)
           unless produced.actor.save
@@ -287,20 +292,20 @@ class Intervention < Ekylibre::Record::Base
             logger.debug produced.actor.errors.inspect
             fail 'Stop'
           end
-        elsif variable.produced?
+        elsif parameter.produced?
           # Produced by
-          unless variant = produced.variant || variable.variant(self)
-            fail StandardError, "No variant for #{variable.name} in intervention ##{id} (#{reference_name})"
+          unless variant = produced.variant || parameter.variant(self)
+            fail StandardError, "No variant for #{parameter.name} in intervention ##{id} (#{procedure_name})"
           end
           produced.actor = variant.matching_model.create!(variant: variant, initial_born_at: stopped_at, initial_owner: producer.actor.owner, initial_container: producer.actor.container, initial_population: produced.population, initial_shape: produced.shape, extjuncted: true)
         else
-          fail StandardError, "Don't known how to create the variable #{variable.name} for procedure #{reference_name}"
+          fail StandardError, "Don't known how to create the parameter #{parameter.name} for procedure #{procedure_name}"
         end
         produced.save!
       end
       # Load operations
-      rep = reference.spread_time(duration)
-      for name, operation in reference.operations
+      rep = procedure.spread_time(duration)
+      for name, operation in procedure.operations
         d = operation.duration || rep
         operation = operations.create!(started_at: started_at, stopped_at: (started_at + d), reference_name: name)
         operation.perform_all!
@@ -313,8 +318,8 @@ class Intervention < Ekylibre::Record::Base
       self.save!
 
       # Sets name for newborns
-      for variable in reference.new_variables
-        casts.find_by!(reference_name: variable.name).set_default_name!
+      for parameter in procedure.new_parameters
+        casts.find_by!(parameter_name: parameter.name).set_default_name!
       end
     end
   end
@@ -346,12 +351,12 @@ class Intervention < Ekylibre::Record::Base
       options[:namespace] ||= 'base'
       options[:short_name] ||= natures.first
       options[:version] ||= 0
-      unless options.key? :reference_name
-        options[:reference_name] = "#{options[:namespace]}-#{options[:short_name]}-#{options[:version]}"
+      unless options.key? :procedure_name
+        options[:procedure_name] = "#{options[:namespace]}-#{options[:short_name]}-#{options[:version]}"
       end
 
       transaction do
-        attrs = options.slice(:reference_name, :description, :issue_id, :prescription_id, :production, :production_support, :recommender_id, :started_at, :stopped_at)
+        attrs = options.slice(:procedure_name, :description, :issue_id, :prescription_id, :production, :production_support, :recommender_id, :started_at, :stopped_at)
         attrs[:started_at] ||= Time.zone.now
         attrs[:stopped_at] ||= Time.zone.now
         attrs[:natures] = natures.join(' ')
@@ -398,8 +403,8 @@ class Intervention < Ekylibre::Record::Base
         history.merge!(Intervention.joins(:casts)
                         .where("intervention_casts.actor_id IN (#{actors_id.join(', ')})")
                         .where(started_at: (Time.zone.now.midnight - 1.year)..(Time.zone.now))
-                        .group('interventions.reference_name')
-                        .count('interventions.reference_name'))
+                        .group('interventions.procedure_name')
+                        .count('interventions.procedure_name'))
       end
 
       if options[:provisional]
@@ -407,7 +412,7 @@ class Intervention < Ekylibre::Record::Base
                             .joins(:casts)
                             .where("intervention_casts.actor_id IN (#{actors_id.join(', ')})")
                             .where(started_at: (Time.zone.now.midnight - 1.day)..(Time.zone.now + 3.days))
-                            .pluck('interventions.reference_name')).uniq!
+                            .pluck('interventions.procedure_name')).uniq!
       end
 
       coeff = {}
@@ -422,10 +427,10 @@ class Intervention < Ekylibre::Record::Base
       result = []
       Procedo.list.map do |procedure_key, procedure|
         coeff[procedure_key] = 1.0 + 2.0 * (history[procedure_key].to_f / history_size) + 3.0 * provisional.count(procedure_key).to_f
-        matched_variables = procedure.matching_variables_for(actors)
-        if matched_variables.count > 0
-          result << [procedure, (((matched_variables.values.count.to_f / actors.count) * coeff[procedure_key]) / denominator), matched_variables.values.count]
-          maximum_arity = matched_variables.values.count if maximum_arity < matched_variables.values.count
+        matched_parameters = procedure.matching_parameters_for(actors)
+        if matched_parameters.count > 0
+          result << [procedure, (((matched_parameters.values.count.to_f / actors.count) * coeff[procedure_key]) / denominator), matched_parameters.values.count]
+          maximum_arity = matched_parameters.values.count if maximum_arity < matched_parameters.values.count
         end
       end
       result.delete_if { |_procedure, relevance, _arity| relevance < relevance_threshold }

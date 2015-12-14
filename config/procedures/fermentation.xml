@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="fermentation" categories="viticulture_transformation" actions="fermentation">
-    <variables>
-      <variable name="tank" type="tool" variety="tank" abilities="store_liquid" default-actor="storage"/>
-      <variable name="juice_to_ferment" type="target" variety="juice" derivative-of="fruit" default-actor="first_localized_in: tank"/>
-      <variable name="oenological_intrant" type="input" variety="matter" abilities="fermentize(wine)">
+    <parameters>
+      <parameter name="tank" type="tool" filter="is tank and can store_liquid" default-actor="storage"/>
+      <parameter name="juice_to_ferment" type="target" filter="is juice and derives from fruit" default-actor="first_localized_in: tank"/>
+      <parameter name="oenological_intrant" type="input" filter="is matter and can fermentize(wine)">
         <handler indicator="population"/>
         <handler indicator="mass_volume_density" unit="gram_per_hectoliter" if="tank? &amp; juice_to_ferment?" to="population" backward="(value * self..net_mass(gram)) / juice_to_ferment.net_volume(hectoliter)" forward="(value * juice_to_ferment.net_volume(hectoliter)) / self..net_mass(gram)"/>
-      </variable>
-      <variable name="wine_man" type="doer" variety="worker" abilities="move"/>
-      <variable name="fermented_juice" type="output" derivative-of="derivative-of: juice_to_ferment" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" default-variant="production">
+      </parameter>
+      <parameter name="wine_man" type="doer" filter="is worker and can move"/>
+      <parameter name="fermented_juice" type="output" derivative-of="derivative-of: juice_to_ferment" filter="derives from derivative-of: juice_to_ferment" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" default-variant="production">
         <handler indicator="population"/>
-      </variable>
-    </variables>
+      </parameter>
+    </parameters>
   </procedure>
 </procedures>
