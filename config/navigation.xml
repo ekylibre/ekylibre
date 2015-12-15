@@ -50,10 +50,6 @@
         <page to="backend/entity_links#show"/>
         <page to="backend/entity_addresses#index"/>
         <page to="backend/entity_links#index"/>
-      </item>
-    </group>
-    <group name="tasks">
-      <item name="tasks">
         <page to="backend/tasks#index"/>
         <page to="backend/tasks#attachments"/>
         <page to="backend/tasks#create"/>
