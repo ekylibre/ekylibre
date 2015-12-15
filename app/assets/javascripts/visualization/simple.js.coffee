@@ -1,6 +1,6 @@
 class visualization.Simple
 
-  constructor: (@layer, @data, options = {}) ->
+  constructor: (@layer, @data, @options = {}) ->
 
   # Build layer as wanted
   buildLayerGroup: (widget, globalStyle = {}) ->
@@ -18,8 +18,8 @@ class visualization.Simple
     html += "<div class='leaflet-legend-body leaflet-categories-scale'>"
     html += "<span class='leaflet-categories-items'>"
     html += "<span class='leaflet-categories-item'>"
-    html += "<i class='leaflet-categories-sample' style='background-color: #{@layer.fillColor};'></i>"
-    html += " #{@layer.label}"
+    html += "<i class='leaflet-categories-sample' style='background-color: #{@layer.fillColor || @options.parent.options.layerDefaults[@layer.type].fillColor };'></i>"
+    html += " <span class='leaflet-categories-item_label'>#{@layer.label}</span>"
     html += "</span>"
     html += "</span>"
     html += "</div>"
