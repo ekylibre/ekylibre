@@ -45,7 +45,7 @@ class MissingParameter < StandardError
 end
 
 class Intervention < Ekylibre::Record::Base
-  include PeriodicCalculable
+  include PeriodicCalculable, CastGroupable
   attr_readonly :procedure_name, :production_id
   belongs_to :event, dependent: :destroy, inverse_of: :intervention
   belongs_to :issue
@@ -247,9 +247,14 @@ class Intervention < Ekylibre::Record::Base
   def runnable?
     return false unless self.undone? && procedure
     valid = true
-    for parameter in procedure.parameters
-      unless cast = casts.find_by(parameter_name: parameter.name) and cast.runnable?
-        valid = false
+    # Check cardinality and runnability
+    procedure.parameters.each do |parameter|
+      all_casts = self.casts.where(parameter_name: parameter.name)
+      # unless parameter.cardinality.include?(casts.count)
+      #   valid = false
+      # end
+      all_casts.each do |cast|
+        valid = false unless cast.runnable?
       end
     end
     valid

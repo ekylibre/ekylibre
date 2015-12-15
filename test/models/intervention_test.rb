@@ -70,4 +70,22 @@ class InterventionTest < ActiveSupport::TestCase
       Intervention.destroy(interventions(:interventions_001).id)
     end
   end
+
+  test 'intervention creation' do
+    intervention = Intervention.create!(procedure_name: :sowing) # , actions: [:game_repellent, :fungicide]
+    Worker.of_expression('can drive(equipment) and can move').limit(2) do |bob|
+      intervention.add!(:driver, bob)
+    end
+    intervention.add!(:tractor, Equipment.of_expression('can tow(equipment) and can move').first)
+    intervention.add!(:sower, Equipment.of_expression('can sow').first)
+    intervention.add!(:seeds, Product.of_expression('is seed and derives from plant and can grow').first, quantity: 25.in_kilogram, quantity_handler: :net_mass)
+    cultivation_variant = ProductNatureVariant.import_from_nomenclature(:wheat_crop)
+    LandParcel.of_expression('can store(plant)').limit(3).each do |land_parcel|
+      intervention.add!(:zone) do |g|
+        g.add!(:land_parcel, land_parcel)
+        g.add!(:cultivation, variant: cultivation_variant, working_zone: land_parcel.shape)
+      end
+    end
+    assert intervention.runnable?, 'Intervention should be runnable'
+  end
 end

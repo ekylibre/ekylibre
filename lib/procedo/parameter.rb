@@ -72,7 +72,7 @@ module Procedo
 
     # Returns an handler by its name
     def [](name)
-      @handlers.find { |h| h.name.to_s == name.to_s }
+      @handlers[name.to_sym]
     end
 
     #

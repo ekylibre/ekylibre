@@ -34,6 +34,7 @@
 #
 
 class InterventionCastGroup < Ekylibre::Record::Base
+  include CastGroupable
   belongs_to :intervention, inverse_of: :cast_groups
   belongs_to :group, class_name: 'InterventionCastGroup', inverse_of: :cast_groups
   belongs_to :parent, class_name: 'InterventionCastGroup', foreign_key: :group_id, inverse_of: :children

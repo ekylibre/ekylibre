@@ -49,7 +49,7 @@
 #
 
 class InterventionCast < Ekylibre::Record::Base
-  attr_readonly :paraemter_name
+  attr_readonly :parameter_name
   belongs_to :event_participation, dependent: :destroy
   belongs_to :group, class_name: 'InterventionCastGroup'
   belongs_to :intervention, inverse_of: :casts
@@ -110,6 +110,9 @@ class InterventionCast < Ekylibre::Record::Base
   scope :with_actor, -> { where.not(product_id: nil) }
 
   before_validation do
+    if self.group && !self.intervention
+      self.intervention = self.group.intervention
+    end
     if parameter
       self.position = parameter.position
       if parameter.handled? && quantity_handler?

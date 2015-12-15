@@ -29,7 +29,7 @@ module Procedo
 
     def find(name, _type = nil)
       browse_all do |i|
-        return i if i.name.to_s == name
+        return i if i.name.to_s == name.to_s
       end
       nil
     end
