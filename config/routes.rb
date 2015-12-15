@@ -757,7 +757,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :taxes, concerns: [:list, :unroll]
+    resources :taxes, concerns: [:list, :unroll] do
+      collection do
+        get :load
+      end
+    end
 
     resources :teams, concerns: [:list, :unroll]
 

@@ -31,5 +31,10 @@ module Backend
       t.column :deduction_account, url: true
       t.column :collect_account, url: true
     end
+
+    def load
+      Tax.import_all_from_nomenclature(Preference[:country].to_sym)
+      redirect_to params[:redirect]
+    end
   end
 end
