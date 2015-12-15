@@ -429,7 +429,7 @@ eng:
         cotton_crops: "Cotton crops"                       #< oilseed_crops
         durum_wheat_crops: "Durum wheat crops"             #< cereal_crops
         eggplant_crops: "Eggplant crops"                   #< market_garden_crops
-        # equipment_management: "Equipment management"
+        equipment_management: "Equipment management"
         exploitation: "Exploitation"
         fallow_land: "Fallow land"                         #< field_crops
         field_crops: "Field crops"                         #< vegetal_crops
@@ -1611,6 +1611,7 @@ eng:
         idele_password: "Idele password"
         lilco_labratory_code: "Lilco labratory code"
         msa_username: "Msa username"
+        openwheatermap_api_key: "Openwheatermap api key"
         pacage_number: "Pacage number"
         password: "Password"
         quandl_token: "Quandl token"
@@ -1641,7 +1642,7 @@ eng:
           geometry: "Geometry"
           integer: "Integer"
           measure: "Measure"
-          # multi_polygon: "Multi polygon"
+          multi_polygon: "Multi polygon"
           point: "Point"
           string: "String"
         gathering:
@@ -2046,6 +2047,7 @@ eng:
         idele: "Idele"
         lilco: "Lilco"
         msa: "Msa"
+        openweathermap: "Openweathermap"
         selso: "Selso"
         synel: "Synel"
         synest: "Synest"

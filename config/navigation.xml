@@ -1783,6 +1783,10 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="taxes">
+        <page to="backend/taxes#load"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

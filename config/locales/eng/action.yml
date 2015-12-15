@@ -693,6 +693,7 @@ eng:
     backend/taxes:
       edit: "Edit tax: %{name}"
       index: "Taxes"
+      # load: "Load tax: %{name}"
       new: "New tax"
       show: "Tax: %{name}"
     backend/teams:
@@ -1292,7 +1293,7 @@ eng:
     parts: "Modules" #?
     password: "Password" #?
     paths_to_convert: "Paths to convert" #?!
-    payable_taxes: "Payable taxes" #?
+    payable_taxes: "Payable taxes"
     payment_amount: "Amount of payment" #?
     payment_at: "Payment on" #?
     payment_conditions: "Payment conditions"
