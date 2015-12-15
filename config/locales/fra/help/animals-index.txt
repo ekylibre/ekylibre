@@ -8,3 +8,5 @@ Ici, vous pouvez [[>backend/animals#new|créer]], modifier et visualiser vos ani
 >>> {{icon:plus}} une nouvelle intervention.
 
 !!! Tant qu'un animal n'intervient dans aucuns indicateurs , interventions, achats, ventes... il peut être supprimé.
+
+!!!Ajout d'un commentaire de test vincent
