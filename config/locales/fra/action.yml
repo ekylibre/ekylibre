@@ -690,6 +690,7 @@ fra:
     add_x_html: "Ajouter «\_%{x}\_»" #?
     address: "Adresse" #?
     affair: "Affaire"
+    affair_number: "N° affaire"
     affairs: "Affaires"
     all: "Tous"
     all_accounts: "Tous les comptes"
@@ -746,6 +747,7 @@ fra:
     backups: "Sauvegardes" #?
     balance: "Solde"
     bank_account: "Compte bancaire"
+    bank_statement_number: "N° relevé bancaire"
     bank_statements: "Relevés de compte bancaire"
     bban: "Relevé d’identité bancaire (RIB)"
     beginning: "Début"

@@ -72,6 +72,7 @@ class JournalEntry < Ekylibre::Record::Base
   has_many :purchases, dependent: :nullify
   has_many :sales, dependent: :nullify
   has_one :financial_year_as_last, foreign_key: :last_journal_entry_id, class_name: 'FinancialYear', dependent: :nullify
+  has_many :bank_statement, through: :useful_items
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_date :printed_on, allow_blank: true, on_or_after: Date.civil(1, 1, 1)
   validates_numericality_of :absolute_credit, :absolute_debit, :balance, :credit, :debit, :real_balance, :real_credit, :real_currency_rate, :real_debit, allow_nil: true
@@ -223,6 +224,10 @@ class JournalEntry < Ekylibre::Record::Base
   # Prints human name of current state
   def state_label
     self.class.state_label(self.state)
+  end
+
+  def main_bank_statement_number
+    self.bank_statement.first.number if self.bank_statement.count > 0
   end
 
   # determines if the entry is balanced or not.

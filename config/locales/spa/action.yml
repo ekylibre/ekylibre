@@ -631,6 +631,7 @@ spa:
     # add_website: "Add website"
     # add_x: "Add “%{x}”"
     # affair: "Affair"
+    # affair_number: "Affair number"
     # affairs: "Affairs"
     # all: "All"
     # all_accounts: "All accounts"
@@ -683,6 +684,7 @@ spa:
         safari: "Safari" #?
     balance: "Saldo"
     # bank_account: "Bank account"
+    # bank_statement_number: "Bank statement number"
     bank_statement_point: "Despuntar el levantar" #?
     bank_statement_update: "Modificar el leventar" #?
     # bank_statements: "Bank statements"

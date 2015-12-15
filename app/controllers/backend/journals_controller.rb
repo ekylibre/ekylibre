@@ -55,6 +55,7 @@ class Backend::JournalsController < Backend::BaseController
     t.column :credit, currency: true, hidden: true
     t.column :absolute_debit,  currency: :absolute_currency, hidden: true
     t.column :absolute_credit, currency: :absolute_currency, hidden: true
+    t.column :number, through: :bank_statement, label: :bank_statement_number, url: true, hidden: true
   end
 
   list(:entries, model: :journal_entries, conditions: journal_entries_conditions, line_class: "(RECORD.balanced? ? '' : 'error')".c, order: { created_at: :desc }) do |t|
