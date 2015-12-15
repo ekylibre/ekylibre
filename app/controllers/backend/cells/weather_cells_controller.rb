@@ -3,13 +3,14 @@ module Backend
     class WeatherCellsController < Backend::Cells::BaseController
       def show
         @forecast = nil
+        openweathermap_api_key = Identifier.find_by(nature: :openwheatermap_api_key)
         zone = (params[:id] ? CultivableZone.find_by(id: params[:id]) : CultivableZone.first)
-        if zone
+        if zone && openweathermap_api_key
           coordinates = Charta.new_geometry(zone.shape).centroid
           http = Net::HTTP.new('api.openweathermap.org')
           http.open_timeout = 3
           http.read_timeout = 3
-          res = http.get("/data/2.5/forecast/daily?lat=#{coordinates.first}&lon=#{coordinates.second}&cnt=14&mode=json")
+          res = http.get("/data/2.5/forecast/daily?lat=#{coordinates.first}&lon=#{coordinates.second}&cnt=14&mode=json&APPID=#{openweathermap_api_key.value}")
 
           json = begin
                    JSON.load(res.body)
@@ -40,6 +41,9 @@ module Backend
               @forecast = nil
             end
           end
+        elsif !openweathermap_api_key
+          @forecast = nil
+          logger.warn "Missing OpenWeatherMap api key in identifiers)"
         end
       rescue Net::OpenTimeout => e
         @forecast = nil

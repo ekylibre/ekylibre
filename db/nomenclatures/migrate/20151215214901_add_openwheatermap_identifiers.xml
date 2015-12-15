@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add openwheatermap identifiers">
+  <item-creation item="identifier_natures#openwheatermap_api_key" />
+  <item-creation item="net_services#openweathermap" nature="exploitation" url="api.openweathermap.org" approach="rest" identifiers="openwheatermap_api_key"/>
+</migration>
