@@ -3,7 +3,7 @@
 = beehive do |b|
   - b.hbox do
     - b.cell :cashes_balance, if: Cash.any?
-    - b.cell :accountancy_balance
+    -# b.cell :accountancy_balance
   - b.hbox do
-    - b.cell :payable_taxes
     - b.cell :cashes_balance_evolution
+    -# b.cell :payable_taxes
