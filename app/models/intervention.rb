@@ -51,6 +51,7 @@ class Intervention < Ekylibre::Record::Base
   belongs_to :issue
   belongs_to :prescription
   has_many :casts, -> { order(:position) }, class_name: 'InterventionCast', inverse_of: :intervention, dependent: :destroy
+  has_many :cast_groups, -> { order(:position) }, class_name: 'InterventionCastGroup', inverse_of: :intervention, dependent: :destroy
   has_many :doers, class_name: 'InterventionDoer', dependent: :destroy, inverse_of: :intervention
   has_many :inputs, class_name: 'InterventionInput', dependent: :destroy, inverse_of: :intervention
   has_many :outputs, class_name: 'InterventionOutput', dependent: :destroy, inverse_of: :intervention
@@ -66,7 +67,7 @@ class Intervention < Ekylibre::Record::Base
   # ]VALIDATORS]
   # validates_inclusion_of :procedure_name, in: self.procedure_name.values
   # validates_presence_of :started_at, :stopped_at
-  validates_associated :doers, :inputs, :outputs, :targets, :tools, :working_periods
+  validates_associated :cast_groups, :doers, :inputs, :outputs, :targets, :tools, :working_periods
 
   serialize :parameters, HashWithIndifferentAccess
 
@@ -77,7 +78,7 @@ class Intervention < Ekylibre::Record::Base
   calculable period: :month, column: :working_duration, at: :started_at, name: :sum
 
   acts_as_numbered
-  accepts_nested_attributes_for :doers, :inputs, :outputs, :targets, :tools, :working_periods
+  accepts_nested_attributes_for :cast_groups, :doers, :inputs, :outputs, :targets, :tools, :working_periods
 
   # @TODO in progress - need to call parent procedure_name to have the name of the procedure_nature
 

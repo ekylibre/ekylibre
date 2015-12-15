@@ -48,7 +48,7 @@ module Backend
             intervention_recommended: intervention.recommended,
             intervention_recommender_name: (intervention.recommended ? intervention.recommender.name : nil),
             intervention_name: intervention.name,
-            intervention_reference: intervention.reference.human_name,
+            intervention_reference: intervention.procedure.human_name,
             intervention_start_time: intervention.start_time,
             intervention_duration: (intervention.duration.to_d / 3600).round(2),
             support: intervention.storage.name,

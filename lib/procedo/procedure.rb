@@ -1,5 +1,8 @@
-require 'procedo/converter'
+# require 'procedo/converter'
 require 'procedo/parameter_group'
+require 'procedo/compilers'
+require 'procedo/compiled_procedure'
+require 'procedo/compiled_variable'
 
 module Procedo
   FORMULA_TRUC = {
@@ -8,16 +11,15 @@ module Procedo
 
   # This class represents a procedure
   class Procedure
-    attr_reader :id, :name, :natures, :variables, :variable_names, :duration_tree
-
-    delegate :add_parameter, :add_parameter_group, :find, :position_of, to: :root_group
+    attr_reader :id, :name
+    delegate :add_parameter, :add_parameter_group, :each_item, :find, :position_of, to: :root_group
 
     def initialize(name, options = {})
       @name = name.to_sym
       @categories = options[:categories]
       @mandatory_actions = options[:mandatory_actions] || []
       @optional_actions = options[:optional_actions] || []
-      @root_group = ParameterGroup.new(self, :root_, cardinality: 1)
+      @root_group = Procedo::ParameterGroup.new(self, :root_, cardinality: 1)
       # Compile it
       self.compile!
     end
@@ -45,9 +47,9 @@ module Procedo
       end
 
       # Check producers
-      new_variables.each do |variable|
-        unless variable.producer.is_a?(Variable)
-          fail Procedo::Errors::UnknownAspect, "Unknown variable producer for #{variable.name}"
+      new_parameters.each do |parameter|
+        unless parameter.producer.is_a?(Parameter)
+          fail Procedo::Errors::UnknownAspect, "Unknown parameter producer for #{parameter.name}"
         end
       end
     end
@@ -104,19 +106,19 @@ module Procedo
       "procedures.#{name}".t(options.merge(default: default))
     end
 
-    # Browse each variable of the procedure in the order
-    def each_variable
-      parameters.each do |_, variable|
-        yield variable
+    # Browse each parameter of the procedure in the order
+    def each_parameter
+      parameters.each do |parameter|
+        yield parameter
       end
     end
 
-    # Returns only variables which must be built during runnning process
-    def new_variables
+    # Returns only parameters which must be built during runnning process
+    def new_parameters
       parameters.select(&:new?)
     end
 
-    def handled_variables
+    def handled_parameters
       parameters.select(&:handled?)
     end
 
@@ -144,7 +146,7 @@ module Procedo
       full_name = ['::Procedo', 'CompiledProcedures', name.to_s.camelcase]
       code = "class #{full_name.last} < ::Procedo::CompiledProcedure\n\n"
 
-      # Convenience method to use procedure method like in compiled variable
+      # Convenience method to use procedure method like in compiled parameter
       # Should be properly removed one day...
       code << "  def procedure\n"
       code << "    self\n"
@@ -161,7 +163,7 @@ module Procedo
         code << "  end\n\n"
       end
 
-      each_variable do |parameter|
+      each_parameter do |parameter|
         code << "  class #{parameter.name.to_s.camelcase} < ::Procedo::CompiledVariable\n\n"
 
         code << "    def initialize(procedure, attributes = {})\n"
@@ -400,7 +402,7 @@ module Procedo
       code << "  def impact!\n"
       code << "    if @__updater__.first == :global\n"
       code << "      if @__updater__.second == :support\n"
-      each_variable do |parameter|
+      each_parameter do |parameter|
         if parameter.new?
           if parameter.default_variant == :production
             code << "        #{parameter.name}.variant = @__support__.production_variant\n"
@@ -420,8 +422,8 @@ module Procedo
             code << "          #{parameter.name}.impact_actor!\n"
             code << "        end\n"
           elsif parameter.default_actor.to_s =~ /\Afirst_localized_in\:/
-            unless v = variables[parameter.default_actor.to_s.split(':').second.strip]
-              fail Procedo::Errors::UnknownVariable, "Unknown variable used in #{parameter.default_actor}"
+            unless v = find(parameter.default_actor.to_s.split(':').second.strip)
+              fail Procedo::Errors::UnknownVariable, "Unknown parameter used in #{parameter.default_actor}"
             end
             code << "        if #{v.name}.actor and #{v.name}.actor.containeds(now!).any?\n"
             code << "          #{parameter.name}.actor = #{v.name}.actor.containeds.first\n"
@@ -436,7 +438,7 @@ module Procedo
       # TODO: replace this in a cleaner way with a global updater like "global:start"
       code << "      elsif @__updater__.second == :at\n"
       # What to do ? Check existence and destinations of products at this moment ?
-      each_variable do |parameter|
+      each_parameter do |parameter|
         parameter.destinations.each do |destination|
           code << "        #{parameter.name}.impact_destination_#{destination}!\n"
         end
@@ -463,14 +465,14 @@ module Procedo
           vcode << "  end\n"
         end.join('els').dig(3)
         code << "      else\n"
-        code << "        raise Procedo::Errors::UnknownVariable, \"Unknown variable \#{@__updater__.second}\"\n"
+        code << "        raise Procedo::Errors::UnknownVariable, \"Unknown parameter \#{@__updater__.second}\"\n"
         code << "      end\n"
       else
-        code << "      raise Procedo::Errors::UnknownVariable, \"No variable at all: \#{@__updater__.second}\"\n"
+        code << "      raise Procedo::Errors::UnknownVariable, \"No parameter at all: \#{@__updater__.second}\"\n"
       end
       code << "    elsif @__updater__.first == :initial\n"
       # Refresh all handlers from all destinations
-      each_variable do |parameter|
+      each_parameter do |parameter|
         next unless parameter.handlers.any?
         parameter.destinations.each do |destination|
           code << "      #{parameter.name}.impact_destination_#{destination}!\n"
@@ -557,61 +559,61 @@ module Procedo
     end
 
     # Generates a hash associating one actor (as the hash value) to each
-    # procedure variable (as the hash key) whenever possible
+    # procedure parameter (as the hash key) whenever possible
     # @param [Array<Product>] actors a list of actors possibly matching procedure
-    #   variables
+    #   parameters
     def matching_variables_for(*actors)
       actors.flatten!
       result = {}
-      # generating arrays of actors matching each variable
-      # and variables matching each actor
-      actors_for_each_variable = {}
-      each_variable do |variable|
-        actors_for_each_variable[variable] = variable.possible_matching_for(actors)
+      # generating arrays of actors matching each parameter
+      # and parameters matching each actor
+      actors_for_each_parameter = {}
+      each_parameter do |parameter|
+        actors_for_each_parameter[parameter] = parameter.possible_matching_for(actors)
       end
 
-      variables_for_each_actor = actors_for_each_variable.inject({}) do |res, (variable, actors_ary)|
+      parameters_for_each_actor = actors_for_each_parameter.inject({}) do |res, (parameter, actors_ary)|
         unless actors_ary.blank?
           actors_ary.each do |actor|
             res[actor] ||= []
-            res[actor] << variable
+            res[actor] << parameter
           end
         end
         res
       end
 
-      # cleaning variables with no actor
-      actors_for_each_variable.each do |variable, actors_ary|
+      # cleaning parameters with no actor
+      actors_for_each_parameter.each do |parameter, actors_ary|
         if actors_ary.empty?
-          result[variable] = nil
-          actors_for_each_variable.delete(variable)
+          result[parameter] = nil
+          actors_for_each_parameter.delete(parameter)
         end
       end
 
       # setting cursors
-      current_variable = current_actor = 0
+      current_parameter = current_actor = 0
 
-      while actors_for_each_variable.values.flatten.compact.present?
-        # first, manage all variables having only one actor matching
-        while current_variable < actors_for_each_variable.length
-          current_variable_key = actors_for_each_variable.keys[current_variable]
-          if actors_for_each_variable[current_variable_key].count == 1 && actors_for_each_variable[current_variable_key].present? # only one actor for the current variable
-            result[current_variable_key] = actors_for_each_variable[current_variable_key].first
-            clean(variables_for_each_actor, actors_for_each_variable, result[current_variable_key], current_variable_key)
+      while actors_for_each_parameter.values.flatten.compact.present?
+        # first, manage all parameters having only one actor matching
+        while current_parameter < actors_for_each_parameter.length
+          current_parameter_key = actors_for_each_parameter.keys[current_parameter]
+          if actors_for_each_parameter[current_parameter_key].count == 1 && actors_for_each_parameter[current_parameter_key].present? # only one actor for the current parameter
+            result[current_parameter_key] = actors_for_each_parameter[current_parameter_key].first
+            clean(parameters_for_each_actor, actors_for_each_parameter, result[current_parameter_key], current_parameter_key)
             # restart from the beginning
-            current_variable = 0
+            current_parameter = 0
           else
-            current_variable += 1
+            current_parameter += 1
           end
         end
 
-        # then, manage first actor having only one variable matching and go back to the first step
-        while current_actor < variables_for_each_actor.length
-          current_actor_key = variables_for_each_actor.keys[current_actor]
-          if variables_for_each_actor[current_actor_key].count == 1
-            current_variable_key = variables_for_each_actor[current_actor_key].first
-            result[current_variable_key] = current_actor_key
-            clean(variables_for_each_actor, actors_for_each_variable, result[current_variable_key], current_variable_key)
+        # then, manage first actor having only one parameter matching and go back to the first step
+        while current_actor < parameters_for_each_actor.length
+          current_actor_key = parameters_for_each_actor.keys[current_actor]
+          if parameters_for_each_actor[current_actor_key].count == 1
+            current_parameter_key = parameters_for_each_actor[current_actor_key].first
+            result[current_parameter_key] = current_actor_key
+            clean(parameters_for_each_actor, actors_for_each_parameter, result[current_parameter_key], current_parameter_key)
             # return to first step
             current_actor = 0
             break
@@ -619,19 +621,19 @@ module Procedo
             current_actor += 1
           end
         end
-        # then, manage the case when no actor has only one variable matching
-        if current_actor >= variables_for_each_actor.length
-          current_variable = 0
-          current_variable_key = actors_for_each_variable.keys[current_variable]
-          result[current_variable_key] = actors_for_each_variable[current_variable_key].first unless actors_for_each_variable[current_variable_key].nil?
-          clean(variables_for_each_actor, actors_for_each_variable, result[current_variable_key], current_variable_key)
+        # then, manage the case when no actor has only one parameter matching
+        if current_actor >= parameters_for_each_actor.length
+          current_parameter = 0
+          current_parameter_key = actors_for_each_parameter.keys[current_parameter]
+          result[current_parameter_key] = actors_for_each_parameter[current_parameter_key].first unless actors_for_each_parameter[current_parameter_key].nil?
+          clean(parameters_for_each_actor, actors_for_each_parameter, result[current_parameter_key], current_parameter_key)
           # return to first step
         end
 
-        # finally, manage the case when there's no more actor to match with variables
-        next unless variables_for_each_actor.empty?
-        actors_for_each_variable.keys.each do |variable_key|
-          result[variable_key] = nil
+        # finally, manage the case when there's no more actor to match with parameters
+        next unless parameters_for_each_actor.empty?
+        actors_for_each_parameter.keys.each do |parameter_key|
+          result[parameter_key] = nil
         end
 
       end
@@ -643,20 +645,20 @@ module Procedo
     attr_reader :root_group
 
     # clean
-    # removes newly matched actor and variable from hashes
-    # associating all possible actors for each variable and
-    # all possible variables for each actor
-    # @params:  - actors_hash, variables_hash, the hashes to clean
-    #           - actor, variable, the values to remove
-    def clean(actors_hash, variables_hash, actor, variable)
-      # deleting actor from hash "actor => variables"
+    # removes newly matched actor and parameter from hashes
+    # associating all possible actors for each parameter and
+    # all possible parameters for each actor
+    # @params:  - actors_hash, parameters_hash, the hashes to clean
+    #           - actor, parameter, the values to remove
+    def clean(actors_hash, parameters_hash, actor, parameter)
+      # deleting actor from hash "actor => parameters"
       actors_hash.delete(actor)
-      # deleting actor for all remaining variables
-      variables_hash.values.each { |ary| ary.delete(actor) }
-      # removing current variable for all remaining actors
-      actors_hash.values.each { |ary| ary.delete(variable) }
-      # removing current variable from hash "variable => actors"
-      variables_hash.delete(variable)
+      # deleting actor for all remaining parameters
+      parameters_hash.values.each { |ary| ary.delete(actor) }
+      # removing current parameter for all remaining actors
+      actors_hash.values.each { |ary| ary.delete(parameter) }
+      # removing current parameter from hash "parameter => actors"
+      parameters_hash.delete(parameter)
     end
   end
 end

@@ -1,13 +1,12 @@
-- reference = variable
-- f.object.reference_name = reference.name
+- f.object.parameter_name = parameter.name
 .nested-fields.cast
   = link_to_remove_nested_association('cast', f)
-  = f.input :reference_name, as: :hidden
-  - if variable.input?
-    = f.referenced_association :source_product, label: variable.human_name, source: {scope: reference.scope_hash.merge(availables: true)}
-    = render 'quantifier_field', f: f, reference: variable
-  - elsif variable.output?
-    = f.referenced_association :variant, label: variable.human_name, source: {scope: reference.scope_hash.merge(availables: true)}
-    -# = render 'quantifier_field', f: f, reference: variable
+  = f.input :parameter_name, as: :hidden
+  - if parameter.input?
+    = f.referenced_association :source_product, label: parameter.human_name, source: {scope: parameter.scope_hash.merge(availables: true)}
+    = render 'quantifier_field', f: f, parameter: parameter
+  - elsif parameter.output?
+    = f.referenced_association :variant, label: parameter.human_name, source: {scope: parameter.scope_hash.merge(availables: true)}
+    -# = render 'quantifier_field', f: f, parameter: parameter
   - else
-    = f.referenced_association :product, label: variable.human_name, source: {scope: reference.scope_hash.merge(availables: true)}
+    = f.referenced_association :product, label: parameter.human_name, source: {scope: parameter.scope_hash.merge(availables: true)}

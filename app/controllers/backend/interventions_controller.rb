@@ -101,7 +101,6 @@ module Backend
       t.column :variant, url: true
     end
 
-
     # Show one intervention with params_id
     def show
       return unless @intervention = find_and_check

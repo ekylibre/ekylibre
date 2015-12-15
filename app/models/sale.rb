@@ -408,7 +408,7 @@ class Sale < Ekylibre::Record::Base
   # Build general sales condition for the sale order
   def sales_conditions
     c = []
-    c << tc('sales_conditions.downpayment', percentage: self.nature.downpayment_percentage, amount: self.downpayment_amount.l(currency: self.currency)) if amount > self.nature.downpayment_minimum && self.has_downpayment
+    c << tc('sales_conditions.downpayment', percentage: self.nature.downpayment_percentage, amount: self.downpayment_amount.l(currency: self.currency)) if amount > self.nature.downpayment_minimum && has_downpayment
     c << tc('sales_conditions.validity', expiration: self.expired_at.l)
     c += self.nature.sales_conditions.to_s.split(/\s*\n\s*/) if self.nature.sales_conditions
     # c += self.responsible.team.sales_conditions.to_s.split(/\s*\n\s*/) if self.responsible and self.responsible.team

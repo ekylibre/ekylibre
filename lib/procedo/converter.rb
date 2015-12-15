@@ -1,6 +1,10 @@
 require 'procedo/handler_method'
 
 module Procedo
+  class HandlerMethodParser < Treetop::Runtime::CompiledParser
+    include Procedo::HandlerMethod
+  end
+
   module HandlerMethod
     class Base < Treetop::Runtime::SyntaxNode; end
     class Expression < Base; end

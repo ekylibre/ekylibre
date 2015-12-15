@@ -1027,6 +1027,7 @@ arb:
     # cash_session: "Cash session"
     cashes: "الحسابات المصرفية"
     cashes_accounts: "حسابات الصندوق النقدي" #?
+    # cast_groups: "Cast groups"
     # casts: "Casts"
     # catalog: "Catalog"
     catalog_description: "مواصفات للدليل" #?
@@ -1230,6 +1231,7 @@ arb:
     # document: "Document"
     document_templates: "نماذج الوثائق" #?
     documents: "الوثائق"
+    # doers: "Doers"
     downpayment: "القسط"
     downpayment_amount: "قيمة القسط"
     downpayment_minimum: "الحد الادنى للمجموع"
@@ -1400,6 +1402,7 @@ arb:
     # initial_owner: "Initial owner"
     # initial_population: "Initial population"
     # initial_shape: "Initial shape"
+    # inputs: "Inputs"
     # insurance_amount: "Insurance amount"
     # insurance_percentage: "Insurance percentage"
     integer_value: "قيمة العدد الصحيح"
@@ -1617,6 +1620,7 @@ arb:
     outgoing_payment_modes: "اساليب المصروفات"
     outgoing_payment_uses: "ازاء المصروفات" #?
     outgoing_payments: "المصروفات"
+    # outputs: "Outputs"
     owner: "المالك"
     owner_id: "مالك" #?
     owner_type: "طبيعة المالك" #?
@@ -1976,6 +1980,7 @@ arb:
     target: "الهدف"
     target_id: "الهدف" #?
     target_type: "نوع الهدف"
+    # targets: "Targets"
     # tasks: "Tasks"
     tax: "الضريبة"
     tax_declarations: "الاعلان عن الضرائب" #?

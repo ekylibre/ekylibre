@@ -17,13 +17,14 @@ module Procedo
       @procedure = procedure
       @name = name.to_sym
       @type = type
+      @group = options[:group]
       unless Parameter::TYPES.include?(@type)
         fail ArgumentError, "Unknown parameter type: #{@type.inspect}"
       end
       if options[:filter]
         @filter = options[:filter]
-        # Check filter syntax
-        WorkingSet.parse(@filter)
+        # # Check filter syntax
+        # WorkingSet.parse(@filter)
       end
       @handlers = {}
       # @position = options[:position] if options[:position]
@@ -31,7 +32,7 @@ module Procedo
 
     # Adds a new handler
     def add_handler(name, options = {})
-      handler = Handler.new(self, name, options)
+      handler = Procedo::Handler.new(self, name, options)
       if @handlers.key?(handler.name)
         fail ArgumentError, "Handler name already taken: #{name}"
       end
@@ -164,7 +165,8 @@ module Procedo
     # Returns scope hash for unroll
     def scope_hash
       hash = {}
-      hash[:can_each] = @abilities.join(',') unless @abilities.empty?
+      hash[:of_expression] = @filter unless @filter.blank?
+      # hash[:can_each] = @abilities.join(',') unless @abilities.empty?
       hash[:of_variety] = computed_variety if computed_variety
       hash[:derivative_of] = computed_derivative_of if computed_derivative_of
       hash

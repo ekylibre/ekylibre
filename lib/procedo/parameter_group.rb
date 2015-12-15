@@ -4,13 +4,14 @@ require 'procedo/parameter'
 module Procedo
   # Parameter is
   class ParameterGroup
-    attr_reader :nomenclature
+    attr_reader :procedure
     attr_accessor :name, :cardinality
 
-    def initialize(nomenclature, name, options = {})
-      @nomenclature = nomenclature
+    def initialize(procedure, name, options = {})
+      @procedure = procedure
       @name = name.to_sym
-      @cardinality = Cardinality.new(options[:cardinality] || '+')
+      @group = options[:group]
+      @cardinality = Procedo::Cardinality.new(options[:cardinality] || '+')
       @items = {}.with_indifferent_access
     end
 
@@ -26,11 +27,11 @@ module Procedo
     end
     alias_method :[], :fetch
 
-    def find(name, type = nil)
+    def find(name, _type = nil)
       browse_all do |i|
         return i if i.name.to_s == name
       end
-      return nil
+      nil
     end
 
     def position_of(item)
@@ -39,46 +40,55 @@ module Procedo
         return index if i == item
         index += 1
       end
-      return nil
+      nil
     end
 
     def groups
-      @items.select{ |i| i.is_a?(Procedo::ParameterGroup) }
+      @items.select { |i| i.is_a?(Procedo::ParameterGroup) }
     end
 
     # Browse items in their order
-    def each_item(&block)
-      items.each(&block)
+    def each_item(recursively = false, &block)
+      items(recursively).each(&block)
     end
 
     def add_parameter(name, type, options = {})
-      item = Procedo::Parameter.new(self, name, type, options)
+      options[:group] = self
+      item = Procedo::Parameter.new(@procedure, name, type, options)
       @items[item.name] = item
     end
 
     def add_parameter_group(name, options = {})
-      item = Procedo::ParameterGroup.new(self, name, options)
+      options[:group] = self
+      item = Procedo::ParameterGroup.new(@procedure, name, options)
       @items[item.name] = item
+    end
+
+    # Returns a human name of the parameter group
+    # Scopes:
+    # -  procedure_parameter_groups.<name>
+    # -  procedure_parameters.<name>
+    # -  labels.<name>
+    # -  attribtues.<name>
+    def human_name(options = {})
+      "procedure_parameter_groups.#{name}".t(options.merge(default: ["procedure_parameters.#{name}".to_sym, "labels.#{name}".to_sym, "attributes.#{name}".to_sym, name.to_s.humanize]))
     end
 
     protected
 
     def browse_all(&block)
-      @items.each do |k, item|
+      @items.each do |_k, item|
         yield item
-        if item.is_a?(ParameterGroup)
-          item.browse_all(&block)
-        end
+        item.browse_all(&block) if item.is_a?(Procedo::ParameterGroup)
       end
     end
-    
 
     # Retrieve all (nested or not) Parameter objects in the group in the order
     # defined by default.
     def all_items
       list = []
       items.each do |item|
-        if item.is_a?(ParameterGroup)
+        if item.is_a?(Procedo::ParameterGroup)
           list += item.all_items
         else
           list << item

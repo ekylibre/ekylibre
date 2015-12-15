@@ -34,17 +34,29 @@
 #
 
 class InterventionCastGroup < Ekylibre::Record::Base
-  belongs_to :intervention
-  belongs_to :group, class_name: 'InterventionCastGroup'
-  has_many :casts, class_name: 'InterventionCast', foreign_key: :group_id
+  belongs_to :intervention, inverse_of: :cast_groups
+  belongs_to :group, class_name: 'InterventionCastGroup', inverse_of: :cast_groups
+  belongs_to :parent, class_name: 'InterventionCastGroup', foreign_key: :group_id, inverse_of: :children
+  has_many :casts, class_name: 'InterventionCast', inverse_of: :group, foreign_key: :group_id
+  has_many :cast_groups, class_name: 'InterventionCastGroup', dependent: :destroy, inverse_of: :group, foreign_key: :group_id
+  has_many :children, class_name: 'InterventionCastGroup', dependent: :destroy, inverse_of: :parent, foreign_key: :group_id
+  has_many :doers, class_name: 'InterventionDoer', dependent: :destroy, inverse_of: :group, foreign_key: :group_id
+  has_many :inputs, class_name: 'InterventionInput', dependent: :destroy, inverse_of: :group, foreign_key: :group_id
+  has_many :outputs, class_name: 'InterventionOutput', dependent: :destroy, inverse_of: :group, foreign_key: :group_id
+  has_many :targets, class_name: 'InterventionTarget', dependent: :destroy, inverse_of: :group, foreign_key: :group_id
+  has_many :tools, class_name: 'InterventionTool', dependent: :destroy, inverse_of: :group, foreign_key: :group_id
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_presence_of :intervention, :parameter_group_name
   # ]VALIDATORS]
 
+  validates_associated :cast_groups, :doers, :inputs, :outputs, :targets, :tools
+
+  accepts_nested_attributes_for :cast_groups, :doers, :inputs, :outputs, :targets, :tools
+
   delegate :procedure, to: :intervention
 
   def parameter_group
-    procedure.find(self.parameter_group_name, :parameter_group)
+    procedure.find(parameter_group_name, :parameter_group)
   end
-
 end

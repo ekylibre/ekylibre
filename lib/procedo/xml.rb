@@ -104,9 +104,10 @@ module Procedo
         name = element.attr('name').to_sym
         fail "No type given for #{name} parameter" unless element.has_attribute?('type')
         type = element.attr('type').underscore.to_sym
-        options = {}
-        if element.has_attribute?('cardinality')
-          options[:cardinality] = element.attr('cardinality').to_s
+        %w(filter cardinality).each do |info|
+          if element.has_attribute?(info)
+            options[info.underscore.to_sym] = element.attr(info).to_s
+          end
         end
         options[:output] = {}
         %w(name variety derivative-of variant).each do |attribute|
@@ -120,8 +121,8 @@ module Procedo
             options[:output][:default][attribute.underscore.to_sym] = element.attr("default-#{attribute}").to_s
           end
         end
-        group = options[:group] || procedure
-        parameter = group.add_parameter(name, type, options)
+        parent = options[:group] || procedure
+        parameter = parent.add_parameter(name, type, options)
         # Handlers
         element.xpath('xmlns:handler').each do |el|
           parse_handler(parameter, el)
@@ -159,7 +160,7 @@ module Procedo
       # Parse <parameter-group> element
       def parse_parameter_group(procedure, element, options = {})
         unless element.has_attribute?('name')
-          fail Procedo::Errors::MissingAttribute, "Missing name in parameter-group of #{procedure.name} at line #{element.line}"
+          fail Procedo::Errors::MissingAttribute, "Missing name for parameter-group in #{procedure.name} at line #{element.line}"
         end
         name = element.attr('name').to_sym
         options = {}
@@ -167,9 +168,8 @@ module Procedo
           options[:cardinality] = element.attr('cardinality').to_s
         end
         parent = options[:group] || procedure
-        group = parent.add_parameter_group(name)
-        options[:group] = group
-        parse_group_children(procedure, element, options)
+        group = parent.add_parameter_group(name, options)
+        parse_group_children(procedure, element, group: group)
       end
     end
   end

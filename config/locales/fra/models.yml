@@ -499,6 +499,7 @@ fra:
     cash_transfers: "Virements internes" #?
     cashes: "Trésoreries"
     cashes_accounts: "Comptes de caisse" #?
+    # cast_groups: "Cast groups"
     casts: "Acteurs"
     catalog: "Catalogue de prix"
     catalog_items: "Entrées de catalogue"
@@ -661,6 +662,7 @@ fra:
     document: "Document"
     document_archives: "Archives documentaires" #?
     documents: "Documents"
+    # doers: "Doers"
     done_at: "Fait le" #?
     downpayment: "Acompte"
     downpayment_amount: "Montant de l’acompte"
@@ -806,6 +808,7 @@ fra:
     initial_owner: "Propriétaire initial"
     initial_population: "Population initiale"
     initial_shape: "Forme initiale"
+    # inputs: "Inputs"
     insurance_amount: "Montant de l’assurance"
     insurance_percentage: "Taux d’assurance (%)"
     integer_value: "Valeur entière"
@@ -983,6 +986,7 @@ fra:
     outgoing_parcels: "Colis à expédier"
     outgoing_payment_modes: "Modes de décaissement"
     outgoing_payments: "Décaissements"
+    # outputs: "Outputs"
     owner: "Propriétaire"
     ownerships: "Possessions"
     pacage_number: "Numéro de PACAGE"
@@ -1266,6 +1270,7 @@ fra:
     suspended: "Suspendu"
     target: "Cible"
     target_type: "Type de cible"
+    # targets: "Targets"
     tasks: "Tâches"
     tax: "Taxe"
     taxations: "Taxations"

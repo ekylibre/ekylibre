@@ -199,12 +199,24 @@ class Activity < Ekylibre::Record::Base
 
   # Returns a specific color for the given activity
   def color
-    self.colors(family, cultivation_variety)
+    self.class.color(family, cultivation_variety)
   end
 
-  # Returns a color for given family and variety
+  # Returns matching crop set for the given cultivation_variety
+  def crop_sets
+    return [] unless variety = Nomen::Variety[cultivation_variety]
+    crop_sets ||= Nomen::CropSet.list.select do |i|
+      i.varieties.detect do |v|
+        variety <= v
+      end
+    end
+    crop_sets.map(&:name).map(&:to_s)
+  end
+
+  class << self
+    # Returns a color for given family and variety
     # short-way solution, can be externalized in mid-way solution
-    def colors(family, variety = nil)
+    def color(family, variety = nil)
       colors = { gold: '#FFD700', golden_rod: '#DAA520', yellow: '#FFFF00',
                  orange: '#FF8000', red: '#FF0000', green: '#80FF00',
                  green_yellow: '#ADFF2F',
@@ -238,7 +250,7 @@ class Activity < Ekylibre::Record::Base
           colors[:teal]
         # FIBER
         elsif variety <= :linum ||
-                variety <= :cannabis
+              variety <= :cannabis
           colors[:slate_gray]
         # LEGUMINOUS
         elsif crop_sets.include?('leguminous')
@@ -270,19 +282,7 @@ class Activity < Ekylibre::Record::Base
       end
     end
 
-  # Returns matching crop set for the given cultivation_variety
-  def crop_sets
-    return [] unless variety = Nomen::Variety[cultivation_variety]
-    crop_sets ||= Nomen::CropSet.list.select do |i|
-      i.varieties.detect do |v|
-        variety <= v
-      end
-    end
-    sets = crop_sets.map(&:name).map(&:to_s)
-  end
-
-
-  class << self
+    # Find nearest family on cultivation variety and support variety
     def find_best_family(cultivation_variety, support_variety)
       rankings = Nomen::ActivityFamily.list.inject({}) do |hash, item|
         valid = true

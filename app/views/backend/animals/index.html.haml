@@ -123,7 +123,7 @@
             .controls
               = datetime_field_tag(:stopped_at, nil, data: { bind: 'value: stopped_at'})
           .control-group
-            = label_tag(:worker, ::I18n.translate('procedure_variables.caregiver'), class: 'control-label')
+            = label_tag(:worker, ::I18n.translate('procedure_parameters.caregiver'), class: 'control-label')
             .controls
               = select_tag(:worker, nil, data: {bind: "options: $root.workers_list,
                 optionsText: 'name',

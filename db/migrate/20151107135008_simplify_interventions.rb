@@ -326,7 +326,6 @@ class SimplifyInterventions < ActiveRecord::Migration
     end
     add_reference :intervention_casts, :group, index: true
 
-
     # Remove not wanted interventions
     execute "DELETE FROM intervention_casts WHERE intervention_id IN (SELECT id FROM interventions WHERE reference_name IN ('base-administrative_task-0', 'base-attach-0', 'base-detach-0', 'base-double_chemical_mixing-0', 'base-double_seed_mixing-0', 'base-filling-0', 'base-group_exclusion-0', 'base-group_inclusion-0', 'base-maintenance_task-0', 'base-product_evolution-0', 'base-product_moving-0', 'base-technical_task-0', 'base-triple_seed_mixing-0'))"
     execute "DELETE FROM interventions WHERE reference_name IN ('base-administrative_task-0', 'base-attach-0', 'base-detach-0', 'base-double_chemical_mixing-0', 'base-double_seed_mixing-0', 'base-filling-0', 'base-group_exclusion-0', 'base-group_inclusion-0', 'base-maintenance_task-0', 'base-product_evolution-0', 'base-product_moving-0', 'base-technical_task-0', 'base-triple_seed_mixing-0')"

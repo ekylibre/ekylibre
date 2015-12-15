@@ -44,7 +44,7 @@ module Procedo
 
     # Adds a converter to the handler
     def add_converter(destination, options = {})
-      converter = Converter.new(self, destination, options)
+      converter = Procedo::Converter.new(self, destination, options)
       @converters[converter.destination] = converter
     end
 

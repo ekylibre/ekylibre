@@ -71,42 +71,42 @@ fra:
     volume_area_density: "Densité surfacique" #?
     volume_area_density_in_liter_per_square_meter: "Densité volumoqie en litres par mètre carré" #?
     volume_density: "Densité volumique" #?
-  procedure_variables:  #?
-    adding_wine: "Vin (mineur)" #?
+  procedure_parameters:
+    adding_wine: "Vin (mineur)"
     adding_wine_to_blend: "Vin à assembler (mineur)" #?
-    animal: "Animal" #?
-    animal_housing: "Zone d'hébergement de l'animal" #?
-    animal_medicine: "Produit vétérinaire" #?
+    animal: "Animal"
+    animal_housing: "Zone d'hébergement de l'animal"
+    animal_medicine: "Produit vétérinaire"
     animal_medicine_to_give: "Produit vétérinaire à donner" #?
-    baler: "Botteleuse" #?
-    baler_driver: "Conducteur (tracteur-botteleuse)" #?
-    bird_band: "Bande d'oiseaux" #?
-    bottles: "Bouteilles" #?
+    baler: "Botteleuse"
+    baler_driver: "Conducteur (tracteur-botteleuse)"
+    bird_band: "Bande d'oiseaux"
+    bottles: "Bouteilles"
     bottles_to_use: "Bouteilles à utiliser" #?
-    caregiver: "Soigneur" #?
+    caregiver: "Soigneur"
     chemical_mix: "Mélange de produits de protection des végétaux" #?
     chemical_storage: "Stockage de produits de protection des végétaux" #?
-    child: "Nouveau né" #?
-    cleaner: "Outil de nettoyage" #?
-    compressor: "Compresseur" #?
-    container: "Conteneur" #?
-    corker: "Boucheuse" #?
-    corks: "Bouchons" #?
+    child: "Nouveau né"
+    cleaner: "Outil de nettoyage"
+    compressor: "Compresseur"
+    container: "Conteneur"
+    corker: "Boucheuse"
+    corks: "Bouchons"
     corks_to_use: "Bouchons à utiliser" #?
-    cropper: "Moissonneuse batteuse" #?
-    cropper_driver: "Conducteur de moissonneuse batteuse" #?
-    cultivation: "Culture" #?
-    cultivator: "Cultivateur" #?
-    cutter: "Outil de taille" #?
-    destination_tank: "Cuve de destination" #?
-    doer: "Faiseur" #?
-    driver: "Conducteur" #?
-    eggs: "Oeufs" #?
-    equipment: "Équipement" #?
-    excrement: "Excrément" #?
+    cropper: "Moissonneuse batteuse"
+    cropper_driver: "Conducteur de moissonneuse batteuse"
+    cultivation: "Culture"
+    cultivator: "Cultivateur"
+    cutter: "Outil de taille"
+    destination_tank: "Cuve de destination"
+    doer: "Faiseur"
+    driver: "Conducteur"
+    eggs: "Oeufs"
+    equipment: "Équipement"
+    excrement: "Excrément"
     excrement_zone: "Fumière" #?
-    fermented_juice: "Jus fermenté" #?
-    fertilizer: "Engrais" #?
+    fermented_juice: "Jus fermenté"
+    fertilizer: "Engrais"
     fertilizer_to_spread: "Engrais à épandre" #?
     first_chemical_input: "Premier intrant de protection des végétaux" #?
     first_chemical_input_to_use: "Premier intrant de protection des végétaux à utiliser" #?
@@ -117,84 +117,85 @@ fra:
     first_plant_medicine_to_spray: "Premier produit à pulvériser" #?
     first_seed_input: "Première semence" #?
     first_seed_input_to_use: "Première semence utilisée" #?
-    food_mix: "Mélange" #?
+    # food: "Food"
+    food_mix: "Mélange"
     food_storage: "Stockage du mélange" #?
-    forager: "Ensileuse" #?
-    forager_driver: "Conducteur d’ensileuse" #?
+    forager: "Ensileuse"
+    forager_driver: "Conducteur d’ensileuse"
     fruit_harvester: "Récolteuse de fruit" #?
     fruits: "Fruits" #?
-    fuel: "Carburant" #?
+    fuel: "Carburant"
     fuel_to_input: "Carburant mis" #?
     grain: "Grain" #?
     grain_to_deliver: "Grain à livrer" #?
-    grains: "Grains" #?
-    grape: "Raisin" #?
+    grains: "Grains"
+    grape: "Raisin"
     grape_picker: "Vendangeur" #?
     grape_reaper: "Machine à vendanger" #?
     grape_reaper_driver: "Conducteur de machine à vendanger" #?
     grape_to_deliver: "Raisin à livrer" #?
     grape_to_press: "Raisin à presser" #?
-    grass: "Herbe" #?
+    grass: "Herbe"
     grinded: "Résidu de culture" #?
-    grinder: "Broyeur" #?
+    grinder: "Broyeur"
     group: "Groupe" #?
-    hand_drawn: "Tireuse" #?
-    harrow: "Herse" #?
+    hand_drawn: "Tireuse"
+    harrow: "Herse"
     harvester_man: "Récolteur" #?
     hazelnuts: "Noisettes" #?
-    herd: "Troupeau" #?
-    implanter: "Planteuse" #?
-    implanter_man: "Planteur" #?
-    implanter_tool: "Équipement de plantation" #?
-    insecticide: "Insecticide" #?
+    herd: "Troupeau"
+    implanter: "Planteuse"
+    implanter_man: "Planteur"
+    implanter_tool: "Équipement de plantation"
+    insecticide: "Insecticide"
     insecticide_to_input: "Insecticide à distribuer" #?
-    inseminator: "Inséminateur" #?
-    item: "Pièce" #?
+    inseminator: "Inséminateur"
+    item: "Pièce"
     item_to_change: "Pièce changée" #?
     items: "Éléments" #?
     items_to_fill: "Éléments à remplir" #?
-    juice: "Jus" #?
-    juice_to_ferment: "Jus à fermenter" #?
-    land_parcel: "Parcelle" #?
+    juice: "Jus"
+    juice_to_ferment: "Jus à fermenter"
+    land_parcel: "Parcelle"
     maintained: "Maintenu" #?
     mammal: "Animal" #?
     mammal_herd: "Troupeau à traire" #?
     mammal_herd_to_milk: "Troupeau à traire" #?
-    mammal_to_milk: "Animal à traire" #?
+    mammal_to_milk: "Animal à traire"
     manure: "Fumier" #?
     manure_to_spread: "Fumier à épandre" #?
-    mechanic: "Mécanicien" #?
+    mechanic: "Mécanicien"
     medicine: "Traitement" #?
     medicine_to_give: "Traitement à donner" #?
     medicine_to_spray: "Traitement à pulvériser" #?
     member: "Membre" #?
-    milk: "Lait" #?
-    molluscicide: "Molluscicide" #?
+    milk: "Lait"
+    molluscicide: "Molluscicide"
     molluscicide_to_input: "Molluscicide à distribuer" #?
-    mother: "Mère" #?
+    mother: "Mère"
     mother_animal: "Mère" #?
-    mower: "Faucheuse" #?
-    mower_driver: "Conducteur de faucheuse" #?
+    mower: "Faucheuse"
+    mower_driver: "Conducteur de faucheuse"
     new_animal_variant: "Nouveau variant de l'animal" #?
     nuts: "Fruits à coques" #?
     nuts_harvester: "Récolteuse de fruits à coques" #?
     nuts_to_deliver: "Fruits à coques à livrer" #?
-    oenological_intrant: "Produit œnologique" #?
+    oenological_intrant: "Produit œnologique"
     oenological_intrant_to_put: "Produit œnologique à mettre" #?
-    oil: "Huile" #?
+    oil: "Huile"
     oil_to_input: "Huile mise" #?
     plant: "Culture végétale" #?
-    plant_medicine: "Produit phytosanitaire" #?
+    plant_medicine: "Produit phytosanitaire"
     plant_medicine_to_spray: "Produit phytosanitaire à pulvériser" #?
-    plants: "Plants" #?
+    plants: "Plants"
     plants_to_fix: "Plants à implanter" #?
-    plastic: "Plastique" #?
+    plastic: "Plastique"
     plastic_to_mulch: "Plastique à poser" #?
-    plow: "Charrue" #?
-    press: "Presse" #?
+    plow: "Charrue"
+    press: "Presse"
     product: "Produit" #?
     pruner: "Sécateur" #?
-    residue: "Residue" #?
+    residue: "Residue"
     second_chemical_input: "Second intrant de protection des végétaux" #?
     second_chemical_input_to_use: "Second intrant de protection des végétaux à utiliser" #?
     second_child: "Second nouveau né" #?
@@ -207,27 +208,28 @@ fra:
     seed_mix: "Mélange de graine" #?
     seed_storage: "Seed storage" #?
     seeder: "Semoir" #?
-    seeds: "Semences" #?
+    seeds: "Semences"
     seeds_to_sow: "Semence à semer" #?
-    silage: "Ensilage" #?
+    silage: "Ensilage"
     silage_to_deliver: "Ensilage à livrer" #?
     silage_to_give: "Ensilage à donner" #?
-    silage_unloader: "Désileuse" #?
+    silage_unloader: "Désileuse"
     silo: "Silo" #?
-    sower: "Semoir" #?
-    sprayer: "Pulvérisateur" #?
-    spreader: "Épandeur" #?
-    stakes: "Piquets" #?
+    # sortable: "Sortable"
+    sower: "Semoir"
+    sprayer: "Pulvérisateur"
+    spreader: "Épandeur"
+    stakes: "Piquets"
     stakes_to_plant: "Piquets à planter" #?
-    straw: "Fourrage" #?
-    straw_bales: "Bottes de fourrage" #?
-    straw_to_bunch: "Fourrage entrant" #?
+    straw: "Fourrage"
+    straw_bales: "Bottes de fourrage"
+    straw_to_bunch: "Fourrage entrant"
     straw_to_deliver: "Fourrage à livrer" #?
     straw_to_mulch: "Paille à pailler" #?
-    straws: "Paille" #?
-    tank: "Cuve" #?
-    tank_for_residue: "Cuve pour les résidus" #?
-    tank_for_wine: "Cuve pour le vin" #?
+    straws: "Paille"
+    tank: "Cuve"
+    tank_for_residue: "Cuve pour les résidus"
+    tank_for_wine: "Cuve pour le vin"
     target: "Cible" #?
     third_food_input: "Troisième ingrédient" #?
     third_food_input_to_use: "Troisième ingrédient utilisé" #?
@@ -236,28 +238,28 @@ fra:
     third_seed_input: "Troisième semence" #?
     third_seed_input_to_use: "Troisième semence utilisée" #?
     tool: "Outil" #?
-    tractor: "Tracteur" #?
+    tractor: "Tracteur"
     trailer: "Remorque" #?
-    variant: "Variant" #?
-    vial: "Paillette" #?
+    variant: "Variant"
+    vial: "Paillette"
     vial_to_give: "Paillette à utiliser" #?
     walnuts: "Noix" #?
-    water: "Eau" #?
+    water: "Eau"
     water_to_spread: "Eau à apporter" #?
     weedkiller: "Désherbant" #?
     weedkiller_to_spray: "Désherbant à pulvériser" #?
-    wine: "Vin" #?
-    wine_blended: "Vin assemblé" #?
-    wine_bottles: "Bouteilles de vin" #?
-    wine_man: "Opérateur de chai" #?
+    wine: "Vin"
+    wine_blended: "Vin assemblé"
+    wine_bottles: "Bouteilles de vin"
+    wine_man: "Opérateur de chai"
     wine_storage: "Stockage de vin" #?
     wine_to_blend: "Vin à assembler" #?
     wine_to_move: "Vin à transférer" #?
     wine_to_pack: "Vin à embouteiller" #?
-    wine_to_treat: "Vin à traiter" #?
-    wire_fence: "Fils de clôture" #?
+    wine_to_treat: "Vin à traiter"
+    wire_fence: "Fils de clôture"
     wire_fence_to_put: "Fils de clôture à positionner" #?
-    worker: "Travailleur" #?
+    worker: "Travailleur"
     zone: "Zone" #?
   procedures:
     administrative_task: "Tâche administrative générale" #?

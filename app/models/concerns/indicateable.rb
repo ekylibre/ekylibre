@@ -121,9 +121,9 @@ module Indicateable
     elsif cast_or_time.is_a?(InterventionCast)
       if cast_or_time.actor && cast_or_time.actor.whole_indicators_list.include?(indicator.name.to_sym)
         value = cast_or_time.send(indicator.name)
-      elsif cast_or_time.reference.new?
-        unless variant = cast_or_time.variant || cast_or_time.reference.variant(cast_or_time.intervention)
-          fail StandardError, "Need variant to know how to read it (#{cast_or_time.intervention.reference_name}##{cast_or_time.reference_name})"
+      elsif cast_or_time.parameter.new?
+        unless variant = cast_or_time.variant || cast_or_time.parameter.variant(cast_or_time.intervention)
+          fail StandardError, "Need variant to know how to read it (#{cast_or_time.intervention.procedure_name}##{cast_or_time.parameter_name})"
         end
         if variant.frozen_indicators.include?(indicator)
           value = variant.get(indicator)

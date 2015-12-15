@@ -543,8 +543,8 @@ namespace :clean do
 
     translation << "  procedure_handlers:\n"
     handlers = []
-    Procedo.each_variable do |variable|
-      handlers += variable.handlers.map(&:name)
+    Procedo.each_parameter do |parameter|
+      handlers += parameter.handlers.map(&:name)
     end
     handlers.uniq!
     ref[:procedure_handlers] ||= {}
@@ -561,19 +561,19 @@ namespace :clean do
       end
     end
 
-    translation << "  procedure_variables:\n"
-    variables = []
-    Procedo.each_variable do |variable|
-      variables << variable.name
+    translation << "  procedure_parameters:\n"
+    parameters = []
+    Procedo.each_parameter do |parameter|
+      parameters << parameter.name
     end
-    variables.uniq!
-    ref[:procedure_variables] ||= {}
-    variables.sort.each do |variable|
+    parameters.uniq!
+    ref[:procedure_parameters] ||= {}
+    parameters.sort.each do |parameter|
       to_translate += 1
-      if name = ref[:procedure_variables][variable]
-        translation << "    #{variable}: " + Clean::Support.yaml_value(name) + "\n"
+      if name = ref[:procedure_parameters][parameter]
+        translation << "    #{parameter}: " + Clean::Support.yaml_value(name) + "\n"
       else
-        translation << "    #{missing_prompt}#{variable}: " + Clean::Support.yaml_value(variable.to_s.humanize) + "\n"
+        translation << "    #{missing_prompt}#{parameter}: " + Clean::Support.yaml_value(parameter.to_s.humanize) + "\n"
         untranslated += 1
       end
     end

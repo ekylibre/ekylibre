@@ -2,7 +2,7 @@
   = f.input_field :quantity_value
   -# = f.input_field :quantity_population, as: :hidden
   - options = []
-  - reference.handlers.each do |handler|
+  - parameter.handlers.each do |handler|
     - if handler.widget == :number
       - unit = handler.unit? ? handler.unit : Nomen::Unit.find(:unity)
       - options << ["#{unit.symbol} (#{handler.indicator.human_name})", handler.name]

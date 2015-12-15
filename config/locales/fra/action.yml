@@ -672,7 +672,6 @@ fra:
     add_condition: "Ajouter la condition"
     add_conditions: "Ajoutez des conditions"
     add_delivery: "Ajouter une livraison"
-    add_diagnostic: "Ajouter un diagnostic" #?
     add_distribution: "Ajouter une répartition"
     add_email: "Ajouter une adresse e-mail"
     add_entry: "Ajouter une écriture"
@@ -682,17 +681,13 @@ fra:
     add_item: "Ajouter un élément"
     add_linestring: "Ajouter une ligne"
     add_mail: "Ajouter une adresse postale"
-    add_marker: "Ajouter un objectif" #?
     add_mobile: "Ajouter un n° de portable"
     add_new_record: "Ajouter un nouveau enregistrement"
     add_participation: "Ajouter une participation"
-    add_passage: "Ajouter un produit" #?
     add_payment: "Ajouter un encaissement"
     add_phone: "Ajouter un n° de téléphone"
     add_point: "Ajouter un point"
     add_polygon: "Ajouter un polygone"
-    add_posology: "Ajouter une posologie" #?
-    add_product: "Ajouter un produit" #?
     add_production: "Ajouter une production"
     add_purchase_taxation: "Ajouter une taxe d’achat"
     add_quickly_an_item: "Ajouter rapidement une ligne de produit"
@@ -702,10 +697,8 @@ fra:
     add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
     add_support: "Ajouter un support de production"
     add_tool: "Ajouter un outil"
-    add_treatment: "Ajouter un traitement" #?
-    add_variant: "Ajouter une variante" #?
-    add_watching: "Ajouter un produit de référence" #?
     add_website: "Ajouter un site web"
+    add_working_period: "Ajouter une période de travail"
     add_x: "Ajouter «\_%{x}\_»"
     add_x_html: "Ajouter «\_%{x}\_»" #?
     address: "Adresse" #?

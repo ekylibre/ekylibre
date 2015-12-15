@@ -17,6 +17,8 @@ autoload :ActiveSensor,    'active_sensor'
 # App-specific libs
 require 'ekylibre'
 
+require 'working_set'
+
 # XML definitions
 autoload :Nomen,     'nomen'
 autoload :Aggeratio, 'aggeratio'

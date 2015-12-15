@@ -204,7 +204,7 @@ class InterventionCast < Ekylibre::Record::Base
   end
 
   def self.role
-    @name ||= self.name.gsub(/^Intervention/, '').underscore.to_sym
+    @name ||= name.gsub(/^Intervention/, '').underscore.to_sym
   end
 
   def role

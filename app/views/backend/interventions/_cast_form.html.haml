@@ -1,0 +1,13 @@
+- reflection = parameter.reflection_name
+-# puts f.object.send(reflection).inspect.magenta
+- list = f.object.send(reflection).select{|v| v.parameter_name.to_s == parameter.name.to_s}
+- f.object.send(reflection).new(parameter_name: parameter.name) unless list.any?
+- list = f.object.send(reflection).select{|v| v.parameter_name.to_s == parameter.name.to_s}
+-# puts parameter.name.to_s.yellow
+-# puts list.inspect
+- id = "cast-#{parameter.name}"
+.intervention-cast{class: "intervention-#{parameter.type}", id: id}
+  = f.simple_fields_for(reflection, list) do |c|
+    = render "cast_fields", f: c, parameter: parameter
+.links= link_to_add_association "add_x".tl(x: parameter.human_name), f, reflection, partial: "cast_fields", data: {association_insertion_node: "##{id}", association_insertion_method: :append}, render_options: {locals: {thing: reflection, parameter: parameter}}, class: 'nested-add'
+-# f.object.casts.new(parameter_name: name)
