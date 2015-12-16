@@ -2637,6 +2637,8 @@ intervention_working_periods:
     type: integer
     references: user
 interventions:
+  actions:
+    type: string
   created_at:
     type: datetime
     required: true

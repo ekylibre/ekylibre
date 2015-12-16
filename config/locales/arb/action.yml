@@ -800,6 +800,7 @@ arb:
     active_sum: "مجموع الموجودات" #?
     # activities: "Activities"
     # activity: "Activity"
+    # activity_production: "Activity production"
     add: "اضافة"
     # add_annotation: "Add annotation"
     # add_attachment: "Add attachment"
@@ -838,6 +839,7 @@ arb:
     # add_x: "Add “%{x}”"
     address: "العنوان" #?
     # affair: "Affair"
+    # affair_number: "Affair number"
     # affairs: "Affairs"
     all: "جميع الاسعار"
     # all_accounts: "All accounts"
@@ -897,6 +899,7 @@ arb:
     balance: "رصيد الحساب"
     # bank_account: "Bank account"
     bank_accounts: "" #?
+    # bank_statement_number: "Bank statement number"
     bank_statement_point: "الاشارة للكشف المصرفي" #?
     bank_statement_update: "تعديل الكشف المصرفي" #?
     # bank_statements: "Bank statements"
@@ -922,6 +925,8 @@ arb:
     cancel: "الغاء"
     # cancelation: "Cancelation"
     cancelled: "تم الالغاء" #?
+    # cap_islets: "Cap islets"
+    # cap_land_parcels: "Cap land parcels"
     # cartography: "Cartography"
     cash: "حسابات بنكية"
     # cash_balance: "Cash balance"

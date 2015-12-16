@@ -598,6 +598,7 @@ spa:
     active_sum: "Total activos" #?
     # activities: "Activities"
     # activity: "Activity"
+    # activity_production: "Activity production"
     # add: "Add"
     # add_annotation: "Add annotation"
     # add_attachment: "Add attachment"
@@ -635,6 +636,7 @@ spa:
     # add_working_period: "Add working_period"
     # add_x: "Add “%{x}”"
     # affair: "Affair"
+    # affair_number: "Affair number"
     # affairs: "Affairs"
     # all: "All"
     # all_accounts: "All accounts"
@@ -687,6 +689,7 @@ spa:
         safari: "Safari" #?
     balance: "Saldo"
     # bank_account: "Bank account"
+    # bank_statement_number: "Bank statement number"
     bank_statement_point: "Despuntar el levantar" #?
     bank_statement_update: "Modificar el leventar" #?
     # bank_statements: "Bank statements"
@@ -710,6 +713,8 @@ spa:
     # cancel: "Cancel"
     # cancelation: "Cancelation"
     cancelled: "Pasar en activos" #?
+    # cap_islets: "Cap islets"
+    # cap_land_parcels: "Cap land parcels"
     # cartography: "Cartography"
     # cash: "Cash"
     # cash_balance: "Cash balance"

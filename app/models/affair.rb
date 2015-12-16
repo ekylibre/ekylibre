@@ -140,6 +140,10 @@ class Affair < Ekylibre::Record::Base
     end
   end
 
+  def work_name
+    "#{number}"
+  end
+
   class << self
     # Find or create journal for affairs
     def journal

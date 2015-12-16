@@ -834,7 +834,7 @@ eng:
     active: "Active" #?
     activities: "Activities" #?
     activity: "Activity"
-    # activity_production: "Activity production"
+    activity_production: "Activity production"
     add: "Add"
     add_annotation: "Add annotation"
     add_attachment: "Add attachment"
@@ -872,6 +872,7 @@ eng:
     add_working_period: "Add working_period"
     add_x: "Add “%{x}”"
     affair: "Affair"
+    affair_number: "Affair number" #?
     affairs: "Affairs" #?
     all: "All"
     all_accounts: "All accounts"
@@ -906,6 +907,7 @@ eng:
     back: "Back to the previous page"
     balance: "Balance"
     bank_account: "Bank account"
+    bank_statement_number: "Bank statement number" #?
     bank_statements: "Bank statements"
     bban: "Basic Bank Account Number (BBAN)"
     beginning: "Beginning"
@@ -923,8 +925,8 @@ eng:
     canals: "Canals" #?
     cancel: "Cancel"
     cancelation: "Cancelation"
-    # cap_islets: "Cap islets"
-    # cap_land_parcels: "Cap land parcels"
+    cap_islets: "Cap islets"
+    cap_land_parcels: "Cap land parcels"
     cartography: "Cartography"
     cash: "Cash"
     cash_balance: "Cash balance"

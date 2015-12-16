@@ -1399,6 +1399,7 @@ ActiveRecord::Schema.define(version: 20151108001401) do
     t.text     "description"
     t.integer  "working_duration"
     t.integer  "whole_duration"
+    t.string   "actions"
   end
 
   add_index "interventions", ["created_at"], name: "index_interventions_on_created_at", using: :btree
