@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add solanum tuberosum varieties">
+  <item-creation item="varieties#solanum_tuberosum_saline" parent="solanum_tuberosum" itis_tsn="505272"/>
+</migration>

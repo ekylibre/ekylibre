@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add cucurbita varieties">
+  <item-creation item="varieties#cucurbita_pepo_patidou" parent="cucurbita_pepo" itis_tsn="22373"/>
+  <item-creation item="varieties#cucurbita_pepo_pepo_cora" parent="cucurbita_pepo_pepo" itis_tsn="527581"/>
+  <item-creation item="varieties#cucurbita_pepo_pepo_kimber" parent="cucurbita_pepo_pepo" itis_tsn="527581"/>
+  <item-creation item="varieties#cucurbita_pepo_ovifera_patisson_blanc" parent="cucurbita_pepo_ovifera" itis_tsn="527580"/>
+  <item-creation item="varieties#cucurbita_maxima_honshu" parent="cucurbita_maxima" itis_tsn="527581"/>
+  <item-creation item="varieties#cucurbita_maxima_nelson" parent="cucurbita_maxima" itis_tsn="527581"/>
+  <item-creation item="varieties#cucurbita_maxima_potimarron_orange_summer" parent="cucurbita_maxima_potimarron" itis_tsn="527581"/>
+  <item-creation item="varieties#cucurbita_maxima_potimarron_red_hokkaido" parent="cucurbita_maxima_potimarron" itis_tsn="527581"/>
+  <item-creation item="varieties#cucurbita_maxima_potimarron_uchiki_kuri" parent="cucurbita_maxima_potimarron" itis_tsn="527581"/>
+  <item-creation item="varieties#cucurbita_moschata_butternut_havanna" parent="cucurbita_moschata_butternut" itis_tsn="22370"/>
+</migration>

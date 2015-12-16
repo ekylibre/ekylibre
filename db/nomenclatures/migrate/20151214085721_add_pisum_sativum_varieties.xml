@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add pisum sativum varieties">
+  <item-creation item="varieties#pisum_sativum_etna" parent="pisum_sativum" itis_tsn="26867"/>
+  <item-creation item="varieties#pisum_sativum_fortress" parent="pisum_sativum" itis_tsn="26867"/>
+  <item-creation item="varieties#pisum_sativum_retrovert" parent="pisum_sativum" itis_tsn="26867"/>
+  <item-creation item="varieties#pisum_sativum_style" parent="pisum_sativum" itis_tsn="26867"/>
+  <item-creation item="varieties#pisum_sativum_touracq" parent="pisum_sativum" itis_tsn="26867"/>
+</migration>

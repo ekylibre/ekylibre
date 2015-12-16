@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add spinacia oleracea varieties">
+  <item-creation item="varieties#spinacia_oleracea_el_grinta" parent="spinacia_oleracea" itis_tsn="20709"/>
+  <item-creation item="varieties#spinacia_oleracea_rocoon" parent="spinacia_oleracea" itis_tsn="20709"/>
+</migration>

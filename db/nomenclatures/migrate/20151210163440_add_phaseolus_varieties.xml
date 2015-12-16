@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add phaseolus varieties">
+  <item-creation item="varieties#phaseolus_vulgaris" parent="phaseolus" itis_tsn="26857"/>
+  <item-creation item="varieties#phaseolus_vulgaris_flagrano" parent="phaseolus" itis_tsn="26857"/>
+  <item-creation item="varieties#phaseolus_vulgaris_carthage" parent="phaseolus" itis_tsn="26857"/>
+  <item-creation item="varieties#phaseolus_vulgaris_kaiser" parent="phaseolus" itis_tsn="26857"/>
+  <item-creation item="varieties#phaseolus_vulgaris_lugos" parent="phaseolus" itis_tsn="26857"/>
+  <item-creation item="varieties#phaseolus_vulgaris_molly" parent="phaseolus" itis_tsn="26857"/>
+  <item-creation item="varieties#phaseolus_vulgaris_stanley" parent="phaseolus" itis_tsn="26857"/>
+  <item-creation item="varieties#phaseolus_vulgaris_mogex" parent="phaseolus" itis_tsn="26857"/>
+</migration>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add glycine max varieties">
+  <item-creation item="varieties#glycine_max_isidor" parent="glycine_max" itis_tsn="26716"/>
+</migration>

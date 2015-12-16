@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add abilities">
+  <item-creation item="abilities#earth_up"/>
+  <item-creation item="abilities#remove" parameters="variety"/>
+  <item-creation item="abilities#sieve"/>
+  <item-creation item="abilities#bury" parameters="variety"/>
+</migration>

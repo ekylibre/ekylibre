@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add hordeum varieties">
+  <item-creation item="varieties#hordeum_vulgare_kws_cassia" parent="hordeum_vulgare" itis_tsn="40874"/>
+  <item-creation item="varieties#hordeum_vulgare_volume" parent="hordeum_vulgare" itis_tsn="40874"/>
+</migration>

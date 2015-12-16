@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add lactuca varieties">
+  <item-creation item="varieties#lactuca_sativa_derbi" parent="lactuca_sativa" itis_tsn="36607"/>
+  <item-creation item="varieties#lactuca_sativa_duende" parent="lactuca_sativa" itis_tsn="36607"/>
+  <item-creation item="varieties#lactuca_sativa_novelda" parent="lactuca_sativa" itis_tsn="36607"/>
+</migration>

@@ -11,6 +11,7 @@
       <item name="alkalinize" parameters="variety"/>
       <item name="blow"/>
       <item name="bunch"/>
+      <item name="bury" parameters="variety"/>
       <item name="care" parameters="variety"/>
       <item name="catalyze" parameters="variety"/>
       <item name="catch" parameters="variety"/>
@@ -22,6 +23,7 @@
       <item name="cut"/>
       <item name="deliver" parameters="variety"/>
       <item name="drive" parameters="variety"/>
+      <item name="earth_up"/>
       <item name="enclose"/>
       <item name="feed" parameters="variety"/>
       <item name="fermentize" parameters="variety"/>
@@ -47,8 +49,10 @@
       <item name="press" parameters="variety"/>
       <item name="produce" parameters="variety"/>
       <item name="rake" parameters="variety"/>
+      <item name="remove" parameters="variety"/>
       <item name="repair" parameters="variety"/>
       <item name="seat" parameters="variety"/>
+      <item name="sieve"/>
       <item name="sow"/>
       <item name="spray"/>
       <item name="spread" parameters="variety"/>
@@ -2521,6 +2525,7 @@
       <item name="barley_grain" nature="grain" derivative_of="hordeum" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
       <item name="battery" nature="office_furniture"/>
       <item name="bean_crop" nature="grain_crop" variety="phaseolus" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
+      <item name="bed_former" nature="seedbed_preparator" frozen_indicators_values="population: 1"/>
       <item name="bee_band" nature="bee_band" unit_name="subject"/>
       <item name="bee_band_pollinate_service" nature="animals_making_services"/>
       <item name="beef_dried_sausage" nature="processed_beef_meat" frozen_indicators_values="net_mass: 1000gram, net_volume: 100.00centiliter" unit_name="kilogram"/>
@@ -2726,6 +2731,7 @@
       <item name="daily_training_course" nature="training_course" frozen_indicators_values="usage_duration: 1day" unit_name="day"/>
       <item name="dairy_equipment_cleaner" nature="mineral_cleaner" frozen_indicators_values="net_mass: 24kilogram, net_volume: 24.00liter" unit_name="24liter_can"/>
       <item name="diesel" nature="fuel" frozen_indicators_values="energy: 10.67kilowatt_hour, net_volume: 1liter, net_mass: 0.8kilogram" unit_name="liter"/>
+      <item name="disc_horrow" nature="superficial_plow" frozen_indicators_values="population: 1"/>
       <item name="discount_and_reduction" nature="discount_and_reduction"/>
       <item name="domain_name_subscription" nature="numeric_subscription" unit_name="domain"/>
       <item name="drying_making_service" nature="vegetals_making_services"/>
@@ -2733,6 +2739,7 @@
       <item name="duck_herd" nature="duck_herd" frozen_indicators_values="population: 1" unit_name="band"/>
       <item name="duck_manure" nature="organic_fertilizer" variety="manure" derivative_of="anas" frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 1.1percent" unit_name="ton"/>
       <item name="duck_slurry" nature="organic_fertilizer" variety="slurry" derivative_of="anas" frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.68percent" unit_name="cubic_meter"/>
+      <item name="dumper" nature="dumper" frozen_indicators_values="population: 1"/>
       <item name="eco_participation" nature="recycling_contribution"/>
       <item name="electricity" nature="electricity" frozen_indicators_values="energy: 1.00kilowatt_hour" unit_name="kilowatt_hour"/>
       <item name="employee" nature="technician" frozen_indicators_values="population: 1" unit_name="person"/>
@@ -2770,6 +2777,7 @@
       <item name="fercoril_corabel_hazelnut" nature="hazelnut" derivative_of="corylus_avellana_fercoril_corabel" frozen_indicators_values="net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="feriale_hazelnut" nature="hazelnut" derivative_of="corylus_avellana_feriale" frozen_indicators_values="net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="fernor_walnut" nature="walnut" derivative_of="juglans_regia_fernor" frozen_indicators_values="net_mass: 1.00kilogram" unit_name="kilogram"/>
+      <item name="ferry" nature="ferry" frozen_indicators_values="population: 1"/>
       <item name="fertile_coutard_hazelnut" nature="hazelnut" derivative_of="corylus_avellana_fertile_coutard" frozen_indicators_values="net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="fertile_hazelnut" nature="hazelnut" derivative_of="corylus_avellana_fertile" frozen_indicators_values="net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="fiberglass_tank" nature="wine_tank" frozen_indicators_values="population: 1" unit_name="equipment"/>
@@ -2794,6 +2802,8 @@
       <item name="furniture" nature="office_furniture"/>
       <item name="garlic_crop" nature="vegetable_crop" variety="allium" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="gas" nature="gas" frozen_indicators_values="energy: 1.00kilowatt_hour" unit_name="kilowatt_hour"/>
+      <item name="gas_burner" nature="gas_engine" frozen_indicators_values="population: 1"/>
+      <item name="gas_engine" nature="gas_engine" frozen_indicators_values="population: 1"/>
       <item name="gasoline" nature="fuel" frozen_indicators_values="energy: 9.85kilowatt_hour, net_volume: 1liter, net_mass: 0.8kilogram" unit_name="liter"/>
       <item name="generic_animal_medicine" nature="animal_medicine" frozen_indicators_values="net_mass: 1000g, net_volume: 1000ml, meat_withdrawal_period: 1day, milk_withdrawal_period: 1day"/>
       <item name="goat_herd" nature="goat_herd" derivative_of="capra" frozen_indicators_values="population: 1" unit_name="band"/>
@@ -2817,6 +2827,8 @@
       <item name="hard_wheat_crop" nature="cereal_crop" variety="triticum_durum" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="hard_wheat_grain" nature="grain" derivative_of="triticum_durum" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
       <item name="hard_wheat_seed_25" nature="seed" derivative_of="triticum_durum" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 50gram" unit_name="25kg_bag"/>
+      <item name="harrow" nature="harrow" frozen_indicators_values="population: 1"/>
+      <item name="harvester" nature="harvester" frozen_indicators_values="population: 1"/>
       <item name="harvesting_making_service" nature="vegetals_making_services"/>
       <item name="hay_big_rectangular_bales" nature="grass" derivative_of="poaceae" frozen_indicators_values="net_mass: 438.00kilogram, net_volume: 2.30cubic_meter" unit_name="big_rectangular_bale"/>
       <item name="hay_rake" nature="hay_rake" frozen_indicators_values="population: 1" unit_name="equipment"/>
@@ -2834,6 +2846,7 @@
       <item name="hen_manure" nature="organic_fertilizer" variety="manure" derivative_of="gallus" frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 2.2percent" unit_name="ton"/>
       <item name="hen_slurry" nature="organic_fertilizer" variety="slurry" derivative_of="gallus" frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.68percent" unit_name="cubic_meter"/>
       <item name="herbicide" nature="herbicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
+      <item name="hiller" nature="hiller" frozen_indicators_values="population: 1"/>
       <item name="hoe" nature="hoe" frozen_indicators_values="population: 1" unit_name="equipment"/>
       <item name="horse_compost" nature="organic_fertilizer" variety="manure" derivative_of="equus" frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 1percent" unit_name="ton"/>
       <item name="horse_herd" nature="horse_herd" unit_name="band"/>
@@ -2926,6 +2939,7 @@
       <item name="mixture_vetch_oat_pea_crop" nature="crop" variety="vicia" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="molluscicide" nature="molluscicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
       <item name="monthly_enterprise_support" nature="user_support" frozen_indicators_values="usage_duration: 30day" unit_name="month"/>
+      <item name="motor_hoe" nature="hoe" frozen_indicators_values="population: 1"/>
       <item name="motor_oil" nature="motor_oil" frozen_indicators_values="net_volume: 1liter, net_mass: 0.8kilogram" unit_name="liter"/>
       <item name="moving_travel" nature="moving_travel"/>
       <item name="mower" nature="mower" frozen_indicators_values="population: 1" unit_name="equipment"/>
@@ -2963,6 +2977,7 @@
       <item name="pear_seedling" nature="seedling" derivative_of="pyrus"/>
       <item name="permanent_meadow_crop" nature="crop" variety="poa" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="phone_line_subscription" nature="radio_subscription"/>
+      <item name="picker" nature="picker" frozen_indicators_values="population: 1"/>
       <item name="pig_compost" nature="organic_fertilizer" variety="compost" derivative_of="sus" frozen_indicators_values="net_mass: 1.00ton, net_volume: 1.70cubic_meter, nitrogen_concentration: 0.84percent" unit_name="ton"/>
       <item name="pig_herd" nature="pig_herd" frozen_indicators_values="population: 1" unit_name="head"/>
       <item name="pig_manure" nature="organic_fertilizer" variety="manure" derivative_of="sus" frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.81percent" unit_name="ton"/>
@@ -2996,6 +3011,7 @@
       <item name="product_warranty" nature="product_insurance"/>
       <item name="project_study" nature="studies_and_research"/>
       <item name="pruning_platform" nature="pruning_platform" frozen_indicators_values="population: 1" unit_name="equipment"/>
+      <item name="punching_machine" nature="implanter" frozen_indicators_values="population: 1"/>
       <item name="quince_crop" nature="fruit_crop" variety="cydonia_oblonga" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="plant"/>
       <item name="quinoa_crop" nature="crop" variety="chenopodium_quinoa" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="rabbit_herd" nature="rabbit_herd" frozen_indicators_values="population: 1" unit_name="band"/>
@@ -3015,6 +3031,7 @@
       <item name="ronde_de_piemont_hazelnut" nature="hazelnut" derivative_of="corylus_avellana_ronde_de_piemont" frozen_indicators_values="net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="rose_crop" nature="fruit_crop" variety="rosa" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="rose_seedling" nature="seedling" derivative_of="rosa"/>
+      <item name="rotavator" nature="seedbed_preparator" frozen_indicators_values="population: 1"/>
       <item name="rubisko_wheat_crop" nature="cereal_crop" variety="triticum_aestivum_rubisko" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="running_water" nature="running_water" frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton" unit_name="cubic_meter"/>
       <item name="rye_crop" nature="cereal_crop" variety="secale" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
@@ -3032,6 +3049,7 @@
       <item name="settlement" nature="settlement" frozen_indicators_values="population: 1" unit_name="building"/>
       <item name="sheep_herd" nature="sheep_herd" derivative_of="ovis" frozen_indicators_values="population: 1" unit_name="band"/>
       <item name="shoulder_veal_meat" nature="beef_meat" derivative_of="bos_taurus" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="kilogram"/>
+      <item name="sieve_shaker" nature="sieve_shaker" frozen_indicators_values="population: 1"/>
       <item name="silage_distributor" nature="food_distributor" frozen_indicators_values="population: 1" unit_name="equipment"/>
       <item name="silage_division" nature="silage_division" frozen_indicators_values="population: 1" unit_name="room"/>
       <item name="small_equipment" nature="small_equipment" frozen_indicators_values="population: 1"/>
@@ -3041,6 +3059,7 @@
       <item name="so2_solid_2g" nature="so2_solution" frozen_indicators_values="net_mass: 2.00gram, sulfur_dioxide_concentration: 100percent" unit_name="2g_pill"/>
       <item name="so2_solid_5g" nature="so2_solution" frozen_indicators_values="net_mass: 5.00gram, sulfur_dioxide_concentration: 100percent" unit_name="5g_pill"/>
       <item name="so4_vine_seedling" nature="usual_vine_seedling" frozen_indicators_values="woodstock_variety: vitis_cinerea_x_vitis_riparia_SO4"/>
+      <item name="soil_loosener" nature="soil_loosener" frozen_indicators_values="population: 1"/>
       <item name="sorghum_crop" nature="crop" variety="sorghum" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="sorghum_seed_25" nature="seed" derivative_of="sorghum" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram" unit_name="25kg_bag"/>
       <item name="sower" nature="sower" frozen_indicators_values="population: 1" unit_name="equipment"/>
@@ -3057,8 +3076,10 @@
       <item name="spring_barley_seed_25" nature="seed" derivative_of="hordeum_distichum" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram" unit_name="25kg_bag"/>
       <item name="spring_oat_crop" nature="cereal_crop" variety="avena" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="stainless_steel_tank" nature="wine_tank" frozen_indicators_values="population: 1" unit_name="equipment"/>
+      <item name="steam_engine" nature="steam_engine" frozen_indicators_values="population: 1"/>
       <item name="strawberry_crop" nature="fruit_crop" variety="fragaria" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="plant"/>
       <item name="strawberry_seedling" nature="seedling" derivative_of="fragaria"/>
+      <item name="stubble_cultivator" nature="superficial_plow" frozen_indicators_values="population: 1"/>
       <item name="subscription_professional_society" nature="professional_subscription"/>
       <item name="subsoil_plow" nature="plow" frozen_indicators_values="population: 1" unit_name="equipment"/>
       <item name="sugar_vinasse" nature="organic_fertilizer" variety="pomace" derivative_of="grape" frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 4.0percent" unit_name="ton"/>
@@ -3075,14 +3096,18 @@
       <item name="thicket_crop" nature="crop" variety="plant" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="plant"/>
       <item name="tobacco_crop" nature="crop" variety="nicotiana" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="tonda_giffoni_hazelnut" nature="hazelnut" derivative_of="corylus_avellana_tonda_giffoni" frozen_indicators_values="net_mass: 1.00kilogram" unit_name="kilogram"/>
+      <item name="topper" nature="topper" frozen_indicators_values="population: 1"/>
       <item name="tractor" nature="tractor" frozen_indicators_values="population: 1" unit_name="equipment"/>
       <item name="trailer" nature="trailer" frozen_indicators_values="population: 1" unit_name="equipment"/>
+      <item name="trimmer" nature="trimmer" frozen_indicators_values="population: 1"/>
       <item name="triticale_crop" nature="cereal_crop" variety="triticosecale" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="triticale_grain" nature="grain" derivative_of="triticosecale" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
       <item name="truck" nature="truck" frozen_indicators_values="population: 1" unit_name="equipment"/>
+      <item name="uncover" nature="uncover" frozen_indicators_values="population: 1"/>
       <item name="urban_compost" nature="organic_fertilizer" variety="compost" derivative_of="animal" frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 1.00percent" unit_name="ton"/>
       <item name="various_loan_interest" nature="various_loan_interest"/>
       <item name="veal_meat" nature="beef_meat" derivative_of="bos_taurus" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="kilogram"/>
+      <item name="vibrocultivator" nature="seedbed_preparator" frozen_indicators_values="population: 1"/>
       <item name="vine_grape_berry" nature="grape" derivative_of="vitis_vinifera" frozen_indicators_values="net_mass: 1.00kilogram, net_volume: 1.00liter" unit_name="kilogram"/>
       <item name="vine_grape_crop" nature="wine_crop" variety="vitis_vinifera" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="plant"/>
       <item name="vine_grape_juice" nature="grape_juice" derivative_of="grape" frozen_indicators_values="net_mass: 100.00 kilogram, net_volume: 100.00liter" unit_name="hectoliter"/>
@@ -3091,7 +3116,9 @@
       <item name="vines_harvest_insurance" nature="harvest_insurance"/>
       <item name="walnut" nature="walnut" derivative_of="juglans_regia" frozen_indicators_values="net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="walnut_crop" nature="walnut_crop" variety="juglans" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
+      <item name="water_bowser" nature="water_tank" frozen_indicators_values="population: 1"/>
       <item name="water_spreader" nature="water_spreader" frozen_indicators_values="population: 1" unit_name="equipment"/>
+      <item name="weeder" nature="weeder" frozen_indicators_values="population: 1"/>
       <item name="wheat_crop" nature="cereal_crop" variety="triticum_aestivum" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="wheat_grain" nature="grain" derivative_of="triticum_aestivum" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
       <item name="wheat_seed_25" nature="seed" derivative_of="triticum_aestivum" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 50gram" unit_name="25kg_bag"/>
@@ -3178,6 +3205,7 @@
       <item name="discount_and_reduction" category="discount_and_reduction" variety="service" population_counting="decimal" variable_indicators="population"/>
       <item name="duck_band" category="aves_band" variety="aves" population_counting="integer" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix)" variable_indicators="population, healthy" derivatives="meat"/>
       <item name="duck_herd" category="aves_herd" variety="animal_group" derivative_of="aves" population_counting="integer" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix)" frozen_indicators="population"/>
+      <item name="dumper" category="equipment" variety="equipment" population_counting="unitary" abilities="store_fluid, store(excrement), store(straw)" frozen_indicators="population" variable_indicators="nominal_storable_net_volume, nominal_storable_easement_area, nominal_storable_net_mass, geolocation"/>
       <item name="egg" category="egg" variety="egg" derivative_of="aves" population_counting="integer" variable_indicators="population" frozen_indicators="net_volume, net_mass"/>
       <item name="electricity" category="electricity" variety="electricity" population_counting="decimal" variable_indicators="population" frozen_indicators="energy"/>
       <item name="equipment" category="equipment" variety="equipment" population_counting="unitary" abilities="catch(matter), spread(preparation), plow, sow, harvest(raw_matter), store(raw_matter)" frozen_indicators="population"/>
@@ -3201,6 +3229,7 @@
       <item name="fence" category="small_equipment" variety="wire" population_counting="integer" abilities="enclose" variable_indicators="population" frozen_indicators="diameter, length, height"/>
       <item name="fermented_grape_juice" category="fruit" variety="fermented_juice" derivative_of="grape" population_counting="decimal" abilities="produce(wine)" variable_indicators="population" frozen_indicators="net_mass, net_volume"/>
       <item name="fermented_milk" category="processed_milk" variety="fermented_milk" derivative_of="milk" population_counting="decimal" variable_indicators="population, temperature, total_bacteria_concentration" frozen_indicators="net_volume, net_mass"/>
+      <item name="ferry" category="equipment" variety="equipment" population_counting="unitary" abilities="store(grain), store(plant)" frozen_indicators="population" variable_indicators="nominal_storable_net_volume, nominal_storable_easement_area, nominal_storable_net_mass, geolocation"/>
       <item name="fiscal_fine" category="fiscal_fine" variety="service" population_counting="decimal" variable_indicators="population"/>
       <item name="flower_crop" category="crop" variety="plant" population_counting="decimal" abilities="consume(water), consume(preparation), produce(pollen), produce(flower), produce(straw), produce(grain)" variable_indicators="population, shape, plant_life_state, plants_count" frozen_indicators="net_surface_area" derivatives="pollen, flower, straw, grain"/>
       <item name="food_distributor" category="equipment" variety="food_deliver" population_counting="unitary" abilities="deliver(silage),deliver(straw),deliver(hay)" variable_indicators="nominal_storable_net_volume, nominal_storable_net_mass" frozen_indicators="population"/>
@@ -3218,6 +3247,7 @@
       <item name="fuel_tank" category="equipment" variety="tank" population_counting="unitary" abilities="store(fuel)" variable_indicators="nominal_storable_net_volume" frozen_indicators="population"/>
       <item name="fungicide" category="plant_medicine" variety="preparation" population_counting="decimal" abilities="kill(fungus), care(plant)" variable_indicators="population, wait_before_harvest_period, approved_input_dose, untreated_zone_length, wait_before_entering_period" frozen_indicators="net_volume, net_mass"/>
       <item name="gas" category="gas" variety="gas" population_counting="decimal" variable_indicators="population" frozen_indicators="energy"/>
+      <item name="gas_engine" category="equipment" variety="equipment" population_counting="unitary" abilities="store_gaz, kill(plant)" frozen_indicators="population" variable_indicators="application_width, geolocation"/>
       <item name="goat_herd" category="cattle_herd" variety="animal_group" derivative_of="capra" population_counting="integer" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix), consume(silage)" frozen_indicators="population"/>
       <item name="grain" category="grain" variety="grain" derivative_of="plant" population_counting="decimal" abilities="feed(animal)" variable_indicators="population, water_content_rate, protein_concentration, impurity_concentration, specific_weight, hagberg_falling_number" frozen_indicators="net_mass"/>
       <item name="grain_crop" category="crop" variety="plant" population_counting="decimal" abilities="consume(water), consume(preparation), produce(grain)" variable_indicators="population, shape, tiller_count, plant_life_state, plant_reproduction_state, plants_count, fresh_mass" frozen_indicators="net_surface_area" derivatives="grain"/>
@@ -3229,7 +3259,9 @@
       <item name="grass" category="grass" variety="grass" derivative_of="plant" population_counting="decimal" abilities="feed(animal)" variable_indicators="population, dry_matter_rate" frozen_indicators="net_mass, net_volume"/>
       <item name="grinder" category="equipment" variety="plower" population_counting="unitary" abilities="grind(plant), grind(cultivable_zone)" variable_indicators="application_width, geolocation" frozen_indicators="population"/>
       <item name="hand_drawn" category="equipment" variety="equipment" population_counting="unitary" abilities="fill(bottle)" variable_indicators="nominal_storable_net_volume" frozen_indicators="population"/>
+      <item name="harrow" category="equipment" variety="equipment" population_counting="unitary" abilities="plow_superficially" frozen_indicators="population" variable_indicators="application_width, geolocation"/>
       <item name="harvest_insurance" category="harvest_insurance" variety="service" population_counting="decimal" variable_indicators="population"/>
+      <item name="harvester" category="equipment" variety="harvester" population_counting="unitary" abilities="harvest(plant)" frozen_indicators="population" variable_indicators="application_width, geolocation"/>
       <item name="hay_rake" category="equipment" variety="harvester" population_counting="unitary" abilities="rake(straw), rake(hay)" variable_indicators="application_width, geolocation" frozen_indicators="population"/>
       <item name="hazel_seedling" category="plant" variety="seedling" derivative_of="corylus" population_counting="integer" abilities="grow" variable_indicators="population"/>
       <item name="hazelnut" category="fruit" variety="hazelnut" derivative_of="corylus" population_counting="decimal" variable_indicators="population, water_content_rate, impurity_concentration" frozen_indicators="net_mass"/>
@@ -3237,6 +3269,7 @@
       <item name="hen_band" category="aves_band" variety="gallus" population_counting="integer" abilities="move, consume(water), consume(poaceae), produce(excrement), produce(egg), consume(mix)" variable_indicators="population" frozen_indicators="sex, reproductor" derivatives="meat, egg"/>
       <item name="hen_herd" category="aves_herd" variety="animal_group" derivative_of="gallus" population_counting="integer" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix)" variable_indicators="population"/>
       <item name="herbicide" category="plant_medicine" variety="preparation" population_counting="decimal" abilities="kill(plant), care(plant)" variable_indicators="population, wait_before_harvest_period, approved_input_dose, untreated_zone_length, wait_before_entering_period" frozen_indicators="net_volume, net_mass"/>
+      <item name="hiller" category="equipment" variety="equipment" population_counting="unitary" abilities="earth_up" frozen_indicators="population" variable_indicators="application_width, geolocation"/>
       <item name="hoe" category="equipment" variety="plower" population_counting="unitary" abilities="plow_superficially, hoe" variable_indicators="application_width, geolocation" frozen_indicators="population"/>
       <item name="honey" category="honey" variety="honey" derivative_of="apis" population_counting="decimal" variable_indicators="population, temperature, sucrose_concentration" frozen_indicators="net_volume, net_mass"/>
       <item name="horse_herd" category="cattle_herd" variety="animal_group" derivative_of="equus" population_counting="integer" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix), consume(silage)" variable_indicators="population"/>
@@ -3296,6 +3329,7 @@
       <item name="oyster_band" category="oyster_band" variety="ostreidae" population_counting="integer" abilities="move, consume(water)" variable_indicators="population"/>
       <item name="packaged_process_food" category="fruit" variety="mix" derivative_of="fruit" population_counting="integer" variable_indicators="population, best_before_period" frozen_indicators="net_mass, net_volume"/>
       <item name="peanut" category="fruit" variety="peanut" derivative_of="arachis" population_counting="decimal" variable_indicators="population, water_content_rate, impurity_concentration" frozen_indicators="net_mass"/>
+      <item name="picker" category="equipment" variety="equipment" population_counting="unitary" abilities="pick" frozen_indicators="population" variable_indicators="application_width, geolocation"/>
       <item name="pig_band" category="pig_band" variety="sus" population_counting="integer" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix)" variable_indicators="population, healthy" frozen_indicators="sex, reproductor" derivatives="meat"/>
       <item name="pig_herd" category="cattle_herd" variety="animal_group" derivative_of="sus" population_counting="integer" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix), consume(silage)" frozen_indicators="population"/>
       <item name="piglet_band" category="pig_band" variety="sus" population_counting="integer" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix)" variable_indicators="population, healthy" frozen_indicators="reproductor" derivatives="meat"/>
@@ -3331,15 +3365,18 @@
       <item name="salary_social_contribution" category="salary_social_contribution" variety="service" population_counting="decimal" variable_indicators="population"/>
       <item name="salmon_band" category="fish_band" variety="salmo" population_counting="integer" abilities="move, consume(water), consume(mix)" variable_indicators="population"/>
       <item name="seed" category="seed" variety="seed" derivative_of="plant" population_counting="decimal" abilities="grow" variable_indicators="population" frozen_indicators="net_mass, thousand_grains_mass"/>
+      <item name="seedbed_preparator" category="equipment" variety="equipment" population_counting="unitary" abilities="plow_superficially, implant" frozen_indicators="population" variable_indicators="application_width, geolocation"/>
       <item name="seedling" category="plant" variety="seedling" population_counting="integer" abilities="grow" variable_indicators="population"/>
       <item name="settlement" category="settlement" variety="settlement" population_counting="unitary" abilities="store(building), store(building_division)" variable_indicators="net_surface_area, shape" frozen_indicators="population"/>
       <item name="sheep_herd" category="cattle_herd" variety="animal_group" derivative_of="ovis" population_counting="integer" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix), consume(silage)" frozen_indicators="population"/>
       <item name="shell_fruit_reaper" category="equipment" variety="reaper" population_counting="unitary" abilities="harvest(walnut), harvest(hazelnut), consume(oil), consume(fuel)" variable_indicators="application_width" frozen_indicators="population"/>
+      <item name="sieve_shaker" category="equipment" variety="equipment" population_counting="unitary" abilities="sieve" frozen_indicators="population" variable_indicators="application_width, geolocation"/>
       <item name="silage" category="grass" variety="silage" derivative_of="poaceae" population_counting="decimal" abilities="feed(animal)" variable_indicators="population, dry_matter_rate" frozen_indicators="net_mass, net_volume"/>
       <item name="silage_division" category="building_division" variety="building_division" population_counting="unitary" abilities="store(silage)" variable_indicators="net_surface_area, shape, nominal_storable_net_volume, nominal_storable_easement_area" frozen_indicators="population"/>
       <item name="small_equipment" category="small_equipment" variety="equipment" population_counting="unitary" variable_indicators="net_mass" frozen_indicators="population"/>
       <item name="so2_solution" category="oenological_product" variety="preparation" population_counting="decimal" abilities="sulfurize(wine)" variable_indicators="population" frozen_indicators="net_volume, net_mass, sulfur_dioxide_concentration"/>
       <item name="software_engineering" category="service" variety="service" population_counting="decimal" variable_indicators="population" frozen_indicators="usage_duration"/>
+      <item name="soil_loosener" category="equipment" variety="equipment" population_counting="unitary" abilities="uncompact" frozen_indicators="population" variable_indicators="application_width, geolocation"/>
       <item name="sower" category="equipment" variety="sower" population_counting="unitary" abilities="sow" variable_indicators="nominal_storable_net_volume, application_width, geolocation" frozen_indicators="population"/>
       <item name="species" category="fruit" variety="pollen" derivative_of="plant" population_counting="decimal" variable_indicators="population, reference_year" frozen_indicators="net_mass, net_volume"/>
       <item name="sprayer" category="equipment" variety="sprayer" population_counting="unitary" abilities="spray" variable_indicators="application_width, geolocation" frozen_indicators="population"/>
@@ -3347,17 +3384,21 @@
       <item name="spreader" category="equipment" variety="spreader" population_counting="unitary" abilities="spread(preparation)" variable_indicators="nominal_storable_net_volume, application_width, geolocation" frozen_indicators="population"/>
       <item name="spreader_trailer" category="equipment" variety="trailer" population_counting="unitary" abilities="store(excrement), move, spread(excrement), store(raw_matter), store_fluid" variable_indicators="nominal_storable_net_mass, nominal_storable_net_volume, geolocation" frozen_indicators="population"/>
       <item name="stake" category="small_equipment" variety="stake" population_counting="integer" abilities="enclose" variable_indicators="population" frozen_indicators="height, diameter"/>
+      <item name="steam_engine" category="equipment" variety="equipment" population_counting="unitary" abilities="store_liquid, kill(plant)" frozen_indicators="population" variable_indicators="application_width, geolocation"/>
       <item name="straw" category="straw" variety="straw" derivative_of="poaceae" population_counting="decimal" abilities="feed(animal)" variable_indicators="population" frozen_indicators="net_mass, net_volume"/>
       <item name="studies_and_research" category="studies_and_research" variety="service" population_counting="decimal" variable_indicators="population"/>
       <item name="sugar" category="oenological_product" variety="saccharose" population_counting="decimal" abilities="chaptelise(fermented_juice), chaptelise(juice)" variable_indicators="population" frozen_indicators="net_mass"/>
       <item name="superficial_plow" category="equipment" variety="plower" population_counting="unitary" abilities="plow_superficially" variable_indicators="application_width, geolocation" frozen_indicators="population"/>
       <item name="taxe" category="taxe" variety="service" population_counting="decimal" variable_indicators="population"/>
       <item name="technician" category="worker" variety="worker" population_counting="unitary" abilities="drive(equipment), move, milk(mammalia), repair(equipment), administer_care(animal)" variable_indicators="geolocation" frozen_indicators="population"/>
+      <item name="topper" category="equipment" variety="equipment" population_counting="unitary" abilities="cut" frozen_indicators="population" variable_indicators="application_width, geolocation"/>
       <item name="tractor" category="equipment" variety="tractor" population_counting="unitary" abilities="catch(matter), move, tow(matter), consume(oil), consume(fuel)" variable_indicators="net_surface_area, motor_power, geolocation, fuel_consumption" frozen_indicators="population" linkage_points="rear, front"/>
       <item name="trade_show" category="trade_show" variety="service" population_counting="integer" variable_indicators="population"/>
       <item name="trailer" category="equipment" variety="trailer" population_counting="unitary" abilities="store_fluid, store(grain), store(grass), store(raw_matter), store(silage), move" variable_indicators="nominal_storable_net_volume, nominal_storable_easement_area, nominal_storable_net_mass, geolocation" frozen_indicators="population"/>
       <item name="training_course" category="service" variety="service" population_counting="decimal" variable_indicators="population" frozen_indicators="usage_duration"/>
+      <item name="trimmer" category="equipment" variety="equipment" population_counting="unitary" abilities="cut" frozen_indicators="population" variable_indicators="application_width, geolocation"/>
       <item name="truck" category="equipment" variety="tractor" population_counting="unitary" abilities="move, tow(matter), consume(oil), consume(fuel)" variable_indicators="net_surface_area, motor_power, geolocation, fuel_consumption" frozen_indicators="population" linkage_points="rear"/>
+      <item name="uncover" category="equipment" variety="equipment" population_counting="unitary" abilities="remove(canvas_cover)" frozen_indicators="population" variable_indicators="application_width, geolocation"/>
       <item name="user_support" category="service" variety="service" population_counting="decimal" variable_indicators="population" frozen_indicators="usage_duration"/>
       <item name="usual_vine_seedling" category="plant" variety="seedling" derivative_of="vitis" population_counting="integer" abilities="grow" variable_indicators="population" frozen_indicators="woodstock_variety"/>
       <item name="various_loan_interest" category="various_loan_interest" variety="service" population_counting="decimal" variable_indicators="population"/>
@@ -3367,6 +3408,8 @@
       <item name="walnut" category="fruit" variety="walnut" derivative_of="juglans" population_counting="decimal" variable_indicators="population, water_content_rate, impurity_concentration" frozen_indicators="net_mass"/>
       <item name="walnut_crop" category="crop" variety="plant" population_counting="decimal" abilities="consume(water), consume(preparation), produce(fruit), produce(straw)" variable_indicators="population, shape, plant_life_state, plants_count, rows_interval, plants_interval" frozen_indicators="net_surface_area" derivatives="walnut, straw"/>
       <item name="water_spreader" category="equipment" variety="spreader" population_counting="unitary" abilities="spread(water)" variable_indicators="application_width" frozen_indicators="population"/>
+      <item name="water_tank" category="equipment" variety="tank" population_counting="unitary" abilities="store_liquid, store(water)" frozen_indicators="population" variable_indicators="nominal_storable_net_volume, geolocation"/>
+      <item name="weeder" category="equipment" variety="equipment" population_counting="unitary" abilities="kill(plant)" frozen_indicators="population" variable_indicators="application_width, geolocation"/>
       <item name="wine" category="wine" variety="wine" derivative_of="grape" population_counting="decimal" variable_indicators="population, temperature, total_bacteria_concentration, reference_year, certification" frozen_indicators="net_volume, net_mass"/>
       <item name="wine_acidifying" category="oenological_product" variety="preparation" population_counting="decimal" abilities="acidify(fermented_juice), acidify(wine)" variable_indicators="population" frozen_indicators="net_mass"/>
       <item name="wine_alkalinizing" category="oenological_product" variety="preparation" population_counting="decimal" abilities="alkalinize(fermented_juice), alkalinize(wine)" variable_indicators="population" frozen_indicators="net_mass"/>
@@ -3789,10 +3832,24 @@
       <item name="allium_ampeloprasum" parent="allium" itis_tsn="42708"/>
       <item name="allium_ascalonicum" parent="allium" itis_tsn="506481"/>
       <item name="allium_cepa" parent="allium" itis_tsn="42720"/>
+      <item name="allium_cepa_b010282" parent="allium_cepa" itis_tsn="42720"/>
+      <item name="allium_cepa_b010283" parent="allium_cepa" itis_tsn="42720"/>
+      <item name="allium_cepa_b010284" parent="allium_cepa" itis_tsn="42720"/>
       <item name="allium_oleraceum" parent="allium" itis_tsn="42689"/>
       <item name="allium_porrum" parent="allium" itis_tsn="42659"/>
+      <item name="allium_porrum_belton" parent="allium_porrum" itis_tsn="42659"/>
+      <item name="allium_porrum_duraton" parent="allium_porrum" itis_tsn="42659"/>
+      <item name="allium_porrum_kenton" parent="allium_porrum" itis_tsn="42659"/>
+      <item name="allium_porrum_krypton" parent="allium_porrum" itis_tsn="42659"/>
+      <item name="allium_porrum_lexton" parent="allium_porrum" itis_tsn="42659"/>
+      <item name="allium_porrum_longton" parent="allium_porrum" itis_tsn="42659"/>
+      <item name="allium_porrum_m&#xE9;gaton" parent="allium_porrum" itis_tsn="42659"/>
+      <item name="allium_porrum_pluston" parent="allium_porrum" itis_tsn="42659"/>
+      <item name="allium_porrum_poulton" parent="allium_porrum" itis_tsn="42659"/>
+      <item name="allium_porrum_vitaton" parent="allium_porrum" itis_tsn="42659"/>
       <item name="allium_sativum" parent="allium" itis_tsn="42652"/>
       <item name="allium_schoenoprasum" parent="allium" itis_tsn="42636"/>
+      <item name="allium_schoenoprasum_hi11600chc" parent="allium_schoenoprasum" itis_tsn="42636"/>
       <item name="allium_scorodoprasum" parent="allium" itis_tsn="42666"/>
       <item name="allium_tricoccum" parent="allium" itis_tsn="42672"/>
       <item name="allium_triquetrum" parent="allium" itis_tsn="42673"/>
@@ -3875,6 +3932,7 @@
       <item name="beta_vulgaris" parent="beta" itis_tsn="20680"/>
       <item name="beta_vulgaris_altissima" parent="beta_vulgaris" itis_tsn="192290"/>
       <item name="beta_vulgaris_cicla" parent="beta_vulgaris" itis_tsn="524868"/>
+      <item name="beta_vulgaris_cicla_barese" parent="beta_vulgaris_cicla" itis_tsn="20681"/>
       <item name="beta_vulgaris_crassa" parent="beta_vulgaris" itis_tsn="0"/>
       <item name="beta_vulgaris_vulgaris" parent="beta_vulgaris" itis_tsn="20681"/>
       <item name="betula" parent="betulaceae" itis_tsn="19478"/>
@@ -3971,26 +4029,69 @@
       <item name="brassica_oleracea" parent="brassica" itis_tsn="23062"/>
       <item name="brassica_oleracea_alboglabra" parent="brassica_oleracea" itis_tsn="23062"/>
       <item name="brassica_oleracea_botrytis" parent="brassica_oleracea" itis_tsn="23062"/>
+      <item name="brassica_oleracea_botrytis_adona" parent="brassica_oleracea_botrytis" itis_tsn="23062"/>
+      <item name="brassica_oleracea_botrytis_aviso" parent="brassica_oleracea_botrytis" itis_tsn="23062"/>
+      <item name="brassica_oleracea_botrytis_danden" parent="brassica_oleracea_botrytis" itis_tsn="23062"/>
+      <item name="brassica_oleracea_botrytis_durian" parent="brassica_oleracea_botrytis" itis_tsn="23062"/>
+      <item name="brassica_oleracea_botrytis_leocen" parent="brassica_oleracea_botrytis" itis_tsn="23062"/>
+      <item name="brassica_oleracea_botrytis_mascaret" parent="brassica_oleracea_botrytis" itis_tsn="23062"/>
+      <item name="brassica_oleracea_botrytis_navalo" parent="brassica_oleracea_botrytis" itis_tsn="23062"/>
+      <item name="brassica_oleracea_botrytis_optimist" parent="brassica_oleracea_botrytis" itis_tsn="23062"/>
+      <item name="brassica_oleracea_botrytis_redoutable" parent="brassica_oleracea_botrytis" itis_tsn="23062"/>
       <item name="brassica_oleracea_botrytis_romanesco" parent="brassica_oleracea_botrytis" itis_tsn="23062"/>
+      <item name="brassica_oleracea_botrytis_romanesco_lazio" parent="brassica_oleracea_botrytis_romanesco" itis_tsn="23062"/>
+      <item name="brassica_oleracea_botrytis_romanesco_navona" parent="brassica_oleracea_botrytis_romanesco" itis_tsn="23062"/>
+      <item name="brassica_oleracea_botrytis_romanesco_vernica" parent="brassica_oleracea_botrytis_romanesco" itis_tsn="23062"/>
+      <item name="brassica_oleracea_botrytis_skywalker" parent="brassica_oleracea_botrytis" itis_tsn="23062"/>
       <item name="brassica_oleracea_capitata" parent="brassica_oleracea" itis_tsn="23062"/>
       <item name="brassica_oleracea_capitata_f_acuta" parent="brassica_oleracea_capitata" itis_tsn="23062"/>
       <item name="brassica_oleracea_capitata_f_alba" parent="brassica_oleracea_capitata" itis_tsn="23062"/>
+      <item name="brassica_oleracea_capitata_f_alba_atlas" parent="brassica_oleracea_capitata_f_alba" itis_tsn="23062"/>
+      <item name="brassica_oleracea_capitata_f_alba_impala" parent="brassica_oleracea_capitata_f_alba" itis_tsn="23062"/>
+      <item name="brassica_oleracea_capitata_f_alba_lenox" parent="brassica_oleracea_capitata_f_alba" itis_tsn="23062"/>
+      <item name="brassica_oleracea_capitata_f_alba_sweety" parent="brassica_oleracea_capitata_f_alba" itis_tsn="23062"/>
       <item name="brassica_oleracea_capitata_f_rubra" parent="brassica_oleracea_capitata" itis_tsn="23062"/>
+      <item name="brassica_oleracea_capitata_f_rubra_subaro" parent="brassica_oleracea_capitata_f_rubra" itis_tsn="23062"/>
+      <item name="brassica_oleracea_capitata_f_rubra_travero" parent="brassica_oleracea_capitata_f_rubra" itis_tsn="23062"/>
       <item name="brassica_oleracea_costata" parent="brassica_oleracea" itis_tsn="23062"/>
       <item name="brassica_oleracea_gemmifera" parent="brassica_oleracea" itis_tsn="23062"/>
       <item name="brassica_oleracea_gongylodes" parent="brassica_oleracea" itis_tsn="23062"/>
       <item name="brassica_oleracea_italica" parent="brassica_oleracea" itis_tsn="23062"/>
+      <item name="brassica_oleracea_italica_belstar" parent="brassica_oleracea_italica" itis_tsn="23062"/>
+      <item name="brassica_oleracea_italica_monaco" parent="brassica_oleracea_italica" itis_tsn="23062"/>
+      <item name="brassica_oleracea_italica_parthenon" parent="brassica_oleracea_italica" itis_tsn="23062"/>
+      <item name="brassica_oleracea_italica_spiridon" parent="brassica_oleracea_italica" itis_tsn="23062"/>
       <item name="brassica_oleracea_medullosa" parent="brassica_oleracea" itis_tsn="23062"/>
       <item name="brassica_oleracea_olearacea" parent="brassica_oleracea" itis_tsn="23062"/>
       <item name="brassica_oleracea_palmifolia" parent="brassica_oleracea" itis_tsn="23062"/>
       <item name="brassica_oleracea_ramosa" parent="brassica_oleracea" itis_tsn="23062"/>
       <item name="brassica_oleracea_sabauda" parent="brassica_oleracea" itis_tsn="23062"/>
+      <item name="brassica_oleracea_sabauda_cantasa" parent="brassica_oleracea_sabauda" itis_tsn="23062"/>
+      <item name="brassica_oleracea_sabauda_paresa" parent="brassica_oleracea_sabauda" itis_tsn="23062"/>
+      <item name="brassica_oleracea_sabauda_produsa" parent="brassica_oleracea_sabauda" itis_tsn="23062"/>
+      <item name="brassica_oleracea_sabauda_wintessa" parent="brassica_oleracea_sabauda" itis_tsn="23062"/>
+      <item name="brassica_oleracea_sabauda_wirosa" parent="brassica_oleracea_sabauda" itis_tsn="23062"/>
       <item name="brassica_oleracea_sabellica" parent="brassica_oleracea" itis_tsn="23062"/>
+      <item name="brassica_oleracea_sunny" parent="brassica_oleracea" itis_tsn="23062"/>
       <item name="brassica_oleracea_viridis" parent="brassica_oleracea" itis_tsn="23062"/>
       <item name="brassica_pringlea" parent="brassica" itis_tsn="23062"/>
       <item name="brassica_rapa" parent="brassica" itis_tsn="12345"/>
       <item name="brassica_rapa_annua" parent="brassica_rapa" itis_tsn="23063"/>
       <item name="brassica_rapa_biennis" parent="brassica_rapa" itis_tsn="23063"/>
+      <item name="brassica_rapa_pekinensis" parent="brassica_rapa" itis_tsn="23062"/>
+      <item name="brassica_rapa_pekinensis_bilko" parent="brassica_rapa_pekinensis" itis_tsn="23062"/>
+      <item name="brassica_rapa_pekinensis_emiko" parent="brassica_rapa_pekinensis" itis_tsn="23062"/>
+      <item name="brassica_rapa_rapa" parent="brassica_rapa" itis_tsn="23062"/>
+      <item name="brassica_rapa_rapa_aramis" parent="brassica_rapa_rapa" itis_tsn="23062"/>
+      <item name="brassica_rapa_rapa_armand" parent="brassica_rapa_rapa" itis_tsn="23062"/>
+      <item name="brassica_rapa_rapa_atlantic" parent="brassica_rapa_rapa" itis_tsn="23062"/>
+      <item name="brassica_rapa_rapa_boule_d_or" parent="brassica_rapa_rapa" itis_tsn="23062"/>
+      <item name="brassica_rapa_rapa_petrowsky" parent="brassica_rapa_rapa" itis_tsn="23062"/>
+      <item name="brassica_rapa_rapa_purple_top" parent="brassica_rapa_rapa" itis_tsn="23062"/>
+      <item name="brassica_rapa_rapa_richelieu" parent="brassica_rapa_rapa" itis_tsn="23062"/>
+      <item name="brassica_rapa_rapa_royal_crown" parent="brassica_rapa_rapa" itis_tsn="23062"/>
+      <item name="brassica_rapa_rapa_sweet_bell" parent="brassica_rapa_rapa" itis_tsn="23062"/>
+      <item name="brassica_rapa_rapa_turnep" parent="brassica_rapa_rapa" itis_tsn="23062"/>
       <item name="brassicaceae" parent="plant" itis_tsn="12345"/>
       <item name="bromeliaceae" parent="plant" itis_tsn="42330"/>
       <item name="bromus" parent="poaceae" itis_tsn="40478"/>
@@ -4189,16 +4290,22 @@
       <item name="cucurbita_maxima_galeuse_deysines" parent="cucurbita_maxima" itis_tsn="847542"/>
       <item name="cucurbita_maxima_green_hubbard" parent="cucurbita_maxima" itis_tsn="847542"/>
       <item name="cucurbita_maxima_gros_jaune_de_paris" parent="cucurbita_maxima" itis_tsn="847542"/>
+      <item name="cucurbita_maxima_honshu" parent="cucurbita_maxima" itis_tsn="527581"/>
       <item name="cucurbita_maxima_marina_di_chioggia" parent="cucurbita_maxima" itis_tsn="847542"/>
       <item name="cucurbita_maxima_maxima" parent="cucurbita_maxima" itis_tsn="847542"/>
+      <item name="cucurbita_maxima_nelson" parent="cucurbita_maxima" itis_tsn="527581"/>
       <item name="cucurbita_maxima_noir_du_bresil" parent="cucurbita_maxima" itis_tsn="847542"/>
       <item name="cucurbita_maxima_potimarron" parent="cucurbita_maxima" itis_tsn="847542"/>
+      <item name="cucurbita_maxima_potimarron_orange_summer" parent="cucurbita_maxima_potimarron" itis_tsn="527581"/>
+      <item name="cucurbita_maxima_potimarron_red_hokkaido" parent="cucurbita_maxima_potimarron" itis_tsn="527581"/>
+      <item name="cucurbita_maxima_potimarron_uchiki_kuri" parent="cucurbita_maxima_potimarron" itis_tsn="527581"/>
       <item name="cucurbita_maxima_rouge_vif_detampes" parent="cucurbita_maxima" itis_tsn="847542"/>
       <item name="cucurbita_maxima_turban" parent="cucurbita_maxima" itis_tsn="847542"/>
       <item name="cucurbita_maxima_vert_de_hokkaido" parent="cucurbita_maxima" itis_tsn="847542"/>
       <item name="cucurbita_maxima_vert_olive" parent="cucurbita_maxima" itis_tsn="847542"/>
       <item name="cucurbita_moschata" parent="cucurbita" itis_tsn="22370"/>
       <item name="cucurbita_moschata_butternut" parent="cucurbita_moschata" itis_tsn="22370"/>
+      <item name="cucurbita_moschata_butternut_havanna" parent="cucurbita_moschata_butternut" itis_tsn="22370"/>
       <item name="cucurbita_moschata_futsu_black" parent="cucurbita_moschata" itis_tsn="22370"/>
       <item name="cucurbita_moschata_long_island" parent="cucurbita_moschata" itis_tsn="22370"/>
       <item name="cucurbita_moschata_moschata" parent="cucurbita_moschata" itis_tsn="22370"/>
@@ -4211,7 +4318,11 @@
       <item name="cucurbita_pepo" parent="cucurbita" itis_tsn="22373"/>
       <item name="cucurbita_pepo_giromantiina" parent="cucurbita_pepo" itis_tsn="527581"/>
       <item name="cucurbita_pepo_ovifera" parent="cucurbita_pepo" itis_tsn="527580"/>
+      <item name="cucurbita_pepo_ovifera_patisson_blanc" parent="cucurbita_pepo_ovifera" itis_tsn="527580"/>
+      <item name="cucurbita_pepo_patidou" parent="cucurbita_pepo" itis_tsn="22373"/>
       <item name="cucurbita_pepo_pepo" parent="cucurbita_pepo" itis_tsn="527581"/>
+      <item name="cucurbita_pepo_pepo_cora" parent="cucurbita_pepo_pepo" itis_tsn="527581"/>
+      <item name="cucurbita_pepo_pepo_kimber" parent="cucurbita_pepo_pepo" itis_tsn="527581"/>
       <item name="cucurbita_pepo_round" parent="cucurbita_pepo" itis_tsn="527581"/>
       <item name="cucurbita_pepo_spaghetti" parent="cucurbita_pepo" itis_tsn="22373"/>
       <item name="cucurbitaceae" parent="plant" itis_tsn="22337"/>
@@ -4233,26 +4344,61 @@
       <item name="damaliscus_pygargus" parent="damaliscus" itis_tsn="625080"/>
       <item name="daucus" parent="apiaceae" itis_tsn="29476"/>
       <item name="daucus_carota" parent="daucus" itis_tsn="29476"/>
+      <item name="daucus_carota_bentley" parent="daucus_carota" itis_tsn="29477"/>
+      <item name="daucus_carota_bolero" parent="daucus_carota" itis_tsn="29477"/>
+      <item name="daucus_carota_brillyance" parent="daucus_carota" itis_tsn="29477"/>
       <item name="daucus_carota_carentan" parent="daucus_carota" itis_tsn="0"/>
+      <item name="daucus_carota_carvejo" parent="daucus_carota" itis_tsn="29477"/>
+      <item name="daucus_carota_carvora" parent="daucus_carota" itis_tsn="29477"/>
+      <item name="daucus_carota_cestas" parent="daucus_carota" itis_tsn="29477"/>
       <item name="daucus_carota_chantenay" parent="daucus_carota" itis_tsn="0"/>
+      <item name="daucus_carota_circeo" parent="daucus_carota" itis_tsn="29477"/>
       <item name="daucus_carota_colmar" parent="daucus_carota" itis_tsn="0"/>
       <item name="daucus_carota_creance" parent="daucus_carota" itis_tsn="0"/>
       <item name="daucus_carota_danvers" parent="daucus_carota" itis_tsn="0"/>
+      <item name="daucus_carota_dordogne" parent="daucus_carota" itis_tsn="29477"/>
+      <item name="daucus_carota_elegance" parent="daucus_carota" itis_tsn="29477"/>
       <item name="daucus_carota_flakkeese" parent="daucus_carota" itis_tsn="0"/>
       <item name="daucus_carota_giant_tilques_with_green_collar" parent="daucus_carota" itis_tsn="0"/>
       <item name="daucus_carota_gniff" parent="daucus_carota" itis_tsn="0"/>
+      <item name="daucus_carota_goldfinger" parent="daucus_carota" itis_tsn="29477"/>
       <item name="daucus_carota_halle" parent="daucus_carota" itis_tsn="0"/>
+      <item name="daucus_carota_hekla" parent="daucus_carota" itis_tsn="29477"/>
+      <item name="daucus_carota_ibiza" parent="daucus_carota" itis_tsn="29477"/>
+      <item name="daucus_carota_korrigan" parent="daucus_carota" itis_tsn="29477"/>
+      <item name="daucus_carota_laguna" parent="daucus_carota" itis_tsn="29477"/>
       <item name="daucus_carota_little_finger" parent="daucus_carota" itis_tsn="0"/>
       <item name="daucus_carota_long_red" parent="daucus_carota" itis_tsn="0"/>
+      <item name="daucus_carota_maestro" parent="daucus_carota" itis_tsn="29477"/>
       <item name="daucus_carota_meaux" parent="daucus_carota" itis_tsn="0"/>
+      <item name="daucus_carota_namdal" parent="daucus_carota" itis_tsn="29477"/>
+      <item name="daucus_carota_nanda" parent="daucus_carota" itis_tsn="29477"/>
       <item name="daucus_carota_nantes_scarlet" parent="daucus_carota" itis_tsn="0"/>
+      <item name="daucus_carota_napoli" parent="daucus_carota" itis_tsn="29477"/>
+      <item name="daucus_carota_natuna" parent="daucus_carota" itis_tsn="29477"/>
+      <item name="daucus_carota_naval" parent="daucus_carota" itis_tsn="29477"/>
+      <item name="daucus_carota_nerac" parent="daucus_carota" itis_tsn="29477"/>
+      <item name="daucus_carota_newcastle" parent="daucus_carota" itis_tsn="29477"/>
+      <item name="daucus_carota_nominator" parent="daucus_carota" itis_tsn="29477"/>
+      <item name="daucus_carota_phoenix" parent="daucus_carota" itis_tsn="29477"/>
+      <item name="daucus_carota_presto" parent="daucus_carota" itis_tsn="29477"/>
       <item name="daucus_carota_rodelika" parent="daucus_carota" itis_tsn="0"/>
+      <item name="daucus_carota_romance" parent="daucus_carota" itis_tsn="29477"/>
+      <item name="daucus_carota_santorin" parent="daucus_carota" itis_tsn="29477"/>
+      <item name="daucus_carota_soprano" parent="daucus_carota" itis_tsn="29477"/>
+      <item name="daucus_carota_speedo" parent="daucus_carota" itis_tsn="29477"/>
+      <item name="daucus_carota_stromboli" parent="daucus_carota" itis_tsn="29477"/>
+      <item name="daucus_carota_subito" parent="daucus_carota" itis_tsn="29477"/>
+      <item name="daucus_carota_sugarsnax" parent="daucus_carota" itis_tsn="29477"/>
+      <item name="daucus_carota_sweet_candle" parent="daucus_carota" itis_tsn="29477"/>
+      <item name="daucus_carota_texto" parent="daucus_carota" itis_tsn="29477"/>
       <item name="daucus_carota_touchon" parent="daucus_carota" itis_tsn="0"/>
       <item name="daucus_carota_valerian" parent="daucus_carota" itis_tsn="0"/>
       <item name="daucus_carota_white_kuttingen" parent="daucus_carota" itis_tsn="0"/>
       <item name="daucus_carota_white_vosges" parent="daucus_carota" itis_tsn="0"/>
       <item name="daucus_carota_white_with_green_collar" parent="daucus_carota" itis_tsn="0"/>
       <item name="daucus_carota_yellow_doubs" parent="daucus_carota" itis_tsn="0"/>
+      <item name="daucus_carota_yukon" parent="daucus_carota" itis_tsn="29477"/>
       <item name="diervillaceae" parent="plant" itis_tsn="823479"/>
       <item name="easement" parent="zone"/>
       <item name="egg" parent="raw_matter" derivative_of="aves"/>
@@ -4324,6 +4470,7 @@
       <item name="gleditsia" parent="fabaceae" itis_tsn="26711"/>
       <item name="glycine" parent="fabaceae" itis_tsn="26715"/>
       <item name="glycine_max" parent="glycine" itis_tsn="26716"/>
+      <item name="glycine_max_isidor" parent="glycine_max" itis_tsn="26716"/>
       <item name="gossypium" parent="malvaceae" itis_tsn="21709"/>
       <item name="gossypium_barbadense" parent="gossypium" itis_tsn="21710"/>
       <item name="gossypium_hirsutum" parent="gossypium" itis_tsn="21711"/>
@@ -4528,6 +4675,8 @@
       <item name="hordeum_hexastichum_volume" parent="hordeum_hexastichum"/>
       <item name="hordeum_hexastichum_voyel" parent="hordeum_hexastichum"/>
       <item name="hordeum_vulgare" parent="hordeum"/>
+      <item name="hordeum_vulgare_kws_cassia" parent="hordeum_vulgare" itis_tsn="40874"/>
+      <item name="hordeum_vulgare_volume" parent="hordeum_vulgare" itis_tsn="40874"/>
       <item name="humulus" parent="cannabaceae" itis_tsn="19159"/>
       <item name="humulus_lupulus" parent="humulus" itis_tsn="19160"/>
       <item name="hydrangeaceae" parent="plant" itis_tsn="24093"/>
@@ -4558,6 +4707,9 @@
       <item name="lactuca" parent="asteraceae" itis_tsn="36594"/>
       <item name="lactuca_sativa" parent="lactuca" itis_tsn="36607"/>
       <item name="lactuca_sativa_butterhead" parent="lactuca_sativa" itis_tsn="36607"/>
+      <item name="lactuca_sativa_derbi" parent="lactuca_sativa" itis_tsn="36607"/>
+      <item name="lactuca_sativa_duende" parent="lactuca_sativa" itis_tsn="36607"/>
+      <item name="lactuca_sativa_novelda" parent="lactuca_sativa" itis_tsn="36607"/>
       <item name="lamiaceae" parent="plant" itis_tsn="32251"/>
       <item name="land_parcel" parent="easement"/>
       <item name="land_parcel_cluster" parent="land_parcel_group"/>
@@ -4678,6 +4830,7 @@
       <item name="papaveraceae" parent="plant" itis_tsn="18880"/>
       <item name="pastinaca" parent="apiaceae" itis_tsn="29621"/>
       <item name="pastinaca_sativa" parent="pastinaca" itis_tsn="29795"/>
+      <item name="pastinaca_sativa_javelin" parent="pastinaca_sativa" itis_tsn="29795"/>
       <item name="pavo" parent="phasianidae" itis_tsn="176112"/>
       <item name="pavo_cristatus" parent="pavo" itis_tsn="176113"/>
       <item name="peach" parent="fruit" derivative_of="prunus_persica"/>
@@ -4699,6 +4852,14 @@
       <item name="phalaris" parent="poaceae" itis_tsn="41334"/>
       <item name="phalaris_canariensis" parent="phalaris" itis_tsn="41336"/>
       <item name="phaseolus" parent="fabaceae" itis_tsn="203844"/>
+      <item name="phaseolus_vulgaris" parent="phaseolus" itis_tsn="26857"/>
+      <item name="phaseolus_vulgaris_carthage" parent="phaseolus" itis_tsn="26857"/>
+      <item name="phaseolus_vulgaris_flagrano" parent="phaseolus" itis_tsn="26857"/>
+      <item name="phaseolus_vulgaris_kaiser" parent="phaseolus" itis_tsn="26857"/>
+      <item name="phaseolus_vulgaris_lugos" parent="phaseolus" itis_tsn="26857"/>
+      <item name="phaseolus_vulgaris_mogex" parent="phaseolus" itis_tsn="26857"/>
+      <item name="phaseolus_vulgaris_molly" parent="phaseolus" itis_tsn="26857"/>
+      <item name="phaseolus_vulgaris_stanley" parent="phaseolus" itis_tsn="26857"/>
       <item name="phasianidae" parent="aves" itis_tsn="175861"/>
       <item name="phasianus" parent="phasianidae" itis_tsn="175904"/>
       <item name="phasianus_colchicus" parent="phasianus" itis_tsn="175905"/>
@@ -4713,12 +4874,17 @@
       <item name="pisum_sativum" parent="pisum" itis_tsn="26867"/>
       <item name="pisum_sativum_astronaute" parent="pisum_sativum" itis_tsn="0"/>
       <item name="pisum_sativum_audit" parent="pisum_sativum" itis_tsn="0"/>
+      <item name="pisum_sativum_etna" parent="pisum_sativum" itis_tsn="26867"/>
+      <item name="pisum_sativum_fortress" parent="pisum_sativum" itis_tsn="26867"/>
       <item name="pisum_sativum_kayanne" parent="pisum_sativum" itis_tsn="0"/>
       <item name="pisum_sativum_mowgli" parent="pisum_sativum" itis_tsn="0"/>
       <item name="pisum_sativum_mythic" parent="pisum_sativum" itis_tsn="0"/>
       <item name="pisum_sativum_navarro" parent="pisum_sativum" itis_tsn="0"/>
       <item name="pisum_sativum_onyx" parent="pisum_sativum" itis_tsn="0"/>
+      <item name="pisum_sativum_retrovert" parent="pisum_sativum" itis_tsn="26867"/>
       <item name="pisum_sativum_rocket" parent="pisum_sativum" itis_tsn="0"/>
+      <item name="pisum_sativum_style" parent="pisum_sativum" itis_tsn="26867"/>
+      <item name="pisum_sativum_touracq" parent="pisum_sativum" itis_tsn="26867"/>
       <item name="plant" parent="bioproduct"/>
       <item name="plantaginaceae" parent="plant" itis_tsn="32869"/>
       <item name="plantago" parent="plantaginaceae" itis_tsn="32870"/>
@@ -4773,6 +4939,11 @@
       <item name="quercus" parent="fagaceae" itis_tsn="19276"/>
       <item name="raphanus" parent="brassicaceae" itis_tsn="23288"/>
       <item name="raphanus_sativus" parent="raphanus" itis_tsn="23290"/>
+      <item name="raphanus_sativus_da&#xEF;kon" parent="raphanus_sativus" itis_tsn="23290"/>
+      <item name="raphanus_sativus_expo" parent="raphanus_sativus" itis_tsn="23290"/>
+      <item name="raphanus_sativus_fluo" parent="raphanus_sativus" itis_tsn="23290"/>
+      <item name="raphanus_sativus_niger" parent="raphanus_sativus" itis_tsn="23290"/>
+      <item name="raphanus_sativus_niger_poids_d_horloge" parent="raphanus_sativus_niger" itis_tsn="23290"/>
       <item name="raspberry" parent="fruit" derivative_of="rubus"/>
       <item name="raw_matter" parent="preparation"/>
       <item name="reaper" parent="equipment"/>
@@ -5153,6 +5324,7 @@
       <item name="solanum_tuberosum_russet_burbank" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_sabina" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_sagitta" parent="solanum_tuberosum" itis_tsn="505272"/>
+      <item name="solanum_tuberosum_saline" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_saphire" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_sarpo_mira" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_sassy" parent="solanum_tuberosum" itis_tsn="505272"/>
@@ -5189,6 +5361,8 @@
       <item name="sower" parent="equipment"/>
       <item name="spinacia" parent="amaranthaceae" itis_tsn="20708"/>
       <item name="spinacia_oleracea" parent="spinacia" itis_tsn="20709"/>
+      <item name="spinacia_oleracea_el_grinta" parent="spinacia_oleracea" itis_tsn="20709"/>
+      <item name="spinacia_oleracea_rocoon" parent="spinacia_oleracea" itis_tsn="20709"/>
       <item name="spiraea" parent="rosaceae" itis_tsn="25328"/>
       <item name="spiraea_x_billiardii" parent="spiraea" itis_tsn="25332"/>
       <item name="sprayer" parent="equipment"/>
@@ -5434,14 +5608,57 @@
       <item name="zea" parent="poaceae" itis_tsn="42268"/>
       <item name="zea_mays" parent="zea" itis_tsn="42269"/>
       <item name="zea_mays_aallexia" parent="zea_mays" itis_tsn="0"/>
+      <item name="zea_mays_barcarolle_cs" parent="zea_mays" itis_tsn="42269"/>
       <item name="zea_mays_bergxxon" parent="zea_mays" itis_tsn="0"/>
       <item name="zea_mays_boomer" parent="zea_mays" itis_tsn="0"/>
+      <item name="zea_mays_cadixxio" parent="zea_mays" itis_tsn="42269"/>
+      <item name="zea_mays_ceratina" parent="zea_mays" itis_tsn="42269"/>
+      <item name="zea_mays_ceratina_dkc5430wx" parent="zea_mays_ceratina" itis_tsn="42269"/>
+      <item name="zea_mays_ceratina_dkc5783wx" parent="zea_mays_ceratina" itis_tsn="42269"/>
+      <item name="zea_mays_ceratina_mas66wx" parent="zea_mays_ceratina" itis_tsn="42269"/>
+      <item name="zea_mays_ceratina_p0725e" parent="zea_mays_ceratina" itis_tsn="42269"/>
+      <item name="zea_mays_ceratina_p1547e" parent="zea_mays_ceratina" itis_tsn="42269"/>
+      <item name="zea_mays_ceratina_pr34N41waxy" parent="zea_mays_ceratina" itis_tsn="42269"/>
+      <item name="zea_mays_ceratina_pr35f36" parent="zea_mays_ceratina" itis_tsn="42269"/>
+      <item name="zea_mays_copernic_cs" parent="zea_mays" itis_tsn="42269"/>
+      <item name="zea_mays_corretta_cs" parent="zea_mays" itis_tsn="42269"/>
       <item name="zea_mays_dkc3912" parent="zea_mays" itis_tsn="0"/>
+      <item name="zea_mays_dkc4490" parent="zea_mays" itis_tsn="42269"/>
+      <item name="zea_mays_dkc5430" parent="zea_mays" itis_tsn="42269"/>
+      <item name="zea_mays_ef5209" parent="zea_mays" itis_tsn="42269"/>
+      <item name="zea_mays_es_antalya" parent="zea_mays" itis_tsn="42269"/>
+      <item name="zea_mays_es_carmen" parent="zea_mays" itis_tsn="42269"/>
+      <item name="zea_mays_es_cirrius" parent="zea_mays" itis_tsn="42269"/>
+      <item name="zea_mays_es_kongress" parent="zea_mays" itis_tsn="42269"/>
       <item name="zea_mays_everta" parent="zea_mays" itis_tsn="0"/>
+      <item name="zea_mays_gerzi_cs" parent="zea_mays" itis_tsn="42269"/>
       <item name="zea_mays_lg30533" parent="zea_mays" itis_tsn="0"/>
       <item name="zea_mays_lg3490" parent="zea_mays" itis_tsn="0"/>
       <item name="zea_mays_lg3530" parent="zea_mays" itis_tsn="0"/>
+      <item name="zea_mays_mas19h" parent="zea_mays" itis_tsn="42269"/>
+      <item name="zea_mays_mas38d" parent="zea_mays" itis_tsn="42269"/>
+      <item name="zea_mays_mas56a" parent="zea_mays" itis_tsn="42269"/>
+      <item name="zea_mays_mas66c" parent="zea_mays" itis_tsn="42269"/>
+      <item name="zea_mays_na5704" parent="zea_mays" itis_tsn="42269"/>
+      <item name="zea_mays_p0725" parent="zea_mays" itis_tsn="42269"/>
+      <item name="zea_mays_p0837" parent="zea_mays" itis_tsn="42269"/>
+      <item name="zea_mays_p1574" parent="zea_mays" itis_tsn="42269"/>
+      <item name="zea_mays_p38a79" parent="zea_mays" itis_tsn="42269"/>
+      <item name="zea_mays_p771s" parent="zea_mays" itis_tsn="42269"/>
+      <item name="zea_mays_p921s" parent="zea_mays" itis_tsn="42269"/>
+      <item name="zea_mays_ph30" parent="zea_mays" itis_tsn="42269"/>
+      <item name="zea_mays_ph31s" parent="zea_mays" itis_tsn="42269"/>
+      <item name="zea_mays_pr34p88" parent="zea_mays" itis_tsn="42269"/>
       <item name="zea_mays_saccharata" parent="zea_mays" itis_tsn="0"/>
+      <item name="zea_mays_saccharata_646" parent="zea_mays_saccharata" itis_tsn="42269"/>
+      <item name="zea_mays_saccharata_714" parent="zea_mays_saccharata" itis_tsn="42269"/>
+      <item name="zea_mays_saccharata_715" parent="zea_mays_saccharata" itis_tsn="42269"/>
+      <item name="zea_mays_saccharata_729" parent="zea_mays_saccharata" itis_tsn="42269"/>
+      <item name="zea_mays_saccharata_772" parent="zea_mays_saccharata" itis_tsn="42269"/>
+      <item name="zea_mays_saccharata_c303" parent="zea_mays_saccharata" itis_tsn="42269"/>
+      <item name="zea_mays_saccharata_c446" parent="zea_mays_saccharata" itis_tsn="42269"/>
+      <item name="zea_mays_saccharata_c646" parent="zea_mays_saccharata" itis_tsn="42269"/>
+      <item name="zea_mays_saccharata_gss1477" parent="zea_mays_saccharata" itis_tsn="42269"/>
       <item name="zea_mays_shannon" parent="zea_mays" itis_tsn="0"/>
       <item name="zeuzera_pyrina" parent="insecta"/>
       <item name="zingiberaceae" parent="plant" itis_tsn="42392"/>

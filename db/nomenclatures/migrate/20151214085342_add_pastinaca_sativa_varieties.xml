@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add pastinaca sativa varieties">
+  <item-creation item="varieties#pastinaca_sativa_javelin" parent="pastinaca_sativa" itis_tsn="29795"/>
+</migration>

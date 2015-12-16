@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add raphanus varieties">
+  <item-creation item="varieties#raphanus_sativus_daïkon" parent="raphanus_sativus" itis_tsn="23290"/>
+  <item-creation item="varieties#raphanus_sativus_expo" parent="raphanus_sativus" itis_tsn="23290"/>
+  <item-creation item="varieties#raphanus_sativus_fluo" parent="raphanus_sativus" itis_tsn="23290"/>
+  <item-creation item="varieties#raphanus_sativus_niger" parent="raphanus_sativus" itis_tsn="23290"/>
+  <item-creation item="varieties#raphanus_sativus_niger_poids_d_horloge" parent="raphanus_sativus_niger" itis_tsn="23290"/>
+</migration>

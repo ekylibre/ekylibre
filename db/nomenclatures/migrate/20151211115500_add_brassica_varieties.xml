@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add brassica varieties">
+  <item-creation item="varieties#brassica_oleracea_sunny" parent="brassica_oleracea" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_oleracea_italica_belstar" parent="brassica_oleracea_italica" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_oleracea_italica_monaco" parent="brassica_oleracea_italica" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_oleracea_italica_parthenon" parent="brassica_oleracea_italica" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_oleracea_italica_spiridon" parent="brassica_oleracea_italica" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_oleracea_capitata_f_alba_atlas" parent="brassica_oleracea_capitata_f_alba" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_oleracea_capitata_f_alba_sweety" parent="brassica_oleracea_capitata_f_alba" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_oleracea_capitata_f_alba_impala" parent="brassica_oleracea_capitata_f_alba" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_oleracea_capitata_f_alba_lenox" parent="brassica_oleracea_capitata_f_alba" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_oleracea_capitata_f_rubra_travero" parent="brassica_oleracea_capitata_f_rubra" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_oleracea_capitata_f_rubra_subaro" parent="brassica_oleracea_capitata_f_rubra" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_oleracea_sabauda_cantasa" parent="brassica_oleracea_sabauda" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_oleracea_sabauda_paresa" parent="brassica_oleracea_sabauda" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_oleracea_sabauda_produsa" parent="brassica_oleracea_sabauda" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_oleracea_sabauda_wintessa" parent="brassica_oleracea_sabauda" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_oleracea_sabauda_wirosa" parent="brassica_oleracea_sabauda" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_oleracea_botrytis_aviso" parent="brassica_oleracea_botrytis" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_oleracea_botrytis_adona" parent="brassica_oleracea_botrytis" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_oleracea_botrytis_danden" parent="brassica_oleracea_botrytis" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_oleracea_botrytis_durian" parent="brassica_oleracea_botrytis" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_oleracea_botrytis_leocen" parent="brassica_oleracea_botrytis" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_oleracea_botrytis_mascaret" parent="brassica_oleracea_botrytis" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_oleracea_botrytis_navalo" parent="brassica_oleracea_botrytis" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_oleracea_botrytis_optimist" parent="brassica_oleracea_botrytis" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_oleracea_botrytis_redoutable" parent="brassica_oleracea_botrytis" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_oleracea_botrytis_skywalker" parent="brassica_oleracea_botrytis" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_oleracea_botrytis_romanesco_navona" parent="brassica_oleracea_botrytis_romanesco" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_oleracea_botrytis_romanesco_lazio" parent="brassica_oleracea_botrytis_romanesco" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_oleracea_botrytis_romanesco_vernica" parent="brassica_oleracea_botrytis_romanesco" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_rapa_pekinensis" parent="brassica_rapa" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_rapa_pekinensis_bilko" parent="brassica_rapa_pekinensis" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_rapa_pekinensis_emiko" parent="brassica_rapa_pekinensis" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_rapa_rapa" parent="brassica_rapa" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_rapa_rapa_aramis" parent="brassica_rapa_rapa" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_rapa_rapa_armand" parent="brassica_rapa_rapa" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_rapa_rapa_boule_d_or" parent="brassica_rapa_rapa" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_rapa_rapa_petrowsky" parent="brassica_rapa_rapa" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_rapa_rapa_purple_top" parent="brassica_rapa_rapa" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_rapa_rapa_richelieu" parent="brassica_rapa_rapa" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_rapa_rapa_royal_crown" parent="brassica_rapa_rapa" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_rapa_rapa_sweet_bell" parent="brassica_rapa_rapa" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_rapa_rapa_turnep" parent="brassica_rapa_rapa" itis_tsn="23062"/>
+  <item-creation item="varieties#brassica_rapa_rapa_atlantic" parent="brassica_rapa_rapa" itis_tsn="23062"/>
+</migration>
+
+
+
+

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add allium cepa varieties">
+  <item-creation item="varieties#allium_cepa_b010282" parent="allium_cepa" itis_tsn="42720"/>
+  <item-creation item="varieties#allium_cepa_b010283" parent="allium_cepa" itis_tsn="42720"/>
+  <item-creation item="varieties#allium_cepa_b010284" parent="allium_cepa" itis_tsn="42720"/>
+</migration>

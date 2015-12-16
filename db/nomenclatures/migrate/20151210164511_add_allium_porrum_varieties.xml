@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add allium porrum varieties">
+  <item-creation item="varieties#allium_porrum_belton" parent="allium_porrum" itis_tsn="42659"/>
+  <item-creation item="varieties#allium_porrum_duraton" parent="allium_porrum" itis_tsn="42659"/>
+  <item-creation item="varieties#allium_porrum_kenton" parent="allium_porrum" itis_tsn="42659"/>
+  <item-creation item="varieties#allium_porrum_krypton" parent="allium_porrum" itis_tsn="42659"/>
+  <item-creation item="varieties#allium_porrum_lexton" parent="allium_porrum" itis_tsn="42659"/>
+  <item-creation item="varieties#allium_porrum_longton" parent="allium_porrum" itis_tsn="42659"/>
+  <item-creation item="varieties#allium_porrum_mégaton" parent="allium_porrum" itis_tsn="42659"/>
+  <item-creation item="varieties#allium_porrum_pluston" parent="allium_porrum" itis_tsn="42659"/>
+  <item-creation item="varieties#allium_porrum_poulton" parent="allium_porrum" itis_tsn="42659"/>
+  <item-creation item="varieties#allium_porrum_vitaton" parent="allium_porrum" itis_tsn="42659"/>
+</migration>

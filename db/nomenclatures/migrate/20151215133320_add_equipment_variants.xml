@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add equipment variants">
+  <item-creation item="product_natures#dumper" category="equipment" variety="equipment" population_counting="unitary" abilities="store_fluid, store(excrement), store(straw)" frozen_indicators="population" variable_indicators="nominal_storable_net_volume, nominal_storable_easement_area, nominal_storable_net_mass, geolocation" />
+  <item-creation item="product_natures#ferry" category="equipment" variety="equipment" population_counting="unitary" abilities="store(grain), store(plant)" frozen_indicators="population" variable_indicators="nominal_storable_net_volume, nominal_storable_easement_area, nominal_storable_net_mass, geolocation" />
+  <item-creation item="product_natures#gas_engine" category="equipment" variety="equipment" population_counting="unitary" abilities="store_gaz, kill(plant)" frozen_indicators="population" variable_indicators="application_width, geolocation" />
+  <item-creation item="product_natures#harrow" category="equipment" variety="equipment" population_counting="unitary" abilities="plow_superficially" frozen_indicators="population" variable_indicators="application_width, geolocation" />
+  <item-creation item="product_natures#harvester" category="equipment" variety="harvester" population_counting="unitary" abilities="harvest(plant)" frozen_indicators="population" variable_indicators="application_width, geolocation" />
+  <item-creation item="product_natures#hiller" category="equipment" variety="equipment" population_counting="unitary" abilities="earth_up" frozen_indicators="population" variable_indicators="application_width, geolocation" />
+  <item-creation item="product_natures#picker" category="equipment" variety="equipment" population_counting="unitary" abilities="pick" frozen_indicators="population" variable_indicators="application_width, geolocation" />
+  <item-creation item="product_natures#seedbed_preparator" category="equipment" variety="equipment" population_counting="unitary" abilities="plow_superficially, implant" frozen_indicators="population" variable_indicators="application_width, geolocation" />
+  <item-creation item="product_natures#sieve_shaker" category="equipment" variety="equipment" population_counting="unitary" abilities="sieve" frozen_indicators="population" variable_indicators="application_width, geolocation" />
+  <item-creation item="product_natures#soil_loosener" category="equipment" variety="equipment" population_counting="unitary" abilities="uncompact" frozen_indicators="population" variable_indicators="application_width, geolocation" />
+  <item-creation item="product_natures#steam_engine" category="equipment" variety="equipment" population_counting="unitary" abilities="store_liquid, kill(plant)" frozen_indicators="population" variable_indicators="application_width, geolocation" />
+  <item-creation item="product_natures#topper" category="equipment" variety="equipment" population_counting="unitary" abilities="cut" frozen_indicators="population" variable_indicators="application_width, geolocation" />
+  <item-creation item="product_natures#trimmer" category="equipment" variety="equipment" population_counting="unitary" abilities="cut" frozen_indicators="population" variable_indicators="application_width, geolocation" />
+  <item-creation item="product_natures#uncover" category="equipment" variety="equipment" population_counting="unitary" abilities="remove(canvas_cover)" frozen_indicators="population" variable_indicators="application_width, geolocation" />
+  <item-creation item="product_natures#water_tank" category="equipment" variety="tank" population_counting="unitary" abilities="store_liquid, store(water)" frozen_indicators="population" variable_indicators="nominal_storable_net_volume, geolocation" />
+  <item-creation item="product_natures#weeder" category="equipment" variety="equipment" population_counting="unitary" abilities="kill(plant)" frozen_indicators="population" variable_indicators="application_width, geolocation" />
+  <item-creation item="product_nature_variants#bed_former" nature="seedbed_preparator" frozen_indicators_values="population: 1"/>
+  <item-creation item="product_nature_variants#disc_horrow" nature="superficial_plow" frozen_indicators_values="population: 1"/>
+  <item-creation item="product_nature_variants#dumper" nature="dumper" frozen_indicators_values="population: 1"/>
+  <item-creation item="product_nature_variants#ferry" nature="ferry" frozen_indicators_values="population: 1"/>
+  <item-creation item="product_nature_variants#gas_burner" nature="gas_engine" frozen_indicators_values="population: 1"/>
+  <item-creation item="product_nature_variants#gas_engine" nature="gas_engine" frozen_indicators_values="population: 1"/>
+  <item-creation item="product_nature_variants#harrow" nature="harrow" frozen_indicators_values="population: 1"/>
+  <item-creation item="product_nature_variants#harvester" nature="harvester" frozen_indicators_values="population: 1"/>
+  <item-creation item="product_nature_variants#hiller" nature="hiller" frozen_indicators_values="population: 1"/>
+  <item-creation item="product_nature_variants#motor_hoe" nature="hoe" frozen_indicators_values="population: 1"/>
+  <item-creation item="product_nature_variants#picker" nature="picker" frozen_indicators_values="population: 1"/>
+  <item-creation item="product_nature_variants#punching_machine" nature="implanter" frozen_indicators_values="population: 1"/>
+  <item-creation item="product_nature_variants#rotavator" nature="seedbed_preparator" frozen_indicators_values="population: 1"/>
+  <item-creation item="product_nature_variants#sieve_shaker" nature="sieve_shaker" frozen_indicators_values="population: 1"/>
+  <item-creation item="product_nature_variants#soil_loosener" nature="soil_loosener" frozen_indicators_values="population: 1"/>
+  <item-creation item="product_nature_variants#steam_engine" nature="steam_engine" frozen_indicators_values="population: 1"/>
+  <item-creation item="product_nature_variants#stubble_cultivator" nature="superficial_plow" frozen_indicators_values="population: 1"/>
+  <item-creation item="product_nature_variants#topper" nature="topper" frozen_indicators_values="population: 1"/>
+  <item-creation item="product_nature_variants#trimmer" nature="trimmer" frozen_indicators_values="population: 1"/>
+  <item-creation item="product_nature_variants#uncover" nature="uncover" frozen_indicators_values="population: 1"/>
+  <item-creation item="product_nature_variants#vibrocultivator" nature="seedbed_preparator" frozen_indicators_values="population: 1"/>
+  <item-creation item="product_nature_variants#water_bowser" nature="water_tank" frozen_indicators_values="population: 1"/>
+  <item-creation item="product_nature_variants#weeder" nature="weeder" frozen_indicators_values="population: 1"/>
+</migration>
+
