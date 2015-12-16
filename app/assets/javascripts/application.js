@@ -13,6 +13,9 @@
 //= require modernizr
 //= require jquery
 //= require jquery-ui/datepicker
+//= require jquery-ui/datepicker-fr
+//= #require jquery-ui/datepicker-ar
+//= #require jquery-ui/datepicker-ja
 //= require jquery-ui/dialog
 //= require jquery-ui/slider
 //= require jquery-ui/accordion
