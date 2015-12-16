@@ -1,4 +1,5 @@
 .timeline-tools
+  = :add.tl
   - timeline.sides.each do |side|
     - if side.new_url?
       %span.timeline-tool{class: "tl-#{side.name}"}
