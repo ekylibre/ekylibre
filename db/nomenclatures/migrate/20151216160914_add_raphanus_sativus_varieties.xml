@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add raphanus sativus varieties">
+  <item-creation item="varieties#raphanus_sativus_flamboyant2" parent="raphanus_sativus" itis_tsn="23290"/>
+</migration>

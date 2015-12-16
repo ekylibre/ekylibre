@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151216100708">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151216160914">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -4951,6 +4951,7 @@
       <item name="raphanus_sativus" parent="raphanus" itis_tsn="23290"/>
       <item name="raphanus_sativus_da&#xEF;kon" parent="raphanus_sativus" itis_tsn="23290"/>
       <item name="raphanus_sativus_expo" parent="raphanus_sativus" itis_tsn="23290"/>
+      <item name="raphanus_sativus_flamboyant2" parent="raphanus_sativus" itis_tsn="23290"/>
       <item name="raphanus_sativus_fluo" parent="raphanus_sativus" itis_tsn="23290"/>
       <item name="raphanus_sativus_niger" parent="raphanus_sativus" itis_tsn="23290"/>
       <item name="raphanus_sativus_niger_poids_d_horloge" parent="raphanus_sativus_niger" itis_tsn="23290"/>
