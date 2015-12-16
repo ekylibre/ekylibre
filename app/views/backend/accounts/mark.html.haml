@@ -56,8 +56,3 @@
               %td{conf}= item.name
               %td.dec.debit{conf}=  number_to_accountancy(item.absolute_debit)
               %td.dec.credit{conf}= number_to_accountancy(item.absolute_credit)
-
-
-  = form_actions do
-    = submit_tag :save.tl
-
