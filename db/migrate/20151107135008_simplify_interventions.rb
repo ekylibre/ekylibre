@@ -51,6 +51,58 @@ class SimplifyInterventions < ActiveRecord::Migration
   ALL_TYPE_COLUMNS = TYPE_COLUMNS +
                      POLYMORPHIC_REFERENCES.map { |a| [a.first, "#{a.second}_type".to_sym] }
 
+  PROCEDURES = {
+    animal_artificial_insemination: { mandatory: [:animal_artificial_insemination] },
+    parturition: { mandatory: [:parturition] },
+    manual_feeding: { mandatory: [:animal_feeding] },
+    pasturing: { mandatory: [:animal_feeding] },
+    silage_unload: { mandatory: [:animal_feeding] },
+    egg_collecting: { mandatory: [:egg_collecting] },
+    milking: { mandatory: [:milking] },
+    animal_antibiotic_treatment: { mandatory: [:disease_treatment] },
+    animal_group_changing: { mandatory: [:animal_group_changing] },
+    crop_residues_grinding: { mandatory: [:residue_destruction, :organic_matter_burying], optional: [:organic_fertilization] },
+    cutting: { mandatory: [:cutting] },
+    detasseling: { mandatory: [:detasseling] },
+    field_plant_sorting: { mandatory: [:field_plant_sorting] },
+    hoeing: { optional: [:weeding, :loosening] },
+    plantation_unfixing: { mandatory: [:plantation_unfixing] },
+    plant_mulching: { optional: [:organic_fertilization] },
+    spraying: { optional: [:herbicide, :fungicide, :insecticide, :growth_regulator, :molluscicide, :nematicide, :acaricide, :bactericide, :rodenticide, :talpicide, :corvicide, :game_repellent] },
+    fuel_up: { mandatory: [:fuel_up] },
+    equipment_item_replacement: { mandatory: [:troubleshooting] },
+    oil_replacement: { mandatory: [:oil_replacement] },
+    mechanical_fertilizing: { mandatory: [:fertilization], optional: [:biostimulation, :organic_fertilization, :mineral_fertilization, :micronutrient_fertilization, :liming] },
+    animal_housing_cleaning: { mandatory: [:hygiene] },
+    animal_housing_mulching: { mandatory: [:animal_housing_mulching] },
+    direct_silage: { mandatory: [:harvest] },
+    mechanical_harvesting: { mandatory: [:harvest] },
+    plant_mowing: { mandatory: [:harvest] },
+    straw_bunching: { mandatory: [:straw_bunching] },
+    standard_enclosing: { optional: [:animal_penning, :game_protection] },
+    plant_watering: { mandatory: [:irrigation] },
+    ground_destratification: { mandatory: [:loosening] },
+    mechanical_planting: { mandatory: [:planting] },
+    sowing: { mandatory: [:sowing] },
+    sowing_with_spraying: { mandatory: [:sowing], optional: [:herbicide, :fungicide, :insecticide, :growth_regulator, :molluscicide, :nematicide, :acaricide, :bactericide, :rodenticide, :talpicide, :corvicide, :game_repellent] },
+    all_in_one_sowing: { mandatory: [:sowing, :fertilization], optional: [:herbicide, :fungicide, :insecticide, :growth_regulator, :molluscicide, :nematicide, :acaricide, :bactericide, :rodenticide, :talpicide, :corvicide, :game_repellent] },
+    indirect_silage: { mandatory: [:indirect_silage] },
+    land_parcel_grinding: { mandatory: [:land_parcel_grinding] },
+    raking: { mandatory: [:loosening], optional: [:sowing_burying] },
+    uncompacting: { mandatory: [:loosening] },
+    plowing: { mandatory: [:plowing, :loosening], optional: [:herbicide, :organic_matter_burying, :water_flow_improvement] },
+    superficial_plowing: { mandatory: [:plowing, :loosening], optional: [:herbicide, :organic_matter_burying] },
+    chaptalization: { mandatory: [:chaptalization] },
+    complete_wine_transfer: { mandatory: [:complete_wine_transfer] },
+    enzyme_addition: { mandatory: [:enzyme_addition] },
+    fermentation: { mandatory: [:fermentation] },
+    grape_pressing: { mandatory: [:grape_pressing] },
+    partial_wine_transfer: { mandatory: [:partial_wine_transfer] },
+    sulfur_addition: { mandatory: [:sulfur_addition] },
+    wine_blending: { mandatory: [:wine_blending] },
+    wine_bottling: { mandatory: [:wine_bottling] }
+  }
+
   # Rename table and depending stuff
   def rename_model_and_co(old_model, new_model)
     old_table = old_model.to_s.tableize
@@ -652,6 +704,22 @@ class SimplifyInterventions < ActiveRecord::Migration
     end
 
     rename_column :interventions, :reference_name, :procedure_name
+    add_column :interventions, :actions, :string
+
+    reversible do |d|
+      d.up do
+        # Sets a default actions with procedure_name
+        cases = PROCEDURES.map do |procedure, attrs|
+          if attrs[:mandatory]
+            "WHEN procedure_name = '#{procedure}' THEN '#{attrs[:mandatory].join(', ')}'"
+          elsif attrs[:optional]
+            "WHEN procedure_name = '#{procedure}' THEN '#{attrs[:optional].first}'"
+          end
+        end.compact
+        execute 'UPDATE interventions SET actions = CASE ' + cases.join + ' ELSE procedure_name END'
+      end
+    end
+
     rename_column :intervention_casts, :reference_name, :parameter_name
 
     revert do

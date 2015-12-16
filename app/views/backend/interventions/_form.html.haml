@@ -1,28 +1,18 @@
 - if f.object.errors.any?
   = f.object.errors.inspect
+- procedure = f.object.procedure
 - if procedure = f.object.procedure
   = hidden_field_tag nil, compute_backend_interventions_path(format: :json), data: {procedure_computing: procedure.name}
-  -# if !f.object.production && params[:production_support_id] && support = ProductionSupport.find_by(id: params[:production_support_id])
-    - f.object.production = support.production
   = field_set do
     = f.input :procedure_name, as: :hidden
-    -#= f.referenced_association :production, new: false, source: :of_current_campaigns, input_html: {data: {procedure: procedure.name, procedure_global: "production", intervention_updater: "global:production"}}
-    -#.with-supports
-      = f.referenced_association :production_support, new: false, source: :of_current_campaigns, input_html: {data: {procedure: procedure.name, procedure_global: "support", intervention_updater: "global:support"}}
     = f.referenced_association :issue
-    -#= f.input :recommended, show: :prescriptions
-    -#= f.input :provisional
-    -#= f.referenced_association :production
-    - started_at_as = nil
-    - if Intervention.force_started_at? && procedure.can_compute_duration?
-      - f.object.started_at ||= Time.zone.now
-      - started_at_as = :hidden
-    -#= f.input :started_at, input_html: {data: {procedure: procedure.name, procedure_global: "at", intervention_updater: "global:at"}}, as: started_at_as
-    - stopped_at_as = nil
-    - if Intervention.force_stopped_at? && procedure.can_compute_duration?
-      - stopped_at_as = :hidden
-    -#= f.input :stopped_at, input_html: {data: {procedure: procedure.name, procedure_global: "stopped_at", intervention_updater: "global:stopped_at"}}, as: stopped_at_as
     = f.input :description
+
+    - procedure.mandatory_actions.each do |a|
+      = hidden_field_tag('intervention[actions][]', a)
+    - if procedure.optional_actions.any?
+      = f.items_list(:actions, selection: procedure.optional_actions_selection)
+
     = f.custom_fields
     #prescriptions
       = f.referenced_association :prescription
@@ -34,24 +24,12 @@
         - f.object.working_periods.new(started_at: started_at, stopped_at: stopped_at)
       = f.nested_association(:working_periods)
 
-  = field_set :casting do
-    -# puts params.to_yaml.green
+  = field_set :parameters do
     - procedure.each_item do |item|
       - if item.is_a? Procedo::Parameter
         = render 'cast_form', parameter: item, f: f
       - elsif item.is_a? Procedo::ParameterGroup
         = render 'cast_group_form', parameter_group: item, f: f
-
-
-    -# procedure.each_parameter do |parameter|
-      = render 'cast_form', parameter: parameter, f: f
-
-    -# if f.object.new_record? && f.object.casts.empty?
-      - procedure.parameters.each do |name, parameter|
-        - f.object.casts.new(parameter_name: name)
-    -#= f.backend_fields_for :casts do |v|
-      = render 'old_cast_fields', f: v, procedure: procedure
-
 
 - else # Root Procedure Natures
   - main_campaign_selector

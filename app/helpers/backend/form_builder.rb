@@ -105,7 +105,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
         html << @template.content_tag(:div, @template.link_to_add_association("labels.add_#{item}".t, self, association, 'data-no-turbolink' => true, render_options: { locals: options[:locals] }, class: "nested-add add-#{item}"), class: 'links')
       end
     end
-    @template.content_tag(:div, html, id: "#{association}-field")
+    @template.content_tag(:div, html, id: "#{association}-field", class: "nested-#{association} nested-association")
   end
 
   # Adds custom fields
@@ -205,13 +205,18 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     prefix = @lookup_model_names.first +
              @lookup_model_names[1..-1].collect { |x| "[#{x}]" }.join +
              "[#{attribute_name}][]"
-    options[:of] ||= :languages
-    selection = []
-    if options[:of].to_s =~ /\#/
-      array = options[:of].to_s.split('#')
-      selection = Nomen[array.first].property_natures[array.second].selection
+    if options[:selection]
+      selection = options[:selection]
+    elsif options[:of]
+      selection = []
+      if options[:of].to_s =~ /\#/
+        array = options[:of].to_s.split('#')
+        selection = Nomen[array.first].property_natures[array.second].selection
+      else
+        selection = Nomen[options[:of]].selection
+      end
     else
-      selection = Nomen[options[:of]].selection
+      fail 'Need selection'
     end
     list = @object.send(attribute_name) || []
     input(attribute_name, options) do

@@ -83,7 +83,7 @@ sequences_002:
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2015-12-14 11:43:07.459292000 Z
+  updated_at: 2015-12-16 15:12:21.868524000 Z
   updater_id: 1
   usage: entities
 sequences_003:
@@ -100,7 +100,7 @@ sequences_003:
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2015-12-14 11:43:12.085438000 Z
+  updated_at: 2015-12-16 15:12:26.458208000 Z
   updater_id: 1
   usage: products
 sequences_004:
@@ -151,7 +151,7 @@ sequences_006:
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2015-12-14 11:43:07.427672000 Z
+  updated_at: 2015-12-16 15:12:21.807237000 Z
   updater_id: 1
   usage: campaigns
 sequences_007:

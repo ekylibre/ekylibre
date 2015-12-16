@@ -609,13 +609,13 @@ product_nature_categories_024:
 product_nature_categories_025:
   active: true
   charge_account_id: 467
-  created_at: 2015-12-14 11:43:07.734289000 Z
+  created_at: 2015-12-16 15:12:22.489112000 Z
   depreciable: false
   fixed_asset_depreciation_method: simplified_linear
   fixed_asset_depreciation_percentage: 20.0
   id: 25
   lock_version: 0
-  name: Parcelle
+  name: Land parcel
   number: PNC025
   pictogram: land_parcels
   product_account_id: 468
@@ -625,4 +625,4 @@ product_nature_categories_025:
   saleable: true
   storable: false
   subscribing: false
-  updated_at: 2015-12-14 11:43:07.734289000 Z
+  updated_at: 2015-12-16 15:12:22.489112000 Z

@@ -106,13 +106,16 @@ $vertical-spacing: round($spacing / $default-ratio);
     }
 
     div.nested-fields {
-      padding: $spacing;
+      padding: 1px 0;
       border-left: $menu-border-width dotted $menu-border-color;
       border-right: $menu-border-width dotted $menu-border-color;
       border-top: $menu-border-width dotted $menu-border-color;
-      /* &:first-child { */
-      /*  border-top: $menu-border-width dotted $menu-border-color; */
-      /* } */
+      border-left: $menu-border-width solid mix($menu-border-color, white);
+      border-right: $menu-border-width solid mix($menu-border-color, white);
+      border-top: $menu-border-width solid mix($menu-border-color, white);
+      &:first-child {
+        @include border-top-radius($default-border-radius);
+      }
     }
 
 
@@ -284,6 +287,7 @@ div.nested-fields {
     position: absolute;
     z-index: 4;
     @include right($spacing);
+    top: $spacing * 0.9;
   }
 }
 
@@ -291,10 +295,18 @@ div.nested-fields {
   margin-bottom: $fs-normal;
   padding: round(0.5 * $spacing);
   background: #F7F7F7;
-  border: $menu-border-width dotted $menu-border-color;
+  border: $menu-border-width solid mix($menu-border-color, white); // $menu-border-width dotted $menu-border-color
   @include border-bottom-radius($default-border-radius);
   .nested-add {
     @include margin-left($controls-margin-left);
   }
 }
 
+.nested-association {
+  .nested-association {
+    margin: $spacing;
+  }
+  *:first-child {
+    @include border-top-radius($default-border-radius);
+  }
+}

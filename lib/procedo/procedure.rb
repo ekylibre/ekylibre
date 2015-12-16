@@ -11,15 +11,20 @@ module Procedo
 
   # This class represents a procedure
   class Procedure
-    attr_reader :id, :name
-    delegate :add_parameter, :add_parameter_group, :each_item, :find, :position_of, to: :root_group
+    attr_reader :id, :name, :categories, :mandatory_actions, :optional_actions
+    delegate :add_parameter, :add_parameter_group, :each_item, :find, :find!,
+             :items, :position_of, to: :root_group
 
     def initialize(name, options = {})
       @name = name.to_sym
-      @categories = options[:categories]
-      @mandatory_actions = options[:mandatory_actions] || []
-      @optional_actions = options[:optional_actions] || []
+      @categories = []
+      @mandatory_actions = []
+      @optional_actions = []
       @root_group = Procedo::ParameterGroup.new(self, :root_, cardinality: 1)
+      # Adds categories & action
+      options[:categories].each { |c| add_category(c) }
+      options[:mandatory_actions].each { |c| add_action(c) }
+      options[:optional_actions].each { |c| add_action(c, true) }
       # Compile it
       self.compile!
     end
@@ -27,6 +32,42 @@ module Procedo
     # All actions (mandatory and optional)
     def actions
       @mandatory_actions + @optional_actions
+    end
+
+    # Adds category to procedure
+    def add_category(name)
+      category = Nomen::ProcedureCategory.find(name)
+      fail "Invalid category: #{name.inspect}" unless category
+      @categories << category unless @categories.include?(category)
+    end
+
+    # Removes category of procedure
+    def remove_category(name)
+      @categories.delete_if { |c| c.name == name.to_sym }
+    end
+
+    # Returns names of categories of procedure
+    def category_names
+      @categories.map(&:name)
+    end
+
+    # Adds action to procedure
+    def add_action(name, optional = false)
+      action = Nomen::ProcedureAction.find(name)
+      fail "Invalid action: #{name.inspect}" unless action
+      actions = optional ? @mandatory_actions : @optional_actions
+      actions << action unless actions.include?(action)
+    end
+
+    # Returns +true+ if action is one of the procedure, +false+ otherwise.
+    def has_action?(action)
+      actions.detect { |a| a.name.to_s == action.to_s }
+    end
+
+    # Removes action of procedure
+    def remove_action(name)
+      @mandatory_actions.delete_if { |c| c.name == name.to_sym }
+      @optional_actions.delete_if { |c| c.name == name.to_sym }
     end
 
     # Retrieve all parameters recursively in group or subgroups
@@ -54,17 +95,24 @@ module Procedo
       end
     end
 
-    def self.of_nature(nature)
-      Procedo.procedures_of_nature(nature)
-    end
-
-    # Returns true if the procedure nature match one of the given natures
-    def of_nature?(*natures)
-      (self.natures & natures).any?
-    end
-
     def of_activity_family?(*families)
       (activity_families & families).any?
+    end
+
+    def of_category?(*categories)
+      (categorie_names & categories).any?
+    end
+
+    def mandatory_actions_selection
+      action_selection(@mandatory_actions)
+    end
+
+    def optional_actions_selection
+      action_selection(@optional_actions)
+    end
+
+    def actions_selection
+      action_selection(actions)
     end
 
     def can_compute_duration?
@@ -73,23 +121,14 @@ module Procedo
 
     # Returns activity families of the procedure
     def activity_families
-      @activity_families ||= natures.map do |n|
-        families = Nomen::ProcedureNature[n].activity_families || []
+      @activity_families ||= categories.map do |c|
+        families = c.activity_family || []
         families.map do |f|
           Nomen::ActivityFamily.all(f)
         end
       end.flatten.uniq.map(&:to_sym)
     end
 
-    def not_so_short_name
-      ActiveSupport::Deprecation.warn 'Procedo::Procedure#not_so_short_name is deprecated. Please use Procedo::Procedure#name instead.'
-      name
-    end
-
-    def short_name
-      ActiveSupport::Deprecation.warn 'Procedo::Procedure#short_name is deprecated. Please use Procedo::Procedure#name instead.'
-      name
-    end
     alias_method :uid, :name
 
     # Returns if the procedure is required
@@ -643,6 +682,13 @@ module Procedo
     private
 
     attr_reader :root_group
+
+    def action_selection(list)
+      list.map do |action|
+        item = Nomen::ProcedureAction.find(action)
+        item ? [item.human_name, item.name] : [action.to_s.humanize, action]
+      end
+    end
 
     # clean
     # removes newly matched actor and parameter from hashes

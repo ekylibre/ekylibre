@@ -27,11 +27,19 @@ module Procedo
     end
     alias_method :[], :fetch
 
+    # Returns item with its name. Returns nil if not found
     def find(name, _type = nil)
       browse_all do |i|
         return i if i.name.to_s == name.to_s
       end
       nil
+    end
+
+    # Returns item with its name. Raise exception if item not found
+    def find!(name)
+      item = find(name)
+      fail "Cannot find item: #{name.inspect}" unless item
+      item
     end
 
     def position_of(item)

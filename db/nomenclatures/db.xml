@@ -2116,6 +2116,7 @@
       <item name="corvicide"/>
       <item name="cutting"/>
       <item name="dehorning"/>
+      <item name="desiccation"/>
       <item name="detasseling"/>
       <item name="disease_protection"/>
       <item name="disease_treatment"/>
@@ -2131,6 +2132,7 @@
       <item name="fermentation"/>
       <item name="fertilization"/>
       <item name="field_plant_sorting"/>
+      <item name="fireproofing"/>
       <item name="food_preparation"/>
       <item name="forest_grinding"/>
       <item name="frost_protection"/>
@@ -2163,12 +2165,17 @@
       <item name="land_parcel_grinding"/>
       <item name="levelling"/>
       <item name="lifting"/>
+      <item name="liming"/>
       <item name="loosening"/>
+      <item name="micronutrient_fertilization"/>
       <item name="milking"/>
+      <item name="mineral_fertilization"/>
       <item name="molluscicide"/>
       <item name="natural_mating"/>
       <item name="nematicide"/>
+      <item name="net_removing"/>
       <item name="oil_replacement"/>
+      <item name="organic_fertilization"/>
       <item name="organic_matter_burying"/>
       <item name="partial_wine_transfer"/>
       <item name="parturition"/>
@@ -2183,6 +2190,7 @@
       <item name="residue_destruction"/>
       <item name="ridging"/>
       <item name="rodenticide"/>
+      <item name="seedbed_preparing"/>
       <item name="semen_collecting"/>
       <item name="semen_freezing"/>
       <item name="shearing"/>
@@ -2199,11 +2207,11 @@
       <item name="swathing"/>
       <item name="talpicide"/>
       <item name="temperature_improvement"/>
-      <item name="temperature_stabilisation"/>
       <item name="topkilling"/>
       <item name="tractor_troubleshooting"/>
       <item name="troubleshooting"/>
-      <item name="viricide"/>
+      <item name="tunnel_removing"/>
+      <item name="virucide"/>
       <item name="water_flow_improvement"/>
       <item name="weeding"/>
       <item name="wheel_balancing"/>

@@ -4,14 +4,16 @@ module Taskable
   included do
     belongs_to :intervention
     belongs_to :originator, polymorphic: true
-    has_many :product_enjoyments,        as: :originator, dependent: :destroy
-    has_many :product_junctions,         as: :originator, dependent: :destroy
-    has_many :product_linkages,          as: :originator, dependent: :destroy
-    has_many :product_localizations,     as: :originator, dependent: :destroy
-    has_many :product_memberships,       as: :originator, dependent: :destroy
-    has_many :product_ownerships,        as: :originator, dependent: :destroy
-    has_many :product_phases,            as: :originator, dependent: :destroy
-    has_many :product_readings,          as: :originator, dependent: :destroy
+    with_options as: :originator, dependent: :destroy do
+      has_many :product_enjoyments
+      has_many :product_junctions
+      has_many :product_linkages
+      has_many :product_localizations
+      has_many :product_memberships
+      has_many :product_ownerships
+      has_many :product_phases
+      has_many :product_readings
+    end
 
     before_validation :ensure_originator_type
   end

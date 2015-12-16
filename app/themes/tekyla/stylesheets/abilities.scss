@@ -18,6 +18,6 @@
   }
   &.checked {
     font-weight: bold;
-    background: $success-color;
+    background: mix($success-color, white, 6%);
   }
 }

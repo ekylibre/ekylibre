@@ -43,7 +43,7 @@ module Backend
           end
         elsif !openweathermap_api_key
           @forecast = nil
-          logger.warn "Missing OpenWeatherMap api key in identifiers)"
+          logger.warn 'Missing OpenWeatherMap api key in identifiers)'
         end
       rescue Net::OpenTimeout => e
         @forecast = nil

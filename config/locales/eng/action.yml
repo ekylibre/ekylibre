@@ -930,7 +930,7 @@ eng:
     cash_balance: "Cash balance"
     cashes_balance: "Cashes balance"
     cashes_balance_evolution: "Cashes balance evolution"
-    casting: "Casting"
+    casting: "Casting" #?
     casts: "Casts"
     catalog: "Catalog" #?
     catalog_items: "Catalog items"

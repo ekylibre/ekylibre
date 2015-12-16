@@ -40,7 +40,14 @@ module Procedo
     def procedures_of_activity_family(*families)
       procedures.select do |p|
         p.of_activity_family?(*families)
-      end.uniq
+      end
+    end
+
+    # Returns direct procedures of nature
+    def procedures_of_category(*categories)
+      procedures.select do |p|
+        p.of_category?(*categories)
+      end
     end
 
     # Browse all available procedures

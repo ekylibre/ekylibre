@@ -22,6 +22,7 @@
 #
 # == Table: interventions
 #
+#  actions          :string
 #  created_at       :datetime         not null
 #  creator_id       :integer
 #  description      :text
@@ -41,23 +42,22 @@
 #  working_duration :integer
 #
 
-class MissingParameter < StandardError
-end
-
 class Intervention < Ekylibre::Record::Base
   include PeriodicCalculable, CastGroupable
   attr_readonly :procedure_name, :production_id
   belongs_to :event, dependent: :destroy, inverse_of: :intervention
   belongs_to :issue
   belongs_to :prescription
-  has_many :casts, -> { order(:position) }, class_name: 'InterventionCast', inverse_of: :intervention, dependent: :destroy
-  has_many :cast_groups, -> { order(:position) }, class_name: 'InterventionCastGroup', inverse_of: :intervention, dependent: :destroy
-  has_many :doers, class_name: 'InterventionDoer', dependent: :destroy, inverse_of: :intervention
-  has_many :inputs, class_name: 'InterventionInput', dependent: :destroy, inverse_of: :intervention
-  has_many :outputs, class_name: 'InterventionOutput', dependent: :destroy, inverse_of: :intervention
-  has_many :targets, class_name: 'InterventionTarget', dependent: :destroy, inverse_of: :intervention
-  has_many :tools, class_name: 'InterventionTool', dependent: :destroy, inverse_of: :intervention
-  has_many :working_periods, class_name: 'InterventionWorkingPeriod', dependent: :destroy, inverse_of: :intervention
+  with_options inverse_of: :intervention, dependent: :destroy do
+    has_many :casts, -> { order(:position) }, class_name: 'InterventionCast'
+    has_many :cast_groups, -> { order(:position) }, class_name: 'InterventionCastGroup'
+    has_many :doers, class_name: 'InterventionDoer'
+    has_many :inputs, class_name: 'InterventionInput'
+    has_many :outputs, class_name: 'InterventionOutput'
+    has_many :targets, class_name: 'InterventionTarget'
+    has_many :tools, class_name: 'InterventionTool'
+    has_many :working_periods, class_name: 'InterventionWorkingPeriod'
+  end
   enumerize :procedure_name, in: Procedo.procedure_names #  + ['animal_changing']
   enumerize :state, in: [:undone, :squeezed, :in_progress, :done], default: :undone, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -65,34 +65,25 @@ class Intervention < Ekylibre::Record::Base
   validates_numericality_of :whole_duration, :working_duration, allow_nil: true, only_integer: true
   validates_presence_of :procedure_name, :state
   # ]VALIDATORS]
-  # validates_inclusion_of :procedure_name, in: self.procedure_name.values
-  # validates_presence_of :started_at, :stopped_at
+  validates_presence_of :actions
   validates_associated :cast_groups, :doers, :inputs, :outputs, :targets, :tools, :working_periods
 
   serialize :parameters, HashWithIndifferentAccess
+  serialize :actions, SymbolArray
 
   alias_attribute :duration, :working_duration
-
-  delegate :storage, to: :production_support
 
   calculable period: :month, column: :working_duration, at: :started_at, name: :sum
 
   acts_as_numbered
   accepts_nested_attributes_for :cast_groups, :doers, :inputs, :outputs, :targets, :tools, :working_periods
 
-  # @TODO in progress - need to call parent procedure_name to have the name of the procedure_nature
-
   scope :between, lambda { |started_at, stopped_at|
     where(started_at: started_at..stopped_at)
   }
-
-  # scope :of_nature, lambda { |*natures|
-  #   where('natures ~ E?', '\\\\m(' + natures.collect { |n| Nomen::ProcedureNature.all(n) }.flatten.sort.join('|') + ')\\\\M')
-  # }
   scope :of_category, lambda { |category|
-    # TODO
+    where(procedure_name: Procedo.procedures_of_category(category).map(&:name))
   }
-
   scope :of_campaign, lambda { |campaign|
     where('(started_at, stopped_at) OVERLAPS (?, ?)', campaign.started_on, campaign.stopped_on)
   }
@@ -113,37 +104,25 @@ class Intervention < Ekylibre::Record::Base
 
   before_validation do
     self.state ||= self.class.state.default
-    # if p = procedure
-    #   self.natures = p.natures.sort.join(' ')
-    # end
-    # set production_id
-    # if production_support
-    #   self.production_id ||= production_support.production_id
-    # end
+    if procedure
+      self.actions = procedure.actions.map(&:name) if actions && actions.empty?
+    end
   end
 
   validate do
-    # if production
-    #   if production_support
-    #     errors.add(:production_id, :invalid) if production_support.production != production
-    #   else
-    #     errors.add(:production_support_id, :blank) if production.with_supports
-    #   end
-    # end
-    if self.started_at && self.stopped_at
-      if self.stopped_at <= self.started_at
-        errors.add(:stopped_at, :posterior, to: self.started_at.l)
+    if procedure
+      all_known = true
+      actions.each do |action|
+        all_known = false unless procedure.has_action?(action)
       end
+      errors.add(:actions, :invalid) unless all_known
+    end
+    if self.started_at && self.stopped_at && self.stopped_at <= self.started_at
+      errors.add(:stopped_at, :posterior, to: self.started_at.l)
     end
   end
 
   before_save do
-    # self.natures = self.natures.to_s.strip.split(/[\s\,]+/).sort.join(' ')
-    # if procedure
-    #   if duration < procedure.fixed_duration
-    #     self.stopped_at += procedure.fixed_duration
-    #   end
-    # end
     columns = { name: name, started_at: self.started_at, stopped_at: self.stopped_at, nature: :production_intervention }
     if event
       # self.event.update_columns(columns)
@@ -155,12 +134,12 @@ class Intervention < Ekylibre::Record::Base
     end
   end
 
-  # prevents from deleting an intervention that was executed
+  # Prevents from deleting an intervention that was executed
   protect on: :destroy do
     self.done?
   end
 
-  # Returns activities
+  # Returns activities of intervention through TargetDistribution
   def activities
     Activity.of_intervention(self)
   end
@@ -170,8 +149,10 @@ class Intervention < Ekylibre::Record::Base
     Procedo.find(procedure_name)
   end
 
+  # Deprecated method to return procedure
   def reference
-    ActiveSupport::Deprecation.warn 'Intervention#reference is deprecated. Please use Intervention#procedure instead.'
+    ActiveSupport::Deprecation.warn 'Intervention#reference is deprecated.' \
+                                    'Please use Intervention#procedure instead.'
     procedure
   end
 
@@ -201,7 +182,8 @@ class Intervention < Ekylibre::Record::Base
     )
   end
 
-  # Sums all intervention_cast total_cost of a particular role (see ProcedureNature nomenclature for more details)
+  # Sums all intervention_cast total_cost of a particular role
+  # (see ProcedureNature nomenclature for more details)
   def cost(role = :input)
     selected_casts = casts.of_generic_role(role).with_actor
     if selected_casts.any?
@@ -215,19 +197,17 @@ class Intervention < Ekylibre::Record::Base
 
   def earn
     if casts.of_generic_role(:output).any?
-      casts.of_generic_role(:output).where.not(actor_id: nil).map(&:earn).compact.sum
+      casts.of_generic_role(:output).with_actor.map(&:earn).compact.sum
     else
       return nil
     end
   end
 
-  def working_area(_unit = :hectare)
+  def working_area(unit = :hectare)
     if casts.of_generic_role(:target).any?
-      if target = casts.of_generic_role(:target).where.not(actor_id: nil).first
-        return target.actor.net_surface_area.round(2)
-      else
-        return nil
-      end
+      return casts.of_generic_role(:target).with_actor.map do |target|
+        target.actor.net_surface_area
+      end.compact.sum.in(unit).round(2)
     end
     nil
   end
@@ -240,16 +220,12 @@ class Intervention < Ekylibre::Record::Base
     end
   end
 
-  def need_parameters?
-    procedure && procedure.need_parameters?
-  end
-
   def runnable?
     return false unless self.undone? && procedure
     valid = true
     # Check cardinality and runnability
     procedure.parameters.each do |parameter|
-      all_casts = self.casts.where(parameter_name: parameter.name)
+      all_casts = casts.where(parameter_name: parameter.name)
       # unless parameter.cardinality.include?(casts.count)
       #   valid = false
       # end
@@ -260,112 +236,38 @@ class Intervention < Ekylibre::Record::Base
     valid
   end
 
-  # Run the procedure
-  def run!(period = {}, parameters = {})
-    # TODO: raise something unless runnable?
-    # raise StandardError unless self.runnable?
-    fail 'Cannot run intervention without procedure' unless procedure
-    self.class.transaction do
-      self.state = :in_progress
-      self.parameters = parameters.with_indifferent_access if parameters
-      self.save!
-
-      started_at = period[:started_at] ||= self.started_at
-      duration   = period[:duration] ||= (stopped_at - self.started_at)
-      stopped_at = started_at + duration
-
-      procedure = self.procedure
-      # Check parameters presence
-      for parameter in procedure.parameters
-        unless casts.find_by(parameter_name: parameter.name)
-          fail MissingParameter, "Parameter #{parameter.name} is missing"
-        end
-      end
-      # Build new products
-      for parameter in procedure.new_parameters
-        produced = casts.find_by!(parameter_name: parameter.name)
-        producer = casts.find_by!(parameter_name: parameter.producer_name)
-        if parameter.parted?
-          # Parted from
-          unless variant = producer.variant
-            puts "No variant given for #{parameter.producer_name} in #{procedure_name} (##{id})".red
-          end
-          produced.actor = producer.actor.part_with(produced.population, born_at: stopped_at, shape: produced.shape)
-          unless produced.actor.save
-            logger.debug '*' * 80 + variant.matching_model.name
-            logger.debug produced.actor.inspect
-            logger.debug '-' * 80
-            logger.debug produced.actor.errors.inspect
-            fail 'Stop'
-          end
-        elsif parameter.produced?
-          # Produced by
-          unless variant = produced.variant || parameter.variant(self)
-            fail StandardError, "No variant for #{parameter.name} in intervention ##{id} (#{procedure_name})"
-          end
-          produced.actor = variant.matching_model.create!(variant: variant, initial_born_at: stopped_at, initial_owner: producer.actor.owner, initial_container: producer.actor.container, initial_population: produced.population, initial_shape: produced.shape, extjuncted: true)
-        else
-          fail StandardError, "Don't known how to create the parameter #{parameter.name} for procedure #{procedure_name}"
-        end
-        produced.save!
-      end
-      # Load operations
-      rep = procedure.spread_time(duration)
-      for name, operation in procedure.operations
-        d = operation.duration || rep
-        operation = operations.create!(started_at: started_at, stopped_at: (started_at + d), reference_name: name)
-        operation.perform_all!
-        started_at += d
-      end
-      reload
-      self.started_at = period[:started_at]
-      self.stopped_at = started_at
-      self.state = :done
-      self.save!
-
-      # Sets name for newborns
-      for parameter in procedure.new_parameters
-        casts.find_by!(parameter_name: parameter.name).set_default_name!
-      end
-    end
+  # Run the intervention ie. the state is marked as done
+  # Returns intervention
+  def run!
+    fail 'Cannot run intervention without procedure' unless runnable?
+    update_attributes(state: :done)
+    self
   end
 
-  def add_cast!(attributes)
-    casts.create!(attributes)
+  def add_working_period!(started_at, stopped_at)
+    working_periods.create!(started_at: started_at, stopped_at: stopped_at)
   end
 
   class << self
-    def force_started_at?
-      Preference[:force_intervention_started_at]
-    end
-
-    def force_stopped_at?
-      Preference[:force_intervention_stopped_at]
-    end
-
-    def run!(attributes, period, &_block)
-      intervention = create!(attributes)
-      yield intervention
-      intervention.run!(period)
+    # Create and run intervention
+    def run!(*args)
+      attributes = args.extract_options!
+      attributes[:procedure_name] ||= args.shift
+      intervention = transaction do
+        intervention = Intervention.create!(attributes)
+        yield intervention
+        intervention.run!
+      end
       intervention
     end
 
-    # Register and runs an intervention directly with only one operation with "100" as reference
-    # In next versions, all intervention will be considered as mono-operation and truly atomic.
-    def write(*natures)
-      options = natures.extract_options!
-      options[:namespace] ||= 'base'
-      options[:short_name] ||= natures.first
-      options[:version] ||= 0
-      unless options.key? :procedure_name
-        options[:procedure_name] = "#{options[:namespace]}-#{options[:short_name]}-#{options[:version]}"
-      end
+    # Registers and runs an intervention directly
+    def write(*args)
+      options = args.extract_options!
+      procedure_name = args.shift || options[:procedure_name]
 
       transaction do
-        attrs = options.slice(:procedure_name, :description, :issue_id, :prescription_id, :production, :production_support, :recommender_id, :started_at, :stopped_at)
-        attrs[:started_at] ||= Time.zone.now
-        attrs[:stopped_at] ||= Time.zone.now
-        attrs[:natures] = natures.join(' ')
+        attrs = options.slice(:procedure_name, :description, :issue_id, :prescription_id)
         recorder = Intervention::Recorder.new(attrs)
 
         yield recorder
@@ -374,22 +276,22 @@ class Intervention < Ekylibre::Record::Base
       end
     end
 
-    # match
     # Returns an array of procedures matching the given actors ordered by relevance
     # whose structure is [[procedure, relevance, arity], [procedure, relevance, arity], ...]
-    # where 'procedure' is a Procedo::Procedure object, 'relevance' is a float, 'arity' is the number of actors
-    # matched in the procedure
+    # where 'procedure' is a Procedo::Procedure object, 'relevance' is a float,
+    # 'arity' is the number of actors matched in the procedure
     # ==== parameters:
-    #           - actors, an array of actors identified for a given procedure
+    #   - actors, an array of actors identified for a given procedure
     # ==== options:
-    #           - relevance: sets the relevance threshold above which results are wished. A float number between 0 and 1
-    #             is expected. Default value: 0.
-    #           - limit: sets the number of wanted results. By default all results are returned
-    #           - history: sets the use of actors history to calculate relevance. A boolean is expected.
-    #             Default: false,since checking through history is slower
-    #           - provisional: sets the use of actors provisional to calculate relevance. A boolean is expected.
-    # Default: false, since it's slower
-    #           - max_arity: limits results to procedures matching most actors. A boolean is expected. Default: false
+    #   - relevance: sets the relevance threshold above which results are wished.
+    #     A float number between 0 and 1 is expected. Default value: 0.
+    #   - limit: sets the number of wanted results. By default all results are returned
+    #   - history: sets the use of actors history to calculate relevance.
+    #     A boolean is expected. Default: false,since checking through history is slower
+    #   - provisional: sets the use of actors provisional to calculate relevance.
+    #     A boolean is expected. Default: false, since it's slower.
+    #   - max_arity: limits results to procedures matching most actors.
+    #     A boolean is expected. Default: false
     def match(actors, options = {})
       actors = [actors].flatten
       limit = options[:limit].to_i - 1

@@ -2,30 +2,45 @@ module CastGroupable
   extend ActiveSupport::Concern
 
   # Adds a cast or a cast_group to current cast_groupable
-  def add!(*args)
-    fail "No procedure" unless procedure
+  def add_item!(item_name, *args, &block)
+    fail 'No procedure' unless procedure
     attributes = args.extract_options!
-    item_name = [args.shift, attributes.delete(:parameter_name), attributes.delete(:parameter_group_name)].detect(&:present?)
-    item = procedure.find(item_name)
-    unless item
-      fail "No item found for: #{item_name.inspect}"
-    end
+    item = procedure.find!(item_name)
     if item.is_a?(Procedo::Parameter)
-      attributes[:parameter_name] = item.name
-      if item.input?
-        attributes[:source_product] ||= args.shift
-      else
-        attributes[:product] ||= args.shift
-      end
-      send(item.reflection_name).create!(attributes)
+      add_cast!(item_name, args.shift, attributes)
     elsif item.is_a?(Procedo::ParameterGroup)
-      attributes[:parameter_group_name] = item.name
-      group = cast_groups.create!(attributes)
-      yield group if block_given?
+      add_cast_group!(item_name, attributes, &block)
     else
-      fail "What ???"
+      fail "Cannot add unknown item: #{item_name.inspect}"
     end
   end
 
+  alias_method :add!, :add_item!
+
+  # Add cast
+  def add_cast!(*args)
+    fail 'No procedure' unless procedure
+    attributes = args.extract_options!
+    name = args.shift
+    product = args.shift
+    item = procedure.find!(name)
+    attributes[:parameter_name] = name
+    if item.input?
+      attributes[:source_product] ||= product
+    else
+      attributes[:product] ||= product
+    end
+    send(item.reflection_name).create!(attributes)
+  end
+
+  # Add cast group
+  def add_cast_group!(*args)
+    fail 'No procedure' unless procedure
+    attributes = args.extract_options!
+    name = args.shift
+    attributes[:parameter_group_name] = name
+    group = cast_groups.create!(attributes)
+    yield group if block_given?
+  end
 
 end

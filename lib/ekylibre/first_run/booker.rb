@@ -6,61 +6,76 @@ module Ekylibre
       cattr_accessor :production
 
       class << self
+        # Find a product with given options
+        #  - started_at
+        #  - work_number
+        #  - can
+        #  - variety
+        #  - derivative_of
+        #  - filter: WSQL expression
+        # Options for product creation only:
+        #  - default_storage
+        # Special options for worker creation only:
+        #  - first_name
+        #  - last_name
+        #  - born_at
+        #  - default_storage
         def find(model, options = {})
           relation = model
           relation = relation.where('COALESCE(born_at, ?) <= ? ', options[:started_at], options[:started_at]) if options[:started_at]
+          relation = relation.of_expression(options[:filter]) if options[:filter]
           relation = relation.of_work_numbers(options[:work_number]) if options[:work_number]
           relation = relation.can(options[:can]) if options[:can]
           relation = relation.of_variety(options[:variety]) if options[:variety]
           relation = relation.derivative_of(options[:derivative_of]) if options[:derivative_of]
-          if relation.any?
-            return relation.all.sample
-          else
-            # Create product with given elements
-            attributes = {}
-            unless options[:default_storage].is_a?(FalseClass)
-              attributes[:default_storage] = find(BuildingDivision, default_storage: find(Building, default_storage: false))
-            end
-            if model == Worker
-              options[:first_name] ||= ::FFaker::Name.first_name
-              options[:last_name] ||= ::FFaker::Name.last_name
-              options[:born_at] ||= Date.new(1970 + rand(20), 1 + rand(12), 1 + rand(28))
-              unless person = Contact.find_by(first_name: options[:first_name], last_name: options[:last_name])
-                person = Contact.create!(first_name: options[:first_name], last_name: options[:last_name], born_at: options[:born_at])
-              end
-              attributes[:person] = person
-            end
-            variants = ProductNatureVariant.find_or_import!(options[:variety] || model.name.underscore, derivative_of: options[:derivative_of])
-            variants.can(options[:can]) if options[:can]
-            unless attributes[:variant] = variants.first
-              fail StandardError, "Cannot find product variant with options #{options.inspect}"
-            end
-            return model.create!(attributes)
+          return relation.all.sample if relation.any?
+          # Create product with given elements
+          attributes = {}
+          unless options[:default_storage].is_a?(FalseClass)
+            attributes[:default_storage] = find(BuildingDivision, default_storage: find(Building, default_storage: false))
           end
+          if model == Worker
+            options[:first_name] ||= ::FFaker::Name.first_name
+            options[:last_name] ||= ::FFaker::Name.last_name
+            options[:born_at] ||= Date.new(1970 + rand(20), 1 + rand(12), 1 + rand(28))
+            unless person = Contact.find_by(first_name: options[:first_name], last_name: options[:last_name])
+              person = Contact.create!(first_name: options[:first_name], last_name: options[:last_name], born_at: options[:born_at])
+            end
+            attributes[:person] = person
+          end
+          variants = ProductNatureVariant.find_or_import!(options[:variety] || model.name.underscore, derivative_of: options[:derivative_of])
+          variants.can(options[:can]) if options[:can]
+          unless attributes[:variant] = variants.first
+            fail StandardError, "Cannot find product variant with options #{options.inspect}"
+          end
+          model.create!(attributes)
         end
 
+        # Compute approximately day time duration in France at given date
         def daytime_duration(on)
           12.0 - 4.0 * Math.cos((on + 11.days).yday.to_f / (365.25 / Math::PI / 2))
         end
 
+        # Compute approximately sunrise hour in France at given date
         def sunrise(on, shift = 1.5)
           shift + (24.0 - daytime_duration(on)) / 2.0
         end
 
+        # Compute approximately sunset hour in France at given date
         def sunset(on, shift = 1.5)
           daytime_duration(on) + sunrise(on, shift)
         end
 
         # Duration is expected to be in hours
-        def intervene(procedure_code, year, month, day, duration, options = {}, &_block)
+        def intervene(procedure_name, year, month, day, duration, options = {})
           day_range = options[:range] || 30
 
           duration += 1.5 - rand(0.5)
 
           # Find procedure
-          procedure_name = "#{options[:namespace] || Procedo::DEFAULT_NAMESPACE}#{Procedo::NAMESPACE_SEPARATOR}#{procedure_code}#{Procedo::VERSION_SEPARATOR}#{options[:version] || '0'}"
-          unless procedure = Procedo[procedure_name]
-            fail ArgumentError, "Unknown procedure #{procedure_code} (#{procedure_name})"
+          procedure = Procedo[procedure_name]
+          unless procedure
+            fail ArgumentError, "Unknown procedure: #{procedure_name.inspect}"
           end
 
           # Find actors
@@ -106,7 +121,7 @@ module Ekylibre
           for period in periods
             stopped_at = period[:started_at] + period[:duration]
             next unless stopped_at < Time.zone.now
-            intervention = Intervention.create!(reference_name: procedure_name, production: Booker.production, production_support: options[:support], started_at: period[:started_at], stopped_at: stopped_at)
+            intervention = Intervention.create!(procedure_name: procedure_name, production: Booker.production, production_support: options[:support], started_at: period[:started_at], stopped_at: stopped_at)
             for cast in booker.casts
               intervention.add_cast!(cast)
             end
@@ -115,15 +130,15 @@ module Ekylibre
           intervention
         end
 
-        # used for importing intervention from others editors
+        # Used for importing intervention from others editors
         # procedure_code symbol (from procedure)
         # started_at datetime
         # duration integer (hours)
-        def force(procedure_code, started_at, duration, options = {}, &_block)
+        def force(procedure_name, started_at, duration, options = {}, &_block)
           # Find procedure
-          procedure_name = "#{options[:namespace] || Procedo::DEFAULT_NAMESPACE}#{Procedo::NAMESPACE_SEPARATOR}#{procedure_code}#{Procedo::VERSION_SEPARATOR}#{options[:version] || '0'}"
-          unless procedure = Procedo[procedure_name]
-            fail ArgumentError, "Unknown procedure #{procedure_code} (#{procedure_name})"
+          procedure = Procedo[procedure_name]
+          unless procedure
+            fail ArgumentError, "Unknown procedure: #{procedure_name.inspect}"
           end
 
           # Adds fixed durations to given time
@@ -147,8 +162,8 @@ module Ekylibre
           intervention = nil
           stopped_at = at + duration.hours
           if stopped_at < Time.zone.now
-            intervention = Intervention.create!(reference_name: procedure_name, production: Booker.production, production_support: options[:support], started_at: at, stopped_at: stopped_at, description: options[:description])
-            for cast in booker.casts
+            intervention = Intervention.create!(procedure_name: procedure_name, production: Booker.production, production_support: options[:support], started_at: at, stopped_at: stopped_at, description: options[:description])
+            booker.casts.each do |cast|
               intervention.add_cast!(cast)
             end
             intervention.run!({ started_at: at, duration: duration.hours }, options[:parameters])
@@ -157,18 +172,18 @@ module Ekylibre
         end
       end
 
-      attr_reader :casts, :duration, :started_at, :reference
+      attr_reader :casts, :duration, :started_at, :procedure
 
-      def initialize(reference, started_at, duration)
-        @reference = reference
+      def initialize(procedure, started_at, duration)
+        @procedure = procedure
         @duration = duration
         @started_at = started_at
         @casts = []
       end
 
       def add_cast(options = {})
-        unless reference.variables[options[:reference_name]]
-          fail "Invalid variable: #{options[:reference_name]} in procedure #{reference.name}"
+        unless procedure.parameter[options[:parameter_name]]
+          fail "Invalid parameter: #{options[:parameter_name]} in procedure #{procedure.name}"
         end
         @casts << options
       end

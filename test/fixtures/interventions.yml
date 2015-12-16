@@ -22,6 +22,7 @@
 #
 # == Table: interventions
 #
+#  actions          :string
 #  created_at       :datetime         not null
 #  creator_id       :integer
 #  description      :text
@@ -51,6 +52,7 @@
 #
 ---
 interventions_001:
+  actions: plowing, loosening
   created_at: 2014-11-04 18:31:09.285923000 Z
   creator_id: 1
   event_id: 13
@@ -66,6 +68,7 @@ interventions_001:
   whole_duration: 14400
   working_duration: 14400
 interventions_002:
+  actions: weeding
   created_at: 2014-11-04 18:41:39.737616000 Z
   creator_id: 1
   event_id: 14
@@ -81,6 +84,7 @@ interventions_002:
   whole_duration: 37500
   working_duration: 37500
 interventions_003:
+  actions: sowing
   created_at: 2014-11-05 15:39:35.599908000 Z
   creator_id: 1
   event_id: 19
@@ -96,6 +100,7 @@ interventions_003:
   whole_duration: 20700
   working_duration: 20700
 interventions_004:
+  actions: plowing, loosening
   created_at: 2014-11-06 17:47:16.003032000 Z
   creator_id: 1
   event_id: 20
@@ -111,6 +116,7 @@ interventions_004:
   whole_duration: 20400
   working_duration: 20400
 interventions_005:
+  actions: sowing
   created_at: 2014-11-06 17:49:34.368349000 Z
   creator_id: 1
   event_id: 21
@@ -126,6 +132,7 @@ interventions_005:
   whole_duration: 28800
   working_duration: 28800
 interventions_006:
+  actions: disease_treatment
   created_at: 2014-11-07 14:44:11.007227000 Z
   creator_id: 1
   event_id: 22
@@ -143,6 +150,7 @@ interventions_006:
   whole_duration: 14400
   working_duration: 14400
 interventions_007:
+  actions: herbicide
   created_at: 2014-11-07 15:02:12.145127000 Z
   creator_id: 1
   event_id: 23
@@ -159,6 +167,7 @@ interventions_007:
   whole_duration: 7200
   working_duration: 7200
 interventions_008:
+  actions: fertilization
   created_at: 2014-11-07 15:26:35.538449000 Z
   creator_id: 1
   event_id: 24
@@ -174,6 +183,7 @@ interventions_008:
   whole_duration: 6720
   working_duration: 6720
 interventions_009:
+  actions: sowing
   created_at: 2014-11-07 15:45:30.882661000 Z
   creator_id: 1
   event_id: 25
@@ -189,6 +199,7 @@ interventions_009:
   whole_duration: 20400
   working_duration: 20400
 interventions_010:
+  actions: animal_feeding
   created_at: 2014-11-07 15:47:46.996499000 Z
   creator_id: 1
   event_id: 26
@@ -204,6 +215,7 @@ interventions_010:
   whole_duration: 5267400
   working_duration: 5267400
 interventions_011:
+  actions: animal_feeding
   created_at: 2014-11-07 16:16:21.819333000 Z
   creator_id: 1
   event_id: 27
@@ -219,6 +231,7 @@ interventions_011:
   whole_duration: 5163600
   working_duration: 5163600
 interventions_012:
+  actions: fertilization
   created_at: 2014-11-07 16:20:51.420516000 Z
   creator_id: 1
   event_id: 28
@@ -234,6 +247,7 @@ interventions_012:
   whole_duration: 9900
   working_duration: 9900
 interventions_013:
+  actions: planting
   created_at: 2014-11-07 16:49:41.924502000 Z
   creator_id: 1
   event_id: 29
@@ -249,6 +263,7 @@ interventions_013:
   whole_duration: 46800
   working_duration: 46800
 interventions_014:
+  actions: herbicide
   created_at: 2014-11-07 16:58:54.121180000 Z
   creator_id: 1
   event_id: 30
@@ -265,6 +280,7 @@ interventions_014:
   whole_duration: 14400
   working_duration: 14400
 interventions_015:
+  actions: harvest
   created_at: 2014-11-07 17:07:15.601972000 Z
   creator_id: 1
   event_id: 31
@@ -280,6 +296,7 @@ interventions_015:
   whole_duration: 43200
   working_duration: 43200
 interventions_016:
+  actions: grape_pressing
   created_at: 2014-11-07 19:02:48.874701000 Z
   creator_id: 1
   event_id: 33
@@ -295,6 +312,7 @@ interventions_016:
   whole_duration: 2100
   working_duration: 2100
 interventions_017:
+  actions: fermentation
   created_at: 2014-11-07 19:08:38.774375000 Z
   creator_id: 1
   event_id: 34
@@ -310,6 +328,7 @@ interventions_017:
   whole_duration: 2400
   working_duration: 2400
 interventions_018:
+  actions: chaptalization
   created_at: 2014-11-07 19:12:37.525620000 Z
   creator_id: 1
   event_id: 35
@@ -325,6 +344,7 @@ interventions_018:
   whole_duration: 900
   working_duration: 900
 interventions_019:
+  actions: sulfur_addition
   created_at: 2014-11-07 19:23:41.906006000 Z
   creator_id: 1
   event_id: 36
@@ -341,6 +361,7 @@ interventions_019:
   whole_duration: 1200
   working_duration: 1200
 interventions_020:
+  actions: wine_bottling
   created_at: 2014-11-07 19:36:53.121209000 Z
   creator_id: 1
   event_id: 37

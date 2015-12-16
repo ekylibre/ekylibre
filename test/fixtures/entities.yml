@@ -545,7 +545,7 @@ entities_017:
   active: true
   client: false
   country: fr
-  created_at: 2015-12-14 11:43:07.463771000 Z
+  created_at: 2015-12-16 15:12:21.872600000 Z
   currency: EUR
   first_name: ''
   full_name: GAEC DUPONT
@@ -562,5 +562,5 @@ entities_017:
   siret_number: '32627372900011'
   supplier: false
   transporter: false
-  updated_at: 2015-12-14 11:43:07.463771000 Z
+  updated_at: 2015-12-16 15:12:21.872600000 Z
   vat_subjected: true

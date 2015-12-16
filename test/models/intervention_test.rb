@@ -22,6 +22,7 @@
 #
 # == Table: interventions
 #
+#  actions          :string
 #  created_at       :datetime         not null
 #  creator_id       :integer
 #  description      :text
@@ -64,28 +65,55 @@ class InterventionTest < ActiveSupport::TestCase
     end
   end
 
-  test 'protect on destroy' do
+  test 'destruction protection' do
     # It should not be possible to destroy an intervention marked as done
     assert_raise Ekylibre::Record::RecordNotDestroyable do
       Intervention.destroy(interventions(:interventions_001).id)
     end
   end
 
-  test 'intervention creation' do
+  test 'creation' do
     intervention = Intervention.create!(procedure_name: :sowing) # , actions: [:game_repellent, :fungicide]
     Worker.of_expression('can drive(equipment) and can move').limit(2) do |bob|
-      intervention.add!(:driver, bob)
+      intervention.add_item!(:driver, bob)
     end
-    intervention.add!(:tractor, Equipment.of_expression('can tow(equipment) and can move').first)
-    intervention.add!(:sower, Equipment.of_expression('can sow').first)
-    intervention.add!(:seeds, Product.of_expression('is seed and derives from plant and can grow').first, quantity: 25.in_kilogram, quantity_handler: :net_mass)
+    intervention.add_item!(:tractor, Equipment.of_expression('can tow(equipment) and can move').first)
+    intervention.add_item!(:sower, Equipment.of_expression('can sow').first)
+    intervention.add_item!(:seeds, Product.of_expression('is seed and derives from plant and can grow').first, quantity: 25.in_kilogram, quantity_handler: :net_mass)
     cultivation_variant = ProductNatureVariant.import_from_nomenclature(:wheat_crop)
     LandParcel.of_expression('can store(plant)').limit(3).each do |land_parcel|
-      intervention.add!(:zone) do |g|
-        g.add!(:land_parcel, land_parcel)
-        g.add!(:cultivation, variant: cultivation_variant, working_zone: land_parcel.shape)
+      intervention.add_item!(:zone) do |g|
+        g.add_item!(:land_parcel, land_parcel)
+        g.add_item!(:cultivation, variant: cultivation_variant, working_zone: land_parcel.shape)
       end
     end
     assert intervention.runnable?, 'Intervention should be runnable'
+  end
+
+  test 'run!' do
+    intervention = Intervention.run!(:sowing) do |i|
+      Worker.of_expression('can drive(equipment) and can move').limit(2) do |bob|
+        i.add!(:driver, bob)
+      end
+      i.add!(:tractor, Equipment.of_expression('can tow(equipment) and can move').first)
+      i.add!(:sower, Equipment.of_expression('can sow').first)
+      i.add!(:seeds, Product.of_expression('is seed and derives from plant and can grow').first, quantity: 25.in_kilogram, quantity_handler: :net_mass)
+      cultivation_variant = ProductNatureVariant.import_from_nomenclature(:wheat_crop)
+      LandParcel.of_expression('can store(plant)').limit(3).each do |land_parcel|
+        i.add!(:zone) do |g|
+          g.add!(:land_parcel, land_parcel)
+          g.add!(:cultivation, variant: cultivation_variant, working_zone: land_parcel.shape)
+        end
+      end
+    end
+  end
+
+  test 'invalid cases' do
+    intervention = Intervention.new(procedure_name: :sowing, actions: [:sowing])
+    assert intervention.save, 'Intervention with invalid actions should be saved'
+    intervention = Intervention.new(procedure_name: :sowing, actions: [:loosening])
+    assert_not intervention.save, 'Intervention with invalid actions should not be saved'
+    intervention = Intervention.new(procedure_name: :sowing, actions: [:sowing, :loosening])
+    assert_not intervention.save, 'Intervention with invalid actions should not be saved'
   end
 end

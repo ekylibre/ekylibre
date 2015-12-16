@@ -53,6 +53,7 @@
   <item-creation item="procedure_actions#corvicide"/>
   <item-creation item="procedure_actions#cutting"/>
   <item-creation item="procedure_actions#dehorning"/>
+  <item-creation item="procedure_actions#desiccation"/>
   <item-creation item="procedure_actions#detasseling"/>
   <item-creation item="procedure_actions#disease_protection"/>
   <item-creation item="procedure_actions#disease_treatment"/>
@@ -68,6 +69,7 @@
   <item-creation item="procedure_actions#fermentation"/>
   <item-creation item="procedure_actions#fertilization"/>
   <item-creation item="procedure_actions#field_plant_sorting"/>
+  <item-creation item="procedure_actions#fireproofing"/>
   <item-creation item="procedure_actions#food_preparation"/>
   <item-creation item="procedure_actions#forest_grinding"/>
   <item-creation item="procedure_actions#frost_protection"/>
@@ -146,7 +148,7 @@
   <item-creation item="procedure_actions#tractor_troubleshooting"/>
   <item-creation item="procedure_actions#troubleshooting"/>
   <item-creation item="procedure_actions#tunnel_removing"/>
-  <item-creation item="procedure_actions#viricide"/>
+  <item-creation item="procedure_actions#virucide"/>
   <item-creation item="procedure_actions#water_flow_improvement"/>
   <item-creation item="procedure_actions#weeding"/>
   <item-creation item="procedure_actions#wheel_balancing"/>

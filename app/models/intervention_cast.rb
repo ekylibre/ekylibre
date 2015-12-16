@@ -110,9 +110,7 @@ class InterventionCast < Ekylibre::Record::Base
   scope :with_actor, -> { where.not(product_id: nil) }
 
   before_validation do
-    if self.group && !self.intervention
-      self.intervention = self.group.intervention
-    end
+    self.intervention = group.intervention if group && !intervention
     if parameter
       self.position = parameter.position
       if parameter.handled? && quantity_handler?
