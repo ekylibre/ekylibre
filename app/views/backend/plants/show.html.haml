@@ -17,35 +17,32 @@
     .med-info.important
       %span.title= Plant.human_attribute_name(:variety)
       %span.value= Nomen::Variety[resource.variety].human_name
+    .med-info.important
+      %span.title= Plant.human_attribute_name(:born_at)
+      %span.value= resource.born_at.l
+    - if resource.born_at and resource.age >= 1.day
+      .med-info
+        %span.title= Plant.human_attribute_name(:age)
+        %span.value
+          %i.picto{class: "picto-clock-o"}
+          = human_age(resource.age, display: 2)
+    .med-info.important
+      %span.title= Plant.human_attribute_name(:state)
+      %span.value= lights(resource.status)
+    - if resource.description
+      %span.title= Plant.human_attribute_name(:description)
+      %span.value= resource.description
     - if resource.container
       .med-info
         %span.title= :container.tl
         %span.value
           %i.picto{class: "zone"}
           = link_to(resource.container.work_name, {controller: resource.container.type.tableize, action: :show, id: resource.container.id})
-
-= cobbles do |c|
-
-  - c.cobble :detail do
-    .big-infos
-      .med-info.important
-        %span.title= Plant.human_attribute_name(:born_at)
-        %span.value= resource.born_at.l
-      - if resource.born_at and resource.age >= 1.day
-        .med-info
-          %span.title= Plant.human_attribute_name(:age)
-          %span.value
-            %i.picto{class: "picto-clock-o"}
-            = human_age(resource.age, display: 2)
-      .med-info.important
-        %span.title= Plant.human_attribute_name(:state)
-        %span.value= lights(resource.status)
-      - if resource.description
-        %span.title= Plant.human_attribute_name(:description)
-        %span.value= resource.description
     - if resource.custom_fields.any?
       = attributes_list do |l|
         - l.custom_fields
+
+= cobbles do |c|
 
   - c.cobble(:intervention_casts, title: :x_interventions.tl(count: resource.interventions.count)) do
     = cobble_list(:intervention_casts)
@@ -55,6 +52,6 @@
       - t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name})
       = cobble_list(:issues)
 
-  - c.cobble(:readings, title: :x_readings.tl(count: resource.readings.count)) do
+  -# c.cobble(:readings, title: :x_readings.tl(count: resource.readings.count)) do
     = cobble_list(:readings)
 
