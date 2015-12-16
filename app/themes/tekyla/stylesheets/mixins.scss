@@ -711,7 +711,6 @@
   width: $size;
 }
 
-
 @mixin loading-indicator {
   @include base-indicator;
   @include use-icon(circle-o-notch);
@@ -728,4 +727,24 @@
   @include base-indicator;
   color: $caution-color;
   @include use-icon(empty-o);
+
+}
+
+
+@mixin text-base-indicator($size: $fs-large) {
+  opacity: 0.8;
+  color: $neutral-color;
+  @include text-align(center);
+  font-size: $size;
+  line-height: $size * $lh-ratio;
+}
+
+@mixin text-error-indicator {
+  @include text-base-indicator;
+  color: $invalid-color;
+}
+
+@mixin text-null-indicator {
+  @include text-base-indicator;
+  color: $caution-color;
 }

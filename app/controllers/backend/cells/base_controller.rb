@@ -21,8 +21,12 @@ module Backend
     class BaseController < Backend::BaseController
       layout :wrap_cell
 
+      rescue_from StandardError, with: :generic_exception
       protected
 
+      def generic_exception
+        render(inline: view_context.errored, status: :internal_server_error)
+      end
       # Use a cell layout if asked
       def wrap_cell
         (params[:layout].to_i > 0 || params[:layout] == 'true') ? 'cell' : false

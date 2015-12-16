@@ -166,7 +166,8 @@
         dataType: "html"
         success: (data, status, request) ->
           cell.removeClass("loading")
-          if $.isBlank(data)
+          if $(data).hasClass 'no-data'
+            cell.find('.cell-content').append(data)
             cell.addClass("blank")
             element.trigger('cell:empty')
           else
@@ -175,8 +176,8 @@
         error: (request, status, error) ->
           console.error("Error while retrieving #{element.data('cell')} cell content: #{status} #{error}")
           cell.removeClass("loading")
+          element.append(request.responseText)
           cell.addClass("errored")
-          element.html(request.responseXML)
           element.trigger('cell:error')
 
   true

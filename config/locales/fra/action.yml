@@ -1095,6 +1095,7 @@ fra:
     insert_actual_password: "Saisissez votre mot de passe actuel" #?
     insert_password: "Saisissez votre nouveau mot de passe" #?
     interval: "Intervalle personnalisé"
+    internal_error: "Oups, quelque chose s'est mal passé."
     intervention: "Intervention"
     intervention_at: "%{intervention} du %{at}"
     intervention_casts: "Intervenants"

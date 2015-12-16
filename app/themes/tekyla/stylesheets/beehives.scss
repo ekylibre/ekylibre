@@ -114,12 +114,19 @@ $configuring-min-height: 400px;
       }
 
       &.errored {
+        > .cell-inner > .cell-content > .internal-error {
+          @include text-error-indicator;
+        }
+
         > .cell-inner > .cell-content > .cell-indicator {
           @include error-indicator;
         }
       }
 
       &.blank {
+        > .cell-inner > .cell-content > .no-data {
+          @include text-null-indicator;
+        }
         > .cell-inner > .cell-content > .cell-indicator {
           @include null-indicator;
         }
