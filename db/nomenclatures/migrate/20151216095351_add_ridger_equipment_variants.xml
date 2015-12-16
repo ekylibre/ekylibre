@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add ridger equipment variants">
+  <item-creation item="product_nature_variants#ridger" nature="seedbed_preparator" frozen_indicators_values="population: 1"/>
+</migration>

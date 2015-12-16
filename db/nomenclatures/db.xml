@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151215214901">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151216095351">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -3024,6 +3024,7 @@
       <item name="rent" nature="rent"/>
       <item name="representation_suit" nature="representation_item"/>
       <item name="responsibility_insurance" nature="insurance"/>
+      <item name="ridger" nature="seedbed_preparator" frozen_indicators_values="population: 1"/>
       <item name="riflexine" nature="animal_medicine" frozen_indicators_values="net_mass: 10g, net_volume: 10ml, meat_withdrawal_period: 5day, milk_withdrawal_period: 6day" unit_name="10ml_dose"/>
       <item name="roast_veal_meat" nature="beef_meat" derivative_of="bos_taurus" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="roll" nature="roll" frozen_indicators_values="population: 1" unit_name="equipment"/>
