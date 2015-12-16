@@ -132,7 +132,7 @@ module Backend
                             }
                   ) do |format|
         format.html do
-          t3e @parcel.attributes
+          t3e @parcel.attributes.merge(nature: @parcel.nature.text)
         end
       end
     end
