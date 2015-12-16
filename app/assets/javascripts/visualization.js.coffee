@@ -142,6 +142,7 @@
       map:
         maxZoom: 25
         minZoom:2
+        scrollWheelZoom: false
         zoomControl: false
         attributionControl: true
       view:
