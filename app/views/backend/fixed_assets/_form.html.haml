@@ -8,11 +8,11 @@
   = f.input :depreciation_method, as: :radio_buttons
   = f.input :started_on
 
-  = field_set(:simplified_linear_options) do
-    = f.input :depreciation_percentage
+= field_set(:simplified_linear_options) do
+  = f.input :depreciation_percentage
 
-  = field_set(:linear_options) do
-    = f.input :stopped_on
+= field_set(:linear_options) do
+  = f.input :stopped_on
 
 = field_set(:accountancy) do
   = f.referenced_association :journal
