@@ -50,7 +50,7 @@
   - if count > 0
     - c.cobble :container do
       = map
-  - c.cobble(:intervention_casts) do
+  - c.cobble(:intervention_casts, title: :x_interventions.tl(count: resource.interventions.count)) do
     = cobble_list(:intervention_casts)
   - c.cobble(:issues) do
     = cobble_toolbar do |t|

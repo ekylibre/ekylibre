@@ -47,7 +47,7 @@
       = attributes_list do |l|
         - l.custom_fields
 
-  - c.cobble(:intervention_casts) do
+  - c.cobble(:intervention_casts, title: :x_interventions.tl(count: resource.interventions.count)) do
     = cobble_list(:intervention_casts)
 
   - c.cobble(:issues) do
