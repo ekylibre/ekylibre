@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151216095351">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151216100708">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -2886,6 +2886,7 @@
       <item name="lentil_grain" nature="grain" derivative_of="lens" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
       <item name="lettuce_crop" nature="vegetable_crop" variety="lactuca" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="lewis_hazelnut" nature="hazelnut" derivative_of="corylus_avellana_lewis" frozen_indicators_values="net_mass: 1.00kilogram" unit_name="kilogram"/>
+      <item name="lifter" nature="harvester" frozen_indicators_values="population: 1"/>
       <item name="liquid_10_25_d1.4" nature="chemical_fertilizer" frozen_indicators_values="net_volume: 0.714cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 10percent, phosphorus_concentration: 25percent" unit_name="ton"/>
       <item name="liquid_10_34_d1.4" nature="chemical_fertilizer" frozen_indicators_values="net_volume: 0.714cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 10percent, phosphorus_concentration: 34percent" unit_name="ton"/>
       <item name="liquid_nitrogen_30_d1.3" nature="chemical_fertilizer" frozen_indicators_values="net_volume: 0.769cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 30percent" unit_name="ton"/>
