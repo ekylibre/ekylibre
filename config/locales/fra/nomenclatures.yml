@@ -1639,7 +1639,7 @@ fra:
         idele_password: "Mot de passe Idele"
         lilco_labratory_code: "Code laboratoire LILCO"
         msa_username: "Login MSA"
-        openwheatermap_api_key: "Clé API Openwheatermap"
+        openweathermap_api_key: "Clé API Openweathermap"
         pacage_number: "Numéro de PACAGE"
         password: "Mot de passe"
         quandl_token: "Quandl token"

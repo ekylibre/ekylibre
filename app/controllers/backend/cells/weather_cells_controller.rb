@@ -3,7 +3,7 @@ module Backend
     class WeatherCellsController < Backend::Cells::BaseController
       def show
         @forecast = nil
-        openweathermap_api_key = Identifier.find_by(nature: :openwheatermap_api_key)
+        openweathermap_api_key = Identifier.find_by(nature: :openweathermap_api_key)
         zone = (params[:id] ? CultivableZone.find_by(id: params[:id]) : CultivableZone.first)
         if zone && openweathermap_api_key
           coordinates = Charta.new_geometry(zone.shape).centroid

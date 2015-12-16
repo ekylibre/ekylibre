@@ -1618,7 +1618,7 @@ jpn:
         # idele_password: "Idele password"
         # lilco_labratory_code: "Lilco labratory code"
         # msa_username: "Msa username"
-        # openwheatermap_api_key: "Openwheatermap api key"
+        # openweathermap_api_key: "Openweathermap api key"
         # pacage_number: "Pacage number"
         # password: "Password"
         # quandl_token: "Quandl token"

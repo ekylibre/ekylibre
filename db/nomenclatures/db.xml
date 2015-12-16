@@ -1618,7 +1618,7 @@
       <item name="idele_password" password="true"/>
       <item name="lilco_labratory_code"/>
       <item name="msa_username"/>
-      <item name="openwheatermap_api_key"/>
+      <item name="openweathermap_api_key"/>
       <item name="pacage_number"/>
       <item name="password" password="true"/>
       <item name="quandl_token"/>
@@ -2030,7 +2030,7 @@
       <item name="idele" nature="exploitation" url="http://zoe.cmre.fr/wsannuaire/WsAnnuaire?wsdl" approach="human" identifiers="idele_login, idele_password"/>
       <item name="lilco" nature="animal_farming" url="http://www.lilco-s.com/" approach="human" identifiers="lilco_labratory_code, password"/>
       <item name="msa" nature="exploitation" url="http://www.msa.fr/lfr/espace-prive" approach="human" identifiers="msa_username, password"/>
-      <item name="openweathermap" nature="exploitation" url="api.openweathermap.org" approach="rest" identifiers="openwheatermap_api_key"/>
+      <item name="openweathermap" nature="exploitation" url="api.openweathermap.org" approach="rest" identifiers="openweathermap_api_key"/>
       <item name="selso" nature="animal_farming" url="http://www.selso.net/" approach="human" identifiers="synel_username, password"/>
       <item name="synel" nature="animal_farming" url="http://www.synel.net/" approach="human" identifiers="synel_username, password"/>
       <item name="synest" nature="animal_farming" url="http://www.synest.net/" approach="human" identifiers="synel_username, password"/>
