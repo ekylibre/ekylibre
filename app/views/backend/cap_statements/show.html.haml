@@ -1,14 +1,66 @@
 = main_toolbar do |t|
   - t.edit resource
 
-= cobbles do |c|
-  - c.cobble :general_informations do
-    .big-infos
-      .big-info
-        %span.title= CapStatement.human_attribute_name(:pacage_number)
-        %span.value= resource.pacage_number
-      .big-info
-        %span.title= Campaign.human_attribute_name(:name)
-        %span.value= resource.campaign.name
-  - c.cobble(:cap_islets) do
-    = cobble_list(:cap_islets)
+= janus do |v|
+  = v.face :list do
+    = cobbles do |c|
+      - c.cobble :general_informations do
+        .big-infos
+          .med-info
+            %span.title= CapStatement.human_attribute_name(:pacage_number)
+            %span.value= resource.pacage_number
+          .med-info
+            %span.title= Campaign.human_attribute_name(:name)
+            %span.value= resource.campaign.name
+          .med-info
+            %span.title= CapStatement.human_attribute_name(:farm_name)
+            %span.value= resource.farm_name
+          .med-info
+            %span.title= CapStatement.human_attribute_name(:siret_number)
+            %span.value= resource.siret_number
+          .med-info
+            %span.title= CapStatement.human_attribute_name(:declarant)
+            %span.value= resource.declarant.full_name
+      - c.cobble(:cap_islets) do
+        = cobble_list(:cap_islets)
+        
+  - if cap_land_parcels = CapLandParcel.of_cap_statement(resource).any?
+    = v.face :map do
+      :ruby
+        cap_lp = CapLandParcel.of_cap_statement(resource).collect do |p|
+          next unless p.shape
+
+          popup_content = []
+          popup_content << {label: Plant.human_attribute_name(:net_surface_area), value: p.label_area}
+          popup_content << render('popup', plant: p)
+
+         {name: "#{p.land_parcel_number} - #{p.cap_islet.islet_number}", shape: p.shape, main_crop_code: p.main_crop_code, popup: {header: true, content: popup_content} }
+        end
+
+        cap_islet = CapIslet.where(cap_statement: resource).collect do |p|
+          next unless p.shape
+
+          popup_content = []
+          popup_content << {label: Plant.human_attribute_name(:net_surface_area), value: p.label_area}
+          popup_content << render('popup', plant: p)
+
+         {name: p.islet_number, shape: p.shape, popup: {header: true, content: popup_content} }
+        end
+
+
+
+      = visualization(box: {height: "100%"}) do |v|
+        - v.serie :main, cap_lp
+        - v.serie :second, cap_islet
+        - v.background "OpenStreetMap.HOT"
+        - v.background "OpenStreetMap.Mapnik"
+        - v.background "Thunderforest.Landscape"
+        - v.background "Esri.WorldImagery"
+        - v.simple :cap_islets, :second
+        - v.categories :main_crop_code, :main
+        - v.control :zoom
+        - v.control :scale
+        - v.control :fullscreen
+        - v.control :layer_selector
+  - else
+    = no_data
