@@ -2731,7 +2731,7 @@
       <item name="daily_training_course" nature="training_course" frozen_indicators_values="usage_duration: 1day" unit_name="day"/>
       <item name="dairy_equipment_cleaner" nature="mineral_cleaner" frozen_indicators_values="net_mass: 24kilogram, net_volume: 24.00liter" unit_name="24liter_can"/>
       <item name="diesel" nature="fuel" frozen_indicators_values="energy: 10.67kilowatt_hour, net_volume: 1liter, net_mass: 0.8kilogram" unit_name="liter"/>
-      <item name="disc_horrow" nature="superficial_plow" frozen_indicators_values="population: 1"/>
+      <item name="disc_harrow" nature="superficial_plow" frozen_indicators_values="population: 1"/>
       <item name="discount_and_reduction" nature="discount_and_reduction"/>
       <item name="domain_name_subscription" nature="numeric_subscription" unit_name="domain"/>
       <item name="drying_making_service" nature="vegetals_making_services"/>

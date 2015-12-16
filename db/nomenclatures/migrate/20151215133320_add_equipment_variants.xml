@@ -17,7 +17,7 @@
   <item-creation item="product_natures#water_tank" category="equipment" variety="tank" population_counting="unitary" abilities="store_liquid, store(water)" frozen_indicators="population" variable_indicators="nominal_storable_net_volume, geolocation" />
   <item-creation item="product_natures#weeder" category="equipment" variety="equipment" population_counting="unitary" abilities="kill(plant)" frozen_indicators="population" variable_indicators="application_width, geolocation" />
   <item-creation item="product_nature_variants#bed_former" nature="seedbed_preparator" frozen_indicators_values="population: 1"/>
-  <item-creation item="product_nature_variants#disc_horrow" nature="superficial_plow" frozen_indicators_values="population: 1"/>
+  <item-creation item="product_nature_variants#disc_harrow" nature="superficial_plow" frozen_indicators_values="population: 1"/>
   <item-creation item="product_nature_variants#dumper" nature="dumper" frozen_indicators_values="population: 1"/>
   <item-creation item="product_nature_variants#ferry" nature="ferry" frozen_indicators_values="population: 1"/>
   <item-creation item="product_nature_variants#gas_burner" nature="gas_engine" frozen_indicators_values="population: 1"/>

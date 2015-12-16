@@ -17,7 +17,7 @@ module CastGroupable
       else
         attributes[:product] ||= args.shift
       end
-      send(item.reflection_name).create!(attributes)      
+      send(item.reflection_name).create!(attributes)
     elsif item.is_a?(Procedo::ParameterGroup)
       attributes[:parameter_group_name] = item.name
       group = cast_groups.create!(attributes)
@@ -27,5 +27,5 @@ module CastGroupable
     end
   end
 
-  
+
 end
