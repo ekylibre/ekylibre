@@ -65,6 +65,11 @@ $vertical-spacing: round($spacing / $default-ratio);
       margin-top: $spacing;
     }
 
+    input[type="date"] {
+      //override reset width
+      width: auto;
+    }
+
     .input {
       padding: round($fs-normal*0.2) 0;
       margin: round($fs-normal*0.1) 0;
