@@ -1124,7 +1124,7 @@ a.selector-dropdown {
   }
 }
 
-.input-append, .btn-group-dropdown, .selector {
+.input-append, .btn-group-dropdown, .selector, .input-append > .selector-wrapper {
   @include button-group;
 }
 
