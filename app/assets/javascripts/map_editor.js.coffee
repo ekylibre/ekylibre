@@ -26,9 +26,10 @@
       view: 'auto'
       useFeatures: false
       showStyle:
-        weight: 1
         color: "#333"
-        fillOpacity: 0.2
+        fillOpacity: 0.4
+        weight: 2
+        opacity: 0.8
       ghostStyle:
         weight: 4
         color: "#FFF"
