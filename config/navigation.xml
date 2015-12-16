@@ -285,6 +285,29 @@
         <page to="backend/sale_opportunities#select"/>
         <page to="backend/sale_opportunities#unroll"/>
         <page to="backend/sale_opportunities#win"/>
+        <page to="backend/affairs#index"/>
+        <page to="backend/affairs#attachments"/>
+        <page to="backend/affairs#attach"/>
+        <page to="backend/affairs#detach"/>
+        <page to="backend/affairs#finish"/>
+        <page to="backend/affairs#list"/>
+        <page to="backend/affairs#select"/>
+        <page to="backend/affairs#show"/>
+        <page to="backend/affairs#unroll"/>
+        <page to="backend/gaps#index"/>
+        <page to="backend/gaps#destroy"/>
+        <page to="backend/gaps#list"/>
+        <page to="backend/gaps#list_items"/>
+        <page to="backend/gaps#show"/>
+        <page to="backend/sale_tickets#index"/>
+        <page to="backend/sale_tickets#attachments"/>
+        <page to="backend/sale_tickets#attach"/>
+        <page to="backend/sale_tickets#detach"/>
+        <page to="backend/sale_tickets#finish"/>
+        <page to="backend/sale_tickets#list"/>
+        <page to="backend/sale_tickets#select"/>
+        <page to="backend/sale_tickets#show"/>
+        <page to="backend/sale_tickets#unroll"/>
       </item>
     </group>
     <group name="purchases" icon="shopping-cart">
@@ -349,33 +372,6 @@
         <page to="backend/deposits#show"/>
         <page to="backend/deposits#unvalidateds"/>
         <page to="backend/deposits#update"/>
-      </item>
-    </group>
-    <group name="affairs" icon="folder">
-      <item name="affairs">
-        <page to="backend/affairs#index"/>
-        <page to="backend/affairs#attachments"/>
-        <page to="backend/affairs#attach"/>
-        <page to="backend/affairs#detach"/>
-        <page to="backend/affairs#finish"/>
-        <page to="backend/affairs#list"/>
-        <page to="backend/affairs#select"/>
-        <page to="backend/affairs#show"/>
-        <page to="backend/affairs#unroll"/>
-        <page to="backend/gaps#index"/>
-        <page to="backend/gaps#destroy"/>
-        <page to="backend/gaps#list"/>
-        <page to="backend/gaps#list_items"/>
-        <page to="backend/gaps#show"/>
-        <page to="backend/sale_tickets#index"/>
-        <page to="backend/sale_tickets#attachments"/>
-        <page to="backend/sale_tickets#attach"/>
-        <page to="backend/sale_tickets#detach"/>
-        <page to="backend/sale_tickets#finish"/>
-        <page to="backend/sale_tickets#list"/>
-        <page to="backend/sale_tickets#select"/>
-        <page to="backend/sale_tickets#show"/>
-        <page to="backend/sale_tickets#unroll"/>
       </item>
     </group>
   </part>
@@ -446,8 +442,6 @@
         <page to="backend/product_groups#take"/>
         <page to="backend/product_groups#unroll"/>
         <page to="backend/product_groups#update"/>
-      </item>
-      <item name="trackings">
         <page to="backend/trackings#index"/>
         <page to="backend/trackings#create"/>
         <page to="backend/trackings#destroy"/>
@@ -458,6 +452,21 @@
         <page to="backend/trackings#show"/>
         <page to="backend/trackings#unroll"/>
         <page to="backend/trackings#update"/>
+      </item>
+      <item name="inventories">
+        <page to="backend/inventories#index"/>
+        <page to="backend/inventories#attachments"/>
+        <page to="backend/inventories#create"/>
+        <page to="backend/inventories#destroy"/>
+        <page to="backend/inventories#edit"/>
+        <page to="backend/inventories#list"/>
+        <page to="backend/inventories#list_items"/>
+        <page to="backend/inventories#new"/>
+        <page to="backend/inventories#reflect"/>
+        <page to="backend/inventories#refresh"/>
+        <page to="backend/inventories#show"/>
+        <page to="backend/inventories#unroll"/>
+        <page to="backend/inventories#update"/>
       </item>
       <!--
       <item name="organic_matters">
@@ -505,23 +514,6 @@
         <page to="backend/product_groups#unroll"/>
       </item>
 -->
-    </group>
-    <group name="inventories" icon="check-square">
-      <item name="inventories">
-        <page to="backend/inventories#index"/>
-        <page to="backend/inventories#attachments"/>
-        <page to="backend/inventories#create"/>
-        <page to="backend/inventories#destroy"/>
-        <page to="backend/inventories#edit"/>
-        <page to="backend/inventories#list"/>
-        <page to="backend/inventories#list_items"/>
-        <page to="backend/inventories#new"/>
-        <page to="backend/inventories#reflect"/>
-        <page to="backend/inventories#refresh"/>
-        <page to="backend/inventories#show"/>
-        <page to="backend/inventories#unroll"/>
-        <page to="backend/inventories#update"/>
-      </item>
     </group>
     <group name="movements" icon="truck">
       <item name="deliveries">
@@ -586,8 +578,6 @@
         <page to="backend/crumbs#update"/>
         <page to="backend/crumbs#convert"/>
         <page to="backend/crumbs#destroy"/>
-      </item>
-      <item name="prescriptions">
         <page to="backend/prescriptions#index"/>
         <page to="backend/prescriptions#attachments"/>
         <page to="backend/prescriptions#create"/>
@@ -635,10 +625,6 @@
         <page to="backend/activity_productions#edit"/>
         <page to="backend/activity_productions#new"/>
         <page to="backend/activity_productions#update"/>
-      </item>
-    </group>
-    <group name="animal_productions" icon="cow">
-      <item name="animals">
         <page to="backend/animals#index"/>
         <page to="backend/animals#attachments"/>
         <page to="backend/animals#add_to_group"/>
@@ -666,10 +652,6 @@
         <page to="backend/animals#list_carrier_linkages"/>
         <page to="backend/animals#take"/>
         <page to="backend/animals#unroll"/>
-      </item>
-    </group>
-    <group name="plant_productions" icon="wheat">
-      <item name="plants">
         <page to="backend/plants#index"/>
         <page to="backend/plants#attachments"/>
         <page to="backend/plants#create"/>
@@ -691,16 +673,8 @@
         <page to="backend/plants#take"/>
         <page to="backend/plants#unroll"/>
         <page to="backend/plants#update"/>
-      </item>
-    </group>
-    <group name="transformations" icon="barn">
-      <item name="wine_tanks">
         <page to="backend/wine_tanks#index"/>
         <page to="backend/wine_tanks#list"/>
-      </item>
-    </group>
-    <group name="fungi" icon="mushroom">
-      <item name="fungi">
         <page to="backend/fungi#index"/>
         <page to="backend/fungi#attachments"/>
         <page to="backend/fungi#create"/>
@@ -722,6 +696,17 @@
         <page to="backend/fungi#take"/>
         <page to="backend/fungi#unroll"/>
         <page to="backend/fungi#update"/>
+        <page to="backend/manure_management_plans#index"/>
+        <page to="backend/manure_management_plans#attachments"/>
+        <page to="backend/manure_management_plans#create"/>
+        <page to="backend/manure_management_plans#destroy"/>
+        <page to="backend/manure_management_plans#edit"/>
+        <page to="backend/manure_management_plans#list"/>
+        <page to="backend/manure_management_plans#list_zones"/>
+        <page to="backend/manure_management_plans#new"/>
+        <page to="backend/manure_management_plans#show"/>
+        <page to="backend/manure_management_plans#unroll"/>
+        <page to="backend/manure_management_plans#update"/>
       </item>
     </group>
     <group name="land_parcels" icon="land-parcels">
@@ -737,44 +722,6 @@
         <page to="backend/cultivable_zones#update"/>
         <page to="backend/cultivable_zones#list_productions"/>
         <page to="backend/cultivable_zones#unroll"/>
-      </item>
-      <item name="manure_management_plans">
-        <page to="backend/manure_management_plans#index"/>
-        <page to="backend/manure_management_plans#attachments"/>
-        <page to="backend/manure_management_plans#create"/>
-        <page to="backend/manure_management_plans#destroy"/>
-        <page to="backend/manure_management_plans#edit"/>
-        <page to="backend/manure_management_plans#list"/>
-        <page to="backend/manure_management_plans#list_zones"/>
-        <page to="backend/manure_management_plans#new"/>
-        <page to="backend/manure_management_plans#show"/>
-        <page to="backend/manure_management_plans#unroll"/>
-        <page to="backend/manure_management_plans#update"/>
-      </item>
-    </group>
-    <group name="equipments" icon="tractor">
-      <item name="equipments">
-        <page to="backend/equipments#index"/>
-        <page to="backend/equipments#attachments"/>
-        <page to="backend/equipments#create"/>
-        <page to="backend/equipments#destroy"/>
-        <page to="backend/equipments#edit"/>
-        <page to="backend/equipments#list"/>
-        <page to="backend/equipments#list_intervention_casts"/>
-        <page to="backend/equipments#new"/>
-        <page to="backend/equipments#show"/>
-        <page to="backend/equipments#take"/>
-        <page to="backend/equipments#unroll"/>
-        <page to="backend/equipments#update"/>
-        <page to="backend/equipments#list_contained_products"/>
-        <page to="backend/equipments#list_groups"/>
-        <page to="backend/equipments#list_issues"/>
-        <page to="backend/equipments#list_readings"/>
-        <page to="backend/equipments#list_members"/>
-        <page to="backend/equipments#list_places"/>
-        <page to="backend/equipments#list_carried_linkages"/>
-        <page to="backend/equipments#list_carrier_linkages"/>
-        <page to="backend/equipments#picture"/>
       </item>
     </group>
     <group name="supervision">
@@ -938,10 +885,6 @@
         <page to="backend/imports#update"/>
         <page to="backend/imports#abort"/>
         <page to="backend/imports#progress"/>
-      </item>
-      <item name="synchronizations">
-        <page to="backend/synchronizations#index"/>
-        <page to="backend/synchronizations#run"/>
       </item>
     </group>
     <!--
@@ -1324,6 +1267,29 @@
         <page to="backend/workers#picture"/>
         <page to="backend/workers#take"/>
         <page to="backend/workers#unroll"/>
+      </item>
+      <item name="equipments">
+        <page to="backend/equipments#index"/>
+        <page to="backend/equipments#attachments"/>
+        <page to="backend/equipments#create"/>
+        <page to="backend/equipments#destroy"/>
+        <page to="backend/equipments#edit"/>
+        <page to="backend/equipments#list"/>
+        <page to="backend/equipments#list_intervention_casts"/>
+        <page to="backend/equipments#new"/>
+        <page to="backend/equipments#show"/>
+        <page to="backend/equipments#take"/>
+        <page to="backend/equipments#unroll"/>
+        <page to="backend/equipments#update"/>
+        <page to="backend/equipments#list_contained_products"/>
+        <page to="backend/equipments#list_groups"/>
+        <page to="backend/equipments#list_issues"/>
+        <page to="backend/equipments#list_readings"/>
+        <page to="backend/equipments#list_members"/>
+        <page to="backend/equipments#list_places"/>
+        <page to="backend/equipments#list_carried_linkages"/>
+        <page to="backend/equipments#list_carrier_linkages"/>
+        <page to="backend/equipments#picture"/>
       </item>
       <item name="buildings">
         <page to="backend/buildings#index"/>
@@ -1779,6 +1745,12 @@
     <group>
       <item name="analyses">
         <page to="iot/analyses#create"/>
+      </item>
+    </group>
+    <group>
+      <item name="synchronizations">
+        <page to="backend/synchronizations#index"/>
+        <page to="backend/synchronizations#run"/>
       </item>
     </group>
   </inaccessible-actions>
