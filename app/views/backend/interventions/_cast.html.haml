@@ -19,7 +19,11 @@
       %p= cast.name
       %p= cast.model_name.human
       - if actor.is_a?(Product) && !actor.population_counting_unitary? && variant && cast.quantity_unit && cast.quantity
-        %p= :x_thing.tl(x: cast.quantity.round(2).l, thing: variant.unit_name.mb_chars.downcase)
+        %p
+          - if cast.quantity_indicator == 'population'
+            = :x_thing.tl(x: cast.quantity.round(2).l, thing: variant.unit_name.mb_chars.downcase)
+          - else
+            = cast.quantity.round(2).l
   - elsif variant
     .picture
       - if variant.picture.file?

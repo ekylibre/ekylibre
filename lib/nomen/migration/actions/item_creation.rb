@@ -4,6 +4,7 @@ module Nomen
       class ItemCreation < Nomen::Migration::Actions::Base
         attr_reader :nomenclature, :name, :options
         def initialize(element)
+          fail 'Need item attribute' unless element['item']
           name = element['item'].split('#')
           @nomenclature = name.first
           @name = name.second

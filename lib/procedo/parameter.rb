@@ -75,6 +75,29 @@ module Procedo
       @handlers[name.to_sym]
     end
 
+    # Find best handler for given quantity
+    def best_handler_for(quantity)
+      if quantity.is_a?(Measure)
+        candidates = handlers.select do |h|
+          h.measure? && h.dimension_name == quantity.dimension
+        end
+        return nil unless candidates.any?
+        return candidates.first if candidates.count == 1
+        best = candidates.select { |h| h.unit.name.to_s == quantity.unit.to_s }
+        return (best ? best : candidates.first)
+      elsif quantity.is_a?(Numeric)
+        candidates = handlers.select { |h| h.indicator.datatype == :decimal }
+        return nil unless candidates.any?
+        return candidates.first
+      elsif quantity.is_a?(Charta::Geometry)
+        candidates = handlers.select { |h| h.indicator.datatype == :multi_polygon }
+        return nil unless candidates.any?
+        return candidates.first
+      else
+        return nil
+      end
+    end
+
     #
     def given?
       !@value.blank?

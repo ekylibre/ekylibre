@@ -20,7 +20,7 @@ module Aggeratio
       code = ''
       if respond_to?(method_name)
         code << conditionate(send(method_name, element), element)
-      else
+      elsif element.name.to_s != 'comment'
         Rails.logger.warn("Markup <#{element.name}> is unknown or not implemented")
         code << "# #{element.name}: not implemented\n"
       end

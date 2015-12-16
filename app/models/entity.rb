@@ -148,7 +148,7 @@ class Entity < Ekylibre::Record::Base
   scope :related_to, lambda { |entity|
     where("id IN (SELECT linked_id FROM #{EntityLink.table_name} WHERE entity_id = ?) OR id IN (SELECT entity_id FROM #{EntityLink.table_name} WHERE linked_id = ?)", entity.id, entity.id)
   }
-  scope :users, -> { where(id: User.all.pluck(:person_id)) }
+  scope :users, -> { where(id: User.select(:person_id)) }
   scope :responsibles,  -> { contacts }
   scope :contacts,      -> { where(nature: 'contact') }
   scope :organizations, -> { where(nature: 'organization') }

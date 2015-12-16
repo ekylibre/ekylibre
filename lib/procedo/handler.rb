@@ -7,45 +7,72 @@ module Procedo
 
     delegate :procedure, to: :parameter
     delegate :datatype, to: :indicator
+    delegate :name, to: :parameter, prefix: true
+    delegate :name, to: :procedure, prefix: true
 
     def initialize(parameter, name, options = {})
       @parameter = parameter
-      @name = name.to_sym
-      @indicator = Nomen::Indicator[options[:indicator]]
-      unless @indicator
-        fail Procedo::Errors::InvalidHandler, "Handler of #{@parameter.name} must have a valid 'indicator' attribute. Got: #{options[:indicator].inspect}"
-      end
-      # Get and check measure unit
-      if @indicator.datatype == :measure
-        options[:unit] ||= @indicator.unit
-        @unit = Nomen::Unit[options[:unit]]
-        unless @unit
-          fail Procedo::Errors::InvalidHandler, "Handler must have a valid 'unit' attribute. Got: #{options[:unit].inspect}"
-        end
-      end
-      # Add condition
-      unless options[:if].blank?
-        begin
-          @usability_tree = HandlerMethod.parse(options[:if].to_s, root: 'boolean_expression')
-        rescue SyntaxError => e
-          raise SyntaxError, "A procedure handler (#{options.inspect}) #{parameter.procedure.name} has a syntax error on usability test (if): #{e.message}"
-        end
-      end
+      self.name = name
+      self.indicator_name = options[:indicator] || name
+      self.unit_name = options[:unit] if self.measure?
+      self.condition = options[:if] unless options[:if].blank?
       # Define widget of handler (or parameter...)
-      @widget = (options[:widget] || (@indicator.datatype == :geometry ? :map : :number)).to_sym
+      @widget = (options[:widget] || (datatype == :geometry ? :map : :number)).to_sym
       # Initialize converters
       @converters = {}
       # Adds default converter
       converter_options = {}
       converter_options[:forward]  = (options[:forward].blank? ? 'value' : options[:forward])
       converter_options[:backward] = (options[:backward].blank? ? 'value' : options[:backward])
-      add_converter(options[:to] || @indicator.name, converter_options)
+      add_converter(options[:to] || indicator.name, converter_options)
     end
 
     # Adds a converter to the handler
     def add_converter(destination, options = {})
       converter = Procedo::Converter.new(self, destination, options)
       @converters[converter.destination] = converter
+    end
+
+    # Sets the name
+    def name=(value)
+      @name = value.to_sym
+    end
+
+    # Sets the indicator
+    def indicator=(value)
+      @indicator = value
+      unless @indicator.respond_to?(:nomenclature) && @indicator.nomenclature.name == :indicators
+        fail Procedo::Errors::InvalidHandler, "Handler of #{@parameter.name} must have a valid 'indicator' attribute. Got: #{value.inspect}"
+      end
+      self.unit_name = indicator.unit if self.measure?
+    end
+
+    # Sets the indicator name
+    def indicator_name=(value)
+      self.indicator = Nomen::Indicator.find!(value)
+    end
+
+    # Sets the indicator name
+    def unit_name=(value)
+      fail 'Cant assign unit without indicator' unless indicator
+      fail 'Cant assign unit with indicator which is not a measure' unless self.measure?
+      unit = Nomen::Unit.find(value)
+      unless unit
+        fail Procedo::Errors::InvalidHandler, "Cannot find unit. Got: #{value.inspect}"
+      end
+      indicator_dimension = Nomen::Unit.find(indicator.unit).dimension
+      unless unit.dimension == indicator_dimension
+        fail "Dimension of unit (#{unit.dimension.inspect}) must be identical to indicator's (#{indicator_dimension.inspect}) in #{parameter_name}##{@name} of #{procedure_name}"
+      end
+      @unit = unit
+    end
+
+    def dimension_name
+      @unit.dimension.to_sym
+    end
+
+    def measure?
+      datatype == :measure
     end
 
     def unit?
@@ -56,8 +83,22 @@ module Procedo
       converters.map(&:destination).uniq
     end
 
+    def condition=(expr)
+      @usability_tree = HandlerMethod.parse(expr.to_s, root: 'boolean_expression')
+    rescue SyntaxError => e
+      raise SyntaxError, "A procedure handler (#{@name.inspect}) #{procedure.name} has a syntax error on usability test (if): #{e.message}"
+    end
+
     def check_usability?
       !@usability_tree.nil?
+    end
+
+    def dimension_name
+      @unit.dimension
+    end
+
+    def dimension
+      Nomen::Dimension.find(@unit.dimension)
     end
 
     # def destination_unique_name

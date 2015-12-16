@@ -117,7 +117,7 @@ class InterventionCast < Ekylibre::Record::Base
         handler = parameter[quantity_handler]
         if handler
           self.quantity_indicator = handler.indicator.name
-          self.quantity_unit = handler.unit
+          self.quantity_unit = handler.unit.name
         end
       end
     else

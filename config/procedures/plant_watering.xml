@@ -4,7 +4,7 @@
     <parameters>
       <parameter name="water" type="input" filter="is water">
         <handler indicator="population"/>
-        <handler indicator="mass_area_density" unit="liter_per_square_meter" to="population" backward="(value * self..net_mass(ton)) / cultivation.net_surface_area(hectare)" forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(ton)"/>
+        <handler indicator="mass_area_density" unit="kilogram_per_square_meter" to="population" backward="(value * self..net_mass(ton)) / cultivation.net_surface_area(hectare)" forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(ton)"/>
         <handler name="nitrogen_unities_density" indicator="mass_area_density" unit="kilogram_per_hectare" if="self.nitrogen_concentration? &amp; self.nitrogen_concentration(milligram_per_kilogram) &gt; 0" to="population" backward="(value * self..net_mass(kilogram) * (self.nitrogen_concentration(milligram_per_kilogram) / 1000000)) / cultivation.net_surface_area(hectare)" forward="(value * cultivation.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.nitrogen_concentration(milligram_per_kilogram) / 1000000)"/>
       </parameter>
       <parameter name="spreader" type="tool" filter="can spread(water)"/>

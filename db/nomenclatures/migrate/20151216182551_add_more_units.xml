@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add more units">
+  <item-creation item="units#cubic_meter_per_hectare" dimension="volume_area_density" symbol="cm³/ha" a="0.000001" d="10000"/>
+  <item-creation item="units#square_centimeter" dimension="surface_area" symbol="cm²" a="0.0001"/>
+  <item-creation item="units#cubic_centimeter" dimension="volume" symbol="cm³" a="0.000001"/>
+  <item-creation item="units#dozen" dimension="none" symbol="dz" a="12"/>
+</migration>

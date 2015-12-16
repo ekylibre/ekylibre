@@ -5,18 +5,18 @@
 = main_informations attachment: true do
   - if resource.picture.exists?
     .picture= image_tag(resource.picture.url(:identity))
-    .big-info.important
-      - icon = resource.category.pictogram
-      %span.title= Matter.human_attribute_name(:variant)
+  .med-info.important
+    - icon = resource.category.pictogram
+    %span.title= Matter.human_attribute_name(:variant)
+    %span.value
+      %i.picto{class: "picto-#{icon}"}
+      = link_to(resource.variant_name, controller: :product_nature_variants, action: :show, id: resource.variant_id)
+  - if resource.born_at and resource.age >= 1.day
+    .med-info
+      %span.title= Matter.human_attribute_name(:age)
       %span.value
-        %i.picto{class: "picto-#{icon}"}
-        = link_to(resource.variant_name, controller: :product_nature_variants, action: :show, id: resource.variant_id)
-    - if resource.born_at and resource.age >= 1.day
-      .big-info
-        %span.title= Matter.human_attribute_name(:age)
-        %span.value
-          %i.picto{class: "picto-clock-o"}
-          = human_age(resource.age, display: 2)
+        %i.picto{class: "picto-clock-o"}
+        = human_age(resource.age, display: 2)
 
 = cobbles do |c|
   - if resource.is_a?(ProductGroup)

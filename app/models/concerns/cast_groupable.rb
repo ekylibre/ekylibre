@@ -42,5 +42,4 @@ module CastGroupable
     group = cast_groups.create!(attributes)
     yield group if block_given?
   end
-
 end

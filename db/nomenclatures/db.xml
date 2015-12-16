@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151216160914">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151216182551">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -3722,9 +3722,12 @@
       <item name="centimeter" dimension="distance" symbol="cm" a="0.01"/>
       <item name="centimole" dimension="amount_of_substance" symbol="cmol" a="0.01"/>
       <item name="centimole_per_kilogram" dimension="amount_of_substance_density" symbol="cmol/kg" a="0.01"/>
+      <item name="cubic_centimeter" dimension="volume" symbol="cm&#xB3;" a="1.0e-06"/>
       <item name="cubic_meter" dimension="volume" symbol="m&#xB3;"/>
+      <item name="cubic_meter_per_hectare" dimension="volume_area_density" symbol="cm&#xB3;/ha" a="1.0e-06" d="10000.0"/>
       <item name="day" dimension="time" symbol="d" a="86400.0"/>
       <item name="degree" dimension="angle" symbol="&#xB0;" a="3.141592653589793" d="180.0"/>
+      <item name="dozen" dimension="none" symbol="dz" a="12.0"/>
       <item name="english_horsepower" dimension="power" symbol="hp" a="745.6998"/>
       <item name="farenheit" dimension="temperature" symbol="&#xB0;F" a="1.8" b="459.67"/>
       <item name="french_horsepower" dimension="power" symbol="ch" a="735.5"/>
@@ -3789,6 +3792,7 @@
       <item name="quintal_per_hectare" dimension="mass_area_density" symbol="qt/ha" a="100.0" d="10000.0"/>
       <item name="radian" dimension="angle" symbol="rad"/>
       <item name="second" dimension="time" symbol="s"/>
+      <item name="square_centimeter" dimension="surface_area" symbol="cm&#xB2;" a="0.0001"/>
       <item name="square_meter" dimension="surface_area" symbol="m&#xB2;"/>
       <item name="thousand" dimension="none" symbol="k." a="1000.0"/>
       <item name="thousand_per_hectare" dimension="surface_area_density" symbol="k./ha" a="1000.0" d="10000.0"/>

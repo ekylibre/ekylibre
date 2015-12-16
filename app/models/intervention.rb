@@ -255,7 +255,7 @@ class Intervention < Ekylibre::Record::Base
       attributes[:procedure_name] ||= args.shift
       intervention = transaction do
         intervention = Intervention.create!(attributes)
-        yield intervention
+        yield intervention if block_given?
         intervention.run!
       end
       intervention

@@ -50,4 +50,9 @@
 class InterventionInput < InterventionCast
   belongs_to :intervention, inverse_of: :inputs
   validates_presence_of :source_product
+
+  before_save do
+    # FIXME: Not working at all. Need to split if necessary with quantity
+    self.product = source_product
+  end
 end

@@ -152,19 +152,14 @@ class Product < Ekylibre::Record::Base
   scope :can_each, lambda { |*abilities|
     of_expression(abilities.map { |a| "can #{a}" }.join(' and '))
   }
-
   scope :of_working_set, lambda { |working_set|
-    if item = Nomen::WorkingSet.find(working_set)
-      of_expression(item.expression)
-    else
-      fail StandardError, "#{working_set.inspect} is not in Nomen::WorkingSet nomenclature"
-    end
+    item = Nomen::WorkingSet.find(working_set)
+    fail StandardError, "#{working_set.inspect} is not in Nomen::WorkingSet nomenclature" unless item
+    of_expression(item.expression)
   }
-
   scope :of_expression, lambda { |expression|
     joins(:nature).where(WorkingSet.to_sql(expression, default: :products, abilities: :product_natures, indicators: :product_natures))
   }
-
   scope :of_nature, lambda { |nature|
     where(nature_id: nature.id)
   }
