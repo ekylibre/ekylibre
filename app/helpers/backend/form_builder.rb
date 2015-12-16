@@ -305,6 +305,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     editor[:controls][:draw][:draw] = options[:draw] || {}
     if geom = @object.send(attribute_name)
       editor[:edit] = Charta.new_geometry(geom).to_geojson
+      editor[:view] = { center: Charta.new_geometry(geom).centroid, zoom: 16 }
     else
       if sibling = @object.class.where("#{attribute_name} IS NOT NULL").first
         editor[:view] = { center: Charta.new_geometry(sibling.send(attribute_name)).centroid }
