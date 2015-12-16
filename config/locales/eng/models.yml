@@ -280,7 +280,6 @@ eng:
     accounted_at: "Accounted at"
     accuracy: "Accuracy"
     achieved_at: "Achieved at"
-    # actions: "Actions"
     active: "Active"
     # active_sessions: "Active sessions"
     activities: "Activities"

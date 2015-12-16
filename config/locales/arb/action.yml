@@ -1226,6 +1226,7 @@ arb:
     # inputs: "Inputs"
     insert_actual_password: "أدخل كلمة المرور الحالية" #?
     insert_password: "أدخل كلمة المرور الجديدة" #?
+    # internal_error: "Oops, something happened."
     international_normal_vat_collected: "معدل ضريبة القيمة المضافة الدولية العادية %8.5" #?
     international_reduce_vat_collected: "معدل ضريبة القيمة المضافة الدولية المخفضة %2.1" #?
     international_vat_collected: "مجموع ضريبة القيمة المضافة الدولية" #?

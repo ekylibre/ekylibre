@@ -22,7 +22,6 @@
 #
 # == Table: interventions
 #
-#  actions          :string
 #  created_at       :datetime         not null
 #  creator_id       :integer
 #  description      :text

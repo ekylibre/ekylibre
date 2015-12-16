@@ -961,6 +961,7 @@ spa:
     # inputs: "Inputs"
     insert_actual_password: "Coja su contraseña actual" #?
     insert_password: "Coja su nueva contraseña" #?
+    # internal_error: "Oops, something happened."
     international_normal_vat_collected: "Tasa normal a 8,5%" #?
     international_reduce_vat_collected: "Tasa réducida a 2,1%" #?
     international_vat_collected: "Operación realisada en los DOM" #?

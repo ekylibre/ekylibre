@@ -1133,7 +1133,7 @@ eng:
     input_cost: "Input cost"
     input_cost_per_hectare: "Input cost per hectare" #?!
     inputs: "Inputs"
-    internal_error: 'Oops, something happened.'
+    internal_error: "Oops, something happened."
     interval: "Personalized Interval"
     intervention: "Intervention"
     intervention_at: "%{intervention} at %{at}"

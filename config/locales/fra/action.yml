@@ -1094,8 +1094,8 @@ fra:
     inputs: "Intrants"
     insert_actual_password: "Saisissez votre mot de passe actuel" #?
     insert_password: "Saisissez votre nouveau mot de passe" #?
-    interval: "Intervalle personnalisé"
     internal_error: "Oups, quelque chose s'est mal passé."
+    interval: "Intervalle personnalisé"
     intervention: "Intervention"
     intervention_at: "%{intervention} du %{at}"
     intervention_casts: "Intervenants"
