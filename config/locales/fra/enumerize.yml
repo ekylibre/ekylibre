@@ -87,8 +87,8 @@ fra:
         various: "Opérations diverses"
     loan:
       repayment_method:
-        contant_amount: "Montant constant"
-        contant_rate: "Pourcentage constant"
+        constant_amount: "Montant constant"
+        constant_rate: "Pourcentage constant"
       repayment_period:
         month: "Mois"
         year: "Année"

@@ -788,7 +788,7 @@ fra:
     cashes_balance: "Soldes des trésoreries"
     cashes_balance_evolution: "Évolution des soldes des trésoreries"
     casting: "Casting"
-    casts: "Intervenants"
+    casts: "Intervention"
     catalog: "Description pour catalogue"
     catalog_items: "Éléments de catalogue"
     category: "Catégorie"
@@ -1145,10 +1145,10 @@ fra:
     last_entities: "Derniers tiers"
     last_events: "Derniers évènements"
     last_incoming_parcels: "Derniers colis à réceptionner"
-    last_intervention: "Dernières interventions"
+    last_intervention: "Dernière intervention"
     last_issue: "Dernier incident"
     last_issues: "Derniers incidents"
-    last_outgoing_parcels: "Derniers colis à expédier"
+    last_outgoing_parcels: "Futurs colis à expédier"
     last_payment_amount: "Montant du dernier encaissement" #?
     last_payment_date: "Date du dernier encaissement" #?
     last_procedures: "Dernières procédures" #?
@@ -1356,7 +1356,7 @@ fra:
     payment_conditions: "Conditions de règlement"
     payment_label: "%{number}. %{amount} (%{usable_amount} restants) du %{date} par %{mode} de %{entity}" #?
     payment_mode: "Mode d’encaissement"
-    payments: "Réglements"
+    payments: "Règlements"
     payments_count: "Nombre de %{mode}"
     people: "Personnes"
     period: "Période prédéfinie"
@@ -1810,7 +1810,13 @@ fra:
     x_incoming_payments:
       one: "%{count} encaissement"
       other: "%{count} encaissements"
+    x_incoming_payments_to_deposit:
+      one: "%{count} encaissement à déposer"
+      other: "%{count} encaissements à déposer"
     x_intervention_casts:
+      one: "%{count} intervention"
+      other: "%{count} interventions"
+    x_interventions:
       one: "%{count} intervention"
       other: "%{count} interventions"
     x_issues:
@@ -1881,6 +1887,12 @@ fra:
     x_unit_of_product_per_second: "%{quantity}%{unit}/s de %{product}"
     x_unit_per_second: "Débit: %{quantity}%{unit}/s"
     x_units_of_product_y: "%{quantity}%{unit} de %{product}"
+    x_unpaid_purchases:
+      one: "%{count} achat impayé"
+      other: "%{count} achats impayés"
+    x_unpaid_sales:
+      one: "%{count} vente impayée"
+      other: "%{count} ventes impayées"
     x_waiting_incoming_parcels:
       one: "%{count} colis à réceptionner en attente"
       other: "%{count} colis à réceptionner en attente"

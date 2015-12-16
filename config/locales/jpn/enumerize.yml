@@ -87,8 +87,8 @@ jpn:
         # various: "Various operations"
     loan:
       repayment_method:
-        # contant_amount: "Constant amount"
-        # contant_rate: "Constant rate"
+        # constant_amount: "Constant amount"
+        # constant_rate: "Constant rate"
       repayment_period:
         # month: "Month"
         # year: "Year"

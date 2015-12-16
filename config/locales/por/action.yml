@@ -1273,9 +1273,15 @@ por:
     x_incoming_payments:
       # one: "%{count} incoming payment"
       # other: "%{count} incoming payments"
+    x_incoming_payments_to_deposit:
+      # one: "%{count} incoming payment to deposit"
+      # other: "%{count} incoming payments to deposit"
     x_intervention_casts:
       # one: "%{count} intervention cast"
       # other: "%{count} intervention casts"
+    x_interventions:
+      # one: "%{count} intervention"
+      # other: "%{count} interventions"
     x_issues:
       # one: "1 issue"
       # other: "%{count} issues"
@@ -1328,6 +1334,12 @@ por:
     # x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
     # x_unit_per_second: "Flow: %{quantity}%{unit}/s"
     # x_units_of_product_y: "%{quantity}%{unit} of %{product}"
+    x_unpaid_purchases:
+      # one: "%{count} unpaid purchase"
+      # other: "%{count} unpaid purchases"
+    x_unpaid_sales:
+      # one: "%{count} unpaid sale"
+      # other: "%{count} unpaid sales"
     x_waiting_incoming_parcels:
       # one: "%{count} waiting incoming parcel"
       # other: "%{count} waiting incoming parcels"

@@ -2002,6 +2002,7 @@ arb:
     to: "ل"
     to_archive: "وثائق للارشفة" #?
     to_bank_at: "يسدد يوم"
+    # to_deposit: "To deposit"
     # token: "Token"
     tool: "الاداة"
     tool_id: "اداة" #?

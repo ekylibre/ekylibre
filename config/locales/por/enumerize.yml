@@ -87,8 +87,8 @@ por:
         various: "Várias operações"
     loan:
       repayment_method:
-        contant_amount: "Total constante"
-        contant_rate: "Taxa constante"
+        constant_amount: "Total constante"
+        constant_rate: "Taxa constante"
       repayment_period:
         month: "Mês"
         year: "Ano"

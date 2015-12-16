@@ -1026,6 +1026,7 @@ por:
     # title: "Title"
     # to: "To"
     # to_bank_at: "To bank at"
+    # to_deposit: "To deposit"
     # token: "Token"
     # tool: "Tool"
     # tools: "Tools"

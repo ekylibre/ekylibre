@@ -1287,6 +1287,7 @@ fra:
     title: "Titre"
     to: "Pour"
     to_bank_at: "À décaisser le"
+    to_deposit: "À déposer"
     # token: "Token"
     tool: "Outil"
     tools: "Outils"

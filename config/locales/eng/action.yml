@@ -872,7 +872,7 @@ eng:
     add_working_period: "Add working_period"
     add_x: "Add “%{x}”"
     affair: "Affair"
-    affairs: "Affairs"
+    affairs: "Affairs" #?
     all: "All"
     all_accounts: "All accounts"
     all_cash_balances: "All cash balances" #?!
@@ -884,7 +884,7 @@ eng:
     amounts_in_currency: "Amounts (%{currency})"
     analyses: "Analyses"
     animal_details: "Animal details" #?
-    animal_productions: "Animal productions"
+    animal_productions: "Animal productions" #?!
     animals: "Animals"
     archives: "Archives"
     are_you_sure: "Are you sure you want to do this?"
@@ -1089,7 +1089,7 @@ eng:
     from: "From"
     fullscreen: "Fullscreen"
     function: "Function"
-    fungi: "Fungi"
+    fungi: "Fungi" #?
     future_events: "Future events"
     genealogy: "Genealogy"
     general: "General"
@@ -1122,7 +1122,7 @@ eng:
     incoming_parcels: "Incoming parcels"
     incoming_payment: "Incoming payment" #?
     incoming_payments: "Incoming payments"
-    incoming_payments_to_deposit: "Incoming payments to deposit"
+    incoming_payments_to_deposit: "Incoming payments to deposit" #?
     indicator: "Indicators"
     indicator_value: "Indicator value"
     indicators: "Indicators"
@@ -1141,7 +1141,7 @@ eng:
     interventions: "Interventions"
     interventions_count: "Interventions count"
     interventions_paths: "Interventions paths" #?
-    inventories: "Inventories"
+    inventories: "Inventories" #?
     inventory: "Inventory" #?
     invoiced_amount: "Sales invoiced amount" #?
     invoices: "Invoices"
@@ -1312,7 +1312,7 @@ eng:
     placeholder: "Placeholder" #?
     places: "Places"
     plant: "Plant" #?
-    plant_productions: "Plant productions"
+    plant_productions: "Plant productions" #?!
     plantation_density: "Plantation density" #?
     plants: "Plants" #?
     please_wait: "Please wait…"
@@ -1497,7 +1497,7 @@ eng:
     trade_counts: "Trade counts" #?
     transactions_by_month: "Transactions by month" #?
     transfer: "Transfer" #?
-    transformations: "Transformations"
+    transformations: "Transformations" #?!
     transport: "Transport" #?
     undefined_container: "Undefined container"
     undelivered: "Undelivered" #?
@@ -1513,7 +1513,7 @@ eng:
     unpaid: "Unpaid" #?
     unpaid_amount: "Unpaid amount" #?
     unpaid_days: "Unpaid since (in days)" #?
-    unpaid_purchases: "Unpaid purchases"
+    unpaid_purchases: "Unpaid purchases" #?
     unpaid_sales: "Unpaid sales"
     unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)" #?
     up: "Up" #?
@@ -1579,9 +1579,15 @@ eng:
     x_incoming_payments:
       one: "%{count} incoming payment"
       other: "%{count} incoming payments"
+    x_incoming_payments_to_deposit:
+      one: "%{count} incoming payment to deposit"
+      other: "%{count} incoming payments to deposit"
     x_intervention_casts:
       one: "%{count} intervention cast"
       other: "%{count} intervention casts"
+    x_interventions:
+      one: "%{count} intervention"
+      other: "%{count} interventions"
     x_issues:
       one: "1 issue"
       other: "%{count} issues"
@@ -1634,6 +1640,12 @@ eng:
     x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}" #?!
     x_unit_per_second: "Flow: %{quantity}%{unit}/s" #?!
     x_units_of_product_y: "%{quantity}%{unit} of %{product}" #?!
+    x_unpaid_purchases:
+      one: "%{count} unpaid purchase"
+      other: "%{count} unpaid purchases"
+    x_unpaid_sales:
+      one: "%{count} unpaid sale"
+      other: "%{count} unpaid sales"
     x_waiting_incoming_parcels: #?!
       one: "%{count} waiting incoming parcel" #?!
       other: "%{count} waiting incoming parcels" #?!
