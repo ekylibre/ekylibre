@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
@@ -18,6 +17,24 @@
 #
 
 require 'test_helper'
+
 class Backend::DashboardsControllerTest < ActionController::TestCase
   test_restfully_all_actions
+
+  test 'search' do
+    get 'search', q: 'toto&theme=margarita'
+    assert_not_equal 'margarita', @user.preference(:theme, 'tekyla').value
+
+    assert_nothing_raised do
+      get 'search', q: ''
+    end
+
+    assert_nothing_raised do
+      get 'search'
+    end
+
+    assert_nothing_raised do
+      get 'search', q: 'to', page: 8450
+    end
+  end
 end
