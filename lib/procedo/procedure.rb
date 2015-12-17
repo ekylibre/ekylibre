@@ -55,7 +55,7 @@ module Procedo
     def add_action(name, optional = false)
       action = Nomen::ProcedureAction.find(name)
       fail "Invalid action: #{name.inspect}" unless action
-      actions = optional ? @mandatory_actions : @optional_actions
+      actions = optional ? @optional_actions : @mandatory_actions
       actions << action unless actions.include?(action)
     end
 
@@ -685,8 +685,7 @@ module Procedo
 
     def action_selection(list)
       list.map do |action|
-        item = Nomen::ProcedureAction.find(action)
-        item ? [item.human_name, item.name] : [action.to_s.humanize, action]
+        [action.human_name, action.name]
       end
     end
 

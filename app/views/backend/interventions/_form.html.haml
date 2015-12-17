@@ -7,9 +7,8 @@
     = f.input :procedure_name, as: :hidden
     = f.referenced_association :issue
     = f.input :description
-
     - procedure.mandatory_actions.each do |a|
-      = hidden_field_tag('intervention[actions][]', a)
+      = hidden_field_tag('intervention[actions][]', a.name)
     - if procedure.optional_actions.any?
       = f.items_list(:actions, selection: procedure.optional_actions_selection)
 
