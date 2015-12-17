@@ -1,8 +1,13 @@
-# encoding: UTF-8
 require 'test_helper'
 
 class MeasureTest < ActiveSupport::TestCase
   test 'instanciation' do
+    assert_raise ArgumentError do
+      Measure.new
+    end
+    assert_raise ArgumentError do
+      Measure.new(55.23, :kilogram, :hectare)
+    end
     assert_nothing_raised do
       Measure.new(55.23, 'kilogram')
     end
