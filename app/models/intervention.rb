@@ -253,13 +253,13 @@ class Intervention < Ekylibre::Record::Base
   end
 
   class << self
-    
+
     def used_procedures
       select(:procedure_name).distinct.pluck(:procedure_name).map do |name|
         Procedo.find(name)
       end
     end
-    
+
     # Create and run intervention
     def run!(*args)
       attributes = args.extract_options!
