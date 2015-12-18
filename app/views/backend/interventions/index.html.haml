@@ -3,7 +3,7 @@
   - k.multi_choice :state, [:done, :undone].map{ |s| [s.tl, s] }
   - k.helper do
     %label= Intervention.human_attribute_name(:reference_name)
-    = select_tag(:reference_name, options_for_select([[]] + Procedo.procedures{|u| [Procedo[u.name.to_s].human_name, u.name]}, params[:reference_name]))
+    = select_tag(:procedure_name, options_for_select([[]] + Intervention.used_procedures.collect{|p| [p.human_name, p.name.to_s]}, params[:procedure_name]))
   - if current_campaign
     - productions = ActivityProduction.of_campaign(current_campaign)
     - if productions && productions.any?
