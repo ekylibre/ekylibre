@@ -3,7 +3,7 @@
   <procedure name="animal_artificial_insemination" categories="animal_breeding" actions="animal_artificial_insemination">
     <parameters>
       <parameter name="animal" type="target" filter="is animal and can produce(animal)"/>
-      <parameter name="vial" type="input" filter="is vial and derives from variety: animal and can inseminate(animal)" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
+      <parameter name="vial" type="input" filter="is vial and derives from animal and can inseminate(animal)" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
         <handler indicator="population"/>
       </parameter>
       <parameter name="inseminator" type="doer" filter="can administer_inseminate(animal)"/>
