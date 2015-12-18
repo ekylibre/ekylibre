@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151216182551">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151218081701">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -1812,10 +1812,14 @@
       <item name="anthracnose" parent="fungus_disease" cause="fungus" target="juglans"/>
       <item name="aphid" parent="insecta_disease" cause="aphidoidea" target="plant"/>
       <item name="bacteria_disease" parent="disease" target="bioproduct"/>
+      <item name="bacterial_leaf_blight" parent="bacteria_disease" target="poa"/>
+      <item name="bacterial_streak" parent="bacteria_disease" target="poa"/>
       <item name="bacteriosis" parent="bacteria_disease" cause="xanthomonas_arboricola" target="juglans"/>
+      <item name="black_rust" parent="fungus_disease" cause="fungus" target="poa"/>
       <item name="chenopodium_album" parent="plant_disease" target="zea"/>
       <item name="climate_issue" parent="issue"/>
       <item name="codling_moth" parent="insecta_disease" cause="cydia_pomonella" target="plant"/>
+      <item name="common_bunt" parent="fungus_disease" cause="fungus" target="poa"/>
       <item name="cough" parent="disease" target="animal"/>
       <item name="croesus_septentrionalis" parent="insecta_disease" cause="croesus_septentrionalis" target="corylus"/>
       <item name="defoliant_caterpillar" parent="insecta_disease" cause="operophtera_brumata" target="corylus"/>
@@ -1832,6 +1836,7 @@
       <item name="flooding" parent="climate_issue" cause="water" target="plant"/>
       <item name="fomitiporia" parent="fungus_disease" cause="fomitiporia" target="corylus"/>
       <item name="fungus_disease" parent="disease" target="bioproduct"/>
+      <item name="fusarium_head_blight" parent="fungus_disease" cause="fungus" target="poa"/>
       <item name="grapevine_yellows" parent="bacteria_disease" target="vitis"/>
       <item name="husk_fly" parent="insecta_disease" cause="rhagoletis_completa" target="juglans"/>
       <item name="insecta_disease" parent="disease" target="bioproduct"/>
@@ -1851,12 +1856,15 @@
       <item name="respiratory_problem" parent="disease" target="bioproduct"/>
       <item name="scale_insect" parent="insecta_disease" cause="coccoidea" target="plant"/>
       <item name="scaphoideus_titanus_leafhopper" parent="insecta_disease" cause="scaphoideus_titanus" target="vitis"/>
+      <item name="septoria_blotch" parent="fungus_disease" cause="fungus" target="poa"/>
       <item name="support_issue" parent="issue"/>
       <item name="vine_mildew" parent="fungus_disease" cause="plasmopara_viticola" target="vitis"/>
       <item name="vine_powdery_mildew" parent="fungus_disease" cause="uncinula_necator" target="vitis"/>
+      <item name="wheat_powdery_mildew" parent="fungus_disease" cause="fungus" target="poa"/>
       <item name="wild_animal_ravage" parent="issue" cause="animal" target="plant"/>
       <item name="wood_leopard_moth" parent="insecta_disease" cause="zeuzera_pyrina" target="corylus"/>
       <item name="yellow_acarine" parent="insecta_disease" cause="eotetranychus_coryli" target="corylus"/>
+      <item name="yellow_rust" parent="fungus_disease" cause="fungus" target="poa"/>
     </items>
   </nomenclature>
   <nomenclature name="lands" translateable="true">

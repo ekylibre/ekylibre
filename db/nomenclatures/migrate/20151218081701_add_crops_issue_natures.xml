@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add crops issue natures">
+  <item-creation item="issue_natures#bacterial_leaf_blight" parent="bacteria_disease" target="poa"/>
+  <item-creation item="issue_natures#bacterial_streak" parent="bacteria_disease" target="poa"/>
+  <item-creation item="issue_natures#common_bunt" parent="fungus_disease" cause="fungus" target="poa"/>
+  <item-creation item="issue_natures#fusarium_head_blight" parent="fungus_disease" cause="fungus" target="poa"/>
+  <item-creation item="issue_natures#black_rust" parent="fungus_disease" cause="fungus" target="poa"/>
+  <item-creation item="issue_natures#yellow_rust" parent="fungus_disease" cause="fungus" target="poa"/>
+  <item-creation item="issue_natures#wheat_powdery_mildew" parent="fungus_disease" cause="fungus" target="poa"/>
+  <item-creation item="issue_natures#septoria_blotch" parent="fungus_disease" cause="fungus" target="poa"/>
+</migration>

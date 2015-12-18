@@ -1831,10 +1831,14 @@ eng:
         anthracnose: "Anthracnose"                         #< fungus_disease
         aphid: "Aphid"                                     #< insecta_disease
         bacteria_disease: "Bacteria disease"               #< disease
+        bacterial_leaf_blight: "Bacterial leaf blight"     #< bacteria_disease
+        bacterial_streak: "Bacterial streak"               #< bacteria_disease
         bacteriosis: "Bacteriosis"                         #< bacteria_disease
+        black_rust: "Black rust"                           #< fungus_disease
         chenopodium_album: "Chenopodium album"             #< plant_disease
         climate_issue: "Climate issue"                     #< issue
         codling_moth: "Codling moth"                       #< insecta_disease
+        common_bunt: "Common bunt"                         #< fungus_disease
         cough: "Cough"                                     #< disease
         croesus_septentrionalis: "Croesus septentrionalis" #< insecta_disease
         defoliant_caterpillar: "Defoliant caterpillar"     #< insecta_disease
@@ -1851,6 +1855,7 @@ eng:
         flooding: "Flooding"                               #< climate_issue
         fomitiporia: "Fomitiporia"                         #< fungus_disease
         fungus_disease: "Fungus disease"                   #< disease
+        fusarium_head_blight: "Fusarium head blight"       #< fungus_disease
         grapevine_yellows: "Grapevine yellows"             #< bacteria_disease
         husk_fly: "Husk fly"                               #< insecta_disease
         insecta_disease: "Insecta disease"                 #< disease
@@ -1870,12 +1875,15 @@ eng:
         respiratory_problem: "Respiratory problem"         #< disease
         scale_insect: "Scale insect"                       #< insecta_disease
         scaphoideus_titanus_leafhopper: "Scaphoideus titanus leafhopper" #< insecta_disease
+        septoria_blotch: "Septoria blotch"                 #< fungus_disease
         support_issue: "Support issue"                     #< issue
         vine_mildew: "Vine mildew"                         #< fungus_disease
         vine_powdery_mildew: "Vine powdery mildew"         #< fungus_disease
+        wheat_powdery_mildew: "Wheat powdery mildew"       #< fungus_disease
         wild_animal_ravage: "Wild animal ravage"           #< issue
         wood_leopard_moth: "Wood leopard moth"             #< insecta_disease
         yellow_acarine: "Yellow acarine"                   #< insecta_disease
+        yellow_rust: "Yellow rust"                         #< fungus_disease
     lands:
       name: "Lands"
       items:
