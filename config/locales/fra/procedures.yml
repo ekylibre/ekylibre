@@ -117,7 +117,7 @@ fra:
     first_plant_medicine_to_spray: "Premier produit à pulvériser" #?
     first_seed_input: "Première semence" #?
     first_seed_input_to_use: "Première semence utilisée" #?
-    # food: "Food"
+    food: "Nourriture"
     food_mix: "Mélange"
     food_storage: "Stockage du mélange" #?
     forager: "Ensileuse"
@@ -264,6 +264,7 @@ fra:
   procedures:
     administrative_task: "Tâche administrative générale" #?
     all_in_one_sowing: "Semis «\_tout-en-un\_»"
+    animal_antibiotic_treatment: "Traitement antibiotique"
     animal_artificial_insemination: "Insémination articielle animale"
     animal_birth: "Naissance d’un animal" #?
     animal_group_changing: "Déplacement d'un animal"
@@ -276,6 +277,7 @@ fra:
     chaptalization: "Chaptalisation"
     chemical_weed_killing: "Désherbage chimique" #?
     complete_wine_transfer: "Transfert de vin (Complet)"
+    crop_residues_grinding: "Broyage des résidus de culture"
     cutting: "Taille"
     detach: "Détellage" #?
     detasseling: "Castration"
@@ -285,10 +287,14 @@ fra:
     double_seed_mixing: "Mélange de semences avec deux semences" #?
     double_spraying_on_cultivation: "Pulvérisation sur culture (deux spécialités)" #?
     double_spraying_on_land_parcel: "Pulvérisation sur parcelle (deux spécialités)" #?
+    egg_collecting: "Collecte d'oeufs"
     egg_production: "Production d'oeufs" #?
     enzyme_addition: "Ajout d'enzymes"
+    equipment_item_replacement: "Remplacement de pièces d'équipement"
     fermentation: "Fermentation"
+    field_plant_sorting: "Tri au champ"
     filling: "Remplissage" #?
+    food_preparation: "Préparation des aliments"
     fuel_up: "Plein de carburant"
     grain_transport: "Transport de grain" #?
     grains_harvest: "Moisson" #?
@@ -313,14 +319,21 @@ fra:
     manual_feeding: "Alimentation manuelle"
     manual_vine_harvest: "Vendange manuelle" #?
     mecanical_vine_harvest: "Vendange mécanique" #?
+    mechanical_fertilizing: "Fertilisation mécanique"
+    mechanical_harvesting: "Récolte mécanique"
+    mechanical_planting: "Plantation mécanique"
+    milking: "Traite"
     mineral_fertilizing: "Fertilisation minérale" #?
     moving: "Déplacement" #?
     oil_replacement: "Vidange d’huile"
     organic_fertilizing: "Fertilisation organique" #?
     partial_wine_transfer: "Transfert de vin (Partiel)"
+    parturition: "Mise bas"
     pasturing: "Pâturage"
     plant_grinding: "Broyage de végétaux" #?
     plant_mowing: "Fauchage"
+    plant_mulching: "Paillage/Mulching"
+    plant_watering: "Arrosage des plants"
     plantation_unfixing: "Déchaussage"
     plants_harvest: "Récolte de plante" #?
     plastic_mulching: "Paillage plastique" #?
@@ -333,6 +346,8 @@ fra:
     silage_unload: "Alimentation d’un troupeau via désileuse"
     sowing: "Semis"
     sowing_with_insecticide_and_molluscicide: "Semis (avec insecticide et molluscicide)" #?
+    sowing_with_spraying: "Semis avec pulvérisation"
+    spraying: "Pulvérisation"
     spraying_on_cultivation: "Pulvérisation sur culture" #?
     spraying_on_land_parcel: "Pulvérisation sur parcelle" #?
     standard_enclosing: "Pose de clôture standard"
