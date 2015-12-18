@@ -22,10 +22,10 @@ module WorkingSet
         @tables[:variable_indicators_list] = indicators
       end
       if indicators = options[:frozen_indicators] || options[:default]
-        @tables[:frozen_indicators_list] = indicators
+        @tables[:frozen_indicators_list] ||= indicators
       end
       if indicators = options[:variable_indicators] || options[:default]
-        @tables[:variable_indicators_list] = indicators
+        @tables[:variable_indicators_list] ||= indicators
       end
       rewrite(@tree)
     end
