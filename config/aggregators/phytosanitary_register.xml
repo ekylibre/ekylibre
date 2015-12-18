@@ -32,7 +32,8 @@
 	            <property name="stopped_at" of="intervention" type="datetime"/>
 	            <property name="working_duration" value="intervention.working_duration.in(:second).convert(:hour).round(2).l" type="measure"/>
 	            <property name="working_area" value="intervention.working_area.in(:hectare).l" type="measure"/>
-	            <property name="doer_name" if="intervention.casts.of_generic_role('doer').first.product" value="intervention.casts.of_generic_role('doer').first.product.name"/>
+	            <variable name="doer" value="intervention.casts.of_generic_role('doer').first"/>
+	            <property name="doer_name" if="doer and doer.product" value="doer.product.name"/>
 	            <section name="issue" of="intervention.issue">
 	              <property name="id" level="api"/>
 	              <property name="name"/>

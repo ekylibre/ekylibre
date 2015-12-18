@@ -78,7 +78,7 @@
 	<field name="intervention_doer_name" class="java.lang.String">
 		<fieldDescription><![CDATA[ancestor::intervention/@doer-name]]></fieldDescription>
 	</field>
-	<field name="intervention_working_area" class="java.lang.Double">
+	<field name="intervention_working_area" class="java.lang.String">
 		<fieldDescription><![CDATA[ancestor::intervention/@working-area]]></fieldDescription>
 	</field>
 	<field name="input_quantity_in_liter" class="java.lang.Double">
