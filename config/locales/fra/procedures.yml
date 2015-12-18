@@ -147,7 +147,7 @@ fra:
     implanter: "Planteuse"
     implanter_man: "Planteur"
     implanter_tool: "Équipement de plantation"
-    insecticide: "Insecticide"
+    insecticide: "Insecticide" #?
     insecticide_to_input: "Insecticide à distribuer" #?
     inseminator: "Inséminateur"
     item: "Pièce"
@@ -170,7 +170,7 @@ fra:
     medicine_to_spray: "Traitement à pulvériser" #?
     member: "Membre" #?
     milk: "Lait"
-    molluscicide: "Molluscicide"
+    molluscicide: "Molluscicide" #?
     molluscicide_to_input: "Molluscicide à distribuer" #?
     mother: "Mère"
     mother_animal: "Mère" #?
