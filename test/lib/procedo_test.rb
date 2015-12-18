@@ -32,10 +32,19 @@ class ProcedoTest < ActiveSupport::TestCase
       parameter = invalid[:parameter]
       exception = invalid[:exception]
       "#{parameter.name.to_s.yellow} in #{parameter.procedure.name.to_s.red}:\n" \
-      "  expression: #{parameter.abilities.inspect}\n" \
+      "  expression: #{parameter.filter.inspect}\n" \
       "  exception: #{exception.message}"
     end.join("\n")
 
     assert invalids.empty?, "#{invalids.count} procedure parameters have invalid abilities:\n" + details.dig
+  end
+
+  test 'scopes' do
+    procedures = Procedo.procedures_of_category(:crop_protection)
+    assert procedures.any?, 'Category crop_protection should contains procedures'
+    [:animal_farming, :vegetal_crops].each do |family|
+      procedures = Procedo.procedures_of_activity_family(family)
+      assert procedures.any?, "Activity family #{family} should contains procedures"
+    end
   end
 end

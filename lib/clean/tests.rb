@@ -66,28 +66,26 @@ module Clean
           c << "class #{klass}"
           c << " < #{parent}" if parent
           c << "\n"
-          content = ""
+          content = ''
           yield content
           c << content.dig
-          c << "end"
+          c << 'end'
         end
       end
 
       def wrap_module(mods, &block)
         mod = mods.shift
-        content = ""
+        content = ''
         if mods.any?
           content = wrap_module(mods, &block)
         else
           yield content
         end
-        code  = "module #{mod}\n"
+        code = "module #{mod}\n"
         code << content.dig
-        code << "end"
-        return code
+        code << 'end'
+        code
       end
-
-
     end
   end
 end

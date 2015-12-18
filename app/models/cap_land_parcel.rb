@@ -58,7 +58,7 @@ class CapLandParcel < Ekylibre::Record::Base
   }
 
   scope :of_cap_statement, lambda { |cap_statement|
-    joins(:islet).where("cap_islets.cap_statement_id = ?", cap_statement.id)
+    joins(:islet).where('cap_islets.cap_statement_id = ?', cap_statement.id)
   }
 
   def to_geom

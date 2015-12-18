@@ -51,11 +51,11 @@ class CapIslet < Ekylibre::Record::Base
   scope :of_campaign, lambda { |*campaigns|
     joins(:cap_statement).merge(CapStatement.of_campaign(*campaigns))
   }
-  
+
   scope :overlaps_shape, lambda { |shape|
     where('ST_Overlaps(shape, ST_GeomFromEWKT(?))', ::Charta.new_geometry(shape).to_ewkt)
   }
-  
+
   scope :covers_shape, lambda { |shape|
     where('ST_Covers(shape, ST_GeomFromEWKT(?))', ::Charta.new_geometry(shape).to_ewkt)
   }

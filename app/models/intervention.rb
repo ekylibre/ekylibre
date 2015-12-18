@@ -101,7 +101,7 @@ class Intervention < Ekylibre::Record::Base
   scope :with_generic_cast, lambda { |role, object|
     where(id: InterventionCast.of_generic_role(role).of_actor(object).select(:intervention_id))
   }
-  
+
   scope :with_targets, lambda { |*targets|
     where(id: InterventionTarget.of_actors(targets).select(:intervention_id))
   }

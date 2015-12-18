@@ -31,10 +31,10 @@ module Backend
     def self.list_conditions
       code = ''
       code = search_conditions(campaigns: [:name], entities: [:full_name]) + " ||= []\n"
-      #code << "if current_campaign\n"
-      #code << "  c[0] << \" AND #{CapStatement.table_name}.campaign_id IN (?)\"\n"
-      #code << "  c << current_campaign.id\n"
-      #code << "end\n"
+      # code << "if current_campaign\n"
+      # code << "  c[0] << \" AND #{CapStatement.table_name}.campaign_id IN (?)\"\n"
+      # code << "  c << current_campaign.id\n"
+      # code << "end\n"
       code.c
     end
 
@@ -52,6 +52,5 @@ module Backend
       t.column :town_number
       t.column :net_surface_area
     end
-
   end
 end

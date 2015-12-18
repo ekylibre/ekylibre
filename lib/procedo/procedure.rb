@@ -22,9 +22,9 @@ module Procedo
       @optional_actions = []
       @root_group = Procedo::ParameterGroup.new(self, :root_, cardinality: 1)
       # Adds categories & action
-      options[:categories].each { |c| add_category(c) }
-      options[:mandatory_actions].each { |c| add_action(c) }
-      options[:optional_actions].each { |c| add_action(c, true) }
+      options[:categories].each { |c| add_category(c) } if options[:categories]
+      options[:mandatory_actions].each { |c| add_action(c) } if options[:mandatory_actions]
+      options[:optional_actions].each { |c| add_action(c, true) } if options[:optional_actions]
       # Compile it
       self.compile!
     end
@@ -48,7 +48,7 @@ module Procedo
 
     # Returns names of categories of procedure
     def category_names
-      @categories.map(&:name)
+      @categories.map(&:name).map(&:to_sym)
     end
 
     # Adds action to procedure
@@ -100,7 +100,7 @@ module Procedo
     end
 
     def of_category?(*categories)
-      (categorie_names & categories).any?
+      (category_names & categories).any?
     end
 
     def mandatory_actions_selection

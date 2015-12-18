@@ -78,7 +78,7 @@ class Plant < Bioproduct
     stopped_at = Date.new(campaign.harvest_year.to_f, 12, 31)
     where('born_at <= ? AND (dead_at IS NULL OR dead_at <= ?)', stopped_at, stopped_at)
   }
-  
+
   after_validation do
     # Compute population
     if initial_shape && nature

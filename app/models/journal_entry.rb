@@ -227,7 +227,7 @@ class JournalEntry < Ekylibre::Record::Base
   end
 
   def main_bank_statement_number
-    self.bank_statement.first.number if self.bank_statement.count > 0
+    bank_statement.first.number if bank_statement.count > 0
   end
 
   # determines if the entry is balanced or not.
