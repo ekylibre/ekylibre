@@ -25,11 +25,11 @@ module Procedo
     end
 
     rule primary
-      value / numeric / function_call / reading / "(" space? expression space? ")" <Expression>
+      value / numeric / symbol / function_call / reading / "(" space? expression space? ")" <Expression>
     end
 
     rule argument
-      value / numeric / function_call / reading / expression
+      value / numeric / symbol / function_call / reading / expression
     end
 
     rule access
@@ -71,6 +71,10 @@ module Procedo
 
     rule numeric
       ([1-9] [0-9]* / "0") ("." [0-9]+)? <Numeric>
+    end
+
+    rule symbol
+      ":" [a-z] [a-z0-9]* ("_" [a-z0-9]+)* <Symbol>
     end
 
     rule function_argument

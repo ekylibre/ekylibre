@@ -475,70 +475,76 @@ module Procedo
           r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
           r0 = r2
         else
-          r3 = _nt_function_call
+          r3 = _nt_symbol
           if r3
             r3 = SyntaxNode.new(input, (index-1)...index) if r3 == true
             r0 = r3
           else
-            r4 = _nt_reading
+            r4 = _nt_function_call
             if r4
               r4 = SyntaxNode.new(input, (index-1)...index) if r4 == true
               r0 = r4
             else
-              i5, s5 = index, []
-              if (match_len = has_terminal?("(", false, index))
-                r6 = true
-                @index += match_len
-              else
-                terminal_parse_failure('"("')
-                r6 = nil
-              end
-              s5 << r6
-              if r6
-                r8 = _nt_space
-                if r8
-                  r7 = r8
-                else
-                  r7 = instantiate_node(SyntaxNode,input, index...index)
-                end
-                s5 << r7
-                if r7
-                  r9 = _nt_expression
-                  s5 << r9
-                  if r9
-                    r11 = _nt_space
-                    if r11
-                      r10 = r11
-                    else
-                      r10 = instantiate_node(SyntaxNode,input, index...index)
-                    end
-                    s5 << r10
-                    if r10
-                      if (match_len = has_terminal?(")", false, index))
-                        r12 = true
-                        @index += match_len
-                      else
-                        terminal_parse_failure('")"')
-                        r12 = nil
-                      end
-                      s5 << r12
-                    end
-                  end
-                end
-              end
-              if s5.last
-                r5 = instantiate_node(Expression,input, i5...index, s5)
-                r5.extend(Primary0)
-              else
-                @index = i5
-                r5 = nil
-              end
+              r5 = _nt_reading
               if r5
                 r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
                 r0 = r5
               else
-                @index = i0
-                r0 = nil
+                i6, s6 = index, []
+                if (match_len = has_terminal?("(", false, index))
+                  r7 = true
+                  @index += match_len
+                else
+                  terminal_parse_failure('"("')
+                  r7 = nil
+                end
+                s6 << r7
+                if r7
+                  r9 = _nt_space
+                  if r9
+                    r8 = r9
+                  else
+                    r8 = instantiate_node(SyntaxNode,input, index...index)
+                  end
+                  s6 << r8
+                  if r8
+                    r10 = _nt_expression
+                    s6 << r10
+                    if r10
+                      r12 = _nt_space
+                      if r12
+                        r11 = r12
+                      else
+                        r11 = instantiate_node(SyntaxNode,input, index...index)
+                      end
+                      s6 << r11
+                      if r11
+                        if (match_len = has_terminal?(")", false, index))
+                          r13 = true
+                          @index += match_len
+                        else
+                          terminal_parse_failure('")"')
+                          r13 = nil
+                        end
+                        s6 << r13
+                      end
+                    end
+                  end
+                end
+                if s6.last
+                  r6 = instantiate_node(Expression,input, i6...index, s6)
+                  r6.extend(Primary0)
+                else
+                  @index = i6
+                  r6 = nil
+                end
+                if r6
+                  r6 = SyntaxNode.new(input, (index-1)...index) if r6 == true
+                  r0 = r6
+                else
+                  @index = i0
+                  r0 = nil
+                end
               end
             end
           end
@@ -572,23 +578,29 @@ module Procedo
           r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
           r0 = r2
         else
-          r3 = _nt_function_call
+          r3 = _nt_symbol
           if r3
             r3 = SyntaxNode.new(input, (index-1)...index) if r3 == true
             r0 = r3
           else
-            r4 = _nt_reading
+            r4 = _nt_function_call
             if r4
               r4 = SyntaxNode.new(input, (index-1)...index) if r4 == true
               r0 = r4
             else
-              r5 = _nt_expression
+              r5 = _nt_reading
               if r5
                 r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
                 r0 = r5
               else
-                @index = i0
-                r0 = nil
+                r6 = _nt_expression
+                if r6
+                  r6 = SyntaxNode.new(input, (index-1)...index) if r6 == true
+                  r0 = r6
+                else
+                  @index = i0
+                  r0 = nil
+                end
               end
             end
           end
@@ -1403,6 +1415,126 @@ module Procedo
       end
 
       node_cache[:numeric][start_index] = r0
+
+      r0
+    end
+
+    module Symbol0
+    end
+
+    module Symbol1
+    end
+
+    def _nt_symbol
+      start_index = index
+      if node_cache[:symbol].has_key?(index)
+        cached = node_cache[:symbol][index]
+        if cached
+          node_cache[:symbol][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          @index = cached.interval.end
+        end
+        return cached
+      end
+
+      i0, s0 = index, []
+      if (match_len = has_terminal?(":", false, index))
+        r1 = true
+        @index += match_len
+      else
+        terminal_parse_failure('":"')
+        r1 = nil
+      end
+      s0 << r1
+      if r1
+        if has_terminal?(@regexps[gr = '\A[a-z]'] ||= Regexp.new(gr), :regexp, index)
+          r2 = true
+          @index += 1
+        else
+          terminal_parse_failure('[a-z]')
+          r2 = nil
+        end
+        s0 << r2
+        if r2
+          s3, i3 = [], index
+          loop do
+            if has_terminal?(@regexps[gr = '\A[a-z0-9]'] ||= Regexp.new(gr), :regexp, index)
+              r4 = true
+              @index += 1
+            else
+              terminal_parse_failure('[a-z0-9]')
+              r4 = nil
+            end
+            if r4
+              s3 << r4
+            else
+              break
+            end
+          end
+          r3 = instantiate_node(SyntaxNode,input, i3...index, s3)
+          s0 << r3
+          if r3
+            s5, i5 = [], index
+            loop do
+              i6, s6 = index, []
+              if (match_len = has_terminal?("_", false, index))
+                r7 = true
+                @index += match_len
+              else
+                terminal_parse_failure('"_"')
+                r7 = nil
+              end
+              s6 << r7
+              if r7
+                s8, i8 = [], index
+                loop do
+                  if has_terminal?(@regexps[gr = '\A[a-z0-9]'] ||= Regexp.new(gr), :regexp, index)
+                    r9 = true
+                    @index += 1
+                  else
+                    terminal_parse_failure('[a-z0-9]')
+                    r9 = nil
+                  end
+                  if r9
+                    s8 << r9
+                  else
+                    break
+                  end
+                end
+                if s8.empty?
+                  @index = i8
+                  r8 = nil
+                else
+                  r8 = instantiate_node(SyntaxNode,input, i8...index, s8)
+                end
+                s6 << r8
+              end
+              if s6.last
+                r6 = instantiate_node(SyntaxNode,input, i6...index, s6)
+                r6.extend(Symbol0)
+              else
+                @index = i6
+                r6 = nil
+              end
+              if r6
+                s5 << r6
+              else
+                break
+              end
+            end
+            r5 = instantiate_node(SyntaxNode,input, i5...index, s5)
+            s0 << r5
+          end
+        end
+      end
+      if s0.last
+        r0 = instantiate_node(Symbol,input, i0...index, s0)
+        r0.extend(Symbol1)
+      else
+        @index = i0
+        r0 = nil
+      end
+
+      node_cache[:symbol][start_index] = r0
 
       r0
     end

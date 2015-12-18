@@ -44,6 +44,7 @@ module Procedo
     class Self < Base; end
     class Value < Base; end
     class Numeric < Base; end
+    class Symbol < Base; end
 
     class << self
       def parse(text, options = {})
