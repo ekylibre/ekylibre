@@ -5,5 +5,5 @@
         %i
       = cell[:type].tl
     - cell[:options] ||= {}
-    .cell-content{data: {cell: url_for((cell[:options][:params] || {}).merge(controller: "backend/cells/#{cell[:type]}_cells", action: :show))}}
+    = cell(cell[:type], { params: cell[:options][:params] }, class: 'cell-content')
     .cell-bottom

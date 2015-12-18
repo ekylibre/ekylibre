@@ -37,9 +37,16 @@ module Backend::BeehiveHelper
   end
 
   # Permits to display cell content independently
-  def cell(type, options = {})
+  def cell(type, options = {}, html_options = {})
     url = options[:params] || {}
-    content_tag(:div, nil, data: { cell: url_for(url.merge(controller: "backend/cells/#{type}_cells", action: :show)) })
+    content_tag(:div, nil, html_options.merge(
+                  data: {
+                    cell: url_for(url.merge(controller: "backend/cells/#{type}_cells", action: :show)),
+                    cell_empty_message: :no_data.tl,
+                    cell_error_message: :internal_error.tl
+                  }
+                )
+               )
   end
 
   class Beehive

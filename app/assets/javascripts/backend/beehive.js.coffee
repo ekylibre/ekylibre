@@ -156,28 +156,30 @@
     # Initialize cells loading asynchronously their contents
     $("*[data-cell]").each (index) ->
       element = $(this)
-      cell = element.closest("*[data-beehive-cell]")
-      unless cell.length
-        cell = element
-      cell.addClass("loading")
+      beehive_cell = element.closest("*[data-beehive-cell]")
+      unless beehive_cell.length
+        beehive_cell = element
+      beehive_cell.addClass("loading")
       element.html("<i class='cell-indicator'></i>")
       $.ajax
         url: element.data("cell")
         dataType: "html"
         success: (data, status, request) ->
-          cell.removeClass("loading")
-          if $(data).hasClass 'no-data'
-            cell.find('.cell-content').append(data)
-            cell.addClass("blank")
+          beehive_cell.removeClass("loading")
+          # if $(data).hasClass 'no-data'
+          #   beehive_cell.find('.cell-content').append(data)
+          if $.isBlank(data)
+            beehive_cell.addClass("blank")
+            element.append($("<p class='message'>#{element.data('cell-empty-message')}</p>"))
             element.trigger('cell:empty')
           else
             element.html(data)
             element.trigger('cell:load')
         error: (request, status, error) ->
           console.error("Error while retrieving #{element.data('cell')} cell content: #{status} #{error}")
-          cell.removeClass("loading")
-          element.append(request.responseText)
-          cell.addClass("errored")
+          beehive_cell.removeClass("loading")
+          beehive_cell.addClass("errored")
+          element.append($("<p class='message'>#{element.data('cell-error-message')}</p>"))
           element.trigger('cell:error')
 
   true

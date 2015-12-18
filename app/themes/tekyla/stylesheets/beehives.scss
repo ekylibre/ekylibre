@@ -114,7 +114,7 @@ $configuring-min-height: 400px;
       }
 
       &.errored {
-        > .cell-inner > .cell-content > .internal-error {
+        > .cell-inner > .cell-content > .message {
           @include text-error-indicator;
         }
 
@@ -124,7 +124,7 @@ $configuring-min-height: 400px;
       }
 
       &.blank {
-        > .cell-inner > .cell-content > .no-data {
+        > .cell-inner > .cell-content > .message {
           @include text-null-indicator;
         }
         > .cell-inner > .cell-content > .cell-indicator {
