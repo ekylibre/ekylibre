@@ -14,7 +14,7 @@
         <handler indicator="population"/>
         <handler indicator="net_mass" unit="ton" to="population" backward="value * self..net_mass(ton)" forward="value / self..net_mass(ton)"/>
         <handler indicator="net_volume" unit="cubic_meter" to="population" backward="value * self..net_volume(cubic_meter)" forward="value / self..net_volume(cubic_meter)"/>
-        <handler name="dry_matter_mass_area_density" indicator="mass_area_density" unit="ton_per_hectare" to="population" backward="(value * self..net_mass(ton)) / sum(land_parcel, :net_surface_area, :hectare)" forward="(value * sum(land_parcel, :net_surface_area, :hectare) / self..net_mass(ton)"/>
+        <handler name="dry_matter_mass_area_density" indicator="mass_area_density" unit="ton_per_hectare" to="population" backward="(value * self..net_mass(ton)) / sum(cultivation, :net_surface_area, :hectare)" forward="(value * sum(cultivation, :net_surface_area, :hectare) / self..net_mass(ton))"/>
       </parameter>
     </parameters>
   </procedure>
