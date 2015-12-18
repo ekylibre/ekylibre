@@ -18,6 +18,8 @@
 #
 
 require 'test_helper'
-class Backend::InventoriesControllerTest < ActionController::TestCase
-  test_restfully_all_actions reflect: :touch, refresh: :touch
+module Backend
+  class InventoriesControllerTest < ActionController::TestCase
+    test_restfully_all_actions reflect: :touch, refresh: :touch
+  end
 end

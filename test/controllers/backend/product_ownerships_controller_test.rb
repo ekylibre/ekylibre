@@ -1,5 +1,7 @@
 require 'test_helper'
 
-class Backend::ProductOwnershipsControllerTest < ActionController::TestCase
-  test_restfully_all_actions
+module Backend
+  class ProductOwnershipsControllerTest < ActionController::TestCase
+    test_restfully_all_actions
+  end
 end

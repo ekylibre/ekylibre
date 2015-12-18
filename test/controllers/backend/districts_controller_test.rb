@@ -18,6 +18,8 @@
 #
 
 require 'test_helper'
-class Backend::DistrictsControllerTest < ActionController::TestCase
-  test_restfully_all_actions show: :redirected_get
+module Backend
+  class DistrictsControllerTest < ActionController::TestCase
+    test_restfully_all_actions show: :redirected_get
+  end
 end

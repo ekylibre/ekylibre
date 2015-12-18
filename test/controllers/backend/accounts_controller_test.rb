@@ -18,6 +18,8 @@
 #
 
 require 'test_helper'
-class Backend::AccountsControllerTest < ActionController::TestCase
-  test_restfully_all_actions mark: :show, unmark: :touch, load: :index
+module Backend
+  class AccountsControllerTest < ActionController::TestCase
+    test_restfully_all_actions mark: :show, unmark: :touch, load: :index
+  end
 end

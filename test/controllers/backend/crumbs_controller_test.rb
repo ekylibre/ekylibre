@@ -1,4 +1,6 @@
 require 'test_helper'
-class Backend::CrumbsControllerTest < ActionController::TestCase
-  test_restfully_all_actions convert: :touch
+module Backend
+  class CrumbsControllerTest < ActionController::TestCase
+    test_restfully_all_actions convert: :touch
+  end
 end

@@ -18,6 +18,8 @@
 #
 
 require 'test_helper'
-class Backend::SettingsControllerTest < ActionController::TestCase
-  test_restfully_all_actions edit: :index, except: [:update]
+module Backend
+  class SettingsControllerTest < ActionController::TestCase
+    test_restfully_all_actions edit: :index, except: [:update]
+  end
 end

@@ -1,4 +1,8 @@
 require 'test_helper'
-class Backend::Cells::LastProductsCellsControllerTest < ActionController::TestCase
-  test_restfully_all_actions
+module Backend
+  module Cells
+    class LastProductsCellsControllerTest < ActionController::TestCase
+      test_restfully_all_actions
+    end
+  end
 end

@@ -1,4 +1,6 @@
 require 'test_helper'
-class Backend::CapIsletsControllerTest < ActionController::TestCase
-  test_restfully_all_actions
+module Backend
+  class CapIsletsControllerTest < ActionController::TestCase
+    test_restfully_all_actions
+  end
 end

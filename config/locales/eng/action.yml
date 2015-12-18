@@ -1024,7 +1024,7 @@ eng:
     destroy: "Destroy"
     destroyed_at_by: "Destroyed at %{at} by %{author}"
     destroyed_by_ago: "Destroyed by %{author} %{when}"
-    detail: "Detail"
+    detail: "Detail" #?
     details: "Details"
     direct_margin: "Direct margin" #?!
     discount: "Discount (%)" #?

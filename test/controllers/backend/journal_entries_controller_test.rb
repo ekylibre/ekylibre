@@ -18,6 +18,8 @@
 #
 
 require 'test_helper'
-class Backend::JournalEntriesControllerTest < ActionController::TestCase
-  test_restfully_all_actions new: { journal_id: identify(:journals_001) }, update: { items: { 0 => { account_id: identify(:accounts_001), name: 'Test' }, 1 => { account_id: identify(:accounts_002), name: 'Test' } } }
+module Backend
+  class JournalEntriesControllerTest < ActionController::TestCase
+    test_restfully_all_actions new: { journal_id: identify(:journals_001) }, update: { items: { 0 => { account_id: identify(:accounts_001), name: 'Test' }, 1 => { account_id: identify(:accounts_002), name: 'Test' } } }
+  end
 end

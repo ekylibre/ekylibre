@@ -18,6 +18,8 @@
 #
 
 require 'test_helper'
-class Backend::EntityAddressesControllerTest < ActionController::TestCase
-  test_restfully_all_actions show: :redirected_get, index: :redirect
+module Backend
+  class EntityAddressesControllerTest < ActionController::TestCase
+    test_restfully_all_actions show: :redirected_get, index: :redirect
+  end
 end

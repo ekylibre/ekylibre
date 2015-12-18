@@ -18,6 +18,8 @@
 #
 
 require 'test_helper'
-class Backend::BuildingsControllerTest < ActionController::TestCase
-  test_restfully_all_actions destroy: { fixture: 13 }
+module Backend
+  class BuildingsControllerTest < ActionController::TestCase
+    test_restfully_all_actions destroy: { fixture: 13 }
+  end
 end

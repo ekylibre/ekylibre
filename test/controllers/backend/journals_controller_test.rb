@@ -18,6 +18,8 @@
 #
 
 require 'test_helper'
-class Backend::JournalsControllerTest < ActionController::TestCase
-  test_restfully_all_actions close: :get_and_post, reopen: :get_and_post
+module Backend
+  class JournalsControllerTest < ActionController::TestCase
+    test_restfully_all_actions close: :get_and_post, reopen: :get_and_post
+  end
 end

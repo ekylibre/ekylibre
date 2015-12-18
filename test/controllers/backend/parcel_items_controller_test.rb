@@ -17,6 +17,8 @@
 #
 
 require 'test_helper'
-class Backend::ParcelItemsControllerTest < ActionController::TestCase
-  test_restfully_all_actions new: { mode: :index_xhr, params: { variant_id: identify(:product_nature_variants_001), parcel_id: identify(:parcels_001) } }
+module Backend
+  class ParcelItemsControllerTest < ActionController::TestCase
+    test_restfully_all_actions new: { mode: :index_xhr, params: { variant_id: identify(:product_nature_variants_001), parcel_id: identify(:parcels_001) } }
+  end
 end

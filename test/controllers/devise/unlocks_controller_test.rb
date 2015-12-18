@@ -1,3 +1,5 @@
 require 'test_helper'
-class Devise::UnlocksControllerTest < ActionController::TestCase
+module Devise
+  class UnlocksControllerTest < ActionController::TestCase
+  end
 end

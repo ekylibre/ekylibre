@@ -16,12 +16,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::<%= controller_class_name -%>Controller < Backend::BaseController
-  manage_restfully
+module Backend
+  class <%= controller_class_name -%>Controller < Backend::BaseController
+    manage_restfully
 
-  unroll
+    unroll
 
-  list do |t|
-    t.column :name, url: true
+    list do |t|
+      t.edit
+      t.destroy
+      t.column :name, url: true
+    end
   end
 end

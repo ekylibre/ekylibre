@@ -1,4 +1,8 @@
 require 'test_helper'
-class Pasteque::V5::CashMvtsControllerTest < ActionController::TestCase
-  # test_restfully_pasteque_actions
+module Pasteque
+  module V5
+    class CashMvtsControllerTest < ActionController::TestCase
+      # test_restfully_pasteque_actions
+    end
+  end
 end

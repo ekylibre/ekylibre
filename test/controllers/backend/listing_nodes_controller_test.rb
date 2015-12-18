@@ -18,6 +18,8 @@
 #
 
 require 'test_helper'
-class Backend::ListingNodesControllerTest < ActionController::TestCase
-  test_restfully_all_actions new: { mode: :index_xhr, params: { parent_id: identify(:listing_nodes_001) } }, edit: :show_xhr
+module Backend
+  class ListingNodesControllerTest < ActionController::TestCase
+    test_restfully_all_actions new: { mode: :index_xhr, params: { parent_id: identify(:listing_nodes_001) } }, edit: :show_xhr
+  end
 end

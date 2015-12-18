@@ -1,3 +1,5 @@
 require 'test_helper'
-class Backend::ExportsControllerTest < ActionController::TestCase
+module Backend
+  class ExportsControllerTest < ActionController::TestCase
+  end
 end

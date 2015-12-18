@@ -1,13 +1,15 @@
 require 'test_helper'
-class Backend::SensorsControllerTest < ActionController::TestCase
-  test_restfully_all_actions except: [:detail, :models]
+module Backend
+  class SensorsControllerTest < ActionController::TestCase
+    test_restfully_all_actions except: [:detail, :models]
 
-  test 'retrieving models' do
-    get :models, format: :json
-    get :models, vendor_euid: :openweathermap, format: :json
+    test 'retrieving models' do
+      get :models, format: :json
+      get :models, vendor_euid: :openweathermap, format: :json
+    end
+
+    # test "retrieving detail" do
+    #   get :detail, vendor_euid: :openweathermap, model_euid: :virtual_station, format: :js
+    # end
   end
-
-  # test "retrieving detail" do
-  #   get :detail, vendor_euid: :openweathermap, model_euid: :virtual_station, format: :js
-  # end
 end

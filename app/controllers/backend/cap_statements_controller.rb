@@ -52,6 +52,6 @@ module Backend
       t.column :town_number
       t.column :net_surface_area
     end
-    
+
   end
 end

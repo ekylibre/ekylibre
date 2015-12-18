@@ -23,7 +23,7 @@
             %span.value= resource.declarant.full_name
       - c.cobble(:cap_islets) do
         = cobble_list(:cap_islets)
-        
+
   - if cap_land_parcels = CapLandParcel.of_cap_statement(resource).any?
     = v.face :map do
       :ruby

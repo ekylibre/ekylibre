@@ -18,6 +18,8 @@
 #
 
 require 'test_helper'
-class Backend::DocumentTemplatesControllerTest < ActionController::TestCase
-  test_restfully_all_actions show: :redirected_get
+module Backend
+  class DocumentTemplatesControllerTest < ActionController::TestCase
+    test_restfully_all_actions show: :redirected_get
+  end
 end

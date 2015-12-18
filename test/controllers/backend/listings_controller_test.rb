@@ -18,10 +18,12 @@
 #
 
 require 'test_helper'
-class Backend::ListingsControllerTest < ActionController::TestCase
-  setup do
-    ListingNode.rebuild!
-  end
+module Backend
+  class ListingsControllerTest < ActionController::TestCase
+    setup do
+      ListingNode.rebuild!
+    end
 
-  test_restfully_all_actions except: [:mail, :extract]
+    test_restfully_all_actions except: [:mail, :extract]
+  end
 end

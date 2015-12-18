@@ -1,4 +1,6 @@
 require 'test_helper'
-class Backend::ManureManagementPlansControllerTest < ActionController::TestCase
-  test_restfully_all_actions
+module Backend
+  class ManureManagementPlansControllerTest < ActionController::TestCase
+    test_restfully_all_actions
+  end
 end

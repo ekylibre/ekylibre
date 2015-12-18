@@ -1,3 +1,5 @@
 require 'test_helper'
-class Devise::ConfirmationsControllerTest < ActionController::TestCase
+module Devise
+  class ConfirmationsControllerTest < ActionController::TestCase
+  end
 end

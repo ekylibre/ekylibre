@@ -1,3 +1,5 @@
 require 'test_helper'
-class Devise::SessionsControllerTest < ActionController::TestCase
+module Devise
+  class SessionsControllerTest < ActionController::TestCase
+  end
 end
