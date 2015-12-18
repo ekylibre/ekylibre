@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="phytosanitary_register_list" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.2100000000000002"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="295"/>
+	<property name="ireport.y" value="465"/>
 	<template><![CDATA["/home/djoulin/projects/ekylibre/config/corporate_identity/reporting_style.jrtx"]]></template>
 	<style name="Title" fontName="Open Sans" fontSize="30" isBold="true" pdfFontName="Open Sans"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Open Sans" fontSize="18"/>
@@ -16,7 +16,7 @@
 		<defaultValueExpression><![CDATA["/home/djoulin/ekylibre/config/locales/fra/reporting/"]]></defaultValueExpression>
 	</parameter>
 	<queryString language="xPath">
-		<![CDATA[/campaigns/campaign/zone/support/intervention/inputs/input]]>
+		<![CDATA[/campaigns/campaign/zone/intervention/inputs/input]]>
 	</queryString>
 	<field name="campaign" class="java.lang.String">
 		<fieldDescription><![CDATA[ancestor::campaign/@name]]></fieldDescription>
@@ -25,7 +25,7 @@
 		<fieldDescription><![CDATA[ancestor::campaigns/@entity-name]]></fieldDescription>
 	</field>
 	<field name="plant_area" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::zone/@net-surface-area-in-hectare]]></fieldDescription>
+		<fieldDescription><![CDATA[ancestor::zone/@net-surface-area]]></fieldDescription>
 	</field>
 	<field name="plant_name" class="java.lang.String">
 		<fieldDescription><![CDATA[ancestor::zone/@name]]></fieldDescription>
@@ -85,7 +85,7 @@
 		<fieldDescription><![CDATA[quantity-in-liter]]></fieldDescription>
 	</field>
 	<field name="plant_cluster_pac_number" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::zone/@clusters-work-number]]></fieldDescription>
+		<fieldDescription><![CDATA[ancestor::zone/@islet-number]]></fieldDescription>
 	</field>
 	<field name="plant_cultivable_zone" class="java.lang.String">
 		<fieldDescription><![CDATA[ancestor::zone/@work-number]]></fieldDescription>
@@ -98,6 +98,15 @@
 	</field>
 	<field name="intervention_url" class="java.lang.String">
 		<fieldDescription><![CDATA[ancestor::intervention/@url]]></fieldDescription>
+	</field>
+	<field name="issue_name" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::intervention/issue/@name]]></fieldDescription>
+	</field>
+	<field name="cultivable_zone_uuid" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::zone/@uuid]]></fieldDescription>
+	</field>
+	<field name="issue_observed_at" class="java.util.Date">
+		<fieldDescription><![CDATA[ancestor::intervention/issue/@observed-at]]></fieldDescription>
 	</field>
 	<sortField name="campaign" order="Descending"/>
 	<sortField name="plant_cultivable_zone"/>
@@ -161,7 +170,7 @@
 					<textFieldExpression><![CDATA[$F{plant_variant_name}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement style="label" x="316" y="59" width="46" height="22" uuid="36931cf2-a5e2-44f0-acf1-45084b45ad25"/>
+					<reportElement style="label" x="281" y="59" width="46" height="32" uuid="36931cf2-a5e2-44f0-acf1-45084b45ad25"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Open Sans" size="10"/>
 					</textElement>
@@ -198,7 +207,7 @@
 					<text><![CDATA[Fin]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="table-th" x="138" y="191" width="49" height="53" uuid="904053d0-5030-49d6-93f2-1d9c22f92b19"/>
+					<reportElement style="table-th" x="138" y="191" width="59" height="53" uuid="904053d0-5030-49d6-93f2-1d9c22f92b19"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Open Sans" size="10"/>
 					</textElement>
@@ -212,25 +221,11 @@
 					<text><![CDATA[Produits utilisés]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="table-th" x="440" y="209" width="49" height="35" uuid="1ee9da2e-3a36-40b7-b70a-3de8338f1b05"/>
+					<reportElement style="table-th" x="489" y="191" width="121" height="30" uuid="db9ac3a4-49a9-4973-8943-d522f70ca10b"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Open Sans" size="10"/>
 					</textElement>
-					<text><![CDATA[direct]]></text>
-				</staticText>
-				<staticText>
-					<reportElement style="table-th" x="489" y="209" width="61" height="35" uuid="8e187241-b157-4b6e-b58d-181ba9de1534"/>
-					<textElement verticalAlignment="Middle">
-						<font fontName="Open Sans" size="10"/>
-					</textElement>
-					<text><![CDATA[en litre]]></text>
-				</staticText>
-				<staticText>
-					<reportElement style="table-th" x="550" y="209" width="60" height="35" uuid="db9ac3a4-49a9-4973-8943-d522f70ca10b"/>
-					<textElement verticalAlignment="Middle">
-						<font fontName="Open Sans" size="10"/>
-					</textElement>
-					<text><![CDATA[en litre par hectare]]></text>
+					<text><![CDATA[Cible]]></text>
 				</staticText>
 				<staticText>
 					<reportElement style="table-th" x="610" y="191" width="100" height="53" uuid="2854c438-a9cc-43df-b25a-55a5925df0c6"/>
@@ -240,31 +235,31 @@
 					<text><![CDATA[Applicateur]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="table-th" x="187" y="191" width="119" height="53" uuid="b26948e4-82ea-46af-b24b-ba1b00065735"/>
+					<reportElement style="table-th" x="197" y="191" width="109" height="53" uuid="b26948e4-82ea-46af-b24b-ba1b00065735"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Open Sans" size="10"/>
 					</textElement>
 					<text><![CDATA[Type de produits]]></text>
 				</staticText>
 				<textField evaluationTime="Group" evaluationGroup="plant_group" isBlankWhenNull="true">
-					<reportElement style="base" x="362" y="59" width="102" height="22" uuid="8519eed4-bb43-45ad-bdf1-ecce2f5b4fb3"/>
+					<reportElement style="base" x="327" y="59" width="35" height="32" uuid="8519eed4-bb43-45ad-bdf1-ecce2f5b4fb3"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{plant_cluster_pac_number}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement style="label" x="316" y="81" width="46" height="44" uuid="4f8a5102-b697-4acc-98bd-976615a7d5ce"/>
+					<reportElement style="label" x="367" y="59" width="90" height="32" uuid="4f8a5102-b697-4acc-98bd-976615a7d5ce"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Open Sans" size="10"/>
 					</textElement>
 					<text><![CDATA[Parcelle culturale]]></text>
 				</staticText>
 				<textField evaluationTime="Group" evaluationGroup="plant_group" isBlankWhenNull="true">
-					<reportElement style="base" x="362" y="81" width="102" height="44" uuid="74c7d982-093d-4800-a44b-6804008111c7"/>
+					<reportElement style="base" x="457" y="59" width="68" height="32" uuid="74c7d982-093d-4800-a44b-6804008111c7"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{plant_cultivable_zone}]]></textFieldExpression>
 				</textField>
 				<rectangle radius="10">
-					<reportElement style="title" x="306" y="59" width="177" height="83" uuid="286af448-36cb-4abe-8109-e0e8fad9cf3b"/>
+					<reportElement style="title" x="277" y="59" width="258" height="81" uuid="286af448-36cb-4abe-8109-e0e8fad9cf3b"/>
 				</rectangle>
 				<rectangle radius="10">
 					<reportElement style="title" x="0" y="59" width="250" height="81" uuid="ed954d71-6d69-4db5-8a9f-dcbaeaf81679"/>
@@ -274,17 +269,45 @@
 					<text><![CDATA[Interventions]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="table-th" x="440" y="191" width="170" height="18" uuid="0cb7b757-4d7c-4d9b-9014-301f24a9a992"/>
+					<reportElement style="table-th" x="440" y="191" width="49" height="53" uuid="0cb7b757-4d7c-4d9b-9014-301f24a9a992"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Open Sans" size="10"/>
 					</textElement>
-					<text><![CDATA[quantité utilisée]]></text>
+					<text><![CDATA[Quantité utilisée]]></text>
 				</staticText>
 				<textField isBlankWhenNull="true">
 					<reportElement style="sub-title" x="689" y="0" width="97" height="24" uuid="a18ae065-6e64-4fce-8080-14b96868252e"/>
-					<textElement verticalAlignment="Middle"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{work_number}]]></textFieldExpression>
 				</textField>
+				<textField evaluationTime="Group" evaluationGroup="plant_group" isBlankWhenNull="true">
+					<reportElement style="base" x="550" y="26" width="236" height="16" uuid="3fbd382b-161e-44fc-9a63-8a542f521a10"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cultivable_zone_uuid}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement style="label" x="281" y="103" width="46" height="32" uuid="2f67ee0d-4946-46ee-8b19-3b940060a9aa"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Open Sans" size="10"/>
+					</textElement>
+					<text><![CDATA[Date de semis]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="label" x="394" y="103" width="46" height="32" uuid="9f7d8820-241f-4c2a-944d-7ff180dc441c"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Open Sans" size="10"/>
+					</textElement>
+					<text><![CDATA[Date de récolte]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="table-th" x="489" y="221" width="121" height="23" uuid="b8dd8c2e-cafb-4173-b3eb-d3501f2ccc76"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Open Sans" size="10"/>
+					</textElement>
+					<text><![CDATA[date d'observation]]></text>
+				</staticText>
 			</band>
 		</groupHeader>
 		<groupFooter>
@@ -341,8 +364,8 @@
 				<reportElement style="table-td" x="70" y="0" width="68" height="50" uuid="0045af3e-d7fe-4832-9420-5843e022bc4c"/>
 				<textFieldExpression><![CDATA[$F{intervention_stopped_at}]]></textFieldExpression>
 			</textField>
-			<textField pattern="###0.00 ha" isBlankWhenNull="true">
-				<reportElement style="table-td" x="138" y="0" width="49" height="50" uuid="9233a36c-8b51-43d9-9a30-3e561ac7a3e6"/>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement style="table-td" x="138" y="0" width="59" height="50" uuid="9233a36c-8b51-43d9-9a30-3e561ac7a3e6"/>
 				<textFieldExpression><![CDATA[$F{intervention_working_area}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
@@ -353,20 +376,16 @@
 				<reportElement style="table-td" x="440" y="0" width="49" height="50" uuid="bf628837-cd2a-477d-a345-d9dc292f4d87"/>
 				<textFieldExpression><![CDATA[$F{input_quantity}]]></textFieldExpression>
 			</textField>
-			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement style="table-td" x="489" y="0" width="61" height="50" uuid="5c089255-6d22-4181-a6ce-17010b3a9e0d"/>
-				<textFieldExpression><![CDATA[$F{input_quantity_in_liter}]]></textFieldExpression>
-			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement style="table-td" x="610" y="0" width="100" height="50" uuid="94b9254c-35d0-4f28-a592-00d743e7c6e9"/>
 				<textFieldExpression><![CDATA[$F{intervention_doer_name}]]></textFieldExpression>
 			</textField>
-			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement style="table-td" x="550" y="0" width="60" height="50" uuid="95c58b0d-8f95-497e-8345-5781b47ad27a"/>
-				<textFieldExpression><![CDATA[$F{input_quantity_in_liter_per_hectare}]]></textFieldExpression>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement style="table-td" x="489" y="0" width="121" height="31" uuid="95c58b0d-8f95-497e-8345-5781b47ad27a"/>
+				<textFieldExpression><![CDATA[$F{issue_name}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement style="table-td" x="187" y="0" width="119" height="50" uuid="db743646-04d7-4989-8ca2-e448925f0c48"/>
+				<reportElement style="table-td" x="197" y="0" width="109" height="50" uuid="db743646-04d7-4989-8ca2-e448925f0c48"/>
 				<textFieldExpression><![CDATA[$F{input_variant_name}]]></textFieldExpression>
 			</textField>
 			<componentElement>
@@ -375,6 +394,10 @@
 					<jr:codeExpression><![CDATA[$F{intervention_url}]]></jr:codeExpression>
 				</jr:DataMatrix>
 			</componentElement>
+			<textField pattern="dd/MM/yyyy HH.mm" isBlankWhenNull="true">
+				<reportElement style="table-td" x="489" y="31" width="121" height="19" uuid="9a1687de-5bcb-47fc-a73d-40c4c06efdc0"/>
+				<textFieldExpression><![CDATA[$F{issue_observed_at}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<pageFooter>
