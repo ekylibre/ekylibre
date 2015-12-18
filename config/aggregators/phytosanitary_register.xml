@@ -12,61 +12,44 @@
         <property name="id" of="campaign" level="api"/>
         <title name="name" of="campaign"/>
         <property name="harvest_year" of="campaign"/>
-        <!-- looking for all Support in current campaign -->
-        <sections for="zone" in="CultivableZone.of_campaign(campaign)" of-type="record">
+        <!-- looking for all CultivableZone -->
+        <sections for="zone" in="CultivableZone.all" of-type="record">
           <title name="name" of="zone"/>
+          <variable name="targets" value="Product.of_variety(:plant, :land_parcel).overlaps_shape(zone.shape)"/>
           <property name="work_number" of="zone"/>
-          <property name="clusters_work_number" of="zone"/>
-          <property name="soil_varieties" of="zone"/>
-          <property name="net_surface_area" value="net_surface_area.to_d(:hectare)" of="zone" type="measure"/>
+          <property name="uuid" of="zone"/>
+          <property name="islet_number" if="CapIslet.overlaps_shape(zone.shape).of_campaign(campaign).first" value="CapIslet.overlaps_shape(zone.shape).of_campaign(campaign).first.islet_number"/>
+          <property name="net_surface_area" value="zone.net_surface_area.l" type="measure"/>
           <property name="net_surface_area_in_hectare" value="net_surface_area.to_d(:hectare)" of="zone" type="measure" level="api"/>
           <property name="id" of="zone" level="api"/>
-          <property name="shape_svg" value="zone.shape_svg(srid: 2154)" type="svg" level="api"/>
-          <!-- looking for all Production in current cultivable_zone and campaign -->
-          <sections for="support" in="zone.supports.of_campaign(campaign)" of-type="record">
-          	<title name="storage_name" of="support"/>
-            <property name="variant_name" value="support.production.variant_name"/>
-            <property name="variant_variety" value="support.production.variant_variety"/>
-            <property name="variant_variety_label" if="support.production" value="support.production.variant_variety_label"/>
-            <property name="implanted_at" if="support.implanted_at" value="support.implanted_at" type="datetime"/>
-            <property name="harvested_at" if="support.harvested_at" value="support.harvested_at" type="datetime"/>
-            <property name="grains_yield" if="support.grains_yield(:quintal)" value="support.grains_yield(:quintal).round(2)" type="measure"/>
-            <property name="vine_yield" if="support.vine_yield(:hectoliter)" value="support.vine_yield(:hectoliter).round(2)" type="measure"/>
-            <property name="provisional_yield" if="support.get(:mass_area_yield)" value="support.get(:mass_area_yield).l" type="measure"/>
-	          <sections for="intervention" in="support.interventions.real.where(state: 'done').of_nature(:plant_illness_treatment, :chemical_weed_killing)" of-type="record">
+          <property name="shape_svg" value="zone.to_geom.to_svg(srid: 2154)" type="svg" level="api"/>
+          <!-- looking for all Production in current cultivable_zone and campaign ## add real.where(state: 'done') when ready-->
+	          <sections for="intervention" in="Intervention.of_campaign(campaign).where(procedure_name: :spraying).with_targets(targets).reorder(:started_at)" of-type="record">
 	            <title name="name" of="intervention"/>
 	            <property name="id" of="intervention" level="api"/>
 	            <property name="url" value="&quot;#{Preference[:host]}/backend/interventions/#{intervention.id}&quot;" level="api"/>
 	            <property name="started_at" of="intervention" type="datetime"/>
 	            <property name="stopped_at" of="intervention" type="datetime"/>
-	            <property name="duration" value="((intervention.stopped_at - intervention.started_at).to_d/(60*60)).round(2)"/>
-	            <variable name="working_area" value="intervention.casts.of_generic_role('target').first.population"/>
-	            <property name="working_area" value="working_area" level="api"/>
-	            <property name="doer_name" if="intervention.casts.of_generic_role('doer').first.actor" value="intervention.casts.of_generic_role('doer').first.actor.name"/>
+	            <property name="working_duration" value="intervention.working_duration.in(:second).convert(:hour).round(2).l" type="measure"/>
+	            <property name="working_area" value="intervention.working_area.in(:hectare).l" type="measure"/>
+	            <property name="doer_name" if="intervention.casts.of_generic_role('doer').first.product" value="intervention.casts.of_generic_role('doer').first.product.name"/>
 	            <section name="issue" of="intervention.issue">
 	              <property name="id" level="api"/>
 	              <property name="name"/>
-	              <property name="observed_at"/>
+	              <property name="observed_at" type="datetime"/>
 	              <property name="state" level="api"/>
 	              <property name="description"/>
 	            </section>
 	            <matrix name="inputs" for="input" in="intervention.casts.of_generic_role('input')">
 	              <cell name="id" of="input" level="api" />
-	              <within of="input.actor">
+	              <within of="input.product">
 	                <cell name="name"/>
-	                <cell name="quantity" value="net_volume(input)" type="measure"/>
-	                <cell name="quantity" value="net_mass(input)" type="measure"/>
-	                <!-- TODO remove the 2 following lines if possible -->
-	                <cell name="quantity_in_liter" value="net_volume(input).to_d(:liter)" level="api"/>
-	                <cell name="quantity_in_kilogram" value="net_mass(input).to_d(:kilogram)" level="api"/>
-	                <cell name="quantity_in_liter_per_hectare" if="working_area != 0.00" value="net_volume(input).to_d(:liter)/working_area" level="api"/>
-	                <cell name="quantity_in_kilogram_per_hectare" if="working_area != 0.00" value="net_mass(input).to_d(:kilogram)/working_area" level="api"/>
 	                <cell name="variant_name"/>
 	                <cell name="variety" level="api"/>
 	              </within>
+	              <cell name="quantity" value="input.quantity.l" type="measure" />
 	            </matrix>
 	          </sections>
-          </sections>
         </sections>
       </sections>
     </section>

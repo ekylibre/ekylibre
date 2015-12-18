@@ -119,7 +119,7 @@ module Indicateable
         end
       end
     elsif cast_or_time.is_a?(InterventionCast)
-      if cast_or_time.actor && cast_or_time.actor.whole_indicators_list.include?(indicator.name.to_sym)
+      if cast_or_time.product && cast_or_time.product.whole_indicators_list.include?(indicator.name.to_sym)
         value = cast_or_time.send(indicator.name)
       elsif cast_or_time.parameter.new?
         unless variant = cast_or_time.variant || cast_or_time.parameter.variant(cast_or_time.intervention)

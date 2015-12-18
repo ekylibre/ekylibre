@@ -193,16 +193,16 @@ class Product < Ekylibre::Record::Base
     joins(:supports).merge(ActivityProduction.of_campaign(campaign))
   }
   scope :intersects_shape, lambda { |shape|
-    where(id: ProductReading.where('ST_Intersects(multi_polygon_value, ST_GeomFromEWKT(?))', shape.to_ewkt).select(:product_id))
+    where(id: ProductReading.where('ST_Intersects(multi_polygon_value, ST_GeomFromEWKT(?))', ::Charta.new_geometry(shape).to_ewkt).select(:product_id))
   }
   scope :within_shape, lambda { |shape|
-    where(id: ProductReading.where('ST_Within(multi_polygon_value, ST_GeomFromEWKT(?))', shape.to_ewkt).select(:product_id))
+    where(id: ProductReading.where('ST_Within(multi_polygon_value, ST_GeomFromEWKT(?))', ::Charta.new_geometry(shape).to_ewkt).select(:product_id))
   }
   scope :covers_shape, lambda { |shape|
-    where(id: ProductReading.where('ST_Covers(multi_polygon_value, ST_GeomFromEWKT(?))', shape.to_ewkt).select(:product_id))
+    where(id: ProductReading.where('ST_Covers(multi_polygon_value, ST_GeomFromEWKT(?))', ::Charta.new_geometry(shape).to_ewkt).select(:product_id))
   }
   scope :overlaps_shape, lambda { |shape|
-    where(id: ProductReading.where('ST_Overlaps(multi_polygon_value, ST_GeomFromEWKT(?))', shape.to_ewkt).select(:product_id))
+    where(id: ProductReading.where('ST_Overlaps(multi_polygon_value, ST_GeomFromEWKT(?))', ::Charta.new_geometry(shape).to_ewkt).select(:product_id))
   }
 
   # scope :saleables, -> { joins(:nature).where(:active => true, :product_natures => {:saleable => true}) }

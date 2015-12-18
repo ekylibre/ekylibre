@@ -78,6 +78,19 @@ class Plant < Bioproduct
     stopped_at = Date.new(campaign.harvest_year.to_f, 12, 31)
     where('born_at <= ? AND (dead_at IS NULL OR dead_at <= ?)', stopped_at, stopped_at)
   }
+  
+  after_validation do
+    # Compute population
+    if initial_shape && nature
+      # self.initial_shape = ::Charta.new_geometry(initial_shape).multi_polygon
+      if variable_indicators_list.include?(:net_surface_area)
+        self.read!(:net_surface_area, ::Charta.new_geometry(initial_shape).area, at: initial_born_at)
+      end
+      if variable_indicators_list.include?(:population)
+        self.initial_population = ::Charta.new_geometry(initial_shape).area / variant.net_surface_area
+      end
+    end
+  end
 
   def status
     if self.dead_at?

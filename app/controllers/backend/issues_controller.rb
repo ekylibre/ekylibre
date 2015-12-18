@@ -43,7 +43,7 @@ module Backend
       t.column :casting, hidden: true
       t.column :started_at
       t.column :stopped_at, hidden: true
-      t.column :production, url: true, hidden: true
+      t.column :actions, hidden: true
       t.status
     end
 

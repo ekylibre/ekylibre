@@ -107,6 +107,7 @@ class InterventionCast < Ekylibre::Record::Base
     where(intervention_id: InterventionTarget.select(:intervention_id).of_activity_production(production))
   }
   scope :of_actor, ->(actor) { where(product_id: actor.id) }
+  scope :of_actors, ->(actors) { where(product_id: actors.flatten.map(&:id)) }
   scope :with_actor, -> { where.not(product_id: nil) }
 
   before_validation do

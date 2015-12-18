@@ -53,7 +53,7 @@
 
           # for irrigation management
           water_concentration = []
-          water_interventions = Intervention.of_nature(:plant_irrigation).with_generic_cast(:target, p)
+          water_interventions = Intervention.where(procedure_name: :plant_irrigation).with_generic_cast(:target, p)
           for intervention in water_interventions
             for input in intervention.casts.of_role('plant_irrigation-input')
               if i = input.population / p.shape_area.to_f(:hectare)

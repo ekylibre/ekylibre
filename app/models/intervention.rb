@@ -101,6 +101,10 @@ class Intervention < Ekylibre::Record::Base
   scope :with_generic_cast, lambda { |role, object|
     where(id: InterventionCast.of_generic_role(role).of_actor(object).select(:intervention_id))
   }
+  
+  scope :with_targets, lambda { |*targets|
+    where(id: InterventionTarget.of_actors(targets).select(:intervention_id))
+  }
 
   before_validation do
     self.state ||= self.class.state.default
@@ -206,7 +210,7 @@ class Intervention < Ekylibre::Record::Base
   def working_area(unit = :hectare)
     if casts.of_generic_role(:target).any?
       return casts.of_generic_role(:target).with_actor.map do |target|
-        target.actor.net_surface_area
+        target.product.net_surface_area
       end.compact.sum.in(unit).round(2)
     end
     nil
