@@ -24,7 +24,7 @@
           <property name="id" of="zone" level="api"/>
           <property name="shape_svg" value="zone.to_geom.to_svg(srid: 2154)" type="svg" level="api"/>
           <!-- looking for all Production in current cultivable_zone and campaign ## add real.where(state: 'done') when ready-->
-	          <sections for="intervention" in="Intervention.of_campaign(campaign).where(procedure_name: :spraying).with_targets(targets).reorder(:started_at)" of-type="record">
+	          <sections for="intervention" in="Intervention.of_campaign(campaign).of_category(:crop_protection).with_targets(targets).reorder(:started_at)" of-type="record">
 	            <title name="name" of="intervention"/>
 	            <property name="id" of="intervention" level="api"/>
 	            <property name="url" value="&quot;#{Preference[:host]}/backend/interventions/#{intervention.id}&quot;" level="api"/>
