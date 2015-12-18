@@ -5,7 +5,7 @@
       <parameter name="plastic" type="input" filter="is preparation and can wrap(cultivable_zone)">
         <handler indicator="population"/>
         <handler indicator="net_length" unit="meter" if="plastic_to_mulch? &amp; plastic_to_mulch.net_length(meter) &gt;= 0.1" to="population" backward="(value / plastic_to_mulch.net_length(meter))" forward="(value * plastic_to_mulch.net_length(meter))"/>
-        <handler indicator="surface_area_percentage" unit="percent" if="land_parcel? &amp; land_parcel.net_surface_area(hectare) &gt;= 0.1 &amp; plastic_to_mulch? &amp; plastic_to_mulch.net_length(meter) &gt;= 0.1 &amp; plastic_to_mulch.width(meter) &gt;= 0.1" to="population" backward="(value * plastic_to_mulch.net_length(meter) * plastic_to_mulch.width(meter)) / land_parcel.net_surface_area(hectare)" forward="(value * land_parcel.net_surface_area(hectare)) / (plastic_to_mulch.net_length(meter) * plastic_to_mulch.width(meter))"/>
+        <handler indicator="surface_area_percentage" unit="percent" if="land_parcel? &amp; land_parcel.net_surface_area(hectare) &gt;= 0.1 &amp; plastic_to_mulch? &amp; plastic_to_mulch.net_length(meter) &gt;= 0.1 &amp; plastic_to_mulch.width(meter) &gt;= 0.1" to="population" backward="(value * plastic_to_mulch.net_length(meter) * plastic_to_mulch.width(meter)) / sum(land_parcel, :net_surface_area, :hectare)" forward="(value * sum(land_parcel, :net_surface_area, :hectare)) / (plastic_to_mulch.net_length(meter) * plastic_to_mulch.width(meter))"/>
       </parameter>
       <parameter name="implanter" type="tool" filter="can seat(canvas_cover)"/>
       <parameter name="driver" type="doer" filter="can drive(tractor)"/>

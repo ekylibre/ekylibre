@@ -12,7 +12,7 @@
         <handler indicator="population"/>
         <handler indicator="net_mass" unit="ton" to="population" backward="value * self..net_mass(ton)" forward="value / self..net_mass(ton)"/>
         <handler indicator="net_volume" unit="cubic_meter" to="population" backward="value * self..net_volume(cubic_meter)" forward="value / self..net_volume(cubic_meter)"/>
-        <handler name="dry_matter_mass_area_density" indicator="mass_area_density" unit="kilogram_per_square_meter" to="population" backward="(value * self..net_mass(kilogram)) / animal_housing.net_surface_area(square_meter)" forward="(value * animal_housing.net_surface_area(square_meter)) / self..net_mass(kilogram)"/>
+        <handler name="dry_matter_mass_area_density" indicator="mass_area_density" unit="kilogram_per_square_meter" to="population" backward="(value * self..net_mass(kilogram)) / sum(animal_housing, :net_surface_area, :square_metre)" forward="(value * sum(animal_housing, :net_surface_area, :square_metre)) / self..net_mass(kilogram)"/>
       </parameter>
       <parameter name="cleaner" type="tool" filter="can clean(building_division)"/>
       <parameter name="driver" type="doer" filter="can drive(equipment) and can move"/>
