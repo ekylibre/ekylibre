@@ -311,6 +311,10 @@ module Nomen
       @items[item_name]
     end
 
+    def select(&block)
+      list.select(&block)
+    end
+
     # List all item names. Can filter on a given item name and its children
     def to_a(item_name = nil)
       if item_name.present? && @items[item_name]

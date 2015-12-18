@@ -202,37 +202,29 @@ class Activity < Ekylibre::Record::Base
     self.class.color(family, cultivation_variety)
   end
 
-  # Returns matching crop set for the given cultivation_variety
-  def crop_sets
-    return [] unless variety = Nomen::Variety[cultivation_variety]
-    crop_sets ||= Nomen::CropSet.list.select do |i|
-      i.varieties.detect do |v|
-        variety <= v
-      end
-    end
-    crop_sets.map(&:name).map(&:to_s)
-  end
-
   class << self
     # Returns a color for given family and variety
     # short-way solution, can be externalized in mid-way solution
     def color(family, variety = nil)
       colors = { gold: '#FFD700', golden_rod: '#DAA520', yellow: '#FFFF00',
-                 orange: '#FF8000', red: '#FF0000', green: '#80FF00',
-                 green_yellow: '#ADFF2F',
-                 spring_green: '#00FF7F', dark_green: '#006400', lime: '#00FF00',
-                 dark_turquoise: '#00FFFF', blue: '#0000FF', purple: '#BF00FF',
-                 gray: '#A4A4A4', slate_gray: '#708090', dark_magenta: '#8B008B', violet: '#EE82EE',
+                 orange: '#FF8000', red: '#FF0000', green: '#80DD00',
+                 green_yellow: '#ADFF2F', spring_green: '#00FF7F',
+                 dark_green: '#006400', lime: '#00FF00', dark_turquoise: '#00FFFF',
+                 blue: '#0000FF', purple: '#BF00FF', gray: '#A4A4A4',
+                 slate_gray: '#708090', dark_magenta: '#8B008B', violet: '#EE82EE',
                  teal: '#008080', fuchsia: '#FF00FF', brown: '#6A2B1A' }
       activity_family = Nomen::ActivityFamily.find(family)
       variety = Nomen::Variety.find(variety)
+      crop_sets = Nomen::CropSet.select do |i|
+        i.varieties.detect { |v| variety <= v }
+      end.map { |i| i.name.to_sym }
       return colors[:gray] unless activity_family
       if activity_family <= :vegetal_crops && variety
         # MEADOW
-        if crop_sets.include?('meadow')
+        if crop_sets.include?(:meadow)
           colors[:dark_green]
         # CEREALS
-        elsif crop_sets.include?('cereals')
+        elsif crop_sets.include?(:cereals)
           if variety <= :zea || variety <= :sorghum
             colors[:orange]
           elsif variety <= :hordeum || variety <= :avena || variety <= :secale
@@ -243,40 +235,40 @@ class Activity < Ekylibre::Record::Base
             colors[:golden_rod]
           end
         # OILSEED
-        elsif crop_sets.include?('oleaginous')
+        elsif crop_sets.include?(:oleaginous)
           colors[:green_yellow]
         # PROTEINS
-        elsif crop_sets.include?('proteaginous')
+        elsif crop_sets.include?(:proteaginous)
           colors[:teal]
         # FIBER
         elsif variety <= :linum ||
               variety <= :cannabis
           colors[:slate_gray]
         # LEGUMINOUS
-        elsif crop_sets.include?('leguminous')
+        elsif crop_sets.include?(:leguminous)
           colors[:lime]
-        elsif crop_sets.include?('vegetables')
+        elsif crop_sets.include?(:vegetables)
           colors[:red]
-        elsif crop_sets.include?('arboricultural')
+        elsif crop_sets.include?(:arboricultural)
           colors[:blue]
         # VINE
         elsif variety <= :vitaceae
           colors[:purple]
-        elsif crop_sets.include?('aromatics_and_medicinals')
+        elsif crop_sets.include?(:aromatics_and_medicinals)
           colors[:dark_turquoise]
-        elsif crop_sets.include?('tropicals')
+        elsif crop_sets.include?(:tropicals)
           colors[:fuchsia]
         elsif variety <= :nicotiana
           colors[:dark_turquoise]
         else
-          colors[:gray]
+          colors[:green]
         end
       elsif activity_family <= :animal_farming
         colors[:brown]
       elsif activity_family <= :exploitation
         colors[:brown]
       elsif activity_family <= :maintenance
-        colors[:brown]
+        colors[:blue]
       else
         colors[:gray]
       end
