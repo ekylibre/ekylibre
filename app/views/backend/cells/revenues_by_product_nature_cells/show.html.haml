@@ -9,28 +9,28 @@
     end
 
     # data for bar chart revenues by product_nature and by month
-    ProductNature.availables.find_each do |nature|
-      sale_items = SaleItem.by_product_nature(nature).between(@started_at, @stopped_at)
-      if sale_items.count > 0
-        item_h = sale_items.sums_of_periods.sort.inject({}) do |hash, pair|
-          hash[pair.expr.to_i.to_s] = pair.sum.to_d
-          hash
-        end
-        series << {type: 'column', name: nature.name, data: normalize_serie(item_h, categories.keys) }
-      end
-    end
+    #ProductNature.availables.find_each do |nature|
+    #  sale_items = SaleItem.by_product_nature(nature).between(@started_at, @stopped_at)
+    #  if sale_items.count > 0
+    #    item_h = sale_items.sums_of_periods.sort.inject({}) do |hash, pair|
+    #      hash[pair.expr.to_i.to_s] = pair.sum.to_d
+    #      hash
+    #    end
+    #    series << {type: 'column', name: nature.name, data: normalize_serie(item_h, categories.keys) }
+    #  end
+    #end
 
     # data for bar chart draft revenues by product_nature and by month
-    ProductNature.availables.find_each do |nature|
-      sale_items = SaleItem.by_product_nature(nature).estimate_between(@started_at, @stopped_at)
-      if sale_items.count > 0
-        item_h = sale_items.sums_of_periods( period: :month, column: :pretax_amount, at: "accounted_at",name: :sum).sort.inject({}) do |hash, pair|
-          hash[pair.expr.to_i.to_s] = pair.sum.to_d
-          hash
-        end
-        series << {type: 'column', name: nature.name, data: normalize_serie(item_h, categories.keys) }
-      end
-    end
+    #ProductNature.availables.find_each do |nature|
+    #  sale_items = SaleItem.by_product_nature(nature).estimate_between(@started_at, @stopped_at)
+    #  if sale_items.count > 0
+    #    item_h = sale_items.sums_of_periods( period: :month, column: :pretax_amount, at: "accounted_at",name: :sum).sort.inject({}) do |hash, pair|
+    #      hash[pair.expr.to_i.to_s] = pair.sum.to_d
+    #      hash
+    #   end
+    #    series << {type: 'column', name: nature.name, data: normalize_serie(item_h, categories.keys) }
+    #  end
+    #end
 
     # data for spline sum revenues by month
     all_sale_items = SaleItem.between(@started_at, @stopped_at)
@@ -54,15 +54,11 @@
 
     # data for pie revenues by product_nature
     data = []
-    ProductNature.availables.find_each do |nature|
-      sale_items = SaleItem.by_product_nature(nature).between(@started_at, @stopped_at)
-      if sale_items.count > 0
-        sum_revenues = sale_items.sum(:pretax_amount)
-        data << {name: nature.name, y: sum_revenues.to_s.to_f, url: backend_product_nature_path(nature)}
-      end
-    end
+    sale_items = SaleItem.between(@started_at, @stopped_at).sum(:pretax_amount)
+    data << {name: :total_pretax_revenues.tl, y: sale_items.to_s.to_f}
+    purchases_items = PurchaseItem.between(@started_at, @stopped_at).sum(:pretax_amount)
+    data << {name: :total_pretax_expenses.tl, y: purchases_items.to_s.to_f}
     series << {type: 'pie', name: :total.tl, data: data, center: [50, 50], size: 100, show_in_legend: false, data_labels: { enabled: false }}
-
 
   = column_highcharts(series, y_axis: {title: {text: :pretax_amount.tl}}, x_axis: { categories: categories.values}, legend: true)
 
