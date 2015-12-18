@@ -6,7 +6,7 @@
       <parameter name="baler_driver" type="doer" filter="can move and can drive(tractor) and can drive(baler)"/>
       <parameter name="baler" type="tool" filter="is equipment and can bunch"/>
       <parameter name="straw_to_bunch" type="input" filter="is straw"/>
-      <parameter name="straw_bales" type="output" filter="" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
+      <parameter name="straw_bales" type="output" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
         <handler indicator="population"/>
       </parameter>
     </parameters>

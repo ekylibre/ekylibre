@@ -3,7 +3,7 @@
   <procedure name="milking" categories="animal_production" actions="milking">
     <parameters>
       <parameter name="mammal_to_milk" type="target" filter="is mammalia and can produce(milk)"/>
-      <parameter name="milk" type="output" variety="milk" derivative-of="variety: mammal_to_milk" filter="is milk and derives from variety: mammal_to_milk" default-name="{{variant}} {{birth_year}}-{{birth_month}}-{{birth_day}}">
+      <parameter name="milk" type="output" variety="milk" derivative-of="variety: mammal_to_milk" filter="is milk and derives from mammalia" default-name="{{variant}} {{birth_year}}-{{birth_month}}-{{birth_day}}">
         <handler indicator="population"/>
       </parameter>
       <parameter name="caregiver" type="doer" filter="can milk(mammalia)"/>

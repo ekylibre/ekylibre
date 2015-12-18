@@ -7,7 +7,7 @@
       </parameter>
       <parameter name="container" type="tool" filter="can store(product)" default-actor="default_storage_of_support"/>
       <parameter name="doer" type="doer" filter="is worker and can move"/>
-      <parameter name="variant" type="tool" filter="is :sortable and derives from :sortable"/>
+      <parameter name="variant" type="tool" filter="is seedling"/>
     </parameters>
   </procedure>
 </procedures>

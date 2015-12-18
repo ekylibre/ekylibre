@@ -9,7 +9,7 @@
       <parameter name="adding_wine" type="input" filter="is wine and derives from vitis">
         <handler indicator="population"/>
       </parameter>
-      <parameter name="wine_blended" type="output" variety="wine" derivative-of="derivative-of: wine" filter="is wine and derives from derivative-of: wine" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" default-variant="production">
+      <parameter name="wine_blended" type="output" variety="wine" derivative-of="derivative-of: wine" filter="is wine and derives from vitis" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" default-variant="production">
         <handler indicator="population"/>
       </parameter>
       <parameter name="wine_man" type="doer" filter="is worker and can move"/>
