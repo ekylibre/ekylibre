@@ -72,7 +72,7 @@ module Backend
     # @TODO conditions: list_conditions, joins: [:production, :activity, :campaign, :support]
 
     # conditions: list_conditions,
-    list(order: { started_at: :desc }, line_class: :status) do |t|
+    list(conditions: list_conditions, order: { started_at: :desc }, line_class: :status) do |t|
       t.action :run,  if: :runnable?, method: :post, confirm: true
       t.action :edit, if: :updateable?
       t.action :destroy, if: :destroyable?
