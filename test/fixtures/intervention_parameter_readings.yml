@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: intervention_cast_readings
+# == Table: intervention_parameter_readings
 #
 #  absolute_measure_value_unit  :string
 #  absolute_measure_value_value :decimal(19, 4)
@@ -34,29 +34,29 @@
 #  indicator_datatype           :string           not null
 #  indicator_name               :string           not null
 #  integer_value                :integer
-#  intervention_cast_id         :integer          not null
 #  lock_version                 :integer          default(0), not null
 #  measure_value_unit           :string
 #  measure_value_value          :decimal(19, 4)
 #  multi_polygon_value          :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  parameter_id                 :integer          not null
 #  point_value                  :geometry({:srid=>4326, :type=>"point"})
 #  string_value                 :text
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
 #
 #
-# == Fixture: intervention_cast_readings
+# == Fixture: intervention_parameter_readings
 #
-# intervention_cast_readings_001:
+# intervention_parameter_readings_001:
 #   boolean_value: true
 #   creator: users_001
 #   indicator_datatype: "Lorem ipsum"
 #   indicator_name: "Lorem ipsum"
-#   intervention_cast: intervention_casts_001
+#   parameter: parameters_001
 #   updater: users_001
 #
 ---
-intervention_cast_readings_001:
+intervention_parameter_readings_001:
   boolean_value: false
   choice_value: nude
   created_at: 2014-11-04 18:31:37.361592000 Z
@@ -64,11 +64,11 @@ intervention_cast_readings_001:
   id: 7
   indicator_datatype: choice
   indicator_name: soil_cultural_state
-  intervention_cast_id: 32
   lock_version: 0
+  parameter_id: 32
   updated_at: 2014-11-04 18:31:37.361592000 Z
   updater_id: 1
-intervention_cast_readings_002:
+intervention_parameter_readings_002:
   boolean_value: false
   created_at: 2014-11-05 15:40:16.357769000 Z
   creator_id: 1
@@ -76,11 +76,11 @@ intervention_cast_readings_002:
   id: 8
   indicator_datatype: decimal
   indicator_name: population
-  intervention_cast_id: 44
   lock_version: 0
+  parameter_id: 44
   updated_at: 2014-11-05 15:40:16.357769000 Z
   updater_id: 1
-intervention_cast_readings_003:
+intervention_parameter_readings_003:
   boolean_value: false
   choice_value: covered
   created_at: 2014-11-05 15:40:16.373150000 Z
@@ -88,11 +88,11 @@ intervention_cast_readings_003:
   id: 9
   indicator_datatype: choice
   indicator_name: soil_cultural_state
-  intervention_cast_id: 43
   lock_version: 0
+  parameter_id: 43
   updated_at: 2014-11-05 15:40:16.373150000 Z
   updater_id: 1
-intervention_cast_readings_004:
+intervention_parameter_readings_004:
   boolean_value: false
   created_at: 2014-11-05 15:40:16.387769000 Z
   creator_id: 1
@@ -100,11 +100,11 @@ intervention_cast_readings_004:
   indicator_datatype: integer
   indicator_name: plants_count
   integer_value: 3000
-  intervention_cast_id: 44
   lock_version: 0
+  parameter_id: 44
   updated_at: 2014-11-05 15:40:16.387769000 Z
   updater_id: 1
-intervention_cast_readings_005:
+intervention_parameter_readings_005:
   boolean_value: false
   choice_value: nude
   created_at: 2014-11-06 17:49:51.139058000 Z
@@ -112,11 +112,11 @@ intervention_cast_readings_005:
   id: 11
   indicator_datatype: choice
   indicator_name: soil_cultural_state
-  intervention_cast_id: 47
   lock_version: 0
+  parameter_id: 47
   updated_at: 2014-11-06 17:49:51.139058000 Z
   updater_id: 1
-intervention_cast_readings_006:
+intervention_parameter_readings_006:
   boolean_value: false
   created_at: 2014-11-06 17:50:07.342193000 Z
   creator_id: 1
@@ -124,11 +124,11 @@ intervention_cast_readings_006:
   id: 12
   indicator_datatype: decimal
   indicator_name: population
-  intervention_cast_id: 55
   lock_version: 0
+  parameter_id: 55
   updated_at: 2014-11-06 17:50:07.342193000 Z
   updater_id: 1
-intervention_cast_readings_007:
+intervention_parameter_readings_007:
   boolean_value: false
   choice_value: covered
   created_at: 2014-11-06 17:50:07.355554000 Z
@@ -136,11 +136,11 @@ intervention_cast_readings_007:
   id: 13
   indicator_datatype: choice
   indicator_name: soil_cultural_state
-  intervention_cast_id: 54
   lock_version: 0
+  parameter_id: 54
   updated_at: 2014-11-06 17:50:07.355554000 Z
   updater_id: 1
-intervention_cast_readings_008:
+intervention_parameter_readings_008:
   boolean_value: false
   created_at: 2014-11-06 17:50:07.369059000 Z
   creator_id: 1
@@ -148,22 +148,22 @@ intervention_cast_readings_008:
   indicator_datatype: integer
   indicator_name: plants_count
   integer_value: 17000
-  intervention_cast_id: 55
   lock_version: 0
+  parameter_id: 55
   updated_at: 2014-11-06 17:50:07.369059000 Z
   updater_id: 1
-intervention_cast_readings_009:
+intervention_parameter_readings_009:
   boolean_value: true
   created_at: 2014-11-07 14:44:18.920835000 Z
   creator_id: 1
   id: 15
   indicator_datatype: boolean
   indicator_name: healthy
-  intervention_cast_id: 56
   lock_version: 0
+  parameter_id: 56
   updated_at: 2014-11-07 14:44:18.920835000 Z
   updater_id: 1
-intervention_cast_readings_010:
+intervention_parameter_readings_010:
   boolean_value: false
   created_at: 2014-11-07 15:45:46.086457000 Z
   creator_id: 1
@@ -171,11 +171,11 @@ intervention_cast_readings_010:
   id: 16
   indicator_datatype: decimal
   indicator_name: population
-  intervention_cast_id: 78
   lock_version: 0
+  parameter_id: 78
   updated_at: 2014-11-07 15:45:46.086457000 Z
   updater_id: 1
-intervention_cast_readings_011:
+intervention_parameter_readings_011:
   boolean_value: false
   choice_value: covered
   created_at: 2014-11-07 15:45:46.103164000 Z
@@ -183,11 +183,11 @@ intervention_cast_readings_011:
   id: 17
   indicator_datatype: choice
   indicator_name: soil_cultural_state
-  intervention_cast_id: 77
   lock_version: 0
+  parameter_id: 77
   updated_at: 2014-11-07 15:45:46.103164000 Z
   updater_id: 1
-intervention_cast_readings_012:
+intervention_parameter_readings_012:
   boolean_value: false
   created_at: 2014-11-07 15:45:46.117160000 Z
   creator_id: 1
@@ -195,11 +195,11 @@ intervention_cast_readings_012:
   indicator_datatype: integer
   indicator_name: plants_count
   integer_value: 5000
-  intervention_cast_id: 78
   lock_version: 0
+  parameter_id: 78
   updated_at: 2014-11-07 15:45:46.117160000 Z
   updater_id: 1
-intervention_cast_readings_013:
+intervention_parameter_readings_013:
   boolean_value: false
   created_at: 2014-11-07 16:50:07.566680000 Z
   creator_id: 1
@@ -207,11 +207,11 @@ intervention_cast_readings_013:
   id: 19
   indicator_datatype: decimal
   indicator_name: population
-  intervention_cast_id: 98
   lock_version: 0
+  parameter_id: 98
   updated_at: 2014-11-07 16:50:07.566680000 Z
   updater_id: 1
-intervention_cast_readings_014:
+intervention_parameter_readings_014:
   boolean_value: false
   choice_value: covered
   created_at: 2014-11-07 16:50:07.580805000 Z
@@ -219,11 +219,11 @@ intervention_cast_readings_014:
   id: 20
   indicator_datatype: choice
   indicator_name: soil_cultural_state
-  intervention_cast_id: 97
   lock_version: 0
+  parameter_id: 97
   updated_at: 2014-11-07 16:50:07.580805000 Z
   updater_id: 1
-intervention_cast_readings_015:
+intervention_parameter_readings_015:
   absolute_measure_value_unit: meter
   absolute_measure_value_value: 2.0
   boolean_value: false
@@ -232,13 +232,13 @@ intervention_cast_readings_015:
   id: 21
   indicator_datatype: measure
   indicator_name: rows_interval
-  intervention_cast_id: 98
   lock_version: 0
   measure_value_unit: meter
   measure_value_value: 2.0
+  parameter_id: 98
   updated_at: 2014-11-07 16:50:07.594022000 Z
   updater_id: 1
-intervention_cast_readings_016:
+intervention_parameter_readings_016:
   absolute_measure_value_unit: meter
   absolute_measure_value_value: 0.8
   boolean_value: false
@@ -247,13 +247,13 @@ intervention_cast_readings_016:
   id: 22
   indicator_datatype: measure
   indicator_name: plants_interval
-  intervention_cast_id: 98
   lock_version: 0
   measure_value_unit: meter
   measure_value_value: 0.8
+  parameter_id: 98
   updated_at: 2014-11-07 16:50:07.607420000 Z
   updater_id: 1
-intervention_cast_readings_017:
+intervention_parameter_readings_017:
   boolean_value: false
   created_at: 2014-11-07 16:50:07.620455000 Z
   creator_id: 1
@@ -261,7 +261,7 @@ intervention_cast_readings_017:
   indicator_datatype: integer
   indicator_name: plants_count
   integer_value: 5000
-  intervention_cast_id: 98
   lock_version: 0
+  parameter_id: 98
   updated_at: 2014-11-07 16:50:07.620455000 Z
   updater_id: 1

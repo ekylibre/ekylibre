@@ -572,7 +572,7 @@ class CreateBase < ActiveRecord::Migration
       t.index :accounted_at
     end
 
-    create_table :intervention_casts do |t|
+    create_table :intervention_parameters do |t|
       t.references :intervention, null: false, index: true
       t.references :actor,                                                    index: true
       t.references :variant,                                                  index: true

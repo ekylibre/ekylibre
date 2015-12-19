@@ -5,7 +5,7 @@
     - v.background "OpenStreetMap.Mapnik"
     - v.background "Thunderforest.Landscape"
     - v.background "Esri.WorldImagery"
-    - @intervention.casts.each do |cast|
+    - @intervention.product_parameters.each do |cast|
       - shape = cast.working_zone
       - shape ||= cast.product.shape(at: @intervention.started_at) if cast.product
       - if shape
@@ -18,8 +18,8 @@
     - v.control :layer_selector
   - if count > 0
     = map
-  - targets = @intervention.casts.of_generic_role(:target)
-  - targets = @intervention.casts.of_generic_role(:input) unless targets.any?
+  - targets = @intervention.targets
+  - targets = @intervention.inputs unless targets.any?
   .info
     %span.title= Intervention.human_attribute_name(:name)
     %span.value= link_to(@intervention.name, controller: "/backend/interventions", action: :show, id: @intervention.to_param)

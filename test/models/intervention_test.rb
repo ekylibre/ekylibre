@@ -45,7 +45,7 @@ require 'test_helper'
 
 class InterventionTest < ActiveSupport::TestCase
   test 'scopes' do
-    cast = InterventionCast.first # intervention_casts(:intervention_casts_001)
+    cast = InterventionCast.first # intervention_parameters(:intervention_parameters_001)
     actor = cast.product
     assert actor, 'Actor can not be nil for following assertions'
     assert_nothing_raised do

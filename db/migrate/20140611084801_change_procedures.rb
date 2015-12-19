@@ -70,15 +70,15 @@ class ChangeProcedures < ActiveRecord::Migration
 
   INTERVENTION_CAST_ITEMS = [
 
-    { table: 'intervention_casts', column: 'roles', new: 'sowing-input_origin', reference_name: 'seeds' },
-    { table: 'intervention_casts', column: 'roles', new: 'implanting-input_origin', reference_name: 'plants' },
+    { table: 'intervention_parameters', column: 'roles', new: 'sowing-input_origin', reference_name: 'seeds' },
+    { table: 'intervention_parameters', column: 'roles', new: 'implanting-input_origin', reference_name: 'plants' },
 
-    { table: 'intervention_casts', column: 'roles', new: 'animal_curative_medicine_admission-input_origin', reference_name: 'animal_medicine' },
+    { table: 'intervention_parameters', column: 'roles', new: 'animal_curative_medicine_admission-input_origin', reference_name: 'animal_medicine' },
 
-    { table: 'intervention_casts', column: 'roles', new: 'plant_illness_treatment-input_origin', reference_name: 'plant_medicine' },
+    { table: 'intervention_parameters', column: 'roles', new: 'plant_illness_treatment-input_origin', reference_name: 'plant_medicine' },
 
-    { table: 'intervention_casts', column: 'roles', new: 'plant_illness_treatment-input_origin', reference_name: 'insecticide' },
-    { table: 'intervention_casts', column: 'roles', new: 'plant_illness_treatment-input_origin', reference_name: 'molluscicide' }
+    { table: 'intervention_parameters', column: 'roles', new: 'plant_illness_treatment-input_origin', reference_name: 'insecticide' },
+    { table: 'intervention_parameters', column: 'roles', new: 'plant_illness_treatment-input_origin', reference_name: 'molluscicide' }
   ]
 
   def up
@@ -90,11 +90,11 @@ class ChangeProcedures < ActiveRecord::Migration
 
     # change roles
     for item in CHANGING_INTERVENTION_CAST_REFERENCE_NAMES
-      execute("UPDATE intervention_casts SET reference_name = '#{item[:new]}' WHERE reference_name = '#{item[:old]}' AND intervention_id IN (SELECT i.id FROM interventions i WHERE i.reference_name = '#{item[:procedure_reference_name]}')")
+      execute("UPDATE intervention_parameters SET reference_name = '#{item[:new]}' WHERE reference_name = '#{item[:old]}' AND intervention_id IN (SELECT i.id FROM interventions i WHERE i.reference_name = '#{item[:procedure_reference_name]}')")
     end
 
     for item in CHANGING_INTERVENTION_CAST_ROLES
-      execute("UPDATE intervention_casts SET #{item[:column]} = '#{item[:new]}' WHERE #{item[:column]} = '#{item[:old]}' AND reference_name = '#{item[:reference_name]}' AND intervention_id IN (SELECT i.id FROM interventions i WHERE i.reference_name = '#{item[:procedure_reference_name]}')")
+      execute("UPDATE intervention_parameters SET #{item[:column]} = '#{item[:new]}' WHERE #{item[:column]} = '#{item[:old]}' AND reference_name = '#{item[:reference_name]}' AND intervention_id IN (SELECT i.id FROM interventions i WHERE i.reference_name = '#{item[:procedure_reference_name]}')")
     end
 
     # check if product_nature is present in DB and update it with new values
@@ -109,12 +109,12 @@ class ChangeProcedures < ActiveRecord::Migration
     end
 
     for item in CHANGING_INTERVENTION_CAST_ROLES
-      execute("UPDATE intervention_casts SET #{item[:column]} = '#{item[:old]}' WHERE #{item[:column]} = '#{item[:new]}' AND reference_name = '#{item[:reference_name]}' AND intervention_id IN (SELECT i.id FROM interventions i WHERE i.reference_name = '#{item[:procedure_reference_name]}')")
+      execute("UPDATE intervention_parameters SET #{item[:column]} = '#{item[:old]}' WHERE #{item[:column]} = '#{item[:new]}' AND reference_name = '#{item[:reference_name]}' AND intervention_id IN (SELECT i.id FROM interventions i WHERE i.reference_name = '#{item[:procedure_reference_name]}')")
     end
 
     # change roles name in medicine casts
     for item in CHANGING_INTERVENTION_CAST_REFERENCE_NAMES
-      execute("UPDATE intervention_casts SET reference_name = '#{item[:old]}' WHERE reference_name = '#{item[:new]}' AND intervention_id IN (SELECT i.id FROM interventions i WHERE i.reference_name = '#{item[:procedure_reference_name]}')")
+      execute("UPDATE intervention_parameters SET reference_name = '#{item[:old]}' WHERE reference_name = '#{item[:new]}' AND intervention_id IN (SELECT i.id FROM interventions i WHERE i.reference_name = '#{item[:procedure_reference_name]}')")
     end
 
     for item in PRODUCT_NATURE_ITEMS

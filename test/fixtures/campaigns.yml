@@ -57,7 +57,7 @@ campaigns_001:
   lock_version: 0
   name: '2013'
   number: '2013'
-  started_on: 2013-09-01
+  started_on: 2012-09-01
   stopped_on: 2013-08-31
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
@@ -71,7 +71,7 @@ campaigns_002:
   lock_version: 1
   name: '1870'
   number: '1870'
-  started_on: 1870-09-01
+  started_on: 1869-09-01
   stopped_on: 1870-08-31
   updated_at: 2014-11-04 18:14:33.691327000 Z
   updater_id: 1
@@ -85,13 +85,13 @@ campaigns_003:
   lock_version: 0
   name: '2014'
   number: CAMP0001
-  started_on: 2014-09-01
+  started_on: 2013-09-01
   stopped_on: 2014-08-31
   updated_at: 2014-11-04 15:26:29.112273000 Z
   updater_id: 1
 campaigns_004:
   closed: false
-  created_at: 2015-12-16 15:12:21.809463000 Z
+  created_at: 2015-12-19 13:10:59.593136000 Z
   harvest_year: 2015
   id: 5
   lock_version: 0
@@ -99,4 +99,4 @@ campaigns_004:
   number: CAMP0002
   started_on: 2015-01-01
   stopped_on: 2015-12-31
-  updated_at: 2015-12-16 15:12:21.809463000 Z
+  updated_at: 2015-12-19 13:10:59.593136000 Z

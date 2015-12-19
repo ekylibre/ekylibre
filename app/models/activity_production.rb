@@ -201,7 +201,7 @@ class ActivityProduction < Ekylibre::Record::Base
       interventions = self.interventions.real.of_category(procedure_category)
     end
     interventions.each do |intervention|
-      intervention.casts.of_generic_role(:input).each do |input|
+      intervention.inputs.each do |input|
         # m = net_mass of the input at intervention time
         # n = indicator (in %) of the input at intervention time
         m = (input.actor ? input.actor.net_mass(input).to_d(:kilogram) : 0.0)
@@ -307,7 +307,7 @@ class ActivityProduction < Ekylibre::Record::Base
     harvest_interventions = interventions.real.of_category(procedure_category)
     if harvest_interventions.any?
       harvest_interventions.find_each do |harvest|
-        harvest.casts.of_generic_role(:output).each do |cast|
+        harvest.outputs.each do |cast|
           actor = cast.actor
           next unless actor && actor.variety
           variety = Nomen::Variety.find(actor.variety)

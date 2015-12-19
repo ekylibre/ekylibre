@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: intervention_cast_readings
+# == Table: intervention_parameter_readings
 #
 #  absolute_measure_value_unit  :string
 #  absolute_measure_value_value :decimal(19, 4)
@@ -34,11 +34,11 @@
 #  indicator_datatype           :string           not null
 #  indicator_name               :string           not null
 #  integer_value                :integer
-#  intervention_cast_id         :integer          not null
 #  lock_version                 :integer          default(0), not null
 #  measure_value_unit           :string
 #  measure_value_value          :decimal(19, 4)
 #  multi_polygon_value          :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  parameter_id                 :integer          not null
 #  point_value                  :geometry({:srid=>4326, :type=>"point"})
 #  string_value                 :text
 #  updated_at                   :datetime         not null
@@ -46,6 +46,6 @@
 #
 require 'test_helper'
 
-class InterventionCastReadingTest < ActiveSupport::TestCase
+class InterventionParameterReadingTest < ActiveSupport::TestCase
   # Add tests here...
 end

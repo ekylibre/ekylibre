@@ -57,12 +57,13 @@
 - incoming_payment
 - incoming_payment_mode
 - intervention
-- intervention_cast
-- intervention_cast_group
-- intervention_cast_reading
 - intervention_doer
+- intervention_group_parameter
 - intervention_input
 - intervention_output
+- intervention_parameter
+- intervention_parameter_reading
+- intervention_product_parameter
 - intervention_target
 - intervention_tool
 - intervention_working_period

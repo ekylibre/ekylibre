@@ -933,7 +933,7 @@ eng:
     cashes_balance: "Cashes balance"
     cashes_balance_evolution: "Cashes balance evolution"
     casting: "Casting" #?
-    casts: "Casts"
+    casts: "Casts" #?
     catalog: "Catalog" #?
     catalog_items: "Catalog items"
     category: "Category"
@@ -1139,7 +1139,7 @@ eng:
     interval: "Personalized Interval"
     intervention: "Intervention"
     intervention_at: "%{intervention} at %{at}"
-    intervention_casts: "Intervention casts"
+    intervention_product_parameters: "Intervention casts"
     interventions: "Interventions"
     interventions_count: "Interventions count"
     interventions_paths: "Interventions paths" #?
@@ -1339,6 +1339,7 @@ eng:
     product_category: "Product category" #?
     product_name: "Product name" #?
     product_natures: "Product types"
+    # product_parameters: "Product parameters"
     production: "Production"
     production_cost: "Production cost"
     production_distribution: "Production distribution" #?
@@ -1584,7 +1585,7 @@ eng:
     x_incoming_payments_to_deposit:
       one: "%{count} incoming payment to deposit"
       other: "%{count} incoming payments to deposit"
-    x_intervention_casts:
+    x_intervention_product_parameters:
       one: "%{count} intervention cast"
       other: "%{count} intervention casts"
     x_interventions:

@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: intervention_casts
+# == Table: intervention_parameters
 #
 #  created_at             :datetime         not null
 #  creator_id             :integer
@@ -32,7 +32,6 @@
 #  new_container_id       :integer
 #  new_group_id           :integer
 #  new_variant_id         :integer
-#  parameter_name         :string           not null
 #  position               :integer          not null
 #  product_id             :integer
 #  quantity_handler       :string
@@ -40,6 +39,7 @@
 #  quantity_population    :decimal(19, 4)
 #  quantity_unit          :string
 #  quantity_value         :decimal(19, 4)
+#  reference_name         :string           not null
 #  source_product_id      :integer
 #  type                   :string
 #  updated_at             :datetime         not null
@@ -47,8 +47,26 @@
 #  variant_id             :integer
 #  working_zone           :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
-require 'test_helper'
+class InterventionParameter < Ekylibre::Record::Base
+  attr_readonly :reference_name
+  belongs_to :group, class_name: 'InterventionGroupParameter'
+  belongs_to :intervention, inverse_of: :parameters
 
-class InterventionCastTest < ActiveSupport::TestCase
-  # Add tests here...
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :quantity_population, :quantity_value, allow_nil: true
+  validates_presence_of :intervention, :reference_name
+  # ]VALIDATORS]
+
+  scope :of_activity, lambda { |activity|
+    where(intervention_id: InterventionTarget.select(:intervention_id).of_activity(activity))
+  }
+  scope :of_activity_production, lambda { |production|
+    where(intervention_id: InterventionTarget.select(:intervention_id).of_activity_production(production))
+  }
+
+  # Returns a Procedo::Parameter corresponding to its reference_name
+  # in the current procedure
+  def reference
+    procedure.find(reference_name)
+  end
 end

@@ -42,12 +42,14 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
   validates_presence_of :duration, :intervention, :started_at, :stopped_at
   # ]VALIDATORS]
 
+  scope :of_activity, ->(_activity) { where(intervention_id: Intervention.of_activity(activits)) }
+  scope :of_activities, ->(*activities) { where(intervention_id: Intervention.of_activities(*activities)) }
   scope :of_campaign, lambda { |campaign|
     where(intervention_id: Intervention.of_campaign(campaign))
   }
 
   scope :with_generic_cast, lambda { |role, object|
-    where(intervention_id: InterventionCast.of_generic_role(role).of_actor(object).select(:intervention_id))
+    where(intervention_id: InterventionProductParameter.of_generic_role(role).of_actor(object).select(:intervention_id))
   }
 
   delegate :update_temporality, to: :intervention

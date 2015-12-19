@@ -47,13 +47,8 @@
 #  variant_id             :integer
 #  working_zone           :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
-class InterventionInput < InterventionProductParameter
-  belongs_to :intervention, inverse_of: :inputs
-  belongs_to :source_product, class_name: 'Product'
-  validates_presence_of :source_product
+require 'test_helper'
 
-  before_save do
-    # FIXME: Not working at all. Need to split if necessary with quantity
-    self.product = source_product
-  end
+class InterventionProductParameterTest < ActiveSupport::TestCase
+  # Add tests here...
 end

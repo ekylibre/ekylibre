@@ -539,23 +539,23 @@ ActiveRecord::Schema.define(version: 20151108001401) do
 
   create_table "crumbs", force: :cascade do |t|
     t.integer  "user_id"
-    t.geometry "geolocation",          limit: {:srid=>4326, :type=>"point"},                                      null: false
-    t.datetime "read_at",                                                                                         null: false
-    t.decimal  "accuracy",                                                   precision: 19, scale: 4,             null: false
-    t.string   "nature",                                                                                          null: false
+    t.geometry "geolocation",               limit: {:srid=>4326, :type=>"point"},                                      null: false
+    t.datetime "read_at",                                                                                              null: false
+    t.decimal  "accuracy",                                                        precision: 19, scale: 4,             null: false
+    t.string   "nature",                                                                                               null: false
     t.text     "metadata"
-    t.datetime "created_at",                                                                                      null: false
-    t.datetime "updated_at",                                                                                      null: false
+    t.datetime "created_at",                                                                                           null: false
+    t.datetime "updated_at",                                                                                           null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                        default: 0, null: false
-    t.integer  "intervention_cast_id"
-    t.string   "device_uid",                                                                                      null: false
+    t.integer  "lock_version",                                                                             default: 0, null: false
+    t.integer  "intervention_parameter_id"
+    t.string   "device_uid",                                                                                           null: false
   end
 
   add_index "crumbs", ["created_at"], name: "index_crumbs_on_created_at", using: :btree
   add_index "crumbs", ["creator_id"], name: "index_crumbs_on_creator_id", using: :btree
-  add_index "crumbs", ["intervention_cast_id"], name: "index_crumbs_on_intervention_cast_id", using: :btree
+  add_index "crumbs", ["intervention_parameter_id"], name: "index_crumbs_on_intervention_parameter_id", using: :btree
   add_index "crumbs", ["nature"], name: "index_crumbs_on_nature", using: :btree
   add_index "crumbs", ["read_at"], name: "index_crumbs_on_read_at", using: :btree
   add_index "crumbs", ["updated_at"], name: "index_crumbs_on_updated_at", using: :btree
@@ -1273,26 +1273,7 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "incoming_payments", ["updated_at"], name: "index_incoming_payments_on_updated_at", using: :btree
   add_index "incoming_payments", ["updater_id"], name: "index_incoming_payments_on_updater_id", using: :btree
 
-  create_table "intervention_cast_groups", force: :cascade do |t|
-    t.integer  "intervention_id",                  null: false
-    t.integer  "group_id"
-    t.string   "parameter_group_name",             null: false
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",         default: 0, null: false
-  end
-
-  add_index "intervention_cast_groups", ["created_at"], name: "index_intervention_cast_groups_on_created_at", using: :btree
-  add_index "intervention_cast_groups", ["creator_id"], name: "index_intervention_cast_groups_on_creator_id", using: :btree
-  add_index "intervention_cast_groups", ["group_id"], name: "index_intervention_cast_groups_on_group_id", using: :btree
-  add_index "intervention_cast_groups", ["intervention_id"], name: "index_intervention_cast_groups_on_intervention_id", using: :btree
-  add_index "intervention_cast_groups", ["parameter_group_name"], name: "index_intervention_cast_groups_on_parameter_group_name", using: :btree
-  add_index "intervention_cast_groups", ["updated_at"], name: "index_intervention_cast_groups_on_updated_at", using: :btree
-  add_index "intervention_cast_groups", ["updater_id"], name: "index_intervention_cast_groups_on_updater_id", using: :btree
-
-  create_table "intervention_cast_readings", force: :cascade do |t|
+  create_table "intervention_parameter_readings", force: :cascade do |t|
     t.string   "indicator_name",                                                                                                      null: false
     t.string   "indicator_datatype",                                                                                                  null: false
     t.decimal  "absolute_measure_value_value",                                               precision: 19, scale: 4
@@ -1311,24 +1292,24 @@ ActiveRecord::Schema.define(version: 20151108001401) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                                                                        default: 0,     null: false
-    t.integer  "intervention_cast_id",                                                                                                null: false
+    t.integer  "parameter_id",                                                                                                        null: false
     t.geometry "geometry_value",               limit: {:srid=>4326, :type=>"geometry"}
   end
 
-  add_index "intervention_cast_readings", ["created_at"], name: "index_intervention_cast_readings_on_created_at", using: :btree
-  add_index "intervention_cast_readings", ["creator_id"], name: "index_intervention_cast_readings_on_creator_id", using: :btree
-  add_index "intervention_cast_readings", ["indicator_name"], name: "index_intervention_cast_readings_on_indicator_name", using: :btree
-  add_index "intervention_cast_readings", ["intervention_cast_id"], name: "index_intervention_cast_readings_on_intervention_cast_id", using: :btree
-  add_index "intervention_cast_readings", ["updated_at"], name: "index_intervention_cast_readings_on_updated_at", using: :btree
-  add_index "intervention_cast_readings", ["updater_id"], name: "index_intervention_cast_readings_on_updater_id", using: :btree
+  add_index "intervention_parameter_readings", ["created_at"], name: "index_intervention_parameter_readings_on_created_at", using: :btree
+  add_index "intervention_parameter_readings", ["creator_id"], name: "index_intervention_parameter_readings_on_creator_id", using: :btree
+  add_index "intervention_parameter_readings", ["indicator_name"], name: "index_intervention_parameter_readings_on_indicator_name", using: :btree
+  add_index "intervention_parameter_readings", ["parameter_id"], name: "index_intervention_parameter_readings_on_parameter_id", using: :btree
+  add_index "intervention_parameter_readings", ["updated_at"], name: "index_intervention_parameter_readings_on_updated_at", using: :btree
+  add_index "intervention_parameter_readings", ["updater_id"], name: "index_intervention_parameter_readings_on_updater_id", using: :btree
 
-  create_table "intervention_casts", force: :cascade do |t|
+  create_table "intervention_parameters", force: :cascade do |t|
     t.integer  "intervention_id",                                                                                           null: false
     t.integer  "product_id"
     t.integer  "variant_id"
     t.decimal  "quantity_population",                                                  precision: 19, scale: 4
     t.geometry "working_zone",           limit: {:srid=>4326, :type=>"multi_polygon"}
-    t.string   "parameter_name",                                                                                            null: false
+    t.string   "reference_name",                                                                                            null: false
     t.integer  "position",                                                                                                  null: false
     t.datetime "created_at",                                                                                                null: false
     t.datetime "updated_at",                                                                                                null: false
@@ -1348,21 +1329,21 @@ ActiveRecord::Schema.define(version: 20151108001401) do
     t.integer  "group_id"
   end
 
-  add_index "intervention_casts", ["created_at"], name: "index_intervention_casts_on_created_at", using: :btree
-  add_index "intervention_casts", ["creator_id"], name: "index_intervention_casts_on_creator_id", using: :btree
-  add_index "intervention_casts", ["event_participation_id"], name: "index_intervention_casts_on_event_participation_id", using: :btree
-  add_index "intervention_casts", ["group_id"], name: "index_intervention_casts_on_group_id", using: :btree
-  add_index "intervention_casts", ["intervention_id"], name: "index_intervention_casts_on_intervention_id", using: :btree
-  add_index "intervention_casts", ["new_container_id"], name: "index_intervention_casts_on_new_container_id", using: :btree
-  add_index "intervention_casts", ["new_group_id"], name: "index_intervention_casts_on_new_group_id", using: :btree
-  add_index "intervention_casts", ["new_variant_id"], name: "index_intervention_casts_on_new_variant_id", using: :btree
-  add_index "intervention_casts", ["parameter_name"], name: "index_intervention_casts_on_parameter_name", using: :btree
-  add_index "intervention_casts", ["product_id"], name: "index_intervention_casts_on_product_id", using: :btree
-  add_index "intervention_casts", ["source_product_id"], name: "index_intervention_casts_on_source_product_id", using: :btree
-  add_index "intervention_casts", ["type"], name: "index_intervention_casts_on_type", using: :btree
-  add_index "intervention_casts", ["updated_at"], name: "index_intervention_casts_on_updated_at", using: :btree
-  add_index "intervention_casts", ["updater_id"], name: "index_intervention_casts_on_updater_id", using: :btree
-  add_index "intervention_casts", ["variant_id"], name: "index_intervention_casts_on_variant_id", using: :btree
+  add_index "intervention_parameters", ["created_at"], name: "index_intervention_parameters_on_created_at", using: :btree
+  add_index "intervention_parameters", ["creator_id"], name: "index_intervention_parameters_on_creator_id", using: :btree
+  add_index "intervention_parameters", ["event_participation_id"], name: "index_intervention_parameters_on_event_participation_id", using: :btree
+  add_index "intervention_parameters", ["group_id"], name: "index_intervention_parameters_on_group_id", using: :btree
+  add_index "intervention_parameters", ["intervention_id"], name: "index_intervention_parameters_on_intervention_id", using: :btree
+  add_index "intervention_parameters", ["new_container_id"], name: "index_intervention_parameters_on_new_container_id", using: :btree
+  add_index "intervention_parameters", ["new_group_id"], name: "index_intervention_parameters_on_new_group_id", using: :btree
+  add_index "intervention_parameters", ["new_variant_id"], name: "index_intervention_parameters_on_new_variant_id", using: :btree
+  add_index "intervention_parameters", ["product_id"], name: "index_intervention_parameters_on_product_id", using: :btree
+  add_index "intervention_parameters", ["reference_name"], name: "index_intervention_parameters_on_reference_name", using: :btree
+  add_index "intervention_parameters", ["source_product_id"], name: "index_intervention_parameters_on_source_product_id", using: :btree
+  add_index "intervention_parameters", ["type"], name: "index_intervention_parameters_on_type", using: :btree
+  add_index "intervention_parameters", ["updated_at"], name: "index_intervention_parameters_on_updated_at", using: :btree
+  add_index "intervention_parameters", ["updater_id"], name: "index_intervention_parameters_on_updater_id", using: :btree
+  add_index "intervention_parameters", ["variant_id"], name: "index_intervention_parameters_on_variant_id", using: :btree
 
   create_table "intervention_working_periods", force: :cascade do |t|
     t.integer  "intervention_id",             null: false

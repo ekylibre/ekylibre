@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: intervention_casts
+# == Table: intervention_parameters
 #
 #  created_at             :datetime         not null
 #  creator_id             :integer
@@ -32,7 +32,6 @@
 #  new_container_id       :integer
 #  new_group_id           :integer
 #  new_variant_id         :integer
-#  parameter_name         :string           not null
 #  position               :integer          not null
 #  product_id             :integer
 #  quantity_handler       :string
@@ -40,6 +39,7 @@
 #  quantity_population    :decimal(19, 4)
 #  quantity_unit          :string
 #  quantity_value         :decimal(19, 4)
+#  reference_name         :string           not null
 #  source_product_id      :integer
 #  type                   :string
 #  updated_at             :datetime         not null
@@ -47,7 +47,7 @@
 #  variant_id             :integer
 #  working_zone           :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
-class InterventionTarget < InterventionCast
+class InterventionTarget < InterventionProductParameter
   belongs_to :intervention, inverse_of: :targets
   validates :product, presence: true
   scope :of_activity, ->(activity) { where(product_id: TargetDistribution.select(:target_id).where(activity_id: activity)) }

@@ -1103,7 +1103,7 @@ fra:
     interval: "Intervalle personnalisé"
     intervention: "Intervention"
     intervention_at: "%{intervention} du %{at}"
-    intervention_casts: "Intervenants"
+    intervention_product_parameters: "Intervenants"
     interventions: "Interventions"
     interventions_count: "Nombre d’interventions"
     interventions_paths: "Chemins d’interventions"
@@ -1818,7 +1818,7 @@ fra:
     x_incoming_payments_to_deposit:
       one: "%{count} encaissement à déposer"
       other: "%{count} encaissements à déposer"
-    x_intervention_casts:
+    x_intervention_product_parameters:
       one: "%{count} intervention"
       other: "%{count} interventions"
     x_interventions:

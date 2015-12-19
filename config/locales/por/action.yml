@@ -839,7 +839,7 @@ por:
     # interval: "Personalized Interval"
     # intervention: "Intervention"
     # intervention_at: "%{intervention} at %{at}"
-    # intervention_casts: "Intervention casts"
+    # intervention_product_parameters: "Intervention casts"
     # interventions: "Interventions"
     # interventions_count: "Interventions count"
     # interventions_paths: "Interventions paths"
@@ -1282,7 +1282,7 @@ por:
     x_incoming_payments_to_deposit:
       # one: "%{count} incoming payment to deposit"
       # other: "%{count} incoming payments to deposit"
-    x_intervention_casts:
+    x_intervention_product_parameters:
       # one: "%{count} intervention cast"
       # other: "%{count} intervention casts"
     x_interventions:

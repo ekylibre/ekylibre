@@ -390,7 +390,7 @@
         <page to="backend/matters#list_contained_products"/>
         <page to="backend/matters#list_groups"/>
         <page to="backend/matters#list_readings"/>
-        <page to="backend/matters#list_intervention_casts"/>
+        <page to="backend/matters#list_intervention_product_parameters"/>
         <page to="backend/matters#list_issues"/>
         <page to="backend/matters#list_members"/>
         <page to="backend/matters#list_places"/>
@@ -415,7 +415,7 @@
         <page to="backend/products#list_groups"/>
         <page to="backend/products#list_issues"/>
         <page to="backend/products#list_readings"/>
-        <page to="backend/products#list_intervention_casts"/>
+        <page to="backend/products#list_intervention_product_parameters"/>
         <page to="backend/products#list_members"/>
         <page to="backend/products#list_places"/>
         <page to="backend/products#list_carried_linkages"/>
@@ -432,7 +432,7 @@
         <page to="backend/product_groups#list_contained_products"/>
         <page to="backend/product_groups#list_groups"/>
         <page to="backend/product_groups#list_readings"/>
-        <page to="backend/product_groups#list_intervention_casts"/>
+        <page to="backend/product_groups#list_intervention_product_parameters"/>
         <page to="backend/product_groups#list_issues"/>
         <page to="backend/product_groups#list_members"/>
         <page to="backend/product_groups#list_places"/>
@@ -479,7 +479,7 @@
         <page to="backend/organic_matters#show"/>
         <page to="backend/organic_matters#update"/>
         <page to="backend/organic_matters#list_readings"/>
-        <page to="backend/organic_matters#list_intervention_casts"/>
+        <page to="backend/organic_matters#list_intervention_product_parameters"/>
         <page to="backend/organic_matters#unroll"/>
       </item>
       <item name="mineral_matters">
@@ -492,7 +492,7 @@
         <page to="backend/mineral_matters#show"/>
         <page to="backend/mineral_matters#update"/>
         <page to="backend/mineral_matters#list_readings"/>
-        <page to="backend/mineral_matters#list_intervention_casts"/>
+        <page to="backend/mineral_matters#list_intervention_product_parameters"/>
         <page to="backend/mineral_matters#unroll"/>
       </item>
       <item name="product_groups">
@@ -571,7 +571,7 @@
         <page to="backend/interventions#new"/>
         <page to="backend/interventions#show"/>
         <page to="backend/interventions#update"/>
-        <page to="backend/interventions#list_casts"/>
+        <page to="backend/interventions#list_product_parameters"/>
         <page to="backend/interventions#run"/>
         <page to="backend/interventions#unroll"/>
         <page to="backend/crumbs#index"/>
@@ -645,7 +645,7 @@
         <page to="backend/animals#list_groups"/>
         <page to="backend/animals#list_issues"/>
         <page to="backend/animals#list_readings"/>
-        <page to="backend/animals#list_intervention_casts"/>
+        <page to="backend/animals#list_intervention_product_parameters"/>
         <page to="backend/animals#list_members"/>
         <page to="backend/animals#list_places"/>
         <page to="backend/animals#list_carried_linkages"/>
@@ -663,7 +663,7 @@
         <page to="backend/plants#list_contained_products"/>
         <page to="backend/plants#list_groups"/>
         <page to="backend/plants#list_readings"/>
-        <page to="backend/plants#list_intervention_casts"/>
+        <page to="backend/plants#list_intervention_product_parameters"/>
         <page to="backend/plants#list_issues"/>
         <page to="backend/plants#list_members"/>
         <page to="backend/plants#list_places"/>
@@ -685,7 +685,7 @@
         <page to="backend/fungi#list_carrier_linkages"/>
         <page to="backend/fungi#list_contained_products"/>
         <page to="backend/fungi#list_groups"/>
-        <page to="backend/fungi#list_intervention_casts"/>
+        <page to="backend/fungi#list_intervention_product_parameters"/>
         <page to="backend/fungi#list_issues"/>
         <page to="backend/fungi#list_members"/>
         <page to="backend/fungi#list_places"/>
@@ -1260,7 +1260,7 @@
         <page to="backend/workers#list_contained_products"/>
         <page to="backend/workers#list_groups"/>
         <page to="backend/workers#list_readings"/>
-        <page to="backend/workers#list_intervention_casts"/>
+        <page to="backend/workers#list_intervention_product_parameters"/>
         <page to="backend/workers#list_issues"/>
         <page to="backend/workers#list_members"/>
         <page to="backend/workers#list_places"/>
@@ -1275,7 +1275,7 @@
         <page to="backend/equipments#destroy"/>
         <page to="backend/equipments#edit"/>
         <page to="backend/equipments#list"/>
-        <page to="backend/equipments#list_intervention_casts"/>
+        <page to="backend/equipments#list_intervention_product_parameters"/>
         <page to="backend/equipments#new"/>
         <page to="backend/equipments#show"/>
         <page to="backend/equipments#take"/>
@@ -1308,7 +1308,7 @@
         <page to="backend/buildings#list_groups"/>
         <page to="backend/buildings#list_issues"/>
         <page to="backend/buildings#list_readings"/>
-        <page to="backend/buildings#list_intervention_casts"/>
+        <page to="backend/buildings#list_intervention_product_parameters"/>
         <page to="backend/buildings#list_members"/>
         <page to="backend/buildings#list_places"/>
         <page to="backend/buildings#picture"/>
@@ -1331,7 +1331,7 @@
         <page to="backend/building_divisions#list_groups"/>
         <page to="backend/building_divisions#list_issues"/>
         <page to="backend/building_divisions#list_readings"/>
-        <page to="backend/building_divisions#list_intervention_casts"/>
+        <page to="backend/building_divisions#list_intervention_product_parameters"/>
         <page to="backend/building_divisions#list_members"/>
         <page to="backend/building_divisions#list_places"/>
         <page to="backend/building_divisions#list_carried_linkages"/>
@@ -1374,7 +1374,7 @@
         <page to="backend/land_parcels#list_contained_products"/>
         <page to="backend/land_parcels#list_groups"/>
         <page to="backend/land_parcels#list_readings"/>
-        <page to="backend/land_parcels#list_intervention_casts"/>
+        <page to="backend/land_parcels#list_intervention_product_parameters"/>
         <page to="backend/land_parcels#list_issues"/>
         <page to="backend/land_parcels#list_members"/>
         <page to="backend/land_parcels#list_places"/>
@@ -1397,7 +1397,7 @@
         <page to="backend/settlements#list_contained_products"/>
         <page to="backend/settlements#list_groups"/>
         <page to="backend/settlements#list_readings"/>
-        <page to="backend/settlements#list_intervention_casts"/>
+        <page to="backend/settlements#list_intervention_product_parameters"/>
         <page to="backend/settlements#list_issues"/>
         <page to="backend/settlements#list_members"/>
         <page to="backend/settlements#list_places"/>

@@ -14,14 +14,14 @@
     - v.background "OpenStreetMap.Mapnik"
     - v.background "Thunderforest.Landscape"
     - v.background "Esri.WorldImagery"
-    - for cast in resource.casts
+    - for cast in resource.product_parameters
       - shape = cast.shape
       - shape ||= cast.actor.shape(at: resource.started_at) if cast.actor
       - if shape
         - v.serie cast.id, [{name: cast.name, shape: shape}]
         - v.simple (cast.actor ? cast.actor.name : cast.variant ? cast.variant.name : cast.name), cast.id, fill_color: cycle(theme_colors)
         - count += 1
-    - for cast in resource.casts
+    - for cast in resource.product_parameters
       - if cast.crumbs.any?
         -# raise cast.crumbs.reorder(:read_at).collect{|c| c.metadata.symbolize_keys.merge(name: cast.name, point: [c.geolocation.y, c.geolocation.x])}.inspect
         :ruby
@@ -62,8 +62,8 @@
         %span.title= "total_cost".tl
         %span.value= total.l(currency: Preference[:currency])
 
-  - c.cobble(:casts) do
-    %ul.casts= render partial: "cast", collection: resource.casts
+  - c.cobble(:product_parameters) do
+    %ul.product_parameters= render partial: "cast", collection: resource.product_parameters
 
   - c.cobble(:general_informations) do
     .big-infos

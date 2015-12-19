@@ -44,6 +44,7 @@ namespace :clean do
         if column.name =~ /\_id\z/
           reference_name = column.name.to_s[0..-4].to_sym
           unless val = Ekylibre::Schema.references(table, column)
+            # puts model.name.red + ": " + model.descendants.map(&:name).to_sentence.yellow
             if column.name == 'parent_id'
               val = model.name.underscore.to_sym
             elsif [:creator_id, :updater_id].include? column.name
@@ -55,6 +56,9 @@ namespace :clean do
             elsif model && reflection = model.reflect_on_association(reference_name)
               val = reflection.class_name.underscore.to_sym
             elsif model && reflection = model.reflections.values.detect { |r| r.macro == :belongs_to && r.foreign_key == column.name.to_sym }
+              val = reflection.class_name.underscore.to_sym
+            elsif model && child = model.descendants.detect { |c| c.reflect_on_association(reference_name) }
+              reflection = child.reflect_on_association(reference_name)
               val = reflection.class_name.underscore.to_sym
             end
           end

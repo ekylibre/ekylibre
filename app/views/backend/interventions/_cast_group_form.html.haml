@@ -1,8 +1,8 @@
 - id = "cast-#{parameter_group.name}"
 - reflection = :cast_groups
-- list = f.object.send(reflection).select{|v| v.parameter_group_name.to_s == parameter_group.name.to_s}
-- f.object.send(reflection).new(parameter_group_name: parameter_group.name) unless list.any?
-- list = f.object.send(reflection).select{|v| v.parameter_group_name.to_s == parameter_group.name.to_s}
+- list = f.object.send(reflection).select{|v| v.reference_name.to_s == parameter_group.name.to_s}
+- f.object.send(reflection).new(reference_name: parameter_group.name) unless list.any?
+- list = f.object.send(reflection).select{|v| v.reference_name.to_s == parameter_group.name.to_s}
 .nested-association.nested-cast_group
   .intervention-cast-group{id: id}
     -#= f.simple_fields_for(reflection, list) do |c|

@@ -246,6 +246,9 @@ fra:
       building: "Bâtiment"
       building_division: "Pièce"
       campaign: "Campagne"
+      # cap_islet: "Cap islet"
+      # cap_land_parcel: "Cap land parcel"
+      # cap_statement: "Cap statement"
       cash: "Trésorerie"
       cash_session: "Session de caisse"
       cash_transfer: "Virement interne"
@@ -283,22 +286,20 @@ fra:
       guide_analysis: "Analyse d’un référentiel"
       guide_analysis_point: "Point d’analyse d’un référentiel"
       identifier: "Identifiant"
-      immatter: "Immatériel" #?
       import: "Import"
-      incoming_parcel: "Colis à réceptionner" #?
-      incoming_parcel_item: "Élément de colis à réceptionner" #?
       incoming_payment: "Encaissement"
       incoming_payment_mode: "Mode d’encaissement"
       intervention: "Intervention"
-      intervention_cast: "Variable de procédure"
-      # intervention_cast_group: "Intervention cast group"
-      intervention_cast_reading: "Relevé d’indicateur"
-      # intervention_doer: "Intervention doer"
-      # intervention_input: "Intervention input"
-      # intervention_output: "Intervention output"
-      # intervention_target: "Intervention target"
-      # intervention_tool: "Intervention tool"
-      # intervention_working_period: "Intervention working period"
+      intervention_doer: "Opérateur d’intervention"
+      # intervention_group_parameter: "Intervention group parameter"
+      intervention_input: "Intrant d’intervention"
+      intervention_output: "Extrant d’intervention"
+      # intervention_parameter: "Intervention parameter"
+      intervention_parameter_reading: "Relevé d’indicateur d’intervention"
+      intervention_product_parameter: "Paramètre produit d’intervention"
+      intervention_target: "Cible d’intervention"
+      intervention_tool: "Outil d’intervention"
+      intervention_working_period: "Période d’intervention"
       inventory: "Inventaire"
       inventory_item: "Ligne d’inventaire"
       issue: "Incident"
@@ -306,8 +307,6 @@ fra:
       journal_entry: "Écriture"
       journal_entry_item: "Ligne d’écriture"
       land_parcel: "Parcelle"
-      land_parcel_cluster: "Îlot" #?
-      land_parcel_group: "Groupe de parcelles" #?
       listing: "Extraction"
       listing_node: "Nœud d’extraction"
       listing_node_item: "Élément de nœud d’extraction"
@@ -317,12 +316,8 @@ fra:
       manure_management_plan_zone: "Zone de plan de fumure"
       matter: "Matière"
       net_service: "Service en ligne"
-      # notification: "Notification"
+      notification: "Notification"
       observation: "Observation"
-      operation: "Opération" #?
-      organization: "Organisation" #?
-      outgoing_parcel: "Colis à expédier" #?
-      outgoing_parcel_item: "Élément de colis à expédier" #?
       outgoing_payment: "Décaissement"
       outgoing_payment_mode: "Mode de décaissement"
       parcel: "Colis"
@@ -332,11 +327,6 @@ fra:
       preference: "Préférence"
       prescription: "Prescription"
       product: "Produits"
-      product_birth: "Naissance de produits" #?
-      product_consumption: "Consommation de produits" #?
-      product_creation: "Création de produits" #?
-      product_death: "Mort de produits" #?
-      product_division: "Division de produits" #?
       product_enjoyment: "Jouissances de produits"
       product_group: "Groupe de produit"
       product_junction: "Jonction de vie de produits"
@@ -345,8 +335,6 @@ fra:
       product_linkage: "Lien d’attache entre produits"
       product_localization: "Passage d’un produit en un lieu"
       product_membership: "Passage d’un produit dans un groupe"
-      product_merging: "Fusion de produits" #?
-      product_mixing: "Mélange de produits" #?
       product_nature: "Type de produit"
       product_nature_category: "Catégorie de type de produit"
       product_nature_category_taxation: "Taxation de catégorie de type de produit"
@@ -354,34 +342,26 @@ fra:
       product_nature_variant_reading: "Valeur d’indicateur de variante"
       product_ownership: "Propriété de produit"
       product_phase: "Phase de produits"
-      product_quadruple_mixing: "Quadruple mélange de produits" #?
-      product_quintuple_mixing: "Quintuple mélange de produits" #?
       product_reading: "Valeur d’indicateur"
-      product_triple_mixing: "Triple mélange de produits" #?
       production: "Production"
-      production_distribution: "Répartition entre production" #?
-      property_title: "Titre de propriété" #?
       purchase: "Achat"
       purchase_item: "Ligne d’achat"
       purchase_nature: "Type d’achat"
       role: "Rôle"
       sale: "Vente"
-      sale_credit: "Avoir" #?
-      sale_credit_item: "Ligne d’avoir" #?
       sale_item: "Ligne de vente"
       sale_nature: "Type de vente"
       sale_opportunity: "Opportunité de vente"
       sale_ticket: "Ticket de caisse"
       sensor: "Capteur"
       sequence: "Séquence"
-      service: "Service" #?
       settlement: "Installation"
       sub_zone: "Sous-zone"
       subscription: "Abonnement"
       subscription_nature: "Type d’abonnement"
-      # supervision: "Supervision"
-      # supervision_item: "Supervision item"
-      # target_distribution: "Target distribution"
+      supervision: "Supervision"
+      supervision_item: "Supervisé"
+      target_distribution: "Répartition de cible"
       task: "Tâche"
       tax: "Taxe"
       team: "Service"
@@ -390,7 +370,6 @@ fra:
       version: "Version"
       worker: "Travailleur"
       zone: "Zone"
-      zone_property_title: "Titre de propriété foncière" #?
   attributes:
     abilities: "Compétences" #?
     abilities_list: "Liste des compétences"
@@ -413,6 +392,7 @@ fra:
     accounted_at: "Date comptabilisation"
     accuracy: "Précision"
     achieved_at: "Achevé le"
+    # actions: "Actions"
     active: "Actif"
     active_prices: "Prix actifs" #?
     # activities: "Activities"
@@ -770,6 +750,7 @@ fra:
     godchildren: "Filleul"
     gravity: "Gravité"
     group: "Groupe"
+    # group_parameters: "Group parameters"
     groups: "Groupes"
     guide: "Référentiel"
     harvest_year: "Année de récolte"
@@ -817,7 +798,8 @@ fra:
     intermediate_cultivation_residue_mineralization: "Minéralisation nette des résidus de culture intermédiaire (MrCi)"
     intervention: "Intervention"
     intervention_cast: "Acteur de l’intervention"
-    intervention_casts: "Casting"
+    # intervention_parameter: "Intervention parameter"
+    intervention_product_parameters: "Casting"
     interventions: "Interventions"
     introduction: "Introduction"
     inventory: "Inventaire"
@@ -1082,6 +1064,7 @@ fra:
     product_nature_category_taxations: "Taxation de catégorie de type de produit"
     product_ownership: "Propriété de produit"
     product_ownerships: "Propriétés de produit"
+    # product_parameters: "Product parameters"
     product_phases: "Phases de produit"
     product_quadruple_mixings: "Quadruple mélanges de produit" #?
     product_quintuple_mixings: "Quintuple mélanges de produit" #?

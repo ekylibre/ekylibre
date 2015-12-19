@@ -1,7 +1,7 @@
-- f.object.parameter_name = parameter.name
+- f.object.reference_name = parameter.name
 .nested-fields.cast
   = link_to_remove_nested_association('cast', f)
-  = f.input :parameter_name, as: :hidden
+  = f.input :reference_name, as: :hidden
   - if parameter.input?
     = f.referenced_association :source_product, label: parameter.human_name, source: {scope: parameter.scope_hash.merge(availables: true)}
     = render 'quantifier_field', f: f, parameter: parameter

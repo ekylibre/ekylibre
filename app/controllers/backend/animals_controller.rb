@@ -214,7 +214,7 @@ module Backend
       t3e @animal, nature: @animal.nature_name
       respond_with(@animal, methods: [:picture_path, :sex_text, :variety_text], include: [:father, :mother, :variant, :nature, :variety,
                                                                                           { readings: {} },
-                                                                                          { intervention_casts: { include: :intervention } },
+                                                                                          { intervention_parameters: { include: :intervention } },
                                                                                           { memberships: { include: :group } },
                                                                                           { localizations: { include: :container } }])
     end

@@ -1509,227 +1509,227 @@ product_junction_ways_133:
   updated_at: 2015-09-17 13:38:07.336564000 Z
   updater_id: 1
 product_junction_ways_134:
-  created_at: 2015-12-16 15:12:22.842505000 Z
+  created_at: 2015-12-19 13:11:00.658508000 Z
   id: 158
   junction_id: 118
   lock_version: 0
   nature: start
   product_id: 145
   role: born
-  updated_at: 2015-12-16 15:12:22.842505000 Z
+  updated_at: 2015-12-19 13:11:00.658508000 Z
 product_junction_ways_135:
-  created_at: 2015-12-16 15:12:23.046330000 Z
+  created_at: 2015-12-19 13:11:00.847032000 Z
   id: 159
   junction_id: 119
   lock_version: 0
   nature: start
   product_id: 146
   role: born
-  updated_at: 2015-12-16 15:12:23.046330000 Z
+  updated_at: 2015-12-19 13:11:00.847032000 Z
 product_junction_ways_136:
-  created_at: 2015-12-16 15:12:23.187305000 Z
+  created_at: 2015-12-19 13:11:00.981917000 Z
   id: 160
   junction_id: 120
   lock_version: 0
   nature: start
   product_id: 147
   role: born
-  updated_at: 2015-12-16 15:12:23.187305000 Z
+  updated_at: 2015-12-19 13:11:00.981917000 Z
 product_junction_ways_137:
-  created_at: 2015-12-16 15:12:23.318156000 Z
+  created_at: 2015-12-19 13:11:01.120702000 Z
   id: 161
   junction_id: 121
   lock_version: 0
   nature: start
   product_id: 148
   role: born
-  updated_at: 2015-12-16 15:12:23.318156000 Z
+  updated_at: 2015-12-19 13:11:01.120702000 Z
 product_junction_ways_138:
-  created_at: 2015-12-16 15:12:23.476515000 Z
+  created_at: 2015-12-19 13:11:01.291197000 Z
   id: 162
   junction_id: 122
   lock_version: 0
   nature: start
   product_id: 149
   role: born
-  updated_at: 2015-12-16 15:12:23.476515000 Z
+  updated_at: 2015-12-19 13:11:01.291197000 Z
 product_junction_ways_139:
-  created_at: 2015-12-16 15:12:23.726863000 Z
+  created_at: 2015-12-19 13:11:01.577758000 Z
   id: 163
   junction_id: 123
   lock_version: 0
   nature: start
   product_id: 150
   role: born
-  updated_at: 2015-12-16 15:12:23.726863000 Z
+  updated_at: 2015-12-19 13:11:01.577758000 Z
 product_junction_ways_140:
-  created_at: 2015-12-16 15:12:23.929820000 Z
+  created_at: 2015-12-19 13:11:01.822788000 Z
   id: 164
   junction_id: 124
   lock_version: 0
   nature: start
   product_id: 151
   role: born
-  updated_at: 2015-12-16 15:12:23.929820000 Z
+  updated_at: 2015-12-19 13:11:01.822788000 Z
 product_junction_ways_141:
-  created_at: 2015-12-16 15:12:24.236869000 Z
+  created_at: 2015-12-19 13:11:02.212791000 Z
   id: 165
   junction_id: 125
   lock_version: 0
   nature: start
   product_id: 152
   role: born
-  updated_at: 2015-12-16 15:12:24.236869000 Z
+  updated_at: 2015-12-19 13:11:02.212791000 Z
 product_junction_ways_142:
-  created_at: 2015-12-16 15:12:24.390176000 Z
+  created_at: 2015-12-19 13:11:02.340840000 Z
   id: 166
   junction_id: 126
   lock_version: 0
   nature: start
   product_id: 153
   role: born
-  updated_at: 2015-12-16 15:12:24.390176000 Z
+  updated_at: 2015-12-19 13:11:02.340840000 Z
 product_junction_ways_143:
-  created_at: 2015-12-16 15:12:24.525146000 Z
+  created_at: 2015-12-19 13:11:02.470414000 Z
   id: 167
   junction_id: 127
   lock_version: 0
   nature: start
   product_id: 154
   role: born
-  updated_at: 2015-12-16 15:12:24.525146000 Z
+  updated_at: 2015-12-19 13:11:02.470414000 Z
 product_junction_ways_144:
-  created_at: 2015-12-16 15:12:24.657273000 Z
+  created_at: 2015-12-19 13:11:02.600382000 Z
   id: 168
   junction_id: 128
   lock_version: 0
   nature: start
   product_id: 155
   role: born
-  updated_at: 2015-12-16 15:12:24.657273000 Z
+  updated_at: 2015-12-19 13:11:02.600382000 Z
 product_junction_ways_145:
-  created_at: 2015-12-16 15:12:24.778001000 Z
+  created_at: 2015-12-19 13:11:02.720926000 Z
   id: 169
   junction_id: 129
   lock_version: 0
   nature: start
   product_id: 156
   role: born
-  updated_at: 2015-12-16 15:12:24.778001000 Z
+  updated_at: 2015-12-19 13:11:02.720926000 Z
 product_junction_ways_146:
-  created_at: 2015-12-16 15:12:24.925072000 Z
+  created_at: 2015-12-19 13:11:02.855343000 Z
   id: 170
   junction_id: 130
   lock_version: 0
   nature: start
   product_id: 157
   role: born
-  updated_at: 2015-12-16 15:12:24.925072000 Z
+  updated_at: 2015-12-19 13:11:02.855343000 Z
 product_junction_ways_147:
-  created_at: 2015-12-16 15:12:25.048147000 Z
+  created_at: 2015-12-19 13:11:02.984189000 Z
   id: 171
   junction_id: 131
   lock_version: 0
   nature: start
   product_id: 158
   role: born
-  updated_at: 2015-12-16 15:12:25.048147000 Z
+  updated_at: 2015-12-19 13:11:02.984189000 Z
 product_junction_ways_148:
-  created_at: 2015-12-16 15:12:25.172138000 Z
+  created_at: 2015-12-19 13:11:03.144700000 Z
   id: 172
   junction_id: 132
   lock_version: 0
   nature: start
   product_id: 159
   role: born
-  updated_at: 2015-12-16 15:12:25.172138000 Z
+  updated_at: 2015-12-19 13:11:03.144700000 Z
 product_junction_ways_149:
-  created_at: 2015-12-16 15:12:25.292544000 Z
+  created_at: 2015-12-19 13:11:03.278817000 Z
   id: 173
   junction_id: 133
   lock_version: 0
   nature: start
   product_id: 160
   role: born
-  updated_at: 2015-12-16 15:12:25.292544000 Z
+  updated_at: 2015-12-19 13:11:03.278817000 Z
 product_junction_ways_150:
-  created_at: 2015-12-16 15:12:25.429234000 Z
+  created_at: 2015-12-19 13:11:03.404687000 Z
   id: 174
   junction_id: 134
   lock_version: 0
   nature: start
   product_id: 161
   role: born
-  updated_at: 2015-12-16 15:12:25.429234000 Z
+  updated_at: 2015-12-19 13:11:03.404687000 Z
 product_junction_ways_151:
-  created_at: 2015-12-16 15:12:25.557589000 Z
+  created_at: 2015-12-19 13:11:03.534074000 Z
   id: 175
   junction_id: 135
   lock_version: 0
   nature: start
   product_id: 162
   role: born
-  updated_at: 2015-12-16 15:12:25.557589000 Z
+  updated_at: 2015-12-19 13:11:03.534074000 Z
 product_junction_ways_152:
-  created_at: 2015-12-16 15:12:25.679784000 Z
+  created_at: 2015-12-19 13:11:03.659973000 Z
   id: 176
   junction_id: 136
   lock_version: 0
   nature: start
   product_id: 163
   role: born
-  updated_at: 2015-12-16 15:12:25.679784000 Z
+  updated_at: 2015-12-19 13:11:03.659973000 Z
 product_junction_ways_153:
-  created_at: 2015-12-16 15:12:25.800222000 Z
+  created_at: 2015-12-19 13:11:03.785465000 Z
   id: 177
   junction_id: 137
   lock_version: 0
   nature: start
   product_id: 164
   role: born
-  updated_at: 2015-12-16 15:12:25.800222000 Z
+  updated_at: 2015-12-19 13:11:03.785465000 Z
 product_junction_ways_154:
-  created_at: 2015-12-16 15:12:25.939950000 Z
+  created_at: 2015-12-19 13:11:03.913080000 Z
   id: 178
   junction_id: 138
   lock_version: 0
   nature: start
   product_id: 165
   role: born
-  updated_at: 2015-12-16 15:12:25.939950000 Z
+  updated_at: 2015-12-19 13:11:03.913080000 Z
 product_junction_ways_155:
-  created_at: 2015-12-16 15:12:26.075720000 Z
+  created_at: 2015-12-19 13:11:04.038336000 Z
   id: 179
   junction_id: 139
   lock_version: 0
   nature: start
   product_id: 166
   role: born
-  updated_at: 2015-12-16 15:12:26.075720000 Z
+  updated_at: 2015-12-19 13:11:04.038336000 Z
 product_junction_ways_156:
-  created_at: 2015-12-16 15:12:26.217373000 Z
+  created_at: 2015-12-19 13:11:04.209632000 Z
   id: 180
   junction_id: 140
   lock_version: 0
   nature: start
   product_id: 167
   role: born
-  updated_at: 2015-12-16 15:12:26.217373000 Z
+  updated_at: 2015-12-19 13:11:04.209632000 Z
 product_junction_ways_157:
-  created_at: 2015-12-16 15:12:26.358763000 Z
+  created_at: 2015-12-19 13:11:04.343332000 Z
   id: 181
   junction_id: 141
   lock_version: 0
   nature: start
   product_id: 168
   role: born
-  updated_at: 2015-12-16 15:12:26.358763000 Z
+  updated_at: 2015-12-19 13:11:04.343332000 Z
 product_junction_ways_158:
-  created_at: 2015-12-16 15:12:26.493993000 Z
+  created_at: 2015-12-19 13:11:04.473400000 Z
   id: 182
   junction_id: 142
   lock_version: 0
   nature: start
   product_id: 169
   role: born
-  updated_at: 2015-12-16 15:12:26.493993000 Z
+  updated_at: 2015-12-19 13:11:04.473400000 Z

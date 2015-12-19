@@ -3,8 +3,7 @@
   - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if resource.destroyable?
 
 = main_informations attachment: true do
-  - if resource.picture.exists?
-    .picture= image_tag(resource.picture.url(:identity))
+  = render 'picture'
   .med-info.important
     - icon = resource.category.pictogram
     %span.title= Matter.human_attribute_name(:variant)
@@ -50,8 +49,8 @@
   - if count > 0
     - c.cobble :container do
       = map
-  - c.cobble(:intervention_casts, title: :x_interventions.tl(count: resource.interventions.count)) do
-    = cobble_list(:intervention_casts)
+  - c.cobble(:intervention_product_parameters, title: :x_interventions.tl(count: resource.interventions.count)) do
+    = cobble_list(:intervention_product_parameters)
   - c.cobble(:issues) do
     = cobble_toolbar do |t|
       - t.new(params: {controller: :issues, :target_id => resource.id, :target_type => resource.class.name})

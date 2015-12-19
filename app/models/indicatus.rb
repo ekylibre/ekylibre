@@ -22,7 +22,7 @@ class Indicatus
   end
 
   def actor
-    if cast = @intervention.casts.find_by(reference_name: @varicator.stakeholder.name)
+    if cast = @intervention.product_parameters.find_by(reference_name: @varicator.stakeholder.name)
       return cast.actor
     else
       return nil
@@ -37,9 +37,9 @@ class Indicatus
         computation, var = expr.split(/[[:space:]]*\:[[:space:]]*/)[0..1]
         computation = (computation.blank? ? :same_as : computation.underscore.to_sym)
         source_var = @varicator.procedure.variables[var]
-        source_cast = @intervention.casts.find_by(reference_name: source_var.name.to_s)
+        source_cast = @intervention.product_parameters.find_by(reference_name: source_var.name.to_s)
         source_actor = source_cast.actor
-        cast  = @intervention.casts.find_by(reference_name: @varicator.stakeholder.name)
+        cast  = @intervention.product_parameters.find_by(reference_name: @varicator.stakeholder.name)
         actor = cast.actor
         if computation == :superficial_count
           if source_actor.indicators_list.include?(:shape)

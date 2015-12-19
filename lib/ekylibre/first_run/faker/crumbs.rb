@@ -161,7 +161,7 @@ module Ekylibre::FirstRun::Faker
       # right_flow (liter/ha)
       ##
       path = self.path('demo_spraying', 'ticsad_simulation.shp')
-      if path.exist? && intervention && sprayer = intervention.casts.find_by(reference_name: 'sprayer')
+      if path.exist? && intervention && sprayer = intervention.product_parameters.find_by(reference_name: 'sprayer')
         # puts "ticsad import OK".inspect.green
         count :ticsad_simulation do |_w|
           #############################################################################

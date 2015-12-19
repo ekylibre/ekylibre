@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: intervention_casts
+# == Table: intervention_parameters
 #
 #  created_at             :datetime         not null
 #  creator_id             :integer
@@ -32,7 +32,6 @@
 #  new_container_id       :integer
 #  new_group_id           :integer
 #  new_variant_id         :integer
-#  parameter_name         :string           not null
 #  position               :integer          not null
 #  product_id             :integer
 #  quantity_handler       :string
@@ -40,6 +39,7 @@
 #  quantity_population    :decimal(19, 4)
 #  quantity_unit          :string
 #  quantity_value         :decimal(19, 4)
+#  reference_name         :string           not null
 #  source_product_id      :integer
 #  type                   :string
 #  updated_at             :datetime         not null
@@ -48,19 +48,15 @@
 #  working_zone           :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
 
-class InterventionCast < Ekylibre::Record::Base
-  attr_readonly :parameter_name
-  belongs_to :event_participation, dependent: :destroy
-  belongs_to :group, class_name: 'InterventionCastGroup'
-  belongs_to :intervention, inverse_of: :casts
+class InterventionProductParameter < InterventionParameter
+  belongs_to :intervention, inverse_of: :product_parameters
+  belongs_to :product, inverse_of: :intervention_product_parameters
   belongs_to :new_container, class_name: 'Product'
   belongs_to :new_group, class_name: 'ProductGroup'
   belongs_to :new_variant, class_name: 'ProductNatureVariant'
-  belongs_to :product, inverse_of: :intervention_casts
-  belongs_to :source_product, class_name: 'Product'
   belongs_to :variant, class_name: 'ProductNatureVariant'
-  has_many :crumbs, dependent: :destroy
-  has_many :readings, class_name: 'InterventionCastReading', dependent: :destroy, inverse_of: :intervention_cast
+  has_many :crumbs, dependent: :destroy, foreign_key: :intervention_parameter_id
+  has_many :readings, class_name: 'InterventionParameterReading', dependent: :destroy, inverse_of: :intervention_cast
   has_one :product_nature, through: :variant, source: :nature
   has_one :activity, through: :intervention
   has_one :campaign, through: :intervention
@@ -69,17 +65,13 @@ class InterventionCast < Ekylibre::Record::Base
   has_geometry :working_zone, type: :multi_polygon
   composed_of :quantity, class_name: 'Measure', mapping: [%w(quantity_value to_d), %w(quantity_unit unit)]
 
-  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :quantity_population, :quantity_value, allow_nil: true
-  validates_presence_of :intervention, :parameter_name
-  # ]VALIDATORS]
   validates_presence_of :quantity_indicator, :quantity_unit, if: :quantity_handler?
 
   delegate :name, to: :product, prefix: true
   delegate :name, to: :product_nature, prefix: true
   delegate :evaluated_price, to: :product
   delegate :tracking, to: :product
-  delegate :started_at, :stopped_at, :duration, to: :intervention
+  delegate :started_at, :stopped_at, :duration, :procedure, to: :intervention
   delegate :matching_model, to: :variant
 
   accepts_nested_attributes_for :readings, allow_destroy: true
@@ -99,12 +91,6 @@ class InterventionCast < Ekylibre::Record::Base
       fail ArgumentError, "Invalid role: #{role}"
     end
     where(type: "Intervention#{role.camelize}")
-  }
-  scope :of_activity, lambda { |activity|
-    where(intervention_id: InterventionTarget.select(:intervention_id).of_activity(activity))
-  }
-  scope :of_activity_production, lambda { |production|
-    where(intervention_id: InterventionTarget.select(:intervention_id).of_activity_production(production))
   }
   scope :of_actor, ->(actor) { where(product_id: actor.id) }
   scope :of_actors, ->(actors) { where(product_id: actors.flatten.map(&:id)) }
@@ -143,7 +129,7 @@ class InterventionCast < Ekylibre::Record::Base
           errors.add(:quantity_handler, :invalid) unless parameter[quantity_handler]
         end
       else
-        errors.add(:parameter_name, :invalid)
+        errors.add(:reference_name, :invalid)
       end
     end
   end
@@ -187,16 +173,13 @@ class InterventionCast < Ekylibre::Record::Base
 
   def parameter
     unless @parameter
-      if intervention
-        procedure = intervention.procedure
-        @parameter = procedure.find(parameter_name, :parameter)
-      end
+      @parameter = procedure.find(reference_name, :parameter) if intervention
     end
     @parameter
   end
 
   def name
-    parameter ? parameter.human_name : parameter_name.humanize
+    parameter ? parameter.human_name : reference_name.humanize
   end
 
   def shape_svg(options = {})

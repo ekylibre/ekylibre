@@ -23,26 +23,26 @@
 #
 # == Table: crumbs
 #
-#  accuracy             :decimal(19, 4)   not null
-#  created_at           :datetime         not null
-#  creator_id           :integer
-#  device_uid           :string           not null
-#  geolocation          :geometry({:srid=>4326, :type=>"point"}) not null
-#  id                   :integer          not null, primary key
-#  intervention_cast_id :integer
-#  lock_version         :integer          default(0), not null
-#  metadata             :text
-#  nature               :string           not null
-#  read_at              :datetime         not null
-#  updated_at           :datetime         not null
-#  updater_id           :integer
-#  user_id              :integer
+#  accuracy                  :decimal(19, 4)   not null
+#  created_at                :datetime         not null
+#  creator_id                :integer
+#  device_uid                :string           not null
+#  geolocation               :geometry({:srid=>4326, :type=>"point"}) not null
+#  id                        :integer          not null, primary key
+#  intervention_parameter_id :integer
+#  lock_version              :integer          default(0), not null
+#  metadata                  :text
+#  nature                    :string           not null
+#  read_at                   :datetime         not null
+#  updated_at                :datetime         not null
+#  updater_id                :integer
+#  user_id                   :integer
 #
 
 class Crumb < Ekylibre::Record::Base
   enumerize :nature, in: [:point, :start, :stop, :pause, :resume, :scan, :hard_start, :hard_stop], predicates: true
   belongs_to :user
-  belongs_to :intervention_cast
+  belongs_to :intervention_parameter, class_name: 'InterventionProductParameter'
   has_one :worker, through: :user
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :read_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
@@ -53,7 +53,7 @@ class Crumb < Ekylibre::Record::Base
 
   scope :after,   ->(at) { where(arel_table[:read_at].gt(at)) }
   scope :before,  ->(at) { where(arel_table[:read_at].lt(at)) }
-  scope :unconverted, -> { where(intervention_cast_id: nil) }
+  scope :unconverted, -> { where(intervention_parameter_id: nil) }
 
   # returns all crumbs for a given day. Default: the current day
   # TODO: remove this and replace by something like #start_day_between or #at
@@ -207,7 +207,7 @@ class Crumb < Ekylibre::Record::Base
       attributes[:production_support] = support
       intervention = Intervention.create!(attributes)
 
-      # creates casts
+      # creates product_parameters
       # adds actors
       procedure.matching_variables_for(actors).each do |variable, actor|
         attributes = {}
@@ -215,13 +215,13 @@ class Crumb < Ekylibre::Record::Base
         attributes[:reference_name] = variable.name
         cast = intervention.add_cast!(attributes)
         if worker && actor == worker
-          intervention_path.update_all(intervention_cast_id: cast.id)
+          intervention_path.update_all(intervention_parameter_id: cast.id)
         end
       end
 
-      # adds empty casts for unknown actors
+      # adds empty product_parameters for unknown actors
       for variable in procedure.variables.values
-        unless intervention.casts.map(&:reference_name).include? variable.name.to_s
+        unless intervention.product_parameters.map(&:reference_name).include? variable.name.to_s
           intervention.add_cast!(reference_name: variable.name)
         end
       end

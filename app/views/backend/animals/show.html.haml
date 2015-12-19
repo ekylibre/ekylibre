@@ -149,8 +149,8 @@
       - t.new(params: {controller: :issues, :target_id => resource.id, :target_type => resource.class.name}, tool: 'new-issue')
     = cobble_list(:issues)
 
-  - c.cobble(:intervention_casts, title: :x_intervention_casts.tl(count: resource.intervention_casts.count)) do
-    = cobble_list(:intervention_casts)
+  - c.cobble(:intervention_product_parameters, title: :x_intervention_product_parameters.tl(count: resource.intervention_product_parameters.count)) do
+    = cobble_list(:intervention_product_parameters)
 
   -# c.cobble(:readings, tl(:x_readings, count: resource.readings.count)) do
     = cobble_list(:readings)

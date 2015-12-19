@@ -94,8 +94,8 @@ class Product < Ekylibre::Record::Base
   has_many :enjoyments, class_name: 'ProductEnjoyment', foreign_key: :product_id, dependent: :destroy
   # has_many :groups, :through => :memberships
   has_many :issues, as: :target, dependent: :destroy
-  has_many :intervention_casts, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception
-  has_many :interventions, through: :intervention_casts
+  has_many :intervention_product_parameters, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception
+  has_many :interventions, through: :intervention_product_parameters
   has_many :junction_ways, class_name: 'ProductJunctionWay', foreign_key: :product_id, dependent: :destroy
   has_many :junctions, class_name: 'ProductJunction', through: :junction_ways
   has_many :linkages, class_name: 'ProductLinkage', foreign_key: :carrier_id, dependent: :destroy
@@ -279,7 +279,7 @@ class Product < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    analyses.any? || intervention_casts.any? || issues.any? || parcel_items.any? || supports.any?
+    analyses.any? || intervention_product_parameters.any? || issues.any? || parcel_items.any? || supports.any?
   end
 
   class << self
@@ -610,7 +610,7 @@ class Product < Ekylibre::Record::Base
   end
 
   def initializeable?
-    self.new_record? || !(parcel_items.any? || intervention_casts.any? || fixed_asset.present?)
+    self.new_record? || !(parcel_items.any? || intervention_product_parameters.any? || fixed_asset.present?)
   end
 
   # TODO: Doc

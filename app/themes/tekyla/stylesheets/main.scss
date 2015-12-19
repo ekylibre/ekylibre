@@ -1967,7 +1967,7 @@ ul.desc-list {
   @include description-list;
 }
 
-ul.casts {
+ul.casts, ul.parameters, ul.product-parameters, ul.product_parameters {
   @include description-list;
   li.cast {
     .details {

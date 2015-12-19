@@ -5,8 +5,7 @@
 - main_campaign_selector
 
 = main_informations attachment: true do
-  - if resource.picture.exists?
-    .picture= image_tag(resource.picture.url(:identity))
+  = render 'picture'
   .big-infos
     .med-info.important
       - icon = resource.category.pictogram
@@ -58,9 +57,9 @@
     - c.cobble :container do
       = map
 
-  - if resource.intervention_casts.any?
-    - c.cobble(:intervention_casts, title: :x_interventions.tl(count: resource.interventions.count)) do
-      = cobble_list(:intervention_casts)
+  - if resource.intervention_product_parameters.any?
+    - c.cobble(:intervention_product_parameters, title: :x_interventions.tl(count: resource.interventions.count)) do
+      = cobble_list(:intervention_product_parameters)
 
   - c.cobble(:readings, title: :x_readings.tl(count: resource.readings.count)) do
     = cobble_list(:readings)

@@ -37,7 +37,7 @@ Rails.application.routes.draw do
       get :list_groups
       get :list_issues
       get :list_readings
-      get :list_intervention_casts
+      get :list_intervention_product_parameters
       get :list_members
       get :list_places
       get :take
@@ -471,7 +471,7 @@ Rails.application.routes.draw do
       end
       member do
         post :run
-        get :list_casts
+        get :list_product_parameters
       end
     end
 

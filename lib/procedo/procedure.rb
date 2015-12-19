@@ -1,5 +1,4 @@
-# require 'procedo/converter'
-require 'procedo/parameter_group'
+require 'procedo/group_parameter'
 require 'procedo/compilers'
 require 'procedo/compiled_procedure'
 require 'procedo/compiled_variable'
@@ -12,7 +11,7 @@ module Procedo
   # This class represents a procedure
   class Procedure
     attr_reader :id, :name, :categories, :mandatory_actions, :optional_actions
-    delegate :add_parameter, :add_parameter_group, :each_item, :find, :find!,
+    delegate :add_product_parameter, :add_group_parameter, :each_item, :find, :find!,
              :items, :position_of, to: :root_group
 
     def initialize(name, options = {})
@@ -20,7 +19,7 @@ module Procedo
       @categories = []
       @mandatory_actions = []
       @optional_actions = []
-      @root_group = Procedo::ParameterGroup.new(self, :root_, cardinality: 1)
+      @root_group = Procedo::GroupParameter.new(self, :root_, cardinality: 1)
       # Adds categories & action
       options[:categories].each { |c| add_category(c) } if options[:categories]
       options[:mandatory_actions].each { |c| add_action(c) } if options[:mandatory_actions]

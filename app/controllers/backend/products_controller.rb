@@ -153,8 +153,8 @@ module Backend
       t.status
     end
 
-    # Lists intervention casts of the current product
-    list(:intervention_casts, conditions: { product_id: 'params[:id]'.c }, order: 'interventions.started_at DESC') do |t|
+    # Lists intervention product parameters of the current product
+    list(:intervention_product_parameters, conditions: { product_id: 'params[:id]'.c }, order: 'interventions.started_at DESC') do |t|
       t.column :intervention, url: true
       # t.column :roles, hidden: true
       t.column :name, sort: :reference_name

@@ -56,12 +56,12 @@
         balance = nitrogen_input
         resource.interventions.real.where(state: 'done').of_category(:fertilizing).between(opened_at, Time.zone.now).reorder(:started_at).find_each do |intervention|
           i = 0
-          intervention.casts.of_generic_role(:input).each do |input|
+          intervention.inputs.each do |input|
             m = (input.actor ? input.actor.net_mass(input).to_d(:kilogram) : 0.0)
             n = (input.actor ? input.actor.nitrogen_concentration.to_d(:unity) : 0.0)
             nitrogen_mass <<  m * n
           end
-          target = intervention.casts.of_generic_role(:target).first
+          target = intervention.targets.first
           if target
             i = (nitrogen_mass.compact.sum / target.population.to_d)
             # FIXME Some french to remove, arghh....

@@ -81,7 +81,7 @@ module Ekylibre
           # Find actors
           booker = new(procedure, Time.new(year, month, day), duration)
           yield booker
-          actors = booker.casts.collect { |c| c[:actor] }.compact
+          actors = booker.product_parameters.collect { |c| c[:actor] }.compact
           fail ArgumentError, "What's the fuck ? No actors ? " if actors.empty?
 
           # Adds fixed durations to given time
@@ -95,7 +95,7 @@ module Ekylibre
           on = nil
           begin
             on = Date.civil(year, month, day) + rand(day_range - duration_days).days
-          end while InterventionCast.joins(:intervention).where(actor_id: actors.map(&:id)).where('? BETWEEN started_at AND stopped_at OR ? BETWEEN started_at AND stopped_at', on, on + duration_days).any?
+          end while InterventionProductParameter.joins(:intervention).where(actor_id: actors.map(&:id)).where('? BETWEEN started_at AND stopped_at OR ? BETWEEN started_at AND stopped_at', on, on + duration_days).any?
 
           # Compute real number of day
           # 11 days shifting is here respect solstice shifting with 1st day of year
@@ -122,7 +122,7 @@ module Ekylibre
             stopped_at = period[:started_at] + period[:duration]
             next unless stopped_at < Time.zone.now
             intervention = Intervention.create!(procedure_name: procedure_name, production: Booker.production, production_support: options[:support], started_at: period[:started_at], stopped_at: stopped_at)
-            for cast in booker.casts
+            for cast in booker.product_parameters
               intervention.add_cast!(cast)
             end
             intervention.run!(period, options[:parameters])
@@ -148,14 +148,14 @@ module Ekylibre
           # Find actors
           booker = new(procedure, started_at, duration)
           yield booker
-          actors = booker.casts.collect { |c| c[:actor] }.compact
+          actors = booker.product_parameters.collect { |c| c[:actor] }.compact
           fail ArgumentError, "What's the fuck ? No actors ? " if actors.empty?
 
           # Find a slot for all actors for given day and given duration
           at = nil
           9.times do |p|
             at = started_at + p
-            break unless InterventionCast.joins(:intervention).where(actor_id: actors.map(&:id)).where('? BETWEEN started_at AND stopped_at OR ? BETWEEN started_at AND stopped_at', at, at + duration.hours).any?
+            break unless InterventionProductParameter.joins(:intervention).where(actor_id: actors.map(&:id)).where('? BETWEEN started_at AND stopped_at OR ? BETWEEN started_at AND stopped_at', at, at + duration.hours).any?
           end
 
           # Run interventions
@@ -163,7 +163,7 @@ module Ekylibre
           stopped_at = at + duration.hours
           if stopped_at < Time.zone.now
             intervention = Intervention.create!(procedure_name: procedure_name, production: Booker.production, production_support: options[:support], started_at: at, stopped_at: stopped_at, description: options[:description])
-            booker.casts.each do |cast|
+            booker.product_parameters.each do |cast|
               intervention.add_cast!(cast)
             end
             intervention.run!({ started_at: at, duration: duration.hours }, options[:parameters])
@@ -172,20 +172,20 @@ module Ekylibre
         end
       end
 
-      attr_reader :casts, :duration, :started_at, :procedure
+      attr_reader :product_parameters, :duration, :started_at, :procedure
 
       def initialize(procedure, started_at, duration)
         @procedure = procedure
         @duration = duration
         @started_at = started_at
-        @casts = []
+        @product_parameters = []
       end
 
       def add_cast(options = {})
         unless procedure.parameter[options[:parameter_name]]
           fail "Invalid parameter: #{options[:parameter_name]} in procedure #{procedure.name}"
         end
-        @casts << options
+        @product_parameters << options
       end
 
       # Find a valid actor in the given period

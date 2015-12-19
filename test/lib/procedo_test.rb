@@ -7,10 +7,10 @@ class ProcedoTest < ActiveSupport::TestCase
 
   test 'procedure methods' do
     procedure = Procedo::Procedure.new(:say_hello)
-    procedure.add_parameter(:speaker, :doer, cardinality: 1)
-    group = procedure.add_parameter_group(:home)
-    group.add_parameter(:human, :tool)
-    group.add_parameter(:dog, :tool)
+    procedure.add_product_parameter(:speaker, :doer, cardinality: 1)
+    group = procedure.add_group_parameter(:home)
+    group.add_product_parameter(:human, :tool)
+    group.add_product_parameter(:dog, :tool)
     assert procedure.find(:speaker)
     assert procedure.find(:dog)
     assert procedure.find(:home)

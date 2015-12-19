@@ -1,9 +1,9 @@
-- f.object.parameter_group_name = parameter_group.name
+- f.object.reference_name = parameter_group.name
 .nested-fields.cast-group
   = link_to_remove_nested_association('cast-group', f)
-  = f.input :parameter_group_name, as: :hidden
+  = f.input :reference_name, as: :hidden
   - parameter_group.each_item do |item|
     - if item.is_a? Procedo::Parameter
       = render 'cast_form', parameter: item, f: f
-    - elsif item.is_a? Procedo::ParameterGroup
+    - elsif item.is_a? Procedo::GroupParameter
       = render 'cast_group_form', parameter_group: item, f: f

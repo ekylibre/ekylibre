@@ -14,14 +14,14 @@
     - v.background "OpenStreetMap.Mapnik"
     - v.background "Thunderforest.Landscape"
     - v.background "Esri.WorldImagery"
-    - resource.casts.each do |cast|
+    - resource.product_parameters.each do |cast|
       - shape = cast.working_zone
       - shape ||= cast.product.shape(at: resource.started_at) if cast.product
       - if shape
         - v.serie cast.id, [{name: cast.name, shape: shape}]
         - v.simple (cast.product ? cast.product.name : cast.variant ? cast.variant.name : cast.name), cast.id, fill_color: cycle(theme_colors)
         - count += 1
-    - resource.casts.each do |cast|
+    - resource.product_parameters.each do |cast|
       - if cast.crumbs.any?
         - v.serie "path_#{cast.id}", cast.crumbs.reorder(:read_at).collect{|c| {name: cast.name, shape: c.geolocation}}
         - v.path (cast.product ? cast.product.name : cast.variant ? cast.variant.name : cast.name), "path_#{cast.id}"
@@ -34,7 +34,7 @@
     - c.cobble :resource_map, title: :map.tl do
       = map
 
-  - tractor_cast = resource.casts.find_by(parameter_name: 'tractor')
+  - tractor_cast = resource.product_parameters.find_by(reference_name: 'tractor')
   - if tractor_cast && tractor_cast.product
     :ruby
       tractor = tractor_cast.product
@@ -74,8 +74,9 @@
         %span.title= "total_cost".tl
         %span.value= total.l(currency: Preference[:currency])
 
-  - c.cobble(:casts) do
-    %ul.casts= render partial: "cast", collection: resource.casts
+  - if resource.product_parameters.any?
+    - c.cobble(:parameters) do
+      %ul.product_parameters= render partial: "parameter", collection: resource.product_parameters
 
   - c.cobble(:general_informations) do
     .big-infos

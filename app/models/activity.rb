@@ -164,8 +164,8 @@ class Activity < Ekylibre::Record::Base
     Intervention.of_activity(self)
   end
 
-  def casts
-    InterventionCast.of_activity(self)
+  def intervention_parameters
+    InterventionParameter.of_activity(self)
   end
 
   def count_during(campaign)

@@ -118,12 +118,12 @@ module Indicateable
           value *= send(:population, at: cast_or_time)
         end
       end
-    elsif cast_or_time.is_a?(InterventionCast)
+    elsif cast_or_time.is_a?(InterventionProductParameter)
       if cast_or_time.product && cast_or_time.product.whole_indicators_list.include?(indicator.name.to_sym)
         value = cast_or_time.send(indicator.name)
       elsif cast_or_time.parameter.new?
         unless variant = cast_or_time.variant || cast_or_time.parameter.variant(cast_or_time.intervention)
-          fail StandardError, "Need variant to know how to read it (#{cast_or_time.intervention.procedure_name}##{cast_or_time.parameter_name})"
+          fail StandardError, "Need variant to know how to read it (#{cast_or_time.intervention.procedure_name}##{cast_or_time.reference_name})"
         end
         if variant.frozen_indicators.include?(indicator)
           value = variant.get(indicator)

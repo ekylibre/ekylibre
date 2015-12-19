@@ -6,123 +6,30 @@ namespace :clean do
     log = File.open(Rails.root.join('log', 'clean-tests.log'), 'wb')
     log.write(">> Init\n") if verbose
 
-    errors = { models: 0, controllers: 0, helpers: 0, fixtures: 0, jobs: 0 }
+    errors = { fixtures: 0 }
     source = nil
 
     log.write(">> Start!\n") if verbose
 
     # Check model test files
     print ' - Tests: '
-    log.write(">> Search models\n") if verbose
-    models = Clean::Support.models_in_file
-    files = Dir.glob(Rails.root.join('test', 'models', '**', '*.rb')).map(&:to_s)
-    for model in models
-      log.write("> #{model}\n") if verbose
-      class_name = "#{model.name}Test"
-      file = Rails.root.join('test', 'models', class_name.underscore + '.rb')
-      if File.exist?(file)
-        File.open(file, 'rb') do |f|
-          source = f.read
-        end
-        source.gsub!(/^\#[^\n]*\n/, '')
-        unless source.match(/class\ +#{class_name}\ +/)
-          errors[:models] += 1
-          log.write(" - Error: Test file #{file} seems to be invalid. Class name #{class_name} expected but not found\n")
-          if source.blank?
-            Clean::Tests.write_model_test_file(class_name)
-            log.write("   > Empty test file has been writed: #{file}\n")
-          end
-        end
-      else
-        errors[:models] += 1
-        log.write(" - Error: Test file #{file} is missing\n")
-        # Create missing file
-        Clean::Tests.write_model_test_file(class_name)
-        log.write("   > Test file has been created: #{file}\n")
-      end
-      files.delete(file.to_s)
-    end
-    for file in files.sort
-      errors[:models] += 1
-      log.write(" - Error: Unexpected test file: #{file}\n")
-    end
-    log.write("   > git rm #{files.join(' ')}\n") if files.any?
-
-    Clean::Tests.print_stat :models, errors, true
+    errors[:models] = Clean::Tests.check_class_test('models', log, verbose)
+    Clean::Tests.print_stat :models, errors
 
     # Check helper test files
     print ' - Tests: '
-    files = Dir.glob(Rails.root.join('test', 'helpers', '**', '*_test.rb')).map(&:to_s)
-    for helper_name in Clean::Support.helpers_in_file.to_a
-      log.write("> #{helper_name}\n")  if verbose
-      test_class_name = (helper_name + '_test').classify
-      file = Rails.root.join('test', 'helpers', (test_class_name + '.rb').underscore)
-      if File.exist?(file)
-        File.open(file, 'rb') do |f|
-          source = f.read
-        end
-        source.gsub!(/^\#[^\n]*\n/, '')
-        unless source.match(/class\ +#{test_class_name}\ +/)
-          errors[:helpers] += 1
-          log.write(" - Error: Test file #{file} seems to be invalid. Class name #{test_class_name} expected but not found\n")
-          if source.blank?
-            Clean::Tests.write_helper_test_file(test_class_name)
-            log.write("   > Empty test file has been writed: #{file}\n")
-          end
-        end
-      else
-        errors[:helpers] += 1
-        log.write(" - Error: Test file #{file} is missing\n")
-        # Create missing file
-        Clean::Tests.write_helper_test_file(test_class_name)
-        log.write("   > Test file has been created: #{file}\n")
-      end
-      files.delete(file.to_s)
-    end
-    for file in files.sort
-      errors[:helpers] += 1
-      log.write(" - Error: Unexpected test file: #{file}\n")
-    end
-    log.write("   > git rm #{files.join(' ')}\n") if files.any?
-
+    errors[:helpers] = Clean::Tests.check_class_test('helpers', log, verbose)
     Clean::Tests.print_stat :helpers, errors
 
     # Check controller test files
     print ' - Tests: '
-    log.write(">> Search controllers\n") if verbose
-    controllers = Clean::Support.controllers_in_file
-    files = Dir.glob(Rails.root.join('test', 'controllers', '**', '*.rb')).collect(&:to_s)
-    for controller in controllers
-      log.write("> #{controller}\n") if verbose
-      class_name = "#{controller.name}Test"
-      file = Rails.root.join('test', 'controllers', class_name.underscore + '.rb')
-      if File.exist?(file)
-        File.open(file, 'rb') do |f|
-          source = f.read
-        end
-        source.gsub!(/^\#[^\n]*\n/, '')
-        unless source.match(/class\ +#{class_name}\ +/)
-          errors[:controllers] += 1
-          log.write(" - Error: Test file #{file} seems to be invalid. Class name #{class_name} expected but not found\n")
-          if source.blank?
-            Clean::Tests.write_controller_test_file(class_name)
-            log.write("   > Empty test file has been writed: #{file}\n")
-          end
-        end
-      else
-        errors[:controllers] += 1
-        log.write(" - Error: Test file #{file} is missing\n")
-        Clean::Tests.write_controller_test_file(class_name)
-        log.write("   > Test file has been created: #{file}\n")
-      end
-      files.delete(file.to_s)
-    end
-    for file in files.sort
-      errors[:controllers] += 1
-      log.write(" - Error: Unexpected test files: #{file}\n")
-    end
-    log.write("   > git rm #{files.join(' ')}\n") if files.any?
+    errors[:controllers] = Clean::Tests.check_class_test('controllers', log, verbose)
     Clean::Tests.print_stat :controllers, errors
+
+    # Check job test files
+    print ' - Tests: '
+    errors[:jobs] = Clean::Tests.check_class_test('jobs', log, verbose)
+    Clean::Tests.print_stat :jobs, errors
 
     # Check fixture files
     print ' - Tests: '
@@ -181,50 +88,13 @@ namespace :clean do
       end
       files.delete(file.to_s)
     end
-    for file in files.sort
+    files.sort.each do |file|
       errors[:fixtures] += 1
       log.write(" - Error: Unexpected fixture file: #{file}\n")
     end
     log.write("   > git rm #{files.join(' ')}\n") if files.any?
 
     Clean::Tests.print_stat :fixtures, errors
-
-    # Check job test files
-    print ' - Tests: '
-    files = Dir.glob(Rails.root.join('test', 'jobs', '**', '*_test.rb')).map(&:to_s)
-    for job_name in Clean::Support.jobs_in_file.to_a
-      log.write("> #{job_name}\n")  if verbose
-      test_class_name = (job_name + '_test').classify
-      file = Rails.root.join('test', 'jobs', (test_class_name + '.rb').underscore)
-      if File.exist?(file)
-        File.open(file, 'rb') do |f|
-          source = f.read
-        end
-        source.gsub!(/^\#[^\n]*\n/, '')
-        unless source.match(/class\ +#{test_class_name}\ +/)
-          errors[:jobs] += 1
-          log.write(" - Error: Test file #{file} seems to be invalid. Class name #{test_class_name} expected but not found\n")
-          if source.blank?
-            Clean::Tests.write_job_test_file(test_class_name)
-            log.write("   > Empty test file has been writed: #{file}\n")
-          end
-        end
-      else
-        errors[:jobs] += 1
-        log.write(" - Error: Test file #{file} is missing\n")
-        # Create missing file
-        Clean::Tests.write_job_test_file(test_class_name)
-        log.write("   > Test file has been created: #{file}\n")
-      end
-      files.delete(file.to_s)
-    end
-    for file in files.sort
-      errors[:jobs] += 1
-      log.write(" - Error: Unexpected test file: #{file}\n")
-    end
-    log.write("   > git rm #{files.join(' ')}\n") if files.any?
-
-    Clean::Tests.print_stat :jobs, errors
 
     # puts " " + errors.collect{|k,v| "#{k.to_s.humanize}: #{v.to_s.rjust(3)} errors"}.join(", ")
     # puts ""

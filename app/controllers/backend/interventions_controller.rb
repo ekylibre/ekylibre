@@ -58,10 +58,10 @@ module Backend
 
       # ActivityProduction || Activity
       code << "if params[:production_id].to_i > 0\n"
-      code << "  c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_casts WHERE type = \\'InterventionTarget\\' AND product_id IN (SELECT target_id FROM target_distributions WHERE activity_production_id = ?))'\n"
+      code << "  c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = \\'InterventionTarget\\' AND product_id IN (SELECT target_id FROM target_distributions WHERE activity_production_id = ?))'\n"
       code << "  c << params[:production_id].to_i\n"
       code << "elsif params[:activity_id].to_i > 0\n"
-      code << "  c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_casts WHERE type = \\'InterventionTarget\\' AND product_id IN (SELECT target_id FROM target_distributions WHERE activity_id = ?))'\n"
+      code << "  c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = \\'InterventionTarget\\' AND product_id IN (SELECT target_id FROM target_distributions WHERE activity_id = ?))'\n"
       code << "  c << params[:activity_id].to_i\n"
       code << "end\n"
       code << "c\n "
@@ -91,8 +91,8 @@ module Backend
 
     # SHOW
 
-    list(:casts, model: :intervention_casts, conditions: { intervention_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
-      t.column :name, sort: :parameter_name
+    list(:product_parameters, model: :intervention_product_parameters, conditions: { intervention_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
+      t.column :name, sort: :reference_name
       t.column :product, url: true
       t.column :human_roles, sort: :roles, label: :roles
       t.column :population
@@ -110,7 +110,7 @@ module Backend
         return
       end
       respond_with(@intervention, methods: [:cost, :earn, :status, :name, :duration],
-                                  include: [{ casts: { methods: [:variable_name, :default_name], include: { product: { methods: [:picture_path, :nature_name, :unit_name] } } } }, { storage: {} }, :recommender, :prescription],
+                                  include: [{ parameters: { methods: [:reference_name, :default_name], include: { product: { methods: [:picture_path, :nature_name, :unit_name] } } } }, { storage: {} }, :recommender, :prescription],
                                   procs: proc { |options| options[:builder].tag!(:url, backend_intervention_url(@intervention)) }
                   )
     end

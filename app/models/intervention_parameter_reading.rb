@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: intervention_cast_readings
+# == Table: intervention_parameter_readings
 #
 #  absolute_measure_value_unit  :string
 #  absolute_measure_value_value :decimal(19, 4)
@@ -34,20 +34,21 @@
 #  indicator_datatype           :string           not null
 #  indicator_name               :string           not null
 #  integer_value                :integer
-#  intervention_cast_id         :integer          not null
 #  lock_version                 :integer          default(0), not null
 #  measure_value_unit           :string
 #  measure_value_value          :decimal(19, 4)
 #  multi_polygon_value          :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  parameter_id                 :integer          not null
 #  point_value                  :geometry({:srid=>4326, :type=>"point"})
 #  string_value                 :text
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
 #
 
-class InterventionCastReading < Ekylibre::Record::Base
+class InterventionParameterReading < Ekylibre::Record::Base
   include ReadingStorable
-  belongs_to :intervention_cast, inverse_of: :readings
+  belongs_to :intervention_cast, inverse_of: :readings, class_name: 'InterventionParameter', foreign_key: :parameter_id
+  belongs_to :intervention_parameter, inverse_of: :readings, class_name: 'InterventionParameter', foreign_key: :parameter_id
   has_one :intervention, through: :intervention
   has_one :product, through: :intervention_cast
   has_one :product_reading, as: :originator
@@ -55,7 +56,7 @@ class InterventionCastReading < Ekylibre::Record::Base
   validates_numericality_of :integer_value, allow_nil: true, only_integer: true
   validates_numericality_of :absolute_measure_value_value, :decimal_value, :measure_value_value, allow_nil: true
   validates_inclusion_of :boolean_value, in: [true, false]
-  validates_presence_of :indicator_datatype, :indicator_name, :intervention_cast
+  validates_presence_of :indicator_datatype, :indicator_name, :intervention_cast, :intervention_parameter
   # ]VALIDATORS]
 
   delegate :started_at, :stopped_at, to: :intervention

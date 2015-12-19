@@ -17,6 +17,8 @@ module Procedo
           array = object.split('..').map(&:strip)
           @minimum = array.first.to_i unless array.first.blank?
           @maximum = array.second.to_i unless array.second.blank?
+        elsif object =~ /\A\d+\z/
+          @minimum = @maximum = object.to_i
         elsif object != '*'
           fail "Cannot parse that: #{object.inspect}"
         end

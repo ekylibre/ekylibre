@@ -84,7 +84,7 @@ module Ekylibre::FirstRun::Faker
               end
 
               if w.count.modulo(3).zero? # AND NOT prairie
-                cultivation = int.casts.find_by(reference_name: 'cultivation').actor
+                cultivation = int.product_parameters.find_by(reference_name: 'cultivation').actor
                 # Treatment herbicide 01-04 30-04
                 Ekylibre::FirstRun::Booker.intervene(:spraying_on_cultivation, year, 4, 1, 1.07 * coeff, support: support) do |i|
                   i.add_cast(reference_name: 'plant_medicine', actor: products[:plant_medicine].sample)
@@ -172,7 +172,7 @@ module Ekylibre::FirstRun::Faker
 
               if w.count.modulo(3).zero?
                 if int
-                  cultivation = int.casts.find_by(reference_name: 'cultivation').actor
+                  cultivation = int.product_parameters.find_by(reference_name: 'cultivation').actor
                   # Treatment herbicide 01-04 30-04
                   Ekylibre::FirstRun::Booker.intervene(:spraying_on_cultivation, year, 5, 27, 1.07 * coeff, support: support) do |i|
                     i.add_cast(reference_name: 'plant_medicine', actor: products[:plant_medicine].sample)
@@ -211,7 +211,7 @@ module Ekylibre::FirstRun::Faker
             coeff = (area.to_s.to_f / 10_000.0) / 6.0
 
             if sowing_intervention = support.interventions.of_nature(:sowing).reorder(:started_at).last
-              cultivation = sowing_intervention.casts.find_by(reference_name: 'cultivation').actor
+              cultivation = sowing_intervention.product_parameters.find_by(reference_name: 'cultivation').actor
               # Watering  15-05-M -> 31-08-M
               Ekylibre::FirstRun::Booker.intervene(:watering, year, 7, 15, 0.96 * coeff, support: support) do |i|
                 i.add_cast(reference_name: 'water',      actor: i.find(Product, variety: :water))
@@ -242,7 +242,7 @@ module Ekylibre::FirstRun::Faker
             bob = nil
             sowing = support.interventions.where(reference_name: 'sowing').where('started_at < ?', Date.civil(year, 6, 6)).order('stopped_at DESC').first
             if cultivation = begin
-                               sowing.casts.find_by(reference_name: 'cultivation').actor
+                               sowing.product_parameters.find_by(reference_name: 'cultivation').actor
                              rescue
                                nil
                              end
@@ -255,7 +255,7 @@ module Ekylibre::FirstRun::Faker
                 i.add_cast(reference_name: 'straw', population: 1.5 * coeff, variant: ProductNatureVariant.find_or_import!(:straw, derivative_of: cultivation.variety).first)
               end
 
-              straw = int.casts.find_by(reference_name: 'straw').actor
+              straw = int.product_parameters.find_by(reference_name: 'straw').actor
               Ekylibre::FirstRun::Booker.intervene(:straw_bunching, year, 6, 20, 3.13 * coeff, support: support) do |i|
                 i.add_cast(reference_name: 'tractor',        actor: i.find(Product, can: 'tow(baler)'))
                 i.add_cast(reference_name: 'baler_driver',   actor: i.find(bob.others))
@@ -285,7 +285,7 @@ module Ekylibre::FirstRun::Faker
             # Harvest 01-07-M 30-07-M
             sowing = support.interventions.where(reference_name: 'sowing').where('started_at < ?', Date.civil(year, 7, 1)).order('stopped_at DESC').first
             if cultivation = begin
-                               sowing.casts.find_by(reference_name: 'cultivation').actor
+                               sowing.product_parameters.find_by(reference_name: 'cultivation').actor
                              rescue
                                nil
                              end

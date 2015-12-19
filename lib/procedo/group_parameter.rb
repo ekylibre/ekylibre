@@ -1,17 +1,10 @@
-require 'procedo/cardinality'
 require 'procedo/parameter'
 
 module Procedo
-  # Parameter is
-  class ParameterGroup
-    attr_reader :procedure
-    attr_accessor :name, :cardinality
-
+  # Parameter group is a a group of parameter like a directory in a FS.
+  class GroupParameter < Procedo::Parameter
     def initialize(procedure, name, options = {})
-      @procedure = procedure
-      @name = name.to_sym
-      @group = options[:group]
-      @cardinality = Procedo::Cardinality.new(options[:cardinality] || '+')
+      super(procedure, name, options)
       @items = {}.with_indifferent_access
     end
 
@@ -52,7 +45,7 @@ module Procedo
     end
 
     def groups
-      @items.select { |i| i.is_a?(Procedo::ParameterGroup) }
+      @items.select { |i| i.is_a?(Procedo::GroupParameter) }
     end
 
     # Browse items in their order
@@ -60,26 +53,16 @@ module Procedo
       items(recursively).each(&block)
     end
 
-    def add_parameter(name, type, options = {})
+    def add_product_parameter(name, type, options = {})
       options[:group] = self
-      item = Procedo::Parameter.new(@procedure, name, type, options)
+      item = Procedo::ProductParameter.new(@procedure, name, type, options)
       @items[item.name] = item
     end
 
-    def add_parameter_group(name, options = {})
+    def add_group_parameter(name, options = {})
       options[:group] = self
-      item = Procedo::ParameterGroup.new(@procedure, name, options)
+      item = Procedo::GroupParameter.new(@procedure, name, options)
       @items[item.name] = item
-    end
-
-    # Returns a human name of the parameter group
-    # Scopes:
-    # -  procedure_parameter_groups.<name>
-    # -  procedure_parameters.<name>
-    # -  labels.<name>
-    # -  attribtues.<name>
-    def human_name(options = {})
-      "procedure_parameter_groups.#{name}".t(options.merge(default: ["procedure_parameters.#{name}".to_sym, "labels.#{name}".to_sym, "attributes.#{name}".to_sym, name.to_s.humanize]))
     end
 
     protected
@@ -87,7 +70,7 @@ module Procedo
     def browse_all(&block)
       @items.each do |_k, item|
         yield item
-        item.browse_all(&block) if item.is_a?(Procedo::ParameterGroup)
+        item.browse_all(&block) if item.is_a?(Procedo::GroupParameter)
       end
     end
 
@@ -96,7 +79,7 @@ module Procedo
     def all_items
       list = []
       items.each do |item|
-        if item.is_a?(Procedo::ParameterGroup)
+        if item.is_a?(Procedo::GroupParameter)
           list += item.all_items
         else
           list << item

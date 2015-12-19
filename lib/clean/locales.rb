@@ -54,9 +54,9 @@ module Clean
         # enumerize[:product_nature_variant_reading] ||= {}
         # enumerize[:product_nature_variant_reading][:indicator_name] = Clean::Support.rec(hash, locale, :nomenclatures, :indicators, :items)
         enumerize[:intervention] ||= {}
-        enumerize[:intervention][:reference_name] = Clean::Support.rec(hash, locale, :procedures)
-        enumerize[:intervention_cast] ||= {}
-        enumerize[:intervention_cast][:reference_name] = Clean::Support.rec(hash, locale, :variables)
+        enumerize[:intervention][:procedure_name] = Clean::Support.rec(hash, locale, :procedures)
+        enumerize[:intervention_parameter] ||= {}
+        enumerize[:intervention_parameter][:reference_name] = Clean::Support.rec(hash, locale, :procedure_parameters)
         enumerize[:listing] ||= {}
         enumerize[:listing][:root_model] = Clean::Support.rec(hash, locale, :activerecord, :models)
 

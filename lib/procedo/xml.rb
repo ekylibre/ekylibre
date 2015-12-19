@@ -1,4 +1,5 @@
 require 'procedo/procedure'
+require 'procedo/product_parameter'
 
 module Procedo
   # The module parse XML procedures.
@@ -19,10 +20,10 @@ module Procedo
   #             to="population" backward="(value * self..net_mass(kilogram)) / cultivation.net_surface_area(hectare)"
   #             forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(kilogram)"/>
   #         </parameter>
-  #         <parameter name="sower" type="tool" filter="can sow"/>
-  #         <parameter name="driver" type="doer" filter="can drive(equipment) and can move"/>
+  #         <tool name="sower" filter="can sow"/>
+  #         <doer name="driver" filter="can drive(equipment) and can move"/>
   #         <parameter name="tractor" type="tool" filter="can tow(equipment) and can move"/>
-  #         <parameter-group name="zone">
+  #         <group name="zone">
   #           <parameter name="land_parcel" type="target" filter="can store(plant)" default-actor="storage"/>
   #           <parameter name="cultivation" type="output" variety="derivative-of: seeds"
   #             filter="is derivative-of: seeds" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})"
@@ -32,7 +33,7 @@ module Procedo
   #               <converter to="population" forward="area(value) / cultivation..net_surface_area(square_meter)"/>
   #             </handler>
   #           </parameter>
-  #         </parameter-group>
+  #         </group>
   #       </parameters>
   #     </procedure>
   #   </procedures>
@@ -89,9 +90,9 @@ module Procedo
       # Parse list of children of a <parameter-group> or <parameters> tag
       def parse_group_children(procedure, element, options = {})
         element.children.each do |child|
-          if child.name == 'parameter'
+          if child.name == 'parameter' || ProductParameter::TYPES.include?(child.name.to_sym)
             parse_parameter(procedure, child, options)
-          elsif child.name == 'parameter-group'
+          elsif %w(group parameter-group).include?(child.name)
             parse_parameter_group(procedure, child, options)
           else
             fail "Unexpected child: #{child.name}"
@@ -103,7 +104,12 @@ module Procedo
       def parse_parameter(procedure, element, options = {})
         name = element.attr('name').to_sym
         fail "No type given for #{name} parameter" unless element.has_attribute?('type')
-        type = element.attr('type').underscore.to_sym
+        if element.name != 'parameter'
+          type = element.name
+          fail 'type attribute is not supported' if element.has_attribute('type')
+        else
+          type = element.attr('type').underscore.to_sym
+        end
         %w(filter cardinality).each do |info|
           if element.has_attribute?(info)
             options[info.underscore.to_sym] = element.attr(info).to_s
@@ -122,7 +128,7 @@ module Procedo
           end
         end
         parent = options[:group] || procedure
-        parameter = parent.add_parameter(name, type, options)
+        parameter = parent.add_product_parameter(name, type, options)
         # Handlers
         element.xpath('xmlns:handler').each do |el|
           parse_handler(parameter, el)
@@ -168,7 +174,7 @@ module Procedo
           options[:cardinality] = element.attr('cardinality').to_s
         end
         parent = options[:group] || procedure
-        group = parent.add_parameter_group(name, options)
+        group = parent.add_group_parameter(name, options)
         parse_group_children(procedure, element, group: group)
       end
     end

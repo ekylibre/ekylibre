@@ -49,8 +49,13 @@ class Intervention < Ekylibre::Record::Base
   belongs_to :issue
   belongs_to :prescription
   with_options inverse_of: :intervention, dependent: :destroy do
-    has_many :casts, -> { order(:position) }, class_name: 'InterventionCast'
-    has_many :cast_groups, -> { order(:position) }, class_name: 'InterventionCastGroup'
+    has_many :parameters, class_name: 'InterventionParameter'
+    has_many :casts, -> { where(type: %w(InterventionProductParameter InterventionDoer InterventionInput InterventionOutput InterventionTarget InterventionTool)).order(:position) }, class_name: 'InterventionParameter'
+    # has_many :cast_groups, -> { order(:position) }, class_name: 'InterventionGroupParameter'
+    has_many :cast_groups, -> { where(type: 'InterventionGroupParameter').order(:position) }, class_name: 'InterventionParameter'
+    has_many :group_parameters, -> { where(type: 'InterventionGroupParameter').order(:position) }, class_name: 'InterventionParameter'
+    has_many :product_parameters, -> { where(type: %w(InterventionProductParameter InterventionDoer InterventionInput InterventionOutput InterventionTarget InterventionTool)).order(:position) }, class_name: 'InterventionProductParameter'
+    # has_many :product_parameters, -> { order(:position) }, class_name: 'InterventionProductParameter'
     has_many :doers, class_name: 'InterventionDoer'
     has_many :inputs, class_name: 'InterventionInput'
     has_many :outputs, class_name: 'InterventionOutput'
@@ -66,7 +71,7 @@ class Intervention < Ekylibre::Record::Base
   validates_presence_of :procedure_name, :state
   # ]VALIDATORS]
   validates_presence_of :actions
-  validates_associated :cast_groups, :doers, :inputs, :outputs, :targets, :tools, :working_periods
+  validates_associated :cast_groups, :group_parameters, :doers, :inputs, :outputs, :targets, :tools, :working_periods
 
   serialize :parameters, HashWithIndifferentAccess
   serialize :actions, SymbolArray
@@ -76,7 +81,7 @@ class Intervention < Ekylibre::Record::Base
   calculable period: :month, column: :working_duration, at: :started_at, name: :sum
 
   acts_as_numbered
-  accepts_nested_attributes_for :cast_groups, :doers, :inputs, :outputs, :targets, :tools, :working_periods
+  accepts_nested_attributes_for :cast_groups, :group_parameters, :doers, :inputs, :outputs, :targets, :tools, :working_periods
 
   scope :between, lambda { |started_at, stopped_at|
     where(started_at: started_at..stopped_at)
@@ -99,7 +104,7 @@ class Intervention < Ekylibre::Record::Base
   scope :real, -> { where('stopped_at <= ?', Time.zone.now) }
 
   scope :with_generic_cast, lambda { |role, object|
-    where(id: InterventionCast.of_generic_role(role).of_actor(object).select(:intervention_id))
+    where(id: InterventionProductParameter.of_generic_role(role).of_actor(object).select(:intervention_id))
   }
 
   scope :with_targets, lambda { |*targets|
@@ -162,7 +167,8 @@ class Intervention < Ekylibre::Record::Base
 
   # Returns parameter names
   def casting
-    casts.map(&:product).compact.map(&:name).sort.to_sentence
+    ActiveSupport::Deprecation.warn 'Intervention#casting is deprecated.'
+    product_parameters.map(&:product).compact.map(&:name).sort.to_sentence
   end
 
   def name
@@ -186,30 +192,27 @@ class Intervention < Ekylibre::Record::Base
     )
   end
 
-  # Sums all intervention_cast total_cost of a particular role
-  # (see ProcedureNature nomenclature for more details)
+  # Sums all intervention product parameter total_cost of a particular role
   def cost(role = :input)
-    selected_casts = casts.of_generic_role(role).with_actor
-    if selected_casts.any?
-      selected_casts = selected_casts.map(&:cost)
-      selected_casts.compact!
-      selected_casts.sum
+    parameters = product_parameters.of_generic_role(role).with_actor
+    if parameters.any?
+      parameters.map(&:cost).compact.sum
     else
       return nil
     end
   end
 
   def earn
-    if casts.of_generic_role(:output).any?
-      casts.of_generic_role(:output).with_actor.map(&:earn).compact.sum
+    if outputs.any?
+      outputs.with_actor.map(&:earn).compact.sum
     else
       return nil
     end
   end
 
   def working_area(unit = :hectare)
-    if casts.of_generic_role(:target).any?
-      return casts.of_generic_role(:target).with_actor.map do |target|
+    if targets.any?
+      return targets.with_actor.map do |target|
         target.product.net_surface_area
       end.compact.sum.in(unit).round(2)
     end
@@ -229,12 +232,12 @@ class Intervention < Ekylibre::Record::Base
     valid = true
     # Check cardinality and runnability
     procedure.parameters.each do |parameter|
-      all_casts = casts.where(parameter_name: parameter.name)
-      # unless parameter.cardinality.include?(casts.count)
+      all_parameters = parameters.where(reference_name: parameter.name)
+      # unless parameter.cardinality.include?(parameters.count)
       #   valid = false
       # end
-      all_casts.each do |cast|
-        valid = false unless cast.runnable?
+      all_parameters.each do |parameter|
+        valid = false unless parameter.runnable?
       end
     end
     valid
@@ -253,7 +256,6 @@ class Intervention < Ekylibre::Record::Base
   end
 
   class << self
-
     def used_procedures
       select(:procedure_name).distinct.pluck(:procedure_name).map do |name|
         Procedo.find(name)
@@ -319,8 +321,8 @@ class Intervention < Ekylibre::Record::Base
       # Select interventions from all actors history
       if options[:history]
         # history is considered relevant on 1 year
-        history.merge!(Intervention.joins(:casts)
-                        .where("intervention_casts.actor_id IN (#{actors_id.join(', ')})")
+        history.merge!(Intervention.joins(:product_parameters)
+                        .where("intervention_parameters.actor_id IN (#{actors_id.join(', ')})")
                         .where(started_at: (Time.zone.now.midnight - 1.year)..(Time.zone.now))
                         .group('interventions.procedure_name')
                         .count('interventions.procedure_name'))
@@ -328,8 +330,8 @@ class Intervention < Ekylibre::Record::Base
 
       if options[:provisional]
         provisional.concat(Intervention.distinct
-                            .joins(:casts)
-                            .where("intervention_casts.actor_id IN (#{actors_id.join(', ')})")
+                            .joins(:product_parameters)
+                            .where("intervention_parameters.actor_id IN (#{actors_id.join(', ')})")
                             .where(started_at: (Time.zone.now.midnight - 1.day)..(Time.zone.now + 3.days))
                             .pluck('interventions.procedure_name')).uniq!
       end
@@ -347,7 +349,7 @@ class Intervention < Ekylibre::Record::Base
       Procedo.list.map do |procedure_key, procedure|
         coeff[procedure_key] = 1.0 + 2.0 * (history[procedure_key].to_f / history_size) + 3.0 * provisional.count(procedure_key).to_f
         matched_parameters = procedure.matching_parameters_for(actors)
-        if matched_parameters.count > 0
+        if matched_parameters.any?
           result << [procedure, (((matched_parameters.values.count.to_f / actors.count) * coeff[procedure_key]) / denominator), matched_parameters.values.count]
           maximum_arity = matched_parameters.values.count if maximum_arity < matched_parameters.values.count
         end

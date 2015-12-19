@@ -44,8 +44,8 @@
 
 = cobbles do |c|
 
-  - c.cobble(:intervention_casts, title: :x_interventions.tl(count: resource.interventions.count)) do
-    = cobble_list(:intervention_casts)
+  - c.cobble(:intervention_product_parameters, title: :x_interventions.tl(count: resource.interventions.count)) do
+    = cobble_list(:intervention_product_parameters)
 
   - c.cobble(:issues) do
     = cobble_toolbar do |t|

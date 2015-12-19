@@ -1,0 +1,5 @@
+- if resource.picture.exists?
+  .picture= image_tag(resource.picture.url(:identity))
+- elsif resource.category.pictogram.present?
+  .picture
+    %i.picto{class: "picto-#{resource.category.pictogram}"}
