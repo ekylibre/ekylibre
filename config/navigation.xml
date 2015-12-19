@@ -88,19 +88,6 @@
         <page to="backend/event_participations#update"/>
       </item>
     </group>
-    <group name="subscriptions" icon="tags">
-      <item name="subscriptions">
-        <page to="backend/subscriptions#index"/>
-        <page to="backend/subscriptions#create"/>
-        <page to="backend/subscriptions#destroy"/>
-        <page to="backend/subscriptions#edit"/>
-        <page to="backend/subscriptions#list"/>
-        <page to="backend/subscriptions#new"/>
-        <page to="backend/subscriptions#show"/>
-        <page to="backend/subscriptions#unroll"/>
-        <page to="backend/subscriptions#update"/>
-      </item>
-    </group>
   </part>
   <part name="accountancy" icon="money">
     <page to="backend/dashboards#accountancy"/>
@@ -652,6 +639,11 @@
         <page to="backend/animals#list_carrier_linkages"/>
         <page to="backend/animals#take"/>
         <page to="backend/animals#unroll"/>
+        <page to="backend/animals#change"/>
+        <page to="backend/animals#load_animals"/>
+        <page to="backend/animals#load_containers"/>
+        <page to="backend/animals#load_natures"/>
+        <page to="backend/animals#load_workers"/>
         <page to="backend/plants#index"/>
         <page to="backend/plants#attachments"/>
         <page to="backend/plants#create"/>
@@ -725,17 +717,6 @@
       </item>
     </group>
     <group name="supervision">
-      <item name="supervisions">
-        <page to="backend/supervisions#index"/>
-        <page to="backend/supervisions#create"/>
-        <page to="backend/supervisions#destroy"/>
-        <page to="backend/supervisions#edit"/>
-        <page to="backend/supervisions#list"/>
-        <page to="backend/supervisions#new"/>
-        <page to="backend/supervisions#show"/>
-        <page to="backend/supervisions#unroll"/>
-        <page to="backend/supervisions#update"/>
-      </item>
       <item name="sensors">
         <page to="backend/sensors#index"/>
         <page to="backend/sensors#attachments"/>
@@ -751,6 +732,15 @@
         <page to="backend/sensors#update"/>
         <page to="backend/sensors#list_analyses"/>
         <page to="backend/sensors#retrieve"/>
+        <page to="backend/supervisions#index"/>
+        <page to="backend/supervisions#create"/>
+        <page to="backend/supervisions#destroy"/>
+        <page to="backend/supervisions#edit"/>
+        <page to="backend/supervisions#list"/>
+        <page to="backend/supervisions#new"/>
+        <page to="backend/supervisions#show"/>
+        <page to="backend/supervisions#unroll"/>
+        <page to="backend/supervisions#update"/>
       </item>
     </group>
   </part>
@@ -808,17 +798,6 @@
       </item>
     </group>
     <group name="cartography" icon="layers">
-      <item name="georeadings">
-        <page to="backend/georeadings#index"/>
-        <page to="backend/georeadings#create"/>
-        <page to="backend/georeadings#destroy"/>
-        <page to="backend/georeadings#edit"/>
-        <page to="backend/georeadings#list"/>
-        <page to="backend/georeadings#new"/>
-        <page to="backend/georeadings#show"/>
-        <page to="backend/georeadings#unroll"/>
-        <page to="backend/georeadings#update"/>
-      </item>
       <item name="cap_statements">
         <page to="backend/cap_statements#index"/>
         <page to="backend/cap_statements#create"/>
@@ -1104,6 +1083,7 @@
         <page to="backend/taxes#destroy"/>
         <page to="backend/taxes#edit"/>
         <page to="backend/taxes#list"/>
+        <page to="backend/taxes#load"/>
         <page to="backend/taxes#new"/>
         <page to="backend/taxes#show"/>
         <page to="backend/taxes#unroll"/>
@@ -1411,13 +1391,30 @@
     </group>
   </part>
   <inaccessible-actions>
+    <group name="subscriptions" icon="tags">
+      <item name="subscriptions">
+        <page to="backend/subscriptions#index"/>
+        <page to="backend/subscriptions#create"/>
+        <page to="backend/subscriptions#destroy"/>
+        <page to="backend/subscriptions#edit"/>
+        <page to="backend/subscriptions#list"/>
+        <page to="backend/subscriptions#new"/>
+        <page to="backend/subscriptions#show"/>
+        <page to="backend/subscriptions#unroll"/>
+        <page to="backend/subscriptions#update"/>
+      </item>
+    </group>
     <group>
-      <item name="animals">
-        <page to="backend/animals#change"/>
-        <page to="backend/animals#load_animals"/>
-        <page to="backend/animals#load_containers"/>
-        <page to="backend/animals#load_natures"/>
-        <page to="backend/animals#load_workers"/>
+      <item name="georeadings">
+        <page to="backend/georeadings#index"/>
+        <page to="backend/georeadings#create"/>
+        <page to="backend/georeadings#destroy"/>
+        <page to="backend/georeadings#edit"/>
+        <page to="backend/georeadings#list"/>
+        <page to="backend/georeadings#new"/>
+        <page to="backend/georeadings#show"/>
+        <page to="backend/georeadings#unroll"/>
+        <page to="backend/georeadings#update"/>
       </item>
       <item name="guides">
         <page to="backend/guides#index"/>
@@ -1755,10 +1752,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="taxes">
-        <page to="backend/taxes#load"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </navigation>
