@@ -74,13 +74,6 @@ $configuring-min-height: 400px;
           height: auto;
           overflow: auto;
 
-          > .cell-indicator {
-            color: $neutral-color;
-            @include is-icon(6 * $fs-normal);
-            @include inline-block;
-            line-height: 1.4 * 6 * $fs-normal;
-          }
-
           > .toolbar {
             @include margin-left($default-gap);
           }
@@ -107,30 +100,6 @@ $configuring-min-height: 400px;
         }
       }
 
-      &.loading {
-        > .cell-inner > .cell-content > .cell-indicator {
-          @include loading-indicator;
-        }
-      }
-
-      &.errored {
-        > .cell-inner > .cell-content > .message {
-          @include text-error-indicator;
-        }
-
-        > .cell-inner > .cell-content > .cell-indicator {
-          @include error-indicator;
-        }
-      }
-
-      &.blank {
-        > .cell-inner > .cell-content > .message {
-          @include text-null-indicator;
-        }
-        > .cell-inner > .cell-content > .cell-indicator {
-          @include null-indicator;
-        }
-      }
 
     }
 
@@ -194,6 +163,42 @@ $configuring-min-height: 400px;
     }
   }
 
+}
+
+.beehive .box .cell, *[data-cell] {
+  .cell-indicator {
+    color: $neutral-color;
+    @include is-icon(6 * $fs-normal);
+    @include inline-block;
+    line-height: 1.4 * 6 * $fs-normal;
+  }
+
+  &.loading {
+    @include text-align(center);
+    .cell-indicator {
+      @include loading-indicator;
+    }
+  }
+
+  &.errored {
+    @include text-align(center);
+    .cell-message {
+      @include text-error-indicator;
+    }
+    .cell-indicator {
+      @include error-indicator;
+    }
+  }
+
+  &.blank {
+    @include text-align(center);
+    .cell-message {
+      @include text-null-indicator;
+    }
+    .cell-indicator {
+      @include null-indicator;
+    }
+  }
 }
 
 

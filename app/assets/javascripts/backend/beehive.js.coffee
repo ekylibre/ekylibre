@@ -170,7 +170,7 @@
           #   beehive_cell.find('.cell-content').append(data)
           if $.isBlank(data)
             beehive_cell.addClass("blank")
-            element.append($("<p class='message'>#{element.data('cell-empty-message')}</p>"))
+            element.append($("<p class='cell-message'>#{element.data('cell-empty-message')}</p>"))
             element.trigger('cell:empty')
           else
             element.html(data)
@@ -179,7 +179,7 @@
           console.error("Error while retrieving #{element.data('cell')} cell content: #{status} #{error}")
           beehive_cell.removeClass("loading")
           beehive_cell.addClass("errored")
-          element.append($("<p class='message'>#{element.data('cell-error-message')}</p>"))
+          element.append($("<p class='cell-message'>#{element.data('cell-error-message')}</p>"))
           element.trigger('cell:error')
 
   true

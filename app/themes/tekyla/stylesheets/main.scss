@@ -198,13 +198,9 @@ a[data-toggle='notifications'] {
   }
   i {
     @include use-icon(bell-o);
-    opacity: 0.5;
   }
   &.with-notifications {
-    i {
-      @include use-icon(bell);
-      opacity: 1;
-    }
+    background: $invalid-color;
   }
 }
 
@@ -406,7 +402,7 @@ html.authentication, html.exception {
           width: 100%;
         }
         #content {
-          background: rgba(#FFF, 0.66);
+          background: rgba(#FFF, 0.75);
           @include incrust-shadow;
           padding: 2em;
           @include border-radius($default-border-radius);
