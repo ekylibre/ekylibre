@@ -85,20 +85,20 @@ fra:
       new: "Nouvelle campagne"
       show: "Campagne %{name}"
     backend/cap_islets:
-      edit: "Modifier l'ilôt PAC: %{islet_number}"
-      index: "Ilots PAC"
-      new: "Nouvel ilot PAC"
-      show: "Ilot PAC: %{islet_number}"
+      edit: "Modifier l'îlot PAC\_: %{islet_number}"
+      index: "Îlots PAC"
+      new: "Nouvel îlot PAC"
+      show: "Îlot PAC\_: %{islet_number}"
     backend/cap_land_parcels:
-      edit: "Modifier la parcelle PAC: %{land_parcel_number}"
+      edit: "Modifier la parcelle PAC\_: %{land_parcel_number}"
       index: "Parcelles PAC"
       new: "Nouvelle parcelle PAC"
-      show: "Parcelle PAC: %{land_parcel_number}"
+      show: "Parcelle PAC\_: %{land_parcel_number}"
     backend/cap_statements:
-      edit: "Modifier la déclaration PAC: %{id}"
-      index: "Déclaration PAC"
+      edit: "Modifier la déclaration PAC\_: %{id}"
+      index: "Déclarations PAC"
       new: "Nouvelle déclaration PAC"
-      show: "Déclaration PAC: %{id}"
+      show: "Déclaration PAC\_: %{id}"
     backend/cash_transfers:
       edit: "Modifier le virement interne\_: %{number}"
       index: "Virements internes"
@@ -1149,7 +1149,7 @@ fra:
     last_documents: "Derniers archivages" #?
     last_entities: "Derniers tiers"
     last_events: "Derniers évènements"
-    last_incoming_parcels: "Derniers colis à réceptionner"
+    last_incoming_parcels: "Futurs colis à réceptionner"
     last_intervention: "Dernière intervention"
     last_issue: "Dernier incident"
     last_issues: "Derniers incidents"
