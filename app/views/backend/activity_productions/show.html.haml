@@ -9,14 +9,14 @@
       - l.attribute :irrigated
       - l.attribute :usage
 
-  - if resource.support.is_a?(CultivableZone)
+  - if resource.support.is_a?(LandParcel)
     - c.cobble :support do
       = mini_map(resource.support)
       .info
-        %span.title= CultivableZone.human_attribute_name(:work_number)
+        %span.title= LandParcel.human_attribute_name(:work_number)
         %span.value= resource.support.work_number
       .info
-        %span.title= CultivableZone.human_attribute_name(:net_surface_area)
+        %span.title= LandParcel.human_attribute_name(:net_surface_area)
         %span.value= resource.support.net_surface_area.in_hectare.round(2).l
       .info
         %span.title= ActivityProduction.human_attribute_name(:activity)
@@ -34,9 +34,9 @@
           %span.title= :harvested_at.tl
           %span.value= resource.harvested_at.l
 
-  - if resource.support.is_a?(CultivableZone)
+  - if resource.cultivable_zone
     - c.cobble :weather do
-      = cell :weather, params: {id: resource.support.id}
+      = cell :weather, params: {id: resource.cultivable_zone.id}
 
   - if resource.selected_manure_management_plan_zone
     - c.cobble :manure_management_plan_chart do

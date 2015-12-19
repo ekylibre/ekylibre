@@ -3,13 +3,7 @@
 = beehive(:production) do |b|
   - if current_campaign
     - b.cell :map, params: {visualization: :grain_yield}
-  - b.hbox do
-    -# if current_campaign
-      -# b.cell :last_intervention
-    - if current_campaign
+  - if current_campaign
+    - b.hbox do
       - b.cell :cropping_plan
-  - b.hbox do
-    - if current_campaign
       - b.cell :elapsed_interventions_times_by_activities
-    - if Analysis.any?
-      - b.cell :last_analyses
