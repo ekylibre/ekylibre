@@ -32,14 +32,14 @@ class NormalizeVariousMistakes < ActiveRecord::Migration
     reversible do |dir|
       dir.up do
         reporting_tables.each do |_table|
-          execute "UPDATE intervention_parameters SET roles='group_inclusion-includer' WHERE roles='group_inclusion-target' AND reference_name = 'member'"
-          execute "UPDATE intervention_parameters SET roles='group_inclusion-target' WHERE roles='group_inclusion-includer' AND reference_name = 'group'"
+          execute "UPDATE intervention_casts SET roles='group_inclusion-includer' WHERE roles='group_inclusion-target' AND reference_name = 'member'"
+          execute "UPDATE intervention_casts SET roles='group_inclusion-target' WHERE roles='group_inclusion-includer' AND reference_name = 'group'"
         end
       end
       dir.down do
         reporting_tables.each do |_table|
-          execute "UPDATE intervention_parameters SET roles='group_inclusion-target' WHERE roles='group_inclusion-includer' AND reference_name = 'member'"
-          execute "UPDATE intervention_parameters SET roles='group_inclusion-includer' WHERE roles='group_inclusion-target' AND reference_name = 'group'"
+          execute "UPDATE intervention_casts SET roles='group_inclusion-target' WHERE roles='group_inclusion-includer' AND reference_name = 'member'"
+          execute "UPDATE intervention_casts SET roles='group_inclusion-includer' WHERE roles='group_inclusion-target' AND reference_name = 'group'"
         end
       end
     end

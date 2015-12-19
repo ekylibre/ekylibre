@@ -8,7 +8,7 @@ class UnifyInterventionsAndEvents < ActiveRecord::Migration
     add_column :interventions, :number, :string
     add_column :interventions, :parameters, :text
     execute 'UPDATE interventions SET number = id'
-    add_reference :intervention_parameters, :event_participation
+    add_reference :intervention_casts, :event_participation
     add_reference :products, :person
 
     add_column :events, :nature, :string

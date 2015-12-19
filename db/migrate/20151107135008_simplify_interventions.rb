@@ -303,7 +303,7 @@ class SimplifyInterventions < ActiveRecord::Migration
       t.stamps
     end
 
-    rename_table_and_co :intervention_parameters, :intervention_parameters
+    rename_table_and_co :intervention_casts, :intervention_parameters
     revert do
       add_column :intervention_parameters, :roles, :string
     end
