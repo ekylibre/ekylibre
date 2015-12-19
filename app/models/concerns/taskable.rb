@@ -6,7 +6,6 @@ module Taskable
     belongs_to :originator, polymorphic: true
     with_options as: :originator, dependent: :destroy do
       has_many :product_enjoyments
-      has_many :product_junctions
       has_many :product_linkages
       has_many :product_localizations
       has_many :product_memberships

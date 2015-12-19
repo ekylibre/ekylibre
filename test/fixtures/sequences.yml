@@ -83,7 +83,7 @@ sequences_002:
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2015-12-19 13:10:59.657235000 Z
+  updated_at: 2015-12-19 18:11:26.106695000 Z
   updater_id: 1
   usage: entities
 sequences_003:
@@ -92,15 +92,15 @@ sequences_003:
   id: 3
   last_cweek: 51
   last_month: 12
-  last_number: 113
+  last_number: 114
   last_year: 2015
-  lock_version: 115
+  lock_version: 116
   name: products
   number_format: PR[number|11]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2015-12-19 13:11:04.440656000 Z
+  updated_at: 2015-12-19 18:11:30.010298000 Z
   updater_id: 1
   usage: products
 sequences_004:
@@ -151,7 +151,7 @@ sequences_006:
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2015-12-19 13:10:59.590892000 Z
+  updated_at: 2015-12-19 18:11:26.002169000 Z
   updater_id: 1
   usage: campaigns
 sequences_007:

@@ -31,7 +31,6 @@
 #  default_storage_id    :integer
 #  derivative_of         :string
 #  description           :text
-#  extjuncted            :boolean          default(FALSE), not null
 #  fixed_asset_id        :integer
 #  id                    :integer          not null, primary key
 #  identification_number :string
@@ -70,7 +69,6 @@
 # products_001:
 #   category: categories_001
 #   creator: users_001
-#   extjuncted: true
 #   name: "Lorem ipsum"
 #   nature: natures_001
 #   number: "Lorem ipsum"
@@ -85,7 +83,6 @@ animals_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   dead_at: 2006-09-01 22:00:00.000000000 Z
-  extjuncted: false
   id: 1
   identification_number: A7001
   initial_population: 0.0
@@ -96,14 +93,13 @@ animals_001:
   type: Animal
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-  uuid: ba6a9acd-e554-46ac-a560-580095860e82
+  uuid: 5e052d4c-d493-4abb-a6a2-a35e2ec5a2d6
   variant_id: 1
   variety: bos
 animals_002:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  extjuncted: false
   id: 2
   identification_number: A7003
   initial_population: 0.0
@@ -114,7 +110,7 @@ animals_002:
   type: Animal
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-  uuid: 633b3be0-8f5a-4ab5-94bc-8d15ad64dec0
+  uuid: d407705a-28b8-464b-97cd-c339024ba88e
   variant_id: 1
   variety: gallus
 animals_003:
@@ -123,7 +119,6 @@ animals_003:
   created_at: 2014-11-01 19:29:58.088036000 Z
   creator_id: 1
   description: ''
-  extjuncted: false
   id: 5
   identification_number: FR8746001425
   initial_born_at: 2012-02-01 04:25:00.000000000 Z
@@ -135,7 +130,7 @@ animals_003:
   type: Animal
   updated_at: 2014-11-01 19:29:58.088036000 Z
   updater_id: 1
-  uuid: 7baf585c-56cb-4814-a135-b1ed6fc84ebc
+  uuid: 8daa999b-a5aa-44b6-9de5-c55085786835
   variant_id: 17
   variety: bos_taurus_limousine
   work_number: '8746'
@@ -145,7 +140,6 @@ animals_004:
   created_at: 2014-11-01 19:35:50.372083000 Z
   creator_id: 1
   description: ''
-  extjuncted: false
   id: 6
   identification_number: FR152600001545
   initial_born_at: 2005-01-03 09:45:00.000000000 Z
@@ -157,7 +151,7 @@ animals_004:
   type: Animal
   updated_at: 2014-11-01 19:35:50.372083000 Z
   updater_id: 1
-  uuid: a0a760ce-3af4-4065-889d-aa46b31df4f4
+  uuid: 2fa7e2c4-bad1-49b7-9237-ee090d3f2f26
   variant_id: 17
   variety: bos
   work_number: '1526'
@@ -169,7 +163,6 @@ animal_groups_001:
   default_storage_id: 14
   derivative_of: bos
   description: ''
-  extjuncted: false
   id: 85
   initial_container_id: 14
   initial_population: 0.0
@@ -180,7 +173,7 @@ animal_groups_001:
   type: AnimalGroup
   updated_at: 2014-11-07 15:49:47.929754000 Z
   updater_id: 1
-  uuid: 42c6ed01-1d4f-4d2f-98e4-a2398edc3af7
+  uuid: 1e3bbd4e-ca51-4f84-99dd-78232500a44c
   variant_id: 31
   variety: animal_group
   work_number: TGA
@@ -191,7 +184,6 @@ animal_groups_002:
   creator_id: 1
   derivative_of: bos
   description: ''
-  extjuncted: false
   id: 86
   initial_population: 0.0
   lock_version: 0
@@ -201,7 +193,7 @@ animal_groups_002:
   type: AnimalGroup
   updated_at: 2014-11-04 17:32:45.765155000 Z
   updater_id: 1
-  uuid: 03f0a0f5-ea25-48ab-99cb-4c225f7ec6c9
+  uuid: 897aedcb-f712-4cf5-9528-e28f4c3d0eca
   variant_id: 31
   variety: animal_group
   work_number: TGB
@@ -209,7 +201,6 @@ buildings_001:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  extjuncted: false
   id: 11
   initial_population: 0.0
   lock_version: 0
@@ -219,14 +210,13 @@ buildings_001:
   type: Building
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-  uuid: 6d7f6294-a322-40cd-994f-1ab3e44fb1ed
+  uuid: 6be6b8f4-9bf6-4e0d-ac6e-f06532004c29
   variant_id: 3
   variety: building
 buildings_002:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  extjuncted: false
   id: 12
   initial_population: 0.0
   lock_version: 0
@@ -236,7 +226,7 @@ buildings_002:
   type: Building
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-  uuid: 1f713c00-0f64-4282-9fac-745277fe7bdc
+  uuid: 4fac4b68-c1db-40f2-ba6e-cbfa6423fc78
   variant_id: 3
   variety: building
 buildings_003:
@@ -244,7 +234,6 @@ buildings_003:
   category_id: 1
   created_at: 2014-10-31 20:12:30.889733000 Z
   creator_id: 1
-  extjuncted: false
   id: 13
   initial_population: 0.0
   lock_version: 0
@@ -254,7 +243,7 @@ buildings_003:
   type: Building
   updated_at: 2014-10-31 20:12:30.889733000 Z
   updater_id: 1
-  uuid: 3ad53e04-9921-497b-855d-86b5ad2e2af6
+  uuid: b0cbe83a-74d7-4fc9-9fc4-867695f86084
   variant_id: 3
   variety: building
 buildings_004:
@@ -263,7 +252,6 @@ buildings_004:
   created_at: 2014-10-31 20:15:14.781851000 Z
   creator_id: 1
   description: ''
-  extjuncted: false
   id: 14
   identification_number: '1212312312313'
   initial_born_at: 1971-03-05 09:50:00.000000000 Z
@@ -278,7 +266,7 @@ buildings_004:
   type: Building
   updated_at: 2014-11-07 14:30:00.476778000 Z
   updater_id: 1
-  uuid: 1f509113-f2c4-4fd6-be41-8443a991b744
+  uuid: ec386739-af8b-47ed-ac7c-12da08bf52e8
   variant_id: 12
   variety: building
   work_number: '123123'
@@ -288,7 +276,6 @@ buildings_005:
   created_at: 2014-11-07 17:18:25.687359000 Z
   creator_id: 1
   description: ''
-  extjuncted: false
   id: 115
   identification_number: ''
   initial_born_at: 2011-05-24 22:00:00.000000000 Z
@@ -304,7 +291,7 @@ buildings_005:
   type: Building
   updated_at: 2014-11-07 17:18:25.687359000 Z
   updater_id: 1
-  uuid: ec2404b2-fb1d-417b-b3d0-9311d230f7d3
+  uuid: 7ff0797e-55f2-4fbd-9872-9685c0d15ac0
   variant_id: 51
   variety: building
   work_number: CHAI
@@ -314,7 +301,6 @@ building_divisions_001:
   created_at: 2014-10-31 20:18:12.218328000 Z
   creator_id: 1
   description: ''
-  extjuncted: false
   id: 19
   identification_number: ''
   initial_born_at: 1979-03-02 05:30:00.000000000 Z
@@ -330,7 +316,7 @@ building_divisions_001:
   type: BuildingDivision
   updated_at: 2014-11-07 14:41:44.726701000 Z
   updater_id: 1
-  uuid: 93f561ee-1430-4d34-9f9e-06b61ddbf390
+  uuid: 869533ab-61bd-4085-a7b5-334948273d1b
   variant_id: 13
   variety: building_division
   work_number: ''
@@ -339,7 +325,6 @@ building_divisions_002:
   category_id: 7
   created_at: 2014-10-31 20:23:26.762717000 Z
   creator_id: 1
-  extjuncted: false
   id: 20
   initial_born_at: 1980-01-31 04:45:00.000000000 Z
   initial_population: 0.0
@@ -354,7 +339,7 @@ building_divisions_002:
   type: BuildingDivision
   updated_at: 2014-10-31 20:23:26.762717000 Z
   updater_id: 1
-  uuid: 5ae27d19-5297-40c3-8f87-8002657408e9
+  uuid: 3f5b8d19-3d27-47be-9cd1-2fc8f07c1892
   variant_id: 14
   variety: building_division
 building_divisions_003:
@@ -362,7 +347,6 @@ building_divisions_003:
   category_id: 7
   created_at: 2014-10-31 20:25:41.454096000 Z
   creator_id: 1
-  extjuncted: false
   id: 21
   initial_population: 0.0
   initial_shape: SRID=4326;MULTIPOLYGON(((-0.813218951225281 45.5985699786537,-0.813113003969193
@@ -375,7 +359,7 @@ building_divisions_003:
   type: BuildingDivision
   updated_at: 2014-10-31 20:49:34.036786000 Z
   updater_id: 1
-  uuid: 21258ad4-1361-4957-a890-fd21b5906be5
+  uuid: ca588290-86e7-4ee3-94e0-36497868ff92
   variant_id: 15
   variety: building_division
 building_divisions_004:
@@ -385,7 +369,6 @@ building_divisions_004:
   creator_id: 1
   default_storage_id: 14
   description: ''
-  extjuncted: false
   id: 93
   identification_number: ''
   initial_born_at: 1980-01-04 23:00:00.000000000 Z
@@ -398,7 +381,7 @@ building_divisions_004:
   type: BuildingDivision
   updated_at: 2014-11-07 14:39:41.440984000 Z
   updater_id: 1
-  uuid: 4e729f82-2a05-42ff-af7f-e04480ddc213
+  uuid: e430fb54-1b6b-4e7b-a063-026aa480e26e
   variant_id: 35
   variety: building_division
   work_number: C1
@@ -408,7 +391,6 @@ equipments_001:
   created_at: 2014-11-02 18:22:30.483623000 Z
   creator_id: 1
   description: ''
-  extjuncted: false
   id: 29
   initial_born_at: 2002-12-14 23:00:00.000000000 Z
   initial_population: 0.0
@@ -419,7 +401,7 @@ equipments_001:
   type: Equipment
   updated_at: 2014-11-02 18:22:39.392745000 Z
   updater_id: 1
-  uuid: f66949c4-9b23-4f4f-9644-0fdd1ea896d0
+  uuid: cb336741-58a0-427a-898b-853b2800aa05
   variant_id: 26
   variety: tractor
 equipments_002:
@@ -428,7 +410,6 @@ equipments_002:
   created_at: 2014-11-02 18:23:23.650907000 Z
   creator_id: 1
   description: ''
-  extjuncted: false
   id: 30
   initial_born_at: 2007-08-22 22:00:00.000000000 Z
   initial_population: 1.0
@@ -439,7 +420,7 @@ equipments_002:
   type: Equipment
   updated_at: 2014-11-02 18:23:36.524019000 Z
   updater_id: 1
-  uuid: a8195afa-ba92-4e61-8391-9574a2088768
+  uuid: fd5dd7fb-6b17-43cc-a9b8-4100c03125d3
   variant_id: 25
   variety: plower
 equipments_003:
@@ -448,7 +429,6 @@ equipments_003:
   created_at: 2014-11-02 18:29:41.469233000 Z
   creator_id: 1
   description: ''
-  extjuncted: false
   id: 31
   initial_born_at: 2005-09-14 22:00:00.000000000 Z
   initial_population: 1.0
@@ -459,7 +439,7 @@ equipments_003:
   type: Equipment
   updated_at: 2014-11-02 18:29:41.469233000 Z
   updater_id: 1
-  uuid: 56894178-9c00-4870-b5c9-4f9355b1b50e
+  uuid: a79a3115-feff-419a-a393-fe350fbcb08d
   variant_id: 27
   variety: plower
 equipments_004:
@@ -469,7 +449,6 @@ equipments_004:
   creator_id: 1
   default_storage_id: 19
   description: ''
-  extjuncted: false
   id: 32
   initial_born_at: 1997-01-22 23:00:00.000000000 Z
   initial_container_id: 19
@@ -481,7 +460,7 @@ equipments_004:
   type: Equipment
   updated_at: 2014-11-02 18:37:22.384578000 Z
   updater_id: 1
-  uuid: f5283014-e1c8-4b0c-9ea3-aa9f533e8036
+  uuid: 8bc0315e-74cc-443b-9d4d-36856f985054
   variant_id: 29
   variety: sower
 equipments_005:
@@ -491,7 +470,6 @@ equipments_005:
   creator_id: 1
   default_storage_id: 21
   description: ''
-  extjuncted: false
   id: 87
   initial_born_at: 1992-01-17 23:00:00.000000000 Z
   initial_container_id: 21
@@ -503,7 +481,7 @@ equipments_005:
   type: Equipment
   updated_at: 2014-11-04 18:39:58.300986000 Z
   updater_id: 1
-  uuid: cd5a9e08-54c7-4223-b359-192e10b21f10
+  uuid: ad4d0002-e000-4f39-b7d6-3d604f4c1a73
   variant_id: 33
   variety: plower
 equipments_006:
@@ -513,7 +491,6 @@ equipments_006:
   creator_id: 1
   default_storage_id: 19
   description: ''
-  extjuncted: false
   id: 88
   initial_born_at: 1997-09-22 12:30:00.000000000 Z
   initial_container_id: 19
@@ -525,7 +502,7 @@ equipments_006:
   type: Equipment
   updated_at: 2014-11-04 18:41:24.697151000 Z
   updater_id: 1
-  uuid: 06d609c8-a0f8-448b-ad6a-38c4f0b119ea
+  uuid: 8d051823-ddca-479b-b7cb-2182107dd3ba
   variant_id: 34
   variety: plower
 equipments_007:
@@ -535,7 +512,6 @@ equipments_007:
   creator_id: 1
   default_storage_id: 19
   description: ''
-  extjuncted: false
   id: 95
   initial_born_at: 2009-01-11 23:00:00.000000000 Z
   initial_container_id: 19
@@ -547,7 +523,7 @@ equipments_007:
   type: Equipment
   updated_at: 2014-11-07 15:01:32.169817000 Z
   updater_id: 1
-  uuid: 02903db4-5507-49bf-a292-31cbc425a287
+  uuid: 7cdeb7dd-a508-411f-894d-ccbf995aa798
   variant_id: 36
   variety: sprayer
 equipments_008:
@@ -557,7 +533,6 @@ equipments_008:
   creator_id: 1
   default_storage_id: 21
   description: ''
-  extjuncted: false
   id: 97
   initial_born_at: 2010-11-01 23:00:00.000000000 Z
   initial_container_id: 21
@@ -569,7 +544,7 @@ equipments_008:
   type: Equipment
   updated_at: 2014-11-07 15:23:45.087173000 Z
   updater_id: 1
-  uuid: a8546bcd-1c84-44ca-ae16-9d2501e42338
+  uuid: 73e90a91-e5df-4c86-bc9f-c2561ad13f48
   variant_id: 37
   variety: spreader
 equipments_009:
@@ -579,7 +554,6 @@ equipments_009:
   creator_id: 1
   default_storage_id: 21
   description: ''
-  extjuncted: false
   id: 108
   initial_born_at: 2001-01-22 23:00:00.000000000 Z
   initial_container_id: 21
@@ -591,7 +565,7 @@ equipments_009:
   type: Equipment
   updated_at: 2014-11-07 16:49:26.139872000 Z
   updater_id: 1
-  uuid: e452e412-4f7a-4ae9-8c01-55d1a0becb7e
+  uuid: 4876d358-7601-471c-9a18-f43560a84c0d
   variant_id: 46
   variety: implanter
 equipments_010:
@@ -601,7 +575,6 @@ equipments_010:
   creator_id: 1
   default_storage_id: 21
   description: ''
-  extjuncted: false
   id: 112
   initial_born_at: 2012-09-02 07:00:00.000000000 Z
   initial_container_id: 21
@@ -613,7 +586,7 @@ equipments_010:
   type: Equipment
   updated_at: 2014-11-07 17:05:10.430947000 Z
   updater_id: 1
-  uuid: 14fd51c1-5176-49d1-a55d-ce7a88c1f548
+  uuid: 5728ecae-536b-4188-a5b5-e5d3dde684db
   variant_id: 47
   variety: reaper
 equipments_011:
@@ -623,7 +596,6 @@ equipments_011:
   creator_id: 1
   default_storage_id: 115
   description: ''
-  extjuncted: false
   id: 116
   initial_born_at: 2010-06-30 22:00:00.000000000 Z
   initial_container_id: 115
@@ -635,7 +607,7 @@ equipments_011:
   type: Equipment
   updated_at: 2014-11-07 17:19:35.222129000 Z
   updater_id: 1
-  uuid: dfa6ba14-5a76-4643-944c-da32e6261210
+  uuid: 00f5cc13-9641-4bce-b261-3b61ace91505
   variant_id: 50
   variety: tank
 equipments_012:
@@ -645,7 +617,6 @@ equipments_012:
   creator_id: 1
   default_storage_id: 115
   description: ''
-  extjuncted: false
   id: 117
   initial_born_at: 2010-04-30 22:00:00.000000000 Z
   initial_container_id: 115
@@ -657,7 +628,7 @@ equipments_012:
   type: Equipment
   updated_at: 2014-11-07 17:20:23.962743000 Z
   updater_id: 1
-  uuid: ef79daf9-f26b-4d98-924f-d9fcc0780ca3
+  uuid: adf2e3dd-ad88-44fe-94fb-5195f3a97e23
   variant_id: 50
   variety: tank
 equipments_013:
@@ -667,7 +638,6 @@ equipments_013:
   creator_id: 1
   default_storage_id: 115
   description: ''
-  extjuncted: false
   id: 118
   initial_born_at: 2010-04-30 22:00:00.000000000 Z
   initial_container_id: 115
@@ -679,7 +649,7 @@ equipments_013:
   type: Equipment
   updated_at: 2014-11-07 17:22:41.836712000 Z
   updater_id: 1
-  uuid: 14067f04-d646-47e1-807d-0b1742b74c4e
+  uuid: 19707406-4244-44c4-9a8c-14d004ec0b38
   variant_id: 50
   variety: tank
 equipments_014:
@@ -688,7 +658,6 @@ equipments_014:
   created_at: 2014-11-07 17:23:41.373971000 Z
   creator_id: 1
   description: ''
-  extjuncted: false
   id: 119
   initial_owner_id: 13
   initial_population: 0.0
@@ -699,7 +668,7 @@ equipments_014:
   type: Equipment
   updated_at: 2014-11-07 17:23:41.373971000 Z
   updater_id: 1
-  uuid: 3b6b13cc-23a0-4872-bcb9-efa8d57ebc4b
+  uuid: c3e5161f-381e-42ac-ade2-db5221b92675
   variant_id: 52
   variety: press
 equipments_015:
@@ -708,7 +677,6 @@ equipments_015:
   created_at: 2014-11-07 19:36:09.027415000 Z
   creator_id: 1
   description: ''
-  extjuncted: false
   id: 137
   initial_born_at: 1954-05-11 23:00:00.000000000 Z
   initial_population: 0.0
@@ -719,7 +687,7 @@ equipments_015:
   type: Equipment
   updated_at: 2014-11-07 19:36:09.027415000 Z
   updater_id: 1
-  uuid: a6e07514-1136-45d7-b213-3032375c7c2b
+  uuid: d169c0b8-c262-4425-a259-c7adacbfa67e
   variant_id: 67
   variety: baler
 equipments_016:
@@ -728,7 +696,6 @@ equipments_016:
   created_at: 2014-11-07 19:36:29.977043000 Z
   creator_id: 1
   description: ''
-  extjuncted: false
   id: 138
   initial_owner_id: 13
   initial_population: 0.0
@@ -739,14 +706,13 @@ equipments_016:
   type: Equipment
   updated_at: 2014-11-07 19:36:29.977043000 Z
   updater_id: 1
-  uuid: c7d8d027-1479-408f-b5e6-324059444fc5
+  uuid: 3000ad39-62db-480b-96ed-9619606480bc
   variant_id: 66
   variety: baler
 fungi_001:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  extjuncted: false
   id: 33
   initial_population: 0.0
   lock_version: 0
@@ -757,14 +723,13 @@ fungi_001:
   type: Fungus
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-  uuid: b15c4797-3c52-4f89-adbe-3f83cc25b780
+  uuid: ecb5db05-cdcf-4c53-99e8-4afcd589c738
   variant_id: 1
   variety: fungus
 fungi_002:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  extjuncted: false
   id: 34
   initial_population: 0.0
   lock_version: 0
@@ -775,7 +740,7 @@ fungi_002:
   type: Fungus
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-  uuid: 7763cce9-a524-4728-a25a-d44efb2ad889
+  uuid: 08d5c472-6264-4e0d-abac-dd9619c83164
   variant_id: 1
   variety: fungus
 land_parcels_001:
@@ -784,7 +749,6 @@ land_parcels_001:
   created_at: 2014-11-04 17:12:23.238580000 Z
   creator_id: 1
   description: ''
-  extjuncted: false
   id: 80
   initial_born_at: 1974-05-11 23:00:00.000000000 Z
   initial_population: 0.0
@@ -799,7 +763,7 @@ land_parcels_001:
   type: LandParcel
   updated_at: 2014-11-04 17:12:23.238580000 Z
   updater_id: 1
-  uuid: 30cd59a5-b5f0-48a9-8315-251816bec3e0
+  uuid: 03b4d15f-85d2-4818-a3c4-919e87856214
   variant_id: 28
   variety: land_parcel
   work_number: ZC1
@@ -809,7 +773,6 @@ land_parcels_002:
   created_at: 2014-11-04 17:15:04.591592000 Z
   creator_id: 1
   description: ''
-  extjuncted: false
   id: 81
   initial_born_at: 1965-01-22 23:00:00.000000000 Z
   initial_population: 0.0
@@ -824,7 +787,7 @@ land_parcels_002:
   type: LandParcel
   updated_at: 2014-11-04 17:15:04.591592000 Z
   updater_id: 1
-  uuid: da9da1a1-047e-499b-8346-bc327130016c
+  uuid: 7ca07f14-b7e9-4e41-bee0-20ef4989b066
   variant_id: 28
   variety: land_parcel
   work_number: ZC0
@@ -834,7 +797,6 @@ land_parcels_003:
   created_at: 2014-11-04 17:17:04.657670000 Z
   creator_id: 1
   description: ''
-  extjuncted: false
   id: 82
   initial_born_at: 1975-06-01 23:00:00.000000000 Z
   initial_population: 0.0
@@ -848,7 +810,7 @@ land_parcels_003:
   type: LandParcel
   updated_at: 2014-11-04 17:17:04.657670000 Z
   updater_id: 1
-  uuid: 474a639d-1e90-42fc-a8af-b91791f9b726
+  uuid: f82a1cfb-c1d5-46ef-9b00-b7abc022803a
   variant_id: 28
   variety: land_parcel
   work_number: ZC2
@@ -858,7 +820,6 @@ land_parcels_004:
   created_at: 2014-11-04 17:19:31.120097000 Z
   creator_id: 1
   description: ''
-  extjuncted: false
   id: 83
   initial_born_at: 1983-12-11 23:00:00.000000000 Z
   initial_population: 0.0
@@ -874,7 +835,7 @@ land_parcels_004:
   type: LandParcel
   updated_at: 2014-11-04 17:19:31.120097000 Z
   updater_id: 1
-  uuid: b5ab7be4-05e8-45c3-9711-f5232e152616
+  uuid: db006981-d43b-42ec-b4cc-5fef072b30de
   variant_id: 28
   variety: land_parcel
   work_number: ZC3
@@ -884,7 +845,6 @@ land_parcels_005:
   created_at: 2014-11-04 17:22:31.656517000 Z
   creator_id: 1
   description: ''
-  extjuncted: false
   id: 84
   initial_born_at: 1985-11-03 23:00:00.000000000 Z
   initial_population: 0.0
@@ -901,7 +861,7 @@ land_parcels_005:
   type: LandParcel
   updated_at: 2014-11-04 17:22:31.656517000 Z
   updater_id: 1
-  uuid: b15cc77b-2825-4b25-8ac4-22182de1d235
+  uuid: 198db8e4-2e31-47db-bf01-e16915e46c4b
   variant_id: 28
   variety: land_parcel
   work_number: ZC4
@@ -911,7 +871,6 @@ land_parcels_006:
   created_at: 2014-11-07 16:26:53.115665000 Z
   creator_id: 1
   description: ''
-  extjuncted: false
   id: 106
   initial_born_at: 1971-06-17 23:00:00.000000000 Z
   initial_population: 0.0
@@ -932,15 +891,13 @@ land_parcels_006:
   type: LandParcel
   updated_at: 2014-11-07 16:26:53.115665000 Z
   updater_id: 1
-  uuid: f04fea75-3d85-47da-8c4d-3a58c47d8323
+  uuid: b64f4aeb-653b-4d76-bc33-fcbd9758b74f
   variant_id: 28
   variety: land_parcel
   work_number: ZC5
 land_parcels_007:
-  born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
-  created_at: 2015-12-19 13:11:00.538029000 Z
-  extjuncted: false
+  created_at: 2015-12-19 18:11:26.886283000 Z
   id: 145
   initial_born_at: 2015-01-01 00:00:00.000000000 Z
   initial_population: 2.5534
@@ -966,15 +923,13 @@ land_parcels_007:
   nature_id: 59
   number: PR00000000089
   type: LandParcel
-  updated_at: 2015-12-19 13:11:00.538029000 Z
-  uuid: 2d34e22f-9e06-4739-898a-5b9a2bfe4291
+  updated_at: 2015-12-19 18:11:26.886283000 Z
+  uuid: 9c8ad00e-cd5b-40be-a029-d9ab206e06f6
   variant_id: 69
   variety: land_parcel
 land_parcels_008:
-  born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
-  created_at: 2015-12-19 13:11:00.816898000 Z
-  extjuncted: false
+  created_at: 2015-12-19 18:11:27.115570000 Z
   id: 146
   initial_born_at: 2015-01-01 00:00:00.000000000 Z
   initial_population: 4.9989
@@ -1005,15 +960,13 @@ land_parcels_008:
   nature_id: 59
   number: PR00000000090
   type: LandParcel
-  updated_at: 2015-12-19 13:11:00.816898000 Z
-  uuid: 507089d2-f0de-477f-99e3-669b61cdc87b
+  updated_at: 2015-12-19 18:11:27.115570000 Z
+  uuid: d54fc16a-73f5-4415-b136-cc6098572190
   variant_id: 69
   variety: land_parcel
 land_parcels_009:
-  born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
-  created_at: 2015-12-19 13:11:00.953388000 Z
-  extjuncted: false
+  created_at: 2015-12-19 18:11:27.216256000 Z
   id: 147
   initial_born_at: 2015-01-01 00:00:00.000000000 Z
   initial_population: 1.2768
@@ -1029,15 +982,13 @@ land_parcels_009:
   nature_id: 59
   number: PR00000000091
   type: LandParcel
-  updated_at: 2015-12-19 13:11:00.953388000 Z
-  uuid: fbf8f005-d711-4d90-a625-badd61b9f51d
+  updated_at: 2015-12-19 18:11:27.216256000 Z
+  uuid: eeb05b45-954a-4f0a-a554-04497bd67663
   variant_id: 69
   variety: land_parcel
 land_parcels_010:
-  born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
-  created_at: 2015-12-19 13:11:01.090795000 Z
-  extjuncted: false
+  created_at: 2015-12-19 18:11:27.309660000 Z
   id: 148
   initial_born_at: 2015-01-01 00:00:00.000000000 Z
   initial_population: 0.6467
@@ -1052,15 +1003,13 @@ land_parcels_010:
   nature_id: 59
   number: PR00000000092
   type: LandParcel
-  updated_at: 2015-12-19 13:11:01.090795000 Z
-  uuid: 6def4b8a-7fad-410c-b17a-ca5953941dde
+  updated_at: 2015-12-19 18:11:27.309660000 Z
+  uuid: 599f2034-7055-49a9-bbf5-f99422282d55
   variant_id: 69
   variety: land_parcel
 land_parcels_011:
-  born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
-  created_at: 2015-12-19 13:11:01.255175000 Z
-  extjuncted: false
+  created_at: 2015-12-19 18:11:27.408390000 Z
   id: 149
   initial_born_at: 2015-01-01 00:00:00.000000000 Z
   initial_population: 1.206
@@ -1079,15 +1028,13 @@ land_parcels_011:
   nature_id: 59
   number: PR00000000093
   type: LandParcel
-  updated_at: 2015-12-19 13:11:01.255175000 Z
-  uuid: 4eaacaae-bc58-4f74-a113-428dccf14fe9
+  updated_at: 2015-12-19 18:11:27.408390000 Z
+  uuid: 3ab5c07a-c8cf-4514-9eec-77c24a6596a9
   variant_id: 69
   variety: land_parcel
 land_parcels_012:
-  born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
-  created_at: 2015-12-19 13:11:01.539533000 Z
-  extjuncted: false
+  created_at: 2015-12-19 18:11:27.624541000 Z
   id: 150
   initial_born_at: 2015-01-01 00:00:00.000000000 Z
   initial_population: 3.3423
@@ -1104,16 +1051,41 @@ land_parcels_012:
   nature_id: 59
   number: PR00000000094
   type: LandParcel
-  updated_at: 2015-12-19 13:11:01.539533000 Z
-  uuid: e37c6e09-02e2-4d06-9b63-98dffbf4ba30
+  updated_at: 2015-12-19 18:11:27.624541000 Z
+  uuid: 52307942-12b0-4a26-8ab4-c6889893d5b7
   variant_id: 69
   variety: land_parcel
 land_parcels_013:
-  born_at: 2015-01-01 00:00:00.000000000 Z
   category_id: 25
-  created_at: 2015-12-19 13:11:01.787192000 Z
-  extjuncted: false
+  created_at: 2015-12-19 18:11:27.723727000 Z
   id: 151
+  initial_born_at: 2015-01-01 00:00:00.000000000 Z
+  initial_population: 3.3843
+  initial_shape: SRID=4326;MULTIPOLYGON(((-0.785263690929621 45.8295795369011,-0.785288121235139
+    45.8296191330143,-0.785095298828464 45.8297925705589,-0.784808511118472 45.830088423503,-0.784463432545993
+    45.8305293474504,-0.784169810950817 45.8308667311034,-0.784015851191224 45.831067682682,-0.784017452140839
+    45.8311096662752,-0.784234646266326 45.8311396896586,-0.784285056720465 45.8311562292742,-0.784307586545692
+    45.8311888961803,-0.784297968909875 45.8312388458654,-0.784225030600277 45.8313375076194,-0.784209680865623
+    45.8313923887993,-0.784206563946779 45.8315147790372,-0.784191659984996 45.8316849567957,-0.784220965491341
+    45.8317131269291,-0.784272040247505 45.831761916236,-0.784413423458091 45.8318312011633,-0.784640194285233
+    45.8319265068649,-0.784803794180964 45.8320087432873,-0.784936064451675 45.832060207984,-0.78514403141124
+    45.8321921971502,-0.78525508078995 45.8322397113424,-0.785321882986094 45.8322342471896,-0.785388384855001
+    45.8323230801721,-0.78576424370799 45.8318334159025,-0.785981314425008 45.8315160465615,-0.786346677008968
+    45.8311221425404,-0.78663427750144 45.8308381855274,-0.786694804524443 45.8307202851438,-0.786086385427093
+    45.8302257144577,-0.785263690929621 45.8295795369011)))
+  lock_version: 0
+  name: 'ZC-017005218-8-1 #1'
+  nature_id: 59
+  number: PR00000000095
+  type: LandParcel
+  updated_at: 2015-12-19 18:11:27.723727000 Z
+  uuid: af46ff74-9ae7-466e-8027-c9319b91138c
+  variant_id: 69
+  variety: land_parcel
+land_parcels_014:
+  category_id: 25
+  created_at: 2015-12-19 18:11:27.841053000 Z
+  id: 152
   initial_born_at: 2015-01-01 00:00:00.000000000 Z
   initial_population: 4.0579
   initial_shape: SRID=4326;MULTIPOLYGON(((-0.787866855582176 45.8285229716277,-0.787698817444279
@@ -1131,18 +1103,16 @@ land_parcels_013:
   lock_version: 0
   name: 'ZC-017005218-8-2 #1'
   nature_id: 59
-  number: PR00000000095
+  number: PR00000000096
   type: LandParcel
-  updated_at: 2015-12-19 13:11:01.787192000 Z
-  uuid: e50d6089-fa87-454f-96fb-4c9b4e80b6c3
+  updated_at: 2015-12-19 18:11:27.841053000 Z
+  uuid: 71d26588-92b4-447f-8469-557c245aa98f
   variant_id: 69
   variety: land_parcel
-land_parcels_014:
-  born_at: 2015-01-01 00:00:00.000000000 Z
+land_parcels_015:
   category_id: 25
-  created_at: 2015-12-19 13:11:02.184934000 Z
-  extjuncted: false
-  id: 152
+  created_at: 2015-12-19 18:11:28.168044000 Z
+  id: 153
   initial_born_at: 2015-01-01 00:00:00.000000000 Z
   initial_population: 2.3814
   initial_shape: SRID=4326;MULTIPOLYGON(((-0.772303918135111 45.823530930691,-0.771631382774738
@@ -1155,18 +1125,16 @@ land_parcels_014:
   lock_version: 0
   name: 'ZC-017005218-10-1 #1'
   nature_id: 59
-  number: PR00000000096
+  number: PR00000000097
   type: LandParcel
-  updated_at: 2015-12-19 13:11:02.184934000 Z
-  uuid: 51ec80a8-a7f8-42a4-8322-607c7106fd99
+  updated_at: 2015-12-19 18:11:28.168044000 Z
+  uuid: bb0174a0-bcca-480f-88d3-d178e8356436
   variant_id: 69
   variety: land_parcel
-land_parcels_015:
-  born_at: 2015-01-01 00:00:00.000000000 Z
+land_parcels_016:
   category_id: 25
-  created_at: 2015-12-19 13:11:02.311945000 Z
-  extjuncted: false
-  id: 153
+  created_at: 2015-12-19 18:11:28.282784000 Z
+  id: 154
   initial_born_at: 2015-01-01 00:00:00.000000000 Z
   initial_population: 2.3421
   initial_shape: SRID=4326;MULTIPOLYGON(((-0.770137045346216 45.8266597555803,-0.770148418563064
@@ -1182,18 +1150,16 @@ land_parcels_015:
   lock_version: 0
   name: 'ZC-017005218-11-1 #1'
   nature_id: 59
-  number: PR00000000097
+  number: PR00000000098
   type: LandParcel
-  updated_at: 2015-12-19 13:11:02.311945000 Z
-  uuid: 4a7a4f66-73c6-4c9f-8f11-9f857b90eee4
+  updated_at: 2015-12-19 18:11:28.282784000 Z
+  uuid: a26e0946-6b6b-45c9-beea-ba9ad4259249
   variant_id: 69
   variety: land_parcel
-land_parcels_016:
-  born_at: 2015-01-01 00:00:00.000000000 Z
+land_parcels_017:
   category_id: 25
-  created_at: 2015-12-19 13:11:02.442140000 Z
-  extjuncted: false
-  id: 154
+  created_at: 2015-12-19 18:11:28.393467000 Z
+  id: 155
   initial_born_at: 2015-01-01 00:00:00.000000000 Z
   initial_population: 1.944
   initial_shape: SRID=4326;MULTIPOLYGON(((-0.764804931739091 45.8312730746026,-0.765088520248034
@@ -1209,18 +1175,16 @@ land_parcels_016:
   lock_version: 0
   name: 'ZC-017005218-13-1 #1'
   nature_id: 59
-  number: PR00000000098
+  number: PR00000000099
   type: LandParcel
-  updated_at: 2015-12-19 13:11:02.442140000 Z
-  uuid: d0ecae7c-a05a-416d-b0fe-9a512661b8de
+  updated_at: 2015-12-19 18:11:28.393467000 Z
+  uuid: 41b02ece-01f5-497f-a23e-177fce625ce9
   variant_id: 69
   variety: land_parcel
-land_parcels_017:
-  born_at: 2015-01-01 00:00:00.000000000 Z
+land_parcels_018:
   category_id: 25
-  created_at: 2015-12-19 13:11:02.571086000 Z
-  extjuncted: false
-  id: 155
+  created_at: 2015-12-19 18:11:28.525689000 Z
+  id: 156
   initial_born_at: 2015-01-01 00:00:00.000000000 Z
   initial_population: 6.0725
   initial_shape: SRID=4326;MULTIPOLYGON(((-0.743999267161715 45.8430010210575,-0.744672569856637
@@ -1237,18 +1201,16 @@ land_parcels_017:
   lock_version: 0
   name: 'ZC-017005218-14-1 #4'
   nature_id: 59
-  number: PR00000000099
+  number: PR00000000100
   type: LandParcel
-  updated_at: 2015-12-19 13:11:02.571086000 Z
-  uuid: 40d824a7-c004-415f-b5fb-7df73d5f83ad
+  updated_at: 2015-12-19 18:11:28.525689000 Z
+  uuid: 86370dac-a3a7-429f-92f2-372850d8e1c2
   variant_id: 69
   variety: land_parcel
-land_parcels_018:
-  born_at: 2015-01-01 00:00:00.000000000 Z
+land_parcels_019:
   category_id: 25
-  created_at: 2015-12-19 13:11:02.690720000 Z
-  extjuncted: false
-  id: 156
+  created_at: 2015-12-19 18:11:28.636306000 Z
+  id: 157
   initial_born_at: 2015-01-01 00:00:00.000000000 Z
   initial_population: 3.5386
   initial_shape: SRID=4326;MULTIPOLYGON(((-0.743997841710742 45.8429998981771,-0.743999267161715
@@ -1261,18 +1223,16 @@ land_parcels_018:
   lock_version: 0
   name: 'ZC-017005218-14-2 #2'
   nature_id: 59
-  number: PR00000000100
+  number: PR00000000101
   type: LandParcel
-  updated_at: 2015-12-19 13:11:02.690720000 Z
-  uuid: 087869ba-38ab-4b15-b4a8-73a9b5fbf2cc
+  updated_at: 2015-12-19 18:11:28.636306000 Z
+  uuid: 779fd58c-f6ca-444e-9184-29bd1fdc20ff
   variant_id: 69
   variety: land_parcel
-land_parcels_019:
-  born_at: 2015-01-01 00:00:00.000000000 Z
+land_parcels_020:
   category_id: 25
-  created_at: 2015-12-19 13:11:02.825884000 Z
-  extjuncted: false
-  id: 157
+  created_at: 2015-12-19 18:11:28.751536000 Z
+  id: 158
   initial_born_at: 2015-01-01 00:00:00.000000000 Z
   initial_population: 5.5413
   initial_shape: SRID=4326;MULTIPOLYGON(((-0.743788709873775 45.8406404380084,-0.744088685639519
@@ -1283,18 +1243,16 @@ land_parcels_019:
   lock_version: 0
   name: 'ZC-017005218-15-1 #1'
   nature_id: 59
-  number: PR00000000101
+  number: PR00000000102
   type: LandParcel
-  updated_at: 2015-12-19 13:11:02.825884000 Z
-  uuid: ec2994e7-b0a3-4c8d-a062-375677ab47a8
+  updated_at: 2015-12-19 18:11:28.751536000 Z
+  uuid: e92bb455-c1c8-4007-aa5d-3932f53f7a76
   variant_id: 69
   variety: land_parcel
-land_parcels_020:
-  born_at: 2015-01-01 00:00:00.000000000 Z
+land_parcels_021:
   category_id: 25
-  created_at: 2015-12-19 13:11:02.953105000 Z
-  extjuncted: false
-  id: 158
+  created_at: 2015-12-19 18:11:28.852099000 Z
+  id: 159
   initial_born_at: 2015-01-01 00:00:00.000000000 Z
   initial_population: 2.039
   initial_shape: SRID=4326;MULTIPOLYGON(((-0.747529743313611 45.8384256282279,-0.748124326171744
@@ -1304,18 +1262,16 @@ land_parcels_020:
   lock_version: 0
   name: 'ZC-017005218-16-1 #2'
   nature_id: 59
-  number: PR00000000102
+  number: PR00000000103
   type: LandParcel
-  updated_at: 2015-12-19 13:11:02.953105000 Z
-  uuid: c6f4b31b-b888-465e-9d10-eb5ba2e95f6e
+  updated_at: 2015-12-19 18:11:28.852099000 Z
+  uuid: 82ee2ec9-23d6-4a05-b9f6-fc9237fc27f9
   variant_id: 69
   variety: land_parcel
-land_parcels_021:
-  born_at: 2015-01-01 00:00:00.000000000 Z
+land_parcels_022:
   category_id: 25
-  created_at: 2015-12-19 13:11:03.112722000 Z
-  extjuncted: false
-  id: 159
+  created_at: 2015-12-19 18:11:28.973680000 Z
+  id: 160
   initial_born_at: 2015-01-01 00:00:00.000000000 Z
   initial_population: 5.7285
   initial_shape: SRID=4326;MULTIPOLYGON(((-0.739138590754488 45.8388026667394,-0.739410918445674
@@ -1328,18 +1284,16 @@ land_parcels_021:
   lock_version: 0
   name: 'ZC-017005218-17-1 #2'
   nature_id: 59
-  number: PR00000000103
+  number: PR00000000104
   type: LandParcel
-  updated_at: 2015-12-19 13:11:03.112722000 Z
-  uuid: 51b9d838-ad5b-4487-81ec-edd37ca34c5d
+  updated_at: 2015-12-19 18:11:28.973680000 Z
+  uuid: 670eeda6-8b7c-4276-a9f2-7200c3b7bbfe
   variant_id: 69
   variety: land_parcel
-land_parcels_022:
-  born_at: 2015-01-01 00:00:00.000000000 Z
+land_parcels_023:
   category_id: 25
-  created_at: 2015-12-19 13:11:03.248365000 Z
-  extjuncted: false
-  id: 160
+  created_at: 2015-12-19 18:11:29.096303000 Z
+  id: 161
   initial_born_at: 2015-01-01 00:00:00.000000000 Z
   initial_population: 0.2087
   initial_shape: SRID=4326;MULTIPOLYGON(((-0.763709529551902 45.8309476400114,-0.764019454025411
@@ -1348,18 +1302,16 @@ land_parcels_022:
   lock_version: 0
   name: 'ZC-017005218-19-1 #3'
   nature_id: 59
-  number: PR00000000104
+  number: PR00000000105
   type: LandParcel
-  updated_at: 2015-12-19 13:11:03.248365000 Z
-  uuid: 56801f9c-63b3-453e-85d6-60fb2945500c
+  updated_at: 2015-12-19 18:11:29.096303000 Z
+  uuid: 21eeb4e6-5c5f-4821-8c40-f7ed82fcb97e
   variant_id: 69
   variety: land_parcel
-land_parcels_023:
-  born_at: 2015-01-01 00:00:00.000000000 Z
+land_parcels_024:
   category_id: 25
-  created_at: 2015-12-19 13:11:03.375669000 Z
-  extjuncted: false
-  id: 161
+  created_at: 2015-12-19 18:11:29.210871000 Z
+  id: 162
   initial_born_at: 2015-01-01 00:00:00.000000000 Z
   initial_population: 0.5827
   initial_shape: SRID=4326;MULTIPOLYGON(((-0.743317183825562 45.8413979942425,-0.742901121786604
@@ -1368,18 +1320,16 @@ land_parcels_023:
   lock_version: 0
   name: 'ZC-017005218-20-1 #4'
   nature_id: 59
-  number: PR00000000105
+  number: PR00000000106
   type: LandParcel
-  updated_at: 2015-12-19 13:11:03.375669000 Z
-  uuid: b6cea71a-9593-4839-914c-8db726e53d87
+  updated_at: 2015-12-19 18:11:29.210871000 Z
+  uuid: ba76917b-039a-410a-8962-344a2c00dfec
   variant_id: 69
   variety: land_parcel
-land_parcels_024:
-  born_at: 2015-01-01 00:00:00.000000000 Z
+land_parcels_025:
   category_id: 25
-  created_at: 2015-12-19 13:11:03.503900000 Z
-  extjuncted: false
-  id: 162
+  created_at: 2015-12-19 18:11:29.307391000 Z
+  id: 163
   initial_born_at: 2015-01-01 00:00:00.000000000 Z
   initial_population: 1.063
   initial_shape: SRID=4326;MULTIPOLYGON(((-0.801080647088302 45.8203521595582,-0.800550933182947
@@ -1395,18 +1345,16 @@ land_parcels_024:
   lock_version: 0
   name: 'ZC-017005218-21-1 #5'
   nature_id: 59
-  number: PR00000000106
+  number: PR00000000107
   type: LandParcel
-  updated_at: 2015-12-19 13:11:03.503900000 Z
-  uuid: 5b12551b-71d4-4b3a-9c7b-2bfb20ccb9f3
+  updated_at: 2015-12-19 18:11:29.307391000 Z
+  uuid: 00296a20-09c9-4ad0-ae28-51024c0fd7cc
   variant_id: 69
   variety: land_parcel
-land_parcels_025:
-  born_at: 2015-01-01 00:00:00.000000000 Z
+land_parcels_026:
   category_id: 25
-  created_at: 2015-12-19 13:11:03.629770000 Z
-  extjuncted: false
-  id: 163
+  created_at: 2015-12-19 18:11:29.401954000 Z
+  id: 164
   initial_born_at: 2015-01-01 00:00:00.000000000 Z
   initial_population: 1.4511
   initial_shape: SRID=4326;MULTIPOLYGON(((-0.822869030174328 45.82254299977,-0.822526675223243
@@ -1417,18 +1365,16 @@ land_parcels_025:
   lock_version: 0
   name: 'ZC-017005218-22-1 #6'
   nature_id: 59
-  number: PR00000000107
+  number: PR00000000108
   type: LandParcel
-  updated_at: 2015-12-19 13:11:03.629770000 Z
-  uuid: 12f5c4af-d43b-4caa-9274-742d827e4b18
+  updated_at: 2015-12-19 18:11:29.401954000 Z
+  uuid: 24553b64-db1d-4b87-8533-c025013e9622
   variant_id: 69
   variety: land_parcel
-land_parcels_026:
-  born_at: 2015-01-01 00:00:00.000000000 Z
+land_parcels_027:
   category_id: 25
-  created_at: 2015-12-19 13:11:03.754413000 Z
-  extjuncted: false
-  id: 164
+  created_at: 2015-12-19 18:11:29.496981000 Z
+  id: 165
   initial_born_at: 2015-01-01 00:00:00.000000000 Z
   initial_population: 3.009
   initial_shape: SRID=4326;MULTIPOLYGON(((-0.825701316625416 45.8119806264415,-0.823413716961734
@@ -1437,18 +1383,16 @@ land_parcels_026:
   lock_version: 0
   name: 'ZC-017005218-23-1 #7'
   nature_id: 59
-  number: PR00000000108
+  number: PR00000000109
   type: LandParcel
-  updated_at: 2015-12-19 13:11:03.754413000 Z
-  uuid: 014d0d12-97ad-4e99-96c4-ab3b70204881
+  updated_at: 2015-12-19 18:11:29.496981000 Z
+  uuid: 0f49d194-7d9f-4415-8bb3-4d9e92dd92b0
   variant_id: 69
   variety: land_parcel
-land_parcels_027:
-  born_at: 2015-01-01 00:00:00.000000000 Z
+land_parcels_028:
   category_id: 25
-  created_at: 2015-12-19 13:11:03.881643000 Z
-  extjuncted: false
-  id: 165
+  created_at: 2015-12-19 18:11:29.595982000 Z
+  id: 166
   initial_born_at: 2015-01-01 00:00:00.000000000 Z
   initial_population: 3.7979
   initial_shape: SRID=4326;MULTIPOLYGON(((-0.831764859873219 45.8104393898025,-0.830711642112624
@@ -1458,18 +1402,16 @@ land_parcels_027:
   lock_version: 0
   name: 'ZC-017005218-24-1 #3'
   nature_id: 59
-  number: PR00000000109
+  number: PR00000000110
   type: LandParcel
-  updated_at: 2015-12-19 13:11:03.881643000 Z
-  uuid: fbbb545e-a93d-40d2-ba31-c43b9a5b60ff
+  updated_at: 2015-12-19 18:11:29.595982000 Z
+  uuid: d9c2a5c1-6772-4e65-a570-724b523206de
   variant_id: 69
   variety: land_parcel
-land_parcels_028:
-  born_at: 2015-01-01 00:00:00.000000000 Z
+land_parcels_029:
   category_id: 25
-  created_at: 2015-12-19 13:11:04.010878000 Z
-  extjuncted: false
-  id: 166
+  created_at: 2015-12-19 18:11:29.700789000 Z
+  id: 167
   initial_born_at: 2015-01-01 00:00:00.000000000 Z
   initial_population: 8.1114
   initial_shape: SRID=4326;MULTIPOLYGON(((-0.834214965170727 45.8145906222858,-0.835714654322208
@@ -1481,18 +1423,16 @@ land_parcels_028:
   lock_version: 0
   name: 'ZC-017005218-25-1 #1'
   nature_id: 59
-  number: PR00000000110
+  number: PR00000000111
   type: LandParcel
-  updated_at: 2015-12-19 13:11:04.010878000 Z
-  uuid: 93ceac11-8174-461c-bd0f-85208c0574f6
+  updated_at: 2015-12-19 18:11:29.700789000 Z
+  uuid: cafc9b75-9c55-47c1-9b8a-7a8702eaa6b5
   variant_id: 69
   variety: land_parcel
-land_parcels_029:
-  born_at: 2015-01-01 00:00:00.000000000 Z
+land_parcels_030:
   category_id: 25
-  created_at: 2015-12-19 13:11:04.177920000 Z
-  extjuncted: false
-  id: 167
+  created_at: 2015-12-19 18:11:29.812467000 Z
+  id: 168
   initial_born_at: 2015-01-01 00:00:00.000000000 Z
   initial_population: 12.0715
   initial_shape: SRID=4326;MULTIPOLYGON(((-0.830250397481167 45.8175561557014,-0.830390288260417
@@ -1523,18 +1463,16 @@ land_parcels_029:
   lock_version: 0
   name: 'ZC-017005218-26-1 #4'
   nature_id: 59
-  number: PR00000000111
+  number: PR00000000112
   type: LandParcel
-  updated_at: 2015-12-19 13:11:04.177920000 Z
-  uuid: 8d7889f7-0bd2-4af2-84b2-fdd71bbdd1b9
+  updated_at: 2015-12-19 18:11:29.812467000 Z
+  uuid: 74ac76bc-8d83-4aff-8318-a57874d0eeba
   variant_id: 69
   variety: land_parcel
-land_parcels_030:
-  born_at: 2015-01-01 00:00:00.000000000 Z
+land_parcels_031:
   category_id: 25
-  created_at: 2015-12-19 13:11:04.313860000 Z
-  extjuncted: false
-  id: 168
+  created_at: 2015-12-19 18:11:29.914027000 Z
+  id: 169
   initial_born_at: 2015-01-01 00:00:00.000000000 Z
   initial_population: 4.6746
   initial_shape: SRID=4326;MULTIPOLYGON(((-0.736193434420413 45.8372481805018,-0.73762862714311
@@ -1545,18 +1483,16 @@ land_parcels_030:
   lock_version: 0
   name: 'ZC-017005218-27-1 #8'
   nature_id: 59
-  number: PR00000000112
+  number: PR00000000113
   type: LandParcel
-  updated_at: 2015-12-19 13:11:04.313860000 Z
-  uuid: 4bb9325a-8e33-43d4-9037-effbca5c97ed
+  updated_at: 2015-12-19 18:11:29.914027000 Z
+  uuid: fa3d854a-640a-4548-b871-2fc36e58443a
   variant_id: 69
   variety: land_parcel
-land_parcels_031:
-  born_at: 2015-01-01 00:00:00.000000000 Z
+land_parcels_032:
   category_id: 25
-  created_at: 2015-12-19 13:11:04.444617000 Z
-  extjuncted: false
-  id: 169
+  created_at: 2015-12-19 18:11:30.014489000 Z
+  id: 170
   initial_born_at: 2015-01-01 00:00:00.000000000 Z
   initial_population: 2.3275
   initial_shape: SRID=4326;MULTIPOLYGON(((-0.767827230035493 45.8021806182845,-0.76724116057833
@@ -1567,17 +1503,16 @@ land_parcels_031:
   lock_version: 0
   name: 'ZC-017005218-28-1 #1'
   nature_id: 59
-  number: PR00000000113
+  number: PR00000000114
   type: LandParcel
-  updated_at: 2015-12-19 13:11:04.444617000 Z
-  uuid: bbf4159c-80b6-4e90-8b8b-07e667031410
+  updated_at: 2015-12-19 18:11:30.014489000 Z
+  uuid: d8ab7a08-a1f1-428d-afa1-45f6fec28259
   variant_id: 69
   variety: land_parcel
 matters_001:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  extjuncted: false
   id: 47
   initial_population: 0.0
   lock_version: 0
@@ -1587,14 +1522,13 @@ matters_001:
   type: Matter
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-  uuid: 5b44161a-f783-4eba-98f5-c0a23e4ba027
+  uuid: 5c80d49a-bfba-40b6-a168-92c0efc420f0
   variant_id: 1
   variety: matter
 matters_002:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  extjuncted: false
   id: 48
   initial_population: 0.0
   lock_version: 0
@@ -1604,14 +1538,13 @@ matters_002:
   type: Matter
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-  uuid: 01df09fe-7c28-4a68-aea3-a085849db753
+  uuid: bdfc5d5d-eefb-4289-a75e-17e2d28552b7
   variant_id: 1
   variety: matter
 matters_003:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  extjuncted: false
   id: 49
   initial_population: 0.0
   lock_version: 0
@@ -1621,14 +1554,13 @@ matters_003:
   type: Matter
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-  uuid: 3cfff364-c426-4e72-ac7e-3f4f697f3bba
+  uuid: ae902353-1b7e-4c87-922f-800057ba4e84
   variant_id: 1
   variety: matter
 matters_004:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  extjuncted: false
   id: 50
   initial_population: 0.0
   lock_version: 0
@@ -1638,14 +1570,13 @@ matters_004:
   type: Matter
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-  uuid: 29428669-b04f-41c7-8530-e877d1ad149f
+  uuid: b3e52588-7af1-46de-9daf-d2c868b7f25e
   variant_id: 1
   variety: matter
 matters_005:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  extjuncted: false
   id: 51
   initial_population: 0.0
   lock_version: 0
@@ -1655,14 +1586,13 @@ matters_005:
   type: Matter
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-  uuid: a1f22ae9-bae4-4bc3-970b-5f3b93d0e96c
+  uuid: 9b5d76d4-8ef3-40af-a220-131db4959f4a
   variant_id: 1
   variety: matter
 matters_006:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  extjuncted: false
   id: 52
   initial_population: 0.0
   lock_version: 0
@@ -1672,7 +1602,7 @@ matters_006:
   type: Matter
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-  uuid: d9aa10bb-4311-4e7d-bd89-da343e8edd75
+  uuid: 2181db13-6aeb-47b3-813a-eafcb56941fd
   variant_id: 1
   variety: matter
 matters_007:
@@ -1681,7 +1611,6 @@ matters_007:
   created_at: 2014-10-31 20:23:37.029761000 Z
   creator_id: 1
   derivative_of: triticum_aestivum_rubisko
-  extjuncted: false
   id: 53
   initial_population: 7.0
   lock_version: 0
@@ -1691,7 +1620,7 @@ matters_007:
   type: Matter
   updated_at: 2014-10-31 20:23:37.029761000 Z
   updater_id: 1
-  uuid: 790658ea-ddae-4483-8691-cc1496d7e441
+  uuid: f490c94c-452f-4c66-a5c2-27cde8087229
   variant_id: 10
   variety: seed
 matters_008:
@@ -1701,7 +1630,6 @@ matters_008:
   creator_id: 1
   derivative_of: avena_sativa_une_de_mai
   description: ''
-  extjuncted: false
   id: 54
   initial_population: 20.0
   lock_version: 0
@@ -1711,7 +1639,7 @@ matters_008:
   type: Matter
   updated_at: 2014-11-01 16:00:08.017208000 Z
   updater_id: 1
-  uuid: 813faca7-189b-4752-b0b3-2b3376eee838
+  uuid: 019bdc3c-2a02-4fb5-8ac7-b12f1ad87102
   variant_id: 11
   variety: seed
 matters_009:
@@ -1721,7 +1649,6 @@ matters_009:
   creator_id: 1
   derivative_of: triticum_spelta
   description: ''
-  extjuncted: false
   id: 55
   initial_population: 20.0
   lock_version: 0
@@ -1731,7 +1658,7 @@ matters_009:
   type: Matter
   updated_at: 2014-11-01 16:00:08.339341000 Z
   updater_id: 1
-  uuid: 9f6512f7-849c-44a4-97ff-56853d08c315
+  uuid: 97c68b2a-e022-4028-aef8-ac599e21e6b4
   variant_id: 9
   variety: straw
 matters_010:
@@ -1741,7 +1668,6 @@ matters_010:
   creator_id: 1
   derivative_of: avena_sativa_une_de_mai
   description: ''
-  extjuncted: false
   id: 56
   initial_population: 10.0
   lock_version: 0
@@ -1751,7 +1677,7 @@ matters_010:
   type: Matter
   updated_at: 2014-11-01 16:01:24.156172000 Z
   updater_id: 1
-  uuid: 8909f09a-c738-48ec-8343-bb996dfb5caa
+  uuid: 2ff9e9f0-b2d0-4542-8254-9f2a1835d154
   variant_id: 11
   variety: seed
 matters_011:
@@ -1760,7 +1686,6 @@ matters_011:
   created_at: 2014-11-01 20:19:35.354902000 Z
   creator_id: 1
   description: ''
-  extjuncted: false
   id: 57
   initial_population: 10.0
   lock_version: 0
@@ -1770,7 +1695,7 @@ matters_011:
   type: Matter
   updated_at: 2014-11-01 20:19:35.354902000 Z
   updater_id: 1
-  uuid: 2bd4e757-6e8d-408a-8ded-330e40278a38
+  uuid: b9723391-4848-4640-92a0-eb5e1e178c32
   variant_id: 20
   variety: packaged_matter
 matters_012:
@@ -1779,7 +1704,6 @@ matters_012:
   created_at: 2014-11-01 20:23:54.912213000 Z
   creator_id: 1
   description: ''
-  extjuncted: false
   id: 58
   initial_population: 10.0
   lock_version: 0
@@ -1789,7 +1713,7 @@ matters_012:
   type: Matter
   updated_at: 2014-11-01 20:23:54.912213000 Z
   updater_id: 1
-  uuid: 94a63a36-bcc5-44a5-bcb4-78582319c7db
+  uuid: c1c3062d-c6e0-4d02-bfdd-87936de52463
   variant_id: 22
   variety: packaged_matter
 matters_013:
@@ -1798,7 +1722,6 @@ matters_013:
   created_at: 2014-11-01 20:23:55.247530000 Z
   creator_id: 1
   description: ''
-  extjuncted: false
   id: 59
   initial_population: 10.0
   lock_version: 0
@@ -1808,7 +1731,7 @@ matters_013:
   type: Matter
   updated_at: 2014-11-01 20:23:55.247530000 Z
   updater_id: 1
-  uuid: 0e72ae5f-3124-4d52-87ac-22a5440e4044
+  uuid: 48976fc3-80df-4079-a151-bf5d92a53877
   variant_id: 21
   variety: packaged_matter
 matters_014:
@@ -1817,7 +1740,6 @@ matters_014:
   creator_id: 1
   default_storage_id: 20
   derivative_of: triticum_aestivum_rubisko
-  extjuncted: true
   id: 60
   initial_born_at: 2014-11-02 17:30:00.000000000 Z
   initial_container_id: 20
@@ -1829,7 +1751,7 @@ matters_014:
   type: Matter
   updated_at: 2014-11-02 18:38:47.081597000 Z
   updater_id: 1
-  uuid: 8d6247dc-3048-4020-bfef-222351c0418d
+  uuid: 4866199e-438a-483e-b957-762ec4c490cb
   variant_id: 10
   variety: seed
 matters_015:
@@ -1840,7 +1762,6 @@ matters_015:
   dead_at: 2013-11-10 12:01:30.000000000 Z
   default_storage_id: 20
   derivative_of: triticum_aestivum_rubisko
-  extjuncted: true
   id: 89
   initial_born_at: 2013-11-10 14:45:00.000000000 Z
   initial_container_id: 20
@@ -1852,7 +1773,7 @@ matters_015:
   type: Matter
   updated_at: 2014-11-05 15:40:15.688874000 Z
   updater_id: 1
-  uuid: 3734bdc4-2d22-4cbd-b6c7-456515d29033
+  uuid: 6b19ae9b-6bb5-435c-a970-d03c1f62b66e
   variant_id: 10
   variety: seed
 matters_016:
@@ -1863,7 +1784,6 @@ matters_016:
   dead_at: 2012-10-17 10:09:00.000000000 Z
   default_storage_id: 20
   derivative_of: triticum_aestivum_rubisko
-  extjuncted: true
   id: 91
   initial_born_at: 2012-10-17 14:00:00.000000000 Z
   initial_container_id: 20
@@ -1875,7 +1795,7 @@ matters_016:
   type: Matter
   updated_at: 2014-11-06 17:50:06.929964000 Z
   updater_id: 1
-  uuid: 9e123e3d-7473-4378-9269-0182a012907a
+  uuid: 0b9a8234-b79f-480b-af29-46dae2d1f4b8
   variant_id: 10
   variety: seed
 matters_017:
@@ -1885,7 +1805,6 @@ matters_017:
   creator_id: 1
   dead_at: 2014-11-05 08:25:00.000000000 Z
   default_storage_id: 21
-  extjuncted: true
   id: 94
   initial_born_at: 2014-11-05 08:25:00.000000000 Z
   initial_container_id: 21
@@ -1897,7 +1816,7 @@ matters_017:
   type: Matter
   updated_at: 2014-11-07 14:44:18.818382000 Z
   updater_id: 1
-  uuid: eb1e699f-0f1c-4fe4-be40-10ba2fa1074e
+  uuid: f1da493c-5d6c-4f53-b8cd-5c9179cdc89d
   variant_id: 21
   variety: preparation
 matters_018:
@@ -1907,7 +1826,6 @@ matters_018:
   creator_id: 1
   dead_at: 2013-02-08 11:50:00.000000000 Z
   default_storage_id: 21
-  extjuncted: true
   id: 96
   initial_born_at: 2013-02-08 11:50:00.000000000 Z
   initial_container_id: 21
@@ -1919,7 +1837,7 @@ matters_018:
   type: Matter
   updated_at: 2014-11-07 15:02:58.655370000 Z
   updater_id: 1
-  uuid: f438e2a5-99b8-4d05-b34d-d0ebc31d87b2
+  uuid: db3a7125-8673-495f-8f6f-71a02e55c07d
   variant_id: 20
   variety: preparation
 matters_019:
@@ -1928,7 +1846,6 @@ matters_019:
   created_at: 2014-11-07 15:25:51.192693000 Z
   creator_id: 1
   description: ''
-  extjuncted: false
   id: 98
   initial_population: 10.0
   lock_version: 0
@@ -1938,7 +1855,7 @@ matters_019:
   type: Matter
   updated_at: 2014-11-07 15:25:51.192693000 Z
   updater_id: 1
-  uuid: d07edede-04af-4813-a221-f9de42ebf024
+  uuid: b3d438a2-641f-433a-ab56-7bf12b8eba30
   variant_id: 39
   variety: preparation
 matters_020:
@@ -1948,7 +1865,6 @@ matters_020:
   creator_id: 1
   dead_at: 2012-12-12 11:12:00.000000000 Z
   default_storage_id: 21
-  extjuncted: true
   id: 99
   initial_born_at: 2012-12-12 11:12:00.000000000 Z
   initial_container_id: 21
@@ -1960,7 +1876,7 @@ matters_020:
   type: Matter
   updated_at: 2014-11-07 15:26:50.522451000 Z
   updater_id: 1
-  uuid: 142a2bda-524a-4652-a5ce-85d0a46cc0eb
+  uuid: 0404ba38-eea4-47bd-8c63-cd15c22ea09a
   variant_id: 39
   variety: preparation
 matters_021:
@@ -1970,7 +1886,6 @@ matters_021:
   creator_id: 1
   derivative_of: trifolium_pratense_diplomat
   description: ''
-  extjuncted: false
   id: 100
   initial_population: 20.0
   lock_version: 0
@@ -1980,7 +1895,7 @@ matters_021:
   type: Matter
   updated_at: 2014-11-07 15:44:20.455537000 Z
   updater_id: 1
-  uuid: bbfbc4fb-2962-465a-84ea-cc427e07b2aa
+  uuid: 0f4f4701-25e0-4834-b594-d4db501fe3a4
   variant_id: 41
   variety: seed
 matters_022:
@@ -1990,7 +1905,6 @@ matters_022:
   creator_id: 1
   derivative_of: poa
   description: ''
-  extjuncted: false
   id: 101
   initial_population: 200.0
   lock_version: 0
@@ -2000,7 +1914,7 @@ matters_022:
   type: Matter
   updated_at: 2014-11-07 15:44:20.589234000 Z
   updater_id: 1
-  uuid: b7f81784-dffe-4f74-86f0-c4e027370f0e
+  uuid: 843d5e96-3ff2-47a2-956e-b93c3cba5758
   variant_id: 42
   variety: seed
 matters_023:
@@ -2011,7 +1925,6 @@ matters_023:
   dead_at: 2007-09-29 10:59:00.000000000 Z
   default_storage_id: 21
   derivative_of: poa
-  extjuncted: true
   id: 102
   initial_born_at: 2007-09-29 13:40:00.000000000 Z
   initial_container_id: 21
@@ -2023,7 +1936,7 @@ matters_023:
   type: Matter
   updated_at: 2014-11-07 15:45:45.728092000 Z
   updater_id: 1
-  uuid: a074c80e-05e3-42ae-bff7-74866348af83
+  uuid: 322e220b-79d7-4b50-aa5a-3915e6e13ac5
   variant_id: 42
   variety: seed
 matters_024:
@@ -2034,7 +1947,6 @@ matters_024:
   dead_at: 2014-08-01 00:20:00.000000000 Z
   default_storage_id: 80
   derivative_of: poa
-  extjuncted: true
   id: 105
   initial_born_at: 2014-08-31 11:45:00.000000000 Z
   initial_container_id: 80
@@ -2046,7 +1958,7 @@ matters_024:
   type: Matter
   updated_at: 2014-11-07 15:50:04.415002000 Z
   updater_id: 1
-  uuid: ed10eb87-18d6-4280-8eba-58363113f41a
+  uuid: 45541495-9dde-4cee-8048-c57057af1830
   variant_id: 43
   variety: grass
 matters_025:
@@ -2056,7 +1968,6 @@ matters_025:
   creator_id: 1
   derivative_of: vitis_vinifera_sauvignon_blanc
   description: ''
-  extjuncted: false
   id: 107
   initial_population: 5000.0
   lock_version: 0
@@ -2067,7 +1978,7 @@ matters_025:
   type: Matter
   updated_at: 2014-11-07 16:47:34.638130000 Z
   updater_id: 1
-  uuid: c421dc19-f5e5-415c-b897-ccae3c9fc171
+  uuid: f0639b39-4027-40f2-a10a-79859e4a7beb
   variant_id: 45
   variety: seedling
 matters_026:
@@ -2078,7 +1989,6 @@ matters_026:
   dead_at: 2008-03-15 15:39:00.000000000 Z
   default_storage_id: 21
   derivative_of: vitis
-  extjuncted: true
   id: 109
   initial_born_at: 2008-03-15 22:00:00.000000000 Z
   initial_container_id: 21
@@ -2091,7 +2001,7 @@ matters_026:
   type: Matter
   updated_at: 2014-11-07 16:50:07.026840000 Z
   updater_id: 1
-  uuid: 04ade202-d27a-4046-941d-f1db8bc7033a
+  uuid: ae33ca06-0b5f-446d-98bc-d2b222f89555
   variant_id: 45
   variety: seedling
 matters_027:
@@ -2101,7 +2011,6 @@ matters_027:
   creator_id: 1
   dead_at: 2013-04-17 12:00:00.000000000 Z
   default_storage_id: 21
-  extjuncted: true
   id: 111
   initial_born_at: 2013-04-17 12:00:00.000000000 Z
   initial_container_id: 21
@@ -2113,7 +2022,7 @@ matters_027:
   type: Matter
   updated_at: 2014-11-07 16:59:09.705128000 Z
   updater_id: 1
-  uuid: cc290511-d0ea-423b-99b9-63c5b7f6d6bf
+  uuid: 196ad0b2-b3ff-415d-a1f2-78b866c9ae88
   variant_id: 20
   variety: preparation
 matters_028:
@@ -2123,7 +2032,6 @@ matters_028:
   creator_id: 1
   default_storage_id: 106
   derivative_of: vitis_vinifera
-  extjuncted: true
   id: 114
   initial_born_at: 2013-09-16 17:00:00.000000000 Z
   initial_container_id: 106
@@ -2135,7 +2043,7 @@ matters_028:
   type: Matter
   updated_at: 2014-11-07 17:08:50.419969000 Z
   updater_id: 1
-  uuid: b5aa0558-a68e-40e5-9432-1518fcf030c6
+  uuid: 98c601e0-9bb4-4d79-829e-042cfffc1ca4
   variant_id: 48
   variety: grape
 matters_029:
@@ -2144,7 +2052,6 @@ matters_029:
   creator_id: 1
   default_storage_id: 106
   derivative_of: vitis_vinifera
-  extjuncted: true
   id: 120
   initial_born_at: 2013-10-01 08:45:00.000000000 Z
   initial_container_id: 106
@@ -2156,7 +2063,7 @@ matters_029:
   type: Matter
   updated_at: 2014-11-07 18:53:57.726666000 Z
   updater_id: 1
-  uuid: f9434299-8e94-486f-85c9-b55a909cfaf7
+  uuid: 52699e8a-1385-4967-add2-f782de63e846
   variant_id: 48
   variety: grape
 matters_030:
@@ -2165,7 +2072,6 @@ matters_030:
   creator_id: 1
   default_storage_id: 106
   derivative_of: vitis_vinifera
-  extjuncted: true
   id: 121
   initial_born_at: 2013-10-01 08:45:00.000000000 Z
   initial_container_id: 106
@@ -2177,7 +2083,7 @@ matters_030:
   type: Matter
   updated_at: 2014-11-07 18:53:57.938037000 Z
   updater_id: 1
-  uuid: c297a689-cbd0-48e3-bbb5-93b090824065
+  uuid: c3c0a485-f275-45d8-8f59-ae406e54e675
   variant_id: 48
   variety: grape
 matters_031:
@@ -2186,7 +2092,6 @@ matters_031:
   creator_id: 1
   default_storage_id: 106
   derivative_of: vitis_vinifera
-  extjuncted: true
   id: 122
   initial_born_at: 2013-10-01 08:45:00.000000000 Z
   initial_container_id: 106
@@ -2198,7 +2103,7 @@ matters_031:
   type: Matter
   updated_at: 2014-11-07 18:53:57.995416000 Z
   updater_id: 1
-  uuid: 0f9012ad-05e6-4a3d-9da5-dd719009a373
+  uuid: a07e5882-e726-4fbd-b412-4d29ae12b171
   variant_id: 55
   variety: pomace
 matters_032:
@@ -2208,7 +2113,6 @@ matters_032:
   creator_id: 1
   default_storage_id: 106
   derivative_of: vitis_vinifera
-  extjuncted: true
   id: 123
   initial_born_at: 2013-10-02 09:00:00.000000000 Z
   initial_container_id: 106
@@ -2220,7 +2124,7 @@ matters_032:
   type: Matter
   updated_at: 2014-11-07 19:02:56.067968000 Z
   updater_id: 1
-  uuid: 04ebbd18-e375-498c-bb6d-54dbd1342a3b
+  uuid: 3579c645-2090-4d7d-bbbb-50353264a903
   variant_id: 48
   variety: grape
 matters_033:
@@ -2231,7 +2135,6 @@ matters_033:
   dead_at: 2013-10-05 13:36:00.000000000 Z
   default_storage_id: 106
   derivative_of: grape
-  extjuncted: true
   id: 124
   initial_born_at: 2013-10-02 09:00:00.000000000 Z
   initial_container_id: 106
@@ -2243,7 +2146,7 @@ matters_033:
   type: Matter
   updated_at: 2014-11-07 19:02:56.215117000 Z
   updater_id: 1
-  uuid: 8b7d0d65-34f9-4f68-91ea-7b7fb9f5a071
+  uuid: 3dea92ee-cef3-4f9f-892c-c4f1b1b80cfe
   variant_id: 56
   variety: juice
 matters_034:
@@ -2253,7 +2156,6 @@ matters_034:
   creator_id: 1
   default_storage_id: 106
   derivative_of: vitis_vinifera
-  extjuncted: true
   id: 125
   initial_born_at: 2013-10-02 09:00:00.000000000 Z
   initial_container_id: 106
@@ -2265,7 +2167,7 @@ matters_034:
   type: Matter
   updated_at: 2014-11-07 19:02:56.271910000 Z
   updater_id: 1
-  uuid: 44affc32-3611-47f8-be03-43235e5c5ed5
+  uuid: c77c146b-11c0-48b0-89da-91b5e5c23cce
   variant_id: 55
   variety: pomace
 matters_035:
@@ -2274,7 +2176,6 @@ matters_035:
   created_at: 2014-11-07 19:05:46.886304000 Z
   creator_id: 1
   description: ''
-  extjuncted: false
   id: 126
   initial_population: 2.0
   lock_version: 0
@@ -2284,7 +2185,7 @@ matters_035:
   type: Matter
   updated_at: 2014-11-07 19:05:46.886304000 Z
   updater_id: 1
-  uuid: b57f08bc-9d78-4465-89a0-300e9db0eb3b
+  uuid: 200e3ca7-c7f9-417a-a23c-85427e5cb7cc
   variant_id: 57
   variety: preparation
 matters_036:
@@ -2293,7 +2194,6 @@ matters_036:
   created_at: 2014-11-07 19:05:46.968107000 Z
   creator_id: 1
   description: ''
-  extjuncted: false
   id: 127
   initial_population: 4.0
   lock_version: 0
@@ -2303,7 +2203,7 @@ matters_036:
   type: Matter
   updated_at: 2014-11-07 19:05:46.968107000 Z
   updater_id: 1
-  uuid: 2dd53414-9061-46b2-befc-f4d38662f053
+  uuid: 473d2e7b-f66e-43d4-ab0c-19ec061e97a6
   variant_id: 58
   variety: preparation
 matters_037:
@@ -2313,7 +2213,6 @@ matters_037:
   creator_id: 1
   derivative_of: saccharomyces_cerevisiae_jb3
   description: ''
-  extjuncted: false
   id: 128
   initial_population: 30.0
   lock_version: 0
@@ -2323,7 +2222,7 @@ matters_037:
   type: Matter
   updated_at: 2014-11-07 19:05:47.037645000 Z
   updater_id: 1
-  uuid: e44373b8-4dbe-4808-a36a-f9e3f5cc0d6b
+  uuid: c267cef5-d4b7-48e6-bf5f-2cdddc5c5f68
   variant_id: 59
   variety: yeast
 matters_038:
@@ -2334,7 +2233,6 @@ matters_038:
   dead_at: 2013-10-05 13:22:00.000000000 Z
   default_storage_id: 21
   derivative_of: saccharomyces_cerevisiae
-  extjuncted: true
   id: 129
   initial_born_at: 2013-10-05 13:40:00.000000000 Z
   initial_container_id: 21
@@ -2346,7 +2244,7 @@ matters_038:
   type: Matter
   updated_at: 2014-11-07 19:08:55.092680000 Z
   updater_id: 1
-  uuid: e5ec22f8-2d2d-4bc1-930b-52c6e6088577
+  uuid: 409485f9-9691-4cb4-bd8f-b6c3041f1e47
   variant_id: 59
   variety: yeast
 matters_039:
@@ -2356,7 +2254,6 @@ matters_039:
   creator_id: 1
   default_storage_id: 116
   derivative_of: grape
-  extjuncted: true
   id: 130
   initial_born_at: 2013-10-05 13:40:00.000000000 Z
   initial_container_id: 116
@@ -2368,7 +2265,7 @@ matters_039:
   type: Matter
   updated_at: 2014-11-07 19:08:55.237093000 Z
   updater_id: 1
-  uuid: 102ce6b0-d592-4442-8b74-b6b538459e1f
+  uuid: f6b24e8a-2fe0-455b-9a1f-8fd484a60fd0
   variant_id: 49
   variety: wine
 matters_040:
@@ -2377,7 +2274,6 @@ matters_040:
   created_at: 2014-11-07 19:12:04.938158000 Z
   creator_id: 1
   description: ''
-  extjuncted: false
   id: 131
   initial_population: 10.0
   lock_version: 0
@@ -2387,7 +2283,7 @@ matters_040:
   type: Matter
   updated_at: 2014-11-07 19:12:04.938158000 Z
   updater_id: 1
-  uuid: 7caafca9-34a9-47b9-b37a-0024f14bce93
+  uuid: c75a6542-a6be-4041-a6dc-1c26bbadf6e0
   variant_id: 60
   variety: saccharose
 matters_041:
@@ -2397,7 +2293,6 @@ matters_041:
   creator_id: 1
   dead_at: 2013-10-07 09:41:00.000000000 Z
   default_storage_id: 21
-  extjuncted: true
   id: 132
   initial_born_at: 2013-10-07 09:45:00.000000000 Z
   initial_container_id: 21
@@ -2409,7 +2304,7 @@ matters_041:
   type: Matter
   updated_at: 2014-11-07 19:12:42.843046000 Z
   updater_id: 1
-  uuid: f321d577-c9ff-4d36-b5f0-da92b45162d1
+  uuid: c91fc8ba-e343-4a28-803e-e7490efd4494
   variant_id: 60
   variety: saccharose
 matters_042:
@@ -2418,7 +2313,6 @@ matters_042:
   created_at: 2014-11-07 19:22:38.077250000 Z
   creator_id: 1
   description: ''
-  extjuncted: false
   id: 133
   initial_population: 10.0
   lock_version: 0
@@ -2428,7 +2322,7 @@ matters_042:
   type: Matter
   updated_at: 2014-11-07 19:22:38.077250000 Z
   updater_id: 1
-  uuid: b7635ac6-9689-4621-ba7d-dfa0360c7340
+  uuid: e4020a0f-ae0c-4ea7-9f55-2328f9487010
   variant_id: 62
   variety: preparation
 matters_043:
@@ -2438,7 +2332,6 @@ matters_043:
   creator_id: 1
   dead_at: 2013-10-15 08:44:00.000000000 Z
   default_storage_id: 21
-  extjuncted: true
   id: 134
   initial_born_at: 2013-10-15 08:48:00.000000000 Z
   initial_container_id: 21
@@ -2450,7 +2343,7 @@ matters_043:
   type: Matter
   updated_at: 2014-11-07 19:24:10.209263000 Z
   updater_id: 1
-  uuid: b27bc3c8-12ee-4ff4-80bd-7892505eb56d
+  uuid: 98f6e88d-9c36-4481-806d-0b952a723e74
   variant_id: 62
   variety: preparation
 matters_044:
@@ -2459,7 +2352,6 @@ matters_044:
   created_at: 2014-11-07 19:34:09.456173000 Z
   creator_id: 1
   description: ''
-  extjuncted: false
   id: 135
   initial_born_at: 2013-04-15 10:30:00.000000000 Z
   initial_population: 10000.0
@@ -2470,7 +2362,7 @@ matters_044:
   type: Matter
   updated_at: 2014-11-07 19:34:09.456173000 Z
   updater_id: 1
-  uuid: 74e39526-e9a4-4ace-8184-82677161ade5
+  uuid: 901c3f5c-52d2-4dbc-8f16-910c99abf5be
   variant_id: 63
   variety: cork_bottle
 matters_045:
@@ -2479,7 +2371,6 @@ matters_045:
   created_at: 2014-11-07 19:34:09.539919000 Z
   creator_id: 1
   description: ''
-  extjuncted: false
   id: 136
   initial_born_at: 2013-07-25 10:30:00.000000000 Z
   initial_population: 10000.0
@@ -2490,7 +2381,7 @@ matters_045:
   type: Matter
   updated_at: 2014-11-07 19:34:09.539919000 Z
   updater_id: 1
-  uuid: 420f951c-ab8c-48d5-b195-2c65bbfe1195
+  uuid: fef633f4-cd69-49cf-afa4-0b97f0a00406
   variant_id: 64
   variety: cork
 matters_046:
@@ -2501,7 +2392,6 @@ matters_046:
   dead_at: 2013-10-30 13:52:00.000000000 Z
   default_storage_id: 116
   derivative_of: grape
-  extjuncted: true
   id: 139
   initial_born_at: 2013-10-30 14:00:00.000000000 Z
   initial_container_id: 116
@@ -2513,7 +2403,7 @@ matters_046:
   type: Matter
   updated_at: 2014-11-07 19:36:59.034307000 Z
   updater_id: 1
-  uuid: 7f16d6aa-f9cc-468a-bbda-666fdcbdf5d7
+  uuid: 2ba89bdb-ddc3-4489-bf65-a150a9124fb8
   variant_id: 49
   variety: wine
 matters_047:
@@ -2523,7 +2413,6 @@ matters_047:
   creator_id: 1
   dead_at: 2013-10-30 13:52:00.000000000 Z
   default_storage_id: 21
-  extjuncted: true
   id: 140
   initial_born_at: 2013-10-30 14:00:00.000000000 Z
   initial_container_id: 21
@@ -2535,7 +2424,7 @@ matters_047:
   type: Matter
   updated_at: 2014-11-07 19:36:59.103331000 Z
   updater_id: 1
-  uuid: 90b7e19b-9c8c-4c4f-9f7b-31daf7900a23
+  uuid: 7125cf04-6d42-4c37-a99f-37dd386f6a24
   variant_id: 63
   variety: cork_bottle
 matters_048:
@@ -2545,7 +2434,6 @@ matters_048:
   creator_id: 1
   dead_at: 2013-10-30 13:52:00.000000000 Z
   default_storage_id: 21
-  extjuncted: true
   id: 141
   initial_born_at: 2013-10-30 14:00:00.000000000 Z
   initial_container_id: 21
@@ -2557,7 +2445,7 @@ matters_048:
   type: Matter
   updated_at: 2014-11-07 19:36:59.170065000 Z
   updater_id: 1
-  uuid: 7a4d749c-7079-4dcb-83b7-396e525a44b4
+  uuid: f5fa2e1e-f657-41ba-b0e6-870158a9e727
   variant_id: 64
   variety: cork
 matters_049:
@@ -2567,7 +2455,6 @@ matters_049:
   creator_id: 1
   default_storage_id: 116
   derivative_of: grape
-  extjuncted: true
   id: 142
   initial_born_at: 2013-10-30 14:00:00.000000000 Z
   initial_container_id: 116
@@ -2579,7 +2466,7 @@ matters_049:
   type: Matter
   updated_at: 2014-11-07 19:36:59.233966000 Z
   updater_id: 1
-  uuid: 92dcbf0e-b2be-4a0a-b1ac-9bfb9726b5da
+  uuid: 7f039b1c-e534-4342-9158-94e24384b68e
   variant_id: 65
   variety: wine
 matters_050:
@@ -2589,7 +2476,6 @@ matters_050:
   creator_id: 1
   default_storage_id: 116
   derivative_of: grape
-  extjuncted: true
   id: 143
   initial_born_at: 2213-10-30 14:00:00.000000000 Z
   initial_container_id: 116
@@ -2601,7 +2487,7 @@ matters_050:
   type: Matter
   updated_at: 2014-11-07 19:36:59.233966000 Z
   updater_id: 1
-  uuid: dc18c010-73b7-489b-befa-9ec4bd46f3a1
+  uuid: fe00f9a3-dab5-4e3a-9a4f-2a2fdd0051fb
   variant_id: 65
   variety: wine
 matters_051:
@@ -2611,7 +2497,6 @@ matters_051:
   creator_id: 1
   derivative_of: triticum_aestivum
   description: ''
-  extjuncted: false
   id: 144
   initial_born_at: 2015-09-17 13:38:07.151525000 Z
   initial_population: 250.0
@@ -2622,7 +2507,7 @@ matters_051:
   type: Matter
   updated_at: 2015-09-17 13:38:07.255834000 Z
   updater_id: 1
-  uuid: 0717a1ae-8333-41f4-8797-f68fd1d5905b
+  uuid: 9600d630-8ab8-49ee-a802-365c7bcbe17c
   variant_id: 19
   variety: grain
 plants_001:
@@ -2630,7 +2515,6 @@ plants_001:
   category_id: 8
   created_at: 2014-11-05 15:40:15.833985000 Z
   creator_id: 1
-  extjuncted: true
   id: 90
   initial_born_at: 2013-11-10 14:45:00.000000000 Z
   initial_population: 0.0
@@ -2646,7 +2530,7 @@ plants_001:
   type: Plant
   updated_at: 2014-11-05 15:40:15.833985000 Z
   updater_id: 1
-  uuid: e1c60747-ed86-4a33-8d18-f056ba4053ca
+  uuid: 827bae4f-bbb3-4c04-8c8b-b8a3d6e06e10
   variant_id: 16
   variety: triticum_aestivum
 plants_002:
@@ -2654,7 +2538,6 @@ plants_002:
   category_id: 8
   created_at: 2014-11-06 17:50:07.013572000 Z
   creator_id: 1
-  extjuncted: true
   id: 92
   initial_born_at: 2012-10-17 14:00:00.000000000 Z
   initial_population: 0.0
@@ -2671,7 +2554,7 @@ plants_002:
   type: Plant
   updated_at: 2014-11-06 17:50:07.013572000 Z
   updater_id: 1
-  uuid: f0c3e3cd-d24c-4fba-ab9a-7fee1af9df43
+  uuid: 1a1404b0-248d-4443-88d0-bf4300d83b05
   variant_id: 16
   variety: triticum_aestivum
 plants_003:
@@ -2679,7 +2562,6 @@ plants_003:
   category_id: 8
   created_at: 2014-11-07 15:45:45.794867000 Z
   creator_id: 1
-  extjuncted: true
   id: 103
   initial_born_at: 2007-09-29 13:40:00.000000000 Z
   initial_population: 10.1637
@@ -2694,7 +2576,7 @@ plants_003:
   type: Plant
   updated_at: 2014-11-07 15:45:45.794867000 Z
   updater_id: 1
-  uuid: 2d2283b6-b919-4b90-94a3-55621bc86b9b
+  uuid: 792cbae6-5c9d-458a-959e-a2c01fd1af01
   variant_id: 40
   variety: poa
 plants_004:
@@ -2702,7 +2584,6 @@ plants_004:
   category_id: 8
   created_at: 2014-11-07 16:50:07.190626000 Z
   creator_id: 1
-  extjuncted: true
   id: 110
   initial_born_at: 2008-03-15 22:00:00.000000000 Z
   initial_population: 0.0
@@ -2723,7 +2604,7 @@ plants_004:
   type: Plant
   updated_at: 2014-11-07 16:50:07.190626000 Z
   updater_id: 1
-  uuid: 74d4220d-091d-4cba-8ecc-5106e9a70d0c
+  uuid: aa000ffc-3697-424e-8430-e44968028df7
   variant_id: 44
   variety: vitis_vinifera
 products_001:
@@ -2731,7 +2612,6 @@ products_001:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  extjuncted: false
   id: 65
   initial_population: 0.0
   lock_version: 0
@@ -2741,7 +2621,7 @@ products_001:
   type: Product
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-  uuid: 4046641e-9c4c-451a-9078-c87ad11351a4
+  uuid: 716935b5-cc13-4ee6-b798-963ad7b62bdd
   variant_id: 1
   variety: product
 products_002:
@@ -2749,7 +2629,6 @@ products_002:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  extjuncted: false
   id: 66
   initial_population: 0.0
   lock_version: 0
@@ -2759,14 +2638,13 @@ products_002:
   type: Product
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-  uuid: a41d6b24-e147-4a0a-ab28-6beb6a0ca162
+  uuid: c3ec7dcb-ee54-49a7-9a1e-3be68b464e63
   variant_id: 1
   variety: product
 product_groups_001:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  extjuncted: false
   id: 67
   initial_population: 0.0
   lock_version: 0
@@ -2776,14 +2654,13 @@ product_groups_001:
   type: ProductGroup
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-  uuid: e1068917-1854-46bd-83cb-f74c9a331ce0
+  uuid: 06275f68-b01b-4484-b786-6b224f5a8ba6
   variant_id: 1
   variety: product_group
 product_groups_002:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  extjuncted: false
   id: 68
   initial_population: 0.0
   lock_version: 0
@@ -2793,14 +2670,13 @@ product_groups_002:
   type: ProductGroup
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-  uuid: b426f189-8fe7-4d2d-8e6a-9db82cc69657
+  uuid: 33bb3077-51f1-481e-b9c8-2d7c86c96969
   variant_id: 1
   variety: product_group
 product_groups_003:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  extjuncted: false
   id: 69
   initial_population: 0.0
   lock_version: 0
@@ -2810,14 +2686,13 @@ product_groups_003:
   type: ProductGroup
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-  uuid: 29d191f5-7f07-4c93-a24d-3fca4bdb7065
+  uuid: 0a3e7d07-71a9-4c04-b527-a6879953dee0
   variant_id: 1
   variety: product_group
 settlements_001:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  extjuncted: false
   id: 73
   initial_population: 0.0
   lock_version: 0
@@ -2828,14 +2703,13 @@ settlements_001:
   type: Settlement
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-  uuid: f046def4-cd1e-4f33-88d2-8e4570205a70
+  uuid: 7372c680-9a42-44db-8179-16d8cf4a52fd
   variant_id: 1
   variety: settlement
 settlements_002:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  extjuncted: false
   id: 74
   initial_population: 0.0
   lock_version: 0
@@ -2846,14 +2720,13 @@ settlements_002:
   type: Settlement
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-  uuid: aa3249c5-2358-49da-b65b-7916ebd38a71
+  uuid: c13f2295-bff8-4f84-bb8f-28e3e5734076
   variant_id: 1
   variety: settlement
 settlements_003:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  extjuncted: false
   id: 75
   initial_population: 0.0
   lock_version: 0
@@ -2864,14 +2737,13 @@ settlements_003:
   type: Settlement
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-  uuid: 6394d426-b0b0-4edf-9cca-57518eca4ce6
+  uuid: 2a7a3bca-20f9-437b-beea-4e3bae1301dc
   variant_id: 1
   variety: settlement
 workers_001:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  extjuncted: false
   id: 76
   initial_population: 0.0
   lock_version: 0
@@ -2883,14 +2755,13 @@ workers_001:
   type: Worker
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-  uuid: 39e7e921-8894-4fef-be04-4727a6647a32
+  uuid: 7941e1da-d156-41c7-b204-9a260751e722
   variant_id: 1
   variety: worker
 workers_002:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  extjuncted: false
   id: 77
   initial_population: 0.0
   lock_version: 0
@@ -2902,14 +2773,13 @@ workers_002:
   type: Worker
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-  uuid: e2ad4be8-c960-45df-9dc7-d8697ccf4517
+  uuid: a58a1f95-cf5a-4e62-b6f8-80f2aa3eeacb
   variant_id: 1
   variety: worker
 workers_003:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  extjuncted: false
   id: 78
   initial_population: 0.0
   lock_version: 0
@@ -2921,7 +2791,7 @@ workers_003:
   type: Worker
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-  uuid: 56bdc331-f03f-4c3c-9c20-f6f069f8cab0
+  uuid: 0c3722f3-5f94-437d-8900-95e8cd578147
   variant_id: 1
   variety: worker
 workers_004:
@@ -2930,7 +2800,6 @@ workers_004:
   created_at: 2014-11-01 20:30:35.477602000 Z
   creator_id: 1
   default_storage_id: 21
-  extjuncted: false
   id: 79
   initial_container_id: 21
   initial_population: 0.0
@@ -2942,6 +2811,6 @@ workers_004:
   type: Worker
   updated_at: 2014-11-07 17:08:37.125582000 Z
   updater_id: 1
-  uuid: 90fd5acc-9786-483a-9fc2-3cce041a9183
+  uuid: 251b27e4-3d9b-4b64-a92f-2f135184180c
   variant_id: 23
   variety: worker

@@ -31,7 +31,6 @@
 #  default_storage_id    :integer
 #  derivative_of         :string
 #  description           :text
-#  extjuncted            :boolean          default(FALSE), not null
 #  fixed_asset_id        :integer
 #  id                    :integer          not null, primary key
 #  identification_number :string
@@ -96,8 +95,6 @@ class Product < Ekylibre::Record::Base
   has_many :issues, as: :target, dependent: :destroy
   has_many :intervention_product_parameters, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception
   has_many :interventions, through: :intervention_product_parameters
-  has_many :junction_ways, class_name: 'ProductJunctionWay', foreign_key: :product_id, dependent: :destroy
-  has_many :junctions, class_name: 'ProductJunction', through: :junction_ways
   has_many :linkages, class_name: 'ProductLinkage', foreign_key: :carrier_id, dependent: :destroy
   has_many :links, class_name: 'ProductLink', foreign_key: :product_id, dependent: :destroy
   has_many :localizations, class_name: 'ProductLocalization', foreign_key: :product_id, dependent: :destroy
@@ -108,10 +105,6 @@ class Product < Ekylibre::Record::Base
   has_many :sensors
   has_many :supports, class_name: 'ActivityProduction', foreign_key: :support_id, inverse_of: :support
   has_many :variants, class_name: 'ProductNatureVariant', through: :phases
-  has_one :start_way,  -> { where(nature: 'start') },  class_name: 'ProductJunctionWay', inverse_of: :product, foreign_key: :product_id
-  has_one :finish_way, -> { where(nature: 'finish') }, class_name: 'ProductJunctionWay', inverse_of: :product, foreign_key: :product_id
-  has_one :start_junction,  through: :start_way,  source: :junction
-  has_one :finish_junction, through: :finish_way, source: :junction
   has_one :current_phase,        -> { current }, class_name: 'ProductPhase',        foreign_key: :product_id
   has_one :current_localization, -> { current }, class_name: 'ProductLocalization', foreign_key: :product_id
   has_one :current_enjoyment,    -> { current }, class_name: 'ProductEnjoyment',    foreign_key: :product_id
@@ -220,7 +213,6 @@ class Product < Ekylibre::Record::Base
   validates_datetime :born_at, :dead_at, :initial_born_at, :initial_dead_at, :picture_updated_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
   validates_numericality_of :initial_population, allow_nil: true
-  validates_inclusion_of :extjuncted, in: [true, false]
   validates_presence_of :category, :name, :nature, :number, :variant, :variety
   # ]VALIDATORS]
   validates_length_of :derivative_of, :variety, allow_nil: true, maximum: 120
@@ -337,36 +329,6 @@ class Product < Ekylibre::Record::Base
       localization.nature = :interior
       localization.container = self.initial_container
       localization.save!
-    end
-
-    unless self.extjuncted?
-      # Add default start junction
-      if start_junction
-        start_junction.update_column(:started_at, initial_born_at)
-      else
-        ProductJunction.create!(
-          nature: :birth,
-          started_at: initial_born_at,
-          ways_attributes: [{ role: :born, product: self }]
-        )
-        reload
-      end
-
-      # Add default finish junction
-      if finish_junction
-        if initial_dead_at
-          finish_junction.update_column(:started_at, initial_dead_at)
-        else
-          finish_junction.destroy
-        end
-      elsif initial_dead_at
-        ProductJunction.create!(
-          nature: :death,
-          started_at: initial_dead_at,
-          ways_attributes: [{ role: :dead, product: self }]
-        )
-        reload
-      end
     end
 
     if born_at
@@ -585,7 +547,6 @@ class Product < Ekylibre::Record::Base
   # Options can be shape, name, born_at
   def part_with(population, options = {})
     attributes = options.slice(:name, :number, :work_number, :identification_number, :tracking, :default_storage, :description, :picture)
-    attributes[:extjuncted] = true
     attributes[:name] ||= name
     attributes[:tracking] ||= tracking
     attributes[:variant] = variant

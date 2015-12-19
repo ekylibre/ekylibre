@@ -31,7 +31,6 @@
 #  default_storage_id    :integer
 #  derivative_of         :string
 #  description           :text
-#  extjuncted            :boolean          default(FALSE), not null
 #  fixed_asset_id        :integer
 #  id                    :integer          not null, primary key
 #  identification_number :string

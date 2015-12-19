@@ -244,8 +244,6 @@ eng:
         product: "Product"
         product_enjoyment: "Product enjoyment"
         product_group: "Product group"
-        product_junction: "Product junction"
-        product_junction_way: "Product junction way"
         product_link: "Product link"
         product_linkage: "Product linkage"
         product_localization: "Product localization"

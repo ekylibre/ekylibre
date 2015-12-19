@@ -134,24 +134,6 @@ class InterventionProductParameter < InterventionParameter
     end
   end
 
-  before_save do
-    # self.product = nil if self.nature_variant?
-
-    if product && product.respond_to?(:person) && product.person
-      columns = { event_id: event.id, participant_id: product.person_id, state: :accepted }
-      if event_participation
-        # self.event_participation.update_columns(columns)
-        event_participation.attributes = columns
-      else
-        event_participation = EventParticipation.create!(columns)
-        # self.update_column(:event_participation_id, event_participation.id)
-        self.event_participation_id = event_participation.id
-      end
-    elsif self.event_participation
-      self.event_participation.destroy!
-    end
-  end
-
   # multiply evaluated_price of an product(product) and used quantity in this cast
   def cost
     if product && price = evaluated_price

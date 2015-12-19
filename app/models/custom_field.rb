@@ -42,9 +42,22 @@
 #
 
 class CustomField < Ekylibre::Record::Base
+  NOT_CUSTOMIZABLE_MODELS = [
+    :AccountBalance, :ActivityDistribution, :AnalysisItem, :Affair, :CashSession,
+    :Crumb, :CultivableZoneMembership, :CustomField, :CustomFieldChoice,
+    :DocumentArchive, :EntityAddress, :FixedAssetDepreciation, :Gap, :GapItem,
+    :GuideAnalysis, :GuideAnalysisPoint, :InterventionGroupParameter, :InterventionParameter,
+    :InterventionDoer, :InterventionTool, :InterventionTarget, :InterventionOutput,
+    :InterventionInput, :InterventionProductParameter, :InterventionParameterReading,
+    :InventoryItem, :JournalEntryItem, :ListingNode, :ListingNodeItem, :ManureManagementPlan,
+    :ManureManagementPlanZone, :Observation, :ParcelItem, :Preference, :ProductEnjoyment,
+    :ActivityBudget, :ProductionDistribution, :ProductLink, :ProductLinkage,
+    :ProductLocalization, :ProductMembership, :ProductNatureCategoryTaxation,
+    :ProductNatureVariantReading, :ProductOwnership, :ProductPhase, :ProductReading,
+    :PurchaseItem, :SaleItem, :TargetDistribution, :User, :Version]
   attr_readonly :nature
   enumerize :nature, in: [:text, :decimal, :boolean, :date, :datetime, :choice], predicates: true
-  enumerize :customized_type, in: (Ekylibre::Schema.model_names - [:AccountBalance, :ActivityDistribution, :AnalysisItem, :Affair, :CashSession, :Crumb, :CultivableZoneMembership, :CustomField, :CustomFieldChoice, :DocumentArchive, :EntityAddress, :FixedAssetDepreciation, :Gap, :GapItem, :GuideAnalysis, :GuideAnalysisPoint, :InterventionProductParameter, :InventoryItem, :JournalEntryItem, :ListingNode, :ListingNodeItem, :ManureManagementPlan, :ManureManagementPlanZone, :Observation, :Operation, :ParcelItem, :Preference, :ProductEnjoyment, :ActivityBudget, :ProductionDistribution, :ProductJunction, :ProductJunctionWay, :ProductLink, :ProductLinkage, :ProductLocalization, :ProductMembership, :ProductNatureCategoryTaxation, :ProductNatureVariantReading, :ProductOwnership, :ProductPhase, :ProductReading, :InterventionParameterReading, :PurchaseItem, :SaleItem, :User, :Version])
+  enumerize :customized_type, in: (Ekylibre::Schema.model_names - NOT_CUSTOMIZABLE_MODELS)
   has_many :choices, -> { order(:position) }, class_name: 'CustomFieldChoice', dependent: :delete_all, inverse_of: :custom_field
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :maximal_length, :minimal_length, allow_nil: true, only_integer: true

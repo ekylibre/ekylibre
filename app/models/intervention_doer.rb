@@ -51,4 +51,21 @@ class InterventionDoer < InterventionProductParameter
   belongs_to :event_participation, dependent: :destroy
   belongs_to :intervention, inverse_of: :doers
   validates :product, presence: true
+
+  before_save do
+    if product && product.respond_to?(:person) && product.person
+      columns = { event_id: event.id, participant_id: product.person_id, state: :accepted }
+      if event_participation
+        # self.event_participation.update_columns(columns)
+        event_participation.attributes = columns
+      else
+        event_participation = EventParticipation.create!(columns)
+        # self.update_column(:event_participation_id, event_participation.id)
+        self.event_participation_id = event_participation.id
+      end
+    elsif self.event_participation
+      self.event_participation.destroy!
+    end
+  end
+
 end

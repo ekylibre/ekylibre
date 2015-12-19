@@ -39,7 +39,6 @@
 #  purchase_item_id                     :integer
 #  sale_item_id                         :integer
 #  shape                                :geometry({:srid=>4326, :type=>"multi_polygon"})
-#  source_product_division_id           :integer
 #  source_product_id                    :integer
 #  source_product_population_reading_id :integer
 #  source_product_shape_reading_id      :integer
@@ -61,7 +60,6 @@ class ParcelItem < Ekylibre::Record::Base
   belongs_to :purchase_item
   belongs_to :sale_item
   belongs_to :source_product, class_name: 'Product'
-  belongs_to :source_product_division, class_name: 'ProductJunction', dependent: :destroy
   belongs_to :source_product_population_reading, class_name: 'ProductReading', dependent: :destroy
   belongs_to :source_product_shape_reading, class_name:      'ProductReading', dependent: :destroy
   belongs_to :variant, class_name: 'ProductNatureVariant'
@@ -176,32 +174,12 @@ class ParcelItem < Ekylibre::Record::Base
     else
       self.product = source_product.part_with!(population, shape: shape, born_at: divided_at)
     end
-    update_division_task(divided_at)
     update_division_readings(divided_at)
-  end
-
-  # Create or update division task
-  def update_division_task(divided_at)
-    separated = product
-    reduced = source_product
-    attributes = {
-      nature: :division,
-      started_at: divided_at,
-      ways_attributes: [
-        { role: :separated, product: separated },
-        { role: :reduced, product: reduced }
-      ]
-    }
-    if source_product_division
-      source_product_division.update_attributes!(attributes)
-    else
-      self.create_source_product_division!(attributes)
-    end
   end
 
   # Create or update division readings
   def update_division_readings(divided_at)
-    product.copy_readings_of!(source_product, at: divided_at, originator: source_product_division)
+    product.copy_readings_of!(source_product, at: divided_at, originator: self)
     source_population = source_product.get!(:population, at: divided_at)
     self.source_product_population_reading = source_product.read!(:population, source_population - population, at: divided_at)
     self.product_population_reading = product.read!(:population, population, at: divided_at)

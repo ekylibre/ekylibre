@@ -1888,7 +1888,6 @@ ActiveRecord::Schema.define(version: 20151108001401) do
     t.boolean  "parted",                                                                                                      default: false, null: false
     t.decimal  "population",                                                                         precision: 19, scale: 4
     t.geometry "shape",                                limit: {:srid=>4326, :type=>"multi_polygon"}
-    t.integer  "source_product_division_id"
     t.integer  "source_product_population_reading_id"
     t.integer  "source_product_shape_reading_id"
     t.integer  "product_population_reading_id"
@@ -1915,7 +1914,6 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "parcel_items", ["product_shape_reading_id"], name: "index_parcel_items_on_product_shape_reading_id", using: :btree
   add_index "parcel_items", ["purchase_item_id"], name: "index_parcel_items_on_purchase_item_id", using: :btree
   add_index "parcel_items", ["sale_item_id"], name: "index_parcel_items_on_sale_item_id", using: :btree
-  add_index "parcel_items", ["source_product_division_id"], name: "index_parcel_items_on_source_product_division_id", using: :btree
   add_index "parcel_items", ["source_product_id"], name: "index_parcel_items_on_source_product_id", using: :btree
   add_index "parcel_items", ["source_product_population_reading_id"], name: "index_parcel_items_on_source_product_population_reading_id", using: :btree
   add_index "parcel_items", ["source_product_shape_reading_id"], name: "index_parcel_items_on_source_product_shape_reading_id", using: :btree
@@ -2059,52 +2057,6 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "product_enjoyments", ["stopped_at"], name: "index_product_enjoyments_on_stopped_at", using: :btree
   add_index "product_enjoyments", ["updated_at"], name: "index_product_enjoyments_on_updated_at", using: :btree
   add_index "product_enjoyments", ["updater_id"], name: "index_product_enjoyments_on_updater_id", using: :btree
-
-  create_table "product_junction_ways", force: :cascade do |t|
-    t.integer  "junction_id",              null: false
-    t.string   "role",                     null: false
-    t.string   "nature",                   null: false
-    t.integer  "product_id",               null: false
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version", default: 0, null: false
-  end
-
-  add_index "product_junction_ways", ["created_at"], name: "index_product_junction_ways_on_created_at", using: :btree
-  add_index "product_junction_ways", ["creator_id"], name: "index_product_junction_ways_on_creator_id", using: :btree
-  add_index "product_junction_ways", ["junction_id"], name: "index_product_junction_ways_on_junction_id", using: :btree
-  add_index "product_junction_ways", ["nature"], name: "index_product_junction_ways_on_nature", using: :btree
-  add_index "product_junction_ways", ["product_id"], name: "index_product_junction_ways_on_product_id", using: :btree
-  add_index "product_junction_ways", ["role"], name: "index_product_junction_ways_on_role", using: :btree
-  add_index "product_junction_ways", ["updated_at"], name: "index_product_junction_ways_on_updated_at", using: :btree
-  add_index "product_junction_ways", ["updater_id"], name: "index_product_junction_ways_on_updater_id", using: :btree
-
-  create_table "product_junctions", force: :cascade do |t|
-    t.integer  "originator_id"
-    t.string   "originator_type"
-    t.string   "nature",                      null: false
-    t.integer  "tool_id"
-    t.datetime "started_at"
-    t.datetime "stopped_at"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",    default: 0, null: false
-    t.integer  "intervention_id"
-  end
-
-  add_index "product_junctions", ["created_at"], name: "index_product_junctions_on_created_at", using: :btree
-  add_index "product_junctions", ["creator_id"], name: "index_product_junctions_on_creator_id", using: :btree
-  add_index "product_junctions", ["intervention_id"], name: "index_product_junctions_on_intervention_id", using: :btree
-  add_index "product_junctions", ["originator_type", "originator_id"], name: "index_product_junctions_on_originator_type_and_originator_id", using: :btree
-  add_index "product_junctions", ["started_at"], name: "index_product_junctions_on_started_at", using: :btree
-  add_index "product_junctions", ["stopped_at"], name: "index_product_junctions_on_stopped_at", using: :btree
-  add_index "product_junctions", ["tool_id"], name: "index_product_junctions_on_tool_id", using: :btree
-  add_index "product_junctions", ["updated_at"], name: "index_product_junctions_on_updated_at", using: :btree
-  add_index "product_junctions", ["updater_id"], name: "index_product_junctions_on_updater_id", using: :btree
 
   create_table "product_linkages", force: :cascade do |t|
     t.integer  "originator_id"
@@ -2465,12 +2417,11 @@ ActiveRecord::Schema.define(version: 20151108001401) do
 
   create_table "products", force: :cascade do |t|
     t.string   "type"
-    t.string   "name",                                                                                                         null: false
-    t.string   "number",                                                                                                       null: false
-    t.integer  "variant_id",                                                                                                   null: false
-    t.integer  "nature_id",                                                                                                    null: false
-    t.integer  "category_id",                                                                                                  null: false
-    t.boolean  "extjuncted",                                                                                   default: false, null: false
+    t.string   "name",                                                                                                       null: false
+    t.string   "number",                                                                                                     null: false
+    t.integer  "variant_id",                                                                                                 null: false
+    t.integer  "nature_id",                                                                                                  null: false
+    t.integer  "category_id",                                                                                                null: false
     t.datetime "initial_born_at"
     t.datetime "initial_dead_at"
     t.integer  "initial_container_id"
@@ -2480,7 +2431,7 @@ ActiveRecord::Schema.define(version: 20151108001401) do
     t.geometry "initial_shape",         limit: {:srid=>4326, :type=>"multi_polygon"}
     t.integer  "initial_father_id"
     t.integer  "initial_mother_id"
-    t.string   "variety",                                                                                                      null: false
+    t.string   "variety",                                                                                                    null: false
     t.string   "derivative_of"
     t.integer  "tracking_id"
     t.integer  "fixed_asset_id"
@@ -2496,11 +2447,11 @@ ActiveRecord::Schema.define(version: 20151108001401) do
     t.integer  "address_id"
     t.integer  "parent_id"
     t.integer  "default_storage_id"
-    t.datetime "created_at",                                                                                                   null: false
-    t.datetime "updated_at",                                                                                                   null: false
+    t.datetime "created_at",                                                                                                 null: false
+    t.datetime "updated_at",                                                                                                 null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                                 default: 0,     null: false
+    t.integer  "lock_version",                                                                                 default: 0,   null: false
     t.integer  "person_id"
     t.geometry "initial_geolocation",   limit: {:srid=>4326, :type=>"point"}
     t.uuid     "uuid"

@@ -3715,9 +3715,6 @@ parcel_items:
     limit:
       srid: 4326
       type: multi_polygon
-  source_product_division_id:
-    type: integer
-    references: product_junction
   source_product_id:
     type: integer
     references: product
@@ -3953,76 +3950,6 @@ product_enjoyments:
     type: datetime
   stopped_at:
     type: datetime
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
-product_junction_ways:
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  id:
-    type: integer
-    required: true
-  junction_id:
-    type: integer
-    references: product_junction
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  nature:
-    type: string
-    required: true
-  product_id:
-    type: integer
-    references: product
-    required: true
-  role:
-    type: string
-    required: true
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
-product_junctions:
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  id:
-    type: integer
-    required: true
-  intervention_id:
-    type: integer
-    references: intervention
-  lock_version:
-    type: integer
-    required: true
-  nature:
-    type: string
-    required: true
-  originator_id:
-    type: integer
-    references: "~originator_type"
-  originator_type:
-    type: string
-  started_at:
-    type: datetime
-  stopped_at:
-    type: datetime
-  tool_id:
-    type: integer
-    references: product
   updated_at:
     type: datetime
     required: true
@@ -4697,10 +4624,6 @@ products:
     type: string
   description:
     type: text
-  extjuncted:
-    type: boolean
-    required: true
-    default: false
   fixed_asset_id:
     type: integer
     references: fixed_asset

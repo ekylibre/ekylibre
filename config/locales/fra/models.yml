@@ -329,8 +329,8 @@ fra:
       product: "Produits"
       product_enjoyment: "Jouissances de produits"
       product_group: "Groupe de produit"
-      product_junction: "Jonction de vie de produits"
-      product_junction_way: "Accès à une jonction de vie de produits"
+      product_junction: "Jonction de vie de produits" #?
+      product_junction_way: "Accès à une jonction de vie de produits" #?
       product_link: "Lien entre produits"
       product_linkage: "Lien d’attache entre produits"
       product_localization: "Passage d’un produit en un lieu"
@@ -699,7 +699,7 @@ fra:
     exportable_columns: "Colonnes exportables"
     expression: "Expression" #?
     external: "Externe"
-    extjuncted: "Extjoint"
+    extjuncted: "Extjoint" #?
     failed_attempts: "Tentatives de connexions échouées"
     family: "Famille"
     father: "Père"
@@ -710,8 +710,8 @@ fra:
     financial_year: "Exercice"
     financial_year_as_last: "Exercice (en tant que écriture de fin d’exercice)"
     finish: "Fin"
-    finish_junction: "Jonction de fin"
-    finish_way: "Voie de fin"
+    finish_junction: "Jonction de fin" #?
+    finish_way: "Voie de fin" #?
     first_met_at: "Date de la première rencontre"
     first_name: "Prénom"
     first_number: "Premier numéro"
@@ -827,9 +827,9 @@ fra:
     journal_entry: "Écriture"
     journal_entry_item: "Ligne d’écriture"
     journal_entry_items: "Lignes d’écritures"
-    junction: "Jonction de vie"
-    junction_ways: "Voies de jonction"
-    junctions: "Jonctions"
+    junction: "Jonction de vie" #?
+    junction_ways: "Voies de jonction" #?
+    junctions: "Jonctions" #?
     key: "Clé"
     label: "Libellé"
     land_parcel_number: "Numéro de la parcelle PAC"
@@ -1050,7 +1050,7 @@ fra:
     product_deaths: "Morts de produit" #?
     product_divisions: "Divisions de produit" #?
     product_enjoyments: "Usufruit de produit"
-    product_junctions: "Product junctions"
+    product_junctions: "Product junctions" #?
     product_linkages: "Attelages de produit"
     product_localization: "Localisation de produit"
     product_localizations: "Localisations de produit"
@@ -1213,8 +1213,8 @@ fra:
     spaced_iban: "IBAN"
     sql_type: "Type SQL"
     start: "Début"
-    start_junction: "Jonction de départ"
-    start_way: "Voie de départ"
+    start_junction: "Jonction de départ" #?
+    start_way: "Voie de départ" #?
     started_at: "Débuté le"
     started_on: "Débuté le"
     state: "État"
@@ -1323,7 +1323,7 @@ fra:
     vendor_euid: "Constructeur"
     versions: "Versions"
     waiting_deliveries: "Livraisons en attente"
-    ways: "Voies"
+    ways: "Voies" #?
     websites: "Sites web"
     with_accounting: "Passer en comptabilité"
     with_commission: "Inclure une commission"

@@ -61,18 +61,29 @@ class SimplifyInterventions < ActiveRecord::Migration
     milking: { mandatory: [:milking] },
     animal_antibiotic_treatment: { mandatory: [:disease_treatment] },
     animal_group_changing: { mandatory: [:animal_group_changing] },
-    crop_residues_grinding: { mandatory: [:residue_destruction, :organic_matter_burying], optional: [:organic_fertilization] },
+    crop_residues_grinding: {
+      mandatory: [:residue_destruction, :organic_matter_burying],
+      optional: [:organic_fertilization]
+    },
     cutting: { mandatory: [:cutting] },
     detasseling: { mandatory: [:detasseling] },
     field_plant_sorting: { mandatory: [:field_plant_sorting] },
     hoeing: { optional: [:weeding, :loosening] },
     plantation_unfixing: { mandatory: [:plantation_unfixing] },
     plant_mulching: { optional: [:organic_fertilization] },
-    spraying: { optional: [:herbicide, :fungicide, :insecticide, :growth_regulator, :molluscicide, :nematicide, :acaricide, :bactericide, :rodenticide, :talpicide, :corvicide, :game_repellent] },
+    spraying: {
+      optional: [:herbicide, :fungicide, :insecticide, :growth_regulator,
+                 :molluscicide, :nematicide, :acaricide, :bactericide,
+                 :rodenticide, :talpicide, :corvicide, :game_repellent]
+    },
     fuel_up: { mandatory: [:fuel_up] },
     equipment_item_replacement: { mandatory: [:troubleshooting] },
     oil_replacement: { mandatory: [:oil_replacement] },
-    mechanical_fertilizing: { mandatory: [:fertilization], optional: [:biostimulation, :organic_fertilization, :mineral_fertilization, :micronutrient_fertilization, :liming] },
+    mechanical_fertilizing: {
+      mandatory: [:fertilization],
+      optional: [:biostimulation, :organic_fertilization, :mineral_fertilization,
+                 :micronutrient_fertilization, :liming]
+    },
     animal_housing_cleaning: { mandatory: [:hygiene] },
     animal_housing_mulching: { mandatory: [:animal_housing_mulching] },
     direct_silage: { mandatory: [:harvest] },
@@ -84,14 +95,30 @@ class SimplifyInterventions < ActiveRecord::Migration
     ground_destratification: { mandatory: [:loosening] },
     mechanical_planting: { mandatory: [:planting] },
     sowing: { mandatory: [:sowing] },
-    sowing_with_spraying: { mandatory: [:sowing], optional: [:herbicide, :fungicide, :insecticide, :growth_regulator, :molluscicide, :nematicide, :acaricide, :bactericide, :rodenticide, :talpicide, :corvicide, :game_repellent] },
-    all_in_one_sowing: { mandatory: [:sowing, :fertilization], optional: [:herbicide, :fungicide, :insecticide, :growth_regulator, :molluscicide, :nematicide, :acaricide, :bactericide, :rodenticide, :talpicide, :corvicide, :game_repellent] },
+    sowing_with_spraying: {
+      mandatory: [:sowing],
+      optional: [:herbicide, :fungicide, :insecticide, :growth_regulator,
+                 :molluscicide, :nematicide, :acaricide, :bactericide,
+                 :rodenticide, :talpicide, :corvicide, :game_repellent]
+    },
+    all_in_one_sowing: {
+      mandatory: [:sowing, :fertilization],
+      optional: [:herbicide, :fungicide, :insecticide, :growth_regulator,
+                 :molluscicide, :nematicide, :acaricide, :bactericide,
+                 :rodenticide, :talpicide, :corvicide, :game_repellent]
+    },
     indirect_silage: { mandatory: [:indirect_silage] },
     land_parcel_grinding: { mandatory: [:land_parcel_grinding] },
     raking: { mandatory: [:loosening], optional: [:sowing_burying] },
     uncompacting: { mandatory: [:loosening] },
-    plowing: { mandatory: [:plowing, :loosening], optional: [:herbicide, :organic_matter_burying, :water_flow_improvement] },
-    superficial_plowing: { mandatory: [:plowing, :loosening], optional: [:herbicide, :organic_matter_burying] },
+    plowing: {
+      mandatory: [:plowing, :loosening],
+      optional: [:herbicide, :organic_matter_burying, :water_flow_improvement]
+    },
+    superficial_plowing: {
+      mandatory: [:plowing, :loosening],
+      optional: [:herbicide, :organic_matter_burying]
+    },
     chaptalization: { mandatory: [:chaptalization] },
     complete_wine_transfer: { mandatory: [:complete_wine_transfer] },
     enzyme_addition: { mandatory: [:enzyme_addition] },
@@ -496,6 +523,37 @@ class SimplifyInterventions < ActiveRecord::Migration
      :product_readings].each do |table|
       rename_column table, :geometry_value, :multi_polygon_value
       add_column table, :geometry_value, :geometry, srid: 4326
+    end
+
+    # ProductJunction becomes useless since Operation disappear because only
+    # operations could write junctions.
+    # Data because fully useless because procedures determine how products
+    # are born, lives and dies. Information would be accessible later if needed
+    revert do
+      add_column :products, :extjuncted, :boolean, null: false, default: false
+      add_reference :parcel_items, :source_product_division, index: true
+
+      create_table :product_junction_ways do |t|
+        t.reference :junction, null: false, index: true
+        t.string 'role',                     null: false
+        t.string 'nature',                   null: false
+        t.reference :product, null: false, index: true
+        t.stamps
+        t.index :nature
+        t.index :role
+      end
+
+      create_table :product_junctions do |t|
+        t.reference :originator, polymorphic: true, index: true
+        t.string 'nature', null: false
+        t.reference :tool, index: true
+        t.datetime 'started_at'
+        t.datetime 'stopped_at'
+        t.stamps
+        t.reference :intervention, index: true
+        t.index :started_at
+        t.index :stopped_at
+      end
     end
   end
 

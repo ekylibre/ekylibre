@@ -89,9 +89,9 @@ module Clean
           end
           files.delete(file.to_s)
         end
-        files.sort.each do |_file|
+        files.sort.each do |file|
           errors_count += 1
-          log.write(" - Error: Unexpected test file: #{file_label}\n")
+          log.write(" - Error: Unexpected test file: #{Pathname.new(file).relative_path_from(Rails.root)}\n")
         end
         log.write("   > git rm #{files.join(' ')}\n") if files.any?
         errors_count

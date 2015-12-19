@@ -11215,7 +11215,7 @@ versions_220:
     title:
   item_type: Entity
 versions_221:
-  created_at: 2015-12-19 13:10:59.682994000 Z
+  created_at: 2015-12-19 18:11:26.142719000 Z
   event: create
   id: 258
   item_id: 17
@@ -11255,12 +11255,12 @@ versions_221:
     picture_content_type:
     picture_file_size:
     picture_updated_at:
-    created_at: 2015-12-19 13:10:59.661011000 Z
+    created_at: 2015-12-19 18:11:26.112345000 Z
     creator_id:
     title:
   item_type: Entity
 versions_222:
-  created_at: 2015-12-19 13:11:00.543106000 Z
+  created_at: 2015-12-19 18:11:26.890737000 Z
   event: create
   id: 259
   item_id: 145
@@ -11272,7 +11272,6 @@ versions_222:
     variant_id: 69
     nature_id: 59
     category_id: 25
-    extjuncted: false
     initial_born_at: 2015-01-01 00:00:00.000000000 Z
     initial_dead_at:
     initial_container_id:
@@ -11351,14 +11350,14 @@ versions_222:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-19 13:11:00.538029000 Z
+    created_at: 2015-12-19 18:11:26.886283000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 2d34e22f-9e06-4739-898a-5b9a2bfe4291
+    uuid: 9c8ad00e-cd5b-40be-a029-d9ab206e06f6
   item_type: Product
 versions_223:
-  created_at: 2015-12-19 13:11:00.819920000 Z
+  created_at: 2015-12-19 18:11:27.118462000 Z
   event: create
   id: 260
   item_id: 146
@@ -11370,7 +11369,6 @@ versions_223:
     variant_id: 69
     nature_id: 59
     category_id: 25
-    extjuncted: false
     initial_born_at: 2015-01-01 00:00:00.000000000 Z
     initial_dead_at:
     initial_container_id:
@@ -11456,14 +11454,14 @@ versions_223:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-19 13:11:00.816898000 Z
+    created_at: 2015-12-19 18:11:27.115570000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 507089d2-f0de-477f-99e3-669b61cdc87b
+    uuid: d54fc16a-73f5-4415-b136-cc6098572190
   item_type: Product
 versions_224:
-  created_at: 2015-12-19 13:11:00.956305000 Z
+  created_at: 2015-12-19 18:11:27.219131000 Z
   event: create
   id: 261
   item_id: 147
@@ -11475,7 +11473,6 @@ versions_224:
     variant_id: 69
     nature_id: 59
     category_id: 25
-    extjuncted: false
     initial_born_at: 2015-01-01 00:00:00.000000000 Z
     initial_dead_at:
     initial_container_id:
@@ -11539,14 +11536,14 @@ versions_224:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-19 13:11:00.953388000 Z
+    created_at: 2015-12-19 18:11:27.216256000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: fbf8f005-d711-4d90-a625-badd61b9f51d
+    uuid: eeb05b45-954a-4f0a-a554-04497bd67663
   item_type: Product
 versions_225:
-  created_at: 2015-12-19 13:11:01.094180000 Z
+  created_at: 2015-12-19 18:11:27.312460000 Z
   event: create
   id: 262
   item_id: 148
@@ -11558,7 +11555,6 @@ versions_225:
     variant_id: 69
     nature_id: 59
     category_id: 25
-    extjuncted: false
     initial_born_at: 2015-01-01 00:00:00.000000000 Z
     initial_dead_at:
     initial_container_id:
@@ -11620,14 +11616,14 @@ versions_225:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-19 13:11:01.090795000 Z
+    created_at: 2015-12-19 18:11:27.309660000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 6def4b8a-7fad-410c-b17a-ca5953941dde
+    uuid: 599f2034-7055-49a9-bbf5-f99422282d55
   item_type: Product
 versions_226:
-  created_at: 2015-12-19 13:11:01.259038000 Z
+  created_at: 2015-12-19 18:11:27.411149000 Z
   event: create
   id: 263
   item_id: 149
@@ -11639,7 +11635,6 @@ versions_226:
     variant_id: 69
     nature_id: 59
     category_id: 25
-    extjuncted: false
     initial_born_at: 2015-01-01 00:00:00.000000000 Z
     initial_dead_at:
     initial_container_id:
@@ -11707,14 +11702,14 @@ versions_226:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-19 13:11:01.255175000 Z
+    created_at: 2015-12-19 18:11:27.408390000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 4eaacaae-bc58-4f74-a113-428dccf14fe9
+    uuid: 3ab5c07a-c8cf-4514-9eec-77c24a6596a9
   item_type: Product
 versions_227:
-  created_at: 2015-12-19 13:11:01.542794000 Z
+  created_at: 2015-12-19 18:11:27.627292000 Z
   event: create
   id: 264
   item_id: 150
@@ -11726,7 +11721,6 @@ versions_227:
     variant_id: 69
     nature_id: 59
     category_id: 25
-    extjuncted: false
     initial_born_at: 2015-01-01 00:00:00.000000000 Z
     initial_dead_at:
     initial_container_id:
@@ -11791,26 +11785,114 @@ versions_227:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-19 13:11:01.539533000 Z
+    created_at: 2015-12-19 18:11:27.624541000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: e37c6e09-02e2-4d06-9b63-98dffbf4ba30
+    uuid: 52307942-12b0-4a26-8ab4-c6889893d5b7
   item_type: Product
 versions_228:
-  created_at: 2015-12-19 13:11:01.790771000 Z
+  created_at: 2015-12-19 18:11:27.726586000 Z
   event: create
   id: 265
   item_id: 151
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 151
     type: LandParcel
-    name: 'ZC-017005218-8-2 #1'
+    name: 'ZC-017005218-8-1 #1'
     number: PR00000000095
     variant_id: 69
     nature_id: 59
     category_id: 25
-    extjuncted: false
+    initial_born_at: 2015-01-01 00:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.33843E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: MULTIPOLYGON (((-0.7852636909296210 45.8295795369011003, -0.7852881212351390
+        45.8296191330142975, -0.7850952988284640 45.8297925705589009, -0.7848085111184721
+        45.8300884235029997, -0.7844634325459930 45.8305293474504012, -0.7841698109508169
+        45.8308667311033986, -0.7840158511912240 45.8310676826819972, -0.7840174521408390
+        45.8311096662752036, -0.7842346462663260 45.8311396896585990, -0.7842850567204650
+        45.8311562292741996, -0.7843075865456920 45.8311888961803007, -0.7842979689098750
+        45.8312388458653999, -0.7842250306002770 45.8313375076194021, -0.7842096808656230
+        45.8313923887993013, -0.7842065639467790 45.8315147790371995, -0.7841916599849960
+        45.8316849567956979, -0.7842209654913410 45.8317131269291025, -0.7842720402475050
+        45.8317619162359975, -0.7844134234580910 45.8318312011632969, -0.7846401942852330
+        45.8319265068649031, -0.7848037941809640 45.8320087432872967, -0.7849360644516750
+        45.8320602079840000, -0.7851440314112400 45.8321921971501993, -0.7852550807899500
+        45.8322397113424032, -0.7853218829860940 45.8322342471895965, -0.7853883848550010
+        45.8323230801721024, -0.7857642437079900 45.8318334159025014, -0.7859813144250080
+        45.8315160465614966, -0.7863466770089680 45.8311221425404014, -0.7866342775014400
+        45.8308381855273979, -0.7866948045244430 45.8307202851437978, -0.7860863854270930
+        45.8302257144576970, -0.7852636909296210 45.8295795369011003)))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2015-12-19 18:11:27.723727000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid: af46ff74-9ae7-466e-8027-c9319b91138c
+  item_type: Product
+versions_229:
+  created_at: 2015-12-19 18:11:27.844163000 Z
+  event: create
+  id: 266
+  item_id: 152
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 152
+    type: LandParcel
+    name: 'ZC-017005218-8-2 #1'
+    number: PR00000000096
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
     initial_born_at: 2015-01-01 00:00:00.000000000 Z
     initial_dead_at:
     initial_container_id:
@@ -11882,26 +11964,25 @@ versions_228:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-19 13:11:01.787192000 Z
+    created_at: 2015-12-19 18:11:27.841053000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: e50d6089-fa87-454f-96fb-4c9b4e80b6c3
+    uuid: 71d26588-92b4-447f-8469-557c245aa98f
   item_type: Product
-versions_229:
-  created_at: 2015-12-19 13:11:02.187747000 Z
+versions_230:
+  created_at: 2015-12-19 18:11:28.171289000 Z
   event: create
-  id: 266
-  item_id: 152
+  id: 267
+  item_id: 153
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 152
+    id: 153
     type: LandParcel
     name: 'ZC-017005218-10-1 #1'
-    number: PR00000000096
+    number: PR00000000097
     variant_id: 69
     nature_id: 59
     category_id: 25
-    extjuncted: false
     initial_born_at: 2015-01-01 00:00:00.000000000 Z
     initial_dead_at:
     initial_container_id:
@@ -11965,26 +12046,25 @@ versions_229:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-19 13:11:02.184934000 Z
+    created_at: 2015-12-19 18:11:28.168044000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 51ec80a8-a7f8-42a4-8322-607c7106fd99
+    uuid: bb0174a0-bcca-480f-88d3-d178e8356436
   item_type: Product
-versions_230:
-  created_at: 2015-12-19 13:11:02.314753000 Z
+versions_231:
+  created_at: 2015-12-19 18:11:28.285981000 Z
   event: create
-  id: 267
-  item_id: 153
+  id: 268
+  item_id: 154
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 153
+    id: 154
     type: LandParcel
     name: 'ZC-017005218-11-1 #1'
-    number: PR00000000097
+    number: PR00000000098
     variant_id: 69
     nature_id: 59
     category_id: 25
-    extjuncted: false
     initial_born_at: 2015-01-01 00:00:00.000000000 Z
     initial_dead_at:
     initial_container_id:
@@ -12052,26 +12132,25 @@ versions_230:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-19 13:11:02.311945000 Z
+    created_at: 2015-12-19 18:11:28.282784000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 4a7a4f66-73c6-4c9f-8f11-9f857b90eee4
+    uuid: a26e0946-6b6b-45c9-beea-ba9ad4259249
   item_type: Product
-versions_231:
-  created_at: 2015-12-19 13:11:02.445320000 Z
+versions_232:
+  created_at: 2015-12-19 18:11:28.396630000 Z
   event: create
-  id: 268
-  item_id: 154
+  id: 269
+  item_id: 155
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 154
+    id: 155
     type: LandParcel
     name: 'ZC-017005218-13-1 #1'
-    number: PR00000000098
+    number: PR00000000099
     variant_id: 69
     nature_id: 59
     category_id: 25
-    extjuncted: false
     initial_born_at: 2015-01-01 00:00:00.000000000 Z
     initial_dead_at:
     initial_container_id:
@@ -12139,26 +12218,25 @@ versions_231:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-19 13:11:02.442140000 Z
+    created_at: 2015-12-19 18:11:28.393467000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: d0ecae7c-a05a-416d-b0fe-9a512661b8de
+    uuid: 41b02ece-01f5-497f-a23e-177fce625ce9
   item_type: Product
-versions_232:
-  created_at: 2015-12-19 13:11:02.574119000 Z
+versions_233:
+  created_at: 2015-12-19 18:11:28.529557000 Z
   event: create
-  id: 269
-  item_id: 155
+  id: 270
+  item_id: 156
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 155
+    id: 156
     type: LandParcel
     name: 'ZC-017005218-14-1 #4'
-    number: PR00000000099
+    number: PR00000000100
     variant_id: 69
     nature_id: 59
     category_id: 25
-    extjuncted: false
     initial_born_at: 2015-01-01 00:00:00.000000000 Z
     initial_dead_at:
     initial_container_id:
@@ -12228,26 +12306,25 @@ versions_232:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-19 13:11:02.571086000 Z
+    created_at: 2015-12-19 18:11:28.525689000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 40d824a7-c004-415f-b5fb-7df73d5f83ad
+    uuid: 86370dac-a3a7-429f-92f2-372850d8e1c2
   item_type: Product
-versions_233:
-  created_at: 2015-12-19 13:11:02.694449000 Z
+versions_234:
+  created_at: 2015-12-19 18:11:28.639627000 Z
   event: create
-  id: 270
-  item_id: 156
+  id: 271
+  item_id: 157
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 156
+    id: 157
     type: LandParcel
     name: 'ZC-017005218-14-2 #2'
-    number: PR00000000100
+    number: PR00000000101
     variant_id: 69
     nature_id: 59
     category_id: 25
-    extjuncted: false
     initial_born_at: 2015-01-01 00:00:00.000000000 Z
     initial_dead_at:
     initial_container_id:
@@ -12311,26 +12388,25 @@ versions_233:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-19 13:11:02.690720000 Z
+    created_at: 2015-12-19 18:11:28.636306000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 087869ba-38ab-4b15-b4a8-73a9b5fbf2cc
+    uuid: 779fd58c-f6ca-444e-9184-29bd1fdc20ff
   item_type: Product
-versions_234:
-  created_at: 2015-12-19 13:11:02.828998000 Z
+versions_235:
+  created_at: 2015-12-19 18:11:28.754736000 Z
   event: create
-  id: 271
-  item_id: 157
+  id: 272
+  item_id: 158
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 157
+    id: 158
     type: LandParcel
     name: 'ZC-017005218-15-1 #1'
-    number: PR00000000101
+    number: PR00000000102
     variant_id: 69
     nature_id: 59
     category_id: 25
-    extjuncted: false
     initial_born_at: 2015-01-01 00:00:00.000000000 Z
     initial_dead_at:
     initial_container_id:
@@ -12391,26 +12467,25 @@ versions_234:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-19 13:11:02.825884000 Z
+    created_at: 2015-12-19 18:11:28.751536000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: ec2994e7-b0a3-4c8d-a062-375677ab47a8
+    uuid: e92bb455-c1c8-4007-aa5d-3932f53f7a76
   item_type: Product
-versions_235:
-  created_at: 2015-12-19 13:11:02.956429000 Z
+versions_236:
+  created_at: 2015-12-19 18:11:28.855318000 Z
   event: create
-  id: 272
-  item_id: 158
+  id: 273
+  item_id: 159
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 158
+    id: 159
     type: LandParcel
     name: 'ZC-017005218-16-1 #2'
-    number: PR00000000102
+    number: PR00000000103
     variant_id: 69
     nature_id: 59
     category_id: 25
-    extjuncted: false
     initial_born_at: 2015-01-01 00:00:00.000000000 Z
     initial_dead_at:
     initial_container_id:
@@ -12469,26 +12544,25 @@ versions_235:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-19 13:11:02.953105000 Z
+    created_at: 2015-12-19 18:11:28.852099000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: c6f4b31b-b888-465e-9d10-eb5ba2e95f6e
+    uuid: 82ee2ec9-23d6-4a05-b9f6-fc9237fc27f9
   item_type: Product
-versions_236:
-  created_at: 2015-12-19 13:11:03.115941000 Z
+versions_237:
+  created_at: 2015-12-19 18:11:28.978099000 Z
   event: create
-  id: 273
-  item_id: 159
+  id: 274
+  item_id: 160
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 159
+    id: 160
     type: LandParcel
     name: 'ZC-017005218-17-1 #2'
-    number: PR00000000103
+    number: PR00000000104
     variant_id: 69
     nature_id: 59
     category_id: 25
-    extjuncted: false
     initial_born_at: 2015-01-01 00:00:00.000000000 Z
     initial_dead_at:
     initial_container_id:
@@ -12552,26 +12626,25 @@ versions_236:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-19 13:11:03.112722000 Z
+    created_at: 2015-12-19 18:11:28.973680000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 51b9d838-ad5b-4487-81ec-edd37ca34c5d
+    uuid: 670eeda6-8b7c-4276-a9f2-7200c3b7bbfe
   item_type: Product
-versions_237:
-  created_at: 2015-12-19 13:11:03.252074000 Z
+versions_238:
+  created_at: 2015-12-19 18:11:29.099743000 Z
   event: create
-  id: 274
-  item_id: 160
+  id: 275
+  item_id: 161
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 160
+    id: 161
     type: LandParcel
     name: 'ZC-017005218-19-1 #3'
-    number: PR00000000104
+    number: PR00000000105
     variant_id: 69
     nature_id: 59
     category_id: 25
-    extjuncted: false
     initial_born_at: 2015-01-01 00:00:00.000000000 Z
     initial_dead_at:
     initial_container_id:
@@ -12629,26 +12702,25 @@ versions_237:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-19 13:11:03.248365000 Z
+    created_at: 2015-12-19 18:11:29.096303000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 56801f9c-63b3-453e-85d6-60fb2945500c
+    uuid: 21eeb4e6-5c5f-4821-8c40-f7ed82fcb97e
   item_type: Product
-versions_238:
-  created_at: 2015-12-19 13:11:03.378674000 Z
+versions_239:
+  created_at: 2015-12-19 18:11:29.213575000 Z
   event: create
-  id: 275
-  item_id: 161
+  id: 276
+  item_id: 162
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 161
+    id: 162
     type: LandParcel
     name: 'ZC-017005218-20-1 #4'
-    number: PR00000000105
+    number: PR00000000106
     variant_id: 69
     nature_id: 59
     category_id: 25
-    extjuncted: false
     initial_born_at: 2015-01-01 00:00:00.000000000 Z
     initial_dead_at:
     initial_container_id:
@@ -12706,26 +12778,25 @@ versions_238:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-19 13:11:03.375669000 Z
+    created_at: 2015-12-19 18:11:29.210871000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: b6cea71a-9593-4839-914c-8db726e53d87
+    uuid: ba76917b-039a-410a-8962-344a2c00dfec
   item_type: Product
-versions_239:
-  created_at: 2015-12-19 13:11:03.507053000 Z
+versions_240:
+  created_at: 2015-12-19 18:11:29.310384000 Z
   event: create
-  id: 276
-  item_id: 162
+  id: 277
+  item_id: 163
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 162
+    id: 163
     type: LandParcel
     name: 'ZC-017005218-21-1 #5'
-    number: PR00000000106
+    number: PR00000000107
     variant_id: 69
     nature_id: 59
     category_id: 25
-    extjuncted: false
     initial_born_at: 2015-01-01 00:00:00.000000000 Z
     initial_dead_at:
     initial_container_id:
@@ -12793,26 +12864,25 @@ versions_239:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-19 13:11:03.503900000 Z
+    created_at: 2015-12-19 18:11:29.307391000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 5b12551b-71d4-4b3a-9c7b-2bfb20ccb9f3
+    uuid: 00296a20-09c9-4ad0-ae28-51024c0fd7cc
   item_type: Product
-versions_240:
-  created_at: 2015-12-19 13:11:03.632971000 Z
+versions_241:
+  created_at: 2015-12-19 18:11:29.404777000 Z
   event: create
-  id: 277
-  item_id: 163
+  id: 278
+  item_id: 164
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 163
+    id: 164
     type: LandParcel
     name: 'ZC-017005218-22-1 #6'
-    number: PR00000000107
+    number: PR00000000108
     variant_id: 69
     nature_id: 59
     category_id: 25
-    extjuncted: false
     initial_born_at: 2015-01-01 00:00:00.000000000 Z
     initial_dead_at:
     initial_container_id:
@@ -12872,26 +12942,25 @@ versions_240:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-19 13:11:03.629770000 Z
+    created_at: 2015-12-19 18:11:29.401954000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 12f5c4af-d43b-4caa-9274-742d827e4b18
+    uuid: 24553b64-db1d-4b87-8533-c025013e9622
   item_type: Product
-versions_241:
-  created_at: 2015-12-19 13:11:03.757543000 Z
+versions_242:
+  created_at: 2015-12-19 18:11:29.500107000 Z
   event: create
-  id: 278
-  item_id: 164
+  id: 279
+  item_id: 165
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 164
+    id: 165
     type: LandParcel
     name: 'ZC-017005218-23-1 #7'
-    number: PR00000000108
+    number: PR00000000109
     variant_id: 69
     nature_id: 59
     category_id: 25
-    extjuncted: false
     initial_born_at: 2015-01-01 00:00:00.000000000 Z
     initial_dead_at:
     initial_container_id:
@@ -12949,26 +13018,25 @@ versions_241:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-19 13:11:03.754413000 Z
+    created_at: 2015-12-19 18:11:29.496981000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 014d0d12-97ad-4e99-96c4-ab3b70204881
+    uuid: 0f49d194-7d9f-4415-8bb3-4d9e92dd92b0
   item_type: Product
-versions_242:
-  created_at: 2015-12-19 13:11:03.884855000 Z
+versions_243:
+  created_at: 2015-12-19 18:11:29.599006000 Z
   event: create
-  id: 279
-  item_id: 165
+  id: 280
+  item_id: 166
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 165
+    id: 166
     type: LandParcel
     name: 'ZC-017005218-24-1 #3'
-    number: PR00000000109
+    number: PR00000000110
     variant_id: 69
     nature_id: 59
     category_id: 25
-    extjuncted: false
     initial_born_at: 2015-01-01 00:00:00.000000000 Z
     initial_dead_at:
     initial_container_id:
@@ -13027,26 +13095,25 @@ versions_242:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-19 13:11:03.881643000 Z
+    created_at: 2015-12-19 18:11:29.595982000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: fbbb545e-a93d-40d2-ba31-c43b9a5b60ff
+    uuid: d9c2a5c1-6772-4e65-a570-724b523206de
   item_type: Product
-versions_243:
-  created_at: 2015-12-19 13:11:04.013688000 Z
+versions_244:
+  created_at: 2015-12-19 18:11:29.703614000 Z
   event: create
-  id: 280
-  item_id: 166
+  id: 281
+  item_id: 167
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 166
+    id: 167
     type: LandParcel
     name: 'ZC-017005218-25-1 #1'
-    number: PR00000000110
+    number: PR00000000111
     variant_id: 69
     nature_id: 59
     category_id: 25
-    extjuncted: false
     initial_born_at: 2015-01-01 00:00:00.000000000 Z
     initial_dead_at:
     initial_container_id:
@@ -13108,26 +13175,25 @@ versions_243:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-19 13:11:04.010878000 Z
+    created_at: 2015-12-19 18:11:29.700789000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 93ceac11-8174-461c-bd0f-85208c0574f6
+    uuid: cafc9b75-9c55-47c1-9b8a-7a8702eaa6b5
   item_type: Product
-versions_244:
-  created_at: 2015-12-19 13:11:04.181182000 Z
+versions_245:
+  created_at: 2015-12-19 18:11:29.815834000 Z
   event: create
-  id: 281
-  item_id: 167
+  id: 282
+  item_id: 168
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 167
+    id: 168
     type: LandParcel
     name: 'ZC-017005218-26-1 #4'
-    number: PR00000000111
+    number: PR00000000112
     variant_id: 69
     nature_id: 59
     category_id: 25
-    extjuncted: false
     initial_born_at: 2015-01-01 00:00:00.000000000 Z
     initial_dead_at:
     initial_container_id:
@@ -13218,26 +13284,25 @@ versions_244:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-19 13:11:04.177920000 Z
+    created_at: 2015-12-19 18:11:29.812467000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 8d7889f7-0bd2-4af2-84b2-fdd71bbdd1b9
+    uuid: 74ac76bc-8d83-4aff-8318-a57874d0eeba
   item_type: Product
-versions_245:
-  created_at: 2015-12-19 13:11:04.316877000 Z
+versions_246:
+  created_at: 2015-12-19 18:11:29.917222000 Z
   event: create
-  id: 282
-  item_id: 168
+  id: 283
+  item_id: 169
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 168
+    id: 169
     type: LandParcel
     name: 'ZC-017005218-27-1 #8'
-    number: PR00000000112
+    number: PR00000000113
     variant_id: 69
     nature_id: 59
     category_id: 25
-    extjuncted: false
     initial_born_at: 2015-01-01 00:00:00.000000000 Z
     initial_dead_at:
     initial_container_id:
@@ -13298,26 +13363,25 @@ versions_245:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-19 13:11:04.313860000 Z
+    created_at: 2015-12-19 18:11:29.914027000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 4bb9325a-8e33-43d4-9037-effbca5c97ed
+    uuid: fa3d854a-640a-4548-b871-2fc36e58443a
   item_type: Product
-versions_246:
-  created_at: 2015-12-19 13:11:04.447638000 Z
+versions_247:
+  created_at: 2015-12-19 18:11:30.017657000 Z
   event: create
-  id: 283
-  item_id: 169
+  id: 284
+  item_id: 170
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 169
+    id: 170
     type: LandParcel
     name: 'ZC-017005218-28-1 #1'
-    number: PR00000000113
+    number: PR00000000114
     variant_id: 69
     nature_id: 59
     category_id: 25
-    extjuncted: false
     initial_born_at: 2015-01-01 00:00:00.000000000 Z
     initial_dead_at:
     initial_container_id:
@@ -13378,9 +13442,9 @@ versions_246:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-19 13:11:04.444617000 Z
+    created_at: 2015-12-19 18:11:30.014489000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: bbf4159c-80b6-4e90-8b8b-07e667031410
+    uuid: d8ab7a08-a1f1-428d-afa1-45f6fec28259
   item_type: Product

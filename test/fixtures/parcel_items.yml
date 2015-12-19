@@ -39,7 +39,6 @@
 #  purchase_item_id                     :integer
 #  sale_item_id                         :integer
 #  shape                                :geometry({:srid=>4326, :type=>"multi_polygon"})
-#  source_product_division_id           :integer
 #  source_product_id                    :integer
 #  source_product_population_reading_id :integer
 #  source_product_shape_reading_id      :integer
@@ -409,7 +408,6 @@ parcel_items_027:
   product_ownership_id: 90
   product_population_reading_id: 307
   sale_item_id: 19
-  source_product_division_id: 117
   source_product_id: 144
   source_product_population_reading_id: 307
   updated_at: 2015-09-17 13:40:58.274949000 Z

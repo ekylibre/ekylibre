@@ -851,8 +851,6 @@ arb:
       product_component: "عنصر الانتاج" #?
       # product_enjoyment: "Product enjoyment"
       # product_group: "Product group"
-      # product_junction: "Product junction"
-      # product_junction_way: "Product junction way"
       # product_link: "Product link"
       # product_linkage: "Product linkage"
       # product_localization: "Product localization"
@@ -1309,7 +1307,6 @@ arb:
     expression: "اسلوب للتعبير" #?
     extension: "التوسع" #?
     # external: "External"
-    # extjuncted: "Extjuncted"
     # failed_attempts: "Failed attempts"
     family: "وحدة قياس"
     family_label: "وحدة قياس" #?
@@ -1325,8 +1322,6 @@ arb:
     financial_year_id: "مهنة" #?
     financial_years: "المهن" #?
     finish: "النهاية"
-    # finish_junction: "Finish junction"
-    # finish_way: "Finish way"
     first_met_at: "تاريخ اول مقابلة"
     first_name: "الاسم الاول"
     first_number: "الرقم الاول"
@@ -1456,9 +1451,6 @@ arb:
     journal_entry_items: "المدخلات"
     journal_id: "الدفتر اليومي" #?
     journals: "الدفاتر اليومية" #?
-    # junction: "Junction"
-    # junction_ways: "Junction ways"
-    # junctions: "Junctions"
     key: "المفتاح"
     label: "الملصق"
     # land_parcel_number: "Land parcel number"
@@ -1730,7 +1722,6 @@ arb:
     product_components: "مكونات المنتج" #?
     # product_enjoyments: "Product enjoyments"
     product_id: "المنتج" #?
-    # product_junctions: "Product junctions"
     # product_linkages: "Product linkages"
     # product_localization: "Product localization"
     # product_localizations: "Product localizations"
@@ -1929,8 +1920,6 @@ arb:
     # spaced_iban: "Spaced IBAN"
     sql_type: "SQL نوع"
     start: "البداية"
-    # start_junction: "Start junction"
-    # start_way: "Start way"
     started_at: "ابتدأ يوم"
     started_on: "ابتدأ يوم"
     started_sec: "(التاريخ والوقت (بالثواني" #?
@@ -2080,7 +2069,6 @@ arb:
     virtual: "عملي" #?
     virtual_quantity: "الاسهم العملية" #?
     # waiting_deliveries: "Waiting deliveries"
-    # ways: "Ways"
     webpass: "كلمة مرور الموقع الااكتروني" #?
     website: "الموقع الالكتروني" #?
     # websites: "Websites"
