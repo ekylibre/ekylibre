@@ -1,6 +1,8 @@
 - main_toolbar do |t|
   - t.edit resource
 
+- main_campaign_selector
+
 = cobbles do |c|
   - c.cobble :details do
     = attributes_list do |l|
@@ -13,7 +15,11 @@
         - l.attribute :support_variety
       - if resource.custom_fields.any?
         - l.custom_fields
-
+  
+  - if resource.cultivation_variety?
+    - c.cobble :map do
+      = cell :map, params: {visualization: :grain_yield}
+    
   - c.cobble(:productions) do
     = cobble_toolbar do |t|
       - t.new(params: {controller: :activity_productions, activity_id: resource.id})

@@ -1,26 +1,33 @@
+- main_toolbar do |t|
+  - t.edit resource
+
 = cobbles do |c|
   - c.cobble :general_informations do
-    = attributes_list do |l|
-      - l.attribute :name
-      - l.attribute :support, url: true
-      - l.attribute :activity, url: true
-      - l.attribute :started_on
-      - l.attribute :stopped_on
-      - l.attribute :irrigated
-      - l.attribute :usage
-
-  - if resource.support.is_a?(LandParcel)
-    - c.cobble :support do
+    - if Nomen::ActivityFamily.find(resource.activity.family) <= :vegetal_crops && (resource.support.is_a?(LandParcel) || resource.support.is_a?(Plant))
       = mini_map(resource.support)
-      .info
-        %span.title= LandParcel.human_attribute_name(:work_number)
-        %span.value= resource.support.work_number
-      .info
-        %span.title= LandParcel.human_attribute_name(:net_surface_area)
-        %span.value= resource.support.net_surface_area.in_hectare.round(2).l
-      .info
-        %span.title= ActivityProduction.human_attribute_name(:activity)
-        %span.value= link_to(resource.activity.name, backend_activity_path(resource.activity))
+      .big-infos
+        .med-info.important
+          %span.title= LandParcel.human_attribute_name(:work_number)
+          %span.value= resource.support.work_number
+        .med-info.important
+          %span.title= LandParcel.human_attribute_name(:net_surface_area)
+          %span.value= resource.support.net_surface_area.in_hectare.round(2).l
+        .med-info
+          %span.title= ActivityProduction.human_attribute_name(:support_nature)
+          %span.value= resource.support_nature
+        .med-info
+          %span.title= ActivityProduction.human_attribute_name(:usage)
+          %span.value= resource.usage
+        .med-info
+          %span.title= ActivityProduction.human_attribute_name(:irrigated)
+          - if resource.irrigated
+            %span.value
+              %i.picto{class: "picto-check"}
+        .med-info
+          %span.title= ActivityProduction.human_attribute_name(:nitrate_fixing)
+          - if resource.nitrate_fixing
+            %span.value
+              %i.picto{class: "picto-check"}
       -# if resource.estimate_yield.to_d > 0.0
         .info
           %span.title= :estimate_yield.tl
@@ -33,8 +40,8 @@
         .info
           %span.title= :harvested_at.tl
           %span.value= resource.harvested_at.l
-
-  - if resource.cultivable_zone
+          
+  - if Nomen::ActivityFamily.find(resource.activity.family) <= :vegetal_crops && (resource.support.is_a?(LandParcel) || resource.support.is_a?(Plant))
     - c.cobble :weather do
       = cell :weather, params: {id: resource.cultivable_zone.id}
 
