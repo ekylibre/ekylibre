@@ -67,5 +67,4 @@ class InterventionDoer < InterventionProductParameter
       self.event_participation.destroy!
     end
   end
-
 end

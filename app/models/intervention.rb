@@ -50,9 +50,9 @@ class Intervention < Ekylibre::Record::Base
   belongs_to :prescription
   with_options inverse_of: :intervention, dependent: :destroy do
     has_many :parameters, class_name: 'InterventionParameter'
-    has_many :casts, -> { where(type: %w(InterventionProductParameter InterventionDoer InterventionInput InterventionOutput InterventionTarget InterventionTool)).order(:position) }, class_name: 'InterventionParameter'
-    # has_many :cast_groups, -> { order(:position) }, class_name: 'InterventionGroupParameter'
-    has_many :cast_groups, -> { where(type: 'InterventionGroupParameter').order(:position) }, class_name: 'InterventionParameter'
+    # has_many :casts, -> { where(type: %w(InterventionProductParameter InterventionDoer InterventionInput InterventionOutput InterventionTarget InterventionTool)).order(:position) }, class_name: 'InterventionParameter'
+    # # has_many :cast_groups, -> { order(:position) }, class_name: 'InterventionGroupParameter'
+    # has_many :cast_groups, -> { where(type: 'InterventionGroupParameter').order(:position) }, class_name: 'InterventionParameter'
     has_many :group_parameters, -> { where(type: 'InterventionGroupParameter').order(:position) }, class_name: 'InterventionParameter'
     has_many :product_parameters, -> { where(type: %w(InterventionProductParameter InterventionDoer InterventionInput InterventionOutput InterventionTarget InterventionTool)).order(:position) }, class_name: 'InterventionProductParameter'
     # has_many :product_parameters, -> { order(:position) }, class_name: 'InterventionProductParameter'
@@ -71,9 +71,8 @@ class Intervention < Ekylibre::Record::Base
   validates_presence_of :procedure_name, :state
   # ]VALIDATORS]
   validates_presence_of :actions
-  validates_associated :cast_groups, :group_parameters, :doers, :inputs, :outputs, :targets, :tools, :working_periods
+  validates_associated :group_parameters, :doers, :inputs, :outputs, :targets, :tools, :working_periods
 
-  serialize :parameters, HashWithIndifferentAccess
   serialize :actions, SymbolArray
 
   alias_attribute :duration, :working_duration
@@ -81,7 +80,7 @@ class Intervention < Ekylibre::Record::Base
   calculable period: :month, column: :working_duration, at: :started_at, name: :sum
 
   acts_as_numbered
-  accepts_nested_attributes_for :cast_groups, :group_parameters, :doers, :inputs, :outputs, :targets, :tools, :working_periods
+  accepts_nested_attributes_for :group_parameters, :doers, :inputs, :outputs, :targets, :tools, :working_periods
 
   scope :between, lambda { |started_at, stopped_at|
     where(started_at: started_at..stopped_at)

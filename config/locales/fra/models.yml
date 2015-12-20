@@ -479,8 +479,7 @@ fra:
     cash_transfers: "Virements internes" #?
     cashes: "Trésoreries"
     cashes_accounts: "Comptes de caisse" #?
-    # cast_groups: "Cast groups"
-    casts: "Acteurs"
+    casts: "Acteurs" #?
     catalog: "Catalogue de prix"
     catalog_items: "Entrées de catalogue"
     category: "Catégorie"

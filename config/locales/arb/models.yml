@@ -1030,8 +1030,6 @@ arb:
     # cash_session: "Cash session"
     cashes: "الحسابات المصرفية"
     cashes_accounts: "حسابات الصندوق النقدي" #?
-    # cast_groups: "Cast groups"
-    # casts: "Casts"
     # catalog: "Catalog"
     catalog_description: "مواصفات للدليل" #?
     # catalog_items: "Catalog items"
