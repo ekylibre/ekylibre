@@ -1,10 +1,10 @@
 %li.cast
   .cost
-    - cost = parameter.cost
+    - cost = product_parameter.cost
     - if cost
-      = parameter.cost.round.to_i.l(currency: Preference[:currency])
-  - actor = parameter.product
-  - variant = parameter.variant
+      = product_parameter.cost.round.to_i.l(currency: Preference[:currency])
+  - actor = product_parameter.product
+  - variant = product_parameter.variant
   - if actor
     .picture
       - if actor.picture.file?
@@ -16,14 +16,14 @@
 
     .details
       %h3= link_to(actor.name, {controller: actor.class.table_name, action: :show, id: actor.id})
-      %p= parameter.name
-      %p= parameter.model_name.human
-      - if actor.is_a?(Product) && !actor.population_counting_unitary? && variant && parameter.quantity_unit && parameter.quantity
+      %p= product_parameter.name
+      %p= product_parameter.model_name.human
+      - if actor.is_a?(Product) && !actor.population_counting_unitary? && variant && product_parameter.quantity_unit && product_parameter.quantity
         %p
-          - if parameter.quantity_indicator == 'population'
-            = :x_thing.tl(x: parameter.quantity.round(2).l, thing: variant.unit_name.mb_chars.downcase)
+          - if product_parameter.quantity_indicator == 'population'
+            = :x_thing.tl(x: product_parameter.quantity.round(2).l, thing: variant.unit_name.mb_chars.downcase)
           - else
-            = parameter.quantity.round(2).l
+            = product_parameter.quantity.round(2).l
   - elsif variant
     .picture
       - if variant.picture.file?
@@ -35,17 +35,17 @@
 
     .details
       %h3= link_to(variant.name, {controller: variant.class.table_name, action: :show, id: variant.id})
-      %p= parameter.name
-      %p= parameter.model_name.human
+      %p= product_parameter.name
+      %p= product_parameter.model_name.human
       - if !variant.population_counting_unitary?
-        %p= :x_thing.tl(x: (parameter.quantity || 0).round(2).l,
+        %p= :x_thing.tl(x: (product_parameter.quantity_value || 0).round(2).l,
                         thing: variant.unit_name.mb_chars.downcase)
 
   - else
     .picture
       .picto{class: "picto-question"}
     .details
-      %h3= parameter.name
-      %p= parameter.model_name.human
+      %h3= product_parameter.name
+      %p= product_parameter.model_name.human
 
 

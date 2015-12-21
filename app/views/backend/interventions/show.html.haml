@@ -76,7 +76,7 @@
 
   - if resource.product_parameters.any?
     - c.cobble(:parameters) do
-      %ul.product_parameters= render partial: "parameter", collection: resource.product_parameters
+      %ul.product_parameters= render partial: 'product_parameter', collection: resource.product_parameters
 
   - c.cobble(:general_informations) do
     .big-infos
