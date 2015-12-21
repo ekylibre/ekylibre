@@ -119,6 +119,7 @@ eng:
     wine_to_treat: "Wine to treat"
     wire_fence: "Wire fence"
     worker: "Worker"
+    # zone: "Zone"
   procedures:
     all_in_one_sowing: "All in one sowing"
     animal_antibiotic_treatment: "Animal antibiotic treatment"

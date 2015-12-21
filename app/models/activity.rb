@@ -120,8 +120,8 @@ class Activity < Ekylibre::Record::Base
         end
       end
       if family <= :vegetal_crops
-        self.size_indicator = 'net_surface_area' if self.size_indicator.blank?        
-        self.size_unit = 'hectare' if self.size_unit.blank?
+        self.size_indicator = 'net_surface_area' if size_indicator.blank?
+        self.size_unit = 'hectare' if size_unit.blank?
       end
     end
     true
@@ -206,7 +206,7 @@ class Activity < Ekylibre::Record::Base
     if cultivation_variety
       self.class.color(family, cultivation_variety)
     else
-      return "#000000"
+      return '#000000'
     end
   end
 

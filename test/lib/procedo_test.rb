@@ -18,7 +18,7 @@ class ProcedoTest < ActiveSupport::TestCase
 
   test 'procedure parameter filters' do
     invalids = []
-    Procedo.each_parameter do |parameter|
+    Procedo.each_product_parameter do |parameter|
       begin
         WorkingSet.parse(parameter.filter) unless parameter.filter.nil?
       rescue WorkingSet::SyntaxError => e

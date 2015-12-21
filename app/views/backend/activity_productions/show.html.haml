@@ -10,7 +10,7 @@
           %span.value= resource.support.work_number
         .med-info.important
           %span.title= LandParcel.human_attribute_name(:net_surface_area)
-          %span.value= resource.net_surface_area 
+          %span.value= resource.net_surface_area
         .med-info
           %span.title= ActivityProduction.human_attribute_name(:support_nature)
           %span.value= resource.support_nature
@@ -39,7 +39,7 @@
         .info
           %span.title= :harvested_at.tl
           %span.value= resource.harvested_at.l
-          
+
   - if resource.vegetal_crops? && (resource.support.is_a?(LandParcel) || resource.support.is_a?(Plant))
     - c.cobble :weather do
       = cell :weather, params: {id: resource.cultivable_zone.id}

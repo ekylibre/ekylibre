@@ -11,8 +11,10 @@ module Procedo
   # This class represents a procedure
   class Procedure
     attr_reader :id, :name, :categories, :mandatory_actions, :optional_actions
-    delegate :add_product_parameter, :add_group_parameter, :each_item, :find, :find!,
-             :items, :position_of, to: :root_group
+    delegate :add_product_parameter, :add_group_parameter, :find, :find!,
+             :each_product_parameter, :each_group_parameter, :each_parameter,
+             :product_parameters, :group_parameters, :parameters,
+             :position_of, to: :root_group
 
     def initialize(name, options = {})
       @name = name.to_sym
@@ -71,7 +73,7 @@ module Procedo
 
     # Retrieve all parameters recursively in group or subgroups
     def parameters
-      @root_group.items(true)
+      @root_group.parameters(true)
     end
 
     # Lists names of all parameters
@@ -142,13 +144,6 @@ module Procedo
       default << "labels.#{name}".to_sym
       default << name.to_s.humanize
       "procedures.#{name}".t(options.merge(default: default))
-    end
-
-    # Browse each parameter of the procedure in the order
-    def each_parameter
-      parameters.each do |parameter|
-        yield parameter
-      end
     end
 
     # Returns only parameters which must be built during runnning process

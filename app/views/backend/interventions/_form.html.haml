@@ -24,11 +24,8 @@
       = f.nested_association(:working_periods)
 
   = field_set :parameters do
-    - procedure.each_item do |item|
-      - if item.is_a? Procedo::Parameter
-        = render 'cast_form', parameter: item, f: f
-      - elsif item.is_a? Procedo::GroupParameter
-        = render 'cast_group_form', parameter_group: item, f: f
+    - procedure.each_parameter do |parameter|
+      = render 'parameter_form', reference: parameter, f: f
 
 - else # Root Procedure Natures
   - main_campaign_selector

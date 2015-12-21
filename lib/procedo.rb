@@ -66,6 +66,15 @@ module Procedo
       end
     end
 
+    # Browse all parameters of all procedures
+    def each_product_parameter
+      each_procedure do |procedure|
+        procedure.product_parameters.each do |parameter|
+          yield parameter
+        end
+      end
+    end
+
     def each_variable(&block)
       ActiveSupport::Deprecation.warn 'Procedo::each_variable is deprecated. Please use Procedo::each_parameter instead.'
       each_parameter(&block)

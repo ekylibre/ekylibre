@@ -1452,7 +1452,7 @@ eng:
     supplier: "Purchase prices of the supplier" #?
     supplier_informations: "Supplier informations"
     supply: "Supply" #?
-    support: "Support"
+    support: "Support" #?
     supports: "Supports" #?
     supports_chart: "Supports chart" #?!
     synthesis: "Synthesis"

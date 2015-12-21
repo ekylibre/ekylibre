@@ -1,0 +1,10 @@
+- reflection = reference.reflection_name
+- list = f.object.send(reflection).select{|v| v.reference_name.to_s == reference.name.to_s}
+- f.object.send(reflection).new(reference_name: reference.name) unless list.any?
+- list = f.object.send(reflection).select{|v| v.reference_name.to_s == reference.name.to_s}
+- partial_name = "#{reference.class.type}_fields"
+.nested-association.nested-parameters{class: "nested-#{reflection.to_s.parameterize}"}
+  = f.simple_fields_for(reflection, list) do |c|
+    = render partial_name, f: c, reference: reference
+  .links= link_to_add_association :add_x.tl(x: reference.human_name), f, reflection, partial: partial_name, render_options: {locals: {thing: reflection, reference: reference}}, class: 'nested-add'
+

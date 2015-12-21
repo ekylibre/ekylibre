@@ -543,12 +543,12 @@ namespace :clean do
 
     translation << "  procedure_handlers:\n"
     handlers = []
-    Procedo.each_parameter do |parameter|
+    Procedo.each_product_parameter do |parameter|
       handlers += parameter.handlers.map(&:name)
     end
     handlers.uniq!
     ref[:procedure_handlers] ||= {}
-    for handler in handlers.sort
+    handlers.sort.each do |handler|
       to_translate += 1
       if name = ref[:procedure_handlers][handler]
         translation << "    #{handler}: " + Clean::Support.yaml_value(name) + "\n"

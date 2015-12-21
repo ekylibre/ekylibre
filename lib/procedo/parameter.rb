@@ -24,5 +24,17 @@ module Procedo
     def human_name(options = {})
       "procedure_parameters.#{name}".t(options.merge(default: ["labels.#{name}".to_sym, "attributes.#{name}".to_sym, name.to_s.humanize]))
     end
+
+    def self.type
+      @type ||= name.demodulize.underscore
+    end
+
+    def type
+      self.class.type
+    end
+
+    def reflection_name
+      self.class.type.pluralize
+    end
   end
 end

@@ -1,0 +1,6 @@
+- f.object.reference_name = reference.name
+.nested-fields.nested-group-parameter{class: "nested-#{reference.name.to_s.parameterize}"}
+  = link_to_remove_nested_association(:destroy.ta, f)
+  = f.input :reference_name, as: :hidden
+  - reference.each_parameter do |parameter|
+    = render 'parameter_form', reference: parameter, f: f

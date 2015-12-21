@@ -148,8 +148,8 @@ module ApplicationHelper
     select_tag('locale', options, 'data-use-redirect' => 'true')
   end
 
-  def link_to_remove_nested_association(name, f)
-    link_to_remove_association(content_tag(:i) + h("labels.remove_#{name}".t), f, 'data-no-turbolink' => true, :class => "nested-remove remove-#{name}")
+  def link_to_remove_nested_association(name, f, options = {})
+    link_to_remove_association(content_tag(:i) + h("labels.remove_#{name}".t(default: :destroy.ta)), f, options.deep_merge(data: { no_turbolink: true }, class: 'nested-remove'))
   end
 
   # Re-writing of link_to helper
