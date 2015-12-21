@@ -142,6 +142,7 @@ class ActivityProduction < Ekylibre::Record::Base
         list = list.reverse! if 'i18n.dir'.t == 'rtl'
         land_parcel = LandParcel.new(name: list.join(' '), initial_shape: support_shape, initial_born_at: started_on, variant: ProductNatureVariant.import_from_nomenclature(:land_parcel))
         land_parcel.save!
+        land_parcel.read!(:shape, support_shape, at: started_on)
       end
       self.support = land_parcel
     end

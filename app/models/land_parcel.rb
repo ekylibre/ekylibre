@@ -72,6 +72,7 @@ class LandParcel < Easement
     # Compute population
     if initial_shape && nature
       # self.initial_shape = ::Charta.new_geometry(initial_shape).multi_polygon
+      # self.read!(:shape, ::Charta.new_geometry(initial_shape), at: initial_born_at)
       if variable_indicators_list.include?(:net_surface_area)
         self.read!(:net_surface_area, ::Charta.new_geometry(initial_shape).area, at: initial_born_at)
       end

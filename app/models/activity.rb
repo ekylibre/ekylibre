@@ -203,13 +203,17 @@ class Activity < Ekylibre::Record::Base
 
   # Returns a specific color for the given activity
   def color
-    self.class.color(family, cultivation_variety)
+    if cultivation_variety
+      self.class.color(family, cultivation_variety)
+    else
+      return "#000000"
+    end
   end
 
   class << self
     # Returns a color for given family and variety
     # short-way solution, can be externalized in mid-way solution
-    def color(family, variety = nil)
+    def color(family, variety)
       colors = { gold: '#FFD700', golden_rod: '#DAA520', yellow: '#FFFF00',
                  orange: '#FF8000', red: '#FF0000', green: '#80DD00',
                  green_yellow: '#ADFF2F', spring_green: '#00FF7F',
