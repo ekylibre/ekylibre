@@ -10,6 +10,10 @@
   = f.input :description
   = f.custom_fields
 
+.main_options
+  = f.input :size_indicator
+  = f.input :size_unit
+
 .auxiliary_options
   = field_set(Activity.human_attribute_name(:distributions)) do
     = f.nested_association(:distributions)

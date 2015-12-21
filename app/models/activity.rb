@@ -119,6 +119,10 @@ class Activity < Ekylibre::Record::Base
           self.with_cultivation = false
         end
       end
+      if family <= :vegetal_crops
+        self.size_indicator = 'net_surface_area' if self.size_indicator.blank?        
+        self.size_unit = 'hectare' if self.size_unit.blank?
+      end
     end
     true
   end
