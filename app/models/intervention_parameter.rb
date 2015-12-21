@@ -56,6 +56,7 @@ class InterventionParameter < Ekylibre::Record::Base
   validates_numericality_of :quantity_population, :quantity_value, allow_nil: true
   validates_presence_of :intervention, :reference_name
   # ]VALIDATORS]
+  validates_presence_of :position
 
   scope :of_activity, lambda { |activity|
     where(intervention_id: InterventionTarget.select(:intervention_id).of_activity(activity))
@@ -64,9 +65,26 @@ class InterventionParameter < Ekylibre::Record::Base
     where(intervention_id: InterventionTarget.select(:intervention_id).of_activity_production(production))
   }
 
+  before_validation do
+    if reference
+      self.position = reference.position
+    elsif self.position.blank?
+      precision = 10**8
+      now = Time.zone.now
+      self.position = (precision * now.to_f).round - (precision * now.to_i)
+    end
+  end
+
   # Returns a Procedo::Parameter corresponding to its reference_name
   # in the current procedure
   def reference
-    procedure.find(reference_name)
+    if @reference.blank? && intervention
+      @reference = procedure.find(reference_name)
+    end
+    @reference
+  end
+
+  def runnable?
+    return true
   end
 end

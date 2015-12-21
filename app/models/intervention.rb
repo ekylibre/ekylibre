@@ -50,9 +50,6 @@ class Intervention < Ekylibre::Record::Base
   belongs_to :prescription
   with_options inverse_of: :intervention, dependent: :destroy do
     has_many :parameters, class_name: 'InterventionParameter'
-    # has_many :casts, -> { where(type: %w(InterventionProductParameter InterventionDoer InterventionInput InterventionOutput InterventionTarget InterventionTool)).order(:position) }, class_name: 'InterventionParameter'
-    # # has_many :cast_groups, -> { order(:position) }, class_name: 'InterventionGroupParameter'
-    # has_many :cast_groups, -> { where(type: 'InterventionGroupParameter').order(:position) }, class_name: 'InterventionParameter'
     has_many :group_parameters, -> { where(type: 'InterventionGroupParameter').order(:position) }, class_name: 'InterventionGroupParameter'
     has_many :product_parameters, -> { where(type: %w(InterventionProductParameter InterventionDoer InterventionInput InterventionOutput InterventionTarget InterventionTool)).order(:position) }, class_name: 'InterventionProductParameter'
     # has_many :product_parameters, -> { order(:position) }, class_name: 'InterventionProductParameter'

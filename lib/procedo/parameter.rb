@@ -36,5 +36,13 @@ module Procedo
     def reflection_name
       self.class.type.pluralize
     end
+
+    def inspect
+      "<#{self.class.name} #{procedure_name}##{name}>"
+    end
+
+    def position
+      procedure.position_of(self)
+    end
   end
 end

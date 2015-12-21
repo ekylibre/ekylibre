@@ -98,24 +98,19 @@ class InterventionProductParameter < InterventionParameter
 
   before_validation do
     self.intervention = group.intervention if group && !intervention
-    if parameter
-      self.position = parameter.position
-      if parameter.handled? && quantity_handler?
-        handler = parameter[quantity_handler]
+    if reference
+      if reference.handled? && quantity_handler?
+        handler = reference[quantity_handler]
         if handler
           self.quantity_indicator = handler.indicator.name
           self.quantity_unit = handler.unit.name
         end
       end
-    else
-      precision = 10**8
-      now = Time.zone.now
-      self.position ||= (precision * now.to_f).round - (precision * now.to_i)
     end
     if product.is_a?(Product)
       self.variant ||= product.variant
       # for indicator_name in product.whole_indicators_list
-      #   if send(indicator_name).blank? # and !parameter.worked?
+      #   if send(indicator_name).blank? # and !reference.worked?
       #     send("#{indicator_name}=", product.send(indicator_name, started_at))
       #   end
       # end
@@ -124,9 +119,9 @@ class InterventionProductParameter < InterventionParameter
 
   validate do
     if intervention && intervention.procedure
-      if parameter
-        if parameter.handled? && quantity_handler?
-          errors.add(:quantity_handler, :invalid) unless parameter[quantity_handler]
+      if reference
+        if reference.handled? && quantity_handler?
+          errors.add(:quantity_handler, :invalid) unless reference[quantity_handler]
         end
       else
         errors.add(:reference_name, :invalid)
@@ -153,15 +148,8 @@ class InterventionProductParameter < InterventionParameter
     nil
   end
 
-  def parameter
-    unless @parameter
-      @parameter = procedure.find(reference_name, :parameter) if intervention
-    end
-    @parameter
-  end
-
   def name
-    parameter ? parameter.human_name : reference_name.humanize
+    reference ? reference.human_name : reference_name.humanize
   end
 
   def shape_svg(options = {})
@@ -200,7 +188,7 @@ class InterventionProductParameter < InterventionParameter
   # It uses interpolation to compose the wanted name. Not very i18nized
   # for now, but permits to do the job.
   def set_default_name!
-    if parameter.default_name? && produced = product
+    if reference.default_name? && produced = product
       produced.update_column(:name, default_name)
     end
   end
@@ -208,7 +196,7 @@ class InterventionProductParameter < InterventionParameter
   # Compute a default with given environment
   def default_name
     text = nil
-    if parameter.default_name?
+    if reference.default_name?
       words = {
         campaign: campaign.name,
         activity: activity.name
@@ -229,7 +217,7 @@ class InterventionProductParameter < InterventionParameter
         words[:birth_month_abbr] = 'date.abbr_month_names'.t[produced.born_at.month]
         words[:birth_day_abbr]   = 'date.abbr_day_names'.t[produced.born_at.wday]
       end
-      text = parameter.default_name.dup.gsub(/\{\{\w+\}\}/) do |key|
+      text = reference.default_name.dup.gsub(/\{\{\w+\}\}/) do |key|
         words[key[2..-3]]
       end
     end
@@ -239,15 +227,15 @@ class InterventionProductParameter < InterventionParameter
   # Define if the cast is valid for run
   def runnable?
     return true
-    if parameter.parted?
-      if parameter.known_variant?
+    if reference.parted?
+      if reference.known_variant?
         return quantity.present?
       else
         return (self.variant && quantity.present?)
       end
-    elsif parameter.produced?
+    elsif reference.produced?
       return self.variant
-    elsif parameter.type_variant?
+    elsif reference.type_variant?
       return self.variant
     else
       return product

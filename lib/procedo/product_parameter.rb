@@ -7,7 +7,7 @@ module Procedo
   class ProductParameter < Procedo::Parameter
     attr_reader :filter, :birth_nature, :derivative_of, :default_name,
                 :destinations, :default_actor, :default_variant,
-                :position, :procedure, :producer_name, :roles, :type, :value,
+                :procedure, :producer_name, :roles, :type, :value,
                 :variety, :new_value
 
     TYPES = [:target, :tool, :doer, :input, :output]
@@ -24,7 +24,6 @@ module Procedo
         # WorkingSet.parse(@filter)
       end
       @handlers = {}
-      # @position = options[:position] if options[:position]
     end
 
     # Adds a new handler
@@ -40,17 +39,9 @@ module Procedo
       @handlers.values
     end
 
-    def position
-      procedure.position_of(self)
-    end
-
     # Returns reflection name for an intervention object
     def reflection_name
       @type.to_s.pluralize.to_sym
-    end
-
-    def inspect
-      "<Parameter::#{procedure_name}::#{name}>"
     end
 
     def others

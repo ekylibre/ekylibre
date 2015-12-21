@@ -56,9 +56,6 @@ class InterventionGroupParameter < InterventionParameter
   has_many :children, class_name: 'InterventionParameter', dependent: :destroy, inverse_of: :parent, foreign_key: :group_id
   with_options dependent: :destroy, inverse_of: :group, foreign_key: :group_id do
     has_many :parameters, class_name: 'InterventionParameter'
-    # has_many :casts, -> { where(type: %w(InterventionProductParameter InterventionDoer InterventionInput InterventionOutput InterventionTarget InterventionTool)).order(:position) }, class_name: 'InterventionParameter'
-    # # has_many :cast_groups, -> { order(:position) }, class_name: 'InterventionGroupParameter'
-    # has_many :cast_groups, -> { where(type: 'InterventionGroupParameter').order(:position) }, class_name: 'InterventionParameter'
     has_many :group_parameters, -> { where(type: 'InterventionGroupParameter').order(:position) }, class_name: 'InterventionGroupParameter'
     has_many :product_parameters, -> { where(type: %w(InterventionProductParameter InterventionDoer InterventionInput InterventionOutput InterventionTarget InterventionTool)).order(:position) }, class_name: 'InterventionProductParameter'
     # has_many :product_parameters, -> { order(:position) }, class_name: 'InterventionProductParameter'
@@ -74,8 +71,4 @@ class InterventionGroupParameter < InterventionParameter
   accepts_nested_attributes_for :group_parameters, :doers, :inputs, :outputs, :targets, :tools
 
   delegate :procedure, to: :intervention
-
-  def parameter_group
-    procedure.find(item_name, :group_parameter)
-  end
 end

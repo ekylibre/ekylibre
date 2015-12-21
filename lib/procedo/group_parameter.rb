@@ -43,6 +43,9 @@ module Procedo
       parameter
     end
 
+    # Returns position of a parameter in the group relatively to the current
+    # group parameter.
+    # First element has position 1.
     def position_of(parameter)
       index = 1
       browse_all do |i|
@@ -85,6 +88,16 @@ module Procedo
 
     protected
 
+    # Retrieve all (nested or not) Parameter objects in the group in the order
+    # defined by default.
+    def all_parameters
+      list = []
+      browse_all do |parameter|
+        list << parameter
+      end
+      list
+    end
+
     def browse_all(&block)
       @parameters.each do |_k, parameter|
         yield parameter
@@ -92,17 +105,5 @@ module Procedo
       end
     end
 
-    # Retrieve all (nested or not) Parameter objects in the group in the order
-    # defined by default.
-    def all_parameters
-      list = []
-      @parameters.each do |_name, parameter|
-        list << parameter
-        if parameter.is_a?(Procedo::GroupParameter)
-          list += parameter.all_parameters
-        end
-      end
-      list
-    end
   end
 end
