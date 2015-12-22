@@ -4,9 +4,6 @@
     <parameters>
       <parameter name="equipment" type="target" filter="is equipment and can consume(oil)"/>
       <parameter name="oil" type="input" filter="is oil and can lubricate(equipment)"/>
-      <parameter name="oil" type="input" filter="is oil and can lubricate(equipment)">
-        <handler indicator="population"/>
-      </parameter>
       <parameter name="mechanic" type="doer" filter="can repair(equipment)"/>
     </parameters>
   </procedure>

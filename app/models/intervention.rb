@@ -68,7 +68,7 @@ class Intervention < Ekylibre::Record::Base
   validates_presence_of :procedure_name, :state
   # ]VALIDATORS]
   validates_presence_of :actions
-  validates_associated :group_parameters, :doers, :inputs, :outputs, :targets, :tools, :working_periods
+  # validates_associated :group_parameters, :doers, :inputs, :outputs, :targets, :tools, :working_periods
 
   serialize :actions, SymbolArray
 

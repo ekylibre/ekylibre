@@ -3,9 +3,7 @@
   <procedure name="fuel_up" categories="energy_supplying" actions="fuel_up">
     <parameters>
       <parameter name="equipment" type="target" filter="is equipment and can consume(fuel)"/>
-      <parameter name="fuel" type="input" filter="is fuel">
-        <handler indicator="population"/>
-      </parameter>
+      <parameter name="fuel" type="input" filter="is fuel"/>
       <parameter name="mechanic" type="doer" filter="can drive(equipment)"/>
     </parameters>
   </procedure>

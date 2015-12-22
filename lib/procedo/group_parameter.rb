@@ -104,6 +104,5 @@ module Procedo
         parameter.browse_all(&block) if parameter.is_a?(Procedo::GroupParameter)
       end
     end
-
   end
 end

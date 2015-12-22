@@ -1317,7 +1317,7 @@ ActiveRecord::Schema.define(version: 20151108001401) do
     t.integer  "updater_id"
     t.integer  "lock_version",                                                                                  default: 0, null: false
     t.integer  "event_participation_id"
-    t.integer  "source_product_id"
+    t.integer  "outcoming_product_id"
     t.string   "type"
     t.integer  "new_container_id"
     t.integer  "new_group_id"
@@ -1337,9 +1337,9 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "intervention_parameters", ["new_container_id"], name: "index_intervention_parameters_on_new_container_id", using: :btree
   add_index "intervention_parameters", ["new_group_id"], name: "index_intervention_parameters_on_new_group_id", using: :btree
   add_index "intervention_parameters", ["new_variant_id"], name: "index_intervention_parameters_on_new_variant_id", using: :btree
+  add_index "intervention_parameters", ["outcoming_product_id"], name: "index_intervention_parameters_on_outcoming_product_id", using: :btree
   add_index "intervention_parameters", ["product_id"], name: "index_intervention_parameters_on_product_id", using: :btree
   add_index "intervention_parameters", ["reference_name"], name: "index_intervention_parameters_on_reference_name", using: :btree
-  add_index "intervention_parameters", ["source_product_id"], name: "index_intervention_parameters_on_source_product_id", using: :btree
   add_index "intervention_parameters", ["type"], name: "index_intervention_parameters_on_type", using: :btree
   add_index "intervention_parameters", ["updated_at"], name: "index_intervention_parameters_on_updated_at", using: :btree
   add_index "intervention_parameters", ["updater_id"], name: "index_intervention_parameters_on_updater_id", using: :btree
@@ -1418,23 +1418,23 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "inventories", ["updater_id"], name: "index_inventories_on_updater_id", using: :btree
 
   create_table "inventory_items", force: :cascade do |t|
-    t.integer  "inventory_id",                                                                                           null: false
-    t.integer  "product_id",                                                                                             null: false
-    t.decimal  "expected_population",                                               precision: 19, scale: 4,             null: false
-    t.decimal  "actual_population",                                                 precision: 19, scale: 4,             null: false
-    t.datetime "created_at",                                                                                             null: false
-    t.datetime "updated_at",                                                                                             null: false
+    t.integer  "inventory_id",                                             null: false
+    t.integer  "product_id",                                               null: false
+    t.decimal  "expected_population", precision: 19, scale: 4,             null: false
+    t.decimal  "actual_population",   precision: 19, scale: 4,             null: false
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                               default: 0, null: false
-    t.geometry "actual_shape",        limit: {:srid=>4326, :type=>"multi_polygon"}
-    t.geometry "expected_shape",      limit: {:srid=>4326, :type=>"multi_polygon"}
+    t.integer  "lock_version",                                 default: 0, null: false
+    t.integer  "product_movement_id"
   end
 
   add_index "inventory_items", ["created_at"], name: "index_inventory_items_on_created_at", using: :btree
   add_index "inventory_items", ["creator_id"], name: "index_inventory_items_on_creator_id", using: :btree
   add_index "inventory_items", ["inventory_id"], name: "index_inventory_items_on_inventory_id", using: :btree
   add_index "inventory_items", ["product_id"], name: "index_inventory_items_on_product_id", using: :btree
+  add_index "inventory_items", ["product_movement_id"], name: "index_inventory_items_on_product_movement_id", using: :btree
   add_index "inventory_items", ["updated_at"], name: "index_inventory_items_on_updated_at", using: :btree
   add_index "inventory_items", ["updater_id"], name: "index_inventory_items_on_updater_id", using: :btree
 
@@ -1878,28 +1878,28 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "outgoing_payments", ["updater_id"], name: "index_outgoing_payments_on_updater_id", using: :btree
 
   create_table "parcel_items", force: :cascade do |t|
-    t.integer  "parcel_id",                                                                                                                   null: false
+    t.integer  "parcel_id",                                                                                                              null: false
     t.integer  "sale_item_id"
     t.integer  "purchase_item_id"
     t.integer  "source_product_id"
     t.integer  "product_id"
     t.integer  "analysis_id"
     t.integer  "variant_id"
-    t.boolean  "parted",                                                                                                      default: false, null: false
-    t.decimal  "population",                                                                         precision: 19, scale: 4
-    t.geometry "shape",                                limit: {:srid=>4326, :type=>"multi_polygon"}
-    t.integer  "source_product_population_reading_id"
+    t.boolean  "parted",                                                                                                 default: false, null: false
+    t.decimal  "population",                                                                    precision: 19, scale: 4
+    t.geometry "shape",                           limit: {:srid=>4326, :type=>"multi_polygon"}
     t.integer  "source_product_shape_reading_id"
-    t.integer  "product_population_reading_id"
     t.integer  "product_shape_reading_id"
     t.integer  "product_enjoyment_id"
     t.integer  "product_ownership_id"
     t.integer  "product_localization_id"
-    t.datetime "created_at",                                                                                                                  null: false
-    t.datetime "updated_at",                                                                                                                  null: false
+    t.datetime "created_at",                                                                                                             null: false
+    t.datetime "updated_at",                                                                                                             null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                                                default: 0,     null: false
+    t.integer  "lock_version",                                                                                           default: 0,     null: false
+    t.integer  "product_movement_id"
+    t.integer  "source_product_movement_id"
   end
 
   add_index "parcel_items", ["analysis_id"], name: "index_parcel_items_on_analysis_id", using: :btree
@@ -1909,13 +1909,13 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "parcel_items", ["product_enjoyment_id"], name: "index_parcel_items_on_product_enjoyment_id", using: :btree
   add_index "parcel_items", ["product_id"], name: "index_parcel_items_on_product_id", using: :btree
   add_index "parcel_items", ["product_localization_id"], name: "index_parcel_items_on_product_localization_id", using: :btree
+  add_index "parcel_items", ["product_movement_id"], name: "index_parcel_items_on_product_movement_id", using: :btree
   add_index "parcel_items", ["product_ownership_id"], name: "index_parcel_items_on_product_ownership_id", using: :btree
-  add_index "parcel_items", ["product_population_reading_id"], name: "index_parcel_items_on_product_population_reading_id", using: :btree
   add_index "parcel_items", ["product_shape_reading_id"], name: "index_parcel_items_on_product_shape_reading_id", using: :btree
   add_index "parcel_items", ["purchase_item_id"], name: "index_parcel_items_on_purchase_item_id", using: :btree
   add_index "parcel_items", ["sale_item_id"], name: "index_parcel_items_on_sale_item_id", using: :btree
   add_index "parcel_items", ["source_product_id"], name: "index_parcel_items_on_source_product_id", using: :btree
-  add_index "parcel_items", ["source_product_population_reading_id"], name: "index_parcel_items_on_source_product_population_reading_id", using: :btree
+  add_index "parcel_items", ["source_product_movement_id"], name: "index_parcel_items_on_source_product_movement_id", using: :btree
   add_index "parcel_items", ["source_product_shape_reading_id"], name: "index_parcel_items_on_source_product_shape_reading_id", using: :btree
   add_index "parcel_items", ["updated_at"], name: "index_parcel_items_on_updated_at", using: :btree
   add_index "parcel_items", ["updater_id"], name: "index_parcel_items_on_updater_id", using: :btree
@@ -2166,6 +2166,32 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "product_memberships", ["stopped_at"], name: "index_product_memberships_on_stopped_at", using: :btree
   add_index "product_memberships", ["updated_at"], name: "index_product_memberships_on_updated_at", using: :btree
   add_index "product_memberships", ["updater_id"], name: "index_product_memberships_on_updater_id", using: :btree
+
+  create_table "product_movements", force: :cascade do |t|
+    t.integer  "product_id",                                           null: false
+    t.integer  "intervention_id"
+    t.integer  "originator_id"
+    t.string   "originator_type"
+    t.decimal  "delta",           precision: 19, scale: 4,             null: false
+    t.decimal  "population",      precision: 19, scale: 4,             null: false
+    t.datetime "started_at",                                           null: false
+    t.datetime "stopped_at"
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                             default: 0, null: false
+  end
+
+  add_index "product_movements", ["created_at"], name: "index_product_movements_on_created_at", using: :btree
+  add_index "product_movements", ["creator_id"], name: "index_product_movements_on_creator_id", using: :btree
+  add_index "product_movements", ["intervention_id"], name: "index_product_movements_on_intervention_id", using: :btree
+  add_index "product_movements", ["originator_type", "originator_id"], name: "index_product_movements_on_originator_type_and_originator_id", using: :btree
+  add_index "product_movements", ["product_id"], name: "index_product_movements_on_product_id", using: :btree
+  add_index "product_movements", ["started_at"], name: "index_product_movements_on_started_at", using: :btree
+  add_index "product_movements", ["stopped_at"], name: "index_product_movements_on_stopped_at", using: :btree
+  add_index "product_movements", ["updated_at"], name: "index_product_movements_on_updated_at", using: :btree
+  add_index "product_movements", ["updater_id"], name: "index_product_movements_on_updater_id", using: :btree
 
   create_table "product_nature_categories", force: :cascade do |t|
     t.string   "name",                                                                         null: false

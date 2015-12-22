@@ -33,7 +33,7 @@ module Backend
     end
 
     # List of productions for one campaign
-    list(:activity_productions, conditions: "campaign = Campaign.find(params[:id])\n['(started_at, stopped_at) OVERLAPS (?, ?)', campaign.started_on, campaign.stopped_on]".c, order: { started_at: :desc }) do |t|
+    list(:activity_productions, conditions: "campaign = Campaign.find(params[:id])\n['(started_on, stopped_on) OVERLAPS (?, ?)', campaign.started_on, campaign.stopped_on]".c, order: { started_at: :desc }) do |t|
       t.column :name, url: true
       # t.column :product_nature, url: true
       t.column :state

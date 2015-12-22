@@ -3,9 +3,7 @@
   <procedure name="partial_wine_transfer" categories="viticulture_transformation" actions="partial_wine_transfer">
     <parameters>
       <parameter name="tank" type="tool" filter="is equipment and can store(wine) and can store_liquid" default-actor="storage"/>
-      <parameter name="wine" type="target" filter="is wine" default-name="{{variant}} {{birth_year}} ({{container}})">
-        <handler indicator="population"/>
-      </parameter>
+      <parameter name="wine" type="target" filter="is wine" default-name="{{variant}} {{birth_year}} ({{container}})"/>
       <parameter name="destination_tank" type="tool" filter="is equipment and can store(wine) and can store_liquid"/>
       <parameter name="wine_man" type="doer" filter="is worker and can move"/>
     </parameters>

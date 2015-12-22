@@ -920,6 +920,8 @@ fra:
     model_euid: "Modèle"
     mother: "Mère"
     moved_at: "Fait le" #?
+    # movements: "Movements"
+    # moves: "Moves"
     multi_polygon_value: "Valeur multi-polygonale"
     name: "Nom"
     name_1_to_2: "Nom «\_Personne 1 vers Personne 2\_»" #?
@@ -1056,6 +1058,7 @@ fra:
     product_memberships: "Appartenances de produit"
     product_mergings: "Fusions de produit" #?
     product_mixings: "Mélanges de produit" #?
+    # product_movement: "Product movement"
     product_moves: "Mouvements de produit" #?
     product_nature: "Type de produit"
     product_nature_categories: "Catégories de type de produit"

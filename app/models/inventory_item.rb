@@ -23,15 +23,14 @@
 # == Table: inventory_items
 #
 #  actual_population   :decimal(19, 4)   not null
-#  actual_shape        :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  created_at          :datetime         not null
 #  creator_id          :integer
 #  expected_population :decimal(19, 4)   not null
-#  expected_shape      :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  id                  :integer          not null, primary key
 #  inventory_id        :integer          not null
 #  lock_version        :integer          default(0), not null
 #  product_id          :integer          not null
+#  product_movement_id :integer
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #
@@ -39,6 +38,7 @@
 class InventoryItem < Ekylibre::Record::Base
   belongs_to :inventory, inverse_of: :items
   belongs_to :product
+  belongs_to :product_movement, dependent: :destroy
   has_one :container, through: :product
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -47,6 +47,7 @@ class InventoryItem < Ekylibre::Record::Base
   # ]VALIDATORS]
 
   delegate :name, :unit_name, :population_counting_unitary?, to: :product
+  delegate :reflected?, :achieved_at, to: :inventory
 
   before_validation do
     if self.population_counting_unitary?
@@ -54,16 +55,22 @@ class InventoryItem < Ekylibre::Record::Base
     end
   end
 
-  # def stock_id=(id)
-  #   if s = ProductStock.find_by_id(id)
-  #     self.product_id  = s.product_id
-  #     self.building_id = s.building_id
-  #     self.theoric_quantity = s.quantity||0
-  #     self.unit     = s.unit
-  #   end
-  # end
+  after_save do
+    if self.reflected?
+      movement = build_product_movement unless product_movement
+      movement.product = product
+      movement.delta = delta
+      movement.at = achieved_at
+      movement.save!
+      update_column(product_movement_id: movement.id)
+    elsif product_movement
+      ProductMovement.destroy(product_movement)
+      update_column(product_movement_id: nil)
+    end
+  end
 
-  # def tracking_name
-  #   return self.tracking ? self.tracking.name : ""
-  # end
+  # Returns the delta population between actual and expectedp populations
+  def delta
+    actual_population - expected_population
+  end
 end

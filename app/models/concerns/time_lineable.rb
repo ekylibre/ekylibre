@@ -73,6 +73,10 @@ module TimeLineable
     @following ||= siblings.find_by(started_at: stopped_at)
   end
 
+  def followings
+    siblings.after(self.started_at)
+  end
+
   def has_previous?
     siblings.before(self.started_at).any?
   rescue
@@ -80,13 +84,13 @@ module TimeLineable
   end
 
   def has_followings?
-    siblings.after(self.started_at).any?
+    followings.any?
   rescue
     false
   end
 
   def last_for_now?
-    siblings.after(self.started_at).before(Time.zone.now).empty?
+    followings.before(Time.zone.now).empty?
   end
 
   private

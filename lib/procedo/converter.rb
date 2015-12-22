@@ -83,12 +83,12 @@ module Procedo
       end
     end
 
-    def initialize(handler, destination, options = {})
+    def initialize(handler, _destination, options = {})
       @handler = handler
-      @destination = destination.to_sym
-      unless @@whole_indicators.include?(@destination)
-        fail Procedo::Errors::InvalidHandler, "Handler must have a valid destination (#{@@whole_indicators.to_sentence} expected, got #{@destination})"
-      end
+      # @destination = destination.to_sym
+      # unless @@whole_indicators.include?(@destination)
+      #   fail Procedo::Errors::InvalidHandler, "Handler must have a valid destination (#{@@whole_indicators.to_sentence} expected, got #{@destination})"
+      # end
       if options[:forward]
         begin
           @forward_tree = HandlerMethod.parse(options[:forward].to_s)

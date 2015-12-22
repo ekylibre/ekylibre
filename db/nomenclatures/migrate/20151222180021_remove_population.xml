@@ -1,0 +1,402 @@
+<?xml version="1.0"?>
+<migration name="Remove population">
+  <item-change item="product_nature_variants#air_compressor" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#all_inclusive_corn_sower" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#animal_building" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#animal_division" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#animal_food_division" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#animal_housing_cleaner" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#animal_medicine_tank" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#animal_waste_building_division" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#baler" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#bed_former" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#building" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#building_division" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#calf" frozen_indicators_values="livestock_unit: 0.4, reproductor: false"/>
+  <item-change item="product_nature_variants#car" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#cattle_herd" frozen_indicators_values="sex: undefined"/>
+  <item-change item="product_nature_variants#chainsaw" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#chemical_fertilizer_division" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#concrete_tank" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#coop:ficelle_filogamm_350_bob_5kg" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#coop:film_ensil_ensigamm_10m" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#coop:film_ensil_ensigamm_14m" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#coop:film_ensil_ensigamm_8m" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#corker" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#cover_implanter" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#disc_harrow" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#duck_herd" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#dumper" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#employee" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#equipment" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#equipment_building_division" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#female_adult_cattle_herd" frozen_indicators_values="sex: female, reproductor: true"/>
+  <item-change item="product_nature_variants#female_adult_cow" frozen_indicators_values="sex: female, reproductor: true, livestock_unit: 1.0"/>
+  <item-change item="product_nature_variants#female_adult_goat" frozen_indicators_values="sex: female, reproductor: true, livestock_unit: 0.17"/>
+  <item-change item="product_nature_variants#female_adult_horse" frozen_indicators_values="sex: female, reproductor: true, livestock_unit: 0.79"/>
+  <item-change item="product_nature_variants#female_adult_pig" frozen_indicators_values="sex: female, reproductor: true, livestock_unit: 0.5"/>
+  <item-change item="product_nature_variants#female_adult_pony" frozen_indicators_values="sex: female, reproductor: true, livestock_unit: 0.79"/>
+  <item-change item="product_nature_variants#female_adult_rabbit" frozen_indicators_values="sex: female, reproductor: true, livestock_unit: 0.115"/>
+  <item-change item="product_nature_variants#female_adult_sheep" frozen_indicators_values="sex: female, reproductor: true, livestock_unit: 0.15"/>
+  <item-change item="product_nature_variants#female_young_cattle_herd" frozen_indicators_values="sex: female"/>
+  <item-change item="product_nature_variants#female_young_cow" frozen_indicators_values="sex: female, reproductor: false, livestock_unit: 0.7"/>
+  <item-change item="product_nature_variants#female_young_goat" frozen_indicators_values="livestock_unit: 0.09, reproductor: false"/>
+  <item-change item="product_nature_variants#female_young_sheep" frozen_indicators_values="sex: female, reproductor: false, livestock_unit: 0.15"/>
+  <item-change item="product_nature_variants#ferry" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#fiberglass_tank" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#food_equipment_division" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#food_tank" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#forager" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#forklift" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#freezer_tank" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#fuel_tank" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#gas_burner" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#gas_engine" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#goat_herd" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#grain_crusher" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#grain_tank" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#grape_reaper" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#grape_trailer" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#grinder" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#hand_drawn" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#harrow" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#harvester" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#hay_rake" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#hazel_reaper" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#hedge_cutter" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#hiller" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#hoe" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#implanter" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#inseminator" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#lamb" frozen_indicators_values="livestock_unit: 0.05, reproductor: false"/>
+  <item-change item="product_nature_variants#lifter" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#male_adult_cattle_herd" frozen_indicators_values="sex: male"/>
+  <item-change item="product_nature_variants#male_adult_cow" frozen_indicators_values="sex: male, reproductor: true, livestock_unit: 1.0"/>
+  <item-change item="product_nature_variants#male_adult_goat" frozen_indicators_values="sex: male, reproductor: true, livestock_unit: 0.17"/>
+  <item-change item="product_nature_variants#male_adult_horse" frozen_indicators_values="sex: male, reproductor: true, livestock_unit: 0.83"/>
+  <item-change item="product_nature_variants#male_adult_pig" frozen_indicators_values="sex: male, reproductor: false, livestock_unit: 0.3"/>
+  <item-change item="product_nature_variants#male_adult_pony" frozen_indicators_values="sex: male, reproductor: true, livestock_unit: 0.83"/>
+  <item-change item="product_nature_variants#male_adult_rabbit" frozen_indicators_values="sex: male, reproductor: true, livestock_unit: 0.115"/>
+  <item-change item="product_nature_variants#male_adult_sheep" frozen_indicators_values="sex: male, reproductor: true, livestock_unit: 0.15"/>
+  <item-change item="product_nature_variants#male_young_cattle_herd" frozen_indicators_values="sex: male"/>
+  <item-change item="product_nature_variants#male_young_cow" frozen_indicators_values="sex: male, reproductor: false, livestock_unit: 0.7"/>
+  <item-change item="product_nature_variants#male_young_goat" frozen_indicators_values="livestock_unit: 0.09, reproductor: false"/>
+  <item-change item="product_nature_variants#male_young_sheep" frozen_indicators_values="sex: male, reproductor: false, livestock_unit: 0.15"/>
+  <item-change item="product_nature_variants#manager" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#manual_implanter" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#manure_division" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#milk_tank" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#milking_division" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#motor_hoe" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#mower" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#office_building" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#office_building_division" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#picker" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#pig_herd" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#plant_medicine_tank" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#plow" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#plum_reaper" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#polyester_tank" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#preparation_division" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#pruning_platform" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#punching_machine" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#rabbit_herd" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#reaper" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#ridger" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#roll" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#rotavator" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#screed_building" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#settlement" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#sheep_herd" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#sieve_shaker" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#silage_distributor" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#silage_division" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#small_equipment" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#soil_loosener" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#sower" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#sprayer" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#spreader" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#spreader_trailer" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#stainless_steel_tank" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#steam_engine" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#stubble_cultivator" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#subsoil_plow" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#superficial_plow" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#technician" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#topper" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#tractor" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#trailer" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#trimmer" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#truck" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#uncover" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#vibrocultivator" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#water_bowser" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#water_spreader" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#weeder" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#wine_press" frozen_indicators_values=""/>
+  <item-change item="product_nature_variants#wine_storage_division" frozen_indicators_values=""/>
+  <item-change item="product_natures#accommodation_travel" variable_indicators=""/>
+  <item-change item="product_natures#additive" variable_indicators=""/>
+  <item-change item="product_natures#administrative_division" frozen_indicators=""/>
+  <item-change item="product_natures#air_compressor" frozen_indicators=""/>
+  <item-change item="product_natures#animal_building_division" frozen_indicators=""/>
+  <item-change item="product_natures#animal_food" variable_indicators=""/>
+  <item-change item="product_natures#animal_food_building_division" frozen_indicators=""/>
+  <item-change item="product_natures#animal_housing_cleaner" frozen_indicators=""/>
+  <item-change item="product_natures#animal_housing_services" variable_indicators=""/>
+  <item-change item="product_natures#animal_medicine" variable_indicators=""/>
+  <item-change item="product_natures#animal_medicine_tank" frozen_indicators=""/>
+  <item-change item="product_natures#animals_making_services" variable_indicators=""/>
+  <item-change item="product_natures#associate_social_contribution" variable_indicators=""/>
+  <item-change item="product_natures#baler" frozen_indicators=""/>
+  <item-change item="product_natures#bank_service" variable_indicators=""/>
+  <item-change item="product_natures#bee_band" variable_indicators="healthy"/>
+  <item-change item="product_natures#beef_meat" variable_indicators="temperature, total_bacteria_concentration"/>
+  <item-change item="product_natures#bonus_staff_expense" variable_indicators=""/>
+  <item-change item="product_natures#bottle" variable_indicators="length, net_mass"/>
+  <item-change item="product_natures#building" frozen_indicators=""/>
+  <item-change item="product_natures#building_division" frozen_indicators=""/>
+  <item-change item="product_natures#bumblebee_band" variable_indicators=""/>
+  <item-change item="product_natures#calf" frozen_indicators="livestock_unit, reproductor"/>
+  <item-change item="product_natures#car" frozen_indicators=""/>
+  <item-change item="product_natures#carriage" variable_indicators=""/>
+  <item-change item="product_natures#catalog_and_print" variable_indicators=""/>
+  <item-change item="product_natures#cattle_herd" frozen_indicators="sex"/>
+  <item-change item="product_natures#cereal_crop" variable_indicators="fresh_mass, plant_life_state, plant_reproduction_state, plants_count, shape, tiller_count"/>
+  <item-change item="product_natures#chainsaw" frozen_indicators=""/>
+  <item-change item="product_natures#cheese" variable_indicators="temperature, total_bacteria_concentration"/>
+  <item-change item="product_natures#chemical_fertilizer" variable_indicators=""/>
+  <item-change item="product_natures#clarification_solution" variable_indicators=""/>
+  <item-change item="product_natures#common_consumable" variable_indicators=""/>
+  <item-change item="product_natures#common_package" variable_indicators="length, net_mass, net_volume"/>
+  <item-change item="product_natures#complete_sower" frozen_indicators=""/>
+  <item-change item="product_natures#computer" variable_indicators=""/>
+  <item-change item="product_natures#computer_device" variable_indicators=""/>
+  <item-change item="product_natures#congress" variable_indicators=""/>
+  <item-change item="product_natures#construction_material_in_own_outstanding_installation" variable_indicators=""/>
+  <item-change item="product_natures#consumer_goods_office_item" variable_indicators=""/>
+  <item-change item="product_natures#cork" variable_indicators="length, width"/>
+  <item-change item="product_natures#corker" frozen_indicators=""/>
+  <item-change item="product_natures#cover_implanter" frozen_indicators=""/>
+  <item-change item="product_natures#crop" variable_indicators="fresh_mass, plant_life_state, plant_reproduction_state, plants_count, shape, tiller_count"/>
+  <item-change item="product_natures#crop_residue" variable_indicators=""/>
+  <item-change item="product_natures#cultivable_zone" variable_indicators="fence_perimeter, shape, soil_cultural_state"/>
+  <item-change item="product_natures#discount_and_reduction" variable_indicators=""/>
+  <item-change item="product_natures#duck_band" variable_indicators="healthy"/>
+  <item-change item="product_natures#duck_herd" frozen_indicators=""/>
+  <item-change item="product_natures#dumper" frozen_indicators=""/>
+  <item-change item="product_natures#egg" variable_indicators=""/>
+  <item-change item="product_natures#electricity" variable_indicators=""/>
+  <item-change item="product_natures#equipment" frozen_indicators=""/>
+  <item-change item="product_natures#equipment_building_division" frozen_indicators=""/>
+  <item-change item="product_natures#equipment_repair_services" variable_indicators=""/>
+  <item-change item="product_natures#exploitation_subsidies" variable_indicators=""/>
+  <item-change item="product_natures#farm_teaching_services" variable_indicators=""/>
+  <item-change item="product_natures#fee" variable_indicators=""/>
+  <item-change item="product_natures#female_adult_cattle_herd" frozen_indicators="reproductor, sex"/>
+  <item-change item="product_natures#female_adult_cow" frozen_indicators="livestock_unit, reproductor, sex"/>
+  <item-change item="product_natures#female_adult_goat" frozen_indicators="livestock_unit, reproductor, sex"/>
+  <item-change item="product_natures#female_adult_goat_herd" frozen_indicators="reproductor, sex"/>
+  <item-change item="product_natures#female_adult_horse" frozen_indicators="livestock_unit, reproductor, sex"/>
+  <item-change item="product_natures#female_adult_pig" frozen_indicators="livestock_unit, reproductor, sex"/>
+  <item-change item="product_natures#female_adult_sheep" frozen_indicators="livestock_unit, reproductor, sex"/>
+  <item-change item="product_natures#female_adult_sheep_herd" frozen_indicators="reproductor, sex"/>
+  <item-change item="product_natures#female_rabbit" frozen_indicators="livestock_unit, reproductor, sex"/>
+  <item-change item="product_natures#female_young_cow" frozen_indicators="livestock_unit, reproductor, sex"/>
+  <item-change item="product_natures#female_young_goat" frozen_indicators="livestock_unit, reproductor"/>
+  <item-change item="product_natures#female_young_sheep" frozen_indicators="livestock_unit, reproductor, sex"/>
+  <item-change item="product_natures#fence" variable_indicators=""/>
+  <item-change item="product_natures#fermented_grape_juice" variable_indicators=""/>
+  <item-change item="product_natures#fermented_milk" variable_indicators="temperature, total_bacteria_concentration"/>
+  <item-change item="product_natures#ferry" frozen_indicators=""/>
+  <item-change item="product_natures#fiscal_fine" variable_indicators=""/>
+  <item-change item="product_natures#flower_crop" variable_indicators="plant_life_state, plants_count, shape"/>
+  <item-change item="product_natures#food_distributor" frozen_indicators=""/>
+  <item-change item="product_natures#food_equipment_division" frozen_indicators=""/>
+  <item-change item="product_natures#food_tank" frozen_indicators=""/>
+  <item-change item="product_natures#forager" frozen_indicators=""/>
+  <item-change item="product_natures#forklift" frozen_indicators=""/>
+  <item-change item="product_natures#forwarding_agent_fees_expense" variable_indicators=""/>
+  <item-change item="product_natures#freelance" variable_indicators=""/>
+  <item-change item="product_natures#freezer_tank" frozen_indicators=""/>
+  <item-change item="product_natures#fruit" variable_indicators=""/>
+  <item-change item="product_natures#fruit_crop" variable_indicators="plant_life_state, plants_count, plants_interval, rows_interval, shape"/>
+  <item-change item="product_natures#fruit_residu" variable_indicators=""/>
+  <item-change item="product_natures#fuel" variable_indicators=""/>
+  <item-change item="product_natures#fuel_tank" frozen_indicators=""/>
+  <item-change item="product_natures#fungicide" variable_indicators="approved_input_dose, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period"/>
+  <item-change item="product_natures#gas" variable_indicators=""/>
+  <item-change item="product_natures#gas_engine" frozen_indicators=""/>
+  <item-change item="product_natures#goat_herd" frozen_indicators=""/>
+  <item-change item="product_natures#grain" variable_indicators="hagberg_falling_number, impurity_concentration, protein_concentration, specific_weight, water_content_rate"/>
+  <item-change item="product_natures#grain_crop" variable_indicators="fresh_mass, plant_life_state, plant_reproduction_state, plants_count, shape, tiller_count"/>
+  <item-change item="product_natures#grain_tank" frozen_indicators=""/>
+  <item-change item="product_natures#grape" variable_indicators="sucrose_concentration"/>
+  <item-change item="product_natures#grape_juice" variable_indicators="sucrose_concentration"/>
+  <item-change item="product_natures#grape_reaper" frozen_indicators=""/>
+  <item-change item="product_natures#grape_trailer" frozen_indicators=""/>
+  <item-change item="product_natures#grass" variable_indicators="dry_matter_rate"/>
+  <item-change item="product_natures#grinder" frozen_indicators=""/>
+  <item-change item="product_natures#hand_drawn" frozen_indicators=""/>
+  <item-change item="product_natures#harrow" frozen_indicators=""/>
+  <item-change item="product_natures#harvest_insurance" variable_indicators=""/>
+  <item-change item="product_natures#harvester" frozen_indicators=""/>
+  <item-change item="product_natures#hay_rake" frozen_indicators=""/>
+  <item-change item="product_natures#hazel_seedling" variable_indicators=""/>
+  <item-change item="product_natures#hazelnut" variable_indicators="impurity_concentration, water_content_rate"/>
+  <item-change item="product_natures#hedge_cutter" frozen_indicators=""/>
+  <item-change item="product_natures#hen_band" variable_indicators=""/>
+  <item-change item="product_natures#hen_herd" variable_indicators=""/>
+  <item-change item="product_natures#herbicide" variable_indicators="approved_input_dose, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period"/>
+  <item-change item="product_natures#hiller" frozen_indicators=""/>
+  <item-change item="product_natures#hoe" frozen_indicators=""/>
+  <item-change item="product_natures#honey" variable_indicators="sucrose_concentration, temperature"/>
+  <item-change item="product_natures#horse_herd" variable_indicators=""/>
+  <item-change item="product_natures#hydraulic_oil" variable_indicators=""/>
+  <item-change item="product_natures#implanter" frozen_indicators=""/>
+  <item-change item="product_natures#infirmity_and_death_insurance" variable_indicators=""/>
+  <item-change item="product_natures#insecticide" variable_indicators="approved_input_dose, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period"/>
+  <item-change item="product_natures#inseminator" frozen_indicators=""/>
+  <item-change item="product_natures#installing_charge" variable_indicators=""/>
+  <item-change item="product_natures#insurance" variable_indicators=""/>
+  <item-change item="product_natures#irrigation_water" variable_indicators="nitrogen_concentration, potential_hydrogen"/>
+  <item-change item="product_natures#lamb" frozen_indicators="livestock_unit, reproductor"/>
+  <item-change item="product_natures#lamb_meat" variable_indicators="temperature, total_bacteria_concentration"/>
+  <item-change item="product_natures#land_parcel" variable_indicators="aluminium_concentration, available_water_capacity_per_area, boron_concentration, calcium_concentration, cation_exchange_capacity, cation_exchange_capacity_analysis_method, copper_concentration, iron_concentration, magnesium_concentration, manganese_concentration, molybdenum_concentration, nitrogen_concentration, organic_matter_concentration, phosphorus_analysis_method, phosphorus_concentration, potassium_concentration, potential_hydrogen, shape, soil_depth, soil_nature, sulfur_concentration, zinc_concentration"/>
+  <item-change item="product_natures#land_parcel_cluster" variable_indicators="shape"/>
+  <item-change item="product_natures#land_parcel_construction" variable_indicators=""/>
+  <item-change item="product_natures#land_parcel_locative_charge" variable_indicators=""/>
+  <item-change item="product_natures#leasing" variable_indicators=""/>
+  <item-change item="product_natures#legal_registration" variable_indicators=""/>
+  <item-change item="product_natures#little_office_item" variable_indicators=""/>
+  <item-change item="product_natures#loan_interest" variable_indicators=""/>
+  <item-change item="product_natures#mail_subscription" variable_indicators=""/>
+  <item-change item="product_natures#maintenance" variable_indicators=""/>
+  <item-change item="product_natures#male_adult_cow" frozen_indicators="livestock_unit, reproductor, sex"/>
+  <item-change item="product_natures#male_adult_goat" frozen_indicators="livestock_unit, reproductor, sex"/>
+  <item-change item="product_natures#male_adult_goat_herd" frozen_indicators="reproductor, sex"/>
+  <item-change item="product_natures#male_adult_horse" frozen_indicators="livestock_unit, reproductor, sex"/>
+  <item-change item="product_natures#male_adult_pig" frozen_indicators="livestock_unit, reproductor, sex"/>
+  <item-change item="product_natures#male_adult_sheep" frozen_indicators="livestock_unit, reproductor, sex"/>
+  <item-change item="product_natures#male_rabbit" frozen_indicators="livestock_unit, reproductor, sex"/>
+  <item-change item="product_natures#male_young_cow" frozen_indicators="livestock_unit, reproductor, sex"/>
+  <item-change item="product_natures#male_young_goat" frozen_indicators="livestock_unit, reproductor"/>
+  <item-change item="product_natures#male_young_sheep" frozen_indicators="livestock_unit, reproductor, sex"/>
+  <item-change item="product_natures#manager" frozen_indicators=""/>
+  <item-change item="product_natures#manure_division" frozen_indicators=""/>
+  <item-change item="product_natures#meal_travel" variable_indicators=""/>
+  <item-change item="product_natures#meat" variable_indicators="temperature, total_bacteria_concentration"/>
+  <item-change item="product_natures#mechanic" frozen_indicators=""/>
+  <item-change item="product_natures#mechanic_item" variable_indicators=""/>
+  <item-change item="product_natures#melon" variable_indicators="water_content_rate"/>
+  <item-change item="product_natures#melon_crop" variable_indicators="fresh_mass, plant_life_state, plants_count, shape, tiller_count"/>
+  <item-change item="product_natures#milk" variable_indicators="clostridial_spores_concentration, fat_matters_concentration, freezing_point_temperature, immunoglobulins_concentration, inhibitors_presence, lipolysis, protein_matters_concentration, somatic_cell_concentration, temperature, total_bacteria_concentration, urea_concentration"/>
+  <item-change item="product_natures#milk_tank" frozen_indicators=""/>
+  <item-change item="product_natures#mineral_cleaner" variable_indicators=""/>
+  <item-change item="product_natures#mixed_chemical_fertilizer" variable_indicators="nitrogen_concentration, phosphorus_concentration, potassium_concentration"/>
+  <item-change item="product_natures#mixed_liquid_fertilizer" variable_indicators="net_volume, nitrogen_concentration, phosphorus_concentration, potassium_concentration"/>
+  <item-change item="product_natures#molluscicide" variable_indicators="approved_input_dose, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period"/>
+  <item-change item="product_natures#motor_oil" variable_indicators=""/>
+  <item-change item="product_natures#moving_travel" variable_indicators=""/>
+  <item-change item="product_natures#mower" frozen_indicators=""/>
+  <item-change item="product_natures#natural_water" variable_indicators="nitrogen_concentration, potential_hydrogen"/>
+  <item-change item="product_natures#numeric_hosting_rental" variable_indicators=""/>
+  <item-change item="product_natures#numeric_subscription" variable_indicators=""/>
+  <item-change item="product_natures#oenological_yeast" variable_indicators=""/>
+  <item-change item="product_natures#office_furniture" variable_indicators=""/>
+  <item-change item="product_natures#organic_fertilizer" variable_indicators=""/>
+  <item-change item="product_natures#oyster_band" variable_indicators=""/>
+  <item-change item="product_natures#packaged_process_food" variable_indicators="best_before_period"/>
+  <item-change item="product_natures#peanut" variable_indicators="impurity_concentration, water_content_rate"/>
+  <item-change item="product_natures#picker" frozen_indicators=""/>
+  <item-change item="product_natures#pig_band" variable_indicators="healthy"/>
+  <item-change item="product_natures#pig_herd" frozen_indicators=""/>
+  <item-change item="product_natures#piglet_band" variable_indicators="healthy"/>
+  <item-change item="product_natures#plant_medicine_tank" frozen_indicators=""/>
+  <item-change item="product_natures#plastic_cover" variable_indicators=""/>
+  <item-change item="product_natures#plow" frozen_indicators=""/>
+  <item-change item="product_natures#plum" variable_indicators="impurity_concentration, water_content_rate"/>
+  <item-change item="product_natures#plum_reaper" frozen_indicators=""/>
+  <item-change item="product_natures#plum_seedling" variable_indicators=""/>
+  <item-change item="product_natures#pork_meat" variable_indicators="temperature, total_bacteria_concentration"/>
+  <item-change item="product_natures#poultry_meat" variable_indicators="temperature, total_bacteria_concentration"/>
+  <item-change item="product_natures#preparation_division" frozen_indicators=""/>
+  <item-change item="product_natures#process_food" variable_indicators="net_mass, net_volume"/>
+  <item-change item="product_natures#processed_beef_meat" variable_indicators="temperature, total_bacteria_concentration"/>
+  <item-change item="product_natures#processed_grain" variable_indicators="temperature"/>
+  <item-change item="product_natures#processed_lamb_meat" variable_indicators="temperature, total_bacteria_concentration"/>
+  <item-change item="product_natures#processed_meat" variable_indicators="temperature, total_bacteria_concentration"/>
+  <item-change item="product_natures#processed_pork_meat" variable_indicators="temperature, total_bacteria_concentration"/>
+  <item-change item="product_natures#processed_poultry_meat" variable_indicators="temperature, total_bacteria_concentration"/>
+  <item-change item="product_natures#product_insurance" variable_indicators=""/>
+  <item-change item="product_natures#professional_subscription" variable_indicators=""/>
+  <item-change item="product_natures#project_management" variable_indicators=""/>
+  <item-change item="product_natures#pruning_platform" frozen_indicators=""/>
+  <item-change item="product_natures#rabbit_herd" frozen_indicators=""/>
+  <item-change item="product_natures#radio_subscription" variable_indicators=""/>
+  <item-change item="product_natures#raw_material" variable_indicators=""/>
+  <item-change item="product_natures#reaper" frozen_indicators=""/>
+  <item-change item="product_natures#recycling_contribution" variable_indicators=""/>
+  <item-change item="product_natures#rent" variable_indicators=""/>
+  <item-change item="product_natures#representation_item" variable_indicators=""/>
+  <item-change item="product_natures#roll" frozen_indicators=""/>
+  <item-change item="product_natures#running_water" variable_indicators="nitrogen_concentration, potential_hydrogen"/>
+  <item-change item="product_natures#salary_social_contribution" variable_indicators=""/>
+  <item-change item="product_natures#salmon_band" variable_indicators=""/>
+  <item-change item="product_natures#seed" variable_indicators=""/>
+  <item-change item="product_natures#seedbed_preparator" frozen_indicators=""/>
+  <item-change item="product_natures#seedling" variable_indicators=""/>
+  <item-change item="product_natures#settlement" frozen_indicators=""/>
+  <item-change item="product_natures#sheep_herd" frozen_indicators=""/>
+  <item-change item="product_natures#shell_fruit_reaper" frozen_indicators=""/>
+  <item-change item="product_natures#sieve_shaker" frozen_indicators=""/>
+  <item-change item="product_natures#silage" variable_indicators="dry_matter_rate"/>
+  <item-change item="product_natures#silage_division" frozen_indicators=""/>
+  <item-change item="product_natures#small_equipment" frozen_indicators=""/>
+  <item-change item="product_natures#so2_solution" variable_indicators=""/>
+  <item-change item="product_natures#software_engineering" variable_indicators=""/>
+  <item-change item="product_natures#soil_loosener" frozen_indicators=""/>
+  <item-change item="product_natures#sower" frozen_indicators=""/>
+  <item-change item="product_natures#species" variable_indicators="reference_year"/>
+  <item-change item="product_natures#sprayer" frozen_indicators=""/>
+  <item-change item="product_natures#spread_renting" variable_indicators=""/>
+  <item-change item="product_natures#spreader" frozen_indicators=""/>
+  <item-change item="product_natures#spreader_trailer" frozen_indicators=""/>
+  <item-change item="product_natures#stake" variable_indicators=""/>
+  <item-change item="product_natures#steam_engine" frozen_indicators=""/>
+  <item-change item="product_natures#straw" variable_indicators=""/>
+  <item-change item="product_natures#studies_and_research" variable_indicators=""/>
+  <item-change item="product_natures#sugar" variable_indicators=""/>
+  <item-change item="product_natures#superficial_plow" frozen_indicators=""/>
+  <item-change item="product_natures#taxe" variable_indicators=""/>
+  <item-change item="product_natures#technician" frozen_indicators=""/>
+  <item-change item="product_natures#topper" frozen_indicators=""/>
+  <item-change item="product_natures#tractor" frozen_indicators=""/>
+  <item-change item="product_natures#trade_show" variable_indicators=""/>
+  <item-change item="product_natures#trailer" frozen_indicators=""/>
+  <item-change item="product_natures#training_course" variable_indicators=""/>
+  <item-change item="product_natures#trimmer" frozen_indicators=""/>
+  <item-change item="product_natures#truck" frozen_indicators=""/>
+  <item-change item="product_natures#uncover" frozen_indicators=""/>
+  <item-change item="product_natures#user_support" variable_indicators=""/>
+  <item-change item="product_natures#usual_vine_seedling" variable_indicators=""/>
+  <item-change item="product_natures#various_loan_interest" variable_indicators=""/>
+  <item-change item="product_natures#vegetable_crop" variable_indicators="fresh_mass, plant_life_state, plant_reproduction_state, plants_count, shape, tiller_count"/>
+  <item-change item="product_natures#vegetals_making_services" variable_indicators=""/>
+  <item-change item="product_natures#vial" variable_indicators="economical_milk_index, sex, unique_synthesis_index"/>
+  <item-change item="product_natures#walnut" variable_indicators="impurity_concentration, water_content_rate"/>
+  <item-change item="product_natures#walnut_crop" variable_indicators="plant_life_state, plants_count, plants_interval, rows_interval, shape"/>
+  <item-change item="product_natures#water_spreader" frozen_indicators=""/>
+  <item-change item="product_natures#water_tank" frozen_indicators=""/>
+  <item-change item="product_natures#weeder" frozen_indicators=""/>
+  <item-change item="product_natures#wine" variable_indicators="certification, reference_year, temperature, total_bacteria_concentration"/>
+  <item-change item="product_natures#wine_acidifying" variable_indicators=""/>
+  <item-change item="product_natures#wine_alkalinizing" variable_indicators=""/>
+  <item-change item="product_natures#wine_crop" variable_indicators="certification, plant_life_state, plants_count, plants_interval, rows_interval, shape, woodstock_variety"/>
+  <item-change item="product_natures#wine_press" frozen_indicators=""/>
+  <item-change item="product_natures#wine_storage_division" frozen_indicators=""/>
+  <item-change item="product_natures#wine_tank" frozen_indicators=""/>
+  <item-change item="product_natures#wire" variable_indicators=""/>
+  <item-change item="product_natures#young_rabbit" variable_indicators="healthy, net_mass"/>
+  <item-removal item="indicators#population"/>
+</migration>

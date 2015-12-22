@@ -3,7 +3,6 @@
   <procedure name="sowing_with_spraying" categories="planting, crop_protection" actions="sowing" optional-actions="herbicide, fungicide, insecticide, growth_regulator, molluscicide, nematicide, acaricide, bactericide, rodenticide, talpicide, corvicide, game_repellent">
     <parameters>
       <parameter name="seeds" type="input" filter="is seed and derives from plant and can grow" default-name="{{variant}} - [{{birth_day}}/{{birth_month}}/{{birth_year}}] - [{{derivative_of}}]">
-        <handler indicator="population"/>
         <handler indicator="net_mass" unit="kilogram" if="self.net_mass? &amp; self.net_mass(kilogram) &gt; 0" to="population" backward="value * self..net_mass(kilogram)" forward="value / self..net_mass(kilogram)"/>
         <handler indicator="mass_area_density" unit="kilogram_per_hectare" if="self.net_mass? &amp; self.net_mass(kilogram) &gt; 0 &amp; sum(land_parcel, :net_surface_area, :hectare) &gt; 0" to="population" backward="(value * self..net_mass(kilogram)) / sum(land_parcel, :net_surface_area, :hectare)" forward="(value * sum(land_parcel, :net_surface_area, :hectare)) / self..net_mass(kilogram)"/>
         <handler indicator="grains_area_density" unit="unity_per_square_meter" if="self.net_mass? &amp; self.net_mass(kilogram) &gt; 0 &amp; sum(land_parcel, :net_surface_area, :hectare) &gt; 0 &amp; self.thousand_grains_mass?" to="population" backward="(((value * self..net_mass(gram)) / sum(land_parcel, :net_surface_area, :square_meter)) * 1000) / self.thousand_grains_mass(gram)" forward="(((value * self.thousand_grains_mass(gram)) / 1000) * sum(land_parcel, :net_surface_area, :square_meter)) / self..net_mass(gram)"/>
@@ -11,7 +10,6 @@
         <handler indicator="grains_count" unit="thousand" if="self.net_mass? &amp; self.net_mass(kilogram) &gt; 0 &amp; self.thousand_grains_mass?" to="population" backward="(value * self..net_mass(gram)) / self.thousand_grains_mass(gram)" forward="(value * self.thousand_grains_mass(gram)) / self..net_mass(gram)"/>
       </parameter>
       <parameter name="plant_medicine" type="input" filter="is preparation and can care(plant)">
-        <handler indicator="population"/>
         <handler indicator="net_mass" unit="kilogram" if="self.net_mass? &amp; self.net_mass(kilogram) &gt; 0" to="population" backward="value * self..net_mass(kilogram)" forward="value / self..net_mass(kilogram)"/>
         <handler indicator="mass_area_density" unit="kilogram_per_hectare" if="self.net_mass? &amp; self.net_mass(kilogram) &gt; 0 &amp; sum(land_parcel, :net_surface_area, :hectare) &gt;= 0.1" to="population" backward="(value * self..net_mass(kilogram)) / sum(land_parcel, :net_surface_area, :hectare)" forward="(value * sum(land_parcel, :net_surface_area, :hectare)) / self..net_mass(kilogram)"/>
         <handler indicator="volume_area_density" unit="liter_per_hectare" if="self.net_volume? &amp; self.net_volume(liter) &gt; 0 &amp; sum(land_parcel, :net_surface_area, :hectare) &gt;= 0.1" to="population" backward="(value * self..net_volume(liter)) / sum(land_parcel, :net_surface_area, :hectare)" forward="(value * sum(land_parcel, :net_surface_area, :hectare)) / self..net_volume(liter)"/>

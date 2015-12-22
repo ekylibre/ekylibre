@@ -3,7 +3,6 @@
   <procedure name="sowing" categories="planting" actions="sowing">
     <parameters>
       <parameter name="seeds" type="input" filter="is seed and derives from plant and can grow" default-name="{{variant}} - [{{birth_day}}/{{birth_month}}/{{birth_year}}] - [{{derivative_of}}]">
-        <handler indicator="population"/>
         <handler indicator="net_mass" unit="kilogram" if="self.net_mass? &amp; self.net_mass(kilogram) &gt; 0" to="population" backward="value * self..net_mass(kilogram)" forward="value / self..net_mass(kilogram)"/>
         <handler indicator="mass_area_density" unit="kilogram_per_hectare" if="self.net_mass? &amp; self.net_mass(kilogram) &gt; 0 &amp; sum(land_parcel, :net_surface_area, :hectare) &gt; 0" to="population" backward="(value * self..net_mass(kilogram)) / sum(land_parcel, :net_surface_area, :hectare)" forward="(value * sum(land_parcel, :net_surface_area, :hectare)) / self..net_mass(kilogram)"/>
         <handler indicator="grains_area_density" unit="unity_per_square_meter" if="self.net_mass? &amp; self.net_mass(kilogram) &gt; 0 &amp; sum(land_parcel, :net_surface_area, :hectare) &gt; 0 &amp; self.thousand_grains_mass?" to="population" backward="(((value * self..net_mass(gram)) / sum(land_parcel, :net_surface_area, :square_meter)) * 1000) / self.thousand_grains_mass(gram)" forward="(((value * self.thousand_grains_mass(gram)) / 1000) * sum(land_parcel, :net_surface_area, :square_meter)) / self..net_mass(gram)"/>

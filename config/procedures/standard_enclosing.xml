@@ -10,11 +10,9 @@
       </parameter>
       <parameter name="doer" type="doer" filter="is worker and can move"/>
       <parameter name="stakes" type="input" filter="is stake and can enclose">
-        <handler indicator="population"/>
         <handler indicator="stakes_count" unit="unity_per_hectare" if="land_parcel? &amp; sum(land_parcel, :net_surface_area, :hectare) &gt;= 0.1" to="population" backward="(value / sum(land_parcel, :net_surface_area, :hectare))" forward="(value * sum(land_parcel, :net_surface_area, :hectare))"/>
       </parameter>
       <parameter name="wire_fence" type="input" filter="is wire and can enclose">
-        <handler indicator="population"/>
         <handler indicator="length" unit="meter" if="wire_fence? &amp; wire_fence.length(meter) &gt;= 0.1" to="population" backward="(value * wire_fence.length(meter))" forward="(value / wire_fence.length(meter))"/>
       </parameter>
     </parameters>

@@ -4,9 +4,6 @@
     <parameters>
       <parameter name="equipment" type="target" filter="is equipment"/>
       <parameter name="item" type="input" filter="is matter and derives from equipment"/>
-      <parameter name="item" type="input" filter="is matter and derives from equipment">
-        <handler indicator="population"/>
-      </parameter>
       <parameter name="mechanic" type="doer" filter="can repair(equipment)"/>
     </parameters>
   </procedure>

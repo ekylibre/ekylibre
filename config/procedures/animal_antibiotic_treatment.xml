@@ -4,7 +4,6 @@
     <parameters>
       <parameter name="animal" type="target" filter="is animal"/>
       <parameter name="animal_medicine" type="input" filter="can care(animal)" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
-        <handler indicator="population"/>
         <handler indicator="net_mass" unit="gram" if="animal_medicine.net_mass(gram) &gt; 0" to="population" backward="(value * self..net_mass(gram))" forward="(value / self..net_mass(gram))"/>
         <handler indicator="net_volume" unit="milliliter" if="animal_medicine.net_volume(milliliter) &gt; 0" to="population" backward="(value * self..net_volume(milliliter))" forward="(value / self..net_volume(milliliter))"/>
       </parameter>

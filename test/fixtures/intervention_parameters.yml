@@ -32,6 +32,7 @@
 #  new_container_id       :integer
 #  new_group_id           :integer
 #  new_variant_id         :integer
+#  outcoming_product_id   :integer
 #  position               :integer          not null
 #  product_id             :integer
 #  quantity_handler       :string
@@ -40,7 +41,6 @@
 #  quantity_unit          :string
 #  quantity_value         :decimal(19, 4)
 #  reference_name         :string           not null
-#  source_product_id      :integer
 #  type                   :string
 #  updated_at             :datetime         not null
 #  updater_id             :integer
@@ -389,11 +389,11 @@ intervention_inputs_001:
   id: 39
   intervention_id: 11
   lock_version: 3
+  outcoming_product_id: 89
   position: 2
-  product_id: 89
+  product_id: 101
   quantity_population: 20.0001
   reference_name: seeds
-  source_product_id: 101
   type: InterventionInput
   updated_at: 2015-03-23 09:36:39.560725000 Z
   updater_id: 1
@@ -405,11 +405,11 @@ intervention_inputs_002:
   id: 50
   intervention_id: 13
   lock_version: 1
+  outcoming_product_id: 91
   position: 2
-  product_id: 91
+  product_id: 101
   quantity_population: 29.4553
   reference_name: seeds
-  source_product_id: 101
   type: InterventionInput
   updated_at: 2014-11-06 17:50:06.991523000 Z
   updater_id: 1
@@ -420,11 +420,11 @@ intervention_inputs_003:
   id: 58
   intervention_id: 14
   lock_version: 1
+  outcoming_product_id: 94
   position: 3
-  product_id: 94
+  product_id: 59
   quantity_population: 0.02
   reference_name: animal_medicine
-  source_product_id: 59
   type: InterventionInput
   updated_at: 2014-11-07 14:44:18.866173000 Z
   updater_id: 1
@@ -435,11 +435,11 @@ intervention_inputs_004:
   id: 61
   intervention_id: 15
   lock_version: 1
+  outcoming_product_id: 96
   position: 2
-  product_id: 96
+  product_id: 57
   quantity_population: 4.1745
   reference_name: plant_medicine
-  source_product_id: 57
   type: InterventionInput
   updated_at: 2014-11-07 15:02:58.793077000 Z
   updater_id: 1
@@ -450,11 +450,11 @@ intervention_inputs_005:
   id: 67
   intervention_id: 16
   lock_version: 1
+  outcoming_product_id: 99
   position: 2
-  product_id: 99
+  product_id: 98
   quantity_population: 0.6425
   reference_name: fertilizer
-  source_product_id: 98
   type: InterventionInput
   updated_at: 2014-11-07 15:26:50.566188000 Z
   updater_id: 1
@@ -466,11 +466,11 @@ intervention_inputs_006:
   id: 73
   intervention_id: 17
   lock_version: 1
+  outcoming_product_id: 102
   position: 2
-  product_id: 102
+  product_id: 101
   quantity_population: 177.8641
   reference_name: seeds
-  source_product_id: 101
   type: InterventionInput
   updated_at: 2014-11-07 15:45:45.773268000 Z
   updater_id: 1
@@ -482,9 +482,9 @@ intervention_inputs_007:
   intervention_id: 20
   lock_version: 0
   position: 2
+  product_id: 98
   quantity_population: 0.7477
   reference_name: fertilizer
-  source_product_id: 98
   type: InterventionInput
   updated_at: 2014-11-07 16:20:51.424030000 Z
   updater_id: 1
@@ -495,11 +495,11 @@ intervention_inputs_008:
   id: 92
   intervention_id: 21
   lock_version: 1
+  outcoming_product_id: 109
   position: 2
-  product_id: 109
+  product_id: 107
   quantity_population: 5000.0
   reference_name: plants
-  source_product_id: 107
   type: InterventionInput
   updated_at: 2014-11-07 16:50:07.168748000 Z
   updater_id: 1
@@ -510,11 +510,11 @@ intervention_inputs_009:
   id: 100
   intervention_id: 22
   lock_version: 1
+  outcoming_product_id: 111
   position: 2
-  product_id: 111
+  product_id: 57
   quantity_population: 6.4745
   reference_name: plant_medicine
-  source_product_id: 57
   type: InterventionInput
   updated_at: 2014-11-07 16:59:09.814608000 Z
   updater_id: 1
@@ -525,11 +525,11 @@ intervention_inputs_010:
   id: 118
   intervention_id: 25
   lock_version: 1
+  outcoming_product_id: 123
   position: 2
-  product_id: 123
+  product_id: 114
   quantity_population: 3200.0
   reference_name: grape
-  source_product_id: 114
   type: InterventionInput
   updated_at: 2014-11-07 19:02:56.195971000 Z
   updater_id: 1
@@ -540,11 +540,11 @@ intervention_inputs_011:
   id: 128
   intervention_id: 26
   lock_version: 1
+  outcoming_product_id: 129
   position: 4
-  product_id: 129
+  product_id: 128
   quantity_population: 6.0
   reference_name: oenological_intrant
-  source_product_id: 128
   type: InterventionInput
   updated_at: 2014-11-07 19:08:55.217270000 Z
   updater_id: 1
@@ -555,11 +555,11 @@ intervention_inputs_012:
   id: 134
   intervention_id: 27
   lock_version: 1
+  outcoming_product_id: 132
   position: 4
-  product_id: 132
+  product_id: 131
   quantity_population: 0.118
   reference_name: oenological_intrant
-  source_product_id: 131
   type: InterventionInput
   updated_at: 2014-11-07 19:12:42.886870000 Z
   updater_id: 1
@@ -570,11 +570,11 @@ intervention_inputs_013:
   id: 139
   intervention_id: 28
   lock_version: 1
+  outcoming_product_id: 134
   position: 4
-  product_id: 134
+  product_id: 133
   quantity_population: 1.18
   reference_name: oenological_intrant
-  source_product_id: 133
   type: InterventionInput
   updated_at: 2014-11-07 19:24:10.255802000 Z
   updater_id: 1
@@ -585,11 +585,11 @@ intervention_inputs_014:
   id: 143
   intervention_id: 29
   lock_version: 1
+  outcoming_product_id: 139
   position: 3
-  product_id: 139
+  product_id: 130
   quantity_population: 15.0
   reference_name: wine
-  source_product_id: 130
   type: InterventionInput
   updated_at: 2014-11-07 19:36:59.081425000 Z
   updater_id: 1
@@ -600,11 +600,11 @@ intervention_inputs_015:
   id: 145
   intervention_id: 29
   lock_version: 1
+  outcoming_product_id: 140
   position: 5
-  product_id: 140
+  product_id: 135
   quantity_population: 2004.0
   reference_name: bottles
-  source_product_id: 135
   type: InterventionInput
   updated_at: 2014-11-07 19:36:59.149265000 Z
   updater_id: 1
@@ -615,11 +615,11 @@ intervention_inputs_016:
   id: 147
   intervention_id: 29
   lock_version: 1
+  outcoming_product_id: 141
   position: 7
-  product_id: 141
+  product_id: 136
   quantity_population: 1520.0
   reference_name: corks
-  source_product_id: 136
   type: InterventionInput
   updated_at: 2014-11-07 19:36:59.212241000 Z
   updater_id: 1

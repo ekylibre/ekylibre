@@ -220,6 +220,11 @@ module Nomen
       @items.delete(name)
     end
 
+    def remove_item(name)
+      i = find!(name)
+      @items.delete(name)
+    end
+
     # Add an property to the nomenclature
     def add_property(name, type, options = {})
       p = PropertyNature.new(self, name, type, options)

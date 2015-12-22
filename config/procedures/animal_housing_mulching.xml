@@ -8,9 +8,7 @@
           <converter to="population" forward="area(value) / animal_housing..net_surface_area(square_meter)"/>
         </handler>
       </parameter>
-      <parameter name="straw" type="input" filter="is straw">
-        <handler indicator="population"/>
-      </parameter>
+      <parameter name="straw" type="input" filter="is straw"/>
       <parameter name="cleaner" type="tool" filter="can clean(building_division)"/>
       <parameter name="driver" type="doer" filter="can drive(equipment) and can move"/>
       <parameter name="tractor" type="tool" filter="can tow(equipment) and can move"/>

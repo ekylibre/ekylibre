@@ -14,7 +14,7 @@ class WorkingSetsTest < ActiveSupport::TestCase
       'dont derive from equidae',
       'has indicator net_mass',
       'has frozen indicator net_volume',
-      'has variable indicator population',
+      'has variable indicator net_mass',
       'can grow',
       'can grow()',
       'can treat(diarrhea, bison)',
@@ -50,7 +50,7 @@ class WorkingSetsTest < ActiveSupport::TestCase
       'dont derives from mammalia',
       'hasnt indicator net_mass',
       'hasnot frozen indicator net_volume',
-      'has not variable indicator population',
+      'has not variable indicator net_mass',
       'cannot treat(diarrhea, bison)',
       'can not consume(water)',
       'can consume(water) and is bos or bison'

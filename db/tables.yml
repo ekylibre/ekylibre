@@ -2486,7 +2486,7 @@ intervention_parameter_readings:
       type: multi_polygon
   parameter_id:
     type: integer
-    references: intervention_parameter
+    references: intervention_product_parameter
     required: true
   point_value:
     type: geometry
@@ -2533,6 +2533,9 @@ intervention_parameters:
   new_variant_id:
     type: integer
     references: product_nature_variant
+  outcoming_product_id:
+    type: integer
+    references: product
   position:
     type: integer
     required: true
@@ -2556,9 +2559,6 @@ intervention_parameters:
   reference_name:
     type: string
     required: true
-  source_product_id:
-    type: integer
-    references: product
   type:
     type: string
   updated_at:
@@ -2701,11 +2701,6 @@ inventory_items:
     precision: 19
     scale: 4
     required: true
-  actual_shape:
-    type: geometry
-    limit:
-      srid: 4326
-      type: multi_polygon
   created_at:
     type: datetime
     required: true
@@ -2717,11 +2712,6 @@ inventory_items:
     precision: 19
     scale: 4
     required: true
-  expected_shape:
-    type: geometry
-    limit:
-      srid: 4326
-      type: multi_polygon
   id:
     type: integer
     required: true
@@ -2736,6 +2726,9 @@ inventory_items:
     type: integer
     references: product
     required: true
+  product_movement_id:
+    type: integer
+    references: product_movement
   updated_at:
     type: datetime
     required: true
@@ -3695,12 +3688,12 @@ parcel_items:
   product_localization_id:
     type: integer
     references: product_localization
+  product_movement_id:
+    type: integer
+    references: product_movement
   product_ownership_id:
     type: integer
     references: product_ownership
-  product_population_reading_id:
-    type: integer
-    references: product_reading
   product_shape_reading_id:
     type: integer
     references: product_reading
@@ -3718,9 +3711,9 @@ parcel_items:
   source_product_id:
     type: integer
     references: product
-  source_product_population_reading_id:
+  source_product_movement_id:
     type: integer
-    references: product_reading
+    references: product_movement
   source_product_shape_reading_id:
     type: integer
     references: product_reading
@@ -4114,6 +4107,52 @@ product_memberships:
     references: "~originator_type"
   originator_type:
     type: string
+  started_at:
+    type: datetime
+    required: true
+  stopped_at:
+    type: datetime
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+product_movements:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  delta:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  id:
+    type: integer
+    required: true
+  intervention_id:
+    type: integer
+    references: intervention
+  lock_version:
+    type: integer
+    required: true
+  originator_id:
+    type: integer
+    references: "~originator_type"
+  originator_type:
+    type: string
+  population:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  product_id:
+    type: integer
+    references: product
+    required: true
   started_at:
     type: datetime
     required: true

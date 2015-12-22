@@ -4,9 +4,7 @@
     <parameters>
       <parameter name="tank" type="tool" filter="is tank and can store_liquid" default-actor="storage"/>
       <parameter name="wine_to_treat" type="target" filter="is wine" default-actor="first_localized_in: tank"/>
-      <parameter name="oenological_intrant" type="input" filter="is matter and can catalyze(wine)">
-        <handler indicator="population"/>
-      </parameter>
+      <parameter name="oenological_intrant" type="input" filter="is matter and can catalyze(wine)"/>
       <parameter name="wine_man" type="doer" filter="is worker and can move"/>
     </parameters>
   </procedure>

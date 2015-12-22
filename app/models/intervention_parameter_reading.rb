@@ -47,16 +47,15 @@
 
 class InterventionParameterReading < Ekylibre::Record::Base
   include ReadingStorable
-  belongs_to :intervention_cast, inverse_of: :readings, class_name: 'InterventionParameter', foreign_key: :parameter_id
-  belongs_to :intervention_parameter, inverse_of: :readings, class_name: 'InterventionParameter', foreign_key: :parameter_id
+  belongs_to :intervention_parameter, class_name: 'InterventionProductParameter', foreign_key: :parameter_id, inverse_of: :readings
   has_one :intervention, through: :intervention
-  has_one :product, through: :intervention_cast
+  has_one :product, through: :intervention_parameter
   has_one :product_reading, as: :originator
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :integer_value, allow_nil: true, only_integer: true
   validates_numericality_of :absolute_measure_value_value, :decimal_value, :measure_value_value, allow_nil: true
   validates_inclusion_of :boolean_value, in: [true, false]
-  validates_presence_of :indicator_datatype, :indicator_name, :intervention_cast, :intervention_parameter
+  validates_presence_of :indicator_datatype, :indicator_name, :intervention_parameter
   # ]VALIDATORS]
 
   delegate :started_at, :stopped_at, to: :intervention

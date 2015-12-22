@@ -3,7 +3,7 @@
   = link_to_remove_nested_association(:destroy.ta, f)
   = f.input :reference_name, as: :hidden
   - if reference.input?
-    = f.referenced_association :source_product, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}
+    = f.referenced_association :product, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}
     = render 'quantifier_field', f: f, reference: reference
   - elsif reference.output?
     = f.referenced_association :variant, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}

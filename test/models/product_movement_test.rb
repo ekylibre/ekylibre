@@ -20,23 +20,25 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: inventory_items
+# == Table: product_movements
 #
-#  actual_population   :decimal(19, 4)   not null
-#  created_at          :datetime         not null
-#  creator_id          :integer
-#  expected_population :decimal(19, 4)   not null
-#  id                  :integer          not null, primary key
-#  inventory_id        :integer          not null
-#  lock_version        :integer          default(0), not null
-#  product_id          :integer          not null
-#  product_movement_id :integer
-#  updated_at          :datetime         not null
-#  updater_id          :integer
+#  created_at      :datetime         not null
+#  creator_id      :integer
+#  delta           :decimal(19, 4)   not null
+#  id              :integer          not null, primary key
+#  intervention_id :integer
+#  lock_version    :integer          default(0), not null
+#  originator_id   :integer
+#  originator_type :string
+#  population      :decimal(19, 4)   not null
+#  product_id      :integer          not null
+#  started_at      :datetime         not null
+#  stopped_at      :datetime
+#  updated_at      :datetime         not null
+#  updater_id      :integer
 #
-
 require 'test_helper'
 
-class InventoryItemTest < ActiveSupport::TestCase
+class ProductMovementTest < ActiveSupport::TestCase
   # Add tests here...
 end

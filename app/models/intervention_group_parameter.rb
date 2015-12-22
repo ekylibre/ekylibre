@@ -32,6 +32,7 @@
 #  new_container_id       :integer
 #  new_group_id           :integer
 #  new_variant_id         :integer
+#  outcoming_product_id   :integer
 #  position               :integer          not null
 #  product_id             :integer
 #  quantity_handler       :string
@@ -40,7 +41,6 @@
 #  quantity_unit          :string
 #  quantity_value         :decimal(19, 4)
 #  reference_name         :string           not null
-#  source_product_id      :integer
 #  type                   :string
 #  updated_at             :datetime         not null
 #  updater_id             :integer
@@ -50,8 +50,8 @@
 
 class InterventionGroupParameter < InterventionParameter
   include CastGroupable
+  belongs_to :group, class_name: 'InterventionGroupParameter' # , inverse_of: :group_parameters
   belongs_to :intervention, inverse_of: :group_parameters
-  belongs_to :group, class_name: 'InterventionGroupParameter', inverse_of: :cast_groups
   belongs_to :parent, class_name: 'InterventionGroupParameter', foreign_key: :group_id, inverse_of: :children
   has_many :children, class_name: 'InterventionParameter', dependent: :destroy, inverse_of: :parent, foreign_key: :group_id
   with_options dependent: :destroy, inverse_of: :group, foreign_key: :group_id do
@@ -66,7 +66,7 @@ class InterventionGroupParameter < InterventionParameter
     has_many :tools, class_name: 'InterventionTool'
   end
 
-  validates_associated :group_parameters, :doers, :inputs, :outputs, :targets, :tools
+  # validates_associated :group_parameters, :doers, :inputs, :outputs, :targets, :tools
 
   accepts_nested_attributes_for :group_parameters, :doers, :inputs, :outputs, :targets, :tools
 

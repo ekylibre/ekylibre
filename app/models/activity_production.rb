@@ -76,9 +76,6 @@ class ActivityProduction < Ekylibre::Record::Base
   delegate :name, :size_indicator, :size_unit, to: :activity, prefix: true
   delegate :with_cultivation, :cultivation_variety, :with_supports, :support_variety, :color, to: :activity
 
-  # alias_attribute :started_at, :started_on
-  # alias_attribute :stopped_at, :stopped_on
-
   scope :of_campaign, lambda { |campaigns|
     campaigns = [campaigns] unless campaigns.respond_to? :map
     args = []
@@ -169,7 +166,7 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   def vegetal_crops?
-    Nomen::ActivityFamily.find(activity.family) <= :vegetal_crops
+    activity.family && Nomen::ActivityFamily.find(activity.family) <= :vegetal_crops
   end
 
   # Returns interventions of current production

@@ -1768,7 +1768,6 @@ arb:
         # plant_reproduction_state: "Plant reproduction state"
         # plants_count: "Plants count"
         # plants_interval: "Plants interval"
-        # population: "Population"
         # potash_concentration: "Potash concentration (K₂O)"
         # potassium_concentration: "Potassium concentration"
         # potential_hydrogen: "Potential hydrogen"

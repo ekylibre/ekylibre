@@ -70,18 +70,6 @@ intervention_parameter_readings_001:
   updater_id: 1
 intervention_parameter_readings_002:
   boolean_value: false
-  created_at: 2014-11-05 15:40:16.357769000 Z
-  creator_id: 1
-  decimal_value: 5.3806
-  id: 8
-  indicator_datatype: decimal
-  indicator_name: population
-  lock_version: 0
-  parameter_id: 44
-  updated_at: 2014-11-05 15:40:16.357769000 Z
-  updater_id: 1
-intervention_parameter_readings_003:
-  boolean_value: false
   choice_value: covered
   created_at: 2014-11-05 15:40:16.373150000 Z
   creator_id: 1
@@ -92,7 +80,7 @@ intervention_parameter_readings_003:
   parameter_id: 43
   updated_at: 2014-11-05 15:40:16.373150000 Z
   updater_id: 1
-intervention_parameter_readings_004:
+intervention_parameter_readings_003:
   boolean_value: false
   created_at: 2014-11-05 15:40:16.387769000 Z
   creator_id: 1
@@ -104,7 +92,7 @@ intervention_parameter_readings_004:
   parameter_id: 44
   updated_at: 2014-11-05 15:40:16.387769000 Z
   updater_id: 1
-intervention_parameter_readings_005:
+intervention_parameter_readings_004:
   boolean_value: false
   choice_value: nude
   created_at: 2014-11-06 17:49:51.139058000 Z
@@ -116,19 +104,7 @@ intervention_parameter_readings_005:
   parameter_id: 47
   updated_at: 2014-11-06 17:49:51.139058000 Z
   updater_id: 1
-intervention_parameter_readings_006:
-  boolean_value: false
-  created_at: 2014-11-06 17:50:07.342193000 Z
-  creator_id: 1
-  decimal_value: 8.349
-  id: 12
-  indicator_datatype: decimal
-  indicator_name: population
-  lock_version: 0
-  parameter_id: 55
-  updated_at: 2014-11-06 17:50:07.342193000 Z
-  updater_id: 1
-intervention_parameter_readings_007:
+intervention_parameter_readings_005:
   boolean_value: false
   choice_value: covered
   created_at: 2014-11-06 17:50:07.355554000 Z
@@ -140,7 +116,7 @@ intervention_parameter_readings_007:
   parameter_id: 54
   updated_at: 2014-11-06 17:50:07.355554000 Z
   updater_id: 1
-intervention_parameter_readings_008:
+intervention_parameter_readings_006:
   boolean_value: false
   created_at: 2014-11-06 17:50:07.369059000 Z
   creator_id: 1
@@ -152,7 +128,7 @@ intervention_parameter_readings_008:
   parameter_id: 55
   updated_at: 2014-11-06 17:50:07.369059000 Z
   updater_id: 1
-intervention_parameter_readings_009:
+intervention_parameter_readings_007:
   boolean_value: true
   created_at: 2014-11-07 14:44:18.920835000 Z
   creator_id: 1
@@ -163,19 +139,7 @@ intervention_parameter_readings_009:
   parameter_id: 56
   updated_at: 2014-11-07 14:44:18.920835000 Z
   updater_id: 1
-intervention_parameter_readings_010:
-  boolean_value: false
-  created_at: 2014-11-07 15:45:46.086457000 Z
-  creator_id: 1
-  decimal_value: 10.1637
-  id: 16
-  indicator_datatype: decimal
-  indicator_name: population
-  lock_version: 0
-  parameter_id: 78
-  updated_at: 2014-11-07 15:45:46.086457000 Z
-  updater_id: 1
-intervention_parameter_readings_011:
+intervention_parameter_readings_008:
   boolean_value: false
   choice_value: covered
   created_at: 2014-11-07 15:45:46.103164000 Z
@@ -187,7 +151,7 @@ intervention_parameter_readings_011:
   parameter_id: 77
   updated_at: 2014-11-07 15:45:46.103164000 Z
   updater_id: 1
-intervention_parameter_readings_012:
+intervention_parameter_readings_009:
   boolean_value: false
   created_at: 2014-11-07 15:45:46.117160000 Z
   creator_id: 1
@@ -199,19 +163,7 @@ intervention_parameter_readings_012:
   parameter_id: 78
   updated_at: 2014-11-07 15:45:46.117160000 Z
   updater_id: 1
-intervention_parameter_readings_013:
-  boolean_value: false
-  created_at: 2014-11-07 16:50:07.566680000 Z
-  creator_id: 1
-  decimal_value: 5.3954
-  id: 19
-  indicator_datatype: decimal
-  indicator_name: population
-  lock_version: 0
-  parameter_id: 98
-  updated_at: 2014-11-07 16:50:07.566680000 Z
-  updater_id: 1
-intervention_parameter_readings_014:
+intervention_parameter_readings_010:
   boolean_value: false
   choice_value: covered
   created_at: 2014-11-07 16:50:07.580805000 Z
@@ -223,7 +175,7 @@ intervention_parameter_readings_014:
   parameter_id: 97
   updated_at: 2014-11-07 16:50:07.580805000 Z
   updater_id: 1
-intervention_parameter_readings_015:
+intervention_parameter_readings_011:
   absolute_measure_value_unit: meter
   absolute_measure_value_value: 2.0
   boolean_value: false
@@ -238,7 +190,7 @@ intervention_parameter_readings_015:
   parameter_id: 98
   updated_at: 2014-11-07 16:50:07.594022000 Z
   updater_id: 1
-intervention_parameter_readings_016:
+intervention_parameter_readings_012:
   absolute_measure_value_unit: meter
   absolute_measure_value_value: 0.8
   boolean_value: false
@@ -253,7 +205,7 @@ intervention_parameter_readings_016:
   parameter_id: 98
   updated_at: 2014-11-07 16:50:07.607420000 Z
   updater_id: 1
-intervention_parameter_readings_017:
+intervention_parameter_readings_013:
   boolean_value: false
   created_at: 2014-11-07 16:50:07.620455000 Z
   creator_id: 1

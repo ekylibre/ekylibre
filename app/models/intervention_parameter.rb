@@ -32,6 +32,7 @@
 #  new_container_id       :integer
 #  new_group_id           :integer
 #  new_variant_id         :integer
+#  outcoming_product_id   :integer
 #  position               :integer          not null
 #  product_id             :integer
 #  quantity_handler       :string
@@ -40,7 +41,6 @@
 #  quantity_unit          :string
 #  quantity_value         :decimal(19, 4)
 #  reference_name         :string           not null
-#  source_product_id      :integer
 #  type                   :string
 #  updated_at             :datetime         not null
 #  updater_id             :integer
@@ -68,7 +68,7 @@ class InterventionParameter < Ekylibre::Record::Base
   before_validation do
     if reference
       self.position = reference.position
-    elsif self.position.blank?
+    elsif position.blank?
       precision = 10**8
       now = Time.zone.now
       self.position = (precision * now.to_f).round - (precision * now.to_i)
@@ -85,6 +85,6 @@ class InterventionParameter < Ekylibre::Record::Base
   end
 
   def runnable?
-    return true
+    true
   end
 end

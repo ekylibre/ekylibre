@@ -27,27 +27,6 @@ module Indicateable
     }
   end
 
-  # Deprecated method to call net_surface_area
-  # Will be removed in Ekylibre 1.1
-  def area(unit = :hectare, at = Time.zone.now)
-    # raise "NO AREA"
-    ActiveSupport::Deprecation.warn('Product#area is deprecated. Please use Product#net_surface_area instead.')
-    net_surface_area(at).in(unit)
-  end
-
-  # Deprecated method to call net_mass
-  # Will be removed in Ekylibre 1.1
-  def mass(unit = :kilogram, at = Time.zone.now)
-    # raise "NO MASS"
-    ActiveSupport::Deprecation.warn('Product#mass is deprecated. Please use Product#net_mass instead.')
-    net_mass(at).in(unit)
-  end
-
-  # Permits to always return a population
-  def population(*args)
-    get(:population, *args) || 0.0
-  end
-
   # Register a value at the current value
   def mark!(indicator, options = {})
     marked_at = options[:marked_at] ||= Time.zone.now

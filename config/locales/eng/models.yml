@@ -224,6 +224,7 @@ eng:
       product_linkage: "Product linkage"
       product_localization: "Product localization"
       product_membership: "Product membership"
+      # product_movement: "Product movement"
       product_nature: "Product nature"
       product_nature_category: "Product category"
       product_nature_category_taxation: "Product type category taxation"
@@ -291,7 +292,7 @@ eng:
     actor: "Actor" #?
     actual_number: "Actual number"
     actual_population: "Actual population"
-    actual_shape: "Actual shape"
+    actual_shape: "Actual shape" #?
     address: "Address"
     addresses: "Addresses"
     administrative_area: "Administrative area"
@@ -466,6 +467,7 @@ eng:
     delivery_items: "Delivery items" #?
     delivery_mode: "Delivery mode"
     # delivery_products: "Delivery products"
+    # delta: "Delta"
     departed_at: "Transport on" #?
     deposit: "Deposit"
     depositable_payments: "Embankable payments"
@@ -528,7 +530,7 @@ eng:
     execution_number: "Execution number"
     executor: "Executor"
     expected_population: "Expected population"
-    expected_shape: "Expected shape"
+    expected_shape: "Expected shape" #?
     expected_stop_amount: "Expected stop amount"
     expected_yield: "Expected yield"
     expenses: "Expenses"
@@ -632,7 +634,7 @@ eng:
     intermediate_cultivation_residue_mineralization: "Intermediate cultivation residue mineralization"
     # interpolations: "Interpolations"
     intervention: "Intervention"
-    intervention_cast: "Intervention cast"
+    intervention_cast: "Intervention cast" #?
     intervention_parameter: "Intervention parameter"
     intervention_product_parameters: "Intervention casts"
     interventions: "Interventions"
@@ -722,7 +724,7 @@ eng:
     managed: "Managed"
     managed_sales: "Managed sales"
     manure_management_plan_zones: "Manure management plan zones"
-    mass: "Mass (kg)"
+    mass: "Mass (kg)" #?
     maximal_grantable_reduction_percentage: "Maximal grantable reduction percentage"
     maximal_length: "Maximal length"
     maximal_value: "Maximal value"
@@ -745,6 +747,8 @@ eng:
     mode: "Mode"
     model_euid: "Model"
     mother: "Mother"
+    movements: "Movements"
+    moves: "Moves" #?
     multi_polygon_value: "Multi polygon value"
     name: "Name"
     nature: "Type"
@@ -780,6 +784,7 @@ eng:
     origin: "Origin"
     originator: "Originator"
     originator_type: "Originator type"
+    # outcoming_product: "Outcoming product"
     outgoing_parcel_item: "Outgoing parcel item"
     outgoing_parcel_items: "Outgoing parcel items" #?
     outgoing_parcels: "Outgoing parcels" #?
@@ -851,23 +856,23 @@ eng:
     product: "Product"
     product_account: "Product account"
     # product_enjoyment: "Product enjoyment"
-    product_enjoyments: "Product enjoyments"
-    product_linkages: "Product linkages"
+    product_enjoyments: "Product enjoyments" #?
+    product_linkages: "Product linkages" #?
     product_localization: "Product localization"
-    product_localizations: "Product localizations"
-    product_memberships: "Product memberships"
+    product_localizations: "Product localizations" #?
+    product_memberships: "Product memberships" #?
+    product_movement: "Product movement"
     product_nature: "Product type"
     product_nature_categories: "Product type categories"
     product_nature_category: "Product type category"
     product_nature_category_taxations: "Product type category taxations"
     product_ownership: "Product ownership"
-    product_ownerships: "Product ownerships"
+    product_ownerships: "Product ownerships" #?
     product_parameters: "Product parameters"
-    product_phases: "Product phases"
-    # product_population_reading: "Product population reading"
+    product_phases: "Product phases" #?
     product_reading: "Product reading"
     product_reading_tasks: "Product reading tasks" #?
-    product_readings: "Product readings"
+    product_readings: "Product readings" #?
     # product_shape_reading: "Product shape reading"
     production: "Production" #?
     production_support: "Production support" #?
@@ -1003,7 +1008,7 @@ eng:
     soil_production: "Soil production"
     source: "Source"
     source_product: "Source product"
-    # source_product_population_reading: "Source product population reading"
+    # source_product_movement: "Source product movement"
     # source_product_shape_reading: "Source product shape reading"
     spaced_iban: "Spaced IBAN"
     sql_type: "SQL type"

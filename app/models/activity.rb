@@ -52,11 +52,13 @@ class Activity < Ekylibre::Record::Base
   # refers_to :size_unit, class_name: 'Unit'
   # refers_to :size_indicator, -> { where(datatype: :measure) }, class_name: 'Indicator' # [:population, :working_duration]
   enumerize :nature, in: [:main, :auxiliary, :standalone], default: :main, predicates: true
-  has_many :budgets, class_name: 'ActivityBudget'
-  has_many :expenses, -> { where(direction: :expense).includes(:variant) }, class_name: 'ActivityBudget', inverse_of: :activity
-  has_many :revenues, -> { where(direction: :revenue).includes(:variant) }, class_name: 'ActivityBudget', inverse_of: :activity
-  has_many :distributions, class_name: 'ActivityDistribution', dependent: :destroy, inverse_of: :activity
-  has_many :productions, class_name: 'ActivityProduction', dependent: :destroy, inverse_of: :activity
+  with_options dependent: :destroy, inverse_of: :activity do
+    has_many :budgets, class_name: 'ActivityBudget'
+    has_many :expenses, -> { where(direction: :expense).includes(:variant) }, class_name: 'ActivityBudget'
+    has_many :revenues, -> { where(direction: :revenue).includes(:variant) }, class_name: 'ActivityBudget'
+    has_many :distributions, class_name: 'ActivityDistribution'
+    has_many :productions, class_name: 'ActivityProduction'
+  end
   has_many :supports, through: :productions
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -92,12 +94,12 @@ class Activity < Ekylibre::Record::Base
   accepts_nested_attributes_for :expenses, :revenues, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :distributions, reject_if: :all_blank, allow_destroy: true
 
-  protect(on: :update) do
-    productions.any?
-  end
+  # protect(on: :update) do
+  #   productions.any?
+  # end
 
   protect(on: :destroy) do
-    productions.any? || interventions.any?
+    productions.any?
   end
 
   before_validation do

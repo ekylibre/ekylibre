@@ -2,21 +2,17 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="grape_pressing" categories="viticulture_transformation" actions="grape_pressing">
     <parameters>
-      <parameter name="grape" type="input" filter="is grape and derives from vitis">
-        <handler indicator="population"/>
-      </parameter>
+      <parameter name="grape" type="input" filter="is grape and derives from vitis"/>
       <parameter name="tank_for_wine" type="target" filter="is tank and can store_liquid" default-actor="storage"/>
       <parameter name="tank_for_residue" type="tool" filter="is tank and can store_liquid"/>
       <parameter name="press" type="tool" filter="is equipment and can press(grape)"/>
       <parameter name="wine_man" type="doer" filter="can move and can drive(press)"/>
       <parameter name="juice" type="output" variety="juice" derivative-of="variety: grape_to_press" filter="is juice and derives from grape" default-name="{{variant}} {{birth_year}} ({{container}})">
-        <handler indicator="population"/>
         <handler indicator="net_volume" unit="hectoliter" to="population" backward="value * self..net_volume(hectoliter)" forward="value / self..net_volume(hectoliter)"/>
         <handler indicator="net_mass" unit="ton" to="population" backward="value * self..net_mass(ton)" forward="value / self..net_mass(ton)"/>
         <handler name="net_mass_in_kilogram" indicator="net_mass" unit="kilogram" to="population" backward="value * self..net_mass(kilogram)" forward="value / self..net_mass(kilogram)"/>
       </parameter>
       <parameter name="residue" type="output" variety="pomace" derivative-of=":grape_to_press" filter="is pomace and derives from grape" default-name="{{variant}} {{birth_year}} ({{container}})">
-        <handler indicator="population"/>
         <handler indicator="net_mass" unit="kilogram" to="population" backward="value * self..net_mass(kilogram)" forward="value / self..net_mass(kilogram)"/>
       </parameter>
     </parameters>

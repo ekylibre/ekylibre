@@ -32,6 +32,7 @@
 #  new_container_id       :integer
 #  new_group_id           :integer
 #  new_variant_id         :integer
+#  outcoming_product_id   :integer
 #  position               :integer          not null
 #  product_id             :integer
 #  quantity_handler       :string
@@ -40,20 +41,35 @@
 #  quantity_unit          :string
 #  quantity_value         :decimal(19, 4)
 #  reference_name         :string           not null
-#  source_product_id      :integer
 #  type                   :string
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #  variant_id             :integer
 #  working_zone           :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
+
+# An intervention input represents a product which is used and "consumed" by the
+# intervention. The input is divided from a source product. Its tracking number
+# follows the new product.
 class InterventionInput < InterventionProductParameter
   belongs_to :intervention, inverse_of: :inputs
-  belongs_to :source_product, class_name: 'Product'
-  validates_presence_of :source_product
+  belongs_to :outcoming_product, class_name: 'Product'
+  validates_presence_of :quantity_population
 
-  before_save do
+  before_validation do
+    self.variant = product.variant if product
+    # self.quantity_population = reference.convert_to_population(self.quantity_handler, self.quantity)
+  end
+
+  after_save do
     # FIXME: Not working at all. Need to split if necessary with quantity
-    self.product = source_product
+    # self.product = source_product
+    if product
+      movement = product_movement
+      movement = product.movements.build unless movement
+      movement.delta = -1 * quantity_population
+      movement.started_at = intervention.started_at
+      update_columns(movement_id: movement.id)
+    end
   end
 end

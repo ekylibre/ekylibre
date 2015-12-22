@@ -70,12 +70,12 @@ imports_003:
   archive_content_type: application/xml
   archive_file_name: declaration_2015.xml
   archive_file_size: 63870
-  archive_updated_at: 2015-12-19 18:11:25.946588000 Z
-  created_at: 2015-12-19 18:11:25.951873000 Z
+  archive_updated_at: 2015-12-22 21:39:53.323747000 Z
+  created_at: 2015-12-22 21:39:53.329299000 Z
   id: 3
-  imported_at: 2015-12-19 18:11:30.086036000 Z
+  imported_at: 2015-12-22 21:39:57.727719000 Z
   lock_version: 0
   nature: telepac_v2015_cap_statements
   progression_percentage: 100.0
   state: finished
-  updated_at: 2015-12-19 18:11:25.951873000 Z
+  updated_at: 2015-12-22 21:39:53.329299000 Z

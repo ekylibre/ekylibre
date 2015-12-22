@@ -99,6 +99,7 @@ class Product < Ekylibre::Record::Base
   has_many :links, class_name: 'ProductLink', foreign_key: :product_id, dependent: :destroy
   has_many :localizations, class_name: 'ProductLocalization', foreign_key: :product_id, dependent: :destroy
   has_many :memberships, class_name: 'ProductMembership', foreign_key: :member_id, dependent: :destroy
+  has_many :movements, class_name: 'ProductMovement', foreign_key: :product_id, dependent: :destroy
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :product_id, dependent: :destroy
   has_many :parcel_items, dependent: :restrict_with_exception
   has_many :phases, class_name: 'ProductPhase', dependent: :destroy
@@ -467,6 +468,16 @@ class Product < Ekylibre::Record::Base
         i.movement member, :container
       end
     end
+  end
+
+  def population(options = {})
+    movements = self.movements.at(options[:at] || Time.zone.now)
+    (movements.any? ? movements.first.population : 0.0)
+  end
+
+  # Moves population with given quantity
+  def move!(quantity, options = {})
+    movements.create!(delta: quantity, started_at: options[:at])
   end
 
   # Returns the container for the product at a given time

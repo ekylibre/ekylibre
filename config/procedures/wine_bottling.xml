@@ -5,24 +5,18 @@
       <parameter name="tank" type="tool" filter="is equipment and can store(wine)" default-actor="storage"/>
       <parameter name="wine" type="target" filter="is wine" default-actor="first_localized_in: tank"/>
       <parameter name="wine" type="input" filter="is wine" default-name="{{variant}} ({{container}})">
-        <handler indicator="population"/>
         <handler indicator="net_volume" unit="hectoliter" if="wine_to_pack? &amp; wine_to_pack.net_volume(liter) &gt; 0" to="population" backward="value * self..net_volume(hectoliter)" forward="value / self..net_volume(hectoliter)"/>
         <handler name="net_volume_in_liter" indicator="net_volume" unit="liter" if="wine_to_pack? &amp; wine_to_pack.net_volume(liter) &gt; 0" to="population" backward="value * self..net_volume(liter)" forward="value / self..net_volume(liter)"/>
       </parameter>
       <parameter name="bottles" type="input" filter="is cork_bottle and can store(wine)" default-name="{{variant}} ({{container}})">
-        <handler indicator="population"/>
         <handler indicator="net_volume" unit="hectoliter" if="bottles_to_use? &amp; bottles_to_use.net_volume(liter) &gt; 0" to="population" backward="value * self..net_volume(hectoliter)" forward="value / self..net_volume(hectoliter)"/>
         <handler name="net_volume_in_liter" indicator="net_volume" unit="liter" if="bottles_to_use? &amp; bottles_to_use.net_volume(liter) &gt; 0" to="population" backward="value * self..net_volume(liter)" forward="value / self..net_volume(liter)"/>
       </parameter>
-      <parameter name="corks" type="input" filter="is cork and can close(cork_bottle)" default-name="{{variant}} ({{container}})">
-        <handler indicator="population"/>
-      </parameter>
+      <parameter name="corks" type="input" filter="is cork and can close(cork_bottle)" default-name="{{variant}} ({{container}})"/>
       <parameter name="wine_man" type="doer" filter="can drive(corker) and can drive(bottler) and can move"/>
       <parameter name="hand_drawn" type="tool" filter="is equipment and can fill(bottle)"/>
       <parameter name="corker" type="tool" filter="is equipment and can close(bottle)"/>
-      <parameter name="wine_bottles" type="output" variety="wine" derivative-of=":wine_to_pack" filter="is wine and derives from wine" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})">
-        <handler indicator="population"/>
-      </parameter>
+      <parameter name="wine_bottles" type="output" variety="wine" derivative-of=":wine_to_pack" filter="is wine and derives from wine" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})"/>
     </parameters>
   </procedure>
 </procedures>

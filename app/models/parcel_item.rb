@@ -22,29 +22,29 @@
 #
 # == Table: parcel_items
 #
-#  analysis_id                          :integer
-#  created_at                           :datetime         not null
-#  creator_id                           :integer
-#  id                                   :integer          not null, primary key
-#  lock_version                         :integer          default(0), not null
-#  parcel_id                            :integer          not null
-#  parted                               :boolean          default(FALSE), not null
-#  population                           :decimal(19, 4)
-#  product_enjoyment_id                 :integer
-#  product_id                           :integer
-#  product_localization_id              :integer
-#  product_ownership_id                 :integer
-#  product_population_reading_id        :integer
-#  product_shape_reading_id             :integer
-#  purchase_item_id                     :integer
-#  sale_item_id                         :integer
-#  shape                                :geometry({:srid=>4326, :type=>"multi_polygon"})
-#  source_product_id                    :integer
-#  source_product_population_reading_id :integer
-#  source_product_shape_reading_id      :integer
-#  updated_at                           :datetime         not null
-#  updater_id                           :integer
-#  variant_id                           :integer
+#  analysis_id                     :integer
+#  created_at                      :datetime         not null
+#  creator_id                      :integer
+#  id                              :integer          not null, primary key
+#  lock_version                    :integer          default(0), not null
+#  parcel_id                       :integer          not null
+#  parted                          :boolean          default(FALSE), not null
+#  population                      :decimal(19, 4)
+#  product_enjoyment_id            :integer
+#  product_id                      :integer
+#  product_localization_id         :integer
+#  product_movement_id             :integer
+#  product_ownership_id            :integer
+#  product_shape_reading_id        :integer
+#  purchase_item_id                :integer
+#  sale_item_id                    :integer
+#  shape                           :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  source_product_id               :integer
+#  source_product_movement_id      :integer
+#  source_product_shape_reading_id :integer
+#  updated_at                      :datetime         not null
+#  updater_id                      :integer
+#  variant_id                      :integer
 #
 class ParcelItem < Ekylibre::Record::Base
   attr_readonly :parcel_id
@@ -55,13 +55,13 @@ class ParcelItem < Ekylibre::Record::Base
   belongs_to :product_enjoyment,          dependent: :destroy
   belongs_to :product_localization,       dependent: :destroy
   belongs_to :product_ownership,          dependent: :destroy
-  belongs_to :product_population_reading, class_name: 'ProductReading', dependent: :destroy
+  belongs_to :product_movement,           dependent: :destroy
   belongs_to :product_shape_reading,      class_name: 'ProductReading', dependent: :destroy
   belongs_to :purchase_item
   belongs_to :sale_item
   belongs_to :source_product, class_name: 'Product'
-  belongs_to :source_product_population_reading, class_name: 'ProductReading', dependent: :destroy
-  belongs_to :source_product_shape_reading, class_name:      'ProductReading', dependent: :destroy
+  belongs_to :source_product_movement, class_name: 'ProductMovement', dependent: :destroy
+  belongs_to :source_product_shape_reading, class_name: 'ProductReading', dependent: :destroy
   belongs_to :variant, class_name: 'ProductNatureVariant'
   has_one :category, through: :variant
   has_one :nature, through: :variant
@@ -180,9 +180,24 @@ class ParcelItem < Ekylibre::Record::Base
   # Create or update division readings
   def update_division_readings(divided_at)
     product.copy_readings_of!(source_product, at: divided_at, originator: self)
-    source_population = source_product.get!(:population, at: divided_at)
-    self.source_product_population_reading = source_product.read!(:population, source_population - population, at: divided_at)
-    self.product_population_reading = product.read!(:population, population, at: divided_at)
+    source_population = source_product.population(at: divided_at)
+    # Removes quantity from source product
+    build_source_product_movement unless source_product_movement
+    source_product_movement.attributes = {
+      product: source_product,
+      delta: -1 * population,
+      started_at: divided_at
+    }
+    source_product_movement.save!
+    # Adds quantity to product
+    build_product_movement unless product_movement
+    product_movement.attributes = {
+      product: product,
+      delta: population,
+      started_at: divided_at
+    }
+    product_movement.save!
+
     if source_product.has_indicator?(:shape) && shape
       source_shape = Charta.new_geometry(source_product.get!(:shape, at: divided_at))
       self.source_product_shape_reading = source_product.read!(:shape, source_shape - shape, at: divided_at)

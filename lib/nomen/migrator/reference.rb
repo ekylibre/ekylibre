@@ -62,6 +62,10 @@ module Nomen
       def item_merging(action)
         @set.merge_item(action.nomenclature, action.name, action.into)
       end
+
+      def item_removal(action)
+        @set.remove_item(action.nomenclature, action.name)
+      end
     end
   end
 end

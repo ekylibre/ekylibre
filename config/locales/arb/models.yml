@@ -1556,6 +1556,8 @@ arb:
     # model_euid: "Model"
     # mother: "Mother"
     moved_at: "انجز يوم" #?
+    # movements: "Movements"
+    # moves: "Moves"
     # multi_polygon_value: "Multi polygon value"
     name: "الاسم"
     name_1_to_2: "الملف الاول الى الثاني" #?
@@ -1724,6 +1726,7 @@ arb:
     # product_localization: "Product localization"
     # product_localizations: "Product localizations"
     # product_memberships: "Product memberships"
+    # product_movement: "Product movement"
     # product_nature: "Product type"
     # product_nature_categories: "Product type categories"
     # product_nature_category: "Product type category"

@@ -54,8 +54,12 @@ class Ekylibre::EquipmentsExchanger < ActiveExchanger::Base
         equipment = pmodel.create!(variant_id: variant.id, name: r.name, initial_born_at: r.born_at, initial_owner: owner, initial_container: container, default_storage: container, work_number: r.work_number)
 
         # create indicators linked to equipment
-        for indicator, value in r.indicators
-          equipment.read!(indicator, value, at: r.born_at, force: true)
+        r.indicators.each do |indicator, value|
+          if indicator.to_sym == :population
+            equipment.move!(value, at: r.born_at)
+          else
+            equipment.read!(indicator, value, at: r.born_at, force: true)
+          end
         end
 
         # attach georeading if exist for equipment

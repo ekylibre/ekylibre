@@ -51,6 +51,7 @@ class Inventory < Ekylibre::Record::Base
   validates_presence_of :achieved_at
 
   scope :unreflecteds, -> { where(reflected: false) }
+  scope :before, ->(at) { where(arel_table[:achieved_at].lt(at)) }
 
   accepts_nested_attributes_for :items
 
@@ -66,7 +67,7 @@ class Inventory < Ekylibre::Record::Base
   end
 
   def reflectable?
-    !self.reflected? && self.class.unreflecteds.where(self.class.arel_table[:achieved_at].lt(self.achieved_at)).empty?
+    !self.reflected? && self.class.unreflecteds.before(self.achieved_at).empty?
   end
 
   # Apply deltas on products
@@ -78,25 +79,13 @@ class Inventory < Ekylibre::Record::Base
       self.reflected_at = Time.zone.now
       self.reflected = true
       self.save!
-      for item in items
-        next unless item.actual_population != item.expected_population && product = item.product
-        delta = item.actual_population - item.expected_population
-
-        # Adds reading now if not found before
-        product.read!(:population, item.actual_population, at: self.achieved_at, originator: item)
-
-        # Updates
-        for reading in product.readings.where(indicator_name: 'population').where('read_at > ?', self.achieved_at)
-          reading.value += delta
-          reading.save!
-        end
-      end
+      items.find_each(&:save)
     end
   end
 
   def build_missing_items
     self.achieved_at ||= Time.zone.now
-    for product in Matter.at(achieved_at).of_owner(Entity.of_company)
+    Matter.at(achieved_at).of_owner(Entity.of_company).find_each do |product|
       next if items.detect { |i| i.product_id == product.id }
       population = product.population(at: self.achieved_at)
       # shape = product.shape(at: self.achieved_at)

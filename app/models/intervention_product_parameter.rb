@@ -32,6 +32,7 @@
 #  new_container_id       :integer
 #  new_group_id           :integer
 #  new_variant_id         :integer
+#  outcoming_product_id   :integer
 #  position               :integer          not null
 #  product_id             :integer
 #  quantity_handler       :string
@@ -40,7 +41,6 @@
 #  quantity_unit          :string
 #  quantity_value         :decimal(19, 4)
 #  reference_name         :string           not null
-#  source_product_id      :integer
 #  type                   :string
 #  updated_at             :datetime         not null
 #  updater_id             :integer
@@ -56,7 +56,7 @@ class InterventionProductParameter < InterventionParameter
   belongs_to :new_variant, class_name: 'ProductNatureVariant'
   belongs_to :variant, class_name: 'ProductNatureVariant'
   has_many :crumbs, dependent: :destroy, foreign_key: :intervention_parameter_id
-  has_many :readings, class_name: 'InterventionParameterReading', dependent: :destroy, inverse_of: :intervention_cast
+  has_many :readings, class_name: 'InterventionParameterReading', dependent: :destroy, inverse_of: :intervention_parameter
   has_one :product_nature, through: :variant, source: :nature
   has_one :activity, through: :intervention
   has_one :campaign, through: :intervention

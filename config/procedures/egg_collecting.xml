@@ -3,9 +3,7 @@
   <procedure name="egg_collecting" categories="animal_production" actions="egg_collecting">
     <parameters>
       <parameter name="bird_band" type="target" filter="is aves and can produce(egg)"/>
-      <parameter name="eggs" type="output" variety="egg" derivative-of="variety:bird_band" filter="is egg and derives from aves" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
-        <handler indicator="population"/>
-      </parameter>
+      <parameter name="eggs" type="output" variety="egg" derivative-of="variety:bird_band" filter="is egg and derives from aves" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})"/>
       <parameter name="doer" type="doer" filter="is worker"/>
     </parameters>
   </procedure>

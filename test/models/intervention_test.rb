@@ -45,8 +45,8 @@ require 'test_helper'
 
 class InterventionTest < ActiveSupport::TestCase
   test 'scopes' do
-    cast = InterventionCast.first # intervention_parameters(:intervention_parameters_001)
-    actor = cast.product
+    parameter = InterventionProductParameter.first # intervention_parameters(:intervention_parameters_001)
+    actor = parameter.product
     assert actor, 'Actor can not be nil for following assertions'
     assert_nothing_raised do
       Intervention.with_generic_cast(:tool, actor)
@@ -75,16 +75,16 @@ class InterventionTest < ActiveSupport::TestCase
   test 'creation' do
     intervention = Intervention.create!(procedure_name: :sowing) # , actions: [:game_repellent, :fungicide]
     Worker.of_expression('can drive(equipment) and can move').limit(2) do |bob|
-      intervention.add_item!(:driver, bob)
+      intervention.add_parameter!(:driver, bob)
     end
-    intervention.add_item!(:tractor, Equipment.of_expression('can tow(equipment) and can move').first)
-    intervention.add_item!(:sower, Equipment.of_expression('can sow').first)
-    intervention.add_item!(:seeds, Product.of_expression('is seed and derives from plant and can grow').first, quantity: 25.in_kilogram, quantity_handler: :net_mass)
+    intervention.add_parameter!(:tractor, Equipment.of_expression('can tow(equipment) and can move').first)
+    intervention.add_parameter!(:sower, Equipment.of_expression('can sow').first)
+    intervention.add_parameter!(:seeds, Product.of_expression('is seed and derives from plant and can grow').first, quantity: 25.in_kilogram, quantity_handler: :net_mass)
     cultivation_variant = ProductNatureVariant.import_from_nomenclature(:wheat_crop)
     LandParcel.of_expression('can store(plant)').limit(3).each do |land_parcel|
-      intervention.add_item!(:zone) do |g|
-        g.add_item!(:land_parcel, land_parcel)
-        g.add_item!(:cultivation, variant: cultivation_variant, working_zone: land_parcel.shape)
+      intervention.add_parameter!(:zone) do |g|
+        g.add_parameter!(:land_parcel, land_parcel)
+        g.add_parameter!(:cultivation, variant: cultivation_variant, working_zone: land_parcel.shape)
       end
     end
     assert intervention.runnable?, 'Intervention should be runnable'
@@ -97,7 +97,7 @@ class InterventionTest < ActiveSupport::TestCase
       end
       i.add!(:tractor, Equipment.of_expression('can tow(equipment) and can move').first)
       i.add!(:sower, Equipment.of_expression('can sow').first)
-      i.add!(:seeds, Product.of_expression('is seed and derives from plant and can grow').first, quantity: 25.in_kilogram, quantity_handler: :net_mass)
+      i.add!(:seeds, Product.of_expression('is seed and derives from plant and can grow').first, quantity_population: 5) # , quantity: 25.in_kilogram, quantity_handler: :net_mass)
       cultivation_variant = ProductNatureVariant.import_from_nomenclature(:wheat_crop)
       LandParcel.of_expression('can store(plant)').limit(3).each do |land_parcel|
         i.add!(:zone) do |g|

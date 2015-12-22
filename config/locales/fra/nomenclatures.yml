@@ -1791,7 +1791,7 @@ fra:
         plant_reproduction_state: "Phase du bioprocessus de reproduction d’un végétal"
         plants_count: "Nombre de plantes"
         plants_interval: "Intervalle inter-pieds"
-        population: "Population"
+        population: "Population" #?
         potash_concentration: "Teneur en potasse (K₂O)"
         potassium_concentration: "Teneur en potassium"
         potential_hydrogen: "Potentiel hydrogène (pH)"

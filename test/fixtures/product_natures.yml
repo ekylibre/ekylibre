@@ -1208,7 +1208,7 @@ product_natures_058:
 product_natures_059:
   active: true
   category_id: 25
-  created_at: 2015-12-19 18:11:26.774479000 Z
+  created_at: 2015-12-22 21:39:54.243685000 Z
   evolvable: false
   frozen_indicators_list: net_surface_area
   id: 59
@@ -1217,11 +1217,11 @@ product_natures_059:
   number: BUILDIPG
   population_counting: decimal
   reference_name: land_parcel
-  updated_at: 2015-12-19 18:11:26.774479000 Z
+  updated_at: 2015-12-22 21:39:54.243685000 Z
   variable_indicators_list: aluminium_concentration, available_water_capacity_per_area,
     boron_concentration, calcium_concentration, cation_exchange_capacity, cation_exchange_capacity_analysis_method,
     copper_concentration, iron_concentration, magnesium_concentration, manganese_concentration,
     molybdenum_concentration, nitrogen_concentration, organic_matter_concentration,
-    phosphorus_analysis_method, phosphorus_concentration, population, potassium_concentration,
+    phosphorus_analysis_method, phosphorus_concentration, potassium_concentration,
     potential_hydrogen, shape, soil_depth, soil_nature, sulfur_concentration, zinc_concentration
   variety: land_parcel
