@@ -135,10 +135,32 @@ class InterventionProductParameter < InterventionParameter
       if self.input?
         return price * (quantity_value || 0.0)
       elsif self.tool? || self.doer?
-        return price * ((stopped_at - started_at).to_d / 3600)
+        return price * (duration.to_d / 3600)
       end
     end
     nil
+  end
+  
+  # show how evaluated_price of an product(product) is build
+  def cost_label
+    # case of intrant / tool / doer
+    if product && price_label = evaluated_price
+       if self.input?
+        return "#{quantity.l} x #{price_label.l(currency: Preference[:currency])}"
+      elsif self.tool? || self.doer?
+        return "#{(duration.to_d / 3600).in(:hour).l} x #{price_label.l(currency: Preference[:currency])}"
+      end
+    # case of extrant  
+    elsif variant
+      return "Not implemented"
+       # try to get the last purchase price of the same variant if any.
+      
+       # try to get the last sale price of the same variant if any.
+       
+    # case of transformation or evolution, changing variant
+    elsif new_variant
+       return "Not implemented"
+    end
   end
 
   def earn

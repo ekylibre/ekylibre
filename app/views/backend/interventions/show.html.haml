@@ -70,6 +70,7 @@
           %span.value
             %i.picto{class: "picto-#{type}"}
             = cost.l(currency: Preference[:currency])
+
       .big-info.cost.important
         %span.title= "total_cost".tl
         %span.value= total.l(currency: Preference[:currency])
@@ -86,22 +87,23 @@
       .med-info
         %span.title= Intervention.human_attribute_name(:working_duration)
         %span.value
-          %i.picto.picto-clock-o
+          %i.picto.picto-timelapse
           = human_duration(resource.working_duration)
       .med-info
         %span.title= Intervention.human_attribute_name(:whole_duration)
         %span.value
-          %i.picto.picto-clock-o
+          %i.picto.picto-timelapse
           = human_duration(resource.whole_duration)
-    .info
-      %span.title= Intervention.human_attribute_name(:started_at)
-      %span.value= resource.started_at.l
-    .info
-      %span.title= Intervention.human_attribute_name(:stopped_at)
-      %span.value= resource.stopped_at.l
-    -#.info
-      %span.title= Intervention.human_attribute_name(:production)
-      %span.value= link_to(resource.production.name, {controller: :productions, action: :show, id: resource.production})
+      .med-info
+        %span.title= Intervention.human_attribute_name(:started_at)
+        %span.value
+          %i.picto.picto-clock-o
+          = resource.started_at.l
+      .med-info
+        %span.title= Intervention.human_attribute_name(:stopped_at)
+        %span.value
+          %i.picto.picto-clock-o
+          = resource.stopped_at.l
 
     -# if resource.production_support
       .info

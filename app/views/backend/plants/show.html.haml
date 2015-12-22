@@ -19,7 +19,7 @@
       %span.value= Nomen::Variety[resource.variety].human_name
     .med-info.important
       %span.title= Plant.human_attribute_name(:born_at)
-      %span.value= resource.born_at.l
+      %span.value= resource.initial_born_at.l
     - if resource.born_at and resource.age >= 1.day
       .med-info
         %span.title= Plant.human_attribute_name(:age)
