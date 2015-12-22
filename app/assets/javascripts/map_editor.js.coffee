@@ -182,13 +182,12 @@
 
           layer.setStyle(this.setFeatureStyle(layer.feature))
 
+          layer.closePopup()
+
           #update popup
           this.popupize layer.feature, layer
 
           $(this.element).trigger('mapeditor:feature_update', layer.feature)
-
-          layer.closePopup()
-
 
         false
 
@@ -249,7 +248,7 @@
 
     popupize: (feature, layer) ->
       popup = ""
-      popup += "<div class='popup-content'>"
+      popup += "<div class='popup-header'>"
       id = if feature.properties.id? then "#{feature.properties.id}: " else ''
       popup += "<span class='popup-block-content' data-internal-id='#{feature.properties.internal_id}'>#{id}#{feature.properties.name || this.options.defaultLabel}</span>"
       popup += "<span class='warning right hide'></span>"
@@ -259,19 +258,24 @@
 
       if this.options.multiLevels?
         popup += "<select>"
-        for level in [parseInt(this.options.multiLevels.minLevel)..parseInt(this.options.multiLevels.maxLevel)]
+
+        for level in [parseInt(@options.multiLevels.maxLevel)..parseInt(@options.multiLevels.minLevel)]
           selected = ""
+
           if level == parseInt(feature.properties.level)
             selected = "selected"
 
-          popup += "<option value='#{level}' #{selected}>#{level}</option>"
+          #TODO i18n this
+          label = if level == 0 then 'RDC' else "#{@options.multiLevels.levelLabel} #{level}"
+
+          popup += "<option value='#{level}' #{selected}>#{label}</option>"
 
         popup += "</select>"
 
       popup += "<input class='updateAttributesInPopup' type='button' value='ok'/>"
       popup += "</div>"
 
-      layer.bindPopup popup
+      layer.bindPopup popup, keepInView: true, maxWidth: 600
 
     colorize: (level) ->
       #levels rane is set to [-3,3]
@@ -455,8 +459,11 @@
         html += "<div class='leaflet-legend-body leaflet-multilevel-legend' data-level='#{level}'>"
 
         color = this.colorize(level)
-        html += "<i class='active' style='background-color: #{color}' title='#{this.options.defaultLevelLabel} #{level}'></i>"
-        html += "<span>#{this.options.defaultLevelLabel} #{level}</span>"
+
+        label = if level == 0 then 'RDC' else "#{this.options.defaultLevelLabel} #{level}"
+
+        html += "<i class='active' style='background-color: #{color}' title='#{label}'></i>"
+        html += "<span>#{label}</span>"
         html += "</div>"
         html += "</div>"
 
