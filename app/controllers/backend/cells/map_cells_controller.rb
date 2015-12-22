@@ -9,6 +9,8 @@ module Backend
         else
           @campaigns = current_campaign
         end
+        @activity_production_ids = params[:activity_production_ids] if params[:activity_production_ids]
+        @activity_production_ids = params[:activity_production_id] if params[:activity_production_id]
       end
     end
   end

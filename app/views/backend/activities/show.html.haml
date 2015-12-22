@@ -4,7 +4,7 @@
 - main_campaign_selector
 
 = cobbles do |c|
-  - c.cobble :details do
+  - c.cobble :general_informations do
     = attributes_list do |l|
       - l.attribute :name
       - l.attribute :nature
@@ -16,9 +16,13 @@
       - if resource.custom_fields.any?
         - l.custom_fields
 
-  - if resource.cultivation_variety?
+  - if resource.cultivation_variety? && resource.productions.map(&:support_shape).any? && current_campaign
+  
+    - c.cobble :details do
+      = resource.productions.of_campaign(current_campaign).map(&:net_surface_area).compact.sum
+      
     - c.cobble :map do
-      = cell :map, params: {visualization: :grain_yield}
+      = cell :map, params: {visualization: :grain_yield, activity_production_ids: resource.productions.pluck(:id)}
 
   - c.cobble(:productions) do
     = cobble_toolbar do |t|

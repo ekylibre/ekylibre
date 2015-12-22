@@ -363,13 +363,25 @@ class ActivityProduction < Ekylibre::Record::Base
     value = value.in(size_unit) unless size_unit.blank?
     value
   end
-
-  def net_surface_area
-    area = 0.0.in_square_meter
-    area = size if size_indicator == 'net_surface_area'
+  
+  ## AREA METHODS ##
+  
+  def to_geom
+    ::Charta.new_geometry(support_shape)
+  end
+  
+  def net_surface_area(unit = :hectare)
+    area = 0.0.in(unit)
+    if size_indicator == 'net_surface_area' && size_value != 0.0
+      area = size 
+    elsif support_shape
+      area = to_geom.area.in(unit).round(3)
+    end
     area
   end
-
+  
+  ## LABEL METHODS ##
+  
   def work_name
     "#{support.work_name} - #{net_surface_area}"
   end
