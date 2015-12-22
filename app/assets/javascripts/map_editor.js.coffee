@@ -158,22 +158,38 @@
           level = $(e.currentTarget).closest('.popup-content').find('select').val()
           this.updateFeatureProperties(featureId, 'level', level)
 
-
-        this.updateFeatureProperties(featureId, 'name', newName)
-
         layer = this.findLayer(featureId)
 
-        #update label
-        layer.updateLabelContent(layer.feature.properties.name)
+        already_exist = this.findLayerByName(newName)
 
-        layer.setStyle(this.setFeatureStyle(layer.feature))
+        if already_exist isnt undefined
+          if already_exist.feature.properties.internal_id != layer.feature.properties.internal_id
+            already_exist = true
 
-        #update popup
-        this.popupize layer.feature, layer
 
-        $(this.element).trigger('mapeditor:feature_update', layer.feature)
+        if already_exist is true
+          # Don't change the name if a different layer use this name
+          $(e.currentTarget).closest('.leaflet-popup-content').find('.warning').removeClass 'hide'
 
-        layer.closePopup()
+
+        else
+
+          this.updateFeatureProperties(featureId, 'name', newName)
+
+
+          #update label
+          layer.updateLabelContent(layer.feature.properties.name)
+
+          layer.setStyle(this.setFeatureStyle(layer.feature))
+
+          #update popup
+          this.popupize layer.feature, layer
+
+          $(this.element).trigger('mapeditor:feature_update', layer.feature)
+
+          layer.closePopup()
+
+
         false
 
       widget.element.trigger "mapeditor:loaded"
@@ -214,6 +230,15 @@
           return
       return containerLayer
 
+    findLayerByName: (feature_name) ->
+      containerLayer = undefined
+      this.edition.eachLayer (layer) =>
+        if (layer.feature.properties.name == feature_name)
+          containerLayer = layer
+          return
+
+      return containerLayer
+
     navigateToLayer: (layer) ->
       this.map.fitBounds layer.getBounds()
 
@@ -227,6 +252,7 @@
       popup += "<div class='popup-content'>"
       id = if feature.properties.id? then "#{feature.properties.id}: " else ''
       popup += "<span class='popup-block-content' data-internal-id='#{feature.properties.internal_id}'>#{id}#{feature.properties.name || this.options.defaultLabel}</span>"
+      popup += "<span class='warning right hide'></span>"
       popup += "</div>"
       popup += "<div class='popup-content'>"
       popup += "<input type='text' value='#{feature.properties.name || this.options.defaultLabel}'/>"

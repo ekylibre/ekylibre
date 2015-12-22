@@ -989,3 +989,15 @@ span.leaflet-importer-geojson, span.leaflet-importer-gml {
     background: transparent;
   }
 }
+
+.warning {
+  @include is-icon;
+  @include use-icon(warning);
+  &.hide {
+    display: none;
+  }
+
+  &.right {
+    float: right;
+  }
+}
