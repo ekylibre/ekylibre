@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add varieties">
+  <item-creation item="varieties#cucurbita_moschata_butternut_ariel" parent="cucurbita_moschata_butternut" itis_tsn="22370"/>
+  <item-creation item="varieties#cucurbita_maxima_routpower" parent="cucurbita_maxima" itis_tsn="527581"/>
+  <item-creation item="varieties#convolvulaceae" parent="plant" itis_tsn="30648"/>
+  <item-creation item="varieties#ipomoea" parent="convolvulaceae" itis_tsn="30758"/>
+  <item-creation item="varieties#ipomoea_batatas" parent="ipomoea" itis_tsn="30764"/>
+  <item-creation item="varieties#ipomoea_batatas_beauregard" parent="ipomoea_batatas" itis_tsn="30764"/>
+  <item-creation item="varieties#zea_mays_colisee" parent="zea_mays" itis_tsn="42269"/>
+  <item-creation item="varieties#zea_mays_eufori_cs" parent="zea_mays" itis_tsn="42269"/>
+  <item-creation item="varieties#zea_mays_P0216" parent="zea_mays" itis_tsn="42269"/>
+  <item-creation item="varieties#zea_mays_roberi_cs" parent="zea_mays" itis_tsn="42269"/>
+  <item-creation item="varieties#raphanus_sativus_oleiformis" parent="raphanus_sativus" itis_tsn="23290"/>
+  <item-creation item="varieties#raphanus_sativus_oleiformis_compass" parent="raphanus_sativus_oleiformis" itis_tsn="23290"/>
+  <item-creation item="varieties#phaseolus_vulgaris_denver" parent="phaseolus_vulgaris" itis_tsn="26857"/>
+  <item-creation item="varieties#phaseolus_vulgaris_sv1162gn" parent="phaseolus_vulgaris" itis_tsn="26857"/>
+  <item-creation item="varieties#zea_mays_saccharata_moreland" parent="zea_mays_saccharata" itis_tsn="42269"/>
+</migration>

@@ -24,6 +24,7 @@
     - c.cobble :map do
       = cell :map, params: {visualization: :grain_yield, activity_production_ids: resource.productions.pluck(:id)}
 
+
   - c.cobble(:productions) do
     = cobble_toolbar do |t|
       - t.new(params: {controller: :activity_productions, activity_id: resource.id})

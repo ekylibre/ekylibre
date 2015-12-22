@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151218081701">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151222162657">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -4256,6 +4256,7 @@
       <item name="coffea_stenophylla" parent="coffea" itis_tsn="506062"/>
       <item name="compost" parent="excrement"/>
       <item name="concentrated_rectified_must" parent="preparation" derivative_of="fruit"/>
+      <item name="convolvulaceae" parent="plant" itis_tsn="30648"/>
       <item name="coriandrum" parent="apiaceae" itis_tsn="29621"/>
       <item name="coriandrum_sativum" parent="coriandrum" itis_tsn="29622"/>
       <item name="cork" parent="packaged_matter"/>
@@ -4322,11 +4323,13 @@
       <item name="cucurbita_maxima_potimarron_red_hokkaido" parent="cucurbita_maxima_potimarron" itis_tsn="527581"/>
       <item name="cucurbita_maxima_potimarron_uchiki_kuri" parent="cucurbita_maxima_potimarron" itis_tsn="527581"/>
       <item name="cucurbita_maxima_rouge_vif_detampes" parent="cucurbita_maxima" itis_tsn="847542"/>
+      <item name="cucurbita_maxima_routpower" parent="cucurbita_maxima" itis_tsn="527581"/>
       <item name="cucurbita_maxima_turban" parent="cucurbita_maxima" itis_tsn="847542"/>
       <item name="cucurbita_maxima_vert_de_hokkaido" parent="cucurbita_maxima" itis_tsn="847542"/>
       <item name="cucurbita_maxima_vert_olive" parent="cucurbita_maxima" itis_tsn="847542"/>
       <item name="cucurbita_moschata" parent="cucurbita" itis_tsn="22370"/>
       <item name="cucurbita_moschata_butternut" parent="cucurbita_moschata" itis_tsn="22370"/>
+      <item name="cucurbita_moschata_butternut_ariel" parent="cucurbita_moschata_butternut" itis_tsn="22370"/>
       <item name="cucurbita_moschata_butternut_havanna" parent="cucurbita_moschata_butternut" itis_tsn="22370"/>
       <item name="cucurbita_moschata_futsu_black" parent="cucurbita_moschata" itis_tsn="22370"/>
       <item name="cucurbita_moschata_long_island" parent="cucurbita_moschata" itis_tsn="22370"/>
@@ -4708,6 +4711,9 @@
       <item name="immatter" parent="product"/>
       <item name="implanter" parent="equipment"/>
       <item name="insecta" parent="animal" itis_tsn="99208"/>
+      <item name="ipomoea" parent="convolvulaceae" itis_tsn="30758"/>
+      <item name="ipomoea_batatas" parent="ipomoea" itis_tsn="30764"/>
+      <item name="ipomoea_batatas_beauregard" parent="ipomoea_batatas" itis_tsn="30764"/>
       <item name="iridaceae" parent="plant" itis_tsn="43190"/>
       <item name="item" parent="equipment"/>
       <item name="juglandaceae" parent="plant" itis_tsn="19222"/>
@@ -4876,12 +4882,14 @@
       <item name="phaseolus" parent="fabaceae" itis_tsn="203844"/>
       <item name="phaseolus_vulgaris" parent="phaseolus" itis_tsn="26857"/>
       <item name="phaseolus_vulgaris_carthage" parent="phaseolus" itis_tsn="26857"/>
+      <item name="phaseolus_vulgaris_denver" parent="phaseolus_vulgaris" itis_tsn="26857"/>
       <item name="phaseolus_vulgaris_flagrano" parent="phaseolus" itis_tsn="26857"/>
       <item name="phaseolus_vulgaris_kaiser" parent="phaseolus" itis_tsn="26857"/>
       <item name="phaseolus_vulgaris_lugos" parent="phaseolus" itis_tsn="26857"/>
       <item name="phaseolus_vulgaris_mogex" parent="phaseolus" itis_tsn="26857"/>
       <item name="phaseolus_vulgaris_molly" parent="phaseolus" itis_tsn="26857"/>
       <item name="phaseolus_vulgaris_stanley" parent="phaseolus" itis_tsn="26857"/>
+      <item name="phaseolus_vulgaris_sv1162gn" parent="phaseolus_vulgaris" itis_tsn="26857"/>
       <item name="phasianidae" parent="aves" itis_tsn="175861"/>
       <item name="phasianus" parent="phasianidae" itis_tsn="175904"/>
       <item name="phasianus_colchicus" parent="phasianus" itis_tsn="175905"/>
@@ -4967,6 +4975,8 @@
       <item name="raphanus_sativus_fluo" parent="raphanus_sativus" itis_tsn="23290"/>
       <item name="raphanus_sativus_niger" parent="raphanus_sativus" itis_tsn="23290"/>
       <item name="raphanus_sativus_niger_poids_d_horloge" parent="raphanus_sativus_niger" itis_tsn="23290"/>
+      <item name="raphanus_sativus_oleiformis" parent="raphanus_sativus" itis_tsn="23290"/>
+      <item name="raphanus_sativus_oleiformis_compass" parent="raphanus_sativus_oleiformis" itis_tsn="23290"/>
       <item name="raspberry" parent="fruit" derivative_of="rubus"/>
       <item name="raw_matter" parent="preparation"/>
       <item name="reaper" parent="equipment"/>
@@ -5630,6 +5640,7 @@
       <item name="yeast" parent="preparation"/>
       <item name="zea" parent="poaceae" itis_tsn="42268"/>
       <item name="zea_mays" parent="zea" itis_tsn="42269"/>
+      <item name="zea_mays_P0216" parent="zea_mays" itis_tsn="42269"/>
       <item name="zea_mays_aallexia" parent="zea_mays" itis_tsn="0"/>
       <item name="zea_mays_barcarolle_cs" parent="zea_mays" itis_tsn="42269"/>
       <item name="zea_mays_bergxxon" parent="zea_mays" itis_tsn="0"/>
@@ -5643,6 +5654,7 @@
       <item name="zea_mays_ceratina_p1547e" parent="zea_mays_ceratina" itis_tsn="42269"/>
       <item name="zea_mays_ceratina_pr34N41waxy" parent="zea_mays_ceratina" itis_tsn="42269"/>
       <item name="zea_mays_ceratina_pr35f36" parent="zea_mays_ceratina" itis_tsn="42269"/>
+      <item name="zea_mays_colisee" parent="zea_mays" itis_tsn="42269"/>
       <item name="zea_mays_copernic_cs" parent="zea_mays" itis_tsn="42269"/>
       <item name="zea_mays_corretta_cs" parent="zea_mays" itis_tsn="42269"/>
       <item name="zea_mays_dkc3912" parent="zea_mays" itis_tsn="0"/>
@@ -5653,6 +5665,7 @@
       <item name="zea_mays_es_carmen" parent="zea_mays" itis_tsn="42269"/>
       <item name="zea_mays_es_cirrius" parent="zea_mays" itis_tsn="42269"/>
       <item name="zea_mays_es_kongress" parent="zea_mays" itis_tsn="42269"/>
+      <item name="zea_mays_eufori_cs" parent="zea_mays" itis_tsn="42269"/>
       <item name="zea_mays_everta" parent="zea_mays" itis_tsn="0"/>
       <item name="zea_mays_gerzi_cs" parent="zea_mays" itis_tsn="42269"/>
       <item name="zea_mays_lg30533" parent="zea_mays" itis_tsn="0"/>
@@ -5672,6 +5685,7 @@
       <item name="zea_mays_ph30" parent="zea_mays" itis_tsn="42269"/>
       <item name="zea_mays_ph31s" parent="zea_mays" itis_tsn="42269"/>
       <item name="zea_mays_pr34p88" parent="zea_mays" itis_tsn="42269"/>
+      <item name="zea_mays_roberi_cs" parent="zea_mays" itis_tsn="42269"/>
       <item name="zea_mays_saccharata" parent="zea_mays" itis_tsn="0"/>
       <item name="zea_mays_saccharata_646" parent="zea_mays_saccharata" itis_tsn="42269"/>
       <item name="zea_mays_saccharata_714" parent="zea_mays_saccharata" itis_tsn="42269"/>
@@ -5682,6 +5696,7 @@
       <item name="zea_mays_saccharata_c446" parent="zea_mays_saccharata" itis_tsn="42269"/>
       <item name="zea_mays_saccharata_c646" parent="zea_mays_saccharata" itis_tsn="42269"/>
       <item name="zea_mays_saccharata_gss1477" parent="zea_mays_saccharata" itis_tsn="42269"/>
+      <item name="zea_mays_saccharata_moreland" parent="zea_mays_saccharata" itis_tsn="42269"/>
       <item name="zea_mays_shannon" parent="zea_mays" itis_tsn="0"/>
       <item name="zeuzera_pyrina" parent="insecta"/>
       <item name="zingiberaceae" parent="plant" itis_tsn="42392"/>
