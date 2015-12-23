@@ -1001,3 +1001,22 @@ span.leaflet-importer-geojson, span.leaflet-importer-gml {
     float: right;
   }
 }
+
+.choice-padding {
+  display: inline-block;
+  margin-right: 15px;
+
+  input[type=radio] {
+    margin-right: 3px;
+  }
+}
+
+.modal-header {
+  .leaflet-importer-ctrl {
+    color: black;
+  }
+  span {
+    margin-left: 10px;
+    font-size: 18px;
+  }
+}

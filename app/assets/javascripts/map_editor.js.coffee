@@ -78,7 +78,7 @@
           kml: false
           title: ''
           content: ''
-          template: '<div class="modal-header"><h4>{title}</h4></div>
+          template: '<div class="modal-header"><i class="leaflet-importer-ctrl"></i><span>{title}</span></div>
                      <div class="modal-body">{content}</div>
                      <div class="modal-footer">
                        <button type="submit" class="{OK_CLS}" data-editor-submit=true>{okText}</button>
@@ -559,12 +559,10 @@
                 $(this).find('[data-importer-spinner]').addClass('active')
 
               $(modal._container).on 'ajax:complete','form[data-importer-form]', (e,data) =>
-                response = L.geoJson($.parseJSON(data.responseText))
 
-                response.eachLayer (layer) =>
-                  this.edition.addData layer.feature
+                this.edition.addData $.parseJSON(data.responseText)
 
-                this.update
+                this.update()
 
                 modal.hide()
 

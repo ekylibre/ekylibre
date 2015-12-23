@@ -18,22 +18,75 @@ module Backend
     protected
 
     def import_shapes(file, format)
+      geometry = file.read
+      feature = nil
+      geojson_features = nil
+      geojson_features_collection = {}
+
       case format
-      when 'gml'
-        import = Charta::GmlImport.new(file.read)
-      when 'kml'
-        import = Charta::KmlImport.new(file.read)
-      when 'geojson'
-        import = Charta::GeojsonImport.new(file.read)
-      else
-        fail 'Invalid format'
+        when 'gml'
+          geometry = ::Charta.from_gml(geometry).transform(:WGS84).to_geojson if ::Charta::GML.valid?(geometry)
+
+        when 'kml'
+          geometry = Charta.from_kml(geometry).transform(:WGS84).to_geojson if ::Charta::KML.valid?(geometry)
+
+        when 'geojson'
+          #DO Nothing
+
+        else
+          fail 'Invalid format'
       end
-      geometries = nil
-      if import.valid?
-        import.shapes
-        geometries = import.as_geojson
+
+      if ::Charta::GeoJSON.valid?(geometry)
+        geojson = (geometry.is_a?(Hash) ? geometry : JSON.parse(geometry))|| {}
+
+        if geojson.has_key? 'feature'
+          single_feature = [geojson]
+        end
+
+        if geojson.has_key? 'coordinates'
+          single_geometry = [geojson]
+        end
+
+        if geojson.has_key? 'features' or single_feature.is_a? Array or single_geometry.is_a? Array
+          geoarray = geojson.try(:[], 'features') || single_feature || single_geometry
+          if geoarray.is_a?(Array) and geoarray.count > 0
+            geojson_features = geoarray.collect do |feature|
+              geofeature = nil
+              gfeature = feature || {}
+              gfeature['geometry'] = feature if single_geometry
+
+              if gfeature.has_key? 'geometry'
+                if ::Charta::GeoJSON.valid?(gfeature['geometry'])
+                  geofeature = {
+                      type: 'Feature',
+                      properties: {
+                          internal_id: (Time.now.to_i.to_s + Time.now.usec.to_s),
+                          name: gfeature.try(:[], 'properties').try(:[], 'name'),
+                          id: gfeature.try(:[], 'properties').try(:[], 'id'),
+                          removable: true
+                      }.reject { |_, v| v.nil? },
+                      geometry: Charta.from_geojson(gfeature['geometry']).transform(:WGS84).to_geojson
+                  }.reject { |_, v| v.nil? }
+                end
+              end
+              p gfeature
+              p gfeature.try(:[], 'properties').try(:[], 'name')
+              geofeature
+            end
+
+            p 'geofe', geojson_features
+          end
+        end
       end
-      geometries
+
+      unless geojson_features.nil?
+        geojson_features_collection = {
+            type: 'FeatureCollection',
+            features: geojson_features
+        }
+      end
+      geojson_features_collection
     end
   end
 end
