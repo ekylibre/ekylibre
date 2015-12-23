@@ -355,7 +355,7 @@ class ActionController::TestCase
           test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
           test_code << "post :#{action}, #{sanitized_params[id: 'RECORD.id'.c, format: :json]}\n"
           test_code << "assert_response :unprocessable_entity\n"
-          test_code << "post :#{action}, #{sanitized_params[id: 'RECORD.id'.c, format: :json, indicator: 'population']}\n"
+          test_code << "post :#{action}, #{sanitized_params[id: 'RECORD.id'.c, format: :json, indicator: 'net_mass']}\n"
           test_code << "assert_response :success, #{context}\n"
         elsif mode == :soft_touch
           test_code << "post :#{action}, #{sanitized_params[]}\n"

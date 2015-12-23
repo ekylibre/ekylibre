@@ -32,6 +32,7 @@ module Iot
 
       # Get indicators
       items = []
+      report[:items] ||= {}
       report[:items].each do |name, value|
         indicator = Nomen::Indicator.find(name)
         unless indicator

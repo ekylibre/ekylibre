@@ -391,6 +391,10 @@ module Nomen
     end
     alias_method :item, :find
 
+    def include?(item)
+      @items[item.respond_to?(:name) ? item.name : item].present?
+    end
+
     def property(property_name)
       @properties[property_name]
     end

@@ -51,7 +51,8 @@ cap_statements_001:
   farm_name: C. Ferstivall LTD
   id: 1
   lock_version: 0
-  siret_number: ''
+  pacage_number: 012006578
+  siret_number: '12345678900015'
   updated_at: 2014-11-04 15:26:29.112273000 Z
   updater_id: 1
 cap_statements_002:

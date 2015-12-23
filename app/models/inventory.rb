@@ -67,14 +67,12 @@ class Inventory < Ekylibre::Record::Base
   end
 
   def reflectable?
-    !self.reflected? && self.class.unreflecteds.before(self.achieved_at).empty?
+    !self.reflected? # && self.class.unreflecteds.before(self.achieved_at).empty?
   end
 
   # Apply deltas on products
   def reflect
-    unless self.reflectable?
-      fail StandardError, 'Cannot reflect reflected inventory'
-    end
+    fail StandardError, 'Not reflectable inventory' unless self.reflectable?
     self.class.transaction do
       self.reflected_at = Time.zone.now
       self.reflected = true
