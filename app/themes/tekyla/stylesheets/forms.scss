@@ -1,5 +1,6 @@
 $spacing: round($default-ratio * $default-gap);
 $vertical-spacing: round($spacing / $default-ratio);
+$nested-field-border: $menu-border-width solid mix($menu-border-color, white);
 
 .fieldset {
   // @include border-radius($default-border-radius);
@@ -108,19 +109,6 @@ $vertical-spacing: round($spacing / $default-ratio);
     & > .fieldset {
       @include margin-left(0);
       @include margin-right(0);
-    }
-
-    div.nested-fields {
-      padding: 1px 0;
-      border-left: $menu-border-width dotted $menu-border-color;
-      border-right: $menu-border-width dotted $menu-border-color;
-      border-top: $menu-border-width dotted $menu-border-color;
-      border-left: $menu-border-width solid mix($menu-border-color, white);
-      border-right: $menu-border-width solid mix($menu-border-color, white);
-      border-top: $menu-border-width solid mix($menu-border-color, white);
-      &:first-child {
-        @include border-top-radius($default-border-radius);
-      }
     }
 
 
@@ -296,22 +284,36 @@ div.nested-fields {
   }
 }
 
-.links {
-  margin-bottom: $fs-normal;
-  padding: round(0.5 * $spacing);
-  background: #F7F7F7;
-  border: $menu-border-width solid mix($menu-border-color, white); // $menu-border-width dotted $menu-border-color
-  @include border-bottom-radius($default-border-radius);
-  .nested-add {
-    @include margin-left($controls-margin-left);
-  }
-}
 
 .nested-association {
+  border: $nested-field-border;
+  margin-bottom: $fs-normal;
+  @include border-radius($default-border-radius);
+  div.nested-fields {
+    padding: 1px 0;
+    border-top: $nested-field-border;
+    &:first-child {
+      border-top: none;
+      @include border-top-radius($default-border-radius);
+    }
+    &:last-child {
+      @include border-bottom-radius($default-border-radius);
+    }
+  }
+  .links {
+    border-top: $nested-field-border;
+    padding: round(0.5 * $spacing);
+    background: #F7F7F7;
+    @include border-bottom-radius($default-border-radius);
+    &:first-child {
+      border-top: none;
+    }
+    .nested-add {
+      @include margin-left($controls-margin-left);
+    }
+  }
+
   .nested-association {
     margin: $spacing;
-  }
-  *:first-child {
-    @include border-top-radius($default-border-radius);
   }
 }
