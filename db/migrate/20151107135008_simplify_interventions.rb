@@ -239,12 +239,12 @@ class SimplifyInterventions < ActiveRecord::Migration
     end
 
     # Updates activities
-    add_column :activities, :size_indicator, :string
-    add_column :activities, :size_unit, :string
+    add_column :activities, :size_indicator_name, :string
+    add_column :activities, :size_unit_name, :string
     add_column :activities, :suspended, :boolean, null: false, default: false
     reversible do |d|
       d.up do
-        execute 'UPDATE activities SET size_indicator = support_variant_indicator, size_unit = support_variant_unit FROM productions WHERE activity_id = activities.id'
+        execute "UPDATE activities SET size_indicator_name = support_variant_indicator, size_unit_name = support_variant_unit FROM productions WHERE activity_id = activities.id AND support_variant_indicator != 'population'"
       end
     end
 
@@ -278,8 +278,8 @@ class SimplifyInterventions < ActiveRecord::Migration
     rename_column :activity_productions, :storage_id, :support_id
     rename_column :activity_productions, :production_usage, :usage
     rename_column :activity_productions, :quantity, :size_value
-    rename_column :activity_productions, :quantity_indicator, :size_indicator
-    rename_column :activity_productions, :quantity_unit, :size_unit
+    rename_column :activity_productions, :quantity_indicator, :size_indicator_name
+    rename_column :activity_productions, :quantity_unit, :size_unit_name
     reversible do |d|
       d.up do
         # Sets cultivable_zone column when possible
@@ -405,8 +405,8 @@ class SimplifyInterventions < ActiveRecord::Migration
     # - Quantity
     add_column :intervention_parameters, :quantity_handler, :string
     add_column :intervention_parameters, :quantity_value, :decimal, precision: 19, scale: 4
-    add_column :intervention_parameters, :quantity_unit, :string
-    add_column :intervention_parameters, :quantity_indicator, :string
+    add_column :intervention_parameters, :quantity_unit_name, :string
+    add_column :intervention_parameters, :quantity_indicator_name, :string
     rename_column :intervention_parameters, :population, :quantity_population
 
     # - Working zone
@@ -575,6 +575,15 @@ class SimplifyInterventions < ActiveRecord::Migration
 
     # Move population values to product_movements
     execute "INSERT INTO product_movements (reading_id, product_id, population, delta, started_at, originator_id, originator_type, created_at, creator_id, updated_at, updater_id, lock_version) SELECT id, product_id, decimal_value, decimal_value, read_at, originator_id, originator_type, created_at, creator_id, updated_at, updater_id, lock_version FROM product_readings WHERE indicator_name = 'population' ORDER BY product_id, read_at"
+
+    # Product
+    add_reference :products, :initial_movement, index: true
+    execute 'UPDATE products SET born_at = initial_born_at WHERE born_at IS NULL AND initial_born_at IS NOT NULL'
+    execute 'UPDATE products SET initial_movement_id = m.id FROM product_movements AS m WHERE m.started_at = born_at AND products.id = m.product_id'
+    execute 'INSERT INTO product_movements (product_id, population, delta, started_at, created_at, creator_id, updated_at, updater_id, lock_version) SELECT id, initial_population, initial_population, born_at, created_at, creator_id, updated_at, updater_id, lock_version FROM products WHERE initial_movement_id IS NULL AND initial_population IS NOT NULL AND born_at IS NOT NULL'
+    execute 'UPDATE products SET initial_movement_id = m.id FROM product_movements AS m WHERE initial_movement_id IS NULL AND m.started_at = born_at AND products.id = m.product_id'
+
+    # Updates population values
     execute 'UPDATE product_movements SET delta = product_movements.population - previous.population FROM product_movements AS previous WHERE previous.id = product_movements.id - 1 AND previous.product_id = product_movements.product_id'
     execute 'UPDATE product_movements SET stopped_at = following.started_at FROM product_movements AS following WHERE following.id = product_movements.id + 1 AND following.product_id = product_movements.product_id'
 
@@ -591,6 +600,9 @@ class SimplifyInterventions < ActiveRecord::Migration
     execute "UPDATE inventory_items SET product_movement_id = m.id FROM product_movements AS m WHERE m.originator_type = 'InventoryItem' AND m.originator_id = inventory_items.id"
     remove_column :inventory_items, :actual_shape
     remove_column :inventory_items, :expected_shape
+
+    # ProductNature
+    execute "UPDATE product_natures SET frozen_indicators_list = NULLIF(ARRAY_TO_STRING(ARRAY_REMOVE(STRING_TO_ARRAY(frozen_indicators_list, ', '), 'population'), ', '), ''), variable_indicators_list = NULLIF(ARRAY_TO_STRING(ARRAY_REMOVE(STRING_TO_ARRAY(variable_indicators_list, ', '), 'population'), ', '), '')"
 
     # Removes all population indicator data
     %w(product_readings analysis_items intervention_parameter_readings product_nature_variant_readings).each do |table|

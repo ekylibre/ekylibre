@@ -133,9 +133,9 @@ activities:
   nature:
     type: string
     required: true
-  size_indicator:
+  size_indicator_name:
     type: string
-  size_unit:
+  size_unit_name:
     type: string
   support_variety:
     type: string
@@ -280,10 +280,10 @@ activity_productions:
   rank_number:
     type: integer
     required: true
-  size_indicator:
+  size_indicator_name:
     type: string
     required: true
-  size_unit:
+  size_unit_name:
     type: string
   size_value:
     type: decimal
@@ -2544,13 +2544,13 @@ intervention_parameters:
     references: product
   quantity_handler:
     type: string
-  quantity_indicator:
+  quantity_indicator_name:
     type: string
   quantity_population:
     type: decimal
     precision: 19
     scale: 4
-  quantity_unit:
+  quantity_unit_name:
     type: string
   quantity_value:
     type: decimal
@@ -4692,6 +4692,9 @@ products:
   initial_mother_id:
     type: integer
     references: product
+  initial_movement_id:
+    type: integer
+    references: product_movement
   initial_owner_id:
     type: integer
     references: entity

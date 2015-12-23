@@ -79,8 +79,8 @@ ActiveRecord::Schema.define(version: 20151108001401) do
     t.boolean  "with_cultivation",                    null: false
     t.string   "support_variety"
     t.string   "cultivation_variety"
-    t.string   "size_indicator"
-    t.string   "size_unit"
+    t.string   "size_indicator_name"
+    t.string   "size_unit_name"
     t.boolean  "suspended",           default: false, null: false
   end
 
@@ -138,26 +138,26 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "activity_distributions", ["updater_id"], name: "index_activity_distributions_on_updater_id", using: :btree
 
   create_table "activity_productions", force: :cascade do |t|
-    t.integer  "support_id",                                                                                                null: false
-    t.datetime "created_at",                                                                                                null: false
-    t.datetime "updated_at",                                                                                                null: false
+    t.integer  "support_id",                                                                                                 null: false
+    t.datetime "created_at",                                                                                                 null: false
+    t.datetime "updated_at",                                                                                                 null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                              default: 0,     null: false
-    t.string   "usage",                                                                                                     null: false
-    t.decimal  "size_value",                                                       precision: 19, scale: 4,                 null: false
-    t.string   "size_indicator",                                                                                            null: false
-    t.string   "size_unit"
-    t.integer  "activity_id",                                                                                               null: false
+    t.integer  "lock_version",                                                                               default: 0,     null: false
+    t.string   "usage",                                                                                                      null: false
+    t.decimal  "size_value",                                                        precision: 19, scale: 4,                 null: false
+    t.string   "size_indicator_name",                                                                                        null: false
+    t.string   "size_unit_name"
+    t.integer  "activity_id",                                                                                                null: false
     t.integer  "cultivable_zone_id"
-    t.boolean  "irrigated",                                                                                 default: false, null: false
-    t.boolean  "nitrate_fixing",                                                                            default: false, null: false
-    t.geometry "support_shape",      limit: {:srid=>4326, :type=>"multi_polygon"}
+    t.boolean  "irrigated",                                                                                  default: false, null: false
+    t.boolean  "nitrate_fixing",                                                                             default: false, null: false
+    t.geometry "support_shape",       limit: {:srid=>4326, :type=>"multi_polygon"}
     t.string   "support_nature"
     t.date     "started_on"
     t.date     "stopped_on"
     t.string   "state"
-    t.integer  "rank_number",                                                                                               null: false
+    t.integer  "rank_number",                                                                                                null: false
   end
 
   add_index "activity_productions", ["activity_id"], name: "index_activity_productions_on_activity_id", using: :btree
@@ -1304,18 +1304,18 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "intervention_parameter_readings", ["updater_id"], name: "index_intervention_parameter_readings_on_updater_id", using: :btree
 
   create_table "intervention_parameters", force: :cascade do |t|
-    t.integer  "intervention_id",                                                                                           null: false
+    t.integer  "intervention_id",                                                                                            null: false
     t.integer  "product_id"
     t.integer  "variant_id"
-    t.decimal  "quantity_population",                                                  precision: 19, scale: 4
-    t.geometry "working_zone",           limit: {:srid=>4326, :type=>"multi_polygon"}
-    t.string   "reference_name",                                                                                            null: false
-    t.integer  "position",                                                                                                  null: false
-    t.datetime "created_at",                                                                                                null: false
-    t.datetime "updated_at",                                                                                                null: false
+    t.decimal  "quantity_population",                                                   precision: 19, scale: 4
+    t.geometry "working_zone",            limit: {:srid=>4326, :type=>"multi_polygon"}
+    t.string   "reference_name",                                                                                             null: false
+    t.integer  "position",                                                                                                   null: false
+    t.datetime "created_at",                                                                                                 null: false
+    t.datetime "updated_at",                                                                                                 null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                                  default: 0, null: false
+    t.integer  "lock_version",                                                                                   default: 0, null: false
     t.integer  "event_participation_id"
     t.integer  "outcoming_product_id"
     t.string   "type"
@@ -1323,9 +1323,9 @@ ActiveRecord::Schema.define(version: 20151108001401) do
     t.integer  "new_group_id"
     t.integer  "new_variant_id"
     t.string   "quantity_handler"
-    t.decimal  "quantity_value",                                                       precision: 19, scale: 4
-    t.string   "quantity_unit"
-    t.string   "quantity_indicator"
+    t.decimal  "quantity_value",                                                        precision: 19, scale: 4
+    t.string   "quantity_unit_name"
+    t.string   "quantity_indicator_name"
     t.integer  "group_id"
   end
 
@@ -2481,6 +2481,7 @@ ActiveRecord::Schema.define(version: 20151108001401) do
     t.integer  "person_id"
     t.geometry "initial_geolocation",   limit: {:srid=>4326, :type=>"point"}
     t.uuid     "uuid"
+    t.integer  "initial_movement_id"
   end
 
   add_index "products", ["address_id"], name: "index_products_on_address_id", using: :btree
@@ -2493,6 +2494,7 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "products", ["initial_enjoyer_id"], name: "index_products_on_initial_enjoyer_id", using: :btree
   add_index "products", ["initial_father_id"], name: "index_products_on_initial_father_id", using: :btree
   add_index "products", ["initial_mother_id"], name: "index_products_on_initial_mother_id", using: :btree
+  add_index "products", ["initial_movement_id"], name: "index_products_on_initial_movement_id", using: :btree
   add_index "products", ["initial_owner_id"], name: "index_products_on_initial_owner_id", using: :btree
   add_index "products", ["name"], name: "index_products_on_name", using: :btree
   add_index "products", ["nature_id"], name: "index_products_on_nature_id", using: :btree

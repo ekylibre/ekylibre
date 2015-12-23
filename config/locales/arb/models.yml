@@ -1397,6 +1397,7 @@ arb:
     # initial_father: "Initial father"
     # initial_geolocation: "Initial geolocation"
     # initial_mother: "Initial mother"
+    # initial_movement: "Initial movement"
     # initial_number: "Initial number"
     # initial_owner: "Initial owner"
     # initial_population: "Initial population"
@@ -1773,10 +1774,12 @@ arb:
     quantity: "الكمية"
     # quantity_handler: "Quantity handler"
     # quantity_indicator: "Quantity indicator"
+    # quantity_indicator_name: "Quantity indicator name"
     quantity_max: "الكمية كحد اقصى" #?
     quantity_min: "الكمية كحد ادنى" #?
     # quantity_population: "Quantity population"
     # quantity_unit: "Quantity unit"
+    # quantity_unit_name: "Quantity unit name"
     # quantity_value: "Quantity value"
     query: "التساؤل"
     range: "فترة فاصلة" #?
@@ -1912,7 +1915,9 @@ arb:
     siren: "رقم صفارة الانذار"
     siret_number: "SIRET رقم"
     # size_indicator: "Size indicator"
+    # size_indicator_name: "Size indicator name"
     # size_unit: "Size unit"
+    # size_unit_name: "Size unit name"
     # soil_nature: "Soil type"
     # soil_production: "Soil production"
     soundex: "خوارزمية مستخدمة لتشفير كلمات بطرقة تمكن مطابقة الكلمات مع الاصوات" #?

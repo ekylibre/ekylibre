@@ -31,8 +31,8 @@
 #  lock_version        :integer          default(0), not null
 #  name                :string           not null
 #  nature              :string           not null
-#  size_indicator      :string
-#  size_unit           :string
+#  size_indicator_name :string
+#  size_unit_name      :string
 #  support_variety     :string
 #  suspended           :boolean          default(FALSE), not null
 #  updated_at          :datetime         not null

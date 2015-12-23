@@ -3386,9 +3386,9 @@ preferences_289:
   user_id: 1
 preferences_290:
   boolean_value: true
-  created_at: 2015-12-22 21:39:53.306623000 Z
+  created_at: 2015-12-23 08:40:15.816245000 Z
   id: 291
   lock_version: 0
   name: create_activities_from_telepac
   nature: boolean
-  updated_at: 2015-12-22 21:39:53.306623000 Z
+  updated_at: 2015-12-23 08:40:15.816245000 Z

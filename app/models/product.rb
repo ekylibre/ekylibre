@@ -41,6 +41,7 @@
 #  initial_father_id     :integer
 #  initial_geolocation   :geometry({:srid=>4326, :type=>"point"})
 #  initial_mother_id     :integer
+#  initial_movement_id   :integer
 #  initial_owner_id      :integer
 #  initial_population    :decimal(19, 4)   default(0.0)
 #  initial_shape         :geometry({:srid=>4326, :type=>"multi_polygon"})
@@ -76,6 +77,7 @@ class Product < Ekylibre::Record::Base
   belongs_to :fixed_asset
   belongs_to :initial_container, class_name: 'Product'
   belongs_to :initial_enjoyer, class_name: 'Entity'
+  belongs_to :initial_movement, class_name: 'ProductMovement'
   belongs_to :initial_father, class_name: 'Product'
   belongs_to :initial_mother, class_name: 'Product'
   belongs_to :initial_owner, class_name: 'Entity'
@@ -205,7 +207,7 @@ class Product < Ekylibre::Record::Base
   scope :production_supports, -> { where(variety: ['cultivable_zone']) }
   scope :supportables, -> { of_variety([:cultivable_zone, :animal_group, :equipment]) }
   scope :supporters, -> { where(id: ActivityProduction.pluck(:support_id)) }
-  scope :available, -> { not_indicate(population: 0).where(dead_at: nil) }
+  scope :available, -> { where(dead_at: nil) }
   scope :availables, -> { available }
   scope :tools, -> { of_variety(:equipment) }
   scope :support, -> { joins(:nature).merge(ProductNature.support) }
@@ -332,12 +334,17 @@ class Product < Ekylibre::Record::Base
       localization.save!
     end
 
+    self.born_at ||= self.initial_born_at
+    self.dead_at ||= initial_dead_at
+
     if born_at
-      %w(population shape).each do |indicator_name|
-        initial_value = send("initial_#{indicator_name}")
-        if initial_value && variable_indicators_list.include?(indicator_name.to_sym)
-          read!(indicator_name, initial_value, at: born_at)
-        end
+      build_initial_movement unless initial_movement
+      initial_movement.product = self
+      initial_movement.delta = initial_population
+      initial_movement.started_at = born_at
+      initial_movement.save!
+      if initial_shape && variable_indicators_list.include?(:shape)
+        read!(:shape, initial_shape, at: born_at)
       end
     end
 

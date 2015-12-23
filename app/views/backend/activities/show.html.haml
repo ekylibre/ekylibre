@@ -17,10 +17,10 @@
         - l.custom_fields
 
   - if resource.cultivation_variety? && resource.productions.map(&:support_shape).any? && current_campaign
-  
+
     - c.cobble :details do
       = resource.productions.of_campaign(current_campaign).map(&:net_surface_area).compact.sum
-      
+
     - c.cobble :map do
       = cell :map, params: {visualization: :grain_yield, activity_production_ids: resource.productions.pluck(:id)}
 

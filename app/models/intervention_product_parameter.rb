@@ -22,30 +22,30 @@
 #
 # == Table: intervention_parameters
 #
-#  created_at             :datetime         not null
-#  creator_id             :integer
-#  event_participation_id :integer
-#  group_id               :integer
-#  id                     :integer          not null, primary key
-#  intervention_id        :integer          not null
-#  lock_version           :integer          default(0), not null
-#  new_container_id       :integer
-#  new_group_id           :integer
-#  new_variant_id         :integer
-#  outcoming_product_id   :integer
-#  position               :integer          not null
-#  product_id             :integer
-#  quantity_handler       :string
-#  quantity_indicator     :string
-#  quantity_population    :decimal(19, 4)
-#  quantity_unit          :string
-#  quantity_value         :decimal(19, 4)
-#  reference_name         :string           not null
-#  type                   :string
-#  updated_at             :datetime         not null
-#  updater_id             :integer
-#  variant_id             :integer
-#  working_zone           :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  created_at              :datetime         not null
+#  creator_id              :integer
+#  event_participation_id  :integer
+#  group_id                :integer
+#  id                      :integer          not null, primary key
+#  intervention_id         :integer          not null
+#  lock_version            :integer          default(0), not null
+#  new_container_id        :integer
+#  new_group_id            :integer
+#  new_variant_id          :integer
+#  outcoming_product_id    :integer
+#  position                :integer          not null
+#  product_id              :integer
+#  quantity_handler        :string
+#  quantity_indicator_name :string
+#  quantity_population     :decimal(19, 4)
+#  quantity_unit_name      :string
+#  quantity_value          :decimal(19, 4)
+#  reference_name          :string           not null
+#  type                    :string
+#  updated_at              :datetime         not null
+#  updater_id              :integer
+#  variant_id              :integer
+#  working_zone            :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
 
 class InterventionProductParameter < InterventionParameter
@@ -140,26 +140,26 @@ class InterventionProductParameter < InterventionParameter
     end
     nil
   end
-  
+
   # show how evaluated_price of an product(product) is build
   def cost_label
     # case of intrant / tool / doer
     if product && price_label = evaluated_price
-       if self.input?
+      if self.input?
         return "#{quantity.l} x #{price_label.l(currency: Preference[:currency])}"
       elsif self.tool? || self.doer?
         return "#{(duration.to_d / 3600).in(:hour).l} x #{price_label.l(currency: Preference[:currency])}"
-      end
-    # case of extrant  
+     end
+    # case of extrant
     elsif variant
-      return "Not implemented"
-       # try to get the last purchase price of the same variant if any.
-      
-       # try to get the last sale price of the same variant if any.
-       
+      return 'Not implemented'
+    # try to get the last purchase price of the same variant if any.
+
+    # try to get the last sale price of the same variant if any.
+
     # case of transformation or evolution, changing variant
     elsif new_variant
-       return "Not implemented"
+      return 'Not implemented'
     end
   end
 

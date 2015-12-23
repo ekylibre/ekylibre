@@ -7,7 +7,7 @@ module Nomen
       @name = name.to_s
       @active_record = active_record
       @class_name = options[:class_name] || name.to_s.classify
-      @foreign_key = options[:foreign_key] || name
+      @foreign_key = (options[:foreign_key] || name).to_s
       @scope = options[:scope]
       @nomenclature = class_name.underscore.pluralize
       @klass = Nomen.find(@nomenclature)

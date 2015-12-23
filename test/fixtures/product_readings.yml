@@ -2843,7 +2843,7 @@ product_readings_181:
   updater_id: 1
 product_readings_182:
   boolean_value: false
-  created_at: 2015-12-22 21:39:54.494578000 Z
+  created_at: 2015-12-23 08:40:16.837526000 Z
   id: 308
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -2867,10 +2867,10 @@ product_readings_182:
     45.8024696819527,-0.769827963709258 45.8026959095466)))
   product_id: 145
   read_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-22 21:39:54.494578000 Z
+  updated_at: 2015-12-23 08:40:16.837526000 Z
 product_readings_183:
   boolean_value: false
-  created_at: 2015-12-22 21:39:54.630768000 Z
+  created_at: 2015-12-23 08:40:17.018345000 Z
   id: 309
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -2899,10 +2899,10 @@ product_readings_183:
     45.8046423309194)))
   product_id: 146
   read_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-22 21:39:54.630768000 Z
+  updated_at: 2015-12-23 08:40:17.018345000 Z
 product_readings_184:
   boolean_value: false
-  created_at: 2015-12-22 21:39:54.737466000 Z
+  created_at: 2015-12-23 08:40:17.201122000 Z
   id: 310
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -2916,10 +2916,10 @@ product_readings_184:
     45.821890386501,-0.792454727108962 45.8215321667496,-0.79228204935118 45.8217001703347)))
   product_id: 147
   read_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-22 21:39:54.737466000 Z
+  updated_at: 2015-12-23 08:40:17.201122000 Z
 product_readings_185:
   boolean_value: false
-  created_at: 2015-12-22 21:39:54.835819000 Z
+  created_at: 2015-12-23 08:40:17.340616000 Z
   id: 311
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -2932,10 +2932,10 @@ product_readings_185:
     45.8202132941208,-0.791397316324069 45.8204004370199)))
   product_id: 148
   read_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-22 21:39:54.835819000 Z
+  updated_at: 2015-12-23 08:40:17.340616000 Z
 product_readings_186:
   boolean_value: false
-  created_at: 2015-12-22 21:39:54.942323000 Z
+  created_at: 2015-12-23 08:40:17.486439000 Z
   id: 312
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -2952,10 +2952,10 @@ product_readings_186:
     45.8189190618765)))
   product_id: 149
   read_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-22 21:39:54.942323000 Z
+  updated_at: 2015-12-23 08:40:17.486439000 Z
 product_readings_187:
   boolean_value: false
-  created_at: 2015-12-22 21:39:55.181592000 Z
+  created_at: 2015-12-23 08:40:17.818710000 Z
   id: 313
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -2970,10 +2970,10 @@ product_readings_187:
     45.8289158766202,-0.787897179285288 45.8285981330583)))
   product_id: 150
   read_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-22 21:39:55.181592000 Z
+  updated_at: 2015-12-23 08:40:17.818710000 Z
 product_readings_188:
   boolean_value: false
-  created_at: 2015-12-22 21:39:55.364428000 Z
+  created_at: 2015-12-23 08:40:18.076156000 Z
   id: 314
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -2992,10 +2992,10 @@ product_readings_188:
     45.8295795369011,-0.785596040795195 45.8298405801391,-0.787866855582176 45.8285229716277)))
   product_id: 151
   read_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-22 21:39:55.364428000 Z
+  updated_at: 2015-12-23 08:40:18.076156000 Z
 product_readings_189:
   boolean_value: false
-  created_at: 2015-12-22 21:39:55.632088000 Z
+  created_at: 2015-12-23 08:40:18.429643000 Z
   id: 315
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -3009,10 +3009,10 @@ product_readings_189:
     45.8231241077149,-0.772576368634481 45.8233220222455,-0.772303918135111 45.823530930691)))
   product_id: 152
   read_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-22 21:39:55.632088000 Z
+  updated_at: 2015-12-23 08:40:18.429643000 Z
 product_readings_190:
   boolean_value: false
-  created_at: 2015-12-22 21:39:55.742194000 Z
+  created_at: 2015-12-23 08:40:18.570266000 Z
   id: 316
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -3029,10 +3029,10 @@ product_readings_190:
     45.8261538548556,-0.770124739371845 45.8266375286314)))
   product_id: 153
   read_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-22 21:39:55.742194000 Z
+  updated_at: 2015-12-23 08:40:18.570266000 Z
 product_readings_191:
   boolean_value: false
-  created_at: 2015-12-22 21:39:55.853689000 Z
+  created_at: 2015-12-23 08:40:18.696996000 Z
   id: 317
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -3049,10 +3049,10 @@ product_readings_191:
     45.8310130812907,-0.764804931739091 45.8312730746026)))
   product_id: 154
   read_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-22 21:39:55.853689000 Z
+  updated_at: 2015-12-23 08:40:18.696996000 Z
 product_readings_192:
   boolean_value: false
-  created_at: 2015-12-22 21:39:55.957892000 Z
+  created_at: 2015-12-23 08:40:18.824324000 Z
   id: 318
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -3070,10 +3070,10 @@ product_readings_192:
     45.8415749905238,-0.743999267161715 45.8430010210575)))
   product_id: 155
   read_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-22 21:39:55.957892000 Z
+  updated_at: 2015-12-23 08:40:18.824324000 Z
 product_readings_193:
   boolean_value: false
-  created_at: 2015-12-22 21:39:56.058772000 Z
+  created_at: 2015-12-23 08:40:18.941688000 Z
   id: 319
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -3087,10 +3087,10 @@ product_readings_193:
     45.8432938185174,-0.743835894942437 45.8430711146635,-0.743997841710742 45.8429998981771)))
   product_id: 156
   read_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-22 21:39:56.058772000 Z
+  updated_at: 2015-12-23 08:40:18.941688000 Z
 product_readings_194:
   boolean_value: false
-  created_at: 2015-12-22 21:39:56.162631000 Z
+  created_at: 2015-12-23 08:40:19.063113000 Z
   id: 320
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -3102,10 +3102,10 @@ product_readings_194:
     45.8379617226132,-0.743788709873775 45.8406404380084)))
   product_id: 157
   read_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-22 21:39:56.162631000 Z
+  updated_at: 2015-12-23 08:40:19.063113000 Z
 product_readings_195:
   boolean_value: false
-  created_at: 2015-12-22 21:39:56.294784000 Z
+  created_at: 2015-12-23 08:40:19.184713000 Z
   id: 321
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -3116,10 +3116,10 @@ product_readings_195:
     45.8374167517267,-0.747529743313611 45.8384256282279)))
   product_id: 158
   read_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-22 21:39:56.294784000 Z
+  updated_at: 2015-12-23 08:40:19.184713000 Z
 product_readings_196:
   boolean_value: false
-  created_at: 2015-12-22 21:39:56.411474000 Z
+  created_at: 2015-12-23 08:40:19.338812000 Z
   id: 322
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -3133,10 +3133,10 @@ product_readings_196:
     45.8388192880511,-0.738722779908693 45.8387916474873,-0.739138590754488 45.8388026667394)))
   product_id: 159
   read_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-22 21:39:56.411474000 Z
+  updated_at: 2015-12-23 08:40:19.338812000 Z
 product_readings_197:
   boolean_value: false
-  created_at: 2015-12-22 21:39:56.519059000 Z
+  created_at: 2015-12-23 08:40:19.452354000 Z
   id: 323
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -3146,10 +3146,10 @@ product_readings_197:
     45.8305287305406,-0.763709529551902 45.8309476400114)))
   product_id: 160
   read_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-22 21:39:56.519059000 Z
+  updated_at: 2015-12-23 08:40:19.452354000 Z
 product_readings_198:
   boolean_value: false
-  created_at: 2015-12-22 21:39:56.628527000 Z
+  created_at: 2015-12-23 08:40:19.569063000 Z
   id: 324
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -3159,10 +3159,10 @@ product_readings_198:
     45.8408157080644,-0.743317183825562 45.8413979942425)))
   product_id: 161
   read_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-22 21:39:56.628527000 Z
+  updated_at: 2015-12-23 08:40:19.569063000 Z
 product_readings_199:
   boolean_value: false
-  created_at: 2015-12-22 21:39:56.769420000 Z
+  created_at: 2015-12-23 08:40:19.698496000 Z
   id: 325
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -3179,10 +3179,10 @@ product_readings_199:
     45.8203521595582)))
   product_id: 162
   read_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-22 21:39:56.769420000 Z
+  updated_at: 2015-12-23 08:40:19.698496000 Z
 product_readings_200:
   boolean_value: false
-  created_at: 2015-12-22 21:39:56.900912000 Z
+  created_at: 2015-12-23 08:40:19.818593000 Z
   id: 326
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -3194,10 +3194,10 @@ product_readings_200:
     45.82254299977)))
   product_id: 163
   read_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-22 21:39:56.900912000 Z
+  updated_at: 2015-12-23 08:40:19.818593000 Z
 product_readings_201:
   boolean_value: false
-  created_at: 2015-12-22 21:39:57.012213000 Z
+  created_at: 2015-12-23 08:40:19.944513000 Z
   id: 327
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -3207,10 +3207,10 @@ product_readings_201:
     45.8121238231833,-0.82609629055509 45.8116504308379,-0.825701316625416 45.8119806264415)))
   product_id: 164
   read_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-22 21:39:57.012213000 Z
+  updated_at: 2015-12-23 08:40:19.944513000 Z
 product_readings_202:
   boolean_value: false
-  created_at: 2015-12-22 21:39:57.120808000 Z
+  created_at: 2015-12-23 08:40:20.068625000 Z
   id: 328
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -3221,10 +3221,10 @@ product_readings_202:
     45.8101939142688,-0.831764859873219 45.8104393898025)))
   product_id: 165
   read_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-22 21:39:57.120808000 Z
+  updated_at: 2015-12-23 08:40:20.068625000 Z
 product_readings_203:
   boolean_value: false
-  created_at: 2015-12-22 21:39:57.269408000 Z
+  created_at: 2015-12-23 08:40:20.196060000 Z
   id: 329
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -3237,10 +3237,10 @@ product_readings_203:
     45.814477592305,-0.834214965170727 45.8145906222858)))
   product_id: 166
   read_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-22 21:39:57.269408000 Z
+  updated_at: 2015-12-23 08:40:20.196060000 Z
 product_readings_204:
   boolean_value: false
-  created_at: 2015-12-22 21:39:57.444138000 Z
+  created_at: 2015-12-23 08:40:20.366697000 Z
   id: 330
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -3272,10 +3272,10 @@ product_readings_204:
     45.8174163108851,-0.830250397481167 45.8175561557014)))
   product_id: 167
   read_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-22 21:39:57.444138000 Z
+  updated_at: 2015-12-23 08:40:20.366697000 Z
 product_readings_205:
   boolean_value: false
-  created_at: 2015-12-22 21:39:57.565046000 Z
+  created_at: 2015-12-23 08:40:20.490215000 Z
   id: 331
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -3287,10 +3287,10 @@ product_readings_205:
     45.8365398527486,-0.736193434420413 45.8372481805018)))
   product_id: 168
   read_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-22 21:39:57.565046000 Z
+  updated_at: 2015-12-23 08:40:20.490215000 Z
 product_readings_206:
   boolean_value: false
-  created_at: 2015-12-22 21:39:57.686482000 Z
+  created_at: 2015-12-23 08:40:20.614741000 Z
   id: 332
   indicator_datatype: multi_polygon
   indicator_name: shape
@@ -3302,4 +3302,4 @@ product_readings_206:
     45.8021968795018,-0.767839708537629 45.8021885504529,-0.767827230035493 45.8021806182845)))
   product_id: 169
   read_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-22 21:39:57.686482000 Z
+  updated_at: 2015-12-23 08:40:20.614741000 Z

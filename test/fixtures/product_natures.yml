@@ -127,7 +127,7 @@ product_natures_005:
   creator_id: 1
   derivatives_list: meat, milk
   evolvable: false
-  frozen_indicators_list: sex, population
+  frozen_indicators_list: sex
   id: 5
   lock_version: 0
   name: Female cow
@@ -181,8 +181,7 @@ product_natures_008:
   reference_name: fungicide
   updated_at: 2014-10-31 20:11:19.889621000 Z
   updater_id: 1
-  variable_indicators_list: approved_input_dose, population, untreated_zone_length,
-    wait_before_harvest_period
+  variable_indicators_list: approved_input_dose, untreated_zone_length, wait_before_harvest_period
   variety: preparation
 product_natures_009:
   abilities_list: feed(animal)
@@ -201,7 +200,6 @@ product_natures_009:
   reference_name: straw
   updated_at: 2014-10-31 20:11:30.472907000 Z
   updater_id: 1
-  variable_indicators_list: population
   variety: straw
 product_natures_010:
   abilities_list: grow
@@ -220,7 +218,6 @@ product_natures_010:
   reference_name: seed
   updated_at: 2014-10-31 20:11:42.141258000 Z
   updater_id: 1
-  variable_indicators_list: population
   variety: seed
 product_natures_011:
   abilities_list: store(building_division)
@@ -229,7 +226,6 @@ product_natures_011:
   created_at: 2014-10-31 20:13:23.322567000 Z
   creator_id: 1
   evolvable: false
-  frozen_indicators_list: population
   id: 11
   lock_version: 0
   name: Bâtiment
@@ -247,7 +243,6 @@ product_natures_012:
   created_at: 2014-10-31 20:13:55.104377000 Z
   creator_id: 1
   evolvable: false
-  frozen_indicators_list: population
   id: 12
   lock_version: 0
   name: Zone de stockage des équipements
@@ -266,7 +261,6 @@ product_natures_013:
   created_at: 2014-10-31 20:21:52.482591000 Z
   creator_id: 1
   evolvable: false
-  frozen_indicators_list: population
   id: 13
   lock_version: 0
   name: Zone de stockage des équipements et des aliments
@@ -285,7 +279,6 @@ product_natures_014:
   created_at: 2014-10-31 20:25:22.969151000 Z
   creator_id: 1
   evolvable: false
-  frozen_indicators_list: population
   id: 14
   lock_version: 0
   name: Pièce ou zone d’un bâtiment
@@ -316,7 +309,7 @@ product_natures_015:
   updated_at: 2014-11-01 19:06:50.030010000 Z
   updater_id: 1
   variable_indicators_list: fresh_mass, plant_life_state, plant_reproduction_state,
-    plants_count, population, shape, tiller_count
+    plants_count, shape, tiller_count
   variety: plant
 product_natures_016:
   abilities_list: consume(mix), consume(poaceae), consume(silage), consume(water),
@@ -327,7 +320,7 @@ product_natures_016:
   creator_id: 1
   derivatives_list: meat, milk
   evolvable: false
-  frozen_indicators_list: livestock_unit, population, reproductor, sex
+  frozen_indicators_list: livestock_unit, reproductor, sex
   id: 16
   linkage_points_list: ''
   lock_version: 0
@@ -363,8 +356,8 @@ product_natures_017:
   updater_id: 1
   variable_indicators_list: clostridial_spores_concentration, fat_matters_concentration,
     freezing_point_temperature, immunoglobulins_concentration, inhibitors_presence,
-    lipolysis, population, protein_matters_concentration, somatic_cell_concentration,
-    temperature, total_bacteria_concentration, urea_concentration
+    lipolysis, protein_matters_concentration, somatic_cell_concentration, temperature,
+    total_bacteria_concentration, urea_concentration
   variety: milk
 product_natures_018:
   abilities_list: feed(animal)
@@ -385,8 +378,8 @@ product_natures_018:
   reference_name: grain
   updated_at: 2014-11-01 19:10:35.067432000 Z
   updater_id: 1
-  variable_indicators_list: hagberg_falling_number, impurity_concentration, population,
-    protein_concentration, specific_weight, water_content_rate
+  variable_indicators_list: hagberg_falling_number, impurity_concentration, protein_concentration,
+    specific_weight, water_content_rate
   variety: grain
 product_natures_019:
   abilities_list: care(animal), kill(bacteria), kill(fungus), kill(virus)
@@ -407,7 +400,6 @@ product_natures_019:
   reference_name: animal_medicine
   updated_at: 2014-11-01 20:20:57.132408000 Z
   updater_id: 1
-  variable_indicators_list: population
   variety: preparation
 product_natures_020:
   abilities_list: administer_care(animal), drive(equipment), milk(mammalia), move,
@@ -418,7 +410,6 @@ product_natures_020:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
-  frozen_indicators_list: population
   id: 20
   linkage_points_list: ''
   lock_version: 0
@@ -438,7 +429,6 @@ product_natures_021:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
-  frozen_indicators_list: population
   id: 21
   linkage_points_list: front, rear
   lock_version: 0
@@ -458,7 +448,6 @@ product_natures_022:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
-  frozen_indicators_list: population
   id: 22
   linkage_points_list: ''
   lock_version: 0
@@ -478,7 +467,6 @@ product_natures_023:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
-  frozen_indicators_list: population
   id: 23
   linkage_points_list: ''
   lock_version: 0
@@ -509,7 +497,7 @@ product_natures_024:
   reference_name: cultivable_zone
   updated_at: 2014-11-02 18:31:53.731583000 Z
   updater_id: 1
-  variable_indicators_list: population, shape, soil_cultural_state
+  variable_indicators_list: shape, soil_cultural_state
   variety: land_parcel
 product_natures_025:
   abilities_list: sow
@@ -519,7 +507,6 @@ product_natures_025:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
-  frozen_indicators_list: population
   id: 25
   linkage_points_list: ''
   lock_version: 0
@@ -551,7 +538,6 @@ product_natures_026:
   reference_name: female_adult_cattle_herd
   updated_at: 2014-11-04 17:27:32.647028000 Z
   updater_id: 1
-  variable_indicators_list: population
   variety: animal_group
 product_natures_027:
   abilities_list: consume(mix), consume(poaceae), consume(silage), consume(water),
@@ -573,7 +559,6 @@ product_natures_027:
   reference_name: cattle_herd
   updated_at: 2014-11-04 17:27:59.301765000 Z
   updater_id: 1
-  variable_indicators_list: population
   variety: animal_group
 product_natures_028:
   abilities_list: plow_superficially
@@ -583,7 +568,6 @@ product_natures_028:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
-  frozen_indicators_list: population
   id: 28
   linkage_points_list: ''
   lock_version: 0
@@ -603,7 +587,6 @@ product_natures_029:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
-  frozen_indicators_list: population
   id: 29
   linkage_points_list: ''
   lock_version: 0
@@ -623,7 +606,6 @@ product_natures_030:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
-  frozen_indicators_list: population
   id: 30
   linkage_points_list: ''
   lock_version: 0
@@ -643,7 +625,6 @@ product_natures_031:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
-  frozen_indicators_list: population
   id: 31
   linkage_points_list: ''
   lock_version: 0
@@ -663,7 +644,6 @@ product_natures_032:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
-  frozen_indicators_list: population
   id: 32
   linkage_points_list: ''
   lock_version: 0
@@ -694,7 +674,6 @@ product_natures_033:
   reference_name: chemical_fertilizer
   updated_at: 2014-11-07 15:24:11.130698000 Z
   updater_id: 1
-  variable_indicators_list: population
   variety: preparation
 product_natures_034:
   abilities_list: consume(phytosanitary), consume(water), produce(straw)
@@ -715,7 +694,7 @@ product_natures_034:
   updated_at: 2014-11-07 15:40:58.360188000 Z
   updater_id: 1
   variable_indicators_list: fresh_mass, plant_life_state, plant_reproduction_state,
-    plants_count, population, shape, tiller_count
+    plants_count, shape, tiller_count
   variety: plant
 product_natures_035:
   abilities_list: feed(animal)
@@ -736,7 +715,7 @@ product_natures_035:
   reference_name: grass
   updated_at: 2014-11-07 15:46:45.135495000 Z
   updater_id: 1
-  variable_indicators_list: dry_matter_rate, population
+  variable_indicators_list: dry_matter_rate
   variety: grass
 product_natures_036:
   abilities_list: consume(phytosanitary), consume(water), produce(fruit), produce(straw)
@@ -757,7 +736,7 @@ product_natures_036:
   updated_at: 2014-11-07 16:33:48.598611000 Z
   updater_id: 1
   variable_indicators_list: certification, plant_life_state, plants_count, plants_interval,
-    population, rows_interval, shape, woodstock_variety
+    rows_interval, shape, woodstock_variety
   variety: vitis
 product_natures_037:
   abilities_list: grow
@@ -778,7 +757,6 @@ product_natures_037:
   reference_name: usual_vine_seedling
   updated_at: 2014-11-07 16:33:59.251213000 Z
   updater_id: 1
-  variable_indicators_list: population
   variety: seedling
 product_natures_038:
   abilities_list: implant
@@ -788,7 +766,6 @@ product_natures_038:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
-  frozen_indicators_list: population
   id: 38
   linkage_points_list: ''
   lock_version: 0
@@ -808,7 +785,6 @@ product_natures_039:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
-  frozen_indicators_list: population
   id: 39
   linkage_points_list: ''
   lock_version: 0
@@ -839,7 +815,7 @@ product_natures_040:
   reference_name: grape
   updated_at: 2014-11-07 17:05:38.068085000 Z
   updater_id: 1
-  variable_indicators_list: population, sucrose_concentration
+  variable_indicators_list: sucrose_concentration
   variety: grape
 product_natures_041:
   abilities_list: ''
@@ -860,8 +836,7 @@ product_natures_041:
   reference_name: wine
   updated_at: 2014-11-07 17:10:23.472125000 Z
   updater_id: 1
-  variable_indicators_list: certification, population, reference_year, temperature,
-    total_bacteria_concentration
+  variable_indicators_list: certification, reference_year, temperature, total_bacteria_concentration
   variety: wine
 product_natures_042:
   abilities_list: store(grape), store(grape_juice), store(wine), store_liquid
@@ -871,7 +846,6 @@ product_natures_042:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
-  frozen_indicators_list: population
   id: 42
   linkage_points_list: ''
   lock_version: 0
@@ -891,7 +865,6 @@ product_natures_043:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
-  frozen_indicators_list: population
   id: 43
   linkage_points_list: ''
   lock_version: 0
@@ -922,7 +895,6 @@ product_natures_044:
   reference_name: organic_fertilizer
   updated_at: 2014-11-07 17:24:39.590466000 Z
   updater_id: 1
-  variable_indicators_list: population
   variety: excrement
 product_natures_045:
   abilities_list: produce(wine)
@@ -943,7 +915,6 @@ product_natures_045:
   reference_name: fermented_grape_juice
   updated_at: 2014-11-07 17:25:14.409838000 Z
   updater_id: 1
-  variable_indicators_list: population
   variety: fermented_juice
 product_natures_046:
   abilities_list: ''
@@ -964,7 +935,6 @@ product_natures_046:
   reference_name: crop_residue
   updated_at: 2014-11-07 17:25:46.188857000 Z
   updater_id: 1
-  variable_indicators_list: population
   variety: straw
 product_natures_047:
   abilities_list: fertilize
@@ -984,7 +954,6 @@ product_natures_047:
   reference_name: fruit_residu
   updated_at: 2014-11-07 17:27:02.354344000 Z
   updater_id: 1
-  variable_indicators_list: population
   variety: pomace
 product_natures_048:
   abilities_list: produce(fermented_juice)
@@ -1005,7 +974,7 @@ product_natures_048:
   reference_name: grape_juice
   updated_at: 2014-11-07 18:58:14.603553000 Z
   updater_id: 1
-  variable_indicators_list: population, sucrose_concentration
+  variable_indicators_list: sucrose_concentration
   variety: juice
 product_natures_049:
   abilities_list: acidify(fermented_juice), acidify(wine)
@@ -1025,7 +994,6 @@ product_natures_049:
   reference_name: wine_acidifying
   updated_at: 2014-11-07 19:03:43.646789000 Z
   updater_id: 1
-  variable_indicators_list: population
   variety: preparation
 product_natures_050:
   abilities_list: fermentize(wine)
@@ -1046,7 +1014,6 @@ product_natures_050:
   reference_name: oenological_yeast
   updated_at: 2014-11-07 19:05:20.496080000 Z
   updater_id: 1
-  variable_indicators_list: population
   variety: yeast
 product_natures_051:
   abilities_list: chaptelise(fermented_juice), chaptelise(juice)
@@ -1066,7 +1033,6 @@ product_natures_051:
   reference_name: sugar
   updated_at: 2014-11-07 19:10:37.806634000 Z
   updater_id: 1
-  variable_indicators_list: population
   variety: saccharose
 product_natures_052:
   abilities_list: clarify(fermented_juice), clarify(wine)
@@ -1086,7 +1052,6 @@ product_natures_052:
   reference_name: clarification_solution
   updated_at: 2014-11-07 19:16:38.602689000 Z
   updater_id: 1
-  variable_indicators_list: population
   variety: preparation
 product_natures_053:
   abilities_list: sulfurize(wine)
@@ -1106,7 +1071,6 @@ product_natures_053:
   reference_name: so2_solution
   updated_at: 2014-11-07 19:18:50.746985000 Z
   updater_id: 1
-  variable_indicators_list: population
   variety: preparation
 product_natures_054:
   abilities_list: store(juice), store(wine)
@@ -1126,7 +1090,7 @@ product_natures_054:
   reference_name: bottle
   updated_at: 2014-11-07 19:29:27.392215000 Z
   updater_id: 1
-  variable_indicators_list: length, net_mass, population
+  variable_indicators_list: length, net_mass
   variety: bottle
 product_natures_055:
   abilities_list: close(cork_bottle)
@@ -1136,7 +1100,6 @@ product_natures_055:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
-  frozen_indicators_list: ''
   id: 55
   linkage_points_list: ''
   lock_version: 0
@@ -1146,7 +1109,7 @@ product_natures_055:
   reference_name: cork
   updated_at: 2014-11-07 19:29:44.220259000 Z
   updater_id: 1
-  variable_indicators_list: length, population, width
+  variable_indicators_list: length, width
   variety: cork
 product_natures_056:
   abilities_list: fill(bottle)
@@ -1156,7 +1119,6 @@ product_natures_056:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
-  frozen_indicators_list: population
   id: 56
   linkage_points_list: ''
   lock_version: 0
@@ -1176,7 +1138,6 @@ product_natures_057:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
-  frozen_indicators_list: population
   id: 57
   linkage_points_list: ''
   lock_version: 0
@@ -1186,7 +1147,6 @@ product_natures_057:
   reference_name: corker
   updated_at: 2014-11-07 19:35:28.656403000 Z
   updater_id: 1
-  variable_indicators_list: ''
   variety: equipment
 product_natures_058:
   abilities_list: treat(diarrhea, bison)
@@ -1203,12 +1163,12 @@ product_natures_058:
   population_counting: decimal
   updated_at: 2015-04-26 12:49:09.845684000 Z
   updater_id: 1
-  variable_indicators_list: net_mass, population
+  variable_indicators_list: net_mass
   variety: preparation
 product_natures_059:
   active: true
   category_id: 25
-  created_at: 2015-12-22 21:39:54.243685000 Z
+  created_at: 2015-12-23 08:40:16.600336000 Z
   evolvable: false
   frozen_indicators_list: net_surface_area
   id: 59
@@ -1217,7 +1177,7 @@ product_natures_059:
   number: BUILDIPG
   population_counting: decimal
   reference_name: land_parcel
-  updated_at: 2015-12-22 21:39:54.243685000 Z
+  updated_at: 2015-12-23 08:40:16.600336000 Z
   variable_indicators_list: aluminium_concentration, available_water_capacity_per_area,
     boron_concentration, calcium_concentration, cation_exchange_capacity, cation_exchange_capacity_analysis_method,
     copper_concentration, iron_concentration, magnesium_concentration, manganese_concentration,

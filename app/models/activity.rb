@@ -31,8 +31,8 @@
 #  lock_version        :integer          default(0), not null
 #  name                :string           not null
 #  nature              :string           not null
-#  size_indicator      :string
-#  size_unit           :string
+#  size_indicator_name :string
+#  size_unit_name      :string
 #  support_variety     :string
 #  suspended           :boolean          default(FALSE), not null
 #  updated_at          :datetime         not null
@@ -49,8 +49,8 @@ class Activity < Ekylibre::Record::Base
   refers_to :family, class_name: 'ActivityFamily'
   refers_to :cultivation_variety, class_name: 'Variety'
   refers_to :support_variety, class_name: 'Variety'
-  # refers_to :size_unit, class_name: 'Unit'
-  # refers_to :size_indicator, -> { where(datatype: :measure) }, class_name: 'Indicator' # [:population, :working_duration]
+  refers_to :size_unit, class_name: 'Unit'
+  refers_to :size_indicator, -> { where(datatype: :measure) }, class_name: 'Indicator' # [:population, :working_duration]
   enumerize :nature, in: [:main, :auxiliary, :standalone], default: :main, predicates: true
   with_options dependent: :destroy, inverse_of: :activity do
     has_many :budgets, class_name: 'ActivityBudget'
@@ -121,9 +121,10 @@ class Activity < Ekylibre::Record::Base
           self.with_cultivation = false
         end
       end
+      # FIXME: Need to use nomenclatures to set that data!
       if family <= :vegetal_crops
-        self.size_indicator = 'net_surface_area' if size_indicator.blank?
-        self.size_unit = 'hectare' if size_unit.blank?
+        self.size_indicator_name = 'net_surface_area' if size_indicator_name.blank?
+        self.size_unit_name = 'hectare' if size_unit_name.blank?
       end
     end
     true

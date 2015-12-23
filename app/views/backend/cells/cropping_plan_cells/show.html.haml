@@ -11,11 +11,11 @@
     activities_serie = activities.collect do |activity|
       {name: activity.name, y: activity.net_surface_area(campaign).to_s.to_f, id: activity.id, url: backend_activity_path(activity), color: activity.color }
     end
-    
+
     productions = ActivityProduction.of_campaign(campaign).of_activities(activities)
-    
+
     productions_net_surface_area = productions.map(&:net_surface_area).compact.sum
-    
+
     productions_serie = productions.order("activity_id, id").collect do |production|
       {name: production.name, y: production.net_surface_area.to_s.to_f, url: backend_activity_production_path(production), color: production.color } #ligthen(activities_serie.detect{|a| a[:id] == production.activity_id}[:color], 0.3)
     end

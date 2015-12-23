@@ -11215,7 +11215,7 @@ versions_220:
     title:
   item_type: Entity
 versions_221:
-  created_at: 2015-12-22 21:39:53.491984000 Z
+  created_at: 2015-12-23 08:40:15.962416000 Z
   event: create
   id: 258
   item_id: 17
@@ -11255,12 +11255,12 @@ versions_221:
     picture_content_type:
     picture_file_size:
     picture_updated_at:
-    created_at: 2015-12-22 21:39:53.473244000 Z
+    created_at: 2015-12-23 08:40:15.942441000 Z
     creator_id:
     title:
   item_type: Entity
 versions_222:
-  created_at: 2015-12-22 21:39:54.349862000 Z
+  created_at: 2015-12-23 08:40:16.714863000 Z
   event: create
   id: 259
   item_id: 145
@@ -11350,14 +11350,15 @@ versions_222:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-22 21:39:54.345350000 Z
+    created_at: 2015-12-23 08:40:16.709669000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 7e333613-7f4b-4b12-9f8c-a4426557d3ab
+    uuid: 7d658bb9-e347-41d6-9015-c596ef873b66
+    initial_movement_id:
   item_type: Product
 versions_223:
-  created_at: 2015-12-22 21:39:54.591981000 Z
+  created_at: 2015-12-23 08:40:16.977113000 Z
   event: create
   id: 260
   item_id: 146
@@ -11454,14 +11455,15 @@ versions_223:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-22 21:39:54.588810000 Z
+    created_at: 2015-12-23 08:40:16.973840000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 4e3050bf-8822-454d-b566-0a75a6581305
+    uuid: b931339d-3580-495b-9650-0e785f65e559
+    initial_movement_id:
   item_type: Product
 versions_224:
-  created_at: 2015-12-22 21:39:54.703473000 Z
+  created_at: 2015-12-23 08:40:17.160962000 Z
   event: create
   id: 261
   item_id: 147
@@ -11536,14 +11538,15 @@ versions_224:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-22 21:39:54.700705000 Z
+    created_at: 2015-12-23 08:40:17.157013000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 9eb23ab5-dce5-4ae0-83f5-36c18b9269fd
+    uuid: 97a7fd5f-30f1-47b2-8fb2-6238143a305c
+    initial_movement_id:
   item_type: Product
 versions_225:
-  created_at: 2015-12-22 21:39:54.801647000 Z
+  created_at: 2015-12-23 08:40:17.298633000 Z
   event: create
   id: 262
   item_id: 148
@@ -11616,14 +11619,15 @@ versions_225:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-22 21:39:54.798831000 Z
+    created_at: 2015-12-23 08:40:17.295127000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 9712dd88-2327-44d0-852f-b9d24c44aad7
+    uuid: 0237ee32-8de6-4497-80b9-d70ff5e24130
+    initial_movement_id:
   item_type: Product
 versions_226:
-  created_at: 2015-12-22 21:39:54.907723000 Z
+  created_at: 2015-12-23 08:40:17.442807000 Z
   event: create
   id: 263
   item_id: 149
@@ -11702,14 +11706,15 @@ versions_226:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-22 21:39:54.904852000 Z
+    created_at: 2015-12-23 08:40:17.438590000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: c278547c-3bad-47c5-98e7-59e810346efe
+    uuid: 250963f8-0be3-4387-ac24-e717029fab9e
+    initial_movement_id:
   item_type: Product
 versions_227:
-  created_at: 2015-12-22 21:39:55.146096000 Z
+  created_at: 2015-12-23 08:40:17.767177000 Z
   event: create
   id: 264
   item_id: 150
@@ -11785,14 +11790,15 @@ versions_227:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-22 21:39:55.142907000 Z
+    created_at: 2015-12-23 08:40:17.762808000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: f46b91a8-2a16-4c50-82df-d356daef6b66
+    uuid: 497c54f5-d46c-41f4-b47c-15759e9e008f
+    initial_movement_id:
   item_type: Product
 versions_228:
-  created_at: 2015-12-22 21:39:55.328845000 Z
+  created_at: 2015-12-23 08:40:18.038590000 Z
   event: create
   id: 265
   item_id: 151
@@ -11875,14 +11881,15 @@ versions_228:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-22 21:39:55.326051000 Z
+    created_at: 2015-12-23 08:40:18.034632000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 4c085f28-1cbe-47c8-bd2c-f522ce75e74c
+    uuid: 08056755-d62f-4bc0-9c3c-edf8cda0434e
+    initial_movement_id:
   item_type: Product
 versions_229:
-  created_at: 2015-12-22 21:39:55.598305000 Z
+  created_at: 2015-12-23 08:40:18.392046000 Z
   event: create
   id: 266
   item_id: 152
@@ -11957,14 +11964,15 @@ versions_229:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-22 21:39:55.595591000 Z
+    created_at: 2015-12-23 08:40:18.388645000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 849fb1c5-b59b-40ca-8788-1bce21b7e0c9
+    uuid: b1933a39-2de1-4aab-b98f-2915dcb2e4e0
+    initial_movement_id:
   item_type: Product
 versions_230:
-  created_at: 2015-12-22 21:39:55.707039000 Z
+  created_at: 2015-12-23 08:40:18.535162000 Z
   event: create
   id: 267
   item_id: 153
@@ -12043,14 +12051,15 @@ versions_230:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-22 21:39:55.704067000 Z
+    created_at: 2015-12-23 08:40:18.531826000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 340d4daa-574c-4134-80b0-89e2b4325753
+    uuid: fe8025f0-7b16-4080-802b-0b89170e83da
+    initial_movement_id:
   item_type: Product
 versions_231:
-  created_at: 2015-12-22 21:39:55.815922000 Z
+  created_at: 2015-12-23 08:40:18.661537000 Z
   event: create
   id: 268
   item_id: 154
@@ -12129,14 +12138,15 @@ versions_231:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-22 21:39:55.813013000 Z
+    created_at: 2015-12-23 08:40:18.658593000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: b76d08a8-28c4-44e3-b5f3-d5d27d15eeeb
+    uuid: 198295bf-ad9f-45d5-8ef7-0183d3fb64f2
+    initial_movement_id:
   item_type: Product
 versions_232:
-  created_at: 2015-12-22 21:39:55.924080000 Z
+  created_at: 2015-12-23 08:40:18.788562000 Z
   event: create
   id: 269
   item_id: 155
@@ -12217,14 +12227,15 @@ versions_232:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-22 21:39:55.921241000 Z
+    created_at: 2015-12-23 08:40:18.785665000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 9490839e-d0e1-448e-9305-e051ef76fbc4
+    uuid: 39e00561-b4ab-42fd-927b-4649a20c4a81
+    initial_movement_id:
   item_type: Product
 versions_233:
-  created_at: 2015-12-22 21:39:56.023653000 Z
+  created_at: 2015-12-23 08:40:18.905637000 Z
   event: create
   id: 270
   item_id: 156
@@ -12299,14 +12310,15 @@ versions_233:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-22 21:39:56.020596000 Z
+    created_at: 2015-12-23 08:40:18.902768000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 86fb9171-ad33-4b8f-8cf4-ce4978743dab
+    uuid: 6dff8003-7fcd-430e-bfdc-9f3cce213774
+    initial_movement_id:
   item_type: Product
 versions_234:
-  created_at: 2015-12-22 21:39:56.128164000 Z
+  created_at: 2015-12-23 08:40:19.028116000 Z
   event: create
   id: 271
   item_id: 157
@@ -12378,14 +12390,15 @@ versions_234:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-22 21:39:56.125262000 Z
+    created_at: 2015-12-23 08:40:19.025104000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: d9fe025d-0925-4c75-ac93-5611e05c5bdd
+    uuid: d03e75b7-93bc-4427-8331-5b1e8d8c74a6
+    initial_movement_id:
   item_type: Product
 versions_235:
-  created_at: 2015-12-22 21:39:56.256904000 Z
+  created_at: 2015-12-23 08:40:19.148727000 Z
   event: create
   id: 272
   item_id: 158
@@ -12455,14 +12468,15 @@ versions_235:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-22 21:39:56.253263000 Z
+    created_at: 2015-12-23 08:40:19.145734000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 9e14b73f-6ec8-4bcc-a508-390d5df4839e
+    uuid: 98950036-f023-4bfe-b47c-0507628e1af9
+    initial_movement_id:
   item_type: Product
 versions_236:
-  created_at: 2015-12-22 21:39:56.372907000 Z
+  created_at: 2015-12-23 08:40:19.302455000 Z
   event: create
   id: 273
   item_id: 159
@@ -12537,14 +12551,15 @@ versions_236:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-22 21:39:56.368599000 Z
+    created_at: 2015-12-23 08:40:19.299446000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: af172086-ba08-4aba-aee3-ac8623b95cd6
+    uuid: 8f9fd0fa-9b24-4a24-918d-1c0c66fbd04e
+    initial_movement_id:
   item_type: Product
 versions_237:
-  created_at: 2015-12-22 21:39:56.481576000 Z
+  created_at: 2015-12-23 08:40:19.418594000 Z
   event: create
   id: 274
   item_id: 160
@@ -12613,14 +12628,15 @@ versions_237:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-22 21:39:56.478443000 Z
+    created_at: 2015-12-23 08:40:19.415539000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 5a60941b-61c8-4b32-8b0a-3168f6b37cdb
+    uuid: 17d05bd1-5b2c-444f-823c-b87e08fb973b
+    initial_movement_id:
   item_type: Product
 versions_238:
-  created_at: 2015-12-22 21:39:56.589386000 Z
+  created_at: 2015-12-23 08:40:19.531182000 Z
   event: create
   id: 275
   item_id: 161
@@ -12689,14 +12705,15 @@ versions_238:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-22 21:39:56.586226000 Z
+    created_at: 2015-12-23 08:40:19.528276000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 12f249ac-cc39-4639-bd13-c04bc8e03085
+    uuid: 5acb750e-c9a9-4def-bde8-d6678554b041
+    initial_movement_id:
   item_type: Product
 versions_239:
-  created_at: 2015-12-22 21:39:56.717542000 Z
+  created_at: 2015-12-23 08:40:19.661524000 Z
   event: create
   id: 276
   item_id: 162
@@ -12775,14 +12792,15 @@ versions_239:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-22 21:39:56.713891000 Z
+    created_at: 2015-12-23 08:40:19.657204000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 7f949c0a-6b3e-46bf-93e4-9b432e39db9d
+    uuid: 5fdbdbeb-c4e1-4cbf-80cb-fe1335437a01
+    initial_movement_id:
   item_type: Product
 versions_240:
-  created_at: 2015-12-22 21:39:56.858082000 Z
+  created_at: 2015-12-23 08:40:19.784453000 Z
   event: create
   id: 277
   item_id: 163
@@ -12853,14 +12871,15 @@ versions_240:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-22 21:39:56.854158000 Z
+    created_at: 2015-12-23 08:40:19.780771000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: e47b6e91-debe-4ded-9b13-8f8f10b7de2e
+    uuid: e2a84feb-602d-433f-868b-099809fc490f
+    initial_movement_id:
   item_type: Product
 versions_241:
-  created_at: 2015-12-22 21:39:56.973460000 Z
+  created_at: 2015-12-23 08:40:19.908960000 Z
   event: create
   id: 278
   item_id: 164
@@ -12929,14 +12948,15 @@ versions_241:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-22 21:39:56.970106000 Z
+    created_at: 2015-12-23 08:40:19.905684000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: a311a277-a318-4068-9646-86849afa7eee
+    uuid: 5ba5bb6c-a45d-4258-9ad5-b524b35483aa
+    initial_movement_id:
   item_type: Product
 versions_242:
-  created_at: 2015-12-22 21:39:57.084011000 Z
+  created_at: 2015-12-23 08:40:20.032341000 Z
   event: create
   id: 279
   item_id: 165
@@ -13006,14 +13026,15 @@ versions_242:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-22 21:39:57.080982000 Z
+    created_at: 2015-12-23 08:40:20.028888000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 8378be8b-99b1-4d0c-a141-f13b84da3748
+    uuid: 2e53e54c-bb60-4d2c-a786-3bb00a2e4e1a
+    initial_movement_id:
   item_type: Product
 versions_243:
-  created_at: 2015-12-22 21:39:57.218165000 Z
+  created_at: 2015-12-23 08:40:20.161358000 Z
   event: create
   id: 280
   item_id: 166
@@ -13086,14 +13107,15 @@ versions_243:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-22 21:39:57.214195000 Z
+    created_at: 2015-12-23 08:40:20.158504000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 3039bdba-0019-4469-8370-7c4326279ce8
+    uuid: e03b0b88-63bf-4646-8c1a-174eeb343e11
+    initial_movement_id:
   item_type: Product
 versions_244:
-  created_at: 2015-12-22 21:39:57.386434000 Z
+  created_at: 2015-12-23 08:40:20.296100000 Z
   event: create
   id: 281
   item_id: 167
@@ -13195,14 +13217,15 @@ versions_244:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-22 21:39:57.378150000 Z
+    created_at: 2015-12-23 08:40:20.292924000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 21c4430e-41d6-4365-9825-d8eb806c7984
+    uuid: b1c2736d-a171-4db3-8c8b-cafa5edee7ba
+    initial_movement_id:
   item_type: Product
 versions_245:
-  created_at: 2015-12-22 21:39:57.520832000 Z
+  created_at: 2015-12-23 08:40:20.455249000 Z
   event: create
   id: 282
   item_id: 168
@@ -13274,14 +13297,15 @@ versions_245:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-22 21:39:57.516657000 Z
+    created_at: 2015-12-23 08:40:20.451926000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 33090a36-212c-4770-a6ac-ae26451fb510
+    uuid: dd2364c7-e862-4672-b7a5-fd7db14c0b66
+    initial_movement_id:
   item_type: Product
 versions_246:
-  created_at: 2015-12-22 21:39:57.651882000 Z
+  created_at: 2015-12-23 08:40:20.579477000 Z
   event: create
   id: 283
   item_id: 169
@@ -13353,9 +13377,10 @@ versions_246:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-22 21:39:57.648420000 Z
+    created_at: 2015-12-23 08:40:20.576332000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 14f7f7c9-eedd-463a-bbd7-5caf46676b51
+    uuid: aec813a9-8268-4d21-beea-14da7d8f231b
+    initial_movement_id:
   item_type: Product

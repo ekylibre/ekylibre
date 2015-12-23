@@ -41,6 +41,7 @@
 #  initial_father_id     :integer
 #  initial_geolocation   :geometry({:srid=>4326, :type=>"point"})
 #  initial_mother_id     :integer
+#  initial_movement_id   :integer
 #  initial_owner_id      :integer
 #  initial_population    :decimal(19, 4)   default(0.0)
 #  initial_shape         :geometry({:srid=>4326, :type=>"multi_polygon"})

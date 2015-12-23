@@ -2,7 +2,7 @@ module ReadingStorable
   extend ActiveSupport::Concern
 
   included do
-    refers_to :indicator_name, class_name: 'Indicator'
+    refers_to :indicator
     enumerize :indicator_datatype, in: [:string, :integer, :decimal, :boolean, :choice, :measure, :point, :geometry, :multi_polygon], predicates: { prefix: true }
     refers_to :measure_value_unit, class_name: 'Unit'
 

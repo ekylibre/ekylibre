@@ -180,11 +180,26 @@ module Ekylibre::Record
       end
 
       # Link to nomenclature
-      def refers_to(name, options = {})
+      def refers_to(*args)
+        options = args.extract_options!
+        name = args.shift
+        scope = args.shift
+        Rails.logger.warn 'Cannot support Proc scope' unless scope.nil?
+        options[:foreign_key] ||= ["#{name}_name".to_sym, name].detect { |c| columns_definition[c] }
         reflection = Nomen::Reflection.new(self, name, options)
         @nomenclature_reflections ||= {}.with_indifferent_access
         @nomenclature_reflections[reflection.name] = reflection
-        enumerize reflection.name, in: reflection.all(reflection.scope), i18n_scope: ["nomenclatures.#{reflection.nomenclature}.items"]
+        enumerize reflection.foreign_key, in: reflection.all(reflection.scope), i18n_scope: ["nomenclatures.#{reflection.nomenclature}.items"]
+
+        if reflection.foreign_key != reflection.name
+          define_method name do
+            reflection.klass.find(self[reflection.foreign_key])
+          end
+        end
+
+        define_method "#{name}=" do |value|
+          self[reflection.foreign_key] = value.is_a?(Nomen::Item) ? value.name : value
+        end
       end
 
       # Permits to consider something and something_id like the same

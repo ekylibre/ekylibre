@@ -22,27 +22,27 @@
 #
 # == Table: activity_productions
 #
-#  activity_id        :integer          not null
-#  created_at         :datetime         not null
-#  creator_id         :integer
-#  cultivable_zone_id :integer
-#  id                 :integer          not null, primary key
-#  irrigated          :boolean          default(FALSE), not null
-#  lock_version       :integer          default(0), not null
-#  nitrate_fixing     :boolean          default(FALSE), not null
-#  rank_number        :integer          not null
-#  size_indicator     :string           not null
-#  size_unit          :string
-#  size_value         :decimal(19, 4)   not null
-#  started_on         :date
-#  state              :string
-#  stopped_on         :date
-#  support_id         :integer          not null
-#  support_nature     :string
-#  support_shape      :geometry({:srid=>4326, :type=>"multi_polygon"})
-#  updated_at         :datetime         not null
-#  updater_id         :integer
-#  usage              :string           not null
+#  activity_id         :integer          not null
+#  created_at          :datetime         not null
+#  creator_id          :integer
+#  cultivable_zone_id  :integer
+#  id                  :integer          not null, primary key
+#  irrigated           :boolean          default(FALSE), not null
+#  lock_version        :integer          default(0), not null
+#  nitrate_fixing      :boolean          default(FALSE), not null
+#  rank_number         :integer          not null
+#  size_indicator_name :string           not null
+#  size_unit_name      :string
+#  size_value          :decimal(19, 4)   not null
+#  started_on          :date
+#  state               :string
+#  stopped_on          :date
+#  support_id          :integer          not null
+#  support_nature      :string
+#  support_shape       :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  updated_at          :datetime         not null
+#  updater_id          :integer
+#  usage               :string           not null
 #
 
 class ActivityProduction < Ekylibre::Record::Base
@@ -58,14 +58,14 @@ class ActivityProduction < Ekylibre::Record::Base
           class_name: 'ManureManagementPlanZone', inverse_of: :activity_production
 
   has_geometry :support_shape
-  composed_of :size, class_name: 'Measure', mapping: [%w(size_value to_d), %w(size_unit unit)]
+  composed_of :size, class_name: 'Measure', mapping: [%w(size_value to_d), %w(size_unit_name unit)]
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_date :started_on, :stopped_on, allow_blank: true, on_or_after: Date.civil(1, 1, 1)
   validates_numericality_of :rank_number, allow_nil: true, only_integer: true
   validates_numericality_of :size_value, allow_nil: true
   validates_inclusion_of :irrigated, :nitrate_fixing, in: [true, false]
-  validates_presence_of :activity, :rank_number, :size_indicator, :size_value, :support, :usage
+  validates_presence_of :activity, :rank_number, :size_indicator_name, :size_value, :support, :usage
   # ]VALIDATORS]
   validates_uniqueness_of :rank_number, scope: :activity_id
   validates_presence_of :started_on
@@ -73,7 +73,7 @@ class ActivityProduction < Ekylibre::Record::Base
 
   delegate :name, :net_surface_area, :shape_area, to: :support, prefix: true
   delegate :name, :work_number, :shape, :shape_to_ewkt, :shape_svg, to: :support
-  delegate :name, :size_indicator, :size_unit, to: :activity, prefix: true
+  delegate :name, :size_indicator_name, :size_unit_name, to: :activity, prefix: true
   delegate :with_cultivation, :cultivation_variety, :with_supports, :support_variety, :color, to: :activity
 
   scope :of_campaign, lambda { |campaigns|
@@ -126,8 +126,8 @@ class ActivityProduction < Ekylibre::Record::Base
   before_validation do
     self.usage = Nomen::ProductionUsage.first unless usage
     if self.activity
-      self.size_indicator ||= activity_size_indicator if activity_size_indicator
-      self.size_unit      = activity_size_unit
+      self.size_indicator_name ||= activity_size_indicator_name if activity_size_indicator_name
+      self.size_unit_name      = activity_size_unit_name
       self.rank_number ||= (self.activity.productions.maximum(:rank_number) ? self.activity.productions.maximum(:rank_number) : 0) + 1
     end
     if !support && cultivable_zone && support_shape && self.vegetal_crops?
@@ -143,7 +143,7 @@ class ActivityProduction < Ekylibre::Record::Base
       end
       self.support = land_parcel
     end
-    self.size = current_size if support && size_indicator && size_unit
+    self.size = current_size if support && size_indicator_name && size_unit_name
   end
 
   before_validation(on: :create) do
@@ -190,7 +190,7 @@ class ActivityProduction < Ekylibre::Record::Base
   #  - indicator could be (:potassium_concentration, :nitrogen_concentration, :phosphorus_concentration)
   #  - area_unit could be (:hectare, :square_meter)
   #  - from and to used to select intervention
-  def soil_enrichment_indicator_content_per_area(indicator, from = nil, to = nil, area_unit = :hectare)
+  def soil_enrichment_indicator_content_per_area(indicator_name, from = nil, to = nil, area_unit_name = :hectare)
     balance = []
     procedure_category = :fertilizing
     if from && to
@@ -204,12 +204,12 @@ class ActivityProduction < Ekylibre::Record::Base
         # n = indicator (in %) of the input at intervention time
         m = (input.actor ? input.actor.net_mass(input).to_d(:kilogram) : 0.0)
         # TODO: for method phosphorus_concentration(input)
-        n = (input.actor ? input.actor.send(indicator).to_d(:unity) : 0.0)
+        n = (input.actor ? input.actor.send(indicator_name).to_d(:unity) : 0.0)
         balance << m * n
       end
     end
     # if net_surface_area, make the division
-    area = net_surface_area.to_d(area_unit)
+    area = net_surface_area.to_d(area_unit_name)
     indicator_unity_per_hectare = balance.compact.sum / area if area != 0
     indicator_unity_per_hectare
   end
@@ -245,23 +245,23 @@ class ActivityProduction < Ekylibre::Record::Base
     0
   end
 
-  def tool_cost(surface_unit = :hectare)
+  def tool_cost(surface_unit_name = :hectare)
     if net_surface_area.to_s.to_f > 0.0
-      return cost(:tool) / (net_surface_area.to_d(surface_unit).to_s.to_f)
+      return cost(:tool) / (net_surface_area.to_d(surface_unit_name).to_s.to_f)
     end
     0.0
   end
 
-  def input_cost(surface_unit = :hectare)
+  def input_cost(surface_unit_name = :hectare)
     if net_surface_area.to_s.to_f > 0.0
-      return cost(:input) / (net_surface_area.to_d(surface_unit).to_s.to_f)
+      return cost(:input) / (net_surface_area.to_d(surface_unit_name).to_s.to_f)
     end
     0.0
   end
 
-  def time_cost(surface_unit = :hectare)
+  def time_cost(surface_unit_name = :hectare)
     if net_surface_area.to_s.to_f > 0.0
-      return cost(:doer) / (net_surface_area.to_d(surface_unit).to_s.to_f)
+      return cost(:doer) / (net_surface_area.to_d(surface_unit_name).to_s.to_f)
     end
     0.0
   end
@@ -284,24 +284,24 @@ class ActivityProduction < Ekylibre::Record::Base
 
   # Generic method to get harvest yield
   def harvest_yield(harvest_variety, options = {})
-    size_indicator = options[:size_indicator] || :net_mass
-    ind = Nomen::Indicator.find(size_indicator)
-    fail "Invalid indicator: #{size_indicator}" unless ind
-    size_unit = options[:size_unit] || ind.unit
-    unless Nomen::Unit.find(size_unit)
-      fail "Invalid indicator unit: #{size_unit.inspect}"
+    size_indicator_name = options[:size_indicator_name] || :net_mass
+    ind = Nomen::Indicator.find(size_indicator_name)
+    fail "Invalid indicator: #{size_indicator_name}" unless ind
+    size_unit_name = options[:size_unit_name] || ind.unit
+    unless Nomen::Unit.find(size_unit_name)
+      fail "Invalid indicator unit: #{size_unit_name.inspect}"
     end
-    surface_unit = options[:surface_unit] || :hectare
+    surface_unit_name = options[:surface_unit_name] || :hectare
     procedure_category = options[:procedure_category] || :harvesting
     unless net_surface_area && net_surface_area.to_d > 0
       Rails.logger.warn 'No surface area. Cannot compute harvest yield'
       return nil
     end
-    harvest_yield_unit = "#{size_unit}_per_#{surface_unit}".to_sym
-    unless Nomen::Unit.find(harvest_yield_unit)
-      fail "Harvest yield unit doesn't exist: #{harvest_yield_unit.inspect}"
+    harvest_yield_unit_name = "#{size_unit_name}_per_#{surface_unit_name}".to_sym
+    unless Nomen::Unit.find(harvest_yield_unit_name)
+      fail "Harvest yield unit doesn't exist: #{harvest_yield_unit_name.inspect}"
     end
-    total_quantity = 0.0.in(size_unit)
+    total_quantity = 0.0.in(size_unit_name)
     harvest_interventions = interventions.real.of_category(procedure_category)
     if harvest_interventions.any?
       harvest_interventions.find_each do |harvest|
@@ -310,29 +310,29 @@ class ActivityProduction < Ekylibre::Record::Base
           next unless actor && actor.variety
           variety = Nomen::Variety.find(actor.variety)
           if variety && variety <= harvest_variety
-            total_quantity += actor.get(size_indicator, cast)
+            total_quantity += actor.get(size_indicator_name, cast)
           end
         end
       end
     end
-    harvest_yield = total_quantity.to_f / net_surface_area.to_d(surface_unit).to_f
-    Measure.new(harvest_yield, harvest_yield_unit)
+    harvest_yield = total_quantity.to_f / net_surface_area.to_d(surface_unit_name).to_f
+    Measure.new(harvest_yield, harvest_yield_unit_name)
   end
 
   # Returns the yield of grain in mass per surface unit
-  def grains_yield(mass_unit = :quintal, surface_unit = :hectare)
+  def grains_yield(mass_unit_name = :quintal, surface_unit_name = :hectare)
     harvest_yield(:grain, procedure_category: :harvesting,
-                          size_indicator: :net_mass,
-                          size_unit: mass_unit,
-                          surface_unit: surface_unit)
+                          size_indicator_name: :net_mass,
+                          size_unit_name: mass_unit_name,
+                          surface_unit_name: surface_unit_name)
   end
 
   # Returns the yield of grape in volume per surface unit
-  def vine_yield(volume_unit = :hectoliter, surface_unit = :hectare)
+  def vine_yield(volume_unit_name = :hectoliter, surface_unit_name = :hectare)
     harvest_yield(:grape, procedure_category: :harvesting,
-                          size_indicator: :net_volume,
-                          size_unit: volume_unit,
-                          surface_unit: surface_unit)
+                          size_indicator_name: :net_volume,
+                          size_unit_name: volume_unit_name,
+                          surface_unit_name: surface_unit_name)
   end
 
   # call method in production for instance
@@ -351,34 +351,34 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   def unified_size_unit
-    size_unit.blank? ? :unity : size_unit
+    size_unit_name.blank? ? :unity : size_unit_name
   end
 
   # Compute quantity of a support as defined in production
   def current_size(options = {})
-    value = get(size_indicator, options)
-    value = value.in(size_unit) unless size_unit.blank?
+    value = get(size_indicator_name, options)
+    value = value.in(size_unit_name) unless size_unit_name.blank?
     value
   end
-  
+
   ## AREA METHODS ##
-  
+
   def to_geom
     ::Charta.new_geometry(support_shape)
   end
-  
-  def net_surface_area(unit = :hectare)
-    area = 0.0.in(unit)
-    if size_indicator == 'net_surface_area' && size_value != 0.0
-      area = size 
+
+  def net_surface_area(unit_name = :hectare)
+    area = 0.0.in(unit_name)
+    if size_indicator_name == 'net_surface_area' && size_value != 0.0
+      area = size
     elsif support_shape
-      area = to_geom.area.in(unit).round(3)
+      area = to_geom.area.in(unit_name).round(3)
     end
     area
   end
-  
+
   ## LABEL METHODS ##
-  
+
   def work_name
     "#{support.work_name} - #{net_surface_area}"
   end
@@ -405,7 +405,7 @@ class ActivityProduction < Ekylibre::Record::Base
 
   # Returns value of an indicator if its name correspond to
   def method_missing(method_name, *args)
-    if Nomen::Indicator.all.include?(method_name.to_s)
+    if Nomen::Indicator.include?(method_name.to_s)
       return get(method_name, *args)
     end
     super
