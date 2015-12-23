@@ -150,7 +150,7 @@ gem 'luhn'
 
 group :development do
   gem 'quiet_assets'
-  # gem 'rack-mini-profiler'
+  gem 'rack-mini-profiler'
 
   # Code metrics
   gem 'rails_best_practices', require: false

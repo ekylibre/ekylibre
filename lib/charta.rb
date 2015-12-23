@@ -117,8 +117,8 @@ module Charta
       send("from_#{format}", data)
     end
 
-    def from_gml(data)
-      new_geometry(::Charta::GML.new(data).to_ewkt)
+    def from_gml(data, srid = nil)
+      new_geometry(::Charta::GML.new(data, srid).to_ewkt)
     end
 
     def from_kml(data)

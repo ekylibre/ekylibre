@@ -3,7 +3,7 @@ module Charta
   class GML
     attr_reader :srid
 
-    def initialize(data, srid = :WGS84)
+    def initialize(data, srid = nil)
       if data.is_a? Nokogiri::XML::Document
         @gml = data.root.to_xml
       elsif data.is_a?(Nokogiri::XML::NodeSet) || data.is_a?(Nokogiri::XML::Element)
@@ -11,11 +11,15 @@ module Charta
       else
         @gml = data
       end
+      unless srid
+        srid = Charta.select_value("SELECT ST_SRID(ST_GeomFromGML('#{@gml}'))").to_i
+        srid = :WGS84 if srid.zero?
+      end
       @srid = Charta.find_srid(srid)
     end
 
     def to_ewkt
-      Charta.select_value("SELECT ST_AsEWKT(ST_GeomFromGML('#{@gml}'))")
+      Charta.select_value("SELECT ST_AsEWKT(ST_SetSRID(ST_GeomFromGML('#{@gml}'), #{@srid}))")
     end
 
     def valid?
