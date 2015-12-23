@@ -115,8 +115,12 @@ class Ekylibre::MattersExchanger < ActiveExchanger::Base
         end
 
         # create indicators linked to matters
-        for indicator, value in r.indicators
-          product.read!(indicator, value, at: r.born_at, force: true)
+        r.indicators.each do |indicator, value|
+          if indicator.to_sym == :population
+            equipment.move!(value, at: r.born_at)
+          else
+            equipment.read!(indicator, value, at: r.born_at, force: true)
+          end
         end
 
         w.check_point
