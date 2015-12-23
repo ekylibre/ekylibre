@@ -1,0 +1,35 @@
+nom,variant_nomen,numéro de travail,code place,code groupe,date naissance,variété,nom du propriétaire,indicateurs
+,BANDE DE POULES,,,,,,,
+Poules Gournay Mars 2014,female_hen_band,GO_2014_01,S04_D08,POULE_01,01/03/2014,,,Population : 40
+Poules Gournay Juin 2014,female_hen_band,GO_2014_02,S04_D08,POULE_01,01/06/2014,,,Population : 120
+Poules Babcock Juin 2014,female_hen_band,BAB_2014_01,S04_D08,POULE_01,01/06/2014,,,Population : 100
+Poulet Gournay,male_hen_band,M_GO_2014_01,S04_D09,POULET_01,01/03/2014,,,Population : 10
+,VACHES,Numéro national,,,,,,
+Inn,female_young_cow,FR4913274061,ZC04,GEN_01,02/03/2013,,,Population : 1
+Uma,female_young_cow,FR4913274066,ZC04,GEN_01,30/03/2013,,,Population : 1
+Ilma,female_young_cow,FR4913274067,ZC04,GEN_01,15/04/2013,,,Population : 1
+,CAPRINS,,,,,,,
+Chèvre 1,female_adult_goat,CHEVRE01,ZC16,CHE_01,,,,Population : 1
+Chèvre 2,female_adult_goat,CHEVRE02,ZC16,CHE_01,,,,Population : 1
+Chèvre 3,female_adult_goat,CHEVRE03,ZC16,CHE_01,,,,Population : 1
+Bobine,female_adult_goat,CHEVRE04,ZC16,CHE_01,,,,Population : 1
+Bouc,male_adult_goat,CHEVRE05,ZC16,BOU_01,,,,Population : 1
+,EQUINS,Numéro SIRE,,,,,,
+Valarie (Ventry Blue),female_adult_horse,VALARIE01,ZC04,JUM_01,01/05/2008,,,Population : 1
+Tigrou,male_adult_pony,52148298R,ZC04,PON_01,01/01/1986,,,Population : 1
+Feuille,female_adult_pony,52398752J,ZC04,PONE_01,01/01/1998,,,Population : 1
+Douce,female_adult_pony,13721678G,ZC04,PONE_01,18/05/2013,,,Population : 1
+,COCHONS,,,,,,,
+Verrat,male_pig_band,VERRAT01,ZC22,VER_01,01/01/2009,,,Population : 1
+Truie,female_pig_band,61QVR70009,ZC22,TRU_01,01/01/2009,,,Population : 1
+Porcelet 1,piglet_band,PORCELET01,ZC22,POR_G_01,20/09/2014,,,Population : 2
+,LAPINS ,,,,,,,
+Moumout',male_adult_rabbit,LAPIN01,ZC22,LAP_01,01/01/2012,,,Population : 1
+Martre Brun,male_adult_rabbit,LAPIN02,ZC22,LAP_01,01/01/2012,,,Population : 1
+Australe,female_adult_rabbit,LAPIN03,ZC22,LAPI_01,01/01/2008,,,Population : 1
+Tartine,female_adult_rabbit,LAPIN04,ZC22,LAPI_01,01/01/2012,,,Population : 1
+Loutre Bleue,female_adult_rabbit,LAPIN05,ZC22,LAPI_01,10/05/2014,,,Population : 1
+Compote,female_adult_rabbit,LAPIN06,ZC22,LAPI_01,15/05/2014,,,Population : 1
+Lapine Bleue 1,female_adult_rabbit,LAPIN07,ZC22,LAPI_01,01/02/2013,,,Population : 1
+Lapine Bleue 2,female_adult_rabbit,LAPIN08,ZC22,LAPI_01,01/02/2013,,,Population : 1
+Lapin Bleue,male_adult_rabbit,LAPIN09,ZC22,LAP_01,15/05/2014,,,Population : 1
