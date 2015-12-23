@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Update organic fertilizer">
+  <item-change item="product_natures#organic_fertilizer" variety="preparation"/>
+</migration>

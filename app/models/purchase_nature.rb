@@ -68,13 +68,15 @@ class PurchaseNature < Ekylibre::Record::Base
       journal ||= Journal.create!(name: "enumerize.journal.nature.#{nature}".t,
                                   nature: nature.to_s, currency: currency,
                                   closed_on: Date.new(1899, 12, 31).end_of_month)
-      create!(
-        name: PurchaseNature.tc('default.name'),
-        active: true,
-        currency: Preference[:currency],
-        with_accounting: true,
-        journal: journal
-      )
+      unless find_by(name: PurchaseNature.tc('default.name'))
+        create!(
+          name: PurchaseNature.tc('default.name'),
+          active: true,
+          currency: Preference[:currency],
+          with_accounting: true,
+          journal: journal
+        )
+      end
     end
   end
 end

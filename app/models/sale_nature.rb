@@ -100,19 +100,21 @@ class SaleNature < Ekylibre::Record::Base
       catalog = Catalog.of_usage(:sale).first
       catalog ||= Catalog.create!(name: "enumerize.catalog.usage.#{usage}".t,
                                   usage: usage, currency: currency)
-      create!(
-        name: tc('default.name'),
-        active: true,
-        expiration_delay: '30 day',
-        payment_delay: '30 day',
-        downpayment: false,
-        downpayment_minimum: 300,
-        downpayment_percentage: 30,
-        currency: Preference[:currency],
-        with_accounting: true,
-        journal: journal,
-        catalog: catalog
-      )
+      unless find_by(name: tc('default.name'))
+        create!(
+          name: tc('default.name'),
+          active: true,
+          expiration_delay: '30 day',
+          payment_delay: '30 day',
+          downpayment: false,
+          downpayment_minimum: 300,
+          downpayment_percentage: 30,
+          currency: Preference[:currency],
+          with_accounting: true,
+          journal: journal,
+          catalog: catalog
+        )
+      end
     end
   end
 end

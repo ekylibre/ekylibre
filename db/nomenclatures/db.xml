@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151222180021">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151223164501">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -3342,7 +3342,7 @@
       <item name="numeric_subscription" category="licence" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="oenological_yeast" category="oenological_product" variety="yeast" derivative_of="fungus" population_counting="decimal" abilities="fermentize(wine)" variable_indicators="" frozen_indicators="net_mass, cells_mass_concentration"/>
       <item name="office_furniture" category="office_furniture_equipment" variety="equipment" population_counting="integer" variable_indicators=""/>
-      <item name="organic_fertilizer" category="fertilizer" variety="excrement" population_counting="decimal" abilities="fertilize" variable_indicators="" frozen_indicators="net_volume, net_mass, nitrogen_concentration, potassium_concentration, phosphorus_concentration"/>
+      <item name="organic_fertilizer" category="fertilizer" variety="preparation" population_counting="decimal" abilities="fertilize" variable_indicators="" frozen_indicators="net_volume, net_mass, nitrogen_concentration, potassium_concentration, phosphorus_concentration"/>
       <item name="oyster_band" category="oyster_band" variety="ostreidae" population_counting="integer" abilities="move, consume(water)" variable_indicators=""/>
       <item name="packaged_process_food" category="fruit" variety="mix" derivative_of="fruit" population_counting="integer" variable_indicators="best_before_period" frozen_indicators="net_mass, net_volume"/>
       <item name="peanut" category="fruit" variety="peanut" derivative_of="arachis" population_counting="decimal" variable_indicators="impurity_concentration, water_content_rate" frozen_indicators="net_mass"/>
