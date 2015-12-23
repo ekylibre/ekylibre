@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151223164501">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20151223171801">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -3434,7 +3434,7 @@
       <item name="wine_press" category="equipment" variety="press" population_counting="unitary" abilities="press(grape), press(juice), press(fermented_juice), press(wine)" variable_indicators="nominal_storable_net_volume" frozen_indicators=""/>
       <item name="wine_storage_division" category="building_division" variety="building_division" population_counting="unitary" abilities="store(wine)" variable_indicators="net_surface_area, shape, nominal_storable_net_volume, nominal_storable_easement_area" frozen_indicators=""/>
       <item name="wine_tank" category="equipment" variety="tank" population_counting="unitary" abilities="store(wine), store(grape), store(fermented_juice), store(juice), store_liquid" variable_indicators="nominal_storable_net_volume" frozen_indicators=""/>
-      <item name="wire" category="small_equipment" variety="wire" population_counting="integer" abilities="enclose" variable_indicators="" frozen_indicators="diameter, length"/>
+      <item name="wire" category="small_equipment" variety="wire" population_counting="integer" abilities="enclose" variable_indicators="" frozen_indicators="diameter, length, net_length"/>
       <item name="young_rabbit" category="short_time_animal" variety="oryctolagus" population_counting="integer" abilities="consume(water), consume(poaceae), consume(mix), produce(excrement), move" variable_indicators="healthy, net_mass"/>
     </items>
   </nomenclature>

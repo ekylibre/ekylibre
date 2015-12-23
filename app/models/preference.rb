@@ -156,6 +156,7 @@ class Preference < Ekylibre::Record::Base
         attributes[:nature] = reference[name][:nature] if reference.key?(name)
         preference = new(attributes)
       end
+      preference.reload unless preference.new_record?
       preference.value = value
       preference.save!
       preference

@@ -382,6 +382,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
           derivative_of: item.derivative_of || nil
         }
         variant = new(attributes)
+        # puts variant.name.inspect.green
         unless variant.save
           fail "Cannot import variant #{reference_name.inspect}: #{variant.errors.full_messages.join(', ')}"
         end
@@ -392,6 +393,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
         # create frozen indicator for each pair indicator, value ":population => 1unity"
         item.frozen_indicators_values.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/)
           .collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each do |i|
+          # puts i.first.strip.downcase.to_sym.inspect.red
           variant.read!(i.first.strip.downcase.to_sym, i.second)
         end
       end

@@ -64,7 +64,8 @@ class PurchaseNature < Ekylibre::Record::Base
     # Load default purchase nature
     def load_defaults
       nature = :purchases
-      journal = Journal.find_by(nature: nature, currency: Preference[:currency])
+      currency = Preference[:currency]
+      journal = Journal.find_by(nature: nature, currency: currency)
       journal ||= Journal.create!(name: "enumerize.journal.nature.#{nature}".t,
                                   nature: nature.to_s, currency: currency,
                                   closed_on: Date.new(1899, 12, 31).end_of_month)
@@ -72,7 +73,7 @@ class PurchaseNature < Ekylibre::Record::Base
         create!(
           name: PurchaseNature.tc('default.name'),
           active: true,
-          currency: Preference[:currency],
+          currency: currency,
           with_accounting: true,
           journal: journal
         )

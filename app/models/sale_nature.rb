@@ -93,7 +93,8 @@ class SaleNature < Ekylibre::Record::Base
     def load_defaults
       nature = :sales
       usage = :sale
-      journal = Journal.find_by(nature: nature, currency: Preference[:currency])
+      currency = Preference[:currency]
+      journal = Journal.find_by(nature: nature, currency: currency)
       journal ||= Journal.create!(name: "enumerize.journal.nature.#{nature}".t,
                                   nature: nature.to_s, currency: currency,
                                   closed_on: Date.new(1899, 12, 31).end_of_month)
@@ -109,7 +110,7 @@ class SaleNature < Ekylibre::Record::Base
           downpayment: false,
           downpayment_minimum: 300,
           downpayment_percentage: 30,
-          currency: Preference[:currency],
+          currency: currency,
           with_accounting: true,
           journal: journal,
           catalog: catalog

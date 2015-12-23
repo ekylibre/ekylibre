@@ -55,7 +55,7 @@ class Ekylibre::ActivitiesExchanger < ActiveExchanger::Base
           support_variety: :animal_group,
           with_cultivation: true,
           with_supports: true,
-          size_indicator: 'member_population',
+          size_indicator: 'members_population',
           nature: :main
         }
       else
