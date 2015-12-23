@@ -1,5 +1,4 @@
 class Ekylibre::ActivitiesExchanger < ActiveExchanger::Base
-  
   def check
     valid = true
     rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
@@ -10,20 +9,18 @@ class Ekylibre::ActivitiesExchanger < ActiveExchanger::Base
         family: (row[1].blank? ? nil : row[1].to_s),
         variety: (row[2].blank? ? nil : row[2].to_sym)
       }.to_struct
-      
+
       unless family = Nomen::ActivityFamily[r.family]
         valid = false
       end
-      
+
       unless variety = Nomen::Variety[r.variety]
         valid = false
       end
-      
     end
     valid
   end
-  
-  
+
   # Create or updates activities
   def import
     rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
@@ -35,9 +32,9 @@ class Ekylibre::ActivitiesExchanger < ActiveExchanger::Base
         family: (row[1].blank? ? nil : row[1].to_s),
         variety: (row[2].blank? ? nil : row[2].to_s)
       }.to_struct
-      
+
       family = Nomen::ActivityFamily[r.family]
-      
+
       if family <= :vegetal_crops
         attributes = {
           name: r.name,

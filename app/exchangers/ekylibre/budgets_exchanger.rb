@@ -59,13 +59,14 @@ module Ekylibre
             w.error 'Cannot determine activity'
             fail ActiveExchanger::Error, "Cannot determine activity with support #{support_variant ? support_variant.variety.inspect : '?'} and cultivation #{cultivation_variant ? cultivation_variant.variety.inspect : '?'} in production #{sheet_name}"
           end
-          activity = Activity.new(name: activity_name[0].strip,
-                                  family: family.name,
-                                  size_indicator: (production_indicator[0] ? production_indicator[0].strip.to_sym : nil),
-                                  size_unit: (production_indicator[1] ? production_indicator[1].strip.to_sym : nil),
-                                  nature: family.nature,
-                                  with_supports: (production_support_numbers.any? ? true : false)
-                                 )
+          activity = Activity.new(
+            name: activity_name[0].strip,
+            family: family.name,
+            size_indicator: (production_indicator[0] ? production_indicator[0].strip.to_sym : nil),
+            size_unit: (production_indicator[1] ? production_indicator[1].strip.to_sym : nil),
+            nature: family.nature,
+            with_supports: (production_support_numbers.any? ? true : false)
+          )
           if support_variant && support_variant.variety
             activity.support_variety = (Nomen::Variety.find(support_variant.variety) == :cultivable_zone ? :cultivable_zone : (Nomen::Variety.find(support_variant.variety) <= :building_division ? :building_division : :product))
             activity.with_cultivation = (Nomen::Variety.find(support_variant.variety) == :cultivable_zone ? true : false)
@@ -125,7 +126,7 @@ module Ekylibre
             attributes[:size_value] = 1.0
             attributes[:usage] = :meat
           else
-            attributes[:size_indicator] = 'population'
+            attributes[:size_indicator] = 'net_mass'
             attributes[:size_value] = 1.0
             attributes[:usage] = :grain
           end

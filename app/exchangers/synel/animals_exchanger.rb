@@ -12,22 +12,23 @@ class Synel::AnimalsExchanger < ActiveExchanger::Base
     rows.each do |row|
       born_on = (row[4].blank? ? nil : Date.parse(row[4]))
       dead_on = (row[10].blank? ? nil : Date.parse(row[10]))
-      r = OpenStruct.new(country: row[0],
-                         identification_number: row[1],
-                         work_number: row[2],
-                         name: (row[3].blank? ? FFaker::Name.first_name + ' (MN)' : row[3].capitalize),
-                         born_on: born_on,
-                         born_at: (born_on ? born_on.to_datetime + 10.hours : nil),
-                         age: (born_on ? (Time.zone.today - born_on) : 0).to_f,
-                         corabo: row[5],
-                         sex: (row[6] == 'F' ? :female : :male),
-                         # :arrival_cause => (arrival_causes[row[7]] || row[7]),
-                         # :initial_arrival_cause => (initial_arrival_causes[row[7]] || row[7]),
-                         arrived_on: (row[8].blank? ? nil : Date.parse(row[8])),
-                         # :departure_cause => (departure_causes[row[9]] ||row[9]),
-                         departed_on: dead_on,
-                         dead_at: (dead_on ? dead_on.to_datetime : nil)
-                        )
+      r = OpenStruct.new(
+        country: row[0],
+        identification_number: row[1],
+        work_number: row[2],
+        name: (row[3].blank? ? FFaker::Name.first_name + ' (MN)' : row[3].capitalize),
+        born_on: born_on,
+        born_at: (born_on ? born_on.to_datetime + 10.hours : nil),
+        age: (born_on ? (Time.zone.today - born_on) : 0).to_f,
+        corabo: row[5],
+        sex: (row[6] == 'F' ? :female : :male),
+        # :arrival_cause => (arrival_causes[row[7]] || row[7]),
+        # :initial_arrival_cause => (initial_arrival_causes[row[7]] || row[7]),
+        arrived_on: (row[8].blank? ? nil : Date.parse(row[8])),
+        # :departure_cause => (departure_causes[row[9]] ||row[9]),
+        departed_on: dead_on,
+        dead_at: (dead_on ? dead_on.to_datetime : nil)
+      )
       unless animal = Animal.find_by(identification_number: r.identification_number)
         group = nil
         # unless group = groups.detect do |g|
@@ -63,8 +64,8 @@ class Synel::AnimalsExchanger < ActiveExchanger::Base
         )
       end
       # Sex is already known but not if the group has no sex
-      animal.read!(:sex, r.sex, at: r.born_at) if animal.sex.blank?
-      animal.read!(:healthy, true,  at: r.born_at)
+      # animal.read!(:sex, r.sex, at: r.born_at) if animal.sex.blank?
+      animal.read!(:healthy, true, at: r.born_at)
 
       # load demo data weight and state
       if demo_mode

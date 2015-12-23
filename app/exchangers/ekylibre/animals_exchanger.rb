@@ -5,31 +5,33 @@ class Ekylibre::AnimalsExchanger < ActiveExchanger::Base
     w.count = rows.size
 
     rows.each do |row|
-      r = OpenStruct.new(name: row[0],
-                         nature: row[1].to_sym,
-                         code: (row[2].blank? ? nil : row[2].to_s),
-                         place: (row[3].blank? ? nil : row[3].to_s),
-                         group: (row[4].blank? ? nil : row[4].to_s),
-                         born_at: (row[5].blank? ? (Time.zone.today) : row[5]).to_datetime,
-                         variety: (row[6].blank? ? nil : row[6].to_sym),
-                         initial_owner: (row[7].blank? ? nil : row[7].to_s),
-                         indicators: row[8].blank? ? {} : row[8].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.inject({}) do |h, i|
-                           h[i.first.strip.downcase.to_sym] = i.second
-                           h
-                         end,
-                         record: nil
-                        )
+      r = OpenStruct.new(
+        name: row[0],
+        nature: row[1].to_sym,
+        code: (row[2].blank? ? nil : row[2].to_s),
+        place: (row[3].blank? ? nil : row[3].to_s),
+        group: (row[4].blank? ? nil : row[4].to_s),
+        born_at: (row[5].blank? ? (Time.zone.today) : row[5]).to_datetime,
+        variety: (row[6].blank? ? nil : row[6].to_sym),
+        initial_owner: (row[7].blank? ? nil : row[7].to_s),
+        indicators: row[8].blank? ? {} : row[8].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.inject({}) do |h, i|
+          h[i.first.strip.downcase.to_sym] = i.second
+          h
+        end,
+        record: nil
+      )
 
       unless animal = Animal.find_by(work_number: r.code)
-        animal = Animal.create!(name: r.name,
-                                work_number: r.code,
-                                identification_number: r.code,
-                                initial_born_at: r.born_at,
-                                variant: ProductNatureVariant.import_from_nomenclature(r.nature),
-                                default_storage: BuildingDivision.find_by(work_number: r.place)
-                               )
+        animal = Animal.create!(
+          name: r.name,
+          work_number: r.code,
+          identification_number: r.code,
+          initial_born_at: r.born_at,
+          variant: ProductNatureVariant.import_from_nomenclature(r.nature),
+          default_storage: BuildingDivision.find_by(work_number: r.place)
+        )
         # create indicators linked to animal
-        for indicator, value in r.indicators
+        r.indicators.each do |indicator, value|
           animal.read!(indicator, value, at: r.born_at, force: true)
         end
         animal.initial_population = animal.population

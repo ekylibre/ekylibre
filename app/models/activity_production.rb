@@ -48,6 +48,8 @@
 class ActivityProduction < Ekylibre::Record::Base
   enumerize :support_nature, in: [:cultivation, :fallow_land, :buffer, :border, :none], default: :cultivation
   refers_to :usage, class_name: 'ProductionUsage'
+  refers_to :size_indicator, class_name: 'Indicator'
+  refers_to :size_unit, class_name: 'Unit'
   belongs_to :activity, inverse_of: :productions
   belongs_to :cultivable_zone
   belongs_to :support, class_name: 'Product' # , inverse_of: :supports

@@ -93,17 +93,22 @@ module Ekylibre
         animal_container = Product.find_by_work_number(r.place)
 
         unless animal_group = AnimalGroup.find_by(work_number: r.code)
-          animal_group = AnimalGroup.create!(name: r.name,
-                                             work_number: r.code,
-                                             initial_born_at: r.indicators_at,
-                                             variant: variant,
-                                             default_storage: BuildingDivision.find_by(work_number: r.place)
-                                            )
+          animal_group = AnimalGroup.create!(
+            name: r.name,
+            work_number: r.code,
+            initial_born_at: r.indicators_at,
+            variant: variant,
+            default_storage: BuildingDivision.find_by(work_number: r.place)
+          )
           # create indicators linked to equipment
-          for indicator, value in r.indicators
-            animal_group.read!(indicator, value, at: r.indicators_at, force: true)
+          r.indicators.each do |indicator, value|
+            if indicator.to_sym == :population
+              animal_group.move!(value, at: r.indicators_at)
+            else
+              animal_group.read!(indicator, value, at: r.indicators_at, force: true)
+            end
           end
-          animal_group.initial_population = animal_group.population
+          # animal_group.initial_population = animal_group.population
           animal_group.save!
         end
 

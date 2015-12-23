@@ -40,8 +40,10 @@ module Indicateable
       fail ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
     end
     fail ArgumentError, 'Value must be given' if value.nil?
-    if !options[:force] && frozen_indicators.include?(indicator)
-      fail ArgumentError, "A frozen indicator (#{indicator.name}) cannot be read"
+    unless options[:force]
+      if frozen_indicators.include?(indicator)
+        fail ArgumentError, "A frozen indicator (#{indicator.name}) cannot be read"
+      end
     end
     options[:at] = Time.new(1, 1, 1, 0, 0, 0, '+00:00') if options[:at] == :origin
     options[:at] = Time.zone.now unless options.key?(:at)

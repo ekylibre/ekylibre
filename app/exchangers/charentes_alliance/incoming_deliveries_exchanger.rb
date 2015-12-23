@@ -34,17 +34,18 @@ class CharentesAlliance::IncomingDeliveriesExchanger < ActiveExchanger::Base
     w.count = rows.size
 
     rows.each do |row|
-      r = OpenStruct.new(order_number: row[0],
-                         ordered_on: Date.civil(*row[1].to_s.split(/\//).reverse.map(&:to_i)),
-                         product_nature_name: (variants_transcode[row[3].to_s] || 'small_equipment'),
-                         matter_name: row[4],
-                         coop_variant_reference_name: 'coop:' + row[4].downcase.gsub(/[\W\_]+/, '_'),
-                         coop_reference_name: row[4].to_s,
-                         quantity: (row[5].blank? ? nil : row[5].to_d),
-                         product_deliver_quantity: (row[6].blank? ? nil : row[6].to_d),
-                         product_unit_price: (row[7].blank? ? nil : row[7].to_d),
-                         order_status: (status[row[8]] || :draft)
-                        )
+      r = OpenStruct.new(
+        order_number: row[0],
+        ordered_on: Date.civil(*row[1].to_s.split(/\//).reverse.map(&:to_i)),
+        product_nature_name: (variants_transcode[row[3].to_s] || 'small_equipment'),
+        matter_name: row[4],
+        coop_variant_reference_name: 'coop:' + row[4].downcase.gsub(/[\W\_]+/, '_'),
+        coop_reference_name: row[4].to_s,
+        quantity: (row[5].blank? ? nil : row[5].to_d),
+        product_deliver_quantity: (row[6].blank? ? nil : row[6].to_d),
+        product_unit_price: (row[7].blank? ? nil : row[7].to_d),
+        order_status: (status[row[8]] || :draft)
+      )
       # create an incoming deliveries if not exist and status = 2
       if r.order_status == :order
         order   = Parcel.find_by_reference_number(r.order_number)
@@ -63,17 +64,16 @@ class CharentesAlliance::IncomingDeliveriesExchanger < ActiveExchanger::Base
         # find a price from current supplier for a consider variant
         #  @ TODO waiting for a product price capitalization method
         product_nature_variant_price = catalog.items.find_by(variant_id: product_nature_variant.id)
-        product_nature_variant_price ||= catalog.items.create!(currency: 'EUR',
-                                                               reference_tax_id: appro_price_template_tax.id,
-                                                               amount: appro_price_template_tax.amount_of(r.product_unit_price),
-                                                               variant_id: product_nature_variant.id
-                                                              )
-
+        product_nature_variant_price ||= catalog.items.create!(
+          currency: 'EUR',
+          reference_tax_id: appro_price_template_tax.id,
+          amount: appro_price_template_tax.amount_of(r.product_unit_price),
+          variant_id: product_nature_variant.id
+        )
         product_model = product_nature_variant.nature.matching_model
-        incoming_item ||= product_model.create!(variant: product_nature_variant, work_number: r.ordered_on.to_s + '_' + r.matter_name, name: r.matter_name + ' (' + r.ordered_on.to_s + ')', initial_owner: Entity.of_company, identification_number: r.ordered_on.to_s + '_' + r.order_number + '_' + r.matter_name, initial_born_at: r.ordered_on, created_at: r.ordered_on, default_storage: building_division)
-        unless incoming_item.frozen_indicators_list.include?(:population)
-          incoming_item.read!(:population, r.quantity, at: r.ordered_on.to_datetime)
-        end
+        incoming_item ||= product_model.create!(variant: product_nature_variant, work_number: r.ordered_on.to_s + '_' + r.matter_name, name: r.matter_name + ' (' + r.ordered_on.to_s + ')', initial_owner: Entity.of_company, identification_number: r.ordered_on.to_s + '_' + r.order_number + '_' + r.matter_name, initial_born_at: r.ordered_on, created_at: r.ordered_on, default_storage: building_division, initial_population: r.quantity)
+
+        # incoming_item.move!(r.quantity, at: r.ordered_on.to_datetime)
 
         if incoming_item.present?
           order.items.create!(source_product: incoming_item)

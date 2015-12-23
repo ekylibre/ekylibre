@@ -36,7 +36,7 @@ module Procedo
     def include?(number)
       return false if minimum? && @minimum > number
       return false if maximum? && @maximum < number
-      return true
+      true
     end
 
     def minimum=(value)
@@ -61,7 +61,7 @@ module Procedo
 
     def ==(other_cardinality)
       other = self.class.new(other_cardinality)
-      self.minimum == other.minimum && self.maximum == other.maximum
+      minimum == other.minimum && maximum == other.maximum
     end
   end
 end
