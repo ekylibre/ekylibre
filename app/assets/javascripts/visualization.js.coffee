@@ -218,6 +218,12 @@
       options = $.extend true, {}, @options.controlDefaults.fullscreen, options
       control = new L.Control.FullScreen options
       @map.addControl control
+      @map.on "enterFullscreen", (e) =>
+        @map.scrollWheelZoom.enable();
+
+      @map.on "exitFullscreen", (e) =>
+        @map.scrollWheelZoom.disable();
+
 
     _addGeocoderControl: (options) ->
       options = $.extend true, {}, @options.controlDefaults.geocoder, options
