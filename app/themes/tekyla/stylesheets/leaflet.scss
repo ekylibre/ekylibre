@@ -940,7 +940,7 @@
 
 
 
-i.leaflet-importer-ctrl {
+i.leaflet-importer-ctrl, button.leaflet-importer-ctrl {
   @include is-icon;
   @include use-icon(download);
   color: $active-link-color;
