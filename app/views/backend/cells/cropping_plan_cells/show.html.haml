@@ -21,7 +21,7 @@
     end
 
     series = []
-    series << {name: Activity.model_name.human, data: activities_serie, size: "60%", data_labels: {color: 'white', distance: -30}}
+    series << {name: Activity.model_name.human, data: activities_serie, size: "60%", data_labels: {enabled: false}}
     series << {name: ActivityProduction.model_name.human, data: productions_serie, size: "80%", inner_size: "60%", data_labels: {enabled: true}}
 
   = pie_highcharts(series, tooltip: {point_format: "{point.y: 1.2f} #{surface_unit.symbol}"}, title: "#{campaign.name} : #{productions_net_surface_area}", plot_options: { pie: { allow_point_select: true, cursor: 'pointer'}})
