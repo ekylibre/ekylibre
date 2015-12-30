@@ -274,6 +274,7 @@ $form-actions-height: 48px;
     }
   }
 }
+
 div.nested-fields {
   position: relative;
   .nested-remove {
@@ -298,6 +299,12 @@ div.nested-fields {
     }
     &:last-child {
       @include border-bottom-radius($default-border-radius);
+    }
+    &:nth-child(2n) {
+      background: rgba($active-color, 0.03);
+    }
+    &:nth-child(2n+1) {
+      background: rgba(white, 0.75);
     }
   }
   .links {
