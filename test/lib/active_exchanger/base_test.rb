@@ -35,7 +35,7 @@ class ActiveExchanger::BaseTest < ActiveSupport::TestCase
     ActiveExchanger::Base.import(:legrain_epicea_journals, FIRST_RUN_V1.join('epicea', 'ExportationDesEcritures.Txt'))
   end
 
-  Nomen::ExchangeNature.list.each do |item|
+  Nomen::ExchangeNature.find_each do |item|
     path = fixture_files_path.join('imports', "#{item.name}.*")
     list = Dir.glob(path)
     if list.any?
