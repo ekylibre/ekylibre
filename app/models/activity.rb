@@ -179,6 +179,10 @@ class Activity < Ekylibre::Record::Base
     productions.of_campaign(campaign).count
   end
 
+  def vegetal_crops?
+    family && Nomen::ActivityFamily.find(family) <= :vegetal_crops
+  end
+
   def size_during(campaign)
     total = productions.of_campaign(campaign).pluck(:size_value).sum
     # total = total.in(size_unit) if size_unit

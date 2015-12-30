@@ -76,7 +76,8 @@ class ActivityProduction < Ekylibre::Record::Base
   delegate :name, :net_surface_area, :shape_area, to: :support, prefix: true
   delegate :name, :work_number, :shape, :shape_to_ewkt, :shape_svg, to: :support
   delegate :name, :size_indicator_name, :size_unit_name, to: :activity, prefix: true
-  delegate :with_cultivation, :cultivation_variety, :with_supports, :support_variety, :color, to: :activity
+  delegate :vegetal_crops, :with_cultivation, :cultivation_variety, :with_supports,
+           :support_variety, :color, to: :activity
 
   scope :of_campaign, lambda { |campaigns|
     campaigns = [campaigns] unless campaigns.respond_to? :map
@@ -165,10 +166,6 @@ class ActivityProduction < Ekylibre::Record::Base
     else
       return true
     end
-  end
-
-  def vegetal_crops?
-    activity.family && Nomen::ActivityFamily.find(activity.family) <= :vegetal_crops
   end
 
   # Returns interventions of current production

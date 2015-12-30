@@ -1,12 +1,11 @@
+- activity_productions = ActivityProduction
 - if @activity_production_ids
-  - activity_production = ActivityProduction.where(id: @activity_production_ids)
-- else
-  - activity_production = ActivityProduction.all
+  - activity_productions = activity_productions.where(id: @activity_production_ids)
 
-- if @campaigns and activity_production.map(&:support_shape).any?
+- if @campaigns && activity_productions.map(&:support_shape).any?
   :ruby
     data = []
-        activity_production.of_campaign(@campaigns).find_each do |support|
+        activity_productions.of_campaign(@campaigns).find_each do |support|
           if support.support_shape
             popup_content = []
 
