@@ -65,7 +65,7 @@ class InterventionProductParameter < InterventionParameter
   has_geometry :working_zone, type: :multi_polygon
   composed_of :quantity, class_name: 'Measure', mapping: [%w(quantity_value to_d), %w(quantity_unit unit)]
 
-  validates_presence_of :quantity_indicator, :quantity_unit, if: :quantity_handler?
+  validates_presence_of :quantity_indicator_name, :quantity_unit_name, if: :quantity_handler?
 
   delegate :name, to: :product, prefix: true
   delegate :name, to: :product_nature, prefix: true
@@ -102,8 +102,8 @@ class InterventionProductParameter < InterventionParameter
       if reference.handled? && quantity_handler?
         handler = reference[quantity_handler]
         if handler
-          self.quantity_indicator = handler.indicator.name
-          self.quantity_unit = handler.unit.name
+          self.quantity_indicator_name = handler.indicator.name
+          self.quantity_unit_name = handler.unit.name
         end
       end
     end

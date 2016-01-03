@@ -23,7 +23,7 @@
       %h3= link_to(actor.name, {controller: actor.class.table_name, action: :show, id: actor.id})
       %p= product_parameter.name
       %p= product_parameter.model_name.human
-      - if actor.is_a?(Product) && !actor.population_counting_unitary? && variant && product_parameter.quantity_unit && product_parameter.quantity
+      - if actor.is_a?(Product) && !actor.population_counting_unitary? && variant && product_parameter.quantity_unit_name && product_parameter.quantity
         %p
           - if product_parameter.quantity_indicator == 'population'
             = :x_thing.tl(x: product_parameter.quantity.round(2).l, thing: variant.unit_name.mb_chars.downcase)
