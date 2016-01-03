@@ -21,8 +21,19 @@
           .med-info
             %span.title= CapStatement.human_attribute_name(:declarant)
             %span.value= resource.declarant.full_name
-      - c.cobble(:cap_islets) do
-        = cobble_list(:cap_islets)
+          .med-info
+            %span.title= :net_surface_area.tl
+            %span.value= resource.net_surface_area
+          .med-info
+            %span.title= :number_of_cap_islets.tl
+            %span.value= resource.cap_islets.count
+          .med-info
+            %span.title= :number_of_cap_land_parcels.tl
+            %span.value= resource.cap_land_parcels.count
+      -# c.cobble(:cap_islets) do
+        #= cobble_list(:cap_islets)
+      - c.cobble(:cap_land_parcels) do
+        = cobble_list(:cap_land_parcels)
 
   - if cap_land_parcels = CapLandParcel.of_cap_statement(resource).any?
     = v.face :map do

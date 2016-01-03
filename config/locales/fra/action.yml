@@ -1317,6 +1317,8 @@ fra:
     not_received: "Non reçu"
     now: "Maintenant"
     number: "Numéro"
+    number_of_cap_islets: "Nombre d'ilôt PAC"
+    number_of_cap_land_parcels: "Nombre de parcelle PAC"
     number_options: "Options de numérotations"
     numbers: "Numéros"
     on_account: "À remettre sur le compte"

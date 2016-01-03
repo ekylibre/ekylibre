@@ -38,6 +38,16 @@ module Backend
       code.c
     end
 
+    def self.cap_land_parcel_conditions
+      code = ''
+      code = search_conditions(cap_land_parcels: [:land_parcel_number, :main_crop_code]) + " ||= []\n"
+      code << "if params[:id].to_i > 0\n"
+      code << "  c[0] << \" AND #{CapStatement.table_name}.id IN (?)\"\n"
+      code << "  c << params[:id].to_i\n"
+      code << "end\n"
+      code.c
+    end
+
     list(conditions: list_conditions, joins: [:campaign, :declarant]) do |t|
       t.action :edit
       t.action :destroy, if: :destroyable?
@@ -52,5 +62,16 @@ module Backend
       t.column :town_number
       t.column :net_surface_area
     end
+
+    list(:cap_land_parcels, conditions: cap_land_parcel_conditions, joins: :cap_statement, order: { land_parcel_number: :desc }) do |t|
+      t.column :land_parcel_number, url: true
+      t.column :islet_number
+      t.column :main_crop_code
+      t.column :main_crop_commercialisation
+      t.column :main_crop_seed_production
+      t.column :main_crop_precision
+      t.column :net_surface_area
+    end
+
   end
 end

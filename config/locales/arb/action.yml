@@ -1464,6 +1464,8 @@ arb:
       warning: "!تحذير" #?
     # now: "Now"
     number: "رقم"
+    # number_of_cap_islets: "Number of cap islets"
+    # number_of_cap_land_parcels: "Number of cap land parcels"
     # number_options: "Options Numbers"
     # numbers: "Numbers"
     observation_create: "اضافة ملاحظة" #?
