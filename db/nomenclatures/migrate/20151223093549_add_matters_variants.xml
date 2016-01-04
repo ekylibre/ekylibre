@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add matters variants">
+  <item-creation item="product_natures#mixed_organic_fertilizer" category="fertilizer" variety="preparation" population_counting="decimal" abilities="fertilize" frozen_indicators="net_mass" variable_indicators="nitrogen_concentration, phosphorus_concentration, potassium_concentration, dry_matter_rate , organic_matter_concentration, sulfur_trioxide_concentration, magnesium_concentration, calcium_concentrtion, net_volume" />
+  <item-creation item="product_nature_variants#mixed_organic_fertilizer" nature="mixed_organic_fertilizer" frozen_indicators_values="net_mass: 1.00kg" unit_name="kg"/>
+  <item-creation item="product_natures#foliar_spray" category="plant_medicine" variety="preparation" population_counting="decimal" abilities="care(plant), fertilize, kill(insecta), kill(fugus)" variable_indicators="approved_input_dose, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period" frozen_indicators="net_volume, net_mass"/>
+  <item-creation item="product_nature_variants#foliar_spray" nature="foliar_spray" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
+  <item-creation item="abilities#drain"/>
+  <item-creation item="product_natures#draining_item" category="small_equipment" derivative_of="equipment" variety="matter" population_counting="integer" abilities="drain" variable_indicators="diameter, length"/>
+  <item-creation item="product_nature_variants#drain" nature="draining item"/>
+  <item-creation item="product_natures#crop_protective_item" category="small_equipment" derivative_of="equipment" variety="matter" population_counting="integer" abilities="care(plant)" variable_indicators="length, width"/>
+  <item-creation item="product_nature_variants#protective_canvas" nature="crop_protective_item"/>
+  <item-creation item="product_nature_variants#protective_net" nature="crop_protective_item"/>
+  <item-creation item="product_nature_variants#cover_crop" nature="crop"/>
+</migration>
