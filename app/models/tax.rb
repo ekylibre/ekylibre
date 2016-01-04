@@ -111,7 +111,7 @@ class Tax < Ekylibre::Record::Base
 
     # Load default taxes of instance country
     def load_defaults
-      import_all_from_nomenclature(Preference[:country])
+      import_all_from_nomenclature(Preference[:country].to_sym)
     end
 
     # find tax reference name with no stopped_at AKA current reference taxes
