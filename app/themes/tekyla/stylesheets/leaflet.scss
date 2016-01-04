@@ -1020,3 +1020,17 @@ span.leaflet-importer-geojson, span.leaflet-importer-gml {
     font-size: 18px;
   }
 }
+
+.leaflet-control-measure-toggle{
+  visibility: hidden;
+  &:before {
+    visibility: visible;
+    font-size: 26px;
+    line-height: 44px;
+    text-align: center;
+    vertical-align: middle;
+    width: 44px;
+    display: block;
+    height: 44px;
+  }
+}

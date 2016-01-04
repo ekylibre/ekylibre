@@ -72,6 +72,7 @@
           secondaryAreaUnit: undefined
           activeColor: '#ABE67E'
           completedColor: '#C8F2BE'
+          localization: 'en'
         importers:
           gml: false
           geojson: false
