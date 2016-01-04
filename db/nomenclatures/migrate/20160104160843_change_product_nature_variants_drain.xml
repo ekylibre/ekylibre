@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Change product nature variants drain">
+  <item-change item="product_nature_variants#drain" name="product_nature_variants#drain" nature="draining_item"/>
+</migration>
