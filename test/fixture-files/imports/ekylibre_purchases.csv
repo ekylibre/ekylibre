@@ -1,0 +1,7 @@
+Date,Fournisseur,N°Facture,Variante Code/Nomen,Annotation,quantité,Prix unitaire HT,Taux TVA,Immobilisé
+2014-11-30,CHARENTES ELLIANCE,91124523,coop:eca_excel_pack_protor_b_vrac,,"3,702","326,35",10,
+2014-11-29,CHARENTES ELLIANCE,91124524,coop:eca_pack_tonus_b_vrac,,"6,19","287,46",10,
+2014-11-28,CHARENTES ELLIANCE,91124525,coop:altiplus_gr_vrac,,"0,05","1108,2",10,
+2014-11-27,CHARENTES ELLIANCE,91124526,coop:altacid_vrac,,"0,037","1163,78",20,
+2014-12-05,EDF,958623,electricity,,1458,"0,131",20,
+2014-12-12,DELTI SUD,56328965,tractor,,1,28953,20,1
