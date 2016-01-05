@@ -805,6 +805,7 @@
         <page to="backend/cap_statements#edit"/>
         <page to="backend/cap_statements#list"/>
         <page to="backend/cap_statements#list_cap_islets"/>
+        <page to="backend/cap_statements#list_cap_land_parcels"/>
         <page to="backend/cap_statements#new"/>
         <page to="backend/cap_statements#show"/>
         <page to="backend/cap_statements#unroll"/>
@@ -1752,10 +1753,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="cap_statements">
-        <page to="backend/cap_statements#list_cap_land_parcels"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </navigation>

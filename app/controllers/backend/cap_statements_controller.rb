@@ -72,6 +72,5 @@ module Backend
       t.column :main_crop_precision
       t.column :net_surface_area
     end
-
   end
 end
