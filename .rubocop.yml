@@ -6,7 +6,7 @@ AllCops:
     - 'tmp/**/*'
     - 'plugins/**/*'
     - 'plugins-*/**/*'
-    - 'lib/procedo/handler_method.rb'
+    - 'lib/procedo/formula/language.rb'
     - 'lib/working_set/query_language.rb'
     - 'db/schema.rb'
 

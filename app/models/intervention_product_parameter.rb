@@ -63,7 +63,7 @@ class InterventionProductParameter < InterventionParameter
   has_one :event,    through: :intervention
 
   has_geometry :working_zone, type: :multi_polygon
-  composed_of :quantity, class_name: 'Measure', mapping: [%w(quantity_value to_d), %w(quantity_unit unit)]
+  composed_of :quantity, class_name: 'Measure', mapping: [%w(quantity_value to_d), %w(quantity_unit_name unit)]
 
   validates_presence_of :quantity_indicator_name, :quantity_unit_name, if: :quantity_handler?
 
@@ -277,7 +277,7 @@ class InterventionProductParameter < InterventionParameter
 
   # Returns value of an indicator if its name correspond to
   def method_missing(method_name, *args)
-    if Nomen::Indicator.all.include?(method_name.to_s) && product && product.respond_to?(:get)
+    if Nomen::Indicator.exists?(method_name.to_s) && product && product.respond_to?(:get)
       return product.get(method_name, self)
     end
     super

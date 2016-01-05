@@ -19,31 +19,31 @@ module Procedo
       protected
 
       def rewrite(object)
-        if object.is_a?(Procedo::HandlerMethod::Expression)
+        if object.is_a?(Procedo::Formula::Language::Expression)
           '(' + rewrite(object.expression) + ')'
-        elsif object.is_a?(Procedo::HandlerMethod::BooleanExpression)
+        elsif object.is_a?(Procedo::Formula::Language::BooleanExpression)
           '(' + rewrite(object.boolean_expression) + ')'
-        elsif object.is_a?(Procedo::HandlerMethod::Condition)
+        elsif object.is_a?(Procedo::Formula::Language::Condition)
           rewrite(object.test) + ' ? ' + rewrite(object.if_true) + ' : ' + rewrite(object.if_false)
-        elsif object.is_a?(Procedo::HandlerMethod::Conjunction)
+        elsif object.is_a?(Procedo::Formula::Language::Conjunction)
           rewrite(object.head) + ' and ' + rewrite(object.operand)
-        elsif object.is_a?(Procedo::HandlerMethod::ExclusiveDisjunction)
+        elsif object.is_a?(Procedo::Formula::Language::ExclusiveDisjunction)
           rewrite(object.head) + ' xor ' + rewrite(object.operand)
-        elsif object.is_a?(Procedo::HandlerMethod::Disjunction)
+        elsif object.is_a?(Procedo::Formula::Language::Disjunction)
           rewrite(object.head) + ' or ' + rewrite(object.operand)
-        elsif object.is_a?(Procedo::HandlerMethod::Multiplication)
+        elsif object.is_a?(Procedo::Formula::Language::Multiplication)
           rewrite(object.head) + ' * ' + rewrite(object.operand)
-        elsif object.is_a?(Procedo::HandlerMethod::Division)
+        elsif object.is_a?(Procedo::Formula::Language::Division)
           rewrite(object.head) + ' / ' + rewrite(object.operand)
-        elsif object.is_a?(Procedo::HandlerMethod::Addition)
+        elsif object.is_a?(Procedo::Formula::Language::Addition)
           rewrite(object.head) + ' + ' + rewrite(object.operand)
-        elsif object.is_a?(Procedo::HandlerMethod::Substraction)
+        elsif object.is_a?(Procedo::Formula::Language::Substraction)
           rewrite(object.head) + ' - ' + rewrite(object.operand)
-        elsif object.is_a?(Procedo::HandlerMethod::Comparison)
+        elsif object.is_a?(Procedo::Formula::Language::Comparison)
           rewrite(object.head) + ' ' + object.operator.text_value + ' ' + rewrite(object.operand)
-        elsif object.is_a?(Procedo::HandlerMethod::NegativeTest)
+        elsif object.is_a?(Procedo::Formula::Language::NegativeTest)
           'not ' + rewrite(object.negated_test)
-        elsif object.is_a?(Procedo::HandlerMethod::FunctionCall)
+        elsif object.is_a?(Procedo::Formula::Language::FunctionCall)
           arguments = ''
           if args = object.args
             arguments << rewrite(args.first_arg)
@@ -52,23 +52,23 @@ module Procedo
             end if args.other_args
           end
           "::Procedo::FormulaFunctions.#{object.function_name.text_value}(" + arguments + ')'
-        elsif object.is_a?(Procedo::HandlerMethod::Value)
+        elsif object.is_a?(Procedo::Formula::Language::Value)
           @value_calls_count += 1
           @value.to_s
-        elsif object.is_a?(Procedo::HandlerMethod::Self)
+        elsif object.is_a?(Procedo::Formula::Language::Self)
           @self_value.to_s
-        elsif object.is_a?(Procedo::HandlerMethod::Variable)
+        elsif object.is_a?(Procedo::Formula::Language::Variable)
           @variables << object.text_value.to_sym
           "procedure.#{object.text_value}"
-        elsif object.is_a?(Procedo::HandlerMethod::Numeric)
+        elsif object.is_a?(Procedo::Formula::Language::Numeric)
           object.text_value.to_s
-        elsif object.is_a?(Procedo::HandlerMethod::Access)
+        elsif object.is_a?(Procedo::Formula::Language::Access)
           rewrite(object.actor) + '.' + object.accessor.text_value.tr('-', '_')
-        elsif object.is_a?(Procedo::HandlerMethod::ActorPresenceTest)
+        elsif object.is_a?(Procedo::Formula::Language::ActorPresenceTest)
           rewrite(object.actor) + '.present?'
-        elsif object.is_a?(Procedo::HandlerMethod::IndicatorPresenceTest)
+        elsif object.is_a?(Procedo::Formula::Language::IndicatorPresenceTest)
           rewrite(object.actor) + '.has_indicator?(:' + object.indicator.text_value + ')'
-        elsif object.is_a?(Procedo::HandlerMethod::Reading)
+        elsif object.is_a?(Procedo::Formula::Language::Reading)
           unit = nil
           if object.options && object.options.respond_to?(:unit)
             unless unit = Nomen::Unit[object.options.unit.text_value]
@@ -80,7 +80,7 @@ module Procedo
           end
           rewrite(object.actor) +
             '.get(:' + indicator.name.to_s +
-            (object.is_a?(Procedo::HandlerMethod::IndividualReading) ? ', individual: true' : '') +
+            (object.is_a?(Procedo::Formula::Language::IndividualReading) ? ', individual: true' : '') +
             ')' +
             (unit ? ".to_f(:#{unit.name})" : '')
         elsif object.nil?

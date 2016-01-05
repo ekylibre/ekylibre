@@ -54,6 +54,7 @@
 class InterventionInput < InterventionProductParameter
   belongs_to :intervention, inverse_of: :inputs
   belongs_to :outcoming_product, class_name: 'Product'
+  has_one :product_movement, as: :originator
   validates_presence_of :quantity_population
 
   before_validation do

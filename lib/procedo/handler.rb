@@ -84,7 +84,7 @@ module Procedo
     end
 
     def condition=(expr)
-      @usability_tree = HandlerMethod.parse(expr.to_s, root: 'boolean_expression')
+      @usability_tree = Formula::Language.parse(expr.to_s, root: 'boolean_expression')
     rescue SyntaxError => e
       raise SyntaxError, "A procedure handler (#{@name.inspect}) #{procedure.name} has a syntax error on usability test (if): #{e.message}"
     end

@@ -122,7 +122,7 @@ class Activity < Ekylibre::Record::Base
         end
       end
       # FIXME: Need to use nomenclatures to set that data!
-      if family <= :vegetal_crops
+      if vegetal_crops?
         self.size_indicator_name = 'net_surface_area' if size_indicator_name.blank?
         self.size_unit_name = 'hectare' if size_unit_name.blank?
       end

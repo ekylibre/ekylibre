@@ -4,7 +4,7 @@
 - if procedure = f.object.procedure
   = hidden_field_tag nil, compute_backend_interventions_path(format: :json), data: {procedure_computing: procedure.name}
   = field_set do
-    = f.input :procedure_name, as: :hidden
+    = f.input :procedure_name, as: :hidden, input_html: { data: { procedure: compute_backend_interventions_path(format: :json), intervention_updater: 'procedure' }}
     = f.referenced_association :issue
     = f.input :description
     - procedure.mandatory_actions.each do |a|
@@ -21,7 +21,7 @@
         - stopped_at ||= Time.zone.now
         - started_at ||= stopped_at - 1.hour
         - f.object.working_periods.new(started_at: started_at, stopped_at: stopped_at)
-      = f.nested_association(:working_periods)
+      = f.nested_association(:working_periods, minimum: 1)
 
   = field_set :parameters do
     - procedure.each_parameter do |parameter|

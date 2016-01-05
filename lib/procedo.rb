@@ -1,4 +1,5 @@
 require 'procedo/xml'
+require 'procedo/errors'
 
 # Procedo module aims to manage procedure which permits to define way of work
 # simply.
@@ -8,11 +9,10 @@ module Procedo
   # autoload :Procedure,           'procedo/procedure'
   # autoload :Handler,             'procedo/handler'
   # autoload :Converter,           'procedo/converter'
-  # autoload :HandlerMethodParser, 'procedo/handler_method'
   # autoload :Compilers,           'procedo/compilers'
   # autoload :CompiledProcedure,   'procedo/compiled_procedure'
   # autoload :CompiledVariable,    'procedo/compiled_variable'
-  # autoload :FormulaFunctions,    'procedo/formula_functions'
+  # autoload :Formula,             'procedo/formula'
 
   # Namespace used to "store" compiled procedures
   module CompiledProcedures

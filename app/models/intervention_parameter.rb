@@ -66,6 +66,7 @@ class InterventionParameter < Ekylibre::Record::Base
   }
 
   before_validation do
+    self.intervention ||= group.intervention if group
     if reference
       self.position = reference.position
     elsif position.blank?

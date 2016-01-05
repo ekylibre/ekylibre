@@ -1,65 +1,67 @@
-require 'procedo/handler_method'
+require 'procedo/formula/language'
 
 module Procedo
-  class HandlerMethodParser < Treetop::Runtime::CompiledParser
-    include Procedo::HandlerMethod
-  end
+  module Formula
+    class LanguageParser < Treetop::Runtime::CompiledParser
+      include Procedo::Formula::Language
+    end
 
-  module HandlerMethod
-    class Base < Treetop::Runtime::SyntaxNode; end
-    class Expression < Base; end
-    class Condition < Base; end
-    class Operation < Base; end # Abstract
-    class Multiplication < Operation; end
-    class Division < Operation; end
-    class Addition < Operation; end
-    class Substraction < Operation; end
-    class BooleanExpression < Base; end
-    class BooleanOperation < Base; end
-    class Conjunction < BooleanOperation; end
-    class Disjunction < BooleanOperation; end
-    class ExclusiveDisjunction < BooleanOperation; end
-    class Test < Base; end # Abstract
-    class Comparison < Test; end # Abstract
-    class StrictSuperiorityComparison < Comparison; end
-    class StrictInferiortyComparison < Comparison; end
-    class SuperiorityComparison < Comparison; end
-    class InferiorityComparison < Comparison; end
-    class EqualityComparison < Comparison; end
-    class DifferenceComparison < Comparison; end
-    class IndicatorPresenceTest < Test; end
-    class ActorPresenceTest < Test; end
-    class NegativeTest < Test; end
-    class Access < Base; end
-    class Reading < Base; end # Abstract
-    class IndividualReading < Reading; end
-    class WholeReading < Reading; end
-    class FunctionCall < Base; end
-    class FunctionName < Base; end
-    class OtherArgument < Base; end
-    class Variable < Base; end
-    class Accessor < Base; end
-    class Indicator < Base; end
-    class Unit < Base; end
-    class Self < Base; end
-    class Value < Base; end
-    class Numeric < Base; end
-    class Symbol < Base; end
+    module Language
+      class Base < Treetop::Runtime::SyntaxNode; end
+      class Expression < Base; end
+      class Condition < Base; end
+      class Operation < Base; end # Abstract
+      class Multiplication < Operation; end
+      class Division < Operation; end
+      class Addition < Operation; end
+      class Substraction < Operation; end
+      class BooleanExpression < Base; end
+      class BooleanOperation < Base; end
+      class Conjunction < BooleanOperation; end
+      class Disjunction < BooleanOperation; end
+      class ExclusiveDisjunction < BooleanOperation; end
+      class Test < Base; end # Abstract
+      class Comparison < Test; end # Abstract
+      class StrictSuperiorityComparison < Comparison; end
+      class StrictInferiortyComparison < Comparison; end
+      class SuperiorityComparison < Comparison; end
+      class InferiorityComparison < Comparison; end
+      class EqualityComparison < Comparison; end
+      class DifferenceComparison < Comparison; end
+      class IndicatorPresenceTest < Test; end
+      class ActorPresenceTest < Test; end
+      class NegativeTest < Test; end
+      class Access < Base; end
+      class Reading < Base; end # Abstract
+      class IndividualReading < Reading; end
+      class WholeReading < Reading; end
+      class FunctionCall < Base; end
+      class FunctionName < Base; end
+      class OtherArgument < Base; end
+      class Variable < Base; end
+      class Accessor < Base; end
+      class Indicator < Base; end
+      class Unit < Base; end
+      class Self < Base; end
+      class Value < Base; end
+      class Numeric < Base; end
+      class Symbol < Base; end
 
-    class << self
-      def parse(text, options = {})
-        @@parser ||= ::Procedo::HandlerMethodParser.new
-        unless tree = @@parser.parse(text.to_s, options)
-          fail SyntaxError, @@parser.failure_reason
+      class << self
+        def parse(text, options = {})
+          @@parser ||= ::Procedo::Formula::LanguageParser.new
+          unless tree = @@parser.parse(text.to_s, options)
+            fail SyntaxError, @@parser.failure_reason
+          end
+          tree
         end
-        tree
-      end
 
-      # def clean_tree(root)
-      #   return if root.elements.nil?
-      #   root.elements.delete_if{ |node| node.class.name == "Treetop::Runtime::SyntaxNode" }
-      #   root.elements.each{ |node| clean_tree(node) }
-      # end
+        # def clean_tree(root)
+        #   return if root.elements.nil?
+        #   root.elements.delete_if{ |node| node.class.name == "Treetop::Runtime::SyntaxNode" }
+        #   root.elements.each{ |node| clean_tree(node) }
+        # end
+      end
     end
   end
 
@@ -71,8 +73,8 @@ module Procedo
 
     class << self
       def count_variables(node, name)
-        if (node.is_a?(Procedo::HandlerMethod::Self) && name == :self) ||
-           (node.is_a?(Procedo::HandlerMethod::Variable) && name.to_s == node.text_value)
+        if (node.is_a?(Procedo::Formula::Language::Self) && name == :self) ||
+           (node.is_a?(Procedo::Formula::Language::Variable) && name.to_s == node.text_value)
           return 1
         end
         return 0 unless node.elements
@@ -91,14 +93,14 @@ module Procedo
       # end
       if options[:forward]
         begin
-          @forward_tree = HandlerMethod.parse(options[:forward].to_s)
+          @forward_tree = Formula::Language.parse(options[:forward].to_s)
         rescue SyntaxError => e
           raise SyntaxError, "A procedure handler (#{options.inspect}) #{handler.procedure.name} has a syntax error on forward formula: #{e.message}"
         end
       end
       if options[:backward]
         begin
-          @backward_tree = HandlerMethod.parse(options[:backward].to_s)
+          @backward_tree = Formula::Language.parse(options[:backward].to_s)
         rescue SyntaxError => e
           raise SyntaxError, "A procedure handler (#{options.inspect}) #{handler.procedure.name} has a syntax error on backward formula: #{e.message}"
         end

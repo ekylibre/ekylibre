@@ -1,13 +1,15 @@
-class AmbiguousUnit < ArgumentError
-end
-
-class IncompatibleDimensions < ArgumentError
-end
-
-class InvalidExpression < ArgumentError
-end
-
+# Measure represents a decimal value and a unit.
+# It depends on nomenclatures Unit and Dimension.
 class Measure
+  class AmbiguousUnit < ArgumentError
+  end
+
+  class IncompatibleDimensions < ArgumentError
+  end
+
+  class InvalidExpression < ArgumentError
+  end
+
   attr_reader :unit, :value
   cattr_reader :dimensions
   delegate :symbol, to: :nomenclature_unit
@@ -38,14 +40,16 @@ class Measure
     end
   end
 
-  # Ways to instanciate a measure
-  # $ Measure.new(55.23, "kilogram")
+  # Ways to instanciate a measure:
+  # $ Measure.new(55.23, 'kilogram')
   # $ Measure.new(55.23, :kilogram)
-  # $ Measure.new("55.23 kilogram")
-  # $ Measure.new("55.23kilogram")
+  # $ Measure.new('55.23 kilogram')
+  # $ Measure.new('55.23kilogram')
+  # $ Measure.new('55.23 kg')
+  # $ Measure.new('55.23kg')
   # $ 55.23.in_kilogram
   # $ 55.23.in(:kilogram)
-  # $ 55.23.in("kilogram")
+  # $ 55.23.in('kilogram')
   def initialize(*args)
     value = nil
     unit = nil
@@ -81,18 +85,25 @@ class Measure
     end
   end
 
+  # Returns a new measure in the given unit
   def convert(unit)
-    # return (@unit == unit.to_s ? self : Measure.new(self.to_r(unit), unit))
     Measure.new(to_r(unit), unit)
   end
   alias_method :in, :convert
 
-  eval(Measure.units.inject('') do |code, unit|
-         code << "def in_#{unit}\n"
-         code << "  self.in(:#{unit})\n"
-         code << "end\n"
-         code
-       end)
+  # Converts measure inline without instanciating a new Measure
+  def convert!(unit)
+    @value = to_r(unit)
+    @unit = unit.to_s
+    self
+  end
+  alias_method :in!, :convert!
+
+  Measure.units.each do |unit|
+    define_method "in_#{unit}".to_sym do
+      self.in(unit)
+    end
+  end
 
   def round(ndigits = 0)
     Measure.new(to_d.round(ndigits), unit)
@@ -253,8 +264,9 @@ class Measure
   end
 
   # Localize a measure
-  def l
-    "#{value.to_f.l} #{@@units.items[unit].symbol}"
+  # FIXME: Measure l10n must be configurable in translation files.
+  def l(options = {})
+    "#{value.to_f.l(options)} #{@@units.items[unit].symbol}"
   end
 
   # Returns the unit from the nomenclature

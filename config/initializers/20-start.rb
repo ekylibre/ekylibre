@@ -30,12 +30,11 @@ autoload :Procedo,   'procedo'
 # Measure
 require 'measure'
 class ::Numeric
-  eval(Measure.units.inject('') do |code, unit|
-         code << "def in_#{unit}\n"
-         code << "  Measure.new(self, :#{unit})\n"
-         code << "end\n"
-         code
-       end)
+  Measure.units.each do |unit|
+    define_method "in_#{unit}".to_sym do
+      Measure.new(self, unit)
+    end
+  end
 
   def in(unit)
     Measure.new(self, unit)

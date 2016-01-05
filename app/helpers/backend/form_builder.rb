@@ -105,7 +105,16 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
         html << @template.content_tag(:div, @template.link_to_add_association("labels.add_#{item}".t, self, association, 'data-no-turbolink' => true, render_options: { locals: options[:locals] }, class: "nested-add add-#{item}"), class: 'links')
       end
     end
-    @template.content_tag(:div, html, id: "#{association}-field", class: "nested-#{association} nested-association")
+    html_options = { id: "#{association}-field", class: "nested-#{association} nested-association" }
+    if options[:minimum]
+      html_options[:data] ||= {}
+      html_options[:data][:association_insertion_minimum] = options[:minimum]
+    end
+    if options[:maximum]
+      html_options[:data] ||= {}
+      html_options[:data][:association_insertion_maximum] = options[:maximum]
+    end
+    @template.content_tag(:div, html, html_options)
   end
 
   # Adds custom fields
@@ -370,14 +379,16 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     end
   end
 
-  def datetime_range(start_attribute_name = :started_at, stop_attribute_name = :stopped_at, *args)
+  def datetime_range(*args)
     options = args.extract_options!
+    start_attribute_name = args.shift || :started_at
+    stop_attribute_name = args.shift || :stopped_at
     attribute_name = args.shift || options[:name] || :period
     input(attribute_name, options.merge(wrapper: :append)) do
       @template.content_tag(:span, :from.tl, class: 'add-on') +
-        input_field(start_attribute_name) +
+        input_field(start_attribute_name, options[:start_input_html] || options[:input_html]) +
         @template.content_tag(:span, :to.tl, class: 'add-on') +
-        input_field(stop_attribute_name)
+        input_field(stop_attribute_name, options[:stop_input_html] || options[:input_html])
     end
   end
 

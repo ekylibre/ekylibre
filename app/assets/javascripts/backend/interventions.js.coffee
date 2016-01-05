@@ -15,6 +15,24 @@
   # other fields and on updater itself if necessary
   $.interventions =
 
+    computeUniqueId: (element) ->
+      if element.attr('data-object-uid')?
+        return element.attr('data-object-uid')
+      if element.data('intervention-field')?
+        uid = element.data('intervention-field')
+      else if element.data('intervention-parameter')?
+        parameter_name = element.data('intervention-parameter')
+        index = element.closest('form').find("*[data-intervention-parameter='#{parameter_name}']").index(element)
+        uid = "#{parameter_name}:#{index}"
+      else
+        console.error 'Cannot find id for:', element
+        return
+      parameter = element.parent().closest('*[data-intervention-parameter]')
+      if parameter.length > 0
+        uid = "#{$.interventions.computeUniqueId(parameter.first())}:#{uid}"
+      element.attr('data-object-uid', uid)
+      return uid
+
     # Serialize global data with data-procedure-global attribute
     serializeGlobal: (procedure) ->
       global = {}
@@ -109,10 +127,41 @@
 
     # Ask for a refresh of values depending on given field
     refresh: (origin) ->
-      this.refreshHard(origin.data('procedure'), origin.data('intervention-updater'), origin)
+      this.refreshHard(origin)
+      # this.refreshHardz(origin.data('procedure'), origin.data('intervention-updater'), origin)
 
     # Ask for a refresh of values depending on given update
-    refreshHard: (procedure, updaterName = 'initial', updaterElement = null) ->
+    refreshHard: (updater) ->
+      unless updater?
+        console.error 'Missing updater'
+        return false
+      $.interventions.computeUniqueId(updater)
+      console.log updater.data('intervention-updater')
+      form = updater.closest('form')
+      computing = form.find('*[data-procedure]')
+      unless computing.length > 0
+        console.error 'Cannot procedure element where compute URL is defined'
+        return false
+      computing = computing.first()
+      # console.log updaterElement.closest('form')
+      if computing.prop('state') isnt 'waiting'
+        $.ajax
+          url: computing.data('procedure')
+          data: form.serialize()
+          beforeSend: ->
+            computing.prop 'state', 'waiting'
+          error: (request, status, error) ->
+            computing.prop 'state', 'ready'
+            false
+          success: (data, status, request) ->
+            computing.prop 'state', 'ready'
+            console.log 'Update data'
+            # Updates elements with new values
+            # $.interventions.unserialize(procedure, data, intervention.updater)
+            # if updaterElement? and initialValue != $.value($("*[data-intervention-updater='#{intervention.updater}']").first())
+            #   $.interventions.refresh updaterElement
+
+    refreshHardz: (procedure, updaterName = 'initial', updaterElement = null) ->
       computing = $("*[data-procedure-computing='#{procedure}']")
       unless computing.length > 0
         console.log "No computing element for #{procedure}"
@@ -149,7 +198,11 @@
     $(this).each ->
       $.interventions.refresh $(this)
 
-  $(document).on 'selector:change selector:initialized', '*[data-variable-actor], *[data-variable-variant], *[data-procedure-global="support"]', ->
+  $(document).on 'selector:change selector:initialized', '*[data-intervention-updater]', ->
+    $(this).each ->
+      $.interventions.refresh $(this)
+
+  $(document).on 'keyup change', 'select[data-intervention-updater], input[data-intervention-updater]', ->
     $(this).each ->
       $.interventions.refresh $(this)
 
@@ -157,9 +210,9 @@
     $(this).each ->
       $.interventions.refresh $(this)
 
-  $(document).behave "load", '*[data-procedure-computing]', (event) ->
+  $(document).behave 'load', '*[data-procedure]', (event) ->
     $(this).each ->
-      $.interventions.refreshHard $(this).data('procedure-computing')
+      $.interventions.refresh $(this)
 
   # Filters supports with given production
   # Hides supports line if needed

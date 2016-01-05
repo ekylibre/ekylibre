@@ -391,9 +391,14 @@ module Nomen
     end
     alias_method :item, :find
 
-    def include?(item)
+    # Returns +true+ if an item exists in the nomenclature that matches the
+    # name, or +false+ otherwise. The argument can take two forms:
+    #  * String/Symbol - Find an item with this primary name
+    #  * Nomen::Item - Find an item with the same name of the item
+    def exists?(item)
       @items[item.respond_to?(:name) ? item.name : item].present?
     end
+    alias_method :include?, :exists?
 
     def property(property_name)
       @properties[property_name]
