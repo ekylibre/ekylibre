@@ -54,7 +54,7 @@
           if data.tax_id?
             item.find(options.tax or "*[data-trade-component='tax']").val(data.tax_id)
           # Compute totals
-          # E.trade.compute(item)
+          E.trade.updateUnitPretaxAmount(item)
 
         error: (request, status, error) ->
           console.log("Error while retrieving price and tax fields content: #{error}")
