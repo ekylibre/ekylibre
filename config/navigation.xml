@@ -883,6 +883,8 @@
     <group name="preferences" icon="user">
       <item name="myselves">
         <page to="backend/myselves#show"/>
+        <page to="backend/myselves#change_password"/>
+        <page to="backend/myselves#update"/>
       </item>
       <item name="dashboards">
         <page to="backend/dashboards#index"/>

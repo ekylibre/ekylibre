@@ -435,6 +435,7 @@ eng:
     current_memberships: "Current memberships"
     current_mother_link: "Current mother link"
     current_ownership: "Current ownership"
+    current_password: "Current password"
     current_phase: "Current phase"
     current_quantity: "Current quantity" #?
     current_sign_in_at: "Current sign in at"

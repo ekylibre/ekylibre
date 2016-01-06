@@ -468,6 +468,7 @@ eng:
       show: "Matter: %{name}"
       # take: "Take matter: %{name}"
     backend/myselves:
+      # change_password: "Change password myself: %{name}"
       show: "My informations"
     backend/net_services:
       edit: "Edit net service"
@@ -940,6 +941,7 @@ eng:
     category: "Category"
     centralize: "Centralize account"
     centralized_account: "Centralized account %{name}"
+    change_password: "Change password"
     chart: "Chart"
     check: "Check"
     children: "Children"
@@ -1146,8 +1148,8 @@ eng:
     interventions_paths: "Interventions paths" #?
     inventories: "Inventories" #?
     inventory: "Inventory" #?
-    invoiced_amount: "Sales invoiced amount" #?
-    invoices: "Invoices"
+    invoiced_amount: "Sales invoiced amount" #??
+    invoices: "Invoices" #?
     is: "Is" #?
     issue: "Issue"
     issues: "Issues"
@@ -1349,6 +1351,7 @@ eng:
     production_support: "Production support"
     productions: "Productions"
     products: "Products"
+    profile: "Profile"
     provisionnal_budget: "Provisionnal budget" #?!
     purchase: "Purchase" #?
     purchase_items: "Purchase items" #?
@@ -1492,11 +1495,11 @@ eng:
     total_cost: "Total cost"
     total_earn: "Total earn" #?!
     total_in_currency: "Total (%{currency})"
-    total_paid_amount: "Total paid amount"
+    total_paid_amount: "Total paid amount" #?!
     total_pretax_expenses: "Total pre-tax expenses"
     total_pretax_revenues: "Total pre-tax revenues"
     total_quantity: "Total quantity" #?
-    total_unpaid_amount: "Total unpaid amount"
+    total_unpaid_amount: "Total unpaid amount" #?!
     totals: "Totals"
     tracking: "Tracking" #?
     trade: "Trade"
@@ -1517,10 +1520,10 @@ eng:
     unlock: "Unlock" #?
     unmark: "Unmark" #?
     unpaid: "Unpaid" #?
-    unpaid_amount: "Unpaid amount" #?
+    unpaid_amount: "Unpaid amount" #??
     unpaid_days: "Unpaid since (in days)" #?
     unpaid_purchases: "Unpaid purchases" #?
-    unpaid_sales: "Unpaid sales"
+    unpaid_sales: "Unpaid sales" #?
     unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)" #?
     up: "Up" #?
     update: "Update"
@@ -1572,10 +1575,10 @@ eng:
     x_events:
       one: "1 event"
       other: "%{count} events"
-    x_events_of_nature_y:
-      one: "One event %{nature} for a total duration of %{duration} minutes"
-      other: "%{count} events %{nature} for a total duration of %{duration} minutes"
-      zero: "No events %{nature}"
+    x_events_of_nature_y: #?!
+      one: "One event %{nature} for a total duration of %{duration} minutes" #?!
+      other: "%{count} events %{nature} for a total duration of %{duration} minutes" #?!
+      zero: "No events %{nature}" #?!
     x_has_been_cleared: "%{x} has been cleared (formerly %{a})"
     x_has_been_updated_from_a_to_b: "%{x} has been updated from %{a} to %{b}"
     x_has_been_updated_to_a: "%{x} has been updated to %{a}"
@@ -1632,9 +1635,9 @@ eng:
     x_sales:
       one: "%{count} sale"
       other: "%{count} sales"
-    x_sales_invoices:
-      one: "%{count} sales invoice"
-      other: "%{count} sales invoices"
+    x_sales_invoices: #??
+      one: "%{count} sales invoice" #??
+      other: "%{count} sales invoices" #??
     x_subscriptions:
       one: "%{count} subscription"
       other: "%{count} subscriptions"
@@ -1783,6 +1786,7 @@ eng:
       category: "Category"
       # change: "Change"
       # change_minutes: "Change minutes"
+      # change_password: "Change password"
       # check: "Check"
       children: "Children"
       close: "Close"

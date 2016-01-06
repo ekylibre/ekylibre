@@ -82,7 +82,11 @@ Rails.application.routes.draw do
 
   # Backend
   namespace :backend do
-    resource :myself, path: 'me', only: [:show]
+    resource :myself, path: 'me', only: [:show, :update] do
+      member do
+        patch :change_password
+      end
+    end
 
     resource :settings, only: [:edit, :update] do
       member do

@@ -382,8 +382,7 @@ fra:
       show: "Matière\_: %{name}"
     backend/myselves:
       change_password: "Changer de mot de passe" #?
-      show: "Mes informations"
-      statistics: "Mes statistiques" #?
+      show: "Mon compte"
     backend/net_services:
       edit: "Modifier un service en ligne"
       index: "Services en ligne"
@@ -801,6 +800,7 @@ fra:
     cells_concentration: "Dénombrement des cellules somatiques" #?
     centralize: "Comptes comptables centralisateurs"
     centralized_account: "Compte centralisateur %{name}"
+    change_password: "Changer de mot de passe"
     change_price: "Changer le prix unitaire" #?
     chart: "Graphique"
     check: "Vérifier"
@@ -1429,6 +1429,7 @@ fra:
     productions: "Productions"
     productions_map: "Carte des productions" #?
     products: "Produits"
+    profile: "Profil"
     profitability: "Rentabilité" #?
     protein_matters_concentration: "Teneur en matières protéïques" #?
     provisional_grains_yield: "Rendement prévisionnel en grains" #?

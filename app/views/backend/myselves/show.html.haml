@@ -1,45 +1,16 @@
-= kujaku do |k|
-  - k.helper do
-    = :manual_period.tl(start: date_field_tag(:started_at, params[:started_at], size: 8), finish: date_field_tag(:stopped_at, params[:stopped_at], size: 8)).html_safe
-
-
-:ruby
-  within_range = { invoiced_at: params[:started_at]..params[:stopped_at] }
-  current_user_sales = current_user.sales.where within_range
-  currency = { currency: Preference[:currency] }
 = cobbles do |c|
-  - c.cobble :invoices, title: :x_sales_invoices.tl(count: current_user_sales.count(:id)) do
-    = infos do
-      .big-info
-        %span.title= Sale.human_attribute_name(:pretax_amount)
-        %span.value
-          - pretax_amount = current_user_sales.sum(:pretax_amount)
-          = pretax_amount.l(currency) rescue "?"
-      .big-info
-        %span.title= Sale.human_attribute_name(:amount)
-        %span.value
-          - invoiced_amount = current_user_sales.sum(:amount)
-          = invoiced_amount.l(currency) rescue "?"
-      .big-info.important
-        %span.title= :total_paid_amount.tl
-        %span.value
-          - paid_amount = current_user_sales.sum(:downpayment_amount)
-          = paid_amount.l(currency) rescue "?"
-      .big-info
-        %span.title= :total_unpaid_amount.tl
-        %span.value
-          - unpaid_amount = (invoiced_amount - paid_amount)
-          = unpaid_amount.l(currency) rescue "?"
-      - if invoiced_amount > 0
-        .big-info{class: (unpaid_amount > 0.5 ? :negative : unpaid_amount > 0 ? :caution : :positive)}
-          %span.title= :unpaid_sales.tl
-          %span.value
-            - unpaid_sales = 100*(unpaid_amount/invoiced_amount)
-            = number_to_percentage unpaid_sales, strip_insignificant_zeros: 0, precision: 1 rescue "?"
-  -# started_at, stopped_at = params[:started_at].beginning_of_day, params[:stopped_at].end_of_day
-  -# cond = ["created_at BETWEEN ? AND ?", started_at, stopped_at]
-  -# c.cobble :x_events, count: current_user.events.where(cond).count do
-    %ul
-      - for event_nature in Nomen::EventNature.all
-        - cond = ["nature_id=? AND created_at BETWEEN ? AND ?", event_nature.id, started_at, stopped_at]
-        %li= :x_events_of_nature_y.tl(count: current_user.events.where(cond).count.to_i, nature: event_nature.name, duration: current_user.events.where(cond).sum(:duration).to_i)
+  - c.cobble :profile do
+    = simple_form_for([:backend, @user], url: backend_myself_path, method: :patch) do |f|
+      = f.input :first_name
+      = f.input :last_name
+      = f.input :language, collection: languages
+      = form_actions do
+        = f.submit :update.ta, class: 'primary'
+
+  - c.cobble :change_password do
+    = simple_form_for([:backend, @user], url: change_password_backend_myself_path, method: :patch) do |f|
+      = f.input :current_password
+      = f.input :password
+      = f.input :password_confirmation
+      = form_actions do
+        = f.submit :update.ta, class: 'primary'

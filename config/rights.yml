@@ -1272,6 +1272,12 @@ myselves:
   read:
     actions:
     - "backend/myselves#show"
+  write:
+    dependencies:
+    - read-myselves
+    actions:
+    - "backend/myselves#change_password"
+    - "backend/myselves#update"
 
 net_services:
   read:

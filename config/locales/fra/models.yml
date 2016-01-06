@@ -572,6 +572,7 @@ fra:
     current_memberships: "Appartenances actuelles"
     current_mother_link: "Lien actuel vers la mère"
     current_ownership: "Propriété actuelle"
+    current_password: "Mot de passe actuel"
     current_phase: "Phase actuelle"
     current_quantity: "Quantité actuelle"
     current_sign_in_at: "Connecté actuellement le"

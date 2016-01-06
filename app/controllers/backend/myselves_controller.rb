@@ -18,17 +18,36 @@
 
 module Backend
   class MyselvesController < Backend::BaseController
+    before_action :find_resource
+
     def show
-      params[:stopped_at] = begin
-                              params[:stopped_at].to_date
-                            rescue
-                              Time.zone.today
-                            end
-      params[:started_at] = begin
-                              params[:started_at].to_date
-                            rescue
-                              params[:stopped_at] << 12
-                            end
+    end
+
+    def update
+      permitted_params = params.require(:user).permit(:first_name, :last_name, :language)
+      if @user.update_attributes(permitted_params)
+        notify_success :update_is_done
+        redirect_to action: :show
+      else
+        render 'show'
+      end
+    end
+
+    def change_password
+      permitted_params = params.require(:user).permit(:current_password, :password, :password_confirmation)
+      if @user.update_with_password(permitted_params)
+        notify_success :update_is_done
+        sign_in @user, bypass: true
+        redirect_to action: :show
+      else
+        render 'show'
+      end
+    end
+
+    protected
+
+    def find_resource
+      @user = User.find(current_user.id)
     end
   end
 end

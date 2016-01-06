@@ -941,6 +941,7 @@ arb:
     # category: "Category"
     centralize: "مركزية حسابات المحاسب"
     centralized_account: "مركزية الحسابات %{name}"
+    # change_password: "Change password"
     change_price: "تغيير وحدة السعر" #?
     # chart: "Chart"
     check: "نحقق"
@@ -1585,6 +1586,7 @@ arb:
     # production_support: "Production support"
     productions: "المنتجات"
     products: "فئة المنتج"
+    # profile: "Profile"
     # provisionnal_budget: "Provisionnal budget"
     purchase: "الطلب"
     purchase_create: "اضافة شراء جديد" #?
