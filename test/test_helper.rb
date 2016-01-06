@@ -214,7 +214,7 @@ class ActionController::TestCase
       actions -= [options.delete(:except)].flatten if options[:except]
 
       ignored = controller_class.action_methods.to_a.map(&:to_sym) - actions
-      puts "Ignore in #{controller_path}: " + ignored.join(', ') if ignored.any?
+      puts "Ignore in #{controller_path}: " + ignored.map(&:to_s).map(&:yellow).join(', ') if ignored.any?
 
       infos = []
       infos << '"Response code: " + @response.response_code.to_s'

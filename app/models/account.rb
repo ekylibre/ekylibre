@@ -301,7 +301,7 @@ class Account < Ekylibre::Record::Base
 
     # Returns list of reconcilable prefixes defined in preferences
     def reconcilable_prefixes
-      [:client, :supplier, :attorney].collect do |mode|
+      [:clients, :suppliers, :attorneys].collect do |mode|
         Nomen::Account[mode].send(accounting_system).to_s
       end
     end

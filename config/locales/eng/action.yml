@@ -1030,7 +1030,7 @@ eng:
     detail: "Detail" #?
     details: "Details"
     direct_margin: "Direct margin" #?!
-    discount: "Discount (%)" #?!
+    discount: "Discount (%)" #?
     display: "Display" #?
     distributions: "Distributions"
     divide: "Divide"
@@ -1341,7 +1341,7 @@ eng:
     printing_document: "Printing %{document}"
     procedures: "Procedures"
     product: "Product"
-    product_category: "Product category" #??
+    product_category: "Product category" #?
     product_name: "Product name" #?
     product_natures: "Product types"
     # product_parameters: "Product parameters"

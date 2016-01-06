@@ -37,7 +37,7 @@ class ActiveExchanger::BaseTest < ActiveSupport::TestCase
 
   Nomen::ExchangeNature.find_each do |item|
     if !ActiveExchanger::Base.importers.include?(item.name.to_sym)
-      puts "Cannot find exchanger with ExchangeNature #{item.name.to_s.yellow}"
+      puts "No #{item.name.to_s.yellow} exchanger to test."
     else
       path = fixture_files_path.join('imports', "#{item.name}.*")
       list = Dir.glob(path)
@@ -48,7 +48,7 @@ class ActiveExchanger::BaseTest < ActiveSupport::TestCase
           end
         end
       else
-        puts "Cannot test exchanger #{item.name.to_s.yellow} import. No file given."
+        puts "Cannot test #{item.name.to_s.yellow} import. No sample file given."
       end
     end
   end
