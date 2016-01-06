@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160104160843">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160106095232">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -2751,6 +2751,7 @@
       <item name="disc_harrow" nature="superficial_plow" frozen_indicators_values=""/>
       <item name="discount_and_reduction" nature="discount_and_reduction"/>
       <item name="domain_name_subscription" nature="numeric_subscription" unit_name="domain"/>
+      <item name="drain" nature="draining_item"/>
       <item name="drying_making_service" nature="vegetals_making_services"/>
       <item name="duck_band" nature="duck_band" unit_name="subject"/>
       <item name="duck_herd" nature="duck_herd" frozen_indicators_values="" unit_name="band"/>
@@ -3028,7 +3029,6 @@
       <item name="poultry_sausage" nature="processed_poultry_meat" frozen_indicators_values="net_mass: 1000gram, net_volume: 100.00centiliter" unit_name="kilogram"/>
       <item name="preparation_division" nature="preparation_division" frozen_indicators_values="" unit_name="room"/>
       <item name="printer" nature="computer"/>
-      <item name="product_nature_variants#drain" nature="draining_item"/>
       <item name="product_warranty" nature="product_insurance"/>
       <item name="project_study" nature="studies_and_research"/>
       <item name="protective_canvas" nature="crop_protective_item"/>
@@ -3873,6 +3873,7 @@
       <item name="allium_porrum_duraton" parent="allium_porrum" itis_tsn="42659"/>
       <item name="allium_porrum_kenton" parent="allium_porrum" itis_tsn="42659"/>
       <item name="allium_porrum_krypton" parent="allium_porrum" itis_tsn="42659"/>
+      <item name="allium_porrum_leblond" parent="allium_porrum" itis_tsn="42659"/>
       <item name="allium_porrum_lexton" parent="allium_porrum" itis_tsn="42659"/>
       <item name="allium_porrum_longton" parent="allium_porrum" itis_tsn="42659"/>
       <item name="allium_porrum_m&#xE9;gaton" parent="allium_porrum" itis_tsn="42659"/>
@@ -3880,6 +3881,8 @@
       <item name="allium_porrum_poulton" parent="allium_porrum" itis_tsn="42659"/>
       <item name="allium_porrum_vitaton" parent="allium_porrum" itis_tsn="42659"/>
       <item name="allium_sativum" parent="allium" itis_tsn="42652"/>
+      <item name="allium_sativum_gayant" parent="allium_sativum" itis_tsn="42652"/>
+      <item name="allium_sativum_nord" parent="allium_sativum" itis_tsn="42652"/>
       <item name="allium_schoenoprasum" parent="allium" itis_tsn="42636"/>
       <item name="allium_schoenoprasum_hi11600chc" parent="allium_schoenoprasum" itis_tsn="42636"/>
       <item name="allium_scorodoprasum" parent="allium" itis_tsn="42666"/>
@@ -4066,6 +4069,7 @@
       <item name="brassica_oleracea_botrytis_danden" parent="brassica_oleracea_botrytis" itis_tsn="23062"/>
       <item name="brassica_oleracea_botrytis_durian" parent="brassica_oleracea_botrytis" itis_tsn="23062"/>
       <item name="brassica_oleracea_botrytis_leocen" parent="brassica_oleracea_botrytis" itis_tsn="23062"/>
+      <item name="brassica_oleracea_botrytis_martinet" parent="brassica_oleracea_botrytis" itis_tsn="23062"/>
       <item name="brassica_oleracea_botrytis_mascaret" parent="brassica_oleracea_botrytis" itis_tsn="23062"/>
       <item name="brassica_oleracea_botrytis_navalo" parent="brassica_oleracea_botrytis" itis_tsn="23062"/>
       <item name="brassica_oleracea_botrytis_optimist" parent="brassica_oleracea_botrytis" itis_tsn="23062"/>
@@ -4221,6 +4225,22 @@
       <item name="carum" parent="apiaceae" itis_tsn="29609"/>
       <item name="carum_carvi" parent="carum" itis_tsn="29610"/>
       <item name="castanea" parent="fagaceae" itis_tsn="19451"/>
+      <item name="castanea_bantarde" parent="castanea" itis_tsn="19451"/>
+      <item name="castanea_bossue" parent="castanea" itis_tsn="19451"/>
+      <item name="castanea_bouchaud" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="castanea_grosse_nousillade" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="castanea_jaunan" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="castanea_marron_de_veuil" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="castanea_nousillade" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="castanea_patouille_jaune" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="castanea_patouille_noire" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="castanea_perote" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="castanea_pillemongrin" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="castanea_pointue" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="castanea_rouillaud" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="castanea_saint_michel" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="castanea_torse" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="castanea_vert_josnon" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="centaurea" parent="asteraceae" itis_tsn="36950"/>
       <item name="centaurea_cyanus" parent="centaurea" itis_tsn="36954"/>
       <item name="cerambycidae" parent="insecta"/>
@@ -4239,10 +4259,14 @@
       <item name="cicer" parent="fabaceae" itis_tsn="26536"/>
       <item name="cicer_arietinum" parent="cicer" itis_tsn="26537"/>
       <item name="cichorium" parent="asteraceae" itis_tsn="36762"/>
+      <item name="cichorium_barbe_de_capucin" parent="cichorium" itis_tsn="36762"/>
       <item name="cichorium_endivia" parent="cichorium" itis_tsn="501522"/>
       <item name="cichorium_endivia_crispum" parent="cichorium_endivia"/>
+      <item name="cichorium_endivia_janus" parent="cichorium_endivia" itis_tsn="501522"/>
       <item name="cichorium_endivia_latifolium" parent="cichorium_endivia"/>
+      <item name="cichorium_endivia_mona" parent="cichorium_endivia" itis_tsn="501522"/>
       <item name="cichorium_intybus" parent="cichorium" itis_tsn="36763"/>
+      <item name="cichorium_tete_d_anguille" parent="cichorium" itis_tsn="36762"/>
       <item name="citrullus" parent="cucurbitaceae" itis_tsn="22355"/>
       <item name="citrullus_colocynthis" parent="citrullus" itis_tsn="501571"/>
       <item name="citrullus_lanatus" parent="citrullus" itis_tsn="22356"/>
@@ -4371,6 +4395,8 @@
       <item name="cydonia_oblonga" parent="cydonia" itis_tsn="25159"/>
       <item name="cynara" parent="asteraceae" itis_tsn="37220"/>
       <item name="cynara_scolymus" parent="cynara" itis_tsn="37222"/>
+      <item name="cynara_scolymus_laon" parent="cynara_scolymus" itis_tsn="37222"/>
+      <item name="cynara_scolymus_saint_omer" parent="cynara_scolymus" itis_tsn="37222"/>
       <item name="dactylis" parent="poaceae" itis_tsn="193445"/>
       <item name="dactylis_lazuly" parent="dactylis" itis_tsn="12345"/>
       <item name="damaliscus" parent="bovidae" itis_tsn="624964"/>
@@ -4391,6 +4417,7 @@
       <item name="daucus_carota_colmar" parent="daucus_carota" itis_tsn="0"/>
       <item name="daucus_carota_creance" parent="daucus_carota" itis_tsn="0"/>
       <item name="daucus_carota_danvers" parent="daucus_carota" itis_tsn="0"/>
+      <item name="daucus_carota_de_tiques" parent="daucus_carota" itis_tsn="29476"/>
       <item name="daucus_carota_dordogne" parent="daucus_carota" itis_tsn="29477"/>
       <item name="daucus_carota_elegance" parent="daucus_carota" itis_tsn="29477"/>
       <item name="daucus_carota_flakkeese" parent="daucus_carota" itis_tsn="0"/>
@@ -4453,6 +4480,7 @@
       <item name="equus_caballus_pur_sang" parent="equus_caballus"/>
       <item name="equus_caballus_shetland" parent="equus_caballus"/>
       <item name="equus_zebra" parent="equus" itis_tsn="202401"/>
+      <item name="eremocitrus" parent="rutaceae" itis_tsn="500744"/>
       <item name="eruca" parent="brassicaceae" itis_tsn="23123"/>
       <item name="eruca_vesicaria" parent="eruca" itis_tsn="502429"/>
       <item name="erysiphaceae" parent="fungus" itis_tsn="194121"/>
@@ -4533,6 +4561,7 @@
       <item name="helianthus_annuus_pr64h41" parent="helianthus_annuus" itis_tsn="0"/>
       <item name="helianthus_annuus_rapala" parent="helianthus_annuus" itis_tsn="0"/>
       <item name="helianthus_annuus_sy_valeo" parent="helianthus_annuus" itis_tsn="0"/>
+      <item name="helianthus_tuberosus" parent="helianthus" itis_tsn="36691"/>
       <item name="helicidae" parent="gastropoda" itis_tsn="79866"/>
       <item name="helix" parent="helicidae" itis_tsn="79867"/>
       <item name="helix_aperta" parent="helix" itis_tsn="77905"/>
@@ -4748,6 +4777,7 @@
       <item name="lactuca_sativa_derbi" parent="lactuca_sativa" itis_tsn="36607"/>
       <item name="lactuca_sativa_duende" parent="lactuca_sativa" itis_tsn="36607"/>
       <item name="lactuca_sativa_novelda" parent="lactuca_sativa" itis_tsn="36607"/>
+      <item name="lactuva_sativa_lilloise" parent="lactuca_sativa" itis_tsn="36607"/>
       <item name="lamiaceae" parent="plant" itis_tsn="32251"/>
       <item name="land_parcel" parent="easement"/>
       <item name="land_parcel_cluster" parent="land_parcel_group"/>
@@ -4760,6 +4790,7 @@
       <item name="lens_culinaris" parent="lens" itis_tsn="503364"/>
       <item name="lepidium" parent="brassicaceae" itis_tsn="22953"/>
       <item name="lepidium_sativum" parent="lepidium" itis_tsn="22978"/>
+      <item name="lepidium_sativum_blond_du_pas_de_calais" parent="lepidium_sativum" itis_tsn="22978"/>
       <item name="leporidae" parent="mammalia" itis_tsn="180110"/>
       <item name="lepus" parent="leporidae" itis_tsn="180111"/>
       <item name="lepus_europaeus" parent="lepus" itis_tsn="552501"/>
@@ -4785,7 +4816,265 @@
       <item name="lotus_corniculatus" parent="lotus" itis_tsn="26362"/>
       <item name="lupinus" parent="fabaceae" itis_tsn="25916"/>
       <item name="malus" parent="rosaceae" itis_tsn="25254"/>
+      <item name="malus_pumila" parent="malus" itis_tsn="25254"/>
+      <item name="malus_pumila_a_cotes" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_alza_sagarra" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_amere_nouvelle" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_ameres_de_bernieulles" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_anixa_antze_sagarra" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_api_d_ete" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_api_d_orange" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_api_double_rose_ou_api_rouge" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_api_etoile" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_argiliere_ou_dimoutiere" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_armagnac" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_ascahire" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_azaou_sagarra" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_azeroli_anise_mazoreli" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_baguette_d_hiver" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_baguette_violette" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_bailly_ou_belle_fleur_de_st_benoit" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_barbarie" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_beaurichard" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_bec_d_oie_du_cher" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_belle-fille_de_la_creuse" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_belle_de_juillet" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_belle_de_linards" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_belle_de_pontoise" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_belle_du_bois" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_belle_fille_de_l_indre" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_belle_fille_de_la_creuse" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_belle_fleur_double" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_belle_fleur_simple_petit_bon_ente" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_belle_louronnaise_nez_de_veau" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_beurriere" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_blanc_d_espagne" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_blanquette" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_bon_ente_belge" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_bon_ente_charbonnier" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_bondon" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_bonnet_carre" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_bordelesa" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_boulonnex" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_bourdin_sagarra" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_bouviere" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_cabarette" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_cachao_sagarra" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_calvi_blanc" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_calville_rouge_caramille" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_calvin" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_carisi_a_longue_queue" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_cassou_de_casse" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_cellini" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_chailleux" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_chataignier" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_chaux" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_choureau_reinette_choureau" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_clairefontaine" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_coing" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_colapuis" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_coquette_d_auvergne" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_court_pendu_d_espagne" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_court_pendu_gris" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_court_pendu_gris_du_limousin" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_court_pendu_rouge" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_court_pendu_rouge_du_lot_et_garonne" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_coutras" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_coxs_rouge_des_flandres" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_crarouge" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_cravert" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_de_bonde" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_de_estre_ou_sainte_germaine" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_de_jeu" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_de_tendre" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_demie_double" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_double_a_l_huile" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_double_belle_fleur" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_double_bon_pommier" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_double_bon_pommier_rouge" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_doux_corier" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_douzandin" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_douzandin_cidre" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_drap_d_or_de_la_creuse" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_du_verger" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_entzea_sagarra" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_eri_sagarra" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_eri_sagarra_cidre" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_errezila_sagarra" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_espagne" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_estirochia_sagarra" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_eztica" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_fer_du_cher" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_feuillot" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_feuilloux" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_finette_de_gallardon" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_fouillaud" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_franc_rougeau" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_gaillarde" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_gazi_loka" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_germaine" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_geza" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_geza_xurria" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_gold_reinette" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_gordain_xurria" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_gorri" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_gosselet" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_gris_baudet" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_gris_brabant" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_gros_locard" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_gros_museau_de_lievre_blanc" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_gueule_de_mouton" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_hollande_rouge" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_hybride_golden_x_cassou_106" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_hybride_golden_x_cassou_43" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_hybride_golden_x_cassou_89" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_jacques_lebel" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_jincoa_sagarra_pomme_dieu" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_jinkoa_sagarra" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_koko_gorria" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_koko_xurria" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_kokua" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_la_douce" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_lanscailler" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_libra_sagarra" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_longue_queue" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_luche" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_mamula_xurri" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_marie_doudou" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_marie_menard" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_marseigna" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_michotte_de_gallardon" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_museau_de_lievre_jaune" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_museau_de_lievre_rouge_du_bearn" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_normandie_blanc" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_ontario" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_panneterie" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_patzulua" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pay_bou_andre_maria_sagarra" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_peaxa" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_perasse_de_gan" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_perasse_de_ganpeaxaperasse_de_nay" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_perasse_de_nay" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_perasse_grise" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_perasse_jaune" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_perregue" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_petit_museau_de_lievre_blanc" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_petite_madeleine" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pigeonnette" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pineau" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_cloche" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_d_albret" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_d_anis_rosalie" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_d_anis_tardive" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_d_arengosse" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_d_argent" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_d_enfer_bordes" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_d_ile" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_de_bedeau" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_de_behier" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_de_beurre" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_de_bouet" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_de_choconin" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_de_coudre" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_de_douce_dame_franchon" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_de_fer" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_de_la_saint_jean" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_de_loumarin" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_de_madeleine" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_de_maillard" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_de_moisson" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_de_passe" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_de_pecantin" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_de_puits" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_de_rose" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_de_rougette" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_de_saint_michel" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_de_sore" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_de_tendron" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_dieu" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_glace" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_jacquet" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_jean_de_grignon" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_orange" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_poire" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pomme_taupe" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pouzac" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_pouzaraque" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_precoce_de_wirwignes" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_quarantaine_d_hiver" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_rador" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_rambour_d_hiver" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_razot" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_reale_d_entraygue" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_redondelle_blandureau" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_reinette_baumann" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_reinette_bure" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_reinette_clochard" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_reinette_d_angleterre" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_reinette_de_brive_de_l_estre" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_reinette_de_correze" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_reinette_de_flandre" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_reinette_de_france" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_reinette_de_fugelan" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_reinette_de_hollande" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_reinette_de_saintonge" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_reinette_de_villerette" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_reinette_de_waleffe" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_reinette_des_capucins" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_reinette_des_chatres" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_reinette_descardre" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_reinette_doree_de_l_indre" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_reinette_doree_reinette_d_or" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_reinette_du_mans" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_reinette_etoilee" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_reinette_grise_avancee" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_reinette_hernaut" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_reinette_jaune" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_reinette_marbree_d_auvergne" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_reinette_marbree_de_la_creuse" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_reinette_rouge_de_la_creuse" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_reinette_sans_pepin" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_reinette_tardive_d_englefontaine_la_clermontoise" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_rene_vert_reina_verte" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_roquet_rouge" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_roquet_rouge_cidre" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_rose_de_benauge" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_rose_de_hollande" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_rose_de_saint_yrieix" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_rose_de_virginie_ou_rose_d_ete" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_rose_du_perche" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_rouge_d_automne" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_rouge_extra_tres_tardive" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_rouillaud" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_ruban_1" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_saint_brisson" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_saint_jean_transparente_blanche" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_saint_laurent_de_brenne" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_saint_michel_le_coudic" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_sang_de_boeuf" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_sans_graine" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_sans_pareille_de_peasgood" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_six_cotes" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_suzette" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_tardive_de_bouvignies_rambour_hiver" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_transparente_de_croncels" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_trelage" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_trompe_gelees" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_udarre_sagarra_apez_sagarra" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_urieta_sagarra" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_usta_xurria" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_vechter" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_vedette_du_bearn" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_verdale" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_verdin_d_automne" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_verdin_d_hiver" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_vermillon_d_espagne" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_vernade" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_vernajoux" parent="malus_pumila" itis_tsn="25262"/>
+      <item name="malus_pumila_vol_au_vent" parent="malus_pumila" itis_tsn="25262"/>
       <item name="malva" parent="malvaceae" itis_tsn="21832"/>
+      <item name="malva_sylvestris" parent="malva" itis_tsn="21840"/>
+      <item name="malva_sylvestris_du_nord" parent="malva_sylvestris" itis_tsn="21840"/>
       <item name="malvaceae" parent="plant" itis_tsn="21608"/>
       <item name="mammalia" parent="animal" itis_tsn="179913"/>
       <item name="mangifera" parent="anacardiaceae" itis_tsn="28802"/>
@@ -4804,6 +5093,7 @@
       <item name="melissa" parent="lamiaceae" itis_tsn="32564"/>
       <item name="melon" parent="fruit" derivative_of="cucumis"/>
       <item name="mentha" parent="lamiaceae" itis_tsn="32264"/>
+      <item name="microcitrus" parent="rutaceae" itis_tsn="500747"/>
       <item name="milk" parent="raw_matter" derivative_of="mammalia"/>
       <item name="miscanthus" parent="poaceae" itis_tsn="41870"/>
       <item name="mix" parent="preparation"/>
@@ -4841,6 +5131,55 @@
       <item name="oil" parent="raw_matter"/>
       <item name="olea" parent="oleaceae" itis_tsn="32989"/>
       <item name="olea_europaea" parent="olea" itis_tsn="32990"/>
+      <item name="olea_europaea_araban_des_alpes_maritimes" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_araban_du_var" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_beaussaret" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_becu" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_belgentieroise" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_blanquetier" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_blavet" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_bonne_mode" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_boube" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_boussarlu" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_brun" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_calian" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_cayanne" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_cayet_blanc" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_cayet_bleu" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_cerisier" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_colombale" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_cornaliere" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_coucourelle" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_curnet" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_dent_de_verrat" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_fila&#xEF;re_noire" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_grapie" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_grassois" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_gros_ribier" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_melegrand" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_montaurounenque" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_nostral" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_olea_europaea" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_pardiguier" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_petit_broutignan" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_petit_noire" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_petit_ribier" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_pignola" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_ponchinelle" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_rapiere" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_rascasset" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_reymet" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_rosee_du_mont_or" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_cayet_rouge" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_rougeonne" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_rousset_du_var" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_cayet_roux" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_sanguin" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_saurine" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_totivette" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_trique" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_verdale_de_tourtour" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_verdale_des_bouches" parent="olea_europaea" itis_tsn="32990"/>
       <item name="oleaceae" parent="plant" itis_tsn="32927"/>
       <item name="onobrychis" parent="fabaceae" itis_tsn="26809"/>
       <item name="onobrychis_viciifolia" parent="onobrychis" itis_tsn="26810"/>
@@ -4857,6 +5196,7 @@
       <item name="oryctolagus_cuniculus_gris_de_vienne" parent="oryctolagus_cuniculus" itis_tsn="0"/>
       <item name="oryctolagus_cuniculus_nain_belier" parent="oryctolagus_cuniculus" itis_tsn="0"/>
       <item name="oryza" parent="poaceae" itis_tsn="41975"/>
+      <item name="oryza_sativa" parent="oryza" itis_tsn="41976"/>
       <item name="ostreidae" parent="bivalvia" itis_tsn="79866"/>
       <item name="ovis" parent="bovidae" itis_tsn="180709"/>
       <item name="ovis_aries" parent="ovis" itis_tsn="552475"/>
@@ -4891,15 +5231,19 @@
       <item name="phalaris_canariensis" parent="phalaris" itis_tsn="41336"/>
       <item name="phaseolus" parent="fabaceae" itis_tsn="203844"/>
       <item name="phaseolus_vulgaris" parent="phaseolus" itis_tsn="26857"/>
+      <item name="phaseolus_vulgaris_blanc_de_flandre" parent="phaseolus_vulgaris" itis_tsn="26857"/>
       <item name="phaseolus_vulgaris_carthage" parent="phaseolus" itis_tsn="26857"/>
       <item name="phaseolus_vulgaris_denver" parent="phaseolus_vulgaris" itis_tsn="26857"/>
       <item name="phaseolus_vulgaris_flagrano" parent="phaseolus" itis_tsn="26857"/>
       <item name="phaseolus_vulgaris_kaiser" parent="phaseolus" itis_tsn="26857"/>
+      <item name="phaseolus_vulgaris_lingot" parent="phaseolus_vulgaris" itis_tsn="26857"/>
       <item name="phaseolus_vulgaris_lugos" parent="phaseolus" itis_tsn="26857"/>
       <item name="phaseolus_vulgaris_mogex" parent="phaseolus" itis_tsn="26857"/>
       <item name="phaseolus_vulgaris_molly" parent="phaseolus" itis_tsn="26857"/>
+      <item name="phaseolus_vulgaris_princesse_du_peleve" parent="phaseolus_vulgaris" itis_tsn="26857"/>
       <item name="phaseolus_vulgaris_stanley" parent="phaseolus" itis_tsn="26857"/>
       <item name="phaseolus_vulgaris_sv1162gn" parent="phaseolus_vulgaris" itis_tsn="26857"/>
+      <item name="phaseolus_vulgaris_verdelys" parent="phaseolus_vulgaris" itis_tsn="26857"/>
       <item name="phasianidae" parent="aves" itis_tsn="175861"/>
       <item name="phasianus" parent="phasianidae" itis_tsn="175904"/>
       <item name="phasianus_colchicus" parent="phasianus" itis_tsn="175905"/>
@@ -4940,6 +5284,7 @@
       <item name="pollen" parent="raw_matter" derivative_of="plant"/>
       <item name="polygonaceae" parent="plant" itis_tsn="20842"/>
       <item name="pomace" parent="preparation" derivative_of="fruit"/>
+      <item name="poncirus" parent="rutaceae" itis_tsn="28988"/>
       <item name="potassium_ferrocyanide" parent="raw_matter"/>
       <item name="preparation" parent="matter"/>
       <item name="press" parent="equipment"/>
@@ -4952,19 +5297,95 @@
       <item name="property_title" parent="immatter"/>
       <item name="pruner" parent="equipment"/>
       <item name="prunus" parent="rosaceae" itis_tsn="25294"/>
+      <item name="prunus_armeniaca" parent="prunus" itis_tsn="24769"/>
+      <item name="prunus_armeniaca_abricot_commun_de_clairac" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_armeniaca_abricot_muscat_de_clairac" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_armeniaca_abricot_nancy_de_clairac" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_armeniaca_abricot_peche_de_nancy" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_armeniaca_abricot_commun_de_nicole_commerce" parent="prunus_armeniaca" itis_tsn="24769"/>
       <item name="prunus_avium" parent="prunus" itis_tsn="24770"/>
+      <item name="prunus_avium_belle_du_berry_ou_petite_joue_vermeille" parent="prunus_avium" itis_tsn="24770"/>
+      <item name="prunus_avium_blanc_chere" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_avium_brune_de_romeries" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_avium_cerise_blanc_nez" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_avium_cerise_blanche_d_harsigny" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_avium_cerise_blanche_de_wavrans_sur_l_aa" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_avium_cerise_d_enguinegatte" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_avium_cerise_de_moncheaux" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_avium_cerise_du_quesnoy" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_avium_cerise_du_sars" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_avium_cerise_peloa" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_avium_coeur_de_pigeon_noir" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_avium_gascogne_tardive_de_seninghem" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_avium_gros_bigarreau_d_eperlecques" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_avium_gros_bigarreau_de_la_groise" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_avium_grosse_cerise_blanche_de_verchocq" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_avium_grosse_cerise_tardive" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_avium_guigne_noire_de_ruesnes" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_avium_guigne_noire_du_pevele" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_avium_guindoux_du_poitou" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_avium_marin" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_avium_merisier" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_avium_mourette_amourette" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_avium_muant" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_avium_noire_d_itxassou_geresi_belxa" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_avium_noire_tardive_a_longue_queue" parent="prunus_avium" itis_tsn="24770"/>
+      <item name="prunus_avium_petite_noire" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_avium_precoce_de_la_marche" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_avium_precoce_du_pays" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_avium_triaux_des_fondettes" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_avium_xapata_chapata" parent="prunus_armeniaca" itis_tsn="24769"/>
       <item name="prunus_cerasifera" parent="prunus" itis_tsn="24772"/>
       <item name="prunus_cerasus" parent="prunus" itis_tsn="24773"/>
+      <item name="prunus_cerasus_griotte_de_leme" parent="prunus_cerasus" itis_tsn="24773"/>
+      <item name="prunus_cerasus_griotte_du_vieux_conde" parent="prunus_cerasus" itis_tsn="24773"/>
+      <item name="prunus_cerasus_griotte_jaune_d_oullins" parent="prunus_cerasus" itis_tsn="24773"/>
+      <item name="prunus_cerasus_griotte_precoce_de_samer" parent="prunus_cerasus" itis_tsn="24773"/>
       <item name="prunus_domestica" parent="prunus" itis_tsn="24774"/>
+      <item name="prunus_domestica_abricotee_jaune" parent="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_domestica_amarblanc_amarouge" parent="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_domestica_balosse" parent="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_domestica_belle_de_louvain" parent="prunus_domestica" itis_tsn="24774"/>
       <item name="prunus_domestica_bernardina" parent="prunus_domestica" itis_tsn="0"/>
+      <item name="prunus_domestica_blanche_d_espagne_molle" parent="prunus_domestica" itis_tsn="24774"/>
       <item name="prunus_domestica_bluefre" parent="prunus_domestica" itis_tsn="0"/>
       <item name="prunus_domestica_carpatin" parent="prunus_domestica" itis_tsn="0"/>
+      <item name="prunus_domestica_coe_violette" parent="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_domestica_datil" parent="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_domestica_ente_jaune_ou_p_d_agen_blanche" parent="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_domestica_floyon" parent="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_domestica_genre_reine_claude_verte_tardive" parent="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_domestica_goutte_d_or_de_coe" parent="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_domestica_grosse_bleue_de_fin_septembre" parent="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_domestica_madeleine" parent="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_domestica_marcarriere_ou_datte" parent="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_domestica_marie_jouveneau" parent="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_domestica_mariolet" parent="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_domestica_monsieur_hatif" parent="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_domestica_monsieur_violet_musquette" parent="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_domestica_noberte" parent="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_domestica_perdrigon" parent="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_domestica_prune_de_saint_antonin" parent="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_domestica_reine_claude_brune" parent="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_domestica_reine_claude_d_althan_conducta" parent="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_domestica_reine_claude_d_oulins" parent="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_domestica_reine_claude_d_oullins" parent="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_domestica_reine_claude_de_bavay" parent="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_domestica_reine_claude_doree" parent="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_domestica_reine_claude_rouge" parent="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_domestica_reine_claude_rouge_hative" parent="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_domestica_saint_leonard" parent="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_domestica_sainte_catherine" parent="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_domestica_sanguine_de_wismes" parent="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_domestica_ste_catherine" parent="prunus_domestica" itis_tsn="24774"/>
       <item name="prunus_dulcis" parent="prunus" itis_tsn="24775"/>
       <item name="prunus_laurocerasus" parent="prunus" itis_tsn="24786"/>
       <item name="prunus_mahaleb" parent="prunus" itis_tsn="24789"/>
       <item name="prunus_persica" parent="prunus" itis_tsn="24765"/>
       <item name="prunus_persica_jh_hall" parent="prunus_persica" itis_tsn="0"/>
       <item name="prunus_persica_madeleine" parent="prunus_persica" itis_tsn="0"/>
+      <item name="prunus_persica_pavie" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="prunus_persica_roussane_de_monein" parent="prunus_persica" itis_tsn="24765"/>
       <item name="prunus_persica_saint_hilaire" parent="prunus_persica" itis_tsn="0"/>
       <item name="prunus_salicina" parent="prunus" itis_tsn="506232"/>
       <item name="prunus_salicina_allo" parent="prunus_salicina" itis_tsn="0"/>
@@ -4973,7 +5394,78 @@
       <item name="prunus_salicina_beauty" parent="prunus_salicina" itis_tsn="0"/>
       <item name="pyrus" parent="rosaceae" itis_tsn="25294"/>
       <item name="pyrus_communis" parent="pyrus" itis_tsn="25295"/>
+      <item name="pyrus_communis_beurre_d_anjou" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_beurre_de_l_assomption" parent="pyrus_communis" itis_tsn="25295"/>
       <item name="pyrus_communis_beurre_hardy" parent="pyrus_communis" itis_tsn="0"/>
+      <item name="pyrus_communis_beurre_lebrun" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_beurre_surperfin" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_bonnissime_de_la_sarthe" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_comelie" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_comtesse_de_paris" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_cuisse_dame" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_cure" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_dayenne" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_duchesse_de_poitiers" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_duchesse_du_berry" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_eugene_thirriot" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_fondante_thirriot" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_grosse_louise" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_jean_nicolas" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_legipont" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_madame_gregoire" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_marguerite_marillat" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_nipe_nime" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_plovinne" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_a_clement" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_a_cote_d_or" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_a_cuire_grise_de_wierre_au_bois" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_blanquette" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_boutoc_poire_d_ange" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_caillaou_rosat" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_catillac" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_citron" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_cure" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_d_anis" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_d_aout_de_seninghem" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_de_beton" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_de_beurre" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_de_blanc" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_de_calot" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_de_cave" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_de_cheminee" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_de_cure" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_de_fret" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_de_guinette" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_de_jargonelle" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_de_livre" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_de_loup" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_de_mare" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_de_marsanneix" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_de_moreau" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_de_petit_roux" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_de_rapace" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_de_rateau_rouge" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_de_roulee" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_de_saint_antoine" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_de_sang" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_de_vierge" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_duchesse_d_angouleme" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_epargne_cuisse_madame" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_marguerite_marillat" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_monsallard_epine_d_ete" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_mouille_bouche_jansemine" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_notre_dame" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_orange" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_perou_d_argent" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_reinette" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_saint_jean" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_poire_sucre_vert" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_rivailles" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_saint_mathieu" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_sans_pepins" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_sucree_de_montlucon" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_sucree_vert_de_montlucon" parent="prunus_persica" itis_tsn="24765"/>
+      <item name="pyrus_communis_triomphe_de_vienne" parent="prunus_persica" itis_tsn="24765"/>
       <item name="pyrus_communis_william" parent="pyrus_communis" itis_tsn="0"/>
       <item name="pyrus_communis_william_bon_chretien" parent="pyrus_communis" itis_tsn="0"/>
       <item name="quercus" parent="fagaceae" itis_tsn="19276"/>
@@ -5236,6 +5728,7 @@
       <item name="solanum_tuberosum_allians" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_alowa" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_altesse" parent="solanum_tuberosum" itis_tsn="505272"/>
+      <item name="solanum_tuberosum_amado" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_amandine" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_amazone" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_amelie" parent="solanum_tuberosum" itis_tsn="505272"/>
@@ -5271,6 +5764,7 @@
       <item name="solanum_tuberosum_caesar" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_cara" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_casablanca" parent="solanum_tuberosum" itis_tsn="505272"/>
+      <item name="solanum_tuberosum_centaure" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_chacasina" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_challenger" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_charlene" parent="solanum_tuberosum" itis_tsn="505272"/>
@@ -5281,11 +5775,19 @@
       <item name="solanum_tuberosum_corne_de_bamberg" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_crisp4all" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_cultra" parent="solanum_tuberosum" itis_tsn="505272"/>
+      <item name="solanum_tuberosum_dartiest" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_desiree" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_diamant" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_early_rose" parent="solanum_tuberosum" itis_tsn="505272"/>
+      <item name="solanum_tuberosum_energie" parent="solanum_tuberosum" itis_tsn="505272"/>
+      <item name="solanum_tuberosum_epona" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_estima" parent="solanum_tuberosum" itis_tsn="505272"/>
+      <item name="solanum_tuberosum_eurofla" parent="solanum_tuberosum" itis_tsn="505272"/>
+      <item name="solanum_tuberosum_eurogrande" parent="solanum_tuberosum" itis_tsn="505272"/>
+      <item name="solanum_tuberosum_euroking" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_europa" parent="solanum_tuberosum" itis_tsn="505272"/>
+      <item name="solanum_tuberosum_eurostarch" parent="solanum_tuberosum" itis_tsn="505272"/>
+      <item name="solanum_tuberosum_eurotango" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_fambo" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_felsina" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_flourball" parent="solanum_tuberosum" itis_tsn="505272"/>
@@ -5293,12 +5795,15 @@
       <item name="solanum_tuberosum_fortuna" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_franceline" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_garnet_chili" parent="solanum_tuberosum" itis_tsn="505272"/>
+      <item name="solanum_tuberosum_gemini" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_gloria" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_gourmandine" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_hankkijan_tanu" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_hankkijan_timo" parent="solanum_tuberosum" itis_tsn="505272"/>
+      <item name="solanum_tuberosum_hannibal" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_harmony" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_hermes" parent="solanum_tuberosum" itis_tsn="505272"/>
+      <item name="solanum_tuberosum_hinga" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_idole" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_innovator" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_institut_de_beauvais" parent="solanum_tuberosum" itis_tsn="505272"/>
@@ -5309,6 +5814,7 @@
       <item name="solanum_tuberosum_king_edward" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_kufri_bahar" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_kulta" parent="solanum_tuberosum" itis_tsn="505272"/>
+      <item name="solanum_tuberosum_kuras" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_lady_claire" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_lady_cristl" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_lady_felicia" parent="solanum_tuberosum" itis_tsn="505272"/>
@@ -5330,11 +5836,14 @@
       <item name="solanum_tuberosum_morene" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_mozart" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_nadine" parent="solanum_tuberosum" itis_tsn="505272"/>
+      <item name="solanum_tuberosum_nafida" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_nectar" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_nevsky" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_newleaf" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_newleaf_plus" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_nicola" parent="solanum_tuberosum" itis_tsn="505272"/>
+      <item name="solanum_tuberosum_nomade" parent="solanum_tuberosum" itis_tsn="505272"/>
+      <item name="solanum_tuberosum_oleva" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_olympia" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_opperdoezer_ronde" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_osprey" parent="solanum_tuberosum" itis_tsn="505272"/>
@@ -5344,7 +5853,9 @@
       <item name="solanum_tuberosum_pentland_dell" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_pink_fir_apple" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_pito" parent="solanum_tuberosum" itis_tsn="505272"/>
+      <item name="solanum_tuberosum_pollux" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_pompadour" parent="solanum_tuberosum" itis_tsn="505272"/>
+      <item name="solanum_tuberosum_ponto" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_posmo" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_premiere" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_producent" parent="solanum_tuberosum" itis_tsn="505272"/>
@@ -5378,14 +5889,22 @@
       <item name="solanum_tuberosum_shannon" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_shepody" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_sieglinde" parent="solanum_tuberosum" itis_tsn="505272"/>
+      <item name="solanum_tuberosum_signum" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_siikli" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_sini" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_sirtema" parent="solanum_tuberosum" itis_tsn="505272"/>
+      <item name="solanum_tuberosum_smaragd" parent="solanum_tuberosum" itis_tsn="505272"/>
+      <item name="solanum_tuberosum_sofista" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_spunta" parent="solanum_tuberosum" itis_tsn="505272"/>
+      <item name="solanum_tuberosum_starga" parent="solanum_tuberosum" itis_tsn="505272"/>
+      <item name="solanum_tuberosum_starter" parent="solanum_tuberosum" itis_tsn="505272"/>
+      <item name="solanum_tuberosum_stayer" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_stemster" parent="solanum_tuberosum" itis_tsn="505272"/>
+      <item name="solanum_tuberosum_stratos" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_super_chola" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_suvi" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_sylvana" parent="solanum_tuberosum" itis_tsn="505272"/>
+      <item name="solanum_tuberosum_taranis" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_turbo" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_ukama" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_up_to_date" parent="solanum_tuberosum" itis_tsn="505272"/>
@@ -5400,6 +5919,7 @@
       <item name="solanum_tuberosum_vivaldi" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_wilja" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_tuberosum_yukon_gold" parent="solanum_tuberosum" itis_tsn="505272"/>
+      <item name="solanum_tuberosum_zuzzna" parent="solanum_tuberosum" itis_tsn="505272"/>
       <item name="sorghum" parent="poaceae" itis_tsn="42106"/>
       <item name="sower" parent="equipment"/>
       <item name="spinacia" parent="amaranthaceae" itis_tsn="20708"/>
@@ -5466,6 +5986,7 @@
       <item name="tilia_americana" parent="tilia" itis_tsn="21536"/>
       <item name="tilia_cordata" parent="tilia" itis_tsn="505507"/>
       <item name="tractor" parent="equipment"/>
+      <item name="tragopogon" parent="asteraceae" itis_tsn="38563"/>
       <item name="trailer" parent="equipment"/>
       <item name="trifolium" parent="fabaceae" itis_tsn="26204"/>
       <item name="trifolium_alexandrinum" parent="trifolium" itis_tsn="26210"/>
@@ -5512,47 +6033,185 @@
       <item name="triticosecale" parent="poaceae" itis_tsn="41455"/>
       <item name="triticum" parent="poaceae" itis_tsn="42236"/>
       <item name="triticum_aestivum" parent="triticum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_allies" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_apache" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_arezzo" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_ascott" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_autan" parent="triticum_aestivum"/>
+      <item name="triticum_aestivum_automne_rouge_barbu" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_autrichien" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_aztec" parent="triticum_aestivum"/>
+      <item name="triticum_aestivum_blanc_de_flandre" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_ble_de_crepi" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_ble_de_redon" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_bon_fermier" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_bon_moulin" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_bordier" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_bussard" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_caphorn" parent="triticum_aestivum"/>
+      <item name="triticum_aestivum_champ_joli" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_chanteclair" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_chiddam_d_automne_blanc" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_chiddam_d_automne_rouge" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_cote_d_or" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_courtot" parent="triticum_aestivum"/>
+      <item name="triticum_aestivum_dattel" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_esperia" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_euclide" parent="triticum_aestivum"/>
+      <item name="triticum_aestivum_fleche_d_or" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_galibier" parent="triticum_aestivum"/>
+      <item name="triticum_aestivum_gerbor" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_goldentrop" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_gros_bleu" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_hatif_cambier" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_hatif_de_wattines" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_hatif_inversable" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_hybride_40" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_hybride_de_bersee" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_hybride_de_la_paix" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_hybride_du_tresor" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_ile_de_france" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_innovation_bataille" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_institut_agronomique" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_isengrain" parent="triticum_aestivum"/>
+      <item name="triticum_aestivum_japhet" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_later" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_levis" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_lona" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_manital" parent="triticum_aestivum"/>
+      <item name="triticum_aestivum_noe" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_nord_desprez" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_oratorio" parent="triticum_aestivum"/>
+      <item name="triticum_aestivum_picardie_desprez" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_poulard_d_australie" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_premio" parent="triticum_aestivum"/>
+      <item name="triticum_aestivum_preparateur_etienne" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_prince_albert" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_providence" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_ptit_quinquin" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_qualital" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_quality" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_quebon" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_recital" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_renan" parent="triticum_aestivum"/>
+      <item name="triticum_aestivum_rouge_d_alsace" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_rouge_de_bordeaux" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_roux_des_ardennes" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_rubisko" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_runal" parent="triticum_aestivum"/>
+      <item name="triticum_aestivum_shireff_epis_carres" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_soissons" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_tamaro" parent="triticum_aestivum"/>
+      <item name="triticum_aestivum_teverson" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_aestivum_texel" parent="triticum_aestivum"/>
       <item name="triticum_aestivum_tremie" parent="triticum_aestivum"/>
+      <item name="triticum_aestivum_victoria_d_automne" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_vilmorin_23" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_vilmorin_27" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_vilmorin_29" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_wilson_jaune" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="triticum_aestivum_yga" parent="triticum_aestivum" itis_tsn="42237"/>
       <item name="triticum_durum" parent="triticum" itis_tsn="42240"/>
+      <item name="triticum_durum_acalou" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_actisur" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_ailandur" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_akenaton" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_alexis" parent="triticum_durum"/>
+      <item name="triticum_durum_alfaro" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_anco_marzio" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_anvergur" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_argeles" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_athoris" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_atoudur" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_attila" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_augur" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_auris" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_aventur" parent="triticum_durum"/>
+      <item name="triticum_durum_babylone" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_biensur" parent="triticum_durum"/>
+      <item name="triticum_durum_byblos" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_casteldoux" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_catervo" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_cesare" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_chiara" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_chistera" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_claudio" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_clovis" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_coussur" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_cultur" parent="triticum_durum"/>
+      <item name="triticum_durum_dakter" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_daurur" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_duetto" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_durango" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_durasol" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_duriac" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_durobonus" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_excalibur" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_fabulis" parent="triticum_durum"/>
+      <item name="triticum_durum_floridou" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_gainsur" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_gibus" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_grazia" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_isildur" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_ismur" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_joyau" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_kanakis" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_karur" parent="triticum_durum"/>
+      <item name="triticum_durum_kheti" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_kombo" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_latinur" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_lemur" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_levante" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_liberdur" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_lloyd" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_luminur" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_marakas" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_marco_aurelio" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_matt" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_memphis" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_miradoux" parent="triticum_durum"/>
+      <item name="triticum_durum_monastir" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_nautilur" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_nefer" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_nemesis" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_neodur" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_nicodur" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_nobilis" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_odisseo" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_orlu" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_orssur" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_paprika" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_pastadou" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_pastiflur" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_pescadou" parent="triticum_durum"/>
+      <item name="triticum_durum_pharaon" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_pictur" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_plussur" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_portodur" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_prospero" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_provenzal" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_qualidou" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_ramirez" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_relief" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_rgt_albiozur" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_rgt_fabionur" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_rgt_izaldur" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_rgt_musclur" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_rgt_nomur" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_sachem" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_saragolla" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_sculptur" parent="triticum_durum"/>
+      <item name="triticum_durum_sorriso" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_surmesur" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_sy_banco" parent="triticum_durum"/>
+      <item name="triticum_durum_sy_carma" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_sy_cysco" parent="triticum_durum"/>
+      <item name="triticum_durum_sy_esperto" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_durum_tablur" parent="triticum_durum"/>
+      <item name="triticum_durum_tiziana" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_virgilio" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_vivadur" parent="triticum_durum" itis_tsn="42240"/>
+      <item name="triticum_durum_yelodur" parent="triticum_durum" itis_tsn="42240"/>
       <item name="triticum_spelta" parent="triticum" itis_tsn="42243"/>
       <item name="uncinula" parent="erysiphaceae" itis_tsn="194154"/>
       <item name="uncinula_necator" parent="uncinula" itis_tsn="194154"/>
@@ -5643,6 +6302,7 @@
       <item name="wine" parent="fermented_juice" derivative_of="fruit"/>
       <item name="wire" parent="packaged_matter"/>
       <item name="worker" parent="product"/>
+      <item name="x_felium" parent="poaceae" itis_tsn="40351"/>
       <item name="x_schedolium" parent="poaceae" itis_tsn="781314"/>
       <item name="xanthomonadaceae" parent="bacteria" itis_tsn="0"/>
       <item name="xanthomonas" parent="xanthomonadaceae" itis_tsn="0"/>
