@@ -60,7 +60,7 @@
         = spline_highcharts(series, y_axis: {title: {text: :indicator_value.tl} , opposite: true}, tooltip: { shared: true }, x_axis: {type: 'datetime', crosshair: true}, legend: true)
 
   - c.cobble(:costs) do
-    .big-infos.costs
+    = infos(class: 'costs') do
       - total = 0
       - for type in [:input, :tool, :doer]
         - cost = (resource.cost(type) || 0.0).round.to_i
@@ -80,7 +80,7 @@
       %ul.product_parameters= render partial: 'product_parameter', collection: resource.product_parameters
 
   - c.cobble(:general_informations) do
-    .big-infos
+    = infos do
       .med-info.important
         %span.title= Intervention.human_attribute_name(:state)
         %span.value= lights(resource.status)

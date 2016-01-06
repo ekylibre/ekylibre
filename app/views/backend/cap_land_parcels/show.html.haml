@@ -3,7 +3,7 @@
 
 = cobbles do |c|
   - c.cobble :general_informations do
-    .big-infos
+    = infos do
       .med-info
         %span.title= CapLandParcel.human_attribute_name(:land_parcel_number)
         %span.value= resource.land_parcel_number

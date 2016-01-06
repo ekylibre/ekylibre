@@ -8,7 +8,7 @@
 = main_informations attachment: true do
   - if resource.picture.exists?
     .picture= image_tag(resource.picture.url(:identity))
-  .big-infos
+  = infos do
     .med-info.important
       - sex_icon = (resource.sex == 'male' ? 'mars' : (resource.sex == 'female' ? 'venus' : 'sex'))
       %span.title= Animal.human_attribute_name(:work_number)
@@ -37,7 +37,7 @@
 
   - if resource.mother or resource.father
     - c.cobble :genealogy do
-      .big-infos
+      = infos do
         - if resource.mother
           .med-info
             %span.title= Animal.human_attribute_name(:mother)

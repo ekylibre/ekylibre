@@ -1,4 +1,4 @@
-.big-infos
+= infos do
   .big-info.important
     %span.title= :x_unpaid_sales.tl(count: Sale.unpaid.count)
     %span.value= link_to(Sale.unpaid.sum(:amount).round(2).l(currency: Preference[:currency]), backend_sales_path(s: "unpaid"))

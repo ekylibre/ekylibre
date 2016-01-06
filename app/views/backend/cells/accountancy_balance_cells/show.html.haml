@@ -23,7 +23,7 @@
     # liquid_assets_on_turnover = (liquid_assets / turnover_value) * 100
     liquid_assets_on_turnover = (-bank / turnover_value) * 100 if bank && turnover_value && turnover_value != 0.0
 
-  .big-infos
+  = infos do
     - if operating_margin
       .big-info
         %span.title= :operating_margin.tl

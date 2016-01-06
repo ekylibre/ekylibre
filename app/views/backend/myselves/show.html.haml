@@ -9,7 +9,7 @@
   currency = { currency: Preference[:currency] }
 = cobbles do |c|
   - c.cobble :invoices, title: :x_sales_invoices.tl(count: current_user_sales.count(:id)) do
-    .big-infos
+    = infos do
       .big-info
         %span.title= Sale.human_attribute_name(:pretax_amount)
         %span.value

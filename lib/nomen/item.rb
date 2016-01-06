@@ -140,6 +140,8 @@ module Nomen
       "nomenclatures.#{nomenclature.name}.items.#{name}".t(options.merge(default: ["items.#{name}".to_sym, "enumerize.#{nomenclature.name}.#{name}".to_sym, "labels.#{name}".to_sym, name.humanize]))
     end
     alias_method :humanize, :human_name
+    alias_method :localize, :human_name
+    alias_method :l, :localize
 
     def human_notion_name(notion_name, options = {})
       "nomenclatures.#{nomenclature.name}.notions.#{notion_name}.#{name}".t(options.merge(default: ["labels.#{name}".to_sym]))

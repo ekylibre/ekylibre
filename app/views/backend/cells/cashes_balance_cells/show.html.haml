@@ -1,9 +1,7 @@
 - if @cashes.any?
-  .big-infos
+  = infos do
     - @cashes.each do |cash|
       - balance = cash.balance
-      .big-info{class: (balance > 0 ? :positive : balance < 0 ? :negative : :caution)}
-        %span.title= cash.name
-        %span.value= balance.l(currency: cash.currency)
+      = info(cash.name, balance.l(currency: cash.currency), class: (balance > 0 ? :positive : balance < 0 ? :negative : :caution))
 - else
   = no_data

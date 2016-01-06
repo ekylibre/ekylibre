@@ -5,7 +5,7 @@
 
 = main_informations attachment: true do
   = render 'picture'
-  .big-infos
+  = infos do
     -#
       .med-info.important
         - icon = resource.category.pictogram
@@ -13,24 +13,19 @@
         %span.value
           %i.picto{class: "picto-#{icon}"}
           = link_to(resource.variant_name, controller: :product_nature_variants, action: :show, id: resource.variant_id)
-    - if resource.born_at and resource.age and resource.age >= 1.day
-      .med-info
-        %span.title= Matter.human_attribute_name(:age)
-        %span.value
-          %i.picto{class: "picto-clock-o"}
-          = human_age(resource.age, display: 2)
+    - if resource.born_at && resource.age && resource.age >= 1.day
+      = resource_info(:age) do |age|
+        %i.picto{class: "picto-clock-o"}
+        = human_age(age, display: 2)
     - unless resource.population_counting_unitary?
       .med-info.important
         %span.title= Nomen::Indicator.find(:population).human_name
         %span.value= resource.population.l + " " + resource.unit_name
     - if resource.has_indicator?(:net_mass)
-      .med-info.important
-        %span.title= Matter.human_attribute_name(:net_mass)
-        %span.value= resource.net_mass.l
-    - if resource.current_ownership and resource.current_ownership.owner_id != Entity.of_company.id and resource.current_ownership.owner
-      .med-info.important
-        %span.title= Product.human_attribute_name(:owner)
-        %span.value= resource.current_ownership.owner.name
+      = resource_info(:net_mass, important: true)
+    - if resource.current_ownership && resource.current_ownership.external?
+      = resource_info(:owner, important: true) do |owner|
+        = owner.name
 
 
 = cobbles do |c|

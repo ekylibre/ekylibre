@@ -47,11 +47,12 @@ class Georeading < Ekylibre::Record::Base
     return geom = ::Charta.new_geometry(content).transform(:WGS84) if content
   end
 
+  def net_surface_area
+    return 0.0.in_square_meter unless polygon?
+    content_area
+  end
+
   def label_area(unit = :hectare)
-    if self.polygon?
-      value = to_geom.area.to_d(unit).round(3).l
-      unit = Nomen::Unit[unit].human_name
-      return "#{value} #{unit}"
-    end
+    return net_surface_area.in(unit).round(3).l if self.polygon?
   end
 end

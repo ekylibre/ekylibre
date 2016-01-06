@@ -725,15 +725,17 @@ form.search {
 }
 
 .big-info, .med-info {
-  padding: 3 * $default-gap $default-gap;
+  padding: $default-gap 2 * $default-gap;
   @include box-sizing(border-box);
+  border: 1px solid #DDD;
+  margin: 0 $default-gap $default-gap;
 
   .title {
     display: block;
-    color: #777;
-    font-size: $fs-large;
-    line-height: $lh-large;
-    @include text-align(center);
+    color: $neutral-color;
+    font-size: $fs-normal;
+    line-height: $lh-normal;
+    // @include text-align(center);
   }
   .value {
     white-space: nowrap;
@@ -741,27 +743,23 @@ form.search {
     display: block;
     &, * {
       font-family: $awesome-font-family;
-      font-size: $fs-awesome;
-      line-height: $lh-awesome;
-      @include text-align(center);
+      font-size: $fs-very-huge;
+      line-height: $lh-very-huge;
+      // @include text-align(center);
     }
     .picto {
-      @include is-icon(64px);
-      color: #AAA;
+      @include is-icon(48px);
+      line-height: 48px;
+      color: $neutral-color;
     }
   }
   &.important, &.negative, &.positive, &.caution {
-    .title {
-      &, * {
-        font-weight: bold;
-      }
-    }
     .value {
       &, * {
         font-weight: bold;
       }
       .picto {
-        color: #AAA;
+        color: $neutral-color;
         font-weight: normal;
       }
     }
@@ -775,39 +773,14 @@ form.search {
   &.caution .value {
     color: $caution-color;
   }
-
 }
-
-.med-info {
-  padding: 1.5 * $default-gap $default-gap;
-
-  .title {
-    font-size: $fs-normal;
-    line-height: $lh-normal;
-  }
-  .value {
-    &, * {
-      font-family: $awesome-font-family;
-      font-size: $fs-very-huge;
-      line-height: $lh-very-huge;
-    }
-    .picto {
-      @include is-icon(48px);
-      line-height: 48px;
-    }
-  }
-}
-
 
 .big-infos {
   @include respond-to-bigger-than(medium) {
     @include clearfix;
-    .big-info {
-      width: 50%;
-      @include float(left);
-    }
-    .med-info {
-      width: 33%;
+    .med-info, .big-info {
+      width: 31%;
+      margin: 0 1% $default-gap;
       @include float(left);
     }
   }
@@ -2131,20 +2104,13 @@ svg.map {
     }
   }
 
-  .med-info .value & {
+
+  .med-info .value &, .big-info .value & {
     & > * {
       $light-size: 2 * round($fs-huge * 0.35);
       width:  $light-size;
       height: $light-size;
       margin: 0 (0.25*$light-size) ($fs-huge - $light-size);
-    }
-  }
-  .big-info .value & {
-    & > * {
-      $light-size: 2 * round($fs-awesome * 0.35);
-      width:  $light-size;
-      height: $light-size;
-      margin: 0 (0.25*$light-size) ($fs-awesome - $light-size);
     }
   }
 }

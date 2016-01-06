@@ -3,7 +3,7 @@
 
 = cobbles do |c|
   - c.cobble :general_informations do
-    .big-infos
+    = infos do
       .med-info
         %span.title= CapIslet.human_attribute_name(:islet_number)
         %span.value= resource.islet_number

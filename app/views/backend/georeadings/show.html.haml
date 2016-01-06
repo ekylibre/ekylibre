@@ -3,17 +3,12 @@
 
 = cobbles do |c|
   - c.cobble :general_informations do
-    .big-infos
-      .big-info
-        %span.title= Georeading.human_attribute_name(:number)
-        %span.value= resource.number
-      .med-info
-        %span.title= Georeading.human_attribute_name(:name)
-        %span.value= resource.name
+    = infos do
+      = resource_info(:number)
+      = resource_info(:name)
       - if resource.polygon?
-        .med-info
-          %span.title= Georeading.human_attribute_name(:net_surface_area)
-          %span.value= ::Charta.new_geometry(resource.content).area.round(3).l
+        = resource_info(:net_surface_area) do |area|
+          = area.round(3).l
   - c.cobble :resource_map, title: :map.tl do
     = visualization do |v|
       - v.background "OpenStreetMap.HOT"

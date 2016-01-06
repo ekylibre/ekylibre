@@ -4,7 +4,7 @@
 = cobbles do |c|
   - c.cobble :general_informations do
     = mini_map(resource)
-    .big-infos
+    = infos do
       .med-info.important
         - icon = resource.category.pictogram
         %span.title= Matter.human_attribute_name(:variant)

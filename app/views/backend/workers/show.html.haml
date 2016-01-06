@@ -5,24 +5,19 @@
 
 = main_informations attachment: true do
   = render 'picture'
-  .big-infos
-    .med-info.important
-      - icon = resource.category.pictogram
-      %span.title= Worker.human_attribute_name(:variant)
-      %span.value
+  = infos do
+    = resource_info(:variant, important: true) do |variant|
+      - icon = variant.pictogram
+      - if icon
         %i.picto{class: "picto-#{icon}"}
-        = link_to(resource.variant_name, controller: :product_nature_variants, action: :show, id: resource.variant_id)
-    - if resource.born_at and resource.age >= 1.day
-      .med-info
-        %span.title= Worker.human_attribute_name(:age)
-        %span.value
-          %i.picto{class: "picto-clock-o"}
-          = human_age(resource.age, display: 2)
-    .med-info
-      %span.title= Worker.human_attribute_name(:working_duration)
-      %span.value
-        %i.picto{class: "picto-timelapse"}
-        = :x_hours.tl(count: resource.working_duration(as: :tool)/3600)
+      = link_to(variant.name, controller: :product_nature_variants, action: :show, id: variant.id)
+    - if resource.born_at && resource.age >= 1.day
+      = resource_info(:age) do |age|
+        %i.picto{class: "picto-clock-o"}
+        = human_age(age, display: 2)
+    = resource_info(:working_duration) do |working_duration|
+      %i.picto{class: "picto-timelapse"}
+      = :x_hours.tl(count: resource.working_duration(as: :tool)/3600)
 
 = cobbles do |c|
 

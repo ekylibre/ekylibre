@@ -5,7 +5,7 @@
   = v.face :list do
     = cobbles do |c|
       - c.cobble :general_informations do
-        .big-infos
+        = infos do
           .med-info
             %span.title= CapStatement.human_attribute_name(:pacage_number)
             %span.value= resource.pacage_number

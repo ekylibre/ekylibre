@@ -5,7 +5,7 @@
 
 = main_informations attachment: true do
   = mini_map(resource)
-  .big-infos
+  = infos do
     .med-info
       %span.title= CultivableZone.human_attribute_name(:work_number)
       %span.value= resource.work_number

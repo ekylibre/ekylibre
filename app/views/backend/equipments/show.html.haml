@@ -6,7 +6,7 @@
 
 = main_informations attachment: true do
   = render 'picture'
-  .big-infos
+  = infos do
     .med-info.important
       - icon = resource.category.pictogram
       %span.title= Equipment.human_attribute_name(:variant)

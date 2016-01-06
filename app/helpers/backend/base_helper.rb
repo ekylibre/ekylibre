@@ -280,4 +280,45 @@ module Backend::BaseHelper
 
     html
   end
+
+  def resource_info(name, options = {}, &block)
+    value = resource.send(name)
+    return nil if value.blank? && !options[:force]
+    nomenclature = options.delete(:nomenclature)
+    if nomenclature.is_a?(TrueClass)
+      value = Nomen.find(name.to_s.pluralize, value)
+    elsif nomenclature.is_a?(Symbol)
+      value = Nomen.find(nomenclature, value)
+    end
+    label = options.delete(:label) || resource_model.human_attribute_name(name)
+    if block_given?
+      info(label, capture(value, &block), options)
+    else
+      info(label, value.respond_to?(:l) ? value.l : value, options)
+    end
+  end
+
+  def info(label, value, options = {}, &_block)
+    css_class = "#{options.delete(:level) || :med}-info"
+    if options[:class]
+      options[:class] = options[:class].to_s + ' ' + css_class
+    else
+      options[:class] = css_class
+    end
+    options[:class] << ' important' if options.delete(:important)
+    content_tag(:div, options) do
+      content_tag(:span, label, class: 'title') +
+        content_tag(:span, value, class: 'value')
+    end
+  end
+
+  def infos(options = {}, &block)
+    css_class = 'big-infos'
+    if options[:class]
+      options[:class] += ' ' + css_class
+    else
+      options[:class] = css_class
+    end
+    content_tag(:div, options, &block)
+  end
 end
