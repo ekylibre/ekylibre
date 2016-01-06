@@ -779,7 +779,7 @@ form.search {
   @include respond-to-bigger-than(medium) {
     @include clearfix;
     .med-info, .big-info {
-      width: 31%;
+      width: 31.33%;
       margin: 0 1% $default-gap;
       @include float(left);
     }
