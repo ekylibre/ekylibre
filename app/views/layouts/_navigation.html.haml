@@ -44,7 +44,7 @@
           %li
             = link_to(backend_myself_path, class: :user) do
               %i
-              = current_user.person.full_name
+              = current_user.name
           %li
             = link_to(destroy_user_session_path, :method => :delete, class: :signout) do
               %i
