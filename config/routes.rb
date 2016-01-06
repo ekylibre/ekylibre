@@ -262,6 +262,7 @@ Rails.application.routes.draw do
 
     resources :cashes, concerns: [:attachments, :list, :unroll] do
       member do
+        get :point
         get :list_deposits
         get :list_bank_statements
         get :list_sessions

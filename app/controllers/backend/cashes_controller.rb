@@ -26,14 +26,14 @@ module Backend
 
     # Displays the main page with the list of bank statements
     before_action only: [:index] do
-      cashes = Cash.bank_accounts
-      if count = JournalEntryItem.where(bank_statement_id: nil, account_id: cashes.pluck(:account_id)).count and count > 0
-        notify_now(:x_unpointed_journal_entry_items, count: count)
+      cashes = Cash.bank_accounts.with_pointing_work
+      if cashes.any?
+        notify_now(:x_unpointed_journal_entry_items, count: JournalEntryItem.where(account_id: cashes.select(:account_id)).unpointed.count)
       end
     end
 
     list(order: :name) do |t|
-      t.action :new, on: :none
+      t.action :point, if: :pointable?
       t.action :edit
       t.action :destroy
       t.column :name, url: true
@@ -72,6 +72,13 @@ module Backend
       t.column :expected_stop_amount, currency: true
       t.column :noticed_start_amount, currency: true
       t.column :noticed_stop_amount, currency: true
+    end
+
+    # Redirect to new bank statement
+    def point
+      @cash = find_and_check
+      return unless @cash
+      redirect_to(controller: :bank_statements, action: :new, cash_id: @cash.id, redirect: params[:redirect])
     end
   end
 end

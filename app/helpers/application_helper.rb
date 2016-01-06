@@ -651,7 +651,7 @@ module ApplicationHelper
     nil
   end
 
-  def toolbar_export(nature, _record = nil, _options = {}, &_block)
+  def toolbar_export(_nature, _record = nil, _options = {}, &_block)
     exporter = Ekylibre::Support::Lister.new(:natures)
     yield exporter if block_given?
     if exporter.natures.any? && DocumentTemplate.of_nature(exporter.natures.map(&:name)).any?

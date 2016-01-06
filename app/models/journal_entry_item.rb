@@ -98,6 +98,9 @@ class JournalEntryItem < Ekylibre::Record::Base
   scope :between, lambda { |started_at, stopped_at|
     where(printed_on: started_at..stopped_at)
   }
+  scope :opened, -> { where.not(state: 'closed') }
+  scope :unpointed, -> { where(bank_statement: nil) }
+
   state_machine :state, initial: :draft do
     state :draft
     state :confirmed

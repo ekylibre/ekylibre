@@ -118,6 +118,7 @@ eng:
       edit: "Edit cash: %{name}"
       index: "Cashes"
       new: "New cash"
+      # point: "Point cash: %{name}"
       show: "%{nature}: %{name}"
     backend/catalog_items:
       edit: "Edit catalog item: %{name}"

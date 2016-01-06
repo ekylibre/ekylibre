@@ -172,6 +172,7 @@
         <page to="backend/cashes#list_deposits"/>
         <page to="backend/cashes#list_sessions"/>
         <page to="backend/cashes#new"/>
+        <page to="backend/cashes#point"/>
         <page to="backend/cashes#show"/>
         <page to="backend/cashes#unroll"/>
         <page to="backend/cashes#update"/>

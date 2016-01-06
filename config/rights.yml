@@ -343,6 +343,7 @@ bank_statements:
     - "backend/bank_statements#new"
     - "backend/bank_statements#point"
     - "backend/bank_statements#update"
+    - "backend/cashes#point"
 
 building_divisions:
   read:
