@@ -5146,6 +5146,8 @@
       <item name="olea_europaea_cayanne" parent="olea_europaea" itis_tsn="32990"/>
       <item name="olea_europaea_cayet_blanc" parent="olea_europaea" itis_tsn="32990"/>
       <item name="olea_europaea_cayet_bleu" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_cayet_rouge" parent="olea_europaea" itis_tsn="32990"/>
+      <item name="olea_europaea_cayet_roux" parent="olea_europaea" itis_tsn="32990"/>
       <item name="olea_europaea_cerisier" parent="olea_europaea" itis_tsn="32990"/>
       <item name="olea_europaea_colombale" parent="olea_europaea" itis_tsn="32990"/>
       <item name="olea_europaea_cornaliere" parent="olea_europaea" itis_tsn="32990"/>
@@ -5170,10 +5172,8 @@
       <item name="olea_europaea_rascasset" parent="olea_europaea" itis_tsn="32990"/>
       <item name="olea_europaea_reymet" parent="olea_europaea" itis_tsn="32990"/>
       <item name="olea_europaea_rosee_du_mont_or" parent="olea_europaea" itis_tsn="32990"/>
-      <item name="olea_europaea_cayet_rouge" parent="olea_europaea" itis_tsn="32990"/>
       <item name="olea_europaea_rougeonne" parent="olea_europaea" itis_tsn="32990"/>
       <item name="olea_europaea_rousset_du_var" parent="olea_europaea" itis_tsn="32990"/>
-      <item name="olea_europaea_cayet_roux" parent="olea_europaea" itis_tsn="32990"/>
       <item name="olea_europaea_sanguin" parent="olea_europaea" itis_tsn="32990"/>
       <item name="olea_europaea_saurine" parent="olea_europaea" itis_tsn="32990"/>
       <item name="olea_europaea_totivette" parent="olea_europaea" itis_tsn="32990"/>
@@ -5299,10 +5299,10 @@
       <item name="prunus" parent="rosaceae" itis_tsn="25294"/>
       <item name="prunus_armeniaca" parent="prunus" itis_tsn="24769"/>
       <item name="prunus_armeniaca_abricot_commun_de_clairac" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_armeniaca_abricot_commun_de_nicole_commerce" parent="prunus_armeniaca" itis_tsn="24769"/>
       <item name="prunus_armeniaca_abricot_muscat_de_clairac" parent="prunus_armeniaca" itis_tsn="24769"/>
       <item name="prunus_armeniaca_abricot_nancy_de_clairac" parent="prunus_armeniaca" itis_tsn="24769"/>
       <item name="prunus_armeniaca_abricot_peche_de_nancy" parent="prunus_armeniaca" itis_tsn="24769"/>
-      <item name="prunus_armeniaca_abricot_commun_de_nicole_commerce" parent="prunus_armeniaca" itis_tsn="24769"/>
       <item name="prunus_avium" parent="prunus" itis_tsn="24770"/>
       <item name="prunus_avium_belle_du_berry_ou_petite_joue_vermeille" parent="prunus_avium" itis_tsn="24770"/>
       <item name="prunus_avium_blanc_chere" parent="prunus_armeniaca" itis_tsn="24769"/>
