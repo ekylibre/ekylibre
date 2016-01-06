@@ -355,7 +355,6 @@
   overflow-y: auto;
   overflow-x: hidden;
   position: absolute;
-  display: none;
   @if $hpos == end {
     right: 0;
     left: auto;

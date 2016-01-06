@@ -37,15 +37,15 @@
     %ul#user
       = main_tools
       %li.dropdown
-        = link_to("#", "data-toggle" => "dropdown") do
+        = link_to("#", data: { toggle: 'dropdown' }) do
           = Entity.of_company.full_name
           %i
         %ul#user-menu.dropdown-menu
           %li
-            = link_to(backend_myself_path, :class => :user) do
+            = link_to(backend_myself_path, class: :user) do
               %i
               = current_user.person.full_name
           %li
-            = link_to(destroy_user_session_path, :method => :delete, :class => :signout) do
+            = link_to(destroy_user_session_path, :method => :delete, class: :signout) do
               %i
               = Authentication::SessionsController.human_action_name(:destroy)
