@@ -679,25 +679,24 @@
     @include margin-left($default-gap);
   }
   > button, > a, > a.button, > a.btn, > input, > select, & > .add-on {
-    @include border-radius(0);
     @include margin-left(-1 * $menu-border-width);
     z-index: 1;
     &:first-child {
       @include margin-left(0);
     }
-    html[dir="ltr"] &:first-child, html[dir="rtl"] &:last-child {
-      @include border-left-radius($buttons-radius);
+    html[dir="ltr"] &:not(:first-of-type), html[dir="rtl"] &:not(:last-of-type) {
+      @include border-left-radius(0);
     }
-    html[dir="ltr"] &:last-child, html[dir="rtl"] &:first-child {
-      @include border-right-radius($buttons-radius);
+    html[dir="ltr"] &:not(:last-of-type), html[dir="rtl"] &:not(:first-of-type) {
+      @include border-right-radius(0);
     }
     &:focus, &:hover, &:active {
       position: relative;
       z-index: 2;
     }
   }
-}
 
+}
 
 
 @mixin base-indicator($size: 6 * $lh-normal) {

@@ -267,27 +267,6 @@
   });
 
 
-  $(document).on("click", "a[data-toggle='dropdown']", function () {
-    var element = $(this), menu = element.next();
-    if (menu.is(':visible')) {
-      menu.hide();
-    } else {
-      menu.show();
-    }
-    return false;
-  });
-
-  $(document).on("focusout blur", "a[data-toggle='dropdown']", function () {
-    var element = $(this), menu = element.next();
-    if (menu.is(':visible')) {
-      window.setTimeout(function () {
-        menu.hide();
-      }, 300);
-    }
-    return true;
-  });
-
-
   $(document).on("click", "a[data-toggle='side']", function () {
     var element = $(this), wrap = $('#wrap');
     if (wrap.hasClass('mini-screen-show-side')) {

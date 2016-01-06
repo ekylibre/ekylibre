@@ -1,3 +1,4 @@
+@import "bootstrap/dropdowns";
 
 input[type="submit"], input[type="button"], input[type="reset"] {
   @include button($input: true);

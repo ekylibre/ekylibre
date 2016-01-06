@@ -656,7 +656,7 @@ module ApplicationHelper
     yield exporter if block_given?
     if exporter.natures.any? && DocumentTemplate.of_nature(exporter.natures.map(&:name)).any?
 
-      for nature in exporter.natures
+      exporter.natures.each do |nature|
         key = nature.args.shift
         unless key.is_a?(String)
           fail ArgumentError.new("Expected String for document key: #{key.class.name}:#{key.inspect}")
@@ -697,10 +697,11 @@ module ApplicationHelper
     variants = options.delete(:variants)
     action_label = options[:label] || action.to_s.t(scope: 'rest.actions')
     variants ||= { action_label => url } if authorized?(url)
+    variants ||= {}
     dropdown_button do |l|
-      for name, url_options in variants || {}
+      variants.each do |name, url_options|
         variant_url = url.merge(url_options)
-        l.link_to(name, variant_url, options) if authorized?(variant_url)
+        l.link_to(name, variant_url) if authorized?(variant_url)
       end
     end
   end
