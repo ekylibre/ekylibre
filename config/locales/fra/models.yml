@@ -1252,7 +1252,7 @@ fra:
     supplier_address: "Adresse du fournisseur"
     suppliers: "Fournisseurs"
     support: "Support"
-    # support_nature: "Support nature"
+    support_nature: "Type de support"
     support_variant: "Type de support"
     support_variant_indicator: "Indicateur d’œuvre"
     support_variant_unit: "Unité d’œuvre"

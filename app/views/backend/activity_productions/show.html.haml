@@ -6,27 +6,22 @@
     - if resource.vegetal_crops? && (resource.support.is_a?(LandParcel) || resource.support.is_a?(Plant))
       = infos do
         .med-info.important
-          %span.title= LandParcel.human_attribute_name(:work_number)
-          %span.value= resource.support.work_number
-        .med-info.important
           %span.title= LandParcel.human_attribute_name(:net_surface_area)
-          %span.value= resource.net_surface_area
+          %span.value= resource.net_surface_area.l
         .med-info
           %span.title= ActivityProduction.human_attribute_name(:support_nature)
-          %span.value= resource.support_nature
+          %span.value= resource.support_nature.text
         .med-info
           %span.title= ActivityProduction.human_attribute_name(:usage)
-          %span.value= resource.usage
+          %span.value= Nomen::ProductionUsage.find(resource.usage).human_name
         .med-info
           %span.title= ActivityProduction.human_attribute_name(:irrigated)
-          - if resource.irrigated
-            %span.value
-              %i.picto{class: "picto-check"}
+          %span.value
+            %i.picto{class: "picto-#{resource.irrigated ? :done : :clear}"}
         .med-info
           %span.title= ActivityProduction.human_attribute_name(:nitrate_fixing)
-          - if resource.nitrate_fixing
-            %span.value
-              %i.picto{class: "picto-check"}
+          %span.value
+            %i.picto{class: "picto-#{resource.nitrate_fixing ? :done : :clear}"}
       -# if resource.estimate_yield.to_d > 0.0
         .info
           %span.title= :estimate_yield.tl

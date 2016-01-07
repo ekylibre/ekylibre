@@ -10,6 +10,13 @@ fra:
         per_production: "Par production"
         per_production_support: "Par support de production"
         per_working_unit: "Par unité d'œuvre"
+    activity_production:
+      support_nature:
+        cultivation: "Culture"
+        fallow_land: "Jachère"
+        buffer: "Zone tampon"
+        border: "Bordure"
+        none: "Aucun"
     cash:
       mode:
         bban: "Relevé d’identité bancaire (RIB)"
