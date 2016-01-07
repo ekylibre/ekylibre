@@ -12,10 +12,10 @@ eng:
         per_working_unit: "Per working unit"
     activity_production:
       support_nature:
+        border: "Border"
+        buffer: "Buffer"
         cultivation: "Cultivation"
         fallow_land: "Fallow land"
-        buffer: "Buffer"
-        border: "Border"
         none: "None"
     cash:
       mode:

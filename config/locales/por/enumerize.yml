@@ -10,6 +10,13 @@ por:
         per_production: "Por produção"
         per_production_support: "Por suporte de produção"
         per_working_unit: "Por unidade de trabalho"
+    activity_production:
+      support_nature:
+        # border: "Border"
+        # buffer: "Buffer"
+        # cultivation: "Cultivation"
+        # fallow_land: "Fallow land"
+        # none: "None"
     cash:
       mode:
         bban: "Número básico contas bancárias (BBAN)"

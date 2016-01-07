@@ -10,6 +10,13 @@ spa:
         # per_production: "Per production"
         # per_production_support: "Per production support"
         # per_working_unit: "Per working unit"
+    activity_production:
+      support_nature:
+        # border: "Border"
+        # buffer: "Buffer"
+        # cultivation: "Cultivation"
+        # fallow_land: "Fallow land"
+        # none: "None"
     cash:
       mode:
         # bban: "Basic Bank Account Number (BBAN)"

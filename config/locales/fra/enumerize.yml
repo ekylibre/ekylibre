@@ -12,10 +12,10 @@ fra:
         per_working_unit: "Par unité d'œuvre"
     activity_production:
       support_nature:
+        border: "Bordure"
+        buffer: "Zone tampon"
         cultivation: "Culture"
         fallow_land: "Jachère"
-        buffer: "Zone tampon"
-        border: "Bordure"
         none: "Aucun"
     cash:
       mode:
