@@ -1,10 +1,12 @@
 %li.cast
   .cost
-    - cost = product_parameter.cost
-    - if cost
-      = product_parameter.cost_label
-      = " = "
-      = product_parameter.cost.round.to_i.l(currency: Preference[:currency])
+    - price = product_parameter.price
+    - if product_parameter.cost && price["price_origin_id"]
+      %p= link_to(price["price_detail"], {controller: price["price_origin"], action: :edit, id: price["price_origin_id"], redirect: request.fullpath})
+      %h4= price["price_origin"].tl
+    - elsif price["price_origin_id"] == nil && price["price_origin"] == :none
+      %p= link_to(price["price_detail"], {controller: :catalog_items, action: :new, variant_id: product_parameter.variant.id, catalog_id: price["price_catalog_id"], redirect: request.fullpath})
+      .picto{class: "picto-question"}
   - actor = product_parameter.product
   - variant = product_parameter.variant
 

@@ -128,14 +128,101 @@ class InterventionProductParameter < InterventionParameter
       end
     end
   end
-
+  
+  # return a hash with price value and origin according to the role
+  def price
+    h = {}
+    # INPUT
+    if self.input? && self.product
+      h["price_way"] = :cost
+      if incoming_parcel = self.product.incoming_parcel_item
+        incoming_price = incoming_parcel.purchase_item.unit_pretax_amount if incoming_parcel.purchase_item
+        h["price_value"] = incoming_price
+        h["price_origin"] = :purchases
+        h["price_origin_id"] = incoming_parcel.purchase_item.purchase.id
+        h["price_detail"] = "#{quantity.l} x #{incoming_price.l(currency: Preference[:currency])} = #{cost.round.to_i.l(currency: Preference[:currency])}"
+      elsif self.product.variant.catalog_items.of_usage(:purchase).any?
+        catalog_item = self.product.variant.catalog_items.of_usage(:purchase).first
+        if catalog_item.all_taxes_included == true
+          price = catalog_item.reference_tax.pretax_amount_of(catalog_item.amount)
+        else
+          price = catalog_item.amount
+        end
+        h["price_value"] = price
+        h["price_origin"] = :catalog_items
+        h["price_origin_id"] = catalog_item.id
+        h["price_detail"] = "#{quantity.l} x #{price.l(currency: Preference[:currency])} = #{cost.round.to_i.l(currency: Preference[:currency])}"
+      else
+        h["price_value"] = nil
+        h["price_origin"] = :none
+        h["price_origin_id"] = nil
+        h["price_catalog_id"] = Catalog.of_usage(:purchase).first.id
+        h["price_detail"] = "#{:add_catalog_price.tl}"
+      end
+    # DOER AND TOOL
+    elsif (self.doer? || self.tool?) && self.product
+      h["price_way"] = :cost
+      if self.product.variant.catalog_items.of_usage(:cost).any?
+        catalog_item = self.product.variant.catalog_items.of_usage(:cost).first
+        if catalog_item.all_taxes_included == true
+          price = catalog_item.reference_tax.pretax_amount_of(catalog_item.amount)
+        else
+          price = catalog_item.amount
+        end
+        h["price_value"] = price
+        h["price_origin"] = :catalog_items
+        h["price_origin_id"] = catalog_item.id
+        h["price_detail"] = "#{(duration.to_d / 3600).round(2).in(:hour).l} x #{price.l(currency: Preference[:currency])} = #{cost.round.to_i.l(currency: Preference[:currency])}"
+      else
+        h["price_value"] = nil
+        h["price_origin"] = :none
+        h["price_origin_id"] = nil
+        h["price_catalog_id"] = Catalog.of_usage(:cost).first.id
+        h["price_detail"] = "#{:add_catalog_price.tl}"
+      end
+    # OUTPUT
+    elsif self.output?
+      h["price_way"] = :earn
+      if self.variant && !self.product
+        if self.product.variant.catalog_items.of_usage(:sale).any?
+          catalog_item = self.variant.catalog_items.of_usage(:sale).first
+          if catalog_item.all_taxes_included == true
+            price = catalog_item.reference_tax.pretax_amount_of(catalog_item.amount)
+          else
+            price = catalog_item.amount
+          end
+          h["price_value"] = price
+          h["price_origin"] = :catalog_items
+          h["price_origin_id"] = catalog_item.id
+          h["price_detail"] = "#{quantity.l} x #{price.l(currency: Preference[:currency])} = #{cost.round.to_i.l(currency: Preference[:currency])}"
+        else
+          h["price_value"] = nil
+          h["price_origin"] = :none
+          h["price_origin_id"] = nil
+          h["price_catalog_id"] = Catalog.of_usage(:sale).first.id
+          h["price_detail"] = "#{:add_catalog_price.tl}"
+        end
+      elsif self.product
+        if outgoing_parcel = self.product.parcel_items.with_nature(:outgoing).first
+          outgoing_price = outgoing_parcel.sale_item.unit_pretax_amount if outgoing_parcel.sale_item
+          h["price_way"] = :cost
+          h["price_value"] = outgoing_price
+          h["price_origin"] = :sales
+          h["price_origin_id"] = outgoing_parcel.sale_item.sale.id
+          h["price_detail"] = "#{quantity.l} x #{outgoing_price.l(currency: Preference[:currency])} = #{cost.round.to_i.l(currency: Preference[:currency])}"
+        end
+      end
+    end
+    return h
+  end
+  
   # multiply evaluated_price of an product(product) and used quantity in this cast
   def cost
-    if product && price = evaluated_price
+    if product && evaluated_price
       if self.input?
-        return price * (quantity_value || 0.0)
+        return evaluated_price * (quantity_value || 0.0)
       elsif self.tool? || self.doer?
-        return price * (duration.to_d / 3600)
+        return evaluated_price * (duration.to_d / 3600)
       end
     end
     nil
@@ -144,11 +231,11 @@ class InterventionProductParameter < InterventionParameter
   # show how evaluated_price of an product(product) is build
   def cost_label
     # case of intrant / tool / doer
-    if product && price_label = evaluated_price
+    if product && evaluated_price
       if self.input?
-        return "#{quantity.l} x #{price_label.l(currency: Preference[:currency])}"
+        return "#{quantity.l} x #{evaluated_price.l(currency: Preference[:currency])} = #{cost.round.to_i.l(currency: Preference[:currency])}"
       elsif self.tool? || self.doer?
-        return "#{(duration.to_d / 3600).in(:hour).l} x #{price_label.l(currency: Preference[:currency])}"
+        return "#{(duration.to_d / 3600).in(:hour).l} x #{evaluated_price.l(currency: Preference[:currency])} = #{cost.round.to_i.l(currency: Preference[:currency])}"
      end
     # case of extrant
     elsif variant
@@ -164,8 +251,8 @@ class InterventionProductParameter < InterventionParameter
   end
 
   def earn
-    if product && price = evaluated_price
-      return price * (quantity_value || 0.0) if self.output?
+    if product && evaluated_price
+      return evaluated_price * (quantity_value || 0.0) if self.output?
     end
     nil
   end
