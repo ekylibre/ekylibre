@@ -54,6 +54,9 @@ class CultivableZone < Ekylibre::Record::Base
   scope :covers_shape, lambda { |shape|
     where('ST_Covers(shape, ST_GeomFromEWKT(?))', ::Charta.new_geometry(shape).to_ewkt)
   }
+  scope :overlaps_shape, lambda { |shape|
+    where('ST_Overlaps(shape, ST_GeomFromEWKT(?))', ::Charta.new_geometry(shape).to_ewkt)
+  }
 
   before_validation do
     self.uuid ||= UUIDTools::UUID.random_create.to_s
