@@ -213,6 +213,12 @@ class ProductNatureVariant < Ekylibre::Record::Base
     end
   end
 
+  # Returns item from default catalog for given usage
+  def default_catalog_item(usage)
+    catalog = Catalog.by_default!(usage)
+    catalog.items.find_by(variant: self)
+  end
+
   # Returns a list of couple indicator/unit usable for the given variant
   # The result is only based on measure indicators
   def quantifiers

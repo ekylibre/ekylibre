@@ -50,9 +50,8 @@ class Intervention < Ekylibre::Record::Base
   belongs_to :prescription
   with_options inverse_of: :intervention, dependent: :destroy do
     has_many :parameters, class_name: 'InterventionParameter'
-    has_many :group_parameters, -> { where(type: 'InterventionGroupParameter').order(:position) }, class_name: 'InterventionGroupParameter'
-    has_many :product_parameters, -> { where(type: %w(InterventionProductParameter InterventionDoer InterventionInput InterventionOutput InterventionTarget InterventionTool)).order(:position) }, class_name: 'InterventionProductParameter'
-    # has_many :product_parameters, -> { order(:position) }, class_name: 'InterventionProductParameter'
+    has_many :group_parameters, -> { where(type: 'InterventionGroupParameter').order(:position) }, class_name: 'InterventionParameter'
+    has_many :product_parameters, -> { where(type: %w(InterventionProductParameter InterventionAgent InterventionDoer InterventionInput InterventionOutput InterventionTarget InterventionTool)).order(:position) }, class_name: 'InterventionParameter'
     has_many :doers, class_name: 'InterventionDoer'
     has_many :inputs, class_name: 'InterventionInput'
     has_many :outputs, class_name: 'InterventionOutput'
@@ -190,20 +189,15 @@ class Intervention < Ekylibre::Record::Base
 
   # Sums all intervention product parameter total_cost of a particular role
   def cost(role = :input)
-    parameters = product_parameters.of_generic_role(role).with_actor
-    if parameters.any?
-      parameters.map(&:cost).compact.sum
-    else
-      return nil
-    end
+    params = product_parameters.of_generic_role(role)
+    return params.map(&:cost).compact.sum if params.any?
+    nil
   end
 
-  def earn
-    if outputs.any?
-      outputs.with_actor.map(&:earn).compact.sum
-    else
-      return nil
-    end
+  def earn(role = :output)
+    params = product_parameters.of_generic_role(role)
+    return params.map(&:earn).compact.sum if params.any?
+    nil
   end
 
   def working_area(unit = :hectare)

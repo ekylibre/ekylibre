@@ -1950,10 +1950,24 @@ ul.casts, ul.parameters, ul.product-parameters, ul.product_parameters {
     }
     .cost {
       @include float(right);
+      @include text-align(right);
       padding: 2 * $default-gap;
-      font-size: $fs-very-huge;
-      line-height: $lh-very-huge;
-      font-weight: bold;
+      .computation {
+        &, * {
+          font-size: $fs-large;
+          line-height: $lh-large;
+          // font-weight: bold;
+          vertical-align: baseline;
+        }
+        .amount {
+          font-weight: bold;
+        }
+      }
+      .origin {
+        &, * {
+          vertical-align: baseline;
+        }
+      }
     }
   }
 }

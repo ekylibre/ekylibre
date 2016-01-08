@@ -48,43 +48,22 @@
 #  working_zone            :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
 
-# An intervention input represents a product which is used and "consumed" by the
-# intervention. The input is divided from a source product. Its tracking number
-# follows the new product.
-class InterventionInput < InterventionProductParameter
-  belongs_to :intervention, inverse_of: :inputs
-  belongs_to :outcoming_product, class_name: 'Product'
-  has_one :product_movement, as: :originator
-  validates_presence_of :quantity_population
+# This class is used for all intervenants that make the interventions. It
+# gathers tools and doers.
+class InterventionAgent < InterventionProductParameter
+  belongs_to :intervention, inverse_of: :agents
+  validates :product, presence: true
 
-  before_validation do
-    self.variant = product.variant if product
-    # self.quantity_population = reference.convert_to_population(self.quantity_handler, self.quantity)
-  end
-
-  after_save do
-    # FIXME: Not working at all. Need to split if necessary with quantity
-    # self.product = source_product
-    if product
-      movement = product_movement
-      movement = product.movements.build unless movement
-      movement.delta = -1 * quantity_population
-      movement.started_at = intervention.started_at
-      update_columns(movement_id: movement.id)
-    end
-  end
+  delegate :working_duration, to: :intervention
 
   def cost_amount_computation
     return InterventionParameter::AmountComputation.failed unless product
-    incoming_parcel = product.incoming_parcel_item
-    options = { quantity: quantity_population, unit_name: product.unit_name }
-    if incoming_parcel && incoming_parcel.purchase_item
-      options[:purchase_item] = incoming_parcel.purchase_item
-      return InterventionParameter::AmountComputation.quantity(:purchase, options)
-    else
-      options[:catalog_usage] = :purchase
-      options[:catalog_item] = product.default_catalog_item(options[:catalog_usage])
-      return InterventionParameter::AmountComputation.quantity(:catalog, options)
-    end
+    options = {
+      catalog_usage: :cost,
+      quantity: working_duration.to_d / 3600,
+      unit_name: Nomen::Unit.find(:hour).human_name
+    }
+    options[:catalog_item] = product.default_catalog_item(options[:catalog_usage])
+    InterventionParameter::AmountComputation.quantity(:catalog, options)
   end
 end

@@ -56,7 +56,7 @@ class CatalogItem < Ekylibre::Record::Base
   # delegate :product_nature_id, :product_nature, to: :template
   delegate :name, to: :variant, prefix: true
   delegate :unit_name, to: :variant
-  delegate :usage, to: :catalog
+  delegate :usage, :all_taxes_included?, to: :catalog
 
   scope :of_variant, lambda { |variant|
     where(variant_id: variant.id)
@@ -80,80 +80,9 @@ class CatalogItem < Ekylibre::Record::Base
     self.name = variant_name if commercial_name.blank? && self.variant
   end
 
-  # def compute(quantity = nil, pretax_amount = nil, amount = nil)
-  #   if quantity
-  #     pretax_amount = self.pretax_amount*quantity
-  #     amount = self.amount*quantity
-  #   elsif pretax_amount
-  #     quantity = pretax_amount/self.pretax_amount
-  #     amount = quantity*self.amount
-  #   elsif amount
-  #     quantity = amount/self.amount
-  #     pretax_amount = quantity*self.amount
-  #   elsif
-  #     raise ArgumentError.new("At least one argument must be given")
-  #   end
-  #   return quantity.round(4), pretax_amount.round(2), amount.round(2)
-  # end
-
-  # # Give a price for a given product
-  # # Options are: :pretax_amount, :amount,
-  # # :template, :supplier, :at, :listing
-  # def price(product, options = {})
-  #   company = Entity.of_company
-  #   filter = {
-  #     :variant_id => product.variant_id
-  #   }
-  #   # request for an existing price between dates according to filter conditions
-  #   prices = self.actives_at(options[:at] || Time.zone.now).where(filter)
-  #   # request return no prices, we create a price
-  #   if prices.count.zero?
-  #     # prices = [self.create!({:tax_id => Tax.first.id, :pretax_amount => filter[:pretax_amount], :amount => filter[:amount]}.merge(filter))]
-  #     # calling private method for creating a price for given product (Product or ProductNatureVariant) with given options
-  #     prices = new_price(product, options)
-  #     return prices
-  #   end
-  #   # request return at least one price, we return the first
-  #   if prices.count >= 1
-  #     return prices.first
-  #   else
-  #     #Rails.logger.warn("#{prices.count} price found for #{options}")
-  #     return nil
-  #   end
-  # end
-
-  # private
-
-  # def new_thread
-  #   self.usage + ":" + self.indicator_name.to_s + ":" + Time.zone.now.to_i.to_s(36) + ":" + rand(36 ** 16).to_s(36)
-  # end
-
-  # # Create a price with given parameters
-  # def new_price(product, options = {})
-  #   computed_at = options[:at] || Time.zone.now
-  #   price = nil
-  #   tax = options[:tax] || Tax.first
-  #   # Assigned price
-  #   pretax_amount = if options[:pretax_amount]
-  #                     options[:pretax_amount].to_d
-  #                   elsif options[:amount]
-  #                     tax.pretax_amount_of(options[:amount])
-  #                   else
-  #                     raise StandardError.new("No amounts found, at least amount or pretax_amount must be given to create a price")
-  #                   end
-  #   amount = tax.amount_of(pretax_amount)
-  #   # Amount choice
-  #   amount = (self.all_taxes_included ? amount : pretax_amount)
-  #   if product.is_a? Product
-  #     price = self.create!(:variant_id => product.variant_id, :started_at => computed_at, :amount => amount.round(2), :tax_id => tax.id, :all_taxes_included => self.all_taxes_included)
-  #   elsif product.is_a? ProductNatureVariant
-  #     price = self.create!(:variant_id => product.id, :started_at => computed_at, :amount => amount.round(2), :tax_id => tax.id, :all_taxes_included => self.all_taxes_included)
-  #   else
-  #     raise ArgumentError.new("The product argument must be a Product or a ProductNatureVariant not a #{product.class.name}")
-  #   end
-  #   # elsif self.calculation?
-  #   # price = // Formula
-
-  #   return price
-  # end
+  # Compute a pre-tax amount
+  def pretax_amount
+    (all_taxes_included? ? reference_tax.pretax_amount_of(amount) : amount)
+  end
+  alias_method :unit_pretax_amount, :pretax_amount
 end

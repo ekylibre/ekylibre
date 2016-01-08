@@ -57,6 +57,7 @@
 - incoming_payment
 - incoming_payment_mode
 - intervention
+- intervention_agent
 - intervention_doer
 - intervention_group_parameter
 - intervention_input

@@ -1,17 +1,43 @@
 %li.cast
   .cost
-    - price = product_parameter.price
-    - if product_parameter.cost && price["price_origin_id"]
-      %p= link_to(price["price_detail"], {controller: price["price_origin"], action: :edit, id: price["price_origin_id"], redirect: request.fullpath})
-      %h4= price["price_origin"].tl
-    - elsif price["price_origin_id"] == nil && price["price_origin"] == :none
-      %p= link_to(price["price_detail"], {controller: :catalog_items, action: :new, variant_id: product_parameter.variant.id, catalog_id: price["price_catalog_id"], redirect: request.fullpath})
-      .picto{class: "picto-question"}
+    - computation = product_parameter.cost_amount_computation
+    .computation
+      - if computation.failed?
+        = 'FAILED'
+      - elsif computation.none?
+        = '&mdash;'.html_safe
+      - elsif computation.quantity?
+        %span.quantity= computation.quantity.round(3).l
+        %span.unit-name= computation.unit_name
+        = ' &times; '.html_safe
+        - if computation.catalog?
+          - if computation.catalog_item
+            = link_to(computation.human_unit_amount, {controller: :catalog_items, action: :edit, id: computation.catalog_item.id, redirect: request.fullpath})
+          - else
+            = link_to(:add_catalog_price.tl, {controller: :catalog_items, action: :new, variant_id: product_parameter.product.variant.id, catalog_id: Catalog.by_default!(computation.catalog_usage).id, redirect: request.fullpath})
+        - elsif computation.sale?
+          = link_to(computation.human_unit_amount, {controller: :sales, action: :show, id: computation.sale.id})
+        - elsif computation.purchase?
+          = link_to(computation.human_unit_amount, {controller: :purchases, action: :show, id: computation.purchase.id})
+        = ' = '.html_safe
+        - if computation.amount?
+          %span.amount= computation.human_amount
+        - else
+          %span.amount.no-amount
+            %i.icon.icon-question
+    - if computation.quantity?
+      .origin
+        - if computation.catalog? && computation.catalog_item && computation.catalog
+          = :amount_estimated_from.th(source: link_to(computation.catalog.name, {controller: :catalogs, action: :show, id: computation.catalog.id}, title: Catalog.model_name.human))
+        - elsif computation.sale?
+          = :amount_computed_from.th(source: link_to(computation.sale.number, {controller: :sales, action: :show, id: computation.sale.id}, title: Sale.model_name.human))
+        - elsif computation.purchase?
+          = :amount_computed_from.th(source: link_to(computation.purchase.number, {controller: :purchases, action: :show, id: computation.purchase.id}, title: Purchase.model_name.human))
+
+
+
   - actor = product_parameter.product
   - variant = product_parameter.variant
-
-
-
   - if actor
     .picture
       - if actor.picture.file?
@@ -19,7 +45,7 @@
       - elsif pictogram = actor.category.pictogram
         .picto{class: "picto-#{pictogram.gsub('_', '-')}"}
       - else
-        .picto{class: "picto-question"}
+        .picto{class: 'picto-question'}
 
     .details
       %h3= link_to(actor.name, {controller: actor.class.table_name, action: :show, id: actor.id})
@@ -38,7 +64,7 @@
       - elsif pictogram = variant.category.pictogram
         .picto{class: "picto-#{pictogram.gsub('_', '-')}"}
       - else
-        .picto{class: "picto-question"}
+        .picto{class: 'picto-question'}
 
     .details
       %h3= link_to(variant.name, {controller: variant.class.table_name, action: :show, id: variant.id})
@@ -50,7 +76,7 @@
 
   - else
     .picture
-      .picto{class: "picto-question"}
+      .picto{class: 'picto-question'}
     .details
       %h3= product_parameter.name
       %p= product_parameter.model_name.human

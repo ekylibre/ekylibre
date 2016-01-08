@@ -715,6 +715,8 @@ fra:
     all_periods: "Tous les exercices"
     already_credited_quantity: "Qté. déjà passée en avoir" #?
     amount: "Montant"
+    amount_computed_from: "Montant calculé à partir de %{source}"
+    amount_estimated_from: "Montant estimé à partir de %{source}"
     amount_per_unit: "%{amount}/%{unit}"
     amount_to_add: "Sommes à ajouter, exprimées en euros, y compris acompte congés" #?
     amount_to_reduce: "Sommes à imputer, exprimées en euros, y compris acompte congés" #?

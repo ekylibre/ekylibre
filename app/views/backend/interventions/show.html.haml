@@ -34,8 +34,8 @@
     - c.cobble :resource_map, title: :map.tl do
       = map
 
-  - tractor_cast = resource.product_parameters.find_by(reference_name: 'tractor')
-  - if tractor_cast && tractor_cast.product
+  -# tractor_cast = resource.product_parameters.find_by(reference_name: 'tractor')
+  -# if tractor_cast && tractor_cast.product
     :ruby
       tractor = tractor_cast.product
       series = []
@@ -62,7 +62,7 @@
   - c.cobble(:costs) do
     = infos(class: 'costs') do
       - total = 0
-      - for type in [:input, :tool, :doer]
+      - [:input, :tool, :doer].each do |type|
         - cost = (resource.cost(type) || 0.0).round.to_i
         - total += cost
         .big-info.cost
@@ -72,7 +72,7 @@
             = cost.l(currency: Preference[:currency])
 
       .big-info.cost.important
-        %span.title= "total_cost".tl
+        %span.title= :total_cost.tl
         %span.value= total.l(currency: Preference[:currency])
 
   - if resource.product_parameters.any?

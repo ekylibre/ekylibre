@@ -47,7 +47,6 @@
 #  variant_id              :integer
 #  working_zone            :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
-class InterventionTool < InterventionProductParameter
+class InterventionTool < InterventionAgent
   belongs_to :intervention, inverse_of: :tools
-  validates :product, presence: true
 end

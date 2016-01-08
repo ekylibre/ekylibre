@@ -424,6 +424,12 @@ class Product < Ekylibre::Record::Base
     ((dead_at || at) - born_at)
   end
 
+  # Returns item from default catalog for given usage
+  def default_catalog_item(usage)
+    return nil unless variant
+    variant.default_catalog_item(usage)
+  end
+
   # Returns an evaluated price (without taxes) for the product in an intervention context
   # options could contains a parameter :at for the datetime of a catalog price
   # unit_price in a purchase context

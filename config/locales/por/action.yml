@@ -582,6 +582,8 @@ por:
     # all_conditions: "All conditions"
     # all_periods: "All financial years"
     # amount: "Amount"
+    # amount_computed_from: "Amount computed from %{source}"
+    # amount_estimated_from: "Amount estimated from %{source}"
     # amount_per_unit: "%{amount}/%{unit}"
     # amounts_in_currency: "Amounts (%{currency})"
     # analyses: "Analyses"

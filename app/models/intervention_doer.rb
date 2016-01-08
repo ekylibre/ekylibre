@@ -47,10 +47,9 @@
 #  variant_id              :integer
 #  working_zone            :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
-class InterventionDoer < InterventionProductParameter
+class InterventionDoer < InterventionAgent
   belongs_to :event_participation, dependent: :destroy
   belongs_to :intervention, inverse_of: :doers
-  validates :product, presence: true
 
   before_save do
     if product && product.respond_to?(:person) && product.person

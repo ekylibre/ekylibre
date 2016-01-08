@@ -70,4 +70,25 @@ class InterventionOutput < InterventionProductParameter
       update_columns(product_id: output.id, movement_id: movement.id)
     end
   end
+
+  def earn_amount_computation
+    options = { quantity: quantity_population, unit_name: product.unit_name }
+    if product
+      outgoing_parcel = product.outgoing_parcel_item
+      if outgoing_parcel && outgoing_parcel.sale_item
+        options[:sale_item] = outgoing_parcel.sale_item
+        return InterventionParameter::AmountComputation.quantity(:sale, options)
+      else
+        options[:catalog_usage] = :sale
+        options[:catalog_item] = product.default_catalog_item(options[:catalog_usage])
+        return InterventionParameter::AmountComputation.quantity(:catalog, options)
+      end
+    elsif variant
+      options[:catalog_usage] = :sale
+      options[:catalog_item] = variant.default_catalog_item(options[:catalog_usage])
+      return InterventionParameter::AmountComputation.quantity(:catalog, options)
+    else
+      return InterventionParameter::AmountComputation.failed
+    end
+  end
 end

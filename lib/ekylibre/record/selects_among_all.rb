@@ -26,7 +26,7 @@ module Ekylibre::Record
           end.join(', ') + ')'
         end
 
-        for column in columns
+        columns.each do |column|
           code << "before_save(:set_#{column}_if_first, on: :create)\n"
           code << "before_save(:set_#{column}_if_alone, on: :update)\n"
           code << "after_save(:ensure_#{column}_uniqueness)\n"
@@ -50,7 +50,7 @@ module Ekylibre::Record
             code << "  if self.#{options[:if]}\n"
             code << pode.dig(2)
             code << "  else\n"
-            code << "    raise 'Cannot selects #{column}'\n"
+            code << "    fail 'Cannot selects #{column}'\n"
             code << "  end\n"
           else
             code << pode.dig
@@ -95,7 +95,7 @@ module Ekylibre::Record
           code << "def self.#{column}(" + scope_columns.collect { |c| "#{c} = nil" }.join(', ') + ")\n"
           if scope_columns.any?
             code << '  if ' + scope_columns.collect { |c| "#{c}.nil?" }.join(' or ') + "\n"
-            code << "    raise ArgumentError, '#{scope_columns.size} arguments expected: " + scope_columns.join(', ') + "'\n"
+            code << "    fail ArgumentError, '#{scope_columns.size} arguments expected: " + scope_columns.join(', ') + "'\n"
             code << "  end\n"
           end
           code << '  self.find_by(' + scope_columns.collect { |c| "#{c}: #{c}, " }.join + "#{column}: true)\n"

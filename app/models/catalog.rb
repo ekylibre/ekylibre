@@ -63,4 +63,12 @@ class Catalog < Ekylibre::Record::Base
     self.code = name.to_s.codeize if code.blank?
     self.code = code[0..19]
   end
+
+  def self.by_default!(usage)
+    catalog = by_default(usage)
+    unless catalog
+      catalog = create!(name: usage.t(scope: 'enumerize.catalog.usage'), usage: usage, by_default: true)
+    end
+    catalog
+  end
 end

@@ -64,6 +64,13 @@ class InterventionParameter < Ekylibre::Record::Base
   scope :of_activity_production, lambda { |production|
     where(intervention_id: InterventionTarget.select(:intervention_id).of_activity_production(production))
   }
+  scope :of_generic_role, lambda { |role|
+    role = role.to_s
+    unless %w(doer input output target tool).include?(role)
+      fail ArgumentError, "Invalid role: #{role}"
+    end
+    where(type: "Intervention#{role.camelize}")
+  }
 
   before_validation do
     self.intervention ||= group.intervention if group
@@ -87,5 +94,21 @@ class InterventionParameter < Ekylibre::Record::Base
 
   def runnable?
     true
+  end
+
+  def cost_amount_computation
+    AmountComputation.none
+  end
+
+  def cost
+    cost_amount_computation.amount
+  end
+
+  def earn_amount_computation
+    AmountComputation.none
+  end
+
+  def earn
+    earn_amount_computation.amount
   end
 end
