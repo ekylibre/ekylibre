@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160106095232">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160108142009">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -2970,6 +2970,7 @@
       <item name="natural_cork" nature="cork"/>
       <item name="natural_water" nature="natural_water" frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton" unit_name="cubic_meter"/>
       <item name="negret_hazelnut" nature="hazelnut" derivative_of="corylus_avellana_negret" frozen_indicators_values="net_mass: 1.00kilogram" unit_name="kilogram"/>
+      <item name="nematicide" nature="nematicide" frozen_indicators_values="net_mass: 1.00kg"/>
       <item name="nibble_lamb_meat" nature="lamb_meat" derivative_of="ovis" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="nomacorc_cork" nature="cork"/>
       <item name="oenological_yeast_sc_500g" nature="oenological_yeast" variety="yeast" derivative_of="saccharomyces_cerevisiae" frozen_indicators_values="net_mass: 500.00gram, cells_mass_concentration: 10billion_per_gram" unit_name="bag"/>
@@ -3349,6 +3350,7 @@
       <item name="moving_travel" category="travel" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="mower" category="equipment" variety="harvester" population_counting="unitary" abilities="mow" variable_indicators="application_width, geolocation" frozen_indicators=""/>
       <item name="natural_water" category="natural_water" variety="water" population_counting="decimal" variable_indicators="nitrogen_concentration, potential_hydrogen" frozen_indicators="net_volume, net_mass"/>
+      <item name="nematicide" category="plant_medicine" variety="preparation" population_counting="decimal" abilities="care(plant), kill(nematoda)" variable_indicators="approved_input_dose, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period" frozen_indicators="net_volume, net_mass"/>
       <item name="numeric_hosting_rental" category="rent_hosting_service" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="numeric_subscription" category="licence" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="oenological_yeast" category="oenological_product" variety="yeast" derivative_of="fungus" population_counting="decimal" abilities="fermentize(wine)" variable_indicators="" frozen_indicators="net_mass, cells_mass_concentration"/>
@@ -5118,6 +5120,7 @@
       <item name="mytilus_edulis" parent="mytilus" itis_tsn="79454"/>
       <item name="mytilus_galloprovincialis" parent="mytilus" itis_tsn="79456"/>
       <item name="mytilus_trossulus" parent="mytilus" itis_tsn="567928"/>
+      <item name="nematoda" parent="animal" itis_tsn="59490"/>
       <item name="nicotiana" parent="solanaceae" itis_tsn="30562"/>
       <item name="nicotiana_tabacum" parent="nicotiana" itis_tsn="30568"/>
       <item name="nicotiana_tabacum_brown" parent="nicotiana_tabacum" itis_tsn="30568"/>

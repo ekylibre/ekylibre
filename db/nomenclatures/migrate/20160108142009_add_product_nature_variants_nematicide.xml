@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add product nature variants nematicide">
+  <item-creation item="varieties#nematoda" parent="animal" itis_tsn="59490"/>
+  <item-creation item="product_natures#nematicide" category="plant_medicine" variety="preparation" population_counting="decimal" abilities="care(plant), kill(nematoda)" variable_indicators="approved_input_dose, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period" frozen_indicators="net_volume, net_mass"/>
+  <item-creation item="product_nature_variants#nematicide" nature="nematicide" frozen_indicators_values="net_mass: 1.00kg" unit_name="kg"/>
+</migration>

@@ -3076,6 +3076,7 @@ eng:
         natural_cork: "Natural cork"
         natural_water: "Natural water"
         negret_hazelnut: "Negret hazelnut"
+        nematicide: "Nematicide"
         nibble_lamb_meat: "Nibble lamb meat"
         nomacorc_cork: "Nomacorc cork"
         oenological_yeast_sc_500g: "Oenological yeast sc 500g"
@@ -3458,6 +3459,7 @@ eng:
         moving_travel: "Moving travel"
         mower: "Mower"
         natural_water: "Natural water"
+        nematicide: "Nematicide"
         numeric_hosting_rental: "Numeric hosting rental"
         numeric_subscription: "Numeric subscription"
         oenological_yeast: "Oenological yeast"
@@ -5101,6 +5103,7 @@ eng:
         mytilus_edulis: "Blue mussel"                      #< mytilus
         mytilus_galloprovincialis: "Mediterranean mussel"  #< mytilus
         mytilus_trossulus: "Bay mussel"                    #< mytilus
+        nematoda: "Nematode"                               #< animal
         nicotiana: "Nicotiana"                             #< solanaceae
         nicotiana_tabacum: "Cultivated tobacco"            #< nicotiana
         nicotiana_tabacum_brown: "Cultivated tobacco Brown" #< nicotiana_tabacum
