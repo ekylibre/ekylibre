@@ -663,11 +663,12 @@ fra:
     active_sum: "Total actifs" #?
     activities: "Activités"
     activity: "Activités"
-    # activity_production: "Activity production"
+    activity_production: "Production"
     add: "Ajouter"
     add_annotation: "Ajouter une annotation"
     add_attachment: "Ajouter une pièce jointe"
     add_bank_statement: "Ajouter un relevé de compte"
+    add_catalog_price: "Ajouter un prix catalogue"
     add_choice: "Ajouter un choix"
     add_condition: "Ajouter la condition"
     add_conditions: "Ajoutez des conditions"
@@ -783,8 +784,8 @@ fra:
     cancel: "Annuler"
     cancelation: "Annulation"
     cancelled: "Passées en avoir" #?
-    # cap_islets: "Cap islets"
-    # cap_land_parcels: "Cap land parcels"
+    cap_islets: "Ilots PAC"
+    cap_land_parcels: "Parcelles PAC"
     care: "soins" #?
     cartography: "Cartographie"
     cash: "Trésorerie"

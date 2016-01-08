@@ -805,6 +805,7 @@ arb:
     # add_annotation: "Add annotation"
     # add_attachment: "Add attachment"
     # add_bank_statement: "Add bank statement"
+    # add_catalog_price: "Add catalog price"
     # add_choice: "Add choice"
     add_condition: "اضافة شرط"
     add_conditions: "اضف شروط"

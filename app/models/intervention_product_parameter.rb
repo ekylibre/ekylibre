@@ -128,15 +128,17 @@ class InterventionProductParameter < InterventionParameter
       end
     end
   end
-  
+
   # return a hash with price value and origin according to the role
   def price
     h = {}
     # INPUT
     if self.input? && self.product
       h["price_way"] = :cost
-      if incoming_parcel = self.product.incoming_parcel_item
-        incoming_price = incoming_parcel.purchase_item.unit_pretax_amount if incoming_parcel.purchase_item
+      incoming_parcel = self.product.incoming_parcel_item
+      p_item = incoming_parcel.purchase_item if incoming_parcel
+      if p_item
+        incoming_price = p_item.unit_pretax_amount
         h["price_value"] = incoming_price
         h["price_origin"] = :purchases
         h["price_origin_id"] = incoming_parcel.purchase_item.purchase.id
@@ -215,7 +217,7 @@ class InterventionProductParameter < InterventionParameter
     end
     return h
   end
-  
+
   # multiply evaluated_price of an product(product) and used quantity in this cast
   def cost
     if product && evaluated_price
