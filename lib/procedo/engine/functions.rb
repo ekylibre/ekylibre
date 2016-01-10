@@ -1,5 +1,5 @@
 module Procedo
-  module Formula
+  module Engine
     # This module all functions accessible through formula language
     module Functions
       class << self

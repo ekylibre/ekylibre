@@ -2,78 +2,6 @@
 # require 'procedo/converter'
 
 module Procedo
-  module Formula
-    class SyntaxError < StandardError
-      attr_reader :parser
-      delegate :failure_index, :failure_column, :failure_line, to: :parser
-      def initialize(parser)
-        @parser = parser
-        super(@parser.failure_reason)
-      end
-    end
-
-    class Parser < Treetop::Runtime::CompiledParser
-      include Procedo::Formula::Language
-    end
-
-    module Language
-      class Base < Treetop::Runtime::SyntaxNode; end
-      class Expression < Base; end
-      class Condition < Base; end
-      class Operation < Base; end # Abstract
-      class Multiplication < Operation; end
-      class Division < Operation; end
-      class Addition < Operation; end
-      class Substraction < Operation; end
-      class BooleanExpression < Base; end
-      class BooleanOperation < Base; end
-      class Conjunction < BooleanOperation; end
-      class Disjunction < BooleanOperation; end
-      class ExclusiveDisjunction < BooleanOperation; end
-      class Test < Base; end # Abstract
-      class Comparison < Test; end # Abstract
-      class StrictSuperiorityComparison < Comparison; end
-      class StrictInferiortyComparison < Comparison; end
-      class SuperiorityComparison < Comparison; end
-      class InferiorityComparison < Comparison; end
-      class EqualityComparison < Comparison; end
-      class DifferenceComparison < Comparison; end
-      class IndicatorPresenceTest < Test; end
-      class IndividualIndicatorPresenceTest < Test; end
-      class VariablePresenceTest < Test; end
-      class NegativeTest < Test; end
-      class Reading < Base; end # Abstract
-      class IndividualReading < Reading; end
-      class WholeReading < Reading; end
-      class FunctionCall < Base; end
-      class FunctionName < Base; end
-      class OtherArgument < Base; end
-      class Variable < Base; end
-      class Indicator < Base; end
-      class Unit < Base; end
-      class Self < Base; end
-      class Value < Base; end
-      class Numeric < Base; end
-      class Symbol < Base; end
-
-      class << self
-        def parse(text, options = {})
-          @@parser ||= ::Procedo::Formula::Parser.new
-          unless tree = @@parser.parse(text.to_s, options)
-            fail Formula::SyntaxError, @@parser
-          end
-          tree
-        end
-
-        # def clean_tree(root)
-        #   return if root.elements.nil?
-        #   root.elements.delete_if{ |node| node.class.name == "Treetop::Runtime::SyntaxNode" }
-        #   root.elements.each{ |node| clean_tree(node) }
-        # end
-      end
-    end
-  end
-
   # An Handler define a way to quantify an input/output
   class Handler
     attr_reader :name, :unit, :indicator, :converters, :parameter, :condition_tree, :backward_tree, :forward_tree, :widget
@@ -86,8 +14,8 @@ module Procedo
 
     class << self
       def parse!(code, options = {})
-        return Formula::Language.parse(code.to_s, options)
-      rescue Formula::SyntaxError => e
+        return Procedo::Formula.parse(code.to_s, options)
+      rescue Procedo::Formula::SyntaxError => e
         raise (options[:message] || "Syntax error in #{code.inspect}.") + ' ' + e.message + "\n" +
           code + "\n" + ('━' * e.failure_index) + '┛'
       end

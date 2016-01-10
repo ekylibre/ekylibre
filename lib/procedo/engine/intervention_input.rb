@@ -59,13 +59,13 @@ module Procedo
       def compute_value
         ref = quantity_handler_reference
         env = { self: product, value: quantity_population }
-        intervention.interpret(ref.backward_tree, env).round(3)
+        intervention.interpret(ref.backward_tree, env).round(4)
       end
 
       def compute_population
         ref = quantity_handler_reference
         env = { self: product, value: quantity_value }
-        intervention.interpret(ref.forward_tree, env).round(3)
+        intervention.interpret(ref.forward_tree, env).round(4)
       end
 
       # Impact population change on foreign data

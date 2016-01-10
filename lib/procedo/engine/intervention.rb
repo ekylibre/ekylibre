@@ -51,7 +51,7 @@ module Procedo
       end
 
       def interpret(tree, env = {})
-        Interpret.compute(self, tree, env)
+        Interpreter.interpret(self, tree, env)
       end
 
       def parameters_of_name(name)

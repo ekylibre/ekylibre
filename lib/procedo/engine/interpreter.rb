@@ -1,8 +1,8 @@
 module Procedo
   module Engine
-    class Interpret
-      def self.compute(intervention, tree, env = {})
-        new(intervention, env).compute(tree)
+    class Interpreter
+      def self.interpret(intervention, tree, env = {})
+        new(intervention, env).interpret(tree)
       end
 
       def initialize(intervention, env = {})
@@ -11,7 +11,7 @@ module Procedo
         @value = env[:value]
       end
 
-      def compute(object)
+      def interpret(object)
         @value_calls_count = 0
         @variables = []
         run(object)
@@ -61,7 +61,7 @@ module Procedo
               arguments << run(other_arg.argument)
             end if args.other_args
           end
-          Procedo::Formula::Functions.send(object.function_name.text_value, *arguments)
+          Procedo::Engine::Functions.send(object.function_name.text_value, *arguments)
         elsif object.is_a?(Procedo::Formula::Language::Symbol)
           object.text_value[1..-1].to_sym
         elsif object.is_a?(Procedo::Formula::Language::Value)

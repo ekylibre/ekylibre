@@ -10,6 +10,8 @@ module Procedo
         @root ||= :expression
       end
 
+      include Procedo::Formula::Nodes
+
       def _nt_expression
         start_index = index
         if node_cache[:expression].has_key?(index)

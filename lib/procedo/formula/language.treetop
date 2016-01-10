@@ -2,6 +2,8 @@ module Procedo
   module Formula
     grammar Language
 
+      include Procedo::Formula::Nodes
+
       ############################################################################
       # Numerical expression
 

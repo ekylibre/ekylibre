@@ -54,9 +54,10 @@ module Procedo
     end
 
     # Returns an handler by its name
-    def [](name)
+    def find_handler(name)
       @handlers[name.to_sym]
     end
+    alias_method :[], :find_handler
 
     # Find best handler for given quantity
     def best_handler_for(quantity)
@@ -81,47 +82,8 @@ module Procedo
       end
     end
 
-    #
-    def given?
-      !@value.blank?
-    end
-
-    attr_reader :needs
-
-    def need_population?
-      new? && @needs.include?(:population)
-    end
-
-    def need_shape?
-      new? && @needs.include?(:shape)
-    end
-
-    def worked?
-      new? || @needs.any?
-    end
-
-    def new?
-      @new_parameter
-    end
-
-    def parted?
-      new? && @birth_nature == :parted_from
-    end
-
-    def produced?
-      new? && @birth_nature == :produced_by
-    end
-
     def default_name?
       !@default_name.blank?
-    end
-
-    def type_product?
-      @type == :product
-    end
-
-    def type_variant?
-      @type == :variant
     end
 
     TYPES.each do |the_type|
