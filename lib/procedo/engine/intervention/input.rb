@@ -22,14 +22,20 @@ module Procedo
         end
 
         def quantity_handler_reference
-          @quantity_handler ? reference[@quantity_handler.to_sym] : nil
+          @quantity_handler ? reference.handler(@quantity_handler) : nil
         end
 
         # On handler change, only value is affected, population still
         # remains equal.
         def quantity_handler=(handler)
+          rh = reference.handler(handler)
+          fail 'Invalid handler: ' + handler.inspect unless rh
+          unless usable_handler?(rh)
+            fail 'Unusable handler: ' + rh.name.inspect
+            # rh = reference.handlers.detect { |h| usable_handler?(h) }
+            # handler = rh.name if rh
+          end
           @quantity_handler = handler
-          fail 'Invalid handler: ' + handler.inspect unless quantity_handler_reference
           return unless @quantity_population
           @quantity_value = compute_value if quantity_handler_reference.backward?
         end

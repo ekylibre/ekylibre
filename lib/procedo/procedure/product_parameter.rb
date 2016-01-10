@@ -25,6 +25,8 @@ module Procedo
           # WorkingSet.parse(@filter)
         end
         @handlers = {}
+        @attributes = {}
+        @readings = {}
       end
 
       # Adds a new handler
@@ -34,6 +36,28 @@ module Procedo
           fail ArgumentError, "Handler name already taken: #{name}"
         end
         @handlers[handler.name] = handler
+      end
+
+      # Adds a new attribute
+      def add_attribute(name, options = {})
+        attribute = Procedo::Procedure::Attribute.new(self, name, options)
+        if @attributes.key?(attribute.name)
+          fail ArgumentError, "Attribute name already taken: #{name}"
+        end
+        @attributes[attribute.name] = attribute
+      end
+
+      def want_attribute?(name)
+        @attributes.key?(name)
+      end
+
+      # Adds a new reading
+      def add_reading(name, options = {})
+        reading = Procedo::Procedure::Reading.new(self, name, options)
+        if @readings.key?(reading.name)
+          fail ArgumentError, "Reading name already taken: #{name}"
+        end
+        @readings[reading.name] = reading
       end
 
       def handlers
@@ -55,10 +79,19 @@ module Procedo
       end
 
       # Returns an handler by its name
-      def find_handler(name)
+      def handler(name)
         @handlers[name.to_sym]
       end
-      alias_method :[], :find_handler
+
+      # Returns an attribute by its name
+      def attribute(name)
+        @attributes[name.to_sym]
+      end
+
+      # Returns an reading by its name
+      def reading(name)
+        @readings[name.to_sym]
+      end
 
       # Find best handler for given quantity
       def best_handler_for(quantity)

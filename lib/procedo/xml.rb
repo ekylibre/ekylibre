@@ -132,6 +132,14 @@ module Procedo
         element.xpath('xmlns:handler').each do |el|
           parse_handler(parameter, el)
         end
+        # Attributes
+        element.xpath('xmlns:attribute').each do |el|
+          parse_attribute(parameter, el)
+        end
+        # Readings
+        element.xpath('xmlns:reading').each do |el|
+          parse_reading(parameter, el)
+        end
       end
 
       # Parse <handler> of parameter
@@ -146,20 +154,30 @@ module Procedo
         name = options.delete(:name) || options[:indicator]
 
         handler = parameter.add_handler(name, options)
-        # # Converters
-        # element.xpath('xmlns:converter').each do |el|
-        #   parse_converter(handler, el)
-        # end
+        # Converters
+        if element.xpath('xmlns:converter').any?
+          Rails.logger.warn "Converters are no more supported (in #{parameter.procedure_name}/#{parameter.name})"
+        end
       end
 
-      # Parse <converter> element
-      def parse_converter(handler, element)
-        options = %w(to forward backward).each_with_object({}) do |attr, hash|
-          hash[attr.to_sym] = element.attr(attr) if element.has_attribute?(attr)
+      # Parse <attribute> of parameter
+      def parse_attribute(parameter, element)
+        name = element.attr('name')
+        options = %w(default-value).each_with_object({}) do |attr, hash|
+          hash[attr.underscore.to_sym] = element.attr(attr) if element.has_attribute?(attr)
           hash
         end
-        destination = (options.delete(:to) || handler.indicator.name).to_sym
-        handler.add_converter(destination, options)
+        options = {}
+        attribute = parameter.add_attribute(name, options)
+        # TODO: Manage computations
+      end
+
+      # Parse <reading> of parameter
+      def parse_reading(parameter, element)
+        name = element.attr('name')
+        options = {}
+        reading = parameter.add_reading(name, options)
+        # TODO: Manage computations
       end
 
       # Parse <parameter-group> element

@@ -55,13 +55,16 @@ module Procedo
           !run(object.negated_test)
         elsif object.is_a?(Procedo::Formula::Language::FunctionCall)
           arguments = []
-          if args = object.args
+          args = object.args
+          if args
             arguments << run(args.first_arg)
-            for other_arg in args.other_args.elements
-              arguments << run(other_arg.argument)
-            end if args.other_args
+            if args.other_args
+              object.args.other_args.elements.each do |other_arg|
+                arguments << run(other_arg.argument)
+              end
+            end
           end
-          Procedo::Engine::Functions.send(object.function_name.text_value, *arguments)
+          Procedo::Engine::Functions.send(object.function_name.text_value.to_sym, *arguments)
         elsif object.is_a?(Procedo::Formula::Language::Symbol)
           object.text_value[1..-1].to_sym
         elsif object.is_a?(Procedo::Formula::Language::Value)
@@ -74,8 +77,10 @@ module Procedo
           @intervention.parameters_of_name(object.text_value)
         elsif object.is_a?(Procedo::Formula::Language::Numeric)
           object.text_value.to_d
-        elsif object.is_a?(Procedo::Formula::Language::VariablePresenceTest)
+        elsif object.is_a?(Procedo::Formula::Language::ActorPresenceTest)
           run(object.actor).present?
+        elsif object.is_a?(Procedo::Formula::Language::VariablePresenceTest)
+          run(object.variable).any?
         elsif object.is_a?(Procedo::Formula::Language::IndicatorPresenceTest)
           indicator = Nomen::Indicator.find!(object.indicator.text_value)
           product = run(object.actor)
@@ -83,7 +88,7 @@ module Procedo
         elsif object.is_a?(Procedo::Formula::Language::IndividualIndicatorPresenceTest)
           indicator = Nomen::Indicator.find!(object.indicator.text_value)
           product = run(object.actor)
-          product.has_frozen_indicator?(indicator.name) && (indicator.datatype == :measure ? product.get(indicator.name).to_f != 0 : product.get(indicator.name).present?)
+          product.frozen_indicators.include?(indicator.name) && (indicator.datatype == :measure ? product.get(indicator.name).to_f != 0 : product.get(indicator.name).present?)
         elsif object.is_a?(Procedo::Formula::Language::Reading)
           unit = nil
           if object.options && object.options.respond_to?(:unit)
@@ -98,8 +103,6 @@ module Procedo
           if object.is_a?(Procedo::Formula::Language::IndividualReading)
             prodi = prodi.variant
           end
-          # puts prodi.get(indicator.name.to_sym).to_f(unit ? unit.name : nil).inspect.blue
-          # , individual: object.is_a?(Procedo::Formula::Language::IndividualReading)
           prodi.get(indicator.name.to_sym).to_f(unit ? unit.name : nil)
         elsif object.nil?
           null

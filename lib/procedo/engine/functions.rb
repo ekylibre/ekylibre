@@ -3,6 +3,11 @@ module Procedo
     # This module all functions accessible through formula language
     module Functions
       class << self
+        # Test if population counting is as specified for given product
+        def population_counting_is(product, expected)
+          product.population_counting.to_sym == expected
+        end
+
         # Sums indicator values for a set of product
         def sum(set, indicator_name, unit = nil)
           indicator = Nomen::Indicator.find!(indicator_name)

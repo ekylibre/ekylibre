@@ -3,14 +3,11 @@
 module Procedo
   class Procedure
     # An Handler define a way to quantify a population
-    class Handler
+    class Handler < Procedo::Procedure::Field
       TYPES = [:indicator, :population]
 
-      attr_reader :name, :unit, :indicator, :parameter, :condition_tree, :backward_tree, :forward_tree, :widget
+      attr_reader :unit, :indicator, :parameter, :condition_tree, :backward_tree, :forward_tree, :widget
 
-      delegate :procedure, to: :parameter
-      delegate :name, to: :parameter, prefix: true
-      delegate :name, to: :procedure, prefix: true
       delegate :parse!, :count_variables, to: :class
 
       class << self
@@ -35,9 +32,8 @@ module Procedo
       end
 
       def initialize(parameter, name, options = {})
-        @parameter = parameter
+        super(parameter, name, options)
         @trees = {}.with_indifferent_access
-        self.name = name
         options[:type] ||= :population if @name == :population
         @type = options[:type] || :indicator
         fail 'Invalid type: ' + @type.inspect unless TYPES.include?(@type)
@@ -45,20 +41,15 @@ module Procedo
           self.indicator_name = options[:indicator] || @name
           self.unit_name = options[:unit] if self.measure?
         elsif population?
-          options[:forward] = 'value'
-          options[:backward] = 'value'
-          options[:if] ||= 'self?'
+          options[:forward] = 'VALUE'
+          options[:backward] = 'VALUE'
+          options[:if] ||= 'SELF?'
         end
         self.condition = options[:if] unless options[:if].blank?
         self.forward = options[:forward] unless options[:forward].blank?
         self.backward = options[:backward] unless options[:backward].blank?
         # Define widget of handler (or parameter...)
         @widget = (options[:widget] || (datatype == :geometry ? :map : :number)).to_sym
-      end
-
-      # Sets the name
-      def name=(value)
-        @name = value.to_sym
       end
 
       # Sets the indicator

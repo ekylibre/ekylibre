@@ -10,7 +10,7 @@ module Procedo
       delegate :add, :add_group, :add_product, :to_hash, to: :root_group
 
       def initialize(attributes = {})
-        puts attributes.deep_stringify_keys.to_yaml.green
+        # puts attributes.deep_stringify_keys.to_yaml.green
         @attributes = attributes.deep_symbolize_keys
         @procedure = Procedo.find(@attributes[:procedure_name])
         unless @procedure
@@ -61,7 +61,6 @@ module Procedo
       # Impact changes
       def impact_with!(updater_name)
         steps = updater_name.split(/[\[\]]+/)
-        puts steps.to_sentence.yellow
         impact_with(steps)
       end
 

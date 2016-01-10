@@ -13,6 +13,14 @@ module Procedo
           end
         end
 
+        def variant_id
+          @variant ? @variant.id : nil
+        end
+
+        def variant_id=(id)
+          @variant = ProductNatureVariant.find_by(id: id)
+        end
+
         def to_hash
           hash = super
           hash[:variant_id] = @variant ? @variant.id : nil

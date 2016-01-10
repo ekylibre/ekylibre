@@ -21,6 +21,7 @@ module Procedo
 
         def product_id=(id)
           @product = Product.find_by(id: id)
+          # Find and impact dependencies
         end
 
         def to_hash
@@ -32,6 +33,11 @@ module Procedo
         def impact_with(steps)
           fail 'Invalid steps: ' + steps.inspect if steps.size != 1
           impact(steps.first)
+        end
+
+        # Test if a handler is usable
+        def usable_handler?(handler, env = {})
+          intervention.interpret(handler.condition_tree, env.merge(self: product))
         end
       end
     end

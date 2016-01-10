@@ -73,8 +73,6 @@ module Procedo
           if steps.size == 1
             impact(step)
           elsif steps.size >= 2
-            puts steps.inspect.red
-            # puts @members.inspect.cyan
             @members[steps[0]][steps[1]].impact_with(steps[2..-1])
           else
             fail 'Invalid steps: ' + steps.inspect
