@@ -1,5 +1,4 @@
 # require 'procedo/procedure'
-# require 'procedo/product_parameter'
 
 module Procedo
   # The module parse XML procedures.
@@ -90,7 +89,7 @@ module Procedo
       # Parse list of children of a <parameter-group> or <parameters> tag
       def parse_group_children(procedure, element, options = {})
         element.children.each do |child|
-          if child.name == 'parameter' || ProductParameter::TYPES.include?(child.name.to_sym)
+          if child.name == 'parameter' || Procedo::Procedure::ProductParameter::TYPES.include?(child.name.to_sym)
             parse_parameter(procedure, child, options)
           elsif %w(group parameter-group).include?(child.name)
             parse_parameter_group(procedure, child, options)
