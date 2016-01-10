@@ -5,12 +5,14 @@
 = cobbles do |c|
   - c.cobble :general_informations do
     = mini_map(resource)
-    = resource_info(:net_surface_area) do |area|
-      = area.in_hectare.round(3).l
-    = resource_info(:soil_nature, label: Nomen::Indicator[:soil_nature].human_name, nomenclature: true)
-    - indicators = [:potential_hydrogen, :available_water_capacity_per_area, :soil_depth, :organic_matter_concentration]
-    - indicators.each do |indicator|
-      = resource_info(indicator, label: Nomen::Indicator[indicator].human_name)
+    = infos do
+      .med-info
+        %span.title= LandParcel.human_attribute_name(:net_surface_area)
+        %span.value= resource.net_surface_area.l
+      = resource_info(:soil_nature, label: Nomen::Indicator[:soil_nature].human_name, nomenclature: true)
+      - indicators = [:potential_hydrogen, :available_water_capacity_per_area, :soil_depth, :organic_matter_concentration]
+      - indicators.each do |indicator|
+        = resource_info(indicator, label: Nomen::Indicator[indicator].human_name)
   - if resource.analyses.any?
     - c.cobble :analyses do
       = cell :last_analyses, params: {nature: :soil_analysis, product_id: resource.id}
