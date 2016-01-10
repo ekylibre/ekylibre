@@ -1,5 +1,5 @@
-# require 'procedo/engine/intervention_group_parameter'
-# require 'procedo/engine/intervention_working_period'
+# require 'procedo/engine/intervention/group_parameter'
+# require 'procedo/engine/intervention/working_period'
 
 module Procedo
   module Engine
@@ -17,7 +17,7 @@ module Procedo
           fail "Cannot find procedure: #{@attributes[:procedure_name].inspect}"
         end
         @actions = (@attributes[:actions] || []).map(&:to_sym)
-        @root_group = Procedo::Engine::InterventionGroupParameter.new(self, Procedo::Procedure::ROOT_NAME)
+        @root_group = Procedo::Engine::Intervention::GroupParameter.new(self, Procedo::Procedure::ROOT_NAME)
         @working_periods = {}.with_indifferent_access
         @attributes[:working_periods_attributes].each do |id, attributes|
           add_working_period(id, attributes)
@@ -42,7 +42,7 @@ module Procedo
       delegate :to_json, to: :to_hash
 
       def add_working_period(id, attributes = {})
-        period = Procedo::Engine::InterventionWorkingPeriod.new(id, attributes)
+        period = Procedo::Engine::Intervention::WorkingPeriod.new(id, attributes)
         @working_periods[period.id] = period
       end
 

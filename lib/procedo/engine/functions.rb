@@ -8,7 +8,7 @@ module Procedo
           indicator = Nomen::Indicator.find!(indicator_name)
           fail 'Only measure indicator can use this function' unless indicator.datatype == :measure
           list = set.map do |parameter|
-            unless parameter.is_a?(Procedo::Engine::InterventionProductParameter)
+            unless parameter.is_a?(Procedo::Engine::Intervention::ProductParameter)
               fail 'Invalid parameter. Only product_parameter wanted. Got: ' + parameter.class.name
             end
             parameter.get(indicator.name)
