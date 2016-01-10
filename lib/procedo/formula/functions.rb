@@ -3,6 +3,20 @@ module Procedo
     # This module all functions accessible through formula language
     module Functions
       class << self
+        # Sums indicator values for a set of product
+        def sum(set, indicator_name, unit = nil)
+          indicator = Nomen::Indicator.find!(indicator_name)
+          fail 'Only measure indicator can use this function' unless indicator.datatype == :measure
+          list = set.map do |parameter|
+            unless parameter.is_a?(Procedo::Engine::InterventionProductParameter)
+              fail 'Invalid parameter. Only product_parameter wanted. Got: ' + parameter.class.name
+            end
+            parameter.get(indicator.name)
+          end
+          return 0.0 if list.empty?
+          list.compact.sum.to_d(unit ? unit : indicator.unit)
+        end
+
         def area(shape)
           return shape.area.to_f(:square_meter)
         rescue

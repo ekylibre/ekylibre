@@ -10,4 +10,4 @@
     = f.referenced_association :variant, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: { data: { intervention_updater: prefix + 'variant_id', intervention_field: 'variant' }}
     -# = render 'quantifier_field', f: f, reference: reference
   - else
-    = f.referenced_association :product, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: { data: { intervention_updater: prefix + 'variant_id', intervention_field: 'product' }}
+    = f.referenced_association :product, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: { data: { intervention_updater: prefix + 'product_id', intervention_field: 'product' }}

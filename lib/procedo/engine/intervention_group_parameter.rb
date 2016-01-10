@@ -45,6 +45,17 @@ module Procedo
         end
       end
 
+      def parameters_of_name(name)
+        parameters = []
+        each_member do |member|
+          parameters << member if member.name == name
+          if member.respond_to?(:parameters_of_name)
+            parameters += member.parameters_of_name(name)
+          end
+        end
+        parameters
+      end
+
       # Builds and adds a parameter of any type in members
       def add(param_name, id, attributes = {})
         model_name = param_name.to_s.gsub(/_attributes$/, '').singularize

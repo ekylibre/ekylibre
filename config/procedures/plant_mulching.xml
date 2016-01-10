@@ -2,10 +2,16 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="plant_mulching" categories="crop_protection" optional-actions="organic_fertilization">
     <parameters>
-      <parameter name="plastic" type="input" filter="is preparation and can wrap(cultivable_zone)">
-        <handler indicator="net_length" unit="meter" if="plastic_to_mulch? &amp; plastic_to_mulch.net_length(meter) &gt;= 0.1" to="population" backward="(value / plastic_to_mulch.net_length(meter))" forward="(value * plastic_to_mulch.net_length(meter))"/>
-        <handler indicator="surface_area_percentage" unit="percent" if="land_parcel? &amp; land_parcel.net_surface_area(hectare) &gt;= 0.1 &amp; plastic_to_mulch? &amp; plastic_to_mulch.net_length(meter) &gt;= 0.1 &amp; plastic_to_mulch.width(meter) &gt;= 0.1" to="population" backward="(value * plastic_to_mulch.net_length(meter) * plastic_to_mulch.width(meter)) / sum(land_parcel, :net_surface_area, :hectare)" forward="(value * sum(land_parcel, :net_surface_area, :hectare)) / (plastic_to_mulch.net_length(meter) * plastic_to_mulch.width(meter))"/>
-      </parameter>
+      <input name="plastic" filter="is preparation and can wrap(cultivable_zone)">
+        <handler indicator="net_length" unit="meter"
+                 if="self.net_length? and self.net_length != 0"
+                 backward="(value / self.net_length(meter))"
+                 forward="(value * self.net_length(meter))"/>
+        <handler indicator="surface_area_percentage" unit="percent"
+                 if="land_parcel? and sum(land_parcel, :net_surface_area, :hectare) != 0 and self.net_length? and self.net_length != 0 and self.width? and self.width != 0"
+                 backward="(value * self.net_length(meter) * self.width(meter)) / sum(land_parcel, :net_surface_area, :square_meter)"
+                 forward="(value * sum(land_parcel, :net_surface_area, :square_meter)) / (self.net_length(meter) * self.width(meter))"/>
+      </input>
       <parameter name="implanter" type="tool" filter="can seat(canvas_cover)"/>
       <parameter name="driver" type="doer" filter="can drive(tractor)"/>
       <parameter name="tractor" type="tool" filter="is equipment and can catch(implanter)"/>

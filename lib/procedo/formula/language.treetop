@@ -26,15 +26,11 @@ module Procedo
       end
 
       rule primary
-        value / numeric / symbol / function_call / reading / "(" space? expression space? ")" <Expression>
+        value / numeric / function_call / reading / "(" space? expression space? ")" <Expression>
       end
 
       rule argument
-        value / numeric / symbol / function_call / reading / expression
-      end
-
-      rule access
-        actor ":" accessor <Access>
+        value / numeric / symbol / function_call / reading / variable / expression
       end
 
       rule reading
@@ -50,12 +46,7 @@ module Procedo
       end
 
       rule actor
-        self / variable
-      end
-
-      rule accessor
-        # [a-z] [a-z0-9]* ("-" [a-z0-9]+)* <Accessor>
-        "contents-count" <Accessor>
+        self
       end
 
       rule variable
@@ -78,12 +69,8 @@ module Procedo
         ":" [a-z] [a-z0-9]* ("_" [a-z0-9]+)* <Symbol>
       end
 
-      rule function_argument
-        value / numeric / function_call / reading / actor / expression
-      end
-
       rule function_call
-        function_name "(" space? args:(first_arg:function_argument other_args:(space? "," space? argument:function_argument)* )?  space? ")" <FunctionCall>
+        function_name "(" space? args:(first_arg:argument other_args:(space? "," space? argument)* )?  space? ")" <FunctionCall>
       end
 
       rule function_name
@@ -123,7 +110,7 @@ module Procedo
       end
 
       rule test
-        negative / comparative / indicative / active / "(" boolean_expression ")" <BooleanExpression>
+        negative / comparative / function_call / indicative / individual_indicative / variable_presence / "(" boolean_expression ")" <BooleanExpression>
       end
 
       rule comparative
@@ -135,12 +122,16 @@ module Procedo
         / head:primary space? operator:"!=" space? operand:primary <DifferenceComparison>
       end
 
-      rule active
-        actor "?" <ActorPresenceTest>
+      rule variable_presence
+        variable "?" <VariablePresenceTest>
       end
 
       rule indicative
         actor "."  indicator "?" <IndicatorPresenceTest>
+      end
+
+      rule individual_indicative
+        actor ".."  indicator "?" <IndividualIndicatorPresenceTest>
       end
 
       rule negative
@@ -148,7 +139,7 @@ module Procedo
       end
 
       rule negated_test
-        indicative / active / "(" boolean_expression ")" <BooleanExpression>
+        function_call / indicative / individual_indicative / variable_presence / "(" boolean_expression ")" <BooleanExpression>
       end
 
     end

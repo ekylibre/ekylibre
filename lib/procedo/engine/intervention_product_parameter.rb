@@ -5,6 +5,8 @@ module Procedo
     class InterventionProductParameter < Procedo::Engine::InterventionParameter
       attr_reader :product
 
+      delegate :get, to: :product
+
       def initialize(intervention, id, attributes = {})
         super(intervention, id, attributes)
         if @attributes[:product_id].present?

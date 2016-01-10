@@ -4,23 +4,23 @@
     <parameters>
       <input name="seeds" filter="is seed and derives from plant and can grow">
         <handler indicator="net_mass" unit="kilogram"
-                 if="population_counting(self) == :decimal and self.net_mass? and self.net_mass(kilogram) > 0"
+                 if="population_counting_is(self, :decimal) and self..net_mass?"
                  backward="value * self..net_mass(kilogram)"
                  forward="value / self..net_mass(kilogram)"/>
         <handler indicator="mass_area_density" unit="kilogram_per_hectare"
-                 if="self.net_mass? and self.net_mass(kilogram) > 0 and sum(land_parcel, :net_surface_area, :hectare) > 0"
+                 if="self..net_mass? and sum(land_parcel, :net_surface_area, :hectare) > 0"
                  backward="(value * self..net_mass(kilogram)) / sum(land_parcel, :net_surface_area, :hectare)"
                  forward="(value * sum(land_parcel, :net_surface_area, :hectare)) / self..net_mass(kilogram)"/>
         <handler indicator="grains_area_density" unit="unity_per_square_meter"
-                 if="self.net_mass? and self.net_mass(kilogram) > 0 and sum(land_parcel, :net_surface_area, :hectare) > 0 and self.thousand_grains_mass?"
+                 if="self..net_mass? and sum(land_parcel, :net_surface_area, :hectare) > 0 and self.thousand_grains_mass?"
                  backward="(((value * self..net_mass(gram)) / sum(land_parcel, :net_surface_area, :square_meter)) * 1000) / self.thousand_grains_mass(gram)"
                  forward="(((value * self.thousand_grains_mass(gram)) / 1000) * sum(land_parcel, :net_surface_area, :square_meter)) / self..net_mass(gram)"/>
         <handler name="grains_area_density_in_thousand_per_hectare" indicator="grains_area_density" unit="thousand_per_hectare"
-                 if="self.net_mass? and self.net_mass(kilogram) > 0 and sum(land_parcel, :net_surface_area, :hectare) > 0 and self.thousand_grains_mass?"
+                 if="self..net_mass? and sum(land_parcel, :net_surface_area, :hectare) > 0 and self.thousand_grains_mass?"
                  backward="(value * self..net_mass(gram)) / (sum(land_parcel, :net_surface_area, :hectare) * self.thousand_grains_mass(gram))"
                  forward="(value * self.thousand_grains_mass(gram) * sum(land_parcel, :net_surface_area, :hectare)) / self..net_mass(gram)"/>
         <handler indicator="grains_count" unit="thousand"
-                 if="self.net_mass? and self.net_mass(kilogram) > 0 and self.thousand_grains_mass?"
+                 if="self..net_mass? and self.thousand_grains_mass?"
                  backward="(value * self..net_mass(gram)) / self.thousand_grains_mass(gram)"
                  forward="(value * self.thousand_grains_mass(gram)) / self..net_mass(gram)"/>
       </input>

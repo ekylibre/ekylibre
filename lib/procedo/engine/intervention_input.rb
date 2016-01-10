@@ -7,7 +7,6 @@ module Procedo
 
       def initialize(intervention, id, attributes = {})
         super(intervention, id, attributes)
-        puts attributes.inspect.green
         @quantity_handler = attributes[:quantity_handler]
         @quantity_value = attributes[:quantity_value].to_d
         @quantity_population = attributes[:quantity_population].to_d
@@ -51,8 +50,6 @@ module Procedo
         return unless quantity_handler_reference
         if quantity_handler_reference.forward?
           population = compute_population
-          puts quantity_value.inspect.red
-          puts population.inspect.yellow
           return if @quantity_population == population
           @quantity_population = population
           impact_quantity_population!
@@ -61,12 +58,14 @@ module Procedo
 
       def compute_value
         ref = quantity_handler_reference
-        intervention.interpret(ref.backward_tree, self: product, value: quantity_population)
+        env = { self: product, value: quantity_population }
+        intervention.interpret(ref.backward_tree, env).round(3)
       end
 
       def compute_population
         ref = quantity_handler_reference
-        intervention.interpret(ref.forward_tree, self: product, value: quantity_value)
+        env = { self: product, value: quantity_value }
+        intervention.interpret(ref.forward_tree, env).round(3)
       end
 
       # Impact population change on foreign data

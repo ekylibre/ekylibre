@@ -1,7 +1,17 @@
+# coding: utf-8
 # require 'procedo/converter'
 
 module Procedo
   module Formula
+    class SyntaxError < StandardError
+      attr_reader :parser
+      delegate :failure_index, :failure_column, :failure_line, to: :parser
+      def initialize(parser)
+        @parser = parser
+        super(@parser.failure_reason)
+      end
+    end
+
     class Parser < Treetop::Runtime::CompiledParser
       include Procedo::Formula::Language
     end
@@ -29,9 +39,9 @@ module Procedo
       class EqualityComparison < Comparison; end
       class DifferenceComparison < Comparison; end
       class IndicatorPresenceTest < Test; end
-      class ActorPresenceTest < Test; end
+      class IndividualIndicatorPresenceTest < Test; end
+      class VariablePresenceTest < Test; end
       class NegativeTest < Test; end
-      class Access < Base; end
       class Reading < Base; end # Abstract
       class IndividualReading < Reading; end
       class WholeReading < Reading; end
@@ -39,7 +49,6 @@ module Procedo
       class FunctionName < Base; end
       class OtherArgument < Base; end
       class Variable < Base; end
-      class Accessor < Base; end
       class Indicator < Base; end
       class Unit < Base; end
       class Self < Base; end
@@ -51,7 +60,7 @@ module Procedo
         def parse(text, options = {})
           @@parser ||= ::Procedo::Formula::Parser.new
           unless tree = @@parser.parse(text.to_s, options)
-            fail SyntaxError, @@parser.failure_reason
+            fail Formula::SyntaxError, @@parser
           end
           tree
         end
@@ -78,8 +87,9 @@ module Procedo
     class << self
       def parse!(code, options = {})
         return Formula::Language.parse(code.to_s, options)
-      rescue SyntaxError => e
-        raise SyntaxError, (options[:message] || "Syntax error in #{code.inspect}.") + ' ' + e.message
+      rescue Formula::SyntaxError => e
+        raise (options[:message] || "Syntax error in #{code.inspect}.") + ' ' + e.message + "\n" +
+          code + "\n" + ('━' * e.failure_index) + '┛'
       end
 
       def count_variables(node, name)

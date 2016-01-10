@@ -9,12 +9,18 @@
         </handler>
       </parameter>
       <parameter name="doer" type="doer" filter="is worker and can move"/>
-      <parameter name="stakes" type="input" filter="is stake and can enclose">
-        <handler indicator="stakes_count" unit="unity_per_hectare" if="land_parcel? &amp; sum(land_parcel, :net_surface_area, :hectare) &gt;= 0.1" to="population" backward="(value / sum(land_parcel, :net_surface_area, :hectare))" forward="(value * sum(land_parcel, :net_surface_area, :hectare))"/>
-      </parameter>
-      <parameter name="wire_fence" type="input" filter="is wire and can enclose">
-        <handler indicator="length" unit="meter" if="wire_fence? &amp; wire_fence.length(meter) &gt;= 0.1" to="population" backward="(value * wire_fence.length(meter))" forward="(value / wire_fence.length(meter))"/>
-      </parameter>
+      <input name="stakes" filter="is stake and can enclose">
+        <handler indicator="stakes_count" unit="unity_per_hectare"
+                 if="sum(land_parcel, :net_surface_area, :hectare) != 0"
+                 backward="(value / sum(land_parcel, :net_surface_area, :hectare))"
+                 forward="(value * sum(land_parcel, :net_surface_area, :hectare))"/>
+      </input>
+      <input name="wire_fence" filter="is wire and can enclose">
+        <handler indicator="length" unit="meter"
+                 if="self..length?"
+                 backward="(value * self..length(meter))"
+                 forward="(value / self..length(meter))"/>
+      </input>
     </parameters>
   </procedure>
 </procedures>

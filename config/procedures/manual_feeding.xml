@@ -2,14 +2,26 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="manual_feeding" categories="animal_feeding" actions="animal_feeding">
     <parameters>
-      <parameter name="herd" type="target" filter="is animal_group and derives from bos" default-actor="storage"/>
-      <parameter name="silage" type="input" filter="is preparation and can feed(bos)" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
-        <handler indicator="net_mass" unit="ton" if="silage.net_mass?" to="population" backward="value * self..net_mass(ton)" forward="value / self..net_mass(ton)"/>
-        <handler name="food_mass_per_animal" indicator="net_mass" unit="kilogram" if="members_count(herd) &gt; 0 &amp; silage.net_mass?" to="population" backward="value * (self..net_mass(kilogram) / members_count(herd))" forward="value * (members_count(herd) / self..net_mass(kilogram))"/>
-        <handler indicator="net_volume" unit="cubic_meter" if="silage.net_volume?" to="population" backward="value * self..net_volume(cubic_meter)" forward="value / self..net_volume(cubic_meter)"/>
-        <handler name="dry_matter_mass" indicator="dry_matter_rate" unit="mass_percent" if="silage.net_mass? &amp; silage.dry_matter_rate?" to="population" backward="value * ( self..net_mass(ton) * self.dry_matter_rate(mass_percent) / 100)" forward="value / ( self..net_mass(ton) * self.dry_matter_rate(mass_percent) / 100)"/>
-      </parameter>
-      <parameter name="caregiver" type="doer" filter="can administer_care(animal) and can move"/>
+      <target name="herd"   filter="is animal_group and derives from bos" default-actor="storage"/>
+      <input  name="silage" filter="is preparation and can feed(bos)">
+        <handler indicator="net_mass" unit="ton"
+                 if="self..net_mass? and self..net_mass != 0"
+                 backward="value * self..net_mass(ton)"
+                 forward="value / self..net_mass(ton)"/>
+        <handler name="food_mass_per_animal" indicator="net_mass" unit="kilogram"
+                 if="members_count(herd) > 0 and self..net_mass? and self..net_mass != 0"
+                 backward="value * (self..net_mass(kilogram) / members_count(herd))"
+                 forward="value * (members_count(herd) / self..net_mass(kilogram))"/>
+        <handler indicator="net_volume" unit="cubic_meter"
+                 if="self..net_volume? and self..net_volume != 0"
+                 backward="value * self..net_volume(cubic_meter)"
+                 forward="value / self..net_volume(cubic_meter)"/>
+        <handler name="dry_matter_mass" indicator="dry_matter_rate" unit="mass_percent"
+                 if="self..net_mass? and self..net_mass != 0 and self.dry_matter_rate?"
+                 backward="value * (self..net_mass(ton) * self.dry_matter_rate(mass_percent) / 100)"
+                 forward="value / (self..net_mass(ton) * self.dry_matter_rate(mass_percent) / 100)"/>
+      </input>
+      <doer name="caregiver" filter="can administer_care(animal) and can move"/>
     </parameters>
   </procedure>
 </procedures>

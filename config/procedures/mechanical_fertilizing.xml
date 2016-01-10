@@ -2,15 +2,36 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="mechanical_fertilizing" categories="fertilizing" actions="fertilization" optional-actions="biostimulation, organic_fertilization, mineral_fertilization, micronutrient_fertilization, liming">
     <parameters>
-      <parameter name="fertilizer" type="input" filter="is preparation and can fertilize">
-        <handler indicator="mass_area_density" unit="kilogram_per_hectare" if="self.net_mass? &amp; self.net_mass(kilogram) &gt; 0 &amp; land_parcel? &amp; sum(land_parcel, :net_surface_area, :hectare) &gt;= 0.1" to="population" backward="(value * self..net_mass(kilogram)) / sum(land_parcel, :net_surface_area, :hectare)" forward="(value * sum(land_parcel, :net_surface_area, :hectare)) / self..net_mass(kilogram)"/>
-        <handler name="mass_area_density_in_gram_per_square_meter" indicator="mass_area_density" unit="gram_per_square_meter" if="self.net_mass? &amp; self.net_mass(kilogram) &gt; 0 &amp; land_parcel? &amp; 0.1 &gt; sum(land_parcel, :net_surface_area, :hectare)" to="population" backward="(value * self..net_mass(gram)) / sum(land_parcel, :net_surface_area, :square_meter)" forward="(value * sum(land_parcel, :net_surface_area, :square_meter)) / self..net_mass(gram)"/>
-        <handler indicator="volume_area_density" unit="liter_per_hectare" if="self.net_mass? &amp; self.net_mass(kilogram) &gt; 0 &amp; land_parcel? &amp; sum(land_parcel, :net_surface_area, :hectare) &gt;= 0.1 &amp; fertilizer.net_volume? &amp; fertilizer.net_volume(liter) &gt;= 0.1" to="population" backward="(value * self..net_volume(liter)) / sum(land_parcel, :net_surface_area, :hectare)" forward="(value * sum(land_parcel, :net_surface_area, :hectare)) / self..net_volume(liter)"/>
-        <handler name="volume_area_density_in_liter_per_square_meter" indicator="volume_area_density" unit="liter_per_square_meter" if="self.net_mass? &amp; self.net_mass(kilogram) &gt; 0 &amp; land_parcel? &amp; 0.1 &gt; sum(land_parcel, :net_surface_area, :hectare) &amp; fertilizer.net_volume? &amp; fertilizer.net_volume(liter) &gt;= 0.1" to="population" backward="(value * self..net_volume(liter)) / sum(land_parcel, :net_surface_area, :square_meter)" forward="(value * sum(land_parcel, :net_surface_area, :square_meter)) / self..net_volume(liter)"/>
-        <handler name="nitrogen_unities_density" indicator="mass_area_density" unit="kilogram_per_hectare" if="self.net_mass? &amp; self.net_mass(kilogram) &gt; 0 &amp; self.nitrogen_concentration? &amp; self.nitrogen_concentration(percent) &gt; 0" to="population" backward="(value * self..net_mass(kilogram) * (self.nitrogen_concentration(percent) / 100)) / sum(land_parcel, :net_surface_area, :hectare)" forward="(value * sum(land_parcel, :net_surface_area, :hectare)) / (self..net_mass(kilogram) * self.nitrogen_concentration(percent) / 100)"/>
-        <handler name="phosphorus_unities_density" indicator="mass_area_density" unit="kilogram_per_hectare" if="self.net_mass? &amp; self.net_mass(kilogram) &gt; 0 &amp; self.phosphorus_concentration? &amp; self.phosphorus_concentration(percent) &gt; 0" to="population" backward="(value * self..net_mass(kilogram) * (self.phosphorus_concentration(percent) / 100)) / sum(land_parcel, :net_surface_area, :hectare)" forward="(value * sum(land_parcel, :net_surface_area, :hectare)) / (self..net_mass(kilogram) * self.phosphorus_concentration(percent) / 100)"/>
-        <handler name="potassium_unities_density" indicator="mass_area_density" unit="kilogram_per_hectare" if="self.net_mass? &amp; self.net_mass(kilogram) &gt; 0 &amp; self.potassium_concentration? &amp; self.potassium_concentration(percent) &gt; 0" to="population" backward="(value * self..net_mass(kilogram) * (self.potassium_concentration(percent) / 100)) / sum(land_parcel, :net_surface_area, :hectare)" forward="(value * sum(land_parcel, :net_surface_area, :hectare)) / (self..net_mass(kilogram) * self.potassium_concentration(percent) / 100)"/>
-      </parameter>
+      <input name="fertilizer" filter="is preparation and can fertilize">
+        <handler indicator="mass_area_density" unit="kilogram_per_hectare"
+                 if="self..net_mass? and self..net_mass > 0 and land_parcel? and sum(land_parcel, :net_surface_area, :hectare) >= 0.1"
+                 backward="(value * self..net_mass(kilogram)) / sum(land_parcel, :net_surface_area, :hectare)"
+                 forward="(value * sum(land_parcel, :net_surface_area, :hectare)) / self..net_mass(kilogram)"/>
+        <handler name="mass_area_density_in_gram_per_square_meter" indicator="mass_area_density" unit="gram_per_square_meter"
+                 if="self..net_mass? and self..net_mass > 0 and land_parcel? and 0.1 > sum(land_parcel, :net_surface_area, :hectare)"
+                 backward="(value * self..net_mass(gram)) / sum(land_parcel, :net_surface_area, :square_meter)"
+                 forward="(value * sum(land_parcel, :net_surface_area, :square_meter)) / self..net_mass(gram)"/>
+        <handler indicator="volume_area_density" unit="liter_per_hectare"
+                 if="self..net_volume? and self..net_volume > 0 and land_parcel? and sum(land_parcel, :net_surface_area, :hectare) >= 0.1"
+                 backward="(value * self..net_volume(liter)) / sum(land_parcel, :net_surface_area, :hectare)"
+                 forward="(value * sum(land_parcel, :net_surface_area, :hectare)) / self..net_volume(liter)"/>
+        <handler name="volume_area_density_in_liter_per_square_meter" indicator="volume_area_density" unit="liter_per_square_meter"
+                 if="self..net_volume? and self..net_volume > 0 and land_parcel? and 0.1 > sum(land_parcel, :net_surface_area, :hectare)"
+                 backward="(value * self..net_volume(liter)) / sum(land_parcel, :net_surface_area, :square_meter)"
+                 forward="(value * sum(land_parcel, :net_surface_area, :square_meter)) / self..net_volume(liter)"/>
+        <handler name="nitrogen_unities_density" indicator="mass_area_density" unit="kilogram_per_hectare"
+                 if="self..net_mass? and self..net_mass > 0 and self.nitrogen_concentration? and self.nitrogen_concentration(percent) > 0"
+                 backward="(value * self..net_mass(kilogram) * (self.nitrogen_concentration(percent) / 100)) / sum(land_parcel, :net_surface_area, :hectare)"
+                 forward="(value * sum(land_parcel, :net_surface_area, :hectare)) / (self..net_mass(kilogram) * self.nitrogen_concentration(percent) / 100)"/>
+        <handler name="phosphorus_unities_density" indicator="mass_area_density" unit="kilogram_per_hectare"
+                 if="self..net_mass? and self..net_mass > 0 and self.phosphorus_concentration? and self.phosphorus_concentration(percent) > 0"
+                 backward="(value * self..net_mass(kilogram) * (self.phosphorus_concentration(percent) / 100)) / sum(land_parcel, :net_surface_area, :hectare)"
+                 forward="(value * sum(land_parcel, :net_surface_area, :hectare)) / (self..net_mass(kilogram) * self.phosphorus_concentration(percent) / 100)"/>
+        <handler name="potassium_unities_density" indicator="mass_area_density" unit="kilogram_per_hectare"
+                 if="self..net_mass? and self..net_mass > 0 and self.potassium_concentration? and self.potassium_concentration(percent) > 0"
+                 backward="(value * self..net_mass(kilogram) * (self.potassium_concentration(percent) / 100)) / sum(land_parcel, :net_surface_area, :hectare)"
+                 forward="(value * sum(land_parcel, :net_surface_area, :hectare)) / (self..net_mass(kilogram) * self.potassium_concentration(percent) / 100)"/>
+      </input>
       <parameter name="spreader" type="tool" filter="can spread(preparation)"/>
       <parameter name="driver" type="doer" filter="can drive(tractor)"/>
       <parameter name="tractor" type="tool" filter="is equipment and can tow(spreader)"/>

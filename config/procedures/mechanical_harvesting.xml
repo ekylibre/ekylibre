@@ -13,11 +13,11 @@
       <parameter name="grains" type="output" variety="grain" derivative-of="variety: cultivation" filter="is grain and derives from plant" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
         <handler indicator="net_mass" unit="quintal" to="population" backward="value * self..net_mass(quintal)" forward="value / self..net_mass(quintal)"/>
         <handler name="net_mass_in_ton" indicator="net_mass" unit="ton" to="population" backward="value * self..net_mass(ton)" forward="value / self..net_mass(ton)"/>
-        <handler indicator="mass_area_density" unit="quintal_per_hectare" if="sum(cultivation, :net_surface_area, :hectare) &gt;= 0.1" to="population" backward="(value * self..net_mass(quintal)) / sum(cultivation, :net_surface_area, :hectare)" forward="(value * sum(cultivation, :net_surface_area, :hectare)) / self..net_mass(quintal)"/>
+        <handler indicator="mass_area_density" unit="quintal_per_hectare" if="sum(cultivation, :net_surface_area, :hectare) >= 0.1" to="population" backward="(value * self..net_mass(quintal)) / sum(cultivation, :net_surface_area, :hectare)" forward="(value * sum(cultivation, :net_surface_area, :hectare)) / self..net_mass(quintal)"/>
       </parameter>
       <parameter name="straws" type="output" variety="straw" derivative-of="variety: cultivation" filter="is straw and derives from plant" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
         <handler indicator="net_mass" unit="ton" to="population" backward="value * self..net_mass(ton)" forward="value / self..net_mass(ton)"/>
-        <handler indicator="mass_area_density" unit="ton_per_hectare" if="sum(cultivation, :net_surface_area, :hectare) &gt;= 0.1" to="population" backward="(value * self..net_mass(ton)) / sum(cultivation, :net_surface_area, :hectare)" forward="(value * sum(cultivation, :net_surface_area, :hectare)) / self..net_mass(ton)"/>
+        <handler indicator="mass_area_density" unit="ton_per_hectare" if="sum(cultivation, :net_surface_area, :hectare) >= 0.1" to="population" backward="(value * self..net_mass(ton)) / sum(cultivation, :net_surface_area, :hectare)" forward="(value * sum(cultivation, :net_surface_area, :hectare)) / self..net_mass(ton)"/>
       </parameter>
     </parameters>
   </procedure>

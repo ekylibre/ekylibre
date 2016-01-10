@@ -54,6 +54,10 @@ module Procedo
         Interpret.compute(self, tree, env)
       end
 
+      def parameters_of_name(name)
+        @root_group.parameters_of_name(name.to_sym)
+      end
+
       # Impact changes
       def impact_with!(updater_name)
         steps = updater_name.split(/[\[\]]+/)

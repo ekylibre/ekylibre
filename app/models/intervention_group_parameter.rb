@@ -66,7 +66,7 @@ class InterventionGroupParameter < InterventionParameter
 
   # validates_associated :group_parameters, :doers, :inputs, :outputs, :targets, :tools
 
-  accepts_nested_attributes_for :group_parameters, :doers, :inputs, :outputs, :targets, :tools
+  accepts_nested_attributes_for :group_parameters, :doers, :inputs, :outputs, :targets, :tools, allow_destroy: true
 
   delegate :procedure, to: :intervention
 
