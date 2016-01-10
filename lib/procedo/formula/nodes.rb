@@ -22,9 +22,11 @@ module Procedo
       class InferiorityComparison < Comparison; end
       class EqualityComparison < Comparison; end
       class DifferenceComparison < Comparison; end
-      class IndicatorPresenceTest < Test; end
-      class IndividualIndicatorPresenceTest < Test; end
-      class VariablePresenceTest < Test; end
+      class PresenceTest < Test; end
+      class ActorPresenceTest < PresenceTest; end
+      class IndicatorPresenceTest < PresenceTest; end
+      class IndividualIndicatorPresenceTest < PresenceTest; end
+      class VariablePresenceTest < PresenceTest; end
       class NegativeTest < Test; end
       class Reading < Base; end # Abstract
       class IndividualReading < Reading; end

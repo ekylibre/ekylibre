@@ -32,7 +32,7 @@ module Procedo
       end
 
       rule argument
-        value / numeric / symbol / function_call / reading / variable / expression
+        value / actor / numeric / symbol / function_call / reading / variable / expression
       end
 
       rule reading
@@ -84,11 +84,11 @@ module Procedo
       end
 
       rule self
-        "self" <Self>
+        "SELF" <Self>
       end
 
       rule value
-        "value" <Value>
+        "VALUE" <Value>
       end
 
       ############################################################################
@@ -112,7 +112,7 @@ module Procedo
       end
 
       rule test
-        negative / comparative / function_call / indicative / individual_indicative / variable_presence / "(" boolean_expression ")" <BooleanExpression>
+        negative / comparative / function_call / indicative / presence / "(" boolean_expression ")" <BooleanExpression>
       end
 
       rule comparative
@@ -124,16 +124,14 @@ module Procedo
         / head:primary space? operator:"!=" space? operand:primary <DifferenceComparison>
       end
 
-      rule variable_presence
-        variable "?" <VariablePresenceTest>
+      rule presence
+          actor "?"    <ActorPresenceTest>
+        / variable "?" <VariablePresenceTest>
       end
 
       rule indicative
-        actor "."  indicator "?" <IndicatorPresenceTest>
-      end
-
-      rule individual_indicative
-        actor ".."  indicator "?" <IndividualIndicatorPresenceTest>
+          actor "."   indicator "?" <IndicatorPresenceTest>
+        / actor ".."  indicator "?" <IndividualIndicatorPresenceTest>
       end
 
       rule negative
@@ -141,7 +139,7 @@ module Procedo
       end
 
       rule negated_test
-        function_call / indicative / individual_indicative / variable_presence / "(" boolean_expression ")" <BooleanExpression>
+        function_call / indicative / presence / "(" boolean_expression ")" <BooleanExpression>
       end
 
     end

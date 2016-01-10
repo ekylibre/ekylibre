@@ -566,38 +566,44 @@ module Procedo
           r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
           r0 = r1
         else
-          r2 = _nt_numeric
+          r2 = _nt_actor
           if r2
             r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
             r0 = r2
           else
-            r3 = _nt_symbol
+            r3 = _nt_numeric
             if r3
               r3 = SyntaxNode.new(input, (index-1)...index) if r3 == true
               r0 = r3
             else
-              r4 = _nt_function_call
+              r4 = _nt_symbol
               if r4
                 r4 = SyntaxNode.new(input, (index-1)...index) if r4 == true
                 r0 = r4
               else
-                r5 = _nt_reading
+                r5 = _nt_function_call
                 if r5
                   r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
                   r0 = r5
                 else
-                  r6 = _nt_variable
+                  r6 = _nt_reading
                   if r6
                     r6 = SyntaxNode.new(input, (index-1)...index) if r6 == true
                     r0 = r6
                   else
-                    r7 = _nt_expression
+                    r7 = _nt_variable
                     if r7
                       r7 = SyntaxNode.new(input, (index-1)...index) if r7 == true
                       r0 = r7
                     else
-                      @index = i0
-                      r0 = nil
+                      r8 = _nt_expression
+                      if r8
+                        r8 = SyntaxNode.new(input, (index-1)...index) if r8 == true
+                        r0 = r8
+                      else
+                        @index = i0
+                        r0 = nil
+                      end
                     end
                   end
                 end
@@ -1768,11 +1774,11 @@ module Procedo
           return cached
         end
 
-        if (match_len = has_terminal?("self", false, index))
+        if (match_len = has_terminal?("SELF", false, index))
           r0 = instantiate_node(Self,input, index...(index + match_len))
           @index += match_len
         else
-          terminal_parse_failure('"self"')
+          terminal_parse_failure('"SELF"')
           r0 = nil
         end
 
@@ -1792,11 +1798,11 @@ module Procedo
           return cached
         end
 
-        if (match_len = has_terminal?("value", false, index))
+        if (match_len = has_terminal?("VALUE", false, index))
           r0 = instantiate_node(Value,input, index...(index + match_len))
           @index += match_len
         else
-          terminal_parse_failure('"value"')
+          terminal_parse_failure('"VALUE"')
           r0 = nil
         end
 
@@ -2209,53 +2215,47 @@ module Procedo
                 r4 = SyntaxNode.new(input, (index-1)...index) if r4 == true
                 r0 = r4
               else
-                r5 = _nt_individual_indicative
+                r5 = _nt_presence
                 if r5
                   r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
                   r0 = r5
                 else
-                  r6 = _nt_variable_presence
+                  i6, s6 = index, []
+                  if (match_len = has_terminal?("(", false, index))
+                    r7 = true
+                    @index += match_len
+                  else
+                    terminal_parse_failure('"("')
+                    r7 = nil
+                  end
+                  s6 << r7
+                  if r7
+                    r8 = _nt_boolean_expression
+                    s6 << r8
+                    if r8
+                      if (match_len = has_terminal?(")", false, index))
+                        r9 = true
+                        @index += match_len
+                      else
+                        terminal_parse_failure('")"')
+                        r9 = nil
+                      end
+                      s6 << r9
+                    end
+                  end
+                  if s6.last
+                    r6 = instantiate_node(BooleanExpression,input, i6...index, s6)
+                    r6.extend(Test0)
+                  else
+                    @index = i6
+                    r6 = nil
+                  end
                   if r6
                     r6 = SyntaxNode.new(input, (index-1)...index) if r6 == true
                     r0 = r6
                   else
-                    i7, s7 = index, []
-                    if (match_len = has_terminal?("(", false, index))
-                      r8 = true
-                      @index += match_len
-                    else
-                      terminal_parse_failure('"("')
-                      r8 = nil
-                    end
-                    s7 << r8
-                    if r8
-                      r9 = _nt_boolean_expression
-                      s7 << r9
-                      if r9
-                        if (match_len = has_terminal?(")", false, index))
-                          r10 = true
-                          @index += match_len
-                        else
-                          terminal_parse_failure('")"')
-                          r10 = nil
-                        end
-                        s7 << r10
-                      end
-                    end
-                    if s7.last
-                      r7 = instantiate_node(BooleanExpression,input, i7...index, s7)
-                      r7.extend(Test0)
-                    else
-                      @index = i7
-                      r7 = nil
-                    end
-                    if r7
-                      r7 = SyntaxNode.new(input, (index-1)...index) if r7 == true
-                      r0 = r7
-                    else
-                      @index = i0
-                      r0 = nil
-                    end
+                    @index = i0
+                    r0 = nil
                   end
                 end
               end
@@ -2654,51 +2654,102 @@ module Procedo
         r0
       end
 
-      module VariablePresence0
+      module Presence0
+        def actor
+          elements[0]
+        end
+
+      end
+
+      module Presence1
         def variable
           elements[0]
         end
 
       end
 
-      def _nt_variable_presence
+      def _nt_presence
         start_index = index
-        if node_cache[:variable_presence].has_key?(index)
-          cached = node_cache[:variable_presence][index]
+        if node_cache[:presence].has_key?(index)
+          cached = node_cache[:presence][index]
           if cached
-            node_cache[:variable_presence][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+            node_cache[:presence][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
             @index = cached.interval.end
           end
           return cached
         end
 
-        i0, s0 = index, []
-        r1 = _nt_variable
-        s0 << r1
-        if r1
+        i0 = index
+        i1, s1 = index, []
+        r2 = _nt_actor
+        s1 << r2
+        if r2
           if (match_len = has_terminal?("?", false, index))
-            r2 = true
+            r3 = true
             @index += match_len
           else
             terminal_parse_failure('"?"')
-            r2 = nil
+            r3 = nil
           end
-          s0 << r2
+          s1 << r3
         end
-        if s0.last
-          r0 = instantiate_node(VariablePresenceTest,input, i0...index, s0)
-          r0.extend(VariablePresence0)
+        if s1.last
+          r1 = instantiate_node(ActorPresenceTest,input, i1...index, s1)
+          r1.extend(Presence0)
         else
-          @index = i0
-          r0 = nil
+          @index = i1
+          r1 = nil
+        end
+        if r1
+          r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
+          r0 = r1
+        else
+          i4, s4 = index, []
+          r5 = _nt_variable
+          s4 << r5
+          if r5
+            if (match_len = has_terminal?("?", false, index))
+              r6 = true
+              @index += match_len
+            else
+              terminal_parse_failure('"?"')
+              r6 = nil
+            end
+            s4 << r6
+          end
+          if s4.last
+            r4 = instantiate_node(VariablePresenceTest,input, i4...index, s4)
+            r4.extend(Presence1)
+          else
+            @index = i4
+            r4 = nil
+          end
+          if r4
+            r4 = SyntaxNode.new(input, (index-1)...index) if r4 == true
+            r0 = r4
+          else
+            @index = i0
+            r0 = nil
+          end
         end
 
-        node_cache[:variable_presence][start_index] = r0
+        node_cache[:presence][start_index] = r0
 
         r0
       end
 
       module Indicative0
+        def actor
+          elements[0]
+        end
+
+        def indicator
+          elements[2]
+        end
+
+      end
+
+      module Indicative1
         def actor
           elements[0]
         end
@@ -2720,104 +2771,89 @@ module Procedo
           return cached
         end
 
-        i0, s0 = index, []
-        r1 = _nt_actor
-        s0 << r1
-        if r1
+        i0 = index
+        i1, s1 = index, []
+        r2 = _nt_actor
+        s1 << r2
+        if r2
           if (match_len = has_terminal?(".", false, index))
-            r2 = true
+            r3 = true
             @index += match_len
           else
             terminal_parse_failure('"."')
-            r2 = nil
+            r3 = nil
           end
-          s0 << r2
-          if r2
-            r3 = _nt_indicator
-            s0 << r3
-            if r3
+          s1 << r3
+          if r3
+            r4 = _nt_indicator
+            s1 << r4
+            if r4
               if (match_len = has_terminal?("?", false, index))
-                r4 = true
+                r5 = true
                 @index += match_len
               else
                 terminal_parse_failure('"?"')
-                r4 = nil
+                r5 = nil
               end
-              s0 << r4
+              s1 << r5
             end
           end
         end
-        if s0.last
-          r0 = instantiate_node(IndicatorPresenceTest,input, i0...index, s0)
-          r0.extend(Indicative0)
+        if s1.last
+          r1 = instantiate_node(IndicatorPresenceTest,input, i1...index, s1)
+          r1.extend(Indicative0)
         else
-          @index = i0
-          r0 = nil
+          @index = i1
+          r1 = nil
+        end
+        if r1
+          r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
+          r0 = r1
+        else
+          i6, s6 = index, []
+          r7 = _nt_actor
+          s6 << r7
+          if r7
+            if (match_len = has_terminal?("..", false, index))
+              r8 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+              @index += match_len
+            else
+              terminal_parse_failure('".."')
+              r8 = nil
+            end
+            s6 << r8
+            if r8
+              r9 = _nt_indicator
+              s6 << r9
+              if r9
+                if (match_len = has_terminal?("?", false, index))
+                  r10 = true
+                  @index += match_len
+                else
+                  terminal_parse_failure('"?"')
+                  r10 = nil
+                end
+                s6 << r10
+              end
+            end
+          end
+          if s6.last
+            r6 = instantiate_node(IndividualIndicatorPresenceTest,input, i6...index, s6)
+            r6.extend(Indicative1)
+          else
+            @index = i6
+            r6 = nil
+          end
+          if r6
+            r6 = SyntaxNode.new(input, (index-1)...index) if r6 == true
+            r0 = r6
+          else
+            @index = i0
+            r0 = nil
+          end
         end
 
         node_cache[:indicative][start_index] = r0
-
-        r0
-      end
-
-      module IndividualIndicative0
-        def actor
-          elements[0]
-        end
-
-        def indicator
-          elements[2]
-        end
-
-      end
-
-      def _nt_individual_indicative
-        start_index = index
-        if node_cache[:individual_indicative].has_key?(index)
-          cached = node_cache[:individual_indicative][index]
-          if cached
-            node_cache[:individual_indicative][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
-            @index = cached.interval.end
-          end
-          return cached
-        end
-
-        i0, s0 = index, []
-        r1 = _nt_actor
-        s0 << r1
-        if r1
-          if (match_len = has_terminal?("..", false, index))
-            r2 = instantiate_node(SyntaxNode,input, index...(index + match_len))
-            @index += match_len
-          else
-            terminal_parse_failure('".."')
-            r2 = nil
-          end
-          s0 << r2
-          if r2
-            r3 = _nt_indicator
-            s0 << r3
-            if r3
-              if (match_len = has_terminal?("?", false, index))
-                r4 = true
-                @index += match_len
-              else
-                terminal_parse_failure('"?"')
-                r4 = nil
-              end
-              s0 << r4
-            end
-          end
-        end
-        if s0.last
-          r0 = instantiate_node(IndividualIndicatorPresenceTest,input, i0...index, s0)
-          r0.extend(IndividualIndicative0)
-        else
-          @index = i0
-          r0 = nil
-        end
-
-        node_cache[:individual_indicative][start_index] = r0
 
         r0
       end
@@ -2894,53 +2930,47 @@ module Procedo
             r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
             r0 = r2
           else
-            r3 = _nt_individual_indicative
+            r3 = _nt_presence
             if r3
               r3 = SyntaxNode.new(input, (index-1)...index) if r3 == true
               r0 = r3
             else
-              r4 = _nt_variable_presence
+              i4, s4 = index, []
+              if (match_len = has_terminal?("(", false, index))
+                r5 = true
+                @index += match_len
+              else
+                terminal_parse_failure('"("')
+                r5 = nil
+              end
+              s4 << r5
+              if r5
+                r6 = _nt_boolean_expression
+                s4 << r6
+                if r6
+                  if (match_len = has_terminal?(")", false, index))
+                    r7 = true
+                    @index += match_len
+                  else
+                    terminal_parse_failure('")"')
+                    r7 = nil
+                  end
+                  s4 << r7
+                end
+              end
+              if s4.last
+                r4 = instantiate_node(BooleanExpression,input, i4...index, s4)
+                r4.extend(NegatedTest0)
+              else
+                @index = i4
+                r4 = nil
+              end
               if r4
                 r4 = SyntaxNode.new(input, (index-1)...index) if r4 == true
                 r0 = r4
               else
-                i5, s5 = index, []
-                if (match_len = has_terminal?("(", false, index))
-                  r6 = true
-                  @index += match_len
-                else
-                  terminal_parse_failure('"("')
-                  r6 = nil
-                end
-                s5 << r6
-                if r6
-                  r7 = _nt_boolean_expression
-                  s5 << r7
-                  if r7
-                    if (match_len = has_terminal?(")", false, index))
-                      r8 = true
-                      @index += match_len
-                    else
-                      terminal_parse_failure('")"')
-                      r8 = nil
-                    end
-                    s5 << r8
-                  end
-                end
-                if s5.last
-                  r5 = instantiate_node(BooleanExpression,input, i5...index, s5)
-                  r5.extend(NegatedTest0)
-                else
-                  @index = i5
-                  r5 = nil
-                end
-                if r5
-                  r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
-                  r0 = r5
-                else
-                  @index = i0
-                  r0 = nil
-                end
+                @index = i0
+                r0 = nil
               end
             end
           end
