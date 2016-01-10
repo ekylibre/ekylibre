@@ -64,6 +64,14 @@ module Procedo
         @handlers.values
       end
 
+      def attributes
+        @attributes.values
+      end
+
+      def readings
+        @readings.values
+      end
+
       # Returns reflection name for an intervention object
       def reflection_name
         @type.to_s.pluralize.to_sym

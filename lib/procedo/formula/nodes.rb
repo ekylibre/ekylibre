@@ -33,12 +33,10 @@ module Procedo
       class WholeReading < Reading; end
       class FunctionCall < Base; end
       class FunctionName < Base; end
-      class OtherArgument < Base; end
+      class EnvironmentVariable < Base; end
       class Variable < Base; end
       class Indicator < Base; end
       class Unit < Base; end
-      class Self < Base; end
-      class Value < Base; end
       class Numeric < Base; end
       class Symbol < Base; end
     end

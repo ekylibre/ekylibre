@@ -31,9 +31,9 @@ module Procedo
           rh = reference.handler(handler)
           fail 'Invalid handler: ' + handler.inspect unless rh
           unless usable_handler?(rh)
-            fail 'Unusable handler: ' + rh.name.inspect
-            # rh = reference.handlers.detect { |h| usable_handler?(h) }
-            # handler = rh.name if rh
+            # fail 'Unusable handler: ' + rh.name.inspect
+            rh = reference.handlers.detect { |h| usable_handler?(h) }
+            handler = rh.name if rh
           end
           @quantity_handler = handler
           return unless @quantity_population
@@ -65,13 +65,13 @@ module Procedo
 
         def compute_value
           ref = quantity_handler_reference
-          env = { self: product, value: quantity_population }
+          env = { self: self, product: product, population: quantity_population, value: quantity_population }
           intervention.interpret(ref.backward_tree, env).round(4)
         end
 
         def compute_population
           ref = quantity_handler_reference
-          env = { self: product, value: quantity_value }
+          env = { self: self, product: product, value: quantity_value }
           intervention.interpret(ref.forward_tree, env).round(4)
         end
 

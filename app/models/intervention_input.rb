@@ -59,7 +59,6 @@ class InterventionInput < InterventionProductParameter
 
   before_validation do
     self.variant = product.variant if product
-    # self.quantity_population = reference.convert_to_population(self.quantity_handler, self.quantity)
   end
 
   after_save do

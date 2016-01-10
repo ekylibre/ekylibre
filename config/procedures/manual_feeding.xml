@@ -5,21 +5,21 @@
       <target name="herd"   filter="is animal_group and derives from bos" default-actor="storage"/>
       <input  name="silage" filter="is preparation and can feed(bos)">
         <handler indicator="net_mass" unit="ton"
-                 if="SELF..net_mass? and SELF..net_mass != 0"
-                 backward="VALUE * SELF..net_mass(ton)"
-                 forward="VALUE / SELF..net_mass(ton)"/>
+                 if="PRODUCT..net_mass? and PRODUCT..net_mass != 0"
+                 backward="VALUE * PRODUCT..net_mass(ton)"
+                 forward="VALUE / PRODUCT..net_mass(ton)"/>
         <handler name="food_mass_per_animal" indicator="net_mass" unit="kilogram"
-                 if="members_count(herd) > 0 and SELF..net_mass? and SELF..net_mass != 0"
-                 backward="VALUE * (SELF..net_mass(kilogram) / members_count(herd))"
-                 forward="VALUE * (members_count(herd) / SELF..net_mass(kilogram))"/>
+                 if="members_count(herd) > 0 and PRODUCT..net_mass? and PRODUCT..net_mass != 0"
+                 backward="VALUE * (PRODUCT..net_mass(kilogram) / members_count(herd))"
+                 forward="VALUE * (members_count(herd) / PRODUCT..net_mass(kilogram))"/>
         <handler indicator="net_volume" unit="cubic_meter"
-                 if="SELF..net_volume? and SELF..net_volume != 0"
-                 backward="VALUE * SELF..net_volume(cubic_meter)"
-                 forward="VALUE / SELF..net_volume(cubic_meter)"/>
+                 if="PRODUCT..net_volume? and PRODUCT..net_volume != 0"
+                 backward="VALUE * PRODUCT..net_volume(cubic_meter)"
+                 forward="VALUE / PRODUCT..net_volume(cubic_meter)"/>
         <handler name="dry_matter_mass" indicator="dry_matter_rate" unit="mass_percent"
-                 if="SELF..net_mass? and SELF..net_mass != 0 and SELF.dry_matter_rate?"
-                 backward="VALUE * (SELF..net_mass(ton) * SELF.dry_matter_rate(mass_percent) / 100)"
-                 forward="VALUE / (SELF..net_mass(ton) * SELF.dry_matter_rate(mass_percent) / 100)"/>
+                 if="PRODUCT..net_mass? and PRODUCT..net_mass != 0 and PRODUCT.dry_matter_rate?"
+                 backward="VALUE * (PRODUCT..net_mass(ton) * PRODUCT.dry_matter_rate(mass_percent) / 100)"
+                 forward="VALUE / (PRODUCT..net_mass(ton) * PRODUCT.dry_matter_rate(mass_percent) / 100)"/>
       </input>
       <doer name="caregiver" filter="can administer_care(animal) and can move"/>
     </parameters>

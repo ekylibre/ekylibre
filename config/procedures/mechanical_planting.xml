@@ -13,7 +13,7 @@
       <parameter name="cultivation" type="output" variety="derivative-of: plants" filter="is plant" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" default-shape=":land_parcel" default-variant="production">
         <handler indicator="shape">
           <converter to="shape" forward="intersection(VALUE, land_parcel.shape)" backward="VALUE"/>
-          <converter to="population" forward="area(VALUE) / SELF..net_surface_area(square_meter)"/>
+          <converter to="population" forward="area(VALUE) / PRODUCT..net_surface_area(square_meter)"/>
         </handler>
       </parameter>
     </parameters>

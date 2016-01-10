@@ -17,9 +17,9 @@
       </input>
       <input name="wire_fence" filter="is wire and can enclose">
         <handler indicator="length" unit="meter"
-                 if="SELF..length?"
-                 backward="(VALUE * SELF..length(meter))"
-                 forward="(VALUE / SELF..length(meter))"/>
+                 if="PRODUCT..length?"
+                 backward="(VALUE * PRODUCT..length(meter))"
+                 forward="(VALUE / PRODUCT..length(meter))"/>
       </input>
     </parameters>
   </procedure>

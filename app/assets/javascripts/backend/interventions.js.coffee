@@ -31,6 +31,11 @@
                 else
                   console.log "Updates ##{subprefix} with: ", value
                   element.selector('value', value)
+            else if element.is(":ui-mapeditor")
+              element.mapeditor "show", value
+              element.mapeditor "edit", value
+              try
+                element.mapeditor "view", "edit"
             else
               valueType = typeof value
               update = true
@@ -70,6 +75,7 @@
       if computing.prop('state') isnt 'waiting'
         $.ajax
           url: computing.data('procedure')
+          type: "PATCH"
           data: form.serialize()
           beforeSend: ->
             computing.prop 'state', 'waiting'
@@ -89,7 +95,7 @@
 
   ##############################################################################
   # Triggers
-  $(document).on 'keyup mapchange', '*[data-variable-handler]', ->
+  $(document).on 'keyup mapchange', '*[data-intervention-updater]', ->
     $(this).each ->
       E.interventions.refresh $(this)
 

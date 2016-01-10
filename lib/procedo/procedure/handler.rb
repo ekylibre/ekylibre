@@ -6,30 +6,10 @@ module Procedo
     class Handler < Procedo::Procedure::Field
       TYPES = [:indicator, :population]
 
-      attr_reader :unit, :indicator, :parameter, :condition_tree, :backward_tree, :forward_tree, :widget
+      code_trees :condition, root: 'boolean_expression'
+      code_trees :forward, :backward
 
-      delegate :parse!, :count_variables, to: :class
-
-      class << self
-        def parse!(code, options = {})
-          return Procedo::Formula.parse(code.to_s, options)
-        rescue Procedo::Formula::SyntaxError => e
-          raise (options[:message] || "Syntax error in #{code.inspect}.") + ' ' + e.message + "\n" +
-            code + "\n" + ('━' * e.failure_index) + '┛'
-        end
-
-        def count_variables(node, name)
-          if (node.is_a?(Procedo::Formula::Language::Self) && name == :self) ||
-             (node.is_a?(Procedo::Formula::Language::Variable) && name.to_s == node.text_value)
-            return 1
-          end
-          return 0 unless node.elements
-          node.elements.each_with_object(0) do |child, count|
-            count += count_variables(child, name)
-            count
-          end
-        end
-      end
+      attr_reader :unit, :indicator, :parameter, :widget
 
       def initialize(parameter, name, options = {})
         super(parameter, name, options)
@@ -42,12 +22,12 @@ module Procedo
           self.unit_name = options[:unit] if self.measure?
         elsif population?
           options[:forward] = 'VALUE'
-          options[:backward] = 'VALUE'
-          options[:if] ||= 'SELF?'
+          options[:backward] = 'POPULATION'
+          # options[:if] ||= 'PRODUCT?'
         end
-        self.condition = options[:if] unless options[:if].blank?
-        self.forward = options[:forward] unless options[:forward].blank?
-        self.backward = options[:backward] unless options[:backward].blank?
+        self.condition = options[:if]
+        self.forward = options[:forward]
+        self.backward = options[:backward]
         # Define widget of handler (or parameter...)
         @widget = (options[:widget] || (datatype == :geometry ? :map : :number)).to_sym
       end
@@ -112,40 +92,6 @@ module Procedo
       def dimension
         Nomen::Dimension.find(@unit.dimension)
       end
-
-      def condition=(expr)
-        @condition_tree = parse!(expr.to_s, root: 'boolean_expression', message: "Syntax error on handler (#{procedure.name}/#{@parameter.name}##{@name}) conditional test (if).")
-      end
-
-      def forward=(expr)
-        @forward_tree = parse!(expr, message: "Syntax error on handler (#{procedure.name}/#{@parameter.name}##{@name}) forward formula.")
-      end
-
-      def backward=(expr)
-        @backward_tree = parse!(expr, message: "Syntax error on handler (#{procedure.name}/#{@parameter.name}##{@name}) backward formula.")
-      end
-
-      def condition?
-        @condition_tree.present?
-      end
-
-      def forward?
-        @forward_tree.present?
-      end
-
-      def backward?
-        @backward_tree.present?
-      end
-
-      # # Returns the unique name of an handler inside a given procedure
-      # def unique_name
-      #   "#{@parameter.name}-#{name}"
-      # end
-
-      # # Unique identifier for a given handler
-      # def uid
-      #   "#{procedure.name}-#{unique_name}"
-      # end
 
       # Returns other handlers in the current parameter scope
       def others

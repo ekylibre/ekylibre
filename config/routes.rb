@@ -473,7 +473,7 @@ Rails.application.routes.draw do
 
     resources :interventions, concerns: [:list, :unroll] do
       collection do
-        get :compute
+        patch :compute
       end
       member do
         post :run

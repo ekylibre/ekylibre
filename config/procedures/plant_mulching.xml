@@ -4,13 +4,13 @@
     <parameters>
       <input name="plastic" filter="is preparation and can wrap(cultivable_zone)">
         <handler indicator="net_length" unit="meter"
-                 if="SELF.net_length? and SELF.net_length != 0"
-                 backward="(VALUE / SELF.net_length(meter))"
-                 forward="(VALUE * SELF.net_length(meter))"/>
+                 if="PRODUCT.net_length? and PRODUCT.net_length != 0"
+                 backward="(VALUE / PRODUCT.net_length(meter))"
+                 forward="(VALUE * PRODUCT.net_length(meter))"/>
         <handler indicator="surface_area_percentage" unit="percent"
-                 if="land_parcel? and sum(land_parcel, :net_surface_area, :hectare) != 0 and SELF.net_length? and SELF.net_length != 0 and SELF.width? and SELF.width != 0"
-                 backward="(VALUE * SELF.net_length(meter) * SELF.width(meter)) / sum(land_parcel, :net_surface_area, :square_meter)"
-                 forward="(VALUE * sum(land_parcel, :net_surface_area, :square_meter)) / (SELF.net_length(meter) * SELF.width(meter))"/>
+                 if="land_parcel? and sum(land_parcel, :net_surface_area, :hectare) != 0 and PRODUCT.net_length? and PRODUCT.net_length != 0 and PRODUCT.width? and PRODUCT.width != 0"
+                 backward="(VALUE * PRODUCT.net_length(meter) * PRODUCT.width(meter)) / sum(land_parcel, :net_surface_area, :square_meter)"
+                 forward="(VALUE * sum(land_parcel, :net_surface_area, :square_meter)) / (PRODUCT.net_length(meter) * PRODUCT.width(meter))"/>
       </input>
       <parameter name="implanter" type="tool" filter="can seat(canvas_cover)"/>
       <parameter name="driver" type="doer" filter="can drive(tractor)"/>

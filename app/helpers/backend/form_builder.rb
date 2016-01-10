@@ -37,7 +37,9 @@ module Backend
       options = args.extract_options!
       reflection = find_association_reflection(association)
       fail "Association #{association.inspect} not found" unless reflection
-      ActiveSupport::Deprecation.warn "Nested association don't take code block anymore. Use partial '#{association.to_s.singularize}_fields' instead." if block_given?
+      if block_given?
+        ActiveSupport::Deprecation.warn "Nested association don't take code block anymore. Use partial '#{association.to_s.singularize}_fields' instead."
+      end
       # raise ArgumentError.new("Reflection #{reflection.name} must be a has_many") if reflection.macro != :has_many
       item = association.to_s.singularize
       options[:locals] ||= {}
@@ -47,7 +49,9 @@ module Backend
       html_options = { id: "#{association}-field", class: "nested-#{association} nested-association" }
       if reflection.macro == :has_many
         unless options[:new].is_a?(FalseClass)
-          html << @template.content_tag(:div, @template.link_to_add_association("labels.add_#{item}".t, self, association, 'data-no-turbolink' => true, render_options: { locals: options[:locals] }, class: "nested-add add-#{item}"), class: 'links')
+          html << @template.content_tag(:div, class: 'links') do
+            @template.link_to_add_association("labels.add_#{item}".t, self, association, 'data-no-turbolink' => true, render_options: { locals: options[:locals] }, class: "nested-add add-#{item}")
+          end
         end
         if options[:minimum]
           html_options[:data] ||= {}

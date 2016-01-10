@@ -28,27 +28,24 @@ module Procedo
       end
 
       rule primary
-        value / numeric / function_call / reading / "(" space? expression space? ")" <Expression>
+        numeric / reading / object / "(" space? expression space? ")" <Expression>
       end
 
       rule argument
-        value / actor / numeric / symbol / function_call / reading / variable / expression
+        numeric / symbol / reading / object / variable / expression
+      end
+
+      rule object
+        environment_variable / function_call
       end
 
       rule reading
-        individual_reading / whole_reading
+          object ".." indicator options:("(" unit ")")? <IndividualReading>
+        / object "."  indicator options:("(" unit ")")? <WholeReading>
       end
 
-      rule individual_reading
-        actor ".." indicator options:("(" unit ")")? <IndividualReading>
-      end
-
-      rule whole_reading
-        actor "." indicator options:("(" unit ")")? <WholeReading>
-      end
-
-      rule actor
-        self
+      rule environment_variable
+        [A-Z] [A-Z0-9]* ("_" [A-Z0-9]+)* <EnvironmentVariable>
       end
 
       rule variable
@@ -81,14 +78,6 @@ module Procedo
 
       rule space
         [\s\n]+
-      end
-
-      rule self
-        "SELF" <Self>
-      end
-
-      rule value
-        "VALUE" <Value>
       end
 
       ############################################################################
@@ -125,13 +114,13 @@ module Procedo
       end
 
       rule presence
-          actor "?"    <ActorPresenceTest>
+          object "?"  <ActorPresenceTest>
         / variable "?" <VariablePresenceTest>
       end
 
       rule indicative
-          actor "."   indicator "?" <IndicatorPresenceTest>
-        / actor ".."  indicator "?" <IndividualIndicatorPresenceTest>
+          object "."   indicator "?" <IndicatorPresenceTest>
+        / object ".."  indicator "?" <IndividualIndicatorPresenceTest>
       end
 
       rule negative

@@ -16,10 +16,21 @@ module Procedo
             unless parameter.is_a?(Procedo::Engine::Intervention::ProductParameter)
               fail 'Invalid parameter. Only product_parameter wanted. Got: ' + parameter.class.name
             end
-            parameter.get(indicator.name)
+            (parameter.product ? parameter.product.get(indicator.name) : nil)
           end
           return 0.0 if list.empty?
           list.compact.sum.to_d(unit ? unit : indicator.unit)
+        end
+
+        def sum_working_zone_areas(set, unit = nil)
+          list = set.map do |parameter|
+            unless parameter.is_a?(Procedo::Engine::Intervention::ProductParameter)
+              fail 'Invalid parameter. Only product_parameter wanted. Got: ' + parameter.class.name
+            end
+            parameter.working_zone ? parameter.working_zone.area : nil
+          end
+          return 0.0 if list.empty?
+          list.compact.sum.to_d(unit || :square_meter)
         end
 
         def area(shape)

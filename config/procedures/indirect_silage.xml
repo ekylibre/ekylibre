@@ -6,8 +6,8 @@
       <parameter name="forager_driver" type="doer" filter="can drive(forager)"/>
       <parameter name="straw_to_bunch" type="input" filter="is straw and derives from poaceae"/>
       <parameter name="silage" type="output" default-name="{{variant}} {{birth_year}} ({{container}})">
-        <handler indicator="net_mass" unit="ton" to="population" backward="VALUE * SELF..net_mass(ton)" forward="VALUE / SELF..net_mass(ton)"/>
-        <handler indicator="net_volume" unit="cubic_meter" to="population" backward="VALUE * SELF..net_volume(cubic_meter)" forward="VALUE / SELF..net_volume(cubic_meter)"/>
+        <handler indicator="net_mass" unit="ton" to="population" backward="VALUE * PRODUCT..net_mass(ton)" forward="VALUE / PRODUCT..net_mass(ton)"/>
+        <handler indicator="net_volume" unit="cubic_meter" to="population" backward="VALUE * PRODUCT..net_volume(cubic_meter)" forward="VALUE / PRODUCT..net_volume(cubic_meter)"/>
       </parameter>
     </parameters>
   </procedure>

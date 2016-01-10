@@ -163,11 +163,10 @@ module Procedo
       # Parse <attribute> of parameter
       def parse_attribute(parameter, element)
         name = element.attr('name')
-        options = %w(default-value).each_with_object({}) do |attr, hash|
-          hash[attr.underscore.to_sym] = element.attr(attr) if element.has_attribute?(attr)
+        options = %w(default-value value).each_with_object({}) do |attr, hash|
+          hash[attr.to_s.underscore.to_sym] = element.attr(attr) if element.has_attribute?(attr)
           hash
         end
-        options = {}
         attribute = parameter.add_attribute(name, options)
         # TODO: Manage computations
       end

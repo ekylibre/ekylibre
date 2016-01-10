@@ -7,107 +7,110 @@ module Procedo
 
       def initialize(intervention, env = {})
         @intervention = intervention
-        @self_value = env[:self]
-        @value = env[:value]
+        @env = env.each_with_object({}) do |(k, v), h|
+          h[k.to_s.upcase] = v
+          h
+        end
       end
 
-      def interpret(object)
-        @value_calls_count = 0
+      def interpret(node)
         @variables = []
-        run(object)
+        run(node)
       end
 
       protected
 
-      def run(object)
-        if object.is_a?(Procedo::Formula::Language::Expression)
-          run(object.expression)
-        elsif object.is_a?(Procedo::Formula::Language::BooleanExpression)
-          run(object.boolean_expression)
-        elsif object.is_a?(Procedo::Formula::Language::Condition)
-          run(object.test) ? run(object.if_true) : run(object.if_false)
-        elsif object.is_a?(Procedo::Formula::Language::Conjunction)
-          run(object.head) && run(object.operand)
-        elsif object.is_a?(Procedo::Formula::Language::ExclusiveDisjunction)
-          run(object.head) ^ run(object.operand)
-        elsif object.is_a?(Procedo::Formula::Language::Disjunction)
-          run(object.head) || run(object.operand)
-        elsif object.is_a?(Procedo::Formula::Language::Multiplication)
-          run(object.head) * run(object.operand)
-        elsif object.is_a?(Procedo::Formula::Language::Division)
-          run(object.head) / run(object.operand)
-        elsif object.is_a?(Procedo::Formula::Language::Addition)
-          run(object.head) + run(object.operand)
-        elsif object.is_a?(Procedo::Formula::Language::Substraction)
-          run(object.head) - run(object.operand)
-        elsif object.is_a?(Procedo::Formula::Language::Comparison)
-          case object.operator.text_value
-          when '>' then run(object.head) > run(object.operand)
-          when '<' then run(object.head) < run(object.operand)
-          when '>=' then run(object.head) >= run(object.operand)
-          when '<=' then run(object.head) <= run(object.operand)
-          when '==' then run(object.head) == run(object.operand)
-          when '!=' then run(object.head) != run(object.operand)
+      def run(node)
+        if node.is_a?(Procedo::Formula::Language::Expression)
+          run(node.expression)
+        elsif node.is_a?(Procedo::Formula::Language::BooleanExpression)
+          run(node.boolean_expression)
+        elsif node.is_a?(Procedo::Formula::Language::Condition)
+          run(node.test) ? run(node.if_true) : run(node.if_false)
+        elsif node.is_a?(Procedo::Formula::Language::Conjunction)
+          run(node.head) && run(node.operand)
+        elsif node.is_a?(Procedo::Formula::Language::ExclusiveDisjunction)
+          run(node.head) ^ run(node.operand)
+        elsif node.is_a?(Procedo::Formula::Language::Disjunction)
+          run(node.head) || run(node.operand)
+        elsif node.is_a?(Procedo::Formula::Language::Multiplication)
+          run(node.head) * run(node.operand)
+        elsif node.is_a?(Procedo::Formula::Language::Division)
+          run(node.head) / run(node.operand)
+        elsif node.is_a?(Procedo::Formula::Language::Addition)
+          run(node.head) + run(node.operand)
+        elsif node.is_a?(Procedo::Formula::Language::Substraction)
+          run(node.head) - run(node.operand)
+        elsif node.is_a?(Procedo::Formula::Language::Comparison)
+          case node.operator.text_value
+          when '>' then run(node.head) > run(node.operand)
+          when '<' then run(node.head) < run(node.operand)
+          when '>=' then run(node.head) >= run(node.operand)
+          when '<=' then run(node.head) <= run(node.operand)
+          when '==' then run(node.head) == run(node.operand)
+          when '!=' then run(node.head) != run(node.operand)
           else
-            fail 'Invalid operator: ' + object.operator.text_value
+            fail 'Invalid operator: ' + node.operator.text_value
           end
-        elsif object.is_a?(Procedo::Formula::Language::NegativeTest)
-          !run(object.negated_test)
-        elsif object.is_a?(Procedo::Formula::Language::FunctionCall)
+        elsif node.is_a?(Procedo::Formula::Language::NegativeTest)
+          !run(node.negated_test)
+        elsif node.is_a?(Procedo::Formula::Language::FunctionCall)
           arguments = []
-          args = object.args
+          args = node.args
           if args
             arguments << run(args.first_arg)
             if args.other_args
-              object.args.other_args.elements.each do |other_arg|
+              node.args.other_args.elements.each do |other_arg|
                 arguments << run(other_arg.argument)
               end
             end
           end
-          Procedo::Engine::Functions.send(object.function_name.text_value.to_sym, *arguments)
-        elsif object.is_a?(Procedo::Formula::Language::Symbol)
-          object.text_value[1..-1].to_sym
-        elsif object.is_a?(Procedo::Formula::Language::Value)
-          @value_calls_count += 1
-          @value
-        elsif object.is_a?(Procedo::Formula::Language::Self)
-          @self_value
-        elsif object.is_a?(Procedo::Formula::Language::Variable)
-          @variables << object.text_value.to_sym
-          @intervention.parameters_of_name(object.text_value)
-        elsif object.is_a?(Procedo::Formula::Language::Numeric)
-          object.text_value.to_d
-        elsif object.is_a?(Procedo::Formula::Language::ActorPresenceTest)
-          run(object.actor).present?
-        elsif object.is_a?(Procedo::Formula::Language::VariablePresenceTest)
-          run(object.variable).any?
-        elsif object.is_a?(Procedo::Formula::Language::IndicatorPresenceTest)
-          indicator = Nomen::Indicator.find!(object.indicator.text_value)
-          product = run(object.actor)
-          product.has_indicator?(indicator.name) && (indicator.datatype == :measure ? product.get(indicator.name).to_f != 0 : product.get(indicator.name).present?)
-        elsif object.is_a?(Procedo::Formula::Language::IndividualIndicatorPresenceTest)
-          indicator = Nomen::Indicator.find!(object.indicator.text_value)
-          product = run(object.actor)
-          product.frozen_indicators.include?(indicator.name) && (indicator.datatype == :measure ? product.get(indicator.name).to_f != 0 : product.get(indicator.name).present?)
-        elsif object.is_a?(Procedo::Formula::Language::Reading)
+          Procedo::Engine::Functions.send(node.function_name.text_value.to_sym, *arguments)
+        elsif node.is_a?(Procedo::Formula::Language::Symbol)
+          node.text_value[1..-1].to_sym
+        elsif node.is_a?(Procedo::Formula::Language::EnvironmentVariable)
+          @env[node.text_value]
+        elsif node.is_a?(Procedo::Formula::Language::Variable)
+          @variables << node.text_value.to_sym
+          @intervention.parameters_of_name(node.text_value)
+        elsif node.is_a?(Procedo::Formula::Language::Numeric)
+          node.text_value.to_d
+        elsif node.is_a?(Procedo::Formula::Language::ActorPresenceTest)
+          run(node.object).present?
+        elsif node.is_a?(Procedo::Formula::Language::VariablePresenceTest)
+          run(node.variable).any?
+        elsif node.is_a?(Procedo::Formula::Language::IndicatorPresenceTest)
+          indicator = Nomen::Indicator.find!(node.indicator.text_value)
+          product = run(node.object)
+          fail 'Invalid product. Got: ' + product.inspect unless product.is_a?(Product)
+          product.has_indicator?(indicator.name.to_sym) && (indicator.datatype == :measure ? product.get(indicator.name).to_f != 0 : product.get(indicator.name).present?)
+        elsif node.is_a?(Procedo::Formula::Language::IndividualIndicatorPresenceTest)
+          indicator = Nomen::Indicator.find!(node.indicator.text_value)
+          product = run(node.object)
+          fail 'Invalid product. Got: ' + product.inspect unless product.is_a?(Product)
+          product.frozen_indicators.include?(indicator.name.to_sym) && (indicator.datatype == :measure ? product.get(indicator.name).to_f != 0 : product.get(indicator.name).present?)
+        elsif node.is_a?(Procedo::Formula::Language::Reading)
           unit = nil
-          if object.options && object.options.respond_to?(:unit)
-            unless unit = Nomen::Unit[object.options.unit.text_value]
-              fail "Valid unit expected in #{object.inspect}"
+          if node.options && node.options.respond_to?(:unit)
+            unless unit = Nomen::Unit[node.options.unit.text_value]
+              fail "Valid unit expected in #{node.inspect}"
             end
           end
-          unless indicator = Nomen::Indicator[object.indicator.text_value]
-            fail "Invalid indicator: #{object.indicator.text_value.inspect}"
+          unless indicator = Nomen::Indicator[node.indicator.text_value]
+            fail 'Invalid indicator: ' + node.indicator.text_value.inspect
           end
-          prodi = run(object.actor)
-          if object.is_a?(Procedo::Formula::Language::IndividualReading)
-            prodi = prodi.variant
+          product = run(node.object)
+          fail 'Invalid product. Got: ' + product.inspect unless product.is_a?(Product)
+          if node.is_a?(Procedo::Formula::Language::IndividualReading)
+            product = product.variant
           end
-          prodi.get(indicator.name.to_sym).to_f(unit ? unit.name : nil)
-        elsif object.nil?
+          value = product.get(indicator.name.to_sym)
+          value = value.to_f(unit.name) if unit
+          value
+        elsif node.nil?
           null
         else
-          fail 'Dont known how to manage: ' + object.class.name
+          fail 'Dont known how to manage node: ' + node.class.name
         end
       end
     end

@@ -57,19 +57,20 @@ class InterventionOutput < InterventionProductParameter
   validates :variant, presence: true
 
   after_save do
-    # if variant
-    #   output = product
-    #   output = variant.products.new unless output
-    #   # output.name = ''
-    #   output.save!
+    if variant
+      # output = product
+      # output ||= variant.products.new unless output
+      # # output.name = ''
+      # output.attributes = product_attributes
+      # output.save!
 
-    #   movement = product_movement
-    #   movement = output.movements.build unless movement
-    #   movement.delta = quantity_population
-    #   movement.started_at = intervention.started_at
+      # movement = product_movement
+      # movement = output.movements.build unless movement
+      # movement.delta = quantity_population
+      # movement.started_at = intervention.started_at
 
-    #   update_columns(product_id: output.id, movement_id: movement.id)
-    # end
+      # update_columns(product_id: output.id, movement_id: movement.id)
+    end
   end
 
   def earn_amount_computation

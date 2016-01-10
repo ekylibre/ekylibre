@@ -93,7 +93,7 @@ class InterventionProductParameter < InterventionParameter
     self.intervention = group.intervention if group && !intervention
     if reference
       if reference.handled? && quantity_handler?
-        handler = reference[quantity_handler]
+        handler = reference.handler(quantity_handler)
         if handler
           self.quantity_indicator_name = handler.indicator.name
           self.quantity_unit_name = handler.unit.name
@@ -114,7 +114,7 @@ class InterventionProductParameter < InterventionParameter
     if intervention && intervention.procedure
       if reference
         if reference.handled? && quantity_handler?
-          errors.add(:quantity_handler, :invalid) unless reference[quantity_handler]
+          errors.add(:quantity_handler, :invalid) unless reference.handler(quantity_handler)
         end
       else
         errors.add(:reference_name, :invalid)

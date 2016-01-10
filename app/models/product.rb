@@ -235,7 +235,8 @@ class Product < Ekylibre::Record::Base
   delegate :unit_name, to: :variant
   delegate :able_to_each?, :able_to?, :of_expression, :subscribing?,
            :deliverable?, :asset_account, :product_account, :charge_account,
-           :stock_account, :population_counting_unitary?, to: :nature
+           :stock_account, :population_counting, :population_counting_unitary?,
+           to: :nature
   delegate :has_indicator?, :individual_indicators_list, :whole_indicators_list,
            :abilities, :abilities_list, :indicators, :indicators_list,
            :frozen_indicators, :frozen_indicators_list, :variable_indicators,

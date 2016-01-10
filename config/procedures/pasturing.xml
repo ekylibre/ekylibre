@@ -11,21 +11,21 @@
       </parameter>
       <parameter name="grass" type="output" variety="grass" derivative-of="variety: cultivation" filter="is grass and derives from plant" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
         <handler indicator="net_mass" unit="ton"
-                 if="SELF..net_mass? and SELF..net_mass != 0"
-                 backward="VALUE * SELF..net_mass(ton)"
-                 forward="VALUE / SELF..net_mass(ton)"/>
+                 if="PRODUCT..net_mass? and PRODUCT..net_mass != 0"
+                 backward="VALUE * PRODUCT..net_mass(ton)"
+                 forward="VALUE / PRODUCT..net_mass(ton)"/>
         <handler name="food_mass_per_animal" indicator="net_mass" unit="kilogram"
-                 if="members_count(herd) > 0 and SELF..net_mass? and SELF..net_mass != 0"
-                 backward="VALUE * (SELF..net_mass(kilogram) / members_count(herd))"
-                 forward="VALUE * (members_count(herd) / SELF..net_mass(kilogram))"/>
+                 if="members_count(herd) > 0 and PRODUCT..net_mass? and PRODUCT..net_mass != 0"
+                 backward="VALUE * (PRODUCT..net_mass(kilogram) / members_count(herd))"
+                 forward="VALUE * (members_count(herd) / PRODUCT..net_mass(kilogram))"/>
         <handler indicator="net_volume" unit="cubic_meter"
-                 if="SELF..net_volume? and SELF..net_volume != 0"
-                 backward="VALUE * SELF..net_volume(cubic_meter)"
-                 forward="VALUE / SELF..net_volume(cubic_meter)"/>
+                 if="PRODUCT..net_volume? and PRODUCT..net_volume != 0"
+                 backward="VALUE * PRODUCT..net_volume(cubic_meter)"
+                 forward="VALUE / PRODUCT..net_volume(cubic_meter)"/>
         <handler name="dry_matter_mass_area_density" indicator="mass_area_density" unit="ton_per_hectare"
-                 if= "SELF..net_mass? and SELF..net_mass != 0 and sum(cultivation, :net_surface_area, :hectare) != 0"
-                 backward="(VALUE * SELF..net_mass(ton)) / sum(cultivation, :net_surface_area, :hectare)"
-                 forward="(VALUE * sum(cultivation, :net_surface_area, :hectare)) / SELF..net_mass(ton)"/>
+                 if= "PRODUCT..net_mass? and PRODUCT..net_mass != 0 and sum(cultivation, :net_surface_area, :hectare) != 0"
+                 backward="(VALUE * PRODUCT..net_mass(ton)) / sum(cultivation, :net_surface_area, :hectare)"
+                 forward="(VALUE * sum(cultivation, :net_surface_area, :hectare)) / PRODUCT..net_mass(ton)"/>
       </parameter>
     </parameters>
   </procedure>
