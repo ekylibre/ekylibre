@@ -5,8 +5,8 @@
       <parameter name="doer" type="doer" filter="is worker and can move"/>
       <parameter name="cultivation" type="target" filter="is plant" default-shape=":cultivation" default-actor="variant_localized_in_storage">
         <handler indicator="shape">
-          <converter to="shape" forward="intersection(value, cultivation.shape)" backward="value"/>
-          <converter to="population" forward="area(value) / cultivation..net_surface_area(square_meter)"/>
+          <converter to="shape" forward="intersection(VALUE, cultivation.shape)" backward="VALUE"/>
+          <converter to="population" forward="area(VALUE) / cultivation..net_surface_area(square_meter)"/>
         </handler>
       </parameter>
     </parameters>

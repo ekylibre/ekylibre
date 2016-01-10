@@ -5,11 +5,11 @@
       <parameter name="animal" type="target" filter="is animal"/>
       <parameter name="animal_medicine" type="input" filter="can care(animal)">
         <handler indicator="net_mass" unit="gram"
-                 if="self.net_mass(gram) > 0"
-                 backward="(value * self..net_mass(gram))" forward="(value / self..net_mass(gram))"/>
+                 if="SELF.net_mass(gram) > 0"
+                 backward="(VALUE * SELF..net_mass(gram))" forward="(VALUE / SELF..net_mass(gram))"/>
         <handler indicator="net_volume" unit="milliliter"
-                 if="self.net_volume(milliliter) > 0" to="population"
-                 backward="(value * self..net_volume(milliliter))" forward="(value / self..net_volume(milliliter))"/>
+                 if="SELF.net_volume(milliliter) > 0" to="population"
+                 backward="(VALUE * SELF..net_volume(milliliter))" forward="(VALUE / SELF..net_volume(milliliter))"/>
       </parameter>
       <parameter name="caregiver" type="doer" filter="can administer_care(animal)"/>
     </parameters>

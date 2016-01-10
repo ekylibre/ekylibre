@@ -5,39 +5,40 @@
       <input name="seeds" filter="is seed and derives from plant and can grow">
         <handler name="population"/>
         <handler indicator="net_mass" unit="kilogram"
-                 if="population_counting_is(self, :decimal) and self..net_mass?"
-                 backward="value * self..net_mass(kilogram)"
-                 forward="value / self..net_mass(kilogram)"/>
+                 if="population_counting_is(SELF, :decimal) and SELF..net_mass?"
+                 backward="VALUE * SELF..net_mass(kilogram)"
+                 forward="VALUE / SELF..net_mass(kilogram)"/>
         <handler indicator="mass_area_density" unit="kilogram_per_hectare"
-                 if="self..net_mass? and sum(land_parcel, :net_surface_area, :hectare) > 0"
-                 backward="(value * self..net_mass(kilogram)) / sum(land_parcel, :net_surface_area, :hectare)"
-                 forward="(value * sum(land_parcel, :net_surface_area, :hectare)) / self..net_mass(kilogram)"/>
+                 if="SELF..net_mass? and sum(land_parcel, :net_surface_area, :hectare) > 0"
+                 backward="(VALUE * SELF..net_mass(kilogram)) / sum(land_parcel, :net_surface_area, :hectare)"
+                 forward="(VALUE * sum(land_parcel, :net_surface_area, :hectare)) / SELF..net_mass(kilogram)"/>
         <handler indicator="grains_area_density" unit="unity_per_square_meter"
-                 if="self..net_mass? and sum(land_parcel, :net_surface_area, :hectare) > 0 and self.thousand_grains_mass?"
-                 backward="(((value * self..net_mass(gram)) / sum(land_parcel, :net_surface_area, :square_meter)) * 1000) / self.thousand_grains_mass(gram)"
-                 forward="(((value * self.thousand_grains_mass(gram)) / 1000) * sum(land_parcel, :net_surface_area, :square_meter)) / self..net_mass(gram)"/>
+                 if="SELF..net_mass? and sum(land_parcel, :net_surface_area, :hectare) > 0 and SELF.thousand_grains_mass?"
+                 backward="(((VALUE * SELF..net_mass(gram)) / sum(land_parcel, :net_surface_area, :square_meter)) * 1000) / SELF.thousand_grains_mass(gram)"
+                 forward="(((VALUE * SELF.thousand_grains_mass(gram)) / 1000) * sum(land_parcel, :net_surface_area, :square_meter)) / SELF..net_mass(gram)"/>
         <handler name="grains_area_density_in_thousand_per_hectare" indicator="grains_area_density" unit="thousand_per_hectare"
-                 if="self..net_mass? and sum(land_parcel, :net_surface_area, :hectare) > 0 and self.thousand_grains_mass?"
-                 backward="(value * self..net_mass(gram)) / (sum(land_parcel, :net_surface_area, :hectare) * self.thousand_grains_mass(gram))"
-                 forward="(value * self.thousand_grains_mass(gram) * sum(land_parcel, :net_surface_area, :hectare)) / self..net_mass(gram)"/>
+                 if="SELF..net_mass? and sum(land_parcel, :net_surface_area, :hectare) > 0 and SELF.thousand_grains_mass?"
+                 backward="(VALUE * SELF..net_mass(gram)) / (sum(land_parcel, :net_surface_area, :hectare) * SELF.thousand_grains_mass(gram))"
+                 forward="(VALUE * SELF.thousand_grains_mass(gram) * sum(land_parcel, :net_surface_area, :hectare)) / SELF..net_mass(gram)"/>
         <handler indicator="grains_count" unit="thousand"
-                 if="self..net_mass? and self.thousand_grains_mass?"
-                 backward="(value * self..net_mass(gram)) / self.thousand_grains_mass(gram)"
-                 forward="(value * self.thousand_grains_mass(gram)) / self..net_mass(gram)"/>
+                 if="SELF..net_mass? and SELF.thousand_grains_mass?"
+                 backward="(VALUE * SELF..net_mass(gram)) / SELF.thousand_grains_mass(gram)"
+                 forward="(VALUE * SELF.thousand_grains_mass(gram)) / SELF..net_mass(gram)"/>
       </input>
       <doer name="driver"  filter="can drive(equipment) and can move"/>
       <tool name="tractor" filter="can tow(equipment) and can move"/>
       <tool name="sower"   filter="can sow"/>
       <group name="zone">
-        <target name="land_parcel" filter="is land_parcel and has indicator shape" cardinality="1"/>
-        <output name="cultivation" variety="derivative-of: seeds" filter="is plant" cardinality="1">
+        <target name="land_parcel" filter="is land_parcel and has indicator shape" cardinality="1">
+          <attribute name="working_zone" default-value="SELF.shape"/>
+        </target>
+        <output name="cultivation" filter="is plant" cardinality="1">
           <attribute name="name" default-value="'{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})'"/>
           <!-- <attribute name="variety" default-value="derivative_of(first(seeds))"/> -->
-          <attribute name="shape" default-value="shape_union(land_parcel)">
-            <compute expr="area(value) / self..net_surface_area(square_meter)" to="population"/>
-            <compute expr="intersection(value, shape_union(land_parcel))" to="shape"/>
-          </attribute>
-          <attribute name="variant" filter="is plant"/>
+          <reading name="shape" default-value="shape_union(of_group(SELF, :land_parcel))">
+            <compute expr="area(VALUE) / SELF..net_surface_area(square_meter)" to="population"/>
+            <compute expr="intersection(VALUE, shape_union(land_parcel))" to="reading:shape"/>
+          </reading>
         </output>
       </group>
     </parameters>

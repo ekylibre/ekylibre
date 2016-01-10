@@ -4,8 +4,8 @@
     <parameters>
       <parameter name="land_parcel" type="target" filter="is land_parcel and has indicator shape" default-shape=":land_parcel" default-actor="storage">
         <handler indicator="shape">
-          <converter to="shape" forward="intersection(value, land_parcel.shape)" backward="value"/>
-          <converter to="population" forward="area(value) / land_parcel..net_surface_area(square_meter)"/>
+          <converter to="shape" forward="intersection(VALUE, land_parcel.shape)" backward="VALUE"/>
+          <converter to="population" forward="area(VALUE) / land_parcel..net_surface_area(square_meter)"/>
         </handler>
       </parameter>
       <parameter name="driver" type="doer" filter="can move and can drive(tractor)"/>

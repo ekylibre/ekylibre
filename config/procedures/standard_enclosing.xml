@@ -4,22 +4,22 @@
     <parameters>
       <parameter name="land_parcel" type="target" filter="is cultivable_zone" default-shape=":land_parcel" default-actor="storage">
         <handler indicator="shape">
-          <converter to="shape" forward="intersection(value, land_parcel.shape)" backward="value"/>
-          <converter to="population" forward="area(value) / land_parcel..net_surface_area(square_meter)"/>
+          <converter to="shape" forward="intersection(VALUE, land_parcel.shape)" backward="VALUE"/>
+          <converter to="population" forward="area(VALUE) / land_parcel..net_surface_area(square_meter)"/>
         </handler>
       </parameter>
       <parameter name="doer" type="doer" filter="is worker and can move"/>
       <input name="stakes" filter="is stake and can enclose">
         <handler indicator="stakes_count" unit="unity_per_hectare"
                  if="sum(land_parcel, :net_surface_area, :hectare) != 0"
-                 backward="(value / sum(land_parcel, :net_surface_area, :hectare))"
-                 forward="(value * sum(land_parcel, :net_surface_area, :hectare))"/>
+                 backward="(VALUE / sum(land_parcel, :net_surface_area, :hectare))"
+                 forward="(VALUE * sum(land_parcel, :net_surface_area, :hectare))"/>
       </input>
       <input name="wire_fence" filter="is wire and can enclose">
         <handler indicator="length" unit="meter"
-                 if="self..length?"
-                 backward="(value * self..length(meter))"
-                 forward="(value / self..length(meter))"/>
+                 if="SELF..length?"
+                 backward="(VALUE * SELF..length(meter))"
+                 forward="(VALUE / SELF..length(meter))"/>
       </input>
     </parameters>
   </procedure>

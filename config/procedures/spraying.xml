@@ -3,17 +3,17 @@
   <procedure name="spraying" categories="crop_protection" optional-actions="herbicide, fungicide, insecticide, growth_regulator, molluscicide, nematicide, acaricide, bactericide, rodenticide, talpicide, corvicide, game_repellent, virucide, desiccation, fireproofing">
     <parameters>
       <parameter name="plant_medicine" type="input" filter="is preparation and can care(plant)">
-        <handler indicator="net_mass" unit="kilogram" if="self.net_mass? and self.net_mass(kilogram) > 0" to="population" backward="value * self..net_mass(kilogram)" forward="value / self..net_mass(kilogram)"/>
-        <handler indicator="mass_area_density" unit="kilogram_per_hectare" if="self.net_mass? and self.net_mass(kilogram) > 0 and sum(land_parcel, :net_surface_area, :hectare) >= 0.1" to="population" backward="(value * self..net_mass(kilogram)) / sum(land_parcel, :net_surface_area, :hectare)" forward="(value * sum(land_parcel, :net_surface_area, :hectare)) / self..net_mass(kilogram)"/>
-        <handler indicator="volume_area_density" unit="liter_per_hectare" if="self.net_volume? and self.net_volume(liter) > 0 and sum(land_parcel, :net_surface_area, :hectare) >= 0.1" to="population" backward="(value * self..net_volume(liter)) / sum(land_parcel, :net_surface_area, :hectare)" forward="(value * sum(land_parcel, :net_surface_area, :hectare)) / self..net_volume(liter)"/>
+        <handler indicator="net_mass" unit="kilogram" if="SELF.net_mass? and SELF.net_mass(kilogram) > 0" to="population" backward="VALUE * SELF..net_mass(kilogram)" forward="VALUE / SELF..net_mass(kilogram)"/>
+        <handler indicator="mass_area_density" unit="kilogram_per_hectare" if="SELF.net_mass? and SELF.net_mass(kilogram) > 0 and sum(land_parcel, :net_surface_area, :hectare) >= 0.1" to="population" backward="(VALUE * SELF..net_mass(kilogram)) / sum(land_parcel, :net_surface_area, :hectare)" forward="(VALUE * sum(land_parcel, :net_surface_area, :hectare)) / SELF..net_mass(kilogram)"/>
+        <handler indicator="volume_area_density" unit="liter_per_hectare" if="SELF.net_volume? and SELF.net_volume(liter) > 0 and sum(land_parcel, :net_surface_area, :hectare) >= 0.1" to="population" backward="(VALUE * SELF..net_volume(liter)) / sum(land_parcel, :net_surface_area, :hectare)" forward="(VALUE * sum(land_parcel, :net_surface_area, :hectare)) / SELF..net_volume(liter)"/>
       </parameter>
       <parameter name="tractor" type="tool" filter="is equipment and can catch(sprayer)"/>
       <parameter name="sprayer" type="tool" filter="can spray"/>
       <parameter name="driver" type="doer" filter="can drive(tractor)"/>
       <parameter name="cultivation" type="target" filter="is plant" default-shape=":cultivation" default-actor="variant_localized_in_storage">
         <handler indicator="shape">
-          <converter to="shape" forward="intersection(value, cultivation.shape)" backward="value"/>
-          <converter to="population" forward="area(value) / cultivation..net_surface_area(square_meter)"/>
+          <converter to="shape" forward="intersection(VALUE, cultivation.shape)" backward="VALUE"/>
+          <converter to="population" forward="area(VALUE) / cultivation..net_surface_area(square_meter)"/>
         </handler>
       </parameter>
     </parameters>

@@ -6,14 +6,14 @@
       <parameter name="forager_driver" type="doer" filter="can move and can drive(forager)"/>
       <parameter name="cultivation" type="target" filter="is plant" default-actor="variant_localized_in_storage">
         <handler indicator="shape">
-          <converter to="shape" forward="intersection(value, cultivation.shape)" backward="value"/>
-          <converter to="population" forward="area(value) / cultivation..net_surface_area(square_meter)"/>
+          <converter to="shape" forward="intersection(VALUE, cultivation.shape)" backward="VALUE"/>
+          <converter to="population" forward="area(VALUE) / cultivation..net_surface_area(square_meter)"/>
         </handler>
       </parameter>
       <parameter name="silage" type="output" variety="silage" derivative-of="variety: cultivation" filter="is silage and derives from plant" default-name="{{variant}} {{birth_year}} ({{container}})">
-        <handler indicator="net_mass" unit="ton" to="population" backward="value * self..net_mass(ton)" forward="value / self..net_mass(ton)"/>
-        <handler indicator="net_volume" unit="cubic_meter" to="population" backward="value * self..net_volume(cubic_meter)" forward="value / self..net_volume(cubic_meter)"/>
-        <handler name="dry_matter_mass_area_density" indicator="mass_area_density" unit="ton_per_hectare" to="population" backward="(value * self..net_mass(ton)) / sum(cultivation, :net_surface_area, :hectare)" forward="(value * sum(cultivation, :net_surface_area, :hectare) / self..net_mass(ton))"/>
+        <handler indicator="net_mass" unit="ton" to="population" backward="VALUE * SELF..net_mass(ton)" forward="VALUE / SELF..net_mass(ton)"/>
+        <handler indicator="net_volume" unit="cubic_meter" to="population" backward="VALUE * SELF..net_volume(cubic_meter)" forward="VALUE / SELF..net_volume(cubic_meter)"/>
+        <handler name="dry_matter_mass_area_density" indicator="mass_area_density" unit="ton_per_hectare" to="population" backward="(VALUE * SELF..net_mass(ton)) / sum(cultivation, :net_surface_area, :hectare)" forward="(VALUE * sum(cultivation, :net_surface_area, :hectare) / SELF..net_mass(ton))"/>
       </parameter>
     </parameters>
   </procedure>

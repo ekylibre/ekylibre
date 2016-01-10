@@ -6,21 +6,21 @@
       <parameter name="wine_to_treat" type="target" filter="is wine" default-actor="first_localized_in: tank"/>
       <parameter name="oenological_intrant" type="input" filter="is matter and can chaptelise(wine)">
         <handler indicator="net_volume" unit="liter"
-                 if="self.net_volume? and self.net_volume(liter) > 0"
-                 backward="value * self..net_volume(liter)"
-                 forward="value / self..net_volume(liter)"/>
+                 if="SELF.net_volume? and SELF.net_volume(liter) > 0"
+                 backward="VALUE * SELF..net_volume(liter)"
+                 forward="VALUE / SELF..net_volume(liter)"/>
         <handler indicator="volume_density" unit="centiliter_per_hectoliter"
-                 if="self.net_volume? and self.net_volume(liter) > 0 and sum(wine_to_treat, :net_volume, :hectoliter) > 0"
-                 backward="(value * self..net_volume(centiliter)) / sum(wine_to_treat, :net_volume, :hectoliter)"
-                 forward="(value / self..net_volume(centiliter)) * sum(wine_to_treat, :net_volume, :hectoliter)"/>
+                 if="SELF.net_volume? and SELF.net_volume(liter) > 0 and sum(wine_to_treat, :net_volume, :hectoliter) > 0"
+                 backward="(VALUE * SELF..net_volume(centiliter)) / sum(wine_to_treat, :net_volume, :hectoliter)"
+                 forward="(VALUE / SELF..net_volume(centiliter)) * sum(wine_to_treat, :net_volume, :hectoliter)"/>
         <handler indicator="net_mass" unit="gram"
-                 if="self.net_mass? and self.net_mass(gram) > 0"
-                 backward="value * self..net_mass(gram)"
-                 forward="value / self..net_mass(gram)"/>
+                 if="SELF.net_mass? and SELF.net_mass(gram) > 0"
+                 backward="VALUE * SELF..net_mass(gram)"
+                 forward="VALUE / SELF..net_mass(gram)"/>
         <handler indicator="mass_volume_density" unit="gram_per_hectoliter"
-                 if="self.net_mass? and self.net_mass(gram) > 0 and sum(wine_to_treat, :net_volume, :hectoliter) > 0"
-                 backward="(value * self..net_mass(gram)) / sum(wine_to_treat, :net_volume, :hectoliter)"
-                 forward="(value / self..net_mass(gram)) * sum(wine_to_treat, :net_volume, :hectoliter)"/>
+                 if="SELF.net_mass? and SELF.net_mass(gram) > 0 and sum(wine_to_treat, :net_volume, :hectoliter) > 0"
+                 backward="(VALUE * SELF..net_mass(gram)) / sum(wine_to_treat, :net_volume, :hectoliter)"
+                 forward="(VALUE / SELF..net_mass(gram)) * sum(wine_to_treat, :net_volume, :hectoliter)"/>
       </parameter>
       <parameter name="wine_man" type="doer" filter="is worker and can move"/>
     </parameters>

@@ -4,21 +4,21 @@
     <parameters>
       <input name="plastic" filter="is preparation and can wrap(cultivable_zone)">
         <handler indicator="net_length" unit="meter"
-                 if="self.net_length? and self.net_length != 0"
-                 backward="(value / self.net_length(meter))"
-                 forward="(value * self.net_length(meter))"/>
+                 if="SELF.net_length? and SELF.net_length != 0"
+                 backward="(VALUE / SELF.net_length(meter))"
+                 forward="(VALUE * SELF.net_length(meter))"/>
         <handler indicator="surface_area_percentage" unit="percent"
-                 if="land_parcel? and sum(land_parcel, :net_surface_area, :hectare) != 0 and self.net_length? and self.net_length != 0 and self.width? and self.width != 0"
-                 backward="(value * self.net_length(meter) * self.width(meter)) / sum(land_parcel, :net_surface_area, :square_meter)"
-                 forward="(value * sum(land_parcel, :net_surface_area, :square_meter)) / (self.net_length(meter) * self.width(meter))"/>
+                 if="land_parcel? and sum(land_parcel, :net_surface_area, :hectare) != 0 and SELF.net_length? and SELF.net_length != 0 and SELF.width? and SELF.width != 0"
+                 backward="(VALUE * SELF.net_length(meter) * SELF.width(meter)) / sum(land_parcel, :net_surface_area, :square_meter)"
+                 forward="(VALUE * sum(land_parcel, :net_surface_area, :square_meter)) / (SELF.net_length(meter) * SELF.width(meter))"/>
       </input>
       <parameter name="implanter" type="tool" filter="can seat(canvas_cover)"/>
       <parameter name="driver" type="doer" filter="can drive(tractor)"/>
       <parameter name="tractor" type="tool" filter="is equipment and can catch(implanter)"/>
       <parameter name="land_parcel" type="target" filter="is cultivable_zone" default-shape=":land_parcel" default-actor="storage">
         <handler indicator="shape">
-          <converter to="shape" forward="intersection(value, land_parcel.shape)" backward="value"/>
-          <converter to="population" forward="area(value) / land_parcel..net_surface_area(square_meter)"/>
+          <converter to="shape" forward="intersection(VALUE, land_parcel.shape)" backward="VALUE"/>
+          <converter to="population" forward="area(VALUE) / land_parcel..net_surface_area(square_meter)"/>
         </handler>
       </parameter>
     </parameters>

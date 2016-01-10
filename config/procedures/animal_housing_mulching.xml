@@ -4,8 +4,8 @@
     <parameters>
       <parameter name="animal_housing" type="target" filter="is building_division and can store(animal)" default-shape=":animal_housing" default-actor="default_storage_of_support">
         <handler indicator="shape">
-          <converter to="shape" forward="intersection(value, animal_housing.shape)" backward="value"/>
-          <converter to="population" forward="area(value) / animal_housing..net_surface_area(square_meter)"/>
+          <converter to="shape" forward="intersection(VALUE, animal_housing.shape)" backward="VALUE"/>
+          <converter to="population" forward="area(VALUE) / animal_housing..net_surface_area(square_meter)"/>
         </handler>
       </parameter>
       <parameter name="straw" type="input" filter="is straw"/>
