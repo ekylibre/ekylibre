@@ -1,36 +1,111 @@
-require 'procedo/converter'
+# require 'procedo/converter'
 
 module Procedo
+  module Formula
+    class Parser < Treetop::Runtime::CompiledParser
+      include Procedo::Formula::Language
+    end
+
+    module Language
+      class Base < Treetop::Runtime::SyntaxNode; end
+      class Expression < Base; end
+      class Condition < Base; end
+      class Operation < Base; end # Abstract
+      class Multiplication < Operation; end
+      class Division < Operation; end
+      class Addition < Operation; end
+      class Substraction < Operation; end
+      class BooleanExpression < Base; end
+      class BooleanOperation < Base; end
+      class Conjunction < BooleanOperation; end
+      class Disjunction < BooleanOperation; end
+      class ExclusiveDisjunction < BooleanOperation; end
+      class Test < Base; end # Abstract
+      class Comparison < Test; end # Abstract
+      class StrictSuperiorityComparison < Comparison; end
+      class StrictInferiortyComparison < Comparison; end
+      class SuperiorityComparison < Comparison; end
+      class InferiorityComparison < Comparison; end
+      class EqualityComparison < Comparison; end
+      class DifferenceComparison < Comparison; end
+      class IndicatorPresenceTest < Test; end
+      class ActorPresenceTest < Test; end
+      class NegativeTest < Test; end
+      class Access < Base; end
+      class Reading < Base; end # Abstract
+      class IndividualReading < Reading; end
+      class WholeReading < Reading; end
+      class FunctionCall < Base; end
+      class FunctionName < Base; end
+      class OtherArgument < Base; end
+      class Variable < Base; end
+      class Accessor < Base; end
+      class Indicator < Base; end
+      class Unit < Base; end
+      class Self < Base; end
+      class Value < Base; end
+      class Numeric < Base; end
+      class Symbol < Base; end
+
+      class << self
+        def parse(text, options = {})
+          @@parser ||= ::Procedo::Formula::Parser.new
+          unless tree = @@parser.parse(text.to_s, options)
+            fail SyntaxError, @@parser.failure_reason
+          end
+          tree
+        end
+
+        # def clean_tree(root)
+        #   return if root.elements.nil?
+        #   root.elements.delete_if{ |node| node.class.name == "Treetop::Runtime::SyntaxNode" }
+        #   root.elements.each{ |node| clean_tree(node) }
+        # end
+      end
+    end
+  end
+
   # An Handler define a way to quantify an input/output
   class Handler
-    attr_reader :name, :unit, :indicator, :converters, :parameter, :usability_tree, :widget
+    attr_reader :name, :unit, :indicator, :converters, :parameter, :condition_tree, :backward_tree, :forward_tree, :widget
 
     delegate :procedure, to: :parameter
     delegate :datatype, to: :indicator
     delegate :name, to: :parameter, prefix: true
     delegate :name, to: :procedure, prefix: true
+    delegate :parse!, :count_variables, to: :class
+
+    class << self
+      def parse!(code, options = {})
+        return Formula::Language.parse(code.to_s, options)
+      rescue SyntaxError => e
+        raise SyntaxError, (options[:message] || "Syntax error in #{code.inspect}.") + ' ' + e.message
+      end
+
+      def count_variables(node, name)
+        if (node.is_a?(Procedo::Formula::Language::Self) && name == :self) ||
+           (node.is_a?(Procedo::Formula::Language::Variable) && name.to_s == node.text_value)
+          return 1
+        end
+        return 0 unless node.elements
+        node.elements.inject(0) do |count, child|
+          count += count_variables(child, name)
+          count
+        end
+      end
+    end
 
     def initialize(parameter, name, options = {})
       @parameter = parameter
+      @trees = {}.with_indifferent_access
       self.name = name
       self.indicator_name = options[:indicator] || name
       self.unit_name = options[:unit] if self.measure?
       self.condition = options[:if] unless options[:if].blank?
+      self.forward = options[:forward] unless options[:forward].blank?
+      self.backward = options[:backward] unless options[:backward].blank?
       # Define widget of handler (or parameter...)
       @widget = (options[:widget] || (datatype == :geometry ? :map : :number)).to_sym
-      # Initialize converters
-      @converters = {}
-      # Adds default converter
-      converter_options = {}
-      converter_options[:forward]  = (options[:forward].blank? ? 'value' : options[:forward])
-      converter_options[:backward] = (options[:backward].blank? ? 'value' : options[:backward])
-      add_converter(options[:to] || indicator.name, converter_options)
-    end
-
-    # Adds a converter to the handler
-    def add_converter(destination, options = {})
-      converter = Procedo::Converter.new(self, destination, options)
-      @converters[converter.destination] = converter
     end
 
     # Sets the name
@@ -79,20 +154,6 @@ module Procedo
       !@unit.blank?
     end
 
-    def destinations
-      converters.map(&:destination).uniq
-    end
-
-    def condition=(expr)
-      @usability_tree = Formula::Language.parse(expr.to_s, root: 'boolean_expression')
-    rescue SyntaxError => e
-      raise SyntaxError, "A procedure handler (#{@name.inspect}) #{procedure.name} has a syntax error on usability test (if): #{e.message}"
-    end
-
-    def check_usability?
-      !@usability_tree.nil?
-    end
-
     def dimension_name
       @unit.dimension
     end
@@ -101,19 +162,39 @@ module Procedo
       Nomen::Dimension.find(@unit.dimension)
     end
 
-    # def destination_unique_name
-    #   "#{@parameter.name}_#{destination}"
+    def condition=(expr)
+      @condition_tree = parse!(expr.to_s, root: 'boolean_expression', message: "Syntax error on handler (#{procedure.name}/#{@parameter.name}##{@name}) conditional test (if).")
+    end
+
+    def forward=(expr)
+      @forward_tree = parse!(expr, message: "Syntax error on handler (#{procedure.name}/#{@parameter.name}##{@name}) forward formula.")
+    end
+
+    def backward=(expr)
+      @backward_tree = parse!(expr, message: "Syntax error on handler (#{procedure.name}/#{@parameter.name}##{@name}) backward formula.")
+    end
+
+    def condition?
+      @condition_tree.present?
+    end
+
+    def forward?
+      @forward_tree.present?
+    end
+
+    def backward?
+      @backward_tree.present?
+    end
+
+    # # Returns the unique name of an handler inside a given procedure
+    # def unique_name
+    #   "#{@parameter.name}-#{name}"
     # end
 
-    # Returns the unique name of an handler inside a given procedure
-    def unique_name
-      "#{@parameter.name}-#{name}"
-    end
-
-    # Unique identifier for a given handler
-    def uid
-      "#{procedure.name}-#{unique_name}"
-    end
+    # # Unique identifier for a given handler
+    # def uid
+    #   "#{procedure.name}-#{unique_name}"
+    # end
 
     # Returns other handlers in the current parameter scope
     def others
@@ -129,31 +210,35 @@ module Procedo
         params[:unit] = unit.symbol
       end
       default << @indicator.human_name
-      "procedure_handlers.#{name}".t(params.merge(default: default))
+      name.t(params.merge(default: default, scope: 'procedure_handlers'))
     end
 
-    def backward_converters
-      converters.select(&:backward?)
+    def tree(name)
+      if name == :backward
+        @backward_tree
+      elsif name == :forward
+        @forward_tree
+      elsif name == :condition
+        @condition_tree
+      else
+        fail 'Unknown tree: ' + name.inspect
+      end
     end
 
-    def forward_converters
-      converters.select(&:forward?)
+    def tree?(name)
+      tree(name).present?
     end
 
     # Returns keys
-    def depend_on?(parameter_name, mode = nil)
-      converters.each do |converter|
-        return true if converter.depend_on?(parameter_name, mode)
+    def depend_on?(parameter_name, modes = nil)
+      modes ||= [:forward, :backward, :condition]
+      modes = [modes] unless modes.is_a?(Array)
+      modes.each do |mode|
+        if tree?(mode)
+          return true if count_variables(tree(mode), parameter_name) > 0
+        end
       end
       false
-    end
-
-    def forward_depend_on?(parameter_name)
-      depend_on?(parameter_name, :forward)
-    end
-
-    def backward_depend_on?(parameter_name)
-      depend_on?(parameter_name, :backward)
     end
   end
 end

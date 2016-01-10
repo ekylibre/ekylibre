@@ -63,15 +63,13 @@ class InterventionInput < InterventionProductParameter
   end
 
   after_save do
-    # FIXME: Not working at all. Need to split if necessary with quantity
-    # self.product = source_product
-    if product
-      movement = product_movement
-      movement = product.movements.build unless movement
-      movement.delta = -1 * quantity_population
-      movement.started_at = intervention.started_at
-      update_columns(movement_id: movement.id)
-    end
+    # if product
+    #   movement = product_movement
+    #   movement = product.movements.build unless movement
+    #   movement.delta = -1 * quantity_population
+    #   movement.started_at = intervention.started_at
+    #   update_columns(movement_id: movement.id)
+    # end
   end
 
   def cost_amount_computation

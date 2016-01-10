@@ -1,4 +1,4 @@
-require 'procedo/parameter'
+# require 'procedo/parameter'
 
 module Procedo
   # Parameter group is a a group of parameter like a directory in a FS.

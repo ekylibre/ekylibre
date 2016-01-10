@@ -1,7 +1,7 @@
-require 'procedo/group_parameter'
-require 'procedo/compilers'
-# require 'procedo/compiled_procedure'
-# require 'procedo/compiled_variable'
+# require 'procedo/group_parameter'
+# require 'procedo/compilers'
+# # require 'procedo/compiled_procedure'
+# # require 'procedo/compiled_variable'
 
 module Procedo
   FORMULA_TRUC = {
@@ -10,7 +10,7 @@ module Procedo
 
   # This class represents a procedure
   class Procedure
-    ROOT_NAME = :root_
+    ROOT_NAME = 'root_'
 
     attr_reader :id, :name, :categories, :mandatory_actions, :optional_actions
     delegate :add_product_parameter, :add_group_parameter, :find, :find!,

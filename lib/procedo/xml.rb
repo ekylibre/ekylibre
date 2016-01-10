@@ -1,5 +1,5 @@
-require 'procedo/procedure'
-require 'procedo/product_parameter'
+# require 'procedo/procedure'
+# require 'procedo/product_parameter'
 
 module Procedo
   # The module parse XML procedures.
@@ -103,13 +103,13 @@ module Procedo
       # Parse <parameter>
       def parse_parameter(procedure, element, options = {})
         name = element.attr('name').to_sym
-        fail "No type given for #{name} parameter" unless element.has_attribute?('type')
         if element.name != 'parameter'
-          type = element.name
-          fail 'type attribute is not supported' if element.has_attribute('type')
+          type = element.name.to_sym
+          fail 'type attribute is not supported' if element.has_attribute?('type')
         else
           type = element.attr('type').underscore.to_sym
         end
+        fail "No type given for #{name} parameter" unless type
         %w(filter cardinality).each do |info|
           if element.has_attribute?(info)
             options[info.underscore.to_sym] = element.attr(info).to_s
@@ -147,10 +147,10 @@ module Procedo
         name = options.delete(:name) || options[:indicator]
 
         handler = parameter.add_handler(name, options)
-        # Converters
-        element.xpath('xmlns:converter').each do |el|
-          parse_converter(handler, el)
-        end
+        # # Converters
+        # element.xpath('xmlns:converter').each do |el|
+        #   parse_converter(handler, el)
+        # end
       end
 
       # Parse <converter> element

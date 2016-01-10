@@ -1,4 +1,4 @@
-require 'procedo/cardinality'
+# require 'procedo/cardinality'
 
 module Procedo
   # Parameter class is the base class for all parameters types

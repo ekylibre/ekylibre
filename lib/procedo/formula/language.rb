@@ -53,8 +53,24 @@ module Procedo
           elements[0]
         end
 
+        def space1
+          elements[1]
+        end
+
+        def space2
+          elements[3]
+        end
+
         def if_true
           elements[4]
+        end
+
+        def space3
+          elements[5]
+        end
+
+        def space4
+          elements[7]
         end
 
         def if_false
@@ -77,75 +93,55 @@ module Procedo
         r1 = _nt_boolean_expression
         s0 << r1
         if r1
-          r3 = _nt_space
-          if r3
-            r2 = r3
-          else
-            r2 = instantiate_node(SyntaxNode,input, index...index)
-          end
+          r2 = _nt_space
           s0 << r2
           if r2
-            if (match_len = has_terminal?(" ? ", false, index))
-              r4 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+            if (match_len = has_terminal?("?", false, index))
+              r3 = true
               @index += match_len
             else
-              terminal_parse_failure('" ? "')
-              r4 = nil
+              terminal_parse_failure('"?"')
+              r3 = nil
             end
-            s0 << r4
-            if r4
-              r6 = _nt_space
-              if r6
-                r5 = r6
-              else
-                r5 = instantiate_node(SyntaxNode,input, index...index)
-              end
-              s0 << r5
-              if r5
-                r7 = _nt_argument
-                s0 << r7
-                if r7
-                  r9 = _nt_space
-                  if r9
-                    r8 = r9
-                  else
-                    r8 = instantiate_node(SyntaxNode,input, index...index)
-                  end
-                  s0 << r8
-                  if r8
-                    if (match_len = has_terminal?(" : ", false, index))
-                      r10 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+            s0 << r3
+            if r3
+              r4 = _nt_space
+              s0 << r4
+              if r4
+                r5 = _nt_argument
+                s0 << r5
+                if r5
+                  r6 = _nt_space
+                  s0 << r6
+                  if r6
+                    if (match_len = has_terminal?(":", false, index))
+                      r7 = true
                       @index += match_len
                     else
-                      terminal_parse_failure('" : "')
-                      r10 = nil
+                      terminal_parse_failure('":"')
+                      r7 = nil
                     end
-                    s0 << r10
-                    if r10
-                      r12 = _nt_space
-                      if r12
-                        r11 = r12
-                      else
-                        r11 = instantiate_node(SyntaxNode,input, index...index)
-                      end
-                      s0 << r11
-                      if r11
-                        i13 = index
-                        r14 = _nt_argument
-                        if r14
-                          r14 = SyntaxNode.new(input, (index-1)...index) if r14 == true
-                          r13 = r14
+                    s0 << r7
+                    if r7
+                      r8 = _nt_space
+                      s0 << r8
+                      if r8
+                        i9 = index
+                        r10 = _nt_argument
+                        if r10
+                          r10 = SyntaxNode.new(input, (index-1)...index) if r10 == true
+                          r9 = r10
                         else
-                          r15 = _nt_conditive
-                          if r15
-                            r15 = SyntaxNode.new(input, (index-1)...index) if r15 == true
-                            r13 = r15
+                          r11 = _nt_conditive
+                          if r11
+                            r11 = SyntaxNode.new(input, (index-1)...index) if r11 == true
+                            r9 = r11
                           else
-                            @index = i13
-                            r13 = nil
+                            @index = i9
+                            r9 = nil
                           end
                         end
-                        s0 << r13
+                        s0 << r9
                       end
                     end
                   end
@@ -1892,7 +1888,12 @@ module Procedo
             break
           end
         end
-        r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
+        if s0.empty?
+          @index = i0
+          r0 = nil
+        else
+          r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
+        end
 
         node_cache[:space][start_index] = r0
 
@@ -1994,6 +1995,42 @@ module Procedo
           elements[0]
         end
 
+        def space1
+          elements[1]
+        end
+
+        def space2
+          elements[3]
+        end
+
+        def operand
+          elements[4]
+        end
+      end
+
+      module Conjonctive2
+        def head
+          elements[0]
+        end
+
+        def operand
+          elements[4]
+        end
+      end
+
+      module Conjonctive3
+        def head
+          elements[0]
+        end
+
+        def space1
+          elements[1]
+        end
+
+        def space2
+          elements[3]
+        end
+
         def operand
           elements[4]
         end
@@ -2061,39 +2098,29 @@ module Procedo
           r10 = _nt_test
           s9 << r10
           if r10
-            r12 = _nt_space
-            if r12
-              r11 = r12
-            else
-              r11 = instantiate_node(SyntaxNode,input, index...index)
-            end
+            r11 = _nt_space
             s9 << r11
             if r11
-              if (match_len = has_terminal?("||", false, index))
-                r13 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+              if (match_len = has_terminal?("and", false, index))
+                r12 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                 @index += match_len
               else
-                terminal_parse_failure('"||"')
-                r13 = nil
+                terminal_parse_failure('"and"')
+                r12 = nil
               end
-              s9 << r13
-              if r13
-                r15 = _nt_space
-                if r15
-                  r14 = r15
-                else
-                  r14 = instantiate_node(SyntaxNode,input, index...index)
-                end
-                s9 << r14
-                if r14
-                  r16 = _nt_conjonctive
-                  s9 << r16
+              s9 << r12
+              if r12
+                r13 = _nt_space
+                s9 << r13
+                if r13
+                  r14 = _nt_conjonctive
+                  s9 << r14
                 end
               end
             end
           end
           if s9.last
-            r9 = instantiate_node(ExclusiveDisjunction,input, i9...index, s9)
+            r9 = instantiate_node(Conjunction,input, i9...index, s9)
             r9.extend(Conjonctive1)
           else
             @index = i9
@@ -2103,13 +2130,97 @@ module Procedo
             r9 = SyntaxNode.new(input, (index-1)...index) if r9 == true
             r0 = r9
           else
-            r17 = _nt_test
-            if r17
-              r17 = SyntaxNode.new(input, (index-1)...index) if r17 == true
-              r0 = r17
+            i15, s15 = index, []
+            r16 = _nt_test
+            s15 << r16
+            if r16
+              r18 = _nt_space
+              if r18
+                r17 = r18
+              else
+                r17 = instantiate_node(SyntaxNode,input, index...index)
+              end
+              s15 << r17
+              if r17
+                if (match_len = has_terminal?("||", false, index))
+                  r19 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                  @index += match_len
+                else
+                  terminal_parse_failure('"||"')
+                  r19 = nil
+                end
+                s15 << r19
+                if r19
+                  r21 = _nt_space
+                  if r21
+                    r20 = r21
+                  else
+                    r20 = instantiate_node(SyntaxNode,input, index...index)
+                  end
+                  s15 << r20
+                  if r20
+                    r22 = _nt_conjonctive
+                    s15 << r22
+                  end
+                end
+              end
+            end
+            if s15.last
+              r15 = instantiate_node(ExclusiveDisjunction,input, i15...index, s15)
+              r15.extend(Conjonctive2)
             else
-              @index = i0
-              r0 = nil
+              @index = i15
+              r15 = nil
+            end
+            if r15
+              r15 = SyntaxNode.new(input, (index-1)...index) if r15 == true
+              r0 = r15
+            else
+              i23, s23 = index, []
+              r24 = _nt_test
+              s23 << r24
+              if r24
+                r25 = _nt_space
+                s23 << r25
+                if r25
+                  if (match_len = has_terminal?("or", false, index))
+                    r26 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                    @index += match_len
+                  else
+                    terminal_parse_failure('"or"')
+                    r26 = nil
+                  end
+                  s23 << r26
+                  if r26
+                    r27 = _nt_space
+                    s23 << r27
+                    if r27
+                      r28 = _nt_conjonctive
+                      s23 << r28
+                    end
+                  end
+                end
+              end
+              if s23.last
+                r23 = instantiate_node(ExclusiveDisjunction,input, i23...index, s23)
+                r23.extend(Conjonctive3)
+              else
+                @index = i23
+                r23 = nil
+              end
+              if r23
+                r23 = SyntaxNode.new(input, (index-1)...index) if r23 == true
+                r0 = r23
+              else
+                r29 = _nt_test
+                if r29
+                  r29 = SyntaxNode.new(input, (index-1)...index) if r29 == true
+                  r0 = r29
+                else
+                  @index = i0
+                  r0 = nil
+                end
+              end
             end
           end
         end
@@ -2396,25 +2507,45 @@ module Procedo
           end
           s1 << r3
           if r3
+            i5 = index
             if (match_len = has_terminal?(">", false, index))
-              r5 = true
+              r6 = true
               @index += match_len
             else
               terminal_parse_failure('">"')
-              r5 = nil
+              r6 = nil
+            end
+            if r6
+              r6 = SyntaxNode.new(input, (index-1)...index) if r6 == true
+              r5 = r6
+            else
+              if (match_len = has_terminal?("greater than", false, index))
+                r7 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                @index += match_len
+              else
+                terminal_parse_failure('"greater than"')
+                r7 = nil
+              end
+              if r7
+                r7 = SyntaxNode.new(input, (index-1)...index) if r7 == true
+                r5 = r7
+              else
+                @index = i5
+                r5 = nil
+              end
             end
             s1 << r5
             if r5
-              r7 = _nt_space
-              if r7
-                r6 = r7
+              r9 = _nt_space
+              if r9
+                r8 = r9
               else
-                r6 = instantiate_node(SyntaxNode,input, index...index)
+                r8 = instantiate_node(SyntaxNode,input, index...index)
               end
-              s1 << r6
-              if r6
-                r8 = _nt_primary
-                s1 << r8
+              s1 << r8
+              if r8
+                r10 = _nt_primary
+                s1 << r10
               end
             end
           end
@@ -2430,235 +2561,255 @@ module Procedo
           r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
           r0 = r1
         else
-          i9, s9 = index, []
-          r10 = _nt_primary
-          s9 << r10
-          if r10
-            r12 = _nt_space
-            if r12
-              r11 = r12
+          i11, s11 = index, []
+          r12 = _nt_primary
+          s11 << r12
+          if r12
+            r14 = _nt_space
+            if r14
+              r13 = r14
             else
-              r11 = instantiate_node(SyntaxNode,input, index...index)
+              r13 = instantiate_node(SyntaxNode,input, index...index)
             end
-            s9 << r11
-            if r11
+            s11 << r13
+            if r13
+              i15 = index
               if (match_len = has_terminal?("<", false, index))
-                r13 = true
+                r16 = true
                 @index += match_len
               else
                 terminal_parse_failure('"<"')
-                r13 = nil
+                r16 = nil
               end
-              s9 << r13
-              if r13
-                r15 = _nt_space
-                if r15
-                  r14 = r15
+              if r16
+                r16 = SyntaxNode.new(input, (index-1)...index) if r16 == true
+                r15 = r16
+              else
+                if (match_len = has_terminal?("less than", false, index))
+                  r17 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                  @index += match_len
                 else
-                  r14 = instantiate_node(SyntaxNode,input, index...index)
+                  terminal_parse_failure('"less than"')
+                  r17 = nil
                 end
-                s9 << r14
-                if r14
-                  r16 = _nt_primary
-                  s9 << r16
+                if r17
+                  r17 = SyntaxNode.new(input, (index-1)...index) if r17 == true
+                  r15 = r17
+                else
+                  @index = i15
+                  r15 = nil
+                end
+              end
+              s11 << r15
+              if r15
+                r19 = _nt_space
+                if r19
+                  r18 = r19
+                else
+                  r18 = instantiate_node(SyntaxNode,input, index...index)
+                end
+                s11 << r18
+                if r18
+                  r20 = _nt_primary
+                  s11 << r20
                 end
               end
             end
           end
-          if s9.last
-            r9 = instantiate_node(StrictInferiortyComparison,input, i9...index, s9)
-            r9.extend(Comparative1)
+          if s11.last
+            r11 = instantiate_node(StrictInferiortyComparison,input, i11...index, s11)
+            r11.extend(Comparative1)
           else
-            @index = i9
-            r9 = nil
+            @index = i11
+            r11 = nil
           end
-          if r9
-            r9 = SyntaxNode.new(input, (index-1)...index) if r9 == true
-            r0 = r9
+          if r11
+            r11 = SyntaxNode.new(input, (index-1)...index) if r11 == true
+            r0 = r11
           else
-            i17, s17 = index, []
-            r18 = _nt_primary
-            s17 << r18
-            if r18
-              r20 = _nt_space
-              if r20
-                r19 = r20
+            i21, s21 = index, []
+            r22 = _nt_primary
+            s21 << r22
+            if r22
+              r24 = _nt_space
+              if r24
+                r23 = r24
               else
-                r19 = instantiate_node(SyntaxNode,input, index...index)
+                r23 = instantiate_node(SyntaxNode,input, index...index)
               end
-              s17 << r19
-              if r19
+              s21 << r23
+              if r23
                 if (match_len = has_terminal?(">=", false, index))
-                  r21 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                  r25 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                   @index += match_len
                 else
                   terminal_parse_failure('">="')
-                  r21 = nil
+                  r25 = nil
                 end
-                s17 << r21
-                if r21
-                  r23 = _nt_space
-                  if r23
-                    r22 = r23
+                s21 << r25
+                if r25
+                  r27 = _nt_space
+                  if r27
+                    r26 = r27
                   else
-                    r22 = instantiate_node(SyntaxNode,input, index...index)
+                    r26 = instantiate_node(SyntaxNode,input, index...index)
                   end
-                  s17 << r22
-                  if r22
-                    r24 = _nt_primary
-                    s17 << r24
+                  s21 << r26
+                  if r26
+                    r28 = _nt_primary
+                    s21 << r28
                   end
                 end
               end
             end
-            if s17.last
-              r17 = instantiate_node(SuperiorityComparison,input, i17...index, s17)
-              r17.extend(Comparative2)
+            if s21.last
+              r21 = instantiate_node(SuperiorityComparison,input, i21...index, s21)
+              r21.extend(Comparative2)
             else
-              @index = i17
-              r17 = nil
+              @index = i21
+              r21 = nil
             end
-            if r17
-              r17 = SyntaxNode.new(input, (index-1)...index) if r17 == true
-              r0 = r17
+            if r21
+              r21 = SyntaxNode.new(input, (index-1)...index) if r21 == true
+              r0 = r21
             else
-              i25, s25 = index, []
-              r26 = _nt_primary
-              s25 << r26
-              if r26
-                r28 = _nt_space
-                if r28
-                  r27 = r28
+              i29, s29 = index, []
+              r30 = _nt_primary
+              s29 << r30
+              if r30
+                r32 = _nt_space
+                if r32
+                  r31 = r32
                 else
-                  r27 = instantiate_node(SyntaxNode,input, index...index)
+                  r31 = instantiate_node(SyntaxNode,input, index...index)
                 end
-                s25 << r27
-                if r27
+                s29 << r31
+                if r31
                   if (match_len = has_terminal?("<=", false, index))
-                    r29 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                    r33 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                     @index += match_len
                   else
                     terminal_parse_failure('"<="')
-                    r29 = nil
+                    r33 = nil
                   end
-                  s25 << r29
-                  if r29
-                    r31 = _nt_space
-                    if r31
-                      r30 = r31
+                  s29 << r33
+                  if r33
+                    r35 = _nt_space
+                    if r35
+                      r34 = r35
                     else
-                      r30 = instantiate_node(SyntaxNode,input, index...index)
+                      r34 = instantiate_node(SyntaxNode,input, index...index)
                     end
-                    s25 << r30
-                    if r30
-                      r32 = _nt_primary
-                      s25 << r32
+                    s29 << r34
+                    if r34
+                      r36 = _nt_primary
+                      s29 << r36
                     end
                   end
                 end
               end
-              if s25.last
-                r25 = instantiate_node(InferiorityComparison,input, i25...index, s25)
-                r25.extend(Comparative3)
+              if s29.last
+                r29 = instantiate_node(InferiorityComparison,input, i29...index, s29)
+                r29.extend(Comparative3)
               else
-                @index = i25
-                r25 = nil
+                @index = i29
+                r29 = nil
               end
-              if r25
-                r25 = SyntaxNode.new(input, (index-1)...index) if r25 == true
-                r0 = r25
+              if r29
+                r29 = SyntaxNode.new(input, (index-1)...index) if r29 == true
+                r0 = r29
               else
-                i33, s33 = index, []
-                r34 = _nt_primary
-                s33 << r34
-                if r34
-                  r36 = _nt_space
-                  if r36
-                    r35 = r36
+                i37, s37 = index, []
+                r38 = _nt_primary
+                s37 << r38
+                if r38
+                  r40 = _nt_space
+                  if r40
+                    r39 = r40
                   else
-                    r35 = instantiate_node(SyntaxNode,input, index...index)
+                    r39 = instantiate_node(SyntaxNode,input, index...index)
                   end
-                  s33 << r35
-                  if r35
+                  s37 << r39
+                  if r39
                     if (match_len = has_terminal?("==", false, index))
-                      r37 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                      r41 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                       @index += match_len
                     else
                       terminal_parse_failure('"=="')
-                      r37 = nil
+                      r41 = nil
                     end
-                    s33 << r37
-                    if r37
-                      r39 = _nt_space
-                      if r39
-                        r38 = r39
+                    s37 << r41
+                    if r41
+                      r43 = _nt_space
+                      if r43
+                        r42 = r43
                       else
-                        r38 = instantiate_node(SyntaxNode,input, index...index)
+                        r42 = instantiate_node(SyntaxNode,input, index...index)
                       end
-                      s33 << r38
-                      if r38
-                        r40 = _nt_primary
-                        s33 << r40
+                      s37 << r42
+                      if r42
+                        r44 = _nt_primary
+                        s37 << r44
                       end
                     end
                   end
                 end
-                if s33.last
-                  r33 = instantiate_node(EqualityComparison,input, i33...index, s33)
-                  r33.extend(Comparative4)
+                if s37.last
+                  r37 = instantiate_node(EqualityComparison,input, i37...index, s37)
+                  r37.extend(Comparative4)
                 else
-                  @index = i33
-                  r33 = nil
+                  @index = i37
+                  r37 = nil
                 end
-                if r33
-                  r33 = SyntaxNode.new(input, (index-1)...index) if r33 == true
-                  r0 = r33
+                if r37
+                  r37 = SyntaxNode.new(input, (index-1)...index) if r37 == true
+                  r0 = r37
                 else
-                  i41, s41 = index, []
-                  r42 = _nt_primary
-                  s41 << r42
-                  if r42
-                    r44 = _nt_space
-                    if r44
-                      r43 = r44
+                  i45, s45 = index, []
+                  r46 = _nt_primary
+                  s45 << r46
+                  if r46
+                    r48 = _nt_space
+                    if r48
+                      r47 = r48
                     else
-                      r43 = instantiate_node(SyntaxNode,input, index...index)
+                      r47 = instantiate_node(SyntaxNode,input, index...index)
                     end
-                    s41 << r43
-                    if r43
+                    s45 << r47
+                    if r47
                       if (match_len = has_terminal?("!=", false, index))
-                        r45 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                        r49 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                         @index += match_len
                       else
                         terminal_parse_failure('"!="')
-                        r45 = nil
+                        r49 = nil
                       end
-                      s41 << r45
-                      if r45
-                        r47 = _nt_space
-                        if r47
-                          r46 = r47
+                      s45 << r49
+                      if r49
+                        r51 = _nt_space
+                        if r51
+                          r50 = r51
                         else
-                          r46 = instantiate_node(SyntaxNode,input, index...index)
+                          r50 = instantiate_node(SyntaxNode,input, index...index)
                         end
-                        s41 << r46
-                        if r46
-                          r48 = _nt_primary
-                          s41 << r48
+                        s45 << r50
+                        if r50
+                          r52 = _nt_primary
+                          s45 << r52
                         end
                       end
                     end
                   end
-                  if s41.last
-                    r41 = instantiate_node(DifferenceComparison,input, i41...index, s41)
-                    r41.extend(Comparative5)
+                  if s45.last
+                    r45 = instantiate_node(DifferenceComparison,input, i45...index, s45)
+                    r45.extend(Comparative5)
                   else
-                    @index = i41
-                    r41 = nil
+                    @index = i45
+                    r45 = nil
                   end
-                  if r41
-                    r41 = SyntaxNode.new(input, (index-1)...index) if r41 == true
-                    r0 = r41
+                  if r45
+                    r45 = SyntaxNode.new(input, (index-1)...index) if r45 == true
+                    r0 = r45
                   else
                     @index = i0
                     r0 = nil

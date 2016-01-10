@@ -1,5 +1,5 @@
-require 'procedo/xml'
-require 'procedo/errors'
+# require 'procedo/xml'
+# require 'procedo/errors'
 
 # Procedo module aims to manage procedure which permits to define way of work
 # simply.
@@ -16,6 +16,9 @@ module Procedo
 
   # Namespace used to "store" compiled procedures
   module CompiledProcedures
+  end
+
+  class Error < StandardError
   end
 
   @@list = HashWithIndifferentAccess.new

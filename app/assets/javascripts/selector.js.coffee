@@ -13,10 +13,10 @@
     id: null
 
     _create: ->
-      @$wrapper = $ "<div>", class: "selector-wrapper"
-      @element.wrap @$wrapper
+      @element.wrap $("<div>", class: "selector")
 
       @element.attr "autocomplete", "off"
+      @element.addClass('selector-search')
 
       # Create drop down button
       @dropDownButton = $ "<a>",
@@ -30,7 +30,7 @@
 
       # Create drop down menu
       @dropDownMenu = $ "<div>",
-          class: "items-menu"
+          class: "items-menu selector-choices-list"
         .hide()
         .insertAfter(@element)
 
@@ -41,6 +41,7 @@
         @valueField = $ "<input>",
           type: "hidden"
           name: @element.attr('name')
+          class: 'selector-value'
           'data-parameter-name': @element.attr('data-value-parameter-name')
         @element.after @valueField
       @element.removeAttr "name"
@@ -69,7 +70,9 @@
 
     value: (newValue) ->
       if newValue is null or newValue is undefined or newValue is ""
-        return @valueField.val()
+        val = parseInt(@valueField.val())
+        val = null if isNaN(val)
+        return val
       this._set(newValue)
 
     _set: (id, triggerEvents = false) ->
@@ -147,7 +150,7 @@
     _select: (id, label, triggerEvents = false) ->
       # console.log "select"
       @lastSearch = label
-      len = 10 * Math.round(Math.round(1 * label.length) / 10)
+      len = 4 * Math.round(Math.round(1.11 * label.length) / 4)
       @element.attr "size", (if len < 20 then 20 else (if len > 80 then 80 else len))
       @element.val label
       @valueField.prop "itemLabel", label

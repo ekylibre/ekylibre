@@ -1085,18 +1085,6 @@ html.backend {
 .checkbox-true { @include use-icon(check-square-o); }
 .checkbox-false { @include use-icon(square-o); }
 
-
-a.selector-dropdown {
-  @include button();
-  i {
-    @include use-icon(caret-down);
-  }
-}
-
-.input-append, .btn-group-dropdown, .selector, .input-append > .selector-wrapper {
-  @include button-group;
-}
-
 .count {
   margin: $default-gap 0;
   &, * {
@@ -1885,7 +1873,7 @@ ul.tree {
     }
   }
 
-  .selector-wrapper {
+  .selector {
     width: 50%;
     margin-left: auto;
     margin-right: auto;

@@ -1,7 +1,4 @@
 module Procedo
-  class Error < StandardError
-  end
-
   module Errors
     class MissingAttribute < Error
     end

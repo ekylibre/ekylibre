@@ -1,3 +1,4 @@
+- prefix = namespace + "[#{f.index}]"
 .nested-fields.working-period
   = link_to_remove_nested_association('working-period', f)
-  = f.datetime_range start_input_html: { data: { intervention_updater: 'start' }}, stop_input_html: { data: { intervention_updater: 'stop' }}
+  = f.datetime_range start_input_html: { data: { intervention_updater: prefix + 'started_at' }}, stop_input_html: { data: { intervention_updater: prefix + 'stopped_at' }}

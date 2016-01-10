@@ -683,10 +683,20 @@
     &:first-child {
       @include margin-left(0);
     }
-    html[dir="ltr"] &:not(:first-of-type), html[dir="rtl"] &:not(:last-of-type) {
+    html[dir="ltr"] &:not(:first-of-type),
+    html[dir="rtl"] &:not(:last-of-type),
+    html[dir="ltr"] &:first-of-type:not(:first-child),
+    html[dir="rtl"] &:last-of-type:not(:last-child),
+    html[dir="ltr"] &:last-child,
+    html[dir="rtl"] &:first-child {
       @include border-left-radius(0);
     }
-    html[dir="ltr"] &:not(:last-of-type), html[dir="rtl"] &:not(:first-of-type) {
+    html[dir="ltr"] &:not(:last-of-type),
+    html[dir="rtl"] &:not(:first-of-type),
+    html[dir="ltr"] &:last-of-type:not(:last-child),
+    html[dir="rtl"] &:first-of-type:not(:first-child),
+    html[dir="ltr"] &:first-child,
+    html[dir="rtl"] &:last-child {
       @include border-right-radius(0);
     }
     &:focus, &:hover, &:active {

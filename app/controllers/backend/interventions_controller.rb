@@ -15,6 +15,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+
+require_dependency 'procedo'
+
 module Backend
   class InterventionsController < Backend::BaseController
     manage_restfully t3e: { procedure_name: 'RECORD.procedure.human_name'.c }
@@ -131,7 +134,7 @@ module Backend
       head(:not_found) and return unless procedure
       intervention = Procedo::Engine.new_intervention(intervention_params)
       begin
-        intervention.impact!(params[:updater])
+        intervention.impact_with!(params[:updater])
         # raise intervention.to_hash.inspect
         respond_to do |format|
           # format.xml  { render xml: intervention.to_xml }

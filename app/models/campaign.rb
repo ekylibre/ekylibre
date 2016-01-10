@@ -107,6 +107,15 @@ class Campaign < Ekylibre::Record::Base
     self.class.where('harvest_year > ?', harvest_year).order(:harvest_year).first
   end
 
+  def create_following!
+    self.class.create!(
+      harvest_year: harvest_year + 1,
+      started_on: self.started_on + 1.year,
+      stopped_on: self.stopped_on + 1.year,
+      name: name.succ
+    )
+  end
+
   def opened?
     !closed
   end

@@ -146,9 +146,25 @@ input, textarea, select {
   color: $invalid-color;
 }
 
-input[data-selector] {
-  display: inline;
-  margin-bottom: 0;
+.selector {
+  @include inline-block;
+  @include button-group;
+
+  .selector-search, input[data-selector] {
+    display: inline;
+    margin-bottom: 0;
+  }
+
+  a.selector-dropdown {
+    @include button();
+    i {
+      @include use-icon(caret-down);
+    }
+  }
+}
+
+.input-append, .btn-group-dropdown {
+  @include button-group;
 }
 
 

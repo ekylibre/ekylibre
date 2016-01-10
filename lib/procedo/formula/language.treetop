@@ -10,7 +10,7 @@ module Procedo
       end
 
       rule conditive
-        test:boolean_expression space? " ? " space? if_true:argument space? " : " space? if_false:(argument / conditive) <Condition>
+        test:boolean_expression space "?" space if_true:argument space ":" space if_false:(argument / conditive) <Condition>
       end
 
       rule multitive
@@ -91,7 +91,7 @@ module Procedo
       end
 
       rule space
-        [\s\n]*
+        [\s\n]+
       end
 
       rule self
@@ -110,8 +110,10 @@ module Procedo
       end
 
       rule conjonctive
-          head:test space? "&"  space? operand:conjonctive <Conjunction>
+          head:test space?  "&" space? operand:conjonctive <Conjunction>
+        / head:test space "and" space  operand:conjonctive <Conjunction>
         / head:test space? "||" space? operand:conjonctive <ExclusiveDisjunction>
+        / head:test space  "or" space  operand:conjonctive <ExclusiveDisjunction>
         / test
       end
 

@@ -1,5 +1,5 @@
-require 'procedo/parameter'
-require 'procedo/handler'
+# require 'procedo/parameter'
+# require 'procedo/handler'
 
 module Procedo
   # A parameter is used to defined which are the operators, targets, inputs,

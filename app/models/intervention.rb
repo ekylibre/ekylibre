@@ -50,8 +50,8 @@ class Intervention < Ekylibre::Record::Base
   belongs_to :prescription
   with_options inverse_of: :intervention, dependent: :destroy do
     has_many :parameters, class_name: 'InterventionParameter'
-    has_many :group_parameters, -> { where(type: 'InterventionGroupParameter').order(:position) }, class_name: 'InterventionParameter'
-    has_many :product_parameters, -> { where(type: %w(InterventionProductParameter InterventionAgent InterventionDoer InterventionInput InterventionOutput InterventionTarget InterventionTool)).order(:position) }, class_name: 'InterventionParameter'
+    has_many :group_parameters, -> { order(:position) }, class_name: 'InterventionGroupParameter'
+    has_many :product_parameters, -> { order(:position) }, class_name: 'InterventionProductParameter'
     has_many :doers, class_name: 'InterventionDoer'
     has_many :inputs, class_name: 'InterventionInput'
     has_many :outputs, class_name: 'InterventionOutput'
@@ -146,6 +146,10 @@ class Intervention < Ekylibre::Record::Base
   # Returns activities of intervention through TargetDistribution
   def activities
     Activity.of_intervention(self)
+  end
+
+  def product_parameters
+    InterventionProductParameter.where(intervention: self)
   end
 
   # The Procedo::Procedure behind intervention

@@ -1,6 +1,6 @@
 = f.input(:quantity_value, wrapper: :append) do
-  = f.input_field :quantity_value, data: { intervention_updater: 'quantity-value', intervention_field: 'quantity-value' }
-  = f.input_field :quantity_population, as: :hidden, data: { intervention_field: 'quantity-population' }
+  = f.input_field :quantity_value, data: { intervention_updater: prefix + 'quantity_value', intervention_field: 'quantity-value' }
+  = f.input_field :quantity_population, as: :hidden, data: { intervention_updater: prefix + 'quantity_population' }
   - options = []
   - reference.handlers.each do |handler|
     - if handler.widget == :number
@@ -8,4 +8,4 @@
       - options << ["#{unit.symbol} (#{handler.indicator.human_name})", handler.name]
     - else
       - fail "Cannot handler #{handler.widget} handlers"
-  = f.input_field(:quantity_handler, collection: options, data: { intervention_updater: 'quantity-handler', intervention_field: 'quantity-handler' })
+  = f.input_field(:quantity_handler, collection: options, data: { intervention_updater: prefix + 'quantity_handler', intervention_field: 'quantity-handler' })

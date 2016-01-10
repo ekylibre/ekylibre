@@ -1,4 +1,4 @@
-require 'procedo/engine/intervention'
+# require 'procedo/engine/intervention'
 
 module Procedo
   module Engine

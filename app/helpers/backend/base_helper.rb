@@ -199,7 +199,11 @@ module Backend::BaseHelper
   end
 
   def campaign_selector
-    render 'backend/shared/campaign_selector' if Campaign.any?
+    return nil unless Campaign.any?
+    if current_campaign
+      current_campaign.create_following! unless current_campaign.following
+    end
+    render 'backend/shared/campaign_selector'
   end
 
   def lights(status, html_options = {})

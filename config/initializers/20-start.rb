@@ -22,7 +22,7 @@ require 'working_set'
 # XML definitions
 autoload :Nomen,     'nomen'
 autoload :Aggeratio, 'aggeratio'
-autoload :Procedo,   'procedo'
+# autoload :Procedo,   'procedo'
 # require 'nomen'
 # require 'aggeratio'
 # require 'procedo'

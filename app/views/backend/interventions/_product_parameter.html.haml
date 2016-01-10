@@ -53,7 +53,7 @@
       %p= product_parameter.model_name.human
       - if actor.is_a?(Product) && !actor.population_counting_unitary? && variant && product_parameter.quantity_unit_name && product_parameter.quantity
         %p
-          - if product_parameter.quantity_indicator == 'population'
+          - if product_parameter.quantity_indicator_name == 'population'
             = :x_thing.tl(x: product_parameter.quantity.round(2).l, thing: variant.unit_name.mb_chars.downcase)
           - else
             = product_parameter.quantity.round(2).l
@@ -80,5 +80,3 @@
     .details
       %h3= product_parameter.name
       %p= product_parameter.model_name.human
-
-
