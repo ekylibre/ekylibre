@@ -82,11 +82,10 @@ class Plant < Bioproduct
   after_validation do
     # Compute population
     if initial_shape && nature
-      # self.initial_shape = ::Charta.new_geometry(initial_shape).multi_polygon
       if variable_indicators_list.include?(:net_surface_area)
-        self.read!(:net_surface_area, ::Charta.new_geometry(initial_shape).area, at: initial_born_at)
+        self.read!(:net_surface_area, ::Charta.new_geometry(initial_shape).area, at:initial_born_at)
       end
-      if variable_indicators_list.include?(:population)
+      if frozen_indicators_list.include?(:net_surface_area)
         self.initial_population = ::Charta.new_geometry(initial_shape).area / variant.net_surface_area
       end
     end

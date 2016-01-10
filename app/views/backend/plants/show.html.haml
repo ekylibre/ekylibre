@@ -10,7 +10,7 @@
   = infos do
     = resource_info(:name, important: true)
     = resource_info(:net_surface_area, important: true) do |area|
-      = area.in_hectare.round(2).l
+      = resource.population.l + " " + resource.unit_name
     = resource_info(:variety, important: true, nomenclature: true)
     = resource_info(:born_at, important: true)
     - if resource.born_at && resource.age >= 1.day

@@ -76,7 +76,7 @@ class CharentesAlliance::IncomingDeliveriesExchanger < ActiveExchanger::Base
         # incoming_item.move!(r.quantity, at: r.ordered_on.to_datetime)
 
         if incoming_item.present?
-          order.items.create!(source_product: incoming_item)
+          order.items.create!(product: incoming_item)
         end
       end
 

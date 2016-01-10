@@ -117,8 +117,8 @@ class Product < Ekylibre::Record::Base
   has_one :container, through: :current_localization
   has_many :groups, through: :current_memberships
   # FIXME: These reflections are meaningless. Will be removed soon or later.
-  has_one :incoming_parcel_item, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
-  has_one :outgoing_parcel_item, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
+  has_one :incoming_parcel_item, -> { with_nature(:incoming) }, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
+  has_one :outgoing_parcel_item, -> { with_nature(:outgoing) }, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
 
   has_picture
   has_geometry :initial_shape, type: :multi_polygon

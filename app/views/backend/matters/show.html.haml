@@ -25,7 +25,18 @@
     - if resource.current_ownership && resource.current_ownership.other?
       = resource_info(:owner, important: true) do |owner|
         = owner.name
-
+    - if resource.incoming_parcel_item
+      .med-info.important
+        %span.title= :incoming_parcels.tl
+        %span.value
+          %i.picto{class: "picto-movements"}
+          = link_to(resource.incoming_parcel_item.parcel.number, controller: :parcels, action: :show, id: resource.incoming_parcel_item.parcel.id)
+    - if resource.outgoing_parcel_item
+      .med-info.important
+        %span.title= :outgoing_parcels.tl
+        %span.value
+          %i.picto{class: "picto-movements"}
+          = link_to(resource.outgoing_parcel_item.parcel.number, controller: :parcels, action: :show, id: resource.outgoing_parcel_item.parcel.id)
 
 = cobbles do |c|
 
@@ -41,7 +52,7 @@
       - l.attribute :description
       - l.custom_fields
 
-  - c.cobble(:variable_indicators) do
+  -# c.cobble(:variable_indicators) do
     = variable_readings(resource)
 
   -# c.cobble(tl(:x_readings, count: resource.readings.count)) do

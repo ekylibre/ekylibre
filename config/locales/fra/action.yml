@@ -1077,7 +1077,7 @@ fra:
     incident: "Incident" #?
     include_blank: "— Aucune organisation —"
     income_statement: "Compte de résultat"
-    incoming_parcels: "Colis à réceptionner"
+    incoming_parcels: "Colis entrants"
     incoming_payment: "Encaissement"
     incoming_payment_conditions: "Conditions d’encaissement" #?
     incoming_payments: "Encaissements"
