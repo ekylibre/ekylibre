@@ -1,13 +1,12 @@
 # coding: utf-8
-# require 'procedo/converter'
-
 module Procedo
-  # An Handler define a way to quantify an input/output
+  # An Handler define a way to quantify a population
   class Handler
-    attr_reader :name, :unit, :indicator, :converters, :parameter, :condition_tree, :backward_tree, :forward_tree, :widget
+    TYPES = [:indicator, :population]
+
+    attr_reader :name, :unit, :indicator, :parameter, :condition_tree, :backward_tree, :forward_tree, :widget
 
     delegate :procedure, to: :parameter
-    delegate :datatype, to: :indicator
     delegate :name, to: :parameter, prefix: true
     delegate :name, to: :procedure, prefix: true
     delegate :parse!, :count_variables, to: :class
@@ -26,7 +25,7 @@ module Procedo
           return 1
         end
         return 0 unless node.elements
-        node.elements.inject(0) do |count, child|
+        node.elements.each_with_object(0) do |child, count|
           count += count_variables(child, name)
           count
         end
@@ -37,8 +36,17 @@ module Procedo
       @parameter = parameter
       @trees = {}.with_indifferent_access
       self.name = name
-      self.indicator_name = options[:indicator] || name
-      self.unit_name = options[:unit] if self.measure?
+      options[:type] ||= :population if @name == :population
+      @type = options[:type] || :indicator
+      fail 'Invalid type: ' + @type.inspect unless TYPES.include?(@type)
+      if indicator?
+        self.indicator_name = options[:indicator] || @name
+        self.unit_name = options[:unit] if self.measure?
+      elsif population?
+        options[:forward] = 'value'
+        options[:backward] = 'value'
+        options[:if] ||= 'self?'
+      end
       self.condition = options[:if] unless options[:if].blank?
       self.forward = options[:forward] unless options[:forward].blank?
       self.backward = options[:backward] unless options[:backward].blank?
@@ -82,6 +90,18 @@ module Procedo
 
     def dimension_name
       @unit.dimension.to_sym
+    end
+
+    def indicator?
+      @type == :indicator
+    end
+
+    def population?
+      @type == :population
+    end
+
+    def datatype
+      population? ? :decimal : indicator.datatype
     end
 
     def measure?

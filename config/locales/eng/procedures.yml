@@ -21,6 +21,7 @@ eng:
     # nitrogen_unities_density: "Nitrogen unities density"
     # phosphorus_unities_density: "Phosphorus unities density"
     #~ plants_count: "Plants count"
+    # population: "Population"
     # potassium_unities_density: "Potassium unities density"
     #~ shape: "Shape"
     #~ stakes_count: "Stakes count"

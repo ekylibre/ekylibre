@@ -3,6 +3,7 @@
   <procedure name="sowing" categories="planting" actions="sowing">
     <parameters>
       <input name="seeds" filter="is seed and derives from plant and can grow">
+        <handler name="population"/>
         <handler indicator="net_mass" unit="kilogram"
                  if="population_counting_is(self, :decimal) and self..net_mass?"
                  backward="value * self..net_mass(kilogram)"
