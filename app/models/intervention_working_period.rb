@@ -42,7 +42,7 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
   validates_presence_of :duration, :intervention, :started_at, :stopped_at
   # ]VALIDATORS]
 
-  scope :of_activity, ->(_activity) { where(intervention_id: Intervention.of_activity(activits)) }
+  scope :of_activity, ->(activity) { where(intervention_id: Intervention.of_activity(activity)) }
   scope :of_activities, ->(*activities) { where(intervention_id: Intervention.of_activities(*activities)) }
   scope :of_campaign, lambda { |campaign|
     where(intervention_id: Intervention.of_campaign(campaign))

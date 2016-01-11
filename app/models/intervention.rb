@@ -107,6 +107,9 @@ class Intervention < Ekylibre::Record::Base
   }
 
   before_validation do
+    if self.started_at && self.stopped_at
+      self.whole_duration = (stopped_at - started_at).to_i
+    end
     self.state ||= self.class.state.default
     if procedure
       self.actions = procedure.actions.map(&:name) if actions && actions.empty?
@@ -181,13 +184,14 @@ class Intervention < Ekylibre::Record::Base
 
   # Update temporality informations in intervention
   def update_temporality
+    self.reload
     started_at = working_periods.minimum(:started_at)
     stopped_at = working_periods.maximum(:stopped_at)
     update_columns(
       started_at: started_at,
       stopped_at: stopped_at,
       working_duration: working_periods.sum(:duration),
-      whole_duration: ((stopped_at? && started_at) ? (stopped_at - started_at).to_i : 0)
+      whole_duration: ((stopped_at && started_at) ? (stopped_at - started_at).to_i : 0)
     )
   end
 
