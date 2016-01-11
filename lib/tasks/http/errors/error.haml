@@ -11,11 +11,9 @@
       $text-color: #333333;
       html {
         height: 100%;
-        background-color: $base-color;
-        background: linear-gradient(to bottom, $base-color, mix($base-color, black, 70%));
+        background: #F7F7F7;
         background-size: cover;
         color: $text-color;
-        text-align: center;
         font-family: 'Open Sans', sans-serif;
         margin: 0;
         body {
@@ -31,6 +29,8 @@
           max-width: 33em;
           padding: 3em;
           padding: 15vh 20vw;
+          border-top: 1px solid #d81e08;
+          border-bottom: 1px solid #d81e08;
           h1 {
             font-size: 140%;
             color: $base-color;
@@ -38,6 +38,7 @@
           }
         }
         &.legals {
+          text-align: center;
           font-size: 80%;
           padding: 2em;
           padding: 3vh;
