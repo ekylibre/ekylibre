@@ -4,20 +4,22 @@ module Procedo
   module Engine
     class Intervention
       class Parameter
-        attr_reader :name, :intervention, :id, :reference, :type
+        attr_reader :name, :intervention, :group, :id, :reference, :type
 
         delegate :procedure, to: :intervention
         delegate :name, :reflection_name, to: :reference, prefix: true
 
-        def initialize(intervention, id, attributes = {})
-          unless intervention.is_a?(Procedo::Engine::Intervention)
-            fail "Invalid intervention: #{intervention.inspect}"
+        def initialize(group, id, attributes = {})
+          if group.is_a?(Procedo::Engine::Intervention)
+            @intervention = group
+          elsif group.is_a?(Procedo::Engine::Intervention::GroupParameter)
+            @group = group
+            @intervention = @group.intervention
+          else
+            fail "Invalid group: #{group.inspect}"
           end
-          @intervention = intervention
           @attributes = attributes.symbolize_keys
-          # puts @attributes.inspect.yellow
           @id = id.to_s
-          # puts "Parameter #{@id.inspect}: #{@attributes.inspect}".yellow
           unless root?
             @name = @attributes[:reference_name].to_sym
             @reference = procedure.find!(@name)
@@ -30,7 +32,7 @@ module Procedo
         end
 
         def to_hash
-          fail NotImplementedError
+          { reference_name: @reference.name }
         end
 
         def param_name

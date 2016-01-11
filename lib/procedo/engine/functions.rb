@@ -33,6 +33,30 @@ module Procedo
           list.compact.sum.to_d(unit || :square_meter)
         end
 
+        def merge_working_zones(set)
+          zone = nil
+          list = set.map do |parameter|
+            unless parameter.is_a?(Procedo::Engine::Intervention::ProductParameter)
+              fail 'Invalid parameter. Only product_parameter wanted. Got: ' + parameter.class.name
+            end
+            zone = zone.nil? ? parameter.working_zone : zone.merge(parameter.working_zone)
+          end
+          zone
+        end
+
+        # Returns a set composed of sibling parameter
+        def siblings(parameter, set)
+          children(parent(parameter), set)
+        end
+
+        def parent(parameter)
+          parameter.group
+        end
+
+        def children(group, set)
+          set.build(group.children(set.parameter_name))
+        end
+
         def area(shape)
           return shape.area.to_f(:square_meter)
         rescue

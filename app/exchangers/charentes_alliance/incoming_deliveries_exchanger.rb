@@ -61,38 +61,38 @@ class CharentesAlliance::IncomingDeliveriesExchanger < ActiveExchanger::Base
       end
 
       # create an order if not exist
-        unless order = Parcel.find_by_reference_number(r.order_number)
-          order = Parcel.create!(nature: :incoming, reference_number: r.order_number, planned_at: r.ordered_on, given_at: r.ordered_on, state: :in_preparation, sender: cooperative, address: Entity.of_company.default_mail_address, delivery_mode: :third, storage: building_division)
-          previous_order_number = r.order_number
+      unless order = Parcel.find_by_reference_number(r.order_number)
+        order = Parcel.create!(nature: :incoming, reference_number: r.order_number, planned_at: r.ordered_on, given_at: r.ordered_on, state: :in_preparation, sender: cooperative, address: Entity.of_company.default_mail_address, delivery_mode: :third, storage: building_division)
+        previous_order_number = r.order_number
+      end
+      # find a product_nature_variant by mapping current name of matter in coop file in coop reference_name
+      unless product_nature_variant = ProductNatureVariant.find_by_number(r.coop_reference_name)
+        if Nomen::ProductNatureVariant.find(r.coop_variant_reference_name)
+          product_nature_variant ||= ProductNatureVariant.import_from_nomenclature(r.coop_variant_reference_name)
+        else
+          # find a product_nature_variant by mapping current sub_family of matter in coop file in Ekylibre reference_name
+          product_nature_variant ||= ProductNatureVariant.import_from_nomenclature(r.product_nature_name)
         end
-        # find a product_nature_variant by mapping current name of matter in coop file in coop reference_name
-        unless product_nature_variant = ProductNatureVariant.find_by_number(r.coop_reference_name)
-          if Nomen::ProductNatureVariant.find(r.coop_variant_reference_name)
-            product_nature_variant ||= ProductNatureVariant.import_from_nomenclature(r.coop_variant_reference_name)
-          else
-            # find a product_nature_variant by mapping current sub_family of matter in coop file in Ekylibre reference_name
-            product_nature_variant ||= ProductNatureVariant.import_from_nomenclature(r.product_nature_name)
-          end
-          product_nature_variant.number = r.coop_reference_name if r.coop_reference_name
-          product_nature_variant.save!
-        end
-        # find a price from current supplier for a consider variant
-        #  @ TODO waiting for a product price capitalization method
-        product_nature_variant_price = catalog.items.find_by(variant_id: product_nature_variant.id)
-        product_nature_variant_price ||= catalog.items.create!(
-          currency: 'EUR',
-          reference_tax_id: appro_price_template_tax.id,
-          amount: appro_price_template_tax.amount_of(r.product_unit_price),
-          variant_id: product_nature_variant.id
-        )
-        product_model = product_nature_variant.nature.matching_model
-        incoming_item ||= product_model.create!(variant: product_nature_variant, work_number: r.ordered_on.to_s + '_' + r.matter_name, name: r.matter_name + ' (' + r.ordered_on.to_s + ')', initial_owner: Entity.of_company, identification_number: r.ordered_on.to_s + '_' + r.order_number + '_' + r.matter_name, initial_born_at: r.ordered_on, created_at: r.ordered_on, default_storage: building_division, initial_population: r.quantity)
+        product_nature_variant.number = r.coop_reference_name if r.coop_reference_name
+        product_nature_variant.save!
+      end
+      # find a price from current supplier for a consider variant
+      #  @ TODO waiting for a product price capitalization method
+      product_nature_variant_price = catalog.items.find_by(variant_id: product_nature_variant.id)
+      product_nature_variant_price ||= catalog.items.create!(
+        currency: 'EUR',
+        reference_tax_id: appro_price_template_tax.id,
+        amount: appro_price_template_tax.amount_of(r.product_unit_price),
+        variant_id: product_nature_variant.id
+      )
+      product_model = product_nature_variant.nature.matching_model
+      incoming_item ||= product_model.create!(variant: product_nature_variant, work_number: r.ordered_on.to_s + '_' + r.matter_name, name: r.matter_name + ' (' + r.ordered_on.to_s + ')', initial_owner: Entity.of_company, identification_number: r.ordered_on.to_s + '_' + r.order_number + '_' + r.matter_name, initial_born_at: r.ordered_on, created_at: r.ordered_on, default_storage: building_division, initial_population: r.quantity)
 
-        # incoming_item.move!(r.quantity, at: r.ordered_on.to_datetime)
+      # incoming_item.move!(r.quantity, at: r.ordered_on.to_datetime)
 
-        if incoming_item.present? and r.order_status == :order
-          order.items.create!(source_product: incoming_item, product: incoming_item)
-        end
+      if incoming_item.present? and r.order_status == :order
+        order.items.create!(source_product: incoming_item, product: incoming_item)
+      end
       w.check_point
     end
   end

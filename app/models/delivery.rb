@@ -104,7 +104,7 @@ class Delivery < Ekylibre::Record::Base
   def check
     return false unless can_check?
     parcels.find_each do |parcel|
-      #parcel.prepare if parcel.can_prepare?
+      # parcel.prepare if parcel.can_prepare?
       parcel.check if parcel.can_check?
     end
     super

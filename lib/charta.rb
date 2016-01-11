@@ -13,7 +13,7 @@ module Charta
   class << self
     def new_geometry(coordinates, srs = nil, format = nil)
       geom_ewkt = nil
-      if coordinates.nil?
+      if coordinates.blank?
         geom_ewkt = empty_geometry(srs).to_ewkt
       elsif coordinates.is_a?(self.class)
         geom_ewkt = coordinates.ewkt

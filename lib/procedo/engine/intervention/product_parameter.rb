@@ -55,11 +55,12 @@ module Procedo
         end
 
         def to_hash
-          hash = { reference_name: @reference.name, readings_attributes: {} }
-          hash[:product_id] = @product ? @product.id : nil
+          hash = super
+          hash[:product_id] = product_id
           hash[:working_zone] = @working_zone ? @working_zone.to_json : nil
           @readings.each do |id, reading|
             next unless reference.reading(reading.name)
+            hash[:readings_attributes] ||= {}
             hash[:readings_attributes][id] = reading.to_hash
           end
           hash
@@ -74,7 +75,7 @@ module Procedo
           super(field)
           impact_on_attributes(field)
           impact_on_readings(field)
-          # impact_on_parameters(field)
+          impact_on_parameters(field)
         end
 
         # Impact changes on attributes of parameter based on given field
@@ -84,23 +85,26 @@ module Procedo
             next unless attribute.default_value?
             next unless attribute.default_value_with_environment_variable?(field, :self)
             next if attribute.condition? && !usable_attribute?(attribute)
-            value = intervention.interpret(attribute.default_value_tree, env)
-            puts [value, send(attribute.name)].inspect
-            if value != send(attribute.name)
-              send(attribute.name.to_s + '=', value)
-            end
+            value = compute_attribute(attribute)
+            next unless value != send(attribute.name)
+            puts "Update #{attribute.name}"
+            value = Charta.new_geometry(value) if value && attribute.name == :working_zone
+            send(attribute.name.to_s + '=', value)
           end
         end
 
         # Impact changes on readings of parameter based on given field
         def impact_on_readings(field)
-          reference.readings.each do |reading|
+          reference.readings.each do |ref_reading|
             ir = reading(ref_reading.name)
-            next unless ir && reading.default_value?
-            next unless reading.default_value_with_environment_variable?(field, :self)
-            next if reading.condition? && !usable_reading?(reading)
-            value = intervention.interpret(reading.default_value_tree, env)
-            ir.value = value if value != ir.value
+            next unless ir && ref_reading.default_value?
+            next unless ref_reading.default_value_with_environment_variable?(field, :self)
+            next if ref_reading.condition? && !usable_reading?(ref_reading)
+            value = compute_reading(ref_reading)
+            if value != ir.value
+              puts "Update reading #{ref_reading.name}"
+              ir.value = value
+            end
           end
         end
 
@@ -113,24 +117,39 @@ module Procedo
               if parameter.quantified? && ip.quantity_handler
                 handler = parameter.handler(ip.quantity_handler)
                 if handler && handler.depend_on?(reference_name)
+                  puts "Impact #{parameter.name} #{handler.name} quantity_value"
                   ip.quantity_value = ip.quantity_value
                 end
               end
               # Impact attributes
               parameter.attributes.each do |attribute|
-                if attribute.depend_on?(reference_name)
+                next unless attribute.depend_on?(reference_name)
+                value = ip.compute_attribute(attribute)
+                if value != ip.send(attribute.name)
+                  puts "Impact #{parameter.name} #{attribute.name} attribute"
                   ip.impact(attribute.name)
                 end
               end
               # Impact readings
               parameter.readings.each do |reading|
-                if reading.depend_on?(reference_name)
-                  ir = ip.reading(reading.name)
-                  ir.value = ir.value
+                next unless reading.depend_on?(reference_name)
+                ir = ip.reading(reading.name)
+                value = ip.compute_reading(reading)
+                if value != ir.value
+                  puts "Impact #{parameter.name} #{reading.name} reading: #{ir.value.inspect}"
+                  ir.value = value
                 end
               end
             end
           end
+        end
+
+        def compute_attribute(attribute)
+          intervention.interpret(attribute.default_value_tree, env)
+        end
+
+        def compute_reading(reading)
+          intervention.interpret(reading.default_value_tree, env)
         end
 
         # Test if a handler is usable

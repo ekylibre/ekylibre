@@ -29,7 +29,7 @@ module Procedo
         end
 
         def to_hash
-          hash = { reference_name: @reference.name }
+          hash = super
           each_member do |parameter|
             param_name = parameter.param_name
             hash[param_name] ||= {}
@@ -44,6 +44,14 @@ module Procedo
               yield member
             end
           end
+        end
+
+        def children(name)
+          parameters = []
+          each_member do |member|
+            parameters << member if member.name == name
+          end
+          parameters
         end
 
         def parameters_of_name(name)
@@ -61,7 +69,7 @@ module Procedo
         def add(param_name, id, attributes = {})
           model_name = param_name.to_s.gsub(/_attributes$/, '').singularize
           class_name = 'Procedo::Engine::Intervention::' + model_name.camelize
-          parameter = class_name.constantize.new(intervention, id, attributes)
+          parameter = class_name.constantize.new(self, id, attributes)
           add_parameter(parameter)
           if parameter.is_a?(Procedo::Engine::Intervention::GroupParameter)
             parameter.parse_params(attributes)
