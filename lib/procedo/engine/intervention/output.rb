@@ -28,7 +28,7 @@ module Procedo
         end
 
         def env
-          super.merge(variant: variant)
+          { variant: variant }.merge(super)
         end
       end
     end

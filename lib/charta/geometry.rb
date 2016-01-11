@@ -85,7 +85,10 @@ module Charta
     # Test if the other measure is equal to self
     def !=(other_geometry)
       other = Charta.new_geometry(other_geometry).transform(srid)
-      fail 'Cannot compare geometry collection' if self.collection? && other.collection?
+      if self.collection? && other.collection?
+        return false if self.empty? ^ other.empty?
+        fail 'Cannot compare geometry collection'
+      end
       select_value("SELECT NOT ST_Equals(#{geom}, #{other.geom})") =~ /\At(rue)?\z/
     end
 

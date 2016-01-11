@@ -33,7 +33,7 @@ module Procedo
         end
 
         def product_id=(id)
-          @product = Product.find_by(id: id)
+          @product = Product.find_by!(id: id)
           impact_dependencies!(:product)
         end
 
@@ -124,6 +124,7 @@ module Procedo
               # Impact attributes
               parameter.attributes.each do |attribute|
                 next unless attribute.depend_on?(reference_name)
+                next unless ip.usable_attribute?(attribute)
                 value = ip.compute_attribute(attribute)
                 if value != ip.send(attribute.name)
                   puts "Impact #{parameter.name} #{attribute.name} attribute"
@@ -133,8 +134,11 @@ module Procedo
               # Impact readings
               parameter.readings.each do |reading|
                 next unless reading.depend_on?(reference_name)
-                ir = ip.reading(reading.name)
+                next unless ip.usable_reading?(reading)
                 value = ip.compute_reading(reading)
+                ir = ip.reading(reading.name)
+                puts value.inspect.green
+                puts ir.value.inspect.blue
                 if value != ir.value
                   puts "Impact #{parameter.name} #{reading.name} reading: #{ir.value.inspect}"
                   ir.value = value
@@ -171,7 +175,7 @@ module Procedo
         end
 
         def env
-          super.merge(product: product, working_zone: working_zone)
+          { self: self, product: product, working_zone: working_zone }
         end
       end
     end

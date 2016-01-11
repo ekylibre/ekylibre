@@ -11,6 +11,7 @@ module Procedo
           h[k.to_s.upcase] = v
           h
         end
+        puts @env.map { |k, v| k.to_s.red + ': ' + v.class.name.yellow }.join(', ')
       end
 
       def interpret(node)
@@ -76,19 +77,23 @@ module Procedo
         elsif node.is_a?(Procedo::Formula::Language::Numeric)
           node.text_value.to_d
         elsif node.is_a?(Procedo::Formula::Language::ActorPresenceTest)
+          puts "PRESENCE: #{run(node.object)}".blue
           run(node.object).present?
         elsif node.is_a?(Procedo::Formula::Language::VariablePresenceTest)
           run(node.variable).any?
         elsif node.is_a?(Procedo::Formula::Language::IndicatorPresenceTest)
           indicator = Nomen::Indicator.find!(node.indicator.text_value)
           product = run(node.object)
-          fail 'Invalid product. Got: ' + product.inspect unless product.is_a?(Product)
+          Rails.logger.warn 'Invalid product. Got: ' + product.inspect unless product.is_a?(Product)
           product.has_indicator?(indicator.name.to_sym) && (indicator.datatype == :measure ? product.get(indicator.name).to_f != 0 : product.get(indicator.name).present?)
         elsif node.is_a?(Procedo::Formula::Language::IndividualIndicatorPresenceTest)
           indicator = Nomen::Indicator.find!(node.indicator.text_value)
           product = run(node.object)
-          # fail 'Invalid product. Got: ' + product.inspect unless product.is_a?(Product)
-          product.frozen_indicators.include?(indicator.name.to_sym) && (indicator.datatype == :measure ? product.get(indicator.name).to_f != 0 : product.get(indicator.name).present?)
+          Rails.logger.warn 'Invalid product. Got: ' + product.inspect unless product.is_a?(Product)
+          puts indicator.datatype
+          puts product.get(indicator.name).to_f
+          puts product.get(indicator.name).inspect
+          product.frozen_indicators.include?(indicator.name.to_sym) && ((indicator.datatype == :measure && product.get(indicator.name).to_f != 0) || product.get(indicator.name).present?)
         elsif node.is_a?(Procedo::Formula::Language::Reading)
           unit = nil
           if node.options && node.options.respond_to?(:unit)
@@ -100,7 +105,7 @@ module Procedo
             fail 'Invalid indicator: ' + node.indicator.text_value.inspect
           end
           product = run(node.object)
-          # fail 'Invalid product. Got: ' + product.inspect unless product.is_a?(Product)
+          Rails.logger.warn 'Invalid product. Got: ' + product.inspect + ' ' + node.text_value unless product.is_a?(Product)
           if node.is_a?(Procedo::Formula::Language::IndividualReading)
             product = product.variant
           end

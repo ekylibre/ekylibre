@@ -71,9 +71,7 @@ class InterventionParameterReading < Ekylibre::Record::Base
 
   after_commit do
     if product
-      unless product_reading
-        product_reading = product.readings.new(indicator: indicator)
-      end
+      product_reading ||= product.readings.new(indicator: indicator)
       product_reading.originator = self
       product_reading.value = value
       product_reading.read_at = intervention.started_at || Time.now

@@ -95,6 +95,11 @@
 
   ##############################################################################
   # Triggers
+  #
+  $(document).on 'cocoon:after-insert', ->
+    $('input[data-map-editor]').each ->
+      $(this).mapeditor()
+
   $(document).on 'keyup mapchange', '*[data-intervention-updater]', ->
     $(this).each ->
       E.interventions.refresh $(this)

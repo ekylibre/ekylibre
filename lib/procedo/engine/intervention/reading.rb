@@ -26,7 +26,10 @@ module Procedo
           else
             value = attributes["#{datatype}_value".to_sym]
             @value = if [:point, :geometry, :multi_polygon].include?(datatype)
-                       Charta.new_geometry(value)
+                       puts value.inspect.yellow
+                       v = Charta.new_geometry(v)
+                       v.srid = 4326 if v.srid == 0
+                       v
                      elsif datatype == :integer
                        value.to_i
                      elsif datatype == :decimal
@@ -51,18 +54,21 @@ module Procedo
         end
 
         def impact_dependencies!
-          puts 'impacted depnendnds'
           reference.computations.each do |computation|
+            next unless usable_computation?(computation)
             result = intervention.interpret(computation.expression_tree, env)
-            puts result.inspect.yellow
             computation.destinations.each do |destination|
-              puts destination.inspect.green
               next unless destination == 'population'
               if parameter.quantity_population != result
                 parameter.quantity_population = result
-                              end
+              end
             end
           end
+        end
+
+        def usable_computation?(computation)
+          return true unless computation.condition?
+          intervention.interpret(computation.condition_tree, env)
         end
 
         def env

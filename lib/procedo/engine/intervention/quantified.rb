@@ -72,7 +72,8 @@ module Procedo
         end
 
         def env
-          super.merge(value: quantity_value, population: quantity_population)
+          { self: self, product: product, working_zone: working_zone,
+            value: quantity_value, population: quantity_population }
         end
       end
     end
