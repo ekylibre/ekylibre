@@ -6,8 +6,9 @@
 = main_informations attachment: true do
   = render 'picture'
   = infos do
-    = resource_info(:variant, important: true) do |variant|
-      - icon = variant.pictogram
+    -#= resource_info(:variant, important: true) do |variant|
+      - if variant.pictogram.any?
+        - icon = variant.pictogram
       - if icon
         %i.picto{class: "picto-#{icon}"}
       = link_to(variant.name, controller: :product_nature_variants, action: :show, id: variant.id)
