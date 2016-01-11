@@ -2,20 +2,27 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="spraying" categories="crop_protection" optional-actions="herbicide, fungicide, insecticide, growth_regulator, molluscicide, nematicide, acaricide, bactericide, rodenticide, talpicide, corvicide, game_repellent, virucide, desiccation, fireproofing">
     <parameters>
-      <parameter name="plant_medicine" type="input" filter="is preparation and can care(plant)">
-        <handler indicator="net_mass" unit="kilogram" if="PRODUCT.net_mass? and PRODUCT.net_mass(kilogram) > 0" to="population" backward="POPULATION * PRODUCT..net_mass(kilogram)" forward="VALUE / PRODUCT..net_mass(kilogram)"/>
-        <handler indicator="mass_area_density" unit="kilogram_per_hectare" if="PRODUCT.net_mass? and PRODUCT.net_mass(kilogram) > 0 and sum(land_parcel, :net_surface_area, :hectare) >= 0.1" to="population" backward="(POPULATION * PRODUCT..net_mass(kilogram)) / sum(land_parcel, :net_surface_area, :hectare)" forward="(VALUE * sum(land_parcel, :net_surface_area, :hectare)) / PRODUCT..net_mass(kilogram)"/>
-        <handler indicator="volume_area_density" unit="liter_per_hectare" if="PRODUCT.net_volume? and PRODUCT.net_volume(liter) > 0 and sum(land_parcel, :net_surface_area, :hectare) >= 0.1" to="population" backward="(POPULATION * PRODUCT..net_volume(liter)) / sum(land_parcel, :net_surface_area, :hectare)" forward="(VALUE * sum(land_parcel, :net_surface_area, :hectare)) / PRODUCT..net_volume(liter)"/>
-      </parameter>
-      <parameter name="tractor" type="tool" filter="is equipment and can catch(sprayer)"/>
-      <parameter name="sprayer" type="tool" filter="can spray"/>
-      <parameter name="driver" type="doer" filter="can drive(tractor)"/>
-      <parameter name="cultivation" type="target" filter="is plant" default-shape=":cultivation" default-actor="variant_localized_in_storage">
-        <handler indicator="shape">
-          <converter to="shape" forward="intersection(VALUE, cultivation.shape)" backward="VALUE"/>
-          <converter to="population" forward="area(VALUE) / cultivation..net_surface_area(square_meter)"/>
-        </handler>
-      </parameter>
+      <target name="cultivation" filter="is plant and has indicator shape">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+      </target>	
+      <input name="plant_medicine" filter="is preparation and can care(plant)">
+        <handler name="population"/>
+        <handler indicator="net_mass" unit="kilogram"
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
+                 backward="POPULATION * PRODUCT..net_mass(kilogram)"
+                 forward="VALUE / PRODUCT..net_mass(kilogram)"/>
+        <handler indicator="mass_area_density" unit="kilogram_per_hectare"
+                 if="PRODUCT..net_mass? and sum_working_zone_areas(cultivation) != 0"
+                 backward="(POPULATION * PRODUCT..net_mass(kilogram)) / sum_working_zone_areas(cultivation, :hectare)"
+                 forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / PRODUCT..net_mass(kilogram)"/>
+        <handler indicator="volume_area_density" unit="liter_per_hectare"
+                 if="PRODUCT..net_volume? and sum_working_zone_areas(cultivation) != 0"
+                 backward="(POPULATION * PRODUCT..net_volume(liter)) / sum_working_zone_areas(cultivation, :hectare)"
+                 forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / PRODUCT..net_volume(liter)"/>
+      </input>
+      <tool name="sprayer" filter="can spray"/>
+      <tool name="tractor" filter="is equipment and can catch(sprayer)"/>
+      <doer name="driver"  filter="can drive(tractor) and can move"/>
     </parameters>
   </procedure>
 </procedures>

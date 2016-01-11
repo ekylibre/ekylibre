@@ -2,45 +2,27 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="mechanical_fertilizing" categories="fertilizing" actions="fertilization" optional-actions="biostimulation, organic_fertilization, mineral_fertilization, micronutrient_fertilization, liming">
     <parameters>
+      <target name="land_parcel" filter="is land_parcel and has indicator shape">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+      </target>	
       <input name="fertilizer" filter="is preparation and can fertilize">
+        <handler name="population"/>
+        <handler indicator="net_mass" unit="kilogram"
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
+                 backward="POPULATION * PRODUCT..net_mass(kilogram)"
+                 forward="VALUE / PRODUCT..net_mass(kilogram)"/>
         <handler indicator="mass_area_density" unit="kilogram_per_hectare"
-                 if="PRODUCT..net_mass? and PRODUCT..net_mass > 0 and land_parcel? and sum(land_parcel, :net_surface_area, :hectare) >= 0.1"
-                 backward="(POPULATION * PRODUCT..net_mass(kilogram)) / sum(land_parcel, :net_surface_area, :hectare)"
-                 forward="(VALUE * sum(land_parcel, :net_surface_area, :hectare)) / PRODUCT..net_mass(kilogram)"/>
-        <handler name="mass_area_density_in_gram_per_square_meter" indicator="mass_area_density" unit="gram_per_square_meter"
-                 if="PRODUCT..net_mass? and PRODUCT..net_mass > 0 and land_parcel? and 0.1 > sum(land_parcel, :net_surface_area, :hectare)"
-                 backward="(POPULATION * PRODUCT..net_mass(gram)) / sum(land_parcel, :net_surface_area, :square_meter)"
-                 forward="(VALUE * sum(land_parcel, :net_surface_area, :square_meter)) / PRODUCT..net_mass(gram)"/>
-        <handler indicator="volume_area_density" unit="liter_per_hectare"
-                 if="PRODUCT..net_volume? and PRODUCT..net_volume > 0 and land_parcel? and sum(land_parcel, :net_surface_area, :hectare) >= 0.1"
-                 backward="(POPULATION * PRODUCT..net_volume(liter)) / sum(land_parcel, :net_surface_area, :hectare)"
-                 forward="(VALUE * sum(land_parcel, :net_surface_area, :hectare)) / PRODUCT..net_volume(liter)"/>
-        <handler name="volume_area_density_in_liter_per_square_meter" indicator="volume_area_density" unit="liter_per_square_meter"
-                 if="PRODUCT..net_volume? and PRODUCT..net_volume > 0 and land_parcel? and 0.1 > sum(land_parcel, :net_surface_area, :hectare)"
-                 backward="(POPULATION * PRODUCT..net_volume(liter)) / sum(land_parcel, :net_surface_area, :square_meter)"
-                 forward="(VALUE * sum(land_parcel, :net_surface_area, :square_meter)) / PRODUCT..net_volume(liter)"/>
-        <handler name="nitrogen_unities_density" indicator="mass_area_density" unit="kilogram_per_hectare"
-                 if="PRODUCT..net_mass? and PRODUCT..net_mass > 0 and PRODUCT.nitrogen_concentration? and PRODUCT.nitrogen_concentration(percent) > 0"
-                 backward="(POPULATION * PRODUCT..net_mass(kilogram) * (PRODUCT.nitrogen_concentration(percent) / 100)) / sum(land_parcel, :net_surface_area, :hectare)"
-                 forward="(VALUE * sum(land_parcel, :net_surface_area, :hectare)) / (PRODUCT..net_mass(kilogram) * PRODUCT.nitrogen_concentration(percent) / 100)"/>
-        <handler name="phosphorus_unities_density" indicator="mass_area_density" unit="kilogram_per_hectare"
-                 if="PRODUCT..net_mass? and PRODUCT..net_mass > 0 and PRODUCT.phosphorus_concentration? and PRODUCT.phosphorus_concentration(percent) > 0"
-                 backward="(POPULATION * PRODUCT..net_mass(kilogram) * (PRODUCT.phosphorus_concentration(percent) / 100)) / sum(land_parcel, :net_surface_area, :hectare)"
-                 forward="(VALUE * sum(land_parcel, :net_surface_area, :hectare)) / (PRODUCT..net_mass(kilogram) * PRODUCT.phosphorus_concentration(percent) / 100)"/>
-        <handler name="potassium_unities_density" indicator="mass_area_density" unit="kilogram_per_hectare"
-                 if="PRODUCT..net_mass? and PRODUCT..net_mass > 0 and PRODUCT.potassium_concentration? and PRODUCT.potassium_concentration(percent) > 0"
-                 backward="(POPULATION * PRODUCT..net_mass(kilogram) * (PRODUCT.potassium_concentration(percent) / 100)) / sum(land_parcel, :net_surface_area, :hectare)"
-                 forward="(VALUE * sum(land_parcel, :net_surface_area, :hectare)) / (PRODUCT..net_mass(kilogram) * PRODUCT.potassium_concentration(percent) / 100)"/>
-      </input>
-      <parameter name="spreader" type="tool" filter="can spread(preparation)"/>
-      <parameter name="driver" type="doer" filter="can drive(tractor)"/>
-      <parameter name="tractor" type="tool" filter="is equipment and can tow(spreader)"/>
-      <parameter name="land_parcel" type="target" filter="is land_parcel and has indicator shape" default-shape=":land_parcel" default-actor="storage">
-        <handler indicator="shape">
-          <converter to="shape" forward="intersection(VALUE, land_parcel.shape)" backward="VALUE"/>
-          <converter to="population" forward="area(VALUE) / land_parcel..net_surface_area(square_meter)"/>
-        </handler>
-      </parameter>
+                 if="PRODUCT..net_mass? and sum_working_zone_areas(land_parcel) != 0"
+                 backward="(POPULATION * PRODUCT..net_mass(kilogram)) / sum_working_zone_areas(land_parcel, :hectare)"
+                 forward="(VALUE * sum_working_zone_areas(land_parcel, :hectare)) / PRODUCT..net_mass(kilogram)"/>
+        <handler name="nitrogen" indicator="mass_area_density" unit="kilogram_per_hectare"
+                 if="PRODUCT..net_mass? and PRODUCT..nitrogen_concentration? and sum_working_zone_areas(land_parcel) != 0"
+                 backward="(POPULATION * PRODUCT..net_mass(kilogram) * (PRODUCT.nitrogen_concentration(percent) / 100)) / sum_working_zone_areas(land_parcel, :hectare)"
+                 forward="(VALUE * sum_working_zone_areas(land_parcel, :hectare)) / (PRODUCT..net_mass(kilogram) * PRODUCT.nitrogen_concentration(percent) / 100)"/>
+      </input>	
+      <tool name="spreader" filter="can spread(preparation)"/>
+      <tool name="tractor" filter="is equipment and can tow(spreader)"/>
+      <doer name="driver"  filter="can drive(tractor) and can move"/>
     </parameters>
   </procedure>
 </procedures>
