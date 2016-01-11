@@ -39,6 +39,11 @@ por:
         datetime: "Data e Hora"
         decimal: "Decimal"
         text: "Texto"
+    delivery:
+      mode:
+        # third: "Third"
+        # transporter: "By transporter"
+        # us: "By us"
     document_template:
       archiving:
         all: "Todos do tipo"
@@ -109,6 +114,7 @@ por:
         notice: "Aviso"
     parcel:
       delivery_mode:
+        # indifferent: "Indifferent"
         # third: "Transported by recipient"
         # transporter: "Transported by transporter"
         # us: "Transported by us"
@@ -118,10 +124,10 @@ por:
         # outgoing: "Outgoing"
       state:
         # draft: "Draft"
+        # given: "Given"
         # in_preparation: "In preparation"
-        # ready_to_prepare: "Ready to prepare"
-        # ready_to_send: "Ready to send"
-        # sent: "Sent"
+        # ordered: "Ordered"
+        # prepared: "Prepared"
     purchase:  #?
       computation_method: #?
         adaptative: "Adaptativo" #?

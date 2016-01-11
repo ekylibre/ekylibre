@@ -39,6 +39,18 @@ fra:
         datetime: "Date et heure"
         decimal: "Chiffre (décimal)"
         text: "Texte"
+    delivery:
+      mode:
+        third: "Par le tiers"
+        transporter: "Par tranporteur"
+        us: "Par nos soins"
+      state:  #?
+        draft: "Brouillon" #?
+        finished: "Terminée" #?
+        in_preparation: "En préparation" #?
+        ordered: "Commandée" #?
+        prepared: "Préparée" #?
+        started: "Commencée" #?
     document_template:
       archiving:
         all: "Tous du type"
@@ -109,6 +121,7 @@ fra:
         notice: "Faible"
     parcel:
       delivery_mode:
+        indifferent: "Indifférent"
         third: "Par le tiers"
         transporter: "Par tranporteur"
         us: "Par nos soins"
@@ -118,10 +131,10 @@ fra:
         outgoing: "Sortant"
       state:
         draft: "Brouillon"
+        given: "Expédié"
         in_preparation: "En préparation"
-        ready_to_prepare: "En attente de préparation"
-        ready_to_send: "Prêt pour l'expédition"
-        sent: "Expédié"
+        ordered: "Lancé"
+        prepared: "Préparé"
     sensor:
       retrieval_mode:
         listening: "Serveur"

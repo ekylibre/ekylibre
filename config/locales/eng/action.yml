@@ -1290,6 +1290,7 @@ eng:
     options: "Options"
     organic_matter_concentration: "Organic matter concentration" #?
     others: "Others"
+    # outgoing_parcels: "Outgoing parcels"
     outgoing_payment: "Outgoing payment" #?
     outgoing_payments: "Outgoing payments"
     page_title: "%{company_code} · %{menu} · %{action}"

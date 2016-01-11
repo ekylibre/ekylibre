@@ -82,6 +82,7 @@ module Backend
       t.action :edit
       t.action :destroy
       t.column :number, url: true
+      t.column :reference_number, hidden: true
       t.column :nature
       t.column :planned_at
       t.column :recipient, url: true

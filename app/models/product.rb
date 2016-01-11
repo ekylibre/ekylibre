@@ -212,6 +212,7 @@ class Product < Ekylibre::Record::Base
   scope :availables, -> { available }
   scope :tools, -> { of_variety(:equipment) }
   scope :support, -> { joins(:nature).merge(ProductNature.support) }
+  scope :storage, -> { of_variety([:building_division, :equipment]) }
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :born_at, :dead_at, :initial_born_at, :initial_dead_at, :picture_updated_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')

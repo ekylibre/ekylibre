@@ -39,6 +39,11 @@ eng:
         datetime: "Date and time"
         decimal: "Decimal"
         text: "Text"
+    delivery:
+      mode:
+        third: "Third"
+        transporter: "By transporter"
+        us: "By us"
     document_template:
       archiving:
         all: "All of type"
@@ -109,6 +114,7 @@ eng:
         notice: "Notice"
     parcel:
       delivery_mode:
+        indifferent: "Indifferent"
         third: "Transported by recipient"
         transporter: "Transported by transporter"
         us: "Transported by us"
@@ -118,10 +124,10 @@ eng:
         outgoing: "Outgoing"
       state:
         draft: "Draft"
+        given: "Given"
         in_preparation: "In preparation"
-        ready_to_prepare: "Ready to prepare"
-        ready_to_send: "Ready to send"
-        sent: "Sent"
+        ordered: "Ordered"
+        prepared: "Prepared"
     sensor:
       retrieval_mode:
         listening: "Listening"

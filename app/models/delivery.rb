@@ -76,7 +76,7 @@ class Delivery < Ekylibre::Record::Base
       transition ordered: :in_preparation
     end
     event :check do
-      transition in_preparation: :prepared, if: :all_parcels_prepared?
+      transition in_preparation: :prepared, if: :all_parcels_in_preparation?
     end
     event :start do
       transition prepared: :started
@@ -104,7 +104,7 @@ class Delivery < Ekylibre::Record::Base
   def check
     return false unless can_check?
     parcels.find_each do |parcel|
-      parcel.prepare if parcel.can_prepare?
+      #parcel.prepare if parcel.can_prepare?
       parcel.check if parcel.can_check?
     end
     super
@@ -116,6 +116,10 @@ class Delivery < Ekylibre::Record::Base
       parcel.give! if parcel.prepared?
     end
     super
+  end
+
+  def all_parcels_in_preparation?
+    parcels.all?(&:in_preparation?)
   end
 
   def all_parcels_prepared?

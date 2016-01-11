@@ -5,7 +5,7 @@
   #nature-outgoing
     = f.referenced_association :recipient
   = f.referenced_association :address, source: :mails
-  = f.referenced_association :storage, source: {scope: :storage}
+  = f.referenced_association :storage, source: :storage
   = f.input :delivery_mode, as: :radio_buttons
   #delivery-mode-transporter
     = f.referenced_association :transporter

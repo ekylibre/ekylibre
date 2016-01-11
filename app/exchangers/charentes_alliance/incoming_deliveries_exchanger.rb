@@ -30,6 +30,9 @@ class CharentesAlliance::IncomingDeliveriesExchanger < ActiveExchanger::Base
       'Supprimé' => :aborted
     }
 
+    previous_order_number = nil
+    order = nil
+
     rows = CSV.read(file, encoding: 'UTF-8', col_sep: ';', headers: true)
     w.count = rows.size
 
@@ -41,15 +44,27 @@ class CharentesAlliance::IncomingDeliveriesExchanger < ActiveExchanger::Base
         matter_name: row[4],
         coop_variant_reference_name: 'coop:' + row[4].downcase.gsub(/[\W\_]+/, '_'),
         coop_reference_name: row[4].to_s,
-        quantity: (row[5].blank? ? nil : row[5].to_d),
-        product_deliver_quantity: (row[6].blank? ? nil : row[6].to_d),
-        product_unit_price: (row[7].blank? ? nil : row[7].to_d),
+        quantity: (row[5].blank? ? nil : row[5].tr(',', '.').to_d),
+        product_deliver_quantity: (row[6].blank? ? nil : row[6].tr(',', '.').to_d),
+        product_unit_price: (row[7].blank? ? nil : row[7].tr(',', '.').to_d),
         order_status: (status[row[8]] || :draft)
       )
-      # create an incoming deliveries if not exist and status = 2
-      if r.order_status == :order
-        order   = Parcel.find_by_reference_number(r.order_number)
-        order ||= Parcel.create!(nature: :incoming, reference_number: r.order_number, planned_at: r.ordered_on, given_at: r.ordered_on, state: :given, sender: cooperative, address: Entity.of_company.default_mail_address, delivery_mode: :third, storage: building_division)
+
+      # Create delivery if order_number change and all items concerning the same order are already created.
+      if previous_order_number && order && previous_order_number != r.order_number
+        delivery = Delivery.create!(reference_number: previous_order_number, state: :in_preparation, started_at: r.ordered_on.to_time, stopped_at: r.ordered_on.to_time + 1)
+        order.delivery_id = delivery.id
+        order.save!
+        delivery.check
+        delivery.start
+        delivery.finish
+      end
+
+      # create an order if not exist
+        unless order = Parcel.find_by_reference_number(r.order_number)
+          order = Parcel.create!(nature: :incoming, reference_number: r.order_number, planned_at: r.ordered_on, given_at: r.ordered_on, state: :in_preparation, sender: cooperative, address: Entity.of_company.default_mail_address, delivery_mode: :third, storage: building_division)
+          previous_order_number = r.order_number
+        end
         # find a product_nature_variant by mapping current name of matter in coop file in coop reference_name
         unless product_nature_variant = ProductNatureVariant.find_by_number(r.coop_reference_name)
           if Nomen::ProductNatureVariant.find(r.coop_variant_reference_name)
@@ -75,11 +90,9 @@ class CharentesAlliance::IncomingDeliveriesExchanger < ActiveExchanger::Base
 
         # incoming_item.move!(r.quantity, at: r.ordered_on.to_datetime)
 
-        if incoming_item.present?
-          order.items.create!(product: incoming_item)
+        if incoming_item.present? and r.order_status == :order
+          order.items.create!(source_product: incoming_item, product: incoming_item)
         end
-      end
-
       w.check_point
     end
   end
