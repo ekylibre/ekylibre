@@ -116,8 +116,8 @@ module Ekylibre
             stopped_on: Date.new(campaign.harvest_year, 8, 1),
             state: :opened
           }
-
-          if activity.with_supports && cz && product && product.shape && Nomen::Variety.find(:cultivable_zone) == support_variant.variety.to_sym
+          
+          if activity.with_supports && cz && product && product.shape && Nomen::ActivityFamily[activity.family] <= :vegetal_crops
             attributes[:cultivable_zone] = cz
             attributes[:support_shape] = product.shape
             attributes[:size] = ::Charta.new_geometry(product.shape).area.in(:hectare)
