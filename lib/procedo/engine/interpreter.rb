@@ -87,7 +87,7 @@ module Procedo
         elsif node.is_a?(Procedo::Formula::Language::IndividualIndicatorPresenceTest)
           indicator = Nomen::Indicator.find!(node.indicator.text_value)
           product = run(node.object)
-          fail 'Invalid product. Got: ' + product.inspect unless product.is_a?(Product)
+          # fail 'Invalid product. Got: ' + product.inspect unless product.is_a?(Product)
           product.frozen_indicators.include?(indicator.name.to_sym) && (indicator.datatype == :measure ? product.get(indicator.name).to_f != 0 : product.get(indicator.name).present?)
         elsif node.is_a?(Procedo::Formula::Language::Reading)
           unit = nil
@@ -100,7 +100,7 @@ module Procedo
             fail 'Invalid indicator: ' + node.indicator.text_value.inspect
           end
           product = run(node.object)
-          fail 'Invalid product. Got: ' + product.inspect unless product.is_a?(Product)
+          # fail 'Invalid product. Got: ' + product.inspect unless product.is_a?(Product)
           if node.is_a?(Procedo::Formula::Language::IndividualReading)
             product = product.variant
           end

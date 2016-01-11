@@ -70,10 +70,13 @@ class InterventionParameterReading < Ekylibre::Record::Base
   end
 
   after_commit do
-    unless product_reading
-      product_reading.build(indicator: indicator, value: value)
+    if product
+      unless product_reading
+        product_reading = product.readings.new(indicator: indicator)
+      end
+      product_reading.originator = self
+      product_reading.value = value
+      product_reading.save!
     end
-    product_reading.value = value
-    product_reading.save!
   end
 end

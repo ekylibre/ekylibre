@@ -42,7 +42,7 @@ module Procedo
         # remains equal. No more impact on value
         def quantity_population=(population)
           @quantity_population = population
-          @quantity_handler ||= reference.handlers.first.name
+          @quantity_handler ||= reference.handlers.first.name if reference.handlers.first
           return unless quantity_handler_reference
           @quantity_value = compute_value if quantity_handler_reference.backward?
           impact_dependencies! :population

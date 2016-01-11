@@ -36,7 +36,7 @@ module Procedo
       end
 
       rule object
-        environment_variable / function_call
+        function_call / environment_variable
       end
 
       rule reading
@@ -101,7 +101,7 @@ module Procedo
       end
 
       rule test
-        negative / comparative / function_call / indicative / presence / "(" boolean_expression ")" <BooleanExpression>
+        negative / comparative / indicative / presence / "(" boolean_expression ")" <BooleanExpression>
       end
 
       rule comparative
@@ -128,7 +128,7 @@ module Procedo
       end
 
       rule negated_test
-        function_call / indicative / presence / "(" boolean_expression ")" <BooleanExpression>
+        indicative / presence / "(" boolean_expression ")" <BooleanExpression>
       end
 
     end

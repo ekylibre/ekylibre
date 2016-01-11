@@ -162,20 +162,15 @@ module Procedo
 
       # Parse <attribute> of parameter
       def parse_attribute(parameter, element)
-        name = element.attr('name')
-        options = {}
-        if element.has_attribute?('value')
-          options[:default_value] = element.attr('value')
-          options[:hidden] = true
-        elsif element.has_attribute?('default-value')
-          options[:default_value] = element.attr('default-value')
-        end
-        attribute = parameter.add_attribute(name, options)
-        # TODO: Manage computations
+        parse_setter(parameter, :attribute, element)
       end
 
       # Parse <reading> of parameter
       def parse_reading(parameter, element)
+        parse_setter(parameter, :reading, element)
+      end
+
+      def parse_setter(parameter, type, element)
         name = element.attr('name')
         options = {}
         if element.has_attribute?('value')
@@ -184,8 +179,23 @@ module Procedo
         elsif element.has_attribute?('default-value')
           options[:default_value] = element.attr('default-value')
         end
-        reading = parameter.add_reading(name, options)
-        # TODO: Manage computations
+        options[:if] = element.attr('if') if element.has_attribute?('if')
+        setter = parameter.send("add_#{type}", name, options)
+        parse_computations(setter, element)
+      end
+
+      def parse_computations(item, element)
+        element.xpath('xmlns:compute').each do |el|
+          parse_computation(item, el)
+        end
+      end
+
+      def parse_computation(item, element)
+        expression = element.attr('expr').strip
+        destinations = element.attr('to').strip.split(/\s*\,\s*/)
+        options = {}
+        options[:if] = element.attr('if') if element.has_attribute?('if')
+        item.add_computation(expression, destinations, options)
       end
 
       # Parse <parameter-group> element

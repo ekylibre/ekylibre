@@ -45,6 +45,30 @@ module Procedo
           @indicator = Nomen::Indicator.find!(name)
         end
 
+        def value=(value)
+          @value = value
+          impact_dependencies!
+        end
+
+        def impact_dependencies!
+          puts 'impacted depnendnds'
+          reference.computations.each do |computation|
+            result = intervention.interpret(computation.expression_tree, env)
+            puts result.inspect.yellow
+            computation.destinations.each do |destination|
+              puts destination.inspect.green
+              next unless destination == 'population'
+              if parameter.quantity_population != result
+                parameter.quantity_population = result
+                              end
+            end
+          end
+        end
+
+        def env
+          parameter.env.merge(value: @value)
+        end
+
         def to_hash
           hash = {
             indicator_name: name,

@@ -58,18 +58,18 @@ class InterventionOutput < InterventionProductParameter
 
   after_save do
     if variant
-      # output = product
-      # output ||= variant.products.new unless output
-      # # output.name = ''
+      output = product
+      output ||= variant.products.new unless output
+      # output.name = ''
       # output.attributes = product_attributes
-      # output.save!
+      output.save!
 
-      # movement = product_movement
-      # movement = output.movements.build unless movement
-      # movement.delta = quantity_population
-      # movement.started_at = intervention.started_at
+      movement = product_movement
+      movement = output.movements.build unless movement
+      movement.delta = quantity_population
+      movement.started_at = intervention.started_at
 
-      # update_columns(product_id: output.id, movement_id: movement.id)
+      update_columns(product_id: output.id) # , movement_id: movement.id)
     end
   end
 

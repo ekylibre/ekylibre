@@ -5,7 +5,7 @@
       <input name="seeds" filter="is seed and derives from plant and can grow">
         <handler name="population"/>
         <handler indicator="net_mass" unit="kilogram"
-                 if="population_counting_is(PRODUCT, :decimal) and PRODUCT..net_mass?"
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
                  backward="POPULATION * PRODUCT..net_mass(kilogram)"
                  forward="VALUE / PRODUCT..net_mass(kilogram)"/>
         <handler indicator="mass_area_density" unit="kilogram_per_hectare"
@@ -37,7 +37,6 @@
           <!-- <attribute name="variety" default-value="derivative_of(first(seeds))"/> -->
           <reading name="shape" value="merge_working_zones(siblings(SELF, land_parcel))">
             <compute expr="area(VALUE) / VARIANT.net_surface_area(square_meter)" to="population"/>
-            <compute expr="intersection(VALUE, merge_working_zones(siblings(SELF, land_parcel)))" to="reading:shape"/>
           </reading>
         </output>
       </group>
