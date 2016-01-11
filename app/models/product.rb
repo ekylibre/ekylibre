@@ -340,7 +340,7 @@ class Product < Ekylibre::Record::Base
     self.born_at ||= self.initial_born_at
     self.dead_at ||= initial_dead_at
 
-    if born_at
+    if born_at && initial_population != 0.0
       build_initial_movement unless initial_movement
       initial_movement.product = self
       initial_movement.delta = initial_population
