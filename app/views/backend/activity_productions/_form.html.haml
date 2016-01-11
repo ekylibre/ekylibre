@@ -1,11 +1,13 @@
 - activity = f.object.activity
+= f.object.errors.inspect
 = field_set do
   = f.referenced_association :activity
   = f.date_range
   = f.input :usage
   -# Vegetal crops
   = f.referenced_association :cultivable_zone
-  = f.shape :support_shape
+  - unless f.object.new_record?    
+    = f.shape :support_shape
   = f.input :support_nature, as: :radio_buttons
   = f.input :irrigated
   = f.input :nitrate_fixing

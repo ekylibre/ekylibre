@@ -11,8 +11,9 @@
   = f.custom_fields
 
 .main_options
-  = f.input :size_indicator
-  = f.input :size_unit
+  = field_set do
+    = f.input :size_indicator_name
+    = f.input :size_unit_name
 
 .auxiliary_options
   = field_set(Activity.human_attribute_name(:distributions)) do

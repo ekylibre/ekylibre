@@ -131,12 +131,14 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   before_validation do
+    self.started_on ||= Time.zone.now
     self.usage = Nomen::ProductionUsage.first unless usage
     if self.activity
       self.size_indicator_name ||= activity_size_indicator_name if activity_size_indicator_name
       self.size_unit_name      = activity_size_unit_name
       self.rank_number ||= (self.activity.productions.maximum(:rank_number) ? self.activity.productions.maximum(:rank_number) : 0) + 1
     end
+    self.support_shape = self.cultivable_zone.shape if self.cultivable_zone
     if !support && cultivable_zone && support_shape && self.vegetal_crops?
       land_parcels = LandParcel.overlaps_shape(::Charta.new_geometry(support_shape)).order(:id)
       if land_parcels.any?
@@ -165,11 +167,7 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   def active?
-    if activity.family.to_s == 'fallow_land'
-      return false
-    else
-      return true
-    end
+    activity.family.to_s != 'fallow_land'
   end
 
   # Returns interventions of current production
