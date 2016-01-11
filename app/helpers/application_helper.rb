@@ -375,7 +375,8 @@ module ApplicationHelper
     content_tag(:svg, capture(&block))
   end
 
-  def dropdown_button(*args, &_block)
+  def dropdown_button(*args)
+    options = args.extract_options!
     l = Ekylibre::Support::Lister.new(:links)
     yield l
     minimum = 0
@@ -687,7 +688,7 @@ module ApplicationHelper
   end
 
   def toolbar_missing(action, *args)
-    options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
+    options = args.extract_options!
     record = args.shift
     url = {}
     url.update(options.delete(:params)) if options[:params].is_a? Hash
@@ -701,7 +702,7 @@ module ApplicationHelper
     dropdown_button do |l|
       variants.each do |name, url_options|
         variant_url = url.merge(url_options)
-        l.link_to(name, variant_url) if authorized?(variant_url)
+        l.link_to(name, variant_url, options.slice(:method, 'data-confirm')) if authorized?(variant_url)
       end
     end
   end

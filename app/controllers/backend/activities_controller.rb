@@ -22,7 +22,7 @@ module Backend
 
     unroll
 
-    list do |t|
+    list line_class: '(:success if RECORD.of_campaign?(current_campaign))'.c do |t|
       # t.action :show, url: {format: :pdf}, image: :print
       t.action :edit
       t.action :destroy, if: :destroyable?
@@ -33,6 +33,33 @@ module Backend
       t.column :cultivation_variety, hidden: true
       t.column :with_supports
       t.column :support_variety, hidden: true
+    end
+
+    # Duplicate activity basing on campaign
+    def duplicate
+      preceding = current_campaign.preceding
+
+      # Productions
+      unless current_campaign.activity_productions.any?
+        preceding.activity_productions.each do |production|
+          updates = {}
+          if production.started_on
+            updates[:started_on] = production.started_on + 1.year
+          end
+          if production.stopped_on
+            updates[:stopped_on] = production.stopped_on + 1.year
+          end
+          production.duplicate!(updates)
+        end
+      end
+
+      # Budgets
+      unless current_campaign.activity_budgets.any?
+        preceding.activity_budgets.each do |budget|
+          budget.duplicate!(campaign: preceding)
+        end
+      end
+      redirect_to params[:redirect] || { action: :index }
     end
 
     # Returns wanted varieties proposition for given family_name

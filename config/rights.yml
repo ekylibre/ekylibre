@@ -216,6 +216,7 @@ activities:
     actions:
     - "backend/activities#create"
     - "backend/activities#destroy"
+    - "backend/activities#duplicate"
     - "backend/activities#edit"
     - "backend/activities#new"
     - "backend/activities#update"

@@ -39,6 +39,7 @@
 #
 class Campaign < Ekylibre::Record::Base
   has_many :cap_statements
+  has_many :activity_budgets
   has_one :selected_manure_management_plan, -> { selecteds }, class_name: 'ManureManagementPlan', foreign_key: :campaign_id, inverse_of: :campaign
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_date :started_on, :stopped_on, allow_blank: true, on_or_after: Date.civil(1, 1, 1)

@@ -596,6 +596,7 @@
         <page to="backend/activities#index"/>
         <page to="backend/activities#create"/>
         <page to="backend/activities#destroy"/>
+        <page to="backend/activities#duplicate"/>
         <page to="backend/activities#edit"/>
         <page to="backend/activities#family"/>
         <page to="backend/activities#list"/>

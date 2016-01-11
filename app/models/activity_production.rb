@@ -126,6 +126,10 @@ class ActivityProduction < Ekylibre::Record::Base
     end
   end
 
+  before_validation on: :create do
+    self.rank_number = (self.activity.productions.maximum(:rank_number) ? self.activity.productions.maximum(:rank_number) : 0) + 1
+  end
+
   before_validation do
     self.usage = Nomen::ProductionUsage.first unless usage
     if self.activity
@@ -358,6 +362,17 @@ class ActivityProduction < Ekylibre::Record::Base
     value = get(size_indicator_name, options)
     value = value.in(size_unit_name) unless size_unit_name.blank?
     value
+  end
+
+  def duplicate!(updates = {})
+    new_attributes = [
+      :activity, :cultivable_zone, :irrigated, :nitrate_fixing,
+      :size_indicator_name, :size_unit_name, :size_value, :started_on, :support,
+      :support_nature, :support_shape, :usage].each_with_object({}) do |attr, h|
+      h[attr] = send(attr)
+      h
+    end.merge(updates)
+    self.class.create!(new_attributes)
   end
 
   ## AREA METHODS ##

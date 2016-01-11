@@ -286,6 +286,7 @@ eng:
     # active_sessions: "Active sessions"
     activities: "Activities"
     activity: "Activity"
+    # activity_budgets: "Activity budgets"
     activity_code: "Activity code"
     activity_distributions: "Activity distributions" #?
     activity_production: "Activity production"

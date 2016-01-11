@@ -6,9 +6,9 @@ module CastGroupable
     fail 'No procedure' unless procedure
     attributes = args.extract_options!
     parameter = procedure.find!(parameter_name)
-    if parameter.is_a?(Procedo::ProductParameter)
+    if parameter.is_a?(Procedo::Procedure::ProductParameter)
       add_product_parameter!(parameter_name, args.shift, attributes)
-    elsif parameter.is_a?(Procedo::GroupParameter)
+    elsif parameter.is_a?(Procedo::Procedure::GroupParameter)
       add_group_parameter!(parameter_name, attributes, &block)
     else
       fail "Cannot add unknown parameter: #{parameter_name.inspect}"
@@ -35,7 +35,7 @@ module CastGroupable
     attributes = args.extract_options!
     name = args.shift
     attributes[:reference_name] = name
-    group = cast_groups.create!(attributes)
+    group = group_parameters.create!(attributes)
     yield group if block_given?
   end
 end

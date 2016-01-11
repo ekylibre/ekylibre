@@ -93,4 +93,15 @@ class ActivityBudget < Ekylibre::Record::Base
     end
     1
   end
+
+  def duplicate!(updates = {})
+    new_attributes = [
+      :activity, :amount, :campaign, :computation_method, :currency, :direction,
+      :quantity, :unit_amount, :unit_currency, :unit_population, :variant,
+      :variant_indicator, :variant_unit].each_with_object({}) do |attr, h|
+      h[attr] = send(attr)
+      h
+    end.merge(updates)
+    self.class.create!(new_attributes)
+  end
 end

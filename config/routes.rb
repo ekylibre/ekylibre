@@ -169,6 +169,7 @@ Rails.application.routes.draw do
     resources :activities, concerns: [:attachments, :list, :unroll] do
       collection do
         get :family
+        post :duplicate
       end
       member do
         get :list_budgets
