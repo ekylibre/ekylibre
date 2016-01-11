@@ -49,9 +49,7 @@ class ProductMovement < Ekylibre::Record::Base
   # ]VALIDATORS]
 
   before_validation do
-    if delta == 0.0
-      errors.add(:delta, :invalid)
-    end
+    # errors.add(:delta, :invalid) if delta == 0.0
     self.population = (previous ? previous.population : 0.0) + delta
   end
 
