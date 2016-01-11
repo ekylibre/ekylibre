@@ -127,15 +127,17 @@ module Procedo
       end
 
       # Returns keys
-      def depend_on?(parameter_name, modes = nil)
-        modes ||= [:forward, :backward, :condition]
-        modes = [modes] unless modes.is_a?(Array)
-        modes.each do |mode|
-          if tree?(mode)
-            return true if count_variables(tree(mode), parameter_name) > 0
-          end
-        end
-        false
+      def depend_on?(parameter_name)
+        condition_with_parameter?(parameter_name) ||
+          backward_with_parameter?(parameter_name) ||
+          forward_with_parameter?(parameter_name)
+      end
+
+      def dependent_parameters
+        parameters = handler.condition_dependent_parameters
+        parameters += handler.backward_dependent_parameters
+        parameters += handler.forward_dependent_parameters
+        parameters.uniq
       end
     end
   end

@@ -45,6 +45,14 @@ module Procedo
           puts "Impact #{field}".magenta
           send(field + '=', send(field))
         end
+
+        def impact_dependencies!(field)
+          puts "Impact dependencies from #{field}!".red
+        end
+
+        def env
+          { self: self }
+        end
       end
     end
   end

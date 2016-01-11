@@ -21,12 +21,14 @@ module Backend
   class FormBuilder < SimpleForm::FormBuilder
     # Display a selector with "new" button
     def referenced_association(association, options = {})
+      return self.association(association, options) if options[:as] == :hidden
       options = referenced_association_input_options(association, options)
       input(options[:reflection].foreign_key, options)
     end
 
     # Display a selector with "new" button
     def referenced_association_field(association, options = {})
+      return self.association(association, options) if options[:as] == :hidden
       options = referenced_association_input_options(association, options)
       html_options = options[:input_html].merge(options.slice(:as, :reflection))
       input_field(options[:reflection].foreign_key, html_options)
@@ -94,8 +96,9 @@ module Backend
       nested_association :attachments
     end
 
-    def indicator(_indicator_attribute_name, _unit_attribute_name, *_args, &_block)
-      nil
+    def reading(options = {})
+      indicator = Nomen::Indicator.find!(@object.indicator_name)
+      @template.render(partial: 'backend/shared/reading_form', locals: { f: self, indicator: indicator, hidden: (options[:as] == :hidden) })
     end
 
     def variant_quantifier_of(association, *args, &block)
@@ -436,41 +439,20 @@ module Backend
         indicators = variant.variable_indicators.delete_if { |i| whole_indicators.include?(i) }
         if object.new_record? && indicators.any?
 
-          for indicator in indicators
+          indicators.each do |indicator|
             @object.readings.build(indicator_name: indicator.name)
           end if @object.readings.empty?
 
           html << @template.field_set(:indicators) do
             fs = ''.html_safe
-            for reading in @object.readings
+            @object.readings.each do |reading|
               indicator = reading.indicator
               # error message for indicators
               if Rails.env.development?
                 fs << reading.errors.inspect if reading.errors.any?
               end
               fs << backend_fields_for(:readings, reading) do |indfi|
-                fsi = ''.html_safe
-                fsi << indfi.input(:indicator_name, as: :hidden)
-                fsi << indfi.input(:product_id, as: :hidden)
-                fsi << indfi.input("#{indicator.datatype}_value_value", wrapper: :append, value: 0, class: :inline, label: indicator.human_name) do
-                  m = ''.html_safe
-                  if indicator.datatype == :measure
-                    reading.measure_value_unit ||= indicator.unit
-                    m << indfi.number_field("#{indicator.datatype}_value_value", label: indicator.human_name)
-                    m << indfi.input_field("#{indicator.datatype}_value_unit", label: indicator.human_name, collection: Measure.siblings(indicator.unit).collect { |u| [Nomen::Unit[u].human_name, u] })
-                  elsif indicator.datatype == :choice
-                    m << indfi.input_field("#{indicator.datatype}_value", label: indicator.human_name, collection: indicator.selection(:choices))
-                  elsif [:boolean, :string, :decimal].include?(indicator.datatype)
-                    m << indfi.input_field("#{indicator.datatype}_value", label: indicator.human_name, as: indicator.datatype)
-                  else
-                    m << indfi.input_field("#{indicator.datatype}_value", label: indicator.human_name, as: :string)
-                  end
-                  if indfi.object.indicator_name.to_s == 'population'
-                    m << @template.content_tag(:span, variant.unit_name, class: 'add-on')
-                  end
-                  m
-                end
-                fsi
+                indfi.input(:product_id, as: :hidden) + indfi.reading
               end
             end
             fs
@@ -618,10 +600,6 @@ module Backend
       fail "Association #{association.inspect} not found" unless reflection
       if reflection.macro != :belongs_to
         fail ArgumentError, "Reflection #{reflection.name} must be a belongs_to"
-      end
-
-      if (options.delete(:as) || options.delete(:field)) == :hidden
-        return self.association(association)
       end
 
       choices = options.delete(:source) || {}

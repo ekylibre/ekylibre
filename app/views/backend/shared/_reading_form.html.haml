@@ -1,0 +1,14 @@
+- default_as = (hidden ? :hidden : nil)
+= f.input(:indicator_name, as: :hidden)
+= f.input(:indicator_datatype, as: :hidden)
+= f.input(indicator.datatype.to_s + '_value_value', as: default_as, wrapper: :append, value: 0, class: :inline, label: indicator.human_name) do
+  - if indicator.datatype == :measure
+    - reading.measure_value_unit ||= indicator.unit
+    = f.number_field(indicator.datatype.to_s + '_value_value', label: indicator.human_name)
+    = f.input_field(indicator.datatype.to_s + '_value_unit', label: indicator.human_name, collection: Measure.siblings(indicator.unit).collect { |u| [Nomen::Unit[u].human_name, u] }, as: default_as)
+  - elsif indicator.datatype == :choice
+    = f.input_field(indicator.datatype.to_s + '_value', label: indicator.human_name, collection: indicator.selection(:choices), as: default_as)
+  - elsif [:boolean, :string, :decimal].include?(indicator.datatype)
+    = f.input_field(indicator.datatype.to_s + '_value', label: indicator.human_name, as: default_as || indicator.datatype)
+  - else
+    = f.input_field(indicator.datatype.to_s + '_value', label: indicator.human_name, as: default_as || :string)

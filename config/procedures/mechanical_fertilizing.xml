@@ -5,31 +5,31 @@
       <input name="fertilizer" filter="is preparation and can fertilize">
         <handler indicator="mass_area_density" unit="kilogram_per_hectare"
                  if="PRODUCT..net_mass? and PRODUCT..net_mass > 0 and land_parcel? and sum(land_parcel, :net_surface_area, :hectare) >= 0.1"
-                 backward="(VALUE * PRODUCT..net_mass(kilogram)) / sum(land_parcel, :net_surface_area, :hectare)"
+                 backward="(POPULATION * PRODUCT..net_mass(kilogram)) / sum(land_parcel, :net_surface_area, :hectare)"
                  forward="(VALUE * sum(land_parcel, :net_surface_area, :hectare)) / PRODUCT..net_mass(kilogram)"/>
         <handler name="mass_area_density_in_gram_per_square_meter" indicator="mass_area_density" unit="gram_per_square_meter"
                  if="PRODUCT..net_mass? and PRODUCT..net_mass > 0 and land_parcel? and 0.1 > sum(land_parcel, :net_surface_area, :hectare)"
-                 backward="(VALUE * PRODUCT..net_mass(gram)) / sum(land_parcel, :net_surface_area, :square_meter)"
+                 backward="(POPULATION * PRODUCT..net_mass(gram)) / sum(land_parcel, :net_surface_area, :square_meter)"
                  forward="(VALUE * sum(land_parcel, :net_surface_area, :square_meter)) / PRODUCT..net_mass(gram)"/>
         <handler indicator="volume_area_density" unit="liter_per_hectare"
                  if="PRODUCT..net_volume? and PRODUCT..net_volume > 0 and land_parcel? and sum(land_parcel, :net_surface_area, :hectare) >= 0.1"
-                 backward="(VALUE * PRODUCT..net_volume(liter)) / sum(land_parcel, :net_surface_area, :hectare)"
+                 backward="(POPULATION * PRODUCT..net_volume(liter)) / sum(land_parcel, :net_surface_area, :hectare)"
                  forward="(VALUE * sum(land_parcel, :net_surface_area, :hectare)) / PRODUCT..net_volume(liter)"/>
         <handler name="volume_area_density_in_liter_per_square_meter" indicator="volume_area_density" unit="liter_per_square_meter"
                  if="PRODUCT..net_volume? and PRODUCT..net_volume > 0 and land_parcel? and 0.1 > sum(land_parcel, :net_surface_area, :hectare)"
-                 backward="(VALUE * PRODUCT..net_volume(liter)) / sum(land_parcel, :net_surface_area, :square_meter)"
+                 backward="(POPULATION * PRODUCT..net_volume(liter)) / sum(land_parcel, :net_surface_area, :square_meter)"
                  forward="(VALUE * sum(land_parcel, :net_surface_area, :square_meter)) / PRODUCT..net_volume(liter)"/>
         <handler name="nitrogen_unities_density" indicator="mass_area_density" unit="kilogram_per_hectare"
                  if="PRODUCT..net_mass? and PRODUCT..net_mass > 0 and PRODUCT.nitrogen_concentration? and PRODUCT.nitrogen_concentration(percent) > 0"
-                 backward="(VALUE * PRODUCT..net_mass(kilogram) * (PRODUCT.nitrogen_concentration(percent) / 100)) / sum(land_parcel, :net_surface_area, :hectare)"
+                 backward="(POPULATION * PRODUCT..net_mass(kilogram) * (PRODUCT.nitrogen_concentration(percent) / 100)) / sum(land_parcel, :net_surface_area, :hectare)"
                  forward="(VALUE * sum(land_parcel, :net_surface_area, :hectare)) / (PRODUCT..net_mass(kilogram) * PRODUCT.nitrogen_concentration(percent) / 100)"/>
         <handler name="phosphorus_unities_density" indicator="mass_area_density" unit="kilogram_per_hectare"
                  if="PRODUCT..net_mass? and PRODUCT..net_mass > 0 and PRODUCT.phosphorus_concentration? and PRODUCT.phosphorus_concentration(percent) > 0"
-                 backward="(VALUE * PRODUCT..net_mass(kilogram) * (PRODUCT.phosphorus_concentration(percent) / 100)) / sum(land_parcel, :net_surface_area, :hectare)"
+                 backward="(POPULATION * PRODUCT..net_mass(kilogram) * (PRODUCT.phosphorus_concentration(percent) / 100)) / sum(land_parcel, :net_surface_area, :hectare)"
                  forward="(VALUE * sum(land_parcel, :net_surface_area, :hectare)) / (PRODUCT..net_mass(kilogram) * PRODUCT.phosphorus_concentration(percent) / 100)"/>
         <handler name="potassium_unities_density" indicator="mass_area_density" unit="kilogram_per_hectare"
                  if="PRODUCT..net_mass? and PRODUCT..net_mass > 0 and PRODUCT.potassium_concentration? and PRODUCT.potassium_concentration(percent) > 0"
-                 backward="(VALUE * PRODUCT..net_mass(kilogram) * (PRODUCT.potassium_concentration(percent) / 100)) / sum(land_parcel, :net_surface_area, :hectare)"
+                 backward="(POPULATION * PRODUCT..net_mass(kilogram) * (PRODUCT.potassium_concentration(percent) / 100)) / sum(land_parcel, :net_surface_area, :hectare)"
                  forward="(VALUE * sum(land_parcel, :net_surface_area, :hectare)) / (PRODUCT..net_mass(kilogram) * PRODUCT.potassium_concentration(percent) / 100)"/>
       </input>
       <parameter name="spreader" type="tool" filter="can spread(preparation)"/>

@@ -3,7 +3,7 @@
 module Procedo
   module Engine
     class Intervention
-      class Output < Procedo::Engine::Intervention::ProductParameter
+      class Output < Procedo::Engine::Intervention::Quantified
         attr_reader :variant
 
         def initialize(intervention, id, attributes = {})
@@ -25,6 +25,10 @@ module Procedo
           hash = super
           hash[:variant_id] = @variant ? @variant.id : nil
           hash
+        end
+
+        def env
+          super.merge(variant: variant)
         end
       end
     end

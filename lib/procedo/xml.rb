@@ -163,9 +163,12 @@ module Procedo
       # Parse <attribute> of parameter
       def parse_attribute(parameter, element)
         name = element.attr('name')
-        options = %w(default-value value).each_with_object({}) do |attr, hash|
-          hash[attr.to_s.underscore.to_sym] = element.attr(attr) if element.has_attribute?(attr)
-          hash
+        options = {}
+        if element.has_attribute?('value')
+          options[:default_value] = element.attr('value')
+          options[:hidden] = true
+        elsif element.has_attribute?('default-value')
+          options[:default_value] = element.attr('default-value')
         end
         attribute = parameter.add_attribute(name, options)
         # TODO: Manage computations
@@ -175,6 +178,12 @@ module Procedo
       def parse_reading(parameter, element)
         name = element.attr('name')
         options = {}
+        if element.has_attribute?('value')
+          options[:default_value] = element.attr('value')
+          options[:hidden] = true
+        elsif element.has_attribute?('default-value')
+          options[:default_value] = element.attr('default-value')
+        end
         reading = parameter.add_reading(name, options)
         # TODO: Manage computations
       end

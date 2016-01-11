@@ -72,7 +72,7 @@ module Procedo
           @env[node.text_value]
         elsif node.is_a?(Procedo::Formula::Language::Variable)
           @variables << node.text_value.to_sym
-          @intervention.parameters_of_name(node.text_value)
+          @intervention.parameter_set(node.text_value)
         elsif node.is_a?(Procedo::Formula::Language::Numeric)
           node.text_value.to_d
         elsif node.is_a?(Procedo::Formula::Language::ActorPresenceTest)

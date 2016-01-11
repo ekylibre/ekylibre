@@ -1,17 +1,2 @@
 .nested-fields
-  = f.input(:indicator_name, as: :hidden)
-  = f.input(:indicator_datatype, as: :hidden)
-  - indicator = f.object.indicator
-  = f.input("the_frozen_value_of_the_indicator", wrapper: :append, value: 0, class: :inline, label: indicator.human_name) do
-    - if indicator.datatype == :measure
-      - f.object.measure_value_unit ||= indicator.unit
-      = f.number_field("#{indicator.datatype}_value_value", label: indicator.human_name)
-      = f.input_field("#{indicator.datatype}_value_unit", label: indicator.human_name, collection: Measure.siblings(indicator.unit).collect{|u| [Nomen::Unit[u].human_name, u]})
-    - elsif indicator.datatype == :choice
-      = f.input_field("#{indicator.datatype}_value", label: indicator.human_name, collection: indicator.selection(:choices))
-    - elsif [:boolean, :string, :decimal].include?(indicator.datatype)
-      = f.input_field("#{indicator.datatype}_value", label: indicator.human_name, as: indicator.datatype)
-    - else
-      = f.input_field("#{indicator.datatype}_value", label: indicator.human_name, as: :string)
-    - if !f.object.new_record? and f.object.indicator_name.to_s == "population"
-      %span.add-on= f.object.variant.unit_name
+  = f.reading

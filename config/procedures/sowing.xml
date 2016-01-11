@@ -30,14 +30,14 @@
       <tool name="sower"   filter="can sow"/>
       <group name="zone">
         <target name="land_parcel" filter="is land_parcel and has indicator shape" cardinality="1">
-          <attribute name="working_zone" default-value="PRODUCT.shape"/>
+          <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
         </target>
         <output name="cultivation" filter="is plant" cardinality="1">
           <!-- <attribute name="name" default-value="'{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})'"/> -->
           <!-- <attribute name="variety" default-value="derivative_of(first(seeds))"/> -->
-          <reading name="shape" default-value="union_working_zone(children(parent(SELF), :land_parcel))">
-            <compute expr="area(VALUE) / PRODUCT..net_surface_area(square_meter)" to="population"/>
-            <compute expr="intersection(VALUE, shape_union(land_parcel))" to="reading:shape"/>
+          <reading name="shape" value="merge_working_zones(siblings(SELF, land_parcel))">
+            <compute expr="area(VALUE) / VARIANT.net_surface_area(square_meter)" to="population"/>
+            <compute expr="intersection(VALUE, merge_working_zones(siblings(SELF, land_parcel)))" to="reading:shape"/>
           </reading>
         </output>
       </group>

@@ -1,10 +1,12 @@
 module Procedo
   class Procedure
     # An Attribute defines an information to complete
-    class Reading < Procedo::Procedure::Field
+    class Reading < Procedo::Procedure::Setter
       def initialize(parameter, name, options = {})
         super(parameter, name, options)
-        Nomen::Indicator.find!(@name)
+        unless Nomen::Indicator.find(@name)
+          fail "Unknown reading type for #{procedure_name}/#{parameter_name}: " + @name.inspect
+        end
       end
     end
   end

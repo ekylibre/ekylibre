@@ -3,7 +3,7 @@
   <procedure name="mechanical_planting" categories="planting" actions="planting">
     <parameters>
       <parameter name="plants" type="input" filter="is seedling and derives from plant and can grow" default-name="{{variant}} - [{{derivative_of}}]">
-        <handler indicator="plants_count" unit="unity_per_hectare" to="population" backward="VALUE / sum(cultivation, :net_surface_area, :hectare)" forward="sum(cultivation, :net_surface_area, :hectare) * VALUE"/>
+        <handler indicator="plants_count" unit="unity_per_hectare" to="population" backward="POPULATION / sum(cultivation, :net_surface_area, :hectare)" forward="sum(cultivation, :net_surface_area, :hectare) * VALUE"/>
       </parameter>
       <parameter name="implanter_tool" type="tool" filter="can implant"/>
       <parameter name="driver" type="doer" filter="can drive(tractor) and can move"/>

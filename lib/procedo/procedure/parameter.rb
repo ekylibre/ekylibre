@@ -45,6 +45,12 @@ module Procedo
       def position
         procedure.position_of(self)
       end
+
+      # Returns +true+ if self depend on given parameter through a formula
+      # of handlers, attributes or readings.
+      def depend_on?(_parameter)
+        false
+      end
     end
   end
 end

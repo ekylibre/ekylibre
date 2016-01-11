@@ -12,13 +12,13 @@
       <input name="stakes" filter="is stake and can enclose">
         <handler indicator="stakes_count" unit="unity_per_hectare"
                  if="sum(land_parcel, :net_surface_area, :hectare) != 0"
-                 backward="(VALUE / sum(land_parcel, :net_surface_area, :hectare))"
+                 backward="(POPULATION / sum(land_parcel, :net_surface_area, :hectare))"
                  forward="(VALUE * sum(land_parcel, :net_surface_area, :hectare))"/>
       </input>
       <input name="wire_fence" filter="is wire and can enclose">
         <handler indicator="length" unit="meter"
                  if="PRODUCT..length?"
-                 backward="(VALUE * PRODUCT..length(meter))"
+                 backward="(POPULATION * PRODUCT..length(meter))"
                  forward="(VALUE / PRODUCT..length(meter))"/>
       </input>
     </parameters>

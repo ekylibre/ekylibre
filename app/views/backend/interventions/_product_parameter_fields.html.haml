@@ -3,15 +3,19 @@
 .nested-fields.nested-product-parameter{class: "nested-#{reference.name.to_s.parameterize}", data: { intervention_parameter: reference.name } }
   = link_to_remove_nested_association(:destroy.ta, f)
   = f.input :reference_name, as: :hidden
-  - if reference.input?
-    = f.referenced_association :product, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: { data: { intervention_updater: prefix + 'product_id' }}
-    = render 'quantifier_field', f: f, reference: reference, prefix: prefix
-  - elsif reference.output?
+  - if reference.output?
     = f.referenced_association :variant, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: { data: { intervention_updater: prefix + 'variant_id' }}
-    = render 'quantifier_field', f: f, reference: reference, prefix: prefix
-  - elsif reference.target?
-    = f.referenced_association :product, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: { data: { intervention_updater: prefix + 'product_id' }}
-    - if reference.want_attribute?(:working_zone)
-      = f.geometry :working_zone, input_html: { data: { intervention_updater: prefix + 'working_zone' }}
+    = f.referenced_association :product, as: :hidden, input_html: { data: { intervention_updater: prefix + 'product_id' }}
   - else
     = f.referenced_association :product, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: { data: { intervention_updater: prefix + 'product_id' }}
+  - if reference.quantified?
+    = render 'quantifier_field', f: f, reference: reference, prefix: prefix
+  - if reference.attribute(:working_zone)
+    = f.geometry :working_zone, input_html: { data: { intervention_updater: prefix + 'working_zone' }}
+  - if reference.readings.any?
+    - reference.readings.each do |reading|
+      - unless f.object.readings.detect{|r| r.indicator_name.to_s == reading.name.to_s }
+        - f.object.readings.new(indicator_name: reading.name)
+    = f.simple_fields_for(:readings, f.object.readings) do |r|
+      - ref = reference.reading(r.object.indicator_name)
+      = r.reading as: (ref.accessible? ? nil : :hidden), input_html: { data: { intervention_updater: prefix + 'working_zone' }}

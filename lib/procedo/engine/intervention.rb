@@ -19,8 +19,10 @@ module Procedo
         @actions = (@attributes[:actions] || []).map(&:to_sym)
         @root_group = Procedo::Engine::Intervention::GroupParameter.new(self, Procedo::Procedure::ROOT_NAME)
         @working_periods = {}.with_indifferent_access
-        @attributes[:working_periods_attributes].each do |id, attributes|
-          add_working_period(id, attributes)
+        if @attributes[:working_periods_attributes]
+          @attributes[:working_periods_attributes].each do |id, attributes|
+            add_working_period(id, attributes)
+          end
         end
         # Parse doers, inputs...
         @root_group.parse_params(@attributes)
@@ -52,6 +54,10 @@ module Procedo
 
       def interpret(tree, env = {})
         Interpreter.interpret(self, tree, env)
+      end
+
+      def parameter_set(name)
+        Procedo::Engine::Set.new(self, procedure.find!(name))
       end
 
       def parameters_of_name(name)

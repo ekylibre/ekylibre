@@ -3,8 +3,8 @@
   <procedure name="food_preparation" categories="animal_feeding" actions="food_preparation">
     <parameters>
       <parameter name="food" type="input" variety="mix" abilities="feed(animal)">
-        <handler indicator="net_mass" unit="kilogram" if="PRODUCT.net_mass(kilogram) > 0" to="population" backward="VALUE * PRODUCT..net_mass(kilogram)" forward="VALUE / PRODUCT..net_mass(kilogram)"/>
-        <handler name="net_mass_in_ton" indicator="net_mass" unit="ton" if="PRODUCT.net_mass(ton) > 0" to="population" backward="VALUE * PRODUCT..net_mass(ton)" forward="VALUE / PRODUCT..net_mass(ton)"/>
+        <handler indicator="net_mass" unit="kilogram" if="PRODUCT.net_mass(kilogram) > 0" to="population" backward="POPULATION * PRODUCT..net_mass(kilogram)" forward="VALUE / PRODUCT..net_mass(kilogram)"/>
+        <handler name="net_mass_in_ton" indicator="net_mass" unit="ton" if="PRODUCT.net_mass(ton) > 0" to="population" backward="POPULATION * PRODUCT..net_mass(ton)" forward="VALUE / PRODUCT..net_mass(ton)"/>
       </parameter>
       <parameter name="worker" type="doer" variety="worker"/>
       <parameter name="food_mix" type="output" variety="mix" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})"/>

@@ -12,9 +12,9 @@
         </handler>
       </parameter>
       <parameter name="straw" type="output" variety="grass" derivative-of="variety: cultivation" filter="is grass and derives from plant" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
-        <handler indicator="net_mass" unit="ton" to="population" backward="VALUE * PRODUCT..net_mass(ton)" forward="VALUE / PRODUCT..net_mass(ton)"/>
-        <handler indicator="mass_area_density" unit="quintal_per_hectare" to="population" backward="(VALUE * PRODUCT..net_mass(quintal)) / sum(cultivation, :net_surface_area, :hectare)" forward="(VALUE * sum(cultivation, :net_surface_area, :hectare)) / PRODUCT..net_mass(quintal)"/>
-        <handler name="mass_area_density_in_ton_per_hectare" indicator="mass_area_density" unit="ton_per_hectare" to="population" backward="(VALUE * PRODUCT..net_mass(ton)) / sum(cultivation, :net_surface_area, hectare)" forward="(VALUE * sum(cultivation, :net_surface_area, :hectare)) / PRODUCT..net_mass(ton)"/>
+        <handler indicator="net_mass" unit="ton" to="population" backward="POPULATION * PRODUCT..net_mass(ton)" forward="VALUE / PRODUCT..net_mass(ton)"/>
+        <handler indicator="mass_area_density" unit="quintal_per_hectare" to="population" backward="(POPULATION * PRODUCT..net_mass(quintal)) / sum(cultivation, :net_surface_area, :hectare)" forward="(VALUE * sum(cultivation, :net_surface_area, :hectare)) / PRODUCT..net_mass(quintal)"/>
+        <handler name="mass_area_density_in_ton_per_hectare" indicator="mass_area_density" unit="ton_per_hectare" to="population" backward="(POPULATION * PRODUCT..net_mass(ton)) / sum(cultivation, :net_surface_area, hectare)" forward="(VALUE * sum(cultivation, :net_surface_area, :hectare)) / PRODUCT..net_mass(ton)"/>
       </parameter>
     </parameters>
   </procedure>

@@ -29,6 +29,10 @@ module Procedo
         @readings = {}
       end
 
+      def quantified?
+        input? || output?
+      end
+
       # Adds a new handler
       def add_handler(name, options = {})
         handler = Procedo::Procedure::Handler.new(self, name, options)
@@ -45,10 +49,6 @@ module Procedo
           fail ArgumentError, "Attribute name already taken: #{name}"
         end
         @attributes[attribute.name] = attribute
-      end
-
-      def want_attribute?(name)
-        @attributes.key?(name)
       end
 
       # Adds a new reading
@@ -243,6 +243,31 @@ module Procedo
       def depending_variables
         # self.producer
         [procedure.parameters[variety.split(/\:\s*/)], procedure.parameters[derivative_of.split(/\:\s*/)]].compact
+      end
+
+      def dependent_parameters
+        @dependent_parameters ||= dependent_parameter_names.map { |p| procedure.find!(p) }
+      end
+
+      # Returns list of dependent parameter names
+      def dependent_parameter_names
+        parameter_names = []
+        @handlers.each do |_, handler|
+          parameter_names += handler.dependent_parameters
+        end
+        @attributes.each do |_, attribute|
+          parameter_names += attribute.dependent_parameters
+        end
+        @readings.each do |_, reading|
+          parameter_names += reading.dependent_parameters
+        end
+        parameter_names.uniq
+      end
+
+      def depend_on?(parameter)
+        dependent_parameters.detect do |p|
+          p == parameter.name
+        end
       end
 
       # Checks if a given actor might fulfill the procedure's parameter. Returns
