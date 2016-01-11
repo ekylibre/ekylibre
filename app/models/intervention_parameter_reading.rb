@@ -48,7 +48,7 @@
 class InterventionParameterReading < Ekylibre::Record::Base
   include ReadingStorable
   belongs_to :intervention_parameter, class_name: 'InterventionProductParameter', foreign_key: :parameter_id, inverse_of: :readings
-  has_one :intervention, through: :intervention
+  has_one :intervention, through: :intervention_parameter
   has_one :product, through: :intervention_parameter
   has_one :product_reading, as: :originator
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -76,6 +76,7 @@ class InterventionParameterReading < Ekylibre::Record::Base
       end
       product_reading.originator = self
       product_reading.value = value
+      product_reading.read_at = intervention.started_at || Time.now
       product_reading.save!
     end
   end
