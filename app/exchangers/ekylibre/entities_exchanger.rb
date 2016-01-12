@@ -25,7 +25,7 @@ class Ekylibre::EntitiesExchanger < ActiveExchanger::Base
         active: row[15].blank? ? false : true,
         prospect: row[16].blank? ? false : true,
         transporter: row[17].blank? ? false : true,
-        siret_number: row[18].blank? ? nil : row[18].to_s,
+        siren_number: row[18].blank? ? nil : row[18].to_s.strip,
         vat_number: row[19].blank? ? nil : row[19].to_s,
         ape_number: row[20].blank? ? nil : row[20].to_s
       }.to_struct
@@ -55,8 +55,13 @@ class Ekylibre::EntitiesExchanger < ActiveExchanger::Base
       end
 
       # Add SIREN, VAT or APE numbers if given
-      if r.siret_number
-        person.siret_number = r.siret_number
+      if r.siren_number
+        if r.siren_number =~ /\A\d{9}\z/
+          code = r.siren_number + '0001'
+          person.siret_number = code + Luhn.control_digit(code).to_s
+        else
+          person.siret_number = r.siren_number
+        end
         person.save!
       end
 
