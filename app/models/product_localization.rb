@@ -55,8 +55,10 @@ class ProductLocalization < Ekylibre::Record::Base
   }
 
   before_validation do
-    if nature.blank? && container = product.container_at(started_at)
+    if container
       self.nature = (container.owner == Entity.of_company ? :interior : :exterior)
+    else
+      self.nature = :exterior if self.interior?
     end
   end
 
@@ -74,7 +76,7 @@ class ProductLocalization < Ekylibre::Record::Base
       if linkage.occupied? && carried = linkage.carried
         localization = carried.localizations.at(started_at).first
         if localization.nil? || (localization.nature != nature || localization.container_id != container_id)
-          product_localizations.create!(product: linkage.carried, operation: operation, nature: nature, container: self.container, started_at: started_at)
+          product_localizations.create!(product: linkage.carried, operation: operation, nature: nature, container: container, started_at: started_at)
         end
       end
     end

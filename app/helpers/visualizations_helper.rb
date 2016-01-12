@@ -8,7 +8,7 @@ module Visualization
     def background(name, options = {})
       options[:name] = name
       options[:provider] ||= options[:name]
-      options[:label] ||= options[:name].humanize
+      options[:label] ||= options[:name].tr('.', ' ')
       @config[:backgrounds] ||= []
       @config[:backgrounds] << options
     end
@@ -74,7 +74,7 @@ module Visualization
 
     # Add a serie of geo data
     def serie(name, data)
-      fail StandardError, 'data must be an array' unless data.is_a? Array
+      fail StandardError, 'data must be an array. Got: ' + data.class.name unless data.is_a? Array
       @config[:series] ||= {}.with_indifferent_access
       @config[:series][name] = data.compact.collect do |item|
         next unless item[:shape]

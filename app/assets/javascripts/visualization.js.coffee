@@ -261,12 +261,13 @@
         if renderedLayer and renderedLayer.valid()
           # Build layer group
           layerGroup = renderedLayer.buildLayerGroup(this, options)
-          console.log("#{layer.name} layer added")
+          console.log("#{layer.name} layer rendered", layerGroup)
           # Add layer overlay
           overlayLayer = L.layerGroup(layerGroup)
           overlayLayer.name = layer.name
           layer.overlay = overlays[layer.label] = overlayLayer
           @map.addLayer(overlayLayer)
+          console.log("#{layer.name} layer added")
           try
             group = new L.featureGroup(layerGroup)
             bounds = group.getBounds()

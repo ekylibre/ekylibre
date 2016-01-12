@@ -1,3 +1,9 @@
 - main_toolbar do |t|
   - t.new
-= main_list
+
+= janus do |j|
+  - if resource_model.any?
+    - j.face :map do
+      = main_resources_map
+  - j.face :list do
+    = main_list

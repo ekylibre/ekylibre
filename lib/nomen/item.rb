@@ -62,6 +62,19 @@ module Nomen
       @parent ||= @nomenclature.find(@parent_name)
     end
 
+    def degree_of_kinship_with(other)
+      other_item = item_for_comparison(other)
+      a = self_and_parents.reverse
+      b = other_item.self_and_parents.reverse
+      return nil if a.first != b.first
+      common_lineage = 0
+      a.size.times do |index|
+        break if a[index].nil? || b[index].nil? || a[index] != b[index]
+        common_lineage += 1
+      end
+      a.size + b.size - 2 * common_lineage
+    end
+
     def original_nomenclature_name
       return parent.name.to_sym unless root?
       nil

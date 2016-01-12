@@ -69,11 +69,18 @@ class CultivableZone < Ekylibre::Record::Base
 
   # Computes net surface area of shape
   def net_surface_area(unit = :hectare)
-    to_geom.area.in(unit).round(3)
+    shape_area.in(unit).round(3)
   end
 
   # get the first object with variety 'plant', availables
   def current_cultivations
     Plant.contained_by(current_supports)
+  end
+
+  # Returns last created islet number from cap statements
+  def cap_number
+    islets = CapIslet.overlaps_shape(shape).order(id: :desc)
+    return islets.first.islet_number if islets.any?
+    nil
   end
 end

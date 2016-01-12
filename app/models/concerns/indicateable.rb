@@ -4,6 +4,10 @@ module Indicateable
   included do
     has_many :readings, class_name: 'ProductReading', dependent: :destroy, inverse_of: :product
 
+    scope :with_given_readings, lambda { |indicator_name|
+      where(id: ProductReading.where(indicator_name: indicator_name))
+    }
+
     scope :indicate, lambda { |indicator_values, options = {}|
       read_at = options[:at] || Time.zone.now
       ids = []
@@ -64,6 +68,14 @@ module Indicateable
     indicator_name = indicator.name
     results = readings.select { |r| r.indicator_name == indicator_name && r.read_at <= read_at }
     results.max { |a, b| a.read_at <=> b.read_at }
+  end
+
+  def first_reading(_indicator)
+    candidates = readings.where(started_at: nil).order(:stopped_at)
+    return candidates.first if candidates.any?
+    candidates = readings.order(:started_at)
+    return candidates.first if candidates.any?
+    nil
   end
 
   # Get indicator value

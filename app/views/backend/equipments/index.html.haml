@@ -4,26 +4,9 @@
 - main_campaign_selector
 
 = janus do |j|
-  - if Equipment.any? && Equipment.all.map(&:shape).count > 1
+  - if Equipment.any? && Equipment.with_given_readings(:shape).any?
     - j.face :map, title: :map do
-      :ruby
-        geolocations = Equipment.all.collect do |equipment|
-          { name:         equipment.name,
-            nature:       equipment.nature_name,
-            shape:        equipment.shape
-          }
-        end
-      = visualization(box: {height: "100%"}) do |v|
-        - v.serie :geolocations, geolocations
-        - v.categories :nature, :geolocations
-        - v.background "Esri.WorldImagery"
-        - v.background 'OpenStreetMap.HOT'
-        - v.background 'Thunderforest.Transport'
-        - v.background 'Thunderforest.Outdoors'
-        - v.control :zoom
-        - v.control :scale
-        - v.control :fullscreen
-        - v.control :layer_selector
+      = main_resources_map(shape_method: :shape)
   - j.face :list do
 
     = kujaku do |k|

@@ -375,6 +375,10 @@ module Nomen
       selection
     end
 
+    def degree_of_kinship(a, b)
+      a.degree_of_kinship_with(b)
+    end
+
     # Return first item name
     def first(item_name = nil)
       all(item_name).first

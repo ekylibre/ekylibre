@@ -1009,6 +1009,7 @@ jpn:
     # suppliers: "Suppliers"
     # support: "Support"
     # support_nature: "Support type"
+    # support_shape: "Support shape"
     # support_variant: "Support variant"
     # support_variant_indicator: "Working indicator"
     # support_variant_unit: "Support variant unit"

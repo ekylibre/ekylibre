@@ -4,23 +4,6 @@
 = janus do |j|
   - if resource_model.any?
     - j.face :map do
-      :ruby
-        data = resource_model.find_each.collect do |zone|
-          content = []
-          content << {label: Nomen::Indicator.find(:net_surface_area).human_name, value: zone.net_surface_area.l}
-          content << link_to(:show.tl, {action: :show, id: zone.id}, class: "btn btn-default")
-          {name: zone.name, shape: zone.shape, popup: {header: true, content: content}}
-        end
-      = visualization(box: {height: "100%"}) do |v|
-        - v.serie :main, data
-        - v.background "OpenStreetMap.HOT"
-        - v.background "OpenStreetMap.Mapnik"
-        - v.background "Thunderforest.Landscape"
-        - v.background "Esri.WorldImagery"
-        - v.simple :zones, :main
-        - v.control :zoom
-        - v.control :scale
-        - v.control :fullscreen
-        - v.control :layer_selector
+      = main_resources_map
   - j.face :list do
     = main_list

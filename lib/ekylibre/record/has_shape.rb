@@ -17,8 +17,12 @@ module Ekylibre::Record
             self[column] = Charta.clean_for_active_record(value, options)
           end
 
+          define_method column do
+            self[column].blank? ? nil : Charta.new_geometry(self[column])
+          end
+
           define_method "#{column}_area" do
-            Charta.new_geometry(send(column)).area
+            send(column).area
           end
         end
       end

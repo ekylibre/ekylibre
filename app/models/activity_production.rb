@@ -73,21 +73,21 @@ class ActivityProduction < Ekylibre::Record::Base
   validates_presence_of :started_on
   validates_presence_of :cultivable_zone, :support_nature, if: :vegetal_crops?
 
-  delegate :name, :net_surface_area, :shape_area, to: :support, prefix: true
-  delegate :name, :work_number, :shape, :shape_to_ewkt, :shape_svg, to: :support
+  delegate :name, :work_number, to: :support, prefix: true
+  # delegate :shape, :shape_to_ewkt, :shape_svg, :net_surface_area, :shape_area, to: :support
   delegate :name, :size_indicator_name, :size_unit_name, to: :activity, prefix: true
   delegate :vegetal_crops?, :with_cultivation, :cultivation_variety, :with_supports,
            :support_variety, :color, to: :activity
 
   scope :of_campaign, lambda { |campaigns|
-    campaigns = [campaigns] unless campaigns.respond_to? :map
-    args = []
-    query = campaigns.map do |campaign|
-      args << campaign.started_on
-      args << campaign.stopped_on
-      '(started_on, stopped_on) OVERLAPS (?, ?)'
+    campaigns = [campaigns] unless campaigns.respond_to? :each
+    query = [connection.quoted_false]
+    campaigns.each do |campaign|
+      query[0] << ' OR (started_on, stopped_on) OVERLAPS (?, ?)'
+      query << campaign.started_on
+      query << campaign.stopped_on
     end
-    where(query.join(' OR '), *args)
+    where(*query)
   }
 
   scope :of_cultivation_variety, lambda { |variety|
@@ -138,19 +138,21 @@ class ActivityProduction < Ekylibre::Record::Base
       self.size_unit_name      = activity_size_unit_name
       self.rank_number ||= (self.activity.productions.maximum(:rank_number) ? self.activity.productions.maximum(:rank_number) : 0) + 1
     end
-    self.support_shape = cultivable_zone.shape if cultivable_zone
-    if !support && cultivable_zone && support_shape && self.vegetal_crops?
-      land_parcels = LandParcel.overlaps_shape(::Charta.new_geometry(support_shape)).order(:id)
-      if land_parcels.any?
-        land_parcel = land_parcels.first
-      else
-        list = [cultivable_zone.name, :rank.t(number: rank_number)]
-        list = list.reverse! if 'i18n.dir'.t == 'rtl'
-        land_parcel = LandParcel.new(name: list.join(' '), initial_shape: support_shape, initial_born_at: started_on, variant: ProductNatureVariant.import_from_nomenclature(:land_parcel))
-        land_parcel.save!
-        land_parcel.read!(:shape, support_shape, at: started_on)
+    if self.vegetal_crops?
+      self.support_shape ||= cultivable_zone.shape if cultivable_zone
+      if support_shape && !support
+        land_parcels = LandParcel.overlaps_shape(::Charta.new_geometry(support_shape)).order(:id)
+        if land_parcels.any?
+          self.support = land_parcels.first
+        else
+          self.support = LandParcel.create!(
+            name: computed_support_name,
+            initial_shape: support_shape,
+            initial_born_at: started_on,
+            variant: ProductNatureVariant.import_from_nomenclature(:land_parcel)
+          )
+        end
       end
-      self.support = land_parcel
     end
     self.size = current_size if support && size_indicator_name && size_unit_name
   end
@@ -159,11 +161,36 @@ class ActivityProduction < Ekylibre::Record::Base
     self.state ||= :opened
   end
 
+  before_update do
+    # self.support.name = computed_support_name
+    support.initial_born_at = started_on
+    if old_record.support_shape != self.support_shape
+      support.initial_shape = support_shape
+      if self.support_shape
+        # TODO: Update only very first shape reading
+        support.read!(:shape, self.support_shape, at: started_on)
+      end
+    end
+    support.save!
+  end
+
   after_commit do
     if self.activity.productions.where(rank_number: rank_number).count > 1
       update_column(:rank_number, self.activity.productions.maximum(:rank_number) + 1)
     end
     Ekylibre::Hook.publish(:activity_production_change, activity_production_id: id)
+  end
+
+  def computed_support_name
+    list = []
+    if cultivable_zone
+      list << cultivable_zone.name
+    else
+      list << activity.name
+    end
+    list << :rank.t(number: rank_number)
+    list.reverse! if 'i18n.dir'.t == 'rtl'
+    list.join(' ')
   end
 
   def active?
@@ -365,7 +392,7 @@ class ActivityProduction < Ekylibre::Record::Base
   def duplicate!(updates = {})
     new_attributes = [
       :activity, :cultivable_zone, :irrigated, :nitrate_fixing,
-      :size_indicator_name, :size_unit_name, :size_value, :started_on, :support,
+      :size_indicator_name, :size_unit_name, :size_value, :started_on,
       :support_nature, :support_shape, :usage].each_with_object({}) do |attr, h|
       h[attr] = send(attr)
       h
@@ -379,12 +406,13 @@ class ActivityProduction < Ekylibre::Record::Base
     ::Charta.new_geometry(support_shape)
   end
 
+  # FIXME: net_surface_area must be immutable
   def net_surface_area(unit_name = :hectare)
     area = 0.0.in(unit_name)
     if size_indicator_name == 'net_surface_area' && size_value != 0.0
       area = size
     elsif support_shape
-      area = to_geom.area.in(unit_name).round(3)
+      area = support_shape_area.in(unit_name).round(3)
     end
     area
   end
@@ -392,7 +420,7 @@ class ActivityProduction < Ekylibre::Record::Base
   ## LABEL METHODS ##
 
   def work_name
-    "#{support.work_name} - #{net_surface_area}"
+    "#{support_work_name} - #{net_surface_area}"
   end
 
   # Returns unique i18nized name for given production
@@ -415,11 +443,11 @@ class ActivityProduction < Ekylibre::Record::Base
     support.get(*args)
   end
 
-  # Returns value of an indicator if its name correspond to
-  def method_missing(method_name, *args)
-    if Nomen::Indicator.include?(method_name.to_s)
-      return get(method_name, *args)
-    end
-    super
-  end
+  # # Returns value of an indicator if its name correspond to
+  # def method_missing(method_name, *args)
+  #   if Nomen::Indicator.include?(method_name.to_s)
+  #     return get(method_name, *args)
+  #   end
+  #   super
+  # end
 end

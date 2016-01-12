@@ -250,10 +250,13 @@ class Product < Ekylibre::Record::Base
   before_validation :update_default_values, on: :update
 
   before_validation do
+    self.initial_born_at ||= Time.zone.now
     self.uuid ||= UUIDTools::UUID.random_create.to_s
   end
 
   after_validation do
+    self.born_at ||= self.initial_born_at
+    self.dead_at ||= initial_dead_at
     self.default_storage ||= initial_container
     self.initial_container ||= self.default_storage
   end
@@ -311,51 +314,41 @@ class Product < Ekylibre::Record::Base
 
   # set initial owner and localization
   def set_initial_values
-    self.initial_born_at ||= Time.zone.now
-
     # Add first owner on a product
-    unless ownership = ownerships.first_of_all
-      ownership = ownerships.build
-    end
+    ownership = ownerships.first_of_all || ownerships.build
     ownership.owner = initial_owner
     ownership.save!
 
     # Add first enjoyer on a product
-    unless enjoyment = enjoyments.first_of_all
-      enjoyment = enjoyments.build
-    end
+    enjoyment = enjoyments.first_of_all || enjoyments.build
     enjoyment.enjoyer = initial_enjoyer || initial_owner
     enjoyment.save!
 
     # Add first localization on a product
-    if self.initial_container
-      unless localization = localizations.first_of_all
-        localization = localizations.build
-      end
-      localization.nature = :interior
-      localization.container = self.initial_container
-      localization.save!
-    end
+    localization = localizations.first_of_all || localizations.build
+    localization.container = self.initial_container
+    localization.save!
 
-    self.born_at ||= self.initial_born_at
-    self.dead_at ||= initial_dead_at
+    if born_at
+      # Configure initial_movement
+      movement = initial_movement || build_initial_movement
+      movement.product = self
+      movement.delta = initial_population
+      movement.started_at = born_at
+      movement.save!
 
-    if born_at && initial_population != 0.0
-      build_initial_movement unless initial_movement
-      initial_movement.product = self
-      initial_movement.delta = initial_population
-      initial_movement.started_at = born_at
-      initial_movement.save!
+      # Initial shape
       if initial_shape && variable_indicators_list.include?(:shape)
-        read!(:shape, initial_shape, at: born_at)
+        reading = initial_reading(:shape)
+        reading.value = initial_shape
+        reading.read_at = born_at
+        reading.save!
       end
     end
 
     # Add first frozen indicator on a product from his variant
     if variant
-      unless phase = phases.first_of_all
-        phase = phases.build
-      end
+      phase = phases.first_of_all || phases.build
       phase.variant = variant
       phase.save!
     end
@@ -407,6 +400,10 @@ class Product < Ekylibre::Record::Base
       end
     end
     self.category_id = nature.category_id if nature
+  end
+
+  def initial_reading(indicator_name)
+    first_reading(indicator_name)
   end
 
   # Returns the matching model for the record

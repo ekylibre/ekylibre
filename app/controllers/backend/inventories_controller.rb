@@ -57,7 +57,7 @@ module Backend
       # t.column :serial_number, through: :product
       t.column :expected_population, precision: 3
       t.column :actual_population, precision: 3
-      t.column :unit_name
+      t.column :unit_name, through: :product
     end
 
     def refresh

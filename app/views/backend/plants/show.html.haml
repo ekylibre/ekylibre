@@ -9,7 +9,7 @@
     = mini_map(resource)
   = infos do
     = resource_info(:name, important: true)
-    = resource_info(:net_surface_area, important: true) do |area|
+    = resource_info(:population, important: true) do |population|
       = resource.population.l + " " + resource.unit_name
     = resource_info(:variety, important: true, nomenclature: true)
     = resource_info(:born_at, important: true)

@@ -18,11 +18,8 @@
 
   - if resource.vegetal_crops? && current_campaign && resource.productions.of_campaign(current_campaign).any?
 
-    -# c.cobble :details do
-      = resource.productions.of_campaign(current_campaign).map(&:net_surface_area).compact.sum
-
     - c.cobble :map do
-      = cell :map, params: {visualization: :grain_yield, activity_production_ids: resource.productions.of_campaign(current_campaign).pluck(:id)}
+      = model_map(resource.productions.of_campaign(current_campaign), shape_method: :support_shape)
 
 
   - c.cobble(:productions) do

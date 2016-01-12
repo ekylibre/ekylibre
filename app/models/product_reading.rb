@@ -78,4 +78,12 @@ class ProductReading < Ekylibre::Record::Base
       self.read_at ||= product.initial_born_at
     end
   end
+
+  validate do
+    if product && product.born_at
+      if self.read_at < product.born_at
+        errors.add(:read_at, :posterior, to: product.born_at)
+      end
+    end
+  end
 end

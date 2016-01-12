@@ -80,7 +80,7 @@ class Activity < Ekylibre::Record::Base
     where(id: TargetDistribution.select(:activity_id).where(target_id: InterventionTarget.select(:product_id).where(intervention_id: intervention)))
   }
   scope :of_campaign, lambda { |campaign|
-    where(id: ActivityProduction.select(:activity_id).of_campaign(campaign.is_a?(Campaign) ? campaign : campaign.find(campaign.map(&:id))))
+    where(id: ActivityProduction.select(:activity_id).of_campaign((campaign.is_a?(Campaign) || campaign.is_a?(ActiveRecord::Relation)) ? campaign : campaign.map { |c| c.is_a?(Campaign) ? c : Campaign.find(c) }))
   }
   scope :of_cultivation_variety, lambda { |variety|
     where(cultivation_variety: Nomen::Variety.find(variety).all)
@@ -291,6 +291,24 @@ class Activity < Ekylibre::Record::Base
       else
         colors[:gray]
       end
+    end
+
+    # Find nearest family on cultivation variety and support variety
+    def best_for_cultivation(cultivation_variety)
+      return nil unless any?
+      activities = of_cultivation_variety(cultivation_variety)
+      searched = Nomen::Variety.find(cultivation_variety)
+      best = nil
+      littlest_degree_of_kinship = nil
+      order(id: :desc).map do |a|
+        degree = searched.degree_of_kinship_with(a.cultivation_variety)
+        next unless degree
+        if littlest_degree_of_kinship.nil? || littlest_degree_of_kinship > degree
+          littlest_degree_of_kinship = degree
+          best = a
+        end
+      end
+      best
     end
 
     # Find nearest family on cultivation variety and support variety

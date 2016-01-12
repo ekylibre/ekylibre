@@ -37,8 +37,8 @@ module Backend
       t.column :name, url: true
       # t.column :product_nature, url: true
       t.column :state
-      t.column :started_at
-      t.column :stopped_at
+      t.column :started_on
+      t.column :stopped_on
     end
   end
 end

@@ -15,7 +15,7 @@
         <sections for="zone" in="CultivableZone.of_campaign(campaign)" of-type="record">
           <title name="name" of="zone"/>
           <property name="work_number" of="zone"/>
-          <property name="clusters_work_number" of="zone"/>
+          <property name="clusters_work_number" of="zone" value="cap_number"/>
           <property name="soil_varieties" of="zone"/>
           <property name="net_surface_area" value="net_surface_area.to_d(:hectare)" of="zone" type="measure"/>
           <property name="net_surface_area_in_hectare" value="net_surface_area.to_d(:hectare)" of="zone" type="measure" level="api"/>
