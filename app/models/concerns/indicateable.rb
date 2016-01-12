@@ -71,9 +71,7 @@ module Indicateable
   end
 
   def first_reading(_indicator)
-    candidates = readings.where(started_at: nil).order(:stopped_at)
-    return candidates.first if candidates.any?
-    candidates = readings.order(:started_at)
+    candidates = readings.order(:read_at)
     return candidates.first if candidates.any?
     nil
   end

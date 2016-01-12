@@ -339,7 +339,7 @@ class Product < Ekylibre::Record::Base
 
       # Initial shape
       if initial_shape && variable_indicators_list.include?(:shape)
-        reading = initial_reading(:shape)
+        reading = initial_reading(:shape) || readings.new(indicator_name: :shape)
         reading.value = initial_shape
         reading.read_at = born_at
         reading.save!
