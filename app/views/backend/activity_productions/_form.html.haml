@@ -6,7 +6,7 @@
   = f.input :usage
   -# Vegetal crops
   = f.referenced_association :cultivable_zone
-  - unless f.object.new_record?    
+  - unless f.object.new_record?
     = f.shape :support_shape
   = f.input :support_nature, as: :radio_buttons
   = f.input :irrigated

@@ -18,6 +18,7 @@ eng:
     # net_mass_in_ton: "Net mass in ton"
     #~ net_volume: "Net volume"
     # net_volume_in_liter: "Net volume in liter"
+    # nitrogen: "Nitrogen"
     # nitrogen_unities_density: "Nitrogen unities density"
     # phosphorus_unities_density: "Phosphorus unities density"
     #~ plants_count: "Plants count"

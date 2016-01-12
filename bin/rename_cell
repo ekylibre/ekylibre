@@ -66,7 +66,7 @@ end
 config = root.join('config')
 
 # config/locales/*/action.yml
-for file in Dir[config.join('locales', '*', 'action.yml')].sort
+Dir[config.join('locales', '*', 'action.yml')].sort.each do |file|
   lf = Pathname(file)
   tr = YAML.load_file(lf)
   locale = tr.keys.first
@@ -101,7 +101,7 @@ for file in Dir[config.join('locales', '*', 'action.yml')].sort
 end
 
 # # config/locales/*/help/
-# for file in Dir[config.join("locales", "*", "help", "#{old_cell}-*.txt")].sort
+# Dir[config.join("locales", "*", "help", "#{old_cell}-*.txt")].sort.each do |file|
 #   of = Pathname.new(file)
 #   nf = of.join("..", "#{new_cell}-" + of.basename.to_s.split(/[\-\.]+/)[1..-2].join('-') + ".txt")
 #   execute("git mv #{of} #{nf}")
@@ -172,7 +172,7 @@ end
 
 # General replacing
 print 'replace '
-for file in Dir[app.join('**', '*.rb')] + Dir[app.join('**', '*.haml')] + Dir[app.join('**', '*.yml')]
+(Dir[app.join('**', '*.rb')] + Dir[app.join('**', '*.haml')] + Dir[app.join('**', '*.yml')]).each do |file|
   source = nil
   File.open(file, 'rb') do |f|
     source = f.read

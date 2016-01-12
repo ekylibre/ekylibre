@@ -1,0 +1,4 @@
+#!/bin/bash
+
+rake clean CRON=0
+rubocop -a -n -o log/rubocop.log

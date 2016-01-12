@@ -1,6 +1,8 @@
 require 'jobs/all_sensors_reading_job'
 
-# Clean cron jobs
-Sidekiq::Cron::Job.destroy_all!
+unless ENV['CRON'] && ENV['CRON'].to_i.zero?
+  # Clean cron jobs
+  Sidekiq::Cron::Job.destroy_all!
 
-Sidekiq::Cron::Job.create(name: 'Sensor reading - every hour', cron: '5 * * * *', klass: 'AllSensorsReadingJob')
+  Sidekiq::Cron::Job.create(name: 'Sensor reading - every hour', cron: '5 * * * *', klass: 'AllSensorsReadingJob')
+end

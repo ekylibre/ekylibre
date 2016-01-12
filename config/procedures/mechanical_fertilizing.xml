@@ -4,7 +4,7 @@
     <parameters>
       <target name="land_parcel" filter="is land_parcel and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
-      </target>	
+      </target>
       <input name="fertilizer" filter="is preparation and can fertilize">
         <handler name="population"/>
         <handler indicator="net_mass" unit="kilogram"
@@ -19,7 +19,7 @@
                  if="PRODUCT..net_mass? and PRODUCT..nitrogen_concentration? and sum_working_zone_areas(land_parcel) != 0"
                  backward="(POPULATION * PRODUCT..net_mass(kilogram) * (PRODUCT.nitrogen_concentration(percent) / 100)) / sum_working_zone_areas(land_parcel, :hectare)"
                  forward="(VALUE * sum_working_zone_areas(land_parcel, :hectare)) / (PRODUCT..net_mass(kilogram) * PRODUCT.nitrogen_concentration(percent) / 100)"/>
-      </input>	
+      </input>
       <tool name="spreader" filter="can spread(preparation)"/>
       <tool name="tractor" filter="is equipment and can tow(spreader)"/>
       <doer name="driver"  filter="can drive(tractor) and can move"/>

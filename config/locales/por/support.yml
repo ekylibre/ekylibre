@@ -63,6 +63,7 @@ por:
   http:
     errors:
       internal_server_error:
+        # hint: "The application encounters problems. Administrators have been notified for this problem."
         title: "Nos desculpamos, mas alguma coisa aconteceu de errado"
       not_found:
         hint: "Você deve ter digitado alguma valor errado ou a página não existe mais."

@@ -184,7 +184,7 @@ class Intervention < Ekylibre::Record::Base
 
   # Update temporality informations in intervention
   def update_temporality
-    self.reload
+    reload
     started_at = working_periods.minimum(:started_at)
     stopped_at = working_periods.maximum(:stopped_at)
     update_columns(

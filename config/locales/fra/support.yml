@@ -64,6 +64,7 @@ fra:
   http:
     errors:
       internal_server_error:
+        hint: "L'application rencontre des problèmes. Les administrateurs ont été notifiés."
         title: "Nous sommes désolés, mais quelque chose s'est mal passé"
       not_found:
         hint: "Vous pouvez avoir mal saisi l'adresse ou la page peut avoir été déplacée."

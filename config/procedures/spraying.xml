@@ -4,7 +4,7 @@
     <parameters>
       <target name="cultivation" filter="is plant and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
-      </target>	
+      </target>
       <input name="plant_medicine" filter="is preparation and can care(plant)">
         <handler name="population"/>
         <handler indicator="net_mass" unit="kilogram"

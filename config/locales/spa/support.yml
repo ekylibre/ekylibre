@@ -62,6 +62,7 @@ spa:
   http:
     errors:
       internal_server_error:
+        # hint: "The application encounters problems. Administrators have been notified for this problem."
         # title: "We're sorry, but something went wrong"
       not_found:
         # hint: "You may have mistyped the address or the page may have moved."

@@ -96,8 +96,8 @@ Rails.application.routes.draw do
 
     resources :dashboards, concerns: [:list] do
       collection do
-        for mod in [:home, :relationship, :accountancy, :trade, :stocks, :production, :tools, :settings]
-          get mod
+        [:home, :relationship, :accountancy, :trade, :stocks, :production, :tools, :settings].each do |part|
+          get part
         end
         get :sandbox
       end

@@ -138,7 +138,7 @@ class ActivityProduction < Ekylibre::Record::Base
       self.size_unit_name      = activity_size_unit_name
       self.rank_number ||= (self.activity.productions.maximum(:rank_number) ? self.activity.productions.maximum(:rank_number) : 0) + 1
     end
-    self.support_shape = self.cultivable_zone.shape if self.cultivable_zone
+    self.support_shape = cultivable_zone.shape if cultivable_zone
     if !support && cultivable_zone && support_shape && self.vegetal_crops?
       land_parcels = LandParcel.overlaps_shape(::Charta.new_geometry(support_shape)).order(:id)
       if land_parcels.any?
