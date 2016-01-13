@@ -420,7 +420,7 @@ class ActivityProduction < Ekylibre::Record::Base
   ## LABEL METHODS ##
 
   def work_name
-    "#{support_work_name} - #{net_surface_area}"
+    "#{support.work_name} - #{net_surface_area}"
   end
 
   # Returns unique i18nized name for given production
