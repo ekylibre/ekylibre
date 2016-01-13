@@ -147,7 +147,7 @@ class InterventionProductParameter < InterventionParameter
     code << "end\n"
     class_eval(code)
   end
-  
+
   def to_geom
     ::Charta.new_geometry(working_zone)
   end
