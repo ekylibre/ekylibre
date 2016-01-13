@@ -94,6 +94,9 @@ class Activity < Ekylibre::Record::Base
   scope :of_families, proc { |*families|
     where(family: families.flatten.collect { |f| Nomen::ActivityFamily.all(f.to_sym) }.flatten.uniq.map(&:to_s))
   }
+  scope :of_family, proc { |family|
+    where(family: Nomen::ActivityFamily.all(family))
+  }
 
   accepts_nested_attributes_for :expenses, :revenues, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :distributions, reject_if: :all_blank, allow_destroy: true
@@ -298,13 +301,16 @@ class Activity < Ekylibre::Record::Base
     end
 
     # Find nearest family on cultivation variety and support variety
-    def best_for_cultivation(cultivation_variety)
+    def best_for_cultivation(family, cultivation_variety)
       return nil unless any?
-      activities = of_cultivation_variety(cultivation_variety)
       searched = Nomen::Variety.find(cultivation_variety)
+      activities = of_family(family).select do |activity|
+        searched <= activity.cultivation_variety
+      end
+      return activities.first if activities.count == 1
       best = nil
       littlest_degree_of_kinship = nil
-      order(id: :desc).map do |a|
+      activities.each do |a|
         degree = searched.degree_of_kinship_with(a.cultivation_variety)
         next unless degree
         if littlest_degree_of_kinship.nil? || littlest_degree_of_kinship > degree
