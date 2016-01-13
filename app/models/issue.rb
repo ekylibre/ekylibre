@@ -64,6 +64,19 @@ class Issue < Ekylibre::Record::Base
   delegate :name, to: :target, prefix: true
   delegate :count, to: :interventions, prefix: true
 
+  scope :of_campaign, lambda { |campaign|
+    where(target_id: TargetDistribution.of_campaign(campaign), target_type: 'Product')
+  }
+
+
+  scope :of_activity, lambda { |activity|
+    where(target_id: TargetDistribution.of_activity(activity), target_type: 'Product')
+  }
+
+  scope :opened, lambda {
+    where(state: 'opened')
+  }
+
   state_machine :state, initial: :opened do
     ## define states
     state :opened
