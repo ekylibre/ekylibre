@@ -35,6 +35,10 @@ module Backend
       t.column :support_variety, hidden: true
     end
 
+    def index
+      @current_activities = Activity.of_campaign(current_campaign).order(name: :asc) || []
+    end
+
     # Duplicate activity basing on campaign
     def duplicate
       preceding = current_campaign.preceding
@@ -82,7 +86,7 @@ module Backend
     end
 
     # List of productions for one activity
-    list(:productions, model: :activity_production, conditions: { activity_id: 'params[:id]'.c }, order: { started_on: :desc }) do |t|
+    list(:productions, model: :activity_production, conditions: { activity_id: 'params[:id]'.c, campaign_id: 'current_campaign'.c }, order: { started_on: :desc }) do |t|
       t.action :edit
       t.action :destroy
       t.column :name, url: true
