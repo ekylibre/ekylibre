@@ -31,10 +31,12 @@
 #  lock_version        :integer          default(0), not null
 #  name                :string           not null
 #  nature              :string           not null
+#  production_cycle    :string           not null
 #  size_indicator_name :string
 #  size_unit_name      :string
 #  support_variety     :string
 #  suspended           :boolean          default(FALSE), not null
+#  target_campaign     :string
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #  with_cultivation    :boolean          not null
@@ -65,7 +67,7 @@ class Activity < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_inclusion_of :suspended, :with_cultivation, :with_supports, in: [true, false]
-  validates_presence_of :family, :name, :nature
+  validates_presence_of :family, :name, :nature, :production_cycle
   # ]VALIDATORS]
   validates_inclusion_of :family, in: family.values, allow_nil: true
   validates_presence_of :family
@@ -232,6 +234,22 @@ class Activity < Ekylibre::Record::Base
     end
   end
 
+  def avatar_path
+    if cultivation_variety
+      Nomen::Varieties[cultivation_variety].avatar_path
+    elsif family
+      Nomen::ActivityFamilies[family].avatar_path
+    end
+  end
+
+  def real_expense_amount(campaign)
+    Intervention.of_campaign(campaign).of_activity(self).map(&:cost).sum
+  end
+
+  def budget_expense_amount(campaign)
+    expenses.of_campaign(campaign).sum(:amount)
+  end
+
   class << self
     # Returns a color for given family and variety
     # short-way solution, can be externalized in mid-way solution
@@ -253,7 +271,7 @@ class Activity < Ekylibre::Record::Base
         # MEADOW
         if crop_sets.include?(:meadow)
           colors[:dark_green]
-        # CEREALS
+          # CEREALS
         elsif crop_sets.include?(:cereals)
           if variety <= :zea || variety <= :sorghum
             colors[:orange]
@@ -264,24 +282,24 @@ class Activity < Ekylibre::Record::Base
           else
             colors[:golden_rod]
           end
-        # OILSEED
+          # OILSEED
         elsif crop_sets.include?(:oleaginous)
           colors[:green_yellow]
-        # PROTEINS
+          # PROTEINS
         elsif crop_sets.include?(:proteaginous)
           colors[:teal]
-        # FIBER
+          # FIBER
         elsif variety <= :linum ||
-              variety <= :cannabis
+            variety <= :cannabis
           colors[:slate_gray]
-        # LEGUMINOUS
+          # LEGUMINOUS
         elsif crop_sets.include?(:leguminous)
           colors[:lime]
         elsif crop_sets.include?(:vegetables)
           colors[:red]
         elsif crop_sets.include?(:arboricultural)
           colors[:blue]
-        # VINE
+          # VINE
         elsif variety <= :vitaceae
           colors[:purple]
         elsif crop_sets.include?(:aromatics_and_medicinals)
