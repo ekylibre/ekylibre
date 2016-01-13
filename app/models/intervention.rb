@@ -85,7 +85,7 @@ class Intervention < Ekylibre::Record::Base
     where(procedure_name: Procedo.procedures_of_category(category).map(&:name))
   }
   scope :of_campaign, lambda { |campaign|
-    where('(started_at, stopped_at) OVERLAPS (?, ?)', campaign.started_on, campaign.stopped_on)
+    where(id: InterventionTarget.select(:intervention_id).where(product_id: TargetDistribution.select(:target_id).of_campaign(campaign)))
   }
   scope :of_current_campaigns, -> { of_campaign(Campaign.current) }
   scope :of_activity_production, lambda { |production|
