@@ -199,7 +199,11 @@ module Backend::BaseHelper
   end
 
   def campaign_selector
-    return nil unless Campaign.any?
+    unless Campaign.any?
+      campaign = Campaign.create!(harvest_year: Date.today.year)
+      @current_campaign = campaign
+      current_user.current_campaign = campaign
+    end
     if current_campaign
       current_campaign.create_following! unless current_campaign.following
     end

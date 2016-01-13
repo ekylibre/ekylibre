@@ -80,10 +80,14 @@ class Activity < Ekylibre::Record::Base
     where(id: TargetDistribution.select(:activity_id).where(target_id: InterventionTarget.select(:product_id).where(intervention_id: intervention)))
   }
   scope :of_campaign, lambda { |campaign|
-    where(id: ActivityProduction.select(:activity_id).of_campaign((campaign.is_a?(Campaign) || campaign.is_a?(ActiveRecord::Relation)) ? campaign : campaign.map { |c| c.is_a?(Campaign) ? c : Campaign.find(c) }))
+    if campaign
+      where(id: ActivityProduction.select(:activity_id).of_campaign((campaign.is_a?(Campaign) || campaign.is_a?(ActiveRecord::Relation)) ? campaign : campaign.map { |c| c.is_a?(Campaign) ? c : Campaign.find(c) }))
+    else
+      none
+    end
   }
   scope :of_cultivation_variety, lambda { |variety|
-    where(cultivation_variety: Nomen::Variety.find(variety).all)
+    where(cultivation_variety: (variety.is_a?(Nomen::Item) ? variety : Nomen::Variety.find(variety)).self_and_children)
   }
   scope :main_of_campaign, ->(campaign) { main.of_campaign(campaign) }
   scope :of_current_campaigns, -> { joins(:campaign).merge(Campaign.current) }

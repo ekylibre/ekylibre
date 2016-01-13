@@ -81,13 +81,18 @@ class ActivityProduction < Ekylibre::Record::Base
 
   scope :of_campaign, lambda { |campaigns|
     campaigns = [campaigns] unless campaigns.respond_to? :each
-    query = [connection.quoted_false]
-    campaigns.each do |campaign|
-      query[0] << ' OR (started_on, stopped_on) OVERLAPS (?, ?)'
-      query << campaign.started_on
-      query << campaign.stopped_on
+    campaigns.compact!
+    if campaigns.any?
+      query = [connection.quoted_false]
+      campaigns.each do |campaign|
+        query[0] << ' OR (started_on, stopped_on) OVERLAPS (?, ?)'
+        query << campaign.started_on
+        query << campaign.stopped_on
+      end
+      where(*query)
+    else
+      none
     end
-    where(*query)
   }
 
   scope :of_cultivation_variety, lambda { |variety|
@@ -204,6 +209,11 @@ class ActivityProduction < Ekylibre::Record::Base
 
   def campaigns
     Campaign.of_activity_production(self)
+  end
+
+  # Used for find current campaign for given production
+  def current_campaign
+    Campaign.at(Time.zone.now).first
   end
 
   def cost(role = :input)
@@ -420,7 +430,7 @@ class ActivityProduction < Ekylibre::Record::Base
   ## LABEL METHODS ##
 
   def work_name
-    "#{support.work_name} - #{net_surface_area}"
+    "#{support_work_number} - #{net_surface_area}"
   end
 
   # Returns unique i18nized name for given production
