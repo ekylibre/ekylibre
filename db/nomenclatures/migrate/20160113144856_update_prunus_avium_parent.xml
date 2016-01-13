@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Update prunus avium parent">
+      <item-change item="varieties#prunus_avium_blanc_chere" parent="prunus_avium" itis_tsn="24770"/>
+      <item-change item="varieties#prunus_avium_brune_de_romeries" parent="prunus_avium" itis_tsn="24770"/>
+      <item-change item="varieties#prunus_avium_cerise_blanc_nez" parent="prunus_avium" itis_tsn="24770"/>
+      <item-change item="varieties#prunus_avium_cerise_blanche_d_harsigny" parent="prunus_avium" itis_tsn="24770"/>
+      <item-change item="varieties#prunus_avium_cerise_blanche_de_wavrans_sur_l_aa" parent="prunus_avium" itis_tsn="24770"/>
+      <item-change item="varieties#prunus_avium_cerise_d_enguinegatte" parent="prunus_avium" itis_tsn="24770"/>
+      <item-change item="varieties#prunus_avium_cerise_de_moncheaux" parent="prunus_avium" itis_tsn="24770"/>
+      <item-change item="varieties#prunus_avium_cerise_du_quesnoy" parent="prunus_avium" itis_tsn="24770"/>
+      <item-change item="varieties#prunus_avium_cerise_du_sars" parent="prunus_avium" itis_tsn="24770"/>
+      <item-change item="varieties#prunus_avium_cerise_peloa" parent="prunus_avium" itis_tsn="24770"/>
+      <item-change item="varieties#prunus_avium_coeur_de_pigeon_noir" parent="prunus_avium" itis_tsn="24770"/>
+      <item-change item="varieties#prunus_avium_gascogne_tardive_de_seninghem" parent="prunus_avium" itis_tsn="24770"/>
+      <item-change item="varieties#prunus_avium_gros_bigarreau_d_eperlecques" parent="prunus_avium" itis_tsn="24770"/>
+      <item-change item="varieties#prunus_avium_gros_bigarreau_de_la_groise" parent="prunus_avium" itis_tsn="24770"/>
+      <item-change item="varieties#prunus_avium_grosse_cerise_blanche_de_verchocq" parent="prunus_avium" itis_tsn="24770"/>
+      <item-change item="varieties#prunus_avium_grosse_cerise_tardive" parent="prunus_avium" itis_tsn="24770"/>
+      <item-change item="varieties#prunus_avium_guigne_noire_de_ruesnes" parent="prunus_avium" itis_tsn="24770"/>
+      <item-change item="varieties#prunus_avium_guigne_noire_du_pevele" parent="prunus_avium" itis_tsn="24770"/>
+      <item-change item="varieties#prunus_avium_guindoux_du_poitou" parent="prunus_avium" itis_tsn="24770"/>
+      <item-change item="varieties#prunus_avium_marin" parent="prunus_avium" itis_tsn="24770"/>
+      <item-change item="varieties#prunus_avium_merisier" parent="prunus_avium" itis_tsn="24770"/>
+      <item-change item="varieties#prunus_avium_mourette_amourette" parent="prunus_avium" itis_tsn="24770"/>
+      <item-change item="varieties#prunus_avium_muant" parent="prunus_avium" itis_tsn="24770"/>
+      <item-change item="varieties#prunus_avium_noire_d_itxassou_geresi_belxa" parent="prunus_avium" itis_tsn="24770"/>
+      <item-change item="varieties#prunus_avium_petite_noire" parent="prunus_avium" itis_tsn="24770"/>
+      <item-change item="varieties#prunus_avium_precoce_de_la_marche" parent="prunus_avium" itis_tsn="24770"/>
+      <item-change item="varieties#prunus_avium_precoce_du_pays" parent="prunus_avium" itis_tsn="24770"/>
+      <item-change item="varieties#prunus_avium_triaux_des_fondettes" parent="prunus_avium" itis_tsn="24770"/>
+      <item-change item="varieties#prunus_avium_xapata_chapata" parent="prunus_avium" itis_tsn="24770"/>
+</migration>

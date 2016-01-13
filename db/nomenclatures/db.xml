@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160108142009">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160113144856">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -5308,36 +5308,36 @@
       <item name="prunus_armeniaca_abricot_peche_de_nancy" parent="prunus_armeniaca" itis_tsn="24769"/>
       <item name="prunus_avium" parent="prunus" itis_tsn="24770"/>
       <item name="prunus_avium_belle_du_berry_ou_petite_joue_vermeille" parent="prunus_avium" itis_tsn="24770"/>
-      <item name="prunus_avium_blanc_chere" parent="prunus_armeniaca" itis_tsn="24769"/>
-      <item name="prunus_avium_brune_de_romeries" parent="prunus_armeniaca" itis_tsn="24769"/>
-      <item name="prunus_avium_cerise_blanc_nez" parent="prunus_armeniaca" itis_tsn="24769"/>
-      <item name="prunus_avium_cerise_blanche_d_harsigny" parent="prunus_armeniaca" itis_tsn="24769"/>
-      <item name="prunus_avium_cerise_blanche_de_wavrans_sur_l_aa" parent="prunus_armeniaca" itis_tsn="24769"/>
-      <item name="prunus_avium_cerise_d_enguinegatte" parent="prunus_armeniaca" itis_tsn="24769"/>
-      <item name="prunus_avium_cerise_de_moncheaux" parent="prunus_armeniaca" itis_tsn="24769"/>
-      <item name="prunus_avium_cerise_du_quesnoy" parent="prunus_armeniaca" itis_tsn="24769"/>
-      <item name="prunus_avium_cerise_du_sars" parent="prunus_armeniaca" itis_tsn="24769"/>
-      <item name="prunus_avium_cerise_peloa" parent="prunus_armeniaca" itis_tsn="24769"/>
-      <item name="prunus_avium_coeur_de_pigeon_noir" parent="prunus_armeniaca" itis_tsn="24769"/>
-      <item name="prunus_avium_gascogne_tardive_de_seninghem" parent="prunus_armeniaca" itis_tsn="24769"/>
-      <item name="prunus_avium_gros_bigarreau_d_eperlecques" parent="prunus_armeniaca" itis_tsn="24769"/>
-      <item name="prunus_avium_gros_bigarreau_de_la_groise" parent="prunus_armeniaca" itis_tsn="24769"/>
-      <item name="prunus_avium_grosse_cerise_blanche_de_verchocq" parent="prunus_armeniaca" itis_tsn="24769"/>
-      <item name="prunus_avium_grosse_cerise_tardive" parent="prunus_armeniaca" itis_tsn="24769"/>
-      <item name="prunus_avium_guigne_noire_de_ruesnes" parent="prunus_armeniaca" itis_tsn="24769"/>
-      <item name="prunus_avium_guigne_noire_du_pevele" parent="prunus_armeniaca" itis_tsn="24769"/>
-      <item name="prunus_avium_guindoux_du_poitou" parent="prunus_armeniaca" itis_tsn="24769"/>
-      <item name="prunus_avium_marin" parent="prunus_armeniaca" itis_tsn="24769"/>
-      <item name="prunus_avium_merisier" parent="prunus_armeniaca" itis_tsn="24769"/>
-      <item name="prunus_avium_mourette_amourette" parent="prunus_armeniaca" itis_tsn="24769"/>
-      <item name="prunus_avium_muant" parent="prunus_armeniaca" itis_tsn="24769"/>
-      <item name="prunus_avium_noire_d_itxassou_geresi_belxa" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_avium_blanc_chere" parent="prunus_avium" itis_tsn="24770"/>
+      <item name="prunus_avium_brune_de_romeries" parent="prunus_avium" itis_tsn="24770"/>
+      <item name="prunus_avium_cerise_blanc_nez" parent="prunus_avium" itis_tsn="24770"/>
+      <item name="prunus_avium_cerise_blanche_d_harsigny" parent="prunus_avium" itis_tsn="24770"/>
+      <item name="prunus_avium_cerise_blanche_de_wavrans_sur_l_aa" parent="prunus_avium" itis_tsn="24770"/>
+      <item name="prunus_avium_cerise_d_enguinegatte" parent="prunus_avium" itis_tsn="24770"/>
+      <item name="prunus_avium_cerise_de_moncheaux" parent="prunus_avium" itis_tsn="24770"/>
+      <item name="prunus_avium_cerise_du_quesnoy" parent="prunus_avium" itis_tsn="24770"/>
+      <item name="prunus_avium_cerise_du_sars" parent="prunus_avium" itis_tsn="24770"/>
+      <item name="prunus_avium_cerise_peloa" parent="prunus_avium" itis_tsn="24770"/>
+      <item name="prunus_avium_coeur_de_pigeon_noir" parent="prunus_avium" itis_tsn="24770"/>
+      <item name="prunus_avium_gascogne_tardive_de_seninghem" parent="prunus_avium" itis_tsn="24770"/>
+      <item name="prunus_avium_gros_bigarreau_d_eperlecques" parent="prunus_avium" itis_tsn="24770"/>
+      <item name="prunus_avium_gros_bigarreau_de_la_groise" parent="prunus_avium" itis_tsn="24770"/>
+      <item name="prunus_avium_grosse_cerise_blanche_de_verchocq" parent="prunus_avium" itis_tsn="24770"/>
+      <item name="prunus_avium_grosse_cerise_tardive" parent="prunus_avium" itis_tsn="24770"/>
+      <item name="prunus_avium_guigne_noire_de_ruesnes" parent="prunus_avium" itis_tsn="24770"/>
+      <item name="prunus_avium_guigne_noire_du_pevele" parent="prunus_avium" itis_tsn="24770"/>
+      <item name="prunus_avium_guindoux_du_poitou" parent="prunus_avium" itis_tsn="24770"/>
+      <item name="prunus_avium_marin" parent="prunus_avium" itis_tsn="24770"/>
+      <item name="prunus_avium_merisier" parent="prunus_avium" itis_tsn="24770"/>
+      <item name="prunus_avium_mourette_amourette" parent="prunus_avium" itis_tsn="24770"/>
+      <item name="prunus_avium_muant" parent="prunus_avium" itis_tsn="24770"/>
+      <item name="prunus_avium_noire_d_itxassou_geresi_belxa" parent="prunus_avium" itis_tsn="24770"/>
       <item name="prunus_avium_noire_tardive_a_longue_queue" parent="prunus_avium" itis_tsn="24770"/>
-      <item name="prunus_avium_petite_noire" parent="prunus_armeniaca" itis_tsn="24769"/>
-      <item name="prunus_avium_precoce_de_la_marche" parent="prunus_armeniaca" itis_tsn="24769"/>
-      <item name="prunus_avium_precoce_du_pays" parent="prunus_armeniaca" itis_tsn="24769"/>
-      <item name="prunus_avium_triaux_des_fondettes" parent="prunus_armeniaca" itis_tsn="24769"/>
-      <item name="prunus_avium_xapata_chapata" parent="prunus_armeniaca" itis_tsn="24769"/>
+      <item name="prunus_avium_petite_noire" parent="prunus_avium" itis_tsn="24770"/>
+      <item name="prunus_avium_precoce_de_la_marche" parent="prunus_avium" itis_tsn="24770"/>
+      <item name="prunus_avium_precoce_du_pays" parent="prunus_avium" itis_tsn="24770"/>
+      <item name="prunus_avium_triaux_des_fondettes" parent="prunus_avium" itis_tsn="24770"/>
+      <item name="prunus_avium_xapata_chapata" parent="prunus_avium" itis_tsn="24770"/>
       <item name="prunus_cerasifera" parent="prunus" itis_tsn="24772"/>
       <item name="prunus_cerasus" parent="prunus" itis_tsn="24773"/>
       <item name="prunus_cerasus_griotte_de_leme" parent="prunus_cerasus" itis_tsn="24773"/>
