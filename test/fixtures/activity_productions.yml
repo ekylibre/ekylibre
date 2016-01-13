@@ -23,6 +23,7 @@
 # == Table: activity_productions
 #
 #  activity_id         :integer          not null
+#  campaign_id         :integer
 #  created_at          :datetime         not null
 #  creator_id          :integer
 #  cultivable_zone_id  :integer
