@@ -30,10 +30,6 @@
 #  harvest_year :integer
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
-#  name         :string           not null
-#  number       :string           not null
-#  started_on   :date
-#  stopped_on   :date
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
@@ -42,22 +38,19 @@ class Campaign < Ekylibre::Record::Base
   has_many :activity_budgets
   has_one :selected_manure_management_plan, -> { selecteds }, class_name: 'ManureManagementPlan', foreign_key: :campaign_id, inverse_of: :campaign
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_date :started_on, :stopped_on, allow_blank: true, on_or_after: Date.civil(1, 1, 1)
   validates_datetime :closed_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :harvest_year, allow_nil: true, only_integer: true
   validates_inclusion_of :closed, in: [true, false]
-  validates_presence_of :name, :number
   # ]VALIDATORS]
-  validates_length_of :number, allow_nil: true, maximum: 60
   validates :harvest_year, length: { is: 4 }, allow_nil: true
-  validates_uniqueness_of :name, :harvest_year
+  validates_uniqueness_of :harvest_year
 
-  acts_as_numbered :number, readonly: false
+  has_many :activity_productions
 
   scope :current, -> { where(closed: false).reorder(:harvest_year) }
   scope :at, ->(searched_at = Time.zone.now) { where(harvest_year: searched_at.year) }
   scope :of_activity_production, lambda { |activity_production|
-    where('(started_on, stopped_on) OVERLAPS (COALESCE(?, started_on), COALESCE(?, stopped_on))', activity_production.started_on, activity_production.stopped_on)
+    joins(:activity_productions).where(activity_productions: { id: activity_production.id })
   }
   scope :of_production, ->(production) { of_activity_production(production) }
 
@@ -66,11 +59,6 @@ class Campaign < Ekylibre::Record::Base
   end
 
   before_validation(on: :create) do
-    if harvest_year
-      self.name = harvest_year.to_s if name.blank?
-      self.started_on ||= Date.new(harvest_year, 1, 1)
-      self.stopped_on ||= Date.new(harvest_year, 12, 31)
-    end
   end
 
   def self.first_of_all
@@ -110,10 +98,7 @@ class Campaign < Ekylibre::Record::Base
 
   def create_following!
     self.class.create!(
-      harvest_year: harvest_year + 1,
-      started_on: self.started_on + 1.year,
-      stopped_on: self.stopped_on + 1.year,
-      name: name.succ
+      harvest_year: harvest_year + 1
     )
   end
 
