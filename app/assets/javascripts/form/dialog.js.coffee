@@ -51,6 +51,7 @@
 
           E.dialog.initialize frame
           frame.dialog "open"
+          frame.trigger('dialog:show')
           return
 
         error: (request, status, error) ->
@@ -101,6 +102,7 @@
               returns[code].call form, frame, data, status, request
               unknownReturnCode = false
               E.dialog.initialize frame
+              frame.trigger('dialog:show')
               break
           if unknownReturnCode
             if $.isFunction(settings.defaultReturn)

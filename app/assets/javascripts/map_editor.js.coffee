@@ -634,4 +634,8 @@
     $("input[data-map-editor]").each ->
       $(this).mapeditor()
 
+  $(document).on 'dialog:show', ->
+    $("input[data-map-editor]").each ->
+      $(this).mapeditor()
+
 ) jQuery
