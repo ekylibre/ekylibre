@@ -44,6 +44,14 @@ class TargetDistribution < Ekylibre::Record::Base
   validates_presence_of :activity, :activity_production, :target
   # ]VALIDATORS]
 
+  scope :of_campaign, lambda { |campaign|
+    where(activity_production_id: ActivityProduction.of_campaign(campaign))
+  }
+
+  scope :of_activity, lambda { |activity|
+    where(activity: activity)
+  }
+
   before_validation do
     if activity_production
       self.activity = activity_production.activity
