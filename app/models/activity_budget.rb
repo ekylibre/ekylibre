@@ -67,6 +67,9 @@ class ActivityBudget < Ekylibre::Record::Base
 
   scope :revenues, -> { where(direction: :revenue) }
   scope :expenses, -> { where(direction: :expense) }
+  scope :of_campaign, lambda { |campaign|
+    where(campaign: campaign)
+  }
 
   before_validation do
     self.unit_currency = Preference[:currency] if unit_currency.blank?
