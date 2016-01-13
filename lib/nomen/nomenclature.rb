@@ -282,6 +282,10 @@ module Nomen
       "Nomen::#{name.to_s.classify}"
     end
 
+    def table_name
+      @name.to_s.pluralize
+    end
+
     # Returns hash with items in tree: {a => nil, b => {c => nil}}
     def tree
       x = @roots.collect(&:tree).join
