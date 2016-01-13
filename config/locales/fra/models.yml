@@ -6,6 +6,8 @@ fra:
         net_margin: "Marge nette" #?
         parent: "Activité parente"
         work_unit: "Unité d’œuvre" #?
+        production_cycle: 'Type de production'
+        target_campaign: 'Campagne rattachée'
       activity_production:  #?
         production_usage: "Usage futur" #?
         storage: "Support" #?

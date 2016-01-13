@@ -5,6 +5,12 @@ fra:
         auxiliary: "Auxiliaire"
         main: "Principale"
         standalone: "Indépendante"
+      production_cycle:
+        annual: "Annuelle"
+        perennial: "Pérenne"
+      target_campaign:
+        current: 'Courante'
+        next: 'Suivante'
     activity_budget:
       computation_method:
         per_production: "Par production"

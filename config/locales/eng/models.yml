@@ -3,6 +3,8 @@ eng:
     attributes:
       activity:
         parent: "Parent activity"
+        production_cycle: 'Production cycle'
+        target_campaign: 'Target campaign'
       animal_group:
         born_at: "Created at"
       building:

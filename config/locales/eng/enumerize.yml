@@ -5,6 +5,12 @@ eng:
         auxiliary: "Auxiliary"
         main: "Main"
         standalone: "Standalone"
+      production_cycle:
+        annual: "Annual"
+        perennial: "Perennial"
+      target_campaign:
+        current: 'Current'
+        next: 'Next'
     activity_budget:
       computation_method:
         per_production: "Per production"

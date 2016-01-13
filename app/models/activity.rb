@@ -60,6 +60,8 @@ class Activity < Ekylibre::Record::Base
     has_many :productions, class_name: 'ActivityProduction'
   end
   has_many :supports, through: :productions
+  enumerize :production_cycle, in: [:annual, :perennial]
+  enumerize :target_campaign, in: [:current, :next]
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_inclusion_of :suspended, :with_cultivation, :with_supports, in: [true, false]
@@ -72,6 +74,8 @@ class Activity < Ekylibre::Record::Base
   validates_uniqueness_of :name
   validates_associated :expenses, :revenues
   validates_associated :productions
+  validates_presence_of :production_cycle
+  validates_presence_of :target_campaign, if: Proc.new { |a| a.production_cycle == :perennial }
 
   scope :actives, -> { availables.where(id: ActivityProduction.opened) }
   scope :availables, -> { where.not('suspended') }

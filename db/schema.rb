@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151108001401) do
+ActiveRecord::Schema.define(version: 20160112135638) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,6 +82,8 @@ ActiveRecord::Schema.define(version: 20151108001401) do
     t.string   "size_indicator_name"
     t.string   "size_unit_name"
     t.boolean  "suspended",           default: false, null: false
+    t.string   "production_cycle",                    null: false
+    t.string   "target_campaign"
   end
 
   add_index "activities", ["created_at"], name: "index_activities_on_created_at", using: :btree
@@ -158,9 +160,11 @@ ActiveRecord::Schema.define(version: 20151108001401) do
     t.date     "stopped_on"
     t.string   "state"
     t.integer  "rank_number",                                                                                                null: false
+    t.integer  "campaign_id"
   end
 
   add_index "activity_productions", ["activity_id"], name: "index_activity_productions_on_activity_id", using: :btree
+  add_index "activity_productions", ["campaign_id"], name: "index_activity_productions_on_campaign_id", using: :btree
   add_index "activity_productions", ["created_at"], name: "index_activity_productions_on_created_at", using: :btree
   add_index "activity_productions", ["creator_id"], name: "index_activity_productions_on_creator_id", using: :btree
   add_index "activity_productions", ["cultivable_zone_id"], name: "index_activity_productions_on_cultivable_zone_id", using: :btree
@@ -320,9 +324,7 @@ ActiveRecord::Schema.define(version: 20151108001401) do
   add_index "bank_statements", ["updater_id"], name: "index_bank_statements_on_updater_id", using: :btree
 
   create_table "campaigns", force: :cascade do |t|
-    t.string   "name",                         null: false
     t.text     "description"
-    t.string   "number",                       null: false
     t.integer  "harvest_year"
     t.boolean  "closed",       default: false, null: false
     t.datetime "closed_at"
@@ -331,8 +333,6 @@ ActiveRecord::Schema.define(version: 20151108001401) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version", default: 0,     null: false
-    t.date     "started_on"
-    t.date     "stopped_on"
   end
 
   add_index "campaigns", ["created_at"], name: "index_campaigns_on_created_at", using: :btree

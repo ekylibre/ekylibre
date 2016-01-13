@@ -59,6 +59,8 @@ class ActivityProduction < Ekylibre::Record::Base
   has_one :selected_manure_management_plan_zone, -> { selecteds },
           class_name: 'ManureManagementPlanZone', inverse_of: :activity_production
 
+  has_one :campaign
+
   has_geometry :support_shape
   composed_of :size, class_name: 'Measure', mapping: [%w(size_value to_d), %w(size_unit_name unit)]
 
@@ -72,6 +74,7 @@ class ActivityProduction < Ekylibre::Record::Base
   validates_uniqueness_of :rank_number, scope: :activity_id
   validates_presence_of :started_on
   validates_presence_of :cultivable_zone, :support_nature, if: :vegetal_crops?
+  validates_presence_of :campaign, if: Proc.new { |production| production.activity.production_cycle == :annual }
 
   delegate :name, :work_number, to: :support, prefix: true
   # delegate :shape, :shape_to_ewkt, :shape_svg, :net_surface_area, :shape_area, to: :support
@@ -79,20 +82,8 @@ class ActivityProduction < Ekylibre::Record::Base
   delegate :vegetal_crops?, :with_cultivation, :cultivation_variety, :with_supports,
            :support_variety, :color, to: :activity
 
-  scope :of_campaign, lambda { |campaigns|
-    campaigns = [campaigns] unless campaigns.respond_to? :each
-    campaigns.compact!
-    if campaigns.any?
-      query = [connection.quoted_false]
-      campaigns.each do |campaign|
-        query[0] << ' OR (started_on, stopped_on) OVERLAPS (?, ?)'
-        query << campaign.started_on
-        query << campaign.stopped_on
-      end
-      where(*query)
-    else
-      none
-    end
+  scope :of_campaign, lambda { |campaign|
+    where("campaign_id = ? or id IN (SELECT c.id FROM activity_productions as ap JOIN activities as a ON a.id = ap.activity_id, campaigns as c WHERE a.production_cycle = 'perennial' AND a.target_campaign = 'current' AND ((ap.stopped_on is null AND c.harvest_year >= extract (year from ap.started_on)) OR (ap.stopped_on is not null AND extract (year from ap.started_on) <= c.harvest_year AND c.harvest_year < extract (year from ap.stopped_on)))) or id IN (SELECT c.id FROM activity_productions as ap JOIN activities as a ON a.id = ap.activity_id, campaigns as c WHERE a.production_cycle = 'perennial' AND a.target_campaign = 'next' AND ((ap.stopped_on is null AND c.harvest_year > extract (year from ap.started_on)) OR (ap.stopped_on is not null AND extract (year from ap.started_on) < c.harvest_year AND c.harvest_year <= extract (year from ap.stopped_on))))", campaign.id)
   }
 
   scope :of_cultivation_variety, lambda { |variety|
