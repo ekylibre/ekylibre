@@ -88,6 +88,7 @@ class InterventionProductParameter < InterventionParameter
   scope :of_actor, ->(actor) { where(product_id: actor.id) }
   scope :of_actors, ->(actors) { where(product_id: actors.flatten.map(&:id)) }
   scope :with_actor, -> { where.not(product_id: nil) }
+  scope :with_working_zone, -> { where.not(working_zone: nil) }
 
   before_validation do
     self.intervention = group.intervention if group && !intervention
@@ -145,6 +146,15 @@ class InterventionProductParameter < InterventionParameter
     code << "  self.type.to_s == 'Intervention#{role.to_s.camelize}'\n"
     code << "end\n"
     class_eval(code)
+  end
+  
+  def to_geom
+    ::Charta.new_geometry(working_zone)
+  end
+
+  # Computes net surface area of working_zone
+  def working_zone_area(unit = :hectare)
+    to_geom.area.in(unit).round(3)
   end
 
   # def roles_array
