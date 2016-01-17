@@ -265,13 +265,13 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
     # Add population
     if options[:population]
-      indicator = Nomen::Indicator[:population]
-      list << { indicator: { name: indicator.name, human_name: indicator.human_name }, unit: { name: '', symbol: unit_name, human_name: unit_name } }
+      # indicator = Nomen::Indicator[:population]
+      list << { indicator: { name: :population, human_name: Product.human_attribute_name(:population) }, unit: { name: '', symbol: unit_name, human_name: unit_name } }
     end
 
     # Add working duration (intervention durations)
     if options[:working_duration]
-      for unit in Nomen::Unit.where(dimension: :time)
+      Nomen::Unit.where(dimension: :time).find_each do |unit|
         list << { indicator: { name: :working_duration, human_name: :working_duration.tl }, unit: { name: unit.name, symbol: unit.symbol, human_name: unit.human_name } }
       end
     end

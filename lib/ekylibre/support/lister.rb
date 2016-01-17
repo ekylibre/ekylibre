@@ -1,22 +1,34 @@
 module Ekylibre
   module Support
-    class Item < Struct.new(:name, :args, :block)
+    class Item < Struct.new(:type, :args, :block)
+      alias_method :name, :type
     end
 
     class Lister
-      def initialize(type = :items)
-        @items = []
-        @type = type
-        code  = "def #{@type}\n"
-        code << "  @items\n"
-        code << 'end'
-        eval(code)
+      delegate :map, :collect, :each, :any?, :size, :first, :[], :detect, to: :list
+
+      def initialize(*types)
+        @list = []
+        types.each do |type|
+          fail 'Cannot use "list" as type name' if type.to_s == 'list'
+          define_singleton_method type do |*args, &block|
+            @list << Item.new(type.to_sym, args, block)
+          end
+          define_singleton_method type.to_s.pluralize do
+            @list.select { |i| i.type == type }
+          end
+        end
       end
 
-      def method_missing(method_name, *args, &block)
-        @items << Item.new(method_name.to_sym, args, block)
-        nil
+      def detect_and_extract!(&block)
+        index = @list.find_index(&block)
+        return nil unless index
+        @list.delete_at(index)
       end
+
+      protected
+
+      attr_reader :list
     end
   end
 end

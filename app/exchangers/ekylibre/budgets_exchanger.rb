@@ -208,7 +208,7 @@ module Ekylibre
               indicator = indics.first
             end
           end
-          activity_budget = ActivityBudget.find_or_initialize_by(activity: activity, campaign: campaign, variant: item_variant, unit_amount: r.item_unit_price_amount)
+          activity_budget = ActivityBudgetItem.find_or_initialize_by(activity: activity, campaign: campaign, variant: item_variant, unit_amount: r.item_unit_price_amount)
           activity_budget.variant_unit = unit
           activity_budget.variant_indicator = indicator
           activity_budget.direction = r.item_direction

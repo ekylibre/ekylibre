@@ -27,6 +27,10 @@ arb:
       # index: "Activities"
       # new: "New activity"
       # show: "Activity: %{name}"
+    backend/activity_budgets:
+      # edit: "Edit budget: %{name}"
+      # new: "New budget: %{name}"
+      # show: "Activity budget: %{name}"
     backend/activity_productions:
       # edit: "Edit activity production: %{name}"
       # new: "New activity production"
@@ -113,8 +117,6 @@ arb:
       # index: "Catalogs"
       # new: "New catalog"
       # show: "Catalog: %{name}"
-    backend/cells/stewardship_cells:
-      # show: "Stewardship cell: %{name}"
     backend/companies:  #?
       register: "تسجيل شركة" #?
     backend/company:  #?
@@ -989,7 +991,9 @@ arb:
     # convert_balance_into_profit: "Convert balance into profit"
     # cooperative_cartodb: "Cooperative CartoDB"
     coordinates: "تنسيق"
+    # copy_from_another_activity: "Copy from another activity"
     copy_of: "نسخ من %{source}"
+    # copy_previous_budget: "Copy previous budget"
     cost_income_statement: "التكاليف" #?
     # cost_per_net_surface_area: "Cost per net surface area"
     cost_sum: "مجموع تكاليف الاستثمار" #?
@@ -1100,6 +1104,7 @@ arb:
     # during: "During"
     # earns: "Earns"
     edit: "تعديل"
+    # edit_budget: "Edit budget"
     ekylibre: "www.ekylibre.org"
     # elapsed_interventions_times_by_activities: "Elapsed interventions times by activities"
     # email: "Email:"
@@ -1409,6 +1414,7 @@ arb:
     # new_animal: "New animal"
     # new_attachment: "New attachment"
     # new_box: "New box"
+    # new_budget: "New budget"
     # new_call: "New call"
     # new_contact: "New contact"
     # new_container: "New container"
@@ -2126,6 +2132,7 @@ arb:
       # no_archived_prints: "No archived prints"
       no_authenticated: "ليس بامكانك ان تكون محدد، ان اسم المستخدم او كلمة المرور غير صحيحة"
       no_balance_template: "ليس هناك من نموذج لوثيقة الرصيد" #?
+      # no_budget_defined_for_current_campaign: "No budget defined for current campaign"
       no_building: "لم يتم التعرف على اي موقع للتخزين، الرجاء انشاء واحد لتتمكن من ادارة اسهمك" #?
       no_closable_financial_year: "ليس لديك اي سنة مالية قابلة للاغلاق " #?
       no_closable_journal: "ليس باستطاعتك اغلاق هذا الدفتر اليومي"
@@ -2245,10 +2252,6 @@ arb:
     actions:
       # abort: "Abort"
       # about: "About"
-      # add_group: "Add group"
-      # add_to_container: "Add to container"
-      # add_to_group: "Add to group"
-      # add_to_variant: "Add to variant"
       # attach: "Attach"
       # bookkeep: "Bookkeep"
       # cancel: "Cancel"

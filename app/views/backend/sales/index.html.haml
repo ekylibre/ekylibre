@@ -6,6 +6,6 @@
     = select_tag(:responsible_id, options_for_select([[]] + Entity.users.all.collect{|u| [u.label, u.id]}, params[:responsible_id]))
 
 - main_toolbar do |t|
-  - t.new variants: SaleNature.actives.reorder(:by_default).to_a.inject({}){|h,n| h[n.name] = {nature_id: n.id}; h}
+  - t.new variants: SaleNature.actives.reorder(:name).to_a.map{ |n| [n.name, {nature_id: n.id}, {by_default: n.by_default}] }
 
 = main_list

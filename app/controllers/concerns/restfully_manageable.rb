@@ -134,9 +134,11 @@ module RestfullyManageable
           code << "  if request.xhr?\n"
           code << "    render partial: #{xhr.is_a?(String) ? xhr.inspect : 'detail_form'.inspect}\n"
           code << "  else\n"
+          code << "    #{t3e_code}\n"
           code << "    #{render_form}\n"
           code << "  end\n"
         else
+          code << "  #{t3e_code}\n"
           code << "  #{render_form}\n"
         end
         code << "end\n"
@@ -146,6 +148,7 @@ module RestfullyManageable
         code << "def create\n"
         code << "  @#{record_name} = resource_model.new(permitted_params)\n"
         code << "  return if save_and_redirect(@#{record_name}#{', url: (' + after_save_url + ')' if after_save_url})\n"
+        code << "  #{t3e_code}\n"
         code << "  #{render_form}\n"
         code << "end\n"
       end

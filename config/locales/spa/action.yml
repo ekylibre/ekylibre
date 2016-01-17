@@ -27,6 +27,10 @@ spa:
       # index: "Activities"
       # new: "New activity"
       # show: "Activity: %{name}"
+    backend/activity_budgets:
+      # edit: "Edit budget: %{name}"
+      # new: "New budget: %{name}"
+      # show: "Activity budget: %{name}"
     backend/activity_productions:
       # edit: "Edit activity production: %{name}"
       # new: "New activity production"
@@ -113,8 +117,6 @@ spa:
       # index: "Catalogs"
       # new: "New catalog"
       # show: "Catalog: %{name}"
-    backend/cells/stewardship_cells:
-      # show: "Stewardship cell: %{name}"
     backend/company:  #?
       about: "A propocito de Ekylibre" #?
       backups: "Salvaguardia" #?
@@ -768,7 +770,9 @@ spa:
     # convert_balance_into_profit: "Convert balance into profit"
     # cooperative_cartodb: "Cooperative CartoDB"
     # coordinates: "Coordinates"
+    # copy_from_another_activity: "Copy from another activity"
     # copy_of: "Copy of %{source}"
+    # copy_previous_budget: "Copy previous budget"
     cost_income_statement: "Cargas" #?
     # cost_per_net_surface_area: "Cost per net surface area"
     cost_sum: "Total cargas de explotación" #?
@@ -869,6 +873,7 @@ spa:
     # during: "During"
     # earns: "Earns"
     # edit: "Edit"
+    # edit_budget: "Edit budget"
     ekylibre: "www.ekylibre.org"
     # elapsed_interventions_times_by_activities: "Elapsed interventions times by activities"
     # email: "Email:"
@@ -1102,6 +1107,7 @@ spa:
     # new_animal: "New animal"
     # new_attachment: "New attachment"
     # new_box: "New box"
+    # new_budget: "New budget"
     # new_call: "New call"
     # new_contact: "New contact"
     # new_container: "New container"
@@ -1693,6 +1699,7 @@ spa:
       # no_archived_prints: "No archived prints"
       no_authenticated: "No puede ser identificado. El nombre de utilizador o la contrasña debe de ser incorrecta."
       no_balance_template: "No hay modelo de documento para este equilibrio" #?
+      # no_budget_defined_for_current_campaign: "No budget defined for current campaign"
       no_building: "Ningun lugar de almacenamineto es definido. por favor cree uno para administrar los depositos" #?
       no_closable_financial_year: "Hay ningun ejercicio para cerrar." #?
       no_closable_journal: "No se puede cerrar este periodico."
@@ -1767,10 +1774,6 @@ spa:
     actions:
       # abort: "Abort"
       # about: "About"
-      # add_group: "Add group"
-      # add_to_container: "Add to container"
-      # add_to_group: "Add to group"
-      # add_to_variant: "Add to variant"
       # attach: "Attach"
       # bookkeep: "Bookkeep"
       # cancel: "Cancel"

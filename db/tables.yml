@@ -155,19 +155,15 @@ activities:
   with_supports:
     type: boolean
     required: true
-activity_budgets:
-  activity_id:
+activity_budget_items:
+  activity_budget_id:
     type: integer
-    references: activity
+    references: activity_budget
     required: true
   amount:
     type: decimal
     precision: 19
     scale: 4
-  campaign_id:
-    type: integer
-    references: campaign
-    required: true
   computation_method:
     type: string
     required: true
@@ -217,6 +213,36 @@ activity_budgets:
     type: string
   variant_unit:
     type: string
+activity_budgets:
+  activity_id:
+    type: integer
+    references: activity
+    required: true
+  campaign_id:
+    type: integer
+    references: campaign
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    required: true
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 activity_distributions:
   activity_id:
     type: integer

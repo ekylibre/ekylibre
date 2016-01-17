@@ -606,6 +606,14 @@
         <page to="backend/activities#show"/>
         <page to="backend/activities#update"/>
         <page to="backend/activities#unroll"/>
+        <page to="backend/activity_budgets#index"/>
+        <page to="backend/activity_budgets#create"/>
+        <page to="backend/activity_budgets#destroy"/>
+        <page to="backend/activity_budgets#duplicate"/>
+        <page to="backend/activity_budgets#edit"/>
+        <page to="backend/activity_budgets#new"/>
+        <page to="backend/activity_budgets#show"/>
+        <page to="backend/activity_budgets#update"/>
         <page to="backend/activity_productions#list_interventions"/>
         <page to="backend/activity_productions#show"/>
         <page to="backend/activity_productions#unroll"/>

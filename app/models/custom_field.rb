@@ -51,7 +51,7 @@ class CustomField < Ekylibre::Record::Base
     :InterventionInput, :InterventionProductParameter, :InterventionParameterReading,
     :InventoryItem, :JournalEntryItem, :ListingNode, :ListingNodeItem, :ManureManagementPlan,
     :ManureManagementPlanZone, :Observation, :ParcelItem, :Preference, :ProductEnjoyment,
-    :ActivityBudget, :ProductionDistribution, :ProductLink, :ProductLinkage,
+    :ActivityBudgetItem, :ProductionDistribution, :ProductLink, :ProductLinkage,
     :ProductLocalization, :ProductMembership, :ProductNatureCategoryTaxation,
     :ProductNatureVariantReading, :ProductOwnership, :ProductPhase, :ProductReading,
     :PurchaseItem, :SaleItem, :TargetDistribution, :User, :Version]

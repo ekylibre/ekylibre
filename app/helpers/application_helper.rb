@@ -375,24 +375,80 @@ module ApplicationHelper
     content_tag(:svg, capture(&block))
   end
 
+  def dropdown_toggle_button(name = nil, options = {})
+    class_attribute = 'btn btn-default dropdown-toggle'
+    class_attribute << ' sr-only' if name.blank?
+    class_attribute << ' icn btn-' + options[:icon].to_s if options[:icon]
+    content_tag(:button, name, class: class_attribute,
+                               data: { toggle: 'dropdown' },
+                               aria: { haspopup: 'true', expanded: 'false' })
+  end
+
+  def dropdown_menu(items)
+    content_tag(:ul, class: 'dropdown-menu') do
+      items.map do |item|
+        if item.name == :item
+          content_tag(:li, link_to(*item.args, &item.block))
+        elsif item.name == :separator
+          content_tag(:li, nil, class: 'separator')
+        else
+          fail 'Cannot handle that type of menu item: ' + item.name.inspect
+        end
+      end.join.html_safe
+    end
+  end
+
+  def dropdown_menu_button(name, options = {}, &_block)
+    menu = Ekylibre::Support::Lister.new(:item)
+    yield menu
+    return nil unless menu.any?
+    menu_size = menu.size
+    default_item = menu.detect_and_extract! do |item|
+      item.args[2].is_a?(Hash) && item.args[2][:by_default]
+    end
+    fail 'Need a name or a default item' unless name || default_item
+    if name.is_a?(Symbol)
+      options[:icon] ||= name
+      name = options[:label] || name.ta
+    end
+    item_options = default_item.args.third if default_item
+    item_options ||= {}
+    item_options[:tool] = options[:icon] if options[:icon]
+    if default_item
+      html = tool_to(default_item.args.first, default_item.args.second,
+                     item_options, &default_item.block)
+      if menu_size > 1
+        html = content_tag(:div, class: 'btn-group') do
+          html + dropdown_toggle_button + dropdown_menu(menu.items)
+        end
+      end
+      return html
+    else
+      content_tag(:div, class: 'btn-group') do
+        dropdown_toggle_button(name, icon: options[:icon]) +
+          dropdown_menu(menu.items)
+      end
+    end
+  end
+
   def dropdown_button(*args)
     options = args.extract_options!
-    l = Ekylibre::Support::Lister.new(:links)
+    l = Ekylibre::Support::Lister.new(:link_to)
     yield l
     minimum = 0
     if args[0].nil?
-      return nil unless l.links.any?
+      return nil unless l.any?
       minimum = 1
-      args = l.links.first.args
+      args = l.first.args
     end
 
-    if l.links.size > minimum
+    if l.size > minimum
       return content_tag(:div, class: 'btn-group') do # btn-group btn-group-dropdown  #{args[2][:class]}
         html = ''.html_safe
         html << tool_to(*args)
-        html << link_to(content_tag(:i), '#dropdown', class: 'btn btn-default dropdown-toggle', data: { toggle: 'dropdown' })
+        html << dropdown_toggle_button
         html << content_tag(:ul, class: 'dropdown-menu', role: 'menu') do
-          l.links.collect do |link|
+          l.collect do |link|
             content_tag(:li, send(link.name, *link.args, &link.block))
           end.join.html_safe
         end
@@ -632,8 +688,8 @@ module ApplicationHelper
   def tool_to(name, url, options = {})
     fail ArgumentError.new("##{__method__} cannot use blocks") if block_given?
     icon = (options.key?(:tool) ? options.delete(:tool) : url.is_a?(Hash) ? url[:action] : nil)
-    options[:class] = (options[:class].blank? ? 'btn  btn-default' : options[:class].to_s + ' btn btn-default')
-    options[:class] << ' btn-' + icon.to_s if icon
+    options[:class] = (options[:class].blank? ? 'btn btn-default' : options[:class].to_s + ' btn btn-default')
+    options[:class] << ' icn btn-' + icon.to_s if icon
     if url.is_a?(Hash)
       if url.key?(:redirect)
         url.delete(:redirect) if url[:redirect].nil?
@@ -641,15 +697,16 @@ module ApplicationHelper
         url[:redirect] = request.fullpath
       end
     end
-    link_to(url, options) do
-      # (icon ? content_tag(:span, '', :class => "icon")+content_tag(:span, name, :class => "text") : content_tag(:span, name, :class => "text"))
-      (icon ? content_tag(:i) + h(' ') + h(name) : h(name))
-    end
+    link_to(name, url, options)
   end
 
   def toolbar_tool_to(name, url, options = {})
     return tool_to(name, url, options) if authorized?(url)
     nil
+  end
+
+  def toolbar_menu(name, &block)
+    dropdown_menu_button(name, &block)
   end
 
   def toolbar_export(_nature, _record = nil, _options = {}, &_block)
@@ -695,15 +752,21 @@ module ApplicationHelper
     url[:controller] ||= controller_path
     url[:action] ||= action
     url[:id] = record.id if record && record.class < ActiveRecord::Base
-    variants = options.delete(:variants)
     action_label = options[:label] || action.to_s.t(scope: 'rest.actions')
-    variants ||= { action_label => url } if authorized?(url)
-    variants ||= {}
-    dropdown_button do |l|
-      variants.each do |name, url_options|
-        variant_url = url.merge(url_options)
-        l.link_to(name, variant_url, options.slice(:method, 'data-confirm')) if authorized?(variant_url)
+    if options[:variants]
+      variants = options.delete(:variants)
+      variants ||= { action_label => url } if authorized?(url)
+      variants ||= {}
+      dropdown_menu_button(action) do |menu|
+        variants.each do |name, url_options, link_options|
+          variant_url = url.merge(url_options)
+          if authorized?(variant_url)
+            menu.item(name, variant_url, options.slice(:method, 'data-confirm').merge(link_options || {}))
+          end
+        end
       end
+    else
+      tool_to(action_label, url, options)
     end
   end
 
@@ -787,6 +850,10 @@ module ApplicationHelper
       args[-1][:group] ||= new_group
       @export = true
       add(:export, *args, &block)
+    end
+
+    def menu(name, &block)
+      add(:menu, name, &block)
     end
 
     def method_missing(method_name, *args, &_block)

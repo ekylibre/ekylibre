@@ -179,6 +179,12 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :activity_budgets do
+      member do
+        post :duplicate
+      end
+    end
+
     resources :activity_productions, concerns: [:unroll] do
       member do
         get :list_interventions

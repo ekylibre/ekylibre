@@ -23,6 +23,11 @@ eng:
       index: "Activities"
       new: "New activity"
       show: "Activity: %{name}"
+    backend/activity_budgets:
+      edit: "Edit budget: %{name}"
+      # index: "Activity budgets"
+      new: "New budget: %{name}"
+      show: "Activity budget: %{name}"
     backend/activity_productions:
       edit: "Edit activity production: %{name}"
       new: "New activity production"
@@ -190,7 +195,7 @@ eng:
     backend/cells/settings_statistics_cells:
       # show: "Settings statistics cell: %{name}"
     backend/cells/stewardship_cells:
-      show: "Stewardship cell: %{name}"
+      # show: "Stewardship cell: %{name}"
     backend/cells/stock_container_map_cells:
       # show: "Stock container map cell: %{name}"
     backend/cells/trade_counts_cells:
@@ -919,7 +924,7 @@ eng:
     body: "Body of the message"
     bookkeep: "Bookkeep" #?
     bookkeep_with_payment: "Bookkeep with payment" #?
-    budget: "Budget" #?
+    budget: "Budget"
     budget_per_working_indicator: "Budget per working indicator"
     budgets: "Budgets" #?
     by_year: "By year"
@@ -975,7 +980,9 @@ eng:
     convert_balance_into_profit: "Convert balance into profit"
     cooperative_cartodb: "Cooperative CartoDB"
     coordinates: "Coordinates"
+    copy_from_another_activity: "Copy from another activity"
     copy_of: "Copy of %{source}"
+    copy_previous_budget: "Copy previous budget"
     cost_per_net_surface_area: "Cost per net surface area"
     costs: "Costs"
     costs_map: "Costs map" #?!
@@ -1054,6 +1061,7 @@ eng:
     during: "During"
     earns: "Earns" #?!
     edit: "Edit"
+    edit_budget: "Edit budget"
     ekylibre: "www.ekylibre.org" #?
     elapsed_interventions_times_by_activities: "Elapsed interventions times by activities"
     email: "Email:" #?
@@ -1107,7 +1115,7 @@ eng:
     geolocation: "Geolocation" #?
     go: "Go" #?
     grain_yield: "Grain yield"
-    gross_profit: "Gross profit" #?!
+    gross_profit: "Gross profit"
     group: "Group" #?
     groups: "Groups"
     guide_evolution: "Guide evolution"
@@ -1237,6 +1245,7 @@ eng:
     new_animal: "New animal"
     new_attachment: "New attachment"
     new_box: "New box"
+    new_budget: "New budget"
     new_call: "New call"
     new_contact: "New contact"
     new_container: "New container"
@@ -1731,6 +1740,7 @@ eng:
       new_actual_number: "The new number is being %{actual_number}"
       no_archived_prints: "No archived prints"
       no_authenticated: "You could not be identified. The user name or password must be incorrect." #?
+      no_budget_defined_for_current_campaign: "No budget defined for current campaign"
       no_closable_journal: "No closable journal"
       no_depositable_payments: "There are no payment to deposit"
       no_parcels_given: "No parcels given"
@@ -1776,10 +1786,10 @@ eng:
     actions:
       abort: "Abort"
       about: "About"
-      add_group: "Add group"
-      add_to_container: "Add to container"
-      add_to_group: "Add to group"
-      add_to_variant: "Add to variant"
+      # add_group: "Add group"
+      # add_to_container: "Add to container"
+      # add_to_group: "Add to group"
+      # add_to_variant: "Add to variant"
       attach: "Attach"
       # attachments: "Attachments"
       # autocomplete_for_name: "Autocomplete for name"

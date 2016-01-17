@@ -31,12 +31,12 @@
 
   # Updates indicator/units list
   # TODO Optimize this binding only valid selectors
-  $(document).on 'selector:change', "input#production_support_variant_id[data-selector]", ->
+  $(document).on 'selector:change', "input[data-selector][data-quantified]", ->
     selector = $(this)
     root = selector.data("use-closest")
     root = "form" unless root?
     form = selector.closest(root)
-    form.find("*[data-variant-quantifier='#{selector.attr('id')}']").each ->
+    form.find("*[data-variant-quantifier='#{selector.data('selector-id')}']").each ->
       select = $(this)
       options = {}
       options.population = true if select.data("quantifiers-population")
@@ -135,6 +135,7 @@
 
   # Change budget coeff on computation method change
   $(document).on "change keyup", ".budget .computation-method", (event)->
+    console.log 'change on computation-method'
     select = $(this)
     budget = select.closest(".budget")
     form = budget.closest("form")
@@ -277,8 +278,8 @@
     true
 
   # Force calculation of final values to ensure that all numbers are clear
-  $(document).behave "load", ".budgets *[data-check-positive] .amount", ->
+  $(document).behave "load", "#revenues-amount, #expenses-amount", ->
     $(this).each () ->
-      C.calculate.call $(this), true
+      $(this).trigger('change')
 
 ) ekylibre, calcul, jQuery

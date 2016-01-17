@@ -444,11 +444,11 @@
   });
 
 
-  $(document).on("mouseenter", ".btn", function (event) {
+  $(document).on("mouseenter", ".btn, a", function (event) {
     var button = $(this), text;
     if (button.attr("title") == null || button.attr("title") == undefined) {
       text = button.find(".text:hidden").first();
-      if (text !== null && text !== undefined) {
+      if (text.length > 0) {
         button.attr("title", $.trim(text.html()));
       }
     }

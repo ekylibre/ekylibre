@@ -1,9 +1,8 @@
 - main_toolbar do |t|
   :ruby
-    variants = IncomingPaymentMode.depositers.inject({}) do |hash, mode|
+    variants = IncomingPaymentMode.depositers.map do |mode|
       count = mode.depositable_payments.count
-      hash[:new_deposit.tl(count: count, mode: mode.name)] = {action: :new, mode_id: mode.id}
-      hash
+      [:new_deposit.tl(count: count, mode: mode.name), {action: :new, mode_id: mode.id}]
     end
   - t.new variants: variants
 

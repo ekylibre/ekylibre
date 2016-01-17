@@ -11,10 +11,10 @@ eng:
       target_campaign:
         current: 'Current'
         next: 'Next'
-    activity_budget:
+    activity_budget_item:
       computation_method:
+        per_campaign: "Per campaign"
         per_production: "Per production"
-        per_production_support: "Per production support"
         per_working_unit: "Per working unit"
     activity_production:
       support_nature:
@@ -83,6 +83,11 @@ eng:
         graduated: "Graduated"
         linear: "Linear"
         simplified_linear: "Simplified linear"
+    georeading:
+      nature:
+        line: "Line"
+        point: "Point"
+        polygon: "Polygon"
     guide_analysis:
       status:
         errored: "Errored"

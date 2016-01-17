@@ -247,7 +247,7 @@ module Backend::BaseHelper
     options = args.extract_options!
     name = args.shift || ("#{controller_path}-#{action_name}-" + caller.first.split(/\:/).second).parameterize
 
-    lister = Ekylibre::Support::Lister.new(:faces)
+    lister = Ekylibre::Support::Lister.new(:face)
     yield lister
     faces = lister.faces
 

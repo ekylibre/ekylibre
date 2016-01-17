@@ -128,7 +128,8 @@ eng:
       account: "Account"
       account_balance: "Account balance"
       activity: "Activity"
-      activity_budget: "Budget"
+      activity_budget: ""
+      activity_budget_item: "Budget"
       activity_distribution: "Activity distribution"
       activity_production: "Production support"
       affair: "Affair"
@@ -288,6 +289,7 @@ eng:
     # active_sessions: "Active sessions"
     activities: "Activities"
     activity: "Activity"
+    # activity_budget: "Activity budget"
     # activity_budgets: "Activity budgets"
     activity_code: "Activity code"
     activity_distributions: "Activity distributions" #?
@@ -1147,6 +1149,8 @@ eng:
   models:
     account:
       label: "%{number} - %{name}"
+    activity_budget:
+      name: "%{activity_name} %{campaign_name}"
     affair:
       bookkeep: "[%{resource} %{number}] From %{third}"
     cash_transfer:

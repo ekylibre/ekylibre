@@ -5,6 +5,8 @@
   // buttons
   a.btn.btn-#{$symbol-name} i,
   button.btn-#{$symbol-name} i,
+  a.btn.btn-#{$symbol-name}.icn,
+  button.btn-#{$symbol-name}.icn,
   // tables
   .active-list table.list tr > .act > a.#{$symbol-name} > i,
   .active-list table.list tr > .act > .icon.icon-#{$symbol-name},
@@ -32,7 +34,7 @@
   $name: nth($icon, 1);
   @if $name != "3d-rotation" {
     @include iconics(nth($icon, 1)) {
-      @include icon(nth($icon, 2));
+      &::before { content: nth($icon, 2); }
     }
   }
 }
@@ -40,6 +42,6 @@
 // Adds synonyms
 @each $alias in $all-aliases {
   @include iconics(nth($alias, 1)) {
-    @include use-icon(nth($alias, 2));
+    &::before { content: icon-character(nth($alias, 2)); }
   }
 }

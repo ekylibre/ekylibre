@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160112135638) do
+ActiveRecord::Schema.define(version: 20160113212017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 20160112135638) do
   add_index "activities", ["updated_at"], name: "index_activities_on_updated_at", using: :btree
   add_index "activities", ["updater_id"], name: "index_activities_on_updater_id", using: :btree
 
-  create_table "activity_budgets", force: :cascade do |t|
+  create_table "activity_budget_items", force: :cascade do |t|
     t.integer  "variant_id"
     t.string   "direction",                                                 null: false
     t.decimal  "amount",             precision: 19, scale: 4, default: 0.0
@@ -109,17 +109,34 @@ ActiveRecord::Schema.define(version: 20160112135638) do
     t.integer  "lock_version",                                default: 0,   null: false
     t.decimal  "unit_population",    precision: 19, scale: 4
     t.string   "unit_currency",                                             null: false
-    t.integer  "activity_id",                                               null: false
-    t.integer  "campaign_id",                                               null: false
+    t.integer  "activity_budget_id",                                        null: false
   end
 
+  add_index "activity_budget_items", ["activity_budget_id"], name: "index_activity_budget_items_on_activity_budget_id", using: :btree
+  add_index "activity_budget_items", ["created_at"], name: "index_activity_budget_items_on_created_at", using: :btree
+  add_index "activity_budget_items", ["creator_id"], name: "index_activity_budget_items_on_creator_id", using: :btree
+  add_index "activity_budget_items", ["updated_at"], name: "index_activity_budget_items_on_updated_at", using: :btree
+  add_index "activity_budget_items", ["updater_id"], name: "index_activity_budget_items_on_updater_id", using: :btree
+  add_index "activity_budget_items", ["variant_id"], name: "index_activity_budget_items_on_variant_id", using: :btree
+
+  create_table "activity_budgets", force: :cascade do |t|
+    t.integer  "activity_id",              null: false
+    t.integer  "campaign_id",              null: false
+    t.string   "currency",                 null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", default: 0, null: false
+  end
+
+  add_index "activity_budgets", ["activity_id", "campaign_id"], name: "index_activity_budgets_on_activity_id_and_campaign_id", unique: true, using: :btree
   add_index "activity_budgets", ["activity_id"], name: "index_activity_budgets_on_activity_id", using: :btree
   add_index "activity_budgets", ["campaign_id"], name: "index_activity_budgets_on_campaign_id", using: :btree
   add_index "activity_budgets", ["created_at"], name: "index_activity_budgets_on_created_at", using: :btree
   add_index "activity_budgets", ["creator_id"], name: "index_activity_budgets_on_creator_id", using: :btree
   add_index "activity_budgets", ["updated_at"], name: "index_activity_budgets_on_updated_at", using: :btree
   add_index "activity_budgets", ["updater_id"], name: "index_activity_budgets_on_updater_id", using: :btree
-  add_index "activity_budgets", ["variant_id"], name: "index_activity_budgets_on_variant_id", using: :btree
 
   create_table "activity_distributions", force: :cascade do |t|
     t.integer  "activity_id",                                                 null: false

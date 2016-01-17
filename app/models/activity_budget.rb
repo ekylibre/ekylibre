@@ -22,89 +22,88 @@
 #
 # == Table: activity_budgets
 #
-#  activity_id        :integer          not null
-#  amount             :decimal(19, 4)   default(0.0)
-#  campaign_id        :integer          not null
-#  computation_method :string           not null
-#  created_at         :datetime         not null
-#  creator_id         :integer
-#  currency           :string           not null
-#  direction          :string           not null
-#  id                 :integer          not null, primary key
-#  lock_version       :integer          default(0), not null
-#  quantity           :decimal(19, 4)   default(0.0)
-#  unit_amount        :decimal(19, 4)   default(0.0)
-#  unit_currency      :string           not null
-#  unit_population    :decimal(19, 4)
-#  updated_at         :datetime         not null
-#  updater_id         :integer
-#  variant_id         :integer
-#  variant_indicator  :string
-#  variant_unit       :string
+#  activity_id  :integer          not null
+#  campaign_id  :integer          not null
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  currency     :string           not null
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  updated_at   :datetime         not null
+#  updater_id   :integer
 #
-
 class ActivityBudget < Ekylibre::Record::Base
-  refers_to :currency
-  enumerize :direction, in: [:revenue, :expense], predicates: true
-  enumerize :computation_method, in: [:per_campaign, :per_production, :per_working_unit], default: :per_working_unit, predicates: true
-  # refers_to :variant_indicator, class_name: 'Indicator' # in: Activity.support_variant_indicator.values
-  # refers_to :variant_unit, class_name: 'Unit'
-
-  belongs_to :activity, inverse_of: :budgets
+  belongs_to :activity
   belongs_to :campaign
-  belongs_to :variant, class_name: 'ProductNatureVariant'
-  has_many :productions, through: :activity
+  has_many :items, class_name: 'ActivityBudgetItem', dependent: :destroy, inverse_of: :activity_budget
+  has_many :expenses, -> { expenses }, class_name: 'ActivityBudgetItem', inverse_of: :activity_budget
+  has_many :revenues, -> { revenues }, class_name: 'ActivityBudgetItem', inverse_of: :activity_budget
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :quantity, :unit_amount, :unit_population, allow_nil: true
-  validates_presence_of :activity, :campaign, :computation_method, :currency, :direction, :unit_currency
+  validates_presence_of :activity, :campaign, :currency
   # ]VALIDATORS]
-  validates_presence_of :variant, :activity
+  validates_associated :expenses, :revenues
 
-  # delegate :supports_quantity, :supports_count, :support_indicator, :support_unit, to: :activity
+  scope :of_campaign, lambda { |campaign|  where(campaign: campaign) }
+
+  accepts_nested_attributes_for :expenses, :revenues, reject_if: :all_blank, allow_destroy: true
+
+  delegate :name, to: :activity, prefix: true
+  delegate :name, to: :campaign, prefix: true
   delegate :size_indicator, :size_unit, to: :activity
-  delegate :name, to: :variant, prefix: true
 
-  scope :revenues, -> { where(direction: :revenue) }
-  scope :expenses, -> { where(direction: :expense) }
-  scope :of_campaign, lambda { |campaign|
-    where(campaign: campaign)
-  }
-
-  before_validation do
-    self.unit_currency = Preference[:currency] if unit_currency.blank?
-    self.currency = unit_currency if currency.blank?
+  before_validation on: :create do
+    self.currency ||= Preference[:currency]
   end
 
-  validate do
-    if currency && unit_currency
-      errors.add(:currency, :invalid) if currency != unit_currency
+  def expenses_amount
+    expenses.sum(:amount)
+  end
+
+  def revenues_amount
+    revenues.sum(:amount)
+  end
+
+  def name
+    tc(:name, activity_name: activity_name, campaign_name: campaign_name)
+  end
+
+  def currency_precision
+    Nomen::Currency.find(currency).precision
+  end
+
+  def productions
+    activity.productions.of_campaign(campaign)
+  end
+
+  def any_production?
+    productions.any?
+  end
+
+  def productions_size
+    productions.map(&:size_value).sum
+  end
+
+  delegate :count, to: :productions, prefix: true
+
+  def computation_methods
+    list = []
+    if productions_size.to_f != 0
+      list << :per_working_unit
+      list << :per_production
+    elsif productions_count.to_f != 0
+      list << :per_production
     end
+    list << :per_campaign
+    list
   end
 
-  after_validation do
-    self.amount = unit_amount * quantity * coefficient
-  end
-
-  # Computes the coefficient to use for amount computation
-  def coefficient
-    return 0 unless activity
-    if self.per_production?
-      return activity.count_during(campaign)
-    elsif self.per_working_unit?
-      return activity.size_during(campaign)
-    end
-    1
-  end
-
+  # Duplicate current budget in given activity and campaign
   def duplicate!(updates = {})
-    new_attributes = [
-      :activity, :amount, :campaign, :computation_method, :currency, :direction,
-      :quantity, :unit_amount, :unit_currency, :unit_population, :variant,
-      :variant_indicator, :variant_unit].each_with_object({}) do |attr, h|
-      h[attr] = send(attr)
-      h
-    end.merge(updates)
-    self.class.create!(new_attributes)
+    budget = ActivityBudget.create!({ activity: activity }.merge(updates))
+    items.each do |item|
+      item.duplicate!(activity_budget: budget)
+    end
+    budget
   end
 end

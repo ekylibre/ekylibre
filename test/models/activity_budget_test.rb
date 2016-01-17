@@ -22,27 +22,23 @@
 #
 # == Table: activity_budgets
 #
-#  activity_id        :integer          not null
-#  amount             :decimal(19, 4)   default(0.0)
-#  campaign_id        :integer          not null
-#  computation_method :string           not null
-#  created_at         :datetime         not null
-#  creator_id         :integer
-#  currency           :string           not null
-#  direction          :string           not null
-#  id                 :integer          not null, primary key
-#  lock_version       :integer          default(0), not null
-#  quantity           :decimal(19, 4)   default(0.0)
-#  unit_amount        :decimal(19, 4)   default(0.0)
-#  unit_currency      :string           not null
-#  unit_population    :decimal(19, 4)
-#  updated_at         :datetime         not null
-#  updater_id         :integer
-#  variant_id         :integer
-#  variant_indicator  :string
-#  variant_unit       :string
+#  activity_id  :integer          not null
+#  campaign_id  :integer          not null
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  currency     :string           not null
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  updated_at   :datetime         not null
+#  updater_id   :integer
 #
 require 'test_helper'
 
 class ActivityBudgetTest < ActiveSupport::TestCase
+  test 'unicity' do
+    budget = ActivityBudget.first
+    assert_raise do
+      budget.duplicate!
+    end
+  end
 end

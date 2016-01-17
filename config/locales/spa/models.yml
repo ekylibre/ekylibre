@@ -126,7 +126,8 @@ spa:
       # account: "Account"
       # account_balance: "Account balance"
       # activity: "Activity"
-      # activity_budget: "Budget"
+      # activity_budget: ""
+      # activity_budget_item: "Budget"
       # activity_distribution: "Activity distribution"
       # activity_production: "Production support"
       # affair: "Affair"
@@ -1100,6 +1101,8 @@ spa:
   models:
     account:
       # label: "%{number} - %{name}"
+    activity_budget:
+      # name: "%{activity_name} %{campaign_name}"
     affair:
       # bookkeep: "[%{resource} %{number}] From %{third}"
     cash_transfer:

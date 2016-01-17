@@ -1,0 +1,632 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: activity_budget_items
+#
+#  activity_budget_id :integer          not null
+#  amount             :decimal(19, 4)   default(0.0)
+#  computation_method :string           not null
+#  created_at         :datetime         not null
+#  creator_id         :integer
+#  currency           :string           not null
+#  direction          :string           not null
+#  id                 :integer          not null, primary key
+#  lock_version       :integer          default(0), not null
+#  quantity           :decimal(19, 4)   default(0.0)
+#  unit_amount        :decimal(19, 4)   default(0.0)
+#  unit_currency      :string           not null
+#  unit_population    :decimal(19, 4)
+#  updated_at         :datetime         not null
+#  updater_id         :integer
+#  variant_id         :integer
+#  variant_indicator  :string
+#  variant_unit       :string
+#
+#
+# == Fixture: activity_budget_items
+#
+# activity_budget_items_001:
+#   activity_budget: activity_budgets_001
+#   computation_method: "Lorem ipsum"
+#   creator: users_001
+#   currency: "Lorem ipsum"
+#   direction: "Lorem ipsum"
+#   unit_currency: "Lorem ipsum"
+#   updater: users_001
+#
+---
+activity_budget_items_001:
+  activity_budget_id: 1
+  amount: 3873.009
+  computation_method: per_working_unit
+  created_at: 2015-03-08 16:44:30.902442000 Z
+  creator_id: 1
+  currency: EUR
+  direction: expense
+  id: 1
+  lock_version: 1
+  quantity: 3.0
+  unit_amount: 70.0
+  unit_currency: EUR
+  updated_at: 2015-03-11 01:18:50.212236000 Z
+  updater_id: 1
+  variant_id: 39
+  variant_indicator: net_mass
+  variant_unit: ton
+activity_budget_items_002:
+  activity_budget_id: 1
+  amount: 7377.16
+  computation_method: per_working_unit
+  created_at: 2015-03-08 16:44:30.906025000 Z
+  creator_id: 1
+  currency: EUR
+  direction: expense
+  id: 2
+  lock_version: 1
+  quantity: 20.0
+  unit_amount: 20.0
+  unit_currency: EUR
+  updated_at: 2015-03-11 01:18:50.210604000 Z
+  updater_id: 1
+  variant_id: 23
+  variant_indicator: working_duration
+  variant_unit: hour
+activity_budget_items_003:
+  activity_budget_id: 1
+  amount: 19623.2456
+  computation_method: per_working_unit
+  created_at: 2015-03-08 16:44:30.907866000 Z
+  creator_id: 1
+  currency: EUR
+  direction: revenue
+  id: 3
+  lock_version: 1
+  quantity: 70.0
+  unit_amount: 15.2
+  unit_currency: EUR
+  updated_at: 2015-03-11 01:18:50.208128000 Z
+  updater_id: 1
+  variant_id: 19
+  variant_indicator: net_mass
+  variant_unit: quintal
+activity_budget_items_004:
+  activity_budget_id: 2
+  amount: 79.978
+  computation_method: per_working_unit
+  created_at: 2015-03-11 01:20:30.807678000 Z
+  creator_id: 1
+  currency: EUR
+  direction: expense
+  id: 4
+  lock_version: 1
+  quantity: 2.0
+  unit_amount: 10.0
+  unit_currency: EUR
+  updated_at: 2016-01-16 11:21:39.025664000 Z
+  updater_id: 1
+  variant_id: 8
+  variant_indicator: population
+  variant_unit: ''
+activity_budget_items_005:
+  activity_budget_id: 2
+  amount: 2799.23
+  computation_method: per_working_unit
+  created_at: 2015-03-11 01:20:30.809455000 Z
+  creator_id: 1
+  currency: EUR
+  direction: revenue
+  id: 5
+  lock_version: 0
+  quantity: 70.0
+  unit_amount: 10.0
+  unit_currency: EUR
+  updated_at: 2015-03-11 01:20:30.809455000 Z
+  updater_id: 1
+  variant_id: 19
+  variant_indicator: net_mass
+  variant_unit: quintal
+activity_budget_items_006:
+  activity_budget_id: 3
+  amount: 1000.0
+  computation_method: per_campaign
+  created_at: 2016-01-17 13:56:32.649064000 Z
+  creator_id: 1
+  currency: EUR
+  direction: expense
+  id: 6
+  lock_version: 1
+  quantity: 100.0
+  unit_amount: 10.0
+  unit_currency: EUR
+  updated_at: 2016-01-17 14:00:52.397616000 Z
+  updater_id: 1
+  variant_id: 57
+  variant_indicator: net_mass
+  variant_unit: milligram
+activity_budget_items_007:
+  activity_budget_id: 3
+  amount: 20000.0
+  computation_method: per_campaign
+  created_at: 2016-01-17 14:00:52.398849000 Z
+  creator_id: 1
+  currency: EUR
+  direction: expense
+  id: 7
+  lock_version: 0
+  quantity: 200.0
+  unit_amount: 100.0
+  unit_currency: EUR
+  updated_at: 2016-01-17 14:00:52.398849000 Z
+  updater_id: 1
+  variant_id: 9
+  variant_indicator: net_mass
+  variant_unit: microgram
+activity_budget_items_008:
+  activity_budget_id: 3
+  amount: 100.0
+  computation_method: per_production
+  created_at: 2016-01-17 14:00:52.400164000 Z
+  creator_id: 1
+  currency: EUR
+  direction: expense
+  id: 8
+  lock_version: 0
+  quantity: 10.0
+  unit_amount: 10.0
+  unit_currency: EUR
+  updated_at: 2016-01-17 14:00:52.400164000 Z
+  updater_id: 1
+  variant_id: 67
+  variant_indicator: working_duration
+  variant_unit: hour
+activity_budget_items_009:
+  activity_budget_id: 3
+  amount: 100.0
+  computation_method: per_campaign
+  created_at: 2016-01-17 14:02:51.292491000 Z
+  creator_id: 1
+  currency: EUR
+  direction: expense
+  id: 9
+  lock_version: 0
+  quantity: 10.0
+  unit_amount: 10.0
+  unit_currency: EUR
+  updated_at: 2016-01-17 14:02:51.292491000 Z
+  updater_id: 1
+  variant_id: 68
+  variant_indicator: livestock_unit
+  variant_unit: ''
+activity_budget_items_010:
+  activity_budget_id: 3
+  amount: 1250.0
+  computation_method: per_campaign
+  created_at: 2016-01-17 14:09:12.190650000 Z
+  creator_id: 1
+  currency: EUR
+  direction: expense
+  id: 10
+  lock_version: 0
+  quantity: 125.0
+  unit_amount: 10.0
+  unit_currency: EUR
+  updated_at: 2016-01-17 14:09:12.190650000 Z
+  updater_id: 1
+  variant_id: 8
+  variant_indicator: net_mass
+  variant_unit: microgram
+activity_budget_items_011:
+  activity_budget_id: 4
+  amount: 1000.0
+  computation_method: per_campaign
+  created_at: 2016-01-17 14:26:32.273637000 Z
+  creator_id: 1
+  currency: EUR
+  direction: expense
+  id: 11
+  lock_version: 0
+  quantity: 100.0
+  unit_amount: 10.0
+  unit_currency: EUR
+  updated_at: 2016-01-17 14:26:32.273637000 Z
+  updater_id: 1
+  variant_id: 57
+  variant_indicator: net_mass
+  variant_unit: milligram
+activity_budget_items_012:
+  activity_budget_id: 4
+  amount: 20000.0
+  computation_method: per_campaign
+  created_at: 2016-01-17 14:26:32.279275000 Z
+  creator_id: 1
+  currency: EUR
+  direction: expense
+  id: 12
+  lock_version: 0
+  quantity: 200.0
+  unit_amount: 100.0
+  unit_currency: EUR
+  updated_at: 2016-01-17 14:26:32.279275000 Z
+  updater_id: 1
+  variant_id: 9
+  variant_indicator: net_mass
+  variant_unit: microgram
+activity_budget_items_013:
+  activity_budget_id: 4
+  amount: 800.0
+  computation_method: per_production
+  created_at: 2016-01-17 14:26:32.303054000 Z
+  creator_id: 1
+  currency: EUR
+  direction: expense
+  id: 13
+  lock_version: 0
+  quantity: 10.0
+  unit_amount: 10.0
+  unit_currency: EUR
+  updated_at: 2016-01-17 14:26:32.303054000 Z
+  updater_id: 1
+  variant_id: 67
+  variant_indicator: working_duration
+  variant_unit: hour
+activity_budget_items_014:
+  activity_budget_id: 4
+  amount: 100.0
+  computation_method: per_campaign
+  created_at: 2016-01-17 14:26:32.309252000 Z
+  creator_id: 1
+  currency: EUR
+  direction: expense
+  id: 14
+  lock_version: 0
+  quantity: 10.0
+  unit_amount: 10.0
+  unit_currency: EUR
+  updated_at: 2016-01-17 14:26:32.309252000 Z
+  updater_id: 1
+  variant_id: 68
+  variant_indicator: livestock_unit
+  variant_unit: ''
+activity_budget_items_015:
+  activity_budget_id: 4
+  amount: 1625.0
+  computation_method: per_campaign
+  created_at: 2016-01-17 14:26:32.320912000 Z
+  creator_id: 1
+  currency: EUR
+  direction: expense
+  id: 15
+  lock_version: 1
+  quantity: 125.0
+  unit_amount: 13.0
+  unit_currency: EUR
+  updated_at: 2016-01-17 14:26:45.948253000 Z
+  updater_id: 1
+  variant_id: 8
+  variant_indicator: net_mass
+  variant_unit: microgram
+activity_budget_items_016:
+  activity_budget_id: 5
+  amount: 1000.0
+  computation_method: per_campaign
+  created_at: 2016-01-17 14:27:20.470921000 Z
+  creator_id: 1
+  currency: EUR
+  direction: expense
+  id: 16
+  lock_version: 0
+  quantity: 100.0
+  unit_amount: 10.0
+  unit_currency: EUR
+  updated_at: 2016-01-17 14:27:20.470921000 Z
+  updater_id: 1
+  variant_id: 57
+  variant_indicator: net_mass
+  variant_unit: milligram
+activity_budget_items_017:
+  activity_budget_id: 5
+  amount: 20000.0
+  computation_method: per_campaign
+  created_at: 2016-01-17 14:27:20.487682000 Z
+  creator_id: 1
+  currency: EUR
+  direction: expense
+  id: 17
+  lock_version: 0
+  quantity: 200.0
+  unit_amount: 100.0
+  unit_currency: EUR
+  updated_at: 2016-01-17 14:27:20.487682000 Z
+  updater_id: 1
+  variant_id: 9
+  variant_indicator: net_mass
+  variant_unit: microgram
+activity_budget_items_018:
+  activity_budget_id: 5
+  amount: 100.0
+  computation_method: per_production
+  created_at: 2016-01-17 14:27:20.495329000 Z
+  creator_id: 1
+  currency: EUR
+  direction: expense
+  id: 18
+  lock_version: 0
+  quantity: 10.0
+  unit_amount: 10.0
+  unit_currency: EUR
+  updated_at: 2016-01-17 14:27:20.495329000 Z
+  updater_id: 1
+  variant_id: 67
+  variant_indicator: working_duration
+  variant_unit: hour
+activity_budget_items_019:
+  activity_budget_id: 5
+  amount: 100.0
+  computation_method: per_campaign
+  created_at: 2016-01-17 14:27:20.501438000 Z
+  creator_id: 1
+  currency: EUR
+  direction: expense
+  id: 19
+  lock_version: 0
+  quantity: 10.0
+  unit_amount: 10.0
+  unit_currency: EUR
+  updated_at: 2016-01-17 14:27:20.501438000 Z
+  updater_id: 1
+  variant_id: 68
+  variant_indicator: livestock_unit
+  variant_unit: ''
+activity_budget_items_020:
+  activity_budget_id: 5
+  amount: 1625.0
+  computation_method: per_campaign
+  created_at: 2016-01-17 14:27:20.507526000 Z
+  creator_id: 1
+  currency: EUR
+  direction: expense
+  id: 20
+  lock_version: 0
+  quantity: 125.0
+  unit_amount: 13.0
+  unit_currency: EUR
+  updated_at: 2016-01-17 14:27:20.507526000 Z
+  updater_id: 1
+  variant_id: 8
+  variant_indicator: net_mass
+  variant_unit: microgram
+activity_budget_items_021:
+  activity_budget_id: 6
+  amount: 1000.0
+  computation_method: per_campaign
+  created_at: 2016-01-17 14:28:09.198865000 Z
+  creator_id: 1
+  currency: EUR
+  direction: expense
+  id: 21
+  lock_version: 0
+  quantity: 100.0
+  unit_amount: 10.0
+  unit_currency: EUR
+  updated_at: 2016-01-17 14:28:09.198865000 Z
+  updater_id: 1
+  variant_id: 57
+  variant_indicator: net_mass
+  variant_unit: milligram
+activity_budget_items_022:
+  activity_budget_id: 6
+  amount: 20000.0
+  computation_method: per_campaign
+  created_at: 2016-01-17 14:28:09.205469000 Z
+  creator_id: 1
+  currency: EUR
+  direction: expense
+  id: 22
+  lock_version: 0
+  quantity: 200.0
+  unit_amount: 100.0
+  unit_currency: EUR
+  updated_at: 2016-01-17 14:28:09.205469000 Z
+  updater_id: 1
+  variant_id: 9
+  variant_indicator: net_mass
+  variant_unit: microgram
+activity_budget_items_023:
+  activity_budget_id: 6
+  amount: 200.0
+  computation_method: per_production
+  created_at: 2016-01-17 14:28:09.212389000 Z
+  creator_id: 1
+  currency: EUR
+  direction: expense
+  id: 23
+  lock_version: 0
+  quantity: 10.0
+  unit_amount: 10.0
+  unit_currency: EUR
+  updated_at: 2016-01-17 14:28:09.212389000 Z
+  updater_id: 1
+  variant_id: 67
+  variant_indicator: working_duration
+  variant_unit: hour
+activity_budget_items_024:
+  activity_budget_id: 6
+  amount: 150.0
+  computation_method: per_campaign
+  created_at: 2016-01-17 14:28:09.218021000 Z
+  creator_id: 1
+  currency: EUR
+  direction: expense
+  id: 24
+  lock_version: 1
+  quantity: 15.0
+  unit_amount: 10.0
+  unit_currency: EUR
+  updated_at: 2016-01-17 14:46:27.393194000 Z
+  updater_id: 1
+  variant_id: 68
+  variant_indicator: livestock_unit
+  variant_unit: ''
+activity_budget_items_025:
+  activity_budget_id: 6
+  amount: 1625.0
+  computation_method: per_campaign
+  created_at: 2016-01-17 14:28:09.224408000 Z
+  creator_id: 1
+  currency: EUR
+  direction: expense
+  id: 25
+  lock_version: 0
+  quantity: 125.0
+  unit_amount: 13.0
+  unit_currency: EUR
+  updated_at: 2016-01-17 14:28:09.224408000 Z
+  updater_id: 1
+  variant_id: 8
+  variant_indicator: net_mass
+  variant_unit: microgram
+activity_budget_items_026:
+  activity_budget_id: 6
+  amount: 50000.0
+  computation_method: per_production
+  created_at: 2016-01-17 14:28:50.776079000 Z
+  creator_id: 1
+  currency: EUR
+  direction: revenue
+  id: 26
+  lock_version: 0
+  quantity: 250.0
+  unit_amount: 100.0
+  unit_currency: EUR
+  updated_at: 2016-01-17 14:28:50.776079000 Z
+  updater_id: 1
+  variant_id: 19
+  variant_indicator: net_mass
+  variant_unit: quintal
+activity_budget_items_027:
+  activity_budget_id: 7
+  amount: 1000.0
+  computation_method: per_campaign
+  created_at: 2016-01-17 15:01:09.814172000 Z
+  creator_id: 1
+  currency: EUR
+  direction: expense
+  id: 27
+  lock_version: 0
+  quantity: 100.0
+  unit_amount: 10.0
+  unit_currency: EUR
+  updated_at: 2016-01-17 15:01:09.814172000 Z
+  updater_id: 1
+  variant_id: 57
+  variant_indicator: net_mass
+  variant_unit: milligram
+activity_budget_items_028:
+  activity_budget_id: 7
+  amount: 20000.0
+  computation_method: per_campaign
+  created_at: 2016-01-17 15:01:09.825154000 Z
+  creator_id: 1
+  currency: EUR
+  direction: expense
+  id: 28
+  lock_version: 0
+  quantity: 200.0
+  unit_amount: 100.0
+  unit_currency: EUR
+  updated_at: 2016-01-17 15:01:09.825154000 Z
+  updater_id: 1
+  variant_id: 9
+  variant_indicator: net_mass
+  variant_unit: microgram
+activity_budget_items_029:
+  activity_budget_id: 7
+  amount: 100.0
+  computation_method: per_production
+  created_at: 2016-01-17 15:01:09.837655000 Z
+  creator_id: 1
+  currency: EUR
+  direction: expense
+  id: 29
+  lock_version: 0
+  quantity: 10.0
+  unit_amount: 10.0
+  unit_currency: EUR
+  updated_at: 2016-01-17 15:01:09.837655000 Z
+  updater_id: 1
+  variant_id: 67
+  variant_indicator: working_duration
+  variant_unit: hour
+activity_budget_items_030:
+  activity_budget_id: 7
+  amount: 1625.0
+  computation_method: per_campaign
+  created_at: 2016-01-17 15:01:09.847036000 Z
+  creator_id: 1
+  currency: EUR
+  direction: expense
+  id: 30
+  lock_version: 0
+  quantity: 125.0
+  unit_amount: 13.0
+  unit_currency: EUR
+  updated_at: 2016-01-17 15:01:09.847036000 Z
+  updater_id: 1
+  variant_id: 8
+  variant_indicator: net_mass
+  variant_unit: microgram
+activity_budget_items_031:
+  activity_budget_id: 7
+  amount: 25000.0
+  computation_method: per_production
+  created_at: 2016-01-17 15:01:09.857262000 Z
+  creator_id: 1
+  currency: EUR
+  direction: revenue
+  id: 31
+  lock_version: 0
+  quantity: 250.0
+  unit_amount: 100.0
+  unit_currency: EUR
+  updated_at: 2016-01-17 15:01:09.857262000 Z
+  updater_id: 1
+  variant_id: 19
+  variant_indicator: net_mass
+  variant_unit: quintal
+activity_budget_items_032:
+  activity_budget_id: 7
+  amount: 150.0
+  computation_method: per_campaign
+  created_at: 2016-01-17 15:01:09.868551000 Z
+  creator_id: 1
+  currency: EUR
+  direction: expense
+  id: 32
+  lock_version: 0
+  quantity: 15.0
+  unit_amount: 10.0
+  unit_currency: EUR
+  updated_at: 2016-01-17 15:01:09.868551000 Z
+  updater_id: 1
+  variant_id: 68
+  variant_indicator: livestock_unit
+  variant_unit: ''

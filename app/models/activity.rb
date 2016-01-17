@@ -56,8 +56,6 @@ class Activity < Ekylibre::Record::Base
   enumerize :nature, in: [:main, :auxiliary, :standalone], default: :main, predicates: true
   with_options dependent: :destroy, inverse_of: :activity do
     has_many :budgets, class_name: 'ActivityBudget'
-    has_many :expenses, -> { where(direction: :expense).includes(:variant) }, class_name: 'ActivityBudget'
-    has_many :revenues, -> { where(direction: :revenue).includes(:variant) }, class_name: 'ActivityBudget'
     has_many :distributions, class_name: 'ActivityDistribution'
     has_many :productions, class_name: 'ActivityProduction'
   end
@@ -74,7 +72,6 @@ class Activity < Ekylibre::Record::Base
   validates_presence_of :cultivation_variety, if: :with_cultivation
   validates_presence_of :support_variety, if: :with_supports
   validates_uniqueness_of :name
-  validates_associated :expenses, :revenues
   validates_associated :productions
   validates_presence_of :production_cycle
   validates_presence_of :target_campaign, if: Proc.new { |a| a.production_cycle == :perennial }
@@ -104,7 +101,6 @@ class Activity < Ekylibre::Record::Base
     where(family: Nomen::ActivityFamily.all(family))
   }
 
-  accepts_nested_attributes_for :expenses, :revenues, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :distributions, reject_if: :all_blank, allow_destroy: true
 
   # protect(on: :update) do
@@ -186,6 +182,11 @@ class Activity < Ekylibre::Record::Base
 
   def intervention_parameters
     InterventionParameter.of_activity(self)
+  end
+
+  def budget_of(campaign)
+    return nil unless campaign
+    budgets.find_by(campaign: campaign)
   end
 
   def count_during(campaign)

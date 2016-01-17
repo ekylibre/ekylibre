@@ -23,8 +23,7 @@
           href: "##{@element.attr('id')}"
           rel: 'dropdown'
           tabindex: -1
-          class: 'selector-dropdown'
-        .append $("<i>")
+          class: 'selector-dropdown btn btn-default dropdown-toggle sr-only'
         .insertAfter @element
       @lastSearch = @element.val()
 

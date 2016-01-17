@@ -21,6 +21,10 @@ por:
       index: "Atividades"
       new: "Nova atividade"
       show: "Atividade: %{name}"
+    backend/activity_budgets:
+      # edit: "Edit budget: %{name}"
+      # new: "New budget: %{name}"
+      # show: "Activity budget: %{name}"
     backend/activity_productions:
       # edit: "Edit activity production: %{name}"
       # new: "New activity production"
@@ -110,8 +114,8 @@ por:
       index: "Catalogos"
       new: "Novo catalogo"
       show: "Catalogo: %{name}"
-    backend/cells/stewardship_cells:
-      show: "Células de administração: %{name}"
+    backend/cells/stewardship_cells:  #?
+      show: "Células de administração: %{name}" #?
     backend/crumbs:
       index: "Migalhas"
     backend/cultivable_zones:
@@ -673,7 +677,9 @@ por:
     # convert_balance_into_profit: "Convert balance into profit"
     # cooperative_cartodb: "Cooperative CartoDB"
     # coordinates: "Coordinates"
+    # copy_from_another_activity: "Copy from another activity"
     # copy_of: "Copy of %{source}"
+    # copy_previous_budget: "Copy previous budget"
     # cost_per_net_surface_area: "Cost per net surface area"
     # costs: "Costs"
     # costs_map: "Costs map"
@@ -752,6 +758,7 @@ por:
     # during: "During"
     # earns: "Earns"
     # edit: "Edit"
+    # edit_budget: "Edit budget"
     # ekylibre: "www.ekylibre.org"
     # elapsed_interventions_times_by_activities: "Elapsed interventions times by activities"
     # email: "Email:"
@@ -935,6 +942,7 @@ por:
     # new_animal: "New animal"
     # new_attachment: "New attachment"
     # new_box: "New box"
+    # new_budget: "New budget"
     # new_call: "New call"
     # new_contact: "New contact"
     # new_container: "New container"
@@ -1425,6 +1433,7 @@ por:
       # new_actual_number: "The new number is being %{actual_number}"
       # no_archived_prints: "No archived prints"
       # no_authenticated: "You could not be identified. The user name or password must be incorrect."
+      # no_budget_defined_for_current_campaign: "No budget defined for current campaign"
       # no_closable_journal: "No closable journal"
       # no_depositable_payments: "There are no payment to deposit"
       # no_parcels_given: "No parcels given"
@@ -1468,10 +1477,6 @@ por:
     actions:
       # abort: "Abort"
       # about: "About"
-      # add_group: "Add group"
-      # add_to_container: "Add to container"
-      # add_to_group: "Add to group"
-      # add_to_variant: "Add to variant"
       # attach: "Attach"
       # bookkeep: "Bookkeep"
       # cancel: "Cancel"

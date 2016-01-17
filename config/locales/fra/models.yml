@@ -234,7 +234,8 @@ fra:
       account: "Compte comptable"
       account_balance: "Balance de compte"
       activity: "Activité"
-      activity_budget: "Budget"
+      # activity_budget: ""
+      activity_budget_item: "Budget"
       activity_distribution: "Distribution entre activité"
       activity_production: "Support de production"
       affair: "Affaire"
@@ -1353,6 +1354,8 @@ fra:
   models:
     account:
       label: "%{number} - %{name}"
+    activity_budget:
+      name: "%{activity_name} %{campaign_name}"
     affair:
       bookkeep: "[%{resource} %{number}] De %{third}"
     cash_transfer:

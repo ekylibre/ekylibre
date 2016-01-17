@@ -166,42 +166,60 @@
   @include calc(width, $expression);
 }
 
+@function icon-character($name) {
+  @each $symbolic-icon in $symbolic-icons {
+    @if nth($symbolic-icon, 1) == $name {
+      @return nth($symbolic-icon, 2);
+    }
+  }
+  @error "Icon #{$name} cannot be found";
+  @return 'not found';
+}
 
-@mixin is-icon($size: round(1.2 * $fs-normal)) {
+
+
+@mixin basic-icon($font-size: null) {
   font-family: Agric;
   font-weight: normal;
   font-style: normal;
   text-decoration: inherit;
   -webkit-font-smoothing: antialiased;
-  font-size: $size;
-
-  // @include inline-block;
   width: auto;
   height: auto;
-  // line-height: $size;
-  vertical-align: middle;
   background-image: none;
   background-position: 0% 0%;
   background-repeat: repeat;
   margin-top: 0;
+  @if $font-size != null {
+    font-size: $font-size;
+  }
 }
 
-@mixin icon($code) {
-  &:before { content: $code; }
+@mixin is-icon($font-size: round(1.2 * $fs-normal)) {
+  @include basic-icon($font-size);
+  vertical-align: middle;
 }
 
 @mixin use-icon($name) {
-  $i: 0;
-  @each $symbolic-icon in $symbolic-icons {
-    @if nth($symbolic-icon, 1) == $name {
-      @include icon(nth($symbolic-icon, 2));
-      $i: $i + 1;
-    }
-  }
-  @if $i == 0 {
-    @warn "Icon #{$name} is not defined";
+  &::before { content: icon-character($name); }
+}
+
+@mixin icon-after($name, $gap: $default-gap, $font-size: null) {
+  &::after {
+    @include padding-left($gap);
+    content: icon-character($name);
+    @include basic-icon($font-size);
   }
 }
+
+@mixin icon-before($name, $gap: $default-gap, $font-size: null) {
+  &::before {
+    @include basic-icon($font-size);
+    @include padding-right($gap);
+    content: icon-character($name);
+  }
+}
+
 
 @mixin define-right-property($base-name, $value) {
   html[dir="ltr"] & { #{$base-name}-right: $value; }
@@ -604,11 +622,12 @@
   $focus-shadow-color: shadow-color-of($color);
   white-space: nowrap;
   margin: 0;
-  @include box-sizing(content-box);
-  padding: round($fs-normal*0.20) round($fs-normal*0.70);
-  height: $lh-normal;
-  font-weight: normal;
-  line-height: $lh-normal;
+  @include box-sizing(border-box);
+  padding: $button-vertical-padding $button-horizontal-padding;
+  height: $button-height;
+  font-weight: bold;
+  font-size: $fs-normal;
+  line-height: $button-line-height;
   cursor: pointer;
   text-decoration: none;
   border: $menu-border-width solid darken($background-color, 10%);
@@ -622,9 +641,9 @@
   @include border-radius($default-border-radius);
   @include inline-block;
   @include transition-duration(0.15s);
-  & {
-    vertical-align: top !important;
-  }
+  /* &, &::after, &::before { */
+  /*   vertical-align: middle !important; */
+  /* } */
   &, &:link, &:focus, &:active, &:hover, & > i {
     color: $color !important;
     @include text-shadow(1px 1px 0 $shadow-color);
@@ -656,7 +675,6 @@
     }
   }
   &[disabled], &.disabled {
-    background: #CCC;
     cursor: default;
     pointer-events: none;
     &, &:hover, &:focus {
@@ -677,27 +695,21 @@
   & + & {
     @include margin-left($default-gap);
   }
-  > button, > a, > a.button, > a.btn, > input, > select, & > .add-on {
+  > button, > a.button, > a.btn, > input, > select, & > .add-on {
     @include margin-left(-1 * $menu-border-width);
     z-index: 1;
     &:first-child {
       @include margin-left(0);
     }
-    html[dir="ltr"] &:not(:first-of-type),
-    html[dir="rtl"] &:not(:last-of-type),
-    html[dir="ltr"] &:first-of-type:not(:first-child),
-    html[dir="rtl"] &:last-of-type:not(:last-child),
-    html[dir="ltr"] &:last-child,
-    html[dir="rtl"] &:first-child {
-      @include border-left-radius(0);
-    }
-    html[dir="ltr"] &:not(:last-of-type),
-    html[dir="rtl"] &:not(:first-of-type),
-    html[dir="ltr"] &:last-of-type:not(:last-child),
-    html[dir="rtl"] &:first-of-type:not(:first-child),
+    @include border-radius(0);
     html[dir="ltr"] &:first-child,
     html[dir="rtl"] &:last-child {
-      @include border-right-radius(0);
+      @include border-left-radius($default-border-radius);
+    }
+    html[dir="ltr"] &:last-child,
+    html[dir="ltr"] &.dropdown-toggle:last-of-type,
+    html[dir="rtl"] &:first-child {
+      @include border-right-radius($default-border-radius);
     }
     &:focus, &:hover, &:active {
       position: relative;

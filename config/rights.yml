@@ -210,6 +210,8 @@ activities:
     - "backend/activities#list_productions"
     - "backend/activities#show"
     - "backend/activities#unroll"
+    - "backend/activity_budgets#index"
+    - "backend/activity_budgets#show"
   write:
     dependencies:
     - read-activities
@@ -220,6 +222,12 @@ activities:
     - "backend/activities#edit"
     - "backend/activities#new"
     - "backend/activities#update"
+    - "backend/activity_budgets#create"
+    - "backend/activity_budgets#destroy"
+    - "backend/activity_budgets#duplicate"
+    - "backend/activity_budgets#edit"
+    - "backend/activity_budgets#new"
+    - "backend/activity_budgets#update"
 
 affairs:
   read:

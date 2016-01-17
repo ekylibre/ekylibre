@@ -5,13 +5,13 @@ $golden-ratio: 1.61803398875;
 $default-ratio: $golden-ratio;
 
 // Font sizes
-$fs-ratio:   1.35 !default;
-$fs-normal: 14px !default;
-$fs-small:      ceil($fs-normal / $fs-ratio);
-$fs-large:     round($fs-normal * $fs-ratio);
-$fs-huge:      round($fs-large  * $fs-ratio);
-$fs-very-huge: round($fs-huge   * $fs-ratio);
-$fs-awesome:   round($fs-very-huge * $fs-ratio);
+$fs-ratio:   1.2 !default;
+$fs-small:     11px !default;
+$fs-normal:    13px !default;
+$fs-large:     18px !default;
+$fs-huge:      27px !default;
+$fs-very-huge: 41px !default;
+$fs-awesome:   61px !default;
 
 // Line heights
 $lh-ratio: 1.5 !default;
@@ -103,7 +103,11 @@ $buttons-aliases: ("abort" "times") ("action" "cog") ("backup" "backward") ("bar
 
 $buttons-states: hover whited active disabled normal;
 $buttons-radius: $default-border-radius;
-$button-height: round($fs-normal*0.20) * 2 + round($lh-normal) + $menu-border-width * 2;
+$button-vertical-padding: round($fs-normal*0.20) !default;
+$button-horizontal-padding: round($fs-normal*0.70) !default;
+$button-line-height: round($lh-normal) !default;
+$button-content-height: $button-vertical-padding * 2 + $button-line-height;
+$button-height: $button-content-height + $menu-border-width * 2;
 
 
 $all-aliases: $buttons-aliases;

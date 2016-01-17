@@ -210,9 +210,7 @@ class Intervention < Ekylibre::Record::Base
 
   def working_area(unit = :hectare)
     if targets.any?
-      return targets.with_working_zone.map do |target|
-        target.working_zone_area
-      end.compact.sum.in(unit).round(2)
+      return targets.with_working_zone.map(&:working_zone_area).compact.sum.in(unit).round(2)
     end
     nil
   end

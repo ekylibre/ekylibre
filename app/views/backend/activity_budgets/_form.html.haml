@@ -1,0 +1,46 @@
+= f.referenced_association :activity, as: :hidden
+= f.referenced_association :campaign, as: :hidden
+
+= hidden_field_tag(:supports_quantity, resource.productions_size.to_f, id: 'supports-quantity')
+= hidden_field_tag(:supports_count, resource.productions_count, id: 'supports-count')
+
+- if Rails.env.development? && f.object.errors.any?
+  = f.object.errors.inspect
+
+:ruby
+  currency = Nomen::Currency.find(Preference[:currency])
+  precision = currency.precision
+  currency_symbol = currency.symbol
+  computation_methods = f.object.computation_methods.map do |m|
+    [ActivityBudgetItem.computation_method.human_value_name(m), m]
+  end
+
+= field_set(ActivityBudget.human_attribute_name(:items)) do
+  .items
+    %table.table
+      %thead
+        %tr
+          %th= ActivityBudgetItem.human_attribute_name(:variant)
+          %th= ActivityBudgetItem.human_attribute_name(:quantity)
+          %th= ActivityBudgetItem.human_attribute_name(:computation_method)
+          %th= ActivityBudgetItem.human_attribute_name(:unit_price)
+          %th= ActivityBudgetItem.human_attribute_name(:amount)
+          %th.with-some-supports
+            %span= ActivityBudgetItem.human_attribute_name(:amount)
+            %span= "/"
+            - unit = f.object.size_unit
+            %span.working-unit= (unit ? unit.symbol : "?")
+          %th
+      %tfoot
+        %tr.total
+          %th{colspan: 4}= :gross_profit.tl
+          %td{data: {check_positive: '.amount'}}
+            %span.amount{data: {difference: '#revenues-amount - #expenses-amount', calculate_round: precision}}
+            %span.currency= currency_symbol
+          %td.with-some-supports{data: {check_positive: ".amount"}}
+            %span.amount{data: {difference: '#revenues-amount-per-working-unit - #expenses-amount-per-working-unit', calculate_round: precision}}
+            %span.currency= currency_symbol
+          %th
+      %tbody
+        = render 'items_form', direction: :expense, f: f, currency_symbol: currency_symbol, currency: currency, computation_methods: computation_methods
+        = render 'items_form', direction: :revenue, f: f, currency_symbol: currency_symbol, currency: currency, computation_methods: computation_methods

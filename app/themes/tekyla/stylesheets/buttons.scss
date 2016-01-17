@@ -1,4 +1,5 @@
 @import "bootstrap/dropdowns";
+// @import "bootstrap/buttons";
 
 input[type="submit"], input[type="button"], input[type="reset"] {
   @include button($input: true);
@@ -27,13 +28,17 @@ a.btn, button.btn {
   &.btn-danger {
     @include button($background-color: $invalid-color);
   }
-
-  &.btn-dropdown, &.dropdown-toggle, &.btn-previous, &.btn-next {
+  &.btn-previous, &.btn-next {
     padding-left: round($fs-normal*0.40);
     padding-right: round($fs-normal*0.40);
-    .icon, i {
-      font-size: $fs-normal;
-      @include use-icon(caret-down);
+  }
+  &.icn {
+    @include icon-before(cog, $font-size: 14px);
+  }
+  &.dropdown-toggle {
+    @include icon-after(caret-down, $font-size: 14px);
+    &.sr-only::after {
+      @include padding-left(0);
     }
   }
 
@@ -75,3 +80,4 @@ a.btn, button.btn {
   background: #EEE;
   @include inline-block;
 }
+

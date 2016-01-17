@@ -22,6 +22,10 @@ fra:
       index: "Activités"
       new: "Nouvelle activité"
       show: "%{name}"
+    backend/activity_budgets:
+      edit: "Modifier le budget\_: %{name}"
+      new: "Nouveau budget\_: %{name}"
+      show: "Budget: %{name}"
     backend/activity_productions:
       edit: "Modifier un support de production"
       index: "Supports de production" #?
@@ -119,8 +123,8 @@ fra:
       index: "Catalogues de prix"
       new: "Nouveau catalogue de prix"
       show: "Catalogue de prix\_: %{name}"
-    backend/cells/stewardship_cells:
-      show: "Assistant: %{name}"
+    backend/cells/stewardship_cells:  #?
+      show: "Assistant: %{name}" #?
     backend/contacts:  #?
       edit: "Modifier le contact\_: %{full_name}" #?
       index: "Contacts" #?
@@ -859,7 +863,9 @@ fra:
     convert_balance_into_profit: "Passer le solde en profit"
     cooperative_cartodb: "CartoDB Coopérative"
     coordinates: "Coordonnées"
+    copy_from_another_activity: "Copier depuis une autre activité"
     copy_of: "Copie de %{source}"
+    copy_previous_budget: "Copier à partir du budget précédent"
     cost: "Coût" #?
     cost_income_statement: "Charges" #?
     cost_per_net_surface_area: "Coût par surface"
@@ -964,6 +970,7 @@ fra:
     during: "Pendant"
     earns: "Gains"
     edit: "Modifier"
+    edit_budget: "Modifier le budget"
     ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "Temps passé par activité"
     email: "Email:"
@@ -1255,6 +1262,7 @@ fra:
     new_animal: "Nouvel animal"
     new_attachment: "Nouvel attachement"
     new_box: "Nouvelle boîte"
+    new_budget: "Nouveau budget"
     new_call: "Nouvel appel"
     new_contact: "Nouveau contact"
     new_container: "Nouvel emplacement"
@@ -1740,7 +1748,7 @@ fra:
     updated_at_by: "Mis à jour le %{at} par %{author}"
     updated_by_ago: "Mis à jour par %{author} %{when}"
     upload: "Téléversement"
-    # uploaded_file: "Uploaded file"
+    uploaded_file: "Fichier téléversé"
     uploading_unicoque_traceability: "Télétransmission - Traçabilité Unicoque" #?
     urea_concentration: "Teneur moyenne en urée" #?
     usage: "Utilisation"
@@ -1999,6 +2007,7 @@ fra:
       no_archived_prints: "Aucune impression déjà archivée"
       no_authenticated: "Vous n’avez pas pu être identifié. Le nom d’utilisateur ou le mot de passe doit être incorrect."
       no_balance_template: "Pas de modèle de document pour la balance" #?
+      no_budget_defined_for_current_campaign: "Aucun budget défini pour la campagne courante"
       no_building: "Aucun lieu de stockage n’est défini. Veuillez en créer un pour pouvoir gérer vos stocks" #?
       no_closable_financial_year: "Vous n’avez aucun exercice à clôturer." #?
       no_closable_journal: "Vous ne pouvez pas clôturer ce journal."
@@ -2069,10 +2078,7 @@ fra:
     actions:
       abort: "Annuler"
       about: "À propos"
-      # add_group: "Add group"
-      # add_to_container: "Add to container"
-      add_to_group: "Ajouter au groupe"
-      # add_to_variant: "Add to variant"
+      add_to_group: "Ajouter au groupe" #?
       attach: "Attacher"
       balance: "Balance" #?
       bookkeep: "Comptabiliser"

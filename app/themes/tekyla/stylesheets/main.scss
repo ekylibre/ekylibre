@@ -2030,6 +2030,10 @@ svg.map {
 
 /* Pop overs */
 
+.help-message {
+  margin-bottom: $default-gap;
+}
+
 #help {
   display: none;
 }
@@ -2408,9 +2412,10 @@ a[data-annotate] {
     font-size: $fs-large;
     padding-left: $default-gap;
     padding-right: $default-gap;
+    @include box-sizing(border-box);
   }
   > .btn, > .campaign {
-    height: $lh-large;
+    height: $lh-large + $button-vertical-padding * 2 + $menu-border-width * 2;
     line-height: $lh-large;
   }
   .btn {
