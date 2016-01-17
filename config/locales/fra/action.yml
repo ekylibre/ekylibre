@@ -27,10 +27,10 @@ fra:
       new: "Nouveau budget\_: %{name}"
       show: "Budget: %{name}"
     backend/activity_productions:
-      edit: "Modifier un support de production"
-      index: "Supports de production" #?
-      new: "Nouveau support de production"
-      show: "Support de production\_: %{name}"
+      edit: "Modifier une production"
+      index: "Productions" #?
+      new: "Nouvelle production"
+      show: "Production\_: %{name}"
     backend/affairs:
       attach: "Associer une affaire"
       detach: "Dissocier une affaire"
@@ -864,6 +864,7 @@ fra:
     cooperative_cartodb: "CartoDB Coopérative"
     coordinates: "Coordonnées"
     copy_from_another_activity: "Copier depuis une autre activité"
+    copy_from_previous_campaign: "Copier à partir de la campagne précédente"
     copy_of: "Copie de %{source}"
     copy_previous_budget: "Copier à partir du budget précédent"
     cost: "Coût" #?
@@ -2018,6 +2019,7 @@ fra:
       no_items_found: "Aucun produit n’a été ajouté à la commande " #?
       no_parcels_given: "Aucun colis fournis"
       no_payment_to_deposit: "Aucun règlement à encaisser"
+      no_production_found_you_can_add_it_or_copy_from_previous_records: "Aucune production pour l'instant. Vous pouvez en créer une nouvelle ou en copier depuis la campagne précédente."
       no_reopenable_journal: "Vous ne pouvez pas déclôturer ce journal."
       no_stocks: "Vous n’avez aucun stock. Si vous désirez gérer le stock d’un produit, veuillez cocher l’option «\_Gérer les stocks\_» dans les caractéristiques de votre produit." #?
       no_template_journal: "Pas de modèle journal" #?

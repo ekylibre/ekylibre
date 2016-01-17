@@ -42,27 +42,36 @@ module Backend
 
     # Duplicate activity basing on campaign
     def duplicate
-      preceding = current_campaign.preceding
+      if params[:source_campaign_id]
+        source = Campaign.find(params[:source_campaign_id])
+      else
+        source = current_campaign.preceding
+      end
+      activity = Activity.find_by(id: params[:source_activity_id])
+
+      new_campaign = Campaign.find_by(id: params[:campaign_id]) || current_campaign
+
+      campaign_diff = new_campaign.harvest_year - source.harvest_year
 
       # Productions
-      unless current_campaign.activity_productions.any?
-        preceding.activity_productions.each do |production|
-          updates = {}
-          if production.started_on
-            updates[:started_on] = production.started_on + 1.year
-          end
-          if production.stopped_on
-            updates[:stopped_on] = production.stopped_on + 1.year
-          end
-          production.duplicate!(updates)
+      productions = ActivityProduction.of_campaign(source)
+      productions = productions.of_activity(activity) if activity
+      productions.each do |production|
+        updates = { campaign: new_campaign }
+        if production.started_on
+          updates[:started_on] = production.started_on + campaign_diff.year
         end
+        if production.stopped_on
+          updates[:stopped_on] = production.stopped_on + campaign_diff.year
+        end
+        production.duplicate!(updates)
       end
 
       # Budgets
-      unless current_campaign.activity_budgets.any?
-        preceding.activity_budgets.each do |budget|
-          budget.duplicate!(campaign: preceding)
-        end
+      budgets = ActivityBudget.of_campaign(source)
+      budgets = budgets.of_activity(activity) if activity
+      budgets.each do |budget|
+        budget.duplicate!(campaign: new_campaign)
       end
       redirect_to params[:redirect] || { action: :index }
     end

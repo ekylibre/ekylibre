@@ -755,9 +755,9 @@ module ApplicationHelper
     action_label = options[:label] || action.to_s.t(scope: 'rest.actions')
     if options[:variants]
       variants = options.delete(:variants)
-      variants ||= { action_label => url } if authorized?(url)
-      variants ||= {}
-      dropdown_menu_button(action) do |menu|
+      # variants ||= { action_label => url } if authorized?(url)
+      # variants ||= {}
+      dropdown_menu_button(action_label) do |menu|
         variants.each do |name, url_options, link_options|
           variant_url = url.merge(url_options)
           if authorized?(variant_url)

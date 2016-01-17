@@ -1538,6 +1538,7 @@ product_natures:
 productions:
   read:
     actions:
+    - "backend/activity_productions#index"
     - "backend/activity_productions#list_interventions"
     - "backend/activity_productions#show"
     - "backend/activity_productions#unroll"

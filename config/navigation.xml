@@ -592,7 +592,16 @@
         <page to="backend/analyses#update"/>
         <page to="backend/analysis_items#new"/>
       </item>
-      <item name="activities">
+      <item name="productions">
+        <page to="backend/activity_productions#index"/>
+        <page to="backend/activity_productions#list_interventions"/>
+        <page to="backend/activity_productions#show"/>
+        <page to="backend/activity_productions#unroll"/>
+        <page to="backend/activity_productions#create"/>
+        <page to="backend/activity_productions#destroy"/>
+        <page to="backend/activity_productions#edit"/>
+        <page to="backend/activity_productions#new"/>
+        <page to="backend/activity_productions#update"/>
         <page to="backend/activities#index"/>
         <page to="backend/activities#create"/>
         <page to="backend/activities#destroy"/>
@@ -614,14 +623,6 @@
         <page to="backend/activity_budgets#new"/>
         <page to="backend/activity_budgets#show"/>
         <page to="backend/activity_budgets#update"/>
-        <page to="backend/activity_productions#list_interventions"/>
-        <page to="backend/activity_productions#show"/>
-        <page to="backend/activity_productions#unroll"/>
-        <page to="backend/activity_productions#create"/>
-        <page to="backend/activity_productions#destroy"/>
-        <page to="backend/activity_productions#edit"/>
-        <page to="backend/activity_productions#new"/>
-        <page to="backend/activity_productions#update"/>
         <page to="backend/animals#index"/>
         <page to="backend/animals#attachments"/>
         <page to="backend/animals#add_to_group"/>

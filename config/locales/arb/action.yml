@@ -992,6 +992,7 @@ arb:
     # cooperative_cartodb: "Cooperative CartoDB"
     coordinates: "تنسيق"
     # copy_from_another_activity: "Copy from another activity"
+    # copy_from_previous_campaign: "Copy from previous campaign"
     copy_of: "نسخ من %{source}"
     # copy_previous_budget: "Copy previous budget"
     cost_income_statement: "التكاليف" #?
@@ -2143,6 +2144,7 @@ arb:
       no_items_found: "لم يتم اضافة اي منتج الى الطلب" #?
       # no_parcels_given: "No parcels given"
       no_payment_to_deposit: "ليس هنالك من دفعات للحصر"
+      # no_production_found_you_can_add_it_or_copy_from_previous_records: "No production found. You can add new or copy some from previous campaign."
       no_reopenable_journal: "ليس بامكانك اعادة فتح الدفاتر اليومية"
       no_stocks: "ليس لديك اية سهم، اذا رغبت بادارة سهم المنتج، الرجاء ضع علامة على خيار «ادارة الاسهم» في خصائص منتجاتك" #?
       no_template_journal: "ليس هنالك من نموذج للدفتر اليومي" #?

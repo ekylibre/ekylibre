@@ -30,6 +30,7 @@ eng:
       show: "Activity budget: %{name}"
     backend/activity_productions:
       edit: "Edit activity production: %{name}"
+      # index: "Activity productions"
       new: "New activity production"
       show: "Activity production: %{name}"
     backend/affairs:
@@ -981,6 +982,7 @@ eng:
     cooperative_cartodb: "Cooperative CartoDB"
     coordinates: "Coordinates"
     copy_from_another_activity: "Copy from another activity"
+    copy_from_previous_campaign: "Copy from previous campaign"
     copy_of: "Copy of %{source}"
     copy_previous_budget: "Copy previous budget"
     cost_per_net_surface_area: "Cost per net surface area"
@@ -1746,6 +1748,7 @@ eng:
       no_depositable_payments: "There are no payment to deposit"
       no_parcels_given: "No parcels given"
       no_payment_to_deposit: "There are no payment to deposit"
+      no_production_found_you_can_add_it_or_copy_from_previous_records: "No production found. You can add new or copy some from previous campaign."
       no_reopenable_journal: "You can not re-open this journal."
       record_already_imported: "Record already imported"
       record_cannot_be_removed: "The record can not be deleted"

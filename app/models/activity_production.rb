@@ -52,6 +52,7 @@ class ActivityProduction < Ekylibre::Record::Base
   refers_to :size_indicator, class_name: 'Indicator'
   refers_to :size_unit, class_name: 'Unit'
   belongs_to :activity, inverse_of: :productions
+  belongs_to :campaign
   belongs_to :cultivable_zone
   belongs_to :support, class_name: 'Product' # , inverse_of: :supports
   has_many :budgets, through: :activity
@@ -59,8 +60,6 @@ class ActivityProduction < Ekylibre::Record::Base
                                           inverse_of: :activity_production
   has_one :selected_manure_management_plan_zone, -> { selecteds },
           class_name: 'ManureManagementPlanZone', inverse_of: :activity_production
-
-  has_one :campaign
 
   has_geometry :support_shape
   composed_of :size, class_name: 'Measure', mapping: [%w(size_value to_d), %w(size_unit_name unit)]
@@ -393,7 +392,7 @@ class ActivityProduction < Ekylibre::Record::Base
 
   def duplicate!(updates = {})
     new_attributes = [
-      :activity, :cultivable_zone, :irrigated, :nitrate_fixing,
+      :activity, :campaign, :cultivable_zone, :irrigated, :nitrate_fixing,
       :size_indicator_name, :size_unit_name, :size_value, :started_on,
       :support_nature, :support_shape, :usage].each_with_object({}) do |attr, h|
       h[attr] = send(attr)

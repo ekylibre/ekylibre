@@ -10,28 +10,5 @@
 .activities-index
   - @activities.each do |activity|
     .activity-container
-      - active = activity.used_during?(current_campaign)
-      .activity{style: "border-right-color: #{activity.color}", class: (active ? 'active' : 'inactive')}
-        - attrs = {}
-        - if activity.avatar_path
-          - attrs = { style: "background-image: url(#{image_url(activity.avatar_path.relative_path_from(Rails.root.join('app', 'assets', 'images')))})" }
-        = link_to('', {controller: :activities, action: :show, id: activity.id }, attrs.merge(class: 'activity-avatar'))
-        .activity-content
-          .activity-name= link_to(activity.name, {controller: :activities, action: :show, id: activity.id })
-          - if active
-            .activity-indicators
-              .activity-indicator.value
-                = activity.size_during(current_campaign)
-              .activity-indicator.cash
-                = activity.real_expense_amount(current_campaign).l(currency: Preference[:currency])
-                = '/'
-                = activity.budget_expenses_amount(current_campaign).l(currency: Preference[:currency])
-              .activity-indicator.cumulated-time
-                = Intervention.of_campaign(current_campaign).of_activity(activity).sum(:working_duration)
-              .activity-indicator.opened-issues
-                = Issue.of_campaign(current_campaign).of_activity(activity).opened.count
-                = '/'
-                = Issue.of_campaign(current_campaign).of_activity(activity).count
-          - else
-            = link_to(:new_production.tl, {controller: :activity_productions, action: :new, activity_id: activity.id, campaign_id: current_campaign.id}, class: 'btn btn-default')
+      = render 'card', activity: activity
 
