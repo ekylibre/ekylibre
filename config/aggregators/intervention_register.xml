@@ -17,7 +17,7 @@
           <property name="id" value="id" of="activity" level="api"/>
           <property name="family" value="family" of="activity"/>
           <property name="nature" value="nature" of="activity"/>
-          <sections for="production" in="activity.productions.of_campaign(campaign).order(:name)" of-type="record">
+          <sections for="production" in="activity.productions.of_campaign(campaign)" of-type="record">
             <title name="name" of="production"/>
             <property name="id" of="production"/>
             <property name="url" value="&quot;#{Preference[:host]}/backend/productions/#{production.id}&quot;" level="api"/>
