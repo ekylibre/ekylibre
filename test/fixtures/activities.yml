@@ -31,12 +31,12 @@
 #  lock_version        :integer          default(0), not null
 #  name                :string           not null
 #  nature              :string           not null
+#  production_campaign :string
 #  production_cycle    :string           not null
 #  size_indicator_name :string
 #  size_unit_name      :string
 #  support_variety     :string
 #  suspended           :boolean          default(FALSE), not null
-#  target_campaign     :string
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #  with_cultivation    :boolean          not null
@@ -67,6 +67,7 @@ activities_001:
   lock_version: 2
   name: Blé tendre
   nature: main
+  production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
   support_variety: cultivable_zone
@@ -85,6 +86,7 @@ activities_002:
   lock_version: 4
   name: Bovins
   nature: main
+  production_cycle: annual
   size_indicator_name: members_population
   support_variety: animal_group
   suspended: false
@@ -100,6 +102,7 @@ activities_003:
   lock_version: 0
   name: Maintenance
   nature: auxiliary
+  production_cycle: annual
   suspended: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
@@ -115,6 +118,7 @@ activities_004:
   lock_version: 1
   name: Maïs
   nature: main
+  production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
   support_variety: cultivable_zone
@@ -133,6 +137,7 @@ activities_005:
   lock_version: 2
   name: Vignes
   nature: main
+  production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
   support_variety: cultivable_zone
@@ -150,6 +155,7 @@ activities_006:
   lock_version: 1
   name: Vin
   nature: main
+  production_cycle: annual
   suspended: false
   updated_at: 2015-03-08 16:33:39.397458000 Z
   updater_id: 1
@@ -163,6 +169,7 @@ activities_007:
   lock_version: 0
   name: Luzerne implantée pour la récolte 2015
   nature: main
+  production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
   support_variety: cultivable_zone
@@ -178,6 +185,7 @@ activities_008:
   lock_version: 0
   name: Maïs (zea_mays)
   nature: main
+  production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
   support_variety: cultivable_zone
@@ -193,6 +201,7 @@ activities_009:
   lock_version: 0
   name: Blé tendre d’hiver
   nature: main
+  production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
   support_variety: cultivable_zone
@@ -209,6 +218,7 @@ activities_010:
   name: Mélange de légumineuses fourragères prépondérantes au semis implantées pour
     la récolte 2015 et de céréales
   nature: main
+  production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
   support_variety: cultivable_zone
@@ -224,6 +234,7 @@ activities_011:
   lock_version: 0
   name: Ray-grass de 5 ans ou moins
   nature: main
+  production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
   support_variety: cultivable_zone
@@ -239,6 +250,7 @@ activities_012:
   lock_version: 0
   name: Autre prairie temporaire de 5 ans ou moins
   nature: main
+  production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
   support_variety: cultivable_zone
@@ -254,6 +266,7 @@ activities_013:
   lock_version: 0
   name: Blé dur d’hiver
   nature: main
+  production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
   support_variety: cultivable_zone
@@ -270,6 +283,7 @@ activities_014:
   name: Mélange de légumineuses prépondérantes au semis et de graminées fourragères
     de 5 ans ou moins
   nature: main
+  production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
   support_variety: cultivable_zone
@@ -285,6 +299,7 @@ activities_015:
   lock_version: 0
   name: Dactyle de 5 ans ou moins
   nature: main
+  production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
   support_variety: cultivable_zone
@@ -300,6 +315,7 @@ activities_016:
   lock_version: 0
   name: Sorgho
   nature: main
+  production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
   support_variety: cultivable_zone
@@ -315,6 +331,7 @@ activities_017:
   lock_version: 0
   name: Orge d'hiver
   nature: main
+  production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
   support_variety: cultivable_zone
@@ -330,6 +347,7 @@ activities_018:
   lock_version: 0
   name: Maïs ensilage
   nature: main
+  production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
   support_variety: cultivable_zone
@@ -346,6 +364,7 @@ activities_019:
   name: Mélange de légumineuses fourragères prépondérantes au semis implantées pour
     la récolte 2015 et d’herbacées ou de graminées fourragères
   nature: main
+  production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
   support_variety: cultivable_zone
@@ -361,6 +380,7 @@ activities_020:
   lock_version: 0
   name: Pois de printemps semé avant le 31/05
   nature: main
+  production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
   support_variety: cultivable_zone

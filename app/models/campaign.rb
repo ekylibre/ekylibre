@@ -30,6 +30,7 @@
 #  harvest_year :integer
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
+#  name         :string           not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
@@ -41,6 +42,7 @@ class Campaign < Ekylibre::Record::Base
   validates_datetime :closed_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :harvest_year, allow_nil: true, only_integer: true
   validates_inclusion_of :closed, in: [true, false]
+  validates_presence_of :name
   # ]VALIDATORS]
   validates :harvest_year, length: { is: 4 }, allow_nil: true
   validates_uniqueness_of :harvest_year
@@ -58,7 +60,8 @@ class Campaign < Ekylibre::Record::Base
     interventions.any?
   end
 
-  before_validation(on: :create) do
+  before_validation do
+    self.name = harvest_year.to_s
   end
 
   def self.first_of_all

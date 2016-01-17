@@ -5,9 +5,9 @@ fra:
         nature: "Type de centre analytique" #?
         net_margin: "Marge nette" #?
         parent: "Activité parente"
+        production_campaign: "Campagne rattachée"
+        production_cycle: "Type de production"
         work_unit: "Unité d’œuvre" #?
-        production_cycle: 'Type de production'
-        target_campaign: 'Campagne rattachée'
       activity_production:  #?
         production_usage: "Usage futur" #?
         storage: "Support" #?
@@ -1081,6 +1081,8 @@ fra:
     product_triple_mixings: "Triple mélanges de produit" #?
     product_way: "Voie du produit" #?
     production: "Production"
+    # production_campaign: "Target campaign"
+    # production_cycle: "Production cycle"
     production_support: "Support de production"
     production_supports: "Supports de production"
     production_usage: "Usage de la production"

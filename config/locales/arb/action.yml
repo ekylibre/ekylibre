@@ -1433,6 +1433,7 @@ arb:
     # new_group: "New group"
     new_organization: "منظمة جديدة"
     new_payment: "تسجيل دفعة جديدة" #?
+    # new_production: "New production"
     # new_production_of_activity: "New production of %{activity}"
     # new_quote: "New quote"
     new_sale: "بيعة جديدة" #?

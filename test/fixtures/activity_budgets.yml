@@ -45,95 +45,27 @@
 ---
 activity_budgets_001:
   activity_id: 1
-  amount: 3873.009
   campaign_id: 4
-  computation_method: per_working_unit
-  created_at: 2015-03-08 16:44:30.902442000 Z
-  creator_id: 1
+  created_at: 2016-01-17 16:29:25.509447000 Z
   currency: EUR
-  direction: expense
   id: 1
-  lock_version: 1
-  quantity: 3.0
-  unit_amount: 70.0
-  unit_currency: EUR
-  updated_at: 2015-03-11 01:18:50.212236000 Z
-  updater_id: 1
-  variant_id: 39
-  variant_indicator: net_mass
-  variant_unit: ton
+  lock_version: 0
+  updated_at: 2016-01-17 16:29:25.509447000 Z
 activity_budgets_002:
-  activity_id: 1
-  amount: 7377.16
+  activity_id: 5
   campaign_id: 4
-  computation_method: per_working_unit
-  created_at: 2015-03-08 16:44:30.906025000 Z
-  creator_id: 1
+  created_at: 2016-01-17 16:29:25.509447000 Z
   currency: EUR
-  direction: expense
   id: 2
-  lock_version: 1
-  quantity: 20.0
-  unit_amount: 20.0
-  unit_currency: EUR
-  updated_at: 2015-03-11 01:18:50.210604000 Z
-  updater_id: 1
-  variant_id: 23
-  variant_indicator: working_duration
-  variant_unit: hour
+  lock_version: 0
+  updated_at: 2016-01-17 16:29:25.509447000 Z
 activity_budgets_003:
-  activity_id: 1
-  amount: 19623.2456
+  activity_id: 16
   campaign_id: 4
-  computation_method: per_working_unit
-  created_at: 2015-03-08 16:44:30.907866000 Z
+  created_at: 2016-01-17 17:50:08.064996000 Z
   creator_id: 1
   currency: EUR
-  direction: revenue
   id: 3
-  lock_version: 1
-  quantity: 70.0
-  unit_amount: 15.2
-  unit_currency: EUR
-  updated_at: 2015-03-11 01:18:50.208128000 Z
-  updater_id: 1
-  variant_id: 19
-  variant_indicator: net_mass
-  variant_unit: quintal
-activity_budgets_004:
-  activity_id: 5
-  amount: 39.989
-  campaign_id: 4
-  computation_method: per_working_unit
-  created_at: 2015-03-11 01:20:30.807678000 Z
-  creator_id: 1
-  currency: EUR
-  direction: expense
-  id: 4
   lock_version: 0
-  quantity: 1.0
-  unit_amount: 10.0
-  unit_currency: EUR
-  updated_at: 2015-03-11 01:20:30.807678000 Z
+  updated_at: 2016-01-17 17:50:08.064996000 Z
   updater_id: 1
-  variant_id: 8
-  variant_indicator: population
-activity_budgets_005:
-  activity_id: 5
-  amount: 2799.23
-  campaign_id: 4
-  computation_method: per_working_unit
-  created_at: 2015-03-11 01:20:30.809455000 Z
-  creator_id: 1
-  currency: EUR
-  direction: revenue
-  id: 5
-  lock_version: 0
-  quantity: 70.0
-  unit_amount: 10.0
-  unit_currency: EUR
-  updated_at: 2015-03-11 01:20:30.809455000 Z
-  updater_id: 1
-  variant_id: 19
-  variant_indicator: net_mass
-  variant_unit: quintal

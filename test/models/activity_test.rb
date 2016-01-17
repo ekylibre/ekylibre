@@ -31,12 +31,12 @@
 #  lock_version        :integer          default(0), not null
 #  name                :string           not null
 #  nature              :string           not null
+#  production_campaign :string
 #  production_cycle    :string           not null
 #  size_indicator_name :string
 #  size_unit_name      :string
 #  support_variety     :string
 #  suspended           :boolean          default(FALSE), not null
-#  target_campaign     :string
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #  with_cultivation    :boolean          not null

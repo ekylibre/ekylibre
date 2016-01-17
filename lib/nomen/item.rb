@@ -162,7 +162,6 @@ module Nomen
 
     def avatar_path
       self_and_parents.each do |item|
-
         img = Rails.root.join('app', 'assets', 'images', nomenclature.table_name.to_s, "#{item.name}.jpg")
         return img if img.exist?
       end

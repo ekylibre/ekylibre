@@ -1284,6 +1284,7 @@ fra:
     new_organization: "Nouvelle organisation"
     new_out_line: "Ajouter un produit sortant" #?
     new_payment: "Enregistrer un nouvel encaissement" #?
+    new_production: "Nouvelle production"
     new_production_of_activity: "Nouvelle production de %{activity}"
     new_purchase_price: "Créer un prix d’achat" #?
     new_quote: "Nouvelle estimation"

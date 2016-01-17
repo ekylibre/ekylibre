@@ -75,16 +75,16 @@ class ActivityProduction < Ekylibre::Record::Base
   validates_uniqueness_of :rank_number, scope: :activity_id
   validates_presence_of :started_on
   validates_presence_of :cultivable_zone, :support_nature, if: :vegetal_crops?
-  validates_presence_of :campaign, if: Proc.new { |production| production.activity.production_cycle == :annual }
+  validates_presence_of :campaign, if: :annual?
 
   delegate :name, :work_number, to: :support, prefix: true
   # delegate :shape, :shape_to_ewkt, :shape_svg, :net_surface_area, :shape_area, to: :support
   delegate :name, :size_indicator_name, :size_unit_name, to: :activity, prefix: true
   delegate :vegetal_crops?, :with_cultivation, :cultivation_variety, :with_supports,
-           :support_variety, :color, to: :activity
+           :support_variety, :color, :annual?, :perennial?, to: :activity
 
   scope :of_campaign, lambda { |campaign|
-    where("campaign_id = ? or id IN (SELECT c.id FROM activity_productions as ap JOIN activities as a ON a.id = ap.activity_id, campaigns as c WHERE a.production_cycle = 'perennial' AND a.target_campaign = 'current' AND ((ap.stopped_on is null AND c.harvest_year >= extract (year from ap.started_on)) OR (ap.stopped_on is not null AND extract (year from ap.started_on) <= c.harvest_year AND c.harvest_year < extract (year from ap.stopped_on)))) or id IN (SELECT c.id FROM activity_productions as ap JOIN activities as a ON a.id = ap.activity_id, campaigns as c WHERE a.production_cycle = 'perennial' AND a.target_campaign = 'next' AND ((ap.stopped_on is null AND c.harvest_year > extract (year from ap.started_on)) OR (ap.stopped_on is not null AND extract (year from ap.started_on) < c.harvest_year AND c.harvest_year <= extract (year from ap.stopped_on))))", campaign.id)
+    where("campaign_id = ? OR id IN (SELECT c.id FROM activity_productions AS ap JOIN activities AS a ON a.id = ap.activity_id, campaigns AS c WHERE a.production_cycle = 'perennial' AND a.production_campaign = 'at_cycle_start' AND ((ap.stopped_on is null AND c.harvest_year >= EXTRACT(YEAR FROM ap.started_on)) OR (ap.stopped_on is not null AND EXTRACT(YEAR FROM ap.started_on) <= c.harvest_year AND c.harvest_year < EXTRACT(YEAR FROM ap.stopped_on)))) OR id IN (SELECT c.id FROM activity_productions AS ap JOIN activities AS a ON a.id = ap.activity_id, campaigns AS c WHERE a.production_cycle = 'perennial' AND a.production_campaign = 'at_cycle_end' AND ((ap.stopped_on is null AND c.harvest_year > EXTRACT(YEAR FROM ap.started_on)) OR (ap.stopped_on is not null AND EXTRACT(YEAR FROM ap.started_on) < c.harvest_year AND c.harvest_year <= EXTRACT(YEAR FROM ap.stopped_on))))", campaign.id)
   }
 
   scope :of_cultivation_variety, lambda { |variety|

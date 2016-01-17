@@ -37,6 +37,7 @@ module Backend
 
     def index
       @current_activities = Activity.of_campaign(current_campaign).order(name: :asc) || []
+      @activities = Activity.order(name: :asc)
     end
 
     # Duplicate activity basing on campaign

@@ -44,7 +44,7 @@ class ActivityBudget < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates_associated :expenses, :revenues
 
-  scope :of_campaign, lambda { |campaign|  where(campaign: campaign) }
+  scope :of_campaign, ->(campaign) { where(campaign: campaign) }
 
   accepts_nested_attributes_for :expenses, :revenues, reject_if: :all_blank, allow_destroy: true
 

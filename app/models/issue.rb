@@ -68,7 +68,6 @@ class Issue < Ekylibre::Record::Base
     where(target_id: TargetDistribution.of_campaign(campaign), target_type: 'Product')
   }
 
-
   scope :of_activity, lambda { |activity|
     where(target_id: TargetDistribution.of_activity(activity), target_type: 'Product')
   }

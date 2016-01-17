@@ -63,6 +63,7 @@
 ---
 activity_productions_001:
   activity_id: 1
+  campaign_id: 1
   created_at: 2014-11-04 17:23:15.017043000 Z
   creator_id: 1
   cultivable_zone_id: 3
@@ -89,6 +90,7 @@ activity_productions_001:
   usage: fodder
 activity_productions_002:
   activity_id: 1
+  campaign_id: 1
   created_at: 2014-11-04 17:23:15.019045000 Z
   creator_id: 1
   cultivable_zone_id: 2
@@ -116,6 +118,7 @@ activity_productions_002:
   usage: fodder
 activity_productions_003:
   activity_id: 1
+  campaign_id: 4
   created_at: 2014-11-04 17:23:48.520900000 Z
   creator_id: 1
   cultivable_zone_id: 3
@@ -142,6 +145,7 @@ activity_productions_003:
   usage: fodder
 activity_productions_004:
   activity_id: 1
+  campaign_id: 4
   created_at: 2014-11-04 17:23:48.523744000 Z
   creator_id: 1
   cultivable_zone_id: 2
@@ -169,6 +173,7 @@ activity_productions_004:
   usage: fodder
 activity_productions_005:
   activity_id: 1
+  campaign_id: 4
   created_at: 2014-11-04 17:23:48.526283000 Z
   creator_id: 1
   cultivable_zone_id: 4
@@ -193,6 +198,7 @@ activity_productions_005:
   usage: fodder
 activity_productions_006:
   activity_id: 5
+  campaign_id: 4
   created_at: 2014-11-04 18:17:39.475733000 Z
   creator_id: 1
   cultivable_zone_id: 5
@@ -218,6 +224,7 @@ activity_productions_006:
   usage: fodder
 activity_productions_007:
   activity_id: 5
+  campaign_id: 1
   created_at: 2014-11-04 18:21:43.150392000 Z
   creator_id: 1
   cultivable_zone_id: 5
@@ -243,6 +250,7 @@ activity_productions_007:
   usage: fodder
 activity_productions_008:
   activity_id: 3
+  campaign_id: 4
   created_at: 2014-11-07 14:43:13.634171000 Z
   creator_id: 1
   id: 13
@@ -263,6 +271,7 @@ activity_productions_008:
   usage: fodder
 activity_productions_009:
   activity_id: 3
+  campaign_id: 1
   created_at: 2014-11-07 15:53:12.705675000 Z
   creator_id: 1
   cultivable_zone_id: 6
@@ -288,6 +297,7 @@ activity_productions_009:
   usage: fodder
 activity_productions_010:
   activity_id: 3
+  campaign_id: 4
   created_at: 2014-11-07 15:54:19.288354000 Z
   creator_id: 1
   id: 15
@@ -308,6 +318,7 @@ activity_productions_010:
   usage: fodder
 activity_productions_011:
   activity_id: 6
+  campaign_id: 1
   created_at: 2014-11-07 16:34:30.852303000 Z
   creator_id: 1
   cultivable_zone_id: 1
@@ -339,6 +350,7 @@ activity_productions_011:
   usage: fodder
 activity_productions_012:
   activity_id: 6
+  campaign_id: 4
   created_at: 2014-11-07 16:35:00.784356000 Z
   creator_id: 1
   cultivable_zone_id: 1
@@ -370,6 +382,7 @@ activity_productions_012:
   usage: fodder
 activity_productions_013:
   activity_id: 8
+  campaign_id: 5
   created_at: 2015-12-23 08:40:16.879852000 Z
   cultivable_zone_id: 7
   id: 18
@@ -406,6 +419,7 @@ activity_productions_013:
   usage: fodder
 activity_productions_014:
   activity_id: 8
+  campaign_id: 5
   created_at: 2015-12-23 08:40:17.044123000 Z
   cultivable_zone_id: 8
   id: 19
@@ -447,6 +461,7 @@ activity_productions_014:
   usage: fodder
 activity_productions_015:
   activity_id: 9
+  campaign_id: 5
   created_at: 2015-12-23 08:40:17.223271000 Z
   cultivable_zone_id: 9
   id: 20
@@ -473,6 +488,7 @@ activity_productions_015:
   usage: grain
 activity_productions_016:
   activity_id: 9
+  campaign_id: 5
   created_at: 2015-12-23 08:40:17.363463000 Z
   cultivable_zone_id: 10
   id: 21
@@ -498,6 +514,7 @@ activity_productions_016:
   usage: grain
 activity_productions_017:
   activity_id: 10
+  campaign_id: 5
   created_at: 2015-12-23 08:40:17.511603000 Z
   cultivable_zone_id: 11
   id: 22
@@ -527,6 +544,7 @@ activity_productions_017:
   usage: grain
 activity_productions_018:
   activity_id: 10
+  campaign_id: 5
   created_at: 2015-12-23 08:40:17.578743000 Z
   cultivable_zone_id: 12
   id: 23
@@ -565,6 +583,7 @@ activity_productions_018:
   usage: grain
 activity_productions_019:
   activity_id: 10
+  campaign_id: 5
   created_at: 2015-12-23 08:40:17.652422000 Z
   cultivable_zone_id: 13
   id: 24
@@ -597,6 +616,7 @@ activity_productions_019:
   usage: grain
 activity_productions_020:
   activity_id: 11
+  campaign_id: 5
   created_at: 2015-12-23 08:40:17.847832000 Z
   cultivable_zone_id: 14
   id: 25
@@ -624,6 +644,7 @@ activity_productions_020:
   usage: fodder
 activity_productions_021:
   activity_id: 12
+  campaign_id: 5
   created_at: 2015-12-23 08:40:17.937226000 Z
   cultivable_zone_id: 15
   id: 26
@@ -655,6 +676,7 @@ activity_productions_021:
   usage: meadow
 activity_productions_022:
   activity_id: 13
+  campaign_id: 5
   created_at: 2015-12-23 08:40:18.122808000 Z
   cultivable_zone_id: 16
   id: 27
@@ -686,6 +708,7 @@ activity_productions_022:
   usage: meadow
 activity_productions_023:
   activity_id: 14
+  campaign_id: 5
   created_at: 2015-12-23 08:40:18.189716000 Z
   cultivable_zone_id: 17
   id: 28
@@ -715,6 +738,7 @@ activity_productions_023:
   usage: grain
 activity_productions_024:
   activity_id: 15
+  campaign_id: 5
   created_at: 2015-12-23 08:40:18.251041000 Z
   cultivable_zone_id: 18
   id: 29
@@ -743,6 +767,7 @@ activity_productions_024:
   usage: meadow
 activity_productions_025:
   activity_id: 15
+  campaign_id: 5
   created_at: 2015-12-23 08:40:18.310923000 Z
   cultivable_zone_id: 19
   id: 30
@@ -775,6 +800,7 @@ activity_productions_025:
   usage: meadow
 activity_productions_026:
   activity_id: 16
+  campaign_id: 5
   created_at: 2015-12-23 08:40:18.450419000 Z
   cultivable_zone_id: 20
   id: 31
@@ -801,6 +827,7 @@ activity_productions_026:
   usage: meadow
 activity_productions_027:
   activity_id: 17
+  campaign_id: 5
   created_at: 2015-12-23 08:40:18.591510000 Z
   cultivable_zone_id: 21
   id: 32
@@ -830,6 +857,7 @@ activity_productions_027:
   usage: grain
 activity_productions_028:
   activity_id: 18
+  campaign_id: 5
   created_at: 2015-12-23 08:40:18.718114000 Z
   cultivable_zone_id: 22
   id: 33
@@ -859,6 +887,7 @@ activity_productions_028:
   usage: grain
 activity_productions_029:
   activity_id: 10
+  campaign_id: 5
   created_at: 2015-12-23 08:40:18.845653000 Z
   cultivable_zone_id: 23
   id: 34
@@ -889,6 +918,7 @@ activity_productions_029:
   usage: grain
 activity_productions_030:
   activity_id: 18
+  campaign_id: 5
   created_at: 2015-12-23 08:40:18.961833000 Z
   cultivable_zone_id: 24
   id: 35
@@ -915,6 +945,7 @@ activity_productions_030:
   usage: grain
 activity_productions_031:
   activity_id: 19
+  campaign_id: 5
   created_at: 2015-12-23 08:40:19.083498000 Z
   cultivable_zone_id: 25
   id: 36
@@ -939,6 +970,7 @@ activity_productions_031:
   usage: fodder
 activity_productions_032:
   activity_id: 19
+  campaign_id: 5
   created_at: 2015-12-23 08:40:19.205862000 Z
   cultivable_zone_id: 26
   id: 37
@@ -962,6 +994,7 @@ activity_productions_032:
   usage: fodder
 activity_productions_033:
   activity_id: 17
+  campaign_id: 5
   created_at: 2015-12-23 08:40:19.358948000 Z
   cultivable_zone_id: 27
   id: 38
@@ -988,6 +1021,7 @@ activity_productions_033:
   usage: grain
 activity_productions_034:
   activity_id: 18
+  campaign_id: 5
   created_at: 2015-12-23 08:40:19.470964000 Z
   cultivable_zone_id: 28
   id: 39
@@ -1010,6 +1044,7 @@ activity_productions_034:
   usage: grain
 activity_productions_035:
   activity_id: 18
+  campaign_id: 5
   created_at: 2015-12-23 08:40:19.587903000 Z
   cultivable_zone_id: 29
   id: 40
@@ -1032,6 +1067,7 @@ activity_productions_035:
   usage: grain
 activity_productions_036:
   activity_id: 10
+  campaign_id: 5
   created_at: 2015-12-23 08:40:19.719949000 Z
   cultivable_zone_id: 30
   id: 41
@@ -1061,6 +1097,7 @@ activity_productions_036:
   usage: grain
 activity_productions_037:
   activity_id: 10
+  campaign_id: 5
   created_at: 2015-12-23 08:40:19.839657000 Z
   cultivable_zone_id: 31
   id: 42
@@ -1085,6 +1122,7 @@ activity_productions_037:
   usage: grain
 activity_productions_038:
   activity_id: 10
+  campaign_id: 5
   created_at: 2015-12-23 08:40:19.964484000 Z
   cultivable_zone_id: 32
   id: 43
@@ -1107,6 +1145,7 @@ activity_productions_038:
   usage: grain
 activity_productions_039:
   activity_id: 9
+  campaign_id: 5
   created_at: 2015-12-23 08:40:20.087796000 Z
   cultivable_zone_id: 33
   id: 44
@@ -1130,6 +1169,7 @@ activity_productions_039:
   usage: grain
 activity_productions_040:
   activity_id: 20
+  campaign_id: 5
   created_at: 2015-12-23 08:40:20.217306000 Z
   cultivable_zone_id: 34
   id: 45
@@ -1155,6 +1195,7 @@ activity_productions_040:
   usage: fodder
 activity_productions_041:
   activity_id: 9
+  campaign_id: 5
   created_at: 2015-12-23 08:40:20.391685000 Z
   cultivable_zone_id: 35
   id: 46
@@ -1199,6 +1240,7 @@ activity_productions_041:
   usage: grain
 activity_productions_042:
   activity_id: 10
+  campaign_id: 5
   created_at: 2015-12-23 08:40:20.509508000 Z
   cultivable_zone_id: 36
   id: 47
@@ -1223,6 +1265,7 @@ activity_productions_042:
   usage: grain
 activity_productions_043:
   activity_id: 21
+  campaign_id: 5
   created_at: 2015-12-23 08:40:20.634005000 Z
   cultivable_zone_id: 37
   id: 48

@@ -1,57 +1,78 @@
-$activity_container_height: 80px;
-$img_container_size: $activity_container_height;
-$activity_name_height: $lh-large;
-$indicators_height: $activity_container_height - $activity_name_height;
+$activity-avatar-size: 100px;
+$activity-container-height: 80px;
+$activity-name-height: $lh-large;
+$indicators_height: $activity-container-height - $activity-name-height;
 $indicator_item_height: $indicators_height / 2;
 $activity_border_size: 5px;
 
-.activity-box {
-  @include make-md-column(12);
-  @include make-lg-column(6);
-  @include box-sizing(border-box);
-  padding-top: 15px;
-
+.activities-index {
   .activity-container {
-    @include incrust-shadow();
-    //@include box-sizing(border-box);
-    border: 1px solid #eee;
-    background-color: #FFF;
-    height: $activity_container_height;
+    width: 33.33%;
+    @include float(left);
+    //@include make-lg-column(3);
+    //@include make-md-column(4);
+    //@include make-sm-column(6);
+    //@include make-xs-column(12);
+    padding: 0;
+  }
+}
 
-    .img-container {
-      background-size: cover;
-      width: $img_container_size;
-      height: 100%;
-      float: left;
-    }
+.activity {
+  @include incrust-shadow();
+  @include box-sizing(border-box);
+  margin: 2 * $default-gap;
+  background: #FFF;
+  @include transition(background-color 0.2s);
+  @include border-right($default-gap solid $neutral-background);
 
-    .activity-content {
-      @include calc(width, "100% - #{$img_container_size}");
-      height: 100%;
-      float: left;
-      border-right: $activity_border_size solid rgba(0, 0, 0, 0);
-      box-sizing: border-box;
+  //@include box-sizing(border-box);
+  // height: $activity-container-height;
+  @include clearfix;
 
-      .name {
-        height: $activity_name_height;
-        text-align: center;
-        line-height: $activity_name_height;
+  .activity-avatar {
+    background-color: $neutral-background;
+    @include background-size(cover);
+    width: $activity-avatar-size;
+    height: $activity-avatar-size;
+    @include float(left);
+  }
+
+  .activity-content {
+    @include calc(width, "100% - #{$activity-avatar-size}");
+    @include float(left);
+    padding: $default-gap $default-gap * 2;
+    box-sizing: border-box;
+
+    .activity-name {
+      @include ellipsis;
+      &, * {
+        height: $activity-name-height;
+        line-height: $lh-large;
         font-size: $fs-large;
       }
+      margin-bottom: $default-gap;
+    }
 
-      .indicators {
-        @include make-row($gutter: 0);
-        height: $indicators_height;
+    .activity-indicators {
+      @include make-row($gutter: 0);
+      // height: $indicators_height;
 
-        .item {
-          @include make-md-column(3, $gutter: 0);
-          height: 100%;
-          text-align: center;
-          font-size: $fs-normal;
-          line-height: $indicators_height;
-        }
+      .activity-indicator {
+        @include ellipsis;
+        @include make-md-column(3, $gutter: 0);
+        // height: 100%;
+        text-align: center;
+        font-size: $fs-normal;
+        // line-height: $indicators_height;
       }
     }
   }
-
+  &.inactive {
+    opacity: 0.5;
+    background: $desktop-background;
+    &:hover {
+      opacity: 1;
+      background: white;
+    }
+  }
 }

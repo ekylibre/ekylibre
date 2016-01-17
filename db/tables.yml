@@ -133,6 +133,11 @@ activities:
   nature:
     type: string
     required: true
+  production_campaign:
+    type: string
+  production_cycle:
+    type: string
+    required: true
   size_indicator_name:
     type: string
   size_unit_name:
@@ -280,6 +285,9 @@ activity_productions:
     type: integer
     references: activity
     required: true
+  campaign_id:
+    type: integer
+    references: campaign
   created_at:
     type: datetime
     required: true
@@ -670,13 +678,6 @@ campaigns:
   name:
     type: string
     required: true
-  number:
-    type: string
-    required: true
-  started_on:
-    type: date
-  stopped_on:
-    type: date
   updated_at:
     type: datetime
     required: true

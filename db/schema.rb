@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 20160113212017) do
     t.string   "size_unit_name"
     t.boolean  "suspended",           default: false, null: false
     t.string   "production_cycle",                    null: false
-    t.string   "target_campaign"
+    t.string   "production_campaign"
   end
 
   add_index "activities", ["created_at"], name: "index_activities_on_created_at", using: :btree
@@ -341,6 +341,7 @@ ActiveRecord::Schema.define(version: 20160113212017) do
   add_index "bank_statements", ["updater_id"], name: "index_bank_statements_on_updater_id", using: :btree
 
   create_table "campaigns", force: :cascade do |t|
+    t.string   "name",                         null: false
     t.text     "description"
     t.integer  "harvest_year"
     t.boolean  "closed",       default: false, null: false

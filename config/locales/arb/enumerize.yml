@@ -5,6 +5,12 @@ arb:
         # auxiliary: "Auxiliary"
         # main: "Main"
         # standalone: "Standalone"
+      production_campaign:
+        # at_cycle_end: "At cycle end"
+        # at_cycle_start: "At cycle start"
+      production_cycle:
+        # annual: "Annual"
+        # perennial: "Perennial"
     activity_budget_item:
       computation_method:
         # per_campaign: "Per campaign"

@@ -31,12 +31,12 @@
 #  lock_version        :integer          default(0), not null
 #  name                :string           not null
 #  nature              :string           not null
+#  production_campaign :string
 #  production_cycle    :string           not null
 #  size_indicator_name :string
 #  size_unit_name      :string
 #  support_variety     :string
 #  suspended           :boolean          default(FALSE), not null
-#  target_campaign     :string
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #  with_cultivation    :boolean          not null
@@ -54,14 +54,14 @@ class Activity < Ekylibre::Record::Base
   refers_to :size_unit, class_name: 'Unit'
   refers_to :size_indicator, -> { where(datatype: :measure) }, class_name: 'Indicator' # [:population, :working_duration]
   enumerize :nature, in: [:main, :auxiliary, :standalone], default: :main, predicates: true
+  enumerize :production_cycle, in: [:annual, :perennial], predicates: true
+  enumerize :production_campaign, in: [:at_cycle_start, :at_cycle_end], default: :at_cycle_end, predicates: true
   with_options dependent: :destroy, inverse_of: :activity do
     has_many :budgets, class_name: 'ActivityBudget'
     has_many :distributions, class_name: 'ActivityDistribution'
     has_many :productions, class_name: 'ActivityProduction'
   end
   has_many :supports, through: :productions
-  enumerize :production_cycle, in: [:annual, :perennial]
-  enumerize :target_campaign, in: [:current, :next]
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_inclusion_of :suspended, :with_cultivation, :with_supports, in: [true, false]
@@ -74,7 +74,7 @@ class Activity < Ekylibre::Record::Base
   validates_uniqueness_of :name
   validates_associated :productions
   validates_presence_of :production_cycle
-  validates_presence_of :target_campaign, if: Proc.new { |a| a.production_cycle == :perennial }
+  validates_presence_of :production_campaign, if: :perennial?
 
   scope :actives, -> { availables.where(id: ActivityProduction.opened) }
   scope :availables, -> { where.not('suspended') }
@@ -193,6 +193,10 @@ class Activity < Ekylibre::Record::Base
     productions.of_campaign(campaign).count
   end
 
+  def used_during?(campaign)
+    productions.of_campaign(campaign).any?
+  end
+
   def vegetal_crops?
     family && Nomen::ActivityFamily.find(family) <= :vegetal_crops
   end
@@ -237,18 +241,20 @@ class Activity < Ekylibre::Record::Base
 
   def avatar_path
     if cultivation_variety
-      Nomen::Varieties[cultivation_variety].avatar_path
-    elsif family
-      Nomen::ActivityFamilies[family].avatar_path
+      path = Nomen::Varieties[cultivation_variety].avatar_path
     end
+    path = Nomen::ActivityFamilies[family].avatar_path if family && !path
+    path
   end
 
   def real_expense_amount(campaign)
-    Intervention.of_campaign(campaign).of_activity(self).map(&:cost).sum
+    Intervention.of_campaign(campaign).of_activity(self).map(&:cost).compact.sum
   end
 
-  def budget_expense_amount(campaign)
-    expenses.of_campaign(campaign).sum(:amount)
+  def budget_expenses_amount(campaign)
+    budget = budget_of(campaign)
+    return 0.0 unless budget
+    budget.expenses_amount
   end
 
   class << self
@@ -291,7 +297,7 @@ class Activity < Ekylibre::Record::Base
           colors[:teal]
           # FIBER
         elsif variety <= :linum ||
-            variety <= :cannabis
+              variety <= :cannabis
           colors[:slate_gray]
           # LEGUMINOUS
         elsif crop_sets.include?(:leguminous)
