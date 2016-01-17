@@ -58,6 +58,7 @@ class Backend::SalesController < Backend::BaseController
     t.column :description, hidden: true
     t.status
     t.column :state_label
+    t.column :pretax_amount, currency: true
     t.column :amount, currency: true
   end
 
