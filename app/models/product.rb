@@ -195,7 +195,10 @@ class Product < Ekylibre::Record::Base
     joins(:supports).merge(ProductionSupport.of_campaign(campaign))
   }
   scope :intersect_with, lambda { |shape|
-    where(id: ProductReading.where('ST_Overlaps(geometry_value, ST_GeomFromEWKT(?))', shape.to_ewkt).pluck(:product_id))
+    where(id: ProductReading.where('ST_Overlaps(geometry_value, ST_GeomFromEWKT(?))', ::Charta::Geometry.new(shape).to_ewkt).select(:product_id))
+  }
+  scope :overlaps_shape, lambda { |shape|
+    where(id: ProductReading.where('ST_Overlaps(geometry_value, ST_GeomFromEWKT(?))', ::Charta::Geometry.new(shape).to_ewkt).select(:product_id))
   }
 
   # scope :saleables, -> { joins(:nature).where(:active => true, :product_natures => {:saleable => true}) }
