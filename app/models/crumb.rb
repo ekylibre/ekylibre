@@ -62,7 +62,7 @@ class Crumb < Ekylibre::Record::Base
   }
 
   before_validation do
-    if self.start?
+    if start?
       if previous && original = previous.siblings.find_by(nature: :start)
         self.metadata ||= original.metadata || {}
         self.metadata['procedure_nature'] ||= original.metadata['procedure_nature']
@@ -74,11 +74,11 @@ class Crumb < Ekylibre::Record::Base
   end
 
   after_destroy do
-    intervention_path.delete_all if self.start?
+    intervention_path.delete_all if start?
   end
 
   after_update do
-    if self.start? && previous = self.previous
+    if start? && previous = self.previous
       previous.update_column(:nature, :stop) unless previous.stop?
     end
   end
@@ -106,8 +106,8 @@ class Crumb < Ekylibre::Record::Base
       options = crumbs.extract_options!
       crumbs.flatten!
       raw_products = Product.distinct.joins(:readings)
-                     .joins("INNER JOIN crumbs ON (indicator_datatype = 'geometry' AND ST_Contains(ST_CollectionExtract(product_readings.geometry_value, 3), crumbs.geolocation))")
-                     .where(crumbs.any? ? ['crumbs.id IN (?)', crumbs.map(&:id)] : 'crumbs.id IS NOT NULL')
+                            .joins("INNER JOIN crumbs ON (indicator_datatype = 'geometry' AND ST_Contains(ST_CollectionExtract(product_readings.geometry_value, 3), crumbs.geolocation))")
+                            .where(crumbs.any? ? ['crumbs.id IN (?)', crumbs.map(&:id)] : 'crumbs.id IS NOT NULL')
       contents = []
       contents = raw_products.map(&:contents) unless options[:no_contents]
       raw_products.concat(contents).flatten.uniq
@@ -124,8 +124,8 @@ class Crumb < Ekylibre::Record::Base
       options = crumbs.extract_options!
       options[:campaigns] ||= Campaign.current
       ActivityProduction.of_campaign(options[:campaigns]).distinct
-        .joins(:storage)
-        .where('products.id IN (?)', Crumb.products(*crumbs, no_contents: true).map(&:id))
+                        .joins(:storage)
+                        .where('products.id IN (?)', Crumb.products(*crumbs, no_contents: true).map(&:id))
     end
 
     # Returns all crumbs, grouped by interventions paths, for a given user.
@@ -154,17 +154,17 @@ class Crumb < Ekylibre::Record::Base
     start_read_at = read_at.utc
     unless start?
       start = siblings.where(nature: :start)
-              .where('read_at <= ?', start_read_at)
-              .order(read_at: :desc)
-              .first
+                      .where('read_at <= ?', start_read_at)
+                      .order(read_at: :desc)
+                      .first
       start_read_at = start.read_at.utc if start
     end
     stop_read_at = read_at.utc
     unless stop?
       stop = siblings.where(nature: :stop)
-             .where('read_at >= ?', stop_read_at)
-             .order(nature: :desc, read_at: :asc)
-             .first
+                     .where('read_at >= ?', stop_read_at)
+                     .order(nature: :desc, read_at: :asc)
+                     .first
       stop_read_at = stop.read_at.utc if stop
     end
     CrumbSet.new(siblings.where(read_at: start_read_at..stop_read_at).order(read_at: :asc))

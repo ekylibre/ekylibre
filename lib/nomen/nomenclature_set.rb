@@ -34,8 +34,8 @@ module Nomen
     def [](nomenclature_name)
       @nomenclatures[nomenclature_name]
     end
-    alias_method :find, :[]
-    alias_method :nomenclature, :[]
+    alias find []
+    alias nomenclature []
 
     # Find item
     def item(nomenclature_name, item_name)

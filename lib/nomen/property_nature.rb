@@ -25,11 +25,11 @@ module Nomen
       attrs[:name] = @name.to_s
       attrs[:type] = @type.to_s
       if @source
-        if inline_choices?
-          attrs[:choices] = @source.join(', ')
-        else
-          attrs[:choices] = @source.to_s
-        end
+        attrs[:choices] = if inline_choices?
+                            @source.join(', ')
+                          else
+                            @source.to_s
+                          end
       end
       attrs[:required] = 'true' if @required
       attrs[:fallbacks] = @fallbacks.join(', ') if @fallbacks
@@ -86,7 +86,7 @@ module Nomen
       "nomenclatures.#{nomenclature.name}.property_natures.#{name}".t(default: ["nomenclatures.#{nomenclature.name}.properties.#{name}".to_sym, "properties.#{name}".to_sym, "enumerize.#{nomenclature.name}.#{name}".to_sym, "labels.#{name}".to_sym, name.humanize])
     end
 
-    alias_method :humanize, :human_name
+    alias humanize human_name
 
     def <=>(other)
       name <=> other.name

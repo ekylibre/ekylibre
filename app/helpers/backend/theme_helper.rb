@@ -25,7 +25,7 @@ module Backend::ThemeHelper
       family: "'Open Sans', sans-serif",
       size: '14px'
     }
-  }
+  }.freeze
 
   def theme_config
     DEFAULT

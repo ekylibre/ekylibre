@@ -131,23 +131,23 @@ class ActivityProduction < Ekylibre::Record::Base
     self.usage = Nomen::ProductionUsage.first unless usage
     if self.activity
       self.size_indicator_name ||= activity_size_indicator_name if activity_size_indicator_name
-      self.size_unit_name      = activity_size_unit_name
+      self.size_unit_name = activity_size_unit_name
       self.rank_number ||= (self.activity.productions.maximum(:rank_number) ? self.activity.productions.maximum(:rank_number) : 0) + 1
     end
-    if self.vegetal_crops?
+    if vegetal_crops?
       self.support_shape ||= cultivable_zone.shape if cultivable_zone
       if support_shape && !support
         land_parcels = LandParcel.overlaps_shape(::Charta.new_geometry(support_shape)).order(:id)
-        if land_parcels.any?
-          self.support = land_parcels.first
-        else
-          self.support = LandParcel.create!(
-            name: computed_support_name,
-            initial_shape: support_shape,
-            initial_born_at: started_on,
-            variant: ProductNatureVariant.import_from_nomenclature(:land_parcel)
-          )
-        end
+        self.support = if land_parcels.any?
+                         land_parcels.first
+                       else
+                         LandParcel.create!(
+                           name: computed_support_name,
+                           initial_shape: support_shape,
+                           initial_born_at: started_on,
+                           variant: ProductNatureVariant.import_from_nomenclature(:land_parcel)
+                         )
+                       end
       end
     end
     self.size = current_size if support && size_indicator_name && size_unit_name
@@ -179,15 +179,15 @@ class ActivityProduction < Ekylibre::Record::Base
 
   def computed_support_name
     list = []
-    if cultivable_zone
-      list << cultivable_zone.name
-    else
-      list << activity.name
-    end
+    list << if cultivable_zone
+              cultivable_zone.name
+            else
+              activity.name
+  end
     list << :rank.t(number: rank_number)
     list.reverse! if 'i18n.dir'.t == 'rtl'
     list.join(' ')
-  end
+end
 
   def active?
     activity.family.to_s != 'fallow_land'
@@ -222,11 +222,11 @@ class ActivityProduction < Ekylibre::Record::Base
   def soil_enrichment_indicator_content_per_area(indicator_name, from = nil, to = nil, area_unit_name = :hectare)
     balance = []
     procedure_category = :fertilizing
-    if from && to
-      interventions = self.interventions.real.of_category(procedure_category).between(from, to)
-    else
-      interventions = self.interventions.real.of_category(procedure_category)
-    end
+    interventions = if from && to
+                      self.interventions.real.of_category(procedure_category).between(from, to)
+                    else
+                      self.interventions.real.of_category(procedure_category)
+                    end
     interventions.each do |intervention|
       intervention.inputs.each do |input|
         # m = net_mass of the input at intervention time
@@ -276,21 +276,21 @@ class ActivityProduction < Ekylibre::Record::Base
 
   def tool_cost(surface_unit_name = :hectare)
     if net_surface_area.to_s.to_f > 0.0
-      return cost(:tool) / (net_surface_area.to_d(surface_unit_name).to_s.to_f)
+      return cost(:tool) / net_surface_area.to_d(surface_unit_name).to_s.to_f
     end
     0.0
   end
 
   def input_cost(surface_unit_name = :hectare)
     if net_surface_area.to_s.to_f > 0.0
-      return cost(:input) / (net_surface_area.to_d(surface_unit_name).to_s.to_f)
+      return cost(:input) / net_surface_area.to_d(surface_unit_name).to_s.to_f
     end
     0.0
   end
 
   def time_cost(surface_unit_name = :hectare)
     if net_surface_area.to_s.to_f > 0.0
-      return cost(:doer) / (net_surface_area.to_d(surface_unit_name).to_s.to_f)
+      return cost(:doer) / net_surface_area.to_d(surface_unit_name).to_s.to_f
     end
     0.0
   end

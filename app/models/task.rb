@@ -77,24 +77,24 @@ class Task < Ekylibre::Record::Base
   end
 
   validate do
-    errors.add(:state, :invalid) if due_at && due_at > Time.zone.now && self.done?
+    errors.add(:state, :invalid) if due_at && due_at > Time.zone.now && done?
   end
 
   def call?
-    self.incoming_call? || self.outgoing_call?
+    incoming_call? || outgoing_call?
   end
 
   def mail?
-    self.incoming_mail? || self.outgoing_mail?
+    incoming_mail? || outgoing_mail?
   end
 
   def email?
-    self.incoming_email? || self.outgoing_email?
+    incoming_email? || outgoing_email?
   end
 
   def status
-    return :go if self.done?
-    return :caution if self.doing?
-    return :stop if self.todo?
+    return :go if done?
+    return :caution if doing?
+    return :stop if todo?
   end
 end

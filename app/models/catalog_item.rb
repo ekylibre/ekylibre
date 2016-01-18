@@ -84,5 +84,5 @@ class CatalogItem < Ekylibre::Record::Base
   def pretax_amount
     (all_taxes_included? ? reference_tax.pretax_amount_of(amount) : amount)
   end
-  alias_method :unit_pretax_amount, :pretax_amount
+  alias unit_pretax_amount pretax_amount
 end

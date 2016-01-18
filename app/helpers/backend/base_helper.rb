@@ -100,7 +100,7 @@ module Backend::BaseHelper
     yield menu
 
     main_name = args[0].to_s.to_sym
-    main_options[:icon] ||= main_name.to_s.parameterize.gsub(/\_/, '-')
+    main_options[:icon] ||= main_name.to_s.parameterize.tr('_', '-')
 
     html = ''.html_safe
     for name, url, options in menu.items
@@ -308,11 +308,11 @@ module Backend::BaseHelper
 
   def info(label, value, options = {}, &_block)
     css_class = "#{options.delete(:level) || :med}-info"
-    if options[:class]
-      options[:class] = options[:class].to_s + ' ' + css_class
-    else
-      options[:class] = css_class
-    end
+    options[:class] = if options[:class]
+                        options[:class].to_s + ' ' + css_class
+                      else
+                        css_class
+                      end
     options[:class] << ' important' if options.delete(:important)
     content_tag(:div, options) do
       content_tag(:span, label, class: 'title') +

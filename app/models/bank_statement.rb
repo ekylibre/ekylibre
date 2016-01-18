@@ -87,11 +87,11 @@ class BankStatement < Ekylibre::Record::Base
   end
 
   def point(item_ids)
-    return false if self.new_record?
+    return false if new_record?
     JournalEntryItem.where(bank_statement_id: id).update_all(bank_statement_id: nil)
     JournalEntryItem.where(bank_statement_id: nil, id: item_ids).update_all(bank_statement_id: id)
     # Computes debit and credit
-    self.save!
+    save!
     true
   end
 end

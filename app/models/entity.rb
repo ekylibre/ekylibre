@@ -197,7 +197,7 @@ class Entity < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    self.of_company? || sales_invoices.any? || participations.any? || sales.any? || parcels.any?
+    of_company? || sales_invoices.any? || participations.any? || sales.any? || parcels.any?
   end
 
   class << self
@@ -375,7 +375,7 @@ class Entity < Ekylibre::Record::Base
         send("#{attr}=", entity.send(attr)) if send(attr).blank?
       end
 
-      self.save!
+      save!
 
       # Add observation
       content = "Merged entity (ID=#{entity.id}):\n"
@@ -512,15 +512,15 @@ class Entity < Ekylibre::Record::Base
         address = EntityAddress.find_by(entity_id: entity.id, by_default: true, deleted_at: nil)
         item = []
         item << ["'" + entity.number.to_s, entity.nature.name, entity.sale_catalog.name, entity.name, entity.first_name]
-        if !address.nil?
-          item << [address.item_2, address.item_3, address.item_4, address.item_5, address.item_6_code, address.item_6_city, address.phone, address.mobile, address.fax, address.email, address.website]
-        else
-          item << ['', '', '', '', '', '', '', '', '', '', '']
-        end
-        item << [entity.reduction_percentage.to_s.gsub(/\./, ',')]
+        item << if !address.nil?
+                  [address.item_2, address.item_3, address.item_4, address.item_5, address.item_6_code, address.item_6_city, address.phone, address.mobile, address.fax, address.email, address.website]
+                else
+                  ['', '', '', '', '', '', '', '', '', '', '']
+      end
+        item << [entity.reduction_percentage.to_s.tr('.', ',')]
         csv << item.flatten
       end
     end
     csv_string
-  end
+end
 end

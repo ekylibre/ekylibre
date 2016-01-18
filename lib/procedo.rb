@@ -37,7 +37,7 @@ module Procedo
     def find(name)
       @@list[name]
     end
-    alias_method :[], :find
+    alias [] find
 
     # Returns direct procedures of nature
     def procedures_of_activity_family(*families)

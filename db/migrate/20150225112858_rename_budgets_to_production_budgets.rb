@@ -2,7 +2,7 @@ class RenameBudgetsToProductionBudgets < ActiveRecord::Migration
   PRODUCTION_STATES = {
     draft: :opened,
     validated: :closed
-  }
+  }.freeze
 
   def change
     rename_table :budgets, :production_budgets
@@ -83,7 +83,7 @@ class RenameBudgetsToProductionBudgets < ActiveRecord::Migration
     reversible do |dir|
       dir.up do
         execute "UPDATE \"production_budgets\" SET currency = 'EUR' WHERE currency IS NULL"
-        execute "UPDATE \"production_budgets\" SET unit_currency = currency"
+        execute 'UPDATE "production_budgets" SET unit_currency = currency'
         change_column_null :production_budgets, :unit_currency, false
         change_column_null :production_budgets, :currency, false
 

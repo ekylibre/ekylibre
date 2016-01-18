@@ -50,13 +50,13 @@ module Ekylibre
             'mimetype' => 'pictures.mimetype',
             'identifier' => 'pictures.identifier'
           }
-          Dir.chdir(path("#{base}")) do
+          Dir.chdir(path(base.to_s)) do
             Dir.glob('pictures/*').each do |picture|
               p = Pathname.new(picture).basename.to_s
               files[picture] = "pictures/#{p}"
             end
           end
-          check_archive(:ekylibre_pictures, file, files.merge(in: "#{base}"))
+          check_archive(:ekylibre_pictures, file, files.merge(in: base.to_s))
 
           FileUtils.rm_f mimefile
           FileUtils.rm_f idenfile

@@ -121,7 +121,7 @@ class Issue < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    self.has_intervention?
+    has_intervention?
   end
 
   def has_intervention?
@@ -129,7 +129,7 @@ class Issue < Ekylibre::Record::Base
   end
 
   def status
-    if self.opened?
+    if opened?
       return (has_intervention? ? :caution : :stop)
     else
       return :go

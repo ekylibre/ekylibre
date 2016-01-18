@@ -333,7 +333,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
         # Filter and imports
         filtereds = flattened_nomenclature.select do |item|
           item.variety >= variety &&
-          ((derivative_of && item.derivative_of && item.derivative_of >= derivative_of) || (derivative_of.blank? && item.derivative_of.blank?))
+            ((derivative_of && item.derivative_of && item.derivative_of >= derivative_of) || (derivative_of.blank? && item.derivative_of.blank?))
         end
         filtereds.each do |item|
           import_from_nomenclature(item.name)
@@ -398,7 +398,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
       unless item.frozen_indicators_values.to_s.blank?
         # create frozen indicator for each pair indicator, value ":population => 1unity"
         item.frozen_indicators_values.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/)
-          .collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each do |i|
+            .collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each do |i|
           # puts i.first.strip.downcase.to_sym.inspect.red
           variant.read!(i.first.strip.downcase.to_sym, i.second)
         end

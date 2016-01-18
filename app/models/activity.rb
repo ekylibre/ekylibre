@@ -157,7 +157,7 @@ class Activity < Ekylibre::Record::Base
   end
 
   after_save do
-    if self.auxiliary? && distributions.any?
+    if auxiliary? && distributions.any?
       total = distributions.sum(:affectation_percentage)
       if total != 100
         sum = 0
@@ -278,7 +278,7 @@ class Activity < Ekylibre::Record::Base
         # MEADOW
         if crop_sets.include?(:meadow)
           colors[:dark_green]
-          # CEREALS
+        # CEREALS
         elsif crop_sets.include?(:cereals)
           if variety <= :zea || variety <= :sorghum
             colors[:orange]
@@ -289,24 +289,24 @@ class Activity < Ekylibre::Record::Base
           else
             colors[:golden_rod]
           end
-          # OILSEED
+        # OILSEED
         elsif crop_sets.include?(:oleaginous)
           colors[:green_yellow]
-          # PROTEINS
+        # PROTEINS
         elsif crop_sets.include?(:proteaginous)
           colors[:teal]
-          # FIBER
+        # FIBER
         elsif variety <= :linum ||
               variety <= :cannabis
           colors[:slate_gray]
-          # LEGUMINOUS
+        # LEGUMINOUS
         elsif crop_sets.include?(:leguminous)
           colors[:lime]
         elsif crop_sets.include?(:vegetables)
           colors[:red]
         elsif crop_sets.include?(:arboricultural)
           colors[:blue]
-          # VINE
+        # VINE
         elsif variety <= :vitaceae
           colors[:purple]
         elsif crop_sets.include?(:aromatics_and_medicinals)

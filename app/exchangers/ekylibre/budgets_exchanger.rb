@@ -50,11 +50,11 @@ module Ekylibre
 
         # find or create activity
         unless activity = Activity.find_by(name: activity_name[0].strip)
-          if activity_name[1]
-            family = Nomen::ActivityFamily[activity_name[1].strip]
-          else
-            family = Activity.find_best_family((cultivation_variety ? cultivation_variety : nil), (support_variant ? support_variant.variety : nil))
-          end
+          family = if activity_name[1]
+                     Nomen::ActivityFamily[activity_name[1].strip]
+                   else
+                     Activity.find_best_family((cultivation_variety ? cultivation_variety : nil), (support_variant ? support_variant.variety : nil))
+                   end
           unless family
             w.error 'Cannot determine activity'
             fail ActiveExchanger::Error, "Cannot determine activity with support #{support_variant ? support_variant.variety.inspect : '?'} and cultivation #{cultivation_variant ? cultivation_variant.variety.inspect : '?'} in production #{sheet_name}"
@@ -154,7 +154,7 @@ module Ekylibre
           next if s.cell('A', row_number).blank?
           r = {
             item_code_variant: s.cell('B', row_number),
-            computation_method: (s.cell('C', row_number).to_s.downcase == 'uo' ? :per_working_unit : (s.cell('C', row_number).to_s.downcase == 'support' ? :per_production : :per_campaign)),
+            computation_method: (s.cell('C', row_number).to_s.casecmp('uo') ? :per_working_unit : (s.cell('C', row_number).to_s.casecmp('support') ? :per_production : :per_campaign)),
             item_quantity: (s.cell('D', row_number).blank? ? nil : s.cell('D', row_number).to_d),
             item_quantity_unity: s.cell('E', row_number).to_s.strip.split(/[\,\.\/\\\(\)]/),
             item_unit_price_amount: (s.cell('F', row_number).blank? ? nil : s.cell('F', row_number).to_d),
@@ -212,7 +212,6 @@ module Ekylibre
               indicator = indics.first
             end
           end
-
 
           activity_budget_items = activity_budget.items.find_or_initialize_by(variant: item_variant, unit_amount: r.item_unit_price_amount)
           activity_budget_items.variant_unit = unit

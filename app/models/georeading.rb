@@ -53,6 +53,6 @@ class Georeading < Ekylibre::Record::Base
   end
 
   def label_area(unit = :hectare)
-    return net_surface_area.in(unit).round(3).l if self.polygon?
+    return net_surface_area.in(unit).round(3).l if polygon?
   end
 end

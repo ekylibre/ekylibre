@@ -4,7 +4,7 @@ module ActiveExchanger
 
     def initialize(mode = :normal, &block)
       if block_given?
-        fail 'Invalid arity must be 1..2' unless (1..2).include?(block.arity)
+        fail 'Invalid arity must be 1..2' unless (1..2).cover?(block.arity)
         @block = block
       end
       @mode = mode

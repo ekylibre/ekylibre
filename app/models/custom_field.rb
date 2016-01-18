@@ -54,7 +54,7 @@ class CustomField < Ekylibre::Record::Base
     :ActivityBudgetItem, :ProductionDistribution, :ProductLink, :ProductLinkage,
     :ProductLocalization, :ProductMembership, :ProductNatureCategoryTaxation,
     :ProductNatureVariantReading, :ProductOwnership, :ProductPhase, :ProductReading,
-    :PurchaseItem, :SaleItem, :TargetDistribution, :User, :Version]
+    :PurchaseItem, :SaleItem, :TargetDistribution, :User, :Version].freeze
   attr_readonly :nature
   enumerize :nature, in: [:text, :decimal, :boolean, :date, :datetime, :choice], predicates: true
   enumerize :customized_type, in: (Ekylibre::Schema.model_names - NOT_CUSTOMIZABLE_MODELS)
@@ -89,11 +89,11 @@ class CustomField < Ekylibre::Record::Base
 
   # Adds a new column in the given model
   after_save do
-    unless self.column_exists?
+    unless column_exists?
       options = {}
       options.update(precision: 19, scale: 6) if column_type == :decimal
       self.class.connection.add_column(customized_table_name, column_name, column_type, options)
-      if self.choice? && !self.index_exists?
+      if choice? && !index_exists?
         self.class.connection.add_index(customized_table_name, column_name, name: index_name)
       end
       reset_schema
@@ -111,8 +111,8 @@ class CustomField < Ekylibre::Record::Base
 
   # Destroy column and its data
   before_destroy do
-    if self.column_exists?
-      if self.index_exists?
+    if column_exists?
+      if index_exists?
         self.class.connection.remove_index(customized_table_name, column_name)
       end
       self.class.connection.remove_column(customized_table_name, column_name)
@@ -133,7 +133,7 @@ class CustomField < Ekylibre::Record::Base
 
   # Returns the data type for the column
   def column_type
-    (self.choice? ? :string : nature).to_sym
+    (choice? ? :string : nature).to_sym
   end
 
   # Check if column exists in DB
@@ -143,7 +143,7 @@ class CustomField < Ekylibre::Record::Base
 
   # Check if index exists in DB
   def index_exists?
-    return false unless self.column_exists?
+    return false unless column_exists?
     self.class.connection.index_exists?(customized_table_name, column_name)
   end
 

@@ -38,11 +38,11 @@ module RestfullyManageable
       render_form_options = []
       render_form_options << "partial: '#{options[:partial]}'" if options[:partial]
       render_form_options << 'multipart: true' if options[:multipart]
-      if actions.include?(:index)
-        options[:cancel_url] ||= { action: :index }
-      else
-        options[:cancel_url] ||= :back
-      end
+      options[:cancel_url] ||= if actions.include?(:index)
+                                 { action: :index }
+                               else
+                                 :back
+                               end
       render_form_options << "locals: {cancel_url: #{options[:cancel_url].inspect}}"
       render_form = 'render(' + render_form_options.join(', ') + ')'
 

@@ -70,7 +70,7 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
   scope :selecteds, -> { joins(:plan).merge(ManureManagementPlan.selecteds) }
 
   protect do
-    self.locked?
+    locked?
   end
 
   def estimate_expected_yield
@@ -85,7 +85,7 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
         send("#{name}=", value.to_f(:kilogram_per_hectare))
       end
     end
-    self.save!
+    save!
   end
 
   def parameters

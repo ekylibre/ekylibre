@@ -29,7 +29,7 @@ module Abaci
     def collect(&block)
       @rows.collect(&block)
     end
-    alias_method :map, :collect
+    alias map collect
 
     def each(&block)
       @rows.each(&block)

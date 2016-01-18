@@ -146,15 +146,15 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         # ex : corn_crop, zea_mays_lg452, ZC42 have to return all supports with corn_crop of variety zea_mays_lg452 in ZC42
         for product in r.supports
           ps = nil
-          if r.target_variety && r.target_variant
-            ps = ActivityProduction.of_campaign(r.campaign).of_cultivation_varieties(r.target_variety).of_cultivation_variants(r.target_variant).where(storage: product)
-          elsif r.target_variety
-            ps = ActivityProduction.of_campaign(r.campaign).of_cultivation_varieties(r.target_variety).where(storage: product)
-          elsif r.target_variant
-            ps = ActivityProduction.of_campaign(r.campaign).of_cultivation_variants(r.target_variant).where(storage: product)
-          else
-            ps = ActivityProduction.of_campaign(r.campaign).where(storage: product)
-          end
+          ps = if r.target_variety && r.target_variant
+                 ActivityProduction.of_campaign(r.campaign).of_cultivation_varieties(r.target_variety).of_cultivation_variants(r.target_variant).where(storage: product)
+               elsif r.target_variety
+                 ActivityProduction.of_campaign(r.campaign).of_cultivation_varieties(r.target_variety).where(storage: product)
+               elsif r.target_variant
+                 ActivityProduction.of_campaign(r.campaign).of_cultivation_variants(r.target_variant).where(storage: product)
+               else
+                 ActivityProduction.of_campaign(r.campaign).where(storage: product)
+               end
           for p in ps
             ps_ids << p.id
           end
@@ -176,11 +176,11 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
           storage = support.storage
           Ekylibre::FirstRun::Booker.production = support.production
           if storage.is_a?(CultivableZone)
-            if support.quantity_indicator == :net_surface_area && support.quantity
-              area = support.get(:net_surface_area).to_d(:square_meter)
-            else
-              area = storage.shape_area.to_d
-            end
+            area = if support.quantity_indicator == :net_surface_area && support.quantity
+                     support.get(:net_surface_area).to_d(:square_meter)
+                   else
+                     storage.shape_area.to_d
+                   end
             coeff = ((storage.shape_area / 10_000.0) / 6.0).to_d if area
 
             duration = (r.intervention_duration_in_hour.hours * (area / r.production_supports_area.to_d).to_d).round(2) if area
@@ -280,21 +280,21 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       if measure.dimension == :volume
         variant_indicator = variant.send(:net_volume)
         if variant_indicator.value.to_f != 0.0
-          population_value = ((measure.to_f(variant_indicator.unit.to_sym)) / variant_indicator.value.to_f)
+          population_value = (measure.to_f(variant_indicator.unit.to_sym) / variant_indicator.value.to_f)
         else
           fail "No way to divide by zero : variant indicator value is #{variant_indicator.inspect}"
         end
       elsif measure.dimension == :mass
         variant_indicator = variant.send(:net_mass)
         if variant_indicator.value.to_f != 0.0
-          population_value = ((measure.to_f(variant_indicator.unit.to_sym)) / variant_indicator.value.to_f)
+          population_value = (measure.to_f(variant_indicator.unit.to_sym) / variant_indicator.value.to_f)
         else
           fail "No way to divide by zero : variant indicator value is #{variant_indicator.inspect}"
         end
       elsif measure.dimension == :distance
         variant_indicator = variant.send(:net_length)
         if variant_indicator.value.to_f != 0.0
-          population_value = ((measure.to_f(variant_indicator.unit.to_sym)) / variant_indicator.value.to_f)
+          population_value = (measure.to_f(variant_indicator.unit.to_sym) / variant_indicator.value.to_f)
         else
           fail "No way to divide by zero : variant indicator value is #{variant_indicator.inspect}"
         end
@@ -413,11 +413,11 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       input_unit_target_dose: (row[index + 3].blank? ? nil : row[index + 3].to_s.downcase)
     )
     if a.product_code
-      if a.product = Product.find_by_work_number(a.product_code)
-        a.variant = a.product.variant
-      else
-        a.variant = ProductNatureVariant.find_by_number(a.product_code)
-      end
+      a.variant = if a.product = Product.find_by_work_number(a.product_code)
+                    a.product.variant
+                  else
+                    ProductNatureVariant.find_by_number(a.product_code)
+                  end
     end
     a
   end

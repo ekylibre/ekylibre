@@ -83,7 +83,7 @@ class Campaign < Ekylibre::Record::Base
   def net_surface_area
     activity_productions.map(&:shape_area).sum
   end
-  alias_method :shape_area, :net_surface_area
+  alias shape_area net_surface_area
 
   def previous
     self.class.where('harvest_year < ?', harvest_year)

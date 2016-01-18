@@ -1,7 +1,7 @@
 module Ekylibre
   module Support
     class Item < Struct.new(:type, :args, :block)
-      alias_method :name, :type
+      alias name type
     end
 
     class Lister

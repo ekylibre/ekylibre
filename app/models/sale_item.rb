@@ -70,7 +70,7 @@ class SaleItem < Ekylibre::Record::Base
   delegate :subscribing?, :deliverable?, to: :product_nature, prefix: true
   delegate :entity_id, to: :address, prefix: true
 
-  alias_method :product_nature, :variant_nature
+  alias product_nature variant_nature
 
   acts_as_list scope: :sale
 

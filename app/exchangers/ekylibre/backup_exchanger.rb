@@ -84,7 +84,7 @@ module Ekylibre
         else
           value = item[old_column]
           if references
-            if references =~ /^\~/ and ref = item[references[1..-1]]
+            if references =~ /^\~/ && (ref = item[references[1..-1]])
               ref = ref.underscore
               if ref.blank?
                 value = nil
@@ -271,7 +271,7 @@ module Ekylibre
       data.import(:district, :name, :code)
       w.check_point
       data.import(:journal, :name, converters: {
-                    nature: lambda { |j| j.nature == 'renew' ? 'forward' : j.nature }
+                    nature: ->(j) { j.nature == 'renew' ? 'forward' : j.nature }
                   })
       w.check_point
       data.import(:sequence, :number_format)

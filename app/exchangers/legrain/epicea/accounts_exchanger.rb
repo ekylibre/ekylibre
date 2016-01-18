@@ -11,7 +11,7 @@ class Legrain::Epicea::AccountsExchanger < ActiveExchanger::Base
 
     rows.each do |row|
       account_number = row[0].to_s
-      label = row[1].to_s.tr("\"", "'")
+      label = row[1].to_s.tr('"', "'")
       usage = usage_by_account_number[account_number]
       if usage.present?
         account = Account.find_or_import_from_nomenclature(usage)

@@ -67,12 +67,12 @@ class CharentesAlliance::IncomingDeliveriesExchanger < ActiveExchanger::Base
       end
       # find a product_nature_variant by mapping current name of matter in coop file in coop reference_name
       unless product_nature_variant = ProductNatureVariant.find_by_number(r.coop_reference_name)
-        if Nomen::ProductNatureVariant.find(r.coop_variant_reference_name)
-          product_nature_variant ||= ProductNatureVariant.import_from_nomenclature(r.coop_variant_reference_name)
-        else
-          # find a product_nature_variant by mapping current sub_family of matter in coop file in Ekylibre reference_name
-          product_nature_variant ||= ProductNatureVariant.import_from_nomenclature(r.product_nature_name)
-        end
+        product_nature_variant ||= if Nomen::ProductNatureVariant.find(r.coop_variant_reference_name)
+                                     ProductNatureVariant.import_from_nomenclature(r.coop_variant_reference_name)
+                                   else
+                                     # find a product_nature_variant by mapping current sub_family of matter in coop file in Ekylibre reference_name
+                                     ProductNatureVariant.import_from_nomenclature(r.product_nature_name)
+                                   end
         product_nature_variant.number = r.coop_reference_name if r.coop_reference_name
         product_nature_variant.save!
       end
@@ -90,7 +90,7 @@ class CharentesAlliance::IncomingDeliveriesExchanger < ActiveExchanger::Base
 
       # incoming_item.move!(r.quantity, at: r.ordered_on.to_datetime)
 
-      if incoming_item.present? and r.order_status == :order
+      if incoming_item.present? && r.order_status == :order
         order.items.create!(source_product: incoming_item, product: incoming_item)
       end
       w.check_point

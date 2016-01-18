@@ -67,16 +67,16 @@ class Inventory < Ekylibre::Record::Base
   end
 
   def reflectable?
-    !self.reflected? # && self.class.unreflecteds.before(self.achieved_at).empty?
+    !reflected? # && self.class.unreflecteds.before(self.achieved_at).empty?
   end
 
   # Apply deltas on products
   def reflect
-    fail StandardError, 'Not reflectable inventory' unless self.reflectable?
+    fail StandardError, 'Not reflectable inventory' unless reflectable?
     self.class.transaction do
       self.reflected_at = Time.zone.now
       self.reflected = true
-      self.save!
+      save!
       items.find_each(&:save)
     end
   end
@@ -92,11 +92,9 @@ class Inventory < Ekylibre::Record::Base
   end
 
   def refresh!
-    unless self.editable?
-      fail StandardError, 'Cannot refresh uneditable inventory'
-    end
+    fail StandardError, 'Cannot refresh uneditable inventory' unless editable?
     items.clear
     build_missing_items
-    self.save!
+    save!
   end
 end

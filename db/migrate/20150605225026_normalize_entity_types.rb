@@ -18,7 +18,7 @@ class NormalizeEntityTypes < ActiveRecord::Migration
     madam: :contact,
     professor: :contact,
     doctor: :contact
-  }
+  }.freeze
 
   TITLES = {
     sir: 'M.',
@@ -26,7 +26,7 @@ class NormalizeEntityTypes < ActiveRecord::Migration
     madam: 'Mme',
     professor: 'Pr',
     doctor: 'Dr'
-  }
+  }.freeze
 
   def up
     # Add title column

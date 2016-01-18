@@ -174,7 +174,7 @@ module Clean
       end
 
       def look_for_rest_actions
-        actions_hash.delete_if { |k, _v| k == 'backend/dashboards' }.values.flatten.uniq.delete_if { |a| a =~ /\Alist\_/ }
+        actions_hash.delete_if { |k, _v| k == 'backend/dashboards' }.values.flatten.uniq.delete_if { |a| a.start_with?('list_') }
       end
 
       def look_for_notifications(*paths)
@@ -224,7 +224,7 @@ module Clean
         controllers = controllers_in_file
         ref = HashWithIndifferentAccess.new
         for controller in controllers_in_file
-          ref[controller.controller_path] = controller.action_methods.to_a.sort.delete_if { |a| a.to_s =~ /\A\_/ }
+          ref[controller.controller_path] = controller.action_methods.to_a.sort.delete_if { |a| a.to_s.start_with?('_') }
         end
         ref
       end
@@ -235,7 +235,7 @@ module Clean
         ObjectSpace
           .each_object(Class)
           .select { |klass| klass < ActiveRecord::Base }
-          .select { |x| !x.name.match(/\AActiveRecord\:\:/) && !x.abstract_class? && !x.name.match(/\AHABTM\_/) }
+          .select { |x| !x.name.start_with?('ActiveRecord::') && !x.abstract_class? && !x.name.start_with?('HABTM_') }
           .uniq
           .sort { |a, b| a.name <=> b.name }
       end

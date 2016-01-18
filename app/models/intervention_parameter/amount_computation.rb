@@ -2,8 +2,8 @@ class InterventionParameter < Ekylibre::Record::Base
   # Amount computation represents how a amount is computed for a cost or an earn
   # in an intervention
   class AmountComputation
-    NATURES = [:failed, :none, :quantity]
-    ORIGINS = [:catalog, :purchase, :sale]
+    NATURES = [:failed, :none, :quantity].freeze
+    ORIGINS = [:catalog, :purchase, :sale].freeze
 
     class << self
       def failed

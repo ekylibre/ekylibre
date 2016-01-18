@@ -253,7 +253,7 @@ module Fixturing
             # Polymorphic reflection case
             data[table.to_s].each do |record, attributes|
               type_column = column.to_s.gsub(/\_id\z/, '') + '_type'
-              next unless fixture_id = attributes[column.to_s] and fixture_type = attributes[type_column]
+              next unless (fixture_id = attributes[column.to_s]) && (fixture_type = attributes[type_column])
               foreign_model = fixture_type.constantize
               if attrs = data[foreign_model.table_name].detect { |_r, a| a['id'] == fixture_id && (a['type'] || foreign_model.name) == fixture_type }
                 attributes[column.to_s.gsub(/\_id\z/, '')] = "#{attrs.first} (#{fixture_type})"

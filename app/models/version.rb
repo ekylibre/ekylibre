@@ -76,8 +76,8 @@ class Version < ActiveRecord::Base
   def self.diff(a, b)
     # return a.diff(b)
     a.dup
-      .delete_if { |k, v| b[k] == v }
-      .merge!(b.dup.delete_if { |k, _v| a.key?(k) })
+     .delete_if { |k, v| b[k] == v }
+     .merge!(b.dup.delete_if { |k, _v| a.key?(k) })
   end
 
   def siblings

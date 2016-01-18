@@ -54,7 +54,7 @@ class ManureManagementPlan < Ekylibre::Record::Base
   scope :selecteds, -> { where(selected: true) }
 
   protect do
-    self.locked?
+    locked?
   end
 
   after_save :compute

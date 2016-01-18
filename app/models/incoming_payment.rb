@@ -146,7 +146,7 @@ class IncomingPayment < Ekylibre::Record::Base
   def deposited?
     !!deposit
   end
-  alias_method :deposit?, :deposited?
+  alias deposit? deposited?
 
   # Returns if a commission is taken
   def with_commission?

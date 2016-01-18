@@ -27,7 +27,7 @@ module Procedo
       def fetch(name)
         @parameters[name]
       end
-      alias_method :[], :fetch
+      alias [] fetch
 
       # Returns parameter with its name. Returns nil if not found
       def find(name, _type = nil)

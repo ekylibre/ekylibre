@@ -118,7 +118,7 @@ class ParcelItem < Ekylibre::Record::Base
   end
 
   def status
-    self.prepared? ? :go : variant.present? ? :caution : :stop
+    prepared? ? :go : variant.present? ? :caution : :stop
   end
 
   # Set started_at/stopped_at in tasks concerned by preparation of item
@@ -143,22 +143,22 @@ class ParcelItem < Ekylibre::Record::Base
   # this moment.
   def give
     if parcel_outgoing?
-      self.create_product_enjoyment!(product: product, nature: :other, started_at: parcel_given_at, enjoyer: parcel.recipient)
+      create_product_enjoyment!(product: product, nature: :other, started_at: parcel_given_at, enjoyer: parcel.recipient)
       unless parcel_remain_owner
-        self.create_product_ownership!(product: product, nature: :other, started_at: parcel_given_at, owner: parcel.recipient)
+        create_product_ownership!(product: product, nature: :other, started_at: parcel_given_at, owner: parcel.recipient)
       end
       if storage
-        self.create_product_localization!(product: product, nature: :exterior, container: storage, started_at: parcel_given_at)
+        create_product_localization!(product: product, nature: :exterior, container: storage, started_at: parcel_given_at)
       else
-        self.create_product_localization!(product: product, nature: :exterior, started_at: parcel_given_at)
+        create_product_localization!(product: product, nature: :exterior, started_at: parcel_given_at)
       end
     else
       if storage
-        self.create_product_localization!(product: product, nature: :interior, container: storage, started_at: parcel_given_at)
+        create_product_localization!(product: product, nature: :interior, container: storage, started_at: parcel_given_at)
       end
-      self.create_product_enjoyment!(product: product, nature: :own, started_at: parcel_given_at)
+      create_product_enjoyment!(product: product, nature: :own, started_at: parcel_given_at)
       unless parcel_remain_owner
-        self.create_product_ownership!(product: product, nature: :own, started_at: parcel_given_at)
+        create_product_ownership!(product: product, nature: :own, started_at: parcel_given_at)
       end
     end
   end

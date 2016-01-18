@@ -111,7 +111,7 @@ class Import < Ekylibre::Record::Base
   end
 
   def runnable?
-    self.undone? && archive.file?
+    undone? && archive.file?
   end
 
   # Removing progress is the signal to interrupt the process

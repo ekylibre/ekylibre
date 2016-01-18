@@ -3,7 +3,7 @@ module Enumerize
     def localize
       text
     end
-    alias_method :l, :localize
+    alias l localize
 
     def to_xml(options = {})
       require 'active_support/builder' unless defined?(Builder)

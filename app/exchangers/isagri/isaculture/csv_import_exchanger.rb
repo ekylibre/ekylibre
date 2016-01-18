@@ -168,11 +168,11 @@ class Isagri::Isaculture::CsvImportExchanger < ActiveExchanger::Base
 
           intervention_started_at = r.intervention_started_at.to_time + 9.hours
           duration_in_seconds = r.intervention_duration_in_hour.hours
-          if duration_in_seconds
-            intervention_stopped_at = intervention_started_at + duration_in_seconds
-          else
-            intervention_stopped_at = intervention_started_at + 2.hours
-          end
+          intervention_stopped_at = if duration_in_seconds
+                                      intervention_started_at + duration_in_seconds
+                                    else
+                                      intervention_started_at + 2.hours
+                                    end
 
           intervention_year = intervention_started_at.year
           intervention_month = intervention_started_at.month
@@ -261,7 +261,7 @@ class Isagri::Isaculture::CsvImportExchanger < ActiveExchanger::Base
                   # convert measure to variant unit and divide by variant_indicator
                   # ex : for a wheat_seed_25kg
                   # 182.25 kilogram (converting in kilogram) / 25.00 kilogram
-                  population_value = (measure.to_f(variant_indicator.unit.to_sym)) / variant_indicator.value.to_f
+                  population_value = measure.to_f(variant_indicator.unit.to_sym) / variant_indicator.value.to_f
                 end
               end
               if r.working_area
@@ -302,7 +302,7 @@ class Isagri::Isaculture::CsvImportExchanger < ActiveExchanger::Base
                 extrant_population_value = extrant_measure.to_f(extrant_variant_unit.to_sym)
               end
               if extrant_variant_indicator = extrant_variant.send(units_transcode[unit.to_s])
-                extrant_population_value = (extrant_measure.to_f(extrant_variant_indicator.unit.to_sym)) / extrant_variant_indicator.value.to_f
+                extrant_population_value = extrant_measure.to_f(extrant_variant_indicator.unit.to_sym) / extrant_variant_indicator.value.to_f
               end
             end
             if r.working_area

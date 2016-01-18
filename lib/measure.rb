@@ -55,11 +55,11 @@ class Measure
     unit = nil
     if args.size == 1
       expr = args.shift.to_s.gsub(/[[:space:]]+/, ' ').strip
-      unless expr.match(/\A-?([\,\.]\d+|\d+([\,\.]\d+)?)\s*[^\s]+\z/)
+      unless expr =~ /\A-?([\,\.]\d+|\d+([\,\.]\d+)?)\s*[^\s]+\z/
         fail InvalidExpression, "#{expr} cannot be parsed."
       end
       unit  = expr.gsub(/\A-?([\,\.]\d+|\d+([\,\.]\d+)?)\s*/, '').strip
-      value = expr[0..-(unit.size)].strip.to_d # expr.split(/[a-zA-Z\s]/).first.strip.gsub(/\,/, '.').to_d
+      value = expr[0..-unit.size].strip.to_d # expr.split(/[a-zA-Z\s]/).first.strip.gsub(/\,/, '.').to_d
     elsif args.size == 2
       value = args.shift
       unit  = args.shift
@@ -89,7 +89,7 @@ class Measure
   def convert(unit)
     Measure.new(to_r(unit), unit)
   end
-  alias_method :in, :convert
+  alias in convert
 
   # Converts measure inline without instanciating a new Measure
   def convert!(unit)
@@ -97,7 +97,7 @@ class Measure
     @unit = unit.to_s
     self
   end
-  alias_method :in!, :convert!
+  alias in! convert!
 
   Measure.units.each do |unit|
     define_method "in_#{unit}".to_sym do
@@ -268,7 +268,7 @@ class Measure
   def localize(options = {})
     "#{value.to_f.localize(options)} #{@@units.items[unit].symbol}"
   end
-  alias_method :l, :localize
+  alias l localize
 
   # Returns the unit from the nomenclature
   def nomenclature_unit

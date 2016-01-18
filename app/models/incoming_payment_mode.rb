@@ -76,7 +76,7 @@ class IncomingPaymentMode < Ekylibre::Record::Base
       self.with_deposit = false
       self.with_commission = false
     end
-    unless self.with_deposit?
+    unless with_deposit?
       self.depositables_account = nil
       self.depositables_journal = nil
     end

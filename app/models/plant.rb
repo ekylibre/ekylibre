@@ -83,7 +83,7 @@ class Plant < Bioproduct
     # Compute population
     if initial_shape && nature
       if variable_indicators_list.include?(:net_surface_area)
-        self.read!(:net_surface_area, ::Charta.new_geometry(initial_shape).area, at: initial_born_at)
+        read!(:net_surface_area, ::Charta.new_geometry(initial_shape).area, at: initial_born_at)
       end
       if frozen_indicators_list.include?(:net_surface_area)
         self.initial_population = ::Charta.new_geometry(initial_shape).area / variant.net_surface_area
@@ -92,7 +92,7 @@ class Plant < Bioproduct
   end
 
   def status
-    if self.dead_at?
+    if dead_at?
       return :stop
     elsif issues.any?
       return (issues.where(state: :opened).any? ? :caution : :go)

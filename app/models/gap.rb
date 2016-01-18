@@ -68,7 +68,7 @@ class Gap < Ekylibre::Record::Base
   bookkeep do |b|
     b.journal_entry(Journal.used_for_gaps, printed_on: self.printed_at.to_date, unless: amount.zero?) do |entry|
       label = tc(:bookkeep, resource: direction.l, number: number, entity: entity.full_name)
-      if self.profit?
+      if profit?
         entry.add_debit(label, entity.account(entity_role).id, amount)
         for item in items
           entry.add_credit(label, Account.find_or_import_from_nomenclature(:other_usual_running_profits), item.pretax_amount)
@@ -86,6 +86,6 @@ class Gap < Ekylibre::Record::Base
 
   # Gives the amount to use for affair bookkeeping
   def deal_amount
-    (self.loss? ? -amount : amount)
+    (loss? ? -amount : amount)
   end
 end

@@ -14,7 +14,7 @@ module Pasteque
           nature: :string,
           default: 'Good bye'
         }
-      }
+      }.freeze
 
       def show
         if pref = CONVERT[params[:label]]

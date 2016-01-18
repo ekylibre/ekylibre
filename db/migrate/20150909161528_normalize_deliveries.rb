@@ -16,7 +16,7 @@ class NormalizeDeliveries < ActiveRecord::Migration
     [:product_reading_tasks, :originator],
     [:product_readings, :originator],
     [:versions, :item]
-  ]
+  ].freeze
 
   def change
     change_column_null :deliveries, :transporter_id, true

@@ -3,7 +3,7 @@ module Nomen
   class Item
     attr_reader :nomenclature, :left, :right, :depth, :aliases, :parent_name
     attr_accessor :name, :attributes
-    alias_method :properties, :attributes
+    alias properties attributes
 
     # New item
     def initialize(nomenclature, name, options = {})
@@ -109,7 +109,7 @@ module Nomen
     end
 
     def root
-      self.parent? ? parent.root : self
+      parent? ? parent.root : self
     end
 
     # Returns direct parents from the closest to the farthest
@@ -152,9 +152,9 @@ module Nomen
     def human_name(options = {})
       "nomenclatures.#{nomenclature.name}.items.#{name}".t(options.merge(default: ["items.#{name}".to_sym, "enumerize.#{nomenclature.name}.#{name}".to_sym, "labels.#{name}".to_sym, name.humanize]))
     end
-    alias_method :humanize, :human_name
-    alias_method :localize, :human_name
-    alias_method :l, :localize
+    alias humanize human_name
+    alias localize human_name
+    alias l localize
 
     def human_notion_name(notion_name, options = {})
       "nomenclatures.#{nomenclature.name}.notions.#{notion_name}.#{name}".t(options.merge(default: ["labels.#{name}".to_sym]))
@@ -213,7 +213,7 @@ module Nomen
     def to_xml_attrs
       attrs = {}
       attrs[:name] = name
-      attrs[:parent] = @parent_name if self.parent?
+      attrs[:parent] = @parent_name if parent?
       properties.each do |pname, pvalue|
         if p = nomenclature.properties[pname.to_s]
           if p.type == :decimal

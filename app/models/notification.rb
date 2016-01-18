@@ -50,7 +50,7 @@ class Notification < Ekylibre::Record::Base
   # ]VALIDATORS]
 
   def read!
-    self.update_attributes!(read_at: Time.zone.now)
+    update_attributes!(read_at: Time.zone.now)
   end
 
   def human_message

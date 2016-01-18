@@ -54,7 +54,7 @@ class PurchaseNature < Ekylibre::Record::Base
   scope :actives, -> { where(active: true) }
 
   validate do
-    self.journal = nil unless self.with_accounting?
+    self.journal = nil unless with_accounting?
     if journal
       errors.add(:journal, :currency_does_not_match, currency: journal_currency) if currency != journal_currency
     end

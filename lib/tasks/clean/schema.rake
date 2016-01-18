@@ -27,7 +27,7 @@ namespace :clean do
                 nil
               end
       for column in columns
-        next if column.name =~ /\A\_/
+        next if column.name.start_with?('_')
         column_hash = { type: column.type.to_s }
         schema_yaml << "  #{column.name}: {type: #{column.type}"
 
@@ -41,7 +41,7 @@ namespace :clean do
             column_hash[:scale] = column.scale
           end
         end
-        if column.name =~ /\_id\z/
+        if column.name.end_with?('_id')
           reference_name = column.name.to_s[0..-4].to_sym
           unless val = Ekylibre::Schema.references(table, column)
             # puts model.name.red + ": " + model.descendants.map(&:name).to_sentence.yellow

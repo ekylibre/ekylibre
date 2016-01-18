@@ -133,7 +133,7 @@ class Affair < Ekylibre::Record::Base
       end
       hash
     end.delete_if { |_k, v| v.zero? }
-    b.journal_entry(self.class.journal, printed_on: (all_deals.last ? all_deals.last.dealt_at : Time.zone.now).to_date, if: (self.balanced? && thirds.size > 1)) do |entry|
+    b.journal_entry(self.class.journal, printed_on: (all_deals.last ? all_deals.last.dealt_at : Time.zone.now).to_date, if: (balanced? && thirds.size > 1)) do |entry|
       for account_id, amount in thirds
         entry.add_debit(label, account_id, amount)
       end
@@ -141,7 +141,7 @@ class Affair < Ekylibre::Record::Base
   end
 
   def work_name
-    "#{number}"
+    number.to_s
   end
 
   class << self
@@ -165,9 +165,9 @@ class Affair < Ekylibre::Record::Base
     # Removes empty affairs in the whole table
     def clean_deads
       where("journal_entry_id NOT IN (SELECT id FROM #{connection.quote_table_name(:journal_entries)})" + self.class.affairable_types.collect do |type|
-        model = type.constantize
-        " AND id NOT IN (SELECT #{model.reflect_on_association(:affair).foreign_key} FROM #{connection.quote_table_name(model.table_name)})"
-      end.join).delete_all
+                                                                                                            model = type.constantize
+                                                                                                            " AND id NOT IN (SELECT #{model.reflect_on_association(:affair).foreign_key} FROM #{connection.quote_table_name(model.table_name)})"
+                                                                                                          end.join).delete_all
     end
 
     # Returns heterogen list of deals of the affair
@@ -199,13 +199,13 @@ class Affair < Ekylibre::Record::Base
   end
 
   def status
-    (self.closed? ? :go : deals_count > 1 ? :caution : :stop)
+    (closed? ? :go : deals_count > 1 ? :caution : :stop)
   end
 
   # Reload and save! affair to force counts and sums computation
   def refresh!
     reload
-    self.save!
+    save!
   end
 
   # Returns if the affair is bad for us...
@@ -243,7 +243,7 @@ class Affair < Ekylibre::Record::Base
         end
         Gap.create!(attributes)
       end
-      self.refresh!
+      refresh!
     end
     true
   end
@@ -300,20 +300,20 @@ class Affair < Ekylibre::Record::Base
     deals = self.deals.select(&tendency_method)
     amount = deals.map(&amount_method).sum
     thirds = self.thirds
-    if mode == :equality
-      distribution = thirds.inject({}) do |hash, third|
-        hash[third.id] = (balance / thirds.size).round(currency_precision)
-        hash
-      end
-    else
-      distribution = thirds.inject({}) do |hash, third|
-        third_amount = deals.select do |deal|
-          deal.deal_third == third
-        end.map(&amount_method).sum
-        hash[third.id] = (balance * third_amount / amount).round(currency_precision)
-        hash
-      end
-    end
+    distribution = if mode == :equality
+                     thirds.inject({}) do |hash, third|
+                       hash[third.id] = (balance / thirds.size).round(currency_precision)
+                       hash
+                     end
+                   else
+                     thirds.inject({}) do |hash, third|
+                       third_amount = deals.select do |deal|
+                         deal.deal_third == third
+                       end.map(&amount_method).sum
+                       hash[third.id] = (balance * third_amount / amount).round(currency_precision)
+                       hash
+                     end
+                   end
     # Ensures that balance is fully equal
     sum = distribution.values.sum
     unless sum != balance

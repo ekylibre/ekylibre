@@ -4,13 +4,13 @@ module Charta
     attr_reader :srid
 
     def initialize(data, srid = :WGS84)
-      if data.is_a? Nokogiri::XML::Document
-        @kml = data.root.to_xml
-      elsif data.is_a?(Nokogiri::XML::NodeSet) || data.is_a?(Nokogiri::XML::Element)
-        @kml = data.to_xml
-      else
-        @kml = data
-      end
+      @kml = if data.is_a? Nokogiri::XML::Document
+               data.root.to_xml
+             elsif data.is_a?(Nokogiri::XML::NodeSet) || data.is_a?(Nokogiri::XML::Element)
+               data.to_xml
+             else
+               data
+             end
       @srid = Charta.find_srid(srid)
     end
 

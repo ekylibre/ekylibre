@@ -28,6 +28,6 @@ module Backend
       end
     end
 
-    alias_method :index, :show
+    alias index show
   end
 end

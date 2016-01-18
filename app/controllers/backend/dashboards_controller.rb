@@ -59,7 +59,7 @@ module Backend
       %w(o ó ò ô ö ǒ ŏ ō õ ő),
       %w(u ú ù û ü ǔ ŭ ū ũ ű ů),
       %w(ý ỳ ŷ ÿ ȳ ỹ)
-    ]
+    ].freeze
 
     # Global search method is put there for now waiting for a better place
     # This action permits to search across all the main data of the application
@@ -157,10 +157,10 @@ module Backend
         columns = model.columns_definition.values.delete_if do |c|
           [:created_at, :creator_id, :depth, :id, :lft, :lock_version,
            :position, :rights, :rgt, :type, :updated_at, :updater_id].include?(c[:name]) ||
-          [:boolean, :spatial, :geometry].include?(c[:type]) ||
-          c[:name].to_s =~ /\_file_size$/ ||
-          c[:name].to_s =~ /\_type$/ ||
-          c[:name].to_s =~ /\_id$/
+            [:boolean, :spatial, :geometry].include?(c[:type]) ||
+            c[:name].to_s =~ /\_file_size$/ ||
+            c[:name].to_s =~ /\_type$/ ||
+            c[:name].to_s =~ /\_id$/
         end.collect do |c|
           name = c[:name]
           name = "#{model.table_name}.#{name}" if main_model
@@ -171,11 +171,11 @@ module Backend
           end
         end
         next unless columns.any?
-        if main_model
-          query = "SELECT #{Ekylibre::Record::Base.connection.quote(model.model_name.human)} || ' ' || " + columns.join(' || ') + " AS indexer, #{title} AS title, " + (main_model.columns_definition[:type] ? "CASE WHEN LENGTH(TRIM(#{main_model.table_name}.type)) > 0 THEN #{main_model.table_name}.type ELSE '#{main_model.table_name.to_s.classify}' END" : "'#{main_model.name}'") + " AS record_type, #{main_model.table_name}.id AS record_id FROM #{model.table_name} LEFT JOIN #{main_model.table_name} ON (#{model.table_name}.#{reflection.foreign_key} = #{main_model.table_name}.id)"
-        else
-          query = "SELECT #{Ekylibre::Record::Base.connection.quote(model.model_name.human)} || ' ' || " + columns.join(' || ') + " AS indexer, #{title} AS title, " + (model.columns_definition[:type] ? "CASE WHEN LENGTH(TRIM(type)) > 0 THEN type ELSE '#{model.table_name.to_s.classify}' END" : "'#{model.name}'") + " AS record_type, id AS record_id FROM #{model.table_name}"
-        end
+        query = if main_model
+                  "SELECT #{Ekylibre::Record::Base.connection.quote(model.model_name.human)} || ' ' || " + columns.join(' || ') + " AS indexer, #{title} AS title, " + (main_model.columns_definition[:type] ? "CASE WHEN LENGTH(TRIM(#{main_model.table_name}.type)) > 0 THEN #{main_model.table_name}.type ELSE '#{main_model.table_name.to_s.classify}' END" : "'#{main_model.name}'") + " AS record_type, #{main_model.table_name}.id AS record_id FROM #{model.table_name} LEFT JOIN #{main_model.table_name} ON (#{model.table_name}.#{reflection.foreign_key} = #{main_model.table_name}.id)"
+                else
+                  "SELECT #{Ekylibre::Record::Base.connection.quote(model.model_name.human)} || ' ' || " + columns.join(' || ') + " AS indexer, #{title} AS title, " + (model.columns_definition[:type] ? "CASE WHEN LENGTH(TRIM(type)) > 0 THEN type ELSE '#{model.table_name.to_s.classify}' END" : "'#{model.name}'") + " AS record_type, id AS record_id FROM #{model.table_name}"
+                end
         queries << query
       end
 

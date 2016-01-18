@@ -269,7 +269,7 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
         attributes = attributes.with_indifferent_access
         attributes[main_column] ||= identifier.to_s
         for reflection in model.reflect_on_all_associations
-          if attributes[reflection.name] and not attributes[reflection.name].class < ActiveRecord::Base
+          if attributes[reflection.name] && (not attributes[reflection.name].class < ActiveRecord::Base)
             attributes[reflection.name] = get_record(reflection.class_name.tableize, attributes[reflection.name].to_s)
           end
         end

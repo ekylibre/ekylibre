@@ -3,7 +3,7 @@ module Nomen
   class Nomenclature
     attr_reader :properties, :items, :name, :roots
     attr_accessor :name, :notions, :translateable, :forest_right
-    alias_method :property_natures, :properties
+    alias property_natures properties
 
     # Instanciate a new nomenclature
     def initialize(name, options = {})
@@ -304,7 +304,7 @@ module Nomen
     def human_name(options = {})
       "nomenclatures.#{name}.name".t(options.merge(default: ["labels.#{name}".to_sym, name.to_s.humanize]))
     end
-    alias_method :humanize, :human_name
+    alias humanize human_name
 
     def new_boundaries(count = 2)
       boundaries = []
@@ -332,7 +332,7 @@ module Nomen
         return @items.keys.sort
       end
     end
-    alias_method :all, :to_a
+    alias all to_a
 
     def <=>(other)
       name <=> other.name
@@ -397,7 +397,7 @@ module Nomen
     def find(item_name)
       @items[item_name]
     end
-    alias_method :item, :find
+    alias item find
 
     # Returns +true+ if an item exists in the nomenclature that matches the
     # name, or +false+ otherwise. The argument can take two forms:
@@ -406,7 +406,7 @@ module Nomen
     def exists?(item)
       @items[item.respond_to?(:name) ? item.name : item].present?
     end
-    alias_method :include?, :exists?
+    alias include? exists?
 
     def property(property_name)
       @properties[property_name]
@@ -482,11 +482,11 @@ module Nomen
     def cast_options(options)
       return {} if options.nil?
       hash = options.each_with_object({}) do |(k, v), h|
-        if properties[k]
-          h[k.to_sym] = cast_property(k, v.to_s)
-        else
-          h[k.to_sym] = v
-        end
+        h[k.to_sym] = if properties[k]
+                        cast_property(k, v.to_s)
+                      else
+                        v
+                      end
       end
     end
 

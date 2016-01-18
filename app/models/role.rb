@@ -103,7 +103,7 @@ class Role < Ekylibre::Record::Base
     }
 
     # create role
-    role = self.create!(attributes)
+    role = create!(attributes)
 
     role
   end

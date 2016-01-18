@@ -115,7 +115,7 @@ class User < Ekylibre::Record::Base
   end
 
   validate on: :update do
-    if self.class.administrators.count <= 1 && old_record.administrator? && !self.administrator?
+    if self.class.administrators.count <= 1 && old_record.administrator? && !administrator?
       errors.add(:administrator, :accepted)
     end
     if person && old_record.person
@@ -131,12 +131,12 @@ class User < Ekylibre::Record::Base
 
   before_save do
     unless person
-      self.create_person!(first_name: first_name, last_name: last_name, nature: :contact)
+      create_person!(first_name: first_name, last_name: last_name, nature: :contact)
     end
   end
 
   protect(on: :destroy) do
-    (self.administrator? && self.class.administrators.count <= 1) || self.class.count <= 1
+    (administrator? && self.class.administrators.count <= 1) || self.class.count <= 1
   end
 
   def full_name
@@ -165,7 +165,7 @@ class User < Ekylibre::Record::Base
     p ||= prefer!(name, default_value, nature)
     p
   end
-  alias_method :pref, :preference
+  alias pref preference
 
   def prefer!(name, value, nature = nil)
     p = preferences.find_or_initialize_by(name: name)
@@ -195,18 +195,18 @@ class User < Ekylibre::Record::Base
       message = :no_right_defined_for_this_part_of_the_application.tl(controller: controller_name, action: action_name)
     elsif (rights = self.class.rights[controller_name.to_sym][action_name.to_sym]).nil?
       message = :no_right_defined_for_this_part_of_the_application.tl(controller: controller_name, action: action_name)
-    elsif (rights & [:__minimum__, :__public__]).empty? && (rights_list & rights).empty? && !self.administrator?
+    elsif (rights & [:__minimum__, :__public__]).empty? && (rights_list & rights).empty? && !administrator?
       message = :no_right_defined_for_this_part_of_the_application_and_this_user.tl
     end
     message
   end
 
   def can?(right)
-    self.administrator? || self.rights.match(/(^|\s)#{right}(\s|$)/)
+    administrator? || self.rights.match(/(^|\s)#{right}(\s|$)/)
   end
 
   def can_access?(url)
-    return true if self.administrator?
+    return true if administrator?
     if url.is_a?(Hash)
       unless url[:controller] && url[:action]
         fail "Invalid URL for accessibility test: #{url.inspect}"
@@ -256,13 +256,13 @@ class User < Ekylibre::Record::Base
     preference = self.preference('current_campaign.id', default_campaign.id, :integer)
     unless campaign = Campaign.find_by(id: preference.value)
       campaign = default
-      self.prefer!('current_campaign.id', campaign.id)
+      prefer!('current_campaign.id', campaign.id)
     end
     campaign
   end
 
   def current_campaign=(campaign)
-    self.prefer!('current_campaign.id', campaign.id, :integer)
+    prefer!('current_campaign.id', campaign.id, :integer)
   end
 
   def card
@@ -285,16 +285,16 @@ class User < Ekylibre::Record::Base
 
   def self.generate_password(password_length = 8, mode = :normal)
     return '' if password_length.blank? || password_length < 1
-    case mode
-    when :dummy then
-      letters = %w(a b c d e f g h j k m n o p q r s t u w x y 3 4 6 7 8 9)
-    when :simple then
-      letters = %w(a b c d e f g h j k m n o p q r s t u w x y A B C D E F G H J K M N P Q R T U W Y X 3 4 6 7 8 9)
-    when :normal then
-      letters = %w(a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9)
-    else
-      letters = %w(a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9 _ = + - * | [ ] { } . : ; ! ? , § % / & < >)
-    end
+    letters = case mode
+              when :dummy then
+                %w(a b c d e f g h j k m n o p q r s t u w x y 3 4 6 7 8 9)
+              when :simple then
+                %w(a b c d e f g h j k m n o p q r s t u w x y A B C D E F G H J K M N P Q R T U W Y X 3 4 6 7 8 9)
+              when :normal then
+                %w(a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9)
+              else
+                %w(a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9 _ = + - * | [ ] { } . : ; ! ? , § % / & < >)
+              end
     letters_length = letters.length
     password = ''
     password_length.times { password += letters[(letters_length * rand).to_i] }

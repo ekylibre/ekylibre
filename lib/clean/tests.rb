@@ -100,7 +100,7 @@ module Clean
       # Read source to determine if class with given name is present
       def check_class_presence(class_name, source)
         # Look for raw
-        return true if source.match(/class\ +#{class_name}\ +/)
+        return true if source =~ /class\ +#{class_name}\ +/
 
         # Look for clean
         compounds = class_name.split('::')

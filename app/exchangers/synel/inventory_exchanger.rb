@@ -51,11 +51,11 @@ class Synel::InventoryExchanger < ActiveExchanger::Base
 
       # find a the father variety from field in file
       father_items = Nomen::Variety.where(french_race_code: r.father_variety_code)
-      if father_items
-        father_bos_variety = father_items.first.name
-      else
-        father_bos_variety = 'bos'
-      end
+      father_bos_variety = if father_items
+                             father_items.first.name
+                           else
+                             'bos'
+                           end
 
       # Find or create father
       unless r.father_identification_number.blank?

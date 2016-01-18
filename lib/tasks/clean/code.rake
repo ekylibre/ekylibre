@@ -2,7 +2,7 @@ namespace :clean do
   desc 'Removes end spaces'
   task :code do
     print ' - White spaces: '
-    files  = []
+    files = []
     dirs = '{app,bin,config,db,doc,lib,plugins,public,test,vendor}'
     Dir.chdir(Rails.root) do
       files += Dir['Gemfile*']

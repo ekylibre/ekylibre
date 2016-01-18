@@ -35,38 +35,38 @@ class Ekylibre::ActivitiesExchanger < ActiveExchanger::Base
 
       family = Nomen::ActivityFamily[r.family]
 
-      if family <= :vegetal_crops
-        attributes = {
-          name: r.name,
-          family: :vegetal_crops,
-          cultivation_variety: r.variety,
-          support_variety: :cultivable_zone,
-          with_cultivation: true,
-          with_supports: true,
-          size_indicator: 'net_surface_area',
-          size_unit: 'hectare',
-          nature: :main
-        }
-      elsif family <= :animal_farming
-        attributes = {
-          name: r.name,
-          family: :animal_farming,
-          cultivation_variety: r.variety,
-          support_variety: :animal_group,
-          with_cultivation: true,
-          with_supports: true,
-          size_indicator: 'members_population',
-          nature: :main
-        }
-      else
-        attributes = {
-          name: r.name,
-          family: r.family,
-          cultivation_variety: r.variety,
-          with_cultivation: true,
-          nature: :main
-        }
-      end
+      attributes = if family <= :vegetal_crops
+                     {
+                       name: r.name,
+                       family: :vegetal_crops,
+                       cultivation_variety: r.variety,
+                       support_variety: :cultivable_zone,
+                       with_cultivation: true,
+                       with_supports: true,
+                       size_indicator: 'net_surface_area',
+                       size_unit: 'hectare',
+                       nature: :main
+                     }
+                   elsif family <= :animal_farming
+                     {
+                       name: r.name,
+                       family: :animal_farming,
+                       cultivation_variety: r.variety,
+                       support_variety: :animal_group,
+                       with_cultivation: true,
+                       with_supports: true,
+                       size_indicator: 'members_population',
+                       nature: :main
+                     }
+                   else
+                     {
+                       name: r.name,
+                       family: r.family,
+                       cultivation_variety: r.variety,
+                       with_cultivation: true,
+                       nature: :main
+                     }
+                   end
       unless activity = Activity.find_by(attributes.slice(:name, :family, :cultivation_variety))
         activity = Activity.create!(attributes)
       end

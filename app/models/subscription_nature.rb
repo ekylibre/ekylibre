@@ -65,11 +65,11 @@ class SubscriptionNature < Ekylibre::Record::Base
   end
 
   def now
-    (self.period? ? Time.zone.today : actual_number)
+    (period? ? Time.zone.today : actual_number)
   end
 
   def fields
-    if self.period?
+    if period?
       return :started_at, :stopped_at
     else
       return :first_number, :last_number

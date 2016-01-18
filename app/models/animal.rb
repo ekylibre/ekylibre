@@ -77,7 +77,7 @@ class Animal < Bioproduct
   scope :mothers, -> { indicate(sex: 'female', reproductor: true).order(:name) }
 
   def status
-    if self.dead_at?
+    if dead_at?
       return :stop
     elsif indicators_list.include? :healthy
       return (healthy ? :go : :caution)

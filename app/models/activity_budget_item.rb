@@ -90,9 +90,9 @@ class ActivityBudgetItem < Ekylibre::Record::Base
   # Computes the coefficient to use for amount computation
   def coefficient
     return 0 unless activity_budget
-    if self.per_production?
+    if per_production?
       return activity_budget.productions_count
-    elsif self.per_working_unit?
+    elsif per_working_unit?
       return activity_budget.productions_size
     end
     1

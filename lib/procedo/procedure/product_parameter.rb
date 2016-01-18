@@ -11,7 +11,7 @@ module Procedo
                   :procedure, :producer_name, :roles, :type, :value,
                   :variety, :new_value
 
-      TYPES = [:target, :tool, :doer, :input, :output]
+      TYPES = [:target, :tool, :doer, :input, :output].freeze
 
       def initialize(procedure, name, type, options = {})
         super(procedure, name, options)
@@ -143,7 +143,7 @@ module Procedo
           if @variety =~ /\:/
             attr, other = @variety.split(/\:/)[0..1].map(&:strip)
             attr = 'variety' if attr.blank?
-            attr.gsub!(/\-/, '_')
+            attr.tr!('-', '_')
             unless parameter = @procedure.parameters[other]
               fail Procedo::Errors::MissingParameter, "Parameter #{other.inspect} can not be found"
             end
@@ -160,7 +160,7 @@ module Procedo
           if @derivative_of =~ /\:/
             attr, other = @derivative_of.split(/\:/)[0..1].map(&:strip)
             attr = 'derivative_of' if attr.blank?
-            attr.gsub!(/\-/, '_')
+            attr.tr!('-', '_')
             unless parameter = @procedure.parameters[other]
               fail Procedo::Errors::MissingParameter, "Parameter #{other.inspect} can not be found"
             end
@@ -188,7 +188,7 @@ module Procedo
 
       # Return a ProductNatureVariant based on given informations
       def variant(intervention)
-        if @variant =~ /\A\:/
+        if @variant.start_with?(':')
           other = @variant[1..-1]
           return intervention.product_parameters.find_by(parameter: other).variant
         elsif Nomen::ProductNatureVariant[@variant]
@@ -203,7 +203,7 @@ module Procedo
       def variant_parameter
         if parted?
           return producer
-        elsif @variant =~ /\A\:/
+        elsif @variant.start_with?(':')
           other = @variant[1..-1]
           return @procedure.parameters[other]
         end

@@ -19,7 +19,7 @@ namespace :http do
           file_name = "public/#{code}"
           file_name << ".#{locale}" unless I18n.default_locale == locale
           file_name << '.html'
-          puts "#{file_name}"
+          puts file_name.to_s
           html = template.render(name.to_s.humanize, name: name, code: code).gsub!(/[\ \t]+\n/, "\n")
           File.write(Rails.root.join(file_name), html)
         end

@@ -13,10 +13,10 @@ STDOUT.sync = true
 class Renamer
   attr_reader :root
 
-  SUPPORTED_TYPES = [:model, :table]
+  SUPPORTED_TYPES = [:model, :table].freeze
 
   def execute(command)
-    puts "#{command.send(@simulate ? :yellow : :red)}"
+    puts command.send(@simulate ? :yellow : :red).to_s
     system(command) unless @simulate
   end
 
@@ -31,7 +31,7 @@ class Renamer
   end
 
   def initialize(args)
-    unless $PROGRAM_NAME.match(/^(.\/)?bin\//)
+    unless $PROGRAM_NAME =~ /^(.\/)?bin\//
       puts 'Script must be started from Rails root.'
       exit 0
     end

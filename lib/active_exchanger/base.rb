@@ -97,7 +97,7 @@ module ActiveExchanger
       @supervisor = supervisor
     end
 
-    alias_method :w, :supervisor
+    alias w supervisor
 
     # def import
     #   raise NotImplementedError

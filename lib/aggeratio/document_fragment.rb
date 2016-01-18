@@ -115,7 +115,7 @@ module Aggeratio
       if mode == :table || mode == :body
         code << "  xml.tbody do\n"
 
-        body_code  = build_elements(element.xpath('xmlns:variable'))
+        body_code = build_elements(element.xpath('xmlns:variable'))
         body_code << build_table_serie(columns, vertical) do |col, cell_code|
           if col.name == 'cell'
             if col.has_attribute?('if')

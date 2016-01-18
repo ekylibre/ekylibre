@@ -21,24 +21,24 @@ module Charta
         srid = srs ? find_srid(srs) : :WGS84
         geom_ewkt = select_value("SELECT ST_AsEWKT(ST_GeomFromEWKT('#{::Charta::GeoJSON.new(coordinates, srid).to_ewkt}'))")
       elsif coordinates.is_a?(String)
-        if coordinates =~ /\A[A-F0-9]+\z/ # WKB
-          if srs && srid = find_srid(srs)
-            geom_ewkt = select_value("SELECT ST_AsEWKT(ST_GeomFromText(E'\\\\x#{coordinates}', #{srid}))")
-          else
-            geom_ewkt = select_value("SELECT ST_AsEWKT(ST_GeomFromEWKB(E'\\\\x#{coordinates}'))")
-          end
-        elsif format == 'gml' && ::Charta::GML.valid?(coordinates)
-          # required format 'cause kml geometries return empty instead of failing
-          geom_ewkt = ::Charta::GML.new(coordinates, srid).to_ewkt
-        elsif format == 'kml' && ::Charta::KML.valid?(coordinates)
-          geom_ewkt = ::Charta::KML.new(coordinates, srid).to_ewkt
-        else # WKT expected
-          if srs && srid = find_srid(srs)
-            geom_ewkt = select_value("SELECT ST_AsEWKT(ST_GeomFromText('#{coordinates}', #{srid}))")
-          else
-            geom_ewkt = select_value("SELECT ST_AsEWKT(ST_GeomFromEWKT('#{coordinates}'))")
-          end
-        end
+        geom_ewkt = if coordinates =~ /\A[A-F0-9]+\z/ # WKB
+                      if srs && srid = find_srid(srs)
+                        select_value("SELECT ST_AsEWKT(ST_GeomFromText(E'\\\\x#{coordinates}', #{srid}))")
+                      else
+                        select_value("SELECT ST_AsEWKT(ST_GeomFromEWKB(E'\\\\x#{coordinates}'))")
+                      end
+                    elsif format == 'gml' && ::Charta::GML.valid?(coordinates)
+                      # required format 'cause kml geometries return empty instead of failing
+                      ::Charta::GML.new(coordinates, srid).to_ewkt
+                    elsif format == 'kml' && ::Charta::KML.valid?(coordinates)
+                      ::Charta::KML.new(coordinates, srid).to_ewkt
+                    else # WKT expected
+                      if srs && srid = find_srid(srs)
+                        select_value("SELECT ST_AsEWKT(ST_GeomFromText('#{coordinates}', #{srid}))")
+                      else
+                        select_value("SELECT ST_AsEWKT(ST_GeomFromEWKT('#{coordinates}'))")
+                      end
+                    end
       else
         geom_ewkt = select_value("SELECT ST_AsEWKT(ST_GeomFromText('#{coordinates.as_text}', #{coordinates.srid}))")
       end
@@ -92,21 +92,21 @@ module Charta
 
     # Check and returns the SRID matching with srname or SRID.
     def find_srid(srname_or_srid)
-      if srname_or_srid.is_a?(Symbol) || srname_or_srid.is_a?(String)
-        item = systems.items[srname_or_srid]
-      else
-        item = systems.find_by(srid: srname_or_srid)
-      end
+      item = if srname_or_srid.is_a?(Symbol) || srname_or_srid.is_a?(String)
+               systems.items[srname_or_srid]
+             else
+               systems.find_by(srid: srname_or_srid)
+             end
       (item ? item.srid : nil)
     end
 
     def clean_for_active_record(value, options = {})
       return nil if value.blank?
-      if value.is_a?(String) && value =~ /\A\{.*\}\z/
-        value = from_geojson(value)
-      else
-        value = new_geometry(value)
-      end
+      value = if value.is_a?(String) && value =~ /\A\{.*\}\z/
+                from_geojson(value)
+              else
+                new_geometry(value)
+              end
       value.convert_to(options[:type]).to_rgeo
     end
 

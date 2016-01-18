@@ -36,7 +36,7 @@ class Delay
     'second' => :second,
     'secondes' => :second,
     'seconds' => :second
-  }
+  }.freeze
   KEYS = TRANSLATIONS.keys.join('|').freeze
 
   attr_reader :expression
@@ -50,11 +50,11 @@ class Delay
     end
     @expression = expression.collect do |step|
       # step = step.mb_chars.downcase
-      if step.match(/\A(eom|end of month|fdm|fin de mois)\z/)
+      if step =~ /\A(eom|end of month|fdm|fin de mois)\z/
         [:eom]
-      elsif step.match(/\A(bom|beginning of month|ddm|debut de mois|début de mois)\z/)
+      elsif step =~ /\A(bom|beginning of month|ddm|debut de mois|début de mois)\z/
         [:bom]
-      elsif step.match(/\A\d+\ (#{KEYS})(\ (avant|ago))?\z/)
+      elsif step =~ /\A\d+\ (#{KEYS})(\ (avant|ago))?\z/
         words = step.split(/\s+/).map(&:to_s)
         if TRANSLATIONS[words[1]].nil?
           fail InvalidDelayExpression.new("#{words[1].inspect} is an undefined period (#{step.inspect} of #{base.inspect})")

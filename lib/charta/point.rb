@@ -4,12 +4,12 @@ module Charta
     def x
       coordinates(:x)
     end
-    alias_method :longitude, :x
+    alias longitude x
 
     def y
       coordinates(:y)
     end
-    alias_method :latitude, :y
+    alias latitude y
 
     protected
 

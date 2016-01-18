@@ -77,12 +77,12 @@ class UpdateProductNaturesNomen < ActiveRecord::Migration
 
     { table: 'product_natures', column: 'variable_indicators_list',  new: 'nitrogen_concentration', reference_name: 'natural_water' },
     { table: 'product_natures', column: 'variable_indicators_list',  new: 'potential_hydrogen', reference_name: 'natural_water' }
-  ]
+  ].freeze
 
   CHANGING_CATEGORIES = [
     { table: 'product_natures', column: 'category_id', linked_table: 'product_nature_categories', reference_name: 'animal_food_building_division', new_linked_reference_name: 'building_division', old_linked_reference_name: 'equipment' },
     { table: 'product_natures', column: 'category_id', linked_table: 'product_nature_categories', reference_name: 'silage_division', new_linked_reference_name: 'building_division', old_linked_reference_name: 'equipment' }
-  ]
+  ].freeze
 
   PRODUCT_NATURE_VARIANT_ITEMS = [
     { table: 'product_nature_variants', column: 'reference_name', old: 'alfalfa_crop', new: 'lucerne_crop' },
@@ -91,7 +91,7 @@ class UpdateProductNaturesNomen < ActiveRecord::Migration
     { table: 'product_nature_variants', column: 'reference_name', old: 'coop:super_46%_gr._vr', new: 'coop:super_46__gr__vr' },
     { table: 'product_nature_variants', column: 'reference_name', old: 'coop:chlorure_60%_gr_vr', new: 'coop:chlorure_60__gr_vr' },
     { table: 'product_nature_variants', column: 'unit_name', old: 'bag', new: '20kg_bag', reference_name: 'coop:metarex_rg_tds_20kg' }
-  ]
+  ].freeze
 
   PRODUCT_NATURE_VARIANT_READING_ITEMS = [
     { table: 'product_nature_variant_readings', new_frozen_indicator_name: 'net_surface_area', new_frozen_indicator_datatype: 'measure', new_value: '1.00', new_unit: 'hectare', new_absolute_value: '10000.00', new_absolute_unit: 'square_meter', reference_name: 'lucerne_crop' },
@@ -108,7 +108,7 @@ class UpdateProductNaturesNomen < ActiveRecord::Migration
     { table: 'product_nature_variant_readings', new_frozen_indicator_name: 'net_surface_area', new_frozen_indicator_datatype: 'measure', new_value: '1.00', new_unit: 'hectare', new_absolute_value: '10000.00', new_absolute_unit: 'square_meter', reference_name: 'fig_crop' },
     { table: 'product_nature_variant_readings', new_frozen_indicator_name: 'net_surface_area', new_frozen_indicator_datatype: 'measure', new_value: '1.00', new_unit: 'hectare', new_absolute_value: '10000.00', new_absolute_unit: 'square_meter', reference_name: 'vine_grape_crop' }
 
-  ]
+  ].freeze
   # INDICATOR_NAME_CHANGES = {
   #   sulfur_dioxyde_concentration: :sulfur_dioxide_concentration,
   #   plants_density: :plants_count
@@ -128,7 +128,7 @@ class UpdateProductNaturesNomen < ActiveRecord::Migration
     { table: 'production_support_markers', column: 'indicator_name', new: 'plants_count', old: 'plants_density' },
     { table: 'analysis_items', column: 'indicator_name', new: 'plants_count', old: 'plants_density' }
 
-  ]
+  ].freeze
 
   def up
     # check if product_nature is present in DB and update it with new values

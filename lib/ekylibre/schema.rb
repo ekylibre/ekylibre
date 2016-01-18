@@ -76,7 +76,7 @@ module Ekylibre
             type = options.delete(:type)
             options[:null] = !options.delete(:required)
             if ref = options[:references]
-              options[:references] = (ref =~ /\A\~/ ? ref[1..-1] : ref.to_sym)
+              options[:references] = (ref.start_with?('~') ? ref[1..-1] : ref.to_sym)
             end
             h[pair.first] = Column.new(pair.first, type, options).freeze
             h

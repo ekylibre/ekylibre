@@ -66,11 +66,11 @@ class CashTransfer < Ekylibre::Record::Base
     self.emission_currency = emission_cash.currency if emission_cash
     self.reception_currency = reception_cash.currency if reception_cash
     if currency_rate.blank?
-      if emission_currency == reception_currency
-        self.currency_rate = 1
-      else
-        self.currency_rate = I18n.currency_rate(emission_currency, reception_currency)
-      end
+      self.currency_rate = if emission_currency == reception_currency
+                             1
+                           else
+                             I18n.currency_rate(emission_currency, reception_currency)
+                           end
     end
     if emission_amount && currency_rate
       self.reception_amount = currency_rate * emission_amount

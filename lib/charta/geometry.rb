@@ -39,7 +39,7 @@ module Charta
     def to_text
       select_value("SELECT ST_AsText(#{geom})")
     end
-    alias_method :as_text, :to_text
+    alias as_text to_text
 
     def to_ewkt
       @ewkt
@@ -58,7 +58,7 @@ module Charta
     end
 
     def to_svg(options = {})
-      svg = "<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\""
+      svg = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1"'
       for attr, value in { preserve_aspect_ratio: 'xMidYMid meet', width: 180, height: 180, view_box: bounding_box.svg_view_box.join(' ') }.merge(options)
         svg << " #{attr.to_s.camelcase(:lower)}=\"#{value}\""
       end
@@ -73,20 +73,20 @@ module Charta
     def to_geojson
       JSON.parse(select_value("SELECT ST_AsGeoJSON(#{geom})"))
     end
-    alias_method :to_json, :to_geojson
+    alias to_json to_geojson
 
     # Test if the other measure is equal to self
     def ==(other_geometry)
       other = Charta.new_geometry(other_geometry).transform(srid)
-      fail 'Cannot compare geometry collection' if self.collection? && other.collection?
+      fail 'Cannot compare geometry collection' if collection? && other.collection?
       select_value("SELECT ST_Equals(#{geom}, #{other.geom})") =~ /\At(rue)?\z/
     end
 
     # Test if the other measure is equal to self
     def !=(other_geometry)
       other = Charta.new_geometry(other_geometry).transform(srid)
-      if self.collection? && other.collection?
-        return false if self.empty? ^ other.empty?
+      if collection? && other.collection?
+        return false if empty? ^ other.empty?
         fail 'Cannot compare geometry collection'
       end
       select_value("SELECT NOT ST_Equals(#{geom}, #{other.geom})") =~ /\At(rue)?\z/
@@ -94,11 +94,11 @@ module Charta
 
     # Returns area in square meter
     def area
-      if srid = find_srid(Preference[:map_measure_srs])
-        value = select_value("SELECT ST_Area(ST_Transform(#{geom}, #{srid}))")
-      else
-        value = select_value("SELECT ST_Area(#{geom}::geography)")
-      end
+      value = if srid = find_srid(Preference[:map_measure_srs])
+                select_value("SELECT ST_Area(ST_Transform(#{geom}, #{srid}))")
+              else
+                select_value("SELECT ST_Area(#{geom}::geography)")
+              end
       (value.blank? ? 0.0 : value.to_d).in_square_meter
     end
 
@@ -148,7 +148,7 @@ module Charta
       other = Charta.new_geometry(other_geometry).transform(srid)
       self.class.new(select_value("SELECT ST_AsEWKT(ST_Union(#{geom}, #{other.geom}))"))
     end
-    alias_method :+, :merge
+    alias + merge
 
     def intersection(other_geometry)
       other = Charta.new_geometry(other_geometry).transform(srid)
@@ -159,13 +159,13 @@ module Charta
       other = Charta.new_geometry(other_geometry).transform(srid)
       self.class.new(select_value("SELECT ST_AsEWKT(ST_Multi(ST_CollectionExtract(ST_CollectionHomogenize(ST_Multi(ST_Difference(#{geom}, #{other.geom}))), 3)))"))
     end
-    alias_method :-, :difference
+    alias - difference
 
     def bounding_box
       unless @bounding_box
         values = select_row('SELECT ' + [:YMin, :XMin, :YMax, :XMax].collect do |v|
-          "ST_#{v}(#{geom})"
-        end.join(', ')).map(&:to_f)
+                              "ST_#{v}(#{geom})"
+                            end.join(', ')).map(&:to_f)
         [:y_min, :x_min, :y_max, :x_max].each_with_index do |val, index|
           instance_variable_set("@#{val}", values[index])
         end

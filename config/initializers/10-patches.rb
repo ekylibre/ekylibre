@@ -67,12 +67,12 @@ class ::Numeric
   #  * 1.350 => 2
   #  * 1.1 => 1
   def decimal_count
-    return 0 if self.zero?
+    return 0 if zero?
     count = 0
     value = dup
     integers_count = Math.log10(value.floor).ceil
     value /= 10**integers_count
-    while (value != value.to_i)
+    while value != value.to_i
       count += 1
       value *= 10
     end
@@ -195,7 +195,7 @@ unless StateMachine::VERSION == '1.2.0'
 end
 
 module StateMachine::Integrations::ActiveModel
-  alias_method :around_validation_protected, :around_validation
+  alias around_validation_protected around_validation
   def around_validation(*args, &block)
     around_validation_protected(*args, &block)
   end
@@ -235,7 +235,7 @@ module ::I18n
   # Returns translation if found else nil
   def self.hardtranslate(*args)
     result = translate(*args)
-    (result.to_s.match(/(translation\ missing|\(\(\()/) ? nil : result)
+    (result.to_s =~ /(translation\ missing|\(\(\()/ ? nil : result)
   end
 
   # module Backend

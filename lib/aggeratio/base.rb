@@ -1,6 +1,6 @@
 module Aggeratio
   class Base
-    LEVELS = [:api, :human]
+    LEVELS = [:api, :human].freeze
 
     attr_reader :name, :parameters, :root, :aggregator
 
@@ -31,7 +31,7 @@ module Aggeratio
       array = []
       array << element if %w(section cell property title).include?(element.name)
       for child in element.children
-        if child.has_attribute?('name') and not child.attr('name') =~ /^\w+(\_\w+)*$/
+        if child.has_attribute?('name') && (not child.attr('name') =~ /^\w+(\_\w+)*$/)
           fail InvalidDocument, "#{child.name} element has invalid name attribute: #{child.attr('name')}"
         end
         array += properties(child)
@@ -105,7 +105,7 @@ module Aggeratio
 
     def human_name_of(element)
       name = element.attr('value').to_s.downcase # unless name.is_a?(String)
-      name = element.attr('name') unless name.match(/^\w+$/)
+      name = element.attr('name') unless name =~ /^\w+$/
       name = name.to_s.strip.tr('-', '_')
       "'aggregator_properties.#{name}'.t(default: [:'attributes.#{name}', :'labels.#{name}', :'activerecord.models.#{name}', #{name.to_s.humanize.inspect}])"
     end

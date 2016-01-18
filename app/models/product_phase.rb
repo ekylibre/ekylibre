@@ -59,14 +59,14 @@ class ProductPhase < Ekylibre::Record::Base
 
   # Updates product
   after_save do
-    if self.last_for_now?
+    if last_for_now?
       product.update_columns(variant_id: variant_id, nature_id: nature_id, category_id: category_id)
     end
   end
 
   # Updates product
   before_destroy do
-    if self.last_for_now?
+    if last_for_now?
       if previous = self.previous
         product.update_columns(variant_id: previous.variant_id, nature_id: previous.nature_id, category_id: previous.category_id)
       else

@@ -79,8 +79,8 @@ module Visualization
       @config[:series][name] = data.compact.collect do |item|
         next unless item[:shape]
         item
-        .merge(shape: Charta.new_geometry(item[:shape]).transform(:WGS84).to_geojson)
-        .merge(item[:popup] ? { popup: compile_visualization_popup(item[:popup], item) } : {})
+          .merge(shape: Charta.new_geometry(item[:shape]).transform(:WGS84).to_geojson)
+          .merge(item[:popup] ? { popup: compile_visualization_popup(item[:popup], item) } : {})
       end.compact
     end
 

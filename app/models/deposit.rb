@@ -108,6 +108,6 @@ class Deposit < Ekylibre::Record::Base
   end
 
   protect do
-    self.locked? || (journal_entry && journal_entry.closed?)
+    locked? || (journal_entry && journal_entry.closed?)
   end
 end

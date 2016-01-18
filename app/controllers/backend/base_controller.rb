@@ -39,7 +39,7 @@ module Backend
     end
 
     def set_current_campaign
-      if params[:current_campaign_id] and campaign = Campaign.find(params[:current_campaign_id])
+      if params[:current_campaign_id] && (campaign = Campaign.find(params[:current_campaign_id]))
         current_user.current_campaign = campaign
         @current_campaign = campaign
       end
@@ -49,7 +49,7 @@ module Backend
     # Adds :with and :key, :name parameters
     def respond_with_with_template(*resources, &block)
       resources << {} unless resources.last.is_a?(Hash)
-      resources[-1][:with] = (params[:template].to_s.match(/^\d+$/) ? params[:template].to_i : params[:template].to_s) if params[:template]
+      resources[-1][:with] = (params[:template].to_s =~ /^\d+$/ ? params[:template].to_i : params[:template].to_s) if params[:template]
       for param in [:key, :name]
         resources[-1][param] = params[param] if params[param]
       end
@@ -181,7 +181,7 @@ module Backend
         for f, attrs in Ekylibre.helps
           next if attrs[:locale].to_s != locale.to_s
           file_name = [article, article.split('-')[0] + '-index'].detect { |name| attrs[:name] == name }
-          file = f and break unless file_name.blank?
+          (file = f) && break unless file_name.blank?
         end
         break unless file.nil?
       end
@@ -195,7 +195,7 @@ module Backend
     def redirect_to_back(options = {})
       if params[:redirect].present?
         redirect_to params[:redirect], options
-      elsif request.referer and request.referer != request.fullpath
+      elsif request.referer && request.referer != request.fullpath
         redirect_to request.referer, options
       else
         redirect_to(root_url)
@@ -246,8 +246,8 @@ module Backend
         columns = search.collect do |table, filtered_columns|
           filtered_columns.collect do |column|
             ActiveRecord::Base.connection.quote_table_name(table.is_a?(Symbol) ? table.to_s.classify.constantize.table_name : table) +
-            '.' +
-            ActiveRecord::Base.connection.quote_column_name(column)
+              '.' +
+              ActiveRecord::Base.connection.quote_column_name(column)
           end
         end.flatten
         code << "for kw in #{variable}.to_s.lower.split(/\\s+/)\n"
@@ -264,7 +264,7 @@ module Backend
         code << "  #{conditions}[0] += ' AND (#{filters.join(' OR ')})'\n"
         code << "  #{conditions} += #{values}\n"
         code << "end\n"
-        code << "#{conditions}"
+        code << conditions.to_s
         code.c
       end
 
@@ -283,7 +283,7 @@ module Backend
         keys = JournalEntry.state_machine.states.collect(&:name)
         keys += [:period, :started_at, :stopped_at, :accounts, :centralize]
         for k, v in hash
-          nh[k] = hash[k] if k.to_s.match(/^(journal|level)_\d+$/) or keys.include? k.to_sym
+          nh[k] = hash[k] if k.to_s.match(/^(journal|level)_\d+$/) || keys.include?(k.to_sym)
         end
         nh
       end

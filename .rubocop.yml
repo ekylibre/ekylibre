@@ -1,5 +1,4 @@
 AllCops:
-  RunRailsCops: true
   Exclude:
     - 'lib/generators/*/templates/**/*'
     - 'vendor/**/*'
@@ -9,6 +8,9 @@ AllCops:
     - 'lib/procedo/formula/language.rb'
     - 'lib/working_set/query_language.rb'
     - 'db/schema.rb'
+
+Rails:
+  Enabled: true
 
 Metrics/LineLength:
   Enabled: false

@@ -75,20 +75,20 @@ class Subscription < Ekylibre::Record::Base
   before_validation(on: :create) do
     if nature
       if nature.period?
-        if product_nature
-          period = (product_nature.subscription_duration.blank? ? '1 year' : product_nature.subscription_duration) || '1 year'
-        else
-          period = '1 year'
-        end
+        period = if product_nature
+                   (product_nature.subscription_duration.blank? ? '1 year' : product_nature.subscription_duration) || '1 year'
+                 else
+                   '1 year'
+                 end
         # raise StandardError.new "ok"+period.inspect+self.product.subscription_duration.inspect
         self.started_at ||= Time.zone.today
         self.stopped_at ||= Delay.compute(period + ', 1 day ago', self.started_at)
       elsif nature.quantity?
-        if product_nature
-          period = (product_nature.subscription_quantity.blank? ? 1 : product_nature.subscription_quantity) || 1
-        else
-          period = 1
-        end
+        period = if product_nature
+                   (product_nature.subscription_quantity.blank? ? 1 : product_nature.subscription_quantity) || 1
+                 else
+                   1
+                 end
         self.first_number ||= nature.actual_number
         self.last_number ||= self.first_number + period - 1
       end
@@ -110,7 +110,7 @@ class Subscription < Ekylibre::Record::Base
   def compute_period
     # self.clean
     self.nature_id ||= product_nature.subscription_nature_id if product_nature
-    self.valid? if self.new_record?
+    valid? if new_record?
     self
   end
 

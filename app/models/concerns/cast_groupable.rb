@@ -15,7 +15,7 @@ module CastGroupable
     end
   end
 
-  alias_method :add!, :add_parameter!
+  alias add! add_parameter!
 
   # Add cast
   def add_product_parameter!(*args)

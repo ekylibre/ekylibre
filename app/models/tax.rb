@@ -97,7 +97,7 @@ class Tax < Ekylibre::Record::Base
           end
           attributes["#{account}_account_id"] = tax_account.id
         end
-        tax = self.create!(attributes)
+        tax = create!(attributes)
       end
       tax
     end

@@ -238,7 +238,7 @@ class JournalEntry < Ekylibre::Record::Base
   # this method computes the debit and the credit of the entry.
   def refresh
     reload
-    self.save!
+    save!
   end
 
   # Add a entry which cancel the entry
@@ -274,7 +274,7 @@ class JournalEntry < Ekylibre::Record::Base
           errors.add(:items, :empty)
           saved = false
         end
-        unless self.balanced?
+        unless balanced?
           errors.add(:debit, :unbalanced)
           saved = false
         end
@@ -310,7 +310,7 @@ class JournalEntry < Ekylibre::Record::Base
       name = name[0..254 - omission.size] + omission
     end
     credit = options.delete(:credit) ? true : false
-    credit = (!credit) if amount < 0
+    credit = !credit if amount < 0
     attributes = options.merge(name: name)
     attributes[:account_id] = account.is_a?(Integer) ? account : account.id
     # attributes[:real_currency] = self.journal.currency

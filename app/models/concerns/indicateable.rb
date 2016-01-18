@@ -35,7 +35,7 @@ module Indicateable
   # Register a value at the current value
   def mark!(indicator, options = {})
     marked_at = options[:marked_at] ||= Time.zone.now
-    self.read!(indicator, self.get!(indicator, at: marked_at), at: marked_at)
+    read!(indicator, get!(indicator, at: marked_at), at: marked_at)
   end
 
   # Measure a product for a given indicator
@@ -177,7 +177,7 @@ module Indicateable
   def read_whole_indicators_from!(source, options = {})
     whole_indicators_list.each do |indicator|
       value = source.send(indicator)
-      self.read!(indicator, value, options) if value
+      read!(indicator, value, options) if value
     end
   end
 
@@ -187,7 +187,7 @@ module Indicateable
     options[:taken_at] ||= options[:at] - 0.000001
     (other.individual_indicators_list - frozen_indicators_list).each do |indicator_name|
       if reading = other.reading(indicator_name, at: options[:taken_at])
-        self.read!(indicator_name, reading.value, at: options[:at], originator: options[:originator])
+        read!(indicator_name, reading.value, at: options[:at], originator: options[:originator])
       end
     end
   end

@@ -13,7 +13,7 @@ module WorkingSet
         end
         if tree && list = tree.list and list.present?
           array << list.first_ability.text_value
-          if other_abilities = list.other_abilities and other_abilities.present?
+          if (other_abilities = list.other_abilities) && other_abilities.present?
             other_abilities.elements.each do |other_ability|
               array << other_ability.ability.text_value
             end

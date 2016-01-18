@@ -68,7 +68,7 @@ class Preference < Ekylibre::Record::Base
   scope :global, -> { where(name: @@reference.keys.map(&:to_s), user_id: nil) }
 
   before_validation do
-    if self.record? && record_value
+    if record? && record_value
       self.record_value_type = record_value.class.base_class.name
     end
   end
@@ -208,9 +208,9 @@ class Preference < Ekylibre::Record::Base
   def human_name(locale = nil)
     "preferences.#{name}".t(locale: locale)
   end
-  alias_method :label, :human_name
+  alias label human_name
 
   def model
-    self.record? ? record_value_type.constantize : nil
+    record? ? record_value_type.constantize : nil
   end
 end

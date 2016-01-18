@@ -271,7 +271,7 @@ namespace :clean do
     all_parameters.uniq!.sort!
     all_parameters.each do |param_name|
       to_translate = 1
-      if name = ref[:aggregator_parameters][param_name] and name.present?
+      if (name = ref[:aggregator_parameters][param_name]) && name.present?
         translation << "    #{param_name}: " + Clean::Support.yaml_value(name) + "\n"
       elsif name = I18n.hardtranslate("labels.#{param_name}") || I18n.hardtranslate("attributes.#{param_name}")
         to_translate -= 1
@@ -292,7 +292,7 @@ namespace :clean do
     all_properties.uniq!.sort!
     all_properties.each do |property_name|
       to_translate = 1
-      if name = ref[:aggregator_properties][property_name] and name.present?
+      if (name = ref[:aggregator_properties][property_name]) && name.present?
         translation << "    #{property_name}: " + Clean::Support.yaml_value(name) + "\n"
       elsif property_name.to_s.underscore != property_name.to_s
         to_translate -= 1
@@ -312,7 +312,7 @@ namespace :clean do
     Aggeratio.each do |aggregator|
       to_translate += 1
       agg_name = aggregator.aggregator_name.to_sym
-      if name = ref[:aggregators][agg_name] and name.present?
+      if (name = ref[:aggregators][agg_name]) && name.present?
         translation << "    #{aggregator.aggregator_name}: " + Clean::Support.yaml_value(name) + "\n"
       elsif item = Nomen::DocumentNature[agg_name]
         to_translate -= 1
@@ -626,7 +626,7 @@ namespace :clean do
       total = 0
       count = 0
       for reference_path in Dir.glob(Rails.root.join('config', 'locales', ::I18n.default_locale.to_s, '*.yml')).sort
-        next if reference_path.match(/\Wcomplement\.yml\z/)
+        next if reference_path =~ /\Wcomplement\.yml\z/
         file_name = reference_path.split(/[\/\\]+/)[-1]
         target_path = Rails.root.join('config', 'locales', locale.to_s, file_name)
         unless File.exist?(target_path)

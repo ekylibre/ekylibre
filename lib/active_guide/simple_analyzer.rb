@@ -140,7 +140,7 @@ module ActiveGuide
       return unless env.verbose
       if depth >= 0
         prefix = '  ' * depth
-        puts "#{(prefix + message.to_s.humanize).yellow}"
+        puts (prefix + message.to_s.humanize).yellow.to_s
       end
     end
   end

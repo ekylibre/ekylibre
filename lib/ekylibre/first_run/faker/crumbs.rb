@@ -166,11 +166,11 @@ module Ekylibre::FirstRun::Faker
         count :ticsad_simulation do |_w|
           #############################################################################
           read_at = Time.new(2014, 6, 5, 10, 0, 0, '+00:00')
-          if worker
-            user = User.where(person_id: worker.person_id).first
-          else
-            user = User.where(person_id: Worker.pluck(:person_id).compact).first
-          end
+          user = if worker
+                   User.where(person_id: worker.person_id).first
+                 else
+                   User.where(person_id: Worker.pluck(:person_id).compact).first
+                 end
           RGeo::Shapefile::Reader.open(path.to_s, srid: 4326) do |file|
             file.each do |record|
               metadata = record.attributes['metadata'].blank? ? {} : record.attributes['metadata'].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.inject({}) do |h, i|

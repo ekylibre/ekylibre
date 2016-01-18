@@ -50,13 +50,11 @@ class InventoryItem < Ekylibre::Record::Base
   delegate :reflected?, :achieved_at, to: :inventory
 
   before_validation do
-    if self.population_counting_unitary?
-      self.actual_population = expected_population
-    end
+    self.actual_population = expected_population if population_counting_unitary?
   end
 
   after_save do
-    if self.reflected?
+    if reflected?
       movement = build_product_movement unless product_movement
       movement.product = product
       movement.delta = delta

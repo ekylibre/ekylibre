@@ -105,7 +105,7 @@ module Diagram
       dot_version: 'xdotversion',
       external_label: 'xlabel',
       external_label_position: 'xlp'
-    }
+    }.freeze
 
     attr_accessor :processor, :name
 

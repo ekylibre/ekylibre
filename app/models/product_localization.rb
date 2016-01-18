@@ -58,12 +58,12 @@ class ProductLocalization < Ekylibre::Record::Base
     if container
       self.nature = (container.owner == Entity.of_company ? :interior : :exterior)
     else
-      self.nature = :exterior unless self.transfer?
+      self.nature = :exterior unless transfer?
     end
   end
 
   before_save do
-    self.container = nil unless self.interior?
+    self.container = nil unless interior?
   end
 
   after_save do

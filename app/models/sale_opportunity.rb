@@ -128,9 +128,9 @@ class SaleOpportunity < Affair
   end
 
   def status
-    if self.lost?
-      return  :stop
-    elsif self.won?
+    if lost?
+      return :stop
+    elsif won?
       return :go
     else
       return :caution

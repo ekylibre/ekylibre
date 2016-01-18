@@ -27,7 +27,7 @@ module Ekylibre::Record
     end
 
     def check_if_destroyable?
-      unless self.destroyable?
+      unless destroyable?
         fail RecordNotDestroyable, "#{self.class.name} ID=#{id} is not destroyable"
       end
     end
@@ -55,7 +55,7 @@ module Ekylibre::Record
 
     # Returns a relation for the old record in DB
     def old_record
-      return nil if self.new_record?
+      return nil if new_record?
       self.class.find_by(id: id)
     end
 
@@ -102,7 +102,7 @@ module Ekylibre::Record
     end
 
     def method_missing(method_name, *args)
-      if method_name.to_s =~ /\A\_/
+      if method_name.to_s.start_with?('_')
         unless self.class.columns.detect { |c| c.name == method_name.to_s }
           Rails.logger.warn 'Reset column information'
           self.class.reset_column_information
@@ -124,15 +124,15 @@ module Ekylibre::Record
 
       def has_picture
         has_attached_file :picture,           url: '/backend/:class/:id/picture/:style',
-                                              path: ':tenant/:class/:attachment/:id_partition/:style.:extension',
-                                              styles: {
-                                                thumb: ['64x64>', :jpg],
-                                                identity: ['180x180>', :jpg]
-                                              },
-                                              convert_options: {
-                                                thumb:    '-background white -gravity center -extent 64x64',
-                                                identity: '-background white -gravity center -extent 180x180'
-                                              }
+                          path: ':tenant/:class/:attachment/:id_partition/:style.:extension',
+                          styles: {
+                            thumb: ['64x64>', :jpg],
+                            identity: ['180x180>', :jpg]
+                          },
+                          convert_options: {
+                            thumb:    '-background white -gravity center -extent 64x64',
+                            identity: '-background white -gravity center -extent 180x180'
+                          }
       end
 
       # Returns the definition of custom fields of the class

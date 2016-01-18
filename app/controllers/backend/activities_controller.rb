@@ -42,11 +42,11 @@ module Backend
 
     # Duplicate activity basing on campaign
     def duplicate
-      if params[:source_campaign_id]
-        source = Campaign.find(params[:source_campaign_id])
-      else
-        source = current_campaign.preceding
-      end
+      source = if params[:source_campaign_id]
+                 Campaign.find(params[:source_campaign_id])
+               else
+                 current_campaign.preceding
+               end
       activity = Activity.find_by(id: params[:source_activity_id])
 
       new_campaign = Campaign.find_by(id: params[:campaign_id]) || current_campaign

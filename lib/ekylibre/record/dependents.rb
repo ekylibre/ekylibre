@@ -10,7 +10,7 @@ module Ekylibre::Record #:nodoc:
         refs = self.class.reflect_on_all_associations.select { |r| r.macro.to_s.match(/^has_/) }
         return false unless refs.size > 0
         method_name = 'has_' + refs.collect { |r| r.name.to_s }.sort.join('_or_') + '?'
-        unless self.respond_to?(method_name)
+        unless respond_to?(method_name)
           code = ''
           code << "def #{method_name}\n"
           code << '  return (' + refs.collect do |r|

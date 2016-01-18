@@ -111,9 +111,9 @@ class ListingNode < Ekylibre::Record::Base
     self.listing_id = parent.listing_id if parent
 
     self.key = 'k' + User.send(:generate_password, 31, :normal) if key.blank?
-    if self.root?
+    if root?
       self.name = listing.root_model
-    elsif self.reflection?
+    elsif reflection?
       self.name = attribute_name.to_s + '_0'
     else
       if parent.model
@@ -125,7 +125,7 @@ class ListingNode < Ekylibre::Record::Base
   end
 
   before_validation(on: :create) do
-    if self.reflection?
+    if reflection?
       for node in listing.nodes
         if node = listing.nodes.find_by(name: name)
           self.name = node.name.succ
@@ -179,9 +179,9 @@ class ListingNode < Ekylibre::Record::Base
   def self.condition(column, operator, value, datatype = 'string')
     operation = @@corresponding_comparators[operator.to_sym] || @@corresponding_comparators[:equal]
     c = operation.gsub('{{COLUMN}}', column)
-    c.gsub!('{{LIST}}', '(' + value.to_s.gsub(/\,\,/, "\t").split(/\s*\,\s*/).collect { |x| connection.quote(x.gsub(/\t/, ',')) }.join(', ') + ')')
+    c.gsub!('{{LIST}}', '(' + value.to_s.gsub(/\,\,/, "\t").split(/\s*\,\s*/).collect { |x| connection.quote(x.tr("\t", ',')) }.join(', ') + ')')
     c.gsub!(/\{\{[^\}]*VALUE[^\}]*\}\}/) do |m|
-      n = m[2..-3].gsub('VALUE', value.to_s.send(operator.to_s.match(/_cs$/) ? 'to_s' : 'lower'))
+      n = m[2..-3].gsub('VALUE', value.to_s.send(operator.to_s =~ /_cs$/ ? 'to_s' : 'lower'))
       #       if datatype == "date"
       #         "'"+connection.quoted_date(value.to_date)+"'"
       if datatype == 'boolean'
@@ -208,7 +208,7 @@ class ListingNode < Ekylibre::Record::Base
   end
 
   def model
-    if self.root?
+    if root?
       listing.root_model
     else
       parent.model.reflect_on_association(attribute_name).class_name
@@ -218,8 +218,8 @@ class ListingNode < Ekylibre::Record::Base
   end
 
   def reflection
-    return nil unless self.reflection?
-    if self.root?
+    return nil unless reflection?
+    if root?
       return nil
     else
       return parent.model.reflect_on_association(attribute_name)
@@ -228,7 +228,7 @@ class ListingNode < Ekylibre::Record::Base
 
   def available_nodes
     nodes = []
-    return nodes unless self.reflection? && model = self.model
+    return nodes unless reflection? && model = self.model
     # Columns
     nodes << [tc(:columns), [[tc(:all_columns), 'special-all_columns']] + model.content_columns.select { |c| model.has_human_attribute_name?(c.name) }.collect { |x| [model.human_attribute_name(x.name.to_s).to_s, 'column-' + x.name] }.sort]
     # Reflections

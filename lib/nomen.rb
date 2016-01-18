@@ -1,7 +1,7 @@
 module Nomen
   XMLNS = 'http://www.ekylibre.org/XML/2013/nomenclatures'.freeze
-  NS_SEPARATOR = '-'
-  PROPERTY_TYPES = [:boolean, :item, :item_list, :choice, :choice_list, :string_list, :date, :decimal, :integer, :nomenclature, :string, :symbol]
+  NS_SEPARATOR = '-'.freeze
+  PROPERTY_TYPES = [:boolean, :item, :item_list, :choice, :choice_list, :string_list, :date, :decimal, :integer, :nomenclature, :string, :symbol].freeze
 
   class MissingNomenclature < StandardError
   end
@@ -104,11 +104,11 @@ module Nomen
     end
 
     def load
-      if reference_path.exist?
-        @@set = NomenclatureSet.load_file(reference_path)
-      else
-        @@set = NomenclatureSet.new
-      end
+      @@set = if reference_path.exist?
+                NomenclatureSet.load_file(reference_path)
+              else
+                NomenclatureSet.new
+              end
       Rails.logger.info 'Loaded nomenclatures: ' + Nomen.names.to_sentence
     end
 

@@ -15,7 +15,7 @@ end
 
 cell = ARGV.shift
 
-unless $PROGRAM_NAME.match(/^(.\/)?bin\//)
+unless $PROGRAM_NAME =~ /^(.\/)?bin\//
   puts 'Script must be started from Rails root.'
   exit 0
 end

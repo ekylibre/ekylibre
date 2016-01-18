@@ -9,7 +9,7 @@ module Nomen
           fail 'No given nomenclature' if @nomenclature.blank?
         end
 
-        alias_method :name, :nomenclature
+        alias name nomenclature
 
         def human_name
           "Remove nomenclature #{@name}"

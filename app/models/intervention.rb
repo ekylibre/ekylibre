@@ -143,7 +143,7 @@ class Intervention < Ekylibre::Record::Base
 
   # Prevents from deleting an intervention that was executed
   protect on: :destroy do
-    self.done?
+    done?
   end
 
   # Returns activities of intervention through TargetDistribution
@@ -216,15 +216,15 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def status
-    if self.undone?
-      return (self.runnable? ? :caution : :stop)
-    elsif self.done?
+    if undone?
+      return (runnable? ? :caution : :stop)
+    elsif done?
       return :go
     end
   end
 
   def runnable?
-    return false unless self.undone? && procedure
+    return false unless undone? && procedure
     valid = true
     # Check cardinality and runnability
     procedure.parameters.each do |parameter|

@@ -361,7 +361,7 @@ class Product < Ekylibre::Record::Base
         if last = variant.products.reorder(id: :desc).first
           self.name = last.name
           array = name.split(/\s+/)
-          if array.last.match(/^\(+\d+\)+?$/)
+          if array.last =~ /^\(+\d+\)+?$/
             self.name = array[0..-2].join(' ') + ' (' + array.last.gsub(/(^\(+|\)+$)/, '').to_i.succ.to_s + ')'
           else
             name << ' (1)'
@@ -443,22 +443,20 @@ class Product < Ekylibre::Record::Base
     outgoing_item = parcel_items.with_nature(:outgoing).first
     outgoing_sale_item = outgoing_item.sale_item if outgoing_item
 
-    if incoming_purchase_item
-      # search a price in purchase item via incoming item price
-      price = incoming_purchase_item.unit_pretax_amount
-    elsif outgoing_sale_item
-      # search a price in sale item via outgoing item price
-      price = outgoing_sale_item.unit_pretax_amount
-    elsif catalog_item = variant.catalog_items.limit(1).first
-      # search a price in catalog price
-      if catalog_item.all_taxes_included == true
-        price = catalog_item.reference_tax.pretax_amount_of(catalog_item.amount)
-      else
-        price = catalog_item.amount
-      end
-    else
-      price = nil
-    end
+    price = if incoming_purchase_item
+              # search a price in purchase item via incoming item price
+              incoming_purchase_item.unit_pretax_amount
+            elsif outgoing_sale_item
+              # search a price in sale item via outgoing item price
+              outgoing_sale_item.unit_pretax_amount
+            elsif catalog_item = variant.catalog_items.limit(1).first
+              # search a price in catalog price
+              if catalog_item.all_taxes_included == true
+                catalog_item.reference_tax.pretax_amount_of(catalog_item.amount)
+              else
+                catalog_item.amount
+              end
+            end
     price
   end
 
@@ -549,7 +547,7 @@ class Product < Ekylibre::Record::Base
   # Returns value of an indicator if its name correspond to
   def method_missing(method_name, *args)
     if Nomen::Indicator.all.include?(method_name.to_s.gsub(/\!\z/, ''))
-      if method_name.to_s =~ /\!\z/
+      if method_name.to_s.end_with?('!')
         return get!(method_name.to_s.gsub(/\!\z/, ''), *args)
       else
         return get(method_name, *args)
@@ -595,7 +593,7 @@ class Product < Ekylibre::Record::Base
   end
 
   def initializeable?
-    self.new_record? || !(parcel_items.any? || intervention_product_parameters.any? || fixed_asset.present?)
+    new_record? || !(parcel_items.any? || intervention_product_parameters.any? || fixed_asset.present?)
   end
 
   # TODO: Doc
@@ -612,7 +610,7 @@ class Product < Ekylibre::Record::Base
       if v = variable.computed_derivative_of
         next unless derivative_of && derivative_of <= v
       end
-      next if variable.abilities.detect { |a| !self.able_to?(a) }
+      next if variable.abilities.detect { |a| !able_to?(a) }
       list << variable
     end
     list

@@ -30,7 +30,7 @@ class Unicoque::PlantZonesExchanger < ActiveExchanger::Base
           plants_interval: (record.attributes['SURRANG'].blank? ? nil : record.attributes['SURRANG'].to_d),
           plants_population: (record.attributes['NBREPIEDST'].blank? ? nil : record.attributes['NBREPIEDST'].to_d),
           surface_area: (record.attributes['SURFACE_NE'].blank? ? nil : record.attributes['SURFACE_NE'].to_d),
-          measured_at: (record.attributes['AG_DATE'].blank? ? nil : (record.attributes['AG_DATE'].tr('/', '-')).to_datetime),
+          measured_at: (record.attributes['AG_DATE'].blank? ? nil : record.attributes['AG_DATE'].tr('/', '-').to_datetime),
           born_at: (record.attributes['PREMIERE_F'].blank? ? nil : (record.attributes['PREMIERE_F'].to_s + '-01-01 00:00').to_datetime),
           variety: (record.attributes['CODE_VARIE'].blank? ? nil : varieties_transcode[record.attributes['CODE_VARIE'].to_s]),
           reference_variant: (record.attributes['CODE_VARIE'].blank? ? nil : (record.attributes['CODE_VARIE'].to_s[0..1] == '21' ? :hazel_crop : :walnut_crop))

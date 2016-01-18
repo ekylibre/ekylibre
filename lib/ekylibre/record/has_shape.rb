@@ -8,7 +8,7 @@ module Ekylibre::Record
       SRID = {
         wgs84: 4326,
         rgf93: 2154
-      }
+      }.freeze
 
       def has_geometry(*columns)
         options = columns.extract_options!

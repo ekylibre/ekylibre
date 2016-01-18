@@ -33,7 +33,7 @@ class FixNomenclatures < ActiveRecord::Migration
     { table: 'product_nature_variants', column: 'reference_name', old: 'coop:chlorure_60__gr_vr', new: 'coop:chlorure_60__gr____vr' },
     { table: 'product_nature_variants', column: 'reference_name', old: 'coop:adexar_5_l', new: 'coop:adexar_5l' },
     { table: 'product_nature_variants', column: 'reference_name', old: 'coop:kalao_d__5dl', new: 'coop:kalao_d__5_l' }
-  ]
+  ].freeze
 
   PRODUCT_NATURE_VARIANT_READING_ITEMS = [
     { table: 'product_nature_variant_readings', old_frozen_indicator_name: 'potassium_concentration', reference_name: 'bulk_ammonitrate_33' },
@@ -51,7 +51,7 @@ class FixNomenclatures < ActiveRecord::Migration
     { table: 'product_nature_variant_readings', column: 'indicator_name', new_value: 'phosphorus_concentration', old_value: 'potassium_concentration', reference_name: 'liquid_10_34_d1.4' },
     { table: 'product_nature_variant_readings', column: 'indicator_name', new_value: 'phosphorus_concentration', old_value: 'potassium_concentration', reference_name: 'liquid_10_25_d1.4' }
 
-  ]
+  ].freeze
 
   PRODUCT_READING_ITEMS = [
     { table: 'product_readings', column: 'indicator_name', old_value: 'potassium_concentration', reference_name: 'bulk_ammonitrate_33' },
@@ -68,12 +68,12 @@ class FixNomenclatures < ActiveRecord::Migration
     { table: 'product_readings', column: 'indicator_name', new_value: 'phosphorus_concentration', old_value: 'potassium_concentration', reference_name: 'liquid_10_25_d1.4' },
     { table: 'product_readings', column: 'indicator_name', new_value: 'phosphorus_concentration', old_value: 'potassium_concentration', reference_name: 'liquid_10_34_d1.4' }
 
-  ]
+  ].freeze
 
   INTERVENTIONS = [
     { table: 'interventions', column: 'reference_name', old: 'base-implant-0', new: 'base-implanting-0' },
     { table: 'interventions', column: 'natures', old: 'implant', new: 'implanting' }
-  ]
+  ].freeze
 
   def up
     # check if product_nature is present in DB and update it with new values

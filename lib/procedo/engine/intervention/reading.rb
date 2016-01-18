@@ -84,11 +84,11 @@ module Procedo
             hash[:measure_value_value] = @value.to_d.to_s.to_f
             hash[:measure_value_unit] = @value.unit
           elsif [:point, :geometry, :multi_polygon].include?(datatype)
-            if reference.hidden?
-              hash["#{datatype}_value".to_sym] = @value.to_ewkt
-            else
-              hash["#{datatype}_value".to_sym] = @value.to_json
-            end
+            hash["#{datatype}_value".to_sym] = if reference.hidden?
+                                                 @value.to_ewkt
+                                               else
+                                                 @value.to_json
+                                               end
           else
             hash["#{datatype}_value".to_sym] = @value
           end

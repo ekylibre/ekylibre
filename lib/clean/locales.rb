@@ -8,7 +8,7 @@ module Clean
           line = line.strip.split(/[\(\,\s\)]+/)
           name = line[1][1..-1].to_sym
           source = line[3].to_s
-          next unless source =~ /\ANomen\:\:/
+          next unless source.start_with?('Nomen::')
           elements = source.gsub('Nomen::', '').split('.')
           enumerizes[name] = [:nomen, elements.shift.underscore.to_sym]
           method_name = elements.shift
@@ -38,7 +38,7 @@ module Clean
           for name, source in enumerizes
             if source.first == :nomen
               if n = hash[locale][:nomenclatures][source[1]]
-                if n = n[source[2]] and n.is_a?(Hash)
+                if (n = n[source[2]]) && n.is_a?(Hash)
                   n = n[source[3]] if source[2] == :choices
                   enumerize[model][name] = n
                 end

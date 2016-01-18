@@ -57,7 +57,7 @@ class PostalZone < Ekylibre::Record::Base
       self.postal_code = (words[0..start - 1] || []).join(' ')
       self.city = (words[start..-1] || []).join(' ')
       self.city_name = city
-      if city_name.match(/cedex/i)
+      if city_name =~ /cedex/i
         self.city_name = city_name.split(/\scedex/i)[0].strip
       end
     end

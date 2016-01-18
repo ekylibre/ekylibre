@@ -122,7 +122,7 @@ module Ekylibre
       def after_login_plugin
         registered_plugins.values.detect(&:redirect_after_login?)
       end
-      alias_method :redirect_after_login?, :after_login_plugin
+      alias redirect_after_login? after_login_plugin
 
       # Call after_login_path on 'after login' plugin
       def after_login_path(resource)

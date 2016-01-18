@@ -85,11 +85,11 @@ class FixedAsset < Ekylibre::Record::Base
   before_validation do
     self.purchase_amount ||= depreciable_amount
     self.purchased_on ||= started_on
-    if self.depreciation_method_linear?
+    if depreciation_method_linear?
       if stopped_on && started_on
         self.depreciation_percentage = 100.0 * 365.25 / duration
       end
-    elsif self.depreciation_method_simplified_linear?
+    elsif depreciation_method_simplified_linear?
       self.depreciation_percentage ||= 20
       months = 12 * (100.0 / self.depreciation_percentage.to_f)
       self.stopped_on = started_on >> months.floor
@@ -140,7 +140,7 @@ class FixedAsset < Ekylibre::Record::Base
         end
       end
     end
-    self.depreciate! if @auto_depreciate
+    depreciate! if @auto_depreciate
   end
 
   def depreciate!

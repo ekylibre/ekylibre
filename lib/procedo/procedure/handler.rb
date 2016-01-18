@@ -4,7 +4,7 @@ module Procedo
   class Procedure
     # An Handler define a way to quantify a population
     class Handler < Procedo::Procedure::Field
-      TYPES = [:indicator, :population]
+      TYPES = [:indicator, :population].freeze
 
       code_trees :condition, root: 'boolean_expression'
       code_trees :forward, :backward
@@ -19,7 +19,7 @@ module Procedo
         fail 'Invalid type: ' + @type.inspect unless TYPES.include?(@type)
         if indicator?
           self.indicator_name = options[:indicator] || @name
-          self.unit_name = options[:unit] if self.measure?
+          self.unit_name = options[:unit] if measure?
         elsif population?
           options[:forward] = 'VALUE'
           options[:backward] = 'POPULATION'
@@ -38,7 +38,7 @@ module Procedo
         unless @indicator.respond_to?(:nomenclature) && @indicator.nomenclature.name == :indicators
           fail Procedo::Errors::InvalidHandler, "Handler of #{@parameter.name} must have a valid 'indicator' attribute. Got: #{value.inspect}"
         end
-        self.unit_name = indicator.unit if self.measure?
+        self.unit_name = indicator.unit if measure?
       end
 
       # Sets the indicator name
@@ -49,7 +49,7 @@ module Procedo
       # Sets the indicator name
       def unit_name=(value)
         fail 'Cant assign unit without indicator' unless indicator
-        fail 'Cant assign unit with indicator which is not a measure' unless self.measure?
+        fail 'Cant assign unit with indicator which is not a measure' unless measure?
         unit = Nomen::Unit.find(value)
         unless unit
           fail Procedo::Errors::InvalidHandler, "Cannot find unit. Got: #{value.inspect}"

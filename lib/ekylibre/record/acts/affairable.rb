@@ -146,107 +146,107 @@ module Ekylibre::Record
 
           # Return if deal is a debit for us
           code << "def good_deal?\n"
-          if options[:good] == :debit
-            code << "  return self.deal_debit?\n"
-          elsif options[:good] == :credit
-            code << "  return self.deal_credit?\n"
-          else
-            code << "  return self.#{options[:good]}\n"
-          end
-          code << "end\n"
-
-          # Return if deal is a debit for us
-          code << "def deal_debit?\n"
-          if options[:debit].is_a?(TrueClass)
-            code << "  return true\n"
-          elsif options[:debit].is_a?(FalseClass)
-            code << "  return false\n"
-          elsif options[:debit].is_a?(Symbol)
-            code << "  return self.#{options[:debit]}\n"
-          else
-            fail ArgumentError, 'Option :debit must be boolean or Symbol'
-          end
-          code << "end\n"
-
-          # Return if deal is a credit for us
-          code << "def deal_credit?\n"
-          if options[:debit].is_a?(TrueClass)
-            code << "  return false\n"
-          elsif options[:debit].is_a?(FalseClass)
-            code << "  return true\n"
-          elsif options[:debit].is_a?(Symbol)
-            code << "  return !self.#{options[:debit]}\n"
-          end
-          code << "end\n"
-
-          # Define which amount to take in account
-          code << "alias_attribute :deal_amount, :#{options[:amount]}\n"
-
-          # Define which date to take in account
-          code << "alias_attribute :dealt_at, :#{options[:dealt_at]}\n"
-
-          # Define the third of the deal
-          code << "alias_attribute :deal_third, :#{options[:third]}\n"
-
-          # Define debit amount
-          code << "def deal_debit_amount\n"
-          code << "  return (self.deal_debit? ? self.deal_amount : 0)\n"
-          code << "end\n"
-
-          # Define credit amount
-          code << "def deal_credit_amount\n"
-          code << "  return (self.deal_credit? ? self.deal_amount : 0)\n"
-          code << "end\n"
-
-          # Define credit amount
-          code << "def deal_mode_amount(mode = :debit)\n"
-          code << "  if mode == :credit\n"
-          code << "    return (self.deal_credit? ? self.deal_amount : 0)\n"
-          code << "  else\n"
-          code << "    return (self.deal_debit?  ? self.deal_amount : 0)\n"
-          code << "  end\n"
-          code << "end\n"
-
-          # Returns other deals
-          code << "def other_deals\n"
-          code << "  return self.#{affair}.deals.delete_if{|x| x == self}\n"
-          code << "end\n"
-
-          # Returns other deals
-          code << "def other_deals_of_same_type\n"
-          code << "  return self.#{affair}.deals.delete_if{|x| x == self or !x.is_a?(self.class)}\n"
-          code << "end\n"
-
-          code << "def self.deal_third\n"
-          code << "  return self.reflect_on_association(:#{options[:third]})\n"
-          code << "end\n"
-
-          # Define the third of the deal
-          if options[:taxes].is_a?(Symbol)
-            code << "alias_attribute :deal_taxes, :#{options[:taxes]}\n"
-          elsif ![TrueClass].include?(options[:taxes].class)
-            # Computes based on opposite operation taxes
-            code << "def deal_taxes(mode = :debit)\n"
-            code << "  return [] if self.deal_mode_amount(mode).zero?\n"
-            code << "  return [{amount: self.deal_mode_amount(mode)}]\n"
-            code << "end\n"
-          end
-
-          # Define the third of the deal
-          code << "def deal_third_role\n"
-          if options[:role].is_a?(Symbol)
-            code << "  return self.#{options[:role]}\n"
-          else
-            code << "  return #{options[:role].to_sym.inspect}\n"
-          end
-          code << "end\n"
-
-          # code.split("\n").each_with_index{|x, i| puts((i+1).to_s.rjust(4).white + ": " + x.blue)}
-
-          class_eval(code)
+          code << if options[:good] == :debit
+          "  return self.deal_debit?\n"
+        elsif options[:good] == :credit
+          "  return self.deal_credit?\n"
+        else
+          "  return self.#{options[:good]}\n"
         end
+        code << "end\n"
+
+        # Return if deal is a debit for us
+        code << "def deal_debit?\n"
+        if options[:debit].is_a?(TrueClass)
+          code << "  return true\n"
+        elsif options[:debit].is_a?(FalseClass)
+          code << "  return false\n"
+        elsif options[:debit].is_a?(Symbol)
+          code << "  return self.#{options[:debit]}\n"
+        else
+          fail ArgumentError, 'Option :debit must be boolean or Symbol'
+        end
+        code << "end\n"
+
+        # Return if deal is a credit for us
+        code << "def deal_credit?\n"
+        if options[:debit].is_a?(TrueClass)
+          code << "  return false\n"
+        elsif options[:debit].is_a?(FalseClass)
+          code << "  return true\n"
+        elsif options[:debit].is_a?(Symbol)
+          code << "  return !self.#{options[:debit]}\n"
+        end
+        code << "end\n"
+
+        # Define which amount to take in account
+        code << "alias_attribute :deal_amount, :#{options[:amount]}\n"
+
+        # Define which date to take in account
+        code << "alias_attribute :dealt_at, :#{options[:dealt_at]}\n"
+
+        # Define the third of the deal
+        code << "alias_attribute :deal_third, :#{options[:third]}\n"
+
+        # Define debit amount
+        code << "def deal_debit_amount\n"
+        code << "  return (self.deal_debit? ? self.deal_amount : 0)\n"
+        code << "end\n"
+
+        # Define credit amount
+        code << "def deal_credit_amount\n"
+        code << "  return (self.deal_credit? ? self.deal_amount : 0)\n"
+        code << "end\n"
+
+        # Define credit amount
+        code << "def deal_mode_amount(mode = :debit)\n"
+        code << "  if mode == :credit\n"
+        code << "    return (self.deal_credit? ? self.deal_amount : 0)\n"
+        code << "  else\n"
+        code << "    return (self.deal_debit?  ? self.deal_amount : 0)\n"
+        code << "  end\n"
+        code << "end\n"
+
+        # Returns other deals
+        code << "def other_deals\n"
+        code << "  return self.#{affair}.deals.delete_if{|x| x == self}\n"
+        code << "end\n"
+
+        # Returns other deals
+        code << "def other_deals_of_same_type\n"
+        code << "  return self.#{affair}.deals.delete_if{|x| x == self or !x.is_a?(self.class)}\n"
+        code << "end\n"
+
+        code << "def self.deal_third\n"
+        code << "  return self.reflect_on_association(:#{options[:third]})\n"
+        code << "end\n"
+
+        # Define the third of the deal
+        if options[:taxes].is_a?(Symbol)
+          code << "alias_attribute :deal_taxes, :#{options[:taxes]}\n"
+        elsif ![TrueClass].include?(options[:taxes].class)
+          # Computes based on opposite operation taxes
+          code << "def deal_taxes(mode = :debit)\n"
+          code << "  return [] if self.deal_mode_amount(mode).zero?\n"
+          code << "  return [{amount: self.deal_mode_amount(mode)}]\n"
+          code << "end\n"
+        end
+
+        # Define the third of the deal
+        code << "def deal_third_role\n"
+        code << if options[:role].is_a?(Symbol)
+        "  return self.#{options[:role]}\n"
+      else
+        "  return #{options[:role].to_sym.inspect}\n"
       end
+      code << "end\n"
+
+      # code.split("\n").each_with_index{|x, i| puts((i+1).to_s.rjust(4).white + ": " + x.blue)}
+
+      class_eval(code)
     end
   end
+end
+end
 end
 Ekylibre::Record::Base.send(:include, Ekylibre::Record::Acts::Affairable)

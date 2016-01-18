@@ -28,7 +28,7 @@ module Ekylibre::FirstRun::Faker
       print "[#{'FAKE'.magenta}] #{label.blue}: "
       begin
         yield(f)
-        print ' ' * (@max - f.count) if 0 < @max and @max > f.count
+        print ' ' * (@max - f.count) if 0 < @max && @max > f.count
         print '  '
       rescue Ekylibre::FirstRun::Counter::CountExceeded => e
         print '! '

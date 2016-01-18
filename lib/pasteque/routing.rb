@@ -18,7 +18,7 @@ module Pasteque
     delete: :destroy,
     delShared: :destroy_shared,
     updPwd: :update_password
-  }
+  }.freeze
   module V5
     API = {
       AttributesAPI: [:getAll],

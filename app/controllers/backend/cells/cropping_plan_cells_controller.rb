@@ -2,13 +2,13 @@ module Backend
   module Cells
     class CroppingPlanCellsController < Backend::Cells::BaseController
       def show
-        if params[:campaign_ids]
-          @campaigns = Campaign.find(params[:campaign_ids])
-        elsif params[:campaign_id]
-          @campaigns = Campaign.find(params[:campaign_id])
-        else
-          @campaigns = current_campaign
-        end
+        @campaigns = if params[:campaign_ids]
+                       Campaign.find(params[:campaign_ids])
+                     elsif params[:campaign_id]
+                       Campaign.find(params[:campaign_id])
+                     else
+                       current_campaign
+                     end
       end
     end
   end

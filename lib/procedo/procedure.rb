@@ -4,7 +4,7 @@
 module Procedo
   # This class represents a procedure
   class Procedure
-    ROOT_NAME = 'root_'
+    ROOT_NAME = 'root_'.freeze
 
     attr_reader :id, :name, :categories, :mandatory_actions, :optional_actions
     delegate :add_product_parameter, :add_group_parameter, :find, :find!,
@@ -126,7 +126,7 @@ module Procedo
       end.flatten.uniq.map(&:to_sym)
     end
 
-    alias_method :uid, :name
+    alias uid name
 
     # Returns if the procedure is required
     def required?

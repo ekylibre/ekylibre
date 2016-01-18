@@ -1,7 +1,7 @@
 class SimplifyInterventions < ActiveRecord::Migration
   TASK_TABLES = [:product_enjoyments, :product_junctions, :product_links,
                  :product_linkages, :product_localizations, :product_memberships,
-                 :product_ownerships, :product_phases, :product_reading_tasks]
+                 :product_ownerships, :product_phases, :product_reading_tasks].freeze
 
   POLYMORPHIC_REFERENCES = [
     [:attachments, :resource],
@@ -21,13 +21,13 @@ class SimplifyInterventions < ActiveRecord::Migration
     [:product_reading_tasks, :originator],
     [:product_readings, :originator],
     [:versions, :item]
-  ]
+  ].freeze
 
   TYPE_COLUMNS = [
     [:affairs, :type],
     [:products, :type],
     [:custom_fields, :customized_type]
-  ]
+  ].freeze
 
   MULTI_POLYGON_COLUMNS = {
     # Generic
@@ -46,7 +46,7 @@ class SimplifyInterventions < ActiveRecord::Migration
     # Polygons ?
     cap_islets: [:shape],
     cap_land_parcels: [:shape]
-  }
+  }.freeze
 
   ALL_TYPE_COLUMNS = TYPE_COLUMNS +
                      POLYMORPHIC_REFERENCES.map { |a| [a.first, "#{a.second}_type".to_sym] }
@@ -128,7 +128,7 @@ class SimplifyInterventions < ActiveRecord::Migration
     sulfur_addition: { mandatory: [:sulfur_addition] },
     wine_blending: { mandatory: [:wine_blending] },
     wine_bottling: { mandatory: [:wine_bottling] }
-  }
+  }.freeze
 
   # Rename table and depending stuff
   def rename_model_and_co(old_model, new_model)

@@ -70,7 +70,7 @@ class Equipment < Matter
   refers_to :variety, scope: :equipment
 
   def status
-    if self.dead_at?
+    if dead_at?
       return :stop
     elsif issues.any?
       return (issues.where(state: :opened).any? ? :caution : :go)

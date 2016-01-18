@@ -205,7 +205,7 @@ module Backend
           where = ' WHERE entity.active'
           select_array = []
           for k, v in params[:columns].select { |_k, v| v[:check].to_i == 1 }.sort { |a, b| a[1][:order].to_i <=> b[1][:order].to_i }
-            if k.match(/^custom_field\-/)
+            if k =~ /^custom_field\-/
               id = k.split('-')[1][2..-1].to_i
               if custom_field = CustomField.find_by_id(id)
                 # from += " LEFT JOIN #{CustomFieldDatum.table_name} AS _c#{id} ON (entity.id=_c#{id}.entity_id AND _c#{id}.custom_field_id=#{id})"
@@ -263,7 +263,7 @@ module Backend
                        else
                          'true'
                      end
-                     elsif condition.match(/^generic/)
+                     elsif condition =~ /^generic/
                        klass = condition.split(/\-/)[1].classify.constantize
                        attribute = condition.split(/\-/)[2]
                        column = klass.columns_hash[attribute]
