@@ -9,7 +9,7 @@ class Releaser
     # TODO: Check VERSION is not already tagged
 
     desc 'Compile HTTP error pages'
-    exec 'RAILS_ENV=production rake http:errors:compile'
+    exec 'rake http:errors:compile'
 
     desc 'Fixtures restoration'
     exec 'rake db:fixtures:restore'
